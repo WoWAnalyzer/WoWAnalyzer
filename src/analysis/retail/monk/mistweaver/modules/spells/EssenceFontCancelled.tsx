@@ -11,6 +11,7 @@ import Events, {
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const debug = false;
 const NUM_EF_BOLTS = 18;
@@ -68,6 +69,20 @@ class EssenceFontCancelled extends Analyzer {
     }
     this.lastCdEnd = event.timestamp;
     debug && console.log(`Cooldown for EF ended at ${this.owner.formatTimestamp(event.timestamp)}`);
+  }
+
+  getPerformance(targetsHit: number) {
+    const percentHit = targetsHit / this.getExpectedApplies(this.lastEf!);
+    let perf = QualitativePerformance.Perfect;
+    if (percentHit < 0.85) {
+      // generally these will be counted as cancels but adding it here to be safe
+      perf = QualitativePerformance.Fail;
+    } else if (percentHit < 0.9) {
+      perf = QualitativePerformance.Ok;
+    } else if (percentHit < 1) {
+      perf = QualitativePerformance.Good;
+    }
+    return perf;
   }
 
   getExpectedApplies(event: CastEvent) {

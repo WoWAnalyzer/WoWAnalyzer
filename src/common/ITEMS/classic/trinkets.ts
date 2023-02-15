@@ -1,6 +1,7 @@
 import { itemIndexableList } from 'common/ITEMS/Item';
 
 const items = itemIndexableList({
+  // id = item id
   // --------
   // PHASE 1
   // --------
@@ -67,6 +68,14 @@ const items = itemIndexableList({
     icon: 'inv_trinket_naxxramas04',
     buffId: 60492,
     buffName: 'Embrace of the Spider',
+  },
+  FIGURINE_SAPPHIRE_OWL: {
+    id: 42413,
+    name: 'Figurine - Sapphire Owl',
+    icon: 'inv_jewelcrafting_azureowl',
+    buffId: 56186,
+    buffName: 'Sapphire Owl',
+    spellId: 56186,
   },
   FORGE_EMBER: {
     id: 37660,

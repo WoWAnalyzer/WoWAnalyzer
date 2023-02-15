@@ -54,7 +54,7 @@ class FeveredIncantation extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={TALENTS.FEVERED_INCANTATION_TALENT.id}>
           <ItemDamageDone amount={this.damageDuringBuff()} />
           <br />

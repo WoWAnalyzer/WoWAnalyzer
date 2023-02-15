@@ -34,6 +34,7 @@ type Props = {
    *  Useful for spells on CD shorter than 30s where the icons might be too closely packed to
    *  be usable */
   minimizeIcons?: boolean;
+  slimLines?: boolean;
 };
 
 /**
@@ -46,6 +47,7 @@ export function CooldownBar({
   spellId,
   gapHighlightMode,
   minimizeIcons,
+  slimLines,
   ...others
 }: Props): JSX.Element {
   const info = useInfo()!;
@@ -79,6 +81,7 @@ export function CooldownBar({
     abilityCdMs,
     abilityName,
     hasCharges,
+    slimLines,
   };
 
   let lastAvailable = info.fightStart;
@@ -141,7 +144,7 @@ export function CooldownBar({
         const left = `${((cd.timestamp - info.fightStart) / info.fightDuration) * 100}%`;
         return (
           <div style={{ left }} key={ix + '-usecharge'}>
-            {iconOrChip(spellId, minimizeIcons)}
+            {iconOrChip(spellId, minimizeIcons, slimLines)}
           </div>
         );
       })}
@@ -160,6 +163,7 @@ function CooldownBarSegment({
   type,
   gapHighlightMode,
   minimizeIcons,
+  slimLines,
   hasCharges,
 }: {
   abilityId: number;
@@ -172,6 +176,7 @@ function CooldownBarSegment({
   type: 'onCooldown' | 'available';
   gapHighlightMode: GapHighlight;
   minimizeIcons?: boolean;
+  slimLines?: boolean;
   hasCharges?: boolean;
 }): JSX.Element {
   const fightDuration = fightEnd - fightStart;
@@ -224,15 +229,16 @@ function CooldownBarSegment({
   return (
     <Tooltip content={tooltipContent}>
       <div className={className} style={{ left, width }}>
-        {type === 'onCooldown' && iconOrChip(abilityId, minimizeIcons)}
+        {type === 'onCooldown' && iconOrChip(abilityId, minimizeIcons, slimLines)}
       </div>
     </Tooltip>
   );
 }
 
-function iconOrChip(spellId: number, minimizeIcons?: boolean): JSX.Element {
+function iconOrChip(spellId: number, minimizeIcons?: boolean, slimLines?: boolean): JSX.Element {
+  const w = slimLines ? 1 : 3;
   return minimizeIcons ? (
-    <div className="cast-chip" style={{ width: 3, height: '100%' }} />
+    <div className="cast-chip" style={{ width: w, height: '100%' }} />
   ) : (
     <SpellIcon noLink id={spellId} />
   );

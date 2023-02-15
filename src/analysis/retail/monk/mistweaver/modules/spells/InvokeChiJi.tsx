@@ -23,6 +23,7 @@ import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { MAX_CHIJI_STACKS } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
 import EssenceFont from './EssenceFont';
 
@@ -32,13 +33,9 @@ import EssenceFont from './EssenceFont';
  * These abilities also heal 2 nearby allies for a Gust of Mist heal.
  * Casting Enveloping Mist while Chiji is active applies Enveloping Breath on up to 6 nearby allies within 10 yards.
  */
-const MAX_STACKS = 3;
-const MIN_EF_HOTS_BEFORE_CAST = 12;
 
 interface ChijiCastTracker extends BaseCelestialTracker {
   recastEf: boolean; // true if player recast ef during chiji
-  numEfHots: number; // number of ef hots on raid prior to casting chiji
-  totmStacks: number; // number of stacks of TOTM prior to casting Chiji
   overcappedTotmStacks: number;
   overcappedChijiStacks: number;
 }
@@ -68,7 +65,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   }
 
   constructor(options: Options) {
-    super(options);
+    super(options, 2.5 /* idealEnvmCastsUnhastedForGift */);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT);
     if (!this.active) {
       return;
@@ -114,12 +111,15 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
       this.onRSK,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SPINNING_CRANE_KICK),
+      this.onRSK,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onBOK);
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
       this.onTotmRefresh,
     );
-    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.removeLessons);
     this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.removeSi);
   }
 
@@ -140,6 +140,8 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       recastEf: false,
       totalEnvB: 0,
       totalEnvM: 0,
+      averageHaste: 0,
+      deathTimestamp: 0,
     });
   }
 
@@ -159,6 +161,15 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
       this.castTrackers.at(-1)!.overcappedChijiStacks +=
         1 + this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id);
+    }
+  }
+
+  onSCK(event: CastEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
+    if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
+      this.castTrackers.at(-1)!.overcappedChijiStacks += 1;
     }
   }
 
@@ -187,7 +198,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
 
   handleEssenceFontEnd(event: EndChannelEvent) {
     if (this.celestialActive) {
-      this.castTrackers.at(-1)!.recastEf = true;
       if (event.duration > this.efGcd) {
         this.lastGlobal = event.timestamp - this.efGcd;
       } else {
@@ -231,9 +241,9 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       this.celestialActive ||
       this.selectedCombatant.hasBuff(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id)
     ) {
-      if (this.chijiStackCount === MAX_STACKS) {
+      if (this.chijiStackCount === MAX_CHIJI_STACKS) {
         this.freeCasts += 1;
-      } else if (this.chijiStackCount < MAX_STACKS) {
+      } else if (this.chijiStackCount < MAX_CHIJI_STACKS) {
         this.castsBelowMaxStacks += 1;
       }
       this.chijiStackCount = 0;
@@ -241,7 +251,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   }
 
   stackCount() {
-    if (this.chijiStackCount === MAX_STACKS) {
+    if (this.chijiStackCount === MAX_CHIJI_STACKS) {
       this.wastedStacks += 1;
     } else {
       this.chijiStackCount += 1;
@@ -264,7 +274,52 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       <p>
         <strong>
           <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
-        </strong>{' '}
+        </strong>
+        <br />
+        Before casting <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, it is
+        essential to prepare by doing the following
+        <ul>
+          <li>
+            Cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to duplicate{' '}
+            <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> events
+          </li>
+          <li>
+            Get 3 stacks of <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so
+            that you can instantly cast <SpellLink id={SPELLS.BLACKOUT_KICK} /> for 6 total{' '}
+            <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
+          </li>
+          <li>
+            If talented into <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
+            <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to cover the
+            entire duration of <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
+          </li>
+        </ul>
+        During the duration of <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />,
+        it is important to do the following
+        <ul>
+          <li>
+            If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
+            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multaplicative haste bonus
+          </li>
+          <li>
+            Avoid overcapping on <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} />{' '}
+            stacks
+          </li>
+          <li>
+            Avoid overcapping on <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks
+          </li>
+          <li>
+            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
+            <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT} />
+          </li>
+          <li>
+            Cast <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that are near
+            other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
+            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT} />
+          </li>
+        </ul>
       </p>
     );
 
@@ -279,19 +334,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
               <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
             </>
           );
-
-          let totmPerf = QualitativePerformance.Good;
-          if (cast.totmStacks < 2) {
-            totmPerf = QualitativePerformance.Fail;
-          } else if (cast.totmStacks < 3) {
-            totmPerf = QualitativePerformance.Ok;
-          }
-          let efPerf = QualitativePerformance.Good;
-          if (cast.numEfHots < MIN_EF_HOTS_BEFORE_CAST - 4) {
-            efPerf = QualitativePerformance.Fail;
-          } else if (cast.numEfHots < MIN_EF_HOTS_BEFORE_CAST - 2) {
-            efPerf = QualitativePerformance.Ok;
-          }
           const totmRefreshPerf =
             cast.overcappedTotmStacks > 0
               ? QualitativePerformance.Fail
@@ -301,24 +343,12 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
               ? QualitativePerformance.Fail
               : QualitativePerformance.Good;
           const superList = super.getCooldownExpandableItems(cast);
-          const allPerfs = [totmPerf, efPerf, totmRefreshPerf, chijiRefreshPerf].concat(
-            superList[0],
-          );
-
           const checklistItems: CooldownExpandableItem[] = superList[1];
-          if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
-            const recastPerf = cast.recastEf
-              ? QualitativePerformance.Good
-              : QualitativePerformance.Fail;
-            checklistItems.push({
-              label: (
-                <>
-                  Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> during celestial
-                </>
-              ),
-              result: <PerformanceMark perf={recastPerf} />,
-            });
-            allPerfs.push(recastPerf);
+          let totmPerf = QualitativePerformance.Good;
+          if (cast.totmStacks < 2) {
+            totmPerf = QualitativePerformance.Fail;
+          } else if (cast.totmStacks < 3) {
+            totmPerf = QualitativePerformance.Ok;
           }
           checklistItems.push({
             label: (
@@ -330,15 +360,13 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             result: <PerformanceMark perf={totmPerf} />,
             details: <>{cast.totmStacks} stacks</>,
           });
-          checklistItems.push({
-            label: (
-              <>
-                Sufficient <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs on cast
-              </>
-            ),
-            result: <PerformanceMark perf={efPerf} />,
-            details: <>{cast.numEfHots} HoTs</>,
-          });
+          const allPerfs = [totmRefreshPerf, chijiRefreshPerf, totmPerf].concat(superList[0]);
+          if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
+            const rval = this.getEfRefreshPerfAndItem(cast);
+            allPerfs.push(rval[0]);
+            checklistItems.push(rval[1]);
+          }
+
           checklistItems.push({
             label: (
               <>
@@ -401,7 +429,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
               <li>
                 {formatNumber(this.castsBelowMaxStacks)}{' '}
                 <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> cast(s) below max (
-                {MAX_STACKS}) Chi-Ji stacks.
+                {MAX_CHIJI_STACKS}) Chi-Ji stacks.
               </li>
               <li>
                 {formatNumber(this.wastedStacks)} stack(s) wasted from overcapping Chi-Ji stacks.

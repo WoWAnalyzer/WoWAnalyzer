@@ -16,9 +16,10 @@ export const DAMAGING_ABILITIES = [
   SPELLS.HALF_MOON.id,
 ];
 
-// Celestial Alignment buff or the talented version of it (Incarnation)
+// Celestial Alignment or Incarnation buff
 export const CA_BUFF = [SPELLS.CELESTIAL_ALIGNMENT, SPELLS.INCARNATION_CHOSEN_OF_ELUNE];
 
+// Need to fix this for DF -> you might take neither CA nor Incarn
 export function cooldownAbility(combatant: Combatant): Spell {
   return combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
     ? TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT

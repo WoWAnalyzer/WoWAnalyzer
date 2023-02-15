@@ -73,7 +73,7 @@ class Starweaver extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS_DRUID.STARWEAVER_TALENT.id}>
           <>
-            {formatNumber(this.savedAP)} <small> free Astral Power </small>
+            {formatNumber(this.savedAP)} <small> Astral Power accounted in Pulsar </small>
           </>
         </BoringSpellValueText>
       </Statistic>

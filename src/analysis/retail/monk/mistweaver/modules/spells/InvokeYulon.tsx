@@ -16,17 +16,19 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
+import EssenceFont from './EssenceFont';
 
 class InvokeYulon extends BaseCelestialAnalyzer {
   soothHealing: number = 0;
   envelopHealing: number = 0;
+  protected ef!: EssenceFont;
 
   get totalHealing() {
     return this.soothHealing + this.envelopHealing;
   }
 
   constructor(options: Options) {
-    super(options);
+    super(options, 4 /* idealEnvmCastsUnhastedForGift */);
     this.active = this.selectedCombatant.hasTalent(
       TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
     );
@@ -54,6 +56,11 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       lessonsDuration: 0,
       totalEnvB: 0,
       totalEnvM: 0,
+      averageHaste: 0,
+      totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
+      numEfHots: this.ef.curBuffs,
+      recastEf: false,
+      deathTimestamp: 0,
     });
   }
 
@@ -81,7 +88,40 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       <p>
         <strong>
           <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />
-        </strong>{' '}
+        </strong>
+        <br />
+        Before casting <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, it is
+        essential to prepare by doing the following
+        <ul>
+          <li>
+            Cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to do extra healing during the
+            duration of <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
+          </li>
+          <li>
+            If talented into <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
+            <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to cover the
+            entire duration of <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
+          </li>
+        </ul>
+        During the duration of <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />,
+        it is important to do the following
+        <ul>
+          <li>
+            If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
+            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multaplicative haste bonus
+          </li>
+          <li>
+            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
+            <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT} />
+          </li>
+          <li>
+            Cast <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that are near
+            other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
+            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT} />
+          </li>
+        </ul>
       </p>
     );
 
@@ -98,8 +138,12 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           );
           const superList = super.getCooldownExpandableItems(cast);
           const allPerfs = superList[0];
-
           const checklistItems: CooldownExpandableItem[] = superList[1];
+          if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
+            const rval = this.getEfRefreshPerfAndItem(cast);
+            allPerfs.push(rval[0]);
+            checklistItems.push(rval[1]);
+          }
           const lowestPerf = getLowestPerf(allPerfs);
           return (
             <CooldownExpandable
