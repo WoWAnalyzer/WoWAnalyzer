@@ -2,6 +2,10 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
+import TALENTS from 'common/TALENTS/priest';
+import { SpellLink } from 'interface';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class Voidform extends Analyzer {
@@ -28,19 +32,42 @@ class Voidform extends Analyzer {
   enterVoidform(event: ApplyBuffEvent) {
     //Voidform restores all charges of mindblast.
     this.casts += 1;
+    this.mindblast += 2 - this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id);
     this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
-    //TODO: Track number of mindblast charges restored.
   }
 
-  /*currenlty unused, but will be used to calculate missed recharges of mindblast when using Voidform
-  get gainedMB() {
-    return this.mindblast;
-  }
+  get guideSubsection(): JSX.Element {
+    const mbGained = {
+      count: this.mindblast,
+      label: 'Mind Blast Reset',
+    };
 
-  get potentialMB() {
-    return this.casts * 2;
+    const mbWasted = {
+      count: this.casts * 2 - this.mindblast,
+      label: 'Missed Resets',
+    };
+
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.VOID_ERUPTION_TALENT.id} />
+        </b>{' '}
+        is your major cooldown
+        <br />
+        Try to have all charges of <SpellLink id={SPELLS.MIND_BLAST.id} /> on cooldown before
+        entering <SpellLink id={SPELLS.VOIDFORM_BUFF.id} />, since it will cause you to regain all
+        charges.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Mind Blast Resets</strong>
+        <GradiatedPerformanceBar good={mbGained} bad={mbWasted} />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
-  */
 }
 
 export default Voidform;

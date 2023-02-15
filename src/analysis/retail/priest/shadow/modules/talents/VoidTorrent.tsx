@@ -225,8 +225,8 @@ class VoidTorrent extends Analyzer {
         </b>{' '}
         is a powerful cooldown
         <br />
-        You should cast this spell as often as you can, without wasting insanity. When you use this
-        spell, it should be fully channeled.
+        You should cast this spell as often as you can, without overcapping insanity. When you use
+        this spell, it should be fully channeled.
       </p>
     );
 
