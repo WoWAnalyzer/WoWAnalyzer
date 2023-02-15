@@ -61,7 +61,7 @@ export const Pilsung: Contributor = {
     nickname: 'Pilsung',
     github: 'Ac1dBomb',
     discord: 'Pilsung#5366',
-    avatar: require('.pilsung-avatar.jpg'),
+    avatar: avatar('.pilsung-avatar.jpg'),
 };
 export const Zerotorescue: Contributor = {
   nickname: 'Zerotorescue',
