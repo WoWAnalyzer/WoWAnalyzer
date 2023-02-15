@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 15), <>Fix celestial crash when using summon statues</>, Trevor),
   change(date(2023, 2, 12), <>Add celestials section to guide</>, Trevor),
   change(date(2023, 2, 12), <>Add guide prototype for Mistweaver</>, Trevor),
   change(date(2023, 2, 7), <>Updated spell values for Feb 7 tuning</>, Trevor),

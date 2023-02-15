@@ -58,7 +58,15 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT);
-    this.addEventListener(Events.summon.to(SELECTED_PLAYER_PET), this.onSummon);
+    this.addEventListener(
+      Events.summon
+        .to(SELECTED_PLAYER_PET)
+        .spell([
+          TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+          TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
+        ]),
+      this.onSummon,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SECRET_INFUSION_BUFFS),
       this.applySi,
@@ -76,7 +84,15 @@ class BaseCelestialAnalyzer extends Analyzer {
       this.removeLessons,
     );
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.handleCelestialDeath);
-    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleCelestialDeath);
+    this.addEventListener(
+      Events.death
+        .to(SELECTED_PLAYER_PET)
+        .spell([
+          TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+          TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
+        ]),
+      this.handleCelestialDeath,
+    );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_BUFF),
       this.handleCelestialDeath,
@@ -328,6 +344,9 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
     this.celestialActive = false;
     this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
     this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
