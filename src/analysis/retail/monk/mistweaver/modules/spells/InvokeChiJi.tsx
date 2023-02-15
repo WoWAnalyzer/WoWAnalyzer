@@ -285,7 +285,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           </li>
           <li>
             Get 3 stacks of <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so
-            that you can instantly cast <SpellLink id={SPELLS.BLACKOUT_KICK} /> for 6 total{' '}
+            that you can instantly cast <SpellLink id={SPELLS.BLACKOUT_KICK} /> for 8 total{' '}
             <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
           </li>
           <li>

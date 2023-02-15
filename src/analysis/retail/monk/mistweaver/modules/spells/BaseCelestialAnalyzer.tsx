@@ -256,7 +256,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          Sufficient # of <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
+          Sufficient <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
         </>
       ),
       result: <PerformanceMark perf={envmPerf} />,
