@@ -6,6 +6,7 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import OutlawEnergyCapTracker from '../../core/OutlawEnergyCapTracker';
 import Finishers from '../../features/Finishers';
+import Audacity from '../../spells/Audacity';
 import BetweenTheEyes from '../../spells/BetweenTheEyes';
 import Dispatch from '../../spells/Dispatch';
 import Opportunity from '../../spells/Opportunity';
@@ -30,6 +31,7 @@ class Checklist extends BaseChecklist {
     betweenTheEyes: BetweenTheEyes,
     dispatch: Dispatch,
     opportunity: Opportunity,
+    audacity: Audacity,
   };
 
   render() {
@@ -49,6 +51,7 @@ class Checklist extends BaseChecklist {
           betweenTheEyes: this.betweenTheEyes.thresholds,
           dispatch: this.dispatch.thresholds,
           opportunity: this.opportunity.thresholds,
+          audacity: this.audacity.thresholds,
         }}
         rtbEfficiencies={this.rollTheBonesEfficiency.rollSuggestions}
       />

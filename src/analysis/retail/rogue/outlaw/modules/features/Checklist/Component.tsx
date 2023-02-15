@@ -109,6 +109,26 @@ const OutlawRogueChecklist = ({
         />
       </Rule>
       <Rule
+        name="Make sure to use your audacity procs"
+        description={
+          <>
+            Your <SpellLink id={SPELLS.AUDACITY.id} /> proc will be more valuable than a{' '}
+            <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> or <SpellLink id={SPELLS.PISTOL_SHOT.id} />
+            , so make sure to use <SpellLink id={SPELLS.AMBUSH.id} /> as your combo point builder
+            when the proc is available and you aren't already capped on combo points.
+          </>
+        }
+      >
+        <Requirement
+          name={
+            <>
+              Delayed <SpellLink id={SPELLS.AUDACITY.id} /> procs
+            </>
+          }
+          thresholds={thresholds.audacity}
+        />
+      </Rule>
+      <Rule
         name="Do not overcap your resources"
         description="You should try to always avoid overcapping your Energy and Combo Points."
       >

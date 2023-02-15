@@ -37,6 +37,8 @@ import RollTheBonesEfficiency from './modules/spells/RollTheBonesEfficiency';
 import SliceAndDiceUptime from './modules/spells/SliceAndDiceUptime';
 import BladeRush from './modules/talents/BladeRush';
 import InvigoratingShadowdust from 'analysis/retail/rogue/shared/shadowlands/legendaries/InvigoratingShadowdust';
+import Audacity from './modules/spells/Audacity';
+import AudacityDamageTracker from './modules/spells/AudacityDamageTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -69,6 +71,8 @@ class CombatLogParser extends CoreCombatLogParser {
     dispatch: Dispatch,
     opportunityDamageTracker: OpportunityDamageTracker,
     opportunity: Opportunity,
+    audacityDamageTracker: AudacityDamageTracker,
+    audacity: Audacity,
     betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker,
     betweenTheEyes: BetweenTheEyes,
     rollTheBonesBuffs: RollTheBonesBuffs,
