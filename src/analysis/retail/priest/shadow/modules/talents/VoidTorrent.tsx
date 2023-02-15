@@ -205,7 +205,7 @@ class VoidTorrent extends Analyzer {
 
     const wastedTime = {
       count: formatSeconds(this.totalWastedTime / 1000),
-      label: 'Lost Time',
+      label: 'Canceled Time',
     };
 
     const insanityGained = {
@@ -232,7 +232,7 @@ class VoidTorrent extends Analyzer {
 
     const data = (
       <div>
-        <strong>Time lost</strong>
+        <strong>Time Lost</strong>
         <GradiatedPerformanceBar good={channelTime} bad={wastedTime} />
         <strong>Insanity Wasted</strong>
         <GradiatedPerformanceBar good={insanityGained} bad={insanityWasted} />
