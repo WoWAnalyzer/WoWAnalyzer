@@ -53,7 +53,9 @@ class CallOfYsera extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.empowerEnd.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.DREAM_BREATH_TALENT),
+      Events.empowerEnd
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_EVOKER.DREAM_BREATH_TALENT, SPELLS.DREAM_BREATH_FONT]),
       this.onDBCast,
     );
     //dream breath and dream breath echo healing
