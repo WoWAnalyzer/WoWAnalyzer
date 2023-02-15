@@ -2112,5 +2112,6 @@ export const Pilsung: Contributor = {
     github: 'Ac1dBomb',
     discord: 'Pilsung#5366',
     avatar: avatar('pilsung-avatar.jpg'),
+    };
   ],
 };
