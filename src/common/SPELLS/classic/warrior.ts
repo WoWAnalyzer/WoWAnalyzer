@@ -4,11 +4,7 @@ const spells = spellIndexableList({
   // --------
   // SHARED
   // --------
- VIGILANCE: {
-    id: 50720,
-    name: 'Vigilance',
-    icon: 'ability_warrior_vigilance',
-  },
+ 
 Battle_Shout: {
     id: 47436,
     name: 'Battle Shout (Rank 9)',
@@ -259,6 +255,11 @@ CONCUSSION_BLOW: {
     id: 12809,
     name: 'Concussion Blow',
     icon: 'ability_thunderbolt',
+  },
+VIGILANCE: {
+    id: 50720,
+    name: 'Vigilance',
+    icon: 'ability_warrior_vigilance',
   },
 });
 
