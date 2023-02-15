@@ -20,6 +20,7 @@ import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
+import Pets from 'parser/shared/modules/Pets';
 
 export interface BaseCelestialTracker {
   lessonsDuration: number; // ms with Lessons buff
@@ -42,8 +43,10 @@ class BaseCelestialAnalyzer extends Analyzer {
   static dependencies = {
     ef: EssenceFont,
     haste: Haste,
+    pets: Pets,
   };
   protected haste!: Haste;
+  protected pets!: Pets;
   siApplyTime: number = -1;
   lessonsApplyTime: number = -1;
   celestialActive: boolean = false;
@@ -84,15 +87,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       this.removeLessons,
     );
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.handleCelestialDeath);
-    this.addEventListener(
-      Events.death
-        .to(SELECTED_PLAYER_PET)
-        .spell([
-          TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
-          TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
-        ]),
-      this.handleCelestialDeath,
-    );
+    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.handleCelestialDeath);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INVOKE_YULON_BUFF),
       this.handleCelestialDeath,
@@ -344,7 +339,8 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
-    if (!this.celestialActive) {
+    const pet = this.pets.getEntityFromEvent(event, true);
+    if (!pet || !pet.name) {
       return;
     }
     this.celestialActive = false;
