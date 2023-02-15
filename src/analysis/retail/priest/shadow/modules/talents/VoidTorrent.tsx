@@ -223,16 +223,16 @@ class VoidTorrent extends Analyzer {
         <b>
           <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} />
         </b>{' '}
-        is a powerful cooldown
+        deals damage and generates 60 insanity over its 3 second channel.
         <br />
         You should cast this spell as often as you can, without overcapping insanity. When you use
-        this spell, it should be fully channeled.
+        this spell, it should always be fully channeled.
       </p>
     );
 
     const data = (
       <div>
-        <strong>Time Lost</strong>
+        <strong>Channel Time Lost</strong>
         <GradiatedPerformanceBar good={channelTime} bad={wastedTime} />
         <strong>Insanity Wasted</strong>
         <GradiatedPerformanceBar good={insanityGained} bad={insanityWasted} />

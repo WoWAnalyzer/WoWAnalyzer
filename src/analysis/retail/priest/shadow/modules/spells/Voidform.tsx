@@ -52,7 +52,7 @@ class Voidform extends Analyzer {
         <b>
           <SpellLink id={TALENTS.VOID_ERUPTION_TALENT.id} />
         </b>{' '}
-        is your major cooldown
+        is a powerful cooldown.
         <br />
         Try to have all charges of <SpellLink id={SPELLS.MIND_BLAST.id} /> on cooldown before
         entering <SpellLink id={SPELLS.VOIDFORM_BUFF.id} />, since it will cause you to regain all
