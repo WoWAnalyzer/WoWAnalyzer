@@ -10,10 +10,12 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import REMGraph from '../features/REMGraph';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
+import Vivify from './Vivify';
 
 class RenewingMist extends Analyzer {
   static dependencies = {
     remGraph: REMGraph,
+    vivify: Vivify,
   };
   currentRenewingMists: number = 0;
   totalHealing: number = 0;
@@ -21,6 +23,7 @@ class RenewingMist extends Analyzer {
   totalAbsorbs: number = 0;
   gustsHealing: number = 0;
   healingHits: number = 0;
+  protected vivify!: Vivify;
   protected remGraph!: REMGraph;
 
   constructor(options: Options) {
@@ -83,6 +86,12 @@ class RenewingMist extends Analyzer {
       </p>
     );
 
+    const styleObj = {
+      fontSize: 20,
+    };
+    const styleObjInner = {
+      fontSize: 15,
+    };
     const data = (
       <div>
         <RoundedPanel>
@@ -91,6 +100,13 @@ class RenewingMist extends Analyzer {
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
+          </div>
+          <div style={styleObj}>
+            <b>{this.vivify.averageRemPerVivify.toFixed(1)}</b>{' '}
+            <small style={styleObjInner}>
+              average <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> per{' '}
+              <SpellLink id={SPELLS.VIVIFY} /> cast
+            </small>
           </div>
         </RoundedPanel>
       </div>
