@@ -4,7 +4,12 @@ const spells = spellIndexableList({
   // --------
   // SHARED
   // --------
- Battle_Shout: {
+ VIGILANCE: {
+    id: 50720,
+    name: 'Vigilance',
+    icon: 'ability_warrior_vigilance',
+  },
+Battle_Shout: {
     id: 47436,
     name: 'Battle Shout (Rank 9)',
     icon: 'ability_warrior_battleshout', 
@@ -199,7 +204,7 @@ Whirlwind: {
     name: 'Whirlwind',
     icon: 'ability_whirlwind', 
   },
-  //Talents  
+  // Talents  
 SHOCKWAVE: {
     id: 46968,
     name: 'Shockwave',
@@ -209,11 +214,6 @@ LAST_STAND: {
     id: 12975,
     name: 'Last Stand',
     icon: 'spell_holy_ashestoashes',
-  },
-VIGILANCE: {
-    id: 50720,
-    name: 'Vigilance',
-    icon: 'ability_warrior_vigilance',
   },
 BLADESTORM: {
     id: 46924,
