@@ -41,7 +41,7 @@ class RestlessBlades extends Analyzer {
 
     let cdr = 1000;
     if (this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id)) {
-      cdr += 1000;
+      cdr += 500;
     }
     const amount = cdr * spent;
 
