@@ -20,6 +20,7 @@ import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
+import Pets from 'parser/shared/modules/Pets';
 
 export interface BaseCelestialTracker {
   lessonsDuration: number; // ms with Lessons buff
@@ -42,8 +43,10 @@ class BaseCelestialAnalyzer extends Analyzer {
   static dependencies = {
     ef: EssenceFont,
     haste: Haste,
+    pets: Pets,
   };
   protected haste!: Haste;
+  protected pets!: Pets;
   siApplyTime: number = -1;
   lessonsApplyTime: number = -1;
   celestialActive: boolean = false;
@@ -58,7 +61,15 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT);
-    this.addEventListener(Events.summon.to(SELECTED_PLAYER_PET), this.onSummon);
+    this.addEventListener(
+      Events.summon
+        .to(SELECTED_PLAYER_PET)
+        .spell([
+          TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+          TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
+        ]),
+      this.onSummon,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SECRET_INFUSION_BUFFS),
       this.applySi,
@@ -183,7 +194,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     if (!this.celestialActive) {
       return;
     }
-    this.castTrackers.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
+    this.castTrackers.at(-1)!.infusionDuration += event.timestamp - this.siApplyTime;
   }
 
   removeLessons(event: RemoveBuffEvent) {
@@ -204,11 +215,11 @@ class BaseCelestialAnalyzer extends Analyzer {
      * 4)                 App                Remove
      */
     if (this.lessonsApplyTime < event.timestamp) {
-      this.castTrackers.at(-1)!.lessonsDuration = this.celestialActive
+      this.castTrackers.at(-1)!.lessonsDuration += this.celestialActive
         ? event.timestamp - this.castTrackers.at(-1)!.timestamp // case 1
         : this.castTrackers.at(-1)!.deathTimestamp - this.castTrackers.at(-1)!.timestamp; // case 2
     } else {
-      this.castTrackers.at(-1)!.lessonsDuration = this.celestialActive
+      this.castTrackers.at(-1)!.lessonsDuration += this.celestialActive
         ? event.timestamp - this.lessonsApplyTime // case 3
         : this.castTrackers.at(-1)!.deathTimestamp - this.lessonsApplyTime; // case 4
     }
@@ -328,6 +339,10 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
+    const pet = this.pets.getEntityFromEvent(event, true);
+    if (!pet || !pet.name) {
+      return;
+    }
     this.celestialActive = false;
     this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
     this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
@@ -338,13 +353,13 @@ class BaseCelestialAnalyzer extends Analyzer {
       return this.selectedCombatant.hasBuff(spell.id);
     });
     if (hasInfusion) {
-      this.castTrackers.at(-1)!.infusionDuration = Math.min(
+      this.castTrackers.at(-1)!.infusionDuration += Math.min(
         event.timestamp - this.siApplyTime,
         event.timestamp - this.castTrackers.at(-1)!.timestamp,
       );
     }
     if (hasLesson) {
-      this.castTrackers.at(-1)!.lessonsDuration = Math.min(
+      this.castTrackers.at(-1)!.lessonsDuration += Math.min(
         event.timestamp - this.lessonsApplyTime,
         event.timestamp - this.castTrackers.at(-1)!.timestamp,
       );
