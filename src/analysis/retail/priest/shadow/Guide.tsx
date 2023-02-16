@@ -27,8 +27,20 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
 
       <Section title="Cooldowns">
-        <CooldownGraphSubsection.ShortCooldownsGraph />
-        <CooldownGraphSubsection.LongCooldownsGraph />
+        <Section title="Short Cooldowns">
+          <CooldownGraphSubsection.ShortCooldownsGraph />
+          {info.combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) &&
+            modules.voidTorrent.guideSubsection}
+          {info.combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT) &&
+            modules.shadowCrash.guideSubsection}
+        </Section>
+        <Section title="Major Cooldowns">
+          <CooldownGraphSubsection.LongCooldownsGraph />
+          {info.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) &&
+            modules.voidform.guideSubsection}
+          {info.combatant.hasTalent(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT) &&
+            modules.twinsOfTheSunPriestess.guideSubsection}
+        </Section>
       </Section>
 
       <Section title="Proc Usage">

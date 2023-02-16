@@ -5,6 +5,7 @@ import { DoxAshe } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 2, 15), <>Add additional information to cooldowns in guide view</>,DoxAshe),
   change(date(2023, 2, 10), <>Track <SpellLink id={TALENTS.SHADOW_CRASH_TALENT}/> when cast prepull</>,DoxAshe),
   change(date(2023, 2, 8), <>Added <SpellLink id={TALENTS.MIND_SEAR_TALENT}/> and <SpellLink id={SPELLS.VOID_BOLT}/> to guide and removed <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT}/> suggestions</>,DoxAshe),
   change(date(2023, 1, 23), <>Added statistic for T29 four piece and fixed <SpellLink id={SPELLS.MIND_BLAST}/> maximum casts with <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT}/> talented</>,DoxAshe),

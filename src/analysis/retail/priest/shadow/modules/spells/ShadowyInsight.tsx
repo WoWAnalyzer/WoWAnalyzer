@@ -62,6 +62,7 @@ class ShadowyInsight extends Analyzer {
     /  console.log("ERROR",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
     /}
     */
+    //console.log("MB CAST",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
