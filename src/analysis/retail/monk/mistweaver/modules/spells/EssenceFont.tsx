@@ -190,7 +190,7 @@ class EssenceFont extends Analyzer {
   }
 
   handleEndChannel(event: EndChannelEvent) {
-    const totalHit = this.efCancelled.numBoltHits;
+    const totalHit = Math.min(this.efCancelled.numBoltHits, this.efCancelled.expectedNumBolts);
     const cancelled = this.efCancelled.handleEndChannel(event);
 
     let tooltip = null;
