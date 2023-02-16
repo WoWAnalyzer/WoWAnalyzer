@@ -27,6 +27,8 @@ import { MAX_CHIJI_STACKS } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
 import EssenceFont from './EssenceFont';
 
+const debug = false;
+
 /**
  * Blackout Kick, Totm BoKs, Rising Sun Kick and Spinning Crane Kick generate stacks of Invoke Chi-Ji, the Red Crane, which reduce the cast time and mana
  * cost of Enveloping Mist by 33% per stack, up to 3 stacks.
@@ -59,6 +61,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   lastGlobal: number = 0;
   efGcd: number = 0;
   checkForSckDamage: number = -1;
+  castBokInWindow: boolean = false;
 
   get totalHealing() {
     return this.gustHealing + this.envelopHealing;
@@ -129,6 +132,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     this.chijiStart = this.lastGlobal = event.timestamp;
     this.chijiGlobals += 1;
     this.chijiUses += 1;
+    this.castBokInWindow = false;
     this.castTrackers.push({
       timestamp: event.timestamp,
       totmStacks: this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id),
@@ -149,7 +153,11 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     if (!this.celestialActive) {
       return;
     }
-    if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
+    if (
+      this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) ===
+      MAX_CHIJI_STACKS
+    ) {
+      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
       this.castTrackers.at(-1)!.overcappedChijiStacks += 1;
     }
   }
@@ -158,9 +166,23 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     if (!this.celestialActive) {
       return;
     }
-    if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
+    // the first cast of BoK in the window should overcap (intentionally). ignore it
+    if (!this.castBokInWindow) {
+      this.castBokInWindow = true;
+      return;
+    }
+    const stacksGained =
+      1 + this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id);
+    if (
+      this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) +
+        stacksGained >
+      MAX_CHIJI_STACKS
+    ) {
+      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
       this.castTrackers.at(-1)!.overcappedChijiStacks +=
-        1 + this.selectedCombatant.getBuffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY.id);
+        this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) +
+        stacksGained -
+        MAX_CHIJI_STACKS;
     }
   }
 
@@ -170,11 +192,13 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     }
     if (this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) === 3) {
       this.castTrackers.at(-1)!.overcappedChijiStacks += 1;
+      debug && console.log('wasted chiji stack at ', this.owner.formatTimestamp(event.timestamp));
     }
   }
 
   onTotmRefresh(event: RefreshBuffEvent) {
     if (this.celestialActive) {
+      debug && console.log('wasted totm stack at ', this.owner.formatTimestamp(event.timestamp));
       this.castTrackers.at(-1)!.overcappedTotmStacks += 1;
     }
   }
@@ -353,8 +377,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           checklistItems.push({
             label: (
               <>
-                Maximum <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on
-                cast
+                <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast
               </>
             ),
             result: <PerformanceMark perf={totmPerf} />,
