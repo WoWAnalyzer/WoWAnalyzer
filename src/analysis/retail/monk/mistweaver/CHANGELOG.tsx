@@ -6,7 +6,6 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2023, 2, 12), <>Fix <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT}/> cancelling to be less strict</>, Trevor),
   change(date(2023, 2, 12), <>Add <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT}/> and <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> section to guide</>, Trevor),
   change(date(2023, 2, 15), <>Fix celestial crash when using summon statues</>, Trevor),
   change(date(2023, 2, 12), <>Add celestials section to guide</>, Trevor),
