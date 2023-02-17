@@ -12,12 +12,14 @@ import {
   RemoveBuffEvent,
   RefreshBuffEvent,
   HealEvent,
+  CastEvent,
 } from 'parser/core/Events';
 
 export const APPLIED_HEAL = 'AppliedHeal';
 export const FORCE_BOUNCE = 'ForceBounce';
 export const OVERHEAL_BOUNCE = 'OverhealBounce';
 export const BOUNCED = 'Bounced';
+export const ESSENCE_FONT = 'EssenceFont';
 export const FROM_DANCING_MISTS = 'FromDM';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
@@ -35,6 +37,7 @@ export const SOOM_GOM = 'SoomGOM';
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 120;
 const CAST_BUFFER_MS = 100;
+const EF_BUFFER = 7000;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS: Map<string, number | null> = new Map();
 
@@ -261,6 +264,16 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
   },
+  {
+    linkRelation: ESSENCE_FONT,
+    linkingEventId: [TALENTS_MONK.ESSENCE_FONT_TALENT.id],
+    linkingEventType: [EventType.Cast],
+    referencedEventId: [SPELLS.ESSENCE_FONT_BUFF.id],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: EF_BUFFER,
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -404,6 +417,10 @@ export function isFromEssenceFont(event: HealEvent) {
     !HasRelatedEvent(event, RENEWING_MIST_GOM) &&
     !HasRelatedEvent(event, ENVELOPING_MIST_GOM)
   );
+}
+
+export function getNumberOfBolts(event: CastEvent) {
+  return GetRelatedEvents(event, ESSENCE_FONT).length;
 }
 
 export default CastLinkNormalizer;
