@@ -18,6 +18,29 @@ export const enum QualitativePerformance {
 }
 
 /**
+ * Helper function to get the average perf from an array for an overall perf
+ * @param perfs array of QualitativePerformance enums
+ * @returns average QualitativePerformance in array
+ */
+export function getAveragePerf(perfs: QualitativePerformance[]) {
+  let total = 0;
+  const order = [
+    QualitativePerformance.Fail,
+    QualitativePerformance.Ok,
+    QualitativePerformance.Good,
+    QualitativePerformance.Perfect,
+  ];
+  const orderArr = perfs.map((perf) => {
+    return order.indexOf(perf);
+  });
+  orderArr.forEach((idx) => {
+    total += orderArr[idx];
+  });
+  const average = Math.round(total / orderArr.length);
+  return order[average];
+}
+
+/**
  * Helper function to get the lowest perf from an array to easily reduce to an overall perf
  * @param perfs array of QualitativePerformance enums
  * @returns lowest QualitativePerformance in array
