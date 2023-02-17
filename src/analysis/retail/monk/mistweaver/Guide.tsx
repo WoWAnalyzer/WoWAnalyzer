@@ -42,7 +42,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
-        <HotGraphSubsection modules={modules} events={events} info={info} />
+        {modules.revival.guideCastBreakdown}
+      <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <PreparationSection />
     </>
