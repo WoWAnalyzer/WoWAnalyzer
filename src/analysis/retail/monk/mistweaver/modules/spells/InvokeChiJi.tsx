@@ -325,7 +325,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
             <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
             <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multaplicative haste bonus
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multiplicative haste bonus
           </li>
           <li>
             Avoid overcapping on <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} />{' '}
