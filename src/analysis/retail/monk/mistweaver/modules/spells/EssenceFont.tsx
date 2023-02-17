@@ -268,8 +268,15 @@ class EssenceFont extends Analyzer {
           <strong>
             <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cast efficiency
           </strong>
-          {this.efficSubStatistic()} <br />
-          {this.castUsageStatistic()}
+          <div>
+            {this.efficSubStatistic()} <br />
+            <strong>Casts </strong>
+            <small>
+              - Blue indicates a good cast with sufficient targets hit, while red indicates a
+              cancelled cast
+            </small>
+            {this.castUsageStatistic()}
+          </div>
         </RoundedPanel>
       </div>
     );
