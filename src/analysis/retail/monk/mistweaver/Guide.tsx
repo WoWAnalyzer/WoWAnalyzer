@@ -22,7 +22,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.thunderFocusTea.guideSubsection}
         {modules.vivify.guideSubsection}
         {modules.essenceFont.guideSubsection}
-        <HotGraphSubsection modules={modules} events={events} info={info} />
+        <RemGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <Section title="Short cooldowns, buffs, and procs">
         {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
@@ -42,6 +42,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
+        <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <PreparationSection />
     </>
@@ -51,10 +52,30 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 function HotGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <SubSection>
-      <strong>HoT Graph</strong> - this graph shows how many{' '}
-      <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> you have over the course of the fight in
-      relation to your <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> and{' '}
-      <SpellLink id={SPELLS.VIVIFY} /> casts.
+      <strong>HoT Graph</strong> - This graph shows the number of non-Renewing Mist HoTs you had
+      active over the course of the encounter. It can help you evaluate how effective you were at
+      prepping and executing your cooldowns. Having several{' '}
+      <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> out before casting{' '}
+      <SpellLink id={modules.revival.getRevivalTalent()} /> or{' '}
+      <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> will drastically increase their
+      effectiveness, and the number of <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />{' '}
+      that go out during <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> directly
+      correlates to your hps during.
+      {modules.hotCountGraph.plot}
+    </SubSection>
+  );
+}
+
+function RemGraphSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <SubSection>
+      <strong>
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> Graph
+      </strong>{' '}
+      - this graph shows how many <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> you have over
+      the course of the fight in relation to your{' '}
+      <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> and <SpellLink id={SPELLS.VIVIFY} />{' '}
+      casts.
       {modules.remGraph.plot}
     </SubSection>
   );

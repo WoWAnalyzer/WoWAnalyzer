@@ -80,6 +80,7 @@ import VeilOfPride from './modules/spells/VeilOfPride';
 import Guide from './Guide';
 import SheilunsGiftCloudTracker from './modules/spells/SheilunsGiftCloudTracker';
 import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
+import HotCountGraph from './modules/features/HotCountGraph';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -112,6 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     mistyPeaksHealingBreakdown: MistyPeaksHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
+    hotCountGraph: HotCountGraph,
     talentHealingStatistic: TalentHealingStatistic,
 
     // Guide helpers
