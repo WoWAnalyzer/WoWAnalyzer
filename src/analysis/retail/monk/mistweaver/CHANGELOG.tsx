@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 2, 17), <>UI updates to the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> guide section</>, Vohrr),
+  change(date(2023, 2, 17), <>UI Updates to core spells section</>, Vohrr),
   change(date(2023, 2, 16), <>Fix bug in celestial modules with <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT}/></>, Trevor),
   change(date(2023, 2, 15), <>Fix celestial crash when using summon statues</>, Trevor),
   change(date(2023, 2, 12), <>Add <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT}/> and <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> section to guide</>, Trevor),

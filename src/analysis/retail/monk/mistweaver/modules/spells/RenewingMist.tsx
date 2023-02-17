@@ -115,7 +115,7 @@ class RenewingMist extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  /** Guide subsection describing the proper usage of Rejuvenation */
+  /** Guide subsection describing the proper usage of Renewing Mist */
   subStatistic() {
     return (
       <CastEfficiencyBar
@@ -123,6 +123,7 @@ class RenewingMist extends Analyzer {
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines
+        useThresholds
       />
     );
   }
