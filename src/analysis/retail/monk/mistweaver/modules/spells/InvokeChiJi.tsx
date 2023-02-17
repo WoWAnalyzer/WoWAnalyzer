@@ -294,6 +294,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   }
 
   get guideCastBreakdown() {
+    const explanationPercent = 47.5;
     const explanation = (
       <p>
         <strong>
@@ -381,33 +382,32 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
               </>
             ),
             result: <PerformanceMark perf={totmPerf} />,
-            details: <>{cast.totmStacks} stacks</>,
+            details: <>{cast.totmStacks}</>,
           });
           const allPerfs = [totmRefreshPerf, chijiRefreshPerf, totmPerf].concat(superList[0]);
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink id={SPELLS.TEACHINGS_OF_THE_MONASTERY} /> stacks wasted
+              </>
+            ),
+            result: <PerformanceMark perf={totmRefreshPerf} />,
+            details: <>{cast.overcappedTotmStacks}</>,
+          });
+          checklistItems.push({
+            label: (
+              <>
+                <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks wasted
+              </>
+            ),
+            result: <PerformanceMark perf={chijiRefreshPerf} />,
+            details: <>{cast.overcappedChijiStacks}</>,
+          });
           if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
             const rval = this.getEfRefreshPerfAndItem(cast);
             allPerfs.push(rval[0]);
             checklistItems.push(rval[1]);
           }
-
-          checklistItems.push({
-            label: (
-              <>
-                Wasted <SpellLink id={SPELLS.TEACHINGS_OF_THE_MONASTERY} /> stacks during Chi-ji
-              </>
-            ),
-            result: <PerformanceMark perf={totmRefreshPerf} />,
-            details: <>{cast.overcappedTotmStacks} wasted stacks</>,
-          });
-          checklistItems.push({
-            label: (
-              <>
-                Wasted <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks
-              </>
-            ),
-            result: <PerformanceMark perf={chijiRefreshPerf} />,
-            details: <>{cast.overcappedChijiStacks} wasted stacks</>,
-          });
           const lowestPerf = getLowestPerf(allPerfs);
           return (
             <CooldownExpandable
@@ -421,7 +421,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(explanation, data, explanationPercent);
   }
 
   statistic() {

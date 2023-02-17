@@ -157,10 +157,11 @@ class BaseCelestialAnalyzer extends Analyzer {
       {
         label: (
           <>
-            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> during celestial
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> recast
           </>
         ),
         result: <PerformanceMark perf={recastPerf} />,
+        details: cast.recastEf ? <>Yes</> : <>No</>,
       },
     ];
   }
@@ -250,12 +251,12 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          Average <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> per{' '}
-          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
+          <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />s applied per{' '}
+          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
         </>
       ),
       result: <PerformanceMark perf={envbPerf} />,
-      details: <>{avgBreathsPerCast.toFixed(1)} avg per cast</>,
+      details: <>{avgBreathsPerCast.toFixed(1)} avg</>,
     });
     let envmPerf = QualitativePerformance.Good;
     const idealEnvm = this.getExpectedEnvmCasts(cast.averageHaste);
@@ -267,11 +268,11 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          Sufficient <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
+          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
         </>
       ),
       result: <PerformanceMark perf={envmPerf} />,
-      details: <>{formatNumber(cast.totalEnvM)} casts</>,
+      details: <>{formatNumber(cast.totalEnvM)}</>,
     });
 
     let efPerf = QualitativePerformance.Good;
@@ -283,11 +284,11 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          Sufficient <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs on cast
+          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs on cast
         </>
       ),
       result: <PerformanceMark perf={efPerf} />,
-      details: <>{cast.numEfHots} HoTs</>,
+      details: <>{cast.numEfHots}</>,
     });
     const allPerfs: QualitativePerformance[] = [envbPerf, efPerf, envmPerf];
 

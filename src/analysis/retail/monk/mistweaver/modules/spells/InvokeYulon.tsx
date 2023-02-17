@@ -84,6 +84,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
   }
 
   get guideCastBreakdown() {
+    const explanationPercent = 47.5;
     const explanation = (
       <p>
         <strong>
@@ -157,7 +158,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(explanation, data, explanationPercent);
   }
 
   statistic() {
