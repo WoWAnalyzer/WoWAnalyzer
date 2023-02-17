@@ -28,7 +28,7 @@ class VivaciousVivification extends Analyzer {
   totalCasts: number = 0;
   totalHealed: number = 0;
   wastedApplications: number = 0;
-  unusableUptimes: Uptime[] = []; // a wasted window is when we have buff and good rem count
+  unusableUptimes: Uptime[] = []; // a wasted window is when we have buff and good rem count and we aren't in celestial window
 
   constructor(options: Options) {
     super(options);

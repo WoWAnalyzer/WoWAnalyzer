@@ -191,7 +191,7 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   removeSi(event: RemoveBuffEvent | DeathEvent) {
-    if (!this.celestialActive) {
+    if (!this.celestialActive || this.siApplyTime < this.owner.fight.start_time) {
       return;
     }
     this.castTrackers.at(-1)!.infusionDuration += event.timestamp - this.siApplyTime;
@@ -201,6 +201,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     if (
       this.castTrackers.length === 0 ||
       this.castTrackers.at(-1)!.lessonsDuration > 0 ||
+      this.lessonsApplyTime < this.owner.fight.start_time ||
       (this.castTrackers.at(-1)!.deathTimestamp > 0 &&
         this.castTrackers.at(-1)!.deathTimestamp < this.lessonsApplyTime)
     ) {
