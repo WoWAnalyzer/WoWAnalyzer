@@ -47,8 +47,7 @@ class Vivify extends Analyzer {
   rapidDiffusionActive: boolean;
 
   castEntries: BoxRowEntry[] = [];
-  badCasts: number = 0;
-  goodCasts: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.risingMistActive = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
@@ -176,10 +175,11 @@ class Vivify extends Analyzer {
             </strong>{' '}
             <small>
               {' '}
-              - Blue is a perfect cast with over 8{' '}
+              - Blue is a perfect cast with 10 or more{' '}
               <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
-              s, Green is a good cast over the expected average for your selected talents, and Red
-              is a bad cast at low renewing mist count. Mouseover to see the count for each cast.
+              s, Green is a good cast with 8 or more, Yellow is an ok cast at or above your expected
+              average, and Red is a bad cast at low renewing mist count. Mouseover to see the count
+              for each cast.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
@@ -255,11 +255,14 @@ class Vivify extends Analyzer {
   private _tallyCastEntry(event: CastEvent) {
     const rems = getRemCountPerVivify(event);
     let value = QualitativePerformance.Fail;
-    if (rems > 8) {
+    if (rems >= 10) {
       value = QualitativePerformance.Perfect;
-    } else if (rems >= Math.round(this.estimatedAverageReMs)) {
+    } else if (rems >= 8) {
       value = QualitativePerformance.Good;
+    } else if (rems >= Math.round(this.estimatedAverageReMs)) {
+      value = QualitativePerformance.Ok;
     }
+
     const tooltip = (
       <>
         @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>, ReMs:{' '}
