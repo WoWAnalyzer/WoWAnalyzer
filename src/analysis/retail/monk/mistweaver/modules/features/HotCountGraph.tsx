@@ -60,7 +60,7 @@ class HotCountGraph extends BuffCountGraph {
   statistic() {
     return (
       <Panel
-        title="Hot Graph"
+        title="Other Hots Graph"
         position={100}
         explanation={
           <>
