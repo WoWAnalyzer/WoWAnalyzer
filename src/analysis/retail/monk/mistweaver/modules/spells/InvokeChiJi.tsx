@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
+import { SpellLink, Tooltip } from 'interface';
 import { PerformanceMark } from 'interface/guide';
 import CooldownExpandable, {
   CooldownExpandableItem,
@@ -26,6 +26,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { MAX_CHIJI_STACKS } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
 import EssenceFont from './EssenceFont';
+import InformationIcon from 'interface/icons/Information';
 
 const debug = false;
 
@@ -299,52 +300,23 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       <p>
         <strong>
           <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
-        </strong>
-        <br />
-        Before casting <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, it is
-        essential to prepare by doing the following
-        <ul>
-          <li>
-            Cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to duplicate{' '}
-            <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> events
-          </li>
-          <li>
-            Get 3 stacks of <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so
-            that you can instantly cast <SpellLink id={SPELLS.BLACKOUT_KICK} /> for 8 total{' '}
-            <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
-          </li>
-          <li>
-            If talented into <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
-            <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to cover the
-            entire duration of <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
-          </li>
-        </ul>
-        During the duration of <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />,
-        it is important to do the following
-        <ul>
-          <li>
-            If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
-            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multaplicative haste bonus
-          </li>
-          <li>
-            Avoid overcapping on <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} />{' '}
-            stacks
-          </li>
-          <li>
-            Avoid overcapping on <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks
-          </li>
-          <li>
-            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
-            <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT} />
-          </li>
-          <li>
-            Cast <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that are near
-            other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT} />
-          </li>
-        </ul>
+        </strong>{' '}
+        requires some preparation to be used optimally. Press <SpellLink id={SPELLS.TIGER_PALM} />{' '}
+        to stack <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> to three, get all
+        of your <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> charges on cooldown, and then
+        cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> so that your subsequent{' '}
+        <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> events will be duplicated. <br />
+        During <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
+        <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> when at two stacks of{' '}
+        <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> to maximize mana efficiency and
+        healing. <br />
+        Choose your target carefully to to maximize targets hit by{' '}
+        <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT} />, which is where the majority of
+        your healing comes from. It is important to avoid overcapping on{' '}
+        <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> and{' '}
+        <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks, and to recast{' '}
+        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
+        <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT} />
       </p>
     );
 
@@ -378,7 +350,22 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast
+                <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast{' '}
+                <Tooltip
+                  hoverable
+                  content={
+                    <>
+                      Get 3 stacks of{' '}
+                      <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so that you
+                      can instantly cast <SpellLink id={SPELLS.BLACKOUT_KICK} /> for 8 total{' '}
+                      <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
+                    </>
+                  }
+                >
+                  <span>
+                    <InformationIcon />
+                  </span>
+                </Tooltip>
               </>
             ),
             result: <PerformanceMark perf={totmPerf} />,
