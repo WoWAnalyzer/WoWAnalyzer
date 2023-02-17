@@ -111,7 +111,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
             If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
             <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
             <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multaplicative haste bonus
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multiplicative haste bonus
           </li>
           <li>
             Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
