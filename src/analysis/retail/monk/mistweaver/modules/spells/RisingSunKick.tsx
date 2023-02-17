@@ -89,6 +89,7 @@ class RisingSunKick extends Analyzer {
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines
+        useThresholds
       />
     );
   }

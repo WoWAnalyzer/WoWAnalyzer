@@ -221,8 +221,9 @@ class ThunderFocusTea extends Analyzer {
           </strong>
           <div>
             {this.subStatistic()} <br />
+            <strong>Casts </strong>
             <small>
-              Green indicates a correct <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
+              - Green indicates a correct <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
               cast, while red indicates an incorrect cast.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
@@ -241,6 +242,7 @@ class ThunderFocusTea extends Analyzer {
         spellId={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
+        useThresholds
       />
     );
   }
