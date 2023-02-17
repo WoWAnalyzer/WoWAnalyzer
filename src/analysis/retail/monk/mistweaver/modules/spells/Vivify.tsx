@@ -155,9 +155,9 @@ class Vivify extends Analyzer {
     const explanation = (
       <p>
         <SpellLink id={SPELLS.VIVIFY} /> quickly becomes your best healing spell when you have high
-        counts of <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid, and will be
-        a major portion of your healing when used correctly.
-        <SpellLink id={SPELLS.VIVIFY} />
+        counts of <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid via{' '}
+        <SpellLink id={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />, and will be a major portion of
+        your healing when used correctly. <SpellLink id={SPELLS.VIVIFY} />
         's effectiveness goes hand in hand with your{' '}
         <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> count - the more you have out at a
         given time, the more healing and better mana efficiency this spell has. This further
@@ -176,18 +176,19 @@ class Vivify extends Analyzer {
             <small>
               {' '}
               - Blue is a perfect cast with 10 or more{' '}
-              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
-              s, Green is a good cast with 8 or more, Yellow is an ok cast at or above your expected
-              average, and Red is a bad cast at low renewing mist count. Mouseover to see the count
-              for each cast.
+              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out, Green is a good cast
+              with 8 or more, Yellow is an ok cast at or above your expected average, and Red is a
+              bad cast at low renewing mist count. Mouseover to see the count for each cast.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
           <div style={styleObj}>
-            <b>{this.averageRemPerVivify.toFixed(1)}</b>{' '}
             <small style={styleObjInner}>
-              average <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />s per{' '}
-              <SpellLink id={SPELLS.VIVIFY} />
+              <SpellLink id={TALENTS_MONK.INVIGORATING_MISTS_TALENT} /> -{' '}
+            </small>
+            <strong>{this.averageRemPerVivify.toFixed(1)}</strong>{' '}
+            <small>
+              average cleaves per <SpellLink id={SPELLS.VIVIFY} />
             </small>
           </div>
         </RoundedPanel>
