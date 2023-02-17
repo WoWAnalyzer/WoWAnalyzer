@@ -87,7 +87,10 @@ function SheilunsGraph({ modules, events, info }: GuideProps<typeof CombatLogPar
         ) : (
           <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
         )}
-        .
+        . You can cast <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with as little as 1
+        stack before casting <SpellLink id={TALENTS_MONK.REVIVAL_TALENT} /> in order to try to fish
+        for <SpellLink id={SPELLS.LESSON_OF_DOUBT_BUFF} /> to gain a significant healing boost to
+        one of your major raid cooldowns.
       </p>
       <RoundedPanel>
         <div style={styleObj}>
