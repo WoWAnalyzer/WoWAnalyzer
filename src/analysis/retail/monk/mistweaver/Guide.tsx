@@ -20,6 +20,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.RISING_SUN_KICK_TALENT) &&
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
+        {modules.vivify.guideSubsection}
         {modules.essenceFont.guideSubsection}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>

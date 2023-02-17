@@ -86,12 +86,6 @@ class RenewingMist extends Analyzer {
       </p>
     );
 
-    const styleObj = {
-      fontSize: 20,
-    };
-    const styleObjInner = {
-      fontSize: 15,
-    };
     const data = (
       <div>
         <RoundedPanel>
@@ -100,13 +94,6 @@ class RenewingMist extends Analyzer {
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
-          </div>
-          <div style={styleObj}>
-            <b>{this.vivify.averageRemPerVivify.toFixed(1)}</b>{' '}
-            <small style={styleObjInner}>
-              average <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> per{' '}
-              <SpellLink id={SPELLS.VIVIFY} /> cast
-            </small>
           </div>
         </RoundedPanel>
       </div>
