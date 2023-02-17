@@ -18,7 +18,7 @@ import Events, {
 } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -295,7 +295,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   }
 
   get guideCastBreakdown() {
-    const explanationPercent = 47.5;
+    const explanationPercent = 55;
     const explanation = (
       <p>
         <strong>
@@ -395,7 +395,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             allPerfs.push(rval[0]);
             checklistItems.push(rval[1]);
           }
-          const lowestPerf = getLowestPerf(allPerfs);
+          const lowestPerf = getAveragePerf(allPerfs);
           return (
             <CooldownExpandable
               header={header}
