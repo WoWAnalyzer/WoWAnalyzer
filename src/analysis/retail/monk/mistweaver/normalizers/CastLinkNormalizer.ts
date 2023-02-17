@@ -33,6 +33,7 @@ export const ZEN_PULSE_GOM = 'ZPGOM';
 export const SHEILUNS_GIFT_GOM = 'SGGOM';
 export const EXPEL_HARM_GOM = 'EHGOM';
 export const SOOM_GOM = 'SoomGOM';
+export const VIVIFY = 'Vivify';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 120;
@@ -265,6 +266,16 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
   },
   {
+    linkRelation: VIVIFY,
+    linkingEventId: [SPELLS.VIVIFY.id],
+    linkingEventType: [EventType.Cast],
+    referencedEventId: [SPELLS.VIVIFY.id],
+    referencedEventType: [EventType.Heal],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  {
     linkRelation: ESSENCE_FONT,
     linkingEventId: [TALENTS_MONK.ESSENCE_FONT_TALENT.id],
     linkingEventType: [EventType.Cast],
@@ -417,6 +428,10 @@ export function isFromEssenceFont(event: HealEvent) {
     !HasRelatedEvent(event, RENEWING_MIST_GOM) &&
     !HasRelatedEvent(event, ENVELOPING_MIST_GOM)
   );
+}
+
+export function getRemCountPerVivify(event: CastEvent) {
+  return GetRelatedEvents(event, VIVIFY).length - 1;
 }
 
 export function getNumberOfBolts(event: CastEvent) {

@@ -4,14 +4,19 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
-import { isFromVivify } from '../../normalizers/CastLinkNormalizer';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { getRemCountPerVivify, isFromVivify } from '../../normalizers/CastLinkNormalizer';
 
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
@@ -40,6 +45,8 @@ class Vivify extends Analyzer {
   risingMistActive: boolean;
   dancingMistActive: boolean;
   rapidDiffusionActive: boolean;
+
+  castEntries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -116,6 +123,7 @@ class Vivify extends Analyzer {
     this.casts += 1;
     this.mainTargetHitsToCount += 1;
     this.lastCastTarget = event.targetID || 0;
+    this._tallyCastEntry(event);
   }
 
   handleViv(event: HealEvent) {
@@ -136,6 +144,60 @@ class Vivify extends Analyzer {
       this.gomOverhealing += event.overheal || 0;
     }
   }
+
+  get guideSubsection(): JSX.Element {
+    const styleObj = {
+      fontSize: 20,
+    };
+    const styleObjInner = {
+      fontSize: 15,
+    };
+    const explanation = (
+      <p>
+        <SpellLink id={SPELLS.VIVIFY} /> quickly becomes your best healing spell when you have high
+        counts of <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid via{' '}
+        <SpellLink id={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />, and will be a major portion of
+        your healing when used correctly. <SpellLink id={SPELLS.VIVIFY} />
+        's effectiveness goes hand in hand with your{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> count - the more you have out at a
+        given time, the more healing and better mana efficiency this spell has. This further
+        emphasizes the importance of casting your rotational abilities in{' '}
+        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> as often as possible.
+      </p>
+    );
+    const data = (
+      <div>
+        <RoundedPanel>
+          <div>
+            <strong>
+              <SpellLink id={SPELLS.VIVIFY} /> casts
+            </strong>{' '}
+            <small>
+              {' '}
+              - Blue is a perfect cast with 10 or more{' '}
+              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out, Green is a good cast
+              with 8 or more, Yellow is an ok cast at or above your expected average, and Red is a
+              bad cast at low renewing mist count. Mouseover to see the count for each cast.
+            </small>
+            <PerformanceBoxRow values={this.castEntries} />
+          </div>
+          <div style={styleObj}>
+            <small style={styleObjInner}>
+              <SpellLink id={TALENTS_MONK.INVIGORATING_MISTS_TALENT} /> -{' '}
+            </small>
+            <strong>{this.averageRemPerVivify.toFixed(1)}</strong>{' '}
+            <small>
+              average cleaves per <SpellLink id={SPELLS.VIVIFY} />
+            </small>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -189,6 +251,26 @@ class Vivify extends Analyzer {
         </TalentSpellText>
       </Statistic>
     );
+  }
+
+  private _tallyCastEntry(event: CastEvent) {
+    const rems = getRemCountPerVivify(event);
+    let value = QualitativePerformance.Fail;
+    if (rems >= 10) {
+      value = QualitativePerformance.Perfect;
+    } else if (rems >= 8) {
+      value = QualitativePerformance.Good;
+    } else if (rems >= Math.round(this.estimatedAverageReMs)) {
+      value = QualitativePerformance.Ok;
+    }
+
+    const tooltip = (
+      <>
+        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>, ReMs:{' '}
+        <strong>{rems}</strong>
+      </>
+    );
+    this.castEntries.push({ value, tooltip });
   }
 }
 
