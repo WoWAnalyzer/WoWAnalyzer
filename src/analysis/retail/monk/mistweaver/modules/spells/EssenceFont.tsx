@@ -220,15 +220,10 @@ class EssenceFont extends Analyzer {
   onCast(event: CastEvent) {
     const totalHit = getNumberOfBolts(event);
     const expected = this.getExpectedApplies(event);
-    const percentHit = totalHit / expected;
-    let value = QualitativePerformance.Perfect;
-    if (percentHit < 0.85) {
+    let value = QualitativePerformance.Good;
+    if (totalHit !== expected) {
       this.numCancelled += 1;
       value = QualitativePerformance.Fail;
-    } else if (percentHit < 0.9) {
-      value = QualitativePerformance.Ok;
-    } else if (percentHit < 1) {
-      value = QualitativePerformance.Good;
     }
     const tooltip = (
       <>
