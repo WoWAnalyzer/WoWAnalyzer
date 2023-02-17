@@ -214,6 +214,7 @@ class ManaTea extends Analyzer {
   }
 
   get guideCastBreakdown() {
+    const explanationPercent = 50;
     const explanation = (
       <p>
         <strong>
@@ -314,7 +315,7 @@ class ManaTea extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(explanation, data, explanationPercent);
   }
 
   statistic() {
