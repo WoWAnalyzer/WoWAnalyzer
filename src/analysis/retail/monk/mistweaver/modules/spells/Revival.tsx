@@ -144,7 +144,7 @@ class Revival extends Analyzer {
         </strong>{' '}
         is a fairly straightforward cooldown, however there are a few things you should always aim
         to do prior to casting it to maximize its healing. Always pre-cast{' '}
-        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> get as many duplicated{' '}
+        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to get as many duplicated{' '}
         <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> heals as possible. If talented into{' '}
         <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
         <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> the global before so that your cast
