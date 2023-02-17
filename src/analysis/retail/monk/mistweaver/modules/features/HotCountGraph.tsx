@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-useless-constructor */
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -21,10 +22,6 @@ class HotCountGraph extends BuffCountGraph {
 
   constructor(options: Options) {
     super(options);
-    //throwing this in here to avoid a useless constructor linter warning
-    if (!this.selectedCombatant.hasTalent(TALENTS_MONK.ENVELOPING_BREATH_TALENT)) {
-      return;
-    }
   }
 
   buffSpecs(): GraphedSpellSpec[] {

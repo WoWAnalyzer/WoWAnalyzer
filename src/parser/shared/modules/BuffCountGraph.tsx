@@ -16,7 +16,7 @@ import convertColor from 'parser/ui/convertColor';
 
 /**
  * An abstract implementation producing a graph showing the number of buffs the player has active
- * over the course of an enCounter.
+ * over the course of an encounter.
  *
  * Output is a div from the {@link plot} field. The plot will not automatically be drawn,
  * this div has to be added to a statistic or panel of some sort.
@@ -153,7 +153,7 @@ abstract class BuffCountGraph extends Analyzer {
     }
     this.lastTimestamp = event.timestamp;
 
-    // update buff Counts
+    // update buff counts
     applicableTrackers.forEach((tracker) => {
       tracker.currCount += change;
     });
@@ -258,7 +258,7 @@ abstract class BuffCountGraph extends Analyzer {
   /** Generates the Vega layer that renders the tooltip and mouseover line */
   _generateTooltipLayer() {
     return {
-      // transforms data from 'tall' to 'wide' so all the Counts are in same point -
+      // transforms data from 'tall' to 'wide' so all the counts are in same point -
       // this allows the tooltip to display with everything
       transform: [{ pivot: 'name', value: 'Count', groupby: ['timestamp_shifted'] }],
       mark: 'rule' as const,
@@ -423,7 +423,7 @@ type GraphedSpellInternalTracker = {
   currCount: number;
 };
 
-/** The type used to compile the data for graphing. Documents a change in buff Count or a spell cast */
+/** The type used to compile the data for graphing. Documents a change in buff count or a spell cast */
 type GraphData = {
   /** Name of the spell spec this data pertains to */
   name: string;
@@ -431,6 +431,6 @@ type GraphData = {
   type: 'buff' | 'rule';
   /** Timestamp the event occured */
   timestamp: number;
-  /** The new Count of buffs out (omitted for rule data) */
+  /** The new count of buffs out (omitted for rule data) */
   Count?: number;
 };
