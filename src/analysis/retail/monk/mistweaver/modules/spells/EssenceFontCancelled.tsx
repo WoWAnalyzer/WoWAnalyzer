@@ -73,13 +73,14 @@ class EssenceFontCancelled extends Analyzer {
 
   getPerformance(targetsHit: number) {
     const percentHit = targetsHit / this.getExpectedApplies(this.lastEf!);
+    const diff = this.getExpectedApplies(this.lastEf!) - targetsHit;
     let perf = QualitativePerformance.Perfect;
     if (percentHit < 0.85) {
       // generally these will be counted as cancels but adding it here to be safe
       perf = QualitativePerformance.Fail;
     } else if (percentHit < 0.9) {
       perf = QualitativePerformance.Ok;
-    } else if (percentHit < 1) {
+    } else if (percentHit < 1 && diff > 1) {
       perf = QualitativePerformance.Good;
     }
     return perf;

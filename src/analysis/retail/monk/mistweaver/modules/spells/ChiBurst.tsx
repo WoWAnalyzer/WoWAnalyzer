@@ -98,7 +98,6 @@ class ChiBurst extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  /** Guide subsection describing the proper usage of Rejuvenation */
   subStatistic() {
     return (
       <CastEfficiencyBar

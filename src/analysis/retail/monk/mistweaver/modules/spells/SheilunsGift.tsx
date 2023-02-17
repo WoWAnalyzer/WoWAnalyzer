@@ -20,6 +20,7 @@ class SheilunsGift extends Analyzer {
   gomHealing: number = 0;
   cloudsLost: number = 0;
   curClouds: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
