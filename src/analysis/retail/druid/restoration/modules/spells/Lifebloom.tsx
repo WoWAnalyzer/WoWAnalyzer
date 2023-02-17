@@ -218,7 +218,7 @@ class Lifebloom extends Analyzer {
     const data = (
       <div>
         <RoundedPanel>
-          <strong>Lifebloom upimtes</strong>
+          <strong>Lifebloom uptimes</strong>
           {this.subStatistic()}
         </RoundedPanel>
       </div>
