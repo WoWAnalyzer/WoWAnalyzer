@@ -6,7 +6,7 @@ import { Event, EventType } from 'parser/core/Events';
 
 class AudacityDamageTracker extends FilteredDamageTracker {
   shouldProcessEvent(event: Event<EventType.Event>): boolean {
-    return this.selectedCombatant.hasBuff(SPELLS.AUDACITY.id, null, 0, 800);
+    return this.selectedCombatant.hasBuff(SPELLS.AUDACITY_TALENT_BUFF.id, null, 0, 800);
   }
 }
 

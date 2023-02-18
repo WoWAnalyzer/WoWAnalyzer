@@ -573,7 +573,7 @@ const spells = spellIndexableList({
     name: 'Opportunity',
     icon: 'ability_rogue_pistolshot',
   },
-  AUDACITY: {
+  AUDACITY_TALENT_BUFF: {
     id: 386270,
     name: 'Audacity',
     icon: 'ability_rogue_ambush',

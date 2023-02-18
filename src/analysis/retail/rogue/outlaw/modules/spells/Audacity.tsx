@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/rogue';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -56,13 +57,13 @@ class Audacity extends Analyzer {
         <>
           You casted <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> and/or{' '}
           <SpellLink id={SPELLS.PISTOL_SHOT.id} /> while having an{' '}
-          <SpellLink id={SPELLS.AUDACITY.id} /> proc. Try to prioritize{' '}
+          <SpellLink id={TALENTS.AUDACITY_TALENT.id} /> proc. Try to prioritize{' '}
           <SpellLink id={SPELLS.AMBUSH.id} /> as your combo point builder when you have{' '}
-          <SpellLink id={SPELLS.AUDACITY.id} /> active to avoid the possibility of missing
+          <SpellLink id={TALENTS.AUDACITY_TALENT.id} /> active to avoid the possibility of missing
           additional procs.
         </>,
       )
-        .icon(SPELLS.AUDACITY.icon)
+        .icon(TALENTS.AUDACITY_TALENT.icon)
         .actual(
           t({
             id: 'rogue.outlaw.suggestions.audacity.efficiency',

@@ -109,10 +109,14 @@ const OutlawRogueChecklist = ({
         />
       </Rule>
       <Rule
-        name="Make sure to use your audacity procs"
+        name={
+          <>
+            Make sure to use your <SpellLink id={TALENTS.AUDACITY_TALENT.id} /> procs
+          </>
+        } //"Make sure to use your <SpellLink id={TALENTS.AUDACITY_TALENT.id}/> procs"
         description={
           <>
-            Your <SpellLink id={SPELLS.AUDACITY.id} /> proc will be more valuable than a{' '}
+            Your <SpellLink id={TALENTS.AUDACITY_TALENT.id} /> proc will be more valuable than a{' '}
             <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> or <SpellLink id={SPELLS.PISTOL_SHOT.id} />
             , so make sure to use <SpellLink id={SPELLS.AMBUSH.id} /> as your combo point builder
             when the proc is available and you aren't already capped on combo points.
@@ -122,7 +126,7 @@ const OutlawRogueChecklist = ({
         <Requirement
           name={
             <>
-              Delayed <SpellLink id={SPELLS.AUDACITY.id} /> procs
+              Delayed <SpellLink id={TALENTS.AUDACITY_TALENT.id} /> procs
             </>
           }
           thresholds={thresholds.audacity}
