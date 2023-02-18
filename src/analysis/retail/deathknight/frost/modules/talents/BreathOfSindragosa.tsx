@@ -2,13 +2,18 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { PerformanceMark } from 'interface/guide';
 
 const GOOD_BREATH_DURATION_MS = 25000;
 
@@ -17,7 +22,10 @@ class BreathOfSindragosa extends Analyzer {
   casts = 0;
   badCasts = 0;
   totalDuration = 0;
+  startingRunicPower = 0;
   breathActive = false;
+
+  castTracker: breathCast[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -38,9 +46,12 @@ class BreathOfSindragosa extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.casts += 1;
-    this.beginTimestamp = event.timestamp;
-    this.breathActive = true;
+    if (!this.breathActive) {
+      this.casts += 1;
+      this.beginTimestamp = event.timestamp;
+      this.breathActive = true;
+      this.startingRunicPower = event.classResources?.at(0)?.amount ?? 0;
+    }
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
@@ -50,6 +61,12 @@ class BreathOfSindragosa extends Analyzer {
       this.badCasts += 1;
     }
     this.totalDuration += duration;
+    this.castTracker.push({
+      timestamp: this.beginTimestamp,
+      startingRunicPower: this.startingRunicPower / 10,
+      duration: duration / 1000,
+      fightEnded: false,
+    });
   }
 
   onFightEnd(event: FightEndEvent) {
@@ -57,6 +74,13 @@ class BreathOfSindragosa extends Analyzer {
       this.casts -= 1;
     }
     this.totalDuration += event.timestamp - this.beginTimestamp;
+    const duration = event.timestamp - this.beginTimestamp;
+    this.castTracker.push({
+      timestamp: this.beginTimestamp,
+      startingRunicPower: this.startingRunicPower / 10,
+      duration: duration / 1000,
+      fightEnded: true,
+    });
   }
 
   suggestions(when: When) {
@@ -148,12 +172,80 @@ class BreathOfSindragosa extends Analyzer {
   }
 
   get guideCastBreakdown() {
-    const explanation = <p>1 erw, horn?</p>;
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+        </strong>{' '}
+        is your most important cooldown. To perform well with Frost, you need to make sure to
+        sustain its duration as long as possible. To help with this, you want to cast it when you
+        have enough resources pooled that you won't immediately drop it.
+      </p>
+    );
 
-    const data = <div>data here</div>;
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
+        {this.castTracker.map((cast, idx) => {
+          const header = (
+            <>
+              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+              <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+            </>
+          );
+          const checklistItems: CooldownExpandableItem[] = [];
+
+          let rpPoolingPerf = QualitativePerformance.Good;
+          if (cast.startingRunicPower < 80) {
+            rpPoolingPerf = QualitativePerformance.Ok;
+          }
+          if (cast.startingRunicPower < 65) {
+            rpPoolingPerf = QualitativePerformance.Fail;
+          }
+          checklistItems.push({
+            label: 'Runic Power Pooled',
+            result: <PerformanceMark perf={rpPoolingPerf} />,
+            details: <>{cast.startingRunicPower} RP</>,
+          });
+
+          let durationPerf = QualitativePerformance.Good;
+          if (cast.duration < 60 && !cast.fightEnded) {
+            durationPerf = QualitativePerformance.Ok;
+          }
+          if (cast.duration < 40 && !cast.fightEnded) {
+            durationPerf = QualitativePerformance.Fail;
+          }
+          checklistItems.push({
+            label: 'Breath duration',
+            result: <PerformanceMark perf={durationPerf} />,
+            details: <>{cast.duration}s</>,
+          });
+
+          const overallPerf =
+            cast.duration > 60 ? QualitativePerformance.Good : QualitativePerformance.Fail;
+
+          return (
+            <CooldownExpandable
+              header={header}
+              checklistItems={checklistItems}
+              perf={overallPerf}
+              key={idx}
+            />
+          );
+        })}
+      </div>
+    );
 
     return explanationAndDataSubsection(explanation, data);
   }
+}
+
+interface breathCast {
+  timestamp: number;
+  startingRunicPower: number;
+  duration: number;
+  fightEnded: boolean;
 }
 
 export default BreathOfSindragosa;
