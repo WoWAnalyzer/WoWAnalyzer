@@ -61,8 +61,9 @@ class RisingSunKick extends Analyzer {
         </b>{' '}
         is one of your primary damaging spells but is also the 2nd highest priority healing spell{' '}
         {'(behind '} <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
-        {') '}due to its synergy with <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} />. Using it
-        as much as possible is essential for maintaining high counts of{' '}
+        {') '}due to its synergy with <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} /> and{' '}
+        <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />. Using it as much as possible is
+        essential for maintaining high counts of{' '}
         <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
       </p>
     );

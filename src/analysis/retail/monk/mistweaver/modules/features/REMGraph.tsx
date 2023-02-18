@@ -286,8 +286,10 @@ class REMGraph extends Analyzer {
             <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. This means casting{' '}
             <SpellLink id={SPELLS.VIVIFY.id} /> while having high amounts of{' '}
             <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> will greatly increase its
-            healing. Magenta dots are <SpellLink id={SPELLS.VIVIFY.id} /> casts while Orange
-            triangles are <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> casts.
+            healing. Normal <SpellLink id={SPELLS.VIVIFY.id} /> casts are shown as blue dots, while
+            a cast consuming a <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} /> buff
+            is orange. Red triangles indicate{' '}
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> casts.
           </>
         }
       >
