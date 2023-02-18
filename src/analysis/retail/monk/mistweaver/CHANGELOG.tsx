@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 17), <>Added non-Renewing Mist hot graph to guide and as a statistic</>, Vohrr),
   change(date(2023, 2, 17), <>Added <SpellLink id={TALENTS_MONK.REVIVAL_TALENT}/> checklist to cooldowns guide section</>, Vohrr),
   change(date(2023, 2, 17), <>Added <SpellLink id={SPELLS.VIVIFY.id}/> to Core Spells in Guide</>, Vohrr),
   change(date(2023, 2, 17), <>Refactor <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT}/> module</>, Trevor),

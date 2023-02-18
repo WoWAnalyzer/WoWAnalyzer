@@ -279,7 +279,7 @@ class REMGraph extends Analyzer {
     return (
       <Panel
         title="Renewing Mist Graph"
-        position={100}
+        position={99}
         explanation={
           <>
             <SpellLink id={SPELLS.VIVIFY.id} /> also heals any targets that have{' '}
