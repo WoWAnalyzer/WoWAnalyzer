@@ -267,7 +267,7 @@ class EssenceFont extends Analyzer {
             {this.efficSubStatistic()} <br />
             <strong>Casts </strong>
             <small>
-              - Blue indicates a good cast with sufficient targets hit, while red indicates a
+              - Green indicates a good cast with sufficient targets hit, while red indicates a
               cancelled cast
             </small>
             {this.castUsageStatistic()}

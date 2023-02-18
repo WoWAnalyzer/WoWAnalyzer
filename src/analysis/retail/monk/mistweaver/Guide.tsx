@@ -43,7 +43,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
         {modules.revival.guideCastBreakdown}
-      <HotGraphSubsection modules={modules} events={events} info={info} />
+        <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <PreparationSection />
     </>
@@ -115,23 +115,26 @@ function SheilunsGraph({ modules, events, info }: GuideProps<typeof CombatLogPar
         for <SpellLink id={SPELLS.LESSON_OF_DOUBT_BUFF} /> to gain a significant healing boost to
         one of your major raid cooldowns.
       </p>
+    </>
+  );
+
+  const data = (
+    <div>
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> cloud efficiency
+          </strong>
+          {modules.sheilunsGiftCloudGraph.plot}
+        </RoundedPanel>
+      </div>
+      <br />
       <RoundedPanel>
         <div style={styleObj}>
           <SpellIcon id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} style={{ height: '28px' }} />{' '}
           <b>{modules.sheilunsGift.cloudsLost}</b>{' '}
           <small style={styleObjInner}>clouds wasted</small>
         </div>
-      </RoundedPanel>
-    </>
-  );
-
-  const data = (
-    <div>
-      <RoundedPanel>
-        <strong>
-          <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> cloud efficiency
-        </strong>
-        {modules.sheilunsGiftCloudGraph.plot}
       </RoundedPanel>
     </div>
   );
