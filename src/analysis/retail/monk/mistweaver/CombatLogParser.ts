@@ -81,6 +81,7 @@ import Guide from './Guide';
 import SheilunsGiftCloudTracker from './modules/spells/SheilunsGiftCloudTracker';
 import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 import HotCountGraph from './modules/features/HotCountGraph';
+import AplCheck from './modules/core/AplCheck';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -173,6 +174,8 @@ class CombatLogParser extends CoreCombatLogParser {
     sheilunsGift: SheilunsGift,
     shaohaosLessons: ShaohaosLessons,
     veilOfPride: VeilOfPride,
+
+    apl: AplCheck,
 
     // Borrowed Power
     t29TierSet: T29TierSet,

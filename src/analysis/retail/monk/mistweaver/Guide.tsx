@@ -8,7 +8,15 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import * as AplCheck from './modules/core/AplCheck';
+import AplChoiceDescription from './modules/core/AplChoiceDescription';
+import { AplSectionData } from 'interface/guide/components/Apl';
+import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 
+const explainers = {
+  overcast: defaultExplainers.overcastFillers,
+  dropped: defaultExplainers.droppedRule,
+};
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 
@@ -43,7 +51,29 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
         {modules.revival.guideCastBreakdown}
-      <HotGraphSubsection modules={modules} events={events} info={info} />
+        <HotGraphSubsection modules={modules} events={events} info={info} />
+      </Section>
+      <Section title="Core Rotation">
+        <p>
+          Healers do not have a static rotation, but Mistweaver gameplay is still driven by a
+          priority list that is valid in the majority of situations. When using an ability, aim to
+          use the abilities that are highest on the list.
+        </p>
+        <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
+        <p>
+          <strong>
+            It is important to note that using abilites like{' '}
+            <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> have their own priority that
+            supercedes the priority list below.
+          </strong>
+        </p>
+        <SubSection>
+          <AplSectionData
+            checker={AplCheck.check}
+            apl={AplCheck.apl(info)}
+            violationExplainers={explainers}
+          />
+        </SubSection>
       </Section>
       <PreparationSection />
     </>

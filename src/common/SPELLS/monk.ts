@@ -143,19 +143,19 @@ const spells = spellIndexableList({
     name: 'Vivifacious Vivification',
     icon: 'ability_monk_vivify',
   },
-  ATOTM_BUFF: {
+  AT_BUFF: {
     id: 388026,
-    name: 'Ancient Teachings of the Monestary',
+    name: 'Ancient Teachings',
     icon: 'inv_misc_book_07',
   },
-  ATOTM_HEAL: {
+  AT_HEAL: {
     id: 388024,
-    name: 'Ancient Teachings of the Monestary',
+    name: 'Ancient Teachings',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
-  ATOTM_CRIT_HEAL: {
+  AT_CRIT_HEAL: {
     id: 388025,
-    name: 'Ancient Teachings of the Monestary',
+    name: 'Ancient Teachings',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
   INVOKERS_DELIGHT_BUFF: {

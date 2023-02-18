@@ -47,25 +47,22 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       this.lastDamageEvent,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.AT_HEAL),
       this.calculateEffectiveHealing,
     );
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_CRIT_HEAL),
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.AT_CRIT_HEAL),
       this.calculateEffectiveHealing,
     );
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF), this.onApply);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_BUFF),
-      this.onApply,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ATOTM_BUFF),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF),
       this.onRemove,
     );
   }
 
   lastDamageEvent(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.ATOTM_BUFF.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.AT_BUFF.id)) {
       return;
     }
     this.lastDamageSpellID = event.ability.guid;
@@ -170,7 +167,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.selectedCombatant.getBuffUptime(SPELLS.ATOTM_BUFF.id) / this.owner.fightDuration,
+      actual: this.selectedCombatant.getBuffUptime(SPELLS.AT_BUFF.id) / this.owner.fightDuration,
       isLessThan: {
         minor: 0.8,
         average: 0.7,
@@ -210,8 +207,7 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.ATOTM_HEAL.id}>Ancient Teachings of the Monastery</SpellLink>{' '}
-            breakdown
+            <SpellLink id={SPELLS.AT_HEAL.id}>Ancient Teachings</SpellLink> breakdown
           </label>
           {this.renderDonutChart()}
         </div>

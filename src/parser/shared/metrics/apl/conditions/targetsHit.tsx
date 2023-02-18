@@ -1,7 +1,7 @@
 import type Spell from 'common/SPELLS/Spell';
 import { HasAbility, HasTarget, EventType } from 'parser/core/Events';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
-
+import { encodeFriendlyEventTargetString } from 'parser/shared/modules/Entities';
 import { tenseAlt, Condition } from '../index';
 import { Range, formatRange } from './index';
 
@@ -30,9 +30,13 @@ export interface Options {
  * then load times will suffer.
  **/
 export default function targetsHit(range: Range, options?: Partial<Options>): Condition<void> {
-  const { lookahead, targetType: type, targetSpell } = {
+  const {
+    lookahead,
+    targetType: type,
+    targetSpell,
+  } = {
     lookahead: 100,
-    targetType: EventType.Damage,
+    targetType: EventType.Damage || EventType.Heal,
     ...options,
   };
 
@@ -57,7 +61,11 @@ export default function targetsHit(range: Range, options?: Partial<Options>): Co
           HasTarget(fwdEvent) &&
           fwdEvent.ability.guid === targetSpellId
         ) {
-          targets.add(encodeEventTargetString(fwdEvent));
+          if (!fwdEvent.targetIsFriendly) {
+            targets.add(encodeEventTargetString(fwdEvent));
+          } else {
+            targets.add(encodeFriendlyEventTargetString(fwdEvent));
+          }
         }
       }
       return (
