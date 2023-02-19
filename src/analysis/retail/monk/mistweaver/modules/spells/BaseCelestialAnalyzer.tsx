@@ -51,6 +51,9 @@ class BaseCelestialAnalyzer extends Analyzer {
   siApplyTime: number = -1;
   lessonsApplyTime: number = -1;
   celestialActive: boolean = false;
+  currentCelestialStart: number = -1;
+  lastCelestialEnd: number = -1;
+  celestialWindows: Map<number, number> = new Map<number, number>();
   castTrackers: BaseCelestialTracker[] = [];
   hasteDataPoints: number[] = []; // use this to estimate average haste during celestial
   goodSiDuration: number = 0; // how long SI should last during celestial
@@ -132,6 +135,7 @@ class BaseCelestialAnalyzer extends Analyzer {
 
   onSummon(event: SummonEvent) {
     this.celestialActive = true;
+    this.currentCelestialStart = event.timestamp;
     this.hasteDataPoints = [];
     SECRET_INFUSION_BUFFS.forEach((spell) => {
       if (this.selectedCombatant.hasBuff(spell.id)) {
@@ -382,6 +386,9 @@ class BaseCelestialAnalyzer extends Analyzer {
       return;
     }
     this.celestialActive = false;
+    this.celestialWindows.set(this.currentCelestialStart, event.timestamp);
+    this.currentCelestialStart = -1;
+    this.lastCelestialEnd = event.timestamp;
     this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
     this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
     const hasInfusion = SECRET_INFUSION_BUFFS.some((spell) => {

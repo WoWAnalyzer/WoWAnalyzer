@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 18), <>Added pt 1 of the Core Rotation Section of the guide - <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> / <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id}/> build rotation.</>, Vohrr),
   change(date(2023, 2, 19), <>Fix crash in old version of MW module</>, Trevor),
   change(date(2023, 2, 18), <>Fixed issue with <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id}/> not showing up in the Cooldown Tracker.</>, Vohrr),
   change(date(2023, 2, 18), <>Updated the sample report to a Dragonflight encounter. Minor wording and formatting fixes for the guide</>, Vohrr),

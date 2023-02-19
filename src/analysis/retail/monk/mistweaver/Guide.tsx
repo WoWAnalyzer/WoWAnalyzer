@@ -8,7 +8,16 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import * as AplCheck from './modules/core/AplCheck';
+import AplChoiceDescription from './modules/core/AplChoiceDescription';
+import { AplSectionData } from 'interface/guide/components/Apl';
+import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
+import filterCelestial from './modules/core/ExplainCelestial';
 
+const explainers = {
+  overcast: filterCelestial(defaultExplainers.overcastFillers),
+  dropped: filterCelestial(defaultExplainers.droppedRule),
+};
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 
@@ -34,8 +43,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
-        {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
-          modules.manaTea.guideCastBreakdown}
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
@@ -43,7 +50,31 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
         {modules.revival.guideCastBreakdown}
+        {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
+          modules.manaTea.guideCastBreakdown}
         <HotGraphSubsection modules={modules} events={events} info={info} />
+      </Section>
+      <Section title="Core Rotation">
+        <p>
+          Healers do not have a static rotation, but Mistweaver gameplay is still driven by a
+          priority list that is valid in the majority of situations. When using an ability, aim to
+          use the abilities that are highest on the list.
+        </p>
+        <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
+        <p>
+          <strong>
+            It is important to note that using abilites like{' '}
+            <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> have their own priority that
+            supercedes the priority list below. This section omits all casts in those windows.
+          </strong>
+        </p>
+        <SubSection>
+          <AplSectionData
+            checker={AplCheck.check}
+            apl={AplCheck.apl(info)}
+            violationExplainers={explainers}
+          />
+        </SubSection>
       </Section>
       <PreparationSection />
     </>

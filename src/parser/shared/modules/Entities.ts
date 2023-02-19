@@ -13,6 +13,7 @@ import Events, {
   RemoveBuffStackEvent,
   RemoveDebuffEvent,
   RemoveDebuffStackEvent,
+  HasTarget,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
@@ -20,6 +21,17 @@ const debug = false;
 
 const APPLY = 'apply';
 const REMOVE = 'remove';
+
+export function encodeFriendlyEventTargetString(event: AnyEvent) {
+  if (!HasTarget(event)) {
+    return null;
+  }
+  return encodeTargetString(event.targetID, event.targetInstance);
+}
+
+export function encodeTargetString(id: number, instance = 0) {
+  return `${id}.${instance}`;
+}
 
 abstract class Entities<T extends Entity> extends Analyzer {
   static dependencies = {
