@@ -31,7 +31,7 @@ class Checklist extends BaseChecklist {
     manaValues: ManaValues,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
-    EssenceFontTargetsHit: EssenceFontTargetsHit,
+    essenceFontTargetsHit: EssenceFontTargetsHit,
     refreshingJadeWind: RefreshingJadeWind,
     chiBurst: ChiBurst,
     spiritOfTheCrane: SpiritOfTheCrane,
@@ -54,7 +54,7 @@ class Checklist extends BaseChecklist {
   protected manaValues!: ManaValues;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
-  protected EssenceFontTargetsHit!: EssenceFontTargetsHit;
+  protected essenceFontTargetsHit!: EssenceFontTargetsHit;
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected chiBurst!: ChiBurst;
   protected spiritOfTheCrane!: SpiritOfTheCrane;
@@ -83,7 +83,7 @@ class Checklist extends BaseChecklist {
             this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           manaLeft: this.manaValues.suggestionThresholds,
-          essenceFont: this.EssenceFontTargetsHit.suggestionThresholds,
+          essenceFont: this.essenceFontTargetsHit.suggestionThresholds,
           envelopingBreath: this.envelopingBreath.suggestionThresholds,
           refreshingJadeWind: this.refreshingJadeWind.suggestionThresholds,
           chiBurst: this.chiBurst.suggestionThresholds,
