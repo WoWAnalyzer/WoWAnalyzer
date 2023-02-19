@@ -32,6 +32,7 @@ const VIVIFY_8_REMS = {
     cnd.targetsHit(
       { atLeast: 9 }, // 8 rems + 1 primary target
       {
+        lookahead: 150,
         targetSpell: SPELLS.VIVIFY,
         targetType: EventType.Heal,
       },
@@ -51,6 +52,7 @@ const VIVIFY_6_REMS = {
     cnd.targetsHit(
       { atLeast: 7 }, // 6 rems + 1 primary target
       {
+        lookahead: 150,
         targetSpell: SPELLS.VIVIFY,
         targetType: EventType.Heal,
       },
@@ -59,6 +61,18 @@ const VIVIFY_6_REMS = {
       <>
         you {tenseAlt(tense, 'have', 'had')} 6 active{' '}
         <SpellLink id={talents.RENEWING_MIST_TALENT} />
+      </>
+    ),
+  ),
+};
+
+const BLACKOUT_KICK = {
+  spell: SPELLS.BLACKOUT_KICK,
+  condition: cnd.describe(
+    cnd.spellCooldownRemaining(talents.RISING_SUN_KICK_TALENT, { atLeast: 3500, atMost: 12000 }),
+    (tense) => (
+      <>
+        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> has more than half its cooldown remaining
       </>
     ),
   ),
@@ -104,7 +118,7 @@ const rotation_rm_at_sg = build([
   VIVIFY_8_REMS,
   EF_AT,
   VIVIFY_6_REMS,
-  SPELLS.BLACKOUT_KICK,
+  BLACKOUT_KICK,
   talents.CHI_BURST_TALENT,
   SPELLS.TIGER_PALM,
   ...commonBottom,
@@ -142,7 +156,7 @@ const rotation_rm_at_upw = build([
       ),
     ),
   },
-  SPELLS.BLACKOUT_KICK,
+  BLACKOUT_KICK,
   talents.CHI_BURST_TALENT,
   SPELLS.TIGER_PALM,
   ...commonBottom,

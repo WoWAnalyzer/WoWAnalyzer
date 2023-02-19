@@ -14,7 +14,10 @@ export const filterCelestial = (
       if (celestial) {
         celestial.celestialWindows.forEach((end, start) => {
           claims.forEach((violation) => {
-            if (violation.actualCast.timestamp >= start && violation.actualCast.timestamp <= end) {
+            if (
+              violation.actualCast.timestamp >= start - 10500 &&
+              violation.actualCast.timestamp <= end
+            ) {
               claims.delete(violation);
             }
           });
@@ -25,4 +28,3 @@ export const filterCelestial = (
 });
 
 export default filterCelestial;
-
