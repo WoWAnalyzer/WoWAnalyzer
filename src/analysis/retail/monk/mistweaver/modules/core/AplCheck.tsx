@@ -21,10 +21,17 @@ const AOE_SCK = {
   ),
 };
 
-const VIVIFY_10_REMS = {
+
+
+const SHEILUNS_SHAOHAOS = {
+    spell: talents.SHEILUNS_GIFT_TALENT,
+    condition: cnd.optional(cnd.buffStacks(SPELLS.SHEILUN_CLOUD_BUFF, {atLeast: 4, atMost:10})),
+};
+
+const VIVIFY_8_REMS = {
   spell: SPELLS.VIVIFY,
   condition: cnd.targetsHit(
-    { atLeast: 10 },
+    { atLeast: 8 },
     {
       targetSpell: SPELLS.VIVIFY,
       targetType: EventType.Heal,
@@ -52,8 +59,8 @@ const commonTop = [
       ),
       (tense) => <>you {tenseAlt(tense, 'have', 'had')} 2 charges</>,
     ),
-  },
-  talents.THUNDER_FOCUS_TEA_TALENT,
+  }, 
+  talents.RISING_SUN_KICK_TALENT,
 ];
 
 const commonBottom = [talents.CHI_WAVE_TALENT, SPELLS.EXPEL_HARM];
@@ -62,14 +69,44 @@ const atMissingCondition = cnd.buffMissing(talents.ANCIENT_TEACHINGS_TALENT, {
   timeRemaining: 1500,
 });
 
-const rotation_rm_at = build([
-  ...commonTop,
-  talents.RISING_SUN_KICK_TALENT,
-  VIVIFY_10_REMS,
-  {
+const EF_AT = {
     spell: talents.ESSENCE_FONT_TALENT,
     condition: atMissingCondition,
+}
+
+const rotation_rm_at_sg = build([
+  {
+    spell: talents.RENEWING_MIST_TALENT,
+    condition: cnd.describe(
+      cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT),
+    (tense) => 
+      <> you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT}/></>,
+    ),
   },
+  ...commonTop,
+  SHEILUNS_SHAOHAOS,
+  VIVIFY_8_REMS,
+  EF_AT,
+  VIVIFY_6_REMS,
+  SPELLS.BLACKOUT_KICK,
+  talents.CHI_BURST_TALENT,
+  SPELLS.TIGER_PALM,
+  ...commonBottom,
+]);
+
+const rotation_rm_at_upw = build([
+  {
+    spell: talents.ESSENCE_FONT_TALENT,
+    condition: cnd.describe(
+      cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT),
+    (tense) => 
+      <> you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT}/></>,
+    ),
+  },
+  ...commonTop,
+  SHEILUNS_SHAOHAOS,
+  VIVIFY_8_REMS,
+  EF_AT,
   VIVIFY_6_REMS,
   {
     spell: talents.FAELINE_STOMP_TALENT,
@@ -89,10 +126,7 @@ const rotation_rm_at = build([
     ),
   },
   SPELLS.BLACKOUT_KICK,
-  {
-    spell: talents.CHI_BURST_TALENT,
-    condition: cnd.hasTalent(talents.CHI_BURST_TALENT),
-  },
+  talents.CHI_BURST_TALENT,
   SPELLS.TIGER_PALM,
   ...commonBottom,
 ]);
@@ -100,22 +134,41 @@ const rotation_rm_at = build([
 const rotation_fallback = build([...commonTop, ...commonBottom]);
 
 export enum MistweaverApl {
-  RisingMistAncientTeachings,
+  RisingMistAncientTeachingsShaohaos,
+  RisingMistAncientTeachingsUpwellFls,
+  RisingMistCloudedFocusShaohaos,
   Fallback,
 }
 
 export const chooseApl = (info: PlayerInfo): MistweaverApl => {
   if (
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
-    info.combatant.hasTalent(talents.RISING_MIST_TALENT)
+    info.combatant.hasTalent(talents.RISING_MIST_TALENT) && 
+    info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT)
   ) {
-    return MistweaverApl.RisingMistAncientTeachings;
+    return MistweaverApl.RisingMistAncientTeachingsShaohaos;
+  }
+  else if( 
+    info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
+    info.combatant.hasTalent(talents.RISING_MIST_TALENT) && 
+    info.combatant.hasTalent(talents.UPWELLING_TALENT)
+    ) {
+  return MistweaverApl.RisingMistAncientTeachingsUpwellFls;
+  }
+  else if(
+    info.combatant.hasTalent(talents.CLOUDED_FOCUS_TALENT) &&
+    info.combatant.hasTalent(talents.RISING_MIST_TALENT) && 
+    info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT)
+  ){
+    return MistweaverApl.RisingMistCloudedFocusShaohaos;
   }
   return MistweaverApl.Fallback;
 };
 
 const apls: Record<MistweaverApl, Apl> = {
-  [MistweaverApl.RisingMistAncientTeachings]: rotation_rm_at,
+  [MistweaverApl.RisingMistAncientTeachingsShaohaos]: rotation_rm_at_sg,
+  [MistweaverApl.RisingMistAncientTeachingsUpwellFls]: rotation_rm_at_upw,
+  [MistweaverApl.RisingMistCloudedFocusShaohaos]: rotation_fallback, //todo
   [MistweaverApl.Fallback]: rotation_fallback,
 };
 

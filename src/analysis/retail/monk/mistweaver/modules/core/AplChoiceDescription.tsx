@@ -6,11 +6,20 @@ import { MistweaverApl } from './AplCheck';
 
 const aplTitle = (choice: MistweaverApl) => {
   switch (choice) {
-    case MistweaverApl.RisingMistAncientTeachings:
+    case MistweaverApl.RisingMistAncientTeachingsShaohaos:
       return (
         <>
           <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
-          <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />
+          <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
+          <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT}/>
+        </>
+      );
+      case MistweaverApl.RisingMistAncientTeachingsUpwellFls:
+         return (
+        <>
+          <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
+          <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
+          <SpellLink id={talents.UPWELLING_TALENT}/>
         </>
       );
     default:
@@ -45,12 +54,35 @@ const AncientTeachingsDescription = () => {
   );
 };
 
-const RisingMistAncientTeachingsDescription = () => {
+const RisingMistAncientTeachingsShaohaosDescription = () => {
+  return (
+    <>
+      <p>
+        The {aplTitle(MistweaverApl.RisingMistAncientTeachingsShaohaos)} rotation uses{' '}
+        <RisingMistDescription />
+        <AncientTeachingsDescription />
+      </p>
+      <p>
+        When playing <SpellLink id={talents.RISING_MIST_TALENT} /> and{' '}
+        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> with <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT}/>, you cast{' '}
+        <SpellLink id={talents.RENEWING_MIST_TALENT} /> and{' '}
+        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
+        <SpellLink id={talents.ESSENCE_FONT_TALENT} />{' '}
+        as often as necessary to maintain the <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />{' '}
+        buff. You will aim to cast <SpellLink id={talents.SHEILUNS_GIFT_TALENT}/> to align with your cooldown usage and moments of heavy healing to make use of the various
+        {' '}<SpellLink id={talents.SHAOHAOS_LESSONS_TALENT}/> buffs.{' '}
+        <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT}/> is primarily used on <SpellLink id={talents.RENEWING_MIST_TALENT}/> with this build.
+      </p>
+    </>
+  );
+};
+
+const RisingMistAncientTeachingsUpwelFlsDescription = () => {
   const info = useInfo();
   return (
     <>
       <p>
-        The {aplTitle(MistweaverApl.RisingMistAncientTeachings)} rotation uses{' '}
+        The {aplTitle(MistweaverApl.RisingMistAncientTeachingsUpwellFls)} rotation uses{' '}
         <RisingMistDescription />
         <AncientTeachingsDescription />
       </p>
@@ -69,7 +101,7 @@ const RisingMistAncientTeachingsDescription = () => {
           <></>
         )}{' '}
         as often as necessary to maintain the <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />{' '}
-        buff.
+        buff. <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT}/> is primarily used on <SpellLink id={talents.ESSENCE_FONT_TALENT}/> with this build.
       </p>
     </>
   );
@@ -92,9 +124,11 @@ const FallbackDescription = () => (
 
 const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
   switch (aplChoice) {
-    case MistweaverApl.RisingMistAncientTeachings:
-      return <RisingMistAncientTeachingsDescription />;
-    default:
+    case MistweaverApl.RisingMistAncientTeachingsShaohaos:
+      return <RisingMistAncientTeachingsShaohaosDescription />;
+    case MistweaverApl.RisingMistAncientTeachingsUpwellFls:
+      return <RisingMistAncientTeachingsUpwelFlsDescription />;
+      default:
       return <FallbackDescription />;
   }
 };
