@@ -11,15 +11,15 @@ const aplTitle = (choice: MistweaverApl) => {
         <>
           <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
           <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
-          <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT}/>
+          <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />
         </>
       );
-      case MistweaverApl.RisingMistAncientTeachingsUpwellFls:
-         return (
+    case MistweaverApl.RisingMistAncientTeachingsUpwellFls:
+      return (
         <>
           <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
           <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
-          <SpellLink id={talents.UPWELLING_TALENT}/>
+          <SpellLink id={talents.UPWELLING_TALENT} />
         </>
       );
     default:
@@ -36,19 +36,10 @@ const RisingMistDescription = () => {
 };
 
 const AncientTeachingsDescription = () => {
-  const info = useInfo();
   return (
     <>
-      <SpellLink id={talents.ESSENCE_FONT_TALENT} />{' '}
-      {info?.combatant.hasTalent(talents.FAELINE_STOMP_TALENT) ? (
-        <>
-          or <SpellLink id={talents.FAELINE_STOMP_TALENT} />{' '}
-        </>
-      ) : (
-        <></>
-      )}
-      to empower your damaging abilities <SpellLink id={talents.RISING_SUN_KICK_TALENT} />,{' '}
-      <SpellLink id={SPELLS.BLACKOUT_KICK} />, and <SpellLink id={SPELLS.TIGER_PALM} /> to heal via{' '}
+      to heal by using your damaging abilities (<SpellLink id={talents.RISING_SUN_KICK_TALENT} />,{' '}
+      <SpellLink id={SPELLS.BLACKOUT_KICK} />, and <SpellLink id={SPELLS.TIGER_PALM} />) via{' '}
       <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />.
     </>
   );
@@ -64,14 +55,17 @@ const RisingMistAncientTeachingsShaohaosDescription = () => {
       </p>
       <p>
         When playing <SpellLink id={talents.RISING_MIST_TALENT} /> and{' '}
-        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> with <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT}/>, you cast{' '}
+        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> with{' '}
+        <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
         <SpellLink id={talents.RENEWING_MIST_TALENT} /> and{' '}
         <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
-        <SpellLink id={talents.ESSENCE_FONT_TALENT} />{' '}
-        as often as necessary to maintain the <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />{' '}
-        buff. You will aim to cast <SpellLink id={talents.SHEILUNS_GIFT_TALENT}/> to align with your cooldown usage and moments of heavy healing to make use of the various
-        {' '}<SpellLink id={talents.SHAOHAOS_LESSONS_TALENT}/> buffs.{' '}
-        <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT}/> is primarily used on <SpellLink id={talents.RENEWING_MIST_TALENT}/> with this build.
+        <SpellLink id={talents.ESSENCE_FONT_TALENT} /> as often as necessary to maintain the{' '}
+        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> buff. You will aim to cast{' '}
+        <SpellLink id={talents.SHEILUNS_GIFT_TALENT} /> to align with your cooldown usage and
+        moments of heavy healing to make use of the various{' '}
+        <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} /> buffs.{' '}
+        <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} /> is primarily used on{' '}
+        <SpellLink id={talents.RENEWING_MIST_TALENT} /> with this build.
       </p>
     </>
   );
@@ -91,7 +85,7 @@ const RisingMistAncientTeachingsUpwelFlsDescription = () => {
         <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />, you cast{' '}
         <SpellLink id={talents.RENEWING_MIST_TALENT} /> and{' '}
         <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
-        <SpellLink id={talents.ESSENCE_FONT_TALENT} />
+        <SpellLink id={talents.ESSENCE_FONT_TALENT} />{' '}
         {info?.combatant.hasTalent(talents.FAELINE_STOMP_TALENT) ? (
           <>
             or <SpellLink id={talents.FAELINE_STOMP_TALENT} /> if{' '}
@@ -101,7 +95,8 @@ const RisingMistAncientTeachingsUpwelFlsDescription = () => {
           <></>
         )}{' '}
         as often as necessary to maintain the <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />{' '}
-        buff. <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT}/> is primarily used on <SpellLink id={talents.ESSENCE_FONT_TALENT}/> with this build.
+        buff. <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} /> is primarily used on{' '}
+        <SpellLink id={talents.ESSENCE_FONT_TALENT} /> with this build.
       </p>
     </>
   );
@@ -128,7 +123,7 @@ const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
       return <RisingMistAncientTeachingsShaohaosDescription />;
     case MistweaverApl.RisingMistAncientTeachingsUpwellFls:
       return <RisingMistAncientTeachingsUpwelFlsDescription />;
-      default:
+    default:
       return <FallbackDescription />;
   }
 };

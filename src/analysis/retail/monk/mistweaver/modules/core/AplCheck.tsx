@@ -21,31 +21,46 @@ const AOE_SCK = {
   ),
 };
 
-
-
 const SHEILUNS_SHAOHAOS = {
-    spell: talents.SHEILUNS_GIFT_TALENT,
-    condition: cnd.optional(cnd.buffStacks(SPELLS.SHEILUN_CLOUD_BUFF, {atLeast: 4, atMost:10})),
+  spell: talents.SHEILUNS_GIFT_TALENT,
+  condition: cnd.optional(cnd.buffStacks(SPELLS.SHEILUN_CLOUD_BUFF, { atLeast: 4, atMost: 10 })),
 };
 
 const VIVIFY_8_REMS = {
   spell: SPELLS.VIVIFY,
-  condition: cnd.targetsHit(
-    { atLeast: 8 },
-    {
-      targetSpell: SPELLS.VIVIFY,
-      targetType: EventType.Heal,
-    },
+  condition: cnd.describe(
+    cnd.targetsHit(
+      { atLeast: 9 }, // 8 rems + 1 primary target
+      {
+        targetSpell: SPELLS.VIVIFY,
+        targetType: EventType.Heal,
+      },
+    ),
+    (tense) => (
+      <>
+        you {tenseAlt(tense, 'have', 'had')} 8 active{' '}
+        <SpellLink id={talents.RENEWING_MIST_TALENT} />
+      </>
+    ),
   ),
 };
+
 const VIVIFY_6_REMS = {
   spell: SPELLS.VIVIFY,
-  condition: cnd.targetsHit(
-    { atLeast: 6 },
-    {
-      targetSpell: SPELLS.VIVIFY,
-      targetType: EventType.Heal,
-    },
+  condition: cnd.describe(
+    cnd.targetsHit(
+      { atLeast: 7 }, // 6 rems + 1 primary target
+      {
+        targetSpell: SPELLS.VIVIFY,
+        targetType: EventType.Heal,
+      },
+    ),
+    (tense) => (
+      <>
+        you {tenseAlt(tense, 'have', 'had')} 6 active{' '}
+        <SpellLink id={talents.RENEWING_MIST_TALENT} />
+      </>
+    ),
   ),
 };
 
@@ -59,7 +74,7 @@ const commonTop = [
       ),
       (tense) => <>you {tenseAlt(tense, 'have', 'had')} 2 charges</>,
     ),
-  }, 
+  },
   talents.RISING_SUN_KICK_TALENT,
 ];
 
@@ -70,18 +85,19 @@ const atMissingCondition = cnd.buffMissing(talents.ANCIENT_TEACHINGS_TALENT, {
 });
 
 const EF_AT = {
-    spell: talents.ESSENCE_FONT_TALENT,
-    condition: atMissingCondition,
-}
+  spell: talents.ESSENCE_FONT_TALENT,
+  condition: atMissingCondition,
+};
 
 const rotation_rm_at_sg = build([
   {
     spell: talents.RENEWING_MIST_TALENT,
-    condition: cnd.describe(
-      cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT),
-    (tense) => 
-      <> you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT}/></>,
-    ),
+    condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
+      <>
+        {' '}
+        you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} />
+      </>
+    )),
   },
   ...commonTop,
   SHEILUNS_SHAOHAOS,
@@ -97,11 +113,12 @@ const rotation_rm_at_sg = build([
 const rotation_rm_at_upw = build([
   {
     spell: talents.ESSENCE_FONT_TALENT,
-    condition: cnd.describe(
-      cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT),
-    (tense) => 
-      <> you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT}/></>,
-    ),
+    condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
+      <>
+        {' '}
+        you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} />
+      </>
+    )),
   },
   ...commonTop,
   SHEILUNS_SHAOHAOS,
@@ -143,23 +160,21 @@ export enum MistweaverApl {
 export const chooseApl = (info: PlayerInfo): MistweaverApl => {
   if (
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
-    info.combatant.hasTalent(talents.RISING_MIST_TALENT) && 
+    info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
     info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT)
   ) {
     return MistweaverApl.RisingMistAncientTeachingsShaohaos;
-  }
-  else if( 
+  } else if (
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
-    info.combatant.hasTalent(talents.RISING_MIST_TALENT) && 
+    info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
     info.combatant.hasTalent(talents.UPWELLING_TALENT)
-    ) {
-  return MistweaverApl.RisingMistAncientTeachingsUpwellFls;
-  }
-  else if(
+  ) {
+    return MistweaverApl.RisingMistAncientTeachingsUpwellFls;
+  } else if (
     info.combatant.hasTalent(talents.CLOUDED_FOCUS_TALENT) &&
-    info.combatant.hasTalent(talents.RISING_MIST_TALENT) && 
+    info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
     info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT)
-  ){
+  ) {
     return MistweaverApl.RisingMistCloudedFocusShaohaos;
   }
   return MistweaverApl.Fallback;
