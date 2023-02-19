@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 18), <>Fixed issue with <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id}/> not showing up in the Cooldown Tracker.</>, Vohrr),
   change(date(2023, 2, 18), <>Updated the sample report to a Dragonflight encounter. Minor wording and formatting fixes for the guide</>, Vohrr),
   change(date(2023, 2, 17), <>Added non-Renewing Mist hot graph to guide and as a statistic</>, Vohrr),
   change(date(2023, 2, 17), <>Added <SpellLink id={TALENTS_MONK.REVIVAL_TALENT}/> checklist to cooldowns guide section</>, Vohrr),
