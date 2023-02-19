@@ -30,14 +30,14 @@ const AncientTeachingsDescription = () => {
   const info = useInfo();
   return (
     <>
-      <SpellLink id={talents.ESSENCE_FONT_TALENT} />
+      <SpellLink id={talents.ESSENCE_FONT_TALENT} />{' '}
       {info?.combatant.hasTalent(talents.FAELINE_STOMP_TALENT) ? (
         <>
-          or <SpellLink id={talents.FAELINE_STOMP_TALENT} />
+          or <SpellLink id={talents.FAELINE_STOMP_TALENT} />{' '}
         </>
       ) : (
         <></>
-      )}{' '}
+      )}
       to empower your damaging abilities <SpellLink id={talents.RISING_SUN_KICK_TALENT} />,{' '}
       <SpellLink id={SPELLS.BLACKOUT_KICK} />, and <SpellLink id={SPELLS.TIGER_PALM} /> to heal via{' '}
       <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />.

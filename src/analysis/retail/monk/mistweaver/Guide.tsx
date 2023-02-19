@@ -12,10 +12,11 @@ import * as AplCheck from './modules/core/AplCheck';
 import AplChoiceDescription from './modules/core/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
+import filterCelestial from './modules/core/ExplainCelestial';
 
 const explainers = {
-  overcast: defaultExplainers.overcastFillers,
-  dropped: defaultExplainers.droppedRule,
+  overcast: filterCelestial(defaultExplainers.overcastFillers),
+  dropped: filterCelestial(defaultExplainers.droppedRule),
 };
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
@@ -64,7 +65,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <strong>
             It is important to note that using abilites like{' '}
             <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> have their own priority that
-            supercedes the priority list below.
+            supercedes the priority list below. This section omits all casts in those windows.
           </strong>
         </p>
         <SubSection>

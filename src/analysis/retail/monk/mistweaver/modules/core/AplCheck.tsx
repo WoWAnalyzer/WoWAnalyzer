@@ -77,13 +77,13 @@ const rotation_rm_at = build([
       cnd.and(
         cnd.hasTalent(talents.FAELINE_STOMP_TALENT),
         cnd.hasTalent(talents.UPWELLING_TALENT),
-        cnd.spellAvailable(talents.ESSENCE_FONT_TALENT, true),
+        cnd.spellCooldownRemaining(talents.ESSENCE_FONT_TALENT, { atLeast: 0.00001 }),
         atMissingCondition,
       ),
       (tense) => (
         <>
-          and <SpellLink id={talents.ESSENCE_FONT_TALENT} /> {tenseAlt(tense, 'is', 'was')} on
-          cooldown
+          <SpellLink id={talents.ESSENCE_FONT_TALENT} /> {tenseAlt(tense, 'is', 'was')} on cooldown
+          and <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> is missing or about to expire.
         </>
       ),
     ),
