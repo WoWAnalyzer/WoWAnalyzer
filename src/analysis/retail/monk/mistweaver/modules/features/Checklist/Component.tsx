@@ -245,7 +245,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
               <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> cancelled casts
             </>
           }
-          thresholds={thresholds.EssenceFontCancelled}
+          thresholds={thresholds.essenceFontCancelled}
         />
         <Requirement
           name={
