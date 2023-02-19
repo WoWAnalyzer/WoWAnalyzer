@@ -214,7 +214,7 @@ class ManaTea extends Analyzer {
   }
 
   get guideCastBreakdown() {
-    const explanationPercent = 50;
+    const explanationPercent = 55;
     const explanation = (
       <p>
         <strong>
@@ -263,7 +263,7 @@ class ManaTea extends Analyzer {
               </>
             ),
             result: <PerformanceMark perf={manaPerf} />,
-            details: <>{formatNumber(cast.manaSaved)} mana saved</>,
+            details: <>{formatNumber(cast.manaSaved)}</>,
           });
           const overhealingPercent = this.getCastOverhealingPercent(cast);
           let overhealingPerf = QualitativePerformance.Good;
@@ -293,11 +293,11 @@ class ManaTea extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  Avg number of <SpellLink id={SPELLS.VIVIFY} /> cleaves per cast
+                  Avg <SpellLink id={SPELLS.VIVIFY} /> cleaves per cast
                 </>
               ),
               result: <PerformanceMark perf={vivCleavePerf} />,
-              details: <>{avgCleaves.toFixed(1)} avg cleaves</>,
+              details: <>{avgCleaves.toFixed(1)}</>,
             });
             allPerfs.push(vivCleavePerf);
           }

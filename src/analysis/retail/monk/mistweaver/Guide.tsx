@@ -42,8 +42,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
-        {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
-          modules.manaTea.guideCastBreakdown}
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
@@ -51,6 +49,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
         {modules.revival.guideCastBreakdown}
+        {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
+          modules.manaTea.guideCastBreakdown}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <Section title="Core Rotation">
