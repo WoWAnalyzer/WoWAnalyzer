@@ -19,6 +19,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 2, 19), 'Added a workaround for handling of combatantinfo on Algalon, Yogg-Saron, and Hodir in WotLK Classic.', emallson),
   change(date(2023, 2, 9), <>Add <ItemLink id={ITEMS.POTION_OF_SHOCKING_DISCLOSURE_R3.id} /> to combat potion list.</>, ToppleTheNun),
   change(date(2023, 2, 6), 'Rewrite test utilities in TypeScript.', ToppleTheNun),
   change(date(2023, 2, 3), 'Remove old Classic Spec data for unsupported specs.', jazminite),
