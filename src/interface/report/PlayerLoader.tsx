@@ -102,6 +102,11 @@ const fcReducer = (state: State, action: Action): State => {
   }
 };
 
+/**
+ * This is a workaround for certain fights in classic having RP (especially buggy/inconsistent RP) split off into a separate dummy fight.
+ *
+ * Eventually, this will be obviated by switching to the PlayerDetails query of the v2 API, but we aren't there yet.
+ */
 async function fetchCombatantsWithClassicRP(
   report: Report,
   fight: WCLFight,
