@@ -9,7 +9,6 @@ import Events, { EventType, AnyEvent, HealEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Combatants from 'parser/shared/modules/Combatants';
-import * as SPELL_EFFECTS from '../../restoration/modules/SPELL_EFFECTS';
 import { WCLEventsResponse } from 'common/WCL_TYPES';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -186,7 +185,7 @@ class Revitalize extends Analyzer {
         loader={this.load.bind(this)}
         position={STATISTIC_ORDER.UNIMPORTANT(89)}
         label="Revitalize"
-        icon={<SpellIcon id={SPELL_EFFECTS.REVITALIZE_MANA} />}
+        icon={<SpellIcon id={SPELLS.REVITALIZE_MANA} />}
         value={
           <>
             {this.totalProcs} procs{' '}

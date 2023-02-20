@@ -28,6 +28,7 @@ import WildGrowth from './modules/spells/WildGrowth';
 import HotCountGraph from './modules/features/HotCountGraph';
 import Innervate from './modules/spells/Innervate';
 import Lifebloom from './modules/spells/Lifebloom';
+import OmenOfClarity from '../shared/talents/OmenOfClarity';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -62,6 +63,7 @@ class CombatLogParser extends BaseCombatLogParser {
     celestialFocus: CelestialFocus,
     giftOfTheEarthmother: GiftOfTheEarthmother,
     revitalise: Revitalize,
+    omenOfClarity: OmenOfClarity,
   };
 
   static guide = Guide;

@@ -33,6 +33,7 @@ import handleApiError from './handleApiError';
 import PlayerSelection from './PlayerSelection';
 import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
 import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
+import { isClassicExpansion } from 'game/Expansion';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
@@ -101,6 +102,33 @@ const fcReducer = (state: State, action: Action): State => {
   }
 };
 
+/**
+ * This is a workaround for certain fights in classic having RP (especially buggy/inconsistent RP) split off into a separate dummy fight.
+ *
+ * Eventually, this will be obviated by switching to the PlayerDetails query of the v2 API, but we aren't there yet.
+ */
+async function fetchCombatantsWithClassicRP(
+  report: Report,
+  fight: WCLFight,
+): Promise<CombatantInfoEvent[]> {
+  const currentCombatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
+
+  if (
+    currentCombatants.length === 0 &&
+    isClassicExpansion(wclGameVersionToExpansion(report.gameVersion))
+  ) {
+    // no combatants found, but due to RP handling sometimes they are present in a previous fight
+    const prevFight = report.fights.find((other) => other.id === fight.id - 1);
+    if (prevFight && prevFight.boss === 0 && prevFight.originalBoss === fight.boss) {
+      return fetchCombatants(report.code, prevFight.start_time, prevFight.end_time) as Promise<
+        CombatantInfoEvent[]
+      >;
+    }
+  }
+
+  return currentCombatants as CombatantInfoEvent[];
+}
+
 const PlayerLoader = ({ children }: Props) => {
   const [{ error, combatants, combatantsFightId, tanks, healers, dps, ranged, ilvl }, dispatchFC] =
     useReducer(fcReducer, defaultState);
@@ -118,10 +146,9 @@ const PlayerLoader = ({ children }: Props) => {
       }
 
       try {
-        const combatants = (await fetchCombatants(
-          report.code,
-          fight.start_time,
-          fight.end_time,
+        const combatants = (await fetchCombatantsWithClassicRP(
+          selectedReport,
+          selectedFight,
         )) as CombatantInfoEvent[];
 
         let combatantsWithGear = 0;

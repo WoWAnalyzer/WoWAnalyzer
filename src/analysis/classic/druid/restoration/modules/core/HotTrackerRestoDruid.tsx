@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 import HotTracker, { HotInfo } from 'parser/shared/modules/HotTracker';
 
 class HotTrackerRestoDruid extends HotTracker {

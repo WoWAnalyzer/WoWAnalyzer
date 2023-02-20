@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 import SpellLink from 'interface/SpellLink';
 import { Options } from 'parser/core/Module';
 import BuffCountGraph, { GraphedSpellSpec } from 'parser/shared/modules/BuffCountGraph';

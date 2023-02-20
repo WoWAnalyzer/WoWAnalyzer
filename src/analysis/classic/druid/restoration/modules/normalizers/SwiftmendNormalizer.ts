@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
