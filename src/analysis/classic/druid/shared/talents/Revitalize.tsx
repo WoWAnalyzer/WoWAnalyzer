@@ -3,9 +3,9 @@ import fetchWcl from 'common/fetchWclApi';
 import { formatNumber } from 'common/format';
 import { SpellIcon } from 'interface';
 import { SpecIcon } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import { EventType, AnyEvent } from 'parser/core/Events';
+import Events, { EventType, AnyEvent, HealEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -13,6 +13,7 @@ import * as SPELL_EFFECTS from '../../restoration/modules/SPELL_EFFECTS';
 import { WCLEventsResponse } from 'common/WCL_TYPES';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import SPELLS from 'common/SPELLS/classic/druid';
 
 interface ResourcesByPlayer {
   [playerId: number]: {
@@ -24,6 +25,10 @@ interface ResourcesByPlayer {
   };
 }
 
+function truncTimestamp(event: AnyEvent) {
+  return Math.floor(event.timestamp / 100);
+}
+
 class Revitalize extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -31,10 +36,24 @@ class Revitalize extends Analyzer {
 
   protected combatants!: Combatants;
   resourcesByPlayer: ResourcesByPlayer = {};
+  eligibleCasts: { [timestamp: number]: { [playerId: number]: HealEvent } } = {};
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.talentPoints[2] >= 43;
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.WILD_GROWTH]),
+      this.onHealCast,
+    );
+  }
+
+  onHealCast(event: HealEvent) {
+    const time = truncTimestamp(event);
+    if (!this.eligibleCasts[time]) {
+      this.eligibleCasts[time] = {};
+    }
+
+    this.eligibleCasts[time][event.targetID] = event;
   }
 
   get filter() {
@@ -73,7 +92,11 @@ class Revitalize extends Analyzer {
   }
 
   resourceEventReduce = (totals: ResourcesByPlayer, evt: AnyEvent) => {
-    if (evt.type !== EventType.ResourceChange) {
+    if (
+      evt.type !== EventType.ResourceChange || // Not a resource event
+      !this.eligibleCasts[truncTimestamp(evt)] || // truncated timestamp does not match a rejuv/wild growth heal
+      !this.eligibleCasts[truncTimestamp(evt)][evt.targetID] // no heal for truncated timestamp for the given target
+    ) {
       return totals;
     }
 
