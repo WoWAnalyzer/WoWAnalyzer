@@ -15,6 +15,7 @@ export { default as spellCharges } from './spellCharges';
 export { spellFractionalCharges } from './spellFractionalCharges';
 export { default as buffStacks } from './buffStacks';
 export { default as targetsHit } from './targetsHit';
+export { default as targetsHealed } from './targetsHealed';
 export { debuffPresent } from './debuffPresent';
 export { debuffMissing } from './debuffMissing';
 export { hasCovenant } from './hasCovenant';

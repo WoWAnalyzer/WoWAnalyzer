@@ -268,7 +268,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: VIVIFY,
     linkingEventId: [SPELLS.VIVIFY.id],
-    linkingEventType: [EventType.Cast],
+    linkingEventType: [EventType.Cast, EventType.BeginChannel],
     referencedEventId: [SPELLS.VIVIFY.id],
     referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
