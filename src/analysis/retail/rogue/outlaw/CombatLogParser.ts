@@ -40,6 +40,7 @@ import InvigoratingShadowdust from 'analysis/retail/rogue/shared/shadowlands/leg
 import Audacity from './modules/spells/Audacity';
 import AudacityDamageTracker from './modules/spells/AudacityDamageTracker';
 import FanTheHammerNormalizer from './normalizers/FanTheHammerNormalizer';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -103,6 +104,8 @@ class CombatLogParser extends CoreCombatLogParser {
       },
     ] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
