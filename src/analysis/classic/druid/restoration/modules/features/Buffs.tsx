@@ -1,6 +1,5 @@
 import CoreAuras from 'parser/core/modules/Auras';
-import SPELLS from 'common/SPELLS/classic';
-import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
+import SPELLS from 'common/SPELLS/classic/druid';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import ITEM_BUFFS from 'game/classic/ITEM_BUFFS';
 
@@ -13,7 +12,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELL_EFFECTS.CLEARCASTING,
+        spellId: SPELLS.CLEARCASTING.id,
         timelineHighlight: true,
       },
       // Do not adjust the lines below

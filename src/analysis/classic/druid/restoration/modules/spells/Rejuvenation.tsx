@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -178,6 +178,8 @@ class Rejuvenation extends Analyzer {
         Don't cast it on targets with a high duration Rejuvenation - you'll clip duration. Some
         high-overheal Rejuvs are unavoidable due to heal sniping, but if a large proportion of them
         are you might be casting too much.
+        <br />
+        Rejuvenation can proc <SpellLink id={SPELLS.REVITALIZE_MANA} />
       </p>
     );
 
