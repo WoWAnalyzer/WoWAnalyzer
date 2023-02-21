@@ -39,6 +39,7 @@ import BladeRush from './modules/talents/BladeRush';
 import InvigoratingShadowdust from 'analysis/retail/rogue/shared/shadowlands/legendaries/InvigoratingShadowdust';
 import Audacity from './modules/spells/Audacity';
 import AudacityDamageTracker from './modules/spells/AudacityDamageTracker';
+import FanTheHammerNormalizer from './normalizers/FanTheHammerNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -48,6 +49,9 @@ class CombatLogParser extends CoreCombatLogParser {
     buffs: Buffs,
     spellUsable: SpellUsable,
     checklist: Checklist,
+
+    //Normalizers
+    fanTheHammerNormalizer: FanTheHammerNormalizer,
 
     //Resource
     comboPointTracker: OutlawComboPointTracker,
