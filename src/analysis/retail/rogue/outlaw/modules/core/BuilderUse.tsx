@@ -6,7 +6,7 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { BUILDERS } from '../../constants';
+import { BUILDERS, getMaxComboPoints } from '../../constants';
 import Finishers from '../features/Finishers';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/rogue';
@@ -68,34 +68,43 @@ export default class BuilderUse extends Analyzer {
   private onResourceChange(event: ResourceChangeEvent) {
     this.totalBuilderCasts += 1;
 
-    if(!this.IsBuilderCPEfficient(event)){
-        this.wastedBuilderCasts +=1;
+    if (!this.IsBuilderCPEfficient(event)) {
+      this.wastedBuilderCasts += 1;
     }
   }
 
   public IsBuilderCPEfficient(event: ResourceChangeEvent) {
     const cpGain = event.resourceChange - event.waste;
-    const cpAtEvent = this.finishers.maximumComboPoints - cpGain;
+    const cpAtEvent = getMaxComboPoints(this.selectedCombatant) - cpGain;
     const spellID = event.ability.guid;
-    const target = this.enemies.getEntity(event);
-
-    if (!target) {
+    //const target = this.enemies.getEntity(event);
+    //const timestamp = this.owner.formatTimestamp(event.timestamp)
+    //console.log("Casting ", event.ability.name," event: ", event);
+    // if (!event.targetID || !target) {
+    //   console.warn("no target");
+    //   return false;
+    // }
+    //console.log("cast", event.ability);
+    if (cpAtEvent > this.finishers.recommendedFinisherPoints()) {
+      //console.log("At", timestamp, " Cast at max cp ", event.ability.name);
       return false;
-    }
-
-    if(cpAtEvent > this.finishers.recommendedFinisherPoints())
-    {
-      return false;
-    }
-    else if (cpAtEvent == this.finishers.recommendedFinisherPoints())
-    {
+    } else if (cpAtEvent === this.finishers.recommendedFinisherPoints()) {
       //this is neutral
-      if(!(spellID == SPELLS.SINISTER_STRIKE.id && this.selectedCombatant.hasBuff(SPELLS.BROADSIDE.id))
-      // Ambushes at 6cp with tier are correct
-      || !(spellID == SPELLS.AMBUSH.id && this.selectedCombatant.hasBuff(SPELLS.OUTLAW_ROGUE_TIER_28_2P_SET_BONUS.id, null, 200))
-      // GS debuff maintainance is more important than cp overcap if the debuff is down
-      || !(spellID == talents.GHOSTLY_STRIKE_TALENT.id && target.getRemainingBuffTimeAtTimestamp(talents.GHOSTLY_STRIKE_TALENT.id, 10000, 13000,event.timestamp)<=1))
-      {
+      if (
+        !(
+          spellID === SPELLS.SINISTER_STRIKE.id &&
+          !this.selectedCombatant.hasBuff(SPELLS.BROADSIDE.id)
+        ) &&
+        // Ambushes at 6cp with tier are correct
+        !(
+          spellID === SPELLS.AMBUSH.id &&
+          this.selectedCombatant.hasBuff(SPELLS.OUTLAW_ROGUE_TIER_28_2P_SET_BONUS.id, null, 200)
+        ) &&
+        // GS debuff maintainance is more important than cp overcap if the debuff is down
+        !(spellID === talents.GHOSTLY_STRIKE_TALENT.id)
+      ) {
+        // try to find a way to make this work at some point&& target.getRemainingBuffTimeAtTimestamp(talents.GHOSTLY_STRIKE_TALENT.id, 10000, 13000,event.timestamp)<=1))
+        //console.log("At", timestamp, " Cast at 6 cp ", event.ability.name);
         return false;
       }
     }
