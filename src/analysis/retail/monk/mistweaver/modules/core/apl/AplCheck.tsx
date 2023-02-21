@@ -57,6 +57,13 @@ const VIVIFY_6_REMS = {
   ),
 };
 
+const SOOM_BEFORE_VIVIFY = {
+  spell: SPELLS.VIVIFY,
+  condition: cnd.or(
+      cnd.lastSpellCast(talents.SOOTHING_MIST_TALENT),
+    ),
+}
+
 const BLACKOUT_KICK = {
   spell: SPELLS.BLACKOUT_KICK,
   condition: cnd.optional(
@@ -84,6 +91,10 @@ const commonTop = [
     ),
   },
   talents.RISING_SUN_KICK_TALENT,
+  {
+    spell: talents.RENEWING_MIST_TALENT,
+    condition: cnd.optional(cnd.spellAvailable(talents.RENEWING_MIST_TALENT),),
+  }, 
 ];
 
 const commonBottom = [talents.CHI_WAVE_TALENT];
@@ -158,6 +169,31 @@ const rotation_rm_at_upw = build([
   ...commonBottom,
 ]);
 
+const rotation_rm_cf_shaohaos = build([
+   {
+    spell: talents.RENEWING_MIST_TALENT,
+    condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
+      <>
+        {' '}
+        you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} />
+      </>
+    )),
+  },
+  ...commonTop,
+  SOOM_BEFORE_VIVIFY,
+  VIVIFY_6_REMS,
+  talents.ESSENCE_FONT_TALENT,
+  BLACKOUT_KICK,
+  talents.CHI_BURST_TALENT,
+  {
+    spell: SPELLS.TIGER_PALM,
+    condition: cnd.optional(
+      cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
+    ),
+  },
+  ...commonBottom,
+]);
+
 const rotation_fallback = build([...commonTop, ...commonBottom]);
 
 export enum MistweaverApl {
@@ -193,7 +229,7 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
 const apls: Record<MistweaverApl, Apl> = {
   [MistweaverApl.RisingMistAncientTeachingsShaohaos]: rotation_rm_at_sg,
   [MistweaverApl.RisingMistAncientTeachingsUpwellFls]: rotation_rm_at_upw,
-  [MistweaverApl.RisingMistCloudedFocusShaohaos]: rotation_fallback, //todo
+  [MistweaverApl.RisingMistCloudedFocusShaohaos]: rotation_rm_cf_shaohaos,
   [MistweaverApl.Fallback]: rotation_fallback,
 };
 
