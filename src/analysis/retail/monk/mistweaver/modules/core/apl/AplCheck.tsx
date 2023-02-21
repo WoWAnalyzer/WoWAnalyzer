@@ -3,6 +3,7 @@ import { suggestion } from 'parser/core/Analyzer';
 import aplCheck, { Apl, build, CheckResult, PlayerInfo, tenseAlt } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
+import * as mwCnd from './conditions';
 import talents from 'common/TALENTS/monk';
 import { AnyEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
@@ -29,7 +30,7 @@ const SHEILUNS_SHAOHAOS = {
 const VIVIFY_8_REMS = {
   spell: SPELLS.VIVIFY,
   condition: cnd.describe(
-    cnd.targetsHealed(
+    mwCnd.targetsHealed(
       { atLeast: 9 }, // 8 rems + 1 primary target
     ),
     (tense) => (
@@ -44,7 +45,7 @@ const VIVIFY_8_REMS = {
 const VIVIFY_6_REMS = {
   spell: SPELLS.VIVIFY,
   condition: cnd.describe(
-    cnd.targetsHealed(
+    mwCnd.targetsHealed(
       { atLeast: 7 }, // 6 rems + 1 primary target
     ),
     (tense) => (
@@ -58,13 +59,15 @@ const VIVIFY_6_REMS = {
 
 const BLACKOUT_KICK = {
   spell: SPELLS.BLACKOUT_KICK,
-  condition: cnd.optional(cnd.describe(
-    cnd.spellCooldownRemaining(talents.RISING_SUN_KICK_TALENT, { atLeast: 3500, atMost: 12000 }),
-    (tense) => (
-      <>
-        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> has more than half its cooldown remaining
-      </>
-    ),
+  condition: cnd.optional(
+    cnd.describe(
+      cnd.spellCooldownRemaining(talents.RISING_SUN_KICK_TALENT, { atLeast: 3500, atMost: 12000 }),
+      (tense) => (
+        <>
+          <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> has more than half its cooldown
+          remaining
+        </>
+      ),
     ),
   ),
 };
@@ -94,11 +97,7 @@ const EF_AT = {
   condition: atMissingCondition,
 };
 
-const RM_AT_CORE = [
-  VIVIFY_8_REMS,
-  EF_AT,
-  VIVIFY_6_REMS
-];
+const RM_AT_CORE = [VIVIFY_8_REMS, EF_AT, VIVIFY_6_REMS];
 
 const rotation_rm_at_sg = build([
   {
@@ -117,7 +116,9 @@ const rotation_rm_at_sg = build([
   talents.CHI_BURST_TALENT,
   {
     spell: SPELLS.TIGER_PALM,
-    condition: cnd.optional(cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, {atLeast: 0, atMost: 3})),
+    condition: cnd.optional(
+      cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
+    ),
   },
   ...commonBottom,
 ]);
