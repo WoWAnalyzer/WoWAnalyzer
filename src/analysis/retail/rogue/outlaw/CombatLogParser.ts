@@ -13,6 +13,8 @@ import {
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import EnergyGraph from 'analysis/retail/rogue/shared/EnergyGraph';
+import ComboPointGraph from 'analysis/retail/rogue/shared/ComboPointGraph';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -58,10 +60,12 @@ class CombatLogParser extends CoreCombatLogParser {
     comboPointTracker: OutlawComboPointTracker,
     comboPointDetails: ComboPointDetails,
     comboPoints: ComboPoints,
+    comboPointGraph: ComboPointGraph,
     energyTracker: EnergyTracker,
     energyCapTracker: OutlawEnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
+    energyGraph: EnergyGraph,
     spellEnergyCost: SpellEnergyCost,
 
     //Legendaries
