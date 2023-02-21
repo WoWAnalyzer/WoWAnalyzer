@@ -8,11 +8,11 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import * as AplCheck from './modules/core/AplCheck';
-import AplChoiceDescription from './modules/core/AplChoiceDescription';
+import * as AplCheck from './modules/core/apl/AplCheck';
+import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
-import filterCelestial from './modules/core/ExplainCelestial';
+import filterCelestial from './modules/core/apl/ExplainCelestial';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),
