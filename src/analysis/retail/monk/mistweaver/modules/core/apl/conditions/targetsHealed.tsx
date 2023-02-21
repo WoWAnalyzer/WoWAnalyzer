@@ -38,18 +38,15 @@ export default function targetsHealed(range: Range, options?: Partial<Options>):
       const targets = new Set();
       const targetSpellId = targetSpell ? targetSpell.id : spell.id;
       let related = GetRelatedEvents(event as CastEvent, event.ability.name);
-      if (related?.length === 0 && event.type === EventType.BeginChannel) {
-        related = GetRelatedEvents(event.trigger as CastEvent, event.ability.name);
-        if (
-          related?.length === 0 &&
-          event.trigger?.type === EventType.BeginCast &&
-          event.trigger.castEvent
-        ) {
-          related = GetRelatedEvents(event.trigger.castEvent, event.ability.name);
-        }
+      if (
+        related?.length === 0 &&
+        event.type === EventType.BeginChannel &&
+        event.trigger?.type === EventType.BeginCast &&
+        event.trigger.castEvent
+      ) {
+        related = GetRelatedEvents(event.trigger.castEvent, event.ability.name);
       }
       if (event.ability.guid === targetSpellId && related.length > 0) {
-        //console.log(formatDuration(event.timestamp-1649044) + " Event links found.");
         for (const linkedEvent of related) {
           targets.add(linkedEvent);
         }
