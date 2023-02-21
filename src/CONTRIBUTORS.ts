@@ -2001,7 +2001,10 @@ export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
 };
-
+export const Pilsung: Contributor = {
+  nickname: 'pilsung',
+  github: 'Ac1dBomb',
+};
 export const Jonfanz: Contributor = {
   nickname: 'jonfanz',
   github: 'jharrell',
