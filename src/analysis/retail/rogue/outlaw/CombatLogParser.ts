@@ -43,6 +43,8 @@ import Audacity from './modules/spells/Audacity';
 import AudacityDamageTracker from './modules/spells/AudacityDamageTracker';
 import FanTheHammerNormalizer from './normalizers/FanTheHammerNormalizer';
 import Guide from './Guide';
+import BuilderUse from './modules/core/BuilderUse';
+import FinisherUse from './modules/core/FinisherUse';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -67,6 +69,10 @@ class CombatLogParser extends CoreCombatLogParser {
     energy: Energy,
     energyGraph: EnergyGraph,
     spellEnergyCost: SpellEnergyCost,
+
+    // Core
+    builderUse: BuilderUse,
+    finisherUse: FinisherUse,
 
     //Legendaries
     invigoratingShadowdust: InvigoratingShadowdust,
