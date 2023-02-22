@@ -2103,3 +2103,10 @@ export const Klamuz: Contributor = {
     },
   ],
 };
+
+export const zac: Contributor = {
+  nickname: 'zac',
+  github: 'Zac-oihfdwrrtuinvbcp',
+  discord: 'zac#4930',
+  avatar: avatar('zac-avatar.png'),
+};

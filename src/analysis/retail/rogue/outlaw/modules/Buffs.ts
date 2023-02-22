@@ -15,9 +15,14 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: TALENTS.BLADE_RUSH_TALENT.id,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.OPPORTUNITY.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.AUDACITY_TALENT_BUFF.id,
         timelineHighlight: true,
       },
 
