@@ -16,7 +16,9 @@ import {
   HARDCAST,
   RIPTIDE_PWAVE,
   HEALING_WAVE_PWAVE,
+  UNLEASH_LIFE,
 } from '../constants';
+import SPELLS from 'common/SPELLS';
 
 const CAST_BUFFER_MS = 100;
 const PWAVE_TRAVEL_MS = 1000;
@@ -104,6 +106,19 @@ const EVENT_LINKS: EventLink[] = [
       return !HasRelatedEvent(linkingEvent, HARDCAST);
     },
   },
+  //Unleash life linking
+  {
+    linkRelation: UNLEASH_LIFE,
+    linkingEventId: [talents.UNLEASH_LIFE_TALENT.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [talents.RIPTIDE_TALENT.id, talents.HEALING_WAVE_TALENT.id, SPELLS.HEALING_SURGE.id, talents.CHAIN_HEAL_TALENT.id, talents.HEALING_RAIN_TALENT.id, talents.DOWNPOUR_TALENT.id, talents.WELLSPRING_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
+    }
+  }
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {

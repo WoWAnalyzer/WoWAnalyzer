@@ -16,6 +16,7 @@ import RiptideTracker from '../core/RiptideTracker';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
 import BoringValue from 'parser/ui/BoringValueText';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -56,6 +57,10 @@ class PrimordialWave extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this._waveHeal,
     );
+  }
+
+  get totalHealing() {
+    return this.healing + this.riptideHealing + this.waveHealing;
   }
 
   get averageHealingWaveTargets() {
@@ -154,8 +159,18 @@ class PrimordialWave extends Analyzer {
     return <DonutChart items={items} />;
   }
 
+  subStatistic() {
+    return (
+       <StatisticListBoxItem
+        title={<SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
+  }
+
   statistic() {
-    const totalHealing = this.healing + this.riptideHealing + this.waveHealing;
     return (
       <Statistic
         size="flexible"
@@ -189,7 +204,7 @@ class PrimordialWave extends Analyzer {
           {this.renderPrimoridalWaveChart()}
         </div>
         <BoringValue label="">
-          <ItemHealingDone amount={totalHealing} />
+          <ItemHealingDone amount={this.totalHealing} />
         </BoringValue>
       </Statistic>
     );

@@ -15,6 +15,8 @@ import Torrent from './Torrent';
 import Undulation from './Undulation';
 import UnleashLife from './UnleashLife';
 import Wellspring from './Wellspring';
+import PrimordialWave from './PrimordialWave';
+import PrimalTideCore from './PrimalTideCore';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
@@ -29,6 +31,8 @@ class TalentStatisticBox extends Analyzer {
     ascendance: Ascendance,
     wellspring: Wellspring,
     highTide: HighTide,
+    primordialWave: PrimordialWave,
+    primalTideCore: PrimalTideCore,
   };
 
   protected torrent!: Torrent;
@@ -42,6 +46,55 @@ class TalentStatisticBox extends Analyzer {
   protected ascendance!: Ascendance;
   protected wellspring!: Wellspring;
   protected highTide!: HighTide;
+  protected primordialWave!: PrimordialWave;
+  protected primalTideCore!: PrimalTideCore;
+
+  buildTalentList(){
+    const talentList= [];
+      if(this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT)) {
+          talentList.push(this.torrent.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT)) {
+        talentList.push(this.unleashLife.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.UNDULATION_TALENT)) {
+        talentList.push(this.undulation.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT)){
+        talentList.push(this.deluge.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT)) {
+        talentList.push(this.earthenWallTotem.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT)) {
+        talentList.push(this.naturesGuardian.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)) {
+        talentList.push(this.downpour.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT)) {
+        talentList.push(this.cloudburstTotem.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT)) {
+        talentList.push(this.highTide.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT)) {
+        talentList.push(this.wellspring.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT)) {
+        talentList.push(this.ascendance.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT)) {
+        talentList.push(this.primordialWave.subStatistic());
+      }
+      if(this.selectedCombatant.hasTalent(TALENTS.PRIMAL_TIDE_CORE_TALENT)) {
+        talentList.push(this.primalTideCore.subStatistic());
+      }
+    const sortedTalentList = talentList.sort(
+      (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),
+    );
+    return sortedTalentList;
+  }
 
   statistic() {
     return (
@@ -65,37 +118,7 @@ class TalentStatisticBox extends Analyzer {
         bodyStyle={{}} // idk
       >
         <div style={{ borderBottom: 0, marginBottom: 0, paddingBottom: 0 }} />
-        {this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT)
-          ? this.torrent.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT)
-          ? this.unleashLife.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.UNDULATION_TALENT)
-          ? this.undulation.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.DELUGE_TALENT) ? this.deluge.subStatistic() : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.EARTHEN_WALL_TOTEM_TALENT)
-          ? this.earthenWallTotem.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.NATURES_GUARDIAN_TALENT)
-          ? this.naturesGuardian.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT)
-          ? this.downpour.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.CLOUDBURST_TOTEM_TALENT)
-          ? this.cloudburstTotem.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT)
-          ? this.highTide.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT)
-          ? this.wellspring.subStatistic()
-          : ''}
-        {this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT)
-          ? this.ascendance.subStatistic()
-          : ''}
+        {this.buildTalentList()}
       </StatisticsListBox>
     );
   }

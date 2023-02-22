@@ -7,6 +7,7 @@ export const RIPTIDE_PWAVE = 'PrimordialWave';
 export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
 export const PRIMAL_TIDE_CORE = 'PrimalTideCore';
 export const APPLIED_HEAL = 'AppliedHeal';
+export const UNLEASH_LIFE = 'UnleashLife';
 
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',

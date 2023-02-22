@@ -11,6 +11,8 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { SpellLink } from 'interface';
+import { formatPercentage } from 'common/format';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class PrimalTideCore extends Analyzer {
   static dependencies = {
@@ -62,6 +64,16 @@ class PrimalTideCore extends Analyzer {
       this.ptcHealing += event.amount + (event.absorbed || 0);
       this.ptcHealing += event.overheal || 0;
     }
+  }
+    subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={talents.PRIMAL_TIDE_CORE_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.ptcHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic() {
