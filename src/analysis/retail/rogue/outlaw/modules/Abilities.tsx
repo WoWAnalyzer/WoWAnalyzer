@@ -136,7 +136,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 1,
         charges: 3,
         enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
