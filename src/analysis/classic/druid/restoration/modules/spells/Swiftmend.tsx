@@ -14,11 +14,15 @@ import { getRemovedHot } from 'analysis/classic/druid/restoration/modules/normal
 import HotTrackerRestoDruid from 'analysis/classic/druid/restoration/modules/core/HotTrackerRestoDruid';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { calculateHealTargetHealthPercent } from 'parser/core/EventCalculateLib';
 import { formatPercentage } from 'common/format';
 
-const TRIAGE_THRESHOLD = 0.5;
-const HIGH_VALUE_HOTS = [SPELLS.REJUVENATION.id, SPELLS.WILD_GROWTH.id, SPELLS.LIFEBLOOM];
+const HIGH_VALUE_HOTS = [SPELLS.REJUVENATION.id, SPELLS.REGROWTH];
+
+function calculateOverhealPercent(evt: HealEvent): number {
+  const overheal = evt.overheal || 0;
+
+  return overheal / (evt.amount + overheal);
+}
 
 /**
  * Tracks things related to casting Swiftmend
@@ -34,8 +38,6 @@ class Swiftmend extends Analyzer {
 
   /** Hardcast healing only so we can get mana effic without Convoke messing with us */
   hardcastSwiftmendHealing: number = 0;
-  // /** Info about each Swiftmend cast */
-  // swiftmendCastInfo: CastInfo[] = [];
   /** Box row entry for each Swiftmend cast */
   castEntries: BoxRowEntry[] = [];
 
@@ -60,18 +62,13 @@ class Swiftmend extends Analyzer {
 
   onSwiftmendCast(event: CastEvent) {
     const directHeal = getDirectHeal(event);
-    const targetHealthPercent = directHeal
-      ? calculateHealTargetHealthPercent(directHeal, true)
-      : undefined;
+    const overhealPercent = directHeal ? calculateOverhealPercent(directHeal) : 0;
     const target = this.combatants.getEntity(event);
     if (!target) {
       console.warn("Couldn't find target for Swiftmend cast", event);
       return; // can't do further handling without target
     }
-    const wasTriage = targetHealthPercent && targetHealthPercent <= TRIAGE_THRESHOLD;
-    const targetHealthPercentText = targetHealthPercent
-      ? formatPercentage(targetHealthPercent, 0)
-      : 'unknown';
+    const overhealPercentText = formatPercentage(overhealPercent, 0);
 
     /*
      * Build value and tooltip text depending on if player had VI
@@ -90,8 +87,10 @@ class Swiftmend extends Analyzer {
 
     const removedHighValue =
       HIGH_VALUE_HOTS.find((id) => id === removedHotHeal?.ability.guid) !== undefined;
-    if (wasTriage || !removedHighValue) {
+    if (overhealPercent === 0.0) {
       value = QualitativePerformance.Good;
+    } else if (overhealPercent < 0.15 && !removedHighValue) {
+      value = QualitativePerformance.Ok;
     } else {
       value = QualitativePerformance.Fail;
     }
@@ -109,8 +108,8 @@ class Swiftmend extends Analyzer {
       <>
         @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
         <br />
-        targetting <strong>{target.name}</strong> w/ <strong>{targetHealthPercentText}%</strong>{' '}
-        health
+        targetting <strong>{target.name}</strong> w/ <strong>{overhealPercentText}%</strong>{' '}
+        overheal
         <br />
         {unglyphed && hotChangeText}
       </>
@@ -122,21 +121,27 @@ class Swiftmend extends Analyzer {
   /** Guide subsectopm describing the proper usage of Swiftmend */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink id={SPELLS.SWIFTMEND.id} />
-        </b>{' '}
-        is our emergency heal that removes a HoT on its target, hurting overall throughput. Use only
-        on targets who need urgent healing.
-        <br />
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.SWIFTMEND.id} />
+          </b>{' '}
+          is our emergency heal that removes a HoT on its target, hurting overall throughput. Use
+          only on targets who need urgent healing.
+        </p>
+        <p>
+          <strong>Note:</strong> If you are not using <SpellLink id={SPELLS.GLYPH_OF_SWIFTMEND} />,
+          you should. The healing, casting time, and mana gains from not having your Rejuv or
+          Regrowth consumed is invaluable.
+        </p>
+      </>
     );
 
     // Build up description of chart, which varies based on talents
     let chartDescription = ' - ';
     // no procs
     chartDescription +=
-      'Green is a fine cast, Red is a non-triage (>50% health) cast that removes a WG or Rejuv.';
+      'Green is a fine cast, Yellow is a cast with <15% overheal, and Red is a non-triage (>15% overheal) cast that removes a Rejuv or Regrowth.';
     chartDescription += ' Mouseover for more details.';
 
     const data = (

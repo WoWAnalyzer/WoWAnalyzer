@@ -124,16 +124,19 @@ class Lifebloom extends Analyzer {
   /** Guide subsectopm describing the proper usage of Swiftmend */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink id={SPELLS.LIFEBLOOM.id} />
-        </b>{' '}
-        is a heal-over-time effect that heals every second for 7 seconds and stacks up to 3 times.
-        When it expires it heals for an additional amount and refunds half the mana cost.
-        <br />
-        Casting this during a <SpellLink id={SPELLS.CLEARCASTING} /> or{' '}
-        <ItemLink id={ITEMS.SOUL_PRESERVER.id} /> proc, will generate mana.
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.LIFEBLOOM.id} />
+          </b>{' '}
+          is a heal-over-time effect that heals every second for 7 seconds and stacks up to 3 times.
+          When it expires it heals for an additional amount and refunds half the mana cost.
+        </p>
+        <p>
+          Casting this during a <SpellLink id={SPELLS.CLEARCASTING} /> or{' '}
+          <ItemLink id={ITEMS.SOUL_PRESERVER.id} /> proc, will generate mana.
+        </p>
+      </>
     );
 
     // Build up description of chart, which varies based on talents
