@@ -16,8 +16,11 @@ export const ROLL_THE_BONES_BUFFS: Spell[] = [
 export const ROLL_THE_BONES_DURATION = 30000;
 
 export const getMaxComboPoints = (c: Combatant) => {
-  return 5 + c.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT) +
-      c.getTalentRank(TALENTS.SECRET_STRATAGEM_TALENT);
+  return (
+    5 +
+    c.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT) +
+    c.getTalentRank(TALENTS.DEVIOUS_STRATAGEM_TALENT)
+  );
 };
 
 export const BUILDERS: Spell[] = [
