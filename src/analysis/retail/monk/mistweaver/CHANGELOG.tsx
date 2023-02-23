@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 23), <>Fixed inconsistent QualitativePerformance marks for <SpellLink id={SPELLS.VIVIFY.id}/> casts in the Guide.</>, Vohrr),
   change(date(2023, 2, 21), <>Added Initial version of <SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}/> apl.</>, Vohrr),
   change(date(2023, 2, 19), <>Added better APL handling for <SpellLink id={SPELLS.BLACKOUT_KICK}/> and <SpellLink id={SPELLS.VIVIFY.id}/>.</>, Vohrr),
   change(date(2023, 2, 18), <>Added pt 1 of the Core Rotation Section of the guide - <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> / <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id}/> build rotation.</>, Vohrr),
