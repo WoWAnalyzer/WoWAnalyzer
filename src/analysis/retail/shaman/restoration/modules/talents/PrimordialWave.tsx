@@ -161,7 +161,7 @@ class PrimordialWave extends Analyzer {
 
   subStatistic() {
     return (
-       <StatisticListBoxItem
+      <StatisticListBoxItem
         title={<SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
@@ -179,19 +179,23 @@ class PrimordialWave extends Analyzer {
           <>
             <ul>
               <li>
-                Average Riptides Per Healing Wave: {this.averageHealingWaveTargets.toFixed(2)}
+                Average Riptides Per <SpellLink id={TALENTS.HEALING_WAVE_TALENT} />:{' '}
+                {this.averageHealingWaveTargets.toFixed(2)}
               </li>
               <li>
-                {formatThousands(this.healing)} healing via Primordial Wave,{' '}
-                {this.pwaveOverhealingPercent}% Overheal
-              </li>
-              <li>
-                {formatThousands(this.riptideHealing)} healing via Riptide,{' '}
-                {this.riptideOverhealingPercent}% Overheal
-              </li>
-              <li>
-                {formatThousands(this.waveHealing)} healing via Healing Wave cleave,{' '}
+                {formatThousands(this.waveHealing)} healing via{' '}
+                <SpellLink id={TALENTS.HEALING_WAVE_TALENT} /> cleave,{' '}
                 {this.healingWaveOverhealingPercent}% Overheal
+              </li>
+              <li>
+                {formatThousands(this.healing)} healing via{' '}
+                <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />, {this.pwaveOverhealingPercent}
+                % Overheal
+              </li>
+              <li>
+                {formatThousands(this.riptideHealing)} healing via{' '}
+                <SpellLink id={TALENTS.RIPTIDE_TALENT} />, {this.riptideOverhealingPercent}%
+                Overheal
               </li>
             </ul>
           </>
@@ -199,7 +203,7 @@ class PrimordialWave extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT}>Primordial Wave</SpellLink> Breakdown
+            <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT} /> Breakdown
           </label>
           {this.renderPrimoridalWaveChart()}
         </div>
