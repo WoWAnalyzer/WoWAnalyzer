@@ -584,9 +584,8 @@ const spells = spellIndexableList({
   OUTLAW_ROGUE_TIER_28_2P_SET_BONUS: {
     id: 394879,
     name: 'Vicious Follow-up',
-    icon: 'ability_rogue_sabreslash',
+    icon: 'spell_shadow_ritualofsacrifice',
   },
-
 });
 
 export default spells;
