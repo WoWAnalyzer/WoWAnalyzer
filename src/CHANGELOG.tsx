@@ -15,6 +15,7 @@ import {
   ToppleTheNun,
   Trevor,
   Vireve,
+  bdfreeman1421,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
