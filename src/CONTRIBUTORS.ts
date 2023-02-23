@@ -2110,3 +2110,8 @@ export const zac: Contributor = {
   discord: 'zac#4930',
   avatar: avatar('zac-avatar.png'),
 };
+
+export const bdfreeman1421: Contributor = {
+  nickname: 'bdfreeman1421',
+  github: 'bdfreeman1421',
+};
