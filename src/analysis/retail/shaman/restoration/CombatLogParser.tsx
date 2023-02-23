@@ -49,8 +49,13 @@ import Undercurrent from './modules/talents/Undercurrent';
 // Spells
 // Legendaries
 // Shared
+// Normalizers
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import RiptideTracker from './modules/core/RiptideTracker';
+import RiptideAttributor from './modules/core/RiptideAttributor';
+import PrimalTideCore from './modules/talents/PrimalTideCore';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -94,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     talentStatisticBox: TalentStatisticBox,
     primordialWave: PrimordialWave,
     undercurrent: Undercurrent,
+    primalTideCore: PrimalTideCore,
 
     // Spells
     chainHeal: ChainHeal,
@@ -115,6 +121,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
     riptideNormalizer: RiptideNormalizer,
+    castLinkNormalizer: CastLinkNormalizer,
+    riptideTracker: RiptideTracker,
+    riptideAttributor: RiptideAttributor,
   };
 }
 

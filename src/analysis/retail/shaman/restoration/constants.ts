@@ -1,6 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 
+//event link attribution strings
+export const HARDCAST = 'Hardcast';
+export const RIPTIDE_PWAVE = 'PrimordialWave';
+export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
+export const PRIMAL_TIDE_CORE = 'PrimalTideCore';
+export const APPLIED_HEAL = 'AppliedHeal';
+export const UNLEASH_LIFE = 'UnleashLife';
+
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',
   HEALING_WAVE: '#146585',
@@ -18,18 +26,6 @@ export const HEALING_WAVE_COEFFICIENT = 3;
 export const HEALING_SURGE_COEFFICIENT = 2.48;
 export const HIGH_TIDE_COEFFICIENT = 2.31;
 export const HEALING_WAVE_CAST_TIME = 2.5;
-
-// Conduit Ranks
-export const SWIRLING_CURRENTS_RANKS = [20, 21, 23, 24, 26, 28, 29, 30, 31, 33, 34, 36, 37, 39, 40];
-export const HEAVY_RAINFALL_RANKS = [
-  75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145,
-];
-export const EMBRACE_OF_EARTH_RANKS = [
-  5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10, 10.5, 11, 11.5, 12,
-];
-export const NATURES_FOCUS_RANKS = [
-  10, 10.66, 11.33, 12, 12.66, 13.33, 14, 15, 16, 16.66, 17.33, 18, 18.66, 19.33, 20,
-];
 
 // Your normal healing toolkit, default spells and talents
 // TODO: Check all these lists again, maybe restructure to remove repeats
@@ -98,4 +94,4 @@ export const ABILITIES_NOT_FEEDING_INTO_ASCENDANCE = [
   SPELLS.ANCESTRAL_GUIDANCE_HEAL,
 ];
 
-export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1;
+export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank

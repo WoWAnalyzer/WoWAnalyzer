@@ -46,7 +46,10 @@ class ChainHeal extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT);
-    if (this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT)) {
+    if (
+      this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.FLOW_OF_THE_TIDES_TALENT)
+    ) {
       this.maxTargets = 5;
     }
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
