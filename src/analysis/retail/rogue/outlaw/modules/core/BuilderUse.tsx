@@ -1,34 +1,34 @@
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType, ResourceChangeEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import { BadColor, GoodColor } from 'interface/guide';
 import { ResourceLink } from 'interface';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { BUILDERS, getMaxComboPoints } from '../../constants';
+import { BUILDERS } from '../../constants';
 import Finishers from '../features/Finishers';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/rogue';
 import Enemies from 'parser/shared/modules/Enemies';
+import ComboPointTracker from 'analysis/retail/rogue/shared/ComboPointTracker';
 
 export default class BuilderUse extends Analyzer {
   static dependencies = {
     finishers: Finishers,
     enemies: Enemies,
+    comboPointTracker: ComboPointTracker,
   };
   protected finishers!: Finishers;
   protected enemies!: Enemies;
+  protected comboPointTracker!: ComboPointTracker;
 
   totalBuilderCasts = 0;
   wastedBuilderCasts = 0;
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(BUILDERS),
-      this.onResourceChange,
-    );
+    this.addEventListener(Events.cast.spell(BUILDERS), this.onCastBuilder,);
   }
 
   get effectiveBuilderCasts() {
@@ -65,7 +65,7 @@ export default class BuilderUse extends Analyzer {
     );
   }
 
-  private onResourceChange(event: ResourceChangeEvent) {
+  private onCastBuilder(event: CastEvent) {
     this.totalBuilderCasts += 1;
 
     if (!this.IsBuilderCPEfficient(event)) {
@@ -73,23 +73,27 @@ export default class BuilderUse extends Analyzer {
     }
   }
 
-  public IsBuilderCPEfficient(event: ResourceChangeEvent) {
-    const cpGain = event.resourceChange - event.waste;
-    const cpAtEvent = getMaxComboPoints(this.selectedCombatant) - cpGain;
+  private IsBuilderCPEfficient(event: CastEvent){
+    const cpUpdate = this.comboPointTracker.resourceUpdates.at(-1);
     const spellID = event.ability.guid;
-    //const target = this.enemies.getEntity(event);
-    //const timestamp = this.owner.formatTimestamp(event.timestamp)
-    //console.log("Casting ", event.ability.name," event: ", event);
-    // if (!event.targetID || !target) {
-    //   console.warn("no target");
-    //   return false;
-    // }
-    //console.log("cast", event.ability);
-    
-    if (cpAtEvent > this.finishers.recommendedFinisherPoints()) {
-      //console.log("At", timestamp, " Cast at max cp ", event.ability.name);
+
+    if(!cpUpdate){
+      console.log("NO CP UPDATE", this.owner.formatTimestamp(event.timestamp, 1), event, cpUpdate);
+      return;
+    }
+
+    //Some events seems to have a changeWaste instead, need to find out why and when this happen
+    if(!cpUpdate.change){
+      console.log("NO CP CHANGE", this.owner.formatTimestamp(event.timestamp, 1), event, cpUpdate);
+      return true;
+    }
+
+    const cpAtCast = this.comboPointTracker.current - cpUpdate.change;
+
+    if (cpAtCast > this.finishers.recommendedFinisherPoints()) {
+      console.log("At", this.owner.formatTimestamp(event.timestamp, 1), " Cast at max cp ", event.ability.name);
       return false;
-    } else if (cpAtEvent === this.finishers.recommendedFinisherPoints()) {
+    } else if (cpAtCast === this.finishers.recommendedFinisherPoints()) {
       //this is neutral
       if (!((
           spellID === SPELLS.SINISTER_STRIKE.id &&
@@ -104,7 +108,7 @@ export default class BuilderUse extends Analyzer {
         (spellID === talents.GHOSTLY_STRIKE_TALENT.id))
       ) {
         // try to find a way to make this work at some point&& target.getRemainingBuffTimeAtTimestamp(talents.GHOSTLY_STRIKE_TALENT.id, 10000, 13000,event.timestamp)<=1))
-        console.log("At", this.owner.formatTimestamp(event.timestamp), " Cast at 6 cp ", event.ability.name);
+        console.log("At", this.owner.formatTimestamp(event.timestamp,1), " Cast at 6 cp ", event.ability.name);
         return false;
       }
     }
