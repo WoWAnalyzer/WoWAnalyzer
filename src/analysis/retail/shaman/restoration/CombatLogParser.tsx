@@ -40,7 +40,7 @@ import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import FlashFlood from './modules/talents/FlashFlood';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
-import TalentStatisticBox from './modules/talents/TalentStatisticBox';
+import TalentStatisticBox from './modules/features/TalentStatisticBox';
 import Torrent from './modules/talents/Torrent';
 import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
