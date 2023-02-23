@@ -260,7 +260,7 @@ class Vivify extends Analyzer {
       value = QualitativePerformance.Perfect;
     } else if (rems >= 8) {
       value = QualitativePerformance.Good;
-    } else if (rems >= Math.round(this.estimatedAverageReMs)) {
+    } else if (rems >= 6) {
       value = QualitativePerformance.Ok;
     }
 
