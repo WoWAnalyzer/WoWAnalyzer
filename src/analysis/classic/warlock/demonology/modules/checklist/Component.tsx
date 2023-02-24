@@ -71,6 +71,7 @@ const ClassicDemonologyChecklist = ({ combatant, castEfficiency, thresholds }: C
       >
         <DotUptime id={SPELLS.CORRUPTION.id} thresholds={thresholds.corruption} />
         <DotUptime id={SPELLS.IMMOLATE.id} thresholds={thresholds.immolate} />
+        <DotUptime id={SPELLS.SHADOW_MASTERY_DEBUFF.id} thresholds={thresholds.shadowMastery} />
       </Rule>
       <Rule
         name="Always Be Casting"
