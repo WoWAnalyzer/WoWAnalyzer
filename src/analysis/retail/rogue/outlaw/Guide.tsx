@@ -2,16 +2,11 @@ import { GuideProps, Section, SubSection } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
-//import TALENTS from 'common/TALENTS/rogue';
-//import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import TALENTS from 'common/TALENTS/rogue';
 import { ResourceLink, SpellLink } from 'interface';
-//import SPELLS from 'common/SPELLS';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
-//import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-
 import CombatLogParser from './CombatLogParser';
-import { TALENTS_ROGUE } from 'common/TALENTS';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -62,8 +57,8 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         <p>
           <Trans id="guide.rogue.outlaw.sections.resources.energy.BRandKS">
             -- WIP section -- This will highlight{' '}
-            <SpellLink id={TALENTS_ROGUE.BLADE_RUSH_TALENT.id} />
-            and <SpellLink id={TALENTS_ROGUE.KILLING_SPREE_TALENT.id} />
+            <SpellLink id={TALENTS.BLADE_RUSH_TALENT.id} /> 
+            and <SpellLink id={TALENTS.KILLING_SPREE_TALENT.id} /> 
             usage when talented as we primarly use both these spells for energy efficiency.
           </Trans>
         </p>

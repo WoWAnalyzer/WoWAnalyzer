@@ -7,13 +7,19 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
-
 import {
   FINISHERS,
   getMaxComboPoints,
 } from '../../constants';
+import Finishers from '../features/Finishers';
 
 export default class FinisherUse extends Analyzer {
+  static dependencies = {
+    finishers: Finishers,
+  };
+
+  protected finishers!: Finishers;
+
   totalFinisherCasts = 0;
   lowCpFinisherCasts = 0;
 
@@ -69,7 +75,7 @@ export default class FinisherUse extends Analyzer {
     }
 
     this.totalFinisherCasts += 1;
-    if (cpsSpent < getMaxComboPoints(this.selectedCombatant) - 1) {
+    if (cpsSpent < this.finishers.recommendedFinisherPoints()) {
         this.lowCpFinisherCasts += 1;
     }
   }

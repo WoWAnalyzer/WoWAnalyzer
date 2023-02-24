@@ -107,40 +107,25 @@ export default class BuilderUse extends Analyzer {
 
     //Some events seems to have a changeWaste instead, need to find out why and when this happen
     if (!cpUpdate.change) {
-      console.log('NO CP CHANGE', this.owner.formatTimestamp(event.timestamp, 1), event, cpUpdate);
+      //console.log('NO CP CHANGE', this.owner.formatTimestamp(event.timestamp, 1), event, cpUpdate);
       return true;
     }
 
     const cpAtCast = this.comboPointTracker.current - cpUpdate.change;
 
     if (cpAtCast > this.finishers.recommendedFinisherPoints()) {
-      console.log(
-        'At',
-        this.owner.formatTimestamp(event.timestamp, 1),
-        ' Cast at max cp ',
-        event.ability.name,
-      );
+      //console.log('At', this.owner.formatTimestamp(event.timestamp, 1), ' Cast at max cp ', event.ability.name);
       return false;
     } else if (cpAtCast === this.finishers.recommendedFinisherPoints()) {
       //this is neutral
-      if (
-        !(
-          spellID === SPELLS.SINISTER_STRIKE.id &&
-          !this.selectedCombatant.hasBuff(SPELLS.BROADSIDE.id) &&
+      if (!(spellID === SPELLS.SINISTER_STRIKE.id &&
+          !this.selectedCombatant.hasBuff(SPELLS.BROADSIDE.id)) &&
           // Ambushes at 6cp with tier are correct
-          spellID === SPELLS.AMBUSH.id &&
-          this.selectedCombatant.hasBuff(SPELLS.OUTLAW_ROGUE_TIER_28_2P_SET_BONUS.id, null, 200) &&
+          !(spellID === SPELLS.AMBUSH.id && this.selectedCombatant.hasBuff(SPELLS.OUTLAW_ROGUE_TIER_28_2P_SET_BONUS.id, null, 200)) &&
           // GS debuff maintainance is more important than cp overcap if the debuff is down
-          spellID === talents.GHOSTLY_STRIKE_TALENT.id
-        )
-      ) {
-        // try to find a way to make this work at some point&& target.getRemainingBuffTimeAtTimestamp(talents.GHOSTLY_STRIKE_TALENT.id, 10000, 13000,event.timestamp)<=1))
-        console.log(
-          'At',
-          this.owner.formatTimestamp(event.timestamp, 1),
-          ' Cast at 6 cp ',
-          event.ability.name,
-        );
+          spellID !== talents.GHOSTLY_STRIKE_TALENT.id //try to find a way to make this work at some point: && target.getRemainingBuffTimeAtTimestamp(talents.GHOSTLY_STRIKE_TALENT.id, 10000, 13000,event.timestamp)<=1))
+      ){
+        //console.log('At', this.owner.formatTimestamp(event.timestamp, 1),' Cast at 6 cp ', event.ability.name);
         return false;
       }
     }
