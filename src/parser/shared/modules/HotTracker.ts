@@ -207,7 +207,7 @@ abstract class HotTracker extends Analyzer {
     pandemicClamps: boolean = false,
   ): void {
     if (!this.hots[targetId] || !this.hots[targetId][spellId]) {
-      debug &&
+      extensionDebug &&
         console.warn(
           `Tried to add extension ${attribution === null ? 'NO-ATT' : attribution.name}
            to targetId=${targetId}, spellId=${spellId}, but that HoT isn't recorded as present`,
@@ -252,7 +252,7 @@ abstract class HotTracker extends Analyzer {
         amount: finalAmount,
       });
     }
-    debug &&
+    extensionDebug &&
       console.log(
         `${hot.name} on ${targetId} @${this.owner.formatTimestamp(
           this.owner.currentTimestamp,
