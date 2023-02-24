@@ -1,11 +1,14 @@
 import SPELLS from 'common/SPELLS/classic/hunter';
-import RACIALS from 'common/SPELLS/classic/racials';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import RACIALS from 'common/SPELLS/classic/racials';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     return [
+      // SPELLS ADDED HERE ARE DISPLAYED ON THE STATISTICS TAB
+      // LIST ALL SPELLS THAT COULD BE CAST DURING COMBAT BY THIS SPEC
+      // Rotational
       {
         spell: SPELLS.AUTO_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -62,6 +65,10 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
+
+      // Rotational AOE
+
+      // Cooldowns
       {
         spell: [SPELLS.RAPID_FIRE.id],
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -82,6 +89,16 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.7,
         },
       },
+
+      // Defensive
+
+      // Other spells (not apart of the normal rotation)
+
+      // Utility
+
+      // Pet Related
+
+      // Consumable
     ];
   }
 }
