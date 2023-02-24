@@ -108,7 +108,7 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(hot)) {
+    if (this.hotTracker.fromRapidDiffusion(hot) && event.timestamp <= hot.originalEnd) {
       this.remHealing += event.amount || 0;
       this.remAbsorbed += event.absorbed || 0;
       this.remOverHealing += event.overheal || 0;
@@ -129,7 +129,7 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(hot)) {
+    if (this.hotTracker.fromRapidDiffusion(hot) && event.timestamp <= hot.originalEnd) {
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;

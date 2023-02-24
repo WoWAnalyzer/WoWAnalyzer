@@ -1,12 +1,13 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon, SpellLink } from 'interface';
+import { Options } from 'parser/core/Analyzer';
+import { SpellLink } from 'interface';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events from 'parser/core/Events';
+import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import HotTracker from 'parser/shared/modules/HotTracker';
+import HotTracker, { Attribution, Tracker } from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
@@ -19,31 +20,61 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
 import T29TierSet from '../dragonflight/tier/T29MWTier';
-import { isFromMistsOfLife } from '../../normalizers/CastLinkNormalizer';
 
 const debug = false;
 
 const ATTRIBUTION_PREFIX = 'RisingMist #';
 
 class RisingMist extends Analyzer {
+  static dependencies = {
+    hotTracker: HotTrackerMW,
+    abilityTracker: AbilityTracker,
+    spellUsable: SpellUsable,
+    vivify: Vivify,
+    t29TierSet: T29TierSet,
+  };
+
+  hotTracker!: HotTrackerMW;
+  abilityTracker!: AbilityTracker;
+  spellUsable!: SpellUsable;
+  vivify!: Vivify;
+  t29TierSet!: T29TierSet;
+
   get averageExtension() {
     return this.risingMistCount === 0
       ? 0
-      : this.risingMists.reduce((acc, risingMist) => acc + risingMist.totalExtension, 0) /
+      : this.risingMists.reduce(
+          (acc: number, risingMist: Attribution) => acc + risingMist.totalExtension,
+          0,
+        ) /
           this.risingMistCount /
           1000;
   }
 
   get hotHealing() {
-    let value = -this.t29TierSet.extraRemHealing; // don't want rem healing from tier set ticks
-    this.hotTracker.hotHistory.forEach(
-      function (hot) {
-        if (this.hotTracker.fromHardcast(hot)) {
-          value += hot.healingAfterOriginalEnd || 0;
-        }
-      }.bind(this),
+    return (
+      this.renewingMistExtensionHealing +
+      this.essenceFontExtensionHealing +
+      this.envelopingMistExtensionHealing
     );
-    return value;
+  }
+
+  get renewingMistExtensionHealing() {
+    return (
+      this.getExtensionHealingBySpell(SPELLS.RENEWING_MIST_HEAL.id) -
+      this.t29TierSet.extraRemHealing
+    ); // don't want rem healing from tier set ticks;
+  }
+
+  get essenceFontExtensionHealing() {
+    return (
+      this.getExtensionHealingBySpell(SPELLS.ESSENCE_FONT_BUFF.id) +
+      this.getExtensionHealingBySpell(SPELLS.FAELINE_STOMP_ESSENCE_FONT.id)
+    );
+  }
+
+  get envelopingMistExtensionHealing() {
+    return this.getExtensionHealingBySpell(TALENTS_MONK.ENVELOPING_MIST_TALENT.id);
   }
 
   get directHealing() {
@@ -86,41 +117,35 @@ class RisingMist extends Analyzer {
     );
   }
 
-  static dependencies = {
-    hotTracker: HotTrackerMW,
-    abilityTracker: AbilityTracker,
-    spellUsable: SpellUsable,
-    vivify: Vivify,
-    t29TierSet: T29TierSet,
-  };
-  risingMistCount = 0;
-  risingMists = [];
-  remCount = 0;
-  efCount = 0;
-  flsEfCount = 0;
-  evmCount = 0;
-  targetCount = 0;
+  risingMistCount: number = 0;
+  risingMists: Attribution[] = [];
+  remCount: number = 0;
+  efCount: number = 0;
+  flsEfCount: number = 0;
+  evmCount: number = 0;
+  targetCount: number = 0;
   trackUplift = false;
-  extraVivCleaves = 0;
-  extraVivHealing = 0;
-  extraVivOverhealing = 0;
-  extraVivAbsorbed = 0;
-  extraEnvHits = 0;
-  extraEnvBonusHealing = 0;
-  extraMasteryHits = 0;
-  extraMasteryhealing = 0;
-  extraMasteryOverhealing = 0;
-  extraMasteryAbsorbed = 0;
+  extraVivCleaves: number = 0;
+  extraVivHealing: number = 0;
+  extraVivOverhealing: number = 0;
+  extraVivAbsorbed: number = 0;
+  extraEnvHits: number = 0;
+  extraEnvBonusHealing: number = 0;
+  extraMasteryHits: number = 0;
+  extraMasteryhealing: number = 0;
+  extraMasteryOverhealing: number = 0;
+  extraMasteryAbsorbed: number = 0;
   masteryTickTock = false;
-  extraEFhealing = 0;
-  extraEFOverhealing = 0;
-  extraEFAbsorbed = 0;
-  upwellingOffset = 0;
+  extraEFhealing: number = 0;
+  extraEFOverhealing: number = 0;
+  extraEFAbsorbed: number = 0;
+  upwellingOffset: number = 0;
+  envmHealingIncrease: number = 0;
 
-  constructor(...options) {
-    super(...options);
+  constructor(options: Options) {
+    super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
-    this.evmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
+    this.envmHealingIncrease = this.selectedCombatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
       ? 0.4
       : 0.3;
     if (!this.active) {
@@ -142,11 +167,11 @@ class RisingMist extends Analyzer {
     );
   }
 
-  countRisingMistHits(event) {
+  countRisingMistHits(event: HealEvent) {
     this.targetCount += 1;
   }
 
-  handleMastery(event) {
+  handleMastery(event: HealEvent) {
     const targetId = event.targetID;
     if (
       !this.hotTracker.hots[targetId] ||
@@ -173,7 +198,7 @@ class RisingMist extends Analyzer {
     }
   }
 
-  calculateEnv(event) {
+  calculateEnv(event: HealEvent) {
     const targetId = event.targetID;
     const spellId = event.ability.guid;
     if (
@@ -193,11 +218,11 @@ class RisingMist extends Analyzer {
 
     if (hot.originalEnd < event.timestamp) {
       this.extraEnvHits += 1;
-      this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.evmHealingIncrease);
+      this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
     }
   }
 
-  handleVivify(event) {
+  handleVivify(event: HealEvent) {
     const targetId = event.targetID;
     if (
       !this.hotTracker.hots[targetId] ||
@@ -209,7 +234,7 @@ class RisingMist extends Analyzer {
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
     const extension = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
     if (
-      this.hotTracker.fromHardcast(hot) &&
+      !this.hotTracker.fromDancingMists(hot) &&
       extension?.attribution.name.startsWith(ATTRIBUTION_PREFIX)
     ) {
       this.extraVivCleaves += 1;
@@ -219,7 +244,7 @@ class RisingMist extends Analyzer {
     }
   }
 
-  extendHots(event) {
+  extendHots(event: CastEvent) {
     const spellId = event.ability.guid;
     if (TALENTS_MONK.RISING_SUN_KICK_TALENT.id !== spellId) {
       return;
@@ -231,11 +256,10 @@ class RisingMist extends Analyzer {
     const newRisingMist = HotTracker.getNewAttribution(ATTRIBUTION_PREFIX + this.risingMistCount);
     this.risingMists.push(newRisingMist);
 
-    let foundTarget = false;
-    Object.keys(this.hotTracker.hots).forEach((playerId) => {
-      Object.keys(this.hotTracker.hots[playerId]).forEach((spellIdString) => {
+    Object.keys(this.hotTracker.hots).forEach((player) => {
+      const playerId = Number(player);
+      Object.keys(this.hotTracker.hots[Number(playerId)]).forEach((spellIdString) => {
         const spellId = Number(spellIdString);
-
         const attribution = newRisingMist;
         if (spellId === SPELLS.ENVELOPING_BREATH_HEAL.id) {
           return;
@@ -248,25 +272,31 @@ class RisingMist extends Analyzer {
           spellId,
           event.timestamp,
         );
-
         if (spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
-          foundTarget = true;
           this.efCount += 1;
         } else if (spellId === SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) {
-          foundTarget = true;
           this.flsEfCount += 1;
         } else if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
-          foundTarget = true;
           this.remCount += 1;
         } else if (
           spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id ||
           spellId === SPELLS.ENVELOPING_MIST_TFT.id
         ) {
-          foundTarget = true;
           this.evmCount += 1;
         }
       });
     });
+  }
+
+  private getExtensionHealingBySpell(spellId: number): number {
+    let value = 0;
+    debug && console.log(this.hotTracker.hotHistory);
+    this.hotTracker.hotHistory.forEach((hot: Tracker) => {
+      if (hot.spellId === spellId) {
+        value += hot.healingAfterOriginalEnd || 0;
+      }
+    });
+    return value;
   }
 
   averageTargetsPerRSKCast() {

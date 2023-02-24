@@ -70,7 +70,8 @@ class MistyPeaks extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
-    if (this.hotTracker.fromMistyPeaks(hot)) {
+    if (this.hotTracker.fromMistyPeaks(hot) && event.timestamp <= hot.originalEnd) {
+      //filter out hard casted envelops and healing from extension -> attributed in the rising mist module
       this.extraHits += 1;
       this.extraHealing += event.amount || 0;
       this.extraAbsorb += event.absorbed || 0;
@@ -90,7 +91,7 @@ class MistyPeaks extends Analyzer {
     }
 
     const hot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
-    if (!this.hotTracker.fromMistyPeaks(hot)) {
+    if (!this.hotTracker.fromMistyPeaks(hot) || event.timestamp >= hot.originalEnd) {
       return;
     }
     this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
