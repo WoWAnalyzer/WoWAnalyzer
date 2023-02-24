@@ -189,7 +189,7 @@ class Wellspring extends Analyzer {
             targets to archive the maximum potential healing.
           </Trans>
         }
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         position={STATISTIC_ORDER.OPTIONAL(100)}
       >
         <table className="table table-condensed">

@@ -159,7 +159,7 @@ class KillingMachineEfficiency extends Analyzer {
   get guideSubsection(): JSX.Element {
     const goodKms = {
       count: this.kmProcs - this.expiredKMProcs - this.refreshedKMProcs,
-      label: 'Killing Machine procs cosumed',
+      label: 'Killing Machines cosumed',
     };
 
     const refreshedKms = {
@@ -175,7 +175,7 @@ class KillingMachineEfficiency extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.KILLING_MACHINE.id} />
+          <SpellLink id={talents.KILLING_MACHINE_TALENT.id} />
         </b>{' '}
         is your most important proc. You want to waste as few of them as possible. If you have{' '}
         <SpellLink id={talents.FROSTREAPER_TALENT.id} /> or{' '}
