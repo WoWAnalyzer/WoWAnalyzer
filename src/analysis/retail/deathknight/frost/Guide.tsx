@@ -42,6 +42,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <Section title="Cooldowns">
         <CooldownsSubsection modules={modules} events={events} info={info} />
+        <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
       </Section>
     </>
   );
@@ -113,4 +114,13 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
       )}
     </SubSection>
   );
+}
+
+function CooldownBreakdownSubsection({
+  modules,
+  events,
+  info,
+}: GuideProps<typeof CombatLogParser>) {
+  const hasBreath = info.combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT);
+  return <SubSection>{hasBreath && modules.breathofSindragoa.guideCastBreakdown}</SubSection>;
 }
