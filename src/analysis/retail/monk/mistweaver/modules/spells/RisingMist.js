@@ -237,9 +237,7 @@ class RisingMist extends Analyzer {
         const spellId = Number(spellIdString);
 
         const attribution = newRisingMist;
-        const hot = this.hotTracker.hots[playerId][spellId];
-
-        if (this.hotTracker.fromRapidDiffusion(hot)) {
+        if (spellId === SPELLS.ENVELOPING_BREATH_HEAL.id) {
           return;
         }
 

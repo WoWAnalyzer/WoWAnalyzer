@@ -101,10 +101,11 @@ class HotAttributor extends Analyzer {
       //rapid diffusion rem
       rdDebug && this._newReMAttributionLogging(event, this.rapidDiffusionAttrib);
       this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
-      this.hotTracker.hots[targetID][spellID].maxDuration = Number(
-        this.hotTracker.hotInfo[spellID].procDuration,
-      );
-      this.hotTracker.hots[event.targetID][event.ability.guid].end =
+      this.hotTracker.hots[targetID][spellID].maxDuration =
+        this.hotTracker._getRapidDiffusionMaxDuration(this.selectedCombatant);
+      this.hotTracker.hots[event.targetID][event.ability.guid].end = this.hotTracker.hots[
+        event.targetID
+      ][event.ability.guid].originalEnd =
         event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
     } else if (isFromDancingMists(event)) {
       //dancing mists rem
@@ -146,9 +147,12 @@ class HotAttributor extends Analyzer {
           'on ' + this.combatants.getEntity(event)?.name,
         );
       this.hotTracker.addAttributionFromApply(this.envMistMistyPeaksAttrib, event);
-      this.hotTracker.hots[targetID][spellID].maxDuration = Number(
-        this.hotTracker.hotInfo[spellID].procDuration,
-      );
+      this.hotTracker.hots[targetID][spellID].maxDuration =
+        this.hotTracker._getMistyPeaksMaxDuration(this.selectedCombatant);
+      this.hotTracker.hots[event.targetID][event.ability.guid].end = this.hotTracker.hots[
+        event.targetID
+      ][event.ability.guid].originalEnd =
+        event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
     }
   }
 

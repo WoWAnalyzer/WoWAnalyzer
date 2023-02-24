@@ -7,7 +7,18 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: TALENTS.ASCENDANCE_RESTORATION_TALENT.id,
+      spell: TALENTS.CLOUDBURST_TOTEM_TALENT.id,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+    },
+  ];
+  static castCooldowns = [
+    ...CoreCooldownThroughputTracker.castCooldowns,
+    {
+      spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
@@ -15,7 +26,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       ],
     },
     {
-      spell: TALENTS.CLOUDBURST_TOTEM_TALENT.id,
+      spell: TALENTS.ASCENDANCE_RESTORATION_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,

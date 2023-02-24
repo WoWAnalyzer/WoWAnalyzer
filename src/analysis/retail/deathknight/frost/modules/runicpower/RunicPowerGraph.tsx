@@ -1,8 +1,8 @@
 import ResourceGraph from 'parser/shared/modules/ResourceGraph';
+import { RUNIC_POWER_SCALE_FACTOR } from '../../constants';
 import RunicPowerTracker from './RunicPowerTracker';
 
 const LINE_COLOR = '#5dd7fc';
-const SCALE_FACTOR = 0.1; // in events all values are x10
 
 class RunicPowerGraph extends ResourceGraph {
   static dependencies = {
@@ -21,7 +21,7 @@ class RunicPowerGraph extends ResourceGraph {
   }
 
   scaleFactor() {
-    return SCALE_FACTOR;
+    return RUNIC_POWER_SCALE_FACTOR;
   }
 }
 
