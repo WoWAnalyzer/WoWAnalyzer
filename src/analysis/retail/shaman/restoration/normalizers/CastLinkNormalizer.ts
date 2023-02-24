@@ -7,6 +7,7 @@ import {
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import talents from 'common/TALENTS/shaman';
@@ -17,6 +18,7 @@ import {
   RIPTIDE_PWAVE,
   HEALING_WAVE_PWAVE,
   UNLEASH_LIFE,
+  PWAVE_REMOVAL,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 
@@ -105,20 +107,44 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent) {
       return !HasRelatedEvent(linkingEvent, HARDCAST);
     },
+    isActive(c) {
+      return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
+    },
   },
-  //Unleash life linking
+  {
+    linkRelation: PWAVE_REMOVAL,
+    linkingEventId: [SPELLS.PRIMORDIAL_WAVE_BUFF.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [talents.HEALING_WAVE_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
+    },
+  },
+  //Unleash life linkings
   {
     linkRelation: UNLEASH_LIFE,
     linkingEventId: [talents.UNLEASH_LIFE_TALENT.id],
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [talents.RIPTIDE_TALENT.id, talents.HEALING_WAVE_TALENT.id, SPELLS.HEALING_SURGE.id, talents.CHAIN_HEAL_TALENT.id, talents.HEALING_RAIN_TALENT.id, talents.DOWNPOUR_TALENT.id, talents.WELLSPRING_TALENT.id],
+    referencedEventId: [
+      talents.RIPTIDE_TALENT.id,
+      talents.HEALING_WAVE_TALENT.id,
+      SPELLS.HEALING_SURGE.id,
+      talents.CHAIN_HEAL_TALENT.id,
+      talents.HEALING_RAIN_TALENT.id,
+      talents.DOWNPOUR_TALENT.id,
+      talents.WELLSPRING_TALENT.id,
+    ],
     referencedEventType: [EventType.Cast],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
       return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
-    }
-  }
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -139,6 +165,10 @@ export function isRiptideFromPrimordialWave(
 
 export function isHealingWaveFromPrimordialWave(event: HealEvent): boolean {
   return HasRelatedEvent(event, HEALING_WAVE_PWAVE);
+}
+
+export function wasPrimordialWaveConsumed(event: RemoveBuffEvent): boolean {
+  return HasRelatedEvent(event, PWAVE_REMOVAL);
 }
 
 export function isFromPrimalTideCore(event: ApplyBuffEvent | HealEvent): boolean {

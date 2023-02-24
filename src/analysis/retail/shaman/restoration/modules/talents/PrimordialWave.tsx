@@ -2,7 +2,7 @@ import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -11,12 +11,15 @@ import {
   isFromHardcast,
   isHealingWaveFromPrimordialWave,
   isRiptideFromPrimordialWave,
+  wasPrimordialWaveConsumed,
 } from '../../normalizers/CastLinkNormalizer';
 import RiptideTracker from '../core/RiptideTracker';
 import DonutChart from 'parser/ui/DonutChart';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import BoringValue from 'parser/ui/BoringValueText';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import WarningIcon from 'interface/icons/Warning';
+import CheckmarkIcon from 'interface/icons/Checkmark';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -33,6 +36,8 @@ class PrimordialWave extends Analyzer {
   overHealing = 0;
   riptideOverHealing = 0;
   waveOverHealing = 0;
+  wastedBuffs = 0;
+  buffCount = 0;
 
   constructor(options: Options) {
     super(options);
@@ -57,6 +62,14 @@ class PrimordialWave extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.HEALING_WAVE_TALENT),
       this._waveHeal,
     );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_BUFF),
+      this._onPWaveApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_BUFF),
+      this._onPWaveRemove,
+    );
   }
 
   get totalHealing() {
@@ -79,6 +92,21 @@ class PrimordialWave extends Analyzer {
 
   get pwaveOverhealingPercent() {
     return formatPercentage(this.overHealing / (this.healing + this.overHealing));
+  }
+
+  get buffIcon() {
+    return this.wastedBuffs > 0 ? <WarningIcon /> : <CheckmarkIcon />;
+  }
+
+  _onPWaveApply(event: ApplyBuffEvent) {
+    this.buffCount += 1;
+  }
+
+  _onPWaveRemove(event: RemoveBuffEvent) {
+    if (wasPrimordialWaveConsumed(event)) {
+      return;
+    }
+    this.wastedBuffs += 1;
   }
 
   _onPWaveHeal(event: HealEvent) {
@@ -209,6 +237,19 @@ class PrimordialWave extends Analyzer {
         </div>
         <BoringValue label="">
           <ItemHealingDone amount={this.totalHealing} />
+          <br />
+          <TooltipElement
+            content={
+              <>
+                The number of <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT} /> buffs that expired
+                without casting <SpellLink id={TALENTS.HEALING_WAVE_TALENT} /> ({this.wastedBuffs}{' '}
+                wasted of {this.buffCount} total)
+              </>
+            }
+          >
+            {this.buffIcon} {this.wastedBuffs}
+            <small> wasted buffs</small>
+          </TooltipElement>
         </BoringValue>
       </Statistic>
     );

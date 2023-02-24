@@ -4,6 +4,7 @@ import TALENTS from 'common/TALENTS/shaman';
 //event link attribution strings
 export const HARDCAST = 'Hardcast';
 export const RIPTIDE_PWAVE = 'PrimordialWave';
+export const PWAVE_REMOVAL = 'PrimordialWaveRemoved';
 export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
 export const PRIMAL_TIDE_CORE = 'PrimalTideCore';
 export const APPLIED_HEAL = 'AppliedHeal';
