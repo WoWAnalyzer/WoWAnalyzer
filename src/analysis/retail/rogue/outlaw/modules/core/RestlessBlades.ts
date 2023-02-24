@@ -42,7 +42,7 @@ class RestlessBlades extends Analyzer {
       return;
     }
 
-    let cdr = RESTLESS_BLADES_BASE_CDR + 
+    const cdr = RESTLESS_BLADES_BASE_CDR + 
     (this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? TRUE_BEARING_CDR : 0);
 
     const amount = cdr * spent;
