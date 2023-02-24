@@ -30,3 +30,4 @@ export const STARSURGE_ELUNES_GUIDANCE_DISCOUNT = 5;
 export const STARFALL_ELUNES_GUIDANCE_DISCOUNT = 8;
 export const STARSURGE_BASE_COST = 40;
 export const STARFALL_BASE_COST = 50;
+export const ASTRAL_POWER_SCALE_FACTOR = 0.1; // in events all values are x10

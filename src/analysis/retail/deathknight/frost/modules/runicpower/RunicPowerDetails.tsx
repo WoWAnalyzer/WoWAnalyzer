@@ -8,6 +8,7 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { RUNIC_POWER_SCALE_FACTOR } from '../../constants';
 import RunicPowerGraph from './RunicPowerGraph';
 
 import RunicPowerTracker from './RunicPowerTracker';
@@ -91,7 +92,11 @@ class RunicPowerDetails extends Analyzer {
       render: () => (
         <Panel>
           {this.runicPowerGraph.plot}
-          <ResourceBreakdown tracker={this.runicPowerTracker} showSpenders scaleFactor={0.1} />
+          <ResourceBreakdown
+            tracker={this.runicPowerTracker}
+            showSpenders
+            scaleFactor={RUNIC_POWER_SCALE_FACTOR}
+          />
         </Panel>
       ),
     };
