@@ -1,7 +1,7 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
