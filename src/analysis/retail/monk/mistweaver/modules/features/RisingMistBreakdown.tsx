@@ -272,10 +272,11 @@ class RisingMistBreakdown extends Analyzer {
             <ItemHealingDone amount={this.risingMist.totalHealing} />
           </>
         }
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(1)}
         footer={<>*Mouseover for a detailed breakdown of each spell's contribution</>}
         smallFooter
+        tooltip={this.risingMist.toolTip()}
       >
         {talentAggregateBars(
           this.sortedRisingMistItems().sortedRisingMistItems,

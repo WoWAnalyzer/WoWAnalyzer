@@ -27,7 +27,7 @@ const TalentAggregateBar = ({
 }: Props) => {
   return (
     <div className="source-bar" {...others}>
-      <Tooltip content={barTooltip ? barTooltip : formatPercentage(percentTotal) + '%'}>
+      <Tooltip content={barTooltip ? barTooltip : percentTotal + '%'}>
         <div style={getSegment(percentTotal, barColor, scaleFactor)}></div>
       </Tooltip>
       {subSpecs &&

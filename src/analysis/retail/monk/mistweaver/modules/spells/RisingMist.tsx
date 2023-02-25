@@ -9,11 +9,6 @@ import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution, Tracker } from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentSpellText from 'parser/ui/TalentSpellText';
 import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION } from '../../constants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
@@ -380,38 +375,21 @@ class RisingMist extends Analyzer {
     );
   }
 
-  statistic() {
+  toolTip() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.DEFAULT}
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            Your {this.risingMistCount} Rising Sun Kick casts contributed the following healing:
-            <ul>
-              <li>HoT Extension Healing: {formatNumber(this.hotHealing)}</li>
-              <li>
-                Rising Mist Direct Healing: {formatNumber(this.directHealing)} (
-                {formatNumber(this.averageHealing)} per cast)
-              </li>
-              <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
-              <ul>
-                <li>Essence Font HoTs Extended: {this.efCount}</li>
-                {this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT) && (
-                  <li>FLS Essence Font HoTs extended: {this.flsEfCount}</li>
-                )}
-                <li>Renewing Mist HoTs Extended: {this.remCount}</li>
-                <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
-              </ul>
-            </ul>
-          </>
-        }
-      >
-        <TalentSpellText talent={TALENTS_MONK.RISING_MIST_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-        </TalentSpellText>
-      </Statistic>
+      <>
+        Your {this.risingMistCount} Rising Sun Kick casts contributed the following:
+        <ul>
+          <li>HoT Extension Healing: {formatNumber(this.hotHealing)}</li>
+          <li>Average HoT Extension Seconds per cast: {this.averageExtension.toFixed(2)}</li>
+          <li>Essence Font HoTs Extended: {this.efCount}</li>
+          {this.selectedCombatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT) && (
+            <li>FLS Essence Font HoTs extended: {this.flsEfCount}</li>
+          )}
+          <li>Renewing Mist HoTs Extended: {this.remCount}</li>
+          <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
+        </ul>
+      </>
     );
   }
 }
