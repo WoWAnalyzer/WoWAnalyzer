@@ -1,4 +1,4 @@
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { ReactNode } from 'react';
@@ -21,7 +21,8 @@ export type TalentAggregateBarSpec = {
 /**
  * A JSX element that creates and graphs a collection of data points based on the given input data
  * @param bars the object data to be turned into an item on the chart
- * @param scaleFactor optional param used to control the scale of the graph within the statistic box
+ * @param scaleFactor optional param used to control the scale of the graph within the statistic box.
+ * Can be set manually or calculated using the ratios of specs to total
  *
  */
 
@@ -42,7 +43,18 @@ export default function talentAggregateBars(
                     (spec.subSpecs
                       ? spec.subSpecs?.reduce((sum, subSpec) => sum + (subSpec?.amount || 0), 0)
                       : 0),
+                )}{' '}
+                -{' '}
+                {formatPercentage(
+                  getPercentContribution(
+                    spec.amount +
+                      (spec.subSpecs
+                        ? spec.subSpecs?.reduce((sum, subSpec) => sum + (subSpec?.amount || 0), 0)
+                        : 0),
+                    bars,
+                  ),
                 )}
+                %
               </small>
             </div>
             <div className="flex-main chart">

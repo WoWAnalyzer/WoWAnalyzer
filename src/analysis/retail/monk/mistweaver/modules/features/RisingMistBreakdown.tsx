@@ -1,6 +1,6 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import RisingMist from '../spells/RisingMist';
-import talents from 'common/TALENTS/monk';
+import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -85,7 +85,8 @@ class RisingMistBreakdown extends Analyzer {
         (a.subSpecs ? a.subSpecs?.reduce((sum, subSpec) => sum + (subSpec?.amount || 0), 0) : 0),
     );
 
-    //determine scale factor for chart based on data
+    //determine scale factor for chart based on data items - calculate the inverse of each items percentage of total and take the lowest
+    //i.e if 50% of healing done is the highest then the scale factor should be 2
     const scaleFactor = sortedRisingMistItems.reduce(
       (factor, item) =>
         factor <
@@ -119,10 +120,10 @@ class RisingMistBreakdown extends Analyzer {
         <ul>
           <li>
             {formatNumber(this.risingMist.envMistyPeaksExtensionHealing)} from extended{' '}
-            <SpellLink id={talents.MISTY_PEAKS_TALENT} />
+            <SpellLink id={talents.MISTY_PEAKS_TALENT} /> procs
           </li>
           <li>
-            {formatNumber(this.risingMist.envHardcastExtensionHealing)} from extended harcasts
+            {formatNumber(this.risingMist.envHardcastExtensionHealing)} from extended hardcasts
           </li>
         </ul>
       </>
@@ -139,9 +140,9 @@ class RisingMistBreakdown extends Analyzer {
         <ul>
           <li>
             {formatNumber(this.risingMist.extraEnvBonusMistyPeaks)} from extended{' '}
-            <SpellLink id={talents.MISTY_PEAKS_TALENT} />
+            <SpellLink id={talents.MISTY_PEAKS_TALENT} /> procs
           </li>
-          <li>{formatNumber(this.risingMist.extraEnvBonusHardcast)} from extended harcasts</li>
+          <li>{formatNumber(this.risingMist.extraEnvBonusHardcast)} from extended hardcasts</li>
         </ul>
       </>
     );
@@ -182,8 +183,14 @@ class RisingMistBreakdown extends Analyzer {
         <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> casts (
         {formatPercentage(this.risingMist.directHealing / this.risingMist.totalHealing)}% of Total)
         <ul>
-          <li>{formatNumber(this.risingMist.averageHealing)} average healing per kick</li>
-          <li>{this.risingMist.averageTargetsPerRSKCast()} average hits per kick</li>
+          <li>
+            {formatNumber(this.risingMist.averageHealing)} average healing per{' '}
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+          </li>
+          <li>
+            {this.risingMist.averageTargetsPerRSKCast()} average hits per{' '}
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+          </li>
         </ul>
       </>
     );
