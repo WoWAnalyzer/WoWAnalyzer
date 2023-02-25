@@ -6,7 +6,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import StatisticBox from 'parser/ui/StatisticBox';
 
-import * as SPELLS from '../../SPELLS';
+import SPELLS from 'common/SPELLS/classic';
 
 class Shadowfiend extends Analyzer {
   static dependencies = {
@@ -16,7 +16,7 @@ class Shadowfiend extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   get castCount() {
-    return this.abilityTracker.getAbility(SPELLS.SHADOW_FIEND).casts;
+    return this.abilityTracker.getAbility(SPELLS.SHADOW_FIEND.id).casts;
   }
 
   damageFromShadowfiend = 0;
@@ -27,7 +27,7 @@ class Shadowfiend extends Analyzer {
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onShadowfiendDamage);
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER_PET).spell({ id: SPELLS.SHADOW_FIEND_MANA_LEECH }),
+      Events.resourcechange.by(SELECTED_PLAYER_PET).spell({ id: SPELLS.SHADOW_FIEND_MANA_LEECH.id }),
       this.onShadowfiendRegen,
     );
   }
@@ -43,7 +43,7 @@ class Shadowfiend extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellLink id={SPELLS.SHADOW_FIEND} />}
+        icon={<SpellLink id={SPELLS.SHADOW_FIEND.id} />}
         value={
           <>
             <ItemManaGained amount={this.manaFromShadowFiend} />

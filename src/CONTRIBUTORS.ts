@@ -2113,3 +2113,9 @@ export const zac: Contributor = {
   discord: 'zac#4930',
   avatar: avatar('zac-avatar.png'),
 };
+
+export const HerzBlutRaffy: Contributor = {
+  nickname: 'Raffy',
+  github: 'naotaraffy',
+  discord: 'naotaraffy',
+};
