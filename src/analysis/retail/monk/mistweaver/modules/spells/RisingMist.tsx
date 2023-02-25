@@ -14,7 +14,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { RISING_MIST_EXTENSION } from '../../constants';
+import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION } from '../../constants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import HotTrackerMW from '../core/HotTrackerMW';
@@ -55,7 +55,8 @@ class RisingMist extends Analyzer {
     return (
       this.renewingMistExtensionHealing +
       this.essenceFontExtensionHealing +
-      this.envelopingMistExtensionHealing
+      this.envHardcastExtensionHealing +
+      this.envMistyPeaksExtensionHealing
     );
   }
 
@@ -66,6 +67,27 @@ class RisingMist extends Analyzer {
     ); // don't want rem healing from tier set ticks;
   }
 
+  get renewingMistHardcastExtensionHealing() {
+    return this.getExtensionHealingBySpell(
+      SPELLS.RENEWING_MIST_HEAL.id,
+      ATTRIBUTION_STRINGS.HARDCAST_RENEWING_MIST,
+    );
+  }
+
+  get renewingMistRapidDiffusionExtensionHealing() {
+    return this.getExtensionHealingBySpell(
+      SPELLS.RENEWING_MIST_HEAL.id,
+      ATTRIBUTION_STRINGS.RAPID_DIFFUSION_RENEWING_MIST,
+    );
+  }
+
+  get renewingMistDancingMistExtensionHealing() {
+    return this.getExtensionHealingBySpell(
+      SPELLS.RENEWING_MIST_HEAL.id,
+      ATTRIBUTION_STRINGS.DANCING_MIST_RENEWING_MIST,
+    );
+  }
+
   get essenceFontExtensionHealing() {
     return (
       this.getExtensionHealingBySpell(SPELLS.ESSENCE_FONT_BUFF.id) +
@@ -73,8 +95,18 @@ class RisingMist extends Analyzer {
     );
   }
 
-  get envelopingMistExtensionHealing() {
-    return this.getExtensionHealingBySpell(TALENTS_MONK.ENVELOPING_MIST_TALENT.id);
+  get envHardcastExtensionHealing() {
+    return this.getExtensionHealingBySpell(
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      ATTRIBUTION_STRINGS.HARDCAST_ENVELOPING_MIST,
+    );
+  }
+
+  get envMistyPeaksExtensionHealing() {
+    return this.getExtensionHealingBySpell(
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      ATTRIBUTION_STRINGS.MISTY_PEAKS_ENVELOPING_MIST,
+    );
   }
 
   get directHealing() {
@@ -127,11 +159,18 @@ class RisingMist extends Analyzer {
   trackUplift = false;
   extraVivCleaves: number = 0;
   extraVivHealing: number = 0;
+  extraVivHealingFromHardcastRems: number = 0;
+  extraVivHealingFromRapidDiffusionRems: number = 0;
+  extraVivhealingFromDancingMistRems: number = 0;
   extraVivOverhealing: number = 0;
   extraVivAbsorbed: number = 0;
   extraEnvHits: number = 0;
   extraEnvBonusHealing: number = 0;
+  extraEnvBonusMistyPeaks: number = 0;
+  extraEnvBonusHardcast: number = 0;
   extraMasteryHits: number = 0;
+  extraChijiGomHealing: number = 0;
+  extraGomHealing: number = 0;
   extraMasteryhealing: number = 0;
   extraMasteryOverhealing: number = 0;
   extraMasteryAbsorbed: number = 0;
@@ -173,6 +212,7 @@ class RisingMist extends Analyzer {
 
   handleMastery(event: HealEvent) {
     const targetId = event.targetID;
+    const spellId = event.ability.guid;
     if (
       !this.hotTracker.hots[targetId] ||
       (!this.hotTracker.hots[targetId][SPELLS.ESSENCE_FONT_BUFF.id] &&
@@ -189,6 +229,13 @@ class RisingMist extends Analyzer {
       (flsHot && flsHot.originalEnd < event.timestamp)
     ) {
       if (!this.masteryTickTock) {
+        if (spellId === SPELLS.GUST_OF_MISTS_CHIJI.id) {
+          this.extraChijiGomHealing += event.amount + (event.absorbed || 0);
+        }
+        if (spellId === SPELLS.GUSTS_OF_MISTS.id) {
+          this.extraGomHealing += event.amount + (event.absorbed || 0);
+        }
+
         this.extraMasteryHits += 1;
         this.extraMasteryhealing += event.amount || 0;
         this.extraMasteryOverhealing += event.overheal || 0;
@@ -218,6 +265,11 @@ class RisingMist extends Analyzer {
 
     if (hot.originalEnd < event.timestamp) {
       this.extraEnvHits += 1;
+      if (this.hotTracker.fromHardcast(hot)) {
+        this.extraEnvBonusHardcast += calculateEffectiveHealing(event, this.envmHealingIncrease);
+      } else if (this.hotTracker.fromMistyPeaks(hot)) {
+        this.extraEnvBonusMistyPeaks += calculateEffectiveHealing(event, this.envmHealingIncrease);
+      }
       this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
     }
   }
@@ -232,11 +284,16 @@ class RisingMist extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
-    const extension = this.hotTracker.getRemExtensionForTimestamp(hot, event.timestamp);
-    if (
-      !this.hotTracker.fromDancingMists(hot) &&
-      extension?.attribution.name.startsWith(ATTRIBUTION_PREFIX)
-    ) {
+    if (hot.originalEnd < event.timestamp) {
+      if (this.hotTracker.fromHardcast(hot)) {
+        this.extraVivHealingFromHardcastRems += event.amount + (event.absorbed || 0);
+      }
+      if (this.hotTracker.fromRapidDiffusion(hot)) {
+        this.extraVivHealingFromRapidDiffusionRems += event.amount + (event.absorbed || 0);
+      }
+      if (this.hotTracker.fromDancingMists(hot)) {
+        this.extraVivhealingFromDancingMistRems += event.amount + (event.absorbed || 0);
+      }
       this.extraVivCleaves += 1;
       this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
@@ -288,12 +345,21 @@ class RisingMist extends Analyzer {
     });
   }
 
-  private getExtensionHealingBySpell(spellId: number): number {
+  private getExtensionHealingBySpell(spellId: number, attribution?: string): number {
     let value = 0;
     debug && console.log(this.hotTracker.hotHistory);
     this.hotTracker.hotHistory.forEach((hot: Tracker) => {
       if (hot.spellId === spellId) {
-        value += hot.healingAfterOriginalEnd || 0;
+        if (
+          attribution !== undefined &&
+          !hot.attributions.some(function (attr) {
+            return attr.name === attribution;
+          })
+        ) {
+          return;
+        } else {
+          value += hot.healingAfterOriginalEnd || 0;
+        }
       }
     });
     return value;
@@ -337,27 +403,6 @@ class RisingMist extends Analyzer {
                 )}
                 <li>Renewing Mist HoTs Extended: {this.remCount}</li>
                 <li>Enveloping Mist HoTs Extended: {this.evmCount}</li>
-              </ul>
-              Vivify
-              <ul>
-                <li>Extra Cleaves: {this.extraVivCleaves}</li>
-                <li>
-                  Extra Healing: {formatNumber(this.extraVivHealing)} (
-                  {this.calculateVivOverHealing}% Overhealing)
-                </li>
-              </ul>
-              Enveloping Mist
-              <ul>
-                <li>Extra Hits: {this.extraEnvHits}</li>
-                <li>Extra Healing: {formatNumber(this.extraEnvBonusHealing)}</li>
-              </ul>
-              Mastery
-              <ul>
-                <li>Extra Hits: {this.extraMasteryHits}</li>
-                <li>
-                  Extra Healing: {formatNumber(this.extraMasteryhealing)} (
-                  {this.calculateMasteryOverHealing}% Overhealing)
-                </li>
               </ul>
             </ul>
           </>

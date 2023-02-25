@@ -91,7 +91,7 @@ class MistyPeaks extends Analyzer {
     }
 
     const hot = this.hotTracker.hots[targetId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
-    if (!this.hotTracker.fromMistyPeaks(hot) || event.timestamp >= hot.originalEnd) {
+    if (!this.hotTracker.fromMistyPeaks(hot)) {
       return;
     }
     this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
