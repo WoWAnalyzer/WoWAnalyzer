@@ -23,7 +23,7 @@ const config: Config = {
   description: <>Classic WotLK support is still a Work in Progress.</>,
   pages: {
     overview: {
-      hideChecklist: true,
+      hideChecklist: false,
       text: <>Classic WotLK support is still a Work in Progress.</>,
       type: 'info',
     },

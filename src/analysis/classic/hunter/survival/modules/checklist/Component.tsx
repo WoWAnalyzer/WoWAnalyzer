@@ -25,8 +25,7 @@ const CasterChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
         description={
           <>
             Try to avoid downtime during the fight. When moving, use your instant abilities, such as{' '}
-            {/* UPDATE THE SPELLS BELOW */}
-            <SpellLink id={SPELLS.FIRE_BLAST} /> or <SpellLink id={SPELLS.ICE_LANCE} />.
+            <SpellLink id={SPELLS.AIMED_SHOT} />.
           </>
         }
       >
@@ -38,7 +37,6 @@ const CasterChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
         description={<>Use your cooldowns as often as possible to maximize your damage output.</>}
       >
         {/* SPELLS listed here must be in ../features/Abilities */}
-        {/* UPDATE THE ABILITIES BELOW */}
         <AbilityRequirement spell={SPELLS.RAPID_FIRE.id} />
       </Rule>
       {/* Enchants and Consumes */}

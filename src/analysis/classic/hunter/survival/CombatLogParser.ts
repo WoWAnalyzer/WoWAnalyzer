@@ -5,8 +5,9 @@ import { suggestion } from 'parser/core/Analyzer';
 import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 import lowRankSpellsPetSuggestion from './suggestions/lowRankSpellsPet';
 
-import lowRankSpells from './lowRankSpells';
-import lowRankSpellsPet from './lowRankSpellsPet';
+//import lowRankSpells from '../shared/lowRankSpells';
+import { lowRankSpells, whitelist } from 'analysis/classic/hunter/shared';
+import lowRankSpellsPet from '../shared/lowRankSpellsPet';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 // Features
@@ -15,7 +16,11 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/checklist/Module';
+import DotUptimes from './modules/features/DotUptimes';
+
 // Spells
+import SerpentSting from './modules/spells/SerpentSting';
+import KillShot from '../shared/KillShot';
 import KillCommandNormalizer from './normalizers/KillCommandNormalizer';
 import GoForTheThroat from './statistics/GoForTheThroat';
 import growl from './suggestions/growl';
@@ -25,7 +30,7 @@ import growl from './suggestions/growl';
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
-    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
+    lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
     lowRankPetSpells: lowRankSpellsPetSuggestion(lowRankSpellsPet),
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,
@@ -35,8 +40,11 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    dotUptimes: DotUptimes,
     // Spells
     // spellName: SpellName,
+    serpentSting: SerpentSting,
+    killShot: KillShot,
     killCommandNormalizer: KillCommandNormalizer,
     goForTheThroat: GoForTheThroat,
     growl: suggestion(growl()),

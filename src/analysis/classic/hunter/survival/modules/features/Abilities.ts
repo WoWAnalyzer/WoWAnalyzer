@@ -6,8 +6,6 @@ import RACIALS from 'common/SPELLS/classic/racials';
 class Abilities extends CoreAbilities {
   spellbook() {
     return [
-      // SPELLS ADDED HERE ARE DISPLAYED ON THE STATISTICS TAB
-      // LIST ALL SPELLS THAT COULD BE CAST DURING COMBAT BY THIS SPEC
       // Rotational
       {
         spell: SPELLS.AUTO_SHOT.id,
@@ -19,12 +17,16 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
-      // Survival
+      // Survival hunter can overlap lower ranks of EXPLOSIVE_SHOT with max rank EXPLOSIVE_SHOT so
+      // use 4-3-4 when lock and load fires
+      // We should track rank 3 and rank 4 separately to see how many times the lower rank is used.
+      /*
       {
         spell: [SPELLS.EXPLOSIVE_SHOT.lowRanks[0]],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
+*/
       {
         spell: [SPELLS.EXPLOSIVE_SHOT.id, ...SPELLS.EXPLOSIVE_SHOT.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -34,20 +36,26 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.BLACK_ARROW.id, ...SPELLS.BLACK_ARROW.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
-        cooldown: 30,
+        // 1/3 resources reduces cooldown by 2 seconds
+        // cooldown: 30,
+        cooldown: 28,
       },
       {
         spell: [SPELLS.EXPLOSIVE_TRAP.id, ...SPELLS.EXPLOSIVE_TRAP.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
-      // TODO only applies in Execute Phase 20%
+      // Moved to shared KillShot.ts to hanlde execute phase
+      // If not removed KillShot appears twice
+      /*
       {
         spell: [SPELLS.KILL_SHOT.id, ...SPELLS.KILL_SHOT.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
-        cooldown: 15,
-      },
+        // Glyph of Kill Shot reduces by 6 seconds
+        // cooldown: 15,
+        cooldown: 9,
+      }, */
       {
         spell: [SPELLS.AIMED_SHOT.id, ...SPELLS.AIMED_SHOT.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -72,7 +80,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.RAPID_FIRE.id],
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { base: 1500 },
+        gcd: null,
         cooldown: 300,
       },
       {
@@ -91,12 +99,28 @@ class Abilities extends CoreAbilities {
       },
 
       // Defensive
+      {
+        spell: [SPELLS.DISENGAGE.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: null,
+        cooldown: 25,
+      },
 
       // Other spells (not apart of the normal rotation)
+      {
+        spell: [SPELLS.LOCK_AND_LOAD.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
 
       // Utility
 
       // Pet Related
+      {
+        spell: [SPELLS.KILL_COMMAND.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
 
       // Consumable
     ];

@@ -7,7 +7,10 @@ class Buffs extends CoreAuras {
   // A list of Buffs (on the current player) to highlight on the Timeline
   auras() {
     return [
-      // Update and Add to the spells below
+      {
+        spellId: SPELLS.LOCK_AND_LOAD.id,
+        timelineHighlight: true,
+      },
       {
         spellId: SPELLS.RAPID_FIRE.id,
         timelineHighlight: true,

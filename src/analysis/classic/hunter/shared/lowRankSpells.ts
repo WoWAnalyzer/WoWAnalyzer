@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic/druid'; // UPDATE THE CLASS
+import SPELLS from 'common/SPELLS/classic/hunter';
 
 const lowRankSpells = Object.entries(SPELLS).reduce((result, [str, obj]) => {
   if (obj.lowRanks) {
@@ -8,6 +8,10 @@ const lowRankSpells = Object.entries(SPELLS).reduce((result, [str, obj]) => {
 }, {});
 
 export default lowRankSpells;
+
+export const whitelist = {
+  [SPELLS.EXPLOSIVE_SHOT.id]: [60052],
+};
 
 export interface LowRankSpells {
   [primarySpellId: number]: number[];
