@@ -204,13 +204,13 @@ class ThunderFocusTea extends Analyzer {
         times and the spell that you use it on depends on your talent selection. If you have{' '}
         <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} />, then you should always use{' '}
         <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> on{' '}
-        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (with high{' '}
-        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id} /> stacks) or{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. If you do not have{' '}
-        <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT.id} />, then always use it on{' '}
-        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> (with{' '}
-        <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} />
-        ), otherwise use it on <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> or{' '}
+        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (when talented into{' '}
+        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />
+        ). If you aren't talented into <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT.id} />,
+        then always use it on <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> (if talented
+        into <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} />
+        ) or <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />.
       </p>
     );
     const data = (

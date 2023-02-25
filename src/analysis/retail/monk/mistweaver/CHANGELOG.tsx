@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 24), <>Clarify <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> wording</>, Trevor),
   change(date(2023, 2, 24), <>Bug fix in the Hot Tracker to improve the accuracy of <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/>, <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/>, <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/>, <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> and <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id}/>.</>, Vohrr),
   change(date(2023, 2, 23), <>Fixed inconsistent QualitativePerformance marks for <SpellLink id={SPELLS.VIVIFY.id}/> casts in the Guide.</>, Vohrr),
   change(date(2023, 2, 21), <>Added Initial version of <SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}/> apl.</>, Vohrr),
