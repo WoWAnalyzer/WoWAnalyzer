@@ -28,7 +28,11 @@ const TalentAggregateBar = ({
   return (
     <div className="source-bar" {...others}>
       <Tooltip content={barTooltip ? barTooltip : percentTotal + '%'}>
-        <div style={getSegment(percentTotal, barColor, scaleFactor)}><small><strong>{formatPercentage(percentTotal)}%</strong></small></div>
+        <div style={getSegment(percentTotal, barColor, scaleFactor)}>
+          <span>
+            <strong>{formatPercentage(percentTotal, 1)}%</strong>
+          </span>
+        </div>
       </Tooltip>
       {subSpecs &&
         subSpecPercents &&
@@ -39,7 +43,11 @@ const TalentAggregateBar = ({
               subSpec.tooltip ? subSpec.tooltip : formatPercentage(subSpecPercents[idx]) + '%'
             }
           >
-            <div style={getSegment(subSpecPercents[idx], subSpec.color, scaleFactor)}><small><strong>{formatPercentage(subSpecPercents[idx])}%</strong></small></div>
+            <div style={getSegment(subSpecPercents[idx], subSpec.color, scaleFactor)}>
+              <span>
+                <strong>{formatPercentage(subSpecPercents[idx], 1)}%</strong>
+              </span>
+            </div>
           </Tooltip>
         ))}
     </div>
@@ -55,12 +63,12 @@ function getSegment(
     ? {
         //borderRadius: `2px`,
         left: `0%`,
-        width: `${percentTotal * 100 * (scaleFactor ? scaleFactor : 1)}%`,
+        width: `${percentTotal * 100 * (scaleFactor || 1)}%`,
         background: `${barColor}`,
       }
     : {
         left: `0%`,
-        width: `${percentTotal * 100 * (scaleFactor ? scaleFactor : 1)}%`,
+        width: `${percentTotal * 100 * (scaleFactor || 1)}%`,
       };
 }
 

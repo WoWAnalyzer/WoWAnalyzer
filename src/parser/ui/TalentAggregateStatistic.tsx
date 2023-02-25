@@ -36,15 +36,7 @@ export default function talentAggregateBars(
         <div key={spec.spell.name} className="flex-main talent-aggregate-bar">
           <div className="flex main-bar">
             <div className="flex-sub bar-label">
-              {getSpellLink(spec)}{' '}
-              <small>
-                {formatNumber(
-                  spec.amount +
-                    (spec.subSpecs
-                      ? spec.subSpecs?.reduce((sum, subSpec) => sum + (subSpec?.amount || 0), 0)
-                      : 0),
-                )}{' '}
-              </small>
+              {getSpellLink(spec)} <small>{formatNumber(getSpecSubtotal(spec))} </small>
             </div>
             <div className="flex-main chart">
               <TalentAggregateBar
@@ -66,16 +58,15 @@ export default function talentAggregateBars(
   );
 }
 
-function getPercentContribution(currentAmount: number, bars: TalentAggregateBarSpec[]) {
-  const total = bars.reduce(
-    (sum, item) =>
-      sum +
-      item.amount +
-      (item.subSpecs
-        ? item.subSpecs?.reduce((sum, subSpec) => sum + (subSpec?.amount || 0), 0)
-        : 0),
-    0,
+export function getSpecSubtotal(spec: TalentAggregateBarSpec) {
+  return (
+    spec.amount +
+    (spec.subSpecs ? spec.subSpecs?.reduce((sum, subSpec) => sum + (subSpec?.amount || 0), 0) : 0)
   );
+}
+
+function getPercentContribution(currentAmount: number, bars: TalentAggregateBarSpec[]) {
+  const total = bars.reduce((sum, item) => sum + getSpecSubtotal(item), 0);
   return currentAmount / total;
 }
 
