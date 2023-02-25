@@ -1,10 +1,6 @@
 import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
-import {
-  AbilityRequirementProps,
-  ChecklistProps, DotUptimeProps,
-} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
-import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
+import {  ChecklistProps, DotUptimeProps,} from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
@@ -19,7 +15,7 @@ const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
         </>
       }
       thresholds={props.thresholds}
-    />
+    />  
   );
 
   return (
