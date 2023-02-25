@@ -21,6 +21,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 2, 25), 'Fix spell ID for classic Bloodthirst.', ToppleTheNun),
   change(date(2023, 2, 21), 'Add Classic Warrior spells', Pilsung),
   change(date(2023, 2, 20), 'Fixed missing food buffs for WotLK Classic.', Arbixal),
   change(date(2023, 2, 19), 'Added a workaround for handling of combatantinfo on Algalon, Yogg-Saron, and Hodir in WotLK Classic.', emallson),
