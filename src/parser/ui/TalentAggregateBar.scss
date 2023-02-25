@@ -1,0 +1,13 @@
+@import 'interface/Theme.scss';
+
+.source-bar {
+  position: relative;
+  width: auto;
+  height: 100%;
+
+  > div {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+  }
+}

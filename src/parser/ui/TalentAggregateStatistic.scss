@@ -1,0 +1,30 @@
+.multi-source-contribution-bar {
+  padding-left: 0px;
+  line-height: 1;
+
+  .main-bar {
+    padding: 5px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .main-bar-big {
+    padding: 10px;
+    height: 65px;
+    font-size: 20px; /* bigger? */
+  }
+
+  .sub-bar {
+    padding: 5px 10px;
+    height: 25px;
+    font-size: 15px;
+  }
+
+  .bar-label {
+    padding-right: 5px;
+    width: 40%;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 15px;
+  }
+}
