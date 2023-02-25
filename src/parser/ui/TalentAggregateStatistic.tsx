@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { ReactNode } from 'react';
@@ -33,7 +33,7 @@ export default function talentAggregateBars(
   return (
     <>
       {bars.map((spec) => (
-        <div key={spec.spell.name} className="flex-main multi-source-contribution-bar">
+        <div key={spec.spell.name} className="flex-main talent-aggregate-bar">
           <div className="flex main-bar">
             <div className="flex-sub bar-label">
               {getSpellLink(spec)}{' '}
@@ -44,17 +44,6 @@ export default function talentAggregateBars(
                       ? spec.subSpecs?.reduce((sum, subSpec) => sum + (subSpec?.amount || 0), 0)
                       : 0),
                 )}{' '}
-                -{' '}
-                {formatPercentage(
-                  getPercentContribution(
-                    spec.amount +
-                      (spec.subSpecs
-                        ? spec.subSpecs?.reduce((sum, subSpec) => sum + (subSpec?.amount || 0), 0)
-                        : 0),
-                    bars,
-                  ),
-                )}
-                %
               </small>
             </div>
             <div className="flex-main chart">

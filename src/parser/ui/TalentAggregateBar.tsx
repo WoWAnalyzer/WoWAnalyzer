@@ -28,7 +28,7 @@ const TalentAggregateBar = ({
   return (
     <div className="source-bar" {...others}>
       <Tooltip content={barTooltip ? barTooltip : percentTotal + '%'}>
-        <div style={getSegment(percentTotal, barColor, scaleFactor)}></div>
+        <div style={getSegment(percentTotal, barColor, scaleFactor)}><small><strong>{formatPercentage(percentTotal)}%</strong></small></div>
       </Tooltip>
       {subSpecs &&
         subSpecPercents &&
@@ -39,7 +39,7 @@ const TalentAggregateBar = ({
               subSpec.tooltip ? subSpec.tooltip : formatPercentage(subSpecPercents[idx]) + '%'
             }
           >
-            <div style={getSegment(subSpecPercents[idx], subSpec.color, scaleFactor)}></div>
+            <div style={getSegment(subSpecPercents[idx], subSpec.color, scaleFactor)}><small><strong>{formatPercentage(subSpecPercents[idx])}%</strong></small></div>
           </Tooltip>
         ))}
     </div>
@@ -53,6 +53,7 @@ function getSegment(
 ): React.CSSProperties {
   return barColor !== undefined
     ? {
+        //borderRadius: `2px`,
         left: `0%`,
         width: `${percentTotal * 100 * (scaleFactor ? scaleFactor : 1)}%`,
         background: `${barColor}`,

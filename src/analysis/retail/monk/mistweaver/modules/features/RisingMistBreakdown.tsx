@@ -9,7 +9,7 @@ import SPELLS from 'common/SPELLS';
 import { SPELL_COLORS } from '../../constants';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatNumber } from 'common/format';
 
 class RisingMistBreakdown extends Analyzer {
   static dependencies = {
@@ -110,13 +110,7 @@ class RisingMistBreakdown extends Analyzer {
   envelopingMistTooltip() {
     return (
       <>
-        <SpellLink id={talents.ENVELOPING_MIST_TALENT} /> extension healing (
-        {formatPercentage(
-          (this.risingMist.envHardcastExtensionHealing +
-            this.risingMist.envMistyPeaksExtensionHealing) /
-            this.risingMist.totalHealing,
-        )}
-        % of Total)
+        <SpellLink id={talents.ENVELOPING_MIST_TALENT} /> extension healing
         <ul>
           <li>
             {formatNumber(this.risingMist.envMistyPeaksExtensionHealing)} from extended{' '}
@@ -134,9 +128,7 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         Additional bonus healing from the extra <SpellLink id={talents.ENVELOPING_MIST_TALENT} />{' '}
-        buff uptime (
-        {formatPercentage(this.risingMist.extraEnvBonusHealing / this.risingMist.totalHealing)}% of
-        Total)
+        buff uptime
         <ul>
           <li>
             {formatNumber(this.risingMist.extraEnvBonusMistyPeaks)} from extended{' '}
@@ -151,11 +143,7 @@ class RisingMistBreakdown extends Analyzer {
   renewingMistTooltip() {
     return (
       <>
-        <SpellLink id={talents.RENEWING_MIST_TALENT} /> extension healing (
-        {formatPercentage(
-          this.risingMist.renewingMistExtensionHealing / this.risingMist.totalHealing,
-        )}
-        % of Total)
+        <SpellLink id={talents.RENEWING_MIST_TALENT} /> extension healing
         <ul>
           <li>
             {formatNumber(this.risingMist.renewingMistDancingMistExtensionHealing)} from extended{' '}
@@ -180,8 +168,7 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         <SpellLink id={talents.RISING_MIST_TALENT} /> direct healing from{' '}
-        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> casts (
-        {formatPercentage(this.risingMist.directHealing / this.risingMist.totalHealing)}% of Total)
+        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> casts
         <ul>
           <li>
             {formatNumber(this.risingMist.averageHealing)} average healing per{' '}
@@ -200,9 +187,7 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         <SpellLink id={SPELLS.VIVIFY} /> healing from extended{' '}
-        <SpellLink id={talents.RENEWING_MIST_TALENT} /> (
-        {formatPercentage(this.risingMist.extraVivHealing / this.risingMist.totalHealing)}% of
-        Total)
+        <SpellLink id={talents.RENEWING_MIST_TALENT} />
         <ul>
           <li>
             {this.risingMist.extraVivCleaves} extra cleave hits via{' '}
@@ -230,11 +215,7 @@ class RisingMistBreakdown extends Analyzer {
   essenceFontTooltip() {
     return (
       <>
-        Additional <SpellLink id={SPELLS.ESSENCE_FONT_BUFF} /> healing from extensions (
-        {formatPercentage(
-          this.risingMist.essenceFontExtensionHealing / this.risingMist.totalHealing,
-        )}
-        % of Total)
+        Additional <SpellLink id={SPELLS.ESSENCE_FONT_BUFF} /> healing from extensions
       </>
     );
   }
@@ -243,9 +224,7 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         Additional <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> healing from extended{' '}
-        <SpellLink id={talents.ESSENCE_FONT_TALENT} /> (
-        {formatPercentage(this.risingMist.extraMasteryhealing / this.risingMist.totalHealing)}% of
-        Total)
+        <SpellLink id={talents.ESSENCE_FONT_TALENT} />
         <ul>
           {this.selectedCombatant.hasTalent(talents.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) && (
             <li>

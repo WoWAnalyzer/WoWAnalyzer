@@ -1,6 +1,7 @@
 import { ReactNode } from 'react';
 import Statistic from './Statistic';
 import STATISTIC_CATEGORY from './STATISTIC_CATEGORY';
+import './TalentAggregateStatistic.scss';
 
 type Props = {
   children: ReactNode;
@@ -24,7 +25,7 @@ const TalentAggregateStatisticContainer = ({
 }: Props) => (
   <Statistic wide size="flexible" {...others}>
     <div className="pad">
-      <div className="boring-value">
+      <div className="talent-aggregate-container">
         {smallTitle ? (
           <strong>{title}</strong>
         ) : (

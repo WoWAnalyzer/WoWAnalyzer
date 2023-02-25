@@ -1,4 +1,22 @@
-.multi-source-contribution-bar {
+.talent-aggregate-container {
+  h3 {
+    font-family: 'Open Sans', 'Century Gothic', sans-serif;
+    margin-top: 5px;
+    margin-bottom: 9px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #333;
+
+    .value {
+      font-size: 24px;
+
+      small {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.talent-aggregate-bar {
   padding-left: 0px;
   line-height: 1;
 
@@ -21,8 +39,8 @@
   }
 
   .bar-label {
-    padding-right: 5px;
-    width: 40%;
+    padding: 7.5px 0;
+    width: 35%;
     text-align: left;
     vertical-align: middle;
     font-size: 15px;
