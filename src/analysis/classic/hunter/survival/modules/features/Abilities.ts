@@ -7,6 +7,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     return [
       // Rotational
+      // KILL_SHOT is handled in shared KillShot.ts because it only is valid in execute phase
       {
         spell: SPELLS.AUTO_SHOT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -17,16 +18,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
-      // Survival hunter can overlap lower ranks of EXPLOSIVE_SHOT with max rank EXPLOSIVE_SHOT so
-      // use 4-3-4 when lock and load fires
-      // We should track rank 3 and rank 4 separately to see how many times the lower rank is used.
-      /*
-      {
-        spell: [SPELLS.EXPLOSIVE_SHOT.lowRanks[0]],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-*/
       {
         spell: [SPELLS.EXPLOSIVE_SHOT.id, ...SPELLS.EXPLOSIVE_SHOT.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -45,17 +36,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
-      // Moved to shared KillShot.ts to hanlde execute phase
-      // If not removed KillShot appears twice
-      /*
-      {
-        spell: [SPELLS.KILL_SHOT.id, ...SPELLS.KILL_SHOT.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-        // Glyph of Kill Shot reduces by 6 seconds
-        // cooldown: 15,
-        cooldown: 9,
-      }, */
       {
         spell: [SPELLS.AIMED_SHOT.id, ...SPELLS.AIMED_SHOT.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
