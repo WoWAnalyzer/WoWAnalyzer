@@ -40,7 +40,7 @@ import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import FlashFlood from './modules/talents/FlashFlood';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
-import TalentStatisticBox from './modules/talents/TalentStatisticBox';
+import TalentStatisticBox from './modules/features/TalentStatisticBox';
 import Torrent from './modules/talents/Torrent';
 import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
@@ -56,6 +56,7 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import RiptideTracker from './modules/core/RiptideTracker';
 import RiptideAttributor from './modules/core/RiptideAttributor';
 import PrimalTideCore from './modules/talents/PrimalTideCore';
+import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     primordialWave: PrimordialWave,
     undercurrent: Undercurrent,
     primalTideCore: PrimalTideCore,
+    wavespeakersBlessing: WavespeakersBlessing,
 
     // Spells
     chainHeal: ChainHeal,

@@ -4,6 +4,7 @@ import TALENTS from 'common/TALENTS/shaman';
 //event link attribution strings
 export const HARDCAST = 'Hardcast';
 export const RIPTIDE_PWAVE = 'PrimordialWave';
+export const PWAVE_REMOVAL = 'PrimordialWaveRemoved';
 export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
 export const PRIMAL_TIDE_CORE = 'PrimalTideCore';
 export const APPLIED_HEAL = 'AppliedHeal';
@@ -95,3 +96,6 @@ export const ABILITIES_NOT_FEEDING_INTO_ASCENDANCE = [
 ];
 
 export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
+
+export const RIPTIDE_BASE_DURATION = 18000;
+export const WAVESPEAKERS_BLESSING = 3000;

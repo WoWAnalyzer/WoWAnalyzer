@@ -7,6 +7,7 @@ import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import AstralPowerTracker from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
+import { ASTRAL_POWER_SCALE_FACTOR } from '../../../constants';
 
 /**
  * Deals with tracking Astral Power overcap issues.
@@ -54,7 +55,11 @@ class AstralPowerDetails extends Analyzer {
       url: 'astral-power-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown tracker={this.astralPowerTracker} showSpenders />
+          <ResourceBreakdown
+            tracker={this.astralPowerTracker}
+            showSpenders
+            scaleFactor={ASTRAL_POWER_SCALE_FACTOR}
+          />
         </Panel>
       ),
     };
