@@ -34,6 +34,7 @@ import PlayerSelection from './PlayerSelection';
 import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
 import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
 import { isClassicExpansion } from 'game/Expansion';
+import { CLASSIC_EXPANSION } from 'game/Expansion';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
@@ -192,6 +193,28 @@ const PlayerLoader = ({ children }: Props) => {
                 break;
               default:
                 break;
+            }
+          }
+          
+          if (isClassicExpansion(wclGameVersionToExpansion(report.gameVersion))) {
+            const config = getConfig(CLASSIC_EXPANSION, 1, player, combatant);
+            if (config?.spec) {
+              switch (config?.spec.role) {
+                case ROLES.TANK:
+                  tanks += 1;
+                  break;
+                case ROLES.HEALER:
+                  healers += 1;
+                  break;
+                case ROLES.DPS.MELEE:
+                  dps += 1;
+                  break;
+                case ROLES.DPS.RANGED:
+                  ranged += 1;
+                  break;
+                default:
+                  break;
+              }
             }
           }
 
