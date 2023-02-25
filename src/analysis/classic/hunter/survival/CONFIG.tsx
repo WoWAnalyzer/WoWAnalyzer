@@ -1,15 +1,9 @@
 import { bdfreeman1421 } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
-import { Icon } from 'interface';
 import Config from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
-
-export enum Build {
-  DEFAULT = 'default',
-  SURVIVAL = 'survival',
-}
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
@@ -30,22 +24,7 @@ const config: Config = {
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport: '/report/8AaZGQvkzJdDYfMR/11-Normal+Magtheridon+-+Kill+(7:42)/Badmera',
-  builds: {
-    [Build.DEFAULT]: {
-      url: 'standard',
-      name: '0/18/53',
-      talents: [0, 18, 53],
-      icon: <Icon icon="ability_hunter_explosiveshot" />,
-      visible: true,
-    },
-    [Build.SURVIVAL]: {
-      url: 'survival',
-      name: '0/18/53',
-      talents: [0, 18, 53],
-      icon: <Icon icon="ability_hunter_explosiveshot" />,
-      visible: true,
-    },
-  },
+
   timeline: { separateCastBars: [[]] },
 
   // Don't change anything below this line;
