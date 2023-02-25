@@ -108,7 +108,7 @@ class RapidDiffusion extends Analyzer {
       return;
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
-    if (this.hotTracker.fromRapidDiffusion(hot) && event.timestamp <= hot.originalEnd) {
+    if (this.hotTracker.fromRapidDiffusion(hot)) {
       this.remHealing += event.amount || 0;
       this.remAbsorbed += event.absorbed || 0;
       this.remOverHealing += event.overheal || 0;

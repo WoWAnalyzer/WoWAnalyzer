@@ -25,7 +25,7 @@ export type TalentAggregateBarSpec = {
  *
  */
 
-export default function sourceContributionBars(
+export default function talentAggregateBars(
   bars: TalentAggregateBarSpec[],
   scaleFactor?: number,
 ): React.ReactNode {

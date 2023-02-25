@@ -4,10 +4,10 @@ import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import sourceContributionBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
+import talentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import SPELLS from 'common/SPELLS';
 import { SPELL_COLORS } from '../../constants';
-import SourceContributionContainer from 'parser/ui/TalentAggregateStatisticContainer';
+import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber, formatPercentage } from 'common/format';
 
@@ -258,7 +258,7 @@ class RisingMistBreakdown extends Analyzer {
 
   statistic() {
     return (
-      <SourceContributionContainer
+      <TalentAggregateStatisticContainer
         title={
           <>
             <SpellLink id={talents.RISING_MIST_TALENT.id} /> Breakdown -{' '}
@@ -270,11 +270,11 @@ class RisingMistBreakdown extends Analyzer {
         footer={<>*Mouseover for a detailed breakdown of each spell's contribution</>}
         smallFooter
       >
-        {sourceContributionBars(
+        {talentAggregateBars(
           this.sortedRisingMistItems().sortedRisingMistItems,
           this.sortedRisingMistItems().scaleFactor,
         )}
-      </SourceContributionContainer>
+      </TalentAggregateStatisticContainer>
     );
   }
 }
