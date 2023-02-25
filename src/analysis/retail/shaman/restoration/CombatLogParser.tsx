@@ -56,6 +56,7 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import RiptideTracker from './modules/core/RiptideTracker';
 import RiptideAttributor from './modules/core/RiptideAttributor';
 import PrimalTideCore from './modules/talents/PrimalTideCore';
+import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     primordialWave: PrimordialWave,
     undercurrent: Undercurrent,
     primalTideCore: PrimalTideCore,
+    wavespeakersBlessing: WavespeakersBlessing,
 
     // Spells
     chainHeal: ChainHeal,

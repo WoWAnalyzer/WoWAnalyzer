@@ -42,7 +42,7 @@ class RiptideAttributor extends Analyzer {
     if (this._hasAttribution(event)) {
       return;
     }
-    if (isFromHardcast(event)) {
+    if (event.prepull || isFromHardcast(event)) {
       this.riptideTracker.addAttributionFromApply(this.hardcastAttrib, event);
     } else if (isRiptideFromPrimordialWave(event)) {
       this.riptideTracker.addAttributionFromApply(this.pwaveAttrib, event);
