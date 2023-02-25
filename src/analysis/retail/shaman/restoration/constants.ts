@@ -96,3 +96,6 @@ export const ABILITIES_NOT_FEEDING_INTO_ASCENDANCE = [
 ];
 
 export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
+
+export const RIPTIDE_BASE_DURATION = 18000;
+export const WAVESPEAKERS_BLESSING = 3000;
