@@ -137,17 +137,15 @@ class RisingMistBreakdown extends Analyzer {
         <ul>
           <li>
             {formatNumber(this.risingMist.renewingMistDancingMistExtensionHealing)} from extended{' '}
-            <SpellLink id={talents.DANCING_MISTS_TALENT} />{' '}
-            <SpellLink id={talents.RENEWING_MIST_TALENT} />
+            <SpellLink id={talents.DANCING_MISTS_TALENT} /> procs
           </li>
           <li>
             {formatNumber(this.risingMist.renewingMistHardcastExtensionHealing)} from extended
-            hardcast <SpellLink id={talents.RENEWING_MIST_TALENT} />
+            hardcasts
           </li>
           <li>
             {formatNumber(this.risingMist.renewingMistRapidDiffusionExtensionHealing)} from extended{' '}
-            <SpellLink id={talents.RAPID_DIFFUSION_TALENT} />{' '}
-            <SpellLink id={talents.RENEWING_MIST_TALENT} />
+            <SpellLink id={talents.RAPID_DIFFUSION_TALENT} /> procs
           </li>
         </ul>
       </>
@@ -185,8 +183,7 @@ class RisingMistBreakdown extends Analyzer {
           </li>
           <li>
             {formatNumber(this.risingMist.extraVivhealingFromDancingMistRems)} from extended{' '}
-            <SpellLink id={talents.DANCING_MISTS_TALENT} />{' '}
-            <SpellLink id={talents.RENEWING_MIST_TALENT} />
+            <SpellLink id={talents.DANCING_MISTS_TALENT} /> procs
           </li>
           <li>
             {formatNumber(this.risingMist.extraVivHealingFromHardcastRems)} from extended hardcast{' '}
@@ -194,8 +191,7 @@ class RisingMistBreakdown extends Analyzer {
           </li>
           <li>
             {formatNumber(this.risingMist.extraVivHealingFromRapidDiffusionRems)} from extended{' '}
-            <SpellLink id={talents.RAPID_DIFFUSION_TALENT} />{' '}
-            <SpellLink id={talents.RENEWING_MIST_TALENT} />
+            <SpellLink id={talents.RAPID_DIFFUSION_TALENT} /> procs
           </li>
         </ul>
       </>
@@ -205,7 +201,8 @@ class RisingMistBreakdown extends Analyzer {
   essenceFontTooltip() {
     return (
       <>
-        Additional <SpellLink id={SPELLS.ESSENCE_FONT_BUFF} /> healing from extensions
+        {formatNumber(this.risingMist.essenceFontExtensionHealing)}{' '}
+        <SpellLink id={SPELLS.ESSENCE_FONT_BUFF} /> extension healing
       </>
     );
   }
@@ -219,13 +216,12 @@ class RisingMistBreakdown extends Analyzer {
           {this.selectedCombatant.hasTalent(talents.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) && (
             <li>
               {formatNumber(this.risingMist.extraChijiGomHealing)}{' '}
-              <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> healing from extended{' '}
-              <SpellLink id={talents.ESSENCE_FONT_TALENT} />
+              <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> healing
             </li>
           )}
           <li>
             {formatNumber(this.risingMist.extraGomHealing)} <SpellLink id={SPELLS.GUSTS_OF_MISTS} />{' '}
-            healing from extended <SpellLink id={talents.ESSENCE_FONT_TALENT} />
+            healing
           </li>
         </ul>
       </>
