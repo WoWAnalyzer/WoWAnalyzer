@@ -268,7 +268,7 @@ class RisingMistBreakdown extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink id={talents.RISING_MIST_TALENT.id} /> Breakdown -{' '}
+            <SpellLink id={talents.RISING_MIST_TALENT.id} /> -{' '}
             <ItemHealingDone amount={this.risingMist.totalHealing} />
           </>
         }

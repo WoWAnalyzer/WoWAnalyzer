@@ -24,7 +24,15 @@ const TalentAggregateStatisticContainer = ({
 }: Props) => (
   <Statistic wide size="flexible" {...others}>
     <div className="pad">
-      <div className="boring-value">{smallTitle ? <strong>{title}</strong> : <h3>{title}</h3>}</div>
+      <div className="boring-value">
+        {smallTitle ? (
+          <strong>{title}</strong>
+        ) : (
+          <h3>
+            <div className="value">{title}</div>
+          </h3>
+        )}
+      </div>
       {children}
       {footer && (
         <div className="boring-value">
