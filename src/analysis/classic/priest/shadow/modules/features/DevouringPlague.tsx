@@ -29,10 +29,6 @@ class DevouringPlague extends Analyzer {
     };
   }
 
-  constructor(options: Options) {
-    super(options);
-  }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
