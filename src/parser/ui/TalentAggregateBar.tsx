@@ -29,9 +29,11 @@ const TalentAggregateBar = ({
     <div className="source-bar" {...others}>
       <Tooltip content={barTooltip ? barTooltip : percentTotal + '%'}>
         <div style={getSegment(percentTotal, barColor, scaleFactor)}>
-          <span>
-            <strong>{formatPercentage(percentTotal, 1)}%</strong>
-          </span>
+          {showLabel(percentTotal, scaleFactor) && (
+            <span>
+              <strong>{formatPercentage(percentTotal, 1)}%</strong>
+            </span>
+          )}
         </div>
       </Tooltip>
       {subSpecs &&
@@ -39,14 +41,14 @@ const TalentAggregateBar = ({
         subSpecs.map((subSpec, idx) => (
           <Tooltip
             key={subSpec.spell.name}
-            content={
-              subSpec.tooltip ? subSpec.tooltip : formatPercentage(subSpecPercents[idx]) + '%'
-            }
+            content={subSpec.tooltip || formatPercentage(subSpecPercents[idx]) + '%'}
           >
             <div style={getSegment(subSpecPercents[idx], subSpec.color, scaleFactor)}>
-              <span>
-                <strong>{formatPercentage(subSpecPercents[idx], 1)}%</strong>
-              </span>
+              {showLabel(subSpecPercents[idx], scaleFactor) && (
+                <span>
+                  <strong>{formatPercentage(subSpecPercents[idx], 1)}%</strong>
+                </span>
+              )}
             </div>
           </Tooltip>
         ))}
@@ -54,6 +56,24 @@ const TalentAggregateBar = ({
   );
 };
 
+/**
+ * Determines if the TalentAggregateBar being generated is large enough relative to the
+ * scaleFactor provided to fit the Percent Label. Used to control the viewstate of the bar label
+ * @param percentTotal percent width of the TalentAggregateBar being rendered
+ * @param scaleFactor the provided scale factor the component uses to size the chart
+ * @returns true or false
+ */
+function showLabel(percentTotal: number, scaleFactor?: number): boolean {
+  return 1 / percentTotal / 10 < (scaleFactor || 1);
+}
+
+/**
+ * Function to get the CSS properties for the TalentAggregateBar being rendered based on provided parameters
+ * @param percentTotal percent of the current TalentAggregateBarSpec amount relative to the Total amount. Used to determine the width of the TalentAggregateBar being rendered.
+ * @param barColor optional parameter to set the color of the TalentAggregateBar
+ * @param scaleFactor the provided scale factor the component uses to size the chart
+ * @returns the CSS properties for the TalentAggregateBar being rendered
+ */
 function getSegment(
   percentTotal: number,
   barColor: string | undefined,

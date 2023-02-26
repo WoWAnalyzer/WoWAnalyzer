@@ -37,7 +37,15 @@ const TalentAggregateStatisticContainer = ({
       {children}
       {footer && (
         <div className="boring-value">
-          {smallFooter ? <small>{footer}</small> : <h3>{footer}</h3>}
+          {smallFooter ? (
+            <small>
+              *{footer}.<br /> *Labels are hidden for trivial amounts
+            </small>
+          ) : (
+            <h3>
+              {footer}.<br /> Labels are hidden for trivial amounts
+            </h3>
+          )}
         </div>
       )}
     </div>

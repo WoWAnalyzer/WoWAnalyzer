@@ -20,12 +20,10 @@ export type TalentAggregateBarSpec = {
 
 /**
  * A JSX element that creates and graphs a collection of data points based on the given input data
- * @param bars the object data to be turned into an item on the chart
+ * @param bars an array of type TalentAggregateBarSpec
  * @param scaleFactor optional param used to control the scale of the graph within the statistic box.
  * Can be set manually or calculated using the ratios of specs to total
- *
  */
-
 export default function talentAggregateBars(
   bars: TalentAggregateBarSpec[],
   scaleFactor?: number,
@@ -58,6 +56,12 @@ export default function talentAggregateBars(
   );
 }
 
+/**
+ * Function to get the sum of all amounts for parent and children TalentAggregateBarSpec
+ * (Sum of TalentAggregateBarSpec.amount and all TalentAggregateBarSpec.subSpec[].amount)
+ * @param spec the TalentAggregateBarSpec being iterated on
+ * @returns the sum of all amount parameters for parent and children TalentAggregateBarSpec
+ */
 export function getSpecSubtotal(spec: TalentAggregateBarSpec) {
   return (
     spec.amount +
@@ -65,11 +69,22 @@ export function getSpecSubtotal(spec: TalentAggregateBarSpec) {
   );
 }
 
-function getPercentContribution(currentAmount: number, bars: TalentAggregateBarSpec[]) {
+/**
+ * Function to get the percentage contribution for an individual TalentAggregateBarSpec amount
+ * relative to the total summed amount of all provided TalentAggregateBarSpecs
+ * @param amount the amount property on a given TalentAggregateBarSpec
+ * @param bars the input TalentAggregateBarSpec array
+ * @returns   percentage contribution for an individual TalentAggregateBarSpec amount
+ */
+function getPercentContribution(amount: number, bars: TalentAggregateBarSpec[]) {
   const total = bars.reduce((sum, item) => sum + getSpecSubtotal(item), 0);
-  return currentAmount / total;
+  return amount / total;
 }
 
+/**
+ * @param spec TalentAggregateBarSpec
+ * @returns the SpellLink component for the given spec's spell
+ */
 function getSpellLink(spec: TalentAggregateBarSpec) {
   return (
     <>
