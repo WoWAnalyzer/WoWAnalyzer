@@ -25,7 +25,7 @@ const TalentAggregateStatisticContainer = ({
   smallTitle,
   footer,
   smallFooter,
-  wide = true,
+  wide = false,
   ...others
 }: Props) => (
   <Statistic wide={wide} size="flexible" {...others}>
@@ -40,19 +40,23 @@ const TalentAggregateStatisticContainer = ({
         )}
       </div>
       {children}
-      {footer && (
-        <div className="boring-value">
-          {smallFooter ? (
-            <small>
-              *{footer}.<br /> *Labels are hidden for trivial amounts
-            </small>
-          ) : (
-            <h3>
-              {footer}.<br /> Labels are hidden for trivial amounts
-            </h3>
-          )}
-        </div>
-      )}
+      <div className="boring-value">
+        {footer && (
+          <>
+            {smallFooter ? (
+              <small>
+                *{footer}
+                <br />
+              </small>
+            ) : (
+              <h3>
+                {footer}
+                <br />
+              </h3>
+            )}
+          </>
+        )}
+      </div>
     </div>
   </Statistic>
 );

@@ -21,7 +21,7 @@ export type TalentAggregateBarSpec = {
 type Props = {
   bars: TalentAggregateBarSpec[];
   scaleFactor?: number;
-  wide: boolean;
+  wide?: boolean;
 };
 
 /**
@@ -30,7 +30,7 @@ type Props = {
  * @param scaleFactor optional param used to control the scale of the graph within the statistic box.
  * Can be set manually or calculated using the ratios of specs to total
  */
-const TalentAggregateBars = ({ bars, scaleFactor, wide = true }: Props) => {
+const TalentAggregateBars = ({ bars, scaleFactor, wide = false }: Props) => {
   return (
     <>
       {bars.map((spec) => (

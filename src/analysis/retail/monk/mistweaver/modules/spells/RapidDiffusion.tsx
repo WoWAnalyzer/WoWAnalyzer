@@ -190,7 +190,7 @@ class RapidDiffusion extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.CORE(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

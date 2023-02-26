@@ -24,7 +24,7 @@ const TalentAggregateBar = ({
   scaleFactor = 1,
   subSpecs,
   subSpecPercents,
-  wide = true,
+  wide = false,
   ...others
 }: Props) => {
   return (

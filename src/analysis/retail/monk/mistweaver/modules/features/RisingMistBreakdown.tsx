@@ -227,13 +227,12 @@ class RisingMistBreakdown extends Analyzer {
   }
 
   statistic() {
-    const wide = true;
     return (
       <TalentAggregateStatisticContainer
         title={
           <>
             <SpellLink id={talents.RISING_MIST_TALENT.id} /> -{' '}
-            <ItemHealingDone amount={this.risingMist.totalHealing} displayPercentage={wide} />
+            <ItemHealingDone amount={this.risingMist.totalHealing} />
           </>
         }
         category={STATISTIC_CATEGORY.TALENTS}
@@ -241,12 +240,12 @@ class RisingMistBreakdown extends Analyzer {
         footer={<>Mouseover for a detailed breakdown of each spell's contribution</>}
         smallFooter
         tooltip={this.risingMist.toolTip()}
-        wide={wide}
+        wide
       >
         <TalentAggregateBars
           bars={this.sortedRisingMistItems().sortedRisingMistItems}
           scaleFactor={this.sortedRisingMistItems().scaleFactor}
-          wide={wide}
+          wide
         ></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );

@@ -260,24 +260,21 @@ class AncientTeachings extends Analyzer {
   }
 
   statistic() {
-    const wide = false;
     return (
       <TalentAggregateStatisticContainer
         title={
           <>
             <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id} /> -{' '}
-            <ItemHealingDone amount={this.totalHealing} displayPercentage={wide} />
+            <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
           </>
         }
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.CORE(1)}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
         smallFooter
-        wide={wide}
       >
         <TalentAggregateBars
           bars={this.sortedAncientTeachingsItems().sortedItems}
           scaleFactor={this.sortedAncientTeachingsItems().scaleFactor}
-          wide={wide}
         ></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
