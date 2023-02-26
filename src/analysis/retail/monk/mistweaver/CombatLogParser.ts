@@ -32,7 +32,7 @@ import JadeBond from './modules/spells/JadeBond';
 import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
-import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';
+import AncientTeachings from './modules/spells/AncientTeachings';
 import CloudedFocus from './modules/spells/CloudedFocus';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
@@ -136,7 +136,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
-    ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
+    ancientTeachings: AncientTeachings,
     cloudedFocus: CloudedFocus,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,

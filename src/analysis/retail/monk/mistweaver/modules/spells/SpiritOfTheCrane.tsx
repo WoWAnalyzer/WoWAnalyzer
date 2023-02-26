@@ -142,7 +142,7 @@ class SpiritOfTheCrane extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(30)}
+        position={STATISTIC_ORDER.UNIMPORTANT(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

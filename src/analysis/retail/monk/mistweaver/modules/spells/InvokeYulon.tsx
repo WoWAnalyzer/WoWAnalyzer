@@ -165,7 +165,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.DEFAULT}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         tooltip={
           <>

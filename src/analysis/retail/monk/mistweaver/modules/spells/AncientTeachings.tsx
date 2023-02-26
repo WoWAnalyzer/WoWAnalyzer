@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { formatPercentage, formatThousands } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -14,27 +14,30 @@ import Events, {
 } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import DonutChart from 'parser/ui/DonutChart';
-import Statistic from 'parser/ui/Statistic';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentAggregateBars, { getSpecSubtotal } from 'parser/ui/TalentAggregateStatistic';
+import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
 import { SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
-class AncientTeachingsoftheMonastery extends Analyzer {
+class AncientTeachings extends Analyzer {
   damageSpellToHealing: Map<number, number> = new Map();
+  damageSpellsCount: Map<number, number> = new Map();
+  missedDamageSpells: Map<number, number> = new Map();
+  damageSpellsToHealingCount: Map<number, number> = new Map();
   lastDamageSpellID: number = 0;
   uptimeWindows: OpenTimePeriod[] = [];
 
   /**
-   * After you cast Essence Font, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 250% of the damage done. Lasts 15s.
+   * After you cast Essence Font, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 150% of the damage done. Lasts 15s.
    */
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT);
-
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
@@ -62,13 +65,18 @@ class AncientTeachingsoftheMonastery extends Analyzer {
   }
 
   lastDamageEvent(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.AT_BUFF.id)) {
-      return;
-    }
     this.lastDamageSpellID = event.ability.guid;
-    if (!this.damageSpellToHealing.has(this.lastDamageSpellID)) {
-      this.damageSpellToHealing.set(this.lastDamageSpellID, 0);
+
+    if (!this.selectedCombatant.hasBuff(SPELLS.AT_BUFF.id)) {
+      const oldMissedTotal = this.missedDamageSpells.get(this.lastDamageSpellID) || 0;
+      this.missedDamageSpells.set(this.lastDamageSpellID, oldMissedTotal + 1);
+    } else {
+      if (!this.damageSpellToHealing.has(this.lastDamageSpellID)) {
+        this.damageSpellToHealing.set(this.lastDamageSpellID, 0);
+      }
     }
+    const oldTotal = this.damageSpellsCount.get(this.lastDamageSpellID) || 0;
+    this.damageSpellsCount.set(this.lastDamageSpellID, oldTotal + 1);
   }
 
   calculateEffectiveHealing(event: HealEvent) {
@@ -124,45 +132,70 @@ class AncientTeachingsoftheMonastery extends Analyzer {
     });
   }
 
-  renderDonutChart() {
-    const rskHealing = this.damageSpellToHealing.get(SPELLS.RISING_SUN_KICK_DAMAGE.id) || 0;
-    const bokHealing = this.damageSpellToHealing.get(SPELLS.BLACKOUT_KICK.id) || 0;
-    const totmHealing = this.damageSpellToHealing.get(SPELLS.BLACKOUT_KICK_TOTM.id) || 0;
-    const tpHealing = this.damageSpellToHealing.get(SPELLS.TIGER_PALM.id) || 0;
-    const totalHealing = rskHealing + bokHealing + totmHealing + tpHealing;
+  get rskHealing() {
+    return this.damageSpellToHealing.get(SPELLS.RISING_SUN_KICK_DAMAGE.id) || 0;
+  }
 
+  get bokHealing() {
+    return this.damageSpellToHealing.get(SPELLS.BLACKOUT_KICK.id) || 0;
+  }
+
+  get totmHealing() {
+    return this.damageSpellToHealing.get(SPELLS.BLACKOUT_KICK_TOTM.id) || 0;
+  }
+
+  get tpHealing() {
+    return this.damageSpellToHealing.get(SPELLS.TIGER_PALM.id) || 0;
+  }
+
+  get totalHealing() {
+    return this.rskHealing + this.bokHealing + this.totmHealing + this.tpHealing;
+  }
+
+  sortedAncientTeachingsItems() {
     const items = [
       {
+        spell: TALENTS_MONK.RISING_SUN_KICK_TALENT,
+        amount: this.rskHealing,
         color: SPELL_COLORS.RISING_SUN_KICK,
-        label: 'Rising Sun Kick',
-        spellId: TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-        value: rskHealing / totalHealing,
-        valueTooltip: formatThousands(rskHealing),
+        tooltip: this.getTooltip(SPELLS.RISING_SUN_KICK_DAMAGE.id),
       },
       {
+        spell: SPELLS.BLACKOUT_KICK,
         color: SPELL_COLORS.BLACKOUT_KICK,
-        label: 'Blackout Kick',
-        spellId: SPELLS.BLACKOUT_KICK.id,
-        value: bokHealing / totalHealing,
-        valueTooltip: formatThousands(bokHealing),
+        amount: this.bokHealing,
+        tooltip: this.getTooltip(SPELLS.BLACKOUT_KICK.id),
+        subSpecs: [
+          {
+            spell: SPELLS.BLACKOUT_KICK_TOTM,
+            color: SPELL_COLORS.BLACKOUT_KICK_TOTM,
+            amount: this.totmHealing,
+            tooltip: this.getTooltip(
+              SPELLS.BLACKOUT_KICK_TOTM.id,
+              SPELLS.TEACHINGS_OF_THE_MONASTERY.id,
+            ),
+          },
+        ],
       },
       {
-        color: SPELL_COLORS.BLACKOUT_KICK_TOTM,
-        label: 'Teachings of the Monastery',
-        spellId: SPELLS.BLACKOUT_KICK_TOTM.id,
-        value: totmHealing / totalHealing,
-        valueTooltip: formatThousands(totmHealing),
-      },
-      {
+        spell: SPELLS.TIGER_PALM,
         color: SPELL_COLORS.TIGER_PALM,
-        label: 'Tiger Palm',
-        spellId: SPELLS.TIGER_PALM.id,
-        value: tpHealing / totalHealing,
-        valueTooltip: formatThousands(tpHealing),
+        amount: this.tpHealing,
+        tooltip: this.getTooltip(SPELLS.TIGER_PALM.id),
       },
     ];
 
-    return <DonutChart items={items} />;
+    const sortedItems = items.sort((a, b) => getSpecSubtotal(b) - getSpecSubtotal(a));
+
+    const scaleFactor = sortedItems.reduce(
+      (factor, item) =>
+        factor < this.totalHealing / getSpecSubtotal(item)
+          ? factor
+          : this.totalHealing / getSpecSubtotal(item),
+      100,
+    );
+
+    return { sortedItems, scaleFactor };
   }
 
   get suggestionThresholds() {
@@ -175,6 +208,34 @@ class AncientTeachingsoftheMonastery extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  getTooltip(spellId: number, secondarySourceId?: number) {
+    return (
+      <>
+        From your {this.damageSpellsCount.get(spellId) || 0} <SpellLink id={spellId} />{' '}
+        {secondarySourceId && (
+          <>
+            from <SpellLink id={secondarySourceId} />
+          </>
+        )}
+        :
+        <ul>
+          <li>
+            {secondarySourceId && <SpellLink id={secondarySourceId} />} <SpellLink id={spellId} />{' '}
+            did damage {this.missedDamageSpells.get(spellId) || 0} times without the{' '}
+            <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff active
+          </li>
+          <li>
+            {secondarySourceId && <SpellLink id={secondarySourceId} />} <SpellLink id={spellId} />{' '}
+            converted to healing{' '}
+            {(this.damageSpellsCount.get(spellId) || 0) -
+              (this.missedDamageSpells.get(spellId) || 0)}{' '}
+            times for a total of {formatNumber(this.damageSpellToHealing.get(spellId) || 0)} healing
+          </li>
+        </ul>
+      </>
+    );
   }
 
   suggestions(when: When) {
@@ -200,20 +261,24 @@ class AncientTeachingsoftheMonastery extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
-        size="flexible"
+      <TalentAggregateStatisticContainer
+        title={
+          <>
+            <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id} /> -{' '}
+            <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
+          </>
+        }
         category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        smallFooter
       >
-        <div className="pad">
-          <label>
-            <SpellLink id={SPELLS.AT_HEAL.id}>Ancient Teachings</SpellLink> breakdown
-          </label>
-          {this.renderDonutChart()}
-        </div>
-      </Statistic>
+        <TalentAggregateBars
+          bars={this.sortedAncientTeachingsItems().sortedItems}
+          scaleFactor={this.sortedAncientTeachingsItems().scaleFactor}
+        ></TalentAggregateBars>
+      </TalentAggregateStatisticContainer>
     );
   }
 }
 
-export default AncientTeachingsoftheMonastery;
+export default AncientTeachings;

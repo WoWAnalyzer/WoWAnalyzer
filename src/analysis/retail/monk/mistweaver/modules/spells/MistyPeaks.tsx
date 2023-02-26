@@ -111,7 +111,7 @@ class MistyPeaks extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.DEFAULT}
+        position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
