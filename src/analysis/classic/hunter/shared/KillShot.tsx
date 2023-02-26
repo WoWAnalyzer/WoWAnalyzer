@@ -15,7 +15,6 @@ import { KILL_SHOT_EXECUTE_RANGE } from './constants';
 class KillShot extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
   static lowerThreshold = KILL_SHOT_EXECUTE_RANGE;
-  //static singleExecuteEnablers: Spell[] = [TALENTS.HUNTERS_PREY_TALENT, SPELLS.DEATHBLOW_BUFF];
   static modifiesDamage = false;
 
   static dependencies = {
@@ -42,7 +41,6 @@ class KillShot extends ExecuteHelper {
       category: SPELL_CATEGORY.ROTATIONAL,
       charges: 1,
       // Glyph of Kill Shot reduces by 6 seconds
-      // cooldown: 15,
       cooldown: 9,
       gcd: {
         base: 1500,

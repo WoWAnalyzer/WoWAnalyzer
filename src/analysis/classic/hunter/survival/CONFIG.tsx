@@ -23,7 +23,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/8AaZGQvkzJdDYfMR/11-Normal+Magtheridon+-+Kill+(7:42)/Badmera',
+  exampleReport: '/report/k3FWbxt2BXjrwVfH/59-Normal+General+Vezax+-+Kill+(6:18)/Superjesse',
 
   timeline: { separateCastBars: [[]] },
 

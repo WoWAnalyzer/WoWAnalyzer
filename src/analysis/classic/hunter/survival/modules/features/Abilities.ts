@@ -27,14 +27,16 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.BLACK_ARROW.id, ...SPELLS.BLACK_ARROW.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
-        // 1/3 resources reduces cooldown by 2 seconds
-        // cooldown: 30,
-        cooldown: 28,
+        // Each talent point(3) in resources reduces cooldown by 2 seconds
+        cooldown: 24,
       },
       {
         spell: [SPELLS.EXPLOSIVE_TRAP.id, ...SPELLS.EXPLOSIVE_TRAP.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
+        // gcd tracking with delayed trigger of trap seems to be a problem
+        gcd: null,
+        // Each talent point(3) in resources reduces cooldown by 2 seconds
+        cooldown: 24,
       },
       {
         spell: [SPELLS.AIMED_SHOT.id, ...SPELLS.AIMED_SHOT.lowRanks],
@@ -53,8 +55,23 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
+      {
+        spell: [SPELLS.RAPTOR_STRIKE.id, ...SPELLS.RAPTOR_STRIKE.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.MONGOOSE_BITE.id, ...SPELLS.MONGOOSE_BITE.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
 
       // Rotational AOE
+      {
+        spell: [SPELLS.VOLLEY.id, ...SPELLS.VOLLEY.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
 
       // Cooldowns
       {
@@ -77,7 +94,20 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.7,
         },
       },
-
+      {
+        spell: RACIALS.BLOOD_FURY.id,
+        buffSpellId: RACIALS.BLOOD_FURY.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 120,
+        isUndetectable: true,
+        gcd: null,
+        castEfficiency: {
+          suggestion: true,
+          majorIssueEfficiency: 0.2,
+          averageIssueEfficiency: 0.5,
+          recommendedEfficiency: 0.7,
+        },
+      },
       // Defensive
       {
         spell: [SPELLS.DISENGAGE.id],
@@ -88,7 +118,42 @@ class Abilities extends CoreAbilities {
 
       // Other spells (not apart of the normal rotation)
       {
+        spell: [SPELLS.HUNTERS_MARK.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.MISDIRECTION.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
         spell: [SPELLS.LOCK_AND_LOAD.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.ASPECT_DRAGONHAWK.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.ASPECT_MONKEY.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.ASPECT_HAWK.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.ASPECT_WILD.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.ASPECT_VIPER.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },

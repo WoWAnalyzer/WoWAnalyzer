@@ -49,7 +49,6 @@ class Checklist extends BaseChecklist {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           // Spells
           serpentSting: this.serpentSting.suggestionThresholds,
-          // spellName: this.spellName.uptimeSuggestionThresholds,
         }}
       />
     );

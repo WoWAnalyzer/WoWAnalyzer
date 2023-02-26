@@ -4,12 +4,12 @@ import BaseCombatLogParser from 'parser/classic/CombatLogParser';
 import { suggestion } from 'parser/core/Analyzer';
 import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
 import lowRankSpellsPetSuggestion from './suggestions/lowRankSpellsPet';
-
-//import lowRankSpells from '../shared/lowRankSpells';
 import { lowRankSpells, whitelist } from 'analysis/classic/hunter/shared';
 import lowRankSpellsPet from '../shared/lowRankSpellsPet';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+
 // Features
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -25,8 +25,6 @@ import KillCommandNormalizer from './normalizers/KillCommandNormalizer';
 import GoForTheThroat from './statistics/GoForTheThroat';
 import growl from './suggestions/growl';
 
-// import SpellName from './modules/spells';
-
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
@@ -34,6 +32,7 @@ class CombatLogParser extends BaseCombatLogParser {
     lowRankPetSpells: lowRankSpellsPetSuggestion(lowRankSpellsPet),
     manaTracker: ManaTracker,
     spellManaCost: SpellManaCost,
+    manaLevelChart: ManaLevelChart,
     // Features
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
@@ -42,7 +41,6 @@ class CombatLogParser extends BaseCombatLogParser {
     checklist: Checklist,
     dotUptimes: DotUptimes,
     // Spells
-    // spellName: SpellName,
     serpentSting: SerpentSting,
     killShot: KillShot,
     killCommandNormalizer: KillCommandNormalizer,
