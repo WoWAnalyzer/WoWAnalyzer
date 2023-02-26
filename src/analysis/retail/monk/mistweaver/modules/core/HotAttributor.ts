@@ -58,7 +58,15 @@ class HotAttributor extends Analyzer {
       this.onApplyEnvm,
     );
     this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
+      this.onApplyEnvm,
+    );
+    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT_BUFF]),
+      this.onApplyEF,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell([SPELLS.ESSENCE_FONT_BUFF]),
       this.onApplyEF,
     );
     this.addEventListener(
@@ -157,6 +165,9 @@ class HotAttributor extends Analyzer {
   }
 
   onApplyEF(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (this._hasAttribution(event)) {
+      return;
+    }
     this.hotTracker.addAttributionFromApply(this.EFAttrib, event);
   }
 
