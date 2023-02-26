@@ -533,7 +533,7 @@ const spells = spellIndexableList({
   BROADSIDE: {
     id: 193356,
     name: 'Broadside',
-    icon: 'ability_rogue_rollthebones06',
+    icon: 'ability_rogue_rollthebones07',
   },
   BLADE_RUSH_TALENT_BUFF: {
     // This is the energy gain buff

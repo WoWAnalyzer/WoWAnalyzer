@@ -4,6 +4,7 @@ import {
   DamageEvent,
   EventType,
   GetRelatedEvents,
+  RemoveBuffEvent,
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -30,6 +31,18 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: SPIRIT_BOMB_SOUL_CONSUME,
   },
   {
+    linkRelation: SPIRIT_BOMB_SOUL_CONSUME,
+    referencedEventId: SPELLS.SOUL_FRAGMENT_STACK.id,
+    referencedEventType: EventType.RemoveBuff,
+    linkingEventId: TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id,
+    linkingEventType: EventType.Cast,
+    forwardBufferMs: SOUL_CONSUME_BUFFER,
+    backwardBufferMs: SOUL_CONSUME_BUFFER,
+    anyTarget: true,
+    maximumLinks: 1,
+    reverseLinkRelation: SPIRIT_BOMB_SOUL_CONSUME,
+  },
+  {
     linkRelation: SPIRIT_BOMB_DAMAGE,
     referencedEventId: SPELLS.SPIRIT_BOMB_DAMAGE.id,
     referencedEventType: EventType.Damage,
@@ -47,9 +60,12 @@ export default class SpiritBombEventLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function getSpiritBombSoulConsumptions(event: CastEvent): RemoveBuffStackEvent[] {
+export function getSpiritBombSoulConsumptions(
+  event: CastEvent,
+): (RemoveBuffStackEvent | RemoveBuffEvent)[] {
   return GetRelatedEvents(event, SPIRIT_BOMB_SOUL_CONSUME).filter(
-    (e): e is RemoveBuffStackEvent => e.type === EventType.RemoveBuffStack,
+    (e): e is RemoveBuffStackEvent | RemoveBuffEvent =>
+      e.type === EventType.RemoveBuffStack || e.type === EventType.RemoveBuff,
   );
 }
 
