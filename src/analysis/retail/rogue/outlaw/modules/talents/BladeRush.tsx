@@ -157,7 +157,8 @@ class BladeRush extends Analyzer {
           <RoundedPanel>
             <div>
               This chart display the percentage of <SpellLink id={TALENTS.BLADE_RUSH_TALENT} />{' '}
-              casts used at an higher than recommended energy treshold.
+              casts used at an higher than recommended energy treshold. (Ignore this if aoe fights
+              for now)
             </div>
             {this.castsChart}
           </RoundedPanel>
