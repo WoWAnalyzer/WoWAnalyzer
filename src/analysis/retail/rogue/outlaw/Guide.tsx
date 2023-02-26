@@ -3,7 +3,7 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
-import { ResourceLink, SpellLink } from 'interface';
+import { ResourceLink } from 'interface';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
@@ -17,7 +17,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
-function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
+function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const percentAtCap = modules.energyTracker.percentAtCap;
   const energyWasted = modules.energyTracker.wasted;
 
@@ -54,14 +54,7 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         />
         {modules.energyGraph.plot}
         <p></p>
-        <p>
-          <Trans id="guide.rogue.outlaw.sections.resources.energy.BRandKS">
-            -- WIP section -- This will highlight{' '}
-            <SpellLink id={TALENTS.BLADE_RUSH_TALENT.id} /> 
-            and <SpellLink id={TALENTS.KILLING_SPREE_TALENT.id} /> 
-            usage when talented as we primarly use both these spells for energy efficiency.
-          </Trans>
-        </p>
+        {info.combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT) && modules.bladeRush.guide}
       </SubSection>
       <SubSection
         title={t({
@@ -83,7 +76,7 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         <p></p>
         <p>
           <Trans id="guide.rogue.outlaw.sections.resources.comboPoints.buildersBreakdown">
-            -- WIP section -- Maybe highlight which builders the user is commonly overcapping with.
+            -- WIP section -- Higlight which builders the user is commonly overcapping with.
           </Trans>
         </p>
       </SubSection>
