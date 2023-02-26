@@ -9,6 +9,10 @@ const lowRankSpells = Object.entries(SPELLS).reduce((result, [str, obj]) => {
 
 export default lowRankSpells;
 
+export const whitelist = {
+  [SPELLS.EXPLOSIVE_SHOT.id]: [60052],
+};
+
 export interface LowRankSpells {
   [primarySpellId: number]: number[];
 }
