@@ -9,6 +9,10 @@ type Props = {
   smallTitle?: boolean;
   footer?: ReactNode;
   smallFooter?: boolean;
+  /**
+   * @default {true}
+   */
+  wide?: boolean;
   category?: STATISTIC_CATEGORY;
   position?: number;
   tooltip?: ReactNode | string;
@@ -21,13 +25,14 @@ const TalentAggregateStatisticContainer = ({
   smallTitle,
   footer,
   smallFooter,
+  wide = true,
   ...others
 }: Props) => (
-  <Statistic wide size="flexible" {...others}>
+  <Statistic wide={wide} size="flexible" {...others}>
     <div className="pad">
       <div className="talent-aggregate-container">
-        {smallTitle ? (
-          <strong>{title}</strong>
+        {smallTitle || !wide ? (
+          <small>{title}</small>
         ) : (
           <h3>
             <div className="value">{title}</div>

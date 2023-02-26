@@ -4,15 +4,13 @@ import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import talentAggregateBars, {
-  getSpecSubtotal,
-  TalentAggregateBarSpec,
-} from 'parser/ui/TalentAggregateStatistic';
+import { getSpecSubtotal, TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import SPELLS from 'common/SPELLS';
 import { SPELL_COLORS } from '../../constants';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber } from 'common/format';
+import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 
 class RisingMistBreakdown extends Analyzer {
   static dependencies = {
@@ -229,12 +227,13 @@ class RisingMistBreakdown extends Analyzer {
   }
 
   statistic() {
+    const wide = true;
     return (
       <TalentAggregateStatisticContainer
         title={
           <>
             <SpellLink id={talents.RISING_MIST_TALENT.id} /> -{' '}
-            <ItemHealingDone amount={this.risingMist.totalHealing} />
+            <ItemHealingDone amount={this.risingMist.totalHealing} displayPercentage={wide} />
           </>
         }
         category={STATISTIC_CATEGORY.TALENTS}
@@ -242,11 +241,13 @@ class RisingMistBreakdown extends Analyzer {
         footer={<>Mouseover for a detailed breakdown of each spell's contribution</>}
         smallFooter
         tooltip={this.risingMist.toolTip()}
+        wide={wide}
       >
-        {talentAggregateBars(
-          this.sortedRisingMistItems().sortedRisingMistItems,
-          this.sortedRisingMistItems().scaleFactor,
-        )}
+        <TalentAggregateBars
+          bars={this.sortedRisingMistItems().sortedRisingMistItems}
+          scaleFactor={this.sortedRisingMistItems().scaleFactor}
+          wide={wide}
+        ></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
   }

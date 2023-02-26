@@ -1,6 +1,6 @@
 import { formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import { ReactNode } from 'react';
 import TalentAggregateBar from './TalentAggregateBar';
 import './TalentAggregateStatistic.scss';
@@ -18,23 +18,26 @@ export type TalentAggregateBarSpec = {
   subSpecs?: TalentAggregateBarSpec[];
 };
 
+type Props = {
+  bars: TalentAggregateBarSpec[];
+  scaleFactor?: number;
+  wide: boolean;
+};
+
 /**
  * A JSX element that creates and graphs a collection of data points based on the given input data
  * @param bars an array of type TalentAggregateBarSpec
  * @param scaleFactor optional param used to control the scale of the graph within the statistic box.
  * Can be set manually or calculated using the ratios of specs to total
  */
-export default function talentAggregateBars(
-  bars: TalentAggregateBarSpec[],
-  scaleFactor?: number,
-): React.ReactNode {
+const TalentAggregateBars = ({ bars, scaleFactor, wide = true }: Props) => {
   return (
     <>
       {bars.map((spec) => (
         <div key={spec.spell.name} className="flex-main talent-aggregate-bar">
           <div className="flex main-bar">
             <div className="flex-sub bar-label">
-              {getSpellLink(spec)} <small>{formatNumber(getSpecSubtotal(spec))} </small>
+              {getSpellLink(spec, wide)} <small>{formatNumber(getSpecSubtotal(spec))} </small>
             </div>
             <div className="flex-main chart">
               <TalentAggregateBar
@@ -43,6 +46,7 @@ export default function talentAggregateBars(
                 barColor={spec.color}
                 barTooltip={spec.tooltip}
                 scaleFactor={scaleFactor}
+                wide={wide}
                 subSpecs={spec.subSpecs}
                 subSpecPercents={spec.subSpecs?.map((subSpec) => {
                   return getPercentContribution(subSpec.amount || 0, bars);
@@ -54,7 +58,7 @@ export default function talentAggregateBars(
       ))}
     </>
   );
-}
+};
 
 /**
  * Function to get the sum of all amounts for parent and children TalentAggregateBarSpec
@@ -85,10 +89,8 @@ function getPercentContribution(amount: number, bars: TalentAggregateBarSpec[]) 
  * @param spec TalentAggregateBarSpec
  * @returns the SpellLink component for the given spec's spell
  */
-function getSpellLink(spec: TalentAggregateBarSpec) {
-  return (
-    <>
-      <SpellLink id={spec.spell.id} />{' '}
-    </>
-  );
+function getSpellLink(spec: TalentAggregateBarSpec, wide?: boolean) {
+  return <>{wide ? <SpellLink id={spec.spell.id} /> : <SpellIcon id={spec.spell.id} />} </>;
 }
+
+export default TalentAggregateBars;
