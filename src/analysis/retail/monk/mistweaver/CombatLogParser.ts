@@ -82,6 +82,7 @@ import SheilunsGiftCloudTracker from './modules/spells/SheilunsGiftCloudTracker'
 import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 import HotCountGraph from './modules/features/HotCountGraph';
 import AplCheck from './modules/core/apl/AplCheck';
+import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -116,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     remGraph: REMGraph,
     hotCountGraph: HotCountGraph,
     talentHealingStatistic: TalentHealingStatistic,
+    risingMistBreakdown: RisingMistBreakdown,
 
     // Guide helpers
     sheilunsGiftCloudTracker: SheilunsGiftCloudTracker,

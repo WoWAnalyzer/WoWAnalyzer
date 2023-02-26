@@ -146,9 +146,8 @@ class HotTrackerMW extends HotTracker {
 
   _getMistyPeaksMaxDuration(combatant: Combatant): number {
     return (
-      (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-        ? MISTY_PEAKS_DURATION * RISING_MIST + ENV_BASE_DURATION // TODO: REMOVE ENV BASE DURATION WHEN 10.0.7 HITS
-        : MISTY_PEAKS_DURATION) * combatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT)
+      MISTY_PEAKS_DURATION * combatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
+      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * ENV_BASE_DURATION // TODO: REMOVE ENV BASE DURATION WHEN 10.0.7 HIT
     );
   }
 
@@ -173,8 +172,7 @@ class HotTrackerMW extends HotTracker {
         maxDuration: this._calculateMaxEnvDuration,
         procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT)
           ? MISTY_PEAKS_DURATION *
-              this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
-            ENV_BASE_DURATION // TODO: REMOVE ENV BASE DURATION WHEN 10.0.7 HITS
+            this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT)
           : undefined,
       },
       {
