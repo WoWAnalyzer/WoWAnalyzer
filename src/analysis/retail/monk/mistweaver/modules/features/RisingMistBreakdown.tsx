@@ -1,6 +1,6 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import RisingMist from '../spells/RisingMist';
-import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
+import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -11,6 +11,7 @@ import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisti
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { formatNumber } from 'common/format';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
+import DonutChart from 'parser/ui/DonutChart';
 
 class RisingMistBreakdown extends Analyzer {
   static dependencies = {
@@ -82,56 +83,88 @@ class RisingMistBreakdown extends Analyzer {
   }
 
   envelopingMistTooltip() {
+    const items = [
+      {
+        color: SPELL_COLORS.ENVELOPING_MIST,
+        label: 'Hardcast',
+        spellId: talents.ENVELOPING_MIST_TALENT.id,
+        value: this.risingMist.envHardcastExtensionHealing,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.MISTY_PEAKS,
+        label: 'Misty Peaks',
+        spellId: talents.MISTY_PEAKS_TALENT.id,
+        value: this.risingMist.envMistyPeaksExtensionHealing,
+        valuePercent: false,
+      },
+    ];
     return (
       <>
-        <SpellLink id={talents.ENVELOPING_MIST_TALENT} /> extension healing
-        <ul>
-          <li>
-            {formatNumber(this.risingMist.envMistyPeaksExtensionHealing)} from extended{' '}
-            <SpellLink id={talents.MISTY_PEAKS_TALENT} /> procs
-          </li>
-          <li>
-            {formatNumber(this.risingMist.envHardcastExtensionHealing)} from extended hardcasts
-          </li>
-        </ul>
+        <SpellLink id={talents.ENVELOPING_MIST_TALENT} /> extension healing by source:
+        <hr />
+        <DonutChart items={items} />
       </>
     );
   }
 
   envelopingMistBonusHealingTooltip() {
+    const items = [
+      {
+        color: SPELL_COLORS.ENVELOPING_MIST,
+        label: 'Hardcast',
+        spellId: talents.ENVELOPING_MIST_TALENT.id,
+        value: this.risingMist.extraEnvBonusHardcast,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.MISTY_PEAKS,
+        label: 'Misty Peaks',
+        spellId: talents.MISTY_PEAKS_TALENT.id,
+        value: this.risingMist.extraEnvBonusMistyPeaks,
+        valuePercent: false,
+      },
+    ];
     return (
       <>
-        Additional bonus healing from the extra <SpellLink id={talents.ENVELOPING_MIST_TALENT} />{' '}
-        buff uptime
-        <ul>
-          <li>
-            {formatNumber(this.risingMist.extraEnvBonusMistyPeaks)} from extended{' '}
-            <SpellLink id={talents.MISTY_PEAKS_TALENT} /> procs
-          </li>
-          <li>{formatNumber(this.risingMist.extraEnvBonusHardcast)} from extended hardcasts</li>
-        </ul>
+        Additional bonus healing from the extra
+        <br />
+        <SpellLink id={talents.ENVELOPING_MIST_TALENT} /> buff uptime by source:
+        <hr />
+        <DonutChart items={items} />
       </>
     );
   }
 
   renewingMistTooltip() {
+    const items = [
+      {
+        color: SPELL_COLORS.DANCING_MISTS,
+        label: 'Dancing Mists',
+        spellId: talents.DANCING_MISTS_TALENT.id,
+        value: this.risingMist.renewingMistDancingMistExtensionHealing,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.RAPID_DIFFUSION,
+        label: 'Rapid Diffusion',
+        spellId: talents.RAPID_DIFFUSION_TALENT.id,
+        value: this.risingMist.renewingMistRapidDiffusionExtensionHealing,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.RENEWING_MIST,
+        label: 'Hardcast',
+        spellId: SPELLS.RENEWING_MIST_HEAL.id,
+        value: this.risingMist.renewingMistHardcastExtensionHealing,
+        valuePercent: false,
+      },
+    ];
     return (
       <>
-        <SpellLink id={talents.RENEWING_MIST_TALENT} /> extension healing
-        <ul>
-          <li>
-            {formatNumber(this.risingMist.renewingMistDancingMistExtensionHealing)} from extended{' '}
-            <SpellLink id={talents.DANCING_MISTS_TALENT} /> procs
-          </li>
-          <li>
-            {formatNumber(this.risingMist.renewingMistHardcastExtensionHealing)} from extended
-            hardcasts
-          </li>
-          <li>
-            {formatNumber(this.risingMist.renewingMistRapidDiffusionExtensionHealing)} from extended{' '}
-            <SpellLink id={talents.RAPID_DIFFUSION_TALENT} /> procs
-          </li>
-        </ul>
+        <SpellLink id={talents.RENEWING_MIST_TALENT} /> extension healing by source:
+        <hr />
+        <DonutChart items={items} />
       </>
     );
   }
@@ -144,11 +177,11 @@ class RisingMistBreakdown extends Analyzer {
         <ul>
           <li>
             {formatNumber(this.risingMist.averageHealing)} average healing per{' '}
-            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+            <SpellLink id={talents.RISING_SUN_KICK_TALENT} />
           </li>
           <li>
             {this.risingMist.averageTargetsPerRSKCast()} average hits per{' '}
-            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+            <SpellLink id={talents.RISING_SUN_KICK_TALENT} />
           </li>
         </ul>
       </>
@@ -156,28 +189,40 @@ class RisingMistBreakdown extends Analyzer {
   }
 
   vivifyTooltip() {
+    const items = [
+      {
+        color: SPELL_COLORS.DANCING_MISTS,
+        label: 'Dancing Mists',
+        spellId: talents.DANCING_MISTS_TALENT.id,
+        value: this.risingMist.extraVivhealingFromDancingMistRems,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.RAPID_DIFFUSION,
+        label: 'Rapid Diffusion',
+        spellId: talents.RAPID_DIFFUSION_TALENT.id,
+        value: this.risingMist.extraVivHealingFromRapidDiffusionRems,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.RENEWING_MIST,
+        label: 'Hardcast',
+        spellId: SPELLS.RENEWING_MIST_HEAL.id,
+        value: this.risingMist.extraVivHealingFromHardcastRems,
+        valuePercent: false,
+      },
+    ];
     return (
       <>
-        <SpellLink id={SPELLS.VIVIFY} /> healing from extended{' '}
+        <strong>{this.risingMist.extraVivCleaves}</strong> total extra cleaves via{' '}
+        <SpellLink id={talents.INVIGORATING_MISTS_TALENT} />
+        <br />
+        <SpellLink id={SPELLS.VIVIFY} /> healing via extended{' '}
         <SpellLink id={talents.RENEWING_MIST_TALENT} />
-        <ul>
-          <li>
-            {this.risingMist.extraVivCleaves} extra cleave hits via{' '}
-            <SpellLink id={talents.INVIGORATING_MISTS_TALENT} />
-          </li>
-          <li>
-            {formatNumber(this.risingMist.extraVivhealingFromDancingMistRems)} from extended{' '}
-            <SpellLink id={talents.DANCING_MISTS_TALENT} /> procs
-          </li>
-          <li>
-            {formatNumber(this.risingMist.extraVivHealingFromHardcastRems)} from extended hardcast{' '}
-            <SpellLink id={talents.RENEWING_MIST_TALENT} />
-          </li>
-          <li>
-            {formatNumber(this.risingMist.extraVivHealingFromRapidDiffusionRems)} from extended{' '}
-            <SpellLink id={talents.RAPID_DIFFUSION_TALENT} /> procs
-          </li>
-        </ul>
+        <br />
+        by source:
+        <hr />
+        <DonutChart items={items} />
       </>
     );
   }

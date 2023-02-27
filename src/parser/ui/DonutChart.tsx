@@ -1,4 +1,4 @@
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import BaseChart from 'parser/ui/BaseChart';
@@ -12,6 +12,7 @@ export type Item = {
   tooltip?: React.ReactNode;
   color: string;
   value: number;
+  valuePercent?: boolean;
   spellId?: number;
   itemLevel?: number;
   valueTooltip?: React.ReactNode;
@@ -34,29 +35,38 @@ class DonutChart extends PureComponent<Props> {
 
     return (
       <div className="legend">
-        {items.map(({ color, label, tooltip, value, spellId, valueTooltip, itemLevel }, index) => {
-          label = tooltip ? <TooltipElement content={tooltip}>{label}</TooltipElement> : label;
-          label = spellId ? (
-            <SpellLink id={spellId} ilvl={itemLevel}>
-              {label}
-            </SpellLink>
-          ) : (
-            label
-          );
-          return (
-            <div key={index} className="flex">
-              <div className="flex-sub">
-                <div className="circle" style={{ background: color }} />
+        {items.map(
+          (
+            { color, label, tooltip, value, valuePercent = true, spellId, valueTooltip, itemLevel },
+            index,
+          ) => {
+            label = tooltip ? <TooltipElement content={tooltip}>{label}</TooltipElement> : label;
+            label = spellId ? (
+              <SpellLink id={spellId} ilvl={itemLevel}>
+                {label}
+              </SpellLink>
+            ) : (
+              label
+            );
+            return (
+              <div key={index} className="flex">
+                <div className="flex-sub">
+                  <div className="circle" style={{ background: color }} />
+                </div>
+                <div className="flex-main">{label}</div>
+                <div className="flex-sub">
+                  {valuePercent ? (
+                    <TooltipElement content={valueTooltip ? valueTooltip : value}>
+                      {formatPercentage(value / total, 0)}%
+                    </TooltipElement>
+                  ) : (
+                    <>{formatNumber(value)}</>
+                  )}
+                </div>
               </div>
-              <div className="flex-main">{label}</div>
-              <div className="flex-sub">
-                <TooltipElement content={valueTooltip ? valueTooltip : value}>
-                  {formatPercentage(value / total, 0)}%
-                </TooltipElement>
-              </div>
-            </div>
-          );
-        })}
+            );
+          },
+        )}
       </div>
     );
   }
