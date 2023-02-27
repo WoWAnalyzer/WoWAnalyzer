@@ -4,7 +4,7 @@ import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { getSpecSubtotal, TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
+import { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 import SPELLS from 'common/SPELLS';
 import { SPELL_COLORS } from '../../constants';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
@@ -23,7 +23,7 @@ class RisingMistBreakdown extends Analyzer {
   }
   protected risingMist!: RisingMist;
 
-  sortedRisingMistItems() {
+  getRisingMistDataItems() {
     this.risingMistItems = [
       {
         spell: SPELLS.RISING_MIST_HEAL,
@@ -78,21 +78,7 @@ class RisingMistBreakdown extends Analyzer {
         ],
       },
     ];
-    const sortedRisingMistItems = this.risingMistItems.sort(
-      (a, b) => getSpecSubtotal(b) - getSpecSubtotal(a),
-    );
-
-    //determine scale factor for chart based on data items - calculate the inverse of each items percentage of total and take the lowest
-    //i.e if 50% of healing done is the highest then the scale factor should be 2
-    const scaleFactor = sortedRisingMistItems.reduce(
-      (factor, item) =>
-        factor < this.risingMist.totalHealing / getSpecSubtotal(item)
-          ? factor
-          : this.risingMist.totalHealing / getSpecSubtotal(item),
-      100,
-    );
-
-    return { sortedRisingMistItems, scaleFactor };
+    return this.risingMistItems;
   }
 
   envelopingMistTooltip() {
@@ -242,11 +228,7 @@ class RisingMistBreakdown extends Analyzer {
         tooltip={this.risingMist.toolTip()}
         wide
       >
-        <TalentAggregateBars
-          bars={this.sortedRisingMistItems().sortedRisingMistItems}
-          scaleFactor={this.sortedRisingMistItems().scaleFactor}
-          wide
-        ></TalentAggregateBars>
+        <TalentAggregateBars bars={this.getRisingMistDataItems()} wide></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
   }
