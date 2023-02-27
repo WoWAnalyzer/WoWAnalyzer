@@ -286,7 +286,6 @@ class HotAttributor extends Analyzer {
         this.hotTracker.addAttributionFromApply(this.dmSourceMoLAttrib, event);
       }
       dmHot.healingAfterOriginalEnd = 0;
-      dmHot.extensions = [];
       dmHot.maxDuration = sourceHot.maxDuration;
       dmHot.end = sourceHot.end;
       dmHot.originalEnd = sourceHot.originalEnd;
