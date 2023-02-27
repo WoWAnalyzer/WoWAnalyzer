@@ -267,6 +267,7 @@ class Vivify extends Analyzer {
     const vivifyHits = getVivifiesPerCast(event) as HealEvent[];
     let vivifyGoodCrits = 0;
     let vivifyWastedCrits = 0;
+    if(this.upliftedSpirits.active){
     vivifyHits.forEach((event) => {
       if (event.hitType === HIT_TYPES.CRIT) {
         if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
@@ -276,6 +277,7 @@ class Vivify extends Analyzer {
         }
       }
     });
+    }
     const rems = vivifyHits.length - 1;
     let value = QualitativePerformance.Fail;
     if (rems >= 10) {
