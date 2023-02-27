@@ -430,8 +430,8 @@ export function isFromEssenceFont(event: HealEvent) {
   );
 }
 
-export function getRemCountPerVivify(event: CastEvent) {
-  return GetRelatedEvents(event, VIVIFY).length - 1;
+export function getVivifiesPerCast(event: CastEvent) {
+  return GetRelatedEvents(event, VIVIFY);
 }
 
 export function getNumberOfBolts(event: CastEvent) {
