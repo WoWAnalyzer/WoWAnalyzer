@@ -17,7 +17,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentAggregateBars, { getSpecSubtotal } from 'parser/ui/TalentAggregateStatistic';
+import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
@@ -152,7 +152,7 @@ class AncientTeachings extends Analyzer {
     return this.rskHealing + this.bokHealing + this.totmHealing + this.tpHealing;
   }
 
-  sortedAncientTeachingsItems() {
+  getAncientTeachingsDataItems() {
     const items = [
       {
         spell: TALENTS_MONK.RISING_SUN_KICK_TALENT,
@@ -185,17 +185,7 @@ class AncientTeachings extends Analyzer {
       },
     ];
 
-    const sortedItems = items.sort((a, b) => getSpecSubtotal(b) - getSpecSubtotal(a));
-
-    const scaleFactor = sortedItems.reduce(
-      (factor, item) =>
-        factor < this.totalHealing / getSpecSubtotal(item)
-          ? factor
-          : this.totalHealing / getSpecSubtotal(item),
-      100,
-    );
-
-    return { sortedItems, scaleFactor };
+    return items;
   }
 
   get suggestionThresholds() {
@@ -272,10 +262,7 @@ class AncientTeachings extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(1)}
         smallFooter
       >
-        <TalentAggregateBars
-          bars={this.sortedAncientTeachingsItems().sortedItems}
-          scaleFactor={this.sortedAncientTeachingsItems().scaleFactor}
-        ></TalentAggregateBars>
+        <TalentAggregateBars bars={this.getAncientTeachingsDataItems()}></TalentAggregateBars>
       </TalentAggregateStatisticContainer>
     );
   }
