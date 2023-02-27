@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 26), <>Refactor Talent Aggregate Statistic to handle scale and sorting in the component instead of having to do it before sending in the parameters</>, Vohrr),
   change(date(2023, 2, 26), <>Updated <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id}/> to use new component and added more detail to the breadown</>, Vohrr),
   change(date(2023, 2, 25), <>Added TalentAggregateStatictic, added new <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> healing breakdown module. Fixed bugs in the HotTracker</>, Vohrr),
   change(date(2023, 2, 24), <>Clarify <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> wording</>, Trevor),
