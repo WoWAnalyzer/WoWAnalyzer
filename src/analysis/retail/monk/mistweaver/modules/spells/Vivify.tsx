@@ -296,6 +296,7 @@ class Vivify extends Analyzer {
             <SpellLink id={this.upliftedSpirits.activeTalent.id} /> Cooldown Reduction:{' '}
             {vivifyGoodCrits > 0 && <>{vivifyGoodCrits}s </>}
             {vivifyWastedCrits > 0 && <>{vivifyWastedCrits}s wasted</>}
+            {vivifyGoodCrits + vivifyWastedCrits === 0 && <>0s</>}
           </>
         )}
       </>
