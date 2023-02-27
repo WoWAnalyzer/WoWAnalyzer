@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 27), <>Updated <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> to show proc source breakdown</>, Vohrr),
   change(date(2023, 2, 27), <>Updated <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> tooltips and some spell colors</>, Vohrr),
   change(date(2023, 2, 26), <>Added <SpellLink id={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id}/> cooldown reduction to the <SpellLink id={SPELLS.VIVIFY.id}/> cast breakdown tooltips</>, Vohrr),
   change(date(2023, 2, 26), <>Refactor Talent Aggregate Statistic to handle scale and sorting in the component instead of having to do it before sending in the parameters</>, Vohrr),

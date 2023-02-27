@@ -4,12 +4,14 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import DonutChart from 'parser/ui/DonutChart';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { SPELL_COLORS } from '../../constants';
 import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
@@ -22,6 +24,9 @@ class DancingMists extends Analyzer {
   protected vivify!: Vivify;
   hotTracker!: HotTrackerMW;
   dancingMistCount: number = 0;
+  dancingMist_RapidDiffusion: number = 0;
+  dancingMist_HardCast: number = 0;
+  dancingMist_MistsOfLife: number = 0;
   dancingMistHealing: number = 0;
   dancingMistAbsorbed: number = 0;
   dancingMistOverhealing: number = 0;
@@ -49,6 +54,50 @@ class DancingMists extends Analyzer {
 
   get mistyPeaksHealingFromDancingMist() {
     return this.extraMistyPeaksHealing + this.extraMistyPeaksAbsorb;
+  }
+
+  get bounceProcs() {
+    return (
+      this.dancingMistCount -
+      this.dancingMist_HardCast -
+      this.dancingMist_RapidDiffusion -
+      this.dancingMist_MistsOfLife
+    );
+  }
+
+  get sourceDataItems() {
+    return [
+      {
+        color: SPELL_COLORS.RENEWING_MIST,
+        label: 'Hardcast',
+        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        value: this.dancingMist_HardCast,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.RAPID_DIFFUSION,
+        label: 'Rapid Diffusion',
+        spellId: TALENTS_MONK.RAPID_DIFFUSION_TALENT.id,
+        value: this.dancingMist_RapidDiffusion,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.ENVELOPING_MIST,
+        label: 'Mists of Life',
+        spellId: TALENTS_MONK.MISTS_OF_LIFE_TALENT.id,
+        value: this.dancingMist_MistsOfLife,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.DANCING_MISTS,
+        label: 'Bounces',
+        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        value: this.bounceProcs,
+        valuePercent: false,
+      },
+    ].filter((item) => {
+      return item.value > 0;
+    });
   }
 
   constructor(options: Options) {
@@ -90,6 +139,9 @@ class DancingMists extends Analyzer {
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
     if (this.hotTracker.fromDancingMists(hot) && !this.hotTracker.fromBounce(hot)) {
+      this.dancingMist_HardCast += this.hotTracker.dancingMist_HardCast(hot) ? 1 : 0;
+      this.dancingMist_RapidDiffusion += this.hotTracker.dancingMist_RapidDiffusion(hot) ? 1 : 0;
+      this.dancingMist_MistsOfLife += this.hotTracker.dancingMist_MistsOfLife(hot) ? 1 : 0;
       this.dancingMistCount += 1;
     }
   }
@@ -222,8 +274,11 @@ class DancingMists extends Analyzer {
           <TooltipElement
             content={
               <>
-                The number of additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />s
-                procced on casts and jumps
+                The number of additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+                <br />
+                procced on casts and bounces:
+                <hr />
+                <DonutChart items={this.sourceDataItems} />
               </>
             }
           >

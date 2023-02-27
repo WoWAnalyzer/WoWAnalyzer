@@ -54,6 +54,11 @@ export const ATTRIBUTION_STRINGS = {
   DANCING_MIST_RENEWING_MIST: 'Renewing Mist Dancing Mist',
   MISTS_OF_LIFE_RENEWING_MIST: 'Renewing Mist Mists of Life',
   HARDCAST_ESSENCE_FONT: 'Essence Font Hardcast',
+  DANCING_MIST_SOURCES: {
+    DM_SOURCE_RD: 'Dancing Mist Source - Rapid Diffusion',
+    DM_SOURCE_HC: 'Dancing Mist Source - Hardcast',
+    DM_SOURCE_MOL: 'Dancing Mist Source - Mists of Life',
+  },
 };
 
 export const SECRET_INFUSION_BUFFS = [
