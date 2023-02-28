@@ -34,7 +34,11 @@ class RapidDiffusion extends Analyzer {
   }
 
   get totalHealing() {
-    return this.totalRemThroughput + this.totalVivifyThroughput + this.mistyPeaksHealingFromRapidDiffusion;
+    return (
+      this.totalRemThroughput +
+      this.totalVivifyThroughput +
+      this.mistyPeaksHealingFromRapidDiffusion
+    );
   }
 
   get rapidDiffusionItems() {
@@ -156,7 +160,8 @@ class RapidDiffusion extends Analyzer {
     ];
     return (
       <>
-        <strong>{procs}</strong> additional <SpellLink id={spell.id} /> from <br />
+        <strong>{procs}</strong> additional <SpellLink id={spell.id} />{' '}
+        {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from <br />
         <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
         {spell.id !== TALENTS_MONK.RENEWING_MIST_TALENT.id && (
           <>
