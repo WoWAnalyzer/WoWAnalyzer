@@ -13,9 +13,16 @@ import { BadColor, GoodColor } from 'interface/guide';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import { Uptime } from 'parser/ui/UptimeBar';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const MIN_ENERGY_TRESHOLD = 70;
-const MAX_ENERGY_TRESHOLD = 80;
+const MAX_ENERGY_TRESHOLD = 90;
+const ACCEPTABLE_ENERGY_TRESHOLD = 80;
+
 
 //-- TODO: MAX_ENERGY_TRESHOLD should scale with targets hit to support aoe fights
 // Not entirely sure if this is the optimal way to display this information, will have to come back to this
@@ -39,6 +46,10 @@ class BladeRush extends Analyzer {
   totalTimeOffCD: number = 0;
   isFirstCast: boolean = true;
 
+  unusableUptimes: Uptime[] = [];
+  isInUsablePeriod: boolean = false;
+  castEntries: BoxRowEntry[] = [];
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.BLADE_RUSH_TALENT);
@@ -54,16 +65,54 @@ class BladeRush extends Analyzer {
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS.BLADE_RUSH_TALENT),
       this.onBladeRushUsable,
     );
+    
+    this.unusableUptimes.push({
+      start: this.owner.fight.start_time,
+      end: -1,
+    });
+  }
+
+  endUsablePeriod(timestamp: number) {
+    if(this.isInUsablePeriod)
+    {
+      this.isInUsablePeriod = false;
+      this.unusableUptimes.push({
+        start: timestamp,
+        end: -1,
+      });
+    }
+  }
+
+  startUsablePeriod(timestamp: number) {
+    if(!this.isInUsablePeriod)
+    {
+      this.isInUsablePeriod = true;
+      this.unusableUptimes.at(-1)!.end = timestamp;
+    }
   }
 
   // Count total BR casts and casts over energy treshold
   protected onBladeRush(event: CastEvent) {
+    let value = QualitativePerformance.Good;
     const energy = getResource(event.classResources, RESOURCE_TYPES.ENERGY.id);
+    const tooltip = (
+      <>
+        Cast @ {this.owner.formatTimestamp(event.timestamp)}: You cast 
+        <SpellLink id={TALENTS.BLADE_RUSH_TALENT}/> at {energy!.amount} energy
+      </>
+    );
+
     this.castsTotal += 1;
 
     if (energy!.amount > MAX_ENERGY_TRESHOLD) {
       this.castsOverEnergyTreshold += 1;
+      value = QualitativePerformance.Fail;
     }
+    else if(energy!.amount > ACCEPTABLE_ENERGY_TRESHOLD){
+      this.castsOverEnergyTreshold += 1;
+      value = QualitativePerformance.Ok;
+    }
+    this.castEntries.push({ value, tooltip });
   }
 
   // Count time spent under MIN_ENERGY_TRESHOLD with BR off cd
@@ -84,7 +133,11 @@ class BladeRush extends Analyzer {
         this.timeSpentUnderTreshold += event.timestamp - this.lastTimeStamp;
       }
       this.lastTimeStamp = event.timestamp;
+
+      this.startUsablePeriod(event.timestamp);
+      
     } else {
+      this.endUsablePeriod(event.timestamp);
       this.lastTimeStamp = 0;
     }
   }
@@ -98,6 +151,8 @@ class BladeRush extends Analyzer {
         } else {
           this.isFirstCast = false;
         }
+        this.endUsablePeriod(event.timestamp);
+
         break;
       }
 
@@ -142,7 +197,7 @@ class BladeRush extends Analyzer {
     return <DonutChart items={items} />;
   }
 
-  get guide(): JSX.Element {
+  get guideOld(): JSX.Element {
     return (
       <p>
         <p>
@@ -170,8 +225,71 @@ class BladeRush extends Analyzer {
             {this.cooldownChart}
           </RoundedPanel>
         </SideBySidePanels>
+        <small>
+          Grey periods indicate times that you should have used 
+          <SpellLink id={TALENTS.BLADE_RUSH_TALENT}/>, but did not.
+        </small>
+        {uptimeBarSubStatistic(
+            this.owner.fight,
+            {
+              spells: [TALENTS.BLADE_RUSH_TALENT],
+              uptimes: this.unusableUptimes,
+            },
+            undefined,
+            undefined,
+            undefined,
+            'utilization',
+          )}
       </p>
     );
+  }
+
+  get guide(): JSX.Element {
+    this.unusableUptimes.at(-1)!.end = this.owner.fight.end_time;
+    const explanation = (
+      <p>
+          <strong>
+            <SpellLink id={TALENTS.BLADE_RUSH_TALENT} />
+          </strong>{' '}
+          should be used whenever your energy drop under 70-80, this energy treshold increase with
+          target count. At around 9 targets it is safe to use{' '}
+          <SpellLink id={TALENTS.BLADE_RUSH_TALENT} /> on cooldown regardless of energy.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+          <SpellLink id={TALENTS.BLADE_RUSH_TALENT} /> utilization
+          </strong>
+          <div>
+          <small>
+            Grey periods indicate periods where your energy went under the
+            recommended energy treshold but you did not use <SpellLink id={TALENTS.BLADE_RUSH_TALENT}/>.
+          </small>
+          {uptimeBarSubStatistic(
+            this.owner.fight,
+            {
+              spells: [TALENTS.BLADE_RUSH_TALENT],
+              uptimes: this.unusableUptimes,
+            },
+            undefined,
+            undefined,
+            undefined,
+            'utilization',
+          )}
+          <strong>Casts </strong>
+            <small>
+              - Green indicates a good cast under 80 energy, yellow indicate a cast slighlty above the recommended energy treshold, 
+              while red indicates a "wasted" cast casted above the recommended energy treshold (Ignore this section in aoe for now)
+            </small>
+          <PerformanceBoxRow values={this.castEntries}/>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 40);
   }
 }
 
