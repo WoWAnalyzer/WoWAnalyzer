@@ -162,11 +162,19 @@ class HotTrackerMW extends HotTracker {
     );
   }
 
+  _getRapidDiffusionDuration(combatant: Combatant): number {
+    return RAPID_DIFFUSION * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+  }
+
   _getMistyPeaksMaxDuration(combatant: Combatant): number {
     return (
       MISTY_PEAKS_DURATION * combatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
       combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * ENV_BASE_DURATION // TODO: REMOVE ENV BASE DURATION WHEN 10.0.7 HIT
     );
+  }
+
+  _getMistyPeaksDuration(combatant: Combatant): number {
+    return MISTY_PEAKS_DURATION * combatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT);
   }
 
   _generateHotInfo(): HotInfo[] {
@@ -178,20 +186,14 @@ class HotTrackerMW extends HotTracker {
         tickPeriod: 2000,
         maxDuration: this._calculateMaxRemDuration,
         bouncy: true,
-        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
-          ? RAPID_DIFFUSION *
-            this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
-          : undefined,
+        procDuration: this._getRapidDiffusionDuration,
       },
       {
         spell: TALENTS_MONK.ENVELOPING_MIST_TALENT,
         duration: this._calculateEnvDuration,
         tickPeriod: 1000,
         maxDuration: this._calculateMaxEnvDuration,
-        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT)
-          ? MISTY_PEAKS_DURATION *
-            this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT)
-          : undefined,
+        procDuration: this._getMistyPeaksDuration,
       },
       {
         spell: SPELLS.ENVELOPING_BREATH_HEAL,
