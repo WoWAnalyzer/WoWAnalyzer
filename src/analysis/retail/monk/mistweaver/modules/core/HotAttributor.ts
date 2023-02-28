@@ -102,39 +102,37 @@ class HotAttributor extends Analyzer {
     if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
       return;
     }
-
+    const hot = this.hotTracker.hots[targetID][spellID];
     if (this._hasBouncedAttribution(event)) {
       //bounced
       remDebug && this._existingReMAttributionLogging(event);
     } else if (isFromMistsOfLife(event)) {
       //mists of life rem
-      remDebug && this._newReMAttributionLogging(event, this.MistsOfLifeAttrib);
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
-      this.hotTracker.hots[event.targetID][event.ability.guid].maxDuration =
-        this.hotTracker._getDuration(this.hotTracker.hotInfo[event.ability.guid]);
+      hot.maxDuration = this.hotTracker._getDuration(this.hotTracker.hotInfo[spellID]);
+      remDebug && this._newReMAttributionLogging(event, this.MistsOfLifeAttrib);
     } else if (event.prepull || isFromHardcast(event)) {
       //hardcast rem
       remDebug && this._newReMAttributionLogging(event, this.REMHardcastAttrib);
       this.hotTracker.addAttributionFromApply(this.REMHardcastAttrib, event);
     } else if (isFromRapidDiffusion(event)) {
       //rapid diffusion rem
-      rdDebug && this._newReMAttributionLogging(event, this.rapidDiffusionAttrib);
       this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
-      this.hotTracker.hots[targetID][spellID].maxDuration =
-        this.hotTracker._getRapidDiffusionMaxDuration(this.selectedCombatant);
-      this.hotTracker.hots[event.targetID][event.ability.guid].end = this.hotTracker.hots[
-        event.targetID
-      ][event.ability.guid].originalEnd =
-        event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
+      hot.maxDuration = this.hotTracker._getRapidDiffusionMaxDuration(this.selectedCombatant);
+      hot.end = hot.originalEnd =
+        event.timestamp +
+        Number(this.hotTracker._getRapidDiffusionDuration(this.selectedCombatant));
+      rdDebug && this._newReMAttributionLogging(event, this.rapidDiffusionAttrib);
     } else if (isFromDancingMists(event)) {
       //dancing mists rem
-      dmDebug && this._newReMAttributionLogging(event, this.dancingMistAttrib);
+
       const sourceRem = getSourceRem(event);
       if (sourceRem) {
         //set the data from the sourceRem if we can find it
         this._setRemDataFromSource(sourceRem, event);
       }
       this.hotTracker.addAttributionFromApply(this.dancingMistAttrib, event);
+      dmDebug && this._newReMAttributionLogging(event, this.dancingMistAttrib);
     }
   }
 
@@ -144,7 +142,7 @@ class HotAttributor extends Analyzer {
     if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
       return;
     }
-
+    const hot = this.hotTracker.hots[targetID][spellID];
     if (this._hasAttribution(event)) {
       return;
     } else if (isFromMistsOfLife(event)) {
@@ -164,19 +162,17 @@ class HotAttributor extends Analyzer {
           'on ' + this.combatants.getEntity(event)?.name,
         );
     } else if (isFromMistyPeaks(event)) {
+      this.hotTracker.addAttributionFromApply(this.envMistMistyPeaksAttrib, event);
+      hot.maxDuration = this.hotTracker._getMistyPeaksMaxDuration(this.selectedCombatant);
+      hot.end = hot.originalEnd =
+        event.timestamp + Number(this.hotTracker._getMistyPeaksDuration(this.selectedCombatant));
       debug &&
         console.log(
           'Attributed Misty Peaks Enveloping Mist at ' +
             this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
+          hot,
         );
-      this.hotTracker.addAttributionFromApply(this.envMistMistyPeaksAttrib, event);
-      this.hotTracker.hots[targetID][spellID].maxDuration =
-        this.hotTracker._getMistyPeaksMaxDuration(this.selectedCombatant);
-      this.hotTracker.hots[event.targetID][event.ability.guid].end = this.hotTracker.hots[
-        event.targetID
-      ][event.ability.guid].originalEnd =
-        event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration);
     }
   }
 
