@@ -418,6 +418,10 @@ abstract class HotTracker extends Analyzer {
               );
             //duration is not lost due to latency between events -- account for it
             hot.maxDuration! += timeBetween;
+            hot.end += timeBetween;
+            if (event.timestamp <= hot.originalEnd) {
+              hot.originalEnd += timeBetween;
+            }
             this.hots[targetId][spellId] = hot;
             this.bouncingHots.shift();
             return;

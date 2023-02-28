@@ -16,6 +16,7 @@ import {
   isFromRapidDiffusion,
   isFromMistsOfLife,
   isFromDancingMists,
+  getSourceRem,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
@@ -45,6 +46,15 @@ class HotAttributor extends Analyzer {
   REMHardcastAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.HARDCAST_RENEWING_MIST);
   MistsOfLifeAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.MISTS_OF_LIFE_RENEWING_MIST);
   dancingMistAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.DANCING_MIST_RENEWING_MIST);
+  dmSourceRDAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_RD,
+  );
+  dmSourceHCAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_HC,
+  );
+  dmSourceMoLAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_MOL,
+  );
   EFAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.HARDCAST_ESSENCE_FONT);
 
   constructor(options: Options) {
@@ -82,6 +92,7 @@ class HotAttributor extends Analyzer {
           this.combatants.getEntity(event)?.name +
           ' at ' +
           this.owner.formatTimestamp(event.timestamp, 3),
+        event.timestamp,
       );
   }
 
@@ -118,6 +129,11 @@ class HotAttributor extends Analyzer {
     } else if (isFromDancingMists(event)) {
       //dancing mists rem
       dmDebug && this._newReMAttributionLogging(event, this.dancingMistAttrib);
+      const sourceRem = getSourceRem(event);
+      if (sourceRem) {
+        //set the data from the sourceRem if we can find it
+        this._setRemDataFromSource(sourceRem, event);
+      }
       this.hotTracker.addAttributionFromApply(this.dancingMistAttrib, event);
     }
   }
@@ -192,7 +208,7 @@ class HotAttributor extends Analyzer {
     );
   }
 
-  _existingReMAttributionLogging(event: ApplyBuffEvent | RefreshBuffEvent) {
+  private _existingReMAttributionLogging(event: ApplyBuffEvent | RefreshBuffEvent) {
     const attribution =
       this.hotTracker.hots[event.targetID][event.ability.guid].attributions[0].name;
     if (attribution) {
@@ -202,16 +218,21 @@ class HotAttributor extends Analyzer {
           ' at ' +
           this.owner.formatTimestamp(event.timestamp, 3),
         'on ' + this.combatants.getEntity(event)?.name,
+        this.hotTracker.hots[event.targetID][event.ability.guid],
       );
     }
   }
 
-  _newReMAttributionLogging(event: ApplyBuffEvent | RefreshBuffEvent, attribution: Attribution) {
+  private _newReMAttributionLogging(
+    event: ApplyBuffEvent | RefreshBuffEvent,
+    attribution: Attribution,
+  ) {
     switch (attribution) {
       case this.REMHardcastAttrib: {
         console.log(
           'Hardcast Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
+          this.hotTracker.hots[event.targetID][event.ability.guid],
         );
         break;
       }
@@ -224,6 +245,7 @@ class HotAttributor extends Analyzer {
               event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration),
               3,
             ),
+          this.hotTracker.hots[event.targetID][event.ability.guid],
         );
         break;
       }
@@ -232,6 +254,7 @@ class HotAttributor extends Analyzer {
           'Attributed Renewing Mist from Mists of Life at ' +
             this.owner.formatTimestamp(event.timestamp),
           'on ' + this.combatants.getEntity(event)?.name,
+          this.hotTracker.hots[event.targetID][event.ability.guid],
         );
         break;
       }
@@ -239,9 +262,34 @@ class HotAttributor extends Analyzer {
         console.log(
           'Dancing Mist Renewing Mist at ' + this.owner.formatTimestamp(event.timestamp, 3),
           'on ' + this.combatants.getEntity(event)?.name,
+          this.hotTracker.hots[event.targetID][event.ability.guid],
         );
         break;
       }
+    }
+  }
+
+  private _setRemDataFromSource(
+    sourceRem: ApplyBuffEvent | RefreshBuffEvent,
+    event: ApplyBuffEvent | RefreshBuffEvent,
+  ) {
+    const spellID = event.ability.guid;
+    const dmHot = this.hotTracker.hots[event.targetID][spellID];
+    const sourceHot = this.hotTracker.hots[sourceRem.targetID][spellID];
+    if (sourceHot) {
+      dmHot.attributions = [];
+      if (this.hotTracker.fromRapidDiffusion(sourceHot)) {
+        this.hotTracker.addAttributionFromApply(this.dmSourceRDAttrib, event);
+      } else if (this.hotTracker.fromHardcast(sourceHot)) {
+        this.hotTracker.addAttributionFromApply(this.dmSourceHCAttrib, event);
+      } else if (this.hotTracker.fromMistsOfLife(sourceHot)) {
+        this.hotTracker.addAttributionFromApply(this.dmSourceMoLAttrib, event);
+      }
+      dmHot.healingAfterOriginalEnd = 0;
+      dmHot.maxDuration = sourceHot.maxDuration;
+      dmHot.end = sourceHot.end;
+      dmHot.originalEnd = sourceHot.originalEnd;
+      dmHot.extensions = sourceHot.extensions;
     }
   }
 }

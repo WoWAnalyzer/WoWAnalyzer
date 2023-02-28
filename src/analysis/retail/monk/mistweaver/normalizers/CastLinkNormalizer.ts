@@ -21,6 +21,7 @@ export const OVERHEAL_BOUNCE = 'OverhealBounce';
 export const BOUNCED = 'Bounced';
 export const ESSENCE_FONT = 'EssenceFont';
 export const FROM_DANCING_MISTS = 'FromDM';
+export const SOURCE_APPLY = 'SourceApply';
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_MISTY_PEAKS = 'FromMistyPeaks';
 export const FROM_MISTS_OF_LIFE = 'FromMOL';
@@ -36,7 +37,7 @@ export const SOOM_GOM = 'SoomGOM';
 export const VIVIFY = 'Vivify';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
-const DANCING_MIST_BUFFER_MS = 120;
+const DANCING_MIST_BUFFER_MS = 140;
 const CAST_BUFFER_MS = 100;
 const EF_BUFFER = 7000;
 const MAX_REM_DURATION = 77000;
@@ -114,6 +115,7 @@ const EVENT_LINKS: EventLink[] = [
   // two REMs happen in same timestamp when dancing mists procs
   {
     linkRelation: FROM_DANCING_MISTS,
+    reverseLinkRelation: SOURCE_APPLY,
     linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
     linkingEventType: [EventType.ApplyBuff],
     referencedEventId: [SPELLS.RENEWING_MIST_HEAL.id],
@@ -310,7 +312,14 @@ function getClosestEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
       minEvent = ev;
     }
   });
+
   return minEvent;
+}
+
+export function getSourceRem(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return getClosestEvent(event.timestamp, GetRelatedEvents(event, SOURCE_APPLY)) as
+    | ApplyBuffEvent
+    | RefreshBuffEvent;
 }
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
