@@ -37,7 +37,7 @@ export const SOOM_GOM = 'SoomGOM';
 export const VIVIFY = 'Vivify';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
-const DANCING_MIST_BUFFER_MS = 250;
+const DANCING_MIST_BUFFER_MS = 140;
 const CAST_BUFFER_MS = 100;
 const EF_BUFFER = 7000;
 const MAX_REM_DURATION = 77000;
