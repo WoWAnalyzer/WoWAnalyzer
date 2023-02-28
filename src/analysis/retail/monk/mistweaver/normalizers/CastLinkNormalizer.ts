@@ -312,22 +312,12 @@ function getClosestEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
       minEvent = ev;
     }
   });
-
-  return minEvent;
-}
-
-function getMostRecentEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
-  const minEvent = events.reduce(
-    (last, ev) => (ev.timestamp < last.timestamp ? ev : last),
-    events[0],
-  );
+ 
   return minEvent;
 }
 
 export function getSourceRem(event: ApplyBuffEvent | RefreshBuffEvent) {
-  return getMostRecentEvent(event.timestamp, GetRelatedEvents(event, SOURCE_APPLY)) as
-    | ApplyBuffEvent
-    | RefreshBuffEvent;
+  return getClosestEvent(event.timestamp, GetRelatedEvents(event, SOURCE_APPLY)) as ApplyBuffEvent | RefreshBuffEvent;
 }
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
