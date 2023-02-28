@@ -23,7 +23,8 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/reports/GmH23dy1zjtrxMVc#fight=42&type=damage-done&source=44',
+  exampleReport:
+    '/report/xaZRA3pkN7fB4D1n/12-Normal+Ignis+the+Furnace+Master+-+Kill+(2:48)/32-Pewmon',
 
   timeline: { separateCastBars: [[]] },
 
