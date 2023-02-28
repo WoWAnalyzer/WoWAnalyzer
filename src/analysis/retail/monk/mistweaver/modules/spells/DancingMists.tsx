@@ -42,7 +42,7 @@ class DancingMists extends Analyzer {
   extraMistyPeaksAbsorb: number = 0;
 
   get totalHealing() {
-    return this.dancingMistReMHealing + this.dancingMistVivifyHealing;
+    return this.dancingMistReMHealing + this.dancingMistVivifyHealing + this.mistyPeaksHealingFromDancingMist;
   }
   get dancingMistReMHealing() {
     return this.dancingMistHealing + this.dancingMistAbsorbed;
