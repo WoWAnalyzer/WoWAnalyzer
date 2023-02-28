@@ -34,7 +34,7 @@ class RapidDiffusion extends Analyzer {
   }
 
   get totalHealing() {
-    return this.totalRemThroughput + this.totalVivifyThroughput;
+    return this.totalRemThroughput + this.totalVivifyThroughput + this.mistyPeaksHealingFromRapidDiffusion;
   }
 
   get rapidDiffusionItems() {
