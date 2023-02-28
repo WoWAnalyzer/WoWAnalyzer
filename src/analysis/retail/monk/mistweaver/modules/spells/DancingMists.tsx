@@ -139,9 +139,9 @@ class DancingMists extends Analyzer {
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
     if (this.hotTracker.fromDancingMists(hot) && !this.hotTracker.fromBounce(hot)) {
-      this.dancingMist_HardCast += this.hotTracker.dancingMist_HardCast(hot) ? 1 : 0;
-      this.dancingMist_RapidDiffusion += this.hotTracker.dancingMist_RapidDiffusion(hot) ? 1 : 0;
-      this.dancingMist_MistsOfLife += this.hotTracker.dancingMist_MistsOfLife(hot) ? 1 : 0;
+      this.dancingMist_HardCast += this.hotTracker.fromDancingMistHardCast(hot) ? 1 : 0;
+      this.dancingMist_RapidDiffusion += this.hotTracker.fromDancingMistRapidDiffusion(hot) ? 1 : 0;
+      this.dancingMist_MistsOfLife += this.hotTracker.fromDancingMistMistsOfLife(hot) ? 1 : 0;
       this.dancingMistCount += 1;
     }
   }

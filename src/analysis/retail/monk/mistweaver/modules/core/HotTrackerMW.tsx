@@ -38,19 +38,19 @@ class HotTrackerMW extends HotTracker {
     this.risingMistActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
   }
 
-  dancingMist_RapidDiffusion(hot: Tracker): boolean {
+  fromDancingMistRapidDiffusion(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_RD;
     });
   }
 
-  dancingMist_HardCast(hot: Tracker): boolean {
+  fromDancingMistHardCast(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_HC;
     });
   }
 
-  dancingMist_MistsOfLife(hot: Tracker): boolean {
+  fromDancingMistMistsOfLife(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
       return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_MOL;
     });
