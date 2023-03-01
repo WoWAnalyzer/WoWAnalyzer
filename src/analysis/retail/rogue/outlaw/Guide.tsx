@@ -7,11 +7,14 @@ import { ResourceLink } from 'interface';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
+import { AplSectionData } from 'interface/guide/components/Apl';
+import * as AplCheck from './modules/apl/AplCheck';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <ResourceUsageSection modules={modules} events={events} info={info} />
+      <ActionPriorityList modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
@@ -80,6 +83,27 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           </Trans>
         </p>
       </SubSection>
+    </Section>
+  );
+}
+
+function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section title="Acion Priority List">
+      <p>Outlaw rogue rotation is driven by a priority list.</p>
+
+      <p>
+        This Action Priority List (APL) is a simplified version off the simc APL that can be found{' '}
+        <a href="https://raw.githubusercontent.com/simulationcraft/simc/dragonflight/engine/class_modules/apl/rogue/outlaw_df.simc">
+          here
+        </a>
+        .
+      </p>
+      <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
+      <hr />
+      <p>
+        As mentioned before use the accuracy here as a reference point to compare to other logs.
+      </p>
     </Section>
   );
 }
