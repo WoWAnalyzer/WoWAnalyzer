@@ -24,14 +24,20 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
             that caused the gust. <br /> <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> is
             given the healing from duplicated gusts, since without{' '}
             <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> the second gust would not have
-            happened. <br /> <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> is given the
-            splash healing of <SpellLink id={SPELLS.VIVIFY.id} />
-            's heal since without <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />,{' '}
-            <SpellLink id={SPELLS.VIVIFY.id} /> wouldn't have splashed. <br />{' '}
+            happened. <br />
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> is given the healing of{' '}
+            <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id} />. <br />
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> healing from{' '}
+            <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id} /> is given to the spell that
+            procced it. <br />
             <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> is given the healing of{' '}
             <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> since without casting{' '}
             <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} />,{' '}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> healing would not occur.
+            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> healing would not occur.{' '}
+            <br />
+            <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> healing is attributed to the
+            source cast of the <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> that procced
+            it.
           </>
         }
         pad={false}
