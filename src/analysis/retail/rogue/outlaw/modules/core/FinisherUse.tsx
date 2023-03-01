@@ -1,16 +1,13 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { BadColor, GoodColor } from 'interface/guide';
-import { ResourceLink} from 'interface';
+import { ResourceLink } from 'interface';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
-import {
-  FINISHERS,
-  getMaxComboPoints,
-} from '../../constants';
+import { FINISHERS, getMaxComboPoints } from '../../constants';
 import Finishers from '../features/Finishers';
 
 export default class FinisherUse extends Analyzer {
@@ -29,10 +26,7 @@ export default class FinisherUse extends Analyzer {
   }
 
   get maxCpFinishers() {
-    return (
-      this.totalFinisherCasts -
-      this.lowCpFinisherCasts
-    );
+    return this.totalFinisherCasts - this.lowCpFinisherCasts;
   }
 
   get chart() {
@@ -76,7 +70,7 @@ export default class FinisherUse extends Analyzer {
 
     this.totalFinisherCasts += 1;
     if (cpsSpent < this.finishers.recommendedFinisherPoints()) {
-        this.lowCpFinisherCasts += 1;
+      this.lowCpFinisherCasts += 1;
     }
   }
 }
