@@ -124,7 +124,7 @@ class RapidDiffusion extends Analyzer {
   getBarTooltip(spell: Spell) {
     let rskSourceHealing = 0;
     let envSourceHealing = 0;
-    let procs;
+    let procs = 0;
     switch (spell.id) {
       case TALENTS_MONK.RENEWING_MIST_TALENT.id:
         rskSourceHealing = this.remHealingFromRSK;

@@ -388,6 +388,9 @@ export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
 }
 
 export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | RefreshBuffEvent) {
+   if(!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)){
+    return false;
+  }
   const rdSourceEvent = GetRelatedEvents(event, FROM_RAPID_DIFFUSION);
   return (
     rdSourceEvent[0].type === EventType.Cast &&
@@ -396,6 +399,9 @@ export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | Refres
 }
 
 export function isFromRapidDiffusionEnvelopingMist(event: ApplyBuffEvent | RefreshBuffEvent) {
+  if(!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)){
+    return false;
+  }
   const rdSourceEvent = GetRelatedEvents(event, FROM_RAPID_DIFFUSION);
   return (
     rdSourceEvent[0].type === EventType.Cast &&

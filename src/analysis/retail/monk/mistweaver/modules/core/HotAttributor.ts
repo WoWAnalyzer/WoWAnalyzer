@@ -291,7 +291,6 @@ class HotAttributor extends Analyzer {
   }
 
   private _attributeRapidDiffusionRem(event: ApplyBuffEvent | RefreshBuffEvent, hot: Tracker) {
-    //rapid diffusion rem
     this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
     if (isFromRapidDiffusionRisingSunKick(event)) {
       this.hotTracker.addAttributionFromApply(this.rdSourceRSKAttrib, event);
