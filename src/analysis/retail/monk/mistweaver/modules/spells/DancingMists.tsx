@@ -1,16 +1,17 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentSpellText from 'parser/ui/TalentSpellText';
+import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
+import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { SPELL_COLORS } from '../../constants';
 import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
@@ -23,45 +24,69 @@ class DancingMists extends Analyzer {
   };
   protected vivify!: Vivify;
   hotTracker!: HotTrackerMW;
+  //totals
   dancingMistCount: number = 0;
-  dancingMist_RapidDiffusion: number = 0;
-  dancingMist_HardCast: number = 0;
-  dancingMist_MistsOfLife: number = 0;
-  dancingMistHealing: number = 0;
-  dancingMistAbsorbed: number = 0;
+  dancingMistReMHealing: number = 0;
   dancingMistOverhealing: number = 0;
-  dancingMistVivifyCleaveHits: number = 0;
-  dancingMistMistyPeaksProcs: number = 0;
   extraVivCleaves: number = 0;
-  extraVivHealing: number = 0;
-  extraVivOverhealing: number = 0;
-  extraVivAbsorbed: number = 0;
   extraMistyPeaksProcs: number = 0;
   countedMainVivifyHit: boolean = false;
-  extraMistyPeaksHealing: number = 0;
-  extraMistyPeaksAbsorb: number = 0;
+  dancingMistVivifyHealing: number = 0;
+  extraVivOverhealing: number = 0;
+  mistyPeaksHealingFromDancingMist: number = 0;
+  //rapid diffusion
+  dancingMistRapidDiffusionCount: number = 0;
+  vivHealingFromRD: number = 0;
+  mpHealingFromRD: number = 0;
+  remHealingFromRD: number = 0;
+  //hard casts
+  dancingMistHardCastCount: number = 0;
+  vivHealingFromHardcast: number = 0;
+  mpHealingFromHardcast: number = 0;
+  remHealingFromHardcast: number = 0;
+  //mists of life
+  dancingMistMistsOfLifeCount: number = 0;
+  vivHealingFromMoL: number = 0;
+  mpHealingFromMoL: number = 0;
+  remHealingFromMol: number = 0;
+
+  get dancingMistItems() {
+    return [
+      {
+        spell: TALENTS_MONK.MISTY_PEAKS_TALENT,
+        amount: this.mistyPeaksHealingFromDancingMist,
+        color: SPELL_COLORS.MISTY_PEAKS,
+        tooltip: this.getBarTooltip(TALENTS_MONK.MISTY_PEAKS_TALENT),
+      },
+      {
+        spell: SPELLS.VIVIFY,
+        amount: this.dancingMistVivifyHealing,
+        color: SPELL_COLORS.VIVIFY,
+        tooltip: this.getBarTooltip(SPELLS.VIVIFY),
+      },
+      {
+        spell: TALENTS_MONK.RENEWING_MIST_TALENT,
+        amount: this.dancingMistReMHealing,
+        color: SPELL_COLORS.RENEWING_MIST,
+        tooltip: this.getBarTooltip(TALENTS_MONK.RENEWING_MIST_TALENT),
+      },
+    ];
+  }
 
   get totalHealing() {
-    return this.dancingMistReMHealing + this.dancingMistVivifyHealing;
-  }
-  get dancingMistReMHealing() {
-    return this.dancingMistHealing + this.dancingMistAbsorbed;
-  }
-
-  get dancingMistVivifyHealing() {
-    return this.extraVivHealing + this.extraVivAbsorbed;
-  }
-
-  get mistyPeaksHealingFromDancingMist() {
-    return this.extraMistyPeaksHealing + this.extraMistyPeaksAbsorb;
+    return (
+      this.dancingMistReMHealing +
+      this.dancingMistVivifyHealing +
+      this.mistyPeaksHealingFromDancingMist
+    );
   }
 
   get bounceProcs() {
     return (
       this.dancingMistCount -
-      this.dancingMist_HardCast -
-      this.dancingMist_RapidDiffusion -
-      this.dancingMist_MistsOfLife
+      this.dancingMistHardCastCount -
+      this.dancingMistRapidDiffusionCount -
+      this.dancingMistMistsOfLifeCount
     );
   }
 
@@ -71,21 +96,21 @@ class DancingMists extends Analyzer {
         color: SPELL_COLORS.RENEWING_MIST,
         label: 'Hardcast',
         spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
-        value: this.dancingMist_HardCast,
+        value: this.dancingMistHardCastCount,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.RAPID_DIFFUSION,
         label: 'Rapid Diffusion',
         spellId: TALENTS_MONK.RAPID_DIFFUSION_TALENT.id,
-        value: this.dancingMist_RapidDiffusion,
+        value: this.dancingMistRapidDiffusionCount,
         valuePercent: false,
       },
       {
         color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Mists of Life',
         spellId: TALENTS_MONK.MISTS_OF_LIFE_TALENT.id,
-        value: this.dancingMist_MistsOfLife,
+        value: this.dancingMistMistsOfLifeCount,
         valuePercent: false,
       },
       {
@@ -129,6 +154,91 @@ class DancingMists extends Analyzer {
     );
   }
 
+  getBarTooltip(spell: Spell) {
+    let rdSourceHealing = 0;
+    let hardcastSourceHealing = 0;
+    let molSourceHealing = 0;
+    let bounceHealing = 0;
+    let procs = 0;
+    switch (spell.id) {
+      case TALENTS_MONK.RENEWING_MIST_TALENT.id:
+        rdSourceHealing = this.remHealingFromRD;
+        hardcastSourceHealing = this.remHealingFromHardcast;
+        molSourceHealing = this.remHealingFromMol;
+        bounceHealing =
+          this.dancingMistReMHealing -
+          this.remHealingFromRD -
+          this.remHealingFromHardcast -
+          this.remHealingFromMol;
+        procs = this.dancingMistCount;
+        break;
+      case TALENTS_MONK.MISTY_PEAKS_TALENT.id:
+        rdSourceHealing = this.mpHealingFromRD;
+        hardcastSourceHealing = this.mpHealingFromHardcast;
+        molSourceHealing = this.mpHealingFromMoL;
+        bounceHealing =
+          this.mistyPeaksHealingFromDancingMist -
+          this.mpHealingFromHardcast -
+          this.mpHealingFromRD -
+          this.mpHealingFromMoL;
+        procs = this.extraMistyPeaksProcs;
+        break;
+      case SPELLS.VIVIFY.id:
+        rdSourceHealing = this.vivHealingFromRD;
+        hardcastSourceHealing = this.vivHealingFromHardcast;
+        molSourceHealing = this.vivHealingFromMoL;
+        bounceHealing =
+          this.dancingMistVivifyHealing -
+          this.vivHealingFromHardcast -
+          this.vivHealingFromMoL -
+          this.vivHealingFromRD;
+        procs = this.extraVivCleaves;
+        break;
+    }
+    const items = [
+      {
+        color: SPELL_COLORS.RAPID_DIFFUSION,
+        label: 'Rapid Diffusion',
+        spellId: TALENTS_MONK.RAPID_DIFFUSION_TALENT.id,
+        value: rdSourceHealing,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.RENEWING_MIST,
+        label: 'Hardcast',
+        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        value: hardcastSourceHealing,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.ENVELOPING_MIST,
+        label: 'Mists of Life',
+        spellId: TALENTS_MONK.MISTS_OF_LIFE_TALENT.id,
+        value: molSourceHealing,
+        valuePercent: false,
+      },
+      {
+        color: SPELL_COLORS.DANCING_MIST,
+        label: 'Bounces',
+        spellId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+        value: bounceHealing,
+        valuePercent: false,
+      },
+    ].filter((item) => {
+      return item.value > 0;
+    });
+
+    return (
+      <>
+        <strong>{procs}</strong> additional <SpellLink id={spell.id} />{' '}
+        {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from <br />
+        <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT} /> by duplication source:
+        <hr />
+        <DonutChart items={items} />
+      </>
+    );
+  }
+
   onApplyRem(event: ApplyBuffEvent) {
     const playerId = event.targetID;
     if (
@@ -139,9 +249,11 @@ class DancingMists extends Analyzer {
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
     if (this.hotTracker.fromDancingMists(hot) && !this.hotTracker.fromBounce(hot)) {
-      this.dancingMist_HardCast += this.hotTracker.fromDancingMistHardCast(hot) ? 1 : 0;
-      this.dancingMist_RapidDiffusion += this.hotTracker.fromDancingMistRapidDiffusion(hot) ? 1 : 0;
-      this.dancingMist_MistsOfLife += this.hotTracker.fromDancingMistMistsOfLife(hot) ? 1 : 0;
+      this.dancingMistHardCastCount += this.hotTracker.fromDancingMistHardCast(hot) ? 1 : 0;
+      this.dancingMistRapidDiffusionCount += this.hotTracker.fromDancingMistRapidDiffusion(hot)
+        ? 1
+        : 0;
+      this.dancingMistMistsOfLifeCount += this.hotTracker.fromDancingMistMistsOfLife(hot) ? 1 : 0;
       this.dancingMistCount += 1;
     }
   }
@@ -156,8 +268,14 @@ class DancingMists extends Analyzer {
     }
     const hot = this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id];
     if (this.hotTracker.fromDancingMists(hot)) {
-      this.dancingMistHealing += event.amount || 0;
-      this.dancingMistAbsorbed += event.absorbed || 0;
+      if (this.hotTracker.fromDancingMistRapidDiffusion(hot)) {
+        this.remHealingFromRD += event.amount + (event.absorbed || 0);
+      } else if (this.hotTracker.fromDancingMistHardCast(hot)) {
+        this.remHealingFromHardcast += event.amount + (event.absorbed || 0);
+      } else if (this.hotTracker.fromDancingMistMistsOfLife(hot)) {
+        this.remHealingFromMol += event.amount + (event.absorbed || 0);
+      }
+      this.dancingMistReMHealing += event.amount + (event.absorbed || 0);
       this.dancingMistOverhealing += event.overheal || 0;
     }
   }
@@ -177,10 +295,16 @@ class DancingMists extends Analyzer {
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
     if (this.hotTracker.fromDancingMists(hot)) {
+      if (this.hotTracker.fromDancingMistRapidDiffusion(hot)) {
+        this.vivHealingFromRD += event.amount + (event.absorbed || 0);
+      } else if (this.hotTracker.fromDancingMistHardCast(hot)) {
+        this.vivHealingFromHardcast += event.amount + (event.absorbed || 0);
+      } else if (this.hotTracker.fromDancingMistMistsOfLife(hot)) {
+        this.vivHealingFromMoL += event.amount + (event.absorbed || 0);
+      }
       this.extraVivCleaves += 1;
-      this.extraVivHealing += event.amount || 0;
       this.extraVivOverhealing += event.overheal || 0;
-      this.extraVivAbsorbed += event.absorbed || 0;
+      this.dancingMistVivifyHealing += event.amount + (event.absorbed || 0);
     }
   }
 
@@ -217,8 +341,14 @@ class DancingMists extends Analyzer {
       }
       const hot = this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
       if (this.hotTracker.fromMistyPeaks(hot)) {
-        this.extraMistyPeaksHealing += event.amount || 0;
-        this.extraMistyPeaksAbsorb += event.absorbed || 0;
+        if (this.hotTracker.fromDancingMistRapidDiffusion(remHot)) {
+          this.mpHealingFromRD += event.amount + (event.absorbed || 0);
+        } else if (this.hotTracker.fromDancingMistHardCast(remHot)) {
+          this.mpHealingFromHardcast += event.amount + (event.absorbed || 0);
+        } else if (this.hotTracker.fromDancingMistMistsOfLife(remHot)) {
+          this.mpHealingFromMoL += event.amount + (event.absorbed || 0);
+        }
+        this.mistyPeaksHealingFromDancingMist += event.amount + (event.absorbed || 0);
       }
     }
   }
@@ -236,41 +366,17 @@ class DancingMists extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        position={STATISTIC_ORDER.CORE(3)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <ul>
-            {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
-              <li>
-                Extra <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> procs:{' '}
-                {formatNumber(this.extraMistyPeaksProcs)}
-              </li>
-            )}
-            {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
-              <li>
-                Extra <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> healing:{' '}
-                {formatNumber(this.mistyPeaksHealingFromDancingMist)}
-              </li>
-            )}
-            <li>
-              Extra <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> direct healing:{' '}
-              {formatNumber(this.dancingMistReMHealing)}
-            </li>
-            <li>
-              Extra <SpellLink id={SPELLS.VIVIFY.id} /> cleaves: {this.extraVivCleaves}
-            </li>
-            <li>
-              Extra <SpellLink id={SPELLS.VIVIFY.id} /> healing:{' '}
-              {formatNumber(this.extraVivHealing)}
-            </li>
-          </ul>
+      <TalentAggregateStatisticContainer
+        title={
+          <>
+            <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT} /> -{' '}
+            <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
+          </>
         }
-      >
-        <TalentSpellText talent={TALENTS_MONK.DANCING_MISTS_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} />
-          <br />
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.CORE(3)}
+        smallFooter
+        footer={
           <TooltipElement
             content={
               <>
@@ -287,8 +393,10 @@ class DancingMists extends Analyzer {
               duplicated <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
             </small>
           </TooltipElement>
-        </TalentSpellText>
-      </Statistic>
+        }
+      >
+        <TalentAggregateBars bars={this.dancingMistItems} />
+      </TalentAggregateStatisticContainer>
     );
   }
 }

@@ -259,7 +259,7 @@ class AncientTeachings extends Analyzer {
           </>
         }
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        position={STATISTIC_ORDER.OPTIONAL(0)}
         smallFooter
       >
         <TalentAggregateBars bars={this.getAncientTeachingsDataItems()}></TalentAggregateBars>

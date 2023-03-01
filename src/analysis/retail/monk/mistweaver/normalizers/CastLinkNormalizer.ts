@@ -387,6 +387,28 @@ export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FROM_RAPID_DIFFUSION);
 }
 
+export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | RefreshBuffEvent) {
+   if(!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)){
+    return false;
+  }
+  const rdSourceEvent = GetRelatedEvents(event, FROM_RAPID_DIFFUSION);
+  return (
+    rdSourceEvent[0].type === EventType.Cast &&
+    rdSourceEvent[0].ability.guid === TALENTS_MONK.RISING_SUN_KICK_TALENT.id
+  );
+}
+
+export function isFromRapidDiffusionEnvelopingMist(event: ApplyBuffEvent | RefreshBuffEvent) {
+  if(!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)){
+    return false;
+  }
+  const rdSourceEvent = GetRelatedEvents(event, FROM_RAPID_DIFFUSION);
+  return (
+    rdSourceEvent[0].type === EventType.Cast &&
+    rdSourceEvent[0].ability.guid === TALENTS_MONK.ENVELOPING_MIST_TALENT.id
+  );
+}
+
 export function isFromMistsOfLife(event: ApplyBuffEvent | RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, FROM_MISTS_OF_LIFE);
 }

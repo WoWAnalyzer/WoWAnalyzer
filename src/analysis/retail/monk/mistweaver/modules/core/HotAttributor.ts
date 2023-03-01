@@ -8,7 +8,7 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import HotTracker, { Attribution } from 'parser/shared/modules/HotTracker';
+import HotTracker, { Attribution, Tracker } from 'parser/shared/modules/HotTracker';
 import { ATTRIBUTION_STRINGS } from '../../constants';
 import {
   isFromHardcast,
@@ -17,6 +17,8 @@ import {
   isFromMistsOfLife,
   isFromDancingMists,
   getSourceRem,
+  isFromRapidDiffusionEnvelopingMist,
+  isFromRapidDiffusionRisingSunKick,
 } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 
@@ -54,6 +56,12 @@ class HotAttributor extends Analyzer {
   );
   dmSourceMoLAttrib = HotTracker.getNewAttribution(
     ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_MOL,
+  );
+  rdSourceRSKAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_RSK,
+  );
+  rdSourceENVAttrib = HotTracker.getNewAttribution(
+    ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_ENV,
   );
   EFAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.HARDCAST_ESSENCE_FONT);
 
@@ -117,22 +125,10 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.REMHardcastAttrib, event);
     } else if (isFromRapidDiffusion(event)) {
       //rapid diffusion rem
-      this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
-      hot.maxDuration = this.hotTracker._getRapidDiffusionMaxDuration(this.selectedCombatant);
-      hot.end = hot.originalEnd =
-        event.timestamp +
-        Number(this.hotTracker._getRapidDiffusionDuration(this.selectedCombatant));
-      rdDebug && this._newReMAttributionLogging(event, this.rapidDiffusionAttrib);
+      this._attributeRapidDiffusionRem(event, hot);
     } else if (isFromDancingMists(event)) {
       //dancing mists rem
-
-      const sourceRem = getSourceRem(event);
-      if (sourceRem) {
-        //set the data from the sourceRem if we can find it
-        this._setRemDataFromSource(sourceRem, event);
-      }
-      this.hotTracker.addAttributionFromApply(this.dancingMistAttrib, event);
-      dmDebug && this._newReMAttributionLogging(event, this.dancingMistAttrib);
+      this._attributeDancingMistRem(event);
     }
   }
 
@@ -238,10 +234,12 @@ class HotAttributor extends Analyzer {
           'on ' + this.combatants.getEntity(event)?.name,
           ' expected expiration: ' +
             this.owner.formatTimestamp(
-              event.timestamp + Number(this.hotTracker.hotInfo[event.ability.guid].procDuration),
+              event.timestamp +
+                Number(this.hotTracker._getRapidDiffusionDuration(this.selectedCombatant)),
               3,
             ),
           this.hotTracker.hots[event.targetID][event.ability.guid],
+          event,
         );
         break;
       }
@@ -265,28 +263,44 @@ class HotAttributor extends Analyzer {
     }
   }
 
-  private _setRemDataFromSource(
-    sourceRem: ApplyBuffEvent | RefreshBuffEvent,
-    event: ApplyBuffEvent | RefreshBuffEvent,
-  ) {
-    const spellID = event.ability.guid;
-    const dmHot = this.hotTracker.hots[event.targetID][spellID];
-    const sourceHot = this.hotTracker.hots[sourceRem.targetID][spellID];
-    if (sourceHot) {
-      dmHot.attributions = [];
-      if (this.hotTracker.fromRapidDiffusion(sourceHot)) {
-        this.hotTracker.addAttributionFromApply(this.dmSourceRDAttrib, event);
-      } else if (this.hotTracker.fromHardcast(sourceHot)) {
-        this.hotTracker.addAttributionFromApply(this.dmSourceHCAttrib, event);
-      } else if (this.hotTracker.fromMistsOfLife(sourceHot)) {
-        this.hotTracker.addAttributionFromApply(this.dmSourceMoLAttrib, event);
+  private _attributeDancingMistRem(event: ApplyBuffEvent | RefreshBuffEvent) {
+    const sourceRem = getSourceRem(event);
+    if (sourceRem) {
+      //set the data from the sourceRem if we can find it
+      const spellID = event.ability.guid;
+      const dmHot = this.hotTracker.hots[event.targetID][spellID];
+      const sourceHot = this.hotTracker.hots[sourceRem.targetID][spellID];
+      if (sourceHot) {
+        dmHot.attributions = [];
+        if (this.hotTracker.fromRapidDiffusion(sourceHot)) {
+          this.hotTracker.addAttributionFromApply(this.dmSourceRDAttrib, event);
+        } else if (this.hotTracker.fromHardcast(sourceHot)) {
+          this.hotTracker.addAttributionFromApply(this.dmSourceHCAttrib, event);
+        } else if (this.hotTracker.fromMistsOfLife(sourceHot)) {
+          this.hotTracker.addAttributionFromApply(this.dmSourceMoLAttrib, event);
+        }
+        dmHot.healingAfterOriginalEnd = 0;
+        dmHot.maxDuration = sourceHot.maxDuration;
+        dmHot.end = sourceHot.end;
+        dmHot.originalEnd = sourceHot.originalEnd;
+        dmHot.extensions = sourceHot.extensions;
       }
-      dmHot.healingAfterOriginalEnd = 0;
-      dmHot.maxDuration = sourceHot.maxDuration;
-      dmHot.end = sourceHot.end;
-      dmHot.originalEnd = sourceHot.originalEnd;
-      dmHot.extensions = sourceHot.extensions;
     }
+    this.hotTracker.addAttributionFromApply(this.dancingMistAttrib, event);
+    dmDebug && this._newReMAttributionLogging(event, this.dancingMistAttrib);
+  }
+
+  private _attributeRapidDiffusionRem(event: ApplyBuffEvent | RefreshBuffEvent, hot: Tracker) {
+    this.hotTracker.addAttributionFromApply(this.rapidDiffusionAttrib, event);
+    if (isFromRapidDiffusionRisingSunKick(event)) {
+      this.hotTracker.addAttributionFromApply(this.rdSourceRSKAttrib, event);
+    } else if (isFromRapidDiffusionEnvelopingMist(event)) {
+      this.hotTracker.addAttributionFromApply(this.rdSourceENVAttrib, event);
+    }
+    hot.maxDuration = this.hotTracker._getRapidDiffusionMaxDuration(this.selectedCombatant);
+    hot.end = hot.originalEnd =
+      event.timestamp + Number(this.hotTracker._getRapidDiffusionDuration(this.selectedCombatant));
+    rdDebug && this._newReMAttributionLogging(event, this.rapidDiffusionAttrib);
   }
 }
 

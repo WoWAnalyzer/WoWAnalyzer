@@ -59,6 +59,10 @@ export const ATTRIBUTION_STRINGS = {
     DM_SOURCE_HC: 'Dancing Mist Source - Hardcast',
     DM_SOURCE_MOL: 'Dancing Mist Source - Mists of Life',
   },
+  RAPID_DIFFUSION_SOURCES: {
+    RD_SOURCE_RSK: 'Rapid Diffusion Source - Rising Sun Kick',
+    RD_SOURCE_ENV: 'Rapid Diffusion Source - Enveloping Mist',
+  },
 };
 
 export const SECRET_INFUSION_BUFFS = [
