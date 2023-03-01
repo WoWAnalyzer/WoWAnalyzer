@@ -1,7 +1,7 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
-import { SpellLink } from 'interface';
+import { Panel, SpellLink } from 'interface';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -9,12 +9,13 @@ import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution, Tracker } from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION } from '../../constants';
+import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION, SPELL_COLORS } from '../../constants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
 import T29TierSet from '../dragonflight/tier/T29MWTier';
+import { Section } from 'interface/guide';
 
 const debug = false;
 
@@ -143,7 +144,7 @@ class RisingMist extends Analyzer {
       this.extraEFOverhealing / (this.extraEFhealing + this.extraEFOverhealing),
     );
   }
-
+  hotsBySpell = new Map<number, Tracker[]>();
   risingMistCount: number = 0;
   risingMists: Attribution[] = [];
   remCount: number = 0;
@@ -364,6 +365,41 @@ class RisingMist extends Analyzer {
     return <>{formatNumber(this.averageTargetsPerRM)}</>;
   }
 
+  getSource(hot: Tracker) {
+    if (this.hotTracker.fromHardcast(hot)) {
+      return 'Hardcast';
+    } else if (this.hotTracker.fromRapidDiffusion(hot)) {
+      return 'Rapid Diffusion';
+    } else if (this.hotTracker.fromDancingMists(hot)) {
+      return 'Dancing Mist';
+    } else if (this.hotTracker.fromMistyPeaks(hot)) {
+      return 'Misty Peaks';
+    } else if (this.hotTracker.fromMistsOfLife(hot)) {
+      return 'Mists of Life';
+    }
+  }
+
+  getDuration(hot: Tracker) {
+    let duration = hot.end - hot.start;
+    if (hot.maxDuration && duration > hot.maxDuration) {
+      duration = hot.maxDuration;
+    }
+    return duration;
+  }
+
+  getSpellColor(hot: Tracker) {
+    if (hot.spellId === SPELLS.RENEWING_MIST_HEAL.id) {
+      return SPELL_COLORS.RENEWING_MIST;
+    }
+    if (hot.spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
+      return SPELL_COLORS.ESSENCE_FONT;
+    }
+    if (hot.spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
+      return SPELL_COLORS.ENVELOPING_MIST;
+    }
+    return '#70b570';
+  }
+
   subStatistic() {
     return (
       <StatisticListBoxItem
@@ -391,6 +427,112 @@ class RisingMist extends Analyzer {
         </ul>
       </>
     );
+  }
+
+  entries() {
+    const hotSpan = (id: number, style: React.CSSProperties = { float: 'left' }) => {
+      const hots = this.hotTracker.hotHistory.filter((hot) => {
+        return hot.spellId === id;
+      });
+      if (!hots) {
+        return '';
+      }
+      return hots[0].name;
+    };
+
+    const hotTable = ([hotId, hotHistory]: [number, Tracker[]]) => {
+      const tableEntries = hotHistory;
+      if (tableEntries.length === 0) {
+        return null;
+      }
+      return (
+        <tbody key={hotId}>
+          <Section title={hotSpan.call(this, hotId)}>
+            <tr>
+              <th style={{ width: '45%' }}>Source</th>
+              <th style={{ width: '10%' }}>Duration</th>
+              <th>Percent of Max Duration</th>
+            </tr>
+            {tableEntries.map((tracker) => (
+              <tr key={tracker.spellId}>
+                <td>
+                  <SpellLink id={tracker.spellId} /> - {this.getSource(tracker)} @
+                  <strong>{this.owner.formatTimestamp(tracker.start, 2)}</strong>
+                </td>
+                <td>{formatDuration(this.getDuration(tracker))}</td>
+                <td style={{ width: '20%' }}>
+                  <div className="flex performance-bar-container">
+                    <div
+                      className="flex-sub performance-bar"
+                      style={{
+                        width: `${
+                          tracker.maxDuration
+                            ? formatPercentage(this.getDuration(tracker) / tracker.maxDuration)
+                            : '100'
+                        }%`,
+                        backgroundColor: `${this.getSpellColor(tracker)}`,
+                      }}
+                    />
+                  </div>
+                </td>
+                <td className="text-left">
+                  {tracker.maxDuration ? (
+                    <>{formatPercentage(this.getDuration(tracker) / tracker.maxDuration)}</>
+                  ) : (
+                    <>100</>
+                  )}
+                  %
+                </td>
+              </tr>
+            ))}
+            <tr>
+              <td>Average Duration for: </td>
+              <td>{hotSpan.call(this, hotId, {})}</td>
+            </tr>
+          </Section>
+        </tbody>
+      );
+    };
+
+    const rementries = hotTable([
+      SPELLS.RENEWING_MIST_HEAL.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) => tracker.spellId === SPELLS.RENEWING_MIST_HEAL.id,
+      ),
+    ]);
+    const efentries = hotTable([
+      SPELLS.ESSENCE_FONT_BUFF.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) => tracker.spellId === SPELLS.ESSENCE_FONT_BUFF.id,
+      ),
+    ]);
+    const envEntries = hotTable([
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) => tracker.spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      ),
+    ]);
+
+    return [rementries, envEntries, efentries];
+  }
+
+  tab() {
+    return {
+      title: 'Rising Mist',
+      url: 'rising-mist',
+      render: () => (
+        <Panel>
+          <div style={{ marginTop: -10, marginBottom: -10 }}>
+            <div style={{ padding: '1em' }}>
+              Listing of each applied hots' total duration after extension.
+            </div>
+            <table className="data-table" style={{ padding: '1em' }}>
+              {this.entries()}
+            </table>
+          </div>
+        </Panel>
+      ),
+    };
   }
 }
 
