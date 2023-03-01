@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 2, 28), <>Updates to <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> and <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id}/> to show a more detailed breakdown</>, Vohrr),
   change(date(2023, 2, 28), <>Refactored Hot Attributor for readability and increased <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> event link threshold</>, Vohrr),
   change(date(2023, 2, 27), <>Updated <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> to show proc source breakdown</>, Vohrr),
   change(date(2023, 2, 27), <>Fix crash when <SpellLink id={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id}/> is not talented</>, Vohrr),
