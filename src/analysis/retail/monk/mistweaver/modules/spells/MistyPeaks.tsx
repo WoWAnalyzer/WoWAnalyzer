@@ -111,11 +111,14 @@ class MistyPeaks extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.DEFAULT}
+        position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
+            <li>
+              <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/> procs: {this.numHots}
+            </li>
             <li>
               <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> extra hits: {this.extraHits}
             </li>

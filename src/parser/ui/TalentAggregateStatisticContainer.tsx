@@ -9,6 +9,10 @@ type Props = {
   smallTitle?: boolean;
   footer?: ReactNode;
   smallFooter?: boolean;
+  /**
+   * @default {true}
+   */
+  wide?: boolean;
   category?: STATISTIC_CATEGORY;
   position?: number;
   tooltip?: ReactNode | string;
@@ -21,13 +25,14 @@ const TalentAggregateStatisticContainer = ({
   smallTitle,
   footer,
   smallFooter,
+  wide = false,
   ...others
 }: Props) => (
-  <Statistic wide size="flexible" {...others}>
+  <Statistic wide={wide} size="flexible" {...others}>
     <div className="pad">
       <div className="talent-aggregate-container">
-        {smallTitle ? (
-          <strong>{title}</strong>
+        {smallTitle || !wide ? (
+          <small>{title}</small>
         ) : (
           <h3>
             <div className="value">{title}</div>
@@ -35,19 +40,23 @@ const TalentAggregateStatisticContainer = ({
         )}
       </div>
       {children}
-      {footer && (
-        <div className="boring-value">
-          {smallFooter ? (
-            <small>
-              *{footer}.<br /> *Labels are hidden for trivial amounts
-            </small>
-          ) : (
-            <h3>
-              {footer}.<br /> Labels are hidden for trivial amounts
-            </h3>
-          )}
-        </div>
-      )}
+      <div className="boring-value">
+        {footer && (
+          <>
+            {smallFooter ? (
+              <small>
+                *{footer}
+                <br />
+              </small>
+            ) : (
+              <h3>
+                {footer}
+                <br />
+              </h3>
+            )}
+          </>
+        )}
+      </div>
     </div>
   </Statistic>
 );

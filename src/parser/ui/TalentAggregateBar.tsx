@@ -13,6 +13,7 @@ type Props = {
   scaleFactor?: number;
   subSpecs?: TalentAggregateBarSpec[];
   subSpecPercents?: number[];
+  wide: boolean;
 };
 
 const TalentAggregateBar = ({
@@ -20,16 +21,17 @@ const TalentAggregateBar = ({
   percentTotal,
   barColor,
   barTooltip,
-  scaleFactor,
+  scaleFactor = 1,
   subSpecs,
   subSpecPercents,
+  wide = false,
   ...others
 }: Props) => {
   return (
     <div className="source-bar" {...others}>
-      <Tooltip content={barTooltip ? barTooltip : percentTotal + '%'}>
+      <Tooltip content={barTooltip || formatPercentage(percentTotal) + '%'}>
         <div style={getSegment(percentTotal, barColor, scaleFactor)}>
-          {showLabel(percentTotal, scaleFactor) && (
+          {showLabel(percentTotal, scaleFactor, wide) && (
             <span>
               <strong>{formatPercentage(percentTotal, 1)}%</strong>
             </span>
@@ -44,7 +46,7 @@ const TalentAggregateBar = ({
             content={subSpec.tooltip || formatPercentage(subSpecPercents[idx]) + '%'}
           >
             <div style={getSegment(subSpecPercents[idx], subSpec.color, scaleFactor)}>
-              {showLabel(subSpecPercents[idx], scaleFactor) && (
+              {showLabel(subSpecPercents[idx], scaleFactor, wide) && (
                 <span>
                   <strong>{formatPercentage(subSpecPercents[idx], 1)}%</strong>
                 </span>
@@ -63,8 +65,8 @@ const TalentAggregateBar = ({
  * @param scaleFactor the provided scale factor the component uses to size the chart
  * @returns true or false
  */
-function showLabel(percentTotal: number, scaleFactor?: number): boolean {
-  return 1 / percentTotal / 10 < (scaleFactor || 1);
+function showLabel(percentTotal: number, scaleFactor: number, wide: boolean): boolean {
+  return 1 / percentTotal / (wide ? 10 : 5) < (scaleFactor || 1);
 }
 
 /**
@@ -77,18 +79,18 @@ function showLabel(percentTotal: number, scaleFactor?: number): boolean {
 function getSegment(
   percentTotal: number,
   barColor: string | undefined,
-  scaleFactor?: number,
+  scaleFactor: number,
 ): React.CSSProperties {
   return barColor !== undefined
     ? {
         //borderRadius: `2px`,
         left: `0%`,
-        width: `${percentTotal * 100 * (scaleFactor || 1)}%`,
+        width: `${percentTotal * 100 * scaleFactor}%`,
         background: `${barColor}`,
       }
     : {
         left: `0%`,
-        width: `${percentTotal * 100 * (scaleFactor || 1)}%`,
+        width: `${percentTotal * 100 * scaleFactor}%`,
       };
 }
 

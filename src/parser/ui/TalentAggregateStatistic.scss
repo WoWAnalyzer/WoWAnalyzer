@@ -8,10 +8,19 @@
 
     .value {
       font-size: 24px;
-
       small {
         font-size: 13px;
       }
+    }
+    .small {
+      font-size: 14px !important;
+    }
+  }
+  small {
+    font-family: 'Open Sans', 'Century Gothic', sans-serif;
+    font-size: 14px;
+    .img.icon {
+      border: 0 !important;
     }
   }
 }
@@ -29,7 +38,7 @@
   .main-bar-big {
     padding: 10px;
     height: 65px;
-    font-size: 20px; /* bigger? */
+    font-size: 20px;
   }
 
   .sub-bar {
@@ -40,7 +49,7 @@
 
   .bar-label {
     padding: 7.5px 0;
-    width: 35%;
+    width: 33%;
     text-align: left;
     vertical-align: middle;
     font-size: 15px;

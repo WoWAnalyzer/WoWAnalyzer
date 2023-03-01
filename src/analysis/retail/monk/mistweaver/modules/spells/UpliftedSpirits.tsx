@@ -88,7 +88,7 @@ class UpliftedSpirits extends Analyzer {
     const healing = this.usHealing;
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.UNIMPORTANT(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
