@@ -6,7 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2023, 3, 2), <>Updated the Healing Efficiency Tracker for Dragonflight talents</>, Vohrr),
+  change(date(2023, 3, 1), <>Missed a few line items in Healing Efficiency Tracker</>, Vohrr),
+  change(date(2023, 3, 1), <>Updated the Healing Efficiency Tracker for Dragonflight talents</>, Vohrr),
   change(date(2023, 2, 28), <>Updates to <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> and <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id}/> to show a more detailed breakdown</>, Vohrr),
   change(date(2023, 2, 28), <>Refactored Hot Attributor for readability and increased <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> event link threshold</>, Vohrr),
   change(date(2023, 2, 27), <>Updated <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> to show proc source breakdown</>, Vohrr),
