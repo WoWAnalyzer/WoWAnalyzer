@@ -3,9 +3,9 @@ import fetchWcl from 'common/fetchWclApi';
 import { formatNumber } from 'common/format';
 import { SpellIcon } from 'interface';
 import { SpecIcon } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import { EventType, AnyEvent } from 'parser/core/Events';
+import Events, { EventType, AnyEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -24,6 +24,33 @@ interface ResourcesByPlayer {
   };
 }
 
+const TIMESTAMP_TOLERANCE = 40;
+
+function hasCorrespondingHeal(events: HealEvent[], evt: ResourceChangeEvent): boolean {
+  if (!events) {
+    return false;
+  }
+
+  let start = 0;
+  let end = events.length - 1;
+
+  while (start <= end) {
+    const mid = Math.floor((start + end) / 2);
+
+    if (Math.abs(events[mid].timestamp - evt.timestamp) < TIMESTAMP_TOLERANCE) {
+      return true;
+    }
+
+    if (evt.timestamp < events[mid].timestamp) {
+      end = mid - 1;
+    } else {
+      start = mid + 1;
+    }
+  }
+
+  return false;
+}
+
 class Revitalize extends Analyzer {
   static dependencies = {
     combatants: Combatants,
@@ -31,10 +58,23 @@ class Revitalize extends Analyzer {
 
   protected combatants!: Combatants;
   resourcesByPlayer: ResourcesByPlayer = {};
+  eligibleCasts: { [playerId: number]: HealEvent[] } = {};
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.talentPoints[2] >= 43;
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.WILD_GROWTH]),
+      this.onHealCast,
+    );
+  }
+
+  onHealCast(event: HealEvent) {
+    if (!this.eligibleCasts[event.targetID]) {
+      this.eligibleCasts[event.targetID] = [];
+    }
+
+    this.eligibleCasts[event.targetID].push(event);
   }
 
   get filter() {
@@ -73,7 +113,10 @@ class Revitalize extends Analyzer {
   }
 
   resourceEventReduce = (totals: ResourcesByPlayer, evt: AnyEvent) => {
-    if (evt.type !== EventType.ResourceChange) {
+    if (
+      evt.type !== EventType.ResourceChange || // Not a resource event
+      !hasCorrespondingHeal(this.eligibleCasts[evt.targetID], evt)
+    ) {
       return totals;
     }
 
