@@ -30,6 +30,14 @@ class Buffs extends CoreAuras {
       {
         spellId: TALENTS.ALACRITY_TALENT.id,
       },
+      {
+        spellId: SPELLS.SHADOW_DANCE_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.SUBTERFUGE_BUFF.id,
+        timelineHighlight: true,
+      },
 
       // Roll the Bones
       {

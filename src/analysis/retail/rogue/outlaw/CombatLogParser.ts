@@ -29,7 +29,6 @@ import Finishers from './modules/features/Finishers';
 import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
 import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
-import BladeFlurry from './modules/spells/BladeFlurry';
 import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
@@ -95,7 +94,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesEfficiency: RollTheBonesEfficiency,
     finishers: Finishers,
     sliceAndDiceUptime: SliceAndDiceUptime,
-    bladeFlurry: BladeFlurry,
     //Talents
     bladeRush: BladeRush,
     serratedBoneSpike: SerratedBoneSpike,
