@@ -21,7 +21,6 @@ import {
   buffStacks,
   not,
   optional,
-  hasTalent,
 } from 'parser/shared/metrics/apl/conditions';
 
 import { AnyEvent } from 'parser/core/Events';
@@ -29,7 +28,6 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 import { buffsCount } from './buffsCount';
-//import Finishers from '../features/Finishers'
 
 //--TODO: Figure out pandemic thing for GS and BTE
 //        Figure out 'optional' conditions
@@ -43,14 +41,21 @@ const hasFinisherCondition = () => {
 //  /!\ Not sure this is working
 //  minEnergyThreshold will be the hard enforced energy rule while maxEnergyThreshold is the leeway accorded to the user
 const energyCondition = (minEnergyThreshold: number, maxEnergyThreshold: number) => {
-  return or(hasResource(RESOURCE_TYPES.ENERGY, { atMost: minEnergyThreshold }), optional(hasResource(RESOURCE_TYPES.ENERGY, { atMost: maxEnergyThreshold })))
+  return or(
+    hasResource(RESOURCE_TYPES.ENERGY, { atMost: minEnergyThreshold }),
+    //optional(hasResource(RESOURCE_TYPES.ENERGY, { atMost: maxEnergyThreshold })),
+  );
 };
 
-//  /!\ Not sure this is working
 //  if snc is down and rtbBuffCount < 2 should reroll
 const rtbCondition = () => {
   const rtbBuffsToCheck = ROLL_THE_BONES_BUFFS.filter((spell) => spell !== SPELLS.GRAND_MELEE);
-  return and(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffsCount(rtbBuffsToCheck, 2, 'lessThan'));
+  return and(
+    buffMissing(SPELLS.SKULL_AND_CROSSBONES),
+    // Adding this make it stop working
+    //optional(buffMissing(SPELLS.BURIED_TREASURE)),
+    buffsCount(rtbBuffsToCheck, 2, 'lessThan'),
+  );
 };
 
 const notInStealthCondition = () => {
@@ -80,7 +85,7 @@ const COMMON_COOLDOWN: Rule[] = [
   },
   {
     spell: TALENTS.KILLING_SPREE_TALENT,
-    condition: describe(and(energyCondition(40,60), notInStealthCondition()), (tense) => (
+    condition: describe(and(energyCondition(40, 60), notInStealthCondition()), (tense) => (
       <>you {tenseAlt(tense, 'are', 'were')} under ~50/60 energy</>
     )),
   },
@@ -130,7 +135,7 @@ const COMMON_FINISHER: Rule[] = [
       debuffMissing(SPELLS.BETWEEN_THE_EYES, {
         timeRemaining: 4000,
         duration: 21000,
-        pandemicCap: 4,
+        pandemicCap: 1,
       }),
       //NOT WORKING
       //optional(buffMissing(SPELLS.SHADOW_DANCE_BUFF),),
