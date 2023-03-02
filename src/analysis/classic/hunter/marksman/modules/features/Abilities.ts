@@ -54,11 +54,6 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.IMPROVED_STEADY_SHOT.id],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: null,
-      },
-      {
         spell: [SPELLS.RAPTOR_STRIKE.id, ...SPELLS.RAPTOR_STRIKE.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
@@ -141,11 +136,6 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.MISDIRECTION.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.LOCK_AND_LOAD.id],
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: null,
       },
       {
         spell: [SPELLS.ASPECT_DRAGONHAWK.id],

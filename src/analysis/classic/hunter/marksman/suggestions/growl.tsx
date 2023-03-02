@@ -4,7 +4,7 @@ import { SuggestionImportance } from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 
-import growlCasts from '../metrics/growlCasts';
+import growlCasts from '../../shared/metrics/growlCasts';
 import * as SPELLS from '../../shared/SPELLS_PET';
 
 const growl =
