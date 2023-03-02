@@ -231,6 +231,11 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_shadowbolt',
     lowRanks: [47808, 27209, 25307, 11661, 11660, 11659, 7641, 1106, 1088, 705, 695, 686],
   },
+  SHADOW_MASTERY_DEBUFF: {
+    id: 17800,
+    name: 'Shadow Mastery',
+    icon: 'spell_shadow_shadowbolt',
+  },
   SHADOW_WARD: {
     id: 47891,
     name: 'Shadow Ward',
@@ -403,6 +408,11 @@ const spells = spellIndexableList({
     icon: 'ability_warlock_avoidance',
   },
   // --------------------------------
+  MOLTEN_CORE_BUFF: {
+    id: 71165,
+    name: 'Molten Core',
+    icon: 'ability_warlock_moltencore',
+  },
   SOUL_LINK: {
     id: 19028,
     name: 'Soul Link',

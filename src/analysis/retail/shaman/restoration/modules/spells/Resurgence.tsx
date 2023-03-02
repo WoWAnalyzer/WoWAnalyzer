@@ -5,17 +5,18 @@ import TALENTS from 'common/TALENTS/shaman';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
-import ManaIcon from 'interface/icons/Mana';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, HealEvent } from 'parser/core/Events';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
-import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import './ManaTideTotem.scss';
 import ManaTideTotem, { MANA_REGEN_PER_SECOND } from './ManaTideTotem';
 import WaterShield from './WaterShield';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 
 const SPELLS_PROCCING_RESURGENCE = {
   [SPELLS.HEALING_SURGE.id]: 0.006,
@@ -42,7 +43,6 @@ class Resurgence extends Analyzer {
   protected manaTideTotem!: ManaTideTotem;
   protected waterShield!: WaterShield;
 
-  otherManaGain = 0;
   resurgence: ResurgenceInfo[] = [];
   totalResurgenceGain = 0;
 
@@ -90,13 +90,6 @@ class Resurgence extends Analyzer {
   }
 
   onResurgenceProc(event: ResourceChangeEvent) {
-    const spellId = event.ability.guid;
-
-    if (spellId !== SPELLS.RESURGENCE.id) {
-      this.otherManaGain += event.resourceChange;
-      return;
-    }
-
     this.totalResurgenceGain += event.resourceChange;
   }
 
@@ -105,12 +98,7 @@ class Resurgence extends Analyzer {
     const mttMana = this.manaTideTotem.regenOnPlayer;
     const wsMana = this.waterShield.regenOnPlayer;
     return (
-      naturalManaRegen +
-      this.totalResurgenceGain +
-      this.manaTracker.maxResource +
-      this.otherManaGain +
-      mttMana +
-      wsMana
+      naturalManaRegen + this.totalResurgenceGain + this.manaTracker.maxResource + mttMana + wsMana
     );
   }
 
@@ -118,16 +106,18 @@ class Resurgence extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.UNIMPORTANT(90)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
+        tooltip={
+          <>
+            <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for{' '}
+            {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your total
+            available mana over the fight ({formatNumber(this.totalMana)} mana).
+          </>
+        }
         dropdown={
           <>
-            <div>
-              <Trans id="shaman.restoration.resurgence.statistic.table.description">
-                <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted
-                for {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your mana
-                pool ({formatNumber(this.totalMana)} mana).
-              </Trans>
-            </div>
+            <div></div>
             <table className="table table-condensed">
               <thead>
                 <tr>
@@ -169,22 +159,9 @@ class Resurgence extends Analyzer {
           </>
         }
       >
-        <BoringValue label={<SpellLink id={SPELLS.RESURGENCE.id} />}>
-          <div className="flex mtt-value">
-            <div className="flex-sub icon">
-              <ManaIcon />
-            </div>
-            <div className="flex-main value">
-              {formatNumber(this.totalResurgenceGain)}
-              <br />
-              <small>
-                <Trans id="shaman.restoration.resurgence.statistic.label">
-                  Mana gained from Resurgence
-                </Trans>
-              </small>
-            </div>
-          </div>
-        </BoringValue>
+        <TalentSpellText talent={TALENTS.RESURGENCE_TALENT}>
+          <ItemManaGained amount={this.totalResurgenceGain} useAbbrev />
+        </TalentSpellText>
       </Statistic>
     );
   }

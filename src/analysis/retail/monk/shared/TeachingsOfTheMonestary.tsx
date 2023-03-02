@@ -31,7 +31,7 @@ class TeachingsOfTheMonestary extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
       >
         <TalentSpellText talent={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT}>
           {this.averageStacks.toFixed(2)} <small> average stacks</small>

@@ -1,7 +1,7 @@
 import { GuideProps, Section, SubSection, useInfo } from 'interface/guide';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { AlertWarning, ResourceLink, SpellLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 import { t, Trans } from '@lingui/macro';
@@ -150,12 +150,6 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         message: 'Rotation',
       })}
     >
-      <AlertWarning>
-        This section is under heavy development as work on the Vengeance rotation continues during
-        the Dragonflight launch. It is currently a reasonable starting point, but may not match the
-        optimal rotation yet.
-      </AlertWarning>
-      <br />
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">
           Vengeance's core rotation involves <strong>building</strong> and then{' '}

@@ -13,6 +13,8 @@ import {
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import EnergyGraph from 'analysis/retail/rogue/shared/EnergyGraph';
+import ComboPointGraph from 'analysis/retail/rogue/shared/ComboPointGraph';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -39,6 +41,10 @@ import BladeRush from './modules/talents/BladeRush';
 import InvigoratingShadowdust from 'analysis/retail/rogue/shared/shadowlands/legendaries/InvigoratingShadowdust';
 import Audacity from './modules/spells/Audacity';
 import AudacityDamageTracker from './modules/spells/AudacityDamageTracker';
+import FanTheHammerNormalizer from './normalizers/FanTheHammerNormalizer';
+import Guide from './Guide';
+import BuilderUse from './modules/core/BuilderUse';
+import FinisherUse from './modules/core/FinisherUse';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,15 +55,24 @@ class CombatLogParser extends CoreCombatLogParser {
     spellUsable: SpellUsable,
     checklist: Checklist,
 
+    //Normalizers
+    fanTheHammerNormalizer: FanTheHammerNormalizer,
+
     //Resource
     comboPointTracker: OutlawComboPointTracker,
     comboPointDetails: ComboPointDetails,
     comboPoints: ComboPoints,
+    comboPointGraph: ComboPointGraph,
     energyTracker: EnergyTracker,
     energyCapTracker: OutlawEnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
+    energyGraph: EnergyGraph,
     spellEnergyCost: SpellEnergyCost,
+
+    // Core
+    builderUse: BuilderUse,
+    finisherUse: FinisherUse,
 
     //Legendaries
     invigoratingShadowdust: InvigoratingShadowdust,
@@ -99,6 +114,8 @@ class CombatLogParser extends CoreCombatLogParser {
       },
     ] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

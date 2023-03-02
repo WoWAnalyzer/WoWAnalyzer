@@ -159,6 +159,11 @@ const spells = spellIndexableList({
     icon: 'ability_hunter_assassinate2',
     lowRanks: [61005, 53351],
   },
+  LOCK_AND_LOAD: {
+    id: 56453,
+    name: 'Lock and Load',
+    icon: 'ability_hunter_lockandload',
+  },
   MASTERS_CALL: {
     id: 53271,
     name: "Master's Call",

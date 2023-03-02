@@ -1,6 +1,10 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
-import { RuneDetails, RuneOfHysteria, RuneOfTheFallenCrusader } from 'analysis/retail/deathknight/shared/';
+import {
+  RuneDetails,
+  RuneOfHysteria,
+  RuneOfTheFallenCrusader,
+} from 'analysis/retail/deathknight/shared/';
 import Guide from './Guide';
 import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';

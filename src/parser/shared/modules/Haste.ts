@@ -47,17 +47,16 @@ class Haste extends Analyzer {
     ...BLOODLUST_BUFFS,
     [SPELLS.BERSERKING.id]: 0.1,
     [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
-    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
     [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
-    [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15, // Frost DK
 
     //region Demon Hunter
     [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
     [SPELLS.FURIOUS_GAZE.id]: 0.1, // Havoc DH haste buff from fully channeling a cast of Eye Beam
     //endregion
 
-    //region Death Knight Hate Buffs
+    //region Death Knight Haste Buffs
+    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
     [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15,
     [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
     [SPELLS.T29_GHOULISH_INFUSION.id]: 0.08,

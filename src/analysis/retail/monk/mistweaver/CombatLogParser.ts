@@ -32,7 +32,7 @@ import JadeBond from './modules/spells/JadeBond';
 import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
-import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';
+import AncientTeachings from './modules/spells/AncientTeachings';
 import CloudedFocus from './modules/spells/CloudedFocus';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
@@ -82,6 +82,7 @@ import SheilunsGiftCloudTracker from './modules/spells/SheilunsGiftCloudTracker'
 import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 import HotCountGraph from './modules/features/HotCountGraph';
 import AplCheck from './modules/core/apl/AplCheck';
+import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -116,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     remGraph: REMGraph,
     hotCountGraph: HotCountGraph,
     talentHealingStatistic: TalentHealingStatistic,
+    risingMistBreakdown: RisingMistBreakdown,
 
     // Guide helpers
     sheilunsGiftCloudTracker: SheilunsGiftCloudTracker,
@@ -134,7 +136,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
-    ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
+    ancientTeachings: AncientTeachings,
     cloudedFocus: CloudedFocus,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,

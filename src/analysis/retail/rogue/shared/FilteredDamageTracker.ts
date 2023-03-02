@@ -1,9 +1,12 @@
 import Spell from 'common/SPELLS/Spell';
-import { CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import { AnyEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
+import { ReactNode } from 'react';
+
+export type FilteredDamageObserver = (event: CastEvent) => void;
 
 class FilteredDamageTracker extends DamageTracker {
-  castObservers: any[] = [];
+  castObservers: FilteredDamageObserver[] = [];
 
   onDamage(event: DamageEvent) {
     if (!this.shouldProcessEvent(event)) {
@@ -27,16 +30,16 @@ class FilteredDamageTracker extends DamageTracker {
     super.onCast(event);
   }
 
-  shouldProcessEvent(event: any) {
+  shouldProcessEvent(event: AnyEvent) {
     return false;
   }
 
-  subscribeToCastEvent(fn: any) {
+  subscribeToCastEvent(fn: FilteredDamageObserver) {
     this.castObservers.push(fn);
   }
 
-  subscribeInefficientCast(spells: Spell[], messageFunction: any) {
-    this.subscribeToCastEvent((event: any) => {
+  subscribeInefficientCast(spells: Spell[], messageFunction: (spell: Spell) => ReactNode) {
+    this.subscribeToCastEvent((event) => {
       const spell = spells.find((s) => event.ability.guid === s.id);
       if (spell) {
         event.meta = event.meta || {};

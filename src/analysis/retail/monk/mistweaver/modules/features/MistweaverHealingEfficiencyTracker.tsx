@@ -18,6 +18,12 @@ import RenewingMist from '../spells/RenewingMist';
 import SoothingMist from '../spells/SoothingMist';
 import Vivify from '../spells/Vivify';
 import RefreshingJadeWind from '../spells/RefreshingJadeWind';
+import AncientTeachings from '../spells/AncientTeachings';
+import RapidDiffusion from '../spells/RapidDiffusion';
+import DancingMists from '../spells/DancingMists';
+import MistyPeaks from '../spells/MistyPeaks';
+import RisingMist from '../spells/RisingMist';
+import ShaohaosLessons from '../spells/ShaohaosLessons';
 
 class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   static dependencies = {
@@ -38,6 +44,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     refreshingJadeWind: RefreshingJadeWind,
     expelHarm: ExpelHarm,
     faelineStompHealing: FaelineStompHealing,
+    ancientTeachings: AncientTeachings,
+    rapidDiffusion: RapidDiffusion,
+    dancingMists: DancingMists,
+    mistyPeaks: MistyPeaks,
+    risingMist: RisingMist,
+    shaohaosLessons: ShaohaosLessons,
   };
 
   protected manaTracker!: ManaTracker;
@@ -54,6 +66,12 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected expelHarm!: ExpelHarm;
   protected faelineStompHealing!: FaelineStompHealing;
+  protected ancientTeachings!: AncientTeachings;
+  protected rapidDiffusion!: RapidDiffusion;
+  protected dancingMists!: DancingMists;
+  protected mistyPeaks!: MistyPeaks;
+  protected risingMist!: RisingMist;
+  protected shaohaosLessons!: ShaohaosLessons;
 
   getCustomSpellStats(spellInfo: SpellInfoDetails, spellId: number) {
     if (spellId === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
@@ -81,6 +99,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getFLSDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.ZEN_PULSE_TALENT.id) {
       spellInfo = this.getZenPulseDetails(spellInfo);
+    } else if (spellId === TALENTS_MONK.SHEILUNS_GIFT_TALENT.id) {
+      spellInfo = this.getSheilunsGiftDetails(spellInfo);
     }
 
     return spellInfo;
@@ -95,8 +115,11 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getEnvelopingMistsDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone =
-      spellInfo.healingDone +
+      spellInfo.healingDone -
+      this.mistyPeaks.totalHealing +
+      this.rapidDiffusion.mistyPeakHealingFromEnvRem +
       this.envelopingMists.gustsHealing +
+      this.rapidDiffusion.remHealingFromEnv +
       this.envelopingMists.healingIncrease;
     // Enveloping breath part
     spellInfo.healingDone += this.healingDone.byAbility(SPELLS.ENVELOPING_BREATH_HEAL.id).effective;
@@ -107,16 +130,21 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getEssenceFontDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone = this.essenceFont.totalHealing;
-    spellInfo.overhealingDone = this.essenceFont.totalOverhealing;
+    spellInfo.healingDone += this.essenceFont.totalHealing;
+    spellInfo.overhealingDone += this.essenceFont.totalOverhealing;
+    spellInfo.healingDone += this.ancientTeachings.totalHealing;
+    spellInfo.overhealingDone += this.ancientTeachings.overhealing;
     return spellInfo;
   }
 
   getRenewingMistDetails(spellInfo: SpellInfoDetails) {
-    // Vivify splashes due to ReM should be attributed to ReM's value, because without casting ReM, you wouldn't get the splash.
     spellInfo.healingDone =
       this.renewingMist.totalHealing +
-      this.vivify.cleaveHealing +
+      this.mistyPeaks.totalHealing -
+      this.rapidDiffusion.mistyPeakHealingFromEnvRem -
+      this.rapidDiffusion.mistyPeakHealingFromRskRem -
+      this.rapidDiffusion.remHealing -
+      this.dancingMists.remHealingFromRD +
       this.renewingMist.gustsHealing +
       this.renewingMist.totalAbsorbs;
     spellInfo.overhealingDone = this.renewingMist.totalOverhealing;
@@ -126,7 +154,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getVivifyDetails(spellInfo: SpellInfoDetails) {
     // As described in the ReM section, the ReM Vivify splashes need to be removed from the healing done.
-    spellInfo.healingDone = this.vivify.mainTargetHealing + this.vivify.gomHealing;
+    spellInfo.healingDone =
+      this.vivify.mainTargetHealing + this.vivify.cleaveHealing + this.vivify.gomHealing;
     return spellInfo;
   }
 
@@ -138,7 +167,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getRisingSunKickDetails(spellInfo: SpellInfoDetails) {
     // Since I don't want messy code right now it will only give the rising mist healing not any of the other fun stuff it gives indirectly
-    spellInfo.healingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).effective;
+    spellInfo.healingDone =
+      this.risingMist.totalHealing +
+      this.rapidDiffusion.remHealingFromRSK +
+      this.rapidDiffusion.mistyPeakHealingFromRskRem;
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).overheal;
     return spellInfo;
   }
@@ -153,6 +185,11 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getChijiDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).effective;
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.GUST_OF_MISTS_CHIJI.id).overheal;
+    return spellInfo;
+  }
+
+  getSheilunsGiftDetails(spellInfo: SpellInfoDetails) {
+    spellInfo.healingDone = spellInfo.healingDone + this.shaohaosLessons.totalHealing;
     return spellInfo;
   }
 
