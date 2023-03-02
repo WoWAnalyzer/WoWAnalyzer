@@ -31,6 +31,7 @@ class AncientTeachings extends Analyzer {
   damageSpellsToHealingCount: Map<number, number> = new Map();
   lastDamageSpellID: number = 0;
   uptimeWindows: OpenTimePeriod[] = [];
+  overhealing: number = 0;
 
   /**
    * After you cast Essence Font, Tiger Palm, Blackout Kick, and Rising Sun Kick heal an injured ally within 20 yards for 150% of the damage done. Lasts 15s.
@@ -83,6 +84,7 @@ class AncientTeachings extends Analyzer {
     const heal = (event.amount || 0) + (event.absorbed || 0);
     const oldHealingTotal = this.damageSpellToHealing.get(this.lastDamageSpellID) || 0;
     this.damageSpellToHealing.set(this.lastDamageSpellID, heal + oldHealingTotal);
+    this.overhealing += event.overheal || 0;
   }
 
   onApply(event: ApplyBuffEvent) {
