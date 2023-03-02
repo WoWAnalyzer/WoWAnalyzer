@@ -167,7 +167,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getRisingSunKickDetails(spellInfo: SpellInfoDetails) {
     // Since I don't want messy code right now it will only give the rising mist healing not any of the other fun stuff it gives indirectly
-    spellInfo.healingDone = this.risingMist.totalHealing;
+    spellInfo.healingDone =
+      this.risingMist.totalHealing +
+      this.rapidDiffusion.remHealingFromRSK +
+      this.rapidDiffusion.mistyPeakHealingFromRskRem;
     spellInfo.overhealingDone = this.healingDone.byAbility(SPELLS.RISING_MIST_HEAL.id).overheal;
     return spellInfo;
   }
