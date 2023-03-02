@@ -6,6 +6,17 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 1), <>Missed a few line items in Healing Efficiency Tracker</>, Vohrr),
+  change(date(2023, 3, 1), <>Updated the Healing Efficiency Tracker for Dragonflight talents</>, Vohrr),
+  change(date(2023, 2, 28), <>Updates to <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> and <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id}/> to show a more detailed breakdown</>, Vohrr),
+  change(date(2023, 2, 28), <>Refactored Hot Attributor for readability and increased <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> event link threshold</>, Vohrr),
+  change(date(2023, 2, 27), <>Updated <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/> to show proc source breakdown</>, Vohrr),
+  change(date(2023, 2, 27), <>Fix crash when <SpellLink id={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id}/> is not talented</>, Vohrr),
+  change(date(2023, 2, 27), <>Updated <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> tooltips and some spell colors</>, Vohrr),
+  change(date(2023, 2, 26), <>Added <SpellLink id={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id}/> cooldown reduction to the <SpellLink id={SPELLS.VIVIFY.id}/> cast breakdown tooltips</>, Vohrr),
+  change(date(2023, 2, 26), <>Refactor Talent Aggregate Statistic to handle scale and sorting in the component instead of having to do it before sending in the parameters</>, Vohrr),
+  change(date(2023, 2, 26), <>Updated <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id}/> to use new component and added more detail to the breadown</>, Vohrr),
+  change(date(2023, 2, 25), <>Added TalentAggregateStatictic, added new <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> healing breakdown module. Fixed bugs in the HotTracker</>, Vohrr),
   change(date(2023, 2, 24), <>Clarify <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> wording</>, Trevor),
   change(date(2023, 2, 24), <>Bug fix in the Hot Tracker to improve the accuracy of <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/>, <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id}/>, <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/>, <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> and <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id}/>.</>, Vohrr),
   change(date(2023, 2, 23), <>Fixed inconsistent QualitativePerformance marks for <SpellLink id={SPELLS.VIVIFY.id}/> casts in the Guide.</>, Vohrr),
