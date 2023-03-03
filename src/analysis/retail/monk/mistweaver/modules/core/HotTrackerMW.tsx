@@ -181,7 +181,7 @@ class HotTrackerMW extends HotTracker {
   _getMistyPeaksMaxDuration(combatant: Combatant): number {
     return (
       MISTY_PEAKS_DURATION * combatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
-      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * ENV_BASE_DURATION // TODO: REMOVE ENV BASE DURATION WHEN 10.0.7 HIT
+      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * 2
     );
   }
 
