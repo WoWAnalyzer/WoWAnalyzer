@@ -35,7 +35,7 @@
     "sass-text-stroke": "1.2.0",
     "swr": "^2.0.0",
     "universal-cookie": "^4.0.4",
-    "vega": "~5.22.1",
+    "vega": "~5.23.0",
     "vega-lite": "^5.6.0"
   },
   "devDependencies": {
