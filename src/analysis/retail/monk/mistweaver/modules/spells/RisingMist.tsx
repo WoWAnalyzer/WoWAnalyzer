@@ -416,7 +416,7 @@ class RisingMist extends Analyzer {
 
   getSecondaryIcon(hot: Tracker) {
     //hardcast
-    if (hot.maxDuration! > 60000) {
+    if (hot.maxDuration! >= 60000) {
       return <SpellIcon id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />;
     }
     if (this.hotTracker.fromMistsOfLife(hot)) {
