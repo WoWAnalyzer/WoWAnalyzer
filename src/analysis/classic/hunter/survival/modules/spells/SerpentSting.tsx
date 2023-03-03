@@ -40,7 +40,7 @@ class SerpentStingUptime extends Analyzer {
         .icon(SPELLS.SERPENT_STING.icon)
         .actual(
           t({
-            id: 'hunter.survival.suggestions.serpentsting.uptime',
+            id: 'hunter.suggestions.serpentsting.uptime',
             message: `${formatPercentage(actual)}% Serpent Sting uptime`,
           }),
         )

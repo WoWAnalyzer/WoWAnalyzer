@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Zerotorescue, bdfreeman1421 } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2023, 3, 3), 'Cleanup from Marksman changes to add shared files', bdfreeman1421),
   change(date(2023, 2, 22), 'Initial WOTLK Classic Support for Survival', bdfreeman1421),
   change(date(2022, 6, 6), 'Removed myself as maintainer since I quit some time ago.', Zerotorescue),
   change(date(2021, 9, 30), 'Added Distracting Shot and Berserking Haste tracking.', Zerotorescue),

@@ -14,6 +14,11 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: [SPELLS.ARCANE_SHOT.id, ...SPELLS.ARCANE_SHOT.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
         spell: [SPELLS.SERPENT_STING.id, ...SPELLS.SERPENT_STING.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
@@ -129,6 +134,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.LOCK_AND_LOAD.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.ASPECT_CHEETAH.id],
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
