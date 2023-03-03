@@ -19,7 +19,7 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
       },
       {
-        spell: [SPELLS.MIND_FLAY.id, ...SPELLS.VAMPIRIC_TOUCH.lowRanks],
+        spell: [SPELLS.MIND_FLAY.id, ...SPELLS.MIND_FLAY.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },

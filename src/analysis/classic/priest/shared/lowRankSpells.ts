@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic/druid'; // UPDATE THE CLASS
+import SPELLS from 'common/SPELLS/classic/priest';
 
 const lowRankSpells = Object.entries(SPELLS).reduce((result, [str, obj]) => {
   if (obj.lowRanks) {

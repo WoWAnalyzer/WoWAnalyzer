@@ -1,4 +1,4 @@
-import { jazminite } from 'CONTRIBUTORS';
+import { HerzBlutRaffy, jazminite } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import type Config from 'parser/Config';
@@ -6,7 +6,7 @@ import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [jazminite],
+  contributors: [jazminite, HerzBlutRaffy],
   expansion: Expansion.WrathOfTheLichKing,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '3.4.0',
@@ -35,7 +35,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/<UPDATE_THIS>',
+  exampleReport: '/report/wYk6CvKQyaH2Rh7J',
   // Add spells to display separately on the timeline
   timeline: {
     separateCastBars: [[]],
