@@ -496,21 +496,19 @@ class RisingMist extends Analyzer {
           }
         >
           <SubSection>
-            <small>
-              <div style={liDivTitle}>HoT Source</div>
-            </small>
-            <small>
-              <div
-                style={{
-                  display: 'inline-block',
-                  float: 'left',
-                  paddingRight: '5px',
-                  width: '45%',
-                }}
-              >
-                Duration & Percent Extended
-              </div>
-            </small>
+            <div style={liDivTitle}>HoT and Source</div>
+
+            <div
+              style={{
+                display: 'inline-block',
+                float: 'left',
+                paddingRight: '5px',
+                paddingLeft: '85px',
+                width: '45%',
+              }}
+            >
+              Duration and Percent Extended
+            </div>
           </SubSection>
           <ul className="list">
             {tableEntries.map((tracker) => (
