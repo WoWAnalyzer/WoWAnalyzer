@@ -148,6 +148,11 @@ const spells = spellIndexableList({
     icon: 'spell_fire_flameshock',
     lowRanks: [49055, 27023, 14305, 14304, 14303, 14302, 13795],
   },
+  IMPROVED_STEADY_SHOT: {
+    id: 53220,
+    name: 'Improved Steady Shot',
+    icon: 'ability_hunter_improvedsteadyshot',
+  },
   KILL_COMMAND: {
     id: 34026,
     name: 'Kill Command',
@@ -229,6 +234,11 @@ const spells = spellIndexableList({
     id: 34600,
     name: 'Snake Trap',
     icon: 'ability_hunter_snaketrap',
+  },
+  SNIPER_TRAINING: {
+    id: 64420,
+    name: 'Sniper Training',
+    icon: 'ability_hunter_longshots',
   },
   STEADY_SHOT: {
     id: 49052,
