@@ -21,8 +21,8 @@ import DotUptimes from './modules/features/DotUptimes';
 // Spells
 import SerpentSting from './modules/spells/SerpentSting';
 import KillShot from '../shared/KillShot';
-import KillCommandNormalizer from './normalizers/KillCommandNormalizer';
-import GoForTheThroat from './statistics/GoForTheThroat';
+import KillCommandNormalizer from '../shared/normalizers/KillCommandNormalizer';
+import GoForTheThroat from '../shared/statistics/GoForTheThroat';
 import growl from './suggestions/growl';
 
 class CombatLogParser extends BaseCombatLogParser {
