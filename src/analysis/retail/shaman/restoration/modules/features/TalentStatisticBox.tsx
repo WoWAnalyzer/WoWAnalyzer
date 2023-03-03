@@ -17,6 +17,7 @@ import Wellspring from '../talents/Wellspring';
 import PrimordialWave from '../talents/PrimordialWave';
 import PrimalTideCore from '../talents/PrimalTideCore';
 import { EarthShield } from 'analysis/retail/shaman/shared';
+import WavespeakersBlessing from '../talents/WavespeakersBlessing';
 
 class TalentStatisticBox extends Analyzer {
   static dependencies = {
@@ -34,6 +35,7 @@ class TalentStatisticBox extends Analyzer {
     primordialWave: PrimordialWave,
     primalTideCore: PrimalTideCore,
     earthShield: EarthShield,
+    wavespeakersBlessing: WavespeakersBlessing,
   };
 
   protected torrent!: Torrent;
@@ -50,6 +52,7 @@ class TalentStatisticBox extends Analyzer {
   protected primordialWave!: PrimordialWave;
   protected primalTideCore!: PrimalTideCore;
   protected earthShield!: EarthShield;
+  protected wavespeakersBlessing!: WavespeakersBlessing;
 
   buildTalentList() {
     const talentList = [];
@@ -94,6 +97,9 @@ class TalentStatisticBox extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS.EARTH_SHIELD_TALENT)) {
       talentList.push(this.earthShield.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS.WAVESPEAKERS_BLESSING_TALENT)) {
+      talentList.push(this.wavespeakersBlessing.subStatistic());
     }
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),

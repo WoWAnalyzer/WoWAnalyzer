@@ -2119,3 +2119,8 @@ export const HerzBlutRaffy: Contributor = {
   github: 'naotaraffy',
   discord: 'naotaraffy',
 };
+
+export const bdfreeman1421: Contributor = {
+  nickname: 'bdfreeman1421',
+  github: 'bdfreeman1421',
+};

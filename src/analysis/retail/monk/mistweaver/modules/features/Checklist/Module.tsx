@@ -19,7 +19,7 @@ import SpiritOfTheCrane from '../../spells/SpiritOfTheCrane';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 import VivaciousVivification from '../../spells/VivaciousVivify';
-import AncientTeachingsoftheMonastery from '../../spells/AncientTeachingsoftheMonastery';
+import AncientTeachings from '../../spells/AncientTeachings';
 import SheilunsGift from '../../spells/SheilunsGift';
 import EssenceFont from '../../spells/EssenceFont';
 
@@ -46,7 +46,7 @@ class Checklist extends BaseChecklist {
     envelopingBreath: EnvelopingBreath,
     essenceFont: EssenceFont,
     vivaciousVivification: VivaciousVivification,
-    ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
+    ancientTeachings: AncientTeachings,
     sheiluns: SheilunsGift,
   };
   protected combatants!: Combatants;
@@ -69,7 +69,7 @@ class Checklist extends BaseChecklist {
   protected envelopingBreath!: EnvelopingBreath;
   protected essenceFont!: EssenceFont;
   protected vivaciousVivification!: VivaciousVivification;
-  protected ancientTeachingsoftheMonastery!: AncientTeachingsoftheMonastery;
+  protected ancientTeachings!: AncientTeachings;
   protected sheiluns!: SheilunsGift;
 
   render() {
@@ -99,7 +99,7 @@ class Checklist extends BaseChecklist {
           soothingMist: this.soothingMist.suggestionThresholdsCasting,
           essenceFontCancelled: this.essenceFont.suggestionThresholds,
           vivaciousVivification: this.vivaciousVivification.suggestionThresholds,
-          ancientTeachings: this.ancientTeachingsoftheMonastery.suggestionThresholds,
+          ancientTeachings: this.ancientTeachings.suggestionThresholds,
           sheiluns: this.sheiluns.suggestionThresholds,
         }}
       />

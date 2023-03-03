@@ -74,7 +74,7 @@ class FaelineStomp extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
+        position={STATISTIC_ORDER.OPTIONAL(99)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >

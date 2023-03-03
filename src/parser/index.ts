@@ -43,6 +43,7 @@ import ClassicMageArcane from 'analysis/classic/mage/arcane';
 import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
 import ClassicShaman from 'analysis/classic/shaman';
+import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
 import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
 
@@ -107,6 +108,7 @@ const configs: Config[] = [
   ClassicPaladinHoly,
   ClassicPriestShadow,
   ClassicShaman,
+  ClassicHunterSurvival,
   ClassicWarlockAffliction,
   ClassicWarlockDemonology,
 ];
