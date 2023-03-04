@@ -129,6 +129,25 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: TALENTS.SHADOW_DANCE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        enabled: combatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT),
+      },
+      {
+        spell: TALENTS.THISTLE_TEA_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 1,
+        charges: 3,
+        enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
+      },
+      {
+        spell: TALENTS.COLD_BLOOD_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        enabled: combatant.hasTalent(TALENTS.COLD_BLOOD_TALENT),
+      },
+      {
         spell: TALENTS.BLADE_RUSH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,

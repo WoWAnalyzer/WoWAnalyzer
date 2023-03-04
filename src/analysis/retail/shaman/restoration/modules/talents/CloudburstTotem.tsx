@@ -12,7 +12,6 @@ import Events, {
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 
 const DELAY_MS = 200;
@@ -42,7 +41,7 @@ class CloudburstTotem extends Analyzer {
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CLOUDBURST_TOTEM_HEAL),
-      this._onHeal,
+      this._onCBTHeal,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CLOUDBURST_TOTEM_TALENT),
@@ -50,7 +49,7 @@ class CloudburstTotem extends Analyzer {
     );
   }
 
-  _onHeal(event: HealEvent) {
+  _onCBTHeal(event: HealEvent) {
     if (this.cbtActive) {
       this._createFabricatedEvent(event, EventType.RemoveBuff, event.timestamp);
       this.cbtActive = false;

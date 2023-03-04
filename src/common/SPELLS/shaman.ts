@@ -728,6 +728,11 @@ const spells = spellIndexableList({
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
   },
+  PRIMORDIAL_WAVE_HEAL: {
+    id: 375985,
+    name: 'Primordial Wave',
+    icon: 'ability_maldraxxus_shaman',
+  },
 });
 
 export default spells;

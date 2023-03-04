@@ -2001,7 +2001,10 @@ export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
 };
-
+export const Pilsung: Contributor = {
+  nickname: 'pilsung',
+  github: 'Ac1dBomb',
+};
 export const Jonfanz: Contributor = {
   nickname: 'jonfanz',
   github: 'jharrell',
@@ -2109,4 +2112,9 @@ export const zac: Contributor = {
   github: 'Zac-oihfdwrrtuinvbcp',
   discord: 'zac#4930',
   avatar: avatar('zac-avatar.png'),
+};
+
+export const bdfreeman1421: Contributor = {
+  nickname: 'bdfreeman1421',
+  github: 'bdfreeman1421',
 };

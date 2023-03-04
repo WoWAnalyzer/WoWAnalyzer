@@ -169,8 +169,7 @@ class RimeEfficiency extends Analyzer {
         </strong>{' '}
         turns <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> from a weak ability you only use to
         apply Frost Fever to a powerful spell that jumps to the top of the priority list. This is
-        especially true if
-        <SpellLink id={talents.AVALANCHE_TALENT.id} /> or{' '}
+        especially true if <SpellLink id={talents.AVALANCHE_TALENT.id} /> or{' '}
         <SpellLink id={talents.ICEBREAKER_TALENT.id} /> are talented. Rime has a chance to proc
         whenever cast <SpellLink id={talents.OBLITERATE_TALENT.id} /> and you can use this to
         prevent refreshing the proc by making sure to consume Rime before casting Obliterate. You
@@ -181,6 +180,7 @@ class RimeEfficiency extends Analyzer {
 
     const data = (
       <div>
+        <strong>Rime breakdown</strong>
         <GradiatedPerformanceBar good={goodRimes} ok={refreshedRimes} bad={expiredRimes} />
       </div>
     );

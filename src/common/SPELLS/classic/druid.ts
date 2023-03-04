@@ -451,6 +451,15 @@ const spells = spellIndexableList({
     name: 'Revitalize',
     icon: 'ability_druid_replenish',
   },
+
+  // ---------
+  // GLYPHS
+  // ---------
+  GLYPH_OF_SWIFTMEND: {
+    id: 54864,
+    name: 'Glyph of Swiftmend',
+    icon: 'inv_glyph_majordruid',
+  },
 });
 
 export default spells;

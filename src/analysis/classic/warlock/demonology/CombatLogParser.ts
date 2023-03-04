@@ -5,6 +5,7 @@ import {
   lowRankSpells,
   whitelist,
   DemonicCirclesCreated,
+  GlobalCooldown,
   Spellstone,
 } from 'analysis/classic/warlock/shared';
 // Normalizers
@@ -25,12 +26,14 @@ import CurseOfAgony from './modules/spells/CurseOfAgony';
 import CurseOfDoom from './modules/spells/CurseOfDoom';
 import CurseOfTheElements from './modules/spells/CurseOfTheElements';
 import Immolate from './modules/spells/Immolate';
+import ShadowMastery from './modules/spells/ShadowMastery';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
     // Shared
     abilityTracker: AbilityTracker,
     demonicCirclesCreated: DemonicCirclesCreated,
+    globalCooldown: GlobalCooldown,
     spellstone: Spellstone,
     // Normalizers
     channeling: Channeling,
@@ -50,6 +53,7 @@ class CombatLogParser extends BaseCombatLogParser {
     curseOfDoom: CurseOfDoom,
     curseOfTheElements: CurseOfTheElements,
     immolate: Immolate,
+    shadowMastery: ShadowMastery,
   };
 }
 

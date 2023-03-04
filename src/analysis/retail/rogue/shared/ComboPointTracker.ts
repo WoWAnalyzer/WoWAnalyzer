@@ -14,7 +14,8 @@ class ComboPointTracker extends ResourceTracker {
     this.maxResource =
       5 +
       this.selectedCombatant.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT) +
-      this.selectedCombatant.getTalentRank(TALENTS.SECRET_STRATAGEM_TALENT);
+      this.selectedCombatant.getTalentRank(TALENTS.SECRET_STRATAGEM_TALENT) +
+      this.selectedCombatant.getTalentRank(TALENTS.DEVIOUS_STRATAGEM_TALENT);
     this.refundOnMiss = true;
     this.refundOnMissAmount = 1;
   }

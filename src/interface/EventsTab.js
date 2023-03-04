@@ -109,6 +109,16 @@ const FILTERABLE_TYPES = {
   aurabroken: {
     name: 'Aura Broken',
   },
+  leech: {
+    name: 'Leech',
+  },
+  create: {
+    name: 'Create',
+  },
+  extraattacks: {
+    name: 'Extra Attacks',
+    explanation: 'Typically triggered by Windfury Totem.',
+  },
 };
 
 class EventsTab extends Component {
