@@ -61,7 +61,7 @@ const rawTsFile = `
 const formattedTsFile = format(rawTsFile, { parser: 'typescript' });
 
 const configDirectory = join(__dirname, '..', '..', 'e2e', 'generated');
-if (!existsSync) {
+if (!existsSync(configDirectory)) {
   mkdirSync(configDirectory);
 }
 
