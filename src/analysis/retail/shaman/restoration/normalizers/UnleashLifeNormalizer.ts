@@ -13,6 +13,7 @@ import {
   UNLEASH_LIFE_REMOVE,
   CAST_BUFFER_MS,
   PWAVE_TRAVEL_MS,
+  UNLEASH_LIFE,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 
@@ -46,6 +47,25 @@ const EVENT_LINKS: EventLink[] = [
     },
   },
   {
+    linkRelation: UNLEASH_LIFE,
+    reverseLinkRelation: UNLEASH_LIFE,
+    linkingEventId: [talents.RIPTIDE_TALENT.id, SPELLS.HEALING_SURGE.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: [talents.RIPTIDE_TALENT.id, SPELLS.HEALING_SURGE.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: PWAVE_TRAVEL_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        HasRelatedEvent(referencedEvent, UNLEASH_LIFE_REMOVE) &&
+        (linkingEvent as HealEvent).ability.guid === (referencedEvent as CastEvent).ability.guid
+      );
+    },
+  },
+  {
     linkRelation: UNLEASH_LIFE_HEALING_WAVE,
     reverseLinkRelation: UNLEASH_LIFE_HEALING_WAVE,
     linkingEventId: [talents.HEALING_WAVE_TALENT.id],
@@ -55,9 +75,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: PWAVE_TRAVEL_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-    // maximumLinks(c) {
-    //   return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT) ? 10 : 1;
-    // },
     isActive(c) {
       return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
     },
@@ -71,8 +88,8 @@ const EVENT_LINKS: EventLink[] = [
 
   /* linkingEventId: [
       talents.RIPTIDE_TALENT.id,
-    
       SPELLS.HEALING_SURGE.id,
+
       talents.CHAIN_HEAL_TALENT.id,
       talents.HEALING_RAIN_TALENT.id,
       talents.DOWNPOUR_TALENT.id,
