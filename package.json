@@ -105,7 +105,8 @@
     "script": "set NODE_ENV=development&&babel-node",
     "postinstall": "patch-package",
     "prepare": "is-ci || husky install",
-    "e2e": "playwright test",
+    "e2e:setup": "node ./scripts/e2e/generate-configs-bootstrap.js",
+    "e2e": "yarn e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
     "e2e:report": "playwright show-report"
   },

@@ -4,8 +4,6 @@ import Portal from 'interface/Portal';
 import { useEffect } from 'react';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { useWaSelector } from 'interface/utils/useWaSelector';
-import { getOpenModals } from 'interface/selectors/openModals';
 
 import './Modal.scss';
 
@@ -15,8 +13,6 @@ interface Props {
 }
 
 const Modal = ({ children, onClose }: Props) => {
-  // TODO: Figure out how to remove this but still force a re-render when the modal is "opened"
-  useWaSelector((state) => getOpenModals(state));
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -28,7 +24,7 @@ const Modal = ({ children, onClose }: Props) => {
 
   return (
     <Portal>
-      <aside className="modal">
+      <aside className="modal" role="dialog" aria-modal>
         <div className="container">
           <button className="close" onClick={onClose}>
             <CloseIcon />

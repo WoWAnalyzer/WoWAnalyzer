@@ -36,7 +36,7 @@ const config: Config = {
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/mDyrvWa7QHzN2jFM/50-Normal+Morogrim+Tidewalker+-+Kill+(6:25)/Ratherbebelf',
+    'report/W8frDmaxcF1yKBNj/6-Normal+XT-002+Deconstructor+-+Kill+(5:30)/Emotespam/holy',
   builds: {
     [Build.DEFAULT]: {
       url: 'standard',

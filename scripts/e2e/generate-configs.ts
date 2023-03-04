@@ -1,7 +1,7 @@
 import { i18n } from '@lingui/core';
 import { en } from 'make-plural';
 import { format } from 'prettier';
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join } from 'path';
 import CONFIGS from 'parser';
 import { CLASSIC_EXPANSION, isCurrentExpansion } from 'game/Expansion';
@@ -60,7 +60,12 @@ const rawTsFile = `
 `;
 const formattedTsFile = format(rawTsFile, { parser: 'typescript' });
 
-const pathToWriteConfigs = join(__dirname, '..', '..', 'e2e', 'supportedSpecs.ts');
+const configDirectory = join(__dirname, '..', '..', 'e2e', 'generated');
+if (!existsSync) {
+  mkdirSync(configDirectory);
+}
+
+const pathToWriteConfigs = join(configDirectory, 'supportedSpecs.ts');
 writeFileSync(pathToWriteConfigs, formattedTsFile, {
   encoding: 'utf-8',
 });

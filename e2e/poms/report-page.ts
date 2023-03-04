@@ -52,7 +52,7 @@ export class ReportPage {
       name: 'This report is for an earlier patch',
     });
     this.partialSupportHeading = this.page.getByRole('heading', { name: 'Partial support' });
-    this.continueAnywayLink = this.page.getByRole('link', { name: 'Continue anyway' });
+    this.continueAnywayLink = this.page.getByRole('link', { name: /Continue anyway/i });
   }
 
   async goto({
@@ -83,22 +83,25 @@ export class ReportPage {
     reportUrl: string;
   }) {
     await this.page.goto(reportUrl);
-    await this.page.waitForLoadState('load');
-    const isReportForEarlierExpansion = await this.earlierExpansionHeading.isVisible();
-    if (isReportForEarlierExpansion && handleExpansionChecker) {
+    await this.page.waitForLoadState('networkidle');
+
+    if ((await this.earlierExpansionHeading.isVisible()) && handleExpansionChecker) {
       await this.continueAnywayLink.click();
     }
-    const isReportForEarlierPatch = await this.earlierPatchHeading.isVisible();
-    if (isReportForEarlierPatch && handlePatchChecker) {
+
+    if ((await this.earlierPatchHeading.isVisible()) && handlePatchChecker) {
       await this.continueAnywayLink.click();
     }
-    const isPartiallySupported = await this.partialSupportHeading.isVisible();
-    if (isPartiallySupported && handlePartial) {
-      await this.continueAnywayLink.click();
-    }
+
     if (waitForLoadingToFinish) {
       await this.expectBossDifficultyAndNameHeaderToBeVisible();
       await this.loadingLink.waitFor({ state: 'detached' });
+
+      if (handlePartial) {
+        if (await this.partialSupportHeading.isVisible()) {
+          await this.continueAnywayLink.click();
+        }
+      }
     }
   }
 

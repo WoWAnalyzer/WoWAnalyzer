@@ -1,6 +1,6 @@
 import { test } from './fixtures';
 
-import { SUPPORTED_SPECS } from './supportedSpecs';
+import { SUPPORTED_SPECS } from './generated/supportedSpecs';
 
 test.describe('supported spec configs', () => {
   for (const SPEC of SUPPORTED_SPECS) {
