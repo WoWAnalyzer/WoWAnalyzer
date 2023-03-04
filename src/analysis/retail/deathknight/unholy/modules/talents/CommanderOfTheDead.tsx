@@ -77,9 +77,9 @@ class CommanderOfTheDead extends Analyzer {
             You are not properly buffing your pets with{' '}
             <SpellLink id={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id} />. Make sure to use{' '}
             <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> after casting{' '}
-            <SpellLink id={SPELLS.APOCALYPSE.id} />,{' '}
+            <SpellLink id={SPELLS.ARMY_OF_THE_DEAD.id} />{' '}
             <SpellLink id={TALENTS.SUMMON_GARGOYLE_TALENT.id} /> and{' '}
-            <SpellLink id={SPELLS.ARMY_OF_THE_DEAD.id} />.
+            <SpellLink id={SPELLS.APOCALYPSE.id} />.
           </span>,
         )
           .icon(SPELLS.APOCALYPSE.icon)
