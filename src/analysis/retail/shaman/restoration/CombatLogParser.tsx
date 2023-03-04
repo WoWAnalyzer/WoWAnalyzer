@@ -53,6 +53,7 @@ import Undercurrent from './modules/talents/Undercurrent';
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import UnleashLifeNormalizer from './normalizers/UnleashLifeNormalizer';
 import RiptideTracker from './modules/core/RiptideTracker';
 import RiptideAttributor from './modules/core/RiptideAttributor';
 import PrimalTideCore from './modules/talents/PrimalTideCore';
@@ -124,6 +125,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cloudburstNormalizer: CloudburstNormalizer,
     riptideNormalizer: RiptideNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
+    unleashLifeNormalize: UnleashLifeNormalizer,
     riptideTracker: RiptideTracker,
     riptideAttributor: RiptideAttributor,
   };

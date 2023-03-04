@@ -19,11 +19,11 @@ import {
   HEALING_WAVE_PWAVE,
   UNLEASH_LIFE,
   PWAVE_REMOVAL,
+  UNLEASH_LIFE_REMOVE,
+  CAST_BUFFER_MS,
+  PWAVE_TRAVEL_MS,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
-
-const CAST_BUFFER_MS = 100;
-const PWAVE_TRAVEL_MS = 1000;
 
 /*
   This file is for attributing the various sources of spell applications to their respective abilities and talents.
@@ -124,27 +124,6 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
     },
   },
-  //Unleash life linkings
-  {
-    linkRelation: UNLEASH_LIFE,
-    linkingEventId: [talents.UNLEASH_LIFE_TALENT.id],
-    linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [
-      talents.RIPTIDE_TALENT.id,
-      talents.HEALING_WAVE_TALENT.id,
-      SPELLS.HEALING_SURGE.id,
-      talents.CHAIN_HEAL_TALENT.id,
-      talents.HEALING_RAIN_TALENT.id,
-      talents.DOWNPOUR_TALENT.id,
-      talents.WELLSPRING_TALENT.id,
-    ],
-    referencedEventType: [EventType.Cast],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
-    isActive(c) {
-      return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
-    },
-  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -173,6 +152,14 @@ export function wasPrimordialWaveConsumed(event: RemoveBuffEvent): boolean {
 
 export function isFromPrimalTideCore(event: ApplyBuffEvent | HealEvent): boolean {
   return !HasRelatedEvent(event, HARDCAST) && !HasRelatedEvent(event, RIPTIDE_PWAVE);
+}
+
+export function isBuffedByUnleashLife(event: CastEvent | HealEvent): boolean {
+  return HasRelatedEvent(event, UNLEASH_LIFE_REMOVE) || HasRelatedEvent(event, UNLEASH_LIFE);
+}
+
+export function wasUnleashLifeConsumed(event: RemoveBuffEvent): boolean {
+  return HasRelatedEvent(event, UNLEASH_LIFE_REMOVE);
 }
 
 export default CastLinkNormalizer;

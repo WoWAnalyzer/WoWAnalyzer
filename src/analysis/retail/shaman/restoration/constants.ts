@@ -9,6 +9,11 @@ export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
 export const PRIMAL_TIDE_CORE = 'PrimalTideCore';
 export const APPLIED_HEAL = 'AppliedHeal';
 export const UNLEASH_LIFE = 'UnleashLife';
+export const UNLEASH_LIFE_HEALING_WAVE = 'UnleashLifeHealingWave';
+export const UNLEASH_LIFE_REMOVE = 'UnleashLifeRemoved';
+//event link ms settings
+export const CAST_BUFFER_MS = 100;
+export const PWAVE_TRAVEL_MS = 1000;
 
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',
