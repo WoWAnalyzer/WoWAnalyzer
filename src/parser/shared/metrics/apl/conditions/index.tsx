@@ -1,6 +1,6 @@
 export { default as hasConduit } from './hasConduit';
 export { default as hasLegendary } from './hasLegendary';
-export { default as optional } from './optional';
+export { default as optionalRule } from './optionalRule';
 export { buffPresent, buffMissing } from './buffPresent';
 export { default as hasTalent } from './hasTalent';
 export { default as spellAvailable } from './spellAvailable';

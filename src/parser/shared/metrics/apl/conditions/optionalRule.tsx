@@ -3,6 +3,13 @@ import * as React from 'react';
 import { Condition } from '../index';
 
 /**
+ * Check if the provided condition uses `optional` in it. Used for warnings in `and` / `or` combinators.
+ */
+export function containsOptionalCondition(cnd: Condition<any>): boolean {
+  return cnd.key.includes('optional-');
+}
+
+/**
    Convert another condition into an optional (positive-only) condition.
 
    If the `interior` condition matches *and* the spell cast matches the one on
@@ -16,7 +23,7 @@ import { Condition } from '../index';
    get you an extra Invoke Niuzao cast that would occur while you're taking
    damage. Good luck determining whether that condition holds automatically.
 **/
-export default function optional<T>(
+export default function optionalRule<T>(
   interior: Condition<T>,
   description?: React.ReactChild,
   showOptional: boolean | string = true,

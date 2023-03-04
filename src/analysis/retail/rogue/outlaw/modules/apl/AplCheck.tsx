@@ -20,7 +20,7 @@ import {
   describe,
   buffStacks,
   not,
-  optional,
+  optionalRule,
 } from 'parser/shared/metrics/apl/conditions';
 
 import { AnyEvent } from 'parser/core/Events';
@@ -105,7 +105,7 @@ const COMMON_COOLDOWN: Rule[] = [
         </>
       )),
       notInStealthCondition(),
-      optional(not(hasFinisherCondition())),
+      optionalRule(not(hasFinisherCondition())),
     ),
   },
   {
@@ -115,7 +115,7 @@ const COMMON_COOLDOWN: Rule[] = [
         buffMissing(SPELLS.AUDACITY_TALENT_BUFF),
         buffMissing(SPELLS.OPPORTUNITY),
         notInStealthCondition(),
-        optional(not(hasFinisherCondition())),
+        optionalRule(not(hasFinisherCondition())),
       ),
       (tense) => (
         <>
