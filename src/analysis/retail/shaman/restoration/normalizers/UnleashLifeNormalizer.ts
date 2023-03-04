@@ -5,6 +5,7 @@ import {
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
+  RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import talents from 'common/TALENTS/shaman';
@@ -101,6 +102,14 @@ class UnleashLifeNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
+}
+
+export function isBuffedByUnleashLife(event: CastEvent | HealEvent): boolean {
+  return HasRelatedEvent(event, UNLEASH_LIFE_REMOVE) || HasRelatedEvent(event, UNLEASH_LIFE);
+}
+
+export function wasUnleashLifeConsumed(event: RemoveBuffEvent): boolean {
+  return HasRelatedEvent(event, UNLEASH_LIFE_REMOVE);
 }
 
 export function getUnleashLifeHealingWaves(event: CastEvent): HealEvent[] {

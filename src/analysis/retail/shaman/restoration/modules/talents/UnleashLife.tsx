@@ -5,42 +5,38 @@ import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  AbsorbedEvent,
+  ApplyBuffEvent,
+  CastEvent,
+  HealEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
-import { RESTORATION_COLORS } from '../../constants';
+import { RESTORATION_COLORS, UNLEASH_LIFE_HEALING_INCREASE } from '../../constants';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { isHealingWaveFromPrimordialWave } from '../../normalizers/CastLinkNormalizer';
 import {
+  getUnleashLifeHealingWaves,
   isBuffedByUnleashLife,
-  isHealingWaveFromPrimordialWave,
   wasUnleashLifeConsumed,
-} from '../../normalizers/CastLinkNormalizer';
-import { getUnleashLifeHealingWaves } from '../../normalizers/UnleashLifeNormalizer';
+} from '../../normalizers/UnleashLifeNormalizer';
+import RiptideTracker from '../core/RiptideTracker';
 
-const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
-// const UNLEASH_LIFE_CHAIN_HEAL_INCREASE = 0.15;
 // const BUFFER_MS = 200;
-// const debug = false;
+const debug = false;
 
-interface HealingBuffInfo {
-  [SpellID: number]: HealingBuffHot | HealingBuff;
+interface HealingMap {
+  [spellId: number]: {
+    amount: number;
+    casts: number;
+  };
 }
-
-interface HealingBuffHot {
-  healing: number;
-  castAmount: number;
-  playersActive: number[];
-}
-
-interface HealingBuff {
-  healing: number;
-  castAmount: number;
-}
-
 /**
  * Unleash Life:
  * Unleashes elemental forces of Life, healing a friendly target and increasing the effect of the Shaman's next direct heal.
@@ -49,12 +45,44 @@ interface HealingBuff {
 class UnleashLife extends Analyzer {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,
+    riptideTracker: RiptideTracker,
   };
 
+  protected riptideTracker!: RiptideTracker;
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
   wastedBuffs: number = 0;
   spellConsumptionMap = new Map<number, number>();
+  healingMap: HealingMap = {
+    [TALENTS.RIPTIDE_TALENT.id]: {
+      amount: 0,
+      casts: 0,
+    },
+    [TALENTS.CHAIN_HEAL_TALENT.id]: {
+      amount: 0,
+      casts: 0,
+    },
+    [TALENTS.HEALING_WAVE_TALENT.id]: {
+      amount: 0,
+      casts: 0,
+    },
+    [SPELLS.HEALING_SURGE.id]: {
+      amount: 0,
+      casts: 0,
+    },
+    [TALENTS.WELLSPRING_TALENT.id]: {
+      amount: 0,
+      casts: 0,
+    },
+    [TALENTS.HEALING_RAIN_TALENT.id]: {
+      amount: 0,
+      casts: 0,
+    },
+    [TALENTS.DOWNPOUR_TALENT.id]: {
+      amount: 0,
+      casts: 0,
+    },
+  };
   //ul direct
   directHealing: number = 0;
 
@@ -62,57 +90,14 @@ class UnleashLife extends Analyzer {
   healingWaveHealing: number = 0;
   pwaveActive: boolean;
   pwaveHealingWaveHealing: number = 0;
-  totalHealingWaveHealing: number = 0;
 
-  //healing surge
-  healingSurgeHealing: number = 0;
-
-  //riptide
-  riptideHealing: number = 0;
-
+  //chain heal
+  ancestralReachActive: boolean;
+  chainHealHealing: number = 0;
   //healing rain
   healingRainHealing: number = 0;
   overflowingShoresActive: boolean;
   overflowingShoresHealing: number = 0;
-  totalHealingRainHealing: number = 0;
-
-  //downpour
-  downpourHealing: number = 0;
-
-  //wellspring
-  wellspringHealing: number = 0;
-
-  healingBuff: HealingBuffInfo = {
-    [TALENTS.RIPTIDE_TALENT.id]: {
-      healing: 0,
-      castAmount: 0,
-      playersActive: [],
-    },
-    [TALENTS.CHAIN_HEAL_TALENT.id]: {
-      healing: 0,
-      castAmount: 0,
-    },
-    [TALENTS.HEALING_WAVE_TALENT.id]: {
-      healing: 0,
-      castAmount: 0,
-    },
-    [SPELLS.HEALING_SURGE.id]: {
-      healing: 0,
-      castAmount: 0,
-    },
-    [TALENTS.WELLSPRING_TALENT.id]: {
-      healing: 0,
-      castAmount: 0,
-    },
-    [TALENTS.HEALING_RAIN_TALENT.id]: {
-      healing: 0,
-      castAmount: 0,
-    },
-    [TALENTS.DOWNPOUR_TALENT.id]: {
-      healing: 0,
-      castAmount: 0,
-    },
-  };
 
   unleashLifeCount = 0;
   buffedChainHealTimestamp: number = Number.MIN_SAFE_INTEGER;
@@ -124,21 +109,32 @@ class UnleashLife extends Analyzer {
     this.overflowingShoresActive = this.selectedCombatant.hasTalent(
       TALENTS.OVERFLOWING_SHORES_TALENT,
     );
+    this.ancestralReachActive = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT);
     const spellFilter = [
       TALENTS.RIPTIDE_TALENT,
       TALENTS.CHAIN_HEAL_TALENT,
       TALENTS.HEALING_WAVE_TALENT,
       SPELLS.HEALING_SURGE,
       TALENTS.WELLSPRING_TALENT,
-      SPELLS.WELLSPRING_UNLEASH_LIFE,
       TALENTS.HEALING_RAIN_TALENT,
       TALENTS.DOWNPOUR_TALENT,
     ];
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(spellFilter), this._onHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spellFilter), this._onCast);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.UNLEASH_LIFE_TALENT),
       this._onHealUL,
+    );
+    this.addEventListener(
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_UNLEASH_LIFE),
+      this._onWellspring,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.HEALING_SURGE),
+      this._onHealingSurge,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
+      this._onRiptide,
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.UNLEASH_LIFE_TALENT),
@@ -158,75 +154,17 @@ class UnleashLife extends Analyzer {
     this.directHealing += event.amount + (event.absorbed || 0);
   }
 
-  _onHeal(event: HealEvent) {
-    /*
-    const spellId = event.ability.guid;
-    switch(spellId){
-      case(TALENTS.HEALING_WAVE_TALENT.id):
-      //this._onHealingWave(event);
-      break;
-    }
-    // Riptide HoT handling, ticks on whoever its active
-    if (
-      spellId === TALENTS.RIPTIDE_TALENT.id &&
-      (this.healingBuff[spellId] as HealingBuffHot).playersActive.includes(event.targetID)
-    ) {
-      if (event.tick) {
-        this.healingBuff[spellId].healing += calculateEffectiveHealing(
-          event,
-          UNLEASH_LIFE_HEALING_INCREASE,
-        );
-
-        // Initial Riptide Heal without Unleash Life
-        // casting an unbuffed Riptide on a target that already has a buffed Riptide, will completely negate the buff, so we remove that person
-      } else hot tracker riptide check here  {
-        (this.healingBuff[spellId] as HealingBuffHot).playersActive.splice(
-          (this.healingBuff[spellId] as HealingBuffHot).playersActive.indexOf(event.targetID),
-          1,
-        );
-      }
-    }
-
-    // These 3 heals only have 1 event and are handled easily
-    if (
-      (spellId === SPELLS.HEALING_SURGE.id ||
-        (spellId === TALENTS.RIPTIDE_TALENT.id && !event.tick))
-    ) {
-      this.healingBuff[spellId].healing += calculateEffectiveHealing(
-        event,
-        UNLEASH_LIFE_HEALING_INCREASE,
-      );
-
-      // I had to move the HoT application to the heal event as the buffapply event had too many false positives
-      if (spellId === TALENTS.RIPTIDE_TALENT.id) {
-        (this.healingBuff[spellId] as HealingBuffHot).playersActive.push(event.targetID);
-        debug && console.log('HoT Applied:', spellId, event.targetID);
-      }
-
-      // Chain heal has up to 4 events, setting the variable to -1 to indicate that there might be more events coming
-    } else if (
-      spellId === TALENTS.CHAIN_HEAL_TALENT.id &&
-      (this.buffedChainHealTimestamp + BUFFER_MS > event.timestamp)
-    ) {
-      this.healingBuff[spellId].healing += calculateEffectiveHealing(
-        event,
-        UNLEASH_LIFE_HEALING_INCREASE,
-      );
-      this.buffedChainHealTimestamp = event.timestamp;
-      debug && console.log('Heal:', spellId);
-    }*/
-    return;
-  }
-
   _onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (isBuffedByUnleashLife(event)) {
-      const newTotal = this.spellConsumptionMap.has(spellId)
-        ? this.spellConsumptionMap.get(spellId)! + 1
-        : 1;
-      this.spellConsumptionMap.set(spellId, newTotal);
+      this.healingMap[spellId].casts += 1;
+      console.log('Unleash Life ' + event.ability.name + ': ', event);
+      //handle healing wave
       if (spellId === TALENTS.HEALING_WAVE_TALENT.id) {
         this._onHealingWave(event);
+      }
+      if (spellId === TALENTS.HEALING_RAIN_TALENT.id) {
+        this._onHealingRain(event);
       }
       return;
     }
@@ -239,38 +177,96 @@ class UnleashLife extends Analyzer {
     this.wastedBuffs += 1;
   }
 
-  private _onHealingWave(event: CastEvent) {
-    const ulHealingWaves = getUnleashLifeHealingWaves(event);
-    if (this.pwaveActive) {
-      const pwHealingWaves = ulHealingWaves.filter((event) =>
-        isHealingWaveFromPrimordialWave(event),
-      );
-      this.pwaveHealingWaveHealing += this._tallyHealing(
-        pwHealingWaves,
-        UNLEASH_LIFE_HEALING_INCREASE,
-      );
-      this.healingWaveHealing += this._tallyHealing(
-        ulHealingWaves.filter((event) => !isHealingWaveFromPrimordialWave(event)),
+  private _onWellspring(event: AbsorbedEvent) {
+    debug && console.log('Unleash Life Wellspring Shield: ', event);
+    this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount += event.amount;
+  }
+
+  private _onHealingSurge(event: HealEvent) {
+    if (isBuffedByUnleashLife(event)) {
+      debug && console.log('Unleash Life Healing Surge: ', event);
+      this.healingMap[event.ability.guid].amount += calculateEffectiveHealing(
+        event,
         UNLEASH_LIFE_HEALING_INCREASE,
       );
     }
-    this.totalHealingWaveHealing += this._tallyHealing(
-      ulHealingWaves,
-      UNLEASH_LIFE_HEALING_INCREASE,
-    );
   }
 
-  private _tallyHealing(events: HealEvent[], healIncrease: number) {
-    return events.reduce(
-      (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
-      0,
-    );
+  private _onRiptide(event: HealEvent) {
+    const spellId = event.ability.guid;
+    const targetId = event.targetID;
+    //hot ticks -- the hot tracker resets attributions on refresh buff, so if a UL Riptide gets overwritten it will be excluded here
+    if (event.tick) {
+      if (!this.riptideTracker.hots[targetId] || !this.riptideTracker.hots[targetId][spellId]) {
+        return;
+      }
+      const riptide = this.riptideTracker.hots[targetId][spellId];
+      if (this.riptideTracker.fromUnleashLife(riptide)) {
+        debug && console.log('Unleash Life Riptide Tick: ', event);
+        this.healingMap[spellId].amount += calculateEffectiveHealing(
+          event,
+          UNLEASH_LIFE_HEALING_INCREASE,
+        );
+      }
+      return;
+    }
+    // initial hit
+    if (isBuffedByUnleashLife(event)) {
+      debug && console.log('Unleash Life Riptide Hit: ', event);
+      this.healingMap[spellId].amount += calculateEffectiveHealing(
+        event,
+        UNLEASH_LIFE_HEALING_INCREASE,
+      );
+    }
+  }
+
+  private _onHealingRain(event: CastEvent) {
+    return;
+  }
+
+  private _onHealingWave(event: CastEvent) {
+    const ulHealingWaves = getUnleashLifeHealingWaves(event);
+    if (ulHealingWaves.length > 0) {
+      if (this.pwaveActive) {
+        const pwHealingWaves = ulHealingWaves.filter((event) =>
+          isHealingWaveFromPrimordialWave(event),
+        );
+        this.pwaveHealingWaveHealing += this._tallyHealing(
+          pwHealingWaves,
+          UNLEASH_LIFE_HEALING_INCREASE,
+        );
+        this.healingWaveHealing += this._tallyHealing(
+          ulHealingWaves.filter((event) => !isHealingWaveFromPrimordialWave(event)),
+          UNLEASH_LIFE_HEALING_INCREASE,
+        );
+      }
+      this.healingMap[event.ability.guid].amount += this._tallyHealing(
+        ulHealingWaves,
+        UNLEASH_LIFE_HEALING_INCREASE,
+      );
+    }
+  }
+
+  private _tallyHealing(events: HealEvent[], healIncrease: number): number {
+    if (events.length > 0) {
+      return events.reduce(
+        (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
+        0,
+      );
+    }
+    return 0;
   }
 
   //DELETE -- FIX
   get totalBuffedHealing() {
-    console.log(this.healingBuff[TALENTS.HEALING_WAVE_TALENT.id]);
-    return Object.values(this.healingBuff).reduce((sum, spell) => sum + spell.healing, 0);
+    console.log('Wellspring Shield: ', this.healingMap[TALENTS.WELLSPRING_TALENT.id]);
+    console.log('Healing Surge: ', this.healingMap[SPELLS.HEALING_SURGE.id]);
+    console.log('Riptide: ', this.healingMap[TALENTS.RIPTIDE_TALENT.id]);
+    console.log('Healing Wave: ', this.healingMap[TALENTS.HEALING_WAVE_TALENT.id]);
+    return Object.values(this.healingMap).reduce(
+      (sum, spell) => sum + spell.amount,
+      0,
+    ); /*this.wellspringHealing + this.healingRainHealing + this.riptideHealing + this.healingSurgeHealing + this.totalHealingWaveHealing + this.downpourHealing + this.chainHealHealing;*/
   }
 
   get unleashLifeCastRatioChart() {
@@ -279,43 +275,43 @@ class UnleashLife extends Analyzer {
         color: RESTORATION_COLORS.CHAIN_HEAL,
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
         spellId: TALENTS.CHAIN_HEAL_TALENT.id,
-        value: this.spellConsumptionMap.get(TALENTS.CHAIN_HEAL_TALENT.id) ?? 0,
+        value: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].casts,
       },
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: TALENTS.HEALING_WAVE_TALENT.id,
-        value: this.spellConsumptionMap.get(TALENTS.HEALING_WAVE_TALENT.id) ?? 0,
+        value: this.healingMap[TALENTS.HEALING_WAVE_TALENT.id].casts,
       },
       {
         color: RESTORATION_COLORS.HEALING_SURGE,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE.id,
-        value: this.spellConsumptionMap.get(SPELLS.HEALING_SURGE.id) ?? 0,
+        value: this.healingMap[SPELLS.HEALING_SURGE.id].casts,
       },
       {
         color: RESTORATION_COLORS.RIPTIDE,
         label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
         spellId: TALENTS.RIPTIDE_TALENT.id,
-        value: this.spellConsumptionMap.get(TALENTS.RIPTIDE_TALENT.id) ?? 0,
+        value: this.healingMap[TALENTS.RIPTIDE_TALENT.id].casts,
       },
       {
         color: RESTORATION_COLORS.HEALING_RAIN,
         label: <Trans id="shaman.restoration.spell.healing_rain">Healing Rain</Trans>,
         spellId: TALENTS.HEALING_RAIN_TALENT.id,
-        value: this.spellConsumptionMap.get(TALENTS.HEALING_RAIN_TALENT.id) ?? 0,
+        value: this.healingMap[TALENTS.HEALING_RAIN_TALENT.id].casts,
       },
       {
         color: RESTORATION_COLORS.WELLSPRING,
         label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
         spellId: TALENTS.WELLSPRING_TALENT.id,
-        value: this.spellConsumptionMap.get(TALENTS.WELLSPRING_TALENT.id) ?? 0,
+        value: this.healingMap[TALENTS.WELLSPRING_TALENT.id].casts,
       },
       {
         color: RESTORATION_COLORS.DOWNPOUR,
         label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
         spellId: TALENTS.DOWNPOUR_TALENT.id,
-        value: this.spellConsumptionMap.get(TALENTS.DOWNPOUR_TALENT.id) ?? 0,
+        value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].casts,
       },
       {
         color: RESTORATION_COLORS.UNUSED,

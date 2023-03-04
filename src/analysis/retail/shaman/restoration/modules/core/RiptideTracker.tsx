@@ -7,6 +7,7 @@ import {
   RIPTIDE_PWAVE,
   RIPTIDE_BASE_DURATION,
   WAVESPEAKERS_BLESSING,
+  UNLEASH_LIFE,
 } from '../../constants';
 import Combatant from 'parser/core/Combatant';
 
@@ -16,6 +17,12 @@ class RiptideTracker extends HotTracker {
   constructor(options: Options) {
     super(options);
     this.riptideActive = this.owner.selectedCombatant.hasTalent(talents.RIPTIDE_TALENT);
+  }
+
+  fromUnleashLife(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === UNLEASH_LIFE;
+    });
   }
 
   fromHardcast(hot: Tracker): boolean {

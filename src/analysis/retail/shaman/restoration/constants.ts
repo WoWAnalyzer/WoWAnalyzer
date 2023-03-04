@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/shaman';
 
 //event link attribution strings
 export const HARDCAST = 'Hardcast';
+export const RIPTIDE_HIT = 'RiptideHit';
 export const RIPTIDE_PWAVE = 'PrimordialWave';
 export const PWAVE_REMOVAL = 'PrimordialWaveRemoved';
 export const HEALING_WAVE_PWAVE = 'HealingWavePrimordialWave';
@@ -11,9 +12,16 @@ export const APPLIED_HEAL = 'AppliedHeal';
 export const UNLEASH_LIFE = 'UnleashLife';
 export const UNLEASH_LIFE_HEALING_WAVE = 'UnleashLifeHealingWave';
 export const UNLEASH_LIFE_REMOVE = 'UnleashLifeRemoved';
+export const HEALING_RAIN = 'HealingRain';
+export const HEALING_RAIN_GROUPING = 'HealingRainGrouping';
+export const OVERFLOWING_SHORES = 'OverflowingShores';
 //event link ms settings
 export const CAST_BUFFER_MS = 100;
 export const PWAVE_TRAVEL_MS = 1000;
+
+//healing increases
+export const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
+export const UNLEASH_LIFE_CHAIN_HEAL_INCREASE = 0.15;
 
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',
@@ -102,5 +110,6 @@ export const ABILITIES_NOT_FEEDING_INTO_ASCENDANCE = [
 
 export const FLASH_FLOOD_CAST_SPEED_MODIFIER = 0.1; // per rank
 
+export const HEALING_RAIN_DURATION = 10000;
 export const RIPTIDE_BASE_DURATION = 18000;
 export const WAVESPEAKERS_BLESSING = 3000;
