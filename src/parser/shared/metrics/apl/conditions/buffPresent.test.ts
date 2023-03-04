@@ -1,70 +1,8 @@
 import Spell from 'common/SPELLS/Spell';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import Combatant from 'parser/core/Combatant';
-import {
-  AnyEvent,
-  ApplyBuffEvent,
-  CastEvent,
-  EventType,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
-import { AbilityRange } from 'parser/core/modules/Abilities';
-import Ability from 'parser/core/modules/Ability';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { Condition, PlayerInfo } from '../index';
+import { ApplyBuffEvent, EventType, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { buffMissing } from './buffPresent';
-
-const dummyBuff: Spell = {
-  id: 1,
-  name: 'Buff',
-  icon: 'buff',
-};
-
-const dummyCast: Spell = {
-  id: 2,
-  name: 'Cast',
-  icon: 'cast',
-};
-
-const playerInfo: PlayerInfo = {
-  playerId: 1,
-  combatant: {} as unknown as Combatant,
-  defaultRange: AbilityRange.Melee,
-  abilities: [
-    new Ability(undefined, {
-      spell: dummyCast.id,
-      category: SPELL_CATEGORY.ROTATIONAL,
-    }),
-  ],
-};
-
-function runCondition<T>(cnd: Condition<T>, events: AnyEvent[], initialState?: T): T {
-  let state = initialState ?? cnd.init(playerInfo);
-
-  for (const event of events) {
-    state = cnd.update(state, event);
-  }
-
-  return state;
-}
-
-function cast(timestamp: number, spell: Spell): CastEvent {
-  return {
-    timestamp,
-    type: EventType.Cast,
-    ability: {
-      guid: spell.id,
-      name: spell.name,
-      type: MAGIC_SCHOOLS.ids.PHYSICAL,
-      abilityIcon: spell.icon,
-    },
-    sourceID: 1,
-    sourceIsFriendly: true,
-    targetIsFriendly: true,
-    targetID: 100,
-  };
-}
+import { cast, dummyBuff, dummyCast, runCondition } from './test-tools';
 
 function buff(
   timestamp: number,
