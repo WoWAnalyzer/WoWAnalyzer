@@ -10,8 +10,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 /*
-  Roaring Blaze (Tier 90 Destruction talent):
-    Conflagrate burns the target for an additional (48% of Spell power) Fire damage over 6 sec.
+  Roaring Blaze:
+    Conflagrate increases your Soul Fire, Channel Demonfire, Immolate, Incinerate, and Conflagrate
+    damage by 25% for 8 sec.
  */
 class RoaringBlaze extends Analyzer {
   static dependencies = {
@@ -20,24 +21,11 @@ class RoaringBlaze extends Analyzer {
 
   protected enemies!: Enemies;
 
-  damage = 0;
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ROARING_BLAZE_TALENT);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ROARING_BLAZE_DAMAGE),
-      this.onRoaringBlazeDamage,
-    );
   }
 
-  onRoaringBlazeDamage(event: DamageEvent) {
-    this.damage += (event.amount || 0) + (event.absorbed || 0);
-  }
-
-  get dps() {
-    return (this.damage / this.owner.fightDuration) * 1000;
-  }
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.ROARING_BLAZE_DAMAGE.id) / this.owner.fightDuration;
@@ -47,14 +35,9 @@ class RoaringBlaze extends Analyzer {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={`${formatThousands(this.damage)} damage`}
+        size='flexible'
       >
         <TalentSpellText talent={TALENTS.ROARING_BLAZE_TALENT}>
-          {formatNumber(this.dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
-          </small>
-          <br />
           <UptimeIcon />
           {formatPercentage(this.uptime, 0)}%<small> uptime</small>
         </TalentSpellText>
