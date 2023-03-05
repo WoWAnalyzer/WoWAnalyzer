@@ -65,7 +65,7 @@ class ChainHealNormalizer extends Analyzer {
         heal /= 1 + FLOW_OF_THE_TIDES_INCREASE;
       }
     }
-    //later TODO: check for deluge increase
+    //later TODO when fixing High Tide: add check for deluge increase
     return { baseHealingDone: heal, ...event };
   }
 }

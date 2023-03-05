@@ -47,7 +47,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
-import { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 
 const debug = false;
 
@@ -76,13 +75,11 @@ class UnleashLife extends Analyzer {
     riptideTracker: RiptideTracker,
     chainHealNormalizer: ChainHealNormalizer,
   };
-  unleashLifeItems: TalentAggregateBarSpec[] = [];
   chainHealNormalizer!: ChainHealNormalizer;
   protected riptideTracker!: RiptideTracker;
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
   wastedBuffs: number = 0;
-  spellConsumptionMap = new Map<number, number>();
   healingMap: HealingMap = {
     [TALENTS.RIPTIDE_TALENT.id]: {
       amount: 0,
@@ -122,7 +119,6 @@ class UnleashLife extends Analyzer {
   pwaveHealingWaveHealing: number = 0;
 
   //chain heal
-  ancestralReachActive: boolean;
   chainHealHealing: number = 0;
   buffedChainHealTimestamp: number = Number.MIN_SAFE_INTEGER;
 
@@ -150,7 +146,6 @@ class UnleashLife extends Analyzer {
     this.overflowingShoresActive = this.selectedCombatant.hasTalent(
       TALENTS.OVERFLOWING_SHORES_TALENT,
     );
-    this.ancestralReachActive = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT);
     this.downpourActive = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT);
     const spellFilter = [
       TALENTS.RIPTIDE_TALENT,

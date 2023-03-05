@@ -19,9 +19,8 @@ import {
 import SPELLS from 'common/SPELLS';
 
 /*
-  This file is for attributing the various sources of spell applications to their respective abilities and talents.
-  It is needed because there are certain abilities that can have multiple sources based on talents, 
-  i.e. riptide -> primorial wave & primal tide core
+  This file is for linking the various events to the unleash life buff
+  It is needed because the buff can be removed in multiple different ways and links to many different events
 */
 const EVENT_LINKS: EventLink[] = [
   //Unleash life linkings
@@ -86,16 +85,6 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
-
-  /* linkingEventId: [
-      talents.RIPTIDE_TALENT.id,
-      SPELLS.HEALING_SURGE.id,
-
-      talents.CHAIN_HEAL_TALENT.id,
-      talents.HEALING_RAIN_TALENT.id,
-      talents.DOWNPOUR_TALENT.id,
-      SPELLS.WELLSPRING_UNLEASH_LIFE.id,
-    ],*/
 ];
 
 class UnleashLifeNormalizer extends EventLinkNormalizer {
