@@ -19,6 +19,8 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import {
+  DOWNPOUR_CD_PER_HIT,
+  DOWNPOUR_TARGETS,
   HEALING_RAIN_TARGETS,
   RESTORATION_COLORS,
   UNLEASH_LIFE_CHAIN_HEAL_INCREASE,
@@ -32,6 +34,7 @@ import {
   getOverflowingShoresEvents,
   isHealingWaveFromPrimordialWave,
   getChainHeals,
+  getDownPourEvents,
 } from '../../normalizers/CastLinkNormalizer';
 import {
   getUnleashLifeHealingWaves,
@@ -41,7 +44,6 @@ import {
 import RiptideTracker from '../core/RiptideTracker';
 import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
 
-// const BUFFER_MS = 200;
 const debug = false;
 
 interface HealingMap {
@@ -119,6 +121,10 @@ class UnleashLife extends Analyzer {
   missedTicks: number = 0;
   extraOSTicks: number = 0;
   missedOSTicks: number = 0;
+ 
+  //downpour
+  missedDownpourHits: number = 0;
+  extraDownpourHits: number = 0;
 
   unleashLifeCount = 0;
 
@@ -179,17 +185,22 @@ class UnleashLife extends Analyzer {
     if (isBuffedByUnleashLife(event)) {
       this.healingMap[spellId].casts += 1;
       debug && console.log('Unleash Life ' + event.ability.name + ': ', event);
-      //handle healing wave
-      if (spellId === TALENTS.HEALING_WAVE_TALENT.id) {
-        this._onHealingWave(event);
+      switch(spellId){
+        case(TALENTS.HEALING_WAVE_TALENT.id):
+          this._onHealingWave(event);
+          break;
+        case(TALENTS.HEALING_RAIN_TALENT.id):
+          this._onHealingRain(event);
+          break;
+        case(TALENTS.CHAIN_HEAL_TALENT.id):
+          this._onChainHeal(event);
+          break;
+        case(TALENTS.DOWNPOUR_TALENT.id):
+          this._onDownpour(event);
+          break;
+        default:
+          return;
       }
-      if (spellId === TALENTS.HEALING_RAIN_TALENT.id) {
-        this._onHealingRain(event);
-      }
-      if (spellId === TALENTS.CHAIN_HEAL_TALENT.id) {
-        this._onChainHeal(event);
-      }
-      return;
     }
   }
 
@@ -201,13 +212,11 @@ class UnleashLife extends Analyzer {
   }
 
   private _onWellspring(event: AbsorbedEvent) {
-    debug && console.log('Unleash Life Wellspring Shield: ', event);
     this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount += event.amount;
   }
 
   private _onHealingSurge(event: HealEvent) {
     if (isBuffedByUnleashLife(event)) {
-      debug && console.log('Unleash Life Healing Surge: ', event);
       this.healingMap[event.ability.guid].amount += calculateEffectiveHealing(
         event,
         UNLEASH_LIFE_HEALING_INCREASE,
@@ -309,6 +318,18 @@ class UnleashLife extends Analyzer {
     }
   }
 
+  private _onDownpour(event: CastEvent) {
+    const downpourEvents = getDownPourEvents(event);
+    if(downpourEvents.length > 0) {
+      const filteredhits = downpourEvents.splice(DOWNPOUR_TARGETS);
+      if (filteredhits.length < UNLEASH_LIFE_EXTRA_TARGETS) {
+        this.missedDownpourHits += UNLEASH_LIFE_EXTRA_TARGETS - filteredhits.length;
+      }
+      this.extraDownpourHits += filteredhits.length;
+      this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount += this._tallyHealing(filteredhits);
+    }
+  }
+
   private _tallyHealingIncrease(events: HealEvent[], healIncrease: number): number {
     if (events.length > 0) {
       return events.reduce(
@@ -344,11 +365,16 @@ class UnleashLife extends Analyzer {
         this.extraOSTicks,
       );
       console.log('Chain Heal: ', this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id]);
+      console.log('Downpour: ', this.healingMap[TALENTS.DOWNPOUR_TALENT.id], 'ExtraCD: ', this.additionalDownpourCD);
     }
     return Object.values(this.healingMap).reduce(
       (sum, spell) => sum + spell.amount,
       0,
-    ); /*this.wellspringHealing + this.healingRainHealing + this.riptideHealing + this.healingSurgeHealing + this.totalHealingWaveHealing + this.downpourHealing + this.chainHealHealing;*/
+    );
+  }
+
+  get additionalDownpourCD() {
+    return this.extraDownpourHits * DOWNPOUR_CD_PER_HIT;
   }
 
   get unleashLifeCastRatioChart() {

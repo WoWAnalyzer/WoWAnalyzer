@@ -28,6 +28,7 @@ import {
   CHAIN_HEAL,
   CHAIN_HEAL_GROUPING,
   FLOW_OF_THE_TIDES,
+  DOWNPOUR,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 
@@ -203,6 +204,9 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+      additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
+    },
   },
   //link cast to heals
   {
@@ -215,6 +219,9 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+      additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
+    },
   },
   //link riptide removal to chain heal for fotd
   {
@@ -228,6 +235,24 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
       return c.hasTalent(talents.FLOW_OF_THE_TIDES_TALENT);
+    },
+  },
+  //downpour
+  {
+    linkRelation: DOWNPOUR,
+    reverseLinkRelation: DOWNPOUR,
+    linkingEventId: [talents.DOWNPOUR_TALENT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [talents.DOWNPOUR_TALENT.id],
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c){
+      return c.hasTalent(talents.DOWNPOUR_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
     },
   },
 ];
@@ -279,6 +304,10 @@ export function getHealingRainHealEventsForTick(event: HealEvent) {
 
 export function getOverflowingShoresEvents(event: CastEvent) {
   return GetRelatedEvents(event, OVERFLOWING_SHORES) as HealEvent[];
+}
+
+export function getDownPourEvents(event: CastEvent) {
+  return GetRelatedEvents(event, DOWNPOUR) as HealEvent[];
 }
 
 export function wasRiptideConsumed(event: HealEvent): boolean {
