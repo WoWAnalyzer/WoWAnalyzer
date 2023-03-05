@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
@@ -43,6 +43,10 @@ import {
 } from '../../normalizers/UnleashLifeNormalizer';
 import RiptideTracker from '../core/RiptideTracker';
 import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import WarningIcon from 'interface/icons/Warning';
+import CheckmarkIcon from 'interface/icons/Checkmark';
 
 const debug = false;
 
@@ -121,7 +125,7 @@ class UnleashLife extends Analyzer {
   missedTicks: number = 0;
   extraOSTicks: number = 0;
   missedOSTicks: number = 0;
- 
+
   //downpour
   missedDownpourHits: number = 0;
   extraDownpourHits: number = 0;
@@ -185,17 +189,17 @@ class UnleashLife extends Analyzer {
     if (isBuffedByUnleashLife(event)) {
       this.healingMap[spellId].casts += 1;
       debug && console.log('Unleash Life ' + event.ability.name + ': ', event);
-      switch(spellId){
-        case(TALENTS.HEALING_WAVE_TALENT.id):
+      switch (spellId) {
+        case TALENTS.HEALING_WAVE_TALENT.id:
           this._onHealingWave(event);
           break;
-        case(TALENTS.HEALING_RAIN_TALENT.id):
+        case TALENTS.HEALING_RAIN_TALENT.id:
           this._onHealingRain(event);
           break;
-        case(TALENTS.CHAIN_HEAL_TALENT.id):
+        case TALENTS.CHAIN_HEAL_TALENT.id:
           this._onChainHeal(event);
           break;
-        case(TALENTS.DOWNPOUR_TALENT.id):
+        case TALENTS.DOWNPOUR_TALENT.id:
           this._onDownpour(event);
           break;
         default:
@@ -320,7 +324,7 @@ class UnleashLife extends Analyzer {
 
   private _onDownpour(event: CastEvent) {
     const downpourEvents = getDownPourEvents(event);
-    if(downpourEvents.length > 0) {
+    if (downpourEvents.length > 0) {
       const filteredhits = downpourEvents.splice(DOWNPOUR_TARGETS);
       if (filteredhits.length < UNLEASH_LIFE_EXTRA_TARGETS) {
         this.missedDownpourHits += UNLEASH_LIFE_EXTRA_TARGETS - filteredhits.length;
@@ -365,16 +369,26 @@ class UnleashLife extends Analyzer {
         this.extraOSTicks,
       );
       console.log('Chain Heal: ', this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id]);
-      console.log('Downpour: ', this.healingMap[TALENTS.DOWNPOUR_TALENT.id], 'ExtraCD: ', this.additionalDownpourCD);
+      console.log(
+        'Downpour: ',
+        this.healingMap[TALENTS.DOWNPOUR_TALENT.id],
+        'ExtraCD: ',
+        this.additionalDownpourCD,
+      );
     }
-    return Object.values(this.healingMap).reduce(
-      (sum, spell) => sum + spell.amount,
-      0,
-    );
+    return Object.values(this.healingMap).reduce((sum, spell) => sum + spell.amount, 0);
+  }
+
+  get totalHealing() {
+    return this.totalBuffedHealing + this.directHealing;
   }
 
   get additionalDownpourCD() {
     return this.extraDownpourHits * DOWNPOUR_CD_PER_HIT;
+  }
+
+  get buffIcon() {
+    return this.wastedBuffs > 0 ? <WarningIcon /> : <CheckmarkIcon />;
   }
 
   get unleashLifeCastRatioChart() {
@@ -444,17 +458,13 @@ class UnleashLife extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(15)}
         size="flexible"
       >
-        <div className="pad">
-          <label>
-            <Trans id="shaman.restoration.unleashLife.statistic.label">
-              <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> usage
-            </Trans>
-          </label>
-          {this.unleashLifeCastRatioChart}
-          <small>
-            {this.unleashLifeCount - this.wastedBuffs}/{this.unleashLifeCount} buffs used
-          </small>
-        </div>
+        <TalentSpellText talent={TALENTS.UNLEASH_LIFE_TALENT}>
+          <ItemHealingDone amount={this.totalHealing} />
+          <br />
+          <TooltipElement content={this.unleashLifeCastRatioChart}>
+            {this.buffIcon} {this.wastedBuffs} <small> wasted buffs</small>
+          </TooltipElement>
+        </TalentSpellText>
       </Statistic>
     );
   }
@@ -465,7 +475,7 @@ class UnleashLife extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} />}
         value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.directHealing + this.totalBuffedHealing),
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
         valueTooltip={
           <Trans id="shaman.restoration.unleashLife.statistic.tooltip">
