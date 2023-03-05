@@ -51,7 +51,6 @@ class ChainHealNormalizer extends Analyzer {
     let heal = event.amount + (event.absorbed || 0) + (event.overheal || 0);
     if (event.hitType === HIT_TYPES.CRIT) {
       const critMult = this.critEffectBonus.getBonus(event);
-      console.log('critMult: ', critMult);
       heal /= critMult;
     }
     const currentMastery = this.statTracker.currentMasteryPercentage;

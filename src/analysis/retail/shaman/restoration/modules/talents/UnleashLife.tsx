@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -56,6 +56,14 @@ interface HealingMap {
     amount: number;
     casts: number;
   };
+}
+
+interface TooltipData {
+  spellId: number;
+  amount: number;
+  active: boolean;
+  extraHits?: number;
+  missedHits?: number;
 }
 /**
  * Unleash Life:
@@ -131,6 +139,7 @@ class UnleashLife extends Analyzer {
   //downpour
   missedDownpourHits: number = 0;
   extraDownpourHits: number = 0;
+  downpourActive: boolean;
 
   unleashLifeCount = 0;
 
@@ -142,6 +151,7 @@ class UnleashLife extends Analyzer {
       TALENTS.OVERFLOWING_SHORES_TALENT,
     );
     this.ancestralReachActive = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_REACH_TALENT);
+    this.downpourActive = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT);
     const spellFilter = [
       TALENTS.RIPTIDE_TALENT,
       TALENTS.CHAIN_HEAL_TALENT,
@@ -353,6 +363,67 @@ class UnleashLife extends Analyzer {
     return 0;
   }
 
+  private _tooltip(map: HealingMap, primary: TooltipData, secondary?: TooltipData) {
+    return (
+      <>
+        You used <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> on{' '}
+        <SpellLink id={primary.spellId} />{' '}
+        <strong>{this.healingMap[primary.spellId].casts} </strong>time
+        {this.healingMap[primary.spellId].casts > 1 ? <>s</> : <></>}
+        <hr />
+        <ul>
+          {secondary && secondary.active && (
+            <li>
+              <strong>{formatNumber(this.healingMap[primary.spellId].amount)}</strong> total healing
+            </li>
+          )}
+          <li>
+            <strong>{formatNumber(primary.amount)} </strong> extra{' '}
+            <SpellLink id={primary.spellId} /> healing
+          </li>
+          {primary && primary.extraHits && (
+            <li>
+              <strong>{primary.extraHits}</strong> extra hits{' '}
+              {primary.missedHits! > 0 ? (
+                <>
+                  , <strong>{primary.missedHits}</strong> missed
+                </>
+              ) : (
+                <></>
+              )}
+            </li>
+          )}
+          {secondary && secondary.active && (
+            <li>
+              <strong>{formatNumber(secondary.amount)}</strong> extra{' '}
+              <SpellLink id={secondary.spellId} /> healing
+            </li>
+          )}
+          {secondary && secondary.active && secondary.extraHits && (
+            <li>
+              <strong>{secondary.extraHits}</strong> extra hits{' '}
+              {secondary.missedHits! > 0 ? (
+                <>
+                  , <strong>{secondary.missedHits}</strong> missed
+                </>
+              ) : (
+                <></>
+              )}
+            </li>
+          )}
+          <li>
+            <strong>{formatNumber(this._getAveragePerCast(primary.spellId))} </strong> healing per
+            use
+          </li>
+        </ul>
+      </>
+    );
+  }
+
+  private _getAveragePerCast(spellId: number): number {
+    return this.healingMap[spellId].amount / this.healingMap[spellId].casts;
+  }
+
   get totalBuffedHealing() {
     return Object.values(this.healingMap).reduce((sum, spell) => sum + spell.amount, 0);
   }
@@ -376,49 +447,98 @@ class UnleashLife extends Analyzer {
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
         spellId: TALENTS.CHAIN_HEAL_TALENT.id,
         value: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
-        valueTooltip: <></>,
+        valueTooltip: this._tooltip(this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id], {
+          spellId: TALENTS.CHAIN_HEAL_TALENT.id,
+          amount: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
+          active: true,
+        }),
       },
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: TALENTS.HEALING_WAVE_TALENT.id,
         value: this.healingMap[TALENTS.HEALING_WAVE_TALENT.id].amount,
-        valueTooltip: <></>,
+        valueTooltip: this._tooltip(
+          this.healingMap[TALENTS.HEALING_WAVE_TALENT.id],
+          {
+            spellId: TALENTS.HEALING_WAVE_TALENT.id,
+            amount: this.healingWaveHealing,
+            active: true,
+          },
+          {
+            spellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+            amount: this.pwaveHealingWaveHealing,
+            active: this.pwaveActive,
+          },
+        ),
       },
       {
         color: RESTORATION_COLORS.HEALING_SURGE,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE.id,
         value: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
-        valueTooltip: <></>,
+        valueTooltip: this._tooltip(this.healingMap[SPELLS.HEALING_SURGE.id], {
+          spellId: SPELLS.HEALING_SURGE.id,
+          amount: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
+          active: true,
+        }),
       },
       {
         color: RESTORATION_COLORS.RIPTIDE,
         label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
         spellId: TALENTS.RIPTIDE_TALENT.id,
         value: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
-        valueTooltip: <></>,
+        valueTooltip: this._tooltip(this.healingMap[TALENTS.RIPTIDE_TALENT.id], {
+          spellId: TALENTS.RIPTIDE_TALENT.id,
+          amount: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
+          active: true,
+        }),
       },
       {
         color: RESTORATION_COLORS.HEALING_RAIN,
         label: <Trans id="shaman.restoration.spell.healing_rain">Healing Rain</Trans>,
         spellId: TALENTS.HEALING_RAIN_TALENT.id,
         value: this.healingMap[TALENTS.HEALING_RAIN_TALENT.id].amount,
-        valueTooltip: <></>,
+        valueTooltip: this._tooltip(
+          this.healingMap[TALENTS.HEALING_RAIN_TALENT.id],
+          {
+            spellId: TALENTS.HEALING_RAIN_TALENT.id,
+            amount: this.healingRainHealing,
+            active: true,
+            extraHits: this.extraTicks,
+            missedHits: this.missedTicks,
+          },
+          {
+            spellId: TALENTS.OVERFLOWING_SHORES_TALENT.id,
+            amount: this.overflowingShoresHealing,
+            active: this.overflowingShoresActive,
+            extraHits: this.extraOSTicks,
+            missedHits: this.missedOSTicks,
+          },
+        ),
       },
       {
         color: RESTORATION_COLORS.WELLSPRING,
         label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
         spellId: TALENTS.WELLSPRING_TALENT.id,
         value: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
-        valueTooltip: <></>,
+        valueTooltip: this._tooltip(this.healingMap[TALENTS.WELLSPRING_TALENT.id], {
+          spellId: TALENTS.WELLSPRING_TALENT.id,
+          amount: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
+          active: this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT),
+        }),
       },
       {
         color: RESTORATION_COLORS.DOWNPOUR,
         label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
         spellId: TALENTS.DOWNPOUR_TALENT.id,
         value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
-        valueTooltip: <></>,
+        valueTooltip: this._tooltip(this.healingMap[TALENTS.DOWNPOUR_TALENT.id], {
+          spellId: TALENTS.DOWNPOUR_TALENT.id,
+          amount: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
+          active: this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT),
+          extraHits: this.extraDownpourHits,
+        }),
       },
     ].filter((item) => item.value > 0);
     return <DonutChart items={items} />;
