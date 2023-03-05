@@ -2103,3 +2103,8 @@ export const Klamuz: Contributor = {
     },
   ],
 };
+export const dodse: Contributor = {
+  nickname: 'dodse',
+  github: 'dsnam',
+  discord: 'dsn#4942',
+}
