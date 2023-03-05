@@ -29,13 +29,20 @@ import { SpellLink } from 'interface';
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 import { buffsCount } from './buffsCount';
 
-//--TODO: Figure out pandemic thing for GS and BTE
-//        Figure out 'optional' conditions
+//--TODO: GS can't work for now until I finish working on gs debuff eventFabricator
 //        Add support for KiR builds
+//        BtE and SnD having variable duration depending on cp spent make their conditions innacurate for now
+//        1:43, 3:12, 3:44, 5:29 https://www.warcraftlogs.com/reports/t27zV8NLgPvJq3Kk#fight=17&type=damage-done&source=18, user cast rtb and the
+//            cast is flagged, this is due to my buffsCount function condition not having a slight delay akin to buff/debuffMissing
+//        Might wanna allow users to delay vanish without opp as it is barely worse
+//        SnD condition being rarely met it sometimes don't show in the apl if the user never casted the spell
+//        Add an optional rule to allow use of Ambush at 6cp with 2p and if bte isnt going to be pressed, not sure if fully possible (0.1% minmax)
 
 const hasFinisherCondition = () => {
   //             this should be using: finishers.recommendedFinisherPoints()
-  return hasResource(RESOURCE_TYPES.COMBO_POINTS, { atLeast: 6 });
+  return describe(hasResource(RESOURCE_TYPES.COMBO_POINTS, { atLeast: 6 }), (tense) => (
+    <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>
+  ));
 };
 
 //  /!\ Not sure this is working
@@ -43,17 +50,27 @@ const hasFinisherCondition = () => {
 const energyCondition = (minEnergyThreshold: number, maxEnergyThreshold: number) => {
   return or(
     hasResource(RESOURCE_TYPES.ENERGY, { atMost: minEnergyThreshold }),
-    //optional(hasResource(RESOURCE_TYPES.ENERGY, { atMost: maxEnergyThreshold })),
+    optionalRule(hasResource(RESOURCE_TYPES.ENERGY, { atMost: maxEnergyThreshold })),
   );
 };
 
-//  if snc is down and rtbBuffCount < 2 should reroll
+//  if snc is down and rtbBuffCount < 2 should reroll, we are allowing the user to also keep a single Broadside as it is barely worse
 const rtbCondition = () => {
   const rtbBuffsToCheck = ROLL_THE_BONES_BUFFS.filter((spell) => spell !== SPELLS.GRAND_MELEE);
   return and(
-    buffMissing(SPELLS.SKULL_AND_CROSSBONES),
-    // Adding this make it stop working
-    //optional(buffMissing(SPELLS.BURIED_TREASURE)),
+    describe(
+      or(
+        // allow rerolling if you're missing either SnC or BT, but don't require it
+        optionalRule(or(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE))),
+        // require rerolling if you're missing both SnC and BT
+        and(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE)),
+      ),
+      (tense) => (
+        <>
+          <SpellLink id={SPELLS.SKULL_AND_CROSSBONES} /> {tenseAlt(tense, 'is', 'was')} missing
+        </>
+      ),
+    ),
     buffsCount(rtbBuffsToCheck, 2, 'lessThan'),
   );
 };
@@ -79,7 +96,7 @@ const COMMON_COOLDOWN: Rule[] = [
   },
   {
     spell: TALENTS.BLADE_RUSH_TALENT,
-    condition: describe(energyCondition(60, 80), (tense) => (
+    condition: describe(energyCondition(60, 85), (tense) => (
       <>you {tenseAlt(tense, 'are', 'were')} under ~70/80 energy</>
     )),
   },
@@ -97,15 +114,22 @@ const COMMON_COOLDOWN: Rule[] = [
     spell: SPELLS.VANISH,
     condition: and(
       buffMissing(SPELLS.AUDACITY_TALENT_BUFF),
-      describe(buffStacks(SPELLS.OPPORTUNITY, { atMost: 3 }), (tense) => (
-        <>
-          {' '}
-          you {tenseAlt(tense, 'have', 'had')} less than max stacks of{' '}
-          <SpellLink id={SPELLS.OPPORTUNITY} />
-        </>
-      )),
-      notInStealthCondition(),
-      optionalRule(not(hasFinisherCondition())),
+      describe(
+        and(
+          buffStacks(SPELLS.OPPORTUNITY, { atMost: 3 }),
+          //This is a given no point displaying it
+          notInStealthCondition(),
+          //We want to allow the user to press vanish at max cp, but that is not a requirement
+          or(not(hasFinisherCondition()), optionalRule(hasFinisherCondition())),
+        ),
+        (tense) => (
+          <>
+            {' '}
+            you {tenseAlt(tense, 'have', 'had')} less than max stacks of{' '}
+            <SpellLink id={SPELLS.OPPORTUNITY} />
+          </>
+        ),
+      ),
     ),
   },
   {
@@ -114,8 +138,10 @@ const COMMON_COOLDOWN: Rule[] = [
       and(
         buffMissing(SPELLS.AUDACITY_TALENT_BUFF),
         buffMissing(SPELLS.OPPORTUNITY),
+        //This is a given no point displaying it
         notInStealthCondition(),
-        optionalRule(not(hasFinisherCondition())),
+        //We want to allow the user to press dance at max cp, but that is not a requirement
+        or(not(hasFinisherCondition()), optionalRule(hasFinisherCondition())),
       ),
       (tense) => (
         <>
@@ -131,14 +157,23 @@ const COMMON_FINISHER: Rule[] = [
   {
     spell: SPELLS.BETWEEN_THE_EYES,
     condition: and(
-      hasFinisherCondition(),
       debuffMissing(SPELLS.BETWEEN_THE_EYES, {
         timeRemaining: 4000,
-        duration: 21000,
+        //Since BtE as a variable duration depending on cp spent this is inacurate for now
+        duration: 19500,
         pandemicCap: 1,
       }),
-      //NOT WORKING
-      //optional(buffMissing(SPELLS.SHADOW_DANCE_BUFF),),
+      describe(
+        and(
+          hasFinisherCondition(),
+          //We allow the user to not press BtE when in dance
+          or(
+            buffMissing(SPELLS.SHADOW_DANCE_BUFF),
+            optionalRule(buffPresent(SPELLS.SHADOW_DANCE_BUFF)),
+          ),
+        ),
+        (tense) => <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>,
+      ),
     ),
   },
   {
@@ -147,11 +182,18 @@ const COMMON_FINISHER: Rule[] = [
       hasFinisherCondition(),
       buffMissing(SPELLS.SLICE_AND_DICE, {
         timeRemaining: 18000,
+        //Since SnD as a variable duration depending on cp spent this is inacurate for now
         duration: 45000,
-        pandemicCap: 1,
+        pandemicCap: 1.3,
       }),
-      //NOT WORKING
-      //optional(buffMissing(SPELLS.GRAND_MELEE)),
+      describe(
+        and(
+          hasFinisherCondition(),
+          //We allow the user to not press SnD when GM buff is present
+          or(buffMissing(SPELLS.GRAND_MELEE), optionalRule(buffPresent(SPELLS.GRAND_MELEE))),
+        ),
+        (tense) => <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>,
+      ),
     ),
   },
   {

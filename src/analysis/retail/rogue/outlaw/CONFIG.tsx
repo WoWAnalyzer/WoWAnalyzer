@@ -31,8 +31,8 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/wptPT3mfWavbj9KY/33-Heroic+Conclave+of+the+Chosen+-+Kill+(6:22)/13-Kuracz',
-
+    'https://www.warcraftlogs.com/reports/PVf9yQjhGDzZaBmv#fight=18&type=damage-done&source=11',
+  guideDefault: true,
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.OUTLAW_ROGUE,

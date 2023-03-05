@@ -90,20 +90,27 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
 function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Acion Priority List">
-      <p>Outlaw rogue rotation is driven by a priority list.</p>
+      <p>
+        Outlaw has a fast paced rotation that is constantly reacting to buffs and procs. The spec
+        doesn't burst but makes up for it in consistent output. Should be thought as a chaining
+        priority list:
+        <ol>
+          <li>Cooldowns, according to the priorities below.</li>
+          <li>Finishers, if you are at 6cp or higher, according to the priorities below.</li>
+          <li>Builders, according to the priorities below.</li>
+        </ol>
+      </p>
 
       <p>
         This Action Priority List (APL) is a simplified version off the simc APL that can be found{' '}
-        <a href="https://raw.githubusercontent.com/simulationcraft/simc/dragonflight/engine/class_modules/apl/rogue/outlaw_df.simc">
+        <a href="https://github.com/simulationcraft/simc/blob/dragonflight/engine/class_modules/apl/rogue/outlaw_df.simc">
           here
         </a>
         .
       </p>
       <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
       <hr />
-      <p>
-        As mentioned before use the accuracy here as a reference point to compare to other logs.
-      </p>
+      <p>You can use the accuracy here as a reference point to compare to other logs.</p>
     </Section>
   );
 }
