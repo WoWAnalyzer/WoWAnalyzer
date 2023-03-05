@@ -21,6 +21,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 import {
   HEALING_RAIN_TARGETS,
   RESTORATION_COLORS,
+  UNLEASH_LIFE_CHAIN_HEAL_INCREASE,
   UNLEASH_LIFE_EXTRA_TARGETS,
   UNLEASH_LIFE_HEALING_INCREASE,
 } from '../../constants';
@@ -30,6 +31,7 @@ import {
   getHealingRainHealEventsForTick,
   getOverflowingShoresEvents,
   isHealingWaveFromPrimordialWave,
+  getChainHeals,
 } from '../../normalizers/CastLinkNormalizer';
 import {
   getUnleashLifeHealingWaves,
@@ -37,6 +39,7 @@ import {
   wasUnleashLifeConsumed,
 } from '../../normalizers/UnleashLifeNormalizer';
 import RiptideTracker from '../core/RiptideTracker';
+import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
 
 // const BUFFER_MS = 200;
 const debug = false;
@@ -56,8 +59,9 @@ class UnleashLife extends Analyzer {
   static dependencies = {
     cooldownThroughputTracker: CooldownThroughputTracker,
     riptideTracker: RiptideTracker,
+    chainHealNormalizer: ChainHealNormalizer,
   };
-
+  chainHealNormalizer!: ChainHealNormalizer;
   protected riptideTracker!: RiptideTracker;
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
 
@@ -182,6 +186,9 @@ class UnleashLife extends Analyzer {
       if (spellId === TALENTS.HEALING_RAIN_TALENT.id) {
         this._onHealingRain(event);
       }
+      if (spellId === TALENTS.CHAIN_HEAL_TALENT.id) {
+        this._onChainHeal(event);
+      }
       return;
     }
   }
@@ -289,6 +296,19 @@ class UnleashLife extends Analyzer {
     }
   }
 
+  private _onChainHeal(event: CastEvent) {
+    const chainHealEvents = getChainHeals(event);
+    if (chainHealEvents.length > 0) {
+      const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(chainHealEvents);
+      const extraHit = orderedChainHeal.splice(orderedChainHeal.length - 1);
+      this.healingMap[event.ability.guid].amount += this._tallyHealing(extraHit);
+      this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
+        orderedChainHeal,
+        UNLEASH_LIFE_CHAIN_HEAL_INCREASE,
+      );
+    }
+  }
+
   private _tallyHealingIncrease(events: HealEvent[], healIncrease: number): number {
     if (events.length > 0) {
       return events.reduce(
@@ -308,20 +328,23 @@ class UnleashLife extends Analyzer {
 
   //DELETE -- FIX
   get totalBuffedHealing() {
-    console.log('Wellspring Shield: ', this.healingMap[TALENTS.WELLSPRING_TALENT.id]);
-    console.log('Healing Surge: ', this.healingMap[SPELLS.HEALING_SURGE.id]);
-    console.log('Riptide: ', this.healingMap[TALENTS.RIPTIDE_TALENT.id]);
-    console.log('Healing Wave: ', this.healingMap[TALENTS.HEALING_WAVE_TALENT.id]);
-    console.log(
-      'Healing Rain: ',
-      this.healingMap[TALENTS.HEALING_RAIN_TALENT.id],
-      'Missed Ticks: ',
-      this.missedTicks,
-      'Extra Ticks: ',
-      this.extraTicks,
-      'Extra OS Ticks: ',
-      this.extraOSTicks,
-    );
+    if (debug) {
+      console.log('Wellspring Shield: ', this.healingMap[TALENTS.WELLSPRING_TALENT.id]);
+      console.log('Healing Surge: ', this.healingMap[SPELLS.HEALING_SURGE.id]);
+      console.log('Riptide: ', this.healingMap[TALENTS.RIPTIDE_TALENT.id]);
+      console.log('Healing Wave: ', this.healingMap[TALENTS.HEALING_WAVE_TALENT.id]);
+      console.log(
+        'Healing Rain: ',
+        this.healingMap[TALENTS.HEALING_RAIN_TALENT.id],
+        'Missed Ticks: ',
+        this.missedTicks,
+        'Extra Ticks: ',
+        this.extraTicks,
+        'Extra OS Ticks: ',
+        this.extraOSTicks,
+      );
+      console.log('Chain Heal: ', this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id]);
+    }
     return Object.values(this.healingMap).reduce(
       (sum, spell) => sum + spell.amount,
       0,

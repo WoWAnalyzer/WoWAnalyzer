@@ -25,6 +25,9 @@ import {
   HEALING_RAIN,
   OVERFLOWING_SHORES,
   HEALING_RAIN_GROUPING,
+  CHAIN_HEAL,
+  CHAIN_HEAL_GROUPING,
+  FLOW_OF_THE_TIDES,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 
@@ -189,6 +192,44 @@ const EVENT_LINKS: EventLink[] = [
       return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
     },
   },
+  //chain heal
+  //group heal events together for targets hit analysis and order normalizing
+  {
+    linkRelation: CHAIN_HEAL_GROUPING,
+    linkingEventId: [talents.CHAIN_HEAL_TALENT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  //link cast to heals
+  {
+    linkRelation: CHAIN_HEAL,
+    reverseLinkRelation: CHAIN_HEAL,
+    linkingEventId: [talents.CHAIN_HEAL_TALENT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+  },
+  //link riptide removal to chain heal for fotd
+  {
+    linkRelation: FLOW_OF_THE_TIDES,
+    reverseLinkRelation: FLOW_OF_THE_TIDES,
+    linkingEventId: [talents.RIPTIDE_TALENT.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(talents.FLOW_OF_THE_TIDES_TALENT);
+    },
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -238,5 +279,17 @@ export function getHealingRainHealEventsForTick(event: HealEvent) {
 
 export function getOverflowingShoresEvents(event: CastEvent) {
   return GetRelatedEvents(event, OVERFLOWING_SHORES) as HealEvent[];
+}
+
+export function wasRiptideConsumed(event: HealEvent): boolean {
+  return HasRelatedEvent(event, FLOW_OF_THE_TIDES);
+}
+
+export function getChainHeals(event: CastEvent): HealEvent[] {
+  return GetRelatedEvents(event, CHAIN_HEAL) as HealEvent[];
+}
+
+export function getChainHealGrouping(event: HealEvent) {
+  return [event].concat(GetRelatedEvents(event, CHAIN_HEAL_GROUPING) as HealEvent[]);
 }
 export default CastLinkNormalizer;

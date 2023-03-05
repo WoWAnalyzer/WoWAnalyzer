@@ -15,6 +15,9 @@ export const UNLEASH_LIFE_REMOVE = 'UnleashLifeRemoved';
 export const HEALING_RAIN = 'HealingRain';
 export const HEALING_RAIN_GROUPING = 'HealingRainGrouping';
 export const OVERFLOWING_SHORES = 'OverflowingShores';
+export const CHAIN_HEAL = 'ChainHeal';
+export const CHAIN_HEAL_GROUPING = 'ChainHealGrouping';
+export const FLOW_OF_THE_TIDES = 'FlowOfTheTides';
 //event link ms settings
 export const CAST_BUFFER_MS = 100;
 export const PWAVE_TRAVEL_MS = 1000;
@@ -22,8 +25,11 @@ export const PWAVE_TRAVEL_MS = 1000;
 //healing increases
 export const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
 export const UNLEASH_LIFE_CHAIN_HEAL_INCREASE = 0.15;
+export const FLOW_OF_THE_TIDES_INCREASE = 0.3;
 export const UNLEASH_LIFE_EXTRA_TARGETS = 2;
 export const HEALING_RAIN_TARGETS = 6;
+export const CHAIN_HEAL_TARGETS = 4;
+export const ANCESTRAL_REACH_TARGET = 1;
 
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',
