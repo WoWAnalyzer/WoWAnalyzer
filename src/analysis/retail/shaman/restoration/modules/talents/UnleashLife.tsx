@@ -18,9 +18,19 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
-import { RESTORATION_COLORS, UNLEASH_LIFE_HEALING_INCREASE } from '../../constants';
+import {
+  HEALING_RAIN_TARGETS,
+  RESTORATION_COLORS,
+  UNLEASH_LIFE_EXTRA_TARGETS,
+  UNLEASH_LIFE_HEALING_INCREASE,
+} from '../../constants';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
-import { isHealingWaveFromPrimordialWave } from '../../normalizers/CastLinkNormalizer';
+import {
+  getHealingRainEvents,
+  getHealingRainHealEventsForTick,
+  getOverflowingShoresEvents,
+  isHealingWaveFromPrimordialWave,
+} from '../../normalizers/CastLinkNormalizer';
 import {
   getUnleashLifeHealingWaves,
   isBuffedByUnleashLife,
@@ -94,13 +104,19 @@ class UnleashLife extends Analyzer {
   //chain heal
   ancestralReachActive: boolean;
   chainHealHealing: number = 0;
+  buffedChainHealTimestamp: number = Number.MIN_SAFE_INTEGER;
+
   //healing rain
   healingRainHealing: number = 0;
   overflowingShoresActive: boolean;
   overflowingShoresHealing: number = 0;
+  countedHealingRainEvents: Set<number> = new Set<number>();
+  extraTicks: number = 0;
+  missedTicks: number = 0;
+  extraOSTicks: number = 0;
+  missedOSTicks: number = 0;
 
   unleashLifeCount = 0;
-  buffedChainHealTimestamp: number = Number.MIN_SAFE_INTEGER;
 
   constructor(options: Options) {
     super(options);
@@ -158,7 +174,7 @@ class UnleashLife extends Analyzer {
     const spellId = event.ability.guid;
     if (isBuffedByUnleashLife(event)) {
       this.healingMap[spellId].casts += 1;
-      console.log('Unleash Life ' + event.ability.name + ': ', event);
+      debug && console.log('Unleash Life ' + event.ability.name + ': ', event);
       //handle healing wave
       if (spellId === TALENTS.HEALING_WAVE_TALENT.id) {
         this._onHealingWave(event);
@@ -221,7 +237,33 @@ class UnleashLife extends Analyzer {
   }
 
   private _onHealingRain(event: CastEvent) {
-    return;
+    //get all the healing rain events related to this cast
+    const healingRainEvents = getHealingRainEvents(event);
+    healingRainEvents.forEach((event) => {
+      //iterate through events grouped by tick to determine target hit count
+      if (!this.countedHealingRainEvents.has(event.timestamp)) {
+        this.countedHealingRainEvents.add(event.timestamp);
+        const tickEvents = getHealingRainHealEventsForTick(event);
+        const filteredTicks = tickEvents.splice(HEALING_RAIN_TARGETS);
+        if (filteredTicks.length < UNLEASH_LIFE_EXTRA_TARGETS) {
+          this.missedTicks += UNLEASH_LIFE_EXTRA_TARGETS - filteredTicks.length;
+        }
+        this.extraTicks += filteredTicks.length;
+        this.healingRainHealing += this._tallyHealing(filteredTicks);
+        this.healingMap[TALENTS.HEALING_RAIN_TALENT.id].amount += this._tallyHealing(filteredTicks);
+      }
+    });
+    //tally additional hits from overflowing shores if talented
+    if (this.overflowingShoresActive) {
+      const overflowingShoresEvents = getOverflowingShoresEvents(event);
+      const filteredhits = overflowingShoresEvents.splice(HEALING_RAIN_TARGETS);
+      if (filteredhits.length < UNLEASH_LIFE_EXTRA_TARGETS) {
+        this.missedOSTicks += UNLEASH_LIFE_EXTRA_TARGETS - filteredhits.length;
+      }
+      this.extraOSTicks += filteredhits.length;
+      this.overflowingShoresHealing += this._tallyHealing(filteredhits);
+      this.healingMap[TALENTS.HEALING_RAIN_TALENT.id].amount += this._tallyHealing(filteredhits);
+    }
   }
 
   private _onHealingWave(event: CastEvent) {
@@ -231,28 +273,35 @@ class UnleashLife extends Analyzer {
         const pwHealingWaves = ulHealingWaves.filter((event) =>
           isHealingWaveFromPrimordialWave(event),
         );
-        this.pwaveHealingWaveHealing += this._tallyHealing(
+        this.pwaveHealingWaveHealing += this._tallyHealingIncrease(
           pwHealingWaves,
           UNLEASH_LIFE_HEALING_INCREASE,
         );
-        this.healingWaveHealing += this._tallyHealing(
+        this.healingWaveHealing += this._tallyHealingIncrease(
           ulHealingWaves.filter((event) => !isHealingWaveFromPrimordialWave(event)),
           UNLEASH_LIFE_HEALING_INCREASE,
         );
       }
-      this.healingMap[event.ability.guid].amount += this._tallyHealing(
+      this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
         ulHealingWaves,
         UNLEASH_LIFE_HEALING_INCREASE,
       );
     }
   }
 
-  private _tallyHealing(events: HealEvent[], healIncrease: number): number {
+  private _tallyHealingIncrease(events: HealEvent[], healIncrease: number): number {
     if (events.length > 0) {
       return events.reduce(
         (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
         0,
       );
+    }
+    return 0;
+  }
+
+  private _tallyHealing(events: HealEvent[]): number {
+    if (events.length > 0) {
+      return events.reduce((amount, event) => amount + event.amount, 0);
     }
     return 0;
   }
@@ -263,6 +312,16 @@ class UnleashLife extends Analyzer {
     console.log('Healing Surge: ', this.healingMap[SPELLS.HEALING_SURGE.id]);
     console.log('Riptide: ', this.healingMap[TALENTS.RIPTIDE_TALENT.id]);
     console.log('Healing Wave: ', this.healingMap[TALENTS.HEALING_WAVE_TALENT.id]);
+    console.log(
+      'Healing Rain: ',
+      this.healingMap[TALENTS.HEALING_RAIN_TALENT.id],
+      'Missed Ticks: ',
+      this.missedTicks,
+      'Extra Ticks: ',
+      this.extraTicks,
+      'Extra OS Ticks: ',
+      this.extraOSTicks,
+    );
     return Object.values(this.healingMap).reduce(
       (sum, spell) => sum + spell.amount,
       0,

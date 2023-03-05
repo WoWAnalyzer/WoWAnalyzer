@@ -165,8 +165,8 @@ const EVENT_LINKS: EventLink[] = [
     },
     additionalCondition(linkingEvent, referencedEvent) {
       return (
-        (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID &&
-        (linkingEvent as HealEvent).targetID !== (referencedEvent as CastEvent).targetID
+        (linkingEvent as HealEvent).sourceID === (referencedEvent as HealEvent).sourceID &&
+        (linkingEvent as HealEvent).targetID !== (referencedEvent as HealEvent).targetID
       );
     },
   },
@@ -228,8 +228,15 @@ export function getRiptideCastEvent(event: ApplyBuffEvent | RefreshBuffEvent): C
   return null;
 }
 
-export function getHealingRainHealEvents(event: HealEvent) {
+export function getHealingRainEvents(event: CastEvent) {
+  return GetRelatedEvents(event, HEALING_RAIN) as HealEvent[];
+}
+
+export function getHealingRainHealEventsForTick(event: HealEvent) {
   return [event].concat(GetRelatedEvents(event, HEALING_RAIN_GROUPING) as HealEvent[]);
 }
 
+export function getOverflowingShoresEvents(event: CastEvent) {
+  return GetRelatedEvents(event, OVERFLOWING_SHORES) as HealEvent[];
+}
 export default CastLinkNormalizer;
