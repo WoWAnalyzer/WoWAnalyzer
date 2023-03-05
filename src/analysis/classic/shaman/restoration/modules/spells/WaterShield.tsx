@@ -3,7 +3,6 @@ import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
 import SPELLS from 'common/SPELLS/classic/shaman';
 
 class WaterShield extends Analyzer {

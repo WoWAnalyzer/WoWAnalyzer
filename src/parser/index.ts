@@ -42,7 +42,7 @@ import ClassicDruidRestoration from 'analysis/classic/druid/restoration';
 import ClassicMageArcane from 'analysis/classic/mage/arcane';
 import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
 import ClassicPriest from 'analysis/classic/priest';
-import ClassicShaman from 'analysis/classic/shaman';
+import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
 import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
@@ -108,7 +108,7 @@ const configs: Config[] = [
   ClassicMageArcane,
   ClassicPaladinHoly,
   ClassicPriest,
-  ClassicShaman,
+  ClassicShamanRestoration,
   ClassicHunterSurvival,
   ClassicHunterMarksman,
   ClassicWarlockAffliction,

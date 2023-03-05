@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/classic/shaman';
-import TotemTracker from '../../features/TotemTracker';
+import TotemTracker from '../TotemTracker';
 
 class GroundingTotem extends Analyzer {
   static dependencies = {
