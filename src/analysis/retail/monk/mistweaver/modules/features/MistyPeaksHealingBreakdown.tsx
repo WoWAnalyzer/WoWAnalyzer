@@ -43,7 +43,7 @@ class MistyPeaksHealingBreakdown extends Analyzer {
   renderMistyPeaksChart() {
     const items = [
       {
-        color: SPELL_COLORS.ENVELOPING_MIST,
+        color: SPELL_COLORS.DANCING_MISTS,
         label: 'Dancing Mists',
         spellId: TALENTS_MONK.DANCING_MISTS_TALENT.id,
         value: this.dancingMists.mistyPeaksHealingFromDancingMist,

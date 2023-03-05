@@ -3,6 +3,7 @@ import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
+import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -10,13 +11,15 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DANCING_MIST_CHANCE, RAPID_DIFFUSION_DURATION } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { getRemCountPerVivify, isFromVivify } from '../../normalizers/CastLinkNormalizer';
+import { getVivifiesPerCast, isFromVivify } from '../../normalizers/CastLinkNormalizer';
+import UpliftedSpirits from './UpliftedSpirits';
 
 const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
@@ -25,6 +28,13 @@ const RAPID_DIFFUSION_SPELLS = [
 const BASE_AVERAGE_REMS = 2.22;
 
 class Vivify extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+    upliftedSpirits: UpliftedSpirits,
+  };
+
+  protected spellUsable!: SpellUsable;
+  protected upliftedSpirits!: UpliftedSpirits;
   casts: number = 0;
 
   mainTargetHitsToCount: number = 0;
@@ -254,13 +264,27 @@ class Vivify extends Analyzer {
   }
 
   private _tallyCastEntry(event: CastEvent) {
-    const rems = getRemCountPerVivify(event);
+    const vivifyHits = getVivifiesPerCast(event) as HealEvent[];
+    let vivifyGoodCrits = 0;
+    let vivifyWastedCrits = 0;
+    if(this.upliftedSpirits.active){
+    vivifyHits.forEach((event) => {
+      if (event.hitType === HIT_TYPES.CRIT) {
+        if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
+          vivifyGoodCrits += 1;
+        } else {
+          vivifyWastedCrits += 1;
+        }
+      }
+    });
+    }
+    const rems = vivifyHits.length - 1;
     let value = QualitativePerformance.Fail;
     if (rems >= 10) {
       value = QualitativePerformance.Perfect;
     } else if (rems >= 8) {
       value = QualitativePerformance.Good;
-    } else if (rems >= Math.round(this.estimatedAverageReMs)) {
+    } else if (rems >= 6) {
       value = QualitativePerformance.Ok;
     }
 
@@ -268,6 +292,15 @@ class Vivify extends Analyzer {
       <>
         @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>, ReMs:{' '}
         <strong>{rems}</strong>
+        <br />
+        {this.upliftedSpirits.active && (
+          <>
+            <SpellLink id={this.upliftedSpirits.activeTalent.id} /> Cooldown Reduction:{' '}
+            {vivifyGoodCrits > 0 && <>{vivifyGoodCrits}s </>}
+            {vivifyWastedCrits > 0 && <>{vivifyWastedCrits}s wasted</>}
+            {vivifyGoodCrits + vivifyWastedCrits === 0 && <>0s</>}
+          </>
+        )}
       </>
     );
     this.castEntries.push({ value, tooltip });

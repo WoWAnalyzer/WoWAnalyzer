@@ -8,11 +8,11 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import * as AplCheck from './modules/core/AplCheck';
-import AplChoiceDescription from './modules/core/AplChoiceDescription';
+import * as AplCheck from './modules/core/apl/AplCheck';
+import AplChoiceDescription from './modules/core/apl/AplChoiceDescription';
 import { AplSectionData } from 'interface/guide/components/Apl';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
-import filterCelestial from './modules/core/ExplainCelestial';
+import filterCelestial from './modules/core/apl/ExplainCelestial';
 
 const explainers = {
   overcast: filterCelestial(defaultExplainers.overcastFillers),
@@ -39,7 +39,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
           modules.vivaciousVivification.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
-          modules.ancientTeachingsoftheMonastery.guideSubsection}
+          modules.ancientTeachings.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}

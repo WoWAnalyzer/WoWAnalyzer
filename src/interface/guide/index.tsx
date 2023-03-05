@@ -161,8 +161,12 @@ export const SectionHeader = ({
 /**
  * An expandable guide section. Defaults to expanded.
  */
-export const Section = ({ children, title }: React.PropsWithChildren<{ title: string }>) => {
-  const [isExpanded, setIsExpanded] = useState(true);
+export const Section = ({
+  children,
+  title,
+  expanded = true,
+}: React.PropsWithChildren<{ title: string; expanded?: boolean }>) => {
+  const [isExpanded, setIsExpanded] = useState(expanded);
 
   return (
     <ControlledExpandable

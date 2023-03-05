@@ -3,6 +3,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { Talent } from 'common/TALENTS/types';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
+import SPECS from 'game/SPECS';
 import { SpellLink, Tooltip } from 'interface';
 import { PerformanceMark } from 'interface/guide';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
@@ -146,6 +147,7 @@ export class MajorDefensive extends Analyzer {
 
   private talent: Talent;
   private buff: Spell;
+  private talentCategory: STATISTIC_CATEGORY;
 
   get spell() {
     return this.talent;
@@ -157,7 +159,10 @@ export class MajorDefensive extends Analyzer {
 
   constructor({ talent, buffSpell }: DefensiveOptions, options: Options) {
     super(options);
-
+    this.talentCategory =
+      this.selectedCombatant.specId === SPECS.MISTWEAVER_MONK.id
+        ? STATISTIC_CATEGORY.THEORYCRAFT
+        : STATISTIC_CATEGORY.TALENTS;
     this.active = this.selectedCombatant.hasTalent(talent);
     this.talent = talent;
     this.buff = buffSpell ?? talent;
@@ -301,7 +306,7 @@ export class MajorDefensive extends Analyzer {
       </MitigationTooltipBody>
     );
     return (
-      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible" tooltip={tooltip}>
+      <Statistic category={this.talentCategory} size="flexible" tooltip={tooltip}>
         <BoringValue
           label={
             <>

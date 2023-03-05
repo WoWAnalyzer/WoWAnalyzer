@@ -26,11 +26,11 @@ export function encodeFriendlyEventTargetString(event: AnyEvent) {
   if (!HasTarget(event)) {
     return null;
   }
-  return encodeTargetString(event.targetID, event.targetInstance);
+  return encodeTargetString(event.targetID, event.targetInstance, event.timestamp);
 }
 
-export function encodeTargetString(id: number, instance = 0) {
-  return `${id}.${instance}`;
+export function encodeTargetString(id: number, instance = 0, time: number) {
+  return `${id}.${instance}.${time}`;
 }
 
 abstract class Entities<T extends Entity> extends Analyzer {

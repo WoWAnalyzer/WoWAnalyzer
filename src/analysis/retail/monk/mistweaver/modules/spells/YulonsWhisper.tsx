@@ -86,7 +86,7 @@ class YulonsWhisper extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(20)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
       >
         <BoringValueText
           label={

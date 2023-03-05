@@ -8,15 +8,19 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { RUNIC_POWER_SCALE_FACTOR } from '../../constants';
+import RunicPowerGraph from './RunicPowerGraph';
 
 import RunicPowerTracker from './RunicPowerTracker';
 
 class RunicPowerDetails extends Analyzer {
   static dependencies = {
     runicPowerTracker: RunicPowerTracker,
+    runicPowerGraph: RunicPowerGraph,
   };
 
   protected runicPowerTracker!: RunicPowerTracker;
+  protected runicPowerGraph!: RunicPowerGraph;
 
   get wastedPercent() {
     return (
@@ -87,7 +91,12 @@ class RunicPowerDetails extends Analyzer {
       url: 'runic-power-usage',
       render: () => (
         <Panel>
-          <ResourceBreakdown tracker={this.runicPowerTracker} showSpenders />
+          {this.runicPowerGraph.plot}
+          <ResourceBreakdown
+            tracker={this.runicPowerTracker}
+            showSpenders
+            scaleFactor={RUNIC_POWER_SCALE_FACTOR}
+          />
         </Panel>
       ),
     };

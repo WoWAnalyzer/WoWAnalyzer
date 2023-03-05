@@ -59,20 +59,21 @@ class OmenOfClarity extends Analyzer {
   /** Guide subsection describing the proper usage of Rejuvenation */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink id={SPELLS.CLEARCASTING} />
-        </b>{' '}
-        procs reduce the cost of your next spell by 100%. It should ideally be used on high cost
-        abilities.
+      <>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.CLEARCASTING} />
+          </b>{' '}
+          procs reduce the cost of your next spell by 100%. It should ideally be used on high cost
+          abilities.
+        </p>
         {this._isResto && (
-          <>
-            <br />
+          <p>
             The best option for Restoration Druids being a <SpellLink id={SPELLS.LIFEBLOOM} /> which
             will cost nothing but return 50% of the cost of the spell, gaining you mana.
-          </>
+          </p>
         )}
-      </p>
+      </>
     );
 
     const data = (

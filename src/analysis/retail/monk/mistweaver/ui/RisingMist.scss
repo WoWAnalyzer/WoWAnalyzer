@@ -1,0 +1,32 @@
+@import 'interface/Theme';
+
+section {
+  margin: initial;
+}
+section {
+  & > .meta > header {
+    font-size: 20px;
+    padding: 1rem 2rem;
+    font-weight: bold;
+    background-color: #333a;
+  }
+}
+
+.subsection {
+  margin-top: 1rem;
+  margin-left: -20px;
+  > header {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 1rem 0;
+    border-top: 1px solid #333a;
+  }
+
+  .subsection {
+    margin-top: 0;
+    > header {
+      font-size: 16px;
+      border-top: none;
+    }
+  }
+}

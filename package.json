@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@types/react-toggle": "^4.0.3",
     "@wowanalyzer/react-tooltip-lite": "^3.1.1",
+    "core-js": "3.21.0",
     "es6-error": "^4.1.1",
     "make-plural": "^7.2.0",
     "prop-types": "^15.8.1",
@@ -35,7 +36,7 @@
     "sass-text-stroke": "1.2.0",
     "swr": "^2.0.0",
     "universal-cookie": "^4.0.4",
-    "vega": "~5.22.1",
+    "vega": "~5.23.0",
     "vega-lite": "^5.6.0"
   },
   "devDependencies": {

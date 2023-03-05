@@ -173,7 +173,7 @@ class EarthenWallTotem extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />}
         value={`${formatPercentage(this.earthenWallEfficiency)} %`}
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         position={STATISTIC_ORDER.OPTIONAL(60)}
         label={
           <Trans id="shaman.restoration.ewt.statistic.label">Earthen Wall Totem efficiency</Trans>

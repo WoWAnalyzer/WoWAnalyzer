@@ -141,17 +141,20 @@ class WildGrowth extends Analyzer {
   /** Guide subsection describing the proper usage of Wild Growth */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink id={SPELLS.WILD_GROWTH.id} />
-        </b>{' '}
-        is your best healing spell when multiple raiders are injured. It quickly heals a lot of
-        damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least 3
-        injured targets. Remember that only allies within 15 yds of the primary target can be hit -
-        don't cast this on an isolated player!
-        <br />
-        Wild Growth can proc <SpellLink id={SPELLS.REVITALIZE_MANA} />
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.WILD_GROWTH.id} />
+          </b>{' '}
+          is your best healing spell when multiple raiders are injured. It quickly heals a lot of
+          damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least
+          3 injured targets. Remember that only allies within 15 yds of the primary target can be
+          hit - don't cast this on an isolated player!
+        </p>
+        <p>
+          Wild Growth can proc <SpellLink id={SPELLS.REVITALIZE_MANA} />
+        </p>
+      </>
     );
 
     const data = (

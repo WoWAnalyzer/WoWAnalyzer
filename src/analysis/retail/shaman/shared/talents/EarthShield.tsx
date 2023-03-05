@@ -13,8 +13,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
-import { HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD } from '../constants';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 export const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
@@ -39,30 +38,18 @@ class EarthShield extends Analyzer {
       return;
     }
 
-    if (isRsham) {
-      this.category = STATISTIC_CATEGORY.GENERAL;
-    }
-    // TODO: Update for dragonflight
-    // const conduitRank = 0;
-    //
-    // if (conduitRank) {
-    //   this.earthShieldHealingIncrease += EMBRACE_OF_EARTH_RANKS[conduitRank] / 100;
-    // }
-
     // event listener for direct heals when taking damage with earth shield
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
       this.onEarthShieldHeal,
     );
 
-    const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED = HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD.filter(
-      (p) => p !== SPELLS.EARTH_SHIELD_HEAL,
-    );
+    // As of 2/23/2023 - all spells affected. Implement this constant if new spells are found to not be
+    // const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED = HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD.filter(
+    //   (p) => p !== SPELLS.EARTH_SHIELD_HEAL,);
+
     // event listener for healing being buffed by having earth shield on the target
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED),
-      this.onEarthShieldAmpSpellHeal,
-    );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onEarthShieldAmpSpellHeal);
   }
 
   get uptime() {
@@ -98,6 +85,17 @@ class EarthShield extends Analyzer {
     if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
       this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
     }
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic() {

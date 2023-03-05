@@ -533,7 +533,7 @@ const spells = spellIndexableList({
   BROADSIDE: {
     id: 193356,
     name: 'Broadside',
-    icon: 'ability_rogue_rollthebones06',
+    icon: 'ability_rogue_rollthebones07',
   },
   BLADE_RUSH_TALENT_BUFF: {
     // This is the energy gain buff
@@ -572,6 +572,19 @@ const spells = spellIndexableList({
     id: 195627,
     name: 'Opportunity',
     icon: 'ability_rogue_pistolshot',
+  },
+  AUDACITY_TALENT_BUFF: {
+    id: 386270,
+    name: 'Audacity',
+    icon: 'ability_rogue_ambush',
+  },
+
+  //Tiers
+
+  OUTLAW_ROGUE_TIER_28_2P_SET_BONUS: {
+    id: 394879,
+    name: 'Vicious Follow-up',
+    icon: 'spell_shadow_ritualofsacrifice',
   },
 });
 

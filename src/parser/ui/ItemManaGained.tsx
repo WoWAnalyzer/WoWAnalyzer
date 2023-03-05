@@ -6,14 +6,18 @@ interface Props {
   amount: number;
   useAbbrev?: boolean; // if true, use formatNumber
   approximate?: boolean;
+  customLabel?: string;
 }
-const ItemManaGained = ({ amount, approximate, useAbbrev }: Props) => {
+const ItemManaGained = ({ amount, approximate, useAbbrev, customLabel }: Props) => {
   const { combatLogParser: parser } = useCombatLogParser();
   return (
     <>
       <ManaIcon /> {approximate && '≈'}
       {formatThousands((amount / parser.fightDuration) * 1000 * 5)} MP5{' '}
-      <small>{useAbbrev ? formatNumber(amount) : formatThousands(amount)} total mana</small>
+      <small>
+        {useAbbrev ? formatNumber(amount) : formatThousands(amount)}{' '}
+        {customLabel ? customLabel : <>total mana</>}
+      </small>
     </>
   );
 };
