@@ -769,6 +769,11 @@ const spells = spellIndexableList({
     name: 'Flashpoint',
     icon: 'spell_fire_moltenblood',
   },
+  BURN_TO_ASHES_BUFF: {
+    id: 387154,
+    name: 'Burn to Ashes',
+    icon: 'ability_racial_forgedinflames',
+  },
 });
 
 export default spells;
