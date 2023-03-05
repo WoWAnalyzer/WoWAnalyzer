@@ -759,10 +759,20 @@ const spells = spellIndexableList({
     name: 'Rolling Havoc',
     icon: 'warlock_pvp_banehavoc',
   },
-  MADNESS_OF_AZHAQIR_BUFF: {
+  MADNESS_OF_AZJAQIR_CHAOS_BOLT_BUFF: {
     id: 387409,
-    name: "Madness of Azh'Aqir",
+    name: "Madness of the Azj'Aqir",
     icon: 'ability_warlock_chaosbolt',
+  },
+  MADNESS_OF_AZJAQIR_RAIN_OF_FIRE_BUFF: {
+    id: 387413,
+    name: "Madness of the Azj'Aqir",
+    icon: 'spell_shadow_rainoffire',
+  },
+  MADNESS_OF_AZJAQIR_SHADOWBURN_BUFF: {
+    id: 387414,
+    name: "Madness of the Azj'Aqir",
+    icon: 'spell_shadow_scourgebuild',
   },
   FLASHPOINT_BUFF: {
     id: 387263,
