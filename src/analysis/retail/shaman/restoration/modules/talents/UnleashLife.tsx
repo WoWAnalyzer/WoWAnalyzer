@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { SpellLink, TooltipElement } from 'interface';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
@@ -47,6 +47,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
+import { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
 
 const debug = false;
 
@@ -67,6 +68,7 @@ class UnleashLife extends Analyzer {
     riptideTracker: RiptideTracker,
     chainHealNormalizer: ChainHealNormalizer,
   };
+  unleashLifeItems: TalentAggregateBarSpec[] = [];
   chainHealNormalizer!: ChainHealNormalizer;
   protected riptideTracker!: RiptideTracker;
   protected cooldownThroughputTracker!: CooldownThroughputTracker;
@@ -351,31 +353,7 @@ class UnleashLife extends Analyzer {
     return 0;
   }
 
-  //DELETE -- FIX
   get totalBuffedHealing() {
-    if (debug) {
-      console.log('Wellspring Shield: ', this.healingMap[TALENTS.WELLSPRING_TALENT.id]);
-      console.log('Healing Surge: ', this.healingMap[SPELLS.HEALING_SURGE.id]);
-      console.log('Riptide: ', this.healingMap[TALENTS.RIPTIDE_TALENT.id]);
-      console.log('Healing Wave: ', this.healingMap[TALENTS.HEALING_WAVE_TALENT.id]);
-      console.log(
-        'Healing Rain: ',
-        this.healingMap[TALENTS.HEALING_RAIN_TALENT.id],
-        'Missed Ticks: ',
-        this.missedTicks,
-        'Extra Ticks: ',
-        this.extraTicks,
-        'Extra OS Ticks: ',
-        this.extraOSTicks,
-      );
-      console.log('Chain Heal: ', this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id]);
-      console.log(
-        'Downpour: ',
-        this.healingMap[TALENTS.DOWNPOUR_TALENT.id],
-        'ExtraCD: ',
-        this.additionalDownpourCD,
-      );
-    }
     return Object.values(this.healingMap).reduce((sum, spell) => sum + spell.amount, 0);
   }
 
@@ -397,55 +375,50 @@ class UnleashLife extends Analyzer {
         color: RESTORATION_COLORS.CHAIN_HEAL,
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
         spellId: TALENTS.CHAIN_HEAL_TALENT.id,
-        value: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].casts,
+        value: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
+        valueTooltip: <></>,
       },
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
         label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
         spellId: TALENTS.HEALING_WAVE_TALENT.id,
-        value: this.healingMap[TALENTS.HEALING_WAVE_TALENT.id].casts,
+        value: this.healingMap[TALENTS.HEALING_WAVE_TALENT.id].amount,
+        valueTooltip: <></>,
       },
       {
         color: RESTORATION_COLORS.HEALING_SURGE,
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE.id,
-        value: this.healingMap[SPELLS.HEALING_SURGE.id].casts,
+        value: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
+        valueTooltip: <></>,
       },
       {
         color: RESTORATION_COLORS.RIPTIDE,
         label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
         spellId: TALENTS.RIPTIDE_TALENT.id,
-        value: this.healingMap[TALENTS.RIPTIDE_TALENT.id].casts,
+        value: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
+        valueTooltip: <></>,
       },
       {
         color: RESTORATION_COLORS.HEALING_RAIN,
         label: <Trans id="shaman.restoration.spell.healing_rain">Healing Rain</Trans>,
         spellId: TALENTS.HEALING_RAIN_TALENT.id,
-        value: this.healingMap[TALENTS.HEALING_RAIN_TALENT.id].casts,
+        value: this.healingMap[TALENTS.HEALING_RAIN_TALENT.id].amount,
+        valueTooltip: <></>,
       },
       {
         color: RESTORATION_COLORS.WELLSPRING,
         label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
         spellId: TALENTS.WELLSPRING_TALENT.id,
-        value: this.healingMap[TALENTS.WELLSPRING_TALENT.id].casts,
+        value: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
+        valueTooltip: <></>,
       },
       {
         color: RESTORATION_COLORS.DOWNPOUR,
         label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
         spellId: TALENTS.DOWNPOUR_TALENT.id,
-        value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].casts,
-      },
-      {
-        color: RESTORATION_COLORS.UNUSED,
-        label: <Trans id="shaman.restoration.unleashLife.chart.unused.label">Unused Buffs</Trans>,
-        tooltip: (
-          <Trans id="shaman.restoration.unleashLife.chart.unused.label.tooltip">
-            The amount of Unleash Life buffs you did not use out of the total available. You cast{' '}
-            {this.unleashLifeCount} Unleash Lifes, of which you used{' '}
-            {this.unleashLifeCount - this.wastedBuffs}.
-          </Trans>
-        ),
-        value: this.wastedBuffs,
+        value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
+        valueTooltip: <></>,
       },
     ].filter((item) => item.value > 0);
     return <DonutChart items={items} />;
@@ -461,15 +434,19 @@ class UnleashLife extends Analyzer {
         <TalentSpellText talent={TALENTS.UNLEASH_LIFE_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
           <br />
-          <TooltipElement content={this.unleashLifeCastRatioChart}>
-            {this.buffIcon} {this.wastedBuffs} <small> wasted buffs</small>
-          </TooltipElement>
+          {this.buffIcon} {this.wastedBuffs} <small> wasted buffs</small>
         </TalentSpellText>
+        <aside className="pad">
+          <hr />
+          <header>
+            <label>Breakdown of Unleash Life Healing</label>
+          </header>
+          {this.unleashLifeCastRatioChart}
+        </aside>
       </Statistic>
     );
   }
 
-  //FIX
   subStatistic() {
     return (
       <StatisticListBoxItem

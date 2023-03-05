@@ -176,7 +176,7 @@ class PrimordialWave extends Analyzer {
           '% overheal)',
       },
       {
-        color: RESTORATION_COLORS.CHAIN_HEAL,
+        color: RESTORATION_COLORS.PRIMORDIAL_WAVE,
         label: 'Primordial Wave',
         spellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
         value: this.healing,
