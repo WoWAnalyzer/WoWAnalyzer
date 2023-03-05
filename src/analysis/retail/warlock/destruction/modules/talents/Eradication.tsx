@@ -10,9 +10,10 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { When, NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
 const ERADICATION_DAMAGE_BONUS = 0.1;
@@ -177,7 +178,7 @@ class Eradication extends Analyzer {
         size="flexible"
         tooltip={`Bonus damage: ${formatThousands(this.bonusDmg)}`}
       >
-        <BoringSpellValueText spellId={TALENTS.ERADICATION_TALENT.id}>
+        <TalentSpellText talent={TALENTS.ERADICATION_TALENT}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total
@@ -190,7 +191,7 @@ class Eradication extends Analyzer {
               buffed Chaos Bolts <sup>*</sup>
             </small>
           </TooltipElement>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
