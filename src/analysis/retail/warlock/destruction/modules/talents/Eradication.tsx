@@ -15,7 +15,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const MAX_TRAVEL_TIME = 3000; // Chaos Bolt being the slowest, takes around 2 seconds to land from max range, added a second to account for maybe target movement?
-const ERADICATION_DAMAGE_BONUS = 0.1;
+const ERADICATION_DAMAGE_BONUS_BASE = 0.05;
 const debug = false;
 
 type Spell = {
@@ -58,6 +58,10 @@ class Eradication extends Analyzer {
   };
 
   protected enemies!: Enemies;
+
+  ERADICATION_DAMAGE_BONUS: number =
+    ERADICATION_DAMAGE_BONUS_BASE *
+    this.selectedCombatant.getTalentRank(TALENTS.ERADICATION_TALENT);
 
   _buffedCB = 0;
   _totalCB = 0;
@@ -102,7 +106,7 @@ class Eradication extends Analyzer {
       return;
     }
 
-    this.bonusDmg += calculateEffectiveDamage(event, ERADICATION_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, this.ERADICATION_DAMAGE_BONUS);
   }
 
   _handleTravelSpellDamage(event: DamageEvent) {
@@ -142,7 +146,7 @@ class Eradication extends Analyzer {
     if (event.ability.guid === SPELLS.CHAOS_BOLT.id) {
       this._buffedCB += 1;
     }
-    this.bonusDmg += calculateEffectiveDamage(event, ERADICATION_DAMAGE_BONUS);
+    this.bonusDmg += calculateEffectiveDamage(event, this.ERADICATION_DAMAGE_BONUS);
     this.queue.splice(castIndex, 1);
   }
 
