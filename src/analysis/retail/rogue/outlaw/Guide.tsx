@@ -3,7 +3,7 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
-import { ResourceLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
@@ -100,7 +100,6 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
           <li>Builders, according to the priorities below.</li>
         </ol>
       </p>
-
       <p>
         This Action Priority List (APL) is a simplified version off the simc APL that can be found{' '}
         <a href="https://github.com/simulationcraft/simc/blob/dragonflight/engine/class_modules/apl/rogue/outlaw_df.simc">
@@ -110,6 +109,27 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
       </p>
       <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
       <hr />
+      <p>
+        <strong>Disclaimer:</strong> (Currently unsuported spells/talents)
+        <ul>
+          <li>
+            {' '}
+            <SpellLink id={TALENTS.GHOSTLY_STRIKE_TALENT} />
+          </li>
+          <li>
+            {' '}
+            <SpellLink id={TALENTS.GREENSKINS_WICKERS_TALENT} />
+          </li>
+          <li>
+            {' '}
+            <SpellLink id={TALENTS.KEEP_IT_ROLLING_TALENT} /> builds
+          </li>
+          <li>
+            {' '}
+            <SpellLink id={TALENTS.BLADE_FLURRY_TALENT} />
+          </li>
+        </ul>
+      </p>
       <p>You can use the accuracy here as a reference point to compare to other logs.</p>
     </Section>
   );
