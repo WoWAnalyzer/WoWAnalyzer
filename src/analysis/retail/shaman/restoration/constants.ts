@@ -21,8 +21,8 @@ export const FLOW_OF_THE_TIDES = 'FlowOfTheTides';
 export const DOWNPOUR = 'Downpour';
 //event link ms settings
 export const CAST_BUFFER_MS = 100;
-export const PWAVE_TRAVEL_MS = 1000;
-
+export const PWAVE_TRAVEL_MS = 1100;
+export const UNLEASH_LIFE_REMOVE_MS = 400;
 //healing increases
 export const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
 export const UNLEASH_LIFE_CHAIN_HEAL_INCREASE = 0.15;

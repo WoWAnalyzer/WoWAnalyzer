@@ -1,10 +1,12 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
+  ApplyBuffEvent,
   CastEvent,
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -14,7 +16,7 @@ import {
   UNLEASH_LIFE_REMOVE,
   CAST_BUFFER_MS,
   PWAVE_TRAVEL_MS,
-  UNLEASH_LIFE,
+  HARDCAST,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 
@@ -39,21 +41,35 @@ const EVENT_LINKS: EventLink[] = [
       talents.WELLSPRING_TALENT.id,
     ],
     referencedEventType: [EventType.Cast],
-    backwardBufferMs: CAST_BUFFER_MS,
-    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 255,
+    forwardBufferMs: 255,
     anyTarget: true,
     isActive(c) {
       return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
     },
   },
   {
-    linkRelation: UNLEASH_LIFE,
-    reverseLinkRelation: UNLEASH_LIFE,
-    linkingEventId: [talents.RIPTIDE_TALENT.id, SPELLS.HEALING_SURGE.id],
+    linkRelation: UNLEASH_LIFE_REMOVE,
+    reverseLinkRelation: UNLEASH_LIFE_REMOVE,
+    linkingEventId: [talents.UNLEASH_LIFE_TALENT.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [talents.RIPTIDE_TALENT.id],
+    referencedEventType: [EventType.Heal, EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: 255,
+    forwardBufferMs: 255,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
+    },
+  },
+  {
+    linkRelation: HARDCAST,
+    reverseLinkRelation: HARDCAST,
+    linkingEventId: [SPELLS.HEALING_SURGE.id],
     linkingEventType: [EventType.Heal],
-    referencedEventId: [talents.RIPTIDE_TALENT.id, SPELLS.HEALING_SURGE.id],
+    referencedEventId: [SPELLS.HEALING_SURGE.id],
     referencedEventType: [EventType.Cast],
-    backwardBufferMs: PWAVE_TRAVEL_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
       return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
@@ -61,7 +77,8 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         HasRelatedEvent(referencedEvent, UNLEASH_LIFE_REMOVE) &&
-        (linkingEvent as HealEvent).ability.guid === (referencedEvent as CastEvent).ability.guid
+        (linkingEvent as HealEvent).ability.guid === (referencedEvent as CastEvent).ability.guid &&
+        (linkingEvent as HealEvent).targetID === (referencedEvent as CastEvent).targetID
       );
     },
   },
@@ -93,8 +110,14 @@ class UnleashLifeNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isBuffedByUnleashLife(event: CastEvent | HealEvent): boolean {
-  return HasRelatedEvent(event, UNLEASH_LIFE_REMOVE) || HasRelatedEvent(event, UNLEASH_LIFE);
+export function getCastEvent(event: HealEvent): CastEvent {
+  return GetRelatedEvents(event, HARDCAST)[0] as CastEvent;
+}
+
+export function isBuffedByUnleashLife(
+  event: CastEvent | HealEvent | ApplyBuffEvent | RefreshBuffEvent,
+): boolean {
+  return HasRelatedEvent(event, UNLEASH_LIFE_REMOVE);
 }
 
 export function wasUnleashLifeConsumed(event: RemoveBuffEvent): boolean {

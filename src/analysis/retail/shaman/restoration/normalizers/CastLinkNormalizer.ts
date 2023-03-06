@@ -204,7 +204,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-      additionalCondition(linkingEvent, referencedEvent) {
+    additionalCondition(linkingEvent, referencedEvent) {
       return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
     },
   },
@@ -219,7 +219,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-      additionalCondition(linkingEvent, referencedEvent) {
+    additionalCondition(linkingEvent, referencedEvent) {
       return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
     },
   },
@@ -248,7 +248,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-    isActive(c){
+    isActive(c) {
       return c.hasTalent(talents.DOWNPOUR_TALENT);
     },
     additionalCondition(linkingEvent, referencedEvent) {
@@ -285,7 +285,10 @@ export function isFromPrimalTideCore(event: ApplyBuffEvent | HealEvent): boolean
   return !HasRelatedEvent(event, HARDCAST) && !HasRelatedEvent(event, RIPTIDE_PWAVE);
 }
 
-export function getRiptideCastEvent(event: ApplyBuffEvent | RefreshBuffEvent): CastEvent | null {
+//this should only be used for initial hit events if passing in a heal event, not ticks
+export function getRiptideCastEvent(
+  event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
+): CastEvent | null {
   if (isFromHardcast(event)) {
     return GetRelatedEvents(event, HARDCAST)[0] as CastEvent;
   } else if (isRiptideFromPrimordialWave(event)) {

@@ -7,19 +7,21 @@ import HotTracker from 'parser/shared/modules/HotTracker';
 import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import {
-  getRiptideCastEvent,
   isFromHardcast,
   isFromPrimalTideCore,
   isRiptideFromPrimordialWave,
 } from '../../normalizers/CastLinkNormalizer';
 import { isBuffedByUnleashLife } from '../../normalizers/UnleashLifeNormalizer';
+import UnleashLife from '../talents/UnleashLife';
 
 class RiptideAttributor extends Analyzer {
   static dependencies = {
     riptideTracker: RiptideTracker,
     combatants: Combatants,
+    unleashLife: UnleashLife,
   };
 
+  protected unleashLife!: UnleashLife;
   protected combatants!: Combatants;
   protected riptideTracker!: RiptideTracker;
 
@@ -55,8 +57,12 @@ class RiptideAttributor extends Analyzer {
 
   private _checkForUnleashLife(event: ApplyBuffEvent | RefreshBuffEvent) {
     //add UL attribution if present
-    const castEvent = getRiptideCastEvent(event);
-    if (castEvent && isBuffedByUnleashLife(castEvent)) {
+    //we need the additional checks here because of spellqueing
+    if (
+      isBuffedByUnleashLife(event) &&
+      this.unleashLife.lastRemoved <= event.timestamp &&
+      this.unleashLife.lastUlSpellId === event.ability.guid
+    ) {
       this.riptideTracker.addAttributionFromApply(this.uLAttrib, event);
     }
   }

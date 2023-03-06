@@ -27,6 +27,7 @@ import {
   UNLEASH_LIFE_CHAIN_HEAL_INCREASE,
   UNLEASH_LIFE_EXTRA_TARGETS,
   UNLEASH_LIFE_HEALING_INCREASE,
+  UNLEASH_LIFE_REMOVE_MS,
 } from '../../constants';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
 import {
@@ -38,6 +39,7 @@ import {
   getDownPourEvents,
 } from '../../normalizers/CastLinkNormalizer';
 import {
+  getCastEvent,
   getUnleashLifeHealingWaves,
   isBuffedByUnleashLife,
   wasUnleashLifeConsumed,
@@ -139,6 +141,9 @@ class UnleashLife extends Analyzer {
   downpourActive: boolean;
 
   unleashLifeCount = 0;
+  ulActive: boolean = false;
+  lastUlSpellId: number = -1;
+  lastRemoved: number = -1;
 
   constructor(options: Options) {
     super(options);
@@ -149,7 +154,6 @@ class UnleashLife extends Analyzer {
     );
     this.downpourActive = this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT);
     const spellFilter = [
-      TALENTS.RIPTIDE_TALENT,
       TALENTS.CHAIN_HEAL_TALENT,
       TALENTS.HEALING_WAVE_TALENT,
       SPELLS.HEALING_SURGE,
@@ -183,9 +187,19 @@ class UnleashLife extends Analyzer {
       this._onRemoveUL,
     );
   }
+  //necessary because riptide can be spellqued into the spell that actually consumed UL and event linking will match both
+  _wasAlreadyConsumed(event: CastEvent | HealEvent) {
+    if (this.lastRemoved + UNLEASH_LIFE_REMOVE_MS < event.timestamp || this.ulActive) {
+      this.ulActive = false;
+      this.lastUlSpellId = event.ability.guid;
+      return false;
+    }
+    return true;
+  }
 
   _onApplyUL(event: ApplyBuffEvent) {
     this.unleashLifeCount += 1;
+    this.ulActive = true;
   }
 
   _onHealUL(event: HealEvent) {
@@ -194,9 +208,17 @@ class UnleashLife extends Analyzer {
 
   _onCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (isBuffedByUnleashLife(event)) {
+    if (isBuffedByUnleashLife(event) && !this._wasAlreadyConsumed(event)) {
       this.healingMap[spellId].casts += 1;
-      debug && console.log('Unleash Life ' + event.ability.name + ': ', event);
+      debug &&
+        console.log(
+          'Unleash Life ' +
+            event.ability.name +
+            ' at ' +
+            this.owner.formatTimestamp(event.timestamp, 3) +
+            ' ',
+          event,
+        );
       switch (spellId) {
         case TALENTS.HEALING_WAVE_TALENT.id:
           this._onHealingWave(event);
@@ -217,6 +239,7 @@ class UnleashLife extends Analyzer {
   }
 
   _onRemoveUL(event: RemoveBuffEvent) {
+    this.lastRemoved = event.timestamp;
     if (wasUnleashLifeConsumed(event)) {
       return;
     }
@@ -228,7 +251,8 @@ class UnleashLife extends Analyzer {
   }
 
   private _onHealingSurge(event: HealEvent) {
-    if (isBuffedByUnleashLife(event)) {
+    const castEvent = getCastEvent(event);
+    if (castEvent && isBuffedByUnleashLife(castEvent)) {
       this.healingMap[event.ability.guid].amount += calculateEffectiveHealing(
         event,
         UNLEASH_LIFE_HEALING_INCREASE,
@@ -255,8 +279,17 @@ class UnleashLife extends Analyzer {
       return;
     }
     // initial hit
-    if (isBuffedByUnleashLife(event)) {
-      debug && console.log('Unleash Life Riptide Hit: ', event);
+    if (isBuffedByUnleashLife(event) && !this._wasAlreadyConsumed(event)) {
+      this.healingMap[spellId].casts += 1;
+      debug &&
+        console.log(
+          'Unleash Life ' +
+            event.ability.name +
+            ' at ' +
+            this.owner.formatTimestamp(event.timestamp, 3) +
+            ' ',
+          event,
+        );
       this.healingMap[spellId].amount += calculateEffectiveHealing(
         event,
         UNLEASH_LIFE_HEALING_INCREASE,
@@ -445,6 +478,7 @@ class UnleashLife extends Analyzer {
   }
 
   get unleashLifeCastRatioChart() {
+    debug && console.log(this.healingMap);
     const items = [
       {
         color: RESTORATION_COLORS.CHAIN_HEAL,
