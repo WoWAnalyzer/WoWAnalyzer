@@ -10,6 +10,15 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { Talent } from 'common/TALENTS/types';
 
+const HAVOCABLE_ABILITIES = [
+  SPELLS.CHAOS_BOLT,
+  SPELLS.INCINERATE,
+  SPELLS.CONFLAGRATE,
+  TALENTS.SOUL_FIRE_TALENT,
+  TALENTS.SOULBURN_TALENT,
+  SPELLS.IMMOLATE,
+];
+
 class Havoc extends Analyzer {
   get dps() {
     return (this.damage / this.owner.fightDuration) * 1000;
@@ -24,15 +33,6 @@ class Havoc extends Analyzer {
   damage = 0;
   talent: Talent = TALENTS.HAVOC_TALENT;
 
-  HAVOCABLE_ABILITY_IDS = [
-    SPELLS.CHAOS_BOLT,
-    SPELLS.INCINERATE,
-    SPELLS.CONFLAGRATE,
-    TALENTS.SOUL_FIRE_TALENT,
-    TALENTS.SOULBURN_TALENT,
-    SPELLS.IMMOLATE,
-  ].map((s) => s.id);
-
   constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS.MAYHEM_TALENT)) {
@@ -42,20 +42,17 @@ class Havoc extends Analyzer {
       this.selectedCombatant.hasTalent(TALENTS.HAVOC_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS.MAYHEM_TALENT);
 
-    if (this.active) {
-      this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
-    }
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(HAVOCABLE_ABILITIES),
+      this.onDamage,
+    );
   }
 
   onDamage(event: DamageEvent) {
     const enemy = this.enemies.getEntity(event);
     // filtering to just hits that can be duplicated will make this a little more accurate,
     // but it'll still also count spells cast directly on a target with havoc
-    if (
-      !enemy ||
-      !enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp) ||
-      !this.HAVOCABLE_ABILITY_IDS.includes(event.ability.guid)
-    ) {
+    if (!enemy || !enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp)) {
       return;
     }
 
