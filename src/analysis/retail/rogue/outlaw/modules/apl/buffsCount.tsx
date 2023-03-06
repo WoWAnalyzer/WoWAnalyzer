@@ -1,6 +1,5 @@
 import type Spell from 'common/SPELLS/Spell';
 import { EventType } from 'parser/core/Events';
-
 import { Condition, tenseAlt } from 'parser/shared/metrics/apl/index';
 
 // Not sure about this function or if it would be used by anything else than outlaw to check rtb buffs count:
@@ -10,36 +9,50 @@ export function buffsCount(
   spells: Spell[],
   count: number = 1,
   comparison: 'atLeast' | 'lessThan' = 'atLeast',
-  latencyOffset: number = 0,
-): Condition<number | null> {
+): Condition<{ [key: number]: number }> {
   return {
     key: `buffsCount-${spells.map((spell) => spell.id).join('-')}-${count}`,
-    init: () => 0,
+    init: () => ({}),
     update: (state, event) => {
       switch (event.type) {
         case EventType.ApplyBuff:
           if (spells.some((spell) => spell.id === event.ability.guid)) {
-            return state !== null ? state + 1 : 0;
+            if (state === null) {
+              state = {};
+            }
+            state[event.ability.guid] = event.timestamp;
+
+            return state;
           }
           break;
         case EventType.RemoveBuff:
           if (spells.some((spell) => spell.id === event.ability.guid)) {
-            return state !== null ? state - 1 : 0;
+            if (state !== null) {
+              delete state[event.ability.guid];
+            }
+            return state;
           }
           break;
       }
-
-      return state !== null ? state : 0;
+      return state;
     },
     validate: (state, event) => {
       if (state === null) {
         return false;
       }
 
+      let buffs = 0;
+      for (const timestamp of Object.values(state)) {
+        // we ignore buffs *just* applied, since they are most likely a result of this very spell cast
+        if (timestamp + 200 < event.timestamp) {
+          buffs += 1;
+        }
+      }
+
       if (comparison === 'atLeast') {
-        return state >= count;
+        return buffs >= count;
       } else {
-        return state < count;
+        return buffs < count;
       }
     },
     describe: (tense) => {

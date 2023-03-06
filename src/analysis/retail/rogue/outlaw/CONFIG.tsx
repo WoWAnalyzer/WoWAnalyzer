@@ -31,7 +31,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    'https://www.warcraftlogs.com/reports/PVf9yQjhGDzZaBmv#fight=18&type=damage-done&source=11',
+    '/report/t27zV8NLgPvJq3Kk/17-Mythic+Terros+-+Kill+(5:47)/Zirëael/standard/overview',
   guideDefault: true,
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

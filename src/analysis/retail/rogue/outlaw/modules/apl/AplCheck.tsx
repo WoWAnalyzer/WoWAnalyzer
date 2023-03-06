@@ -32,8 +32,6 @@ import { buffsCount } from './buffsCount';
 //--TODO: GS can't work for now until I finish working on gs debuff eventFabricator
 //        Add support for KiR builds
 //        BtE and SnD having variable duration depending on cp spent make their conditions innacurate for now
-//        1:43, 3:12, 3:44, 5:29 https://www.warcraftlogs.com/reports/t27zV8NLgPvJq3Kk#fight=17&type=damage-done&source=18, user cast rtb and the
-//            cast is flagged, this is due to my buffsCount function condition not having a slight delay akin to buff/debuffMissing
 //        Might wanna allow users to delay vanish without opp as it is barely worse
 //        SnD condition being rarely met it sometimes don't show in the apl if the user never casted the spell
 //        Add an optional rule to allow use of Ambush at 6cp with 2p and if bte isnt going to be pressed, not sure if fully possible (0.1% minmax)
