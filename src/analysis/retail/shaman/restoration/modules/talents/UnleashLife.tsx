@@ -233,6 +233,8 @@ class UnleashLife extends Analyzer {
           this._onDownpour(event);
           break;
         default:
+          //riptide, healing surge, and wellspring are handled
+          //with their own event listeners
           return;
       }
     }
@@ -278,7 +280,7 @@ class UnleashLife extends Analyzer {
       }
       return;
     }
-    // initial hit
+    //we use initial hit heal event here instead of cast because primordial wave riptide can also consume UL
     if (isBuffedByUnleashLife(event) && !this._wasAlreadyConsumed(event)) {
       this.healingMap[spellId].casts += 1;
       debug &&
@@ -330,6 +332,7 @@ class UnleashLife extends Analyzer {
   private _onHealingWave(event: CastEvent) {
     const ulHealingWaves = getUnleashLifeHealingWaves(event);
     if (ulHealingWaves.length > 0) {
+      //if used in combo with pwave, tally healing separately
       if (this.pwaveActive) {
         const pwHealingWaves = ulHealingWaves.filter((event) =>
           isHealingWaveFromPrimordialWave(event),
@@ -343,6 +346,7 @@ class UnleashLife extends Analyzer {
           UNLEASH_LIFE_HEALING_INCREASE,
         );
       }
+      //tally subtotal regardless
       this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
         ulHealingWaves,
         UNLEASH_LIFE_HEALING_INCREASE,
@@ -400,7 +404,7 @@ class UnleashLife extends Analyzer {
     return 0;
   }
 
-  private _tooltip(map: HealingMap, primary: TooltipData, secondary?: TooltipData) {
+  private _tooltip(primary: TooltipData, secondary?: TooltipData) {
     return (
       <>
         You used <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> on{' '}
@@ -485,7 +489,7 @@ class UnleashLife extends Analyzer {
         label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
         spellId: TALENTS.CHAIN_HEAL_TALENT.id,
         value: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
-        valueTooltip: this._tooltip(this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id], {
+        valueTooltip: this._tooltip({
           spellId: TALENTS.CHAIN_HEAL_TALENT.id,
           amount: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
           active: true,
@@ -498,7 +502,7 @@ class UnleashLife extends Analyzer {
         label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
         spellId: TALENTS.DOWNPOUR_TALENT.id,
         value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
-        valueTooltip: this._tooltip(this.healingMap[TALENTS.DOWNPOUR_TALENT.id], {
+        valueTooltip: this._tooltip({
           spellId: TALENTS.DOWNPOUR_TALENT.id,
           amount: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
           active: this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT),
@@ -510,7 +514,7 @@ class UnleashLife extends Analyzer {
         label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
         spellId: SPELLS.HEALING_SURGE.id,
         value: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
-        valueTooltip: this._tooltip(this.healingMap[SPELLS.HEALING_SURGE.id], {
+        valueTooltip: this._tooltip({
           spellId: SPELLS.HEALING_SURGE.id,
           amount: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
           active: true,
@@ -522,7 +526,6 @@ class UnleashLife extends Analyzer {
         spellId: TALENTS.HEALING_WAVE_TALENT.id,
         value: this.healingMap[TALENTS.HEALING_WAVE_TALENT.id].amount,
         valueTooltip: this._tooltip(
-          this.healingMap[TALENTS.HEALING_WAVE_TALENT.id],
           {
             spellId: TALENTS.HEALING_WAVE_TALENT.id,
             amount: this.healingWaveHealing,
@@ -541,7 +544,6 @@ class UnleashLife extends Analyzer {
         spellId: TALENTS.HEALING_RAIN_TALENT.id,
         value: this.healingMap[TALENTS.HEALING_RAIN_TALENT.id].amount,
         valueTooltip: this._tooltip(
-          this.healingMap[TALENTS.HEALING_RAIN_TALENT.id],
           {
             spellId: TALENTS.HEALING_RAIN_TALENT.id,
             amount: this.healingRainHealing,
@@ -563,7 +565,7 @@ class UnleashLife extends Analyzer {
         label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
         spellId: TALENTS.RIPTIDE_TALENT.id,
         value: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
-        valueTooltip: this._tooltip(this.healingMap[TALENTS.RIPTIDE_TALENT.id], {
+        valueTooltip: this._tooltip({
           spellId: TALENTS.RIPTIDE_TALENT.id,
           amount: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
           active: true,
@@ -574,7 +576,7 @@ class UnleashLife extends Analyzer {
         label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
         spellId: TALENTS.WELLSPRING_TALENT.id,
         value: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
-        valueTooltip: this._tooltip(this.healingMap[TALENTS.WELLSPRING_TALENT.id], {
+        valueTooltip: this._tooltip({
           spellId: TALENTS.WELLSPRING_TALENT.id,
           amount: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
           active: this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT),
