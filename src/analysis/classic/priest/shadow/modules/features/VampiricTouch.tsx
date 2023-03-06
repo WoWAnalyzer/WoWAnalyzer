@@ -1,12 +1,12 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
-import * as SPELLS from '../../SPELLS';
-import { Build } from 'analysis/classic/priest/CONFIG';
+
+import SPELLS from 'common/SPELLS/classic';
 
 class VampiricTouch extends Analyzer {
   static dependencies = {
@@ -15,7 +15,7 @@ class VampiricTouch extends Analyzer {
   protected enemies!: Enemies;
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.DEVOURING_PLAGUE) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.DEVOURING_PLAGUE.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -28,12 +28,6 @@ class VampiricTouch extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
-  }
-
-  constructor(options: Options) {
-    super(options);
-
-    this.active = options.owner.build === Build.SHADOW;
   }
 
   suggestions(when: When) {
@@ -56,7 +50,7 @@ class VampiricTouch extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.VAMPIRIC_TOUCH);
+    const history = this.enemies.getDebuffHistory(SPELLS.VAMPIRIC_TOUCH.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">

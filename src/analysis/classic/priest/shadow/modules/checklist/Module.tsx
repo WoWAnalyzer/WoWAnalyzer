@@ -1,39 +1,42 @@
+// Core
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import Component from './Component';
+// Shared
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import ManaValues from 'parser/shared/modules/ManaValues';
-import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
 import CombatPotionChecker from 'parser/classic/modules/items/CombatPotionChecker';
-
+import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
+// Features
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
-import PrayerOfMending from '../spells/PrayerOfMending';
-import Component from './Component';
-import ShadowWordPain from 'analysis/classic/priest/modules/spells/ShadowWordPain';
-import VampiricTouch from 'analysis/classic/priest/modules/spells/VampiricTouch';
-import DevouringPlague from 'analysis/classic/priest/modules/spells/DevouringPlague';
+// Spells
+import ShadowWordPain from 'analysis/classic/priest/shadow/modules/features/ShadowWordPain';
+import VampiricTouch from 'analysis/classic/priest/shadow/modules/features/VampiricTouch';
+import DevouringPlague from 'analysis/classic/priest/shadow/modules/features/DevouringPlague';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
     ...BaseChecklist.dependencies,
-    combatants: Combatants,
+    // Shared
     castEfficiency: CastEfficiency,
-    manaValues: ManaValues,
-    alwaysBeCasting: AlwaysBeCasting,
-    prayerOfMending: PrayerOfMending,
-    preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    combatants: Combatants,
     combatPotionChecker: CombatPotionChecker,
+    preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    // Features
+    alwaysBeCasting: AlwaysBeCasting,
+    // Spells
     shadowWordPain: ShadowWordPain,
     vampiricTouch: VampiricTouch,
     devouringPlague: DevouringPlague,
   };
 
-  protected combatants!: Combatants;
+  // Shared
   protected castEfficiency!: CastEfficiency;
-  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
-  protected prayerOfMending!: PrayerOfMending;
-  protected manaValues!: ManaValues;
-  protected alwaysBeCasting!: AlwaysBeCasting;
+  protected combatants!: Combatants;
   protected combatPotionChecker!: CombatPotionChecker;
+  protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  // Features
+  protected alwaysBeCasting!: AlwaysBeCasting;
+  // Spells
   protected shadowWordPain!: ShadowWordPain;
   protected vampiricTouch!: VampiricTouch;
   protected devouringPlague!: DevouringPlague;
@@ -45,10 +48,8 @@ class Checklist extends BaseChecklist {
         castEfficiency={this.castEfficiency}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-          prayerOfMending: this.prayerOfMending.prayerOfMendingThreshold,
-          manaLeft: this.manaValues.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
+          // Spells
           shadowWordPain: this.shadowWordPain.uptimeSuggestionThresholds,
           vampiricTouch: this.vampiricTouch.suggestionThresholds,
           devouringPlague: this.devouringPlague.suggestionThresholds,

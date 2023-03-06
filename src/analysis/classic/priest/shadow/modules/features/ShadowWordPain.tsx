@@ -5,10 +5,9 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
-import * as SPELLS from '../../SPELLS';
-import { Build } from 'analysis/classic/priest/CONFIG';
 import Events, { ApplyDebuffEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
-import { SHADOW_WEAVING_BUFF } from '../../SPELLS';
+
+import SPELLS from 'common/SPELLS/classic';
 
 interface ShadowWordPainTracker {
   applicationTime: number;
@@ -27,37 +26,35 @@ class ShadowWordPain extends Analyzer {
   private shadowWeavingDurationByStack = [0, 0, 0, 0, 0, 0];
 
   get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id) / this.owner.fightDuration;
   }
 
   get currentShadowWeavingStacks() {
-    return this.selectedCombatant.getBuffStacks(SHADOW_WEAVING_BUFF);
+    return this.selectedCombatant.getBuffStacks(SPELLS.SHADOW_WEAVING_BUFF.id);
   };
 
   shadowWeavingStacksPercentByRank(rank: number) {
     if (rank < 0 || rank >= this.shadowWeavingDurationByStack.length) {
       return 0;
     }
-    return this.shadowWeavingDurationByStack[rank] / this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN);
+    return this.shadowWeavingDurationByStack[rank] / this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id);
   }
 
   constructor(options: Options) {
     super(options);
 
-    this.active = options.owner.build === Build.SHADOW;
-
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell({ id: SPELLS.SHADOW_WORD_PAIN }),
+      Events.applydebuff.by(SELECTED_PLAYER).spell({ id: SPELLS.SHADOW_WORD_PAIN.id }),
       this.swpApplication,
     );
 
     this.addEventListener(
-      Events.refreshdebuff.by(SELECTED_PLAYER).spell({ id: SPELLS.SHADOW_WORD_PAIN }),
+      Events.refreshdebuff.by(SELECTED_PLAYER).spell({ id: SPELLS.SHADOW_WORD_PAIN.id }),
       this.swpRefresh,
     );
 
     this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell({ id: SPELLS.SHADOW_WORD_PAIN }),
+      Events.removedebuff.by(SELECTED_PLAYER).spell({ id: SPELLS.SHADOW_WORD_PAIN.id }),
       this.swpRemoval,
     );
 
@@ -131,8 +128,8 @@ class ShadowWordPain extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN} /> on the boss.
+          Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
@@ -148,9 +145,9 @@ class ShadowWordPain extends Analyzer {
     when(this.shadowWeavingSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You should apply <SpellLink id={SPELLS.SHADOW_WORD_PAIN} /> when you have 5 stacks of <SpellLink id={SHADOW_WEAVING_BUFF} />.
-          The damage of <SpellLink id={SPELLS.SHADOW_WORD_PAIN} /> snapshots when you apply it, but not when you refresh it.
-          The more stacks of <SpellLink id={SHADOW_WEAVING_BUFF} /> you have when applying SWP, the better.
+          You should apply <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> when you have 5 stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />.
+          The damage of <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> snapshots when you apply it, but not when you refresh it.
+          The more stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} /> you have when applying SWP, the better.
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
@@ -166,8 +163,8 @@ class ShadowWordPain extends Analyzer {
     when(this.shadowWordPainOverwriteThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          <SpellLink id={SPELLS.SHADOW_WORD_PAIN} /> is automatically refreshed by <SpellLink id={SPELLS.PAIN_AND_SIFFERING_TALENT} />.
-          Try to avoid hardcasting <SpellLink id={SPELLS.SHADOW_WORD_PAIN} /> unless you cast it with less than 5 stacks of <SpellLink id={SHADOW_WEAVING_BUFF} />
+          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> is automatically refreshed by <SpellLink id={SPELLS.PAIN_AND_SIFFERING_TALENT.id} />.
+          Try to avoid hardcasting <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> unless you cast it with less than 5 stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
@@ -182,11 +179,11 @@ class ShadowWordPain extends Analyzer {
   }
 
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.SHADOW_WORD_PAIN);
+    const history = this.enemies.getDebuffHistory(SPELLS.SHADOW_WORD_PAIN.id);
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.SHADOW_WORD_PAIN} />
+          <SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>
