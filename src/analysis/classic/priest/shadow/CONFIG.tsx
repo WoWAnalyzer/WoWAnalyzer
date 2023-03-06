@@ -35,7 +35,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/wYk6CvKQyaH2Rh7J',
+  exampleReport: '/report/wYk6CvKQyaH2Rh7J/7-Normal+General+Vezax+-+Kill+(6:13)/Ahrisela',
   // Add spells to display separately on the timeline
   timeline: {
     separateCastBars: [[]],
