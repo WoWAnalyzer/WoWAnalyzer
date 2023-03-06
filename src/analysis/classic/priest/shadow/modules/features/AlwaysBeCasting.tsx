@@ -32,7 +32,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             Your downtime can be improved. Try to Always Be Casting (ABC). If you have to move, use
             instant cast spells, such as
             {/* UPDATE THE SPELLS BELOW */}
-             <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />.
+            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or{' '}
+            <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />.
           </>,
         )
           .icon('spell_mage_altertime')

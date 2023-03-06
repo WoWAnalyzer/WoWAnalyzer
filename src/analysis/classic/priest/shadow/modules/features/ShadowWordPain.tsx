@@ -5,7 +5,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import UptimeBar from 'parser/ui/UptimeBar';
-import Events, { ApplyDebuffEvent, RefreshDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyDebuffEvent,
+  RefreshDebuffEvent,
+  RemoveDebuffEvent,
+} from 'parser/core/Events';
 
 import SPELLS from 'common/SPELLS/classic';
 
@@ -31,13 +35,16 @@ class ShadowWordPain extends Analyzer {
 
   get currentShadowWeavingStacks() {
     return this.selectedCombatant.getBuffStacks(SPELLS.SHADOW_WEAVING_BUFF.id);
-  };
+  }
 
   shadowWeavingStacksPercentByRank(rank: number) {
     if (rank < 0 || rank >= this.shadowWeavingDurationByStack.length) {
       return 0;
     }
-    return this.shadowWeavingDurationByStack[rank] / this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id);
+    return (
+      this.shadowWeavingDurationByStack[rank] /
+      this.enemies.getBuffUptime(SPELLS.SHADOW_WORD_PAIN.id)
+    );
   }
 
   constructor(options: Options) {
@@ -57,13 +64,13 @@ class ShadowWordPain extends Analyzer {
       Events.removedebuff.by(SELECTED_PLAYER).spell({ id: SPELLS.SHADOW_WORD_PAIN.id }),
       this.swpRemoval,
     );
-
   }
 
   swpApplication(event: ApplyDebuffEvent) {
     this.shadowWordPainTracker[event.targetID] = this.shadowWordPainTracker[event.targetID] || {};
     this.shadowWordPainTracker[event.targetID].applicationTime = event.timestamp;
-    this.shadowWordPainTracker[event.targetID].shadowWeavingStackCount = this.currentShadowWeavingStacks;
+    this.shadowWordPainTracker[event.targetID].shadowWeavingStackCount =
+      this.currentShadowWeavingStacks;
   }
 
   swpRefresh(event: RefreshDebuffEvent) {
@@ -75,7 +82,8 @@ class ShadowWordPain extends Analyzer {
       this.shadowWeavingDurationByStack[stackCount] += event.timestamp - applicationTime;
     }
     this.shadowWordPainTracker[event.targetID].applicationTime = event.timestamp;
-    this.shadowWordPainTracker[event.targetID].shadowWeavingStackCount = this.currentShadowWeavingStacks;
+    this.shadowWordPainTracker[event.targetID].shadowWeavingStackCount =
+      this.currentShadowWeavingStacks;
 
     this.overwrittenShadowWordPains += 1;
   }
@@ -85,7 +93,7 @@ class ShadowWordPain extends Analyzer {
     const applicationTime = this.shadowWordPainTracker[event.targetID].applicationTime;
     const stackCount = this.shadowWordPainTracker[event.targetID].shadowWeavingStackCount;
     this.shadowWeavingDurationByStack[stackCount] += event.timestamp - applicationTime;
-    delete (this.shadowWordPainTracker[event.targetID]);
+    delete this.shadowWordPainTracker[event.targetID];
   }
 
   get uptimeSuggestionThresholds() {
@@ -145,9 +153,11 @@ class ShadowWordPain extends Analyzer {
     when(this.shadowWeavingSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You should apply <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> when you have 5 stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />.
-          The damage of <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> snapshots when you apply it, but not when you refresh it.
-          The more stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} /> you have when applying SWP, the better.
+          You should apply <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> when you have 5 stacks of{' '}
+          <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />. The damage of{' '}
+          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> snapshots when you apply it, but not when
+          you refresh it. The more stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} /> you
+          have when applying SWP, the better.
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
@@ -163,8 +173,10 @@ class ShadowWordPain extends Analyzer {
     when(this.shadowWordPainOverwriteThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> is automatically refreshed by <SpellLink id={SPELLS.PAIN_AND_SIFFERING_TALENT.id} />.
-          Try to avoid hardcasting <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> unless you cast it with less than 5 stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />
+          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> is automatically refreshed by{' '}
+          <SpellLink id={SPELLS.PAIN_AND_SIFFERING_TALENT.id} />. Try to avoid hardcasting{' '}
+          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> unless you cast it with less than 5 stacks
+          of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')

@@ -84,7 +84,7 @@ const Header = ({
       </div>
 
       <div className="info container">
-        <div className="boss">
+        <div className="boss" data-testid="boss-difficulty-and-name">
           <h2>{getDifficultyLabel(fight.difficulty)}</h2>
           <h1>{boss ? boss.name : getBossName(fight, false)}</h1>
         </div>

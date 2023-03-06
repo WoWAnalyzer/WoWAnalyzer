@@ -27,7 +27,9 @@ class Shadowfiend extends Analyzer {
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onShadowfiendDamage);
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER_PET).spell({ id: SPELLS.SHADOW_FIEND_MANA_LEECH.id }),
+      Events.resourcechange
+        .by(SELECTED_PLAYER_PET)
+        .spell({ id: SPELLS.SHADOW_FIEND_MANA_LEECH.id }),
       this.onShadowfiendRegen,
     );
   }
