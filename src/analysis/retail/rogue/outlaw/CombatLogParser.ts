@@ -29,7 +29,6 @@ import Finishers from './modules/features/Finishers';
 import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
 import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
-import BladeFlurry from './modules/spells/BladeFlurry';
 import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
@@ -45,6 +44,7 @@ import FanTheHammerNormalizer from './normalizers/FanTheHammerNormalizer';
 import Guide from './Guide';
 import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
+import AplCheck from './modules/apl/AplCheck';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -95,7 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesEfficiency: RollTheBonesEfficiency,
     finishers: Finishers,
     sliceAndDiceUptime: SliceAndDiceUptime,
-    bladeFlurry: BladeFlurry,
     //Talents
     bladeRush: BladeRush,
     serratedBoneSpike: SerratedBoneSpike,
@@ -113,6 +112,8 @@ class CombatLogParser extends CoreCombatLogParser {
         extraSuggestion: 'You should be using Arcane Torrent whenever you have a free GCD for it.',
       },
     ] as const,
+
+    apl: AplCheck,
   };
 
   static guide = Guide;

@@ -24,7 +24,9 @@ const AOE_SCK = {
 
 const SHEILUNS_SHAOHAOS = {
   spell: talents.SHEILUNS_GIFT_TALENT,
-  condition: cnd.optional(cnd.buffStacks(SPELLS.SHEILUN_CLOUD_BUFF, { atLeast: 4, atMost: 10 })),
+  condition: cnd.optionalRule(
+    cnd.buffStacks(SPELLS.SHEILUN_CLOUD_BUFF, { atLeast: 4, atMost: 10 }),
+  ),
 };
 
 const VIVIFY_8_REMS = {
@@ -59,14 +61,12 @@ const VIVIFY_6_REMS = {
 
 const SOOM_BEFORE_VIVIFY = {
   spell: SPELLS.VIVIFY,
-  condition: cnd.or(
-      cnd.lastSpellCast(talents.SOOTHING_MIST_TALENT),
-    ),
-}
+  condition: cnd.or(cnd.lastSpellCast(talents.SOOTHING_MIST_TALENT)),
+};
 
 const BLACKOUT_KICK = {
   spell: SPELLS.BLACKOUT_KICK,
-  condition: cnd.optional(
+  condition: cnd.optionalRule(
     cnd.describe(
       cnd.spellCooldownRemaining(talents.RISING_SUN_KICK_TALENT, { atLeast: 3500, atMost: 12000 }),
       (tense) => (
@@ -93,8 +93,8 @@ const commonTop = [
   talents.RISING_SUN_KICK_TALENT,
   {
     spell: talents.RENEWING_MIST_TALENT,
-    condition: cnd.optional(cnd.spellAvailable(talents.RENEWING_MIST_TALENT),),
-  }, 
+    condition: cnd.optionalRule(cnd.spellAvailable(talents.RENEWING_MIST_TALENT)),
+  },
 ];
 
 const commonBottom = [talents.CHI_WAVE_TALENT];
@@ -127,7 +127,7 @@ const rotation_rm_at_sg = build([
   talents.CHI_BURST_TALENT,
   {
     spell: SPELLS.TIGER_PALM,
-    condition: cnd.optional(
+    condition: cnd.optionalRule(
       cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
     ),
   },
@@ -170,7 +170,7 @@ const rotation_rm_at_upw = build([
 ]);
 
 const rotation_rm_cf_shaohaos = build([
-   {
+  {
     spell: talents.RENEWING_MIST_TALENT,
     condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
       <>
@@ -187,7 +187,7 @@ const rotation_rm_cf_shaohaos = build([
   talents.CHI_BURST_TALENT,
   {
     spell: SPELLS.TIGER_PALM,
-    condition: cnd.optional(
+    condition: cnd.optionalRule(
       cnd.buffStacks(SPELLS.TEACHINGS_OF_THE_MONASTERY, { atLeast: 0, atMost: 3 }),
     ),
   },
