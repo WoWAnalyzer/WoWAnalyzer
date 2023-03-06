@@ -27,13 +27,13 @@ class ChainHealNormalizer extends Analyzer {
    * Due to how Chain Heal interacts with the combatlog, we have to take a lot of extra steps here.
    * Issues:
    * 1. The healing events are backwards [4,3,2,1]
-   * 2. If the Shaman heals himself, his healing event is always first [3,4,2,1] (3 = Shaman)
-   * 3. If 2. happens, the heal on the shaman is also happening before the cast event, which the lines above already deal with.
+   * 2. If the Shaman heals themselves, that healing event is always first [3,4,2,1] (3 = Shaman)
+   * 3. If 2. happens, the heal on the shaman is also happening before the cast event, which the event linking already dealt with.
    * External modifiers need to be reverse calculated:
    * 1. Mastery Effectiveness
    * 2. Deluge
    * 3. Crits
-   * 4. Flow of the Tides (if talented, has to be the primary target for riptide to be consumed)
+   * 4. Flow of the Tides (if talented && has to be the primary target for riptide to be consumed)
    *
    * NOTE: With everything else calc'ed correctly deluge will not matter,
    * since 20% variance by itself will not cause jumps that decrease by 30% to be ordered incorrectly
