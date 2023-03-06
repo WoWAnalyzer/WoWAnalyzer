@@ -1,4 +1,4 @@
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -8,6 +8,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { Talent } from 'common/TALENTS/types';
 
 const HAVOCABLE_ABILITIES = [
@@ -20,10 +21,6 @@ const HAVOCABLE_ABILITIES = [
 ];
 
 class Havoc extends Analyzer {
-  get dps() {
-    return (this.damage / this.owner.fightDuration) * 1000;
-  }
-
   static dependencies = {
     enemies: Enemies,
   };
@@ -88,10 +85,7 @@ class Havoc extends Analyzer {
         }
       >
         <TalentSpellText talent={this.talent}>
-          {formatNumber(this.dps)} DPS{' '}
-          <small>
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
-          </small>
+          <ItemDamageDone amount={this.damage} />
           {this.shouldShowUptime() && (
             <>
               <br />
