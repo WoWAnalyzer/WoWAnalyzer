@@ -19,6 +19,7 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
 
 import {
+  CHAIN_HEAL_TARGETS,
   DOWNPOUR_CD_PER_HIT,
   DOWNPOUR_TARGETS,
   HEALING_RAIN_TARGETS,
@@ -120,7 +121,7 @@ class UnleashLife extends Analyzer {
 
   //chain heal
   chainHealHealing: number = 0;
-  buffedChainHealTimestamp: number = Number.MIN_SAFE_INTEGER;
+  missedJumps: number = 0;
 
   //healing rain
   healingRainHealing: number = 0;
@@ -319,9 +320,17 @@ class UnleashLife extends Analyzer {
   private _onChainHeal(event: CastEvent) {
     const chainHealEvents = getChainHeals(event);
     if (chainHealEvents.length > 0) {
+      //target count check --- if less than 4 (5 w/ancestral reach), no extra hit
       const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(chainHealEvents);
-      const extraHit = orderedChainHeal.splice(orderedChainHeal.length - 1);
-      this.healingMap[event.ability.guid].amount += this._tallyHealing(extraHit);
+      if (
+        orderedChainHeal.length >
+        CHAIN_HEAL_TARGETS + this.selectedCombatant.getTalentRank(TALENTS.ANCESTRAL_REACH_TALENT)
+      ) {
+        const extraHit = orderedChainHeal.splice(orderedChainHeal.length - 1);
+        this.healingMap[event.ability.guid].amount += this._tallyHealing(extraHit);
+      } else {
+        this.missedJumps += 1;
+      }
       this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
         orderedChainHeal,
         UNLEASH_LIFE_CHAIN_HEAL_INCREASE,
@@ -446,6 +455,31 @@ class UnleashLife extends Analyzer {
           spellId: TALENTS.CHAIN_HEAL_TALENT.id,
           amount: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
           active: true,
+          extraHits: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].casts - this.missedJumps,
+          missedHits: this.missedJumps,
+        }),
+      },
+      {
+        color: RESTORATION_COLORS.DOWNPOUR,
+        label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
+        spellId: TALENTS.DOWNPOUR_TALENT.id,
+        value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
+        valueTooltip: this._tooltip(this.healingMap[TALENTS.DOWNPOUR_TALENT.id], {
+          spellId: TALENTS.DOWNPOUR_TALENT.id,
+          amount: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
+          active: this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT),
+          extraHits: this.extraDownpourHits,
+        }),
+      },
+      {
+        color: RESTORATION_COLORS.HEALING_SURGE,
+        label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
+        spellId: SPELLS.HEALING_SURGE.id,
+        value: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
+        valueTooltip: this._tooltip(this.healingMap[SPELLS.HEALING_SURGE.id], {
+          spellId: SPELLS.HEALING_SURGE.id,
+          amount: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
+          active: true,
         }),
       },
       {
@@ -466,28 +500,6 @@ class UnleashLife extends Analyzer {
             active: this.pwaveActive,
           },
         ),
-      },
-      {
-        color: RESTORATION_COLORS.HEALING_SURGE,
-        label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
-        spellId: SPELLS.HEALING_SURGE.id,
-        value: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
-        valueTooltip: this._tooltip(this.healingMap[SPELLS.HEALING_SURGE.id], {
-          spellId: SPELLS.HEALING_SURGE.id,
-          amount: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
-          active: true,
-        }),
-      },
-      {
-        color: RESTORATION_COLORS.RIPTIDE,
-        label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
-        spellId: TALENTS.RIPTIDE_TALENT.id,
-        value: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
-        valueTooltip: this._tooltip(this.healingMap[TALENTS.RIPTIDE_TALENT.id], {
-          spellId: TALENTS.RIPTIDE_TALENT.id,
-          amount: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
-          active: true,
-        }),
       },
       {
         color: RESTORATION_COLORS.HEALING_RAIN,
@@ -513,6 +525,17 @@ class UnleashLife extends Analyzer {
         ),
       },
       {
+        color: RESTORATION_COLORS.RIPTIDE,
+        label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
+        spellId: TALENTS.RIPTIDE_TALENT.id,
+        value: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
+        valueTooltip: this._tooltip(this.healingMap[TALENTS.RIPTIDE_TALENT.id], {
+          spellId: TALENTS.RIPTIDE_TALENT.id,
+          amount: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
+          active: true,
+        }),
+      },
+      {
         color: RESTORATION_COLORS.WELLSPRING,
         label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
         spellId: TALENTS.WELLSPRING_TALENT.id,
@@ -521,18 +544,6 @@ class UnleashLife extends Analyzer {
           spellId: TALENTS.WELLSPRING_TALENT.id,
           amount: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
           active: this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT),
-        }),
-      },
-      {
-        color: RESTORATION_COLORS.DOWNPOUR,
-        label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
-        spellId: TALENTS.DOWNPOUR_TALENT.id,
-        value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
-        valueTooltip: this._tooltip(this.healingMap[TALENTS.DOWNPOUR_TALENT.id], {
-          spellId: TALENTS.DOWNPOUR_TALENT.id,
-          amount: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
-          active: this.selectedCombatant.hasTalent(TALENTS.DOWNPOUR_TALENT),
-          extraHits: this.extraDownpourHits,
         }),
       },
     ].filter((item) => item.value > 0);
