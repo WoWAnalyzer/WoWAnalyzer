@@ -1,7 +1,7 @@
-import { formatNumber, formatPercentage } from 'common/format';
+import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Options } from 'parser/core/Analyzer';
-import { SpellLink } from 'interface';
+import { Panel, SpellIcon, SpellLink } from 'interface';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -9,12 +9,14 @@ import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HotTracker, { Attribution, Tracker } from 'parser/shared/modules/HotTracker';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION } from '../../constants';
+import { ATTRIBUTION_STRINGS, RISING_MIST_EXTENSION, SPELL_COLORS } from '../../constants';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
 import T29TierSet from '../dragonflight/tier/T29MWTier';
+import { Section, SubSection } from 'interface/guide';
+import { CSSProperties } from 'react';
+import '../../ui/RisingMist.scss';
 
 const debug = false;
 
@@ -143,7 +145,7 @@ class RisingMist extends Analyzer {
       this.extraEFOverhealing / (this.extraEFhealing + this.extraEFOverhealing),
     );
   }
-
+  hotsBySpell = new Map<number, Tracker[]>();
   risingMistCount: number = 0;
   risingMists: Attribution[] = [];
   remCount: number = 0;
@@ -391,6 +393,240 @@ class RisingMist extends Analyzer {
         </ul>
       </>
     );
+  }
+
+  getAverageDuration(hotHistory: Tracker[]) {
+    const duration = hotHistory.reduce((sum, hot) => sum + this.getDuration(hot), 0);
+    return ' - Average Duration: ' + formatDuration(duration / hotHistory.length) + ' seconds';
+  }
+
+  getSource(hot: Tracker) {
+    if (this.hotTracker.fromDancingMists(hot)) {
+      return 'Dancing Mist';
+    } else if (this.hotTracker.fromHardcast(hot)) {
+      return 'Hardcast';
+    } else if (this.hotTracker.fromRapidDiffusion(hot)) {
+      return 'Rapid Diffusion';
+    } else if (this.hotTracker.fromMistyPeaks(hot)) {
+      return 'Misty Peaks';
+    } else if (this.hotTracker.fromMistsOfLife(hot)) {
+      return 'Mists of Life';
+    }
+  }
+
+  getSecondaryIcon(hot: Tracker) {
+    //hardcast
+    if (hot.maxDuration! >= 60000) {
+      return <SpellIcon id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />;
+    }
+    if (this.hotTracker.fromMistsOfLife(hot)) {
+      return <SpellIcon id={TALENTS_MONK.LIFE_COCOON_TALENT.id} />;
+    }
+    //rd
+    if (this.hotTracker.fromRapidDiffusionEnvelopingMist(hot)) {
+      return <SpellIcon id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} />;
+    }
+    if (this.hotTracker.fromRapidDiffusionRisingSunKick(hot)) {
+      return <SpellIcon id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />;
+    }
+    //dm
+    if (this.hotTracker.fromDancingMistRapidDiffusion(hot)) {
+      return <SpellIcon id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id} />;
+    }
+    if (this.hotTracker.fromDancingMistMistsOfLife(hot)) {
+      return <SpellIcon id={TALENTS_MONK.LIFE_COCOON_TALENT.id} />;
+    }
+  }
+
+  getDuration(hot: Tracker) {
+    let duration = hot.end - hot.start;
+    if (hot.maxDuration && duration > hot.maxDuration) {
+      duration = hot.maxDuration;
+    }
+    return duration;
+  }
+
+  getSpellColor(hot: Tracker) {
+    if (hot.spellId === SPELLS.RENEWING_MIST_HEAL.id) {
+      return SPELL_COLORS.RENEWING_MIST;
+    }
+    if (hot.spellId === SPELLS.ESSENCE_FONT_BUFF.id) {
+      return SPELL_COLORS.ESSENCE_FONT;
+    }
+    if (hot.spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
+      return SPELL_COLORS.ENVELOPING_MIST;
+    }
+    return '#70b570';
+  }
+
+  hotTable(hotId: number, hotHistory: Tracker[], attribution: string) {
+    const hotSpan = (id: number, style: React.CSSProperties = { float: 'left' }) => {
+      const hots = this.hotTracker.hotHistory.filter((hot) => {
+        return hot.spellId === id;
+      });
+      if (!hots) {
+        return '';
+      }
+      return hots[0].name;
+    };
+    const hotTable = ([hotId, hotHistory, attribution]: [number, Tracker[], string]) => {
+      const tableEntries = hotHistory;
+      if (tableEntries.length === 0) {
+        return null;
+      }
+      const liDivTitle: CSSProperties = {
+        display: 'inline-block',
+        float: 'left',
+        paddingRight: '5px',
+        width: '30%',
+      };
+      const liDivLabel: CSSProperties = {
+        display: 'inline-block',
+        float: 'left',
+        paddingRight: '10px',
+      };
+      const liDivBar: CSSProperties = { display: 'inline-block', float: 'left', width: '25%' };
+      return (
+        <Section
+          expanded={false}
+          title={
+            hotSpan.call(this, hotId) +
+            (attribution.length > 0 ? ' - ' + attribution : '') +
+            this.getAverageDuration(hotHistory)
+          }
+        >
+          <SubSection>
+            <div style={liDivTitle}>HoT and Source</div>
+
+            <div
+              style={{
+                display: 'inline-block',
+                float: 'left',
+                paddingRight: '5px',
+                paddingLeft: '85px',
+                width: '45%',
+              }}
+            >
+              Duration and Percent Extended
+            </div>
+          </SubSection>
+          <ul className="list">
+            {tableEntries.map((tracker) => (
+              <li
+                key={tracker.spellId}
+                className="item clearfix"
+                style={{ padding: '10px 10px', display: 'inline-block', width: '100%' }}
+              >
+                <div style={liDivTitle}>
+                  {this.getSecondaryIcon(tracker)}
+                  <SpellLink id={tracker.spellId} /> - {this.getSource(tracker)} @
+                  <strong>{this.owner.formatTimestamp(tracker.start, 2)}</strong>
+                </div>
+                <div style={liDivLabel}>{formatDuration(this.getDuration(tracker))}</div>
+                <div className="flex performance-bar-container" style={liDivBar}>
+                  <div
+                    className="flex-sub performance-bar"
+                    style={{
+                      width: `${
+                        tracker.maxDuration
+                          ? formatPercentage(this.getDuration(tracker) / tracker.maxDuration)
+                          : '100'
+                      }%`,
+                      backgroundColor: `${this.getSpellColor(tracker)}`,
+                    }}
+                  />
+                </div>
+                <div className="text-left" style={liDivLabel}>
+                  {tracker.maxDuration ? (
+                    <>{formatPercentage(this.getDuration(tracker) / tracker.maxDuration)}</>
+                  ) : (
+                    <>100</>
+                  )}
+                  %
+                </div>
+              </li>
+            ))}
+          </ul>
+        </Section>
+      );
+    };
+    return hotTable([hotId, hotHistory, attribution]);
+  }
+
+  entries() {
+    const rementries = this.hotTable(
+      SPELLS.RENEWING_MIST_HEAL.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) =>
+          tracker.spellId === SPELLS.RENEWING_MIST_HEAL.id &&
+          this.hotTracker.fromHardcast(tracker) &&
+          !this.hotTracker.fromDancingMists(tracker),
+      ),
+      'Hardcast',
+    );
+    const rdRemEntries = this.hotTable(
+      SPELLS.RENEWING_MIST_HEAL.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) =>
+          tracker.spellId === SPELLS.RENEWING_MIST_HEAL.id &&
+          this.hotTracker.fromRapidDiffusion(tracker) &&
+          !this.hotTracker.fromDancingMists(tracker),
+      ),
+      'Rapid Diffusion',
+    );
+    const dmRemEntries = this.hotTable(
+      SPELLS.RENEWING_MIST_HEAL.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) =>
+          tracker.spellId === SPELLS.RENEWING_MIST_HEAL.id &&
+          this.hotTracker.fromDancingMists(tracker),
+      ),
+      'Dancing Mist',
+    );
+    const efentries = this.hotTable(
+      SPELLS.ESSENCE_FONT_BUFF.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) => tracker.spellId === SPELLS.ESSENCE_FONT_BUFF.id,
+      ),
+      '',
+    );
+    const mistyPeaksentries = this.hotTable(
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) =>
+          tracker.spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id &&
+          this.hotTracker.fromMistyPeaks(tracker),
+      ),
+      'Misty Peaks',
+    );
+    const envEntries = this.hotTable(
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      this.hotTracker.hotHistory.filter(
+        (tracker) =>
+          tracker.spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id &&
+          this.hotTracker.fromHardcast(tracker),
+      ),
+      'Hardcast',
+    );
+
+    return [rementries, rdRemEntries, dmRemEntries, envEntries, mistyPeaksentries, efentries];
+  }
+
+  tab() {
+    return {
+      title: 'Rising Mist',
+      url: 'rising-mist',
+      render: () => (
+        <Panel
+          title="Rising Mist Extension"
+          explanation="Listing of each applied hots' total duration after extension. *Keep in mind that our current 4-piece set bonus can extend hots past the 100% of max duration limit of Rising Mist*"
+        >
+          <Section title="Click to expand/collapse each section for each hot by source application">
+            {this.entries()}
+          </Section>
+        </Panel>
+      ),
+    };
   }
 }
 

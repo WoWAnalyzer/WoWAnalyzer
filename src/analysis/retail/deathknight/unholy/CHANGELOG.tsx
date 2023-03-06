@@ -1,9 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS/deathknight';
+import TALENTS from 'common/TALENTS/deathknight';
 import { AlexanderJKremer, Bicepspump, Khazak } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 3), `Updated suggestion text for ${<SpellLink id={TALENTS.COMMANDER_OF_THE_DEAD_TALENT.id}/>}`, Khazak),
   change(date(2023, 2, 7), 'Fixed multiple SpellUsable errors', Khazak),
   change(date(2023, 1, 27), 'Added tracker for Vile Infusion', Bicepspump),
   change(date(2023, 1, 24), `Added ${<SpellLink id={SPELLS.T29_GHOULISH_INFUSION.id}/>}'s haste buff`, Khazak),

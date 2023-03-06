@@ -268,7 +268,7 @@ class RisingMistBreakdown extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(1)}
-        footer={<>Mouseover for a detailed breakdown of each spell's contribution</>}
+        footer={<>See the Rising Mist tab for HoT extension details</>}
         smallFooter
         tooltip={this.risingMist.toolTip()}
         wide
