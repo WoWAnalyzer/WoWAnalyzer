@@ -34,8 +34,7 @@ class BurnToAshes extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}>
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <TalentSpellText talent={TALENTS.BURN_TO_ASHES_TALENT}>
           {formatPercentage(this.buffedCasts / this.totalCasts, 0)}%{' '}
           <TooltipElement content={`${this.buffedCasts} / ${this.totalCasts}`}>
@@ -43,10 +42,8 @@ class BurnToAshes extends Analyzer {
           </TooltipElement>
         </TalentSpellText>
       </Statistic>
-    )
+    );
   }
-
-
 }
 
 export default BurnToAshes;

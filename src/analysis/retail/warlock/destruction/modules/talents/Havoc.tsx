@@ -31,14 +31,16 @@ class Havoc extends Analyzer {
     TALENTS.SOUL_FIRE_TALENT,
     TALENTS.SOULBURN_TALENT,
     SPELLS.IMMOLATE,
-  ].map(s => s.id)
+  ].map((s) => s.id);
 
   constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS.MAYHEM_TALENT)) {
       this.talent = TALENTS.MAYHEM_TALENT;
     }
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HAVOC_TALENT) || this.selectedCombatant.hasTalent(TALENTS.MAYHEM_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.HAVOC_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.MAYHEM_TALENT);
 
     if (this.active) {
       this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
@@ -49,7 +51,11 @@ class Havoc extends Analyzer {
     const enemy = this.enemies.getEntity(event);
     // filtering to just hits that can be duplicated will make this a little more accurate,
     // but it'll still also count spells cast directly on a target with havoc
-    if (!enemy || !enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp) || !this.HAVOCABLE_ABILITY_IDS.includes(event.ability.guid)) {
+    if (
+      !enemy ||
+      !enemy.hasBuff(SPELLS.HAVOC.id, event.timestamp) ||
+      !this.HAVOCABLE_ABILITY_IDS.includes(event.ability.guid)
+    ) {
       return;
     }
 

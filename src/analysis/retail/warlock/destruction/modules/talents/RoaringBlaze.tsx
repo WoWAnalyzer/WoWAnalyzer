@@ -25,17 +25,13 @@ class RoaringBlaze extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.ROARING_BLAZE_TALENT);
   }
 
-
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.ROARING_BLAZE_DAMAGE.id) / this.owner.fightDuration;
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size='flexible'
-      >
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <TalentSpellText talent={TALENTS.ROARING_BLAZE_TALENT}>
           <UptimeIcon />
           {formatPercentage(this.uptime, 0)}%<small> uptime</small>
