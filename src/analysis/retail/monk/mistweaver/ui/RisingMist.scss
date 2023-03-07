@@ -1,14 +1,11 @@
-@import 'interface/Theme';
-
 section {
   margin: initial;
 }
-section {
-  & > .meta > header {
-    font-size: 20px;
-    padding: 1rem 2rem;
-    font-weight: bold;
-    background-color: #333a;
+.panel {
+  section {
+    & > .meta > header {
+      padding: 1rem 1rem;
+    }
   }
 }
 
