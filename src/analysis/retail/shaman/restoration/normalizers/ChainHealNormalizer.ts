@@ -1,10 +1,10 @@
 import { FLOW_OF_THE_TIDES_INCREASE } from '../constants';
 import talents from 'common/TALENTS/shaman';
-import { HealEvent } from 'parser/core/Events';
+import { CastEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { wasRiptideConsumed } from './CastLinkNormalizer';
+import { getChainHeals, wasRiptideConsumed } from './CastLinkNormalizer';
 import Analyzer from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 
@@ -38,7 +38,8 @@ class ChainHealNormalizer extends Analyzer {
    * NOTE: With everything else calc'ed correctly deluge will not matter,
    * since 20% variance by itself will not cause jumps that decrease by 30% to be ordered incorrectly
    * */
-  public normalizeChainHealOrder(events: HealEvent[]): HealEvent[] {
+  public normalizeChainHealOrder(event: CastEvent): HealEvent[] {
+    const events = getChainHeals(event);
     const baseHealEvents: BufferHealEvent[] = [];
     if (events.length > 0) {
       events.forEach((event) => baseHealEvents.push(this.calculateBaseChainHeal(event)));

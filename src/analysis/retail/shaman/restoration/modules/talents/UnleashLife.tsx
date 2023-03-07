@@ -10,6 +10,7 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   HealEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
@@ -35,7 +36,6 @@ import {
   getHealingRainHealEventsForTick,
   getOverflowingShoresEvents,
   isHealingWaveFromPrimordialWave,
-  getChainHeals,
   getDownPourEvents,
 } from '../../normalizers/CastLinkNormalizer';
 import {
@@ -355,10 +355,9 @@ class UnleashLife extends Analyzer {
   }
 
   private _onChainHeal(event: CastEvent) {
-    const chainHealEvents = getChainHeals(event);
-    if (chainHealEvents.length > 0) {
+    const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
+    if (orderedChainHeal.length > 0) {
       //target count check --- if less than 4 (5 w/ancestral reach), no extra hit
-      const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(chainHealEvents);
       if (
         orderedChainHeal.length >
         CHAIN_HEAL_TARGETS + this.selectedCombatant.getTalentRank(TALENTS.ANCESTRAL_REACH_TALENT)
@@ -492,7 +491,7 @@ class UnleashLife extends Analyzer {
         valueTooltip: this._tooltip({
           spellId: TALENTS.CHAIN_HEAL_TALENT.id,
           amount: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
-          active: true,
+          active: this.selectedCombatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT),
           extraHits: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].casts - this.missedJumps,
           missedHits: this.missedJumps,
         }),
@@ -587,12 +586,20 @@ class UnleashLife extends Analyzer {
       .sort((a, b) => b.value - a.value);
     return <DonutChart items={items} />;
   }
+  // external function for other modules that need  the additional checks here because of spellqueing
+  _isBuffedByUnleashLife(event: CastEvent | HealEvent | ApplyBuffEvent | RefreshBuffEvent) {
+    return (
+      isBuffedByUnleashLife(event) &&
+      this.lastRemoved <= event.timestamp &&
+      this.lastUlSpellId === event.ability.guid
+    );
+  }
 
   statistic() {
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.OPTIONAL(15)}
+        position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
       >
         <TalentSpellText talent={TALENTS.UNLEASH_LIFE_TALENT}>
