@@ -47,7 +47,6 @@ import UnleashLife from './modules/talents/UnleashLife';
 import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
 // Spells
-// Legendaries
 // Shared
 // Normalizers
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
@@ -59,6 +58,7 @@ import RiptideTracker from './modules/core/RiptideTracker';
 import RiptideAttributor from './modules/core/RiptideAttributor';
 import PrimalTideCore from './modules/talents/PrimalTideCore';
 import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
+import AncestralReach from './modules/talents/AncestralReach';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -104,6 +104,7 @@ class CombatLogParser extends CoreCombatLogParser {
     undercurrent: Undercurrent,
     primalTideCore: PrimalTideCore,
     wavespeakersBlessing: WavespeakersBlessing,
+    ancestralReach: AncestralReach,
 
     // Spells
     chainHeal: ChainHeal,

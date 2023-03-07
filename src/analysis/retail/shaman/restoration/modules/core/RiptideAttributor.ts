@@ -11,7 +11,6 @@ import {
   isFromPrimalTideCore,
   isRiptideFromPrimordialWave,
 } from '../../normalizers/CastLinkNormalizer';
-import { isBuffedByUnleashLife } from '../../normalizers/UnleashLifeNormalizer';
 import UnleashLife from '../talents/UnleashLife';
 
 class RiptideAttributor extends Analyzer {
@@ -58,11 +57,7 @@ class RiptideAttributor extends Analyzer {
   private _checkForUnleashLife(event: ApplyBuffEvent | RefreshBuffEvent) {
     //add UL attribution if present
     //we need the additional checks here because of spellqueing
-    if (
-      isBuffedByUnleashLife(event) &&
-      this.unleashLife.lastRemoved <= event.timestamp &&
-      this.unleashLife.lastUlSpellId === event.ability.guid
-    ) {
+    if (this.unleashLife._isBuffedByUnleashLife(event)) {
       this.riptideTracker.addAttributionFromApply(this.uLAttrib, event);
     }
   }

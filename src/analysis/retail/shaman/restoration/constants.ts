@@ -27,6 +27,9 @@ export const UNLEASH_LIFE_REMOVE_MS = 400;
 export const UNLEASH_LIFE_HEALING_INCREASE = 0.35;
 export const UNLEASH_LIFE_CHAIN_HEAL_INCREASE = 0.15;
 export const FLOW_OF_THE_TIDES_INCREASE = 0.3;
+export const ANCESTRAL_REACH_INCREASE = 0.08;
+
+//base targets & target increases
 export const UNLEASH_LIFE_EXTRA_TARGETS = 2;
 export const HEALING_RAIN_TARGETS = 6;
 export const DOWNPOUR_TARGETS = 6;

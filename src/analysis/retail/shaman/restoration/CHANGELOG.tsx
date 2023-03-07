@@ -4,6 +4,7 @@ import { Arlie, Fassbrause, niseko, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 7), <>Added <SpellLink id={TALENTS.ANCESTRAL_REACH_TALENT.id}/> module</>, Vohrr),
   change(date(2023, 3, 5), <>Rewrite <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id}/></>, Vohrr),
   change(date(2023, 2, 25), <>Added <SpellLink id={TALENTS.WAVESPEAKERS_BLESSING_TALENT.id}/> module.</>, Vohrr),
   change(date(2023, 2, 23), <>Various bug fixes and format updates to bring modules up to date for Dragonflight. Fixed and re-enabled <SpellLink id={TALENTS.WATER_SHIELD_TALENT.id}/>. Fixed <SpellLink id={TALENTS.MANA_TIDE_TOTEM_TALENT.id}/>. Fixed <SpellLink id={TALENTS.RESURGENCE_TALENT.id}/>. Fixed <SpellLink id={TALENTS.EARTH_SHIELD_TALENT.id}/>. Improved accuracy of <SpellLink id={TALENTS.DELUGE_TALENT.id}/>. Re-added <SpellLink id={TALENTS.ANCESTRAL_GUIDANCE_TALENT.id}/> and <SpellLink id={TALENTS.ASCENDANCE_RESTORATION_TALENT.id}/> to the Cooldown Throughput Tracker. Added missing abilities to Ability Tracker</>, Vohrr),
