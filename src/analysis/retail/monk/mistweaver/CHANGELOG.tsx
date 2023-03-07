@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 6), <>Add extra safeguard to base celestial module</>, Trevor),
   change(date(2023, 3, 3), <>Added <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> tab for detail of each hot's extension.</>, Vohrr),
   change(date(2023, 3, 1), <>Missed a few line items in Healing Efficiency Tracker</>, Vohrr),
   change(date(2023, 3, 1), <>Updated the Healing Efficiency Tracker for Dragonflight talents</>, Vohrr),
