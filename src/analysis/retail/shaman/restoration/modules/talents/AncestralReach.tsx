@@ -18,6 +18,8 @@ import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import { formatNumber, formatPercentage } from 'common/format';
 
+const debug = false;
+
 class AncestralReach extends Analyzer {
   static dependencies = {
     chainHealNormalizer: ChainHealNormalizer,
@@ -58,7 +60,7 @@ class AncestralReach extends Analyzer {
     if (this.ulActive && this.unleashLife._isBuffedByUnleashLife(event)) {
       this.currentCastBuffedByUL = true;
       expectedTargetCount = this.maxTargets + 1;
-      console.log('UL Chain Heal, Expected Targets: ', expectedTargetCount);
+      debug && console.log('UL Chain Heal, Expected Targets: ', expectedTargetCount);
     }
     /** to attribute missed jumps to the right source here we look at array length
      * any length below 4 means base missed, AR missed and UL missed (if buffed)
@@ -66,20 +68,20 @@ class AncestralReach extends Analyzer {
      * 5 means UL missed (if buffed)
      */
     const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
-    console.log('Chain Heal Hits: ', orderedChainHeal.length, orderedChainHeal);
     if (orderedChainHeal.length === expectedTargetCount) {
       //happy path - all targets hit
       //this handles 6 and 5 targets hit
       index = orderedChainHeal.length - (this.currentCastBuffedByUL ? 2 : 1);
       this.tallyHealing(index, orderedChainHeal);
       this.extraJumps += 1;
-      console.log('Everyone hit, totalhealing: ', this.healing);
-      console.log('Extra Jumps: ', this.extraJumps);
+      debug && console.log('Everyone hit, totalhealing: ', this.healing);
+      debug && console.log('Extra Jumps: ', this.extraJumps);
     } else if (orderedChainHeal.length < expectedTargetCount) {
       //could be 5 or less
       if (orderedChainHeal.length === this.maxTargets) {
         //5 hits but missed ul jump
-        console.log('Expected hits: ', expectedTargetCount, 'but only hit ', this.maxTargets);
+        debug &&
+          console.log('Expected hits: ', expectedTargetCount, 'but only hit ', this.maxTargets);
         this.extraJumps += 1;
         index = orderedChainHeal.length - 1;
         this.tallyHealing(index, orderedChainHeal);
@@ -88,7 +90,7 @@ class AncestralReach extends Analyzer {
         this.missedJumps += 1;
         index = -1;
         this.tallyHealing(index, orderedChainHeal);
-        console.log('Missed Jumps: ', this.missedJumps);
+        debug && console.log('Missed Jumps: ', this.missedJumps);
       }
     }
     this.currentCastBuffedByUL = false;
@@ -98,7 +100,7 @@ class AncestralReach extends Analyzer {
     if (index > 0) {
       const extraHit = events.splice(index, 1);
       this.healing += extraHit[0]!.amount;
-      console.log('Extra Hit: ', extraHit, index);
+      debug && console.log('Extra Hit: ', extraHit, index);
     }
     this.bonusHealing += events.reduce(
       (amount, event) => amount + calculateEffectiveHealing(event, ANCESTRAL_REACH_INCREASE),
