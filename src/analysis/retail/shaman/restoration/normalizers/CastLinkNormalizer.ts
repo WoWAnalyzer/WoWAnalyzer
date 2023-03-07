@@ -4,6 +4,7 @@ import {
   ApplyBuffEvent,
   CastEvent,
   EventType,
+  GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
@@ -17,13 +18,19 @@ import {
   HARDCAST,
   RIPTIDE_PWAVE,
   HEALING_WAVE_PWAVE,
-  UNLEASH_LIFE,
   PWAVE_REMOVAL,
+  CAST_BUFFER_MS,
+  PWAVE_TRAVEL_MS,
+  HEALING_RAIN_DURATION,
+  HEALING_RAIN,
+  OVERFLOWING_SHORES,
+  HEALING_RAIN_GROUPING,
+  CHAIN_HEAL,
+  CHAIN_HEAL_GROUPING,
+  FLOW_OF_THE_TIDES,
+  DOWNPOUR,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
-
-const CAST_BUFFER_MS = 100;
-const PWAVE_TRAVEL_MS = 1000;
 
 /*
   This file is for attributing the various sources of spell applications to their respective abilities and talents.
@@ -75,6 +82,8 @@ const EVENT_LINKS: EventLink[] = [
       return (
         (linkingEvent as ApplyBuffEvent).targetID !==
           (referencedEvent as ApplyBuffEvent).targetID &&
+        (linkingEvent as ApplyBuffEvent).sourceID ===
+          (referencedEvent as ApplyBuffEvent).sourceID &&
         !HasRelatedEvent(linkingEvent, HARDCAST) &&
         !HasRelatedEvent(linkingEvent, RIPTIDE_PWAVE)
       );
@@ -104,8 +113,11 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     backwardBufferMs: PWAVE_TRAVEL_MS,
     forwardBufferMs: PWAVE_TRAVEL_MS,
-    additionalCondition(linkingEvent) {
-      return !HasRelatedEvent(linkingEvent, HARDCAST);
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(linkingEvent, HARDCAST) &&
+        (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID
+      );
     },
     isActive(c) {
       return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
@@ -124,25 +136,123 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
     },
   },
-  //Unleash life linkings
+  //healing rain linking
   {
-    linkRelation: UNLEASH_LIFE,
-    linkingEventId: [talents.UNLEASH_LIFE_TALENT.id],
+    linkRelation: HEALING_RAIN,
+    reverseLinkRelation: HEALING_RAIN,
+    linkingEventId: [SPELLS.HEALING_RAIN_HEAL.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [talents.HEALING_RAIN_TALENT.id],
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: HEALING_RAIN_DURATION,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.HEALING_RAIN_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
+    },
+  },
+  //group healing rain ticks together for targets hit analysis
+  {
+    linkRelation: HEALING_RAIN_GROUPING,
+    linkingEventId: [SPELLS.HEALING_RAIN_HEAL.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [SPELLS.HEALING_RAIN_HEAL.id],
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.HEALING_RAIN_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        (linkingEvent as HealEvent).sourceID === (referencedEvent as HealEvent).sourceID &&
+        (linkingEvent as HealEvent).targetID !== (referencedEvent as HealEvent).targetID
+      );
+    },
+  },
+  {
+    linkRelation: OVERFLOWING_SHORES,
+    reverseLinkRelation: OVERFLOWING_SHORES,
+    linkingEventId: [SPELLS.OVERFLOWING_SHORES_HEAL.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [talents.HEALING_RAIN_TALENT.id],
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return (
+        c.hasTalent(talents.HEALING_RAIN_TALENT) && c.hasTalent(talents.OVERFLOWING_SHORES_TALENT)
+      );
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
+    },
+  },
+  //chain heal
+  //group heal events together for targets hit analysis and order normalizing
+  {
+    linkRelation: CHAIN_HEAL_GROUPING,
+    linkingEventId: [talents.CHAIN_HEAL_TALENT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
+    referencedEventType: EventType.Heal,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
+    },
+  },
+  //link cast to heals
+  {
+    linkRelation: CHAIN_HEAL,
+    reverseLinkRelation: CHAIN_HEAL,
+    linkingEventId: [talents.CHAIN_HEAL_TALENT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
+    },
+  },
+  //link riptide removal to chain heal for fotd
+  {
+    linkRelation: FLOW_OF_THE_TIDES,
+    reverseLinkRelation: FLOW_OF_THE_TIDES,
+    linkingEventId: [talents.RIPTIDE_TALENT.id],
     linkingEventType: [EventType.RemoveBuff],
-    referencedEventId: [
-      talents.RIPTIDE_TALENT.id,
-      talents.HEALING_WAVE_TALENT.id,
-      SPELLS.HEALING_SURGE.id,
-      talents.CHAIN_HEAL_TALENT.id,
-      talents.HEALING_RAIN_TALENT.id,
-      talents.DOWNPOUR_TALENT.id,
-      talents.WELLSPRING_TALENT.id,
-    ],
+    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
     referencedEventType: [EventType.Cast],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
-      return c.hasTalent(talents.UNLEASH_LIFE_TALENT);
+      return c.hasTalent(talents.FLOW_OF_THE_TIDES_TALENT);
+    },
+  },
+  //downpour
+  {
+    linkRelation: DOWNPOUR,
+    reverseLinkRelation: DOWNPOUR,
+    linkingEventId: [talents.DOWNPOUR_TALENT.id],
+    linkingEventType: EventType.Heal,
+    referencedEventId: [talents.DOWNPOUR_TALENT.id],
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.DOWNPOUR_TALENT);
+    },
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
     },
   },
 ];
@@ -175,4 +285,43 @@ export function isFromPrimalTideCore(event: ApplyBuffEvent | HealEvent): boolean
   return !HasRelatedEvent(event, HARDCAST) && !HasRelatedEvent(event, RIPTIDE_PWAVE);
 }
 
+//this should only be used for initial hit events if passing in a heal event, not ticks
+export function getRiptideCastEvent(
+  event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
+): CastEvent | null {
+  if (isFromHardcast(event)) {
+    return GetRelatedEvents(event, HARDCAST)[0] as CastEvent;
+  } else if (isRiptideFromPrimordialWave(event)) {
+    return GetRelatedEvents(event, RIPTIDE_PWAVE)[0] as CastEvent;
+  }
+  return null;
+}
+
+export function getHealingRainEvents(event: CastEvent) {
+  return GetRelatedEvents(event, HEALING_RAIN) as HealEvent[];
+}
+
+export function getHealingRainHealEventsForTick(event: HealEvent) {
+  return [event].concat(GetRelatedEvents(event, HEALING_RAIN_GROUPING) as HealEvent[]);
+}
+
+export function getOverflowingShoresEvents(event: CastEvent) {
+  return GetRelatedEvents(event, OVERFLOWING_SHORES) as HealEvent[];
+}
+
+export function getDownPourEvents(event: CastEvent) {
+  return GetRelatedEvents(event, DOWNPOUR) as HealEvent[];
+}
+
+export function wasRiptideConsumed(event: HealEvent): boolean {
+  return HasRelatedEvent(event, FLOW_OF_THE_TIDES);
+}
+
+export function getChainHeals(event: CastEvent): HealEvent[] {
+  return GetRelatedEvents(event, CHAIN_HEAL) as HealEvent[];
+}
+
+export function getChainHealGrouping(event: HealEvent) {
+  return [event].concat(GetRelatedEvents(event, CHAIN_HEAL_GROUPING) as HealEvent[]);
+}
 export default CastLinkNormalizer;

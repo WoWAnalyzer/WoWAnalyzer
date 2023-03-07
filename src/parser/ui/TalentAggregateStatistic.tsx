@@ -39,7 +39,7 @@ type Props = {
 const TalentAggregateBars = ({ bars, wide = false }: Props) => {
   return (
     <>
-      {sortBars(bars).map((spec) => (
+      {sortBars(filterBars(bars)).map((spec) => (
         <div key={spec.spell.name} className="flex-main talent-aggregate-bar">
           <div className="flex main-bar">
             <div className="flex-sub bar-label">
@@ -81,6 +81,10 @@ function getSpecSubtotal(spec: TalentAggregateBarSpec) {
 
 function getTotal(bars: TalentAggregateBarSpec[]): number {
   return bars.reduce((sum, item) => sum + getSpecSubtotal(item), 0);
+}
+
+function filterBars(bars: TalentAggregateBarSpec[]): TalentAggregateBarSpec[] {
+  return bars.filter((bar) => getSpecSubtotal(bar) > 0);
 }
 
 /**
