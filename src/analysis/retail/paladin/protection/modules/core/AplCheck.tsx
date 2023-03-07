@@ -12,7 +12,7 @@ const howCastable = cnd.always(cnd.or(cnd.inExecute(), cnd.buffPresent(SPELLS.AV
 export const apl = build([
   {
     spell: SPELLS.CONSECRATION_CAST,
-    condition: cnd.optional(
+    condition: cnd.optionalRule(
       cnd.buffMissing(SPELLS.CONSECRATION_BUFF),
       <>
         <SpellLink id={SPELLS.CONSECRATION_CAST} /> is a potent defensive buff that you should
@@ -33,7 +33,7 @@ export const apl = build([
   },
   {
     spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS,
-    condition: cnd.optional(
+    condition: cnd.optionalRule(
       cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3 }),
       <>
         <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> should be maintained while actively

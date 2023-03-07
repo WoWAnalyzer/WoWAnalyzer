@@ -1,14 +1,14 @@
 import { OPEN_MODAL, CLOSE_MODAL } from 'interface/actions/modals';
 import { AnyAction } from 'redux';
 
-export type ModalState = number;
+export type ModalState = string[];
 
-export default function openModals(state: ModalState = 0, action: AnyAction) {
+export default function openModals(state: ModalState = [], action: AnyAction) {
   switch (action.type) {
     case OPEN_MODAL:
-      return state + 1;
+      return [...state, action.key];
     case CLOSE_MODAL:
-      return state - 1;
+      return state.filter((key) => key !== action.key);
     default:
       return state;
   }

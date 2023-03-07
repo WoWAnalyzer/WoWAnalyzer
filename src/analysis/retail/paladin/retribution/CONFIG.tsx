@@ -43,8 +43,7 @@ const config: Config = {
       work on!
     </>
   ),
-  exampleReport:
-    '/report/XWL82zKpNdFykwGg/11-Mythic+Hungering+Destroyer+-+Kill+(5:06)/Zïwak/standard',
+  exampleReport: 'report/rGN84WHjg72LqzFc/23-Mythic+Terros+-+Kill+(5:56)/Braúm/standard/overview',
 
   spec: SPECS.RETRIBUTION_PALADIN,
   changelog: CHANGELOG,

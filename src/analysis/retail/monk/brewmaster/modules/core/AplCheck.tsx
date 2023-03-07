@@ -114,7 +114,7 @@ const rotation_noBoC_chpdfb = build([
     condition: cnd.buffMissing(talents.CHARRED_PASSIONS_TALENT, {
       duration: 8000,
       // TODO: verify pandemic cap
-      pandemicCap: 8000,
+      pandemicCap: 1,
       timeRemaining: 1500,
     }),
   },

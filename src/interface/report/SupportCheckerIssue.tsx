@@ -60,7 +60,7 @@ const SupportCheckerIssue = ({
     );
 
   return (
-    <Modal onClose={onContinueAnyway}>
+    <Modal id="partial-support" onClose={onContinueAnyway}>
       <Panel title={title}>
         <div className="flex wrapable">
           <div className="flex-main" style={{ minWidth: 400 }}>
