@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 7), <><SpellLink id={TALENTS_PRIEST.CASTIGATION_TALENT.id}/> working with <SpellLink id={SPELLS.DARK_REPRIMAND_CAST.id}/></>, Hana),
   change(date(2023, 2, 6), <><SpellLink id={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id}/> re enabled.</>, Hana),
   change(date(2023, 2, 2), <><SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id}/> graph updated.</>, Hana),
   change(date(2023, 1, 29), <><SpellLink id={TALENTS_PRIEST.ABYSSAL_REVERIE_TALENT.id}/> module added.</>, Hana),
