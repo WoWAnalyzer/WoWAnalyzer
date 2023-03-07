@@ -582,7 +582,9 @@ class UnleashLife extends Analyzer {
           active: this.selectedCombatant.hasTalent(TALENTS.WELLSPRING_TALENT),
         }),
       },
-    ].filter((item) => item.value > 0);
+    ]
+      .filter((item) => item.value > 0)
+      .sort((a, b) => b.value - a.value);
     return <DonutChart items={items} />;
   }
 
