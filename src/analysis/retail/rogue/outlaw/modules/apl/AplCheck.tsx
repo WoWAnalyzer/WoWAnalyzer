@@ -36,6 +36,7 @@ import { betweenTheEyesMissing } from './betweenTheEyesMissing';
 //        SnD condition being rarely met it sometimes don't show in the apl if the user never casted the spell
 //        Add an optional rule to allow use of Ambush at 6cp with 2p and if bte isnt going to be pressed, not sure if fully possible (0.1% minmax)
 //        Thistle tea seems to not work with the energy condition as the cast happens after the energy gain
+//        Fix cto + rtb edge case
 
 const hasFinisherCondition = () => {
   //             this should be using: finishers.recommendedFinisherPoints()
@@ -58,11 +59,18 @@ const rtbCondition = () => {
   const rtbBuffsToCheck = ROLL_THE_BONES_BUFFS.filter((spell) => spell !== SPELLS.GRAND_MELEE);
   return and(
     describe(
-      or(
-        // allow rerolling if you're missing either SnC or BS, but don't require it
-        optionalRule(or(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE))),
-        // require rerolling if you're missing both SnC and BS
-        and(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE)),
+      and(
+        or(
+          // allow rerolling if you're missing either SnC or BS, but don't require it
+          optionalRule(or(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE))),
+          // require rerolling if you're missing both SnC and BS
+          and(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE)),
+        ),
+        // allow not rerolling during dance window
+        or(
+          buffMissing(SPELLS.SHADOW_DANCE_BUFF),
+          optionalRule(buffPresent(SPELLS.SHADOW_DANCE_BUFF)),
+        ),
       ),
       (tense) => (
         <>
@@ -255,7 +263,8 @@ export const COMMON_BUILDER: Rule[] = [
   {
     spell: SPELLS.AMBUSH,
     condition: or(
-      buffPresent(SPELLS.AUDACITY_TALENT_BUFF),
+      // we add a 100ms offset to prevent pistol shots proccing audacity from being flagged incorrectly
+      buffPresent(SPELLS.AUDACITY_TALENT_BUFF, 100),
       describe(
         or(
           buffPresent(SPELLS.SHADOW_DANCE_BUFF),
