@@ -130,7 +130,8 @@ class VivaciousVivification extends Analyzer {
         </b>{' '}
         is a buff that enables an instant <SpellLink id={SPELLS.VIVIFY} /> every 10 seconds. Try to
         use this buff when you have at least 6 <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
-        HoTs out
+        HoTs out as healing and mana warrant.{' '}
+        <i>It is not necessary to have good efficiency on this buff usage</i>
       </p>
     );
     this.unusableUptimes.at(-1)!.end = this.owner.fight.end_time;

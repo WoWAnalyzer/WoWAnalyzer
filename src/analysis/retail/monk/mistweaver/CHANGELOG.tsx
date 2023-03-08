@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 8), <>Visual updates to the Guide to be more user friendly</>, Vohrr),
   change(date(2023, 3, 7), <>Update styling for <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> tab to not interefere with guide styling.</>, Vohrr),
   change(date(2023, 3, 6), <>Add extra safeguard to base celestial module</>, Trevor),
   change(date(2023, 3, 3), <>Added <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> tab for detail of each hot's extension.</>, Vohrr),
