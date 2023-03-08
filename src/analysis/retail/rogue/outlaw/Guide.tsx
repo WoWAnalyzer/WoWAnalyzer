@@ -89,7 +89,7 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
 
 function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Acion Priority List">
+    <Section title="Action Priority List">
       <p>
         Outlaw has a fast paced rotation that is constantly reacting to buffs and procs. The spec
         doesn't burst but makes up for it in consistent output. Should be thought as a chaining
@@ -118,7 +118,7 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
           </li>
           <li>
             {' '}
-            <SpellLink id={TALENTS.GREENSKINS_WICKERS_TALENT} />
+            <SpellLink id={TALENTS.THISTLE_TEA_TALENT} />
           </li>
           <li>
             {' '}

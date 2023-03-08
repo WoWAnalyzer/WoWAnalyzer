@@ -14,13 +14,13 @@ import {
   and,
   buffMissing,
   buffPresent,
-  debuffMissing,
   hasResource,
   or,
   describe,
   buffStacks,
   not,
   optionalRule,
+  hasTalent,
 } from 'parser/shared/metrics/apl/conditions';
 
 import { AnyEvent } from 'parser/core/Events';
@@ -28,13 +28,14 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
 import { buffsCount } from './buffsCount';
+import { betweenTheEyesMissing } from './betweenTheEyesMissing';
 
 //--TODO: GS can't work for now until I finish working on gs debuff eventFabricator
 //        Add support for KiR builds
 //        BtE and SnD having variable duration depending on cp spent make their conditions innacurate for now
-//        Might wanna allow users to delay vanish without opp as it is barely worse
 //        SnD condition being rarely met it sometimes don't show in the apl if the user never casted the spell
 //        Add an optional rule to allow use of Ambush at 6cp with 2p and if bte isnt going to be pressed, not sure if fully possible (0.1% minmax)
+//        Thistle tea seems to not work with the energy condition as the cast happens after the energy gain
 
 const hasFinisherCondition = () => {
   //             this should be using: finishers.recommendedFinisherPoints()
@@ -58,9 +59,9 @@ const rtbCondition = () => {
   return and(
     describe(
       or(
-        // allow rerolling if you're missing either SnC or BT, but don't require it
+        // allow rerolling if you're missing either SnC or BS, but don't require it
         optionalRule(or(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE))),
-        // require rerolling if you're missing both SnC and BT
+        // require rerolling if you're missing both SnC and BS
         and(buffMissing(SPELLS.SKULL_AND_CROSSBONES), buffMissing(SPELLS.BROADSIDE)),
       ),
       (tense) => (
@@ -86,12 +87,13 @@ const notInStealthCondition = () => {
 };
 
 const COMMON_COOLDOWN: Rule[] = [
-  {
-    spell: TALENTS.THISTLE_TEA_TALENT,
-    condition: describe(hasResource(RESOURCE_TYPES.ENERGY, { atMost: 50 }), (tense) => (
-      <>you {tenseAlt(tense, 'are', 'were')} under 50 energy</>
-    )),
-  },
+  //Looks like the energy gained by tea is registered before the cast, so the casts are all flaged as if you used the spell at max energy
+  // {
+  //   spell: TALENTS.THISTLE_TEA_TALENT,
+  //   condition: describe(hasResource(RESOURCE_TYPES.ENERGY, { atMost: 60 }), (tense) => (
+  //     <>you {tenseAlt(tense, 'are', 'were')} under 50 energy</>
+  //   )),
+  // },
   {
     spell: TALENTS.BLADE_RUSH_TALENT,
     condition: describe(energyCondition(60, 85), (tense) => (
@@ -100,7 +102,7 @@ const COMMON_COOLDOWN: Rule[] = [
   },
   {
     spell: TALENTS.KILLING_SPREE_TALENT,
-    condition: describe(and(energyCondition(40, 60), notInStealthCondition()), (tense) => (
+    condition: describe(and(energyCondition(40, 65), notInStealthCondition()), (tense) => (
       <>you {tenseAlt(tense, 'are', 'were')} under ~50/60 energy</>
     )),
   },
@@ -114,7 +116,12 @@ const COMMON_COOLDOWN: Rule[] = [
       buffMissing(SPELLS.AUDACITY_TALENT_BUFF),
       describe(
         and(
-          buffStacks(SPELLS.OPPORTUNITY, { atMost: 3 }),
+          //The real rule is to vanish whenever you have less than max stacks of opp, however
+          //since its barely behind we also allow the user to only use vanish when opp is missing
+          or(
+            optionalRule(buffStacks(SPELLS.OPPORTUNITY, { atMost: 3 })),
+            buffMissing(SPELLS.OPPORTUNITY),
+          ),
           //This is a given no point displaying it
           notInStealthCondition(),
           //We want to allow the user to press vanish at max cp, but that is not a requirement
@@ -155,12 +162,24 @@ const COMMON_FINISHER: Rule[] = [
   {
     spell: SPELLS.BETWEEN_THE_EYES,
     condition: and(
-      debuffMissing(SPELLS.BETWEEN_THE_EYES, {
-        timeRemaining: 4000,
-        //Since BtE as a variable duration depending on cp spent this is inacurate for now
-        duration: 19500,
-        pandemicCap: 1,
-      }),
+      hasFinisherCondition(),
+      describe(
+        and(
+          buffMissing(TALENTS.GREENSKINS_WICKERS_TALENT),
+          hasTalent(TALENTS.GREENSKINS_WICKERS_TALENT),
+        ),
+        (tense) => (
+          <>
+            <SpellLink id={TALENTS.GREENSKINS_WICKERS_TALENT.id} /> buff{' '}
+            {tenseAlt(tense, 'is', 'was')} missing
+          </>
+        ),
+      ),
+    ),
+  },
+  {
+    spell: SPELLS.BETWEEN_THE_EYES,
+    condition: and(
       describe(
         and(
           hasFinisherCondition(),
@@ -172,18 +191,12 @@ const COMMON_FINISHER: Rule[] = [
         ),
         (tense) => <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>,
       ),
+      betweenTheEyesMissing(),
     ),
   },
   {
     spell: SPELLS.SLICE_AND_DICE,
     condition: and(
-      hasFinisherCondition(),
-      buffMissing(SPELLS.SLICE_AND_DICE, {
-        timeRemaining: 18000,
-        //Since SnD as a variable duration depending on cp spent this is inacurate for now
-        duration: 45000,
-        pandemicCap: 1.3,
-      }),
       describe(
         and(
           hasFinisherCondition(),
@@ -192,6 +205,12 @@ const COMMON_FINISHER: Rule[] = [
         ),
         (tense) => <>the finisher condition {tenseAlt(tense, 'is', 'was')} met</>,
       ),
+      buffMissing(SPELLS.SLICE_AND_DICE, {
+        timeRemaining: 18000,
+        //Since SnD as a variable duration depending on cp spent this is inacurate for now
+        duration: 45000,
+        pandemicCap: 1.3,
+      }),
     ),
   },
   {
@@ -214,14 +233,25 @@ export const COMMON_BUILDER: Rule[] = [
   //   ),
   // },
 
-  // This seems to not function correctly
-  // {
-  //   spell: SPELLS.PISTOL_SHOT,
-  //   condition: and(
-  //     buffStacks(SPELLS.OPPORTUNITY, { atLeast: 6 }),
-  //     not(hasTalent(TALENTS.COUNT_THE_ODDS_TALENT)),
-  //   ),
-  // },
+  //This seems to not function correctly
+  {
+    spell: SPELLS.PISTOL_SHOT,
+    condition: describe(
+      optionalRule(
+        and(
+          buffStacks(SPELLS.OPPORTUNITY, { atLeast: 6 }),
+          not(hasTalent(TALENTS.COUNT_THE_ODDS_TALENT)),
+        ),
+      ),
+      (tense) => (
+        <>
+          {' '}
+          you {tenseAlt(tense, 'have', 'had')} max stacks of{' '}
+          <SpellLink id={SPELLS.OPPORTUNITY.id} />
+        </>
+      ),
+    ),
+  },
   {
     spell: SPELLS.AMBUSH,
     condition: or(
