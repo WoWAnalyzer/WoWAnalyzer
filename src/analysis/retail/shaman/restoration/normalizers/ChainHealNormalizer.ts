@@ -33,22 +33,23 @@ class ChainHealNormalizer extends Analyzer {
    * 1. Mastery Effectiveness
    * 2. Deluge
    * 3. Crits
-   * 4. Flow of the Tides (if talented && has to be the primary target for riptide to be consumed)
+   * 4. Flow of the Tides (if talented && has to be the primary target for riptide
+   *    to be consumed -- all hits are increased by 30%)
    *
    * NOTE: With everything else calc'ed correctly deluge will not matter,
    * since 20% variance by itself will not cause jumps that decrease by 30% to be ordered incorrectly
    * */
-  public normalizeChainHealOrder(event: CastEvent): HealEvent[] {
-    const events = getChainHeals(event);
+  public normalizeChainHealOrder(cast: CastEvent): HealEvent[] {
+    const events = getChainHeals(cast);
     const baseHealEvents: BufferHealEvent[] = [];
     if (events.length > 0) {
-      events.forEach((event) => baseHealEvents.push(this.calculateBaseChainHeal(event)));
+      events.forEach((heal) => baseHealEvents.push(this.calculateBaseChainHeal(heal, cast)));
       //return sort order based on base heal
     }
     return baseHealEvents.sort((a, b) => b.baseHealingDone - a.baseHealingDone) as HealEvent[];
   }
 
-  private calculateBaseChainHeal(event: HealEvent): BufferHealEvent {
+  private calculateBaseChainHeal(event: HealEvent, cast: CastEvent): BufferHealEvent {
     let heal = event.amount + (event.absorbed || 0) + (event.overheal || 0);
     if (event.hitType === HIT_TYPES.CRIT) {
       const critMult = this.critEffectBonus.getBonus(event);
@@ -62,7 +63,7 @@ class ChainHealNormalizer extends Analyzer {
     heal /= 1 + currentMastery * masteryEffectiveness;
     //check for flow of the tides increase
     if (this.selectedCombatant.hasTalent(talents.FLOW_OF_THE_TIDES_TALENT)) {
-      if (wasRiptideConsumed(event)) {
+      if (wasRiptideConsumed(cast)) {
         heal /= 1 + FLOW_OF_THE_TIDES_INCREASE;
       }
     }

@@ -17,6 +17,8 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import { formatNumber, formatPercentage } from 'common/format';
+import { SpellLink } from 'interface';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 const debug = false;
 
@@ -105,6 +107,17 @@ class AncestralReach extends Analyzer {
     this.bonusHealing += events.reduce(
       (amount, event) => amount + calculateEffectiveHealing(event, ANCESTRAL_REACH_INCREASE),
       0,
+    );
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={talents.ANCESTRAL_REACH_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
     );
   }
 
