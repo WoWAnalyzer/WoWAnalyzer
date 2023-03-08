@@ -24,25 +24,20 @@ export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <Section title="Core Spells">
+      <Section title="Core Spells and Buffs">
+        <SubSection></SubSection>
         {modules.renewingMist.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.RISING_SUN_KICK_TALENT) &&
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
         {modules.vivify.guideSubsection}
         {modules.essenceFont.guideSubsection}
-        <RemGraphSubsection modules={modules} events={events} info={info} />
-      </Section>
-      <Section title="Short cooldowns, buffs, and procs">
-        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
-          modules.chiBurst.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
-          modules.vivaciousVivification.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
           modules.ancientTeachings.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
           <SheilunsGraph modules={modules} events={events} info={info} />
         )}
+        <RemGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
@@ -75,6 +70,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             violationExplainers={explainers}
           />
         </SubSection>
+      </Section>
+      <Section title="Other cooldowns, buffs, and procs">
+        {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
+          modules.chiBurst.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
+          modules.vivaciousVivification.guideSubsection}
       </Section>
       <PreparationSection />
     </>
