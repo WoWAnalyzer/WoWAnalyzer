@@ -9,6 +9,7 @@ import {
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import talents from 'common/TALENTS/shaman';
@@ -29,6 +30,7 @@ import {
   CHAIN_HEAL_GROUPING,
   FLOW_OF_THE_TIDES,
   DOWNPOUR,
+  HIGH_TIDE,
 } from '../constants';
 import SPELLS from 'common/SPELLS';
 
@@ -223,6 +225,21 @@ const EVENT_LINKS: EventLink[] = [
       return (linkingEvent as HealEvent).sourceID === (referencedEvent as CastEvent).sourceID;
     },
   },
+  //link high tide removal to chain heal cast that consumed it
+  {
+    linkRelation: HIGH_TIDE,
+    reverseLinkRelation: HIGH_TIDE,
+    linkingEventId: [SPELLS.HIGH_TIDE_BUFF.id],
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: [talents.CHAIN_HEAL_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(talents.HIGH_TIDE_TALENT);
+    },
+  },
   //link riptide removal to chain heal for fotd
   {
     linkRelation: FLOW_OF_THE_TIDES,
@@ -313,7 +330,7 @@ export function getDownPourEvents(event: CastEvent) {
   return GetRelatedEvents(event, DOWNPOUR) as HealEvent[];
 }
 
-export function wasRiptideConsumed(event: HealEvent): boolean {
+export function wasRiptideConsumed(event: CastEvent): boolean {
   return HasRelatedEvent(event, FLOW_OF_THE_TIDES);
 }
 
@@ -323,5 +340,13 @@ export function getChainHeals(event: CastEvent): HealEvent[] {
 
 export function getChainHealGrouping(event: HealEvent) {
   return [event].concat(GetRelatedEvents(event, CHAIN_HEAL_GROUPING) as HealEvent[]);
+}
+
+export function isBuffedByHighTide(event: CastEvent) {
+  return HasRelatedEvent(event, HIGH_TIDE);
+}
+
+export function wasHighTideConsumed(event: RemoveBuffEvent | RemoveBuffStackEvent): boolean {
+  return HasRelatedEvent(event, HIGH_TIDE);
 }
 export default CastLinkNormalizer;

@@ -19,6 +19,7 @@ export const CHAIN_HEAL = 'ChainHeal';
 export const CHAIN_HEAL_GROUPING = 'ChainHealGrouping';
 export const FLOW_OF_THE_TIDES = 'FlowOfTheTides';
 export const DOWNPOUR = 'Downpour';
+export const HIGH_TIDE = 'HighTide';
 //event link ms settings
 export const CAST_BUFFER_MS = 100;
 export const PWAVE_TRAVEL_MS = 1100;
@@ -52,10 +53,10 @@ export const RESTORATION_COLORS = {
 };
 
 // Spell Coefficients
-export const CHAIN_HEAL_COEFFICIENT = 2.1;
-export const HEALING_WAVE_COEFFICIENT = 3;
-export const HEALING_SURGE_COEFFICIENT = 2.48;
-export const HIGH_TIDE_COEFFICIENT = 2.31;
+export const CHAIN_HEAL_COEFFICIENT = 2.31;
+export const HEALING_WAVE_COEFFICIENT = 3.498;
+export const HEALING_SURGE_COEFFICIENT = 3.1372;
+export const HIGH_TIDE_COEFFICIENT = 2.541;
 export const HEALING_WAVE_CAST_TIME = 2.5;
 
 // Your normal healing toolkit, default spells and talents
@@ -63,9 +64,7 @@ export const HEALING_WAVE_CAST_TIME = 2.5;
 // TODO: Create list for Ancestral Guidance (should be all BASE + Ascendance + CBT)
 const SHAMAN_BASE_ABILITIES = [
   SPELLS.HEALING_SURGE,
-  // Cannot find any logs with the heal
-  // SPELLS.PRIMORDIAL_WAVE_HEAL,
-
+  SPELLS.PRIMORDIAL_WAVE_HEAL,
   TALENTS.HEALING_WAVE_TALENT,
   TALENTS.CHAIN_HEAL_TALENT,
   SPELLS.HEALING_SURGE,
