@@ -99,7 +99,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLADE_FLURRY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           static: standardGcd,
         },
@@ -138,7 +138,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 1,
+        cooldown: 60,
         charges: 3,
         enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
       },
