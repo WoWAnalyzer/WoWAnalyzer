@@ -21,7 +21,7 @@ import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 
 const bounceReduction = 0.7;
-
+const debug = false;
 /**
  * High Tide:
  * Every 100000 mana you spend brings a High Tide, making your next 2 Chain Heals heal for an additional 10% and not reduce with each jump.
@@ -92,7 +92,7 @@ class HighTide extends Analyzer {
    */
   onChainHealCast(event: CastEvent) {
     if (isBuffedByHighTide(event)) {
-      console.log('High Tide Chain heal at ', this.owner.formatTimestamp(event.timestamp), event);
+      debug && console.log('High Tide Chain heal at ', this.owner.formatTimestamp(event.timestamp), event);
       this.buffsConsumed += 1;
       let FACTOR_CONTRIBUTED_BY_HT_HIT;
       const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
