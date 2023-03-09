@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 3, 9), <>Add <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} /> to Rotation section in guide.</>, ToppleTheNun),
   change(date(2023, 3, 9), <>Re-add <SpellLink id={SPELLS.IMMOLATION_AURA} /> cast efficiency to guide.</>, ToppleTheNun),
   change(date(2023, 3, 9), 'Update Rotation section.', ToppleTheNun),
   change(date(2023, 2, 25), <>Fixed  consuming the last stack of <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK.id} /> not granting credit on casting <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />.</>, ToppleTheNun),
