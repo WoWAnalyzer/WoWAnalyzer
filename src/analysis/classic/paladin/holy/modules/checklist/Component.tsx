@@ -12,6 +12,12 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 import SPELLS from 'common/SPELLS/classic';
 
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import Expansion from 'game/Expansion';
+import { Section } from 'interface/guide';
+import { Trans } from '@lingui/macro';
+import * as React from 'react';
+
 const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
@@ -37,10 +43,6 @@ const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
           </>
         }
       >
-        <Requirement
-          name="Non healing time"
-          thresholds={thresholds.nonHealingTimeSuggestionThresholds}
-        />
         <Requirement name="Downtime" thresholds={thresholds.downtimeSuggestionThresholds} />
       </Rule>
       {/* Mana */}
@@ -61,9 +63,14 @@ const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
       >
         {/* SPELLS listed here must be in ../features/Abilities */}
         <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
+        <AbilityRequirement spell={SPELLS.DIVINE_FAVOR.id} />
+        <AbilityRequirement spell={SPELLS.DIVINE_ILLUMINATION.id} />
+        <AbilityRequirement spell={SPELLS.DIVINE_SACRIFICE.id} />
+        <AbilityRequirement spell={SPELLS.HOLY_SHOCK.id} />
       </Rule>
       {/* Enchants and Consumes */}
       <PreparationRule thresholds={thresholds} />
+
     </Checklist>
   );
 };
