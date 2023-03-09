@@ -219,7 +219,7 @@ class EssenceFont extends Analyzer {
 
   onCast(event: CastEvent) {
     const totalHit = getNumberOfBolts(event);
-    const expected = this.getExpectedApplies(event);
+    const expected = Math.max(this.getExpectedApplies(event), totalHit);
     let value = QualitativePerformance.Good;
     if (totalHit !== expected) {
       this.numCancelled += 1;
