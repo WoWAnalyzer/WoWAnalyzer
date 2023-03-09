@@ -12,10 +12,6 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 import SPELLS from 'common/SPELLS/classic';
 
-import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import Expansion from 'game/Expansion';
-import { Section } from 'interface/guide';
-import { Trans } from '@lingui/macro';
 import * as React from 'react';
 
 const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => {
