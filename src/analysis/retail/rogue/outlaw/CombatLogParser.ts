@@ -10,6 +10,7 @@ import {
   InstantPoison,
   Sepsis,
   StealthAbilityFollowingSepsis,
+  ThistleTeaCastLinkNormalizer,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -45,6 +46,7 @@ import Guide from './Guide';
 import BuilderUse from './modules/core/BuilderUse';
 import FinisherUse from './modules/core/FinisherUse';
 import AplCheck from './modules/apl/AplCheck';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -56,6 +58,8 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     //Normalizers
+    castLinkNormalizer: CastLinkNormalizer,
+    thistleTeaCastLinkNormalizer: ThistleTeaCastLinkNormalizer,
     fanTheHammerNormalizer: FanTheHammerNormalizer,
 
     //Resource
