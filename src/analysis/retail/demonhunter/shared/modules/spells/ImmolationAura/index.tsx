@@ -22,6 +22,8 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ResourceLink from 'interface/ResourceLink';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class ImmolationAura extends Analyzer {
   static dependencies = {
@@ -98,12 +100,24 @@ class ImmolationAura extends Analyzer {
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
         onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={
-          <CastPerformanceSummary
-            spell={SPELLS.IMMOLATION_AURA}
-            casts={goodCasts}
-            performance={QualitativePerformance.Good}
-            totalCasts={totalCasts}
-          />
+          <div style={{ marginBottom: 10 }}>
+            <CastPerformanceSummary
+              spell={SPELLS.IMMOLATION_AURA}
+              casts={goodCasts}
+              performance={QualitativePerformance.Good}
+              totalCasts={totalCasts}
+            />
+            <strong>
+              <SpellLink id={SPELLS.IMMOLATION_AURA} />{' '}
+              <Trans id="guide.castEfficiency">cast efficiency</Trans>
+            </strong>
+            <CastEfficiencyBar
+              spellId={SPELLS.IMMOLATION_AURA.id}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              minimizeIcons
+              useThresholds
+            />
+          </div>
         }
       />
     );

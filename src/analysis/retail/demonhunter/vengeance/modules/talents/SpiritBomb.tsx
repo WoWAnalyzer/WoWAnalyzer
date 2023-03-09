@@ -174,6 +174,7 @@ export default class SpiritBomb extends Analyzer {
     ];
     const actualPerformance = combineQualitativePerformances(
       checklistItems.map((item) => item.performance),
+      QualitativePerformance.Good,
     );
     this.cooldownUses.push({
       event,

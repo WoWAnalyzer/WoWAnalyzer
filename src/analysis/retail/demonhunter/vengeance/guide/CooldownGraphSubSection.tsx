@@ -65,6 +65,7 @@ const CooldownGraphSubsection = () => {
           spellId={cooldownCheck.talent.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           minimizeIcons={hasTooManyCasts}
+          useThresholds
         />
       ))}
     </SubSection>
