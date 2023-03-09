@@ -12,8 +12,6 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
 import SPELLS from 'common/SPELLS/classic';
 
-import * as React from 'react';
-
 const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
