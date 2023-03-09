@@ -31,6 +31,7 @@ export interface SpellUse {
   event: CastEvent;
   checklistItems: ChecklistUsageInfo[];
   performance: QualitativePerformance;
+  extraDetails?: ReactNode;
   performanceExplanation?: ReactNode;
 }
 
