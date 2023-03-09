@@ -3,7 +3,6 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { ResourceLink, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 import { t, Trans } from '@lingui/macro';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
@@ -129,7 +128,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <HideExplanationsToggle id="hide-explanations-rotation" />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
-      <ImmolationAuraVengeanceGuideSection />
+      {modules.immolationAura.vengeanceGuideSubsection()}
       {modules.soulCleave.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
         modules.spiritBomb.guideSubsection()}

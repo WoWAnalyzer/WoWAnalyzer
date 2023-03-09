@@ -6,48 +6,39 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Events, { CastEvent } from 'parser/core/Events';
 import { getImmolationAuraInitialHits } from 'analysis/retail/demonhunter/vengeance/normalizers/ImmolationAuraLinker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { Trans } from '@lingui/macro';
+import { SpellLink } from 'interface';
+import FalloutSnippet from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/FalloutSnippet';
+import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
+import SPECS from 'game/SPECS';
+import SpellUsageSubSection, {
+  logSpellUseEvent,
+} from 'parser/core/SpellUsage/SpellUsageSubSection';
+import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import ResourceLink from 'interface/ResourceLink';
+import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
 class ImmolationAura extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
   };
-  immolationAuraDamage = 0;
-  castEntries: BoxRowEntry[] = [];
+  private cooldownUses: SpellUse[] = [];
+  private immolationAuraDamage = 0;
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IMMOLATION_AURA),
-      this.onCast,
-    );
-  }
-
-  onCast(event: CastEvent) {
-    const hitsWithInitialBurst = getImmolationAuraInitialHits(event);
-    const hitWithInitialBurst = hitsWithInitialBurst.length > 0;
-    const performance = hitWithInitialBurst
-      ? QualitativePerformance.Good
-      : QualitativePerformance.Fail;
-    const performanceNote = hitWithInitialBurst ? (
-      <>Hit {hitsWithInitialBurst.length} targets with initial burst</>
-    ) : (
-      <>Did not hit any targets with initial burst</>
-    );
-
-    const tooltip = (
-      <>
-        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-        <br />
-        {performanceNote}
-      </>
-    );
-
-    this.castEntries.push({ value: performance, tooltip });
+    if (this.selectedCombatant.specId === SPECS.VENGEANCE_DEMON_HUNTER.id) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SPELLS.IMMOLATION_AURA),
+        this.onVengeanceCast,
+      );
+    }
   }
 
   statistic() {
@@ -75,6 +66,91 @@ class ImmolationAura extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  vengeanceGuideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <Trans id="guide.demonhunter.vengeance.sections.rotation.immolationAura.explanation">
+          <strong>
+            <SpellLink id={SPELLS.IMMOLATION_AURA} />
+          </strong>{' '}
+          is one of your primary <strong>builders</strong>. It deals a burst of damage when cast,
+          generating 8 <ResourceLink id={RESOURCE_TYPES.FURY.id} /> immediately
+          <FalloutSnippet />. It then pulses damage every second for 6 seconds as well as generating
+          2 <ResourceLink id={RESOURCE_TYPES.FURY.id} /> on each pulse.
+        </Trans>
+      </p>
+    );
+
+    const performances = this.cooldownUses.map((it) =>
+      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
+    );
+
+    const goodCasts = performances.filter((it) => it.value === QualitativePerformance.Good).length;
+    const totalCasts = performances.length;
+
+    return (
+      <SpellUsageSubSection
+        explanation={explanation}
+        performance={performances}
+        uses={this.cooldownUses}
+        castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
+        onPerformanceBoxClick={logSpellUseEvent}
+        abovePerformanceDetails={
+          <CastPerformanceSummary
+            spell={SPELLS.IMMOLATION_AURA}
+            casts={goodCasts}
+            performance={QualitativePerformance.Good}
+            totalCasts={totalCasts}
+          />
+        }
+      />
+    );
+  }
+
+  private onVengeanceCast(event: CastEvent) {
+    const hitsWithInitialBurst = getImmolationAuraInitialHits(event);
+    const hitWithInitialBurst = hitsWithInitialBurst.length > 0;
+    const performance = hitWithInitialBurst
+      ? QualitativePerformance.Good
+      : QualitativePerformance.Fail;
+    const details = hitWithInitialBurst ? (
+      <div>You hit {hitsWithInitialBurst.length} targets with the initial burst.</div>
+    ) : (
+      <div>
+        You did not hit any targets with the initial burst.
+        {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FALLOUT_TALENT) ? (
+          <>
+            {' '}
+            This is especially important when you have{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.FALLOUT_TALENT} /> talented.
+          </>
+        ) : null}
+      </div>
+    );
+
+    const checklistItems: ChecklistUsageInfo[] = [
+      {
+        check: 'initial-hit',
+        timestamp: event.timestamp,
+        performance,
+        summary: <div>Hit at least 1 target with initial burst</div>,
+        details: details,
+      },
+    ];
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+    );
+    this.cooldownUses.push({
+      event,
+      performance: actualPerformance,
+      checklistItems,
+      performanceExplanation:
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
+    });
   }
 }
 
