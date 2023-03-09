@@ -120,7 +120,8 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">
           Vengeance's core rotation involves <strong>building</strong> and then{' '}
-          <strong>spending</strong> <SpellLink id={SPELLS.SOUL_FRAGMENT} />
+          <strong>spending</strong> <ResourceLink id={RESOURCE_TYPES.FURY.id} /> and{' '}
+          <SpellLink id={SPELLS.SOUL_FRAGMENT} />
           s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
         </Trans>
       </p>
@@ -129,9 +130,9 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
       {modules.immolationAura.vengeanceGuideSubsection()}
-      {modules.soulCleave.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
         modules.spiritBomb.guideSubsection()}
+      {modules.soulCleave.guideSubsection()}
     </Section>
   );
 }
