@@ -44,13 +44,17 @@ export const numberToQualitativePerformance = (performance: number) => {
  * {@link QualitativePerformance.Perfect} if the array is empty.
  *
  * @param {QualitativePerformance[]} performances Performances to combine
+ * @param {QualitativePerformance} defaultPerformance Default performance if no values are present in performances
  * @returns {QualitativePerformance} Lowest performance value from the given array
  */
-export const combineQualitativePerformances = (performances: QualitativePerformance[]) =>
+export const combineQualitativePerformances = (
+  performances: QualitativePerformance[],
+  defaultPerformance: QualitativePerformance = QualitativePerformance.Perfect,
+) =>
   performances.reduce(
     (prev, curr) =>
       numberToQualitativePerformance(
         Math.min(qualitativePerformanceToNumber(prev), qualitativePerformanceToNumber(curr)),
       ),
-    QualitativePerformance.Perfect,
+    defaultPerformance,
   );
