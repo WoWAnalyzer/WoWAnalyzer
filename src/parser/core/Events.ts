@@ -45,6 +45,7 @@ export enum EventType {
   Spellsteal = 'spellsteal',
   EmpowerStart = 'empowerstart',
   EmpowerEnd = 'empowerend',
+  Leech = 'leech',
 
   // Fabricated:
   Event = 'event', // everything
@@ -160,6 +161,7 @@ type MappedEventTypes = {
   [EventType.Spellsteal]: SpellstealEvent;
   [EventType.EmpowerStart]: EmpowerStartEvent;
   [EventType.EmpowerEnd]: EmpowerEndEvent;
+  [EventType.Leech]: LeechEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -447,6 +449,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
 
 export type CastEvent = BaseCastEvent<EventType.Cast>;
 export type FreeCastEvent = BaseCastEvent<EventType.FreeCast>;
+export type LeechEvent = BaseCastEvent<EventType.Leech>;
 
 export type EmpowerStartEvent = BaseCastEvent<EventType.EmpowerStart>;
 export interface EmpowerEndEvent extends BaseCastEvent<EventType.EmpowerEnd> {
@@ -1417,6 +1420,12 @@ const Events = {
   },
   get empowerEnd() {
     return new EventFilter(EventType.EmpowerEnd);
+  },
+  get leech() {
+    return new EventFilter(EventType.Leech);
+  },
+  get extraAttacks() {
+    return new EventFilter(EventType.ExtraAttacks);
   },
 };
 

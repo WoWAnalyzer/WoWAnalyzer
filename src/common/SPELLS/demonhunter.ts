@@ -246,6 +246,11 @@ const spells = spellIndexableList({
     name: 'Soul Cleave',
     icon: 'ability_demonhunter_soulcleave',
   },
+  SOUL_CLEAVE_DAMAGE: {
+    id: 228478,
+    name: 'Soul Cleave',
+    icon: 'ability_demonhunter_soulcleave',
+  },
   INFERNAL_STRIKE: {
     id: 189110,
     name: 'Infernal Strike',

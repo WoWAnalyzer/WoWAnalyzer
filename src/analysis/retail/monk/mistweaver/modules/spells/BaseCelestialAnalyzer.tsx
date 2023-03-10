@@ -179,6 +179,9 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   onEnvbApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
     this.castTrackers.at(-1)!.totalEnvB += 1;
   }
 

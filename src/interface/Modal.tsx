@@ -1,34 +1,45 @@
 import { openModal, closeModal } from 'interface/actions/modals';
 import CloseIcon from 'interface/icons/Cross';
 import Portal from 'interface/Portal';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
-import { useWaSelector } from 'interface/utils/useWaSelector';
-import { getOpenModals } from 'interface/selectors/openModals';
 
 import './Modal.scss';
+import { useWaSelector } from './utils/useWaSelector';
+import { getTopModal } from './selectors/openModals';
 
 interface Props {
   children: React.ReactNode;
   onClose: () => void;
+  id: string;
 }
 
-const Modal = ({ children, onClose }: Props) => {
-  // TODO: Figure out how to remove this but still force a re-render when the modal is "opened"
-  useWaSelector((state) => getOpenModals(state));
+const Modal = ({ children, onClose, id }: Props) => {
   const dispatch = useDispatch();
 
+  const [hasDispatched, setHasDispatched] = useState(false);
+
+  const topModal = useWaSelector(getTopModal);
+
+  const isTopModal = !hasDispatched || topModal === id;
+
   useEffect(() => {
-    dispatch(openModal());
+    dispatch(openModal(id));
+    setHasDispatched(true);
     return () => {
-      dispatch(closeModal());
+      dispatch(closeModal(id));
     };
-  }, [dispatch]);
+  }, [dispatch, id]);
 
   return (
     <Portal>
-      <aside className="modal">
+      <aside
+        className="modal"
+        role="dialog"
+        aria-modal
+        style={{ animation: isTopModal ? '' : 'blur 10ms forwards' }}
+      >
         <div className="container">
           <button className="close" onClick={onClose}>
             <CloseIcon />

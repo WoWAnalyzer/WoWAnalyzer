@@ -10,7 +10,9 @@ import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 
 const SOUL_CONSUME_BUFFER = 150;
-const DAMAGE_BUFFER = 150;
+// https://www.warcraftlogs.com/reports/r4JtW9hxdzwc3G6q/#fight=8&source=22
+// :despairge:
+const DAMAGE_BUFFER = 450;
 
 const SOUL_CLEAVE_DAMAGE = 'SoulCleaveDamage';
 const SOUL_CLEAVE_SOUL_CONSUME = 'SoulCleaveSoulConsume';
@@ -29,7 +31,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: SOUL_CLEAVE_DAMAGE,
-    referencedEventId: SPELLS.SOUL_CLEAVE.id,
+    referencedEventId: SPELLS.SOUL_CLEAVE_DAMAGE.id,
     referencedEventType: EventType.Damage,
     linkingEventId: SPELLS.SOUL_CLEAVE.id,
     linkingEventType: EventType.Cast,

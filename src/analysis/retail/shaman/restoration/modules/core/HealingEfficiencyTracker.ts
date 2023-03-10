@@ -50,7 +50,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
     }
     if (spellId === TALENTS.UNLEASH_LIFE_TALENT.id) {
       this.getUnleashLifeDetails(spellInfo);
-    } else if (this.unleashLife.healingBuff[spellId]) {
+    } else if (this.unleashLife.healingMap[spellId]) {
       this.getUnleashLifeBuffDetails(spellInfo, spellId);
     } else if (spellId === TALENTS.EARTH_SHIELD_TALENT.id) {
       this.getEarthShieldBuffDetails(spellInfo);
@@ -82,7 +82,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
 
   // Remove Unleash Life's contribution to the affected spells
   getUnleashLifeBuffDetails(spellInfo: SpellInfoDetails, spellId: number) {
-    const unleashLifeContribution = this.unleashLife.healingBuff[spellId].healing || 0;
+    const unleashLifeContribution = this.unleashLife.healingMap[spellId].amount || 0;
     spellInfo.healingDone -= unleashLifeContribution;
   }
 

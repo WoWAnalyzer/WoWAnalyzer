@@ -46,7 +46,11 @@ class Castigation extends Analyzer {
       return;
     }
 
-    if (damageEvent.ability.guid !== SPELLS.PENANCE.id || damageEvent.penanceBoltNumber !== 3) {
+    if (
+      (damageEvent.ability.guid !== SPELLS.PENANCE.id &&
+        damageEvent.ability.guid !== SPELLS.DARK_REPRIMAND_DAMAGE.id) ||
+      damageEvent.penanceBoltNumber !== 3
+    ) {
       return;
     }
     this.healing += event.amount;
@@ -57,7 +61,11 @@ class Castigation extends Analyzer {
       return;
     }
 
-    if (event.ability.guid !== SPELLS.PENANCE.id || event.penanceBoltNumber !== 3) {
+    if (
+      (event.ability.guid !== SPELLS.PENANCE.id &&
+        event.ability.guid !== SPELLS.DARK_REPRIMAND_DAMAGE.id) ||
+      event.penanceBoltNumber !== 3
+    ) {
       return;
     }
 
@@ -72,7 +80,7 @@ class Castigation extends Analyzer {
     const spellId = event.ability.guid;
 
     // Friendly Penance Healing
-    if (spellId === SPELLS.PENANCE_HEAL.id) {
+    if (spellId === SPELLS.PENANCE_HEAL.id || spellId === SPELLS.DARK_REPRIMAND_HEAL.id) {
       if (event.penanceBoltNumber === 3) {
         this.healing += event.amount;
       }

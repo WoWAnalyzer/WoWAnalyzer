@@ -8,6 +8,7 @@ import { TooltipElement } from 'interface';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
 import { SpellUse } from './core';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const NoData = styled.div`
   color: #999;
@@ -35,7 +36,11 @@ const SpellDetailsContainer = styled.div`
     grid-column: 1 / -1;
   }
 
-  > *:nth-child(odd) {
+  ${RoundedPanel} {
+    grid-column: 1 / -1;
+  }
+
+  > *:nth-child(odd):not(${RoundedPanel}) {
     justify-self: center;
   }
 `;
@@ -72,6 +77,14 @@ const SpellUseDetails = ({ spellUse }: { spellUse?: SpellUse }) => {
           {checklistItem.details}
         </Fragment>
       ))}
+      {spellUse.extraDetails ? (
+        <RoundedPanel>
+          <div>
+            <strong>Extra Details</strong>
+          </div>
+          {spellUse.extraDetails}
+        </RoundedPanel>
+      ) : null}
     </SpellDetailsContainer>
   );
 };
@@ -163,6 +176,12 @@ const SpellUsageSubSection = ({
       </ExplanationRow>
     </SubSection>
   );
+};
+
+export const logSpellUseEvent = (use: SpellUse | undefined) => {
+  if (use) {
+    console.log(use.event);
+  }
 };
 
 export default SpellUsageSubSection;

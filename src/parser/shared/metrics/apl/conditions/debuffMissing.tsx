@@ -4,6 +4,7 @@ import { EventType, GetRelatedEvents, HasTarget } from 'parser/core/Events';
 import { encodeEventTargetString, encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import { AplTriggerEvent, Condition, tenseAlt } from '../index';
+import { validateBuffMissing } from './buffPresent';
 import { buffDuration, DurationData, PandemicData } from './util';
 
 type TargetOptions = {
@@ -37,30 +38,21 @@ export function debuffMissing(
   spell: Spell,
   optPandemic?: PandemicData,
   targetOptions?: TargetOptions,
-): Condition<{ [key: string]: DurationData } | null> {
-  const pandemic: PandemicData = {
-    timeRemaining: 0,
-    duration: 0,
-    ...optPandemic,
-  };
-
+): Condition<{ [key: string]: DurationData }> {
   return {
     key: `debuffMissing-${spell.id}`,
-    init: () => null,
+    init: () => ({}),
     update: (state, event) => {
       switch (event.type) {
+        case EventType.RefreshDebuff:
         case EventType.ApplyDebuff:
           if (event.ability.guid === spell.id) {
-            const encodedTargetString = encodeTargetString(
-              event.targetID,
-              event.targetInstance ?? 1,
-            );
-            if (!state) {
-              state = {};
-            }
+            const encodedTargetString = encodeTargetString(event.targetID, event.targetInstance);
             state[encodedTargetString] = {
               referenceTime: event.timestamp,
-              timeRemaining: buffDuration(state[encodedTargetString]?.timeRemaining, pandemic),
+              timeRemaining: optPandemic
+                ? buffDuration(event.timestamp, state[encodedTargetString], optPandemic)
+                : undefined,
             };
 
             return state;
@@ -68,13 +60,7 @@ export function debuffMissing(
           break;
         case EventType.RemoveDebuff:
           if (event.ability.guid === spell.id) {
-            const encodedTargetString = encodeTargetString(
-              event.targetID,
-              event.targetInstance ?? 1,
-            );
-            if (!state) {
-              state = {};
-            }
+            const encodedTargetString = encodeTargetString(event.targetID, event.targetInstance);
             delete state[encodedTargetString];
             return state;
           }
@@ -90,22 +76,9 @@ export function debuffMissing(
         return false;
       }
 
-      return targets.some((encodedTargetString) => {
-        if (state === null || state[encodedTargetString] === undefined) {
-          // debuff is missing
-          return true;
-        } else if (state[encodedTargetString]?.referenceTime + 200 > event.timestamp) {
-          // debuff was *just* applied, possibly by this very spell. treat it as optional
-          return event.ability.guid === ruleSpell.id;
-        } else {
-          // otherwise, return true if we can pandemic this debuff
-          return (
-            ruleSpell.id === event.ability.guid &&
-            state[encodedTargetString].referenceTime + state[encodedTargetString].timeRemaining <
-              event.timestamp + pandemic.timeRemaining
-          );
-        }
-      });
+      return targets.some((encodedTargetString) =>
+        validateBuffMissing(event, ruleSpell, state[encodedTargetString], optPandemic),
+      );
     },
     describe: (tense) => (
       <>

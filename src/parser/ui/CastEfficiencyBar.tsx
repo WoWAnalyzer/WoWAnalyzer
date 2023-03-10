@@ -1,5 +1,6 @@
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import styled from '@emotion/styled';
+import { ReactNode } from 'react';
+import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import { BadColor, GoodColor, MediocreColor, OkColor, useAnalyzer } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -29,7 +30,7 @@ export default function CastEfficiencyBar({
   useThresholds?: boolean;
 }): JSX.Element {
   const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(spellId);
-  let tooltip: React.ReactNode = `Couldn't get cast efficiency info!`;
+  let tooltip: ReactNode = `Couldn't get cast efficiency info!`;
   let utilDisplay = `N/A`;
   let textColor: string | undefined;
   if (castEffic && castEffic.efficiency !== null) {

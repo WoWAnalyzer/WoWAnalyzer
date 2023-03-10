@@ -38,6 +38,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ROLL_THE_BONES_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 45,
         gcd: {
           static: standardGcd,
         },
@@ -137,7 +138,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 1,
+        cooldown: 60,
         charges: 3,
         enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
       },
@@ -182,6 +183,13 @@ class Abilities extends CoreAbilities {
           ),
         },
         enabled: combatant.hasTalent(TALENTS.KILLING_SPREE_TALENT),
+      },
+      {
+        spell: TALENTS.KEEP_IT_ROLLING_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 7 * 60,
+        gcd: null,
+        enabled: combatant.hasTalent(TALENTS.KEEP_IT_ROLLING_TALENT),
       },
       // Defensive
       {
@@ -252,7 +260,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SPRINT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
+        cooldown: 120 - (combatant.hasTalent(TALENTS.IMPROVED_SPRINT_TALENT) ? 60 : 0),
         gcd: null,
       },
       {

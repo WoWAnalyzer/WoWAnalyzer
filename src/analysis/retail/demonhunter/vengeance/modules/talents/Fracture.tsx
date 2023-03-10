@@ -2,17 +2,26 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import TALENTS from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import { SpellLink } from 'interface';
 import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import FuryTracker from 'analysis/retail/demonhunter/vengeance/modules/resourcetracker/FuryTracker';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
-import { ReactNode } from 'react';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
+import {
+  ChecklistUsageInfo,
+  SpellUse,
+  spellUseToBoxRowEntry,
+  UsageInfo,
+} from 'parser/core/SpellUsage/core';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import SpellUsageSubSection, {
+  logSpellUseEvent,
+} from 'parser/core/SpellUsage/SpellUsageSubSection';
+import ResourceLink from 'interface/ResourceLink';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 
 // Fracture fury gen (no T29): 25
 // Metamorphosis Fracture fury gen (no T29): 45
@@ -31,19 +40,16 @@ const getMetaInitialFuryLimit = (hasT292Pc: boolean) =>
 const getNonMetaInitialFuryLimit = (hasT292Pc: boolean) =>
   hasT292Pc ? T29_NOT_META_FURY_LIMIT : DEFAULT_NOT_META_FURY_LIMIT;
 
-type FractureBoxRowEntry = BoxRowEntry & {
-  event: CastEvent;
-};
-
 export default class Fracture extends Analyzer {
   static dependencies = {
     enemies: Enemies,
     furyTracker: FuryTracker,
   };
 
-  castEntries: FractureBoxRowEntry[] = [];
-  inMetaFuryLimit = getMetaInitialFuryLimit(false);
-  notMetaFuryLimit = getNonMetaInitialFuryLimit(false);
+  private cooldownUses: SpellUse[] = [];
+  private inMetaFuryLimit = getMetaInitialFuryLimit(false);
+  private notMetaFuryLimit = getNonMetaInitialFuryLimit(false);
+
   protected enemies!: Enemies;
   protected furyTracker!: FuryTracker;
 
@@ -73,7 +79,51 @@ export default class Fracture extends Analyzer {
     );
   }
 
-  onCast(event: CastEvent) {
+  guideSubsection() {
+    const explanation = (
+      <p>
+        <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
+          <strong>
+            <SpellLink id={TALENTS.FRACTURE_TALENT} />
+          </strong>{' '}
+          is your primary <strong>builder</strong> for <ResourceLink id={RESOURCE_TYPES.FURY.id} />{' '}
+          and <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+          s. Cast it when you have less than 4 <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s and
+          less than {this.notMetaFuryLimit} <ResourceLink id={RESOURCE_TYPES.FURY.id} />. In{' '}
+          <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 3{' '}
+          <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.inMetaFuryLimit}{' '}
+          <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
+        </Trans>
+      </p>
+    );
+
+    const performances = this.cooldownUses.map((it) =>
+      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
+    );
+
+    const goodCasts = performances.filter((it) => it.value === QualitativePerformance.Good).length;
+    const totalCasts = performances.length;
+
+    return (
+      <SpellUsageSubSection
+        explanation={explanation}
+        performance={performances}
+        uses={this.cooldownUses}
+        castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
+        onPerformanceBoxClick={logSpellUseEvent}
+        abovePerformanceDetails={
+          <CastPerformanceSummary
+            spell={TALENTS.FRACTURE_TALENT}
+            casts={goodCasts}
+            performance={QualitativePerformance.Good}
+            totalCasts={totalCasts}
+          />
+        }
+      />
+    );
+  }
+
+  private onCast(event: CastEvent) {
     // Fractures are good IF:
     // in Metamorphosis - < 3 Soul Fragments and < inMetaFury Fury
     // out of Metamorphosis - < 4 Soul Fragments and < notMetaFury Fury
@@ -82,78 +132,111 @@ export default class Fracture extends Analyzer {
       event.timestamp,
     );
     const hasT292Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    const targetName = this.owner.getTargetName(event);
 
-    const [furyPerformance, furyPerformanceNote] = this.getCastFuryPerformance(event);
-    const [
-      soulFragmentPerformance,
-      soulFragmentPerformanceNote,
-    ] = this.getCastSoulFragmentPerformance(event);
-    const performance =
-      furyPerformance === QualitativePerformance.Good &&
-      soulFragmentPerformance === QualitativePerformance.Good
-        ? QualitativePerformance.Good
-        : QualitativePerformance.Fail;
-
-    const tooltip = (
-      <>
-        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
-        <strong>{targetName || 'unknown'}</strong>
-        <br />
+    const extraDetails = (
+      <div>
         {hasMetamorphosis && (
-          <>
+          <p>
             Was in <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, increasing Fury and Soul Fragment
             generation
-            <br />
-          </>
+          </p>
         )}
-        {hasT292Piece && (
-          <>
-            Wearing T29 2-piece, increasing Fury Gen by 20%
-            <br />
-          </>
-        )}
-        {furyPerformanceNote}
-        {soulFragmentPerformanceNote}
-      </>
+        {hasT292Piece && <p>Wearing T29 2-piece, increasing Fury Gen by 20%</p>}
+      </div>
     );
 
-    this.castEntries.push({ value: performance, tooltip, event });
+    const checklistItems: ChecklistUsageInfo[] = [
+      { check: 'fury', timestamp: event.timestamp, ...this.getCastFuryPerformance(event) },
+      {
+        check: 'soul-fragments',
+        timestamp: event.timestamp,
+        ...this.getCastSoulFragmentPerformance(event),
+      },
+    ];
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+    );
+    this.cooldownUses.push({
+      event,
+      performance: actualPerformance,
+      checklistItems,
+      performanceExplanation:
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
+      extraDetails,
+    });
   }
 
-  getCastFuryPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
+  private getCastFuryPerformance(event: CastEvent): UsageInfo {
     const hasMetamorphosis = this.selectedCombatant.hasBuff(
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
     );
     const amountOfFury = this.furyTracker.current;
 
+    const inMetamorphosisSummary = (
+      <div>Cast at &lt; {this.inMetaFuryLimit} Fury during Metamorphosis</div>
+    );
+    const nonMetamorphosisSummary = <div>Cast at &lt; {this.notMetaFuryLimit} Fury</div>;
+
     if (hasMetamorphosis) {
       if (amountOfFury < this.inMetaFuryLimit) {
-        return [QualitativePerformance.Good, null];
+        return {
+          performance: QualitativePerformance.Good,
+          summary: inMetamorphosisSummary,
+          details: (
+            <div>
+              You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
+              <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
+              {this.inMetaFuryLimit} during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Good job!
+            </div>
+          ),
+        };
       }
-      return [
-        QualitativePerformance.Fail,
-        <>
-          Cast at {amountOfFury} Fury. Recommended (due to Metamorphosis): &lt;{' '}
-          {this.inMetaFuryLimit}
-          <br />
-        </>,
-      ];
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: inMetamorphosisSummary,
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
+            <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
+            {this.inMetaFuryLimit} during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Work on
+            spending your <ResourceLink id={RESOURCE_TYPES.FURY.id} /> before pressing{' '}
+            <SpellLink id={TALENTS.FRACTURE_TALENT} />.
+          </div>
+        ),
+      };
     }
     if (amountOfFury < this.notMetaFuryLimit) {
-      return [QualitativePerformance.Good, null];
+      return {
+        performance: QualitativePerformance.Good,
+        summary: nonMetamorphosisSummary,
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
+            <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
+            {this.notMetaFuryLimit}. Good job!
+          </div>
+        ),
+      };
     }
-    return [
-      QualitativePerformance.Fail,
-      <>
-        Cast at {amountOfFury} Fury. Recommended: &lt; {this.notMetaFuryLimit}
-        <br />
-      </>,
-    ];
+    return {
+      performance: QualitativePerformance.Fail,
+      summary: nonMetamorphosisSummary,
+      details: (
+        <div>
+          You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
+          <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
+          {this.notMetaFuryLimit}. Work on spending your{' '}
+          <ResourceLink id={RESOURCE_TYPES.FURY.id} /> before pressing{' '}
+          <SpellLink id={TALENTS.FRACTURE_TALENT} />.
+        </div>
+      ),
+    };
   }
 
-  getCastSoulFragmentPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
+  private getCastSoulFragmentPerformance(event: CastEvent): UsageInfo {
     const hasMetamorphosis = this.selectedCombatant.hasBuff(
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
@@ -163,78 +246,67 @@ export default class Fracture extends Analyzer {
       event.timestamp,
     );
 
+    const inMetamorphosisSummary = (
+      <div>Cast at &lt; {IN_META_SOUL_FRAGMENTS_LIMIT} Soul Fragments during Metamorphosis</div>
+    );
+    const nonMetamorphosisSummary = (
+      <div>Cast at &lt; {NOT_META_SOUL_FRAGMENTS_LIMIT} Soul Fragments</div>
+    );
+
     if (hasMetamorphosis) {
       if (amountOfSoulFragments < IN_META_SOUL_FRAGMENTS_LIMIT) {
-        return [QualitativePerformance.Good, null];
+        return {
+          performance: QualitativePerformance.Good,
+          summary: inMetamorphosisSummary,
+          details: (
+            <div>
+              You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
+              <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less
+              than {IN_META_SOUL_FRAGMENTS_LIMIT} during{' '}
+              <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Good job!
+            </div>
+          ),
+        };
       }
-      return [
-        QualitativePerformance.Fail,
-        <>
-          Cast at {amountOfSoulFragments} Soul Fragments. Recommended (due to Metamorphosis): &lt;{' '}
-          {IN_META_SOUL_FRAGMENTS_LIMIT}
-          <br />
-        </>,
-      ];
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: inMetamorphosisSummary,
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
+            <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less than{' '}
+            {IN_META_SOUL_FRAGMENTS_LIMIT} during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Work
+            on spending your <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s before pressing{' '}
+            <SpellLink id={TALENTS.FRACTURE_TALENT} />.
+          </div>
+        ),
+      };
     }
     if (amountOfSoulFragments < NOT_META_SOUL_FRAGMENTS_LIMIT) {
-      return [QualitativePerformance.Good, null];
+      return {
+        performance: QualitativePerformance.Good,
+        summary: nonMetamorphosisSummary,
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
+            <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less than{' '}
+            {NOT_META_SOUL_FRAGMENTS_LIMIT}. Good job!
+          </div>
+        ),
+      };
     }
-    return [
-      QualitativePerformance.Fail,
-      <>
-        Cast at {amountOfSoulFragments} Soul Fragments. Recommended: &lt;{' '}
-        {NOT_META_SOUL_FRAGMENTS_LIMIT}
-        <br />
-      </>,
-    ];
-  }
-
-  guideSubsection() {
-    const explanation = (
-      <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
-          <strong>
-            <SpellLink id={TALENTS.FRACTURE_TALENT} />
-          </strong>{' '}
-          is your primary <strong>builder</strong> for <strong>Fury</strong> and{' '}
-          <strong>Soul Fragments</strong>. Cast it when you have less than 4 Soul Fragments and less
-          than {this.notMetaFuryLimit} Fury. In <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, cast
-          it when you have less than 3 Soul Fragments and less than {this.inMetaFuryLimit} Fury.
-        </Trans>
-      </p>
-    );
-    const data = (
-      <CastSummaryAndBreakdown
-        spell={TALENTS.FRACTURE_TALENT}
-        castEntries={this.castEntries}
-        goodLabel={t({
-          id:
-            'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.good',
-          message: 'Fractures',
-        })}
-        includeGoodCastPercentage
-        badLabel={t({
-          id: 'guide.demonhunter.vengeance.sections.rotation.fracture.data.summary.performance.bad',
-          message: 'Bad Fractures',
-        })}
-        onClickBox={(idx) => console.log(this.castEntries[idx].event)}
-      />
-    );
-    const noCastData = (
-      <div>
-        <p>
-          <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.noCast">
-            You did not cast Fracture during this encounter.
-          </Trans>
-        </p>
-      </div>
-    );
-
-    return (
-      <ExplanationAndDataSubSection
-        explanation={explanation}
-        data={this.castEntries.length > 0 ? data : noCastData}
-      />
-    );
+    return {
+      performance: QualitativePerformance.Fail,
+      summary: nonMetamorphosisSummary,
+      details: (
+        <div>
+          You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
+          <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less than{' '}
+          {NOT_META_SOUL_FRAGMENTS_LIMIT} during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Work
+          on spending your <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s before pressing{' '}
+          <SpellLink id={TALENTS.FRACTURE_TALENT} />.
+        </div>
+      ),
+    };
   }
 }

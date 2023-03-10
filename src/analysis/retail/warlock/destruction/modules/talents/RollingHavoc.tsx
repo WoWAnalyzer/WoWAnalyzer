@@ -23,7 +23,7 @@ class RollingHavoc extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.TALENTS}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <TalentSpellText talent={RollingHavoc.talent}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
         </TalentSpellText>
