@@ -285,11 +285,6 @@ const spells = spellIndexableList({
     name: 'Pandemic Invocation',
     icon: 'spell_shadow_unsummonbuilding',
   },
-  PANDEMIC_INVOCATION_SHARD_GEN: {
-    id: 386762,
-    name: 'Pandemic Invocation',
-    icon: 'spell_shadow_unsummonbuilding',
-  },
   PHANTOM_SINGULARITY_DAMAGE_HEAL: {
     id: 205246,
     name: 'Phantom Singularity',
@@ -341,6 +336,11 @@ const spells = spellIndexableList({
     id: 215942,
     name: 'Soul Conduit',
     icon: 'spell_shadow_soulleech_2',
+  },
+  PANDEMIC_INVOCATION_SHARD_GEN: {
+    id: 386762,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
   },
 
   // -----------
