@@ -1027,6 +1027,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101392],
   },
+  LEGACY_OF_WISDOM_TALENT: {
+    id: 404408,
+    name: 'Legacy of Wisdom',
+    icon: 'misc_legionfall_monk',
+    maxRanks: 1,
+    entryIds: [-1], //// PLACEHOLDER TILL SCRIPT IS RUN
+  },
   SHUFFLE_TALENT: {
     id: 322120,
     name: 'Shuffle',
