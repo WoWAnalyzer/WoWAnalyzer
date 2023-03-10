@@ -30,6 +30,7 @@ import PhantomSingularity from './modules/spells/PhantomSingularity';
 import ShadowEmbrace from './modules/spells/ShadowEmbrace';
 import SiphonLifeUptime from './modules/spells/SiphonLife';
 import SoulConduit from './modules/spells/SoulConduit';
+import TormentedCrescendo from './modules/spells/TormentedCrescendo';
 import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
 import VileTaint from './modules/spells/VileTaint';
 
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     phantomSingularity: PhantomSingularity,
     siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
+    tormentedCrescendo: TormentedCrescendo,
     vileTaint: VileTaint,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown

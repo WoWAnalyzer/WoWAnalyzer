@@ -295,6 +295,11 @@ const spells = spellIndexableList({
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
   },
+  TORMENTED_CRESCENDO_BUFF: {
+    id: 387079,
+    name: 'Tormented Crescendo',
+    icon: 'warlock_curse_shadow',
+  },
   VILE_TAINT_DEBUFF: {
     id: 386931,
     name: 'Vile Taint',
