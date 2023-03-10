@@ -280,6 +280,11 @@ const spells = spellIndexableList({
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
   },
+  VILE_TAINT_DEBUFF: {
+    id: 386931,
+    name: 'Vile Taint',
+    icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
+  },
 
   // Affliction shard generating effects
   AGONY_SHARD_GEN: {
