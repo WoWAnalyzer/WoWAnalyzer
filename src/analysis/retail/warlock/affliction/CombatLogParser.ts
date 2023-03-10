@@ -23,6 +23,7 @@ import CorruptionUptime from './modules/spells/Corruption';
 import DrainSoul from './modules/spells/DrainSoul';
 import DreadTouch from './modules/spells/DreadTouch';
 import Haunt from './modules/spells/Haunt';
+import MaleficAffliction from './modules/spells/MaleficAffliction';
 import Nightfall from './modules/spells/Nightfall';
 import PhantomSingularity from './modules/spells/PhantomSingularity';
 import ShadowEmbrace from './modules/spells/ShadowEmbrace';
@@ -66,6 +67,7 @@ class CombatLogParser extends CoreCombatLogParser {
     dreadTouch: DreadTouch,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
+    maleficAffliction: MaleficAffliction,
     nightfall: Nightfall,
     phantomSingularity: PhantomSingularity,
     siphonLifeUptime: SiphonLifeUptime,

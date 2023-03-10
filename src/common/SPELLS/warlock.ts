@@ -265,6 +265,11 @@ const spells = spellIndexableList({
     name: 'Dread Touch',
     icon: 'ability_priest_touchofdecay',
   },
+  MALEFIC_AFFLICTION_BUFF: {
+    id: 389845,
+    name: 'Malefic Affliction',
+    icon: 'spell_shadow_unstableaffliction_3_purple',
+  },
   NIGHTFALL_BUFF: {
     id: 264571,
     name: 'Nightfall',
