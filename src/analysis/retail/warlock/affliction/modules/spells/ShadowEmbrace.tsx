@@ -8,9 +8,9 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import UptimeBar from 'parser/ui/UptimeBar';
 
 const BONUS_PER_STACK_BASE = 0.015;
@@ -198,7 +198,7 @@ class ShadowEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.SHADOW_EMBRACE_TALENT.id}>
+        <TalentSpellText talent={TALENTS.SHADOW_EMBRACE_TALENT}>
           {formatPercentage(this.totalUptimePercentage)} %{' '}
           <TooltipElement
             content={
@@ -218,7 +218,7 @@ class ShadowEmbrace extends Analyzer {
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
           </small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
