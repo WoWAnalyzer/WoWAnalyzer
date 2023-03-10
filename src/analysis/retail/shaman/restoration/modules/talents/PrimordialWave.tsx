@@ -20,6 +20,7 @@ import BoringValue from 'parser/ui/BoringValueText';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -176,7 +177,7 @@ class PrimordialWave extends Analyzer {
           '% overheal)',
       },
       {
-        color: RESTORATION_COLORS.CHAIN_HEAL,
+        color: RESTORATION_COLORS.PRIMORDIAL_WAVE,
         label: 'Primordial Wave',
         spellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
         value: this.healing,
@@ -203,6 +204,7 @@ class PrimordialWave extends Analyzer {
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.CORE(2)}
         tooltip={
           <>
             <ul>

@@ -71,6 +71,7 @@ class MistyPeaks extends Analyzer {
     }
     const hot = this.hotTracker.hots[playerId][TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
     if (this.hotTracker.fromMistyPeaks(hot)) {
+      //filter out hard casted envelops and healing from extension -> attributed in the rising mist module
       this.extraHits += 1;
       this.extraHealing += event.amount || 0;
       this.extraAbsorb += event.absorbed || 0;
@@ -110,11 +111,14 @@ class MistyPeaks extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.DEFAULT}
+        position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
+            <li>
+              <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/> procs: {this.numHots}
+            </li>
             <li>
               <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> extra hits: {this.extraHits}
             </li>

@@ -13,6 +13,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@types/react-toggle": "^4.0.3",
     "@wowanalyzer/react-tooltip-lite": "^3.1.1",
+    "core-js": "3.21.0",
     "es6-error": "^4.1.1",
     "make-plural": "^7.2.0",
     "prop-types": "^15.8.1",
@@ -35,16 +36,18 @@
     "sass-text-stroke": "1.2.0",
     "swr": "^2.0.0",
     "universal-cookie": "^4.0.4",
-    "vega": "~5.22.1",
+    "vega": "~5.23.0",
     "vega-lite": "^5.6.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.7",
     "@babel/plugin-proposal-private-property-in-object": "^7.20.5",
+    "@babel/register": "^7.18.9",
     "@emotion/babel-plugin": "^11.10.5",
     "@lingui/cli": "3.14.0",
     "@lingui/loader": "3.14.0",
     "@martijnhols/eslint-config": "^5.1.0",
+    "@playwright/test": "^1.30.0",
     "@sentry/browser": "^7.28.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^12",
@@ -77,6 +80,7 @@
     "react-test-renderer": "^17.0.2",
     "sass": "^1.57.1",
     "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.1.2",
     "typescript": "^4.9.4"
   },
   "resolutions": {
@@ -101,7 +105,11 @@
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
     "postinstall": "patch-package",
-    "prepare": "is-ci || husky install"
+    "prepare": "is-ci || husky install",
+    "e2e:setup": "node ./scripts/e2e/generate-configs-bootstrap.js",
+    "e2e": "yarn e2e:setup && playwright test",
+    "e2e:codegen": "playwright codegen http://localhost:3000",
+    "e2e:report": "playwright show-report"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,md,mdx,yml,graphql,scss,css}": [

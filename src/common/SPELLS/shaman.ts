@@ -653,6 +653,11 @@ const spells = spellIndexableList({
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split',
   },
+  WELLSPRING_UNLEASH_LIFE: {
+    id: 383404,
+    name: 'Unleash Life - Wellspring',
+    icon: 'ability_shawaterelemental_split',
+  },
   RESURGENCE: {
     id: 101033,
     name: 'Resurgence',

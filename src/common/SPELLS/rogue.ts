@@ -578,6 +578,14 @@ const spells = spellIndexableList({
     name: 'Audacity',
     icon: 'ability_rogue_ambush',
   },
+
+  //Tiers
+
+  OUTLAW_ROGUE_TIER_28_2P_SET_BONUS: {
+    id: 394879,
+    name: 'Vicious Follow-up',
+    icon: 'spell_shadow_ritualofsacrifice',
+  },
 });
 
 export default spells;

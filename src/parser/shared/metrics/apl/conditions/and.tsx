@@ -1,4 +1,5 @@
 import type { Condition } from '../index';
+import { containsOptionalCondition } from './optionalRule';
 
 type ConditionMap = { [k: string]: Condition<any> };
 
@@ -9,6 +10,13 @@ type ConditionMap = { [k: string]: Condition<any> };
    work, but take care.
 **/
 export default function and(...conditions: Array<Condition<any>>): Condition<any> {
+  const key = `and-${conditions.map((cnd) => cnd.key).join('-')}`;
+  if (process.env.NODE_ENV !== 'production' && conditions.some(containsOptionalCondition)) {
+    console.warn(
+      `APL rule ${key} contains optional rules. Nesting optionalRule inside of and can produce confusing behavior and is discouraged.`,
+      conditions,
+    );
+  }
   const cndMap: ConditionMap = conditions.reduce((map: ConditionMap, cnd) => {
     map[cnd.key] = cnd;
     return map;
@@ -20,7 +28,7 @@ export default function and(...conditions: Array<Condition<any>>): Condition<any
   );
 
   return {
-    key: `and-${conditions.map((cnd) => cnd.key).join('-')}`,
+    key,
     init: (info) => Object.fromEntries(conditions.map(({ key, init }) => [key, init(info)])),
     update: (state, event) =>
       Object.keys(state).reduce((nextState: ConditionMap, key) => {

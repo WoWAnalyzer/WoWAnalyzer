@@ -2,7 +2,7 @@ import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -40,14 +40,6 @@ class Dispatch extends Analyzer {
 
   protected damageTracker!: DamageTracker;
   protected betweenTheEyesDamageTracker!: BetweenTheEyesDamageTracker;
-
-  constructor(options: Options & { betweenTheEyesDamageTracker: BetweenTheEyesDamageTracker }) {
-    super(options);
-    options.betweenTheEyesDamageTracker.subscribeInefficientCast(
-      [SPELLS.DISPATCH],
-      () => `Between The Eyes should be prioritized as your spender during Ruthless Precision`,
-    );
-  }
 
   suggestions(when: When) {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) =>

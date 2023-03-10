@@ -3,21 +3,14 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { ResourceLink, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import ImmolationAuraVengeanceGuideSection from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/VengeanceGuideSection';
 import { t, Trans } from '@lingui/macro';
-import VerticallyAlignedToggle from 'interface/VerticallyAlignedToggle';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
 import CombatLogParser from './CombatLogParser';
-import DemonSpikesSubSection from './modules/spells/DemonSpikes/GuideSection';
-import FieryBrandSubSection from './modules/talents/FieryBrand/GuideSection';
-import VoidReaverSubSection from './modules/talents/VoidReaver/GuideSection';
-import MetamorphosisSubSection from './modules/spells/Metamorphosis/GuideSection';
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import MajorDefensives from './modules/core/MajorDefensives';
-import useVdhFeatureFlag from './guide/useVdhFeatureFlag';
 import {
   GOOD_TIME_AT_FURY_CAP,
   OK_TIME_AT_FURY_CAP,
@@ -100,7 +93,6 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
 
 function MitigationSection() {
   const info = useInfo();
-  const [enabled, setEnabled] = useVdhFeatureFlag('major-defensives');
   if (!info) {
     return null;
   }
@@ -112,33 +104,8 @@ function MitigationSection() {
         message: 'Defensive Cooldowns and Mitigation',
       })}
     >
-      <div className="flex">
-        <div className="flex-main" />
-        <div className="flex-sub">
-          <VerticallyAlignedToggle
-            id="enable-new-defensives-section-toggle"
-            enabled={enabled}
-            setEnabled={setEnabled}
-            label="View In-Flight Content"
-            tooltipContent="Only click this if you're okay with seeing under-development features. If things don't work how you expect, you can always turn this back off."
-          />
-        </div>
-      </div>
-      {enabled && <MajorDefensives />}
-      {!enabled && <OldMitigationSection />}
+      <MajorDefensives />
     </Section>
-  );
-}
-
-function OldMitigationSection() {
-  return (
-    <>
-      <HideExplanationsToggle id="hide-explanations-old-mitigation" />
-      <MetamorphosisSubSection />
-      <DemonSpikesSubSection />
-      <FieryBrandSubSection />
-      <VoidReaverSubSection />
-    </>
   );
 }
 
@@ -153,7 +120,8 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">
           Vengeance's core rotation involves <strong>building</strong> and then{' '}
-          <strong>spending</strong> <SpellLink id={SPELLS.SOUL_FRAGMENT} />
+          <strong>spending</strong> <ResourceLink id={RESOURCE_TYPES.FURY.id} /> and{' '}
+          <SpellLink id={SPELLS.SOUL_FRAGMENT} />
           s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
         </Trans>
       </p>
@@ -161,10 +129,12 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       <HideExplanationsToggle id="hide-explanations-rotation" />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
-      <ImmolationAuraVengeanceGuideSection />
-      {modules.soulCleave.guideSubsection()}
+      {modules.immolationAura.vengeanceGuideSubsection()}
+      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+        modules.sigilOfFlame.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
         modules.spiritBomb.guideSubsection()}
+      {modules.soulCleave.guideSubsection()}
     </Section>
   );
 }

@@ -136,7 +136,7 @@ const spells = spellIndexableList({
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 9500,
+    manaCost: 8500,
   },
   VIVIFICATION_BUFF: {
     id: 392883,

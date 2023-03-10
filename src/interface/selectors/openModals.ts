@@ -1,3 +1,4 @@
 import { RootState } from 'store';
 
-export const getOpenModals = (state: RootState) => state.openModals;
+export const getOpenModalCount = (state: RootState) => state.openModals.length;
+export const getTopModal = (state: RootState) => state.openModals.at(-1);

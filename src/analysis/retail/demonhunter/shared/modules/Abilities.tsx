@@ -141,12 +141,9 @@ export default class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [
-          SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
-          SPELLS.SIGIL_OF_FLAME_PRECISE.id,
-        ],
+        spell: TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT),
         cooldown:
           30 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
         gcd: {
@@ -157,6 +154,43 @@ export default class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: `Cast on cooldown for a dps increase.`,
         },
+        damageSpellIds: [SPELLS.SIGIL_OF_FLAME_DEBUFF.id],
+      },
+      {
+        spell: SPELLS.SIGIL_OF_FLAME_PRECISE.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        enabled:
+          this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT),
+        cooldown:
+          30 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Cast on cooldown for a dps increase.`,
+        },
+        damageSpellIds: [SPELLS.SIGIL_OF_FLAME_DEBUFF.id],
+      },
+      {
+        spell: SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        enabled:
+          this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
+          this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT),
+        cooldown:
+          30 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: `Cast on cooldown for a dps increase.`,
+        },
+        damageSpellIds: [SPELLS.SIGIL_OF_FLAME_DEBUFF.id],
       },
       {
         spell: [

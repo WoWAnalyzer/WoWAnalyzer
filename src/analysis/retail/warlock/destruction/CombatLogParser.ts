@@ -32,6 +32,7 @@ import Shadowburn from './modules/talents/Shadowburn';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulFire from './modules/talents/SoulFire';
 import FlashPoint from './modules/talents/FlashPoint';
+import BurnToAshes from './modules/talents/BurnToAshes';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -72,6 +73,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rollingHavoc: RollingHavoc,
     madnessOfAzhaqir: MadnessOfAzhaqir,
     flashPoint: FlashPoint,
+    burnToAshes: BurnToAshes,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

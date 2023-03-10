@@ -10,9 +10,12 @@ import {
   InstantPoison,
   Sepsis,
   StealthAbilityFollowingSepsis,
+  ThistleTeaCastLinkNormalizer,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import EnergyGraph from 'analysis/retail/rogue/shared/EnergyGraph';
+import ComboPointGraph from 'analysis/retail/rogue/shared/ComboPointGraph';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -27,7 +30,6 @@ import Finishers from './modules/features/Finishers';
 import RollTheBonesCastTracker from './modules/features/RollTheBonesCastTracker';
 import BetweenTheEyes from './modules/spells/BetweenTheEyes';
 import BetweenTheEyesDamageTracker from './modules/spells/BetweenTheEyesDamageTracker';
-import BladeFlurry from './modules/spells/BladeFlurry';
 import Dispatch from './modules/spells/Dispatch';
 import Opportunity from './modules/spells/Opportunity';
 import OpportunityDamageTracker from './modules/spells/OpportunityDamageTracker';
@@ -40,6 +42,11 @@ import InvigoratingShadowdust from 'analysis/retail/rogue/shared/shadowlands/leg
 import Audacity from './modules/spells/Audacity';
 import AudacityDamageTracker from './modules/spells/AudacityDamageTracker';
 import FanTheHammerNormalizer from './normalizers/FanTheHammerNormalizer';
+import Guide from './Guide';
+import BuilderUse from './modules/core/BuilderUse';
+import FinisherUse from './modules/core/FinisherUse';
+import AplCheck from './modules/apl/AplCheck';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -51,17 +58,25 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     //Normalizers
+    castLinkNormalizer: CastLinkNormalizer,
+    thistleTeaCastLinkNormalizer: ThistleTeaCastLinkNormalizer,
     fanTheHammerNormalizer: FanTheHammerNormalizer,
 
     //Resource
     comboPointTracker: OutlawComboPointTracker,
     comboPointDetails: ComboPointDetails,
     comboPoints: ComboPoints,
+    comboPointGraph: ComboPointGraph,
     energyTracker: EnergyTracker,
     energyCapTracker: OutlawEnergyCapTracker,
     energyDetails: EnergyDetails,
     energy: Energy,
+    energyGraph: EnergyGraph,
     spellEnergyCost: SpellEnergyCost,
+
+    // Core
+    builderUse: BuilderUse,
+    finisherUse: FinisherUse,
 
     //Legendaries
     invigoratingShadowdust: InvigoratingShadowdust,
@@ -84,7 +99,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rollTheBonesEfficiency: RollTheBonesEfficiency,
     finishers: Finishers,
     sliceAndDiceUptime: SliceAndDiceUptime,
-    bladeFlurry: BladeFlurry,
     //Talents
     bladeRush: BladeRush,
     serratedBoneSpike: SerratedBoneSpike,
@@ -102,7 +116,11 @@ class CombatLogParser extends CoreCombatLogParser {
         extraSuggestion: 'You should be using Arcane Torrent whenever you have a free GCD for it.',
       },
     ] as const,
+
+    apl: AplCheck,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
