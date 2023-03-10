@@ -196,8 +196,8 @@ const PlayerLoader = ({ children }: Props) => {
             }
           }
           
-          if (isClassicExpansion(wclGameVersionToExpansion(report.gameVersion))) {
-            const config = getConfig(CLASSIC_EXPANSION, 1, player, combatant);
+          const config = getConfig(CLASSIC_EXPANSION, 1, player, combatant);
+          if (config) {
             if (config?.spec) {
               switch (config?.spec.role) {
                 case ROLES.TANK:
