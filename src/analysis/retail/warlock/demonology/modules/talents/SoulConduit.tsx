@@ -3,14 +3,14 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import SoulShardTracker from '../resources/SoulShardTracker';
 
 const SHARDS_PER_HOG = 3;
-const SC_PROC_CHANCE = 0.15;
+const SC_PROC_CHANCE_BASE = 0.05;
 
 class SoulConduit extends Analyzer {
   static dependencies = {
@@ -18,6 +18,9 @@ class SoulConduit extends Analyzer {
   };
 
   soulShardTracker!: SoulShardTracker;
+
+  SC_PROC_CHANCE =
+    SC_PROC_CHANCE_BASE * this.selectedCombatant.getTalentRank(TALENTS.SOUL_CONDUIT_TALENT);
 
   constructor(options: Options) {
     super(options);
@@ -29,7 +32,7 @@ class SoulConduit extends Analyzer {
     const extraHogs = Math.floor(generated / SHARDS_PER_HOG);
     const totalSpent = this.soulShardTracker.spent;
     // find number of Shards we were MOST LIKELY to get in the fight
-    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
+    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, this.SC_PROC_CHANCE));
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -50,9 +53,9 @@ class SoulConduit extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SOUL_CONDUIT_TALENT.id}>
+        <TalentSpellText talent={TALENTS.SOUL_CONDUIT_TALENT}>
           {generated} <small>Shards generated</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
