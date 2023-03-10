@@ -305,6 +305,11 @@ const spells = spellIndexableList({
     name: 'Vile Taint',
     icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
   },
+  WRATH_OF_CONSUMPTION_BUFF: {
+    id: 387066,
+    name: 'Wrath of Consumption',
+    icon: 'spell_nature_drowsy',
+  },
 
   // Affliction shard generating effects
   AGONY_SHARD_GEN: {
