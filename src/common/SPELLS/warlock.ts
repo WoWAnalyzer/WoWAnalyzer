@@ -265,6 +265,11 @@ const spells = spellIndexableList({
     name: 'Dread Touch',
     icon: 'ability_priest_touchofdecay',
   },
+  INEVITABLE_DEMISE_BUFF: {
+    id: 334320,
+    name: 'Inevitable Demise',
+    icon: 'spell_warlock_harvestoflife',
+  },
   MALEFIC_AFFLICTION_BUFF: {
     id: 389845,
     name: 'Malefic Affliction',

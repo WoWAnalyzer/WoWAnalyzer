@@ -23,6 +23,7 @@ import CorruptionUptime from './modules/spells/Corruption';
 import DrainSoul from './modules/spells/DrainSoul';
 import DreadTouch from './modules/spells/DreadTouch';
 import Haunt from './modules/spells/Haunt';
+import InevitableDemise from './modules/spells/InevitableDemise';
 import MaleficAffliction from './modules/spells/MaleficAffliction';
 import Nightfall from './modules/spells/Nightfall';
 import PandemicInvocation from './modules/spells/PandemicInvocation';
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     absoluteCorruption: AbsoluteCorruption,
     drainSoul: DrainSoul,
     dreadTouch: DreadTouch,
+    inevitableDemise: InevitableDemise,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
     maleficAffliction: MaleficAffliction,
