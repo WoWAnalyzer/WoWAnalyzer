@@ -25,6 +25,7 @@ import DreadTouch from './modules/spells/DreadTouch';
 import Haunt from './modules/spells/Haunt';
 import MaleficAffliction from './modules/spells/MaleficAffliction';
 import Nightfall from './modules/spells/Nightfall';
+import PandemicInvocation from './modules/spells/PandemicInvocation';
 import PhantomSingularity from './modules/spells/PhantomSingularity';
 import ShadowEmbrace from './modules/spells/ShadowEmbrace';
 import SiphonLifeUptime from './modules/spells/SiphonLife';
@@ -69,6 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
     haunt: Haunt,
     maleficAffliction: MaleficAffliction,
     nightfall: Nightfall,
+    pandemicInvocation: PandemicInvocation,
     phantomSingularity: PhantomSingularity,
     siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
