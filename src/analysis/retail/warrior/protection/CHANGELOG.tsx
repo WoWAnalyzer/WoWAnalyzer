@@ -5,6 +5,7 @@ import { Abelito75, Greedyhugs, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2022, 3, 11), 'We back. ', Abelito75),
   change(date(2023, 1, 5), <>Updated cooldown timers for accuracy and added <SpellLink id={TALENTS_WARRIOR.SHIELD_CHARGE_TALENT}/>, <SpellLink id={TALENTS_WARRIOR.SPEAR_OF_BASTION_TALENT}/>, and <SpellLink id={TALENTS_WARRIOR.SHOCKWAVE_TALENT}/> (when <SpellLink id={TALENTS_WARRIOR.SONIC_BOOM_TALENT}/> talented) to offensive cooldowns</>, Greedyhugs),
   change(date(2022, 10, 12), 'Compilation pass for Dragonflight.', ToppleTheNun),
   change(date(2022, 7, 30), 'Fixed timefiltering for bighit graph. Reworked Bad Defensive Casts statistic.', Abelito75),
