@@ -16,6 +16,8 @@ import {
   Trevor,
   Vireve,
   Pilsung,
+  HerzBlutRaffy
+
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
@@ -25,6 +27,7 @@ export default [
   change(date(2023, 3, 6), 'Fix combatants not being dispatched to the Redux store.', ToppleTheNun),
   change(date(2023, 3, 4), 'Add Playwright tests for validating application behavior.', ToppleTheNun),
   change(date(2023, 3, 3), 'Fix "leech" event throwing errors during development for classic logs.', ToppleTheNun),
+  change(date(2023, 2, 25), 'Add Role Support for Classic Player Loader.', HerzBlutRaffy),
   change(date(2023, 2, 25), 'Fix development issue with CastEfficiency dumping large errors in the console.', emallson),
   change(date(2023, 2, 25), 'Fix spell ID for classic Bloodthirst.', ToppleTheNun),
   change(date(2023, 2, 21), 'Add Classic Warrior spells', Pilsung),
