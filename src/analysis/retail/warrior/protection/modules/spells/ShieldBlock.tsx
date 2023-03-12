@@ -243,7 +243,8 @@ class ShieldBlock extends Analyzer {
             </>
           }
         >
-          {totalCasts - defensiveCasts} ({formatPercentage(1 - defensiveCasts / totalCasts)}%)
+          {totalCasts - defensiveCasts}{' '}
+          <small>({formatPercentage(1 - defensiveCasts / totalCasts)}%)</small>
           <br />
         </BoringValueText>
       </Statistic>

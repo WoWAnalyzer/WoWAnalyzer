@@ -24,6 +24,9 @@ class Punish extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.PUNISH_TALENT);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
       this.onSlamDamage,
