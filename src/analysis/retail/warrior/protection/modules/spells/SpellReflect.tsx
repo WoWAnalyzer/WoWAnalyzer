@@ -8,6 +8,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import TALENTS from 'common/TALENTS/warrior';
 
 const debug = false;
 
@@ -26,6 +27,10 @@ class SpellReflect extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SPELL_REFLECTION_TALENT);
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
     debug && this.addEventListener(Events.fightend, this.fightEndDebug);
   }
