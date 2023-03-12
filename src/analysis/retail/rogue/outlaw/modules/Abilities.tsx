@@ -216,9 +216,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RIPOSTE.id,
+        spell: TALENTS.EVASION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: SPELLS.RIPOSTE.id,
+        buffSpellId: TALENTS.EVASION_TALENT.id,
         cooldown: 120,
         gcd: null,
       },
