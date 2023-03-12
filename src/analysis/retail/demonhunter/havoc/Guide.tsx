@@ -75,8 +75,8 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
     >
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <CooldownGraphSubsection />
-      <CooldownUsage analyzer={modules.essenceBreak} />
-      <CooldownUsage analyzer={modules.eyeBeam} />
+      <CooldownUsage analyzer={modules.essenceBreak} title="Essence Break" />
+      <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT) &&
         explanationAndDataSubsection(
           <div>

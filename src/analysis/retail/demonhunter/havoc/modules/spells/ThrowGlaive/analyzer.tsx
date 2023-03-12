@@ -138,7 +138,9 @@ export default class ThrowGlaive extends Analyzer {
       </div>
     );
 
-    return <ExplanationAndDataSubSection explanation={explanation} data={data} />;
+    return (
+      <ExplanationAndDataSubSection explanation={explanation} data={data} title="Throw Glaive" />
+    );
   }
 
   private onUpdateSpellUsable(event: UpdateSpellUsableEvent) {

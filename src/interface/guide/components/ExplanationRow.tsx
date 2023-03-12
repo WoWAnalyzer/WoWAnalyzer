@@ -33,27 +33,32 @@ export function explanationAndDataSubsection(
   explanation: JSX.Element,
   data: JSX.Element,
   explanationPercent?: number,
+  title?: string,
 ) {
   return (
     <ExplanationAndDataSubSection
       explanation={explanation}
       data={data}
       explanationPercent={explanationPercent}
+      title={title}
     />
   );
 }
 
+interface ExplanationAndDataSubSectionProps {
+  explanation: ReactNode;
+  data: ReactNode;
+  explanationPercent?: number;
+  title?: string;
+}
 export function ExplanationAndDataSubSection({
   explanation,
   data,
   explanationPercent,
-}: {
-  explanation: ReactNode;
-  data: ReactNode;
-  explanationPercent?: number;
-}) {
+  title,
+}: ExplanationAndDataSubSectionProps) {
   return (
-    <SubSection>
+    <SubSection title={title}>
       <ExplanationRow leftPercent={explanationPercent}>
         <Explanation>{explanation}</Explanation>
         {data}

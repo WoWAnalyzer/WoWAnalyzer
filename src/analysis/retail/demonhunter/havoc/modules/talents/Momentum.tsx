@@ -86,7 +86,7 @@ class Momentum extends Analyzer {
         })}
       </RoundedPanel>
     );
-    return <ExplanationAndDataSubSection explanation={explanation} data={data} />;
+    return <ExplanationAndDataSubSection explanation={explanation} data={data} title="Momentum" />;
   }
 
   suggestions(when: When) {
