@@ -8,9 +8,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 
-/**
- * Whenever you cast a shield slam reduce shield wall by 5 second and gain 5 extra rage.
- */
 class ViolentOutburstTimeBetweenBuffs extends Analyzer {
   totalBuffsGained: number = 0;
   firstBuffGained: number = 0;
@@ -57,7 +54,7 @@ class ViolentOutburstTimeBetweenBuffs extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringValueText
           label={

@@ -5,7 +5,7 @@ import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import RageTracker from './modules/core/RageTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Avatar from './modules/features/Avatar';
+import Avatar from './modules/spells/Avatar';
 import BigHitGraph from './modules/features/BigHitGraph';
 import BlockCheck from './modules/features/BlockCheck';
 import Buffs from './modules/features/Buffs';
@@ -25,7 +25,6 @@ import ShieldSlam from './modules/spells/ShieldSlam';
 import SpellReflect from './modules/spells/SpellReflect';
 import AngerManagement from './modules/spells/AngerManagement';
 import BoomingVoice from './modules/spells/BoomingVoice';
-import ThunderousRoar from './modules/spells/ThunderousRoar';
 import HeavyRepercussions from './modules/spells/HeavyRepercussions';
 import IntoTheFray from './modules/spells/IntoTheFray';
 import Punish from './modules/spells/Punish';
@@ -68,7 +67,6 @@ class CombatLogParser extends CoreCombatLogParser {
     intoTheFray: IntoTheFray,
     warMachine: WarMachine,
     punish: Punish,
-    thunderousRoar: ThunderousRoar,
     impenetrableWall: ImpenetrableWall,
     thunderlord: Thunderlord,
     violentOutburstCastRatio: ViolentOutburstCastRatio,
