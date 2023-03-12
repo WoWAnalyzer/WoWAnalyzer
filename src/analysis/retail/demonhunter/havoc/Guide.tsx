@@ -105,7 +105,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
   );
 }
 
-function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section
       title={t({
@@ -115,6 +115,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
     >
       <HideExplanationsToggle id="hide-explanations-rotations" />
       {modules.throwGlaive.guideSubsection()}
+      {modules.momentum.guideSubsection()}
     </Section>
   );
 }
