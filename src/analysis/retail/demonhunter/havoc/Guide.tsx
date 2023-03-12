@@ -21,6 +21,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
+      <RotationSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
@@ -100,6 +101,20 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           </div>,
           <></>,
         )}
+    </Section>
+  );
+}
+
+function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section
+      title={t({
+        id: 'guide.demonhunter.havoc.sections.rotation.title',
+        message: 'Rotation',
+      })}
+    >
+      <HideExplanationsToggle id="hide-explanations-rotations" />
+      {modules.throwGlaive.guideSubsection()}
     </Section>
   );
 }

@@ -61,6 +61,7 @@ import Guide from './Guide';
 import TheHuntVengefulRetreatNormalizer from './normalizers/TheHuntVengefulRetreatNormalizer';
 import FuriousGazeNormalizer from './normalizers/FuriousGazeNormalizer';
 import { EyeBeam } from './modules/talents/EyeBeam';
+import { ThrowGlaive } from './modules/spells/ThrowGlaive';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -90,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     blur: Blur,
     immolationAura: ImmolationAura,
     demonSoulBuff: DemonSoulBuff,
+    throwGlaive: ThrowGlaive,
 
     //Talents
     felblade: Felblade,

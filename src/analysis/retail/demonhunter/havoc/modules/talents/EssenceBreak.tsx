@@ -27,6 +27,7 @@ import NoDemonicExplanation from 'analysis/retail/demonhunter/havoc/guide/NoDemo
 import { isDefined } from 'common/typeGuards';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
 
 /*
   example report: https://www.warcraftlogs.com/reports/8gAWrDqPhVj6BZkQ/#fight=29&source=7
@@ -147,7 +148,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
 
     return (
       <>
-        <section style={{ marginBottom: 20 }}>
+        <ExplanationSection>
           <Trans id="guide.demonhunter.havoc.sections.cooldowns.essenceBreak.explanation">
             <strong>
               <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
@@ -157,13 +158,13 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
             <SpellLink id={SPELLS.BLADE_DANCE} />, and <SpellLink id={SPELLS.DEATH_SWEEP} />. You
             want to fit as many empowered casts into each Essence Break window as you can.
           </Trans>
-        </section>
-        <section style={{ marginBottom: 20 }}>
+        </ExplanationSection>
+        <ExplanationSection>
           <NoDemonicExplanation />
           <DemonicExplanation />
-          <InitiativeExplanation lineBreak />
-        </section>
-        <section style={{ marginBottom: 20 }}>
+          <InitiativeExplanation />
+        </ExplanationSection>
+        <ExplanationSection>
           <header style={{ fontWeight: 'bold' }}>
             When <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> is available
           </header>
@@ -200,8 +201,8 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
               </li>
             </ul>
           </div>
-        </section>
-        <section>
+        </ExplanationSection>
+        <ExplanationSection>
           <header style={{ fontWeight: 'bold' }}>Standard</header>
           <div>
             An <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window without{' '}
@@ -231,7 +232,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
               </li>
             </ul>
           </div>
-        </section>
+        </ExplanationSection>
       </>
     );
   }
