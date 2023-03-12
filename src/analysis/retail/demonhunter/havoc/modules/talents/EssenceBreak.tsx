@@ -248,9 +248,9 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
             performance: QualitativePerformance.Fail,
             timestamp: cast.event.timestamp,
             summary: (
-              <>
+              <div>
                 Did not have <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} /> talented
-              </>
+              </div>
             ),
             details: (
               <div>
@@ -317,9 +317,9 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       return {
         performance: QualitativePerformance.Perfect,
         summary: (
-          <>
+          <div>
             Had <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff
-          </>
+          </div>
         ),
         details: (
           <div>
@@ -332,10 +332,10 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       return {
         performance: QualitativePerformance.Good,
         summary: (
-          <>
+          <div>
             Cast shortly after casting{' '}
             <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
-          </>
+          </div>
         ),
         details: (
           <div>
@@ -350,10 +350,10 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     return {
       performance: QualitativePerformance.Fail,
       summary: (
-        <>
+        <div>
           Cast without previously casting{' '}
           <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
-        </>
+        </div>
       ),
       details: (
         <div>
@@ -385,17 +385,17 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       return {
         performance: QualitativePerformance.Fail,
         summary: (
-          <>
+          <div>
             Have <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> on cast
-          </>
+          </div>
         ),
         details: (
-          <>
+          <div>
             Have <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> on cast. Not having the buff
             means that you can't cast <SpellLink id={SPELLS.DEATH_SWEEP} /> or{' '}
             <SpellLink id={SPELLS.ANNIHILATION} />, instead having to cast{' '}
             <SpellLink id={SPELLS.BLADE_DANCE} /> and <SpellLink id={SPELLS.CHAOS_STRIKE} />.
-          </>
+          </div>
         ),
       };
     }

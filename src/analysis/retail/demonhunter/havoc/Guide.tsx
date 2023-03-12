@@ -74,9 +74,6 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
     >
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <CooldownGraphSubsection />
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT) && (
-        <CooldownUsage analyzer={modules.theHunt} />
-      )}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT) && (
         <CooldownUsage analyzer={modules.essenceBreak} />
       )}
