@@ -48,7 +48,7 @@ import Netherwalk from './modules/talents/Netherwalk';
 import TrailofRuin from './modules/talents/TrailofRuin';
 import TacticalRetreat from './modules/talents/TacticalRetreat';
 import Initiative from './modules/talents/Initiative';
-import EyeBeam from './normalizers/EyeBeam';
+import EyeBeamNormalizer from 'analysis/retail/demonhunter/havoc/normalizers/EyeBeamNormalizer';
 import Ragefire from './modules/talents/Ragefire';
 import InnerDemon from './modules/talents/InnerDemon';
 import AnyMeansNecessary from './modules/talents/AnyMeansNecessary';
@@ -59,6 +59,8 @@ import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
 import FuryGraph from './modules/resourcetracker/FuryGraph';
 import Guide from './Guide';
 import TheHuntVengefulRetreatNormalizer from './normalizers/TheHuntVengefulRetreatNormalizer';
+import FuriousGazeNormalizer from './normalizers/FuriousGazeNormalizer';
+import { EyeBeam } from './modules/talents/EyeBeam';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -69,10 +71,11 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
 
     //Normalizer
-    eyeBeamNormalizer: EyeBeam,
+    eyeBeamNormalizer: EyeBeamNormalizer,
     essenceBreakNormalizer: EssenceBreakNormalizer,
     theHuntNormalizer: TheHuntNormalizer,
     theHuntVengefulRetreatNormalizer: TheHuntVengefulRetreatNormalizer,
+    furiousGazeEventLinkNormalizer: FuriousGazeNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -124,6 +127,7 @@ class CombatLogParser extends CoreCombatLogParser {
     flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
     fodderToTheFlame: FodderToTheFlame,
+    eyeBeam: EyeBeam,
 
     // Resources
     furyTracker: FuryTracker,

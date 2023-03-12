@@ -74,22 +74,13 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
     >
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <CooldownGraphSubsection />
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT) && (
-        <CooldownUsage analyzer={modules.essenceBreak} />
-      )}
+      <CooldownUsage analyzer={modules.essenceBreak} />
+      <CooldownUsage analyzer={modules.eyeBeam} />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT) &&
         explanationAndDataSubsection(
           <div>
             Per-cast breakdown for <SpellLink id={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />{' '}
             coming soon!
-          </div>,
-          <></>,
-        )}
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT) &&
-        explanationAndDataSubsection(
-          <div>
-            Per-cast breakdown for <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> coming
-            soon!
           </div>,
           <></>,
         )}
