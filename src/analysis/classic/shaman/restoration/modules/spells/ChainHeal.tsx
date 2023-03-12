@@ -12,8 +12,6 @@ import BoringValue from 'parser/ui/BoringValueText';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
-import { Build } from '../../CONFIG';
 import SPELLS from 'common/SPELLS/classic/shaman';
 
 const CHAIN_HEAL_TARGET_EFFICIENCY = 0.97;
@@ -50,14 +48,12 @@ class ChainHeal extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.owner.build === Build.DEFAULT;
-
+    this.active = true;
     this.suggestedTargets = this.maxTargets * CHAIN_HEAL_TARGET_EFFICIENCY;
 
-    const chainHealSpells: SpellInfo[] = [
-      SPELLS.CHAIN_HEAL.id,
-      ...SPELLS.CHAIN_HEAL.lowRanks,
-    ].map((spell) => ({ id: spell }));
+    const chainHealSpells: SpellInfo[] = [SPELLS.CHAIN_HEAL.id, ...SPELLS.CHAIN_HEAL.lowRanks].map(
+      (spell) => ({ id: spell }),
+    );
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(chainHealSpells), this.chainHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(chainHealSpells), this.chainHeal);

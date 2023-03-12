@@ -10,9 +10,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
-import { Build } from '../../../CONFIG';
-import * as SPELL_EFFECTS from '../../../SPELL_EFFECTS';
 import SPELLS from 'common/SPELLS/classic/shaman';
 
 class EarthShield extends Analyzer {
@@ -28,11 +25,11 @@ class EarthShield extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.owner.build === Build.DEFAULT;
+    this.active = true;
 
     // event listener for direct heals when taking damage with earth shield
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell({ id: SPELL_EFFECTS.EARTH_SHIELD_HEAL }),
+      Events.heal.by(SELECTED_PLAYER).spell({ id: SPELLS.EARTH_SHIELD_HEAL.id }),
       this.onEarthShieldHeal,
     );
 

@@ -10,7 +10,7 @@ import {
   TotemElements,
   TotemElementsList,
   TOTEMS_BY_ELEMENT,
-} from '../../totemConstants';
+} from './totems/totemConstants';
 
 export interface TotemEventTracker {
   [TotemElements.Fire]: TotemEvent[];
@@ -62,9 +62,8 @@ class TotemTracker extends Analyzer {
     if (this.totemElementEvents[element].length === 0) {
       return null;
     }
-    const lastTotemSummoned = this.totemElementEvents[element][
-      this.totemElementEvents[element].length - 1
-    ];
+    const lastTotemSummoned =
+      this.totemElementEvents[element][this.totemElementEvents[element].length - 1];
     if (lastTotemSummoned.dismissedAt) {
       return null;
     }
@@ -103,9 +102,8 @@ class TotemTracker extends Analyzer {
       return;
     }
 
-    const totemEvent: TotemEvent = this.totemElementEvents[element][
-      this.totemElementEvents[element].length - 1
-    ];
+    const totemEvent: TotemEvent =
+      this.totemElementEvents[element][this.totemElementEvents[element].length - 1];
     const possibleDuration: number = timestamp - totemEvent.summonedAt;
     const maxDuration: number = (TotemDurations as any)[totemEvent.totemSpellId] as number;
     const duration = Math.min(possibleDuration, maxDuration);

@@ -9,8 +9,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { TotemElements, TOTEMS_BY_ELEMENT } from '../../../totemConstants';
-import TotemTracker from '../../features/TotemTracker';
+import { TotemElements, TOTEMS_BY_ELEMENT } from './totemConstants';
+import TotemTracker from '../TotemTracker';
 
 export default class BaseTotem extends Analyzer {
   static dependencies = {

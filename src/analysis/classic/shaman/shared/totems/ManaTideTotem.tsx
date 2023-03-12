@@ -13,9 +13,6 @@ import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-import { Build } from '../../../CONFIG';
-import * as SPELL_EFFECTS from '../../../SPELL_EFFECTS';
 import SPELLS from 'common/SPELLS/classic/shaman';
 
 class ManaTideTotem extends Analyzer {
@@ -31,7 +28,7 @@ class ManaTideTotem extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.owner.build === Build.DEFAULT;
+    this.active = true;
 
     this.addEventListener(
       Events.summon.by(SELECTED_PLAYER).spell({ id: SPELLS.MANA_TIDE_TOTEM.id }),
@@ -39,7 +36,7 @@ class ManaTideTotem extends Analyzer {
     );
 
     this.addEventListener(
-      Events.resourcechange.spell({ id: SPELL_EFFECTS.MANA_TIDE_TOTEM_BUFF }),
+      Events.resourcechange.spell({ id: SPELLS.MANA_TIDE_TOTEM_BUFF.id }),
       this.manaTideTick,
     );
   }
