@@ -13,7 +13,7 @@ import {
   getBuffedCasts,
   getPreviousVengefulRetreat,
 } from '../../normalizers/EssenceBreakNormalizer';
-import { SpellLink } from 'interface';
+import { Expandable, SpellLink } from 'interface';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { Trans } from '@lingui/macro';
@@ -27,6 +27,7 @@ import NoDemonicExplanation from 'analysis/retail/demonhunter/havoc/guide/NoDemo
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
+import { SectionHeader } from 'interface/guide';
 
 /*
   example report: https://www.warcraftlogs.com/reports/8gAWrDqPhVj6BZkQ/#fight=29&source=7
@@ -148,25 +149,31 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     return (
       <>
         <ExplanationSection>
-          <Trans id="guide.demonhunter.havoc.sections.cooldowns.essenceBreak.explanation">
-            <strong>
-              <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
-            </strong>{' '}
-            is a powerful burst of damage that also amplifies the damage done by{' '}
-            <SpellLink id={SPELLS.CHAOS_STRIKE} />, <SpellLink id={SPELLS.ANNIHILATION} />,{' '}
-            <SpellLink id={SPELLS.BLADE_DANCE} />, and <SpellLink id={SPELLS.DEATH_SWEEP} />. You
-            want to fit as many empowered casts into each Essence Break window as you can.
-          </Trans>
+          <p>
+            <Trans id="guide.demonhunter.havoc.sections.cooldowns.essenceBreak.explanation">
+              <strong>
+                <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
+              </strong>{' '}
+              is a powerful burst of damage that also amplifies the damage done by{' '}
+              <SpellLink id={SPELLS.CHAOS_STRIKE} />, <SpellLink id={SPELLS.ANNIHILATION} />,{' '}
+              <SpellLink id={SPELLS.BLADE_DANCE} />, and <SpellLink id={SPELLS.DEATH_SWEEP} />. You
+              want to fit as many empowered casts into each Essence Break window as you can.
+            </Trans>
+          </p>
         </ExplanationSection>
         <ExplanationSection>
           <NoDemonicExplanation />
           <DemonicExplanation />
           <InitiativeExplanation />
         </ExplanationSection>
-        <ExplanationSection>
-          <header style={{ fontWeight: 'bold' }}>
-            When <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> is available
-          </header>
+        <Expandable
+          header={
+            <SectionHeader>
+              When <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> is available
+            </SectionHeader>
+          }
+          element="section"
+        >
           <div>
             An <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window with{' '}
             <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> available will look like:
@@ -200,9 +207,8 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
               </li>
             </ul>
           </div>
-        </ExplanationSection>
-        <ExplanationSection>
-          <header style={{ fontWeight: 'bold' }}>Standard</header>
+        </Expandable>
+        <Expandable header={<SectionHeader>Standard</SectionHeader>} element="section">
           <div>
             An <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window without{' '}
             <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> available will look like:
@@ -231,7 +237,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
               </li>
             </ul>
           </div>
-        </ExplanationSection>
+        </Expandable>
       </>
     );
   }
