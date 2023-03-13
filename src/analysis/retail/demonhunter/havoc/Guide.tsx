@@ -21,6 +21,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
+      <RotationSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
@@ -74,22 +75,13 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
     >
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <CooldownGraphSubsection />
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT) && (
-        <CooldownUsage analyzer={modules.essenceBreak} />
-      )}
+      <CooldownUsage analyzer={modules.essenceBreak} title="Essence Break" />
+      <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT) &&
         explanationAndDataSubsection(
           <div>
             Per-cast breakdown for <SpellLink id={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />{' '}
             coming soon!
-          </div>,
-          <></>,
-        )}
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT) &&
-        explanationAndDataSubsection(
-          <div>
-            Per-cast breakdown for <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> coming
-            soon!
           </div>,
           <></>,
         )}
@@ -109,6 +101,21 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           </div>,
           <></>,
         )}
+    </Section>
+  );
+}
+
+function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section
+      title={t({
+        id: 'guide.demonhunter.havoc.sections.rotation.title',
+        message: 'Rotation',
+      })}
+    >
+      <HideExplanationsToggle id="hide-explanations-rotations" />
+      {modules.throwGlaive.guideSubsection()}
+      {modules.momentum.guideSubsection()}
     </Section>
   );
 }

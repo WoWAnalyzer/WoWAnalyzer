@@ -18,10 +18,10 @@ const EVENT_ORDERS: EventOrder[] = [
  * The applybuff from demonic is logged before the cast of Eye Beam.
  * This normalizes events so that the Eye Beam applybuff always comes before the Meta Havoc buff
  **/
-class EyeBeam extends EventOrderNormalizer {
+class EyeBeamNormalizer extends EventOrderNormalizer {
   constructor(options: Options) {
     super(options, EVENT_ORDERS);
   }
 }
 
-export default EyeBeam;
+export default EyeBeamNormalizer;
