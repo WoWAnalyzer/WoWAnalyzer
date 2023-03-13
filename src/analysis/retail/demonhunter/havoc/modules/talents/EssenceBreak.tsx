@@ -169,7 +169,9 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
         <Expandable
           header={
             <SectionHeader>
-              When <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> is available
+              <strong>
+                When <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> is available
+              </strong>
             </SectionHeader>
           }
           element="section"
@@ -208,7 +210,14 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
             </ul>
           </div>
         </Expandable>
-        <Expandable header={<SectionHeader>Standard</SectionHeader>} element="section">
+        <Expandable
+          header={
+            <SectionHeader>
+              <strong>Standard</strong>
+            </SectionHeader>
+          }
+          element="section"
+        >
           <div>
             An <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window without{' '}
             <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> available will look like:

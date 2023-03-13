@@ -3,12 +3,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import SpellLink from 'interface/SpellLink';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ResourceLink } from 'interface';
 import { AcceleratingBladeExplanation } from 'analysis/retail/demonhunter/havoc/modules/spells/ThrowGlaive/AcceleratingBladeExplanation';
-import { SerratedGlaiveExplanation } from 'analysis/retail/demonhunter/havoc/modules/spells/ThrowGlaive/SerratedGlaiveExplanation';
-import { BurningWoundExplanation } from 'analysis/retail/demonhunter/havoc/modules/spells/ThrowGlaive/BurningWoundExplanation';
-import { SoulrendExplanation } from './SoulrendExplanation';
 import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Events, { FightEndEvent, UpdateSpellUsableEvent } from 'parser/core/Events';
@@ -90,36 +85,44 @@ export default class ThrowGlaive extends Analyzer {
     const explanation = (
       <>
         <ExplanationSection>
-          <strong>
-            <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} />
-          </strong>{' '}
-          throws a glaive at an enemy within 30 yards for a small amount of physical damage and then
-          bounces to the nearest enemy within 10 yards of the target.
+          <p>
+            <strong>
+              <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} />
+            </strong>{' '}
+            throws a glaive at an enemy within 30 yards for a small amount of physical damage and
+            then bounces to the nearest enemy within 10 yards of the target.
+          </p>
         </ExplanationSection>
         <ExplanationSection>
-          {this.selectedCombatant.hasTalent(TALENTS.BOUNCING_GLAIVES_TALENT) && (
-            <p>
-              <SpellLink id={TALENTS.BOUNCING_GLAIVES_TALENT} /> makes your{' '}
-              <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} /> bounce to a third target.
-            </p>
-          )}
-          {this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_GLAIVE_TALENT) && (
-            <p>
-              <SpellLink id={TALENTS.MASTER_OF_THE_GLAIVE_TALENT} /> grants you a second charge of{' '}
-              <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} />.
-            </p>
-          )}
-          {this.selectedCombatant.hasTalent(TALENTS.FURIOUS_THROWS_TALENT) && (
-            <p>
-              <SpellLink id={TALENTS.FURIOUS_THROWS_TALENT} /> makes{' '}
-              <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} /> cost 25{' '}
-              <ResourceLink id={RESOURCE_TYPES.FURY.id} /> and also makes it throw a second glaive.
-            </p>
-          )}
-          <SerratedGlaiveExplanation />
-          <BurningWoundExplanation />
-          <AcceleratingBladeExplanation />
-          <SoulrendExplanation />
+          <p>
+            <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} /> gains significant value in your rotation
+            when you take <SpellLink id={TALENTS.SOULREND_TALENT} /> and{' '}
+            <SpellLink id={TALENTS.FURIOUS_THROWS_TALENT} />. It also gains value from the below
+            talents.
+          </p>
+          <ul>
+            {this.selectedCombatant.hasTalent(TALENTS.BOUNCING_GLAIVES_TALENT) && (
+              <li>
+                <SpellLink id={TALENTS.BOUNCING_GLAIVES_TALENT} />
+              </li>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_GLAIVE_TALENT) && (
+              <li>
+                <SpellLink id={TALENTS.MASTER_OF_THE_GLAIVE_TALENT} />
+              </li>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS.SERRATED_GLAIVE_TALENT) && (
+              <li>
+                <SpellLink id={TALENTS.SERRATED_GLAIVE_TALENT} />
+              </li>
+            )}
+            {this.selectedCombatant.hasTalent(TALENTS.BURNING_WOUND_TALENT) && (
+              <li>
+                <SpellLink id={TALENTS.BURNING_WOUND_TALENT} />
+              </li>
+            )}
+            <AcceleratingBladeExplanation />
+          </ul>
         </ExplanationSection>
       </>
     );
