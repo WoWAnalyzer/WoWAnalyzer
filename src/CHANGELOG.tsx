@@ -16,13 +16,14 @@ import {
   Trevor,
   Vireve,
   Pilsung,
-  HerzBlutRaffy
-
+  HerzBlutRaffy,
+  Abelito75
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 3, 13), 'Fixed Cooldown Tracker.', Abelito75),
   change(date(2023, 3, 8), 'Add Classic WotLK P2 trinkets.', jazminite),
   change(date(2023, 3, 6), 'Fix combatants not being dispatched to the Redux store.', ToppleTheNun),
   change(date(2023, 3, 4), 'Add Playwright tests for validating application behavior.', ToppleTheNun),
