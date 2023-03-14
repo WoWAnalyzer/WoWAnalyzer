@@ -6,7 +6,7 @@ import Events, { CastEvent, EventType } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import { FINISHERS, MAX_CPS } from 'analysis/retail/druid/feral/constants';
+import { FINISHERS, getAcceptableCps } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { getHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
@@ -41,7 +41,7 @@ class FinisherUse extends Analyzer {
 
     this.totalFinisherCasts += 1;
 
-    if (cpsSpent < MAX_CPS) {
+    if (cpsSpent < getAcceptableCps(this.selectedCombatant)) {
       if (
         event.ability.guid === SPELLS.RIP.id ||
         event.ability.guid === TALENTS_DRUID.PRIMAL_WRATH_TALENT.id
@@ -67,7 +67,7 @@ class FinisherUse extends Analyzer {
     const items = [
       {
         color: GoodColor,
-        label: 'Max CP Finishers',
+        label: 'High CP Finishers',
         value: this.maxCpFinishers,
         tooltip: (
           <>
