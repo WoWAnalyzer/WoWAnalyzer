@@ -41,7 +41,7 @@ class ColdFront extends Analyzer {
   statistic() {
     return (
       <Statistic
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip="This shows the number of extra Frozen Orb casts that were gained by using the Cold Front legendary effect."
       >

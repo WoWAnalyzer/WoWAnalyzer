@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import {
+  Arbixal,
   emallson,
   jazminite,
   Jonfanz,
@@ -12,12 +13,35 @@ import {
   Sref,
   Tialyss,
   ToppleTheNun,
+  Trevor,
   Vireve,
+  Pilsung,
+  HerzBlutRaffy
+
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 3, 8), 'Add Classic WotLK P2 trinkets.', jazminite),
+  change(date(2023, 3, 6), 'Fix combatants not being dispatched to the Redux store.', ToppleTheNun),
+  change(date(2023, 3, 4), 'Add Playwright tests for validating application behavior.', ToppleTheNun),
+  change(date(2023, 3, 3), 'Fix "leech" event throwing errors during development for classic logs.', ToppleTheNun),
+  change(date(2023, 2, 25), 'Add Role Support for Classic Player Loader.', HerzBlutRaffy),
+  change(date(2023, 2, 25), 'Fix development issue with CastEfficiency dumping large errors in the console.', emallson),
+  change(date(2023, 2, 25), 'Fix spell ID for classic Bloodthirst.', ToppleTheNun),
+  change(date(2023, 2, 21), 'Add Classic Warrior spells', Pilsung),
+  change(date(2023, 2, 20), 'Fixed missing food buffs for WotLK Classic.', Arbixal),
+  change(date(2023, 2, 19), 'Added a workaround for handling of combatantinfo on Algalon, Yogg-Saron, and Hodir in WotLK Classic.', emallson),
+  change(date(2023, 2, 9), <>Add <ItemLink id={ITEMS.POTION_OF_SHOCKING_DISCLOSURE_R3.id} /> to combat potion list.</>, ToppleTheNun),
+  change(date(2023, 2, 6), 'Rewrite test utilities in TypeScript.', ToppleTheNun),
+  change(date(2023, 2, 3), 'Remove old Classic Spec data for unsupported specs.', jazminite),
+  change(date(2023, 1, 31), 'Add raid specific haste buffs for Classic WotLK (Ulduar).', jazminite),
+  change(date(2023, 1, 30), 'Lookup Classic spec by talent tree IF the icon is generic. Generic icons occur when the player changes talents during raid.', jazminite),
+  change(date(2023, 1, 30), 'Update retail talent data', emallson),
+  change(date(2023, 1, 30), <>Fixed potion checker for <SpellLink id={ITEMS.POTION_OF_CHILLED_CLARITY_R3}/></>, Trevor),
+  change(date(2023, 1, 30), "Correct an issue with accessing undefined values in GetRelatedEvents, HasRelatedEvent and AddRelatedEvent", Putro),
+  change(date(2023, 1, 26), 'Update performance box rows to use CSS grid instead of flexbox.', ToppleTheNun),
   change(date(2023, 1, 25), 'Bump retail patch to 10.0.5.', ToppleTheNun),
   change(date(2023, 1, 24), "Fixed an issue where Guide pages weren't showing by default", Sref),
   change(date(2023, 1, 20), <>Adjust maximum combat potion usages to account for <SpellLink id={SPELLS.ALACRITOUS_ALCHEMIST_STONE} />.</>, ToppleTheNun),

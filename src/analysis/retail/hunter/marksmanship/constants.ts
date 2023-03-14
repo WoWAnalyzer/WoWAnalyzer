@@ -79,12 +79,9 @@ export const STEADY_FOCUS_HASTE_PERCENT = [0, 0.04, 0.08];
 export const MASTER_MARKSMAN_CRIT_DOT = 0.15;
 //Master Marksman ticks every two seconds
 export const MASTER_MARKSMAN_TICK_RATE = 2000;
-/** Dead Eye */
-//Dead Eye increases the Aimed Shot recharge rate by 200%, despite tooltip saying it is 50%
-export const DEAD_EYE_AIMED_SHOT_RECHARGE_INCREASE = 2;
 /** Calling the Shots */
-//1 second per 50 focus spent
-export const CTS_CDR_PER_FOCUS = 1000 / 50;
+//2.5 seconds per 50 focus spent
+export const CTS_CDR_PER_FOCUS = 2500 / 50;
 /** Careful Aim */
 //Careful Aim is a execution-like talent that triggers off above 70%
 export const CAREFUL_AIM_THRESHOLD = 0.7;

@@ -1,7 +1,7 @@
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { isInternetExplorer } from 'interface/selectors/internetExplorer';
-import { getOpenModals } from 'interface/selectors/openModals';
+import { getOpenModalCount } from 'interface/selectors/openModals';
 import { useEffect } from 'react';
 import { internetExplorer } from 'interface/actions/internetExplorer';
 import { fetchUser } from 'interface/actions/user';
@@ -23,7 +23,7 @@ function detectInternetExplorer() {
 const AppLayout = () => {
   const dispatch = useWaDispatch();
   const isIE = useWaSelector((state) => isInternetExplorer(state));
-  const openModals = useWaSelector((state) => getOpenModals(state));
+  const openModals = useWaSelector((state) => getOpenModalCount(state));
 
   useEffect(() => {
     if (detectInternetExplorer()) {

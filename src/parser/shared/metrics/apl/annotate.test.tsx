@@ -4,13 +4,16 @@ import { store } from 'store';
 
 import { ConditionDescription } from './annotate';
 import { buffPresent } from './conditions';
+import { InternalRule, TargetType } from './index';
 
 describe('ConditionDescription', () => {
   it('should return no description for unconditional rules', () => {
     const content = renderer
       .create(
         <ReduxProvider store={store}>
-          <ConditionDescription rule={{ id: 1, name: 'Test', icon: '' }} />
+          <ConditionDescription
+            rule={{ spell: { type: TargetType.Spell, target: { id: 1, name: 'Test', icon: '' } } }}
+          />
         </ReduxProvider>,
       )
       .toJSON();
@@ -18,8 +21,8 @@ describe('ConditionDescription', () => {
   });
 
   it('should return a description for a rule with a condition', () => {
-    const rule = {
-      spell: { id: 1, name: 'Test', icon: '' },
+    const rule: InternalRule = {
+      spell: { type: TargetType.Spell, target: { id: 1, name: 'Test', icon: '' } },
       condition: buffPresent({ id: 2, name: 'Buff', icon: '' }),
     };
 

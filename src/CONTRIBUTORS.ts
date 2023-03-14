@@ -2001,7 +2001,10 @@ export const jazminite: Contributor = {
   nickname: 'jazminite',
   github: 'jazminite',
 };
-
+export const Pilsung: Contributor = {
+  nickname: 'pilsung',
+  github: 'Ac1dBomb',
+};
 export const Jonfanz: Contributor = {
   nickname: 'jonfanz',
   github: 'jharrell',
@@ -2089,4 +2092,44 @@ export const Durpn: Contributor = {
       link: 'https://worldofwarcraft.com/en-us/character/us/tichondrius/durpn',
     },
   ],
+};
+export const Klamuz: Contributor = {
+  nickname: 'Klamuz',
+  github: 'seagomezar',
+  discord: 'sebasgojs#1846',
+  avatar: avatar('klamuz-avatar.png'),
+  mains: [
+    {
+      name: 'Klamuz',
+      spec: SPECS.RETRIBUTION_PALADIN,
+      link: 'https://www.warcraftlogs.com/character/us/ragnaros/klamuz',
+    },
+  ],
+};
+
+export const zac: Contributor = {
+  nickname: 'zac',
+  github: 'Zac-oihfdwrrtuinvbcp',
+  discord: 'zac#4930',
+  avatar: avatar('zac-avatar.png'),
+};
+
+export const HerzBlutRaffy: Contributor = {
+  nickname: 'Raffy',
+  github: 'naotaraffy',
+  discord: 'naotaraffy',
+};
+
+export const bdfreeman1421: Contributor = {
+  nickname: 'bdfreeman1421',
+  github: 'bdfreeman1421',
+};
+export const dodse: Contributor = {
+  nickname: 'dodse',
+  github: 'dsnam',
+  discord: 'dsn#4942',
+};
+export const SyncSubaru: Contributor = {
+  nickname: 'SyncSubaru',
+  github: 'cameronstubber',
 };

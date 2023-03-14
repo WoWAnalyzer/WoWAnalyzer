@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
-import { Sref, Phased, emallson, Trevor } from 'CONTRIBUTORS';
+import { Sref, Phased, emallson, Trevor, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
   change(date(2023, 3, 14), <>Fixed an issue where Wild Growth cast just before a Flourish or Convoke wouldn't be counted in the cooldown breakdown.</>, Sref),
+  change(date(2023, 2, 16), <>Corrected Typo in the <SpellLink id={TALENTS_DRUID.LIFEBLOOM_TALENT.id}/> uptimes efficiency guide section.</>, Vohrr),
   change(date(2023, 1, 25), <>Updated numbers for 10.0.5 changes.</>, Sref),
   change(date(2023, 1, 21), <>Added statistic for Vault of the Incarnates 4 Piece. </>, Sref),
   change(date(2022, 12, 30), <>Improve accuracy of 2 piece module </>, Trevor),

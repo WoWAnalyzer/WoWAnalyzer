@@ -32,6 +32,7 @@ export const LIFE_COCOON_HEALING_BOOST = 0.5;
 export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;
 
 // Talent Constants
+export const MAX_CHIJI_STACKS = 3;
 export const LIFECYCLES_MANA_REDUCTION_PERCENT = 0.25;
 export const MANA_TEA_DURATION = 10000;
 export const JADE_BOND_INC = 0.4;
@@ -53,16 +54,41 @@ export const ATTRIBUTION_STRINGS = {
   DANCING_MIST_RENEWING_MIST: 'Renewing Mist Dancing Mist',
   MISTS_OF_LIFE_RENEWING_MIST: 'Renewing Mist Mists of Life',
   HARDCAST_ESSENCE_FONT: 'Essence Font Hardcast',
+  DANCING_MIST_SOURCES: {
+    DM_SOURCE_RD: 'Dancing Mist Source - Rapid Diffusion',
+    DM_SOURCE_HC: 'Dancing Mist Source - Hardcast',
+    DM_SOURCE_MOL: 'Dancing Mist Source - Mists of Life',
+  },
+  RAPID_DIFFUSION_SOURCES: {
+    RD_SOURCE_RSK: 'Rapid Diffusion Source - Rising Sun Kick',
+    RD_SOURCE_ENV: 'Rapid Diffusion Source - Enveloping Mist',
+  },
 };
 
+export const SECRET_INFUSION_BUFFS = [
+  SPELLS.SECRET_INFUSION_CRIT_BUFF,
+  SPELLS.SECRET_INFUSION_HASTE_BUFF,
+  SPELLS.SECRET_INFUSION_MASTERY_BUFF,
+  SPELLS.SECRET_INFUSION_VERS_BUFF,
+];
+
+export const LESSONS_BUFFS = [
+  SPELLS.LESSON_OF_ANGER_BUFF,
+  SPELLS.LESSON_OF_FEAR_BUFF,
+  SPELLS.LESSON_OF_DOUBT_BUFF,
+  SPELLS.LESSON_OF_DESPAIR_BUFF,
+];
+
 export const SPELL_COLORS = {
+  MISTY_PEAKS: '#c8fadb',
   DANCING_MIST: '#42e7fc',
-  RAPID_DIFFUSION: '#127847',
+  RAPID_DIFFUSION: '#1c9c4d',
+  DANCING_MISTS: '#38ffdb',
   ESSENCE_FONT: '#1f77b4',
   ESSENCE_FONT_BUFF: '#aec7e8',
   GUSTS_OF_MISTS: '#ff7f0e',
-  VIVIFY: '#ffbb78',
-  RENEWING_MIST: '#2ca02c',
+  VIVIFY: '#00FF98',
+  RENEWING_MIST: '#14522c',
   ENVELOPING_MIST: '#98df8a',
   SOOTHING_MIST: '#d62728',
   EXPEL_HARM: '#ff9896',

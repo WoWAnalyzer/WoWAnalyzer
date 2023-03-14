@@ -1,24 +1,34 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
+import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
+import { MS_BUFFER_250 } from 'analysis/retail/hunter/shared';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  CastEvent,
   EventType,
   FightEndEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { currentStacks } from 'parser/shared/modules/helpers/Stacks';
+import Pets from 'parser/shared/modules/Pets';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MAX_FRENZY_STACKS } from '../../constants';
+import { MAX_FRENZY_STACKS, ORIGINAL_FRENZY_DURATION } from '../../constants';
+import GlobalCooldown from '../core/GlobalCooldown';
+import SpellUsable from '../core/SpellUsable';
 
 /**
  * Fire a shot that tears through your enemy, causing them to bleed for X damage over 8 sec. Sends your pet into a frenzy, increasing attack speed by 30% for 8 sec, stacking up to 3 times.
@@ -28,9 +38,22 @@ import { MAX_FRENZY_STACKS } from '../../constants';
  */
 
 class BarbedShot extends Analyzer {
+  static dependencies = {
+    spellUsable: SpellUsable,
+    pets: Pets,
+    globalCooldown: GlobalCooldown,
+  };
+
+  protected spellUsable!: SpellUsable;
+  protected pets!: Pets;
+  protected globalCooldown!: GlobalCooldown;
+
   barbedShotStacks: number[][] = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
+
+  //Guide specific variables
+  castEntries: Array<BoxRowEntry & { event: CastEvent }> = [];
 
   constructor(options: Options) {
     super(options);
@@ -49,6 +72,16 @@ class BarbedShot extends Analyzer {
       this.handleStacks,
     );
     this.addEventListener(Events.fightend, this.handleStacks);
+
+    //Guide specific listeners
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.BARBED_SHOT_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.BARBED_SHOT_PET_BUFF),
+      this.onRefresh,
+    );
   }
 
   get barbedShotTimesByStacks() {
@@ -107,15 +140,27 @@ class BarbedShot extends Analyzer {
     };
   }
 
-  handleStacks(event: RemoveBuffEvent | ApplyBuffEvent | ApplyBuffStackEvent | FightEndEvent) {
+  handleStacks(
+    event:
+      | RemoveBuffEvent
+      | ApplyBuffEvent
+      | ApplyBuffStackEvent
+      | FightEndEvent
+      | RefreshBuffEvent,
+  ) {
     this.barbedShotStacks[this.lastBarbedShotStack].push(
       event.timestamp - this.lastBarbedShotUpdate,
     );
-    if (event.type === EventType.FightEnd) {
+    if (event.type === EventType.FightEnd || event.type === EventType.RefreshBuff) {
       return;
     }
     this.lastBarbedShotUpdate = event.timestamp;
     this.lastBarbedShotStack = currentStacks(event);
+  }
+
+  onRefresh(event: RefreshBuffEvent) {
+    this.handleStacks(event);
+    this.lastBarbedShotUpdate = event.timestamp;
   }
 
   getAverageBarbedShotStacks() {
@@ -231,6 +276,192 @@ class BarbedShot extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  onCast(event: CastEvent) {
+    //Barbed Shot casts are good if
+    // There's less than a global (+ leeway) time remaining on Frenzy
+    // Pet has less than 3 stacks, Scent of Blood is talented and Bestial Wrath is ready
+    // Wild Instinct is talented & Call of the Wild is up
+    // Wild Call is talented, and there's more than 1.4 charges of Barbed Shot
+    // There's less than a GCD till Barbed Shot is fully recharged AND Bestial Wrath is on cooldown
+    // Scent of Blood is talented and there's less than 12 seconds (+ gcd) till bestial wrath is ready
+    const frenzyBuffRemaining =
+      this.lastBarbedShotUpdate === this.owner.fight.start_time
+        ? 0
+        : Math.max(ORIGINAL_FRENZY_DURATION - (event.timestamp - this.lastBarbedShotUpdate), 0);
+
+    const bestialWrathOnCooldown = this.spellUsable.isOnCooldown(TALENTS.BESTIAL_WRATH_TALENT.id);
+    const currentBarbedShotStacks = this.lastBarbedShotStack;
+
+    const currentGCDWithBuffer =
+      this.globalCooldown.getGlobalCooldownDuration(TALENTS.BARBED_SHOT_TALENT.id) + MS_BUFFER_250;
+
+    //We subtract 1 because it's the one we just used, but we want to make calculations based on the state before using it
+    const chargesOnCd = this.spellUsable.chargesOnCooldown(TALENTS.BARBED_SHOT_TALENT.id) - 1;
+    const barbedShotCharges = 2 - chargesOnCd;
+    const barbedShotFractionalCharges =
+      barbedShotCharges +
+      (this.spellUsable.isOnCooldown(TALENTS.BARBED_SHOT_TALENT.id)
+        ? (this.spellUsable.fullCooldownDuration(TALENTS.BARBED_SHOT_TALENT.id) -
+            this.spellUsable.cooldownRemaining(TALENTS.BARBED_SHOT_TALENT.id)) /
+          this.spellUsable.fullCooldownDuration(TALENTS.BARBED_SHOT_TALENT.id)
+        : 0);
+
+    const baseTooltip = (
+      <>
+        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
+        <strong>{this.owner.getTargetName(event) || 'unknown'}</strong>
+        <br />
+      </>
+    );
+    if (frenzyBuffRemaining > 0 && frenzyBuffRemaining < currentGCDWithBuffer) {
+      const tooltip = (
+        <>
+          {baseTooltip}
+          You refreshed <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> with
+          {(frenzyBuffRemaining / 1000).toFixed(2)} seconds remaining.
+        </>
+      );
+      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
+      return;
+    }
+    if (
+      currentBarbedShotStacks < MAX_FRENZY_STACKS &&
+      this.selectedCombatant.hasTalent(TALENTS.SCENT_OF_BLOOD_TALENT) &&
+      !bestialWrathOnCooldown
+    ) {
+      const tooltip = (
+        <>
+          {baseTooltip}
+          You progressed towards {MAX_FRENZY_STACKS} stacks of{' '}
+          <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> while{' '}
+          <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> was available to reset charges
+          afterwards.
+          <br />
+          Pet had {currentBarbedShotStacks} stacks of{' '}
+          <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} />.
+        </>
+      );
+      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
+      return;
+    }
+
+    if (
+      this.selectedCombatant.hasTalent(TALENTS.WILD_INSTINCTS_TALENT) &&
+      this.selectedCombatant.hasBuff(TALENTS.CALL_OF_THE_WILD_TALENT.id)
+    ) {
+      const tooltip = (
+        <>
+          {baseTooltip}
+          You had <SpellLink id={TALENTS.CALL_OF_THE_WILD_TALENT.id} /> running with{' '}
+          <SpellLink id={TALENTS.WILD_INSTINCTS_TALENT.id} /> talented giving you a large amount of
+          resets to offset more aggressive usage of <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />
+        </>
+      );
+      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
+      return;
+    }
+
+    if (
+      this.selectedCombatant.hasTalent(TALENTS.WILD_CALL_TALENT) &&
+      barbedShotFractionalCharges > 1.4
+    ) {
+      const tooltip = (
+        <>
+          {baseTooltip}
+          You had <strong>{barbedShotFractionalCharges.toFixed(1)}</strong> charges of{' '}
+          <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> while talented into{' '}
+          <SpellLink id={TALENTS.WILD_CALL_TALENT.id} /> giving you more resets.
+        </>
+      );
+      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
+      return;
+    }
+
+    if (
+      barbedShotCharges === 1 &&
+      bestialWrathOnCooldown &&
+      currentGCDWithBuffer > this.spellUsable.cooldownRemaining(TALENTS.BARBED_SHOT_TALENT.id)
+    ) {
+      const tooltip = (
+        <>
+          {baseTooltip}
+          You used <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> as it was almost coming off
+          cooldown.
+        </>
+      );
+      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
+      return;
+    }
+    if (
+      this.selectedCombatant.hasTalent(TALENTS.SCENT_OF_BLOOD_TALENT) &&
+      bestialWrathOnCooldown &&
+      this.spellUsable.cooldownRemaining(TALENTS.BESTIAL_WRATH_TALENT.id) <
+        12000 + currentGCDWithBuffer
+    ) {
+      const tooltip = (
+        <>
+          {baseTooltip}
+          You used <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> as{' '}
+          <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> was close to coming off cooldown while
+          talented into <SpellLink id={TALENTS.SCENT_OF_BLOOD_TALENT.id} />.
+        </>
+      );
+      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
+      return;
+    }
+    const badTooltip = (
+      <>
+        {baseTooltip} You didn't fulfill any of the criteria of casting a good{' '}
+        <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />.
+        <br />
+        {barbedShotFractionalCharges < 1.4 && frenzyBuffRemaining > currentGCDWithBuffer && (
+          <>
+            You should have delayed your <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> cast since{' '}
+            <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> had{' '}
+            {(frenzyBuffRemaining / 1000).toFixed(2)} seconds remaining, and you had{' '}
+            {barbedShotFractionalCharges.toFixed(2)}{' '}
+            <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> charges available.
+          </>
+        )}
+      </>
+    );
+
+    this.castEntries.push({ value: QualitativePerformance.Fail, tooltip: badTooltip, event });
+  }
+
+  guideSubsection() {
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />
+        </strong>{' '}
+        is your primary <strong>builder</strong> for <strong>Focus</strong>, and is used to maintain{' '}
+        <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> on your pet. With{' '}
+        <SpellLink id={TALENTS.BARBED_WRATH_TALENT.id} /> talented it helps to lower the cooldown of{' '}
+        <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> by a significant amount. Therefore you
+        should aim to keep <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> and{' '}
+        <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> rolling to maximize the potential of your{' '}
+        <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> usage.
+      </p>
+    );
+    const data = (
+      <CastSummaryAndBreakdown
+        spell={TALENTS.BARBED_SHOT_TALENT}
+        castEntries={this.castEntries}
+        goodLabel={t({
+          id: 'guide.hunter.beastmastery.sections.rotation.barbedshot.data.summary.performance.good',
+          message: 'Barbed Shot',
+        })}
+        includeGoodCastPercentage
+        badLabel={t({
+          id: 'guide.hunter.beastmastery.sections.rotation.barbedshot.data.summary.performance.bad',
+          message: 'Bad Barbed Shots',
+        })}
+      />
+    );
+    return <ExplanationAndDataSubSection explanation={explanation} data={data} />;
   }
 }
 

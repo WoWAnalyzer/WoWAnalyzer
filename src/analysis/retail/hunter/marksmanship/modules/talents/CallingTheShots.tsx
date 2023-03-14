@@ -14,7 +14,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 /**
- * Every 50 Focus spent reduces the cooldown of Trueshot by 1.5 sec.
+ * Every 50 Focus spent reduces the cooldown of Trueshot by 2.5 sec.
  *
  * Example log:
  *

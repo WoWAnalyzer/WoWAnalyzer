@@ -190,11 +190,12 @@ class Combatant extends Entity {
       });
 
     gear.forEach((item, index) => {
-      if (item.setID !== undefined && equipedSets[item.setID] !== undefined) {
-        item.setItemIDs = equipedSets[item.setID];
+      const equippedItem = { ...item };
+      if (equippedItem.setID !== undefined && equipedSets[equippedItem.setID] !== undefined) {
+        equippedItem.setItemIDs = equipedSets[equippedItem.setID];
       }
 
-      this._gearItemsBySlotId[index] = item;
+      this._gearItemsBySlotId[index] = equippedItem;
     });
   }
 

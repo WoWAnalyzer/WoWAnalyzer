@@ -1,10 +1,11 @@
 import { ToppleTheNun } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
+import Config from 'parser/Config';
 
 import CHANGELOG from './CHANGELOG';
 
-export default {
+const CONFIG: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
   contributors: [ToppleTheNun],
   expansion: Expansion.Dragonflight,
@@ -48,7 +49,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/zf9h3vJAFXY8w6tM/11-Heroic+Eranog+-+Kill+(3:49)/Jedith',
+  exampleReport: '/report/6g4TqjXz9BH2ywDk/15-Mythic+Terros+-+Kill+(5:45)/Hotbees/standard',
+  guideDefault: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
@@ -63,3 +65,5 @@ export default {
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };
+
+export default CONFIG;

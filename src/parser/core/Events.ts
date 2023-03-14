@@ -45,6 +45,7 @@ export enum EventType {
   Spellsteal = 'spellsteal',
   EmpowerStart = 'empowerstart',
   EmpowerEnd = 'empowerend',
+  Leech = 'leech',
 
   // Fabricated:
   Event = 'event', // everything
@@ -125,6 +126,7 @@ export interface RemoveStaggerEvent extends Event<EventType.RemoveStagger> {
   overheal: number;
   newPooledDamage: number;
   trigger?: CastEvent | DeathEvent;
+  sourceBreakdown?: { base: number } & Record<number, number>;
 }
 
 type MappedEventTypes = {
@@ -159,6 +161,7 @@ type MappedEventTypes = {
   [EventType.Spellsteal]: SpellstealEvent;
   [EventType.EmpowerStart]: EmpowerStartEvent;
   [EventType.EmpowerEnd]: EmpowerEndEvent;
+  [EventType.Leech]: LeechEvent;
 
   // Fabricated:
   [EventType.FightEnd]: FightEndEvent;
@@ -186,9 +189,8 @@ type MappedEventTypes = {
   [EventType.FilterBuffInfo]: FilterBuffInfoEvent;
 };
 
-export type AnyEvent<
-  ET extends keyof MappedEventTypes = keyof MappedEventTypes
-> = MappedEventTypes[ET];
+export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> =
+  MappedEventTypes[ET];
 
 export interface Ability {
   /** The ability's name */
@@ -287,24 +289,19 @@ export function HasLocation<T extends EventType>(event: Event<T>): event is Loca
 /** Gets the events related to the given event with the given relation (key). Events will not
  *  by default have any relations, you must add them with an {@link EventLinkNormalizer}. */
 export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
-  return event._linkedEvents === undefined
-    ? []
-    : event._linkedEvents.filter((le) => le.relation === relation).map((le) => le.event);
+  return event?._linkedEvents?.filter((le) => le.relation === relation).map((le) => le.event) ?? [];
 }
 
 /** Returns true iff the given event has a relation with the given relation (key). Events will not
  *  by default have any relations, you must add them with an {@link EventLinkNormalizer}. */
 export function HasRelatedEvent(event: AnyEvent, relation: string): boolean {
-  return (
-    event._linkedEvents !== undefined &&
-    event._linkedEvents.find((le) => le.relation === relation) !== undefined
-  );
+  return event?._linkedEvents?.find((le) => le.relation === relation) !== undefined;
 }
 
 /** Adds a relation between events using the `_linkedEvents` field.
  *  This should not be done manually, use {@link EventLinkNormalizer} */
 export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent: AnyEvent): void {
-  if (event._linkedEvents === undefined) {
+  if (!event?._linkedEvents) {
     event._linkedEvents = [];
   }
   event._linkedEvents.push({ relation, event: relatedEvent });
@@ -452,6 +449,7 @@ export interface BaseCastEvent<T extends string> extends Event<T> {
 
 export type CastEvent = BaseCastEvent<EventType.Cast>;
 export type FreeCastEvent = BaseCastEvent<EventType.FreeCast>;
+export type LeechEvent = BaseCastEvent<EventType.Leech>;
 
 export type EmpowerStartEvent = BaseCastEvent<EventType.EmpowerStart>;
 export interface EmpowerEndEvent extends BaseCastEvent<EventType.EmpowerEnd> {
@@ -1422,6 +1420,12 @@ const Events = {
   },
   get empowerEnd() {
     return new EventFilter(EventType.EmpowerEnd);
+  },
+  get leech() {
+    return new EventFilter(EventType.Leech);
+  },
+  get extraAttacks() {
+    return new EventFilter(EventType.ExtraAttacks);
   },
 };
 

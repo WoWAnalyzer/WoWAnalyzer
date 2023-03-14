@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -21,6 +20,7 @@ class SheilunsGift extends Analyzer {
   gomHealing: number = 0;
   cloudsLost: number = 0;
   curClouds: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
@@ -93,12 +93,7 @@ class SheilunsGift extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.SHEILUNS_GIFT_TALENT.icon)
-        .actual(
-          `${this.cloudsLost} ${t({
-            id: 'monk.mistweaver.suggestions.sheilunsGift.cloudsLost',
-            message: ` lost cloud from overcapping` + (this.cloudsLost > 1 ? 's' : ''),
-          })}`,
-        )
+        .actual(`${this.cloudsLost} lost cloud${this.cloudsLost > 1 ? 's' : ''} from overcapping`)
         .recommended(`0 lost clouds is recommended`),
     );
   }
@@ -117,7 +112,7 @@ class SheilunsGift extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >

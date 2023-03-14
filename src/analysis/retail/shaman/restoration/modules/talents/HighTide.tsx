@@ -2,69 +2,58 @@ import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import HIT_TYPES from 'game/HIT_TYPES';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  HealEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import { CHAIN_HEAL_COEFFICIENT, HIGH_TIDE_COEFFICIENT } from '../../constants';
+import { isBuffedByHighTide } from '../../normalizers/CastLinkNormalizer';
+import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
+import WarningIcon from 'interface/icons/Warning';
+import CheckmarkIcon from 'interface/icons/Checkmark';
 
-const HEAL_WINDOW_MS = 150;
 const bounceReduction = 0.7;
 const debug = false;
-
-interface BufferHealEvent extends HealEvent {
-  baseHealingDone: number;
-}
-
 /**
  * High Tide:
- * Every 40000 mana you spend brings a High Tide, making your next 2 Chain Heals heal for an additional 20% and not reduce with each jump.
+ * Every 100000 mana you spend brings a High Tide, making your next 2 Chain Heals heal for an additional 10% and not reduce with each jump.
  */
 
 /**
  * Logs for testing High Tide buff usage:
- * Double stack log: https://www.warcraftlogs.com/reports/Qb91XvyqtNjaHRPr#fight=21&type=auras&source=11&pins=0%24Separate%24%23244F4B%24healing%240%240.0.0.Any%24137004809.0.0.Shaman%24true%240.0.0.Any%24false%241064&ability=288675
- * Buff applied pre-pull: https://www.warcraftlogs.com/reports/R4JncHyajt8VQr9h#fight=48&type=auras&source=14&ability=288675
+ * Double stack log:
+ * Buff applied pre-pull:
  */
 
 class HighTide extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
     critEffectBonus: CritEffectBonus,
+    chainHealNormalizer: ChainHealNormalizer,
   };
 
+  protected chainHealNormalizer!: ChainHealNormalizer;
   protected statTracker!: StatTracker;
   protected critEffectBonus!: CritEffectBonus;
 
-  healing = 0;
-  chainHealTimestamp = 0;
-  buffer: BufferHealEvent[] = [];
-
-  // high tide efficiency trackers
-  usedHighTides = 0;
-  unusedHighTides = 0;
-  currentHighTideBuff = 0;
+  totalHealing: number = 0;
+  activeBuffs: number = 0;
+  buffsApplied: number = 0;
+  buffsConsumed: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT);
-
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_HEAL_TALENT),
-      this.chainHeal,
-    );
-    this.addEventListener(Events.fightend, this.onFightEnd);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.CHAIN_HEAL_TALENT);
 
     // these are for tracking high tide efficiency
     this.addEventListener(
@@ -79,127 +68,83 @@ class HighTide extends Analyzer {
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF),
       this.onHighTideBuff,
     );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HIGH_TIDE_BUFF),
-      this.onHighTideRemoveBuff,
-    );
   }
 
-  // in the event of a High Tide buff, if a buff still exists adds it to unused then resets buff counter to 2
+  get wastedBuffs() {
+    return this.buffsApplied - this.buffsConsumed;
+  }
+
+  get buffIcon() {
+    return this.wastedBuffs > 0 ? <WarningIcon /> : <CheckmarkIcon />;
+  }
+
   onHighTideBuff(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    this.unusedHighTides += this.currentHighTideBuff;
-    this.currentHighTideBuff = 2;
+    this.buffsApplied += 2;
   }
 
-  // in the event of a High Tide remove buff, adds any existing buff to unused and sets buff counter to 0
-  onHighTideRemoveBuff(event: RemoveBuffEvent) {
-    this.unusedHighTides += this.currentHighTideBuff; //if there were leftovers when buff expires
-    this.currentHighTideBuff = 0;
-  }
-
-  // on a chain heal cast and buff counter is greater than 0, adds one to used counter
-  // and reduces buff counter by one.
+  /**
+   * The value of the % increase provided by high tide is variable for each jump
+   * Jump reduction can be mathed out with an exponentiation operator on the index of the chain heal array
+   * Example: The second hit would be the sp coefficient (2.31) times the reduction coefficient (.7)
+   * to the power of the second index in the array .7^(1) = .7, so 1.617
+   * We divide the sp coefficient when buffed by high tide (2.31 * 1.1 = 2.541) by the jump's coefficient, then
+   * subract 1 for the % increase to be passed into calculateEffectiveHealing
+   */
   onChainHealCast(event: CastEvent) {
-    if (this.currentHighTideBuff > 0) {
-      this.usedHighTides += 1;
-      this.currentHighTideBuff -= 1;
-    }
-  }
-
-  chainHeal(event: HealEvent) {
-    const hasHighTide = this.selectedCombatant.hasBuff(SPELLS.HIGH_TIDE_BUFF.id, null, 50, 20);
-    if (!hasHighTide) {
-      return;
-    }
-
-    // Detects new chain heal casts, can't use the cast event for this as its often somewhere in between its healing events
-    if (!this.chainHealTimestamp || event.timestamp - this.chainHealTimestamp > HEAL_WINDOW_MS) {
-      this.processBuffer();
-      this.chainHealTimestamp = event.timestamp;
-    }
-
-    /**
-     * Due to how Chain Heal interacts with the combatlog, we have to take a lot of extra steps here.
-     * Issues:
-     * 1. The healing events are backwards [4,3,2,1]
-     * 2. If the Shaman heals himself, his healing event is always first [3,4,2,1] (3 = Shaman)
-     * 3. If 2. happens, the heal on the shaman is also happening before the cast event, which the lines above already deal with.
-     *
-     * Calculating out High Tide requires us to know the exact jump order, as High Tide affects each jump differently.
-     * https://ancestralguidance.com/hidden-spell-mechanics/
-     * The solution is to reorder the events into the correct hit order, which could be done since each consecutive heal is weaker
-     * than the one beforehand (by 30%), except, you have the Shaman mastery which will result in random healing numbers
-     * as each hit has a different mastery effectiveness - the higher the Shamans mastery, the more rapidly different the numbers end up.
-     * With traits like https://www.wowhead.com/spell=277942/ancestral-resonance existing, shamans mastery can randomly double or triple mid combat.
-     *
-     * So we take 1 cast of chain heal at a time (4 hits maximum), calculate out crits and the mastery bonus, reorder them according to the new values
-     * (High healing to Low healing or [4,3,2,1] to [1,2,3,4]) and get the High Tide contribution by comparing the original heal values against
-     * what a non-High Tide Chain Heal would have done each bounce.
-     *
-     * Things that are able to break the sorting: Deluge (Pls don't take it) as its undetectable, random player-based heal increases
-     * (possibly encounter mechanics) if not accounted for.
-     */
-    let heal = event.amount + (event.absorbed || 0) + (event.overheal || 0);
-    if (event.hitType === HIT_TYPES.CRIT) {
-      const critMult = this.critEffectBonus.getBonus(event);
-      heal /= critMult;
-    }
-    const currentMastery = this.statTracker.currentMasteryPercentage;
-    const masteryEffectiveness = Math.max(
-      0,
-      1 - (event.hitPoints - event.amount) / event.maxHitPoints,
-    );
-    const baseHealingDone = heal / (1 + currentMastery * masteryEffectiveness);
-
-    this.buffer.push({
-      baseHealingDone: baseHealingDone,
-      ...event,
-    });
-  }
-
-  onFightEnd() {
-    this.processBuffer();
-  }
-
-  processBuffer() {
-    this.buffer.sort((a, b) => b.baseHealingDone - a.baseHealingDone);
-
-    for (const [index, event] of Object.entries(this.buffer)) {
-      // 20%, 71%, 145%, 250% increase per hit over not having High Tide
-      const i = parseInt(index); // why is it a string tho
-      const FACTOR_CONTRIBUTED_BY_HT_HIT =
-        HIGH_TIDE_COEFFICIENT / (CHAIN_HEAL_COEFFICIENT * bounceReduction ** i) - 1;
-
-      this.healing += calculateEffectiveHealing(event, FACTOR_CONTRIBUTED_BY_HT_HIT);
+    if (isBuffedByHighTide(event)) {
       debug &&
-        this.log(
-          `HT: ${this.owner.formatTimestamp(event.timestamp)} ${
-            event.amount + (event.overheal || 0)
-          } - ${FACTOR_CONTRIBUTED_BY_HT_HIT} - ${calculateEffectiveHealing(
-            event,
-            FACTOR_CONTRIBUTED_BY_HT_HIT,
-          )}`,
-        );
+        console.log('High Tide Chain heal at ', this.owner.formatTimestamp(event.timestamp), event);
+      this.buffsConsumed += 1;
+      let FACTOR_CONTRIBUTED_BY_HT_HIT;
+      const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
+      orderedChainHeal.forEach((heal, idx) => {
+        FACTOR_CONTRIBUTED_BY_HT_HIT =
+          HIGH_TIDE_COEFFICIENT / (CHAIN_HEAL_COEFFICIENT * bounceReduction ** idx) - 1;
+        this.totalHealing += calculateEffectiveHealing(heal, FACTOR_CONTRIBUTED_BY_HT_HIT);
+      });
     }
-    this.buffer = [];
   }
 
   subStatistic() {
-    const highTideToolTip = (
-      <Trans id="shaman.restoration.highTide.statistic.tooltip">
-        {this.usedHighTides} High Tide buff stacks used out of{' '}
-        {this.usedHighTides + this.unusedHighTides + this.currentHighTideBuff}.
-      </Trans>
-    );
-
     return (
-      <div>
-        <StatisticListBoxItem
-          title={<SpellLink id={TALENTS.HIGH_TIDE_TALENT.id} />}
-          value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
-          valueTooltip={highTideToolTip}
-        />
-      </div>
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS.HIGH_TIDE_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+        valueTooltip={
+          <Trans id="shaman.restoration.highTide.statistic.tooltip">
+            {this.buffsConsumed} High Tide buff stacks used out of {this.buffsApplied}.
+          </Trans>
+        }
+      />
+    );
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE(5)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+      >
+        <TalentSpellText talent={TALENTS.HIGH_TIDE_TALENT}>
+          <ItemHealingDone amount={this.totalHealing} />
+          <br />
+          <TooltipElement
+            content={
+              <>
+                The number of <SpellLink id={TALENTS.HIGH_TIDE_TALENT} /> buffs that expired without
+                casting <SpellLink id={TALENTS.CHAIN_HEAL_TALENT} /> ({this.wastedBuffs} wasted of{' '}
+                {this.buffsApplied} total)
+              </>
+            }
+          >
+            {this.buffIcon} {this.wastedBuffs}
+            <small> wasted buffs</small>
+          </TooltipElement>
+        </TalentSpellText>
+      </Statistic>
     );
   }
 }

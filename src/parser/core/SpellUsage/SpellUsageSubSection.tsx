@@ -5,10 +5,10 @@ import { ComponentPropsWithoutRef, Fragment, ReactNode, useCallback, useState } 
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
-import PerformanceBoxRowGrid from 'interface/guide/components/PerformanceBoxRowGrid';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
 import { SpellUse } from './core';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 
 const NoData = styled.div`
   color: #999;
@@ -36,7 +36,11 @@ const SpellDetailsContainer = styled.div`
     grid-column: 1 / -1;
   }
 
-  > *:nth-child(odd) {
+  ${RoundedPanel} {
+    grid-column: 1 / -1;
+  }
+
+  > *:nth-child(odd):not(${RoundedPanel}) {
     justify-self: center;
   }
 `;
@@ -73,6 +77,14 @@ const SpellUseDetails = ({ spellUse }: { spellUse?: SpellUse }) => {
           {checklistItem.details}
         </Fragment>
       ))}
+      {spellUse.extraDetails ? (
+        <RoundedPanel>
+          <div>
+            <strong>Extra Details</strong>
+          </div>
+          {spellUse.extraDetails}
+        </RoundedPanel>
+      ) : null}
     </SpellDetailsContainer>
   );
 };
@@ -152,7 +164,7 @@ const SpellUsageSubSection = ({
               )}
             </small>
           </div>
-          <PerformanceBoxRowGrid
+          <PerformanceBoxRow
             values={performance.map((p, ix) =>
               ix === selectedUse ? { ...p, className: 'selected' } : p,
             )}
@@ -164,6 +176,12 @@ const SpellUsageSubSection = ({
       </ExplanationRow>
     </SubSection>
   );
+};
+
+export const logSpellUseEvent = (use: SpellUse | undefined) => {
+  if (use) {
+    console.log(use.event);
+  }
 };
 
 export default SpellUsageSubSection;

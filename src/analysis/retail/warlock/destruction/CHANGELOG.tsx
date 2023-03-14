@@ -1,10 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Sharrq, ogunb, ToppleTheNun, Omegabiscuit, Mae } from 'CONTRIBUTORS';
+import { Sharrq, ogunb, ToppleTheNun, Omegabiscuit, Mae, dodse} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 3, 5), "Update Havoc module to also work with Mayhem and try to identify damage from Havoc more accurately.", dodse),
+  change(date(2023, 3, 5), "Update Madness module to track buffed RoF and Shadowburn.", dodse),
+  change(date(2023, 3, 5), "Add Burn to Ashes buffed Incinerates statistic.", dodse),
   change(date(2023, 1, 17), "Add more data to Backdraft and Roaring Blaze analyzers. Add Flashpoint analyzer.", Mae),
   change(date(2023, 1, 17), "Add Madness of Azh'aqir analyzer", Mae),
   change(date(2023, 1, 16), 'Add Rolling Havoc analyzer', Mae),

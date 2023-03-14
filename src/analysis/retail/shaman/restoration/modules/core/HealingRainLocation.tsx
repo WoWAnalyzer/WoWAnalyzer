@@ -10,6 +10,8 @@ import Combatants from 'parser/shared/modules/Combatants';
  *
  * The position is calculated by gathering all coordinates of people getting healed by rain, finding the extremes and treating it as an ellipse.
  * Player position on heal is then compared against that.
+ *
+ * Units for x y coordinates are in 100th yds (x = 1 => .01 yard)
  */
 
 interface Point {
@@ -21,6 +23,7 @@ interface Location {
   ellipseWidth: number;
   ellipseHeight: number;
 }
+const OVERFLOWING_SHORES_INCREASE = 400; // increases radius by 2 yards -> 4 yard diameter
 
 class HealingRainLocation extends Analyzer {
   static dependencies = {
@@ -29,7 +32,11 @@ class HealingRainLocation extends Analyzer {
 
   protected combatants!: Combatants;
 
-  healingRainDiameter = 2100; // 5% margin of error
+  healingRainDiameter =
+    (2000 +
+      OVERFLOWING_SHORES_INCREASE *
+        this.selectedCombatant.getTalentRank(TALENTS.OVERFLOWING_SHORES_TALENT)) *
+    1.05; // 5% margin of error
   healingRainEvents: HealEvent[] = [];
   newHealingRain = false;
   lastHealingRainTick = 0;
@@ -84,6 +91,7 @@ class HealingRainLocation extends Analyzer {
 
     // No healingRainLocation is caused by having errors in the position data
     if (!healingRainLocation) {
+      console.log('No Healing Rain Location Found');
       return 0;
     }
 
@@ -153,13 +161,21 @@ class HealingRainLocation extends Analyzer {
 
   // also called: is point inside ellipse
   _isPlayerInsideHealingRain(pointToCheck: Point, location: Location) {
+    const center = location.ellipseCenterPoint;
+    const player = pointToCheck;
+    const distanceFromCenterToPoint = Math.sqrt(
+      Math.pow(player.x - center.x, 2) + Math.pow(player.y - center.y, 2),
+    );
+    //check for absolute distance first
+    if (distanceFromCenterToPoint <= this.healingRainDiameter / 2) {
+      return true;
+    }
     const xComponent =
       Math.pow(pointToCheck.x - location.ellipseCenterPoint.x, 2) /
       Math.pow(location.ellipseWidth, 2);
     const yComponent =
       Math.pow(pointToCheck.y - location.ellipseCenterPoint.y, 2) /
       Math.pow(location.ellipseHeight, 2);
-
     if (xComponent + yComponent <= 1) {
       return true;
     }

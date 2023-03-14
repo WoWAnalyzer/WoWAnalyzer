@@ -1138,7 +1138,7 @@ const talents = createTalentList({
     name: 'Sanguine Teachings',
     icon: 'inv_archaeology_80_zandalari_sanguinetotem',
     maxRanks: 1,
-    entryIds: [103841],
+    entryIds: [114735],
   },
   SANLAYN_TALENT: {
     id: 199855,
@@ -1373,7 +1373,7 @@ const talents = createTalentList({
     name: 'Vampiric Embrace',
     icon: 'spell_shadow_unsummonbuilding',
     maxRanks: 1,
-    entryIds: [114735],
+    entryIds: [103841],
   },
   VOID_ERUPTION_TALENT: {
     id: 228260,

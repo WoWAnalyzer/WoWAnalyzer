@@ -14,6 +14,8 @@ import {
   UnnaturalMalice,
   DemonSoulBuff,
   FodderToTheFlame,
+  SigilOfFlameNormalizer,
+  SigilOfFlame,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -90,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
     theHuntNormalizer: TheHuntNormalizer,
     felDevastationNormalizer: FelDevastationNormalizer,
+    sigilOfFlamesNormalizer: SigilOfFlameNormalizer,
 
     // Spell
     immolationAura: ImmolationAura,
@@ -133,6 +136,7 @@ class CombatLogParser extends CoreCombatLogParser {
     felDevastation: FelDevastation,
     fieryBrand2: FieryBrand2,
     fodderToTheFlame: FodderToTheFlame,
+    sigilOfFlame: SigilOfFlame,
 
     // Stats
     soulsOvercap: SoulsOvercap,

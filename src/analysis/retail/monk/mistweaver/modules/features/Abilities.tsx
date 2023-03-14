@@ -207,6 +207,15 @@ class Abilities extends CoreAbilities {
         },
         cooldown: 15,
       },
+      {
+        spell: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: combatant.hasTalent(TALENTS_MONK.VEIL_OF_PRIDE_TALENT) ? 4 : 8,
+      },
 
       // Utility Spells
       {

@@ -1,11 +1,9 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Events, { CastEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ReactNode } from 'react';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import Enemy from 'parser/core/Enemy';
 import { getSoulCleaveDamages } from 'analysis/retail/demonhunter/vengeance/normalizers/SoulCleaveEventLinkNormalizer';
@@ -13,15 +11,21 @@ import {
   SPIRIT_BOMB_SOULS_IN_META,
   SPIRIT_BOMB_SOULS_OUT_OF_META,
 } from 'analysis/retail/demonhunter/vengeance/constants';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/demonhunter';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
-import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
-
-type SoulCleaveBoxRowEntry = BoxRowEntry & {
-  event: CastEvent;
-};
+import {
+  ChecklistUsageInfo,
+  SpellUse,
+  spellUseToBoxRowEntry,
+  UsageInfo,
+} from 'parser/core/SpellUsage/core';
+import SpellUsageSubSection, {
+  logSpellUseEvent,
+} from 'parser/core/SpellUsage/SpellUsageSubSection';
+import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import ResourceLink from 'interface/ResourceLink';
 
 export default class SoulCleave extends Analyzer {
   static dependencies = {
@@ -29,76 +33,110 @@ export default class SoulCleave extends Analyzer {
   };
 
   enemies!: Enemies;
-  private castEntries: SoulCleaveBoxRowEntry[] = [];
+  private cooldownUses: SpellUse[] = [];
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SOUL_CLEAVE), this.onCast);
   }
 
-  onCast(event: CastEvent) {
-    const [fieryDemisePerformance, fieryDemiseNote] = this.getCastFieryDemisePerformance(event);
-    const [
-      spiritBombBetterPerformance,
-      spiritBombBetterNote,
-    ] = this.getCastWhenSpiritBombBetterPerformance(event);
-    const performance = combineQualitativePerformances([
-      fieryDemisePerformance,
-      spiritBombBetterPerformance,
-    ]);
-
-    const tooltip = (
+  guideSubsection() {
+    const spiritBombSnippet = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT,
+    ) ? (
       <>
-        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-        <br />
-        {fieryDemiseNote}
-        {spiritBombBetterNote}
+        {' '}
+        Use <SpellLink id={SPELLS.SOUL_CLEAVE} /> when you would not otherwise use{' '}
+        <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />. Always try to press{' '}
+        <SpellLink id={SPELLS.SOUL_CLEAVE} /> at least once after every{' '}
+        <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />.
       </>
+    ) : null;
+    const explanation = (
+      <p>
+        <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.explanation">
+          <strong>
+            <SpellLink id={SPELLS.SOUL_CLEAVE} />
+          </strong>{' '}
+          is your primary <strong>spender</strong> of <ResourceLink id={RESOURCE_TYPES.FURY.id} />{' '}
+          and <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+          s. It consumes up to 2 <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+          s.
+          {spiritBombSnippet}
+        </Trans>
+      </p>
     );
 
-    this.castEntries.push({ value: performance, tooltip, event });
+    const performances = this.cooldownUses.map((it) =>
+      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
+    );
+
+    const goodCasts = performances.filter((it) => it.value === QualitativePerformance.Good).length;
+    const totalCasts = performances.length;
+
+    return (
+      <SpellUsageSubSection
+        explanation={explanation}
+        performance={performances}
+        uses={this.cooldownUses}
+        castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
+        onPerformanceBoxClick={logSpellUseEvent}
+        abovePerformanceDetails={
+          <CastPerformanceSummary
+            spell={SPELLS.SOUL_CLEAVE}
+            casts={goodCasts}
+            performance={QualitativePerformance.Good}
+            totalCasts={totalCasts}
+          />
+        }
+      />
+    );
   }
 
-  getCastFieryDemisePerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
+  private onCast(event: CastEvent) {
+    const spiritBombBetterPerformance = this.getCastWhenSpiritBombBetterPerformance(event);
+
+    const checklistItems: ChecklistUsageInfo[] = [];
+    if (spiritBombBetterPerformance) {
+      checklistItems.push({
+        check: 'spirit-bomb-better',
+        timestamp: event.timestamp,
+        ...spiritBombBetterPerformance,
+      });
+    }
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+      QualitativePerformance.Good,
+    );
+    this.cooldownUses.push({
+      event,
+      performance: actualPerformance,
+      checklistItems,
+      performanceExplanation:
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
+    });
+  }
+
+  private getCastWhenSpiritBombBetterPerformance(event: CastEvent): UsageInfo | undefined {
+    // If we don't have SpB, can't cast it instead
+    const hasSpiritBomb = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT);
+    if (!hasSpiritBomb) {
+      return undefined;
+    }
+
     const hasFieryDemise = this.selectedCombatant.hasTalent(
       TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT,
     );
-    const hasSpiritBomb = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT);
-    if (!hasFieryDemise || !hasSpiritBomb) {
-      return [QualitativePerformance.Good, null];
-    }
 
     const damageEvents = getSoulCleaveDamages(event);
+    const isAoE = damageEvents.length > 1;
     const targetsThatHadFieryBrand = damageEvents
       .map((event) => this.enemies.getEntity(event))
       .filter((enemy): enemy is Enemy => enemy !== null)
       .filter((enemy) => enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp));
-    if (targetsThatHadFieryBrand.length > 0) {
-      return [
-        QualitativePerformance.Fail,
-        <>
-          Should have cast Spirit Bomb instead.
-          <br />
-        </>,
-      ];
-    }
-    return [QualitativePerformance.Good, null];
-  }
-
-  getCastWhenSpiritBombBetterPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
-    // If we don't have SpB, can't cast it instead
-    const hasSpiritBomb = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT);
-    if (!hasSpiritBomb) {
-      return [QualitativePerformance.Good, null];
-    }
-
-    // Always prefer SC in ST apart from demise windows (handled elsewhere)
-    const damageEvents = getSoulCleaveDamages(event);
-    const isAoE = damageEvents.length > 1;
-    if (!isAoE) {
-      return [QualitativePerformance.Good, null];
-    }
-
+    const isFieryDemiseWindow = targetsThatHadFieryBrand.length > 1;
     const numberOfSoulFragmentsAvailable = this.selectedCombatant.getBuffStacks(
       SPELLS.SOUL_FRAGMENT_STACK.id,
       event.timestamp,
@@ -107,112 +145,184 @@ export default class SoulCleave extends Analyzer {
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
     );
+
+    if (!isAoE) {
+      return this.getCastWhenSpiritBombBetterSingleTargetPerformance(
+        hasFieryDemise,
+        isFieryDemiseWindow,
+        hasMetamorphosis,
+        numberOfSoulFragmentsAvailable,
+      );
+    }
+
+    return this.getCastWhenSpiritBombBetterCleavePerformance(
+      hasMetamorphosis,
+      numberOfSoulFragmentsAvailable,
+    );
+  }
+
+  private getCastWhenSpiritBombBetterCleavePerformance(
+    hasMetamorphosis: boolean,
+    numberOfSoulFragmentsAvailable: number,
+  ): UsageInfo {
+    const inMetamorphosisSummary = (
+      <div>Cast at &lt; {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments during Metamorphosis in AoE</div>
+    );
+    const nonMetamorphosisSummary = (
+      <div>Cast at &lt; {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments in AoE</div>
+    );
+
     if (hasMetamorphosis) {
       if (numberOfSoulFragmentsAvailable < SPIRIT_BOMB_SOULS_IN_META) {
-        return [QualitativePerformance.Good, null];
+        return {
+          performance: QualitativePerformance.Good,
+          summary: inMetamorphosisSummary,
+          details: (
+            <div>
+              You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> while you had{' '}
+              {numberOfSoulFragmentsAvailable} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s
+              available during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> in AoE. Good job!
+            </div>
+          ),
+        };
       }
-      return [
-        QualitativePerformance.Fail,
-        <>
-          Cast at {numberOfSoulFragmentsAvailable} Soul Fragments. Should have cast Spirit Bomb
-          instead.
-          <br />
-        </>,
-      ];
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: inMetamorphosisSummary,
+        details: (
+          <div>
+            You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> while you had{' '}
+            {numberOfSoulFragmentsAvailable}
+            <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s available during{' '}
+            <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> in AoE.{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
+            {SPIRIT_BOMB_SOULS_IN_META}+ <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+            s in <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />; you should have pressed{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> instead.
+          </div>
+        ),
+      };
     }
     if (numberOfSoulFragmentsAvailable < SPIRIT_BOMB_SOULS_OUT_OF_META) {
-      return [QualitativePerformance.Good, null];
+      return {
+        performance: QualitativePerformance.Good,
+        summary: nonMetamorphosisSummary,
+        details: (
+          <div>
+            You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> while you had{' '}
+            {numberOfSoulFragmentsAvailable} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s
+            available in AoE. Good job!
+          </div>
+        ),
+      };
     }
-    return [
-      QualitativePerformance.Fail,
-      <>
-        Cast at {numberOfSoulFragmentsAvailable} Soul Fragments. Should have cast Spirit Bomb
-        instead.
-        <br />
-      </>,
-    ];
+    return {
+      performance: QualitativePerformance.Fail,
+      summary: nonMetamorphosisSummary,
+      details: (
+        <div>
+          You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> while you had{' '}
+          {numberOfSoulFragmentsAvailable} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s available
+          in AoE. <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
+          {SPIRIT_BOMB_SOULS_OUT_OF_META}+ <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+          s; you should have pressed <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} />{' '}
+          instead.
+        </div>
+      ),
+    };
   }
 
-  getCastSingleTargetPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
-    const damageEvents = getSoulCleaveDamages(event);
-    const isAoE = damageEvents.length > 1;
-    if (isAoE) {
-      return [QualitativePerformance.Good, null];
-    }
-
-    const hasFieryDemise = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT,
-    );
+  private getCastWhenSpiritBombBetterSingleTargetPerformance(
+    hasFieryDemise: boolean,
+    isFieryDemiseWindow: boolean,
+    hasMetamorphosis: boolean,
+    numberOfSoulFragmentsAvailable: number,
+  ): UsageInfo | undefined {
     if (!hasFieryDemise) {
-      return [QualitativePerformance.Fail, <>Cast on a single target.</>];
+      // if we don't have Fiery Demise, Spirit Bomb can't be better in Single Target
+      return undefined;
+    }
+    if (!isFieryDemiseWindow) {
+      return {
+        performance: QualitativePerformance.Good,
+        summary: <div>Cast outside of Fiery Demise window</div>,
+        details: (
+          <div>
+            You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> outside of a{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> window.
+          </div>
+        ),
+      };
     }
 
-    const targetsThatHadFieryBrand = damageEvents
-      .map((event) => this.enemies.getEntity(event))
-      .filter((enemy): enemy is Enemy => enemy !== null)
-      .filter((enemy) => enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp));
-    if (targetsThatHadFieryBrand.length === 0) {
-      return [
-        QualitativePerformance.Fail,
-        <>
-          Cast on a single target without Fiery Brand applied.
-          <br />
-        </>,
-      ];
+    const inMetamorphosisSummary = (
+      <div>Cast at &lt; {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments during Metamorphosis</div>
+    );
+    const nonMetamorphosisSummary = (
+      <div>Cast at &lt; {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>
+    );
+
+    if (hasMetamorphosis) {
+      if (numberOfSoulFragmentsAvailable < SPIRIT_BOMB_SOULS_IN_META) {
+        return {
+          performance: QualitativePerformance.Good,
+          summary: inMetamorphosisSummary,
+          details: (
+            <div>
+              You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> while you had{' '}
+              {numberOfSoulFragmentsAvailable} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s
+              available during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> and a{' '}
+              <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> window. Good job!
+            </div>
+          ),
+        };
+      }
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: inMetamorphosisSummary,
+        details: (
+          <div>
+            You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> while you had{' '}
+            {numberOfSoulFragmentsAvailable}
+            <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s available during{' '}
+            <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> in a{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> window.{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
+            {SPIRIT_BOMB_SOULS_IN_META}+ <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+            s in <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />; you should have pressed{' '}
+            <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> instead.
+          </div>
+        ),
+      };
     }
-    return [QualitativePerformance.Good, null];
-  }
-
-  guideSubsection() {
-    const explanation = (
-      <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.explanation">
-          <strong>
-            <SpellLink id={SPELLS.SOUL_CLEAVE} />
-          </strong>{' '}
-          is your primary <strong>spender</strong> of <strong>Fury</strong> and{' '}
-          <strong>Soul Fragments</strong>. It consumes up to 2 Soul Fragments.
-          {this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) ? (
-            <>
-              {' '}
-              Use it when you would not otherwise use <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />.
-            </>
-          ) : null}
-        </Trans>
-      </p>
-    );
-    const data = (
-      <CastSummaryAndBreakdown
-        spell={SPELLS.SOUL_CLEAVE}
-        castEntries={this.castEntries}
-        goodLabel={t({
-          id:
-            'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.good',
-          message: 'Soul Cleaves',
-        })}
-        includeGoodCastPercentage
-        badLabel={t({
-          id:
-            'guide.demonhunter.vengeance.sections.rotation.soulCleave.data.summary.performance.bad',
-          message: 'Bad Soul Cleaves',
-        })}
-      />
-    );
-    const noCastData = (
-      <div>
-        <p>
-          <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.noCast">
-            You did not cast Soul Cleave during this encounter.
-          </Trans>
-        </p>
-      </div>
-    );
-
-    return (
-      <ExplanationAndDataSubSection
-        explanation={explanation}
-        data={this.castEntries.length > 0 ? data : noCastData}
-      />
-    );
+    if (numberOfSoulFragmentsAvailable < SPIRIT_BOMB_SOULS_OUT_OF_META) {
+      return {
+        performance: QualitativePerformance.Good,
+        summary: nonMetamorphosisSummary,
+        details: (
+          <div>
+            You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> while you had{' '}
+            {numberOfSoulFragmentsAvailable} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s
+            available in a <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> window. Good
+            job!
+          </div>
+        ),
+      };
+    }
+    return {
+      performance: QualitativePerformance.Fail,
+      summary: nonMetamorphosisSummary,
+      details: (
+        <div>
+          You cast <SpellLink id={SPELLS.SOUL_CLEAVE} /> while you had{' '}
+          {numberOfSoulFragmentsAvailable} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s available
+          in a <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> window.{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be pressed at{' '}
+          {SPIRIT_BOMB_SOULS_OUT_OF_META}+ <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+          s; you should have pressed <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} />{' '}
+          instead.
+        </div>
+      ),
+    };
   }
 }

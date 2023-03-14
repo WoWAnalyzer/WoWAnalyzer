@@ -1,5 +1,6 @@
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import styled from '@emotion/styled';
+import { ReactNode } from 'react';
+import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import { BadColor, GoodColor, MediocreColor, OkColor, useAnalyzer } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -13,20 +14,23 @@ import { formatPercentage } from 'common/format';
  * @param minimizeIcons see {@link CooldownBar} props
  * @param useThresholds iff true, the cast efficiency percentage will be color coded by performance
  *    using the abilities efficiency requirements.
+ * @param slimLines iff true, then cast lines will be skinnier. Very useful for high CPM abilities!
  */
 export default function CastEfficiencyBar({
   spellId,
   gapHighlightMode,
   minimizeIcons,
   useThresholds,
+  slimLines,
 }: {
   spellId: number;
   gapHighlightMode: GapHighlight;
   minimizeIcons?: boolean;
+  slimLines?: boolean;
   useThresholds?: boolean;
 }): JSX.Element {
   const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(spellId);
-  let tooltip: React.ReactNode = `Couldn't get cast efficiency info!`;
+  let tooltip: ReactNode = `Couldn't get cast efficiency info!`;
   let utilDisplay = `N/A`;
   let textColor: string | undefined;
   if (castEffic && castEffic.efficiency !== null) {
@@ -70,6 +74,7 @@ export default function CastEfficiencyBar({
         spellId={spellId}
         gapHighlightMode={gapHighlightMode}
         minimizeIcons={minimizeIcons}
+        slimLines={slimLines}
       />
     </CooldownUtilBarContainer>
   );

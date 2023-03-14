@@ -33,6 +33,9 @@ import handleApiError from './handleApiError';
 import PlayerSelection from './PlayerSelection';
 import { getPlayerIdFromParam } from 'interface/selectors/url/report/getPlayerId';
 import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayerName';
+import { isClassicExpansion } from 'game/Expansion';
+import { useWaDispatch } from 'interface/utils/useWaDispatch';
+import { CLASSIC_EXPANSION } from 'game/Expansion';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
@@ -101,6 +104,33 @@ const fcReducer = (state: State, action: Action): State => {
   }
 };
 
+/**
+ * This is a workaround for certain fights in classic having RP (especially buggy/inconsistent RP) split off into a separate dummy fight.
+ *
+ * Eventually, this will be obviated by switching to the PlayerDetails query of the v2 API, but we aren't there yet.
+ */
+async function fetchCombatantsWithClassicRP(
+  report: Report,
+  fight: WCLFight,
+): Promise<CombatantInfoEvent[]> {
+  const currentCombatants = await fetchCombatants(report.code, fight.start_time, fight.end_time);
+
+  if (
+    currentCombatants.length === 0 &&
+    isClassicExpansion(wclGameVersionToExpansion(report.gameVersion))
+  ) {
+    // no combatants found, but due to RP handling sometimes they are present in a previous fight
+    const prevFight = report.fights.find((other) => other.id === fight.id - 1);
+    if (prevFight && prevFight.boss === 0 && prevFight.originalBoss === fight.boss) {
+      return fetchCombatants(report.code, prevFight.start_time, prevFight.end_time) as Promise<
+        CombatantInfoEvent[]
+      >;
+    }
+  }
+
+  return currentCombatants as CombatantInfoEvent[];
+}
+
 const PlayerLoader = ({ children }: Props) => {
   const [{ error, combatants, combatantsFightId, tanks, healers, dps, ranged, ilvl }, dispatchFC] =
     useReducer(fcReducer, defaultState);
@@ -108,6 +138,7 @@ const PlayerLoader = ({ children }: Props) => {
   const { fight: selectedFight } = useFight();
   const { player: playerParam } = useParams();
   const navigate = useNavigate();
+  const dispatch = useWaDispatch();
   const playerId = getPlayerIdFromParam(playerParam);
   const playerName = getPlayerNameFromParam(playerParam);
 
@@ -118,10 +149,9 @@ const PlayerLoader = ({ children }: Props) => {
       }
 
       try {
-        const combatants = (await fetchCombatants(
-          report.code,
-          fight.start_time,
-          fight.end_time,
+        const combatants = (await fetchCombatantsWithClassicRP(
+          selectedReport,
+          selectedFight,
         )) as CombatantInfoEvent[];
 
         let combatantsWithGear = 0;
@@ -168,6 +198,28 @@ const PlayerLoader = ({ children }: Props) => {
             }
           }
 
+          const config = getConfig(CLASSIC_EXPANSION, 1, player, combatant);
+          if (config) {
+            if (config?.spec) {
+              switch (config?.spec.role) {
+                case ROLES.TANK:
+                  tanks += 1;
+                  break;
+                case ROLES.HEALER:
+                  healers += 1;
+                  break;
+                case ROLES.DPS.MELEE:
+                  dps += 1;
+                  break;
+                case ROLES.DPS.RANGED:
+                  ranged += 1;
+                  break;
+                default:
+                  break;
+              }
+            }
+          }
+
           // Gear may be null for broken combatants
           const combatantILvl = combatant.gear ? getAverageItemLevel(combatant.gear) : 0;
           if (combatantILvl !== 0) {
@@ -182,7 +234,7 @@ const PlayerLoader = ({ children }: Props) => {
         }
         dispatchFC({ type: 'set_combatants', combatants, combatantsFightId: fight.id });
         // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
-        setCombatants(combatants);
+        dispatch(setCombatants(combatants));
       } catch (error) {
         const isCommonError = error instanceof LogNotFoundError;
         if (!isCommonError) {
@@ -190,10 +242,10 @@ const PlayerLoader = ({ children }: Props) => {
         }
         dispatchFC({ type: 'set_error', error: error as Error });
         // We need to set the combatants in the global state so the NavigationBar, which is not a child of this component, can also use it
-        setCombatants(null);
+        dispatch(setCombatants(null));
       }
     },
-    [selectedFight, selectedReport],
+    [dispatch, selectedFight, selectedReport],
   );
 
   useEffect(() => {
@@ -282,10 +334,11 @@ const PlayerLoader = ({ children }: Props) => {
     getConfig(
       wclGameVersionToExpansion(selectedReport.gameVersion),
       combatant.specID,
-      player.type,
-      player.icon,
+      player,
+      combatant,
     );
   const build = combatant && getBuild(config, combatant);
+
   const missingBuild = config?.builds && !build;
   if (!player || hasDuplicatePlayers || !combatant || !config || missingBuild || combatant.error) {
     if (player) {

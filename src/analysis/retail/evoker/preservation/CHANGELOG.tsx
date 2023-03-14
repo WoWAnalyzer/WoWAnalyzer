@@ -1,10 +1,16 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
+import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 11), <>Improve <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> breakdown chart</>, Trevor),
+  change(date(2023, 2, 14), <>Fix <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT}/> module when talented into <SpellLink id={TALENTS_EVOKER.FONT_OF_MAGIC_TALENT}/></>, Trevor),
+  change(date(2023, 2, 9), <>Fix <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT}/> analysis breaking.</>, ToppleTheNun),
+  change(date(2023, 2, 3), <>Change <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT}/> module to only count missing <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> on targets you have healed recently</>, Trevor),
+  change(date(2023, 1, 30), <>Fix mana cost for <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/></>, Trevor),
+  change(date(2023, 1, 29), <>Fix <SpellLink id={TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 29), <>Fix degraded experience</>, Trevor),
   change(date(2023, 1, 28), <>Add <SpellLink id={TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 25), <>Fix an icon and change efficiency recommendation for <SpellLink id={TALENTS_EVOKER.REVERSION_TALENT}/></>, Trevor),

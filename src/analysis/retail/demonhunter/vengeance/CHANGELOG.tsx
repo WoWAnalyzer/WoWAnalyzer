@@ -1,5 +1,5 @@
 import { change, date } from 'common/changelog';
-import { ToppleTheNun } from 'CONTRIBUTORS';
+import { Putro, ToppleTheNun } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
@@ -7,6 +7,11 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 3, 9), <>Add <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} /> to Rotation section in guide.</>, ToppleTheNun),
+  change(date(2023, 3, 9), <>Re-add <SpellLink id={SPELLS.IMMOLATION_AURA} /> cast efficiency to guide.</>, ToppleTheNun),
+  change(date(2023, 3, 9), 'Update Rotation section.', ToppleTheNun),
+  change(date(2023, 2, 25), <>Fixed  consuming the last stack of <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK.id} /> not granting credit on casting <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />.</>, ToppleTheNun),
+  change(date(2023, 1, 30), <>Fixed an issue where the graph for <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK.id} /> would show incorrect values for a given point in time.</>, Putro),
   change(date(2023, 1, 11), 'Log cast summary and breakdown events when clicked.', ToppleTheNun),
   change(date(2023, 1, 3), <>Fix Soul Fragment detection for <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />.</>, ToppleTheNun),
   change(date(2022, 12, 19), 'Add opt-in toggle for hiding rotation explanations.', ToppleTheNun),

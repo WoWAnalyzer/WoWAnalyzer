@@ -1,4 +1,4 @@
-import { Juko8, Skeletor } from 'CONTRIBUTORS';
+import { Juko8, Skeletor, Klamuz } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
@@ -6,9 +6,9 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Juko8, Skeletor],
-  expansion: Expansion.Shadowlands,
-  patchCompatibility: null,
+  contributors: [Klamuz, Juko8, Skeletor],
+  expansion: Expansion.Dragonflight,
+  patchCompatibility: '10.0.5',
   isPartial: true,
   description: (
     <>
@@ -43,15 +43,14 @@ const config: Config = {
       work on!
     </>
   ),
-  exampleReport:
-    '/report/XWL82zKpNdFykwGg/11-Mythic+Hungering+Destroyer+-+Kill+(5:06)/Zïwak/standard',
+  exampleReport: 'report/rGN84WHjg72LqzFc/23-Mythic+Terros+-+Kill+(5:56)/Braúm/standard/overview',
 
   spec: SPECS.RETRIBUTION_PALADIN,
   changelog: CHANGELOG,
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "RetributionPaladin" */).then(
+      (exports) => exports.default,
+    ),
   path: __dirname,
 };
 

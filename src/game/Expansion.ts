@@ -23,3 +23,7 @@ export function isCurrentExpansion(expansion: Expansion): boolean {
 export function isRetailExpansion(expansion: Expansion): boolean {
   return expansion >= Expansion.Legion;
 }
+
+export function isClassicExpansion(expansion: Expansion): boolean {
+  return expansion >= Expansion.Vanilla && expansion <= Expansion.WrathOfTheLichKing;
+}

@@ -9,6 +9,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 class EssenceFontTargetsHit extends Analyzer {
   efCasts: number = 0;
   targetsEF: number = 0;
+  hitsBeforeCast: number = 0;
 
   constructor(options: Options) {
     super(options);

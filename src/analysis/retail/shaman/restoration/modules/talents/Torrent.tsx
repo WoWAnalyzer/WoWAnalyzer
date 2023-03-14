@@ -6,15 +6,16 @@ import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
-const TORRENT_HEALING_INCREASE = 0.2;
+const TORRENT_HEALING_INCREASE = 0.1;
 
 class Torrent extends Analyzer {
   healing = 0;
-
+  torrentIncrease = 0;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.TORRENT_TALENT);
-
+    this.torrentIncrease =
+      TORRENT_HEALING_INCREASE * this.selectedCombatant.getTalentRank(TALENTS.TORRENT_TALENT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS.RIPTIDE_TALENT),
       this._onHeal,
@@ -26,7 +27,7 @@ class Torrent extends Analyzer {
       return;
     }
 
-    this.healing += calculateEffectiveHealing(event, TORRENT_HEALING_INCREASE);
+    this.healing += calculateEffectiveHealing(event, this.torrentIncrease);
   }
 
   subStatistic() {

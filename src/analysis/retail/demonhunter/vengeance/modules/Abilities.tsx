@@ -35,6 +35,10 @@ class Abilities extends SharedAbilities {
             </>
           ),
         },
+        damageSpellIds: [
+          SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE.id,
+          SPELLS.IMMOLATION_AURA_BUFF_DAMAGE.id,
+        ],
       },
       {
         spell: [

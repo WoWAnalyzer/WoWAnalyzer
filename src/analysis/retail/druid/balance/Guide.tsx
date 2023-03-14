@@ -4,7 +4,6 @@ import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatPercentage } from 'common/format';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { cooldownAbility } from 'analysis/retail/druid/balance/constants';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
 
@@ -98,9 +97,17 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
-      {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) && (
+      {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) &&
+        !info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) && (
+          <CastEfficiencyBar
+            spellId={SPELLS.CELESTIAL_ALIGNMENT.id}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
+          />
+        )}
+      {info.combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT) && (
         <CastEfficiencyBar
-          spellId={cooldownAbility(info.combatant).id}
+          spellId={SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id}
           gapHighlightMode={GapHighlight.FullCooldown}
           useThresholds
         />

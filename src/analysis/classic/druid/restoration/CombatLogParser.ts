@@ -16,9 +16,26 @@ import Checklist from './modules/checklist/Module';
 // Healer Features
 import HealingEfficiencyDetails from './modules/features/HealingEfficiencyDetails';
 import HealingEfficiencyTracker from './modules/features/HealingEfficiencyTracker';
+import Revitalize from '../shared/talents/Revitalize';
+import Rejuvenation from './modules/spells/Rejuvenation';
+import HotTrackerRestoDruid from './modules/core/HotTrackerRestoDruid';
+import Guide from './Guide';
+import Swiftmend from './modules/spells/Swiftmend';
+
+import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
+import SwiftmendNormalizer from './modules/normalizers/SwiftmendNormalizer';
+import WildGrowth from './modules/spells/WildGrowth';
+import HotCountGraph from './modules/features/HotCountGraph';
+import Innervate from './modules/spells/Innervate';
+import Lifebloom from './modules/spells/Lifebloom';
+import OmenOfClarity from '../shared/talents/OmenOfClarity';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
+    castLinkNormalizer: CastLinkNormalizer,
+    swiftmendNormalizer: SwiftmendNormalizer,
+
+    hotTracker: HotTrackerRestoDruid,
     // Shared
     lowRankSpells: lowRankSpellsSuggestion(lowRankSpells),
     haste: Haste,
@@ -32,13 +49,24 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
+    hotCountGraph: HotCountGraph,
     // Healer Features
     hpmTracker: HealingEfficiencyTracker,
     hpmDetails: HealingEfficiencyDetails,
+    // Spells
+    rejuvenation: Rejuvenation,
+    swiftmend: Swiftmend,
+    wildGrowth: WildGrowth,
+    innervate: Innervate,
+    lifebloom: Lifebloom,
     // Talents
     celestialFocus: CelestialFocus,
     giftOfTheEarthmother: GiftOfTheEarthmother,
+    revitalise: Revitalize,
+    omenOfClarity: OmenOfClarity,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

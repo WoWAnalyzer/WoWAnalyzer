@@ -5,6 +5,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 2, 12), <>Marked the spec supported for 10.0.5</>, Sharrq),
   change(date(2022, 12, 13), <>Removed references to Infernal Cascade and replaced with <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT} /> functionality.</>, Sharrq),
   change(date(2022, 12, 13), <>Fixed <SpellLink id={TALENTS.SHIFTING_POWER_TALENT} /> functionality.</>, Sharrq),
   change(date(2022, 12, 13), `General fixes for incorrect Spell IDs, leftover Shadowlands spells, etc.`, Sharrq),

@@ -7,6 +7,7 @@ import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import Panel from 'parser/ui/Panel';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
+import { SPELL_COLORS } from '../../constants';
 
 type SpellTracker = {
   timestamp: number;
@@ -16,6 +17,7 @@ type SpellTracker = {
 class REMGraph extends Analyzer {
   remChanges: SpellTracker[] = [];
   vivifyCasts: SpellTracker[] = [];
+  instantVivifyCasts: SpellTracker[] = [];
   rskCasts: SpellTracker[] = [];
 
   currentRems: number = 0;
@@ -39,10 +41,17 @@ class REMGraph extends Analyzer {
   }
 
   vivifyCast(event: CastEvent) {
-    this.vivifyCasts.push({
-      timestamp: event.timestamp,
-      remCount: this.currentRems,
-    });
+    if (this.selectedCombatant.hasBuff(SPELLS.VIVIFICATION_BUFF.id)) {
+      this.instantVivifyCasts.push({
+        timestamp: event.timestamp,
+        remCount: this.currentRems,
+      });
+    } else {
+      this.vivifyCasts.push({
+        timestamp: event.timestamp,
+        remCount: this.currentRems,
+      });
+    }
   }
 
   rskCast(event: CastEvent) {
@@ -90,7 +99,7 @@ class REMGraph extends Analyzer {
       scale: {
         nice: false,
       },
-      title: null,
+      title: 'Time',
     };
 
     const spec: VisualizationSpec = {
@@ -116,6 +125,7 @@ class REMGraph extends Analyzer {
             format: '.3~s',
           },
         ],
+        color: { value: 'black' },
       },
       layer: [
         {
@@ -132,12 +142,13 @@ class REMGraph extends Analyzer {
             y: {
               field: 'remCount',
               type: 'quantitative' as const,
-              title: null,
+              title: 'Count',
               axis: {
                 grid: false,
                 format: '~s',
               },
             },
+            color: { value: 'rgba(45, 155, 120, .15)' },
           },
         },
 
@@ -148,7 +159,6 @@ class REMGraph extends Analyzer {
           mark: {
             type: 'point' as const,
             shape: 'circle',
-            color: '#C202C2', // Magenta
             filled: true,
             size: 70,
           },
@@ -163,19 +173,49 @@ class REMGraph extends Analyzer {
             y: {
               field: 'remCount',
               type: 'quantitative' as const,
-              title: null,
+              title: 'Count',
+            },
+            color: { datum: 'Vivify cast' },
+          },
+        },
+
+        {
+          data: {
+            name: 'instantVivifyCasts',
+          },
+          mark: {
+            type: 'point' as const,
+            shape: 'circle',
+            filled: true,
+            size: 70,
+            fillOpacity: 1,
+          },
+          transform: [
+            {
+              calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
+              as: 'timestamp_shifted',
+            },
+          ],
+          encoding: {
+            x: xAxis,
+            y: {
+              field: 'remCount',
+              type: 'quantitative' as const,
+              title: 'Count',
+            },
+            color: {
+              datum: 'Instant Vivify',
             },
           },
         },
 
         {
           data: {
-            name: 'rskCasts',
+            name: 'rskCast',
           },
           mark: {
             type: 'point' as const,
             shape: 'triangle-down',
-            color: '#FCA000', // orange
             filled: true,
             size: 70,
           },
@@ -190,11 +230,22 @@ class REMGraph extends Analyzer {
             y: {
               field: 'remCount',
               type: 'quantitative' as const,
-              title: null,
+              title: 'Count',
             },
+            color: { datum: 'Rising Sun Kick', value: SPELL_COLORS.RISING_SUN_KICK },
           },
         },
       ],
+      config: {
+        axis: {
+          titleFontWeight: 'normal',
+          titleFontSize: 14,
+        },
+        axisY: {
+          titleAngle: 360,
+          titlePadding: 25,
+        },
+      },
     };
 
     return (
@@ -212,7 +263,8 @@ class REMGraph extends Analyzer {
               data={{
                 remChanges: this.remChanges,
                 vivifyCasts: this.vivifyCasts,
-                rskCasts: this.rskCasts,
+                instantVivifyCasts: this.instantVivifyCasts,
+                rskCast: this.rskCasts,
               }}
               width={width}
               height={height}
@@ -227,15 +279,17 @@ class REMGraph extends Analyzer {
     return (
       <Panel
         title="Renewing Mist Graph"
-        position={100}
+        position={99}
         explanation={
           <>
             <SpellLink id={SPELLS.VIVIFY.id} /> also heals any targets that have{' '}
             <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />. This means casting{' '}
             <SpellLink id={SPELLS.VIVIFY.id} /> while having high amounts of{' '}
             <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> will greatly increase its
-            healing. Magenta dots are <SpellLink id={SPELLS.VIVIFY.id} /> casts while Orange
-            triangles are <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> casts.
+            healing. Normal <SpellLink id={SPELLS.VIVIFY.id} /> casts are shown as blue dots, while
+            a cast consuming a <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} /> buff
+            is orange. Red triangles indicate{' '}
+            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> casts.
           </>
         }
       >

@@ -114,9 +114,6 @@ class Abilities extends CoreAbilities {
         spell: [talents.SUMMON_GARGOYLE_TALENT.id, SPELLS.DARK_ARBITER_TALENT_GLYPH.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
         enabled: combatant.hasTalent(talents.SUMMON_GARGOYLE_TALENT),
         castEfficiency: {
           suggestion: true,
@@ -136,7 +133,25 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
         },
       },
-
+      {
+        spell: talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT.id,
+        buffSpellId: talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: null,
+        cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: combatant.hasTalent(talents.SUMMON_GARGOYLE_TALENT) ? 0.65 : 0.9,
+          extraSuggestion: (
+            <>
+              You should use this with every <SpellLink id={talents.SUMMON_GARGOYLE_TALENT.id} /> if
+              it is talented. Otherwise use it with your other cooldowns when it is available.
+            </>
+          ),
+        },
+        timelineSortIndex: 1,
+        enabled: combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
+      },
       // defensives
       {
         spell: talents.SACRIFICIAL_PACT_TALENT.id,
@@ -165,7 +180,7 @@ class Abilities extends CoreAbilities {
         spell: talents.ANTI_MAGIC_SHELL_TALENT.id,
         buffSpellId: talents.ANTI_MAGIC_SHELL_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 60,
+        cooldown: combatant.hasTalent(talents.ANTI_MAGIC_BARRIER_TALENT) ? 40 : 60,
         gcd: null,
       },
       {
@@ -240,9 +255,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.DEATHS_ADVANCE.id,
         category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: talents.DEATH_STRIKE_TALENT.id,

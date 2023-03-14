@@ -73,7 +73,10 @@ function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.E
   );
 }
 
-const AplViolationContainer = styled.div``;
+const AplViolationContainer = styled.div`
+  display: grid;
+  grid-template-rows: max-content 1fr;
+`;
 
 const AplLayout = styled.div`
   display: grid;

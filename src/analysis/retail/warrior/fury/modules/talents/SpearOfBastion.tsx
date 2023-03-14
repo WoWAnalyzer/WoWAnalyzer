@@ -11,10 +11,10 @@ class SpearOfBastion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPEAR_OF_BASTION_ENERGIZE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SPEAR_OF_BASTION),
       this.onSpearDamage,
     );
   }
@@ -25,7 +25,7 @@ class SpearOfBastion extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={TALENTS.SPEAR_OF_BASTION_TALENT.id}>
           {this.owner.formatItemDamageDone(this._spearOfBastionDamage)}
         </BoringSpellValueText>

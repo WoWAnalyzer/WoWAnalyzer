@@ -19,7 +19,6 @@ const MAJOR_THRESHOLD = 0.1;
 const DEBUG = false;
 
 class FillerUsage extends Analyzer {
-
   totalFillerCasts: number = 0;
   badFillerCasts: number = 0;
 

@@ -60,7 +60,7 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
     : '/img/fallback-character.jpg';
 
   if (!config && CLASSIC_EXPANSION) {
-    config = getConfig(CLASSIC_EXPANSION, 1, player.type, player.icon);
+    config = getConfig(CLASSIC_EXPANSION, 1, player, player.combatant);
   }
   const spec = config?.spec;
   const build = getBuild(config, player.combatant);

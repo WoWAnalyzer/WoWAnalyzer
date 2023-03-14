@@ -166,7 +166,7 @@ abstract class BuffCountGraph extends Analyzer {
         name: tracker.name,
         type: 'buff',
         timestamp: this.lastTimestamp,
-        count: tracker.currCount,
+        Count: tracker.currCount,
       });
     });
   }
@@ -202,7 +202,7 @@ abstract class BuffCountGraph extends Analyzer {
       encoding: {
         color: this._generateColorEncoding(),
         y: {
-          field: 'count',
+          field: 'Count',
           type: 'quantitative' as const,
         },
       },
@@ -260,7 +260,7 @@ abstract class BuffCountGraph extends Analyzer {
     return {
       // transforms data from 'tall' to 'wide' so all the counts are in same point -
       // this allows the tooltip to display with everything
-      transform: [{ pivot: 'name', value: 'count', groupby: ['timestamp_shifted'] }],
+      transform: [{ pivot: 'name', value: 'Count', groupby: ['timestamp_shifted'] }],
       mark: 'rule' as const,
       encoding: {
         // This renders a vertical rule line under the mouse -
@@ -432,5 +432,5 @@ type GraphData = {
   /** Timestamp the event occured */
   timestamp: number;
   /** The new count of buffs out (omitted for rule data) */
-  count?: number;
+  Count?: number;
 };

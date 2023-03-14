@@ -3,10 +3,12 @@ import { formatPercentage } from 'common/format';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import Lifebind from './Lifebind';
+
+const MAX_ECHO_DURATION = 18000;
 
 class EmeraldCommunion extends Analyzer {
   static dependencies = {
@@ -16,7 +18,9 @@ class EmeraldCommunion extends Analyzer {
   protected combatants!: Combatants;
   protected lifebind!: Lifebind;
   numCasts: number = 0;
-  totalLifebindTargets: number = 0;
+  numTaCasts: number = 0;
+  percentCovered: number[] = [];
+  potentialEchoTargets: Map<number, number> = new Map<number, number>();
 
   constructor(options: Options) {
     super(options);
@@ -27,24 +31,45 @@ class EmeraldCommunion extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT),
       this.onCast,
     );
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER), this.onAlly);
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onAlly);
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER), this.onAlly);
+  }
+
+  onAlly(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
+    this.potentialEchoTargets.set(event.targetID, event.timestamp);
+  }
+
+  // check last time we affected a target with a buff/heal and see if it is within length of an echo
+  getPotentialTargets(timestamp: number) {
+    return Array.from(this.potentialEchoTargets.values()).filter((time) => {
+      return time >= timestamp - MAX_ECHO_DURATION;
+    }).length;
   }
 
   onCast(event: CastEvent) {
     this.numCasts += 1;
-    this.totalLifebindTargets += this.lifebind.curNumLifebinds;
+    this.percentCovered.push(
+      this.lifebind.curNumLifebinds / this.getPotentialTargets(event.timestamp),
+    );
+    this.potentialEchoTargets.clear();
   }
 
   get percentWithLifebindOnCast() {
-    return this.totalLifebindTargets / this.numCasts / this.combatants.playerCount;
+    return (
+      this.percentCovered.reduce((prev, cur) => {
+        return cur + prev;
+      }, 0) / this.percentCovered.length
+    );
   }
 
   get suggestionThresholds() {
     return {
       actual: this.percentWithLifebindOnCast,
       isLessThan: {
-        major: 0.65,
-        average: 0.75,
-        minor: 0.85,
+        major: 0.6,
+        average: 0.7,
+        minor: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

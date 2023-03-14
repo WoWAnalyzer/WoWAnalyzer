@@ -72,8 +72,7 @@ class TouchTheCosmos extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.TOUCH_THE_COSMOS.id}>
           <>
-            {formatNumber(this.savedAP)}{' '}
-            <small> Astral Power Saved (accounted toward Pulsar) </small>
+            {formatNumber(this.savedAP)} <small>Astral Power accounted in Pulsar</small>
           </>
         </BoringSpellValueText>
       </Statistic>

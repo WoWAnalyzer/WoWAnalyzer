@@ -1,6 +1,6 @@
 name: 'Build'
 
-on: [push, pull_request]
+on: [push, pull_request, merge_group]
 
 env:
   CI: true
@@ -12,8 +12,8 @@ jobs:
     env:
       YARN_CACHE_FOLDER: .yarn-cache
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Restore "node_modules" from cache
@@ -63,8 +63,8 @@ jobs:
     name: 'Typecheck'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Restore "node_modules" from cache
@@ -81,8 +81,8 @@ jobs:
     name: 'ESLint'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Restore "node_modules" from cache
@@ -100,8 +100,8 @@ jobs:
     name: 'Interface tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Restore "node_modules" from cache
@@ -118,8 +118,8 @@ jobs:
     name: 'Parser tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Restore "node_modules" from cache
@@ -136,8 +136,8 @@ jobs:
     name: 'Integration tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Restore "node_modules" from cache
@@ -155,8 +155,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.repository == 'wowanalyzer/wowanalyzer'
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Restore "node_modules" from cache
@@ -184,6 +184,47 @@ jobs:
         with:
           name: build
           path: build.tar.gz
+  e2e:
+    needs: [prepare]
+    name: 'e2e'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - name: Extract messages
+        run: |
+          yarn extract
+          yarn lingui compile
+      - name: Customized e2e production build
+        run: |
+          REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
+          REACT_APP_VERSION=$GITHUB_SHA
+          # Even though this is a "production" build, it's actually a "development" build
+          cp .env.development .env.production
+          # We already ran ESLint in a separate step
+          DISABLE_AUTOMATIC_ESLINT=true
+          yarn build
+      - name: Install Playwright deps
+        run: yarn playwright install --with-deps
+      - name: Run Playwright tests
+        run: yarn e2e
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
+
   # This only runs on PRs since it's not a part of the build step. This is
   # required as mistakes in i18n tags may trigger errors, and we skip the
   # extraction in the build for performance in PRs.
@@ -193,8 +234,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - name: Restore "node_modules" from cache
@@ -211,12 +252,12 @@ jobs:
         run: yarn lingui compile
 
   docker-image:
-    needs: [typecheck, linting, test-interface, test-parser, test-integration, build]
+    needs: [typecheck, linting, test-interface, test-parser, test-integration, e2e, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - uses: actions/download-artifact@v1
         with:
           name: build
@@ -258,9 +299,9 @@ jobs:
     env:
       YARN_CACHE_FOLDER: .yarn-cache
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
-      - uses: actions/setup-node@v1
+      - uses: actions/setup-node@v3
         with:
           node-version: '16.x'
       - run: node scripts/require-changelog-entry.js

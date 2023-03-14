@@ -38,6 +38,7 @@ import AlwaysBeCasting from './modules/core/AlwaysBeCasting';
 import FontOfMagic from './modules/talents/FontOfMagic';
 import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 import SparkOfInsight from './modules/talents/SparkOfInsight';
+import EchoBreakdown from './modules/talents/EchoBreakdown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //talents
     echo: Echo,
+    echoBreakdown: EchoBreakdown,
     dreamBreath: DreamBreath,
     dreamFlight: DreamFlight,
     livingFlame: LivingFlame,

@@ -16,25 +16,28 @@ interface Props {
   showMaxSpenders?: boolean;
   /** If true the section showing generated and wasted resources from builders will be hidden - for classes like evokers that only have passive generation for their secondary resource */
   hideGenerated?: boolean;
+  /** Some are scaled differently in events vs the user facing value. Implementer may override
+   *  this to apply a scale factor so the graph shows with the user facing value.} */
+  scaleFactor?: number;
 }
 
 class ResourceBreakdown extends Component<Props> {
-  prepareGenerated(tracker: ResourceTracker) {
+  prepareGenerated(tracker: ResourceTracker, scaleFactor = 1) {
     return Object.keys(tracker.buildersObj)
       .map((abilityId) => ({
         abilityId: Number(abilityId),
-        generated: tracker.buildersObj[Number(abilityId)].generated,
-        wasted: tracker.buildersObj[Number(abilityId)].wasted,
+        generated: tracker.buildersObj[Number(abilityId)].generated * scaleFactor,
+        wasted: tracker.buildersObj[Number(abilityId)].wasted * scaleFactor,
       }))
       .sort((a, b) => b.generated - a.generated)
       .filter((ability) => ability.generated > 0 || ability.wasted);
   }
 
-  prepareSpent(tracker: ResourceTracker) {
+  prepareSpent(tracker: ResourceTracker, scaleFactor = 1) {
     return Object.keys(tracker.spendersObj)
       .map((abilityId) => ({
         abilityId: Number(abilityId),
-        spent: tracker.spendersObj[Number(abilityId)].spent,
+        spent: tracker.spendersObj[Number(abilityId)].spent * scaleFactor,
         casts: tracker.spendersObj[Number(abilityId)].casts,
         maxSpendCasts: tracker.spendersObj[Number(abilityId)].spentByCast.filter(
           (spent) => spent === tracker.maxResource,
@@ -45,16 +48,16 @@ class ResourceBreakdown extends Component<Props> {
   }
 
   render() {
-    const { tracker, showSpenders, showMaxSpenders, hideGenerated } = this.props;
+    const { tracker, showSpenders, showMaxSpenders, hideGenerated, scaleFactor = 1 } = this.props;
     const resourceName = tracker.resource.name;
 
-    const generated = this.prepareGenerated(tracker);
-    const spent = this.prepareSpent(tracker);
+    const generated = this.prepareGenerated(tracker, scaleFactor);
+    const spent = this.prepareSpent(tracker, scaleFactor);
 
-    let totalGenerated = tracker.generated;
-    let totalWasted = tracker.gainWaste; // ignoring natural regen waste in this tab
+    let totalGenerated = tracker.generated * scaleFactor;
+    let totalWasted = tracker.gainWaste * scaleFactor; // ignoring natural regen waste in this tab
 
-    let totalSpent = tracker.spent;
+    let totalSpent = tracker.spent * scaleFactor;
     let totalCasts = tracker.spendersCasts;
 
     // looks wrong but totals are only for the purpose of percentage, and if nothing was wasted, then 0/1 gives correct result 0% wasted, if it's not 0 it retains its original value
@@ -100,9 +103,9 @@ class ResourceBreakdown extends Component<Props> {
                 <td>
                   <Trans id="shared.resourceBreakdown.total">Total</Trans>
                 </td>
-                <td style={numberColumnStyle}>{tracker.generated.toFixed(0)}</td>
+                <td style={numberColumnStyle}>{totalGenerated.toFixed(0)}</td>
                 <td></td>
-                <td style={numberColumnStyle}>{tracker.gainWaste}</td>
+                <td style={numberColumnStyle}>{totalWasted}</td>
                 <td></td>
               </tr>
             )}
@@ -164,7 +167,7 @@ class ResourceBreakdown extends Component<Props> {
                 <td>
                   <Trans id="shared.resourceBreakdown.total">Total</Trans>
                 </td>
-                <td style={numberColumnStyle}>{tracker.spent.toFixed(0)}</td>
+                <td style={numberColumnStyle}>{totalSpent.toFixed(0)}</td>
                 <td></td>
                 <td style={numberColumnStyle}>{tracker.spendersCasts}</td>
                 <td></td>

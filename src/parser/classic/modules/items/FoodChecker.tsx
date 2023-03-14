@@ -1,9 +1,10 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import { ItemLink } from 'interface';
+import BaseFoodChecker from 'parser/shared/modules/items/FoodChecker';
 
 const FISH_FEAST = 43015; // https://www.wowhead.com/wotlk/item=43015/fish-feast
 const DRAGONFIN_FILET = 43000; // https://www.wowhead.com/wotlk/item=43000/dragonfin-filet
@@ -45,89 +46,139 @@ interface FoodInfo {
 
 const FOOD_MAPPINGS: { [spellId: number]: FoodInfo } = {
   // 80 Attack Power, 46 Spell Power and 40 Stamina
-  57426: { itemId: FISH_FEAST },
-  57399: { itemId: FISH_FEAST },
-  57397: { itemId: FISH_FEAST },
+  57426: { itemId: FISH_FEAST }, // Cast
+  57399: { itemId: FISH_FEAST }, // Food Buff
+  57397: { itemId: FISH_FEAST }, // Eating Buff
 
   // 60 Attack Power, 35 Spell Power and 30 Stamina
-  57301: { itemId: GREAT_FEAST, recommendedFood: [FISH_FEAST] },
-  58067: { itemId: DALARAN_CLAM_CHOWDER, recommendedFood: [FISH_FEAST] },
+  57301: { itemId: GREAT_FEAST, recommendedFood: [FISH_FEAST] }, // Cast
+  58067: { itemId: DALARAN_CLAM_CHOWDER, recommendedFood: [FISH_FEAST] }, // Cast
+  57294: { itemId: DALARAN_CLAM_CHOWDER, recommendedFood: [FISH_FEAST] }, // Food Buff
 
   // 40 Strength and 40 Stamina
-  57370: { itemId: DRAGONFIN_FILET },
+  57370: { itemId: DRAGONFIN_FILET }, // Cast
+  57371: { itemId: DRAGONFIN_FILET }, // Food Buff
 
   // 40 Agility and 40 Stamina.
-  57366: { itemId: BLACKENED_DRAGONFIN },
+  57366: { itemId: BLACKENED_DRAGONFIN }, // Cast
+  57367: { itemId: BLACKENED_DRAGONFIN }, // Food Buff
 
   // 46 Spell Power and 40 Stamina
-  57341: { itemId: FIRECRACKER_SALMON },
-  57326: { itemId: TENDER_SHOVELTUSK_STEAK },
+  57341: { itemId: FIRECRACKER_SALMON }, // Cast
+  57326: { itemId: TENDER_SHOVELTUSK_STEAK }, // Cast
+  57327: { itemId: FIRECRACKER_SALMON }, // Food Buff
   // 35 Spell Power and 30 Stamina
   57138: {
+    // Cast
+    itemId: SHOVELTUSK_STEAK,
+    recommendedFood: [FISH_FEAST, FIRECRACKER_SALMON, TENDER_SHOVELTUSK_STEAK],
+  },
+  57139: {
+    // Food Buff
     itemId: SHOVELTUSK_STEAK,
     recommendedFood: [FISH_FEAST, FIRECRACKER_SALMON, TENDER_SHOVELTUSK_STEAK],
   },
   // 35 Spell Power and 40 Stamina
   57096: {
+    // Cast
+    itemId: SMOKED_SALMON,
+    recommendedFood: [FISH_FEAST, FIRECRACKER_SALMON, TENDER_SHOVELTUSK_STEAK],
+  },
+
+  57097: {
+    // Food Buff
     itemId: SMOKED_SALMON,
     recommendedFood: [FISH_FEAST, FIRECRACKER_SALMON, TENDER_SHOVELTUSK_STEAK],
   },
 
   // 40 Hit Rating and 40 Stamina
-  57359: { itemId: SNAPPER_EXTREME, recommendedFood: [] },
+  57359: { itemId: SNAPPER_EXTREME }, // Cast
+  57360: { itemId: SNAPPER_EXTREME }, // Food Buff
   // 57359: { itemId: WORG_TARTARE },
 
   // 40 Expertise Rating and 40 Stamina
-  57355: { itemId: RHINOLICIOUS_WORMSTEAK },
+  57355: { itemId: RHINOLICIOUS_WORMSTEAK }, // Cast
+  57356: { itemId: RHINOLICIOUS_WORMSTEAK }, // Food Buff
 
   // 40 armor penetration rating and 40 Stamina
-  57357: { itemId: HEARTY_RHINO },
+  57357: { itemId: HEARTY_RHINO }, // Cast
+  57358: { itemId: HEARTY_RHINO }, // Food Buff
 
   //  20 Mana per 5 seconds and 40 Stamina
-  57354: { itemId: SPICY_FRIED_HERRING },
-  57333: { itemId: MIGHTY_RHINO_DOGS },
+  57354: { itemId: SPICY_FRIED_HERRING }, // Cast
+  57333: { itemId: MIGHTY_RHINO_DOGS }, // Cast
+  57334: { itemId: SPICY_FRIED_HERRING }, // Food Buff
   // 15 Mana per 5 seconds and 40 Stamina
-  57106: { itemId: PICKLED_FANGTOOTH, recommendedFood: [SPICY_FRIED_HERRING, MIGHTY_RHINO_DOGS] },
+  57106: { itemId: PICKLED_FANGTOOTH, recommendedFood: [SPICY_FRIED_HERRING, MIGHTY_RHINO_DOGS] }, // Cast
+  57107: { itemId: PICKLED_FANGTOOTH, recommendedFood: [SPICY_FRIED_HERRING, MIGHTY_RHINO_DOGS] }, // Food Buff
   // 15 Mana per 5 seconds and 30 Stamina
-  57289: { itemId: RHINO_DOGS, recommendedFood: [SPICY_FRIED_HERRING, MIGHTY_RHINO_DOGS] },
+  57289: { itemId: RHINO_DOGS, recommendedFood: [SPICY_FRIED_HERRING, MIGHTY_RHINO_DOGS] }, // Cast
+  57291: { itemId: RHINO_DOGS, recommendedFood: [SPICY_FRIED_HERRING, MIGHTY_RHINO_DOGS] }, // Food Buff
 
   // 40 Haste Rating and 40 Stamina
-  57331: { itemId: VERY_BURNT_WORG },
-  57344: { itemId: IMPERIAL_MANTA_STEAK },
+  57331: { itemId: VERY_BURNT_WORG }, // Cast
+  57344: { itemId: IMPERIAL_MANTA_STEAK }, // Cast
+  57332: { itemId: IMPERIAL_MANTA_STEAK }, // Food Buff
   // 30 Haste Rating and 40 Stamina
-  57101: { itemId: BAKED_MANTA_RAY, recommendedFood: [VERY_BURNT_WORG, IMPERIAL_MANTA_STEAK] },
+  57101: { itemId: BAKED_MANTA_RAY, recommendedFood: [VERY_BURNT_WORG, IMPERIAL_MANTA_STEAK] }, // Cast
+  57102: { itemId: BAKED_MANTA_RAY, recommendedFood: [VERY_BURNT_WORG, IMPERIAL_MANTA_STEAK] }, // Food Buff
+
   // 30 Haste Rating and 30 Stamina
-  57287: { itemId: ROASTED_WORG, recommendedFood: [VERY_BURNT_WORG, IMPERIAL_MANTA_STEAK] },
+  57287: { itemId: ROASTED_WORG, recommendedFood: [VERY_BURNT_WORG, IMPERIAL_MANTA_STEAK] }, // Cast
+  57288: { itemId: ROASTED_WORG, recommendedFood: [VERY_BURNT_WORG, IMPERIAL_MANTA_STEAK] }, // Food Buff
 
   // 80 Attack Power and 40 Stamina
-  57324: { itemId: MEGA_MAMMOTH_MEAL },
-  57335: { itemId: POACHED_NORTHERN_SCULPIN },
+  57324: { itemId: MEGA_MAMMOTH_MEAL }, // Cast
+  57335: { itemId: POACHED_NORTHERN_SCULPIN }, // Cast
+  57325: { itemId: POACHED_NORTHERN_SCULPIN }, // Food Buff
   // 60 Attack Power and 40 Stamina
   57085: {
+    // Cast
     itemId: GRILLED_SCULPIN,
     recommendedFood: [FISH_FEAST, MEGA_MAMMOTH_MEAL, POACHED_NORTHERN_SCULPIN],
   },
+  57079: {
+    // Food Buff
+    itemId: GRILLED_SCULPIN,
+    recommendedFood: [FISH_FEAST, MEGA_MAMMOTH_MEAL, POACHED_NORTHERN_SCULPIN],
+  },
+  // 60 Attack Power and 30 Stamina
   57110: {
+    // Cast
+    itemId: MAMMOTH_MEAL,
+    recommendedFood: [FISH_FEAST, MEGA_MAMMOTH_MEAL, POACHED_NORTHERN_SCULPIN],
+  },
+  57111: {
+    // Food Buff
     itemId: MAMMOTH_MEAL,
     recommendedFood: [FISH_FEAST, MEGA_MAMMOTH_MEAL, POACHED_NORTHERN_SCULPIN],
   },
 
   // 40 Critical Strike Rating and 40 Stamina
-  57328: { itemId: SPICED_WORM_BURGER },
-  57343: { itemId: SPICY_BLUE_NETTLEFISH },
+  57328: { itemId: SPICED_WORM_BURGER }, // Cast
+  57343: { itemId: SPICY_BLUE_NETTLEFISH }, // Cast
+  57329: { itemId: SPICY_BLUE_NETTLEFISH }, // Food Buff
   // 30 Critical Strike Rating and 40 Stamina
   57098: {
+    // Cast
+    itemId: POACHED_NETTLEFISH,
+    recommendedFood: [SPICED_WORM_BURGER, SPICY_BLUE_NETTLEFISH],
+  },
+  57100: {
+    // Food Buff
     itemId: POACHED_NETTLEFISH,
     recommendedFood: [SPICED_WORM_BURGER, SPICY_BLUE_NETTLEFISH],
   },
   // 30 Critical Strike Rating and 30 Stamina
-  57285: { itemId: WORM_DELIGHT, recommendedFood: [SPICED_WORM_BURGER, SPICY_BLUE_NETTLEFISH] },
+  57285: { itemId: WORM_DELIGHT, recommendedFood: [SPICED_WORM_BURGER, SPICY_BLUE_NETTLEFISH] }, // Cast
+  57286: { itemId: WORM_DELIGHT, recommendedFood: [SPICED_WORM_BURGER, SPICY_BLUE_NETTLEFISH] }, // Food Buff
 
   // 40 Spirit and 40 Stamina
-  57364: { itemId: CUTTLESTEAK },
+  57364: { itemId: CUTTLESTEAK }, // Cast
+  57365: { itemId: CUTTLESTEAK }, // Food Buff
 
   // Strength and Stamina of your pet by 30
-  43771: { itemId: SPICED_MAMMOTH_TREATS },
+  43771: { itemId: SPICED_MAMMOTH_TREATS }, // Food Buff
 };
 
 // Setting this to true will replace the food suggestion with a list of the
@@ -169,10 +220,8 @@ const DebugText = () => {
   );
 };
 
-class FoodChecker extends Analyzer {
-  midTierFoodUp = false;
-  higherFoodUp = false;
-  activeFoodSpellId?: number;
+class FoodChecker extends BaseFoodChecker {
+  foodBuffId?: number;
   recommendedHigherTierFoods?: number[];
 
   constructor(options: Options) {
@@ -185,7 +234,7 @@ class FoodChecker extends Analyzer {
 
     if (event.prepull) {
       if (FOOD_MAPPINGS[spellId]) {
-        this.activeFoodSpellId = spellId;
+        this.foodBuffId = spellId;
         // There is valid food, but is it the best food?
         if (!FOOD_MAPPINGS[spellId].recommendedFood) {
           this.higherFoodUp = true;
@@ -242,10 +291,10 @@ class FoodChecker extends Analyzer {
           </>
           {this.recommendedHigherTierFoods &&
             this.recommendedHigherTierFoods.length > 0 &&
-            this.activeFoodSpellId && (
+            this.foodBuffId && (
               <>
-                Instead of using <ItemLink id={FOOD_MAPPINGS[this.activeFoodSpellId].itemId} />, try
-                one of these: <RecommendedFoodList spellId={this.activeFoodSpellId} />
+                Instead of using <ItemLink id={FOOD_MAPPINGS[this.foodBuffId].itemId} />, try one of
+                these: <RecommendedFoodList spellId={this.foodBuffId} />
               </>
             )}
         </>

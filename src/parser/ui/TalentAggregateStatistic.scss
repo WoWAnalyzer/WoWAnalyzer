@@ -1,0 +1,57 @@
+.talent-aggregate-container {
+  h3 {
+    font-family: 'Open Sans', 'Century Gothic', sans-serif;
+    margin-top: 5px;
+    margin-bottom: 9px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #333;
+
+    .value {
+      font-size: 24px;
+      small {
+        font-size: 13px;
+      }
+    }
+    .small {
+      font-size: 14px !important;
+    }
+  }
+  small {
+    font-family: 'Open Sans', 'Century Gothic', sans-serif;
+    font-size: 14px;
+    .img.icon {
+      border: 0 !important;
+    }
+  }
+}
+
+.talent-aggregate-bar {
+  padding-left: 0px;
+  line-height: 1;
+
+  .main-bar {
+    padding: 5px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .main-bar-big {
+    padding: 10px;
+    height: 65px;
+    font-size: 20px;
+  }
+
+  .sub-bar {
+    padding: 5px 10px;
+    height: 25px;
+    font-size: 15px;
+  }
+
+  .bar-label {
+    padding: 7.5px 0;
+    width: 33%;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 15px;
+  }
+}

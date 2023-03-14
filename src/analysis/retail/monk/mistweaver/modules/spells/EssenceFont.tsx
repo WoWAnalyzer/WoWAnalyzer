@@ -1,8 +1,14 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  HealEvent,
+  RemoveBuffEvent,
+  UpdateSpellUsableEvent,
+} from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -11,25 +17,47 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import EssenceFontTargetsHit from './EssenceFontTargetsHit';
+import EssenceFontUniqueTargets from './EssenceFontUniqueTargets';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { getNumberOfBolts } from '../../normalizers/CastLinkNormalizer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+
+const debug = false;
+const NUM_EF_BOLTS = 18;
 
 class EssenceFont extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    efTargetsHit: EssenceFontTargetsHit,
+    efUnique: EssenceFontUniqueTargets,
   };
   protected combatants!: Combatants;
+  protected efTargetsHit!: EssenceFontTargetsHit;
+  protected efUnique!: EssenceFontUniqueTargets;
 
   boltHealing: number = 0;
   boltOverhealing: number = 0;
+  curBuffs: number = 0;
   hotHealing: number = 0;
   hotOverhealing: number = 0;
   gomHealing: number = 0;
   gomOverhealing: number = 0;
   gomEFHits: number = 0;
   gomEFEvent: boolean = false;
+  castEntries: BoxRowEntry[] = [];
   chijiActive: boolean = false;
   chijiGomHealing: number = 0;
   chijiGomOverhealing: number = 0;
   chijiGomEFHits: number = 0;
+  lastCdEnd: number = 0;
+  numCancelled: number = 0;
 
   totalHealing: number = 0;
   totalOverhealing: number = 0;
@@ -44,8 +72,24 @@ class EssenceFont extends Analyzer {
       this.handleEssenceFontHealing,
     );
     this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.onApply,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      this.onRemove,
+    );
+    this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.gustHealing,
+    );
+    this.addEventListener(
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.onEndCooldown,
     );
     if (this.chijiActive) {
       this.addEventListener(
@@ -152,6 +196,131 @@ class EssenceFont extends Analyzer {
     } else {
       return <></>;
     }
+  }
+
+  onEndCooldown(event: UpdateSpellUsableEvent) {
+    if (event.ability.guid !== TALENTS_MONK.ESSENCE_FONT_TALENT.id || !event.isAvailable) {
+      return;
+    }
+    this.lastCdEnd = event.timestamp;
+    debug && console.log(`Cooldown for EF ended at ${this.owner.formatTimestamp(event.timestamp)}`);
+  }
+
+  getExpectedApplies(event: CastEvent) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
+      return NUM_EF_BOLTS;
+    }
+    // Every second that Essence Font is ready to be cast but isn't, another bolt gets added to its next cast, up to 18
+    return Math.min(
+      NUM_EF_BOLTS * 2,
+      NUM_EF_BOLTS + Math.floor((event.timestamp - this.lastCdEnd) / 1000),
+    );
+  }
+
+  onCast(event: CastEvent) {
+    const totalHit = getNumberOfBolts(event);
+    const expected = Math.max(this.getExpectedApplies(event), totalHit);
+    let value = QualitativePerformance.Good;
+    if (totalHit !== expected) {
+      this.numCancelled += 1;
+      value = QualitativePerformance.Fail;
+    }
+    const tooltip = (
+      <>
+        Cast @ {this.owner.formatTimestamp(event.timestamp)}: You hit {totalHit} out of {expected}{' '}
+        possible bolts
+      </>
+    );
+    this.castEntries.push({ value, tooltip });
+  }
+
+  onApply(event: ApplyBuffEvent) {
+    this.curBuffs += 1;
+  }
+
+  onRemove(event: RemoveBuffEvent) {
+    this.curBuffs -= 1;
+  }
+
+  /** Guide subsection describing the proper usage of EF */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+        </b>{' '}
+        is your core AoE heal and used to activate{' '}
+        <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />. You should aim to avoid cancelling
+        it at all costs and you should only use it with{' '}
+        <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> (if talented into{' '}
+        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />) and on CD otherwise.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cast efficiency
+          </strong>
+          <div>
+            {this.efficSubStatistic()} <br />
+            <strong>Casts </strong>
+            <small>
+              - Green indicates a good cast with sufficient targets hit, while red indicates a
+              cancelled cast
+            </small>
+            {this.castUsageStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  /** Guide subsection describing the proper usage of Rejuvenation */
+  efficSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_MONK.ESSENCE_FONT_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        useThresholds
+      />
+    );
+  }
+
+  castUsageStatistic() {
+    return <PerformanceBoxRow values={this.castEntries} />;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.numCancelled,
+      isGreaterThanOrEqual: {
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cancelled <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+        </>,
+      )
+        .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
+        .actual(
+          `${this.numCancelled} ${t({
+            id: `monk.mistweaver.suggestions.essenceFont.cancelledCasts`,
+            message: ` cancelled casts`,
+          })}`,
+        )
+        .recommended(`0 cancelled casts is recommended`),
+    );
   }
 
   statistic() {

@@ -39,15 +39,14 @@ import PreservationEvoker from 'analysis/retail/evoker/preservation';
 // Classic
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
 import ClassicDruidRestoration from 'analysis/classic/druid/restoration';
-import ClassicHunter from 'analysis/classic/hunter';
 import ClassicMageArcane from 'analysis/classic/mage/arcane';
-import ClassicPaladin from 'analysis/classic/paladin';
-import ClassicPriest from 'analysis/classic/priest';
-import ClassicRogue from 'analysis/classic/rogue';
-import ClassicShaman from 'analysis/classic/shaman';
+import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
+import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
+import ClassicPriestShadow from 'analysis/classic/priest/shadow';
+import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
+import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
 import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
-import ClassicWarrior from 'analysis/classic/warrior';
 
 import Config from './Config';
 
@@ -106,15 +105,14 @@ const configs: Config[] = [
   // Classic
   ClassicDeathKnightUnholy,
   ClassicDruidRestoration,
-  ClassicHunter,
   ClassicMageArcane,
-  ClassicPaladin,
-  ClassicPriest,
-  ClassicRogue,
-  ClassicShaman,
+  ClassicPaladinHoly,
+  ClassicShamanRestoration,
+  ClassicPriestShadow,
+  ClassicHunterSurvival,
+  ClassicHunterMarksman,
   ClassicWarlockAffliction,
   ClassicWarlockDemonology,
-  ClassicWarrior,
 ];
 
 export default configs;

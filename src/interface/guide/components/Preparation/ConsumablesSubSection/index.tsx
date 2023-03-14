@@ -5,19 +5,21 @@ import { SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import FoodPanel from './FoodPanel';
 import PotionPanel from './PotionPanel';
 import FlaskPanel from './FlaskPanel';
+import Expansion from 'game/Expansion';
 
 interface Props {
   recommendedFlasks?: Spell[];
   recommendedFoods?: Spell[];
+  expansion?: Expansion;
 }
-const ConsumablesSubSection = ({ recommendedFlasks, recommendedFoods }: Props) => {
+const ConsumablesSubSection = ({ recommendedFlasks, recommendedFoods, expansion }: Props) => {
   return (
     <SubSection title="Consumables">
       <p>Using consumables appropriately is an easy way to improve your throughput.</p>
       <SideBySidePanels>
-        <FoodPanel recommendedFoods={recommendedFoods} />
+        <FoodPanel recommendedFoods={recommendedFoods} expansion={expansion} />
         <PotionPanel />
-        <FlaskPanel recommendedFlasks={recommendedFlasks} />
+        <FlaskPanel recommendedFlasks={recommendedFlasks} expansion={expansion} />
       </SideBySidePanels>
     </SubSection>
   );

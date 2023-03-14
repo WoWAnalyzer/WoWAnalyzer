@@ -49,7 +49,7 @@ const ContributorButton = ({ nickname, avatar, link = true }: Props) => {
     <>
       {content}
       {open && (
-        <Modal onClose={() => setOpen(false)}>
+        <Modal id="contributor-button" onClose={() => setOpen(false)}>
           <ContributorDetails contributorId={nickname} />
         </Modal>
       )}

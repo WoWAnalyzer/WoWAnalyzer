@@ -29,7 +29,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const DESPAIR_CRIT_INCREASE = 0.3;
-const DOUBT_INCREASE = 0.35;
+const DOUBT_INCREASE = 0.4;
 const FEAR_HASTE_INCREASE = 0.25;
 const FEAR_MITIGATION_PERCENT = 0.15;
 
@@ -199,7 +199,7 @@ class ShaohaosLessons extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
@@ -243,8 +243,8 @@ class ShaohaosLessons extends Analyzer {
                   </td>
                   <td>{this.applyCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!}</td>
                   <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!)}</td>
-                  <td>{formatNumber(this.doubtHealing)}</td>
                   <td>{formatNumber(this.doubtDamage)}</td>
+                  <td>{formatNumber(this.doubtHealing)}</td>
                 </tr>
                 <tr key="fear">
                   <td>

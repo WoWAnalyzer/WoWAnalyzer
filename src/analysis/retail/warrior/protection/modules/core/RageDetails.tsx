@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -78,7 +78,7 @@ class RageDetails extends Analyzer {
             </>
           }
         >
-          {this.rageTracker.wasted}
+          {formatNumber(this.rageTracker.wasted)}
         </BoringValueText>
       </Statistic>,
 

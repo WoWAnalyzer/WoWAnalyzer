@@ -53,6 +53,8 @@ import AnvilStave from './modules/talents/AnvilStave';
 import ChiSurge from './modules/talents/ChiSurge';
 import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/normalizer';
 import BonedustBrewCastLinkNormalizer from './modules/talents/BonedustBrew/normalizer';
+import BrewmasterT29FourSet from './modules/items/Tier29/FourSet';
+import SpinningCraneKickLinkNormalizer from './normalizers/SpinningCraneKick';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -98,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
+    t29fourSet: BrewmasterT29FourSet,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,
@@ -106,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cbNorm: CelestialBrewNormalizer,
     bofNorm: BreathOfFireDebuffTargetNormalizer,
     bdbNorm: BonedustBrewCastLinkNormalizer,
+    sckNorm: SpinningCraneKickLinkNormalizer,
 
     // Talents
     weaponsOfOrder: WeaponsOfOrder,

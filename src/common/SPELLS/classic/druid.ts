@@ -170,6 +170,16 @@ const spells = spellIndexableList({
     icon: 'inv_misc_herb_felblossom',
     lowRanks: [48450, 33763],
   },
+  LIFEBLOOM_HEAL: {
+    id: 33778,
+    name: 'Lifebloom',
+    icon: 'inv_misc_herb_felblossom',
+  },
+  LIFEBLOOM_REGEN: {
+    id: 64372,
+    name: 'Lifebloom',
+    icon: 'spell_nature_healingtouch',
+  },
   MAIM: {
     id: 49802,
     name: 'Maim',
@@ -415,6 +425,40 @@ const spells = spellIndexableList({
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
     lowRanks: [53249, 53248, 48438],
+  },
+  CLEARCASTING: {
+    id: 16870,
+    name: 'Clearcasting',
+    icon: 'spell_shadow_manaburn',
+  },
+  REVITALIZE_ENERGY: {
+    id: 48540,
+    name: 'Revitalize',
+    icon: 'ability_druid_replenish',
+  },
+  REVITALIZE_RAGE: {
+    id: 48541,
+    name: 'Revitalize',
+    icon: 'ability_druid_replenish',
+  },
+  REVITALIZE_MANA: {
+    id: 48542,
+    name: 'Revitalize',
+    icon: 'ability_druid_replenish',
+  },
+  REVITALIZE_RUNIC_POWER: {
+    id: 48543,
+    name: 'Revitalize',
+    icon: 'ability_druid_replenish',
+  },
+
+  // ---------
+  // GLYPHS
+  // ---------
+  GLYPH_OF_SWIFTMEND: {
+    id: 54864,
+    name: 'Glyph of Swiftmend',
+    icon: 'inv_glyph_majordruid',
   },
 });
 

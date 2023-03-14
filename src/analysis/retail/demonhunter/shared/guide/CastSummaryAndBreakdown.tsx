@@ -1,6 +1,6 @@
 import { Fragment, useState } from 'react';
 import { ControlledExpandable } from 'interface';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import GradiatedPerformanceBar, {
   GradiatedPerformanceBarInfo,
 } from 'interface/guide/components/GradiatedPerformanceBar';
@@ -11,7 +11,6 @@ import { ClickToExpand, MouseoverForMoreDetails } from './CommonLinguiTranslatio
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import styled from '@emotion/styled';
-import PerformanceBoxRowGrid from 'interface/guide/components/PerformanceBoxRowGrid';
 
 const CastSummaryAndBreakdownContainer = styled.div`
   margin-bottom: 10px;
@@ -182,7 +181,7 @@ const CastSummaryAndBreakdown = ({
         <small>
           <MouseoverForMoreDetails />
         </small>
-        <PerformanceBoxRowGrid onClickBox={onClickBox} values={castEntries} />
+        <PerformanceBoxRow onClickBox={onClickBox} values={castEntries} />
       </ControlledExpandable>
     </CastSummaryAndBreakdownContainer>
   );

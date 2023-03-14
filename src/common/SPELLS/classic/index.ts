@@ -28,7 +28,10 @@ import WARRIOR from './warrior';
 // Other
 import Engineering from './engineering';
 import Racials from './racials';
+import Raids from './raids';
 import Tailoring from './tailoring';
+import Food from './food';
+import Alchemy from './alchemy';
 
 const ABILITIES = {
   ...DEATH_KNIGHT,
@@ -42,7 +45,10 @@ const ABILITIES = {
   ...WARRIOR,
   ...Engineering,
   ...Racials,
+  ...Raids,
   ...Tailoring,
+  ...Food,
+  ...Alchemy,
 } as const;
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

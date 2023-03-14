@@ -7,7 +7,6 @@ import AbilityTracker from '../../core/AbilityTracker';
 import SPELLS from 'common/SPELLS';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { SpellLink } from 'interface';
 
 /**
  * Renew instantly heals your target for 10% of its total periodic effect.
@@ -31,25 +30,13 @@ class EmpoweredRenew extends Analyzer {
   get effectiveHealing() {
     return (
       this.abilityTracker.getAbility(SPELLS.EMPOWERED_RENEW_TALENT_HEAL.id).healingEffective +
-      this.abilityTracker.getAbility(SPELLS.EMPOWERED_RENEW_TALENT_HEAL.id).healingAbsorbed +
-      this.echoOfLightMastery.masteryHealingBySpell[SPELLS.EMPOWERED_RENEW_TALENT_HEAL.id]
-        .effectiveHealing
+      this.abilityTracker.getAbility(SPELLS.EMPOWERED_RENEW_TALENT_HEAL.id).healingAbsorbed
     );
   }
 
   statistic() {
     return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            This includes the additional healing from{' '}
-            <SpellLink id={TALENTS.EMPOWERED_RENEW_TALENT.id} /> proccing{' '}
-            <SpellLink id={SPELLS.ECHO_OF_LIGHT_MASTERY.id} />.
-          </>
-        }
-      >
+      <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
         <TalentSpellText talent={TALENTS.EMPOWERED_RENEW_TALENT}>
           <ItemHealingDone amount={this.effectiveHealing} />
         </TalentSpellText>

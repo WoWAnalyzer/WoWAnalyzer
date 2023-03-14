@@ -42,6 +42,10 @@ class Deathspeaker extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DEATHSPEAKER_TALENT_BUFF),
       this.onBuffRemoved,
     );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
+      this.onBuffRefresh,
+    );
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
@@ -57,6 +61,10 @@ class Deathspeaker extends Analyzer {
     if (durationHeld >= 14990) {
       this.procsWasted += 1;
     }
+  }
+
+  onBuffRefresh() {
+    this.procsWasted += 1;
   }
 
   getProcsUsed() {

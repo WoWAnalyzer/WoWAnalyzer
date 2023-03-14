@@ -563,6 +563,29 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS.TOTEMIC_RECALL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.TOTEMIC_RECALL_TALENT),
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 180,
+      },
+      {
+        spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_GUIDANCE_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: null,
+        cooldown: 120,
+      },
+      {
+        spell: TALENTS.NATURES_SWIFTNESS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.NATURES_SWIFTNESS_TALENT),
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+        cooldown: 60,
+      },
     ];
   }
 }
