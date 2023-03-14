@@ -14,6 +14,7 @@ import PowerWordShield from './PowerWordShield';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import { SpellLink } from 'interface';
 import { getCastAbility } from '../../normalizers/DamageCastLink';
+import { formatNumber } from 'common/format';
 
 /*
   * Weal and Woe
@@ -103,22 +104,30 @@ class WealAndWoe extends Analyzer {
   }
 
   statistic() {
-    // const totalHealing = this.healing + this.powerWordShield.wealValue;
+    const totalHealing = this.healing + this.powerWordShield.wealValue;
     return (
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            The healing represents healing done by <SpellLink id={SPELLS.SMITE} />,{' '}
-            <SpellLink id={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT} /> and{' '}
-            <SpellLink id={SPELLS.POWER_WORD_SHIELD} />.
+            Healing Breakdown:
+            <ul>
+              <li>
+                <SpellLink id={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id} /> and{' '}
+                <SpellLink id={SPELLS.SMITE.id} />: {formatNumber(this.healing)}{' '}
+              </li>
+              <li>
+                <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} />:{' '}
+                {formatNumber(this.powerWordShield.wealValue)}{' '}
+              </li>
+            </ul>
           </>
         }
       >
         <TalentSpellText talent={TALENTS_PRIEST.WEAL_AND_WOE_TALENT}>
           <>
-            <ItemHealingDone amount={this.healing} /> <br />
+            <ItemHealingDone amount={totalHealing} /> <br />
             <ItemDamageDone amount={this.damage} />
           </>
         </TalentSpellText>

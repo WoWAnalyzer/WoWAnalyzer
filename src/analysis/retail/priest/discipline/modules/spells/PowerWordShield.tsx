@@ -20,11 +20,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 const POWER_WORD_SHIELD_DURATION_MS = 15000;
 const SHIELD_OF_ABSOLUTION_MULTIPLIER_HEALING = 0.18;
 const SHIELD_OF_ABSOLUTION_MULTIPLIER_DAMAGE = 0.6;
+const WEAL_AND_WOE_BUFF_PER_STACK = 0.05;
 
 type ShieldInfo = {
   event: ApplyBuffEvent | RefreshBuffEvent;
   shieldOfAbsolutionValue: number;
   healing: number;
+  wealStacks: number | 0;
   rapture: boolean;
 };
 
@@ -102,6 +104,7 @@ class PowerWordShield extends Analyzer {
       event: event,
       shieldOfAbsolutionValue: this.shieldOfAbsolutionValue,
       healing: 0,
+      wealStacks: this.selectedCombatant.getBuffStacks(SPELLS.WEAL_AND_WOE_BUFF.id),
       rapture: this.selectedCombatant.hasBuff(TALENTS_PRIEST.RAPTURE_TALENT.id),
     });
     this.shieldOfAbsolutionValue = 0;
@@ -132,6 +135,10 @@ class PowerWordShield extends Analyzer {
     const shieldOfAbsolutionBonus = info.shieldOfAbsolutionValue * (info.rapture ? 1.4 : 1);
 
     const basePowerWordShieldAmount = shieldAmount - shieldOfAbsolutionBonus;
+
+    const wealBonus =
+      basePowerWordShieldAmount -
+      basePowerWordShieldAmount / (1 + info.wealStacks * WEAL_AND_WOE_BUFF_PER_STACK);
     let totalShielded = info.healing; // this is the amount of healing the shield did
 
     // If PWS was completely consumed, then we just attribute the entire base shield to PWS (For crystalline reflection module)
@@ -142,6 +149,15 @@ class PowerWordShield extends Analyzer {
 
     // this is what's left for (As of 24.02.2024) Weal and Woe and 4p bonus
     totalShielded -= didPwsConsume;
+
+    const wealValue = (totalShielded: number) =>
+      totalShielded >= wealBonus ? wealBonus : totalShielded;
+
+    if (totalShielded > 0) {
+      // without aegis the shield didn't consume the 4p bonus
+      this.wealValue += wealValue(totalShielded);
+      totalShielded -= wealValue(totalShielded);
+    }
 
     const shieldOfAbsolutionValue = (totalShielded: number) =>
       totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
