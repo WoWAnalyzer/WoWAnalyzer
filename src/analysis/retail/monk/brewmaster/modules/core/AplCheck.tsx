@@ -8,6 +8,7 @@ import { AnyEvent } from 'parser/core/Events';
 import * as BoFLink from '../spells/BreathOfFire/normalizer';
 import * as BdbLink from '../talents/BonedustBrew/normalizer';
 import { SpellLink } from 'interface';
+import { SCK_DAMAGE_LINK } from '../../normalizers/SpinningCraneKick';
 
 const AOE_SCK = {
   spell: SPELLS.SPINNING_CRANE_KICK_BRM,
@@ -20,6 +21,14 @@ const AOE_SCK = {
 };
 
 const commonTop = [
+  {
+    spell: SPELLS.SPINNING_CRANE_KICK_BRM,
+    condition: cnd.optionalRule(
+      cnd.debuffPresent(talents.EXPLODING_KEG_TALENT, {
+        targetLinkRelation: SCK_DAMAGE_LINK,
+      }),
+    ),
+  },
   {
     spell: talents.BONEDUST_BREW_TALENT,
     condition: cnd.describe(
@@ -79,7 +88,6 @@ const rotation_boc = build([
     spell: talents.KEG_SMASH_TALENT,
     condition: cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF),
   },
-  talents.EXPLODING_KEG_TALENT,
   {
     spell: talents.RUSHING_JADE_WIND_TALENT,
     // lack of pandemic stuff is intentional
@@ -120,7 +128,6 @@ const rotation_noBoC_chpdfb = build([
   },
   SPELLS.BLACKOUT_KICK_BRM,
   talents.KEG_SMASH_TALENT,
-  talents.EXPLODING_KEG_TALENT,
   {
     spell: talents.RUSHING_JADE_WIND_TALENT,
     condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_TALENT, {
@@ -139,7 +146,6 @@ const rotation_fallback = build([
   talents.KEG_SMASH_TALENT,
   talents.BREATH_OF_FIRE_TALENT,
   SPELLS.BLACKOUT_KICK_BRM,
-  talents.EXPLODING_KEG_TALENT,
   talents.RUSHING_JADE_WIND_TALENT,
   // slight modification to the fallback APL - TP on ST, SCK on AoE
   ...commonBottom,

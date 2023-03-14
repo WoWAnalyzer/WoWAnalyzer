@@ -993,7 +993,7 @@
   "shaman.restoration.chainHeal.averageTargets.title": "Below are the casts that only hit the initial target. A large list indicates that target selection is an area for improvement.",
   "shaman.restoration.chainHeal.averageTargets.tooltip": "The average number of targets healed by Chain Heal out of the maximum amount of targets. You cast a total of {0} Chain Heals, which healed an average of {1} out of {2} targets. Keep in mind, that Unleash Life can increase the maximum number of targets by 1.",
   "shaman.restoration.checklist.aoeSpell": "Target AOE spells effectively",
-  "shaman.restoration.checklist.aoeSpell.description": "As a resto shaman our core AOE spells rely on not just who we target but where they are on the ground to maximize healing potential. You should plan you AOE spells ahead of time in preparation for where you expect raid members to be for the spells duration.",
+  "shaman.restoration.checklist.aoeSpell.description": "Chain heal relies on who you target and where they are located to maximize healing potential. You should plan your chain heal ahead of time in preparation for where you expect raid members to be for the spells duration.",
   "shaman.restoration.checklist.aoeSpell.efficiency": "Average <0/> efficiency",
   "shaman.restoration.checklist.aoeSpell.targets": "Average <0/> targets",
   "shaman.restoration.checklist.appliedPrepull": "<0/> applied prepull",

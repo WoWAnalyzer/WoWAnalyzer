@@ -13,7 +13,7 @@ import {
   getBuffedCasts,
   getPreviousVengefulRetreat,
 } from '../../normalizers/EssenceBreakNormalizer';
-import { SpellLink } from 'interface';
+import { Expandable, SpellLink } from 'interface';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { Trans } from '@lingui/macro';
@@ -24,9 +24,10 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { ReactNode } from 'react';
 import NoDemonicExplanation from 'analysis/retail/demonhunter/havoc/guide/NoDemonicExplanation';
-import { isDefined } from 'common/typeGuards';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
+import { SectionHeader } from 'interface/guide';
 
 /*
   example report: https://www.warcraftlogs.com/reports/8gAWrDqPhVj6BZkQ/#fight=29&source=7
@@ -147,26 +148,34 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
 
     return (
       <>
-        <section style={{ marginBottom: 20 }}>
-          <Trans id="guide.demonhunter.havoc.sections.cooldowns.essenceBreak.explanation">
-            <strong>
-              <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
-            </strong>{' '}
-            is a powerful burst of damage that also amplifies the damage done by{' '}
-            <SpellLink id={SPELLS.CHAOS_STRIKE} />, <SpellLink id={SPELLS.ANNIHILATION} />,{' '}
-            <SpellLink id={SPELLS.BLADE_DANCE} />, and <SpellLink id={SPELLS.DEATH_SWEEP} />. You
-            want to fit as many empowered casts into each Essence Break window as you can.
-          </Trans>
-        </section>
-        <section style={{ marginBottom: 20 }}>
+        <ExplanationSection>
+          <p>
+            <Trans id="guide.demonhunter.havoc.sections.cooldowns.essenceBreak.explanation">
+              <strong>
+                <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
+              </strong>{' '}
+              is a powerful burst of damage that also amplifies the damage done by{' '}
+              <SpellLink id={SPELLS.CHAOS_STRIKE} />, <SpellLink id={SPELLS.ANNIHILATION} />,{' '}
+              <SpellLink id={SPELLS.BLADE_DANCE} />, and <SpellLink id={SPELLS.DEATH_SWEEP} />. You
+              want to fit as many empowered casts into each Essence Break window as you can.
+            </Trans>
+          </p>
+        </ExplanationSection>
+        <ExplanationSection>
           <NoDemonicExplanation />
           <DemonicExplanation />
-          <InitiativeExplanation lineBreak />
-        </section>
-        <section style={{ marginBottom: 20 }}>
-          <header style={{ fontWeight: 'bold' }}>
-            When <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> is available
-          </header>
+          <InitiativeExplanation />
+        </ExplanationSection>
+        <Expandable
+          header={
+            <SectionHeader>
+              <strong>
+                When <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> is available
+              </strong>
+            </SectionHeader>
+          }
+          element="section"
+        >
           <div>
             An <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window with{' '}
             <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> available will look like:
@@ -200,9 +209,15 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
               </li>
             </ul>
           </div>
-        </section>
-        <section>
-          <header style={{ fontWeight: 'bold' }}>Standard</header>
+        </Expandable>
+        <Expandable
+          header={
+            <SectionHeader>
+              <strong>Standard</strong>
+            </SectionHeader>
+          }
+          element="section"
+        >
           <div>
             An <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window without{' '}
             <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> available will look like:
@@ -231,7 +246,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
               </li>
             </ul>
           </div>
-        </section>
+        </Expandable>
       </>
     );
   }
@@ -264,47 +279,70 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       };
     }
 
-    const {
-      performance: initiativePerf,
-      summary: initiativeLabel,
-      details: initiativeDetails,
-    } = this.initiativePerformance(cast) ?? {};
-
-    const {
-      performance: essbWindowPerf,
-      summary: essbWindowLabel,
-      details: essbWindowDetails,
-    } = this.essbWindowCastPerformance(cast) ?? {};
-
-    const overallPerf = combineQualitativePerformances(
-      [initiativePerf, essbWindowPerf].filter(isDefined),
-    );
+    const inMetamorphosisPerformance = this.inMetamorphosisOnCastPerformance(cast);
+    const initiativePerformance = this.initiativePerformance(cast);
+    const essbWindowCastPerformance = this.essbWindowCastPerformance(cast);
 
     const checklistItems: ChecklistUsageInfo[] = [
+      { check: 'in-metamorphosis', timestamp: cast.event.timestamp, ...inMetamorphosisPerformance },
       {
         check: 'buffed-casts',
         timestamp: cast.event.timestamp,
-        performance: essbWindowPerf,
-        summary: essbWindowLabel,
-        details: essbWindowDetails,
+        ...essbWindowCastPerformance,
       },
     ];
-    if (initiativePerf && initiativeLabel && initiativeDetails) {
+    if (initiativePerformance) {
       checklistItems.push({
         check: 'initiative',
         timestamp: cast.event.timestamp,
-        performance: initiativePerf,
-        summary: initiativeLabel,
-        details: initiativeDetails,
+        ...initiativePerformance,
       });
     }
 
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+    );
     return {
       event: cast.event,
       checklistItems: checklistItems,
-      performance: overallPerf,
+      performance: actualPerformance,
       performanceExplanation:
-        overallPerf !== QualitativePerformance.Fail ? `${overallPerf} Usage` : 'Bad Usage',
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
+    };
+  }
+
+  private inMetamorphosisOnCastPerformance(cast: EssenceBreakCooldownCast): UsageInfo {
+    const summary = (
+      <div>
+        Have <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> on cast
+      </div>
+    );
+
+    if (!cast.hasMetamorphosisOnCast) {
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: summary,
+        details: (
+          <div>
+            Have <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> on cast. Not having the buff
+            means that you can't cast <SpellLink id={SPELLS.DEATH_SWEEP} /> or{' '}
+            <SpellLink id={SPELLS.ANNIHILATION} />, instead having to cast{' '}
+            <SpellLink id={SPELLS.BLADE_DANCE} /> and <SpellLink id={SPELLS.CHAOS_STRIKE} />.
+          </div>
+        ),
+      };
+    }
+    return {
+      performance: QualitativePerformance.Perfect,
+      summary: summary,
+      details: (
+        <div>
+          You were in <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> when you cast{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />. Good job!
+        </div>
+      ),
     };
   }
 
@@ -312,15 +350,18 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     if (!this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT)) {
       return undefined;
     }
+
+    const summary = (
+      <div>
+        Had <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff
+      </div>
+    );
+
     const previousVengefulRetreat = getPreviousVengefulRetreat(cast.event);
     if (cast.hasInitiativeOnCast) {
       return {
         performance: QualitativePerformance.Perfect,
-        summary: (
-          <div>
-            Had <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff
-          </div>
-        ),
+        summary: summary,
         details: (
           <div>
             Had <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff.
@@ -331,12 +372,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     if (previousVengefulRetreat) {
       return {
         performance: QualitativePerformance.Good,
-        summary: (
-          <div>
-            Cast shortly after casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
-          </div>
-        ),
+        summary: summary,
         details: (
           <div>
             Cast shortly after casting{' '}
@@ -349,12 +385,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     }
     return {
       performance: QualitativePerformance.Fail,
-      summary: (
-        <div>
-          Cast without previously casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
-        </div>
-      ),
+      summary: summary,
       details: (
         <div>
           Cast without previously casting{' '}
@@ -373,32 +404,12 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       (cast.hasMetamorphosisOnCast ? 1 : 0) + (cast.metamorphosisAvailable ? 1 : 0);
     const nonDeathSweepBuffedCasts = Math.max(0, cast.buffedCasts - cast.deathSweepCasts);
 
-    const maxDeathSweepsNote = (
+    const maxDeathSweepsSummary = (
       <div>
         Cast {maximumNumberOfDeathSweepsPossible}+ <SpellLink id={SPELLS.DEATH_SWEEP} />
         (s) during window
       </div>
     );
-
-    // if we weren't in meta when casting EssB, it's a bad cast.
-    if (!cast.hasMetamorphosisOnCast) {
-      return {
-        performance: QualitativePerformance.Fail,
-        summary: (
-          <div>
-            Have <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> on cast
-          </div>
-        ),
-        details: (
-          <div>
-            Have <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC_BUFF} /> on cast. Not having the buff
-            means that you can't cast <SpellLink id={SPELLS.DEATH_SWEEP} /> or{' '}
-            <SpellLink id={SPELLS.ANNIHILATION} />, instead having to cast{' '}
-            <SpellLink id={SPELLS.BLADE_DANCE} /> and <SpellLink id={SPELLS.CHAOS_STRIKE} />.
-          </div>
-        ),
-      };
-    }
 
     // if meta is available and we've cast EssB, the sequence should be
     // EssB -> DS -> Meta -> DS
@@ -406,7 +417,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       if (cast.deathSweepCasts >= maximumNumberOfDeathSweepsPossible) {
         return {
           performance: QualitativePerformance.Perfect,
-          summary: maxDeathSweepsNote,
+          summary: maxDeathSweepsSummary,
           details: (
             <div>
               You cast {cast.deathSweepCasts} <SpellLink id={SPELLS.DEATH_SWEEP} />
@@ -418,7 +429,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       return {
         performance:
           cast.deathSweepCasts > 0 ? QualitativePerformance.Ok : QualitativePerformance.Fail,
-        summary: maxDeathSweepsNote,
+        summary: maxDeathSweepsSummary,
         details: (
           <div>
             You cast {cast.deathSweepCasts} <SpellLink id={SPELLS.DEATH_SWEEP} />
@@ -434,7 +445,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     if (cast.deathSweepCasts === 0) {
       return {
         performance: QualitativePerformance.Fail,
-        summary: maxDeathSweepsNote,
+        summary: maxDeathSweepsSummary,
         details: (
           <div>
             You cast {cast.deathSweepCasts} <SpellLink id={SPELLS.DEATH_SWEEP} />
@@ -448,7 +459,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     if (nonDeathSweepBuffedCasts === 0) {
       return {
         performance: QualitativePerformance.Ok,
-        summary: maxDeathSweepsNote,
+        summary: maxDeathSweepsSummary,
         details: (
           <div>
             You cast {cast.deathSweepCasts} <SpellLink id={SPELLS.DEATH_SWEEP} /> and no other
@@ -462,7 +473,7 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     if (nonDeathSweepBuffedCasts === 1) {
       return {
         performance: QualitativePerformance.Good,
-        summary: maxDeathSweepsNote,
+        summary: maxDeathSweepsSummary,
         details: (
           <div>
             You cast {cast.deathSweepCasts} <SpellLink id={SPELLS.DEATH_SWEEP} />,{' '}
@@ -478,11 +489,11 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     return {
       performance:
         nonDeathSweepBuffedCasts > 1 ? QualitativePerformance.Perfect : QualitativePerformance.Good,
-      summary: maxDeathSweepsNote,
+      summary: maxDeathSweepsSummary,
       details: (
         <div>
           You cast {cast.deathSweepCasts} <SpellLink id={SPELLS.DEATH_SWEEP} /> and{' '}
-          {nonDeathSweepBuffedCasts} other buffed spell(s)
+          {nonDeathSweepBuffedCasts} other buffed spell(s).
         </div>
       ),
     };

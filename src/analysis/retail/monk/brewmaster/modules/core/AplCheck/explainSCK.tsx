@@ -5,6 +5,7 @@ import talents from 'common/TALENTS/monk';
 import { SpellLink, TooltipElement } from 'interface';
 import {
   ActualCastDescription,
+  minClaimCount,
   ViolationExplainer,
 } from 'interface/guide/components/Apl/violations/claims';
 import { spells, InternalRule } from 'parser/shared/metrics/apl';
@@ -17,6 +18,10 @@ const claim: ViolationExplainer<Data>['claim'] = (_apl, result) => {
       violation.actualCast.ability.guid === SPELLS.SPINNING_CRANE_KICK_BRM.id &&
       violation.expectedCast.some((spell) => spell.id === SPELLS.TIGER_PALM.id),
   );
+
+  if (violations.length < minClaimCount(result)) {
+    return [];
+  }
 
   return [
     {
