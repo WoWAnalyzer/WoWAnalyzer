@@ -6,9 +6,9 @@ import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { formatNumber } from 'common/format';
 
 const DAMAGE_BONUS_PER_STACK = 0.05;
 
@@ -24,7 +24,7 @@ class ArcaneHarmony extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
       this.onBarrageCast,
@@ -56,13 +56,22 @@ class ArcaneHarmony extends Analyzer {
     );
   }
 
+  get dpsIncrease() {
+    const fight = this.owner.fight;
+    const totalFightTime = fight.end_time - fight.start_time;
+
+    return (this.bonusDamage / totalFightTime) * 1000;
+  }
+
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={SPELLS.ARCANE_HARMONY_BUFF.id}>
-          <ItemDamageDone amount={this.bonusDamage} />
+          {formatNumber(this.bonusDamage)} <small>Bonus Damage</small>
           <br />
-          {this.averageStacks.toFixed(2)} <small>Avg. stacks per Barrage</small>
+          {formatNumber(this.dpsIncrease)} <small>DPS</small>
+          <br />
+          {formatNumber(this.averageStacks)} <small>Avg. stacks per Barrage</small>
         </BoringSpellValueText>
       </Statistic>
     );
