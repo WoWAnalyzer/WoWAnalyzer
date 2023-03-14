@@ -101,6 +101,11 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
                 previousEvent.__modified = true;
               }
               previousEvent.__reordered = true;
+              console.log(
+                `REORDER - index ${previousEventIndex} to ${eventIndex}`,
+                event,
+                previousEvent,
+              );
               break;
             }
           }
