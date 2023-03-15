@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS/demonhunter';
+import { RETAIL_EXPANSION } from 'game/Expansion';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -13,6 +14,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.ABSORBED,
         BUILT_IN_SUMMARY_TYPES.HEALING,
       ],
+      expansion: RETAIL_EXPANSION,
     },
   ];
 }

@@ -9,6 +9,7 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 
 import isAtonement from '../core/isAtonement';
 import Atonement from '../spells/Atonement';
+import { RETAIL_EXPANSION } from 'game/Expansion';
 
 const EVANGELISM_ADDED_DURATION = 6000;
 
@@ -27,6 +28,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.ABSORBED,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
+      expansion: RETAIL_EXPANSION,
     },
   ];
   lastEvangelism: TrackedCooldown | null = null;
