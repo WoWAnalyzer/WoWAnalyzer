@@ -65,13 +65,11 @@ class PrimalTideCore extends Analyzer {
       this.ptcHealing += event.overheal || 0;
     }
   }
-    subStatistic() {
+  subStatistic() {
     return (
       <StatisticListBoxItem
         title={<SpellLink id={talents.PRIMAL_TIDE_CORE_TALENT.id} />}
-        value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.ptcHealing),
-        )} %`}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.ptcHealing))} %`}
       />
     );
   }

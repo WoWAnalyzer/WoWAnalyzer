@@ -141,23 +141,19 @@ class HolyPriestHealingEfficiencyTracker extends HealingEfficiencyTracker {
   addEcho(spellInfo: any, healingSpellIds: number[]) {
     try {
       if (this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id]) {
-        spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[
-          spellInfo.spell.id
-        ].effectiveHealing;
-        spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[
-          spellInfo.spell.id
-        ].overHealing;
+        spellInfo.healingDone +=
+          this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id].effectiveHealing;
+        spellInfo.overhealingDone +=
+          this.echoOfLight.masteryHealingBySpell[spellInfo.spell.id].overHealing;
       }
 
       if (healingSpellIds) {
         healingSpellIds.forEach((healingSpellId) => {
           if (this.echoOfLight.masteryHealingBySpell[healingSpellId]) {
-            spellInfo.healingDone += this.echoOfLight.masteryHealingBySpell[
-              healingSpellId
-            ].effectiveHealing;
-            spellInfo.overhealingDone += this.echoOfLight.masteryHealingBySpell[
-              healingSpellId
-            ].overHealing;
+            spellInfo.healingDone +=
+              this.echoOfLight.masteryHealingBySpell[healingSpellId].effectiveHealing;
+            spellInfo.overhealingDone +=
+              this.echoOfLight.masteryHealingBySpell[healingSpellId].overHealing;
           }
         });
       }

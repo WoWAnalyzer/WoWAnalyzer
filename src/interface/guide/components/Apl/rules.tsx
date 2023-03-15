@@ -57,10 +57,10 @@ export default function AplRules({
       results.violations.some((v) => v.rule === rule),
   );
 
-  const highlightIndex = useMemo(() => highlightRule && rules.indexOf(highlightRule), [
-    rules,
-    highlightRule,
-  ]);
+  const highlightIndex = useMemo(
+    () => highlightRule && rules.indexOf(highlightRule),
+    [rules, highlightRule],
+  );
 
   return (
     <AplRuleList>

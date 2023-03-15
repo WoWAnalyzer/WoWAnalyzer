@@ -34,7 +34,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
     },
-  ]
+  ];
 
   static ignoredSpells = [
     ...CoreCooldownThroughputTracker.ignoredSpells,

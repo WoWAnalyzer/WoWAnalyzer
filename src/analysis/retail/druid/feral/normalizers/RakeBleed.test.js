@@ -421,8 +421,7 @@ describe.skip('Druid/Feral/Normalizers/RakeBleed', () => {
     },
     {
       // debuff from A, cast from B, cast from A, debuff from B
-      it:
-        'moves only the necessary event when two players are acting at the same time but only one needs normalizing',
+      it: 'moves only the necessary event when two players are acting at the same time but only one needs normalizing',
       playerId: 1,
       events: [
         {
@@ -462,8 +461,7 @@ describe.skip('Druid/Feral/Normalizers/RakeBleed', () => {
     },
     {
       // cast from A, cast from B, debuff from A, debuff from B
-      it:
-        "doesn't move events when two players are acting at the same time and neither need normalizing",
+      it: "doesn't move events when two players are acting at the same time and neither need normalizing",
       playerId: 1,
       events: [
         {

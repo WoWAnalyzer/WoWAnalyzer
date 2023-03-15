@@ -60,7 +60,7 @@ const MitigationDataRow = styled.div`
 
 export const MitigationLabel = <
   ApplyEventType extends EventType,
-  RemoveEventType extends EventType
+  RemoveEventType extends EventType,
 >({
   mitigation,
   long,

@@ -30,8 +30,8 @@ class FrostFeverUptime extends Analyzer {
           <span>
             Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay
             attention to when Frost Fever is about to fall off the priority target, using{' '}
-            <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> to refresh Frost Fever. Using a debuff
-            tracker can help.
+            <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> to refresh Frost Fever. Using a
+            debuff tracker can help.
           </span>,
         )
           .icon(SPELLS.FROST_FEVER.icon)

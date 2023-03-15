@@ -117,7 +117,7 @@ class MistyPeaks extends Analyzer {
         tooltip={
           <ul>
             <li>
-              <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id}/> procs: {this.numHots}
+              <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> procs: {this.numHots}
             </li>
             <li>
               <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> extra hits: {this.extraHits}

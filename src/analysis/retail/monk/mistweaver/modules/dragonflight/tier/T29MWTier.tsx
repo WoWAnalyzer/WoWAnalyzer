@@ -100,9 +100,8 @@ class T29TierSet extends Analyzer {
     ) {
       return;
     }
-    this.hotTracker.hots[playerId][
-      SPELLS.RENEWING_MIST_HEAL.id
-    ].maxDuration! += FOUR_PIECE_EXTENSION;
+    this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id].maxDuration! +=
+      FOUR_PIECE_EXTENSION;
     this.hotTracker.addExtension(
       EXTENSION_ATTRIB,
       FOUR_PIECE_EXTENSION,
@@ -112,9 +111,8 @@ class T29TierSet extends Analyzer {
     );
 
     this.numExtensions += 1;
-    this.totalExtensionDuration += this.hotTracker.hots[playerId][
-      SPELLS.RENEWING_MIST_HEAL.id
-    ].extensions.at(-1)!.amount;
+    this.totalExtensionDuration +=
+      this.hotTracker.hots[playerId][SPELLS.RENEWING_MIST_HEAL.id].extensions.at(-1)!.amount;
   }
 
   handle2PcHeal(event: HealEvent) {
