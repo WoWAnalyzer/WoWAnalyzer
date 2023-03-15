@@ -61,12 +61,8 @@ class MasteryEffectiveness extends Analyzer {
   protected beaconTargets!: BeaconTargets;
   protected statTracker!: StatTracker;
 
-  _lastPlayerPositionUpdate:
-    | CastEvent
-    | HealEvent
-    | DamageEvent
-    | ResourceChangeEvent
-    | null = null;
+  _lastPlayerPositionUpdate: CastEvent | HealEvent | DamageEvent | ResourceChangeEvent | null =
+    null;
   distanceSum = 0;
   distanceCount = 0;
   get averageDistance() {

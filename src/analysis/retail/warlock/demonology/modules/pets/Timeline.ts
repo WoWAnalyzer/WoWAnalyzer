@@ -7,8 +7,7 @@ import { DESPAWN_REASONS, TimelinePet } from './TimelinePet';
 const debug = false;
 
 class Timeline {
-
-  timeline: TimelinePet[]
+  timeline: TimelinePet[];
 
   constructor() {
     this.timeline = [];
@@ -47,7 +46,9 @@ class Timeline {
   }
 
   groupPetsBySummonAbility() {
-    return this.timeline.reduce<Record<number | string, { spellName: string, pets: TimelinePet[]}>>((obj, pet) => {
+    return this.timeline.reduce<
+      Record<number | string, { spellName: string; pets: TimelinePet[] }>
+    >((obj, pet) => {
       // if pet is summoned by unknown spell, it gets summonedBy = -1
       const key = pet.summonedBy !== -1 ? pet.summonedBy : 'unknown';
       const spellName = (SPELLS[pet.summonedBy] && SPELLS[pet.summonedBy].name) || 'unknown';

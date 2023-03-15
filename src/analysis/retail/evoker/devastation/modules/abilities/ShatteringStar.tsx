@@ -173,10 +173,12 @@ class ShatteringStar extends Analyzer {
     const perfect = this.windowEntries.filter(
       (entry) => entry.value === QualitativePerformance.Perfect,
     ).length;
-    const good = this.windowEntries.filter((entry) => entry.value === QualitativePerformance.Good)
-      .length;
-    const fail = this.windowEntries.filter((entry) => entry.value === QualitativePerformance.Fail)
-      .length;
+    const good = this.windowEntries.filter(
+      (entry) => entry.value === QualitativePerformance.Good,
+    ).length;
+    const fail = this.windowEntries.filter(
+      (entry) => entry.value === QualitativePerformance.Fail,
+    ).length;
 
     return [
       {
