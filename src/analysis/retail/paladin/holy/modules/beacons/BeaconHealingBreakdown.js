@@ -24,12 +24,8 @@ class BeaconHealingBreakdown extends Component {
   }
 
   renderTableBody() {
-    const {
-      totalHealingDone,
-      totalBeaconHealing,
-      beaconHealingBySource,
-      fightDuration,
-    } = this.props;
+    const { totalHealingDone, totalBeaconHealing, beaconHealingBySource, fightDuration } =
+      this.props;
 
     const currentTotal = this.state.absolute
       ? totalHealingDone.effective

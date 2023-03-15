@@ -2,15 +2,14 @@
 
 .premium {
   h2 {
-    opacity: .9;
+    opacity: 0.9;
     text-transform: uppercase;
-    letter-spacing: .2em;
+    letter-spacing: 0.2em;
     font-weight: 600;
     margin: 0;
     font-size: 1em;
     line-height: 1.4;
   }
-
 
   .premium-feature {
     background: rgba(0, 0, 0, 0.15);
@@ -28,12 +27,13 @@
   }
 }
 
-.patreon-login, .github-login {
+.patreon-login,
+.github-login {
   font-size: 2em;
   border-radius: 0;
 }
 .patreon-login {
-  background: #F96854;
+  background: #f96854;
   color: #fff !important;
   border-bottom-left-radius: 3px;
 }
@@ -49,10 +49,14 @@
   background: #cdcdcd;
 }
 
-.logged-in-enter, .logged-in-appear, .logged-in-leave.logged-in-leave-active {
+.logged-in-enter,
+.logged-in-appear,
+.logged-in-leave.logged-in-leave-active {
   clip-path: circle(0%);
 }
-.logged-in-enter.logged-in-enter-active, .logged-in-appear.logged-in-appear-active, .logged-in-leave {
+.logged-in-enter.logged-in-enter-active,
+.logged-in-appear.logged-in-appear-active,
+.logged-in-leave {
   clip-path: circle(100%);
 }
 

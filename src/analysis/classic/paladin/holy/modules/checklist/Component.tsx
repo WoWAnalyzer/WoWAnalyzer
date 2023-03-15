@@ -64,7 +64,6 @@ const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
       </Rule>
       {/* Enchants and Consumes */}
       <PreparationRule thresholds={thresholds} />
-
     </Checklist>
   );
 };

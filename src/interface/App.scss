@@ -40,8 +40,12 @@ body {
   animation: blur 250ms forwards;
 }
 @keyframes blur {
-  0% { filter: blur(0px); }
-  100% { filter: blur(10px); }
+  0% {
+    filter: blur(0px);
+  }
+  100% {
+    filter: blur(10px);
+  }
 }
 .app {
   min-height: 700px;
@@ -61,7 +65,9 @@ a {
     color: inherit;
   }
 }
-.btn:hover, .btn:focus, .btn.focus {
+.btn:hover,
+.btn:focus,
+.btn.focus {
   color: #964747;
 
   img {
@@ -76,14 +82,22 @@ a {
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
   text-transform: uppercase;
 
-  &:hover, &:focus, &:active, &:active:hover, &:active:focus {
+  &:hover,
+  &:focus,
+  &:active,
+  &:active:hover,
+  &:active:focus {
     background: darken($primaryColor, 10%);
     border: 1px solid $primaryColor;
     outline: 0;
     color: #ccc;
   }
 }
-h1, h2, h3, h4, h5 {
+h1,
+h2,
+h3,
+h4,
+h5 {
   font-family: Poppins, 'Open Sans', 'Century Gothic', sans-serif;
 }
 h1 {
@@ -127,14 +141,16 @@ ul {
   background-size: cover;
   background-position: center center;
 }
-.image-background h1, .app > header .image-overlay h1 {
+.image-background h1,
+.app > header .image-overlay h1 {
   font-size: 3em;
   font-weight: 700;
   margin-bottom: 0.35em;
-  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0,0,0,.8);
+  text-shadow: 0 0 1px transparent, 0 0 5px rgba(0, 0, 0, 0.8);
   letter-spacing: 1px;
 }
-.image-background .description, .app > header .image-overlay .description {
+.image-background .description,
+.app > header .image-overlay .description {
   font-size: 1.2em;
   color: #ebdec2;
   text-shadow: 0 0 2px #000;
@@ -191,7 +207,7 @@ ul {
   border-radius: 2px;
 }
 /* Fix for double bottom border for second last children */
-.list.players>li:nth-child(odd):nth-last-child(2) {
+.list.players > li:nth-child(odd):nth-last-child(2) {
   box-shadow: none;
 }
 .list > li {
@@ -199,7 +215,7 @@ ul {
   padding: 0 22px;
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
-  background-color: rgba(255, 255, 255, 0.0);
+  background-color: rgba(255, 255, 255, 0);
   transition: background-color 0.1s ease-in-out;
 }
 .list > li:nth-of-type(odd) {
@@ -318,7 +334,6 @@ h1 {
   align-items: flex-end;
 }
 
-
 h3 {
   margin-top: 5px;
   margin-bottom: 9px;
@@ -364,7 +379,8 @@ code {
   background-color: #cc790b;
   color: #fff;
 }
-.alert-warning a {/* default URLs are unreadable on the orange background, this makes it look like a button. */
+.alert-warning a {
+  /* default URLs are unreadable on the orange background, this makes it look like a button. */
   color: #fff;
   background: #cd594a;
   padding: 2px 4px;
@@ -409,24 +425,29 @@ table.data-table {
   margin-bottom: 20px;
 
   tr:nth-child(even) {
-    background: rgba(255, 255, 255, .03);
+    background: rgba(255, 255, 255, 0.03);
   }
-  tr th, tr td {
+  tr th,
+  tr td {
     padding: 7px;
   }
-  &.compact tr th, &.compact tr td {
+  &.compact tr th,
+  &.compact tr td {
     padding: 6px;
   }
-  tr th:first-of-type, tr td:first-of-type {
+  tr th:first-of-type,
+  tr td:first-of-type {
     padding-left: 30px;
   }
-  tr th:last-of-type, tr td:last-of-type {
+  tr th:last-of-type,
+  tr td:last-of-type {
     padding-right: 30px;
   }
-  img, img.icon.game {
+  img,
+  img.icon.game {
     width: 1.6em;
     height: 1.6em;
-    margin-top: -.1em;
+    margin-top: -0.1em;
   }
 }
 
@@ -445,11 +466,11 @@ table.data-table {
   left: 0;
   right: 0;
   height: 70%;
-  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0.0) 100%);
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0.06) 0%, rgba(255, 255, 255, 0) 100%);
   z-index: 1;
 }
 .performance-bar {
-  opacity: .9;
+  opacity: 0.9;
   height: 1.4em;
   min-width: 1px;
   background-color: $primaryColor;
@@ -475,8 +496,6 @@ table.data-table {
   border-right-color: rgba(10, 10, 10, 0.9) !important;
 }
 
-
-
 .react-toggle--checked .react-toggle-track {
   background-color: $primaryColor;
 }
@@ -500,10 +519,12 @@ table.data-table {
 .text-primary {
   color: $primaryColor;
 }
-.text-muted, small {
+.text-muted,
+small {
   color: $muted;
 }
-small, .text-small {
+small,
+.text-small {
   font-size: 12px;
 }
 .small {
@@ -548,7 +569,7 @@ small, .text-small {
 }
 @media (min-width: 1200px) and (max-width: 1400px) {
   .external-links .btn {
-    padding: .5rem 0.95rem;
+    padding: 0.5rem 0.95rem;
     font-size: 1.4rem;
   }
   .external-links .btn:not(:first-of-type) {
@@ -556,7 +577,8 @@ small, .text-small {
   }
 }
 @media (max-width: 1200px) {
-  .report-code-box, .external-links {
+  .report-code-box,
+  .external-links {
     text-align: center;
   }
 }
@@ -568,9 +590,15 @@ small, .text-small {
   animation-duration: 3s;
 }
 @keyframes fadein {
-  0% { opacity: 0; }
-  60% { opacity: 0; }
-  100%   { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  60% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 .clickable {
@@ -588,8 +616,8 @@ code.inactive {
 .contributor {
   background: #2b2b2b;
   color: #f1c40f;
-  padding: 0 .4em;
-  border-radius: .3em;
+  padding: 0 0.4em;
+  border-radius: 0.3em;
   white-space: nowrap;
   display: inline-block;
   line-height: 1.8em;
@@ -597,23 +625,20 @@ code.inactive {
   vertical-align: middle;
 }
 .contributor img {
-  margin: 0 .4em 0 -.4em;
+  margin: 0 0.4em 0 -0.4em;
   width: 1.8em;
   height: 1.8em;
   vertical-align: top;
 }
 
-
-
 .item-divider {
   border-bottom: 1px solid #000;
-  box-shadow: 0 1px 0 0 rgba(255, 255, 255, .1);
+  box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.1);
 }
 
 .contributorlist > .row {
   margin: 10px 0;
 }
-
 
 .contributor-detail {
   height: calc(100% - 80px);
@@ -623,7 +648,10 @@ code.inactive {
   background-color: rgba(20, 20, 20, 1);
 }
 
-.contributor-detail>.container, .contributor-detail>.container>.flex-main, .contributor-detail>.container>.flex-main>.row, .contributor-detail>.container>.flex-main>.row>.col-md-7 {
+.contributor-detail > .container,
+.contributor-detail > .container > .flex-main,
+.contributor-detail > .container > .flex-main > .row,
+.contributor-detail > .container > .flex-main > .row > .col-md-7 {
   height: 100%;
 }
 
@@ -647,6 +675,7 @@ code.inactive {
   transform: translateY(1px); // remove the 0 line
 }
 
-.item-link-text, .spell-link-text {
+.item-link-text,
+.spell-link-text {
   white-space: nowrap;
 }

@@ -15,8 +15,11 @@ const SMITE_DAMAGE_BUFF = 0.5;
  * Wraps a spell calculation to accept the stats module
  * Essentially lets you compose modules with spell estimations
  */
-const statWrapper = (spellCalculation: any) => (stats: StatTracker) => (...args: any[]) =>
-  spellCalculation(stats, ...args);
+const statWrapper =
+  (spellCalculation: any) =>
+  (stats: StatTracker) =>
+  (...args: any[]) =>
+    spellCalculation(stats, ...args);
 
 // Returns the overhealing of a given spell
 export const calculateOverhealing = (

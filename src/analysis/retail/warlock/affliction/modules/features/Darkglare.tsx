@@ -230,8 +230,9 @@ class Darkglare extends Analyzer {
     Object.values(this.casts).forEach((cast) => {
       Object.values(cast.targets).forEach((targetDots) => {
         if (this._hasAC) {
-          totalExtendedDots += targetDots.dots.filter((id) => id !== SPELLS.CORRUPTION_DEBUFF.id)
-            .length;
+          totalExtendedDots += targetDots.dots.filter(
+            (id) => id !== SPELLS.CORRUPTION_DEBUFF.id,
+          ).length;
         } else {
           totalExtendedDots += targetDots.dots.length;
         }
