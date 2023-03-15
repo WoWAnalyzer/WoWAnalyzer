@@ -5,6 +5,7 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 21), <>Add <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> talent</>, Trevor),
   change(date(2023, 3, 11), <>Improve <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> breakdown chart</>, Trevor),
   change(date(2023, 2, 14), <>Fix <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT}/> module when talented into <SpellLink id={TALENTS_EVOKER.FONT_OF_MAGIC_TALENT}/></>, Trevor),
   change(date(2023, 2, 9), <>Fix <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT}/> analysis breaking.</>, ToppleTheNun),

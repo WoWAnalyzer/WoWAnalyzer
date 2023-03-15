@@ -39,6 +39,7 @@ import FontOfMagic from './modules/talents/FontOfMagic';
 import EmeraldCommunion from './modules/talents/EmeraldCommunion';
 import SparkOfInsight from './modules/talents/SparkOfInsight';
 import EchoBreakdown from './modules/talents/EchoBreakdown';
+import Ouroboros from './modules/talents/Ouroboros';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -92,6 +93,7 @@ class CombatLogParser extends CoreCombatLogParser {
     fontOfMagic: FontOfMagic,
     emeraldCommunion: EmeraldCommunion,
     sparkOfInsight: SparkOfInsight,
+    ouroboros: Ouroboros,
   };
 }
 
