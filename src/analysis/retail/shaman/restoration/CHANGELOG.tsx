@@ -4,6 +4,7 @@ import { Arlie, Fassbrause, niseko, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 16), <>Fixed <SpellLink id={TALENTS.ANCESTRAL_VIGOR_TALENT.id}/> to work for each talent rank</>, Vohrr),
   change(date(2023, 3, 8), <>Fixed <SpellLink id={TALENTS.HIGH_TIDE_TALENT.id}/> module and mark Resto Shaman as supported for 10.0.7</>, Vohrr),
   change(date(2023, 3, 7), <>Added <SpellLink id={TALENTS.ANCESTRAL_REACH_TALENT.id}/> module</>, Vohrr),
   change(date(2023, 3, 5), <>Rewrite <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id}/></>, Vohrr),

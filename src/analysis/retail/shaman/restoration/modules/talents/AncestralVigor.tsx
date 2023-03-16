@@ -16,8 +16,7 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatist
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox from 'parser/ui/StatisticBox';
 
-const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH = 0.1;
-const HP_THRESHOLD = 1 - 1 / (1 + ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH);
+const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT = 0.05;
 
 class AncestralVigor extends Analyzer {
   static dependencies = {
@@ -29,10 +28,13 @@ class AncestralVigor extends Analyzer {
   loaded = false;
   lifeSavingEvents: DamageEvent[] = [];
   disableStatistics = false;
-
+  ancestralVigorIncrease: number;
   constructor(options: Options) {
     super(options);
-    this.active = Boolean(this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT));
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ANCESTRAL_VIGOR_TALENT);
+    this.ancestralVigorIncrease =
+      this.selectedCombatant.getTalentRank(TALENTS.ANCESTRAL_VIGOR_TALENT) *
+      ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT;
   }
 
   // recursively fetch events until no nextPageTimestamp is returned
@@ -55,6 +57,7 @@ class AncestralVigor extends Analyzer {
   }
 
   load() {
+    const HP_THRESHOLD = 1 - 1 / (1 + this.ancestralVigorIncrease);
     // clear array to avoid duplicate entries after switching tabs and clicking it again
     this.lifeSavingEvents = [];
     const query: WclOptions = {
