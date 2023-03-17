@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 3, 17), 'Added Ulduar enchants and fixed cloak enchant for Classic', Arbixal),
   change(date(2023, 3, 13), 'Fixed Cooldown Tracker.', Abelito75),
   change(date(2023, 3, 15), "Add prettier to the CI", Putro),
   change(date(2023, 3, 8), 'Add Classic WotLK P2 trinkets.', jazminite),
