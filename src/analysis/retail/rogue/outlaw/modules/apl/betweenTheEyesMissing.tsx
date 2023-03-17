@@ -36,7 +36,14 @@ export function betweenTheEyesMissing(): Condition<{ [key: string]: DurationData
           if (event.ability.guid === BTE_ID) {
             const encodedTargetString = encodeTargetString(event.targetID, event.targetInstance);
             const castEvent = getHardcast(event)!;
-            const cpSpent = getResourceSpent(castEvent, RESOURCE_TYPES.COMBO_POINTS);
+            if (castEvent == null) {
+              console.log(event);
+              console.log(castEvent);
+              console.warn('Linked between the eyes cast missing, incomplete log?');
+            }
+            const cpSpent = castEvent
+              ? getResourceSpent(castEvent, RESOURCE_TYPES.COMBO_POINTS)
+              : 7;
             state[encodedTargetString] = {
               referenceTime: event.timestamp,
               timeRemaining: cpSpent * BTE_TIME_PER_CP_SPENT,
