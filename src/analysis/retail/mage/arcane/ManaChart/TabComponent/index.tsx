@@ -1,10 +1,14 @@
 import { Panel } from 'interface';
+import CombatLogParser from 'parser/core/CombatLogParser';
 import ManaValues from 'parser/shared/modules/ManaValues';
-import PropTypes from 'prop-types';
 
 import ManaLevelGraph from './ManaLevelGraph';
 
-const Mana = ({ parser }: any) => (
+type props = {
+  parser: CombatLogParser;
+};
+
+const Mana = ({ parser }: props) => (
   <Panel style={{ padding: '15px 22px' }}>
     <h1>Mana pool</h1>
     <ManaLevelGraph
@@ -17,8 +21,5 @@ const Mana = ({ parser }: any) => (
     />
   </Panel>
 );
-Mana.propTypes = {
-  parser: PropTypes.object.isRequired,
-};
 
 export default Mana;
