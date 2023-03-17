@@ -256,6 +256,14 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 30 : 0),
         gcd: null,
+        enabled: combatant.hasTalent(TALENTS.GRAPPLING_HOOK_TALENT),
+      },
+      {
+        spell: TALENTS.SHADOWSTEP_SHARED_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30,
+        gcd: null,
+        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT),
       },
       {
         spell: SPELLS.SPRINT.id,
