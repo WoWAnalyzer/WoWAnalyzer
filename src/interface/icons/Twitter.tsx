@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import * as React from 'react';
 
 interface Props extends Omit<React.ComponentPropsWithoutRef<'svg'>, 'viewBox' | 'className'> {
@@ -15,11 +14,5 @@ const Icon = ({ colored, ...props }: Props) => (
     </g>
   </svg>
 );
-Icon.propTypes = {
-  colored: PropTypes.bool,
-};
-Icon.defaultProps = {
-  colored: false,
-};
 
 export default Icon;

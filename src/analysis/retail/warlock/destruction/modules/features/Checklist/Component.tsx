@@ -10,7 +10,6 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PropTypes from 'prop-types';
 
 import SoulShardTracker from '../../soulshards/SoulShardTracker';
 
@@ -30,9 +29,6 @@ const DestructionWarlockChecklist = ({
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -148,15 +144,6 @@ const DestructionWarlockChecklist = ({
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-DestructionWarlockChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
-  shardTracker: PropTypes.object.isRequired,
 };
 
 export default DestructionWarlockChecklist;
