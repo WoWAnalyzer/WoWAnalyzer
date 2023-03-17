@@ -5,10 +5,10 @@ import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
 import {
+  getAcceptableCps,
   getPrimalWrathDuration,
   getRipDuration,
   getRipFullDuration,
-  MAX_CPS,
   RIP_DURATION_BASE,
 } from 'analysis/retail/druid/feral/constants';
 import {
@@ -91,7 +91,7 @@ class RipUptimeAndSnapshots extends Snapshots {
       const wasUpgrade = prevPower < power;
 
       /** Perf logic:
-       *  < 5 CPs (and not initial cast) -> Red
+       *  < 4 or 5 CPs (and not initial cast) -> Red
        *  Missing BT -> Red
        *  Missing TF -> Yellow
        *  Clip Duration (but upgrade Snapshot) -> Yellow
@@ -99,7 +99,7 @@ class RipUptimeAndSnapshots extends Snapshots {
        *  None of the Above -> Green
        */
       let value: QualitativePerformance = QualitativePerformance.Good;
-      if (cpsUsed < MAX_CPS && this.castEntries.length > 0) {
+      if (cpsUsed < getAcceptableCps(this.selectedCombatant) && this.castEntries.length > 0) {
         value = QualitativePerformance.Fail;
       } else if (this.hasBt && !hasSpec(snapshots, BLOODTALONS_SPEC)) {
         value = QualitativePerformance.Fail;
