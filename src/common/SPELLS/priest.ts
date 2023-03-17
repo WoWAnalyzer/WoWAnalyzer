@@ -191,6 +191,11 @@ const spells = spellIndexableList({
     name: 'Power Word: Barrier',
     icon: 'spell_holy_powerwordbarrier',
   },
+  WEAL_AND_WOE_BUFF: {
+    id: 390787,
+    name: 'Weal and Woe',
+    icon: 'spell_priest_burningwill',
+  },
   PURIFY: {
     id: 527,
     name: 'Purify',

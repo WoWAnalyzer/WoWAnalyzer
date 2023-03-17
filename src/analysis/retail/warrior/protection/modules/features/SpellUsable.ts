@@ -31,9 +31,8 @@ class SpellUsable extends CoreSpellUsable {
     ) {
       this.lastPotentialTriggerForShieldSlam = { ...event };
       //reset the cooldown to after the GCD of the resetting ability
-      this.lastPotentialTriggerForShieldSlam.timestamp += this.globalCooldown.getGlobalCooldownDuration(
-        spellId,
-      );
+      this.lastPotentialTriggerForShieldSlam.timestamp +=
+        this.globalCooldown.getGlobalCooldownDuration(spellId);
     } else if (spellId === SPELLS.SHIELD_SLAM.id) {
       this.lastPotentialTriggerForShieldSlam = null;
     }

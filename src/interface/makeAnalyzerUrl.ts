@@ -79,9 +79,10 @@ export function makeArmoryUrl(player: Combatant) {
   if (!profile) {
     return '#';
   }
-  let battleNetUrl = `https://worldofwarcraft.com/en-us/character/${
-    profile.region
-  }/${profile.realm.replace(/'/g, '').replace(/\s/g, '-').toLowerCase()}/${player.name}`;
+  let battleNetUrl = `https://worldofwarcraft.com/en-us/character/${profile.region}/${profile.realm
+    .replace(/'/g, '')
+    .replace(/\s/g, '-')
+    .toLowerCase()}/${player.name}`;
   if (profile.region === 'CN') {
     battleNetUrl = `https://www.wowchina.com/zh-cn/character/${profile.realm
       .replace(/'/g, '')

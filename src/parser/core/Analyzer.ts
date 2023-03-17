@@ -102,7 +102,7 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
         return analyzer.run(
           this.eventList,
           this.owner.info,
-          (this as unknown) as InjectedDependencies<Deps>,
+          this as unknown as InjectedDependencies<Deps>,
         );
       }
     }
@@ -112,7 +112,7 @@ function buildFunctionalAnalyzer<Deps extends Dependencies, Result = any>(
         const result = analyzer.run(
           this.eventList,
           this.owner.info,
-          (this as unknown) as InjectedDependencies<Deps>,
+          this as unknown as InjectedDependencies<Deps>,
         );
 
         if (result === undefined) {

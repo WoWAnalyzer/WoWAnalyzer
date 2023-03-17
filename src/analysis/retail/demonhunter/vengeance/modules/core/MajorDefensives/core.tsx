@@ -142,7 +142,7 @@ const MitigationRow = <ApplyEventType extends EventType, RemoveEventType extends
 
 export abstract class MajorDefensive<
   ApplyEventType extends EventType,
-  RemoveEventType extends EventType
+  RemoveEventType extends EventType,
 > extends Analyzer {
   static dependencies = {};
 
@@ -201,9 +201,10 @@ export abstract class MajorDefensive<
     );
   }
 
-  explainPerformance(
-    mit: Mitigation<ApplyEventType, RemoveEventType>,
-  ): { perf: QualitativePerformance; explanation?: ReactNode } {
+  explainPerformance(mit: Mitigation<ApplyEventType, RemoveEventType>): {
+    perf: QualitativePerformance;
+    explanation?: ReactNode;
+  } {
     if (this.firstSeenMaxHp <= mit.amount) {
       return {
         perf: QualitativePerformance.Perfect,

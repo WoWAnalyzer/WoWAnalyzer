@@ -1,4 +1,5 @@
 import { TALENTS_SHAMAN } from 'common/TALENTS';
+import { RETAIL_EXPANSION } from 'game/Expansion';
 import { Panel } from 'interface';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
@@ -10,6 +11,7 @@ class ProcTracker extends CoreCooldownThroughputTracker {
     {
       spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      expansion: RETAIL_EXPANSION,
     },
   ];
 

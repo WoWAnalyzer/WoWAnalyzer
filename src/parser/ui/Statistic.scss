@@ -23,7 +23,8 @@
   }
 }
 // We need to override Panel's body .pad's padding to avoid applying padding twice
-.statistic .pad, .statistic.panel .pad {
+.statistic .pad,
+.statistic.panel .pad {
   margin: 16px 18px 15px;
   padding: 0;
 }
@@ -115,7 +116,8 @@
     display: block;
   }
 
-  &:before, &:after {
+  &:before,
+  &:after {
     content: '';
     position: absolute;
     left: 0;

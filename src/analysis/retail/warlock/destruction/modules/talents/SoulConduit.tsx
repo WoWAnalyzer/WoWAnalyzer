@@ -4,14 +4,14 @@ import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import SoulShardTracker from '../soulshards/SoulShardTracker';
 
 const FRAGMENTS_PER_SHARD = 10;
-const SC_PROC_CHANCE = 0.15;
+const SC_PROC_CHANCE_BASE = 0.05;
 
 class SoulConduit extends Analyzer {
   get averageChaosBoltDamage() {
@@ -27,6 +27,9 @@ class SoulConduit extends Analyzer {
   protected soulShardTracker!: SoulShardTracker;
   protected abilityTracker!: AbilityTracker;
 
+  SC_PROC_CHANCE =
+    SC_PROC_CHANCE_BASE * this.selectedCombatant.getTalentRank(TALENTS.SOUL_CONDUIT_TALENT);
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_CONDUIT_TALENT);
@@ -39,7 +42,7 @@ class SoulConduit extends Analyzer {
     const estimatedDamage = Math.floor(generatedShards / 2) * this.averageChaosBoltDamage; // Chaos Bolt costs 2 shards to cast
     const totalSpent = this.soulShardTracker.spent / FRAGMENTS_PER_SHARD; // Destruction Soul Shard Tracker tracks fragments (10 fragments per shard)
     // find number of Shards we were MOST LIKELY to get in the fight
-    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
+    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, this.SC_PROC_CHANCE));
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -65,9 +68,9 @@ class SoulConduit extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SOUL_CONDUIT_TALENT.id}>
+        <TalentSpellText talent={TALENTS.SOUL_CONDUIT_TALENT}>
           {generatedShards} <small>generated Shards</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

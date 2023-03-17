@@ -22,7 +22,10 @@ class HardHowlingBlastCasts extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(talents.HOWLING_BLAST_TALENT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(talents.HOWLING_BLAST_TALENT),
+      this.onCast,
+    );
   }
 
   castsWithoutRime = 0;

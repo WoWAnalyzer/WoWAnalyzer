@@ -62,9 +62,7 @@ interface Config {
           text: ReactNode;
           type: AlertKind;
         }
-      | ((
-          parser: CombatLogParser,
-        ) => {
+      | ((parser: CombatLogParser) => {
           text: ReactNode;
           type: AlertKind;
         } | null);

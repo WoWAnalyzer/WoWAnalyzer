@@ -147,21 +147,7 @@ const spells = spellIndexableList({
     name: 'Fireball',
     icon: 'spell_fire_flamebolt',
     lowRanks: [
-      42832,
-      38692,
-      27070,
-      25306,
-      10151,
-      10150,
-      10149,
-      10148,
-      8402,
-      8401,
-      8400,
-      3140,
-      145,
-      143,
-      133,
+      42832, 38692, 27070, 25306, 10151, 10150, 10149, 10148, 8402, 8401, 8400, 3140, 145, 143, 133,
     ],
   },
   FLAMESTRIKE: {
@@ -193,21 +179,7 @@ const spells = spellIndexableList({
     name: 'Frostbolt',
     icon: 'spell_frost_frostbolt02',
     lowRanks: [
-      42841,
-      38697,
-      27072,
-      27071,
-      25304,
-      10181,
-      10180,
-      10179,
-      8408,
-      8407,
-      8406,
-      7322,
-      837,
-      205,
-      116,
+      42841, 38697, 27072, 27071, 25304, 10181, 10180, 10179, 8408, 8407, 8406, 7322, 837, 205, 116,
     ],
   },
   FROSTFIRE_BOLT: {
@@ -229,7 +201,7 @@ const spells = spellIndexableList({
     lowRanks: [43038, 33405, 27134, 13033, 13032, 13031, 11426],
   },
   ICE_BLOCK: {
-    id: 30,
+    id: 45438,
     name: 'Ice Block',
     icon: 'spell_frost_frost',
   },
@@ -240,7 +212,7 @@ const spells = spellIndexableList({
     lowRanks: [42913, 30455],
   },
   INVISIBILITY: {
-    id: 68,
+    id: 66,
     name: 'Invisibility',
     icon: 'ability_mage_invisibility',
   },
@@ -349,7 +321,6 @@ const spells = spellIndexableList({
     name: 'Slow',
     icon: 'spell_nature_slow',
   },
-
   // Fire
   BLAST_WAVE: {
     id: 42945,
@@ -357,11 +328,21 @@ const spells = spellIndexableList({
     icon: 'spell_holy_excorcism_02',
     lowRanks: [42944, 33933, 27133, 13021, 13020, 13019, 13018, 11113],
   },
+  COMBUSTION_BUFF: {
+    id: 28682,
+    name: 'Combustion',
+    icon: 'spell_fire_sealoffire',
+  },
   DRAGONS_BREATH: {
     id: 42950,
     name: "Dragon's Breath",
     icon: 'inv_misc_head_dragon_01',
     lowRanks: [42949, 33043, 33042, 33041, 31661],
+  },
+  HOT_STREAK: {
+    id: 48108,
+    name: 'Hot Streak',
+    icon: 'ability_mage_hotstreak',
   },
   LIVING_BOMB: {
     id: 55360,
@@ -375,7 +356,6 @@ const spells = spellIndexableList({
     icon: 'spell_fire_fireball02',
     lowRanks: [42890, 33938, 27132, 18809, 12526, 12525, 12524, 12523, 12522, 12505, 11366],
   },
-
   // Frost
   COLD_SNAP: {
     id: 11958,
