@@ -8,12 +8,12 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { ChangeDebuffStackEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 import UptimeBar from 'parser/ui/UptimeBar';
 
-const BONUS_PER_STACK = 0.03;
+const BONUS_PER_STACK_BASE = 0.015;
 const BUFFER = 50; // for some reason, changedebuffstack triggers twice on the same timestamp for each event, ignore an event if it happened < BUFFER ms after another
 const debug = false;
 
@@ -29,6 +29,9 @@ class ShadowEmbrace extends Analyzer {
     enemies: Enemies,
   };
   protected enemies!: Enemies;
+
+  BONUS_PER_STACK =
+    BONUS_PER_STACK_BASE * this.selectedCombatant.getTalentRank(TALENTS.SHADOW_EMBRACE_TALENT);
 
   damage = 0;
   private _lastEventTimestamp: number | null = null;
@@ -75,7 +78,7 @@ class ShadowEmbrace extends Analyzer {
     if (!shadowEmbrace) {
       return;
     }
-    this.damage += calculateEffectiveDamage(event, shadowEmbrace.stacks * BONUS_PER_STACK);
+    this.damage += calculateEffectiveDamage(event, shadowEmbrace.stacks * this.BONUS_PER_STACK);
   }
 
   onChangeDebuffStack(event: ChangeDebuffStackEvent) {
@@ -195,12 +198,12 @@ class ShadowEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.SHADOW_EMBRACE_TALENT.id}>
+        <TalentSpellText talent={TALENTS.SHADOW_EMBRACE_TALENT}>
           {formatPercentage(this.totalUptimePercentage)} %{' '}
           <TooltipElement
             content={
               <>
-                No stacks: {formatPercentage(uptimes[0])} %<br />1 stack:
+                No stacks: {formatPercentage(uptimes[0])} %<br />1 stack:{' '}
                 {formatPercentage(uptimes[1])} %<br />2 stacks: {formatPercentage(uptimes[2])} %
                 <br />3 stacks: {formatPercentage(uptimes[3])} %
               </>
@@ -215,7 +218,7 @@ class ShadowEmbrace extends Analyzer {
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total
           </small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

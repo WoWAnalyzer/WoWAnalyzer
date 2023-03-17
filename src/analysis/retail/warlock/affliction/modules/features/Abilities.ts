@@ -142,6 +142,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+        enabled: combatant.hasTalent(TALENTS.SUMMON_DARKGLARE_TALENT),
       },
       // Defensive
       {

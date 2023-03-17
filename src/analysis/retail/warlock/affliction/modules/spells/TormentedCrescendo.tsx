@@ -7,45 +7,45 @@ import Events, {
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const BUFF_DURATION = 12000;
+const BUFF_DURATION = 10000;
 const BUFFER = 100;
 const MAX_STACKS = 2;
 
-class Nightfall extends Analyzer {
+class TormentedCrescendo extends Analyzer {
   wastedProcs = 0;
   stacks = 0;
   private buffApplyTimestamp: number | null = null;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.NIGHTFALL_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TORMENTED_CRESCENDO_TALENT);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.NIGHTFALL_BUFF),
-      this.onNightfallApplyRefresh,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.TORMENTED_CRESCENDO_BUFF),
+      this.onTormentedCrescendoApplyRefresh,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.NIGHTFALL_BUFF),
-      this.onNightfallApplyRefresh,
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TORMENTED_CRESCENDO_BUFF),
+      this.onTormentedCrescendoApplyRefresh,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.NIGHTFALL_BUFF),
-      this.onNightfallRemove,
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.TORMENTED_CRESCENDO_BUFF),
+      this.onTormentedCrescendoRemove,
     );
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.NIGHTFALL_BUFF),
-      this.onNightfallRemoveStack,
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.TORMENTED_CRESCENDO_BUFF),
+      this.onTormentedCrescendoApplyStack,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.NIGHTFALL_BUFF),
-      this.onNightfallApplyStack,
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.TORMENTED_CRESCENDO_BUFF),
+      this.onTormentedCrescendoRemoveStack,
     );
   }
 
-  onNightfallApplyRefresh(event: ApplyBuffEvent | RefreshBuffEvent) {
+  onTormentedCrescendoApplyRefresh(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (this.stacks === MAX_STACKS) {
       this.wastedProcs += 1;
     } else {
@@ -54,19 +54,18 @@ class Nightfall extends Analyzer {
     this.buffApplyTimestamp = event.timestamp;
   }
 
-  onNightfallApplyStack(event: ApplyBuffStackEvent) {
+  onTormentedCrescendoApplyStack(event: ApplyBuffStackEvent) {
     this.stacks += 1;
     this.buffApplyTimestamp = event.timestamp;
   }
 
-  onNightfallRemoveStack() {
+  onTormentedCrescendoRemoveStack() {
     this.stacks -= 1;
   }
 
-  onNightfallRemove(event: RemoveBuffEvent) {
+  onTormentedCrescendoRemove(event: RemoveBuffEvent) {
     const expectedEnd = this.buffApplyTimestamp || 0 + BUFF_DURATION;
     if (expectedEnd - BUFFER <= event.timestamp && event.timestamp <= expectedEnd + BUFFER) {
-      // buff fell off naturally
       this.wastedProcs += 1;
     }
     this.stacks = 0;
@@ -76,12 +75,12 @@ class Nightfall extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.NIGHTFALL_TALENT.id}>
+        <TalentSpellText talent={TALENTS.TORMENTED_CRESCENDO_TALENT}>
           {this.wastedProcs} <small>wasted procs</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
 }
 
-export default Nightfall;
+export default TormentedCrescendo;
