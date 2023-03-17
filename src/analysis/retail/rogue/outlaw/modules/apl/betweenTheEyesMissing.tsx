@@ -37,9 +37,7 @@ export function betweenTheEyesMissing(): Condition<{ [key: string]: DurationData
             const encodedTargetString = encodeTargetString(event.targetID, event.targetInstance);
             const castEvent = getHardcast(event)!;
             if (castEvent == null) {
-              console.log(event);
-              console.log(castEvent);
-              console.warn('Linked between the eyes cast missing, incomplete log?');
+              console.warn('Linked between the eyes cast missing, incomplete log?', event);
             }
             const cpSpent = castEvent
               ? getResourceSpent(castEvent, RESOURCE_TYPES.COMBO_POINTS)
