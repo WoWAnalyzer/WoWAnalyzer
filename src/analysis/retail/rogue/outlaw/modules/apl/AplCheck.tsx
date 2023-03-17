@@ -71,6 +71,10 @@ const rtbCondition = () => {
           buffMissing(SPELLS.SHADOW_DANCE_BUFF),
           optionalRule(buffPresent(SPELLS.SHADOW_DANCE_BUFF)),
         ),
+        // allow not rerolling during subterfuge window
+        or(buffMissing(SPELLS.SUBTERFUGE_BUFF), optionalRule(buffPresent(SPELLS.SUBTERFUGE_BUFF))),
+        // same for vanish buff
+        or(buffMissing(SPELLS.VANISH_BUFF), optionalRule(buffPresent(SPELLS.VANISH_BUFF))),
       ),
       (tense) => (
         <>
