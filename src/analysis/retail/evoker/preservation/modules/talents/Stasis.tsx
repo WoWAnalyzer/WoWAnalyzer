@@ -52,10 +52,11 @@ class Stasis extends Analyzer {
       // stasis was cast pre-pull
       const numStacks =
         event.type === EventType.RemoveBuffStack ? (event as RemoveBuffStackEvent).stack : 0;
+      // first removal puts you at 2 stacks, so if we go from 2->1 then numStacks is 1, which means we're missing 1 spell
       this.curInfo = {
         castTime: this.owner.fight.start_time,
         consumeTime: 0,
-        spells: Array(numStacks).fill(0),
+        spells: Array(2 - numStacks).fill(0),
       };
     }
     const spell = getStasisSpell(event);
