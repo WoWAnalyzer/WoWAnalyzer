@@ -28,6 +28,10 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
 
+      {
+        spellId: SPELLS.SLICE_AND_DICE.id,
+      },
+
       // Talents
       {
         spellId: TALENTS.ALACRITY_TALENT.id,
