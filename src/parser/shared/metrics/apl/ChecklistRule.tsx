@@ -10,7 +10,15 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import * as React from 'react';
 
 import { ConditionDescription } from './annotate';
-import { InternalRule as AplRule, Apl, CheckResult, spells, Tense, Violation } from './index';
+import {
+  InternalRule as AplRule,
+  Apl,
+  CheckResult,
+  spells,
+  Tense,
+  Violation,
+  isRuleEqual,
+} from './index';
 
 interface Props {
   apl: Apl;
@@ -26,13 +34,13 @@ export type AplRuleProps = Pick<Props, 'apl' | 'checkResults'>;
 
 // count the number of violations of a rule with runs removed
 const numFailures = (violations: Violation[], rule: AplRule) =>
-  violations.filter((v) => v.rule === rule).length;
+  violations.filter((v) => isRuleEqual(v.rule, rule)).length;
 
 const threshold = (
   rule: AplRule,
   { successes, violations }: CheckResult,
 ): RequirementThresholds | null => {
-  const numSuccess = successes.filter((x) => x.rule === rule).length;
+  const numSuccess = successes.filter((x) => isRuleEqual(x.rule, rule)).length;
   const numFailure = numFailures(violations, rule);
 
   const numCasts = numSuccess + numFailure;
@@ -59,11 +67,11 @@ const Tooltip = ({
   rule: AplRule;
   checkResults: CheckResult;
 }) => {
-  const numSuccess = successes.filter((x) => x.rule === rule).length;
+  const numSuccess = successes.filter((x) => isRuleEqual(x.rule, rule)).length;
   const numFailure = numFailures(violations, rule);
   const mistakes = Object.entries(
     violations
-      .filter((v) => v.rule === rule)
+      .filter((v) => isRuleEqual(v.rule, rule))
       .reduce((counts: { [spellId: number]: number }, v) => {
         counts[v.actualCast.ability.guid] = (counts[v.actualCast.ability.guid] || 0) + 1;
         return counts;
