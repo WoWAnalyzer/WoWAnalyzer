@@ -127,12 +127,6 @@ export default class FinisherUse extends Analyzer {
       event as TargettedEvent<any>,
     );
     const bteCDRemainingTime = this.spellUsable.cooldownRemaining(SPELLS.BETWEEN_THE_EYES.id);
-    const hasSnD = this.selectedCombatant.getBuff(
-      SPELLS.SLICE_AND_DICE.id,
-      event.timestamp,
-      0,
-      200,
-    );
 
     if (this.hasGreenskinTalent) {
       checklistFinisherChoice.summary = (
@@ -152,104 +146,27 @@ export default class FinisherUse extends Analyzer {
 
     switch (spellId) {
       case SPELLS.BETWEEN_THE_EYES.id:
-        {
-          const hasGreenskinBuff = this.selectedCombatant.hasBuff(
-            TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id,
-          );
-
-          if (this.hasGreenskinTalent) {
-            if (hasGreenskinBuff) {
-              checklistFinisherChoice.performance = QualitativePerformance.Ok;
-              checklistFinisherChoice.summary = (
-                <div>Greenskin Wickers buff was already present</div>
-              );
-              checklistFinisherChoice.details = (
-                <div>
-                  You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with a{' '}
-                  <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> buff already
-                  present, try to not override your{' '}
-                  <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> buffs.
-                </div>
-              );
-            } else {
-              checklistFinisherChoice.summary = <div>Between the eyes used</div>;
-              checklistFinisherChoice.details = (
-                <div>
-                  You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> and gained a{' '}
-                  <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> buff.
-                </div>
-              );
-            }
-          } else if (
-            bteDebuffRemainingTime > BTE_ACCEPTABLE_REFRESH_TIME &&
-            !this.hasImprovedBteTalent
-          ) {
-            checklistFinisherChoice.performance = QualitativePerformance.Ok;
-            checklistFinisherChoice.details = (
-              <div>
-                You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with{' '}
-                {formatDurationMillisMinSec(bteDebuffRemainingTime)} left on the debuff, since you
-                aren't playing <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> talent,
-                you do not need to refresh the debuff this early, try to instead keep the cooldown
-                ready in case of target swapping for example. Refreshing the debuff early before a{' '}
-                <SpellLink id={TALENTS_ROGUE.SHADOW_DANCE_TALENT.id} /> window is however fine.
-              </div>
-            );
-          } else if (bteDebuffRemainingTime === 0) {
-            checklistFinisherChoice.summary = <div>Between the eyes debuff applied</div>;
-            checklistFinisherChoice.details = (
-              <div>
-                You applied <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> debuff.
-              </div>
-            );
-          } else {
-            checklistFinisherChoice.details = (
-              <div>
-                You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with{' '}
-                {formatDurationMillisMinSec(bteDebuffRemainingTime)} left on the debuff.
-              </div>
-            );
-          }
-        }
+        this.bteCondition(event, checklistFinisherChoice);
         break;
       case SPELLS.SLICE_AND_DICE.id:
         // Add SnD remaining time here
         checklistFinisherChoice.details = <div>{checklistFinisherChoice.details}.</div>;
 
-        if (!this.bteCondition(event, checklistFinisherChoice)) {
+        if (!this.bteCheck(event, checklistFinisherChoice)) {
+          const hasSnD = this.selectedCombatant.getBuff(
+            SPELLS.SLICE_AND_DICE.id,
+            event.timestamp,
+            0,
+            200,
+          );
           if (!hasSnD) {
             checklistFinisherChoice.summary = <div>No slice and dice buff running</div>;
           }
         }
         break;
       case SPELLS.DISPATCH.id:
-        if (!this.bteCondition(event, checklistFinisherChoice)) {
-          if (!hasSnD && !this.selectedCombatant.hasBuff(SPELLS.GRAND_MELEE.id)) {
-            checklistFinisherChoice.performance = QualitativePerformance.Fail;
-            checklistFinisherChoice.summary = <div>Slice and dice buff was missing</div>;
-            checklistFinisherChoice.details = (
-              <div>
-                {checklistFinisherChoice.details} with <SpellLink id={SPELLS.SLICE_AND_DICE.id} />{' '}
-                buff down, try to maintain the buff at all time.
-              </div>
-            );
-          } else if (this.hasGreenskinTalent) {
-            checklistFinisherChoice.details = (
-              <div>
-                {checklistFinisherChoice.details} with{' '}
-                {formatDurationMillisMinSec(bteCDRemainingTime)} left on{' '}
-                <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> cooldown.
-              </div>
-            );
-          } else {
-            checklistFinisherChoice.details = (
-              <div>
-                {checklistFinisherChoice.details} with{' '}
-                {formatDurationMillisMinSec(bteDebuffRemainingTime)} left on{' '}
-                <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> debuff.
-              </div>
-            );
-          }
+        if (!this.bteCheck(event, checklistFinisherChoice)) {
+          this.dispatchCondition(event, checklistFinisherChoice);
         }
         break;
       default:
@@ -313,7 +230,7 @@ export default class FinisherUse extends Analyzer {
     );
   }
 
-  private bteCondition(event: CastEvent, checkListFinisher: ChecklistUsageInfo): boolean {
+  private bteCheck(event: CastEvent, checkListFinisher: ChecklistUsageInfo): boolean {
     const wasBtEReady = this.spellUsable.isAvailable(SPELLS.BETWEEN_THE_EYES.id);
 
     if (!wasBtEReady) {
@@ -391,5 +308,101 @@ export default class FinisherUse extends Analyzer {
     }
 
     return false;
+  }
+
+  private bteCondition(event: CastEvent, checkListFinisher: ChecklistUsageInfo) {
+    const bteDebuffRemainingTime = this.betweenTheEyes.getTimeRemaining(
+      event as TargettedEvent<any>,
+    );
+    const hasGreenskinBuff = this.selectedCombatant.hasBuff(
+      TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id,
+    );
+
+    if (this.hasGreenskinTalent) {
+      if (hasGreenskinBuff) {
+        checkListFinisher.performance = QualitativePerformance.Ok;
+        checkListFinisher.summary = <div>Greenskin Wickers buff was already present</div>;
+        checkListFinisher.details = (
+          <div>
+            You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with a{' '}
+            <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> buff already present, try
+            to not override your <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} />{' '}
+            buffs.
+          </div>
+        );
+      } else {
+        checkListFinisher.summary = <div>Between the eyes used</div>;
+        checkListFinisher.details = (
+          <div>
+            You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> and gained a{' '}
+            <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> buff.
+          </div>
+        );
+      }
+    } else if (bteDebuffRemainingTime > BTE_ACCEPTABLE_REFRESH_TIME && !this.hasImprovedBteTalent) {
+      checkListFinisher.performance = QualitativePerformance.Ok;
+      checkListFinisher.details = (
+        <div>
+          You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with{' '}
+          {formatDurationMillisMinSec(bteDebuffRemainingTime)} left on the debuff, since you aren't
+          playing <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> talent, you do not
+          need to refresh the debuff this early, try to instead keep the cooldown ready in case of
+          target swapping for example. Refreshing the debuff early before a{' '}
+          <SpellLink id={TALENTS_ROGUE.SHADOW_DANCE_TALENT.id} /> window is however fine.
+        </div>
+      );
+    } else if (bteDebuffRemainingTime === 0) {
+      checkListFinisher.summary = <div>Between the eyes debuff applied</div>;
+      checkListFinisher.details = (
+        <div>
+          You applied <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> debuff.
+        </div>
+      );
+    } else {
+      checkListFinisher.details = (
+        <div>
+          You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with{' '}
+          {formatDurationMillisMinSec(bteDebuffRemainingTime)} left on the debuff.
+        </div>
+      );
+    }
+  }
+
+  private dispatchCondition(event: CastEvent, checkListFinisher: ChecklistUsageInfo) {
+    const bteDebuffRemainingTime = this.betweenTheEyes.getTimeRemaining(
+      event as TargettedEvent<any>,
+    );
+    const bteCDRemainingTime = this.spellUsable.cooldownRemaining(SPELLS.BETWEEN_THE_EYES.id);
+    const hasSnD = this.selectedCombatant.getBuff(
+      SPELLS.SLICE_AND_DICE.id,
+      event.timestamp,
+      0,
+      200,
+    );
+
+    if (!hasSnD && !this.selectedCombatant.hasBuff(SPELLS.GRAND_MELEE.id)) {
+      checkListFinisher.performance = QualitativePerformance.Fail;
+      checkListFinisher.summary = <div>Slice and dice buff was missing</div>;
+      checkListFinisher.details = (
+        <div>
+          {checkListFinisher.details} with <SpellLink id={SPELLS.SLICE_AND_DICE.id} /> buff down,
+          try to maintain the buff at all time.
+        </div>
+      );
+    } else if (this.hasGreenskinTalent) {
+      checkListFinisher.details = (
+        <div>
+          {checkListFinisher.details} with {formatDurationMillisMinSec(bteCDRemainingTime)} left on{' '}
+          <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> cooldown.
+        </div>
+      );
+    } else {
+      checkListFinisher.details = (
+        <div>
+          {checkListFinisher.details} with {formatDurationMillisMinSec(bteDebuffRemainingTime)} left
+          on <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> debuff.
+        </div>
+      );
+    }
   }
 }
