@@ -1,10 +1,11 @@
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ReactNode } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import { CastEvent } from 'parser/core/Events';
 import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
+import useSessionFeatureFlag from 'interface/useSessionFeatureFlag';
 
 /**
  * Contains data about one aspect of the quality of a cast and the reasoning.
@@ -103,3 +104,26 @@ export const spellUseToBoxRowEntry = (
     </>
   ),
 });
+
+interface SpellUsageContextValue {
+  hideGoodCasts: boolean;
+  setHideGoodCasts: (p: boolean) => void;
+}
+
+export const SpellUsageContext = createContext<SpellUsageContextValue>({
+  hideGoodCasts: false,
+  setHideGoodCasts: () => {
+    // no-op
+  },
+});
+
+export const SpellUsageContextProvider = ({ children }: { children: ReactNode }) => {
+  const [hideGoodCasts, setHideGoodCasts] = useSessionFeatureFlag('hide-good-casts');
+  return (
+    <SpellUsageContext.Provider value={{ hideGoodCasts, setHideGoodCasts }}>
+      {children}
+    </SpellUsageContext.Provider>
+  );
+};
+
+export const useSpellUsageContext = () => useContext(SpellUsageContext);

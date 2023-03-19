@@ -16,6 +16,7 @@ import {
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
 import FuryCapWaste from './guide/FuryCapWaste';
+import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -75,6 +76,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       })}
     >
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
+      <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
       <CooldownGraphSubsection />
       <CooldownUsage analyzer={modules.essenceBreak} title="Essence Break" />
       <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
@@ -112,6 +114,7 @@ function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
       })}
     >
       <HideExplanationsToggle id="hide-explanations-rotations" />
+      <HideGoodCastsToggle id="hide-good-casts-rotations" />
       {modules.throwGlaive.guideSubsection()}
       {modules.momentum.guideSubsection()}
     </Section>

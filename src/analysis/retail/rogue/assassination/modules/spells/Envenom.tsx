@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/rogue';
 import Events, { CastEvent, TargettedEvent } from 'parser/core/Events';
-import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import RuptureUptimeAndSnapshots from 'analysis/retail/rogue/assassination/modules/spells/RuptureUptimeAndSnapshots';
@@ -50,14 +50,9 @@ export default class Envenom extends Analyzer {
       </p>
     );
 
-    const performances = this.cooldownUses.map((it) =>
-      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
-    );
-
     return (
       <SpellUsageSubSection
         explanation={explanation}
-        performance={performances}
         uses={this.cooldownUses}
         castBreakdownSmallText={
           <>
