@@ -4,6 +4,7 @@ import { Sharrq, emallson, SyncSubaru } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 19), <>Fixed utilisation percentage for <SpellLink id={talents.TOUCH_OF_THE_MAGI_TALENT} /> under <SpellLink id={talents.ARCANE_ECHO_TALENT} />.</>, SyncSubaru),
   change(date(2023, 3, 14), <><SpellLink id={talents.ARCANE_HARMONY_TALENT} /> now shows Bonus Damage under Statistics.</>, SyncSubaru),
   change(date(2023, 3, 13), <>Updated bonus damage multiplier of <SpellLink id={talents.ARCANE_HARMONY_TALENT} />.</>, SyncSubaru),
   change(date(2023, 1, 17), <>Fixed outdated reference to the Shadowlands version of <SpellLink id={talents.RADIANT_SPARK_TALENT} />.</>, emallson),

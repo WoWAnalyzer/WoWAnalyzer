@@ -76,6 +76,7 @@ class ArcaneEcho extends Analyzer {
 
   get touchUtilization() {
     return (
+      1 -
       this.badTouchUses / this.abilityTracker.getAbility(TALENTS.TOUCH_OF_THE_MAGI_TALENT.id).casts
     );
   }
@@ -132,7 +133,8 @@ class ArcaneEcho extends Analyzer {
             {formatNumber(this.averageCastsPerTouch)}{' '}
             <small>Average casts per Touch of the Magi</small>
             <br />
-            <SpellIcon id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} /> {this.touchUtilization}{' '}
+            <SpellIcon id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} />{' '}
+            {formatNumber(this.touchUtilization * 100)}%{' '}
             <small>Touch of the Magi Utilization</small>
           </>
         </BoringSpellValueText>
