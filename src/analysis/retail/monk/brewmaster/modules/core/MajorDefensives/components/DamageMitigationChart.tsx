@@ -116,7 +116,7 @@ export const DamageMitigationChart = React.memo(({ onHover }: { onHover: SignalL
           interpolate: 'monotone',
           color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
           stroke: 'black',
-          strokeWidth: 1.5,
+          strokeWidth: 0.5,
         },
         data: {
           name: 'events',
