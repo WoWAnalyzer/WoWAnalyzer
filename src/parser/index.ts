@@ -46,6 +46,7 @@ import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
 import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
+import ClassicRogueAssassination from 'analysis/classic/rogue/assassination';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
 import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
 
@@ -105,14 +106,23 @@ const configs: Config[] = [
 
   // Classic
   ClassicDeathKnightUnholy,
+
   ClassicDruidRestoration,
+
   ClassicMageArcane,
   ClassicMageFire,
+
   ClassicPaladinHoly,
+
   ClassicShamanRestoration,
+
   ClassicPriestShadow,
+
   ClassicHunterSurvival,
   ClassicHunterMarksman,
+
+  ClassicRogueAssassination,
+
   ClassicWarlockAffliction,
   ClassicWarlockDemonology,
 ];

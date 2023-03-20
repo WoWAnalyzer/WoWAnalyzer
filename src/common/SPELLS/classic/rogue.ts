@@ -180,6 +180,11 @@ const spells = spellIndexableList({
     name: 'Killing Spree',
     icon: 'ability_rogue_murderspree',
   },
+  OVERKILL_BUFF: {
+    id: 58427,
+    name: 'Overkill',
+    icon: 'ability_hunter_rapidkilling',
+  },
   RIPOSTE: {
     id: 14251,
     name: 'Riposte',
@@ -216,6 +221,15 @@ const spells = spellIndexableList({
     id: 36554,
     name: 'Shadowstep',
     icon: 'ability_rogue_shadowstep',
+  },
+  // ---------
+  // OTHER
+  // ---------
+  RESTORE_ENERGY: {
+    // Thistle Tea
+    id: 9512,
+    name: 'Restore Energy',
+    icon: 'inv_drink_milk_05',
   },
 });
 
