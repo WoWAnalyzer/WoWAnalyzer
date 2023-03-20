@@ -56,11 +56,7 @@ class DemonicTyrantHandler extends Analyzer {
         // extended duration on DT cast = (spawn + 15) + 15
         // real duration = (spawn + 15) + actualBuffTime
         imp.expectedDespawn = imp.spawn + PETS.WILD_IMP_HOG.duration + actualBuffTime;
-        imp.pushHistory(
-          event.timestamp,
-          'Updated expected despawn for imp',
-          event,
-        );
+        imp.pushHistory(event.timestamp, 'Updated expected despawn for imp', event);
       });
   }
 }

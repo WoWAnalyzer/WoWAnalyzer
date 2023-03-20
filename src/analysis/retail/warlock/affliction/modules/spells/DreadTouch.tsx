@@ -8,6 +8,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import UptimeIcon from 'interface/icons/Uptime';
 
 export default class DreadTouch extends Analyzer {
   static dependencies = {
@@ -58,7 +59,7 @@ export default class DreadTouch extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={TALENTS.DREAD_TOUCH_TALENT.id}>
-          {formatPercentage(this.uptime)} % <small>uptime</small>
+          <UptimeIcon /> {formatPercentage(this.uptime)} % <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>
     );

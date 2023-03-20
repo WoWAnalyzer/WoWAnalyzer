@@ -112,6 +112,9 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.STASIS_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
+        castEfficiency: {
+          suggestion: true,
+        },
         gcd: {
           static: 0,
         },

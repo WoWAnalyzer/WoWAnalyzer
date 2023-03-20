@@ -16,13 +16,19 @@ import {
   Trevor,
   Vireve,
   Pilsung,
-  HerzBlutRaffy
-
+  HerzBlutRaffy,
+  Abelito75
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 3, 18), 'Add T30 set IDs.', ToppleTheNun),
+  change(date(2023, 3, 18), 'Add Classic WotLK Rogue spells', jazminite),
+  change(date(2023, 3, 17), 'Added Ulduar enchants and fixed cloak enchant for Classic', Arbixal),
+  change(date(2023, 3, 16), 'TypeProp removal P1.', Abelito75),
+  change(date(2023, 3, 13), 'Fixed Cooldown Tracker.', Abelito75),
+  change(date(2023, 3, 15), "Add prettier to the CI", Putro),
   change(date(2023, 3, 8), 'Add Classic WotLK P2 trinkets.', jazminite),
   change(date(2023, 3, 6), 'Fix combatants not being dispatched to the Redux store.', ToppleTheNun),
   change(date(2023, 3, 4), 'Add Playwright tests for validating application behavior.', ToppleTheNun),

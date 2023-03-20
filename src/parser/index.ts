@@ -40,9 +40,10 @@ import PreservationEvoker from 'analysis/retail/evoker/preservation';
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
 import ClassicDruidRestoration from 'analysis/classic/druid/restoration';
 import ClassicMageArcane from 'analysis/classic/mage/arcane';
+import ClassicMageFire from 'analysis/classic/mage/fire';
 import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
+import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
-import ClassicShaman from 'analysis/classic/shaman';
 import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
@@ -106,9 +107,10 @@ const configs: Config[] = [
   ClassicDeathKnightUnholy,
   ClassicDruidRestoration,
   ClassicMageArcane,
+  ClassicMageFire,
   ClassicPaladinHoly,
+  ClassicShamanRestoration,
   ClassicPriestShadow,
-  ClassicShaman,
   ClassicHunterSurvival,
   ClassicHunterMarksman,
   ClassicWarlockAffliction,

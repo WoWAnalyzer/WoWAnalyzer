@@ -44,8 +44,8 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
           manaLeft: this.manaValues.suggestionThresholds,
-          nonHealingTimeSuggestionThresholds: this.alwaysBeCasting
-            .nonHealingTimeSuggestionThresholds,
+          nonHealingTimeSuggestionThresholds:
+            this.alwaysBeCasting.nonHealingTimeSuggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           // Spells
           // spellName: this.spellName.uptimeSuggestionThresholds,

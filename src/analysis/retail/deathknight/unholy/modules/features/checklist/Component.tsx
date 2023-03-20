@@ -6,7 +6,6 @@ import Checklist from 'parser/shared/modules/features/Checklist';
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PropTypes from 'prop-types';
 import {
   AbilityRequirementProps,
   ChecklistProps,
@@ -19,9 +18,6 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -93,14 +89,6 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-UnholyDeathKnightChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
 };
 
 export default UnholyDeathKnightChecklist;

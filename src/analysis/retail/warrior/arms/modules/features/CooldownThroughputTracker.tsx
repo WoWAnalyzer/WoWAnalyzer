@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
+import { RETAIL_EXPANSION } from 'game/Expansion';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -10,10 +11,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     {
       spell: SPELLS.SWEEPING_STRIKES.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      expansion: RETAIL_EXPANSION,
     },
     {
       spell: TALENTS.AVATAR_SHARED_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      expansion: RETAIL_EXPANSION,
     },
   ];
 

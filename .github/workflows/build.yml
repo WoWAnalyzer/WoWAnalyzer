@@ -94,6 +94,24 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
           required: true
       - run: yarn lint --max-warnings=0
+  prettier:
+    needs: [prepare]
+    name: 'Prettier'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - run: yarn prettier . --check
   test-interface:
     needs: [prepare]
     # This should actually include anything but parser and integration tests
@@ -252,7 +270,7 @@ jobs:
         run: yarn lingui compile
 
   docker-image:
-    needs: [typecheck, linting, test-interface, test-parser, test-integration, e2e, build]
+    needs: [typecheck, linting, prettier, test-interface, test-parser, test-integration, e2e, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')

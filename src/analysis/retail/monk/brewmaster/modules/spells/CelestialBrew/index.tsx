@@ -216,7 +216,7 @@ class CelestialBrew extends MajorDefensive {
 
     this.recordMitigation({
       // we try to put in the damage event, but worst case we plug in the absorb event
-      event: damageEvent(event) ?? event,
+      event: damageEvent(event) ?? { ...event, ability: event.extraAbility },
       mitigatedAmount: event.amount,
     });
   }

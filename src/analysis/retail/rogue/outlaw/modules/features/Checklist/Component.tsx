@@ -10,7 +10,6 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PropTypes from 'prop-types';
 
 import { RTBSuggestion } from '../../spells/RollTheBonesEfficiency';
 
@@ -30,9 +29,6 @@ const OutlawRogueChecklist = ({
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   return (
     <Checklist>
@@ -168,15 +164,6 @@ const OutlawRogueChecklist = ({
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-OutlawRogueChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
-  rtbEfficiencies: PropTypes.array.isRequired,
 };
 
 export default OutlawRogueChecklist;

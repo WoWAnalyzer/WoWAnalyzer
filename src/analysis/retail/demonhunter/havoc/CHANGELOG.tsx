@@ -1,11 +1,17 @@
 import { change, date } from 'common/changelog';
 import { ToppleTheNun } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
+import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
 import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 3, 16), <>Add tooltip explaining <SpellLink id={TALENTS.BLIND_FURY_TALENT} />'s contribution to Fury waste.</>, ToppleTheNun),
+  change(date(2023, 3, 12), <>Add <SpellLink id={TALENTS.MOMENTUM_TALENT} /> to rotation section.</>, ToppleTheNun),
+  change(date(2023, 3, 12), <>Add rotation section. Add <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} /> to rotation section.</>, ToppleTheNun),
+  change(date(2023, 3, 12), <>Track <SpellLink id={TALENTS.EYE_BEAM_TALENT} /> clipping for <SpellLink id={TALENTS.FURIOUS_GAZE_TALENT} />.</>, ToppleTheNun),
+  change(date(2023, 3, 12), <>Remove <SpellLink id={TALENTS.THE_HUNT_TALENT} /> breakdown from Guide. Fix display of <SpellLink id={TALENTS.ESSENCE_BREAK_TALENT} /> breakdown. Make the Guide the default view.</>, ToppleTheNun),
   change(date(2023, 1, 15), 'Update Fury waste recommendations and Guide.', ToppleTheNun),
   change(date(2022, 12, 15), 'Fix Guide crashing.', ToppleTheNun),
   change(date(2022, 12, 5), 'Add very basic APL.', ToppleTheNun),

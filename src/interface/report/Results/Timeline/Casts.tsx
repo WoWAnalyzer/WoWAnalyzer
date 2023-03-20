@@ -35,28 +35,28 @@ type ApplicableCastEvent =
   | EndChannelEvent
   | GlobalCooldownEvent
   | AutoAttackCooldownEvent;
-export const isApplicableEvent = (playerId: number) => (
-  event: AnyEvent,
-): event is ApplicableCastEvent => {
-  // we don't use `HasSource` because not every event has the full SourcedEvent field set
-  if (!('sourceID' in event) || event.sourceID !== playerId) {
-    // Ignore pet/boss casts
-    return false;
-  }
-
-  switch (event.type) {
-    case EventType.FreeCast:
-    case EventType.Cast:
-    case EventType.BeginChannel:
-      return isApplicableCastEvent(event);
-    case EventType.EndChannel:
-    case EventType.GlobalCooldown:
-    case EventType.AutoAttackCooldown:
-      return true;
-    default:
+export const isApplicableEvent =
+  (playerId: number) =>
+  (event: AnyEvent): event is ApplicableCastEvent => {
+    // we don't use `HasSource` because not every event has the full SourcedEvent field set
+    if (!('sourceID' in event) || event.sourceID !== playerId) {
+      // Ignore pet/boss casts
       return false;
-  }
-};
+    }
+
+    switch (event.type) {
+      case EventType.FreeCast:
+      case EventType.Cast:
+      case EventType.BeginChannel:
+        return isApplicableCastEvent(event);
+      case EventType.EndChannel:
+      case EventType.GlobalCooldown:
+      case EventType.AutoAttackCooldown:
+        return true;
+      default:
+        return false;
+    }
+  };
 /**
  * @param event the event you want to mark inefficient. Must be a Cast or BeginCast event.
  * @param tooltip the text you want displayed in the tooltip.

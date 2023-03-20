@@ -23,13 +23,18 @@ import CorruptionUptime from './modules/spells/Corruption';
 import DrainSoul from './modules/spells/DrainSoul';
 import DreadTouch from './modules/spells/DreadTouch';
 import Haunt from './modules/spells/Haunt';
+import InevitableDemise from './modules/spells/InevitableDemise';
+import MaleficAffliction from './modules/spells/MaleficAffliction';
 import Nightfall from './modules/spells/Nightfall';
+import PandemicInvocation from './modules/spells/PandemicInvocation';
 import PhantomSingularity from './modules/spells/PhantomSingularity';
 import ShadowEmbrace from './modules/spells/ShadowEmbrace';
 import SiphonLifeUptime from './modules/spells/SiphonLife';
 import SoulConduit from './modules/spells/SoulConduit';
+import TormentedCrescendo from './modules/spells/TormentedCrescendo';
 import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
 import VileTaint from './modules/spells/VileTaint';
+import WrathOfConsumption from './modules/spells/WrathOfConsumption';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -64,13 +69,18 @@ class CombatLogParser extends CoreCombatLogParser {
     absoluteCorruption: AbsoluteCorruption,
     drainSoul: DrainSoul,
     dreadTouch: DreadTouch,
+    inevitableDemise: InevitableDemise,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
+    maleficAffliction: MaleficAffliction,
     nightfall: Nightfall,
+    pandemicInvocation: PandemicInvocation,
     phantomSingularity: PhantomSingularity,
     siphonLifeUptime: SiphonLifeUptime,
     soulConduit: SoulConduit,
+    tormentedCrescendo: TormentedCrescendo,
     vileTaint: VileTaint,
+    wrathOfConsumption: WrathOfConsumption,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

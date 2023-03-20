@@ -35,6 +35,7 @@ import TouchOfKarma from './modules/spells/TouchOfKarma';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
+import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -80,6 +81,9 @@ class CombatLogParser extends CoreCombatLogParser {
     invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
+
+    // apl
+    apl: AplCheck,
   };
 }
 

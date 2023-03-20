@@ -23,11 +23,7 @@ export const DESPAWN_REASONS = {
   NEW_PERMANENT_PET: 'Killed by summoning new permanent pet',
 };
 
-type PetHistoryEntry = [
-  number,
-  string,
-  AnyEvent
-]
+type PetHistoryEntry = [number, string, AnyEvent];
 
 export class TimelinePet {
   name!: string;
@@ -54,7 +50,7 @@ export class TimelinePet {
   x: number | null = null;
   y: number | null = null;
   shouldImplode: boolean = false;
-  currentEnergy : number | null = null; // energy because they can despawn "prematurely" due to their mechanics
+  currentEnergy: number | null = null; // energy because they can despawn "prematurely" due to their mechanics
 
   constructor(
     petInfo: PetInfo,
@@ -75,7 +71,7 @@ export class TimelinePet {
     this.summonedBy = summonedBy;
   }
 
-  setWildImpProperties(playerPosition: { x: number, y: number }) {
+  setWildImpProperties(playerPosition: { x: number; y: number }) {
     this.x = playerPosition.x;
     this.y = playerPosition.y;
     this.shouldImplode = false;

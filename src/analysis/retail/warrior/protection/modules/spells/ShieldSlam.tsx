@@ -68,7 +68,6 @@ class ShieldBlock extends Analyzer {
 
     this.totalCastsAssumed = Math.trunc(this.totalCastsAssumed);
 
-    //this.totalCastsAssumed = parseInt(this.totalCastsAssumed); [dambroda: not sure what this did?]
     if (debug) {
       console.log('assumed max shield slam casts: ' + this.totalCastsAssumed);
       console.log('time on cd: ' + this.timeOnCd);

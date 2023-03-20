@@ -20,6 +20,7 @@ import DEATH_KNIGHT from './deathknight';
 import DRUID from './druid';
 import HUNTER from './hunter';
 import MAGE from './mage';
+import ROGUE from './rogue';
 import PALADIN from './paladin';
 import PRIEST from './priest';
 import SHAMAN from './shaman';
@@ -38,6 +39,7 @@ const ABILITIES = {
   ...DRUID,
   ...HUNTER,
   ...MAGE,
+  ...ROGUE,
   ...PALADIN,
   ...PRIEST,
   ...SHAMAN,

@@ -4,14 +4,13 @@ import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { findMax, binomialPMF } from 'parser/shared/modules/helpers/Probability';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import SoulShardTracker from '../resources/SoulShardTracker';
 
-const TICKS_PER_UA = 4;
-const SC_PROC_CHANCE = 0.15;
+const SC_PROC_CHANCE_BASE = 0.05;
 
 class SoulConduit extends Analyzer {
   static dependencies = {
@@ -20,33 +19,35 @@ class SoulConduit extends Analyzer {
 
   protected soulShardTracker!: SoulShardTracker;
 
-  _totalTicks = 0;
-  _totalUAdamage = 0;
+  SC_PROC_CHANCE: number =
+    SC_PROC_CHANCE_BASE * this.selectedCombatant.getTalentRank(TALENTS.SOUL_CONDUIT_TALENT);
+
+  _totalCasts = 0;
+  _totalMRdamage = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SOUL_CONDUIT_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.UNSTABLE_AFFLICTION),
-      this.onUnstableAfflictionDamage,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MALEFIC_RAPTURE),
+      this.onMaleficRaptureDamage,
     );
   }
 
-  onUnstableAfflictionDamage(event: DamageEvent) {
-    this._totalTicks += 1;
-    this._totalUAdamage += event.amount + (event.absorbed || 0);
+  onMaleficRaptureDamage(event: DamageEvent) {
+    this._totalCasts += 1;
+    this._totalMRdamage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
-    // if we haven't cast any UAs, _totalTicks would be 0 and we would get an exception
-    const avgDamage = this._totalUAdamage / Math.max(this._totalTicks, 1);
+    const avgDamage = this._totalMRdamage / Math.max(this._totalCasts, 1);
     const shardsGained = this.soulShardTracker.getGeneratedBySpell(
       SPELLS.SOUL_CONDUIT_SHARD_GEN.id,
     );
-    const estimatedUAdamage = shardsGained * TICKS_PER_UA * avgDamage;
+    const estimatedMRDamage = shardsGained * avgDamage;
     const totalSpent = this.soulShardTracker.spent;
     // find number of Shards we were MOST LIKELY to get in the fight
-    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, SC_PROC_CHANCE));
+    const { max } = findMax(totalSpent, (k, n) => binomialPMF(k, n, this.SC_PROC_CHANCE));
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -63,17 +64,17 @@ class SoulConduit extends Analyzer {
               'while you were most likely to not get any Shards.'
             )}
             <br />
-            Estimated damage: {formatThousands(estimatedUAdamage)} (
-            {this.owner.formatItemDamageDone(estimatedUAdamage)})<br />
+            Estimated damage: {formatThousands(estimatedMRDamage)} (
+            {this.owner.formatItemDamageDone(estimatedMRDamage)})<br />
             <br />
             This result is estimated by multiplying number of Soul Shards gained from this talent by
-            the average Unstable Affliction damage for the whole fight.
+            the average Malefic Rapture damage for the whole fight.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SOUL_CONDUIT_TALENT.id}>
+        <TalentSpellText talent={TALENTS.SOUL_CONDUIT_TALENT}>
           {shardsGained} <small>Soul Shards generated</small>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
