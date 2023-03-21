@@ -149,11 +149,13 @@ export function AplViolationExplanations({
 
   const unclaimedViolations = new Set(result.violations);
 
-  let remainingClaimData = claims.map(([key, claimData]): [
-    string,
-    AplProblemData<any>,
-    Set<Violation>,
-  ] => [key, claimData, new Set(claimData.claims)]);
+  let remainingClaimData = claims.map(
+    ([key, claimData]): [string, AplProblemData<any>, Set<Violation>] => [
+      key,
+      claimData,
+      new Set(claimData.claims),
+    ],
+  );
 
   const appliedClaims = [];
 
@@ -186,7 +188,7 @@ export function AplViolationExplanations({
   }
 
   if (appliedClaims.length === 0) {
-    return <NoProblem />;
+    return <NoProblem>No major problems found.</NoProblem>;
   }
 
   return (
@@ -216,23 +218,24 @@ export default function ViolationProblemList<T = any>({
   const info = useInfo();
 
   const renderer = useMemo(
-    () => (props: ProblemRendererProps<Violation>) => (
-      <ViolationProblemContainer>
-        {DescribeViolation && (
+    () => (props: ProblemRendererProps<Violation>) =>
+      (
+        <ViolationProblemContainer>
+          {DescribeViolation && (
+            <div>
+              <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
+            </div>
+          )}
           <div>
-            <DescribeViolation violation={props.problem.data} result={result} apl={apl} />
+            <ViolationTimeline
+              violation={props.problem.data}
+              events={props.events}
+              results={result}
+              apl={apl}
+            />
           </div>
-        )}
-        <div>
-          <ViolationTimeline
-            violation={props.problem.data}
-            events={props.events}
-            results={result}
-            apl={apl}
-          />
-        </div>
-      </ViolationProblemContainer>
-    ),
+        </ViolationProblemContainer>
+      ),
     [DescribeViolation, result, apl],
   );
 

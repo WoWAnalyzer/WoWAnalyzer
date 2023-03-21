@@ -131,8 +131,7 @@ describe('Paladin/Holy/Normalizers/LightOfDawn', () => {
       result: [2, 1],
     },
     {
-      it:
-        'ignores events that are likely from other LoD casts (e.g. in the case of a Divine Purpose proc)',
+      it: 'ignores events that are likely from other LoD casts (e.g. in the case of a Divine Purpose proc)',
       playerId: 1,
       events: [
         {

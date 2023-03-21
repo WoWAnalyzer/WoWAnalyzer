@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 3, 9), "Update Soul Conduit to take into account being a 2 rank talent and different scaling", dodse),
   change(date(2023, 3, 5), "Update Havoc module to also work with Mayhem and try to identify damage from Havoc more accurately.", dodse),
   change(date(2023, 3, 5), "Update Madness module to track buffed RoF and Shadowburn.", dodse),
   change(date(2023, 3, 5), "Add Burn to Ashes buffed Incinerates statistic.", dodse),

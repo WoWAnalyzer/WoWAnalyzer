@@ -265,10 +265,25 @@ const spells = spellIndexableList({
     name: 'Dread Touch',
     icon: 'ability_priest_touchofdecay',
   },
+  INEVITABLE_DEMISE_BUFF: {
+    id: 334320,
+    name: 'Inevitable Demise',
+    icon: 'spell_warlock_harvestoflife',
+  },
+  MALEFIC_AFFLICTION_BUFF: {
+    id: 389845,
+    name: 'Malefic Affliction',
+    icon: 'spell_shadow_unstableaffliction_3_purple',
+  },
   NIGHTFALL_BUFF: {
     id: 264571,
     name: 'Nightfall',
     icon: 'spell_shadow_twilight',
+  },
+  PANDEMIC_INVOCATION_HIT: {
+    id: 386760,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
   },
   PHANTOM_SINGULARITY_DAMAGE_HEAL: {
     id: 205246,
@@ -279,6 +294,21 @@ const spells = spellIndexableList({
     id: 32390,
     name: 'Shadow Embrace',
     icon: 'spell_shadow_shadowembrace',
+  },
+  TORMENTED_CRESCENDO_BUFF: {
+    id: 387079,
+    name: 'Tormented Crescendo',
+    icon: 'warlock_curse_shadow',
+  },
+  VILE_TAINT_DEBUFF: {
+    id: 386931,
+    name: 'Vile Taint',
+    icon: 'sha_spell_shadow_shadesofdarkness_nightborne',
+  },
+  WRATH_OF_CONSUMPTION_BUFF: {
+    id: 387066,
+    name: 'Wrath of Consumption',
+    icon: 'spell_nature_drowsy',
   },
 
   // Affliction shard generating effects
@@ -306,6 +336,11 @@ const spells = spellIndexableList({
     id: 215942,
     name: 'Soul Conduit',
     icon: 'spell_shadow_soulleech_2',
+  },
+  PANDEMIC_INVOCATION_SHARD_GEN: {
+    id: 386762,
+    name: 'Pandemic Invocation',
+    icon: 'spell_shadow_unsummonbuilding',
   },
 
   // -----------

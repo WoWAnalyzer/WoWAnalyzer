@@ -6,7 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2023, 3, 10), <>10.0.7 Updates, added <SpellLink id={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT.id}/> module.</>, Vohrr),
+  change(date(2023, 3, 21), <>10.0.7 Updates, added <SpellLink id={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT.id}/> module.</>, Vohrr),
+  change(date(2023, 3, 17), <>Fix crash in HotAttributor</>, Trevor),
   change(date(2023, 3, 8), <>Fix <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT}/> module</>, Trevor),
   change(date(2023, 3, 8), <>Visual updates to the Guide to be more user friendly</>, Vohrr),
   change(date(2023, 3, 7), <>Update styling for <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> tab to not interefere with guide styling.</>, Vohrr),

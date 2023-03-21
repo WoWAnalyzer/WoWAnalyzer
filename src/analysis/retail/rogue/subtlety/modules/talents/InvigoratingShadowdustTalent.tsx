@@ -29,9 +29,10 @@ class InvigoratingShadowdustTalent extends Analyzer {
     if (!this.active) {
       return;
     }
-    this.cooldownReduction = this.INVIGORATING_SHADOWDUST_SCALING_MS[
-      this.selectedCombatant.getTalentRank(TALENTS.INVIGORATING_SHADOWDUST_TALENT)
-    ];
+    this.cooldownReduction =
+      this.INVIGORATING_SHADOWDUST_SCALING_MS[
+        this.selectedCombatant.getTalentRank(TALENTS.INVIGORATING_SHADOWDUST_TALENT)
+      ];
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VANISH), this.onCast);
   }
 

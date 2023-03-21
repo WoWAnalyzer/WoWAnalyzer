@@ -5,7 +5,7 @@ import CoreCooldownThroughputTracker, {
 } from 'parser/shared/modules/CooldownThroughputTracker';
 
 class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
-  static cooldownSpells: CooldownSpell[] = [...CoreCooldownThroughputTracker.cooldownSpells];
+  static cooldownSpells = [...CoreCooldownThroughputTracker.cooldownSpells];
 
   static castCooldowns: CooldownSpell[] = [
     ...CoreCooldownThroughputTracker.castCooldowns,

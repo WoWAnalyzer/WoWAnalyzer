@@ -10,8 +10,8 @@ import Combatants from 'parser/shared/modules/Combatants';
 import Enemies from 'parser/shared/modules/Enemies';
 import { TALENTS_DRUID as TALENTS } from 'common/TALENTS/druid';
 
-const BASE_PERIODIC_BOOST = 0.25; // the amount Adaptive Swarm boosts periodic effects
-const BALANCE_PERIODIC_BOOST = 0.35; // balance gets a bit extra because their periodics are worse TODO check this number for DF updates
+const FERAL_PERIODIC_BOOST = 0.25; // the amount Adaptive Swarm boosts periodic effects for Feral
+const RESTO_PERIODIC_BOOST = 0.2; // the amount Adaptive Swarm boosts periodic effects for Resto
 
 const PERIODIC_HEALS: SpellInfo[] = [
   SPELLS.REJUVENATION,
@@ -27,8 +27,8 @@ const PERIODIC_HEALS: SpellInfo[] = [
   SPELLS.TRANQUILITY_HEAL,
   SPELLS.EFFLORESCENCE_HEAL,
   SPELLS.RENEWING_BLOOM,
+  SPELLS.GROVE_TENDING,
   // deliberately doesn't include Adaptive Swarm itself to avoid double count
-  // TODO include new DF periodics
 ];
 
 // A very wide definition of 'periodic damage', but these are the actual data-mined values...
@@ -70,7 +70,7 @@ const PERIODIC_DAMAGE: SpellInfo[] = [
  * display any of it. Spec specific modules should take care of display.
  *
  * **Adaptive Swarm**
- * Talent - (Balance / Feral / Restoration)
+ * Talent - (Feral / Restoration)
  *
  * Command a swarm that heals (157.5% of Spell power) or deals (150% of Spell power) Shadow damage
  * over 12 sec to a target, and increases the effectiveness of your periodic effects on them by 25%.
@@ -107,9 +107,9 @@ class AdaptiveSwarm extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.ADAPTIVE_SWARM_TALENT);
 
     this._periodicBoost =
-      this.selectedCombatant.specId === SPECS.BALANCE_DRUID.id
-        ? BALANCE_PERIODIC_BOOST
-        : BASE_PERIODIC_BOOST;
+      this.selectedCombatant.specId === SPECS.RESTORATION_DRUID.id
+        ? RESTO_PERIODIC_BOOST
+        : FERAL_PERIODIC_BOOST;
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(PERIODIC_HEALS),

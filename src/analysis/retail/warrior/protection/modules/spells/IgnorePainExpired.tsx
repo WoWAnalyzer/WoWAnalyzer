@@ -65,7 +65,7 @@ class IgnorePainExpired extends Analyzer {
             </>
           }
         >
-          {this.ignorePainWasted} <small> {percentOfTotalWasted} % </small>
+          {formatNumber(this.ignorePainWasted)} <small> {percentOfTotalWasted} % </small>
           <br />
         </BoringValueText>
       </Statistic>

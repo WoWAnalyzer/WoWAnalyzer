@@ -2129,3 +2129,12 @@ export const dodse: Contributor = {
   github: 'dsnam',
   discord: 'dsn#4942',
 };
+export const SyncSubaru: Contributor = {
+  nickname: 'SyncSubaru',
+  github: 'cameronstubber',
+};
+export const attluh: Contributor = {
+  nickname: 'attluh',
+  github: 'attluh',
+  discord: 'attluh#3373',
+};

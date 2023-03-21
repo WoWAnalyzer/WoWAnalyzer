@@ -177,6 +177,16 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
       },
+      {
+        spell: TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 40,
+        enabled: combatant.hasTalent(TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.95,
+        },
+      },
       // Utility
       {
         spell: TALENTS_MONK.RING_OF_PEACE_TALENT.id,

@@ -20,9 +20,10 @@ type TrackedHealing = {
     amount: number;
     absorb: boolean;
   };
-}
+};
 
-const totalTrackedHealing = (value: TrackedHealing) => Object.values(value).reduce((a, b) => a + b.amount, 0);
+const totalTrackedHealing = (value: TrackedHealing) =>
+  Object.values(value).reduce((a, b) => a + b.amount, 0);
 
 /**
  * Celestial Fortune
@@ -128,8 +129,7 @@ class CelestialFortune extends Analyzer {
 
   _initHealing(sourceId: number, id: number, absorb: boolean) {
     if (!this._healingByEntityBySpell[sourceId]) {
-      this._healingByEntityBySpell[sourceId] = {
-      };
+      this._healingByEntityBySpell[sourceId] = {};
     }
     if (!this._healingByEntityBySpell[sourceId][id]) {
       this._healingByEntityBySpell[sourceId][id] = {
@@ -220,7 +220,7 @@ class CelestialFortune extends Analyzer {
             <th />
           </tr>
           {tableEntries
-          .map(([id, datum]) => ({ id: Number(id), datum }))
+            .map(([id, datum]) => ({ id: Number(id), datum }))
             .map(({ id, datum: { absorb, amount } }) => (
               <tr key={id}>
                 <td />
@@ -262,7 +262,10 @@ class CelestialFortune extends Analyzer {
           <tr>
             <td />
             <td>Total from {playerSpan.call(this, sourceId, {})}</td>
-            <td>{`${formatNumber(Object.values(obj).reduce((a, b) => a + b.amount, 0) / (this.owner.fightDuration / 1000))} HPS`}</td>
+            <td>{`${formatNumber(
+              Object.values(obj).reduce((a, b) => a + b.amount, 0) /
+                (this.owner.fightDuration / 1000),
+            )} HPS`}</td>
             <td style={{ width: '20%' }}>
               <div className="flex performance-bar-container">
                 <div

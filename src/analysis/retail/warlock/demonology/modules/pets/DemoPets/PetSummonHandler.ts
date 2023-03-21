@@ -1,7 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, HealEvent, ResourceChangeEvent, SpendResourceEvent, SummonEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  HealEvent,
+  ResourceChangeEvent,
+  SpendResourceEvent,
+  SummonEvent,
+} from 'parser/core/Events';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
 
 import { SUMMON_TO_SPELL_MAP } from '../CONSTANTS';
@@ -124,7 +131,11 @@ class PetSummonHandler extends Analyzer {
     }
     // for imps, take Demonic Tyrant in consideration
     // if player doesn't have the buff, it's 15 seconds
-    if (isWildImp(pet.guid) && this.selectedCombatant.hasBuff(SPELLS.DEMONIC_POWER.id) && this._lastDemonicTyrantCast) {
+    if (
+      isWildImp(pet.guid) &&
+      this.selectedCombatant.hasBuff(SPELLS.DEMONIC_POWER.id) &&
+      this._lastDemonicTyrantCast
+    ) {
       // if player has the buff, it takes the remaining buff time + 15 seconds
       const remainingBuffTime =
         this._lastDemonicTyrantCast + DEMONIC_POWER_DURATION - this.owner.currentTimestamp;

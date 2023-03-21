@@ -16,15 +16,26 @@ import {
   Trevor,
   Vireve,
   Pilsung,
+  HerzBlutRaffy,
+  Abelito75
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 3, 21), 'Add patch info for 10.0.7.', ToppleTheNun),
+  change(date(2023, 3, 20), 'Fix an issue where APL rules could mistakenly mismatch, causing weird UI issues.', emallson),
+  change(date(2023, 3, 18), 'Add T30 set IDs.', ToppleTheNun),
+  change(date(2023, 3, 18), 'Add Classic WotLK Rogue spells', jazminite),
+  change(date(2023, 3, 17), 'Added Ulduar enchants and fixed cloak enchant for Classic', Arbixal),
+  change(date(2023, 3, 16), 'TypeProp removal P1.', Abelito75),
+  change(date(2023, 3, 13), 'Fixed Cooldown Tracker.', Abelito75),
+  change(date(2023, 3, 15), "Add prettier to the CI", Putro),
   change(date(2023, 3, 8), 'Add Classic WotLK P2 trinkets.', jazminite),
   change(date(2023, 3, 6), 'Fix combatants not being dispatched to the Redux store.', ToppleTheNun),
   change(date(2023, 3, 4), 'Add Playwright tests for validating application behavior.', ToppleTheNun),
   change(date(2023, 3, 3), 'Fix "leech" event throwing errors during development for classic logs.', ToppleTheNun),
+  change(date(2023, 2, 25), 'Add Role Support for Classic Player Loader.', HerzBlutRaffy),
   change(date(2023, 2, 25), 'Fix development issue with CastEfficiency dumping large errors in the console.', emallson),
   change(date(2023, 2, 25), 'Fix spell ID for classic Bloodthirst.', ToppleTheNun),
   change(date(2023, 2, 21), 'Add Classic Warrior spells', Pilsung),

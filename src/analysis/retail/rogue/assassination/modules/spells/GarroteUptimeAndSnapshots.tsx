@@ -16,7 +16,7 @@ import TALENTS from 'common/TALENTS/rogue';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
-import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 
@@ -204,14 +204,9 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
       </p>
     );
 
-    const performances = this.cooldownUses.map((it) =>
-      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
-    );
-
     return (
       <SpellUsageSubSection
         explanation={explanation}
-        performance={performances}
         uses={this.cooldownUses}
         abovePerformanceDetails={
           <RoundedPanel>

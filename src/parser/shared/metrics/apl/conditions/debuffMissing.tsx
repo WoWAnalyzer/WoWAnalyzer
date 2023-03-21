@@ -7,7 +7,7 @@ import { AplTriggerEvent, Condition, tenseAlt } from '../index';
 import { validateBuffMissing } from './buffPresent';
 import { buffDuration, DurationData, PandemicData } from './util';
 
-type TargetOptions = {
+export type TargetOptions = {
   /**
    * Link relation (see `EventLinkNormalizer`) to use for determining
    * targets on untargeted debuff-applying spells.
@@ -17,7 +17,7 @@ type TargetOptions = {
   targetLinkRelation?: string;
 };
 
-function getTargets(event: AplTriggerEvent, targetLink?: string): string[] {
+export function getTargets(event: AplTriggerEvent, targetLink?: string): string[] {
   if (targetLink) {
     return GetRelatedEvents(event, targetLink)
       .map(encodeEventTargetString)

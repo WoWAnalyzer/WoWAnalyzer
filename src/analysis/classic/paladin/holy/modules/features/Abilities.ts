@@ -21,6 +21,10 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.SACRED_SHIELD.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
       },
       // Rotational AOE
       // Cooldowns
@@ -29,6 +33,10 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+        },
       },
       {
         spell: [SPELLS.AURA_MASTERY.id],
@@ -36,6 +44,10 @@ class Abilities extends CoreAbilities {
         gcd: null,
         enabled: combatant.talentPoints[0] >= 10,
         cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+        },
       },
       {
         spell: [SPELLS.DIVINE_FAVOR.id],
@@ -43,6 +55,10 @@ class Abilities extends CoreAbilities {
         gcd: null,
         enabled: combatant.talentPoints[0] >= 20,
         cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+        },
       },
       {
         spell: [SPELLS.DIVINE_ILLUMINATION.id],
@@ -50,6 +66,10 @@ class Abilities extends CoreAbilities {
         gcd: null,
         enabled: combatant.talentPoints[0] >= 40,
         cooldown: 180,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+        },
       },
       {
         spell: [SPELLS.DIVINE_PLEA.id],
@@ -63,6 +83,10 @@ class Abilities extends CoreAbilities {
         gcd: { base: 1500 },
         enabled: combatant.talentPoints[1] >= 10,
         cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.75,
+        },
       },
       {
         spell: [SPELLS.LAY_ON_HANDS.id, ...SPELLS.LAY_ON_HANDS.lowRanks],
@@ -87,7 +111,12 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.HOLY_SHOCK.id, ...SPELLS.HOLY_SHOCK.lowRanks],
         category: SPELL_CATEGORY.OTHERS,
         gcd: { base: 1500 },
+        cooldown: 6,
         enabled: combatant.talentPoints[0] >= 30,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
       },
       {
         spell: [SPELLS.SEARING_LIGHT.id],
@@ -100,6 +129,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
         enabled: combatant.talentPoints[0] >= 50,
+      },
+      {
+        spell: [SPELLS.JUDGEMENT_OF_LIGHT.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
       },
       {
         spell: [SPELLS.JUDGEMENT_OF_WISDOM.id],

@@ -5,7 +5,7 @@ type PetDamageInfo = {
   name: string;
   instances: Record<number, number>;
   total: number;
-}
+};
 
 class PetDamage {
   get permanentPetDamage() {

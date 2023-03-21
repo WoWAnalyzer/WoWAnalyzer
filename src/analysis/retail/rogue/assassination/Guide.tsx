@@ -12,6 +12,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
+import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -106,6 +107,7 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
         . See below for spell usage details.
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
+      <HideGoodCastsToggle id="hide-good-casts-rotation" />
       {modules.ruptureUptimeAndSnapshots.guideSubsection}
       {modules.envenom.guideSubsection}
       {info.combatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT) &&
@@ -131,6 +133,8 @@ function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) 
         cooldown as soon as it becomes available (as long as it can do damage on target). It is
         particularly important to use <SpellLink id={SPELLS.VANISH.id} /> as often as possible.
       </p>
+      <HideExplanationsToggle id="hide-explanations-rotation" />
+      <HideGoodCastsToggle id="hide-good-casts-rotation" />
       <CooldownGraphSubsection />
       {info.combatant.hasTalent(TALENTS.EXSANGUINATE_TALENT) && (
         <CooldownUsage analyzer={modules.exsanguinate} />

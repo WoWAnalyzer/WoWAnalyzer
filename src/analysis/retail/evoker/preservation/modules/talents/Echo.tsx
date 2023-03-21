@@ -164,6 +164,20 @@ class Echo extends Analyzer {
     );
   }
 
+  hardcastEchoHealingForSpell(spellId: number) {
+    return this.echoHealingBySpell.get(spellId) || 0;
+  }
+
+  taEchoHealingForSpell(spellId: number) {
+    return this.taEchoHealingBySpell.get(spellId) || 0;
+  }
+
+  getEchoHealingForSpell(isHardcast: boolean, spellId: number) {
+    return isHardcast
+      ? this.hardcastEchoHealingForSpell(spellId)
+      : this.taEchoHealingForSpell(spellId);
+  }
+
   renderDonutChart() {
     const items = [
       {

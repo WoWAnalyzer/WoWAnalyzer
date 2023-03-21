@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { spells, Apl, CheckResult, InternalRule } from 'parser/shared/metrics/apl';
+import { spells, Apl, CheckResult, InternalRule, isRuleEqual } from 'parser/shared/metrics/apl';
 import { RuleDescription } from 'parser/shared/metrics/apl/ChecklistRule';
 import { useMemo } from 'react';
 
@@ -53,21 +53,21 @@ export default function AplRules({
   const rules = apl.rules.filter(
     (rule) =>
       (rule.condition === undefined && spells(rule).some((spell) => castSpells.has(spell.id))) ||
-      results.successes.some((suc) => suc.rule === rule) ||
-      results.violations.some((v) => v.rule === rule),
+      results.successes.some((suc) => isRuleEqual(suc.rule, rule)) ||
+      results.violations.some((v) => isRuleEqual(v.rule, rule)),
   );
 
-  const highlightIndex = useMemo(() => highlightRule && rules.indexOf(highlightRule), [
-    rules,
-    highlightRule,
-  ]);
+  const highlightIndex = useMemo(
+    () => highlightRule && rules.indexOf(highlightRule),
+    [rules, highlightRule],
+  );
 
   return (
     <AplRuleList>
       {rules.map((rule, index) => (
         <AplListItem
           key={index}
-          highlighted={rule === highlightRule}
+          highlighted={highlightRule && isRuleEqual(highlightRule, rule)}
           muted={index < (highlightIndex ?? 0)}
         >
           <RuleDescription rule={rule} />

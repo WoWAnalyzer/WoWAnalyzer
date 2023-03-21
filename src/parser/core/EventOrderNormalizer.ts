@@ -3,6 +3,8 @@ import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
 
+const DEBUG = false;
+
 /**
  * An event normalizer that enforces the ordering of paired events that happen simultaneously
  * in order to ease further analysis.
@@ -101,6 +103,12 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
                 previousEvent.__modified = true;
               }
               previousEvent.__reordered = true;
+              DEBUG &&
+                console.log(
+                  `REORDER - index ${previousEventIndex} to ${eventIndex}`,
+                  event,
+                  previousEvent,
+                );
               break;
             }
           }

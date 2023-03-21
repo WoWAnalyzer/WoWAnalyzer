@@ -4,10 +4,10 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 
 export const SPELL_COLORS = {
   CYCLE_OF_LIFE: '#fafad2',
-  DISINTEGRATE: '#008080',
+  DISINTEGRATE: '#0047AB',
   DREAM_BREATH: '#c49c94',
   DREAM_FLIGHT: '#228b22',
-  ECHO: '#fffb0a',
+  ECHO: '#2E8B57',
   EMERALD_BLOSSOM: '#c1e1c1',
   EMERALD_COMMUNION: '#aef359',
   FLUTTERING_SEEDLING: '#ffff00',

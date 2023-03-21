@@ -186,6 +186,14 @@ export function directAoeBuilder(c: Combatant): Spell {
 // MISC
 //
 
+/** Minimum acceptable number of CPs to use with a finisher.
+ *  TODO this might go back to 5 in 10.1 - pay attention to theorycraft */
+export function getAcceptableCps(c: Combatant): number {
+  return c.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) ? ACCEPTABLE_BT_CPS : ACCEPTABLE_NO_BT_CPS;
+}
+export const ACCEPTABLE_BT_CPS = 5;
+export const ACCEPTABLE_NO_BT_CPS = 4;
+
 /** Effective combo points used by a Convoke'd Ferocious Bite */
 export const CONVOKE_FB_CPS = 4;
 

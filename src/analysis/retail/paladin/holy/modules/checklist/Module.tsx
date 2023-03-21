@@ -40,10 +40,8 @@ class Checklist extends BaseChecklist {
       <Component
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
-        owner={this.owner}
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
-
           fillerFlashOfLight: this.fillerFlashOfLight.suggestionThresholds,
           masteryEffectiveness: this.masteryEffectiveness.suggestionThresholds,
           nonHealingTimeSuggestionThresholds:

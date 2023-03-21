@@ -27,10 +27,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         .icon('spell_mage_altertime')
         .actual(
           <Trans id="shared.suggestions.alwaysBeCasting.downtime">
-            {formatPercentage(actual)}% downtime
+            {formatPercentage(1 - actual)}% downtime
           </Trans>,
         )
-        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+        .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
     );
   }
 }
