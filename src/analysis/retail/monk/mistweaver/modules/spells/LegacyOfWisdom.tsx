@@ -39,19 +39,19 @@ class LegacyOfWisdom extends Analyzer {
 
   onCast(event: CastEvent) {
     this.extraGcds += CAST_TIME_REDUCTION;
-    let extraTargets;
     const sgHealEvents = getSheilunsGiftHits(event);
     if (!sgHealEvents || sgHealEvents!.length <= SHEILUNS_GIFT_TARGETS) {
       this.missedHits += LEGACY_OF_WISDOM_TARGETS;
       return;
     }
-    if (sgHealEvents.length === SHEILUNS_GIFT_TARGETS + LEGACY_OF_WISDOM_TARGETS) {
-      extraTargets = LEGACY_OF_WISDOM_TARGETS;
-    } else {
-      extraTargets = 1;
-      this.missedHits += 1;
+    const extraTargets = sgHealEvents.length - SHEILUNS_GIFT_TARGETS;
+    if (LEGACY_OF_WISDOM_TARGETS - extraTargets > 0) {
+      this.missedHits += LEGACY_OF_WISDOM_TARGETS - extraTargets;
     }
     const extraHits = sgHealEvents.splice(sgHealEvents.length - extraTargets, extraTargets);
+    if (!extraHits) {
+      return;
+    }
     this.healing += extraHits.reduce((sum, heal) => sum + heal.amount + (heal.absorbed || 0), 0);
   }
 
