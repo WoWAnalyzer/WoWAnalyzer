@@ -30,6 +30,16 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
+    linkingEventId: SPELLS.SLICE_AND_DICE.id,
+    linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
+    referencedEventId: SPELLS.SLICE_AND_DICE.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**

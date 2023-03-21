@@ -59,6 +59,7 @@ import BuddingLeaves from 'analysis/retail/druid/restoration/modules/spells/Budd
 import Dreamstate from 'analysis/retail/druid/restoration/modules/spells/Dreamstate';
 import Tier29 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier29';
 import Tier30 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier30';
+import WildGrowthPrecastOrderNormalizer from 'analysis/retail/druid/restoration/normalizers/WildGrowthPrecastOrderNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     soulOfTheForestLinkNormalizer: SoulOfTheForestLinkNormalizer,
     treeOfLifeNormalizer: TreeOfLifeNormalizer,
     swiftmendNormazlier: SwiftmendNormalizer,
+    wildGrowthPrecastOrderNormalizer: WildGrowthPrecastOrderNormalizer,
 
     // Core
     hotTracker: HotTrackerRestoDruid,

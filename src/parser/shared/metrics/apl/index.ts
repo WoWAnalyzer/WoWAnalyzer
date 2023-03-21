@@ -98,6 +98,51 @@ export interface Apl {
   rules: InternalRule[];
 }
 
+function isInternalRule(rule: Rule | InternalRule): rule is InternalRule {
+  return 'spell' in rule && 'type' in rule.spell;
+}
+
+function isTargetEqual(a: InternalRule, b: InternalRule): boolean {
+  if (a.spell.type !== b.spell.type) {
+    return false;
+  }
+
+  switch (a.spell.type) {
+    case TargetType.SpellList:
+      return a.spell.target.every((spell) =>
+        (b.spell as SpellListTarget).target.some((other) => other.id === spell.id),
+      );
+    case TargetType.Spell:
+      return a.spell.target.id === (b.spell as SpellTarget).target.id;
+  }
+}
+
+/**
+ * Check if two rules are equal.
+ *
+ * Rules are equal if:
+ *
+ * - They have the same target (either a single spell, or a list of spells. order does not matter for lists).
+ * - They have the same condition (either no condition, or a condition with an *identical key*)
+ *
+ */
+export function isRuleEqual(a: Rule | InternalRule, b: Rule | InternalRule): boolean {
+  if (a === b) {
+    // common case, early return for efficiency
+    return true;
+  }
+
+  // map to consistent internal representation
+  const internal_a = isInternalRule(a) ? a : internalizeRule(a);
+  const internal_b = isInternalRule(b) ? b : internalizeRule(b);
+
+  if (internal_a.condition?.key !== internal_b.condition?.key) {
+    return false;
+  }
+
+  return isTargetEqual(internal_a, internal_b);
+}
+
 /**
  * Convert an external rule to an internal rule.
  *

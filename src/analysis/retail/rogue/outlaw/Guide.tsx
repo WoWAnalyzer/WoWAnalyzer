@@ -14,6 +14,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   return (
     <>
       <ResourceUsageSection modules={modules} events={events} info={info} />
+      <CoreRotationSection modules={modules} events={events} info={info} />
       <ActionPriorityList modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
@@ -83,6 +84,19 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
           </Trans>
         </p>
       </SubSection>
+    </Section>
+  );
+}
+
+function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section
+      title={t({
+        id: 'guide.rogue.outlaw.sections.coreRotation.title',
+        message: 'Core rotation',
+      })}
+    >
+      {modules.finisherUse.guide}
     </Section>
   );
 }
