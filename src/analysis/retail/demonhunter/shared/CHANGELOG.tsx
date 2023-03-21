@@ -8,6 +8,7 @@ import { ResourceLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 3, 21), 'Bump support to 10.0.7.', ToppleTheNun),
   change(date(2023, 3, 19), 'Add "Hide Good Casts" toggle to Core Rotation and Cooldown sections of the Guide.', ToppleTheNun),
   change(date(2023, 2, 8), <>Improve <ResourceLink id={RESOURCE_TYPES.FURY.id} /> waste display in Guide.</>, ToppleTheNun),
   change(date(2023, 1, 25), 'Bump support to 10.0.5.', ToppleTheNun),
