@@ -180,7 +180,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87628],
     essenceCost: 2,
-    manaCost: 4250,
   },
   EMERALD_COMMUNION_TALENT: {
     id: 370960,
@@ -683,13 +682,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87612],
     manaCost: 12500,
-  },
-  ROAR_OF_EXHILARATION_TALENT: {
-    id: 375507,
-    name: 'Roar of Exhilaration',
-    icon: 'ability_hunter_mastertactitian',
-    maxRanks: 1,
-    entryIds: [87691],
   },
   RUBY_EMBERS_TALENT: {
     id: 365937,

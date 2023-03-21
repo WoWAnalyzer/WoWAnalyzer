@@ -269,7 +269,7 @@ const talents = createTalentList({
     icon: 'spell_nature_nullifydisease',
     maxRanks: 1,
     entryIds: [103867],
-    manaCost: 4000,
+    manaCost: 5000,
   },
   DISPERSION_TALENT: {
     id: 47585,
@@ -313,7 +313,7 @@ const talents = createTalentList({
     icon: 'spell_priest_divinestar_shadow2',
     maxRanks: 1,
     entryIds: [103828],
-    manaCost: 0,
+    manaCost: 5000,
   },
   DIVINE_STAR_SHARED_TALENT: {
     id: 110744,
@@ -458,7 +458,7 @@ const talents = createTalentList({
     icon: 'ability_priest_halo_shadow',
     maxRanks: 1,
     entryIds: [103827],
-    manaCost: 2500,
+    manaCost: 6750,
   },
   HALO_SHARED_TALENT: {
     id: 120517,
@@ -676,6 +676,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifacttome_d_01',
     maxRanks: 1,
     entryIds: [103700],
+    manaCost: 5000,
   },
   LIGHTWEAVER_TALENT: {
     id: 390992,

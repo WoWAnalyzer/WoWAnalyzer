@@ -253,7 +253,7 @@ const talents = createTalentList({
     name: 'Desperate Instincts',
     icon: 'spell_shadow_manafeed',
     maxRanks: 1,
-    entryIds: [112822],
+    entryIds: [115248],
   },
   DISRUPTING_FURY_TALENT: {
     id: 183782,
@@ -374,7 +374,7 @@ const talents = createTalentList({
     name: 'Fel Eruption',
     icon: 'ability_bossfellord_felspike',
     maxRanks: 1,
-    entryIds: [112935],
+    entryIds: [115246],
     furyCost: 10,
   },
   FEL_FLAME_FORTIFICATION_TALENT: {
@@ -459,7 +459,7 @@ const talents = createTalentList({
     name: 'Furious Throws',
     icon: 'ability_demonhunter_throwglaive',
     maxRanks: 1,
-    entryIds: [112937],
+    entryIds: [115244],
   },
   GLAIVE_TEMPEST_TALENT: {
     id: 342817,
@@ -509,7 +509,7 @@ const talents = createTalentList({
     name: 'Improved Fel Rush',
     icon: 'ability_demonhunter_felrush',
     maxRanks: 1,
-    entryIds: [112952],
+    entryIds: [115245],
   },
   IMPROVED_SIGIL_OF_MISERY_TALENT: {
     id: 320418,
@@ -635,7 +635,7 @@ const talents = createTalentList({
     name: 'Netherwalk',
     icon: 'spell_warlock_demonsoul',
     maxRanks: 1,
-    entryIds: [112821],
+    entryIds: [115247],
   },
   PAINBRINGER_TALENT: {
     id: 207387,
