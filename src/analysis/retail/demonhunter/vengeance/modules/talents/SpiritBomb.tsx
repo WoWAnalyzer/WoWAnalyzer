@@ -231,7 +231,7 @@ export default class SpiritBomb extends Analyzer {
       };
     }
     return {
-      performance: QualitativePerformance.Fail,
+      performance: QualitativePerformance.Good,
       summary: <div>Cast in Single Target with Fiery Demise</div>,
       details: (
         <div>

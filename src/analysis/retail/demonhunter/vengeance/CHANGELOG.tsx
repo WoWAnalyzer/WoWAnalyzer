@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 3, 21), <>Fix some good <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} /> casts showing as bad.</>, ToppleTheNun),
   change(date(2023, 3, 16), 'Update the default log.', ToppleTheNun),
   change(date(2023, 3, 9), <>Add <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} /> to Rotation section in guide.</>, ToppleTheNun),
   change(date(2023, 3, 9), <>Re-add <SpellLink id={SPELLS.IMMOLATION_AURA} /> cast efficiency to guide.</>, ToppleTheNun),
