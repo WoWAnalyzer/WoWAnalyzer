@@ -12,6 +12,11 @@ const IGNORED: number[] = [
   360288, // Lords of Dread, Anguishing Strike DoT
   360302, // Lords of Dread, Swarm of Decay
   360303, // Lords of Dread, Swarm of Darkness
+  // Raszageth
+  381250, // Electric Scales
+  395907, // Electrified Jaws (DoT)
+  391282, // Crackling Energy
+  395930, // Storm's Spite
 ];
 
 export default IGNORED;

@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 3, 19), <>Improved Shuffle & Damage Taken displays on Raszageth.</>, emallson),
   change(date(2023, 3, 12), <>Update APL to handle <SpellLink id={talents.EXPLODING_KEG_TALENT} /> tech and add basic major cooldown list.</>, emallson),
   change(date(2023, 1, 30), <>Fix calculation of haste bonus from <SpellLink id={talents.HIGH_TOLERANCE_TALENT} /></>, emallson),
   change(date(2023, 1, 30), <>Support T29 buff to <SpellLink id={talents.PURIFYING_BREW_TALENT} /></>, emallson),
