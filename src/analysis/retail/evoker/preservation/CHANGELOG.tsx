@@ -5,6 +5,7 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 21), <>Add <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> talent</>, Trevor),
   change(date(2023, 3, 17), <>Fix prepull <SpellLink id={TALENTS_EVOKER.STASIS_TALENT}/> logic</>, Trevor),
   change(date(2023, 3, 15), <>Add cast efficiency suggestion for <SpellLink id={TALENTS_EVOKER.STASIS_TALENT}/></>, Trevor),
   change(date(2023, 3, 11), <>Improve <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> breakdown chart</>, Trevor),
