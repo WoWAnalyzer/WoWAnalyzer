@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
+  change(date(2023, 3, 21), 'Bump to 10.0.7.', ToppleTheNun),
   change(date(2023, 3, 19), 'Add "Hide Good Casts" toggle to Core Rotation and Cooldown sections of the Guide.', ToppleTheNun),
   change(date(2023, 2, 3), <>Fix some bugs related to log ordering/latency with <SpellLink id={SPELLS.ENVENOM} />.</>, ToppleTheNun),
   change(date(2023, 1, 28), 'Fix reference to Fury in Guide.', ToppleTheNun),
