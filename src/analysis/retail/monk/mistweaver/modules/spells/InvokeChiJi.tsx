@@ -9,6 +9,7 @@ import CooldownExpandable, {
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
+  AbsorbedEvent,
   CastEvent,
   DamageEvent,
   EndChannelEvent,
@@ -49,6 +50,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   //healing breakdown vars
   gustHealing: number = 0;
   envelopHealing: number = 0;
+  chiCocoonHealing: number = 0;
   //stack breakdown vars
   chijiStackCount: number = 0;
   castsBelowMaxStacks: number = 0;
@@ -65,7 +67,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   castBokInWindow: boolean = false;
 
   get totalHealing() {
-    return this.gustHealing + this.envelopHealing;
+    return this.gustHealing + this.envelopHealing + this.chiCocoonHealing;
   }
 
   constructor(options: Options) {
@@ -81,6 +83,10 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ENVELOPING_BREATH_HEAL),
       this.handleEnvelopingBreath,
+    );
+    this.addEventListener(
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_HEAL_CHIIJI),
+      this.handleChiCocoon,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
@@ -238,6 +244,10 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
 
   handleEnvelopingBreath(event: HealEvent) {
     this.envelopHealing += (event.amount || 0) + (event.absorbed || 0);
+  }
+
+  handleChiCocoon(event: AbsorbedEvent) {
+    this.chiCocoonHealing += event.amount;
   }
 
   //stackbreakown management
@@ -426,7 +436,13 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
                 <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI.id} />.
               </li>
               <li>
-                {formatNumber(this.envelopHealing)} healing from{' '}
+                {formatNumber(this.envelopHealing)}{' '}
+                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> healing from{' '}
+                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />.
+              </li>
+              <li>
+                {formatNumber(this.chiCocoonHealing)}{' '}
+                <SpellLink id={SPELLS.CHI_COCOON_HEAL_CHIIJI.id} /> healing from{' '}
                 <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />.
               </li>
             </ul>
