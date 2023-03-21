@@ -11,6 +11,8 @@ import { FLOURISH_INCREASED_RATE } from 'analysis/retail/druid/restoration/const
 import ItemSetLink from 'interface/ItemSetLink';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
+import { DRUID_T30_ID } from 'common/ITEMS/dragonflight';
+import { TIERS } from 'game/TIERS';
 
 const TIER_2PC_REJUV_BOOST = 0.15;
 const TIER_2PC_LB_BOOST = 0.15;
@@ -27,6 +29,8 @@ const TIER_4PC_HEALING_INCREASE = 0.4;
  *   Verdant Infusion causes your Swiftmend target to gain 15% increased healing from you for 6 seconds.
  */
 export default class Tier30 extends Analyzer {
+  has4pc: boolean;
+
   rejuv2pcHealing: number = 0;
   lb2pcHealing: number = 0;
   regrowth2pcHealing: number = 0;
@@ -35,7 +39,8 @@ export default class Tier30 extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = true; // TODO change when set bonus implemented
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
+    this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T30);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION, SPELLS.REJUVENATION_GERMINATION]),
@@ -56,10 +61,12 @@ export default class Tier30 extends Analyzer {
       this.onRegrowthHeal,
     );
 
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(FLOURISH_INCREASED_RATE),
-      this.on4pcHeal,
-    );
+    if (this.has4pc) {
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(FLOURISH_INCREASED_RATE),
+        this.on4pcHeal,
+      );
+    }
   }
 
   onRejuvHeal(event: HealEvent) {
@@ -87,13 +94,6 @@ export default class Tier30 extends Analyzer {
   }
 
   statistic() {
-    // TODO we currently have no way to detect the 2pc, and only way to detect 4pc is if a proc happens
-    //      This check prevents us from reporting 2pc numbers when player doesn't have set equipped.
-    //      Remove once set detection is added
-    if (this.total4pcHealing === 0) {
-      return;
-    }
-
     return (
       <Statistic
         size="flexible"
@@ -116,18 +116,22 @@ export default class Tier30 extends Analyzer {
                 <strong>{this.owner.formatItemHealingDone(this.regrowth2pcHealing)}</strong>
               </li>
             </ul>
+            {this.has4pc && (
+              <>
+                The 4-Piece number includes only the healing directly caused by the faster tick
+                rate. It does <i>not</i> include second-order benefits of faster ticks such as more{' '}
+                <SpellLink id={TALENTS_DRUID.OMEN_OF_CLARITY_RESTORATION_TALENT.id} />, more{' '}
+                <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT.id} /> procs, more{' '}
+                <SpellLink id={TALENTS_DRUID.LUXURIANT_SOIL_TALENT.id} /> procs, etc.
+              </>
+            )}
             <br />
-            The 4-Piece number includes only the healing directly caused by the faster tick rate. It
-            does <i>not</i> include second-order benefits of faster ticks such as more{' '}
-            <SpellLink id={TALENTS_DRUID.OMEN_OF_CLARITY_RESTORATION_TALENT.id} />, more{' '}
-            <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT.id} /> procs, more{' '}
-            <SpellLink id={TALENTS_DRUID.LUXURIANT_SOIL_TALENT.id} /> procs, etc.
           </>
         }
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={1542}>
+            <ItemSetLink id={DRUID_T30_ID}>
               <>
                 Strands of the Autumn Blaze
                 <br />
@@ -138,9 +142,13 @@ export default class Tier30 extends Analyzer {
           <div className="value">
             2pc: <ItemPercentHealingDone amount={this.total2pcHealing} />
           </div>
-          <div className="value">
-            4pc: <ItemPercentHealingDone greaterThan amount={this.total4pcHealing} />
-          </div>
+          {this.has4pc && (
+            <>
+              <div className="value">
+                4pc: <ItemPercentHealingDone greaterThan amount={this.total4pcHealing} />
+              </div>
+            </>
+          )}
         </div>
       </Statistic>
     );
