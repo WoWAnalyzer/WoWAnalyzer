@@ -23,6 +23,7 @@ import ManaValues from 'parser/shared/modules/ManaValues';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import EnergizeCompat from 'parser/shared/normalizers/EnergizeCompat';
 import * as React from 'react';
+import { ExplanationContextProvider } from 'interface/guide/components/Explanation';
 
 import Config from '../Config';
 import AugmentRuneChecker from '../retail/modules/items/AugmentRuneChecker';
@@ -88,7 +89,7 @@ import ParseResults from './ParseResults';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
-import { ExplanationContextProvider } from 'interface/guide/components/Explanation';
+import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -763,7 +764,9 @@ class CombatLogParser {
       <GuideContainer>
         <GuideContext.Provider value={props}>
           <ExplanationContextProvider>
-            <Component {...props} />
+            <SpellUsageContextProvider>
+              <Component {...props} />
+            </SpellUsageContextProvider>
           </ExplanationContextProvider>
         </GuideContext.Provider>
       </GuideContainer>
