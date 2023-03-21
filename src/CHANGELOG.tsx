@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 3, 20), 'Fix an issue where APL rules could mistakenly mismatch, causing weird UI issues.', emallson),
   change(date(2023, 3, 18), 'Add T30 set IDs.', ToppleTheNun),
   change(date(2023, 3, 18), 'Add Classic WotLK Rogue spells', jazminite),
   change(date(2023, 3, 17), 'Added Ulduar enchants and fixed cloak enchant for Classic', Arbixal),
