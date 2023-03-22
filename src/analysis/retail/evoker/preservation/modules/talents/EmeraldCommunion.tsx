@@ -26,7 +26,8 @@ class EmeraldCommunion extends Analyzer {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT) &&
-      this.selectedCombatant.hasTalent(TALENTS_EVOKER.LIFEBIND_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS_EVOKER.LIFEBIND_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT),
       this.onCast,
@@ -67,9 +68,9 @@ class EmeraldCommunion extends Analyzer {
     return {
       actual: this.percentWithLifebindOnCast,
       isLessThan: {
-        major: 0.6,
-        average: 0.7,
-        minor: 0.8,
+        major: 0.4,
+        average: 0.5,
+        minor: 0.6,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
