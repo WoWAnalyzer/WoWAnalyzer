@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 21), <>Bump spec config to 10.0.7</>, Trevor),
   change(date(2023, 3, 21), <>10.0.7 Updates, added <SpellLink id={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT.id}/> module.</>, Vohrr),
   change(date(2023, 3, 17), <>Fix crash in HotAttributor</>, Trevor),
   change(date(2023, 3, 8), <>Fix <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT}/> module</>, Trevor),
