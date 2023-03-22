@@ -6,7 +6,7 @@ import { SpellLink } from 'interface';
 export default [
   change(
     date(2023, 3, 21),
-    <>Updated for patch 10.0.7. Temporarily disabled Divine Image due to combat log issues.</>,
+    <>Updated for patch 10.0.7. Temporarily disabled Divine Image due to combat log issues. Fix Divine Word module.</>,
     Squided
   ),
   change(
