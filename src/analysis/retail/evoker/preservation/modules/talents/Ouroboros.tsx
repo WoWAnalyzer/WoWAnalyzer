@@ -2,23 +2,27 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { ApplyBuffStackEvent, HealEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { getHealEvents } from '../../normalizers/CastLinkNormalizer';
+import { getEchoHealEvents, getHealEvents } from '../../normalizers/CastLinkNormalizer';
+import { SpellLink } from 'interface';
 
 const INCREASE_PER_STACK = 0.3;
 
 class Ouroboros extends Analyzer {
-  effectiveHealing: number = 0;
-  overhealing: number = 0;
+  ebHealing: number = 0;
+  echoEbHealing: number = 0;
   totalConsumes: number = 0;
+  lastConsume: number = 0;
   stacks: number = 0;
+  lastStacksConsumed: number = 0;
   countedTimestamps: Set<number> = new Set<number>();
+  echoCountedTimestamps: Set<number> = new Set<number>();
 
   constructor(options: Options) {
     super(options);
@@ -31,10 +35,35 @@ class Ouroboros extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EMERALD_BLOSSOM),
       this.onHealBatch,
     );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EMERALD_BLOSSOM_ECHO),
+      this.onEbEcho,
+    );
   }
 
   onBuffApply(event: ApplyBuffStackEvent) {
     this.stacks += 1;
+  }
+
+  onEbEcho(event: HealEvent) {
+    if (
+      this.echoCountedTimestamps.has(event.timestamp) ||
+      Math.abs(event.timestamp - this.lastConsume) >= 1000
+    ) {
+      return;
+    }
+    const allHealingEvents = getEchoHealEvents(event);
+    this.totalConsumes += 1;
+    for (let i = 0; i < allHealingEvents.length; i += 1) {
+      const ev = allHealingEvents[i];
+      this.echoEbHealing += calculateEffectiveHealing(
+        ev,
+        this.lastStacksConsumed * INCREASE_PER_STACK,
+      );
+    }
+    this.lastStacksConsumed = 0;
+    this.lastConsume = 0;
+    this.echoCountedTimestamps.add(event.timestamp);
   }
 
   onHealBatch(event: HealEvent) {
@@ -46,11 +75,16 @@ class Ouroboros extends Analyzer {
     this.totalConsumes += 1;
     for (let i = 0; i < allHealingEvents.length; i += 1) {
       const ev = allHealingEvents[i];
-      this.effectiveHealing += calculateEffectiveHealing(ev, this.stacks * INCREASE_PER_STACK);
-      this.overhealing += calculateOverhealing(ev, this.stacks * INCREASE_PER_STACK);
+      this.ebHealing += calculateEffectiveHealing(ev, this.stacks * INCREASE_PER_STACK);
     }
     this.countedTimestamps.add(event.timestamp);
+    this.lastStacksConsumed = this.stacks;
+    this.lastConsume = event.timestamp;
     this.stacks = 0;
+  }
+
+  get totalhealing() {
+    return this.ebHealing + this.echoEbHealing;
   }
 
   statistic() {
@@ -61,13 +95,19 @@ class Ouroboros extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
-            <li>Total effective healing: {formatNumber(this.effectiveHealing)}</li>
-            <li>Total overhealing: {formatNumber(this.overhealing)}</li>
+            <li>
+              <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT} /> healing from hardcast:{' '}
+              {formatNumber(this.ebHealing)}
+            </li>
+            <li>
+              <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT} /> healing from{' '}
+              <SpellLink id={TALENTS_EVOKER.ECHO_TALENT} />: {formatNumber(this.echoEbHealing)}
+            </li>
           </ul>
         }
       >
         <TalentSpellText talent={TALENTS_EVOKER.OUROBOROS_TALENT}>
-          <ItemHealingDone amount={this.effectiveHealing} />
+          <ItemHealingDone amount={this.totalhealing} />
         </TalentSpellText>
       </Statistic>
     );
