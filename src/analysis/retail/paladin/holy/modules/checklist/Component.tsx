@@ -102,9 +102,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={TALENTS.AVENGING_CRUSADER_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT) && (
-          <AbilityRequirement spell={TALENTS.HOLY_AVENGER_TALENT.id} />
-        )}
         <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
         {combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT) && (
           <AbilityRequirement spell={TALENTS.RULE_OF_LAW_TALENT.id} />

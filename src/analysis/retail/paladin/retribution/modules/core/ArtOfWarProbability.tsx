@@ -7,7 +7,6 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { TIERS } from 'game/TIERS';
 import TALENTS from 'common/TALENTS/paladin';
 
 class ArtOfWarProbability extends Analyzer {
@@ -21,9 +20,9 @@ class ArtOfWarProbability extends Analyzer {
 
   constructor(args: Options) {
     super(args);
-    this.chance = this.selectedCombatant.hasTalent(TALENTS.BLADE_OF_WRATH_TALENT) ? 0.24 : 0.12;
+    this.chance = this.selectedCombatant.hasTalent(TALENTS.ART_OF_WAR_TALENT) ? 0.2 : 0;
 
-    this.hasTier = this.selectedCombatant.has4PieceByTier(TIERS.T28);
+    this.active = this.chance > 0;
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MELEE), this.castCounter);
 
