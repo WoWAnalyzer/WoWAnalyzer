@@ -149,13 +149,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101460],
   },
-  CELESTIAL_HARMONY_TALENT: {
-    id: 343655,
-    name: 'Celestial Harmony',
-    icon: 'ability_monk_jadeserpentbreath',
-    maxRanks: 1,
-    entryIds: [101388],
-  },
   CHARRED_PASSIONS_TALENT: {
     id: 386965,
     name: 'Charred Passions',
@@ -318,6 +311,13 @@ const talents = createTalentList({
     icon: 'ability_monk_summontigerstatue',
     maxRanks: 1,
     entryIds: [101475],
+  },
+  ENVELOPING_BREATH_TALENT: {
+    id: 343655,
+    name: 'Enveloping Breath',
+    icon: 'ability_monk_jadeserpentbreath',
+    maxRanks: 1,
+    entryIds: [101388],
   },
   ENVELOPING_MIST_TALENT: {
     id: 124682,
@@ -639,7 +639,7 @@ const talents = createTalentList({
     entryIds: [101510],
   },
   INNER_PEACE_TALENT: {
-    id: 397768,
+    id: 195243,
     name: 'Inner Peace',
     icon: 'ability_monk_jasmineforcetea',
     maxRanks: 1,
@@ -724,13 +724,6 @@ const talents = createTalentList({
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 1,
     entryIds: [101480],
-  },
-  LEGACY_OF_WISDOM_TALENT: {
-    id: 404408,
-    name: 'Legacy of Wisdom',
-    icon: 'misc_legionfall_monk',
-    maxRanks: 1,
-    entryIds: [114821],
   },
   LIFECYCLES_TALENT: {
     id: 197915,
@@ -1033,7 +1026,13 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactshaohao_d_01',
     maxRanks: 1,
     entryIds: [101392],
-    manaCost: 6250,
+  },
+  LEGACY_OF_WISDOM_TALENT: {
+    id: 404408,
+    name: 'Legacy of Wisdom',
+    icon: 'misc_legionfall_monk',
+    maxRanks: 1,
+    entryIds: [-1], //// PLACEHOLDER TILL SCRIPT IS RUN
   },
   SHUFFLE_TALENT: {
     id: 322120,
@@ -1045,13 +1044,6 @@ const talents = createTalentList({
   SKYREACH_TALENT: {
     id: 392991,
     name: 'Skyreach',
-    icon: 'inv__fistofthewhitetiger',
-    maxRanks: 1,
-    entryIds: [114822],
-  },
-  SKYTOUCH_TALENT: {
-    id: 405044,
-    name: 'Skytouch',
     icon: 'inv__fistofthewhitetiger',
     maxRanks: 1,
     entryIds: [101479],
