@@ -46,6 +46,7 @@ class Ouroboros extends Analyzer {
     this.echoEbHealing += calculateEffectiveHealing(event, stacks * INCREASE_PER_STACK);
     this.totalStacks += stacks;
     this.currentStacks = stacks;
+    this.totalBuffedHits += 1;
   }
 
   get totalhealing() {
