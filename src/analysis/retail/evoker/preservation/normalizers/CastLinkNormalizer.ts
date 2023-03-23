@@ -489,6 +489,11 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
+      const refEvent = referencedEvent as CastEvent;
+      // need to ignore living flame casts on enemy
+      if (!refEvent.targetIsFriendly && (!refEvent.target || refEvent.target.guid !== 0)) {
+        return false;
+      }
       return (
         !HasRelatedEvent(referencedEvent, EMPOWERED_CAST) &&
         !HasRelatedEvent(referencedEvent, STASIS)
