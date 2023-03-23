@@ -27,15 +27,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       expansion: RETAIL_EXPANSION,
     },
     {
-      spell: TALENTS.HOLY_AVENGER_TALENT.id,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-      expansion: RETAIL_EXPANSION,
-    },
-    {
       spell: SPELLS.AURA_MASTERY.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,

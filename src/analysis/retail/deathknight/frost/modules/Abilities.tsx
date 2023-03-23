@@ -147,8 +147,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.REMORSELESS_WINTER_TALENT.id,
-        buffSpellId: talents.REMORSELESS_WINTER_TALENT.id,
+        spell: SPELLS.REMORSELESS_WINTER.id,
+        buffSpellId: SPELLS.REMORSELESS_WINTER.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -158,7 +158,6 @@ class Abilities extends CoreAbilities {
           suggestion: false,
           recommendedEfficiency: 0.9,
         },
-        enabled: combatant.hasTalent(talents.REMORSELESS_WINTER_TALENT),
       },
       {
         spell: talents.HOWLING_BLAST_TALENT.id,

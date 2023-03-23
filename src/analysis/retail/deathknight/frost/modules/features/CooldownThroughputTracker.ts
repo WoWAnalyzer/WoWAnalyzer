@@ -28,8 +28,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
   static ignoredSpells = [
     ...CoreCooldownThroughputTracker.ignoredSpells,
-    SPELLS.REMORSELESS_WINTER_TALENT_DAMAGE.id,
-    SPELLS.REMORSELESS_WINTER_TALENT_ENV_CAST.id,
+    SPELLS.REMORSELESS_WINTER_DAMAGE.id,
+    SPELLS.REMORSELESS_WINTER_ENV_CAST.id,
   ];
 }
 

@@ -1,6 +1,5 @@
 import {
   DivinePurpose,
-  HolyAvenger,
   HolyPowerTracker,
   HolyPowerDetails,
   Judgment,
@@ -24,9 +23,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import FinalVerdict from './modules/items/FinalVerdict';
 import Crusade from './modules/talents/Crusade';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
-import ExecutionSentence from './modules/talents/ExecutionSentence';
-import RighteousVerdict from './modules/talents/RighteousVerdict';
-import SanctifiedWrath from './modules/talents/SanctifiedWrath';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -51,11 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     wakeofAshes: WakeofAshes,
     consecration: Consecration,
     hammerofWrathRetribution: HammerofWrathRetribution,
-    righteousVerdict: RighteousVerdict,
-    executionSentence: ExecutionSentence,
-    holyAvenger: HolyAvenger,
     empyreanPower: EmpyreanPower,
-    sanctifiedWrath: SanctifiedWrath,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

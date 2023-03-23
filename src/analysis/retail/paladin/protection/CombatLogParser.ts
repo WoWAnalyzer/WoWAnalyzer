@@ -31,7 +31,6 @@ import MomentOfGlory from './modules/talents/MomentOfGlory';
 import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
-import Seraphim from './modules/talents/Seraphim';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,7 +58,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     righteousProtector: RighteousProtector,
-    seraphim: Seraphim,
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
     holyShieldSpellBlock: HolyShieldSpellBlock,
     redoubt: Redoubt,
