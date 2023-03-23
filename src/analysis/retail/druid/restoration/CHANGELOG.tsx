@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 export default [
   change(date(2023, 3, 20), <>Added support for T30 (Aberrus) set statistics, check it out with your PTR logs!</>, Sref),
+  change(date(2023, 3, 22), <>Bump Restoration Druid to 10.0.7</>, Trevor),
   change(date(2023, 3, 17), <>Fixed an issue where Wild Growth cast just before a Flourish or Convoke wouldn't be counted in the cooldown breakdown.</>, Sref),
   change(date(2023, 3, 14), <>Updated <SpellLink id={TALENTS_DRUID.NATURES_VIGIL_TALENT.id} /> module to account for changes to single target heal list.</>, Sref),
   change(date(2023, 2, 16), <>Corrected Typo in the <SpellLink id={TALENTS_DRUID.LIFEBLOOM_TALENT.id}/> uptimes efficiency guide section.</>, Vohrr),

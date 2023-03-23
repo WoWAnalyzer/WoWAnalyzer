@@ -107,7 +107,6 @@ export default class Fracture extends Analyzer {
     return (
       <SpellUsageSubSection
         explanation={explanation}
-        performance={performances}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
         onPerformanceBoxClick={logSpellUseEvent}

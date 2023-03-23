@@ -36,6 +36,7 @@ export const LIFEBIND_APPLY = 'LifebindApply'; // link lifebind apply to verdant
 export const LIFEBIND_HEAL = 'LifebindHeal'; // link lifebind heal to trigger heal event
 export const LIVING_FLAME_CALL_OF_YSERA = 'LivingFlameCallOfYsera'; // link buffed living flame to buff removal
 export const HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
+export const ECHO_HEAL_GROUPING = 'HealGrouping'; // link EB healevents and TA pulses together to easily fetch groups of heals/absorbs
 export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
@@ -390,12 +391,14 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: HEAL_GROUPING,
     linkingEventId: [
       SPELLS.EMERALD_BLOSSOM.id,
+      SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
     ],
     linkingEventType: [EventType.Heal, EventType.ApplyBuff],
     referencedEventId: [
       SPELLS.EMERALD_BLOSSOM.id,
+      SPELLS.EMERALD_BLOSSOM_ECHO.id,
       SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
       SPELLS.SPIRITBLOOM_SPLIT.id,
     ],
@@ -428,6 +431,36 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  // group echo heals together
+  {
+    linkRelation: ECHO_HEAL_GROUPING,
+    linkingEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id, SPELLS.SPIRITBLOOM_SPLIT.id],
+    linkingEventType: [EventType.Heal, EventType.ApplyBuff],
+    referencedEventId: [SPELLS.EMERALD_BLOSSOM_ECHO.id, SPELLS.SPIRITBLOOM_SPLIT.id],
+    referencedEventType: EventType.Heal,
+    anyTarget: true,
+    forwardBufferMs: 25,
+    backwardBufferMs: 25,
+    additionalCondition(linkingEvent, referencedEvent) {
+      if (
+        (linkingEvent as AbilityEvent<any>).ability.guid !==
+        (referencedEvent as AbilityEvent<any>).ability.guid
+      ) {
+        return false;
+      } else if (
+        linkingEvent.type === EventType.Heal &&
+        (linkingEvent as HealEvent).targetID === (referencedEvent as HealEvent).targetID
+      ) {
+        return false;
+      } else if (
+        linkingEvent.type === EventType.ApplyBuff &&
+        (linkingEvent as ApplyBuffEvent).targetID === (referencedEvent as ApplyBuffEvent).targetID
+      ) {
+        return false;
+      }
+      return true;
+    },
+  },
   // link dream breath applications together
   {
     linkRelation: BUFF_GROUPING,
@@ -456,6 +489,11 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
+      const refEvent = referencedEvent as CastEvent;
+      // need to ignore living flame casts on enemy
+      if (!refEvent.targetIsFriendly && (!refEvent.target || refEvent.target.guid !== 0)) {
+        return false;
+      }
       return (
         !HasRelatedEvent(referencedEvent, EMPOWERED_CAST) &&
         !HasRelatedEvent(referencedEvent, STASIS)
@@ -645,6 +683,10 @@ export function getEchoTypeForGoldenHour(event: HealEvent): ECHO_TYPE {
 
 export function getHealEvents(event: HealEvent) {
   return [event].concat(GetRelatedEvents(event, HEAL_GROUPING) as HealEvent[]);
+}
+
+export function getEchoHealEvents(event: HealEvent) {
+  return [event].concat(GetRelatedEvents(event, ECHO_HEAL_GROUPING) as HealEvent[]);
 }
 
 export function getBuffEvents(event: ApplyBuffEvent) {

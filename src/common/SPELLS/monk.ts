@@ -296,6 +296,16 @@ const spells = spellIndexableList({
     name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
   },
+  CHI_COCOON_HEAL_CHIIJI: {
+    id: 406220,
+    name: 'Chi Cocoon',
+    icon: 'inv_pet_crane',
+  },
+  CHI_COCOON_HEAL_YULON: {
+    id: 406139,
+    name: 'Chi Cocoon',
+    icon: 'ability_monk_chiexplosion',
+  },
   GUST_OF_MISTS_CHIJI: {
     id: 343819,
     name: 'Gust of Mists',
