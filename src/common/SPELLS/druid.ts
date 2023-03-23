@@ -458,6 +458,12 @@ const spells = spellIndexableList({
     name: 'Critical Growth',
     icon: 'ability_druid_flourish',
   },
+  // proc from Resto Druid T30 4pc
+  TENACIOUS_FLOURISHING: {
+    id: 408546,
+    name: 'Tenacious Flourishing',
+    icon: 'talentspec_druid_restoration',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // GUARDIAN / BEAR
