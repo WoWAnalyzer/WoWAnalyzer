@@ -5,6 +5,7 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 22), <>Add average stacks to <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> module</>, Trevor),
   change(date(2023, 3, 22), <>Update <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> suggestions based on nerfs</>, Trevor),
   change(date(2023, 3, 21), <>Add <SpellLink id={SPELLS.EMERALD_BLOSSOM_CAST}/> healing to <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> module</>, Trevor),
   change(date(2023, 3, 21), <>Bump support to 10.0.7</>, Trevor),

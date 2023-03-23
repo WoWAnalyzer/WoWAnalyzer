@@ -20,6 +20,7 @@ class Ouroboros extends Analyzer {
   totalConsumes: number = 0;
   lastConsume: number = 0;
   stacks: number = 0;
+  totalStacksConsumed: number = 0;
   lastStacksConsumed: number = 0;
   countedTimestamps: Set<number> = new Set<number>();
   echoCountedTimestamps: Set<number> = new Set<number>();
@@ -80,11 +81,16 @@ class Ouroboros extends Analyzer {
     this.countedTimestamps.add(event.timestamp);
     this.lastStacksConsumed = this.stacks;
     this.lastConsume = event.timestamp;
+    this.totalStacksConsumed += this.stacks;
     this.stacks = 0;
   }
 
   get totalhealing() {
     return this.ebHealing + this.echoEbHealing;
+  }
+
+  get avgStacks() {
+    return this.totalStacksConsumed / this.totalConsumes;
   }
 
   statistic() {
@@ -107,7 +113,8 @@ class Ouroboros extends Analyzer {
         }
       >
         <TalentSpellText talent={TALENTS_EVOKER.OUROBOROS_TALENT}>
-          <ItemHealingDone amount={this.totalhealing} />
+          <ItemHealingDone amount={this.totalhealing} /> <br />
+          {this.avgStacks.toFixed(1)} <small>average stacks</small>
         </TalentSpellText>
       </Statistic>
     );
