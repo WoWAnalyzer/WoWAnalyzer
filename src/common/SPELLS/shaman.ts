@@ -7,6 +7,11 @@
 import { spellIndexableList } from './Spell';
 
 const spells = spellIndexableList({
+  WATER_SHIELD: {
+    id: 52127,
+    name: 'Water Shield',
+    icon: 'ability_shaman_watershield',
+  },
   PURIFY_SPIRIT: {
     id: 77130,
     name: 'Purify Spirit',
