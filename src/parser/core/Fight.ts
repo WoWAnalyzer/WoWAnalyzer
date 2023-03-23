@@ -15,6 +15,7 @@ export interface WCLFight {
   kill?: boolean;
   bossPercentage?: number;
   fightPercentage?: number;
+  hardModeLevel?: number;
 }
 
 //generated or applied properties
