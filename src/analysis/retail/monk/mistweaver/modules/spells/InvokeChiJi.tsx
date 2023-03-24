@@ -321,8 +321,8 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> to maximize mana efficiency and
         healing. <br />
         Choose your target carefully to to maximize targets hit by{' '}
-        <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT} />, which is where the majority of
-        your healing comes from. It is important to avoid overcapping on{' '}
+        <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL} />, which is where the majority of your
+        healing comes from. It is important to avoid overcapping on{' '}
         <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> and{' '}
         <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks, and to recast{' '}
         <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
@@ -437,13 +437,13 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
               </li>
               <li>
                 {formatNumber(this.envelopHealing)}{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> healing from{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />.
+                <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> healing from{' '}
+                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
                 <SpellLink id={SPELLS.CHI_COCOON_HEAL_CHIIJI.id} /> healing from{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />.
+                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
               </li>
             </ul>
             Stack Breakdown:
@@ -475,7 +475,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             <>
               <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> and
               <br />
-              <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />
+              <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />
             </>
           }
         >
