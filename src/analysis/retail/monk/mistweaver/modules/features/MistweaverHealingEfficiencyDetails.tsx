@@ -39,10 +39,9 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
               </>
             )}
             <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> is given the healing of{' '}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> since without casting{' '}
+            <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> since without casting{' '}
             <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} />,{' '}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> healing would not occur.{' '}
-            <br />
+            <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> healing would not occur. <br />
             {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
               <>
                 <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> healing is attributed to the

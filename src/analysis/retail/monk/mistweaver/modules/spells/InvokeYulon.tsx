@@ -129,7 +129,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           <li>
             Cast <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that are near
             other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT} />
+            <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL} />
           </li>
         </ul>
       </p>
@@ -186,13 +186,13 @@ class InvokeYulon extends BaseCelestialAnalyzer {
               </li>
               <li>
                 {formatNumber(this.envelopHealing)}{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> healing from{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />.
+                <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> healing from{' '}
+                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
                 <SpellLink id={SPELLS.CHI_COCOON_HEAL_YULON.id} /> healing from{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />.
+                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
               </li>
             </ul>
           </>
@@ -203,7 +203,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
             <>
               <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} /> and
               <br />
-              <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />
+              <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />
             </>
           }
         >

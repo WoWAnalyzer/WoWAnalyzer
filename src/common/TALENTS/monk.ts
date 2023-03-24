@@ -312,7 +312,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101475],
   },
-  ENVELOPING_BREATH_TALENT: {
+  CELESTIAL_HARMONY_TALENT: {
     id: 343655,
     name: 'Enveloping Breath',
     icon: 'ability_monk_jadeserpentbreath',
@@ -1032,7 +1032,7 @@ const talents = createTalentList({
     name: 'Legacy of Wisdom',
     icon: 'misc_legionfall_monk',
     maxRanks: 1,
-    entryIds: [-1], //// PLACEHOLDER TILL SCRIPT IS RUN
+    entryIds: [114821],
   },
   SHUFFLE_TALENT: {
     id: 322120,
