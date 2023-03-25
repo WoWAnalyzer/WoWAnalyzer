@@ -269,6 +269,9 @@ class HotAttributor extends Analyzer {
       //set the data from the sourceRem if we can find it
       const spellID = event.ability.guid;
       const dmHot = this.hotTracker.hots[event.targetID][spellID];
+      if (!this.hotTracker.hots[sourceRem.targetID]) {
+        return;
+      }
       const sourceHot = this.hotTracker.hots[sourceRem.targetID][spellID];
       if (sourceHot) {
         dmHot.attributions = [];

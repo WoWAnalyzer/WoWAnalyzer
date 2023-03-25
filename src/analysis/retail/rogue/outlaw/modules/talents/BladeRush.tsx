@@ -81,6 +81,9 @@ class BladeRush extends Analyzer {
   private onBladeRush(event: CastEvent) {
     let value = QualitativePerformance.Good;
     const energy = getResource(event.classResources, RESOURCE_TYPES.ENERGY.id);
+    if (!energy) {
+      return;
+    }
     const tooltip = (
       <>
         At {this.owner.formatTimestamp(event.timestamp)} you cast{' '}

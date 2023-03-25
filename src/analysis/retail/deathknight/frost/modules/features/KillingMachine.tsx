@@ -177,11 +177,10 @@ class KillingMachineEfficiency extends Analyzer {
         <b>
           <SpellLink id={talents.KILLING_MACHINE_TALENT.id} />
         </b>{' '}
-        is your most important proc. You want to waste as few of them as possible. If you have{' '}
-        <SpellLink id={talents.FROSTREAPER_TALENT.id} /> or{' '}
-        <SpellLink id={talents.MIGHT_OF_THE_FROZEN_WASTES_TALENT.id} /> it is even more important
-        because <SpellLink id={talents.OBLITERATE_TALENT} /> will be a significant source of damage
-        in your build.
+        is your most important proc. You want to waste as few of them as possible. If you are
+        playing 2H Frost it is even more important because{' '}
+        <SpellLink id={talents.OBLITERATE_TALENT} /> will be <b>the most important</b> source of
+        damage in your build.
       </p>
     );
 

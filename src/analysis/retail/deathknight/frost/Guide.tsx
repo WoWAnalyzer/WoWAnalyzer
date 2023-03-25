@@ -2,8 +2,10 @@ import { GuideProps, Section, SubSection } from 'interface/guide';
 import talents from 'common/TALENTS/deathknight';
 import spells from 'common/SPELLS/deathknight';
 import CombatLogParser from './CombatLogParser';
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import SPELLS from 'common/SPELLS';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -57,58 +59,62 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
       whole extra use of the cooldown.
       {info.combatant.hasTalent(talents.PILLAR_OF_FROST_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
+          <CastEfficiencyBar
             spellId={talents.PILLAR_OF_FROST_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
           />
         </div>
       )}
-      {info.combatant.hasTalent(talents.REMORSELESS_WINTER_TALENT) && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
-            spellId={talents.REMORSELESS_WINTER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-          />
-        </div>
-      )}
+      <div className="flex-main chart" style={{ padding: 5 }}>
+        <CastEfficiencyBar
+          spellId={SPELLS.REMORSELESS_WINTER.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      </div>
       {info.combatant.hasTalent(talents.CHILL_STREAK_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
+          <CastEfficiencyBar
             spellId={talents.CHILL_STREAK_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
           />
         </div>
       )}
       {info.combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
+          <CastEfficiencyBar
             spellId={talents.BREATH_OF_SINDRAGOSA_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
           />
         </div>
       )}
       {info.combatant.hasTalent(talents.FROSTWYRMS_FURY_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
+          <CastEfficiencyBar
             spellId={talents.FROSTWYRMS_FURY_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
           />
         </div>
       )}
       {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
+          <CastEfficiencyBar
             spellId={talents.HORN_OF_WINTER_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
           />
         </div>
       )}
       {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT) ||
         info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
-          <CooldownBar
+          <CastEfficiencyBar
             spellId={spells.EMPOWER_RUNE_WEAPON.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            useThresholds
           />
         </div>
       )}

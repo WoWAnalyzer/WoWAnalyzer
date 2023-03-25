@@ -166,9 +166,11 @@ export function potentialStaggerEvents(
   );
   let staggerPool = stagger[ix].newPooledDamage - stagger[ix].amount;
 
-  const events = (stagger as Array<
-    Pick<AddStaggerEvent | RemoveStaggerEvent, 'type' | 'amount' | 'timestamp' | 'trigger'>
-  >)
+  const events = (
+    stagger as Array<
+      Pick<AddStaggerEvent | RemoveStaggerEvent, 'type' | 'amount' | 'timestamp' | 'trigger'>
+    >
+  )
     .slice(ix)
     .concat(
       missedPurifies.map((miss) => ({

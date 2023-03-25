@@ -13,6 +13,7 @@ import FistsofFury from '../../spells/FistsofFury';
 import TouchOfKarma from '../../spells/TouchOfKarma';
 import HitCombo from '../../talents/HitCombo';
 import Component from './Component';
+import { apl, check } from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -50,6 +51,8 @@ class Checklist extends BaseChecklist {
   render() {
     return (
       <Component
+        apl={apl}
+        checkResults={check(this.owner.eventHistory, this.owner.info)}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{

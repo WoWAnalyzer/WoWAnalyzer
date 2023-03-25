@@ -138,21 +138,19 @@ class Abilities extends CoreAbilities {
         buffSpellId: talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 120,        
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: combatant.hasTalent(talents.SUMMON_GARGOYLE_TALENT) ? 0.65 : 0.9,
           extraSuggestion: (
             <>
-              You should use this with every{' '}
-              <SpellLink id={talents.SUMMON_GARGOYLE_TALENT.id} /> if it is talented. Otherwise
-              use it with your other cooldowns when it is available.
+              You should use this with every <SpellLink id={talents.SUMMON_GARGOYLE_TALENT.id} /> if
+              it is talented. Otherwise use it with your other cooldowns when it is available.
             </>
           ),
         },
         timelineSortIndex: 1,
-        enabled:
-          combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT)
+        enabled: combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
       },
       // defensives
       {

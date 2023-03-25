@@ -60,7 +60,7 @@ const MIN_ENCHANT_IDS = [
   // Ring
   // Cloak
   3825, // https://www.wowhead.com/wotlk/spell=60609/enchant-cloak-speed
-  1099, // https://www.wowhead.com/wotlk/spell=60663/enchant-cloak-major-agility
+  983, // https://www.wowhead.com/wotlk/spell=44500/enchant-cloak-superior-agility
   1262, // https://www.wowhead.com/wotlk/spell=44596/enchant-cloak-superior-arcane-resistance
   1354, // https://www.wowhead.com/wotlk/spell=44556/enchant-cloak-superior-fire-resistance
   3230, // https://www.wowhead.com/wotlk/spell=44483/enchant-cloak-superior-frost-resistance
@@ -154,7 +154,7 @@ const MAX_ENCHANT_IDS = [
   3243, // https://www.wowhead.com/wotlk/spell=44582/enchant-cloak-spell-piercing
   3256, // https://www.wowhead.com/wotlk/spell=44631/enchant-cloak-shadow-armor
   3296, // https://www.wowhead.com/wotlk/spell=47899/enchant-cloak-wisdom
-  983, // https://www.wowhead.com/wotlk/spell=44500/enchant-cloak-superior-agility
+  1099, // https://www.wowhead.com/wotlk/spell=60663/enchant-cloak-major-agility
   3728, // https://www.wowhead.com/wotlk/spell=55769/darkglow-embroidery
   3722, // https://www.wowhead.com/wotlk/spell=55642/lightweave-embroidery
   3730, // https://www.wowhead.com/wotlk/spell=55777/swordguard-embroidery
@@ -179,6 +179,8 @@ const MAX_ENCHANT_IDS = [
   3368, // https://www.wowhead.com/wotlk/spell=53344/rune-of-the-fallen-crusader
   3595, // https://www.wowhead.com/wotlk/spell=54447/rune-of-spellbreaking
   3594, // https://www.wowhead.com/wotlk/spell=54446/rune-of-swordbreaking
+  3869, // https://www.wowhead.com/wotlk/spell=64441/enchant-weapon-blade-ward
+  3870, // https://www.wowhead.com/wotlk/spell=64579/enchant-weapon-blood-draining
   // 2H Weapon
   3827, // https://www.wowhead.com/wotlk/spell=60691/enchant-2h-weapon-massacre
   3247, // https://www.wowhead.com/wotlk/spell=44595/enchant-2h-weapon-scourgebane

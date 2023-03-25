@@ -1,130 +1,87 @@
-import { t } from '@lingui/macro';
-import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
+import { TALENTS_ROGUE } from 'common/TALENTS/rogue';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { UpdateSpellUsableEvent, UpdateSpellUsableType } from 'parser/core/Events';
-import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
+import Events, { CastEvent, RemoveDebuffEvent, TargettedEvent } from 'parser/core/Events';
+import getResourceSpent from 'parser/core/getResourceSpent';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import AlwaysBeCasting from '../features/AlwaysBeCasting';
+const TIME_PER_CP_SPENT = 3000;
+const BUFFER = 200;
 
 class BetweenTheEyes extends Analyzer {
-  timestampFromCD: number = 0;
-  totalTimeOffCD: number = 0;
-  isFirstCast: boolean = true;
-
   static dependencies = {
     spellUsable: SpellUsable,
-    alwaysBeCasting: AlwaysBeCasting,
   };
   protected spellUsable!: SpellUsable;
-  protected alwaysBeCasting!: AlwaysBeCasting;
+
+  debuffInstances: { [targetString: string]: DebuffInstance } = {};
+
+  protected hasImprovedBteTalent = this.selectedCombatant.hasTalent(
+    TALENTS_ROGUE.IMPROVED_BETWEEN_THE_EYES_TALENT,
+  );
+  protected hasCtOTalent = this.selectedCombatant.hasTalent(TALENTS_ROGUE.COUNT_THE_ODDS_TALENT);
+  protected hasGSWTalent = this.selectedCombatant.hasTalent(
+    TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT,
+  );
 
   constructor(options: Options) {
     super(options);
+
     this.addEventListener(
-      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.BETWEEN_THE_EYES),
-      this.onBetweenTheEyesUsable,
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BETWEEN_THE_EYES),
+      this.onCast,
+    );
+    this.addEventListener(
+      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.BETWEEN_THE_EYES),
+      this.onRemove,
     );
   }
 
-  onBetweenTheEyesUsable(event: UpdateSpellUsableEvent) {
-    switch (event.updateType) {
-      case UpdateSpellUsableType.BeginCooldown: {
-        if (!this.isFirstCast) {
-          this.totalTimeOffCD += event.timestamp - this.timestampFromCD;
-        } else {
-          this.isFirstCast = false;
-        }
-        break;
-      }
-
-      case UpdateSpellUsableType.EndCooldown: {
-        this.timestampFromCD = event.timestamp;
-        break;
-      }
+  private onCast(event: CastEvent) {
+    const cpsSpent = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
+    if (cpsSpent === 0 || !event.targetID) {
+      return;
     }
-  }
 
-  // Thresholds get retrieved at the end of analyzing
-  get thresholds(): NumberThreshold {
-    return {
-      actual: this.percentTimeOnCD,
-      isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.75,
-      },
-      style: ThresholdStyle.PERCENTAGE,
+    const target = encodeTargetString(event.targetID, event.targetInstance);
+    const lastDebuffInstance = this.debuffInstances[target];
+    const remainingTimeBeforeRefresh = lastDebuffInstance
+      ? lastDebuffInstance.time - (event.timestamp - lastDebuffInstance.castTimestamp)
+      : 0;
+
+    this.debuffInstances[target] = {
+      remainingBeforeRefresh: remainingTimeBeforeRefresh,
+      castTimestamp: event.timestamp,
+      time: cpsSpent * TIME_PER_CP_SPENT,
     };
   }
 
-  get secondsOffCD(): number {
-    return this.totalTimeOffCD / 1000;
+  private onRemove(event: RemoveDebuffEvent) {
+    const target = encodeTargetString(event.targetID, event.targetInstance);
+    delete this.debuffInstances[target];
   }
 
-  get percentTimeOffCD(): number {
-    return this.secondsOffCD / (this.owner.fightDuration / 1000);
-  }
+  getTimeRemaining(event: TargettedEvent<any>): number {
+    const targetString = encodeTargetString(event.targetID, event.targetInstance);
+    const debuffInstance = this.debuffInstances[targetString];
 
-  get percentTimeOnCD(): number {
-    return 1 - this.percentTimeOffCD;
-  }
+    if (!debuffInstance) {
+      return 0;
+    }
 
-  get inefficientCastSuggestion(): JSX.Element {
-    return (
-      <>
-        You should try to cast <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> more often.
-        <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> should almost always be used as a finisher
-        when it is available
-      </>
-    );
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
-        tooltip={
-          <>
-            This is the time of how much of the fight <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} />{' '}
-            was on cooldown. <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> generally has to be used
-            as soon as it comes off cooldown, cast should therefore only be delayed for a minimum
-            amount of time in order to maximise debuff uptime{' '}
-          </>
-        }
-      >
-        <BoringSpellValueText spellId={SPELLS.BETWEEN_THE_EYES.id}>
-          <>
-            {formatPercentage(this.thresholds.actual)}% <small>time spent on cooldown</small>
-            <br />
-            {formatNumber(this.secondsOffCD)}s <small>total seconds spent off cooldown</small>
-          </>
-        </BoringSpellValueText>
-      </Statistic>
-    );
-  }
-
-  suggestions(when: When) {
-    when(this.thresholds)
-      .isLessThan(this.thresholds.isLessThan!)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(this.inefficientCastSuggestion)
-          .icon(SPELLS.BETWEEN_THE_EYES.icon)
-          .actual(
-            t({
-              id: 'rogue.outlaw.suggestions.betweentheEyes.timeoffCD',
-              message: `${formatPercentage(actual)}% time spent on cooldown`,
-            }),
-          )
-          .recommended(`>${formatPercentage(recommended)}% is recommended`),
-      );
+    const timeElapsed = event.timestamp - debuffInstance.castTimestamp;
+    return timeElapsed > BUFFER
+      ? debuffInstance.time - timeElapsed
+      : debuffInstance.remainingBeforeRefresh;
   }
 }
 
 export default BetweenTheEyes;
+
+interface DebuffInstance {
+  castTimestamp: number;
+  time: number;
+  remainingBeforeRefresh: number;
+}

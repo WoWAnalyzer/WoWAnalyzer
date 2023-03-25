@@ -298,6 +298,11 @@ const spells = spellIndexableList({
     name: 'Temporal Compression',
     icon: 'ability_evoker_rewind2',
   },
+  OUROBOROS_BUFF: {
+    id: 387350,
+    name: 'Ouroboros',
+    icon: 'ability_evoker_innatemagic',
+  },
 });
 
 export default spells;

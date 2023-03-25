@@ -7,6 +7,7 @@ import {
   Apl,
   CheckResult,
   InternalRule,
+  isRuleEqual,
   spells,
   TargetType,
   Tense,
@@ -55,7 +56,7 @@ const defaultClaimFilter = (
   rule: InternalRule,
   claims: Set<Violation>,
 ): boolean => {
-  const successes = result.successes.filter((suc) => suc.rule === rule).length;
+  const successes = result.successes.filter((suc) => isRuleEqual(suc.rule, rule)).length;
 
   return claims.size > minClaimCount(result) && claims.size / (successes + claims.size) > 0.4;
 };

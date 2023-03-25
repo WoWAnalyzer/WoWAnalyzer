@@ -1,10 +1,13 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
+import TALENTS from 'common/TALENTS/demonhunter';
 import { ResourceLink, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { t, Trans } from '@lingui/macro';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
+import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
+import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+
 import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import {
@@ -12,9 +15,8 @@ import {
   OK_TIME_AT_FURY_CAP,
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
-import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
-import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import FuryCapWaste from './guide/FuryCapWaste';
+import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -74,30 +76,28 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       })}
     >
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
+      <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
       <CooldownGraphSubsection />
       <CooldownUsage analyzer={modules.essenceBreak} title="Essence Break" />
       <CooldownUsage analyzer={modules.eyeBeam} title="Eye Beam" />
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT) &&
+      {info.combatant.hasTalent(TALENTS.ELYSIAN_DECREE_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink id={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />{' '}
-            coming soon!
+            Per-cast breakdown for <SpellLink id={TALENTS.ELYSIAN_DECREE_TALENT} /> coming soon!
           </div>,
           <></>,
         )}
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT) &&
+      {info.combatant.hasTalent(TALENTS.GLAIVE_TEMPEST_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink id={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT} />{' '}
-            coming soon!
+            Per-cast breakdown for <SpellLink id={TALENTS.GLAIVE_TEMPEST_TALENT} /> coming soon!
           </div>,
           <></>,
         )}
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT) &&
+      {info.combatant.hasTalent(TALENTS.FEL_BARRAGE_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT} /> coming
-            soon!
+            Per-cast breakdown for <SpellLink id={TALENTS.FEL_BARRAGE_TALENT} /> coming soon!
           </div>,
           <></>,
         )}
@@ -114,6 +114,7 @@ function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
       })}
     >
       <HideExplanationsToggle id="hide-explanations-rotations" />
+      <HideGoodCastsToggle id="hide-good-casts-rotations" />
       {modules.throwGlaive.guideSubsection()}
       {modules.momentum.guideSubsection()}
     </Section>

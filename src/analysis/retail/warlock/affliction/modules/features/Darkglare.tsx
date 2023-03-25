@@ -70,6 +70,7 @@ class Darkglare extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUMMON_DARKGLARE_TALENT);
     this._dotDurations = getDotDurations(this.selectedCombatant);
     // if player has Absolute Corruption, disregard the Corruption duration (it's permanent debuff then)
     this._hasAC = this.selectedCombatant.hasTalent(TALENTS.ABSOLUTE_CORRUPTION_TALENT);
@@ -230,8 +231,9 @@ class Darkglare extends Analyzer {
     Object.values(this.casts).forEach((cast) => {
       Object.values(cast.targets).forEach((targetDots) => {
         if (this._hasAC) {
-          totalExtendedDots += targetDots.dots.filter((id) => id !== SPELLS.CORRUPTION_DEBUFF.id)
-            .length;
+          totalExtendedDots += targetDots.dots.filter(
+            (id) => id !== SPELLS.CORRUPTION_DEBUFF.id,
+          ).length;
         } else {
           totalExtendedDots += targetDots.dots.length;
         }

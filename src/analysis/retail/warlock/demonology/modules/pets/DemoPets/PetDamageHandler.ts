@@ -19,11 +19,11 @@ class PetDamageHandler extends Analyzer {
 
   onPetDamage(event: DamageEvent) {
     if (!event.sourceID) {
-      debug && this.error('Pet damage event with no sourceID', event)
+      debug && this.error('Pet damage event with no sourceID', event);
       return;
     }
     if (!event.sourceInstance) {
-      debug && this.error('Pet damage event with no sourceInstance', event)
+      debug && this.error('Pet damage event with no sourceInstance', event);
       return;
     }
     const petInfo = this.demoPets._getPetInfo(event.sourceID);

@@ -92,7 +92,8 @@ class HighTide extends Analyzer {
    */
   onChainHealCast(event: CastEvent) {
     if (isBuffedByHighTide(event)) {
-      debug && console.log('High Tide Chain heal at ', this.owner.formatTimestamp(event.timestamp), event);
+      debug &&
+        console.log('High Tide Chain heal at ', this.owner.formatTimestamp(event.timestamp), event);
       this.buffsConsumed += 1;
       let FACTOR_CONTRIBUTED_BY_HT_HIT;
       const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);

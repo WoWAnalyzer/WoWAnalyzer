@@ -111,17 +111,8 @@ class Statistic extends React.PureComponent<Props, { expanded?: boolean }> {
   }
 
   render() {
-    const {
-      children,
-      wide,
-      ultrawide,
-      tooltip,
-      size,
-      drilldown,
-      className,
-      dropdown,
-      ...others
-    } = this.props;
+    const { children, wide, ultrawide, tooltip, size, drilldown, className, dropdown, ...others } =
+      this.props;
 
     return (
       <div

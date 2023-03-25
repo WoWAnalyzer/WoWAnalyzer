@@ -1,35 +1,35 @@
 @import 'interface/Theme.scss';
 
-.raid-composition{
+.raid-composition {
   align-content: center;
 
-    .role-count {
-      text-align: center;
-      font-size: 0.86em;
-    }
-
-    .bar {
-      height: auto;
-      padding: 0;
-    }
-    .bar .flex > * {
-      padding: 10px 15px;
-      font-size: 22px;
-      line-height: 1;
-      border-radius: 3px;
-      background: $panelColor;
-    }
-    .bar .flex > .icon {
-      img {
-        height: 1.38em;
-        vertical-align: top;
-        border-radius: 50%;
-        margin: 0 0 4px 0;
-        border: 0;
-      }
-      margin: 0 1.5px 0 1.5px;
-    }
+  .role-count {
+    text-align: center;
+    font-size: 0.86em;
   }
+
+  .bar {
+    height: auto;
+    padding: 0;
+  }
+  .bar .flex > * {
+    padding: 10px 15px;
+    font-size: 22px;
+    line-height: 1;
+    border-radius: 3px;
+    background: $panelColor;
+  }
+  .bar .flex > .icon {
+    img {
+      height: 1.38em;
+      vertical-align: top;
+      border-radius: 50%;
+      margin: 0 0 4px 0;
+      border: 0;
+    }
+    margin: 0 1.5px 0 1.5px;
+  }
+}
 .player-selection {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(125px, 1fr));
@@ -43,7 +43,8 @@
     flex-flow: column;
     color: #fff;
 
-    &:hover, &.selected {
+    &:hover,
+    &.selected {
       text-decoration: none;
       border: 2px solid rgba(248, 183, 0, 1);
     }
@@ -115,7 +116,8 @@
         small > .icon {
           border-radius: 50%;
         }
-        small, .text-small {
+        small,
+        .text-small {
           // The small text has to be in a certain balance with the player name
           font-size: 11px;
         }

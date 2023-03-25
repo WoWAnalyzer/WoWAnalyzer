@@ -171,10 +171,9 @@ class RimeEfficiency extends Analyzer {
         apply Frost Fever to a powerful spell that jumps to the top of the priority list. This is
         especially true if <SpellLink id={talents.AVALANCHE_TALENT.id} /> or{' '}
         <SpellLink id={talents.ICEBREAKER_TALENT.id} /> are talented. Rime has a chance to proc
-        whenever cast <SpellLink id={talents.OBLITERATE_TALENT.id} /> and you can use this to
-        prevent refreshing the proc by making sure to consume Rime before casting Obliterate. You
-        should aim to consume as many Rimes as you can, only ignoring it during certain periods of
-        the main CD window.
+        whenever you cast <SpellLink id={talents.OBLITERATE_TALENT.id} /> and you prevent wasting
+        the proc by making sure to consume Rime before casting Obliterate. You should aim to consume
+        as many Rimes as you can.
       </p>
     );
 

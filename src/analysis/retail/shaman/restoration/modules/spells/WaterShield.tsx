@@ -1,14 +1,13 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TalentSpellText from 'parser/ui/TalentSpellText';
 
 // just gonna steal my mtt formatting
 import './ManaTideTotem.scss';
@@ -21,14 +20,13 @@ class WaterShield extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.WATER_SHIELD_TALENT);
 
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD_ENERGIZE),
       this.waterShield,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.WATER_SHIELD_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD),
       this.waterShieldPrepullCheck,
     );
   }
@@ -45,8 +43,7 @@ class WaterShield extends Analyzer {
 
   get regenOnPlayer() {
     let uptime =
-      this.selectedCombatant.getBuffUptime(TALENTS.WATER_SHIELD_TALENT.id) /
-      this.owner.fightDuration;
+      this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id) / this.owner.fightDuration;
     if (uptime === 0) {
       uptime = 1; // quick fix for water shield not being in logs
     }
@@ -55,7 +52,7 @@ class WaterShield extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(TALENTS.WATER_SHIELD_TALENT.id);
+    return this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id);
   }
 
   get uptimePercent() {
@@ -95,9 +92,9 @@ class WaterShield extends Analyzer {
           </ul>
         }
       >
-        <TalentSpellText talent={TALENTS.WATER_SHIELD_TALENT}>
+        <BoringSpellValueText spellId={SPELLS.WATER_SHIELD.id}>
           <ItemManaGained amount={this.manaGain + this.regenOnPlayer} />
-        </TalentSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

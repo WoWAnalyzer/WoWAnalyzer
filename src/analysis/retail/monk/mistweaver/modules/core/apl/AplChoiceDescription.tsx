@@ -22,14 +22,14 @@ const aplTitle = (choice: MistweaverApl) => {
           <SpellLink id={talents.UPWELLING_TALENT} />
         </>
       );
-      case MistweaverApl.RisingMistCloudedFocusShaohaos:
-        return (
-          <>
-            <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
+    case MistweaverApl.RisingMistCloudedFocusShaohaos:
+      return (
+        <>
+          <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
           <SpellLink id={talents.CLOUDED_FOCUS_TALENT} /> /{' '}
           <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />
-          </>
-        );
+        </>
+      );
     default:
       return <em>Fallback</em>;
   }
@@ -56,8 +56,9 @@ const AncientTeachingsDescription = () => {
 const CloudedFocusDescription = () => {
   return (
     <>
-      to make optimal use of your high <SpellLink id={talents.RENEWING_MIST_TALENT}/> count with <SpellLink id={talents.CLOUDED_FOCUS_TALENT}/>,{' '}
-      which further empowers <SpellLink id={SPELLS.VIVIFY}/>
+      to make optimal use of your high <SpellLink id={talents.RENEWING_MIST_TALENT} /> count with{' '}
+      <SpellLink id={talents.CLOUDED_FOCUS_TALENT} />, which further empowers{' '}
+      <SpellLink id={SPELLS.VIVIFY} />
     </>
   );
 };
@@ -65,10 +66,9 @@ const CloudedFocusDescription = () => {
 const ShaohaosDescription = () => {
   return (
     <>
-    You will aim to cast{' '}
-        <SpellLink id={talents.SHEILUNS_GIFT_TALENT} /> to align with your cooldown usage and
-        moments of heavy healing to make use of the various{' '}
-        <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} /> buffs.{' '}
+      You will aim to cast <SpellLink id={talents.SHEILUNS_GIFT_TALENT} /> to align with your
+      cooldown usage and moments of heavy healing to make use of the various{' '}
+      <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} /> buffs.{' '}
     </>
   );
 };
@@ -97,9 +97,8 @@ const RisingMistAncientTeachingsShaohaosDescription = () => {
         <SpellLink id={talents.RENEWING_MIST_TALENT} /> and{' '}
         <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
         <SpellLink id={talents.ESSENCE_FONT_TALENT} /> as often as necessary to maintain the{' '}
-        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> buff.{' '}
-        <ShaohaosDescription/>
-        <ThunderFocusTeaREM/>
+        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
+        <ThunderFocusTeaREM />
       </p>
     </>
   );
@@ -150,10 +149,9 @@ const RisingMistCloudedFocusShaohaosDescription = () => {
         <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
         <SpellLink id={talents.RENEWING_MIST_TALENT} /> and{' '}
         <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
-        <SpellLink id={talents.SOOTHING_MIST_TALENT} /> prior to casting {' '}
-        <SpellLink id={SPELLS.VIVIFY}/> as your main source of healing.{' '} 
-        <ShaohaosDescription/>
-        <ThunderFocusTeaREM/>
+        <SpellLink id={talents.SOOTHING_MIST_TALENT} /> prior to casting{' '}
+        <SpellLink id={SPELLS.VIVIFY} /> as your main source of healing. <ShaohaosDescription />
+        <ThunderFocusTeaREM />
       </p>
     </>
   );
@@ -180,8 +178,8 @@ const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
       return <RisingMistAncientTeachingsShaohaosDescription />;
     case MistweaverApl.RisingMistAncientTeachingsUpwellFls:
       return <RisingMistAncientTeachingsUpwelFlsDescription />;
-      case MistweaverApl.RisingMistCloudedFocusShaohaos:
-        return <RisingMistCloudedFocusShaohaosDescription/>;
+    case MistweaverApl.RisingMistCloudedFocusShaohaos:
+      return <RisingMistCloudedFocusShaohaosDescription />;
     default:
       return <FallbackDescription />;
   }

@@ -8,7 +8,7 @@ type PetRecord = {
   duration: number;
   summonAbility: number;
   isRandom?: boolean;
-}
+};
 
 const indexByGuid = (obj: Record<string, PetRecord>) => {
   Object.keys(obj).forEach((key) => {

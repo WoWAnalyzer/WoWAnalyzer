@@ -76,6 +76,7 @@ import MendingProliferation from './modules/spells/MendingProliferation';
 import SheilunsGift from './modules/spells/SheilunsGift';
 import MistWrap from './modules/spells/MistWrap';
 import ShaohaosLessons from './modules/spells/ShaohaosLessons';
+import LegacyOfWisdom from './modules/spells/LegacyOfWisdom';
 import VeilOfPride from './modules/spells/VeilOfPride';
 import Guide from './Guide';
 import SheilunsGiftCloudTracker from './modules/spells/SheilunsGiftCloudTracker';
@@ -176,6 +177,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sheilunsGift: SheilunsGift,
     shaohaosLessons: ShaohaosLessons,
     veilOfPride: VeilOfPride,
+    legacyOfWisdom: LegacyOfWisdom,
 
     apl: AplCheck,
 

@@ -7,7 +7,6 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 import ArtOfWar from '../../core/ArtOfWar';
 import ShieldOfVengeance from '../../core/ShieldOfVengeance';
 import Crusade from '../../talents/Crusade';
-import RighteousVerdict from '../../talents/RighteousVerdict';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 
@@ -23,7 +22,6 @@ class Checklist extends BaseChecklist {
     artOfWar: ArtOfWar,
     judgment: Judgment,
     crusade: Crusade,
-    righteousVerdict: RighteousVerdict,
     shieldOfVengeance: ShieldOfVengeance,
   };
   render() {
@@ -39,7 +37,6 @@ class Checklist extends BaseChecklist {
           artOfWar: this.artOfWar.suggestionThresholds,
           crusade: this.crusade.suggestionThresholds,
           judgment: this.judgment.suggestionThresholds,
-          righteousVerdict: this.righteousVerdict.suggestionThresholds,
           shieldOfVengeance: this.shieldOfVengeance.suggestionThresholds,
         }}
       />

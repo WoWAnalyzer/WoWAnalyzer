@@ -31,7 +31,6 @@ const HARDCAST_FLOURISH_EXTENSION = 8000;
 const CONVOKE_FLOURISH_EXTENSION = 4000;
 const FLOURISH_HEALING_INCREASE = 1;
 
-// TODO double check advice for DF
 /**
  * **Flourish**
  * Spec Talent Tier 8

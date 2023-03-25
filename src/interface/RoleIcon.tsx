@@ -1,5 +1,4 @@
 import ROLES from 'game/ROLES';
-import PropTypes from 'prop-types';
 
 interface Props {
   id: number;
@@ -23,10 +22,6 @@ const RoleIcon = ({ id, className, ...others }: Props) => {
   return (
     <img src={`/img/${iconName}.png`} alt="" className={`icon ${className || ''}`} {...others} />
   );
-};
-RoleIcon.propTypes = {
-  id: PropTypes.number.isRequired,
-  className: PropTypes.string,
 };
 
 export default RoleIcon;

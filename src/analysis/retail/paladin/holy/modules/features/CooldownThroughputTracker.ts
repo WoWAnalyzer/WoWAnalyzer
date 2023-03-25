@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
+import { RETAIL_EXPANSION } from 'game/Expansion';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -14,6 +15,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
+      expansion: RETAIL_EXPANSION,
     },
     {
       spell: TALENTS.AVENGING_CRUSADER_TALENT.id,
@@ -22,14 +24,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
-    },
-    {
-      spell: TALENTS.HOLY_AVENGER_TALENT.id,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
+      expansion: RETAIL_EXPANSION,
     },
     {
       spell: SPELLS.AURA_MASTERY.id,
@@ -38,6 +33,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
+      expansion: RETAIL_EXPANSION,
     },
   ];
 }

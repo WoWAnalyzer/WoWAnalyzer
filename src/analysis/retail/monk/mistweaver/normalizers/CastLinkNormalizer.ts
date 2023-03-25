@@ -32,6 +32,7 @@ export const VIVIFY_GOM = 'ViVGOM';
 export const REVIVAL_GOM = 'RevivalGOM';
 export const ZEN_PULSE_GOM = 'ZPGOM';
 export const SHEILUNS_GIFT_GOM = 'SGGOM';
+export const SHEILUNS_GIFT = 'SheilunsGift';
 export const EXPEL_HARM_GOM = 'EHGOM';
 export const SOOM_GOM = 'SoomGOM';
 export const VIVIFY = 'Vivify';
@@ -287,6 +288,22 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: EF_BUFFER,
     anyTarget: true,
   },
+  {
+    linkRelation: SHEILUNS_GIFT,
+    linkingEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
+    linkingEventType: [EventType.Cast],
+    referencedEventId: [TALENTS_MONK.SHEILUNS_GIFT_TALENT.id],
+    referencedEventType: [EventType.Heal],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
+    },
+    maximumLinks(c) {
+      return c.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT) ? 5 : 3;
+    },
+  },
 ];
 
 /**
@@ -388,7 +405,7 @@ export function isFromRapidDiffusion(event: ApplyBuffEvent | RefreshBuffEvent) {
 }
 
 export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | RefreshBuffEvent) {
-   if(!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)){
+  if (!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)) {
     return false;
   }
   const rdSourceEvent = GetRelatedEvents(event, FROM_RAPID_DIFFUSION);
@@ -399,7 +416,7 @@ export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | Refres
 }
 
 export function isFromRapidDiffusionEnvelopingMist(event: ApplyBuffEvent | RefreshBuffEvent) {
-  if(!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)){
+  if (!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)) {
     return false;
   }
   const rdSourceEvent = GetRelatedEvents(event, FROM_RAPID_DIFFUSION);
@@ -459,6 +476,10 @@ export function isFromEssenceFont(event: HealEvent) {
     !HasRelatedEvent(event, RENEWING_MIST_GOM) &&
     !HasRelatedEvent(event, ENVELOPING_MIST_GOM)
   );
+}
+
+export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
+  return GetRelatedEvents(event, SHEILUNS_GIFT) as HealEvent[];
 }
 
 export function getVivifiesPerCast(event: CastEvent) {

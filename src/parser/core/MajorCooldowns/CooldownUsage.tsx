@@ -77,14 +77,7 @@ const CooldownUsage = <Cast extends SpellCast>({
 
   const uses = analyzer.uses;
 
-  return (
-    <SpellUsageSubSection
-      explanation={analyzer.description()}
-      performance={performance}
-      uses={uses}
-      {...others}
-    />
-  );
+  return <SpellUsageSubSection explanation={analyzer.description()} uses={uses} {...others} />;
 };
 
 export default CooldownUsage;

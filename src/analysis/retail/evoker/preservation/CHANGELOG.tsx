@@ -5,6 +5,16 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 24), <>Disable <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> statistics when no casts</>, Trevor),
+  change(date(2023, 3, 23), <>Fix bug in <SpellLink id={TALENTS_EVOKER.STASIS_TALENT}/> due to poor logging</>, Trevor),
+  change(date(2023, 3, 22), <>Update average stacks in <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> module</>, Trevor),
+  change(date(2023, 3, 22), <>Add average stacks to <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> module</>, Trevor),
+  change(date(2023, 3, 22), <>Update <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT}/> suggestions based on nerfs</>, Trevor),
+  change(date(2023, 3, 21), <>Add <SpellLink id={SPELLS.EMERALD_BLOSSOM_CAST}/> healing to <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> module</>, Trevor),
+  change(date(2023, 3, 21), <>Bump support to 10.0.7</>, Trevor),
+  change(date(2023, 3, 21), <>Add <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> talent</>, Trevor),
+  change(date(2023, 3, 17), <>Fix prepull <SpellLink id={TALENTS_EVOKER.STASIS_TALENT}/> logic</>, Trevor),
+  change(date(2023, 3, 15), <>Add cast efficiency suggestion for <SpellLink id={TALENTS_EVOKER.STASIS_TALENT}/></>, Trevor),
   change(date(2023, 3, 11), <>Improve <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> breakdown chart</>, Trevor),
   change(date(2023, 2, 14), <>Fix <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT}/> module when talented into <SpellLink id={TALENTS_EVOKER.FONT_OF_MAGIC_TALENT}/></>, Trevor),
   change(date(2023, 2, 9), <>Fix <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT}/> analysis breaking.</>, ToppleTheNun),

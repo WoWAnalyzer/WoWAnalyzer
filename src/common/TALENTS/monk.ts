@@ -312,7 +312,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101475],
   },
-  ENVELOPING_BREATH_TALENT: {
+  CELESTIAL_HARMONY_TALENT: {
     id: 343655,
     name: 'Enveloping Breath',
     icon: 'ability_monk_jadeserpentbreath',
@@ -639,7 +639,7 @@ const talents = createTalentList({
     entryIds: [101510],
   },
   INNER_PEACE_TALENT: {
-    id: 195243,
+    id: 397768,
     name: 'Inner Peace',
     icon: 'ability_monk_jasmineforcetea',
     maxRanks: 1,
@@ -1026,6 +1026,14 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactshaohao_d_01',
     maxRanks: 1,
     entryIds: [101392],
+    manaCost: 6250,
+  },
+  LEGACY_OF_WISDOM_TALENT: {
+    id: 404408,
+    name: 'Legacy of Wisdom',
+    icon: 'misc_legionfall_monk',
+    maxRanks: 1,
+    entryIds: [114821],
   },
   SHUFFLE_TALENT: {
     id: 322120,
@@ -1037,6 +1045,13 @@ const talents = createTalentList({
   SKYREACH_TALENT: {
     id: 392991,
     name: 'Skyreach',
+    icon: 'inv__fistofthewhitetiger',
+    maxRanks: 1,
+    entryIds: [114822],
+  },
+  SKYTOUCH_TALENT: {
+    id: 405044,
+    name: 'Skytouch',
     icon: 'inv__fistofthewhitetiger',
     maxRanks: 1,
     entryIds: [101479],

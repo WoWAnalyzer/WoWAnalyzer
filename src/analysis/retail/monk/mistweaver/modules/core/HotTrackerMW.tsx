@@ -6,7 +6,7 @@ import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/H
 import { ATTRIBUTION_STRINGS } from '../../constants';
 
 const RAPID_DIFFUSION = 3000;
-const MISTY_PEAKS_DURATION = 1000;
+const MISTY_PEAKS_DURATION = 2000;
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
 const EF_BASE_DURATION = 8000;
@@ -180,13 +180,13 @@ class HotTrackerMW extends HotTracker {
 
   _getMistyPeaksMaxDuration(combatant: Combatant): number {
     return (
-      MISTY_PEAKS_DURATION * combatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
-      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * ENV_BASE_DURATION // TODO: REMOVE ENV BASE DURATION WHEN 10.0.7 HIT
+      MISTY_PEAKS_DURATION +
+      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * MISTY_PEAKS_DURATION
     );
   }
 
   _getMistyPeaksDuration(combatant: Combatant): number {
-    return MISTY_PEAKS_DURATION * combatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT);
+    return MISTY_PEAKS_DURATION;
   }
 
   _generateHotInfo(): HotInfo[] {

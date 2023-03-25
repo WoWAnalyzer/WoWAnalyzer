@@ -10,8 +10,10 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import { TALENTS_MONK } from 'common/TALENTS';
+import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 
-const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
+const WindwalkerMonkChecklist = (props: ChecklistProps & AplRuleProps) => {
+  const { combatant, castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}
@@ -244,6 +246,7 @@ const WindwalkerMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           thresholds={thresholds.touchOfKarma}
         />
       </Rule>
+      <AplRule {...props} name="APL checker (beta)" />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
