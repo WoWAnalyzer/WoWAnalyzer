@@ -15,12 +15,12 @@ const EVENT_ORDERS: EventOrder[] = [
 ];
 
 /**
- * Ensures that the apply buff event for Arcane Power is sorted after the Arcane Power cast.
+ * Ensures that the apply buff event for Arcane Surge is sorted after the Arcane Surge cast.
  */
-class ArcanePowerNormalizer extends EventOrderNormalizer {
+class ArcaneSurgeNormalizer extends EventOrderNormalizer {
   constructor(options: Options) {
     super(options, EVENT_ORDERS);
   }
 }
 
-export default ArcanePowerNormalizer;
+export default ArcaneSurgeNormalizer;

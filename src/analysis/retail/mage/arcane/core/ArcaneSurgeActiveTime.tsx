@@ -13,7 +13,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-class ArcanePowerActiveTime extends Analyzer {
+class ArcaneSurgeActiveTime extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
     filteredActiveTime: FilteredActiveTime,
@@ -29,11 +29,11 @@ class ArcanePowerActiveTime extends Analyzer {
     super(options);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_SURGE_TALENT),
-      this.onArcanePowerRemoved,
+      this.onArcaneSurgeRemoved,
     );
   }
 
-  onArcanePowerRemoved(event: RemoveBuffEvent) {
+  onArcaneSurgeRemoved(event: RemoveBuffEvent) {
     const buffApplied = this.eventHistory.last(
       1,
       undefined,
@@ -61,7 +61,7 @@ class ArcanePowerActiveTime extends Analyzer {
     );
   }
 
-  get arcanePowerActiveTimeThresholds() {
+  get arcaneSurgeActiveTimeThresholds() {
     return {
       actual: this.percentActiveTime,
       isLessThan: {
@@ -74,13 +74,13 @@ class ArcanePowerActiveTime extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.arcanePowerActiveTimeThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.arcaneSurgeActiveTimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You spent {formatNumber(this.downtimeSeconds)} seconds (
           {formatNumber(this.averageDowntime)}s per cast) not casting anything while{' '}
           <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> was active. Because a large portion of
-          your damage comes from Arcane Power, you should ensure that you are getting the most out
+          your damage comes from Arcane Surge, you should ensure that you are getting the most out
           of it every time it is cast. While sometimes this is out of your control (you got targeted
           by a mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
           <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> when you are at a low risk of being
@@ -90,7 +90,7 @@ class ArcanePowerActiveTime extends Analyzer {
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.arcanePower.arcanePowerActiveTime">
-            {formatPercentage(this.percentActiveTime)}% Active Time during Arcane Power
+            {formatPercentage(this.percentActiveTime)}% Active Time during Arcane Surge
           </Trans>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
@@ -104,7 +104,7 @@ class ArcanePowerActiveTime extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            When using Arcane Power, you should ensure you are getting the most out of it by using
+            When using Arcane Surge, you should ensure you are getting the most out of it by using
             every second of the cooldown as any time spent not casting anything is lost damage.
             While sometimes this will be out of your control due to boss mechanics, you should try
             to minimize that risk by using your cooldowns when you are least likely to get
@@ -113,11 +113,11 @@ class ArcanePowerActiveTime extends Analyzer {
         }
       >
         <BoringSpellValueText spellId={TALENTS.ARCANE_SURGE_TALENT.id}>
-          {formatPercentage(this.percentActiveTime)}% <small>Arcane Power Active Time</small>
+          {formatPercentage(this.percentActiveTime)}% <small>Arcane Surge Active Time</small>
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
 
-export default ArcanePowerActiveTime;
+export default ArcaneSurgeActiveTime;
