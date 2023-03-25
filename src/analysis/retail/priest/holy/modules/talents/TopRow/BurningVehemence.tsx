@@ -9,7 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
-const DAMAGE_INCREASE_PER_RANK = [0, 0.15, 0.3];
+const DAMAGE_INCREASE_PER_RANK = [0, 0.3, 0.6];
 
 class BurningVehemence extends Analyzer {
   damageBonus = 0;
