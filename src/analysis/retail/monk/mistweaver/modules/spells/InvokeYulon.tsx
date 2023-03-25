@@ -7,7 +7,7 @@ import CooldownExpandable, {
 } from 'interface/guide/components/CooldownExpandable';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { AbsorbedEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { getLowestPerf } from 'parser/ui/QualitativePerformance';
@@ -21,10 +21,11 @@ import EssenceFont from './EssenceFont';
 class InvokeYulon extends BaseCelestialAnalyzer {
   soothHealing: number = 0;
   envelopHealing: number = 0;
+  chiCocoonHealing: number = 0;
   protected ef!: EssenceFont;
 
   get totalHealing() {
-    return this.soothHealing + this.envelopHealing;
+    return this.soothHealing + this.envelopHealing + this.chiCocoonHealing;
   }
 
   constructor(options: Options) {
@@ -42,6 +43,10 @@ class InvokeYulon extends BaseCelestialAnalyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER_PET).spell(SPELLS.SOOTHING_BREATH),
       this.handleSoothingBreath,
+    );
+    this.addEventListener(
+      Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.CHI_COCOON_HEAL_YULON),
+      this.handleChiCocoon,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT),
@@ -70,6 +75,10 @@ class InvokeYulon extends BaseCelestialAnalyzer {
 
   handleSoothingBreath(event: HealEvent) {
     this.soothHealing += (event.amount || 0) + (event.absorbed || 0);
+  }
+
+  handleChiCocoon(event: AbsorbedEvent) {
+    this.chiCocoonHealing += event.amount;
   }
 
   subStatistic() {
@@ -120,7 +129,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           <li>
             Cast <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that are near
             other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT} />
+            <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL} />
           </li>
         </ul>
       </p>
@@ -176,8 +185,14 @@ class InvokeYulon extends BaseCelestialAnalyzer {
                 <SpellLink id={SPELLS.SOOTHING_BREATH.id} />.
               </li>
               <li>
-                {formatNumber(this.envelopHealing)} healing from{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />.
+                {formatNumber(this.envelopHealing)}{' '}
+                <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> healing from{' '}
+                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
+              </li>
+              <li>
+                {formatNumber(this.chiCocoonHealing)}{' '}
+                <SpellLink id={SPELLS.CHI_COCOON_HEAL_YULON.id} /> healing from{' '}
+                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
               </li>
             </ul>
           </>
@@ -188,7 +203,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
             <>
               <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} /> and
               <br />
-              <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />
+              <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />
             </>
           }
         >

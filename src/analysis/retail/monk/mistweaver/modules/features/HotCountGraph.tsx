@@ -66,10 +66,9 @@ class HotCountGraph extends BuffCountGraph {
             your cooldowns. Having several <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />{' '}
             out before casting <SpellLink id={this.revival.getRevivalTalent()} /> or{' '}
             <SpellLink id={this.celestial.getCelestialTalent()} /> will drastically increase their
-            effectiveness, and the number of{' '}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> that go out during{' '}
-            <SpellLink id={this.celestial.getCelestialTalent()} /> directly correlates to your hps
-            during.
+            effectiveness, and the number of <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} />{' '}
+            that go out during <SpellLink id={this.celestial.getCelestialTalent()} /> directly
+            correlates to your hps during.
           </>
         }
       >

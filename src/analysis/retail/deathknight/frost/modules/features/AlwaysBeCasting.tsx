@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -25,7 +26,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the
           boss unless due to mechanics. If you do have to move, try casting filler spells, such as{' '}
           <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> or{' '}
-          <SpellLink id={talents.REMORSELESS_WINTER_TALENT.id} />.
+          <SpellLink id={SPELLS.REMORSELESS_WINTER.id} />.
         </>,
       )
         .icon('spell_mage_altertime')

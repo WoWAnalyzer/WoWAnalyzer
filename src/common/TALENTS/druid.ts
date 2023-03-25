@@ -237,6 +237,13 @@ const talents = createTalentList({
     entryIds: [103291],
     manaCost: 5000,
   },
+  DEEP_FOCUS_TALENT: {
+    id: 403949,
+    name: 'Deep Focus',
+    icon: 'spell_nature_naturesblessing',
+    maxRanks: 1,
+    entryIds: [114809],
+  },
   DENIZEN_OF_THE_DREAM_TALENT: {
     id: 394065,
     name: 'Denizen of the Dream',
@@ -578,7 +585,7 @@ const talents = createTalentList({
     entryIds: [103178],
   },
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: {
-    id: 394013,
+    id: 102560,
     name: 'Incarnation: Chosen of Elune',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
@@ -645,7 +652,7 @@ const talents = createTalentList({
     name: 'Invigorate',
     icon: 'spell_nature_preservation',
     maxRanks: 1,
-    entryIds: [103133],
+    entryIds: [103135],
     manaCost: 1000,
   },
   IRONBARK_TALENT: {
@@ -819,13 +826,6 @@ const talents = createTalentList({
     icon: 'ability_druid_naturalperfection',
     maxRanks: 2,
     entryIds: [103284],
-  },
-  NATURAL_WISDOM_TALENT: {
-    id: 326228,
-    name: 'Natural Wisdom',
-    icon: 'spell_nature_lightning',
-    maxRanks: 1,
-    entryIds: [103135],
   },
   NATURES_BALANCE_TALENT: {
     id: 202430,
@@ -1063,7 +1063,7 @@ const talents = createTalentList({
     entryIds: [103160],
   },
   RAMPANT_GROWTH_TALENT: {
-    id: 278515,
+    id: 404521,
     name: 'Rampant Growth',
     icon: 'spell_nature_resistnature',
     maxRanks: 1,
@@ -1082,6 +1082,7 @@ const talents = createTalentList({
     icon: 'ability_druid_lacerate',
     maxRanks: 1,
     entryIds: [114701],
+    rageCost: 40,
   },
   REFORESTATION_TALENT: {
     id: 392356,
@@ -1466,6 +1467,13 @@ const talents = createTalentList({
     entryIds: [103108],
     manaCost: 9200,
   },
+  TRANQUIL_MIND_TALENT: {
+    id: 403521,
+    name: 'Tranquil Mind',
+    icon: 'ability_druid_serenefocus',
+    maxRanks: 1,
+    entryIds: [114808],
+  },
   TWIN_MOONFIRE_TALENT: {
     id: 372567,
     name: 'Twin Moonfire',
@@ -1513,7 +1521,7 @@ const talents = createTalentList({
     name: 'Undergrowth',
     icon: 'spell_druid_germination_rejuvenation',
     maxRanks: 1,
-    entryIds: [103095],
+    entryIds: [103133],
   },
   UNSTOPPABLE_GROWTH_TALENT: {
     id: 382559,

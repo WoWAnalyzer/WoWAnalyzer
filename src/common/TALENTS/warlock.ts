@@ -233,6 +233,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91444],
   },
+  DARK_VIRTUOSITY_TALENT: {
+    id: 405327,
+    name: 'Dark Virtuosity',
+    icon: 'inv_elemental_primal_shadow',
+    maxRanks: 2,
+    entryIds: [91564],
+  },
   DECIMATION_TALENT: {
     id: 387176,
     name: 'Decimation',
@@ -326,13 +333,6 @@ const talents = createTalentList({
     icon: 'spell_shadow_ragingscream',
     maxRanks: 2,
     entryIds: [91463],
-  },
-  DESPERATE_PACT_TALENT: {
-    id: 386619,
-    name: 'Desperate Pact',
-    icon: 'spell_shadow_lifedrain02',
-    maxRanks: 2,
-    entryIds: [91437],
   },
   DIABOLIC_EMBERS_TALENT: {
     id: 387173,
@@ -486,7 +486,7 @@ const talents = createTalentList({
   FOCUSED_MALIGNANCY_TALENT: {
     id: 399668,
     name: 'Focused Malignancy',
-    icon: 'spell_shadow_unstableaffliction_3_purple',
+    icon: 'spell_shadow_fingerofdeath',
     maxRanks: 2,
     entryIds: [91563],
   },
@@ -504,26 +504,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91533],
   },
-  GOREFIENDS_RESOLVE_TALENT: {
-    id: 389623,
-    name: "Gorefiend's Resolve",
-    icon: 'inv_helmet_90',
-    maxRanks: 2,
-    entryIds: [91422],
-  },
   GRAND_WARLOCKS_DESIGN_TALENT: {
     id: 387084,
     name: "Grand Warlock's Design",
     icon: 'spell_warlock_demonicportal_purple',
     maxRanks: 1,
     entryIds: [91505, 91471, 91508],
-  },
-  GREATER_BANISH_TALENT: {
-    id: 386651,
-    name: 'Greater Banish',
-    icon: 'spell_shadow_cripple',
-    maxRanks: 1,
-    entryIds: [91453],
   },
   GRIMOIRE_FELGUARD_TALENT: {
     id: 111898,
@@ -566,7 +552,7 @@ const talents = createTalentList({
     name: 'Guillotine',
     icon: 'inv_axe_2h_felfireraid_d_01',
     maxRanks: 1,
-    entryIds: [91523],
+    entryIds: [115460],
   },
   GULDANS_AMBITION_TALENT: {
     id: 387578,
@@ -574,13 +560,6 @@ const talents = createTalentList({
     icon: 'achievement_dungeon_outland_dungeonmaster',
     maxRanks: 1,
     entryIds: [91513],
-  },
-  HARVESTER_OF_SOULS_TALENT: {
-    id: 201424,
-    name: 'Harvester of Souls',
-    icon: 'warlock_spelldrain',
-    maxRanks: 2,
-    entryIds: [91564],
   },
   HAUNTED_SOUL_TALENT: {
     id: 387301,
@@ -605,12 +584,12 @@ const talents = createTalentList({
     entryIds: [91493],
     manaCost: 5000,
   },
-  HOUNDS_OF_WAR_TALENT: {
-    id: 387488,
-    name: 'Hounds of War',
-    icon: 'inv_felstalker_pet',
-    maxRanks: 2,
-    entryIds: [91529],
+  HORRIFY_TALENT: {
+    id: 56244,
+    name: 'Horrify',
+    icon: 'spell_nzinsanity_bloodthirst',
+    maxRanks: 1,
+    entryIds: [115459],
   },
   HOWL_OF_TERROR_TALENT: {
     id: 5484,
@@ -625,6 +604,13 @@ const talents = createTalentList({
     icon: 'spell_yorsahj_bloodboil_greenoil',
     maxRanks: 1,
     entryIds: [91446],
+  },
+  IMMUTABLE_HATRED_TALENT: {
+    id: 405670,
+    name: 'Immutable Hatred',
+    icon: 'ability_creature_felfrenzy',
+    maxRanks: 1,
+    entryIds: [91523],
   },
   IMPLOSION_TALENT: {
     id: 196277,
@@ -711,6 +697,13 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [91549],
   },
+  KINDLED_MALICE_TALENT: {
+    id: 405330,
+    name: 'Kindled Malice',
+    icon: 'inv_artifact_powerofthedarkside',
+    maxRanks: 2,
+    entryIds: [91561],
+  },
   LIFEBLOOD_TALENT: {
     id: 386646,
     name: 'Lifeblood',
@@ -795,8 +788,8 @@ const talents = createTalentList({
     id: 386648,
     name: 'Nightmare',
     icon: 'spell_shadow_possession',
-    maxRanks: 2,
-    entryIds: [91455],
+    maxRanks: 1,
+    entryIds: [91422],
   },
   PACT_OF_THE_IMP_MOTHER_TALENT: {
     id: 387541,
@@ -947,6 +940,13 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [91555],
   },
+  SARGEREI_TECHNIQUE_TALENT: {
+    id: 405955,
+    name: 'Sargerei Technique',
+    icon: '70_inscription_glyph_demonhunter_major',
+    maxRanks: 2,
+    entryIds: [115462],
+  },
   SCALDING_FLAMES_TALENT: {
     id: 388832,
     name: 'Scalding Flames',
@@ -1013,6 +1013,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91574],
     manaCost: 2500,
+  },
+  SOCRETHARS_GUILE_TALENT: {
+    id: 405936,
+    name: "Socrethar's Guile",
+    icon: 'spell_fire_soulburn',
+    maxRanks: 2,
+    entryIds: [115461],
   },
   SOULBOUND_TYRANT_TALENT: {
     id: 334585,
@@ -1183,6 +1190,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91551],
   },
+  UMBRAL_BLAZE_TALENT: {
+    id: 405798,
+    name: 'Umbral Blaze',
+    icon: 'ability_warlock_everlastingaffliction',
+    maxRanks: 2,
+    entryIds: [91529],
+  },
   UNSTABLE_AFFLICTION_TALENT: {
     id: 316099,
     name: 'Unstable Affliction',
@@ -1224,13 +1238,6 @@ const talents = createTalentList({
     id: 196102,
     name: 'Writhe in Agony',
     icon: 'spell_shadow_curseofsargeras',
-    maxRanks: 2,
-    entryIds: [91561],
-  },
-  XAVIAN_TEACHINGS_TALENT: {
-    id: 317031,
-    name: 'Xavian Teachings',
-    icon: 'spell_shadow_abominationexplosion',
     maxRanks: 1,
     entryIds: [91572],
   },

@@ -136,7 +136,6 @@ export default class SpiritBomb extends Analyzer {
     return (
       <SpellUsageSubSection
         explanation={explanation}
-        performance={performances}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
         onPerformanceBoxClick={logSpellUseEvent}
@@ -232,7 +231,7 @@ export default class SpiritBomb extends Analyzer {
       };
     }
     return {
-      performance: QualitativePerformance.Fail,
+      performance: QualitativePerformance.Good,
       summary: <div>Cast in Single Target with Fiery Demise</div>,
       details: (
         <div>

@@ -1,14 +1,23 @@
-import { BadColor, OkColor, PerformanceMark, SubSection } from 'interface/guide';
+import { BadColor, OkColor, PerformanceMark, SubSection, useInfo } from 'interface/guide';
 import styled from '@emotion/styled';
 import { Highlight } from 'analysis/retail/monk/brewmaster/modules/spells/Shuffle/GuideSection';
-import { ComponentPropsWithoutRef, Fragment, ReactNode, useCallback, useState } from 'react';
+import {
+  ComponentPropsWithoutRef,
+  Fragment,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
-import { SpellUse } from './core';
+import { SpellUse, spellUseToBoxRowEntry, useSpellUsageContext } from './core';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { qualitativePerformanceToNumber } from 'common/combineQualitativePerformances';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const NoData = styled.div`
   color: #999;
@@ -108,14 +117,34 @@ const CastPerformanceDefaultCastBreakdownSmallText = () => (
   </>
 );
 
+const NoCastsDisplay = () => {
+  const { hideGoodCasts } = useSpellUsageContext();
+  if (hideGoodCasts) {
+    return (
+      <SpellDetailsContainer>
+        <NoData>All of your casts of this spell were good!</NoData>
+      </SpellDetailsContainer>
+    );
+  }
+  return (
+    <SpellDetailsContainer>
+      <NoData>You did not cast this spell at all.</NoData>
+    </SpellDetailsContainer>
+  );
+};
+
 type SpellUsageSubSectionProps = Omit<ComponentPropsWithoutRef<typeof SubSection>, 'children'> & {
   abovePerformanceDetails?: ReactNode;
   belowPerformanceDetails?: ReactNode;
   castBreakdownSmallText?: ReactNode;
   explanation: ReactNode;
-  performance: BoxRowEntry[];
+  /**
+   * @deprecated Just pass {@link uses}. Use {@link spellUseToPerformance} if you need to customize.
+   */
+  performance?: BoxRowEntry[];
   uses: SpellUse[];
   onPerformanceBoxClick?: (use: SpellUse | undefined) => void;
+  spellUseToPerformance?: (use: SpellUse) => BoxRowEntry;
 };
 
 /**
@@ -128,13 +157,14 @@ const SpellUsageSubSection = ({
   belowPerformanceDetails,
   castBreakdownSmallText,
   explanation,
-  performance,
   uses,
   onPerformanceBoxClick,
+  spellUseToPerformance,
   ...others
 }: SpellUsageSubSectionProps) => {
   const [selectedUse, setSelectedUse] = useState<number | undefined>();
-
+  const { hideGoodCasts } = useSpellUsageContext();
+  const info = useInfo();
   const onClickBox = useCallback(
     (index) => {
       if (index >= uses.length) {
@@ -146,6 +176,29 @@ const SpellUsageSubSection = ({
       }
     },
     [onPerformanceBoxClick, uses],
+  );
+
+  // hideGoodCasts is in the dependency list because we want this to run whenever
+  // we toggle the "Hide Good Casts" toggle.
+  useEffect(() => {
+    setSelectedUse(undefined);
+    onPerformanceBoxClick?.(undefined);
+  }, [hideGoodCasts, onPerformanceBoxClick]);
+
+  if (!info) {
+    return null;
+  }
+
+  const filteredUses = uses.filter(
+    (use) =>
+      !hideGoodCasts ||
+      qualitativePerformanceToNumber(use.performance) <
+        qualitativePerformanceToNumber(QualitativePerformance.Good),
+  );
+  const performances = filteredUses.map((spellUse) =>
+    spellUseToPerformance
+      ? spellUseToPerformance(spellUse)
+      : spellUseToBoxRowEntry(spellUse, info.fightStart),
   );
 
   return (
@@ -164,13 +217,14 @@ const SpellUsageSubSection = ({
               )}
             </small>
           </div>
-          <PerformanceBoxRow
-            values={performance.map((p, ix) =>
-              ix === selectedUse ? { ...p, className: 'selected' } : p,
-            )}
-            onClickBox={onClickBox}
-          />
-          <SpellUseDetails spellUse={selectedUse !== undefined ? uses[selectedUse] : undefined} />
+          <PerformanceBoxRow values={performances} onClickBox={onClickBox} />
+          {filteredUses.length === 0 ? (
+            <NoCastsDisplay />
+          ) : (
+            <SpellUseDetails
+              spellUse={selectedUse !== undefined ? filteredUses[selectedUse] : undefined}
+            />
+          )}
           {belowPerformanceDetails}
         </SpellUsageDetailsContainer>
       </ExplanationRow>

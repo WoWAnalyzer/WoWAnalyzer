@@ -99,7 +99,7 @@ const talents = createTalentList({
     name: 'Biting Cold',
     icon: 'ability_deathknight_remorselesswinters2',
     maxRanks: 1,
-    entryIds: [96164],
+    entryIds: [96242],
   },
   BLINDING_SLEET_TALENT: {
     id: 207167,
@@ -367,7 +367,7 @@ const talents = createTalentList({
     name: 'Defile',
     icon: 'spell_deathknight_defile',
     maxRanks: 1,
-    entryIds: [96315],
+    entryIds: [96294],
     runesCost: 1,
   },
   EBON_FEVER_TALENT: {
@@ -417,7 +417,7 @@ const talents = createTalentList({
     name: 'Epidemic',
     icon: 'spell_nature_nullifydisease',
     maxRanks: 1,
-    entryIds: [96295],
+    entryIds: [96296],
     runicPowerCost: 30,
   },
   ETERNAL_AGONY_TALENT: {
@@ -432,7 +432,7 @@ const talents = createTalentList({
     name: 'Everfrost',
     icon: 'ability_mage_deepfreeze',
     maxRanks: 1,
-    entryIds: [96237],
+    entryIds: [96164],
   },
   EVERLASTING_BOND_TALENT: {
     id: 377668,
@@ -440,6 +440,13 @@ const talents = createTalentList({
     icon: 'inv_sword_07',
     maxRanks: 1,
     entryIds: [96261],
+  },
+  FATAL_FIXATION_TALENT: {
+    id: 405166,
+    name: 'Fatal Fixation',
+    icon: 'ability_deathknight_frozencenter',
+    maxRanks: 1,
+    entryIds: [96218],
   },
   FEASTING_STRIKES_TALENT: {
     id: 390161,
@@ -477,13 +484,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [96251],
   },
-  FROSTREAPER_TALENT: {
-    id: 317214,
-    name: 'Frostreaper',
-    icon: 'spell_ice_rune',
-    maxRanks: 1,
-    entryIds: [96218],
-  },
   FROSTSCYTHE_TALENT: {
     id: 207230,
     name: 'Frostscythe',
@@ -512,7 +512,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_empowerruneblade2',
     maxRanks: 1,
     entryIds: [96245],
-    runicPowerCost: 25,
+    runicPowerCost: 30,
   },
   GATHERING_STORM_TALENT: {
     id: 194912,
@@ -798,13 +798,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [96205],
   },
-  MIGHT_OF_THE_FROZEN_WASTES_TALENT: {
-    id: 81333,
-    name: 'Might of the Frozen Wastes',
-    icon: 'inv_sword_120',
-    maxRanks: 1,
-    entryIds: [96219],
-  },
   MIND_FREEZE_TALENT: {
     id: 47528,
     name: 'Mind Freeze',
@@ -877,13 +870,6 @@ const talents = createTalentList({
     icon: 'spell_deathknight_necroticplague',
     maxRanks: 1,
     entryIds: [96291],
-  },
-  PESTILENT_PUSTULES_TALENT: {
-    id: 194917,
-    name: 'Pestilent Pustules',
-    icon: 'ability_creature_disease_03',
-    maxRanks: 1,
-    entryIds: [96294],
   },
   PIERCING_CHILL_TALENT: {
     id: 377351,
@@ -975,14 +961,6 @@ const talents = createTalentList({
     icon: 'ability_deathknight_roilingblood',
     maxRanks: 1,
     entryIds: [96280],
-  },
-  REMORSELESS_WINTER_TALENT: {
-    id: 196770,
-    name: 'Remorseless Winter',
-    icon: 'ability_deathknight_remorselesswinters2',
-    maxRanks: 1,
-    entryIds: [96242],
-    runesCost: 1,
   },
   REPLENISHING_WOUNDS_TALENT: {
     id: 377585,
@@ -1161,7 +1139,7 @@ const talents = createTalentList({
     name: 'Unholy Blight',
     icon: 'spell_shadow_contagion',
     maxRanks: 1,
-    entryIds: [96296],
+    entryIds: [96295],
     runesCost: 1,
   },
   UNHOLY_BOND_TALENT: {

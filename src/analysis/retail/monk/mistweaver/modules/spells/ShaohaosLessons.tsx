@@ -30,7 +30,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const DESPAIR_CRIT_INCREASE = 0.3;
 const DOUBT_INCREASE = 0.4;
-const FEAR_HASTE_INCREASE = 0.25;
+const FEAR_HASTE_INCREASE = 0.2;
 const FEAR_MITIGATION_PERCENT = 0.15;
 
 const BUFFS = [

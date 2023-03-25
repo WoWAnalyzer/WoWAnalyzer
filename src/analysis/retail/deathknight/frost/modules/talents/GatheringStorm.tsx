@@ -46,7 +46,7 @@ class GatheringStorm extends Analyzer {
       this.onApplyBuffStack,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.REMORSELESS_WINTER_TALENT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.REMORSELESS_WINTER_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(
@@ -81,7 +81,7 @@ class GatheringStorm extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(talents.REMORSELESS_WINTER_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.REMORSELESS_WINTER.id)) {
       return;
     }
     if (

@@ -45,7 +45,9 @@ class DivinePurpose extends Analyzer {
 
   constructor(args: Options) {
     super(args);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_SHARED_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_RETRIBUTION_TALENT);
 
     if (!this.active) {
       return;
@@ -128,7 +130,7 @@ class DivinePurpose extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.DIVINE_PURPOSE_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.DIVINE_PURPOSE_SHARED_TALENT.id}>
           <ItemDamageDone amount={this.damageDone} /> <br />
           <ItemHealingDone amount={this.healingDone} />
         </BoringSpellValueText>

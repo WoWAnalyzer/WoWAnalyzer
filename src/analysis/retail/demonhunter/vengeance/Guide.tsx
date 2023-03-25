@@ -17,6 +17,7 @@ import {
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -127,6 +128,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       </p>
       <br />
       <HideExplanationsToggle id="hide-explanations-rotation" />
+      <HideGoodCastsToggle id="hide-good-casts-rotation" />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
       {modules.immolationAura.vengeanceGuideSubsection()}
@@ -157,6 +159,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         </Trans>
       </p>
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
+      <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
       <CooldownGraphSubsection />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) && (
         <CooldownUsage analyzer={modules.felDevastation} />

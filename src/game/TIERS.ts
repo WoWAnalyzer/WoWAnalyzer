@@ -6,4 +6,6 @@ export enum TIERS {
   T28,
   // Vault of the Incarnates
   T29,
+  // Aberrus
+  T30,
 }

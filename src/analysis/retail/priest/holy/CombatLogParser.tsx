@@ -126,7 +126,9 @@ class CombatLogParser extends CoreCombatLogParser {
     Pontifex: Talents.BottomRow.Pontifex,
     Lightweaver: Talents.BottomRow.Lightweaver,
 
-    divineImage: Talents.BottomRow.DivineImage,
+    // disabling due to combat logging issues, module is not working and i dont know how to fix it
+    // with current blizzard implementation of combat log :D
+    // divineImage: Talents.BottomRow.DivineImage,
     lightOfTheNaaru: Talents.BottomRow.LightOfTheNaaru,
     harmoniousApparatus: Talents.BottomRow.HarmoniousApparatus,
     resonantWords: Talents.BottomRow.ResonantWords,

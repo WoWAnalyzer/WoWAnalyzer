@@ -91,9 +91,9 @@ function HotGraphSubsection({ modules, events, info }: GuideProps<typeof CombatL
       <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> out before casting{' '}
       <SpellLink id={modules.revival.getRevivalTalent()} /> or{' '}
       <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> will drastically increase their
-      effectiveness, and the number of <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />{' '}
-      that go out during <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> directly
-      correlates to your hps during.
+      effectiveness, and the number of <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> that go
+      out during <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> directly correlates to
+      your hps during.
       {modules.hotCountGraph.plot}
     </SubSection>
   );
