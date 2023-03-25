@@ -89,7 +89,7 @@ class ArcaneSurgeActiveTime extends Analyzer {
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.arcanePower.arcanePowerActiveTime">
+          <Trans id="mage.arcane.suggestions.arcanePower.arcanePowerActiveTime">
             {formatPercentage(this.percentActiveTime)}% Active Time during Arcane Surge
           </Trans>,
         )
