@@ -113,27 +113,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.SERAPHIM_TALENT.id,
-        buffSpellId: TALENTS.SERAPHIM_TALENT.id,
-        category: SPELL_CATEGORY.SEMI_DEFENSIVE,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.SERAPHIM_TALENT),
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
         spell: TALENTS.AVENGING_WRATH_TALENT.id,
         buffSpellId: TALENTS.AVENGING_WRATH_TALENT.id,
         category: SPELL_CATEGORY.SEMI_DEFENSIVE,
         cooldown: 120,
-        // castEfficiency: {
-        //   suggestion: true,
-        //   recommendedEfficiency: 0.85,
-        // },
       },
       {
         spell: TALENTS.LAY_ON_HANDS_TALENT.id,
