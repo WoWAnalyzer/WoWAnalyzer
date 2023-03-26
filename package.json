@@ -100,7 +100,8 @@
     "test:parser": "yarn test ./src/parser --testPathIgnorePatterns integrationTests",
     "test:integration": "yarn test integrationTests --passWithNoTests",
     "typecheck": "tsc",
-    "lint": "eslint --format stylish --max-warnings 0 --cache .",
+    "lint-uncached": "eslint --format stylish --max-warnings 0",
+    "lint": "yarn lint-uncached --cache .",
     "lint:fix": "yarn lint --fix",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
@@ -116,7 +117,7 @@
       "prettier --write"
     ],
     "*.{ts,tsx,js,jsx}": [
-      "yarn --silent lint:fix"
+      "yarn lint-uncached --fix"
     ]
   },
   "browserslist": {
