@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 27), <>Add Tier 30 Set Bonus Module.</>, Vohrr),
   change(date(2023, 3, 23), <>Add <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id}/> and renamed where appropriate.</>, Vohrr),
   change(date(2023, 3, 21), <>Bump spec config to 10.0.7</>, Trevor),
   change(date(2023, 3, 21), <>10.0.7 Updates, added <SpellLink id={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT.id}/> module.</>, Vohrr),

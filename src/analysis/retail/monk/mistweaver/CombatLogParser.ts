@@ -84,6 +84,7 @@ import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 import HotCountGraph from './modules/features/HotCountGraph';
 import AplCheck from './modules/core/apl/AplCheck';
 import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
+import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -183,6 +184,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Borrowed Power
     t29TierSet: T29TierSet,
+    t30TierSet: T30TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,
