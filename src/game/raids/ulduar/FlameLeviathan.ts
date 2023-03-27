@@ -8,7 +8,7 @@ const FlameLeviathan: Boss = {
   name: 'Flame Leviathan',
   background: Background,
   headshot: Headshot,
-  icon: 'achievement_boss_ignis_01',
+  icon: 'achievement_boss_theflameleviathan_01',
   fight: {},
 };
 

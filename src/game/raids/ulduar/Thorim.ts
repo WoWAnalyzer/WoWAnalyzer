@@ -8,7 +8,7 @@ const Thorim: Boss = {
   name: 'Thorim',
   background: Background,
   headshot: Headshot,
-  icon: 'achievement_boss_Thorim_01',
+  icon: 'achievement_boss_thorim',
   fight: {},
 };
 
