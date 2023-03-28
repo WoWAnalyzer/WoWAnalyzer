@@ -221,7 +221,7 @@ export default class FinisherUse extends Analyzer {
     return (
       <SpellUsageSubSection
         explanation={explanation}
-        performance={performances}
+        performances={performances}
         uses={this.spellUses}
         castBreakdownSmallText={
           <> - Green is a good cast, Yellow is an ok cast, Red is a bad cast.</>

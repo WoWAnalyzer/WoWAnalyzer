@@ -16,12 +16,11 @@ import {
   UsageInfo,
 } from 'parser/core/SpellUsage/core';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import SpellUsageSubSection, {
-  logSpellUseEvent,
-} from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 // Fracture fury gen (no T29): 25
 // Metamorphosis Fracture fury gen (no T29): 45
@@ -105,7 +104,7 @@ export default class Fracture extends Analyzer {
     const totalCasts = performances.length;
 
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}

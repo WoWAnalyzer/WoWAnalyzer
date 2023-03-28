@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 3, 28), 'Refactor cast breakdown components to make them less noisy.', ToppleTheNun),
   change(date(2023, 3, 21), 'Add Ulduar raid and images for Classic WotLK.', jazminite),
   change(date(2023, 3, 21), 'Add patch info for 10.0.7.', ToppleTheNun),
   change(date(2023, 3, 20), 'Fix an issue where APL rules could mistakenly mismatch, causing weird UI issues.', emallson),

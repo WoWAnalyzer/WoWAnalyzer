@@ -28,7 +28,7 @@ const PossibleMissingCastBoxEntry = {
 
 type CooldownUsageProps<Cast extends SpellCast> = Omit<
   ComponentPropsWithoutRef<typeof SpellUsageSubSection>,
-  'explanation' | 'performance' | 'uses'
+  'explanation' | 'performances' | 'uses'
 > & {
   analyzer: MajorCooldown<Cast>;
 };
@@ -77,7 +77,14 @@ const CooldownUsage = <Cast extends SpellCast>({
 
   const uses = analyzer.uses;
 
-  return <SpellUsageSubSection explanation={analyzer.description()} uses={uses} {...others} />;
+  return (
+    <SpellUsageSubSection
+      explanation={analyzer.description()}
+      uses={uses}
+      performances={performance}
+      {...others}
+    />
+  );
 };
 
 export default CooldownUsage;
