@@ -26,8 +26,8 @@ class T30TierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
-    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29) && this.has2Piece;
+    this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T30);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T30) && this.has2Piece;
     this.active = this.has2Piece;
     if (!this.active) {
       return;
@@ -49,6 +49,7 @@ class T30TierSet extends Analyzer {
   get total4PieceHealing() {
     return this.renewingMistHealing + this.vivHealing;
   }
+
   get twoSetUptime() {
     return (
       this.selectedCombatant.getBuffUptime(SPELLS.SOULFANG_INFUSION.id) / this.owner.fightDuration
@@ -72,11 +73,10 @@ class T30TierSet extends Analyzer {
   handle4PcHeal(event: HealEvent) {
     const spellId = event.ability.guid;
     if (this.selectedCombatant.hasBuff(SPELLS.SOULFANG_VITALITY.id)) {
-      if (spellId === SPELLS.RENEWING_MIST_HEAL.id) {
-        this.renewingMistHealing += calculateEffectiveHealing(event, FOUR_PIECE_BONUS);
-      } else if (spellId === SPELLS.VIVIFY.id) {
-        this.vivHealing += calculateEffectiveHealing(event, FOUR_PIECE_BONUS);
-      }
+      const healing = calculateEffectiveHealing(event, FOUR_PIECE_BONUS);
+      spellId === SPELLS.RENEWING_MIST_HEAL.id
+        ? (this.renewingMistHealing += healing)
+        : (this.vivHealing += healing);
     }
   }
 
