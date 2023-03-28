@@ -102,7 +102,7 @@ class T30TierSet extends Analyzer {
           </ul>
         }
       >
-        <BoringValueText label="T29 Tier Set">
+        <BoringValueText label="Fangs of Forged Vermillion (T30 Set Bonus)">
           <h4>2 Piece</h4>
           <ItemManaGained amount={this.manaGain} useAbbrev />
           <br />
