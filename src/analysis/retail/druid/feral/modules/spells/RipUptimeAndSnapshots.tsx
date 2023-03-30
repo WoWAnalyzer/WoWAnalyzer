@@ -5,6 +5,7 @@ import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
 import {
+  CLIP_BUFFER,
   getAcceptableCps,
   getPrimalWrathDuration,
   getRipDuration,
@@ -29,6 +30,7 @@ import { SpellLink } from 'interface';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { BadColor, OkColor } from 'interface/guide';
 
 class RipUptimeAndSnapshots extends Snapshots {
   static dependencies = {
@@ -95,24 +97,67 @@ class RipUptimeAndSnapshots extends Snapshots {
        *  Missing BT -> Red
        *  Missing TF -> Yellow
        *  Clip Duration (but upgrade Snapshot) -> Yellow
-       *  Clip Duration -> Red
+       *  Clip Duration more than threshold duration -> Red
        *  None of the Above -> Green
        */
       let value: QualitativePerformance = QualitativePerformance.Good;
+      let perfExplanation: React.ReactNode = undefined;
       if (cpsUsed < getAcceptableCps(this.selectedCombatant) && this.castEntries.length > 0) {
         value = QualitativePerformance.Fail;
+        perfExplanation = (
+          <h5 style={{ color: BadColor }}>
+            Bad because you used less than {getAcceptableCps(this.selectedCombatant)} CPs!
+            <br />
+          </h5>
+        );
       } else if (this.hasBt && !hasSpec(snapshots, BLOODTALONS_SPEC)) {
         value = QualitativePerformance.Fail;
+        perfExplanation = (
+          <h5 style={{ color: BadColor }}>
+            Bad because no Bloodtalons snapshot!
+            <br />
+          </h5>
+        );
+      } else if (clipped > CLIP_BUFFER) {
+        if (wasUpgrade) {
+          value = QualitativePerformance.Ok;
+          perfExplanation = (
+            <h5 style={{ color: OkColor }}>
+              You upgraded the snapshot at the cost of refreshing early.
+              <br />
+            </h5>
+          );
+        } else {
+          value = QualitativePerformance.Fail;
+          perfExplanation = (
+            <h5 style={{ color: BadColor }}>
+              Bad because you refreshed too early!
+              <br />
+            </h5>
+          );
+        }
       } else if (clipped > 0) {
-        value = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
+        value = QualitativePerformance.Ok;
+        perfExplanation = (
+          <h5 style={{ color: OkColor }}>
+            Careful, you refreshed this a little early!
+            <br />
+          </h5>
+        );
       } else if (!hasSpec(snapshots, TIGERS_FURY_SPEC)) {
         value = QualitativePerformance.Ok;
+        perfExplanation = (
+          <h5 style={{ color: BadColor }}>
+            Questionable because no Tiger's Fury snapshot!
+            <br />
+          </h5>
+        );
       }
       // TODO require TF / BT
 
       const tooltip = (
         <>
-          @ <strong>{this.owner.formatTimestamp(timestamp)}</strong> targetting{' '}
+          {perfExplanation}@ <strong>{this.owner.formatTimestamp(timestamp)}</strong> targetting{' '}
           <strong>{targetName || 'unknown'}</strong> using <strong>{cpsUsed} CPs</strong>
           <br />
           {!wasNewApplication && (
