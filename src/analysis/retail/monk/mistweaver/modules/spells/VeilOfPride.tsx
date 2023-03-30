@@ -81,6 +81,10 @@ class VeilOfPride extends Analyzer {
     return this.totalExtraClouds / this.totalCasts;
   }
 
+  get percentOfSgOverhealing() {
+    return this.totalOverhealing / this.sheilunsGift.overhealing;
+  }
+
   subStatistic() {
     return (
       <StatisticListBoxItem
@@ -103,6 +107,10 @@ class VeilOfPride extends Analyzer {
             <ul>
               <li>Total Healing : {formatNumber(this.totalHealing)}</li>
               <li>Total overhealing: {formatNumber(this.totalOverhealing)}</li>
+              <li>
+                Percent of <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> overhealing:{' '}
+                {formatPercentage(this.percentOfSgOverhealing)}%
+              </li>
             </ul>
           </>
         }

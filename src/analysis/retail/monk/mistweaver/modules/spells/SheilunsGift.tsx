@@ -20,6 +20,7 @@ class SheilunsGift extends Analyzer {
   gomHealing: number = 0;
   cloudsLost: number = 0;
   curClouds: number = 0;
+  overhealing: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -51,7 +52,8 @@ class SheilunsGift extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    this.baseHealing += event.amount;
+    this.baseHealing += event.amount + (event.absorbed || 0);
+    this.overhealing += event.overheal || 0;
   }
 
   onBuffRefresh(event: RefreshBuffEvent) {
