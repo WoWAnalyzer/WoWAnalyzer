@@ -19,7 +19,7 @@ import ArcaneChargeTracker from './ArcaneChargeTracker';
 
 const debug = false;
 
-class ArcanePowerMana extends Analyzer {
+class ArcaneSurgeMana extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     arcaneChargeTracker: ArcaneChargeTracker,
@@ -70,7 +70,7 @@ class ArcanePowerMana extends Analyzer {
         const manaRemaining = currentMana - manaCost;
         const buffTimeRemaining = this.buffEndTimestamp - event.timestamp;
         if (manaRemaining < this.estimatedManaCost(spellId) && buffTimeRemaining > 1000) {
-          debug && this.log('Ran Out of Mana during Arcane Power');
+          debug && this.log('Ran Out of Mana during Arcane Surge');
           this.outOfMana += 1;
         }
       });
@@ -106,15 +106,15 @@ class ArcanePowerMana extends Analyzer {
     return 0;
   }
 
-  get totalArcanePowerCasts() {
+  get totalArcaneSurgeCasts() {
     return this.abilityTracker.getAbility(TALENTS.ARCANE_SURGE_TALENT.id).casts;
   }
 
   get manaUtilization() {
-    return 1 - this.outOfMana / this.totalArcanePowerCasts;
+    return 1 - this.outOfMana / this.totalArcaneSurgeCasts;
   }
 
-  get arcanePowerManaUtilization() {
+  get arcaneSurgeManaUtilization() {
     return {
       actual: this.manaUtilization,
       isLessThan: {
@@ -127,12 +127,12 @@ class ArcanePowerMana extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.arcanePowerManaUtilization).addSuggestion((suggest, actual, recommended) =>
+    when(this.arcaneSurgeManaUtilization).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You ran dangerously low or ran out of mana during{' '}
           <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> {this.outOfMana} times. Running out of
-          mana during Arcane Power is a massive DPS loss and should be avoided at all costs.{' '}
+          mana during Arcane Surge is a massive DPS loss and should be avoided at all costs.{' '}
         </>,
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
@@ -146,4 +146,4 @@ class ArcanePowerMana extends Analyzer {
   }
 }
 
-export default ArcanePowerMana;
+export default ArcaneSurgeMana;

@@ -223,7 +223,9 @@ class BreathOfSindragosa extends Analyzer {
           });
 
           const overallPerf =
-            cast.duration > 60 ? QualitativePerformance.Good : QualitativePerformance.Fail;
+            cast.duration > 60 || cast.fightEnded
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
 
           return (
             <CooldownExpandable

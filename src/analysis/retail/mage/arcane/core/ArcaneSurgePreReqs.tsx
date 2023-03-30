@@ -19,7 +19,7 @@ import ArcaneChargeTracker from './ArcaneChargeTracker';
 
 const debug = false;
 
-class ArcanePowerPreReqs extends Analyzer {
+class ArcaneSurgePreReqs extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
     abilityTracker: AbilityTracker,
@@ -46,11 +46,11 @@ class ArcanePowerPreReqs extends Analyzer {
     this.isKyrian = false;
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_SURGE_TALENT),
-      this.onArcanePower,
+      this.onArcaneSurge,
     );
   }
 
-  onArcanePower(event: CastEvent) {
+  onArcaneSurge(event: CastEvent) {
     const touchOfTheMagiCast = this.eventHistory.last(
       1,
       1000,
@@ -61,26 +61,26 @@ class ArcanePowerPreReqs extends Analyzer {
 
     //Checks if the player was capped on Arcane Charges
     if (this.arcaneChargeTracker.charges < ARCANE_CHARGE_MAX_STACKS) {
-      debug && this.log('Arcane Power Cast with Low Charges');
+      debug && this.log('Arcane Surge Cast with Low Charges');
       badCooldownUse = true;
       this.failedChecks += 1;
       this.lowArcaneCharges += 1;
     }
 
-    //Checks if Touch of the Magi was cast immediately before Arcane Power
+    //Checks if Touch of the Magi was cast immediately before Arcane Surge
     if (touchOfTheMagiCast.length === 0) {
-      debug && this.log('Arcane Power cast without Touch of the Magi');
+      debug && this.log('Arcane Surge cast without Touch of the Magi');
       badCooldownUse = true;
       this.failedChecks += 1;
       this.missingTouchOfTheMagi += 1;
     }
 
-    //Checks if the player has 18 stacks of Arcane Harmony (If using the Arcane Harmony Legendary)
+    //Checks if the player has 20 stacks of Arcane Harmony (If using the Arcane Harmony Legendary)
     if (
       this.hasArcaneHarmony &&
       (!arcaneHarmonyBuff || arcaneHarmonyBuff.stacks < ARCANE_HARMONY_MAX_STACKS)
     ) {
-      debug && this.log('Arcane Power cast without 18 stacks of Arcane Harmony');
+      debug && this.log('Arcane Surge cast without 20 stacks of Arcane Harmony');
       badCooldownUse = true;
       this.failedChecks += 1;
       this.lowArcaneHarmonyStacks += 1;
@@ -100,15 +100,15 @@ class ArcanePowerPreReqs extends Analyzer {
     }
   }
 
-  get totalAPCasts() {
+  get totalASCasts() {
     return this.abilityTracker.getAbility(TALENTS.ARCANE_SURGE_TALENT.id).casts || 0;
   }
 
   get cooldownUtilization() {
-    return 1 - this.badCooldownUses / this.totalAPCasts;
+    return 1 - this.badCooldownUses / this.totalASCasts;
   }
 
-  get arcanePowerPreReqThresholds() {
+  get arcaneSurgePreReqThresholds() {
     return {
       actual: this.cooldownUtilization,
       isLessThan: {
@@ -143,11 +143,11 @@ class ArcanePowerPreReqs extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.arcanePowerPreReqThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.arcaneSurgePreReqThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You cast <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> without proper setup{' '}
-          {this.badCooldownUses} times. Arcane Power has a short duration so you should get the most
+          {this.badCooldownUses} times. Arcane Surge has a short duration so you should get the most
           out of it by meeting all requirements before casting it.
           <ul>
             <li>
@@ -157,10 +157,10 @@ class ArcanePowerPreReqs extends Analyzer {
             <li>
               <>
                 You cast <SpellLink id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} />
-                <TooltipElement content="Arcane Power should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Power to ensure that Rune of Power is up for the entire duration of Arcane Power.">
+                <TooltipElement content="Arcane Surge should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Surge to ensure that Rune of Power is up for the entire duration of Arcane Surge.">
                   immediately
                 </TooltipElement>
-                before Arcane Power - You failed this {this.missingTouchOfTheMagi} times.
+                before Arcane Surge - You failed this {this.missingTouchOfTheMagi} times.
               </>
             </li>
             {this.hasArcaneHarmony && (
@@ -196,10 +196,10 @@ class ArcanePowerPreReqs extends Analyzer {
         position={STATISTIC_ORDER.CORE(30)}
         tooltip={
           <>
-            Before casting Arcane Power, you should ensure that you meet all of the following
-            requirements. If Arcane Power frequently comes off cooldown and these requirements are
+            Before casting Arcane Surge, you should ensure that you meet all of the following
+            requirements. If Arcane Surge frequently comes off cooldown and these requirements are
             not already met, then consider modifying your rotation to ensure that they are met
-            before Arcane Power comes off cooldown
+            before Arcane Surge comes off cooldown
             <ul>
               <li>
                 You have {ARCANE_CHARGE_MAX_STACKS} Arcane Charges - Missed {this.lowArcaneCharges}{' '}
@@ -241,4 +241,4 @@ class ArcanePowerPreReqs extends Analyzer {
   }
 }
 
-export default ArcanePowerPreReqs;
+export default ArcaneSurgePreReqs;
