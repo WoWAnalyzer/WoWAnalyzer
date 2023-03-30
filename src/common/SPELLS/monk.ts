@@ -361,7 +361,18 @@ const spells = spellIndexableList({
     name: 'Nourishing Chi',
     icon: 'inv_misc_gem_pearl_06',
   },
-
+  //Tier 30 2pc Buff
+  SOULFANG_INFUSION: {
+    id: 410007,
+    name: 'Soulfang Infusion',
+    icon: 'inv_glove_leather_raidmonkdragon_d_01',
+  },
+  //Tier 30 4pc Buff
+  SOULFANG_VITALITY: {
+    id: 410082,
+    name: 'Soulfang Vitality',
+    icon: 'nv_helm_leather_raidmonkdragon_d_01',
+  },
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
     id: 227291,
