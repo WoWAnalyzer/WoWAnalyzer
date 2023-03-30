@@ -41,7 +41,7 @@ class VeilOfPride extends Analyzer {
 
   onHeal(event: HealEvent) {
     // double clouds = 100% increase -> 2x / x - 1 = 1
-    const veilStacksLost = Math.ceil(this.sheilunsGift.cloudsLostSinceLastCast / 2);
+    const veilStacksLost = Math.floor(this.sheilunsGift.cloudsLostSinceLastCast / 2);
     const extraStacks = Math.max(0, Math.ceil(this.sheilunsGift.curClouds / 2) + veilStacksLost);
     const baseStacks = this.sheilunsGift.curClouds - extraStacks;
     if (baseStacks === 0) {
