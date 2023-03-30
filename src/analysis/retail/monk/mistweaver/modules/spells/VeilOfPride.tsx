@@ -12,22 +12,17 @@ import SheilunsGift from './SheilunsGift';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 
-const SECONDS_PER_CLOUD = 8000;
 const MAX_STACKS = 10;
-const VEIL_SECONDS_PER_CLOUD = 4000;
 
 class VeilOfPride extends Analyzer {
   static dependencies = {
     sheilunsGift: SheilunsGift,
   };
   protected sheilunsGift!: SheilunsGift;
-  lastCast: number = 0;
-  stacksOnCast: number = 0;
   totalExtraClouds: number = 0;
   totalCasts: number = 0;
   totalHealing: number = 0;
   totalOverhealing: number = 0;
-  extraStacksOnCast: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -43,38 +38,17 @@ class VeilOfPride extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.stacksOnCast = this.sheilunsGift.curClouds;
-    this.extraStacksOnCast = this.getExtraClouds(event.timestamp);
-    this.lastCast = event.timestamp;
     this.totalCasts += 1;
-  }
-
-  getExtraStacks(baseStacks: number, totalStacks: number) {
-    if (totalStacks < MAX_STACKS) {
-      return totalStacks - baseStacks;
-    } else if (totalStacks < MAX_STACKS * 2) {
-      return Math.max(0, MAX_STACKS - baseStacks);
-    }
-    return 0;
-  }
-
-  getExtraClouds(timestamp: number) {
-    if (this.lastCast === 0) {
-      this.lastCast = this.owner.fight.start_time;
-    }
-    const timeDiff = timestamp - this.lastCast;
-    const nonVeilStacks = Math.floor(timeDiff / SECONDS_PER_CLOUD);
-    const rawVeilStacks = Math.floor(timeDiff / VEIL_SECONDS_PER_CLOUD);
-    return this.getExtraStacks(nonVeilStacks, rawVeilStacks);
   }
 
   onHeal(event: HealEvent) {
     // double clouds = 100% increase -> 2x / x - 1 = 1
-    const baseStacks = this.stacksOnCast - this.extraStacksOnCast;
-    const effectiveIncrease = this.stacksOnCast / baseStacks - 1;
-    this.totalHealing += calculateEffectiveHealing(event, effectiveIncrease);
-    this.totalOverhealing += calculateOverhealing(event, effectiveIncrease);
-    this.totalExtraClouds += this.stacksOnCast - this.extraStacksOnCast;
+    const veilStacksLost = Math.ceil(this.sheilunsGift.cloudsLostSinceLastCast / 2);
+    const extraStacks = Math.max(0, Math.ceil(this.sheilunsGift.curClouds / 2) + veilStacksLost);
+    const increase = this.sheilunsGift.curClouds / (MAX_STACKS - extraStacks);
+    this.totalHealing += calculateEffectiveHealing(event, increase);
+    this.totalOverhealing += calculateOverhealing(event, increase);
+    this.totalExtraClouds += extraStacks;
   }
 
   get avgExtraClouds() {
