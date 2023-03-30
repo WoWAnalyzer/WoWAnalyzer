@@ -65,7 +65,7 @@ class LegacyOfWisdom extends Analyzer {
         <TalentSpellText talent={talents.LEGACY_OF_WISDOM_TALENT}>
           <ItemHealingDone amount={this.healing} />
           <br />
-          {this.buffIcon} {this.missedHits} <small> missed hits</small>
+          {this.buffIcon} {this.missedHits} <small> missed hits</small> <br />
           {this.extraGcds} <small>saved GCDs</small>
         </TalentSpellText>
       </Statistic>
