@@ -12,8 +12,6 @@ import SheilunsGift from './SheilunsGift';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 
-const MAX_STACKS = 10;
-
 class VeilOfPride extends Analyzer {
   static dependencies = {
     sheilunsGift: SheilunsGift,
@@ -45,7 +43,8 @@ class VeilOfPride extends Analyzer {
     // double clouds = 100% increase -> 2x / x - 1 = 1
     const veilStacksLost = Math.ceil(this.sheilunsGift.cloudsLostSinceLastCast / 2);
     const extraStacks = Math.max(0, Math.ceil(this.sheilunsGift.curClouds / 2) + veilStacksLost);
-    const increase = this.sheilunsGift.curClouds / (MAX_STACKS - extraStacks);
+    const baseStacks = this.sheilunsGift.curClouds - extraStacks;
+    const increase = this.sheilunsGift.curClouds / baseStacks - 1;
     this.totalHealing += calculateEffectiveHealing(event, increase);
     this.totalOverhealing += calculateOverhealing(event, increase);
     this.totalExtraClouds += extraStacks;
