@@ -4,6 +4,7 @@ import { Sharrq, emallson, SyncSubaru } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 25), <><SpellLink id={talents.ARCANE_SURGE_TALENT} /> now shows on the timeline when active.</>, SyncSubaru),
   change(date(2023, 3, 19), <>Created anaylser for <SpellLink id={talents.RADIANT_SPARK_TALENT} /> ramp phases.</>, SyncSubaru),
   change(date(2023, 3, 14), <><SpellLink id={talents.ARCANE_HARMONY_TALENT} /> now shows Bonus Damage under Statistics.</>, SyncSubaru),
   change(date(2023, 3, 13), <>Updated bonus damage multiplier of <SpellLink id={talents.ARCANE_HARMONY_TALENT} />.</>, SyncSubaru),
