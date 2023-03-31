@@ -1,65 +1,58 @@
-import { Khazak } from 'CONTRIBUTORS';
+import { jazminite } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
-
+import type Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
-export default {
+const config: Config = {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Khazak],
-  expansion: Expansion.Dragonflight,
+  contributors: [jazminite],
+  expansion: Expansion.WrathOfTheLichKing,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.0.7',
-  isPartial: false,
+  patchCompatibility: '3.4.0',
+  // Update to false when the spec is mostly complete (and safe to use)
+  isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
-      Welcome to the Frost Death Knight analyzer! This analyzer only has basic support but I hope
-      you find what is here to be useful. If you have any comments or suggestions feel free to
-      contact Khazak(Khazak#3360) on Discord.
+      Welcome! Thanks for checking out WoWAnalyzer. This guide is seeking a maintainer.
       <br />
-      <br />
-      <br />
-      More resources for Frost:
-      <br />
-      <a href="https://discord.gg/acherus" target="_blank" rel="noopener noreferrer">
-        Death Knight Class Discord
-      </a>{' '}
-      <br />
-      <a
-        href="https://www.wowhead.com/frost-death-knight-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Wowhead Guide
-      </a>{' '}
-      <br />
-      <a
-        href="https://www.icy-veins.com/wow/frost-death-knight-pve-dps-guide"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Icy Veins Guide
-      </a>{' '}
-      <br />
+      See the public GitHub repo or join our community Discord for information about contributing.
+      Thanks!
     </>
   ),
+  pages: {
+    overview: {
+      hideChecklist: false,
+      text: (
+        <>
+          Classic WotLK support is still a Work in Progress. This spec guide is a stub. See the
+          "About" tab for information on contributing.
+        </>
+      ),
+      type: 'warning', // info, warning, or danger
+    },
+  },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    "/report/WXA73DmYja1PcztR/15-Mythic+Artificer+Xy'mox+-+Kill+(5:09)/Anrathi/standard",
-
-  // Don't change anything below this line;
+  exampleReport: '/report/cLYx4tpqNwT9Q3zX/10-Normal+Kologarn+-+Kill+(1:03)/Tricksgiver',
+  // Add spells to display separately on the timeline
+  timeline: {
+    separateCastBars: [[]],
+  },
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
-  spec: SPECS.FROST_DEATH_KNIGHT,
+  spec: SPECS.CLASSIC_ROGUE_ASSASSINATION,
+
+  // USE CAUTION when changing anything below this line.
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "FrostDeathKnight" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "ClassicAssassinationRogue" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
-  guideDefault: true,
 };
+
+export default config;

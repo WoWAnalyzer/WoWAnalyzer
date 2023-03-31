@@ -10,6 +10,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { getSheilunsGiftHits } from '../../normalizers/CastLinkNormalizer';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
+import Uptime from 'interface/icons/Uptime';
 
 const LEGACY_OF_WISDOM_TARGETS = 2;
 const SHEILUNS_GIFT_TARGETS = 3;
@@ -65,8 +66,8 @@ class LegacyOfWisdom extends Analyzer {
         <TalentSpellText talent={talents.LEGACY_OF_WISDOM_TALENT}>
           <ItemHealingDone amount={this.healing} />
           <br />
-          {this.buffIcon} {this.missedHits} <small> missed hits</small>
-          {this.extraGcds} <small>saved GCDs</small>
+          {this.buffIcon} {this.missedHits.toFixed(2)} <small> missed hits</small> <br />
+          <Uptime /> {this.extraGcds.toFixed(2)} <small>saved GCDs</small>
         </TalentSpellText>
       </Statistic>
     );

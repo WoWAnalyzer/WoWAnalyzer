@@ -33,6 +33,18 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             {modules.runicPowerGraph.plot}
           </p>
         </SubSection>
+        <SubSection title="Resource Cooldowns">
+          <p>
+            Getting the most out of resource cooldowns while playing{' '}
+            <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+            is crucial to achieving good performance with this build. You want to use your resource
+            cooldowns as often as possible to maximize how many resources you can put into a single{' '}
+            <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> cast without wasting any of
+            the resources granted.
+            {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) &&
+              modules.hornOfWinter.guideCastBreakdown}
+          </p>
+        </SubSection>
       </Section>
       <Section title="Proc Usage">
         <SubSection title="Killing Machine">
