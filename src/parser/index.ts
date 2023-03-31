@@ -39,13 +39,14 @@ import PreservationEvoker from 'analysis/retail/evoker/preservation';
 // Classic
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
 import ClassicDruidRestoration from 'analysis/classic/druid/restoration';
+import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
+import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicMageArcane from 'analysis/classic/mage/arcane';
 import ClassicMageFire from 'analysis/classic/mage/fire';
 import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
-import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
-import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
-import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
+import ClassicRogueAssassination from 'analysis/classic/rogue/assassination';
+import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
 import ClassicWarlockAffliction from 'analysis/classic/warlock/affliction';
 import ClassicWarlockDemonology from 'analysis/classic/warlock/demonology';
 
@@ -105,14 +106,23 @@ const configs: Config[] = [
 
   // Classic
   ClassicDeathKnightUnholy,
+
   ClassicDruidRestoration,
-  ClassicMageArcane,
-  ClassicMageFire,
-  ClassicPaladinHoly,
-  ClassicShamanRestoration,
-  ClassicPriestShadow,
+
   ClassicHunterSurvival,
   ClassicHunterMarksman,
+
+  ClassicMageArcane,
+  ClassicMageFire,
+
+  ClassicPaladinHoly,
+
+  ClassicPriestShadow,
+
+  ClassicRogueAssassination,
+
+  ClassicShamanRestoration,
+
   ClassicWarlockAffliction,
   ClassicWarlockDemonology,
 ];
