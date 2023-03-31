@@ -8,14 +8,20 @@ import talents from 'common/TALENTS/deathknight';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink, TooltipElement } from 'interface';
-import { BadColor, GoodColor, Section, useAnalyzers } from 'interface/guide';
+import { BadColor, GoodColor, Section, useAnalyzers, useEvents, useInfo } from 'interface/guide';
+import { ActualCastDescription } from 'interface/guide/components/Apl/violations/claims';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 import Explanation from 'interface/guide/components/Explanation';
 import PassFailBar from 'interface/guide/components/PassFailBar';
+import ProblemList, { ProblemRendererProps } from 'interface/guide/components/ProblemList';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import RunicPowerTracker from '../../runicpower/RunicPowerTracker';
 import BloodShield from '../BloodShield/BloodShield';
-import DeathStrike, { BLOOD_SHIELD_THRESHOLD, DeathStrikeReason } from './index';
+import DeathStrike, {
+  BLOOD_SHIELD_THRESHOLD,
+  DeathStrikeProblem,
+  DeathStrikeReason,
+} from './index';
 
 const reasonLabel = (reason: DeathStrikeReason) => {
   switch (reason) {
@@ -61,9 +67,35 @@ const Table = styled.table`
   th {
     font-weight: bold;
   }
+
+  margin-top: 1em;
 `;
 
-export function DeathStrikeSection(): JSX.Element {
+const ContentRow = styled.div`
+  display: grid;
+  grid-template-columns: minmax(40%, max-content) auto;
+  gap: 1em;
+`;
+
+const DeathStrikeProblemDescription = ({ data }: { data: DeathStrikeProblem['data'] }) => (
+  <div>
+    <ActualCastDescription event={data.cast} omitTarget /> while at{' '}
+    <strong>{Math.floor(data.runicPower / 10)}</strong>{' '}
+    <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} /> and{' '}
+    <strong>{formatPercentage(data.hitPoints / data.maxHitPoints, 0)}%</strong> Health. This left
+    you low on resources and vulnerable to upcoming damage.
+  </div>
+);
+
+const DeathStrikeProblemRenderer = ({
+  problem,
+  events,
+  info,
+}: ProblemRendererProps<DeathStrikeProblem['data']>) => (
+  <DeathStrikeProblemDescription data={problem.data} />
+);
+
+export function DeathStrikeSection(): JSX.Element | null {
   const [ds, runes, rp, dtps, bloodShield] = useAnalyzers([
     DeathStrike,
     RuneTracker,
@@ -71,6 +103,13 @@ export function DeathStrikeSection(): JSX.Element {
     DamageTaken,
     BloodShield,
   ] as const);
+
+  const info = useInfo();
+  const events = useEvents();
+
+  if (!info || !events) {
+    return null;
+  }
 
   const runesSpent = runes.runesMaxCasts - runes.runesWasted;
 
@@ -129,122 +168,130 @@ export function DeathStrikeSection(): JSX.Element {
           is called <strong>dumping</strong> <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
         </p>
       </Explanation>
-      <Table>
-        <thead></thead>
-        <tbody>
-          <tr>
-            <td>Healing Done</td>
-            <td>
-              {formatNumber(healedDamage)} /{' '}
-              <TooltipElement
-                content={
-                  <>
-                    You took <strong>{formatNumber(totalDamage)}</strong> total damage. The value
-                    shown here is a reasonable goal (~50% of damage taken) for how much you can heal
-                    back via <SpellLink id={talents.DEATH_STRIKE_TALENT} /> and{' '}
-                    <SpellLink id={SPELLS.BLOOD_SHIELD} />
-                  </>
-                }
-              >
-                {formatNumber(healingTarget)}
-              </TooltipElement>
-            </td>
-            <td>
-              <MitigationSegments
-                style={{ width: 'calc(100% + 2px)' }}
-                rounded
-                maxValue={Math.max(healingTarget, healedDamage)}
-                segments={[
-                  {
-                    amount: ds.totalHealing,
-                    color: GoodColor,
-                    tooltip: (
-                      <>
-                        Healing by <SpellLink id={talents.DEATH_STRIKE_TALENT} />
-                      </>
-                    ),
-                  },
-                  {
-                    amount: bloodShield.totalHealing,
-                    color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-                    tooltip: (
-                      <>
-                        Physical damage absorbed by <SpellLink id={SPELLS.BLOOD_SHIELD} />
-                      </>
-                    ),
-                  },
-                  {
-                    amount: Math.max(healingTarget - healedDamage, 0),
-                    color: BadColor,
-                    tooltip: <>Damage that required other healing.</>,
-                  },
-                ]}
-              />
-            </td>
-          </tr>
-        </tbody>
-        <thead>
-          <tr>
-            <th colSpan={3}>Resource Usage</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>
-              <TooltipElement
-                content={
-                  <>
-                    <p>
-                      While <SpellLink id={talents.DEATH_STRIKE_TALENT} /> does not cost{' '}
-                      <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> itself, every Rune spent
-                      generates 10 or more <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
-                    </p>
-                    <p>
-                      You can roughly convert every 4 unspent{' '}
-                      <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> into 1 lost{' '}
-                      <SpellLink id={talents.DEATH_STRIKE_TALENT} />.
-                    </p>
-                  </>
-                }
-              >
-                Runes Spent
-              </TooltipElement>
-            </td>
-            <td>
-              {runesSpent.toFixed(0)} / {runes.runesMaxCasts}
-            </td>
-            <td>
-              <PassFailBar total={runes.runesMaxCasts} pass={runesSpent} />
-            </td>
-          </tr>
-          <tr>
-            <td>Runic Power Spent</td>
-            <td>
-              {rp.spent} / {rp.spent + rp.wasted}
-            </td>
-            <td>
-              <PassFailBar total={rp.spent + rp.wasted} pass={rp.spent} />
-            </td>
-          </tr>
-        </tbody>
-        <thead>
-          <tr>
-            <th colSpan={3}>Types of Death Strikes</th>
-          </tr>
-        </thead>
-        <CastReasonBreakdownTableContents
-          badReason={DeathStrikeReason.Other}
-          possibleReasons={[
-            DeathStrikeReason.LowHealth,
-            DeathStrikeReason.GoodHealing,
-            DeathStrikeReason.BloodShield,
-            DeathStrikeReason.DumpRP,
-            DeathStrikeReason.Other,
-          ]}
-          label={reasonLabel}
-          casts={ds?.casts ?? []}
+      <ContentRow>
+        <Table>
+          <thead></thead>
+          <tbody>
+            <tr>
+              <td>Healing Done</td>
+              <td>
+                {formatNumber(healedDamage)} /{' '}
+                <TooltipElement
+                  content={
+                    <>
+                      You took <strong>{formatNumber(totalDamage)}</strong> total damage. The value
+                      shown here is a reasonable goal (~50% of damage taken) for how much you can
+                      heal back via <SpellLink id={talents.DEATH_STRIKE_TALENT} /> and{' '}
+                      <SpellLink id={SPELLS.BLOOD_SHIELD} />
+                    </>
+                  }
+                >
+                  {formatNumber(healingTarget)}
+                </TooltipElement>
+              </td>
+              <td>
+                <MitigationSegments
+                  style={{ width: 'calc(100% + 2px)' }}
+                  rounded
+                  maxValue={Math.max(healingTarget, healedDamage)}
+                  segments={[
+                    {
+                      amount: ds.totalHealing,
+                      color: GoodColor,
+                      tooltip: (
+                        <>
+                          Healing by <SpellLink id={talents.DEATH_STRIKE_TALENT} />
+                        </>
+                      ),
+                    },
+                    {
+                      amount: bloodShield.totalHealing,
+                      color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
+                      tooltip: (
+                        <>
+                          Physical damage absorbed by <SpellLink id={SPELLS.BLOOD_SHIELD} />
+                        </>
+                      ),
+                    },
+                    {
+                      amount: Math.max(healingTarget - healedDamage, 0),
+                      color: BadColor,
+                      tooltip: <>Damage that required other healing.</>,
+                    },
+                  ]}
+                />
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colSpan={3}>Resource Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <TooltipElement
+                  content={
+                    <>
+                      <p>
+                        While <SpellLink id={talents.DEATH_STRIKE_TALENT} /> does not cost{' '}
+                        <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> itself, every Rune spent
+                        generates 10 or more <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
+                      </p>
+                      <p>
+                        You can roughly convert every 4 unspent{' '}
+                        <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> into 1 lost{' '}
+                        <SpellLink id={talents.DEATH_STRIKE_TALENT} />.
+                      </p>
+                    </>
+                  }
+                >
+                  Runes Spent
+                </TooltipElement>
+              </td>
+              <td>
+                {runesSpent.toFixed(0)} / {runes.runesMaxCasts}
+              </td>
+              <td>
+                <PassFailBar total={runes.runesMaxCasts} pass={runesSpent} />
+              </td>
+            </tr>
+            <tr>
+              <td>Runic Power Spent</td>
+              <td>
+                {rp.spent} / {rp.spent + rp.wasted}
+              </td>
+              <td>
+                <PassFailBar total={rp.spent + rp.wasted} pass={rp.spent} />
+              </td>
+            </tr>
+          </tbody>
+          <thead>
+            <tr>
+              <th colSpan={3}>Types of Death Strikes</th>
+            </tr>
+          </thead>
+          <CastReasonBreakdownTableContents
+            badReason={DeathStrikeReason.Other}
+            possibleReasons={[
+              DeathStrikeReason.LowHealth,
+              DeathStrikeReason.GoodHealing,
+              DeathStrikeReason.BloodShield,
+              DeathStrikeReason.DumpRP,
+              DeathStrikeReason.Other,
+            ]}
+            label={reasonLabel}
+            casts={ds?.casts ?? []}
+          />
+        </Table>
+        <ProblemList
+          info={info}
+          problems={ds.problems}
+          events={events}
+          renderer={DeathStrikeProblemRenderer}
         />
-      </Table>
+      </ContentRow>
     </Section>
   );
 }

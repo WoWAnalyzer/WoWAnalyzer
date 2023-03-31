@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
+import { Problem } from 'interface/guide/components/ProblemList';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -48,6 +49,30 @@ type WithAmount<T> = T & {
   amount: number;
 };
 
+export type DeathStrikeProblem = Problem<
+  CastReason & {
+    runicPower: number;
+    maxRunicPower: number;
+    hitPoints: number;
+    maxHitPoints: number;
+  }
+>;
+
+// TODO: i want to also rank by the amount of damage taken in the next X seconds
+function castProblem(data: CastReason, rp: RunicPowerTracker): DeathStrikeProblem['data'] {
+  const rpData = rp.getResource(data.cast);
+
+  const healEvent = GetRelatedEvents(data.cast, DEATH_STRIKE_HEAL)?.[0] as HealEvent | undefined;
+
+  return {
+    ...data,
+    runicPower: rpData?.amount ?? 0,
+    maxRunicPower: rpData?.max ?? 125,
+    hitPoints: healEvent ? healEvent.hitPoints - healEvent.amount : Infinity,
+    maxHitPoints: healEvent?.maxHitPoints ?? Infinity,
+  };
+}
+
 export default class DeathStrike extends Analyzer {
   static dependencies = {
     rp: RunicPowerTracker,
@@ -78,6 +103,24 @@ export default class DeathStrike extends Analyzer {
 
   get totalHealing(): number {
     return this._totalHealing;
+  }
+
+  get problems(): DeathStrikeProblem[] {
+    return this.casts
+      .filter((cast) => cast.reason === DeathStrikeReason.Other)
+      .map((cast) => {
+        const data = castProblem(cast, this.rp);
+
+        return {
+          data,
+          range: {
+            start: cast.cast.timestamp,
+            end: cast.cast.timestamp,
+          },
+          context: 5000,
+          severity: data.hitPoints * (data.maxRunicPower - data.runicPower),
+        };
+      });
   }
 
   private recordHeal(event: HealEvent) {
