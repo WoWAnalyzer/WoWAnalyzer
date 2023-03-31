@@ -39,7 +39,7 @@ export interface SpellUse {
 const SpellTooltipBody = 'div';
 const SpellRowContainer = styled.div`
   display: grid;
-  grid-template-columns: 2em 2em auto;
+  grid-template-columns: 2em auto;
   gap: 1em;
   align-items: center;
 
@@ -60,15 +60,8 @@ export const PerformanceUsageRow = styled.div`
   }
 `;
 
-const SpellRow = ({
-  fightStart,
-  usageInfo,
-}: {
-  fightStart: number;
-  usageInfo: ChecklistUsageInfo;
-}) => (
+const SpellRow = ({ usageInfo }: { usageInfo: ChecklistUsageInfo }) => (
   <SpellRowContainer>
-    <div>{formatDuration(usageInfo.timestamp - fightStart)}</div>
     <div style={{ justifySelf: 'center' }}>
       <PerformanceMark perf={usageInfo.performance} />
     </div>
@@ -80,24 +73,26 @@ const SpellRow = ({
  * Helper function to convert a {@link SpellUse} to a {@link BoxRowEntry}.
  */
 export const spellUseToBoxRowEntry = (
-  { performance, performanceExplanation, checklistItems }: SpellUse,
+  { event, performance, performanceExplanation, checklistItems }: SpellUse,
   fightStart: number,
 ): BoxRowEntry => ({
   value: performance,
   tooltip: (
     <>
+      <div>
+        <strong>Time:</strong> {formatDuration(event.timestamp - fightStart)}
+      </div>
       <PerformanceUsageRow>
         <PerformanceMark perf={performance} /> {performanceExplanation ?? 'Good Usage'}
       </PerformanceUsageRow>
       {checklistItems.length > 0 ? (
         <SpellTooltipBody>
           <SpellRowContainer>
-            <strong>Time</strong>
             <strong>Perf.</strong>
             <strong>Summary</strong>
           </SpellRowContainer>
           {checklistItems.map((usageInfo) => (
-            <SpellRow fightStart={fightStart} usageInfo={usageInfo} key={usageInfo.check} />
+            <SpellRow usageInfo={usageInfo} key={usageInfo.check} />
           ))}
         </SpellTooltipBody>
       ) : undefined}

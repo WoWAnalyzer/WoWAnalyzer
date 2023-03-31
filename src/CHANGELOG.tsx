@@ -25,6 +25,7 @@ import SpellLink from 'interface/SpellLink';
 export default [
   change(date(2023, 3, 30), 'Add ability to use PTR tooltips based on report zone.', ToppleTheNun),
   change(date(2023, 3, 29), 'Mark 10.0.5 logs as not current.', ToppleTheNun),
+  change(date(2023, 3, 28), 'Refactor cast breakdown components to make them less noisy.', ToppleTheNun),
   change(date(2023, 3, 23), 'Add Hardmode difficulty for classic.', HerzBlutRaffy),
   change(date(2023, 3, 21), 'Add Ulduar raid and images for Classic WotLK.', jazminite),
   change(date(2023, 3, 21), 'Add patch info for 10.0.7.', ToppleTheNun),
