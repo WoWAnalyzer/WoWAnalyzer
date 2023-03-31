@@ -17,12 +17,18 @@ import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 
 import { staggerChart, line, point, color, normalizeTimestampTransform } from '../../charts';
-import PurifyingBrewProblems, { ProblemType, ProblemData, PurifyReason } from './analyzer';
+import PurifyingBrewProblems, {
+  ProblemType,
+  ProblemData,
+  PurifyReason,
+  PurifyData,
+} from './analyzer';
 import { potentialStaggerEvents } from './solver';
 
 import './PurifyingBrew.scss';
 import talents from 'common/TALENTS/monk';
 import PassFailBar from 'interface/guide/components/PassFailBar';
+import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 
 export { default } from './analyzer';
 
@@ -269,21 +275,21 @@ function reasonEnabled(info: Info, reason: PurifyReason): boolean {
 }
 
 function PurifyReasonBreakdown({
-  counts,
-  total,
+  purifies,
   castEfficiency,
   amountPurified,
   amountStaggered,
   info,
 }: {
-  counts: Record<PurifyReason, number>;
-  total: number;
+  purifies: PurifyData[];
   amountPurified: number;
   amountStaggered: number;
   castEfficiency: AbilityCastEfficiency;
   info: Info;
 }): JSX.Element {
   const threatTable = useThreatTable(info);
+
+  const possibleReasons = reasonOrder.filter(reasonEnabled.bind(null, info));
 
   return (
     <table className="hits-list purify-reasons">
@@ -333,23 +339,12 @@ function PurifyReasonBreakdown({
           </td>
         </tr>
       </tbody>
-      <tbody className="reasons">
-        {Object.entries(counts)
-          .sort(
-            ([a], [b]) =>
-              reasonOrder.indexOf(a as PurifyReason) - reasonOrder.indexOf(b as PurifyReason),
-          )
-          .filter(([reason]) => reasonEnabled(info, reason as PurifyReason))
-          .map(([reason, count]) => (
-            <tr key={reason} className={reason}>
-              <td>{reasonLabel(reason as PurifyReason)}</td>
-              <td className="pass-fail-counts">{count}</td>
-              <td>
-                <PassFailBar pass={count} total={total} />
-              </td>
-            </tr>
-          ))}
-      </tbody>
+      <CastReasonBreakdownTableContents
+        badReason={PurifyReason.Unknown}
+        casts={purifies}
+        possibleReasons={possibleReasons}
+        label={reasonLabel}
+      />
     </table>
   );
 }
@@ -451,8 +446,7 @@ export function PurifySection({
         }}
       >
         <PurifyReasonBreakdown
-          counts={module.reasonCounts}
-          total={module.purifies.length}
+          purifies={module.purifies}
           amountPurified={module.purifies.reduce(
             (total, purify) => total + purify.purify.amount,
             0,
