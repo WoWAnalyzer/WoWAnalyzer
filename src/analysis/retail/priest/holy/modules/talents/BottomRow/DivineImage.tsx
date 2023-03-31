@@ -1,7 +1,7 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent, SummonEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -34,7 +34,12 @@ class DivineImage extends Analyzer {
   }
 
   onByPlayerPetHeal(event: HealEvent) {
-    this.totalHealing += (event.amount || 0) + (event.absorb || 0);
+    // ignore leech from shadowfiend melee swings
+    if (event.ability.guid === 143924) {
+      return;
+    }
+
+    this.totalHealing += (event.amount || 0) + (event.absorbed || 0);
     this.totalOverhealing += event.overheal || 0;
 
     if (DEBUG) {
@@ -43,6 +48,10 @@ class DivineImage extends Analyzer {
   }
 
   onByPlayerPetDamage(event: DamageEvent) {
+    // ignore melee swings from shadowfiend
+    if (event.ability.guid === -32) {
+      return;
+    }
     this.totalDamage += (event.amount || 0) + (event.absorbed || 0);
 
     if (DEBUG) {
@@ -50,8 +59,10 @@ class DivineImage extends Analyzer {
     }
   }
 
-  onByPlayerSummon() {
-    this.totalProcs += 1;
+  onByPlayerSummon(event: SummonEvent) {
+    if (event.ability.guid === 392990) {
+      this.totalProcs += 1;
+    }
   }
 
   statistic() {

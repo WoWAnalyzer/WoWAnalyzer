@@ -16,10 +16,10 @@ import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSu
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
 import { SpellUse } from 'parser/core/SpellUsage/core';
-import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 
 import { getHardcast } from '../../normalizers/CastLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -154,7 +154,7 @@ export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
     );
 
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         abovePerformanceDetails={

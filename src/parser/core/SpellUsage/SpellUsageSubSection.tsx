@@ -14,10 +14,10 @@ import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
-import { SpellUse, spellUseToBoxRowEntry, useSpellUsageContext } from './core';
+import { SpellUse, useSpellUsageContext } from './core';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { qualitativePerformanceToNumber } from 'common/combineQualitativePerformances';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { formatDuration } from 'common/format';
 
 const NoData = styled.div`
   color: #999;
@@ -54,16 +54,57 @@ const SpellDetailsContainer = styled.div`
   }
 `;
 
+interface SpellUseDetailsProps {
+  performance?: BoxRowEntry;
+  spellUse?: SpellUse;
+}
+
 /**
  * Displays the details of a given {@link SpellUse}, displaying a fallback if none is provided.
+ * If {@link SpellUseDetailsProps#performance} is provided but {@link SpellUseDetailsProps#spellUse}
+ * is not, then a message will be displayed describing a potential spell cast.
  */
-const SpellUseDetails = ({ spellUse }: { spellUse?: SpellUse }) => {
+const SpellUseDetails = ({ performance, spellUse }: SpellUseDetailsProps) => {
+  const info = useInfo();
+  if (!info) {
+    return null;
+  }
+
   if (!spellUse) {
-    return (
-      <SpellDetailsContainer>
-        <NoData>Click on a box in the cast breakdown to view details.</NoData>
-      </SpellDetailsContainer>
-    );
+    // Realisitically, this should only happen for missed casts
+    if (performance) {
+      if (performance.value === QualitativePerformance.Fail) {
+        return (
+          <SpellDetailsContainer>
+            <NoData>This was a potential spell cast that went unused.</NoData>
+          </SpellDetailsContainer>
+        );
+      }
+      if (performance.value === QualitativePerformance.Ok) {
+        return (
+          <SpellDetailsContainer>
+            <NoData>
+              This was a potential spell cast that went unused, but you might have intentionally
+              saved it to handle a mechanic.
+            </NoData>
+          </SpellDetailsContainer>
+        );
+      }
+      return (
+        <SpellDetailsContainer>
+          <NoData>
+            This was a spell cast performance that was reported without an associated spell cast.
+            You should report this on the Discord.
+          </NoData>
+        </SpellDetailsContainer>
+      );
+    } else {
+      return (
+        <SpellDetailsContainer>
+          <NoData>Click on a box in the cast breakdown to view details.</NoData>
+        </SpellDetailsContainer>
+      );
+    }
   }
 
   if (spellUse.checklistItems.length === 0) {
@@ -78,6 +119,8 @@ const SpellUseDetails = ({ spellUse }: { spellUse?: SpellUse }) => {
 
   return (
     <SpellDetailsContainer>
+      <strong>Time</strong>
+      <div>{formatDuration(spellUse.event.timestamp - info.fightStart)}</div>
       <strong>Perf.</strong>
       <strong>Explanation</strong>
       {spellUse.checklistItems.map((checklistItem) => (
@@ -138,10 +181,7 @@ type SpellUsageSubSectionProps = Omit<ComponentPropsWithoutRef<typeof SubSection
   belowPerformanceDetails?: ReactNode;
   castBreakdownSmallText?: ReactNode;
   explanation: ReactNode;
-  /**
-   * @deprecated Just pass {@link uses}. Use {@link spellUseToPerformance} if you need to customize.
-   */
-  performance?: BoxRowEntry[];
+  performances: BoxRowEntry[];
   uses: SpellUse[];
   onPerformanceBoxClick?: (use: SpellUse | undefined) => void;
   spellUseToPerformance?: (use: SpellUse) => BoxRowEntry;
@@ -157,6 +197,7 @@ const SpellUsageSubSection = ({
   belowPerformanceDetails,
   castBreakdownSmallText,
   explanation,
+  performances,
   uses,
   onPerformanceBoxClick,
   spellUseToPerformance,
@@ -165,21 +206,23 @@ const SpellUsageSubSection = ({
   const [selectedUse, setSelectedUse] = useState<number | undefined>();
   const { hideGoodCasts } = useSpellUsageContext();
   const info = useInfo();
+
   const onClickBox = useCallback(
     (index) => {
-      if (index >= uses.length) {
+      if (index >= performances.length) {
         setSelectedUse(undefined);
         onPerformanceBoxClick?.(undefined);
       } else {
         setSelectedUse(index);
-        onPerformanceBoxClick?.(uses[index]);
+        onPerformanceBoxClick?.(index);
       }
     },
-    [onPerformanceBoxClick, uses],
+    [onPerformanceBoxClick, performances.length],
   );
 
   // hideGoodCasts is in the dependency list because we want this to run whenever
   // we toggle the "Hide Good Casts" toggle.
+  // This isn't in HideGoodCastsSpellUsageSubSection because "selectedUse" lives here.
   useEffect(() => {
     setSelectedUse(undefined);
     onPerformanceBoxClick?.(undefined);
@@ -188,18 +231,6 @@ const SpellUsageSubSection = ({
   if (!info) {
     return null;
   }
-
-  const filteredUses = uses.filter(
-    (use) =>
-      !hideGoodCasts ||
-      qualitativePerformanceToNumber(use.performance) <
-        qualitativePerformanceToNumber(QualitativePerformance.Good),
-  );
-  const performances = filteredUses.map((spellUse) =>
-    spellUseToPerformance
-      ? spellUseToPerformance(spellUse)
-      : spellUseToBoxRowEntry(spellUse, info.fightStart),
-  );
 
   return (
     <SubSection style={{ paddingBottom: 20 }} {...others}>
@@ -217,12 +248,26 @@ const SpellUsageSubSection = ({
               )}
             </small>
           </div>
-          <PerformanceBoxRow values={performances} onClickBox={onClickBox} />
-          {filteredUses.length === 0 ? (
+          <PerformanceBoxRow
+            values={performances.map((p, idx) =>
+              idx === selectedUse ? { ...p, className: 'selected' } : p,
+            )}
+            onClickBox={onClickBox}
+          />
+          {uses.length === 0 ? (
             <NoCastsDisplay />
           ) : (
             <SpellUseDetails
-              spellUse={selectedUse !== undefined ? filteredUses[selectedUse] : undefined}
+              spellUse={
+                selectedUse !== undefined && selectedUse < uses.length
+                  ? uses[selectedUse]
+                  : undefined
+              }
+              performance={
+                selectedUse !== undefined && selectedUse < performances.length
+                  ? performances[selectedUse]
+                  : undefined
+              }
             />
           )}
           {belowPerformanceDetails}

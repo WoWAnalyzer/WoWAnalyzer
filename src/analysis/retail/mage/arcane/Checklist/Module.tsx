@@ -12,9 +12,9 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
 import ArcaneMissiles from '../core/ArcaneMissiles';
-import ArcanePowerActiveTime from '../core/ArcanePowerActiveTime';
-import ArcanePowerMana from '../core/ArcanePowerMana';
-import ArcanePowerPreReqs from '../core/ArcanePowerPreReqs';
+import ArcaneSurgeActiveTime from '../core/ArcaneSurgeActiveTime';
+import ArcaneSurgeMana from '../core/ArcaneSurgeMana';
+import ArcaneSurgePreReqs from '../core/ArcaneSurgePreReqs';
 import RadiantSpark from '../talents/RadiantSpark';
 import ManaValues from '../ManaChart/ManaValues';
 import ArcaneEcho from '../talents/ArcaneEcho';
@@ -31,9 +31,9 @@ class Checklist extends BaseChecklist {
     arcaneFamiliar: ArcaneFamiliar,
     arcaneOrb: ArcaneOrb,
     arcaneEcho: ArcaneEcho,
-    arcanePowerPreReqs: ArcanePowerPreReqs,
-    arcanePowerMana: ArcanePowerMana,
-    arcanePowerActiveTime: ArcanePowerActiveTime,
+    arcaneSurgePreReqs: ArcaneSurgePreReqs,
+    arcaneSurgeMana: ArcaneSurgeMana,
+    arcaneSurgeActiveTime: ArcaneSurgeActiveTime,
     radiantSpark: RadiantSpark,
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
@@ -51,9 +51,9 @@ class Checklist extends BaseChecklist {
   protected arcaneFamiliar!: ArcaneFamiliar;
   protected arcaneOrb!: ArcaneOrb;
   protected arcaneEcho!: ArcaneEcho;
-  protected arcanePowerPreReqs!: ArcanePowerPreReqs;
-  protected arcanePowerMana!: ArcanePowerMana;
-  protected arcanePowerActiveTime!: ArcanePowerActiveTime;
+  protected arcaneSurgePreReqs!: ArcaneSurgePreReqs;
+  protected arcaneSurgeMana!: ArcaneSurgeMana;
+  protected arcaneSurgeActiveTime!: ArcaneSurgeActiveTime;
   protected radiantSpark!: RadiantSpark;
   protected ruleOfThrees!: RuleOfThrees;
   protected timeAnomaly!: TimeAnomaly;
@@ -78,11 +78,11 @@ class Checklist extends BaseChecklist {
           arcaneFamiliarUptime: this.arcaneFamiliar.arcaneFamiliarUptimeThresholds,
           arcaneOrbMissedOrbs: this.arcaneOrb.missedOrbsThresholds,
           arcaneEchoLowUsage: this.arcaneEcho.badTouchUsageThreshold,
-          arcanePowerPreReqs: this.arcanePowerPreReqs.arcanePowerPreReqThresholds,
-          arcaneHarmonyPreReqs: this.arcanePowerPreReqs.arcaneHarmonyPreReqThresholds,
-          radiantSparkPreReqs: this.arcanePowerPreReqs.radiantSparkPreReqThresholds,
-          arcanePowerActiveTime: this.arcanePowerActiveTime.arcanePowerActiveTimeThresholds,
-          arcanePowerManaUtilization: this.arcanePowerMana.arcanePowerManaUtilization,
+          arcaneSurgePreReqs: this.arcaneSurgePreReqs.arcaneSurgePreReqThresholds,
+          arcaneHarmonyPreReqs: this.arcaneSurgePreReqs.arcaneHarmonyPreReqThresholds,
+          radiantSparkPreReqs: this.arcaneSurgePreReqs.radiantSparkPreReqThresholds,
+          arcaneSurgeActiveTime: this.arcaneSurgeActiveTime.arcaneSurgeActiveTimeThresholds,
+          arcaneSurgeManaUtilization: this.arcaneSurgeMana.arcaneSurgeManaUtilization,
           ruleOfThreesUsage: this.ruleOfThrees.ruleOfThreesUtilizationThresholds,
           timeAnomalyManaUtilization: this.timeAnomaly.timeAnomalyManaThresholds,
           arcaneMissilesUtilization: this.arcaneMissiles.arcaneMissileUsageThresholds,

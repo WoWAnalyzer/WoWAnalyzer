@@ -291,7 +291,7 @@ const spells = spellIndexableList({
   },
   BLESSING_OF_SPRING_TALENT: {
     id: 388013,
-    name: 'Blessing of Sprint',
+    name: 'Blessing of Spring',
     icon: 'ability_ardenweald_paladin_spring',
   },
 

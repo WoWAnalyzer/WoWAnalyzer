@@ -104,6 +104,11 @@ const spells = spellIndexableList({
     name: 'Frost Fever',
     icon: 'spell_deathknight_frostfever',
   },
+  FROST_STRIKE_DAMAGE: {
+    id: 325464,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
   FROST_STRIKE_MAIN_HAND_DAMAGE: {
     id: 222026,
     name: 'Frost Strike',
@@ -113,6 +118,11 @@ const spells = spellIndexableList({
     id: 66196,
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
+  },
+  OBLITERATE_DAMAGE: {
+    id: 325461,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
   },
   OBLITERATE_MAIN_HAND_DAMAGE: {
     id: 222024,

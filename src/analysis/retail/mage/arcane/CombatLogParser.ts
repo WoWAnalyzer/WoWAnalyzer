@@ -23,10 +23,10 @@ import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import ArcaneChargeTracker from './core/ArcaneChargeTracker';
 import ArcaneMissiles from './core/ArcaneMissiles';
-import ArcanePowerActiveTime from './core/ArcanePowerActiveTime';
-import ArcanePowerCasts from './core/ArcanePowerCasts';
-import ArcanePowerMana from './core/ArcanePowerMana';
-import ArcanePowerPreReqs from './core/ArcanePowerPreReqs';
+import ArcaneSurgeActiveTime from './core/ArcaneSurgeActiveTime';
+import ArcaneSurgeCasts from './core/ArcaneSurgeCasts';
+import ArcaneSurgeMana from './core/ArcaneSurgeMana';
+import ArcaneSurgePreReqs from './core/ArcaneSurgePreReqs';
 
 //Items
 
@@ -45,14 +45,14 @@ import RuleOfThrees from './talents/RuleOfThrees';
 
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
-import ArcanePowerNormalizer from './normalizers/ArcanePower';
+import ArcaneSurgeNormalizer from './normalizers/ArcaneSurge';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
-    arcanePowerNormalizer: ArcanePowerNormalizer,
+    arcaneSurgeNormalizer: ArcaneSurgeNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
     runeOfPowerNormalizer: RuneOfPowerNormalizer,
 
@@ -67,10 +67,10 @@ class CombatLogParser extends CoreCombatLogParser {
     manaValues: ManaValues,
     cancelledCasts: CancelledCasts,
     arcaneChargeTracker: ArcaneChargeTracker,
-    arcanePowerPreReqs: ArcanePowerPreReqs,
-    arcanePowerMana: ArcanePowerMana,
-    arcanePowerCasts: ArcanePowerCasts,
-    arcanePowerActiveTime: ArcanePowerActiveTime,
+    arcaneSurgePreReqs: ArcaneSurgePreReqs,
+    arcaneSurgeMana: ArcaneSurgeMana,
+    arcaneSurgeCasts: ArcaneSurgeCasts,
+    arcaneSurgeActiveTime: ArcaneSurgeActiveTime,
     arcaneMissiles: ArcaneMissiles,
 
     // Talents - Arcane

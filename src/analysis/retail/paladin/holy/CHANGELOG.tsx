@@ -2,9 +2,10 @@ import { change, date } from 'common/changelog';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import { CamClark, Tialyss, ToppleTheNun, xizbow } from 'CONTRIBUTORS';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 3, 30), <>Update icons for <SpellLink id={SPELLS.BLESSING_OF_SUMMER_TALENT} />, <SpellLink id={SPELLS.BLESSING_OF_AUTUMN_TALENT} />, <SpellLink id={SPELLS.BLESSING_OF_WINTER_TALENT} />, and <SpellLink id={SPELLS.BLESSING_OF_SPRING_TALENT} />.</>, ToppleTheNun),
   change(date(2023, 1, 26), <>Implement CDR from <SpellLink id={TALENTS.SEAL_OF_ORDER_TALENT} />,
   {' '}<SpellLink id={TALENTS.AVENGING_CRUSADER_TALENT} />,
   and <SpellLink id={SPELLS.BLESSING_OF_AUTUMN_TALENT} /></>, Tialyss),
