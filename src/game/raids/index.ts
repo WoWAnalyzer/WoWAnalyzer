@@ -43,8 +43,8 @@ export interface Dungeon {
 }
 
 const raids = {
-  Dungeons: require('./dungeons').default,
   // Dragonflight
+  Dungeons: require('./mythicplusseasonone').default,
   VaultOfTheIncarnates: require('./vaultoftheincarnates').default, //tier 29
   // The Burning Cursage
   GruulsLair: require('./gruulslair').default, //tier 4
@@ -56,6 +56,7 @@ export default raids;
 
 export function findByBossId(id: number): Boss | null {
   let boss: Boss | null = null;
+  console.log(`findByBoss(${id})`);
   Object.values(raids).some((raid: Raid) => {
     const match = Object.values(raid.bosses).find((boss) => boss.id === id);
     if (match) {
