@@ -1,13 +1,19 @@
 import styled from '@emotion/styled';
 import { RuneTracker } from 'analysis/retail/deathknight/shared';
+import { MitigationSegments } from 'analysis/retail/monk/brewmaster/modules/core/MajorDefensives/core';
+import { formatNumber } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
+import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink, TooltipElement } from 'interface';
-import { Section, useAnalyzers } from 'interface/guide';
+import { BadColor, GoodColor, Section, useAnalyzers } from 'interface/guide';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 import Explanation from 'interface/guide/components/Explanation';
 import PassFailBar from 'interface/guide/components/PassFailBar';
+import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import RunicPowerTracker from '../../runicpower/RunicPowerTracker';
+import BloodShield from '../BloodShield/BloodShield';
 import DeathStrike, { DeathStrikeReason } from './index';
 
 const reasonLabel = (reason: DeathStrikeReason) => {
@@ -36,9 +42,19 @@ const Table = styled.table`
 `;
 
 export function DeathStrikeSection(): JSX.Element {
-  const [ds, runes, rp] = useAnalyzers([DeathStrike, RuneTracker, RunicPowerTracker] as const);
+  const [ds, runes, rp, dtps, bloodShield] = useAnalyzers([
+    DeathStrike,
+    RuneTracker,
+    RunicPowerTracker,
+    DamageTaken,
+    BloodShield,
+  ] as const);
 
   const runesSpent = runes.runesMaxCasts - runes.runesWasted;
+
+  const healedDamage = ds.totalHealing + bloodShield.totalHealing;
+  const totalDamage = dtps.total.effective;
+  const healingTarget = totalDamage / 2;
 
   return (
     <Section title="Death Strike Usage">
@@ -48,6 +64,49 @@ export function DeathStrikeSection(): JSX.Element {
       </Explanation>
       <Table>
         <thead></thead>
+        <tbody>
+          <tr>
+            <td>Healing Done</td>
+            <td>
+              {formatNumber(healedDamage)} / {formatNumber(totalDamage)}
+            </td>
+            <td>
+              <MitigationSegments
+                maxValue={Math.max(healingTarget, healedDamage)}
+                segments={[
+                  {
+                    amount: ds.totalHealing,
+                    color: GoodColor,
+                    tooltip: (
+                      <>
+                        Healing by <SpellLink id={talents.DEATH_STRIKE_TALENT} />
+                      </>
+                    ),
+                  },
+                  {
+                    amount: bloodShield.totalHealing,
+                    color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
+                    tooltip: (
+                      <>
+                        Physical damage absorbed by <SpellLink id={SPELLS.BLOOD_SHIELD} />
+                      </>
+                    ),
+                  },
+                  {
+                    amount: Math.max(healingTarget - healedDamage, 0),
+                    color: BadColor,
+                    tooltip: <>Damage that required other healing.</>,
+                  },
+                ]}
+              />
+            </td>
+          </tr>
+        </tbody>
+        <thead>
+          <tr>
+            <th colSpan={3}>Resource Usage</th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
             <td>

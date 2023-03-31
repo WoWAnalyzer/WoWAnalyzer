@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, GetRelatedEvents, HealEvent } from 'parser/core/Events';
@@ -36,10 +37,22 @@ export default class DeathStrike extends Analyzer {
 
   readonly casts: CastReason[] = [];
 
+  private _totalHealing: number = 0;
+
   constructor(options: Options) {
     super(options);
 
     this.addEventListener(Events.cast.spell(talents.DEATH_STRIKE_TALENT), this.onCast);
+
+    this.addEventListener(Events.heal.spell(SPELLS.DEATH_STRIKE_HEAL), this.recordHeal);
+  }
+
+  get totalHealing(): number {
+    return this._totalHealing;
+  }
+
+  private recordHeal(event: HealEvent) {
+    this._totalHealing += event.amount + (event.absorbed ?? 0);
   }
 
   private onCast(event: CastEvent) {

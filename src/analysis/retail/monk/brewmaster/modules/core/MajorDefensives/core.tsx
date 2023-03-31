@@ -104,18 +104,20 @@ export const MitigationSegments = ({
   className?: string;
 }) => (
   <MitigationSegmentContainer className={className}>
-    {segments.map((seg, ix) => (
-      <Tooltip
-        content={
-          <>
-            {seg.tooltip} - {formatNumber(seg.amount)}
-          </>
-        }
-        key={ix}
-      >
-        <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
-      </Tooltip>
-    ))}
+    {segments
+      .filter((seg) => seg.amount > 0)
+      .map((seg, ix) => (
+        <Tooltip
+          content={
+            <>
+              {seg.tooltip} - {formatNumber(seg.amount)}
+            </>
+          }
+          key={ix}
+        >
+          <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
+        </Tooltip>
+      ))}
   </MitigationSegmentContainer>
 );
 

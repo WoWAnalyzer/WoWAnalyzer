@@ -28,6 +28,7 @@ import Ossuary from './modules/features/Ossuary';
 import BloodGuide from './modules/guide';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
+import BloodShield from './modules/spells/BloodShield/BloodShield';
 import DeathStrike from './modules/spells/DeathStrike';
 import DeathStrikeLinkNormalizer from './modules/spells/DeathStrike/normalizer';
 import Bloodworms from './modules/talents/Bloodworms';
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // guide stuff
     deathStrike: DeathStrike,
+    bloodShield: BloodShield,
 
     // normalizers
     deathStrikeNormalizer: DeathStrikeLinkNormalizer,
