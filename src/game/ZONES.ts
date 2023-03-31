@@ -29,6 +29,7 @@ interface Zone {
   encounters: Encounter[];
   brackets: Bracket;
   partitions?: Partition[];
+  usePtrTooltips?: boolean;
 }
 
 const ZONES: Zone[] = [
@@ -63,6 +64,26 @@ const ZONES: Zone[] = [
         default: true,
       },
     ],
+  },
+  {
+    id: 33,
+    name: 'Aberrus',
+    frozen: false,
+    encounters: [],
+    brackets: {
+      min: 402,
+      max: 450,
+      bucket: 3,
+      type: 'Item Level',
+    },
+    partitions: [
+      {
+        name: '10.1',
+        compact: '10.1',
+        default: true,
+      },
+    ],
+    usePtrTooltips: true, // TODO: Mark this as false once Aberrus goes live
   },
 ];
 
