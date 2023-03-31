@@ -1,7 +1,8 @@
 import styled from '@emotion/styled';
+import { Trans } from '@lingui/macro';
 import { RuneTracker } from 'analysis/retail/deathknight/shared';
 import { MitigationSegments } from 'analysis/retail/monk/brewmaster/modules/core/MajorDefensives/core';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
@@ -14,20 +15,41 @@ import PassFailBar from 'interface/guide/components/PassFailBar';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
 import RunicPowerTracker from '../../runicpower/RunicPowerTracker';
 import BloodShield from '../BloodShield/BloodShield';
-import DeathStrike, { DeathStrikeReason } from './index';
+import DeathStrike, { BLOOD_SHIELD_THRESHOLD, DeathStrikeReason } from './index';
 
 const reasonLabel = (reason: DeathStrikeReason) => {
   switch (reason) {
     case DeathStrikeReason.GoodHealing:
-      return 'Large Heal';
+      return <Trans id="blood.guide.death-strike.good-healing">Large Heal</Trans>;
     case DeathStrikeReason.LowHealth:
-      return 'Low HP';
+      return (
+        <Trans id="blood.guide.death-strike.low-hp">
+          <SpellLink id={talents.DEATH_STRIKE_TALENT} /> at Low HP
+        </Trans>
+      );
     case DeathStrikeReason.BloodShield:
-      return 'Blood Shield EHP';
+      return (
+        <TooltipElement
+          content={
+            <Trans id="blood.guide.death-strike.blood-shield.tooltip">
+              Only counts absorbs that mitigate hits for more than{' '}
+              <strong>{formatPercentage(BLOOD_SHIELD_THRESHOLD, 0)}%</strong> of your HP.
+            </Trans>
+          }
+        >
+          <Trans id="blood.guide.death-strike.blood-shield">
+            Generate <SpellLink id={SPELLS.BLOOD_SHIELD} />
+          </Trans>
+        </TooltipElement>
+      );
     case DeathStrikeReason.DumpRP:
-      return 'Dump RP';
+      return (
+        <Trans id="blood.guide.death-strike.dump-rp">
+          Dump <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />
+        </Trans>
+      );
     case DeathStrikeReason.Other:
-      return 'Other';
+      return <Trans id="guide.unknown-reason">Other</Trans>;
   }
 };
 
