@@ -17,7 +17,6 @@ export const ABILITIES_AFFECTED_BY_DAMAGE_INCREASES = [
   TALENTS.WAKE_OF_ASHES_TALENT,
   TALENTS.EXECUTION_SENTENCE_TALENT,
   TALENTS.JUSTICARS_VENGEANCE_TALENT,
-  TALENTS.EYE_FOR_AN_EYE_TALENT,
 ];
 
 // Stuff like Retribution mastery and Execution sentence increases damage done by these sources of holy damage

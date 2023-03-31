@@ -5,6 +5,7 @@ import CombatLogParser from './CombatLogParser';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import SPELLS from 'common/SPELLS';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -30,6 +31,18 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             priority than Runic Power spenders, it is okay to waste Runic Power if you are using the
             GCD on a Rune spender instead.
             {modules.runicPowerGraph.plot}
+          </p>
+        </SubSection>
+        <SubSection title="Resource Cooldowns">
+          <p>
+            Getting the most out of resource cooldowns while playing{' '}
+            <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+            is crucial to achieving good performance with this build. You want to use your resource
+            cooldowns as often as possible to maximize how many resources you can put into a single{' '}
+            <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> cast without wasting any of
+            the resources granted.
+            {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) &&
+              modules.hornOfWinter.guideCastBreakdown}
           </p>
         </SubSection>
       </Section>
@@ -64,15 +77,13 @@ function CooldownsSubsection({ modules, events, info }: GuideProps<typeof Combat
           />
         </div>
       )}
-      {info.combatant.hasTalent(talents.REMORSELESS_WINTER_TALENT) && (
-        <div className="flex-main chart" style={{ padding: 5 }}>
-          <CastEfficiencyBar
-            spellId={talents.REMORSELESS_WINTER_TALENT.id}
-            gapHighlightMode={GapHighlight.FullCooldown}
-            useThresholds
-          />
-        </div>
-      )}
+      <div className="flex-main chart" style={{ padding: 5 }}>
+        <CastEfficiencyBar
+          spellId={SPELLS.REMORSELESS_WINTER.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+          useThresholds
+        />
+      </div>
       {info.combatant.hasTalent(talents.CHILL_STREAK_TALENT) && (
         <div className="flex-main chart" style={{ padding: 5 }}>
           <CastEfficiencyBar

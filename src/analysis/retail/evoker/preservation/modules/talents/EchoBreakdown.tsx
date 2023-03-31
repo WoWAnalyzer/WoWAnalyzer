@@ -154,7 +154,9 @@ class EchoBreakdown extends Analyzer {
           },
         ],
       },
-    ];
+    ].filter((info) => {
+      return info.amount > 0;
+    });
     return this.echoItems;
   }
 
@@ -256,6 +258,10 @@ class EchoBreakdown extends Analyzer {
   }
 
   statistic() {
+    const echoData = this.getEchoDataItems;
+    if (!echoData.length) {
+      return null;
+    }
     return (
       <TalentAggregateStatisticContainer
         title={

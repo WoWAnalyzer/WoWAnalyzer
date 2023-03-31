@@ -16,7 +16,7 @@ class Overhealing extends Analyzer {
 
   protected abilityTracker!: AbilityTracker;
 
-  divinePurposeActive = this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT);
+  divinePurposeActive = this.selectedCombatant.hasTalent(TALENTS.DIVINE_PURPOSE_SHARED_TALENT);
 
   getRawHealing(ability: TrackedAbility) {
     return ability.healingEffective + ability.healingAbsorbed + ability.healingOverheal;

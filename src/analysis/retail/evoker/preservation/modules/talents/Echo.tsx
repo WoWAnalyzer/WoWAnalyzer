@@ -274,10 +274,14 @@ class Echo extends Analyzer {
       .sort((a, b) => {
         return Math.sign(b.value - a.value);
       });
-    return <DonutChart items={items} />;
+    return items.length > 0 ? <DonutChart items={items} /> : null;
   }
 
   statistic() {
+    const chart = this.renderDonutChart();
+    if (!chart) {
+      return null;
+    }
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -288,7 +292,7 @@ class Echo extends Analyzer {
           <label>
             <SpellLink id={TALENTS_EVOKER.ECHO_TALENT} /> healing breakdown by spell
           </label>
-          {this.renderDonutChart()}
+          {chart}
         </div>
       </Statistic>
     );

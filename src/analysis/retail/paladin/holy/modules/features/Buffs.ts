@@ -25,8 +25,8 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT),
       },
       {
-        spellId: TALENTS.DIVINE_PURPOSE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT),
+        spellId: TALENTS.DIVINE_PURPOSE_SHARED_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_PURPOSE_SHARED_TALENT),
         timelineHighlight: true,
       },
       // Throughput cooldowns
@@ -42,11 +42,6 @@ class Buffs extends CoreAuras {
         enabled: !combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT),
         timelineHighlight: true,
         triggeredBySpellId: SPELLS.AVENGING_WRATH.id,
-      },
-      {
-        spellId: TALENTS.HOLY_AVENGER_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT),
-        timelineHighlight: true,
       },
       // Beacons
       {

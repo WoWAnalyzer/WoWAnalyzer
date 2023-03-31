@@ -6,6 +6,9 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 29), <>Improve accuracy of <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
+  change(date(2023, 3, 27), <>Add Tier 30 Set Bonus Module.</>, Vohrr),
+  change(date(2023, 3, 23), <>Add <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id}/> and renamed where appropriate.</>, Vohrr),
   change(date(2023, 3, 21), <>Bump spec config to 10.0.7</>, Trevor),
   change(date(2023, 3, 21), <>10.0.7 Updates, added <SpellLink id={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT.id}/> module.</>, Vohrr),
   change(date(2023, 3, 17), <>Fix crash in HotAttributor</>, Trevor),
@@ -56,7 +59,7 @@ export default [
   change(date(2023, 1, 26), <>Update breakdown for <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT.id}/>.</>, Vohrr),
   change(date(2023, 1, 25), <>Add <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 25), <>Fixed but with <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module.</>, Vohrr),
-  change(date(2023, 1, 25), <>Reworked <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module to show all healing contribution and not just from <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/>. </>, Vohrr),
+  change(date(2023, 1, 25), <>Reworked <SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id}/> module to show all healing contribution and not just from <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id}/>. </>, Vohrr),
   change(date(2023, 1, 24), <>Add <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT}/> module</>, Trevor),
   change(date(2023, 1, 24), <>Updated <SpellLink id={SPELLS.GUSTS_OF_MISTS}/> breakdown to include <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> and improved accuracy.</>, Vohrr),
   change(date(2023, 1, 24), <>Removed Bonedust Brew modules and references for Mistweaver for 10.0.5</>, Vohrr),
@@ -75,7 +78,7 @@ export default [
   change(date(2022, 12, 14), <>Update <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT}/> module suggestion thresholds</>, Trevor),
   change(date(2022, 12, 3), <>Update <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT.id}/> module to show average CDR</>, Trevor),
   change(date(2022, 12, 3), <>Update <SpellLink id={TALENTS_MONK.YULONS_WHISPER_TALENT.id}/> suggestions for Mistweaver</>, Trevor),
-  change(date(2022, 11, 28), <>Updated the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> and <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id}/> modules to include <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/> in the title now that it is its own talent. Updated tooltips to use SpellLinks.</>, Vohrr),
+  change(date(2022, 11, 28), <>Updated the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> and <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id}/> modules to include <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id}/> in the title now that it is its own talent. Updated tooltips to use SpellLinks.</>, Vohrr),
   change(date(2022, 11, 28), <>Update ability tracker for MW</>, Trevor),
   change(date(2022, 11, 27), <>Added Mistweaver Talent Summary Panel</>, Vohrr),
   change(date(2022, 11, 23), <>Fix another Mistweaver degraded experience</>, Trevor),
@@ -90,7 +93,7 @@ export default [
   change(date(2022, 11, 14), <>Add T29 tier set module for Mistweaver</>, Trevor),
   change(date(2022, 11, 14), <>Fix broken <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT.id}/> references and reordered the talent modules based on importance</>, Vohrr),
   change(date(2022, 11, 13), <>Fix load conditions for some Mistweaver talents</>, Trevor),
-  change(date(2022, 11, 12), <>Updated the spell icon for <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id}/></>, Vohrr),
+  change(date(2022, 11, 12), <>Updated the spell icon for <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id}/></>, Vohrr),
   change(date(2022, 11, 12), <>Cleanup covenant files for Mistweaver</>, Trevor),
   change(date(2022, 11, 11), <>Combined the <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}/> module and moved into general. Reordered the statistics in general to make more sense.</>, Vohrr),
   change(date(2022, 11, 9), <>Improve accuracy of healing statistic for <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id}/> and <SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id}/></>, Trevor),

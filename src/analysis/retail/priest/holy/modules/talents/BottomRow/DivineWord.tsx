@@ -18,11 +18,11 @@ import { formatPercentage } from 'common/format';
 import { ABILITIES_THAT_WORK_WITH_DIVINE_FAVOR_CHASTISE } from 'analysis/retail/priest/holy/constants';
 import { SpellIcon } from 'interface';
 
-const DAMAGE_INCREASE_FROM_CHASTISE = 0.5;
+const DAMAGE_INCREASE_FROM_CHASTISE = 0.3;
 const HOLY_FIRE_APPLICATION_DURATION = 7;
 const HEALING_INCREASE_FROM_SERENITY = 0.3;
 const CRIT_INCREASE_FROM_SERENITY = 0.2;
-const ACTIVATOR_SPELL_INCREASE = 0.3;
+const ACTIVATOR_SPELL_INCREASE = 0.5;
 
 // Example Logs: /report/VXr2kgALF3Rj6Q4M/11-Mythic+Anduin+Wrynn+-+Kill+(5:12)/Litena/standard/statistics
 // /report/xq2FvfVCJh6YLjzZ/2-Mythic+Vigilant+Guardian+-+Kill+(4:40)/Ashelya/standard/statistics
@@ -59,12 +59,19 @@ class DivineWord extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.FLASH_HEAL, TALENTS.RENEW_TALENT, SPELLS.GREATER_HEAL]),
+        .spell([
+          TALENTS.HOLY_WORD_SERENITY_TALENT,
+          SPELLS.FLASH_HEAL,
+          TALENTS.RENEW_TALENT,
+          SPELLS.GREATER_HEAL,
+        ]),
       this.onHeal,
     );
     // The heal from casting sanctify
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL),
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS.HOLY_WORD_SANCTIFY_TALENT, SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL]),
       this.onHeal,
     );
     //Keeping track of which divine word is activated
@@ -146,6 +153,7 @@ class DivineWord extends Analyzer {
       this.sanctifyOverhealing += calculateOverhealing(event, ACTIVATOR_SPELL_INCREASE);
     }
   }
+
   onActivatorCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (this.selectedCombatant.hasBuff(TALENTS.DIVINE_WORD_TALENT.id)) {

@@ -160,7 +160,13 @@ class Tier29 extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <ItemSetLink id={DRUID_T29_ID}>Lost Landcaller's Vesture (VotI Tier)</ItemSetLink>
+            <ItemSetLink id={DRUID_T29_ID}>
+              <>
+                Lost Landcaller's Vesture
+                <br />
+                (VotI Tier)
+              </>
+            </ItemSetLink>
           </label>
           <div className="value">
             2pc: <ItemPercentHealingDone amount={this.total2pcHealing} />

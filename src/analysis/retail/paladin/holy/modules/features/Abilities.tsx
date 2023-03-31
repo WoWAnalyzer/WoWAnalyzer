@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
 
   spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
-    const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT);
+    const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_HOLY_TALENT);
     const hasUnbreakable = combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT);
     const unbreakable = (baseCD: number) => {
       if (hasUnbreakable) {
@@ -185,16 +185,6 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 46,
         isDefensive: true,
-      },
-      {
-        spell: TALENTS.HOLY_AVENGER_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        castEfficiency: {
-          suggestion: true,
-        },
-        enabled: combatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT),
-        timelineSortIndex: 33,
       },
       {
         spell: SPELLS.AVENGING_WRATH.id,
@@ -425,19 +415,6 @@ class Abilities extends CoreAbilities {
         cooldown: 8,
         gcd: undefined,
         timelineSortIndex: 106,
-      },
-      {
-        spell: TALENTS.SERAPHIM_TALENT.id,
-        buffSpellId: TALENTS.SERAPHIM_TALENT.id,
-        category: SPELL_CATEGORY.SEMI_DEFENSIVE,
-        cooldown: 45,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.SERAPHIM_TALENT),
-        castEfficiency: {
-          suggestion: true,
-        },
       },
     ];
   }

@@ -540,8 +540,7 @@ class Abilities extends CoreAbilities {
         isUndetectable: true,
       },
       {
-        spell: TALENTS.WATER_SHIELD_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.WATER_SHIELD_TALENT),
+        spell: SPELLS.WATER_SHIELD.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
           base: 1500,

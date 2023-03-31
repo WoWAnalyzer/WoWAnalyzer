@@ -96,9 +96,8 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         name="Use procs and buffs efficiently"
         description={
           <>
-            Buffs and procs like <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> and{' '}
-            <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> have a significant impact on
-            your damage, use them well.
+            Buffs and procs like <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> have a significant
+            impact on your damage, use them well.
           </>
         }
       >
@@ -118,16 +117,6 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
           }
           thresholds={thresholds.judgment}
         />
-        {combatant.hasTalent(TALENTS_PALADIN.RIGHTEOUS_VERDICT_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.RIGHTEOUS_VERDICT_TALENT.id} icon /> efficiency
-              </>
-            }
-            thresholds={thresholds.righteousVerdict}
-          />
-        )}
       </Rule>
       <Rule
         name="Use your Holy Power efficently"

@@ -13,5 +13,9 @@ const BAD_ICONS = [
   'talentspec_druid_feral_bear',
   'inv_misc_bone_skull_01',
   'spell_animarevendreth_beam',
+  'ability_ardenweald_paladin_autumn',
+  'ability_ardenweald_paladin_spring',
+  'ability_ardenweald_paladin_summer',
+  'ability_ardenweald_paladin_winter',
 ];
 export default BAD_ICONS;

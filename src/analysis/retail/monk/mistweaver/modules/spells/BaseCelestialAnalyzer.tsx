@@ -266,7 +266,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} />s applied per{' '}
+          <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} />s applied per{' '}
           <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
         </>
       ),

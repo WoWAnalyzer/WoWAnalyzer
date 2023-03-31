@@ -1,12 +1,10 @@
 import {
   HammerOfWrath,
-  HolyAvenger,
   DivinePurpose,
   HolyPowerTracker,
   HolyPowerDetails,
   DivineToll,
   HolyPowerPerMinute,
-  DuskAndDawn,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import LowHealthHealing from 'parser/shared/modules/features/LowHealthHealing';
@@ -89,7 +87,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Talents
     ruleOfLaw: RuleOfLaw,
     devotionAuradamageReduction: DevotionAuraDamageReduction,
-    holyAvenger: HolyAvenger,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
     avengingCrusader: AvengingCrusader,
@@ -99,7 +96,6 @@ class CombatLogParser extends CoreCombatLogParser {
     MaraadsOverheal: MaraadsOverheal,
     divineToll: DivineToll,
     UntemperedDedication: UntemperedDedication,
-    duskAndDawn: DuskAndDawn,
     blessingOfTheSeasons: BlessingOfTheSeasons,
 
     // HolyPower
