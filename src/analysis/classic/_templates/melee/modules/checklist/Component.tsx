@@ -25,8 +25,8 @@ const MeleeChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProp
         name="Avoid Downtime"
         description={
           <>
-            Avoid unnecessary during the fight. If you have to move, try casting instant spells such
-            as
+            Avoid unnecessary downtime during the fight. If you have to move, try casting instant
+            spells such as
             {/* UPDATE THE SPELL BELOW */}
             <SpellLink id={SPELLS.DEATH_COIL_DK} />.
           </>
