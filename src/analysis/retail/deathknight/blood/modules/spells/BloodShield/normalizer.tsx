@@ -14,6 +14,8 @@ const absorbLink: EventLink = {
   referencedEventId: null,
   referencedEventType: EventType.Damage,
   backwardBufferMs: 100,
+  forwardBufferMs: 100,
+  maximumLinks: 1,
   anySource: true,
   anyTarget: false,
   additionalCondition: (linkingEvent, referencedEvent) =>

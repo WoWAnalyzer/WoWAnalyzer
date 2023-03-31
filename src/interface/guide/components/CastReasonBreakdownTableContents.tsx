@@ -22,6 +22,7 @@ const ReasonRow = styled.tr<{ bad: boolean }>`
 
   .pass-bar {
     ${(props) => (props.bad ? 'background-color: hsl(348.9, 69.5%, 39.8%);' : '')}
+    border-radius: 2px;
   }
 `;
 

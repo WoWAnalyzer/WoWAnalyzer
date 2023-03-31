@@ -59,8 +59,53 @@ export function DeathStrikeSection(): JSX.Element {
   return (
     <Section title="Death Strike Usage">
       <Explanation>
-        <SpellLink id={talents.DEATH_STRIKE_TALENT} /> is the centerpiece of Blood's
-        toolkit&mdash;both offensively and defensively.
+        <p>
+          As a Blood Death Knight, <SpellLink id={talents.DEATH_STRIKE_TALENT} /> is both your main
+          defensive tool and one of your strongest damaging abilities. Balancing these two uses is
+          important to playing the spec well.
+        </p>
+        <p>
+          There are three main ways that you can use <SpellLink id={talents.DEATH_STRIKE_TALENT} />{' '}
+          defensively:
+          <ul>
+            <li>
+              You can use it while at <strong>low health</strong> to help recover, or
+            </li>
+            <li>
+              You can use it{' '}
+              <TooltipElement
+                content={
+                  <>
+                    <SpellLink id={talents.DEATH_STRIKE_TALENT} />
+                    's healing is based on the total amount of damage you took in the previous 5
+                    seconds. This allows you to get a lot of healing from it, even if your HP never
+                    gets very low.
+                  </>
+                }
+              >
+                after taking lots of damage
+              </TooltipElement>{' '}
+              for a <strong>large heal</strong>, or
+            </li>
+            <li>
+              You can use it to generate a{' '}
+              <strong>
+                <SpellLink id={SPELLS.BLOOD_SHIELD} />
+              </strong>{' '}
+              absorb <em>before</em> a large Physical hit to help you survive it.
+            </li>
+          </ul>
+        </p>
+        <p>
+          However, Blood currently has <em>too much</em>{' '}
+          <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} /> for you to spend only on defensive
+          casts. If you try to only use <SpellLink id={talents.DEATH_STRIKE_TALENT} /> defensively,
+          you will waste most of the RP that you generate. To avoid this, weave casts of{' '}
+          <SpellLink id={talents.DEATH_STRIKE_TALENT} /> between your casts of{' '}
+          <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} /> generators like{' '}
+          <SpellLink id={talents.HEART_STRIKE_TALENT} /> to keep the extra from going to waste. This
+          is called <strong>dumping</strong> <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
+        </p>
       </Explanation>
       <Table>
         <thead></thead>
@@ -68,10 +113,24 @@ export function DeathStrikeSection(): JSX.Element {
           <tr>
             <td>Healing Done</td>
             <td>
-              {formatNumber(healedDamage)} / {formatNumber(totalDamage)}
+              {formatNumber(healedDamage)} /{' '}
+              <TooltipElement
+                content={
+                  <>
+                    You took <strong>{formatNumber(totalDamage)}</strong> total damage. The value
+                    shown here is a reasonable goal (~50% of damage taken) for how much you can heal
+                    back via <SpellLink id={talents.DEATH_STRIKE_TALENT} /> and{' '}
+                    <SpellLink id={SPELLS.BLOOD_SHIELD} />
+                  </>
+                }
+              >
+                {formatNumber(healingTarget)}
+              </TooltipElement>
             </td>
             <td>
               <MitigationSegments
+                style={{ width: 'calc(100% + 2px)' }}
+                rounded
                 maxValue={Math.max(healingTarget, healedDamage)}
                 segments={[
                   {
@@ -154,8 +213,9 @@ export function DeathStrikeSection(): JSX.Element {
         <CastReasonBreakdownTableContents
           badReason={DeathStrikeReason.Other}
           possibleReasons={[
-            DeathStrikeReason.GoodHealing,
             DeathStrikeReason.LowHealth,
+            DeathStrikeReason.GoodHealing,
+            DeathStrikeReason.BloodShield,
             DeathStrikeReason.DumpRP,
             DeathStrikeReason.Other,
           ]}
