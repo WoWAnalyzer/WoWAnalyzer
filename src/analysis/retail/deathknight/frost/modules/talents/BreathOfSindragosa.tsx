@@ -15,7 +15,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { PerformanceMark } from 'interface/guide';
 
-const GOOD_BREATH_DURATION_MS = 25000;
+const GOOD_BREATH_DURATION_MS = 60000;
 
 class BreathOfSindragosa extends Analyzer {
   beginTimestamp = 0;
@@ -122,9 +122,9 @@ class BreathOfSindragosa extends Analyzer {
     return {
       actual: this.averageDuration,
       isLessThan: {
-        minor: 25.0,
-        average: 22.5,
-        major: 20.0,
+        minor: 60.0,
+        average: 50.5,
+        major: 45.0,
       },
       style: ThresholdStyle.SECONDS,
       suffix: 'Average',
