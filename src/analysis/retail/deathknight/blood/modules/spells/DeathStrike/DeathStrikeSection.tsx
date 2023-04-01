@@ -146,6 +146,12 @@ const deathStrikeChartSpec = (info: Info, width: number): VisualizationSpec => (
           ...line('health', brewColors.stagger),
         },
         {
+          params: [
+            {
+              name: 'hover',
+              select: { type: 'point', on: 'mouseover', fields: ['timestamp'] },
+            },
+          ],
           transform: [normalizeTimestampTransform(info), scaleHitPointTransform],
           ...point('otherDeathStrikes', 'white'),
           encoding: {
@@ -164,8 +170,6 @@ const deathStrikeChartSpec = (info: Info, width: number): VisualizationSpec => (
       height: 100,
     },
     {
-      transform: [normalizeTimestampTransform(info)],
-      ...line('runicPower', brewColors.potentialStagger),
       encoding: {
         x: timeAxis,
         y: {
@@ -181,6 +185,22 @@ const deathStrikeChartSpec = (info: Info, width: number): VisualizationSpec => (
           },
         },
       },
+      layer: [
+        {
+          transform: [normalizeTimestampTransform(info)],
+          ...line('runicPower', brewColors.potentialStagger),
+        },
+        {
+          transform: [normalizeTimestampTransform(info)],
+          ...point('runicPower', 'white'),
+          encoding: {
+            opacity: {
+              condition: { param: 'hover', value: 0.7, empty: false },
+              value: 0,
+            },
+          },
+        },
+      ],
       width,
       height: 40,
     },
