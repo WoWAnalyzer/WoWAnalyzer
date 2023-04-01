@@ -1,12 +1,19 @@
 import styled from '@emotion/styled';
 import { Trans } from '@lingui/macro';
 import { RuneTracker } from 'analysis/retail/deathknight/shared';
+import {
+  line,
+  point,
+  timeAxis,
+  normalizeTimestampTransform,
+  color as brewColors,
+} from 'analysis/retail/monk/brewmaster/modules/charts';
 import { MitigationSegments } from 'analysis/retail/monk/brewmaster/modules/core/MajorDefensives/core';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import RESOURCE_TYPES, { getResource } from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink, TooltipElement } from 'interface';
 import { BadColor, GoodColor, Section, useAnalyzers, useEvents, useInfo } from 'interface/guide';
 import { ActualCastDescription } from 'interface/guide/components/Apl/violations/claims';
@@ -14,7 +21,24 @@ import CastReasonBreakdownTableContents from 'interface/guide/components/CastRea
 import Explanation from 'interface/guide/components/Explanation';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import ProblemList, { ProblemRendererProps } from 'interface/guide/components/ProblemList';
+import {
+  AnyEvent,
+  BaseCastEvent,
+  EventType,
+  HasHitpoints,
+  HealEvent,
+  HitpointsEvent,
+  ResourceActor,
+  GetRelatedEvents,
+  CastEvent,
+} from 'parser/core/Events';
+import { Info } from 'parser/core/metric';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
+import BaseChart, { defaultConfig } from 'parser/ui/BaseChart';
+import { useMemo } from 'react';
+import { VisualizationSpec } from 'react-vega';
+import { AutoSizer } from 'react-virtualized';
+import { StringFieldDefWithCondition } from 'vega-lite/build/src/channeldef';
 import RunicPowerTracker from '../../runicpower/RunicPowerTracker';
 import BloodShield from '../BloodShield/BloodShield';
 import DeathStrike, {
@@ -22,6 +46,7 @@ import DeathStrike, {
   DeathStrikeProblem,
   DeathStrikeReason,
 } from './index';
+import { DEATH_STRIKE_CAST, DEATH_STRIKE_HEAL } from './normalizer';
 
 const reasonLabel = (reason: DeathStrikeReason) => {
   switch (reason) {
@@ -73,8 +98,9 @@ const Table = styled.table`
 
 const ContentRow = styled.div`
   display: grid;
-  grid-template-columns: minmax(40%, max-content) auto;
+  grid-template-columns: minmax(40%, max-content) 1fr;
   gap: 1em;
+  align-items: start;
 `;
 
 const DeathStrikeProblemDescription = ({ data }: { data: DeathStrikeProblem['data'] }) => (
@@ -87,12 +113,205 @@ const DeathStrikeProblemDescription = ({ data }: { data: DeathStrikeProblem['dat
   </div>
 );
 
+const deathStrikeTooltip: StringFieldDefWithCondition<any>[] = [
+  { field: 'hitPoints', type: 'quantitative', format: '.3~s', title: 'Hit Points' },
+  { field: 'amount', type: 'quantitative', format: '.3~s', title: 'Healing' },
+  { field: 'overheal', type: 'quantitative', format: '.3~s', title: 'Overhealing' },
+  { field: 'runicPower', type: 'quantitative', title: 'Runic Power' },
+];
+
+const scaleHitPointTransform = {
+  calculate: 'datum.hitPoints / max(datum.maxHitPoints, datum.hitPoints)',
+  as: 'hitPoints',
+};
+
+const deathStrikeChartSpec = (info: Info, width: number): VisualizationSpec => ({
+  vconcat: [
+    {
+      encoding: {
+        x: { ...timeAxis, axis: null },
+        y: {
+          field: 'hitPoints',
+          type: 'quantitative',
+          title: 'Hit Points',
+          axis: {
+            gridOpacity: 0.3,
+            format: '~p',
+          },
+        },
+      },
+      layer: [
+        {
+          transform: [normalizeTimestampTransform(info), scaleHitPointTransform],
+          ...line('health', brewColors.stagger),
+        },
+        {
+          transform: [normalizeTimestampTransform(info), scaleHitPointTransform],
+          ...point('otherDeathStrikes', 'white'),
+          encoding: {
+            tooltip: deathStrikeTooltip,
+          },
+        },
+        {
+          transform: [normalizeTimestampTransform(info), scaleHitPointTransform],
+          ...point('problemDeathStrike', 'red'),
+          encoding: {
+            tooltip: deathStrikeTooltip,
+          },
+        },
+      ],
+      width,
+      height: 100,
+    },
+    {
+      transform: [normalizeTimestampTransform(info)],
+      ...line('runicPower', brewColors.potentialStagger),
+      encoding: {
+        x: timeAxis,
+        y: {
+          field: 'amount',
+          type: 'quantitative',
+          title: 'RP',
+          scale: {
+            domain: [0, 125],
+          },
+          axis: {
+            values: [0, 125],
+            gridOpacity: 0.3,
+          },
+        },
+      },
+      width,
+      height: 40,
+    },
+  ],
+});
+
+const DeathStrikeProblemChart = ({
+  problem,
+  events,
+  info,
+}: ProblemRendererProps<DeathStrikeProblem['data']>) => {
+  const backgroundData = useMemo(
+    () => ({
+      runicPower: events
+        .filter(
+          (event): event is AnyEvent & Required<Pick<BaseCastEvent<any>, 'classResources'>> =>
+            'classResources' in event && event.classResources !== undefined,
+        )
+        .map((event) => {
+          const rp = getResource(event.classResources, RESOURCE_TYPES.RUNIC_POWER.id);
+
+          if (!rp) {
+            return undefined;
+          }
+
+          return {
+            timestamp: event.timestamp,
+            amount: rp.amount / 10,
+            max: rp.max ?? 125,
+          };
+        })
+        .filter(Boolean),
+      health: events.filter(
+        (event): event is HitpointsEvent<any> =>
+          HasHitpoints(event) &&
+          ((event.targetID === info.playerId && event.resourceActor === ResourceActor.Target) ||
+            (event.sourceID === info.playerId && event.resourceActor === ResourceActor.Source)),
+      ),
+    }),
+    // doing a clever shallow equality of the events list here to avoid regenerating this data all the time
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [events.length, events[0].timestamp, events.at(-1)?.timestamp, info.playerId],
+  );
+
+  const deathStrikeEvents = useMemo(
+    () =>
+      events.filter(
+        (event): event is HealEvent =>
+          event.type === EventType.Heal &&
+          event.ability.guid === SPELLS.DEATH_STRIKE_HEAL.id &&
+          event.targetID === info.playerId,
+      ),
+    // same trick
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [events.length, events[0].timestamp, events.at(-1)?.timestamp, info.playerId],
+  );
+
+  const deathStrikeData = useMemo(() => {
+    const problemEvent = GetRelatedEvents(problem.data.cast, DEATH_STRIKE_HEAL)?.[0] as
+      | HealEvent
+      | undefined;
+
+    const problemDeathStrike = problemEvent
+      ? [
+          {
+            ...problemEvent,
+            hitPoints: problemEvent.hitPoints - problemEvent.amount,
+            runicPower: Math.floor(problem.data.runicPower / 10),
+          },
+        ]
+      : [];
+
+    return {
+      otherDeathStrikes: deathStrikeEvents
+        .filter((event) => event !== GetRelatedEvents(problem.data.cast, DEATH_STRIKE_HEAL)?.[0])
+        .map((event) => {
+          const cast = GetRelatedEvents(event, DEATH_STRIKE_CAST)![0] as CastEvent;
+          const rp = Math.floor(
+            (getResource(cast.classResources, RESOURCE_TYPES.RUNIC_POWER.id)?.amount ?? 0) / 10,
+          );
+
+          return {
+            ...event,
+            hitPoints: event.hitPoints - event.amount,
+            runicPower: rp,
+          };
+        }),
+      problemDeathStrike,
+    };
+  }, [problem.data.cast, problem.data.runicPower, deathStrikeEvents]);
+
+  const data = {
+    ...backgroundData,
+    ...deathStrikeData,
+  };
+
+  return (
+    <AutoSizer disableHeight>
+      {({ width }) => {
+        return (
+          <BaseChart
+            data={data}
+            width={width}
+            height={180}
+            spec={deathStrikeChartSpec(info, width)}
+            config={{
+              ...defaultConfig,
+              concat: {
+                spacing: 8,
+              },
+              autosize: {
+                type: 'fit-x',
+                contains: 'padding',
+              },
+            }}
+          />
+        );
+      }}
+    </AutoSizer>
+  );
+};
+
 const DeathStrikeProblemRenderer = ({
   problem,
   events,
   info,
 }: ProblemRendererProps<DeathStrikeProblem['data']>) => (
-  <DeathStrikeProblemDescription data={problem.data} />
+  <div style={{ minHeight: 250 }}>
+    <DeathStrikeProblemChart problem={problem} events={events} info={info} />
+    <DeathStrikeProblemDescription data={problem.data} />
+  </div>
 );
 
 export function DeathStrikeSection(): JSX.Element | null {

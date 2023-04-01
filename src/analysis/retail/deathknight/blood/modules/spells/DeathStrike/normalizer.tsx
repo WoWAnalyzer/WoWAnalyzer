@@ -5,10 +5,12 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { EventType } from 'parser/core/Events';
 
 export const DEATH_STRIKE_HEAL = 'death-strike-heal';
+export const DEATH_STRIKE_CAST = 'death-strike-cast';
 export const DEATH_STRIKE_ABSORB_GEN = 'death-strike-absorb';
 
 const healLink: EventLink = {
   linkRelation: DEATH_STRIKE_HEAL,
+  reverseLinkRelation: DEATH_STRIKE_CAST,
   linkingEventType: EventType.Cast,
   linkingEventId: talents.DEATH_STRIKE_TALENT.id,
   referencedEventType: EventType.Heal,

@@ -117,7 +117,7 @@ export default class DeathStrike extends Analyzer {
             start: cast.cast.timestamp,
             end: cast.cast.timestamp,
           },
-          context: 5000,
+          context: 10000,
           severity: data.hitPoints * (data.maxRunicPower - data.runicPower),
         };
       });
