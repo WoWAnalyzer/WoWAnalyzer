@@ -31,7 +31,7 @@ export enum DeathStrikeReason {
 const GOOD_HIT_THRESHOLD = 0.2;
 const LOW_HP_THRESHOLD = 0.5; // BDK gets a pretty high low hp threshold because of low mitigation.
 // 1 rp = 10 in the event.
-const DUMP_RP_THRESHOLD = 850;
+export const DUMP_RP_THRESHOLD = 850;
 export const BLOOD_SHIELD_THRESHOLD = 0.7;
 
 type CastReason = {

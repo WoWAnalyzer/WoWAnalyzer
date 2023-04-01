@@ -45,6 +45,7 @@ import DeathStrike, {
   BLOOD_SHIELD_THRESHOLD,
   DeathStrikeProblem,
   DeathStrikeReason,
+  DUMP_RP_THRESHOLD,
 } from './index';
 import { DEATH_STRIKE_CAST, DEATH_STRIKE_HEAL } from './normalizer';
 
@@ -180,7 +181,7 @@ const deathStrikeChartSpec = (info: Info, width: number): VisualizationSpec => (
             domain: [0, 125],
           },
           axis: {
-            values: [0, 125],
+            values: [0, DUMP_RP_THRESHOLD / 10],
             gridOpacity: 0.3,
           },
         },
