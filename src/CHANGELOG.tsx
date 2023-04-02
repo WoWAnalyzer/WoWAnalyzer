@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 4, 2), 'Add Healthstone Checker for Classic WotLK.', jazminite),
   change(date(2023, 4, 1), 'Remove unnecessary console log.', ToppleTheNun),
   change(date(2023, 3, 31), 'Add Dragonflight season 1 M+ dungeon images.', ToppleTheNun),
   change(date(2023, 3, 30), 'Add ability to use PTR tooltips based on report zone.', ToppleTheNun),
