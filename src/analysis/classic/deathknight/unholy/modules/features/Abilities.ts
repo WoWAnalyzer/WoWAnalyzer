@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/deathknight';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
@@ -47,6 +47,16 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: { base: 1500 },
       },
+      {
+        spell: [SPELLS.PESTILENCE.id],
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.CORPSE_EXPLOSION.id, ...SPELLS.CORPSE_EXPLOSION.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        gcd: { base: 1500 },
+      },
       // Cooldowns
       {
         spell: [SPELLS.SUMMON_GARGOYLE.id],
@@ -74,9 +84,20 @@ class Abilities extends CoreAbilities {
       },
       // Defensive
       {
+        spell: [SPELLS.ANTI_MAGIC_SHELL.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: null,
+      },
+      {
         spell: [SPELLS.FROST_PRESENCE.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: null,
+      },
+      {
+        spell: [SPELLS.ICEBOUND_FORTITUDE.id],
+        category: SPELL_CATEGORY.DEFENSIVE,
+        gcd: null,
+        cooldown: 120,
       },
       {
         spell: [SPELLS.MIND_FREEZE.id],
@@ -96,9 +117,49 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
+        spell: [SPELLS.BONE_SHIELD.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.CHAINS_OF_ICE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DARK_COMMAND.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.DEATH_GRIP.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.DEATH_STRIKE.id, ...SPELLS.DEATH_STRIKE.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
         spell: [SPELLS.HORN_OF_WINTER.id, ...SPELLS.HORN_OF_WINTER.lowRanks],
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.RAISE_ALLY.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.STRANGULATE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.UNHOLY_PRESENCE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: null,
       },
       // Pet Related
 
