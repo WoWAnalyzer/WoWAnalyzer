@@ -56,13 +56,23 @@ export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
   return priorAmount - actualAmount;
 }
 
+const roundedContainerStyles = `
+  border-radius: 2px;
+  overflow: clip;
+
+  & div:first-child {
+    border-radius: 2px 0 0 2px;
+  }
+`;
+
 const MitigationTooltipBody = 'div';
-const MitigationSegmentContainer = styled.div`
+const MitigationSegmentContainer = styled.div<{ rounded?: boolean }>`
   width: 100%;
   height: 1em;
   text-align: left;
   line-height: 1em;
   background-color: rgba(255, 255, 255, 0.2);
+  ${(props) => (props.rounded ? roundedContainerStyles : '')}
 `;
 const MitigationRowContainer = styled.div`
   display: grid;
@@ -98,24 +108,30 @@ export const MitigationSegments = ({
   segments,
   maxValue,
   className,
+  rounded,
+  style,
 }: {
   segments: MitigationSegment[];
   maxValue: number;
   className?: string;
+  rounded?: boolean;
+  style?: React.CSSProperties;
 }) => (
-  <MitigationSegmentContainer className={className}>
-    {segments.map((seg, ix) => (
-      <Tooltip
-        content={
-          <>
-            {seg.tooltip} - {formatNumber(seg.amount)}
-          </>
-        }
-        key={ix}
-      >
-        <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
-      </Tooltip>
-    ))}
+  <MitigationSegmentContainer rounded={rounded} className={className} style={style}>
+    {segments
+      .filter((seg) => seg.amount > 0)
+      .map((seg, ix) => (
+        <Tooltip
+          content={
+            <>
+              {seg.tooltip} - {formatNumber(seg.amount)}
+            </>
+          }
+          key={ix}
+        >
+          <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
+        </Tooltip>
+      ))}
   </MitigationSegmentContainer>
 );
 
