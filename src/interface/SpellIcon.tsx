@@ -5,15 +5,33 @@ import SpellLink from './SpellLink';
 import useSpellInfo from './useSpellInfo';
 import Spell from 'common/SPELLS/Spell';
 
-interface Props extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
-  id: number | Spell;
+interface BaseProps extends Omit<React.ComponentProps<typeof Icon>, 'id' | 'icon'> {
   noLink?: boolean;
   alt?: string;
   ilvl?: number;
 }
 
-const SpellIcon = ({ id: spell, noLink, alt, ilvl, ...others }: Props) => {
-  const spellInfo = useSpellInfo(spell);
+interface PropsWithId extends BaseProps {
+  /**
+   * @deprecated use {@link spell} instead.
+   */
+  id: number | Spell;
+  spell?: never;
+}
+
+interface PropsWithSpell extends BaseProps {
+  /**
+   * @deprecated use {@link spell} instead.
+   */
+  id?: never;
+  spell: number | Spell;
+}
+
+type Props = PropsWithId | PropsWithSpell;
+
+const SpellIcon = ({ id, spell, noLink, alt, ilvl, ...others }: Props) => {
+  const spellData = spell ?? id;
+  const spellInfo = useSpellInfo(spellData);
 
   const spellWithFallback = spellInfo || {
     name: 'Spell not recognized',
@@ -33,7 +51,7 @@ const SpellIcon = ({ id: spell, noLink, alt, ilvl, ...others }: Props) => {
   }
 
   return (
-    <SpellLink id={spell} ilvl={ilvl} icon={false}>
+    <SpellLink spell={spellData} ilvl={ilvl} icon={false}>
       {icon}
     </SpellLink>
   );

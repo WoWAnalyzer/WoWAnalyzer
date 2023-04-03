@@ -7,17 +7,35 @@ import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { ReactNode } from 'react';
 
-interface Props {
-  spellId: number | Spell;
+interface BaseProps {
   children: ReactNode;
   className?: string;
   ilvl?: number;
 }
 
-const BoringSpellValueText = ({ spellId, children, className, ilvl }: Props) => (
+interface PropsWithSpellId extends BaseProps {
+  /**
+   * @deprecated use {@link spell} instead.
+   */
+  spellId: number | Spell;
+  spell?: never;
+}
+
+interface PropsWithSpell extends BaseProps {
+  /**
+   * @deprecated use {@link spell} instead.
+   */
+  spellId?: never;
+  spell: number | Spell;
+}
+
+type Props = PropsWithSpellId | PropsWithSpell;
+
+const BoringSpellValueText = ({ spellId, spell, children, className, ilvl }: Props) => (
   <div className={`pad boring-text ${className || ''}`}>
     <label>
-      <SpellIcon id={spellId} /> <SpellLink id={spellId} ilvl={ilvl} icon={false} />
+      <SpellIcon spell={spell ?? spellId} />{' '}
+      <SpellLink spell={spell ?? spellId} ilvl={ilvl} icon={false} />
     </label>
     <div className="value">{children}</div>
   </div>
