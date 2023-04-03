@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 4, 2), 'Add Healthstone Checker for Classic WotLK.', jazminite),
   change(date(2023, 4, 1), 'Classic WotLK - Add phases to Ulduar bosses.', jazminite),
   change(date(2023, 4, 1), 'Remove unnecessary console log.', ToppleTheNun),
   change(date(2023, 3, 31), 'Refactor SpellLink props to use "spell" instead of "id".', ToppleTheNun),

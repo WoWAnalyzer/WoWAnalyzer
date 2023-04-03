@@ -40,6 +40,7 @@ import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
 import ManaValues from './modules/ManaValues';
 import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRuleAnalyzer';
 import CombatPotionChecker from './modules/items/CombatPotionChecker';
+import HealthstoneChecker from './modules/items/HealthstoneChecker';
 import EnchantChecker from './modules/items/EnchantChecker';
 import ManaGained from './statistic/ManaGained';
 // Engineering
@@ -72,6 +73,7 @@ class CombatLogParser extends BaseCombatLogParser {
     flaskChecker: FlaskChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     combatPotionChecker: CombatPotionChecker,
+    healthstoneChecker: HealthstoneChecker,
 
     enemies: Enemies,
     pets: Pets,
