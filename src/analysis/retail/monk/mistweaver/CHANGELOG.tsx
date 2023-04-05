@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 4, 5), <>Update suggestions for <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> based on 10.0.7 changes</>, Trevor),
   change(date(2023, 3, 29), <>Improve accuracy of <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
   change(date(2023, 3, 27), <>Add Tier 30 Set Bonus Module.</>, Vohrr),
   change(date(2023, 3, 23), <>Add <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id}/> and renamed where appropriate.</>, Vohrr),

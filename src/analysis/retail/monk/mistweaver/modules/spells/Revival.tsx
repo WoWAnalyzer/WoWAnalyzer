@@ -2,7 +2,7 @@ import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { Talent } from 'common/TALENTS/types';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
+import { SpellLink, Tooltip } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
@@ -19,6 +19,8 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import { PerformanceMark } from 'interface/guide';
+import ShaohaosLessons from './ShaohaosLessons';
+import InformationIcon from 'interface/icons/Information';
 
 interface RevivalCastTracker {
   timeStamp: number; // time of cast
@@ -30,10 +32,12 @@ class Revival extends Analyzer {
   static dependencies = {
     upliftedSpirits: UpliftedSpirits,
     essenceFont: EssenceFont,
+    shaohaos: ShaohaosLessons,
   };
 
   protected upliftedSpirits!: UpliftedSpirits;
   protected essenceFont!: EssenceFont;
+  protected shaohaos!: ShaohaosLessons;
   castTracker: RevivalCastTracker[] = [];
 
   activeTalent!: Talent;
@@ -147,8 +151,8 @@ class Revival extends Analyzer {
         <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to get as many duplicated{' '}
         <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> heals as possible. If talented into{' '}
         <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
-        <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> the global before so that your cast
-        receives the benefit of the buff.
+        <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> if your next buff is not{' '}
+        <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />.
       </p>
     );
     const data = (
@@ -180,18 +184,38 @@ class Revival extends Analyzer {
           });
           const allPerfs = [efPerf];
           if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
-            let lessonPerf = QualitativePerformance.Good;
-            if (!cast.lessonsBuffActive) {
-              lessonPerf = QualitativePerformance.Fail;
+            let lessonPerf = QualitativePerformance.Fail;
+            if (
+              cast.lessonsBuffActive ||
+              this.shaohaos.getNextBuff() === SPELLS.LESSON_OF_FEAR_BUFF
+            ) {
+              lessonPerf = QualitativePerformance.Good;
             }
             checklistItems.push({
               label: (
                 <>
-                  <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> buff active
+                  <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> buff active if next
+                  buff is not <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />
+                  <Tooltip
+                    hoverable
+                    content={
+                      <>
+                        Make sure to use <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />{' '}
+                        right before <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT} /> if the next
+                        buff is not
+                        <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} /> as haste does not buff{' '}
+                        <SpellLink id={TALENTS_MONK.REVIVAL_TALENT} /> in any way.
+                      </>
+                    }
+                  >
+                    <span>
+                      <InformationIcon />
+                    </span>
+                  </Tooltip>
                 </>
               ),
               result: <PerformanceMark perf={lessonPerf} />,
-              details: <>{cast.lessonsBuffActive ? <>Yes</> : <>No</>}</>,
+              details: <>{lessonPerf === QualitativePerformance.Good ? <>Yes</> : <>No</>}</>,
             });
             allPerfs.push(lessonPerf);
           }
