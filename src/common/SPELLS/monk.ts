@@ -241,8 +241,18 @@ const spells = spellIndexableList({
     name: 'Lesson of Doubt',
     icon: 'sha_ability_warrior_bloodnova',
   },
+  LESSON_OF_DOUBT_NEXT_BUFF: {
+    id: 405808,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
   LESSON_OF_DESPAIR_BUFF: {
     id: 400100,
+    name: 'Lesson of Despair',
+    icon: 'sha_ability_rogue_envelopingshadows',
+  },
+  LESSON_OF_DESPAIR_NEXT_BUFF: {
+    id: 405810,
     name: 'Lesson of Despair',
     icon: 'sha_ability_rogue_envelopingshadows',
   },
@@ -251,8 +261,18 @@ const spells = spellIndexableList({
     name: 'Lesson of Fear',
     icon: 'sha_ability_rogue_bloodyeye_nightborne',
   },
+  LESSON_OF_FEAR_NEXT_BUFF: {
+    id: 405809,
+    name: 'Lesson of Fear',
+    icon: 'sha_ability_rogue_bloodyeye_nightborne',
+  },
   LESSON_OF_ANGER_BUFF: {
     id: 400106,
+    name: 'Lesson of Anger',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
+  LESSON_OF_ANGER_NEXT_BUFF: {
+    id: 405807,
     name: 'Lesson of Anger',
     icon: 'sha_ability_rogue_envelopingshadows_nightmare',
   },
