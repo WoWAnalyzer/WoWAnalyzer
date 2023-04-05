@@ -151,8 +151,8 @@ class Revival extends Analyzer {
         <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to get as many duplicated{' '}
         <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> heals as possible. If talented into{' '}
         <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
-        <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> if{' '}
-        <SpellLink spell={SPELLS.LESSON_OF_DOUBT_BUFF} /> is your next buff.
+        <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> if your next buff is not{' '}
+        <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />.
       </p>
     );
     const data = (
@@ -187,22 +187,24 @@ class Revival extends Analyzer {
             let lessonPerf = QualitativePerformance.Fail;
             if (
               cast.lessonsBuffActive ||
-              this.shaohaos.getNextBuff() !== SPELLS.LESSON_OF_DOUBT_BUFF
+              this.shaohaos.getNextBuff() === SPELLS.LESSON_OF_FEAR_BUFF
             ) {
               lessonPerf = QualitativePerformance.Good;
             }
             checklistItems.push({
               label: (
                 <>
-                  <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> buff active if{' '}
-                  <SpellLink spell={SPELLS.LESSON_OF_DOUBT_BUFF} /> available{' '}
+                  <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> buff active if next
+                  buff is not <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />
                   <Tooltip
                     hoverable
                     content={
                       <>
                         Make sure to use <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />{' '}
-                        right before <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT} /> if{' '}
-                        <SpellLink spell={SPELLS.LESSON_OF_DOUBT_BUFF} /> is your next buff
+                        right before <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT} /> if the next
+                        buff is not
+                        <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} /> as haste does not buff{' '}
+                        <SpellLink id={TALENTS_MONK.REVIVAL_TALENT} /> in any way.
                       </>
                     }
                   >
