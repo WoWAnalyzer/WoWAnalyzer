@@ -244,6 +244,10 @@ export function useAnalyzer<T extends typeof Module>(value: string | T) {
   }, [value, ctx]);
 }
 
+type ModuleList<T> = {
+  [Key in keyof T]: T[Key] extends typeof Module ? InstanceType<T[Key]> : never;
+};
+
 /**
  * Get multiple analysis modules from within a Guide section.
  *
@@ -269,23 +273,18 @@ export function useAnalyzer<T extends typeof Module>(value: string | T) {
  * }
  * ```
  */
-export function useAnalyzers<T extends typeof Module>(moduleTypes: T[]): InstanceType<T>[];
-export function useAnalyzers(moduleKeys: string[]): Module[];
-export function useAnalyzers<T extends typeof Module>(values: (string | T)[]) {
+export function useAnalyzers<Arr extends { [Key: number]: typeof Module }>(
+  values: Arr,
+): ModuleList<Arr> {
   const ctx = useContext(GuideContext);
+
   return useMemo(
     () =>
-      values.map((value) => {
-        if (typeof value === 'string') {
-          return ctx.modules[value];
-        } else {
-          return Object.values(ctx.modules).find((module) => module instanceof value) as
-            | InstanceType<T>
-            | undefined;
-        }
-      }),
+      Object.values(values).map((value) =>
+        Object.values(ctx.modules).find((module) => module instanceof (value as typeof Module)),
+      ),
     [values, ctx],
-  );
+  ) as ModuleList<Arr>;
 }
 
 /**

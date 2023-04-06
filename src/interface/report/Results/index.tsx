@@ -36,6 +36,7 @@ import DegradedExperience from './DegradedExperience';
 import Header from './Header';
 import ItemWarning from './ItemWarning';
 import ScrollToTop from './ScrollToTop';
+import ZONES from 'game/ZONES';
 
 interface PassedProps {
   parser: CombatLogParser;
@@ -121,7 +122,8 @@ const Results = (props: PassedProps) => {
 
   // on game version change
   useEffect(() => {
-    // Kind of ugly but also very working. We should replace the TooltipProvider class with a context that is used by SpellLink to make this easier to manipulate.
+    const zone = ZONES.find((zone) => zone.id === props.report.zone);
+
     switch (wclGameVersionToExpansion(props.report.gameVersion)) {
       case Expansion.WrathOfTheLichKing:
         dispatch(setBaseUrl('https://www.wowhead.com/wotlk/'));
@@ -130,10 +132,14 @@ const Results = (props: PassedProps) => {
         dispatch(setBaseUrl('https://tbc.wowhead.com/'));
         break;
       default:
-        dispatch(reset());
+        if (zone?.usePtrTooltips) {
+          dispatch(setBaseUrl('https://wowhead.com/ptr/'));
+        } else {
+          dispatch(reset());
+        }
         break;
     }
-  }, [dispatch, props.report.gameVersion]);
+  }, [dispatch, props.report.gameVersion, props.report.zone]);
 
   // on tab change
   useEffect(() => {

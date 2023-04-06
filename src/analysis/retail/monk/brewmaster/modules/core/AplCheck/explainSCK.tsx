@@ -40,7 +40,7 @@ const render: ViolationExplainer<Data>['render'] = () => (
 const describe: ViolationExplainer<Data>['describe'] = ({ violation }) => (
   <>
     <p>
-      <ActualCastDescription event={violation.actualCast} />
+      <ActualCastDescription event={violation.actualCast} />.
     </p>
     <p>
       This cast only hit one enemy. With the{' '}

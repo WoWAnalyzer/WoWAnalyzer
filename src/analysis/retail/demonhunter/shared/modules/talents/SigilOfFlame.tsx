@@ -8,15 +8,14 @@ import { SpellLink } from 'interface';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import SpellUsageSubSection, {
-  logSpellUseEvent,
-} from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { getSigilOfFlameDamages } from 'analysis/retail/demonhunter/shared/normalizers/SigilOfFlameNormalizer';
 import Spell from 'common/SPELLS/Spell';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class SigilOfFlame extends Analyzer {
   private cooldownUses: SpellUse[] = [];
@@ -56,7 +55,7 @@ export default class SigilOfFlame extends Analyzer {
     const totalCasts = performances.length;
 
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}

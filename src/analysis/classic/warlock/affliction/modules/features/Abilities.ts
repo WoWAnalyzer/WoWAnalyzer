@@ -188,13 +188,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
-
       // Consumable
-      {
-        spell: [SPELLS.HEALTHSTONE_USE.id, ...SPELLS.HEALTHSTONE_USE.lowRanks],
-        category: SPELL_CATEGORY.CONSUMABLE,
-        gcd: { base: 1500 },
-      },
     ];
   }
 }

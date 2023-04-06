@@ -43,12 +43,14 @@ export interface Dungeon {
 }
 
 const raids = {
-  Dungeons: require('./dungeons').default,
   // Dragonflight
+  Dungeons: require('./mythicplusseasonone').default,
   VaultOfTheIncarnates: require('./vaultoftheincarnates').default, //tier 29
   // The Burning Cursage
   GruulsLair: require('./gruulslair').default, //tier 4
   MagtheridonsLair: require('./magtheridonslair').default, //tier 4
+  // Wrath of the Lich King (Classic)
+  Ulduar: require('./ulduar').default, //tier 8
 };
 export default raids;
 

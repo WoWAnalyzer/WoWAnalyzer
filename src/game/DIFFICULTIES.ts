@@ -11,7 +11,8 @@ const DIFFICULTIES: {
 };
 export default DIFFICULTIES;
 
-export function getLabel(difficulty?: number) {
+export function getLabel(difficulty?: number, hardModeLevel?: number) {
+  const isHardMode = hardModeLevel ?? 0;
   switch (difficulty) {
     case DIFFICULTIES.LFR_RAID:
       return t({
@@ -19,10 +20,17 @@ export function getLabel(difficulty?: number) {
         message: `LFR`,
       });
     case DIFFICULTIES.NORMAL_RAID:
-      return t({
-        id: 'game.difficulties.nhc',
-        message: `Normal`,
-      });
+      if (isHardMode > 0) {
+        return t({
+          id: 'game.difficulties.hardmode',
+          message: `Hardmode`,
+        });
+      } else {
+        return t({
+          id: 'game.difficulties.nhc',
+          message: `Normal`,
+        });
+      }
     case DIFFICULTIES.HEROIC_RAID:
       return t({
         id: 'game.difficulties.hc',

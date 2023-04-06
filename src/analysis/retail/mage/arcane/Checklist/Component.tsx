@@ -45,7 +45,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         <Requirement name="Cancelled Casts" thresholds={thresholds.cancelledCasts} />
       </Rule>
       <Rule
-        name="Arcane Power"
+        name="Arcane Surge"
         description={
           <>
             Using your cooldown abilities as often as possible can help raise your dps
@@ -57,19 +57,19 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
       >
         <AbilityRequirement spell={TALENTS.ARCANE_SURGE_TALENT.id} />
         <Requirement
-          name="Arcane Power Pre-Cast Setup"
-          tooltip="In order to effectively utilize Arcane Power, there are certain things you need to ensure are setup before you cast Arcane Power. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Touch of the Magi immediately before Arcane Power will all help make the most out of your burn phase."
-          thresholds={thresholds.arcanePowerPreReqs}
+          name="Arcane Surge Pre-Cast Setup"
+          tooltip="In order to effectively utilize Arcane Surge, there are certain things you need to ensure are setup before you cast Arcane Surge. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Touch of the Magi immediately before Arcane Surge will all help make the most out of your burn phase."
+          thresholds={thresholds.arcaneSurgePreReqs}
         />
 
         <Requirement
-          name="Arcane Power Active Time"
-          tooltip="In order to get the most out of Arcane Power, which is a large contributor to your damage, you should ensure that you are using every second of the cooldown to cast spells and get damage out. Any time spent not casting anything during Arcane Power is a major loss of damage."
-          thresholds={thresholds.arcanePowerActiveTime}
+          name="Arcane Surge Active Time"
+          tooltip="In order to get the most out of Arcane Surge, which is a large contributor to your damage, you should ensure that you are using every second of the cooldown to cast spells and get damage out. Any time spent not casting anything during Arcane Surge is a major loss of damage."
+          thresholds={thresholds.arcaneSurgeActiveTime}
         />
         <Requirement
-          name="Arcane Power Mana Mgmt."
-          thresholds={thresholds.arcanePowerManaUtilization}
+          name="Arcane Surge Mana Mgmt."
+          thresholds={thresholds.arcaneSurgeManaUtilization}
         />
       </Rule>
       <Rule
@@ -141,7 +141,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
           <Requirement
             name="Radiant Spark not active during AP"
-            tooltip="Since Radiant Spark's primary function is to boost your damage, you want to ensure that you are casting it before every Arcane Power (Radiant Spark > Touch of the Magi > Arcane Power). This way, the Arcane Blasts that you cast once Arcane Power is active can get buffed by Radiant Spark."
+            tooltip="Since Radiant Spark's primary function is to boost your damage, you want to ensure that you are casting it before every Arcane Surge (Radiant Spark > Touch of the Magi > Arcane Surge). This way, the Arcane Blasts that you cast once Arcane Surge is active can get buffed by Radiant Spark."
             thresholds={thresholds.radiantSparkPreReqs}
           />
         )}
@@ -155,7 +155,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         {combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT) && (
           <Requirement
             name="Low Arcane Harmony Stacks before AP"
-            tooltip="In order to get the most damage possible into your Arcane Power, you should ensure that you are at 18 stacks of Arcane Harmony before you activate Arcane Power."
+            tooltip="In order to get the most damage possible into your Arcane Surge, you should ensure that you are at 20 stacks of Arcane Harmony before you activate Arcane Surge."
             thresholds={thresholds.arcaneHarmonyPreReqs}
           />
         )}

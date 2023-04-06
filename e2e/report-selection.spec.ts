@@ -3,53 +3,56 @@ import { expect, test } from './fixtures';
 test('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
 
-  await homePage.fillInReportInputWithCode('QnGVYqCkHxcwzrpX');
+  await homePage.fillInReportInputWithCode('zkBJfC4PVLM9ar2G');
 
   await fightSelectionPage.expectFightSelectionHeaderToBeVisible();
-  await fightSelectionPage.expectUrlToHaveReportCode('QnGVYqCkHxcwzrpX');
-  await expect(page).toHaveTitle('Vault of the Incarnates');
+  await fightSelectionPage.expectUrlToHaveReportCode('zkBJfC4PVLM9ar2G');
+  await expect(page).toHaveTitle('2023 March 27');
 });
 
 test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
-  await fightSelectionPage.goto('QnGVYqCkHxcwzrpX');
+  await fightSelectionPage.goto('zkBJfC4PVLM9ar2G');
 
-  await page.getByRole('link', { name: 'Kill 3:35' }).click();
+  await page.getByRole('link', { name: 'Kill 12:35' }).click();
 
   await playerSelectionPage.expectPlayerSelectionHeaderToBeVisible();
   await playerSelectionPage.expectUrlToHaveReportCodeAndFight(
-    'QnGVYqCkHxcwzrpX',
-    '7-Mythic+The+Primal+Council+-+Kill+(3:35)',
+    'zkBJfC4PVLM9ar2G',
+    '16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)',
   );
   await expect(page).toHaveTitle(
-    'Mythic The Primal Council - Kill (3:35) in Vault of the Incarnates',
+    'Mythic Raszageth the Storm-Eater - Kill (12:35) in 2023 March 27',
   );
 });
 
 test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
-  await playerSelectionPage.goto('QnGVYqCkHxcwzrpX', '7-Mythic+The+Primal+Council+-+Kill+(3:35)');
+  await playerSelectionPage.goto(
+    'zkBJfC4PVLM9ar2G',
+    '16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)',
+  );
 
   await page
-    .getByRole('link', { name: 'Sigilweaver Vengeance Demon Hunter Vengeance Demon Hunter 411' })
+    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 418' })
     .click();
 
   await reportPage.expectBossDifficultyAndNameHeaderToBeVisible();
-  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('MythicThe Primal Council');
+  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('MythicRaszageth the Storm-Eater');
   await reportPage.expectUrlToHave(
-    'QnGVYqCkHxcwzrpX',
-    '7-Mythic+The+Primal+Council+-+Kill+(3:35)',
-    'Sigilweaver',
+    'zkBJfC4PVLM9ar2G',
+    '16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)',
+    'Toppledh',
   );
   await expect(page).toHaveTitle(
-    'Mythic The Primal Council - Kill (3:35) by Sigilweaver in Vault of the Incarnates',
+    'Mythic Raszageth the Storm-Eater - Kill (12:35) by Toppledh in 2023 March 27',
   );
 });
 
 test.describe('tab selection', () => {
   test.beforeEach(async ({ reportPage }) => {
     await reportPage.goto({
-      reportCode: 'QnGVYqCkHxcwzrpX',
-      fightCode: '7-Mythic+The+Primal+Council+-+Kill+(3:35)',
-      playerName: 'Sigilweaver',
+      reportCode: 'zkBJfC4PVLM9ar2G',
+      fightCode: '16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)',
+      playerName: 'Toppledh',
     });
   });
 
@@ -57,7 +60,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnStatisticsTab();
 
     await expect(page).toHaveURL(
-      '/report/QnGVYqCkHxcwzrpX/7-Mythic+The+Primal+Council+-+Kill+(3:35)/Sigilweaver/standard/statistics',
+      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/statistics',
     );
   });
 
@@ -65,7 +68,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnTimelineTab();
 
     await expect(page).toHaveURL(
-      '/report/QnGVYqCkHxcwzrpX/7-Mythic+The+Primal+Council+-+Kill+(3:35)/Sigilweaver/standard/timeline',
+      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/timeline',
     );
   });
 
@@ -73,7 +76,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCooldownsTab();
 
     await expect(page).toHaveURL(
-      '/report/QnGVYqCkHxcwzrpX/7-Mythic+The+Primal+Council+-+Kill+(3:35)/Sigilweaver/standard/cooldowns',
+      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/cooldowns',
     );
   });
 
@@ -81,7 +84,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCharacterTab();
 
     await expect(page).toHaveURL(
-      '/report/QnGVYqCkHxcwzrpX/7-Mythic+The+Primal+Council+-+Kill+(3:35)/Sigilweaver/standard/character',
+      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/character',
     );
   });
 
@@ -89,7 +92,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnAboutTab('Vengeance Demon Hunter');
 
     await expect(page).toHaveURL(
-      '/report/QnGVYqCkHxcwzrpX/7-Mythic+The+Primal+Council+-+Kill+(3:35)/Sigilweaver/standard/about',
+      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/about',
     );
   });
 });
@@ -100,16 +103,16 @@ test('perform analysis', async ({ page }) => {
   await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();
   await page
     .getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>')
-    .fill('https://www.warcraftlogs.com/reports/QnGVYqCkHxcwzrpX');
+    .fill('https://www.warcraftlogs.com/reports/zkBJfC4PVLM9ar2G');
   await page.getByRole('heading', { name: 'Fight selection' }).waitFor();
-  await page.getByRole('link', { name: 'Kill 3:35' }).click();
+  await page.getByRole('link', { name: 'Kill 12:35' }).click();
   await page.getByRole('heading', { name: 'Player selection' }).waitFor();
   await page
-    .getByRole('link', { name: 'Sigilweaver Vengeance Demon Hunter Vengeance Demon Hunter 411' })
+    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 418' })
     .click();
-  await page.getByText('MythicThe Primal Council').waitFor();
+  await page.getByText('MythicRaszageth the Storm-Eater').waitFor();
 
   await expect(page).toHaveURL(
-    '/report/QnGVYqCkHxcwzrpX/7-Mythic+The+Primal+Council+-+Kill+(3:35)/Sigilweaver/standard',
+    '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard',
   );
 });

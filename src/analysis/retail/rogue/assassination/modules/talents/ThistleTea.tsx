@@ -9,8 +9,8 @@ import { isInOpener } from 'analysis/retail/rogue/assassination/constants';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
-import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class ThistleTea extends Analyzer {
   static dependencies = {
@@ -45,7 +45,7 @@ export default class ThistleTea extends Analyzer {
     );
 
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         abovePerformanceDetails={
