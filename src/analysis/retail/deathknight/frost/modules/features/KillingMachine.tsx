@@ -83,15 +83,23 @@ class KillingMachineEfficiency extends Analyzer {
 
   onRefreshBuff(event: RefreshBuffEvent) {
     const timeSinceGCD = event.timestamp - this.lastGCDTime;
-    this.kmProcs += 1;
+    const timeSinceStackRemoved = event.timestamp - this.lastProcTime;
     // 3/24/23, trying out disabling lag tolerance for km refreshes if the player has fatal fixation talented, may need more work
     if (!this.fatalFixation && timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS) {
+      this.kmProcs += 1;
       return;
-    } else if (this.fatalFixation && this.currentStacks === 1) {
+    }
+    // 4/5/23 Going from 2 -> 1 KM stacks refreshes the proc, this shouldn't be counted
+    else if (
+      this.fatalFixation &&
+      this.currentStacks === 1 &&
+      timeSinceStackRemoved < LAG_BUFFER_MS
+    ) {
       // 3/24/23, logs refresh km whenever you go from 2 -> 1 stacks
       this.lastProcTime = event.timestamp;
       return;
     }
+    this.kmProcs += 1;
     this.refreshedKMProcs += 1;
   }
 
