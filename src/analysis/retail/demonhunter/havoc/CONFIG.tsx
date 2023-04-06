@@ -49,7 +49,8 @@ const CONFIG: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/6g4TqjXz9BH2ywDk/15-Mythic+Terros+-+Kill+(5:45)/Hotbees/standard',
+  exampleReport:
+    '/report/caw7vhB43zm2TrHA/51-Mythic+Sennarth,+The+Cold+Breath+-+Kill+(5:46)/Hotbees/standard',
   guideDefault: true,
 
   // Don't change anything below this line;
