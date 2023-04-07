@@ -17,7 +17,6 @@ import {
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
-import AplCheck from './modules/apl/AplCheck';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -117,9 +116,6 @@ class CombatLogParser extends CoreCombatLogParser {
     wailingArrow: WailingArrow,
     deathChakrams: DeathChakrams,
     masterMarksman: MasterMarksman,
-
-    // apl
-    apl: AplCheck,
   };
 }
 

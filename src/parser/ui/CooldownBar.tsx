@@ -8,6 +8,7 @@ import {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import { useInfo, useEvents } from 'interface/guide';
+import { Fragment } from 'react';
 
 /** If and where times the spell was available should be highlighted in red
  *  TODO add timed option?
@@ -113,7 +114,7 @@ export function CooldownBar({
         lastAvailable = end;
         // render the last period of availablility and also this cooldown
         return (
-          <>
+          <Fragment key={ix + '-cd-bar-group'}>
             <CooldownBarSegment
               startTimestamp={currLastAvailable}
               endTimestamp={cd.overallStartTimestamp}
@@ -128,7 +129,7 @@ export function CooldownBar({
               key={ix + '-cooldown'}
               {...segmentProps}
             />
-          </>
+          </Fragment>
         );
       })}
       {endCooldowns.length !== 0 && lastAvailable !== info.fightEnd && (
