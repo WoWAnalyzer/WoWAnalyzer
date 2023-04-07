@@ -18,9 +18,6 @@ interface HornCast {
   gainedRunes: number;
 }
 
-const RUNIC_POWER_GENERATED = 25;
-const RUNES_GENERATED = 2;
-
 export default class HornOfWinter extends Analyzer {
   howTracker: HornCast[] = [];
 
@@ -102,7 +99,7 @@ export default class HornOfWinter extends Analyzer {
           checklistItems.push({
             label: 'Runic Power Gained',
             result: <PerformanceMark perf={runicPowerPerf} />,
-            details: <>{RUNIC_POWER_GENERATED - cast.wastedRp}</>,
+            details: <>{cast.gainedRp - cast.wastedRp}</>,
           });
 
           const runesPerf = cast.wastedRunes
@@ -111,7 +108,7 @@ export default class HornOfWinter extends Analyzer {
           checklistItems.push({
             label: 'Runes Gained',
             result: <PerformanceMark perf={runesPerf} />,
-            details: <>{RUNES_GENERATED - cast.wastedRunes}</>,
+            details: <>{cast.gainedRunes - cast.wastedRunes}</>,
           });
 
           let overallPerf = QualitativePerformance.Good;
