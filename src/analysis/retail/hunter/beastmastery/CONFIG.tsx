@@ -9,7 +9,7 @@ const config: Config = {
   contributors: [Putro, Arlie],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: null,
+  patchCompatibility: '10.0.7',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -28,10 +28,26 @@ const config: Config = {
       </a>
       . The <kbd>#beast-mastery</kbd> channel has a lot of helpful people, and if you post your logs
       in <kbd>#log-reviews</kbd>, you can expect to get some good pointers for improvement from the
-      community. The best guide available currently is the guide on{' '}
-      <a href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide">Icy-veins</a>. It
-      is maintained by Azortharion, and it is constantly fact-checked by community-members, and
-      improved upon on an almost weekly basis.
+      community.
+      <br />
+      <br />
+      For general gameplay guides and tips, please refer to the{' '}
+      <a
+        href="https://www.wowhead.com/guide/classes/hunter/beast-mastery/overview-pve-dps"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Wowhead
+      </a>{' '}
+      or{' '}
+      <a
+        href="https://www.icy-veins.com/wow/beast-mastery-hunter-pve-dps-guide"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Icy-veins
+      </a>{' '}
+      guide.
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -51,7 +67,7 @@ const config: Config = {
   path: __dirname,
 
   //Guide is NOT default while being developed and tested
-  guideDefault: false,
+  guideDefault: true,
   //Guide only will turn true when guide is ready to be published and replace checklist fully
   guideOnly: false,
 };

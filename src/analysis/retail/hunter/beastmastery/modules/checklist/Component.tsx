@@ -5,14 +5,13 @@ import { SpellLink } from 'interface';
 import { ResourceIcon } from 'interface';
 import { SpellIcon } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
-import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import { ChecklistProps } from 'parser/shared/modules/features/Checklist/ChecklistTypes';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
-const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
+const BeastMasteryChecklist = (props: ChecklistProps) => {
   const { combatant, thresholds } = props;
 
   return (
@@ -164,7 +163,6 @@ const BeastMasteryChecklist = (props: ChecklistProps & AplRuleProps) => {
           thresholds={thresholds.focusNaturalRegenWasteThresholds}
         />
       </Rule>
-      <AplRule {...props} name="APL checker (beta)" cooldowns={[TALENTS.BESTIAL_WRATH_TALENT]} />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

@@ -4,7 +4,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import { apl, check as aplCheck } from '../apl/AplCheck';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import BasicAttacks from '../pets/BasicAttacksTracker';
 import BeastMasteryFocusCapTracker from '../resources/BeastMasteryFocusCapTracker';
@@ -61,11 +60,8 @@ class Checklist extends BaseChecklist {
   //endregion
 
   render() {
-    const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
-        apl={apl}
-        checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{
