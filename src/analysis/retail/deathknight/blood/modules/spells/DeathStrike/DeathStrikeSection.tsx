@@ -109,8 +109,19 @@ const DeathStrikeProblemDescription = ({ data }: { data: DeathStrikeProblem['dat
     <ActualCastDescription event={data.cast} omitTarget /> while at{' '}
     <strong>{Math.floor(data.runicPower / 10)}</strong>{' '}
     <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} /> and{' '}
-    <strong>{formatPercentage(data.hitPoints / data.maxHitPoints, 0)}%</strong> Health. This left
-    you low on resources and vulnerable to upcoming damage.
+    <strong>{formatPercentage(data.hitPoints / data.maxHitPoints, 0)}%</strong> Health.{' '}
+    {data.followupDamageTaken ? (
+      <>
+        In the next few seconds, you took{' '}
+        <strong>
+          {formatNumber(data.followupDamageTaken + (data.followupAbsorbedDamage ?? 0))}
+        </strong>{' '}
+        damage that this <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> could have helped
+        mitigate.
+      </>
+    ) : (
+      <>This left you low on resources and vulnerable to upcoming damage.</>
+    )}
   </div>
 );
 
