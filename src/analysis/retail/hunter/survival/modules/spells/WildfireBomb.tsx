@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';

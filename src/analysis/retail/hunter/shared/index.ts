@@ -18,4 +18,3 @@ export { default as RejuvenatingWind } from './talents/RejuvenatingWind';
 export { default as DeathChakrams } from './talents/DeathChakrams';
 export { default as WailingArrow } from './talents/WailingArrow';
 export { default as WailingArrowPrepullNormalizer } from './talents/WailingArrowPrepullNormalizer';
-export * from './constants';

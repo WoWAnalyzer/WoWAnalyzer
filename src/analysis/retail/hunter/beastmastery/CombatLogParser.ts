@@ -14,6 +14,7 @@ import {
   DeathChakrams,
   WailingArrow,
   WailingArrowPrepullNormalizer,
+  TranquilizingShot,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
@@ -49,6 +50,10 @@ import FrenzyBuffStackTracker from './modules/guide/sections/rotation/FrenzyBuff
 import FrenzyBuffStackGraph from './modules/guide/sections/rotation/FrenzyBuffStackGraph';
 import FocusGraph from './modules/guide/sections/resources/FocusGraph';
 import BarbedShotNormalizer from './normalizers/BarbedShotNormalizer';
+import Bloodshed from './modules/talents/Bloodshed';
+import DirePack from './modules/talents/DirePack';
+import T29BMTier2P from './modules/items/T29BMTier2P';
+import LethalCommand from './modules/items/LethalCommand';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -116,6 +121,13 @@ class CombatLogParser extends CoreCombatLogParser {
     wailingArrow: WailingArrow,
     deathChakrams: DeathChakrams,
     masterMarksman: MasterMarksman,
+    bloodshed: Bloodshed,
+    direPack: DirePack,
+    tranquilizingShot: TranquilizingShot,
+
+    //Items
+    t292p: T29BMTier2P,
+    t294p: LethalCommand,
   };
 }
 

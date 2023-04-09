@@ -711,6 +711,19 @@ const spells = spellIndexableList({
     icon: 'ability_druid_cower',
   },
   //endregion
+
+  //region Tier Sets
+  //T29 2P
+  T29_2P_BONUS_BEAST_MASTERY: {
+    id: 393646,
+    name: 'T29 2P',
+    icon: 'ability_hunter_killcommand',
+  },
+  T29_4P_BONUS_BEAST_MASTERY: {
+    id: 393647,
+    name: 'T29 4P',
+    icon: 'ability_hunter_killcommand',
+  },
 });
 
 export default spells;

@@ -4,7 +4,7 @@ import {
   DIRE_COMMAND_PROC_CHANCE,
   DIRE_FRENZY_INCREASE_DB_TIME,
 } from 'analysis/retail/hunter/beastmastery/constants';
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';

@@ -4,7 +4,7 @@ import {
   LETHAL_SHOTS_CHANCE,
   LETHAL_SHOTS_REDUCTION,
 } from 'analysis/retail/hunter/marksmanship/constants';
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';

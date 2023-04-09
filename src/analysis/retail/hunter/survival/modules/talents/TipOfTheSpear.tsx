@@ -1,4 +1,4 @@
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import {
   RAPTOR_MONGOOSE_VARIANTS,
   TIP_DAMAGE_INCREASE,
