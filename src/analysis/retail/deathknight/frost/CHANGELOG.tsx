@@ -5,6 +5,7 @@ import { Khazak } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 4, 11), 'Updated example report', Khazak),
   change(date(2023, 4, 6), <>Changed logic in <SpellLink spell={talents.KILLING_MACHINE_TALENT} /> module to show refreshes that happen during GCD lock</>, Khazak),
   change(date(2023, 4, 6), <>Improved <SpellLink spell={talents.HORN_OF_WINTER_TALENT} /> module to include RP gained while <SpellLink spell={spells.RUNE_OF_HYSTERIA_BUFF} /> is active</>, Khazak),
   change(date(2023, 4, 6), <>Improved <SpellLink spell={talents.KILLING_MACHINE_TALENT} /> module to account for extra refreshes when going from 2 to 1 stacks</>, Khazak),
