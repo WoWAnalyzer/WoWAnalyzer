@@ -13,7 +13,7 @@ import { POWER_WORD_SHIELD_ATONEMENT_DUR } from '../../constants';
 
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 
-const INDEMNITY_EXTENSION_DURATION = 3000;
+const INDEMNITY_EXTENSION_DURATION = 2000;
 const EVANG_EXTENSION_DURATION = 6000;
 
 type ShieldInfo = {
@@ -92,7 +92,7 @@ class Indemnity extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This value is calculated from the healing contributed from the last 3 seconds of the
+            This value is calculated from the healing contributed from the last 2 seconds of the
             applied <SpellLink id={SPELLS.ATONEMENT_BUFF.id} />.
           </>
         }
