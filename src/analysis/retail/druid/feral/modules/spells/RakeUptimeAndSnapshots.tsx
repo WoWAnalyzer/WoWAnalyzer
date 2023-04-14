@@ -5,7 +5,11 @@ import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
-import { getRakeDuration, SNAPSHOT_DOWNGRADE_BUFFER } from 'analysis/retail/druid/feral/constants';
+import {
+  CLIP_BUFFER,
+  getRakeDuration,
+  SNAPSHOT_DOWNGRADE_BUFFER,
+} from 'analysis/retail/druid/feral/constants';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import Snapshots, {
   PROWL_SPEC,
@@ -18,6 +22,7 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { BadColor, OkColor } from 'interface/guide';
 
 /** Tracking code for everything Rake related */
 class RakeUptimeAndSnapshots extends Snapshots {
@@ -70,18 +75,48 @@ class RakeUptimeAndSnapshots extends Snapshots {
     const wasUpgrade = prevPower < power;
 
     let value: QualitativePerformance = QualitativePerformance.Good;
+    let perfExplanation: React.ReactNode = undefined;
     if (!proccedBt) {
       if (wasUnacceptableDowngrade) {
         value = QualitativePerformance.Fail;
-      }
-      if (clipped > 0) {
-        value = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
+        perfExplanation = (
+          <h5 style={{ color: BadColor }}>
+            Bad because you refreshed early with a weaker snapshot
+            <br />
+          </h5>
+        );
+      } else if (clipped > CLIP_BUFFER) {
+        if (wasUpgrade) {
+          value = QualitativePerformance.Ok;
+          perfExplanation = (
+            <h5 style={{ color: OkColor }}>
+              You refreshed this too way early, but upgraded the snapshot
+              <br />
+            </h5>
+          );
+        } else {
+          value = QualitativePerformance.Fail;
+          perfExplanation = (
+            <h5 style={{ color: BadColor }}>
+              Bad because you refreshed too early
+              <br />
+            </h5>
+          );
+        }
+      } else if (clipped > 0) {
+        value = QualitativePerformance.Ok;
+        perfExplanation = (
+          <h5 style={{ color: OkColor }}>
+            Careful, you refreshed this a little early
+            <br />
+          </h5>
+        );
       }
     }
 
     const tooltip = (
       <>
-        @ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
+        {perfExplanation}@ <strong>{this.owner.formatTimestamp(cast.timestamp)}</strong> targetting{' '}
         <strong>{targetName || 'unknown'}</strong>
         <br />
         {proccedBt && (

@@ -106,7 +106,7 @@ class RipUptimeAndSnapshots extends Snapshots {
         value = QualitativePerformance.Fail;
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
-            Bad because you used less than {getAcceptableCps(this.selectedCombatant)} CPs!
+            Bad because you used less than {getAcceptableCps(this.selectedCombatant)} CPs
             <br />
           </h5>
         );
@@ -114,7 +114,7 @@ class RipUptimeAndSnapshots extends Snapshots {
         value = QualitativePerformance.Fail;
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
-            Bad because no Bloodtalons snapshot!
+            Bad because no Bloodtalons snapshot
             <br />
           </h5>
         );
@@ -123,7 +123,7 @@ class RipUptimeAndSnapshots extends Snapshots {
           value = QualitativePerformance.Ok;
           perfExplanation = (
             <h5 style={{ color: OkColor }}>
-              You upgraded the snapshot at the cost of refreshing early.
+              You upgraded the snapshot at the cost of refreshing early
               <br />
             </h5>
           );
@@ -131,7 +131,7 @@ class RipUptimeAndSnapshots extends Snapshots {
           value = QualitativePerformance.Fail;
           perfExplanation = (
             <h5 style={{ color: BadColor }}>
-              Bad because you refreshed too early!
+              Bad because you refreshed too early
               <br />
             </h5>
           );
@@ -140,7 +140,7 @@ class RipUptimeAndSnapshots extends Snapshots {
         value = QualitativePerformance.Ok;
         perfExplanation = (
           <h5 style={{ color: OkColor }}>
-            Careful, you refreshed this a little early!
+            Careful, you refreshed this a little early
             <br />
           </h5>
         );
@@ -148,7 +148,7 @@ class RipUptimeAndSnapshots extends Snapshots {
         value = QualitativePerformance.Ok;
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
-            Questionable because no Tiger's Fury snapshot!
+            Bad because no Tiger's Fury snapshot
             <br />
           </h5>
         );
