@@ -90,7 +90,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
           value = QualitativePerformance.Ok;
           perfExplanation = (
             <h5 style={{ color: OkColor }}>
-              You refreshed this too way early, but upgraded the snapshot
+              You refreshed this too early, but upgraded the snapshot
               <br />
             </h5>
           );
