@@ -378,7 +378,6 @@ const spells = spellIndexableList({
     icon: 'classic_spell_holy_blessingofprotection',
     lowRanks: [48951, 27179, 20928, 20927, 20925],
   },
-
   // Retribution
   CRUSADER_STRIKE: {
     id: 35395,
@@ -394,6 +393,11 @@ const spells = spellIndexableList({
     id: 20066,
     name: 'Repentance',
     icon: 'spell_holy_prayerofhealing',
+  },
+  SANCTIFIED_RETRIBUTION: {
+    id: 31869,
+    name: 'Sanctified Retribution',
+    icon: 'spell_holy_mindvision',
   },
   SEAL_OF_COMMAND: {
     id: 20375,
