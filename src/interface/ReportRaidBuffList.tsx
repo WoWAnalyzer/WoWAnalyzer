@@ -9,8 +9,13 @@ import { Class, CombatantInfoEvent } from 'parser/core/Events';
 import './ReportRaidBuffList.scss';
 // Retail
 import SPELLS from 'common/SPELLS';
-import { TALENTS_PRIEST, TALENTS_SHAMAN } from 'common/TALENTS';
-import { TALENTS_DEMON_HUNTER, TALENTS_MONK, TALENTS_DEATH_KNIGHT } from 'common/TALENTS';
+import {
+  TALENTS_PRIEST,
+  TALENTS_SHAMAN,
+  TALENTS_DEMON_HUNTER,
+  TALENTS_MONK,
+  TALENTS_DEATH_KNIGHT,
+} from 'common/TALENTS';
 // Classic
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 
