@@ -4,7 +4,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
-import ManaIcon from 'interface/icons/Mana';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import AtonementAnalyzer, { AtonementAnalyzerEvent } from '../core/AtonementAnalyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -13,7 +12,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { POWER_WORD_RADIANCE_ATONEMENT_DUR } from '../../constants';
 import { TIERS } from 'game/TIERS';
-import { formatThousands } from 'common/format';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 
 const RADIANT_PROVIDENCE_EXTENSION = 3000;
 const EVANGELISM_BONUS_MS = 6000;
@@ -141,8 +140,7 @@ class RadiantProvidence extends Analyzer {
       >
         <BoringSpellValueText spellId={SPELLS.RADIANT_PROVIDENCE_BUFF.id}>
           <ItemHealingDone amount={this._bonusFromAtonementDuration} />
-          <br />
-          <ManaIcon /> {formatThousands(this._manaSaved)} mana
+          <ItemManaGained amount={this._manaSaved} useAbbrev />
         </BoringSpellValueText>
       </Statistic>
     );
