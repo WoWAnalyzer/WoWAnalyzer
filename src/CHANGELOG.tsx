@@ -25,6 +25,7 @@ import SpellLink from 'interface/SpellLink';
 export default [
   change(date(2023, 4, 16), 'Ported Major Defensive guide sections to core code so other tank specs can use it.', emallson),
   change(date(2023, 4, 16), 'Ported Shuffle chart to core code so other tank specs can use it.', emallson),
+  change(date(2023, 4, 15), 'Add Classic WotLK Raid Buffs to Fight Report page.', jazminite),
   change(date(2023, 4, 8), 'Improve support for older browsers', emallson),
   change(date(2023, 4, 2), 'Add Healthstone Checker for Classic WotLK.', jazminite),
   change(date(2023, 4, 1), 'Classic WotLK - Add phases to Ulduar bosses.', jazminite),

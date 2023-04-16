@@ -105,6 +105,11 @@ const spells = spellIndexableList({
     name: 'Shadow Protection',
     icon: 'spell_shadow_antishadow',
   },
+  DIVINE_HYMN: {
+    id: 64843,
+    name: 'Divine Hymn',
+    icon: 'spell_holy_divinehymn',
+  },
   DIVINE_SPIRIT: {
     id: 48073,
     name: 'Divine Spirit',
