@@ -10,16 +10,20 @@ import {
   useAnalyzer,
   useAnalyzers,
 } from 'interface/guide';
+import {
+  damageBreakdown,
+  DamageSourceLink,
+} from 'interface/guide/components/DamageTakenPointChart';
 import Explanation from 'interface/guide/components/Explanation';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { Highlight } from 'interface/Highlight';
 import { AbilityEvent, HasAbility, HasSource } from 'parser/core/Events';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useCallback, useState } from 'react';
-import { damageBreakdown, DamageSourceLink, Highlight } from '../../../spells/Shuffle/GuideSection';
 import { MAJOR_ANALYZERS } from '../config';
 import {
   MajorDefensive,

@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import ShuffleSection, { Highlight } from './modules/spells/Shuffle/GuideSection';
+import ShuffleSection from './modules/spells/Shuffle/GuideSection';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CombatLogParser from './CombatLogParser';
 import { GuideProps, Section, SubSection } from 'interface/guide';
@@ -16,6 +16,7 @@ import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import Explanation from 'interface/guide/components/Explanation';
+import { Highlight } from 'interface/Highlight';
 
 const explainers = {
   explainSCK,

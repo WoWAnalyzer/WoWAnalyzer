@@ -1,6 +1,5 @@
 import { BadColor, OkColor, PerformanceMark, SubSection, useInfo } from 'interface/guide';
 import styled from '@emotion/styled';
-import { Highlight } from 'analysis/retail/monk/brewmaster/modules/spells/Shuffle/GuideSection';
 import {
   ComponentPropsWithoutRef,
   Fragment,
@@ -18,6 +17,7 @@ import { SpellUse, useSpellUsageContext } from './core';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatDuration } from 'common/format';
+import { Highlight } from 'interface/Highlight';
 
 const NoData = styled.div`
   color: #999;

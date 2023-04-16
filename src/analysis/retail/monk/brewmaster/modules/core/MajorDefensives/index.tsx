@@ -1,7 +1,7 @@
 import { TooltipElement } from 'interface';
 import { GoodColor, Section, SubSection } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
-import { Highlight } from '../../spells/Shuffle/GuideSection';
+import { Highlight } from 'interface/Highlight';
 import AllCooldownUsagesList from './components/AllCooldownUsagesList';
 import Timeline from './components/Timeline';
 
