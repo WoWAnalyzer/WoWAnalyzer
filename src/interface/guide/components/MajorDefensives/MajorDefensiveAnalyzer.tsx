@@ -162,7 +162,7 @@ export const MitigationRow = ({
  *
  * A basic "Reduce damage taken by X%" cooldown can be implemented by doing the following:
  *
- * 1. Extend `MajorDefensiveBuff` or `MajorDefensiveDebuff`.
+ * 1. Extend `MajorDefensiveBuff` or `MajorDefensiveDebuff` (or this class, if you need something custom).
  * 2. Call the constructor with (1) the spell to display (used for icons and tooltips),
  *    (2) the `DefensiveTrigger` (usually made by `buff` or `debuff`),
  *    and the `options` passed into your analyzer.
