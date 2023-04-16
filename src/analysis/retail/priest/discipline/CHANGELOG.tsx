@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 3, 16), <>Aberrus 2p added.</>, Hana),
   change(date(2023, 3, 14), <><SpellLink id={TALENTS_PRIEST.WEAL_AND_WOE_TALENT.id}/> added.</>, Hana),
   change(date(2023, 3, 7), <><SpellLink id={TALENTS_PRIEST.CASTIGATION_TALENT.id}/> working with <SpellLink id={SPELLS.DARK_REPRIMAND_CAST.id}/></>, Hana),
   change(date(2023, 2, 6), <><SpellLink id={TALENTS_PRIEST.TWILIGHT_EQUILIBRIUM_TALENT.id}/> re enabled.</>, Hana),

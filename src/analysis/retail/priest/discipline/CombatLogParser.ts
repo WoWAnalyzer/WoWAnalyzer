@@ -62,6 +62,7 @@ import AbyssalReverie from './modules/spells/AbyssalReverie';
 import TwilightEquilibriumNormalizer from './normalizers/TwilightEquilibriumNormalizer';
 import DamageCastLink from './normalizers/DamageCastLink';
 import WealAndWoe from './modules/spells/WealAndWoe';
+import Aberrus2p from './modules/spells/Aberrus2p';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -134,6 +135,7 @@ class CombatLogParser extends CoreCombatLogParser {
     raptureAnalysis: RaptureAnalysis,
     abyssalReverie: AbyssalReverie,
     wealAndWoe: WealAndWoe,
+    aberrus2p: Aberrus2p,
   };
   static guide = Guide;
 }
