@@ -16,6 +16,7 @@ import {
 } from 'interface/guide/components/DamageTakenPointChart';
 import Explanation from 'interface/guide/components/Explanation';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
+import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { Highlight } from 'interface/Highlight';
@@ -25,13 +26,7 @@ import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useCallback, useState } from 'react';
 import { MAJOR_ANALYZERS } from '../config';
-import {
-  MajorDefensive,
-  MitigatedEvent,
-  Mitigation,
-  MitigationTooltipSegment,
-  PerformanceUsageRow,
-} from '../core';
+import { MajorDefensive, MitigatedEvent, Mitigation, PerformanceUsageRow } from '../core';
 import { useMaxMitigationValue } from './Timeline';
 
 const MissingCastBoxEntry = {
@@ -181,7 +176,7 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
           </tr>
           {segments.map((seg, ix) => (
             <tr key={ix}>
-              <td>{seg.tooltip}</td>
+              <td>{seg.description}</td>
               <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
               <TableSegmentContainer>
                 {ix > 0 && (

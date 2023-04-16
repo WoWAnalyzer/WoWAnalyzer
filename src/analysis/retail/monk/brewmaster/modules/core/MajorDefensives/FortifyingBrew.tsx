@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink, TooltipElement } from 'interface';
+import { MitigationSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
@@ -13,7 +14,7 @@ import Events, {
 } from 'parser/core/Events';
 import { ReactNode } from 'react';
 import CountsAsBrew, { brewCooldownDisplay } from '../../components/CountsAsBrew';
-import { absoluteMitigation, MajorDefensive, Mitigation, MitigationSegment } from './core';
+import { absoluteMitigation, MajorDefensive, Mitigation } from './core';
 
 export class FortifyingBrew extends MajorDefensive {
   private fortBrewStaggerPool: number = 0;
@@ -134,7 +135,7 @@ export class FortifyingBrew extends MajorDefensive {
       {
         amount: damage,
         color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-        tooltip: (
+        description: (
           <>
             Base <SpellLink id={talents.FORTIFYING_BREW_TALENT} />
           </>
@@ -143,12 +144,12 @@ export class FortifyingBrew extends MajorDefensive {
       {
         amount: purify,
         color: 'rgb(112, 181, 112)',
-        tooltip: <SpellLink id={talents.FORTIFYING_BREW_DETERMINATION_TALENT} />,
+        description: <SpellLink id={talents.FORTIFYING_BREW_DETERMINATION_TALENT} />,
       },
       {
         amount: gaiPlins,
         color: color(MAGIC_SCHOOLS.ids.HOLY),
-        tooltip: <SpellLink id={talents.GAI_PLINS_IMPERIAL_BREW_TALENT} />,
+        description: <SpellLink id={talents.GAI_PLINS_IMPERIAL_BREW_TALENT} />,
       },
     ].filter((seg) => seg.amount > 0);
   }

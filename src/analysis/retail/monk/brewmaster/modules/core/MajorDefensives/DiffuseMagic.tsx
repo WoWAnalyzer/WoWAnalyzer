@@ -1,10 +1,11 @@
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
+import { MitigationSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ReactNode } from 'react';
-import { absoluteMitigation, MajorDefensive, Mitigation, MitigationSegment } from './core';
+import { absoluteMitigation, MajorDefensive, Mitigation } from './core';
 
 export class DiffuseMagic extends MajorDefensive {
   constructor(options: Options) {

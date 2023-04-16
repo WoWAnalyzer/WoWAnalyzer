@@ -4,6 +4,7 @@ import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
+import { MitigationSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -18,7 +19,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
 import CountsAsBrew from '../../components/CountsAsBrew';
-import { MajorDefensive, Mitigation, MitigationSegment } from '../../core/MajorDefensives/core';
+import { MajorDefensive, Mitigation } from '../../core/MajorDefensives/core';
 import { damageEvent } from './normalizer';
 
 const PURIFIED_CHI_PCT = 0.2;
@@ -242,7 +243,7 @@ class CelestialBrew extends MajorDefensive {
         {
           amount: baseAmount,
           color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-          tooltip: (
+          description: (
             <>
               Base <SpellLink id={this.spell} />
             </>
@@ -251,7 +252,7 @@ class CelestialBrew extends MajorDefensive {
         {
           amount: stackAmount,
           color: color(MAGIC_SCHOOLS.ids.HOLY),
-          tooltip: <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
+          description: <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
         },
       ];
     } else {

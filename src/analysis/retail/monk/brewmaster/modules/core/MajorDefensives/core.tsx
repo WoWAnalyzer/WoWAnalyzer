@@ -4,9 +4,13 @@ import Spell from 'common/SPELLS/Spell';
 import { Talent } from 'common/TALENTS/types';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import SPECS from 'game/SPECS';
-import { SpellLink, Tooltip } from 'interface';
+import { SpellLink } from 'interface';
 import { PerformanceMark } from 'interface/guide';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
+import {
+  MitigationSegment,
+  MitigationSegments,
+} from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
@@ -40,12 +44,6 @@ export type Mitigation = {
   amount: number;
 };
 
-export type MitigationSegment = {
-  amount: number;
-  color: string;
-  tooltip: ReactNode;
-};
-
 export type MitigationChecklistItem = CooldownExpandableItem & {
   performance: QualitativePerformance;
 };
@@ -56,24 +54,7 @@ export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
   return priorAmount - actualAmount;
 }
 
-const roundedContainerStyles = `
-  border-radius: 2px;
-  overflow: clip;
-
-  & div:first-child {
-    border-radius: 2px 0 0 2px;
-  }
-`;
-
 const MitigationTooltipBody = 'div';
-const MitigationSegmentContainer = styled.div<{ rounded?: boolean }>`
-  width: 100%;
-  height: 1em;
-  text-align: left;
-  line-height: 1em;
-  background-color: rgba(255, 255, 255, 0.2);
-  ${(props) => (props.rounded ? roundedContainerStyles : '')}
-`;
 const MitigationRowContainer = styled.div`
   display: grid;
   grid-template-columns: 2em 2em 100px;
@@ -86,16 +67,6 @@ const MitigationRowContainer = styled.div`
   padding-bottom: 0.5em;
 `;
 
-// we use content-box sizing with a border because that makes the hitbox bigger, so it is easier to read the tooltips.
-export const MitigationTooltipSegment = styled.div<{ color: string; width: number }>`
-  background-color: ${(props) => props.color};
-  width: calc(${(props) => Math.max(2, props.width * 100)}% - 1px);
-  height: 100%;
-  display: inline-block;
-  box-sizing: content-box;
-  border-left: 1px solid #000;
-`;
-
 export const PerformanceUsageRow = styled.div`
   padding-bottom: 0.5em;
 
@@ -103,37 +74,6 @@ export const PerformanceUsageRow = styled.div`
     margin-right: 0.5em;
   }
 `;
-
-export const MitigationSegments = ({
-  segments,
-  maxValue,
-  className,
-  rounded,
-  style,
-}: {
-  segments: MitigationSegment[];
-  maxValue: number;
-  className?: string;
-  rounded?: boolean;
-  style?: React.CSSProperties;
-}) => (
-  <MitigationSegmentContainer rounded={rounded} className={className} style={style}>
-    {segments
-      .filter((seg) => seg.amount > 0)
-      .map((seg, ix) => (
-        <Tooltip
-          content={
-            <>
-              {seg.tooltip} - {formatNumber(seg.amount)}
-            </>
-          }
-          key={ix}
-        >
-          <MitigationTooltipSegment color={seg.color} width={seg.amount / maxValue} />
-        </Tooltip>
-      ))}
-  </MitigationSegmentContainer>
-);
 
 const MitigationRow = ({
   mitigation,
@@ -228,11 +168,7 @@ export class MajorDefensive extends Analyzer {
       {
         amount: mit.amount,
         color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-        tooltip: (
-          <>
-            Base <SpellLink id={this.spell} />
-          </>
-        ),
+        description: <SpellLink spell={this.spell} />,
       },
     ];
   }
