@@ -1,54 +1,27 @@
-import { useMemo } from 'react';
 import styled from '@emotion/styled';
 import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
-import { SpellLink, Tooltip } from 'interface';
+import { SpellLink } from 'interface';
 import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import { Info } from 'parser/core/metric';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import Shuffle, { TrackedHit } from './index';
+import Shuffle from './index';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
-import { AbilityEvent, SourcedEvent } from 'parser/core/Events';
-import useTooltip from 'interface/useTooltip';
 import { MAGIC_STAGGER_EFFECTIVENESS } from '../../../constants';
+import DamageTakenPointChart, {
+  TrackedHit,
+} from 'interface/guide/components/DamageTakenPointChart';
 
-const HitTimelineContainer = styled.div`
-  display: grid;
-  grid-template-columns: calc(150px - 1rem) 1fr;
-  gap: 1rem;
-  height: 20px;
-  padding: 0 10px;
-  margin: 5px 0;
-
-  & > :first-child {
-    justify-self: start;
-    align-self: start;
-    padding-left: 1rem;
-  }
-`;
-
-const HitTimelineBar = styled.div`
-  position: relative;
-  width: 100%;
-  height: 20px;
-`;
-
-const HitTimelineSlice = styled.div<{
-  color: string;
-  widthPct: number;
-}>`
-  width: max(1px, ${(props) => props.widthPct * 100}%);
+export const Highlight = styled.span<{ color: string; textColor?: string }>`
   background-color: ${(props) => props.color};
-  height: 100%;
-  position: absolute;
-  top: 0;
-  border: 1px solid black;
-  box-sizing: content-box;
+  padding: 0 3px;
+  ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
 `;
+
+const red = colorForPerformance(0);
 
 function HitTooltipContent({ hit }: { hit: TrackedHit }) {
   const info = useInfo()!;
@@ -85,111 +58,6 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
   );
 }
 
-const damageSourceStyle: React.CSSProperties = {
-  overflowX: 'hidden',
-  textOverflow: 'ellipsis',
-  maxWidth: '100%',
-  whiteSpace: 'nowrap',
-};
-
-export function DamageSourceLink({
-  event,
-  showSourceName,
-}: {
-  event: AbilityEvent<any> & Partial<SourcedEvent<any>>;
-  showSourceName?: boolean;
-}): JSX.Element | null {
-  const enemies = useAnalyzer(Enemies);
-
-  const ability = event.ability;
-  const color = MAGIC_SCHOOLS.color(ability.type);
-
-  // this prevents unneeded re-renders of child components due to object identity differences
-  const style = useMemo(() => ({ ...damageSourceStyle, color }), [color]);
-  const { npc: npcTooltip } = useTooltip();
-
-  if (showSourceName) {
-    const enemy = enemies?.getSourceEntity(event);
-    return (
-      <a href={npcTooltip(enemy?.guid ?? 0)} style={style}>
-        {enemy?.name ?? 'Unknown'} ({ability.name})
-      </a>
-    );
-  } else {
-    return (
-      <SpellLink id={ability.guid} style={style}>
-        {ability.name}
-      </SpellLink>
-    );
-  }
-}
-
-function HitTimeline({ hits, showSourceName }: { hits: TrackedHit[]; showSourceName?: boolean }) {
-  const info = useInfo()!;
-  const enemies = useAnalyzer(Enemies);
-
-  if (!enemies || hits.length === 0) {
-    return null;
-  }
-  const blockWidth = 1 / 120;
-
-  return (
-    <HitTimelineContainer>
-      <DamageSourceLink showSourceName={showSourceName} event={hits[0].event} />
-      <HitTimelineBar>
-        {hits.map((hit, ix) => {
-          return (
-            <Tooltip hoverable content={<HitTooltipContent hit={hit} />} key={ix} direction="up">
-              <HitTimelineSlice
-                color={colorForPerformance(Number(hit.mitigated))}
-                widthPct={blockWidth}
-                style={{
-                  left: `${((hit.event.timestamp - info.fightStart) / info.fightDuration) * 100}%`,
-                }}
-              />
-            </Tooltip>
-          );
-        })}
-      </HitTimelineBar>
-    </HitTimelineContainer>
-  );
-}
-
-export const Highlight = styled.span<{ color: string; textColor?: string }>`
-  background-color: ${(props) => props.color};
-  padding: 0 3px;
-  ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
-`;
-
-const red = colorForPerformance(0);
-
-export function damageBreakdown<T>(
-  data: T[],
-  selectSpellId: (datum: T) => number,
-  selectSource: (datum: T) => string,
-): Map<number, Map<string, T[]>> {
-  const bySpell = new Map();
-  for (const datum of data) {
-    const ability = selectSpellId(datum);
-    let bySource = bySpell.get(ability);
-    if (!bySource) {
-      bySource = new Map();
-      bySpell.set(ability, bySource);
-    }
-
-    const source = selectSource(datum);
-    let hits = bySource.get(source);
-    if (!hits) {
-      hits = [];
-      bySource.set(source, hits);
-    }
-
-    hits.push(datum);
-  }
-
-  return bySpell;
-}
-
 function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): JSX.Element {
   const uptime = uptimeBarSubStatistic(
     { start_time: info.fightStart, end_time: info.fightEnd },
@@ -199,14 +67,6 @@ function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): J
       color: colorForPerformance(1),
     },
   );
-
-  const hitsBySpellRaw = damageBreakdown(
-    shuffle.hits,
-    (hit: TrackedHit) => hit.event.ability.guid,
-    (hit: TrackedHit) => encodeTargetString(hit.event.sourceID ?? 0),
-  );
-
-  const meleesBySource = hitsBySpellRaw.get(1) ?? new Map();
 
   return (
     <div>
@@ -220,14 +80,7 @@ function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): J
         </Highlight>
         .
       </small>
-      {Array.from(meleesBySource.entries()).map(([id, hits]) => (
-        <HitTimeline hits={hits} key={id} showSourceName={meleesBySource.size > 1} />
-      ))}
-      {Array.from(hitsBySpellRaw.entries())
-        .filter(([id]) => id !== 1)
-        .map(([id, hits]) => (
-          <HitTimeline hits={Array.from(hits.values()).flat()} key={id} />
-        ))}
+      <DamageTakenPointChart hits={shuffle.hits} tooltip={HitTooltipContent} />
     </div>
   );
 }
