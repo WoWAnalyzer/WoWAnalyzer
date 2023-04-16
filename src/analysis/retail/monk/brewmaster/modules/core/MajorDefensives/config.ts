@@ -10,4 +10,4 @@ export const MAJOR_ANALYZERS = [
   DampenHarm,
   DiffuseMagic,
   ZenMeditation,
-];
+] as const;

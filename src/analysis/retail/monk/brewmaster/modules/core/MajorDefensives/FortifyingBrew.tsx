@@ -3,6 +3,14 @@ import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink, TooltipElement } from 'interface';
+import {
+  absoluteMitigation,
+  buff,
+  MajorDefensiveBuff,
+  Mitigation,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import { MitigationSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
@@ -11,19 +19,16 @@ import Events, {
   EventType,
   RemoveStaggerEvent,
 } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 import CountsAsBrew, { brewCooldownDisplay } from '../../components/CountsAsBrew';
-import { absoluteMitigation, MajorDefensive, Mitigation, MitigationSegment } from './core';
 
-export class FortifyingBrew extends MajorDefensive {
+export class FortifyingBrew extends MajorDefensiveBuff {
   private fortBrewStaggerPool: number = 0;
   private hasGaiPlins = false;
 
   constructor(options: Options) {
-    super(
-      { talent: talents.FORTIFYING_BREW_TALENT, buffSpell: SPELLS.FORTIFYING_BREW_BRM_BUFF },
-      options,
-    );
+    super(talents.FORTIFYING_BREW_TALENT, buff(SPELLS.FORTIFYING_BREW_BRM_BUFF), options);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
 
@@ -36,7 +41,7 @@ export class FortifyingBrew extends MajorDefensive {
   }
 
   private recordDamage(event: DamageEvent) {
-    if (this.defensiveActive && !event.sourceIsFriendly) {
+    if (this.defensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
         mitigatedAmount: absoluteMitigation(event, 0.2),
@@ -45,7 +50,7 @@ export class FortifyingBrew extends MajorDefensive {
   }
 
   private recordStagger(event: AddStaggerEvent) {
-    if (this.defensiveActive) {
+    if (this.defensiveActive(event)) {
       this.fortBrewStaggerPool += 0.15 * event.amount;
     }
   }
@@ -61,7 +66,7 @@ export class FortifyingBrew extends MajorDefensive {
     const purifyRatio = event.amount / (event.amount + event.newPooledDamage);
     const purifyAmount = Math.ceil(purifyRatio * this.fortBrewStaggerPool);
 
-    if (this.defensiveActive && event.trigger?.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
+    if (this.defensiveActive(event) && event.trigger?.ability.guid !== SPELLS.STAGGER_TAKEN.id) {
       this.recordMitigation({
         event,
         mitigatedAmount: purifyAmount * (this.hasGaiPlins ? 1.25 : 1),
@@ -134,7 +139,7 @@ export class FortifyingBrew extends MajorDefensive {
       {
         amount: damage,
         color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-        tooltip: (
+        description: (
           <>
             Base <SpellLink id={talents.FORTIFYING_BREW_TALENT} />
           </>
@@ -143,13 +148,17 @@ export class FortifyingBrew extends MajorDefensive {
       {
         amount: purify,
         color: 'rgb(112, 181, 112)',
-        tooltip: <SpellLink id={talents.FORTIFYING_BREW_DETERMINATION_TALENT} />,
+        description: <SpellLink id={talents.FORTIFYING_BREW_DETERMINATION_TALENT} />,
       },
       {
         amount: gaiPlins,
         color: color(MAGIC_SCHOOLS.ids.HOLY),
-        tooltip: <SpellLink id={talents.GAI_PLINS_IMPERIAL_BREW_TALENT} />,
+        description: <SpellLink id={talents.GAI_PLINS_IMPERIAL_BREW_TALENT} />,
       },
     ].filter((seg) => seg.amount > 0);
+  }
+
+  statistic(): ReactNode {
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.TALENTS} />;
   }
 }
