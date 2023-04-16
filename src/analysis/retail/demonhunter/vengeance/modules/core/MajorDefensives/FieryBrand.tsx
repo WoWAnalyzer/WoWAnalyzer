@@ -10,6 +10,8 @@ import {
   debuff,
   MajorDefensiveDebuff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 export default class FieryBrand extends MajorDefensiveDebuff {
   constructor(options: Options) {
@@ -40,5 +42,9 @@ export default class FieryBrand extends MajorDefensiveDebuff {
         </Trans>
       </p>
     );
+  }
+
+  statistic(): ReactNode {
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.TALENTS} />;
   }
 }

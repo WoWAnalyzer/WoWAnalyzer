@@ -17,11 +17,11 @@ interface Props {
    * statistic box's top right corner.
    */
   tooltip?: ReactNode;
-  wide: boolean;
-  ultrawide: boolean;
+  wide?: boolean;
+  ultrawide?: boolean;
   category?: STATISTIC_CATEGORY;
   position?: number;
-  size: StatisticSize;
+  size?: StatisticSize;
   /**
    * A relative or absolute URL. If set, a button will be attached to the bottom of the statistic
    * box that a user can click to be sent to the given URL.
@@ -34,7 +34,7 @@ interface Props {
   /**
    * CSS class name(s) to apply to the statistic box.
    */
-  className: string;
+  className?: string;
   expanded?: boolean;
   style?: CSSProperties;
   onClick?: MouseEventHandler<HTMLDivElement>;

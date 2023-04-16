@@ -11,6 +11,8 @@ import {
   buff,
   MajorDefensiveBuff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 export default class DemonSpikes extends MajorDefensiveBuff {
   static dependencies = {
@@ -53,5 +55,9 @@ export default class DemonSpikes extends MajorDefensiveBuff {
         </Trans>
       </p>
     );
+  }
+
+  statistic(): ReactNode {
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.GENERAL} />;
   }
 }

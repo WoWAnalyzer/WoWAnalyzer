@@ -10,6 +10,7 @@ import {
   Mitigation,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { MitigationSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import EventFilter from 'parser/core/EventFilter';
 import Events, {
@@ -18,6 +19,7 @@ import Events, {
   EventType,
   RemoveStaggerEvent,
 } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 import CountsAsBrew, { brewCooldownDisplay } from '../../components/CountsAsBrew';
 
@@ -154,5 +156,9 @@ export class FortifyingBrew extends MajorDefensiveBuff {
         description: <SpellLink id={talents.GAI_PLINS_IMPERIAL_BREW_TALENT} />,
       },
     ].filter((seg) => seg.amount > 0);
+  }
+
+  statistic(): ReactNode {
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.TALENTS} />;
   }
 }

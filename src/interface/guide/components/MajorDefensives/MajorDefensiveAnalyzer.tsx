@@ -17,10 +17,7 @@ import Events, {
   EventType,
 } from 'parser/core/Events';
 import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
-import BoringValue from 'parser/ui/BoringValueText';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 import { BoxRowEntry } from '../PerformanceBoxRow';
 import { MitigationSegment, MitigationSegments } from './MitigationSegments';
@@ -81,8 +78,8 @@ export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
   return priorAmount - actualAmount;
 }
 
-const MitigationTooltipBody = 'div';
-const MitigationRowContainer = styled.div`
+export const MitigationTooltipBody = 'div';
+export const MitigationRowContainer = styled.div`
   display: grid;
   grid-template-columns: 2em 2em 100px;
   gap: 1em;
@@ -94,7 +91,7 @@ const MitigationRowContainer = styled.div`
   padding-bottom: 0.5em;
 `;
 
-const MitigationRow = ({
+export const MitigationRow = ({
   mitigation,
   segments,
   maxValue,
@@ -321,47 +318,6 @@ export default class MajorDefensive<
         ),
       };
     });
-  }
-
-  statistic(): ReactNode {
-    const tooltip = (
-      <MitigationTooltipBody>
-        <MitigationRowContainer>
-          <strong>Time</strong>
-          <strong>Mit.</strong>
-        </MitigationRowContainer>
-        {this.mitigationData.map((mit) => (
-          <MitigationRow
-            mitigation={mit}
-            segments={this.mitigationSegments(mit)}
-            fightStart={this.owner.fight.start_time}
-            maxValue={Math.max.apply(
-              null,
-              this.mitigationData.map((mit) => mit.amount),
-            )}
-            key={mit.start.timestamp}
-          />
-        ))}
-      </MitigationTooltipBody>
-    );
-    return (
-      <Statistic category={STATISTIC_CATEGORY.THEORYCRAFT} size="flexible" tooltip={tooltip}>
-        <BoringValue
-          label={
-            <>
-              <SpellLink spell={this.spell} /> Damage Mitigated
-            </>
-          }
-        >
-          <img alt="Damage Mitigated" src="/img/shield.png" className="icon" />{' '}
-          {formatNumber(
-            this.mitigationData
-              .flatMap((mit) => mit.mitigated.map((event) => event.mitigatedAmount))
-              .reduce((a, b) => a + b, 0),
-          )}
-        </BoringValue>
-      </Statistic>
-    );
   }
 }
 

@@ -6,6 +6,7 @@ import {
   buff,
   MajorDefensiveBuff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   DamageEvent,
@@ -13,6 +14,7 @@ import Events, {
   DrainEvent,
   HealEvent,
 } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 
 class DampenHarm extends MajorDefensiveBuff {
@@ -94,6 +96,10 @@ class DampenHarm extends MajorDefensiveBuff {
         </p>
       </>
     );
+  }
+
+  statistic(): ReactNode {
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.TALENTS} />;
   }
 }
 
