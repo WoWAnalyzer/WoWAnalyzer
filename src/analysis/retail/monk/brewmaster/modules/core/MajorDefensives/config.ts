@@ -5,9 +5,9 @@ import { FortifyingBrew } from './FortifyingBrew';
 import { ZenMeditation } from './ZenMeditation';
 
 export const MAJOR_ANALYZERS = [
-  CelestialBrew,
   FortifyingBrew,
   DampenHarm,
+  CelestialBrew,
   DiffuseMagic,
   ZenMeditation,
 ] as const;

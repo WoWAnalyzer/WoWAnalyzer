@@ -1,6 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellLink, TooltipElement } from 'interface';
+import {
+  absoluteMitigation,
+  buff,
+  MajorDefensiveBuff,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   DamageEvent,
@@ -9,16 +14,14 @@ import Events, {
   HealEvent,
 } from 'parser/core/Events';
 import { ReactNode } from 'react';
-import {
-  MajorDefensive,
-  absoluteMitigation,
-} from '../brewmaster/modules/core/MajorDefensives/core';
 
-class DampenHarm extends MajorDefensive {
+class DampenHarm extends MajorDefensiveBuff {
   currentMaxHP = 0;
 
   constructor(options: Options) {
-    super({ talent: talents.DAMPEN_HARM_TALENT }, options);
+    super(talents.DAMPEN_HARM_TALENT, buff(talents.DAMPEN_HARM_TALENT), options);
+
+    this.active = this.selectedCombatant.hasTalent(talents.DAMPEN_HARM_TALENT);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.updateMaxHP);
     this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.updateMaxHP);
@@ -31,7 +34,7 @@ class DampenHarm extends MajorDefensive {
     if (event.ability.guid === SPELLS.STAGGER_TAKEN.id) {
       return;
     }
-    if (!this.defensiveActive) {
+    if (!this.defensiveActive(event)) {
       return;
     }
     const maxHP = event.maxHitPoints || this.currentMaxHP;

@@ -16,17 +16,21 @@ import {
 } from 'interface/guide/components/DamageTakenPointChart';
 import Explanation from 'interface/guide/components/Explanation';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
+import MajorDefensive, {
+  MitigatedEvent,
+  Mitigation,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { Highlight } from 'interface/Highlight';
 import { AbilityEvent, HasAbility, HasSource } from 'parser/core/Events';
+import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { useCallback, useState } from 'react';
 import { MAJOR_ANALYZERS } from '../config';
-import { MajorDefensive, MitigatedEvent, Mitigation, PerformanceUsageRow } from '../core';
 import { useMaxMitigationValue } from './Timeline';
 
 const MissingCastBoxEntry = {
@@ -110,7 +114,13 @@ const CooldownDetailsContainer = styled.div`
   }
 `;
 
-const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mitigation }) => {
+const CooldownDetails = ({
+  analyzer,
+  mit,
+}: {
+  analyzer: MajorDefensive<any, any>;
+  mit?: Mitigation;
+}) => {
   if (!mit) {
     return (
       <CooldownDetailsContainer>
@@ -241,7 +251,7 @@ const CooldownDetails = ({ analyzer, mit }: { analyzer: MajorDefensive; mit?: Mi
   );
 };
 
-const CooldownUsage = ({ analyzer }: { analyzer: MajorDefensive }) => {
+const CooldownUsage = ({ analyzer }: { analyzer: MajorDefensive<any, any> }) => {
   const [selectedMit, setSelectedMit] = useState<number | undefined>();
   const maxValue = useMaxMitigationValue();
   const castEfficiency = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell);

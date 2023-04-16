@@ -8,7 +8,6 @@ import { useMemo } from 'react';
 import { useCallback, useState } from 'react';
 import { SignalListener } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
-import { Mitigation } from '../core';
 import { defensiveExpiration } from '../DefensiveBuffLinkNormalizer';
 import { buffId, MAJOR_DEFENSIVES } from '../DefensiveBuffs';
 import EmbeddedTimelineContainer, {
@@ -24,6 +23,7 @@ import {
   MitigationSegment,
   MitigationSegments,
 } from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import { Mitigation } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 
 type HoverKey = {
   analyzerClass: typeof Analyzer;
