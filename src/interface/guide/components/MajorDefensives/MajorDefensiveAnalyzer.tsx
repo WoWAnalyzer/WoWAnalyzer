@@ -24,6 +24,11 @@ import { MitigationSegment, MitigationSegments } from './MitigationSegments';
 import { PerformanceMark } from 'interface/guide';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
+/**
+ * Trigger settings for a `MajorDefensive`. You probably want to use `buff` or `debuff`
+ * instead of using this yourself, but if you have a weirdo defensive that doesn't use
+ * buffs/debuffs then you may need this.
+ */
 export type DefensiveTrigger<Apply extends EventType, Remove extends EventType> = {
   applyTrigger: EventFilter<Apply>;
   removeTrigger: EventFilter<Remove>;
@@ -31,6 +36,12 @@ export type DefensiveTrigger<Apply extends EventType, Remove extends EventType> 
   isMatchingApply: (event: AbilityEvent<any>) => boolean;
 };
 
+/**
+ * Construct the trigger settings for a `MajorDefensiveBuff`.
+ *
+ * The spell passed should be the one that is actually applied to the player,
+ * not the one that is cast. Yes, those two spells are sometimes different.
+ */
 export const buff = (
   buffSpell: Spell,
 ): DefensiveTrigger<EventType.ApplyBuff, EventType.RemoveBuff> => ({
@@ -41,6 +52,12 @@ export const buff = (
     event.type === EventType.ApplyBuff && event.ability.guid === buffSpell.id,
 });
 
+/**
+ * Construct the trigger settings for a `MajorDefensiveDebuff`.
+ *
+ * The spell passed should be the one that is actually applied to the target,
+ * not the one that is cast. Yes, those two spells are sometimes different.
+ */
 export const debuff = (
   buffSpell: Spell,
 ): DefensiveTrigger<EventType.ApplyDebuff, EventType.RemoveDebuff> => ({
@@ -51,11 +68,23 @@ export const debuff = (
     event.type === EventType.ApplyDebuff && event.ability.guid === buffSpell.id,
 });
 
+/**
+ * A mitigated event. Typically the `event` field will be a `DamageEvent`, but
+ * sometimes it makes sense to use other things (like `AbsorbedEvent` or `HealEvent`).
+ */
 export type MitigatedEvent = {
   event: AnyEvent;
   mitigatedAmount: number;
 };
 
+/**
+ * A single mitigation window. May be buff/debuff (or other?). Holds the total
+ * amount of damage mitigated, along with the events that were mitigated.
+ *
+ * For convenience, the types default to `any` so you can use it as just `Mitigation`
+ * since it pops up a lot and you *almost never* need to know the start/end types
+ * (typically, you only need the timestamps).
+ */
 export type Mitigation<Apply extends EventType = any, Remove extends EventType = any> = {
   start: MappedEvent<Apply>;
   end: MappedEvent<Remove> | FightEndEvent;
@@ -78,7 +107,11 @@ export function absoluteMitigation(event: DamageEvent, mitPct: number): number {
   return priorAmount - actualAmount;
 }
 
-export const MitigationTooltipBody = 'div';
+/**
+ * Set the default sizes for `MitigationRow`.
+ *
+ * You probably aren't looking for this unless you're rendering a `MitigationRow` yourself.
+ */
 export const MitigationRowContainer = styled.div`
   display: grid;
   grid-template-columns: 2em 2em 100px;
@@ -91,6 +124,11 @@ export const MitigationRowContainer = styled.div`
   padding-bottom: 0.5em;
 `;
 
+/**
+ * Row showing the duration and mitigation amount, along with the `MitigationSegments`.
+ *
+ * The `MitigationRowContainer` component is used to size things appropriately in most instances.
+ */
 export const MitigationRow = ({
   mitigation,
   segments,
@@ -112,13 +150,27 @@ export const MitigationRow = ({
 };
 
 /**
- * An analyzer for a major defensive cooldown.
+ * An analyzer for a major defensive cooldown tracking the total amount of damage mitigated.
  *
  * While this works for short cooldowns, it is intended for use with longer cooldowns,
  * such as your typical 2+ minute damage reduction CDs.
  *
  * You probably want to extend `MajorDefensiveBuff` or `MajorDefensiveDebuff` to set
  * the type parameters automatically instead of using this directly.
+ *
+ * ## Usage
+ *
+ * A basic "Reduce damage taken by X%" cooldown can be implemented by doing the following:
+ *
+ * 1. Extend `MajorDefensiveBuff` or `MajorDefensiveDebuff`.
+ * 2. Call the constructor with (1) the spell to display (used for icons and tooltips),
+ *    (2) the `DefensiveTrigger` (usually made by `buff` or `debuff`),
+ *    and the `options` passed into your analyzer.
+ * 3. Add an event listener for damage, and in the handler call `this.recordMitigation`
+ *    if `this.defensiveActive(event)` is true. You can use the `absoluteMitigation` helper
+ *    function to calculate the amount of damage mitigated.
+ *
+ * If you are working with a talented cooldown, remember that you need to check `hasTalent` yourself!
  *
  * ## Example
  *
@@ -129,6 +181,8 @@ export const MitigationRow = ({
  * If you're searching for something a little more involved, Brewmaster's Fortifying Brew
  * module has multiple DR sources contributing (Fort Brew itself, plus the increased contribution
  * from Purifying Brew).
+ *
+ * If you are working on a debuff instead of a buff, look at Vengeance's Fiery Brand implementation.
  */
 export default class MajorDefensive<
   Apply extends EventType,
@@ -244,6 +298,15 @@ export default class MajorDefensive<
     return this.mitigationData;
   }
 
+  /**
+   * Break down a `Mitigation` into one or more `MitigationSegment`s.
+   *
+   * The default implementation gives you a single segment capturing
+   * the entire amount mitigated.
+   *
+   * If you want to do something more complicated (for example: showing
+   * the extra mitigation gained from a talent), override this method.
+   */
   mitigationSegments(mit: Mitigation<Apply, Remove>): MitigationSegment[] {
     return [
       {
@@ -254,6 +317,12 @@ export default class MajorDefensive<
     ];
   }
 
+  /**
+   * Get the first seen max HP of the player.
+   *
+   * This is used to normalize performance data in
+   * a relatively robust way across tiers.
+   */
   get firstSeenMaxHp(): number {
     return (
       this.owner.eventHistory.find(
@@ -286,11 +355,19 @@ export default class MajorDefensive<
     return { perf: QualitativePerformance.Good };
   }
 
-  // TODO: make abstract
+  // TODO: make abstract?
+  /**
+   * Description shown in `AllCooldownUsagesList`.
+   */
   description(): ReactNode {
     return <>TODO</>;
   }
 
+  /**
+   * Generate `BoxRowEntry`s for each use of the mitigation ability.
+   *
+   * If you want to filter or customize the entries, override this method.
+   */
   mitigationPerformance(maxValue: number): BoxRowEntry[] {
     return this.mitigationData.map((mit) => {
       const { perf, explanation } = this.explainPerformance(mit);
@@ -301,7 +378,7 @@ export default class MajorDefensive<
             <PerformanceUsageRow>
               <PerformanceMark perf={perf} /> {explanation ?? 'Good Usage'}
             </PerformanceUsageRow>
-            <MitigationTooltipBody>
+            <div>
               <MitigationRowContainer>
                 <strong>Time</strong>
                 <strong>Mit.</strong>
@@ -313,7 +390,7 @@ export default class MajorDefensive<
                 maxValue={maxValue}
                 key={mit.start.timestamp}
               />
-            </MitigationTooltipBody>
+            </div>
           </>
         ),
       };
@@ -322,7 +399,19 @@ export default class MajorDefensive<
 }
 
 // technically subclassing, but in practice this is the only way to do type aliases that set type parameters for classes
+
+/**
+ * `MajorDefensive` that has types pre-set for handling buffs.
+ *
+ * @see MajorDefensive for full documentation
+ */
 export class MajorDefensiveBuff extends MajorDefensive<EventType.ApplyBuff, EventType.RemoveBuff> {}
+
+/**
+ * `MajorDefensive` that has types pre-set for handling debuffs.
+ *
+ * @see MajorDefensive for full documentation
+ */
 export class MajorDefensiveDebuff extends MajorDefensive<
   EventType.ApplyDebuff,
   EventType.RemoveDebuff

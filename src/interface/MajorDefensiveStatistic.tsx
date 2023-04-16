@@ -4,7 +4,6 @@ import Statistic from 'parser/ui/Statistic';
 import MajorDefensive, {
   MitigationRow,
   MitigationRowContainer,
-  MitigationTooltipBody,
 } from './guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 import { useFight } from './report/context/FightContext';
 import SpellLink from './SpellLink';
@@ -18,7 +17,7 @@ export default function MajorDefensiveStatistic({
 >): JSX.Element {
   const { fight } = useFight();
   const tooltip = (
-    <MitigationTooltipBody>
+    <div>
       <MitigationRowContainer>
         <strong>Time</strong>
         <strong>Mit.</strong>
@@ -35,7 +34,7 @@ export default function MajorDefensiveStatistic({
           key={mit.start.timestamp}
         />
       ))}
-    </MitigationTooltipBody>
+    </div>
   );
   return (
     <Statistic
