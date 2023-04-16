@@ -21,15 +21,14 @@ import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { CSSProperties, useCallback, useMemo, useState } from 'react';
 import { MAJOR_ANALYZERS } from '../config';
-import {
-  MajorDefensive,
-  MitigatedEvent,
-  Mitigation,
-  MitigationTooltipSegment,
-  PerformanceUsageRow,
-} from '../core';
 import { useMaxMitigationValue } from './Timeline';
 import useTooltip from 'interface/useTooltip';
+import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
+import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import MajorDefensive, {
+  MitigatedEvent,
+  Mitigation,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 
 const MissingCastBoxEntry = {
   value: QualitativePerformance.Fail,
@@ -250,7 +249,7 @@ const CooldownDetails = <ApplyEventType extends EventType, RemoveEventType exten
           </tr>
           {segments.map((seg, ix) => (
             <tr key={ix}>
-              <td style={{ width: '100%' }}>{seg.tooltip}</td>
+              <td style={{ width: '100%' }}>{seg.description}</td>
               <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
               <TableSegmentContainer>
                 {ix > 0 && (

@@ -365,6 +365,7 @@ export default class MajorDefensive<
   }
 }
 
+// technically subclassing, but in practice this is the only way to do type aliases that set type parameters for classes
 export class MajorDefensiveBuff extends MajorDefensive<EventType.ApplyBuff, EventType.RemoveBuff> {}
 export class MajorDefensiveDebuff extends MajorDefensive<
   EventType.ApplyDebuff,

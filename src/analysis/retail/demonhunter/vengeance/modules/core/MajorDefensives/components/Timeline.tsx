@@ -7,7 +7,6 @@ import { AbilityEvent, ApplyBuffEvent, EventType, HasAbility } from 'parser/core
 import { useCallback, useMemo, useState } from 'react';
 import { SignalListener } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
-import { Mitigation, MitigationSegment, MitigationSegments } from '../core';
 import { defensiveExpiration } from '../DefensiveBuffLinkNormalizer';
 import { buffId, MAJOR_DEFENSIVES } from '../DefensiveBuffs';
 import EmbeddedTimelineContainer, {
@@ -20,6 +19,11 @@ import Cooldowns from 'interface/report/Results/Timeline/Cooldowns';
 import { MAJOR_ANALYZERS, TIMELINE_ANALYZERS } from '../config';
 import { DamageMitigationChart } from './DamageMitigationChart';
 import { isTalent } from 'common/TALENTS/types';
+import {
+  MitigationSegment,
+  MitigationSegments,
+} from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import { Mitigation } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 
 type HoverKey = {
   analyzerClass: typeof Analyzer;
@@ -69,6 +73,9 @@ export const MitigationLabel = <
   long?: boolean;
 }) => {
   const fightStart = useInfo()?.fightStart ?? 0;
+  if (!HasAbility(mitigation.start)) {
+    return null;
+  }
   return (
     <>
       <SpellLink id={mitigation.start.ability.guid} />

@@ -1,6 +1,5 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { BuffBasedMajorDefensive } from './core';
 import Events, { DamageEvent } from 'parser/core/Events';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
@@ -8,15 +7,19 @@ import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { getArmorMitigationForEvent } from 'parser/retail/armorMitigation';
+import {
+  buff,
+  MajorDefensiveBuff,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
 
-export default class DemonSpikes extends BuffBasedMajorDefensive {
+export default class DemonSpikes extends MajorDefensiveBuff {
   static dependencies = {
-    ...BuffBasedMajorDefensive.dependencies,
+    ...MajorDefensiveBuff.dependencies,
     statTracker: StatTracker,
   };
 
   constructor(options: Options & { statTracker: StatTracker }) {
-    super({ triggerSpell: SPELLS.DEMON_SPIKES, appliedSpell: SPELLS.DEMON_SPIKES_BUFF }, options);
+    super(SPELLS.DEMON_SPIKES, buff(SPELLS.DEMON_SPIKES_BUFF), options);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
     options.statTracker.add(SPELLS.DEMON_SPIKES_BUFF.id, {
       armor: () => this.bonusArmorGain(options.statTracker),
@@ -29,7 +32,7 @@ export default class DemonSpikes extends BuffBasedMajorDefensive {
 
   private recordDamage(event: DamageEvent) {
     if (
-      !this.defensiveActive ||
+      !this.defensiveActive(event) ||
       event.sourceIsFriendly ||
       event.ability.type !== MAGIC_SCHOOLS.ids.PHYSICAL
     ) {
