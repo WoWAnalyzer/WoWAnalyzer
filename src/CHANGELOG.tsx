@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 4, 16), 'Ported Major Defensive guide sections to core code so other tank specs can use it.', emallson),
   change(date(2023, 4, 16), 'Ported Shuffle chart to core code so other tank specs can use it.', emallson),
   change(date(2023, 4, 8), 'Improve support for older browsers', emallson),
   change(date(2023, 4, 2), 'Add Healthstone Checker for Classic WotLK.', jazminite),
