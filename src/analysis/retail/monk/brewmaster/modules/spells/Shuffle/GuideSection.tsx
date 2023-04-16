@@ -1,8 +1,7 @@
-import styled from '@emotion/styled';
 import colorForPerformance from 'common/colorForPerformance';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
+import { BadColor, SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import { Info } from 'parser/core/metric';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import Shuffle from './index';
@@ -14,14 +13,7 @@ import { MAGIC_STAGGER_EFFECTIVENESS } from '../../../constants';
 import DamageTakenPointChart, {
   TrackedHit,
 } from 'interface/guide/components/DamageTakenPointChart';
-
-export const Highlight = styled.span<{ color: string; textColor?: string }>`
-  background-color: ${(props) => props.color};
-  padding: 0 3px;
-  ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
-`;
-
-const red = colorForPerformance(0);
+import { Highlight } from 'interface/Highlight';
 
 function HitTooltipContent({ hit }: { hit: TrackedHit }) {
   const info = useInfo()!;
@@ -75,7 +67,7 @@ function ShuffleOverview({ shuffle, info }: { shuffle: Shuffle; info: Info }): J
       <strong>Damage Taken</strong>{' '}
       <small>
         - Hits without Shuffle are shown in{' '}
-        <Highlight color={red} textColor="white">
+        <Highlight color={BadColor} textColor="white">
           red
         </Highlight>
         .
@@ -103,7 +95,7 @@ export default function ShuffleSection(): JSX.Element {
             This chart shows your <SpellLink id={SPELLS.SHUFFLE} /> uptime along with the damage
             that you took. <strong>You do not need 100% uptime!</strong> However, damage taken
             without <SpellLink id={SPELLS.SHUFFLE} /> active (shown in{' '}
-            <Highlight color={red}>red</Highlight>) is very dangerous!
+            <Highlight color={BadColor}>red</Highlight>) is very dangerous!
           </p>
         </Explanation>
         <ShuffleOverview info={info} shuffle={shuffle} />
