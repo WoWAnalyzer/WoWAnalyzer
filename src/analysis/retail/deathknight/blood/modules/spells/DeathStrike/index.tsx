@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { Problem } from 'interface/guide/components/ProblemList';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   ApplyBuffEvent,
@@ -28,8 +28,14 @@ export enum DeathStrikeReason {
   LowHealth,
 }
 
+function isMeleeAttack(event: DamageEvent): boolean {
+  // negative values encode magic autos
+  return event.ability.guid === 1 || event.ability.guid < 0;
+}
+
 const GOOD_HIT_THRESHOLD = 0.2;
 const LOW_HP_THRESHOLD = 0.5; // BDK gets a pretty high low hp threshold because of low mitigation.
+const FOLLOWUP_WINDOW = 6000;
 // 1 rp = 10 in the event.
 export const DUMP_RP_THRESHOLD = 850;
 export const BLOOD_SHIELD_THRESHOLD = 0.7;
@@ -37,6 +43,9 @@ export const BLOOD_SHIELD_THRESHOLD = 0.7;
 type CastReason = {
   reason: DeathStrikeReason;
   cast: CastEvent;
+  followupDamageTaken?: number;
+  followupAbsorbedDamage?: number;
+  hasFollowupMelee?: boolean;
 };
 
 type BSQueueEntry = {
@@ -58,7 +67,6 @@ export type DeathStrikeProblem = Problem<
   }
 >;
 
-// TODO: i want to also rank by the amount of damage taken in the next X seconds
 function castProblem(data: CastReason, rp: RunicPowerTracker): DeathStrikeProblem['data'] {
   const rpData = rp.getResource(data.cast);
 
@@ -95,6 +103,9 @@ export default class DeathStrike extends Analyzer {
     this.addEventListener(Events.heal.spell(SPELLS.DEATH_STRIKE_HEAL), this.recordHeal);
     this.addEventListener(Events.absorbed.spell(SPELLS.BLOOD_SHIELD), this.recordAbsorb);
     this.addEventListener(Events.removebuff.spell(SPELLS.BLOOD_SHIELD), this.clearBloodShield);
+
+    this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamageTaken);
+    this.addEventListener(Events.fightend, this.finalizeCastReasons);
   }
 
   private clearBloodShield() {
@@ -115,10 +126,12 @@ export default class DeathStrike extends Analyzer {
           data,
           range: {
             start: cast.cast.timestamp,
-            end: cast.cast.timestamp,
+            end: cast.cast.timestamp + FOLLOWUP_WINDOW,
           },
-          context: 10000,
-          severity: data.hitPoints * (data.maxRunicPower - data.runicPower),
+          context: 3000,
+          severity: data.followupDamageTaken
+            ? (data.followupDamageTaken ?? 0) + (data.followupAbsorbedDamage ?? 0)
+            : (data.hitPoints / 100) * ((data.maxRunicPower - data.runicPower) / 10),
         };
       });
   }
@@ -252,6 +265,41 @@ export default class DeathStrike extends Analyzer {
       for (const entry of targetEntries) {
         if (entry.cast.reason < DeathStrikeReason.BloodShield) {
           entry.cast.reason = DeathStrikeReason.BloodShield;
+        }
+      }
+    }
+  }
+
+  private recordDamageTaken(event: DamageEvent) {
+    const lastCast = this.casts.at(-1);
+
+    if (!lastCast || event.timestamp - lastCast.cast.timestamp > FOLLOWUP_WINDOW) {
+      return;
+    }
+
+    // for this we actually explicitly *don't include* absorbs in the overall damage because it makes the charts look jank and this is only for sorting
+    lastCast.followupDamageTaken =
+      (lastCast.followupDamageTaken ?? 0) + event.amount + (event.overkill ?? 0);
+    lastCast.followupAbsorbedDamage =
+      (lastCast.followupAbsorbedDamage ?? 0) + (event.absorbed ?? 0);
+    lastCast.hasFollowupMelee = lastCast.hasFollowupMelee || isMeleeAttack(event);
+  }
+
+  /**
+   * do a final pass to turn any death strike casts that occurred while not actively tanking into "Dump RP" casts.
+   *
+   * the rule is, if you didn't take any relevant damage (at least 50% of HP) or melees in the `FOLLOWUP_WINDOW` after the cast, you're not actively tanking.
+   */
+  private finalizeCastReasons() {
+    for (const cast of this.casts) {
+      if (cast.reason === DeathStrikeReason.Other && !cast.hasFollowupMelee) {
+        const healEvent = GetRelatedEvents(cast.cast, DEATH_STRIKE_HEAL)?.[0] as
+          | HealEvent
+          | undefined;
+        const maxHp = healEvent?.maxHitPoints ?? 0;
+
+        if (cast.followupDamageTaken ?? 0 <= maxHp / 2) {
+          cast.reason = DeathStrikeReason.DumpRP;
         }
       }
     }

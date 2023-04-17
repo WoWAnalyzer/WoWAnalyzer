@@ -14,10 +14,9 @@ interface HornCast {
   timestamp: number;
   wastedRp: number;
   wastedRunes: number;
+  gainedRp: number;
+  gainedRunes: number;
 }
-
-const RUNIC_POWER_GENERATED = 25;
-const RUNES_GENERATED = 2;
 
 export default class HornOfWinter extends Analyzer {
   howTracker: HornCast[] = [];
@@ -25,6 +24,8 @@ export default class HornOfWinter extends Analyzer {
   currentTimestamp = 0;
   wastedRp = 0;
   wastedRunes = 0;
+  gainedRunes = 0;
+  gainedRp = 0;
 
   constructor(options: Options) {
     super(options);
@@ -45,18 +46,26 @@ export default class HornOfWinter extends Analyzer {
 
   onResourceGain(event: ResourceChangeEvent) {
     if (event.resourceChangeType === RESOURCE_TYPES.RUNES.id) {
+      this.gainedRunes = event.resourceChange - event.waste;
       this.wastedRunes = event.waste;
     } else if (event.resourceChangeType === RESOURCE_TYPES.RUNIC_POWER.id) {
+      this.gainedRp = event.resourceChange - event.waste;
       this.wastedRp = event.waste;
     }
   }
 
   onCast(event: CastEvent) {
-    const wastedRp = this.wastedRp;
-    const wastedRunes = this.wastedRunes;
-    this.howTracker.push({ timestamp: event.timestamp, wastedRp, wastedRunes });
+    this.howTracker.push({
+      timestamp: event.timestamp,
+      wastedRp: this.wastedRp,
+      wastedRunes: this.wastedRunes,
+      gainedRunes: this.gainedRunes,
+      gainedRp: this.gainedRp,
+    });
     this.wastedRp = 0;
     this.wastedRunes = 0;
+    this.gainedRp = 0;
+    this.gainedRunes = 0;
   }
 
   get guideCastBreakdown() {
@@ -90,7 +99,7 @@ export default class HornOfWinter extends Analyzer {
           checklistItems.push({
             label: 'Runic Power Gained',
             result: <PerformanceMark perf={runicPowerPerf} />,
-            details: <>{RUNIC_POWER_GENERATED - cast.wastedRp}</>,
+            details: <>{cast.gainedRp - cast.wastedRp}</>,
           });
 
           const runesPerf = cast.wastedRunes
@@ -99,7 +108,7 @@ export default class HornOfWinter extends Analyzer {
           checklistItems.push({
             label: 'Runes Gained',
             result: <PerformanceMark perf={runesPerf} />,
-            details: <>{RUNES_GENERATED - cast.wastedRunes}</>,
+            details: <>{cast.gainedRunes - cast.wastedRunes}</>,
           });
 
           let overallPerf = QualitativePerformance.Good;
