@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 4, 17), 'Update Classic WotLK Priest spells.', jazminite),
   change(date(2023, 4, 16), 'Ported Major Defensive guide sections to core code so other tank specs can use it.', emallson),
   change(date(2023, 4, 16), 'Ported Shuffle chart to core code so other tank specs can use it.', emallson),
   change(date(2023, 4, 15), 'Add Classic WotLK Raid Buffs to Fight Report page.', jazminite),

@@ -174,7 +174,7 @@ class ShadowWordPain extends Analyzer {
       suggest(
         <span>
           <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> is automatically refreshed by{' '}
-          <SpellLink id={SPELLS.PAIN_AND_SIFFERING_TALENT.id} />. Try to avoid hardcasting{' '}
+          <SpellLink id={SPELLS.PAIN_AND_SUFFERING_TALENT.id} />. Try to avoid hardcasting{' '}
           <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> unless you cast it with less than 5 stacks
           of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />
         </span>,
