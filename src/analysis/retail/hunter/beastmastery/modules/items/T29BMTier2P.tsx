@@ -8,6 +8,8 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import SpellUsable from '../core/SpellUsable';
+import { TALENTS_HUNTER } from 'common/TALENTS';
+import { SpellLink } from 'interface';
 
 const KILL_COMMAND_INCREASED_DAMAGE = 0.1;
 
@@ -42,7 +44,10 @@ export default class T29BMTier2P extends Analyzer {
       <Statistic category={STATISTIC_CATEGORY.ITEMS}>
         <BoringSpellValueText spell={SPELLS.T29_2P_BONUS_BEAST_MASTERY}>
           <ItemDamageDone amount={this.totalDamage} />
-          <br />≈{this.spellUsable.barbedShotResetsFromT29} <small>Barbed Shot Resets</small>
+          <br />≈{this.spellUsable.barbedShotResetsFromT29}{' '}
+          <small>
+            <SpellLink id={TALENTS_HUNTER.BARBED_SHOT_TALENT.id} /> Resets
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );

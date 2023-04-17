@@ -719,10 +719,16 @@ const spells = spellIndexableList({
     name: 'T29 2P',
     icon: 'ability_hunter_killcommand',
   },
+  //T29 4P
   T29_4P_BONUS_BEAST_MASTERY: {
     id: 393647,
     name: 'T29 4P',
-    icon: 'ability_hunter_killcommand',
+    icon: 'ability_hunter_focusfire',
+  },
+  LETHAL_COMMAND: {
+    id: 394298,
+    name: 'Lethal Command',
+    icon: 'ability_hunter_focusfire',
   },
 });
 

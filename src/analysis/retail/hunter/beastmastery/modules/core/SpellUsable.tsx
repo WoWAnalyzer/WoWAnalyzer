@@ -76,7 +76,6 @@ class SpellUsable extends CoreSpellUsable {
     const spellId = triggerEvent.ability.guid;
     if (spellId === TALENTS.BARBED_SHOT_TALENT.id) {
       if (this.isOnCooldown(spellId) && this.chargesAvailable(spellId) === 0) {
-        console.log('resetting barbed shot', this._tierCanResetBarbedShot);
         if (this._tierCanResetBarbedShot) {
           this._barbedShotResetsFromT29 += 1;
         }

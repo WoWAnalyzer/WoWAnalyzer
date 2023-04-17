@@ -50,7 +50,9 @@ class DireBeast extends Analyzer {
       ];
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
     this.addEventListener(
-      Events.summon.by(SELECTED_PLAYER).spell(SPELLS.DIRE_BEAST_SUMMON),
+      Events.summon
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.DIRE_BEAST_SUMMON, SPELLS.DIRE_BEAST_GLYPHED]),
       this.onDireSummon,
     );
     this.addEventListener(
