@@ -44,7 +44,8 @@ export interface Dungeon {
 
 const raids = {
   // Dragonflight
-  Dungeons: require('./mythicplusseasonone').default,
+  MythicPlusSeasonOne: require('./mythicplusseasonone').default,
+  MythicPlusSeasonTwo: require('./mythicplusseasontwo').default,
   VaultOfTheIncarnates: require('./vaultoftheincarnates').default, // tier 29
   Aberrus: require('./aberrus').default, // tier 30
   // The Burning Cursage

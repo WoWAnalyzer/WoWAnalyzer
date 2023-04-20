@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 4, 20), 'Add M+ season 2 images.', ToppleTheNun),
   change(date(2023, 4, 19), 'Add Aberrus raid images.', ToppleTheNun),
   change(date(2023, 4, 16), 'Ported Major Defensive guide sections to core code so other tank specs can use it.', emallson),
   change(date(2023, 4, 16), 'Ported Shuffle chart to core code so other tank specs can use it.', emallson),
