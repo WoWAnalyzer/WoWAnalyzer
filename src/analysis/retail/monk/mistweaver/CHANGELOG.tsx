@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 4, 20), <>Updated apl logic buckets to fix the wrong builds being recommended. Added a not supported warning for <SpellLink id={TALENTS_MONK.AWAKENED_FAELINE_TALENT.id}/> talent builds</>, Vohrr),
   change(date(2023, 4, 5), <>Update suggestions for <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> based on 10.0.7 changes</>, Trevor),
   change(date(2023, 3, 29), <>Improve accuracy of <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
   change(date(2023, 3, 27), <>Add Tier 30 Set Bonus Module.</>, Vohrr),
