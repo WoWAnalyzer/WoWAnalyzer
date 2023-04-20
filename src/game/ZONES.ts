@@ -2,6 +2,7 @@
 // only includes the raids from Dragonflight (showing older logs wouldn't make sense)
 import mythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import vaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
+import aberrus from 'game/raids/aberrus';
 
 // TODO: Refactor this (it's kind of strange and feels misplaced)
 
@@ -53,7 +54,17 @@ const ZONES: Zone[] = [
     id: 33,
     name: 'Aberrus',
     frozen: false,
-    encounters: [],
+    encounters: [
+      aberrus.bosses.Kazarra,
+      aberrus.bosses.AmalgamationChamber,
+      aberrus.bosses.ForgottenExperiments,
+      aberrus.bosses.AssaultOfTheZaqali,
+      aberrus.bosses.Rashok,
+      aberrus.bosses.Zskarn,
+      aberrus.bosses.Magmorax,
+      aberrus.bosses.EchoOfNeltharion,
+      aberrus.bosses.Sarkareth,
+    ],
     usePtrTooltips: true, // TODO: Mark this as false once Aberrus goes live
   },
   {

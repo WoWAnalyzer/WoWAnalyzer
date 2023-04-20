@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 4, 19), 'Add Aberrus raid images.', ToppleTheNun),
   change(date(2023, 4, 17), 'Update Classic WotLK Priest spells.', jazminite),
   change(date(2023, 4, 16), 'Ported Major Defensive guide sections to core code so other tank specs can use it.', emallson),
   change(date(2023, 4, 16), 'Ported Shuffle chart to core code so other tank specs can use it.', emallson),
@@ -62,12 +63,12 @@ export default [
   change(date(2023, 1, 31), 'Add raid specific haste buffs for Classic WotLK (Ulduar).', jazminite),
   change(date(2023, 1, 30), 'Lookup Classic spec by talent tree IF the icon is generic. Generic icons occur when the player changes talents during raid.', jazminite),
   change(date(2023, 1, 30), 'Update retail talent data', emallson),
-  change(date(2023, 1, 30), <>Fixed potion checker for <SpellLink id={ITEMS.POTION_OF_CHILLED_CLARITY_R3}/></>, Trevor),
+  change(date(2023, 1, 30), <>Fixed potion checker for <SpellLink spell={ITEMS.POTION_OF_CHILLED_CLARITY_R3}/></>, Trevor),
   change(date(2023, 1, 30), "Correct an issue with accessing undefined values in GetRelatedEvents, HasRelatedEvent and AddRelatedEvent", Putro),
   change(date(2023, 1, 26), 'Update performance box rows to use CSS grid instead of flexbox.', ToppleTheNun),
   change(date(2023, 1, 25), 'Bump retail patch to 10.0.5.', ToppleTheNun),
   change(date(2023, 1, 24), "Fixed an issue where Guide pages weren't showing by default", Sref),
-  change(date(2023, 1, 20), <>Adjust maximum combat potion usages to account for <SpellLink id={SPELLS.ALACRITOUS_ALCHEMIST_STONE} />.</>, ToppleTheNun),
+  change(date(2023, 1, 20), <>Adjust maximum combat potion usages to account for <SpellLink spell={SPELLS.ALACRITOUS_ALCHEMIST_STONE} />.</>, ToppleTheNun),
   change(date(2023, 1, 18), 'Add missing 3* weapon enhancements.', ToppleTheNun),
   change(date(2023, 1, 17), 'Add ability to generate PTR talents and add documentation on how to do so.', ToppleTheNun),
   change(date(2023, 1, 17), 'Add 10.0.5 patch information.', ToppleTheNun),
@@ -122,7 +123,7 @@ export default [
   change(date(2022, 11, 30), 'Add Dragonflight Engineering enchantments and weapon enchancements.', ToppleTheNun),
   change(date(2022, 11, 30), <>Add support for <ItemLink id={ITEMS.DRACONIC_AUGMENT_RUNE.id} />.</>, ToppleTheNun),
   change(date(2022, 11, 30), 'Add Vault of Incarnates to ZONES and remove Shadowlands raids from ZONES.', ToppleTheNun),
-  change(date(2022, 11, 30), <>Add Evoker's <SpellLink id={SPELLS.FURY_OF_THE_ASPECTS} /> as a Bloodlust buff.</>, ToppleTheNun),
+  change(date(2022, 11, 30), <>Add Evoker's <SpellLink spell={SPELLS.FURY_OF_THE_ASPECTS} /> as a Bloodlust buff.</>, ToppleTheNun),
   change(date(2022, 11, 30), <>Add support for <ItemLink id={ITEMS.REFRESHING_HEALING_POTION_R3.id} />.</>, ToppleTheNun),
   change(date(2022, 11, 29), 'Deprecate/disable access to Shadowlands covenants, soulbinds, conduits, and legendaries.', ToppleTheNun),
   change(date(2022, 11, 29), 'Fix encounter stats broken by the talent rework.', ToppleTheNun),
