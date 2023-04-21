@@ -12,7 +12,7 @@ import { SpellLink } from 'interface';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+//import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 //const rate = 0.0001;
 
@@ -61,7 +61,7 @@ class Voidform extends Analyzer {
     );
 
     this.addEventListener(Events.fightend, this.onFightend);
-
+    /*
     (options.abilities as Abilities).add({
       spell: SPELLS.VOID_BOLT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
@@ -75,6 +75,7 @@ class Voidform extends Analyzer {
         maxCasts: () => this.maxCastsVB,
       },
     });
+    */
   }
 
   onFightstart(event: DamageEvent) {
