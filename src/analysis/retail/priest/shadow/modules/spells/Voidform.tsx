@@ -5,6 +5,7 @@ import Events, {
   RemoveBuffEvent,
   DamageEvent,
   UpdateSpellUsableEvent,
+  //CombatantInfoEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import TALENTS from 'common/TALENTS/priest';
@@ -41,6 +42,7 @@ class Voidform extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT);
 
     //I don't know how to add an event listener at the start of the fight,
+    //this.addEventListener(Events., this.onFightStart)
     this.addEventListener(Events.damage, this.onFightstart);
 
     this.addEventListener(

@@ -7,21 +7,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
-      {
-        spell: SPELLS.VOID_BOLT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 6 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: false,
-          recommendedEfficiency: 0.85,
-          //maxCasts: calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
-        },
-        damageSpellIds: [SPELLS.VOID_BOLT.id, SPELLS.VOID_BOLT_DISSONANT_ECHOES.id],
-        enabled: false, //combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT),
-      },
+      //Voidbolt is added through Voidform module.
       {
         spell: SPELLS.MIND_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
