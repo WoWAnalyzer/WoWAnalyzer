@@ -6,7 +6,6 @@ import Events, {
   DamageEvent,
   UpdateSpellUsableEvent,
 } from 'parser/core/Events';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Abilities from 'parser/core/modules/Abilities';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -14,7 +13,6 @@ import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerform
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import SpellHistory from 'parser/shared/modules/SpellHistory';
 
 const rate = 0.0001;
 
@@ -22,13 +20,9 @@ class Voidform extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     spellUsable: SpellUsable,
-    castEfficiency: CastEfficiency,
-    spellHistory: SpellHistory,
   };
   protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
-  protected castEfficiency!: CastEfficiency;
-  protected spellHistory!: SpellHistory;
 
   casts = 0; //casts of voidform
   mindblast = 0; //number of mindblasts gained by entering voidform
