@@ -38,7 +38,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: 'report/7TWbXrFAwy9JGYRp/3-Heroic+Terros+-+Kill+(2:50)/Doxashe/standard',
+  exampleReport:
+    'report/DrWLJFZzBRV67PcK/5-Normal+The+Primal+Council+-+Kill+(3:05)/Doxashe/standard',
   guideDefault: true,
 
   // Don't change anything below this line;

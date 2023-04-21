@@ -5,7 +5,6 @@ import Events, {
   RemoveBuffEvent,
   DamageEvent,
   UpdateSpellUsableEvent,
-  //CombatantInfoEvent,
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import TALENTS from 'common/TALENTS/priest';
@@ -15,7 +14,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
-const rate = 0.0001;
+//const rate = 0.0001;
 
 class Voidform extends Analyzer {
   static dependencies = {
@@ -41,8 +40,7 @@ class Voidform extends Analyzer {
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT);
 
-    //I don't know how to add an event listener at the start of the fight,
-    //this.addEventListener(Events., this.onFightStart)
+    //this is to add an event listner for the start of the fight,
     this.addEventListener(Events.damage, this.onFightstart);
 
     this.addEventListener(
@@ -85,10 +83,39 @@ class Voidform extends Analyzer {
       startevent.timestamp = this.owner.fight.start_time;
       //At the start of the fight, VB is not available.
       //Set VB to be on cooldown, and slow the cooldown rate so it remains unusable.
-      this.spellUsable.applyCooldownRateChange(SPELLS.VOID_BOLT.id, rate);
-      this.spellUsable.beginCooldown(startevent, SPELLS.VOID_BOLT.id);
+      ////this.spellUsable.applyCooldownRateChange(SPELLS.VOID_BOLT.id, rate);
+      ////this.spellUsable.beginCooldown(startevent, SPELLS.VOID_BOLT.id);
     }
     this.oncestart += 1; //only do this once
+  }
+
+  enterVoidform(event: ApplyBuffEvent) {
+    //reset the tracker of VB update timestamps.
+    this.VB = [0];
+
+    //Voidform restores all charges of mindblast.
+    this.casts += 1;
+    this.mindblast += 2 - this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id);
+    this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
+
+    //Voidbolt becomes usable.
+    //It is off CD instantly and its cooldown rate is normal.
+    ////this.spellUsable.endCooldown(SPELLS.VOID_BOLT.id, event.timestamp, true, true);
+    ////this.spellUsable.removeCooldownRateChange(SPELLS.VOID_BOLT.id, rate);
+  }
+
+  leaveVoidform(event: RemoveBuffEvent) {
+    //Voidbolt becomes unavailable while not in voidform
+    //Set void bolt to be on cooldown, and slow the cooldown rate so it remains unusable.
+    ////this.spellUsable.applyCooldownRateChange(SPELLS.VOID_BOLT.id, rate);
+    ////this.spellUsable.beginCooldown(event, SPELLS.VOID_BOLT.id);
+
+    //for some reason, beginCooldown of voidbolt doesn't cause a spelluable update until later
+    //so to find the time between the last voidbolt update and end of voidform we need to add it in here.
+    this.VB.push(event.timestamp);
+
+    //Calculate missed potential casts of Void Bolt during this voidform.
+    this.getVB();
   }
 
   onVBUpdate(event: UpdateSpellUsableEvent) {
@@ -100,6 +127,7 @@ class Voidform extends Analyzer {
     this.castVB += 1;
   }
 
+  //VB is an unusal spell. It is likely that using ExecuteHelper would be better than looking here.
   getVB() {
     //convert raw timestamps of spellusables to time between them
     const diff = [];
@@ -109,10 +137,6 @@ class Voidform extends Analyzer {
     for (let i = 2; i < this.VB.length; i += 1) {
       diff[i - 2] = this.VB[i] - this.VB[i - 1];
     }
-
-    //console.log("VB", this.VB)
-    //console.log("VB time", this.owner.formatTimestamp(this.VB[1]), this.owner.formatTimestamp(this.VB[this.VB.length-1], 1))
-    //console.log("VB Diff", diff)
 
     let waste = 0;
     const cd = [];
@@ -140,37 +164,9 @@ class Voidform extends Analyzer {
       total = total + cd[i];
     }
     const averagecd = total / cd.length;
+    //console.log("average CD", averagecd)
 
     this.miss = this.miss + Math.floor(waste / averagecd); //Any remainder is not a possible cast, so it is floored.
-  }
-
-  enterVoidform(event: ApplyBuffEvent) {
-    //reset the tracker of VB update timestamps.
-    this.VB = [0];
-
-    //Voidform restores all charges of mindblast.
-    this.casts += 1;
-    this.mindblast += 2 - this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id);
-    this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
-
-    //Voidbolt becomes usable.
-    //It is off CD instantly and its cooldown rate is normal.
-    this.spellUsable.endCooldown(SPELLS.VOID_BOLT.id, event.timestamp, true, true);
-    this.spellUsable.removeCooldownRateChange(SPELLS.VOID_BOLT.id, rate);
-  }
-
-  leaveVoidform(event: RemoveBuffEvent) {
-    //Voidbolt becomes unavailable while not in voidform
-    //Set void bolt to be on cooldown, and slow the cooldown rate so it remains unusable.
-    this.spellUsable.applyCooldownRateChange(SPELLS.VOID_BOLT.id, rate);
-    this.spellUsable.beginCooldown(event, SPELLS.VOID_BOLT.id);
-
-    //for some reason, beginCooldown of voidbolt doesn't cause a spelluable update until later
-    //so to find the time between the last voidbolt update and end of voidform we need to add it in here.
-    this.VB.push(event.timestamp);
-
-    //Calculate missed potential casts of Void Bolt during this voidform.
-    this.getVB();
   }
 
   onFightend() {
