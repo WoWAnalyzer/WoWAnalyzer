@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { RETAIL_EXPANSION } from 'game/Expansion';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
 } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -8,20 +9,13 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: TALENTS_MONK.MANA_TEA_TALENT.id,
-      summary: [
-        BUILT_IN_SUMMARY_TYPES.HEALING,
-        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
-        BUILT_IN_SUMMARY_TYPES.MANA,
-      ],
-    },
-    {
       spell: TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
       summary: [
         BUILT_IN_SUMMARY_TYPES.HEALING,
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
+      expansion: RETAIL_EXPANSION,
     },
     {
       spell: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
@@ -30,6 +24,19 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.OVERHEALING,
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
+      expansion: RETAIL_EXPANSION,
+    },
+  ];
+  static castCooldowns = [
+    ...CoreCooldownThroughputTracker.castCooldowns,
+    {
+      spell: TALENTS_MONK.MANA_TEA_TALENT.id,
+      summary: [
+        BUILT_IN_SUMMARY_TYPES.HEALING,
+        BUILT_IN_SUMMARY_TYPES.OVERHEALING,
+        BUILT_IN_SUMMARY_TYPES.MANA,
+      ],
+      expansion: RETAIL_EXPANSION,
     },
   ];
 

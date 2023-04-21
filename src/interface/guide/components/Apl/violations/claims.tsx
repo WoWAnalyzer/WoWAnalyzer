@@ -7,6 +7,7 @@ import {
   Apl,
   CheckResult,
   InternalRule,
+  isRuleEqual,
   spells,
   TargetType,
   Tense,
@@ -15,6 +16,7 @@ import {
 import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
 import Enemies from 'parser/shared/modules/Enemies';
 import useTooltip from 'interface/useTooltip';
+import Combatants from 'parser/shared/modules/Combatants';
 
 export type AplProblemData<T> = {
   claims: Set<Violation>;
@@ -54,13 +56,14 @@ const defaultClaimFilter = (
   rule: InternalRule,
   claims: Set<Violation>,
 ): boolean => {
-  const successes = result.successes.filter((suc) => suc.rule === rule).length;
+  const successes = result.successes.filter((suc) => isRuleEqual(suc.rule, rule)).length;
 
   return claims.size > minClaimCount(result) && claims.size / (successes + claims.size) > 0.4;
 };
 
 function TargetName({ event }: { event: AnyEvent }) {
   const combatants = useAnalyzer(Enemies);
+  const friendlies = useAnalyzer(Combatants);
   const { npc: npcTooltip } = useTooltip();
 
   if (!combatants) {
@@ -68,12 +71,13 @@ function TargetName({ event }: { event: AnyEvent }) {
   }
 
   const enemy = combatants.getEntity(event);
-
-  if (!enemy) {
-    return <span className="spell-link-text">Unknown</span>;
+  const friendly = friendlies?.getEntity(event);
+  if (!enemy && friendly) {
+    return <span className={friendly.spec?.className}>{friendly.name}</span>;
+  } else if (enemy && !friendly) {
+    return <a href={npcTooltip(enemy.guid)}>{enemy.name}</a>;
   }
-
-  return <a href={npcTooltip(enemy.guid)}>{enemy.name}</a>;
+  return <span className="spell-link-text">Unknown</span>;
 }
 
 function EventTimestamp({ event }: { event: AnyEvent }) {
@@ -96,17 +100,22 @@ function EventTimestamp({ event }: { event: AnyEvent }) {
   );
 }
 
-export const ActualCastDescription = ({ event }: { event: Violation['actualCast'] }) => (
+export const ActualCastDescription = ({
+  event,
+  omitTarget,
+}: {
+  event: Violation['actualCast'];
+  omitTarget?: boolean;
+}) => (
   <>
     At <EventTimestamp event={event} /> into the fight, you cast{' '}
     <SpellLink id={event.ability.guid} />
-    {event.targetID && (
+    {!omitTarget && event.targetID && (
       <>
         {' '}
         on <TargetName event={event} />
       </>
     )}
-    .
   </>
 );
 
@@ -150,7 +159,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
   describe: ({ violation }) => (
     <>
       <p>
-        <ActualCastDescription event={violation.actualCast} />
+        <ActualCastDescription event={violation.actualCast} />.
       </p>
       <p>
         This is a low-priority filler spell. You should instead cast a higher-priority spell like{' '}
@@ -224,7 +233,7 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
   describe: ({ violation }) => (
     <>
       <p>
-        <ActualCastDescription event={violation.actualCast} />
+        <ActualCastDescription event={violation.actualCast} />.
       </p>
       <p>
         {violation.rule.condition ? (

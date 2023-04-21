@@ -5,7 +5,7 @@ import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import RageTracker from './modules/core/RageTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Avatar from './modules/features/Avatar';
+import Avatar from './modules/spells/Avatar';
 import BigHitGraph from './modules/features/BigHitGraph';
 import BlockCheck from './modules/features/BlockCheck';
 import Buffs from './modules/features/Buffs';
@@ -13,23 +13,22 @@ import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MitigationCheck from './modules/features/MitigationCheck';
 import SpellUsable from './modules/features/SpellUsable';
-import ImpenetrableWall from './modules/talents/ImpenetrableWall';
-import Thunderlord from './modules/talents/Thunderlord';
-import ViolentOutburstCastRatio from './modules/talents/ViolentOutburstCastRatio';
-import ViolentOutburstTimeBetweenBuffs from './modules/talents/ViolentOutburstTimeBetweenBuffs';
+import ImpenetrableWall from './modules/spells/ImpenetrableWall';
+import Thunderlord from './modules/spells/Thunderlord';
+import ViolentOutburstCastRatio from './modules/spells/ViolentOutburstCastRatio';
+import ViolentOutburstTimeBetweenBuffs from './modules/spells/ViolentOutburstTimeBetweenBuffs';
 import IgnorePainExpired from './modules/spells/IgnorePainExpired';
 import IgnorePainOvercap from './modules/spells/IgnorePainOvercap';
 import IgnorePainTracker from './modules/spells/IgnorePainTracker';
 import ShieldBlock from './modules/spells/ShieldBlock';
 import ShieldSlam from './modules/spells/ShieldSlam';
 import SpellReflect from './modules/spells/SpellReflect';
-import AngerManagement from './modules/talents/AngerManagement';
-import BoomingVoice from './modules/talents/BoomingVoice';
-import ThunderousRoar from './modules/talents/ThunderousRoar';
-import HeavyRepercussions from './modules/talents/HeavyRepercussions';
-import IntoTheFray from './modules/talents/IntoTheFray';
-import Punish from './modules/talents/Punish';
-import WarMachine from './modules/talents/WarMachine';
+import AngerManagement from './modules/spells/AngerManagement';
+import BoomingVoice from './modules/spells/BoomingVoice';
+import HeavyRepercussions from './modules/spells/HeavyRepercussions';
+import IntoTheFray from './modules/spells/IntoTheFray';
+import Punish from './modules/spells/Punish';
+import WarMachine from './modules/spells/WarMachine';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 
@@ -68,7 +67,6 @@ class CombatLogParser extends CoreCombatLogParser {
     intoTheFray: IntoTheFray,
     warMachine: WarMachine,
     punish: Punish,
-    thunderousRoar: ThunderousRoar,
     impenetrableWall: ImpenetrableWall,
     thunderlord: Thunderlord,
     violentOutburstCastRatio: ViolentOutburstCastRatio,

@@ -3,20 +3,20 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import ROLES from 'game/ROLES';
-import { SpellLink } from 'interface';
 import { SpecIcon } from 'interface';
-import ManaIcon from 'interface/icons/Mana';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, { SummonEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import BoringValue from 'parser/ui/BoringValueText';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import './ManaTideTotem.scss';
 
-export const MANA_REGEN_PER_SECOND = 2000 / 5;
+export const MANA_REGEN_PER_SECOND = 10000 / 5;
 
 class ManaTideTotem extends Analyzer {
   static dependencies = {
@@ -70,6 +70,7 @@ class ManaTideTotem extends Analyzer {
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.UNIMPORTANT(89)}
+        category={STATISTIC_CATEGORY.TALENTS}
         dropdown={
           <table className="table table-condensed">
             <thead>
@@ -99,36 +100,15 @@ class ManaTideTotem extends Analyzer {
           </table>
         }
       >
-        <BoringValue label={<SpellLink id={TALENTS.MANA_TIDE_TOTEM_TALENT.id} />}>
-          <div className="flex mtt-value">
-            <div className="flex-sub icon">
-              <ManaIcon />
-            </div>
-            <div className="flex-main value">
-              {formatNumber(this.regenFromUptime(this.regenOnPlayer))}
-              <br />
-              <small>
-                <Trans id="shaman.restoration.manaTideTotem.statistic.manaRestored">
-                  Mana restored
-                </Trans>
-              </small>
-            </div>
-          </div>
-          <div className="flex mtt-value">
-            <div className="flex-sub icon">
-              <ManaIcon />
-            </div>
-            <div className="flex-main value">
-              {formatNumber(this.regenFromUptime(this.regenOnHealers))}
-              <br />
-              <small>
-                <Trans id="shaman.restoration.manaTideTotem.statistic.healerManaRestored">
-                  Mana restored (all Healers)
-                </Trans>
-              </small>
-            </div>
-          </div>
-        </BoringValue>
+        <TalentSpellText talent={TALENTS.MANA_TIDE_TOTEM_TALENT}>
+          <ItemManaGained
+            amount={this.regenFromUptime(this.regenOnPlayer)}
+            useAbbrev
+            customLabel="player mana"
+          />
+          <br />
+          <ItemManaGained amount={this.regenFromUptime(this.regenOnHealers)} useAbbrev />
+        </TalentSpellText>
       </Statistic>
     );
   }

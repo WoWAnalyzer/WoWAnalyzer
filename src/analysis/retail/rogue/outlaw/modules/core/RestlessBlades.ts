@@ -7,7 +7,7 @@ import TALENTS from 'common/TALENTS/rogue';
 
 /**
  * Restless Blades
- * Finishing moves reduce the remaining cooldown of Adrenaline Rush, Between the Eyes, Sprint, Grappling Hook, Ghostly Strike, Marked for Death, Blade Rush, Killing Spree and Vanish by 1 sec per combo point spent.
+ * Finishing moves reduce the remaining cooldown of the abilities listed below by 1 sec per combo point spent.
  */
 
 const AFFECTED_ABILITIES: number[] = [
@@ -20,7 +20,14 @@ const AFFECTED_ABILITIES: number[] = [
   TALENTS.BLADE_RUSH_TALENT.id,
   TALENTS.KILLING_SPREE_TALENT.id,
   SPELLS.VANISH.id,
+  TALENTS.ROLL_THE_BONES_TALENT.id,
+  TALENTS.DREADBLADES_TALENT.id,
+  TALENTS.KEEP_IT_ROLLING_TALENT.id,
+  TALENTS.BLADE_FLURRY_TALENT.id,
 ];
+
+export const RESTLESS_BLADES_BASE_CDR = 1000;
+export const TRUE_BEARING_CDR = 500;
 
 class RestlessBlades extends Analyzer {
   static dependencies = {
@@ -39,10 +46,10 @@ class RestlessBlades extends Analyzer {
       return;
     }
 
-    let cdr = 1000;
-    if (this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id)) {
-      cdr += 1000;
-    }
+    const cdr =
+      RESTLESS_BLADES_BASE_CDR +
+      (this.selectedCombatant.hasBuff(SPELLS.TRUE_BEARING.id) ? TRUE_BEARING_CDR : 0);
+
     const amount = cdr * spent;
 
     AFFECTED_ABILITIES.forEach((spell) => this.reduceCooldown(spell, amount));

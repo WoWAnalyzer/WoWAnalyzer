@@ -95,7 +95,7 @@ class Suggestions extends PureComponent<Props> {
                       issue.actual || issue.recommended
                     )
                   }
-                  importance={(issue.importance as unknown) as ISSUE_IMPORTANCE}
+                  importance={issue.importance as unknown as ISSUE_IMPORTANCE}
                 >
                   {issue.text}
                 </Suggestion>

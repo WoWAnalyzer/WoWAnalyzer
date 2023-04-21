@@ -1,10 +1,11 @@
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ReactNode } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 import { CastEvent } from 'parser/core/Events';
 import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
+import useSessionFeatureFlag from 'interface/useSessionFeatureFlag';
 
 /**
  * Contains data about one aspect of the quality of a cast and the reasoning.
@@ -31,13 +32,14 @@ export interface SpellUse {
   event: CastEvent;
   checklistItems: ChecklistUsageInfo[];
   performance: QualitativePerformance;
+  extraDetails?: ReactNode;
   performanceExplanation?: ReactNode;
 }
 
 const SpellTooltipBody = 'div';
 const SpellRowContainer = styled.div`
   display: grid;
-  grid-template-columns: 2em 2em auto;
+  grid-template-columns: 2em auto;
   gap: 1em;
   align-items: center;
 
@@ -58,15 +60,8 @@ export const PerformanceUsageRow = styled.div`
   }
 `;
 
-const SpellRow = ({
-  fightStart,
-  usageInfo,
-}: {
-  fightStart: number;
-  usageInfo: ChecklistUsageInfo;
-}) => (
+const SpellRow = ({ usageInfo }: { usageInfo: ChecklistUsageInfo }) => (
   <SpellRowContainer>
-    <div>{formatDuration(usageInfo.timestamp - fightStart)}</div>
     <div style={{ justifySelf: 'center' }}>
       <PerformanceMark perf={usageInfo.performance} />
     </div>
@@ -78,27 +73,52 @@ const SpellRow = ({
  * Helper function to convert a {@link SpellUse} to a {@link BoxRowEntry}.
  */
 export const spellUseToBoxRowEntry = (
-  { performance, performanceExplanation, checklistItems }: SpellUse,
+  { event, performance, performanceExplanation, checklistItems }: SpellUse,
   fightStart: number,
 ): BoxRowEntry => ({
   value: performance,
   tooltip: (
     <>
+      <div>
+        <strong>Time:</strong> {formatDuration(event.timestamp - fightStart)}
+      </div>
       <PerformanceUsageRow>
         <PerformanceMark perf={performance} /> {performanceExplanation ?? 'Good Usage'}
       </PerformanceUsageRow>
       {checklistItems.length > 0 ? (
         <SpellTooltipBody>
           <SpellRowContainer>
-            <strong>Time</strong>
             <strong>Perf.</strong>
             <strong>Summary</strong>
           </SpellRowContainer>
           {checklistItems.map((usageInfo) => (
-            <SpellRow fightStart={fightStart} usageInfo={usageInfo} key={usageInfo.check} />
+            <SpellRow usageInfo={usageInfo} key={usageInfo.check} />
           ))}
         </SpellTooltipBody>
       ) : undefined}
     </>
   ),
 });
+
+interface SpellUsageContextValue {
+  hideGoodCasts: boolean;
+  setHideGoodCasts: (p: boolean) => void;
+}
+
+export const SpellUsageContext = createContext<SpellUsageContextValue>({
+  hideGoodCasts: false,
+  setHideGoodCasts: () => {
+    // no-op
+  },
+});
+
+export const SpellUsageContextProvider = ({ children }: { children: ReactNode }) => {
+  const [hideGoodCasts, setHideGoodCasts] = useSessionFeatureFlag('hide-good-casts');
+  return (
+    <SpellUsageContext.Provider value={{ hideGoodCasts, setHideGoodCasts }}>
+      {children}
+    </SpellUsageContext.Provider>
+  );
+};
+
+export const useSpellUsageContext = () => useContext(SpellUsageContext);

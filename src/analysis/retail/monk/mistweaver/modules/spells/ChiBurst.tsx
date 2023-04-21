@@ -80,7 +80,9 @@ class ChiBurst extends Analyzer {
           <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} />
         </b>{' '}
         is a filler spell that does consistent healing for 1 GCD and 0 mana, making it a very good
-        button to press all around.
+        button to press all around. <br />
+        <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} /> should ideally replace a cast of{' '}
+        <SpellLink id={SPELLS.TIGER_PALM.id} /> in your rotation.
       </p>
     );
 
@@ -98,7 +100,6 @@ class ChiBurst extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  /** Guide subsection describing the proper usage of Rejuvenation */
   subStatistic() {
     return (
       <CastEfficiencyBar

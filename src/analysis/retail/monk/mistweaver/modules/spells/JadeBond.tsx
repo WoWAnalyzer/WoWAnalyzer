@@ -86,7 +86,7 @@ class JadeBond extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
+        position={STATISTIC_ORDER.UNIMPORTANT(0)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >

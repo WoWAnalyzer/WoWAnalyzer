@@ -1,6 +1,8 @@
 // a butchered version of https://www.warcraftlogs.com:443/v1/zones
 // only includes the raids from Dragonflight (showing older logs wouldn't make sense)
+import mythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import vaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
+import aberrus from 'game/raids/aberrus';
 
 // TODO: Refactor this (it's kind of strange and feels misplaced)
 
@@ -9,26 +11,12 @@ interface Encounter {
   name: string;
 }
 
-interface Bracket {
-  min: number;
-  max: number;
-  bucket: number;
-  type: string;
-}
-
-interface Partition {
-  name: string;
-  compact: string;
-  default?: boolean;
-}
-
 interface Zone {
   id: number;
   name: string;
   frozen?: boolean;
   encounters: Encounter[];
-  brackets: Bracket;
-  partitions?: Partition[];
+  usePtrTooltips?: boolean;
 }
 
 const ZONES: Zone[] = [
@@ -46,23 +34,45 @@ const ZONES: Zone[] = [
       vaultOfTheIncarnates.bosses.BroodkeeperDiurna,
       vaultOfTheIncarnates.bosses.Raszageth,
     ],
-    brackets: {
-      min: 376,
-      max: 424,
-      bucket: 3,
-      type: 'Item Level',
-    },
-    partitions: [
-      {
-        name: '10.0',
-        compact: '10.0',
-        default: true,
-      },
-      {
-        name: '10.0.5',
-        compact: '10.0.5',
-      },
+  },
+  {
+    id: 32,
+    name: 'Mythic+ Season 1',
+    frozen: false,
+    encounters: [
+      mythicPlusSeasonOne.bosses.AlgetharAcademy,
+      mythicPlusSeasonOne.bosses.AzureVault,
+      mythicPlusSeasonOne.bosses.CourtOfStars,
+      mythicPlusSeasonOne.bosses.HallsOfValor,
+      mythicPlusSeasonOne.bosses.NokhudOffensive,
+      mythicPlusSeasonOne.bosses.RubyLifePools,
+      mythicPlusSeasonOne.bosses.ShadowmoonBurialGrounds,
+      mythicPlusSeasonOne.bosses.TempleOfTheJadeSerpent,
     ],
+  },
+  {
+    id: 33,
+    name: 'Aberrus',
+    frozen: false,
+    encounters: [
+      aberrus.bosses.Kazarra,
+      aberrus.bosses.AmalgamationChamber,
+      aberrus.bosses.ForgottenExperiments,
+      aberrus.bosses.AssaultOfTheZaqali,
+      aberrus.bosses.Rashok,
+      aberrus.bosses.Zskarn,
+      aberrus.bosses.Magmorax,
+      aberrus.bosses.EchoOfNeltharion,
+      aberrus.bosses.Sarkareth,
+    ],
+    usePtrTooltips: true, // TODO: Mark this as false once Aberrus goes live
+  },
+  {
+    id: 34,
+    name: 'Mythic+ Season 2',
+    frozen: false,
+    encounters: [],
+    usePtrTooltips: true, // TODO: Mark this as false once Aberrus goes live
   },
 ];
 

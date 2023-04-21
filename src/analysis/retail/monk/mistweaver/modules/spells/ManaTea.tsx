@@ -4,16 +4,31 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemManaGained from 'parser/ui/ItemManaGained';
+import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
+import { PerformanceMark } from 'interface/guide';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+
+interface ManaTeaTracker {
+  timestamp: number;
+  manaSaved: number;
+  totalVivifyCleaves: number;
+  numVivifyCasts: number;
+  overhealing: number;
+  healing: number;
+}
 
 class ManaTea extends Analyzer {
   static dependencies = {
@@ -26,6 +41,7 @@ class ManaTea extends Analyzer {
   manaSavedMT: number = 0;
   manateaCount: number = 0;
   casts: Map<string, number> = new Map<string, number>();
+  castTrackers: ManaTeaTracker[] = [];
   effectiveHealing: number = 0;
   manaPerManaTeaGoal: number = 0;
   overhealing: number = 0;
@@ -49,16 +65,27 @@ class ManaTea extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
       this.applyBuff,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivHeal);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivCast);
   }
 
   applyBuff(event: ApplyBuffEvent) {
     this.manateaCount += 1; //count the number of mana teas to make an average over teas
+    this.castTrackers.push({
+      timestamp: event.timestamp,
+      totalVivifyCleaves: 0,
+      numVivifyCasts: 0,
+      manaSaved: 0,
+      healing: 0,
+      overhealing: 0,
+    });
   }
-
   heal(event: HealEvent) {
     if (this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
       //if this is in a mana tea window
       this.effectiveHealing += (event.amount || 0) + (event.absorbed || 0);
+      this.castTrackers.at(-1)!.healing += (event.amount || 0) + (event.absorbed || 0);
+      this.castTrackers.at(-1)!.overhealing += event.overheal || 0;
       this.overhealing += event.overheal || 0;
     }
   }
@@ -80,6 +107,7 @@ class ManaTea extends Analyzer {
       if (manaEvent.cost !== undefined) {
         //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
         this.manaSavedMT += manaEvent.cost / 2;
+        this.castTrackers.at(-1)!.manaSaved += manaEvent.cost / 2;
       }
       if (this.casts.has(name)) {
         this.casts.set(name, (this.casts.get(name) || 0) + 1);
@@ -87,6 +115,21 @@ class ManaTea extends Analyzer {
         this.casts.set(name, 1);
       }
     }
+  }
+
+  onVivCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
+      return;
+    }
+    this.castTrackers.at(-1)!.totalVivifyCleaves -= 1; // this is overcounted in vivHeal func
+    this.castTrackers.at(-1)!.numVivifyCasts += 1;
+  }
+
+  onVivHeal(event: HealEvent) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
+      return;
+    }
+    this.castTrackers.at(-1)!.totalVivifyCleaves += 1;
   }
 
   get avgMtSaves() {
@@ -164,6 +207,115 @@ class ManaTea extends Analyzer {
         )
         .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`),
     );
+  }
+
+  getCastOverhealingPercent(cast: ManaTeaTracker) {
+    return cast.overhealing / (cast.overhealing + cast.healing);
+  }
+
+  get guideCastBreakdown() {
+    const explanationPercent = 55;
+    const explanation = (
+      <p>
+        <strong>
+          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
+        </strong>{' '}
+        is a powerful buff that can save a large amount of mana. Aim to use{' '}
+        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> in the following ways
+        <ul>
+          <li>
+            If you have at least 8 <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on
+            the raid and the raid is taking significant damage, then use{' '}
+            <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> and spam{' '}
+            <SpellLink id={SPELLS.VIVIFY} />
+          </li>
+          <li>
+            If talented into <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />,
+            use <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> during your celestial and spam
+            <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+          </li>
+        </ul>
+      </p>
+    );
+
+    const data = (
+      <div>
+        <strong>Per-Cast Breakdown</strong>
+        <small> - click to expand</small>
+        {this.castTrackers.map((cast, ix) => {
+          const header = (
+            <>
+              @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
+              <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
+            </>
+          );
+          const checklistItems: CooldownExpandableItem[] = [];
+          let manaPerf = QualitativePerformance.Good;
+          if (cast.manaSaved < 20000) {
+            manaPerf = QualitativePerformance.Ok;
+          } else if (cast.manaSaved < 15000) {
+            manaPerf = QualitativePerformance.Fail;
+          }
+          checklistItems.push({
+            label: (
+              <>
+                Mana saved during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />
+              </>
+            ),
+            result: <PerformanceMark perf={manaPerf} />,
+            details: <>{formatNumber(cast.manaSaved)}</>,
+          });
+          const overhealingPercent = this.getCastOverhealingPercent(cast);
+          let overhealingPerf = QualitativePerformance.Good;
+          if (overhealingPercent > 0.65) {
+            overhealingPerf = QualitativePerformance.Fail;
+          } else if (overhealingPercent > 0.55) {
+            overhealingPerf = QualitativePerformance.Ok;
+          }
+          checklistItems.push({
+            label: (
+              <>
+                Overhealing during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />
+              </>
+            ),
+            result: <PerformanceMark perf={overhealingPerf} />,
+            details: <>{formatPercentage(overhealingPercent)}%</>,
+          });
+          const allPerfs = [manaPerf, overhealingPerf];
+          if (cast.numVivifyCasts > 0) {
+            const avgCleaves = cast.totalVivifyCleaves / cast.numVivifyCasts;
+            let vivCleavePerf = QualitativePerformance.Good;
+            if (avgCleaves < 8) {
+              vivCleavePerf = QualitativePerformance.Ok;
+            } else if (avgCleaves < 6) {
+              vivCleavePerf = QualitativePerformance.Fail;
+            }
+            checklistItems.push({
+              label: (
+                <>
+                  Avg <SpellLink id={SPELLS.VIVIFY} /> cleaves per cast
+                </>
+              ),
+              result: <PerformanceMark perf={vivCleavePerf} />,
+              details: <>{avgCleaves.toFixed(1)}</>,
+            });
+            allPerfs.push(vivCleavePerf);
+          }
+
+          const lowestPerf = getLowestPerf(allPerfs);
+          return (
+            <CooldownExpandable
+              header={header}
+              checklistItems={checklistItems}
+              perf={lowestPerf}
+              key={ix}
+            />
+          );
+        })}
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, explanationPercent);
   }
 
   statistic() {

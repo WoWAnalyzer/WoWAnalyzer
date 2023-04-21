@@ -13,12 +13,13 @@ import {
   cdSpell,
   FEROCIOUS_BITE_ENERGY,
   FEROCIOUS_BITE_MAX_DRAIN,
+  getAcceptableCps,
   INCARN_ENERGY_MULT,
-  MAX_CPS,
   RELENTLESS_PREDATOR_FB_ENERGY_MULT,
 } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { BadColor, OkColor } from 'interface/guide';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -85,17 +86,36 @@ class FerociousBite extends Analyzer {
     const acceptableTimeLeftOnRip = timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
 
     let value: QualitativePerformance = QualitativePerformance.Good;
-    if (cpsUsed < MAX_CPS) {
+    let perfExplanation: React.ReactNode = undefined;
+    if (cpsUsed < getAcceptableCps(this.selectedCombatant)) {
       value = QualitativePerformance.Fail;
+      perfExplanation = (
+        <h5 style={{ color: BadColor }}>
+          Bad because you used less than {getAcceptableCps(this.selectedCombatant)} CPs
+          <br />
+        </h5>
+      );
     } else if (!usedMax && !duringBerserkAndSotf) {
       value = QualitativePerformance.Fail;
+      perfExplanation = (
+        <h5 style={{ color: BadColor }}>
+          Bad because you cast at too low energy
+          <br />
+        </h5>
+      );
     } else if (!acceptableTimeLeftOnRip) {
       value = QualitativePerformance.Ok;
+      perfExplanation = (
+        <h5 style={{ color: OkColor }}>
+          Questionable because you cast when Rip was close to expiring
+          <br />
+        </h5>
+      );
     }
 
     const tooltip = (
       <>
-        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
+        {perfExplanation}@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
         <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>
         <br />
         Extra energy used:{' '}
@@ -132,8 +152,9 @@ class FerociousBite extends Analyzer {
           <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
-        use Bite at maximum CPs. Bite can consume up to {FEROCIOUS_BITE_MAX_DRAIN} extra energy to
-        do increased damage - this boost is very efficient and you should always wait until{' '}
+        use Bite with at least {getAcceptableCps(this.selectedCombatant)} CPs. Bite can consume up
+        to {FEROCIOUS_BITE_MAX_DRAIN} extra energy to do increased damage - this boost is very
+        efficient and you should always wait until{' '}
         {FEROCIOUS_BITE_MAX_DRAIN + FEROCIOUS_BITE_ENERGY} energy to use Bite.{' '}
         {this.hasSotf && (
           <>
@@ -160,8 +181,8 @@ class FerociousBite extends Analyzer {
         <small>
           {' '}
           - Green is a good cast , Yellow is an questionable cast (used on target with low duration
-          Rip), Red is a bad cast (&lt;25 extra energy + not during Berserk). Mouseover for more
-          details.
+          Rip), Red is a bad cast (&lt;25 extra energy + not during Berserk, or low CPs). Mouseover
+          for more details.
         </small>
         <PerformanceBoxRow values={this.castEntries} />
       </div>

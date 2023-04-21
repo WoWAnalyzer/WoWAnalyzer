@@ -73,7 +73,7 @@ const spells = spellIndexableList({
     icon: 'spell_mage_arcaneorb',
   },
   ARCANE_SURGE_BUFF: {
-    id: 385362,
+    id: 365362,
     name: 'Arcane Surge',
     icon: 'ability_mage_arcanesurge',
   },

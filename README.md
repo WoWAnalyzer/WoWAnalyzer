@@ -6,10 +6,6 @@
 
 [https://wowanalyzer.com](https://wowanalyzer.com)
 
-## Here for Hacktoberfest?
-
-We're working hard on Dragonflight support right now! Check out [the wiki](https://github.com/WoWAnalyzer/WoWAnalyzer/wiki/Hacktoberfest-2022) to see how you can contribute!
-
 ## New to Open Source?
 
 This guide is an excellent introduction and explains all the jargon we may use: https://medium.com/clarifai-champions/99-pr-oblems-a-beginners-guide-to-open-source-abc1b867385a

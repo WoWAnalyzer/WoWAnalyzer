@@ -135,7 +135,7 @@ class MistWrap extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(20)}
+        position={STATISTIC_ORDER.CORE(5)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

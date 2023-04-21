@@ -20,7 +20,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_PROTECTION_TALENT);
     if (!this.active) {
       return;
     }
@@ -54,25 +54,19 @@ class SanctifiedWrathProtJudgement extends Analyzer {
 
   /**
    * Judgement can grant any of the following values of HP during Avenging Wrath:
-   * 2 - non-crit with no Holy Avenger Buff
-   * 4 - crit with no Holy Avenger Buff
-   * 3 - non-crit with Holy Avenger Buff
-   * 6 - crit with Holy Avenger Buff
+   * 2 - non-crit
+   * 4 - crit
    *
-   * To consider the wasted holy power generation to be due to a bad Judgement during Avenging Wrath,
-   * the spell must not be a crit with HA up (wasted HP no matter what), the cast must not have been made with >3 HP on
-   * a non-HA cast (crits are random so we let the wasted HP slide), or the cast must not have been made with >2 HP on a
-   * HA cast.
+   * To consider the wasted holy power generation to be due to a bad Judgement during Avenging Wrath
+   * the cast must not have been made with >3 HP(crits are random so we let the wasted HP slide).
+   *
    * @param event
    * @returns Number of wasted Holy Power due to Sanctified Wrath talent.
    */
   wasteDueToSanctifiedWrath(event: ResourceChangeEvent): number {
-    const hasHA: boolean = this.selectedCombatant.hasBuff(TALENTS.HOLY_AVENGER_TALENT.id);
     const hpChange: number = event.resourceChange;
     const preCastHP = this.MAX_HOLY_POWER - (hpChange - event.waste);
-    const wasCrit: boolean =
-      hpChange === this.CRIT_NO_HA_CHANGE || hpChange === this.CRIT_YES_HA_CHANGE;
-    if ((hasHA && !wasCrit && preCastHP > 2) || (!hasHA && preCastHP > 3)) {
+    if (preCastHP > 3) {
       return event.waste;
     } else {
       return 0;
@@ -97,7 +91,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.SANCTIFIED_WRATH_TALENT.id}
+          spellId={TALENTS.SANCTIFIED_WRATH_PROTECTION_TALENT.id}
           value={formatNumber(bonusHP)}
           label="Extra Holy Power"
         />

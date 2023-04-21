@@ -40,17 +40,25 @@ import EarthenWallTotem from './modules/talents/EarthenWallTotem';
 import FlashFlood from './modules/talents/FlashFlood';
 import HighTide from './modules/talents/HighTide';
 import NaturesGuardian from './modules/talents/NaturesGuardian';
-import TalentStatisticBox from './modules/talents/TalentStatisticBox';
+import TalentStatisticBox from './modules/features/TalentStatisticBox';
 import Torrent from './modules/talents/Torrent';
 import Undulation from './modules/talents/Undulation';
 import UnleashLife from './modules/talents/UnleashLife';
 import Wellspring from './modules/talents/Wellspring';
 import Undercurrent from './modules/talents/Undercurrent';
 // Spells
-// Legendaries
 // Shared
+// Normalizers
 import CloudburstNormalizer from './normalizers/CloudburstNormalizer';
 import RiptideNormalizer from './normalizers/RiptideNormalizer';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import UnleashLifeNormalizer from './normalizers/UnleashLifeNormalizer';
+import ChainHealNormalizer from './normalizers/ChainHealNormalizer';
+import RiptideTracker from './modules/core/RiptideTracker';
+import RiptideAttributor from './modules/core/RiptideAttributor';
+import PrimalTideCore from './modules/talents/PrimalTideCore';
+import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
+import AncestralReach from './modules/talents/AncestralReach';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -94,6 +102,9 @@ class CombatLogParser extends CoreCombatLogParser {
     talentStatisticBox: TalentStatisticBox,
     primordialWave: PrimordialWave,
     undercurrent: Undercurrent,
+    primalTideCore: PrimalTideCore,
+    wavespeakersBlessing: WavespeakersBlessing,
+    ancestralReach: AncestralReach,
 
     // Spells
     chainHeal: ChainHeal,
@@ -115,6 +126,11 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
     riptideNormalizer: RiptideNormalizer,
+    castLinkNormalizer: CastLinkNormalizer,
+    unleashLifeNormalizer: UnleashLifeNormalizer,
+    chainHealNormalizer: ChainHealNormalizer,
+    riptideTracker: RiptideTracker,
+    riptideAttributor: RiptideAttributor,
   };
 }
 

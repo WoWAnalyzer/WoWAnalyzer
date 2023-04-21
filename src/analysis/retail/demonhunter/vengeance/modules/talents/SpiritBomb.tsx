@@ -11,26 +11,27 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { NumberThreshold, ThresholdStyle } from 'parser/core/ParseResults';
 import { formatPercentage } from 'common/format';
-import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Enemies from 'parser/shared/modules/Enemies';
 import Enemy from 'parser/core/Enemy';
-import { ReactNode } from 'react';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import { t, Trans } from '@lingui/macro';
+import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
-import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
-import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import {
   SPIRIT_BOMB_SOULS_IN_META,
   SPIRIT_BOMB_SOULS_OUT_OF_META,
 } from 'analysis/retail/demonhunter/vengeance/constants';
-
-type SpiritBombBoxRowEntry = BoxRowEntry & {
-  event: CastEvent;
-};
+import {
+  ChecklistUsageInfo,
+  SpellUse,
+  spellUseToBoxRowEntry,
+  UsageInfo,
+} from 'parser/core/SpellUsage/core';
+import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
+import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class SpiritBomb extends Analyzer {
   static dependencies = {
@@ -38,8 +39,9 @@ export default class SpiritBomb extends Analyzer {
   };
 
   enemies!: Enemies;
-  private castEntries: SpiritBombBoxRowEntry[] = [];
-  private soulsConsumedByAmount = Array.from({ length: 6 }, () => 0);
+  private cooldownUses: SpellUse[] = [];
+
+  private soulsConsumedByAmount = Array.from({ length: 7 }, () => 0);
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT);
@@ -49,100 +51,10 @@ export default class SpiritBomb extends Analyzer {
     );
   }
 
-  onCast(event: CastEvent) {
-    const amountOfStacksConsumed = getSpiritBombSoulConsumptions(event).length;
-    this.soulsConsumedByAmount[amountOfStacksConsumed] += 1;
-
-    // Spirit Bomb casts are good IF:
-    //   - In Fiery Demise window
-    //   - In Meta - SPIRIT_BOMB_SOULS_IN_META+ souls consumed
-    //   - Not in Meta - SPIRIT_BOMB_SOULS_IN_META+ souls consumed
-
-    const [consumptionPerformance, consumptionNote] = this.getCastConsumptionPerformance(event);
-    const [singleTargetPerformance, singleTargetNote] = this.getCastSingleTargetPerformance(event);
-    const performance = combineQualitativePerformances([
-      consumptionPerformance,
-      singleTargetPerformance,
-    ]);
-
-    const tooltip = (
-      <>
-        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>
-        <br />
-        {consumptionNote}
-        {singleTargetNote}
-      </>
-    );
-
-    this.castEntries.push({ value: performance, tooltip, event });
-  }
-
-  getCastSingleTargetPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
-    const damageEvents = getSpiritBombDamages(event);
-    const isAoE = damageEvents.length > 1;
-    if (isAoE) {
-      return [QualitativePerformance.Good, null];
-    }
-
-    const hasFieryDemise = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT,
-    );
-    if (!hasFieryDemise) {
-      return [QualitativePerformance.Fail, <>Cast on a single target.</>];
-    }
-
-    const targetsThatHadFieryBrand = damageEvents
-      .map((event) => this.enemies.getEntity(event))
-      .filter((enemy): enemy is Enemy => enemy !== null)
-      .filter((enemy) => enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp));
-    if (targetsThatHadFieryBrand.length === 0) {
-      return [
-        QualitativePerformance.Fail,
-        <>
-          Cast on a single target without Fiery Brand applied.
-          <br />
-        </>,
-      ];
-    }
-    return [QualitativePerformance.Good, null];
-  }
-
-  getCastConsumptionPerformance(event: CastEvent): [QualitativePerformance, ReactNode] {
-    const amountOfStacksConsumed = getSpiritBombSoulConsumptions(event).length;
-    const hasMetamorphosis = this.selectedCombatant.hasBuff(
-      SPELLS.METAMORPHOSIS_TANK.id,
-      event.timestamp,
-    );
-    if (hasMetamorphosis) {
-      if (amountOfStacksConsumed >= SPIRIT_BOMB_SOULS_IN_META) {
-        return [QualitativePerformance.Good, null];
-      }
-      return [
-        QualitativePerformance.Fail,
-        <>
-          Cast at {amountOfStacksConsumed} Soul Fragments. Recommended (due to Metamorphosis):{' '}
-          {SPIRIT_BOMB_SOULS_IN_META}+
-          <br />
-        </>,
-      ];
-    }
-    if (amountOfStacksConsumed >= SPIRIT_BOMB_SOULS_OUT_OF_META) {
-      return [QualitativePerformance.Good, null];
-    }
-    return [
-      QualitativePerformance.Fail,
-      <>
-        Cast at {amountOfStacksConsumed} Soul Fragments. Recommended:{' '}
-        {SPIRIT_BOMB_SOULS_OUT_OF_META}+
-        <br />
-      </>,
-    ];
-  }
-
   get percentGoodCasts() {
     return (
-      this.castEntries.filter((it) => it.value === QualitativePerformance.Good).length /
-      this.castEntries.length
+      this.cooldownUses.filter((it) => it.performance === QualitativePerformance.Good).length /
+      this.cooldownUses.length
     );
   }
 
@@ -159,7 +71,7 @@ export default class SpiritBomb extends Analyzer {
   }
 
   statistic() {
-    if (this.castEntries.length === 0) {
+    if (this.cooldownUses.length === 0) {
       return null;
     }
     return (
@@ -212,39 +124,183 @@ export default class SpiritBomb extends Analyzer {
         </Trans>
       </p>
     );
-    const data = (
-      <CastSummaryAndBreakdown
-        spell={TALENTS.SPIRIT_BOMB_TALENT}
-        castEntries={this.castEntries}
-        goodLabel={t({
-          id:
-            'guide.demonhunter.vengeance.sections.rotation.spiritBomb.data.summary.performance.good',
-          message: 'Spirit Bombs',
-        })}
-        includeGoodCastPercentage
-        badLabel={t({
-          id:
-            'guide.demonhunter.vengeance.sections.rotation.spiritBomb.data.summary.performance.bad',
-          message: 'Bad Spirit Bombs',
-        })}
-        onClickBox={(idx) => console.log(this.castEntries[idx].event)}
-      />
-    );
-    const noCastData = (
-      <div>
-        <p>
-          <Trans id="guide.demonhunter.vengeance.sections.rotation.spiritBomb.noCast">
-            You did not cast Spirit Bomb during this encounter.
-          </Trans>
-        </p>
-      </div>
+
+    const performances = this.cooldownUses.map((it) =>
+      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
     );
 
+    const goodCasts = performances.filter((it) => it.value === QualitativePerformance.Good).length;
+    const totalCasts = performances.length;
+
     return (
-      <ExplanationAndDataSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
-        data={this.castEntries.length > 0 ? data : noCastData}
+        uses={this.cooldownUses}
+        castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
+        onPerformanceBoxClick={logSpellUseEvent}
+        abovePerformanceDetails={
+          <CastPerformanceSummary
+            spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}
+            casts={goodCasts}
+            performance={QualitativePerformance.Good}
+            totalCasts={totalCasts}
+          />
+        }
       />
     );
+  }
+
+  private onCast(event: CastEvent) {
+    const amountOfStacksConsumed = getSpiritBombSoulConsumptions(event).length;
+    this.soulsConsumedByAmount[amountOfStacksConsumed] += 1;
+
+    // Spirit Bomb casts are good IF:
+    //   - In Fiery Demise window
+    //   - In Meta - SPIRIT_BOMB_SOULS_IN_META+ souls consumed
+    //   - Not in Meta - SPIRIT_BOMB_SOULS_IN_META+ souls consumed
+    const checklistItems: ChecklistUsageInfo[] = [
+      {
+        check: 'consumption',
+        timestamp: event.timestamp,
+        ...this.getCastConsumptionPerformance(event),
+      },
+      {
+        check: 'single-target',
+        timestamp: event.timestamp,
+        ...this.getCastSingleTargetPerformance(event),
+      },
+    ];
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+      QualitativePerformance.Good,
+    );
+    this.cooldownUses.push({
+      event,
+      performance: actualPerformance,
+      checklistItems,
+      performanceExplanation:
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
+    });
+  }
+
+  private getCastSingleTargetPerformance(event: CastEvent): UsageInfo {
+    const damageEvents = getSpiritBombDamages(event);
+    const isAoE = damageEvents.length > 1;
+    if (isAoE) {
+      return {
+        performance: QualitativePerformance.Good,
+        summary: <div>Cast in AoE</div>,
+        details: <div>You hit {damageEvents.length} targets with this cast.</div>,
+      };
+    }
+
+    const hasFieryDemise = this.selectedCombatant.hasTalent(
+      TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT,
+    );
+    if (!hasFieryDemise) {
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: <div>Cast in Single Target with Fiery Demise</div>,
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
+            without <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> talented.
+          </div>
+        ),
+      };
+    }
+
+    const targetsThatHadFieryBrand = damageEvents
+      .map((event) => this.enemies.getEntity(event))
+      .filter((enemy): enemy is Enemy => enemy !== null)
+      .filter((enemy) => enemy.hasBuff(SPELLS.FIERY_BRAND_DOT.id, event.timestamp));
+    if (targetsThatHadFieryBrand.length === 0) {
+      return {
+        performance: QualitativePerformance.Fail,
+        summary: <div>Cast in Single Target with Fiery Demise</div>,
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
+            without <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to the
+            target.
+          </div>
+        ),
+      };
+    }
+    return {
+      performance: QualitativePerformance.Good,
+      summary: <div>Cast in Single Target with Fiery Demise</div>,
+      details: (
+        <div>
+          You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target with{' '}
+          <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to the target. Good
+          job!
+        </div>
+      ),
+    };
+  }
+
+  private getCastConsumptionPerformance(event: CastEvent): UsageInfo {
+    const amountOfStacksConsumed = getSpiritBombSoulConsumptions(event).length;
+    const hasMetamorphosis = this.selectedCombatant.hasBuff(
+      SPELLS.METAMORPHOSIS_TANK.id,
+      event.timestamp,
+    );
+    if (hasMetamorphosis) {
+      if (amountOfStacksConsumed >= SPIRIT_BOMB_SOULS_IN_META) {
+        return {
+          performance: QualitativePerformance.Good,
+          summary: (
+            <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments in Metamorphosis</div>
+          ),
+          details: (
+            <div>
+              You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
+              {amountOfStacksConsumed} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+              s. Good job!
+            </div>
+          ),
+        };
+      }
+      return {
+        performance: QualitativePerformance.Good,
+        summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments</div>,
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
+            {amountOfStacksConsumed} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+            s. <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
+            {SPIRIT_BOMB_SOULS_IN_META} while in <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />.
+          </div>
+        ),
+      };
+    }
+    if (amountOfStacksConsumed >= SPIRIT_BOMB_SOULS_OUT_OF_META) {
+      return {
+        performance: QualitativePerformance.Good,
+        summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>,
+        details: (
+          <div>
+            You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
+            {amountOfStacksConsumed} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+            s. Good job!
+          </div>
+        ),
+      };
+    }
+    return {
+      performance: QualitativePerformance.Good,
+      summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>,
+      details: (
+        <div>
+          You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
+          {amountOfStacksConsumed} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+          s. <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
+          {SPIRIT_BOMB_SOULS_OUT_OF_META}.
+        </div>
+      ),
+    };
   }
 }

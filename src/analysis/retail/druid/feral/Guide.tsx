@@ -8,6 +8,7 @@ import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import { getAcceptableCps } from 'analysis/retail/druid/feral/constants';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -26,9 +27,10 @@ function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatL
       <SubSection title="Energy">
         <p>
           Your primary resource is Energy. Typically, ability use will be limited by energy, not
-          time. Avoid capping energy - lost energy regeneration is lost DPS. It will occasionally be
-          impossible to avoid capping energy - like while handling mechanics or during intermission
-          phases.
+          time. Avoid capping energy - lost energy regeneration is lost DPS. High-end gear combined
+          with more energy talents than in previous expansions causes it to be occasionally
+          impossible to avoid capping energy, particularly during cooldowns. During these periods,
+          it's important to send abilities as fast as possible to maximize DPS.
         </p>
         The chart below shows your energy over the course of the encounter. You spent{' '}
         <strong>{formatPercentage(modules.energyTracker.percentAtCap, 1)}%</strong> of the encounter
@@ -37,9 +39,18 @@ function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatL
       </SubSection>
       <SubSection title="Combo Points">
         <p>
+          <i>
+            As of patch 10.0.5, sims show it is acceptable to use finishers at 4 CPs when
+            <strong> not</strong> specced for Bloodtalons. Still always go on 5 CPs with
+            Bloodtalons. This may change again in 10.1.
+          </i>
+        </p>
+        <p>
           Most of your abilities either <strong>build</strong> or <strong>spend</strong> Combo
-          Points. Never use a builder at max CPs, and always wait until max CPs to use a spender
-          (with the exception of your opening <SpellLink id={SPELLS.RIP.id} />
+          Points. Never use a builder at max CPs, and always wait until (4 with{' '}
+          <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id} />, 5 with{' '}
+          <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />) CPs to use a spender (with the
+          exception of your opening <SpellLink id={SPELLS.RIP.id} />
           ).
         </p>
         <SideBySidePanels>
@@ -55,9 +66,10 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
   return (
     <Section title="Core Rotation">
       <p>
-        Feral's core rotation involves performing <strong>builder</strong> abilites up to 5 combo
-        points, then using a <strong>spender</strong> ability. Maintain your damage over time
-        effects on targets, then fill with your direct damage abilities. Refer to the spec guide for{' '}
+        Feral's core rotation involves performing <strong>builder</strong> abilites up to{' '}
+        {getAcceptableCps(info.combatant)} combo points, then using a <strong>spender</strong>{' '}
+        ability. Maintain your damage over time effects on targets, then fill with your direct
+        damage abilities. Refer to the spec guide for{' '}
         <a
           href="https://www.wowhead.com/feral-druid-rotation-guide"
           target="_blank"
@@ -87,10 +99,10 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
   return (
     <Section title="Cooldowns">
       <p>
-        Feral's cooldowns are decently powerful but should not be held on to for long. In order to
-        maximize usages over the course of an encounter, you should aim to send the cooldown as soon
-        as it becomes available (as long as it can do damage on target). It is particularly
-        important to use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
+        Feral's cooldowns are powerful and should not be held on to for long. In order to maximize
+        usages over the course of an encounter, you should aim to send the cooldown as soon as it
+        becomes available (as long as it can do damage on target). It is particularly important to
+        use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
       <CooldownBreakdownSubsection modules={modules} events={events} info={info} />

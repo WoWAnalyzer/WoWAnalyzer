@@ -93,18 +93,24 @@
       var ramp = {
         passiveMode: true,
         que: [],
-        onReady: function() { window.refreshAds() },
+        onReady: function () {
+          window.refreshAds();
+        },
       };
     </script>
-    <script async src="//cdn.intergient.com/1024476/73270/ramp.js" onerror="window.adScriptFailed=true;"></script>
+    <script
+      async
+      src="//cdn.intergient.com/1024476/73270/ramp.js"
+      onerror="window.adScriptFailed=true;"
+    ></script>
     <script>
       window._pwGA4PageviewId = ''.concat(Date.now());
       window.dataLayer = window.dataLayer || [];
       window.gtag =
         window.gtag ||
         function () {
-                dataLayer.push(arguments);
-              };
+          dataLayer.push(arguments);
+        };
       gtag('js', new Date());
       gtag('config', 'G-E0TKKBEXVD', { send_page_view: false });
       gtag('event', 'ramp_js', { send_to: 'G-E0TKKBEXVD', pageview_id: window._pwGA4PageviewId });
@@ -142,7 +148,7 @@
         dsn: '%REACT_APP_SENTRY_DSN%',
         release: 'wowanalyzer@%REACT_APP_VERSION%',
         environment: '%REACT_APP_ENVIRONMENT_NAME%',
-        allowUrls: ['wowanalyzer.com/static/js/']
+        allowUrls: ['wowanalyzer.com/static/js/'],
       });
     </script>
   </body>

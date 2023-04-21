@@ -30,11 +30,11 @@ class Crusade extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSADE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.CRUSADE_TALENT),
       this.onCrusadeCast,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CRUSADE_TALENT),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(TALENTS.CRUSADE_TALENT),
       this.onCrusadeBuffStack,
     );
   }
@@ -45,7 +45,7 @@ class Crusade extends Analyzer {
 
   onCrusadeCast(event: CastEvent) {
     this.crusadeCastTimestamp = event.timestamp;
-    this.gcdBuffer = this.globalCooldown.getGlobalCooldownDuration(SPELLS.CRUSADE_TALENT.id);
+    this.gcdBuffer = this.globalCooldown.getGlobalCooldownDuration(TALENTS.CRUSADE_TALENT.id);
     if (this.holyPowerTracker.current < 3) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
@@ -65,7 +65,7 @@ class Crusade extends Analyzer {
   }
 
   get badGlobalPercent() {
-    return this.badFirstGlobal / this.abilityTracker.getAbility(SPELLS.CRUSADE_TALENT.id).casts;
+    return this.badFirstGlobal / this.abilityTracker.getAbility(TALENTS.CRUSADE_TALENT.id).casts;
   }
 
   get suggestionThresholds() {
@@ -84,13 +84,13 @@ class Crusade extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          You want to build stacks of <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon /> as quickly as
-          possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or{' '}
+          You want to build stacks of <SpellLink id={TALENTS.CRUSADE_TALENT.id} icon /> as quickly
+          as possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or{' '}
           <SpellLink id={SPELLS.DIVINE_STORM_DAMAGE.id} icon /> immediately after casting{' '}
-          <SpellLink id={SPELLS.CRUSADE_TALENT.id} icon />.
+          <SpellLink id={TALENTS.CRUSADE_TALENT.id} icon />.
         </>,
       )
-        .icon(SPELLS.CRUSADE_TALENT.icon)
+        .icon(TALENTS.CRUSADE_TALENT.icon)
         .actual(
           t({
             id: 'paladin.retribution.suggestions.Crusade.efficiency',

@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/rogue';
 import EnergyTracker from 'analysis/retail/rogue/shared/EnergyTracker';
-import { SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
+import { SpellUse } from 'parser/core/SpellUsage/core';
 import Events, { CastEvent } from 'parser/core/Events';
 import { getResourceChange } from 'analysis/retail/rogue/shared/talents/ThistleTeaCastLinkNormalizer';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -9,8 +9,8 @@ import { isInOpener } from 'analysis/retail/rogue/assassination/constants';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
-import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class ThistleTea extends Analyzer {
   static dependencies = {
@@ -44,14 +44,9 @@ export default class ThistleTea extends Analyzer {
       </p>
     );
 
-    const performances = this.cooldownUses.map((it) =>
-      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
-    );
-
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
-        performance={performances}
         uses={this.cooldownUses}
         abovePerformanceDetails={
           <SideBySidePanels>

@@ -684,13 +684,6 @@ const talents = createTalentList({
     entryIds: [87612],
     manaCost: 12500,
   },
-  ROAR_OF_EXHILARATION_TALENT: {
-    id: 375507,
-    name: 'Roar of Exhilaration',
-    icon: 'ability_hunter_mastertactitian',
-    maxRanks: 1,
-    entryIds: [87691],
-  },
   RUBY_EMBERS_TALENT: {
     id: 365937,
     name: 'Ruby Embers',

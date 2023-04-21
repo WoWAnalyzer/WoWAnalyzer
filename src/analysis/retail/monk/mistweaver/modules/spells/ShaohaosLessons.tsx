@@ -27,10 +27,11 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import Spell from 'common/SPELLS/Spell';
 
 const DESPAIR_CRIT_INCREASE = 0.3;
 const DOUBT_INCREASE = 0.4;
-const FEAR_HASTE_INCREASE = 0.25;
+const FEAR_HASTE_INCREASE = 0.2;
 const FEAR_MITIGATION_PERCENT = 0.15;
 
 const BUFFS = [
@@ -169,6 +170,19 @@ class ShaohaosLessons extends Analyzer {
     }
   }
 
+  getNextBuff(): Spell | null {
+    if (this.selectedCombatant.hasBuff(SPELLS.LESSON_OF_ANGER_NEXT_BUFF.id)) {
+      return SPELLS.LESSON_OF_ANGER_BUFF;
+    } else if (this.selectedCombatant.hasBuff(SPELLS.LESSON_OF_DESPAIR_NEXT_BUFF.id)) {
+      return SPELLS.LESSON_OF_DESPAIR_NEXT_BUFF;
+    } else if (this.selectedCombatant.hasBuff(SPELLS.LESSON_OF_DOUBT_NEXT_BUFF.id)) {
+      return SPELLS.LESSON_OF_DOUBT_BUFF;
+    } else if (this.selectedCombatant.hasBuff(SPELLS.LESSON_OF_FEAR_NEXT_BUFF.id)) {
+      return SPELLS.LESSON_OF_FEAR_BUFF;
+    }
+    return null;
+  }
+
   get totalDamage() {
     return this.angerDamage + this.despairDamage + this.doubtDamage;
   }
@@ -199,7 +213,7 @@ class ShaohaosLessons extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

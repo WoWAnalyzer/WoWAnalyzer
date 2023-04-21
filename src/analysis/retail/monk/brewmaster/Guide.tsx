@@ -13,6 +13,10 @@ import MajorDefensivesSection from './modules/core/MajorDefensives';
 import { defaultExplainers } from 'interface/guide/components/Apl/violations/claims';
 import explainSCK, { filterSCK } from './modules/core/AplCheck/explainSCK';
 import AplChoiceDescription from './modules/core/AplCheck/AplChoiceDescription';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import Explanation from 'interface/guide/components/Explanation';
+import { Highlight } from 'interface/Highlight';
 
 const explainers = {
   explainSCK,
@@ -57,6 +61,60 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             apl={AplCheck.apl(info)}
             violationExplainers={explainers}
           />
+        </SubSection>
+        <SubSection title="Major Cooldowns">
+          <Explanation>
+            <p>
+              Major cooldowns like <SpellLink id={talents.WEAPONS_OF_ORDER_TALENT} /> are a major
+              contributor to your overall damage. As a tank, they are also key to establishing
+              threat on pull and when new enemies spawn or are pulled.
+            </p>
+            <p>
+              It is generally correct to hold your cooldowns by a small amount in order to line up
+              with fight mechanics, so they aren't a part of the overall rotation listed in the
+              previous section. However, holding them too long can hurt your damage
+              significantly&mdash;especially if you outright skip a cast (shown in{' '}
+              <Highlight color="#834c4a">red</Highlight>).
+            </p>
+            <p>
+              <small>
+                Note that <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> is only
+                included in this list if you are using{' '}
+                <SpellLink id={talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT} />. If you are
+                not, it does about as much damage two{' '}
+                <SpellLink id={talents.RISING_SUN_KICK_TALENT} />
+                s&mdash;not nothing, but not worth thinking much about.
+              </small>
+            </p>
+          </Explanation>
+          {info.combatant.hasTalent(talents.WEAPONS_OF_ORDER_TALENT) && (
+            <CastEfficiencyBar
+              spellId={talents.WEAPONS_OF_ORDER_TALENT.id}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+            />
+          )}
+          {info.combatant.hasTalent(talents.EXPLODING_KEG_TALENT) && (
+            <CastEfficiencyBar
+              spellId={talents.EXPLODING_KEG_TALENT.id}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+            />
+          )}
+          {info.combatant.hasTalent(talents.SUMMON_WHITE_TIGER_STATUE_TALENT) && (
+            <CastEfficiencyBar
+              spellId={talents.SUMMON_WHITE_TIGER_STATUE_TALENT.id}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+            />
+          )}
+          {info.combatant.hasTalent(talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT) && (
+            <CastEfficiencyBar
+              spellId={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+            />
+          )}
         </SubSection>
       </Section>
       <ImprovedInvokeNiuzaoSection

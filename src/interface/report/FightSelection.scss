@@ -28,7 +28,9 @@
       font-weight: 600;
       border: 2px solid transparent;
 
-      &:hover, &:focus, &:active {
+      &:hover,
+      &:focus,
+      &:active {
         border: 2px solid $primaryColor;
         outline: 0;
         text-decoration: none;

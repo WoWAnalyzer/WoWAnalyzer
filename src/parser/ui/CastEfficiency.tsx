@@ -63,7 +63,7 @@ const CastEfficiency = ({ abilities }: Props) => (
               .map(({ ability, cpm, casts, maxCasts, efficiency, canBeImproved }) => {
                 const name = ability.castEfficiency.name || ability.name;
                 return (
-                  <tr key={name}>
+                  <tr key={ability.primarySpell}>
                     <td style={{ width: '35%' }}>
                       <SpellLink
                         id={ability.primarySpell}

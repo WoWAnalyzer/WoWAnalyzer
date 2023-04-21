@@ -1,6 +1,6 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_MONK } from 'common/TALENTS';
-import Events, { ApplyBuffEvent, HealEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -49,13 +49,17 @@ class MistyPeaks extends Analyzer {
       this.handleEnvApply,
     );
     this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell([TALENTS_MONK.ENVELOPING_MIST_TALENT]),
+      this.handleEnvApply,
+    );
+    this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([TALENTS_MONK.ENVELOPING_MIST_TALENT]),
       this.handleEnvHeal,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handleHeal);
   }
 
-  handleEnvApply(event: ApplyBuffEvent) {
+  handleEnvApply(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (isFromMistyPeaks(event)) {
       this.numHots += 1;
     }
@@ -110,11 +114,14 @@ class MistyPeaks extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.DEFAULT}
+        position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <ul>
+            <li>
+              <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> procs: {this.numHots}
+            </li>
             <li>
               <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> extra hits: {this.extraHits}
             </li>

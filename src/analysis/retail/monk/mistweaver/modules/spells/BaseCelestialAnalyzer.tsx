@@ -1,5 +1,5 @@
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
+import { SpellLink, Tooltip } from 'interface';
 import { CooldownExpandableItem } from 'interface/guide/components/CooldownExpandable';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, {
@@ -21,6 +21,7 @@ import SPELLS from 'common/SPELLS';
 import { formatNumber } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
 import Pets from 'parser/shared/modules/Pets';
+import InformationIcon from 'interface/icons/Information';
 
 export interface BaseCelestialTracker {
   lessonsDuration: number; // ms with Lessons buff
@@ -50,6 +51,9 @@ class BaseCelestialAnalyzer extends Analyzer {
   siApplyTime: number = -1;
   lessonsApplyTime: number = -1;
   celestialActive: boolean = false;
+  currentCelestialStart: number = -1;
+  lastCelestialEnd: number = -1;
+  celestialWindows: Map<number, number> = new Map<number, number>();
   castTrackers: BaseCelestialTracker[] = [];
   hasteDataPoints: number[] = []; // use this to estimate average haste during celestial
   goodSiDuration: number = 0; // how long SI should last during celestial
@@ -131,6 +135,7 @@ class BaseCelestialAnalyzer extends Analyzer {
 
   onSummon(event: SummonEvent) {
     this.celestialActive = true;
+    this.currentCelestialStart = event.timestamp;
     this.hasteDataPoints = [];
     SECRET_INFUSION_BUFFS.forEach((spell) => {
       if (this.selectedCombatant.hasBuff(spell.id)) {
@@ -157,10 +162,11 @@ class BaseCelestialAnalyzer extends Analyzer {
       {
         label: (
           <>
-            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> during celestial
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> recast
           </>
         ),
         result: <PerformanceMark perf={recastPerf} />,
+        details: cast.recastEf ? <>Yes</> : <>No</>,
       },
     ];
   }
@@ -173,6 +179,9 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   onEnvbApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
     this.castTrackers.at(-1)!.totalEnvB += 1;
   }
 
@@ -191,16 +200,17 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   removeSi(event: RemoveBuffEvent | DeathEvent) {
-    if (!this.celestialActive) {
+    if (!this.celestialActive || this.siApplyTime < this.owner.fight.start_time) {
       return;
     }
-    this.castTrackers.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
+    this.castTrackers.at(-1)!.infusionDuration += event.timestamp - this.siApplyTime;
   }
 
   removeLessons(event: RemoveBuffEvent) {
     if (
       this.castTrackers.length === 0 ||
       this.castTrackers.at(-1)!.lessonsDuration > 0 ||
+      this.lessonsApplyTime < this.owner.fight.start_time ||
       (this.castTrackers.at(-1)!.deathTimestamp > 0 &&
         this.castTrackers.at(-1)!.deathTimestamp < this.lessonsApplyTime)
     ) {
@@ -215,11 +225,11 @@ class BaseCelestialAnalyzer extends Analyzer {
      * 4)                 App                Remove
      */
     if (this.lessonsApplyTime < event.timestamp) {
-      this.castTrackers.at(-1)!.lessonsDuration = this.celestialActive
+      this.castTrackers.at(-1)!.lessonsDuration += this.celestialActive
         ? event.timestamp - this.castTrackers.at(-1)!.timestamp // case 1
         : this.castTrackers.at(-1)!.deathTimestamp - this.castTrackers.at(-1)!.timestamp; // case 2
     } else {
-      this.castTrackers.at(-1)!.lessonsDuration = this.celestialActive
+      this.castTrackers.at(-1)!.lessonsDuration += this.celestialActive
         ? event.timestamp - this.lessonsApplyTime // case 3
         : this.castTrackers.at(-1)!.deathTimestamp - this.lessonsApplyTime; // case 4
     }
@@ -236,6 +246,12 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.castTrackers.at(-1)!.recastEf = true;
   }
 
+  getCelestialTalent() {
+    return this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
+      ? TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT
+      : TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT;
+  }
+
   getCooldownExpandableItems(
     cast: BaseCelestialTracker,
   ): [QualitativePerformance[], CooldownExpandableItem[]] {
@@ -250,12 +266,12 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          Average <SpellLink id={TALENTS_MONK.ENVELOPING_BREATH_TALENT.id} /> per{' '}
-          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
+          <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} />s applied per{' '}
+          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
         </>
       ),
       result: <PerformanceMark perf={envbPerf} />,
-      details: <>{avgBreathsPerCast.toFixed(1)} avg per cast</>,
+      details: <>{avgBreathsPerCast.toFixed(1)} avg</>,
     });
     let envmPerf = QualitativePerformance.Good;
     const idealEnvm = this.getExpectedEnvmCasts(cast.averageHaste);
@@ -267,11 +283,11 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          Sufficient <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
+          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
         </>
       ),
       result: <PerformanceMark perf={envmPerf} />,
-      details: <>{formatNumber(cast.totalEnvM)} casts</>,
+      details: <>{formatNumber(cast.totalEnvM)}</>,
     });
 
     let efPerf = QualitativePerformance.Good;
@@ -283,11 +299,11 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          Sufficient <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs on cast
+          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on start
         </>
       ),
       result: <PerformanceMark perf={efPerf} />,
-      details: <>{cast.numEfHots} HoTs</>,
+      details: <>{cast.numEfHots}</>,
     });
     const allPerfs: QualitativePerformance[] = [envbPerf, efPerf, envmPerf];
 
@@ -302,7 +318,22 @@ class BaseCelestialAnalyzer extends Analyzer {
       checklistItems.push({
         label: (
           <>
-            <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> uptime
+            <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> uptime{' '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  Be sure to use <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+                  <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
+                  <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multiplicative haste
+                  bonus
+                </>
+              }
+            >
+              <span>
+                <InformationIcon />
+              </span>
+            </Tooltip>
           </>
         ),
         result: <PerformanceMark perf={siPerf} />,
@@ -320,7 +351,21 @@ class BaseCelestialAnalyzer extends Analyzer {
       checklistItems.push({
         label: (
           <>
-            <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> uptime
+            <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> uptime{' '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  Cast <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to
+                  cover the entire duration of{' '}
+                  <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
+                </>
+              }
+            >
+              <span>
+                <InformationIcon />
+              </span>
+            </Tooltip>
           </>
         ),
         result: <PerformanceMark perf={lessonPerf} />,
@@ -344,6 +389,9 @@ class BaseCelestialAnalyzer extends Analyzer {
       return;
     }
     this.celestialActive = false;
+    this.celestialWindows.set(this.currentCelestialStart, event.timestamp);
+    this.currentCelestialStart = -1;
+    this.lastCelestialEnd = event.timestamp;
     this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
     this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
     const hasInfusion = SECRET_INFUSION_BUFFS.some((spell) => {
@@ -353,13 +401,13 @@ class BaseCelestialAnalyzer extends Analyzer {
       return this.selectedCombatant.hasBuff(spell.id);
     });
     if (hasInfusion) {
-      this.castTrackers.at(-1)!.infusionDuration = Math.min(
+      this.castTrackers.at(-1)!.infusionDuration += Math.min(
         event.timestamp - this.siApplyTime,
         event.timestamp - this.castTrackers.at(-1)!.timestamp,
       );
     }
     if (hasLesson) {
-      this.castTrackers.at(-1)!.lessonsDuration = Math.min(
+      this.castTrackers.at(-1)!.lessonsDuration += Math.min(
         event.timestamp - this.lessonsApplyTime,
         event.timestamp - this.castTrackers.at(-1)!.timestamp,
       );

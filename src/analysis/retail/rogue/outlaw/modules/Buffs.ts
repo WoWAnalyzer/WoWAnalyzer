@@ -3,6 +3,8 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 import TALENTS from 'common/TALENTS/rogue';
 
+//-- TODO: Would be usefull to be able to toggle rtb buffs on and off in the timeline as showing everyone of them at all time can get messy
+
 class Buffs extends CoreAuras {
   auras() {
     // This should include ALL buffs that can be applied by your spec.
@@ -15,15 +17,32 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: TALENTS.BLADE_RUSH_TALENT.id,
+        timelineHighlight: true,
       },
       {
         spellId: SPELLS.OPPORTUNITY.id,
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.AUDACITY_TALENT_BUFF.id,
+        timelineHighlight: true,
+      },
+
+      {
+        spellId: SPELLS.SLICE_AND_DICE.id,
+      },
 
       // Talents
       {
         spellId: TALENTS.ALACRITY_TALENT.id,
+      },
+      {
+        spellId: SPELLS.SHADOW_DANCE_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.SUBTERFUGE_BUFF.id,
+        timelineHighlight: true,
       },
 
       // Roll the Bones
@@ -33,21 +52,27 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.RUTHLESS_PRECISION.id,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.GRAND_MELEE.id,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.BROADSIDE.id,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.SKULL_AND_CROSSBONES.id,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.BURIED_TREASURE.id,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.TRUE_BEARING.id,
+        timelineHighlight: false,
       },
 
       // Misc

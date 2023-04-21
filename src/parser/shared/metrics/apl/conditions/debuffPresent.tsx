@@ -5,7 +5,9 @@ import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 import { Condition, tenseAlt } from '../index';
 
-export function debuffPresent(spell: Spell): Condition<Set<string>> {
+import { TargetOptions, getTargets } from './debuffMissing';
+
+export function debuffPresent(spell: Spell, targetOptions?: TargetOptions): Condition<Set<string>> {
   return {
     key: `debuffPresent-${spell.id}`,
     init: () => new Set(),
@@ -14,13 +16,13 @@ export function debuffPresent(spell: Spell): Condition<Set<string>> {
         case EventType.ApplyDebuff:
         case EventType.ApplyDebuffStack:
           if (event.ability.guid === spell.id) {
-            state.add(encodeTargetString(event.targetID, event.targetInstance ?? 1));
+            state.add(encodeTargetString(event.targetID, event.targetInstance));
             return state;
           }
           break;
         case EventType.RemoveDebuff:
           if (event.ability.guid === spell.id) {
-            state.delete(encodeTargetString(event.targetID, event.targetInstance ?? 1));
+            state.delete(encodeTargetString(event.targetID, event.targetInstance));
             return state;
           }
           break;
@@ -28,11 +30,8 @@ export function debuffPresent(spell: Spell): Condition<Set<string>> {
       return state;
     },
     validate: (state, event) => {
-      if (event.targetID) {
-        return state.has(encodeTargetString(event.targetID, event.targetInstance ?? 1));
-      } else {
-        return false;
-      }
+      const targets = getTargets(event, targetOptions?.targetLinkRelation);
+      return targets.some((target) => state.has(target));
     },
     describe: (tense) => (
       <>

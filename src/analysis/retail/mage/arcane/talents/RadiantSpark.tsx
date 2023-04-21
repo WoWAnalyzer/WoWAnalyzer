@@ -1,14 +1,10 @@
-import { Trans } from '@lingui/macro';
-import { CASTS_PER_RADIANT_SPARK } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
-import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-
 import { getHitCount } from '../normalizers/CastLinkNormalizer';
 
 const CAST_SPELLS = [
@@ -16,9 +12,28 @@ const CAST_SPELLS = [
   SPELLS.ARCANE_EXPLOSION,
   TALENTS.ARCANE_ORB_TALENT,
   TALENTS.ARCANE_BARRAGE_TALENT,
+  TALENTS.ARCANE_SURGE_TALENT,
 ];
 const AOE_TARGET_THRESHOLD = 3;
 const debug = false;
+
+/*
+ Radiant Spark - 10.0.5
+
+ What does Radiant Spark Do:
+  - Hits the target
+  - Puts a DoT on the target
+  - Builds up to 4 stacks of increasing damage
+
+ How to use Radiant Spark:
+ - Cast Rune of Power
+ - Cast Radiant Spark
+ - Cast 3 Arcane Blasts
+ - Cast Arcane Surge if available or another Arcane Blast if on cooldown.
+
+ Harmonic Echo just makes damage spread to nearby adds. We dont care about it for checking rules.
+
+*/
 
 class RadiantSpark extends Analyzer {
   static dependencies = {
@@ -26,16 +41,19 @@ class RadiantSpark extends Analyzer {
   };
   protected abilityTracker!: AbilityTracker;
 
-  hasHarmonicEcho: boolean;
-
   arcaneBlastCasts = 0;
+  arcaneSurgeCasts = 0;
   aoeCasts = 0;
+
+  hasRuneOfPowerBuff = true;
+
   badRadiantSpark = 0;
+  badRadiantSparkBecauseOfRune = 0;
+  badRadiantSparkBecauseDidntUseFourSpells = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
-    this.hasHarmonicEcho = this.selectedCombatant.hasTalent(TALENTS.HARMONIC_ECHO_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(CAST_SPELLS), this.onCast);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.RADIANT_SPARK_TALENT),
@@ -43,43 +61,98 @@ class RadiantSpark extends Analyzer {
     );
   }
 
+  finishRampPhase = () => {
+    this.arcaneBlastCasts = 0;
+    this.arcaneSurgeCasts = 0;
+    this.aoeCasts = 0;
+    this.hasRuneOfPowerBuff = true;
+  };
+
   onCast(event: CastEvent) {
     //If Radiant Spark is not active, then we do not need to check the Arcane Blast cast.
     if (!this.selectedCombatant.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id)) {
       return;
     }
 
+    //If we dont have Rune of Power on any cast, flag it as false
+    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
+      this.hasRuneOfPowerBuff = false;
+    }
+
     const spellId = event.ability.guid;
+
     if (spellId === SPELLS.ARCANE_BLAST.id) {
       this.arcaneBlastCasts += 1;
+    } else if (spellId === TALENTS.ARCANE_SURGE_TALENT.id) {
+      this.arcaneSurgeCasts += 1;
     } else if (getHitCount(event) >= AOE_TARGET_THRESHOLD) {
       this.aoeCasts += 1;
     }
   }
 
   onRadiantSparkRemoved(event: RemoveBuffEvent) {
-    //Confirm whether 5 Arcane Blast casts (4 with Harmonic Echo) were cast during Radiant Spark
-    const spellCountThreshold = this.hasHarmonicEcho
-      ? CASTS_PER_RADIANT_SPARK - 1
-      : CASTS_PER_RADIANT_SPARK;
-    if (this.arcaneBlastCasts !== spellCountThreshold && this.aoeCasts < spellCountThreshold) {
+    /* All Cases - Must have Rune of Power Buff */
+    /* Case 1 - Burn Phase. Need to cast 3 Blasts + Surge */
+    /* Case 2 - Mini Burn. No AS. Need to cast 4 Blasts */
+
+    let wasBadRadiantSpark = false;
+
+    if (!this.hasRuneOfPowerBuff) {
+      debug && this.log('You are not standing in Rune of Power when doing a Radiant Spark Ramp.');
+
+      wasBadRadiantSpark = true;
+      this.badRadiantSparkBecauseOfRune += 1;
+    }
+
+    if (this.arcaneSurgeCasts === 1 && this.arcaneBlastCasts < 3) {
       debug &&
         this.log(
-          'Not enough (or too many) Arcane Blast casts during Radiant Spark - Casted ' +
+          'You didnt cast 3 Arcane Blasts before Arcane Surge during the Radiant Spark Ramp. Casted ' +
             this.arcaneBlastCasts +
-            ', expected ' +
-            spellCountThreshold,
+            ', expected 3',
         );
+
+      wasBadRadiantSpark = true;
+      this.badRadiantSparkBecauseDidntUseFourSpells += 1;
+    } else if (this.arcaneSurgeCasts === 0 && this.arcaneBlastCasts < 4) {
+      debug &&
+        this.log(
+          'You didnt cast 4 Arcane Blasts during the Radiant Spark Ramp. Casted ' +
+            this.arcaneBlastCasts +
+            ', expected 4',
+        );
+
+      wasBadRadiantSpark = true;
+      this.badRadiantSparkBecauseDidntUseFourSpells += 1;
+    }
+
+    if (wasBadRadiantSpark) {
       this.badRadiantSpark += 1;
     }
-    this.arcaneBlastCasts = 0;
-    this.aoeCasts = 0;
+
+    this.finishRampPhase();
   }
 
   get radiantSparkUtilization() {
     return (
       1 -
       this.badRadiantSpark / this.abilityTracker.getAbility(TALENTS.RADIANT_SPARK_TALENT.id).casts
+    );
+  }
+
+  get radiantSparkWithRuneOfPowerUtilisation() {
+    return (
+      1 -
+      this.badRadiantSparkBecauseOfRune /
+        this.abilityTracker.getAbility(TALENTS.RADIANT_SPARK_TALENT.id).casts
+    );
+  }
+
+  get radiantSparkBonusStacksUtilisation() {
+    return (
+      1 -
+      this.badRadiantSparkBecauseDidntUseFourSpells /
+        this.abilityTracker.getAbility(TALENTS.RADIANT_SPARK_TALENT.id).casts
     );
   }
 
@@ -95,33 +168,68 @@ class RadiantSpark extends Analyzer {
     };
   }
 
+  get runeOfPowerWithSparkThresholds() {
+    return {
+      actual: this.radiantSparkWithRuneOfPowerUtilisation,
+      isLessThan: {
+        minor: 1,
+        average: 1,
+        major: 1,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  get radiantSparkBonusStacksThresholds() {
+    return {
+      actual: this.radiantSparkBonusStacksUtilisation,
+      isLessThan: {
+        minor: 1,
+        average: 1,
+        major: 1,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
+  /* WHAT CAN GO WRONG WITH RADIANT SPARK
+   - You cast it and dont consume the 4 stacks - IF YOU ARE NOT DEBUFFED WITH 376105 then you didnt use all the bonus damage
+   - You dont use it inside Rune of Power
+   - You dont use Arcane Surge last if you are using Arcane Surge
+  /*
+
+  
+  /** What comes up at the bottom as actionable improvements to the player */
   suggestions(when: When) {
-    when(this.radiantSparkUsageThresholds).addSuggestion((suggest, actual, recommended) =>
+    when(this.runeOfPowerWithSparkThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You did not properly utilize <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} />{' '}
-          {this.badRadiantSpark} times. Because <SpellLink id={SPELLS.ARCANE_BLAST.id} /> hits very
-          hard at 4 <SpellLink id={SPELLS.ARCANE_CHARGE.id} />
-          s, you should use the damage buff from <SpellLink
-            id={TALENTS.RADIANT_SPARK_TALENT.id}
-          />{' '}
-          to increase their damage even further. So, you should ensure that you are getting{' '}
-          {CASTS_PER_RADIANT_SPARK} ({CASTS_PER_RADIANT_SPARK - 1} with{' '}
-          <SpellLink id={TALENTS.HARMONIC_ECHO_TALENT.id} />){' '}
-          <SpellLink id={SPELLS.ARCANE_BLAST.id} /> casts in before{' '}
-          <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> ends. Alternatively, if there is{' '}
-          {AOE_TARGET_THRESHOLD} targets or more, you can use{' '}
-          <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} />,{' '}
-          <SpellLink id={TALENTS.ARCANE_ORB_TALENT.id} />, and{' '}
-          <SpellLink id={TALENTS.ARCANE_BARRAGE_TALENT.id} /> instead of{' '}
-          <SpellLink id={SPELLS.ARCANE_BLAST.id} />.
+          You should be standing inside your Rune of Power for all casts during the Radiant Spark
+          ramp.
         </>,
       )
         .icon(TALENTS.RADIANT_SPARK_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.radiantSpark.utilization">
-            {formatPercentage(this.radiantSparkUtilization)}% Utilization
-          </Trans>,
+          <>
+            {formatPercentage(this.radiantSparkWithRuneOfPowerUtilisation, 0)}% of Radiant Spark
+            Ramps were standing in Rune of Power.
+          </>,
+        )
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
+    );
+    when(this.radiantSparkBonusStacksThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You should use all 4 Radiant Spark bonus damage stacks by casting damaging spells during
+          Radiant Spark.
+        </>,
+      )
+        .icon(TALENTS.RADIANT_SPARK_TALENT.icon)
+        .actual(
+          <>
+            {formatPercentage(this.radiantSparkBonusStacksUtilisation, 0)}% of Radiant Spark Ramps
+            consumed all stacks bonus damage.
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

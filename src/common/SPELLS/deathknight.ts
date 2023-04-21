@@ -104,6 +104,11 @@ const spells = spellIndexableList({
     name: 'Frost Fever',
     icon: 'spell_deathknight_frostfever',
   },
+  FROST_STRIKE_DAMAGE: {
+    id: 325464,
+    name: 'Frost Strike',
+    icon: 'spell_deathknight_empowerruneblade2',
+  },
   FROST_STRIKE_MAIN_HAND_DAMAGE: {
     id: 222026,
     name: 'Frost Strike',
@@ -113,6 +118,11 @@ const spells = spellIndexableList({
     id: 66196,
     name: 'Frost Strike',
     icon: 'spell_deathknight_empowerruneblade2',
+  },
+  OBLITERATE_DAMAGE: {
+    id: 325461,
+    name: 'Obliterate',
+    icon: 'spell_deathknight_classicon',
   },
   OBLITERATE_MAIN_HAND_DAMAGE: {
     id: 222024,
@@ -124,13 +134,19 @@ const spells = spellIndexableList({
     name: 'Obliterate',
     icon: 'spell_deathknight_classicon',
   },
-  REMORSELESS_WINTER_TALENT_ENV_CAST: {
+  REMORSELESS_WINTER: {
+    id: 196770,
+    name: 'Remorseless Winter',
+    icon: 'ability_deathknight_remorselesswinters2',
+    runesCost: 1,
+  },
+  REMORSELESS_WINTER_ENV_CAST: {
     // not actually sure what this does
     id: 211793,
     name: 'Remorseless Winter',
     icon: 'ability_deathknight_remorselesswinters2',
   },
-  REMORSELESS_WINTER_TALENT_DAMAGE: {
+  REMORSELESS_WINTER_DAMAGE: {
     // every tick puts a cast event on the environment and also the id of the damage event
     id: 196771,
     name: 'Remorseless Winter',

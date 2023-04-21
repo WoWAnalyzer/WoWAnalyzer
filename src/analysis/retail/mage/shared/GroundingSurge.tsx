@@ -5,22 +5,7 @@ import Events, { InterruptEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const COOLDOWN_REDUCTION_MS = [
-  0,
-  2500,
-  2800,
-  3000,
-  3300,
-  3500,
-  3800,
-  4000,
-  4300,
-  4500,
-  4800,
-  5000,
-  5300,
-  5500,
-  5800,
-  6000,
+  0, 2500, 2800, 3000, 3300, 3500, 3800, 4000, 4300, 4500, 4800, 5000, 5300, 5500, 5800, 6000,
 ];
 
 class GroundingSurge extends Analyzer {

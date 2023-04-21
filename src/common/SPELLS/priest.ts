@@ -121,6 +121,11 @@ const spells = spellIndexableList({
     name: 'Shield Of Absolution',
     icon: 'ability_priest_clarityofwill',
   },
+  RADIANT_PROVIDENCE_BUFF: {
+    id: 410638,
+    name: 'Radiant Providence',
+    icon: 'spell_priest_power-word',
+  },
   SMITE: {
     id: 585,
     name: 'Smite',
@@ -131,7 +136,7 @@ const spells = spellIndexableList({
     id: 194509,
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
-    manaCost: 16250,
+    manaCost: 11250,
   },
   SHADOW_MEND: {
     id: 186263,
@@ -190,6 +195,11 @@ const spells = spellIndexableList({
     id: 81782,
     name: 'Power Word: Barrier',
     icon: 'spell_holy_powerwordbarrier',
+  },
+  WEAL_AND_WOE_BUFF: {
+    id: 390787,
+    name: 'Weal and Woe',
+    icon: 'spell_priest_burningwill',
   },
   PURIFY: {
     id: 527,

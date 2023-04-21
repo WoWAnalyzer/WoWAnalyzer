@@ -53,6 +53,10 @@ export type CooldownSpell = {
   expansion?: number;
 };
 
+export type BuffCooldownSpell = CooldownSpell & {
+  expansion: number;
+};
+
 export type TrackedCooldown = CooldownSpell & {
   /** The timestamp to begin tracking events */
   start: number;
@@ -69,7 +73,7 @@ class CooldownThroughputTracker extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  static cooldownSpells: CooldownSpell[] = [
+  static cooldownSpells: BuffCooldownSpell[] = [
     // Retail
     {
       spell: SPELLS.INNERVATE.id,

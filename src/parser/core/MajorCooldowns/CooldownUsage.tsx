@@ -28,7 +28,7 @@ const PossibleMissingCastBoxEntry = {
 
 type CooldownUsageProps<Cast extends SpellCast> = Omit<
   ComponentPropsWithoutRef<typeof SpellUsageSubSection>,
-  'explanation' | 'performance' | 'uses'
+  'explanation' | 'performances' | 'uses'
 > & {
   analyzer: MajorCooldown<Cast>;
 };
@@ -50,6 +50,11 @@ const CooldownUsage = <Cast extends SpellCast>({
   const possibleUses = castEfficiency?.maxCasts ?? 0;
   const performance = analyzer.cooldownPerformance();
   const actualCasts = performance.length;
+
+  // If an analyzer isn't active, we shouldn't render anything.
+  if (!analyzer.active) {
+    return null;
+  }
 
   if (actualCasts === 0 && possibleUses > 1) {
     // if they didn't cast it and could have multiple times, we call all possible uses bad
@@ -75,8 +80,8 @@ const CooldownUsage = <Cast extends SpellCast>({
   return (
     <SpellUsageSubSection
       explanation={analyzer.description()}
-      performance={performance}
       uses={uses}
+      performances={performance}
       {...others}
     />
   );

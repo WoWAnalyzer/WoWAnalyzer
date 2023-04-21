@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 export default [
+  change(date(2023, 4, 7), 'Mark Beast Mastery as compatible for 10.0.7', Putro),
   change(date(2023, 2, 7), <>Fixed an issue with <SpellLink id={TALENTS.DIRE_BEAST_TALENT.id} /> when using a glyph. </>, Putro),
   change(date(2023, 2, 1), <>Fixed an issue with <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> statistic showing too low uptime. </>, Putro),
   change(date(2023, 1, 30), <>Added a <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id}/> usage infographic to the guide.</>, Putro),

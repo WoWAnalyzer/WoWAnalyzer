@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -76,6 +76,7 @@ class ArcaneEcho extends Analyzer {
 
   get touchUtilization() {
     return (
+      1 -
       this.badTouchUses / this.abilityTracker.getAbility(TALENTS.TOUCH_OF_THE_MAGI_TALENT.id).casts
     );
   }
@@ -132,8 +133,8 @@ class ArcaneEcho extends Analyzer {
             {formatNumber(this.averageCastsPerTouch)}{' '}
             <small>Average casts per Touch of the Magi</small>
             <br />
-            <SpellIcon id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} /> {this.touchUtilization}{' '}
-            <small>Touch of the Magi Utilization</small>
+            <SpellIcon id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} />{' '}
+            {formatPercentage(this.touchUtilization)}% <small>Touch of the Magi Utilization</small>
           </>
         </BoringSpellValueText>
       </Statistic>

@@ -12,7 +12,6 @@ import {
 import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/GenericCastEfficiencyRequirement';
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
-import PropTypes from 'prop-types';
 
 const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (
@@ -21,9 +20,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
       {...props}
     />
   );
-  AbilityRequirement.propTypes = {
-    spell: PropTypes.number.isRequired,
-  };
 
   // TODO: confirm all requirements are correct since 10.X update
 
@@ -105,9 +101,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         )}
         {combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={TALENTS.AVENGING_CRUSADER_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.HOLY_AVENGER_TALENT) && (
-          <AbilityRequirement spell={TALENTS.HOLY_AVENGER_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
         {combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT) && (
@@ -346,15 +339,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );
-};
-
-HolyPaladinChecklist.propTypes = {
-  castEfficiency: PropTypes.object.isRequired,
-  combatant: PropTypes.shape({
-    hasTalent: PropTypes.func.isRequired,
-  }).isRequired,
-  thresholds: PropTypes.object.isRequired,
-  owner: PropTypes.object.isRequired,
 };
 
 export default HolyPaladinChecklist;

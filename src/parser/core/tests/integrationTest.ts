@@ -46,7 +46,7 @@ function checklist(parser: CombatLogParser) {
     return 'no checklist';
   }
   const result = (parser.getModule(checklistModule) as BaseChecklist).render();
-  return renderer.create((result as unknown) as ReactElement).toJSON();
+  return renderer.create(result as unknown as ReactElement).toJSON();
 }
 
 /**

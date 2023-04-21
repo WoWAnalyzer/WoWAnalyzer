@@ -38,6 +38,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ROLL_THE_BONES_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 45,
         gcd: {
           static: standardGcd,
         },
@@ -129,6 +130,25 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: TALENTS.SHADOW_DANCE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        enabled: combatant.hasTalent(TALENTS.SHADOW_DANCE_TALENT),
+      },
+      {
+        spell: TALENTS.THISTLE_TEA_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        charges: 3,
+        enabled: combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT),
+      },
+      {
+        spell: TALENTS.COLD_BLOOD_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        enabled: combatant.hasTalent(TALENTS.COLD_BLOOD_TALENT),
+      },
+      {
         spell: TALENTS.BLADE_RUSH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
@@ -164,6 +184,13 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.KILLING_SPREE_TALENT),
       },
+      {
+        spell: TALENTS.KEEP_IT_ROLLING_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 7 * 60,
+        gcd: null,
+        enabled: combatant.hasTalent(TALENTS.KEEP_IT_ROLLING_TALENT),
+      },
       // Defensive
       {
         spell: TALENTS.CLOAK_OF_SHADOWS_TALENT.id,
@@ -189,9 +216,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.RIPOSTE.id,
+        spell: TALENTS.EVASION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        buffSpellId: SPELLS.RIPOSTE.id,
+        buffSpellId: TALENTS.EVASION_TALENT.id,
         cooldown: 120,
         gcd: null,
       },
@@ -229,11 +256,19 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 30 : 0),
         gcd: null,
+        enabled: combatant.hasTalent(TALENTS.GRAPPLING_HOOK_TALENT),
+      },
+      {
+        spell: TALENTS.SHADOWSTEP_SHARED_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30,
+        gcd: null,
+        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT),
       },
       {
         spell: SPELLS.SPRINT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
+        cooldown: 120 - (combatant.hasTalent(TALENTS.IMPROVED_SPRINT_TALENT) ? 60 : 0),
         gcd: null,
       },
       {

@@ -43,6 +43,7 @@ export default function uptimeBarSubStatistic(
   subBars: UptimeBarSpec[] = [],
   subPercentageStyle: SubPercentageStyle = SubPercentageStyle.RELATIVE,
   subIncludeUptimeText: boolean = false,
+  statText: string = 'uptime',
 ): React.ReactNode {
   const primaryUptime = getCombinedUptime(primaryBar.uptimes);
   const totalFightTime = fight.end_time - fight.start_time;
@@ -53,7 +54,7 @@ export default function uptimeBarSubStatistic(
       <div className="flex main-bar">
         <div className="flex-sub bar-label">
           {getSubUptimeIcon(primaryBar)}
-          {formatPercentUptime(primaryUptime, totalFightTime)} <small>uptime</small>
+          {formatPercentUptime(primaryUptime, totalFightTime)} <small>{statText}</small>
         </div>
         <div className="flex-main chart">
           <UptimeBar
@@ -73,7 +74,7 @@ export default function uptimeBarSubStatistic(
             {subIncludeUptimeText && (
               <>
                 {' '}
-                <small>uptime</small>
+                <small>{statText}</small>
               </>
             )}
           </div>

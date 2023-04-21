@@ -82,8 +82,18 @@ class ImplosionHandler extends Analyzer {
       // TODO: might want to make this eaiser by making `_getPets` return (TimelinePet | WildImp)[]
       .sort((imp1, imp2) => {
         // no clue why this isn't pickup up the `if` check at the start of this function...
-        const distance1 = this._getDistance(imp1.x ?? 0, imp1.y ?? 0, event.x as number, event.y as number);
-        const distance2 = this._getDistance(imp2.x ?? 0, imp2.y ?? 0, event.x as number, event.y as number);
+        const distance1 = this._getDistance(
+          imp1.x ?? 0,
+          imp1.y ?? 0,
+          event.x as number,
+          event.y as number,
+        );
+        const distance2 = this._getDistance(
+          imp2.x ?? 0,
+          imp2.y ?? 0,
+          event.x as number,
+          event.y as number,
+        );
         return distance1 - distance2;
       });
     test && this.log('Implosion damage, Imps to be imploded: ', JSON.parse(JSON.stringify(imps)));

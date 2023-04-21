@@ -16,11 +16,11 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
-import { SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
-import SpellUsageSubSection from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { SpellUse } from 'parser/core/SpellUsage/core';
 
 import { getHardcast } from '../../normalizers/CastLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class RuptureUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -154,14 +154,9 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
       </p>
     );
 
-    const performances = this.cooldownUses.map((it) =>
-      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
-    );
-
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
-        performance={performances}
         uses={this.cooldownUses}
         abovePerformanceDetails={
           <RoundedPanel>

@@ -32,12 +32,11 @@ import JadeBond from './modules/spells/JadeBond';
 import NourishingChi from './modules/spells/NourishingChi';
 import RisingSunRevival from './modules/spells/UpliftedSpirits';
 import FaelineStompHealing from './modules/spells/FaelineStompHealing';
-import AncientTeachingsoftheMonastery from './modules/spells/AncientTeachingsoftheMonastery';
+import AncientTeachings from './modules/spells/AncientTeachings';
 import CloudedFocus from './modules/spells/CloudedFocus';
 import EnvelopingBreath from './modules/spells/EnvelopingBreath';
 import EnvelopingMists from './modules/spells/EnvelopingMists';
 import EssenceFont from './modules/spells/EssenceFont';
-import EssenceFontCancelled from './modules/spells/EssenceFontCancelled';
 import EssenceFontTargetsHit from './modules/spells/EssenceFontTargetsHit';
 import EssenceFontUniqueTargets from './modules/spells/EssenceFontUniqueTargets';
 import ExpelHarm from './modules/spells/ExpelHarm';
@@ -77,8 +76,15 @@ import MendingProliferation from './modules/spells/MendingProliferation';
 import SheilunsGift from './modules/spells/SheilunsGift';
 import MistWrap from './modules/spells/MistWrap';
 import ShaohaosLessons from './modules/spells/ShaohaosLessons';
+import LegacyOfWisdom from './modules/spells/LegacyOfWisdom';
 import VeilOfPride from './modules/spells/VeilOfPride';
 import Guide from './Guide';
+import SheilunsGiftCloudTracker from './modules/spells/SheilunsGiftCloudTracker';
+import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
+import HotCountGraph from './modules/features/HotCountGraph';
+import AplCheck from './modules/core/apl/AplCheck';
+import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
+import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -111,7 +117,13 @@ class CombatLogParser extends CoreCombatLogParser {
     mistyPeaksHealingBreakdown: MistyPeaksHealingBreakdown,
     averageTimeBetweenRSKSs: AverageTimeBetweenRSKSs,
     remGraph: REMGraph,
+    hotCountGraph: HotCountGraph,
     talentHealingStatistic: TalentHealingStatistic,
+    risingMistBreakdown: RisingMistBreakdown,
+
+    // Guide helpers
+    sheilunsGiftCloudTracker: SheilunsGiftCloudTracker,
+    sheilunsGiftCloudGraph: SheilunsGiftCloudGraph,
 
     // Base Spells
     spinningCraneKick: SpinningCraneKick,
@@ -126,7 +138,7 @@ class CombatLogParser extends CoreCombatLogParser {
     vivaciousVivification: VivaciousVivification,
 
     // MW Talents
-    ancientTeachingsoftheMonastery: AncientTeachingsoftheMonastery,
+    ancientTeachings: AncientTeachings,
     cloudedFocus: CloudedFocus,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
@@ -134,7 +146,6 @@ class CombatLogParser extends CoreCombatLogParser {
     essenceFontUniqueTargets: EssenceFontUniqueTargets,
     essenceFontTargetsHit: EssenceFontTargetsHit,
     expelHarm: ExpelHarm,
-    EssenceFontCancelled: EssenceFontCancelled,
     faelineStomp: FaelineStomp,
     faelineStompHealing: FaelineStompHealing,
     invokersDelight: InvokersDelight,
@@ -167,9 +178,13 @@ class CombatLogParser extends CoreCombatLogParser {
     sheilunsGift: SheilunsGift,
     shaohaosLessons: ShaohaosLessons,
     veilOfPride: VeilOfPride,
+    legacyOfWisdom: LegacyOfWisdom,
+
+    apl: AplCheck,
 
     // Borrowed Power
     t29TierSet: T29TierSet,
+    t30TierSet: T30TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

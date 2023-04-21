@@ -11,7 +11,6 @@ export default lowRankSpells;
 
 export const whitelist = {
   [SPELLS.LIFE_TAP.id]: [1454],
-  [SPELLS.HEALTHSTONE_USE.id]: [47875],
 };
 
 export interface LowRankSpells {

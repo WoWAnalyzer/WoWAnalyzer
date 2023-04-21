@@ -95,12 +95,12 @@ export type ProblemRendererProps<T> = {
  */
 export type ProblemRenderer<T> = (props: ProblemRendererProps<T>) => JSX.Element;
 
-export function NoProblem() {
+export function NoProblem({ children }: React.PropsWithChildren<object>) {
   return (
     <div className="problem-list-container no-problems">
       <span>
         <i className="glyphicon glyphicon-ok" />
-        No problems found.
+        {children ?? <>No problems found.</>}
       </span>
     </div>
   );

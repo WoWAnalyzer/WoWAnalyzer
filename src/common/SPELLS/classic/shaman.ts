@@ -100,23 +100,8 @@ const spells = spellIndexableList({
     name: 'Fire Nova',
     icon: 'spell_fire_sealoffire',
     lowRanks: [
-      61654,
-      61649,
-      61650,
-      25547,
-      25537,
-      25535,
-      25546,
-      11315,
-      11307,
-      11306,
-      11314,
-      8503,
-      8499,
-      8502,
-      8498,
-      1535,
-      8349,
+      61654, 61649, 61650, 25547, 25537, 25535, 25546, 11315, 11307, 11306, 11314, 8503, 8499, 8502,
+      8498, 1535, 8349,
     ],
   },
   FIRE_RESISTANCE_TOTEM: {
@@ -351,7 +336,6 @@ const spells = spellIndexableList({
     icon: 'spell_fire_totemofwrath',
     lowRanks: [57721, 57720, 30706],
   },
-
   // Enhancement
   FERAL_SPIRIT: {
     id: 51533,
@@ -373,7 +357,11 @@ const spells = spellIndexableList({
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
   },
-
+  UNLEASHED_RAGE: {
+    id: 30809,
+    name: 'Unleashed Rage',
+    icon: 'spell_nature_unleashedrage',
+  },
   // Restoration
   CLEANSE_SPIRIT: {
     id: 51886,
@@ -386,10 +374,20 @@ const spells = spellIndexableList({
     icon: 'spell_nature_skinofearth',
     lowRanks: [49283, 32594, 32593, 974],
   },
+  EARTH_SHIELD_HEAL: {
+    id: 379,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
+  },
   MANA_TIDE_TOTEM: {
     id: 16190,
     name: 'Mana Tide Totem',
     icon: 'spell_frost_summonwaterelemental',
+  },
+  MANA_TIDE_TOTEM_BUFF: {
+    id: 39609,
+    name: 'Mana Tide Totem',
+    icon: 'spell_holy_stoicism',
   },
   NATURES_SWIFTNESS: {
     id: 16188,

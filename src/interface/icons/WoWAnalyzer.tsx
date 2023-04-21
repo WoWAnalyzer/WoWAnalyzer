@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import * as React from 'react';
 
 interface Props
@@ -19,13 +18,5 @@ const Icon = (props: Props) => (
     />
   </svg>
 );
-Icon.propTypes = {
-  mainColor: PropTypes.string,
-  arrowColor: PropTypes.string,
-};
-Icon.defaultProps = {
-  mainColor: '#FAB700',
-  arrowColor: 'transparent',
-};
 
 export default Icon;

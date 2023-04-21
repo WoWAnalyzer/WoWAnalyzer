@@ -6,7 +6,7 @@ import HotTracker, { Tracker, HotInfo, Extension } from 'parser/shared/modules/H
 import { ATTRIBUTION_STRINGS } from '../../constants';
 
 const RAPID_DIFFUSION = 3000;
-const MISTY_PEAKS_DURATION = 1000;
+const MISTY_PEAKS_DURATION = 2000;
 const REM_BASE_DURATION = 20000;
 const ENV_BASE_DURATION = 6000;
 const EF_BASE_DURATION = 8000;
@@ -36,6 +36,36 @@ class HotTrackerMW extends HotTracker {
       TALENTS_MONK.RAPID_DIFFUSION_TALENT,
     );
     this.risingMistActive = this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT);
+  }
+
+  fromRapidDiffusionRisingSunKick(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_RSK;
+    });
+  }
+
+  fromRapidDiffusionEnvelopingMist(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_ENV;
+    });
+  }
+
+  fromDancingMistRapidDiffusion(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_RD;
+    });
+  }
+
+  fromDancingMistHardCast(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_HC;
+    });
+  }
+
+  fromDancingMistMistsOfLife(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === ATTRIBUTION_STRINGS.DANCING_MIST_SOURCES.DM_SOURCE_MOL;
+    });
   }
 
   fromMistyPeaks(hot: Tracker): boolean {
@@ -99,15 +129,68 @@ class HotTrackerMW extends HotTracker {
   _calculateMaxRemDuration(combatant: Combatant): number {
     return combatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)
       ? (REM_BASE_DURATION + TFT_REM_EXTRA_DURATION) *
-          (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ? RISING_MIST : 1)
+          (combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RISING_MIST)
       : REM_BASE_DURATION *
-          (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ? RISING_MIST : 1);
+          (combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RISING_MIST);
+  }
+
+  _calculateEnvDuration(combatant: Combatant): number {
+    return combatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
+      ? ENV_BASE_DURATION + MISTWRAP
+      : ENV_BASE_DURATION;
+  }
+
+  _calculateMaxEnvDuration(combatant: Combatant): number {
+    return (
+      (combatant.hasTalent(TALENTS_MONK.MIST_WRAP_TALENT)
+        ? ENV_BASE_DURATION + MISTWRAP
+        : ENV_BASE_DURATION) *
+      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) *
+      RISING_MIST
+    );
+  }
+
+  _calculateEssenceFontDuration(combatant: Combatant): number {
+    return combatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
+      ? EF_BASE_DURATION + UPWELLING
+      : EF_BASE_DURATION;
+  }
+
+  _calculateMaxEssenceFontDuration(combatant: Combatant): number {
+    return (
+      (combatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
+        ? EF_BASE_DURATION + UPWELLING
+        : EF_BASE_DURATION) *
+      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) *
+      RISING_MIST
+    );
+  }
+
+  _getRapidDiffusionMaxDuration(combatant: Combatant): number {
+    return (
+      (combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
+        ? RAPID_DIFFUSION * RISING_MIST
+        : RAPID_DIFFUSION) * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
+    );
+  }
+
+  _getRapidDiffusionDuration(combatant: Combatant): number {
+    return RAPID_DIFFUSION * combatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT);
+  }
+
+  _getMistyPeaksMaxDuration(combatant: Combatant): number {
+    return (
+      MISTY_PEAKS_DURATION +
+      combatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * MISTY_PEAKS_DURATION
+    );
+  }
+
+  _getMistyPeaksDuration(combatant: Combatant): number {
+    return MISTY_PEAKS_DURATION;
   }
 
   _generateHotInfo(): HotInfo[] {
     // must be generated dynamically because it reads from traits
-    const envMistDuration = ENV_BASE_DURATION + (this.mistwrapActive ? MISTWRAP : 0);
-    const essenceFontDuration = EF_BASE_DURATION + (this.upwellingActive ? UPWELLING : 0);
     return [
       {
         spell: SPELLS.RENEWING_MIST_HEAL,
@@ -115,52 +198,32 @@ class HotTrackerMW extends HotTracker {
         tickPeriod: 2000,
         maxDuration: this._calculateMaxRemDuration,
         bouncy: true,
-        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT)
-          ? RAPID_DIFFUSION *
-            this.selectedCombatant.getTalentRank(TALENTS_MONK.RAPID_DIFFUSION_TALENT) *
-            (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) ? RISING_MIST : 1)
-          : undefined,
+        procDuration: this._getRapidDiffusionDuration,
       },
       {
         spell: TALENTS_MONK.ENVELOPING_MIST_TALENT,
-        duration: envMistDuration,
+        duration: this._calculateEnvDuration,
         tickPeriod: 1000,
-        maxDuration:
-          envMistDuration *
-          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-            ? RISING_MIST
-            : 1),
-        procDuration: this.owner.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT)
-          ? MISTY_PEAKS_DURATION *
-              this.selectedCombatant.getTalentRank(TALENTS_MONK.MISTY_PEAKS_TALENT) +
-            ENV_BASE_DURATION // misty peaks can be extended for 100% of base env duration
-          : undefined,
+        maxDuration: this._calculateMaxEnvDuration,
+        procDuration: this._getMistyPeaksDuration,
       },
       {
         spell: SPELLS.ENVELOPING_BREATH_HEAL,
-        duration: envMistDuration,
+        duration: this._calculateEnvDuration,
         tickPeriod: 1000,
-        maxDuration: envMistDuration,
+        maxDuration: this._calculateEnvDuration,
       },
       {
         spell: SPELLS.ESSENCE_FONT_BUFF,
-        duration: essenceFontDuration,
+        duration: this._calculateEssenceFontDuration,
         tickPeriod: 2000,
-        maxDuration:
-          essenceFontDuration *
-          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-            ? RISING_MIST
-            : 1),
+        maxDuration: this._calculateMaxEssenceFontDuration,
       },
       {
         spell: SPELLS.FAELINE_STOMP_ESSENCE_FONT,
-        duration: essenceFontDuration,
+        duration: this._calculateEssenceFontDuration,
         tickPeriod: 2000,
-        maxDuration:
-          essenceFontDuration *
-          (this.owner.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-            ? RISING_MIST
-            : 1),
+        maxDuration: this._calculateMaxEssenceFontDuration,
       },
     ];
   }

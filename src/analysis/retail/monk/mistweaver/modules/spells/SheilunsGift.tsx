@@ -19,7 +19,10 @@ class SheilunsGift extends Analyzer {
   baseHealing: number = 0;
   gomHealing: number = 0;
   cloudsLost: number = 0;
+  cloudsLostSinceLastCast: number = 0;
   curClouds: number = 0;
+  overhealing: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT);
@@ -46,16 +49,19 @@ class SheilunsGift extends Analyzer {
 
   onCast(event: CastEvent) {
     this.totalStacks += this.selectedCombatant.getBuffStacks(SPELLS.SHEILUN_CLOUD_BUFF.id);
+    this.cloudsLostSinceLastCast = 0;
     this.numCasts += 1;
   }
 
   onHeal(event: HealEvent) {
-    this.baseHealing += event.amount;
+    this.baseHealing += event.amount + (event.absorbed || 0);
+    this.overhealing += event.overheal || 0;
   }
 
   onBuffRefresh(event: RefreshBuffEvent) {
     if (this.curClouds === 10) {
       this.cloudsLost += 1;
+      this.cloudsLostSinceLastCast += 1;
     }
     this.curClouds = this.selectedCombatant.getBuffStacks(SPELLS.SHEILUN_CLOUD_BUFF.id);
   }
@@ -111,7 +117,7 @@ class SheilunsGift extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        position={STATISTIC_ORDER.OPTIONAL(2)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >

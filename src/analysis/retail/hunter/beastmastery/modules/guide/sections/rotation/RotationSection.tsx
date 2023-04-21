@@ -41,24 +41,28 @@ export default function RotationSection({ modules, info }: GuideProps<typeof Com
           <CastEfficiencyBar
             spellId={TALENTS.BESTIAL_WRATH_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            minimizeIcons
           />
         )}
         {info.combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT) && (
           <CastEfficiencyBar
             spellId={TALENTS.DEATH_CHAKRAM_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            minimizeIcons
           />
         )}
         {info.combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT) && (
           <CastEfficiencyBar
             spellId={TALENTS.DIRE_BEAST_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            minimizeIcons
           />
         )}
         {info.combatant.hasTalent(TALENTS.BLOODSHED_TALENT) && (
           <CastEfficiencyBar
             spellId={TALENTS.BLOODSHED_TALENT.id}
             gapHighlightMode={GapHighlight.FullCooldown}
+            minimizeIcons
           />
         )}
       </SubSection>

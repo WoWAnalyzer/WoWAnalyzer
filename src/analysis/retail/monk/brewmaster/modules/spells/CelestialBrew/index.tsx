@@ -4,6 +4,12 @@ import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
 import { SpellIcon } from 'interface';
+import {
+  buff,
+  MajorDefensiveBuff,
+  Mitigation,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import { MitigationSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
@@ -18,7 +24,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { ReactNode } from 'react';
 import CountsAsBrew from '../../components/CountsAsBrew';
-import { MajorDefensive, Mitigation, MitigationSegment } from '../../core/MajorDefensives/core';
 import { damageEvent } from './normalizer';
 
 const PURIFIED_CHI_PCT = 0.2;
@@ -37,13 +42,13 @@ type AbsorbExtras = {
 
 type Absorb = Mitigation & AbsorbExtras;
 
-class CelestialBrew extends MajorDefensive {
+class CelestialBrew extends MajorDefensiveBuff {
   private _absorbs: AbsorbExtras[] = [];
   private _currentChiStacks: number = 0;
   private _expireTime: number | null = null;
 
   constructor(options: Options) {
-    super({ talent: talents.CELESTIAL_BREW_TALENT }, options);
+    super(talents.CELESTIAL_BREW_TALENT, buff(talents.CELESTIAL_BREW_TALENT), options);
 
     this.active = this.selectedCombatant.hasTalent(talents.CELESTIAL_BREW_TALENT);
 
@@ -216,7 +221,7 @@ class CelestialBrew extends MajorDefensive {
 
     this.recordMitigation({
       // we try to put in the damage event, but worst case we plug in the absorb event
-      event: damageEvent(event) ?? event,
+      event: damageEvent(event) ?? { ...event, ability: event.extraAbility },
       mitigatedAmount: event.amount,
     });
   }
@@ -242,7 +247,7 @@ class CelestialBrew extends MajorDefensive {
         {
           amount: baseAmount,
           color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-          tooltip: (
+          description: (
             <>
               Base <SpellLink id={this.spell} />
             </>
@@ -251,7 +256,7 @@ class CelestialBrew extends MajorDefensive {
         {
           amount: stackAmount,
           color: color(MAGIC_SCHOOLS.ids.HOLY),
-          tooltip: <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
+          description: <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
         },
       ];
     } else {

@@ -81,7 +81,7 @@ class MasteryEffectiveness extends Analyzer {
         key="StatisticBox"
         icon={<SpellIcon id={SPELLS.DEEP_HEALING.id} />}
         value={`${formatPercentage(this.masteryEffectivenessPercent)} %`}
-        position={STATISTIC_ORDER.CORE(30)}
+        position={STATISTIC_ORDER.CORE(2)}
         label={
           <TooltipElement
             content={

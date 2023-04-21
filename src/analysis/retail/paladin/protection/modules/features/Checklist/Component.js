@@ -99,10 +99,7 @@ const ProtectionPaladinChecklist = (props) => {
           thresholds={thresholds.wogSlWaste}
         />
       </Rule>
-      <AplRule
-        {...props}
-        cooldowns={[SPELLS.AVENGING_WRATH, TALENTS.DIVINE_TOLL_TALENT, TALENTS.SERAPHIM_TALENT]}
-      />
+      <AplRule {...props} cooldowns={[SPELLS.AVENGING_WRATH, TALENTS.DIVINE_TOLL_TALENT]} />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

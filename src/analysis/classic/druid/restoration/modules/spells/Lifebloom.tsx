@@ -1,12 +1,11 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import SpellLink from 'interface/SpellLink';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import * as SPELL_EFFECTS from '../SPELL_EFFECTS';
 import HotTrackerRestoDruid from '../core/HotTrackerRestoDruid';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemLink from 'interface/ItemLink';
@@ -34,7 +33,7 @@ class Lifebloom extends Analyzer {
     );
 
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell({ id: SPELL_EFFECTS.LIFEBLOOM_BLOOM_REGEN }),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.LIFEBLOOM_REGEN),
       this.regenLifebloom,
     );
   }
@@ -55,7 +54,7 @@ class Lifebloom extends Analyzer {
   castLifebloom(event: CastEvent) {
     let value: QualitativePerformance;
 
-    const isClearcast = this.selectedCombatant.hasBuff(SPELL_EFFECTS.CLEARCASTING, event.timestamp);
+    const isClearcast = this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING.id, event.timestamp);
     const isHealingTrance = this.selectedCombatant.hasBuff(ITEMS.SOUL_PRESERVER.buffId);
     if (isClearcast || isHealingTrance) {
       value = QualitativePerformance.Good;
@@ -77,7 +76,7 @@ class Lifebloom extends Analyzer {
         <br />
         {isClearcast && (
           <strong>
-            <SpellLink id={SPELL_EFFECTS.CLEARCASTING} /> proc
+            <SpellLink id={SPELLS.CLEARCASTING} /> proc
           </strong>
         )}
         {isHealingTrance && (
@@ -125,16 +124,19 @@ class Lifebloom extends Analyzer {
   /** Guide subsectopm describing the proper usage of Swiftmend */
   get guideSubsection(): JSX.Element {
     const explanation = (
-      <p>
-        <b>
-          <SpellLink id={SPELLS.LIFEBLOOM.id} />
-        </b>{' '}
-        is a heal-over-time effect that heals every second for 7 seconds and stacks up to 3 times.
-        When it expires it heals for an additional amount and refunds half the mana cost.
-        <br />
-        Casting this during a <SpellLink id={SPELL_EFFECTS.CLEARCASTING} /> or{' '}
-        <ItemLink id={ITEMS.SOUL_PRESERVER.id} /> proc, will generate mana.
-      </p>
+      <>
+        <p>
+          <b>
+            <SpellLink id={SPELLS.LIFEBLOOM.id} />
+          </b>{' '}
+          is a heal-over-time effect that heals every second for 7 seconds and stacks up to 3 times.
+          When it expires it heals for an additional amount and refunds half the mana cost.
+        </p>
+        <p>
+          Casting this during a <SpellLink id={SPELLS.CLEARCASTING} /> or{' '}
+          <ItemLink id={ITEMS.SOUL_PRESERVER.id} /> proc, will generate mana.
+        </p>
+      </>
     );
 
     // Build up description of chart, which varies based on talents
@@ -162,7 +164,7 @@ class Lifebloom extends Analyzer {
         size="flexible"
         tooltip="Mana returned during clearcasting procs (no mana cost)."
       >
-        <BoringValue label={<SpellLink id={SPELL_EFFECTS.LIFEBLOOM_BLOOM_REGEN} />}>
+        <BoringValue label={<SpellLink id={SPELLS.LIFEBLOOM_REGEN} />}>
           <div>
             <ManaIcon /> {formatNumber(this.manaFromLifebloom)} <small>mana returned</small>
             <br />

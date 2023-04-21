@@ -2,12 +2,12 @@ import Spell from 'common/SPELLS/Spell';
 import {
   EventType,
   CastEvent,
-  UpdateSpellUsableEvent,
   AnyEvent,
   ApplyBuffEvent,
   RemoveBuffEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import { buffPresent } from './conditions';
 import aplCheck, { build, Apl, PlayerInfo, ResultKind, lookaheadSlice } from './index';
@@ -19,7 +19,7 @@ const FILLER = { id: 2, name: 'Filler', icon: '' };
 
 const ability = (spell: Spell) => ({ guid: spell.id, name: spell.name, abilityIcon: spell.icon });
 
-const info: PlayerInfo = ({
+const info: PlayerInfo = {
   playerId: 0,
   abilities: [
     {
@@ -32,7 +32,7 @@ const info: PlayerInfo = ({
     },
     { spell: FILLER.id, enabled: true },
   ],
-} as unknown) as PlayerInfo;
+} as unknown as PlayerInfo;
 
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 
@@ -41,55 +41,47 @@ const info: PlayerInfo = ({
 // The end event uses `timestamp + cooldown - 1` as the timestamp, with the -1
 // preventing casting at exactly cd end from spurious failures due to unstable
 // sorting.
-const cast = (timestamp: number, cooldown: number, spell: Spell): AnyEvent[] => [
-  {
-    timestamp,
-    ability: ability(spell),
-    type: EventType.Cast,
-    sourceID: 1,
-    sourceIsFriendly: true,
-  } as CastEvent,
-  ...(cooldown > 0
-    ? [
-        {
-          timestamp,
-          ability: ability(spell),
-          type: EventType.UpdateSpellUsable,
-          updateType: UpdateSpellUsableType.BeginCooldown,
-          isOnCooldown: true,
-          isAvailable: false,
-          chargesAvailable: 0,
-          maxCharges: 1,
-          sourceID: 1,
-          targetID: 2,
-          targetIsFriendly: false,
-          start: timestamp,
-          end: timestamp + cooldown - 1,
-          expectedDuration: cooldown,
-          totalReductionTime: 0,
-          __fabricated: true,
-        } as UpdateSpellUsableEvent,
-        {
-          timestamp: timestamp + cooldown - 1,
-          ability: ability(spell),
-          type: EventType.UpdateSpellUsable,
-          updateType: UpdateSpellUsableType.EndCooldown,
-          isOnCooldown: false,
-          isAvailable: true,
-          chargesAvailable: 1,
-          maxCharges: 1,
-          sourceID: 1,
-          targetID: 2,
-          targetIsFriendly: false,
-          start: timestamp + cooldown - 1,
-          end: timestamp + cooldown - 1,
-          expectedDuration: 0,
-          totalReductionTime: 0,
-          __fabricated: true,
-        } as UpdateSpellUsableEvent,
-      ]
-    : []),
-];
+const cast = (timestamp: number, cooldown: number, spell: Spell): AnyEvent[] => {
+  const cdInfo = {
+    overallStart: timestamp,
+    chargeStart: timestamp,
+    currentRechargeDuration: cooldown,
+    expectedEnd: timestamp + cooldown - 1,
+    chargesAvailable: 0,
+    maxCharges: 1,
+  };
+
+  return [
+    {
+      timestamp,
+      ability: ability(spell),
+      type: EventType.Cast,
+      sourceID: 1,
+      sourceIsFriendly: true,
+    } as CastEvent,
+    ...(cooldown > 0
+      ? [
+          SpellUsable.generateUpdateSpellUsableEvent(
+            spell.id,
+            timestamp,
+            cdInfo,
+            UpdateSpellUsableType.BeginCooldown,
+            1,
+          ),
+          SpellUsable.generateUpdateSpellUsableEvent(
+            spell.id,
+            timestamp + cooldown - 1,
+            {
+              ...cdInfo,
+              chargesAvailable: 1,
+            },
+            UpdateSpellUsableType.EndCooldown,
+            1,
+          ),
+        ]
+      : []),
+  ];
+};
 
 const applybuff = (timestamp: number, duration: number, spell: Spell): AnyEvent[] => [
   {

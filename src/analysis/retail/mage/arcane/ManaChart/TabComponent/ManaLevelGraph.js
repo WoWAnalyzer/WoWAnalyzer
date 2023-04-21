@@ -89,7 +89,7 @@ class Mana extends PureComponent {
     return (
       <div>
         Playing Arcane well typically involves managing your mana properly. Things such as not going
-        OOM during Arcane Power, not letting your mana cap, and ensuring you end the fight with as
+        OOM during Arcane Surge, not letting your mana cap, and ensuring you end the fight with as
         little mana as possible will all help in improving your DPS.
         <br />
         <br />

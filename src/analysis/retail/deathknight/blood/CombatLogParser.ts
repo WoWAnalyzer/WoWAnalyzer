@@ -25,8 +25,13 @@ import InitialMarrowrendCast from './modules/features/InitialMarrowrendCast';
 import MarrowrendUsage from './modules/features/MarrowrendUsage';
 import MitigationCheck from './modules/features/MitigationCheck';
 import Ossuary from './modules/features/Ossuary';
+import BloodGuide from './modules/guide';
 import RunicPowerDetails from './modules/runicpower/RunicPowerDetails';
 import RunicPowerTracker from './modules/runicpower/RunicPowerTracker';
+import BloodShield from './modules/spells/BloodShield/BloodShield';
+import BloodShieldNormalizer from './modules/spells/BloodShield/normalizer';
+import DeathStrike from './modules/spells/DeathStrike';
+import DeathStrikeLinkNormalizer from './modules/spells/DeathStrike/normalizer';
 import Bloodworms from './modules/talents/Bloodworms';
 import BoneStorm from './modules/talents/Bonestorm';
 import Consumption from './modules/talents/Consumption';
@@ -94,7 +99,17 @@ class CombatLogParser extends CoreCombatLogParser {
     runeForgeChecker: RuneForgeChecker,
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,
     runeOfHysteria: RuneOfHysteria,
+
+    // guide stuff
+    deathStrike: DeathStrike,
+    bloodShield: BloodShield,
+
+    // normalizers
+    deathStrikeNormalizer: DeathStrikeLinkNormalizer,
+    bloodShieldNormalizer: BloodShieldNormalizer,
   };
+
+  static guide = BloodGuide;
 }
 
 export default CombatLogParser;

@@ -1,12 +1,13 @@
-import { Trans } from '@lingui/macro';
+import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
-  EndChannelEvent,
+  CastEvent,
   HealEvent,
   RemoveBuffEvent,
+  UpdateSpellUsableEvent,
 } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValueText from 'parser/ui/BoringValueText';
@@ -22,20 +23,22 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import EssenceFontTargetsHit from './EssenceFontTargetsHit';
-import EssenceFontCancelled from './EssenceFontCancelled';
 import EssenceFontUniqueTargets from './EssenceFontUniqueTargets';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { getNumberOfBolts } from '../../normalizers/CastLinkNormalizer';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
+
+const debug = false;
+const NUM_EF_BOLTS = 18;
 
 class EssenceFont extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     efTargetsHit: EssenceFontTargetsHit,
-    efCancelled: EssenceFontCancelled,
     efUnique: EssenceFontUniqueTargets,
   };
   protected combatants!: Combatants;
-  protected efCancelled!: EssenceFontCancelled;
   protected efTargetsHit!: EssenceFontTargetsHit;
   protected efUnique!: EssenceFontUniqueTargets;
 
@@ -53,6 +56,8 @@ class EssenceFont extends Analyzer {
   chijiGomHealing: number = 0;
   chijiGomOverhealing: number = 0;
   chijiGomEFHits: number = 0;
+  lastCdEnd: number = 0;
+  numCancelled: number = 0;
 
   totalHealing: number = 0;
   totalOverhealing: number = 0;
@@ -71,6 +76,10 @@ class EssenceFont extends Analyzer {
       this.onApply,
     );
     this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.onCast,
+    );
+    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
       this.onRemove,
     );
@@ -79,8 +88,8 @@ class EssenceFont extends Analyzer {
       this.gustHealing,
     );
     this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
-      this.handleEndChannel,
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
+      this.onEndCooldown,
     );
     if (this.chijiActive) {
       this.addEventListener(
@@ -189,30 +198,39 @@ class EssenceFont extends Analyzer {
     }
   }
 
-  handleEndChannel(event: EndChannelEvent) {
-    const totalHit = this.efCancelled.numBoltHits;
-    const cancelled = this.efCancelled.handleEndChannel(event);
-
-    let tooltip = null;
-    let value = QualitativePerformance.Perfect;
-    if (cancelled) {
-      value = QualitativePerformance.Fail;
-      tooltip = (
-        <>
-          Cast @ {this.owner.formatTimestamp(this.efCancelled.lastEf!.timestamp)}: You cancelled{' '}
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> early and only had {totalHit} out
-          of {this.efCancelled.expectedNumBolts} possible bolts hit
-        </>
-      );
-    } else {
-      value = this.efCancelled.getPerformance(totalHit);
-      tooltip = (
-        <>
-          Cast @ {this.owner.formatTimestamp(this.efCancelled.lastEf!.timestamp)}: You hit{' '}
-          {totalHit} out of {this.efCancelled.expectedNumBolts} possible bolts
-        </>
-      );
+  onEndCooldown(event: UpdateSpellUsableEvent) {
+    if (event.ability.guid !== TALENTS_MONK.ESSENCE_FONT_TALENT.id || !event.isAvailable) {
+      return;
     }
+    this.lastCdEnd = event.timestamp;
+    debug && console.log(`Cooldown for EF ended at ${this.owner.formatTimestamp(event.timestamp)}`);
+  }
+
+  getExpectedApplies(event: CastEvent) {
+    if (!this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
+      return NUM_EF_BOLTS;
+    }
+    // Every second that Essence Font is ready to be cast but isn't, another bolt gets added to its next cast, up to 18
+    return Math.min(
+      NUM_EF_BOLTS * 2,
+      NUM_EF_BOLTS + Math.floor((event.timestamp - this.lastCdEnd) / 1000),
+    );
+  }
+
+  onCast(event: CastEvent) {
+    const totalHit = getNumberOfBolts(event);
+    const expected = Math.max(this.getExpectedApplies(event), totalHit);
+    let value = QualitativePerformance.Good;
+    if (totalHit !== expected) {
+      this.numCancelled += 1;
+      value = QualitativePerformance.Fail;
+    }
+    const tooltip = (
+      <>
+        Cast @ {this.owner.formatTimestamp(event.timestamp)}: You hit {totalHit} out of {expected}{' '}
+        possible bolts
+      </>
+    );
     this.castEntries.push({ value, tooltip });
   }
 
@@ -245,8 +263,15 @@ class EssenceFont extends Analyzer {
           <strong>
             <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cast efficiency
           </strong>
-          {this.efficSubStatistic()} <br />
-          {this.castUsageStatistic()}
+          <div>
+            {this.efficSubStatistic()} <br />
+            <strong>Casts </strong>
+            <small>
+              - Green indicates a good cast with sufficient targets hit, while red indicates a
+              cancelled cast
+            </small>
+            {this.castUsageStatistic()}
+          </div>
         </RoundedPanel>
       </div>
     );
@@ -268,6 +293,34 @@ class EssenceFont extends Analyzer {
 
   castUsageStatistic() {
     return <PerformanceBoxRow values={this.castEntries} />;
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.numCancelled,
+      isGreaterThanOrEqual: {
+        major: 1,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You cancelled <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+        </>,
+      )
+        .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
+        .actual(
+          `${this.numCancelled} ${t({
+            id: `monk.mistweaver.suggestions.essenceFont.cancelledCasts`,
+            message: ` cancelled casts`,
+          })}`,
+        )
+        .recommended(`0 cancelled casts is recommended`),
+    );
   }
 
   statistic() {

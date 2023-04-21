@@ -14,7 +14,7 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.DIVINE_PURPOSE_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.DIVINE_PURPOSE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.DIVINE_PURPOSE_RETRIBUTION_TALENT),
         timelineHighlight: true,
       },
       {
@@ -30,7 +30,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.CRUSADE_TALENT.id,
+        spellId: TALENTS.CRUSADE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.CRUSADE_TALENT),
         timelineHighlight: true,
       },
@@ -51,14 +51,10 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.SHIELD_OF_VENGEANCE.id,
       },
       {
-        spellId: SPELLS.EYE_FOR_AN_EYE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.EYE_FOR_AN_EYE_TALENT),
+        spellId: TALENTS.BLESSING_OF_FREEDOM_TALENT.id,
       },
       {
-        spellId: SPELLS.BLESSING_OF_FREEDOM_TALENT.id,
-      },
-      {
-        spellId: SPELLS.BLESSING_OF_PROTECTION_TALENT.id,
+        spellId: TALENTS.BLESSING_OF_PROTECTION_TALENT.id,
       },
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

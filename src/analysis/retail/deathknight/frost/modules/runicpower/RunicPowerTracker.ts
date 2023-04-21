@@ -5,7 +5,7 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, EventType, ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
-const BREATH_COST_PER_TICK = 160;
+const BREATH_COST_PER_TICK = 180;
 
 class RunicPowerTracker extends ResourceTracker {
   constructor(options: Options) {

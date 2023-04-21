@@ -1,21 +1,18 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
-import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
-import ManaIcon from 'interface/icons/Mana';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, ResourceChangeEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
-import BoringValue from 'parser/ui/BoringValueText';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 // just gonna steal my mtt formatting
 import './ManaTideTotem.scss';
 
-const WATER_SHIELD_MANA_REGEN_PER_SECOND = 50 / 5;
+const WATER_SHIELD_MANA_REGEN_PER_SECOND = 239 / 5;
 
 class WaterShield extends Analyzer {
   manaGain = 0;
@@ -23,15 +20,13 @@ class WaterShield extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    // Disable Water Shield because its just fucking broken
-    this.active = false;
 
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD_ENERGIZE),
       this.waterShield,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.WATER_SHIELD_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.WATER_SHIELD),
       this.waterShieldPrepullCheck,
     );
   }
@@ -48,8 +43,7 @@ class WaterShield extends Analyzer {
 
   get regenOnPlayer() {
     let uptime =
-      this.selectedCombatant.getBuffUptime(TALENTS.WATER_SHIELD_TALENT.id) /
-      this.owner.fightDuration;
+      this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id) / this.owner.fightDuration;
     if (uptime === 0) {
       uptime = 1; // quick fix for water shield not being in logs
     }
@@ -58,7 +52,7 @@ class WaterShield extends Analyzer {
   }
 
   get uptime() {
-    return this.selectedCombatant.getBuffUptime(TALENTS.WATER_SHIELD_TALENT.id);
+    return this.selectedCombatant.getBuffUptime(SPELLS.WATER_SHIELD.id);
   }
 
   get uptimePercent() {
@@ -87,32 +81,20 @@ class WaterShield extends Analyzer {
 
   statistic() {
     return (
-      <Statistic size="flexible" position={STATISTIC_ORDER.UNIMPORTANT(88)}>
-        <BoringValue label={<SpellLink id={TALENTS.WATER_SHIELD_TALENT.id} />}>
-          <div className="flex mtt-value">
-            <div className="flex-sub icon">
-              <ManaIcon />
-            </div>
-            <div className="flex-main value">
-              {formatNumber(this.regenOnPlayer + this.manaGain)}
-              <br />
-              <small>
-                <TooltipElement
-                  content={
-                    <Trans id="shaman.restoration.waterShield.statistic.tooltip">
-                      {formatNumber(this.regenOnPlayer)} mana from the passive regen and{' '}
-                      {this.manaGain} from getting hit
-                    </Trans>
-                  }
-                >
-                  <Trans id="shaman.restoration.manaTideTotem.statistic.manaRestored">
-                    Mana restored
-                  </Trans>
-                </TooltipElement>
-              </small>
-            </div>
-          </div>
-        </BoringValue>
+      <Statistic
+        size="flexible"
+        position={STATISTIC_ORDER.UNIMPORTANT(88)}
+        category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <ul>
+            <li>{formatNumber(this.regenOnPlayer)} from passive regen</li>
+            <li>{formatNumber(this.manaGain)} from hits taken</li>
+          </ul>
+        }
+      >
+        <BoringSpellValueText spellId={SPELLS.WATER_SHIELD.id}>
+          <ItemManaGained amount={this.manaGain + this.regenOnPlayer} />
+        </BoringSpellValueText>
       </Statistic>
     );
   }

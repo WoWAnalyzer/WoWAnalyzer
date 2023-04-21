@@ -5,6 +5,8 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2023, 4, 15), <>Update to indicate support for 10.0.7, and updates to cast evaluation logic in Guide view.</>, Sref),
+  change(date(2023, 3, 14), <>Updated CP check logic to allow 4 CP finishers when not specced for Bloodtalons.</>, Sref),
   change(date(2023, 1, 25), <>Updated numbers for 10.0.5 changes.</>, Sref),
   change(date(2023, 1, 20), <>Fixed a bug where the Guide could crash when Berserk is pre-cast.</>, Sref),
   change(date(2023, 1, 8), <>Added statistics for VotI tier set</>, Sref),

@@ -10,7 +10,7 @@ import GenericCastEfficiencyRequirement from 'parser/shared/modules/features/Che
 import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PreparationRule from 'parser/classic/modules/features/Checklist/PreparationRule';
-import SPELLS from 'common/SPELLS/classic';
+import SPELLS from 'common/SPELLS/classic/druid';
 
 const HealerChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistProps) => {
   const AbilityRequirement = (props: AbilityRequirementProps) => (

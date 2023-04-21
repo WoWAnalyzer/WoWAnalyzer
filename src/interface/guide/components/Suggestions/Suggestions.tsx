@@ -50,7 +50,7 @@ const Suggestions = ({ parseResults, showMinorIssues }: SuggestionsProps) => (
                 issue.actual || issue.recommended
               )
             }
-            importance={(issue.importance as unknown) as ISSUE_IMPORTANCE}
+            importance={issue.importance as unknown as ISSUE_IMPORTANCE}
           >
             {issue.text}
           </Suggestion>

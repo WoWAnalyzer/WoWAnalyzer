@@ -7,7 +7,7 @@ const talents = createTalentList({
     name: 'Acid Rain',
     icon: 'spell_nature_acid_01',
     maxRanks: 1,
-    entryIds: [101921],
+    entryIds: [101922],
   },
   AFTERSHOCK_TALENT: {
     id: 273221,
@@ -35,7 +35,7 @@ const talents = createTalentList({
     name: 'Ancestral Defense',
     icon: 'ability_earthen_pillar',
     maxRanks: 1,
-    entryIds: [101977],
+    entryIds: [114819],
   },
   ANCESTRAL_GUIDANCE_TALENT: {
     id: 108281,
@@ -71,7 +71,7 @@ const talents = createTalentList({
     name: 'Ancestral Wolf Affinity',
     icon: 'spell_beastmaster_wolf',
     maxRanks: 1,
-    entryIds: [101799, 101908, 101851],
+    entryIds: [101946],
   },
   ASCENDANCE_ELEMENTAL_TALENT: {
     id: 114050,
@@ -141,7 +141,7 @@ const talents = createTalentList({
     name: 'Call of Thunder',
     icon: 'ability_thunderking_balllightning',
     maxRanks: 1,
-    entryIds: [101901, 101858],
+    entryIds: [101858],
   },
   CAPACITOR_TOTEM_TALENT: {
     id: 192058,
@@ -172,7 +172,7 @@ const talents = createTalentList({
     name: 'Cleanse Spirit',
     icon: 'ability_shaman_cleansespirit',
     maxRanks: 1,
-    entryIds: [101969, 101966],
+    entryIds: [101966],
     manaCost: 3250,
   },
   CLOUDBURST_TOTEM_TALENT: {
@@ -218,6 +218,13 @@ const talents = createTalentList({
     icon: 'inv_artifact_xp03',
     maxRanks: 1,
     entryIds: [101985],
+  },
+  CURRENT_CONTROL_TALENT: {
+    id: 404015,
+    name: 'Current Control',
+    icon: 'ability_shaman_healingtide',
+    maxRanks: 1,
+    entryIds: [114811],
   },
   DEEPLY_ROOTED_ELEMENTS_TALENT: {
     id: 378270,
@@ -401,13 +408,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101970],
   },
-  EVER_RISING_TIDE_TALENT: {
-    id: 382029,
-    name: 'Ever-Rising Tide',
-    icon: 'inv_elemental_primal_water',
-    maxRanks: 1,
-    entryIds: [101940],
-  },
   EYE_OF_THE_STORM_TALENT: {
     id: 381708,
     name: 'Eye of the Storm',
@@ -505,8 +505,8 @@ const talents = createTalentList({
     id: 381666,
     name: 'Focused Insight',
     icon: 'spell_shaman_measuredinsight',
-    maxRanks: 2,
-    entryIds: [101946],
+    maxRanks: 1,
+    entryIds: [101799, 101851],
   },
   FORCEFUL_WINDS_TALENT: {
     id: 262647,
@@ -659,13 +659,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101886],
   },
-  IMPROVED_LIGHTNING_BOLT_TALENT: {
-    id: 381674,
-    name: 'Improved Lightning Bolt',
-    icon: 'spell_nature_lightning',
-    maxRanks: 2,
-    entryIds: [101996],
-  },
   IMPROVED_MAELSTROM_WEAPON_TALENT: {
     id: 383303,
     name: 'Improved Maelstrom Weapon',
@@ -780,7 +773,6 @@ const talents = createTalentList({
     icon: 'spell_nature_manaregentotem',
     maxRanks: 1,
     entryIds: [102001],
-    manaCost: 750,
   },
   MANA_TIDE_TOTEM_TALENT: {
     id: 16191,
@@ -809,13 +801,6 @@ const talents = createTalentList({
     icon: 'inv_elementalearth2',
     maxRanks: 1,
     entryIds: [101889],
-  },
-  NATURES_FOCUS_TALENT: {
-    id: 382019,
-    name: "Nature's Focus",
-    icon: 'spell_shaman_blessingofeternals',
-    maxRanks: 1,
-    entryIds: [101924],
   },
   NATURES_FURY_TALENT: {
     id: 381655,
@@ -857,7 +842,7 @@ const talents = createTalentList({
     name: 'Overflowing Shores',
     icon: 'spell_nature_giftofthewaterspirit',
     maxRanks: 1,
-    entryIds: [101922],
+    entryIds: [114813],
   },
   PLANES_TRAVELER_TALENT: {
     id: 381647,
@@ -960,6 +945,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101897, 101848],
   },
+  RESONANT_WATERS_TALENT: {
+    id: 404539,
+    name: 'Resonant Waters',
+    icon: 'ability_shaman_manatidetotem',
+    maxRanks: 1,
+    entryIds: [114818],
+  },
   RESURGENCE_TALENT: {
     id: 16196,
     name: 'Resurgence',
@@ -1010,6 +1002,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101955],
     manaCost: 7050,
+  },
+  SPIRITWALKERS_TIDAL_TOTEM_TALENT: {
+    id: 404522,
+    name: "Spiritwalker's Tidal Totem",
+    icon: 'spell_nature_regeneration_02',
+    maxRanks: 1,
+    entryIds: [114817],
   },
   SPIRIT_LINK_TOTEM_TALENT: {
     id: 98008,
@@ -1095,7 +1094,7 @@ const talents = createTalentList({
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
     maxRanks: 1,
-    entryIds: [101907],
+    entryIds: [101901],
   },
   STORMSTRIKE_TALENT: {
     id: 17364,
@@ -1196,6 +1195,20 @@ const talents = createTalentList({
     icon: 'spell_shaman_tidalwaves',
     maxRanks: 1,
     entryIds: [101899],
+  },
+  TIDEBRINGER_TALENT: {
+    id: 236501,
+    name: 'Tidebringer',
+    icon: 'spell_shaman_blessingofeternals',
+    maxRanks: 2,
+    entryIds: [101924],
+  },
+  TIDE_TURNER_TALENT: {
+    id: 404019,
+    name: 'Tide Turner',
+    icon: 'ability_deathknight_frozencenter',
+    maxRanks: 1,
+    entryIds: [114810],
   },
   TORRENT_TALENT: {
     id: 200072,
@@ -1304,13 +1317,6 @@ const talents = createTalentList({
     icon: 'spell_shaman_hex',
     maxRanks: 1,
     entryIds: [101971],
-  },
-  WATER_SHIELD_TALENT: {
-    id: 52127,
-    name: 'Water Shield',
-    icon: 'ability_shaman_watershield',
-    maxRanks: 1,
-    entryIds: [101903],
   },
   WATER_TOTEM_MASTERY_TALENT: {
     id: 382030,

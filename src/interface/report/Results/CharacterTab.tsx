@@ -45,7 +45,8 @@ const CharacterTab = (props: Props) => {
                   {combatant.characterProfile ? (
                     <>
                       <Link to={makeCharacterUrl(combatant)}>
-                        <WoWAnalyzerIcon /> Character parses
+                        <WoWAnalyzerIcon mainColor="#FAB700" arrowColor="transparent" /> Character
+                        parses
                       </Link>
                       <br />
                       <a href={makeArmoryUrl(combatant)} target="_blank" rel="noopener noreferrer">

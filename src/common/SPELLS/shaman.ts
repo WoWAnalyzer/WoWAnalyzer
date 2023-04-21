@@ -7,6 +7,11 @@
 import { spellIndexableList } from './Spell';
 
 const spells = spellIndexableList({
+  WATER_SHIELD: {
+    id: 52127,
+    name: 'Water Shield',
+    icon: 'ability_shaman_watershield',
+  },
   PURIFY_SPIRIT: {
     id: 77130,
     name: 'Purify Spirit',
@@ -653,6 +658,11 @@ const spells = spellIndexableList({
     name: 'Wellspring',
     icon: 'ability_shawaterelemental_split',
   },
+  WELLSPRING_UNLEASH_LIFE: {
+    id: 383404,
+    name: 'Unleash Life - Wellspring',
+    icon: 'ability_shawaterelemental_split',
+  },
   RESURGENCE: {
     id: 101033,
     name: 'Resurgence',
@@ -725,6 +735,11 @@ const spells = spellIndexableList({
   },
   PRIMORDIAL_WAVE_BUFF: {
     id: 375986,
+    name: 'Primordial Wave',
+    icon: 'ability_maldraxxus_shaman',
+  },
+  PRIMORDIAL_WAVE_HEAL: {
+    id: 375985,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
   },

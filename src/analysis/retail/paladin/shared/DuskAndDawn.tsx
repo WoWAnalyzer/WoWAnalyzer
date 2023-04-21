@@ -31,9 +31,11 @@ export class DuskAndDawn extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.hasDuskAndDawn = this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_TALENT);
+    this.active = false;
+    // FIXME: disabled due to major changes to Dusk & Dawn
+    // this.hasDuskAndDawn = this.selectedCombatant.hasTalent(TALENTS.OF_DUSK_AND_DAWN_TALENT);
     this.hasSealOfOrder = this.selectedCombatant.hasTalent(TALENTS.SEAL_OF_ORDER_TALENT);
-    this.active = this.hasDuskAndDawn;
+    // this.active = this.hasDuskAndDawn;
     if (!this.active) {
       return;
     }
@@ -106,7 +108,7 @@ export class DuskAndDawn extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.DEFAULT}
       >
-        <BoringSpellValueText spellId={TALENTS.OF_DUSK_AND_DAWN_TALENT}>
+        <BoringSpellValueText spellId={TALENTS.OF_DUSK_AND_DAWN_HOLY_TALENT}>
           <BoringSpellValue
             spellId={SPELLS.BLESSING_OF_DUSK}
             value={`${formatPercentage(this.duskUptimePct)}%`}

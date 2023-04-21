@@ -10,10 +10,12 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import REMGraph from '../features/REMGraph';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
+import Vivify from './Vivify';
 
 class RenewingMist extends Analyzer {
   static dependencies = {
     remGraph: REMGraph,
+    vivify: Vivify,
   };
   currentRenewingMists: number = 0;
   totalHealing: number = 0;
@@ -21,6 +23,7 @@ class RenewingMist extends Analyzer {
   totalAbsorbs: number = 0;
   gustsHealing: number = 0;
   healingHits: number = 0;
+  protected vivify!: Vivify;
   protected remGraph!: REMGraph;
 
   constructor(options: Options) {
@@ -89,7 +92,9 @@ class RenewingMist extends Analyzer {
           <strong>
             <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> cast efficiency
           </strong>
-          {this.subStatistic()}
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.subStatistic()}
+          </div>
         </RoundedPanel>
       </div>
     );
@@ -97,7 +102,7 @@ class RenewingMist extends Analyzer {
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
   }
 
-  /** Guide subsection describing the proper usage of Rejuvenation */
+  /** Guide subsection describing the proper usage of Renewing Mist */
   subStatistic() {
     return (
       <CastEfficiencyBar
@@ -105,6 +110,7 @@ class RenewingMist extends Analyzer {
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines
+        useThresholds
       />
     );
   }

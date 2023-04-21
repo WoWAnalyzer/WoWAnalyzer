@@ -50,4 +50,4 @@ export const sumResourceWastedBySpell = (
 ) =>
   Object.values(resourcesWasted)
     .map((obj) => obj[resourceId]?.[spellId] || 0)
-    .reduce((a, b) => a + b);
+    .reduce((a, b) => a + b, 0);

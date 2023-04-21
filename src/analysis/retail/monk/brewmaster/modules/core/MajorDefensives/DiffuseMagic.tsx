@@ -1,14 +1,24 @@
 import talents from 'common/TALENTS/monk';
 import MAGIC_SCHOOLS, { color } from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
+import {
+  absoluteMitigation,
+  buff,
+  MajorDefensiveBuff,
+  Mitigation,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import { MitigationSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
-import { absoluteMitigation, MajorDefensive, Mitigation, MitigationSegment } from './core';
 
-export class DiffuseMagic extends MajorDefensive {
+export class DiffuseMagic extends MajorDefensiveBuff {
   constructor(options: Options) {
-    super({ talent: talents.DIFFUSE_MAGIC_TALENT }, options);
+    super(talents.DIFFUSE_MAGIC_TALENT, buff(talents.DIFFUSE_MAGIC_TALENT), options);
+
+    this.active = this.selectedCombatant.hasTalent(talents.DIFFUSE_MAGIC_TALENT);
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.recordDamage);
   }
@@ -45,5 +55,9 @@ export class DiffuseMagic extends MajorDefensive {
         </p>
       </>
     );
+  }
+
+  statistic(): ReactNode {
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.TALENTS} />;
   }
 }

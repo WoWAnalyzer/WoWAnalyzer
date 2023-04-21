@@ -196,9 +196,22 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SURVIVAL_OF_THE_FITTEST.id,
+        enabled: combatant.hasTalent(TALENTS.SURVIVAL_OF_THE_FITTEST_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
-        cooldown: 180,
+        cooldown:
+          (180 - (combatant.hasTalent(TALENTS.LONE_SURVIVOR_TALENT) ? 30 : 0)) *
+          (1 -
+            BORN_TO_BE_WILD_CD_REDUCTION[combatant.getTalentRank(TALENTS.BORN_TO_BE_WILD_TALENT)]),
+        gcd: {
+          static: 0,
+        },
+      },
+      {
+        spell: SPELLS.FORTITUDE_OF_THE_BEAR.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        isDefensive: true,
+        cooldown: 120,
         gcd: {
           static: 0,
         },

@@ -136,26 +136,26 @@ const spells = spellIndexableList({
     id: 116670,
     name: 'Vivify',
     icon: 'ability_monk_vivify',
-    manaCost: 9500,
+    manaCost: 8500,
   },
   VIVIFICATION_BUFF: {
     id: 392883,
     name: 'Vivifacious Vivification',
     icon: 'ability_monk_vivify',
   },
-  ATOTM_BUFF: {
+  AT_BUFF: {
     id: 388026,
-    name: 'Ancient Teachings of the Monestary',
+    name: 'Ancient Teachings',
     icon: 'inv_misc_book_07',
   },
-  ATOTM_HEAL: {
+  AT_HEAL: {
     id: 388024,
-    name: 'Ancient Teachings of the Monestary',
+    name: 'Ancient Teachings',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
-  ATOTM_CRIT_HEAL: {
+  AT_CRIT_HEAL: {
     id: 388025,
-    name: 'Ancient Teachings of the Monestary',
+    name: 'Ancient Teachings',
     icon: 'inv_jewelcrafting_jadeserpent',
   },
   INVOKERS_DELIGHT_BUFF: {
@@ -241,8 +241,18 @@ const spells = spellIndexableList({
     name: 'Lesson of Doubt',
     icon: 'sha_ability_warrior_bloodnova',
   },
+  LESSON_OF_DOUBT_NEXT_BUFF: {
+    id: 405808,
+    name: 'Lesson of Doubt',
+    icon: 'sha_ability_warrior_bloodnova',
+  },
   LESSON_OF_DESPAIR_BUFF: {
     id: 400100,
+    name: 'Lesson of Despair',
+    icon: 'sha_ability_rogue_envelopingshadows',
+  },
+  LESSON_OF_DESPAIR_NEXT_BUFF: {
+    id: 405810,
     name: 'Lesson of Despair',
     icon: 'sha_ability_rogue_envelopingshadows',
   },
@@ -251,8 +261,18 @@ const spells = spellIndexableList({
     name: 'Lesson of Fear',
     icon: 'sha_ability_rogue_bloodyeye_nightborne',
   },
+  LESSON_OF_FEAR_NEXT_BUFF: {
+    id: 405809,
+    name: 'Lesson of Fear',
+    icon: 'sha_ability_rogue_bloodyeye_nightborne',
+  },
   LESSON_OF_ANGER_BUFF: {
     id: 400106,
+    name: 'Lesson of Anger',
+    icon: 'sha_ability_rogue_envelopingshadows_nightmare',
+  },
+  LESSON_OF_ANGER_NEXT_BUFF: {
+    id: 405807,
     name: 'Lesson of Anger',
     icon: 'sha_ability_rogue_envelopingshadows_nightmare',
   },
@@ -295,6 +315,16 @@ const spells = spellIndexableList({
     id: 322118,
     name: "Invoke Yu'lon, the Jade Serpent",
     icon: 'ability_monk_dragonkick',
+  },
+  CHI_COCOON_HEAL_CHIIJI: {
+    id: 406220,
+    name: 'Chi Cocoon',
+    icon: 'inv_pet_crane',
+  },
+  CHI_COCOON_HEAL_YULON: {
+    id: 406139,
+    name: 'Chi Cocoon',
+    icon: 'ability_monk_chiexplosion',
   },
   GUST_OF_MISTS_CHIJI: {
     id: 343819,
@@ -351,7 +381,18 @@ const spells = spellIndexableList({
     name: 'Nourishing Chi',
     icon: 'inv_misc_gem_pearl_06',
   },
-
+  //Tier 30 2pc Buff
+  SOULFANG_INFUSION: {
+    id: 410007,
+    name: 'Soulfang Infusion',
+    icon: 'inv_glove_leather_raidmonkdragon_d_01',
+  },
+  //Tier 30 4pc Buff
+  SOULFANG_VITALITY: {
+    id: 410082,
+    name: 'Soulfang Vitality',
+    icon: 'nv_helm_leather_raidmonkdragon_d_01',
+  },
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
     id: 227291,
