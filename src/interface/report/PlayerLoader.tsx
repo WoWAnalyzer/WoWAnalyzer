@@ -429,7 +429,7 @@ const PlayerLoader = ({ children }: Props) => {
             makeAnalyzerUrl(selectedReport, selectedFight.id, playerId, undefined, build)
           }
         />
-        <ReportRaidBuffList combatants={combatants} />
+        <ReportRaidBuffList report={selectedReport} combatants={combatants} />
       </div>
     );
   }

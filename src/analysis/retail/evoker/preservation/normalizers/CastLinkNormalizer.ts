@@ -584,6 +584,15 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT);
     },
   },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
+    referencedEventId: [SPELLS.LIVING_FLAME_HEAL.id, SPELLS.LIVING_FLAME_DAMAGE.id],
+    referencedEventType: EventType.Cast,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**
@@ -717,6 +726,23 @@ export function didEbConsumeSparkProc(event: RemoveBuffEvent | RemoveBuffStackEv
 
 export function wasEbConsumed(event: ApplyBuffEvent | ApplyBuffStackEvent) {
   return HasRelatedEvent(event, ESSENCE_BURST_LINK);
+}
+
+export function isEbFromT30Tier(
+  event:
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent
+    | ApplyBuffEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent,
+) {
+  if ([EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack].includes(event.type)) {
+    return !HasRelatedEvent(event, FROM_HARDCAST) && !HasRelatedEvent(event, SPARK_OF_INSIGHT);
+  }
+  const applyEvent = GetRelatedEvents(event, ESSENCE_BURST_LINK)[0];
+  return (
+    !HasRelatedEvent(applyEvent, FROM_HARDCAST) && !HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT)
+  );
 }
 
 export default CastLinkNormalizer;

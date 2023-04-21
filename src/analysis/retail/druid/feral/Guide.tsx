@@ -27,9 +27,10 @@ function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatL
       <SubSection title="Energy">
         <p>
           Your primary resource is Energy. Typically, ability use will be limited by energy, not
-          time. Avoid capping energy - lost energy regeneration is lost DPS. It will occasionally be
-          impossible to avoid capping energy - like while handling mechanics or during intermission
-          phases.
+          time. Avoid capping energy - lost energy regeneration is lost DPS. High-end gear combined
+          with more energy talents than in previous expansions causes it to be occasionally
+          impossible to avoid capping energy, particularly during cooldowns. During these periods,
+          it's important to send abilities as fast as possible to maximize DPS.
         </p>
         The chart below shows your energy over the course of the encounter. You spent{' '}
         <strong>{formatPercentage(modules.energyTracker.percentAtCap, 1)}%</strong> of the encounter
@@ -98,10 +99,10 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
   return (
     <Section title="Cooldowns">
       <p>
-        Feral's cooldowns are decently powerful but should not be held on to for long. In order to
-        maximize usages over the course of an encounter, you should aim to send the cooldown as soon
-        as it becomes available (as long as it can do damage on target). It is particularly
-        important to use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
+        Feral's cooldowns are powerful and should not be held on to for long. In order to maximize
+        usages over the course of an encounter, you should aim to send the cooldown as soon as it
+        becomes available (as long as it can do damage on target). It is particularly important to
+        use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
       <CooldownBreakdownSubsection modules={modules} events={events} info={info} />

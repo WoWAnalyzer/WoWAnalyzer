@@ -162,6 +162,9 @@ export const PROWL_RAKE_DAMAGE_BONUS = 0.6;
 /** Max time left on a DoT for us to not yell if snapshot is downgraded */
 export const SNAPSHOT_DOWNGRADE_BUFFER = 2000;
 
+/** Max time a DoT's duration can be clipped before we yell */
+export const CLIP_BUFFER = 2000;
+
 export const PANDEMIC_FRACTION = 0.3;
 
 ///////////////////////////////////////////////////////////////////////////////

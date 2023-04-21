@@ -37,6 +37,7 @@ import VengeanceDemonHunter from 'analysis/retail/demonhunter/vengeance';
 import DevastationEvoker from 'analysis/retail/evoker/devastation';
 import PreservationEvoker from 'analysis/retail/evoker/preservation';
 // Classic
+import ClassicDeathKnightFrost from 'analysis/classic/deathknight/frost';
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
 import ClassicDruidRestoration from 'analysis/classic/druid/restoration';
 import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
@@ -105,6 +106,7 @@ const configs: Config[] = [
   FuryWarrior,
 
   // Classic
+  ClassicDeathKnightFrost,
   ClassicDeathKnightUnholy,
 
   ClassicDruidRestoration,

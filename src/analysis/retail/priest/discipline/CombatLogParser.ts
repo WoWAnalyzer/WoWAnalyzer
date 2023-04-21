@@ -63,6 +63,7 @@ import TwilightEquilibriumNormalizer from './normalizers/TwilightEquilibriumNorm
 import DamageCastLink from './normalizers/DamageCastLink';
 import WealAndWoe from './modules/spells/WealAndWoe';
 import Aberrus2p from './modules/spells/Aberrus2p';
+import RadiantProvidence from './modules/spells/RadiantProvidence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -136,6 +137,9 @@ class CombatLogParser extends CoreCombatLogParser {
     abyssalReverie: AbyssalReverie,
     wealAndWoe: WealAndWoe,
     aberrus2p: Aberrus2p,
+
+    // Items:
+    radiantProvidence: RadiantProvidence,
   };
   static guide = Guide;
 }
