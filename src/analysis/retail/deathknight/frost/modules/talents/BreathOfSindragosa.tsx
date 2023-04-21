@@ -73,7 +73,6 @@ class BreathOfSindragosa extends Analyzer {
     if (this.breathActive) {
       this.casts -= 1;
     }
-    this.totalDuration += event.timestamp - this.beginTimestamp;
     const duration = event.timestamp - this.beginTimestamp;
     this.castTracker.push({
       timestamp: this.beginTimestamp,
