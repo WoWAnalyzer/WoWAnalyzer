@@ -23,7 +23,7 @@ const RADIANCE_BONUS_HEALING = 0.15;
 const DOT_BONUS_INCREASE = 0.25;
 
 class Aberrus2p extends Analyzer {
-  bonusShadowWordPainHealing = 0;
+  bonusDoTHealing = 0;
   bonusRadianceHealing = 0;
   bonusDamage = 0;
 
@@ -68,13 +68,14 @@ class Aberrus2p extends Analyzer {
     }
 
     const damageEvent = getDamageEvent(event);
+    const damageSpellId = damageEvent.ability.guid;
 
     if (
-      damageEvent.ability.guid === SPELLS.SHADOW_WORD_PAIN.id ||
-      damageEvent.ability.guid === TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id ||
-      damageEvent.ability.guid === SPELLS.PURGE_THE_WICKED_BUFF.id
+      damageSpellId === SPELLS.SHADOW_WORD_PAIN.id ||
+      damageSpellId === TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id ||
+      damageSpellId === SPELLS.PURGE_THE_WICKED_BUFF.id
     ) {
-      this.bonusShadowWordPainHealing += calculateEffectiveHealing(event, DOT_BONUS_INCREASE);
+      this.bonusDoTHealing += calculateEffectiveHealing(event, DOT_BONUS_INCREASE);
     }
   }
 
@@ -90,9 +91,15 @@ class Aberrus2p extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            <SpellLink id={SPELLS.SHADOW_WORD_PAIN} /> bonus{' '}
-            <SpellLink id={SPELLS.ATONEMENT_BUFF} /> healing:{' '}
-            {formatNumber(this.bonusShadowWordPainHealing)} <br />
+            <SpellLink
+              id={
+                this.selectedCombatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT)
+                  ? TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id
+                  : SPELLS.SHADOW_WORD_PAIN.id
+              }
+            />{' '}
+            bonus <SpellLink id={SPELLS.ATONEMENT_BUFF} /> healing:{' '}
+            {formatNumber(this.bonusDoTHealing)} <br />
             <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT} /> bonus healing:{' '}
             {formatNumber(this.bonusRadianceHealing)}
           </>
@@ -110,10 +117,7 @@ class Aberrus2p extends Analyzer {
               </ItemSetLink>
             </label>
             <div className="value">
-              <ItemHealingDone
-                amount={this.bonusShadowWordPainHealing + this.bonusRadianceHealing}
-              />{' '}
-              <br />
+              <ItemHealingDone amount={this.bonusDoTHealing + this.bonusRadianceHealing} /> <br />
               <ItemDamageDone amount={this.bonusDamage} />
             </div>
           </div>
