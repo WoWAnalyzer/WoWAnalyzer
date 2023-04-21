@@ -91,13 +91,15 @@ export default class EmpowerRuneWeapon extends Analyzer {
   }
 
   onFightEnd(event: FightEndEvent) {
-    this.erwTracker.push({
-      timestamp: this.currentTimestamp,
-      wastedRp: this.wastedRp,
-      wastedRunes: this.wastedRunes,
-      gainedRunes: this.gainedRunes,
-      gainedRp: this.gainedRp,
-    });
+    if (this.selectedCombatant.hasBuff(spells.EMPOWER_RUNE_WEAPON.id)) {
+      this.erwTracker.push({
+        timestamp: this.currentTimestamp,
+        wastedRp: this.wastedRp,
+        wastedRunes: this.wastedRunes,
+        gainedRunes: this.gainedRunes,
+        gainedRp: this.gainedRp,
+      });
+    }
   }
 
   get guideCastBreakdown() {
