@@ -3,6 +3,8 @@ import Spell from 'common/SPELLS/Spell';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
+  Ability,
+  AnyEvent,
   ApplyBuffEvent,
   DamageEvent,
   FightEndEvent,
@@ -10,10 +12,49 @@ import Events, {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { encodeEventTargetString } from '../Enemies';
 
 const debug = false;
 
 const MS_BUFFER = 500;
+
+export enum ExecuteRangeType {
+  /**
+   * A range that indicates low (or high, for reverse executes) HP.
+   */
+  Health,
+  /**
+   * A range indicating the duration of a single-use buff. After a single cast, the buff is consumed and the ability is no longer usable.
+   */
+  SingleUseBuff,
+  /**
+   * A range indicating a buff during which the ability is usable as many times as it is available.
+   */
+  EnablerBuff,
+}
+
+type HealthExecuteRange = {
+  type: ExecuteRangeType.Health;
+  startEvent: AnyEvent;
+  endEvent: AnyEvent;
+  ability?: undefined;
+};
+
+type BuffExecuteRange = {
+  type: Exclude<ExecuteRangeType, ExecuteRangeType.Health>;
+  startEvent: AnyEvent;
+  endEvent: AnyEvent;
+  ability: Ability;
+};
+
+/**
+ * A range of time (indicated by start and end event) during which an execute spell was usable.
+ *
+ * If the range corresponds to a buff, there is an `ability` field identifying the buff that enabled the execute.
+ */
+export type ExecuteRange = HealthExecuteRange | BuffExecuteRange;
+
+type IncompleteExecuteRange<T extends ExecuteRange> = Omit<T, 'endEvent'>;
 
 class ExecuteHelper extends Analyzer {
   static dependencies = {
@@ -122,6 +163,13 @@ class ExecuteHelper extends Analyzer {
   singleExecuteEnablerApplications: number = 0;
   //endregion
 
+  public readonly executeRanges: ExecuteRange[] = [];
+
+  // track in-progress ranges to later be completed and appended to `executeRanges`
+  // need one per type because they may overlap (e.g. you could get a Kill Shot proc during the execute HP period.)
+  private currentHealthRanges: Map<string, IncompleteExecuteRange<HealthExecuteRange>> = new Map();
+  private currentBuffRanges: Map<number, IncompleteExecuteRange<BuffExecuteRange>> = new Map();
+
   //region Execute helpers
   /**
    * Returns true if the event has less HP than the threshold.
@@ -213,6 +261,10 @@ class ExecuteHelper extends Analyzer {
       Events.refreshbuff.to(this.executeSources).spell(this.singleExecuteEnablers),
       this.refreshSingleExecuteEnablerBuff,
     );
+    this.addEventListener(
+      Events.removebuff.to(this.executeSources).spell(this.singleExecuteEnablers),
+      this.removeSingleExecuteEnablerBuff,
+    );
     this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
@@ -291,6 +343,38 @@ class ExecuteHelper extends Analyzer {
     if (event.targetIsFriendly) {
       return;
     }
+
+    const targetKey = encodeEventTargetString(event);
+    const currentHealthRange = this.currentHealthRanges.get(targetKey);
+
+    // maintain execute ranges
+    // future conditionals don't handle overlapping ranges
+    if (
+      this.isTargetInHealthExecuteWindow(event) &&
+      event.overkill === undefined &&
+      !currentHealthRange
+    ) {
+      // open the health execute range
+      this.currentHealthRanges.set(targetKey, {
+        type: ExecuteRangeType.Health,
+        startEvent: event,
+      });
+    } else if (
+      // we check overkill here because certain enemies "die" but don't actually die for fight reasons.
+      // example: on primal council the bosses stay at 1 hp until all are killed.
+      (!this.isTargetInHealthExecuteWindow(event) ||
+        event.hitPoints === 0 ||
+        (event.overkill ?? 0) > 0) &&
+      currentHealthRange
+    ) {
+      // close the health execute range
+      this.executeRanges.push({
+        ...currentHealthRange,
+        endEvent: event,
+      });
+      this.currentHealthRanges.delete(targetKey);
+    }
+
     if (
       (this.areExecuteSpellsOnCD && this.countCooldownAsExecuteTime) ||
       this.isExecuteUsableOutsideExecuteRange ||
@@ -345,10 +429,34 @@ class ExecuteHelper extends Analyzer {
 
   applySingleExecuteEnablerBuff(event: ApplyBuffEvent) {
     this.singleExecuteEnablerApplications += 1;
+
+    const ability = event.ability;
+
+    // applybuff means there isn't already a window for this buff
+    // ---or if there is we missed the end due to logging range or other quirks.
+    this.currentBuffRanges.set(ability.guid, {
+      type: ExecuteRangeType.SingleUseBuff,
+      ability,
+      startEvent: event,
+    });
   }
 
   refreshSingleExecuteEnablerBuff(event: RefreshBuffEvent) {
     this.singleExecuteEnablerApplications += 1;
+  }
+
+  removeSingleExecuteEnablerBuff(event: RemoveBuffEvent) {
+    const range = this.currentBuffRanges.get(event.ability.guid);
+    this.currentBuffRanges.delete(event.ability.guid);
+
+    if (range) {
+      this.executeRanges.push({
+        ...range,
+        endEvent: event,
+      });
+    } else {
+      debug && console.warn('Single-Use Execute range ended without a starting event!', event);
+    }
   }
 
   applyExecuteEnablerBuff(event: ApplyBuffEvent) {
@@ -357,6 +465,13 @@ class ExecuteHelper extends Analyzer {
     }
     this.inExecuteWindow = true;
     this.lastExecuteHitTimestamp = event.timestamp;
+    // similar logic here as for single execute enablers---applybuff means it wasn't there, so no open buff window
+    const ability = event.ability;
+    this.currentBuffRanges.set(ability.guid, {
+      type: ExecuteRangeType.EnablerBuff,
+      ability,
+      startEvent: event,
+    });
     debug && console.log(event.ability.name, ' was applied starting the execute window');
   }
 
@@ -376,6 +491,23 @@ class ExecuteHelper extends Analyzer {
           'Execute enabler buff ended, but inside execute health window so window still ongoing.',
         );
     }
+
+    // maintain buff windows
+    const incompleteRange = this.currentBuffRanges.get(event.ability.guid);
+    this.currentBuffRanges.delete(event.ability.guid);
+
+    if (incompleteRange) {
+      this.executeRanges.push({
+        ...incompleteRange,
+        endEvent: event,
+      });
+    } else {
+      debug &&
+        console.warn(
+          'Execute enabler buff ended, but there was not an incomplete buff window ongoing!',
+          event,
+        );
+    }
   }
 
   onFightEnd(event: FightEndEvent) {
@@ -383,6 +515,24 @@ class ExecuteHelper extends Analyzer {
       this.totalExecuteWindowDuration += event.timestamp - this.executeWindowStart;
       this.inExecuteWindow = false;
     }
+    // close off all incomplete ranges and add them to executeRanges
+
+    for (const healthRange of this.currentHealthRanges.values()) {
+      this.executeRanges.push({
+        ...healthRange,
+        endEvent: event,
+      });
+    }
+
+    for (const buffRange of this.currentBuffRanges.values()) {
+      this.executeRanges.push({
+        ...buffRange,
+        endEvent: event,
+      });
+    }
+
+    console.log(this.executeRanges);
+
     debug &&
       console.log(
         'Fight ended, total duration of execute: ' +
