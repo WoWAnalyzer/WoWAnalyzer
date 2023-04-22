@@ -1,4 +1,4 @@
-import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
+import { TALENTS_MONK } from 'common/TALENTS/monk';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -30,9 +30,9 @@ class LegacyOfWisdom extends Analyzer {
   missedHits: number = 0;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.LEGACY_OF_WISDOM_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(talents.SHEILUNS_GIFT_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
       this.onCast,
     );
   }
@@ -75,7 +75,7 @@ class LegacyOfWisdom extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(30)}
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <TalentSpellText talent={talents.LEGACY_OF_WISDOM_TALENT}>
+        <TalentSpellText talent={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT}>
           <ItemHealingDone amount={this.healing} />
           <br />
           {this.buffIcon} {this.missedHits.toFixed(2)} <small> missed hits</small> <br />
