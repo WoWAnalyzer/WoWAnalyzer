@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { ReactNode } from 'react';
-import { CooldownBar, GapHighlight } from 'parser/ui/CooldownBar';
+import { CooldownBar } from 'parser/ui/CooldownBar';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import { BadColor, GoodColor, MediocreColor, OkColor, useAnalyzer } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
@@ -22,11 +22,8 @@ export default function CastEfficiencyBar({
   minimizeIcons,
   useThresholds,
   slimLines,
-}: {
-  spellId: number;
-  gapHighlightMode: GapHighlight;
-  minimizeIcons?: boolean;
-  slimLines?: boolean;
+  activeWindows,
+}: React.ComponentProps<typeof CooldownBar> & {
   useThresholds?: boolean;
 }): JSX.Element {
   const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(spellId);
@@ -49,14 +46,17 @@ export default function CastEfficiencyBar({
       }
     }
 
+    const windowName =
+      activeWindows === undefined ? 'the encounter' : 'the time that it was usable';
+
     utilDisplay = formatPercentage(effectiveUtil, 0) + '%';
     tooltip = (
       <>
         You cast <SpellLink id={spellId} /> <strong>{castEffic.casts}</strong> out of{' '}
         <strong>{castEffic.maxCasts}</strong> possible times.
         <br />
-        It was on cooldown for <strong>{formatPercentage(castEffic.efficiency, 0)}%</strong> of the
-        encounter.
+        It was on cooldown for <strong>{formatPercentage(castEffic.efficiency, 0)}%</strong> of{' '}
+        {windowName}.
         <br />
         {gotMaxCasts && '(100% cast efficiency because you used the maximum possible casts)'}
       </>
@@ -71,6 +71,7 @@ export default function CastEfficiencyBar({
         </TooltipElement>
       </div>
       <CooldownBar
+        activeWindows={activeWindows}
         spellId={spellId}
         gapHighlightMode={gapHighlightMode}
         minimizeIcons={minimizeIcons}
