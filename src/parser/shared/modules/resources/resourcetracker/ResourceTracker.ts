@@ -106,7 +106,7 @@ export type ResourceUpdateType =
   /** A resource refund due to an ability miss */
   | 'refund';
 
-const DEBUG = false;
+const DEBUG = true;
 
 /**
  * This is an 'abstract' implementation of a framework for tracking resource generating/spending.

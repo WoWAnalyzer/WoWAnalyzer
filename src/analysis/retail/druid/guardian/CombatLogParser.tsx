@@ -5,12 +5,19 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import ConvokeSpiritsGuardian from './modules/spells/ConvokeSpiritsGuardian';
 import Guide from 'analysis/retail/druid/guardian/Guide';
+import Ironfur from 'analysis/retail/druid/guardian/modules/spells/Ironfur';
+import RageTracker from 'analysis/retail/druid/guardian/modules/core/rage/RageTracker';
+import RageGraph from 'analysis/retail/druid/guardian/modules/core/rage/RageGraph';
+import RageDetails from 'analysis/retail/druid/guardian/modules/core/rage/RageDetails';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     abilities: Abilities,
     activeDruidForm: ActiveDruidForm,
+    rageTracker: RageTracker,
+    rageGraph: RageGraph,
+    rageDetails: RageDetails,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -24,7 +31,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Spells
     convokeSpirits: ConvokeSpiritsGuardian,
-    // ironFur: IronFur,
+    ironfur: Ironfur,
     // thrash: Thrash,
     // moonfire: Moonfire,
     // pulverize: Pulverize,

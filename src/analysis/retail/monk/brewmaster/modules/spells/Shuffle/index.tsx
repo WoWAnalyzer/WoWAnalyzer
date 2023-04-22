@@ -8,6 +8,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import { Uptime } from 'parser/ui/UptimeBar';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 export default class Shuffle extends Analyzer {
   static dependencies = {
@@ -94,9 +95,10 @@ export default class Shuffle extends Analyzer {
       return;
     }
 
-    const mitigated =
+    const wasMitigated =
       this.selectedCombatant.hasBuff(SPELLS.SHUFFLE.id) ||
       (event.unmitigatedAmount === undefined && event.amount === 0);
+    const mitigated = wasMitigated ? QualitativePerformance.Good : QualitativePerformance.Fail;
 
     this.hits.push({
       event,
