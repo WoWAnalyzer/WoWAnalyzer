@@ -370,6 +370,11 @@ const spells = spellIndexableList({
     name: 'Demonic Empowerment',
     icon: 'ability_warlock_demonicempowerment',
   },
+  DEMONIC_PACT: {
+    id: 47240,
+    name: 'Demonic Pact',
+    icon: 'spell_shadow_demonicpact',
+  },
   FEL_DOMINATION: {
     id: 18708,
     name: 'Fel Domination',

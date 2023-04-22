@@ -1,16 +1,12 @@
 import styled from '@emotion/styled';
 import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink, Tooltip } from 'interface';
-import { GoodColor, useAnalyzer, useAnalyzers, useEvents, useInfo } from 'interface/guide';
-import Analyzer from 'parser/core/Analyzer';
-import { HasAbility, AbilityEvent, ApplyBuffEvent, EventType } from 'parser/core/Events';
+import { GoodColor, useAnalyzer, useEvents, useInfo } from 'interface/guide';
+import { HasAbility, AbilityEvent, EventType } from 'parser/core/Events';
 import { useMemo } from 'react';
 import { useCallback, useState } from 'react';
 import { SignalListener } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
-import { Mitigation, MitigationSegment, MitigationSegments } from '../core';
-import { defensiveExpiration } from '../DefensiveBuffLinkNormalizer';
-import { buffId, MAJOR_DEFENSIVES } from '../DefensiveBuffs';
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
@@ -18,11 +14,17 @@ import Abilities from 'parser/core/modules/Abilities';
 import { isApplicableEvent } from 'interface/report/Results/Timeline/Casts';
 import { isApplicableUpdateSpellUsableEvent } from 'interface/report/Results/Timeline/Component';
 import Cooldowns from 'interface/report/Results/Timeline/Cooldowns';
-import { MAJOR_ANALYZERS } from '../config';
 import { DamageMitigationChart } from './DamageMitigationChart';
+import {
+  MitigationSegment,
+  MitigationSegments,
+} from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import MajorDefensive, {
+  Mitigation,
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import Spell from 'common/SPELLS/Spell';
 
 type HoverKey = {
-  analyzerClass: typeof Analyzer;
   startTime: number;
 };
 
@@ -99,9 +101,7 @@ const BuffTooltip = ({
   );
 };
 
-export const useMaxMitigationValue = () => {
-  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
-
+export const useMaxMitigationValue = (analyzers: readonly MajorDefensive<any, any>[]) => {
   return useMemo(
     () =>
       Math.max.apply(
@@ -117,57 +117,47 @@ export const useMaxMitigationValue = () => {
   );
 };
 
-const BuffDisplay = ({ hoverKey }: { hoverKey: HoverKey | null }) => {
+const BuffDisplay = ({
+  analyzers,
+  hoverKey,
+}: {
+  hoverKey: HoverKey | null;
+  analyzers: readonly MajorDefensive<any, any>[];
+}) => {
   const info = useInfo();
-  const events = useEvents();
-  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
 
-  const tooltipData = useCallback(
-    (event: ApplyBuffEvent) => {
-      const analyzer = analyzers?.find((analyzer) => analyzer.appliesToEvent(event));
-      const mit = analyzer?.mitigations.find((mit) => mit.start.timestamp === event.timestamp);
-
-      if (!mit) {
-        return undefined;
-      }
-
-      return {
-        mitigation: mit,
-        segments: analyzer!.mitigationSegments(mit),
-      };
-    },
-    [analyzers],
-  );
-
-  const maxValue = useMaxMitigationValue();
+  const maxValue = useMaxMitigationValue(analyzers);
 
   if (!info) {
     return null;
   }
 
-  const buffEvents = events
-    .filter(
-      (event): event is ApplyBuffEvent =>
-        event.type === EventType.ApplyBuff &&
-        MAJOR_DEFENSIVES.some((data) => buffId(data) === event.ability.guid),
-    )
-    .map((event) => {
-      const expirationTime = defensiveExpiration(event)?.timestamp ?? info.fightEnd;
+  const mitigations = analyzers.flatMap((analyzer) =>
+    analyzer.mitigations.map((mit) => ({
+      mit,
+      ability: analyzer.spell,
+      segments: analyzer.mitigationSegments(mit),
+    })),
+  );
 
-      return {
-        externalHover: event.timestamp - info.fightStart === hoverKey?.startTime,
-        start: event.timestamp - info.fightStart,
-        end: expirationTime - info.fightStart,
-        ability: event.ability,
-        tooltipData: tooltipData(event),
-      };
-    });
+  const buffEvents = mitigations.map(({ mit, ability, segments }) => {
+    return {
+      externalHover: mit.start.timestamp - info.fightStart === hoverKey?.startTime,
+      start: mit.start.timestamp - info.fightStart,
+      end: mit.end.timestamp - info.fightStart,
+      ability,
+      tooltipData: {
+        mitigation: mit,
+        segments,
+      },
+    };
+  });
 
   return (
     <BuffBarContainer>
       {buffEvents.map(({ start, end, ability, externalHover, tooltipData }) => (
         <Tooltip
-          key={`${start}-${ability.guid}`}
+          key={`${start}-${ability.id}`}
           hoverable
           content={
             tooltipData ? (
@@ -190,7 +180,7 @@ const BareTimelineContainer = styled(EmbeddedTimelineContainer)`
   background: unset;
 `;
 
-const DefensiveTimeline = ({ width }: { width: number }) => {
+const DefensiveTimeline = ({ width, spells }: { width: number; spells: Spell[] }) => {
   const info = useInfo();
   const events = useEvents();
   const abilities = useAnalyzer(Abilities);
@@ -220,7 +210,7 @@ const DefensiveTimeline = ({ width }: { width: number }) => {
     })
     .filter(
       (event): event is AbilityEvent<any> =>
-        HasAbility(event) && MAJOR_DEFENSIVES.some(([talent]) => talent.id === event.ability.guid),
+        HasAbility(event) && spells.some((spell) => spell.id === event.ability.guid),
     )
     .reduce((map, event) => {
       if (!map.has(event.ability.guid)) {
@@ -239,9 +229,7 @@ const DefensiveTimeline = ({ width }: { width: number }) => {
           secondWidth={secondWidth}
           eventsBySpellId={eventsBySpellId}
           abilities={abilities!}
-          exactlySpells={MAJOR_DEFENSIVES.map(([talent]) => talent).filter(
-            info.combatant.hasTalent.bind(info.combatant),
-          )}
+          exactlySpells={spells.filter((spell) => abilities?.getAbility(spell.id))}
         />
       </SpellTimeline>
     </BareTimelineContainer>
@@ -252,17 +240,21 @@ const BuffTimelineContainer = styled.div`
   margin-left: 48px;
 `;
 
-export default function Timeline(): JSX.Element | null {
+type Props = {
+  analyzers: readonly MajorDefensive<any, any>[];
+};
+
+export default function Timeline({ analyzers }: Props): JSX.Element | null {
   const info = useInfo();
   const [chartHover, setChartHover] = useState<HoverKey | null>(null);
+
+  const spells = analyzers.map((analyzer) => analyzer.spell);
 
   const onHover = useCallback((_event: string, item: { key: string[]; startTime: number[] }) => {
     if (item.key === undefined) {
       setChartHover(null);
     } else {
       setChartHover({
-        // by construction: we will always find an analyzer
-        analyzerClass: MAJOR_ANALYZERS.find((analyzer) => analyzer.name === item.key[0])!,
         startTime: item.startTime[0],
       });
     }
@@ -274,10 +266,12 @@ export default function Timeline(): JSX.Element | null {
 
   return (
     <>
-      <DamageMitigationChart onHover={onHover} />
+      <DamageMitigationChart onHover={onHover} analyzers={analyzers} />
       <BuffTimelineContainer>
-        <BuffDisplay hoverKey={chartHover} />
-        <AutoSizer disableHeight>{(props) => <DefensiveTimeline {...props} />}</AutoSizer>
+        <BuffDisplay hoverKey={chartHover} analyzers={analyzers} />
+        <AutoSizer disableHeight>
+          {(props) => <DefensiveTimeline spells={spells} {...props} />}
+        </AutoSizer>
       </BuffTimelineContainer>
     </>
   );

@@ -19,6 +19,7 @@ import {
 } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { BadColor, OkColor } from 'interface/guide';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -85,17 +86,36 @@ class FerociousBite extends Analyzer {
     const acceptableTimeLeftOnRip = timeLeftOnRip >= MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS;
 
     let value: QualitativePerformance = QualitativePerformance.Good;
+    let perfExplanation: React.ReactNode = undefined;
     if (cpsUsed < getAcceptableCps(this.selectedCombatant)) {
       value = QualitativePerformance.Fail;
+      perfExplanation = (
+        <h5 style={{ color: BadColor }}>
+          Bad because you used less than {getAcceptableCps(this.selectedCombatant)} CPs
+          <br />
+        </h5>
+      );
     } else if (!usedMax && !duringBerserkAndSotf) {
       value = QualitativePerformance.Fail;
+      perfExplanation = (
+        <h5 style={{ color: BadColor }}>
+          Bad because you cast at too low energy
+          <br />
+        </h5>
+      );
     } else if (!acceptableTimeLeftOnRip) {
       value = QualitativePerformance.Ok;
+      perfExplanation = (
+        <h5 style={{ color: OkColor }}>
+          Questionable because you cast when Rip was close to expiring
+          <br />
+        </h5>
+      );
     }
 
     const tooltip = (
       <>
-        @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
+        {perfExplanation}@ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong> targetting{' '}
         <strong>{this.owner.getTargetName(event)}</strong> using <strong>{cpsUsed} CPs</strong>
         <br />
         Extra energy used:{' '}

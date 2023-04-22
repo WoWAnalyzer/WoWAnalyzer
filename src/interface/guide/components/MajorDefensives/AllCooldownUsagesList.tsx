@@ -1,35 +1,29 @@
 import styled from '@emotion/styled';
 import { formatNumber } from 'common/format';
-import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { color } from 'game/MAGIC_SCHOOLS';
-import { SpellLink, TooltipElement } from 'interface';
+import { TooltipElement } from 'interface';
+import { PerformanceMark, BadColor, OkColor, SubSection, useAnalyzer } from 'interface/guide';
 import {
-  BadColor,
-  OkColor,
-  PerformanceMark,
-  SubSection,
-  useAnalyzer,
-  useAnalyzers,
-} from 'interface/guide';
+  damageBreakdown,
+  DamageSourceLink,
+} from 'interface/guide/components/DamageTakenPointChart';
 import Explanation from 'interface/guide/components/Explanation';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
-import PassFailBar from 'interface/guide/components/PassFailBar';
-import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { AbilityEvent, EventType, HasAbility, HasSource, SourcedEvent } from 'parser/core/Events';
-import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { CSSProperties, useCallback, useMemo, useState } from 'react';
-import { MAJOR_ANALYZERS } from '../config';
-import {
-  MajorDefensive,
+import MajorDefensive, {
   MitigatedEvent,
   Mitigation,
-  MitigationTooltipSegment,
-  PerformanceUsageRow,
-} from '../core';
+} from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
+import { MitigationTooltipSegment } from 'interface/guide/components/MajorDefensives/MitigationSegments';
+import PassFailBar from 'interface/guide/components/PassFailBar';
+import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { Highlight } from 'interface/Highlight';
+import { AbilityEvent, HasAbility, HasSource } from 'parser/core/Events';
+import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { useCallback, useState } from 'react';
 import { useMaxMitigationValue } from './Timeline';
-import useTooltip from 'interface/useTooltip';
 
 const MissingCastBoxEntry = {
   value: QualitativePerformance.Fail,
@@ -103,87 +97,21 @@ const CooldownDetailsContainer = styled.div`
   }
   & > table td {
     padding-right: 1rem;
+
+    &:first-of-type {
+      max-width: 14em;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 `;
 
-export const Highlight = styled.span<{ color: string; textColor?: string }>`
-  background-color: ${(props) => props.color};
-  padding: 0 3px;
-  ${(props) => (props.textColor ? `color: ${props.textColor};` : '')}
-`;
-
-export function damageBreakdown<T>(
-  data: T[],
-  selectSpellId: (datum: T) => number,
-  selectSource: (datum: T) => string,
-): Map<number, Map<string, T[]>> {
-  const bySpell = new Map();
-  for (const datum of data) {
-    const ability = selectSpellId(datum);
-    let bySource = bySpell.get(ability);
-    if (!bySource) {
-      bySource = new Map();
-      bySpell.set(ability, bySource);
-    }
-
-    const source = selectSource(datum);
-    let hits = bySource.get(source);
-    if (!hits) {
-      hits = [];
-      bySource.set(source, hits);
-    }
-
-    hits.push(datum);
-  }
-
-  return bySpell;
-}
-
-const damageSourceStyle: CSSProperties = {
-  overflowX: 'hidden',
-  textOverflow: 'ellipsis',
-  maxWidth: '100%',
-  whiteSpace: 'nowrap',
-};
-
-export function DamageSourceLink({
-  event,
-  showSourceName,
-}: {
-  event: AbilityEvent<any> & Partial<SourcedEvent<any>>;
-  showSourceName?: boolean;
-}): JSX.Element | null {
-  const enemies = useAnalyzer(Enemies);
-
-  const ability = event.ability;
-  const color = MAGIC_SCHOOLS.color(ability.type);
-
-  // this prevents unneeded re-renders of child components due to object identity differences
-  const style = useMemo(() => ({ ...damageSourceStyle, color }), [color]);
-  const { npc: npcTooltip } = useTooltip();
-
-  if (showSourceName) {
-    const enemy = enemies?.getSourceEntity(event);
-    return (
-      <a href={npcTooltip(enemy?.guid ?? 0)} style={style}>
-        {enemy?.name ?? 'Unknown'} ({ability.name})
-      </a>
-    );
-  } else {
-    return (
-      <SpellLink id={ability.guid} style={style}>
-        {ability.name}
-      </SpellLink>
-    );
-  }
-}
-
-const CooldownDetails = <ApplyEventType extends EventType, RemoveEventType extends EventType>({
+const CooldownDetails = ({
   analyzer,
   mit,
 }: {
-  analyzer: MajorDefensive<ApplyEventType, RemoveEventType>;
-  mit?: Mitigation<ApplyEventType, RemoveEventType>;
+  analyzer: MajorDefensive<any, any>;
+  mit?: Mitigation;
 }) => {
   if (!mit) {
     return (
@@ -250,7 +178,7 @@ const CooldownDetails = <ApplyEventType extends EventType, RemoveEventType exten
           </tr>
           {segments.map((seg, ix) => (
             <tr key={ix}>
-              <td style={{ width: '100%' }}>{seg.tooltip}</td>
+              <td>{seg.description}</td>
               <NumericColumn>{formatNumber(seg.amount)}</NumericColumn>
               <TableSegmentContainer>
                 {ix > 0 && (
@@ -315,13 +243,14 @@ const CooldownDetails = <ApplyEventType extends EventType, RemoveEventType exten
   );
 };
 
-const CooldownUsage = <ApplyEventType extends EventType, RemoveEventType extends EventType>({
+const CooldownUsage = ({
   analyzer,
+  maxValue,
 }: {
-  analyzer: MajorDefensive<ApplyEventType, RemoveEventType>;
+  analyzer: MajorDefensive<any, any>;
+  maxValue: number;
 }) => {
   const [selectedMit, setSelectedMit] = useState<number | undefined>();
-  const maxValue = useMaxMitigationValue();
   const castEfficiency = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell);
   const possibleUses = castEfficiency?.maxCasts ?? 0;
   const performance = analyzer.mitigationPerformance(maxValue);
@@ -399,15 +328,18 @@ const CooldownUsage = <ApplyEventType extends EventType, RemoveEventType extends
   );
 };
 
-const AllCooldownUsageList = () => {
-  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
+type Props = {
+  analyzers: readonly MajorDefensive<any, any>[];
+};
 
+const AllCooldownUsageList = ({ analyzers }: Props) => {
+  const maxValue = useMaxMitigationValue(analyzers);
   return (
     <div>
       {analyzers
         .filter((analyzer) => analyzer.active)
         .map((analyzer) => (
-          <CooldownUsage key={analyzer.constructor.name} analyzer={analyzer} />
+          <CooldownUsage key={analyzer.constructor.name} analyzer={analyzer} maxValue={maxValue} />
         ))}
     </div>
   );

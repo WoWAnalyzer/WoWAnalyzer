@@ -1,11 +1,13 @@
 import { TooltipElement } from 'interface';
-import { GoodColor, Section, SubSection } from 'interface/guide';
+import { GoodColor, Section, SubSection, useAnalyzers } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
+import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
+import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import { Highlight } from 'interface/Highlight';
-import AllCooldownUsagesList from './components/AllCooldownUsagesList';
-import Timeline from './components/Timeline';
+import { MAJOR_ANALYZERS } from './config';
 
 export default function MajorDefensivesSection(): JSX.Element | null {
+  const analyzers = useAnalyzers(MAJOR_ANALYZERS);
   return (
     <Section title="Major Defensives">
       <Explanation>
@@ -51,9 +53,9 @@ export default function MajorDefensivesSection(): JSX.Element | null {
         </ol>
       </Explanation>
       <SubSection title="Timeline">
-        <Timeline />
+        <Timeline analyzers={analyzers} />
       </SubSection>
-      <AllCooldownUsagesList />
+      <AllCooldownUsagesList analyzers={analyzers} />
     </Section>
   );
 }

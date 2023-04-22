@@ -8,7 +8,6 @@ import {
   normalizeTimestampTransform,
   color as brewColors,
 } from 'analysis/retail/monk/brewmaster/modules/charts';
-import { MitigationSegments } from 'analysis/retail/monk/brewmaster/modules/core/MajorDefensives/core';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -19,6 +18,7 @@ import { BadColor, GoodColor, Section, useAnalyzers, useEvents, useInfo } from '
 import { ActualCastDescription } from 'interface/guide/components/Apl/violations/claims';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 import Explanation from 'interface/guide/components/Explanation';
+import { MitigationSegments } from 'interface/guide/components/MajorDefensives/MitigationSegments';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import ProblemList, { ProblemRendererProps } from 'interface/guide/components/ProblemList';
 import {
@@ -449,7 +449,7 @@ export function DeathStrikeSection(): JSX.Element | null {
                     {
                       amount: ds.totalHealing,
                       color: GoodColor,
-                      tooltip: (
+                      description: (
                         <>
                           Healing by <SpellLink id={talents.DEATH_STRIKE_TALENT} />
                         </>
@@ -458,7 +458,7 @@ export function DeathStrikeSection(): JSX.Element | null {
                     {
                       amount: bloodShield.totalHealing,
                       color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
-                      tooltip: (
+                      description: (
                         <>
                           Physical damage absorbed by <SpellLink id={SPELLS.BLOOD_SHIELD} />
                         </>
@@ -467,7 +467,7 @@ export function DeathStrikeSection(): JSX.Element | null {
                     {
                       amount: Math.max(healingTarget - healedDamage, 0),
                       color: BadColor,
-                      tooltip: <>Damage that required other healing.</>,
+                      description: <>Damage that required other healing.</>,
                     },
                   ]}
                 />
