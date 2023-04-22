@@ -19,6 +19,7 @@ import MistWrap from '../spells/MistWrap';
 import SheilunsGift from '../spells/SheilunsGift';
 import ShaohaosLessons from '../spells/ShaohaosLessons';
 import VeilOfPride from '../spells/VeilOfPride';
+import LegacyOfWisdom from '../spells/LegacyOfWisdom';
 
 class TalentHealingStatistic extends Analyzer {
   static dependencies = {
@@ -37,6 +38,7 @@ class TalentHealingStatistic extends Analyzer {
     sheiluns: SheilunsGift,
     shaohaos: ShaohaosLessons,
     veilOfPride: VeilOfPride,
+    legacyOfWisdom: LegacyOfWisdom,
   };
   protected risingMist!: RisingMist;
   protected upwelling!: Upwelling;
@@ -53,6 +55,7 @@ class TalentHealingStatistic extends Analyzer {
   protected sheiluns!: SheilunsGift;
   protected shaohaos!: ShaohaosLessons;
   protected veilOfPride!: VeilOfPride;
+  protected legacyOfWisdom!: LegacyOfWisdom;
 
   buildTalentList() {
     const talentList = [];
@@ -100,6 +103,9 @@ class TalentHealingStatistic extends Analyzer {
     }
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.VEIL_OF_PRIDE_TALENT)) {
       talentList.push(this.veilOfPride.subStatistic());
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT)) {
+      talentList.push(this.legacyOfWisdom.subStatistic());
     }
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),

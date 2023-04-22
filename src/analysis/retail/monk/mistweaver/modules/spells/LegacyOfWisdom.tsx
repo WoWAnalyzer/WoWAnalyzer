@@ -1,4 +1,4 @@
-import talents from 'common/TALENTS/monk';
+import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -11,6 +11,9 @@ import { getSheilunsGiftHits } from '../../normalizers/CastLinkNormalizer';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import Uptime from 'interface/icons/Uptime';
+import { formatPercentage } from 'common/format';
+import { SpellLink } from 'interface';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 const LEGACY_OF_WISDOM_TARGETS = 2;
 const SHEILUNS_GIFT_TARGETS = 3;
@@ -54,6 +57,15 @@ class LegacyOfWisdom extends Analyzer {
       return;
     }
     this.healing += extraHits.reduce((sum, heal) => sum + heal.amount + (heal.absorbed || 0), 0);
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT.id} />}
+        value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+      />
+    );
   }
 
   statistic() {
