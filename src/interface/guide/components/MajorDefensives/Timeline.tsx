@@ -242,9 +242,10 @@ const BuffTimelineContainer = styled.div`
 
 type Props = {
   analyzers: readonly MajorDefensive<any, any>[];
+  yScale?: number;
 };
 
-export default function Timeline({ analyzers }: Props): JSX.Element | null {
+export default function Timeline({ analyzers, yScale }: Props): JSX.Element | null {
   const info = useInfo();
   const [chartHover, setChartHover] = useState<HoverKey | null>(null);
 
@@ -266,7 +267,7 @@ export default function Timeline({ analyzers }: Props): JSX.Element | null {
 
   return (
     <>
-      <DamageMitigationChart onHover={onHover} analyzers={analyzers} />
+      <DamageMitigationChart onHover={onHover} analyzers={analyzers} yScale={yScale} />
       <BuffTimelineContainer>
         <BuffDisplay hoverKey={chartHover} analyzers={analyzers} />
         <AutoSizer disableHeight>

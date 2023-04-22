@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown:
           180 * (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.15),
-        charges: 2,
+        charges: 1 + combatant.getTalentRank(TALENTS_DRUID.IMPROVED_SURVIVAL_INSTINCTS_TALENT),
         timelineSortIndex: 9,
       },
       {
