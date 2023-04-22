@@ -531,8 +531,6 @@ class ExecuteHelper extends Analyzer {
       });
     }
 
-    console.log(this.executeRanges);
-
     debug &&
       console.log(
         'Fight ended, total duration of execute: ' +
