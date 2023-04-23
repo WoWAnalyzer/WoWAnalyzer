@@ -27,7 +27,7 @@ class HolyPriestTier2Set extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.has2PieceByTier(TIERS.T28)) {
+    if (!this.selectedCombatant.has2PieceByTier(TIERS.T29)) {
       this.active = false;
       return;
     }

@@ -5,6 +5,11 @@ import { SpellLink } from 'interface';
 
 export default [
   change(
+    date(2023, 4, 20),
+    <>Add support for Aberrus, the Shadowed Crucible tier set.</>,
+    Squided
+  ),
+  change(
     date(2023, 3, 27),
     <>Fix bugs in <SpellLink id={TALENTS_PRIEST.DIVINE_IMAGE_TALENT.id}/> and <SpellLink id={TALENTS_PRIEST.ENLIGHTENMENT_TALENT.id}/>t modules.</>,
     Squided
