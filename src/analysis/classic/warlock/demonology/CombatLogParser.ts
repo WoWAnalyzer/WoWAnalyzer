@@ -1,4 +1,5 @@
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+import Guide from './Guide';
 // Shared
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import {
@@ -55,6 +56,7 @@ class CombatLogParser extends BaseCombatLogParser {
     immolate: Immolate,
     shadowMastery: ShadowMastery,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

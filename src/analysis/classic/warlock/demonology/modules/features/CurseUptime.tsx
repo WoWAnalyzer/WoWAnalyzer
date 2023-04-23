@@ -1,15 +1,32 @@
 import { t, Trans } from '@lingui/macro';
-import SPELLS from 'common/SPELLS/classic/warlock';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 
+import { SpellLink } from 'interface';
+import SPELLS from 'common/SPELLS/classic';
+import { SPELL_COLORS } from '../../constants';
+import CurseOfAgony from '../spells/CurseOfAgony';
+import CurseOfDoom from '../spells/CurseOfDoom';
+import CurseOfTheElements from '../spells/CurseOfTheElements';
+
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import DonutChart from 'parser/ui/DonutChart';
+import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+
 class CurseUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
+    curseOfAgony: CurseOfAgony,
+    curseOfDoom: CurseOfDoom,
+    curseOfTheElements: CurseOfTheElements,
   };
   protected enemies!: Enemies;
+  protected curseOfAgony!: CurseOfAgony;
+  protected curseOfDoom!: CurseOfDoom;
+  protected curseOfTheElements!: CurseOfTheElements;
 
   get uptime() {
     return (
@@ -49,6 +66,90 @@ class CurseUptime extends Analyzer {
           }),
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
+  }
+
+  get curseChart() {
+    const items = [
+      {
+        color: SPELL_COLORS.CURSE_OF_AGONY,
+        label: 'Curse of Agony',
+        spellId: SPELLS.CURSE_OF_AGONY.id,
+        value: this.curseOfAgony.uptime,
+        valueTooltip: formatPercentage(this.curseOfAgony.uptime),
+      },
+      {
+        color: SPELL_COLORS.CURSE_OF_DOOM,
+        label: 'Curse of Doom',
+        spellId: SPELLS.CURSE_OF_DOOM.id,
+        value: this.curseOfDoom.uptime,
+        valueTooltip: formatPercentage(this.curseOfDoom.uptime),
+      },
+      {
+        color: SPELL_COLORS.CURSE_OF_THE_ELEMENTS,
+        label: 'Curse of the Elements',
+        spellId: SPELLS.CURSE_OF_THE_ELEMENTS.id,
+        value: this.curseOfTheElements.uptime,
+        valueTooltip: formatPercentage(this.curseOfTheElements.uptime),
+      },
+      {
+        color: SPELL_COLORS.DOWNTIME,
+        label: 'Curse Downtime',
+        value: 1 - this.uptime,
+        valueTooltip: formatPercentage(1 - this.uptime),
+      },
+    ];
+
+    return <DonutChart items={items} />;
+  }
+
+  get totalChart() {
+    const items = [
+      {
+        color: SPELL_COLORS.UPTIME,
+        label: 'Total Curse Uptime',
+        value: this.uptime,
+        valueTooltip: formatPercentage(this.uptime),
+      },
+      {
+        color: SPELL_COLORS.DOWNTIME,
+        label: 'Curse Downtime',
+        value: 1 - this.uptime,
+        valueTooltip: formatPercentage(1 - this.uptime),
+      },
+    ];
+
+    return <DonutChart items={items} />;
+  }
+
+  statistic() {
+    return (
+      <Statistic position={STATISTIC_ORDER.CORE(1)} size="flexible">
+        <div className="pad">
+          <label>Total Curse Uptime - {formatPercentage(this.uptime)}%</label>
+          {this.curseChart}
+        </div>
+      </Statistic>
+    );
+  }
+
+  get guideSubsection() {
+    return (
+      <>
+        <p>
+          It is important to maintain a curse on the primary target. If there is no Unholy DK
+          (applying <SpellLink spell={SPELLS.EBON_PLAGUE} />) or Moonkin (applying{' '}
+          <SpellLink spell={SPELLS.EARTH_AND_MOON} />) in the raid, use{' '}
+          <SpellLink spell={SPELLS.CURSE_OF_THE_ELEMENTS} />. After the priority curse
+          consideration, use <SpellLink spell={SPELLS.CURSE_OF_DOOM} /> for a target alive more than
+          a minute or <SpellLink spell={SPELLS.CURSE_OF_AGONY} /> for a target alive less than a
+          minute.
+        </p>
+        <SideBySidePanels>
+          <RoundedPanel>{this.totalChart}</RoundedPanel>
+          <RoundedPanel>{this.curseChart}</RoundedPanel>
+        </SideBySidePanels>
+      </>
     );
   }
 }
