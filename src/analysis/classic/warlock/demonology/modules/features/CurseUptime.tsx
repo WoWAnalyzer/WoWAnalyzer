@@ -70,35 +70,47 @@ class CurseUptime extends Analyzer {
   }
 
   get curseChart() {
-    const items = [
-      {
-        color: SPELL_COLORS.CURSE_OF_AGONY,
-        label: 'Curse of Agony',
-        spellId: SPELLS.CURSE_OF_AGONY.id,
-        value: this.curseOfAgony.uptime,
-        valueTooltip: formatPercentage(this.curseOfAgony.uptime),
-      },
-      {
-        color: SPELL_COLORS.CURSE_OF_DOOM,
-        label: 'Curse of Doom',
-        spellId: SPELLS.CURSE_OF_DOOM.id,
-        value: this.curseOfDoom.uptime,
-        valueTooltip: formatPercentage(this.curseOfDoom.uptime),
-      },
-      {
+    const items = [];
+    const coeUptime = this.curseOfTheElements.uptime;
+    const coaUptime = this.curseOfAgony.uptime;
+    const codUptime = this.curseOfDoom.uptime;
+    const downtime = 1 - this.uptime;
+
+    if (coeUptime > 0) {
+      items.push({
         color: SPELL_COLORS.CURSE_OF_THE_ELEMENTS,
         label: 'Curse of the Elements',
         spellId: SPELLS.CURSE_OF_THE_ELEMENTS.id,
-        value: this.curseOfTheElements.uptime,
-        valueTooltip: formatPercentage(this.curseOfTheElements.uptime),
-      },
-      {
+        value: coeUptime,
+        valueTooltip: formatPercentage(coeUptime),
+      });
+    }
+    if (coaUptime > 0) {
+      items.push({
+        color: SPELL_COLORS.CURSE_OF_AGONY,
+        label: 'Curse of Agony',
+        spellId: SPELLS.CURSE_OF_AGONY.id,
+        value: coaUptime,
+        valueTooltip: formatPercentage(coaUptime),
+      });
+    }
+    if (codUptime > 0) {
+      items.push({
+        color: SPELL_COLORS.CURSE_OF_DOOM,
+        label: 'Curse of Doom',
+        spellId: SPELLS.CURSE_OF_DOOM.id,
+        value: codUptime,
+        valueTooltip: formatPercentage(codUptime),
+      });
+    }
+    if (downtime > 0) {
+      items.push({
         color: SPELL_COLORS.DOWNTIME,
         label: 'Curse Downtime',
-        value: 1 - this.uptime,
-        valueTooltip: formatPercentage(1 - this.uptime),
-      },
-    ];
+        value: downtime,
+        valueTooltip: formatPercentage(downtime),
+      });
+    }
 
     return <DonutChart items={items} />;
   }
@@ -107,13 +119,13 @@ class CurseUptime extends Analyzer {
     const items = [
       {
         color: SPELL_COLORS.UPTIME,
-        label: 'Total Curse Uptime',
+        label: 'Uptime',
         value: this.uptime,
         valueTooltip: formatPercentage(this.uptime),
       },
       {
         color: SPELL_COLORS.DOWNTIME,
-        label: 'Curse Downtime',
+        label: 'Downtime',
         value: 1 - this.uptime,
         valueTooltip: formatPercentage(1 - this.uptime),
       },
@@ -146,8 +158,14 @@ class CurseUptime extends Analyzer {
           minute.
         </p>
         <SideBySidePanels>
-          <RoundedPanel>{this.totalChart}</RoundedPanel>
-          <RoundedPanel>{this.curseChart}</RoundedPanel>
+          <RoundedPanel>
+            <strong>Curse Totals</strong>
+            {this.totalChart}
+          </RoundedPanel>
+          <RoundedPanel>
+            <strong>Curse Breakdown</strong>
+            {this.curseChart}
+          </RoundedPanel>
         </SideBySidePanels>
       </>
     );
