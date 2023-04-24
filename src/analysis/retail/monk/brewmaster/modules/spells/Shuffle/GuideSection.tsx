@@ -14,6 +14,7 @@ import DamageTakenPointChart, {
   TrackedHit,
 } from 'interface/guide/components/DamageTakenPointChart';
 import { Highlight } from 'interface/Highlight';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 function HitTooltipContent({ hit }: { hit: TrackedHit }) {
   const info = useInfo()!;
@@ -35,7 +36,7 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
         You took <strong>{formatNumber(hit.event.amount)}</strong> from{' '}
         <SpellLink id={hit.event.ability.guid}>{hit.event.ability.name}</SpellLink>.
       </div>
-      {!hit.mitigated && (
+      {hit.mitigated === QualitativePerformance.Fail && (
         <div>
           <SpellLink id={SPELLS.SHUFFLE} /> would have reduced this by{' '}
           <strong>

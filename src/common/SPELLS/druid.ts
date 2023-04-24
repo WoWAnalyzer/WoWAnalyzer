@@ -657,6 +657,11 @@ const spells = spellIndexableList({
     name: 'Earthwarden',
     icon: 'spell_shaman_blessingofeternals',
   },
+  GORY_FUR_BUFF: {
+    id: 201671,
+    name: 'Gory Fur',
+    icon: 'artifactability_guardiandruid_goryfur',
+  },
   FURY_OF_NATURE_HEAL: {
     id: 248522,
     name: 'Fury of Nature',

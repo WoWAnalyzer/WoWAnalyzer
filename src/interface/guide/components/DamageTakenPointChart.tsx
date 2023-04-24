@@ -9,17 +9,19 @@
  */
 import { useMemo } from 'react';
 import styled from '@emotion/styled';
-import colorForPerformance from 'common/colorForPerformance';
 import * as MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import useTooltip from 'interface/useTooltip';
 import { AbilityEvent, DamageEvent, SourcedEvent } from 'parser/core/Events';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
-import { useAnalyzer, useInfo } from '../index';
+import { qualitativePerformanceToColor, useAnalyzer, useInfo } from '../index';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 export type TrackedHit = {
-  mitigated: boolean;
+  /** How good a job the player did of mitigating the tracked hit */
+  mitigated: QualitativePerformance;
+  /** Incoming damage event to the player */
   event: DamageEvent;
 };
 
@@ -165,7 +167,7 @@ function HitTimeline({
           return (
             <Tooltip hoverable content={<TooltipContent hit={hit} />} key={ix} direction="up">
               <HitTimelineSlice
-                color={colorForPerformance(Number(hit.mitigated))}
+                color={qualitativePerformanceToColor(hit.mitigated)}
                 widthPct={blockWidth}
                 style={{
                   left: `${((hit.event.timestamp - info.fightStart) / info.fightDuration) * 100}%`,
