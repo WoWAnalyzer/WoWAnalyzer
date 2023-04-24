@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 4, 24), 'Additions and updates for Classic Potions (guide and checklist).', jazminite),
   change(date(2023, 4, 20), 'Add M+ season 2 images.', ToppleTheNun),
   change(date(2023, 4, 19), 'Add Aberrus raid images.', ToppleTheNun),
   change(date(2023, 4, 17), 'Update Classic WotLK Priest spells.', jazminite),

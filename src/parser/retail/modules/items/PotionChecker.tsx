@@ -237,6 +237,10 @@ class PotionChecker extends Analyzer {
     };
   }
 
+  get suggestionMessage() {
+    return 'Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.';
+  }
+
   potionAdjuster(specID: number) {
     if (BOTTLED_PUTRESCENCE.includes(specID)) {
       this.potionId = ITEMS.BOTTLED_PUTRESCENCE_R3.id;
@@ -292,9 +296,7 @@ class PotionChecker extends Analyzer {
       suggest(
         <Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">
           You used {this.potionsUsed} combat {this.potionsUsed === 1 ? 'potion' : 'potions'} during
-          this encounter, but you could have used {this.maxPotions}. Since you are able to use a
-          combat potion every 5 minutes, you should ensure that you are getting the maximum number
-          of potions in each encounter.
+          this encounter, but you could have used {this.maxPotions}. {this.suggestionMessage}
         </Trans>,
       )
         .icon(this.strongPotionIcon)
@@ -303,9 +305,8 @@ class PotionChecker extends Analyzer {
     when(this.potionStrengthThresholds).addSuggestion((suggest) =>
       suggest(
         <Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">
-          You used {this.weakPotionsUsed} weak {this.weakPotionsUsed === 1 ? 'potion' : 'potions'}.{' '}
-          <ItemLink id={this.strongPotionId} /> should be used in order to get a slightly higher
-          damage output.
+          You used {this.weakPotionsUsed} weak {this.weakPotionsUsed === 1 ? 'potion' : 'potions'}.
+          Use <ItemLink id={this.strongPotionId} /> for better results.
         </Trans>,
       )
         .icon(this.strongPotionIcon)
