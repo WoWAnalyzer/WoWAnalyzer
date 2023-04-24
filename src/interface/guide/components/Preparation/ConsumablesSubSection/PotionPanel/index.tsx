@@ -5,14 +5,13 @@ import ClassicPotionChecker from 'parser/classic/modules/items/PotionChecker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ItemLink from 'interface/ItemLink';
 import Potion from 'interface/icons/Potion';
-import Expansion from 'game/Expansion';
+import Expansion, { CLASSIC_EXPANSION } from 'game/Expansion';
 
 interface Props {
   expansion?: Expansion;
 }
 const PotionPanel = ({ expansion }: Props) => {
-  const UsePotionChecker =
-    expansion === Expansion.WrathOfTheLichKing ? ClassicPotionChecker : PotionChecker;
+  const UsePotionChecker = expansion === CLASSIC_EXPANSION ? ClassicPotionChecker : PotionChecker;
   const potionChecker = useAnalyzer(UsePotionChecker);
   const info = useInfo();
   if (!potionChecker || !info) {
