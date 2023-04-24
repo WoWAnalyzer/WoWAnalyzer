@@ -1,12 +1,19 @@
 import { useAnalyzer, useInfo } from 'interface/guide/index';
 import { PanelHeader, PerformanceRoundedPanel } from 'interface/guide/components/GuideDivs';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
+import ClassicPotionChecker from 'parser/classic/modules/items/PotionChecker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ItemLink from 'interface/ItemLink';
 import Potion from 'interface/icons/Potion';
+import Expansion from 'game/Expansion';
 
-const PotionPanel = () => {
-  const potionChecker = useAnalyzer(PotionChecker);
+interface Props {
+  expansion?: Expansion;
+}
+const PotionPanel = ({ expansion }: Props) => {
+  const UsePotionChecker =
+    expansion === Expansion.WrathOfTheLichKing ? ClassicPotionChecker : PotionChecker;
+  const potionChecker = useAnalyzer(UsePotionChecker);
   const info = useInfo();
   if (!potionChecker || !info) {
     return null;
@@ -16,11 +23,15 @@ const PotionPanel = () => {
   const potionsUsed = potionChecker.potionsUsed;
   const maxPotions = potionChecker.maxPotions;
   const strongPotionId = potionChecker.strongPotionId;
+  const suggestionMessage = potionChecker.suggestionMessage;
 
-  const performance =
-    potionsUsed >= maxPotions && weakPotionsUsed === 0
-      ? QualitativePerformance.Good
-      : QualitativePerformance.Fail;
+  let performance = QualitativePerformance.Good;
+  if (weakPotionsUsed > 0) {
+    performance = QualitativePerformance.Ok;
+  }
+  if (potionsUsed < maxPotions) {
+    performance = QualitativePerformance.Fail;
+  }
 
   return (
     <PerformanceRoundedPanel performance={performance}>
@@ -32,7 +43,7 @@ const PotionPanel = () => {
           <Potion />
         </div>
       </PanelHeader>
-      {performance === QualitativePerformance.Good && (
+      {performance !== QualitativePerformance.Fail && (
         <p>
           You used the appropriate amount of potions ({potionsUsed}/{maxPotions}) during this fight!
           Good work!
@@ -41,9 +52,7 @@ const PotionPanel = () => {
       {performance === QualitativePerformance.Fail && (
         <p>
           You used {potionsUsed} combat {potionsUsed === 1 ? 'potion' : 'potions'} during this
-          encounter, but you could have used {maxPotions}. Since you are able to use a combat potion
-          every 5 minutes, you should ensure that you are getting the maximum number of potions in
-          each encounter.
+          encounter, but you could have used {maxPotions}. {suggestionMessage}
         </p>
       )}
       {weakPotionsUsed > 0 && (
@@ -52,9 +61,8 @@ const PotionPanel = () => {
             <strong>Quality of Potions Used</strong>
           </PanelHeader>
           <p>
-            You used {weakPotionsUsed} weak {weakPotionsUsed === 1 ? 'potion' : 'potions'}.{' '}
-            <ItemLink id={strongPotionId} /> should be used in order to get a slightly higher damage
-            output.
+            You used {weakPotionsUsed} weak {weakPotionsUsed === 1 ? 'potion' : 'potions'}. Use{' '}
+            <ItemLink id={strongPotionId} /> for better results.
           </p>
         </>
       )}
