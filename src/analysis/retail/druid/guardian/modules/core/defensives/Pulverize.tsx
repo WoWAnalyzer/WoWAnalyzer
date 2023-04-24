@@ -17,7 +17,7 @@ const MITIGATION = 0.35;
 
 export default class Pulverize extends MajorDefensiveDebuff {
   constructor(options: Options) {
-    super(TALENTS_DRUID.PULVERIZE_TALENT, debuff(SPELLS.PULVERIZE_BUFF), options);
+    super(TALENTS_DRUID.PULVERIZE_TALENT, debuff(TALENTS_DRUID.PULVERIZE_TALENT), options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.PULVERIZE_TALENT);
 
@@ -25,7 +25,6 @@ export default class Pulverize extends MajorDefensiveDebuff {
   }
 
   private recordDamage(event: DamageEvent) {
-    // TODO also count the flat mitigation / reflect
     if (this.defensiveActive(event) && !event.sourceIsFriendly) {
       this.recordMitigation({
         event,
