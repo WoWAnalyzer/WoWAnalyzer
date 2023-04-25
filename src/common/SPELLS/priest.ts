@@ -517,6 +517,11 @@ const spells = spellIndexableList({
     name: 'Seize the moment',
     icon: 'inv_mace_1h_artifactheartofkure_d_03',
   },
+  HOLY_PRIEST_TIER_30_4_SET_BUFF: {
+    id: 409479,
+    name: 'Inspired Word',
+    icon: 'ability_paladin_sacredcleansing',
+  },
   // Talents
   BINDING_HEALS_TALENT_HEAL: {
     id: 368276,
