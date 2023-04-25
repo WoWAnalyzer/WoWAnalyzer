@@ -6,8 +6,9 @@ import TALENTS from 'common/TALENTS/priest';
 import SPELLS from 'common/SPELLS/priest';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
+import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
 import { Trans } from '@lingui/macro';
+import Voidbolt from '../spells/Voidbolt';
 
 type Cooldown = {
   talent: Talent;
@@ -16,6 +17,7 @@ type Cooldown = {
 
 type SpellCooldown = {
   spell: Spell;
+  activeWindows?: CooldownWindow[];
 };
 
 const coreCooldowns: SpellCooldown[] = [
@@ -45,6 +47,7 @@ const longCooldowns: Cooldown[] = [
 ];
 
 const CoreCooldownsGraph = () => {
+  const VoidboltAnalyzer = useAnalyzer(Voidbolt);
   let coreCooldown = coreCooldowns;
   let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
@@ -59,6 +62,10 @@ const CoreCooldownsGraph = () => {
   const info = useInfo();
   if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
     coreCooldown = coreCooldownsVB;
+    // not the prettiest solution, but functional
+    coreCooldown.find((cd) => cd.spell.id === SPELLS.VOID_BOLT.id)!.activeWindows =
+      VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
+
     message = (
       <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB">
         <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
@@ -158,6 +165,7 @@ const CoreCooldownGraphSubsection = (cooldownsToCheck: SpellCooldown[], message:
           spellId={cooldownCheck.spell.id}
           gapHighlightMode={GapHighlight.None}
           minimizeIcons={hasTooManyCasts}
+          activeWindows={cooldownCheck.activeWindows}
         />
       ))}
     </SubSection>

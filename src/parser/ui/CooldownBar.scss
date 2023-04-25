@@ -3,6 +3,14 @@
 .cooldown-bar {
   position: relative;
   width: 100%;
+  background: transparentize($color: $muted, $amount: 0.75);
+  height: 24px;
+}
+
+.cooldown-bar-window {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
   height: 24px;
   background: $muted;
 

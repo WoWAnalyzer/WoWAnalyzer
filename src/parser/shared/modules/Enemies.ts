@@ -1,6 +1,6 @@
 import Enemy from 'parser/core/Enemy';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import { AnyEvent, HasSource, HasTarget } from 'parser/core/Events';
+import { AnyEvent, HasSource, HasTarget, SourcedEvent, TargettedEvent } from 'parser/core/Events';
 
 import Entities from './Entities';
 
@@ -11,6 +11,8 @@ type EnemyBuffHistory = {
   end: number;
 };
 
+export function encodeEventTargetString(event: TargettedEvent<any>): string;
+export function encodeEventTargetString(event: AnyEvent): string | null;
 export function encodeEventTargetString(event: AnyEvent) {
   if (!HasTarget(event)) {
     return null;
@@ -18,6 +20,8 @@ export function encodeEventTargetString(event: AnyEvent) {
   return encodeTargetString(event.targetID, event.targetInstance);
 }
 
+export function encodeEventSourceString(event: SourcedEvent<any>): string;
+export function encodeEventSourceString(event: AnyEvent): string | null;
 export function encodeEventSourceString(event: AnyEvent) {
   if (!HasSource(event)) {
     return null;
