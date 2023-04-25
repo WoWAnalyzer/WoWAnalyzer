@@ -70,7 +70,6 @@ class HolyPriestAbberus4Set extends Analyzer {
 
   onSerenityCast(event: CastEvent) {
     const stacks = this.tierStacks;
-    console.log(stacks);
     if (stacks > 0) {
       this.stacksOnCast.push(stacks);
       const healEvent = getSerenityHealEvent(event);
@@ -96,7 +95,6 @@ class HolyPriestAbberus4Set extends Analyzer {
     if (stacks > 0) {
       this.stacksOnCast.push(stacks);
       const healEvents = getSalvationHealEvents(event);
-      console.log(healEvents);
       healEvents.forEach((healEvent: HealEvent) => {
         this.healing += calculateEffectiveHealing(healEvent, stacks * TIER_BONUS);
         this.overhealing += calculateOverhealing(healEvent, stacks * TIER_BONUS);
