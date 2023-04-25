@@ -18,7 +18,7 @@ const ConsumablesSubSection = ({ recommendedFlasks, recommendedFoods, expansion 
       <p>Using consumables appropriately is an easy way to improve your throughput.</p>
       <SideBySidePanels>
         <FoodPanel recommendedFoods={recommendedFoods} expansion={expansion} />
-        <PotionPanel />
+        <PotionPanel expansion={expansion} />
         <FlaskPanel recommendedFlasks={recommendedFlasks} expansion={expansion} />
       </SideBySidePanels>
     </SubSection>

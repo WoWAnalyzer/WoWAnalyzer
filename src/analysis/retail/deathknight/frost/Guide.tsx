@@ -6,6 +6,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import SPELLS from 'common/SPELLS';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -44,6 +45,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               wasting any of the resources granted.
               {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) &&
                 modules.hornOfWinter.guideCastBreakdown}
+              {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
+                info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)) &&
+                modules.empowerRuneWeapon.guideCastBreakdown}
             </p>
           </SubSection>
         )}
@@ -60,6 +64,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <CooldownsSubsection modules={modules} events={events} info={info} />
         <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
       </Section>
+      <PreparationSection />
     </>
   );
 }
