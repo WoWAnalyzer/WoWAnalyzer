@@ -53,8 +53,6 @@ class Voidbolt extends ExecuteHelper {
   adjustMaxCasts() {
     const cooldown = this.abilities.getAbility(SPELLS.VOID_BOLT.id)!.cooldown * 1000;
     this.maxCasts += Math.ceil(this.totalExecuteDuration / cooldown);
-
-    console.log('CD of VB', cooldown, this.maxCasts);
   }
 
   statistic() {
