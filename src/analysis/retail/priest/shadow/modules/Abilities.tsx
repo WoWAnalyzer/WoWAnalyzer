@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
@@ -8,22 +7,7 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
-      {
-        spell: SPELLS.VOID_BOLT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 6 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) =>
-            calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
-        },
-        damageSpellIds: [SPELLS.VOID_BOLT.id, SPELLS.VOID_BOLT_DISSONANT_ECHOES.id],
-        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT),
-      },
+      //Voidbolt is added through Voidform module.
       {
         spell: SPELLS.MIND_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
