@@ -1,9 +1,9 @@
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
@@ -20,6 +20,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { getVivifiesPerCast } from '../../normalizers/CastLinkNormalizer';
+import DonutChart from 'parser/ui/DonutChart';
+import { SPELL_COLORS } from '../../constants';
+import WarningIcon from 'interface/icons/Warning';
+import CheckmarkIcon from 'interface/icons/Checkmark';
 
 const BUFF_AMOUNT_PER_STACK = 0.2;
 const debug = true;
@@ -42,9 +46,56 @@ class CloudedFocus extends Analyzer {
   //viv
   vivifyHealing: number = 0;
   vivifyMana: number = 0;
+  primaryTargetHealing: number = 0;
   primaryTargetOverheal: number = 0;
   //envBreath
   envelopingBreathHealing: number = 0;
+
+  get buffIcon() {
+    return this.primaryTargetPercentOverheal > 0.5 ? <WarningIcon /> : <CheckmarkIcon />;
+  }
+
+  get overhealMetric() {
+    return (
+      <>
+        {this.buffIcon} {formatPercentage(this.primaryTargetPercentOverheal)}%{' '}
+        <small> main target overheal </small>
+      </>
+    );
+  }
+
+  get primaryTargetPercentOverheal() {
+    return this.primaryTargetOverheal / (this.primaryTargetOverheal + this.primaryTargetHealing);
+  }
+
+  get cloudedFocusItems() {
+    return [
+      {
+        color: SPELL_COLORS.VIVIFY,
+        label: 'Vivify',
+        spellId: SPELLS.VIVIFY.id,
+        value: this.vivifyHealing,
+        valueTooltip: formatThousands(this.vivifyHealing),
+        valuePercent: true,
+      },
+      {
+        color: SPELL_COLORS.ENVELOPING_MIST,
+        label: 'Enveloping Mist',
+        spellId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+        value: this.envelopingMistHealing,
+        valueTooltip: formatThousands(this.envelopingMistHealing),
+        valuePercent: true,
+      },
+      {
+        color: SPELL_COLORS.MISTY_PEAKS,
+        label: 'Enveloping Breath',
+        spellId: SPELLS.ENVELOPING_BREATH_HEAL.id,
+        value: this.envelopingBreathHealing,
+        valueTooltip: formatThousands(this.envelopingBreathHealing),
+        valuePercent: true,
+      },
+    ];
+  }
 
   constructor(options: Options) {
     super(options);
@@ -82,7 +133,8 @@ class CloudedFocus extends Analyzer {
   }
 
   calculateManaEffect(event: CastEvent) {
-    if (event.ability.guid === SPELLS.VIVIFY.id && this.stacks > 0) {
+    const spellId = event.ability.guid;
+    if (spellId === SPELLS.VIVIFY.id && this.stacks > 0) {
       this.tallyPrimaryTargetOverheal(event);
     }
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
@@ -93,6 +145,12 @@ class CloudedFocus extends Analyzer {
     let cost = event.rawResourceCost ? event.rawResourceCost[0] : 0;
     if (this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
       cost /= 2;
+    }
+
+    if (spellId === SPELLS.VIVIFY.id) {
+      this.vivifyMana += cost - cost * (1 - this.manaStacks * BUFF_AMOUNT_PER_STACK);
+    } else if (spellId === TALENTS_MONK.ENVELOPING_MIST_TALENT.id) {
+      this.envelopingMistMana += cost - cost * (1 - this.manaStacks * BUFF_AMOUNT_PER_STACK);
     }
 
     this.manaSaved += cost - cost * (1 - this.manaStacks * BUFF_AMOUNT_PER_STACK);
@@ -153,7 +211,8 @@ class CloudedFocus extends Analyzer {
     if (!primaryVivify) {
       return;
     }
-    this.primaryTargetOverheal += calculateOverhealing(primaryVivify, this.stacks);
+    this.primaryTargetHealing += primaryVivify.amount + (primaryVivify.absorb || 0);
+    this.primaryTargetOverheal += primaryVivify.overheal || 0;
   }
 
   subStatistic() {
@@ -173,12 +232,32 @@ class CloudedFocus extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(1)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <ul>
+              <li>
+                <strong>{formatNumber(this.vivifyMana)}</strong> mana saved on{' '}
+                <SpellLink id={SPELLS.VIVIFY} />
+              </li>
+              <li>
+                <strong>{formatNumber(this.envelopingMistMana)}</strong> mana saved on{' '}
+                <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+              </li>
+            </ul>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_MONK.CLOUDED_FOCUS_TALENT}>
           <ItemHealingDone amount={this.healingDone} />
           <br />
           <ItemManaGained amount={this.manaSaved} useAbbrev />
+          <br />
+          {this.overhealMetric}
         </TalentSpellText>
+        <aside className="pad">
+          <hr />
+          <DonutChart items={this.cloudedFocusItems} />
+        </aside>
       </Statistic>
     );
   }
