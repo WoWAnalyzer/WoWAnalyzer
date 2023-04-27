@@ -424,7 +424,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        position={STATISTIC_ORDER.CORE(7)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={

@@ -117,7 +117,7 @@ class SheilunsGift extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(2)}
+        position={STATISTIC_ORDER.CORE(9)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
