@@ -182,9 +182,7 @@ const rotation_rm_cf_shaohaos = build([
   ...commonTop,
   SOOM_BEFORE_VIVIFY,
   VIVIFY_6_REMS,
-  talents.ESSENCE_FONT_TALENT,
   BLACKOUT_KICK,
-  talents.CHI_BURST_TALENT,
   {
     spell: SPELLS.TIGER_PALM,
     condition: cnd.optionalRule(
