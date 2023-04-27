@@ -322,7 +322,7 @@ class ManaTea extends Analyzer {
     const arrayOfKeys = Array.from(this.casts.keys());
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(25)}
+        position={STATISTIC_ORDER.CORE(9)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

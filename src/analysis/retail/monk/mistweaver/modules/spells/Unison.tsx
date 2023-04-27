@@ -57,7 +57,7 @@ class Unison extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(14)}
+        position={STATISTIC_ORDER.CORE(8)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

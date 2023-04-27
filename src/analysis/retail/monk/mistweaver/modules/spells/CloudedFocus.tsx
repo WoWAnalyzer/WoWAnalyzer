@@ -229,7 +229,7 @@ class CloudedFocus extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(1)}
+        position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
