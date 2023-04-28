@@ -52,7 +52,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
             }
           />
         )}
-        {combatant.hasTalent(TALENTS_EVOKER.REVERSION_TALENT) && (
+        {combatant.hasTalent(TALENTS_EVOKER.GRACE_PERIOD_TALENT) && (
           <AbilityRequirement spell={TALENTS_EVOKER.REVERSION_TALENT.id} />
         )}
       </Rule>
