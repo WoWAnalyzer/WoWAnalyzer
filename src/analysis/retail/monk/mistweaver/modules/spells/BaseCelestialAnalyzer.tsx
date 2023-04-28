@@ -18,7 +18,7 @@ import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS } from '../../constants';
 import EssenceFont from './EssenceFont';
 import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatDurationMillisMinSec, formatNumber } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
 import Pets from 'parser/shared/modules/Pets';
 import InformationIcon from 'interface/icons/Information';
@@ -186,6 +186,7 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   applySi(event: ApplyBuffEvent) {
+    console.log('SI Applied: ', this.owner.formatTimestamp(event.timestamp));
     if (!this.celestialActive) {
       return;
     }
@@ -200,10 +201,12 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   removeSi(event: RemoveBuffEvent | DeathEvent) {
+    console.log('SI Removed: ', this.owner.formatTimestamp(event.timestamp));
     if (!this.celestialActive || this.siApplyTime < this.owner.fight.start_time) {
       return;
     }
     this.castTrackers.at(-1)!.infusionDuration += event.timestamp - this.siApplyTime;
+    console.log('SI Duration: ', formatDurationMillisMinSec(event.timestamp - this.siApplyTime));
   }
 
   removeLessons(event: RemoveBuffEvent) {
@@ -256,6 +259,9 @@ class BaseCelestialAnalyzer extends Analyzer {
     cast: BaseCelestialTracker,
   ): [QualitativePerformance[], CooldownExpandableItem[]] {
     const checklistItems: CooldownExpandableItem[] = [];
+    const allPerfs: QualitativePerformance[] = [];
+
+    //average enveloping breath targets
     let envbPerf = QualitativePerformance.Good;
     const avgBreathsPerCast = cast.totalEnvB / cast.totalEnvM;
     if (avgBreathsPerCast < 4) {
@@ -263,6 +269,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     } else if (avgBreathsPerCast < 3) {
       envbPerf = QualitativePerformance.Fail;
     }
+    allPerfs.push(envbPerf);
     checklistItems.push({
       label: (
         <>
@@ -273,6 +280,8 @@ class BaseCelestialAnalyzer extends Analyzer {
       result: <PerformanceMark perf={envbPerf} />,
       details: <>{avgBreathsPerCast.toFixed(1)} avg</>,
     });
+
+    //enveloping mist casts
     let envmPerf = QualitativePerformance.Good;
     const idealEnvm = this.getExpectedEnvmCasts(cast.averageHaste);
     if (cast.totalEnvM < idealEnvm - 1) {
@@ -280,6 +289,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     } else if (cast.totalEnvM < idealEnvm - 2) {
       envmPerf = QualitativePerformance.Fail;
     }
+    allPerfs.push(envmPerf);
     checklistItems.push({
       label: (
         <>
@@ -290,23 +300,27 @@ class BaseCelestialAnalyzer extends Analyzer {
       details: <>{formatNumber(cast.totalEnvM)}</>,
     });
 
-    let efPerf = QualitativePerformance.Good;
-    if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.75)) {
-      efPerf = QualitativePerformance.Fail;
-    } else if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.9)) {
-      efPerf = QualitativePerformance.Ok;
+    //Pre-cast essence font hots
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
+      let efPerf = QualitativePerformance.Good;
+      if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.75)) {
+        efPerf = QualitativePerformance.Fail;
+      } else if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.9)) {
+        efPerf = QualitativePerformance.Ok;
+      }
+      allPerfs.push(efPerf);
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on start
+          </>
+        ),
+        result: <PerformanceMark perf={efPerf} />,
+        details: <>{cast.numEfHots}</>,
+      });
     }
-    checklistItems.push({
-      label: (
-        <>
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on start
-        </>
-      ),
-      result: <PerformanceMark perf={efPerf} />,
-      details: <>{cast.numEfHots}</>,
-    });
-    const allPerfs: QualitativePerformance[] = [envbPerf, efPerf, envmPerf];
 
+    //secret infusion duration
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       let siPerf = QualitativePerformance.Good;
       if (cast.infusionDuration! < this.goodSiDuration - 4000) {
@@ -324,9 +338,15 @@ class BaseCelestialAnalyzer extends Analyzer {
               content={
                 <>
                   Be sure to use <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-                  <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
-                  <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multiplicative haste
-                  bonus
+                  <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
+                  {this.selectedCombatant.hasTalent(
+                    TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+                  ) && (
+                    <>
+                      or <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} />
+                    </>
+                  )}{' '}
+                  for a multiplicative haste bonus
                 </>
               }
             >
@@ -340,6 +360,8 @@ class BaseCelestialAnalyzer extends Analyzer {
         details: <>{Math.round(cast.infusionDuration! / 1000)}s</>,
       });
     }
+
+    //shaohao's lessons buff duration
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
       let lessonPerf = QualitativePerformance.Good;
       if (cast.lessonsDuration! < this.goodLessonDuration / 3) {
@@ -357,8 +379,7 @@ class BaseCelestialAnalyzer extends Analyzer {
               content={
                 <>
                   Cast <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to
-                  cover the entire duration of{' '}
-                  <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
+                  cover the entire duration of <SpellLink id={this.getCelestialTalent()} />
                 </>
               }
             >
