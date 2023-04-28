@@ -10,7 +10,7 @@ import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analy
 import Events, { AbsorbedEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getLowestPerf } from 'parser/ui/QualitativePerformance';
+import { getAveragePerf } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -100,40 +100,55 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />
         </strong>
         <br />
-        Before casting <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, it is
-        essential to prepare by doing the following
-        <ul>
-          <li>
-            Cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to do extra healing during the
-            duration of <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
-          </li>
-          <li>
-            If talented into <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
+        Before casting <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, make
+        sure that <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> is on cooldown, and make to
+        sure cast{' '}
+        {this.selectedCombatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? (
+          <>at least one </>
+        ) : (
+          <>all </>
+        )}{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        (s) to prevent overcapping charges Yulon's duration.
+        <br />
+        {this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) && (
+          <>
+            With <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
             <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to cover the
             entire duration of <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
-          </li>
-        </ul>
-        During the duration of <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />,
-        it is important to do the following
-        <ul>
+            <br />
+          </>
+        )}
+        During <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, it is important
+        to cast <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that are near other
+        allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
+        <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL} />. Be sure to cast{' '}
+        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> before your first{' '}
+        <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
+        <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> falls off to extend their duration.
+        {this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) && (
+          <>
+            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
+            <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT} />
+          </>
+        )}{' '}
+        <br />
+        Be sure to follow up your{' '}
+        <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
+        <SpellLink id={SPELLS.VIVIFY} /> to make use of your low duration{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        s.
+      </p>
+    );
+    /* Disabled for 10.1 sinec we will want to use TFT at the end of the ramp to ensure 4pc */
+    /* <ul>
           <li>
             If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
             <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multiplicative haste bonus
+            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste bonus
           </li>
-          <li>
-            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
-            <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT} />
-          </li>
-          <li>
-            Cast <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that are near
-            other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
-            <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL} />
-          </li>
-        </ul>
-      </p>
-    );
+        </ul> */
 
     const data = (
       <div>
@@ -154,12 +169,12 @@ class InvokeYulon extends BaseCelestialAnalyzer {
             allPerfs.push(rval[0]);
             checklistItems.push(rval[1]);
           }
-          const lowestPerf = getLowestPerf(allPerfs);
+          const avgPerf = getAveragePerf(allPerfs);
           return (
             <CooldownExpandable
               header={header}
               checklistItems={checklistItems}
-              perf={lowestPerf}
+              perf={avgPerf}
               key={ix}
             />
           );

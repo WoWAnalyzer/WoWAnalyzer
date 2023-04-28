@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 4, 28), <>Updated Guide sections for 10.1</>, Vohrr),
   change(date(2023, 4, 27), <>Added <SpellLink id={TALENTS_MONK.CALMING_COALESCENCE_TALENT.id}/> module.</>, Vohrr),
   change(date(2023, 4, 27), <>Conditionally load <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id}/> guide metrics based on talent selection.</>, Vohrr),
   change(date(2023, 4, 27), <>Fixed <SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}/> MP5 tally</>, Vohrr),

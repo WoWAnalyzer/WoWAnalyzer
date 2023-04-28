@@ -7,7 +7,7 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   CastEvent,
@@ -130,7 +130,6 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.TEACHINGS_OF_THE_MONASTERY),
       this.onTotmRefresh,
     );
-    this.addEventListener(Events.death.to(SELECTED_PLAYER_PET), this.removeSi);
   }
 
   //missed gcd mangement
@@ -405,12 +404,12 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             allPerfs.push(rval[0]);
             checklistItems.push(rval[1]);
           }
-          const lowestPerf = getAveragePerf(allPerfs);
+          const avgPerf = getAveragePerf(allPerfs);
           return (
             <CooldownExpandable
               header={header}
               checklistItems={checklistItems}
-              perf={lowestPerf}
+              perf={avgPerf}
               key={ix}
             />
           );
