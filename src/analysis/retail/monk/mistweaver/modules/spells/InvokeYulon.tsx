@@ -113,7 +113,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         <br />
         {this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) && (
           <>
-            <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
+            With <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
             <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to cover the
             entire duration of <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
             <br />
@@ -138,6 +138,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
         <SpellLink id={SPELLS.VIVIFY} /> to make use of your low duration{' '}
         <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        s.
       </p>
     );
     /* Disabled for 10.1 sinec we will want to use TFT at the end of the ramp to ensure 4pc */
