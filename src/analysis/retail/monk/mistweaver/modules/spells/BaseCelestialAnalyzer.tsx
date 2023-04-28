@@ -35,8 +35,8 @@ export interface BaseCelestialTracker {
   recastEf: boolean; // whether player recast ef during celestial
   deathTimestamp: number; // when pet died
 }
-const lessonsDebug = true;
-const siDebug = true;
+const lessonsDebug = false;
+const siDebug = false;
 const ENVM_HASTE_FACTOR = 0.55; // this factor determines how harsh to be for ideal envm casts
 const CHIJI_GIFT_ENVMS = 2.5;
 const YULON_GIFT_ENVMS = 4;
