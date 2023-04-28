@@ -75,13 +75,11 @@ class CalmingCoalescence extends Analyzer {
   onApplyLifeCocoon(event: ApplyBuffEvent) {
     this.totalShieldSize += event.absorb || 0;
     this.shieldSize = event.absorb || 0;
-    console.log(this.stacks, this.shieldSize);
     this.baseShield = this.stacks > 0 ? this.calculateBaseShield(event.absorb!) : this.shieldSize;
     this.currentShieldAbsorbed = 0;
   }
 
   onAbsorbed(event: AbsorbedEvent) {
-    console.log(event);
     this.currentShieldAbsorbed += event.amount;
   }
 
