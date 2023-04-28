@@ -10,7 +10,7 @@ import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analy
 import Events, { AbsorbedEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import { getLowestPerf } from 'parser/ui/QualitativePerformance';
+import { getAveragePerf } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -168,12 +168,12 @@ class InvokeYulon extends BaseCelestialAnalyzer {
             allPerfs.push(rval[0]);
             checklistItems.push(rval[1]);
           }
-          const lowestPerf = getLowestPerf(allPerfs);
+          const avgPerf = getAveragePerf(allPerfs);
           return (
             <CooldownExpandable
               header={header}
               checklistItems={checklistItems}
-              perf={lowestPerf}
+              perf={avgPerf}
               key={ix}
             />
           );

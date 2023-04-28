@@ -405,12 +405,12 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             allPerfs.push(rval[0]);
             checklistItems.push(rval[1]);
           }
-          const lowestPerf = getAveragePerf(allPerfs);
+          const avgPerf = getAveragePerf(allPerfs);
           return (
             <CooldownExpandable
               header={header}
               checklistItems={checklistItems}
-              perf={lowestPerf}
+              perf={avgPerf}
               key={ix}
             />
           );

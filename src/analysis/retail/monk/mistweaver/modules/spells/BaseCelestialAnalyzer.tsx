@@ -35,7 +35,8 @@ export interface BaseCelestialTracker {
   recastEf: boolean; // whether player recast ef during celestial
   deathTimestamp: number; // when pet died
 }
-
+const lessonsDebug = true;
+const siDebug = true;
 const ENVM_HASTE_FACTOR = 0.55; // this factor determines how harsh to be for ideal envm casts
 const CHIJI_GIFT_ENVMS = 2.5;
 const YULON_GIFT_ENVMS = 4;
@@ -48,18 +49,27 @@ class BaseCelestialAnalyzer extends Analyzer {
   };
   protected haste!: Haste;
   protected pets!: Pets;
+
+  //secret infusion vars
   siApplyTime: number = -1;
+  secretInfusionActive: boolean = false;
+  goodSiDuration: number = 0; // how long SI should last during celestial
+
+  //shaohaos lessons vars
   lessonsApplyTime: number = -1;
+  lessonsActive: boolean = false;
+  goodLessonDuration: number = 0; // how long lesson should last during celestial
+
+  //celestial vars
   celestialActive: boolean = false;
   currentCelestialStart: number = -1;
   lastCelestialEnd: number = -1;
   celestialWindows: Map<number, number> = new Map<number, number>();
   castTrackers: BaseCelestialTracker[] = [];
   hasteDataPoints: number[] = []; // use this to estimate average haste during celestial
-  goodSiDuration: number = 0; // how long SI should last during celestial
-  goodLessonDuration: number = 0; // how long lesson should last during celestial
   idealEnvmCastsUnhasted: number = 0;
   minEfHotsBeforeCast: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.active =
@@ -125,7 +135,11 @@ class BaseCelestialAnalyzer extends Analyzer {
       (1 + this.selectedCombatant.getTalentRank(TALENTS_MONK.JADE_BOND_TALENT));
     this.minEfHotsBeforeCast =
       10 + 6 * this.selectedCombatant.getTalentRank(TALENTS_MONK.UPWELLING_TALENT);
-    this.goodSiDuration = 10000; // base si duration
+    this.goodSiDuration = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
+    )
+      ? 5000
+      : 10000;
     this.goodLessonDuration = this.selectedCombatant.hasTalent(
       TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
     )
@@ -134,19 +148,51 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   onSummon(event: SummonEvent) {
+    (lessonsDebug || siDebug) &&
+      console.log('Celestial Summoned: ', this.owner.formatTimestamp(event.timestamp));
     this.celestialActive = true;
     this.currentCelestialStart = event.timestamp;
     this.hasteDataPoints = [];
-    SECRET_INFUSION_BUFFS.forEach((spell) => {
-      if (this.selectedCombatant.hasBuff(spell.id)) {
-        this.siApplyTime = event.timestamp;
-      }
-    });
-    LESSONS_BUFFS.forEach((spell) => {
-      if (this.selectedCombatant.hasBuff(spell.id)) {
-        this.lessonsApplyTime = event.timestamp;
-      }
-    });
+    if (this.secretInfusionActive) {
+      this.siApplyTime = event.timestamp;
+    }
+    if (this.lessonsActive) {
+      this.lessonsApplyTime = event.timestamp;
+    }
+  }
+
+  handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
+    const pet = this.pets.getEntityFromEvent(event, true);
+    if (
+      (!pet || !pet.name) &&
+      this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
+    ) {
+      return;
+    }
+    (lessonsDebug || siDebug) &&
+      console.log('Celestial Death: ', this.owner.formatTimestamp(event.timestamp));
+    this.celestialActive = false;
+    this.celestialWindows.set(this.currentCelestialStart, event.timestamp);
+    this.currentCelestialStart = -1;
+    this.lastCelestialEnd = event.timestamp;
+    this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
+    this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
+    if (this.secretInfusionActive) {
+      this.castTrackers.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
+      siDebug &&
+        console.log(
+          'SI Duration: ',
+          formatDurationMillisMinSec(event.timestamp - this.siApplyTime),
+        );
+    }
+    if (this.lessonsActive) {
+      this.castTrackers.at(-1)!.lessonsDuration = event.timestamp - this.lessonsApplyTime;
+      lessonsDebug &&
+        console.log(
+          'Lessons Duration: ',
+          formatDurationMillisMinSec(event.timestamp - this.lessonsApplyTime),
+        );
+    }
   }
 
   onAction(event: HealEvent | CastEvent | DamageEvent) {
@@ -185,56 +231,50 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.castTrackers.at(-1)!.totalEnvB += 1;
   }
 
+  /**
+   * 4 cases for shaohaos lessons and SI logic:
+   *       | SUMMON |  duration  | DEATH |
+   * 1) App             Remove
+   * 2) App                                Remove
+   * 3)               App Remove
+   * 4)                 App                Remove
+   */
+
   applySi(event: ApplyBuffEvent) {
-    console.log('SI Applied: ', this.owner.formatTimestamp(event.timestamp));
-    if (!this.celestialActive) {
-      return;
-    }
+    siDebug && console.log('SI Applied: ', this.owner.formatTimestamp(event.timestamp));
+    this.secretInfusionActive = true;
     this.siApplyTime = event.timestamp;
   }
 
   applyLessons(event: ApplyBuffEvent) {
-    if (!this.celestialActive) {
-      return;
-    }
+    lessonsDebug && console.log('Lessons Applied: ', this.owner.formatTimestamp(event.timestamp));
+    this.lessonsActive = true;
     this.lessonsApplyTime = event.timestamp;
   }
 
   removeSi(event: RemoveBuffEvent | DeathEvent) {
-    console.log('SI Removed: ', this.owner.formatTimestamp(event.timestamp));
-    if (!this.celestialActive || this.siApplyTime < this.owner.fight.start_time) {
-      return;
+    this.secretInfusionActive = false;
+    if (this.celestialActive) {
+      this.castTrackers.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
+      siDebug &&
+        console.log(
+          'SI Duration: ',
+          formatDurationMillisMinSec(event.timestamp - this.siApplyTime),
+        );
     }
-    this.castTrackers.at(-1)!.infusionDuration += event.timestamp - this.siApplyTime;
-    console.log('SI Duration: ', formatDurationMillisMinSec(event.timestamp - this.siApplyTime));
+    siDebug && console.log('SI Removed: ', this.owner.formatTimestamp(event.timestamp));
   }
 
   removeLessons(event: RemoveBuffEvent) {
-    if (
-      this.castTrackers.length === 0 ||
-      this.castTrackers.at(-1)!.lessonsDuration > 0 ||
-      this.lessonsApplyTime < this.owner.fight.start_time ||
-      (this.castTrackers.at(-1)!.deathTimestamp > 0 &&
-        this.castTrackers.at(-1)!.deathTimestamp < this.lessonsApplyTime)
-    ) {
-      return;
-    }
-    /**
-     * 4 cases
-     *       | SUMMON |  duration  | DEATH |
-     * 1) App             Remove
-     * 2) App                                Remove
-     * 3)               App Remove
-     * 4)                 App                Remove
-     */
-    if (this.lessonsApplyTime < event.timestamp) {
-      this.castTrackers.at(-1)!.lessonsDuration += this.celestialActive
-        ? event.timestamp - this.castTrackers.at(-1)!.timestamp // case 1
-        : this.castTrackers.at(-1)!.deathTimestamp - this.castTrackers.at(-1)!.timestamp; // case 2
-    } else {
-      this.castTrackers.at(-1)!.lessonsDuration += this.celestialActive
-        ? event.timestamp - this.lessonsApplyTime // case 3
-        : this.castTrackers.at(-1)!.deathTimestamp - this.lessonsApplyTime; // case 4
+    lessonsDebug && console.log('Lessons Removed: ', this.owner.formatTimestamp(event.timestamp));
+    this.lessonsActive = false;
+    if (this.celestialActive) {
+      this.castTrackers.at(-1)!.lessonsDuration = event.timestamp - this.lessonsApplyTime;
+      lessonsDebug &&
+        console.log(
+          'Lessons Duration: ',
+          formatDurationMillisMinSec(event.timestamp - this.lessonsApplyTime),
+        );
     }
   }
 
@@ -323,9 +363,9 @@ class BaseCelestialAnalyzer extends Analyzer {
     //secret infusion duration
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       let siPerf = QualitativePerformance.Good;
-      if (cast.infusionDuration! < this.goodSiDuration - 4000) {
+      if (cast.infusionDuration! < this.goodSiDuration / 3) {
         siPerf = QualitativePerformance.Fail;
-      } else if (cast.infusionDuration! < this.goodSiDuration - 2000) {
+      } else if (cast.infusionDuration! < this.goodSiDuration * (2 / 3)) {
         siPerf = QualitativePerformance.Ok;
       }
       allPerfs.push(siPerf);
@@ -402,37 +442,6 @@ class BaseCelestialAnalyzer extends Analyzer {
         return accum + cur;
       }, 0) / this.hasteDataPoints.length
     );
-  }
-
-  handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
-    const pet = this.pets.getEntityFromEvent(event, true);
-    if (!pet || !pet.name) {
-      return;
-    }
-    this.celestialActive = false;
-    this.celestialWindows.set(this.currentCelestialStart, event.timestamp);
-    this.currentCelestialStart = -1;
-    this.lastCelestialEnd = event.timestamp;
-    this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
-    this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
-    const hasInfusion = SECRET_INFUSION_BUFFS.some((spell) => {
-      return this.selectedCombatant.hasBuff(spell.id);
-    });
-    const hasLesson = LESSONS_BUFFS.some((spell) => {
-      return this.selectedCombatant.hasBuff(spell.id);
-    });
-    if (hasInfusion) {
-      this.castTrackers.at(-1)!.infusionDuration += Math.min(
-        event.timestamp - this.siApplyTime,
-        event.timestamp - this.castTrackers.at(-1)!.timestamp,
-      );
-    }
-    if (hasLesson) {
-      this.castTrackers.at(-1)!.lessonsDuration += Math.min(
-        event.timestamp - this.lessonsApplyTime,
-        event.timestamp - this.castTrackers.at(-1)!.timestamp,
-      );
-    }
   }
 }
 
