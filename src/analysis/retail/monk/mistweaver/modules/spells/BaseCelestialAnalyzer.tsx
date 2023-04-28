@@ -252,7 +252,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.lessonsApplyTime = event.timestamp;
   }
 
-  removeSi(event: RemoveBuffEvent | DeathEvent) {
+  removeSi(event: RemoveBuffEvent) {
     this.secretInfusionActive = false;
     if (this.celestialActive) {
       this.castTrackers.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
