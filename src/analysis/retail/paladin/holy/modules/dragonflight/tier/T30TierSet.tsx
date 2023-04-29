@@ -85,7 +85,6 @@ class T30HpalTierSet extends Analyzer {
       healEvents.forEach((ev) => {
         this.fourPcHealing += ev.amount;
         this.fourPcOverhealing += ev.overheal || 0;
-        this.countedHeals.add(ev);
         this.extraLhHits += 1;
       });
     }
