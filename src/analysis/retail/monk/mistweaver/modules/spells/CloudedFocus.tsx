@@ -211,7 +211,7 @@ class CloudedFocus extends Analyzer {
     if (!primaryVivify) {
       return;
     }
-    this.primaryTargetHealing += primaryVivify.amount + (primaryVivify.absorb || 0);
+    this.primaryTargetHealing += primaryVivify.amount + (primaryVivify.absorbed || 0);
     this.primaryTargetOverheal += primaryVivify.overheal || 0;
   }
 
