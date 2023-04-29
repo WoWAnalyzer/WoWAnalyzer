@@ -122,7 +122,7 @@ class T30HpalTierSet extends Analyzer {
     const healEvents = getLightsHammerHeals(event);
     if (this.shouldCountHeal(event)) {
       healEvents.forEach((ev) => {
-        this.fourPcHealing += ev.amount;
+        this.fourPcHealing += ev.amount + (ev.absorbed || 0);
         this.fourPcOverhealing += ev.overheal || 0;
         this.extraLhHits += 1;
       });
