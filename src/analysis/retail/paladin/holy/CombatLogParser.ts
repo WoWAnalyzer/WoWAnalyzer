@@ -44,12 +44,15 @@ import RuleOfLaw from './modules/talents/RuleOfLaw';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import { BlessingOfTheSeasons } from './modules/talents/BlessingOfTheSeasons';
+import T30HpalTierSet from './modules/dragonflight/tier/T30TierSet';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizers
     lightOfDawnNormalizer: LightOfDawnNormalizer,
     beaconOfVirtueNormalizer: BeaconOfVirtueNormalizer,
+    castLinkNormalizer: CastLinkNormalizer,
 
     // Override the ability tracker so we also get stats for IoL and beacon healing
     abilityTracker: PaladinAbilityTracker,
@@ -104,7 +107,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerPerMinute: HolyPowerPerMinute,
 
     // Tier Sets
-    // TODO: Add Tier 29
+    t30TierSet: T30HpalTierSet,
   };
 }
 
