@@ -23,8 +23,6 @@ const EVENT_LINKS: EventLink[] = [
   },
 ];
 
-/**
- */
 class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
