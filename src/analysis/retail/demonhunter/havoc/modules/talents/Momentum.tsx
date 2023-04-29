@@ -56,24 +56,24 @@ class Momentum extends Analyzer {
     const explanation = (
       <section>
         <strong>
-          <SpellLink id={TALENTS.MOMENTUM_TALENT} />
+          <SpellLink spell={TALENTS.MOMENTUM_TALENT} />
         </strong>{' '}
         provides an{' '}
         {formatPercentage(
           MOMENTUM_SCALING[this.selectedCombatant.getTalentRank(TALENTS.MOMENTUM_TALENT)],
           0,
         )}
-        % damage increase for 5 seconds after casting <SpellLink id={SPELLS.FEL_RUSH_CAST} />,{' '}
-        <SpellLink id={TALENTS.THE_HUNT_TALENT} />, and{' '}
-        <SpellLink id={TALENTS.VENGEFUL_RETREAT_TALENT} />. This should be treated as a maintenance
-        buff with relatively high uptime.
+        % damage increase for 5 seconds after casting <SpellLink spell={SPELLS.FEL_RUSH_CAST} />,{' '}
+        <SpellLink spell={TALENTS.THE_HUNT_TALENT} />, and{' '}
+        <SpellLink spell={TALENTS.VENGEFUL_RETREAT_TALENT} />. This should be treated as a
+        maintenance buff with relatively high uptime.
       </section>
     );
     const data = (
       <RoundedPanel>
         <p>
           <strong>
-            <SpellLink id={TALENTS.MOMENTUM_TALENT} />
+            <SpellLink spell={TALENTS.MOMENTUM_TALENT} />
           </strong>{' '}
           uptime
         </p>
@@ -94,7 +94,7 @@ class Momentum extends Analyzer {
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink id={TALENTS.MOMENTUM_TALENT.id} /> buff to maximize damage.
+          Maintain the <SpellLink spell={TALENTS.MOMENTUM_TALENT.id} /> buff to maximize damage.
         </>,
       )
         .icon(TALENTS.MOMENTUM_TALENT.icon)

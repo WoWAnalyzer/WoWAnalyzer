@@ -29,15 +29,15 @@ export default function DemonSpikesSubSection() {
         <Explanation>
           <p>
             <Trans id="guide.demonhunter.vengeance.sections.defensives.demonSpikes.explanation.summary">
-              <SpellLink id={SPELLS.DEMON_SPIKES} /> nearly <strong>doubles</strong> the amount of
-              armor that you have and is critical to have up while tanking.
+              <SpellLink spell={SPELLS.DEMON_SPIKES} /> nearly <strong>doubles</strong> the amount
+              of armor that you have and is critical to have up while tanking.
             </Trans>
           </p>
           <p>
             <Trans id="guide.demonhunter.vengeance.sections.defensives.demonSpikes.explanation.graph">
-              This chart shows your <SpellLink id={SPELLS.DEMON_SPIKES} /> uptime along with the
+              This chart shows your <SpellLink spell={SPELLS.DEMON_SPIKES} /> uptime along with the
               damage that you took. <strong>You do not need 100% uptime!</strong> However, physical
-              damage taken without <SpellLink id={SPELLS.DEMON_SPIKES} /> active (shown in{' '}
+              damage taken without <SpellLink spell={SPELLS.DEMON_SPIKES} /> active (shown in{' '}
               <Highlight color={red}>red</Highlight>) is very dangerous!
             </Trans>
           </p>
@@ -48,7 +48,7 @@ export default function DemonSpikesSubSection() {
           spell={SPELLS.DEMON_SPIKES}
           unmitigatedContent={
             <Trans id="guide.demonhunter.vengeance.sections.defensives.demonSpikes.data.unmitigated">
-              <SpellLink id={SPELLS.DEMON_SPIKES} /> would have reduced this by a decent amount.
+              <SpellLink spell={SPELLS.DEMON_SPIKES} /> would have reduced this by a decent amount.
             </Trans>
           }
         />

@@ -52,10 +52,10 @@ const FuryCapWaste = ({
             content={
               <div>
                 <ResourceLink id={RESOURCE_TYPES.FURY.id} /> from{' '}
-                <SpellLink id={TALENTS.BLIND_FURY_TALENT} /> isn't logged by the game and won't show
-                up on WarcraftLogs; we determine the amount generated based on best guesses from
-                existing log events. As a result, the amount shown here may vary from what WCL shows
-                and the actual amount in-game.
+                <SpellLink spell={TALENTS.BLIND_FURY_TALENT} /> isn't logged by the game and won't
+                show up on WarcraftLogs; we determine the amount generated based on best guesses
+                from existing log events. As a result, the amount shown here may vary from what WCL
+                shows and the actual amount in-game.
               </div>
             }
           >

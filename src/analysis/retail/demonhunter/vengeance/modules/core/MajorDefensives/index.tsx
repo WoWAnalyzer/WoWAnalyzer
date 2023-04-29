@@ -61,14 +61,15 @@ const MajorDefensives = () => {
           </ol>
           <p>
             Vengeance Demon Hunter is unique in that two of our major defensives (
-            <SpellLink id={TALENTS.FIERY_BRAND_TALENT} /> and <SpellLink id={SPELLS.FRAILTY} />{' '}
-            [with <SpellLink id={TALENTS.VOID_REAVER_TALENT} />
+            <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> and{' '}
+            <SpellLink spell={SPELLS.FRAILTY} /> [with{' '}
+            <SpellLink spell={TALENTS.VOID_REAVER_TALENT} />
             ]) are applied to enemies instead of ourselves. This leads to some headaches when trying
             to diagram how certain spells/talents (like{' '}
-            <SpellLink id={TALENTS.BURNING_ALIVE_TALENT} />) affect your damage intake. Until we get
-            around to allowing you to toggle which enemy you're looking at in the below timeline,{' '}
-            <SpellLink id={TALENTS.FIERY_BRAND_TALENT} /> and <SpellLink id={SPELLS.FRAILTY} /> are
-            excluded.
+            <SpellLink spell={TALENTS.BURNING_ALIVE_TALENT} />) affect your damage intake. Until we
+            get around to allowing you to toggle which enemy you're looking at in the below
+            timeline, <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> and{' '}
+            <SpellLink spell={SPELLS.FRAILTY} /> are excluded.
           </p>
         </Explanation>
       </SubSection>

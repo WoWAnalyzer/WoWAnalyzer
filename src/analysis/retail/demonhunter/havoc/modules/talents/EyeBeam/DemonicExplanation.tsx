@@ -16,8 +16,8 @@ const DemonicExplanation = ({ lineBreak }: Props) => {
     <>
       {lineBreak ? <br /> : ' '}
       <Trans id="guide.demonhunter.havoc.eyeBeam.demonic.explanation">
-        It will grant <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> for a short duration when cast
-        due to <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.
+        It will grant <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} /> for a short duration when
+        cast due to <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.
       </Trans>
     </>
   );

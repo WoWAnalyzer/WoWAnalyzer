@@ -59,15 +59,15 @@ class FelEruption extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to cast <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> only for its
+          Try to cast <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> only for its
           stun. It's not worth casting for its damage since it's a DPS loss.
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> casts that
-            didn't stun the target{' '}
+            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> casts
+            that didn't stun the target{' '}
           </>,
         )
         .recommended('No bad casts are recommended.'),

@@ -51,7 +51,7 @@ export default class FlamesOfFury extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Avoid casting <SpellLink id={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} /> close to
+          Avoid casting <SpellLink spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} /> close to
           Fury cap and cast abilities regularly to avoid accidently capping your fury.
         </>,
       )
