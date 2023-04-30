@@ -75,15 +75,15 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         <p>
           <Trans id="guide.demonhunter.vengeance.sections.resources.soulFragments.summary">
             Most of your abilities either <strong>build</strong> or <strong>spend</strong> Soul
-            Fragments. Never use a builder at max <SpellLink id={SPELLS.SOUL_FRAGMENT} />s or when
-            doing so will cause you to overcap on <SpellLink id={SPELLS.SOUL_FRAGMENT} />
+            Fragments. Never use a builder at max <SpellLink spell={SPELLS.SOUL_FRAGMENT} />s or
+            when doing so will cause you to overcap on <SpellLink spell={SPELLS.SOUL_FRAGMENT} />
             s.
           </Trans>
         </p>
         <p>
           <Trans id="guide.demonhunter.vengeance.sections.resources.soulFragments.chart">
-            The chart below shows your <SpellLink id={SPELLS.SOUL_FRAGMENT} />s over the course of
-            the encounter.
+            The chart below shows your <SpellLink spell={SPELLS.SOUL_FRAGMENT} />s over the course
+            of the encounter.
           </Trans>
         </p>
         {modules.soulFragmentsGraph.plot}
@@ -122,7 +122,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
         <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">
           Vengeance's core rotation involves <strong>building</strong> and then{' '}
           <strong>spending</strong> <ResourceLink id={RESOURCE_TYPES.FURY.id} /> and{' '}
-          <SpellLink id={SPELLS.SOUL_FRAGMENT} />
+          <SpellLink spell={SPELLS.SOUL_FRAGMENT} />
           s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
         </Trans>
       </p>
@@ -155,7 +155,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           amounts of damage. In order to maximize usages over the course of an encounter, you should
           aim to send the cooldown as soon as it becomes available (as long as it can do damage on
           target) if you won't need it for an upcoming mechanic. It is particularly important to use{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
+          <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
         </Trans>
       </p>
       <HideExplanationsToggle id="hide-explanations-cooldowns" />

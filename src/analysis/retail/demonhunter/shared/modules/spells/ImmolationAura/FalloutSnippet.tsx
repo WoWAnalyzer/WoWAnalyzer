@@ -14,8 +14,8 @@ const FalloutSnippet = () => {
     <>
       {' '}
       <Trans id="guide.demonhunter.vengeance.sections.rotation.immolationAura.fallout">
-        and having a chance to shatter a <SpellLink id={SPELLS.SOUL_FRAGMENT} /> with{' '}
-        <SpellLink id={TALENTS_DEMON_HUNTER.FALLOUT_TALENT} />
+        and having a chance to shatter a <SpellLink spell={SPELLS.SOUL_FRAGMENT} /> with{' '}
+        <SpellLink spell={TALENTS_DEMON_HUNTER.FALLOUT_TALENT} />
       </Trans>
     </>
   );

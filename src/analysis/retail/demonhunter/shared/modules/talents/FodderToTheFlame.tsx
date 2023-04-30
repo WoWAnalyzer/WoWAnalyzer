@@ -28,13 +28,13 @@ export default class FodderToTheFlame extends Analyzer {
   statistic(): ReactNode {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
-        <BoringSpellValueText spellId={SPELLS.FODDER_TO_THE_FLAME.id}>
+        <BoringSpellValueText spell={SPELLS.FODDER_TO_THE_FLAME}>
           <ItemDamageDone amount={this.fodderDamage} />
         </BoringSpellValueText>
-        <BoringSpellValueText spellId={SPELLS.DEMON_SOUL_BUFF_FODDER.id}>
+        <BoringSpellValueText spell={SPELLS.DEMON_SOUL_BUFF_FODDER}>
           <ItemDamageDone amount={this.fodderDemonSoulAddedDamage} />
         </BoringSpellValueText>
-        <BoringSpellValueText spellId={SPELLS.DEMON_SOUL_BUFF_NON_FODDER.id}>
+        <BoringSpellValueText spell={SPELLS.DEMON_SOUL_BUFF_NON_FODDER}>
           <ItemDamageDone amount={this.nonFodderDemonSoulAddedDamage} />
         </BoringSpellValueText>
       </Statistic>

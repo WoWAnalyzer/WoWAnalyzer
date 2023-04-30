@@ -35,7 +35,7 @@ const CastPerformanceSummary = ({ casts, performance, spell, totalCasts }: Props
   return (
     <p>
       <Trans id="guide.castPerformanceSummary">
-        <strong>{formattedPercentage}%</strong> of your <SpellLink id={spell} /> casts were{' '}
+        <strong>{formattedPercentage}%</strong> of your <SpellLink spell={spell} /> casts were{' '}
         {performanceMessage}.
       </Trans>
     </p>

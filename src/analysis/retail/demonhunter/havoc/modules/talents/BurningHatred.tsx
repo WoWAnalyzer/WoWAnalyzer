@@ -65,7 +65,7 @@ export default class BurningHatred extends Analyzer {
       suggest(
         <>
           {' '}
-          Avoid casting <SpellLink id={DH_SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.
+          Avoid casting <SpellLink spell={DH_SPELLS.IMMOLATION_AURA.id} /> when close to max Fury.
         </>,
       )
         .icon(DH_SPELLS.IMMOLATION_AURA.icon)

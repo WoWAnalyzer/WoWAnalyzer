@@ -62,7 +62,7 @@ class ImmolationAura extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
+        <BoringSpellValueText spell={SPELLS.IMMOLATION_AURA}>
           <UptimeIcon /> {formatPercentage(immolationAuraUptimePercentage)}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>
@@ -74,7 +74,7 @@ class ImmolationAura extends Analyzer {
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.immolationAura.explanation">
           <strong>
-            <SpellLink id={SPELLS.IMMOLATION_AURA} />
+            <SpellLink spell={SPELLS.IMMOLATION_AURA} />
           </strong>{' '}
           is one of your primary <strong>builders</strong>. It deals a burst of damage when cast,
           generating 8 <ResourceLink id={RESOURCE_TYPES.FURY.id} /> immediately
@@ -106,7 +106,7 @@ class ImmolationAura extends Analyzer {
               totalCasts={totalCasts}
             />
             <strong>
-              <SpellLink id={SPELLS.IMMOLATION_AURA} />{' '}
+              <SpellLink spell={SPELLS.IMMOLATION_AURA} />{' '}
               <Trans id="guide.castEfficiency">cast efficiency</Trans>
             </strong>
             <CastEfficiencyBar
@@ -136,7 +136,7 @@ class ImmolationAura extends Analyzer {
           <>
             {' '}
             This is especially important when you have{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.FALLOUT_TALENT} /> talented.
+            <SpellLink spell={TALENTS_DEMON_HUNTER.FALLOUT_TALENT} /> talented.
           </>
         ) : null}
       </div>

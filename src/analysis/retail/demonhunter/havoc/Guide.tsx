@@ -83,21 +83,21 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       {info.combatant.hasTalent(TALENTS.ELYSIAN_DECREE_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink id={TALENTS.ELYSIAN_DECREE_TALENT} /> coming soon!
+            Per-cast breakdown for <SpellLink spell={TALENTS.ELYSIAN_DECREE_TALENT} /> coming soon!
           </div>,
           <></>,
         )}
       {info.combatant.hasTalent(TALENTS.GLAIVE_TEMPEST_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink id={TALENTS.GLAIVE_TEMPEST_TALENT} /> coming soon!
+            Per-cast breakdown for <SpellLink spell={TALENTS.GLAIVE_TEMPEST_TALENT} /> coming soon!
           </div>,
           <></>,
         )}
       {info.combatant.hasTalent(TALENTS.FEL_BARRAGE_TALENT) &&
         explanationAndDataSubsection(
           <div>
-            Per-cast breakdown for <SpellLink id={TALENTS.FEL_BARRAGE_TALENT} /> coming soon!
+            Per-cast breakdown for <SpellLink spell={TALENTS.FEL_BARRAGE_TALENT} /> coming soon!
           </div>,
           <></>,
         )}

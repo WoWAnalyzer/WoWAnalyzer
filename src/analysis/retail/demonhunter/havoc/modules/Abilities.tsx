@@ -72,9 +72,9 @@ class Abilities extends SharedAbilities {
           extraSuggestion: (
             <>
               This should be part of your single target rotation due to using{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id} /> or{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id} />. This includes the{' '}
-              <SpellLink id={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and
+              <SpellLink spell={TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id} /> or{' '}
+              <SpellLink spell={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id} />. This includes the{' '}
+              <SpellLink spell={SPELLS.DEATH_SWEEP.id} /> casts since they are the same ability and
               share their cooldowns.
             </>
           ),
@@ -94,10 +94,10 @@ class Abilities extends SharedAbilities {
           extraSuggestion: (
             <>
               Pool your Fury before hand to maximizing casting{' '}
-              <SpellLink id={SPELLS.CHAOS_STRIKE.id} /> / <SpellLink id={SPELLS.ANNIHILATION.id} />{' '}
-              /
-              <SpellLink id={SPELLS.BLADE_DANCE.id} /> / <SpellLink id={SPELLS.DEATH_SWEEP.id} />{' '}
-              during its buff window.
+              <SpellLink spell={SPELLS.CHAOS_STRIKE.id} /> /{' '}
+              <SpellLink spell={SPELLS.ANNIHILATION.id} /> /
+              <SpellLink spell={SPELLS.BLADE_DANCE.id} /> /{' '}
+              <SpellLink spell={SPELLS.DEATH_SWEEP.id} /> during its buff window.
             </>
           ),
         },
@@ -136,7 +136,7 @@ class Abilities extends SharedAbilities {
           recommendedEfficiency: 0.95,
           extraSuggestion: (
             <>
-              Use it to keep your <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id} /> buff
+              Use it to keep your <SpellLink spell={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id} /> buff
               going.
             </>
           ),
@@ -156,7 +156,7 @@ class Abilities extends SharedAbilities {
           extraSuggestion: (
             <>
               Use it to generate Fury due to the{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id} /> talent.
+              <SpellLink spell={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id} /> talent.
             </>
           ),
         },
@@ -187,7 +187,7 @@ class Abilities extends SharedAbilities {
           extraSuggestion: (
             <>
               The only times you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> is when you're expecting
+              <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> is when you're expecting
               adds to spawn soon.
             </>
           ),
@@ -221,7 +221,7 @@ class Abilities extends SharedAbilities {
           extraSuggestion: (
             <>
               The only time you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id} /> is when you're
+              <SpellLink spell={TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id} /> is when you're
               expecting adds to spawn soon.
             </>
           ),

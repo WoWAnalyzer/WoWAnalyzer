@@ -12,9 +12,9 @@ const DemonicExplanation = () => {
   return (
     <p>
       <Trans id="guide.demonhunter.havoc.demonic.explanation">
-        Always use after casting <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> so that you
-        can benefit from the <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC} /> provided by{' '}
-        <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.
+        Always use after casting <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> so that
+        you can benefit from the <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} /> provided by{' '}
+        <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} />.
       </Trans>
     </p>
   );

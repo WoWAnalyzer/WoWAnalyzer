@@ -19,9 +19,9 @@ const FieryDemiseExplanation = ({ includeDownInFlames, lineBreak }: Props) => {
     <>
       {lineBreak ? <br /> : ' '}
       <Trans id="guide.demonhunter.vengeance.fieryDemise.explanation">
-        Always use when <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> is applied to the
-        target in order to maximise the damage dealt due to{' '}
-        <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} />.
+        Always use when <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> is applied to
+        the target in order to maximise the damage dealt due to{' '}
+        <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} />.
         <DownInFlamesExplanation includeDownInFlames={includeDownInFlames} />
       </Trans>
     </>

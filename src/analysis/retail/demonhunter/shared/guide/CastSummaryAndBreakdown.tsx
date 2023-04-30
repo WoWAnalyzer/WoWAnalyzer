@@ -159,7 +159,7 @@ const CastSummaryAndBreakdown = ({
         />
       )}
       <strong>
-        <SpellLink id={spell} />{' '}
+        <SpellLink spell={spell} />{' '}
         <Trans id="guide.castSummaryAndBreakdown.header.casts">casts</Trans>
       </strong>{' '}
       <small>
