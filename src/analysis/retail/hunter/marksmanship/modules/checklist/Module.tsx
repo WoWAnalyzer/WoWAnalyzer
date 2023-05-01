@@ -1,6 +1,5 @@
 import PreciseShots from 'analysis/retail/hunter/marksmanship/modules/spells/PreciseShots';
 import CallingTheShots from 'analysis/retail/hunter/marksmanship/modules/talents/CallingTheShots';
-import LethalShots from 'analysis/retail/hunter/marksmanship/modules/talents/LethalShots';
 import SerpentSting from 'analysis/retail/hunter/shared/talents/SerpentSting';
 import SteadyFocus from 'analysis/retail/hunter/marksmanship/modules/talents/SteadyFocus';
 import { FocusDetails, FocusCapTracker, CancelledCasts } from 'analysis/retail/hunter/shared';
@@ -31,7 +30,6 @@ class Checklist extends BaseChecklist {
 
     //region Talents
     steadyFocus: SteadyFocus,
-    lethalShots: LethalShots,
     serpentSting: SerpentSting,
     callingTheShots: CallingTheShots,
     //endregion
@@ -56,7 +54,6 @@ class Checklist extends BaseChecklist {
 
   //region Talents
   protected steadyFocus!: SteadyFocus;
-  protected lethalShots!: LethalShots;
   protected serpentSting!: SerpentSting;
   protected callingTheShots!: CallingTheShots;
   //endregion
@@ -88,7 +85,6 @@ class Checklist extends BaseChecklist {
 
           //region Talents
           steadyFocusThresholds: this.steadyFocus.uptimeThresholds,
-          lethalShotsThresholds: this.lethalShots.wastedPotentialCDR,
           serpentStingUptimeThresholds: this.serpentSting.uptimeThreshold,
           serpentStingNonPandemicThresholds: this.serpentSting.nonPandemicThreshold,
           callingTheShotsThresholds: this.callingTheShots.callingTheShotsEfficacyThresholds,
