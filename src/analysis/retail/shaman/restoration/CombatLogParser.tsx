@@ -59,6 +59,7 @@ import RiptideAttributor from './modules/core/RiptideAttributor';
 import PrimalTideCore from './modules/talents/PrimalTideCore';
 import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
 import AncestralReach from './modules/talents/AncestralReach';
+import FlowOfTheTides from './modules/talents/FlowOfTheTides';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -105,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     primalTideCore: PrimalTideCore,
     wavespeakersBlessing: WavespeakersBlessing,
     ancestralReach: AncestralReach,
+    flowOfTheTides: FlowOfTheTides,
 
     // Spells
     chainHeal: ChainHeal,

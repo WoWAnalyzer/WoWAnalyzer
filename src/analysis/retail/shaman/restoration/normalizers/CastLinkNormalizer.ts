@@ -1,10 +1,12 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
+  AnyEvent,
   ApplyBuffEvent,
   CastEvent,
   EventType,
   GetRelatedEvents,
+  HasAbility,
   HasRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
@@ -330,8 +332,13 @@ export function getDownPourEvents(event: CastEvent) {
   return GetRelatedEvents(event, DOWNPOUR) as HealEvent[];
 }
 
-export function wasRiptideConsumed(event: CastEvent): boolean {
+export function wasRiptideConsumed(event: CastEvent | RemoveBuffEvent): boolean {
   return HasRelatedEvent(event, FLOW_OF_THE_TIDES);
+}
+
+export function getConsumedRiptide(event: CastEvent): AbilityEvent<any> | undefined {
+  const removedHots: AnyEvent[] = GetRelatedEvents(event, FLOW_OF_THE_TIDES);
+  return removedHots.length !== 0 && HasAbility(removedHots[0]) ? removedHots[0] : undefined;
 }
 
 export function getChainHeals(event: CastEvent): HealEvent[] {
