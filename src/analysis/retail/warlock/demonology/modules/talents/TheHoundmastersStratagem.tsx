@@ -16,7 +16,7 @@ const DAMAGE_BONUS = 0.2;
   From the Shadows:
     Casting Call Dreadstalkers causes the target to take 20% additional Shadowflame damage from you for the next 12 sec.
  */
-class FromTheShadows extends Analyzer {
+class TheHoundmastersStratagem extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
@@ -26,7 +26,7 @@ class FromTheShadows extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.FROM_THE_SHADOWS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.THE_HOUNDMASTERS_STRATAGEM_TALENT);
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
@@ -50,7 +50,7 @@ class FromTheShadows extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.FROM_THE_SHADOWS_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.THE_HOUNDMASTERS_STRATAGEM_TALENT.id}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -58,4 +58,4 @@ class FromTheShadows extends Analyzer {
   }
 }
 
-export default FromTheShadows;
+export default TheHoundmastersStratagem;
