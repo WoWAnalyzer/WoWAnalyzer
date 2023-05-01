@@ -132,15 +132,10 @@ class FlowOfTheTides extends Analyzer {
   }
 
   tallyLostRiptideDuration(event: BeginCastEvent) {
-    if (!event.castEvent) {
+    if (!event.castEvent || !event.castEvent.targetIsFriendly || event.isCancelled) {
       return;
     }
-    if (!event.castEvent.targetIsFriendly) {
-      return;
-    }
-    if (event.isCancelled) {
-      return;
-    }
+  
     debug && console.log('Begin cast chain heal on: ', event);
     const targetId = event.castEvent.targetID;
     const spellId = talents.RIPTIDE_TALENT.id;
