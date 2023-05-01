@@ -20,7 +20,9 @@ class FontOfMagic extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.SPIRITBLOOM_SPLIT),
       this.onHealBatch,
@@ -58,7 +60,7 @@ class FontOfMagic extends Analyzer {
           </ul>
         }
       >
-        <TalentSpellText talent={TALENTS_EVOKER.FONT_OF_MAGIC_TALENT}>
+        <TalentSpellText talent={TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
         </TalentSpellText>
       </Statistic>

@@ -15,7 +15,7 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
     return null;
   }
 
-  const hasFontTalent = info.combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT);
+  const hasFontTalent = info.combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_DEVASTATION_TALENT);
 
   return (
     <Section title="Cooldowns">

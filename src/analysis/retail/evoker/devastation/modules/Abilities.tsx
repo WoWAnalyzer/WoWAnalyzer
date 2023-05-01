@@ -26,7 +26,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.FIRESTORM_TALENT),
       },
       {
-        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT)
+        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)
           ? SPELLS.ETERNITY_SURGE_FONT.id
           : SPELLS.ETERNITY_SURGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,

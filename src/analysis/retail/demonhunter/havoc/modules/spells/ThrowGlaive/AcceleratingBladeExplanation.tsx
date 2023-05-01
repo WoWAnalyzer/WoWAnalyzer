@@ -8,12 +8,12 @@ import InformationIcon from 'interface/icons/Information';
 
 export const AcceleratingBladeExplanation = () => {
   const info = useInfo();
-  if (!info || !info.combatant.hasTalent(TALENTS.ACCELERATING_BLADE_TALENT)) {
+  if (!info || !info.combatant.hasTalent(TALENTS.ACCELERATED_BLADE_TALENT)) {
     return null;
   }
 
   const scaling =
-    ACCELERATING_BLADE_SCALING[info.combatant.getTalentRank(TALENTS.ACCELERATING_BLADE_TALENT)];
+    ACCELERATING_BLADE_SCALING[info.combatant.getTalentRank(TALENTS.ACCELERATED_BLADE_TALENT)];
   const perTargetScaling = 1 + scaling;
 
   // multiplicative scaling
@@ -27,7 +27,7 @@ export const AcceleratingBladeExplanation = () => {
   return (
     <li>
       <div className="flex">
-        <SpellLink spell={TALENTS.ACCELERATING_BLADE_TALENT} className="flex-main" />
+        <SpellLink spell={TALENTS.ACCELERATED_BLADE_TALENT} className="flex-main" />
         <div className="flex-sub" style={{ padding: '0 10px' }}>
           <Tooltip
             content={
