@@ -2,7 +2,6 @@ import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -31,8 +30,7 @@ class EarthShield extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
-    this.active = isRsham || this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT);
 
     if (!this.active) {
       return;
@@ -77,7 +75,10 @@ class EarthShield extends Analyzer {
   }
 
   onEarthShieldHeal(event: HealEvent) {
-    this.healing += event.amount + (event.absorbed || 0);
+    const combatant = this.combatants.getEntity(event);
+    if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+      this.healing += event.amount + (event.absorbed || 0);
+    }
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
@@ -107,8 +108,9 @@ class EarthShield extends Analyzer {
         tooltip={
           <Trans id="shaman.shared.earthShield.statistic.tooltip">
             {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the
-            HoT and {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}
-            % from the healing increase.
+            direct heal and{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from
+            the healing increase.
           </Trans>
         }
         value={
