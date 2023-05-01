@@ -1,0 +1,118 @@
+import { Trans } from '@lingui/macro';
+import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
+import { SpellLink } from 'interface';
+import UptimeIcon from 'interface/icons/Uptime';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import Events, { HealEvent } from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+
+export const EARTHSHIELD_HEALING_INCREASE = 0.2;
+
+class ElementalOrbit extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+
+  protected combatants!: Combatants;
+
+  healing = 0;
+  buffHealing = 0;
+  earthShieldHealingIncrease = EARTHSHIELD_HEALING_INCREASE;
+  category = STATISTIC_CATEGORY.TALENTS;
+
+  constructor(options: Options) {
+    super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT);
+
+    if (!this.active) {
+      return;
+    }
+
+    // event listener for direct heals when taking damage with earth shield
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EARTH_SHIELD_HEAL),
+      this.onEarthShieldHeal,
+    );
+
+    // event listener for healing being buffed by having earth shield on the target
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onEarthShieldAmpSpellHeal);
+  }
+
+  get elementalOrbitEarthShieldUptime() {
+    return Object.values(this.combatants.players).reduce(
+      (uptime, player) =>
+        uptime +
+        player.getBuffUptime(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, this.owner.playerId),
+      0,
+    );
+  }
+
+  get uptimePercent() {
+    return this.elementalOrbitEarthShieldUptime / this.owner.fightDuration;
+  }
+
+  onEarthShieldHeal(event: HealEvent) {
+    const combatant = this.combatants.getEntity(event);
+    if (
+      combatant &&
+      combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)
+    ) {
+      this.healing += event.amount + (event.absorbed || 0);
+    }
+  }
+
+  onEarthShieldAmpSpellHeal(event: HealEvent) {
+    const combatant = this.combatants.getEntity(event);
+    if (
+      combatant &&
+      combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)
+    ) {
+      this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
+    }
+  }
+
+  subStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing),
+        )} %`}
+      />
+    );
+  }
+
+  statistic() {
+    return (
+      <StatisticBox
+        label={<SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} />}
+        category={this.category}
+        position={STATISTIC_ORDER.OPTIONAL(45)}
+        tooltip={
+          <Trans id="shaman.shared.earthShield.statistic.tooltip">
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the
+            direct heal and{' '}
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from
+            the healing increase.
+          </Trans>
+        }
+        value={
+          <div>
+            <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
+            <br />
+            <ItemHealingDone amount={this.healing + this.buffHealing} />
+          </div>
+        }
+      />
+    );
+  }
+}
+
+export default ElementalOrbit;
