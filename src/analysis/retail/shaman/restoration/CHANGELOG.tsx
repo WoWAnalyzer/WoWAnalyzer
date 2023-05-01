@@ -5,6 +5,7 @@ import { Arlie, Fassbrause, niseko, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 1), <> Updated <SpellLink id={TALENTS.EARTH_SHIELD_TALENT.id}/> to show talent contribution breakdown</>, Vohrr),
   change(date(2023, 4, 30), <>Added <SpellLink id={TALENTS.FLOW_OF_THE_TIDES_TALENT.id}/> module</>, Vohrr),
   change(date(2023, 3, 16), <>Fixed <SpellLink id={TALENTS.ANCESTRAL_VIGOR_TALENT.id}/> to work for each talent rank</>, Vohrr),
   change(date(2023, 3, 8), <>Fixed <SpellLink id={TALENTS.HIGH_TIDE_TALENT.id}/> module and mark Resto Shaman as supported for 10.0.7</>, Vohrr),
