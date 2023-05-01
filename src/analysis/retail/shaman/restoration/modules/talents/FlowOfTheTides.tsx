@@ -135,7 +135,7 @@ class FlowOfTheTides extends Analyzer {
     if (!event.castEvent || !event.castEvent.targetIsFriendly || event.isCancelled) {
       return;
     }
-  
+
     debug && console.log('Begin cast chain heal on: ', event);
     const targetId = event.castEvent.targetID;
     const spellId = talents.RIPTIDE_TALENT.id;
