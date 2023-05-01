@@ -10,6 +10,7 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 
 class DeathAndMadness extends Analyzer {
   static dependencies = {
@@ -23,9 +24,10 @@ class DeathAndMadness extends Analyzer {
 
   kills = 0;
   insanityGained = 0;
+
   resets = 0;
   lastCastTime: number = 0;
-  executeThreshold = 0.2;
+  executeThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
 
   constructor(options: Options) {
     super(options);

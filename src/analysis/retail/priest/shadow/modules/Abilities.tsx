@@ -8,6 +8,7 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       //Voidbolt is added through Voidform module.
+      //SW:D is added through Shadow Word: Death module
       {
         spell: SPELLS.MIND_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -122,14 +123,6 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.VAMPIRIC_TOUCH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
-        category: SPELL_CATEGORY.HIDDEN,
-        cooldown: 20,
         gcd: {
           base: 1500,
         },

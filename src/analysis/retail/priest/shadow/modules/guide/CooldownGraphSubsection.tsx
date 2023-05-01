@@ -9,6 +9,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
 import { Trans } from '@lingui/macro';
 import Voidbolt from '../spells/Voidbolt';
+import ShadowWordDeath from '../spells/ShadowWordDeath';
 
 type Cooldown = {
   talent: Talent;
@@ -22,13 +23,13 @@ type SpellCooldown = {
 
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
-  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const coreCooldownsVB: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   { spell: SPELLS.VOID_BOLT },
-  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const shortCooldowns: Cooldown[] = [
@@ -48,6 +49,8 @@ const longCooldowns: Cooldown[] = [
 
 const CoreCooldownsGraph = () => {
   const VoidboltAnalyzer = useAnalyzer(Voidbolt);
+  const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
+
   let coreCooldown = coreCooldowns;
   let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
@@ -79,6 +82,9 @@ const CoreCooldownsGraph = () => {
       </Trans>
     );
   }
+
+  coreCooldown.find((cd) => cd.spell.id === TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.activeWindows =
+    ShadowWordDeathAnalyzer?.executeRanges.map(fromExecuteRange);
 
   return CoreCooldownGraphSubsection(coreCooldown, message);
 };
