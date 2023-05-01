@@ -1,27 +1,26 @@
-import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import ElementalOrbit from './ElementalOrbit';
 
 export const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
 class EarthShield extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    elementalOrbit: ElementalOrbit,
   };
 
   protected combatants!: Combatants;
+  protected elementalOrbit!: ElementalOrbit;
 
   healing = 0;
   buffHealing = 0;
@@ -48,6 +47,16 @@ class EarthShield extends Analyzer {
 
     // event listener for healing being buffed by having earth shield on the target
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onEarthShieldAmpSpellHeal);
+  }
+
+  get totalHealing() {
+    return (
+      (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT)
+        ? this.elementalOrbit.healing + this.elementalOrbit.buffHealing
+        : 0) +
+      this.buffHealing +
+      this.healing
+    );
   }
 
   get uptime() {
@@ -93,33 +102,8 @@ class EarthShield extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />}
         value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing),
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
-      />
-    );
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        label={<SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />}
-        category={this.category}
-        position={STATISTIC_ORDER.OPTIONAL(45)}
-        tooltip={
-          <Trans id="shaman.shared.earthShield.statistic.tooltip">
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the
-            direct heal and{' '}
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from
-            the healing increase.
-          </Trans>
-        }
-        value={
-          <div>
-            <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
-            <br />
-            <ItemHealingDone amount={this.healing + this.buffHealing} />
-          </div>
-        }
       />
     );
   }

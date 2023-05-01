@@ -1,16 +1,12 @@
-import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 export const EARTHSHIELD_HEALING_INCREASE = 0.2;
@@ -85,31 +81,6 @@ class ElementalOrbit extends Analyzer {
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing),
         )} %`}
-      />
-    );
-  }
-
-  statistic() {
-    return (
-      <StatisticBox
-        label={<SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} />}
-        category={this.category}
-        position={STATISTIC_ORDER.OPTIONAL(45)}
-        tooltip={
-          <Trans id="shaman.shared.earthShield.statistic.tooltip">
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the
-            direct heal and{' '}
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}% from
-            the healing increase.
-          </Trans>
-        }
-        value={
-          <div>
-            <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
-            <br />
-            <ItemHealingDone amount={this.healing + this.buffHealing} />
-          </div>
-        }
       />
     );
   }

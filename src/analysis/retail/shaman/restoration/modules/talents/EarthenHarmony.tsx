@@ -52,10 +52,13 @@ class EarthenHarmony extends Analyzer {
     return this.earthShieldHealing + this.elementalOrbitEarthShieldHealing;
   }
 
-  get damageReduced() {
+  get earthShielddamageReduced() {
+    return (this.damageTakenWithEarthShield / (1 - this.damageReduction)) * this.damageReduction;
+  }
+
+  get elementalOrbitDamageReduced() {
     return (
-      ((this.damageTakenWithEarthShield + this.damageTakenWithElementalOrbitEarthShield) /
-        (1 - this.damageReduction)) *
+      (this.damageTakenWithElementalOrbitEarthShield / (1 - this.damageReduction)) *
       this.damageReduction
     );
   }
