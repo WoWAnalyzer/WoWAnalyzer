@@ -291,7 +291,7 @@ const spells = spellIndexableList({
   },
   BLESSING_OF_SPRING_TALENT: {
     id: 388013,
-    name: 'Blessing of Sprint',
+    name: 'Blessing of Spring',
     icon: 'ability_ardenweald_paladin_spring',
   },
 
@@ -407,6 +407,16 @@ const spells = spellIndexableList({
     id: 336872,
     name: 'Final Verdict',
     icon: 'spell_paladin_templarsverdict',
+  },
+  TEMPLAR_STRIKE: {
+    id: 407480,
+    name: 'Templar Strike',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  TEMPLAR_SLASH: {
+    id: 406647,
+    name: 'Templar Slash',
+    icon: 'inv_sword_2h_artifactashbringerpurified_d_03',
   },
 
   // Protection

@@ -667,8 +667,13 @@ const spells = spellIndexableList({
     name: "Master's Call",
     icon: 'ability_hunter_masterscall',
   },
-  SURVIVAL_OF_THE_FITTEST: {
+  FORTITUDE_OF_THE_BEAR: {
     id: 272679,
+    name: 'Fortitude of the Bear',
+    icon: 'spell_druid_bearhug',
+  },
+  SURVIVAL_OF_THE_FITTEST: {
+    id: 264735,
     name: 'Survival of the Fittest',
     icon: 'spell_nature_spiritarmor',
   },

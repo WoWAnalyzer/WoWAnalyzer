@@ -28,10 +28,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <>
             Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
             between casting spells. Even if you have to move, use your movement spells like{' '}
-            <SpellLink id={SPELLS.FEL_RUSH_CAST.id} />,{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} icon />,{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} icon />
-            or <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id} icon /> to quickly
+            <SpellLink spell={SPELLS.FEL_RUSH_CAST.id} />,{' '}
+            <SpellLink spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} icon />,{' '}
+            <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} icon />
+            or <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT.id} icon /> to quickly
             get back to the boss.
           </>,
         )

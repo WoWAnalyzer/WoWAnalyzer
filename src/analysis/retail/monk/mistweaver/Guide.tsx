@@ -31,7 +31,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
         {modules.vivify.guideSubsection}
-        {modules.essenceFont.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
+          modules.essenceFont.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
           modules.ancientTeachings.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.SHEILUNS_GIFT_TALENT) && (
@@ -44,7 +45,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
           ? modules.invokeChiJi.guideCastBreakdown
           : modules.invokeYulon.guideCastBreakdown}
-        {modules.revival.guideCastBreakdown}
+        {(info.combatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) ||
+          info.combatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) &&
+          modules.revival.guideCastBreakdown}
         {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
           modules.manaTea.guideCastBreakdown}
         <HotGraphSubsection modules={modules} events={events} info={info} />

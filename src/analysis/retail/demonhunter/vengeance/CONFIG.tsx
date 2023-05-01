@@ -34,10 +34,9 @@ const config: Config = {
       efficiency. This might seem silly and simple to analyze, but it's actually one of the most
       important things for us Vengeance Demon Hunters. As you also might have noticed, the Vengeance
       spec uses a leather armor, which gives us less armor than plate users and making us more
-      vulnerable to physical damage. But we also have the <SpellLink
-        id={SPELLS.DEMON_SPIKES.id}
-      />{' '}
-      and <SpellLink id={SPELLS.METAMORPHOSIS_TANK.id} /> to help mitigating this extra incoming
+      vulnerable to physical damage. But we also have the{' '}
+      <SpellLink spell={SPELLS.DEMON_SPIKES.id} /> and{' '}
+      <SpellLink spell={SPELLS.METAMORPHOSIS_TANK.id} /> to help mitigating this extra incoming
       damage.
       <br />
       <br />
@@ -69,7 +68,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/r4JtW9hxdzwc3G6q/8-Mythic+The+Primal+Council+-+Kill+(3:00)/Toppledh/standard',
+    '/report/BTHfC4MkwARhzrvP/18-Mythic+The+Primal+Council+-+Kill+(3:03)/Toppledh/standard',
   // Default to using the Guide
   guideDefault: true,
   // Only use the Guide

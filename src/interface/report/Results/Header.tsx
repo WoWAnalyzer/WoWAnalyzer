@@ -14,6 +14,7 @@ import HeaderBackground from './HeaderBackground';
 import NavigationBar from './NavigationBar';
 import PhaseSelector from './PhaseSelector';
 import TimeFilter from './TimeFilter';
+import DungeonPullSelector from './DungeonPullSelector';
 
 import './Header.scss';
 
@@ -22,12 +23,14 @@ interface Props {
   player: PlayerInfo;
   characterProfile: CharacterProfile;
   boss: Boss | null;
+  handleDungeonPullSelection: (dungeonPull: string) => void;
   handlePhaseSelection: (phase: string, instance: number) => void;
   applyFilter: (start: number, end: number) => void;
   phases: { [key: string]: Phase } | null;
   build?: string;
   selectedPhase: string;
   selectedInstance: number;
+  selectedDungeonPull: string;
   isLoading: boolean;
   fight: Fight;
   makeTabUrl: (tab: string, build?: string) => string;
@@ -44,6 +47,8 @@ const Header = ({
   handlePhaseSelection,
   selectedPhase,
   selectedInstance,
+  selectedDungeonPull,
+  handleDungeonPullSelection,
   phases,
   isLoading,
   applyFilter,
@@ -74,6 +79,16 @@ const Header = ({
               handlePhaseSelection={handlePhaseSelection}
               selectedPhase={selectedPhase}
               selectedInstance={selectedInstance}
+              isLoading={isLoading}
+            />
+          </div>
+        )}
+        {fight.dungeonPulls && fight.dungeonPulls.length > 0 && (
+          <div className="phaseselector">
+            <DungeonPullSelector
+              fight={fight}
+              selectedPull={selectedDungeonPull}
+              handlePullSelection={handleDungeonPullSelection}
               isLoading={isLoading}
             />
           </div>

@@ -21,6 +21,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import ShadowyInsight from './modules/spells/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
 import Voidform from './modules/spells/Voidform';
+import Voidbolt from './modules/spells/Voidbolt';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
 import DevouringPlague from './modules/spells/DevouringPlague';
@@ -73,6 +74,7 @@ class CombatLogParser extends MainCombatLogParser {
     dotUptimes: DotUptimes,
     shadowyInsight: ShadowyInsight,
     voidform: Voidform,
+    voidbolt: Voidbolt,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
 
     // spells:

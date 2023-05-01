@@ -62,6 +62,9 @@ import AbyssalReverie from './modules/spells/AbyssalReverie';
 import TwilightEquilibriumNormalizer from './normalizers/TwilightEquilibriumNormalizer';
 import DamageCastLink from './normalizers/DamageCastLink';
 import WealAndWoe from './modules/spells/WealAndWoe';
+import Aberrus2p from './modules/spells/Aberrus2p';
+import RadiantProvidence from './modules/spells/RadiantProvidence';
+import { SurgeOfLight } from '../holy/modules/talents/Classwide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -134,6 +137,11 @@ class CombatLogParser extends CoreCombatLogParser {
     raptureAnalysis: RaptureAnalysis,
     abyssalReverie: AbyssalReverie,
     wealAndWoe: WealAndWoe,
+    SurgeOfLight: SurgeOfLight,
+    aberrus2p: Aberrus2p,
+
+    // Items:
+    radiantProvidence: RadiantProvidence,
   };
   static guide = Guide;
 }

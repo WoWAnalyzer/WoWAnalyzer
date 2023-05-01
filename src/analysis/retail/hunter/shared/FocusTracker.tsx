@@ -6,11 +6,31 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  RESOURCES_HUNTER_MINOR_THRESHOLD,
+  RESOURCES_HUNTER_AVERAGE_THRESHOLD,
+  RESOURCES_HUNTER_MAJOR_THRESHOLD,
+} from './constants';
 
 class FocusTracker extends ResourceTracker {
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.FOCUS;
+  }
+
+  get percentAtCapPerformance(): QualitativePerformance {
+    const percentAtCap = this.percentAtCap;
+    if (percentAtCap <= RESOURCES_HUNTER_MINOR_THRESHOLD) {
+      return QualitativePerformance.Perfect;
+    }
+    if (percentAtCap <= RESOURCES_HUNTER_AVERAGE_THRESHOLD) {
+      return QualitativePerformance.Good;
+    }
+    if (percentAtCap <= RESOURCES_HUNTER_MAJOR_THRESHOLD) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
   }
 
   //Because energize events associated with certain spells don't provide a waste number, but instead a lower resourceChange number we can calculate the waste ourselves.

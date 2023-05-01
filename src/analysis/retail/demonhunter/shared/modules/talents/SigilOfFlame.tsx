@@ -8,15 +8,14 @@ import { SpellLink } from 'interface';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import SpellUsageSubSection, {
-  logSpellUseEvent,
-} from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { getSigilOfFlameDamages } from 'analysis/retail/demonhunter/shared/normalizers/SigilOfFlameNormalizer';
 import Spell from 'common/SPELLS/Spell';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class SigilOfFlame extends Analyzer {
   private cooldownUses: SpellUse[] = [];
@@ -39,7 +38,7 @@ export default class SigilOfFlame extends Analyzer {
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.sigilOfFlame.explanation">
           <strong>
-            <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />
+            <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />
           </strong>{' '}
           is one of your <strong>builders</strong>. It generates{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} /> places a Sigil on the ground that activates
@@ -56,7 +55,7 @@ export default class SigilOfFlame extends Analyzer {
     const totalCasts = performances.length;
 
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
@@ -70,7 +69,7 @@ export default class SigilOfFlame extends Analyzer {
               totalCasts={totalCasts}
             />
             <strong>
-              <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
+              <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
               <Trans id="guide.castEfficiency">cast efficiency</Trans>
             </strong>
             <CastEfficiencyBar
@@ -92,14 +91,14 @@ export default class SigilOfFlame extends Analyzer {
     const details =
       damages.length > 0 ? (
         <div>
-          You hit at least one target with your <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
+          You hit at least one target with your <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
           cast. Good job!
         </div>
       ) : (
         <div>
-          You did not hit any targets with your <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
+          You did not hit any targets with your <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
           cast. Try to always hit at least one target with{' '}
-          <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />.
+          <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />.
         </div>
       );
     const isPrepull = event.prepull;
@@ -113,8 +112,8 @@ export default class SigilOfFlame extends Analyzer {
         summary: <div>Cast before pull</div>,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} /> before pulling the boss. Good
-            job!
+            You cast <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} /> before pulling the boss.
+            Good job!
           </div>
         ),
       });

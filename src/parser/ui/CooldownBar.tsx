@@ -8,6 +8,8 @@ import {
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import { useInfo, useEvents } from 'interface/guide';
+import { Fragment } from 'react';
+import { ExecuteRange } from 'parser/shared/modules/helpers/ExecuteHelper';
 
 /** If and where times the spell was available should be highlighted in red
  *  TODO add timed option?
@@ -25,6 +27,18 @@ export enum GapHighlight {
   All,
 }
 
+export type CooldownWindow = {
+  startTime: number;
+  endTime: number;
+};
+
+export function fromExecuteRange(range: ExecuteRange): CooldownWindow {
+  return {
+    startTime: range.startEvent.timestamp,
+    endTime: range.endEvent.timestamp,
+  };
+}
+
 type Props = {
   /** The spellId to show cooldown bars for - this must match the ID of the spell's cast event */
   spellId: number;
@@ -35,48 +49,56 @@ type Props = {
    *  be usable */
   minimizeIcons?: boolean;
   slimLines?: boolean;
+  /**
+   * Windows where the spell is actually usable. Useful for execute spells or spells that only become active inside of a cooldown.
+   *
+   * If not specified, defaults to the whole fight.
+   */
+  activeWindows?: Array<CooldownWindow>;
 };
 
-/**
- * Displays a bar with icons showing when a cooldown spell was used, and shading showing when the
- * spell was on cooldown vs when it was available.
- *
- * See docs for {@link Props} for explanation of parameters.
- */
-export function CooldownBar({
-  spellId,
+const CooldownBarWindow = ({
+  startTime,
+  endTime,
   gapHighlightMode,
   minimizeIcons,
+  spellId,
   slimLines,
   ...others
-}: Props): JSX.Element {
-  const info = useInfo()!;
+}: Omit<Props, 'activeWindows'> & CooldownWindow) => {
+  const { abilities, fightStart, fightEnd, fightDuration } = useInfo()!;
   const events = useEvents()!;
-  const ability = info.abilities.find(
+  const ability = abilities.find(
     (a) => a.spell === spellId || (Array.isArray(a.spell) && a.spell.includes(spellId)),
   );
   const abilityCdMs = (ability ? ability.cooldown : 0) * 1000;
   const abilityName = ability?.name || 'Unknown Ability';
   const hasCharges = ability && ability.charges > 1;
 
-  const endCooldowns: UpdateSpellUsableEvent[] = events.filter(
-    (event): event is UpdateSpellUsableEvent =>
-      IsUpdateSpellUsable(event) &&
-      event.ability.guid === spellId &&
-      event.updateType === UpdateSpellUsableType.EndCooldown,
-  );
-  const useCharges: UpdateSpellUsableEvent[] = events.filter(
-    (event): event is UpdateSpellUsableEvent =>
-      IsUpdateSpellUsable(event) &&
-      event.ability.guid === spellId &&
-      event.updateType === UpdateSpellUsableType.UseCharge,
-  );
+  const endCooldowns: UpdateSpellUsableEvent[] = events
+    .filter((event) => event.timestamp >= startTime)
+    .filter(
+      (event): event is UpdateSpellUsableEvent =>
+        IsUpdateSpellUsable(event) &&
+        event.ability.guid === spellId &&
+        event.updateType === UpdateSpellUsableType.EndCooldown,
+    );
+  const useCharges: UpdateSpellUsableEvent[] = events
+    .filter((event) => event.timestamp >= startTime && event.timestamp <= endTime)
+    .filter(
+      (event): event is UpdateSpellUsableEvent =>
+        IsUpdateSpellUsable(event) &&
+        event.ability.guid === spellId &&
+        event.updateType === UpdateSpellUsableType.UseCharge,
+    );
 
   const segmentProps = {
     gapHighlightMode,
     minimizeIcons,
-    fightStart: info.fightStart,
-    fightEnd: info.fightEnd,
+    windowStart: startTime,
+    windowEnd: endTime,
+    fightStart,
+    fightEnd,
     abilityId: spellId,
     abilityCdMs,
     abilityName,
@@ -84,9 +106,16 @@ export function CooldownBar({
     slimLines,
   };
 
-  let lastAvailable = info.fightStart;
+  let lastAvailable = startTime;
   return (
-    <div className="cooldown-bar" {...others}>
+    <div
+      className="cooldown-bar-window"
+      {...others}
+      style={{
+        left: `${((startTime - fightStart) / fightDuration) * 100}%`,
+        width: `${((endTime - startTime) / fightDuration) * 100}%`,
+      }}
+    >
       {endCooldowns.length === 0 && (
         <Tooltip
           key="available"
@@ -108,12 +137,12 @@ export function CooldownBar({
       )}
       {endCooldowns.map((cd, ix) => {
         // end cooldown events can be placed after fight end, so we need to clip the bars
-        const end = cd.timestamp > info.fightEnd ? info.fightEnd : cd.timestamp;
+        const end = cd.timestamp > endTime ? endTime : cd.timestamp;
         const currLastAvailable = lastAvailable;
         lastAvailable = end;
         // render the last period of availablility and also this cooldown
         return (
-          <>
+          <Fragment key={ix + '-cd-bar-group'}>
             <CooldownBarSegment
               startTimestamp={currLastAvailable}
               endTimestamp={cd.overallStartTimestamp}
@@ -128,26 +157,46 @@ export function CooldownBar({
               key={ix + '-cooldown'}
               {...segmentProps}
             />
-          </>
+          </Fragment>
         );
       })}
-      {endCooldowns.length !== 0 && lastAvailable !== info.fightEnd && (
+      {endCooldowns.length !== 0 && lastAvailable !== endTime && (
         <CooldownBarSegment
           startTimestamp={lastAvailable}
-          endTimestamp={info.fightEnd}
+          endTimestamp={endTime}
           type="available"
           key="end-available"
           {...segmentProps}
         />
       )}
       {useCharges.map((cd, ix) => {
-        const left = `${((cd.timestamp - info.fightStart) / info.fightDuration) * 100}%`;
+        const left = `${((cd.timestamp - startTime) / (endTime - startTime)) * 100}%`;
         return (
           <div style={{ left }} key={ix + '-usecharge'}>
             {iconOrChip(spellId, minimizeIcons, slimLines)}
           </div>
         );
       })}
+    </div>
+  );
+};
+
+/**
+ * Displays a bar with icons showing when a cooldown spell was used, and shading showing when the
+ * spell was on cooldown vs when it was available.
+ *
+ * See docs for {@link Props} for explanation of parameters.
+ */
+export function CooldownBar({ activeWindows, ...others }: Props): JSX.Element {
+  const info = useInfo()!;
+
+  const windows = activeWindows ?? [{ startTime: info.fightStart, endTime: info.fightEnd }];
+
+  return (
+    <div className="cooldown-bar">
+      {windows.map((win) => (
+        <CooldownBarWindow key={`${win.startTime}-${win.endTime}`} {...others} {...win} />
+      ))}
     </div>
   );
 }
@@ -158,6 +207,8 @@ function CooldownBarSegment({
   abilityCdMs,
   startTimestamp,
   endTimestamp,
+  windowStart,
+  windowEnd,
   fightStart,
   fightEnd,
   type,
@@ -171,16 +222,20 @@ function CooldownBarSegment({
   abilityCdMs: number;
   startTimestamp: number;
   endTimestamp: number;
+  // used for tooltip formatting
   fightStart: number;
   fightEnd: number;
+  // used for position calculation
+  windowStart: number;
+  windowEnd: number;
   type: 'onCooldown' | 'available';
   gapHighlightMode: GapHighlight;
   minimizeIcons?: boolean;
   slimLines?: boolean;
   hasCharges?: boolean;
 }): JSX.Element {
-  const fightDuration = fightEnd - fightStart;
-  const left = `${((startTimestamp - fightStart) / fightDuration) * 100}%`;
+  const fightDuration = windowEnd - windowStart;
+  const left = `${((startTimestamp - windowStart) / fightDuration) * 100}%`;
   const width = `${((endTimestamp - startTimestamp) / fightDuration) * 100}%`;
 
   const openForFullCooldown =

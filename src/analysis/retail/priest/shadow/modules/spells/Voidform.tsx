@@ -7,21 +7,25 @@ import { SpellLink } from 'interface';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+//import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+
+//const rate = 0.0001;
 
 class Voidform extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     spellUsable: SpellUsable,
   };
-
   protected abilities!: Abilities;
   protected spellUsable!: SpellUsable;
 
-  mindblast = 0;
-  casts = 0;
+  casts = 0; //casts of voidform
+  mindblast = 0; //number of mindblasts gained by entering voidform
 
   constructor(options: Options) {
     super(options);
+
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.VOIDFORM_BUFF),

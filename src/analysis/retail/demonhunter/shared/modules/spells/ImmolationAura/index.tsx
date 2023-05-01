@@ -14,9 +14,7 @@ import { SpellLink } from 'interface';
 import FalloutSnippet from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/FalloutSnippet';
 import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
 import SPECS from 'game/SPECS';
-import SpellUsageSubSection, {
-  logSpellUseEvent,
-} from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -24,6 +22,7 @@ import ResourceLink from 'interface/ResourceLink';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 class ImmolationAura extends Analyzer {
   static dependencies = {
@@ -63,7 +62,7 @@ class ImmolationAura extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.IMMOLATION_AURA.id}>
+        <BoringSpellValueText spell={SPELLS.IMMOLATION_AURA}>
           <UptimeIcon /> {formatPercentage(immolationAuraUptimePercentage)}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>
@@ -75,7 +74,7 @@ class ImmolationAura extends Analyzer {
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.immolationAura.explanation">
           <strong>
-            <SpellLink id={SPELLS.IMMOLATION_AURA} />
+            <SpellLink spell={SPELLS.IMMOLATION_AURA} />
           </strong>{' '}
           is one of your primary <strong>builders</strong>. It deals a burst of damage when cast,
           generating 8 <ResourceLink id={RESOURCE_TYPES.FURY.id} /> immediately
@@ -93,9 +92,8 @@ class ImmolationAura extends Analyzer {
     const totalCasts = performances.length;
 
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
-        performance={performances}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
         onPerformanceBoxClick={logSpellUseEvent}
@@ -108,7 +106,7 @@ class ImmolationAura extends Analyzer {
               totalCasts={totalCasts}
             />
             <strong>
-              <SpellLink id={SPELLS.IMMOLATION_AURA} />{' '}
+              <SpellLink spell={SPELLS.IMMOLATION_AURA} />{' '}
               <Trans id="guide.castEfficiency">cast efficiency</Trans>
             </strong>
             <CastEfficiencyBar
@@ -138,7 +136,7 @@ class ImmolationAura extends Analyzer {
           <>
             {' '}
             This is especially important when you have{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.FALLOUT_TALENT} /> talented.
+            <SpellLink spell={TALENTS_DEMON_HUNTER.FALLOUT_TALENT} /> talented.
           </>
         ) : null}
       </div>

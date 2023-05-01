@@ -38,6 +38,7 @@ class ThunderFocusTea extends Analyzer {
   castBufferTimestamp: number = 0;
   ftActive: boolean = false;
   correctSpells: number[] = [];
+  okSpells: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -69,6 +70,9 @@ class ThunderFocusTea extends Analyzer {
         TALENTS_MONK.RENEWING_MIST_TALENT.id,
         TALENTS_MONK.ESSENCE_FONT_TALENT.id,
       ]; // only haste buff
+      if (this.ftActive) {
+        this.okSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
+      }
     } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
       this.correctSpells = [
         TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
@@ -76,6 +80,9 @@ class ThunderFocusTea extends Analyzer {
       ];
     } else {
       this.correctSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+      if (this.ftActive) {
+        this.okSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
+      }
     }
   }
 
@@ -145,6 +152,13 @@ class ThunderFocusTea extends Analyzer {
         </>
       );
       this.correctCasts += 1;
+    } else if (this.okSpells.includes(spellId)) {
+      value = QualitativePerformance.Ok;
+      tooltip = (
+        <>
+          Ok cast: buffed <SpellLink id={spellId} />
+        </>
+      );
     } else {
       value = QualitativePerformance.Fail;
       tooltip = (
@@ -204,13 +218,16 @@ class ThunderFocusTea extends Analyzer {
         times and the spell that you use it on depends on your talent selection. If you have{' '}
         <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} />, then you should always use{' '}
         <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> on{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> or{' '}
-        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (when talented into{' '}
-        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />
-        ). If you aren't talented into <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT.id} />,
-        then always use it on <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> (if talented
-        into <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} />
-        ) or <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />.
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />{' '}
+        {this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT) && (
+          <>
+            or <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (when talented into{' '}
+            <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />)
+          </>
+        )}
+        . If you aren't talented into <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT.id} />,
+        then always use it on <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> or{' '}
+        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />.
       </p>
     );
     const data = (

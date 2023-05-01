@@ -42,7 +42,7 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
     return (
       <Trans id="guide.demonhunter.vengeance.sections.cooldowns.soulCarver.explanation">
         <strong>
-          <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />
+          <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />
         </strong>{' '}
         is a burst of damage that also generates a decent chunk of Soul Fragments.
         <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
@@ -134,15 +134,15 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
         performance: QualitativePerformance.Fail,
         summary: (
           <div>
-            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> not applied to target
+            <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> not applied to target
           </div>
         ),
         details: (
           <div>
-            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> not applied to target. Make
-            sure to apply <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> before casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} /> so that you benefit from{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} />.
+            <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> not applied to target.
+            Make sure to apply <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> before
+            casting <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} /> so that you
+            benefit from <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} />.
           </div>
         ),
       };
@@ -151,12 +151,12 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
       performance: QualitativePerformance.Perfect,
       summary: (
         <div>
-          <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to target
+          <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to target
         </div>
       ),
       details: (
         <div>
-          <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to target.
+          <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to target.
         </div>
       ),
     };
@@ -172,12 +172,12 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
           performance: QualitativePerformance.Perfect,
           summary: (
             <div>
-              <SpellLink id={SPELLS.FRAILTY} /> applied to target
+              <SpellLink spell={SPELLS.FRAILTY} /> applied to target
             </div>
           ),
           details: (
             <div>
-              <SpellLink id={SPELLS.FRAILTY} /> applied to target.
+              <SpellLink spell={SPELLS.FRAILTY} /> applied to target.
             </div>
           ),
         };
@@ -186,14 +186,14 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
         performance: QualitativePerformance.Fail,
         summary: (
           <div>
-            <SpellLink id={SPELLS.FRAILTY} /> not applied to target
+            <SpellLink spell={SPELLS.FRAILTY} /> not applied to target
           </div>
         ),
         details: (
           <div>
-            <SpellLink id={SPELLS.FRAILTY} /> not applied to target. Make sure to apply{' '}
-            <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+            <SpellLink spell={SPELLS.FRAILTY} /> not applied to target. Make sure to apply{' '}
+            <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
           </div>
         ),
       };
@@ -204,13 +204,13 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
         performance: QualitativePerformance.Perfect,
         summary: (
           <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
             applied to target
           </div>
         ),
         details: (
           <div>
-            Had {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+            Had {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
             applied to target.
           </div>
         ),
@@ -221,16 +221,16 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
         performance: QualitativePerformance.Good,
         summary: (
           <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
             applied to target
           </div>
         ),
         details: (
           <div>
-            Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
-            applied to target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
-            <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+            Only {cast.primaryTargetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink spell={SPELLS.FRAILTY} /> applied to target. Try applying at least{' '}
+            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
           </div>
         ),
       };
@@ -240,16 +240,16 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
         performance: QualitativePerformance.Ok,
         summary: (
           <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
             applied to target
           </div>
         ),
         details: (
           <div>
-            Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
-            applied to target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
-            <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+            Only {cast.primaryTargetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink spell={SPELLS.FRAILTY} /> applied to target. Try applying at least{' '}
+            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
           </div>
         ),
       };
@@ -258,16 +258,16 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
       performance: QualitativePerformance.Fail,
       summary: (
         <div>
-          {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} /> applied
-          to target
+          {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
+          applied to target
         </div>
       ),
       details: (
         <div>
-          Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+          Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
           applied to target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
-          <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
+          <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />.
         </div>
       ),
     };

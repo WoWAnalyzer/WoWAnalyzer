@@ -5,6 +5,8 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 4, 27), <>Change load conditions for <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT}/> efficiency bar</>, Trevor),
+  change(date(2023, 4, 14), <>Add T30 tier set module</>, Trevor),
   change(date(2023, 3, 24), <>Disable <SpellLink id={TALENTS_EVOKER.ECHO_TALENT}/> statistics when no casts</>, Trevor),
   change(date(2023, 3, 23), <>Fix bug in <SpellLink id={TALENTS_EVOKER.STASIS_TALENT}/> due to poor logging</>, Trevor),
   change(date(2023, 3, 22), <>Update average stacks in <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT}/> module</>, Trevor),

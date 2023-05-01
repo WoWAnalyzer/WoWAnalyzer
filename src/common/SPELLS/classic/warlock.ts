@@ -145,12 +145,6 @@ const spells = spellIndexableList({
     icon: 'inv_stone_04',
     lowRanks: [47871, 27230, 11730, 11729, 5699, 6202, 6201],
   },
-  HEALTHSTONE_USE: {
-    id: 47877,
-    name: 'Healthstone',
-    icon: 'inv_stone_04',
-    lowRanks: [47876, 47875],
-  },
   HELLFIRE: {
     id: 47823,
     name: 'Hellfire',
@@ -375,6 +369,11 @@ const spells = spellIndexableList({
     id: 47193,
     name: 'Demonic Empowerment',
     icon: 'ability_warlock_demonicempowerment',
+  },
+  DEMONIC_PACT: {
+    id: 47240,
+    name: 'Demonic Pact',
+    icon: 'spell_shadow_demonicpact',
   },
   FEL_DOMINATION: {
     id: 18708,

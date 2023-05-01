@@ -12,8 +12,8 @@ const NoDemonicExplanation = () => {
     <p>
       <Trans id="guide.demonhunter.havoc.noDemonic.explanation">
         Using this ability without also having{' '}
-        <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} /> talented will lead to significantly
-        less damage.
+        <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT} /> talented will lead to
+        significantly less damage.
       </Trans>
     </p>
   );

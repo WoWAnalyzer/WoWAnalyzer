@@ -16,12 +16,11 @@ import {
   UsageInfo,
 } from 'parser/core/SpellUsage/core';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import SpellUsageSubSection, {
-  logSpellUseEvent,
-} from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 // Fracture fury gen (no T29): 25
 // Metamorphosis Fracture fury gen (no T29): 45
@@ -84,14 +83,14 @@ export default class Fracture extends Analyzer {
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
           <strong>
-            <SpellLink id={TALENTS.FRACTURE_TALENT} />
+            <SpellLink spell={TALENTS.FRACTURE_TALENT} />
           </strong>{' '}
           is your primary <strong>builder</strong> for <ResourceLink id={RESOURCE_TYPES.FURY.id} />{' '}
-          and <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
-          s. Cast it when you have less than 4 <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s and
+          and <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+          s. Cast it when you have less than 4 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and
           less than {this.notMetaFuryLimit} <ResourceLink id={RESOURCE_TYPES.FURY.id} />. In{' '}
-          <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 3{' '}
-          <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.inMetaFuryLimit}{' '}
+          <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 3{' '}
+          <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.inMetaFuryLimit}{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
         </Trans>
       </p>
@@ -105,7 +104,7 @@ export default class Fracture extends Analyzer {
     const totalCasts = performances.length;
 
     return (
-      <SpellUsageSubSection
+      <HideGoodCastsSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
@@ -136,8 +135,8 @@ export default class Fracture extends Analyzer {
       <div>
         {hasMetamorphosis && (
           <p>
-            Was in <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, increasing Fury and Soul Fragment
-            generation
+            Was in <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, increasing Fury and Soul
+            Fragment generation
           </p>
         )}
         {hasT292Piece && <p>Wearing T29 2-piece, increasing Fury Gen by 20%</p>}
@@ -186,9 +185,10 @@ export default class Fracture extends Analyzer {
           summary: inMetamorphosisSummary,
           details: (
             <div>
-              You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
+              You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
               <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
-              {this.inMetaFuryLimit} during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Good job!
+              {this.inMetaFuryLimit} during <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />. Good
+              job!
             </div>
           ),
         };
@@ -198,11 +198,11 @@ export default class Fracture extends Analyzer {
         summary: inMetamorphosisSummary,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
+            You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
             <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
-            {this.inMetaFuryLimit} during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Work on
+            {this.inMetaFuryLimit} during <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />. Work on
             spending your <ResourceLink id={RESOURCE_TYPES.FURY.id} /> before pressing{' '}
-            <SpellLink id={TALENTS.FRACTURE_TALENT} />.
+            <SpellLink spell={TALENTS.FRACTURE_TALENT} />.
           </div>
         ),
       };
@@ -213,7 +213,7 @@ export default class Fracture extends Analyzer {
         summary: nonMetamorphosisSummary,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
+            You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
             <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
             {this.notMetaFuryLimit}. Good job!
           </div>
@@ -225,11 +225,11 @@ export default class Fracture extends Analyzer {
       summary: nonMetamorphosisSummary,
       details: (
         <div>
-          You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
+          You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfFury}{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} /> when the recommended amount is less than{' '}
           {this.notMetaFuryLimit}. Work on spending your{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} /> before pressing{' '}
-          <SpellLink id={TALENTS.FRACTURE_TALENT} />.
+          <SpellLink spell={TALENTS.FRACTURE_TALENT} />.
         </div>
       ),
     };
@@ -259,10 +259,10 @@ export default class Fracture extends Analyzer {
           summary: inMetamorphosisSummary,
           details: (
             <div>
-              You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
-              <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less
+              You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
+              <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less
               than {IN_META_SOUL_FRAGMENTS_LIMIT} during{' '}
-              <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Good job!
+              <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />. Good job!
             </div>
           ),
         };
@@ -272,11 +272,12 @@ export default class Fracture extends Analyzer {
         summary: inMetamorphosisSummary,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
-            <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less than{' '}
-            {IN_META_SOUL_FRAGMENTS_LIMIT} during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Work
-            on spending your <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s before pressing{' '}
-            <SpellLink id={TALENTS.FRACTURE_TALENT} />.
+            You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
+            <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less
+            than {IN_META_SOUL_FRAGMENTS_LIMIT} during{' '}
+            <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />. Work on spending your{' '}
+            <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s before pressing{' '}
+            <SpellLink spell={TALENTS.FRACTURE_TALENT} />.
           </div>
         ),
       };
@@ -287,9 +288,9 @@ export default class Fracture extends Analyzer {
         summary: nonMetamorphosisSummary,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
-            <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less than{' '}
-            {NOT_META_SOUL_FRAGMENTS_LIMIT}. Good job!
+            You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
+            <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less
+            than {NOT_META_SOUL_FRAGMENTS_LIMIT}. Good job!
           </div>
         ),
       };
@@ -299,11 +300,11 @@ export default class Fracture extends Analyzer {
       summary: nonMetamorphosisSummary,
       details: (
         <div>
-          You cast <SpellLink id={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
-          <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less than{' '}
-          {NOT_META_SOUL_FRAGMENTS_LIMIT} during <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />. Work
-          on spending your <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />s before pressing{' '}
-          <SpellLink id={TALENTS.FRACTURE_TALENT} />.
+          You cast <SpellLink spell={TALENTS.FRACTURE_TALENT} /> at {amountOfSoulFragments}{' '}
+          <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s when the recommended amount is less than{' '}
+          {NOT_META_SOUL_FRAGMENTS_LIMIT} during <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />.
+          Work on spending your <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s before pressing{' '}
+          <SpellLink spell={TALENTS.FRACTURE_TALENT} />.
         </div>
       ),
     };

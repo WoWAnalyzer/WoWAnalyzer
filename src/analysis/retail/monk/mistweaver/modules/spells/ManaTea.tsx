@@ -220,21 +220,19 @@ class ManaTea extends Analyzer {
         <strong>
           <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
         </strong>{' '}
-        is a powerful buff that can save a large amount of mana. Aim to use{' '}
-        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> in the following ways
-        <ul>
-          <li>
-            If you have at least 8 <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on
-            the raid and the raid is taking significant damage, then use{' '}
-            <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> and spam{' '}
-            <SpellLink id={SPELLS.VIVIFY} />
-          </li>
-          <li>
-            If talented into <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />,
-            use <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> during your celestial and spam
-            <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
-          </li>
-        </ul>
+        is a powerful buff that can save a large amount of mana and doubles as a throughput cooldown
+        once you obtain your 4 piece tier set bonus. Aim to maximize effectiveness of{' '}
+        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> by spamming <SpellLink id={SPELLS.VIVIFY} />{' '}
+        during damage moments when you have at least 8{' '}
+        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on the raid.
+        <br />
+        Alternatively, If talented into{' '}
+        <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and{' '}
+        <SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />, use{' '}
+        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> toward the end of your celestial for a
+        guaranteed proc of <SpellLink id={SPELLS.SOULFANG_VITALITY} /> and spam
+        <SpellLink id={SPELLS.VIVIFY} /> while channeling{' '}
+        <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT} />.
       </p>
     );
 
@@ -322,7 +320,7 @@ class ManaTea extends Analyzer {
     const arrayOfKeys = Array.from(this.casts.keys());
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(25)}
+        position={STATISTIC_ORDER.CORE(9)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

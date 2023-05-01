@@ -1,5 +1,5 @@
 import { formatDuration, formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/paladin';
 
-import { EMPYREAN_POWER_CHANCE } from '../../constants';
+import { CRUSADING_STRIKE_EMPYREAN_POWER_CHANCE } from '../../constants';
 
 const BUFF_TIME: number = 15000 * 0.95; //add buffer since log events lmao
 const TRACK_BUFFER = 500;
@@ -39,7 +39,9 @@ class EmpyreanPower extends Analyzer {
     }
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.CRUSADER_STRIKE, SPELLS.TEMPLAR_STRIKE, SPELLS.TEMPLAR_SLASH]),
       this.castCounter,
     );
     this.addEventListener(
@@ -58,7 +60,7 @@ class EmpyreanPower extends Analyzer {
 
   castCounter() {
     this.totalChances += 1;
-    this.procProbabilities.push(EMPYREAN_POWER_CHANCE);
+    this.procProbabilities.push(CRUSADING_STRIKE_EMPYREAN_POWER_CHANCE);
   }
 
   divineStormDamage(event: DamageEvent) {
@@ -105,7 +107,9 @@ class EmpyreanPower extends Analyzer {
         <BoringSpellValueText spellId={SPELLS.EMPYREAN_POWER_TALENT_BUFF.id}>
           <ItemDamageDone amount={this.damageDone} />
         </BoringSpellValueText>
-        {plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)}
+        {this.procProbabilities.length > 0
+          ? plotOneVariableBinomChart(this.procsGained, this.totalChances, this.procProbabilities)
+          : null}
       </Statistic>
     );
   }

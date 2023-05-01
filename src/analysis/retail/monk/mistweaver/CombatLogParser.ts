@@ -84,6 +84,8 @@ import SheilunsGiftCloudGraph from './modules/spells/SheilunsGiftCloudGraph';
 import HotCountGraph from './modules/features/HotCountGraph';
 import AplCheck from './modules/core/apl/AplCheck';
 import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
+import T30TierSet from './modules/dragonflight/tier/T30MWTier';
+import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -178,11 +180,13 @@ class CombatLogParser extends CoreCombatLogParser {
     shaohaosLessons: ShaohaosLessons,
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
+    calmingCoalescence: CalmingCoalescence,
 
     apl: AplCheck,
 
     // Borrowed Power
     t29TierSet: T29TierSet,
+    t30TierSet: T30TierSet,
 
     // Mana Tab
     manaTracker: ManaTracker,

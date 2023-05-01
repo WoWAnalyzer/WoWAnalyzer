@@ -1,4 +1,4 @@
-import { Sharrq, Dambroda } from 'CONTRIBUTORS';
+import { Sharrq, Dambroda, SyncSubaru } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 
@@ -6,7 +6,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [Sharrq, Dambroda],
+  contributors: [Sharrq, Dambroda, SyncSubaru],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '10.0.0',
@@ -44,8 +44,7 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/mFnxQzZ3GgRXJV8W/31-Heroic+Skolex,+the+Insatiable+Ravener+-+Kill+(5:01)/Allesha/standard',
+  exampleReport: '/report/x3ZYqgMm6VPHXkyc/2-Mythic+Eranog+-+Kill+(2:49)/Bthread/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

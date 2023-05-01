@@ -8,10 +8,10 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import ManaIcon from 'interface/icons/Mana';
 import { PenanceDamageEvent } from './Helper';
 import { getDamageEvent } from '../../normalizers/AtonementTracker';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import ItemManaGained from 'parser/ui/ItemManaGained';
 
 interface DirtyHealEvent extends HealEvent {
   penanceBoltNumber?: number;
@@ -112,7 +112,7 @@ class HarshDiscipline extends Analyzer {
         <>
           <TalentSpellText talent={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT}>
             <ItemHealingDone amount={this.harshAtonement + this.harshDirect} /> <br />
-            <ManaIcon /> {formatThousands(manaSaved)} mana
+            <ItemManaGained amount={manaSaved} useAbbrev />
           </TalentSpellText>
         </>
       </Statistic>

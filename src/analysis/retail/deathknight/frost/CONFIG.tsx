@@ -47,7 +47,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    "/report/WXA73DmYja1PcztR/15-Mythic+Artificer+Xy'mox+-+Kill+(5:09)/Anrathi/standard",
+    '/report/XkW7R9AMYfH3B1TV/9-Mythic+Sennarth,+The+Cold+Breath+-+Kill+(6:26)/Etikim/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
@@ -61,4 +61,5 @@ export default {
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
+  guideDefault: true,
 };

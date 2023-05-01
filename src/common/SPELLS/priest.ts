@@ -121,6 +121,11 @@ const spells = spellIndexableList({
     name: 'Shield Of Absolution',
     icon: 'ability_priest_clarityofwill',
   },
+  RADIANT_PROVIDENCE_BUFF: {
+    id: 410638,
+    name: 'Radiant Providence',
+    icon: 'spell_priest_power-word',
+  },
   SMITE: {
     id: 585,
     name: 'Smite',
@@ -131,7 +136,7 @@ const spells = spellIndexableList({
     id: 194509,
     name: 'Power Word: Radiance',
     icon: 'spell_priest_power-word',
-    manaCost: 16250,
+    manaCost: 11250,
   },
   SHADOW_MEND: {
     id: 186263,
@@ -511,6 +516,11 @@ const spells = spellIndexableList({
     id: 394745,
     name: 'Seize the moment',
     icon: 'inv_mace_1h_artifactheartofkure_d_03',
+  },
+  HOLY_PRIEST_TIER_30_4_SET_BUFF: {
+    id: 409479,
+    name: 'Inspired Word',
+    icon: 'ability_paladin_sacredcleansing',
   },
   // Talents
   BINDING_HEALS_TALENT_HEAL: {

@@ -5,6 +5,7 @@ import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 import { hastedCooldown } from 'common/hastedCooldown';
+import SPECS from 'game/SPECS';
 
 export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 : 1500);
 
@@ -14,7 +15,7 @@ export const druidGcd = (c: Combatant) => (c.hasBuff(SPELLS.CAT_FORM.id) ? 1000 
  * Rotational abilities (even shared ones) are reserved to the spec specific Abilities list,
  * so that custom handling of category and order can be provided. The list of general abilities
  * that are omitted from this list:
- * Shred, Ferocious Bite, Rake, Thrash, Swipe, Mangle, Rejuvenation, Regrowth, Swiftmend,
+ * Shred, Ferocious Bite, Rake, Thrash, Swipe, Mangle, Ironfur, Rejuvenation, Regrowth, Swiftmend,
  * Wild Growth, Wrath, Starfire, Starsurge, Moonfire, Sunfire
  */
 class Abilities extends CoreAbilities {
@@ -102,7 +103,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BARKSKIN.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 60 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 9,
+        cooldown:
+          (combatant.spec === SPECS.GUARDIAN_DRUID ? 45 : 60) *
+          (1 - combatant.getTalentRank(TALENTS_DRUID.SURVIVAL_OF_THE_FITTEST_TALENT) * 0.15),
         gcd: null,
         isDefensive: true,
       },
@@ -200,13 +203,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         charges: 1 + combatant.getTalentRank(TALENTS_DRUID.INNATE_RESOLVE_TALENT),
-        isDefensive: true,
-      },
-      {
-        spell: SPELLS.IRONFUR.id,
-        enabled: combatant.hasTalent(TALENTS_DRUID.IRONFUR_TALENT),
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: null,
         isDefensive: true,
       },
       {

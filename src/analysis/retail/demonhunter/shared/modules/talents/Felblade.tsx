@@ -65,8 +65,8 @@ class Felblade extends Analyzer {
       suggest(
         <>
           {' '}
-          Avoid casting <SpellLink id={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} /> close to Fury cap
-          and cast abilities regularly to avoid accidently capping your fury.
+          Avoid casting <SpellLink spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} /> close to Fury
+          cap and cast abilities regularly to avoid accidently capping your fury.
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.icon)

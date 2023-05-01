@@ -1,4 +1,14 @@
 // WCL properties
+export interface WCLDungeonPull {
+  id: number;
+  boss: number;
+  start_time: number;
+  end_time: number;
+  name: string;
+  kill?: boolean;
+  enemies?: number[][];
+}
+
 export interface WCLFight {
   id: number;
   start_time: number;
@@ -15,6 +25,8 @@ export interface WCLFight {
   kill?: boolean;
   bossPercentage?: number;
   fightPercentage?: number;
+  hardModeLevel?: number;
+  dungeonPulls?: WCLDungeonPull[];
 }
 
 //generated or applied properties

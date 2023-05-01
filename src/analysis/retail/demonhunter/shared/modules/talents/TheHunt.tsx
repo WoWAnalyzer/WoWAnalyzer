@@ -92,7 +92,7 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
       return (
         <Trans id="guide.demonhunter.havoc.sections.cooldowns.theHunt.explanation">
           <strong>
-            <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
+            <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
           </strong>{' '}
           is a powerful burst of damage that also provides some healing with the DoT that it
           applies.
@@ -103,7 +103,7 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
     return (
       <Trans id="guide.demonhunter.vengeance.sections.cooldowns.theHunt.explanation">
         <strong>
-          <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
+          <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         </strong>{' '}
         is a powerful burst of damage that also provides some healing with the DoT that it applies.
         <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
@@ -218,12 +218,12 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
         performance: QualitativePerformance.Perfect,
         summary: (
           <div>
-            Had <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff
+            Had <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff
           </div>
         ),
         details: (
           <div>
-            Had <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff.
+            Had <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff.
           </div>
         ),
       };
@@ -234,14 +234,14 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
         summary: (
           <div>
             Cast shortly after casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
+            <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
           </div>
         ),
         details: (
           <div>
             Cast shortly after casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />. You might have been
-            damaged and lost your <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff,
+            <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />. You might have been
+            damaged and lost your <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} /> buff,
             but that's okay, you still did your rotation correctly.
           </div>
         ),
@@ -252,16 +252,16 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
       summary: (
         <div>
           Cast without previously casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
+          <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />
         </div>
       ),
       details: (
         <div>
           Cast without previously casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />. Try casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} /> before casting for the
+          <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />. Try casting{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} /> before casting for the
           critical strike chance buff that it applies (courtesy of{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} />
+          <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} />
           ).
         </div>
       ),
@@ -278,12 +278,12 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
           performance: QualitativePerformance.Perfect,
           summary: (
             <div>
-              <SpellLink id={SPELLS.FRAILTY} /> applied to target
+              <SpellLink spell={SPELLS.FRAILTY} /> applied to target
             </div>
           ),
           details: (
             <div>
-              <SpellLink id={SPELLS.FRAILTY} /> applied to target.
+              <SpellLink spell={SPELLS.FRAILTY} /> applied to target.
             </div>
           ),
         };
@@ -292,14 +292,14 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
         performance: QualitativePerformance.Fail,
         summary: (
           <div>
-            <SpellLink id={SPELLS.FRAILTY} /> not applied to target
+            <SpellLink spell={SPELLS.FRAILTY} /> not applied to target
           </div>
         ),
         details: (
           <div>
-            <SpellLink id={SPELLS.FRAILTY} /> not applied to target. Make sure to apply{' '}
-            <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />.
+            <SpellLink spell={SPELLS.FRAILTY} /> not applied to target. Make sure to apply{' '}
+            <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />.
           </div>
         ),
       };
@@ -310,13 +310,13 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
         performance: QualitativePerformance.Perfect,
         summary: (
           <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
             applied to target
           </div>
         ),
         details: (
           <div>
-            Had {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+            Had {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
             applied to target.
           </div>
         ),
@@ -327,16 +327,16 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
         performance: QualitativePerformance.Good,
         summary: (
           <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
             applied to target
           </div>
         ),
         details: (
           <div>
-            Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
-            applied to target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
-            <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />.
+            Only {cast.primaryTargetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink spell={SPELLS.FRAILTY} /> applied to target. Try applying at least{' '}
+            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />.
           </div>
         ),
       };
@@ -346,16 +346,16 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
         performance: QualitativePerformance.Ok,
         summary: (
           <div>
-            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+            {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
             applied to target
           </div>
         ),
         details: (
           <div>
-            Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
-            applied to target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
-            <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-            <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />.
+            Only {cast.primaryTargetStacksOfFrailty} stack(s) of{' '}
+            <SpellLink spell={SPELLS.FRAILTY} /> applied to target. Try applying at least{' '}
+            {PERFECT_FRAILTY_STACKS} stack(s) of <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
+            <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />.
           </div>
         ),
       };
@@ -364,16 +364,16 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
       performance: QualitativePerformance.Fail,
       summary: (
         <div>
-          {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} /> applied
-          to target
+          {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
+          applied to target
         </div>
       ),
       details: (
         <div>
-          Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink id={SPELLS.FRAILTY} />{' '}
+          Only {cast.primaryTargetStacksOfFrailty} stack(s) of <SpellLink spell={SPELLS.FRAILTY} />{' '}
           applied to target. Try applying at least {PERFECT_FRAILTY_STACKS} stack(s) of{' '}
-          <SpellLink id={SPELLS.FRAILTY} /> before casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />.
+          <SpellLink spell={SPELLS.FRAILTY} /> before casting{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />.
         </div>
       ),
     };

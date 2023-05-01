@@ -6,9 +6,11 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
+  ApplyBuffStackEvent,
   GlobalCooldownEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
+  RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -35,6 +37,10 @@ class KillingMachineEfficiency extends Analyzer {
   lastProcTime: number = 0;
   refreshedKMProcs = 0;
   expiredKMProcs = 0;
+  currentStacks = 0;
+  procsWithinGcd = 0;
+
+  readonly fatalFixation = this.selectedCombatant.hasTalent(talents.FATAL_FIXATION_TALENT);
 
   constructor(options: Options) {
     super(options);
@@ -52,6 +58,16 @@ class KillingMachineEfficiency extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
       this.onRefreshBuff,
     );
+    this.fatalFixation &&
+      this.addEventListener(
+        Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
+        this.onApplyBuffStack,
+      );
+    this.fatalFixation &&
+      this.addEventListener(
+        Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.KILLING_MACHINE),
+        this.onRemoveBuffStack,
+      );
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -68,10 +84,36 @@ class KillingMachineEfficiency extends Analyzer {
 
   onRefreshBuff(event: RefreshBuffEvent) {
     const timeSinceGCD = event.timestamp - this.lastGCDTime;
-    if (timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS) {
+    const timeSinceStackRemoved = event.timestamp - this.lastProcTime;
+
+    // 4/5/23 Going from 2 -> 1 KM stacks refreshes the proc, this shouldn't be counted
+    if (this.fatalFixation && this.currentStacks === 1 && timeSinceStackRemoved < LAG_BUFFER_MS) {
+      // 3/24/23, logs refresh km whenever you go from 2 -> 1 stacks
+      this.lastProcTime = event.timestamp;
+      return;
+    }
+
+    this.kmProcs += 1;
+    // 3/24/23, trying out disabling lag tolerance for km refreshes if the player has fatal fixation talented, may need more work
+    if (
+      (!this.fatalFixation || (this.fatalFixation && this.currentStacks === 2)) &&
+      timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS
+    ) {
+      this.procsWithinGcd += 1;
       return;
     }
     this.refreshedKMProcs += 1;
+  }
+
+  onApplyBuffStack(event: ApplyBuffStackEvent) {
+    this.kmProcs += 1;
+    this.lastProcTime = event.timestamp;
+    this.currentStacks = event.stack;
+  }
+
+  onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    this.currentStacks = event.stack;
+    this.lastProcTime = event.timestamp;
   }
 
   globalCooldown(event: GlobalCooldownEvent) {
@@ -88,7 +130,7 @@ class KillingMachineEfficiency extends Analyzer {
   }
 
   get totalProcs() {
-    return this.kmProcs + this.refreshedKMProcs;
+    return this.kmProcs + this.refreshedKMProcs + this.procsWithinGcd;
   }
 
   get efficiency() {
@@ -158,18 +200,18 @@ class KillingMachineEfficiency extends Analyzer {
 
   get guideSubsection(): JSX.Element {
     const goodKms = {
-      count: this.kmProcs - this.expiredKMProcs - this.refreshedKMProcs,
+      count: this.kmProcs - this.expiredKMProcs - this.refreshedKMProcs - this.procsWithinGcd,
       label: 'Killing Machines cosumed',
     };
 
-    const refreshedKms = {
-      count: this.refreshedKMProcs,
-      label: 'Killing Machines refreshed',
+    const procsWithinGcd = {
+      count: this.procsWithinGcd,
+      label: 'Killing Machines refreshed while waiting for a GCD',
     };
 
-    const expiredKms = {
-      count: this.expiredKMProcs,
-      label: 'Killing Machines expired',
+    const refreshedKms = {
+      count: this.refreshedKMProcs + this.expiredKMProcs,
+      label: 'Killing Machines refreshed during an available GCD or expired naturally',
     };
 
     const explanation = (
@@ -187,7 +229,7 @@ class KillingMachineEfficiency extends Analyzer {
     const data = (
       <div>
         <strong>Killing Machine breakdown</strong>
-        <GradiatedPerformanceBar good={goodKms} ok={refreshedKms} bad={expiredKms} />
+        <GradiatedPerformanceBar good={goodKms} ok={procsWithinGcd} bad={refreshedKms} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);

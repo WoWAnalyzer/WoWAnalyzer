@@ -6,19 +6,13 @@ import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  GlobalCooldownEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const LAG_BUFFER_MS = 100;
 const BUFF_DURATION_SEC = 15;
 
 class RimeEfficiency extends Analyzer {
@@ -27,8 +21,6 @@ class RimeEfficiency extends Analyzer {
   };
 
   rimeProcs: number = 0;
-  lastGCDTime: number = 0;
-  lastGCDDuration: number = 0;
   lastProcTime: number = 0;
   refreshedRimeProcs: number = 0;
   expiredRimeProcs: number = 0;
@@ -48,7 +40,6 @@ class RimeEfficiency extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.RIME),
       this.onRefreshBuff,
     );
-    this.addEventListener(Events.GlobalCooldown, this.onGlobalCooldown);
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -64,16 +55,8 @@ class RimeEfficiency extends Analyzer {
   }
 
   onRefreshBuff(event: RefreshBuffEvent) {
-    const timeSinceGCD = event.timestamp - this.lastGCDTime;
-    if (timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS) {
-      return;
-    }
     this.refreshedRimeProcs += 1;
-  }
-
-  onGlobalCooldown(event: GlobalCooldownEvent) {
-    this.lastGCDTime = event.timestamp;
-    this.lastGCDDuration = event.duration;
+    this.rimeProcs += 1;
   }
 
   get totalWastedProcs() {
@@ -173,7 +156,11 @@ class RimeEfficiency extends Analyzer {
         <SpellLink id={talents.ICEBREAKER_TALENT.id} /> are talented. Rime has a chance to proc
         whenever you cast <SpellLink id={talents.OBLITERATE_TALENT.id} /> and you prevent wasting
         the proc by making sure to consume Rime before casting Obliterate. You should aim to consume
-        as many Rimes as you can.
+        as many Rimes as you can. However, there are times when other spells take priority such as
+        casting <SpellLink id={talents.FROST_STRIKE_TALENT.id} /> to refresh{' '}
+        <SpellLink id={talents.ICY_TALONS_TALENT.id} /> or using{' '}
+        <SpellLink id={talents.OBLITERATE_TALENT.id} /> to maintain{' '}
+        <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> when your RP is low.
       </p>
     );
 

@@ -180,10 +180,20 @@ const spells = spellIndexableList({
     name: 'Killing Spree',
     icon: 'ability_rogue_murderspree',
   },
+  OVERKILL_BUFF: {
+    id: 58427,
+    name: 'Overkill',
+    icon: 'ability_hunter_rapidkilling',
+  },
   RIPOSTE: {
     id: 14251,
     name: 'Riposte',
     icon: 'ability_warrior_challange',
+  },
+  SAVAGE_COMBAT: {
+    id: 58683,
+    name: 'Savage Combat',
+    icon: 'ability_creature_disease_03',
   },
   // Subtlety
   GHOSTLY_STRIKE: {
@@ -216,6 +226,15 @@ const spells = spellIndexableList({
     id: 36554,
     name: 'Shadowstep',
     icon: 'ability_rogue_shadowstep',
+  },
+  // ---------
+  // OTHER
+  // ---------
+  RESTORE_ENERGY: {
+    // Thistle Tea
+    id: 9512,
+    name: 'Restore Energy',
+    icon: 'inv_drink_milk_05',
   },
 });
 

@@ -135,7 +135,7 @@ class SoulFragmentsConsume extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SOUL_FRAGMENT_STACK.id}>
+        <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT_STACK}>
           <>
             {this.soulFragmentsTracker.soulsSpent} <small>Souls</small>
           </>

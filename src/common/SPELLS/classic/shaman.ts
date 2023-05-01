@@ -336,7 +336,6 @@ const spells = spellIndexableList({
     icon: 'spell_fire_totemofwrath',
     lowRanks: [57721, 57720, 30706],
   },
-
   // Enhancement
   FERAL_SPIRIT: {
     id: 51533,
@@ -358,7 +357,11 @@ const spells = spellIndexableList({
     name: 'Stormstrike',
     icon: 'ability_shaman_stormstrike',
   },
-
+  UNLEASHED_RAGE: {
+    id: 30809,
+    name: 'Unleashed Rage',
+    icon: 'spell_nature_unleashedrage',
+  },
   // Restoration
   CLEANSE_SPIRIT: {
     id: 51886,

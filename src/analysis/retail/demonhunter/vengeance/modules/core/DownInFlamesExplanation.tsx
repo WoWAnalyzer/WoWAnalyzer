@@ -21,8 +21,8 @@ const DownInFlamesExplanation = ({ includeDownInFlames, lineBreak }: Props) => {
       {lineBreak ? <br /> : ' '}
       <Trans id="guide.demonhunter.vengeance.downInFlames.explanation">
         Always cast one of your charges of{' '}
-        <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> before casting this ability so
-        that you can benefit from <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} />.
+        <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> before casting this ability so
+        that you can benefit from <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} />.
       </Trans>
     </>
   );

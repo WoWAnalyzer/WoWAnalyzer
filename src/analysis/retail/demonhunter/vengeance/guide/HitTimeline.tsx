@@ -63,7 +63,7 @@ function HitTooltipContent({ hit, unmitigatedContent }: HitTooltipContentProps) 
       </div>
       <div>
         You took <strong>{formatNumber(hit.event.amount)}</strong> from{' '}
-        <SpellLink id={hit.event.ability.guid}>{hit.event.ability.name}</SpellLink>.
+        <SpellLink spell={hit.event.ability.guid}>{hit.event.ability.name}</SpellLink>.
       </div>
       {!hit.mitigated && unmitigatedContent}
     </div>
@@ -105,7 +105,7 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
       {enemy?.name ?? 'Unknown'} ({ability.name})
     </a>
   ) : (
-    <SpellLink id={ability.guid} style={style}>
+    <SpellLink spell={ability.guid} style={style}>
       {ability.name}
     </SpellLink>
   );

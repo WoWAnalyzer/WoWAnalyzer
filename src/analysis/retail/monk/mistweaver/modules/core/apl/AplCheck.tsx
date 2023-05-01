@@ -182,9 +182,7 @@ const rotation_rm_cf_shaohaos = build([
   ...commonTop,
   SOOM_BEFORE_VIVIFY,
   VIVIFY_6_REMS,
-  talents.ESSENCE_FONT_TALENT,
   BLACKOUT_KICK,
-  talents.CHI_BURST_TALENT,
   {
     spell: SPELLS.TIGER_PALM,
     condition: cnd.optionalRule(
@@ -200,6 +198,7 @@ export enum MistweaverApl {
   RisingMistAncientTeachingsShaohaos,
   RisingMistAncientTeachingsUpwellFls,
   RisingMistCloudedFocusShaohaos,
+  AwakenedFaeline,
   Fallback,
 }
 
@@ -207,21 +206,29 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
   if (
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
     info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
-    info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT)
+    info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT) &&
+    info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT)
   ) {
     return MistweaverApl.RisingMistAncientTeachingsShaohaos;
   } else if (
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT) &&
     info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
-    info.combatant.hasTalent(talents.UPWELLING_TALENT)
+    info.combatant.hasTalent(talents.UPWELLING_TALENT) &&
+    info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT)
   ) {
     return MistweaverApl.RisingMistAncientTeachingsUpwellFls;
   } else if (
     info.combatant.hasTalent(talents.CLOUDED_FOCUS_TALENT) &&
     info.combatant.hasTalent(talents.RISING_MIST_TALENT) &&
+    info.combatant.hasTalent(talents.INVOKERS_DELIGHT_TALENT) &&
     info.combatant.hasTalent(talents.SHAOHAOS_LESSONS_TALENT)
   ) {
     return MistweaverApl.RisingMistCloudedFocusShaohaos;
+  } else if (
+    info.combatant.hasTalent(talents.AWAKENED_FAELINE_TALENT) &&
+    info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT)
+  ) {
+    return MistweaverApl.AwakenedFaeline;
   }
   return MistweaverApl.Fallback;
 };
@@ -230,6 +237,7 @@ const apls: Record<MistweaverApl, Apl> = {
   [MistweaverApl.RisingMistAncientTeachingsShaohaos]: rotation_rm_at_sg,
   [MistweaverApl.RisingMistAncientTeachingsUpwellFls]: rotation_rm_at_upw,
   [MistweaverApl.RisingMistCloudedFocusShaohaos]: rotation_rm_cf_shaohaos,
+  [MistweaverApl.AwakenedFaeline]: rotation_fallback,
   [MistweaverApl.Fallback]: rotation_fallback,
 };
 

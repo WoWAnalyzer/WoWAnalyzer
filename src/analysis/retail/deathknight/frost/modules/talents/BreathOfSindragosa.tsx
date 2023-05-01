@@ -15,7 +15,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { PerformanceMark } from 'interface/guide';
 
-const GOOD_BREATH_DURATION_MS = 25000;
+const GOOD_BREATH_DURATION_MS = 60000;
 
 class BreathOfSindragosa extends Analyzer {
   beginTimestamp = 0;
@@ -73,7 +73,6 @@ class BreathOfSindragosa extends Analyzer {
     if (this.breathActive) {
       this.casts -= 1;
     }
-    this.totalDuration += event.timestamp - this.beginTimestamp;
     const duration = event.timestamp - this.beginTimestamp;
     this.castTracker.push({
       timestamp: this.beginTimestamp,
@@ -122,9 +121,9 @@ class BreathOfSindragosa extends Analyzer {
     return {
       actual: this.averageDuration,
       isLessThan: {
-        minor: 25.0,
-        average: 22.5,
-        major: 20.0,
+        minor: 60.0,
+        average: 50.5,
+        major: 45.0,
       },
       style: ThresholdStyle.SECONDS,
       suffix: 'Average',
@@ -223,7 +222,9 @@ class BreathOfSindragosa extends Analyzer {
           });
 
           const overallPerf =
-            cast.duration > 60 ? QualitativePerformance.Good : QualitativePerformance.Fail;
+            cast.duration > 60 || cast.fightEnded
+              ? QualitativePerformance.Good
+              : QualitativePerformance.Fail;
 
           return (
             <CooldownExpandable

@@ -27,7 +27,7 @@ export const AcceleratingBladeExplanation = () => {
   return (
     <li>
       <div className="flex">
-        <SpellLink id={TALENTS.ACCELERATING_BLADE_TALENT} className="flex-main" />
+        <SpellLink spell={TALENTS.ACCELERATING_BLADE_TALENT} className="flex-main" />
         <div className="flex-sub" style={{ padding: '0 10px' }}>
           <Tooltip
             content={
