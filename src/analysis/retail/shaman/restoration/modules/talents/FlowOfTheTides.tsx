@@ -2,7 +2,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ChainHealNormalizer from '../../normalizers/ChainHealNormalizer';
 import talents from 'common/TALENTS/shaman';
 import UnleashLife from './UnleashLife';
-import Events, { CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { BeginCastEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import {
   CHAIN_HEAL_TARGETS,
   FLOW_OF_THE_TIDES_INCREASE,
@@ -22,8 +22,7 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import { wasRiptideConsumed } from '../../normalizers/CastLinkNormalizer';
 import RiptideTracker from '../core/RiptideTracker';
 
-const debug = true;
-//const EXPECTED_REMOVAL_THRESHOLD = 200;
+const debug = false;
 
 class FlowOfTheTides extends Analyzer {
   static dependencies = {
@@ -44,6 +43,8 @@ class FlowOfTheTides extends Analyzer {
   bonusHealing: number = 0;
   extraJumps: number = 0;
   missedJumps: number = 0;
+  chainHealTarget: number = 0;
+  riptideEnd: number = 0;
   lostRiptides: number = 0;
   lostRiptideDuration: number = 0;
 
@@ -56,7 +57,7 @@ class FlowOfTheTides extends Analyzer {
       this.onChainHeal,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(talents.RIPTIDE_TALENT),
+      Events.begincast.by(SELECTED_PLAYER).spell(talents.CHAIN_HEAL_TALENT),
       this.tallyLostRiptideDuration,
     );
   }
@@ -73,20 +74,9 @@ class FlowOfTheTides extends Analyzer {
     if (!wasRiptideConsumed(event)) {
       return;
     }
-    //   console.log(this.riptideTracker.hotHistory);
-    //   const targetId = event.targetID;
-    //   if(targetId){
-    //   if(!this.riptideTracker.hotHistory[targetId])
-    //    {
-    //        debug && console.log('Consumed riptide not found');
-    //    }
-    //   const hot = this.riptideTracker.hotHistory[targetId];
-    //   if(hot && hot.spellId === talents.RIPTIDE_TALENT.id &&
-    //     hot.lastTick + EXPECTED_REMOVAL_THRESHOLD >= event.timestamp &&
-    //      hot.lastTick - EXPECTED_REMOVAL_THRESHOLD <= event.timestamp) {
-    //      this.lostRiptideDuration += hot.end - event.timestamp;
-    //   }
-    // }
+    if (this.chainHealTarget === event.targetID) {
+      this.lostRiptideDuration += this.riptideEnd - event.timestamp;
+    }
     this.lostRiptides += 1;
     let expectedTargetCount = this.maxTargets;
     let index = -1;
@@ -141,18 +131,28 @@ class FlowOfTheTides extends Analyzer {
     );
   }
 
-  tallyLostRiptideDuration(event: RemoveBuffEvent) {
-    const targetId = event.targetID;
+  tallyLostRiptideDuration(event: BeginCastEvent) {
+    if (!event.castEvent) {
+      return;
+    }
+    if (!event.castEvent.targetIsFriendly) {
+      return;
+    }
+    if (event.isCancelled) {
+      return;
+    }
+    debug && console.log('Begin cast chain heal on: ', event);
+    const targetId = event.castEvent.targetID;
     const spellId = talents.RIPTIDE_TALENT.id;
-    console.log(targetId, spellId);
     if (targetId) {
       if (!this.riptideTracker.hots[targetId] || !this.riptideTracker.hots[targetId][spellId]) {
         debug && console.log('Consumed riptide not found');
         return;
       }
       const hot = this.riptideTracker.hots[targetId][spellId];
-      debug && console.log(hot);
-      this.lostRiptideDuration += hot.originalEnd - hot.end;
+      debug && console.log('Found riptide', hot);
+      this.chainHealTarget = targetId;
+      this.riptideEnd = hot.end;
     }
   }
 
@@ -189,7 +189,8 @@ class FlowOfTheTides extends Analyzer {
                 <strong>{formatNumber(this.lostRiptides)}</strong> riptides consumed
               </li>
               <li>
-                <strong>{this.lostRiptideDuration}</strong> riptide duration lost
+                <strong>{(this.lostRiptideDuration / 1000).toFixed(2)}</strong> seconds of riptide
+                lost
               </li>
             </ul>
           </>
