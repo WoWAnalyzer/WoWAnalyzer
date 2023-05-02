@@ -262,10 +262,10 @@ class EarthenWallTotem extends Analyzer {
       <p>
         <b>
           <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />
-        </b>
-        <br />
-        Cast <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} /> on cooldown as often as
-        possible its very good
+        </b>{' '}
+        does a lot of healing, particularly on stacked fights or whenever a fight has several damage
+        moments happen in quick succession. This totem does a ton of healing per cast and is an
+        excellent choice for <SpellLink id={TALENTS.TOTEMIC_RECALL_TALENT} />
       </p>
     );
 

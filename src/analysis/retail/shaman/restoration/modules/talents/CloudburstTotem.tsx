@@ -18,6 +18,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import ITEMS from 'common/ITEMS';
 
 const DELAY_MS = 200;
 
@@ -100,10 +101,13 @@ class CloudburstTotem extends Analyzer {
       <p>
         <b>
           <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} />
-        </b>
-        <br />
-        Cast <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} /> on cooldown as often as possible
-        its very good
+        </b>{' '}
+        is one of your most important and highest hps abilities. It is essential to have active
+        whenever you plan on doing significant healing as it collects a portion of all healing done
+        by the shaman (this includes <SpellLink id={ITEMS.T30_TIDEWATERS_HEAL} /> healing!). It is
+        not necessary or possible to always have{' '}
+        <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} /> active, but make sure you are never
+        sitting at 2 charges
       </p>
     );
 

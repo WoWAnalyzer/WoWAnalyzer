@@ -241,10 +241,10 @@ class Wellspring extends Analyzer {
       <p>
         <b>
           <SpellLink id={TALENTS.WELLSPRING_TALENT.id} />
-        </b>
-        <br />
-        Cast <SpellLink id={TALENTS.WELLSPRING_TALENT.id} /> on cooldown as often as possible its
-        very good
+        </b>{' '}
+        is an efficient AoE heal on a short cooldown. The heal itself has travel time so its
+        possible to pre-cast it into a <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT} /> and have
+        the majority of its healing collected.
       </p>
     );
 

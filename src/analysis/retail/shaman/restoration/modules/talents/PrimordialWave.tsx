@@ -26,6 +26,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import ITEMS from 'common/ITEMS';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -268,10 +269,15 @@ class PrimordialWave extends Analyzer {
       <p>
         <b>
           <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />
-        </b>
-        <br />
-        Cast <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} /> on cooldown as often as possible
-        its very good
+        </b>{' '}
+        is a powerful ability that heals an ally, applies a{' '}
+        <SpellLink id={TALENTS.RIPTIDE_TALENT} />, and makes your next{' '}
+        <SpellLink id={TALENTS.HEALING_WAVE_TALENT} /> cleave all allies with an active{' '}
+        <SpellLink id={TALENTS.RIPTIDE_TALENT} /> HoT. This cleave effect can be combined with
+        spells that increase the healing of <SpellLink id={TALENTS.HEALING_WAVE_TALENT} />, like{' '}
+        <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} /> and{' '}
+        <SpellLink id={ITEMS.T30_SWELLING_RAIN_BUFF} />, and turn that single target bonus into an
+        extremely potent group heal
       </p>
     );
 
