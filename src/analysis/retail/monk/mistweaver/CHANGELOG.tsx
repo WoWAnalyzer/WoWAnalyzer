@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 5, 2), <>Re-enable <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> module and add Cast Efficieny subsection to the Guide</>, Vohrr),
   change(date(2023, 4, 28), <>Typo fix</>, Vohrr),
   change(date(2023, 4, 28), <>Updated Guide sections for 10.1</>, Vohrr),
   change(date(2023, 4, 27), <>Added <SpellLink id={TALENTS_MONK.CALMING_COALESCENCE_TALENT.id}/> module.</>, Vohrr),

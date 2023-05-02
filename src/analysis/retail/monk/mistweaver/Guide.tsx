@@ -75,6 +75,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </SubSection>
       </Section>
       <Section title="Other cooldowns, buffs, and procs">
+        {info.combatant.hasTalent(TALENTS_MONK.LIFE_COCOON_TALENT) &&
+          modules.lifeCocoon.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) &&
           modules.chiBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT) &&
