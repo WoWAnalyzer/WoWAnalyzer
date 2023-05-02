@@ -4,13 +4,18 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const RECOMMENDED_EFFICIENCY = 0.8;
 const MAGHAR_ORC_PET_HEALTH_INCREASE = 0.1;
@@ -247,6 +252,45 @@ class EarthenWallTotem extends Analyzer {
             Pet healing is filtered out
           </Trans>
         }
+      />
+    );
+  }
+
+  /** Guide subsection describing the proper usage of Earthen Wall Totem */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />
+        </b>
+        <br />
+        Cast <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} /> on cooldown as often as
+        possible its very good
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
       />
     );
   }

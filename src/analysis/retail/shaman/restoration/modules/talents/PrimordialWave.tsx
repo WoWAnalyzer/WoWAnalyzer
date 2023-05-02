@@ -21,6 +21,11 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -254,6 +259,45 @@ class PrimordialWave extends Analyzer {
           </TooltipElement>
         </BoringValue>
       </Statistic>
+    );
+  }
+
+  /** Guide subsection describing the proper usage of Primordial Wave */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />
+        </b>
+        <br />
+        Cast <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} /> on cooldown as often as possible
+        its very good
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.PRIMORDIAL_WAVE_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+      />
     );
   }
 }

@@ -14,6 +14,8 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
+import ItemSetLink from 'interface/ItemSetLink';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -164,16 +166,22 @@ class HealingRain extends Analyzer {
     }
   }
 
-  /** Guide subsection describing the proper usage of healing rain */
+  /** Guide subsection describing the proper usage of Healing Rain */
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
         <b>
           <SpellLink id={TALENTS_SHAMAN.HEALING_RAIN_TALENT.id} />
-        </b>
-        <br />
-        Cast <SpellLink id={TALENTS_SHAMAN.HEALING_RAIN_TALENT.id} /> on cooldown as often as
-        possible its very good
+        </b>{' '}
+        is one of your best sources of consistent throughput and can be augmented to do more healing
+        through <SpellLink id={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
+        <SpellLink id={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
+        <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this
+        spell is also the activator for your{' '}
+        <ItemSetLink id={SHAMAN_T30_ID}>
+          <>Tier 30 Set Bonus</>
+        </ItemSetLink>{' '}
+        and should be used as often as possible
       </p>
     );
 

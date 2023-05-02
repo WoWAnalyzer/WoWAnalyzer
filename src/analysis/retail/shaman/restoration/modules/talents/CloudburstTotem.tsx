@@ -13,6 +13,11 @@ import Events, {
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const DELAY_MS = 200;
 
@@ -87,6 +92,46 @@ class CloudburstTotem extends Analyzer {
     };
 
     this.eventEmitter.fabricateEvent(fabricatedEvent, event);
+  }
+
+  /** Guide subsection describing the proper usage of Cloudburst Totem */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} />
+        </b>
+        <br />
+        Cast <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} /> on cooldown as often as possible
+        its very good
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.CLOUDBURST_TOTEM_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+        minimizeIcons
+      />
+    );
   }
 
   subStatistic() {

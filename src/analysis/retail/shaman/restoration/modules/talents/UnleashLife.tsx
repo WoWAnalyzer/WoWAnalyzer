@@ -623,16 +623,19 @@ class UnleashLife extends Analyzer {
     );
   }
 
-  /** Guide subsection describing the proper usage of Riptide */
+  /** Guide subsection describing the proper usage of Unleash Life */
   get guideSubsection(): JSX.Element {
     const explanation = (
       <p>
         <b>
           <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} />
-        </b>
-        <br />
-        Cast <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> on cooldown as often as possible its
-        very good
+        </b>{' '}
+        is a very efficient heal on a short cooldown, however the true power of this spell comes
+        from the potent buff it provides that can be consumed by a number of different abilities.
+        This spell is best used in preparation for incoming damage to combo with one of your
+        stronger abilities like a <SpellLink id={TALENTS.HIGH_TIDE_TALENT} />
+        -buffed <SpellLink id={TALENTS.CHAIN_HEAL_TALENT} /> or{' '}
+        <SpellLink id={TALENTS.HEALING_RAIN_TALENT} />
       </p>
     );
 
@@ -658,6 +661,7 @@ class UnleashLife extends Analyzer {
         spellId={TALENTS.UNLEASH_LIFE_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
+        minimizeIcons
       />
     );
   }
