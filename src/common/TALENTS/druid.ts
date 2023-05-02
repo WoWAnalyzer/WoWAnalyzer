@@ -235,7 +235,7 @@ const talents = createTalentList({
     icon: 'spell_nature_earthbind',
     maxRanks: 1,
     entryIds: [103291],
-    manaCost: 5000,
+    manaCost: 3000,
   },
   DEEP_FOCUS_TALENT: {
     id: 403949,
@@ -1410,6 +1410,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [114698],
   },
+  THRASHING_CLAWS_TALENT: {
+    id: 405300,
+    name: 'Thrashing Claws',
+    icon: 'spell_druid_thrash',
+    maxRanks: 1,
+    entryIds: [114823],
+  },
   THRASH_TALENT: {
     id: 106832,
     name: 'Thrash',
@@ -1670,6 +1677,13 @@ const talents = createTalentList({
     icon: 'ability_xavius_tormentingswipe',
     maxRanks: 1,
     entryIds: [103150],
+  },
+  WILD_SURGES_TALENT: {
+    id: 406890,
+    name: 'Wild Surges',
+    icon: 'ability_skyreach_lens_flare',
+    maxRanks: 1,
+    entryIds: [115458],
   },
   WILD_SYNTHESIS_TALENT: {
     id: 400533,

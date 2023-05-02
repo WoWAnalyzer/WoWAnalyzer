@@ -19,7 +19,7 @@ class HotTrackerPrevoker extends HotTracker {
       TALENTS_EVOKER.TIMELESS_MAGIC_TALENT,
     );
     this.fontOfMagicActive = this.owner.selectedCombatant.hasTalent(
-      TALENTS_EVOKER.FONT_OF_MAGIC_TALENT,
+      TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT,
     );
   }
 
