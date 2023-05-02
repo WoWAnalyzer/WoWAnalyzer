@@ -9,7 +9,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
 import { Trans } from '@lingui/macro';
 import Voidbolt from '../spells/Voidbolt';
-import ShadowWordDeath from '../spells/ShadowWordDeath';
+//import ShadowWordDeath from '../spells/ShadowWordDeath';
 
 type Cooldown = {
   talent: Talent;
@@ -23,13 +23,13 @@ type SpellCooldown = {
 
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
-  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const coreCooldownsVB: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   { spell: SPELLS.VOID_BOLT },
-  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const shortCooldowns: Cooldown[] = [
@@ -49,9 +49,13 @@ const longCooldowns: Cooldown[] = [
 
 const CoreCooldownsGraph = () => {
   const VoidboltAnalyzer = useAnalyzer(Voidbolt);
-  const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
+  //const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
 
   let coreCooldown = coreCooldowns;
+
+  console.log('CDs', coreCooldowns);
+  console.log('CD', coreCooldown);
+
   let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
       <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
@@ -83,9 +87,39 @@ const CoreCooldownsGraph = () => {
     );
   }
 
+  /* There are some issues with SW:D highlight sections that need to be worked out furtuer before implementation.
+  //specifically, this throws an error when the fights timestamp is filtered.
+
   coreCooldown.find((cd) => cd.spell.id === TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.activeWindows =
     ShadowWordDeathAnalyzer?.executeRanges.map(fromExecuteRange);
+    
+  // If the found Ranges overlap, the graph visuals stack.
+  // This happens often for SW:D because every enemy below the threshold creates a highlight
+  // to fix this, we combine overlaping regions 
+  // In order to combine them, we have to sort them (I do not know why the timestamps are not in order)
+  // This could instead be done in CastEfficencyBar, but I am not confiedent enough that this works universally to do so.
 
+  const cdIndex = coreCooldown.findIndex((cd) => cd.spell.id === TALENTS.SHADOW_WORD_DEATH_TALENT.id);
+  const highlights = ShadowWordDeathAnalyzer?.executeRanges.map(fromExecuteRange);
+
+  highlights?.sort((a, b) => a.startTime - b.startTime);
+
+  if(highlights != null){
+    const combined = [highlights[0]];
+    for (let i = 1; i < highlights.length; i=i+1) {
+      const currentRange = combined[combined.length - 1];
+      const nextRange = highlights[i];
+      if (nextRange.startTime <= currentRange.endTime) {
+        currentRange.endTime = Math.max(currentRange.endTime, nextRange.endTime);
+      } 
+      else {
+        combined.push(nextRange);
+      }
+  }
+  coreCooldown[cdIndex].activeWindows = combined;
+  console.log("CB", combined)
+  }
+  */
   return CoreCooldownGraphSubsection(coreCooldown, message);
 };
 
