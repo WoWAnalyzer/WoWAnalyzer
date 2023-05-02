@@ -69,7 +69,7 @@ const talents = createTalentList({
     id: 375801,
     name: 'Burnout',
     icon: 'spell_fire_soulburn',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [87657],
   },
   CALL_OF_YSERA_TALENT: {
@@ -91,7 +91,7 @@ const talents = createTalentList({
     name: 'Causality',
     icon: 'spell_azerite_essence_16',
     maxRanks: 1,
-    entryIds: [87639],
+    entryIds: [115682],
   },
   CAUTERIZING_FLAME_TALENT: {
     id: 374251,
@@ -180,7 +180,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87628],
     essenceCost: 2,
-    manaCost: 4250,
   },
   EMERALD_COMMUNION_TALENT: {
     id: 370960,
@@ -252,6 +251,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87647],
   },
+  EVENT_HORIZON_TALENT: {
+    id: 411164,
+    name: 'Event Horizon',
+    icon: 'ability_priest_cascade_shadow',
+    maxRanks: 1,
+    entryIds: [87639],
+  },
   EVERBURNING_FLAME_TALENT: {
     id: 370819,
     name: 'Everburning Flame',
@@ -289,9 +295,9 @@ const talents = createTalentList({
     entryIds: [87589],
   },
   EYE_OF_INFINITY_TALENT: {
-    id: 369375,
+    id: 411165,
     name: 'Eye of Infinity',
-    icon: 'ability_socererking_arcanewrath',
+    icon: 'ability_evoker_dragonrage2_blue',
     maxRanks: 1,
     entryIds: [87640],
   },
@@ -351,12 +357,19 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [87643],
   },
-  FONT_OF_MAGIC_TALENT: {
+  FONT_OF_MAGIC_DEVASTATION_TALENT: {
+    id: 411212,
+    name: 'Font of Magic',
+    icon: 'ability_evoker_fontofmagic',
+    maxRanks: 1,
+    entryIds: [87656],
+  },
+  FONT_OF_MAGIC_PRESERVATION_TALENT: {
     id: 375783,
     name: 'Font of Magic',
     icon: 'ability_evoker_fontofmagic',
     maxRanks: 1,
-    entryIds: [87656, 87596],
+    entryIds: [87596],
   },
   FORGER_OF_MOUNTAINS_TALENT: {
     id: 375528,
@@ -411,7 +424,7 @@ const talents = createTalentList({
     id: 370781,
     name: 'Imminent Destruction',
     icon: 'spell_burningbladeshaman_blazing_radiance',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [87655],
   },
   IMPOSING_PRESENCE_TALENT: {
@@ -475,7 +488,7 @@ const talents = createTalentList({
     id: 371034,
     name: 'Lay Waste',
     icon: 'ability_evoker_deepbreath',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [87648],
   },
   LEAPING_FLAMES_TALENT: {
@@ -594,7 +607,7 @@ const talents = createTalentList({
     id: 370839,
     name: 'Power Swell',
     icon: 'ability_evoker_powernexus2',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [87644],
   },
   PROTRACTED_TALONS_TALENT: {
@@ -625,6 +638,13 @@ const talents = createTalentList({
     icon: 'ability_evoker_quell',
     maxRanks: 1,
     entryIds: [87692],
+  },
+  RAGING_INFERNO_TALENT: {
+    id: 405659,
+    name: 'Raging Inferno',
+    icon: 'ability_warlock_inferno',
+    maxRanks: 1,
+    entryIds: [115026],
   },
   RECALL_TALENT: {
     id: 371806,
@@ -716,7 +736,7 @@ const talents = createTalentList({
     id: 370821,
     name: 'Scintillation',
     icon: 'spell_arcane_arcane03',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [87653],
   },
   SHATTERING_STAR_TALENT: {
@@ -739,7 +759,7 @@ const talents = createTalentList({
     name: 'Snapfire',
     icon: 'spell_shaman_improvedfirenova',
     maxRanks: 1,
-    entryIds: [87658],
+    entryIds: [115025],
   },
   SOURCE_OF_MAGIC_TALENT: {
     id: 369459,

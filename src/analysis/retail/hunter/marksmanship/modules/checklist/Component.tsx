@@ -102,18 +102,6 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           />
         )}
 
-        {combatant.hasTalent(TALENTS_HUNTER.LETHAL_SHOTS_TALENT) && (
-          <Requirement
-            name={
-              <>
-                Potential <SpellLink id={TALENTS_HUNTER.LETHAL_SHOTS_TALENT.id} /> triggers when{' '}
-                <SpellLink id={SPELLS.RAPID_FIRE.id} /> isn't on CD
-              </>
-            }
-            thresholds={thresholds.lethalShotsThresholds}
-          />
-        )}
-
         {combatant.hasTalent(TALENTS_HUNTER.STEADY_FOCUS_TALENT) && (
           <Requirement
             name={

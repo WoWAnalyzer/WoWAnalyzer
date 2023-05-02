@@ -1,9 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import SPECS from 'game/SPECS';
+import Combatant from 'parser/core/Combatant';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+
+const hasFont = (combatant: Combatant) =>
+  combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
+  combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT);
 
 // TODO: this mixes preservation talents in but not devastation talents
 class Abilities extends CoreAbilities {
@@ -32,9 +37,7 @@ class Abilities extends CoreAbilities {
       //endregion
       //region Damage Spells
       {
-        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT)
-          ? SPELLS.FIRE_BREATH_FONT.id
-          : SPELLS.FIRE_BREATH.id,
+        spell: hasFont(combatant) ? SPELLS.FIRE_BREATH_FONT.id : SPELLS.FIRE_BREATH.id,
         category:
           combatant.spec === SPECS.PRESERVATION_EVOKER
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
