@@ -20,9 +20,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { CAST_BUFFER_MS } from '../../constants';
 
-const TIER_4PC_RAINSTORM_PER_STACK = 0.01;
-const TIER_4PC_SWELLING_RAIN_CHAINHEAL_PER_STACK = 0.02;
-const TIER_4PC_SWELLING_RAIN_HSHW_PER_STACK = 0.1;
+const RAINSTORM_PER_STACK = 0.01;
+const SWELLING_RAIN_CHAINHEAL_PER_STACK = 0.02;
+const SWELLING_RAIN_HSHW_PER_STACK = 0.1;
 const debug = false;
 /**
  * **Resto Shaman T30 (Aberrus)**
@@ -104,7 +104,7 @@ export default class Tier30 extends Analyzer {
     if (!this.selectedCombatant.hasBuff(ITEMS.T30_RAINSTORM_BUFF.id)) {
       return;
     }
-    const healIncrease = this.current4pcStacks * TIER_4PC_RAINSTORM_PER_STACK;
+    const healIncrease = this.current4pcStacks * RAINSTORM_PER_STACK;
     this.rainstormHealing += calculateEffectiveHealing(event, healIncrease);
   }
 
@@ -118,7 +118,7 @@ export default class Tier30 extends Analyzer {
     ) {
       return;
     }
-    const healIncrease = this.current4pcStacks * TIER_4PC_SWELLING_RAIN_HSHW_PER_STACK;
+    const healIncrease = this.current4pcStacks * SWELLING_RAIN_HSHW_PER_STACK;
     const swellingRainHealingWaves = getSwellingRainHealingWaves(event);
     debug && console.log('healing wave', swellingRainHealingWaves, healIncrease);
     if (swellingRainHealingWaves.length > 0) {
@@ -140,7 +140,7 @@ export default class Tier30 extends Analyzer {
     ) {
       return;
     }
-    const healIncrease = this.current4pcStacks * TIER_4PC_SWELLING_RAIN_HSHW_PER_STACK;
+    const healIncrease = this.current4pcStacks * SWELLING_RAIN_HSHW_PER_STACK;
     this.swellingRainHealingSurge += calculateEffectiveHealing(event, healIncrease);
   }
 
@@ -154,7 +154,7 @@ export default class Tier30 extends Analyzer {
     ) {
       return;
     }
-    const healIncrease = this.current4pcStacks * TIER_4PC_SWELLING_RAIN_CHAINHEAL_PER_STACK;
+    const healIncrease = this.current4pcStacks * SWELLING_RAIN_CHAINHEAL_PER_STACK;
     const orderedChainHeal = this.chainHealNormalizer.normalizeChainHealOrder(event);
     debug && console.log('chain heal: ', orderedChainHeal, healIncrease);
     if (orderedChainHeal.length > 0) {
@@ -164,13 +164,10 @@ export default class Tier30 extends Analyzer {
   }
 
   private _tallyHealingIncrease(events: HealEvent[], healIncrease: number): number {
-    if (events.length > 0) {
-      return events.reduce(
-        (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
-        0,
-      );
-    }
-    return 0;
+    return events.reduce(
+      (amount, event) => amount + calculateEffectiveHealing(event, healIncrease),
+      0,
+    );
   }
 
   statistic() {
@@ -218,7 +215,7 @@ export default class Tier30 extends Analyzer {
               <>
                 Runes of the Cinderwolf
                 <br />
-                (Aberrus Tier)
+                (T30 Tier Set)
               </>
             </ItemSetLink>
           </label>
