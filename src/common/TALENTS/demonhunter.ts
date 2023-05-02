@@ -2,9 +2,9 @@
 import { createTalentList } from './types';
 
 const talents = createTalentList({
-  ACCELERATING_BLADE_TALENT: {
+  ACCELERATED_BLADE_TALENT: {
     id: 391275,
-    name: 'Accelerating Blade',
+    name: 'Accelerated Blade',
     icon: 'ability_demonhunter_throwglaive',
     maxRanks: 1,
     entryIds: [112932],

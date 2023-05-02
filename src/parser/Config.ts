@@ -23,6 +23,11 @@ export type Build = {
 };
 export type Builds = { [name: string]: Build };
 
+type VaultPatchCycle = `0.${0 | 2 | 5 | 7}`;
+type AberrusPatchCycle = `1.${0 | 5}`;
+export type DragonflightPatchVersion = `10.${VaultPatchCycle | AberrusPatchCycle}`;
+export type WrathPatchVersion = `3.4.0`;
+
 interface Config {
   /**
    * The people that have contributed to this spec recently. People don't have
@@ -36,7 +41,7 @@ interface Config {
   /**
    * The WoW client patch this spec is compatible with.
    */
-  patchCompatibility: null | '10.0.0' | '10.0.2' | '10.0.5' | '10.0.7' | string;
+  patchCompatibility: null | DragonflightPatchVersion | WrathPatchVersion;
   /**
    * Whether support for the spec is only partial and some important elements
    * are still missing. Note: you do not need to support every possible

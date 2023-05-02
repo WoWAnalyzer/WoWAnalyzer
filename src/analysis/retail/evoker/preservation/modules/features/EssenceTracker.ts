@@ -23,7 +23,7 @@ class EssenceTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.ESSENCE;
     this.maxResource =
       BASE_MAX_ESSENCE +
-      (this.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT) ? 1 : 0);
+      (this.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT) ? 1 : 0);
     this.baseRegenRate =
       BASE_ESSENCE_REGEN *
       (1 +
