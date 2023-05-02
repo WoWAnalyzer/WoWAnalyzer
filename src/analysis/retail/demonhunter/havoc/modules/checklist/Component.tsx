@@ -114,7 +114,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT}
           name={
             <>
-              <SpellLink id={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id} /> bad casts
+              <SpellLink spell={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id} /> bad casts
             </>
           }
           thresholds={thresholds.blindFuryBadCasts}
@@ -123,7 +123,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.DEMONIC_TALENT}
           name={
             <>
-              <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> bad casts
+              <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> bad casts
             </>
           }
           thresholds={thresholds.demonicBadCasts}
@@ -132,7 +132,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT}
           name={
             <>
-              <SpellLink id={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> bad casts
+              <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id} /> bad casts
             </>
           }
           thresholds={thresholds.felEruptionBadCasts}
@@ -141,7 +141,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT}
           name={
             <>
-              <SpellLink id={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} /> bad casts
+              <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} /> bad casts
             </>
           }
           thresholds={thresholds.felBarrageBadCasts}
@@ -167,7 +167,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT}
           name={
             <>
-              <SpellLink id={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id} /> buff uptime
+              <SpellLink spell={TALENTS_DEMON_HUNTER.MOMENTUM_TALENT.id} /> buff uptime
             </>
           }
           thresholds={thresholds.momentumBuffUptime}
@@ -218,7 +218,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.DEMONS_BITE.id} /> wasted Fury
+                <SpellLink spell={SPELLS.DEMONS_BITE.id} /> wasted Fury
               </>
             }
             thresholds={thresholds.demonBiteFury}
@@ -228,7 +228,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.BURNING_HATRED_TALENT}
           name={
             <>
-              <SpellLink id={SPELLS.IMMOLATION_AURA.id} /> Fury wasted
+              <SpellLink spell={SPELLS.IMMOLATION_AURA.id} /> Fury wasted
             </>
           }
           thresholds={thresholds.immolationAuraEfficiency}
@@ -237,7 +237,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.FELBLADE_TALENT}
           name={
             <>
-              <SpellLink id={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} /> Fury wasted
+              <SpellLink spell={TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id} /> Fury wasted
             </>
           }
           thresholds={thresholds.felbladeEfficiency}
@@ -246,7 +246,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT}
           name={
             <>
-              <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT.id} /> Fury wasted
+              <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT.id} /> Fury wasted
             </>
           }
           thresholds={thresholds.demonicAppetiteEfficiency}
@@ -255,7 +255,7 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           talent={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT}
           name={
             <>
-              <SpellLink id={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id} /> Fury wasted
+              <SpellLink spell={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id} /> Fury wasted
             </>
           }
           thresholds={thresholds.demonBladesEfficiency}

@@ -66,9 +66,9 @@ export default class VoidReaver extends HitBasedAnalyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Cast <SpellLink id={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} /> /{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> /{' '}
-          <SpellLink id={SPELLS.SOUL_CLEAVE} /> more regularly while actively tanking the boss or
+          Cast <SpellLink spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} /> /{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> /{' '}
+          <SpellLink spell={SPELLS.SOUL_CLEAVE} /> more regularly while actively tanking the boss or
           when they use a big attack. You missed having Frailty up for{' '}
           {formatPercentage(1 - actual)}% of hits.
         </>,

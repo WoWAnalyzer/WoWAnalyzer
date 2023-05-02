@@ -50,8 +50,8 @@ export default class DemonSpikes extends MajorDefensiveBuff {
     return (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.defensives.demonSpikes.explanation.summary">
-          <SpellLink id={SPELLS.DEMON_SPIKES} /> nearly <strong>doubles</strong> the amount of armor
-          that you have and is critical to have up while actively tanking melee hits.
+          <SpellLink spell={SPELLS.DEMON_SPIKES} /> nearly <strong>doubles</strong> the amount of
+          armor that you have and is critical to have up while actively tanking melee hits.
         </Trans>
       </p>
     );

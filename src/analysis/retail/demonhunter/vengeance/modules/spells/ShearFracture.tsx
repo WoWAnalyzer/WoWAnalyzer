@@ -74,7 +74,7 @@ export default class ShearFracture extends Analyzer {
     when(this.wastedCasts).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your cast of <SpellLink id={this.cast.id} /> generated souls beyond the cap of 5.
+          Your cast of <SpellLink spell={this.cast.id} /> generated souls beyond the cap of 5.
         </>,
       )
         .icon(this.cast.icon)

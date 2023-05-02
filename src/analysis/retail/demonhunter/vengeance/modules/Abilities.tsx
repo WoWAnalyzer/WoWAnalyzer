@@ -30,8 +30,8 @@ class Abilities extends SharedAbilities {
           extraSuggestion: (
             <>
               This is a great Fury filler spell. Try to always cast it on cooldown, specially when
-              using the <SpellLink id={TALENTS_DEMON_HUNTER.FALLOUT_TALENT.id} /> talent in order to
-              maximize your <SpellLink id={SPELLS.SOUL_FRAGMENT.id} /> generation.
+              using the <SpellLink spell={TALENTS_DEMON_HUNTER.FALLOUT_TALENT.id} /> talent in order
+              to maximize your <SpellLink spell={SPELLS.SOUL_FRAGMENT.id} /> generation.
             </>
           ),
         },
@@ -194,8 +194,8 @@ class Abilities extends SharedAbilities {
           extraSuggestion: (
             <>
               The only time you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id} /> is when you're expecting
-              are preparing for a burst window.
+              <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT.id} /> is when you're
+              expecting are preparing for a burst window.
             </>
           ),
         },

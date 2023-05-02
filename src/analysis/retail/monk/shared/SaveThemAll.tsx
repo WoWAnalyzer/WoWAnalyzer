@@ -49,7 +49,7 @@ class SaveThemAll extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(4)}
+        position={STATISTIC_ORDER.CORE(12)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={

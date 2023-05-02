@@ -69,7 +69,7 @@ export default class FieryBrand extends HitBasedAnalyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Cast <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id} /> more regularly while
+          Cast <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.id} /> more regularly while
           actively tanking the boss or when they use a big attack. You missed having it up for{' '}
           {formatPercentage(1 - actual)}% of hits.
         </>,

@@ -408,6 +408,16 @@ const spells = spellIndexableList({
     name: 'Final Verdict',
     icon: 'spell_paladin_templarsverdict',
   },
+  TEMPLAR_STRIKE: {
+    id: 407480,
+    name: 'Templar Strike',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  TEMPLAR_SLASH: {
+    id: 406647,
+    name: 'Templar Slash',
+    icon: 'inv_sword_2h_artifactashbringerpurified_d_03',
+  },
 
   // Protection
   // GoAK has a different spell ID with Glyph of the Queen

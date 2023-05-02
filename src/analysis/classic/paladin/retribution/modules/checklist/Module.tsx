@@ -1,32 +1,36 @@
-import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
+// Core
+import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
+import Component from './Component';
+// Shared
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
-import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
-import ManaValues from 'parser/shared/modules/ManaValues';
-
-import IronFur from '../../spells/IronFur';
-import Thrash from '../../spells/Thrash';
-import AlwaysBeCasting from '../AlwaysBeCasting';
-import Component from './Component';
+import CombatPotionChecker from 'parser/classic/modules/items/CombatPotionChecker';
+import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/PreparationRuleAnalyzer';
+// Features
+import AlwaysBeCasting from '../features/AlwaysBeCasting';
+// Spells
 
 class Checklist extends BaseChecklist {
   static dependencies = {
     ...BaseChecklist.dependencies,
-    combatants: Combatants,
+    // Shared
     castEfficiency: CastEfficiency,
-    manaValues: ManaValues,
+    combatants: Combatants,
+    combatPotionChecker: CombatPotionChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    // Features
     alwaysBeCasting: AlwaysBeCasting,
-    ironFur: IronFur,
-    thrash: Thrash,
+    // Spells
   };
-  protected combatants!: Combatants;
+
+  // Shared
   protected castEfficiency!: CastEfficiency;
-  protected manaValues!: ManaValues;
+  protected combatants!: Combatants;
+  protected combatPotionChecker!: CombatPotionChecker;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  // Features
   protected alwaysBeCasting!: AlwaysBeCasting;
-  protected ironFur!: IronFur;
-  protected thrash!: Thrash;
+  // Spells
 
   render() {
     return (
@@ -36,7 +40,7 @@ class Checklist extends BaseChecklist {
         thresholds={{
           ...this.preparationRuleAnalyzer.thresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
-          ironFur: this.ironFur.suggestionThresholds,
+          // Spells
         }}
       />
     );

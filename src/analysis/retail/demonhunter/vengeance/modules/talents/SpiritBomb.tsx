@@ -112,13 +112,13 @@ export default class SpiritBomb extends Analyzer {
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.spritBomb.explanation">
           <strong>
-            <SpellLink id={TALENTS.SPIRIT_BOMB_TALENT} />
+            <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} />
           </strong>{' '}
           is your primary AoE <strong>spender</strong> of <strong>Fury</strong> and{' '}
           <strong>Soul Fragments</strong>. It consumes all available Soul Fragments (up to 5) and
           does more damage for each Soul Fragment consumed. Cast it when you have{' '}
           {SPIRIT_BOMB_SOULS_OUT_OF_META}+ Soul Fragments available. In{' '}
-          <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have{' '}
+          <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have{' '}
           {SPIRIT_BOMB_SOULS_IN_META}+ Soul Fragments available.
           <FieryDemiseExplanation />
         </Trans>
@@ -205,8 +205,8 @@ export default class SpiritBomb extends Analyzer {
         summary: <div>Cast in Single Target with Fiery Demise</div>,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
-            without <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> talented.
+            You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
+            without <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> talented.
           </div>
         ),
       };
@@ -222,8 +222,8 @@ export default class SpiritBomb extends Analyzer {
         summary: <div>Cast in Single Target with Fiery Demise</div>,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
-            without <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to the
+            You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
+            without <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to the
             target.
           </div>
         ),
@@ -234,9 +234,9 @@ export default class SpiritBomb extends Analyzer {
       summary: <div>Cast in Single Target with Fiery Demise</div>,
       details: (
         <div>
-          You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target with{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to the target. Good
-          job!
+          You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
+          with <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to the target.
+          Good job!
         </div>
       ),
     };
@@ -257,8 +257,8 @@ export default class SpiritBomb extends Analyzer {
           ),
           details: (
             <div>
-              You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
-              {amountOfStacksConsumed} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+              You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
+              {amountOfStacksConsumed} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
               s. Good job!
             </div>
           ),
@@ -269,10 +269,10 @@ export default class SpiritBomb extends Analyzer {
         summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments</div>,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
-            {amountOfStacksConsumed} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
-            s. <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
-            {SPIRIT_BOMB_SOULS_IN_META} while in <SpellLink id={SPELLS.METAMORPHOSIS_TANK} />.
+            You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
+            {amountOfStacksConsumed} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+            s. <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
+            {SPIRIT_BOMB_SOULS_IN_META} while in <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />.
           </div>
         ),
       };
@@ -283,8 +283,8 @@ export default class SpiritBomb extends Analyzer {
         summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
-            {amountOfStacksConsumed} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
+            You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
+            {amountOfStacksConsumed} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
             s. Good job!
           </div>
         ),
@@ -295,9 +295,9 @@ export default class SpiritBomb extends Analyzer {
       summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>,
       details: (
         <div>
-          You cast <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
-          {amountOfStacksConsumed} <SpellLink id={SPELLS.SOUL_FRAGMENT_STACK} />
-          s. <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
+          You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
+          {amountOfStacksConsumed} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+          s. <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
           {SPIRIT_BOMB_SOULS_OUT_OF_META}.
         </div>
       ),

@@ -46,6 +46,8 @@ interface PassedProps {
   selectedPhase: string;
   selectedInstance: number;
   handlePhaseSelection: (phase: string, instance: number) => void;
+  selectedDungeonPull: string;
+  handleDungeonPullSelection: (pull: string) => void;
   applyFilter: (start: number, end: number) => void;
   timeFilter?: Filter;
   build?: string;
@@ -193,8 +195,10 @@ const Results = (props: PassedProps) => {
           selectedTab={selectedTab}
           selectedPhase={props.selectedPhase}
           selectedInstance={props.selectedInstance}
+          selectedDungeonPull={props.selectedDungeonPull}
           phases={props.phases}
           handlePhaseSelection={props.handlePhaseSelection}
+          handleDungeonPullSelection={props.handleDungeonPullSelection}
           applyFilter={props.applyFilter}
           build={props.build}
           isLoading={isLoading}

@@ -249,10 +249,9 @@ const spells = spellIndexableList({
     icon: 'spell_holy_sealofblood',
   },
   SEAL_OF_CORRUPTION: {
-    id: 53736,
+    id: 348704,
     name: 'Seal of Corruption',
     icon: 'spell_holy_sealofvengeance',
-    lowRanks: [348704],
   },
   SEAL_OF_JUSTICE: {
     id: 20164,

@@ -21,7 +21,7 @@ export default class DemonSoulBuff extends Analyzer {
   statistic(): ReactNode {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
-        <BoringSpellValueText spellId={SPELLS.DEMON_SOUL_BUFF_NON_FODDER.id}>
+        <BoringSpellValueText spell={SPELLS.DEMON_SOUL_BUFF_NON_FODDER}>
           <ItemDamageDone amount={this.addedDamage} />
         </BoringSpellValueText>
       </Statistic>

@@ -33,6 +33,7 @@ const ResultsLoader = () => {
   const [timeFilter, setTimeFilter] = useState<Filter | null>(null);
   const [selectedPhase, setSelectedPhase] = useState<string>(SELECTION_ALL_PHASES);
   const [selectedInstance, setSelectedInstance] = useState<number>(0);
+  const [selectedDungeonPull, setSelectedDungeonPull] = useState<string>(SELECTION_ALL_PHASES);
 
   const parserClass = useParser(config);
   const isLoadingParser = parserClass == null;
@@ -89,6 +90,21 @@ const ResultsLoader = () => {
     // TODO: I don't think we need to re-render whenever phases changes.. this callback should work the same.
     // this is here because of react-hooks/exhaustive-deps
     [fight.end_time, fight.start_time],
+  );
+  const applyDungeonPullFilter = useCallback(
+    (dungeonPull: string) => {
+      setSelectedDungeonPull(dungeonPull);
+      const matchingDungeonPull = fight.dungeonPulls?.find(
+        (pull) => String(pull.id) === dungeonPull,
+      );
+      if (dungeonPull === SELECTION_ALL_PHASES || !matchingDungeonPull) {
+        setTimeFilter(null);
+      } else {
+        setTimeFilter({ start: matchingDungeonPull.start_time, end: matchingDungeonPull.end_time });
+      }
+      return null;
+    },
+    [fight.dungeonPulls],
   );
 
   // Original code only rendered TimeEventFilter if
@@ -169,7 +185,9 @@ const ResultsLoader = () => {
       phases={phases}
       selectedPhase={selectedPhase}
       selectedInstance={selectedInstance}
+      selectedDungeonPull={selectedDungeonPull}
       handlePhaseSelection={applyPhaseFilter}
+      handleDungeonPullSelection={applyDungeonPullFilter}
       applyFilter={applyTimeFilter}
       timeFilter={timeFilter!}
       build={build}

@@ -31,7 +31,7 @@ export default class Blur extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.BLUR.id} /> uptime can be improved. This is easy to maintain
+          Your <SpellLink spell={SPELLS.BLUR.id} /> uptime can be improved. This is easy to maintain
           and an important source of damage reduction.
         </>,
       )
@@ -54,7 +54,7 @@ export default class Blur extends Analyzer {
         size="flexible"
         tooltip={<>Total uptime was {formatDuration(this.uptime)}.</>}
       >
-        <BoringSpellValueText spellId={SPELLS.BLUR.id}>
+        <BoringSpellValueText spell={SPELLS.BLUR}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>

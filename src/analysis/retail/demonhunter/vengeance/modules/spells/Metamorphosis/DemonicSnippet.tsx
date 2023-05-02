@@ -11,8 +11,8 @@ const DemonicSnippet = () => {
   return (
     <p>
       <Trans id="guide.demonhunter.vengeance.sections.defensives.metamorphosis.explanation.demonic">
-        Metamorphosis is also granted by <SpellLink id={TALENTS.DEMONIC_TALENT} /> when you press{' '}
-        <SpellLink id={TALENTS.FEL_DEVASTATION_TALENT} />.
+        Metamorphosis is also granted by <SpellLink spell={TALENTS.DEMONIC_TALENT} /> when you press{' '}
+        <SpellLink spell={TALENTS.FEL_DEVASTATION_TALENT} />.
       </Trans>
     </p>
   );

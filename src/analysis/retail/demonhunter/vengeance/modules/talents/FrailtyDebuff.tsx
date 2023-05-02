@@ -48,8 +48,8 @@ class FrailtyDebuff extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.FRAILTY.id} /> uptime can be improved. This is easy to maintain
-          and an important source of healing.
+          Your <SpellLink spell={SPELLS.FRAILTY.id} /> uptime can be improved. This is easy to
+          maintain and an important source of healing.
         </>,
       )
         .icon(SPELLS.FRAILTY.icon)

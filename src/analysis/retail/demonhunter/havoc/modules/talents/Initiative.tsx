@@ -43,8 +43,8 @@ export default class Initiative extends Analyzer {
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.id} /> buff to maximize
-          damage.
+          Maintain the <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.id} /> buff to
+          maximize damage.
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.icon)

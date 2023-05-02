@@ -18,7 +18,7 @@ import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS } from '../../constants';
 import EssenceFont from './EssenceFont';
 import { PerformanceMark } from 'interface/guide';
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
+import { formatDurationMillisMinSec, formatNumber } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
 import Pets from 'parser/shared/modules/Pets';
 import InformationIcon from 'interface/icons/Information';
@@ -35,7 +35,8 @@ export interface BaseCelestialTracker {
   recastEf: boolean; // whether player recast ef during celestial
   deathTimestamp: number; // when pet died
 }
-
+const lessonsDebug = false;
+const siDebug = false;
 const ENVM_HASTE_FACTOR = 0.55; // this factor determines how harsh to be for ideal envm casts
 const CHIJI_GIFT_ENVMS = 2.5;
 const YULON_GIFT_ENVMS = 4;
@@ -48,18 +49,27 @@ class BaseCelestialAnalyzer extends Analyzer {
   };
   protected haste!: Haste;
   protected pets!: Pets;
+
+  //secret infusion vars
   siApplyTime: number = -1;
+  secretInfusionActive: boolean = false;
+  goodSiDuration: number = 0; // how long SI should last during celestial
+
+  //shaohaos lessons vars
   lessonsApplyTime: number = -1;
+  lessonsActive: boolean = false;
+  goodLessonDuration: number = 0; // how long lesson should last during celestial
+
+  //celestial vars
   celestialActive: boolean = false;
   currentCelestialStart: number = -1;
   lastCelestialEnd: number = -1;
   celestialWindows: Map<number, number> = new Map<number, number>();
   castTrackers: BaseCelestialTracker[] = [];
   hasteDataPoints: number[] = []; // use this to estimate average haste during celestial
-  goodSiDuration: number = 0; // how long SI should last during celestial
-  goodLessonDuration: number = 0; // how long lesson should last during celestial
   idealEnvmCastsUnhasted: number = 0;
   minEfHotsBeforeCast: number = 0;
+
   constructor(options: Options) {
     super(options);
     this.active =
@@ -125,7 +135,11 @@ class BaseCelestialAnalyzer extends Analyzer {
       (1 + this.selectedCombatant.getTalentRank(TALENTS_MONK.JADE_BOND_TALENT));
     this.minEfHotsBeforeCast =
       10 + 6 * this.selectedCombatant.getTalentRank(TALENTS_MONK.UPWELLING_TALENT);
-    this.goodSiDuration = 10000; // base si duration
+    this.goodSiDuration = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
+    )
+      ? 5000
+      : 10000;
     this.goodLessonDuration = this.selectedCombatant.hasTalent(
       TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
     )
@@ -134,19 +148,51 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   onSummon(event: SummonEvent) {
+    (lessonsDebug || siDebug) &&
+      console.log('Celestial Summoned: ', this.owner.formatTimestamp(event.timestamp));
     this.celestialActive = true;
     this.currentCelestialStart = event.timestamp;
     this.hasteDataPoints = [];
-    SECRET_INFUSION_BUFFS.forEach((spell) => {
-      if (this.selectedCombatant.hasBuff(spell.id)) {
-        this.siApplyTime = event.timestamp;
-      }
-    });
-    LESSONS_BUFFS.forEach((spell) => {
-      if (this.selectedCombatant.hasBuff(spell.id)) {
-        this.lessonsApplyTime = event.timestamp;
-      }
-    });
+    if (this.secretInfusionActive) {
+      this.siApplyTime = event.timestamp;
+    }
+    if (this.lessonsActive) {
+      this.lessonsApplyTime = event.timestamp;
+    }
+  }
+
+  handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
+    const pet = this.pets.getEntityFromEvent(event, true);
+    if (
+      (!pet || !pet.name) &&
+      this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
+    ) {
+      return;
+    }
+    (lessonsDebug || siDebug) &&
+      console.log('Celestial Death: ', this.owner.formatTimestamp(event.timestamp));
+    this.celestialActive = false;
+    this.celestialWindows.set(this.currentCelestialStart, event.timestamp);
+    this.currentCelestialStart = -1;
+    this.lastCelestialEnd = event.timestamp;
+    this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
+    this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
+    if (this.secretInfusionActive) {
+      this.castTrackers.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
+      siDebug &&
+        console.log(
+          'SI Duration: ',
+          formatDurationMillisMinSec(event.timestamp - this.siApplyTime),
+        );
+    }
+    if (this.lessonsActive) {
+      this.castTrackers.at(-1)!.lessonsDuration = event.timestamp - this.lessonsApplyTime;
+      lessonsDebug &&
+        console.log(
+          'Lessons Duration: ',
+          formatDurationMillisMinSec(event.timestamp - this.lessonsApplyTime),
+        );
+    }
   }
 
   onAction(event: HealEvent | CastEvent | DamageEvent) {
@@ -185,53 +231,50 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.castTrackers.at(-1)!.totalEnvB += 1;
   }
 
+  /**
+   * 4 cases for shaohaos lessons and SI logic:
+   *       | SUMMON |  duration  | DEATH |
+   * 1) App             Remove
+   * 2) App                                Remove
+   * 3)               App Remove
+   * 4)                 App                Remove
+   */
+
   applySi(event: ApplyBuffEvent) {
-    if (!this.celestialActive) {
-      return;
-    }
+    siDebug && console.log('SI Applied: ', this.owner.formatTimestamp(event.timestamp));
+    this.secretInfusionActive = true;
     this.siApplyTime = event.timestamp;
   }
 
   applyLessons(event: ApplyBuffEvent) {
-    if (!this.celestialActive) {
-      return;
-    }
+    lessonsDebug && console.log('Lessons Applied: ', this.owner.formatTimestamp(event.timestamp));
+    this.lessonsActive = true;
     this.lessonsApplyTime = event.timestamp;
   }
 
-  removeSi(event: RemoveBuffEvent | DeathEvent) {
-    if (!this.celestialActive || this.siApplyTime < this.owner.fight.start_time) {
-      return;
+  removeSi(event: RemoveBuffEvent) {
+    this.secretInfusionActive = false;
+    if (this.celestialActive) {
+      this.castTrackers.at(-1)!.infusionDuration = event.timestamp - this.siApplyTime;
+      siDebug &&
+        console.log(
+          'SI Duration: ',
+          formatDurationMillisMinSec(event.timestamp - this.siApplyTime),
+        );
     }
-    this.castTrackers.at(-1)!.infusionDuration += event.timestamp - this.siApplyTime;
+    siDebug && console.log('SI Removed: ', this.owner.formatTimestamp(event.timestamp));
   }
 
   removeLessons(event: RemoveBuffEvent) {
-    if (
-      this.castTrackers.length === 0 ||
-      this.castTrackers.at(-1)!.lessonsDuration > 0 ||
-      this.lessonsApplyTime < this.owner.fight.start_time ||
-      (this.castTrackers.at(-1)!.deathTimestamp > 0 &&
-        this.castTrackers.at(-1)!.deathTimestamp < this.lessonsApplyTime)
-    ) {
-      return;
-    }
-    /**
-     * 4 cases
-     *       | SUMMON |  duration  | DEATH |
-     * 1) App             Remove
-     * 2) App                                Remove
-     * 3)               App Remove
-     * 4)                 App                Remove
-     */
-    if (this.lessonsApplyTime < event.timestamp) {
-      this.castTrackers.at(-1)!.lessonsDuration += this.celestialActive
-        ? event.timestamp - this.castTrackers.at(-1)!.timestamp // case 1
-        : this.castTrackers.at(-1)!.deathTimestamp - this.castTrackers.at(-1)!.timestamp; // case 2
-    } else {
-      this.castTrackers.at(-1)!.lessonsDuration += this.celestialActive
-        ? event.timestamp - this.lessonsApplyTime // case 3
-        : this.castTrackers.at(-1)!.deathTimestamp - this.lessonsApplyTime; // case 4
+    lessonsDebug && console.log('Lessons Removed: ', this.owner.formatTimestamp(event.timestamp));
+    this.lessonsActive = false;
+    if (this.celestialActive) {
+      this.castTrackers.at(-1)!.lessonsDuration = event.timestamp - this.lessonsApplyTime;
+      lessonsDebug &&
+        console.log(
+          'Lessons Duration: ',
+          formatDurationMillisMinSec(event.timestamp - this.lessonsApplyTime),
+        );
     }
   }
 
@@ -256,6 +299,9 @@ class BaseCelestialAnalyzer extends Analyzer {
     cast: BaseCelestialTracker,
   ): [QualitativePerformance[], CooldownExpandableItem[]] {
     const checklistItems: CooldownExpandableItem[] = [];
+    const allPerfs: QualitativePerformance[] = [];
+
+    //average enveloping breath targets
     let envbPerf = QualitativePerformance.Good;
     const avgBreathsPerCast = cast.totalEnvB / cast.totalEnvM;
     if (avgBreathsPerCast < 4) {
@@ -263,6 +309,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     } else if (avgBreathsPerCast < 3) {
       envbPerf = QualitativePerformance.Fail;
     }
+    allPerfs.push(envbPerf);
     checklistItems.push({
       label: (
         <>
@@ -273,6 +320,8 @@ class BaseCelestialAnalyzer extends Analyzer {
       result: <PerformanceMark perf={envbPerf} />,
       details: <>{avgBreathsPerCast.toFixed(1)} avg</>,
     });
+
+    //enveloping mist casts
     let envmPerf = QualitativePerformance.Good;
     const idealEnvm = this.getExpectedEnvmCasts(cast.averageHaste);
     if (cast.totalEnvM < idealEnvm - 1) {
@@ -280,6 +329,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     } else if (cast.totalEnvM < idealEnvm - 2) {
       envmPerf = QualitativePerformance.Fail;
     }
+    allPerfs.push(envmPerf);
     checklistItems.push({
       label: (
         <>
@@ -290,28 +340,32 @@ class BaseCelestialAnalyzer extends Analyzer {
       details: <>{formatNumber(cast.totalEnvM)}</>,
     });
 
-    let efPerf = QualitativePerformance.Good;
-    if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.75)) {
-      efPerf = QualitativePerformance.Fail;
-    } else if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.9)) {
-      efPerf = QualitativePerformance.Ok;
+    //Pre-cast essence font hots
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)) {
+      let efPerf = QualitativePerformance.Good;
+      if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.75)) {
+        efPerf = QualitativePerformance.Fail;
+      } else if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.9)) {
+        efPerf = QualitativePerformance.Ok;
+      }
+      allPerfs.push(efPerf);
+      checklistItems.push({
+        label: (
+          <>
+            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on start
+          </>
+        ),
+        result: <PerformanceMark perf={efPerf} />,
+        details: <>{cast.numEfHots}</>,
+      });
     }
-    checklistItems.push({
-      label: (
-        <>
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on start
-        </>
-      ),
-      result: <PerformanceMark perf={efPerf} />,
-      details: <>{cast.numEfHots}</>,
-    });
-    const allPerfs: QualitativePerformance[] = [envbPerf, efPerf, envmPerf];
 
+    //secret infusion duration
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
       let siPerf = QualitativePerformance.Good;
-      if (cast.infusionDuration! < this.goodSiDuration - 4000) {
+      if (cast.infusionDuration! < this.goodSiDuration / 3) {
         siPerf = QualitativePerformance.Fail;
-      } else if (cast.infusionDuration! < this.goodSiDuration - 2000) {
+      } else if (cast.infusionDuration! < this.goodSiDuration * (2 / 3)) {
         siPerf = QualitativePerformance.Ok;
       }
       allPerfs.push(siPerf);
@@ -324,9 +378,15 @@ class BaseCelestialAnalyzer extends Analyzer {
               content={
                 <>
                   Be sure to use <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-                  <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
-                  <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> for a multiplicative haste
-                  bonus
+                  <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
+                  {this.selectedCombatant.hasTalent(
+                    TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
+                  ) && (
+                    <>
+                      or <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} />
+                    </>
+                  )}{' '}
+                  for a multiplicative haste bonus
                 </>
               }
             >
@@ -340,6 +400,8 @@ class BaseCelestialAnalyzer extends Analyzer {
         details: <>{Math.round(cast.infusionDuration! / 1000)}s</>,
       });
     }
+
+    //shaohao's lessons buff duration
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
       let lessonPerf = QualitativePerformance.Good;
       if (cast.lessonsDuration! < this.goodLessonDuration / 3) {
@@ -357,8 +419,7 @@ class BaseCelestialAnalyzer extends Analyzer {
               content={
                 <>
                   Cast <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to
-                  cover the entire duration of{' '}
-                  <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
+                  cover the entire duration of <SpellLink id={this.getCelestialTalent()} />
                 </>
               }
             >
@@ -381,37 +442,6 @@ class BaseCelestialAnalyzer extends Analyzer {
         return accum + cur;
       }, 0) / this.hasteDataPoints.length
     );
-  }
-
-  handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
-    const pet = this.pets.getEntityFromEvent(event, true);
-    if (!pet || !pet.name) {
-      return;
-    }
-    this.celestialActive = false;
-    this.celestialWindows.set(this.currentCelestialStart, event.timestamp);
-    this.currentCelestialStart = -1;
-    this.lastCelestialEnd = event.timestamp;
-    this.castTrackers.at(-1)!.averageHaste = this.curAverageHaste;
-    this.castTrackers.at(-1)!.deathTimestamp = event.timestamp;
-    const hasInfusion = SECRET_INFUSION_BUFFS.some((spell) => {
-      return this.selectedCombatant.hasBuff(spell.id);
-    });
-    const hasLesson = LESSONS_BUFFS.some((spell) => {
-      return this.selectedCombatant.hasBuff(spell.id);
-    });
-    if (hasInfusion) {
-      this.castTrackers.at(-1)!.infusionDuration += Math.min(
-        event.timestamp - this.siApplyTime,
-        event.timestamp - this.castTrackers.at(-1)!.timestamp,
-      );
-    }
-    if (hasLesson) {
-      this.castTrackers.at(-1)!.lessonsDuration += Math.min(
-        event.timestamp - this.lessonsApplyTime,
-        event.timestamp - this.castTrackers.at(-1)!.timestamp,
-      );
-    }
   }
 }
 

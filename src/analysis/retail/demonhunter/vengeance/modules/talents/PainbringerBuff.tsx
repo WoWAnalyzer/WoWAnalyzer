@@ -40,7 +40,7 @@ export default class PainbringerBuff extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT} /> uptime can be improved.
+          Your <SpellLink spell={TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT} /> uptime can be improved.
           This is easy to maintain and an important source of damage reduction.
         </>,
       )

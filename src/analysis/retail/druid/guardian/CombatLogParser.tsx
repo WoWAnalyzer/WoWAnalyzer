@@ -1,65 +1,56 @@
-import ActiveDruidForm from 'analysis/retail/druid/core/ActiveDruidForm';
-import RavenousFrenzy from 'analysis/retail/druid/shadowlands/RavenousFrenzy';
-import { SinfulHysteria } from 'analysis/retail/druid/shared';
+import ActiveDruidForm from 'analysis/retail/druid/shared/core/ActiveDruidForm';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
 import Abilities from './modules/Abilities';
-import ActiveTargets from './modules/features/ActiveTargets';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import AntiFillerSpam from './modules/features/AntiFillerSpam';
-import Checklist from './modules/features/Checklist/Module';
-import FrenziedRegenGoEProcs from './modules/features/FrenziedRegenGoEProcs';
-import GalacticGuardian from './modules/features/GalacticGuardian';
-import Gore from './modules/features/Gore';
-import GuardianOfElune from './modules/features/GuardianOfElune';
-import IronFurGoEProcs from './modules/features/IronFurGoEProcs';
-import MitigationCheck from './modules/features/MitigationCheck';
-import RageWasted from './modules/features/RageWasted';
-import ConvokeSpiritsGuardian from './modules/shadowlands/ConvokeSpiritsGuardian';
-import FrenziedRegeneration from './modules/spells/FrenziedRegeneration';
-import IronFur from './modules/spells/IronFur';
-import Moonfire from './modules/spells/Moonfire';
-import Thrash from './modules/spells/Thrash';
-import Earthwarden from './modules/talents/Earthwarden';
-import Incarnation from './modules/talents/Incarnation';
-import Pulverize from './modules/talents/Pulverize';
+import ConvokeSpiritsGuardian from './modules/spells/ConvokeSpiritsGuardian';
+import Guide from 'analysis/retail/druid/guardian/Guide';
+import Ironfur from 'analysis/retail/druid/guardian/modules/spells/Ironfur';
+import RageTracker from 'analysis/retail/druid/guardian/modules/core/rage/RageTracker';
+import RageGraph from 'analysis/retail/druid/guardian/modules/core/rage/RageGraph';
+import RageDetails from 'analysis/retail/druid/guardian/modules/core/rage/RageDetails';
+import Barkskin from 'analysis/retail/druid/guardian/modules/core/defensives/Barkskin';
+import SurvivalInstincts from 'analysis/retail/druid/guardian/modules/core/defensives/SurvivalInstincts';
+import RageOfTheSleeper from 'analysis/retail/druid/guardian/modules/core/defensives/RageOfTheSleeper';
+import Pulverize from 'analysis/retail/druid/guardian/modules/core/defensives/Pulverize';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    abilityTracker: AbilityTracker,
     abilities: Abilities,
-    mitigationCheck: MitigationCheck,
     activeDruidForm: ActiveDruidForm,
+    rageTracker: RageTracker,
+    rageGraph: RageGraph,
+    rageDetails: RageDetails,
+
+    // Defensives
+    barkskin: Barkskin,
+    survivalInstincts: SurvivalInstincts,
+    rageOfTheSleeper: RageOfTheSleeper,
+    pulverize: Pulverize,
 
     // Features
-    checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
-    activeTargets: ActiveTargets,
-    goreProcs: Gore,
-    galacticGuardianProcs: GalacticGuardian,
-    guardianOfEluneProcs: GuardianOfElune,
-    ironFurGoEProcs: IronFurGoEProcs,
-    frenziedRegenGoEProcs: FrenziedRegenGoEProcs,
-    rageWasted: RageWasted,
-    antiFillerSpam: AntiFillerSpam,
+    // activeTargets: ActiveTargets,
+    // goreProcs: Gore,
+    // galacticGuardianProcs: GalacticGuardian,
+    // guardianOfEluneProcs: GuardianOfElune,
+    // ironFurGoEProcs: IronFurGoEProcs,
+    // frenziedRegenGoEProcs: FrenziedRegenGoEProcs,
+    // rageWasted: RageWasted,
 
-    ironFur: IronFur,
-    thrash: Thrash,
-    moonfire: Moonfire,
-    pulverize: Pulverize,
-    frenziedRegeneration: FrenziedRegeneration,
-
-    // Talents:
-    earthwarden: Earthwarden,
-    incarnation: Incarnation,
-
-    // Covenants
+    // Spells
     convokeSpirits: ConvokeSpiritsGuardian,
-    sinfulHysteria: SinfulHysteria,
-    ravenousFrenzy: RavenousFrenzy,
+    ironfur: Ironfur,
+    // thrash: Thrash,
+    // moonfire: Moonfire,
+    // pulverize: Pulverize,
+    // frenziedRegeneration: FrenziedRegeneration,
+    // earthwarden: Earthwarden,
+    // incarnation: Incarnation,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

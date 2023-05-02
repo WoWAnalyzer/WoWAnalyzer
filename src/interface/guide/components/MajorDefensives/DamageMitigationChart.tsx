@@ -17,9 +17,11 @@ export const DamageMitigationChart = React.memo(
   ({
     onHover,
     analyzers,
+    yScale,
   }: {
     onHover: SignalListener;
     analyzers: readonly MajorDefensive<any, any>[];
+    yScale?: number;
   }) => {
     const events = useEvents();
     const info = useInfo();
@@ -162,7 +164,7 @@ export const DamageMitigationChart = React.memo(
               title: 'Damage Taken per Second',
               type: 'quantitative',
               axis: { format: '~s', grid: false },
-              scale: { zero: true, domain: { unionWith: [0, maxHp] } },
+              scale: { zero: true, domain: { unionWith: [0, maxHp * (yScale || 1)] } },
               stack: true,
             },
           },
