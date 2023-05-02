@@ -5,22 +5,18 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import ElementalOrbit from './ElementalOrbit';
 
 export const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
-class EarthShield extends Analyzer {
+class ElementalOrbit extends Analyzer {
   static dependencies = {
     combatants: Combatants,
-    elementalOrbit: ElementalOrbit,
   };
 
   protected combatants!: Combatants;
-  protected elementalOrbit!: ElementalOrbit;
 
   healing = 0;
   buffHealing = 0;
@@ -29,7 +25,7 @@ class EarthShield extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT);
 
     if (!this.active) {
       return;
@@ -41,58 +37,39 @@ class EarthShield extends Analyzer {
       this.onEarthShieldHeal,
     );
 
-    // As of 2/23/2023 - all spells affected. Implement this constant if new spells are found to not be
-    // const HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD_FILTERED = HEALING_ABILITIES_AMPED_BY_EARTH_SHIELD.filter(
-    //   (p) => p !== SPELLS.EARTH_SHIELD_HEAL,);
-
     // event listener for healing being buffed by having earth shield on the target
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onEarthShieldAmpSpellHeal);
   }
 
-  get totalHealing() {
-    return (
-      (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT)
-        ? this.elementalOrbit.healing + this.elementalOrbit.buffHealing
-        : 0) +
-      this.buffHealing +
-      this.healing
-    );
-  }
-
-  get uptime() {
+  get elementalOrbitEarthShieldUptime() {
     return Object.values(this.combatants.players).reduce(
       (uptime, player) =>
-        uptime + player.getBuffUptime(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, this.owner.playerId),
+        uptime +
+        player.getBuffUptime(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, this.owner.playerId),
       0,
     );
   }
 
   get uptimePercent() {
-    return this.uptime / this.owner.fightDuration;
-  }
-
-  get suggestionThresholds() {
-    return {
-      actual: this.uptimePercent,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.9,
-        major: 0.8,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    return this.elementalOrbitEarthShieldUptime / this.owner.fightDuration;
   }
 
   onEarthShieldHeal(event: HealEvent) {
     const combatant = this.combatants.getEntity(event);
-    if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+    if (
+      combatant &&
+      combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)
+    ) {
       this.healing += event.amount + (event.absorbed || 0);
     }
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
     const combatant = this.combatants.getEntity(event);
-    if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+    if (
+      combatant &&
+      combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)
+    ) {
       this.buffHealing += calculateEffectiveHealing(event, this.earthShieldHealingIncrease);
     }
   }
@@ -100,13 +77,13 @@ class EarthShield extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />}
+        title={<SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} />}
         value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+          this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing),
         )} %`}
       />
     );
   }
 }
 
-export default EarthShield;
+export default ElementalOrbit;
