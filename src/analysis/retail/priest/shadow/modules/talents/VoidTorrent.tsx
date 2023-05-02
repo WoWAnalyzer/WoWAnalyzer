@@ -29,7 +29,6 @@ function formatSeconds(seconds: number) {
   return Math.round(seconds * 10) / 10;
 }
 
-// Example Log: /report/jcHgC7bfNAMqtRFv/12-Mythic+Hungering+Destroyer+-+Kill+(6:41)/Adoraci/standard/statistics
 class VoidTorrent extends Analyzer {
   _previousVoidTorrentCast: any;
   damage = 0;

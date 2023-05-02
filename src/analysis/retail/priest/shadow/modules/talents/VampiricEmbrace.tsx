@@ -9,7 +9,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import AbilityTracker from '../core/AbilityTracker';
 
-// Example log: /report/TzhG7rkfJAWP8MQp/32-Mythic+G'huun+-+Wipe+11+(8:21)/16-Constiince/changelog
 class VampiricEmbrace extends Analyzer {
   static dependencies = {
     abilityTracker: DamageTracker,

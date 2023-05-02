@@ -14,7 +14,6 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-// Example Log: /report/zgBQ3kr6aAv19MXq/22-Normal+Zul+-+Kill+(2:26)/3-Selur
 class ShadowCrash extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,

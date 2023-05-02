@@ -14,8 +14,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
-// Example Log https://www.warcraftlogs.com/reports/ctvYK32ZhbDqLmX8#fight=30&type=damage-done
-
 class MindDevourer extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
@@ -132,9 +130,9 @@ class MindDevourer extends Analyzer {
         </b>{' '}
         is gained randomly from <SpellLink id={SPELLS.MIND_BLAST.id} /> casts.
         <br />
-        Before the buff expires, cast <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> or fully channel{' '}
-        <SpellLink id={TALENTS.MIND_SEAR_TALENT.id} /> on two or more targets. While you have this
-        active, be careful using <SpellLink id={SPELLS.MIND_BLAST.id} />, as it may overwrite it.
+        Before the buff expires, cast <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} />. While you have
+        this active, be careful using <SpellLink id={SPELLS.MIND_BLAST.id} />, as it may overwrite
+        it.
       </p>
     );
 

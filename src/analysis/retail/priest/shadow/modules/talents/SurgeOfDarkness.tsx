@@ -20,7 +20,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
-// Example log: /report/JAPL1zpDfN7W8wck/33-Heroic+The+Council+of+Blood+-+Kill+(5:46)/Mayrim/standard/statistics
 class SurgeOfDarkness extends Analyzer {
   static dependencies = {
     abilities: Abilities,
