@@ -42,7 +42,6 @@ import Deathspeaker from './modules/talents/Deathspeaker';
 import SurgeOfDarkness from './modules/talents/SurgeOfDarkness';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import MindFlayInsanity from './modules/talents/MindFlayInsanity';
-import MindSear from './modules/talents/MindSear';
 import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
@@ -97,7 +96,6 @@ class CombatLogParser extends MainCombatLogParser {
     inescapableTorment: InescapableTorment,
     darkVoid: DarkVoid,
     auspiciousSpirits: AuspiciousSpirits,
-    mindSear: MindSear,
     mindDevourer: MindDevourer,
     surgeOfDarkness: SurgeOfDarkness,
     deathspeaker: Deathspeaker,
