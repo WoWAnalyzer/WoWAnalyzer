@@ -66,6 +66,8 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import SurgingShields from '../shared/talents/SurgingShields';
 import Tier30 from './modules/dragonflight/Tier30';
 import Tier30Normalizer from './normalizers/Tier30Normalizer';
+import Guide from './Guide';
+import Riptide from './modules/talents/Riptide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -117,6 +119,7 @@ class CombatLogParser extends CoreCombatLogParser {
     earthenHarmony: EarthenHarmony,
 
     // Spells
+    riptide: Riptide,
     chainHeal: ChainHeal,
     healingSurge: HealingSurge,
     healingRain: HealingRain,
@@ -148,6 +151,7 @@ class CombatLogParser extends CoreCombatLogParser {
     tier30: Tier30,
     tier30Normalizer: Tier30Normalizer,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

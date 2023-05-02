@@ -50,6 +50,11 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const debug = false;
 
@@ -615,6 +620,45 @@ class UnleashLife extends Analyzer {
           {this.unleashLifeCastRatioChart}
         </aside>
       </Statistic>
+    );
+  }
+
+  /** Guide subsection describing the proper usage of Riptide */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} />
+        </b>
+        <br />
+        Cast <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> on cooldown as often as possible its
+        very good
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.UNLEASH_LIFE_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+      />
     );
   }
 
