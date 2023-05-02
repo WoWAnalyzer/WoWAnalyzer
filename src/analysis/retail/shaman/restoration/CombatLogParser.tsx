@@ -64,6 +64,8 @@ import EarthShieldBreakdown from './modules/features/EarthShieldBreakdown';
 import EarthenHarmony from './modules/talents/EarthenHarmony';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import SurgingShields from '../shared/talents/SurgingShields';
+import Tier30 from './modules/dragonflight/Tier30';
+import Tier30Normalizer from './normalizers/Tier30Normalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -141,6 +143,10 @@ class CombatLogParser extends CoreCombatLogParser {
     chainHealNormalizer: ChainHealNormalizer,
     riptideTracker: RiptideTracker,
     riptideAttributor: RiptideAttributor,
+
+    //Tier Sets
+    tier30: Tier30,
+    tier30Normalizer: Tier30Normalizer,
   };
 }
 
