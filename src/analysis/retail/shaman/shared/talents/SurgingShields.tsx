@@ -69,18 +69,14 @@ class SurgingShields extends Analyzer {
     }
   }
 
-  get totalHealing() {
-    return;
-  }
-
   onEarthShieldHeal(event: HealEvent) {
     const combatant = this.combatants.getEntity(event);
-    if (combatant && combatant.hasBuff(talents.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+    if (!combatant) {
+      return;
+    }
+    if (combatant.hasBuff(talents.EARTH_SHIELD_TALENT.id, event.timestamp)) {
       this.earthShieldHealing += calculateEffectiveHealing(event, this.earthShieldIncrease);
-    } else if (
-      combatant &&
-      combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)
-    ) {
+    } else if (combatant.hasBuff(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id, event.timestamp)) {
       this.elementalOrbitEarthShieldHealing += calculateEffectiveHealing(
         event,
         this.earthShieldIncrease,
