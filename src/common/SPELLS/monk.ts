@@ -381,6 +381,11 @@ const spells = spellIndexableList({
     name: 'Nourishing Chi',
     icon: 'inv_misc_gem_pearl_06',
   },
+  CALMING_COALESCENCE_BUFF: {
+    id: 388220,
+    name: 'Calming Coalescence',
+    icon: 'ability_monk_healthsphere',
+  },
   //Tier 30 2pc Buff
   SOULFANG_INFUSION: {
     id: 410007,

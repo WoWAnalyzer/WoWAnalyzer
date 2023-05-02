@@ -147,10 +147,15 @@ class Revival extends Analyzer {
           <SpellLink id={this.getRevivalTalent()} />
         </strong>{' '}
         is a fairly straightforward cooldown, however there are a few things you should always aim
-        to do prior to casting it to maximize its healing. Always pre-cast{' '}
-        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to get as many duplicated{' '}
-        <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> heals as possible. If talented into{' '}
-        <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
+        to do prior to casting it to maximize its healing.
+        {!this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT) && (
+          <>
+            {' '}
+            Always pre-cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to get as many
+            duplicated <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> heals as possible.{' '}
+          </>
+        )}{' '}
+        If talented into <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
         <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> if your next buff is not{' '}
         <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />.
       </p>
@@ -167,22 +172,26 @@ class Revival extends Analyzer {
             </>
           );
           const checklistItems: CooldownExpandableItem[] = [];
-          let efPerf = QualitativePerformance.Good;
-          if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.75)) {
-            efPerf = QualitativePerformance.Fail;
-          } else if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.9)) {
-            efPerf = QualitativePerformance.Ok;
+          const allPerfs: QualitativePerformance[] = [];
+          if (this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT)) {
+            let efPerf = QualitativePerformance.Good;
+            if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.75)) {
+              efPerf = QualitativePerformance.Fail;
+            } else if (cast.numEfHots < Math.floor(this.minEfHotsBeforeCast * 0.9)) {
+              efPerf = QualitativePerformance.Ok;
+            }
+            checklistItems.push({
+              label: (
+                <>
+                  <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on cast
+                </>
+              ),
+              result: <PerformanceMark perf={efPerf} />,
+              details: <>{cast.numEfHots}</>,
+            });
+            allPerfs.push(efPerf);
           }
-          checklistItems.push({
-            label: (
-              <>
-                <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on cast
-              </>
-            ),
-            result: <PerformanceMark perf={efPerf} />,
-            details: <>{cast.numEfHots}</>,
-          });
-          const allPerfs = [efPerf];
+
           if (this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) {
             let lessonPerf = QualitativePerformance.Fail;
             if (

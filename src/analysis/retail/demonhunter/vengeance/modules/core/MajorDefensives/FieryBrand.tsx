@@ -37,8 +37,8 @@ export default class FieryBrand extends MajorDefensiveDebuff {
     return (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.defensives.fieryBrand.explanation.summary">
-          <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> reduces the damage dealt to you
-          by targets with its debuff by <strong>40%</strong>.
+          <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> reduces the damage dealt to
+          you by targets with its debuff by <strong>40%</strong>.
         </Trans>
       </p>
     );

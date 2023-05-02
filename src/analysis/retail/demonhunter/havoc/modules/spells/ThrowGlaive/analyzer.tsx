@@ -87,7 +87,7 @@ export default class ThrowGlaive extends Analyzer {
         <ExplanationSection>
           <p>
             <strong>
-              <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} />
+              <SpellLink spell={SPELLS.THROW_GLAIVE_HAVOC} />
             </strong>{' '}
             throws a glaive at an enemy within 30 yards for a small amount of physical damage and
             then bounces to the nearest enemy within 10 yards of the target.
@@ -95,30 +95,30 @@ export default class ThrowGlaive extends Analyzer {
         </ExplanationSection>
         <ExplanationSection>
           <p>
-            <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} /> gains significant value in your rotation
-            when you take <SpellLink id={TALENTS.SOULREND_TALENT} /> and{' '}
-            <SpellLink id={TALENTS.FURIOUS_THROWS_TALENT} />. It also gains value from the below
+            <SpellLink spell={SPELLS.THROW_GLAIVE_HAVOC} /> gains significant value in your rotation
+            when you take <SpellLink spell={TALENTS.SOULREND_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.FURIOUS_THROWS_TALENT} />. It also gains value from the below
             talents.
           </p>
           <ul>
             {this.selectedCombatant.hasTalent(TALENTS.BOUNCING_GLAIVES_TALENT) && (
               <li>
-                <SpellLink id={TALENTS.BOUNCING_GLAIVES_TALENT} />
+                <SpellLink spell={TALENTS.BOUNCING_GLAIVES_TALENT} />
               </li>
             )}
             {this.selectedCombatant.hasTalent(TALENTS.MASTER_OF_THE_GLAIVE_TALENT) && (
               <li>
-                <SpellLink id={TALENTS.MASTER_OF_THE_GLAIVE_TALENT} />
+                <SpellLink spell={TALENTS.MASTER_OF_THE_GLAIVE_TALENT} />
               </li>
             )}
             {this.selectedCombatant.hasTalent(TALENTS.SERRATED_GLAIVE_TALENT) && (
               <li>
-                <SpellLink id={TALENTS.SERRATED_GLAIVE_TALENT} />
+                <SpellLink spell={TALENTS.SERRATED_GLAIVE_TALENT} />
               </li>
             )}
             {this.selectedCombatant.hasTalent(TALENTS.BURNING_WOUND_TALENT) && (
               <li>
-                <SpellLink id={TALENTS.BURNING_WOUND_TALENT} />
+                <SpellLink spell={TALENTS.BURNING_WOUND_TALENT} />
               </li>
             )}
             <AcceleratingBladeExplanation />
@@ -132,7 +132,7 @@ export default class ThrowGlaive extends Analyzer {
           <p>
             Time spent at{' '}
             <strong>
-              <SpellLink id={SPELLS.THROW_GLAIVE_HAVOC} />
+              <SpellLink spell={SPELLS.THROW_GLAIVE_HAVOC} />
             </strong>{' '}
             charges
           </p>

@@ -87,7 +87,7 @@ export default class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               The only time you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} /> is when you're expecting
+              <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT.id} /> is when you're expecting
               adds to spawn soon.
             </>
           ),
@@ -211,7 +211,7 @@ export default class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               The only time you should delay casting{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} /> is when you're
+              <SpellLink spell={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT.id} /> is when you're
               expecting adds to spawn soon.
             </>
           ),

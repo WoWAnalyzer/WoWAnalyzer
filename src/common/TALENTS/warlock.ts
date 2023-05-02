@@ -497,13 +497,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91445],
   },
-  FROM_THE_SHADOWS_TALENT: {
-    id: 267170,
-    name: 'From the Shadows',
-    icon: 'spell_warlock_calldreadstalkers',
-    maxRanks: 1,
-    entryIds: [91533],
-  },
   GRAND_WARLOCKS_DESIGN_TALENT: {
     id: 387084,
     name: "Grand Warlock's Design",
@@ -1182,6 +1175,13 @@ const talents = createTalentList({
     icon: 'ability_warlock_impoweredimp',
     maxRanks: 1,
     entryIds: [91512],
+  },
+  THE_HOUNDMASTERS_STRATAGEM_TALENT: {
+    id: 267170,
+    name: "The Houndmaster's Stratagem",
+    icon: 'spell_warlock_calldreadstalkers',
+    maxRanks: 1,
+    entryIds: [91533],
   },
   TORMENTED_CRESCENDO_TALENT: {
     id: 387075,

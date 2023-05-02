@@ -65,8 +65,8 @@ export default class DemonSpikes extends HitBasedAnalyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Cast <SpellLink id={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking the
-          boss or when they use a big physical attack. You missed having it up for{' '}
+          Cast <SpellLink spell={SPELLS.DEMON_SPIKES.id} /> more regularly while actively tanking
+          the boss or when they use a big physical attack. You missed having it up for{' '}
           {formatPercentage(1 - actual)}% of physical hits.
         </>,
       )

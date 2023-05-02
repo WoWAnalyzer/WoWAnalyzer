@@ -64,6 +64,11 @@ const spells = spellIndexableList({
     name: 'Earth Shield',
     icon: 'spell_nature_skinofearth',
   },
+  EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF: {
+    id: 383648,
+    name: 'Earth Shield',
+    icon: 'spell_nature_skinofearth',
+  },
   LIGHTNING_SHIELD: {
     id: 192106,
     name: 'Lightning Shield',

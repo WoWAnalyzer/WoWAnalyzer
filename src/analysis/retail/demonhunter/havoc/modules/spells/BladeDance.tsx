@@ -83,10 +83,10 @@ class BladeDance extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          You should not cast <SpellLink id={SPELLS.BLADE_DANCE.id} /> or{' '}
-          <SpellLink id={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id} /> or{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id} /> as a talent.
+          You should not cast <SpellLink spell={SPELLS.BLADE_DANCE.id} /> or{' '}
+          <SpellLink spell={SPELLS.DEATH_SWEEP.id} /> on single target when you are not using{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT.id} /> or{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT.id} /> as a talent.
         </>,
       )
         .icon(SPELLS.BLADE_DANCE.icon)

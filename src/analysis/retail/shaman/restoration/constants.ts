@@ -37,6 +37,7 @@ export const DOWNPOUR_TARGETS = 6;
 export const DOWNPOUR_CD_PER_HIT = 5000;
 export const CHAIN_HEAL_TARGETS = 4;
 export const ANCESTRAL_REACH_TARGET = 1;
+export const FLOW_OF_THE_TIDES_TARGET = 1;
 
 export const RESTORATION_COLORS = {
   CHAIN_HEAL: '#203755',

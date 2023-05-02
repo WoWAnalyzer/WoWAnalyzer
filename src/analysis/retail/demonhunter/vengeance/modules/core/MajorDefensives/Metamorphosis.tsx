@@ -50,8 +50,8 @@ export default class Metamorphosis extends MajorDefensiveBuff {
     return (
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.defensives.metamorphosis.explanation.summary">
-          <SpellLink id={SPELLS.METAMORPHOSIS_TANK} /> increases your current and max HP by 50% and
-          your armor by 200%. This grants incredible survivablity and makes it your biggest
+          <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} /> increases your current and max HP by 50%
+          and your armor by 200%. This grants incredible survivablity and makes it your biggest
           cooldown.
         </Trans>
       </p>

@@ -68,16 +68,16 @@ class BlindFury extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Cast <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> with 50 or less Fury when
-          you take the <SpellLink id={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id} /> talent to
-          minimize Fury waste and maximize DPS.
+          Cast <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> with 50 or less Fury
+          when you take the <SpellLink spell={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.id} /> talent
+          to minimize Fury waste and maximize DPS.
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> casts above 50
-            Fury.{' '}
+            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> casts above
+            50 Fury.{' '}
           </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended.`),
@@ -105,7 +105,7 @@ class BlindFury extends Analyzer {
         <TalentSpellText talent={TALENTS_DEMON_HUNTER.BLIND_FURY_TALENT}>
           {this.badCast}{' '}
           <small>
-            bad <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> casts
+            bad <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> casts
           </small>
           <br />
           {this.furyPerMin} <small>Fury per min</small>

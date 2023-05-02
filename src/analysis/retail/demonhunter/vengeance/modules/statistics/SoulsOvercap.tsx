@@ -48,9 +48,9 @@ class SoulsOvercap extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are generating <SpellLink id={SPELLS.SOUL_FRAGMENT.id} />s when you are already at 5
-          souls. These are auto consumed. You are missing out on the extra damage consuming them
-          with <SpellLink id={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id} /> provides.
+          You are generating <SpellLink spell={SPELLS.SOUL_FRAGMENT.id} />s when you are already at
+          5 souls. These are auto consumed. You are missing out on the extra damage consuming them
+          with <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT.id} /> provides.
         </>,
       )
         .icon(SPELLS.SOUL_FRAGMENT.icon)
@@ -85,7 +85,7 @@ class SoulsOvercap extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SOUL_FRAGMENT.id}>
+        <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT}>
           <>
             {formatPercentage(this.wastePerGenerated())}% <small>souls over cap</small>
           </>

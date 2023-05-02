@@ -64,7 +64,7 @@ class CycleOfHatred extends Analyzer {
         <TalentSpellText talent={TALENTS_DEMON_HUNTER.CYCLE_OF_HATRED_TALENT}>
           {formatNumber(this.totalCooldownReduction / 1000)} sec{' '}
           <small>
-            total <SpellIcon id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} /> Eye Beam cooldown
+            total <SpellIcon spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT} /> Eye Beam cooldown
             reduction
           </small>
         </TalentSpellText>
