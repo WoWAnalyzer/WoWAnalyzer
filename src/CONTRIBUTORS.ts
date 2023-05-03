@@ -2138,8 +2138,8 @@ export const attluh: Contributor = {
   github: 'attluh',
   discord: 'attluh#3373',
 };
-export const awiss: Contributor = {
-  nickname: 'awiss',
+export const Tenooki: Contributor = {
+  nickname: 'Tenooki',
   github: 'awiss',
   discord: 'dubya#6711',
 };
