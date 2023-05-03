@@ -94,6 +94,7 @@ class Haste extends Analyzer {
 
     //region Monk
     [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
+    [SPELLS.FURY_OF_XUEN_BUFF.id]: 0.05,
     [SPELLS.SECRET_INFUSION_HASTE_BUFF.id]: 0, // manually set in monk files
     [SPELLS.LESSON_OF_FEAR_BUFF.id]: 0.25,
     //endregion

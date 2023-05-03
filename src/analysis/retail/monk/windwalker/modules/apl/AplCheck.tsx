@@ -1,13 +1,13 @@
-import aplCheck, { build, Condition } from 'parser/shared/metrics/apl';
+import aplCheck, { build, PlayerInfo } from 'parser/shared/metrics/apl';
 import {
   and,
   buffMissing,
   buffPresent,
   describe,
   hasResource,
+  hasTalent,
   lastSpellCast,
   not,
-  or,
 } from 'parser/shared/metrics/apl/conditions';
 import SPELLS from 'common/SPELLS';
 import { suggestion } from 'parser/core/Analyzer';
@@ -15,32 +15,79 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import TALENTS from 'common/TALENTS/monk';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
+import { AnyEvent } from 'parser/core/Events';
+import { serenityDurationRemainingLT } from 'analysis/retail/monk/windwalker/modules/apl/serenityDurationRemaining';
+import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 
-const serenityOr = (cond: Condition<any>) => or(cond, buffPresent(TALENTS.SERENITY_TALENT));
-
+const inSerenity = buffPresent(TALENTS.SERENITY_TALENT);
 const hasChi = (min: number) => hasResource(RESOURCE_TYPES.CHI, { atLeast: min });
 
-export const apl = build([
+export const serenityApl = build([
+  {
+    spell: TALENTS.FISTS_OF_FURY_TALENT,
+    condition: and(inSerenity, serenityDurationRemainingLT(1500)),
+  },
   {
     spell: TALENTS.FAELINE_STOMP_TALENT,
-    condition: buffMissing(TALENTS.FAELINE_HARMONY_TALENT),
+    condition: and(
+      hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
+      buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
+    ),
   },
   {
     spell: TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
-    condition: serenityOr(hasChi(2)),
+    condition: inSerenity,
+  },
+  {
+    spell: TALENTS.FISTS_OF_FURY_TALENT,
+    condition: inSerenity,
+  },
+  {
+    spell: TALENTS.RISING_SUN_KICK_TALENT,
+    condition: inSerenity,
+  },
+  {
+    spell: SPELLS.BLACKOUT_KICK,
+    condition: inSerenity,
+  },
+  {
+    spell: SPELLS.SPINNING_CRANE_KICK,
+    condition: and(inSerenity, buffPresent(TALENTS.DANCE_OF_CHI_JI_TALENT)),
+  },
+  {
+    spell: TALENTS.CHI_WAVE_TALENT,
+    condition: inSerenity,
+  },
+  {
+    spell: SPELLS.TIGER_PALM,
+    condition: inSerenity,
+  },
+]);
+
+export const nonSerenityApl = build([
+  {
+    spell: TALENTS.FAELINE_STOMP_TALENT,
+    condition: and(
+      hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
+      buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
+    ),
+  },
+  {
+    spell: TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
+    condition: hasChi(2),
   },
   TALENTS.WHIRLING_DRAGON_PUNCH_TALENT,
   {
     spell: TALENTS.RISING_SUN_KICK_TALENT,
-    condition: and(buffPresent(SPELLS.PRESSURE_POINT_BUFF), serenityOr(hasChi(2))),
+    condition: and(buffPresent(SPELLS.PRESSURE_POINT_BUFF), hasChi(2)),
   },
   {
     spell: TALENTS.FISTS_OF_FURY_TALENT,
-    condition: serenityOr(hasChi(3)),
+    condition: hasChi(3),
   },
   {
     spell: TALENTS.RISING_SUN_KICK_TALENT,
-    condition: serenityOr(hasChi(2)),
+    condition: hasChi(2),
   },
   {
     spell: SPELLS.SPINNING_CRANE_KICK,
@@ -48,16 +95,16 @@ export const apl = build([
   },
   {
     spell: SPELLS.BLACKOUT_KICK,
-    condition: describe(
-      and(serenityOr(hasChi(1)), not(lastSpellCast(SPELLS.BLACKOUT_KICK))),
-      (tense) => (
-        <>
-          <SpellLink id={SPELLS.BLACKOUT_KICK} /> was not your last cast.
-        </>
-      ),
-    ),
+    condition: describe(and(hasChi(1), not(lastSpellCast(SPELLS.BLACKOUT_KICK))), (tense) => (
+      <>
+        <SpellLink id={SPELLS.BLACKOUT_KICK} /> was not your last cast.
+      </>
+    )),
   },
-  TALENTS.RUSHING_JADE_WIND_TALENT,
+  {
+    spell: TALENTS.RUSHING_JADE_WIND_TALENT,
+    condition: hasChi(1),
+  },
   TALENTS.CHI_WAVE_TALENT,
   TALENTS.FAELINE_STOMP_TALENT,
   {
@@ -69,10 +116,28 @@ export const apl = build([
   },
 ]);
 
-export const check = aplCheck(apl);
+export const serenityProps = (events: AnyEvent[], info: PlayerInfo): AplRuleProps => {
+  const check = aplCheck(serenityApl);
+  return {
+    apl: serenityApl,
+    checkResults: check(events, info),
+  };
+};
+
+export const nonSerenityProps = (events: AnyEvent[], info: PlayerInfo): AplRuleProps => {
+  const check = aplCheck(nonSerenityApl);
+  return {
+    apl: nonSerenityApl,
+    checkResults: check(events, info),
+  };
+};
 
 export default suggestion((events, info) => {
-  const { violations } = check(events, info);
+  const checkSerenity = aplCheck(serenityApl);
+  const checkNonSerenity = aplCheck(nonSerenityApl);
+  const violations = checkSerenity(events, info).violations.concat(
+    checkNonSerenity(events, info).violations,
+  );
   annotateTimeline(violations);
 
   return undefined;

@@ -163,6 +163,11 @@ const spells = spellIndexableList({
     name: "Invoker's Delight",
     icon: 'inv_inscription_80_warscroll_battleshout',
   },
+  FURY_OF_XUEN_BUFF: {
+    id: 396168,
+    name: 'Fury of Xuen',
+    icon: 'ability_monk_prideofthetiger',
+  },
   ENVELOPING_BREATH_HEAL: {
     id: 325209,
     name: 'Enveloping Breath',

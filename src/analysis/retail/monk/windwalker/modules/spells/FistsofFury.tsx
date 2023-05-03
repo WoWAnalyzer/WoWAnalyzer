@@ -2,12 +2,13 @@ import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { TALENTS_MONK } from 'common/TALENTS';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
@@ -18,12 +19,18 @@ class FistsofFury extends Analyzer {
     abilityTracker: AbilityTracker,
   };
   previousTickTimestamp = 0;
-  fistsTicks = 0;
+  nonSerenityFistsTicks = 0;
+  nonSerenityCasts = 0;
+  inSerenity = false;
 
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
     super(options);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
+      this.onFistsCast,
+    );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE),
       this.onFistsDamage,
@@ -41,16 +48,23 @@ class FistsofFury extends Analyzer {
     if (!this.isNewFistsTick(event.timestamp)) {
       return;
     }
-    this.fistsTicks += 1;
+    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) && !this.inSerenity) {
+      this.nonSerenityFistsTicks += 1;
+    }
     this.previousTickTimestamp = event.timestamp;
   }
 
-  get averageTicks() {
-    return this.fistsTicks / this.casts;
+  onFistsCast(event: CastEvent) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id)) {
+      this.inSerenity = false;
+      this.nonSerenityCasts += 1;
+    } else {
+      this.inSerenity = true;
+    }
   }
 
-  get casts() {
-    return this.abilityTracker.getAbility(SPELLS.FISTS_OF_FURY_CAST.id).casts;
+  get averageTicks() {
+    return this.nonSerenityFistsTicks / this.nonSerenityCasts;
   }
 
   get suggestionThresholds() {

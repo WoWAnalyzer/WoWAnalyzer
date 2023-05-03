@@ -12,7 +12,12 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import { TALENTS_MONK } from 'common/TALENTS';
 import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 
-const WindwalkerMonkChecklist = (props: ChecklistProps & AplRuleProps) => {
+interface WWAplProps {
+  serenityProps: AplRuleProps;
+  nonSerenityProps: AplRuleProps;
+}
+
+const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
   const { combatant, castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
@@ -246,7 +251,49 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & AplRuleProps) => {
           thresholds={thresholds.touchOfKarma}
         />
       </Rule>
-      <AplRule {...props} name="APL checker (beta)" />
+      {combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (
+        <AplRule
+          name="Serenity Rotation"
+          castEfficiency={props.castEfficiency}
+          {...props.serenityProps}
+          description={
+            <>
+              This section measures the quality of your rotation during the{' '}
+              <SpellLink id={TALENTS_MONK.SERENITY_TALENT.id} /> buff. The priority list differs{' '}
+              slightly with <SpellLink id={TALENTS_MONK.SERENITY_TALENT.id} /> active.
+              <p>
+                Note that during <SpellLink id={TALENTS_MONK.SERENITY_TALENT.id} />, it is best to{' '}
+                cancel <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> early with a{' '}
+                <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> or a{' '}
+                <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
+              </p>
+              <p>
+                See the{' '}
+                <a href="https://www.peakofserenity.com/df/windwalker/pve-guide/">
+                  Peak of Serenity Guide
+                </a>{' '}
+                for more information.
+              </p>
+            </>
+          }
+        />
+      )}
+      <AplRule
+        name="Core Rotation"
+        castEfficiency={props.castEfficiency}
+        {...props.nonSerenityProps}
+        description={
+          <>
+            This section measures the quality of your rotation outside of{' '}
+            <SpellLink id={TALENTS_MONK.SERENITY_TALENT.id} />, including while{' '}
+            <SpellLink id={TALENTS_MONK.STORM_EARTH_AND_FIRE_TALENT.id} /> is active. See the{' '}
+            <a href="https://www.peakofserenity.com/df/windwalker/pve-guide/">
+              Peak of Serenity Guide
+            </a>{' '}
+            for more information.
+          </>
+        }
+      />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

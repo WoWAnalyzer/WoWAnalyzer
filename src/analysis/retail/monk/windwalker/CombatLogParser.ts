@@ -37,6 +37,7 @@ import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
 import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
+import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -47,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     channeling: Channeling,
     globalCooldown: GlobalCooldown,
     mysticTouch: MysticTouch,
+    spellUsable: SpellUsable,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
