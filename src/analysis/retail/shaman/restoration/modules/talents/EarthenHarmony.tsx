@@ -93,7 +93,7 @@ class EarthenHarmony extends Analyzer {
       !this.firstESBuffDone
     ) {
       console.log('es remove', event);
-      this.loadFirsBuffDamageTakenDuringEarthShield(
+      this.loadFirstBuffDamageTakenDuringEarthShield(
         this.eSApply,
         event.timestamp,
         talents.EARTH_SHIELD_TALENT.id,
@@ -101,7 +101,7 @@ class EarthenHarmony extends Analyzer {
       );
       this.firstESBuffDone = true;
     } else if (this.eOESApply !== -1 && !this.firstEOESBuffDone) {
-      this.loadFirsBuffDamageTakenDuringEarthShield(
+      this.loadFirstBuffDamageTakenDuringEarthShield(
         this.eOESApply,
         event.timestamp,
         SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id,
@@ -132,7 +132,7 @@ class EarthenHarmony extends Analyzer {
   /** We need the damage taken by the target during Earth Shield in order to calculate the damage
    *  reduction, which isn't present in the main event stream we have. This forms and sends the
    *  required custom query */
-  loadFirsBuffDamageTakenDuringEarthShield(
+  loadFirstBuffDamageTakenDuringEarthShield(
     start: number,
     end: number,
     spellId: number,
@@ -143,7 +143,6 @@ class EarthenHarmony extends Analyzer {
       end: end,
     })
       .then((json) => {
-        console.log('ES: ', json);
         json = json as WCLDamageTakenTableResponse;
         const total = (json.entries as WCLDamageTaken[]).reduce(
           (damageTaken: number, entry: { id: number; total: number }) =>
