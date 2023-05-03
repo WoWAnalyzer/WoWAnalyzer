@@ -66,7 +66,7 @@ class DeathAndMadness extends Analyzer {
     //If you cast Shadow Word: Death on a target in execute the cooldown is reset once.  If you wait 20 seconds, you miss the reset.
     if (this.isTargetInExecuteRange(event)) {
       const fromLastCast = event.timestamp - this.lastCastTime;
-      if (fromLastCast >= 1990) {
+      if (fromLastCast >= 1090) {
         this.spellUsable.endCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id);
         this.resets += 1;
       }

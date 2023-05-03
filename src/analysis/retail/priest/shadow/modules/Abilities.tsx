@@ -46,17 +46,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
       },
       {
-        spell: SPELLS.MIND_SEAR.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.MIND_SEAR_TALENT),
-      },
-      {
         spell: TALENTS.SHADOW_CRASH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 20,
         gcd: {
           base: 1500,
         },
@@ -119,6 +111,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        insanityCost: 5000,
       },
       {
         spell: SPELLS.VAMPIRIC_TOUCH.id,
@@ -167,7 +160,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.VOID_TORRENT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
+        cooldown: 45 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
         gcd: {
           base: 1500,
         },

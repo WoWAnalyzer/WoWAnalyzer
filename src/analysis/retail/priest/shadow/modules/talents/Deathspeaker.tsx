@@ -41,7 +41,7 @@ class Deathspeaker extends Analyzer {
       this.onBuffRemoved,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATHSPEAKER_TALENT_BUFF),
       this.onBuffRefresh,
     );
   }
