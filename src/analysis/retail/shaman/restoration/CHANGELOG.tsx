@@ -5,6 +5,7 @@ import { Arlie, Fassbrause, niseko, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 2), <>Implement Guide prototype</>, Vohrr),
   change(date(2023, 5, 1), <>Added Tier 30 module</>, Vohrr),
   change(date(2023, 5, 1), <> Updated <SpellLink id={TALENTS.EARTH_SHIELD_TALENT.id}/> to show talent contribution breakdown</>, Vohrr),
   change(date(2023, 4, 30), <>Added <SpellLink id={TALENTS.FLOW_OF_THE_TIDES_TALENT.id}/> module</>, Vohrr),
