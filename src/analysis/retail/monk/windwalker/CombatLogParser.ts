@@ -3,6 +3,7 @@ import {
   InvokersDelight,
   MysticTouch,
   DampenHarm,
+  FaelineStomp,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Channeling from 'parser/shared/normalizers/Channeling';
@@ -16,9 +17,9 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MoTCGraph from './modules/features/MoTCGraph';
-import JadeIgnition from './modules/items/JadeIgnition';
-import LastEmperorsCapacitor from './modules/items/LastEmperorsCapacitor';
-import XuensBattlegear from './modules/items/XuensBattlegear';
+import JadeIgnition from './modules/talents/JadeIgnition';
+import LastEmperorsCapacitor from './modules/talents/LastEmperorsCapacitor';
+import XuensBattlegear from './modules/talents/XuensBattlegear';
 // Resources
 import ChiDetails from './modules/resources/ChiDetails';
 import ChiTracker from './modules/resources/ChiTracker';
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
     dampenHarm: DampenHarm,
+    faelineStomp: FaelineStomp,
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
