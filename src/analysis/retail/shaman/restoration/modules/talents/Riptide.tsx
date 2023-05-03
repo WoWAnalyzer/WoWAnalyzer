@@ -22,7 +22,7 @@ class Riptide extends Analyzer {
           <SpellLink id={talents.RIPTIDE_TALENT.id} />
         </b>{' '}
         is one of your core rotational abilities and primary sources of healing. It is your only
-        source of <SpellLink id={talents.TIDAL_WAVES_TALENT} /> and has a numerous throughput
+        source of <SpellLink id={talents.TIDAL_WAVES_TALENT} /> and has numerous throughput
         synergies with talents like <SpellLink id={talents.PRIMORDIAL_WAVE_TALENT} />,{' '}
         <SpellLink id={talents.UNDERCURRENT_TALENT} />,{' '}
         <SpellLink id={talents.ECHO_OF_THE_ELEMENTS_TALENT} />,
@@ -41,8 +41,8 @@ class Riptide extends Analyzer {
             <SpellLink id={talents.DEEPLY_ROOTED_ELEMENTS_TALENT} />,{' '}
           </>
         )}{' '}
-        etc. This spell should be kept on cooldown as often as possible, particularly with the
-        addition of the{' '}
+        etc. <SpellLink id={talents.RIPTIDE_TALENT.id} /> should be kept on cooldown as often as
+        possible, particularly with the addition of the{' '}
         <ItemSetLink id={SHAMAN_T30_ID}>
           <>Tier 30 Set Bonus</>
         </ItemSetLink>
