@@ -342,10 +342,20 @@ const spells = spellIndexableList({
     name: 'Feral Spirit',
     icon: 'spell_shaman_feralspirit',
   },
+  FLURRY_BUFF: {
+    id: 16280,
+    name: 'Flurry',
+    icon: 'ability_ghoulfrenzy',
+  },
   LAVA_LASH: {
     id: 60103,
     name: 'Lava Lash',
     icon: 'ability_shaman_lavalash',
+  },
+  MAELSTROM_WEAPON_BUFF: {
+    id: 53817,
+    name: 'Maelstrom Weapon',
+    icon: 'spell_shaman_maelstromweapon',
   },
   SHAMANISTIC_RAGE: {
     id: 30823,
