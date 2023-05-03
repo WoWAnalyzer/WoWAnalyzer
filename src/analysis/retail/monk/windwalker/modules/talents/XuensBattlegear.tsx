@@ -13,7 +13,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';
 
-const FISTS_OF_FURY_COOLDOWN_REDUCTION_MS = 5000;
+const FISTS_OF_FURY_COOLDOWN_REDUCTION_MS = 4000;
 
 class XuensBattlegear extends Analyzer {
   static dependencies = {
@@ -31,7 +31,7 @@ class XuensBattlegear extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = false;
+    this.active = true;
     if (!this.active) {
       return;
     }

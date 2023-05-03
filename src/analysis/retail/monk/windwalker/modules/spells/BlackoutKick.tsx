@@ -70,8 +70,9 @@ class BlackoutKick extends Analyzer {
       this.spellUsable.isAvailable(spellId),
     );
     /**
-     * Weapons of Order increases this reduction, but i'm opting to handle it in its own module and leave the extra CDR untracked here.
-     * We probably wouldn't care too much about wasting the extra CDR anyway
+     * currentCooldownReductionMs is adjusted for the modRate effect of Serenity. We can use this
+     * value for direct analysis, however for calling reduceCooldown we should use the base
+     * reduction value since reduceCooldown factors in modRate on its own already.
      */
     const currentCooldownReductionMS =
       (this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 0.5 : 1) *
@@ -98,7 +99,7 @@ class BlackoutKick extends Analyzer {
     } else {
       const reductionMs = this.spellUsable.reduceCooldown(
         TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-        currentCooldownReductionMS,
+        BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
       );
       this.effectiveRisingSunKickReductionMs += reductionMs;
       this.wastedRisingSunKickReductionMs += currentCooldownReductionMS - reductionMs;
@@ -108,7 +109,7 @@ class BlackoutKick extends Analyzer {
     } else {
       const reductionMs = this.spellUsable.reduceCooldown(
         SPELLS.FISTS_OF_FURY_CAST.id,
-        currentCooldownReductionMS,
+        BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
       );
       this.effectiveFistsOfFuryReductionMs += reductionMs;
       this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS - reductionMs;
