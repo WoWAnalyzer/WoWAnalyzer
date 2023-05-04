@@ -9,6 +9,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
+//This has been removed from the talent tree
 class DarkVoid extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,

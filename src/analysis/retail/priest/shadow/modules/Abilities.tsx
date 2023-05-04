@@ -60,32 +60,6 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
       },
       {
-        spell: TALENTS.DARK_VOID_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        enabled: combatant.hasTalent(TALENTS.DARK_VOID_TALENT),
-      },
-      {
-        spell: TALENTS.DAMNATION_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        enabled: combatant.hasTalent(TALENTS.DAMNATION_TALENT),
-      },
-      {
         spell: TALENTS.MINDGAMES_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,

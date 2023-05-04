@@ -35,8 +35,6 @@ const coreCooldownsVB: SpellCooldown[] = [
 const shortCooldowns: Cooldown[] = [
   { talent: TALENTS.SHADOW_CRASH_TALENT },
   { talent: TALENTS.VOID_TORRENT_TALENT },
-  { talent: TALENTS.DAMNATION_TALENT },
-  { talent: TALENTS.DARK_VOID_TALENT },
   { talent: TALENTS.MINDGAMES_TALENT },
 ];
 
@@ -44,7 +42,7 @@ const longCooldowns: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
   { talent: TALENTS.DARK_ASCENSION_TALENT },
   { talent: TALENTS.VOID_ERUPTION_TALENT },
-  { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
+  { talent: TALENTS.MINDBENDER_SHADOW_TALENT }, //add regular pet here
 ];
 
 const CoreCooldownsGraph = () => {
