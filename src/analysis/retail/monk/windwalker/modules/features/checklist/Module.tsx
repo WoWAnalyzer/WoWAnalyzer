@@ -3,8 +3,9 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
 import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
-import JadeIgnition from '../../items/JadeIgnition';
-import LastEmperorsCapacitor from '../../items/LastEmperorsCapacitor';
+import JadeIgnition from '../../talents/JadeIgnition';
+import LastEmperorsCapacitor from '../../talents/LastEmperorsCapacitor';
+import XuensBattlegear from '../../talents/XuensBattlegear';
 import ChiDetails from '../../resources/ChiDetails';
 import BlackoutKick from '../../spells/BlackoutKick';
 import ComboBreaker from '../../spells/ComboBreaker';
@@ -14,6 +15,7 @@ import TouchOfKarma from '../../spells/TouchOfKarma';
 import HitCombo from '../../talents/HitCombo';
 import Component from './Component';
 import { apl, check } from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
+import FaelineStomp from 'analysis/retail/monk/shared/FaelineStomp';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -27,12 +29,14 @@ class Checklist extends BaseChecklist {
     touchOfKarma: TouchOfKarma,
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
+    faelineStomp: FaelineStomp,
 
     hitCombo: HitCombo,
     chiDetails: ChiDetails,
 
     lastEmperorsCapacitor: LastEmperorsCapacitor,
     jadeIgnition: JadeIgnition,
+    xuensBattlegear: XuensBattlegear,
   };
 
   protected combatants!: Combatants;
@@ -47,6 +51,7 @@ class Checklist extends BaseChecklist {
   protected chiDetails!: ChiDetails;
   protected lastEmperorsCapacitor!: LastEmperorsCapacitor;
   protected jadeIgnition!: JadeIgnition;
+  protected xuensBattlegear!: XuensBattlegear;
 
   render() {
     return (
@@ -72,6 +77,7 @@ class Checklist extends BaseChecklist {
           lastEmperorsCapacitorWastedStacks:
             this.lastEmperorsCapacitor.wastedStacksSuggestionThresholds,
           jadeIgnition: this.jadeIgnition.suggestionThresholds,
+          xuensBattlegear: this.xuensBattlegear.suggestionThresholds,
         }}
       />
     );

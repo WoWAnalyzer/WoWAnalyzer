@@ -1,14 +1,21 @@
 import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { HealEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
+import ItemSetLink from 'interface/ItemSetLink';
 
 // 50 was too low, 100 was too high
 // had no issues with 85ms
@@ -157,6 +164,52 @@ class HealingRain extends Analyzer {
         this.unleashLifeRemaining = false;
       }
     }
+  }
+
+  /** Guide subsection describing the proper usage of Healing Rain */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_SHAMAN.HEALING_RAIN_TALENT.id} />
+        </b>{' '}
+        is one of your best sources of consistent throughput and can be augmented to do more healing
+        through <SpellLink id={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
+        <SpellLink id={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
+        <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this
+        spell is also the activator for your{' '}
+        <ItemSetLink id={SHAMAN_T30_ID}>
+          <>Tier 30 Set Bonus</>
+        </ItemSetLink>{' '}
+        and should be used as often as possible
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_SHAMAN.HEALING_RAIN_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.subStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  subStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_SHAMAN.HEALING_RAIN_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        useThresholds
+      />
+    );
   }
 
   statistic() {

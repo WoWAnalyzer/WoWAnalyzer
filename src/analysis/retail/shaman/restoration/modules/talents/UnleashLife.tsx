@@ -50,6 +50,11 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 const debug = false;
 
@@ -615,6 +620,49 @@ class UnleashLife extends Analyzer {
           {this.unleashLifeCastRatioChart}
         </aside>
       </Statistic>
+    );
+  }
+
+  /** Guide subsection describing the proper usage of Unleash Life */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} />
+        </b>{' '}
+        is a very efficient heal on a short cooldown, however the true power of this spell comes
+        from the potent buff it provides that can be consumed by a number of different abilities.
+        This spell is best used in preparation for incoming damage to combo with one of your
+        stronger abilities like a <SpellLink id={TALENTS.HIGH_TIDE_TALENT} />
+        -buffed <SpellLink id={TALENTS.CHAIN_HEAL_TALENT} /> or{' '}
+        <SpellLink id={TALENTS.HEALING_RAIN_TALENT} />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.UNLEASH_LIFE_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+        minimizeIcons
+      />
     );
   }
 
