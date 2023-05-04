@@ -129,7 +129,7 @@ class EarthShield extends Analyzer {
         <b>
           <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />
         </b>{' '}
-        is the only shield shaman has that can be placed on allies and provides very strong
+        is the only shield shaman can place on allies and provides very strong
         throughput when combined with affecting talents in the class and spec tree.{' '}
         <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> should be applied prior to the
         fight starting and maintained as it falls off throughout the encounter
