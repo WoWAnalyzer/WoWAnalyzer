@@ -79,6 +79,10 @@ class EarthenHarmony extends Analyzer {
     );
   }
 
+  get totalDamageReduction() {
+    return this.earthShielddamageReduced + this.elementalOrbitDamageReduced;
+  }
+
   onEarthShieldApply(event: ApplyBuffEvent) {
     if (event.ability.guid === talents.EARTH_SHIELD_TALENT.id) {
       this.eSApply = event.timestamp;
