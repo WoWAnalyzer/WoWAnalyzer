@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2023, 5, 4), <>Updated <SpellLink spell={SPELLS.THRASH_FERAL} /> handling for new spell ID</>, Sref),
   change(date(2023, 4, 15), <>Update to indicate support for 10.0.7, and updates to cast evaluation logic in Guide view.</>, Sref),
   change(date(2023, 3, 14), <>Updated CP check logic to allow 4 CP finishers when not specced for Bloodtalons.</>, Sref),
   change(date(2023, 1, 25), <>Updated numbers for 10.0.5 changes.</>, Sref),
