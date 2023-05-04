@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        charges: 1 + (combatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.THOUGHT_HARVESTER_TALENT) ? 1 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -39,6 +39,14 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.MIND_SPIKE_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
+      },
+      {
+        spell: SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -85,7 +93,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        insanityCost: 5000,
+        insanityCost:
+          5000 -
+          combatant.getTalentRank(TALENTS.MINDS_EYE_TALENT) * 5 +
+          combatant.getTalentRank(TALENTS.DISTORTED_REALITY_TALENT) * 5,
       },
       {
         spell: SPELLS.VAMPIRIC_TOUCH.id,
