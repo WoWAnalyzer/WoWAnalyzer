@@ -133,17 +133,21 @@ class EarthShield extends Analyzer {
         <br />
         {hasElementalOrbit && (
           <>
-            <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} /> allows you to place{' '}
-            <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> on yourself as well as an ally,
-            and you should aim to maintain high uptime on both
+            <b>
+              <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} />
+            </b>{' '}
+            allows you to place <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> on yourself
+            as well as an ally, and you should aim to maintain high uptime on both
             <br />
           </>
         )}
         {hasEarthenHarmony && (
           <>
-            <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} /> augments{' '}
-            <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> even further by providing
-            damage reduction (TODO METRIC HERE FOR DAMAGE REDUCED)
+            <b>
+              <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} />
+            </b>{' '}
+            augments <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> even further by
+            providing damage reduction (TODO METRIC HERE FOR DAMAGE REDUCED)
             <br />
           </>
         )}
