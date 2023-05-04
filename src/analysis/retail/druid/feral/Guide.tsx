@@ -8,7 +8,11 @@ import { formatPercentage } from 'common/format';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { getAcceptableCps } from 'analysis/retail/druid/feral/constants';
+import {
+  ACCEPTABLE_BERSERK_CPS,
+  ACCEPTABLE_CPS,
+  cdSpell,
+} from 'analysis/retail/druid/feral/constants';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -40,17 +44,19 @@ function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatL
       <SubSection title="Combo Points">
         <p>
           <i>
-            As of patch 10.0.5, sims show it is acceptable to use finishers at 4 CPs when
-            <strong> not</strong> specced for Bloodtalons. Still always go on 5 CPs with
-            Bloodtalons. This may change again in 10.1.
+            Updated for patch 10.1: it is acceptable to use finishers at {ACCEPTABLE_CPS} CPs
+            regardless of talent setup. This is because the gain avoiding overcap from{' '}
+            <SpellLink spell={TALENTS_DRUID.PRIMAL_FURY_TALENT} /> outweighs the loss of weaker
+            spenders. However, during <SpellLink spell={cdSpell(info.combatant)} /> you should use{' '}
+            {ACCEPTABLE_BERSERK_CPS} because its new patch 10.1 behavior includes CP overcap
+            protection.
           </i>
         </p>
         <p>
           Most of your abilities either <strong>build</strong> or <strong>spend</strong> Combo
-          Points. Never use a builder at max CPs, and always wait until (4 with{' '}
-          <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id} />, 5 with{' '}
-          <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />) CPs to use a spender (with the
-          exception of your opening <SpellLink id={SPELLS.RIP.id} />
+          Points. Never use a builder at max CPs, and always wait until {ACCEPTABLE_CPS} (
+          {ACCEPTABLE_BERSERK_CPS} in <SpellLink spell={cdSpell(info.combatant)} />) to use a
+          spender (with the exception of your opening <SpellLink id={SPELLS.RIP.id} />
           ).
         </p>
         <SideBySidePanels>
@@ -66,10 +72,10 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
   return (
     <Section title="Core Rotation">
       <p>
-        Feral's core rotation involves performing <strong>builder</strong> abilites up to{' '}
-        {getAcceptableCps(info.combatant)} combo points, then using a <strong>spender</strong>{' '}
-        ability. Maintain your damage over time effects on targets, then fill with your direct
-        damage abilities. Refer to the spec guide for{' '}
+        Feral's core rotation involves performing <strong>builder</strong> abilites to gain combo
+        points, then using powerful <strong>spender</strong> abilities to consume the combo points.
+        Maintain your damage over time effects on targets, then fill with your direct damage
+        abilities. Refer to the spec guide for{' '}
         <a
           href="https://www.wowhead.com/feral-druid-rotation-guide"
           target="_blank"
