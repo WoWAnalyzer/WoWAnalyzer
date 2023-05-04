@@ -135,7 +135,7 @@ class EarthShield extends Analyzer {
           <>
             <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} /> allows you to place{' '}
             <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> on yourself as well as an ally,
-            and you should aim to maintain high uptime on both.
+            and you should aim to maintain high uptime on both
             <br />
           </>
         )}
