@@ -14,6 +14,11 @@ import StatisticBox from 'parser/ui/StatisticBox';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
 class Wellspring extends Analyzer {
   static dependencies = {
@@ -226,6 +231,46 @@ class Wellspring extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={TALENTS.WELLSPRING_TALENT.id} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
+      />
+    );
+  }
+
+  /** Guide subsection describing the proper usage of Wellspring */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.WELLSPRING_TALENT.id} />
+        </b>{' '}
+        is an efficient AoE heal on a short cooldown. The heal itself has travel time so its
+        possible to pre-cast it into a <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT} /> and have
+        the majority of its healing collected.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.WELLSPRING_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.WELLSPRING_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+        minimizeIcons
       />
     );
   }

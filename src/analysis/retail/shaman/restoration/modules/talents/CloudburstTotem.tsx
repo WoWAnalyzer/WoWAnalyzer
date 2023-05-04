@@ -13,6 +13,12 @@ import Events, {
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import CooldownThroughputTracker from '../features/CooldownThroughputTracker';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import ITEMS from 'common/ITEMS';
 
 const DELAY_MS = 200;
 
@@ -87,6 +93,49 @@ class CloudburstTotem extends Analyzer {
     };
 
     this.eventEmitter.fabricateEvent(fabricatedEvent, event);
+  }
+
+  /** Guide subsection describing the proper usage of Cloudburst Totem */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} />
+        </b>{' '}
+        is one of your most important and highest hps abilities. It is essential to have active
+        whenever you plan on doing significant healing as it collects a portion of all healing done
+        by the shaman (this includes <SpellLink id={ITEMS.T30_TIDEWATERS_HEAL} /> healing!). It is
+        not necessary or possible to always have{' '}
+        <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} /> active, but make sure you are never
+        sitting at 2 charges
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.CLOUDBURST_TOTEM_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+        minimizeIcons
+      />
+    );
   }
 
   subStatistic() {
