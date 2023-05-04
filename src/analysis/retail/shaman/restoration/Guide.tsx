@@ -14,10 +14,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core Spells and Buffs">
         {modules.riptide.guideSubsection}
         {modules.healingRain.guideSubsection}
-        {info.combatant.hasTalent(talents.UNLEASH_LIFE_TALENT) &&
-          modules.unleashLife.guideSubsection}
         {info.combatant.hasTalent(talents.EARTH_SHIELD_TALENT) &&
           modules.earthShield.guideSubsection}
+        {info.combatant.hasTalent(talents.UNLEASH_LIFE_TALENT) &&
+          modules.unleashLife.guideSubsection}
       </Section>
       <Section title="Short Cooldowns">
         {info.combatant.hasTalent(talents.CLOUDBURST_TOTEM_TALENT) &&

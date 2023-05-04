@@ -123,18 +123,27 @@ class EarthShield extends Analyzer {
 
     const explanation = (
       <>
-        TODO TALK ABOUT HOW GOOD EARTH SHIELD IS
+        <b>
+          <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />
+        </b>{' '}
+        is the only shield shaman has that can be placed on allies and provides very strong
+        throughput when combined with affecting talents in the class and spec tree.{' '}
+        <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> should be applied prior to the
+        fight starting and maintained as it falls off throughout the encounter
         <br />
         {hasElementalOrbit && (
           <>
-            TODO TALK ABOUT HOW GOOD ELEMENTAL ORBIT MAKES EARTH SHIELD
+            <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} /> allows you to place{' '}
+            <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> on yourself as well as an ally,
+            and you should aim to maintain high uptime on both.
             <br />
           </>
         )}
         {hasEarthenHarmony && (
           <>
-            TODO TALK ABOUT HOW MUCH DAMAGE EARTHEN HARMONY MITIGATES AND HOW MUCH MORE HEALING IT
-            MAKES EARTH SHIELD DO
+            <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} /> augments{' '}
+            <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> even further by providing
+            damage reduction (TODO METRIC HERE FOR DAMAGE REDUCED)
             <br />
           </>
         )}
