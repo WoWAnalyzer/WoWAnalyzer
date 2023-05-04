@@ -88,14 +88,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <AbilityRequirement spell={TALENTS.SHADOW_CRASH_TALENT.id} />
         )}
 
-        {combatant.hasTalent(TALENTS.DARK_VOID_TALENT) && (
-          <AbilityRequirement spell={TALENTS.DARK_VOID_TALENT.id} />
-        )}
-
-        {combatant.hasTalent(TALENTS.DAMNATION_TALENT) && (
-          <AbilityRequirement spell={TALENTS.DAMNATION_TALENT.id} />
-        )}
-
         {combatant.hasTalent(TALENTS.MINDGAMES_TALENT) && (
           <AbilityRequirement spell={TALENTS.MINDGAMES_TALENT.id} />
         )}
@@ -108,10 +100,9 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <>
             Many talents add procs to increase the power of your abilities. Make sure to use them to
             maximize the damage these talents can give you, and gain extra insanity.
-            <SpellLink id={TALENTS.SURGE_OF_DARKNESS_TALENT.id} /> is a low priority. If you had a
+            <SpellLink id={TALENTS.SURGE_OF_INSANITY_TALENT.id} /> is a low priority. If you had a
             higher priority spells available, it is better to not use these procs.
-            <br /> For <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} />, its important to
-            fully channel the cast whenever it is used.
+            <br />
           </>
         }
       >
@@ -148,7 +139,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT) && (
+        {combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) && (
           <Requirement
             name={
               <>
@@ -159,7 +150,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT) && (
+        {combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) && (
           <Requirement
             name={
               <>

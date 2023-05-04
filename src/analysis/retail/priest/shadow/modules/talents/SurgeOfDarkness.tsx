@@ -35,7 +35,7 @@ class SurgeOfDarkness extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_DARKNESS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_DARKNESS_TALENT_BUFF),
@@ -103,7 +103,7 @@ class SurgeOfDarkness extends Analyzer {
           procs.
         </>,
       )
-        .icon(TALENTS.SURGE_OF_DARKNESS_TALENT.icon)
+        .icon(TALENTS.SURGE_OF_INSANITY_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.surgeofdarkness.efficiency',

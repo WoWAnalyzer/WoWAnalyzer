@@ -25,7 +25,7 @@ class MindFlayInsanity extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
       this.onCast,
@@ -92,11 +92,11 @@ class MindFlayInsanity extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You interrupted <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} /> early, wasting{' '}
+          You interrupted <SpellLink id={TALENTS.SURGE_OF_INSANITY_TALENT.id} /> early, wasting{' '}
           {formatPercentage(this.ticksWastedPercentage)}% the channel!
         </>,
       )
-        .icon(TALENTS.MIND_FLAY_INSANITY_TALENT.icon)
+        .icon(TALENTS.SURGE_OF_INSANITY_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.mindFlayInsanity.ticksLost',
@@ -118,7 +118,7 @@ class MindFlayInsanity extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.MIND_FLAY_INSANITY_TALENT.id}>
+        <BoringSpellValueText spellId={TALENTS.SURGE_OF_INSANITY_TALENT.id}>
           <>
             <UptimeIcon /> {this.casts} <small>buffs used out of {this.buffs} </small> <br />
             <ItemDamageDone amount={this.damage} /> <br />
@@ -154,7 +154,7 @@ class MindFlayInsanity extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} />
+          <SpellLink id={TALENTS.SURGE_OF_INSANITY_TALENT.id} />
         </b>{' '}
         is gained every time you cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.<br />
         This proc is low priority. If you have higher priority spells available, cast them instead,

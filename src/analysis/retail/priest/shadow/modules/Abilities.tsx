@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT),
       },
       {
         spell: TALENTS.MIND_SPIKE_TALENT.id,
