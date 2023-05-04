@@ -10,6 +10,12 @@ import Combatants from 'parser/shared/modules/Combatants';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import ElementalOrbit from './ElementalOrbit';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../restoration/Guide';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { Uptime } from 'parser/ui/UptimeBar';
+import { RESTORATION_COLORS } from '../../restoration/constants';
 
 export const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
@@ -51,7 +57,7 @@ class EarthShield extends Analyzer {
 
   get totalHealing() {
     return (
-      (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT)
+      (this.elementalOrbit.active
         ? this.elementalOrbit.healing + this.elementalOrbit.buffHealing
         : 0) +
       this.buffHealing +
@@ -106,6 +112,76 @@ class EarthShield extends Analyzer {
         )} %`}
       />
     );
+  }
+
+  /** Guide subsection describing the proper usage of Earth Shield */
+  get guideSubsection(): JSX.Element {
+    const hasElementalOrbit = this.elementalOrbit.active;
+    const hasEarthenHarmony = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT,
+    );
+
+    const explanation = (
+      <>
+        TODO TALK ABOUT HOW GOOD EARTH SHIELD IS
+        <br />
+        {hasElementalOrbit && (
+          <>
+            TODO TALK ABOUT HOW GOOD ELEMENTAL ORBIT MAKES EARTH SHIELD
+            <br />
+          </>
+        )}
+        {hasEarthenHarmony && (
+          <>
+            TODO TALK ABOUT HOW MUCH DAMAGE EARTHEN HARMONY MITIGATES AND HOW MUCH MORE HEALING IT
+            MAKES EARTH SHIELD DO
+            <br />
+          </>
+        )}
+      </>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> Uptimes
+          </strong>
+          {this.earthShieldUptimeBar()}
+          {hasElementalOrbit && this.elementalOrbitUptimeBar()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  getUptimeHistory(spellId: number) {
+    const uptimeHistory: Uptime[] = [];
+    let current: Uptime;
+    Object.values(this.combatants.players).forEach((player) => {
+      player.getBuffHistory(spellId, this.owner.playerId).forEach((trackedBuff) => {
+        console.log(trackedBuff);
+        current = { start: trackedBuff.start, end: trackedBuff.end! };
+        uptimeHistory.push(current);
+      });
+    });
+    return uptimeHistory;
+  }
+
+  earthShieldUptimeBar() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [TALENTS_SHAMAN.EARTH_SHIELD_TALENT],
+      uptimes: this.getUptimeHistory(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id),
+      color: RESTORATION_COLORS.CHAIN_HEAL,
+    });
+  }
+  elementalOrbitUptimeBar() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT],
+      uptimes: this.getUptimeHistory(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id),
+      color: RESTORATION_COLORS.HEALING_RAIN,
+    });
   }
 }
 

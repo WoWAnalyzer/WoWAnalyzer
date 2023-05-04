@@ -92,7 +92,6 @@ class EarthenHarmony extends Analyzer {
       this.eSApply !== -1 &&
       !this.firstESBuffDone
     ) {
-      console.log('es remove', event);
       this.loadFirstBuffDamageTakenDuringEarthShield(
         this.eSApply,
         event.timestamp,
@@ -151,7 +150,6 @@ class EarthenHarmony extends Analyzer {
         );
         if (spellId === talents.EARTH_SHIELD_TALENT.id) {
           this.damageTakenWithEarthShield += total;
-          console.log(this.damageTakenWithEarthShield);
         } else if (spellId === SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id) {
           this.damageTakenWithElementalOrbitEarthShield += total;
         }
@@ -176,7 +174,6 @@ class EarthenHarmony extends Analyzer {
         );
         if (spellId === talents.EARTH_SHIELD_TALENT.id) {
           this.damageTakenWithEarthShield += total;
-          console.log(this.damageTakenWithEarthShield);
         } else if (spellId === SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id) {
           this.damageTakenWithElementalOrbitEarthShield += total;
         }
