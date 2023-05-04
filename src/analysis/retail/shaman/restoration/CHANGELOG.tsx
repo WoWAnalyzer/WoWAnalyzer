@@ -5,6 +5,8 @@ import { Arlie, Fassbrause, niseko, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 4), <>Add <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> uptime to core section of the Guide</>, Vohrr),
+  change(date(2023, 5, 3), <><SpellLink spell={TALENTS.EARTHEN_HARMONY_TALENT}/> code review cleanup</>, Vohrr),
   change(date(2023, 5, 3), <>Fixed a bug with <SpellLink spell={TALENTS.EARTHEN_HARMONY_TALENT}/> not calculating the damage mitigated from <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> that were applied pre-pull</>, Vohrr),
   change(date(2023, 5, 2), <>Implement Guide prototype</>, Vohrr),
   change(date(2023, 5, 1), <>Added Tier 30 module</>, Vohrr),
