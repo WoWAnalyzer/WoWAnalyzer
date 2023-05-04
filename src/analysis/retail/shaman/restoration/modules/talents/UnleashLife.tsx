@@ -634,7 +634,9 @@ class UnleashLife extends Analyzer {
         from the potent buff it provides that can be consumed by a number of different abilities.
         This spell is best used in preparation for incoming damage to combo with one of your
         stronger abilities like a <SpellLink id={TALENTS.HIGH_TIDE_TALENT} />
-        -buffed <SpellLink id={TALENTS.CHAIN_HEAL_TALENT} /> or{' '}
+        -buffed <SpellLink id={TALENTS.CHAIN_HEAL_TALENT} />, a{' '}
+        <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
+        -buffed <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />, or{' '}
         <SpellLink id={TALENTS.HEALING_RAIN_TALENT} />
       </p>
     );
