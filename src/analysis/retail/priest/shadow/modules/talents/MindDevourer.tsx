@@ -14,6 +14,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
+const BUFF_DURATION_MS = 1500;
+
 class MindDevourer extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
@@ -22,9 +24,9 @@ class MindDevourer extends Analyzer {
   protected eventHistory!: EventHistory;
   protected abilityTracker!: AbilityTracker;
 
-  procsGained: number = 0;
-  procsWasted: number = 0;
-  procsOver: number = 0;
+  procsGained: number = 0; //Total gained Procs
+  procsExpired: number = 0; //procs lost to time
+  procsOver: number = 0; //procs lost to refresh
   lastProcTime: number = 0;
 
   constructor(options: Options) {
@@ -44,24 +46,30 @@ class MindDevourer extends Analyzer {
     );
   }
 
+  get procsWasted() {
+    return this.procsExpired + this.procsOver;
+  }
+
   onBuffApplied(event: ApplyBuffEvent) {
-    this.procsGained += 1; // Add a proc to the counter
+    this.procsGained += 1;
     this.lastProcTime = event.timestamp;
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
     const durationHeld = event.timestamp - this.lastProcTime;
-    if (durationHeld >= 14990) {
-      this.procsWasted += 1;
+    if (durationHeld >= BUFF_DURATION_MS - 10) {
+      this.procsExpired += 1;
     }
   }
 
   onBuffRefreshed(event: RefreshBuffEvent) {
+    this.procsGained += 1;
     this.procsOver += 1;
+    this.lastProcTime = event.timestamp;
   }
 
   getProcsUsed() {
-    return this.procsGained - this.procsWasted - this.procsOver;
+    return this.procsGained - this.procsWasted;
   }
 
   get suggestionThresholds() {
@@ -118,8 +126,8 @@ class MindDevourer extends Analyzer {
       label: 'Mind Devourer procs Overwritten',
     };
 
-    const wastedMD = {
-      count: this.procsWasted,
+    const expiredMD = {
+      count: this.procsExpired,
       label: 'Mind Devourer procs Expired',
     };
 
@@ -139,7 +147,7 @@ class MindDevourer extends Analyzer {
     const data = (
       <div>
         <strong>Mind Devourer breakdown</strong>
-        <GradiatedPerformanceBar good={goodMD} ok={overMD} bad={wastedMD} />
+        <GradiatedPerformanceBar good={goodMD} ok={overMD} bad={expiredMD} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);

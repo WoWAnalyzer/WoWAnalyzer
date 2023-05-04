@@ -51,9 +51,6 @@ const CoreCooldownsGraph = () => {
 
   let coreCooldown = coreCooldowns;
 
-  console.log('CDs', coreCooldowns);
-  console.log('CD', coreCooldown);
-
   let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
       <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
@@ -115,7 +112,6 @@ const CoreCooldownsGraph = () => {
       }
   }
   coreCooldown[cdIndex].activeWindows = combined;
-  console.log("CB", combined)
   }
   */
   return CoreCooldownGraphSubsection(coreCooldown, message);
