@@ -1,12 +1,13 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS/classic/warlock';
 import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Enemies from 'parser/shared/modules/Enemies';
-import UptimeBar from 'parser/ui/UptimeBar';
+import SPELLS from 'common/SPELLS/classic/warlock';
+import { SPELL_COLORS } from '../../constants';
 
 class ImmolateUptime extends Analyzer {
   static dependencies = {
@@ -30,12 +31,26 @@ class ImmolateUptime extends Analyzer {
     };
   }
 
+  get DowntimePerformance(): QualitativePerformance {
+    const suggestionThresholds = this.suggestionThresholds.isLessThan;
+    if (this.uptime > suggestionThresholds.minor) {
+      return QualitativePerformance.Perfect;
+    }
+    if (this.uptime >= suggestionThresholds.minor) {
+      return QualitativePerformance.Good;
+    }
+    if (this.uptime >= suggestionThresholds.average) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
+  }
+
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.IMMOLATE} /> uptime can be improved. Use a debuff tracker to
-          see your uptime on the boss.
+          Your <SpellLink spell={SPELLS.IMMOLATE} /> uptime can be improved. If necessary, use a
+          debuff tracker to see your uptime on the boss.
         </>,
       )
         .icon(SPELLS.IMMOLATE.icon)
@@ -49,25 +64,17 @@ class ImmolateUptime extends Analyzer {
     );
   }
 
+  get uptimeHistory() {
+    return this.enemies.getDebuffHistory(SPELLS.IMMOLATE.id);
+  }
+
   subStatistic() {
-    const history = this.enemies.getDebuffHistory(SPELLS.IMMOLATE.id);
-    return (
-      <div className="flex">
-        <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.IMMOLATE} />
-        </div>
-        <div className="flex-sub value" style={{ width: 140 }}>
-          {formatPercentage(this.uptime, 0)}% <small>uptime</small>
-        </div>
-        <div className="flex-main chart" style={{ padding: 15 }}>
-          <UptimeBar
-            uptimeHistory={history}
-            start={this.owner.fight.start_time}
-            end={this.owner.fight.end_time}
-          />
-        </div>
-      </div>
-    );
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [SPELLS.IMMOLATE],
+      uptimes: this.uptimeHistory,
+      color: SPELL_COLORS.IMMOLATE,
+      perf: this.DowntimePerformance,
+    });
   }
 }
 

@@ -924,8 +924,15 @@ const spells = spellIndexableList({
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
   },
+  // ID for the cast, resource change, and direct damage
   THRASH_FERAL: {
     id: 106830,
+    name: 'Thrash',
+    icon: 'spell_druid_thrash',
+  },
+  // ID for the debuff and DoT damage
+  THRASH_FERAL_BLEED: {
+    id: 405233,
     name: 'Thrash',
     icon: 'spell_druid_thrash',
   },

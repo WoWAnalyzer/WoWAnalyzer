@@ -17,7 +17,7 @@ class ThrashUptimeAndSnapshot extends Snapshots {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(SPELLS.THRASH_FERAL, SPELLS.THRASH_FERAL, [TIGERS_FURY_SPEC], options);
+    super(SPELLS.THRASH_FERAL, SPELLS.THRASH_FERAL_BLEED, [TIGERS_FURY_SPEC], options);
   }
 
   getDotExpectedDuration(): number {
@@ -29,7 +29,7 @@ class ThrashUptimeAndSnapshot extends Snapshots {
   }
 
   getTotalDotUptime(): number {
-    return this.enemies.getBuffUptime(SPELLS.THRASH_FERAL.id);
+    return this.enemies.getBuffUptime(SPELLS.THRASH_FERAL_BLEED.id);
   }
 
   handleApplication(
