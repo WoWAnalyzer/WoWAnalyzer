@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 5, 4), 'Add 10.1 patch.', ToppleTheNun),
   change(date(2023, 5, 2), 'Bumped game version to 10.1', emallson),
   change(date(2023, 4, 24), 'Add ability to filter M+ analysis by dungeon pulls.', ToppleTheNun),
   change(date(2023, 4, 24), 'Additions and updates for Classic Potions (guide and checklist).', jazminite),
