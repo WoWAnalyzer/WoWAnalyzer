@@ -95,8 +95,8 @@ class Abilities extends CoreAbilities {
         },
         insanityCost:
           5000 -
-          combatant.getTalentRank(TALENTS.MINDS_EYE_TALENT) * 5 +
-          combatant.getTalentRank(TALENTS.DISTORTED_REALITY_TALENT) * 5,
+          combatant.getTalentRank(TALENTS.MINDS_EYE_TALENT) * 500 +
+          combatant.getTalentRank(TALENTS.DISTORTED_REALITY_TALENT) * 500,
       },
       {
         spell: SPELLS.VAMPIRIC_TOUCH.id,
