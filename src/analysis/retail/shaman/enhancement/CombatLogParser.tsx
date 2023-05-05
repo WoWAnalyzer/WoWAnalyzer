@@ -35,6 +35,8 @@ import FeralSpirit from './modules/talents/FeralSpirit';
 import ChainLightning from './modules/talents/ChainLightning';
 import AplCheck from './modules/apl/AplCheck';
 import WitchDoctorsWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
+import ElementalOrbit from '../shared/talents/ElementalOrbit';
+import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -54,6 +56,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Shaman Class Talents
     astralShift: AstralShift,
     earthShield: EarthShield,
+    elementalOrbit: ElementalOrbit,
+    earthenHarmony: EarthenHarmony,
     maelstromWeapon: MaelstromWeapon,
     naturesGuardian: NaturesGuardian,
     staticCharge: StaticCharge,
