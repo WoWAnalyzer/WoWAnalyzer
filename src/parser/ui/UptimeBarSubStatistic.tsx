@@ -3,6 +3,9 @@ import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
 import { WCLFight } from 'parser/core/Fight';
 import UptimeBar, { Uptime } from 'parser/ui/UptimeBar';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { PerformanceLabel } from './PerformanceLabel';
+
 import * as React from 'react';
 import './UptimeBarSubStatistic.scss';
 
@@ -14,6 +17,7 @@ export type UptimeBarSpec = {
   uptimes: Uptime[];
   /** Color to render the bars, in format '#rrggbb'. If omitted, UptimeBar's default color will be used. */
   color?: string;
+  perf?: QualitativePerformance;
 };
 
 export enum SubPercentageStyle {
@@ -54,7 +58,7 @@ export default function uptimeBarSubStatistic(
       <div className="flex main-bar">
         <div className="flex-sub bar-label">
           {getSubUptimeIcon(primaryBar)}
-          {formatPercentUptime(primaryUptime, totalFightTime)} <small>{statText}</small>
+          {getPerformanceLabel(primaryBar.perf!, primaryUptime, totalFightTime, statText)}
         </div>
         <div className="flex-main chart">
           <UptimeBar
@@ -107,4 +111,21 @@ function getSubUptimeIcon(spec: UptimeBarSpec) {
       <SpellIcon key={'Icon-' + s.name} id={s.id} />{' '}
     </>
   ));
+}
+
+function getPerformanceLabel(
+  perf: QualitativePerformance,
+  uptime: number,
+  total: number,
+  text: string,
+) {
+  const percentageUptime = formatPercentUptime(uptime, total);
+  if (perf !== undefined) {
+    return <PerformanceLabel performance={perf}> {percentageUptime} </PerformanceLabel>;
+  }
+  return (
+    <>
+      {percentageUptime} <small>{text}</small>
+    </>
+  );
 }

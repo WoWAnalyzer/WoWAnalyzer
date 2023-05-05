@@ -27,6 +27,7 @@ export default [
   change(date(2023, 5, 2), 'Bumped game version to 10.1', emallson),
   change(date(2023, 4, 24), 'Add ability to filter M+ analysis by dungeon pulls.', ToppleTheNun),
   change(date(2023, 4, 24), 'Additions and updates for Classic Potions (guide and checklist).', jazminite),
+  change(date(2023, 4, 23), 'Add Performance Label component to use with UptimeBarSubStatistic.', jazminite),
   change(date(2023, 4, 20), 'Add M+ season 2 images.', ToppleTheNun),
   change(date(2023, 4, 19), 'Add Aberrus raid images.', ToppleTheNun),
   change(date(2023, 4, 17), 'Update Classic WotLK Priest spells.', jazminite),
