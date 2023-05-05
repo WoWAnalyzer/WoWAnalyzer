@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -29,7 +28,6 @@ class MindFlayInsanity extends Analyzer {
   damage = 0;
   insanityGained = 0;
   casts = 0;
-  ticks = 0;
 
   procsGained: number = 0; //Total gained Procs(including refreshed) (Should be equal to number of cast DP)
   procsExpired: number = 0; //procs lost to time
@@ -38,52 +36,46 @@ class MindFlayInsanity extends Analyzer {
   lastProcTime: number = 0;
   currentStacks: number = 0;
 
+  //TODO: Test if these spells (_DAMAGE and _BUFF) are still the correct ids.
+
   constructor(options: Options) {
     super(options);
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
-      !this.selectedCombatant.hasTalent(TALENTS.MIND_SPIKE_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.MIND_SPIKE_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
       this.onDamage,
     );
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
       this.onEnergize,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE),
       this.onCast,
     );
     //Buff
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF),
       this.onBuff,
     );
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF),
       this.onBuffStack,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF),
       this.onRemove,
     );
     this.addEventListener(
-      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF),
       this.onRemoveStack,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF),
       this.onRefresh,
     );
-  }
-
-  //regardless of haste, a full channel of this spell ticks 4 times.
-  get ticksWastedPercentage() {
-    return 1 - this.ticks / (this.casts * 4);
-  }
-  get ticksWasted() {
-    return this.casts * 4 - this.ticks;
   }
   get procsWasted() {
     return this.procsExpired + this.procsOver;
@@ -91,13 +83,13 @@ class MindFlayInsanity extends Analyzer {
 
   get suggestionThresholds() {
     return {
-      actual: this.ticksWastedPercentage,
+      actual: this.procsWasted,
       isGreaterThan: {
-        minor: 0.1,
-        average: 0.2,
-        major: 0.3,
+        minor: 0.0,
+        average: 0.5,
+        major: 1.1,
       },
-      style: ThresholdStyle.PERCENTAGE,
+      style: ThresholdStyle.NUMBER,
     };
   }
 
@@ -135,7 +127,6 @@ class MindFlayInsanity extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.ticks += 1;
     this.damage += event.amount + (event.absorbed || 0);
   }
 
@@ -145,37 +136,28 @@ class MindFlayInsanity extends Analyzer {
   }
 
   suggestions(when: When) {
-    //TODO:Add second Suggestion for proc usage
     when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You interrupted <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> early,
-          wasting {formatPercentage(this.ticksWastedPercentage)}% the channel!
+          You lost {this.procsWasted} casts of{' '}
+          <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} />
         </>,
       )
         .icon(TALENTS.SURGE_OF_INSANITY_TALENT.icon)
         .actual(
           t({
-            id: 'priest.shadow.suggestions.mindFlayInsanity.ticksLost',
-            message: `Lost ${this.ticksWasted} ticks of Mind Flay: Insanity.`,
+            id: 'priest.shadow.suggestions.mindSpikeInsanity.castLost',
+            message: `Lost ${this.procsWasted} casts of Mind Spike: Insanity.`,
           }),
         )
-        .recommended('No ticks lost is recommended.'),
+        .recommended('No lost casts is recommended.'),
     );
   }
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip={
-          <>
-            {this.ticksWasted} ticks wasted by cancelling the channel early. <br />
-          </>
-        }
-      >
-        <BoringSpellValueText spellId={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF.id}>
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
+        <BoringSpellValueText spellId={SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF.id}>
           <>
             <UptimeIcon /> {this.casts} <small>buffs used out of {this.procsGained} </small> <br />
             <ItemDamageDone amount={this.damage} /> <br />
@@ -187,27 +169,17 @@ class MindFlayInsanity extends Analyzer {
   }
 
   get guideSubsection(): JSX.Element {
-    const goodMFI = {
-      count: this.ticks,
-      label: 'Used Ticks',
-    };
-
-    const badMFI = {
-      count: this.ticksWasted,
-      label: 'Canceled Ticks',
-    };
-
-    const usedMFI = {
+    const usedMSI = {
       count: this.casts,
       label: 'Buffs Used',
     };
 
-    const overMFI = {
+    const overMSI = {
       count: this.procsOver,
       label: 'Buffs Overwritten',
     };
 
-    const expiredMFI = {
+    const expiredMSI = {
       count: this.procsExpired,
       label: 'Buffs Expired',
     };
@@ -215,21 +187,19 @@ class MindFlayInsanity extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF.id} />
+          <SpellLink id={SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF.id} />
         </b>{' '}
         is gained every time you cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.<br />
         This buff can stack two times. While you have two stacks, try cast{' '}
-        <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> before casting{' '}
+        <SpellLink id={SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE} /> before casting{' '}
         <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />, unless you will otherwise overcap on
         Insanity
       </p>
     );
     const data = (
       <div>
-        <strong>Mind Flay Insanity Channels</strong>
-        <GradiatedPerformanceBar good={goodMFI} bad={badMFI} />
-        <strong>Mind Flay Insanity Procs</strong>
-        <GradiatedPerformanceBar good={usedMFI} ok={overMFI} bad={expiredMFI} />
+        <strong>Mind Spike Insanity Procs</strong>
+        <GradiatedPerformanceBar good={usedMSI} ok={overMSI} bad={expiredMSI} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);
