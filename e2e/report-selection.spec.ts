@@ -3,55 +3,44 @@ import { expect, test } from './fixtures';
 test('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
 
-  await homePage.fillInReportInputWithCode('zkBJfC4PVLM9ar2G');
+  await homePage.fillInReportInputWithCode('cJXjr3phZ2MAkHFP');
 
   await fightSelectionPage.expectFightSelectionHeaderToBeVisible();
-  await fightSelectionPage.expectUrlToHaveReportCode('zkBJfC4PVLM9ar2G');
-  await expect(page).toHaveTitle('2023 March 27');
+  await fightSelectionPage.expectUrlToHaveReportCode('cJXjr3phZ2MAkHFP');
+  await expect(page).toHaveTitle('sniff those seeds');
 });
 
 test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
-  await fightSelectionPage.goto('zkBJfC4PVLM9ar2G');
+  await fightSelectionPage.goto('cJXjr3phZ2MAkHFP');
 
-  await page.getByRole('link', { name: 'Kill 12:35' }).click();
+  await page.getByRole('link', { name: 'Kill 1:43' }).click();
 
   await playerSelectionPage.expectPlayerSelectionHeaderToBeVisible();
   await playerSelectionPage.expectUrlToHaveReportCodeAndFight(
-    'zkBJfC4PVLM9ar2G',
-    '16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)',
+    'cJXjr3phZ2MAkHFP',
+    '1-Mythic+Eranog+-+Kill+(1:43)',
   );
-  await expect(page).toHaveTitle(
-    'Mythic Raszageth the Storm-Eater - Kill (12:35) in 2023 March 27',
-  );
+  await expect(page).toHaveTitle('Mythic Eranog - Kill (1:43) in sniff those seeds');
 });
 
 test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
-  await playerSelectionPage.goto(
-    'zkBJfC4PVLM9ar2G',
-    '16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)',
-  );
+  await playerSelectionPage.goto('cJXjr3phZ2MAkHFP', '1-Mythic+Eranog+-+Kill+(1:43)');
 
   await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 418' })
+    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 421' })
     .click();
 
   await reportPage.expectBossDifficultyAndNameHeaderToBeVisible();
-  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('MythicRaszageth the Storm-Eater');
-  await reportPage.expectUrlToHave(
-    'zkBJfC4PVLM9ar2G',
-    '16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)',
-    'Toppledh',
-  );
-  await expect(page).toHaveTitle(
-    'Mythic Raszageth the Storm-Eater - Kill (12:35) by Toppledh in 2023 March 27',
-  );
+  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('MythicEranog');
+  await reportPage.expectUrlToHave('cJXjr3phZ2MAkHFP', '1-Mythic+Eranog+-+Kill+(1:43)', 'Toppledh');
+  await expect(page).toHaveTitle('Mythic Eranog - Kill (1:43) by Toppledh in sniff those seeds');
 });
 
 test.describe('tab selection', () => {
   test.beforeEach(async ({ reportPage }) => {
     await reportPage.goto({
-      reportCode: 'zkBJfC4PVLM9ar2G',
-      fightCode: '16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)',
+      reportCode: 'cJXjr3phZ2MAkHFP',
+      fightCode: '1-Mythic+Eranog+-+Kill+(1:43)',
       playerName: 'Toppledh',
     });
   });
@@ -60,7 +49,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnStatisticsTab();
 
     await expect(page).toHaveURL(
-      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/statistics',
+      '/report/cJXjr3phZ2MAkHFP/1-Mythic+Eranog+-+Kill+(1:43)/Toppledh/standard/statistics',
     );
   });
 
@@ -68,7 +57,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnTimelineTab();
 
     await expect(page).toHaveURL(
-      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/timeline',
+      '/report/cJXjr3phZ2MAkHFP/1-Mythic+Eranog+-+Kill+(1:43)/Toppledh/standard/timeline',
     );
   });
 
@@ -76,7 +65,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCooldownsTab();
 
     await expect(page).toHaveURL(
-      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/cooldowns',
+      '/report/cJXjr3phZ2MAkHFP/1-Mythic+Eranog+-+Kill+(1:43)/Toppledh/standard/cooldowns',
     );
   });
 
@@ -84,7 +73,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCharacterTab();
 
     await expect(page).toHaveURL(
-      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/character',
+      '/report/cJXjr3phZ2MAkHFP/1-Mythic+Eranog+-+Kill+(1:43)/Toppledh/standard/character',
     );
   });
 
@@ -92,7 +81,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnAboutTab('Vengeance Demon Hunter');
 
     await expect(page).toHaveURL(
-      '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard/about',
+      '/report/cJXjr3phZ2MAkHFP/1-Mythic+Eranog+-+Kill+(1:43)/Toppledh/standard/about',
     );
   });
 });
@@ -103,16 +92,16 @@ test('perform analysis', async ({ page }) => {
   await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();
   await page
     .getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>')
-    .fill('https://www.warcraftlogs.com/reports/zkBJfC4PVLM9ar2G');
+    .fill('https://www.warcraftlogs.com/reports/cJXjr3phZ2MAkHFP');
   await page.getByRole('heading', { name: 'Fight selection' }).waitFor();
-  await page.getByRole('link', { name: 'Kill 12:35' }).click();
+  await page.getByRole('link', { name: 'Kill 1:43' }).click();
   await page.getByRole('heading', { name: 'Player selection' }).waitFor();
   await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 418' })
+    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 421' })
     .click();
-  await page.getByText('MythicRaszageth the Storm-Eater').waitFor();
+  await page.getByText('MythicEranog').waitFor();
 
   await expect(page).toHaveURL(
-    '/report/zkBJfC4PVLM9ar2G/16-Mythic+Raszageth+the+Storm-Eater+-+Kill+(12:35)/Toppledh/standard',
+    '/report/cJXjr3phZ2MAkHFP/1-Mythic+Eranog+-+Kill+(1:43)/Toppledh/standard',
   );
 });
