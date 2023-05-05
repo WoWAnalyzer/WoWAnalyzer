@@ -38,8 +38,6 @@ class MindFlayInsanity extends Analyzer {
   lastProcTime: number = 0;
   currentStacks: number = 0;
 
-  //TODO: Test if these spells (_DAMAGE and _BUFF) are still the correct ids.
-
   constructor(options: Options) {
     super(options);
     this.active =

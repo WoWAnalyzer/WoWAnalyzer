@@ -139,16 +139,29 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           />
         )}
 
-        {combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> canceled ticks{' '}
-              </>
-            }
-            thresholds={thresholds.mindFlayInsanity}
-          />
-        )}
+        {combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
+          !combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT) && (
+            <Requirement
+              name={
+                <>
+                  <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> canceled ticks{' '}
+                </>
+              }
+              thresholds={thresholds.mindFlayInsanity}
+            />
+          )}
+
+        {combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
+          combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT) && (
+            <Requirement
+              name={
+                <>
+                  <SpellLink id={SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.id} /> Procs Wasted{' '}
+                </>
+              }
+              thresholds={thresholds.mindSpikeInsanity}
+            />
+          )}
 
         {combatant.hasTalent(TALENTS.MIND_DEVOURER_TALENT) && (
           <Requirement
