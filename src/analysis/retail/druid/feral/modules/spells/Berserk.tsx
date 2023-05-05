@@ -42,10 +42,10 @@ const INCARN_HARDCAST_DURATION = 30_000;
  * **Berserk**
  * Spec Talent Tier 5
  *
- * Go Berserk for 20 sec. While Berserk:
- * Finishing moves have a 20% chance per combo point spent to refund 2 combo point.
- * Swipe generates 1 additional combo point.
- * Rake and Shred deal damage as though you were stealthed.
+ * Go Berserk for 20 seconds. While Berserk: Generate 1 combo point every 1.5 seconds.
+ * Finishing moves restore up to 3 combo points generated over the cap.
+ * Shred and Rake damage increased by 50%.
+ * Combo point generating abilities generate one additional combo point.
  *
  * **Berserk: Heart of the Lion**
  * Spec Talent Tier 7

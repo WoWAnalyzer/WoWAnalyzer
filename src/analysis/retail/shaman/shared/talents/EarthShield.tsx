@@ -1,4 +1,4 @@
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -16,6 +16,7 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../restoration/Guide';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { Uptime } from 'parser/ui/UptimeBar';
 import { RESTORATION_COLORS } from '../../restoration/constants';
+import EarthenHarmony from '../../restoration/modules/talents/EarthenHarmony';
 
 export const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
@@ -23,10 +24,12 @@ class EarthShield extends Analyzer {
   static dependencies = {
     combatants: Combatants,
     elementalOrbit: ElementalOrbit,
+    earthenHarmony: EarthenHarmony,
   };
 
   protected combatants!: Combatants;
   protected elementalOrbit!: ElementalOrbit;
+  protected earthenHarmony!: EarthenHarmony;
 
   healing = 0;
   buffHealing = 0;
@@ -126,8 +129,8 @@ class EarthShield extends Analyzer {
         <b>
           <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />
         </b>{' '}
-        is the only shield shaman has that can be placed on allies and provides very strong
-        throughput when combined with affecting talents in the class and spec tree.{' '}
+        is the only shield shaman can place on allies and provides very strong throughput when
+        combined with affecting talents in the class and spec tree.{' '}
         <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> should be applied prior to the
         fight starting and maintained as it falls off throughout the encounter
         <br />
@@ -147,8 +150,13 @@ class EarthShield extends Analyzer {
               <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} />
             </b>{' '}
             augments <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> even further by
-            providing damage reduction (TODO METRIC HERE FOR DAMAGE REDUCED)
-            <br />
+            providing damage reduction
+            <br />(
+            <b>
+              {formatNumber(this.earthenHarmony.totalDamageReduction)} was mitigated from{' '}
+              <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} />
+            </b>
+            )
           </>
         )}
       </>
@@ -174,8 +182,8 @@ class EarthShield extends Analyzer {
     let current: Uptime;
     Object.values(this.combatants.players).forEach((player) => {
       player.getBuffHistory(spellId, this.owner.playerId).forEach((trackedBuff) => {
-        console.log(trackedBuff);
-        current = { start: trackedBuff.start, end: trackedBuff.end! };
+        const end = trackedBuff.end ? trackedBuff.end : this.owner.fight.end_time;
+        current = { start: trackedBuff.start, end: end };
         uptimeHistory.push(current);
       });
     });
