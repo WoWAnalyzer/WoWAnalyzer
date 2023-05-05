@@ -39,8 +39,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    'report/DrWLJFZzBRV67PcK/5-Normal+The+Primal+Council+-+Kill+(3:05)/Doxashe/standard',
+  exampleReport: 'report/wdcJK4W8qvXCrkDV/1-Heroic+Terros+-+Wipe+1+(2:11)/Doxashe/standard',
   guideDefault: true,
 
   // Don't change anything below this line;
