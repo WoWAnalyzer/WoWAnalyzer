@@ -37,12 +37,6 @@ export const PROWL_SPEC: StaticSnapshotSpec = {
   spellFunc: (_) => [TALENTS_DRUID.POUNCING_STRIKES_TALENT],
   isActive: (_) => true,
   isPresent: (c, timestamp) =>
-    c.hasBuff(
-      TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id,
-      timestamp,
-      BUFF_DROP_BUFFER,
-    ) ||
-    c.hasBuff(SPELLS.BERSERK.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.PROWL.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.PROWL_INCARNATION.id, timestamp, BUFF_DROP_BUFFER) ||
     c.hasBuff(SPELLS.SHADOWMELD.id, timestamp, BUFF_DROP_BUFFER) ||

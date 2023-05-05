@@ -102,11 +102,12 @@ class RipUptimeAndSnapshots extends Snapshots {
        */
       let value: QualitativePerformance = QualitativePerformance.Good;
       let perfExplanation: React.ReactNode = undefined;
-      if (cpsUsed < getAcceptableCps(this.selectedCombatant) && this.castEntries.length > 0) {
+      const currAcceptableCps = getAcceptableCps(this.selectedCombatant);
+      if (cpsUsed < currAcceptableCps && this.castEntries.length > 0) {
         value = QualitativePerformance.Fail;
         perfExplanation = (
           <h5 style={{ color: BadColor }}>
-            Bad because you used less than {getAcceptableCps(this.selectedCombatant)} CPs
+            Bad because you used less than {currAcceptableCps} CPs
             <br />
           </h5>
         );

@@ -10,6 +10,8 @@ import RipUptimeAndSnapshots from 'analysis/retail/druid/feral/modules/spells/Ri
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import {
+  ACCEPTABLE_BERSERK_CPS,
+  ACCEPTABLE_CPS,
   cdSpell,
   FEROCIOUS_BITE_ENERGY,
   FEROCIOUS_BITE_MAX_DRAIN,
@@ -87,11 +89,12 @@ class FerociousBite extends Analyzer {
 
     let value: QualitativePerformance = QualitativePerformance.Good;
     let perfExplanation: React.ReactNode = undefined;
-    if (cpsUsed < getAcceptableCps(this.selectedCombatant)) {
+    const currAcceptableCps = getAcceptableCps(this.selectedCombatant);
+    if (cpsUsed < currAcceptableCps) {
       value = QualitativePerformance.Fail;
       perfExplanation = (
         <h5 style={{ color: BadColor }}>
-          Bad because you used less than {getAcceptableCps(this.selectedCombatant)} CPs
+          Bad because you used less than {currAcceptableCps} CPs
           <br />
         </h5>
       );
@@ -152,15 +155,16 @@ class FerociousBite extends Analyzer {
           <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
-        use Bite with at least {getAcceptableCps(this.selectedCombatant)} CPs. Bite can consume up
-        to {FEROCIOUS_BITE_MAX_DRAIN} extra energy to do increased damage - this boost is very
-        efficient and you should always wait until{' '}
+        use Bite with at least {ACCEPTABLE_CPS} CPs ({ACCEPTABLE_BERSERK_CPS} during{' '}
+        <SpellLink spell={cdSpell(this.selectedCombatant)} />
+        ). Bite can consume up to {FEROCIOUS_BITE_MAX_DRAIN} extra energy to do increased damage -
+        this boost is very efficient and you should always wait until{' '}
         {FEROCIOUS_BITE_MAX_DRAIN + FEROCIOUS_BITE_ENERGY} energy to use Bite.{' '}
         {this.hasSotf && (
           <>
             One exception: because you have{' '}
             <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT.id} />, it is acceptable to
-            use low energy bites during <SpellLink id={cdSpell(this.selectedCombatant).id} /> in
+            use low energy bites during <SpellLink spell={cdSpell(this.selectedCombatant)} /> in
             order to get extra finishers in.
           </>
         )}

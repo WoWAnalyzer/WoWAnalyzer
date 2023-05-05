@@ -16,7 +16,6 @@ import {
 import RiptideTracker from '../core/RiptideTracker';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink, TooltipElement } from 'interface';
-import BoringValue from 'parser/ui/BoringValueText';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
@@ -27,6 +26,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import ITEMS from 'common/ITEMS';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -237,13 +237,7 @@ class PrimordialWave extends Analyzer {
           </>
         }
       >
-        <div className="pad">
-          <label>
-            <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT} /> Breakdown
-          </label>
-          {this.renderPrimoridalWaveChart()}
-        </div>
-        <BoringValue label="">
+        <TalentSpellText talent={TALENTS.PRIMORDIAL_WAVE_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
           <br />
           <TooltipElement
@@ -258,7 +252,14 @@ class PrimordialWave extends Analyzer {
             {this.buffIcon} {this.wastedBuffs}
             <small> wasted buffs</small>
           </TooltipElement>
-        </BoringValue>
+        </TalentSpellText>
+        <aside className="pad">
+          <hr />
+          <header>
+            <label>Breakdown of Primordial Wave Healing</label>
+          </header>
+          {this.renderPrimoridalWaveChart()}
+        </aside>
       </Statistic>
     );
   }
