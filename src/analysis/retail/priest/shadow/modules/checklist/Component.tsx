@@ -143,17 +143,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.SURGE_OF_DARKNESS_TALENT_BUFF.id} /> wasted{' '}
-              </>
-            }
-            thresholds={thresholds.surgeOfDarkness}
-          />
-        )}
-
-        {combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) && (
-          <Requirement
-            name={
-              <>
                 <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> canceled ticks{' '}
               </>
             }
