@@ -515,10 +515,11 @@ class CombatLogParser {
     }
     return module;
   }
-  normalize(events: AnyEvent[]) {
+  normalize(events: AnyEvent[], forApl: boolean = false) {
     this.activeModules
       .filter((module) => module instanceof EventsNormalizer)
       .map((module) => module as EventsNormalizer)
+      .filter((en) => en.isAplNormalizer === forApl)
       .sort((a, b) => a.priority - b.priority) // lowest should go first, as `priority = 0` will have highest prio
       .forEach((normalizer) => {
         if (normalizer.normalize) {
@@ -744,6 +745,14 @@ class CombatLogParser {
     }
 
     return results;
+  }
+
+  /**
+   * Returns the current event history after applying any normalizers where isAplNormalizer is
+   * true are applied.
+   */
+  getEventHistoryForApl(): AnyEvent[] {
+    return this.normalize(this.eventHistory, true);
   }
 
   static guide?: Guide;

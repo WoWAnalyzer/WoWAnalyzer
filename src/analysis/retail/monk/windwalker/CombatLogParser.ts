@@ -38,6 +38,8 @@ import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
 import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
+import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
+import FoFAplNormalizer from 'analysis/retail/monk/windwalker/modules/apl/FoFAplNormalizer';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -49,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     globalCooldown: GlobalCooldown,
     mysticTouch: MysticTouch,
     spellUsable: SpellUsable,
+    chiJiNormalizer: DanceOfChiJiNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -88,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // apl
     apl: AplCheck,
+    fofAplNormalizer: FoFAplNormalizer,
   };
 }
 

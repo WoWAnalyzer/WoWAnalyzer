@@ -52,7 +52,7 @@ export const serenityApl = build([
   },
   {
     spell: SPELLS.SPINNING_CRANE_KICK,
-    condition: and(inSerenity, buffPresent(TALENTS.DANCE_OF_CHI_JI_TALENT)),
+    condition: and(inSerenity, buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF)),
   },
   {
     spell: TALENTS.CHI_WAVE_TALENT,
@@ -91,7 +91,7 @@ export const nonSerenityApl = build([
   },
   {
     spell: SPELLS.SPINNING_CRANE_KICK,
-    condition: buffPresent(TALENTS.DANCE_OF_CHI_JI_TALENT),
+    condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
   },
   {
     spell: SPELLS.BLACKOUT_KICK,
