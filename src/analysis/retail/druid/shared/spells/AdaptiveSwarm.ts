@@ -48,7 +48,8 @@ const PERIODIC_DAMAGE: SpellInfo[] = [
   SPELLS.RIP,
   SPELLS.RAKE, // adaptive swarm also boosts the direct damage, so no need for 'tick' differentiation
   TALENTS.MASS_ENTANGLEMENT_TALENT,
-  SPELLS.THRASH_FERAL,
+  SPELLS.THRASH_FERAL, // even thrashes direct is "bleed damage"
+  SPELLS.THRASH_FERAL_BLEED,
   SPELLS.MOONFIRE_FERAL,
   SPELLS.MOONFIRE_DEBUFF,
   SPELLS.SUNFIRE,

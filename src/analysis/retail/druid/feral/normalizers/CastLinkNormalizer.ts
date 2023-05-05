@@ -119,7 +119,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: HIT_TARGET,
-    linkingEventId: SPELLS.THRASH_FERAL.id,
+    linkingEventId: SPELLS.THRASH_FERAL_BLEED.id,
     linkingEventType: [EventType.ApplyDebuff, EventType.RefreshDebuff],
     referencedEventId: SPELLS.THRASH_FERAL.id,
     referencedEventType: EventType.Cast,
