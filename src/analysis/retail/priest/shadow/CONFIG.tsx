@@ -11,13 +11,14 @@ const config: Config = {
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
   patchCompatibility: '10.1.0',
-  isPartial: false,
+  isPartial: true,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
       Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics
-      useful.
+      useful. This is still a work in progress for patch 10.1 If you find any issues, please let
+      DoxAshe#8269 know on Discord
       <br />
       <br />
       If you need general help learning the spec, Wowhead has a great getting started guide for
