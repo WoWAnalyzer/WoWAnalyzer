@@ -9,7 +9,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent) {
     if (
       event.ability.guid === SPELLS.MIND_FLAY.id ||
-      event.ability.guid === SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id //TODO: Check if this is the acutal spell cast id, because this talent has changed.
+      event.ability.guid === SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id
     ) {
       // This GCD gets handled by the `beginchannel` event
       return;

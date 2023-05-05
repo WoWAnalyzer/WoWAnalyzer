@@ -24,7 +24,7 @@ class InescapableTorment extends Analyzer {
 
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    this.time += 0.5 * this.selectedCombatant.getTalentRank(TALENTS.INESCAPABLE_TORMENT_TALENT);
+    this.time += 0.7 * this.selectedCombatant.getTalentRank(TALENTS.INESCAPABLE_TORMENT_TALENT);
   }
 
   statistic() {
