@@ -23,7 +23,7 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
-const BUFF_DURATION_MS = 1500;
+const BUFF_DURATION_MS = 15000;
 
 class MindFlayInsanity extends Analyzer {
   damage = 0;
