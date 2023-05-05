@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 5, 5), 'Fix Playwright tests.', ToppleTheNun),
   change(date(2023, 5, 4), 'Add 10.1 patch.', ToppleTheNun),
   change(date(2023, 5, 2), 'Bumped game version to 10.1', emallson),
   change(date(2023, 4, 24), 'Add ability to filter M+ analysis by dungeon pulls.', ToppleTheNun),
