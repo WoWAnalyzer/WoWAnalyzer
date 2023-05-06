@@ -6,6 +6,11 @@ import { t } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { getBuffEvents } from '../../normalizers/CastLinkNormalizer';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 
 class DreamBreath extends Analyzer {
   totalBreaths: number = 0;
@@ -46,6 +51,48 @@ class DreamBreath extends Analyzer {
       },
       style: ThresholdStyle.NUMBER,
     };
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+        </b>{' '}
+        is one of your empowered abilities and a very strong HoT. You should aim to use it at
+        Empower 1 in most scenarios, with the rare exception when you desperately need a burst AoE
+        heal. If talented into <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT.id} />, always use{' '}
+        <SpellLink id={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> prior to casting{' '}
+        <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.subStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  subStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_EVOKER.DREAM_BREATH_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        slimLines
+        useThresholds
+      />
+    );
   }
 
   suggestions(when: When) {
