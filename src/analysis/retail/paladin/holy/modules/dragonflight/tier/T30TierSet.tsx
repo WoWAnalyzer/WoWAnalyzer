@@ -16,7 +16,7 @@ import { SpellLink } from 'interface';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const CRIT_HEAL_INC = 0.6;
-const TWO_PIECE_HEAL_INC = CRIT_HEAL_INC / 2; // 60% inc to half of heal amount
+const TWO_PIECE_HEAL_INC = CRIT_HEAL_INC / 2; // 260% heal instead of 200% on crit
 const HOLY_PRISM_INC = 0.8;
 
 class T30HpalTierSet extends Analyzer {

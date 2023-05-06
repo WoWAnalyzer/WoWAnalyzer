@@ -7,6 +7,18 @@ import { t } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Combatants from 'parser/shared/modules/Combatants';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+
+interface CastInfo {
+  castTime: number;
+  totalHit: number;
+}
 
 class DreamFlight extends Analyzer {
   static dependencies = {
@@ -15,6 +27,7 @@ class DreamFlight extends Analyzer {
   protected combatants!: Combatants;
   numCasts: number = 0;
   numApply: number = 0;
+  appliesByCast: CastInfo[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -34,10 +47,13 @@ class DreamFlight extends Analyzer {
       return;
     }
     this.numApply += 1;
+    this.appliesByCast[this.appliesByCast.length - 1].totalHit =
+      this.appliesByCast.at(-1)!.totalHit + 1;
   }
 
   onCast(event: CastEvent) {
     this.numCasts += 1;
+    this.appliesByCast.push({ castTime: event.timestamp, totalHit: 0 });
   }
 
   get percentOfGroupHit() {
@@ -58,6 +74,67 @@ class DreamFlight extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} />
+        </b>{' '}
+        is a powerful healing CD that does an initial heal and leaves a powerful HoT on all targets
+        hit. You should try to use it to cover high damage periods where your raid is clumped up in
+        order to maximize its effectiveness. If used when your allies are spread out, it will do
+        very little healing to the point where spread out fights make this talent unusable.
+      </p>
+    );
+    const entries: BoxRowEntry[] = [];
+    const totalPlayers = this.combatants.playerCount;
+    this.appliesByCast.forEach((info) => {
+      const percent = info.totalHit / totalPlayers;
+      let value = QualitativePerformance.Fail;
+      if (percent > 0.85) {
+        value = QualitativePerformance.Good;
+      } else if (percent > 0.7) {
+        value = QualitativePerformance.Ok;
+      }
+      const tooltip = (
+        <>
+          <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> @{' '}
+          {this.owner.formatTimestamp(info.castTime)}
+          <br /> Targets hit: {info.totalHit}
+        </>
+      );
+      entries.push({ value, tooltip });
+    });
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.subStatistic()}
+          </div>
+          <PerformanceBoxRow values={entries} />
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  subStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        slimLines
+        useThresholds
+      />
+    );
   }
 
   suggestions(when: When) {
