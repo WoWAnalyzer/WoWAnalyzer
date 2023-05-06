@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 5, 5), <>Added per-stack breakdowns for each spell affected in the <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT}/> module.</>, Vohrr),
   change(date(2023, 5, 2), <>Re-enable <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> module and add Cast Efficieny subsection to the Guide</>, Vohrr),
   change(date(2023, 4, 28), <>Typo fix</>, Vohrr),
   change(date(2023, 4, 28), <>Updated Guide sections for 10.1</>, Vohrr),
