@@ -19,7 +19,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   const isEbBuild = info.combatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT);
   return (
     <>
-      <Section title="Core Spells and Buffs">
+      <Section title="Core Spell">
         {modules.dreamBreath.guideSubsection}
         {modules.spiritBloom.guideSubsection}
         {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
