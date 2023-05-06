@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { t } from '@lingui/macro';
@@ -11,13 +11,18 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
-import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { PerformanceMark } from 'interface/guide';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
+import CooldownExpandable, {
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
 
 interface CastInfo {
   castTime: number;
   totalHit: number;
+  overhealing: number;
+  healing: number;
 }
 
 class DreamFlight extends Analyzer {
@@ -27,7 +32,7 @@ class DreamFlight extends Analyzer {
   protected combatants!: Combatants;
   numCasts: number = 0;
   numApply: number = 0;
-  appliesByCast: CastInfo[] = [];
+  castInfo: CastInfo[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -35,6 +40,10 @@ class DreamFlight extends Analyzer {
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DREAM_FLIGHT_HEAL),
       this.onApply,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.DREAM_FLIGHT_HEAL),
+      this.onHeal,
     );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.DREAM_FLIGHT_TALENT),
@@ -47,13 +56,18 @@ class DreamFlight extends Analyzer {
       return;
     }
     this.numApply += 1;
-    this.appliesByCast[this.appliesByCast.length - 1].totalHit =
-      this.appliesByCast.at(-1)!.totalHit + 1;
+    this.castInfo[this.castInfo.length - 1].totalHit = this.castInfo.at(-1)!.totalHit + 1;
+  }
+
+  onHeal(event: HealEvent) {
+    const info = this.castInfo.at(-1)!;
+    info.healing += event.amount;
+    info.overhealing += event.overheal || 0;
   }
 
   onCast(event: CastEvent) {
     this.numCasts += 1;
-    this.appliesByCast.push({ castTime: event.timestamp, totalHit: 0 });
+    this.castInfo.push({ castTime: event.timestamp, totalHit: 0, overhealing: 0, healing: 0 });
   }
 
   get percentOfGroupHit() {
@@ -88,26 +102,6 @@ class DreamFlight extends Analyzer {
         very little healing to the point where spread out fights make this talent unusable.
       </p>
     );
-    const entries: BoxRowEntry[] = [];
-    const totalPlayers = this.combatants.playerCount;
-    this.appliesByCast.forEach((info) => {
-      const percent = info.totalHit / totalPlayers;
-      let value = QualitativePerformance.Fail;
-      if (percent > 0.85) {
-        value = QualitativePerformance.Good;
-      } else if (percent > 0.7) {
-        value = QualitativePerformance.Ok;
-      }
-      const tooltip = (
-        <>
-          <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> @{' '}
-          {this.owner.formatTimestamp(info.castTime)}
-          <br /> Targets hit: {info.totalHit}
-        </>
-      );
-      entries.push({ value, tooltip });
-    });
-
     const data = (
       <div>
         <RoundedPanel>
@@ -118,13 +112,52 @@ class DreamFlight extends Analyzer {
             {this.subStatistic()}
           </div>
           <br />
-          <GuideContainer>
-            <div style={{ marginLeft: '1em' }}>
-              {formatPercentage(this.percentOfGroupHit)}
-              <small>% of group hit:</small>
-            </div>
-            <PerformanceBoxRow values={entries} />
-          </GuideContainer>
+          {this.castInfo.map((info, idx) => {
+            const header = (
+              <>
+                <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> @{' '}
+                {this.owner.formatTimestamp(info.castTime)}
+              </>
+            );
+            const checklistItems: CooldownExpandableItem[] = [];
+            let targetsHitPerf = QualitativePerformance.Good;
+            let overhealingPerf = QualitativePerformance.Good;
+            const percentHit = info.totalHit / this.combatants.playerCount;
+            if (percentHit < 0.65) {
+              targetsHitPerf = QualitativePerformance.Fail;
+            } else if (percentHit < 0.75) {
+              targetsHitPerf = QualitativePerformance.Ok;
+            }
+            checklistItems.push({
+              label: (
+                <>
+                  % of raid hit with <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} />
+                </>
+              ),
+              result: <PerformanceMark perf={targetsHitPerf} />,
+              details: <>{formatPercentage(percentHit)}%</>,
+            });
+            const overhealPercent = info.overhealing / (info.overhealing + info.healing);
+            if (overhealPercent > 0.6) {
+              overhealingPerf = QualitativePerformance.Fail;
+            } else if (overhealPercent > 0.5) {
+              overhealingPerf = QualitativePerformance.Ok;
+            }
+            checklistItems.push({
+              label: <>% overhealing</>,
+              result: <PerformanceMark perf={overhealingPerf} />,
+              details: <>{formatPercentage(overhealPercent)}%</>,
+            });
+            const lowestPerf = getLowestPerf([targetsHitPerf, overhealingPerf]);
+            return (
+              <CooldownExpandable
+                header={header}
+                checklistItems={checklistItems}
+                perf={lowestPerf}
+                key={idx}
+              />
+            );
+          })}
         </RoundedPanel>
       </div>
     );
