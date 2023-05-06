@@ -332,6 +332,16 @@ const spells = spellIndexableList({
   // TALENTS
   // ---------
   // Balance
+  ECLIPSE_SOLAR: {
+    id: 48517,
+    name: 'Eclipse (Solar)',
+    icon: 'ability_druid_eclipseorange',
+  },
+  ECLIPSE_LUNAR: {
+    id: 48518,
+    name: 'Eclipse (Lunar)',
+    icon: 'ability_druid_eclipse',
+  },
   FORCE_OF_NATURE: {
     id: 33831,
     name: 'Force of Nature',
