@@ -11,7 +11,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
@@ -117,7 +117,14 @@ class DreamFlight extends Analyzer {
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
           </div>
-          <PerformanceBoxRow values={entries} />
+          <br />
+          <GuideContainer>
+            <div style={{ marginLeft: '1em' }}>
+              {formatPercentage(this.percentOfGroupHit)}
+              <small>% of group hit:</small>
+            </div>
+            <PerformanceBoxRow values={entries} />
+          </GuideContainer>
         </RoundedPanel>
       </div>
     );
