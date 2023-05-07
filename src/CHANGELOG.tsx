@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 5, 7), 'Add DebuffUptime module + Updates to AlwaysBeCasting and CancelledCasts.', jazminite),
   change(date(2023, 5, 5), 'Fix Playwright tests.', ToppleTheNun),
   change(date(2023, 5, 4), 'Add 10.1 patch.', ToppleTheNun),
   change(date(2023, 5, 2), 'Bumped game version to 10.1', emallson),

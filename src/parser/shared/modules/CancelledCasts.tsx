@@ -7,6 +7,7 @@ import { ThresholdStyle } from 'parser/core/ParseResults';
 import BoringValueText from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 import Events, { CastEvent, BeginCastEvent } from '../../core/Events';
 
@@ -108,6 +109,21 @@ class CancelledCasts extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  get CancelledPerformance(): QualitativePerformance {
+    const cancel = this.cancelledPercentage;
+    const suggestionThresholds = this.cancelledCastSuggestionThresholds.isGreaterThan;
+    if (cancel <= 0.01) {
+      return QualitativePerformance.Perfect;
+    }
+    if (cancel <= suggestionThresholds.minor) {
+      return QualitativePerformance.Good;
+    }
+    if (cancel <= suggestionThresholds.average) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
   }
 
   onFightend() {

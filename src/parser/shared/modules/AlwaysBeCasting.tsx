@@ -8,6 +8,7 @@ import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults'
 import Haste from 'parser/shared/modules/Haste';
 import Channeling from 'parser/shared/normalizers/Channeling';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
@@ -197,6 +198,28 @@ class AlwaysBeCasting extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  get DowntimePerformance(): QualitativePerformance {
+    const suggestionThresholds = this.downtimeSuggestionThresholds?.isGreaterThan;
+    if (this.downtimePercentage <= 0) {
+      return QualitativePerformance.Perfect;
+    }
+    if (suggestionThresholds && typeof suggestionThresholds === 'object') {
+      if (
+        suggestionThresholds.minor !== undefined &&
+        this.downtimePercentage <= suggestionThresholds.minor
+      ) {
+        return QualitativePerformance.Good;
+      }
+      if (
+        suggestionThresholds.average !== undefined &&
+        this.downtimePercentage <= suggestionThresholds.average
+      ) {
+        return QualitativePerformance.Ok;
+      }
+    }
+    return QualitativePerformance.Fail;
   }
 
   suggestions(when: When) {
