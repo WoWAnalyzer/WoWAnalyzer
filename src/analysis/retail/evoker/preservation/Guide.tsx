@@ -33,6 +33,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           info.combatant.hasTalent(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT) &&
           modules.emeraldCommunion.guideSubsection}
       </Section>
+      <Section title="Talents and Buffs">
+        {info.combatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT) &&
+          modules.ouroboros.guideSubsection}
+      </Section>
       <PreparationSection />
     </>
   );
