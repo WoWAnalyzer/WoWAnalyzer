@@ -37,6 +37,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Talents">
         {info.combatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT) &&
           modules.ouroboros.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT) && modules.stasis.guideSubsection}
       </Section>
       <PreparationSection />
     </>
