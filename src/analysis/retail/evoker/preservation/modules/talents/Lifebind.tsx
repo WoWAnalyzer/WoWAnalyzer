@@ -169,10 +169,10 @@ class Lifebind extends Analyzer {
         spellId: TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
         value:
           this.healingForSpell(SPELLS.EMERALD_COMMUNION_ALLY.id) +
-          this.healingForSpell(SPELLS.EMERALD_COMMUNION_SELF.id),
+          this.healingForSpell(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id),
         valueTooltip: formatNumber(
           this.healingForSpell(SPELLS.EMERALD_COMMUNION_ALLY.id) +
-            this.healingForSpell(SPELLS.EMERALD_COMMUNION_SELF.id),
+            this.healingForSpell(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id),
         ),
       },
       {

@@ -29,6 +29,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Healing cooldowns">
         {info.combatant.hasTalent(TALENTS_EVOKER.DREAM_FLIGHT_TALENT) &&
           modules.dreamFlight.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
+          info.combatant.hasTalent(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT) &&
+          modules.emeraldCommunion.guideSubsection}
       </Section>
       <PreparationSection />
     </>
