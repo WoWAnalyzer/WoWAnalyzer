@@ -57,11 +57,10 @@ class Checklist extends BaseChecklist {
   protected xuensBattlegear!: XuensBattlegear;
 
   render() {
-    const eventHistory = this.owner.getEventHistoryForApl();
     return (
       <Component
-        serenityProps={serenityProps(eventHistory, this.owner.info)}
-        nonSerenityProps={nonSerenityProps(eventHistory, this.owner.info)}
+        serenityProps={serenityProps(this.owner.eventHistory, this.owner.info)}
+        nonSerenityProps={nonSerenityProps(this.owner.eventHistory, this.owner.info)}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}
         thresholds={{

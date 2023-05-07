@@ -14,13 +14,6 @@ abstract class EventsNormalizer extends Module {
    */
   abstract normalize(events: AnyEvent[]): AnyEvent[];
 
-  /**
-   * Override this value to true to designate an event normalizer to not be run during the
-   * CombatLogParser's normalize function. These normalizers will instead to used on the final
-   * event history (including fabricated events) which is provided to the APL checker.
-   */
-  isAplNormalizer: boolean = false;
-
   // Convenience methods
   getFightStartIndex(events: AnyEvent[]): number {
     for (let i = 0; i < events.length; i += 1) {
