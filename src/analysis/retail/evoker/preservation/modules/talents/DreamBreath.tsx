@@ -48,12 +48,7 @@ class DreamBreath extends Analyzer {
       targetsHit: 0,
       counted: false,
     };
-    // ignore cancelled casts
-    if (this.casts.at(-1)?.targetsHit === 0) {
-      this.casts[this.casts.length - 1] = info;
-    } else {
-      this.casts.push(info);
-    }
+    this.casts.push(info);
   }
 
   onApply(event: ApplyBuffEvent) {
@@ -65,11 +60,13 @@ class DreamBreath extends Analyzer {
     events.forEach((ev) => {
       this.processedEvents.add(ev);
       // make sure its not a stasis DB
-      if (!info.counted) {
+      if (info && !info.counted) {
         this.casts.at(-1)!.targetsHit += 1;
       }
     });
-    info.counted = true;
+    if (info) {
+      info.counted = true;
+    }
   }
 
   get averageTargetsHit() {
