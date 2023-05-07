@@ -27,6 +27,11 @@ interface StasisInfo {
   spells: number[]; // spells that player cast with stasis
 }
 
+interface StasisAnalysis {
+  perf: QualitativePerformance;
+  analysis: JSX.Element;
+}
+
 interface Props {
   header: ReactNode;
   content: JSX.Element;
@@ -104,8 +109,8 @@ class Stasis extends Analyzer {
     );
   }
 
-  getPerfForCast(info: StasisInfo) {
-    return QualitativePerformance.Good;
+  getAnalysisForCast(info: StasisInfo): StasisAnalysis {
+    return { perf: QualitativePerformance.Good, analysis: <></> };
   }
 
   StasisTable = ({ header, content, perf, spells }: Props) => {
@@ -171,8 +176,15 @@ class Stasis extends Analyzer {
                 {this.owner.formatTimestamp(info.castTime)}
               </>
             );
+            const analysis = this.getAnalysisForCast(info);
             return (
-              <this.StasisTable header={header} spells={info.spells} content={<></>} key={idx} />
+              <this.StasisTable
+                header={header}
+                spells={info.spells}
+                content={analysis.analysis}
+                key={idx}
+                perf={analysis.perf}
+              />
             );
           })}
         </RoundedPanel>
