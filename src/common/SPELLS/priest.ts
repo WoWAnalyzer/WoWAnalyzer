@@ -688,7 +688,13 @@ const spells = spellIndexableList({
   },
 
   SHADOWY_APPARITION_DAMAGE: {
-    id: 148859,
+    id: 413231,
+    name: 'Shadowy Apparition',
+    icon: 'ability_priest_shadowyapparition',
+  },
+
+  SHADOWY_APPARITION_RESOURCE: {
+    id: 405746,
     name: 'Shadowy Apparition',
     icon: 'ability_priest_shadowyapparition',
   },

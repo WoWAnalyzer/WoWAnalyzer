@@ -10,7 +10,6 @@ export const MINDBENDER_UPTIME_MS = 15000;
 export const MS_BUFFER = 100;
 
 export const SPIRIT_DAMAGE_MULTIPLIER = 1.15;
-export const SPIRIT_INSANITY_GENERATION = 1;
 
 export const TWIST_OF_FATE_INCREASE = 1.1;
 
