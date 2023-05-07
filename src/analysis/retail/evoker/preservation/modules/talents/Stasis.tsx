@@ -12,7 +12,7 @@ import Events, {
 } from 'parser/core/Events';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -28,14 +28,8 @@ interface StasisInfo {
   forRamp: boolean;
 }
 
-interface StasisAnalysis {
-  perf: QualitativePerformance;
-  analysis: JSX.Element;
-}
-
 interface Props {
   header: ReactNode;
-  content: JSX.Element;
   perf?: QualitativePerformance;
   spells: number[];
   forRamp: boolean;
@@ -113,11 +107,42 @@ class Stasis extends Analyzer {
     );
   }
 
-  getAnalysisForCast(info: StasisInfo): StasisAnalysis {
-    return { perf: QualitativePerformance.Good, analysis: <></> };
+  getPerfForSpell(spell: number, forRamp: boolean) {
+    if (spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id) {
+      return QualitativePerformance.Good;
+    } else if (spell === SPELLS.EMERALD_BLOSSOM.id) {
+      if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT)) {
+        return QualitativePerformance.Good;
+      } else {
+        return QualitativePerformance.Fail;
+      }
+    } else if (spell === TALENTS_EVOKER.ECHO_TALENT.id) {
+      if (forRamp) {
+        return QualitativePerformance.Good;
+      } else {
+        return QualitativePerformance.Fail;
+      }
+    } else if (spell === TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT.id) {
+      return QualitativePerformance.Fail;
+    } else if (spell === TALENTS_EVOKER.REVERSION_TALENT.id) {
+      return QualitativePerformance.Fail;
+    } else if (spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id) {
+      if (forRamp) {
+        return QualitativePerformance.Fail;
+      } else {
+        return QualitativePerformance.Good;
+      }
+    } else if (spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id) {
+      if (forRamp) {
+        return QualitativePerformance.Fail;
+      } else {
+        return QualitativePerformance.Good;
+      }
+    }
+    return QualitativePerformance.Good;
   }
 
-  getAnalysisForSpell(spell: number, idx: number, forRamp: boolean) {
+  getAnalysisForSpell(spell: number, forRamp: boolean) {
     if (spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id) {
       return (
         <>
@@ -226,7 +251,7 @@ class Stasis extends Analyzer {
     }
   }
 
-  StasisTable = ({ header, content, perf, spells, forRamp }: Props) => {
+  StasisTable = ({ header, perf, spells, forRamp }: Props) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const combinedHeader =
       perf !== undefined ? (
@@ -244,7 +269,7 @@ class Stasis extends Analyzer {
         <div key={index}>
           <SpellIcon spell={cast} className="stasis__icon" />
           {'   '}
-          {this.getAnalysisForSpell(cast, index, forRamp)}
+          {this.getAnalysisForSpell(cast, forRamp)}
         </div>
       );
     });
@@ -257,7 +282,6 @@ class Stasis extends Analyzer {
           inverseExpanded={() => setIsExpanded(!isExpanded)}
         >
           <div className="stasis__cast-list">{spellSequence}</div>
-          <div>{content}</div>
         </ControlledExpandable>
       </div>
     );
@@ -304,14 +328,15 @@ class Stasis extends Analyzer {
                 {this.owner.formatTimestamp(info.castTime)}
               </>
             );
-            const analysis = this.getAnalysisForCast(info);
+            const perfs = info.spells.map((spell, idx2) => {
+              return this.getPerfForSpell(spell, info.forRamp);
+            });
             return (
               <this.StasisTable
                 header={header}
                 spells={info.spells}
-                content={analysis.analysis}
                 key={idx}
-                perf={analysis.perf}
+                perf={getLowestPerf(perfs)}
                 forRamp={info.forRamp}
               />
             );

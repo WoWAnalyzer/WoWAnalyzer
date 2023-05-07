@@ -167,15 +167,18 @@ class EssenceBurst extends Analyzer {
     const entries: BoxRowEntry[] = [];
     this.casts.forEach((info) => {
       let value = QualitativePerformance.Good;
-      if (
-        info.spell === null ||
-        (!this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENERGY_LOOP_TALENT) &&
-          info.spell === SPELLS.DISINTEGRATE.id)
-      ) {
+      const badDisintegrate =
+        !this.selectedCombatant.hasTalent(TALENTS_EVOKER.ENERGY_LOOP_TALENT) &&
+        info.spell === SPELLS.DISINTEGRATE.id;
+      const badEb =
+        info.spell === SPELLS.EMERALD_BLOSSOM_CAST.id &&
+        !this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT) &&
+        !this.selectedCombatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT);
+      if (info.spell === 0 || badEb || badDisintegrate) {
         value = QualitativePerformance.Fail;
       }
       const spellString =
-        info.spell === null ? (
+        info.spell === 0 ? (
           `Wasted from ${info.expired ? 'expiration' : 'refresh'}`
         ) : (
           <>

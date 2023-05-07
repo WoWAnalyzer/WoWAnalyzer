@@ -148,7 +148,6 @@ class EmeraldCommunion extends Analyzer {
             const checklistItems: CooldownExpandableItem[] = [];
             let targetsHitPerf = QualitativePerformance.Good;
             let ticksPerf = QualitativePerformance.Good;
-            const perfs = [targetsHitPerf, ticksPerf];
             const percentHit = info.numLifebinds / info.possibleTargets;
             if (percentHit < 0.7) {
               targetsHitPerf = QualitativePerformance.Fail;
@@ -181,7 +180,7 @@ class EmeraldCommunion extends Analyzer {
               result: <PerformanceMark perf={ticksPerf} />,
               details: <>{secondsChanneling} seconds</>,
             });
-            const lowestPerf = getLowestPerf(perfs);
+            const lowestPerf = getLowestPerf([ticksPerf, targetsHitPerf]);
             return (
               <CooldownExpandable
                 header={header}
