@@ -132,6 +132,8 @@ class Stasis extends Analyzer {
       } else {
         return QualitativePerformance.Good;
       }
+    } else if (spell === TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id) {
+      return QualitativePerformance.Fail;
     } else if (spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id) {
       if (forRamp) {
         return QualitativePerformance.Fail;
@@ -227,6 +229,18 @@ class Stasis extends Analyzer {
           </>
         );
       }
+    } else if (spell === TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id) {
+      return (
+        <>
+          <PassFailCheckmark pass={false} /> -{' '}
+          <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> is not a high value spell to
+          store in general compared to other spells. If you are planning to use{' '}
+          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> inside{' '}
+          <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />, then consider using{' '}
+          <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> prior to{' '}
+          <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />.
+        </>
+      );
     } else if (spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id) {
       if (forRamp) {
         return (
