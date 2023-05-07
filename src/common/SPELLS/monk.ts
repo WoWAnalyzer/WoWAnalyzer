@@ -168,6 +168,11 @@ const spells = spellIndexableList({
     name: 'Fury of Xuen',
     icon: 'ability_monk_prideofthetiger',
   },
+  FURY_OF_XUEN_STACK_BUFF: {
+    id: 396167,
+    name: 'Fury of Xuen',
+    icon: 'ability_monk_prideofthetiger',
+  },
   ENVELOPING_BREATH_HEAL: {
     id: 325209,
     name: 'Enveloping Breath',

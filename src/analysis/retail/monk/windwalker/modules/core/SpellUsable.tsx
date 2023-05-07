@@ -20,6 +20,10 @@ class SpellUsable extends CoreSpellUsable {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK),
       this.onBlackoutKick,
     );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK_TOTM),
+      this.onBlackoutKick,
+    );
   }
 
   onBlackoutKick(event: DamageEvent) {

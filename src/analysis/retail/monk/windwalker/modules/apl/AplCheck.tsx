@@ -1,4 +1,4 @@
-import aplCheck, { build, PlayerInfo } from 'parser/shared/metrics/apl';
+import aplCheck, { build, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import {
   and,
   buffMissing,
@@ -22,99 +22,94 @@ import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 const inSerenity = buffPresent(TALENTS.SERENITY_TALENT);
 const hasChi = (min: number) => hasResource(RESOURCE_TYPES.CHI, { atLeast: min });
 
-export const serenityApl = build([
-  {
-    spell: TALENTS.FISTS_OF_FURY_TALENT,
-    condition: and(inSerenity, serenityDurationRemainingLT(1500)),
-  },
-  {
-    spell: TALENTS.FAELINE_STOMP_TALENT,
-    condition: and(
-      hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
-      buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
-    ),
-  },
-  {
-    spell: TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
-    condition: inSerenity,
-  },
-  {
-    spell: TALENTS.FISTS_OF_FURY_TALENT,
-    condition: inSerenity,
-  },
-  {
-    spell: TALENTS.RISING_SUN_KICK_TALENT,
-    condition: inSerenity,
-  },
-  {
-    spell: SPELLS.BLACKOUT_KICK,
-    condition: inSerenity,
-  },
-  {
-    spell: SPELLS.SPINNING_CRANE_KICK,
-    condition: and(inSerenity, buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF)),
-  },
-  {
-    spell: TALENTS.CHI_WAVE_TALENT,
-    condition: inSerenity,
-  },
-  {
-    spell: SPELLS.TIGER_PALM,
-    condition: inSerenity,
-  },
-]);
+export const serenityApl = build(
+  [
+    {
+      spell: TALENTS.FISTS_OF_FURY_TALENT,
+      condition: serenityDurationRemainingLT(1500),
+    },
+    {
+      spell: TALENTS.FAELINE_STOMP_TALENT,
+      condition: and(
+        hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
+        buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
+      ),
+    },
+    TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
+    TALENTS.FISTS_OF_FURY_TALENT,
+    TALENTS.RISING_SUN_KICK_TALENT,
+    SPELLS.BLACKOUT_KICK,
+    {
+      spell: SPELLS.SPINNING_CRANE_KICK,
+      condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
+    },
+    TALENTS.CHI_WAVE_TALENT,
+  ].map((rule: Rule) => {
+    if ('condition' in rule) {
+      return { spell: rule.spell, condition: and(rule.condition, inSerenity) };
+    }
+    return { spell: rule, condition: inSerenity };
+  }),
+);
 
-export const nonSerenityApl = build([
-  {
-    spell: TALENTS.FAELINE_STOMP_TALENT,
-    condition: and(
-      hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
-      buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
-    ),
-  },
-  {
-    spell: TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
-    condition: hasChi(2),
-  },
-  TALENTS.WHIRLING_DRAGON_PUNCH_TALENT,
-  {
-    spell: TALENTS.RISING_SUN_KICK_TALENT,
-    condition: and(buffPresent(SPELLS.PRESSURE_POINT_BUFF), hasChi(2)),
-  },
-  {
-    spell: TALENTS.FISTS_OF_FURY_TALENT,
-    condition: hasChi(3),
-  },
-  {
-    spell: TALENTS.RISING_SUN_KICK_TALENT,
-    condition: hasChi(2),
-  },
-  {
-    spell: SPELLS.SPINNING_CRANE_KICK,
-    condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
-  },
-  {
-    spell: SPELLS.BLACKOUT_KICK,
-    condition: describe(and(hasChi(1), not(lastSpellCast(SPELLS.BLACKOUT_KICK))), (tense) => (
-      <>
-        <SpellLink id={SPELLS.BLACKOUT_KICK} /> was not your last cast.
-      </>
-    )),
-  },
-  {
-    spell: TALENTS.RUSHING_JADE_WIND_TALENT,
-    condition: hasChi(1),
-  },
-  TALENTS.CHI_WAVE_TALENT,
-  TALENTS.FAELINE_STOMP_TALENT,
-  {
-    spell: TALENTS.CHI_BURST_TALENT,
-    condition: and(
-      buffMissing(TALENTS.SERENITY_TALENT),
-      hasResource(RESOURCE_TYPES.CHI, { atMost: 5 }),
-    ),
-  },
-]);
+export const nonSerenityApl = build(
+  [
+    {
+      spell: TALENTS.FAELINE_STOMP_TALENT,
+      condition: and(
+        hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
+        buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
+      ),
+    },
+    {
+      spell: TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
+      condition: hasChi(2),
+    },
+    TALENTS.WHIRLING_DRAGON_PUNCH_TALENT,
+    {
+      spell: TALENTS.RISING_SUN_KICK_TALENT,
+      condition: and(buffPresent(SPELLS.PRESSURE_POINT_BUFF), hasChi(2)),
+    },
+    {
+      spell: TALENTS.FISTS_OF_FURY_TALENT,
+      condition: hasChi(3),
+    },
+    {
+      spell: TALENTS.RISING_SUN_KICK_TALENT,
+      condition: hasChi(2),
+    },
+    {
+      spell: SPELLS.SPINNING_CRANE_KICK,
+      condition: buffPresent(SPELLS.DANCE_OF_CHI_JI_BUFF),
+    },
+    {
+      spell: SPELLS.BLACKOUT_KICK,
+      condition: describe(and(hasChi(1), not(lastSpellCast(SPELLS.BLACKOUT_KICK))), (tense) => (
+        <>
+          <SpellLink id={SPELLS.BLACKOUT_KICK} /> was not your last cast.
+        </>
+      )),
+    },
+    {
+      spell: TALENTS.RUSHING_JADE_WIND_TALENT,
+      condition: hasChi(1),
+    },
+    TALENTS.CHI_WAVE_TALENT,
+    TALENTS.FAELINE_STOMP_TALENT,
+    {
+      spell: TALENTS.CHI_BURST_TALENT,
+      condition: and(
+        buffMissing(TALENTS.SERENITY_TALENT),
+        hasResource(RESOURCE_TYPES.CHI, { atMost: 5 }),
+      ),
+    },
+  ].map((rule: Rule) => {
+    if ('condition' in rule) {
+      return { spell: rule.spell, condition: and(rule.condition, not(inSerenity)) };
+    }
+    return { spell: rule, condition: not(inSerenity) };
+  }),
+);
 
 export const serenityProps = (events: AnyEvent[], info: PlayerInfo): AplRuleProps => {
   const check = aplCheck(serenityApl);

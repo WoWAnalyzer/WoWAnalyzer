@@ -1,19 +1,12 @@
 import { Condition, tenseAlt } from 'parser/shared/metrics/apl';
 import TALENTS from 'common/TALENTS/monk';
-import SPELLS from 'common/SPELLS/monk';
 import { EventType } from 'parser/core/Events';
 import { SpellLink } from 'interface';
+import { CHI_SPENDERS } from 'analysis/retail/monk/windwalker/constants';
 
 const DRINKING_HORN_COVER_DURATION_INCR = 300;
 const SERENITY_BASE_DURATION = 12000;
-const CHI_SPENDER_IDS = [
-  SPELLS.BLACKOUT_KICK.id,
-  TALENTS.RISING_SUN_KICK_TALENT.id,
-  SPELLS.SPINNING_CRANE_KICK.id,
-  TALENTS.FISTS_OF_FURY_TALENT.id,
-  TALENTS.STRIKE_OF_THE_WINDLORD_TALENT.id,
-  TALENTS.RUSHING_JADE_WIND_TALENT.id,
-];
+
 export function serenityDurationRemainingLT(
   durationLessThan: number,
 ): Condition<number | undefined> {
@@ -40,7 +33,7 @@ export function serenityDurationRemainingLT(
           if (
             hasDrinkingHornCover &&
             state !== undefined &&
-            CHI_SPENDER_IDS.includes(event.ability.guid)
+            CHI_SPENDERS.some((spell) => spell.id === event.ability.guid)
           ) {
             return state + DRINKING_HORN_COVER_DURATION_INCR;
           }

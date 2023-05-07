@@ -21,7 +21,7 @@ class FistsofFury extends Analyzer {
   previousTickTimestamp = 0;
   nonSerenityFistsTicks = 0;
   nonSerenityCasts = 0;
-  inSerenity = false;
+  lastCastInSerenity = false;
 
   protected abilityTracker!: AbilityTracker;
 
@@ -48,7 +48,7 @@ class FistsofFury extends Analyzer {
     if (!this.isNewFistsTick(event.timestamp)) {
       return;
     }
-    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) && !this.inSerenity) {
+    if (!this.lastCastInSerenity) {
       this.nonSerenityFistsTicks += 1;
     }
     this.previousTickTimestamp = event.timestamp;
@@ -56,10 +56,10 @@ class FistsofFury extends Analyzer {
 
   onFistsCast(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id)) {
-      this.inSerenity = false;
+      this.lastCastInSerenity = false;
       this.nonSerenityCasts += 1;
     } else {
-      this.inSerenity = true;
+      this.lastCastInSerenity = true;
     }
   }
 
