@@ -131,16 +131,16 @@ class DreamFlight extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  % of raid hit with <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} />
+                  # of targets hit <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} />
                 </>
               ),
               result: <PerformanceMark perf={targetsHitPerf} />,
-              details: <>{formatPercentage(percentHit)}%</>,
+              details: `${info.totalHit}/${this.combatants.playerCount} targets hit`,
             });
             const overhealPercent = info.overhealing / (info.overhealing + info.healing);
-            if (overhealPercent > 0.6) {
+            if (overhealPercent > 0.5) {
               overhealingPerf = QualitativePerformance.Fail;
-            } else if (overhealPercent > 0.5) {
+            } else if (overhealPercent > 0.4) {
               overhealingPerf = QualitativePerformance.Ok;
             }
             checklistItems.push({
