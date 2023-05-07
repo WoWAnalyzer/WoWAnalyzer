@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { ControlledExpandable, SpellLink } from 'interface';
+import { ControlledExpandable, SpellIcon, SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -16,15 +16,16 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { PerformanceMark, SectionHeader } from 'interface/guide';
+import { PassFailCheckmark, PerformanceMark, SectionHeader } from 'interface/guide';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
-import { getStasisSpell } from '../../normalizers/CastLinkNormalizer';
+import { getStasisSpell, isStasisForRamp } from '../../normalizers/CastLinkNormalizer';
 import { ReactNode, useState } from 'react';
 
 interface StasisInfo {
   castTime: number; // when stasis is originally cast
   consumeTime: number; // when stasis is consumed
   spells: number[]; // spells that player cast with stasis
+  forRamp: boolean;
 }
 
 interface StasisAnalysis {
@@ -37,6 +38,7 @@ interface Props {
   content: JSX.Element;
   perf?: QualitativePerformance;
   spells: number[];
+  forRamp: boolean;
 }
 
 class Stasis extends Analyzer {
@@ -64,7 +66,7 @@ class Stasis extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.curInfo = { castTime: event.timestamp, consumeTime: 0, spells: [] };
+    this.curInfo = { castTime: event.timestamp, consumeTime: 0, spells: [], forRamp: false };
   }
 
   onStackRemoval(event: RemoveBuffStackEvent | RemoveBuffEvent) {
@@ -77,6 +79,7 @@ class Stasis extends Analyzer {
         castTime: this.owner.fight.start_time,
         consumeTime: 0,
         spells: Array(2 - numStacks).fill(0),
+        forRamp: false,
       };
     }
     const spell = getStasisSpell(event);
@@ -88,6 +91,7 @@ class Stasis extends Analyzer {
   onBuffRemoval(event: RemoveBuffEvent) {
     if (this.curInfo) {
       this.curInfo!.consumeTime = event.timestamp;
+      this.curInfo!.forRamp = isStasisForRamp(event);
       this.stasisInfos.push(this.curInfo!);
       this.curInfo = null;
     }
@@ -113,7 +117,116 @@ class Stasis extends Analyzer {
     return { perf: QualitativePerformance.Good, analysis: <></> };
   }
 
-  StasisTable = ({ header, content, perf, spells }: Props) => {
+  getAnalysisForSpell(spell: number, idx: number, forRamp: boolean) {
+    if (spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id) {
+      return (
+        <>
+          <PassFailCheckmark pass /> - this spell is always good to store regardless of situation
+        </>
+      );
+    } else if (spell === SPELLS.EMERALD_BLOSSOM.id) {
+      if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT)) {
+        return (
+          <>
+            <PassFailCheckmark pass /> - this spell is always good to store when talented into{' '}
+            <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT} />
+          </>
+        );
+      } else if (!forRamp) {
+        return (
+          <>
+            <PassFailCheckmark pass={false} /> - you should never store{' '}
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> if not talented into{' '}
+            <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT} />
+          </>
+        );
+      } else {
+        return (
+          <>
+            <PassFailCheckmark pass={false} /> - you should never store{' '}
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> when doing a{' '}
+            <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp.
+          </>
+        );
+      }
+    } else if (spell === TALENTS_EVOKER.ECHO_TALENT.id) {
+      if (forRamp) {
+        return (
+          <>
+            <PassFailCheckmark pass /> - Although <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
+            is not high value, it is okay to store here as this{' '}
+            <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> is used for a{' '}
+            <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
+          </>
+        );
+      } else {
+        return (
+          <>
+            <PassFailCheckmark pass={false} /> - <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> is
+            not a high value spell to store when not doing a{' '}
+            <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
+          </>
+        );
+      }
+    } else if (spell === TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT.id) {
+      return (
+        <>
+          <PassFailCheckmark pass={false} /> -{' '}
+          <SpellLink spell={TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT} /> is not a good spell to store
+          in raid outside of very niche scenarious
+        </>
+      );
+    } else if (spell === TALENTS_EVOKER.REVERSION_TALENT.id) {
+      return (
+        <>
+          <PassFailCheckmark pass={false} /> - <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} />{' '}
+          is not a good spell to store due to its very low mana cost and CD
+        </>
+      );
+    } else if (spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id) {
+      if (forRamp) {
+        return (
+          <>
+            <PassFailCheckmark pass={false} /> -{' '}
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is not a high value spell to
+            store when not doing a <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />{' '}
+            ramp as it interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
+            buffs.
+          </>
+        );
+      } else {
+        return (
+          <>
+            <PassFailCheckmark pass /> - <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is
+            a very high value spell to store when not in a ramp due to its high mana cost and CD.
+          </>
+        );
+      }
+    } else if (spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id) {
+      if (forRamp) {
+        return (
+          <>
+            <PassFailCheckmark pass={false} /> -{' '}
+            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is not a high value spell to
+            store when not doing a <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />{' '}
+            ramp as it interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
+            buffs.
+          </>
+        );
+      } else {
+        return (
+          <>
+            <PassFailCheckmark pass /> - <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is
+            a very high value spell to store when not in a ramp due to its high mana cost and CD.
+          </>
+        );
+      }
+    } else if (spell === 0) {
+      return <>Unknown spell cast before pull</>;
+    }
+  }
+
+  StasisTable = ({ header, content, perf, spells, forRamp }: Props) => {
     const [isExpanded, setIsExpanded] = useState(false);
     const combinedHeader =
       perf !== undefined ? (
@@ -123,15 +236,30 @@ class Stasis extends Analyzer {
       ) : (
         header
       );
+    while (spells.length < 3) {
+      spells.push(0);
+    }
+    const spellSequence = spells.map((cast, index) => {
+      return (
+        <div key={index}>
+          <SpellIcon spell={cast} className="stasis__icon" />
+          {'   '}
+          {this.getAnalysisForSpell(cast, index, forRamp)}
+        </div>
+      );
+    });
     return (
-      <ControlledExpandable
-        header={<SectionHeader>{combinedHeader}</SectionHeader>}
-        element="section"
-        expanded={isExpanded}
-        inverseExpanded={() => setIsExpanded(!isExpanded)}
-      >
-        <div>{content}</div>
-      </ControlledExpandable>
+      <div className="stasis__container">
+        <ControlledExpandable
+          header={<SectionHeader>{combinedHeader}</SectionHeader>}
+          element="section"
+          expanded={isExpanded}
+          inverseExpanded={() => setIsExpanded(!isExpanded)}
+        >
+          <div className="stasis__cast-list">{spellSequence}</div>
+          <div>{content}</div>
+        </ControlledExpandable>
+      </div>
     );
   };
 
@@ -184,6 +312,7 @@ class Stasis extends Analyzer {
                 content={analysis.analysis}
                 key={idx}
                 perf={analysis.perf}
+                forRamp={info.forRamp}
               />
             );
           })}

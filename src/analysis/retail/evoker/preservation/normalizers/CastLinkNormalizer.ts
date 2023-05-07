@@ -41,6 +41,7 @@ export const BUFF_GROUPING = 'BuffGrouping'; // link ApplyBuff events together
 export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
 export const STASIS = 'Stasis';
+export const STASIS_FOR_RAMP = 'ForRamp';
 
 export enum ECHO_TYPE {
   NONE,
@@ -593,6 +594,14 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    linkRelation: STASIS_FOR_RAMP,
+    linkingEventId: SPELLS.STASIS_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
+    referencedEventType: EventType.ApplyBuff,
+    forwardBufferMs: MAX_ECHO_DURATION + 3000,
+  },
 ];
 
 /**
@@ -726,6 +735,10 @@ export function didEbConsumeSparkProc(event: RemoveBuffEvent | RemoveBuffStackEv
 
 export function wasEbConsumed(event: ApplyBuffEvent | ApplyBuffStackEvent) {
   return HasRelatedEvent(event, ESSENCE_BURST_LINK);
+}
+
+export function isStasisForRamp(event: RemoveBuffEvent) {
+  return HasRelatedEvent(event, STASIS_FOR_RAMP);
 }
 
 export function isEbFromT30Tier(
