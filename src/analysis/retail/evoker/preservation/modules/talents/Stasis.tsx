@@ -148,7 +148,8 @@ class Stasis extends Analyzer {
     if (spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id) {
       return (
         <>
-          <PassFailCheckmark pass /> - this spell is always good to store regardless of situation
+          <PassFailCheckmark pass /> - <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />{' '}
+          is always good to store regardless of situation
         </>
       );
     } else if (spell === SPELLS.EMERALD_BLOSSOM.id) {
