@@ -1,4 +1,4 @@
-import aplCheck, { build, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
+import aplCheck, { build, Condition, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import {
   and,
   buffMissing,
@@ -20,6 +20,21 @@ import { serenityDurationRemainingLT } from 'analysis/retail/monk/windwalker/mod
 import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 
 const inSerenity = buffPresent(TALENTS.SERENITY_TALENT);
+inSerenity.describe = (tense) => '';
+const notSerenity = not(inSerenity);
+notSerenity.describe = (tense) => '';
+const andSerenity = (cond: Condition<any>) => {
+  const andCnd = and(inSerenity, cond);
+  andCnd.describe = cond.describe;
+  return andCnd;
+};
+const andNotSerenity = (cond: Condition<any>) => {
+  const andCnd = and(not(inSerenity), cond);
+  andCnd.describe = cond.describe;
+  return andCnd;
+};
+
+inSerenity.describe = (tense) => '';
 const hasChi = (min: number) => hasResource(RESOURCE_TYPES.CHI, { atLeast: min });
 
 export const serenityApl = build(
@@ -46,7 +61,7 @@ export const serenityApl = build(
     TALENTS.CHI_WAVE_TALENT,
   ].map((rule: Rule) => {
     if ('condition' in rule) {
-      return { spell: rule.spell, condition: and(rule.condition, inSerenity) };
+      return { spell: rule.spell, condition: andSerenity(rule.condition) };
     }
     return { spell: rule, condition: inSerenity };
   }),
@@ -105,9 +120,9 @@ export const nonSerenityApl = build(
     },
   ].map((rule: Rule) => {
     if ('condition' in rule) {
-      return { spell: rule.spell, condition: and(rule.condition, not(inSerenity)) };
+      return { spell: rule.spell, condition: andNotSerenity(rule.condition) };
     }
-    return { spell: rule, condition: not(inSerenity) };
+    return { spell: rule, condition: notSerenity };
   }),
 );
 
