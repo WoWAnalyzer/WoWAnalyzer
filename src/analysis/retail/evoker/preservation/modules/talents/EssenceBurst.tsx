@@ -187,7 +187,7 @@ class EssenceBurst extends Analyzer {
         );
       const tooltip = (
         <>
-          Expiration @ {this.owner.formatTimestamp(info.timestamp)}
+          Buff removed @ {this.owner.formatTimestamp(info.timestamp)}
           <br />
           {spellString}
         </>
