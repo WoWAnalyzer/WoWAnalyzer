@@ -85,7 +85,7 @@ class Spiritbloom extends Analyzer {
           </div>
           <GuideContainer>
             <div style={{ marginLeft: '1em' }}>
-              {this.avgEmpowerment}
+              {this.avgEmpowerment.toFixed(1)}
               <small> avg empower lvl</small>
             </div>
             <PerformanceBoxRow values={entries} />
