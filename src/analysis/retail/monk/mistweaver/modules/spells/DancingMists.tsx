@@ -100,7 +100,7 @@ class DancingMists extends Analyzer {
   }
 
   get dancingMistProcRate() {
-    return this.dancingMistCount / (this.remApplyCount - this.dancingMistCount);
+    return this.dancingMistCount / (this.remApplyCount);
   }
 
   get sourceDataItems() {
