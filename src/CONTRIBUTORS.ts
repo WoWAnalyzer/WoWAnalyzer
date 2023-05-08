@@ -2143,3 +2143,7 @@ export const Tenooki: Contributor = {
   github: 'awiss',
   discord: 'dubya#6711',
 };
+export const Elitesparkle: Contributor = {
+  nickname: 'Elitesparkle',
+  github: 'Elitesparkle',
+};
