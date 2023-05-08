@@ -5,7 +5,7 @@ import { DoxAshe } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2023, 5, 6), <>Fixed <SpellLink id={TALENTS.AUSPICIOUS_SPIRITS_TALENT}/></>,DoxAshe),
+  change(date(2023, 5, 8), <>Fixed <SpellLink id={TALENTS.AUSPICIOUS_SPIRITS_TALENT}/>, <SpellLink id={TALENTS.DEATH_AND_MADNESS_TALENT}/></>,DoxAshe),
   change(date(2023, 5, 4), <>Fixed <SpellLink id={TALENTS.SURGE_OF_INSANITY_TALENT}/></>,DoxAshe),
   change(date(2023, 5, 3), <>Updated Shadow Priest Talents and Abilites for 10.1</>,DoxAshe),
   change(date(2023, 4, 21), <>Increased the accuracy of <SpellLink id={SPELLS.VOID_BOLT}/> cooldown tracking</>,DoxAshe),

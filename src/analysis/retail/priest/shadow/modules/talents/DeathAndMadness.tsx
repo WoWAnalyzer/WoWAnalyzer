@@ -37,15 +37,7 @@ class DeathAndMadness extends Analyzer {
       this.onDamage,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
-      this.onBuff,
-    );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
-      this.onBuff,
-    );
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_TALENT_BUFF),
       this.onEnergize,
     );
   }
@@ -57,16 +49,11 @@ class DeathAndMadness extends Analyzer {
     return event.hitPoints / event.maxHitPoints < this.executeThreshold;
   }
 
-  // Since the actual buff only applies/refreshes as a reward for getting a kill within 7s of using SW: Death, don't have to do much to check
-  onBuff() {
-    this.kills += 1;
-  }
-
   onDamage(event: DamageEvent) {
-    //If you cast Shadow Word: Death on a target in execute the cooldown is reset once.  If you wait 20 seconds, you miss the reset.
+    //If you cast Shadow Word: Death on a target in execute the cooldown is reset once.  If you wait 10 seconds, you miss the reset.
     if (this.isTargetInExecuteRange(event)) {
       const fromLastCast = event.timestamp - this.lastCastTime;
-      if (fromLastCast >= 990) {
+      if (fromLastCast >= 9990) {
         this.spellUsable.endCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id);
         this.resets += 1;
       }
@@ -76,6 +63,7 @@ class DeathAndMadness extends Analyzer {
 
   onEnergize(event: ResourceChangeEvent) {
     this.insanityGained += event.resourceChange;
+    this.kills += 1;
   }
 
   statistic() {

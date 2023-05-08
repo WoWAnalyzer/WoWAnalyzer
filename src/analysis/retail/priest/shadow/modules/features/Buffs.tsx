@@ -42,7 +42,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DEATH_AND_MADNESS_BUFF.id,
+        spellId: SPELLS.DEATH_AND_MADNESS_TALENT_BUFF.id,
         triggeredBySpellId: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT),
         timelineHighlight: true,
