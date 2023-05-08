@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
@@ -8,22 +7,8 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
-      {
-        spell: SPELLS.VOID_BOLT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 6 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) =>
-            calculateMaxCasts(cooldown, combatant.getBuffUptime(SPELLS.VOIDFORM_BUFF.id)),
-        },
-        damageSpellIds: [SPELLS.VOID_BOLT.id, SPELLS.VOID_BOLT_DISSONANT_ECHOES.id],
-        enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT),
-      },
+      //Voidbolt is added through Voidform module.
+      //SW:D is added through Shadow Word: Death module
       {
         spell: SPELLS.MIND_BLAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -31,7 +16,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        charges: 1 + (combatant.hasTalent(TALENTS.SHADOWY_INSIGHT_TALENT) ? 1 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.THOUGHT_HARVESTER_TALENT) ? 1 : 0),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
@@ -50,7 +35,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT),
       },
       {
         spell: TALENTS.MIND_SPIKE_TALENT.id,
@@ -61,17 +46,17 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
       },
       {
-        spell: SPELLS.MIND_SEAR.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        spell: SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.MIND_SEAR_TALENT),
+        enabled: combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
       },
       {
         spell: TALENTS.SHADOW_CRASH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 20,
         gcd: {
           base: 1500,
         },
@@ -81,32 +66,6 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT),
         damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
-      },
-      {
-        spell: TALENTS.DARK_VOID_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        enabled: combatant.hasTalent(TALENTS.DARK_VOID_TALENT),
-      },
-      {
-        spell: TALENTS.DAMNATION_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        enabled: combatant.hasTalent(TALENTS.DAMNATION_TALENT),
       },
       {
         spell: TALENTS.MINDGAMES_TALENT.id,
@@ -134,18 +93,14 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        insanityCost:
+          5000 -
+          combatant.getTalentRank(TALENTS.MINDS_EYE_TALENT) * 500 +
+          combatant.getTalentRank(TALENTS.DISTORTED_REALITY_TALENT) * 500,
       },
       {
         spell: SPELLS.VAMPIRIC_TOUCH.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
-        category: SPELL_CATEGORY.HIDDEN,
-        cooldown: 20,
         gcd: {
           base: 1500,
         },
@@ -190,7 +145,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.VOID_TORRENT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
+        cooldown: 45 - combatant.getTalentRank(TALENTS.MALEDICTION_TALENT) * 15,
         gcd: {
           base: 1500,
         },

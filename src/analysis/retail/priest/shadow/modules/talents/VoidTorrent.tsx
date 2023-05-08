@@ -29,7 +29,6 @@ function formatSeconds(seconds: number) {
   return Math.round(seconds * 10) / 10;
 }
 
-// Example Log: /report/jcHgC7bfNAMqtRFv/12-Mythic+Hungering+Destroyer+-+Kill+(6:41)/Adoraci/standard/statistics
 class VoidTorrent extends Analyzer {
   _previousVoidTorrentCast: any;
   damage = 0;
@@ -213,17 +212,24 @@ class VoidTorrent extends Analyzer {
       label: 'Gained Insanity',
     };
 
-    const insanityWasted = {
+    const insanityMissed = {
+      count: Math.round(this.insanityWasted),
+      label: 'Missed Insanity',
+    };
+
+    const insanityOver = {
       count: Math.round(this.insanityOvercapped),
       label: 'Overcapped Insanity',
     };
 
+    //Logs currently are missing the final tick of insanity from void torrent in the resources.
+    //For now I'll leave it as the logs have it, but if it doesn't get fixed there I will fix it here.
     const explanation = (
       <p>
         <b>
           <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} />
         </b>{' '}
-        deals damage and generates 60 insanity over its 3 second channel.
+        deals damage and generates 24 insanity over its 3 second channel.
         <br />
         You should cast this spell as often as you can, without overcapping insanity. When you use
         this spell, it should always be fully channeled.
@@ -235,7 +241,7 @@ class VoidTorrent extends Analyzer {
         <strong>Channel Time Lost</strong>
         <GradiatedPerformanceBar good={channelTime} bad={wastedTime} />
         <strong>Insanity Wasted</strong>
-        <GradiatedPerformanceBar good={insanityGained} bad={insanityWasted} />
+        <GradiatedPerformanceBar good={insanityGained} ok={insanityMissed} bad={insanityOver} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);

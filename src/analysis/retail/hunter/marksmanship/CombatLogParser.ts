@@ -45,7 +45,6 @@ import CallingTheShots from './modules/talents/CallingTheShots';
 import CarefulAim from './modules/talents/CarefulAim';
 import ChimaeraShot from './modules/talents/ChimaeraShot';
 import ExplosiveShot from '../shared/talents/ExplosiveShot';
-import LethalShots from './modules/talents/LethalShots';
 import LockAndLoad from './modules/talents/LockAndLoad';
 import MasterMarksman from '../shared/talents/MasterMarksman';
 import SerpentSting from '../shared/talents/SerpentSting';
@@ -104,7 +103,6 @@ class CombatLogParser extends CoreCombatLogParser {
     steadyFocus: SteadyFocus,
     carefulAim: CarefulAim,
     chimaeraShot: ChimaeraShot,
-    lethalShots: LethalShots,
     streamline: Streamline,
     deathblow: Deathblow,
     surgingShots: SurgingShots,

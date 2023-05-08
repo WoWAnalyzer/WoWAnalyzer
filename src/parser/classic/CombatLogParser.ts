@@ -1,7 +1,3 @@
-import Channeling from 'parser/shared/normalizers/Channeling';
-import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
-import FoodChecker from 'parser/classic/modules/items/FoodChecker';
-
 import BaseCombatLogParser, { DependenciesDefinition } from '../core/CombatLogParser';
 import Abilities from '../core/modules/Abilities';
 import Auras from '../core/modules/Auras';
@@ -34,6 +30,7 @@ import HealingDone from '../shared/modules/throughput/HealingDone';
 import ThroughputStatisticGroup from '../shared/modules/throughput/ThroughputStatisticGroup';
 import ApplyBuffNormalizer from '../shared/normalizers/ApplyBuff';
 import CancelledCastsNormalizer from '../shared/normalizers/CancelledCasts';
+import Channeling from 'parser/shared/normalizers/Channeling';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
@@ -47,6 +44,10 @@ import ManaGained from './statistic/ManaGained';
 import HyperspeedAccelerators from './modules/items/engineering/HyperspeedAccelerators';
 import FragBelt from 'parser/classic/modules/items/engineering/FragBelt';
 import Bombs from 'parser/classic/modules/items/engineering/Bombs';
+// Guide
+import FlaskChecker from 'parser/classic/modules/items/FlaskChecker';
+import FoodChecker from 'parser/classic/modules/items/FoodChecker';
+import PotionChecker from 'parser/classic/modules/items/PotionChecker';
 
 class CombatLogParser extends BaseCombatLogParser {
   static defaultModules: DependenciesDefinition = {
@@ -68,9 +69,7 @@ class CombatLogParser extends BaseCombatLogParser {
     throughputStatisticGroup: ThroughputStatisticGroup,
     deathTracker: DeathTracker,
 
-    foodChecker: FoodChecker,
     enchantChecker: EnchantChecker,
-    flaskChecker: FlaskChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     combatPotionChecker: CombatPotionChecker,
     healthstoneChecker: HealthstoneChecker,
@@ -110,6 +109,11 @@ class CombatLogParser extends BaseCombatLogParser {
     hyperspeedAccelerators: HyperspeedAccelerators,
     fragBelt: FragBelt,
     bombs: Bombs,
+
+    // Guide
+    foodChecker: FoodChecker,
+    flaskChecker: FlaskChecker,
+    potionChecker: PotionChecker,
   };
 }
 

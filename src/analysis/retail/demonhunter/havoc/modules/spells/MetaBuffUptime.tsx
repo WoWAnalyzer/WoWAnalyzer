@@ -29,7 +29,7 @@ class MetaBuffUptime extends Analyzer {
         size="flexible"
         tooltip={`The Metamorphosis buff total uptime was ${formatDuration(this.buffDuration)}.`}
       >
-        <BoringSpellValueText spellId={SPELLS.METAMORPHOSIS_HAVOC_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.METAMORPHOSIS_HAVOC_BUFF}>
           <>
             <UptimeIcon /> {formatPercentage(this.buffUptime)}% <small>uptime</small>
           </>

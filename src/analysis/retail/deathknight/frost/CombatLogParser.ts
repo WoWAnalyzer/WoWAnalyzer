@@ -25,6 +25,7 @@ import BreathOfSindragosa from './modules/talents/BreathOfSindragosa';
 import Frostscythe from './modules/talents/Frostscythe';
 import GatheringStorm from './modules/talents/GatheringStorm';
 import HornOfWinter from './modules/talents/HornOfWinter';
+import EmpowerRuneWeapon from './modules/talents/EmpowerRuneWeapon';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -55,6 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     gatheringStorm: GatheringStorm,
     frostscythe: Frostscythe,
     hornOfWinter: HornOfWinter,
+    empowerRuneWeapon: EmpowerRuneWeapon,
 
     // Runes
     runeOfTheFallenCrusader: RuneOfTheFallenCrusader,

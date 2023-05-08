@@ -90,18 +90,18 @@ export default class DemonicDeathSweep extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to have <SpellLink id={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} />. This will allow for two casts
-          of <SpellLink id={SPELLS.DEATH_SWEEP.id} /> during the{' '}
-          <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> talent.
+          Try to have <SpellLink spell={SPELLS.BLADE_DANCE.id} /> almost off cooldown before casting{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id} />. This will allow for two
+          casts of <SpellLink spell={SPELLS.DEATH_SWEEP.id} /> during the{' '}
+          <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC.id} /> buff you get from the{' '}
+          <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_TALENT.id} /> talent.
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.DEMONIC_TALENT.icon)
         .actual(
           <>
-            {actual} time(s) during <SpellLink id={SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
-            <SpellLink id={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.
+            {actual} time(s) during <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
+            <SpellLink spell={SPELLS.DEATH_SWEEP.id} /> wasn't casted twice.
           </>,
         )
         .recommended(`No bad casts is recommended.`),

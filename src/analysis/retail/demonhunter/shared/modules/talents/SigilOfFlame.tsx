@@ -38,7 +38,7 @@ export default class SigilOfFlame extends Analyzer {
       <p>
         <Trans id="guide.demonhunter.vengeance.sections.rotation.sigilOfFlame.explanation">
           <strong>
-            <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />
+            <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />
           </strong>{' '}
           is one of your <strong>builders</strong>. It generates{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} /> places a Sigil on the ground that activates
@@ -69,7 +69,7 @@ export default class SigilOfFlame extends Analyzer {
               totalCasts={totalCasts}
             />
             <strong>
-              <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
+              <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
               <Trans id="guide.castEfficiency">cast efficiency</Trans>
             </strong>
             <CastEfficiencyBar
@@ -91,14 +91,14 @@ export default class SigilOfFlame extends Analyzer {
     const details =
       damages.length > 0 ? (
         <div>
-          You hit at least one target with your <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
+          You hit at least one target with your <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
           cast. Good job!
         </div>
       ) : (
         <div>
-          You did not hit any targets with your <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
+          You did not hit any targets with your <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
           cast. Try to always hit at least one target with{' '}
-          <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} />.
+          <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />.
         </div>
       );
     const isPrepull = event.prepull;
@@ -112,8 +112,8 @@ export default class SigilOfFlame extends Analyzer {
         summary: <div>Cast before pull</div>,
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.SIGIL_OF_FLAME_TALENT} /> before pulling the boss. Good
-            job!
+            You cast <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} /> before pulling the boss.
+            Good job!
           </div>
         ),
       });

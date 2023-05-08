@@ -37,6 +37,7 @@ import VengeanceDemonHunter from 'analysis/retail/demonhunter/vengeance';
 import DevastationEvoker from 'analysis/retail/evoker/devastation';
 import PreservationEvoker from 'analysis/retail/evoker/preservation';
 // Classic
+import ClassicDeathKnightFrost from 'analysis/classic/deathknight/frost';
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
 import ClassicDruidRestoration from 'analysis/classic/druid/restoration';
 import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
@@ -44,6 +45,7 @@ import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicMageArcane from 'analysis/classic/mage/arcane';
 import ClassicMageFire from 'analysis/classic/mage/fire';
 import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
+import ClassicPaladinRetribution from 'analysis/classic/paladin/retribution';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
 import ClassicRogueAssassination from 'analysis/classic/rogue/assassination';
 import ClassicShamanRestoration from 'analysis/classic/shaman/restoration';
@@ -105,6 +107,7 @@ const configs: Config[] = [
   FuryWarrior,
 
   // Classic
+  ClassicDeathKnightFrost,
   ClassicDeathKnightUnholy,
 
   ClassicDruidRestoration,
@@ -116,6 +119,7 @@ const configs: Config[] = [
   ClassicMageFire,
 
   ClassicPaladinHoly,
+  ClassicPaladinRetribution,
 
   ClassicPriestShadow,
 

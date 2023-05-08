@@ -146,7 +146,7 @@ const talents = createTalentList({
     entryIds: [100532],
   },
   BLOODY_FRENZY_TALENT: {
-    id: 378739,
+    id: 407412,
     name: 'Bloody Frenzy',
     icon: 'ability_racial_cannibalize',
     maxRanks: 1,
@@ -160,7 +160,7 @@ const talents = createTalentList({
     entryIds: [100510],
   },
   BOMBARDMENT_TALENT: {
-    id: 378880,
+    id: 405804,
     name: 'Bombardment',
     icon: 'ability_hunter_thrillofthehunt',
     maxRanks: 1,
@@ -191,7 +191,7 @@ const talents = createTalentList({
     id: 204089,
     name: 'Bullseye',
     icon: 'ability_hunter_focusedaim',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [100581],
   },
   BURSTING_SHOT_TALENT: {
@@ -557,6 +557,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [100621],
   },
+  IN_THE_RHYTHM_TALENT: {
+    id: 407404,
+    name: 'In the Rhythm',
+    icon: 'ability_hunter_longshots',
+    maxRanks: 1,
+    entryIds: [100603],
+  },
   KEEN_EYESIGHT_TALENT: {
     id: 378004,
     name: 'Keen Eyesight',
@@ -645,18 +652,11 @@ const talents = createTalentList({
     entryIds: [100671],
   },
   LEGACY_OF_THE_WINDRUNNERS_TALENT: {
-    id: 190852,
+    id: 406425,
     name: 'Legacy of the Windrunners',
     icon: 'artifactability_marksmanhunter_legacyofthewindrunners',
     maxRanks: 2,
     entryIds: [100605],
-  },
-  LETHAL_SHOTS_TALENT: {
-    id: 260393,
-    name: 'Lethal Shots',
-    icon: 'ability_hunter_longshots',
-    maxRanks: 1,
-    entryIds: [100603],
   },
   LIGHT_AMMO_TALENT: {
     id: 378913,
@@ -865,11 +865,18 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [100619],
   },
+  ROAR_OF_SACRIFICE_TALENT: {
+    id: 53480,
+    name: 'Roar of Sacrifice',
+    icon: 'ability_hunter_fervor',
+    maxRanks: 1,
+    entryIds: [115478],
+  },
   RUTHLESS_MARAUDER_TALENT: {
     id: 385718,
     name: 'Ruthless Marauder',
     icon: 'ability_rogue_findweakness',
-    maxRanks: 3,
+    maxRanks: 2,
     entryIds: [100533],
   },
   SALVO_TALENT: {

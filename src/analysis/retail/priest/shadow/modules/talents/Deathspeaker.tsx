@@ -15,8 +15,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
-// Example Log https://www.warcraftlogs.com/reports/ctvYK32ZhbDqLmX8#fight=30&type=damage-done
-
 class Deathspeaker extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
@@ -43,7 +41,7 @@ class Deathspeaker extends Analyzer {
       this.onBuffRemoved,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATH_AND_MADNESS_BUFF),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATHSPEAKER_TALENT_BUFF),
       this.onBuffRefresh,
     );
   }

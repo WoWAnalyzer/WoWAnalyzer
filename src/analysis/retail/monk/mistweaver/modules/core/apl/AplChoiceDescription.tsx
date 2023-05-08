@@ -30,6 +30,12 @@ const aplTitle = (choice: MistweaverApl) => {
           <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />
         </>
       );
+    case MistweaverApl.AwakenedFaeline:
+      return (
+        <>
+          <SpellLink id={talents.AWAKENED_FAELINE_TALENT} />
+        </>
+      );
     default:
       return <em>Fallback</em>;
   }
@@ -157,20 +163,40 @@ const RisingMistCloudedFocusShaohaosDescription = () => {
   );
 };
 
-const FallbackDescription = () => (
-  <>
-    <p>
-      The {aplTitle(MistweaverApl.Fallback)} rotation is used when you don't have any
-      rotation-changing talents selected. You follow the core priority: high mana efficient spells
-      and short cooldowns, then filler damage spells. This is the simplest rotation, but practicing
-      it will build good habits that work with the other variations.
-    </p>
-    <AlertWarning>
-      Using <SpellLink id={talents.RISING_MIST_TALENT} /> is recommended, as it brings the entire
-      spec's toolkit together by creating multiple synergies between talents.
-    </AlertWarning>
-  </>
-);
+const CleaveBuildNotYetSupportedDescription = () => {
+  return (
+    <>
+      <p>
+        <strong>
+          The <SpellLink id={talents.AWAKENED_FAELINE_TALENT} /> rotation is not currently
+          supported.
+        </strong>
+      </p>
+    </>
+  );
+};
+
+const FallbackDescription = () => {
+  const info = useInfo();
+  return (
+    <>
+      <p>
+        The {aplTitle(MistweaverApl.Fallback)} rotation is used when you aren't using a recommended
+        raid build. Regardless of talent choices it is still important for you to follow the core
+        priority: high mana efficient spells and short cooldowns, then filler damage spells. This is
+        the simplest rotation, but practicing it will build good habits that work with the other
+        variations.
+      </p>
+
+      {!info?.combatant.hasTalent(talents.RISING_MIST_TALENT) && (
+        <AlertWarning>
+          Using <SpellLink id={talents.RISING_MIST_TALENT} /> is recommended, as it brings the
+          entire spec's toolkit together by creating multiple synergies between talents.
+        </AlertWarning>
+      )}
+    </>
+  );
+};
 
 const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
   switch (aplChoice) {
@@ -180,6 +206,8 @@ const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
       return <RisingMistAncientTeachingsUpwelFlsDescription />;
     case MistweaverApl.RisingMistCloudedFocusShaohaos:
       return <RisingMistCloudedFocusShaohaosDescription />;
+    case MistweaverApl.AwakenedFaeline:
+      return <CleaveBuildNotYetSupportedDescription />;
     default:
       return <FallbackDescription />;
   }

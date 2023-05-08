@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT)
+        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT)
           ? SPELLS.DREAM_BREATH_FONT.id
           : TALENTS.DREAM_BREATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DREAM_BREATH_TALENT),
@@ -55,7 +55,7 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.TIME_DILATION_TALENT),
       },
       {
-        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_TALENT)
+        spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT)
           ? SPELLS.SPIRITBLOOM_FONT.id
           : TALENTS.SPIRITBLOOM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
@@ -71,7 +71,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TEMPORAL_ANOMALY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 6,
+        cooldown: 15,
         gcd: {
           base: 1500,
         },

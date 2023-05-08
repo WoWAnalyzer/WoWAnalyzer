@@ -44,7 +44,7 @@ export default class TacticalRetreat extends Analyzer {
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink id={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id} /> buff to
+          Maintain the <SpellLink spell={TALENTS_DEMON_HUNTER.TACTICAL_RETREAT_TALENT.id} /> buff to
           maximize damage.
         </>,
       )

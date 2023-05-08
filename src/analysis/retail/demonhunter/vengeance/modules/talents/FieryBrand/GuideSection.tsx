@@ -29,16 +29,16 @@ export default function FieryBrandSubSection() {
         <Explanation>
           <p>
             <Trans id="guide.demonhunter.vengeance.sections.defensives.fieryBrand.explanation.summary">
-              <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> reduces the damage dealt to
-              you by targets with its debuff by <strong>40%</strong>.
+              <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> reduces the damage dealt
+              to you by targets with its debuff by <strong>40%</strong>.
             </Trans>
           </p>
           <p>
             <Trans id="guide.demonhunter.vengeance.sections.defensives.fieryBrand.explanation.graph">
-              This chart shows your <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} />{' '}
+              This chart shows your <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} />{' '}
               uptime along with the damage that you took.{' '}
               <strong>You do not need 100% uptime!</strong> However, damage taken without{' '}
-              <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> active (shown in{' '}
+              <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> active (shown in{' '}
               <Highlight color={red}>red</Highlight>) is dangerous!
             </Trans>
           </p>
@@ -49,8 +49,8 @@ export default function FieryBrandSubSection() {
           spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT}
           unmitigatedContent={
             <Trans id="guide.demonhunter.vengeance.sections.defensives.fieryBrand.data.unmitigated">
-              <SpellLink id={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> would have reduced this by{' '}
-              <strong>40%</strong>.
+              <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> would have reduced this
+              by <strong>40%</strong>.
             </Trans>
           }
         />

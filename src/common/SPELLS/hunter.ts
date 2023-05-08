@@ -186,11 +186,6 @@ const spells = spellIndexableList({
     name: 'Steady Focus',
     icon: 'ability_hunter_improvedsteadyshot',
   },
-  LETHAL_SHOTS_BUFF: {
-    id: 260395,
-    name: 'Lethal Shots',
-    icon: 'ability_hunter_resistanceisfutile',
-  },
   VOLLEY_DAMAGE: {
     id: 260247,
     name: 'Volley',

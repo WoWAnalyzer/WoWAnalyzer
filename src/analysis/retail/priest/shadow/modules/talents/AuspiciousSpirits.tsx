@@ -11,7 +11,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import { SPIRIT_DAMAGE_MULTIPLIER, SPIRIT_INSANITY_GENERATION } from '../../constants';
 
-// Example log: /report/K3VAhbp9CtLwG81j/26-Heroic+Zul+-+Kill+(4:44)/6-Isentropy
 class AuspiciousSpirits extends Analyzer {
   damage = 0;
   insanity = 0;

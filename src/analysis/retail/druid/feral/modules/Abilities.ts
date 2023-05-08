@@ -230,8 +230,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SURVIVAL_INSTINCTS.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 120,
-        charges: 2,
+        cooldown: 180,
         gcd: null,
         isDefensive: true,
         timelineSortIndex: 40,

@@ -37,7 +37,7 @@ const DEBUG = false;
  * Spec Talent Tier 9
  *
  * When you use 3 different combo point-generating abilities within 4 sec,
- * the damage of your next 2 Rips or Ferocious Bites is increased by 25%.
+ * the damage of your next 3 Rips or Ferocious Bites is increased by 25%.
  * --------------------------------
  * This module specifically tracks Ferocious Bite's benefit from Bloodtalons.
  * Rip benefits are handled in RipUptimeAndSnapshots.
@@ -322,8 +322,8 @@ class Bloodtalons extends Analyzer {
         </strong>{' '}
         changes your builder priorities. Pooling energy will make it easier to use three builders
         within a short window. It's worth using a sub-optimal builder if doing so would generate a
-        proc. Some mechanics (Convoke, Berserk, Apex) will give you less than three builders between
-        finishers - in these cases it's ok to use unbuffed finishers.
+        proc. Some mechanics (Convoke, Berserk, Apex) will give you finishers faster than you can
+        generate new bloodtalons - in these cases it's ok to use unbuffed finishers.
       </p>
     );
 

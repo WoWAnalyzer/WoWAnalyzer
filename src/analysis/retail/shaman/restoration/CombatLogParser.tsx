@@ -59,6 +59,15 @@ import RiptideAttributor from './modules/core/RiptideAttributor';
 import PrimalTideCore from './modules/talents/PrimalTideCore';
 import WavespeakersBlessing from './modules/talents/WavespeakersBlessing';
 import AncestralReach from './modules/talents/AncestralReach';
+import FlowOfTheTides from './modules/talents/FlowOfTheTides';
+import EarthShieldBreakdown from './modules/features/EarthShieldBreakdown';
+import EarthenHarmony from './modules/talents/EarthenHarmony';
+import ElementalOrbit from '../shared/talents/ElementalOrbit';
+import SurgingShields from '../shared/talents/SurgingShields';
+import Tier30 from './modules/dragonflight/Tier30';
+import Tier30Normalizer from './normalizers/Tier30Normalizer';
+import Guide from './Guide';
+import Riptide from './modules/talents/Riptide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -83,6 +92,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castBehavior: CastBehavior,
     checklist: Checklist,
     spellUsable: SpellUsable,
+    earthShieldBreakdown: EarthShieldBreakdown,
 
     // Talents
     torrent: Torrent,
@@ -105,8 +115,11 @@ class CombatLogParser extends CoreCombatLogParser {
     primalTideCore: PrimalTideCore,
     wavespeakersBlessing: WavespeakersBlessing,
     ancestralReach: AncestralReach,
+    flowOfTheTides: FlowOfTheTides,
+    earthenHarmony: EarthenHarmony,
 
     // Spells
+    riptide: Riptide,
     chainHeal: ChainHeal,
     healingSurge: HealingSurge,
     healingRain: HealingRain,
@@ -122,6 +135,8 @@ class CombatLogParser extends CoreCombatLogParser {
     staticCharge: StaticCharge,
     astralShift: AstralShift,
     earthShield: EarthShield,
+    elementalOrbit: ElementalOrbit,
+    surgingShields: SurgingShields,
 
     // Normalizers
     cloudburstNormalizer: CloudburstNormalizer,
@@ -131,7 +146,12 @@ class CombatLogParser extends CoreCombatLogParser {
     chainHealNormalizer: ChainHealNormalizer,
     riptideTracker: RiptideTracker,
     riptideAttributor: RiptideAttributor,
+
+    //Tier Sets
+    tier30: Tier30,
+    tier30Normalizer: Tier30Normalizer,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

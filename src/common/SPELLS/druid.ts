@@ -657,6 +657,11 @@ const spells = spellIndexableList({
     name: 'Earthwarden',
     icon: 'spell_shaman_blessingofeternals',
   },
+  GORY_FUR_BUFF: {
+    id: 201671,
+    name: 'Gory Fur',
+    icon: 'artifactability_guardiandruid_goryfur',
+  },
   FURY_OF_NATURE_HEAL: {
     id: 248522,
     name: 'Fury of Nature',
@@ -919,8 +924,15 @@ const spells = spellIndexableList({
     name: 'Moonfire',
     icon: 'spell_nature_starfall',
   },
+  // ID for the cast, resource change, and direct damage
   THRASH_FERAL: {
     id: 106830,
+    name: 'Thrash',
+    icon: 'spell_druid_thrash',
+  },
+  // ID for the debuff and DoT damage
+  THRASH_FERAL_BLEED: {
+    id: 405233,
     name: 'Thrash',
     icon: 'spell_druid_thrash',
   },

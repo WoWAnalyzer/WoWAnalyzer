@@ -27,7 +27,7 @@ const talents = createTalentList({
     id: 341240,
     name: 'Ancient Madness',
     icon: 'spell_priest_void_flay',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [103798],
   },
   ANGELIC_BULWARK_TALENT: {
@@ -164,13 +164,6 @@ const talents = createTalentList({
     entryIds: [103758],
     manaCost: 8250,
   },
-  COALESCING_SHADOWS_TALENT: {
-    id: 391242,
-    name: 'Coalescing Shadows',
-    icon: 'spell_priest_shadoworbs',
-    maxRanks: 1,
-    entryIds: [103795],
-  },
   CONTRITION_TALENT: {
     id: 197419,
     name: 'Contrition',
@@ -199,13 +192,6 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [103829],
   },
-  DAMNATION_TALENT: {
-    id: 341374,
-    name: 'Damnation',
-    icon: 'ability_warlock_eradication',
-    maxRanks: 1,
-    entryIds: [103796],
-  },
   DARK_ASCENSION_TALENT: {
     id: 391109,
     name: 'Dark Ascension',
@@ -227,19 +213,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103725],
   },
-  DARK_VOID_TALENT: {
-    id: 263346,
-    name: 'Dark Void',
-    icon: 'inv_elemental_primal_shadow',
-    maxRanks: 1,
-    entryIds: [103790],
-  },
   DEATHSPEAKER_TALENT: {
     id: 392507,
     name: 'Deathspeaker',
     icon: 'spell_shadow_demonicfortitude',
     maxRanks: 1,
-    entryIds: [103815],
+    entryIds: [103681],
   },
   DEATH_AND_MADNESS_TALENT: {
     id: 321291,
@@ -277,6 +256,13 @@ const talents = createTalentList({
     icon: 'spell_shadow_dispersion',
     maxRanks: 1,
     entryIds: [103806],
+  },
+  DISTORTED_REALITY_TALENT: {
+    id: 409044,
+    name: 'Distorted Reality',
+    icon: 'spell_shadow_gathershadows',
+    maxRanks: 1,
+    entryIds: [115671],
   },
   DIVINE_AEGIS_TALENT: {
     id: 47515,
@@ -359,13 +345,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103777],
     manaCost: 500,
-  },
-  ENCROACHING_SHADOWS_TALENT: {
-    id: 391235,
-    name: 'Encroaching Shadows',
-    icon: 'spell_shadow_coneofsilence',
-    maxRanks: 1,
-    entryIds: [103685],
   },
   ENDURING_LUMINESCENCE_TALENT: {
     id: 390685,
@@ -474,13 +453,6 @@ const talents = createTalentList({
     icon: 'spell_holy_serendipity',
     maxRanks: 2,
     entryIds: [103744],
-  },
-  HARNESSED_SHADOWS_TALENT: {
-    id: 391296,
-    name: 'Harnessed Shadows',
-    icon: 'inv_chaos_orb',
-    maxRanks: 1,
-    entryIds: [103786],
   },
   HARSH_DISCIPLINE_TALENT: {
     id: 373180,
@@ -610,7 +582,7 @@ const talents = createTalentList({
     id: 373427,
     name: 'Inescapable Torment',
     icon: 'spell_shadow_chilltouch',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [103783, 103712],
   },
   INSIDIOUS_IRE_TALENT: {
@@ -718,7 +690,7 @@ const talents = createTalentList({
     id: 373221,
     name: 'Malediction',
     icon: 'spell_shadow_deathsembrace',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [103797],
   },
   MALICIOUS_INTENT_TALENT: {
@@ -743,12 +715,19 @@ const talents = createTalentList({
     entryIds: [103849],
     manaCost: 20000,
   },
+  MASTERMIND_TALENT: {
+    id: 391151,
+    name: 'Mastermind',
+    icon: 'spell_nzinsanity_chasedbyshadows',
+    maxRanks: 2,
+    entryIds: [103816],
+  },
   MENTAL_DECAY_TALENT: {
     id: 375994,
     name: 'Mental Decay',
     icon: 'ability_kaztik_dominatemind',
     maxRanks: 1,
-    entryIds: [103804],
+    entryIds: [103799],
   },
   MENTAL_FORTITUDE_TALENT: {
     id: 377065,
@@ -779,6 +758,13 @@ const talents = createTalentList({
     entryIds: [103837],
     manaCost: 5000,
   },
+  MINDS_EYE_TALENT: {
+    id: 407470,
+    name: "Mind's Eye",
+    icon: 'spell_shadow_devouringplague',
+    maxRanks: 1,
+    entryIds: [103786],
+  },
   MIND_CONTROL_TALENT: {
     id: 605,
     name: 'Mind Control',
@@ -794,34 +780,19 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [103684],
   },
-  MIND_FLAY_INSANITY_TALENT: {
-    id: 391399,
-    name: 'Mind Flay: Insanity',
-    icon: 'spell_fire_twilightflamebreath',
-    maxRanks: 1,
-    entryIds: [103681],
-  },
   MIND_MELT_TALENT: {
     id: 391090,
     name: 'Mind Melt',
     icon: 'spell_shadow_skull',
     maxRanks: 1,
-    entryIds: [103682],
-  },
-  MIND_SEAR_TALENT: {
-    id: 48045,
-    name: 'Mind Sear',
-    icon: 'spell_shadow_mindshear',
-    maxRanks: 1,
-    entryIds: [103807],
-    insanityCost: 0,
+    entryIds: [115449],
   },
   MIND_SPIKE_TALENT: {
     id: 73510,
     name: 'Mind Spike',
     icon: 'spell_priest_mindspike',
     maxRanks: 1,
-    entryIds: [103812],
+    entryIds: [103803],
   },
   MIRACLE_WORKER_TALENT: {
     id: 235587,
@@ -835,7 +806,7 @@ const talents = createTalentList({
     name: 'Misery',
     icon: 'ability_rogue_envelopingshadows',
     maxRanks: 1,
-    entryIds: [103791],
+    entryIds: [115448],
   },
   MOVE_WITH_GRACE_TALENT: {
     id: 390620,
@@ -865,13 +836,6 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [103703],
   },
-  PAIN_OF_DEATH_TALENT: {
-    id: 391288,
-    name: 'Pain of Death',
-    icon: 'spell_shadow_deadofnight',
-    maxRanks: 2,
-    entryIds: [103816],
-  },
   PAIN_SUPPRESSION_TALENT: {
     id: 33206,
     name: 'Pain Suppression',
@@ -893,6 +857,13 @@ const talents = createTalentList({
     icon: 'spell_shadow_psychichorrors',
     maxRanks: 1,
     entryIds: [114588],
+  },
+  PHANTASMAL_PATHOGEN_TALENT: {
+    id: 407469,
+    name: 'Phantasmal Pathogen',
+    icon: 'spell_shadow_shadetruesight',
+    maxRanks: 2,
+    entryIds: [103686],
   },
   PHANTASM_TALENT: {
     id: 108942,
@@ -944,7 +915,7 @@ const talents = createTalentList({
     icon: 'spell_priest_power_word',
     maxRanks: 1,
     entryIds: [103722],
-    manaCost: 13750,
+    manaCost: 11250,
   },
   POWER_WORD_SOLACE_TALENT: {
     id: 129250,
@@ -1022,7 +993,7 @@ const talents = createTalentList({
     id: 199484,
     name: 'Psychic Link',
     icon: 'ability_priest_psychiclink',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [103814],
   },
   PSYCHIC_VOICE_TALENT: {
@@ -1031,13 +1002,6 @@ const talents = createTalentList({
     icon: 'ability_warrior_commandingshout',
     maxRanks: 1,
     entryIds: [103845],
-  },
-  PUPPET_MASTER_TALENT: {
-    id: 377387,
-    name: 'Puppet Master',
-    icon: 'ability_rogue_masterofsubtlety',
-    maxRanks: 1,
-    entryIds: [103785],
   },
   PURGE_THE_WICKED_TALENT: {
     id: 204197,
@@ -1166,7 +1130,7 @@ const talents = createTalentList({
   SCREAMS_OF_THE_VOID_TALENT: {
     id: 375767,
     name: 'Screams of the Void',
-    icon: 'spell_shadow_siphonmana',
+    icon: 'spell_shadow_lifedrain02_purple',
     maxRanks: 2,
     entryIds: [103789],
   },
@@ -1219,7 +1183,7 @@ const talents = createTalentList({
     name: 'Shadow Crash',
     icon: 'spell_shadow_shadowfury',
     maxRanks: 1,
-    entryIds: [103803],
+    entryIds: [103813],
   },
   SHADOW_WORD_DEATH_TALENT: {
     id: 32379,
@@ -1264,12 +1228,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103872],
   },
-  SURGE_OF_DARKNESS_TALENT: {
-    id: 162448,
-    name: 'Surge of Darkness',
-    icon: 'ability_priest_surgeofdarkness',
+  SURGE_OF_INSANITY_TALENT: {
+    id: 391399,
+    name: 'Surge of Insanity',
+    icon: 'spell_fire_twilightflamebreath',
     maxRanks: 1,
-    entryIds: [103813],
+    entryIds: [103812],
   },
   SURGE_OF_LIGHT_TALENT: {
     id: 109186,
@@ -1284,6 +1248,13 @@ const talents = createTalentList({
     icon: 'spell_holy_symbolofhope',
     maxRanks: 1,
     entryIds: [103751],
+  },
+  THOUGHT_HARVESTER_TALENT: {
+    id: 406788,
+    name: 'Thought Harvester',
+    icon: 'spell_shadow_unholyfrenzy',
+    maxRanks: 1,
+    entryIds: [103795],
   },
   THROES_OF_PAIN_TALENT: {
     id: 377422,
@@ -1303,7 +1274,7 @@ const talents = createTalentList({
     id: 391284,
     name: 'Tormented Spirits',
     icon: 'spell_shadow_painandsuffering',
-    maxRanks: 1,
+    maxRanks: 2,
     entryIds: [103810],
   },
   TRAIL_OF_LIGHT_TALENT: {
@@ -1360,7 +1331,7 @@ const talents = createTalentList({
     name: 'Unfurling Darkness',
     icon: 'spell_priest_shadow_mend',
     maxRanks: 1,
-    entryIds: [103799],
+    entryIds: [103804],
   },
   UNWAVERING_WILL_TALENT: {
     id: 373456,
@@ -1375,6 +1346,13 @@ const talents = createTalentList({
     icon: 'spell_shadow_unsummonbuilding',
     maxRanks: 1,
     entryIds: [103841],
+  },
+  VOIDTOUCHED_TALENT: {
+    id: 407430,
+    name: 'Voidtouched',
+    icon: 'inv_enchant_voidsphere',
+    maxRanks: 1,
+    entryIds: [103785],
   },
   VOID_ERUPTION_TALENT: {
     id: 228260,
@@ -1417,7 +1395,7 @@ const talents = createTalentList({
     name: 'Void Torrent',
     icon: 'spell_priest_voidsear',
     maxRanks: 1,
-    entryIds: [103679],
+    entryIds: [103796],
   },
   WEAL_AND_WOE_TALENT: {
     id: 390786,
@@ -1426,12 +1404,12 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103694],
   },
-  WHISPERS_OF_THE_DAMNED_TALENT: {
-    id: 391137,
-    name: 'Whispers of the Damned',
-    icon: 'inv_misc_eye_03',
-    maxRanks: 2,
-    entryIds: [103686],
+  WHISPERING_SHADOWS_TALENT: {
+    id: 406777,
+    name: 'Whispering Shadows',
+    icon: 'spell_shadow_shadowfury',
+    maxRanks: 1,
+    entryIds: [103682],
   },
   WORDS_OF_THE_PIOUS_TALENT: {
     id: 377438,

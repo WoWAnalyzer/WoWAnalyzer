@@ -36,6 +36,7 @@ export const SHEILUNS_GIFT = 'SheilunsGift';
 export const EXPEL_HARM_GOM = 'EHGOM';
 export const SOOM_GOM = 'SoomGOM';
 export const VIVIFY = 'Vivify';
+export const CALMING_COALESCENCE = 'Calming Coalescence';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
@@ -92,6 +93,19 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RENEWING_MIST_HEAL.id,
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: MAX_REM_DURATION,
+  },
+  {
+    linkRelation: OVERHEAL_BOUNCE,
+    linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    referencedEventType: [EventType.RemoveBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent) {
+      return (linkingEvent as HealEvent).overheal !== 0;
+    },
   },
   // link ReM application from Rapid diffusion
   {
@@ -304,6 +318,19 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_MONK.LEGACY_OF_WISDOM_TALENT) ? 5 : 3;
     },
   },
+  {
+    linkRelation: CALMING_COALESCENCE,
+    linkingEventId: [SPELLS.CALMING_COALESCENCE_BUFF.id],
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [TALENTS_MONK.LIFE_COCOON_TALENT.id],
+    referencedEventType: [EventType.Cast],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.CALMING_COALESCENCE_TALENT);
+    },
+  },
 ];
 
 /**
@@ -379,6 +406,10 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 export function isForceBounce(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FORCE_BOUNCE);
+}
+
+export function isBounceTick(event: HealEvent) {
+  return HasRelatedEvent(event, OVERHEAL_BOUNCE);
 }
 
 export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {
@@ -476,6 +507,10 @@ export function isFromEssenceFont(event: HealEvent) {
     !HasRelatedEvent(event, RENEWING_MIST_GOM) &&
     !HasRelatedEvent(event, ENVELOPING_MIST_GOM)
   );
+}
+
+export function isFromLifeCocoon(event: RemoveBuffEvent) {
+  return HasRelatedEvent(event, CALMING_COALESCENCE);
 }
 
 export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {

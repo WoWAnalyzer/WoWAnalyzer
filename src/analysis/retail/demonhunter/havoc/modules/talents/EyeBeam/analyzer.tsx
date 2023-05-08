@@ -37,7 +37,7 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
         <section style={{ marginBottom: 20 }}>
           <Trans id="guide.demonhunter.havoc.sections.cooldowns.eyeBeam.explanation">
             <strong>
-              <SpellLink id={TALENTS.EYE_BEAM_TALENT} />
+              <SpellLink spell={TALENTS.EYE_BEAM_TALENT} />
             </strong>{' '}
             is a channeled ability that deals heavy chaos damage to all enemies in front of you.
           </Trans>
@@ -89,8 +89,8 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
         summary,
         details: (
           <div>
-            You triggered <SpellLink id={SPELLS.FURIOUS_GAZE} /> by fully channeling your{' '}
-            <SpellLink id={TALENTS.EYE_BEAM_TALENT} /> cast. Good job!
+            You triggered <SpellLink spell={SPELLS.FURIOUS_GAZE} /> by fully channeling your{' '}
+            <SpellLink spell={TALENTS.EYE_BEAM_TALENT} /> cast. Good job!
           </div>
         ),
       };
@@ -100,9 +100,9 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
       summary,
       details: (
         <div>
-          You did not trigger <SpellLink id={SPELLS.FURIOUS_GAZE} /> due to not fully channeling
-          your <SpellLink id={TALENTS.EYE_BEAM_TALENT} /> cast. Always try to fully channel so that
-          you get the Haste buff.
+          You did not trigger <SpellLink spell={SPELLS.FURIOUS_GAZE} /> due to not fully channeling
+          your <SpellLink spell={TALENTS.EYE_BEAM_TALENT} /> cast. Always try to fully channel so
+          that you get the Haste buff.
         </div>
       ),
     };

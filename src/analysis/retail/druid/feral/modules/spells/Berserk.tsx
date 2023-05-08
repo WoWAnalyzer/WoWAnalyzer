@@ -42,10 +42,10 @@ const INCARN_HARDCAST_DURATION = 30_000;
  * **Berserk**
  * Spec Talent Tier 5
  *
- * Go Berserk for 20 sec. While Berserk:
- * Finishing moves have a 20% chance per combo point spent to refund 2 combo point.
- * Swipe generates 1 additional combo point.
- * Rake and Shred deal damage as though you were stealthed.
+ * Go Berserk for 20 seconds. While Berserk: Generate 1 combo point every 1.5 seconds.
+ * Finishing moves restore up to 3 combo points generated over the cap.
+ * Shred and Rake damage increased by 50%.
+ * Combo point generating abilities generate one additional combo point.
  *
  * **Berserk: Heart of the Lion**
  * Spec Talent Tier 7
@@ -82,6 +82,8 @@ class Berserk extends Analyzer {
   hasBoth: boolean;
   /** If player has Convoke the Spirits talent */
   hasConvoke: boolean;
+  /** If player has Incarnation talent */
+  hasIncarn: boolean;
   /** Either Berserk or Incarnation depending on talent */
   cdSpell: Spell;
   /** The total raw amount the CD was reduced */
@@ -103,11 +105,10 @@ class Berserk extends Analyzer {
     this.hasFrenzy = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_FRENZY_TALENT);
     this.hasBoth = this.hasHeartOfTheLion && this.hasFrenzy;
     this.hasConvoke = this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT);
-    this.hardcastDuration = this.selectedCombatant.hasTalent(
+    this.hasIncarn = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT,
-    )
-      ? INCARN_HARDCAST_DURATION
-      : BERSERK_HARDCAST_DURATION;
+    );
+    this.hardcastDuration = this.hasIncarn ? INCARN_HARDCAST_DURATION : BERSERK_HARDCAST_DURATION;
     this.active = this.selectedCombatant.hasTalent(TALENTS_DRUID.BERSERK_TALENT);
 
     this.cdSpell = cdSpell(this.selectedCombatant);
@@ -193,8 +194,14 @@ class Berserk extends Analyzer {
         </strong>{' '}
         is our primary damage cooldown. It's best used as soon as it's available, but can be held to
         ensure you'll have full target uptime during its duration (don't use it when it will be
-        interrupted by a fight mechanic). Aim to cast at high energy, but spend fast enough to never
-        cap.
+        interrupted by a fight mechanic).{' '}
+        {this.hasIncarn && (
+          <>
+            With <SpellLink id={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT} />, it's likely
+            you will be generating energy faster than you can spend it, so energy capping may be
+            unavoidable - just make sure you're using every GCD.
+          </>
+        )}
       </p>
     );
 
@@ -207,26 +214,8 @@ class Berserk extends Analyzer {
           const cdEnd = Math.min(this.owner.fight.end_time, cast.timestamp + this.hardcastDuration);
           const segmentEnergy = this.energyTracker.generateSegmentData(cast.timestamp, cdEnd);
           const percentAtCap = segmentEnergy.percentAtCap;
-          const energyPercentOnCast = cast.energyOnCast / this.energyTracker.maxResource;
-
           const percentAtCapPerf =
-            percentAtCap > 0.1
-              ? QualitativePerformance.Fail
-              : percentAtCap > 0
-              ? QualitativePerformance.Ok
-              : QualitativePerformance.Good;
-          const energyPercentOnCastPerf =
-            energyPercentOnCast > 0.5
-              ? QualitativePerformance.Good
-              : energyPercentOnCast > 0.25
-              ? QualitativePerformance.Ok
-              : QualitativePerformance.Fail;
-
-          const overallPerf =
-            percentAtCapPerf === QualitativePerformance.Fail ||
-            energyPercentOnCastPerf === QualitativePerformance.Fail
-              ? QualitativePerformance.Fail
-              : QualitativePerformance.Good;
+            percentAtCap > 0.1 ? QualitativePerformance.Ok : QualitativePerformance.Good;
 
           const header = (
             <>
@@ -236,11 +225,6 @@ class Berserk extends Analyzer {
           );
 
           const checklistItems: CooldownExpandableItem[] = [];
-          checklistItems.push({
-            label: <>Pool Energy for cast</>,
-            result: <PerformanceMark perf={energyPercentOnCastPerf} />,
-            details: <>({cast.energyOnCast} Energy)</>,
-          });
           checklistItems.push({
             label: <>Don't cap on energy</>,
             result: <PerformanceMark perf={percentAtCapPerf} />,
@@ -256,8 +240,7 @@ class Berserk extends Analyzer {
                     content={
                       <>
                         Berserking without Convoke is fine, but it's optimal to wait a few seconds
-                        if it will mean you can line them up. Awaiting sims to determine exactly how
-                        long.
+                        if it will mean you can line them up.
                       </>
                     }
                   >
@@ -274,7 +257,7 @@ class Berserk extends Analyzer {
             <CooldownExpandable
               header={header}
               checklistItems={checklistItems}
-              perf={overallPerf}
+              perf={percentAtCapPerf}
               key={ix}
             />
           );
@@ -285,7 +268,6 @@ class Berserk extends Analyzer {
     return explanationAndDataSubsection(explanation, data);
   }
 
-  // TODO probably want to update this display, but talents might change more in DF beta so gonna wait
   statistic() {
     return (
       <Statistic

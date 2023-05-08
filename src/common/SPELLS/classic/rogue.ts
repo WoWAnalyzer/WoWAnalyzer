@@ -190,6 +190,11 @@ const spells = spellIndexableList({
     name: 'Riposte',
     icon: 'ability_warrior_challange',
   },
+  SAVAGE_COMBAT: {
+    id: 58683,
+    name: 'Savage Combat',
+    icon: 'ability_creature_disease_03',
+  },
   // Subtlety
   GHOSTLY_STRIKE: {
     id: 14278,

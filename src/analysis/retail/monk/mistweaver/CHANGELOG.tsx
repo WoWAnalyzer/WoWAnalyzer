@@ -6,6 +6,16 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 5, 6), <>Added additional analysis to the <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT}/> module.</>, Vohrr),
+  change(date(2023, 5, 5), <>Added per-stack breakdowns for each spell affected in the <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT}/> module.</>, Vohrr),
+  change(date(2023, 5, 2), <>Re-enable <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> module and add Cast Efficieny subsection to the Guide</>, Vohrr),
+  change(date(2023, 4, 28), <>Typo fix</>, Vohrr),
+  change(date(2023, 4, 28), <>Updated Guide sections for 10.1</>, Vohrr),
+  change(date(2023, 4, 27), <>Added <SpellLink id={TALENTS_MONK.CALMING_COALESCENCE_TALENT.id}/> module.</>, Vohrr),
+  change(date(2023, 4, 27), <>Conditionally load <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id}/> guide metrics based on talent selection.</>, Vohrr),
+  change(date(2023, 4, 27), <>Fixed <SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id}/> MP5 tally</>, Vohrr),
+  change(date(2023, 4, 22), <>Add <SpellLink spell={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT}/> to talent summary.</>, Trevor),
+  change(date(2023, 4, 20), <>Updated apl logic buckets to fix the wrong builds being recommended. Added a not supported warning for <SpellLink id={TALENTS_MONK.AWAKENED_FAELINE_TALENT.id}/> talent builds</>, Vohrr),
   change(date(2023, 4, 5), <>Update suggestions for <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> based on 10.0.7 changes</>, Trevor),
   change(date(2023, 3, 29), <>Improve accuracy of <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT}/> module</>, Trevor),
   change(date(2023, 3, 27), <>Add Tier 30 Set Bonus Module.</>, Vohrr),

@@ -66,7 +66,7 @@ class DemonBlades extends Analyzer {
         <>
           {' '}
           Be mindful of your Fury levels and spend it before capping your Fury due to{' '}
-          <SpellLink id={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id} />.
+          <SpellLink spell={TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.id} />.
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.DEMON_BLADES_TALENT.icon)

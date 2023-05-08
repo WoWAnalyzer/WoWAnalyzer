@@ -38,7 +38,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
       >
         <AbilityRequirement
           spell={
-            combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT)
+            combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT)
               ? SPELLS.DREAM_BREATH_FONT.id
               : TALENTS_EVOKER.DREAM_BREATH_TALENT.id
           }
@@ -46,13 +46,13 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         {combatant.hasTalent(TALENTS_EVOKER.SPIRITBLOOM_TALENT) && (
           <AbilityRequirement
             spell={
-              combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_TALENT)
+              combatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT)
                 ? SPELLS.SPIRITBLOOM_FONT.id
                 : TALENTS_EVOKER.SPIRITBLOOM_TALENT.id
             }
           />
         )}
-        {combatant.hasTalent(TALENTS_EVOKER.REVERSION_TALENT) && (
+        {combatant.hasTalent(TALENTS_EVOKER.GRACE_PERIOD_TALENT) && (
           <AbilityRequirement spell={TALENTS_EVOKER.REVERSION_TALENT.id} />
         )}
       </Rule>

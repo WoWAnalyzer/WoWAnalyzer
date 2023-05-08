@@ -39,6 +39,7 @@ export const TIGERS_FURY_BOOSTED: Spell[] = [
   SPELLS.SHRED,
   SPELLS.FEROCIOUS_BITE,
   SPELLS.THRASH_FERAL,
+  SPELLS.THRASH_FERAL_BLEED,
   SPELLS.RIP,
   SPELLS.RAKE,
   SPELLS.RAKE_BLEED,
@@ -162,6 +163,9 @@ export const PROWL_RAKE_DAMAGE_BONUS = 0.6;
 /** Max time left on a DoT for us to not yell if snapshot is downgraded */
 export const SNAPSHOT_DOWNGRADE_BUFFER = 2000;
 
+/** Max time a DoT's duration can be clipped before we yell */
+export const CLIP_BUFFER = 2000;
+
 export const PANDEMIC_FRACTION = 0.3;
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -186,16 +190,15 @@ export function directAoeBuilder(c: Combatant): Spell {
 // MISC
 //
 
-/** Minimum acceptable number of CPs to use with a finisher.
- *  TODO this might go back to 5 in 10.1 - pay attention to theorycraft */
+/** Minimum acceptable number of CPs to use with a finisher. */
 export function getAcceptableCps(c: Combatant): number {
-  return c.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) ? ACCEPTABLE_BT_CPS : ACCEPTABLE_NO_BT_CPS;
+  return c.hasBuff(cdSpell(c).id) ? ACCEPTABLE_BERSERK_CPS : ACCEPTABLE_CPS;
 }
-export const ACCEPTABLE_BT_CPS = 5;
-export const ACCEPTABLE_NO_BT_CPS = 4;
+export const ACCEPTABLE_CPS = 4;
+export const ACCEPTABLE_BERSERK_CPS = 5;
 
 /** Effective combo points used by a Convoke'd Ferocious Bite */
-export const CONVOKE_FB_CPS = 4;
+export const CONVOKE_FB_CPS = 5;
 
 /** Gets the effective number of CPs that were used to produce this Bite.
  *  Takes DamageEvent instead of CastEvent to also catch Convoke'd bites */

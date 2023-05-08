@@ -1,17 +1,14 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { TrackedHit } from 'interface/guide/components/DamageTakenPointChart';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
 import { Uptime } from 'parser/ui/UptimeBar';
-
-export type TrackedHit = {
-  mitigated: boolean;
-  event: DamageEvent;
-};
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 export default class Shuffle extends Analyzer {
   static dependencies = {
@@ -70,7 +67,7 @@ export default class Shuffle extends Analyzer {
 
   private finalize() {
     const uptime = this.uptime[this.uptime.length - 1];
-    if (!uptime) {
+    if (!uptime || uptime.end !== uptime.start) {
       return;
     }
 
@@ -98,9 +95,10 @@ export default class Shuffle extends Analyzer {
       return;
     }
 
-    const mitigated =
+    const wasMitigated =
       this.selectedCombatant.hasBuff(SPELLS.SHUFFLE.id) ||
       (event.unmitigatedAmount === undefined && event.amount === 0);
+    const mitigated = wasMitigated ? QualitativePerformance.Good : QualitativePerformance.Fail;
 
     this.hits.push({
       event,

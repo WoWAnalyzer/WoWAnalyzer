@@ -16,8 +16,8 @@ const DemonicExplanation = ({ lineBreak }: Props) => {
     <>
       {lineBreak ? <br /> : ' '}
       <Trans id="guide.demonhunter.havoc.furiousGaze.explanation">
-        It will grant <SpellLink id={SPELLS.FURIOUS_GAZE} /> for a short duration when cast due to{' '}
-        <SpellLink id={TALENTS_DEMON_HUNTER.FURIOUS_GAZE_TALENT} />.
+        It will grant <SpellLink spell={SPELLS.FURIOUS_GAZE} /> for a short duration when cast due
+        to <SpellLink spell={TALENTS_DEMON_HUNTER.FURIOUS_GAZE_TALENT} />.
       </Trans>
     </>
   );

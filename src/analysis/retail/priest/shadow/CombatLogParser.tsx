@@ -21,6 +21,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import ShadowyInsight from './modules/spells/ShadowyInsight';
 import DotUptimes from './modules/features/DotUptimes';
 import Voidform from './modules/spells/Voidform';
+import Voidbolt from './modules/spells/Voidbolt';
 import InsanityTracker from './modules/resources/InsanityTracker';
 import InsanityUsage from './modules/resources/InsanityUsage';
 import DevouringPlague from './modules/spells/DevouringPlague';
@@ -35,13 +36,11 @@ import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
 import InescapableTorment from './modules/talents/InescapableTorment';
-import DarkVoid from './modules/talents/DarkVoid';
 import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
 import Deathspeaker from './modules/talents/Deathspeaker';
-import SurgeOfDarkness from './modules/talents/SurgeOfDarkness';
+import MindSpikeInsanity from './modules/talents/MindSpikeInsanity';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import MindFlayInsanity from './modules/talents/MindFlayInsanity';
-import MindSear from './modules/talents/MindSear';
 import MindDevourer from './modules/talents/MindDevourer';
 import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
@@ -73,6 +72,7 @@ class CombatLogParser extends MainCombatLogParser {
     dotUptimes: DotUptimes,
     shadowyInsight: ShadowyInsight,
     voidform: Voidform,
+    voidbolt: Voidbolt,
     twinsOfTheSunPriestess: TwinsOfTheSunPriestess,
 
     // spells:
@@ -93,11 +93,9 @@ class CombatLogParser extends MainCombatLogParser {
     mindFlayInsanity: MindFlayInsanity,
     shadowCrash: ShadowCrash,
     inescapableTorment: InescapableTorment,
-    darkVoid: DarkVoid,
     auspiciousSpirits: AuspiciousSpirits,
-    mindSear: MindSear,
     mindDevourer: MindDevourer,
-    surgeOfDarkness: SurgeOfDarkness,
+    mindSpikeInsanity: MindSpikeInsanity,
     deathspeaker: Deathspeaker,
     idolOfCthun: IdolOfCthun,
     idolOfYoggSaron: IdolOfYoggSaron,

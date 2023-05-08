@@ -34,8 +34,9 @@ import PrayerOfMending from './modules/spells/PrayerOfMending';
 import Renew from './modules/spells/Renew';
 import SpiritOfRedemption from './modules/spells/SpiritOfRedemption';
 import Talents from './modules/talents';
-import TwoSet from './modules/dragonflight/tier/Tier29HolyPriest2Set';
-import FourSet from './modules/dragonflight/tier/Tier29HolyPriest4Set';
+import T29TwoSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest2Set';
+import T29FourSet from './modules/dragonflight/tier/tier29/Tier29HolyPriest4Set';
+import T30FourSet from './modules/dragonflight/tier/tier30/Tier30HolyPriest4Set';
 import ProtectiveLight from '../shared/ProtectiveLight';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
@@ -86,8 +87,9 @@ class CombatLogParser extends CoreCombatLogParser {
     renew: Renew,
     prayerOfMending: PrayerOfMending,
 
-    TwoSet: TwoSet,
-    FourSet: FourSet,
+    T29TwoSet: T29TwoSet,
+    T29FourSet: T29FourSet,
+    T30FourSet: T30FourSet,
     // Talents
     Enlightenment: Talents.MiddleRow.Enlightenment,
     TrailOfLight: Talents.MiddleRow.TrailOfLight,

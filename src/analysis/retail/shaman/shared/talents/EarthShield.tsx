@@ -1,28 +1,35 @@
-import { Trans } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
-import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import Combatants from 'parser/shared/modules/Combatants';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import ElementalOrbit from './ElementalOrbit';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../restoration/Guide';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { Uptime } from 'parser/ui/UptimeBar';
+import { RESTORATION_COLORS } from '../../restoration/constants';
+import EarthenHarmony from '../../restoration/modules/talents/EarthenHarmony';
 
 export const EARTHSHIELD_HEALING_INCREASE = 0.2;
 
 class EarthShield extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    elementalOrbit: ElementalOrbit,
+    earthenHarmony: EarthenHarmony,
   };
 
   protected combatants!: Combatants;
+  protected elementalOrbit!: ElementalOrbit;
+  protected earthenHarmony!: EarthenHarmony;
 
   healing = 0;
   buffHealing = 0;
@@ -31,8 +38,7 @@ class EarthShield extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    const isRsham = this.selectedCombatant.specId === SPECS.RESTORATION_SHAMAN.id;
-    this.active = isRsham || this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT);
 
     if (!this.active) {
       return;
@@ -50,6 +56,16 @@ class EarthShield extends Analyzer {
 
     // event listener for healing being buffed by having earth shield on the target
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onEarthShieldAmpSpellHeal);
+  }
+
+  get totalHealing() {
+    return (
+      (this.elementalOrbit.active
+        ? this.elementalOrbit.healing + this.elementalOrbit.buffHealing
+        : 0) +
+      this.buffHealing +
+      this.healing
+    );
   }
 
   get uptime() {
@@ -77,7 +93,10 @@ class EarthShield extends Analyzer {
   }
 
   onEarthShieldHeal(event: HealEvent) {
-    this.healing += event.amount + (event.absorbed || 0);
+    const combatant = this.combatants.getEntity(event);
+    if (combatant && combatant.hasBuff(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id, event.timestamp)) {
+      this.healing += event.amount + (event.absorbed || 0);
+    }
   }
 
   onEarthShieldAmpSpellHeal(event: HealEvent) {
@@ -92,34 +111,98 @@ class EarthShield extends Analyzer {
       <StatisticListBoxItem
         title={<SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />}
         value={`${formatPercentage(
-          this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing),
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
       />
     );
   }
 
-  statistic() {
-    return (
-      <StatisticBox
-        label={<SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />}
-        category={this.category}
-        position={STATISTIC_ORDER.OPTIONAL(45)}
-        tooltip={
-          <Trans id="shaman.shared.earthShield.statistic.tooltip">
-            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% from the
-            HoT and {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.buffHealing))}
-            % from the healing increase.
-          </Trans>
-        }
-        value={
-          <div>
-            <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
-            <br />
-            <ItemHealingDone amount={this.healing + this.buffHealing} />
-          </div>
-        }
-      />
+  /** Guide subsection describing the proper usage of Earth Shield */
+  get guideSubsection(): JSX.Element {
+    const hasElementalOrbit = this.elementalOrbit.active;
+    const hasEarthenHarmony = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT,
     );
+
+    const explanation = (
+      <>
+        <b>
+          <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />
+        </b>{' '}
+        is the only shield shaman can place on allies and provides very strong throughput when
+        combined with affecting talents in the class and spec tree.{' '}
+        <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> should be applied prior to the
+        fight starting and maintained as it falls off throughout the encounter
+        <br />
+        {hasElementalOrbit && (
+          <>
+            <b>
+              <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} />
+            </b>{' '}
+            allows you to place <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> on yourself
+            as well as an ally, and you should aim to maintain high uptime on both
+            <br />
+          </>
+        )}
+        {hasEarthenHarmony && (
+          <>
+            <b>
+              <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} />
+            </b>{' '}
+            augments <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> even further by
+            providing damage reduction
+            <br />(
+            <b>
+              {formatNumber(this.earthenHarmony.totalDamageReduction)} was mitigated from{' '}
+              <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} />
+            </b>
+            )
+          </>
+        )}
+      </>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> Uptimes
+          </strong>
+          {this.earthShieldUptimeBar()}
+          {hasElementalOrbit && this.elementalOrbitUptimeBar()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  getUptimeHistory(spellId: number) {
+    const uptimeHistory: Uptime[] = [];
+    let current: Uptime;
+    Object.values(this.combatants.players).forEach((player) => {
+      player.getBuffHistory(spellId, this.owner.playerId).forEach((trackedBuff) => {
+        const end = trackedBuff.end ? trackedBuff.end : this.owner.fight.end_time;
+        current = { start: trackedBuff.start, end: end };
+        uptimeHistory.push(current);
+      });
+    });
+    return uptimeHistory;
+  }
+
+  earthShieldUptimeBar() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [TALENTS_SHAMAN.EARTH_SHIELD_TALENT],
+      uptimes: this.getUptimeHistory(TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id),
+      color: RESTORATION_COLORS.CHAIN_HEAL,
+    });
+  }
+  elementalOrbitUptimeBar() {
+    return uptimeBarSubStatistic(this.owner.fight, {
+      spells: [TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT],
+      uptimes: this.getUptimeHistory(SPELLS.EARTH_SHIELD_ELEMENTAL_ORBIT_BUFF.id),
+      color: RESTORATION_COLORS.HEALING_RAIN,
+    });
   }
 }
 

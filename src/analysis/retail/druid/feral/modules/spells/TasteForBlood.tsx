@@ -15,7 +15,7 @@ import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 const BLEED_SPELL_IDS = [
   SPELLS.RIP.id,
   SPELLS.RAKE_BLEED.id,
-  SPELLS.THRASH_FERAL.id,
+  SPELLS.THRASH_FERAL_BLEED.id,
   SPELLS.THRASH_BEAR.id,
   SPELLS.FERAL_FRENZY_DEBUFF.id,
   SPELLS.TEAR.id,

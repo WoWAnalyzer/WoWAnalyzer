@@ -4,7 +4,7 @@ import Spell from 'common/SPELLS/Spell';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
@@ -13,7 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { SPELL_COLORS } from '../../constants';
-import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
+import { isBounceTick, isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import Vivify from './Vivify';
 
@@ -22,9 +22,14 @@ class DancingMists extends Analyzer {
     hotTracker: HotTrackerMW,
     vivify: Vivify,
   };
+
   protected vivify!: Vivify;
   hotTracker!: HotTrackerMW;
   //totals
+  casts: number = 0;
+  overhealTicks: number = 0;
+  bounceTicks: number = 0;
+  remApplyCount: number = 0;
   dancingMistCount: number = 0;
   dancingMistReMHealing: number = 0;
   dancingMistOverhealing: number = 0;
@@ -90,6 +95,14 @@ class DancingMists extends Analyzer {
     );
   }
 
+  get eligiblePercentageOfTicks() {
+    return this.bounceTicks / (this.bounceTicks + this.overhealTicks);
+  }
+
+  get dancingMistProcRate() {
+    return this.dancingMistCount / this.remApplyCount;
+  }
+
   get sourceDataItems() {
     return [
       {
@@ -151,6 +164,10 @@ class DancingMists extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.onEnvHeal,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RENEWING_MIST_TALENT),
+      this.onRemCast,
     );
   }
 
@@ -239,7 +256,15 @@ class DancingMists extends Analyzer {
     );
   }
 
+  onRemCast(event: CastEvent) {
+    this.casts += 1;
+  }
+
   onApplyRem(event: ApplyBuffEvent) {
+    if (!event.prepull) {
+      this.remApplyCount += 1;
+    }
+
     const playerId = event.targetID;
     if (
       !this.hotTracker.hots[playerId] ||
@@ -277,6 +302,13 @@ class DancingMists extends Analyzer {
       }
       this.dancingMistReMHealing += event.amount + (event.absorbed || 0);
       this.dancingMistOverhealing += event.overheal || 0;
+    }
+    if (event.overheal && event.overheal !== 0) {
+      if (isBounceTick(event) && hot.end > event.timestamp) {
+        this.bounceTicks += 1;
+      } else {
+        this.overhealTicks += 1;
+      }
     }
   }
 
@@ -371,6 +403,27 @@ class DancingMists extends Analyzer {
           <>
             <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT} /> -{' '}
             <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
+          </>
+        }
+        tooltip={
+          <>
+            <ul>
+              <li>
+                Bounces from overheal: <b>{this.bounceTicks}</b>
+              </li>
+              <li>
+                Overheal ticks that did not bounce: <b>{this.overhealTicks}</b>
+              </li>
+              <li>
+                Percentage of <SpellLink spell={SPELLS.RENEWING_MIST_HEAL.id} /> overheal ticks that
+                could actually proc <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT.id} />:{' '}
+                <b>{formatPercentage(this.eligiblePercentageOfTicks)}%</b>
+              </li>
+              <li>
+                Actual <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} /> proc rate:{' '}
+                <b>{formatPercentage(this.dancingMistProcRate)}%</b>
+              </li>
+            </ul>
           </>
         }
         category={STATISTIC_CATEGORY.TALENTS}
