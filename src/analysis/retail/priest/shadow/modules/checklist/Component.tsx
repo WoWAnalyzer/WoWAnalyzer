@@ -209,8 +209,8 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <>
             Insanity generation and management is crucial to maximizing your damage. You should
             always try to stay below maximum insanity for room to generate more with your abilities.
-            You should juggle using <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> to not overcap
-            while also maximizing DOT uptime for the increased mastery benefit from{' '}
+            You should juggle using <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> to not
+            overcap while also maximizing DOT uptime for the increased mastery benefit from{' '}
             <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
           </>
         }
@@ -225,8 +225,8 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
             Try to minimize your time not casting. Use your core spells on cooldown and fillers when
             they are not available. If you know you have an upcoming position requirement,
             stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> or{' '}
-            <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> cast towards that location. During high
-            movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or{' '}
+            <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> cast towards that location. During
+            high movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or{' '}
             <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> as a filler.
           </Fragment>
         }

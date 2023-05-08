@@ -577,11 +577,6 @@ const spells = spellIndexableList({
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
-  DEVOURING_PLAGUE: {
-    id: 335467,
-    name: 'Devouring Plague',
-    icon: 'spell_shadow_devouringplague',
-  },
   VOID_ERUPTION: {
     id: 228260,
     name: 'Void Eruption',
