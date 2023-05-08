@@ -708,12 +708,6 @@ const spells = spellIndexableList({
     icon: 'spell_priest_voidform',
   },
 
-  DARK_ASCENSION_BUFF: {
-    id: 391109,
-    name: 'Dark Ascension',
-    icon: 'ability_priest_darkarchangel',
-  },
-
   DARK_THOUGHTS: {
     id: 341205,
     name: 'Dark Thoughts',

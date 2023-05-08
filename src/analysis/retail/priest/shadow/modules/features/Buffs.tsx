@@ -18,7 +18,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DARK_ASCENSION_BUFF.id,
+        spellId: TALENTS.DARK_ASCENSION_TALENT.id,
         triggeredBySpellId: TALENTS.DARK_ASCENSION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT),
         timelineHighlight: true,
