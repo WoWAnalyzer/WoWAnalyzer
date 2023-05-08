@@ -206,7 +206,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DISPERSION_TALENT.id,
         isDefensive: true,
-        buffSpellId: SPELLS.DISPERSION.id,
+        buffSpellId: TALENTS.DISPERSION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120 - (combatant.hasTalent(TALENTS.INTANGIBILITY_TALENT) ? 30 : 0),
         gcd: {

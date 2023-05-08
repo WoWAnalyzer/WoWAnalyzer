@@ -59,7 +59,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: false,
       },
       {
-        spellId: SPELLS.DISPERSION.id,
+        spellId: TALENTS.DISPERSION_TALENT.id,
         timelineHighlight: true,
       },
       {

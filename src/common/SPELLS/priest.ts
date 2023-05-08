@@ -621,12 +621,6 @@ const spells = spellIndexableList({
     icon: 'ability_ironmaidens_convulsiveshadows',
   },
 
-  DISPERSION: {
-    id: 47585,
-    name: 'Dispersion',
-    icon: 'spell_shadow_dispersion',
-  },
-
   VAMPIRIC_EMBRACE: {
     id: 15286,
     name: 'Vampiric Embrace',
