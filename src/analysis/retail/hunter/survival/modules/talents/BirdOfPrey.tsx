@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import {
   BOP_CA_EXTENSION_PER_CAST,
   RAPTOR_MONGOOSE_VARIANTS,

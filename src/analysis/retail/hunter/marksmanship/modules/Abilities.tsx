@@ -1,4 +1,4 @@
-import { BORN_TO_BE_WILD_CD_REDUCTION } from 'analysis/retail/hunter/shared';
+import { BORN_TO_BE_WILD_CD_REDUCTION } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import CoreAbilities from 'parser/core/modules/Abilities';

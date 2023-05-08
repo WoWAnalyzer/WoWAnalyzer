@@ -16,6 +16,7 @@ import {
   CancelledCasts,
   WailingArrow,
   WailingArrowPrepullNormalizer,
+  TranquilizingShot,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -95,31 +96,30 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     volley: Volley,
-    explosiveShot: ExplosiveShot,
-    aMurderOfCrows: AMurderOfCrows,
     lockAndLoad: LockAndLoad,
     barrage: Barrage,
-    masterMarksman: MasterMarksman,
     callingTheShots: CallingTheShots,
     serpentSting: SerpentSting,
     steadyFocus: SteadyFocus,
-    naturalMending: NaturalMending,
-    trailblazer: Trailblazer,
-    bornToBeWild: BornToBeWild,
     carefulAim: CarefulAim,
     chimaeraShot: ChimaeraShot,
     streamline: Streamline,
-    wailingArrow: WailingArrow,
     deathblow: Deathblow,
+    surgingShots: SurgingShots,
+    serpentstalkersTrickery: SerpentstalkersTrickery,
+    eagletalonsTrueFocus: EagletalonsTrueFocus,
 
     //Shared Talents
     rejuvenatingWind: RejuvenatingWind,
     deathChakrams: DeathChakrams,
-
-    //Marksmanship Legendaries
-    surgingShots: SurgingShots,
-    serpentstalkersTrickery: SerpentstalkersTrickery,
-    eagletalonsTrueFocus: EagletalonsTrueFocus,
+    tranquilizingShot: TranquilizingShot,
+    trailblazer: Trailblazer,
+    naturalMending: NaturalMending,
+    bornToBeWild: BornToBeWild,
+    aMurderOfCrows: AMurderOfCrows,
+    explosiveShot: ExplosiveShot,
+    masterMarksman: MasterMarksman,
+    wailingArrow: WailingArrow,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

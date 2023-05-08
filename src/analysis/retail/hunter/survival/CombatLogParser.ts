@@ -11,6 +11,7 @@ import {
   SpellFocusCost,
   DeathChakrams,
   RejuvenatingWind,
+  TranquilizingShot,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -102,6 +103,7 @@ class CombatLogParser extends CoreCombatLogParser {
     deathChakrams: DeathChakrams,
     serpentSting: SerpentSting,
     masterMarksman: MasterMarksman,
+    tranquilizingShot: TranquilizingShot,
 
     //Shared Talents
     rejuvenatingWind: RejuvenatingWind,

@@ -1,6 +1,6 @@
 import { t, Trans } from '@lingui/macro';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
-import { MS_BUFFER_250 } from 'analysis/retail/hunter/shared';
+import { MS_BUFFER_250 } from 'analysis/retail/hunter/shared/constants';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
