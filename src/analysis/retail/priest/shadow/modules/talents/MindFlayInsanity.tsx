@@ -218,10 +218,7 @@ class MindFlayInsanity extends Analyzer {
           <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF.id} />
         </b>{' '}
         is gained every time you cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.<br />
-        This buff can stack two times. While you have two stacks, try cast{' '}
-        <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> before casting{' '}
-        <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />, unless you will otherwise overcap on
-        Insanity
+        This buff can stack two times.
       </p>
     );
     const data = (
