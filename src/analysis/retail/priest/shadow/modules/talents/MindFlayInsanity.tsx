@@ -8,6 +8,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  CastEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
   DamageEvent,
@@ -36,6 +37,7 @@ class MindFlayInsanity extends Analyzer {
   procsOver: number = 0; //procs lost to overwriting them
 
   lastProcTime: number = 0;
+  lastCastTime: number = 0;
   currentStacks: number = 0;
 
   constructor(options: Options) {
@@ -43,6 +45,10 @@ class MindFlayInsanity extends Analyzer {
     this.active =
       this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
       !this.selectedCombatant.hasTalent(TALENTS.MIND_SPIKE_TALENT);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DEVOURING_PLAGUE_TALENT),
+      this.onCastDP,
+    );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
       this.onDamage,
@@ -72,10 +78,6 @@ class MindFlayInsanity extends Analyzer {
       Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
       this.onRemoveStack,
     );
-    this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
-      this.onRefresh,
-    );
   }
 
   //regardless of haste, a full channel of this spell ticks 4 times.
@@ -101,18 +103,34 @@ class MindFlayInsanity extends Analyzer {
     };
   }
 
+  onCastDP(event: CastEvent) {
+    //DP cast occurs after the Buff is Applied but at the same timestamp
+    //If at 2 stacks and this DP isn't at the same time we reach 2 stacks, then its an overwritten proc
+    //This is only necesary because this buff does not have a refresh event.
+    const compare: number = event.timestamp - this.lastCastTime; //Somtimes the DP timestamp is slightly delayed.
+    if (this.currentStacks === 2 && compare >= 50) {
+      this.procsGained += 1;
+      this.procsOver += 1;
+      this.lastProcTime = event.timestamp; //since the proc duration is refreshed when overwritten
+    }
+  }
+
   //Based on Frost DK Killing Machine.
   onBuff(event: ApplyBuffEvent) {
+    this.currentStacks = 1;
     this.procsGained += 1;
     this.lastProcTime = event.timestamp;
+    this.lastCastTime = event.timestamp;
   }
   onBuffStack(event: ApplyBuffStackEvent) {
     this.procsGained += 1;
     this.lastProcTime = event.timestamp;
+    this.lastCastTime = event.timestamp;
     this.currentStacks = event.stack;
   }
 
   onRemove(event: RemoveBuffEvent) {
+    this.currentStacks = 0;
     const durationHeld = event.timestamp - this.lastProcTime;
     if (durationHeld > BUFF_DURATION_MS - 20) {
       this.procsExpired += 1;
@@ -121,13 +139,6 @@ class MindFlayInsanity extends Analyzer {
 
   onRemoveStack(event: RemoveBuffStackEvent) {
     this.currentStacks = event.stack;
-  }
-
-  onRefresh() {
-    this.procsGained += 1;
-    if (this.currentStacks === 2) {
-      this.procsOver += 1;
-    }
   }
 
   onCast() {
