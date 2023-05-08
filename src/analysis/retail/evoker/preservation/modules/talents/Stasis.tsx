@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { ControlledExpandable, SpellIcon, SpellLink } from 'interface';
+import { ControlledExpandable, SpellLink, Tooltip } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -148,32 +148,82 @@ class Stasis extends Analyzer {
     if (spell === TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id) {
       return (
         <>
-          <PassFailCheckmark pass /> - <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />{' '}
-          is always good to store regardless of situation
+          <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
+          {'  '}
+          <Tooltip
+            hoverable
+            content={
+              <>
+                <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> is always good to store
+                regardless of situation
+              </>
+            }
+          >
+            <span>
+              <PassFailCheckmark pass />
+            </span>
+          </Tooltip>
         </>
       );
     } else if (spell === SPELLS.EMERALD_BLOSSOM.id) {
       if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT)) {
         return (
           <>
-            <PassFailCheckmark pass /> - this spell is always good to store when talented into{' '}
-            <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT} />
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> is always good to store when
+                  talented into <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT} />
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass />
+              </span>
+            </Tooltip>
           </>
         );
       } else if (!forRamp) {
         return (
           <>
-            <PassFailCheckmark pass={false} /> - you should never store{' '}
-            <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> if not talented into{' '}
-            <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT} />
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  you should never store <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> if not
+                  talented into <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT} />
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass={false} />
+              </span>
+            </Tooltip>
           </>
         );
       } else {
         return (
           <>
-            <PassFailCheckmark pass={false} /> - you should never store{' '}
-            <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> when doing an{' '}
-            <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp.
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  you should never store <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> when doing an{' '}
+                  <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass={false} />
+              </span>
+            </Tooltip>
           </>
         );
       }
@@ -181,83 +231,195 @@ class Stasis extends Analyzer {
       if (forRamp) {
         return (
           <>
-            <PassFailCheckmark pass /> - Although <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
-            is not high value, it is okay to store here as this{' '}
-            <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> is used for an{' '}
-            <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  Although <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> is not high value, it is
+                  okay to store here as this <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> is
+                  used for an <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass />
+              </span>
+            </Tooltip>
           </>
         );
       } else {
         return (
           <>
-            <PassFailCheckmark pass={false} /> - <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> is
-            not a high value spell to store when not doing an{' '}
-            <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> is not a high value spell to
+                  store when not doing an{' '}
+                  <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass={false} />
+              </span>
+            </Tooltip>
           </>
         );
       }
     } else if (spell === TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT.id) {
       return (
         <>
-          <PassFailCheckmark pass={false} /> -{' '}
-          <SpellLink spell={TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT} /> is not a good spell to store
-          in raid outside of very niche scenarious
+          <SpellLink spell={TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT} />
+          {'  '}
+          <Tooltip
+            hoverable
+            content={
+              <>
+                <SpellLink spell={TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT} /> is not a good spell to
+                store in raid outside of very niche scenarious
+              </>
+            }
+          >
+            <span>
+              <PassFailCheckmark pass={false} />
+            </span>
+          </Tooltip>
         </>
       );
     } else if (spell === TALENTS_EVOKER.REVERSION_TALENT.id) {
       return (
         <>
-          <PassFailCheckmark pass={false} /> - <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} />{' '}
-          is not a good spell to store due to its very low mana cost and CD
+          <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} />
+          {'  '}
+          <Tooltip
+            hoverable
+            content={
+              <>
+                <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} /> is not a good spell to store
+                due to its very low mana cost and CD
+              </>
+            }
+          >
+            <span>
+              <PassFailCheckmark pass={false} />
+            </span>
+          </Tooltip>
         </>
       );
     } else if (spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id) {
       if (forRamp) {
         return (
           <>
-            <PassFailCheckmark pass={false} /> -{' '}
-            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is not a high value spell to
-            store when not doing an <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />{' '}
-            ramp as it interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
-            buffs.
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is not a high value spell
+                  to store when not doing an{' '}
+                  <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp as it
+                  interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> buffs.
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass={false} />
+              </span>
+            </Tooltip>
           </>
         );
       } else {
         return (
           <>
-            <PassFailCheckmark pass /> - <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is
-            a very high value spell to store when not in a ramp due to its high mana cost and CD.
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is a very high value
+                  spell to store when not in a ramp due to its high mana cost and CD.
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass />
+              </span>
+            </Tooltip>
           </>
         );
       }
     } else if (spell === TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id) {
       return (
         <>
-          <PassFailCheckmark pass={false} /> -{' '}
-          <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> is not a high value spell to
-          store in general compared to other spells. If you are planning to use{' '}
-          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> inside{' '}
-          <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />, then consider using{' '}
-          <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> prior to{' '}
-          <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />.
+          <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} />
+          {'  '}
+          <Tooltip
+            hoverable
+            content={
+              <>
+                <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> is not a high value
+                spell to store in general compared to other spells. If you are planning to use{' '}
+                <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> inside{' '}
+                <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />, then consider using{' '}
+                <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> prior to{' '}
+                <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />.
+              </>
+            }
+          >
+            <span>
+              <PassFailCheckmark pass={false} />
+            </span>
+          </Tooltip>
         </>
       );
     } else if (spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id) {
       if (forRamp) {
         return (
           <>
-            <PassFailCheckmark pass={false} /> -{' '}
-            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is not a high value spell to
-            store when not doing an <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />{' '}
-            ramp as it interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
-            buffs.
+            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is not a high value spell
+                  to store when not doing an{' '}
+                  <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp as it
+                  interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> buffs.
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass={false} />
+              </span>
+            </Tooltip>
           </>
         );
       } else {
         return (
           <>
-            <PassFailCheckmark pass /> - <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is
-            a very high value spell to store when not in a ramp due to its high mana cost and CD.
+            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
+            {'  '}
+            <Tooltip
+              hoverable
+              content={
+                <>
+                  <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is a very high value spell
+                  to store when not in a ramp due to its high mana cost and CD.
+                </>
+              }
+            >
+              <span>
+                <PassFailCheckmark pass />
+              </span>
+            </Tooltip>
           </>
         );
       }
@@ -280,13 +442,7 @@ class Stasis extends Analyzer {
       spells.push(0);
     }
     const spellSequence = spells.map((cast, index) => {
-      return (
-        <div key={index}>
-          <SpellIcon spell={cast} className="stasis__icon" />
-          {'   '}
-          {this.getAnalysisForSpell(cast, forRamp)}
-        </div>
-      );
+      return <div key={index}>{this.getAnalysisForSpell(cast, forRamp)}</div>;
     });
     return (
       <div className="stasis__container">
