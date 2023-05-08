@@ -17,12 +17,14 @@ import {
   Vireve,
   Pilsung,
   HerzBlutRaffy,
-  Abelito75
+  Abelito75,
+  Elitesparkle
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 5, 8), 'Fix Mana Costs for Shaman Spells and Talents.', Elitesparkle),
   change(date(2023, 5, 5), 'Fix Playwright tests.', ToppleTheNun),
   change(date(2023, 5, 4), 'Add 10.1 patch.', ToppleTheNun),
   change(date(2023, 5, 2), 'Bumped game version to 10.1', emallson),
