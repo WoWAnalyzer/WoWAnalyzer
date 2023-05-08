@@ -71,7 +71,9 @@ class FlowOfTheTides extends Analyzer {
   }
 
   onChainHeal(event: CastEvent) {
+    let relativeHealIncrease = 0;
     if (wasRiptideConsumed(event)) {
+      relativeHealIncrease = FLOW_OF_THE_TIDES_INCREASE;
       if (this.chainHealTarget === event.targetID) {
         this.lostRiptideDuration += this.riptideEnd - event.timestamp;
       }
@@ -94,7 +96,7 @@ class FlowOfTheTides extends Analyzer {
       //happy path - all targets hit
       //this handles 6 and 5 targets hit
       index = orderedChainHeal.length - (this.currentCastBuffedByUL ? 2 : 1);
-      this.tallyHealing(index, orderedChainHeal);
+      this.tallyHealing(index, orderedChainHeal, relativeHealIncrease);
       this.extraJumps += 1;
       debug && console.log('Everyone hit, totalhealing: ', this.healing);
       debug && console.log('Extra Jumps: ', this.extraJumps);
@@ -106,26 +108,26 @@ class FlowOfTheTides extends Analyzer {
           console.log('Expected hits: ', expectedTargetCount, 'but only hit ', this.maxTargets);
         this.extraJumps += 1;
         index = orderedChainHeal.length - 1;
-        this.tallyHealing(index, orderedChainHeal);
+        this.tallyHealing(index, orderedChainHeal, relativeHealIncrease);
       } else {
         //missed FotT jump
         this.missedJumps += 1;
         index = -1;
-        this.tallyHealing(index, orderedChainHeal);
+        this.tallyHealing(index, orderedChainHeal, relativeHealIncrease);
         debug && console.log('Missed Jumps: ', this.missedJumps);
       }
     }
     this.currentCastBuffedByUL = false;
   }
 
-  private tallyHealing(index: number, events: HealEvent[]) {
+  private tallyHealing(index: number, events: HealEvent[], relativeHealIncrease: number) {
     if (index > 0) {
       const extraHit = events.splice(index, 1);
       this.healing += extraHit[0]!.amount;
       debug && console.log('Extra Hit: ', extraHit, index);
     }
     this.bonusHealing += events.reduce(
-      (amount, event) => amount + calculateEffectiveHealing(event, FLOW_OF_THE_TIDES_INCREASE),
+      (amount, event) => amount + calculateEffectiveHealing(event, relativeHealIncrease),
       0,
     );
   }
