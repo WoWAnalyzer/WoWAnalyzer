@@ -172,7 +172,7 @@ class Stasis extends Analyzer {
         return (
           <>
             <PassFailCheckmark pass={false} /> - you should never store{' '}
-            <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> when doing a{' '}
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> when doing an{' '}
             <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp.
           </>
         );
@@ -183,7 +183,7 @@ class Stasis extends Analyzer {
           <>
             <PassFailCheckmark pass /> - Although <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
             is not high value, it is okay to store here as this{' '}
-            <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> is used for a{' '}
+            <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> is used for an{' '}
             <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
           </>
         );
@@ -191,7 +191,7 @@ class Stasis extends Analyzer {
         return (
           <>
             <PassFailCheckmark pass={false} /> - <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> is
-            not a high value spell to store when not doing a{' '}
+            not a high value spell to store when not doing an{' '}
             <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
           </>
         );
@@ -217,7 +217,7 @@ class Stasis extends Analyzer {
           <>
             <PassFailCheckmark pass={false} /> -{' '}
             <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> is not a high value spell to
-            store when not doing a <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />{' '}
+            store when not doing an <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />{' '}
             ramp as it interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
             buffs.
           </>
@@ -248,7 +248,7 @@ class Stasis extends Analyzer {
           <>
             <PassFailCheckmark pass={false} /> -{' '}
             <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is not a high value spell to
-            store when not doing a <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />{' '}
+            store when not doing an <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />{' '}
             ramp as it interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />{' '}
             buffs.
           </>
@@ -309,7 +309,7 @@ class Stasis extends Analyzer {
           <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id} />
         </b>{' '}
         is a powerful talent that stores your 3 most recent healing spell that will be released with
-        identical targets. Noteably, it can not store{' '}
+        identical targets. Notably, it can not store{' '}
         <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} />,{' '}
         <SpellLink spell={TALENTS_EVOKER.REWIND_TALENT} />, or{' '}
         <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />. In general, you should always

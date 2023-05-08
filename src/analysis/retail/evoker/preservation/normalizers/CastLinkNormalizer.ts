@@ -601,6 +601,13 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
     referencedEventType: EventType.ApplyBuff,
     forwardBufferMs: MAX_ECHO_DURATION + 3000,
+    isActive(c) {
+      return (
+        c.hasTalent(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT) &&
+        c.hasTalent(TALENTS_EVOKER.STASIS_TALENT) &&
+        c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
+      );
+    },
   },
 ];
 

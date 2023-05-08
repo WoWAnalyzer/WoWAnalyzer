@@ -174,7 +174,10 @@ class EssenceBurst extends Analyzer {
         info.spell === SPELLS.EMERALD_BLOSSOM_CAST.id &&
         !this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT) &&
         !this.selectedCombatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT);
-      if (info.spell === 0 || badEb || badDisintegrate) {
+      const badEcho =
+        info.spell === TALENTS_EVOKER.ECHO_TALENT.id &&
+        this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT);
+      if (info.spell === 0 || badEb || badDisintegrate || badEcho) {
         value = QualitativePerformance.Fail;
       }
       const spellString =

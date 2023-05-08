@@ -13,8 +13,6 @@ import { SpellLink } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
-import { GapHighlight } from 'parser/ui/CooldownBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
@@ -123,18 +121,6 @@ class Ouroboros extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  subStatistic() {
-    return (
-      <CastEfficiencyBar
-        spellId={TALENTS_EVOKER.DREAM_BREATH_TALENT.id}
-        gapHighlightMode={GapHighlight.FullCooldown}
-        minimizeIcons
-        slimLines
-        useThresholds
-      />
-    );
   }
 
   statistic() {

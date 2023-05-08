@@ -157,12 +157,16 @@ class EmeraldCommunion extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  % of raid with <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> before casting{' '}
+                  Targets with <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> before casting{' '}
                   <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />
                 </>
               ),
               result: <PerformanceMark perf={targetsHitPerf} />,
-              details: <>{formatPercentage(percentHit)}%</>,
+              details: (
+                <>
+                  {info.numLifebinds}/{info.possibleTargets}
+                </>
+              ),
             });
             const secondsChanneling = Math.max(0, (info.endChannelTime - info.timestamp) / 1000);
             if (secondsChanneling < 3.5) {
@@ -173,12 +177,12 @@ class EmeraldCommunion extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  seconds of channeling{' '}
+                  Seconds of channeling{' '}
                   <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />
                 </>
               ),
               result: <PerformanceMark perf={ticksPerf} />,
-              details: <>{secondsChanneling} seconds</>,
+              details: <>{secondsChanneling.toFixed(1)} seconds</>,
             });
             const lowestPerf = getLowestPerf([ticksPerf, targetsHitPerf]);
             return (
