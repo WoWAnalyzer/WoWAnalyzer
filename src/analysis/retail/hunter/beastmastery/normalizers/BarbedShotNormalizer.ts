@@ -1,8 +1,8 @@
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
-import { MS_BUFFER_100 } from '../../shared';
 
 export default class BarbedShotNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {

@@ -1,4 +1,4 @@
-import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared';
+import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { SV_KILL_COMMAND_FOCUS_GAIN } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';

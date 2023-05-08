@@ -8,26 +8,15 @@ export const BUTCHERY_CARVE_MAX_TARGETS_HIT = 5;
 /** Coordinated Assault */
 //Coordinated Assault increases all damage done by 20%
 export const COORDINATED_ASSAULT_DMG_MOD = 0.2;
-//Coordinated Assault lasts 20 seconds by default
-export const COORDINATED_ASSAULT_BASELINE_DURATION = 20000;
 /** Wildfire Bomb */
 //People aren't robots, give them a bit of leeway in terms of when they cast WFB to avoid capping on charges
 export const WILDFIRE_BOMB_LEEWAY_BUFFER = 500;
-//Different types of Bombs
-export const SURVIVAL_BOMB_TYPES = [
-  SPELLS.WILDFIRE_BOMB.id,
-  SPELLS.VOLATILE_BOMB_WFI.id,
-  SPELLS.PHEROMONE_BOMB_WFI.id,
-  SPELLS.SHRAPNEL_BOMB_WFI.id,
-];
 /** Kill Command */
 //Kill Command for Survival regenerates 15 focus
 export const SV_KILL_COMMAND_FOCUS_GAIN = 15;
 /** Serpent Sting */
 //Serpent Sting costs 20 focus
 export const SV_SERPENT_STING_COST = 20;
-//Serpent Sting for SV pandemics at 30%
-export const SERPENT_STING_SV_PANDEMIC = 0.3;
 //The baseduration of Serpent Sting before any haste reduction
 export const SERPENT_STING_SV_BASE_DURATION = 12000;
 //endregion
