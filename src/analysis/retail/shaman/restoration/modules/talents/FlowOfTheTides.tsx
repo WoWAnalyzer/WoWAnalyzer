@@ -71,13 +71,12 @@ class FlowOfTheTides extends Analyzer {
   }
 
   onChainHeal(event: CastEvent) {
-    if (!wasRiptideConsumed(event)) {
-      return;
+    if wasRiptideConsumed(event) {
+      if (this.chainHealTarget === event.targetID) {
+        this.lostRiptideDuration += this.riptideEnd - event.timestamp;
+      }
+      this.lostRiptides += 1;
     }
-    if (this.chainHealTarget === event.targetID) {
-      this.lostRiptideDuration += this.riptideEnd - event.timestamp;
-    }
-    this.lostRiptides += 1;
     let expectedTargetCount = this.maxTargets;
     let index = -1;
     if (this.ulActive && this.unleashLife._isBuffedByUnleashLife(event)) {
