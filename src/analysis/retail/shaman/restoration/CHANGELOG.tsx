@@ -5,6 +5,7 @@ import { Arlie, Fassbrause, niseko, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 8), <><SpellLink spell={TALENTS.FLOW_OF_THE_TIDES_TALENT}/> fix to tally additional hit healing regardless of riptides being consumed.</>, Vohrr),
   change(date(2023, 5, 4), <>Fixed bug with <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> uptime segments on the guide. Added <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT}/> cast entry row, reformatted <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT}/> module for visual consistency</>, Vohrr),
   change(date(2023, 5, 4), <>Add <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> uptime to core section of the Guide</>, Vohrr),
   change(date(2023, 5, 3), <><SpellLink spell={TALENTS.EARTHEN_HARMONY_TALENT}/> code review cleanup</>, Vohrr),
