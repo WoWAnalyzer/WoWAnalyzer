@@ -26,8 +26,6 @@ const output = {
   classicUS: reformatFile('./data/classicUS.json'),
 };
 
-const outputFormatted = JSON.stringify(output, null, 2);
-
 fs.writeFileSync(
   './output.js',
   `// Generated file, changes will be overwritten!
