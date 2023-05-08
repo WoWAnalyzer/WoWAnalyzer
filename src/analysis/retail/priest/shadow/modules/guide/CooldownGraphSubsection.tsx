@@ -43,7 +43,7 @@ const longCooldowns: Cooldown[] = [
   { talent: TALENTS.DARK_ASCENSION_TALENT },
   { talent: TALENTS.VOID_ERUPTION_TALENT },
   { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
-  { talent: TALENTS.SHADOWFIEND_TALENT },
+  //{ talent: TALENTS.SHADOWFIEND_TALENT }, TODO: Fix Shadowfiend when in this list
 ];
 
 const CoreCooldownsGraph = () => {
