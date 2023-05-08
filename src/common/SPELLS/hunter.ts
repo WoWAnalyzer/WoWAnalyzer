@@ -186,11 +186,6 @@ const spells = spellIndexableList({
     name: 'Steady Focus',
     icon: 'ability_hunter_improvedsteadyshot',
   },
-  LETHAL_SHOTS_BUFF: {
-    id: 260395,
-    name: 'Lethal Shots',
-    icon: 'ability_hunter_resistanceisfutile',
-  },
   VOLLEY_DAMAGE: {
     id: 260247,
     name: 'Volley',
@@ -711,6 +706,25 @@ const spells = spellIndexableList({
     icon: 'ability_druid_cower',
   },
   //endregion
+
+  //region Tier Sets
+  //T29 2P
+  T29_2P_BONUS_BEAST_MASTERY: {
+    id: 393646,
+    name: 'T29 2P',
+    icon: 'ability_hunter_killcommand',
+  },
+  //T29 4P
+  T29_4P_BONUS_BEAST_MASTERY: {
+    id: 393647,
+    name: 'T29 4P',
+    icon: 'ability_hunter_focusfire',
+  },
+  LETHAL_COMMAND: {
+    id: 394298,
+    name: 'Lethal Command',
+    icon: 'ability_hunter_focusfire',
+  },
 });
 
 export default spells;

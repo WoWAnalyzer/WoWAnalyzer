@@ -136,7 +136,6 @@ class StatTracker extends Analyzer {
 
   //Values taken from https://github.com/simulationcraft/simc/blob/dragonflight/engine/dbc/generated/sc_scale_data.inc
   statBaselineRatingPerPercent = {
-    //TODO Update to level 70 values once DF has launched as we will need the old values during prepatch
     /** Secondaries */
     [STAT.CRITICAL_STRIKE]: 180,
     [STAT.HASTE]: 170,
@@ -144,7 +143,7 @@ class StatTracker extends Analyzer {
     [STAT.VERSATILITY]: 205,
     /** Tertiaries */
     [STAT.AVOIDANCE]: 72,
-    [STAT.LEECH]: 110,
+    [STAT.LEECH]: 148,
     [STAT.SPEED]: 50,
   };
 
