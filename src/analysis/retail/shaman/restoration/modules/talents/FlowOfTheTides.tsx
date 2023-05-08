@@ -71,7 +71,7 @@ class FlowOfTheTides extends Analyzer {
   }
 
   onChainHeal(event: CastEvent) {
-    if wasRiptideConsumed(event) {
+    if (wasRiptideConsumed(event)) {
       if (this.chainHealTarget === event.targetID) {
         this.lostRiptideDuration += this.riptideEnd - event.timestamp;
       }
