@@ -809,14 +809,14 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_siphonmana',
   },
 
-  IDOL_OF_YOGG_SARON_VOID_SPIKE_DAMAGE: {
-    id: 373279,
-    name: 'Void Spike',
-    icon: 'spell_priest_mindspike',
+  IDOL_OF_CTHUN_RESOURCE: {
+    id: 377358,
+    name: 'Idol of CThun',
+    icon: 'achievement_boss_cthun',
   },
 
-  IDOL_OF_YOGG_SARON_VOID_SPIKE_CLEAVE_DAMAGE: {
-    id: 396895,
+  IDOL_OF_YOGG_SARON_DAMAGE: {
+    id: 373279,
     name: 'Void Spike',
     icon: 'spell_priest_mindspike',
   },
