@@ -4,7 +4,7 @@ import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -65,6 +65,24 @@ class BlackoutKick extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
   }
 
+  applyCdr(spellId: number, modRate: number): [number, number] {
+    let effective = 0;
+    let wasted = 0;
+    const scaledCdr = BLACKOUT_KICK_COOLDOWN_REDUCTION_MS / modRate;
+    if (!this.spellUsable.isOnCooldown(spellId)) {
+      wasted += scaledCdr;
+    } else {
+      const reductionMs = this.spellUsable.reduceCooldown(
+        spellId,
+        BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
+      );
+      const scaledEffectiveMs = reductionMs / modRate;
+      effective = scaledEffectiveMs;
+      wasted = scaledCdr - scaledEffectiveMs;
+    }
+    return [effective, wasted];
+  }
+
   onCast(event: CastEvent) {
     const availableImportantCast = this.IMPORTANT_SPELLS.filter((spellId) =>
       this.spellUsable.isAvailable(spellId),
@@ -74,13 +92,8 @@ class BlackoutKick extends Analyzer {
      * value for direct analysis, however for calling reduceCooldown we should use the base
      * reduction value since reduceCooldown factors in modRate on its own already.
      */
-    const currentCooldownReductionMS =
-      (this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 0.5 : 1) *
-      BLACKOUT_KICK_COOLDOWN_REDUCTION_MS;
-    if (
-      availableImportantCast.length > 0 &&
-      !this.selectedCombatant.hasBuff(SPELLS.WEAPONS_OF_ORDER_BUFF_AND_HEAL.id)
-    ) {
+    const modRate = this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id) ? 2 : 1;
+    if (availableImportantCast.length > 0) {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       const linkList = availableImportantCast.map((spellId) => (
@@ -94,26 +107,16 @@ class BlackoutKick extends Analyzer {
       );
     }
 
-    if (!this.spellUsable.isOnCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id)) {
-      this.wastedRisingSunKickReductionMs += currentCooldownReductionMS;
-    } else {
-      const reductionMs = this.spellUsable.reduceCooldown(
-        TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-        BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
-      );
-      this.effectiveRisingSunKickReductionMs += reductionMs;
-      this.wastedRisingSunKickReductionMs += currentCooldownReductionMS - reductionMs;
-    }
-    if (!this.spellUsable.isOnCooldown(SPELLS.FISTS_OF_FURY_CAST.id)) {
-      this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS;
-    } else {
-      const reductionMs = this.spellUsable.reduceCooldown(
-        SPELLS.FISTS_OF_FURY_CAST.id,
-        BLACKOUT_KICK_COOLDOWN_REDUCTION_MS,
-      );
-      this.effectiveFistsOfFuryReductionMs += reductionMs;
-      this.wastedFistsOfFuryReductionMs += currentCooldownReductionMS - reductionMs;
-    }
+    const [effectiveRsk, wastedRsk] = this.applyCdr(
+      TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+      modRate,
+    );
+    this.effectiveRisingSunKickReductionMs += effectiveRsk;
+    this.wastedRisingSunKickReductionMs += wastedRsk;
+
+    const [effectiveFoF, wastedFoF] = this.applyCdr(SPELLS.FISTS_OF_FURY_CAST.id, modRate);
+    this.effectiveFistsOfFuryReductionMs += effectiveFoF;
+    this.wastedFistsOfFuryReductionMs += wastedFoF;
   }
 
   get totalWastedReductionPerMinute() {

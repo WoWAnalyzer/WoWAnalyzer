@@ -1,15 +1,15 @@
 import type Spell from 'common/SPELLS/Spell';
 import {
   AnyEvent,
+  BeginChannelEvent,
+  CastEvent,
   EventType,
   UpdateSpellUsableEvent,
-  CastEvent,
-  BeginChannelEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 import { ReactChild } from 'react';
-import { initLocationState, LocationState, isInRange, updateLocationState } from './range';
+import { initLocationState, isInRange, LocationState, updateLocationState } from './range';
 
 const debug = false;
 
@@ -391,12 +391,14 @@ export function aplProcessesEvent(
   event: AnyEvent,
   result: CheckState,
   applicableSpells: Set<number>,
+  playerId: number,
 ): event is BeginChannelEvent | CastEvent {
   return (
     (event.type === EventType.BeginChannel ||
       (event.type === EventType.Cast &&
         event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
-    applicableSpells.has(event.ability.guid)
+    applicableSpells.has(event.ability.guid) &&
+    event.sourceID === playerId
   );
 }
 
@@ -443,6 +445,12 @@ const aplCheck = (apl: Apl) =>
           b.updateType === UpdateSpellUsableType.EndCooldown
         ) {
           return 1;
+        } else if (
+          b.type === EventType.Cast &&
+          a.type === EventType.UpdateSpellUsable &&
+          a.updateType === UpdateSpellUsableType.EndCooldown
+        ) {
+          return -1;
         } else {
           return 0;
         }
@@ -456,7 +464,7 @@ const aplCheck = (apl: Apl) =>
 
     return events.reduce<CheckState>(
       (result, event, eventIndex) => {
-        if (aplProcessesEvent(event, result, applicableSpells)) {
+        if (aplProcessesEvent(event, result, applicableSpells, info.playerId)) {
           const applicable = applicableRule(apl, abilities, result, events, eventIndex);
           if (applicable) {
             const { rule, availableSpells } = applicable;
