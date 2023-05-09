@@ -17,7 +17,6 @@ export default class T29MMTier4P extends Analyzer {
 
   totalDamage: number = 0;
   totalProcs: number = 0;
-  totalUsedProcs: number = 0;
 
   protected statTracker!: StatTracker;
 
