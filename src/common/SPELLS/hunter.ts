@@ -728,7 +728,7 @@ const spells = spellIndexableList({
   T29_4P_BONUS_MARKSMANSHIP: {
     id: 393649,
     name: 'T29 4P',
-    icon: 'ability_hunter_aimedshot',
+    icon: 'ability_impalingbolt',
   },
   LETHAL_COMMAND: {
     id: 394298,
