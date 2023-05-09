@@ -390,7 +390,7 @@ class Stasis extends Analyzer {
               content={
                 <>
                   <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is not a high value spell
-                  to store when not doing an{' '}
+                  to store when doing an{' '}
                   <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp as it
                   interferes by consuming <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> buffs.
                 </>
