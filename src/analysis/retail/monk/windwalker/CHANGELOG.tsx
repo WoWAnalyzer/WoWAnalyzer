@@ -4,6 +4,7 @@ import { Durpn, Hursti, Tenooki } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 3), <>Updated Serenity/Non-Serenity APls, cooldown/ability tracking improvements</>, Tenooki),
   change(date(2023, 5, 3), <>Fixes to cooldown tracking on various abilities</>, Tenooki),
   change(date(2023, 5, 2), <>Fixed a bug in WW reports with Chi Wave talented</>, Tenooki),
   change(date(2023, 2, 13), <>Initial APL Added</>, Durpn),

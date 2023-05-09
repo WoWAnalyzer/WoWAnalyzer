@@ -1,5 +1,6 @@
 import { TRUESHOT_FOCUS_INCREASE } from 'analysis/retail/hunter/marksmanship/constants';
-import { FocusCapTracker, HUNTER_BASE_FOCUS_REGEN } from 'analysis/retail/hunter/shared';
+import { FocusCapTracker } from 'analysis/retail/hunter/shared';
+import { HUNTER_BASE_FOCUS_REGEN } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 
 class MarksmanshipFocusCapTracker extends FocusCapTracker {

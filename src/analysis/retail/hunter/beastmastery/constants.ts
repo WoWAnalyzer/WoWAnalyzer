@@ -8,9 +8,6 @@ import TALENTS from 'common/TALENTS/hunter';
 export const COBRA_SHOT_CDR_MS = 2000;
 //A threshold where you can never realistically overcap on focus by waiting for AT MOST 1 GCD + 1 second.
 export const COBRA_SHOT_FOCUS_THRESHOLD_TO_WAIT = 50;
-/** Kill Command */
-//Kill Command costs 30 focus for Beast Mastery hunters
-export const KILL_COMMAND_BM_FOCUS_COST = 30;
 /** Bestial Wrath */
 //Bestial Wrath
 export const BARBED_SHOT_BESTIAL_WRATH_CDR_MS = 12000;
@@ -66,6 +63,9 @@ export const AMOUNT_OF_PETS_WITH_AC = 2;
 export const MAX_THRILL_STACKS = 3;
 //Each stack of Thrill of the Hunt gives 3% crit
 export const CRIT_PER_THRILL_STACK = 0.03;
+/** Dire Command */
+//Dire Command has a 10% chance to summon a dire beast per rank
+export const DIRE_COMMAND_PROC_CHANCE = [0, 0.1, 0.2, 0.3];
 //endregion
 
 //region Pets
@@ -128,19 +128,4 @@ export const LIST_OF_FOCUS_SPENDERS_BM = [
   TALENTS.KILL_SHOT_SHARED_TALENT,
   TALENTS.A_MURDER_OF_CROWS_TALENT,
 ];
-//endregion
-
-//region Legendaries
-/** Dire Command */
-//Dire Command has a 10% chance to summon a dire beast per rank
-export const DIRE_COMMAND_PROC_CHANCE = [0, 0.1, 0.2, 0.3];
-/** Flamewaker's Cobra Sting */
-//Flamewaker's Cobra Sting has a 50% chance to reduce focus cost of next Kill Command by 100%
-export const FLAMEWAKERS_PROC_CHANCE = 0.5;
-/** Qa'pla, Eredun War Order */
-//Qa'pla increases Barbed Shot damage by 10%
-export const QAPLA_BARBED_SHOT_DMG_INCREASE = 0.1;
-/** Rylakstalker's Piercing Fangs */
-//Rylakstalker's Piercing Fang increases pet crit damage by 35% during Bestial Wrath
-export const RYLAKSTALKERS_PIERCING_FANGS_CRIT_DMG_INCREASE = 0.35;
 //endregion
