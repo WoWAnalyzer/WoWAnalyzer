@@ -68,6 +68,9 @@ class EmeraldCommunion extends Analyzer {
   }
 
   onAlly(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
+    if (!this.combatants.getEntity(event)) {
+      return;
+    }
     this.potentialEchoTargets.set(event.targetID, event.timestamp);
   }
 
