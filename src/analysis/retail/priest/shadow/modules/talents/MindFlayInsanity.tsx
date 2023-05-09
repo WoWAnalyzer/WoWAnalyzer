@@ -5,7 +5,14 @@ import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+  DamageEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -16,20 +23,26 @@ import UptimeIcon from 'interface/icons/Uptime';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
+const BUFF_DURATION_MS = 15000;
+
 class MindFlayInsanity extends Analyzer {
   damage = 0;
   insanityGained = 0;
   casts = 0;
   ticks = 0;
-  buffs = 0;
+
+  procsGained: number = 0; //Total gained Procs(including refreshed) (Should be equal to number of cast DP)
+  procsExpired: number = 0; //procs lost to time
+  procsOver: number = 0; //procs lost to overwriting them
+
+  lastProcTime: number = 0;
+  currentStacks: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.MIND_FLAY_INSANITY_TALENT);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
-      this.onCast,
-    );
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
+      !this.selectedCombatant.hasTalent(TALENTS.MIND_SPIKE_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
       this.onDamage,
@@ -39,12 +52,29 @@ class MindFlayInsanity extends Analyzer {
       this.onEnergize,
     );
     this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE),
+      this.onCast,
+    );
+    //Buff
+    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
       this.onBuff,
     );
     this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      this.onBuffStack,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      this.onRemove,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
+      this.onRemoveStack,
+    );
+    this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF),
-      this.onBuff,
+      this.onRefresh,
     );
   }
 
@@ -55,8 +85,8 @@ class MindFlayInsanity extends Analyzer {
   get ticksWasted() {
     return this.casts * 4 - this.ticks;
   }
-  get buffsUnused() {
-    return this.buffs - this.casts;
+  get procsWasted() {
+    return this.procsExpired + this.procsOver;
   }
 
   get suggestionThresholds() {
@@ -71,8 +101,33 @@ class MindFlayInsanity extends Analyzer {
     };
   }
 
-  onBuff() {
-    this.buffs += 1;
+  //Based on Frost DK Killing Machine.
+  onBuff(event: ApplyBuffEvent) {
+    this.procsGained += 1;
+    this.lastProcTime = event.timestamp;
+  }
+  onBuffStack(event: ApplyBuffStackEvent) {
+    this.procsGained += 1;
+    this.lastProcTime = event.timestamp;
+    this.currentStacks = event.stack;
+  }
+
+  onRemove(event: RemoveBuffEvent) {
+    const durationHeld = event.timestamp - this.lastProcTime;
+    if (durationHeld > BUFF_DURATION_MS - 20) {
+      this.procsExpired += 1;
+    }
+  }
+
+  onRemoveStack(event: RemoveBuffStackEvent) {
+    this.currentStacks = event.stack;
+  }
+
+  onRefresh() {
+    this.procsGained += 1;
+    if (this.currentStacks === 2) {
+      this.procsOver += 1;
+    }
   }
 
   onCast() {
@@ -85,18 +140,20 @@ class MindFlayInsanity extends Analyzer {
   }
 
   onEnergize(event: ResourceChangeEvent) {
+    //TODO: Reduce this by what an unimpowered spell would give?
     this.insanityGained += event.resourceChange;
   }
 
   suggestions(when: When) {
+    //TODO:Add second Suggestion for proc usage
     when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You interrupted <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} /> early, wasting{' '}
-          {formatPercentage(this.ticksWastedPercentage)}% the channel!
+          You interrupted <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> early,
+          wasting {formatPercentage(this.ticksWastedPercentage)}% the channel!
         </>,
       )
-        .icon(TALENTS.MIND_FLAY_INSANITY_TALENT.icon)
+        .icon(TALENTS.SURGE_OF_INSANITY_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.mindFlayInsanity.ticksLost',
@@ -118,9 +175,9 @@ class MindFlayInsanity extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.MIND_FLAY_INSANITY_TALENT.id}>
+        <BoringSpellValueText spellId={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF.id}>
           <>
-            <UptimeIcon /> {this.casts} <small>buffs used out of {this.buffs} </small> <br />
+            <UptimeIcon /> {this.casts} <small>buffs used out of {this.procsGained} </small> <br />
             <ItemDamageDone amount={this.damage} /> <br />
             <Insanity /> {this.insanityGained} <small>Insanity generated</small>
           </>
@@ -140,33 +197,39 @@ class MindFlayInsanity extends Analyzer {
       label: 'Canceled Ticks',
     };
 
-    /* If needed in the future, these can be used for a GradiatedPerformanceBar that tracks how many time the buff was used or wasted.
     const usedMFI = {
       count: this.casts,
       label: 'Buffs Used',
     };
 
-    const unusedMFI = {
-      count: this.buffsUnused,
-      label: 'Buffs Unused',
+    const overMFI = {
+      count: this.procsOver,
+      label: 'Buffs Overwritten',
     };
-  */
+
+    const expiredMFI = {
+      count: this.procsExpired,
+      label: 'Buffs Expired',
+    };
+
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.MIND_FLAY_INSANITY_TALENT.id} />
+          <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF.id} />
         </b>{' '}
         is gained every time you cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.<br />
-        This proc is low priority. If you have higher priority spells available, cast them instead,
-        even if it causes this proc to be overwritten or unused. When you do use this spell, it
-        should be fully channeled.
+        This buff can stack two times. While you have two stacks, try cast{' '}
+        <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> before casting{' '}
+        <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />, unless you will otherwise overcap on
+        Insanity
       </p>
     );
-
     const data = (
       <div>
         <strong>Mind Flay Insanity Channels</strong>
         <GradiatedPerformanceBar good={goodMFI} bad={badMFI} />
+        <strong>Mind Flay Insanity Procs</strong>
+        <GradiatedPerformanceBar good={usedMFI} ok={overMFI} bad={expiredMFI} />
       </div>
     );
     return explanationAndDataSubsection(explanation, data, 50);

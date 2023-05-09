@@ -9,6 +9,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
 import { Trans } from '@lingui/macro';
 import Voidbolt from '../spells/Voidbolt';
+import ShadowWordDeath from '../spells/ShadowWordDeath';
 
 type Cooldown = {
   talent: Talent;
@@ -22,20 +23,18 @@ type SpellCooldown = {
 
 const coreCooldowns: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
-  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const coreCooldownsVB: SpellCooldown[] = [
   { spell: SPELLS.MIND_BLAST },
   { spell: SPELLS.VOID_BOLT },
-  //{ spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
 ];
 
 const shortCooldowns: Cooldown[] = [
   { talent: TALENTS.SHADOW_CRASH_TALENT },
   { talent: TALENTS.VOID_TORRENT_TALENT },
-  { talent: TALENTS.DAMNATION_TALENT },
-  { talent: TALENTS.DARK_VOID_TALENT },
   { talent: TALENTS.MINDGAMES_TALENT },
 ];
 
@@ -43,12 +42,15 @@ const longCooldowns: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
   { talent: TALENTS.DARK_ASCENSION_TALENT },
   { talent: TALENTS.VOID_ERUPTION_TALENT },
-  { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
+  { talent: TALENTS.MINDBENDER_SHADOW_TALENT }, //add regular pet here
 ];
 
 const CoreCooldownsGraph = () => {
   const VoidboltAnalyzer = useAnalyzer(Voidbolt);
+  const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
+
   let coreCooldown = coreCooldowns;
+
   let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
       <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
@@ -80,6 +82,35 @@ const CoreCooldownsGraph = () => {
     );
   }
 
+  coreCooldown.find((cd) => cd.spell.id === TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.activeWindows =
+    ShadowWordDeathAnalyzer?.executeRanges.map(fromExecuteRange);
+
+  // If the found Ranges overlap, the graph visuals stack.
+  // This happens often for SW:D because every enemy below the threshold creates a highlight
+  // to fix this, we combine overlaping regions
+  // In order to combine them, we have to sort them (I do not know why the timestamps are not in order)
+  // This could instead be done in CastEfficencyBar, but I am not confiedent enough that this works universally to do so.
+
+  const cdIndex = coreCooldown.findIndex(
+    (cd) => cd.spell.id === TALENTS.SHADOW_WORD_DEATH_TALENT.id,
+  );
+  const highlights = ShadowWordDeathAnalyzer?.executeRanges.map(fromExecuteRange);
+
+  highlights?.sort((a, b) => a.startTime - b.startTime);
+
+  if (highlights != null && highlights.length > 0) {
+    const combined = [highlights[0]];
+    for (let i = 1; i < highlights.length; i = i + 1) {
+      const currentRange = combined[combined.length - 1];
+      const nextRange = highlights[i];
+      if (nextRange.startTime <= currentRange.endTime) {
+        currentRange.endTime = Math.max(currentRange.endTime, nextRange.endTime);
+      } else {
+        combined.push(nextRange);
+      }
+    }
+    coreCooldown[cdIndex].activeWindows = combined;
+  }
   return CoreCooldownGraphSubsection(coreCooldown, message);
 };
 

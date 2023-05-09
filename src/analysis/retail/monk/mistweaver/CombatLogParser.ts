@@ -86,6 +86,7 @@ import AplCheck from './modules/core/apl/AplCheck';
 import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
 import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
+import LifeCocoon from './modules/spells/LifeCocoon';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -181,6 +182,7 @@ class CombatLogParser extends CoreCombatLogParser {
     veilOfPride: VeilOfPride,
     legacyOfWisdom: LegacyOfWisdom,
     calmingCoalescence: CalmingCoalescence,
+    lifeCocoon: LifeCocoon,
 
     apl: AplCheck,
 

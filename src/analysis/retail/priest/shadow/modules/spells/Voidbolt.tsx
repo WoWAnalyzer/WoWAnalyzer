@@ -35,6 +35,9 @@ class Voidbolt extends ExecuteHelper {
 
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
+    const ctor = this.constructor as typeof ExecuteHelper;
+    ctor.executeSpells.push(SPELLS.VOID_BOLT);
+
     (options.abilities as Abilities).add({
       spell: SPELLS.VOID_BOLT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
@@ -51,7 +54,7 @@ class Voidbolt extends ExecuteHelper {
   }
 
   adjustMaxCasts() {
-    const cooldown = this.abilities.getAbility(SPELLS.VOID_BOLT.id)!.cooldown * 1000;
+    const cooldown = this.abilities.getAbility(SPELLS.VOID_BOLT.id)!.cooldown * 1000; //this is not perfectly accurate to voidbolts cooldown
     this.maxCasts += Math.ceil(this.totalExecuteDuration / cooldown);
   }
 

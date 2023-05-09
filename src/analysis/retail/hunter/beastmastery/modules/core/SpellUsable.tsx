@@ -3,7 +3,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { TIERS } from 'game/TIERS';
 import { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
+import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import Events, {
   AbilityEvent,
   AnyEvent,
@@ -20,21 +20,39 @@ class SpellUsable extends CoreSpellUsable {
 
   lastPotentialTriggerForBarbedShotReset: AnyEvent | null = null;
   lastPotentialTriggerForKillCommandReset: AnyEvent | null = null;
-  private _has4pc: boolean = false;
+
+  private _has2pc: boolean = false;
+  private _tierCanResetBarbedShot: boolean = false;
+  private _barbedShotResetsFromT29: number = 0;
+
+  get barbedShotResetsFromT29() {
+    return this._barbedShotResetsFromT29;
+  }
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT), this.onDamage);
-    this._has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.AUTO_SHOT),
+      this.onAutoShotDamage,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.KILL_COMMAND_SHARED_DAMAGE),
+      this.onKillCommandDamage,
+    );
+    this._has2pc = this.selectedCombatant.has2PieceByTier(TIERS.T29);
   }
 
-  onDamage(event: DamageEvent) {
-    const spellId = event.ability.guid;
-    if (spellId === SPELLS.AUTO_SHOT.id && event.hitType === HIT_TYPES.CRIT) {
+  onAutoShotDamage(event: DamageEvent) {
+    if (event.hitType === HIT_TYPES.CRIT) {
       this.lastPotentialTriggerForBarbedShotReset = event;
+      this._tierCanResetBarbedShot = false;
     }
-    if (spellId === TALENTS.KILL_COMMAND_SHARED_TALENT.id && this._has4pc) {
+  }
+
+  onKillCommandDamage(event: DamageEvent) {
+    if (this._has2pc) {
       this.lastPotentialTriggerForBarbedShotReset = event;
+      this._tierCanResetBarbedShot = true;
     }
   }
 
@@ -58,10 +76,13 @@ class SpellUsable extends CoreSpellUsable {
     const spellId = triggerEvent.ability.guid;
     if (spellId === TALENTS.BARBED_SHOT_TALENT.id) {
       if (this.isOnCooldown(spellId) && this.chargesAvailable(spellId) === 0) {
+        if (this._tierCanResetBarbedShot) {
+          this._barbedShotResetsFromT29 += 1;
+        }
         this.endCooldown(spellId, this.lastPotentialTriggerForBarbedShotReset?.timestamp);
       }
     }
-    if (spellId === TALENTS.KILL_COMMAND_SHARED_TALENT.id && this._has4pc) {
+    if (spellId === TALENTS.KILL_COMMAND_SHARED_TALENT.id) {
       if (this.isOnCooldown(spellId) && this.chargesAvailable(spellId) === 0) {
         this.endCooldown(spellId, this.lastPotentialTriggerForKillCommandReset?.timestamp);
       }

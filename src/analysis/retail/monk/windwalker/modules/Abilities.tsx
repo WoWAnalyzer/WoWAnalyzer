@@ -76,7 +76,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.CHI_WAVE_TALENT_DAMAGE.id,
+        spell: TALENTS_MONK.CHI_WAVE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {

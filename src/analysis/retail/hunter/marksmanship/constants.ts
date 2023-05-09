@@ -3,15 +3,11 @@ import TALENTS from 'common/TALENTS/hunter';
 
 //region Spells
 /** Rapid Fire */
-//Rapid Fire ticks 7 times per cast baseline
-export const RAPID_FIRE_TICKS_PER_CAST = 7;
 //Rapid Fire generates 1 focus per hit
 export const RAPID_FIRE_FOCUS_PER_TICK = 1;
 /** Aimed Shot */
 //Aimed Shot has a baseline casttime of 2.5s
 export const AIMED_SHOT_BASELINE_CAST_TIME = 2500;
-//Aimed Shot costs 35 focus baseline
-export const AIMED_SHOT_FOCUS_COST = 35;
 /** Trueshot */
 //Trueshot makes Aimed Shot recharge 225% faster despite what its tooltip says
 export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 2.25;
@@ -19,8 +15,6 @@ export const TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE = 2.25;
 export const TRUESHOT_RAPID_FIRE_RECHARGE_INCREASE = 2.4;
 //Trueshot increases the cast rate of Aimed Shot by 50%
 export const TRUESHOT_AIMED_SHOT_CAST_TIME_SPEED_UP = 0.5;
-//Trueshot lasts 15 seconds by default
-export const TRUESHOT_DURATION_BASELINE = 15000;
 //Trueshot increases focus regen by 50%
 export const TRUESHOT_FOCUS_INCREASE = 0.5;
 /** Lone Wolf */
@@ -57,9 +51,6 @@ export const PRECISE_SHOTS_ASSUMED_PROCS = 2;
 export const PRECISE_SHOTS_MODIFIER = 0.75;
 //Because the spells have traveltime we need to take it into account
 export const ARCANE_SHOT_MAX_TRAVEL_TIME = 500;
-/** Trick Shots */
-//Trick Shots baseline does 50% damage to secondary targets
-export const TRICK_SHOTS_BASELINE_DAMAGE = 0.5;
 /** Steady Shot */
 //Steady Shot regenerates 10 focus baseline on cast
 export const STEADY_SHOT_FOCUS_REGEN = 10;
@@ -74,11 +65,6 @@ export const STREAMLINE_AIMED_SHOT_CAST_SPEED_UP = 0.3;
 /** Steady Focus */
 //Steady Focus increases haste by 7%
 export const STEADY_FOCUS_HASTE_PERCENT = [0, 0.04, 0.08];
-/** Master Marksman */
-//Master Marksman makes special shot crits apply a 15% DOT
-export const MASTER_MARKSMAN_CRIT_DOT = 0.15;
-//Master Marksman ticks every two seconds
-export const MASTER_MARKSMAN_TICK_RATE = 2000;
 /** Calling the Shots */
 //2.5 seconds per 50 focus spent
 export const CTS_CDR_PER_FOCUS = 2500 / 50;
@@ -92,11 +78,6 @@ export const CA_MODIFIER = 0.5;
 export const LNL_PROC_CHANCE = 0.08;
 //When Lock and Load procs, Aimed Shot costs 0 focus
 export const LNL_COST_MULTIPLIER = 0;
-/** Lethal Shots */
-//Lethal Shot has a 30% chance per Arcane Shot / Multi Shot / Chimaera Shot hit
-export const LETHAL_SHOTS_CHANCE = 0.3;
-//Lethal Shot procs reduce cooldown of Rapid Fire
-export const LETHAL_SHOTS_REDUCTION = 5000;
 /** Serpent Sting */
 //Serpent Sting has a 18 second duration for Marksmanship
 export const SERPENT_STING_MM_BASE_DURATION = 18000;

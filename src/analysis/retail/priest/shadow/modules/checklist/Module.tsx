@@ -12,7 +12,7 @@ import DarkEvangelism from '../talents/DarkEvangelism';
 import ShadowyInsight from '../spells/ShadowyInsight';
 import UnfurlingDarkness from '../talents/UnfurlingDarkness';
 import Deathspeaker from '../talents/Deathspeaker';
-import SurgeOfDarkness from '../talents/SurgeOfDarkness';
+import MindSpikeInsanity from '../talents/MindSpikeInsanity';
 import MindFlayInsanity from '../talents/MindFlayInsanity';
 import MindDevourer from '../talents/MindDevourer';
 
@@ -34,7 +34,7 @@ class Checklist extends BaseChecklist {
     unfurlingDarkness: UnfurlingDarkness,
     deathspeaker: Deathspeaker,
     mindDevourer: MindDevourer,
-    surgeOfDarkness: SurgeOfDarkness,
+    mindSpikeInsanity: MindSpikeInsanity,
     mindFlayInsanity: MindFlayInsanity,
   };
 
@@ -51,7 +51,7 @@ class Checklist extends BaseChecklist {
   protected unfurlingDarkness!: UnfurlingDarkness;
   protected deathspeaker!: Deathspeaker;
   protected mindDevourer!: MindDevourer;
-  protected surgeOfDarkness!: SurgeOfDarkness;
+  protected mindSpikeInsanity!: MindSpikeInsanity;
   protected mindFlayInsanity!: MindFlayInsanity;
 
   render() {
@@ -72,7 +72,7 @@ class Checklist extends BaseChecklist {
           unfurlingDarkness: this.unfurlingDarkness.suggestionThresholds,
           deathspeaker: this.deathspeaker.suggestionThresholds,
           mindDevourer: this.mindDevourer.suggestionThresholds,
-          surgeOfDarkness: this.surgeOfDarkness.suggestionThresholds,
+          mindSpikeInsanity: this.mindSpikeInsanity.suggestionThresholds,
           mindFlayInsanity: this.mindFlayInsanity.suggestionThresholds,
         }}
       />

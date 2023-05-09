@@ -4,7 +4,7 @@ import {
   RESOURCES_HUNTER_AVERAGE_THRESHOLD,
   RESOURCES_HUNTER_MAJOR_THRESHOLD,
   RESOURCES_HUNTER_MINOR_THRESHOLD,
-} from 'analysis/retail/hunter/shared';
+} from 'analysis/retail/hunter/shared/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink } from 'interface';

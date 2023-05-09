@@ -50,6 +50,13 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 const debug = false;
 
@@ -145,6 +152,11 @@ class UnleashLife extends Analyzer {
   lastUlSpellId: number = -1;
   lastRemoved: number = -1;
 
+  //guide vars
+  castEntries: BoxRowEntry[] = [];
+  goodSpells: number[] = [];
+  okSpells: number[] = [];
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT);
@@ -186,6 +198,15 @@ class UnleashLife extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.UNLEASH_LIFE_TALENT),
       this._onRemoveUL,
     );
+    this.goodSpells.push(TALENTS.HEALING_RAIN_TALENT.id);
+    if (this.pwaveActive) {
+      this.goodSpells.push(TALENTS.HEALING_WAVE_TALENT.id);
+    }
+    if (this.selectedCombatant.hasTalent(TALENTS.HIGH_TIDE_TALENT)) {
+      this.goodSpells.push(TALENTS.CHAIN_HEAL_TALENT.id);
+    } else {
+      this.okSpells.push(TALENTS.CHAIN_HEAL_TALENT.id);
+    }
   }
   //necessary because riptide can be spellqued into the spell that actually consumed UL and event linking will match both
   _wasAlreadyConsumed(event: CastEvent | HealEvent) {
@@ -210,6 +231,7 @@ class UnleashLife extends Analyzer {
     const spellId = event.ability.guid;
     if (isBuffedByUnleashLife(event) && !this._wasAlreadyConsumed(event)) {
       this.healingMap[spellId].casts += 1;
+      this.tallyCastEntry(spellId);
       debug &&
         console.log(
           'Unleash Life ' +
@@ -246,6 +268,7 @@ class UnleashLife extends Analyzer {
       return;
     }
     this.wastedBuffs += 1;
+    this.tallyCastEntry(-1);
   }
 
   private _onWellspring(event: AbsorbedEvent) {
@@ -255,6 +278,7 @@ class UnleashLife extends Analyzer {
   private _onHealingSurge(event: HealEvent) {
     const castEvent = getCastEvent(event);
     if (castEvent && isBuffedByUnleashLife(castEvent)) {
+      this.tallyCastEntry(event.ability.guid);
       this.healingMap[event.ability.guid].amount += calculateEffectiveHealing(
         event,
         UNLEASH_LIFE_HEALING_INCREASE,
@@ -283,6 +307,7 @@ class UnleashLife extends Analyzer {
     //we use initial hit heal event here instead of cast because primordial wave riptide can also consume UL
     if (isBuffedByUnleashLife(event) && !this._wasAlreadyConsumed(event)) {
       this.healingMap[spellId].casts += 1;
+      this.tallyCastEntry(spellId);
       debug &&
         console.log(
           'Unleash Life ' +
@@ -330,6 +355,7 @@ class UnleashLife extends Analyzer {
   }
 
   private _onHealingWave(event: CastEvent) {
+    const spellId = event.ability.guid;
     const ulHealingWaves = getUnleashLifeHealingWaves(event);
     if (ulHealingWaves.length > 0) {
       //if used in combo with pwave, tally healing separately
@@ -347,7 +373,7 @@ class UnleashLife extends Analyzer {
         );
       }
       //tally subtotal regardless
-      this.healingMap[event.ability.guid].amount += this._tallyHealingIncrease(
+      this.healingMap[spellId].amount += this._tallyHealingIncrease(
         ulHealingWaves,
         UNLEASH_LIFE_HEALING_INCREASE,
       );
@@ -616,6 +642,93 @@ class UnleashLife extends Analyzer {
         </aside>
       </Statistic>
     );
+  }
+
+  /** Guide subsection describing the proper usage of Unleash Life */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} />
+        </b>{' '}
+        is a very efficient heal on a short cooldown, however the true power of this spell comes
+        from the potent buff it provides that can be consumed by a number of different abilities.
+        This spell is best used in preparation for incoming damage to combo with one of your
+        stronger abilities like a <SpellLink id={TALENTS.HIGH_TIDE_TALENT} />
+        -buffed <SpellLink id={TALENTS.CHAIN_HEAL_TALENT} />, a{' '}
+        <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
+        -buffed <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />, or{' '}
+        <SpellLink id={TALENTS.HEALING_RAIN_TALENT} />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()} <br />
+            <strong>Casts </strong>
+            <small>
+              - Green indicates a good use of the <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />{' '}
+              buff, Yellow indicates an ok use, and Red is an incorrect use or the buff expired.
+            </small>
+            <PerformanceBoxRow values={this.castEntries} />
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.UNLEASH_LIFE_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+        minimizeIcons
+      />
+    );
+  }
+
+  tallyCastEntry(spellId: number) {
+    let value = null;
+    let tooltip = null;
+    if (this.goodSpells.includes(spellId)) {
+      value = QualitativePerformance.Good;
+      tooltip = (
+        <>
+          Correct cast: buffed <SpellLink id={spellId} />
+        </>
+      );
+    } else if (this.okSpells.includes(spellId)) {
+      value = QualitativePerformance.Ok;
+      tooltip = (
+        <>
+          Ok cast: buffed <SpellLink id={spellId} />
+        </>
+      );
+    } else {
+      value = QualitativePerformance.Fail;
+      tooltip = (
+        <>
+          Incorrect cast:{' '}
+          {spellId === -1 ? (
+            <>Unused Buff!</>
+          ) : (
+            <>
+              {' '}
+              buffed <SpellLink id={spellId} />
+            </>
+          )}
+        </>
+      );
+    }
+    this.castEntries.push({ value, tooltip });
   }
 
   subStatistic() {

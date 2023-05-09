@@ -94,6 +94,19 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     backwardBufferMs: MAX_REM_DURATION,
   },
+  {
+    linkRelation: OVERHEAL_BOUNCE,
+    linkingEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    linkingEventType: [EventType.Heal],
+    referencedEventId: [SPELLS.RENEWING_MIST_HEAL.id],
+    referencedEventType: [EventType.RemoveBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent) {
+      return (linkingEvent as HealEvent).overheal !== 0;
+    },
+  },
   // link ReM application from Rapid diffusion
   {
     linkRelation: FROM_RAPID_DIFFUSION,
@@ -393,6 +406,10 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 export function isForceBounce(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, FORCE_BOUNCE);
+}
+
+export function isBounceTick(event: HealEvent) {
+  return HasRelatedEvent(event, OVERHEAL_BOUNCE);
 }
 
 export function isFromMistyPeaks(event: ApplyBuffEvent | RefreshBuffEvent) {

@@ -16,11 +16,17 @@ import {
 import RiptideTracker from '../core/RiptideTracker';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink, TooltipElement } from 'interface';
-import BoringValue from 'parser/ui/BoringValueText';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
+import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import ITEMS from 'common/ITEMS';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -231,13 +237,7 @@ class PrimordialWave extends Analyzer {
           </>
         }
       >
-        <div className="pad">
-          <label>
-            <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT} /> Breakdown
-          </label>
-          {this.renderPrimoridalWaveChart()}
-        </div>
-        <BoringValue label="">
+        <TalentSpellText talent={TALENTS.PRIMORDIAL_WAVE_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
           <br />
           <TooltipElement
@@ -252,8 +252,59 @@ class PrimordialWave extends Analyzer {
             {this.buffIcon} {this.wastedBuffs}
             <small> wasted buffs</small>
           </TooltipElement>
-        </BoringValue>
+        </TalentSpellText>
+        <aside className="pad">
+          <hr />
+          <header>
+            <label>Breakdown of Primordial Wave Healing</label>
+          </header>
+          {this.renderPrimoridalWaveChart()}
+        </aside>
       </Statistic>
+    );
+  }
+
+  /** Guide subsection describing the proper usage of Primordial Wave */
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />
+        </b>{' '}
+        is a powerful ability that heals an ally, applies a{' '}
+        <SpellLink id={TALENTS.RIPTIDE_TALENT} />, and makes your next{' '}
+        <SpellLink id={TALENTS.HEALING_WAVE_TALENT} /> cleave all allies with an active{' '}
+        <SpellLink id={TALENTS.RIPTIDE_TALENT} /> HoT. This cleave effect can be combined with
+        spells that increase the healing of <SpellLink id={TALENTS.HEALING_WAVE_TALENT} />, like{' '}
+        <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} /> and{' '}
+        <SpellLink id={ITEMS.T30_SWELLING_RAIN_BUFF} />, and turn that single target bonus into an
+        extremely potent group heal
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT} /> cast efficiency
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            {this.guideSubStatistic()}
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS.PRIMORDIAL_WAVE_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        useThresholds
+      />
     );
   }
 }

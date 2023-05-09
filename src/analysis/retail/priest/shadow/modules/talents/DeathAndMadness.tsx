@@ -10,6 +10,7 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 
 class DeathAndMadness extends Analyzer {
   static dependencies = {
@@ -23,9 +24,10 @@ class DeathAndMadness extends Analyzer {
 
   kills = 0;
   insanityGained = 0;
+
   resets = 0;
   lastCastTime: number = 0;
-  executeThreshold = 0.2;
+  executeThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
 
   constructor(options: Options) {
     super(options);
@@ -64,7 +66,7 @@ class DeathAndMadness extends Analyzer {
     //If you cast Shadow Word: Death on a target in execute the cooldown is reset once.  If you wait 20 seconds, you miss the reset.
     if (this.isTargetInExecuteRange(event)) {
       const fromLastCast = event.timestamp - this.lastCastTime;
-      if (fromLastCast >= 1990) {
+      if (fromLastCast >= 990) {
         this.spellUsable.endCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id);
         this.resets += 1;
       }

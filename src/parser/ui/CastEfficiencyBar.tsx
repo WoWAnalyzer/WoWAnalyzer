@@ -62,6 +62,7 @@ export default function CastEfficiencyBar({
       </>
     );
   }
+
   return (
     <CooldownUtilBarContainer>
       <div style={{ color: textColor }}>

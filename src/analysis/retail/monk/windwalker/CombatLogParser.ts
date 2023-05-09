@@ -3,9 +3,9 @@ import {
   InvokersDelight,
   MysticTouch,
   DampenHarm,
+  FaelineStomp,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import Channeling from 'parser/shared/normalizers/Channeling';
 
 // Features
 import Abilities from './modules/Abilities';
@@ -16,9 +16,9 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import MoTCGraph from './modules/features/MoTCGraph';
-import JadeIgnition from './modules/items/JadeIgnition';
-import LastEmperorsCapacitor from './modules/items/LastEmperorsCapacitor';
-import XuensBattlegear from './modules/items/XuensBattlegear';
+import JadeIgnition from './modules/talents/JadeIgnition';
+import LastEmperorsCapacitor from './modules/talents/LastEmperorsCapacitor';
+import XuensBattlegear from './modules/talents/XuensBattlegear';
 // Resources
 import ChiDetails from './modules/resources/ChiDetails';
 import ChiTracker from './modules/resources/ChiTracker';
@@ -36,6 +36,8 @@ import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
 import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
+import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
+import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -43,9 +45,10 @@ import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    channeling: Channeling,
     globalCooldown: GlobalCooldown,
     mysticTouch: MysticTouch,
+    spellUsable: SpellUsable,
+    chiJiNormalizer: DanceOfChiJiNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -75,6 +78,7 @@ class CombatLogParser extends CoreCombatLogParser {
     comboStrikes: ComboStrikes,
     blackoutKick: BlackoutKick,
     dampenHarm: DampenHarm,
+    faelineStomp: FaelineStomp,
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,

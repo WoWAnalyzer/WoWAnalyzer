@@ -29,6 +29,8 @@ import PrimalStormElemental from './modules/talents/PrimalStormElemental';
 import StormElemental from './modules/talents/StormElemental';
 import Stormkeeper from './modules/talents/Stormkeeper';
 import SurgeOfPower from './modules/talents/SurgeOfPower';
+import ElementalOrbit from '../shared/talents/ElementalOrbit';
+import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,6 +48,8 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBlast: ElementalBlast,
     spiritWolf: SpiritWolf,
     earthShield: EarthShield,
+    elementalOrbit: ElementalOrbit,
+    earthenHarmony: EarthenHarmony,
     staticCharge: StaticCharge,
     masterOfTheElements: MasterOfTheElements,
     stormElemental: StormElemental,

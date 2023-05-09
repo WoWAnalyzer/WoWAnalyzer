@@ -4,7 +4,7 @@ import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -12,10 +12,15 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 import { TALENTS_MONK } from 'common/TALENTS';
 
-const DAMAGE_MULTIPLIER = 0.2;
+const DAMAGE_MULTIPLIER = 0.15;
 
 const MOD_RATE = 2;
-const MOD_RATE_ABILITIES = [SPELLS.FISTS_OF_FURY_CAST.id, TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
+const MOD_RATE_ABILITIES = [
+  SPELLS.FISTS_OF_FURY_CAST.id,
+  TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
+  TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id,
+  TALENTS_MONK.RUSHING_JADE_WIND_TALENT.id,
+];
 
 /**
  * Tracks damage increase and cooldown reduction from

@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/priest';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
@@ -10,8 +9,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent) {
     if (
       event.ability.guid === SPELLS.MIND_FLAY.id ||
-      event.ability.guid === TALENTS.MIND_SEAR_TALENT.id ||
-      event.ability.guid === TALENTS.MIND_FLAY_INSANITY_TALENT.id
+      event.ability.guid === SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id
     ) {
       // This GCD gets handled by the `beginchannel` event
       return;

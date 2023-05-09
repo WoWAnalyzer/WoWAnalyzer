@@ -119,7 +119,7 @@ const talents = createTalentList({
     name: 'Calming Coalescence',
     icon: 'ability_monk_healthsphere',
     maxRanks: 1,
-    entryIds: [101389],
+    entryIds: [115684],
   },
   CALMING_PRESENCE_TALENT: {
     id: 388664,
@@ -148,6 +148,13 @@ const talents = createTalentList({
     icon: 'inv_misc_volatilefire',
     maxRanks: 1,
     entryIds: [101460],
+  },
+  CELESTIAL_HARMONY_TALENT: {
+    id: 343655,
+    name: 'Celestial Harmony',
+    icon: 'ability_monk_jadeserpentbreath',
+    maxRanks: 1,
+    entryIds: [101388],
   },
   CHARRED_PASSIONS_TALENT: {
     id: 386965,
@@ -183,6 +190,13 @@ const talents = createTalentList({
     icon: 'ability_monk_chiwave',
     maxRanks: 1,
     entryIds: [101528],
+  },
+  CHRYSALIS_TALENT: {
+    id: 202424,
+    name: 'Chrysalis',
+    icon: 'ability_monk_domeofmist',
+    maxRanks: 1,
+    entryIds: [101389],
   },
   CLASH_TALENT: {
     id: 324312,
@@ -311,13 +325,6 @@ const talents = createTalentList({
     icon: 'ability_monk_summontigerstatue',
     maxRanks: 1,
     entryIds: [101475],
-  },
-  CELESTIAL_HARMONY_TALENT: {
-    id: 343655,
-    name: 'Enveloping Breath',
-    icon: 'ability_monk_jadeserpentbreath',
-    maxRanks: 1,
-    entryIds: [101388],
   },
   ENVELOPING_MIST_TALENT: {
     id: 124682,
@@ -725,6 +732,13 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101480],
   },
+  LEGACY_OF_WISDOM_TALENT: {
+    id: 404408,
+    name: 'Legacy of Wisdom',
+    icon: 'misc_legionfall_monk',
+    maxRanks: 1,
+    entryIds: [114821],
+  },
   LIFECYCLES_TALENT: {
     id: 197915,
     name: 'Lifecycles',
@@ -1028,13 +1042,6 @@ const talents = createTalentList({
     entryIds: [101392],
     manaCost: 6250,
   },
-  LEGACY_OF_WISDOM_TALENT: {
-    id: 404408,
-    name: 'Legacy of Wisdom',
-    icon: 'misc_legionfall_monk',
-    maxRanks: 1,
-    entryIds: [114821],
-  },
   SHUFFLE_TALENT: {
     id: 322120,
     name: 'Shuffle',
@@ -1061,7 +1068,7 @@ const talents = createTalentList({
     name: 'Song of Chi-Ji',
     icon: 'inv_chaos_orb',
     maxRanks: 1,
-    entryIds: [101360],
+    entryIds: [115464],
   },
   SOOTHING_MIST_TALENT: {
     id: 115175,
