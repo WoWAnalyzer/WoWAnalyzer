@@ -58,7 +58,7 @@ class SurgingShots extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
         dropdown={
           <>
             <div style={{ padding: '8px' }}>
