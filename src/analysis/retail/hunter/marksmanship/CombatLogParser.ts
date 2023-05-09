@@ -53,8 +53,8 @@ import Streamline from './modules/talents/Streamline';
 import Volley from './modules/talents/Volley';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 import Deathblow from './modules/talents/Deathblow';
-import T29MMTier2P from './items/T29MMTier2P';
-import T29MMTier4P from './items/T29MMTier4P';
+import T29MMTier2P from './modules/items/T29MMTier2P';
+import T29MMTier4P from './modules/items/T29MMTier4P';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
