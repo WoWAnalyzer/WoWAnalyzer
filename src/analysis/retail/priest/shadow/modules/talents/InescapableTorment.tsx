@@ -8,6 +8,7 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { INESCAPABLE_TORMENT_EXTENSION } from '../../constants';
 
 class InescapableTorment extends Analyzer {
   damage = 0;
@@ -24,7 +25,9 @@ class InescapableTorment extends Analyzer {
 
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    this.time += 0.7 * this.selectedCombatant.getTalentRank(TALENTS.INESCAPABLE_TORMENT_TALENT);
+    this.time +=
+      INESCAPABLE_TORMENT_EXTENSION *
+      this.selectedCombatant.getTalentRank(TALENTS.INESCAPABLE_TORMENT_TALENT);
   }
 
   statistic() {
