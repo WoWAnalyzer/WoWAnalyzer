@@ -9,7 +9,13 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamageFromCritIncrease } from 'parser/core/EventCalculateLib';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber } from 'common/format';
-
+/**
+ * Focusing Aim increases critical strike chance by 100%
+ */
+const FOCUSING_AIM_CRIT_CHANCE_INCREASE = 1;
+/**
+ * Ranged auto-attacks have a 15% chance to increase the critical strike chance of your next Arcane Shot or Multi-Shot by 100%.
+ */
 export default class T29MMTier4P extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
@@ -24,11 +30,7 @@ export default class T29MMTier4P extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.has4PieceByTier(TIERS.T29);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_SHOT),
-      this.onShotDamage,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.MULTISHOT_MM),
+      Events.damage.by(SELECTED_PLAYER).spell([SPELLS.ARCANE_SHOT, SPELLS.MULTISHOT_MM]),
       this.onShotDamage,
     );
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FOCUSING_AIM), () => {
@@ -43,7 +45,7 @@ export default class T29MMTier4P extends Analyzer {
     const effectiveDamgeFromCritIncrease = calculateEffectiveDamageFromCritIncrease(
       event,
       this.statTracker.currentCritPercentage,
-      1,
+      FOCUSING_AIM_CRIT_CHANCE_INCREASE,
     );
 
     this.totalDamage += effectiveDamgeFromCritIncrease;
@@ -60,7 +62,6 @@ export default class T29MMTier4P extends Analyzer {
           <ItemDamageDone amount={this.totalDamage} />
           <br />
           {formatNumber(this.totalProcs)} <small> procs</small>
-          <br />
         </BoringSpellValueText>
       </Statistic>
     );
