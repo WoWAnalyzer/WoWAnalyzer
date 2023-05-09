@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { Arlie, Fassbrause, niseko, Vetyst, Vohrr } from 'CONTRIBUTORS';
+import { Arlie, Elitesparkle, Fassbrause, niseko, Vetyst, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 8), <>Fix Mana Costs for Shaman Spells and Talents.</>, Elitesparkle),
   change(date(2023, 5, 8), <><SpellLink spell={TALENTS.FLOW_OF_THE_TIDES_TALENT}/> fix to tally additional hit healing regardless of riptides being consumed.</>, Vohrr),
   change(date(2023, 5, 4), <>Fixed bug with <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> uptime segments on the guide. Added <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT}/> cast entry row, reformatted <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT}/> module for visual consistency</>, Vohrr),
   change(date(2023, 5, 4), <>Add <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> uptime to core section of the Guide</>, Vohrr),

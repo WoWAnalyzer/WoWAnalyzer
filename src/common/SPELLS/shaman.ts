@@ -16,13 +16,13 @@ const spells = spellIndexableList({
     id: 77130,
     name: 'Purify Spirit',
     icon: 'ability_shaman_cleansespirit',
-    manaCost: 650,
+    manaCost: 3250,
   },
   EARTHBIND_TOTEM: {
     id: 2484,
     name: 'Earthbind Totem',
     icon: 'spell_nature_strengthofearthtotem02',
-    manaCost: 250,
+    manaCost: 1250,
   },
   RESONANCE_TOTEM_HASTE: {
     id: 262417,
@@ -73,19 +73,19 @@ const spells = spellIndexableList({
     id: 192106,
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
-    manaCost: 150,
+    manaCost: 750,
   },
   LIGHTNING_SHIELD_ELEMENTAL: {
     id: 344174, // Appears to be the spellID used when lightning shield does damage as Elemental Spec
     name: 'Lightning Shield',
     icon: 'spell_nature_lightningshield',
-    manaCost: 150,
+    manaCost: 750,
   },
   PRIMAL_STRIKE: {
     id: 73899,
     name: 'Primal Strike',
     icon: 'spell_shaman_primalstrike',
-    manaCost: 940,
+    manaCost: 4700,
   },
   ANCESTRAL_PROTECTION_BUFF: {
     id: 207495,
@@ -164,7 +164,7 @@ const spells = spellIndexableList({
     id: 188196,
     name: 'Lightning Bolt',
     icon: 'spell_nature_lightning',
-    manaCost: 100,
+    manaCost: 500,
   },
   LIGHTNING_BOLT_INSTANT: {
     id: 214815,
@@ -477,13 +477,13 @@ const spells = spellIndexableList({
     id: 2825,
     name: 'Bloodlust',
     icon: 'spell_nature_bloodlust',
-    manaCost: 2150,
+    manaCost: 1000,
   },
   HEROISM: {
     id: 32182,
     name: 'Heroism',
     icon: 'ability_shaman_heroism',
-    manaCost: 2150,
+    manaCost: 1000,
   },
   REINCARNATION: {
     id: 21169,
@@ -585,7 +585,7 @@ const spells = spellIndexableList({
     id: 8004,
     name: 'Healing Surge',
     icon: 'spell_nature_healingway',
-    manaCost: 2400, // enh/ele cost is higher
+    manaCost: 12000, // enh/ele cost is higher
   },
   TIDAL_WAVES_BUFF: {
     id: 53390,
