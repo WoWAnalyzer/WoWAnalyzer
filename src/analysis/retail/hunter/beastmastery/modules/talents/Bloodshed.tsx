@@ -1,7 +1,7 @@
 import { BLOODSHED_DAMAGE_AMP } from 'analysis/retail/hunter/beastmastery/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
-import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -11,13 +11,12 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { formatNumber } from 'common/format';
 
 /**
  * Command your pet to tear into your target, causing your target to bleed for
  * [Attack power * 0.25 * 6 * 1 * (1 + Versatility) * 1] over 18 sec and
  * increase all damage taken from your pet by 15% for 18 sec.
- *
- * TODO: Verify if this still only still works from main pet (Say if you use Animal Companion and have two pets)
  */
 
 class Bloodshed extends Analyzer {
@@ -35,7 +34,7 @@ class Bloodshed extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.BLOODSHED_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLOODSHED_DEBUFF),
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.BLOODSHED_DEBUFF),
       this.onDamage,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
@@ -88,12 +87,18 @@ class Bloodshed extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            {`Your target took ${formatNumber(this.bleedDamage)} bleed damage from Bloodshed.`}
+            <br />
+            {`Your pet did ${formatNumber(
+              this.increasedDamage,
+            )} extra damage while Bloodshed was active.`}
+          </>
+        }
       >
         <BoringSpellValueText spellId={TALENTS.BLOODSHED_TALENT.id}>
-          <>
-            <ItemDamageDone amount={this.bleedDamage} /> <small>bleed damage</small>
-            <ItemDamageDone amount={this.increasedDamage} /> <small>damage amp</small>
-          </>
+          <ItemDamageDone amount={this.bleedDamage + this.increasedDamage} />
         </BoringSpellValueText>
       </Statistic>
     );
