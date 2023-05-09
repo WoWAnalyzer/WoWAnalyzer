@@ -31,7 +31,13 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.DARK_EVANGELISM_TALENT_BUFF.id,
-        triggeredBySpellId: SPELLS.MIND_FLAY.id,
+        triggeredBySpellId: [
+          SPELLS.MIND_FLAY.id,
+          SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id,
+          TALENTS.MIND_SPIKE_TALENT.id,
+          SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.id,
+          TALENTS.VOID_TORRENT_TALENT.id,
+        ],
         enabled: combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT),
         timelineHighlight: false,
       },
