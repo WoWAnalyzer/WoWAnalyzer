@@ -5,6 +5,7 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 8), <>Fix bug in guide for <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT}/> checks</>, Trevor),
   change(date(2023, 5, 6), <>Add complete version of guide</>, Trevor),
   change(date(2023, 5, 6), <>Add basic guide</>, Trevor),
   change(date(2023, 4, 27), <>Change load conditions for <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT}/> efficiency bar</>, Trevor),
