@@ -34,6 +34,15 @@ const andNotSerenity = (cond: Condition<any>) => {
   return andCnd;
 };
 
+const needsFaelineHarmony = and(
+  hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
+  buffMissing(SPELLS.FAELINE_HARMONY_BUFF, {
+    duration: 10000,
+    timeRemaining: 2000,
+    pandemicCap: 1,
+  }),
+);
+
 inSerenity.describe = (tense) => '';
 const hasChi = (min: number) => hasResource(RESOURCE_TYPES.CHI, { atLeast: min });
 
@@ -45,10 +54,7 @@ export const serenityApl = build(
     },
     {
       spell: TALENTS.FAELINE_STOMP_TALENT,
-      condition: and(
-        hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
-        buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
-      ),
+      condition: needsFaelineHarmony,
     },
     TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,
     TALENTS.FISTS_OF_FURY_TALENT,
@@ -71,10 +77,7 @@ export const nonSerenityApl = build(
   [
     {
       spell: TALENTS.FAELINE_STOMP_TALENT,
-      condition: and(
-        hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
-        buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
-      ),
+      condition: needsFaelineHarmony,
     },
     {
       spell: TALENTS.STRIKE_OF_THE_WINDLORD_TALENT,

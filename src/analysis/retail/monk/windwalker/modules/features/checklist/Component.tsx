@@ -274,6 +274,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
                 </a>{' '}
                 for more information.
               </p>
+              <p>For now, this rotation assumes a single target.</p>
             </>
           }
         />
@@ -291,6 +292,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
               Peak of Serenity Guide
             </a>{' '}
             for more information.
+            <p>For now, this rotation assumes a single target.</p>
           </>
         }
       />
