@@ -577,11 +577,7 @@ const spells = spellIndexableList({
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
-  VOID_ERUPTION: {
-    id: 228260,
-    name: 'Void Eruption',
-    icon: 'spell_priest_void-blast',
-  },
+
   MASTERY_SHADOW_WEAVING: {
     id: 343690,
     name: 'Mastery: Shadow Weaving',
@@ -611,12 +607,6 @@ const spells = spellIndexableList({
 
   VOID_BOLT: {
     id: 205448,
-    name: 'Void Bolt',
-    icon: 'ability_ironmaidens_convulsiveshadows',
-  },
-
-  VOID_BOLT_DISSONANT_ECHOES: {
-    id: 343355,
     name: 'Void Bolt',
     icon: 'ability_ironmaidens_convulsiveshadows',
   },

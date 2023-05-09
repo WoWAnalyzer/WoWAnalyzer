@@ -13,7 +13,7 @@ class Buffs extends CoreAuras {
       //Cooldowns
       {
         spellId: SPELLS.VOIDFORM_BUFF.id,
-        triggeredBySpellId: SPELLS.VOID_ERUPTION.id,
+        triggeredBySpellId: TALENTS.VOID_ERUPTION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT),
         timelineHighlight: true,
       },
