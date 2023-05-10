@@ -11,7 +11,7 @@ import Sarkareth from 'game/raids/aberrus/Sarkareth';
 import Background from './backgrounds/overview.jpg';
 
 export default {
-  name: 'Vault of the Incarnates',
+  name: 'Aberrus, the Shadowed Crucible',
   background: Background,
   bosses: {
     Kazarra: Kazzara,
