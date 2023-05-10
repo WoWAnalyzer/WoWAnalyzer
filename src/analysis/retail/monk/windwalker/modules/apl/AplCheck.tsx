@@ -36,11 +36,7 @@ const andNotSerenity = (cond: Condition<any>) => {
 
 const needsFaelineHarmony = and(
   hasTalent(TALENTS.FAELINE_HARMONY_TALENT),
-  buffMissing(SPELLS.FAELINE_HARMONY_BUFF, {
-    duration: 10000,
-    timeRemaining: 2000,
-    pandemicCap: 1,
-  }),
+  buffMissing(SPELLS.FAELINE_HARMONY_BUFF),
 );
 
 inSerenity.describe = (tense) => '';
