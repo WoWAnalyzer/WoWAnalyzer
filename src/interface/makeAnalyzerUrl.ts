@@ -1,6 +1,7 @@
 import getFightName from 'common/getFightName';
 import prettyEncodeURI from 'common/prettyEncodeURI';
 import Combatant from 'parser/core/Combatant';
+import Player from 'common/character';
 import Report from 'parser/core/Report';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
 
@@ -90,4 +91,16 @@ export function makeArmoryUrl(player: Combatant) {
       .toLowerCase()}/${player.name}`;
   }
   return battleNetUrl;
+}
+
+export function makeThumbnailUrl(characterInfo: Player, classic: boolean) {
+  if (!characterInfo.thumbnail) {
+    return '/img/fallback-character.jpg';
+  }
+  return classic
+    ? `https://render.worldofwarcraft.com/classic-${characterInfo.region}/character/${characterInfo.thumbnail}`
+    : `https://render-${characterInfo.region}.worldofwarcraft.com/character/${characterInfo.thumbnail}`.replace(
+        'avatar',
+        'inset',
+      );
 }
