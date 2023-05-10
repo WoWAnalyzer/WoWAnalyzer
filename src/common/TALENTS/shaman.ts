@@ -550,7 +550,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_focusedstrikes',
     maxRanks: 1,
     entryIds: [101967],
-    manaCost: 10000,
+    manaCost: 8000,
   },
   GUARDIANS_CUDGEL_TALENT: {
     id: 381819,
@@ -587,7 +587,7 @@ const talents = createTalentList({
     icon: 'inv_spear_04',
     maxRanks: 1,
     entryIds: [101900],
-    manaCost: 4500,
+    manaCost: 4300,
   },
   HEALING_STREAM_TOTEM_SHARED_TALENT: {
     id: 5394,
@@ -922,7 +922,7 @@ const talents = createTalentList({
     icon: 'spell_nature_purge',
     maxRanks: 1,
     entryIds: [101968],
-    manaCost: 5000,
+    manaCost: 4000,
   },
   RAGING_MAELSTROM_TALENT: {
     id: 384143,

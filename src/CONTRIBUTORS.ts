@@ -2143,3 +2143,19 @@ export const Tenooki: Contributor = {
   github: 'awiss',
   discord: 'dubya#6711',
 };
+export const Elitesparkle: Contributor = {
+  nickname: 'Elitesparkle',
+  github: 'Elitesparkle',
+};
+export const Swolorno: Contributor = {
+  nickname: 'Swolorno',
+  github: 'skolldev',
+  discord: 'Swolorno#3441',
+  mains: [
+    {
+      name: 'Swolorno',
+      spec: SPECS.MARKSMANSHIP_HUNTER,
+      link: 'https://worldofwarcraft.com/en-gb/character/eu/twisting-nether/Swolorno',
+    },
+  ],
+};

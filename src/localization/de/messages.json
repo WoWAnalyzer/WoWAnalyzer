@@ -415,7 +415,6 @@
   "hunter.marksmanship.suggestions.callingTheShots.efficiency": "Du hattest {0}% effektive Abklingzeitverringerung wegen 'Schießbefehl'",
   "hunter.marksmanship.suggestions.castsCanceled.efficiency": "{0}% Einsätze abgebrochen",
   "hunter.marksmanship.suggestions.focusCapTracker.focusLost": "{0}% regenerierter Fokus verloren, weil du schon maximalen Fokus hattest",
-  "hunter.marksmanship.suggestions.lethalShots.efficiency": "{actual} Einsätze von 'Tödlicher Schuss' als Schnellfeuer nicht am Abklingen war",
   "hunter.marksmanship.suggestions.serpentSting.refreshOutsidePandemic": "Du hast Schlangengift {actual} Male aufgefrischt als es nicht im Zeitraum von Pandemie war",
   "hunter.marksmanship.suggestions.serpentSting.uptime": "Du hattest eine Uptime von {0}%",
   "hunter.marksmanship.suggestions.steadyFocus.uptime": "{0}% Uptime",

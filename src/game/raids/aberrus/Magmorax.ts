@@ -4,7 +4,7 @@ import Background from './backgrounds/Magmorax.jpg';
 import Headshot from './headshots/Magmorax.jpg';
 
 const Magmorax: Boss = {
-  id: 2688,
+  id: 2683,
   name: 'Magmorax',
   background: Background,
   headshot: Headshot,

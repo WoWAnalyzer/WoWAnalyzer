@@ -71,7 +71,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TEMPORAL_ANOMALY_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 6,
+        cooldown: 15,
         gcd: {
           base: 1500,
         },

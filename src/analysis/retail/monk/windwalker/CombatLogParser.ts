@@ -6,7 +6,6 @@ import {
   FaelineStomp,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import Channeling from 'parser/shared/normalizers/Channeling';
 
 // Features
 import Abilities from './modules/Abilities';
@@ -37,6 +36,8 @@ import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
 import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
+import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
+import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -44,9 +45,10 @@ import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
-    channeling: Channeling,
     globalCooldown: GlobalCooldown,
     mysticTouch: MysticTouch,
+    spellUsable: SpellUsable,
+    chiJiNormalizer: DanceOfChiJiNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,

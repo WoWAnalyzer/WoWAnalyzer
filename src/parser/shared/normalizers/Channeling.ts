@@ -62,7 +62,6 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(TALENTS_MONK.ESSENCE_FONT_TALENT.id),
     buffChannelSpec(TALENTS_MONK.SOOTHING_MIST_TALENT.id),
     buffChannelSpec(SPELLS.CRACKLING_JADE_LIGHTNING.id),
-    buffChannelSpec(SPELLS.FISTS_OF_FURY_CAST.id),
     // Demon Hunter
     buffChannelSpec(TALENTS_DEMON_HUNTER.EYE_BEAM_TALENT.id), // TODO special handling because of the two buffs?
     // Shaman

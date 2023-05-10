@@ -47,6 +47,7 @@ class FlowOfTheTides extends Analyzer {
   riptideEnd: number = 0;
   lostRiptides: number = 0;
   lostRiptideDuration: number = 0;
+  healIncrease: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -71,13 +72,15 @@ class FlowOfTheTides extends Analyzer {
   }
 
   onChainHeal(event: CastEvent) {
-    if (!wasRiptideConsumed(event)) {
-      return;
+    this.healIncrease = 0;
+    if (wasRiptideConsumed(event)) {
+      this.healIncrease = FLOW_OF_THE_TIDES_INCREASE;
+      if (this.chainHealTarget === event.targetID) {
+        this.lostRiptideDuration += this.riptideEnd - event.timestamp;
+      }
+      this.lostRiptides += 1;
     }
-    if (this.chainHealTarget === event.targetID) {
-      this.lostRiptideDuration += this.riptideEnd - event.timestamp;
-    }
-    this.lostRiptides += 1;
+
     let expectedTargetCount = this.maxTargets;
     let index = -1;
     if (this.ulActive && this.unleashLife._isBuffedByUnleashLife(event)) {
@@ -126,7 +129,7 @@ class FlowOfTheTides extends Analyzer {
       debug && console.log('Extra Hit: ', extraHit, index);
     }
     this.bonusHealing += events.reduce(
-      (amount, event) => amount + calculateEffectiveHealing(event, FLOW_OF_THE_TIDES_INCREASE),
+      (amount, event) => amount + calculateEffectiveHealing(event, this.healIncrease),
       0,
     );
   }

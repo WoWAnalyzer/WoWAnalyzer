@@ -41,6 +41,7 @@ import SparkOfInsight from './modules/talents/SparkOfInsight';
 import EchoBreakdown from './modules/talents/EchoBreakdown';
 import Ouroboros from './modules/talents/Ouroboros';
 import T30PrevokerSet from './modules/dragonflight/tier/T30TierSet';
+import Guide from 'analysis/retail/evoker/preservation/Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -99,6 +100,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // tier
     t30PrevokerTier: T30PrevokerSet,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;
