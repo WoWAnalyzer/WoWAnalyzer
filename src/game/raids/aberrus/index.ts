@@ -1,4 +1,4 @@
-import Kazarra from 'game/raids/aberrus/Kazarra';
+import Kazzara from 'game/raids/aberrus/Kazzara';
 import AmalgamationChamber from 'game/raids/aberrus/AmalgamationChamber';
 import ForgottenExperiments from 'game/raids/aberrus/ForgottenExperiments';
 import AssaultOfTheZaqali from 'game/raids/aberrus/AssaultOfTheZaqali';
@@ -14,7 +14,7 @@ export default {
   name: 'Vault of the Incarnates',
   background: Background,
   bosses: {
-    Kazarra,
+    Kazarra: Kazzara,
     AmalgamationChamber,
     ForgottenExperiments,
     AssaultOfTheZaqali,
