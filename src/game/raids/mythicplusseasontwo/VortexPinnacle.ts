@@ -1,11 +1,12 @@
 import { Dungeon } from 'game/raids';
 
+import Background from './backgrounds/VortexPinnacle.jpg';
 import Headshot from './headshots/VortexPinnacle.jpg';
 
 const VortexPinnacle: Dungeon = {
   id: 10657,
   name: 'The Vortex Pinnacle',
-  // background: Background,
+  background: Background,
   headshot: Headshot,
   icon: 'achievement_dungeon_skywall',
   fight: {},

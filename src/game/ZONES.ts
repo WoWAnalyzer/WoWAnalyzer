@@ -55,7 +55,7 @@ const ZONES: Zone[] = [
     name: 'Aberrus',
     frozen: false,
     encounters: [
-      aberrus.bosses.Kazarra,
+      aberrus.bosses.Kazzara,
       aberrus.bosses.AmalgamationChamber,
       aberrus.bosses.ForgottenExperiments,
       aberrus.bosses.AssaultOfTheZaqali,
@@ -65,14 +65,14 @@ const ZONES: Zone[] = [
       aberrus.bosses.EchoOfNeltharion,
       aberrus.bosses.Sarkareth,
     ],
-    usePtrTooltips: true, // TODO: Mark this as false once Aberrus goes live
+    usePtrTooltips: false,
   },
   {
     id: 34,
     name: 'Mythic+ Season 2',
     frozen: false,
     encounters: [],
-    usePtrTooltips: true, // TODO: Mark this as false once Aberrus goes live
+    usePtrTooltips: false,
   },
 ];
 
