@@ -14,7 +14,7 @@ export default {
   name: 'Aberrus, the Shadowed Crucible',
   background: Background,
   bosses: {
-    Kazarra: Kazzara,
+    Kazzara,
     AmalgamationChamber,
     ForgottenExperiments,
     AssaultOfTheZaqali,
