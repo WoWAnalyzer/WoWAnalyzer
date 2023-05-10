@@ -24,6 +24,7 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(date(2023, 5, 10), 'Speed up e2e tests.', ToppleTheNun),
+  change(date(2023, 5, 10), 'Add season 2 dungeon backgrounds.',  ToppleTheNun),
   change(date(2023, 5, 10), 'Fix Kazzara displaying as Magmorax.',  ToppleTheNun),
   change(date(2023, 5, 9), 'Changed default zone for character parses to Aberrus', emallson),
   change(date(2023, 5, 8), 'Update leech rating per 1% to 10.1 values', Putro),
