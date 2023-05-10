@@ -4,6 +4,7 @@ import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Abilities from 'parser/core/modules/Abilities';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -17,10 +18,12 @@ import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerform
 
 class Deathspeaker extends Analyzer {
   static dependencies = {
+    abilities: Abilities,
     eventHistory: EventHistory,
     abilityTracker: AbilityTracker,
     spellUsable: SpellUsable,
   };
+  protected abilities!: Abilities;
   protected eventHistory!: EventHistory;
   protected abilityTracker!: AbilityTracker;
   protected spellUsable!: SpellUsable;
@@ -44,17 +47,41 @@ class Deathspeaker extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.DEATHSPEAKER_TALENT_BUFF),
       this.onBuffRefresh,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
+      this.onCast,
+    );
+  }
+
+  onCast() {
+    //for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
+    //console.log("SD CAST",this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id),"/",this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id),"max:",this.abilities.getMaxCharges(TALENTS.SHADOW_WORD_DEATH_TALENT.id));
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
     this.procsGained += 1; // Add a proc to the counter
-    if (this.spellUsable.isOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id);
-    }
+    this.abilities.increaseMaxCharges(event, TALENTS.SHADOW_WORD_DEATH_TALENT.id, 1);
+    this.spellUsable.endCooldown(
+      TALENTS.SHADOW_WORD_DEATH_TALENT.id,
+      event.timestamp,
+      false,
+      false,
+    );
     this.lastProcTime = event.timestamp;
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
+    this.abilities.decreaseMaxCharges(event, TALENTS.SHADOW_WORD_DEATH_TALENT.id, 1);
+    if (this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id) === 1) {
+      // In certain circumstances, if you have 1 charge available after the buff, you can end up having negative charges spellUsable.onCooldown
+      // Resting the cooldown entirely fixes the issue.
+      this.spellUsable.endCooldown(
+        TALENTS.SHADOW_WORD_DEATH_TALENT.id,
+        event.timestamp,
+        true,
+        true,
+      );
+    }
     const durationHeld = event.timestamp - this.lastProcTime;
     if (durationHeld >= 14990) {
       this.procsWasted += 1;
