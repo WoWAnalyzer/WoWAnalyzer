@@ -51,6 +51,9 @@ class Lifebind extends Analyzer {
   }
 
   onRemove(event: RemoveBuffEvent) {
+    if (!this.combatants.getEntity(event)) {
+      return;
+    }
     this.curNumLifebinds -= 1;
   }
 
