@@ -126,7 +126,10 @@ class Stasis extends Analyzer {
       return QualitativePerformance.Fail;
     } else if (spell === TALENTS_EVOKER.REVERSION_TALENT.id) {
       return QualitativePerformance.Fail;
-    } else if (spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id) {
+    } else if (
+      spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id ||
+      spell === SPELLS.DREAM_BREATH_FONT.id
+    ) {
       if (forRamp) {
         return QualitativePerformance.Fail;
       } else {
@@ -134,7 +137,10 @@ class Stasis extends Analyzer {
       }
     } else if (spell === TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id) {
       return QualitativePerformance.Fail;
-    } else if (spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id) {
+    } else if (
+      spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id ||
+      spell === SPELLS.SPIRITBLOOM_FONT.id
+    ) {
       if (forRamp) {
         return QualitativePerformance.Fail;
       } else {
@@ -311,7 +317,10 @@ class Stasis extends Analyzer {
           </Tooltip>
         </>
       );
-    } else if (spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id) {
+    } else if (
+      spell === TALENTS_EVOKER.DREAM_BREATH_TALENT.id ||
+      spell === SPELLS.DREAM_BREATH_FONT.id
+    ) {
       if (forRamp) {
         return (
           <>
@@ -379,7 +388,10 @@ class Stasis extends Analyzer {
           </Tooltip>
         </>
       );
-    } else if (spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id) {
+    } else if (
+      spell === TALENTS_EVOKER.SPIRITBLOOM_TALENT.id ||
+      spell === SPELLS.SPIRITBLOOM_FONT.id
+    ) {
       if (forRamp) {
         return (
           <>

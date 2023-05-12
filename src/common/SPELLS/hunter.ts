@@ -714,16 +714,36 @@ const spells = spellIndexableList({
     name: 'T29 2P',
     icon: 'ability_hunter_killcommand',
   },
+  T29_2P_BONUS_MARKSMANSHIP: {
+    id: 393648,
+    name: 'T29 2P',
+    icon: 'ability_hunter_barbedshot',
+  },
   //T29 4P
   T29_4P_BONUS_BEAST_MASTERY: {
     id: 393647,
     name: 'T29 4P',
     icon: 'ability_hunter_focusfire',
   },
+  T29_4P_BONUS_MARKSMANSHIP: {
+    id: 393649,
+    name: 'T29 4P',
+    icon: 'ability_impalingbolt',
+  },
   LETHAL_COMMAND: {
     id: 394298,
     name: 'Lethal Command',
     icon: 'ability_hunter_focusfire',
+  },
+  HIT_THE_MARK: {
+    id: 394371,
+    name: 'Find the Mark',
+    icon: 'ability_hunter_barbedshot',
+  },
+  FOCUSING_AIM: {
+    id: 394384,
+    name: 'Focusing Aim',
+    icon: 'ability_impalingbolt',
   },
 });
 
