@@ -171,9 +171,15 @@ class MindFlayInsanity extends Analyzer {
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spellId={SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF.id}>
           <>
-            <UptimeIcon /> {this.casts} <small>buffs used out of {this.procsGained} </small> <br />
-            <ItemDamageDone amount={this.damage} /> <br />
-            <Insanity /> {this.insanityGained} <small>Insanity generated</small>
+            <div>
+              <UptimeIcon /> {this.casts} <small>buffs used out of {this.procsGained} </small>{' '}
+            </div>
+            <div>
+              <ItemDamageDone amount={this.damage} />{' '}
+            </div>
+            <div>
+              <Insanity /> {this.insanityGained} <small>Insanity generated</small>{' '}
+            </div>
           </>
         </BoringSpellValueText>
       </Statistic>

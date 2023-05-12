@@ -75,11 +75,11 @@ class DeathAndMadness extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS.DEATH_AND_MADNESS_TALENT.id}>
           <>
-            {formatNumber(this.resets)} Resets
-            <br />
-            {formatNumber(this.kills)} Kills
-            <br />
-            <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity generated</small>
+            <div>{formatNumber(this.resets)} Resets</div>
+            <div>{formatNumber(this.kills)} Kills</div>
+            <div>
+              <Insanity /> {formatNumber(this.insanityGained)} <small>Insanity generated</small>
+            </div>
           </>
         </BoringSpellValueText>
       </Statistic>

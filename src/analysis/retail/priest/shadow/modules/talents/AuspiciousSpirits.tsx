@@ -45,9 +45,12 @@ class AuspiciousSpirits extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS.AUSPICIOUS_SPIRITS_TALENT.id}>
           <>
-            <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
-            <br />
-            <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
+            <div>
+              <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
+            </div>
+            <div>
+              <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
+            </div>
           </>
         </BoringSpellValueText>
       </Statistic>
