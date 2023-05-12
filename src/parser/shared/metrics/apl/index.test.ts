@@ -16,11 +16,12 @@ import aplCheck, { build, Apl, PlayerInfo, ResultKind, lookaheadSlice } from './
 const BOF = { id: 3, name: 'Important Buff', icon: '' };
 const SHORT_CD = { id: 1, name: 'Cooldown Button', icon: '' };
 const FILLER = { id: 2, name: 'Filler', icon: '' };
+const PLAYER_ID = 1;
 
 const ability = (spell: Spell) => ({ guid: spell.id, name: spell.name, abilityIcon: spell.icon });
 
 const info: PlayerInfo = {
-  playerId: 0,
+  playerId: PLAYER_ID,
   abilities: [
     {
       spell: BOF.id,
@@ -56,7 +57,7 @@ const cast = (timestamp: number, cooldown: number, spell: Spell): AnyEvent[] => 
       timestamp,
       ability: ability(spell),
       type: EventType.Cast,
-      sourceID: 1,
+      sourceID: PLAYER_ID,
       sourceIsFriendly: true,
     } as CastEvent,
     ...(cooldown > 0
@@ -97,7 +98,7 @@ const applybuff = (timestamp: number, duration: number, spell: Spell): AnyEvent[
     ability: ability(spell),
     type: EventType.RemoveBuff,
     targetID: 1,
-    sourceID: 1,
+    sourceID: PLAYER_ID,
     targetIsFriendly: true,
     sourceIsFriendly: true,
   } as RemoveBuffEvent,

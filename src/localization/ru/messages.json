@@ -415,7 +415,6 @@
   "hunter.marksmanship.suggestions.callingTheShots.efficiency": "You had {0}% effective cooldown reduction from Calling the Shots",
   "hunter.marksmanship.suggestions.castsCanceled.efficiency": "{0}% casts cancelled",
   "hunter.marksmanship.suggestions.focusCapTracker.focusLost": "{0}% regenerated focus lost due to being capped.",
-  "hunter.marksmanship.suggestions.lethalShots.efficiency": "{actual} Lethal Shot trigger casts while Rapid Fire wasn't on cooldown",
   "hunter.marksmanship.suggestions.serpentSting.refreshOutsidePandemic": "You refreshed Serpent Sting {actual} times when it wasn't in the pandemic window",
   "hunter.marksmanship.suggestions.serpentSting.uptime": "You had an uptime of {0}%",
   "hunter.marksmanship.suggestions.steadyFocus.uptime": "{0}% uptime",

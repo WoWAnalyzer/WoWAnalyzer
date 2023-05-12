@@ -21,7 +21,7 @@ const TRACKED_SPELL_IDS = [
   TALENTS_EVOKER.ECHO_TALENT.id,
   SPELLS.EMERALD_BLOSSOM.id,
   SPELLS.EMERALD_COMMUNION_ALLY.id,
-  SPELLS.EMERALD_COMMUNION_SELF.id,
+  TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
   SPELLS.FLUTTERING_SEEDLINGS_HEAL.id,
   SPELLS.LIFEBIND_HEAL.id,
   SPELLS.LIVING_FLAME_HEAL.id,
@@ -144,10 +144,10 @@ class CycleOfLife extends Analyzer {
         spellId: TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
         value:
           this.totalSavedBySpell(SPELLS.EMERALD_COMMUNION_ALLY.id) +
-          this.totalSavedBySpell(SPELLS.EMERALD_COMMUNION_SELF.id),
+          this.totalSavedBySpell(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id),
         valueTooltip: formatNumber(
           this.totalSavedBySpell(SPELLS.EMERALD_COMMUNION_ALLY.id) +
-            this.totalSavedBySpell(SPELLS.EMERALD_COMMUNION_SELF.id),
+            this.totalSavedBySpell(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id),
         ),
       },
       {

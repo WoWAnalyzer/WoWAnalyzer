@@ -16,6 +16,7 @@ import {
   CancelledCasts,
   WailingArrow,
   WailingArrowPrepullNormalizer,
+  TranquilizingShot,
 } from 'analysis/retail/hunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
@@ -52,6 +53,8 @@ import Streamline from './modules/talents/Streamline';
 import Volley from './modules/talents/Volley';
 import AimedShotPrepullNormalizer from './normalizers/AimedShotPrepullNormalizer';
 import Deathblow from './modules/talents/Deathblow';
+import T29MMTier2P from './modules/items/T29MMTier2P';
+import T29MMTier4P from './modules/items/T29MMTier4P';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -95,31 +98,34 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents
     volley: Volley,
-    explosiveShot: ExplosiveShot,
-    aMurderOfCrows: AMurderOfCrows,
     lockAndLoad: LockAndLoad,
     barrage: Barrage,
-    masterMarksman: MasterMarksman,
     callingTheShots: CallingTheShots,
     serpentSting: SerpentSting,
     steadyFocus: SteadyFocus,
-    naturalMending: NaturalMending,
-    trailblazer: Trailblazer,
-    bornToBeWild: BornToBeWild,
     carefulAim: CarefulAim,
     chimaeraShot: ChimaeraShot,
     streamline: Streamline,
-    wailingArrow: WailingArrow,
     deathblow: Deathblow,
+    surgingShots: SurgingShots,
+    serpentstalkersTrickery: SerpentstalkersTrickery,
+    eagletalonsTrueFocus: EagletalonsTrueFocus,
 
     //Shared Talents
     rejuvenatingWind: RejuvenatingWind,
     deathChakrams: DeathChakrams,
+    tranquilizingShot: TranquilizingShot,
+    trailblazer: Trailblazer,
+    naturalMending: NaturalMending,
+    bornToBeWild: BornToBeWild,
+    aMurderOfCrows: AMurderOfCrows,
+    explosiveShot: ExplosiveShot,
+    masterMarksman: MasterMarksman,
+    wailingArrow: WailingArrow,
 
-    //Marksmanship Legendaries
-    surgingShots: SurgingShots,
-    serpentstalkersTrickery: SerpentstalkersTrickery,
-    eagletalonsTrueFocus: EagletalonsTrueFocus,
+    // items
+    t292p: T29MMTier2P,
+    t294p: T29MMTier4P,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

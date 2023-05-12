@@ -98,11 +98,6 @@ const spells = spellIndexableList({
     name: 'Dream Flight',
     icon: 'ability_evoker_dreamflight',
   },
-  EMERALD_COMMUNION_SELF: {
-    id: 370960,
-    name: 'Emerald Communion',
-    icon: 'ability_evoker_green_01',
-  },
   EMERALD_COMMUNION_ALLY: {
     id: 370984,
     name: 'Emerald Communion',

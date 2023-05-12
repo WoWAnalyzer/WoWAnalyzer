@@ -55,7 +55,7 @@ class EagletalonsTrueFocus extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={TALENTS.EAGLETALONS_TRUE_FOCUS_TALENT.id}>
           {formatNumber(this.focusSaved)} <small>Focus saved</small>

@@ -12,7 +12,6 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 /**
  * Removes 1 Enrage and 1 Magic effect from an enemy target.
  *
- * TODO Revisit this module when we have more information
  */
 class TranquilizingShot extends DispelTracker {
   static dependencies = {

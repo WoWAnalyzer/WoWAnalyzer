@@ -23,6 +23,11 @@ export enum ResourceTypes {
 
 export type ResourceCostType = Uncapitalize<`${keyof typeof ResourceTypes}Cost`>;
 
+export type GenericTalentDefinitionId = {
+  id: number;
+  specId: number;
+};
+
 export type GenericTalentInterface = {
   [key in ResourceCostType]?: number;
 } & {
@@ -31,6 +36,7 @@ export type GenericTalentInterface = {
   icon: string;
   maxRanks: number;
   entryIds: number[];
+  definitionIds: GenericTalentDefinitionId[];
   sourceTree?: 'class' | 'spec';
   spec?: string;
   reqPoints?: number;
@@ -70,6 +76,7 @@ export interface TalentNode {
 
 export interface TalentEntry {
   id: number;
+  definitionId: number;
   maxRanks: number;
   type: EntryType;
   name?: string;
