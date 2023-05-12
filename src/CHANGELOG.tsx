@@ -27,6 +27,7 @@ export default [
   change(date(2023, 5, 10), 'Add season 2 dungeon backgrounds.',  ToppleTheNun),
   change(date(2023, 5, 10), 'Fix Kazzara displaying as Magmorax.',  ToppleTheNun),
   change(date(2023, 5, 9), 'Changed default zone for character parses to Aberrus', emallson),
+  change(date(2023, 5, 8), 'Add Trial of the Grand Crusader raid and images for Classic WotLK.', jazminite),
   change(date(2023, 5, 8), 'Update leech rating per 1% to 10.1 values', Putro),
   change(date(2023, 5, 5), 'Fix Playwright tests.', ToppleTheNun),
   change(date(2023, 5, 4), 'Add 10.1 patch.', ToppleTheNun),
