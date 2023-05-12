@@ -61,7 +61,7 @@ class Buffs extends CoreAuras {
 
       //Utility and Defensive
       {
-        spellId: SPELLS.VAMPIRIC_EMBRACE.id,
+        spellId: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
         timelineHighlight: false,
       },
       {

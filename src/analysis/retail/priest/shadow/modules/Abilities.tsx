@@ -223,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
-        buffSpellId: SPELLS.VAMPIRIC_EMBRACE.id,
+        buffSpellId: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
         isDefensive: true,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120 - (combatant.hasTalent(TALENTS.SANLAYN_TALENT) ? 45 : 0),

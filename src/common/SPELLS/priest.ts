@@ -611,12 +611,6 @@ const spells = spellIndexableList({
     icon: 'ability_ironmaidens_convulsiveshadows',
   },
 
-  VAMPIRIC_EMBRACE: {
-    id: 15286,
-    name: 'Vampiric Embrace',
-    icon: 'spell_shadow_unsummonbuilding',
-  },
-
   VAMPIRIC_EMBRACE_HEAL: {
     id: 15290,
     name: 'Vampiric Embrace',
@@ -698,28 +692,10 @@ const spells = spellIndexableList({
     icon: 'spell_priest_voidform',
   },
 
-  DARK_THOUGHTS: {
-    id: 341205,
-    name: 'Dark Thoughts',
-    icon: 'ability_priest_thoughtsteal01',
-  },
-
-  DARK_THOUGHT_BUFF: {
-    id: 341207,
-    name: 'Dark Thought',
-    icon: 'ability_priest_thoughtsteal01',
-  },
-
   SHADOWY_INSIGHT_BUFF: {
     id: 375981,
     name: 'Shadowy Insight',
     icon: 'spell_shadow_possession',
-  },
-
-  SURGE_OF_DARKNESS_TALENT_BUFF: {
-    id: 87160,
-    name: 'Surge of Darkness',
-    icon: 'ability_priest_surgeofdarkness',
   },
 
   UNFURLING_DARKNESS_BUFF: {
@@ -764,13 +740,6 @@ const spells = spellIndexableList({
     id: 373442,
     name: 'Inescapable Torment',
     icon: 'spell_shadow_chilltouch',
-  },
-
-  MIND_SEAR_TALENT_DAMAGE: {
-    id: 49821,
-    name: 'Mind Sear',
-    icon: 'spell_shadow_mindshear',
-    insanityCost: 0,
   },
 
   MIND_FLAY_INSANITY_TALENT_DAMAGE: {
