@@ -30,12 +30,14 @@ class DreamBreath extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DREAM_BREATH),
+      Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.DREAM_BREATH, SPELLS.DREAM_BREATH_FONT]),
       this.onApply,
     );
     // an empowerend will not be generated if using tip the scales
     this.addEventListener(
-      Events.empowerEnd.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.DREAM_BREATH_TALENT),
+      Events.empowerEnd
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_EVOKER.DREAM_BREATH_TALENT, SPELLS.DREAM_BREATH_FONT]),
       this.onCast,
     );
   }
@@ -155,7 +157,11 @@ class DreamBreath extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_EVOKER.DREAM_BREATH_TALENT.id}
+        spellId={
+          this.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT)
+            ? SPELLS.DREAM_BREATH_FONT.id
+            : TALENTS_EVOKER.DREAM_BREATH_TALENT.id
+        }
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         slimLines

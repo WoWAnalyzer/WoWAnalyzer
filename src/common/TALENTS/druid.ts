@@ -8,6 +8,7 @@ const talents = createTalentList({
     icon: 'ability_druid_empoweredrejuvination',
     maxRanks: 1,
     entryIds: [103105],
+    definitionIds: [{ id: 108110, specId: 105 }],
   },
   ADAPTIVE_SWARM_TALENT: {
     id: 391888,
@@ -15,6 +16,10 @@ const talents = createTalentList({
     icon: 'ability_maldraxxus_druid',
     maxRanks: 1,
     entryIds: [103123, 103175],
+    definitionIds: [
+      { id: 108128, specId: 105 },
+      { id: 108180, specId: 103 },
+    ],
     manaCost: 2500,
   },
   AETHERIAL_KINDLING_TALENT: {
@@ -23,6 +28,7 @@ const talents = createTalentList({
     icon: 'ability_druid_starfall',
     maxRanks: 1,
     entryIds: [109843],
+    definitionIds: [{ id: 114848, specId: 102 }],
   },
   AFTER_THE_WILDFIRE_TALENT: {
     id: 371905,
@@ -30,6 +36,7 @@ const talents = createTalentList({
     icon: 'spell_nature_naturetouchgrow',
     maxRanks: 1,
     entryIds: [103206],
+    definitionIds: [{ id: 108211, specId: 104 }],
   },
   APEX_PREDATORS_CRAVING_TALENT: {
     id: 391881,
@@ -37,6 +44,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
     entryIds: [103152],
+    definitionIds: [{ id: 108157, specId: 103 }],
   },
   ASHAMANES_GUIDANCE_TALENT: {
     id: 391548,
@@ -44,6 +52,7 @@ const talents = createTalentList({
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
     entryIds: [103176],
+    definitionIds: [{ id: 108181, specId: 103 }],
   },
   ASTRAL_COMMUNION_TALENT: {
     id: 400636,
@@ -51,6 +60,7 @@ const talents = createTalentList({
     icon: 'talentspec_druid_balance',
     maxRanks: 1,
     entryIds: [109871],
+    definitionIds: [{ id: 114876, specId: 102 }],
   },
   ASTRAL_INFLUENCE_TALENT: {
     id: 197524,
@@ -58,6 +68,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_lens_flare',
     maxRanks: 2,
     entryIds: [103288],
+    definitionIds: [{ id: 108293, specId: 102 }],
   },
   ASTRAL_SMOLDER_TALENT: {
     id: 394058,
@@ -65,6 +76,7 @@ const talents = createTalentList({
     icon: 'spell_fire_bluefire',
     maxRanks: 2,
     entryIds: [109836],
+    definitionIds: [{ id: 114841, specId: 102 }],
   },
   BALANCE_OF_ALL_THINGS_TALENT: {
     id: 394048,
@@ -72,6 +84,7 @@ const talents = createTalentList({
     icon: 'ability_druid_earthandsky',
     maxRanks: 2,
     entryIds: [109848],
+    definitionIds: [{ id: 114853, specId: 102 }],
   },
   BERSERK_FRENZY_TALENT: {
     id: 384668,
@@ -79,6 +92,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     entryIds: [103149],
+    definitionIds: [{ id: 108154, specId: 103 }],
   },
   BERSERK_HEART_OF_THE_LION_TALENT: {
     id: 391174,
@@ -86,6 +100,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     entryIds: [103166],
+    definitionIds: [{ id: 108171, specId: 103 }],
   },
   BERSERK_PERSISTENCE_TALENT: {
     id: 50334,
@@ -93,6 +108,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     entryIds: [103211],
+    definitionIds: [{ id: 108216, specId: 104 }],
   },
   BERSERK_RAVAGE_TALENT: {
     id: 50334,
@@ -100,6 +116,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     entryIds: [103216],
+    definitionIds: [{ id: 108221, specId: 104 }],
   },
   BERSERK_TALENT: {
     id: 106951,
@@ -107,6 +124,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     entryIds: [103162],
+    definitionIds: [{ id: 108167, specId: 103 }],
   },
   BERSERK_UNCHECKED_AGGRESSION_TALENT: {
     id: 50334,
@@ -114,6 +132,7 @@ const talents = createTalentList({
     icon: 'ability_druid_berserk',
     maxRanks: 1,
     entryIds: [103224],
+    definitionIds: [{ id: 108229, specId: 104 }],
   },
   BLOODTALONS_TALENT: {
     id: 319439,
@@ -121,6 +140,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bloodythrash',
     maxRanks: 1,
     entryIds: [103171],
+    definitionIds: [{ id: 108176, specId: 103 }],
   },
   BLOOD_FRENZY_TALENT: {
     id: 203962,
@@ -128,6 +148,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
     entryIds: [103209],
+    definitionIds: [{ id: 108214, specId: 104 }],
   },
   BRAMBLES_TALENT: {
     id: 203953,
@@ -135,6 +156,7 @@ const talents = createTalentList({
     icon: 'inv_misc_thornnecklace',
     maxRanks: 1,
     entryIds: [103231],
+    definitionIds: [{ id: 108236, specId: 104 }],
   },
   BRISTLING_FUR_TALENT: {
     id: 155835,
@@ -142,6 +164,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bristlingfur',
     maxRanks: 1,
     entryIds: [103230],
+    definitionIds: [{ id: 108235, specId: 104 }],
   },
   BRUTAL_SLASH_TALENT: {
     id: 202028,
@@ -149,6 +172,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ravage',
     maxRanks: 1,
     entryIds: [103151],
+    definitionIds: [{ id: 108156, specId: 103 }],
     energyCost: 25,
   },
   BUDDING_LEAVES_TALENT: {
@@ -157,6 +181,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_fellotus',
     maxRanks: 2,
     entryIds: [103128],
+    definitionIds: [{ id: 108133, specId: 105 }],
   },
   CARNIVOROUS_INSTINCT_TALENT: {
     id: 390902,
@@ -164,6 +189,7 @@ const talents = createTalentList({
     icon: 'ability_mount_jungletiger',
     maxRanks: 2,
     entryIds: [103173],
+    definitionIds: [{ id: 108178, specId: 103 }],
   },
   CATS_CURIOSITY_TALENT: {
     id: 386318,
@@ -171,6 +197,7 @@ const talents = createTalentList({
     icon: 'inv_jewelcrafting_gem_30',
     maxRanks: 2,
     entryIds: [103155],
+    definitionIds: [{ id: 108160, specId: 103 }],
   },
   CELESTIAL_ALIGNMENT_TALENT: {
     id: 194223,
@@ -178,6 +205,7 @@ const talents = createTalentList({
     icon: 'spell_nature_natureguardian',
     maxRanks: 1,
     entryIds: [109849],
+    definitionIds: [{ id: 114854, specId: 102 }],
   },
   CENARION_WARD_TALENT: {
     id: 102351,
@@ -185,6 +213,7 @@ const talents = createTalentList({
     icon: 'ability_druid_naturalperfection',
     maxRanks: 1,
     entryIds: [103104],
+    definitionIds: [{ id: 108109, specId: 105 }],
     manaCost: 4600,
   },
   CENARIUS_GUIDANCE_TALENT: {
@@ -193,6 +222,7 @@ const talents = createTalentList({
     icon: 'ability_druid_treeoflife',
     maxRanks: 1,
     entryIds: [103118],
+    definitionIds: [{ id: 108123, specId: 105 }],
   },
   CIRCLE_OF_LIFE_AND_DEATH_FERAL_TALENT: {
     id: 400320,
@@ -200,6 +230,7 @@ const talents = createTalentList({
     icon: 'ability_druid_cyclone',
     maxRanks: 1,
     entryIds: [103156],
+    definitionIds: [{ id: 108161, specId: 103 }],
   },
   CIRCLE_OF_LIFE_AND_DEATH_SPEC_TALENT: {
     id: 391969,
@@ -207,6 +238,10 @@ const talents = createTalentList({
     icon: 'ability_druid_cyclone',
     maxRanks: 1,
     entryIds: [103130, 103202],
+    definitionIds: [
+      { id: 108135, specId: 105 },
+      { id: 108207, specId: 104 },
+    ],
   },
   CONVOKE_THE_SPIRITS_TALENT: {
     id: 391528,
@@ -214,6 +249,12 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_druid',
     maxRanks: 1,
     entryIds: [103119, 103177, 103200, 109838],
+    definitionIds: [
+      { id: 108124, specId: 105 },
+      { id: 108182, specId: 103 },
+      { id: 108205, specId: 104 },
+      { id: 114843, specId: 102 },
+    ],
   },
   COSMIC_RAPIDITY_TALENT: {
     id: 400059,
@@ -221,6 +262,7 @@ const talents = createTalentList({
     icon: 'spell_druid_swarm',
     maxRanks: 2,
     entryIds: [109863],
+    definitionIds: [{ id: 114868, specId: 102 }],
   },
   CULTIVATION_TALENT: {
     id: 200390,
@@ -228,6 +270,7 @@ const talents = createTalentList({
     icon: 'spell_nature_healingtouch',
     maxRanks: 1,
     entryIds: [103110],
+    definitionIds: [{ id: 108115, specId: 105 }],
   },
   CYCLONE_TALENT: {
     id: 33786,
@@ -235,6 +278,7 @@ const talents = createTalentList({
     icon: 'spell_nature_earthbind',
     maxRanks: 1,
     entryIds: [103291],
+    definitionIds: [{ id: 108296, specId: 102 }],
     manaCost: 3000,
   },
   DEEP_FOCUS_TALENT: {
@@ -243,6 +287,7 @@ const talents = createTalentList({
     icon: 'spell_nature_naturesblessing',
     maxRanks: 1,
     entryIds: [114809],
+    definitionIds: [{ id: 119816, specId: 105 }],
   },
   DENIZEN_OF_THE_DREAM_TALENT: {
     id: 394065,
@@ -250,6 +295,7 @@ const talents = createTalentList({
     icon: 'inv_faeriedragon2_orange',
     maxRanks: 1,
     entryIds: [109852],
+    definitionIds: [{ id: 114857, specId: 102 }],
   },
   DOUBLE_CLAWED_RAKE_TALENT: {
     id: 391700,
@@ -257,6 +303,7 @@ const talents = createTalentList({
     icon: 'ability_druid_disembowel',
     maxRanks: 1,
     entryIds: [103145],
+    definitionIds: [{ id: 108150, specId: 103 }],
   },
   DREADFUL_BLEEDING_TALENT: {
     id: 391045,
@@ -264,6 +311,7 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
     entryIds: [103181],
+    definitionIds: [{ id: 108186, specId: 103 }],
   },
   DREAMSTATE_TALENT: {
     id: 392162,
@@ -271,6 +319,7 @@ const talents = createTalentList({
     icon: 'spell_unused',
     maxRanks: 1,
     entryIds: [103106],
+    definitionIds: [{ id: 108111, specId: 105 }],
   },
   DREAM_OF_CENARIUS_TALENT: {
     id: 372119,
@@ -278,6 +327,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
     entryIds: [103218],
+    definitionIds: [{ id: 108223, specId: 104 }],
   },
   EARTHWARDEN_TALENT: {
     id: 203974,
@@ -285,6 +335,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_blessingofeternals',
     maxRanks: 1,
     entryIds: [103225],
+    definitionIds: [{ id: 108230, specId: 104 }],
   },
   ECLIPSE_TALENT: {
     id: 79577,
@@ -292,6 +343,7 @@ const talents = createTalentList({
     icon: 'ability_druid_eclipseorange',
     maxRanks: 1,
     entryIds: [109858],
+    definitionIds: [{ id: 114863, specId: 102 }],
   },
   EFFLORESCENCE_TALENT: {
     id: 145205,
@@ -299,6 +351,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_talandrasrose',
     maxRanks: 1,
     entryIds: [103111],
+    definitionIds: [{ id: 108116, specId: 105 }],
     manaCost: 8500,
   },
   ELUNES_FAVORED_TALENT: {
@@ -307,6 +360,7 @@ const talents = createTalentList({
     icon: 'spell_holy_elunesgrace',
     maxRanks: 1,
     entryIds: [103198],
+    definitionIds: [{ id: 108203, specId: 104 }],
   },
   ELUNES_GUIDANCE_TALENT: {
     id: 393991,
@@ -314,6 +368,7 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_druid',
     maxRanks: 1,
     entryIds: [109864],
+    definitionIds: [{ id: 114869, specId: 102 }],
   },
   EMBRACE_OF_THE_DREAM_TALENT: {
     id: 392124,
@@ -321,6 +376,7 @@ const talents = createTalentList({
     icon: 'ability_druid_healinginstincts',
     maxRanks: 2,
     entryIds: [103126],
+    definitionIds: [{ id: 108131, specId: 105 }],
   },
   FELINE_SWIFTNESS_TALENT: {
     id: 131768,
@@ -328,6 +384,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dash',
     maxRanks: 2,
     entryIds: [103318],
+    definitionIds: [{ id: 108323, specId: 102 }],
   },
   FERAL_FRENZY_TALENT: {
     id: 274837,
@@ -335,6 +392,7 @@ const talents = createTalentList({
     icon: 'ability_druid_rake',
     maxRanks: 1,
     entryIds: [103170],
+    definitionIds: [{ id: 108175, specId: 103 }],
     energyCost: 25,
   },
   FLASHING_CLAWS_TALENT: {
@@ -343,6 +401,7 @@ const talents = createTalentList({
     icon: 'spell_druid_thrash',
     maxRanks: 2,
     entryIds: [103223],
+    definitionIds: [{ id: 108228, specId: 104 }],
   },
   FLASH_OF_CLARITY_TALENT: {
     id: 392220,
@@ -350,6 +409,7 @@ const talents = createTalentList({
     icon: 'spell_nature_crystalball',
     maxRanks: 1,
     entryIds: [103142],
+    definitionIds: [{ id: 108147, specId: 105 }],
   },
   FLOURISH_TALENT: {
     id: 197721,
@@ -357,6 +417,7 @@ const talents = createTalentList({
     icon: 'spell_druid_wildburst',
     maxRanks: 1,
     entryIds: [103136],
+    definitionIds: [{ id: 108141, specId: 105 }],
   },
   FORCE_OF_NATURE_TALENT: {
     id: 205636,
@@ -364,6 +425,7 @@ const talents = createTalentList({
     icon: 'ability_druid_forceofnature',
     maxRanks: 1,
     entryIds: [109844],
+    definitionIds: [{ id: 114849, specId: 102 }],
   },
   FORESTS_FLOW_TALENT: {
     id: 400531,
@@ -371,6 +433,7 @@ const talents = createTalentList({
     icon: 'ability_druid_giftoftheearthmother',
     maxRanks: 1,
     entryIds: [114726],
+    definitionIds: [{ id: 119733, specId: 105 }],
   },
   FORESTWALK_TALENT: {
     id: 400129,
@@ -378,6 +441,7 @@ const talents = createTalentList({
     icon: 'spell_lifegivingspeed',
     maxRanks: 2,
     entryIds: [114300],
+    definitionIds: [{ id: 119305, specId: 102 }],
   },
   FRANTIC_MOMENTUM_TALENT: {
     id: 391875,
@@ -385,6 +449,7 @@ const talents = createTalentList({
     icon: 'spell_druid_savagery',
     maxRanks: 2,
     entryIds: [103179],
+    definitionIds: [{ id: 108184, specId: 103 }],
   },
   FRENZIED_REGENERATION_TALENT: {
     id: 22842,
@@ -392,6 +457,7 @@ const talents = createTalentList({
     icon: 'ability_bullrush',
     maxRanks: 1,
     entryIds: [103298],
+    definitionIds: [{ id: 108303, specId: 102 }],
     rageCost: 10,
   },
   FRIEND_OF_THE_FAE_TALENT: {
@@ -400,6 +466,7 @@ const talents = createTalentList({
     icon: 'inv_elemental_primal_mana',
     maxRanks: 1,
     entryIds: [109870],
+    definitionIds: [{ id: 114875, specId: 102 }],
   },
   FRONT_OF_THE_PACK_TALENT: {
     id: 377835,
@@ -407,6 +474,7 @@ const talents = createTalentList({
     icon: 'spell_druid_stampedingroar_cat',
     maxRanks: 1,
     entryIds: [103189],
+    definitionIds: [{ id: 108194, specId: 104 }],
   },
   FUNGAL_GROWTH_TALENT: {
     id: 392999,
@@ -414,6 +482,7 @@ const talents = createTalentList({
     icon: 'druid_ability_wildmushroom_b',
     maxRanks: 1,
     entryIds: [109837],
+    definitionIds: [{ id: 114842, specId: 102 }],
   },
   FURY_OF_ELUNE_TALENT: {
     id: 202770,
@@ -421,6 +490,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
     entryIds: [109859],
+    definitionIds: [{ id: 114864, specId: 102 }],
   },
   FURY_OF_NATURE_TALENT: {
     id: 370695,
@@ -428,6 +498,7 @@ const talents = createTalentList({
     icon: 'ability_druid_cresentburn',
     maxRanks: 2,
     entryIds: [103203],
+    definitionIds: [{ id: 108208, specId: 104 }],
   },
   GALACTIC_GUARDIAN_TALENT: {
     id: 203964,
@@ -435,6 +506,7 @@ const talents = createTalentList({
     icon: 'spell_frost_iceclaw',
     maxRanks: 1,
     entryIds: [103214],
+    definitionIds: [{ id: 108219, specId: 104 }],
   },
   GALE_WINDS_TALENT: {
     id: 400142,
@@ -442,6 +514,7 @@ const talents = createTalentList({
     icon: 'ability_druid_galewinds',
     maxRanks: 1,
     entryIds: [114299],
+    definitionIds: [{ id: 119304, specId: 102 }],
   },
   GERMINATION_TALENT: {
     id: 155675,
@@ -449,6 +522,7 @@ const talents = createTalentList({
     icon: 'spell_druid_germination',
     maxRanks: 1,
     entryIds: [103127],
+    definitionIds: [{ id: 108132, specId: 105 }],
   },
   GORE_TALENT: {
     id: 210706,
@@ -456,6 +530,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bearhug',
     maxRanks: 1,
     entryIds: [103190],
+    definitionIds: [{ id: 108195, specId: 104 }],
   },
   GORY_FUR_TALENT: {
     id: 200854,
@@ -463,6 +538,7 @@ const talents = createTalentList({
     icon: 'artifactability_guardiandruid_goryfur',
     maxRanks: 1,
     entryIds: [103196],
+    definitionIds: [{ id: 108201, specId: 104 }],
   },
   GROVE_TENDING_TALENT: {
     id: 383192,
@@ -470,6 +546,7 @@ const talents = createTalentList({
     icon: 'inv_relics_idolofrejuvenation',
     maxRanks: 1,
     entryIds: [103098],
+    definitionIds: [{ id: 108103, specId: 105 }],
   },
   GUARDIAN_OF_ELUNE_TALENT: {
     id: 155578,
@@ -477,6 +554,7 @@ const talents = createTalentList({
     icon: 'spell_druid_guardianofelune',
     maxRanks: 1,
     entryIds: [103205],
+    definitionIds: [{ id: 108210, specId: 104 }],
   },
   HARMONIOUS_BLOOMING_TALENT: {
     id: 392256,
@@ -484,6 +562,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_felblossom',
     maxRanks: 2,
     entryIds: [103121],
+    definitionIds: [{ id: 108126, specId: 105 }],
   },
   HEART_OF_THE_WILD_TALENT: {
     id: 319454,
@@ -491,6 +570,7 @@ const talents = createTalentList({
     icon: 'spell_holy_blessingofagility',
     maxRanks: 1,
     entryIds: [103309],
+    definitionIds: [{ id: 108314, specId: 102 }],
   },
   HIBERNATE_TALENT: {
     id: 2637,
@@ -498,6 +578,7 @@ const talents = createTalentList({
     icon: 'spell_nature_sleep',
     maxRanks: 1,
     entryIds: [103289],
+    definitionIds: [{ id: 108294, specId: 102 }],
     manaCost: 3000,
   },
   IMPROVED_BARKSKIN_TALENT: {
@@ -506,6 +587,7 @@ const talents = createTalentList({
     icon: 'spell_nature_stoneclawtotem',
     maxRanks: 1,
     entryIds: [103297],
+    definitionIds: [{ id: 108302, specId: 102 }],
   },
   IMPROVED_IRONBARK_TALENT: {
     id: 382552,
@@ -513,6 +595,7 @@ const talents = createTalentList({
     icon: 'spell_druid_ironbark',
     maxRanks: 1,
     entryIds: [103139],
+    definitionIds: [{ id: 108144, specId: 105 }],
   },
   IMPROVED_NATURES_CURE_TALENT: {
     id: 392378,
@@ -520,6 +603,7 @@ const talents = createTalentList({
     icon: 'ability_shaman_cleansespirit',
     maxRanks: 1,
     entryIds: [103281],
+    definitionIds: [{ id: 108286, specId: 105 }],
   },
   IMPROVED_REGROWTH_TALENT: {
     id: 231032,
@@ -527,6 +611,7 @@ const talents = createTalentList({
     icon: 'spell_nature_resistnature',
     maxRanks: 1,
     entryIds: [103109],
+    definitionIds: [{ id: 108114, specId: 105 }],
   },
   IMPROVED_REJUVENATION_TALENT: {
     id: 231040,
@@ -534,6 +619,7 @@ const talents = createTalentList({
     icon: 'spell_nature_rejuvenation',
     maxRanks: 1,
     entryIds: [103319],
+    definitionIds: [{ id: 108324, specId: 102 }],
   },
   IMPROVED_STAMPEDING_ROAR_TALENT: {
     id: 288826,
@@ -541,6 +627,7 @@ const talents = createTalentList({
     icon: 'spell_druid_stamedingroar',
     maxRanks: 1,
     entryIds: [103308],
+    definitionIds: [{ id: 108313, specId: 102 }],
   },
   IMPROVED_SUNFIRE_TALENT: {
     id: 231050,
@@ -548,6 +635,7 @@ const talents = createTalentList({
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
     entryIds: [103285],
+    definitionIds: [{ id: 108290, specId: 102 }],
   },
   IMPROVED_SURVIVAL_INSTINCTS_TALENT: {
     id: 328767,
@@ -555,6 +643,7 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 1,
     entryIds: [103192],
+    definitionIds: [{ id: 108197, specId: 104 }],
   },
   IMPROVED_SWIPE_TALENT: {
     id: 400158,
@@ -562,6 +651,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterclaw_03',
     maxRanks: 1,
     entryIds: [103304],
+    definitionIds: [{ id: 108309, specId: 102 }],
   },
   IMPROVED_WILD_GROWTH_TALENT: {
     id: 328025,
@@ -569,6 +659,7 @@ const talents = createTalentList({
     icon: 'ability_druid_flourish',
     maxRanks: 1,
     entryIds: [103096],
+    definitionIds: [{ id: 108101, specId: 105 }],
   },
   INCAPACITATING_ROAR_TALENT: {
     id: 99,
@@ -576,6 +667,7 @@ const talents = createTalentList({
     icon: 'ability_druid_demoralizingroar',
     maxRanks: 1,
     entryIds: [103316],
+    definitionIds: [{ id: 108321, specId: 102 }],
   },
   INCARNATION_AVATAR_OF_ASHAMANE_TALENT: {
     id: 102543,
@@ -583,6 +675,7 @@ const talents = createTalentList({
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
     entryIds: [103178],
+    definitionIds: [{ id: 108183, specId: 103 }],
   },
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: {
     id: 102560,
@@ -590,6 +683,7 @@ const talents = createTalentList({
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
     entryIds: [109839],
+    definitionIds: [{ id: 114844, specId: 102 }],
   },
   INCARNATION_GUARDIAN_OF_URSOC_TALENT: {
     id: 102558,
@@ -597,6 +691,7 @@ const talents = createTalentList({
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
     entryIds: [103201],
+    definitionIds: [{ id: 108206, specId: 104 }],
   },
   INCARNATION_TREE_OF_LIFE_TALENT: {
     id: 33891,
@@ -604,6 +699,7 @@ const talents = createTalentList({
     icon: 'ability_druid_improvedtreeform',
     maxRanks: 1,
     entryIds: [103120],
+    definitionIds: [{ id: 108125, specId: 105 }],
   },
   INCESSANT_TEMPEST_TALENT: {
     id: 400140,
@@ -611,6 +707,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_wind',
     maxRanks: 1,
     entryIds: [114298],
+    definitionIds: [{ id: 119303, specId: 102 }],
   },
   INFECTED_WOUNDS_FERAL_TALENT: {
     id: 48484,
@@ -618,6 +715,7 @@ const talents = createTalentList({
     icon: 'ability_druid_infectedwound',
     maxRanks: 1,
     entryIds: [103164],
+    definitionIds: [{ id: 108169, specId: 103 }],
   },
   INFECTED_WOUNDS_GUARDIAN_TALENT: {
     id: 345208,
@@ -625,6 +723,7 @@ const talents = createTalentList({
     icon: 'ability_druid_infectedwound',
     maxRanks: 1,
     entryIds: [103232],
+    definitionIds: [{ id: 108237, specId: 104 }],
   },
   INNATE_RESOLVE_TALENT: {
     id: 377811,
@@ -632,6 +731,7 @@ const talents = createTalentList({
     icon: 'spell_nature_healingway',
     maxRanks: 1,
     entryIds: [103229],
+    definitionIds: [{ id: 108234, specId: 104 }],
   },
   INNERVATE_TALENT: {
     id: 29166,
@@ -639,6 +739,7 @@ const talents = createTalentList({
     icon: 'spell_nature_lightning',
     maxRanks: 1,
     entryIds: [103323],
+    definitionIds: [{ id: 108328, specId: 102 }],
   },
   INNER_PEACE_TALENT: {
     id: 197073,
@@ -646,6 +747,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dreamstate',
     maxRanks: 1,
     entryIds: [103107],
+    definitionIds: [{ id: 108112, specId: 105 }],
   },
   INVIGORATE_TALENT: {
     id: 392160,
@@ -653,6 +755,7 @@ const talents = createTalentList({
     icon: 'spell_nature_preservation',
     maxRanks: 1,
     entryIds: [103135],
+    definitionIds: [{ id: 108140, specId: 105 }],
     manaCost: 1000,
   },
   IRONBARK_TALENT: {
@@ -661,6 +764,7 @@ const talents = createTalentList({
     icon: 'spell_druid_ironbark',
     maxRanks: 1,
     entryIds: [103141],
+    definitionIds: [{ id: 108146, specId: 105 }],
   },
   IRONFUR_TALENT: {
     id: 192081,
@@ -668,6 +772,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ironfur',
     maxRanks: 1,
     entryIds: [103305],
+    definitionIds: [{ id: 108310, specId: 102 }],
     rageCost: 40,
   },
   KILLER_INSTINCT_TALENT: {
@@ -676,6 +781,7 @@ const talents = createTalentList({
     icon: 'ability_druid_predatoryinstincts',
     maxRanks: 2,
     entryIds: [103303],
+    definitionIds: [{ id: 108308, specId: 102 }],
   },
   LAYERED_MANE_TALENT: {
     id: 384721,
@@ -683,6 +789,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ironfur',
     maxRanks: 2,
     entryIds: [103215],
+    definitionIds: [{ id: 108220, specId: 104 }],
   },
   LIFEBLOOM_TALENT: {
     id: 33763,
@@ -690,6 +797,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_felblossom',
     maxRanks: 1,
     entryIds: [103100],
+    definitionIds: [{ id: 108105, specId: 105 }],
     manaCost: 4000,
   },
   LIGHT_OF_THE_SUN_TALENT: {
@@ -698,6 +806,7 @@ const talents = createTalentList({
     icon: 'ability_vehicle_sonicshockwave',
     maxRanks: 1,
     entryIds: [109845],
+    definitionIds: [{ id: 114850, specId: 102 }],
   },
   LIONS_STRENGTH_TALENT: {
     id: 391972,
@@ -705,6 +814,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_masterscall',
     maxRanks: 1,
     entryIds: [103172],
+    definitionIds: [{ id: 108177, specId: 103 }],
   },
   LUNAR_BEAM_TALENT: {
     id: 204066,
@@ -712,6 +822,7 @@ const talents = createTalentList({
     icon: 'spell_nature_moonglow',
     maxRanks: 1,
     entryIds: [114700],
+    definitionIds: [{ id: 119706, specId: 104 }],
   },
   LUNAR_INSPIRATION_TALENT: {
     id: 155580,
@@ -719,6 +830,7 @@ const talents = createTalentList({
     icon: 'spell_druid_lunarinspiration',
     maxRanks: 1,
     entryIds: [114771],
+    definitionIds: [{ id: 119778, specId: 103 }],
   },
   LUNAR_SHRAPNEL_TALENT: {
     id: 393868,
@@ -726,6 +838,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane04',
     maxRanks: 2,
     entryIds: [109868],
+    definitionIds: [{ id: 114873, specId: 102 }],
   },
   LUXURIANT_SOIL_TALENT: {
     id: 392315,
@@ -733,6 +846,7 @@ const talents = createTalentList({
     icon: 'achievement_dungeon_everbloom',
     maxRanks: 2,
     entryIds: [103124],
+    definitionIds: [{ id: 108129, specId: 105 }],
   },
   LYCARAS_TEACHINGS_TALENT: {
     id: 378988,
@@ -740,6 +854,7 @@ const talents = createTalentList({
     icon: 'inv_trinket_ardenweald_02_green',
     maxRanks: 3,
     entryIds: [103311],
+    definitionIds: [{ id: 108316, specId: 102 }],
   },
   MAIM_TALENT: {
     id: 22570,
@@ -747,6 +862,7 @@ const talents = createTalentList({
     icon: 'ability_druid_mangle.tga',
     maxRanks: 1,
     entryIds: [103299],
+    definitionIds: [{ id: 108304, specId: 102 }],
     energyCost: 30,
   },
   MANGLE_TALENT: {
@@ -755,6 +871,7 @@ const talents = createTalentList({
     icon: 'ability_druid_mangle2',
     maxRanks: 1,
     entryIds: [103195],
+    definitionIds: [{ id: 108200, specId: 104 }],
   },
   MASS_ENTANGLEMENT_TALENT: {
     id: 102359,
@@ -762,6 +879,7 @@ const talents = createTalentList({
     icon: 'spell_druid_massentanglement',
     maxRanks: 1,
     entryIds: [103322],
+    definitionIds: [{ id: 108327, specId: 102 }],
   },
   MATTED_FUR_TALENT: {
     id: 385786,
@@ -769,6 +887,7 @@ const talents = createTalentList({
     icon: 'inv_misc_pelt_15',
     maxRanks: 1,
     entryIds: [103314],
+    definitionIds: [{ id: 108319, specId: 102 }],
   },
   MAUL_TALENT: {
     id: 6807,
@@ -776,6 +895,7 @@ const talents = createTalentList({
     icon: 'ability_druid_maul',
     maxRanks: 1,
     entryIds: [103191],
+    definitionIds: [{ id: 108196, specId: 104 }],
     rageCost: 40,
   },
   MERCILESS_CLAWS_TALENT: {
@@ -784,6 +904,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterclaw_03',
     maxRanks: 1,
     entryIds: [103159],
+    definitionIds: [{ id: 108164, specId: 103 }],
   },
   MIGHTY_BASH_TALENT: {
     id: 5211,
@@ -791,6 +912,7 @@ const talents = createTalentList({
     icon: 'ability_druid_bash',
     maxRanks: 1,
     entryIds: [103315],
+    definitionIds: [{ id: 108320, specId: 102 }],
   },
   MOMENT_OF_CLARITY_TALENT: {
     id: 236068,
@@ -798,6 +920,7 @@ const talents = createTalentList({
     icon: 'spell_druid_momentofclarity',
     maxRanks: 1,
     entryIds: [103161],
+    definitionIds: [{ id: 108166, specId: 103 }],
   },
   MOONKIN_FORM_BALANCE_TALENT: {
     id: 24858,
@@ -805,6 +928,7 @@ const talents = createTalentList({
     icon: 'spell_nature_forceofnature',
     maxRanks: 1,
     entryIds: [103290],
+    definitionIds: [{ id: 108295, specId: 102 }],
   },
   MOONKIN_FORM_SHARED_TALENT: {
     id: 197625,
@@ -812,6 +936,11 @@ const talents = createTalentList({
     icon: 'spell_nature_forceofnature',
     maxRanks: 1,
     entryIds: [112965, 112968, 112966],
+    definitionIds: [
+      { id: 117970, specId: 105 },
+      { id: 117973, specId: 103 },
+      { id: 117971, specId: 104 },
+    ],
   },
   MOONLESS_NIGHT_TALENT: {
     id: 400278,
@@ -819,6 +948,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_newmoon',
     maxRanks: 1,
     entryIds: [114699],
+    definitionIds: [{ id: 119705, specId: 104 }],
   },
   NATURAL_RECOVERY_TALENT: {
     id: 377796,
@@ -826,6 +956,7 @@ const talents = createTalentList({
     icon: 'ability_druid_naturalperfection',
     maxRanks: 2,
     entryIds: [103284],
+    definitionIds: [{ id: 108289, specId: 102 }],
   },
   NATURES_BALANCE_TALENT: {
     id: 202430,
@@ -833,6 +964,7 @@ const talents = createTalentList({
     icon: 'ability_druid_balanceofpower',
     maxRanks: 1,
     entryIds: [109862],
+    definitionIds: [{ id: 114867, specId: 102 }],
   },
   NATURES_GRACE_TALENT: {
     id: 393958,
@@ -840,6 +972,7 @@ const talents = createTalentList({
     icon: 'spell_nature_naturesblessing',
     maxRanks: 1,
     entryIds: [109857],
+    definitionIds: [{ id: 114862, specId: 102 }],
   },
   NATURES_SPLENDOR_TALENT: {
     id: 392288,
@@ -847,6 +980,7 @@ const talents = createTalentList({
     icon: 'spell_nature_spiritarmor',
     maxRanks: 1,
     entryIds: [103103],
+    definitionIds: [{ id: 108108, specId: 105 }],
   },
   NATURES_SWIFTNESS_TALENT: {
     id: 132158,
@@ -854,6 +988,7 @@ const talents = createTalentList({
     icon: 'spell_nature_ravenform',
     maxRanks: 1,
     entryIds: [103101],
+    definitionIds: [{ id: 108106, specId: 105 }],
   },
   NATURES_VIGIL_TALENT: {
     id: 124974,
@@ -861,6 +996,7 @@ const talents = createTalentList({
     icon: 'achievement_zone_feralas',
     maxRanks: 1,
     entryIds: [103324],
+    definitionIds: [{ id: 108329, specId: 102 }],
   },
   NEW_MOON_TALENT: {
     id: 274281,
@@ -868,6 +1004,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_newmoon',
     maxRanks: 1,
     entryIds: [109860],
+    definitionIds: [{ id: 114865, specId: 102 }],
   },
   NOURISH_TALENT: {
     id: 50464,
@@ -875,6 +1012,7 @@ const talents = createTalentList({
     icon: 'ability_druid_nourish',
     maxRanks: 1,
     entryIds: [103094],
+    definitionIds: [{ id: 108099, specId: 105 }],
     manaCost: 9000,
   },
   NURTURING_DORMANCY_TALENT: {
@@ -883,6 +1021,7 @@ const talents = createTalentList({
     icon: 'ability_druid_replenish',
     maxRanks: 1,
     entryIds: [103132],
+    definitionIds: [{ id: 108137, specId: 105 }],
   },
   NURTURING_INSTINCT_TALENT: {
     id: 33873,
@@ -890,6 +1029,7 @@ const talents = createTalentList({
     icon: 'ability_druid_healinginstincts',
     maxRanks: 2,
     entryIds: [103292],
+    definitionIds: [{ id: 108297, specId: 102 }],
   },
   OMEN_OF_CLARITY_FERAL_TALENT: {
     id: 16864,
@@ -897,6 +1037,7 @@ const talents = createTalentList({
     icon: 'spell_nature_crystalball',
     maxRanks: 1,
     entryIds: [103187],
+    definitionIds: [{ id: 108192, specId: 103 }],
   },
   OMEN_OF_CLARITY_RESTORATION_TALENT: {
     id: 113043,
@@ -904,6 +1045,7 @@ const talents = createTalentList({
     icon: 'spell_nature_crystalball',
     maxRanks: 1,
     entryIds: [103143],
+    definitionIds: [{ id: 108148, specId: 105 }],
   },
   ORBITAL_STRIKE_TALENT: {
     id: 390378,
@@ -911,6 +1053,7 @@ const talents = createTalentList({
     icon: 'ability_druid_cresentburn',
     maxRanks: 1,
     entryIds: [109856],
+    definitionIds: [{ id: 114861, specId: 102 }],
   },
   ORBIT_BREAKER_TALENT: {
     id: 383197,
@@ -918,6 +1061,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_moonandstars',
     maxRanks: 1,
     entryIds: [109831],
+    definitionIds: [{ id: 114836, specId: 102 }],
   },
   OVERGROWTH_TALENT: {
     id: 203651,
@@ -925,6 +1069,7 @@ const talents = createTalentList({
     icon: 'ability_druid_overgrowth',
     maxRanks: 1,
     entryIds: [103115],
+    definitionIds: [{ id: 108120, specId: 105 }],
     manaCost: 6000,
   },
   PASSING_SEASONS_TALENT: {
@@ -933,6 +1078,7 @@ const talents = createTalentList({
     icon: 'spell_nature_ravenform',
     maxRanks: 1,
     entryIds: [103102],
+    definitionIds: [{ id: 108107, specId: 105 }],
   },
   PHOTOSYNTHESIS_TALENT: {
     id: 274902,
@@ -940,6 +1086,7 @@ const talents = createTalentList({
     icon: 'spell_lifegivingseed',
     maxRanks: 1,
     entryIds: [103129],
+    definitionIds: [{ id: 108134, specId: 105 }],
   },
   POUNCING_STRIKES_TALENT: {
     id: 390772,
@@ -947,6 +1094,7 @@ const talents = createTalentList({
     icon: 'ability_druid_prowl',
     maxRanks: 1,
     entryIds: [103183],
+    definitionIds: [{ id: 108188, specId: 103 }],
   },
   POWER_OF_GOLDRINN_TALENT: {
     id: 394046,
@@ -954,6 +1102,7 @@ const talents = createTalentList({
     icon: 'inv_mount_spectralwolf',
     maxRanks: 2,
     entryIds: [109840],
+    definitionIds: [{ id: 114845, specId: 102 }],
   },
   POWER_OF_THE_ARCHDRUID_TALENT: {
     id: 392302,
@@ -961,6 +1110,7 @@ const talents = createTalentList({
     icon: 'spell_druid_rampantgrowth',
     maxRanks: 1,
     entryIds: [103134],
+    definitionIds: [{ id: 108139, specId: 105 }],
   },
   PREDATORY_SWIFTNESS_TALENT: {
     id: 16974,
@@ -968,6 +1118,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_pet_cat',
     maxRanks: 1,
     entryIds: [103167],
+    definitionIds: [{ id: 108172, specId: 103 }],
   },
   PREDATOR_TALENT: {
     id: 202021,
@@ -975,6 +1126,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_catlikereflexes',
     maxRanks: 1,
     entryIds: [103186],
+    definitionIds: [{ id: 108191, specId: 103 }],
   },
   PRIMAL_CLAWS_TALENT: {
     id: 391037,
@@ -982,6 +1134,7 @@ const talents = createTalentList({
     icon: 'ability_druid_rake',
     maxRanks: 2,
     entryIds: [103144],
+    definitionIds: [{ id: 108149, specId: 103 }],
   },
   PRIMAL_FURY_TALENT: {
     id: 159286,
@@ -989,6 +1142,7 @@ const talents = createTalentList({
     icon: 'ability_racial_cannibalize',
     maxRanks: 1,
     entryIds: [103317],
+    definitionIds: [{ id: 108322, specId: 102 }],
   },
   PRIMAL_WRATH_TALENT: {
     id: 285381,
@@ -996,6 +1150,7 @@ const talents = createTalentList({
     icon: 'artifactability_feraldruid_ashamanesbite',
     maxRanks: 1,
     entryIds: [103184],
+    definitionIds: [{ id: 108189, specId: 103 }],
     energyCost: 20,
   },
   PRIMORDIAL_ARCANIC_PULSAR_TALENT: {
@@ -1004,6 +1159,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane03',
     maxRanks: 1,
     entryIds: [109855],
+    definitionIds: [{ id: 114860, specId: 102 }],
   },
   PROTECTIVE_GROWTH_TALENT: {
     id: 391947,
@@ -1011,6 +1167,7 @@ const talents = createTalentList({
     icon: 'spell_nature_resistnature',
     maxRanks: 1,
     entryIds: [103158],
+    definitionIds: [{ id: 108163, specId: 103 }],
   },
   PROTECTOR_OF_THE_PACK_TALENT: {
     id: 378986,
@@ -1018,6 +1175,7 @@ const talents = createTalentList({
     icon: 'ability_druid_denmother',
     maxRanks: 1,
     entryIds: [103325],
+    definitionIds: [{ id: 108330, specId: 102 }],
   },
   PULVERIZE_TALENT: {
     id: 80313,
@@ -1025,6 +1183,7 @@ const talents = createTalentList({
     icon: 'spell_druid_malfurionstenacity',
     maxRanks: 1,
     entryIds: [103222],
+    definitionIds: [{ id: 108227, specId: 104 }],
   },
   RADIANT_MOONLIGHT_TALENT: {
     id: 394121,
@@ -1032,6 +1191,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_fullmoon',
     maxRanks: 1,
     entryIds: [109847],
+    definitionIds: [{ id: 114852, specId: 102 }],
   },
   RAGE_OF_THE_SLEEPER_TALENT: {
     id: 200851,
@@ -1039,6 +1199,7 @@ const talents = createTalentList({
     icon: 'inv_hand_1h_artifactursoc_d_01',
     maxRanks: 1,
     entryIds: [103207],
+    definitionIds: [{ id: 108212, specId: 104 }],
   },
   RAGING_FURY_TALENT: {
     id: 391078,
@@ -1046,6 +1207,7 @@ const talents = createTalentList({
     icon: 'ability_druid_predatoryinstincts',
     maxRanks: 1,
     entryIds: [103169],
+    definitionIds: [{ id: 108174, specId: 103 }],
   },
   RAKE_TALENT: {
     id: 1822,
@@ -1053,6 +1215,7 @@ const talents = createTalentList({
     icon: 'ability_druid_disembowel',
     maxRanks: 1,
     entryIds: [103277],
+    definitionIds: [{ id: 108282, specId: 102 }],
     energyCost: 35,
   },
   RAMPANT_FEROCITY_TALENT: {
@@ -1061,6 +1224,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primaltenacity',
     maxRanks: 1,
     entryIds: [103160],
+    definitionIds: [{ id: 108165, specId: 103 }],
   },
   RAMPANT_GROWTH_TALENT: {
     id: 404521,
@@ -1068,6 +1232,7 @@ const talents = createTalentList({
     icon: 'spell_nature_resistnature',
     maxRanks: 1,
     entryIds: [103112],
+    definitionIds: [{ id: 108117, specId: 105 }],
   },
   RATTLE_THE_STARS_TALENT: {
     id: 393954,
@@ -1075,6 +1240,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane01',
     maxRanks: 1,
     entryIds: [109872],
+    definitionIds: [{ id: 114877, specId: 102 }],
   },
   RAZE_TALENT: {
     id: 400254,
@@ -1082,6 +1248,7 @@ const talents = createTalentList({
     icon: 'ability_druid_lacerate',
     maxRanks: 1,
     entryIds: [114701],
+    definitionIds: [{ id: 119707, specId: 104 }],
     rageCost: 40,
   },
   REFORESTATION_TALENT: {
@@ -1090,6 +1257,7 @@ const talents = createTalentList({
     icon: 'inv_herbalism_70_yserallineseed',
     maxRanks: 1,
     entryIds: [103125],
+    definitionIds: [{ id: 108130, specId: 105 }],
   },
   REGENERATIVE_HEARTWOOD_TALENT: {
     id: 392116,
@@ -1097,6 +1265,7 @@ const talents = createTalentList({
     icon: 'spell_nature_naturetouchgrow',
     maxRanks: 1,
     entryIds: [103131],
+    definitionIds: [{ id: 108136, specId: 105 }],
   },
   REGENESIS_TALENT: {
     id: 383191,
@@ -1104,6 +1273,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_liferoot_stem',
     maxRanks: 2,
     entryIds: [103117],
+    definitionIds: [{ id: 108122, specId: 105 }],
   },
   REINFORCED_FUR_TALENT: {
     id: 393618,
@@ -1111,6 +1281,7 @@ const talents = createTalentList({
     icon: 'spell_nature_spiritarmor',
     maxRanks: 1,
     entryIds: [103204],
+    definitionIds: [{ id: 108209, specId: 104 }],
   },
   REINVIGORATION_TALENT: {
     id: 372945,
@@ -1118,6 +1289,7 @@ const talents = createTalentList({
     icon: 'ability_druid_overgrowth',
     maxRanks: 2,
     entryIds: [103226],
+    definitionIds: [{ id: 108231, specId: 104 }],
   },
   REJUVENATION_TALENT: {
     id: 774,
@@ -1125,6 +1297,7 @@ const talents = createTalentList({
     icon: 'spell_nature_rejuvenation',
     maxRanks: 1,
     entryIds: [103295],
+    definitionIds: [{ id: 108300, specId: 102 }],
     manaCost: 6000,
   },
   RELENTLESS_PREDATOR_TALENT: {
@@ -1133,6 +1306,7 @@ const talents = createTalentList({
     icon: 'ability_druid_predatoryinstincts',
     maxRanks: 1,
     entryIds: [103147],
+    definitionIds: [{ id: 108152, specId: 103 }],
   },
   REMOVE_CORRUPTION_TALENT: {
     id: 2782,
@@ -1140,6 +1314,11 @@ const talents = createTalentList({
     icon: 'spell_holy_removecurse',
     maxRanks: 1,
     entryIds: [103282, 103293, 103283],
+    definitionIds: [
+      { id: 108287, specId: 103 },
+      { id: 108298, specId: 104 },
+      { id: 108288, specId: 102 },
+    ],
     manaCost: 3250,
   },
   REND_AND_TEAR_TALENT: {
@@ -1148,6 +1327,7 @@ const talents = createTalentList({
     icon: 'ability_druid_swipe',
     maxRanks: 1,
     entryIds: [103221],
+    definitionIds: [{ id: 108226, specId: 104 }],
   },
   RENEWAL_TALENT: {
     id: 108238,
@@ -1155,6 +1335,7 @@ const talents = createTalentList({
     icon: 'spell_nature_natureblessing',
     maxRanks: 1,
     entryIds: [103310],
+    definitionIds: [{ id: 108315, specId: 102 }],
   },
   RIP_AND_TEAR_TALENT: {
     id: 391347,
@@ -1162,6 +1343,7 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
     entryIds: [103153],
+    definitionIds: [{ id: 108158, specId: 103 }],
   },
   RIP_TALENT: {
     id: 1079,
@@ -1169,6 +1351,7 @@ const talents = createTalentList({
     icon: 'ability_ghoulfrenzy',
     maxRanks: 1,
     entryIds: [103300],
+    definitionIds: [{ id: 108305, specId: 102 }],
     energyCost: 20,
   },
   SABERTOOTH_TALENT: {
@@ -1177,6 +1360,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterfang_01',
     maxRanks: 1,
     entryIds: [103163],
+    definitionIds: [{ id: 108168, specId: 103 }],
   },
   SCINTILLATING_MOONLIGHT_TALENT: {
     id: 238049,
@@ -1184,6 +1368,7 @@ const talents = createTalentList({
     icon: 'spell_fire_twilightfireward',
     maxRanks: 2,
     entryIds: [103213],
+    definitionIds: [{ id: 108218, specId: 104 }],
   },
   SHOOTING_STARS_TALENT: {
     id: 202342,
@@ -1191,6 +1376,7 @@ const talents = createTalentList({
     icon: 'spell_priest_divinestar_shadow2',
     maxRanks: 1,
     entryIds: [109861],
+    definitionIds: [{ id: 114866, specId: 102 }],
   },
   SKULL_BASH_TALENT: {
     id: 106839,
@@ -1198,6 +1384,7 @@ const talents = createTalentList({
     icon: 'inv_bone_skull_04',
     maxRanks: 1,
     entryIds: [103302],
+    definitionIds: [{ id: 108307, specId: 102 }],
   },
   SOLAR_BEAM_TALENT: {
     id: 78675,
@@ -1205,6 +1392,7 @@ const talents = createTalentList({
     icon: 'ability_vehicle_sonicshockwave',
     maxRanks: 1,
     entryIds: [109867],
+    definitionIds: [{ id: 114872, specId: 102 }],
     manaCost: 8400,
   },
   SOLSTICE_TALENT: {
@@ -1213,6 +1401,7 @@ const talents = createTalentList({
     icon: 'artifactability_balancedruid_moonandstars',
     maxRanks: 1,
     entryIds: [109835],
+    definitionIds: [{ id: 114840, specId: 102 }],
   },
   SOOTHE_TALENT: {
     id: 2908,
@@ -1220,6 +1409,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_beastsoothe',
     maxRanks: 1,
     entryIds: [103307],
+    definitionIds: [{ id: 108312, specId: 102 }],
     manaCost: 2800,
   },
   SOUL_OF_THE_FOREST_BALANCE_TALENT: {
@@ -1228,6 +1418,7 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
     entryIds: [109846],
+    definitionIds: [{ id: 114851, specId: 102 }],
   },
   SOUL_OF_THE_FOREST_FERAL_TALENT: {
     id: 158476,
@@ -1235,6 +1426,7 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
     entryIds: [103157],
+    definitionIds: [{ id: 108162, specId: 103 }],
   },
   SOUL_OF_THE_FOREST_GUARDIAN_TALENT: {
     id: 158477,
@@ -1242,6 +1434,7 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
     entryIds: [103208],
+    definitionIds: [{ id: 108213, specId: 104 }],
   },
   SOUL_OF_THE_FOREST_RESTORATION_TALENT: {
     id: 158478,
@@ -1249,6 +1442,7 @@ const talents = createTalentList({
     icon: 'ability_druid_manatree',
     maxRanks: 1,
     entryIds: [103113],
+    definitionIds: [{ id: 108118, specId: 105 }],
   },
   SPRING_BLOSSOMS_TALENT: {
     id: 207385,
@@ -1256,6 +1450,7 @@ const talents = createTalentList({
     icon: 'inv_misc_trailofflowers',
     maxRanks: 1,
     entryIds: [103116],
+    definitionIds: [{ id: 108121, specId: 105 }],
   },
   STAMPEDING_ROAR_TALENT: {
     id: 106898,
@@ -1263,6 +1458,7 @@ const talents = createTalentList({
     icon: 'spell_druid_stampedingroar_cat',
     maxRanks: 1,
     entryIds: [103312],
+    definitionIds: [{ id: 108317, specId: 102 }],
   },
   STARFALL_TALENT: {
     id: 191034,
@@ -1270,6 +1466,7 @@ const talents = createTalentList({
     icon: 'ability_druid_starfall',
     maxRanks: 1,
     entryIds: [109833],
+    definitionIds: [{ id: 114838, specId: 102 }],
     lunarPowerCost: 500,
   },
   STARFIRE_BALANCE_TALENT: {
@@ -1278,6 +1475,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_starfire',
     maxRanks: 1,
     entryIds: [103279],
+    definitionIds: [{ id: 108284, specId: 102 }],
   },
   STARFIRE_SHARED_TALENT: {
     id: 197628,
@@ -1285,6 +1483,11 @@ const talents = createTalentList({
     icon: 'spell_arcane_starfire',
     maxRanks: 1,
     entryIds: [112963, 112967, 112964],
+    definitionIds: [
+      { id: 117968, specId: 105 },
+      { id: 117972, specId: 103 },
+      { id: 117969, specId: 104 },
+    ],
     manaCost: 1500,
   },
   STARLORD_TALENT: {
@@ -1293,6 +1496,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_measuredinsight',
     maxRanks: 2,
     entryIds: [109832],
+    definitionIds: [{ id: 114837, specId: 102 }],
   },
   STARSURGE_BALANCE_TALENT: {
     id: 78674,
@@ -1300,6 +1504,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane03',
     maxRanks: 1,
     entryIds: [103280],
+    definitionIds: [{ id: 108285, specId: 102 }],
     lunarPowerCost: 400,
   },
   STARSURGE_SHARED_TALENT: {
@@ -1308,6 +1513,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcane03',
     maxRanks: 1,
     entryIds: [103278],
+    definitionIds: [{ id: 108283, specId: 104 }],
     manaCost: 1500,
   },
   STARWEAVER_TALENT: {
@@ -1316,6 +1522,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_invocation',
     maxRanks: 1,
     entryIds: [109873],
+    definitionIds: [{ id: 114878, specId: 102 }],
   },
   STELLAR_FLARE_TALENT: {
     id: 202347,
@@ -1323,6 +1530,7 @@ const talents = createTalentList({
     icon: 'ability_druid_stellarflare',
     maxRanks: 1,
     entryIds: [109841],
+    definitionIds: [{ id: 114846, specId: 102 }],
   },
   STELLAR_INNERVATION_TALENT: {
     id: 394115,
@@ -1330,6 +1538,7 @@ const talents = createTalentList({
     icon: 'sha_ability_mage_firestarter_nightborne',
     maxRanks: 1,
     entryIds: [109865],
+    definitionIds: [{ id: 114870, specId: 102 }],
   },
   STONEBARK_TALENT: {
     id: 197061,
@@ -1337,6 +1546,7 @@ const talents = createTalentList({
     icon: 'archaeology_5_0_crackedmogurunestone',
     maxRanks: 1,
     entryIds: [103140],
+    definitionIds: [{ id: 108145, specId: 105 }],
   },
   SUDDEN_AMBUSH_TALENT: {
     id: 384667,
@@ -1344,6 +1554,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_catlikereflexes',
     maxRanks: 1,
     entryIds: [103165],
+    definitionIds: [{ id: 108170, specId: 103 }],
   },
   SUNDERED_FIRMAMENT_TALENT: {
     id: 394094,
@@ -1351,6 +1562,7 @@ const talents = createTalentList({
     icon: 'spell_druid_equinox',
     maxRanks: 1,
     entryIds: [109851],
+    definitionIds: [{ id: 114856, specId: 102 }],
   },
   SUNFIRE_TALENT: {
     id: 93402,
@@ -1358,6 +1570,7 @@ const talents = createTalentList({
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
     entryIds: [103286],
+    definitionIds: [{ id: 108291, specId: 102 }],
     manaCost: 6000,
   },
   SURVIVAL_INSTINCTS_TALENT: {
@@ -1366,6 +1579,10 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 1,
     entryIds: [103180, 103193],
+    definitionIds: [
+      { id: 108185, specId: 103 },
+      { id: 108198, specId: 104 },
+    ],
   },
   SURVIVAL_OF_THE_FITTEST_TALENT: {
     id: 203965,
@@ -1373,6 +1590,7 @@ const talents = createTalentList({
     icon: 'ability_druid_enrage',
     maxRanks: 2,
     entryIds: [103210],
+    definitionIds: [{ id: 108215, specId: 104 }],
   },
   SWIFTMEND_TALENT: {
     id: 18562,
@@ -1380,6 +1598,7 @@ const talents = createTalentList({
     icon: 'inv_relics_idolofrejuvenation',
     maxRanks: 1,
     entryIds: [103294],
+    definitionIds: [{ id: 108299, specId: 102 }],
     manaCost: 4000,
   },
   TASTE_FOR_BLOOD_TALENT: {
@@ -1388,6 +1607,7 @@ const talents = createTalentList({
     icon: 'ability_druid_ferociousbite',
     maxRanks: 1,
     entryIds: [103182],
+    definitionIds: [{ id: 108187, specId: 103 }],
   },
   TEAR_OPEN_WOUNDS_TALENT: {
     id: 391785,
@@ -1395,6 +1615,7 @@ const talents = createTalentList({
     icon: 'artifactability_feraldruid_ashamanesbite',
     maxRanks: 1,
     entryIds: [103148],
+    definitionIds: [{ id: 108153, specId: 103 }],
   },
   THICK_HIDE_TALENT: {
     id: 16931,
@@ -1402,6 +1623,7 @@ const talents = createTalentList({
     icon: 'inv_misc_pelt_bear_03',
     maxRanks: 2,
     entryIds: [103306],
+    definitionIds: [{ id: 108311, specId: 102 }],
   },
   THORNS_OF_IRON_TALENT: {
     id: 400222,
@@ -1409,6 +1631,7 @@ const talents = createTalentList({
     icon: 'spell_nature_thorns_iron',
     maxRanks: 1,
     entryIds: [114698],
+    definitionIds: [{ id: 119704, specId: 104 }],
   },
   THRASHING_CLAWS_TALENT: {
     id: 405300,
@@ -1416,6 +1639,7 @@ const talents = createTalentList({
     icon: 'spell_druid_thrash',
     maxRanks: 1,
     entryIds: [114823],
+    definitionIds: [{ id: 119830, specId: 103 }],
   },
   THRASH_TALENT: {
     id: 106832,
@@ -1423,6 +1647,7 @@ const talents = createTalentList({
     icon: 'spell_druid_thrash',
     maxRanks: 1,
     entryIds: [103301],
+    definitionIds: [{ id: 108306, specId: 102 }],
   },
   TIGERS_FURY_TALENT: {
     id: 5217,
@@ -1430,6 +1655,7 @@ const talents = createTalentList({
     icon: 'ability_mount_jungletiger',
     maxRanks: 1,
     entryIds: [103188],
+    definitionIds: [{ id: 108193, specId: 103 }],
   },
   TIGERS_TENACITY_TALENT: {
     id: 391872,
@@ -1437,6 +1663,7 @@ const talents = createTalentList({
     icon: 'ability_druid_healinginstincts',
     maxRanks: 1,
     entryIds: [103168],
+    definitionIds: [{ id: 108173, specId: 103 }],
   },
   TIGER_DASH_TALENT: {
     id: 252216,
@@ -1444,6 +1671,7 @@ const talents = createTalentList({
     icon: 'ability_druid_dash_orange',
     maxRanks: 1,
     entryIds: [103275],
+    definitionIds: [{ id: 108280, specId: 102 }],
   },
   TIRELESS_ENERGY_TALENT: {
     id: 383352,
@@ -1451,6 +1679,7 @@ const talents = createTalentList({
     icon: 'spell_chargepositive',
     maxRanks: 2,
     entryIds: [103185],
+    definitionIds: [{ id: 108190, specId: 103 }],
   },
   TIRELESS_PURSUIT_TALENT: {
     id: 377801,
@@ -1458,6 +1687,7 @@ const talents = createTalentList({
     icon: 'spell_druid_tirelesspursuit',
     maxRanks: 1,
     entryIds: [103274],
+    definitionIds: [{ id: 108279, specId: 102 }],
   },
   TOOTH_AND_CLAW_TALENT: {
     id: 135288,
@@ -1465,6 +1695,7 @@ const talents = createTalentList({
     icon: 'inv_misc_monsterfang_01',
     maxRanks: 1,
     entryIds: [103197],
+    definitionIds: [{ id: 108202, specId: 104 }],
   },
   TRANQUILITY_TALENT: {
     id: 740,
@@ -1472,6 +1703,7 @@ const talents = createTalentList({
     icon: 'spell_nature_tranquility',
     maxRanks: 1,
     entryIds: [103108],
+    definitionIds: [{ id: 108113, specId: 105 }],
     manaCost: 9200,
   },
   TRANQUIL_MIND_TALENT: {
@@ -1480,6 +1712,7 @@ const talents = createTalentList({
     icon: 'ability_druid_serenefocus',
     maxRanks: 1,
     entryIds: [114808],
+    definitionIds: [{ id: 119815, specId: 105 }],
   },
   TWIN_MOONFIRE_TALENT: {
     id: 372567,
@@ -1487,6 +1720,7 @@ const talents = createTalentList({
     icon: 'spell_nature_starfall',
     maxRanks: 1,
     entryIds: [103212],
+    definitionIds: [{ id: 108217, specId: 104 }],
   },
   TWIN_MOONS_TALENT: {
     id: 279620,
@@ -1494,6 +1728,7 @@ const talents = createTalentList({
     icon: 'spell_nature_starfall',
     maxRanks: 1,
     entryIds: [109842],
+    definitionIds: [{ id: 114847, specId: 102 }],
   },
   TYPHOON_TALENT: {
     id: 132469,
@@ -1501,6 +1736,7 @@ const talents = createTalentList({
     icon: 'ability_druid_typhoon',
     maxRanks: 1,
     entryIds: [103287],
+    definitionIds: [{ id: 108292, specId: 102 }],
   },
   UMBRAL_EMBRACE_TALENT: {
     id: 393760,
@@ -1508,6 +1744,7 @@ const talents = createTalentList({
     icon: 'ability_druid_improvedmoonkinform',
     maxRanks: 2,
     entryIds: [109850],
+    definitionIds: [{ id: 114855, specId: 102 }],
   },
   UMBRAL_INTENSITY_TALENT: {
     id: 383195,
@@ -1515,6 +1752,7 @@ const talents = createTalentList({
     icon: 'ability_druid_eclipse',
     maxRanks: 2,
     entryIds: [109853],
+    definitionIds: [{ id: 114858, specId: 102 }],
   },
   UNBRIDLED_SWARM_TALENT: {
     id: 391951,
@@ -1522,6 +1760,10 @@ const talents = createTalentList({
     icon: 'ability_maldraxxus_druid',
     maxRanks: 1,
     entryIds: [103122, 103174],
+    definitionIds: [
+      { id: 108127, specId: 105 },
+      { id: 108179, specId: 103 },
+    ],
   },
   UNDERGROWTH_TALENT: {
     id: 392301,
@@ -1529,6 +1771,7 @@ const talents = createTalentList({
     icon: 'spell_druid_germination_rejuvenation',
     maxRanks: 1,
     entryIds: [103133],
+    definitionIds: [{ id: 108138, specId: 105 }],
   },
   UNSTOPPABLE_GROWTH_TALENT: {
     id: 382559,
@@ -1536,6 +1779,7 @@ const talents = createTalentList({
     icon: 'ability_druid_flourish',
     maxRanks: 2,
     entryIds: [103138],
+    definitionIds: [{ id: 108143, specId: 105 }],
   },
   UNTAMED_SAVAGERY_TALENT: {
     id: 372943,
@@ -1543,6 +1787,7 @@ const talents = createTalentList({
     icon: 'spell_druid_bloodythrash',
     maxRanks: 1,
     entryIds: [103220],
+    definitionIds: [{ id: 108225, specId: 104 }],
   },
   URSINE_VIGOR_TALENT: {
     id: 377842,
@@ -1550,6 +1795,7 @@ const talents = createTalentList({
     icon: 'ability_druid_markofursol',
     maxRanks: 2,
     entryIds: [103313],
+    definitionIds: [{ id: 108318, specId: 102 }],
   },
   URSOCS_ENDURANCE_TALENT: {
     id: 393611,
@@ -1557,6 +1803,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_pet_bear',
     maxRanks: 1,
     entryIds: [103194],
+    definitionIds: [{ id: 108199, specId: 104 }],
   },
   URSOCS_FURY_TALENT: {
     id: 377210,
@@ -1564,6 +1811,7 @@ const talents = createTalentList({
     icon: 'achievement_emeraldnightmare_ursoc',
     maxRanks: 1,
     entryIds: [103219],
+    definitionIds: [{ id: 108224, specId: 104 }],
   },
   URSOCS_GUIDANCE_TALENT: {
     id: 393414,
@@ -1571,6 +1819,7 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_druid',
     maxRanks: 1,
     entryIds: [103199],
+    definitionIds: [{ id: 108204, specId: 104 }],
   },
   URSOLS_VORTEX_TALENT: {
     id: 102793,
@@ -1578,6 +1827,7 @@ const talents = createTalentList({
     icon: 'spell_druid_ursolsvortex',
     maxRanks: 1,
     entryIds: [103321],
+    definitionIds: [{ id: 108326, specId: 102 }],
   },
   VEINRIPPER_TALENT: {
     id: 391978,
@@ -1585,6 +1835,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 1,
     entryIds: [103154],
+    definitionIds: [{ id: 108159, specId: 103 }],
   },
   VERDANCY_TALENT: {
     id: 392325,
@@ -1592,6 +1843,7 @@ const talents = createTalentList({
     icon: 'inv_10_herb_seed_magiccolor5',
     maxRanks: 1,
     entryIds: [103114],
+    definitionIds: [{ id: 108119, specId: 105 }],
   },
   VERDANT_HEART_TALENT: {
     id: 301768,
@@ -1599,6 +1851,7 @@ const talents = createTalentList({
     icon: 'ability_bullrush',
     maxRanks: 1,
     entryIds: [103296],
+    definitionIds: [{ id: 108301, specId: 102 }],
   },
   VERDANT_INFUSION_TALENT: {
     id: 392410,
@@ -1606,6 +1859,7 @@ const talents = createTalentList({
     icon: 'inv_relics_totemoflife',
     maxRanks: 1,
     entryIds: [103137],
+    definitionIds: [{ id: 108142, specId: 105 }],
   },
   VICIOUS_CYCLE_TALENT: {
     id: 371999,
@@ -1613,6 +1867,7 @@ const talents = createTalentList({
     icon: 'ability_druid_rake',
     maxRanks: 1,
     entryIds: [103227],
+    definitionIds: [{ id: 108232, specId: 104 }],
   },
   VULNERABLE_FLESH_TALENT: {
     id: 372618,
@@ -1620,6 +1875,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primalagression',
     maxRanks: 2,
     entryIds: [103228],
+    definitionIds: [{ id: 108233, specId: 104 }],
   },
   WAKING_DREAM_TALENT: {
     id: 392221,
@@ -1627,6 +1883,7 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_green',
     maxRanks: 1,
     entryIds: [103097],
+    definitionIds: [{ id: 108102, specId: 105 }],
   },
   WANING_TWILIGHT_TALENT: {
     id: 393956,
@@ -1634,6 +1891,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_twilight',
     maxRanks: 2,
     entryIds: [109834],
+    definitionIds: [{ id: 114839, specId: 102 }],
   },
   WARRIOR_OF_ELUNE_TALENT: {
     id: 202425,
@@ -1641,6 +1899,7 @@ const talents = createTalentList({
     icon: 'spell_holy_elunesgrace',
     maxRanks: 1,
     entryIds: [114648],
+    definitionIds: [{ id: 119654, specId: 102 }],
   },
   WELL_HONED_INSTINCTS_TALENT: {
     id: 377847,
@@ -1648,6 +1907,7 @@ const talents = createTalentList({
     icon: 'ability_druid_tigersroar',
     maxRanks: 2,
     entryIds: [103326],
+    definitionIds: [{ id: 108331, specId: 102 }],
   },
   WILD_CHARGE_TALENT: {
     id: 102401,
@@ -1655,6 +1915,7 @@ const talents = createTalentList({
     icon: 'spell_druid_wildcharge',
     maxRanks: 1,
     entryIds: [103276],
+    definitionIds: [{ id: 108281, specId: 102 }],
   },
   WILD_GROWTH_TALENT: {
     id: 48438,
@@ -1662,6 +1923,7 @@ const talents = createTalentList({
     icon: 'ability_druid_flourish',
     maxRanks: 1,
     entryIds: [103320],
+    definitionIds: [{ id: 108325, specId: 102 }],
     manaCost: 11000,
   },
   WILD_MUSHROOM_TALENT: {
@@ -1670,6 +1932,7 @@ const talents = createTalentList({
     icon: 'druid_ability_wildmushroom_a',
     maxRanks: 1,
     entryIds: [109854],
+    definitionIds: [{ id: 114859, specId: 102 }],
   },
   WILD_SLASHES_TALENT: {
     id: 390864,
@@ -1677,6 +1940,7 @@ const talents = createTalentList({
     icon: 'ability_xavius_tormentingswipe',
     maxRanks: 1,
     entryIds: [103150],
+    definitionIds: [{ id: 108155, specId: 103 }],
   },
   WILD_SURGES_TALENT: {
     id: 406890,
@@ -1684,6 +1948,7 @@ const talents = createTalentList({
     icon: 'ability_skyreach_lens_flare',
     maxRanks: 1,
     entryIds: [115458],
+    definitionIds: [{ id: 120470, specId: 102 }],
   },
   WILD_SYNTHESIS_TALENT: {
     id: 400533,
@@ -1691,6 +1956,7 @@ const talents = createTalentList({
     icon: 'spell_nature_protectionformnature',
     maxRanks: 1,
     entryIds: [114725],
+    definitionIds: [{ id: 119732, specId: 105 }],
   },
   YSERAS_GIFT_TALENT: {
     id: 145108,
@@ -1698,6 +1964,7 @@ const talents = createTalentList({
     icon: 'inv_misc_head_dragon_green',
     maxRanks: 1,
     entryIds: [103099],
+    definitionIds: [{ id: 108104, specId: 105 }],
   },
 });
 
