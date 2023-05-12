@@ -17,11 +17,15 @@ export const GuideContainer = styled.div`
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const isEbBuild = info.combatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT);
+  const includeTalentSection =
+    info.combatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT) ||
+    info.combatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT);
   return (
     <>
-      <Section title="Core Spell">
+      <Section title="Core Spells and Buffs">
         {modules.dreamBreath.guideSubsection}
         {modules.spiritBloom.guideSubsection}
+        {modules.essenceBurst.guideSubsection}
         {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
           !isEbBuild &&
           modules.resonatingSphere.guideSubsection}
@@ -29,7 +33,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Healing cooldowns">
         {info.combatant.hasTalent(TALENTS_EVOKER.DREAM_FLIGHT_TALENT) &&
           modules.dreamFlight.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
+          info.combatant.hasTalent(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT) &&
+          modules.emeraldCommunion.guideSubsection}
       </Section>
+      {includeTalentSection && (
+        <Section title="Talents">
+          {info.combatant.hasTalent(TALENTS_EVOKER.OUROBOROS_TALENT) &&
+            modules.ouroboros.guideSubsection}
+          {info.combatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT) && modules.stasis.guideSubsection}
+        </Section>
+      )}
       <PreparationSection />
     </>
   );

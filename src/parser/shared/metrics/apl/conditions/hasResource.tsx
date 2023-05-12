@@ -22,11 +22,6 @@ export default function hasResource(resource: Resource, range: Range): Condition
     update: (state, event) => {
       if (event.type === EventType.ResourceChange && event.resourceChangeType === resource.id) {
         return event.resourceChange - event.waste + state;
-      } else if (
-        event.type === EventType.SpendResource &&
-        event.resourceChangeType === resource.id
-      ) {
-        return state - event.resourceChange;
       } else if (event.type === EventType.Cast) {
         const res = castResource(resource, event);
         if (res) {

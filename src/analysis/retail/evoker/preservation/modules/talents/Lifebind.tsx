@@ -11,10 +11,15 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SPELL_COLORS } from '../../constants';
 import { getHealForLifebindHeal } from '../../normalizers/CastLinkNormalizer';
+import Combatants from 'parser/shared/modules/Combatants';
 
 class Lifebind extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
   healingBySpell: Map<number, number> = new Map<number, number>();
   curNumLifebinds: number = 0;
+  protected combatants!: Combatants;
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.LIFEBIND_TALENT);
@@ -39,6 +44,9 @@ class Lifebind extends Analyzer {
   }
 
   onApply(event: ApplyBuffEvent) {
+    if (!this.combatants.getEntity(event)) {
+      return;
+    }
     this.curNumLifebinds += 1;
   }
 
@@ -169,10 +177,10 @@ class Lifebind extends Analyzer {
         spellId: TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id,
         value:
           this.healingForSpell(SPELLS.EMERALD_COMMUNION_ALLY.id) +
-          this.healingForSpell(SPELLS.EMERALD_COMMUNION_SELF.id),
+          this.healingForSpell(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id),
         valueTooltip: formatNumber(
           this.healingForSpell(SPELLS.EMERALD_COMMUNION_ALLY.id) +
-            this.healingForSpell(SPELLS.EMERALD_COMMUNION_SELF.id),
+            this.healingForSpell(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id),
         ),
       },
       {
