@@ -73,6 +73,7 @@ const withResources = (
 const entryToSpell = (
   entry: TalentEntry,
   spec: string,
+  specId: number,
   sourceTree: 'class' | 'spec',
 ): GenericTalentInterface => ({
   id: entry.spellId!,
@@ -87,6 +88,7 @@ const entryToSpell = (
   spec,
   sourceTree,
   entryIds: [entry.id],
+  definitionIds: [{ id: entry.definitionId, specId }],
 });
 
 /**
@@ -112,6 +114,11 @@ const blindMergeTalents = (
 ): GenericTalentInterface => ({
   ...left,
   entryIds: [...left.entryIds, ...right.entryIds],
+  definitionIds: Array.from(
+    new Map(
+      [...left.definitionIds, ...right.definitionIds].map((item) => [item['id'], item]),
+    ).values(),
+  ),
 });
 
 function nodeEntries(node: TalentNode): TalentEntry[] {
@@ -153,7 +160,7 @@ async function generateTalents(isPTR: boolean = false) {
           .map((entry) => ({
             key: createTalentKey(entry.name!),
             conflictKey: createTalentKey(entry.name!, tree.specName),
-            value: entryToSpell(entry, tree.specName, 'spec'),
+            value: entryToSpell(entry, tree.specName, tree.specId, 'spec'),
           })),
       ),
     );
@@ -166,7 +173,7 @@ async function generateTalents(isPTR: boolean = false) {
           .map((entry) => ({
             key: createTalentKey(entry.name!),
             conflictKey: createTalentKey(entry.name!, 'Shared'),
-            value: entryToSpell(entry, tree.specName, 'class'),
+            value: entryToSpell(entry, tree.specName, tree.specId, 'class'),
           })),
       ),
     );

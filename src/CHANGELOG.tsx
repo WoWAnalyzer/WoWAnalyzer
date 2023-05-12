@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 5, 11), 'Fix multi-rank talent tooltip links.', ToppleTheNun),
   change(date(2023, 5, 10), 'Fix Echo of Nelthation display.', ToppleTheNun),
   change(date(2023, 5, 10), 'Add season 2 dungeon backgrounds.',  ToppleTheNun),
   change(date(2023, 5, 10), 'Fix Kazzara displaying as Magmorax.',  ToppleTheNun),
