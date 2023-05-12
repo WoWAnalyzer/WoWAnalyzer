@@ -11,7 +11,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
-const CAST_BUFFER_MS = 100;
+const CAST_BUFFER_MS = 200;
 
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a heal to its cast
 export const LIGHTWEAVER_APPLY = 'LightweaverApplication'; // link flash heal cast to applying the lightweaver buff
