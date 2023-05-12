@@ -1,18 +1,19 @@
-import Enemies from 'parser/shared/modules/Enemies';
 import Analyzer from 'parser/core/Analyzer';
+import Enemies from 'parser/shared/modules/Enemies';
+import Spell from 'common/SPELLS/Spell';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-export default class DebuffUptime extends Analyzer {
+abstract class DebuffUptime extends Analyzer {
   static dependencies = {
     enemies: Enemies,
   };
   protected enemies!: Enemies;
 
-  debuffId!: number;
+  abstract readonly debuffSpell: Spell;
 
   get debuffUptime(): number {
-    return this.enemies.getBuffUptime(this.debuffId) / this.owner.fightDuration;
+    return this.enemies.getBuffUptime(this.debuffSpell.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
@@ -41,3 +42,5 @@ export default class DebuffUptime extends Analyzer {
     return QualitativePerformance.Fail;
   }
 }
+
+export default DebuffUptime;

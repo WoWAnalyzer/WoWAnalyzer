@@ -13,18 +13,19 @@ function CastingSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <p>
-        <b>
-          <SpellLink spell={SPELLS.SHADOW_BOLT} />
-        </b>{' '}
-        |{' '}
-        <b>
-          <SpellLink spell={SPELLS.INCINERATE} />
-        </b>{' '}
-        |{' '}
-        <b>
-          <SpellLink spell={SPELLS.SOUL_FIRE} />
-        </b>
-        <br />
+        <div>
+          <b>
+            <SpellLink spell={SPELLS.SHADOW_BOLT} />
+          </b>{' '}
+          |{' '}
+          <b>
+            <SpellLink spell={SPELLS.INCINERATE} />
+          </b>{' '}
+          |{' '}
+          <b>
+            <SpellLink spell={SPELLS.SOUL_FIRE} />
+          </b>
+        </div>
         Demo Warlocks use filler spells when all DoTs and Debuffs are applied. Your go-to filler
         spell is <SpellLink spell={SPELLS.SHADOW_BOLT} />. It should be used to provide{' '}
         <SpellLink spell={SPELLS.SHADOW_MASTERY_DEBUFF} /> for the raid. When{' '}
@@ -36,21 +37,25 @@ function CastingSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
       </p>
       <hr />
       <p>
-        <b>Always Be Casting (ABC)</b> throughout the encounter. When moving, use your instant
-        abilities or set up{' '}
-        <SpellLink spell={SPELLS.DEMONIC_CIRCLE_TELEPORT} icon>
-          Demonic Circle{' '}
-        </SpellLink>{' '}
-        to reduce your movement.
-        <br />
+        <div>
+          <b>Always Be Casting (ABC)</b> throughout the encounter. When moving, use your instant
+          abilities or set up{' '}
+          <SpellLink spell={SPELLS.DEMONIC_CIRCLE_TELEPORT} icon>
+            Demonic Circle{' '}
+          </SpellLink>{' '}
+          to reduce your movement.
+        </div>
         <small>
           Some fights have unavoidable downtime due to events like phase transitions. In these
           cases, keep active as much as possible.
         </small>
       </p>
-      <b>Active Time</b>:{' '}
-      <PerformanceLabel performance={abcMod.DowntimePerformance}>{activePercent}%</PerformanceLabel>
-      <br />
+      <div>
+        <b>Active Time</b>:{' '}
+        <PerformanceLabel performance={abcMod.DowntimePerformance}>
+          {activePercent}%
+        </PerformanceLabel>
+      </div>
       <b>Cancelled Casts</b>:{' '}
       <PerformanceLabel performance={cancelledMod.CancelledPerformance}>
         <TooltipElement
