@@ -41,7 +41,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    'report/hcqvb7dzDQJBMpwH/1-LFR+The+Amalgamation+Chamber+-+Kill+(4:24)/Doxashe/standard',
+    'report/m7cTKbN9FhYzDkw8/1-Normal+Kazzara,+the+Hellforged+-+Kill+(3:54)/Doxashe/standard',
   guideDefault: true,
 
   // Don't change anything below this line;
