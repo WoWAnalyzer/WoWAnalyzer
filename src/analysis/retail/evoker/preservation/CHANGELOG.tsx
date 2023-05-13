@@ -5,6 +5,8 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 12), <>Fix bug in guide for <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT}/> checks</>, Trevor),
+  change(date(2023, 5, 11), <>Fix <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT}/> and <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT}/> modules</>, Trevor),
   change(date(2023, 5, 8), <>Fix bug in guide for <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT}/> checks</>, Trevor),
   change(date(2023, 5, 6), <>Add complete version of guide</>, Trevor),
   change(date(2023, 5, 6), <>Add basic guide</>, Trevor),

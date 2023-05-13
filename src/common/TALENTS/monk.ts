@@ -8,6 +8,7 @@ const talents = createTalentList({
     icon: 'ability_monk_zenmeditation',
     maxRanks: 1,
     entryIds: [101364],
+    definitionIds: [{ id: 106366, specId: 270 }],
   },
   ANCIENT_CONCORDANCE_TALENT: {
     id: 388740,
@@ -15,6 +16,7 @@ const talents = createTalentList({
     icon: 'spell_animaardenweald_beam',
     maxRanks: 2,
     entryIds: [101371],
+    definitionIds: [{ id: 106373, specId: 270 }],
   },
   ANCIENT_TEACHINGS_TALENT: {
     id: 388023,
@@ -22,6 +24,7 @@ const talents = createTalentList({
     icon: 'inv_misc_book_07',
     maxRanks: 1,
     entryIds: [101408],
+    definitionIds: [{ id: 106410, specId: 270 }],
   },
   ANVIL__STAVE_TALENT: {
     id: 386937,
@@ -29,6 +32,7 @@ const talents = createTalentList({
     icon: 'ability_monk_elusiveale',
     maxRanks: 2,
     entryIds: [101446],
+    definitionIds: [{ id: 106448, specId: 268 }],
   },
   ASCENSION_TALENT: {
     id: 115396,
@@ -36,6 +40,7 @@ const talents = createTalentList({
     icon: 'ability_monk_ascension',
     maxRanks: 1,
     entryIds: [101422],
+    definitionIds: [{ id: 106424, specId: 269 }],
   },
   ATTENUATION_TALENT: {
     id: 386941,
@@ -43,6 +48,10 @@ const talents = createTalentList({
     icon: 'spell_animamaldraxxus_nova',
     maxRanks: 1,
     entryIds: [101550, 101484],
+    definitionIds: [
+      { id: 106552, specId: 268 },
+      { id: 106486, specId: 269 },
+    ],
   },
   AWAKENED_FAELINE_TALENT: {
     id: 388779,
@@ -50,6 +59,7 @@ const talents = createTalentList({
     icon: 'spell_animaardenweald_buff',
     maxRanks: 1,
     entryIds: [101383],
+    definitionIds: [{ id: 106385, specId: 270 }],
   },
   BLACKOUT_COMBO_TALENT: {
     id: 196736,
@@ -57,6 +67,7 @@ const talents = createTalentList({
     icon: 'ability_monk_blackoutkick',
     maxRanks: 1,
     entryIds: [101411],
+    definitionIds: [{ id: 106413, specId: 268 }],
   },
   BLACK_OX_BREW_TALENT: {
     id: 115399,
@@ -64,6 +75,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chibrew',
     maxRanks: 1,
     entryIds: [101450],
+    definitionIds: [{ id: 106452, specId: 268 }],
   },
   BOB_AND_WEAVE_TALENT: {
     id: 280515,
@@ -71,6 +83,7 @@ const talents = createTalentList({
     icon: 'ability_creature_cursed_04',
     maxRanks: 1,
     entryIds: [101449],
+    definitionIds: [{ id: 106451, specId: 268 }],
   },
   BONEDUST_BREW_TALENT: {
     id: 386276,
@@ -78,6 +91,10 @@ const talents = createTalentList({
     icon: 'ability_maldraxxus_monk',
     maxRanks: 1,
     entryIds: [101552, 101485],
+    definitionIds: [
+      { id: 106554, specId: 268 },
+      { id: 106487, specId: 269 },
+    ],
   },
   BOUNCE_BACK_TALENT: {
     id: 389577,
@@ -85,6 +102,7 @@ const talents = createTalentList({
     icon: 'ability_butcher_heavyhanded',
     maxRanks: 2,
     entryIds: [101536],
+    definitionIds: [{ id: 106538, specId: 269 }],
   },
   BOUNTIFUL_BREW_TALENT: {
     id: 386949,
@@ -92,6 +110,7 @@ const talents = createTalentList({
     icon: 'spell_animamaldraxxus_wave',
     maxRanks: 1,
     entryIds: [101551],
+    definitionIds: [{ id: 106553, specId: 268 }],
   },
   BREATH_OF_FIRE_TALENT: {
     id: 115181,
@@ -99,6 +118,7 @@ const talents = createTalentList({
     icon: 'ability_monk_breathoffire',
     maxRanks: 1,
     entryIds: [101464],
+    definitionIds: [{ id: 106466, specId: 268 }],
   },
   BURST_OF_LIFE_TALENT: {
     id: 399226,
@@ -106,6 +126,7 @@ const talents = createTalentList({
     icon: 'ability_monk_counteractmagic',
     maxRanks: 1,
     entryIds: [114297],
+    definitionIds: [{ id: 119302, specId: 270 }],
   },
   CALL_TO_ARMS_TALENT: {
     id: 397251,
@@ -113,6 +134,7 @@ const talents = createTalentList({
     icon: 'ability_bastion_monk',
     maxRanks: 1,
     entryIds: [101538],
+    definitionIds: [{ id: 106540, specId: 268 }],
   },
   CALMING_COALESCENCE_TALENT: {
     id: 388218,
@@ -120,6 +142,7 @@ const talents = createTalentList({
     icon: 'ability_monk_healthsphere',
     maxRanks: 1,
     entryIds: [115684],
+    definitionIds: [{ id: 120696, specId: 270 }],
   },
   CALMING_PRESENCE_TALENT: {
     id: 388664,
@@ -127,6 +150,7 @@ const talents = createTalentList({
     icon: 'inv_misc_orb_01',
     maxRanks: 1,
     entryIds: [101511],
+    definitionIds: [{ id: 106513, specId: 269 }],
   },
   CELERITY_TALENT: {
     id: 115173,
@@ -134,6 +158,7 @@ const talents = createTalentList({
     icon: 'ability_monk_quipunch',
     maxRanks: 1,
     entryIds: [101503],
+    definitionIds: [{ id: 106505, specId: 269 }],
   },
   CELESTIAL_BREW_TALENT: {
     id: 322507,
@@ -141,6 +166,7 @@ const talents = createTalentList({
     icon: 'ability_monk_ironskinbrew',
     maxRanks: 1,
     entryIds: [101463],
+    definitionIds: [{ id: 106465, specId: 268 }],
   },
   CELESTIAL_FLAMES_TALENT: {
     id: 325177,
@@ -148,6 +174,7 @@ const talents = createTalentList({
     icon: 'inv_misc_volatilefire',
     maxRanks: 1,
     entryIds: [101460],
+    definitionIds: [{ id: 106462, specId: 268 }],
   },
   CELESTIAL_HARMONY_TALENT: {
     id: 343655,
@@ -155,6 +182,7 @@ const talents = createTalentList({
     icon: 'ability_monk_jadeserpentbreath',
     maxRanks: 1,
     entryIds: [101388],
+    definitionIds: [{ id: 106390, specId: 270 }],
   },
   CHARRED_PASSIONS_TALENT: {
     id: 386965,
@@ -162,6 +190,7 @@ const talents = createTalentList({
     icon: 'ability_monk_mightyoxkick',
     maxRanks: 1,
     entryIds: [101465],
+    definitionIds: [{ id: 106467, specId: 268 }],
   },
   CHI_BURST_TALENT: {
     id: 123986,
@@ -169,6 +198,7 @@ const talents = createTalentList({
     icon: 'spell_arcane_arcanetorrent',
     maxRanks: 1,
     entryIds: [101527],
+    definitionIds: [{ id: 106529, specId: 269 }],
   },
   CHI_SURGE_TALENT: {
     id: 393400,
@@ -176,6 +206,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chiexplosion',
     maxRanks: 1,
     entryIds: [101537],
+    definitionIds: [{ id: 106539, specId: 268 }],
   },
   CHI_TORPEDO_TALENT: {
     id: 115008,
@@ -183,6 +214,7 @@ const talents = createTalentList({
     icon: 'ability_monk_quitornado',
     maxRanks: 1,
     entryIds: [101502],
+    definitionIds: [{ id: 106504, specId: 269 }],
   },
   CHI_WAVE_TALENT: {
     id: 115098,
@@ -190,6 +222,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chiwave',
     maxRanks: 1,
     entryIds: [101528],
+    definitionIds: [{ id: 106530, specId: 269 }],
   },
   CHRYSALIS_TALENT: {
     id: 202424,
@@ -197,6 +230,7 @@ const talents = createTalentList({
     icon: 'ability_monk_domeofmist',
     maxRanks: 1,
     entryIds: [101389],
+    definitionIds: [{ id: 106391, specId: 270 }],
   },
   CLASH_TALENT: {
     id: 324312,
@@ -204,6 +238,7 @@ const talents = createTalentList({
     icon: 'ability_monk_clashingoxcharge',
     maxRanks: 1,
     entryIds: [101440],
+    definitionIds: [{ id: 106442, specId: 268 }],
   },
   CLOSE_TO_HEART_TALENT: {
     id: 389574,
@@ -211,6 +246,7 @@ const talents = createTalentList({
     icon: 'inv_offhand_1h_pvppandarias2_c_01',
     maxRanks: 2,
     entryIds: [101525],
+    definitionIds: [{ id: 106527, specId: 269 }],
   },
   CLOUDED_FOCUS_TALENT: {
     id: 388047,
@@ -218,6 +254,7 @@ const talents = createTalentList({
     icon: 'ability_monk_soothingmists',
     maxRanks: 1,
     entryIds: [101407],
+    definitionIds: [{ id: 106409, specId: 270 }],
   },
   COUNTERSTRIKE_TALENT: {
     id: 383785,
@@ -225,6 +262,7 @@ const talents = createTalentList({
     icon: 'ability_monk_palmstrike',
     maxRanks: 1,
     entryIds: [101441],
+    definitionIds: [{ id: 106443, specId: 268 }],
   },
   CRANE_VORTEX_TALENT: {
     id: 388848,
@@ -232,6 +270,7 @@ const talents = createTalentList({
     icon: 'ability_monk_cranekick_new',
     maxRanks: 2,
     entryIds: [101483],
+    definitionIds: [{ id: 106485, specId: 269 }],
   },
   DAMPEN_HARM_TALENT: {
     id: 122278,
@@ -239,6 +278,7 @@ const talents = createTalentList({
     icon: 'ability_monk_dampenharm',
     maxRanks: 1,
     entryIds: [101522],
+    definitionIds: [{ id: 106524, specId: 269 }],
   },
   DANCE_OF_CHI_JI_TALENT: {
     id: 325201,
@@ -246,6 +286,7 @@ const talents = createTalentList({
     icon: 'ability_monk_cranekick_new',
     maxRanks: 1,
     entryIds: [101437],
+    definitionIds: [{ id: 106439, specId: 269 }],
   },
   DANCING_MISTS_TALENT: {
     id: 388701,
@@ -253,6 +294,7 @@ const talents = createTalentList({
     icon: 'ability_monk_serenity',
     maxRanks: 2,
     entryIds: [101393],
+    definitionIds: [{ id: 106395, specId: 270 }],
   },
   DETOX_TALENT: {
     id: 218164,
@@ -260,6 +302,10 @@ const talents = createTalentList({
     icon: 'ability_rogue_imrovedrecuperate',
     maxRanks: 1,
     entryIds: [102626, 101416],
+    definitionIds: [
+      { id: 107631, specId: 268 },
+      { id: 106418, specId: 269 },
+    ],
     energyCost: 20,
   },
   DIFFUSE_MAGIC_TALENT: {
@@ -268,6 +314,7 @@ const talents = createTalentList({
     icon: 'spell_monk_diffusemagic',
     maxRanks: 1,
     entryIds: [101515],
+    definitionIds: [{ id: 106517, specId: 269 }],
   },
   DISABLE_TALENT: {
     id: 116095,
@@ -275,6 +322,7 @@ const talents = createTalentList({
     icon: 'ability_shockwave',
     maxRanks: 1,
     entryIds: [101495],
+    definitionIds: [{ id: 106497, specId: 269 }],
     energyCost: 15,
   },
   DRAGONFIRE_BREW_TALENT: {
@@ -283,6 +331,7 @@ const talents = createTalentList({
     icon: 'spell_fire_burnout',
     maxRanks: 1,
     entryIds: [101466],
+    definitionIds: [{ id: 106468, specId: 268 }],
   },
   DRINKING_HORN_COVER_TALENT: {
     id: 391370,
@@ -290,6 +339,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 1,
     entryIds: [101430],
+    definitionIds: [{ id: 106432, specId: 269 }],
   },
   DUST_IN_THE_WIND_TALENT: {
     id: 394093,
@@ -297,6 +347,7 @@ const talents = createTalentList({
     icon: 'inv_misc_powder_tin',
     maxRanks: 1,
     entryIds: [101486],
+    definitionIds: [{ id: 106488, specId: 269 }],
   },
   ECHOING_REVERBERATION_TALENT: {
     id: 388604,
@@ -304,6 +355,7 @@ const talents = createTalentList({
     icon: 'ability_monk_legacyoftheemperor',
     maxRanks: 1,
     entryIds: [101365],
+    definitionIds: [{ id: 106367, specId: 270 }],
   },
   ELUSIVE_FOOTWORK_TALENT: {
     id: 387046,
@@ -311,6 +363,7 @@ const talents = createTalentList({
     icon: 'ability_monk_shuffle',
     maxRanks: 2,
     entryIds: [101412],
+    definitionIds: [{ id: 106414, specId: 268 }],
   },
   ELUSIVE_MISTS_TALENT: {
     id: 388681,
@@ -318,6 +371,7 @@ const talents = createTalentList({
     icon: 'ability_monk_soothingmists',
     maxRanks: 2,
     entryIds: [101413],
+    definitionIds: [{ id: 106415, specId: 269 }],
   },
   EMPOWERED_TIGER_LIGHTNING_TALENT: {
     id: 323999,
@@ -325,6 +379,7 @@ const talents = createTalentList({
     icon: 'ability_monk_summontigerstatue',
     maxRanks: 1,
     entryIds: [101475],
+    definitionIds: [{ id: 106477, specId: 269 }],
   },
   ENVELOPING_MIST_TALENT: {
     id: 124682,
@@ -332,6 +387,7 @@ const talents = createTalentList({
     icon: 'spell_monk_envelopingmist',
     maxRanks: 1,
     entryIds: [101370],
+    definitionIds: [{ id: 106372, specId: 270 }],
     manaCost: 12000,
   },
   ESCAPE_FROM_REALITY_TALENT: {
@@ -340,6 +396,7 @@ const talents = createTalentList({
     icon: 'monk_ability_transcendence',
     maxRanks: 2,
     entryIds: [101534],
+    definitionIds: [{ id: 106536, specId: 269 }],
   },
   ESSENCE_FONT_TALENT: {
     id: 191837,
@@ -347,6 +404,7 @@ const talents = createTalentList({
     icon: 'ability_monk_essencefont',
     maxRanks: 1,
     entryIds: [101406],
+    definitionIds: [{ id: 106408, specId: 270 }],
     manaCost: 18000,
   },
   EXPEDITIOUS_FORTIFICATION_TALENT: {
@@ -355,6 +413,7 @@ const talents = createTalentList({
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
     entryIds: [101497],
+    definitionIds: [{ id: 106499, specId: 269 }],
   },
   EXPLODING_KEG_TALENT: {
     id: 325153,
@@ -362,6 +421,7 @@ const talents = createTalentList({
     icon: 'archaeology_5_0_emptykegofbrewfatherxinwoyin',
     maxRanks: 1,
     entryIds: [101542],
+    definitionIds: [{ id: 106544, specId: 268 }],
   },
   EYE_OF_THE_TIGER_TALENT: {
     id: 196607,
@@ -369,6 +429,7 @@ const talents = createTalentList({
     icon: 'ability_druid_primalprecision',
     maxRanks: 1,
     entryIds: [101518],
+    definitionIds: [{ id: 106520, specId: 269 }],
   },
   FACE_PALM_TALENT: {
     id: 389942,
@@ -376,6 +437,7 @@ const talents = createTalentList({
     icon: 'ability_monk_tigerpalm',
     maxRanks: 1,
     entryIds: [101442],
+    definitionIds: [{ id: 106444, specId: 268 }],
   },
   FAELINE_HARMONY_TALENT: {
     id: 391412,
@@ -383,6 +445,7 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_monk',
     maxRanks: 1,
     entryIds: [101487],
+    definitionIds: [{ id: 106489, specId: 269 }],
   },
   FAELINE_STOMP_TALENT: {
     id: 388193,
@@ -390,6 +453,10 @@ const talents = createTalentList({
     icon: 'ability_ardenweald_monk',
     maxRanks: 1,
     entryIds: [101359, 101488],
+    definitionIds: [
+      { id: 106361, specId: 270 },
+      { id: 106490, specId: 269 },
+    ],
     manaCost: 10000,
   },
   FAST_FEET_TALENT: {
@@ -398,6 +465,7 @@ const talents = createTalentList({
     icon: 'ability_monk_risingsunkick',
     maxRanks: 2,
     entryIds: [101523],
+    definitionIds: [{ id: 106525, specId: 269 }],
   },
   FATAL_FLYING_GUILLOTINE_TALENT: {
     id: 394923,
@@ -405,6 +473,7 @@ const talents = createTalentList({
     icon: 'ability_monk_touchofdeath',
     maxRanks: 1,
     entryIds: [101482],
+    definitionIds: [{ id: 106484, specId: 269 }],
   },
   FATAL_TOUCH_TALENT: {
     id: 394123,
@@ -412,6 +481,7 @@ const talents = createTalentList({
     icon: 'ability_monk_touchofdeath',
     maxRanks: 2,
     entryIds: [101521],
+    definitionIds: [{ id: 106523, specId: 269 }],
   },
   FEROCITY_OF_XUEN_TALENT: {
     id: 388674,
@@ -419,6 +489,7 @@ const talents = createTalentList({
     icon: 'ability_mount_pinktiger',
     maxRanks: 2,
     entryIds: [101524],
+    definitionIds: [{ id: 106526, specId: 269 }],
   },
   FISTS_OF_FURY_TALENT: {
     id: 113656,
@@ -426,6 +497,7 @@ const talents = createTalentList({
     icon: 'monk_ability_fistoffury',
     maxRanks: 1,
     entryIds: [101423],
+    definitionIds: [{ id: 106425, specId: 269 }],
     chiCost: 3,
   },
   FLASHING_FISTS_TALENT: {
@@ -434,6 +506,7 @@ const talents = createTalentList({
     icon: 'inv_weapon_hand_08',
     maxRanks: 2,
     entryIds: [101425],
+    definitionIds: [{ id: 106427, specId: 269 }],
   },
   FLUIDITY_OF_MOTION_TALENT: {
     id: 387230,
@@ -441,6 +514,7 @@ const talents = createTalentList({
     icon: 'ability_monk_standingkick',
     maxRanks: 1,
     entryIds: [101443],
+    definitionIds: [{ id: 106445, specId: 268 }],
   },
   FLYING_SERPENT_KICK_TALENT: {
     id: 101545,
@@ -448,6 +522,7 @@ const talents = createTalentList({
     icon: 'ability_monk_flyingdragonkick',
     maxRanks: 1,
     entryIds: [101432],
+    definitionIds: [{ id: 106434, specId: 269 }],
   },
   FOCUSED_THUNDER_TALENT: {
     id: 197895,
@@ -455,6 +530,7 @@ const talents = createTalentList({
     icon: 'spell_monk_nimblebrew',
     maxRanks: 1,
     entryIds: [101401],
+    definitionIds: [{ id: 106403, specId: 270 }],
   },
   FONT_OF_LIFE_TALENT: {
     id: 337209,
@@ -462,6 +538,7 @@ const talents = createTalentList({
     icon: 'spell_shaman_tidalwaves',
     maxRanks: 1,
     entryIds: [101386],
+    definitionIds: [{ id: 106388, specId: 270 }],
   },
   FORBIDDEN_TECHNIQUE_TALENT: {
     id: 393098,
@@ -469,6 +546,7 @@ const talents = createTalentList({
     icon: 'ability_monk_touchofdeath',
     maxRanks: 1,
     entryIds: [101418],
+    definitionIds: [{ id: 106420, specId: 269 }],
   },
   FORTIFYING_BREW_DETERMINATION_TALENT: {
     id: 322960,
@@ -476,6 +554,7 @@ const talents = createTalentList({
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
     entryIds: [101470],
+    definitionIds: [{ id: 106472, specId: 268 }],
   },
   FORTIFYING_BREW_TALENT: {
     id: 115203,
@@ -483,6 +562,7 @@ const talents = createTalentList({
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
     entryIds: [101496],
+    definitionIds: [{ id: 106498, specId: 269 }],
   },
   FUNDAMENTAL_OBSERVATION_TALENT: {
     id: 387035,
@@ -490,6 +570,7 @@ const talents = createTalentList({
     icon: 'ability_monk_zenmeditation',
     maxRanks: 1,
     entryIds: [101439],
+    definitionIds: [{ id: 106441, specId: 268 }],
   },
   FURY_OF_XUEN_TALENT: {
     id: 396166,
@@ -497,6 +578,7 @@ const talents = createTalentList({
     icon: 'ability_monk_prideofthetiger',
     maxRanks: 1,
     entryIds: [101472],
+    definitionIds: [{ id: 106474, specId: 269 }],
   },
   GAI_PLINS_IMPERIAL_BREW_TALENT: {
     id: 383700,
@@ -504,6 +586,7 @@ const talents = createTalentList({
     icon: 'inv_misc_beer_06',
     maxRanks: 1,
     entryIds: [101545],
+    definitionIds: [{ id: 106547, specId: 268 }],
   },
   GENEROUS_POUR_TALENT: {
     id: 389575,
@@ -511,6 +594,7 @@ const talents = createTalentList({
     icon: 'inv_misc_food_legion_goocaramel_bottle',
     maxRanks: 2,
     entryIds: [101500],
+    definitionIds: [{ id: 106502, specId: 269 }],
   },
   GIFT_OF_THE_CELESTIALS_TALENT: {
     id: 388212,
@@ -518,6 +602,7 @@ const talents = createTalentList({
     icon: 'inv_pet_jadeserpentpet',
     maxRanks: 1,
     entryIds: [101381],
+    definitionIds: [{ id: 106383, specId: 270 }],
   },
   GIFT_OF_THE_OX_TALENT: {
     id: 124502,
@@ -525,6 +610,7 @@ const talents = createTalentList({
     icon: 'ability_druid_giftoftheearthmother',
     maxRanks: 1,
     entryIds: [101452],
+    definitionIds: [{ id: 106454, specId: 268 }],
   },
   GLORY_OF_THE_DAWN_TALENT: {
     id: 392958,
@@ -532,6 +618,7 @@ const talents = createTalentList({
     icon: 'ability_monk_mightyoxkick',
     maxRanks: 1,
     entryIds: [101493],
+    definitionIds: [{ id: 106495, specId: 269 }],
   },
   GRACEFUL_EXIT_TALENT: {
     id: 387256,
@@ -539,6 +626,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_sprint_blue',
     maxRanks: 1,
     entryIds: [101457],
+    definitionIds: [{ id: 106459, specId: 268 }],
   },
   GRACE_OF_THE_CRANE_TALENT: {
     id: 388811,
@@ -546,6 +634,7 @@ const talents = createTalentList({
     icon: 'monk_ability_cherrymanatea',
     maxRanks: 2,
     entryIds: [101529],
+    definitionIds: [{ id: 106531, specId: 269 }],
   },
   HARDENED_SOLES_TALENT: {
     id: 391383,
@@ -553,6 +642,7 @@ const talents = createTalentList({
     icon: 'ability_monk_roundhousekick',
     maxRanks: 2,
     entryIds: [101421],
+    definitionIds: [{ id: 106423, specId: 269 }],
   },
   HASTY_PROVOCATION_TALENT: {
     id: 328670,
@@ -560,6 +650,7 @@ const talents = createTalentList({
     icon: 'ability_monk_provoke',
     maxRanks: 1,
     entryIds: [101514],
+    definitionIds: [{ id: 106516, specId: 269 }],
   },
   HEALING_ELIXIR_TALENT: {
     id: 122281,
@@ -567,6 +658,10 @@ const talents = createTalentList({
     icon: 'ability_monk_jasmineforcetea',
     maxRanks: 1,
     entryIds: [101374, 101458],
+    definitionIds: [
+      { id: 106376, specId: 270 },
+      { id: 106460, specId: 268 },
+    ],
   },
   HIGH_TOLERANCE_TALENT: {
     id: 196737,
@@ -574,6 +669,7 @@ const talents = createTalentList({
     icon: 'monk_ability_avertharm',
     maxRanks: 2,
     entryIds: [101469],
+    definitionIds: [{ id: 106471, specId: 268 }],
   },
   HIT_COMBO_TALENT: {
     id: 196740,
@@ -581,6 +677,7 @@ const talents = createTalentList({
     icon: 'ability_monk_palmstrike',
     maxRanks: 1,
     entryIds: [101492],
+    definitionIds: [{ id: 106494, specId: 269 }],
   },
   HIT_SCHEME_TALENT: {
     id: 383695,
@@ -588,6 +685,7 @@ const talents = createTalentList({
     icon: 'ability_monk_roundhousekick',
     maxRanks: 1,
     entryIds: [101461],
+    definitionIds: [{ id: 106463, specId: 268 }],
   },
   IMPROVED_CELESTIAL_BREW_TALENT: {
     id: 322510,
@@ -595,6 +693,7 @@ const talents = createTalentList({
     icon: 'ability_monk_ironskinbrew',
     maxRanks: 1,
     entryIds: [101462],
+    definitionIds: [{ id: 106464, specId: 268 }],
   },
   IMPROVED_DETOX_TALENT: {
     id: 388874,
@@ -602,6 +701,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_imrovedrecuperate',
     maxRanks: 1,
     entryIds: [102627],
+    definitionIds: [{ id: 107632, specId: 270 }],
   },
   IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
     id: 322740,
@@ -609,6 +709,7 @@ const talents = createTalentList({
     icon: 'spell_monk_brewmaster_spec',
     maxRanks: 1,
     entryIds: [101540],
+    definitionIds: [{ id: 106542, specId: 268 }],
   },
   IMPROVED_PARALYSIS_TALENT: {
     id: 344359,
@@ -616,6 +717,7 @@ const talents = createTalentList({
     icon: 'ability_monk_paralysis',
     maxRanks: 1,
     entryIds: [101505],
+    definitionIds: [{ id: 106507, specId: 269 }],
   },
   IMPROVED_PURIFYING_BREW_TALENT: {
     id: 343743,
@@ -623,6 +725,7 @@ const talents = createTalentList({
     icon: 'inv_misc_beer_06',
     maxRanks: 1,
     entryIds: [101471],
+    definitionIds: [{ id: 106473, specId: 268 }],
   },
   IMPROVED_ROLL_TALENT: {
     id: 328669,
@@ -630,6 +733,7 @@ const talents = createTalentList({
     icon: 'ability_monk_roll',
     maxRanks: 1,
     entryIds: [101531],
+    definitionIds: [{ id: 106533, specId: 269 }],
   },
   IMPROVED_TOUCH_OF_DEATH_TALENT: {
     id: 322113,
@@ -637,6 +741,7 @@ const talents = createTalentList({
     icon: 'ability_monk_touchofdeath',
     maxRanks: 1,
     entryIds: [101501],
+    definitionIds: [{ id: 106503, specId: 269 }],
   },
   IMPROVED_VIVIFY_TALENT: {
     id: 231602,
@@ -644,6 +749,7 @@ const talents = createTalentList({
     icon: 'ability_monk_vivify',
     maxRanks: 2,
     entryIds: [101510],
+    definitionIds: [{ id: 106512, specId: 269 }],
   },
   INNER_PEACE_TALENT: {
     id: 397768,
@@ -651,6 +757,7 @@ const talents = createTalentList({
     icon: 'ability_monk_jasmineforcetea',
     maxRanks: 1,
     entryIds: [101438],
+    definitionIds: [{ id: 106440, specId: 269 }],
   },
   INVIGORATING_MISTS_TALENT: {
     id: 274586,
@@ -658,6 +765,7 @@ const talents = createTalentList({
     icon: 'ability_monk_vivify',
     maxRanks: 1,
     entryIds: [101358],
+    definitionIds: [{ id: 106360, specId: 270 }],
   },
   INVOKERS_DELIGHT_TALENT: {
     id: 388661,
@@ -665,6 +773,10 @@ const talents = createTalentList({
     icon: 'inv_inscription_80_warscroll_battleshout',
     maxRanks: 1,
     entryIds: [101373, 101477],
+    definitionIds: [
+      { id: 106375, specId: 270 },
+      { id: 106479, specId: 269 },
+    ],
   },
   INVOKE_CHI_JI_THE_RED_CRANE_TALENT: {
     id: 325197,
@@ -672,6 +784,7 @@ const talents = createTalentList({
     icon: 'inv_pet_cranegod',
     maxRanks: 1,
     entryIds: [101396],
+    definitionIds: [{ id: 106398, specId: 270 }],
     manaCost: 12500,
   },
   INVOKE_NIUZAO_THE_BLACK_OX_TALENT: {
@@ -680,6 +793,7 @@ const talents = createTalentList({
     icon: 'spell_monk_brewmaster_spec',
     maxRanks: 1,
     entryIds: [101544],
+    definitionIds: [{ id: 106546, specId: 268 }],
   },
   INVOKE_XUEN_THE_WHITE_TIGER_TALENT: {
     id: 123904,
@@ -687,6 +801,7 @@ const talents = createTalentList({
     icon: 'ability_monk_summontigerstatue',
     maxRanks: 1,
     entryIds: [101473],
+    definitionIds: [{ id: 106475, specId: 269 }],
   },
   INVOKE_YULON_THE_JADE_SERPENT_TALENT: {
     id: 322118,
@@ -694,6 +809,7 @@ const talents = createTalentList({
     icon: 'ability_monk_dragonkick',
     maxRanks: 1,
     entryIds: [101397],
+    definitionIds: [{ id: 106399, specId: 270 }],
     manaCost: 12500,
   },
   IRONSHELL_BREW_TALENT: {
@@ -702,6 +818,7 @@ const talents = createTalentList({
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
     entryIds: [101498],
+    definitionIds: [{ id: 106500, specId: 269 }],
   },
   JADE_BOND_TALENT: {
     id: 388031,
@@ -709,6 +826,7 @@ const talents = createTalentList({
     icon: 'inv_inscription_deck_jadeserpent',
     maxRanks: 1,
     entryIds: [101382],
+    definitionIds: [{ id: 106384, specId: 270 }],
   },
   JADE_IGNITION_TALENT: {
     id: 392979,
@@ -716,6 +834,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chiexplosion',
     maxRanks: 1,
     entryIds: [101417],
+    definitionIds: [{ id: 106419, specId: 269 }],
   },
   KEG_SMASH_TALENT: {
     id: 121253,
@@ -723,6 +842,7 @@ const talents = createTalentList({
     icon: 'achievement_brewery_2',
     maxRanks: 1,
     entryIds: [101451],
+    definitionIds: [{ id: 106453, specId: 268 }],
     energyCost: 40,
   },
   LAST_EMPERORS_CAPACITOR_TALENT: {
@@ -731,6 +851,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 1,
     entryIds: [101480],
+    definitionIds: [{ id: 106482, specId: 269 }],
   },
   LEGACY_OF_WISDOM_TALENT: {
     id: 404408,
@@ -738,6 +859,7 @@ const talents = createTalentList({
     icon: 'misc_legionfall_monk',
     maxRanks: 1,
     entryIds: [114821],
+    definitionIds: [{ id: 119828, specId: 270 }],
   },
   LIFECYCLES_TALENT: {
     id: 197915,
@@ -745,6 +867,7 @@ const talents = createTalentList({
     icon: 'ability_monk_souldance',
     maxRanks: 1,
     entryIds: [101380],
+    definitionIds: [{ id: 106382, specId: 270 }],
   },
   LIFE_COCOON_TALENT: {
     id: 116849,
@@ -752,6 +875,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chicocoon',
     maxRanks: 1,
     entryIds: [101390],
+    definitionIds: [{ id: 106392, specId: 270 }],
     manaCost: 6000,
   },
   LIGHT_BREWING_TALENT: {
@@ -760,6 +884,7 @@ const talents = createTalentList({
     icon: 'spell_brew_wheat',
     maxRanks: 1,
     entryIds: [101448],
+    definitionIds: [{ id: 106450, specId: 268 }],
   },
   MANA_TEA_TALENT: {
     id: 197908,
@@ -767,6 +892,7 @@ const talents = createTalentList({
     icon: 'monk_ability_cherrymanatea',
     maxRanks: 1,
     entryIds: [101379],
+    definitionIds: [{ id: 106381, specId: 270 }],
   },
   MARK_OF_THE_CRANE_TALENT: {
     id: 220357,
@@ -774,6 +900,7 @@ const talents = createTalentList({
     icon: 'ability_monk_cranekick_new',
     maxRanks: 1,
     entryIds: [101434],
+    definitionIds: [{ id: 106436, specId: 269 }],
   },
   MASTERY_OF_MIST_TALENT: {
     id: 281231,
@@ -781,6 +908,7 @@ const talents = createTalentList({
     icon: 'spell_nature_wispsplodegreen',
     maxRanks: 1,
     entryIds: [101395],
+    definitionIds: [{ id: 106397, specId: 270 }],
   },
   MENDING_PROLIFERATION_TALENT: {
     id: 388509,
@@ -788,6 +916,7 @@ const talents = createTalentList({
     icon: 'inv_shoulder_inv_leather_raidmonk_s_01',
     maxRanks: 1,
     entryIds: [101375],
+    definitionIds: [{ id: 106377, specId: 270 }],
   },
   MERIDIAN_STRIKES_TALENT: {
     id: 391330,
@@ -795,6 +924,7 @@ const talents = createTalentList({
     icon: 'ability_monk_touchofdeath',
     maxRanks: 1,
     entryIds: [101431],
+    definitionIds: [{ id: 106433, specId: 269 }],
   },
   MISTS_OF_LIFE_TALENT: {
     id: 388548,
@@ -802,6 +932,7 @@ const talents = createTalentList({
     icon: 'inv_shoulder__inv_leather_raidmonkmythic_s_01',
     maxRanks: 1,
     entryIds: [101369],
+    definitionIds: [{ id: 106371, specId: 270 }],
   },
   MISTY_PEAKS_TALENT: {
     id: 388682,
@@ -809,6 +940,7 @@ const talents = createTalentList({
     icon: 'achievement_zone_stormpeaks_10',
     maxRanks: 2,
     entryIds: [101402],
+    definitionIds: [{ id: 106404, specId: 270 }],
   },
   MIST_WRAP_TALENT: {
     id: 197900,
@@ -816,6 +948,7 @@ const talents = createTalentList({
     icon: 'ability_monk_pathofmists',
     maxRanks: 1,
     entryIds: [101363],
+    definitionIds: [{ id: 106365, specId: 270 }],
   },
   NOURISHING_CHI_TALENT: {
     id: 387765,
@@ -823,6 +956,7 @@ const talents = createTalentList({
     icon: 'inv_misc_gem_pearl_06',
     maxRanks: 1,
     entryIds: [101409],
+    definitionIds: [{ id: 106411, specId: 270 }],
   },
   OPEN_PALM_STRIKES_TALENT: {
     id: 392970,
@@ -830,6 +964,7 @@ const talents = createTalentList({
     icon: 'monk_ability_fistoffury',
     maxRanks: 1,
     entryIds: [101494],
+    definitionIds: [{ id: 106496, specId: 269 }],
   },
   OVERFLOWING_MISTS_TALENT: {
     id: 388511,
@@ -837,6 +972,7 @@ const talents = createTalentList({
     icon: 'inv_legion_faction_dreamweavers',
     maxRanks: 2,
     entryIds: [101387],
+    definitionIds: [{ id: 106389, specId: 270 }],
   },
   PARALYSIS_TALENT: {
     id: 115078,
@@ -844,6 +980,7 @@ const talents = createTalentList({
     icon: 'ability_monk_paralysis',
     maxRanks: 1,
     entryIds: [101506],
+    definitionIds: [{ id: 106508, specId: 269 }],
     energyCost: 20,
   },
   PEACEFUL_MENDING_TALENT: {
@@ -852,6 +989,7 @@ const talents = createTalentList({
     icon: 'pandarenracial_innerpeace',
     maxRanks: 2,
     entryIds: [101399],
+    definitionIds: [{ id: 106401, specId: 270 }],
   },
   POWER_STRIKES_TALENT: {
     id: 121817,
@@ -859,6 +997,7 @@ const talents = createTalentList({
     icon: 'ability_monk_powerstrikes',
     maxRanks: 1,
     entryIds: [101424],
+    definitionIds: [{ id: 106426, specId: 269 }],
   },
   PRETENSE_OF_INSTABILITY_TALENT: {
     id: 393516,
@@ -866,6 +1005,7 @@ const talents = createTalentList({
     icon: 'inv_misc_archaeology_vrykuldrinkinghorn',
     maxRanks: 1,
     entryIds: [101445],
+    definitionIds: [{ id: 106447, specId: 268 }],
   },
   PROFOUND_REBUTTAL_TALENT: {
     id: 392910,
@@ -873,6 +1013,7 @@ const talents = createTalentList({
     icon: 'ability_monk_expelharm',
     maxRanks: 1,
     entryIds: [101526],
+    definitionIds: [{ id: 106528, specId: 269 }],
   },
   PURIFYING_BREW_TALENT: {
     id: 119582,
@@ -880,6 +1021,7 @@ const talents = createTalentList({
     icon: 'inv_misc_beer_06',
     maxRanks: 1,
     entryIds: [101453],
+    definitionIds: [{ id: 106455, specId: 268 }],
   },
   QUICK_SIP_TALENT: {
     id: 388505,
@@ -887,6 +1029,7 @@ const talents = createTalentList({
     icon: 'achievement_faction_brewmaster',
     maxRanks: 1,
     entryIds: [101456],
+    definitionIds: [{ id: 106458, specId: 268 }],
   },
   RAPID_DIFFUSION_TALENT: {
     id: 388847,
@@ -894,6 +1037,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chiswirl',
     maxRanks: 2,
     entryIds: [101385],
+    definitionIds: [{ id: 106387, specId: 270 }],
   },
   REFRESHING_JADE_WIND_TALENT: {
     id: 196725,
@@ -901,6 +1045,7 @@ const talents = createTalentList({
     icon: 'ability_monk_rushingjadewind',
     maxRanks: 1,
     entryIds: [101362],
+    definitionIds: [{ id: 106364, specId: 270 }],
     manaCost: 12500,
   },
   RENEWING_MIST_TALENT: {
@@ -909,6 +1054,7 @@ const talents = createTalentList({
     icon: 'ability_monk_renewingmists',
     maxRanks: 1,
     entryIds: [101394],
+    definitionIds: [{ id: 106396, specId: 270 }],
     manaCost: 4500,
   },
   RESONANT_FISTS_TALENT: {
@@ -917,6 +1063,7 @@ const talents = createTalentList({
     icon: 'inv_weapon_hand_16',
     maxRanks: 2,
     entryIds: [101520],
+    definitionIds: [{ id: 106522, specId: 269 }],
   },
   RESPLENDENT_MIST_TALENT: {
     id: 388020,
@@ -924,6 +1071,7 @@ const talents = createTalentList({
     icon: 'spell_nature_abolishmagic',
     maxRanks: 2,
     entryIds: [101391],
+    definitionIds: [{ id: 106393, specId: 270 }],
   },
   RESTORAL_TALENT: {
     id: 388615,
@@ -931,6 +1079,7 @@ const talents = createTalentList({
     icon: 'ability_monk_tigerstyle',
     maxRanks: 1,
     entryIds: [101377],
+    definitionIds: [{ id: 106379, specId: 270 }],
     manaCost: 10935,
   },
   REVIVAL_TALENT: {
@@ -939,6 +1088,7 @@ const talents = createTalentList({
     icon: 'spell_monk_revival',
     maxRanks: 1,
     entryIds: [101378],
+    definitionIds: [{ id: 106380, specId: 270 }],
     manaCost: 10935,
   },
   RING_OF_PEACE_TALENT: {
@@ -947,6 +1097,7 @@ const talents = createTalentList({
     icon: 'spell_monk_ringofpeace',
     maxRanks: 1,
     entryIds: [101516],
+    definitionIds: [{ id: 106518, specId: 269 }],
   },
   RISING_MIST_TALENT: {
     id: 274909,
@@ -954,6 +1105,7 @@ const talents = createTalentList({
     icon: 'ability_monk_effuse',
     maxRanks: 1,
     entryIds: [101356],
+    definitionIds: [{ id: 106358, specId: 270 }],
   },
   RISING_STAR_TALENT: {
     id: 388849,
@@ -961,6 +1113,7 @@ const talents = createTalentList({
     icon: 'ability_monk_risingsunkick',
     maxRanks: 2,
     entryIds: [101489],
+    definitionIds: [{ id: 106491, specId: 269 }],
   },
   RISING_SUN_KICK_TALENT: {
     id: 107428,
@@ -968,6 +1121,7 @@ const talents = createTalentList({
     icon: 'ability_monk_risingsunkick',
     maxRanks: 1,
     entryIds: [101508],
+    definitionIds: [{ id: 106510, specId: 269 }],
     chiCost: 2,
   },
   RUSHING_JADE_WIND_TALENT: {
@@ -976,6 +1130,10 @@ const talents = createTalentList({
     icon: 'ability_monk_rushingjadewind',
     maxRanks: 1,
     entryIds: [101549, 101436],
+    definitionIds: [
+      { id: 106551, specId: 268 },
+      { id: 106438, specId: 269 },
+    ],
     chiCost: 1,
   },
   SALSALABIMS_STRENGTH_TALENT: {
@@ -984,6 +1142,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_unrelentingassault',
     maxRanks: 1,
     entryIds: [101467],
+    definitionIds: [{ id: 106469, specId: 268 }],
   },
   SAVE_THEM_ALL_TALENT: {
     id: 389579,
@@ -991,6 +1150,7 @@ const talents = createTalentList({
     icon: 'inv_weapon_hand_22',
     maxRanks: 2,
     entryIds: [101533],
+    definitionIds: [{ id: 106535, specId: 269 }],
   },
   SCALDING_BREW_TALENT: {
     id: 383698,
@@ -998,6 +1158,7 @@ const talents = createTalentList({
     icon: 'spell_brew_bolt_dark',
     maxRanks: 1,
     entryIds: [101468],
+    definitionIds: [{ id: 106470, specId: 268 }],
   },
   SECRET_INFUSION_TALENT: {
     id: 388491,
@@ -1005,6 +1166,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chibrew',
     maxRanks: 2,
     entryIds: [101372],
+    definitionIds: [{ id: 106374, specId: 270 }],
   },
   SERENITY_TALENT: {
     id: 152173,
@@ -1012,6 +1174,7 @@ const talents = createTalentList({
     icon: 'ability_monk_serenity',
     maxRanks: 1,
     entryIds: [101428],
+    definitionIds: [{ id: 106430, specId: 269 }],
   },
   SHADOWBOXING_TREADS_BREWMASTER_TALENT: {
     id: 387638,
@@ -1019,6 +1182,7 @@ const talents = createTalentList({
     icon: 'ability_monk_roundhousekick',
     maxRanks: 1,
     entryIds: [101444],
+    definitionIds: [{ id: 106446, specId: 268 }],
   },
   SHADOWBOXING_TREADS_WINDWALKER_TALENT: {
     id: 392982,
@@ -1026,6 +1190,7 @@ const talents = createTalentList({
     icon: 'ability_monk_roundhousekick',
     maxRanks: 1,
     entryIds: [101435],
+    definitionIds: [{ id: 106437, specId: 269 }],
   },
   SHAOHAOS_LESSONS_TALENT: {
     id: 400089,
@@ -1033,6 +1198,7 @@ const talents = createTalentList({
     icon: 'ability_monk_dematerialize',
     maxRanks: 1,
     entryIds: [101404],
+    definitionIds: [{ id: 106406, specId: 270 }],
   },
   SHEILUNS_GIFT_TALENT: {
     id: 399491,
@@ -1040,6 +1206,7 @@ const talents = createTalentList({
     icon: 'inv_staff_2h_artifactshaohao_d_01',
     maxRanks: 1,
     entryIds: [101392],
+    definitionIds: [{ id: 106394, specId: 270 }],
     manaCost: 6250,
   },
   SHUFFLE_TALENT: {
@@ -1048,6 +1215,7 @@ const talents = createTalentList({
     icon: 'ability_monk_shuffle',
     maxRanks: 1,
     entryIds: [101455],
+    definitionIds: [{ id: 106457, specId: 268 }],
   },
   SKYREACH_TALENT: {
     id: 392991,
@@ -1055,6 +1223,7 @@ const talents = createTalentList({
     icon: 'inv__fistofthewhitetiger',
     maxRanks: 1,
     entryIds: [114822],
+    definitionIds: [{ id: 119829, specId: 269 }],
   },
   SKYTOUCH_TALENT: {
     id: 405044,
@@ -1062,6 +1231,7 @@ const talents = createTalentList({
     icon: 'inv__fistofthewhitetiger',
     maxRanks: 1,
     entryIds: [101479],
+    definitionIds: [{ id: 106481, specId: 269 }],
   },
   SONG_OF_CHI_JI_TALENT: {
     id: 198898,
@@ -1069,6 +1239,7 @@ const talents = createTalentList({
     icon: 'inv_chaos_orb',
     maxRanks: 1,
     entryIds: [115464],
+    definitionIds: [{ id: 120476, specId: 269 }],
   },
   SOOTHING_MIST_TALENT: {
     id: 115175,
@@ -1076,6 +1247,7 @@ const talents = createTalentList({
     icon: 'ability_monk_soothingmists',
     maxRanks: 1,
     entryIds: [101509],
+    definitionIds: [{ id: 106511, specId: 269 }],
     manaCost: 0,
   },
   SPEAR_HAND_STRIKE_TALENT: {
@@ -1084,6 +1256,7 @@ const talents = createTalentList({
     icon: 'ability_monk_spearhand',
     maxRanks: 1,
     entryIds: [101504],
+    definitionIds: [{ id: 106506, specId: 269 }],
   },
   SPECIAL_DELIVERY_TALENT: {
     id: 196730,
@@ -1091,6 +1264,7 @@ const talents = createTalentList({
     icon: 'achievement_brewery_2',
     maxRanks: 1,
     entryIds: [101548],
+    definitionIds: [{ id: 106550, specId: 268 }],
   },
   SPIRITUAL_FOCUS_TALENT: {
     id: 280197,
@@ -1098,6 +1272,7 @@ const talents = createTalentList({
     icon: 'spell_nature_giftofthewild',
     maxRanks: 1,
     entryIds: [101427],
+    definitionIds: [{ id: 106429, specId: 269 }],
   },
   SPIRIT_OF_THE_CRANE_TALENT: {
     id: 210802,
@@ -1105,6 +1280,7 @@ const talents = createTalentList({
     icon: 'monk_stance_redcrane',
     maxRanks: 1,
     entryIds: [101361],
+    definitionIds: [{ id: 106363, specId: 270 }],
   },
   SPIRIT_OF_THE_OX_TALENT: {
     id: 400629,
@@ -1112,6 +1288,7 @@ const talents = createTalentList({
     icon: 'ability_titankeeper_cleansingorb',
     maxRanks: 1,
     entryIds: [114729],
+    definitionIds: [{ id: 119736, specId: 268 }],
   },
   STAGGERING_STRIKES_TALENT: {
     id: 387625,
@@ -1119,6 +1296,7 @@ const talents = createTalentList({
     icon: 'ability_monk_blackoutstrike',
     maxRanks: 1,
     entryIds: [101459],
+    definitionIds: [{ id: 106461, specId: 268 }],
   },
   STORMSTOUTS_LAST_KEG_TALENT: {
     id: 383707,
@@ -1126,6 +1304,7 @@ const talents = createTalentList({
     icon: 'achievement_brewery_2',
     maxRanks: 1,
     entryIds: [101541],
+    definitionIds: [{ id: 106543, specId: 268 }],
   },
   STORM_EARTH_AND_FIRE_TALENT: {
     id: 137639,
@@ -1133,6 +1312,7 @@ const talents = createTalentList({
     icon: 'spell_nature_giftofthewild',
     maxRanks: 1,
     entryIds: [101429],
+    definitionIds: [{ id: 106431, specId: 269 }],
   },
   STRENGTH_OF_SPIRIT_TALENT: {
     id: 387276,
@@ -1140,6 +1320,7 @@ const talents = createTalentList({
     icon: 'ability_monk_healthsphere',
     maxRanks: 1,
     entryIds: [101499],
+    definitionIds: [{ id: 106501, specId: 269 }],
   },
   STRIKE_OF_THE_WINDLORD_TALENT: {
     id: 392983,
@@ -1147,6 +1328,7 @@ const talents = createTalentList({
     icon: 'inv_hand_1h_artifactskywall_d_01',
     maxRanks: 1,
     entryIds: [101491],
+    definitionIds: [{ id: 106493, specId: 269 }],
     chiCost: 2,
   },
   SUMMON_BLACK_OX_STATUE_TALENT: {
@@ -1155,6 +1337,7 @@ const talents = createTalentList({
     icon: 'monk_ability_summonoxstatue',
     maxRanks: 1,
     entryIds: [101535],
+    definitionIds: [{ id: 106537, specId: 269 }],
   },
   SUMMON_JADE_SERPENT_STATUE_TALENT: {
     id: 115313,
@@ -1162,6 +1345,7 @@ const talents = createTalentList({
     icon: 'ability_monk_summonserpentstatue',
     maxRanks: 1,
     entryIds: [101532],
+    definitionIds: [{ id: 106534, specId: 269 }],
   },
   SUMMON_WHITE_TIGER_STATUE_TALENT: {
     id: 388686,
@@ -1169,6 +1353,7 @@ const talents = createTalentList({
     icon: 'ability_monk_summonwhitetigerstatue',
     maxRanks: 1,
     entryIds: [101519],
+    definitionIds: [{ id: 106521, specId: 269 }],
   },
   TEACHINGS_OF_THE_MONASTERY_TALENT: {
     id: 116645,
@@ -1176,6 +1361,10 @@ const talents = createTalentList({
     icon: 'passive_monk_teachingsofmonastery',
     maxRanks: 1,
     entryIds: [101403, 101426],
+    definitionIds: [
+      { id: 106405, specId: 270 },
+      { id: 106428, specId: 269 },
+    ],
   },
   TEAR_OF_MORNING_TALENT: {
     id: 387991,
@@ -1183,6 +1372,7 @@ const talents = createTalentList({
     icon: 'ability_monk_uplift',
     maxRanks: 1,
     entryIds: [101357],
+    definitionIds: [{ id: 106359, specId: 270 }],
   },
   TEA_OF_PLENTY_TALENT: {
     id: 388517,
@@ -1190,6 +1380,7 @@ const talents = createTalentList({
     icon: 'inv_misc_pearlmilktea',
     maxRanks: 1,
     entryIds: [101366],
+    definitionIds: [{ id: 106368, specId: 270 }],
   },
   TEA_OF_SERENITY_TALENT: {
     id: 393460,
@@ -1197,6 +1388,7 @@ const talents = createTalentList({
     icon: 'inv_misc_food_vendor_roastedbarlytea',
     maxRanks: 1,
     entryIds: [101367],
+    definitionIds: [{ id: 106369, specId: 270 }],
   },
   THUNDERFIST_TALENT: {
     id: 392985,
@@ -1204,6 +1396,7 @@ const talents = createTalentList({
     icon: 'inv_hand_1h_artifactskywall_d_01',
     maxRanks: 1,
     entryIds: [101490],
+    definitionIds: [{ id: 106492, specId: 269 }],
   },
   THUNDER_FOCUS_TEA_TALENT: {
     id: 116680,
@@ -1211,6 +1404,7 @@ const talents = createTalentList({
     icon: 'ability_monk_thunderfocustea',
     maxRanks: 1,
     entryIds: [101410],
+    definitionIds: [{ id: 106412, specId: 270 }],
   },
   TIGERS_LUST_TALENT: {
     id: 116841,
@@ -1218,6 +1412,7 @@ const talents = createTalentList({
     icon: 'ability_monk_tigerslust',
     maxRanks: 1,
     entryIds: [101507],
+    definitionIds: [{ id: 106509, specId: 269 }],
   },
   TIGER_TAIL_SWEEP_TALENT: {
     id: 264348,
@@ -1225,6 +1420,7 @@ const talents = createTalentList({
     icon: 'ability_monk_legsweep',
     maxRanks: 2,
     entryIds: [101414],
+    definitionIds: [{ id: 106416, specId: 269 }],
   },
   TOUCH_OF_KARMA_TALENT: {
     id: 122470,
@@ -1232,6 +1428,7 @@ const talents = createTalentList({
     icon: 'ability_monk_touchofkarma',
     maxRanks: 1,
     entryIds: [101420],
+    definitionIds: [{ id: 106422, specId: 269 }],
   },
   TOUCH_OF_THE_TIGER_TALENT: {
     id: 388856,
@@ -1239,6 +1436,7 @@ const talents = createTalentList({
     icon: 'ability_monk_tigerpalm',
     maxRanks: 2,
     entryIds: [101433],
+    definitionIds: [{ id: 106435, specId: 269 }],
   },
   TRAINING_OF_NIUZAO_TALENT: {
     id: 383714,
@@ -1246,6 +1444,7 @@ const talents = createTalentList({
     icon: 'monk_stance_drunkenox',
     maxRanks: 1,
     entryIds: [101447],
+    definitionIds: [{ id: 106449, specId: 268 }],
   },
   TRANQUIL_SPIRIT_TALENT: {
     id: 393357,
@@ -1253,6 +1452,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chiswirl',
     maxRanks: 1,
     entryIds: [101546],
+    definitionIds: [{ id: 106548, specId: 268 }],
   },
   TRANSCENDENCE_TALENT: {
     id: 101643,
@@ -1260,6 +1460,7 @@ const talents = createTalentList({
     icon: 'monk_ability_transcendence',
     maxRanks: 1,
     entryIds: [101512],
+    definitionIds: [{ id: 106514, specId: 269 }],
   },
   TRANSFER_THE_POWER_TALENT: {
     id: 195300,
@@ -1267,6 +1468,7 @@ const talents = createTalentList({
     icon: 'ability_thunderking_kickshell',
     maxRanks: 1,
     entryIds: [101476],
+    definitionIds: [{ id: 106478, specId: 269 }],
   },
   UNISON_TALENT: {
     id: 388477,
@@ -1274,6 +1476,7 @@ const talents = createTalentList({
     icon: 'ability_creature_cursed_04',
     maxRanks: 1,
     entryIds: [101376],
+    definitionIds: [{ id: 106378, specId: 270 }],
   },
   UPLIFTED_SPIRITS_TALENT: {
     id: 388551,
@@ -1281,6 +1484,7 @@ const talents = createTalentList({
     icon: 'monk_stance_wiseserpent',
     maxRanks: 1,
     entryIds: [101398],
+    definitionIds: [{ id: 106400, specId: 270 }],
   },
   UPWELLING_TALENT: {
     id: 274963,
@@ -1288,6 +1492,7 @@ const talents = createTalentList({
     icon: 'ability_monk_surgingmist',
     maxRanks: 1,
     entryIds: [101400],
+    definitionIds: [{ id: 106402, specId: 270 }],
   },
   VEIL_OF_PRIDE_TALENT: {
     id: 400053,
@@ -1295,6 +1500,7 @@ const talents = createTalentList({
     icon: 'ability_monk_vivify',
     maxRanks: 1,
     entryIds: [101405],
+    definitionIds: [{ id: 106407, specId: 270 }],
   },
   VIGOROUS_EXPULSION_TALENT: {
     id: 392900,
@@ -1302,6 +1508,7 @@ const talents = createTalentList({
     icon: 'ability_monk_expelharm',
     maxRanks: 1,
     entryIds: [101530],
+    definitionIds: [{ id: 106532, specId: 269 }],
   },
   VIVACIOUS_VIVIFICATION_TALENT: {
     id: 388812,
@@ -1309,6 +1516,7 @@ const talents = createTalentList({
     icon: 'ability_monk_vivify',
     maxRanks: 1,
     entryIds: [101513],
+    definitionIds: [{ id: 106515, specId: 269 }],
   },
   WALK_WITH_THE_OX_TALENT: {
     id: 387219,
@@ -1316,6 +1524,7 @@ const talents = createTalentList({
     icon: 'monk_stance_drunkenox',
     maxRanks: 2,
     entryIds: [101543],
+    definitionIds: [{ id: 106545, specId: 268 }],
   },
   WAY_OF_THE_FAE_TALENT: {
     id: 392994,
@@ -1323,6 +1532,7 @@ const talents = createTalentList({
     icon: 'spell_animaardenweald_beam',
     maxRanks: 1,
     entryIds: [101415],
+    definitionIds: [{ id: 106417, specId: 269 }],
   },
   WEAPONS_OF_ORDER_TALENT: {
     id: 387184,
@@ -1330,6 +1540,7 @@ const talents = createTalentList({
     icon: 'ability_bastion_monk',
     maxRanks: 1,
     entryIds: [101539],
+    definitionIds: [{ id: 106541, specId: 268 }],
     manaCost: 12500,
   },
   WHIRLING_DRAGON_PUNCH_TALENT: {
@@ -1338,6 +1549,7 @@ const talents = createTalentList({
     icon: 'ability_monk_hurricanestrike',
     maxRanks: 1,
     entryIds: [101474],
+    definitionIds: [{ id: 106476, specId: 269 }],
   },
   WIDENING_WHIRL_TALENT: {
     id: 388846,
@@ -1345,6 +1557,7 @@ const talents = createTalentList({
     icon: 'ability_monk_forcesphere_pink',
     maxRanks: 1,
     entryIds: [101419],
+    definitionIds: [{ id: 106421, specId: 269 }],
   },
   WINDWALKING_TALENT: {
     id: 157411,
@@ -1352,6 +1565,7 @@ const talents = createTalentList({
     icon: 'monk_stance_whitetiger',
     maxRanks: 2,
     entryIds: [101517],
+    definitionIds: [{ id: 106519, specId: 269 }],
   },
   XUENS_BATTLEGEAR_TALENT: {
     id: 392993,
@@ -1359,6 +1573,7 @@ const talents = createTalentList({
     icon: 'monk_stance_whitetiger',
     maxRanks: 1,
     entryIds: [101478],
+    definitionIds: [{ id: 106480, specId: 269 }],
   },
   XUENS_BOND_TALENT: {
     id: 392986,
@@ -1366,6 +1581,7 @@ const talents = createTalentList({
     icon: 'ability_demonhunter_netherbond',
     maxRanks: 1,
     entryIds: [101481],
+    definitionIds: [{ id: 106483, specId: 269 }],
   },
   YULONS_WHISPER_TALENT: {
     id: 388038,
@@ -1373,6 +1589,7 @@ const talents = createTalentList({
     icon: 'ability_monk_chiexplosion',
     maxRanks: 1,
     entryIds: [101384],
+    definitionIds: [{ id: 106386, specId: 270 }],
   },
   ZEN_MEDITATION_TALENT: {
     id: 115176,
@@ -1380,6 +1597,7 @@ const talents = createTalentList({
     icon: 'ability_monk_zenmeditation',
     maxRanks: 1,
     entryIds: [101547],
+    definitionIds: [{ id: 106549, specId: 268 }],
   },
   ZEN_PULSE_TALENT: {
     id: 124081,
@@ -1387,6 +1605,7 @@ const talents = createTalentList({
     icon: 'ability_monk_forcesphere',
     maxRanks: 1,
     entryIds: [101368],
+    definitionIds: [{ id: 106370, specId: 270 }],
     manaCost: 2500,
   },
 });

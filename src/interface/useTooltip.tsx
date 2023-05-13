@@ -46,7 +46,11 @@ export const spellRelative = (id: number, details: any): string => {
     }
     if (details.rank) {
       // We usually see rank 1 as 1, but wowhead starts at 0
-      queryString.push(`rank=${details.rank - 1}`);
+      // AS OF 2023 MAY 11, IT APPEARS THAT WOWHEAD NOW STARTS AT 1
+      queryString.push(`rank=${details.rank}`);
+    }
+    if (details.def) {
+      queryString.push(`def=${details.def}`);
     }
     return queryString.join('&');
   }
