@@ -13,7 +13,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import FillerUsage from './modules/features/FillerUsage';
 import Checklist from './modules/checklist/Module';
 // Spells
-// import SpellName from './modules/spells';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
@@ -27,9 +26,8 @@ class CombatLogParser extends BaseCombatLogParser {
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
-    fillerUSage: FillerUsage,
     // Spells
-    // spellName: SpellName,
+    fillerUSage: FillerUsage,
   };
 }
 

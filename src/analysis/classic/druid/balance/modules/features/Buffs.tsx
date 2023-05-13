@@ -7,7 +7,6 @@ class Buffs extends CoreAuras {
   // A list of Buffs (on the current player) to highlight on the Timeline
   auras() {
     return [
-      // Update and Add to the spells below
       {
         spellId: SPELLS.INNERVATE.id,
         timelineHighlight: true,
