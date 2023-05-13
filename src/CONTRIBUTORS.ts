@@ -2165,7 +2165,7 @@ export const iTitou: Contributor = {
   mains: [
     {
       name: 'Fantomeuh',
-      spec: SPECS.RESTORATION_DRUID,
+      spec: SPECS.CLASSIC_DRUID_RESTORATION,
       link: 'https://classic.warcraftlogs.com/character/eu/sulfuron/fantomeuh',
     },
   ],

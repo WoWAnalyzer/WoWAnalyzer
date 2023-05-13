@@ -9,7 +9,6 @@ import PreparationRuleAnalyzer from 'parser/classic/modules/features/Checklist/P
 // Features
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 // Spells
-// import SpellName from './modules/spells';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -42,7 +41,6 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           // Spells
-          // spellName: this.spellName.uptimeSuggestionThresholds,
         }}
       />
     );

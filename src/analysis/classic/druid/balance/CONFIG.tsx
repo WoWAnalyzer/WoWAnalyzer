@@ -24,13 +24,8 @@ const config: Config = {
   pages: {
     overview: {
       hideChecklist: false,
-      text: (
-        <>
-          Classic WotLK support is still a Work in Progress. This spec guide is a stub. See the
-          "About" tab for information on contributing.
-        </>
-      ),
-      type: 'warning', // info, warning, or danger
+      text: <>Classic WotLK support is still a Work in Progress.</>,
+      type: 'info', // info, warning, or danger
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
@@ -48,8 +43,7 @@ const config: Config = {
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    // Update ClassicCasterSpec -> Example: ClassicFireMage
-    import('./CombatLogParser' /* webpackChunkName: "ClassicCasterSpec" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "ClassicBalanceDruid" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
