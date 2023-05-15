@@ -14,7 +14,8 @@ import CurseOfTheElements from '../spells/CurseOfTheElements';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import DonutChart from 'parser/ui/DonutChart';
-import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import { PerformanceRoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class CurseUptime extends Analyzer {
   static dependencies = {
@@ -47,6 +48,20 @@ class CurseUptime extends Analyzer {
       },
       style: ThresholdStyle.PERCENTAGE,
     };
+  }
+
+  get DowntimePerformance(): QualitativePerformance {
+    const suggestionThresholds = this.suggestionThresholds.isLessThan;
+    if (this.uptime >= 1) {
+      return QualitativePerformance.Perfect;
+    }
+    if (this.uptime >= suggestionThresholds.minor) {
+      return QualitativePerformance.Good;
+    }
+    if (this.uptime >= suggestionThresholds.average) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
   }
 
   suggestions(when: When) {
@@ -158,14 +173,14 @@ class CurseUptime extends Analyzer {
           minute.
         </p>
         <SideBySidePanels>
-          <RoundedPanel>
+          <PerformanceRoundedPanel performance={this.DowntimePerformance}>
             <strong>Curse Totals</strong>
             {this.totalChart}
-          </RoundedPanel>
-          <RoundedPanel>
+          </PerformanceRoundedPanel>
+          <PerformanceRoundedPanel performance={this.DowntimePerformance}>
             <strong>Curse Breakdown</strong>
             {this.curseChart}
-          </RoundedPanel>
+          </PerformanceRoundedPanel>
         </SideBySidePanels>
       </>
     );

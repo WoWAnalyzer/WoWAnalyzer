@@ -24,27 +24,23 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   }
 
   suggestions(when: When) {
-    when(this.downtimeSuggestionThresholds)
-      .isGreaterThan(0.15)
-      .addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            Your downtime can be improved. Try to Always Be Casting (ABC). If you have to move, use
-            instant cast spells (DoTs or <SpellLink id={SPELLS.LIFE_TAP} />
-            ). Make use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE_SUMMON} /> when possible.
-          </>,
+    when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your downtime can be improved. Try to Always Be Casting (ABC). If you have to move, use
+          instant cast spells (DoTs or <SpellLink id={SPELLS.LIFE_TAP} />
+          ). Make use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE_SUMMON} /> when possible.
+        </>,
+      )
+        .icon('spell_mage_altertime')
+        .actual(
+          t({
+            id: 'warlock.affliction.suggestions.alwaysBeCasting.downtime',
+            message: `${formatPercentage(actual)}% downtime`,
+          }),
         )
-          .icon('spell_mage_altertime')
-          .actual(
-            t({
-              id: 'warlock.affliction.suggestions.alwaysBeCasting.downtime',
-              message: `${formatPercentage(actual)}% downtime`,
-            }),
-          )
-          .recommended(`<${formatPercentage(recommended)}% is recommended`)
-          .regular(recommended + 0.15)
-          .major(recommended + 0.2),
-      );
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
   }
 
   statistic() {
