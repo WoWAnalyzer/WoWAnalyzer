@@ -1,6 +1,6 @@
 import TALENTS from 'common/TALENTS/priest';
 
-export const DISPERSION_BASE_CD = 90;
+export const DISPERSION_BASE_CD = 120;
 export const DISPERSION_UPTIME_MS = 6000;
 
 export const SHADOW_WORD_DEATH_EXECUTE_RANGE = 0.2;
@@ -10,12 +10,13 @@ export const MINDBENDER_UPTIME_MS = 15000;
 export const MS_BUFFER = 100;
 
 export const SPIRIT_DAMAGE_MULTIPLIER = 1.15;
-export const SPIRIT_INSANITY_GENERATION = 1;
 
 export const TWIST_OF_FATE_INCREASE = 1.1;
 
 export const VOID_TORRENT_MAX_TIME = 3000;
 export const VOID_TORRENT_INSANITY_PER_SECOND = 8;
-export const VOID_TORRENT_INSANITY_PER_TICK = 6;
+export const VOID_TORRENT_INSANITY_PER_TICK = 4.8;
+
+export const INESCAPABLE_TORMENT_EXTENSION = 0.7;
 
 export const VOID_FORM_ACTIVATORS = [TALENTS.VOID_ERUPTION_TALENT.id];

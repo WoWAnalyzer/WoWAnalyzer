@@ -1,5 +1,6 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import Analyzer from 'parser/core/Analyzer';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -16,7 +17,7 @@ class VampiricEmbrace extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   get casts() {
-    return this.abilityTracker.getAbility(SPELLS.VAMPIRIC_EMBRACE.id).casts;
+    return this.abilityTracker.getAbility(TALENTS.VAMPIRIC_EMBRACE_TALENT.id).casts;
   }
 
   get healingDone() {
@@ -30,7 +31,7 @@ class VampiricEmbrace extends Analyzer {
         size="flexible"
         tooltip={`${formatNumber(this.healingDone)} healing done in ${this.casts || 0} cast(s).`}
       >
-        <BoringSpellValueText spellId={SPELLS.VAMPIRIC_EMBRACE.id}>
+        <BoringSpellValueText spellId={TALENTS.VAMPIRIC_EMBRACE_TALENT.id}>
           <>
             <ItemHealingDone amount={this.healingDone} />
           </>

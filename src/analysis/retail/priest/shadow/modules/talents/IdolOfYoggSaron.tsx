@@ -15,13 +15,7 @@ class IdolOfYoggSaron extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.IDOL_OF_YOGG_SARON_TALENT);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.IDOL_OF_YOGG_SARON_VOID_SPIKE_DAMAGE),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER_PET)
-        .spell(SPELLS.IDOL_OF_YOGG_SARON_VOID_SPIKE_CLEAVE_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER_PET).spell(SPELLS.IDOL_OF_YOGG_SARON_DAMAGE),
       this.onDamage,
     );
   }

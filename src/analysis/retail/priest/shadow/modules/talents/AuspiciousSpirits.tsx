@@ -3,13 +3,13 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Insanity from 'interface/icons/Insanity';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import { SPIRIT_DAMAGE_MULTIPLIER, SPIRIT_INSANITY_GENERATION } from '../../constants';
+import { SPIRIT_DAMAGE_MULTIPLIER } from '../../constants';
 
 class AuspiciousSpirits extends Analyzer {
   damage = 0;
@@ -22,11 +22,18 @@ class AuspiciousSpirits extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_DAMAGE),
       this.onApparitionDamage,
     );
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SHADOWY_APPARITION_RESOURCE),
+      this.onApparitionGain,
+    );
   }
 
   onApparitionDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    this.insanity += SPIRIT_INSANITY_GENERATION;
+  }
+
+  onApparitionGain(event: ResourceChangeEvent) {
+    this.insanity += event.resourceChange;
   }
 
   statistic() {
@@ -38,9 +45,12 @@ class AuspiciousSpirits extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS.AUSPICIOUS_SPIRITS_TALENT.id}>
           <>
-            <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
-            <br />
-            <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
+            <div>
+              <ItemDamageDone amount={this.damage - this.damage / SPIRIT_DAMAGE_MULTIPLIER} />
+            </div>
+            <div>
+              <Insanity /> {formatNumber(this.insanity)} <small>Insanity generated</small>
+            </div>
           </>
         </BoringSpellValueText>
       </Statistic>

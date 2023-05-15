@@ -50,39 +50,29 @@ class ShadowyInsight extends Analyzer {
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
-    this.abilities.increaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
     this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, false, false);
     this.procsGained += 1;
   }
 
   onCast() {
-    /*for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
-    /if(Math.abs(this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id)) + Math.abs(this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id)) != this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id)){
-    /  console.log("ERROR",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
-    /}
+    /*
+    //for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
+    if(Math.abs(this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id)) + Math.abs(this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id)) != this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id)){
+      console.log("ERROR",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
+    }
+    
+    console.log("MB CAST",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
     */
-    //console.log("MB CAST",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
-    this.abilities.decreaseMaxCharges(event, SPELLS.MIND_BLAST.id, 1);
-
-    if (this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id) === 2) {
-      // In certain circumstances, if you have 2 charges available after the buff, you can end up having negative charges spellUsable.onCooldown
-      // Resting the cooldown entirely fixes the issue.
-      this.spellUsable.endCooldown(SPELLS.MIND_BLAST.id, event.timestamp, true, true);
-    }
-
     if (
       this.eventHistory.last(1, 100, Events.cast.by(SELECTED_PLAYER).spell(SPELLS.MIND_BLAST))
         .length === 0
     ) {
       // If MB is not instant, it's not a proc
-      // There may be a case where the debuff times out but both charges of mind blast haven't recharged causing a window where the spell is thought to be castable but isn't.
-      // For most haste values this would not be possible.
       return;
     }
-
     this.procsUsed += 1;
   }
 
@@ -111,10 +101,10 @@ class ShadowyInsight extends Analyzer {
       suggest(
         <>
           You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={SPELLS.SHADOWY_INSIGHT.id} /> procs.
+          <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} /> procs.
         </>,
       )
-        .icon(SPELLS.SHADOWY_INSIGHT.icon)
+        .icon(TALENTS.SHADOWY_INSIGHT_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.shadowyInsight.efficiency',
@@ -128,7 +118,7 @@ class ShadowyInsight extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.SHADOWY_INSIGHT.id}>
+        <BoringSpellValueText spellId={TALENTS.SHADOWY_INSIGHT_TALENT.id}>
           <>
             {this.procsUsed}/{this.procsGained} <small>Procs Used</small>
           </>
