@@ -1,0 +1,49 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://kr.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-kr"
+    }
+  },
+  "realms": [
+    {
+      "key": {
+        "href": "https://kr.api.blizzard.com/data/wow/realm/4417?namespace=dynamic-classic-kr"
+      },
+      "name": "소금 평원",
+      "id": 4417,
+      "slug": "shimmering-flats"
+    },
+    {
+      "key": {
+        "href": "https://kr.api.blizzard.com/data/wow/realm/4419?namespace=dynamic-classic-kr"
+      },
+      "name": "로크홀라",
+      "id": 4419,
+      "slug": "lokholar"
+    },
+    {
+      "key": {
+        "href": "https://kr.api.blizzard.com/data/wow/realm/4420?namespace=dynamic-classic-kr"
+      },
+      "name": "얼음피",
+      "id": 4420,
+      "slug": "iceblood"
+    },
+    {
+      "key": {
+        "href": "https://kr.api.blizzard.com/data/wow/realm/4421?namespace=dynamic-classic-kr"
+      },
+      "name": "라그나로스",
+      "id": 4421,
+      "slug": "ragnaros"
+    },
+    {
+      "key": {
+        "href": "https://kr.api.blizzard.com/data/wow/realm/4840?namespace=dynamic-classic-kr"
+      },
+      "name": "서리한",
+      "id": 4840,
+      "slug": "frostmourne"
+    }
+  ]
+}
