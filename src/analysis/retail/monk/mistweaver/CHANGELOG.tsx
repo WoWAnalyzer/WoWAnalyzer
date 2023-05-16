@@ -6,8 +6,9 @@ import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2023, 5, 7), <>Fix potential NaN in <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> module</>, Trevor),
-  change(date(2023, 5, 6), <>Add average cooldown statistic to <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> module</>, Trevor),
+  change(date(2023, 5, 17), <>Fixed some more bugs in guide</>, Trevor),
+  change(date(2023, 5, 17), <>Fix potential NaN in <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> module</>, Trevor),
+  change(date(2023, 5, 16), <>Add average cooldown statistic to <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> module</>, Trevor),
   change(date(2023, 5, 6), <>Added check for casting <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}/> during <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/></>, Trevor),
   change(date(2023, 5, 6), <>Added additional analysis to the <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT}/> module.</>, Vohrr),
   change(date(2023, 5, 5), <>Added per-stack breakdowns for each spell affected in the <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT}/> module.</>, Vohrr),
