@@ -33,10 +33,10 @@ export function getAveragePerf(perfs: QualitativePerformance[]) {
   const orderArr = perfs.map((perf) => {
     return order.indexOf(perf);
   });
-  orderArr.forEach((idx) => {
-    total += orderArr[idx];
+  orderArr.forEach((i) => {
+    total += i;
   });
-  const average = Math.round(total / orderArr.length);
+  const average = Math.floor(total / orderArr.length);
   return order[average];
 }
 

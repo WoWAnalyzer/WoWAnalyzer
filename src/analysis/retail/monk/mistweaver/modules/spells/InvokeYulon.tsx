@@ -66,6 +66,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
       numEfHots: this.ef.curBuffs,
       recastEf: false,
       deathTimestamp: 0,
+      castRsk: false,
     });
   }
 
@@ -141,7 +142,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         s.
       </p>
     );
-    /* Disabled for 10.1 sinec we will want to use TFT at the end of the ramp to ensure 4pc */
+    /* Disabled for 10.1 since we will want to use TFT at the end of the ramp to ensure 4pc */
     /* <ul>
           <li>
             If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
@@ -169,6 +170,12 @@ class InvokeYulon extends BaseCelestialAnalyzer {
             allPerfs.push(rval[0]);
             checklistItems.push(rval[1]);
           }
+          if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
+            const rval = this.getRskCastPerfAndItem(cast);
+            allPerfs.push(rval[0]);
+            checklistItems.push(rval[1]);
+          }
+
           const avgPerf = getAveragePerf(allPerfs);
           return (
             <CooldownExpandable
