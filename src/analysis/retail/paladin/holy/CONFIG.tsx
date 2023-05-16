@@ -12,7 +12,7 @@ const config: Config = {
   contributors: [CamClark],
   expansion: Expansion.Dragonflight,
   patchCompatibility: '10.1.0',
-  isPartial: true,
+  isPartial: false,
   description: (
     <>
       Hey! I hope the suggestions will help you improve your performance. Remember: focus on

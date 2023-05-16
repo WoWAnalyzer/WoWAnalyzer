@@ -1,0 +1,81 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://tw.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-tw"
+    }
+  },
+  "realms": [
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/4485?namespace=dynamic-classic-tw"
+      },
+      "name": "瑪拉頓",
+      "id": 4485,
+      "slug": "maraudon"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/4487?namespace=dynamic-classic-tw"
+      },
+      "name": "伊弗斯",
+      "id": 4487,
+      "slug": "ivus"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/4488?namespace=dynamic-classic-tw"
+      },
+      "name": "烏蘇雷",
+      "id": 4488,
+      "slug": "wushoolay"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/4489?namespace=dynamic-classic-tw"
+      },
+      "name": "札里克",
+      "id": 4489,
+      "slug": "zeliek"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/5740?namespace=dynamic-classic-tw"
+      },
+      "name": "阿拉希盆地",
+      "id": 5740,
+      "slug": "arathi-basin"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/5741?namespace=dynamic-classic-tw"
+      },
+      "name": "魚人",
+      "id": 5741,
+      "slug": "murloc"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/5742?namespace=dynamic-classic-tw"
+      },
+      "name": "古雷曼格",
+      "id": 5742,
+      "slug": "golemagg"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/5743?namespace=dynamic-classic-tw"
+      },
+      "name": "逐風者",
+      "id": 5743,
+      "slug": "windseeker"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/5744?namespace=dynamic-classic-tw"
+      },
+      "name": "木喉要塞",
+      "id": 5744,
+      "slug": "timbermaw-hold"
+    }
+  ]
+}

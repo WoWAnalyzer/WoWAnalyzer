@@ -35,7 +35,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
+          !combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
       },
       {
         spell: TALENTS.MIND_SPIKE_TALENT.id,
@@ -51,7 +53,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.SURGE_OF_INSANITY_TALENT) &&
+          combatant.hasTalent(TALENTS.MIND_SPIKE_TALENT),
       },
       {
         spell: TALENTS.SHADOW_CRASH_TALENT.id,
@@ -202,7 +206,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.DISPERSION_TALENT.id,
         isDefensive: true,
-        buffSpellId: SPELLS.DISPERSION.id,
+        buffSpellId: TALENTS.DISPERSION_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 120 - (combatant.hasTalent(TALENTS.INTANGIBILITY_TALENT) ? 30 : 0),
         gcd: {
@@ -219,7 +223,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
-        buffSpellId: SPELLS.VAMPIRIC_EMBRACE.id,
+        buffSpellId: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
         isDefensive: true,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120 - (combatant.hasTalent(TALENTS.SANLAYN_TALENT) ? 45 : 0),

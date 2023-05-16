@@ -13,12 +13,12 @@ class Buffs extends CoreAuras {
       //Cooldowns
       {
         spellId: SPELLS.VOIDFORM_BUFF.id,
-        triggeredBySpellId: SPELLS.VOID_ERUPTION.id,
+        triggeredBySpellId: TALENTS.VOID_ERUPTION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DARK_ASCENSION_BUFF.id,
+        spellId: TALENTS.DARK_ASCENSION_TALENT.id,
         triggeredBySpellId: TALENTS.DARK_ASCENSION_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DARK_ASCENSION_TALENT),
         timelineHighlight: true,
@@ -31,7 +31,13 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.DARK_EVANGELISM_TALENT_BUFF.id,
-        triggeredBySpellId: SPELLS.MIND_FLAY.id,
+        triggeredBySpellId: [
+          SPELLS.MIND_FLAY.id,
+          SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id,
+          TALENTS.MIND_SPIKE_TALENT.id,
+          SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.id,
+          TALENTS.VOID_TORRENT_TALENT.id,
+        ],
         enabled: combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT),
         timelineHighlight: false,
       },
@@ -42,7 +48,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.DEATH_AND_MADNESS_BUFF.id,
+        spellId: SPELLS.DEATH_AND_MADNESS_TALENT_BUFF.id,
         triggeredBySpellId: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT),
         timelineHighlight: true,
@@ -55,11 +61,11 @@ class Buffs extends CoreAuras {
 
       //Utility and Defensive
       {
-        spellId: SPELLS.VAMPIRIC_EMBRACE.id,
+        spellId: TALENTS.VAMPIRIC_EMBRACE_TALENT.id,
         timelineHighlight: false,
       },
       {
-        spellId: SPELLS.DISPERSION.id,
+        spellId: TALENTS.DISPERSION_TALENT.id,
         timelineHighlight: true,
       },
       {

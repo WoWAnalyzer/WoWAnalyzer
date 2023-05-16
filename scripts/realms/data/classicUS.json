@@ -1,0 +1,193 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://us.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-us"
+    }
+  },
+  "realms": [
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4372?namespace=dynamic-classic-us"
+      },
+      "name": "Atiesh",
+      "id": 4372,
+      "slug": "atiesh"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4373?namespace=dynamic-classic-us"
+      },
+      "name": "Myzrael",
+      "id": 4373,
+      "slug": "myzrael"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4374?namespace=dynamic-classic-us"
+      },
+      "name": "Old Blanchy",
+      "id": 4374,
+      "slug": "old-blanchy"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4376?namespace=dynamic-classic-us"
+      },
+      "name": "Azuresong",
+      "id": 4376,
+      "slug": "azuresong"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4384?namespace=dynamic-classic-us"
+      },
+      "name": "Mankrik",
+      "id": 4384,
+      "slug": "mankrik"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4385?namespace=dynamic-classic-us"
+      },
+      "name": "Pagle",
+      "id": 4385,
+      "slug": "pagle"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4387?namespace=dynamic-classic-us"
+      },
+      "name": "Ashkandi",
+      "id": 4387,
+      "slug": "ashkandi"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4388?namespace=dynamic-classic-us"
+      },
+      "name": "Westfall",
+      "id": 4388,
+      "slug": "westfall"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4395?namespace=dynamic-classic-us"
+      },
+      "name": "Whitemane",
+      "id": 4395,
+      "slug": "whitemane"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4408?namespace=dynamic-classic-us"
+      },
+      "name": "Faerlina",
+      "id": 4408,
+      "slug": "faerlina"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4647?namespace=dynamic-classic-us"
+      },
+      "name": "Grobbulus",
+      "id": 4647,
+      "slug": "grobbulus"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4648?namespace=dynamic-classic-us"
+      },
+      "name": "Bloodsail Buccaneers",
+      "id": 4648,
+      "slug": "bloodsail-buccaneers"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4667?namespace=dynamic-classic-us"
+      },
+      "name": "Remulos",
+      "id": 4667,
+      "slug": "remulos"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4669?namespace=dynamic-classic-us"
+      },
+      "name": "Arugal",
+      "id": 4669,
+      "slug": "arugal"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4670?namespace=dynamic-classic-us"
+      },
+      "name": "Yojamba",
+      "id": 4670,
+      "slug": "yojamba"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4725?namespace=dynamic-classic-us"
+      },
+      "name": "Skyfury",
+      "id": 4725,
+      "slug": "skyfury"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4726?namespace=dynamic-classic-us"
+      },
+      "name": "Sulfuras",
+      "id": 4726,
+      "slug": "sulfuras"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4727?namespace=dynamic-classic-us"
+      },
+      "name": "Windseeker",
+      "id": 4727,
+      "slug": "windseeker"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4728?namespace=dynamic-classic-us"
+      },
+      "name": "Benediction",
+      "id": 4728,
+      "slug": "benediction"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4731?namespace=dynamic-classic-us"
+      },
+      "name": "Earthfury",
+      "id": 4731,
+      "slug": "earthfury"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4738?namespace=dynamic-classic-us"
+      },
+      "name": "Maladath",
+      "id": 4738,
+      "slug": "maladath"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4795?namespace=dynamic-classic-us"
+      },
+      "name": "Angerforge",
+      "id": 4795,
+      "slug": "angerforge"
+    },
+    {
+      "key": {
+        "href": "https://us.api.blizzard.com/data/wow/realm/4800?namespace=dynamic-classic-us"
+      },
+      "name": "Eranikus",
+      "id": 4800,
+      "slug": "eranikus"
+    }
+  ]
+}

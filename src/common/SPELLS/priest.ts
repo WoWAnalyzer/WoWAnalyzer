@@ -577,16 +577,7 @@ const spells = spellIndexableList({
     name: 'Vampiric Touch',
     icon: 'spell_holy_stoicism',
   },
-  DEVOURING_PLAGUE: {
-    id: 335467,
-    name: 'Devouring Plague',
-    icon: 'spell_shadow_devouringplague',
-  },
-  VOID_ERUPTION: {
-    id: 228260,
-    name: 'Void Eruption',
-    icon: 'spell_priest_void-blast',
-  },
+
   MASTERY_SHADOW_WEAVING: {
     id: 343690,
     name: 'Mastery: Shadow Weaving',
@@ -618,24 +609,6 @@ const spells = spellIndexableList({
     id: 205448,
     name: 'Void Bolt',
     icon: 'ability_ironmaidens_convulsiveshadows',
-  },
-
-  VOID_BOLT_DISSONANT_ECHOES: {
-    id: 343355,
-    name: 'Void Bolt',
-    icon: 'ability_ironmaidens_convulsiveshadows',
-  },
-
-  DISPERSION: {
-    id: 47585,
-    name: 'Dispersion',
-    icon: 'spell_shadow_dispersion',
-  },
-
-  VAMPIRIC_EMBRACE: {
-    id: 15286,
-    name: 'Vampiric Embrace',
-    icon: 'spell_shadow_unsummonbuilding',
   },
 
   VAMPIRIC_EMBRACE_HEAL: {
@@ -688,7 +661,13 @@ const spells = spellIndexableList({
   },
 
   SHADOWY_APPARITION_DAMAGE: {
-    id: 148859,
+    id: 413231,
+    name: 'Shadowy Apparition',
+    icon: 'ability_priest_shadowyapparition',
+  },
+
+  SHADOWY_APPARITION_RESOURCE: {
+    id: 405746,
     name: 'Shadowy Apparition',
     icon: 'ability_priest_shadowyapparition',
   },
@@ -713,40 +692,10 @@ const spells = spellIndexableList({
     icon: 'spell_priest_voidform',
   },
 
-  DARK_ASCENSION_BUFF: {
-    id: 391109,
-    name: 'Dark Ascension',
-    icon: 'ability_priest_darkarchangel',
-  },
-
-  DARK_THOUGHTS: {
-    id: 341205,
-    name: 'Dark Thoughts',
-    icon: 'ability_priest_thoughtsteal01',
-  },
-
-  DARK_THOUGHT_BUFF: {
-    id: 341207,
-    name: 'Dark Thought',
-    icon: 'ability_priest_thoughtsteal01',
-  },
-
-  SHADOWY_INSIGHT: {
-    id: 375888,
-    name: 'Shadowy Insight',
-    icon: 'spell_shadow_possession',
-  },
-
   SHADOWY_INSIGHT_BUFF: {
     id: 375981,
     name: 'Shadowy Insight',
     icon: 'spell_shadow_possession',
-  },
-
-  SURGE_OF_DARKNESS_TALENT_BUFF: {
-    id: 87160,
-    name: 'Surge of Darkness',
-    icon: 'ability_priest_surgeofdarkness',
   },
 
   UNFURLING_DARKNESS_BUFF: {
@@ -761,16 +710,16 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_demonicfortitude',
   },
 
+  DEATH_AND_MADNESS_TALENT_BUFF: {
+    id: 321973,
+    name: 'Death and Madness',
+    icon: 'spell_shadow_painandsuffering',
+  },
+
   MIND_DEVOURER_TALENT_BUFF: {
     id: 373204,
     name: 'Mind Devourer',
     icon: 'spell_arcane_mindmastery',
-  },
-
-  DEATH_AND_MADNESS_BUFF: {
-    id: 321973,
-    name: 'Death and Madness',
-    icon: 'spell_shadow_painandsuffering',
   },
 
   DARK_EVANGELISM_TALENT_BUFF: {
@@ -791,13 +740,6 @@ const spells = spellIndexableList({
     id: 373442,
     name: 'Inescapable Torment',
     icon: 'spell_shadow_chilltouch',
-  },
-
-  MIND_SEAR_TALENT_DAMAGE: {
-    id: 49821,
-    name: 'Mind Sear',
-    icon: 'spell_shadow_mindshear',
-    insanityCost: 0,
   },
 
   MIND_FLAY_INSANITY_TALENT_DAMAGE: {
@@ -836,14 +778,14 @@ const spells = spellIndexableList({
     icon: 'spell_shadow_siphonmana',
   },
 
-  IDOL_OF_YOGG_SARON_VOID_SPIKE_DAMAGE: {
-    id: 373279,
-    name: 'Void Spike',
-    icon: 'spell_priest_mindspike',
+  IDOL_OF_CTHUN_RESOURCE: {
+    id: 377358,
+    name: 'Idol of CThun',
+    icon: 'achievement_boss_cthun',
   },
 
-  IDOL_OF_YOGG_SARON_VOID_SPIKE_CLEAVE_DAMAGE: {
-    id: 396895,
+  IDOL_OF_YOGG_SARON_DAMAGE: {
+    id: 373279,
     name: 'Void Spike',
     icon: 'spell_priest_mindspike',
   },

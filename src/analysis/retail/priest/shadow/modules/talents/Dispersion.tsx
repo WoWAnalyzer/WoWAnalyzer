@@ -1,6 +1,6 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
@@ -18,11 +18,11 @@ class Disperion extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION),
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.DISPERSION_TALENT),
       this.onBuffApplied,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.DISPERSION),
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.DISPERSION_TALENT),
       this.onBuffRemoved,
     );
   }
@@ -34,7 +34,7 @@ class Disperion extends Analyzer {
   }
 
   get suggestionThresholds() {
-    this.dispersionUptime = this.selectedCombatant.getBuffUptime(SPELLS.DISPERSION.id);
+    this.dispersionUptime = this.selectedCombatant.getBuffUptime(TALENTS.DISPERSION_TALENT.id);
     this.maxDispersionTime =
       Math.floor(calculateMaxCasts(DISPERSION_BASE_CD, this.owner.fightDuration)) *
       DISPERSION_UPTIME_MS;
@@ -73,11 +73,11 @@ class Disperion extends Analyzer {
         <span>
           You spent {Math.round(this.dispersionUptime / 1000)} seconds (out of a possible{' '}
           {Math.round(this.maxDispersionTime / 1000)} seconds) in{' '}
-          <SpellLink id={SPELLS.DISPERSION.id} />. Consider using{' '}
-          <SpellLink id={SPELLS.DISPERSION.id} /> less or cancel it early.
+          <SpellLink id={TALENTS.DISPERSION_TALENT.id} />. Consider using{' '}
+          <SpellLink id={TALENTS.DISPERSION_TALENT.id} /> less or cancel it early.
         </span>,
       )
-        .icon(SPELLS.DISPERSION.icon)
+        .icon(TALENTS.DISPERSION_TALENT.icon)
         .actual(
           t({
             id: 'priest.shadow.suggestions.dispersion.uptime',

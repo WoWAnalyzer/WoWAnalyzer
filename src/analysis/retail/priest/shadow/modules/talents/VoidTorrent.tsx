@@ -178,11 +178,15 @@ class VoidTorrent extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            {formatSeconds(this.timeWasted)} seconds wasted by cancelling the channel early.
-            <br />
-            {formatNumber(this.insanityWasted)} insanity wasted by cancelling the channel early.{' '}
-            <br />
-            {formatNumber(this.insanityOvercapped)} insanity wasted by overcapping sanity.
+            <div>
+              {formatSeconds(this.timeWasted)} seconds wasted by cancelling the channel early.{' '}
+            </div>
+            <div>
+              {formatNumber(this.insanityWasted)} insanity wasted by cancelling the channel early.{' '}
+            </div>
+            <div>
+              {formatNumber(this.insanityOvercapped)} insanity wasted by overcapping sanity.{' '}
+            </div>
           </>
         }
       >

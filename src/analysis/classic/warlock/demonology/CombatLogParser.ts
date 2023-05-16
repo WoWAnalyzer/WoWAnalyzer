@@ -15,6 +15,7 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
+import CancelledCasts from './modules/features/CancelledCasts';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import Checklist from './modules/checklist/Module';
 import CurseUptime from './modules/features/CurseUptime';
@@ -42,6 +43,7 @@ class CombatLogParser extends BaseCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
+    cancelledCasts: CancelledCasts,
     cooldownThroughputTracker: CooldownThroughputTracker,
     checklist: Checklist,
     curseUptime: CurseUptime,

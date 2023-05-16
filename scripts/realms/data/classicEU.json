@@ -1,0 +1,209 @@
+{
+  "_links": {
+    "self": {
+      "href": "https://eu.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-eu"
+    }
+  },
+  "realms": [
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4440?namespace=dynamic-classic-eu"
+      },
+      "name": "Everlook",
+      "id": 4440,
+      "slug": "everlook"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4441?namespace=dynamic-classic-eu"
+      },
+      "name": "Auberdine",
+      "id": 4441,
+      "slug": "auberdine"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4442?namespace=dynamic-classic-eu"
+      },
+      "name": "Приозерье",
+      "id": 4442,
+      "slug": "lakeshire"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4452?namespace=dynamic-classic-eu"
+      },
+      "name": "Хроми",
+      "id": 4452,
+      "slug": "chromie"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4453?namespace=dynamic-classic-eu"
+      },
+      "name": "Pyrewood Village",
+      "id": 4453,
+      "slug": "pyrewood-village"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4454?namespace=dynamic-classic-eu"
+      },
+      "name": "Mirage Raceway",
+      "id": 4454,
+      "slug": "mirage-raceway"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4455?namespace=dynamic-classic-eu"
+      },
+      "name": "Razorfen",
+      "id": 4455,
+      "slug": "razorfen"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4456?namespace=dynamic-classic-eu"
+      },
+      "name": "Nethergarde Keep",
+      "id": 4456,
+      "slug": "nethergarde-keep"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4464?namespace=dynamic-classic-eu"
+      },
+      "name": "Sulfuron",
+      "id": 4464,
+      "slug": "sulfuron"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4465?namespace=dynamic-classic-eu"
+      },
+      "name": "Golemagg",
+      "id": 4465,
+      "slug": "golemagg"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4466?namespace=dynamic-classic-eu"
+      },
+      "name": "Patchwerk",
+      "id": 4466,
+      "slug": "patchwerk"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4467?namespace=dynamic-classic-eu"
+      },
+      "name": "Firemaw",
+      "id": 4467,
+      "slug": "firemaw"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4474?namespace=dynamic-classic-eu"
+      },
+      "name": "Пламегор",
+      "id": 4474,
+      "slug": "flamegor"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4476?namespace=dynamic-classic-eu"
+      },
+      "name": "Gehennas",
+      "id": 4476,
+      "slug": "gehennas"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4477?namespace=dynamic-classic-eu"
+      },
+      "name": "Venoxis",
+      "id": 4477,
+      "slug": "venoxis"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4678?namespace=dynamic-classic-eu"
+      },
+      "name": "Hydraxian Waterlords",
+      "id": 4678,
+      "slug": "hydraxian-waterlords"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4701?namespace=dynamic-classic-eu"
+      },
+      "name": "Mograine",
+      "id": 4701,
+      "slug": "mograine"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4703?namespace=dynamic-classic-eu"
+      },
+      "name": "Amnennar",
+      "id": 4703,
+      "slug": "amnennar"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4742?namespace=dynamic-classic-eu"
+      },
+      "name": "Испепелитель",
+      "id": 4742,
+      "slug": "ashbringer"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4745?namespace=dynamic-classic-eu"
+      },
+      "name": "Превосходство",
+      "id": 4745,
+      "slug": "transcendence"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4749?namespace=dynamic-classic-eu"
+      },
+      "name": "Землекрушитель",
+      "id": 4749,
+      "slug": "earthshaker"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4811?namespace=dynamic-classic-eu"
+      },
+      "name": "Giantstalker",
+      "id": 4811,
+      "slug": "giantstalker"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4813?namespace=dynamic-classic-eu"
+      },
+      "name": "Mandokir",
+      "id": 4813,
+      "slug": "mandokir"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4815?namespace=dynamic-classic-eu"
+      },
+      "name": "Thekal",
+      "id": 4815,
+      "slug": "thekal"
+    },
+    {
+      "key": {
+        "href": "https://eu.api.blizzard.com/data/wow/realm/4816?namespace=dynamic-classic-eu"
+      },
+      "name": "Jin'do",
+      "id": 4816,
+      "slug": "jindo"
+    }
+  ]
+}
