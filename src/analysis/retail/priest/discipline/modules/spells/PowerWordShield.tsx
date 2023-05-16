@@ -123,6 +123,9 @@ class PowerWordShield extends Analyzer {
 
     // If PWS was completely consumed, then we just attribute the entire base shield to PWS (For crystalline reflection module)
     // Otherwise, just add everything to base PWS (As the shield wasn't consumed enough for any bonus effects to get benefit.)
+
+    const overHeal = event.absorb || 0;
+
     const didPwsConsume =
       totalShielded - basePowerWordShieldAmount > 0 ? basePowerWordShieldAmount : totalShielded;
 
@@ -134,14 +137,17 @@ class PowerWordShield extends Analyzer {
     const wealValue = (totalShielded: number) =>
       totalShielded >= wealBonus ? wealBonus : totalShielded;
 
+    let wealIncrease = 0;
+
     if (totalShielded > 0) {
-      // without aegis the shield didn't consume the 4p bonus
-      this.wealValue += wealValue(totalShielded);
+      wealIncrease = Math.max(0, wealValue(totalShielded) - overHeal);
+      this.wealValue += wealIncrease;
       totalShielded -= wealValue(totalShielded);
     }
 
-    this.aegisOfWrathValue +=
-      totalShielded - (initialShieldAmount - info.healing - (event.absorb || 0));
+    if (overHeal === 0) {
+      this.aegisOfWrathValue += Math.min(aegisOfWrathBonus, totalShielded);
+    }
 
     this.shieldApplications.set(event.targetID, null);
     return;
