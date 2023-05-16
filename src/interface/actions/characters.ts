@@ -10,12 +10,22 @@ export function storeCharacter(character: CharacterProfile) {
   };
 }
 
-export function fetchCharacter(guid: number, region: string, realm: string, name: string) {
+export function fetchCharacter(
+  guid: number,
+  region: string,
+  realm: string,
+  name: string,
+  classic?: boolean,
+) {
   return async (dispatch: any) => {
     if (!isSupportedRegion(region)) {
       throw new Error('Region not supported');
     }
-    const response = await fetch(makeCharacterApiUrl(guid, region, realm, name));
+    const response = await fetch(makeCharacterApiUrl(guid, region, realm, name, classic));
+    if (response.status === 404) {
+      console.warn(`Character info not found: ${name}`);
+      return null;
+    }
     if (response.status !== 200) {
       throw new Error(`Received unexpected response code: ${response.status}`);
     }

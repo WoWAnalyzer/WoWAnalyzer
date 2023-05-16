@@ -24,6 +24,7 @@ import SpellLink from 'interface/SpellLink';
 
 export default [
   change(date(2023, 5, 11), 'Fix multi-rank talent tooltip links.', ToppleTheNun),
+  change(date(2023, 5, 10), 'Add Classic Character Thumbnails to PlayerSelection page.', jazminite),
   change(date(2023, 5, 10), 'Speed up e2e tests.', ToppleTheNun),
   change(date(2023, 5, 10), 'Fix Echo of Nelthation display.', ToppleTheNun),
   change(date(2023, 5, 10), 'Add season 2 dungeon backgrounds.',  ToppleTheNun),

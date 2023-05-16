@@ -10,10 +10,11 @@ import getBuild from 'parser/getBuild';
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { isSupportedRegion } from 'common/regions';
-import { CLASSIC_EXPANSION } from 'game/Expansion';
+import { CLASSIC_EXPANSION, CLASSIC_EXPANSION_NAME } from 'game/Expansion';
 import getConfig from 'parser/getConfig';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
+import { makeThumbnailUrl } from 'interface/makeAnalyzerUrl';
 
 interface Props {
   player: Player;
@@ -22,23 +23,19 @@ interface Props {
 }
 
 const PlayerTile = ({ player, makeUrl, config }: Props) => {
+  const classic = player.combatant.expansion === CLASSIC_EXPANSION_NAME;
   const characterInfo = useWaSelector((state) => getCharacterById(state, player.guid));
   const dispatch = useWaDispatch();
 
   useEffect(() => {
     const load = async () => {
-      if (
-        player.combatant.expansion === 'wotlk' ||
-        !player.region ||
-        !player.server ||
-        !isSupportedRegion(player.region)
-      ) {
+      if (!player.region || !player.server || !isSupportedRegion(player.region)) {
         return null;
       }
 
       try {
         return await dispatch(
-          fetchCharacter(player.guid, player.region, player.server, player.name),
+          fetchCharacter(player.guid, player.region, player.server, player.name, classic),
         );
       } catch (err) {
         // No biggy, just show less info
@@ -51,13 +48,9 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
       // noinspection JSIgnoredPromiseFromCall
       load();
     }
-  }, [characterInfo, player, dispatch]);
+  }, [classic, characterInfo, player, dispatch]);
 
-  const avatar = characterInfo?.thumbnail
-    ? `https://render-${
-        characterInfo.region
-      }.worldofwarcraft.com/character/${characterInfo.thumbnail.replace('avatar', 'inset')}`
-    : '/img/fallback-character.jpg';
+  const avatar = makeThumbnailUrl(characterInfo, classic);
 
   if (!config && CLASSIC_EXPANSION) {
     config = getConfig(CLASSIC_EXPANSION, 1, player, player.combatant);
