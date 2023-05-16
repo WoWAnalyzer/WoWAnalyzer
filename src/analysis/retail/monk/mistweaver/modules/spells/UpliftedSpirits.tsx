@@ -1,10 +1,10 @@
-import { formatNumber } from 'common/format';
+import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Talent } from 'common/TALENTS/types';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { HealEvent, DamageEvent } from 'parser/core/Events';
+import Events, { HealEvent, DamageEvent, CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -15,6 +15,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
+const BASE_COOLDOWN = 60 * 3 * 1000;
 
 /**
  * Every time you cast rising sun kick it reduces revival's cooldown by 1 second and whenever you cast revival x% of that healing is done again as a hot over 10 seconds
@@ -29,6 +30,7 @@ class UpliftedSpirits extends Analyzer {
   totalVivifyCdr: number = 0;
   cooldownReductionWasted: number = 0;
   activeTalent!: Talent;
+  totalCasts: number = 0;
   protected spellUsable!: SpellUsable;
   protected healingDone!: HealingDone;
 
@@ -46,6 +48,7 @@ class UpliftedSpirits extends Analyzer {
       this.rskHit,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyHit);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeTalent), this.onCast);
   }
 
   rskHit(event: DamageEvent) {
@@ -76,12 +79,20 @@ class UpliftedSpirits extends Analyzer {
     this.totalVivifyCdr += UPLIFTED_SPIRITS_REDUCTION;
   }
 
+  onCast(event: CastEvent) {
+    this.totalCasts += 1;
+  }
+
   get usHealing() {
     return this.healingDone.byAbility(SPELLS.UPLIFTED_SPIRITS_HEAL.id).effective;
   }
 
   get rsrOverHealing() {
     return this.healingDone.byAbility(SPELLS.UPLIFTED_SPIRITS_HEAL.id).overheal;
+  }
+
+  get averageCdr() {
+    return this.cooldownReductionUsed / this.totalCasts - 1;
   }
 
   statistic() {
@@ -107,7 +118,12 @@ class UpliftedSpirits extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id}>
           <ItemHealingDone amount={healing} />
-          <br />
+          <div>
+            {formatDuration(BASE_COOLDOWN - this.averageCdr)}{' '}
+            <small>
+              average <SpellLink spell={this.activeTalent} /> cooldown
+            </small>
+          </div>
         </BoringSpellValueText>
       </Statistic>
     );
