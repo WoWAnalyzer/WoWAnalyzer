@@ -198,7 +198,11 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         useThresholds
       />
       <CastEfficiencyBar
-        spellId={TALENTS_MONK.REVIVAL_TALENT.id}
+        spellId={
+          info.combatant.hasTalent(TALENTS_MONK.RESTORAL_TALENT)
+            ? TALENTS_MONK.RESTORAL_TALENT.id
+            : TALENTS_MONK.REVIVAL_TALENT.id
+        }
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />
