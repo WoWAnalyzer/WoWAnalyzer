@@ -152,6 +152,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
       totalEnvM: 0,
       averageHaste: 0,
       deathTimestamp: 0,
+      castRsk: false,
     });
   }
 
