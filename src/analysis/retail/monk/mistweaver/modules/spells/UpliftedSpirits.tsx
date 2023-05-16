@@ -92,6 +92,10 @@ class UpliftedSpirits extends Analyzer {
   }
 
   get averageCdr() {
+    // didnt use any cdr
+    if (this.totalCasts === 1) {
+      return 0;
+    }
     return this.cooldownReductionUsed / this.totalCasts - 1;
   }
 
