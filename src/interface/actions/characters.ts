@@ -22,6 +22,10 @@ export function fetchCharacter(
       throw new Error('Region not supported');
     }
     const response = await fetch(makeCharacterApiUrl(guid, region, realm, name, classic));
+    if (response.status === 404) {
+      console.warn(`Character info not found: ${name}`);
+      return null;
+    }
     if (response.status !== 200) {
       throw new Error(`Received unexpected response code: ${response.status}`);
     }

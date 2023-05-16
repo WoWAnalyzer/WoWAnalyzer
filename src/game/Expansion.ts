@@ -17,8 +17,6 @@ enum ExpansionName {
   Dragonflight = 'dragonflight',
 }
 
-export default Expansion;
-
 export const CLASSIC_EXPANSION = Expansion.WrathOfTheLichKing;
 export const RETAIL_EXPANSION = Expansion.Dragonflight;
 
@@ -36,3 +34,5 @@ export function isRetailExpansion(expansion: Expansion): boolean {
 export function isClassicExpansion(expansion: Expansion): boolean {
   return expansion >= Expansion.Vanilla && expansion <= Expansion.WrathOfTheLichKing;
 }
+
+export default Expansion;
