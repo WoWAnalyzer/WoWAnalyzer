@@ -36,16 +36,6 @@ class CrystallineReflection extends Analyzer {
   }
 
   renderCrystallineReflectionChart() {
-    const tierDetails = {
-      color: '#0CD368',
-      label: 'Shield Of Absolution(4p)',
-      spellId: SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id,
-      value: this.powerWordShield.t29pValue * this.crIncrease,
-      valueTooltip: `${formatThousands(
-        ((this.powerWordShield.t29pValue * this.crIncrease) / this.owner.fightDuration) * 1000,
-      )} DPS`,
-    };
-
     const wealDetails = {
       color: '#0CD368',
       label: 'Weal and Woe',
@@ -53,6 +43,17 @@ class CrystallineReflection extends Analyzer {
       value: this.powerWordShield.wealValue * this.crIncrease,
       valueTooltip: `${formatThousands(
         ((this.powerWordShield.wealValue * this.crIncrease) / this.owner.fightDuration) * 1000,
+      )} DPS`,
+    };
+
+    const aegisDetails = {
+      color: '#fcba03',
+      label: 'Aegis of Wrath',
+      spellId: TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id,
+      value: this.powerWordShield.aegisOfWrathValue * this.crIncrease,
+      valueTooltip: `${formatThousands(
+        ((this.powerWordShield.aegisOfWrathValue * this.crIncrease) / this.owner.fightDuration) *
+          1000,
       )} DPS`,
     };
 
@@ -68,12 +69,12 @@ class CrystallineReflection extends Analyzer {
       },
     ];
 
-    if (this.powerWordShield.has4p) {
-      items.push(tierDetails);
-    }
-
     if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT)) {
       items.push(wealDetails);
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT)) {
+      items.push(aegisDetails);
     }
 
     return <DonutChart items={items} />;
