@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 5, 17), <>Change some text in <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT}/> module</>, Trevor),
   change(date(2023, 5, 17), <>Fixed some more bugs in guide</>, Trevor),
   change(date(2023, 5, 17), <>Fix potential NaN in <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> module</>, Trevor),
   change(date(2023, 5, 16), <>Add average cooldown statistic to <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/> module</>, Trevor),
