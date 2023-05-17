@@ -146,13 +146,22 @@ class Revival extends Analyzer {
         <strong>
           <SpellLink id={this.getRevivalTalent()} />
         </strong>{' '}
-        is a fairly straightforward cooldown, however there are a few things you should always aim
-        to do prior to casting it to maximize its healing.
+        is a fairly straightforward cooldown that should be used to heal burst damage events with a
+        relatively short checklist to maximize its healing.
         {!this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT) && (
           <>
             {' '}
             Always pre-cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to get as many
             duplicated <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> heals as possible.{' '}
+          </>
+        )}{' '}
+        {this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT) && (
+          <>
+            {' '}
+            Do <b>not</b> cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> prior to{' '}
+            <SpellLink id={this.getRevivalTalent()} /> when talented into{' '}
+            <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} /> as it is not mana efficient,
+            regardless of doubling <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing.
           </>
         )}{' '}
         If talented into <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
