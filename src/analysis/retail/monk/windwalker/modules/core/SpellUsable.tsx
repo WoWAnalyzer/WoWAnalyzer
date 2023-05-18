@@ -1,8 +1,9 @@
 import SPELLS from 'common/SPELLS/monk';
 import TALENTS from 'common/TALENTS/monk';
+import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { AbilityEvent, AnyEvent, DamageEvent, EventType } from 'parser/core/Events';
+import Events, { AbilityEvent, CastEvent, EventType } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
 
 // Override spell usable to handle CD resets on RSK from Teachings of the Monastery
@@ -13,20 +14,20 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
   };
 
-  lastPotentialTriggerForRskReset: AnyEvent | null = null;
+  lastPotentialTriggerForRskReset: CastEvent | null = null;
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK),
       this.onBlackoutKick,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK_TOTM),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK_TOTM),
       this.onBlackoutKick,
     );
   }
 
-  onBlackoutKick(event: DamageEvent) {
+  onBlackoutKick(event: CastEvent) {
     this.lastPotentialTriggerForRskReset = event;
   }
 
@@ -44,7 +45,19 @@ class SpellUsable extends CoreSpellUsable {
         this.chargesAvailable(spellId) === 0 &&
         this.lastPotentialTriggerForRskReset !== null
       ) {
-        this.endCooldown(spellId, this.lastPotentialTriggerForRskReset.timestamp);
+        // set the reset time as 1ms AFTER we casted BoK so that the APL / timeline doesn't
+        //   think we should have instead cast RSK during that gcd
+        this.endCooldown(spellId, this.lastPotentialTriggerForRskReset.timestamp + 1);
+
+        // flag the reset event in the timeline
+        this.lastPotentialTriggerForRskReset.meta = this.lastPotentialTriggerForRskReset.meta || {};
+        this.lastPotentialTriggerForRskReset.meta.isEnhancedCast = true;
+        this.lastPotentialTriggerForRskReset.meta.enhancedCastReason = (
+          <>
+            This cast reset the cooldown of <SpellLink id={TALENTS.RISING_SUN_KICK_TALENT.id} /> due
+            to <SpellLink id={TALENTS.TEACHINGS_OF_THE_MONASTERY_TALENT} />
+          </>
+        );
       }
       this.lastPotentialTriggerForRskReset = null;
     }
