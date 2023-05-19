@@ -91,13 +91,7 @@ function HotGraphSubsection({ modules, events, info }: GuideProps<typeof CombatL
     <SubSection>
       <strong>HoT Graph</strong> - This graph shows the number of non-Renewing Mist HoTs you had
       active over the course of the encounter. It can help you evaluate how effective you were at
-      prepping and executing your cooldowns. Having several{' '}
-      <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> out before casting{' '}
-      <SpellLink id={modules.revival.getRevivalTalent()} /> or{' '}
-      <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> will drastically increase their
-      effectiveness, and the number of <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> that go
-      out during <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> directly correlates to
-      your hps during.
+      prepping and executing your cooldowns.
       {modules.hotCountGraph.plot}
     </SubSection>
   );
