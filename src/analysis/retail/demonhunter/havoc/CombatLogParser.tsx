@@ -62,6 +62,8 @@ import TheHuntVengefulRetreatNormalizer from './normalizers/TheHuntVengefulRetre
 import FuriousGazeNormalizer from './normalizers/FuriousGazeNormalizer';
 import { EyeBeam } from './modules/talents/EyeBeam';
 import { ThrowGlaive } from './modules/spells/ThrowGlaive';
+import UnboundChaosNormalizer from './normalizers/UnboundChaosNormalizer';
+import UnboundChaos from './modules/talents/UnboundChaos';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,6 +79,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theHuntNormalizer: TheHuntNormalizer,
     theHuntVengefulRetreatNormalizer: TheHuntVengefulRetreatNormalizer,
     furiousGazeEventLinkNormalizer: FuriousGazeNormalizer,
+    unboundChaosNormalizer: UnboundChaosNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -130,6 +133,7 @@ class CombatLogParser extends CoreCombatLogParser {
     disruptingFury: DisruptingFury,
     fodderToTheFlame: FodderToTheFlame,
     eyeBeam: EyeBeam,
+    unboundChaos: UnboundChaos,
 
     // Resources
     furyTracker: FuryTracker,

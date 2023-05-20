@@ -2,7 +2,7 @@ export const CRITICAL_CHAOS_SCALING = [0, 0.25, 0.5];
 
 export const FELFIRE_HEART_SCALING = [0, 1, 2];
 
-export const UNBOUND_CHAOS_SCALING = [0, 2.5, 5];
+export const UNBOUND_CHAOS_SCALING = [0, 2, 4];
 
 export const BLIND_FURY_FURY_SCALING = [0, 20, 40];
 
