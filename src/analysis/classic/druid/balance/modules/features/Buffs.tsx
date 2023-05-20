@@ -11,6 +11,14 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.INNERVATE.id,
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.ECLIPSE_LUNAR.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.ECLIPSE_SOLAR.id,
+        timelineHighlight: true,
+      },
       // Do not adjust the lines below
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
