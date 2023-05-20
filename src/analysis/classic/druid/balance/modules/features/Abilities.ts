@@ -9,6 +9,11 @@ class Abilities extends CoreAbilities {
       // LIST ALL SPELLS THAT COULD BE CAST DURING COMBAT BY THIS SPEC
       // Rotational
       {
+        spell: [SPELLS.FAERIE_FIRE.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
         spell: [SPELLS.WRATH.id, ...SPELLS.WRATH.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
@@ -67,6 +72,7 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.CYCLONE.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
+        cooldown: 6,
       },
       {
         spell: [SPELLS.BARKSKIN.id],
@@ -78,11 +84,38 @@ class Abilities extends CoreAbilities {
         spell: [SPELLS.NATURES_GRASP.id],
         category: SPELL_CATEGORY.DEFENSIVE,
         gcd: { base: 1500 },
+        cooldown: 60,
       },
 
       // Other spells (not apart of the normal rotation)
 
       // Utility
+      {
+        spell: [SPELLS.REBIRTH.id, ...SPELLS.REBIRTH.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.REMOVE_CURSE.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.ABOLISH_POISON.id],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.TRANQUILITY.id, ...SPELLS.TRANQUILITY.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DASH.id, ...SPELLS.DASH.lowRanks],
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: { base: 1500 },
+        cooldown: 180,
+      },
 
       // Pet Related
 
