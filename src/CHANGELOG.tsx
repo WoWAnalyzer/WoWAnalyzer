@@ -23,6 +23,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 5, 20), <>Add support for <ItemLink id={ITEMS.ENCHANT_WEAPON_SHADOWFLAME_WREATHE_R3.id} />, <ItemLink id={ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R3.id} />, and <ItemLink id={ITEMS.LAMBENT_ARMOR_KIT_R3.id} />.</>, ToppleTheNun),
   change(date(2023, 5, 17), 'Fix issue with negative Haste values.', emallson),
   change(date(2023, 5, 11), 'Fix multi-rank talent tooltip links.', ToppleTheNun),
   change(date(2023, 5, 10), 'Add Classic Character Thumbnails to PlayerSelection page.', jazminite),
