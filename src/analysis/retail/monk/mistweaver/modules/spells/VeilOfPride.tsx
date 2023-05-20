@@ -18,6 +18,7 @@ class VeilOfPride extends Analyzer {
   };
   protected sheilunsGift!: SheilunsGift;
   totalExtraClouds: number = 0;
+  totalWastedClouds: number = 0;
   totalCasts: number = 0;
   totalHealing: number = 0;
   totalOverhealing: number = 0;
@@ -40,15 +41,10 @@ class VeilOfPride extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
+    const total = this.sheilunsGift.curClouds + this.sheilunsGift.cloudsLostSinceLastCast;
+    const baseStacks = Math.min(10, Math.floor(total / 2));
+    const extraStacks = this.sheilunsGift.curClouds - baseStacks;
     // double clouds = 100% increase -> 2x / x - 1 = 1
-    const veilStacksLost = Math.floor(this.sheilunsGift.cloudsLostSinceLastCast / 2);
-    const extraStacks = Math.max(0, Math.ceil(this.sheilunsGift.curClouds / 2) + veilStacksLost);
-    const baseStacks = this.sheilunsGift.curClouds - extraStacks;
-    if (baseStacks === 0) {
-      this.totalHealing += event.amount + (event.absorbed || 0);
-      this.totalOverhealing += event.overheal || 0;
-      return;
-    }
     const increase = this.sheilunsGift.curClouds / baseStacks - 1;
     this.totalHealing += calculateEffectiveHealing(event, increase);
     this.totalOverhealing += calculateOverhealing(event, increase);
