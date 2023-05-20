@@ -117,6 +117,7 @@ function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
       <HideGoodCastsToggle id="hide-good-casts-rotations" />
       {modules.throwGlaive.guideSubsection()}
       {modules.momentum.guideSubsection()}
+      {modules.unboundChaos.guideSubsection()}
     </Section>
   );
 }
