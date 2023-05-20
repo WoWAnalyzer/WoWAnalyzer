@@ -18,7 +18,6 @@ class VeilOfPride extends Analyzer {
   };
   protected sheilunsGift!: SheilunsGift;
   totalExtraClouds: number = 0;
-  totalWastedClouds: number = 0;
   totalCasts: number = 0;
   totalHealing: number = 0;
   totalOverhealing: number = 0;
