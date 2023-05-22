@@ -430,9 +430,15 @@ class Abilities extends CoreAbilities {
         // This is no error. We actually use the elemental shaman elemental blast spell id.
         spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
-        charges: combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
+        charges:
+          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) +
+          (combatant.specId === 263
+            ? combatant.getRepeatedTalentCount(TALENTS_SHAMAN.LAVA_BURST_TALENT)
+            : 0),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12,
+        cooldown: (haste) => {
+          return combatant.specId === 262 ? 12 : 12 / (1 + haste);
+        },
         gcd: {
           base: 1500,
         },
@@ -556,6 +562,19 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 1,
+        },
+      },
+      {
+        spell: TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.DOOM_WINDS_TALENT),
+        cooldown: 90,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
         },
         castEfficiency: {
           suggestion: true,

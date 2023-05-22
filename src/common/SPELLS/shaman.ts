@@ -580,6 +580,11 @@ const spells = spellIndexableList({
     name: 'Stormbringer',
     icon: 'spell_nature_stormreach',
   },
+  CRACKLING_THUNDER_BUFF_T30_4PC: {
+    id: 409834,
+    name: 'Crackling Thunder',
+    icon: 'ability_vehicle_electrocharge',
+  },
   // Restoration Shaman
   HEALING_SURGE: {
     id: 8004,
