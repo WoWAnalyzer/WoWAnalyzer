@@ -103,11 +103,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
   }
 
   onEndChannel(event: EndChannelEvent) {
-    // If the channel was shorter than the GCD then use the GCD as active time
-    if (this.isSooming && event.ability.guid !== TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
-      return false;
-    } else if (this.isSooming && event.ability.guid === TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
-      this.isSooming = false;
+    if (this.isSooming) {
+      if (event.ability.guid === TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
+        this.isSooming = false;
+      } else {
+        return false;
+      }
     }
     return super.onEndChannel(event);
   }
