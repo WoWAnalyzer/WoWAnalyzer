@@ -32,15 +32,16 @@ class WitchDoctorsAncestry extends Analyzer {
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
       this.reduceFeralSpiritCooldown,
     );
+
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.reduceFeralSpiritCooldown,
+    );
   }
 
   private reduceFeralSpiritCooldown() {
     if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id)) {
-      const reduction = this.spellUsable.reduceCooldown(
-        TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
-        this.ranks * 1000,
-      );
-      console.log(reduction);
+      this.spellUsable.reduceCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id, this.ranks * 1000);
     }
   }
 }
