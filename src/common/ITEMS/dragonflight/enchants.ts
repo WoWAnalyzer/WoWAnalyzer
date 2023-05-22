@@ -844,6 +844,24 @@ const enchants = enchantIndexableList({
     icon: 'inv_misc_rune_09',
     effectId: 6695,
   },
+  HISSING_RUNE_R1: {
+    id: 204971,
+    name: 'Hissing Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6838,
+  },
+  HISSING_RUNE_R2: {
+    id: 204972,
+    name: 'Hissing Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6837,
+  },
+  HISSING_RUNE_R3: {
+    id: 204973,
+    name: 'Hissing Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6839,
+  },
   HOWLING_RUNE_R1: {
     id: 194817,
     name: 'Howling Rune',
