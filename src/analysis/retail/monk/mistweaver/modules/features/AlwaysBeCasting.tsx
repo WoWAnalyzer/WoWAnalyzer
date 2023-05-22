@@ -107,6 +107,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       if (event.ability.guid === TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
         this.isSooming = false;
       } else {
+        // we will count the entire soom channel, so ignore cast events inside channel
         return false;
       }
     }
