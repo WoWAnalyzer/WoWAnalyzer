@@ -5,6 +5,7 @@ import { DoxAshe } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 20), <>Updated <SpellLink id={TALENTS.VOID_TORRENT_TALENT}/> insanity waste</>,DoxAshe),
   change(date(2023, 5, 9), <>Fixed <SpellLink id={TALENTS.AUSPICIOUS_SPIRITS_TALENT}/>,  <SpellLink id={TALENTS.DEATH_AND_MADNESS_TALENT}/>, <SpellLink id={TALENTS.DEATHSPEAKER_TALENT}/>,  <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT}/>,  <SpellLink id={TALENTS.IDOL_OF_CTHUN_TALENT}/>, and <SpellLink id={TALENTS.IDOL_OF_YOGG_SARON_TALENT}/> </>,DoxAshe),
   change(date(2023, 5, 4), <>Added <SpellLink id={TALENTS.SURGE_OF_INSANITY_TALENT}/></>,DoxAshe),
   change(date(2023, 5, 3), <>Updated Shadow Priest Talents and Abilites for 10.1</>,DoxAshe),
