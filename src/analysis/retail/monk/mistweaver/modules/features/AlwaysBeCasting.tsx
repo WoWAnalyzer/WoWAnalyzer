@@ -3,7 +3,13 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
-import Events, { CastEvent, DeathEvent } from 'parser/core/Events';
+import Events, {
+  BeginChannelEvent,
+  CastEvent,
+  DeathEvent,
+  EndChannelEvent,
+  GlobalCooldownEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
 
@@ -25,6 +31,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
     TALENTS_MONK.FAELINE_STOMP_TALENT.id,
     TALENTS_MONK.ZEN_PULSE_TALENT.id,
   ];
+  isSooming = false;
   constructor(options: Options) {
     super(options);
     if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
@@ -48,6 +55,10 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK.id);
       this.HEALING_ABILITIES_ON_GCD.push(SPELLS.SPINNING_CRANE_KICK_DAMAGE.id);
     }
+    this.addEventListener(
+      Events.BeginChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.SOOTHING_MIST_TALENT),
+      this.onBeginChannel,
+    );
   }
 
   handleChijiStart(event: CastEvent) {
@@ -78,6 +89,27 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
       delete this.HEALING_ABILITIES_ON_GCD[sckSpot];
       delete this.HEALING_ABILITIES_ON_GCD[sckSpotTwo];
     }
+  }
+
+  onGCD(event: GlobalCooldownEvent) {
+    if (this.isSooming) {
+      return false;
+    }
+    return super.onGCD(event);
+  }
+
+  onBeginChannel(event: BeginChannelEvent) {
+    this.isSooming = true;
+  }
+
+  onEndChannel(event: EndChannelEvent) {
+    // If the channel was shorter than the GCD then use the GCD as active time
+    if (this.isSooming && event.ability.guid !== TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
+      return false;
+    } else if (this.isSooming && event.ability.guid === TALENTS_MONK.SOOTHING_MIST_TALENT.id) {
+      this.isSooming = false;
+    }
+    return super.onEndChannel(event);
   }
 
   get nonHealingTimeSuggestionThresholds() {

@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 5, 21), <>Fix uptime calculations when using <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT}/></>, Trevor),
   change(date(2023, 5, 6), <>Added additional analysis to the <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT}/> module.</>, Vohrr),
   change(date(2023, 5, 5), <>Added per-stack breakdowns for each spell affected in the <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT}/> module.</>, Vohrr),
   change(date(2023, 5, 2), <>Re-enable <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT.id}/> module and add Cast Efficieny subsection to the Guide</>, Vohrr),
@@ -114,7 +115,7 @@ export default [
   change(date(2022, 11, 9), <>Removed shadowlands spell references from the <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> module and updated the statistic to use TalentSpellText. Added Vohrr to mistweaver contributors. </>, Vohrr),
   change(date(2022, 11, 8), <>Add module for <SpellLink id={TALENTS_MONK.SAVE_THEM_ALL_TALENT}/></>, Trevor),
   change(date(2022, 11, 8), <>Added module for <SpellLink id={TALENTS_MONK.UNISON_TALENT}/></>, Vohrr),
-  change(date(2022, 11, 8), <>Updated the <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}/> from <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id}/> module to show healing contribution and <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> contribution when talented.</>, Vohrr), 
+  change(date(2022, 11, 8), <>Updated the <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}/> from <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id}/> module to show healing contribution and <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id}/> contribution when talented.</>, Vohrr),
   change(date(2022, 11, 8), <>Readded the tooltip for average renewing mists during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id}/> and updated wording to 'mana saved per cast'</>, Vohrr),
   change(date(2022, 11, 8), <>Fix and update for <SpellLink id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id}/> uptime</>, Vohrr),
   change(date(2022, 11, 8), <>Fixed <SpellLink id={TALENTS_MONK.NOURISHING_CHI_TALENT.id}/> showing up when not talented</>, Vohrr),
