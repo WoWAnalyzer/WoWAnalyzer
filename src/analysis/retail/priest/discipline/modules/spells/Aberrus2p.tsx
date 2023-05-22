@@ -112,7 +112,7 @@ class Aberrus2p extends Analyzer {
                 <>
                   The Furnace Seraph's Verdict
                   <br />
-                  (Aberrus Tier)
+                  (Aberrus Tier 2p)
                 </>
               </ItemSetLink>
             </label>

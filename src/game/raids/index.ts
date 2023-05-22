@@ -53,6 +53,7 @@ const raids = {
   MagtheridonsLair: require('./magtheridonslair').default, // tier 4
   // Wrath of the Lich King (Classic)
   Ulduar: require('./ulduar').default, // tier 8
+  TrialOfTheGrandCrusader: require('./trialofthegrandcrusader').default, // tier 9
 };
 export default raids;
 

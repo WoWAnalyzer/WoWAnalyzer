@@ -1,4 +1,4 @@
-export interface Character {
+export default interface Character {
   guid: number;
   id: number;
   region: string;

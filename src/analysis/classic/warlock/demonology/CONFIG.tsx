@@ -38,7 +38,7 @@ const CONFIG: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/4ZDJXHcwWGtYvPmk/25-Normal+Gluth+-+Kill+(1:22)/Jazminites',
+  exampleReport: '/report/BZj17n6XTYCLaQPN/37-Hardmode+Thorim+-+Kill+(2:53)/Jazl',
   guideDefault: false,
 
   // Don't change anything below this line;

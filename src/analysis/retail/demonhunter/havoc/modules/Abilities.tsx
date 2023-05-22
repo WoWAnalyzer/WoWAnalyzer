@@ -27,6 +27,10 @@ class Abilities extends SharedAbilities {
           extraSuggestion:
             'This is an important Fury generator spell. Try to always cast on cooldown, but beware to not waste the Fury generation it provides.',
         },
+        damageSpellIds: [
+          SPELLS.IMMOLATION_AURA_INITIAL_HIT_DAMAGE.id,
+          SPELLS.IMMOLATION_AURA_BUFF_DAMAGE.id,
+        ],
       },
       {
         spell: SPELLS.DEMONS_BITE.id,

@@ -34,6 +34,7 @@ export interface BaseCelestialTracker {
   totmStacks: number; // number of stacks of TOTM prior to casting Chiji
   recastEf: boolean; // whether player recast ef during celestial
   deathTimestamp: number; // when pet died
+  castRsk: boolean; // true if player cast rsk during yulon
 }
 const lessonsDebug = false;
 const siDebug = false;
@@ -125,6 +126,10 @@ class BaseCelestialAnalyzer extends Analyzer {
       Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
       this.handleEfEnd,
     );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.RISING_SUN_KICK_TALENT),
+      this.onRsk,
+    );
     const idealEnvmCastsUnhastedForGift = this.selectedCombatant.hasTalent(
       TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
     )
@@ -159,6 +164,13 @@ class BaseCelestialAnalyzer extends Analyzer {
     if (this.lessonsActive) {
       this.lessonsApplyTime = event.timestamp;
     }
+  }
+
+  onRsk(event: CastEvent) {
+    if (!this.celestialActive) {
+      return;
+    }
+    this.castTrackers.at(-1)!.castRsk = true;
   }
 
   handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
@@ -213,6 +225,24 @@ class BaseCelestialAnalyzer extends Analyzer {
         ),
         result: <PerformanceMark perf={recastPerf} />,
         details: cast.recastEf ? <>Yes</> : <>No</>,
+      },
+    ];
+  }
+
+  getRskCastPerfAndItem(
+    cast: BaseCelestialTracker,
+  ): [QualitativePerformance, CooldownExpandableItem] {
+    const castPerf = cast.castRsk ? QualitativePerformance.Good : QualitativePerformance.Fail;
+    return [
+      castPerf,
+      {
+        label: (
+          <>
+            Cast <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+          </>
+        ),
+        result: <PerformanceMark perf={castPerf} />,
+        details: cast.castRsk ? <>Yes</> : <>No</>,
       },
     ];
   }

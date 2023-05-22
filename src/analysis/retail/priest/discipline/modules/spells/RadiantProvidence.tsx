@@ -16,6 +16,7 @@ import ItemManaGained from 'parser/ui/ItemManaGained';
 
 const RADIANT_PROVIDENCE_EXTENSION = 3000;
 const EVANGELISM_BONUS_MS = 6000;
+const RADIANT_PROVIDENCE_MANA_REDUCTION = SPELLS.POWER_WORD_RADIANCE.manaCost * 0.5;
 
 type RadAtonementEvents = AtonementAnalyzerEvent[];
 type RadianceAtonement = {
@@ -63,7 +64,7 @@ class RadiantProvidence extends Analyzer {
 
   storePowerWordRadiancesCastTimestamp(event: CastEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.RADIANT_PROVIDENCE_BUFF.id)) {
-      this._manaSaved += SPELLS.POWER_WORD_RADIANCE.manaCost;
+      this._manaSaved += RADIANT_PROVIDENCE_MANA_REDUCTION;
     }
     this._lastRadianceCastTimestamp = event.timestamp;
   }
@@ -136,9 +137,11 @@ class RadiantProvidence extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={SPELLS.RADIANT_PROVIDENCE_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.RADIANT_PROVIDENCE_BUFF}>
+          (Aberrus 4p)
+          <br />
           <ItemHealingDone amount={this._bonusFromAtonementDuration} />
           <ItemManaGained amount={this._manaSaved} useAbbrev />
         </BoringSpellValueText>

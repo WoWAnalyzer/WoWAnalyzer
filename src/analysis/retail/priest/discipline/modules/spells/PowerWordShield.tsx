@@ -5,26 +5,17 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbsorbedEvent,
   ApplyBuffEvent,
-  DamageEvent,
-  HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const POWER_WORD_SHIELD_DURATION_MS = 15000;
-const SHIELD_OF_ABSOLUTION_MULTIPLIER_HEALING = 0.18;
-const SHIELD_OF_ABSOLUTION_MULTIPLIER_DAMAGE = 0.6;
 const WEAL_AND_WOE_BUFF_PER_STACK = 0.05;
+const AEGIS_OF_WRATH_INCREASE = 0.3;
 
 type ShieldInfo = {
   event: ApplyBuffEvent | RefreshBuffEvent;
-  shieldOfAbsolutionValue: number;
   healing: number;
   wealStacks: number | 0;
   rapture: boolean;
@@ -46,18 +37,20 @@ class PowerWordShield extends Analyzer {
   shieldOfAbsolutionValue = 0;
   critCount = 0;
   pwsValue = 0;
-  t29pValue = 0;
   wealValue = 0;
-  has4p = false;
+  aegisOfWrathValue = 0;
+  hasVault4p = false;
   hasWeal = false;
 
   constructor(options: Options) {
     super(options);
 
     this.hasWeal = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT);
-    this.has4p = this.selectedCombatant.has4PieceByTier(TIERS.T29);
 
-    this.active = !this.selectedCombatant.hasTalent(TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT);
+    // This math does not work with the Vault 4p bonus
+    this.hasVault4p = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+
+    this.active = !this.hasVault4p;
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
@@ -68,20 +61,6 @@ class PowerWordShield extends Analyzer {
     this.addEventListener(
       Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.POWER_WORD_SHIELD),
       this.onPWSAbsorb,
-    );
-
-    // these will determine value to amount of the 4p buff
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_HEAL),
-      this.onPenanceHeal,
-    );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PENANCE),
-      this.onPenanceDamage,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.PENANCE_CAST),
-      this.onPenanceCast,
     );
 
     this.addEventListener(
@@ -102,7 +81,6 @@ class PowerWordShield extends Analyzer {
 
     this.shieldApplications.set(event.targetID, {
       event: event,
-      shieldOfAbsolutionValue: this.shieldOfAbsolutionValue,
       healing: 0,
       wealStacks: this.selectedCombatant.getBuffStacks(SPELLS.WEAL_AND_WOE_BUFF.id),
       rapture: this.selectedCombatant.hasBuff(TALENTS_PRIEST.RAPTURE_TALENT.id),
@@ -129,43 +107,46 @@ class PowerWordShield extends Analyzer {
     ) {
       return;
     }
-    const shieldAmount = info.event.absorb || 0; // the initial amount, from the ApplyBuffEvent/
-
-    // The bonus from the 4p is multiplied by rapture on shield application if it was up.
-    const shieldOfAbsolutionBonus = info.shieldOfAbsolutionValue * (info.rapture ? 1.4 : 1);
-
-    const basePowerWordShieldAmount = shieldAmount - shieldOfAbsolutionBonus;
+    const initialShieldAmount = info.event.absorb || 0; // the initial amount, from the ApplyBuffEvent/
 
     const wealBonus =
-      basePowerWordShieldAmount -
-      basePowerWordShieldAmount / (1 + info.wealStacks * WEAL_AND_WOE_BUFF_PER_STACK);
+      initialShieldAmount -
+      initialShieldAmount / (1 + info.wealStacks * WEAL_AND_WOE_BUFF_PER_STACK);
+
+    const aegisOfWrathBonus =
+      initialShieldAmount - initialShieldAmount / (1 + AEGIS_OF_WRATH_INCREASE);
+
+    // the amount that pws absorbed on its own, without buffs
+    const basePowerWordShieldAmount = initialShieldAmount - wealBonus - aegisOfWrathBonus;
+
     let totalShielded = info.healing; // this is the amount of healing the shield did
 
     // If PWS was completely consumed, then we just attribute the entire base shield to PWS (For crystalline reflection module)
     // Otherwise, just add everything to base PWS (As the shield wasn't consumed enough for any bonus effects to get benefit.)
+
+    const overHeal = event.absorb || 0;
+
     const didPwsConsume =
       totalShielded - basePowerWordShieldAmount > 0 ? basePowerWordShieldAmount : totalShielded;
+
     this.pwsValue += didPwsConsume;
 
-    // this is what's left for (As of 24.02.2024) Weal and Woe and 4p bonus
+    // this is what's left for (As of 05.05.2023) Weal and Woe and Aegis of Wrath
     totalShielded -= didPwsConsume;
 
     const wealValue = (totalShielded: number) =>
       totalShielded >= wealBonus ? wealBonus : totalShielded;
 
+    let wealIncrease = 0;
+
     if (totalShielded > 0) {
-      // without aegis the shield didn't consume the 4p bonus
-      this.wealValue += wealValue(totalShielded);
+      wealIncrease = Math.max(0, wealValue(totalShielded) - overHeal);
+      this.wealValue += wealIncrease;
       totalShielded -= wealValue(totalShielded);
     }
 
-    const shieldOfAbsolutionValue = (totalShielded: number) =>
-      totalShielded >= shieldOfAbsolutionBonus ? shieldOfAbsolutionBonus : totalShielded;
-
-    if (totalShielded > 0) {
-      // without aegis the shield didn't consume the 4p bonus
-      this.t29pValue += shieldOfAbsolutionValue(totalShielded);
-      totalShielded -= shieldOfAbsolutionValue(totalShielded);
+    if (overHeal === 0) {
+      this.aegisOfWrathValue += Math.min(aegisOfWrathBonus, totalShielded);
     }
 
     this.shieldApplications.set(event.targetID, null);
@@ -182,39 +163,6 @@ class PowerWordShield extends Analyzer {
       return;
     }
     info.healing += event.amount;
-  }
-
-  onPenanceHeal(event: HealEvent) {
-    this.shieldOfAbsolutionValue +=
-      (event.amount + (event.overheal || 0)) * SHIELD_OF_ABSOLUTION_MULTIPLIER_HEALING;
-  }
-
-  onPenanceDamage(event: DamageEvent) {
-    this.shieldOfAbsolutionValue += event.amount * SHIELD_OF_ABSOLUTION_MULTIPLIER_DAMAGE;
-  }
-
-  onPenanceCast() {
-    this.shieldOfAbsolutionValue = 0;
-  }
-
-  statistic() {
-    if (!this.has4p) {
-      return;
-    }
-
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(13)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-      >
-        <>
-          <BoringSpellValueText spellId={SPELLS.SHIELD_OF_ABSOLUTION_BUFF.id}>
-            <ItemHealingDone amount={this.t29pValue} />
-          </BoringSpellValueText>
-        </>
-      </Statistic>
-    );
   }
 }
 

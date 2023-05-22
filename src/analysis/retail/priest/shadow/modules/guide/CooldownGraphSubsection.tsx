@@ -42,7 +42,8 @@ const longCooldowns: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
   { talent: TALENTS.DARK_ASCENSION_TALENT },
   { talent: TALENTS.VOID_ERUPTION_TALENT },
-  { talent: TALENTS.MINDBENDER_SHADOW_TALENT }, //add regular pet here
+  { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
+  //{ talent: TALENTS.SHADOWFIEND_TALENT }, TODO: Fix Shadowfiend when in this list
 ];
 
 const CoreCooldownsGraph = () => {
@@ -129,7 +130,7 @@ const LongCooldownsGraph = () => {
     <Trans id="guide.priest.shadow.sections.longcooldowns.graph">
       <strong>Major Cooldowns</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. You should use these cooldowns together when possible to
-      maximize the damage they can deal.
+      maximize the damage they can deal, without missing any possible casts in the encounter.
     </Trans>
   );
   return CooldownGraphSubsection(longCooldowns, message);

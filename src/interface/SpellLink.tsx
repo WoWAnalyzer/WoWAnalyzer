@@ -12,6 +12,7 @@ interface BaseProps extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> 
   iconStyle?: CSSProperties;
   ilvl?: number;
   rank?: number;
+  def?: number;
 }
 
 interface PropsWithId extends BaseProps {
@@ -33,7 +34,7 @@ interface PropsWithSpell extends BaseProps {
 type Props = PropsWithId | PropsWithSpell;
 
 const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
-  ({ id, spell, children, icon = true, iconStyle, ilvl, rank, ...other }: Props, ref) => {
+  ({ id, spell, children, icon = true, iconStyle, ilvl, def, rank, ...other }: Props, ref) => {
     const spellData = spell ?? id;
     const spellId = typeof spellData === 'number' ? spellData : spellData.id;
     const spellInfo = useSpellInfo(spellData);
@@ -41,7 +42,7 @@ const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
 
     return (
       <a
-        href={spellTooltip(spellId, { ilvl, rank })}
+        href={spellTooltip(spellId, { ilvl, rank, def })}
         target="_blank"
         rel="noopener noreferrer"
         ref={ref}

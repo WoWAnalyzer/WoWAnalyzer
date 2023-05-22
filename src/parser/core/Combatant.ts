@@ -145,6 +145,16 @@ class Combatant extends Entity {
     return this.treeTalentsByEntryId.get(foundEntryId)?.rank ?? 0;
   }
 
+  getTalentDefinitionId(talent: Talent) {
+    const foundDefinitionId = talent.definitionIds.find(
+      (definitionId) => definitionId.specId === this.specId,
+    );
+    if (!foundDefinitionId) {
+      return 0;
+    }
+    return foundDefinitionId.id;
+  }
+
   /**
    * The number of points spent in each tree.
    *

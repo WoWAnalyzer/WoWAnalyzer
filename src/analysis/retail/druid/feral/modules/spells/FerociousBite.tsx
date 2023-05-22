@@ -68,7 +68,7 @@ class FerociousBite extends Analyzer {
       (this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id)
         ? INCARN_ENERGY_MULT
         : 1);
-    const usedMax = extraEnergyUsed === maxExtraEnergy;
+    const usedMax = extraEnergyUsed >= maxExtraEnergy;
 
     if (!duringBerserkAndSotf && usedMax) {
       event.meta = event.meta || {};

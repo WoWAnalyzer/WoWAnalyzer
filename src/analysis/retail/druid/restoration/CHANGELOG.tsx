@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2023, 5, 17), <>Fixed an issue where the <SpellLink id={TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT.id}/> value wasn't updated for 10.1</>, Sref),
   change(date(2023, 5, 4), <>Updated T30 (Aberrus) set to account for April 28 patch.</>, Sref),
   change(date(2023, 3, 30), <>Updated T30 (Aberrus) set to account for March 28 patch.</>, Sref),
   change(date(2023, 3, 20), <>Added support for T30 (Aberrus) set statistics, check it out with your PTR logs!</>, Sref),

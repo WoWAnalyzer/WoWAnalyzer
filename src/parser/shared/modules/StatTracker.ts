@@ -588,6 +588,13 @@ class StatTracker extends Analyzer {
         //We are at the maximum % so we use the maximum scaled value and multiply it by the coefficient
         return penaltyThresholds[penaltyThresholds.length - 1].scaled * coef;
       }
+    } else if (baselinePercent < 0) {
+      // if we have negative stat (yes, that has been observed in the wild), we use the knowledge that there are no penalties to take the easy path
+      if (returnRatingForNextPercent) {
+        return baselineRatingPerPercent;
+      } else {
+        return baselinePercent;
+      }
     }
     // TODO surely there's a prettier way than an indexed for loop
     //Loop through each of our penaltythresholds until we find the first one where we have more baseline stats than that curvepoint

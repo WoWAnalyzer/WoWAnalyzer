@@ -1,9 +1,14 @@
 import { change, date } from 'common/changelog';
 import TALENTS, { TALENTS_PRIEST } from 'common/TALENTS/priest';
-import { Hana, Litena, Squided } from 'CONTRIBUTORS';
+import { Hana, Litena, Squided, Trevor } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(
+    date(2023, 5, 11),
+    <>Fix crash in Holy Priest T30 module</>,
+    Trevor
+  ),
   change(
     date(2023, 4, 26),
     <>Restyle Surge of Light and import it for Discipline</>,

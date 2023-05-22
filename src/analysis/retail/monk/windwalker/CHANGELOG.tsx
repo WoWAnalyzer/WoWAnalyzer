@@ -1,9 +1,11 @@
 import { change, date } from 'common/changelog';
+import spells from 'common/SPELLS/monk';
 import talents from 'common/TALENTS/monk';
 import { Durpn, Hursti, Tenooki } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 18), <>Fixed <SpellLink id={spells.BLACKOUT_KICK}/> being flagged as an incorrect cast in the APL/Timeline when it reset <SpellLink id={talents.RISING_SUN_KICK_TALENT} /></>, Durpn),
   change(date(2023, 5, 9), <>Adjusted Faeline Stomp in APL</>, Tenooki),
   change(date(2023, 5, 3), <>Updated Serenity/Non-Serenity APls, cooldown/ability tracking improvements</>, Tenooki),
   change(date(2023, 5, 3), <>Fixes to cooldown tracking on various abilities</>, Tenooki),
