@@ -5,6 +5,7 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 5, 23), <>Improve accuracy of 4 piece module</>, Trevor),
   change(date(2023, 5, 19), <>Fix mana cost for <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT}/></>, Trevor),
   change(date(2023, 5, 12), <>Fix bug in guide for <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT}/> checks</>, Trevor),
   change(date(2023, 5, 11), <>Fix <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT}/> and <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT}/> modules</>, Trevor),
