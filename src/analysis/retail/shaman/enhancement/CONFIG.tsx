@@ -1,4 +1,4 @@
-import { Vetyst } from 'CONTRIBUTORS';
+import { Seriousnes, Vetyst } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
@@ -7,9 +7,9 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Vetyst],
+  contributors: [Vetyst, Seriousnes],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: '10.0.2',
+  patchCompatibility: null,
   isPartial: true,
   description: (
     <>
