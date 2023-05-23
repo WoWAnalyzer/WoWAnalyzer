@@ -38,6 +38,7 @@ import WitchDoctorsWolfBones from './modules/shadowlands/legendaries/WitchDoctor
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
+import ThorimsInvocation from './modules/talents/ThorimsInvocation';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Shaman Shared
@@ -80,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     feralSpirit: FeralSpirit,
     stormbringer: Stormbringer,
     witchDoctorsAncestry: WitchDoctorsAncestry,
+    thorimsInvocation: ThorimsInvocation,
     // ascendance: Ascendance,
     // lashingFlames: LashingFlames,
     // earthenSpike: EarthenSpike,
