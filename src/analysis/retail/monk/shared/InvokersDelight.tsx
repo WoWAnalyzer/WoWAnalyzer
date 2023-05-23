@@ -18,14 +18,28 @@ class InvokersDelight extends Analyzer {
       return;
     }
 
+    const specId = options.owner.selectedCombatant.specId;
+    let triggerIds: number[] = [];
+    switch (specId) {
+      case 269: {
+        // windwalker
+        triggerIds = [TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id];
+        break;
+      }
+      case 270: {
+        // mistweaver
+        triggerIds = [
+          TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
+          TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
+        ];
+        break;
+      }
+    }
+
     options.buffs.add({
       spellId: SPELLS.INVOKERS_DELIGHT_BUFF.id,
       timelineHighlight: true,
-      triggeredBySpellId: [
-        TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id,
-        TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
-        TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
-      ],
+      triggeredBySpellId: triggerIds,
     });
 
     // The haste is coded into the Haste module because it increases haste by a percent.
