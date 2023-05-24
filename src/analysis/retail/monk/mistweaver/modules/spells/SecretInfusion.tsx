@@ -17,7 +17,6 @@ class SecretInfusion extends Analyzer {
     SECRET_INFUSION_BUFFS.forEach((spell) => {
       options.buffs.add({
         spellId: spell.id,
-        timelineHighlight: true,
         triggeredBySpellId: TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
       });
     });
