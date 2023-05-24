@@ -49,9 +49,9 @@ class InsidiousIre extends Analyzer {
     return {
       actual: this.mindBlastEfficiency,
       isLessThan: {
-        minor: 0.9,
-        average: 0.8,
-        major: 0.6,
+        minor: 0.85,
+        average: 0.75,
+        major: 0.65,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
@@ -63,7 +63,7 @@ class InsidiousIre extends Analyzer {
       isLessThan: {
         minor: 0.9,
         average: 0.8,
-        major: 0.6,
+        major: 0.7,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
