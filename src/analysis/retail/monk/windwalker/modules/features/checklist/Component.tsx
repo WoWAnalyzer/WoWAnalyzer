@@ -105,7 +105,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         {combatant.hasTalent(TALENTS_MONK.SERENITY_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.SERENITY_TALENT.id} />
         )}
-        <AbilityRequirement spell={SPELLS.INVOKE_XUEN_THE_WHITE_TIGER.id} />
+        <AbilityRequirement spell={TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT.id} />
         <Requirement
           name={
             <>
