@@ -89,7 +89,7 @@ export default function CastEfficiencyBar({
   return (
     <CooldownUtilBarContainer>
       <div style={{ color: textColor }}>
-        <SpellIcon spell={rawSpellId} style={{ height: '28px' }} />{' '}
+        <SpellIcon spell={spellObj} style={{ height: '28px' }} />{' '}
         <TooltipElement content={tooltip}>
           {utilDisplay} <small>effic</small>
         </TooltipElement>
