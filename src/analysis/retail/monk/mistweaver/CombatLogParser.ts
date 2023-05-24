@@ -87,6 +87,7 @@ import RisingMistBreakdown from './modules/features/RisingMistBreakdown';
 import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
+import SecretInfusion from './modules/spells/SecretInfusion';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -183,6 +184,7 @@ class CombatLogParser extends CoreCombatLogParser {
     legacyOfWisdom: LegacyOfWisdom,
     calmingCoalescence: CalmingCoalescence,
     lifeCocoon: LifeCocoon,
+    secretInfusion: SecretInfusion,
 
     apl: AplCheck,
 
