@@ -1,6 +1,7 @@
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
@@ -71,7 +72,6 @@ class InsidiousIre extends Analyzer {
     };
   }
 
-  // TODO: Make new style
   suggestions(when: When) {
     when(this.mindBlastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -135,7 +135,10 @@ class InsidiousIre extends Analyzer {
       instancesHit: ired.length,
       instancesMissed: unIred.length,
       efficiency: ired.length / (ired.length + unIred.length),
-      damageGained: ired.reduce((sum, damage) => sum + damage.amount * this.insidiousIrePct, 0),
+      damageGained: ired.reduce(
+        (sum, damage) => sum + calculateEffectiveDamage(damage, this.insidiousIrePct),
+        0,
+      ),
       damageMissed: unIred.reduce((sum, damage) => sum + damage.amount * this.insidiousIrePct, 0),
     };
   }
