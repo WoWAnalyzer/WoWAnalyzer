@@ -1,5 +1,6 @@
 import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
@@ -15,6 +16,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { INSIDIOUS_IRE_DAMAGE_PER_RANK } from '../../constants';
 import { SpellInfo } from 'parser/core/EventFilter';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
 /*
   Insidious Ire affects:
@@ -188,6 +190,46 @@ class InsidiousIre extends Analyzer {
         </>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const mindBlast = this.ireDataForSpell(SPELLS.MIND_BLAST);
+    const voidTorrent = this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT)
+      ? this.ireDataForSpell(TALENTS.VOID_TORRENT_TALENT)
+      : undefined;
+
+    const explanation = (
+      <>
+        <p>
+          <b>
+            <SpellLink id={TALENTS.INSIDIOUS_IRE_TALENT.id} />
+          </b>{' '}
+          adds damange to <SpellLink id={SPELLS.MIND_BLAST.id} /> and{' '}
+          <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} /> when{' '}
+          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />
+          , and <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> are all active on the target.{' '}
+          <br />
+          Check your DoT uptime, and be sure to cast these spells while Devouring Plague is fresh to
+          increase damage.
+        </p>
+        {!this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) ? (
+          <b>You should really talent Void Torrent in combination with this talent!</b>
+        ) : null}
+      </>
+    );
+
+    const data = (
+      <div>
+        <strong>Mindblast breakdown</strong>
+        <GradiatedPerformanceBar good={mindBlast.instancesHit} bad={mindBlast.instancesMissed} />
+        <strong>Void Torrent breakdown</strong>
+        <GradiatedPerformanceBar
+          good={voidTorrent?.instancesHit || 0}
+          bad={voidTorrent?.instancesMissed || 1}
+        />
+      </div>
+    );
+    return explanationAndDataSubsection(explanation, data, 50);
   }
 }
 
