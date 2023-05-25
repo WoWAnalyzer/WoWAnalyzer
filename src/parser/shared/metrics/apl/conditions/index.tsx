@@ -22,3 +22,4 @@ export { lastSpellCast } from './lastSpellCast';
 export { default as describe } from './describe';
 export * from './util';
 export { default as hasSetBonus } from './hasSetBonus';
+export { nextSpellCast } from './nextSpellCast';

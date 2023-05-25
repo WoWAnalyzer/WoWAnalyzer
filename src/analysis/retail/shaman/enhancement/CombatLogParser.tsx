@@ -39,6 +39,7 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import ThorimsInvocation from './modules/talents/ThorimsInvocation';
+import ThorimsInvocationNormalizer from './modules/spells/ThorimsInvocation';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Shaman Shared
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stormbringer: Stormbringer,
     witchDoctorsAncestry: WitchDoctorsAncestry,
     thorimsInvocation: ThorimsInvocation,
+    thorimsInvocationNormalizer: ThorimsInvocationNormalizer,
     // ascendance: Ascendance,
     // lashingFlames: LashingFlames,
     // earthenSpike: EarthenSpike,
