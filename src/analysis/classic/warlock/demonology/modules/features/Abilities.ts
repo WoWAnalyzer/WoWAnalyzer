@@ -3,8 +3,21 @@ import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 class Abilities extends CoreAbilities {
+  nemesisCD(spellId: number, demoPoints: number, cooldown: number) {
+    if (spellId === SPELLS.FEL_DOMINATION.id || SPELLS.DEMONIC_EMPOWERMENT.id) {
+      if (demoPoints >= 43) {return cooldown * 0.7;}
+      if (demoPoints === 42) {return cooldown * 0.8;}
+      if (demoPoints === 41) {return cooldown * 0.9;}
+    }
+    if (spellId === SPELLS.METAMORPHOSIS.id) {
+      if (demoPoints >= 54) {return cooldown * 0.7;}
+      if (demoPoints === 53) {return cooldown * 0.8;}
+      if (demoPoints === 52) {return cooldown * 0.9;}
+    }
+    return cooldown;
+  }
   spellbook() {
-    const combatant = this.selectedCombatant;
+    const demoPoints = this.selectedCombatant.talentPoints[1];
     return [
       // Rotational
       {
@@ -56,27 +69,27 @@ class Abilities extends CoreAbilities {
       // Cooldowns
       {
         spell: [SPELLS.DEMONIC_EMPOWERMENT.id],
-        enabled: combatant.talentPoints[1] >= 30,
+        enabled: demoPoints >= 30,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 60,
+        cooldown: this.nemesisCD(SPELLS.DEMONIC_EMPOWERMENT.id, demoPoints, 60),
       },
       {
         spell: [SPELLS.METAMORPHOSIS.id],
-        enabled: combatant.talentPoints[1] >= 50,
+        enabled: demoPoints >= 50,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
-        cooldown: 120,
+        cooldown: this.nemesisCD(SPELLS.METAMORPHOSIS.id, demoPoints, 180),
       },
       {
         spell: [SPELLS.IMMOLATION_AURA.id],
-        enabled: combatant.talentPoints[1] >= 50,
+        enabled: demoPoints >= 50,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: { base: 1500 },
       },
       {
         spell: [SPELLS.SHADOW_CLEAVE.id],
-        enabled: combatant.talentPoints[1] >= 50,
+        enabled: demoPoints >= 50,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
       },
@@ -160,20 +173,20 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.SOUL_LINK.id],
-        enabled: combatant.talentPoints[1] >= 10,
+        enabled: demoPoints >= 10,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       {
         spell: [SPELLS.CHALLENGING_HOWL.id],
-        enabled: combatant.talentPoints[1] >= 50,
+        enabled: demoPoints >= 50,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
       // Pet Related
       {
         spell: [SPELLS.FEL_DOMINATION.id],
-        enabled: combatant.talentPoints[1] >= 10,
+        enabled: demoPoints >= 10,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
       },
@@ -184,7 +197,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [SPELLS.SUMMON_FELGUARD.id],
-        enabled: combatant.talentPoints[1] >= 40,
+        enabled: demoPoints >= 40,
         category: SPELL_CATEGORY.UTILITY,
         gcd: { base: 1500 },
       },
