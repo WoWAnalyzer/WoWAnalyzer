@@ -44,7 +44,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    * will recharge at a time, so a spell having multiple charges will only have
    * the amount of charges as extra possible casts during a fight.
    */
-  charges?: number;
+  charges?: (() => number) | number;
   /**
    * `null` is the spell is off the GCD, or an object if the spell is on the
    * GCD. If this spell overlaps in the Spell Timeline it likely is incorrectly
@@ -237,7 +237,24 @@ class Ability {
     maxCasts: undefined,
     importance: undefined,
   };
-  charges = 1;
+  _charges: SpellbookAbility['charges'];
+  get charges() {
+    return this.getCharges();
+  }
+  /** @param {func|number|undefined} value */
+  set charges(value) {
+    this._charges = value;
+  }
+  getCharges() {
+    if (this._charges === undefined) {
+      // Most abilities only have one charge and won't provide this property
+      return 1;
+    }
+    if (typeof this._charges === 'function') {
+      return this._charges.call(null);
+    }
+    return this._charges;
+  }
   enabled = true;
   timelineSortIndex: number | null = null;
   timelineCastableBuff: number | undefined;
