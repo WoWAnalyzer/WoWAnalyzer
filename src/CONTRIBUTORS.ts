@@ -2171,3 +2171,15 @@ export const Jundarer: Contributor = {
     },
   ],
 };
+export const Seriousnes: Contributor = {
+  nickname: 'Seriousnes',
+  github: 'Seriousnes',
+  discord: 'Seriousnes#7895',
+  mains: [
+    {
+      name: 'Seriousnes',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/frostmourne/Seriousnes',
+    },
+  ],
+};
