@@ -212,13 +212,13 @@ class ThunderFocusTea extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
         </b>{' '}
         is an important spell used to empower other abilities. It should be used on cooldown at all
         times and the spell that you use it on depends on your talent selection. If you have{' '}
-        <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} />, then you should always use{' '}
-        <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> on{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />{' '}
+        <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />, then you should always use{' '}
+        <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> on{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
         {this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT) && (
           <>
             or <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (when talented into{' '}
@@ -234,14 +234,15 @@ class ThunderFocusTea extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> cast efficiency
+            <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> cast efficiency
           </strong>
           <div>
             {this.subStatistic()} <br />
             <strong>Casts </strong>
             <small>
-              - Green indicates a correct <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
-              cast, while red indicates an incorrect cast.
+              - Green indicates a correct{' '}
+              <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> cast, while red indicates
+              an incorrect cast.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
@@ -256,7 +257,7 @@ class ThunderFocusTea extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id}
+        spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         useThresholds
