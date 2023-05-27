@@ -2191,6 +2191,7 @@ export const Seriousnes: Contributor = {
   nickname: 'Seriousnes',
   github: 'Seriousnes',
   discord: 'Seriousnes#7895',
+  avatar: avatar('seriousnes-avatar.webp'),
   mains: [
     {
       name: 'Seriousnes',
