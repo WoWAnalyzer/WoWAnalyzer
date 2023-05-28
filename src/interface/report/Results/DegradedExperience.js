@@ -1,12 +1,11 @@
-import React from 'react';
+import AlertDanger from 'interface/AlertDanger';
+import ModuleError from 'parser/core/ModuleError';
 import PropTypes from 'prop-types';
+import { Component, Fragment } from 'react';
 
-import Danger from 'interface/common/Alert/Danger';
-import MODULE_ERROR from 'parser/core/MODULE_ERROR';
+const toTitleCase = (s) => s.substr(0, 1).toUpperCase() + s.substr(1);
 
-const toTitleCase = s => s.substr(0, 1).toUpperCase() + s.substr(1);
-
-class DegradedExperience extends React.Component {
+class DegradedExperience extends Component {
   static propTypes = {
     disabledModules: PropTypes.object.isRequired,
   };
@@ -25,7 +24,9 @@ class DegradedExperience extends React.Component {
 
   get firstError() {
     const { disabledModules } = this.props;
-    const existingErrorTypes = Object.values(MODULE_ERROR).filter(state => disabledModules[state] && disabledModules[state].length !== 0);
+    const existingErrorTypes = Object.values(ModuleError).filter(
+      (state) => disabledModules[state] && disabledModules[state].length !== 0,
+    );
     if (existingErrorTypes.length > 0) {
       return disabledModules[existingErrorTypes[0]][0].key;
     }
@@ -36,8 +37,9 @@ class DegradedExperience extends React.Component {
     const { disabledModules } = this.props;
     let amount = 0;
     if (disabledModules) {
-      amount = Object.values(MODULE_ERROR).reduce((total, cur) => {
-        if (cur === MODULE_ERROR.DEPENDENCY) { //dont count dependency errors for total
+      amount = Object.values(ModuleError).reduce((total, cur) => {
+        if (cur === ModuleError.DEPENDENCY) {
+          //dont count dependency errors for total
           return total;
         }
         return total + (disabledModules[cur] ? disabledModules[cur].length : 0);
@@ -48,8 +50,8 @@ class DegradedExperience extends React.Component {
 
   get disabledDependencyCount() {
     const { disabledModules } = this.props;
-    if (disabledModules[MODULE_ERROR.DEPENDENCY]) {
-      return disabledModules[MODULE_ERROR.DEPENDENCY].length;
+    if (disabledModules[ModuleError.DEPENDENCY]) {
+      return disabledModules[ModuleError.DEPENDENCY].length;
     }
     return 0;
   }
@@ -65,36 +67,55 @@ class DegradedExperience extends React.Component {
 
     return (
       <div className="container">
-        <Danger style={{ marginBottom: 30 }}>
+        <AlertDanger style={{ marginBottom: 30 }}>
           <h2>Degraded experience</h2>
-          <span style={{ color: 'white' }}>{toTitleCase(this.firstError)}</span> {this.disabledModuleCount > 1 && <>and {this.disabledModuleCount - 1} other module{this.disabledModuleCount > 2 && 's'} </>}encountered an error and had to be disabled. {this.disabledDependencyCount > 1 && <>As a consequence <span style={{ color: 'white' }}>{this.disabledDependencyCount}</span> other modules had to be disabled as they depend on these modules.</>} Results may be incomplete. Please report this issue to us on <a href="https://wowanalyzer.com/discord">Discord</a> so we can fix it!{' '}
+          <span style={{ color: 'white' }}>{toTitleCase(this.firstError)}</span>{' '}
+          {this.disabledModuleCount > 1 && (
+            <>
+              and {this.disabledModuleCount - 1} other module{this.disabledModuleCount > 2 && 's'}{' '}
+            </>
+          )}
+          encountered an error and had to be disabled.{' '}
+          {this.disabledDependencyCount > 1 && (
+            <>
+              As a consequence{' '}
+              <span style={{ color: 'white' }}>{this.disabledDependencyCount}</span> other modules
+              had to be disabled as they depend on these modules.
+            </>
+          )}{' '}
+          Results may be incomplete. Please report this issue to us on{' '}
+          <a href="https://wowanalyzer.com/discord">Discord</a> so we can fix it!{' '}
           <a href="javascript:" onClick={this.toggleDetails}>
             {this.state.expanded ? 'Less information' : 'More information'}
           </a>
-
           {this.state.expanded && (
             <>
-              <br /><br />{Object.values(MODULE_ERROR)
-              .filter(state => disabledModules[state] && disabledModules[state].length !== 0)
-              .map(state => (
-                <div key={state}>
-                  The following modules have been disabled due to errors during {state}:<br />
-                  <div style={{ color: 'white' }}>
-                    {disabledModules[state]
-                      .sort((a, b) => a.key.localeCompare(b.key))
-                      .map(m => (
-                        <React.Fragment key={m.key}>
-                          {toTitleCase(m.key)}<br />
-                          {m.error && <pre>{m.error.stack ? m.error.stack : m.error.toString()}</pre>}
-                        </React.Fragment>
-                      ))}
+              <br />
+              <br />
+              {Object.values(ModuleError)
+                .filter((state) => disabledModules[state] && disabledModules[state].length !== 0)
+                .map((state) => (
+                  <div key={state}>
+                    The following modules have been disabled due to errors during {state}:<br />
+                    <div style={{ color: 'white' }}>
+                      {disabledModules[state]
+                        .sort((a, b) => a.key.localeCompare(b.key))
+                        .map((m) => (
+                          <Fragment key={m.key}>
+                            {toTitleCase(m.key)}
+                            <br />
+                            {m.error && (
+                              <pre>{m.error.stack ? m.error.stack : m.error.toString()}</pre>
+                            )}
+                          </Fragment>
+                        ))}
+                    </div>
+                    <br />
                   </div>
-                  <br />
-                </div>
-              ))}
+                ))}
             </>
           )}
-        </Danger>
+        </AlertDanger>
       </div>
     );
   }

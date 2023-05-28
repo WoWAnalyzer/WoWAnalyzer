@@ -1,8 +1,9 @@
-import SPELLS from 'common/SPELLS';
-import Abilities from 'parser/core/modules/Abilities';
-import Buffs from 'parser/core/modules/Buffs';
-import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { captureException } from 'common/errorLogger';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
+import { EventType } from 'parser/core/Events';
+import EventsNormalizer from 'parser/core/EventsNormalizer';
+import Abilities from 'parser/core/modules/Abilities';
+import Buffs from 'parser/core/modules/Auras';
 
 import ApplyBuff from './ApplyBuff';
 
@@ -18,7 +19,7 @@ const debug = false;
  * the right type of event (begincast + cast vs only a cast).
  *
  * @property {Abilities} abilities
- * @property {Buffs} buffs
+ * @property {Auras} buffs
  * @property {ApplyBuff} applyBuff
  */
 class PrePullCooldowns extends EventsNormalizer {
@@ -32,6 +33,7 @@ class PrePullCooldowns extends EventsNormalizer {
    * spellbook with static values.
    */
   static dependencies = {
+    ...EventsNormalizer.dependencies,
     abilities: Abilities,
     buffs: Buffs,
     applyBuff: ApplyBuff, // we need fabricated events for untracked prepull applied buffs
@@ -56,10 +58,10 @@ class PrePullCooldowns extends EventsNormalizer {
       });
     };
 
-    this.buffs.activeBuffs.forEach(buff => {
+    this.buffs.activeAuras.forEach((buff) => {
       if (buff.spellId instanceof Array) {
         // Add each buff separate to make usage easier
-        buff.spellId.forEach(spellId => {
+        buff.spellId.forEach((spellId) => {
           addBuff(buff, spellId);
         });
       } else {
@@ -67,10 +69,10 @@ class PrePullCooldowns extends EventsNormalizer {
       }
     });
 
-    this.abilities.activeAbilities.forEach(ability => {
+    this.abilities.activeAbilities.forEach((ability) => {
       if (ability.damageSpellIds) {
         damageSpells.push({
-          castId: ability.spell.id,
+          castId: ability.spell,
           damageIds: ability.damageSpellIds,
         });
       }
@@ -98,7 +100,7 @@ class PrePullCooldowns extends EventsNormalizer {
       const event = events[i];
       const sourceId = event.sourceID;
 
-      if (event.type === 'applybuff') {
+      if (event.type === EventType.ApplyBuff) {
         // We rely on the ApplyBuff normalizer to set the prepull property
         if (!event.prepull) {
           continue;
@@ -107,9 +109,13 @@ class PrePullCooldowns extends EventsNormalizer {
         for (let i = 0; i < buffSpells.length; i += 1) {
           if (buffSpells[i].buffId === event.ability.guid) {
             debug && console.debug(`Detected a precast buff cooldown: ${event.ability.name}`);
-            if(buffSpells[i].castId instanceof Array && buffSpells[i].castId.includes(event.ability.guid)){ //try to find corresponding cast, otherwise pass list of casts
+            if (
+              buffSpells[i].castId instanceof Array &&
+              buffSpells[i].castId.includes(event.ability.guid)
+            ) {
+              //try to find corresponding cast, otherwise pass list of casts
               prepullCasts.push(this.constructor._fabricateCastEvent(event));
-            }else{
+            } else {
               prepullCasts.push(this.constructor._fabricateCastEvent(event, buffSpells[i].castId));
             }
             buffSpells.splice(i, 1);
@@ -123,7 +129,7 @@ class PrePullCooldowns extends EventsNormalizer {
         continue;
       }
 
-      if (event.type === 'cast') {
+      if (event.type === EventType.Cast) {
         /**
          * This will copy the first resource information to all precast events.
          * It's not pretty or 100% accurate, but it prevents errors on analyzers
@@ -135,8 +141,15 @@ class PrePullCooldowns extends EventsNormalizer {
          * information more accurately.
          */
         if (precastClassResources === null && event.classResources) {
-          debug && console.debug('Setting prepull class resources to:', event.classResources);
-          precastClassResources = event.classResources;
+          debug &&
+            console.debug(
+              'Setting prepull class resources (but stripping costs) to:',
+              event.classResources,
+            );
+          precastClassResources = event.classResources.map((classResource) => ({
+            ...classResource,
+            cost: undefined,
+          }));
         }
 
         // If a cast is found for a damage spell, remove it from the search
@@ -149,10 +162,10 @@ class PrePullCooldowns extends EventsNormalizer {
         continue;
       }
 
-      if (event.type === 'damage') {
+      if (event.type === EventType.Damage) {
         // If a damage event already has a cast event, it shouldn't be in the array
         for (let i = 0; i < damageSpells.length; i += 1) {
-          if (damageSpells[i].damageIds.some(id => id === event.ability.guid)) {
+          if (damageSpells[i].damageIds.some((id) => id === event.ability.guid)) {
             debug && console.debug(`Detected a precast damage cooldown: ${event.ability.name}`);
             prepullCasts.push(this.constructor._fabricateCastEvent(event, damageSpells[i].castId));
             damageSpells.splice(i, 1);
@@ -175,7 +188,7 @@ class PrePullCooldowns extends EventsNormalizer {
     for (let i = prepullCasts.length - 1; i >= 0; i -= 1) {
       const event = prepullCasts[i];
       const gcd = this._resolveAbilityGcd(event.ability.guid);
-      if (gcd === null) {
+      if (gcd === 0) {
         // When the ability is off the GCD give it at least some margin so it properly appears as cast before the pull and out of combat
         event.timestamp = fightStartTimestamp - this.owner.fight.offset_time - 100;
       } else {
@@ -192,11 +205,11 @@ class PrePullCooldowns extends EventsNormalizer {
     const ability = this.abilities.getAbility(id);
     if (!ability) {
       captureException(new Error(`No ability available for spell: ${id}`));
-      return null;
+      return 0;
     }
     const gcdProp = ability.gcd;
     if (!gcdProp) {
-      return null;
+      return 0;
     }
     if (typeof gcdProp.static === 'number') {
       return gcdProp.static;
@@ -214,7 +227,7 @@ class PrePullCooldowns extends EventsNormalizer {
       if (castId instanceof Array) {
         castId = castId[0];
       }
-      const spell = SPELLS[castId];
+      const spell = maybeGetSpell(castId);
       ability = {
         ...ability,
         guid: castId,
@@ -224,7 +237,7 @@ class PrePullCooldowns extends EventsNormalizer {
     }
 
     return {
-      type: 'cast',
+      type: EventType.Cast,
       ability: ability,
       sourceID: event.sourceID,
       sourceIsFriendly: event.sourceIsFriendly,

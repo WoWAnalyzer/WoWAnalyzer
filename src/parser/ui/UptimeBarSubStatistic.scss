@@ -1,0 +1,28 @@
+.multi-uptime-bar {
+  padding-bottom: 15px;
+  line-height: 1; /* bar labels are single line and need to be vertically aligned */
+
+  .main-bar {
+    padding: 10px;
+    height: 40px;
+    font-size: 20px;
+  }
+
+  .main-bar-big {
+    padding: 10px;
+    height: 65px;
+    font-size: 20px; /* bigger? */
+  }
+
+  .sub-bar {
+    padding: 5px 10px;
+    height: 25px;
+    font-size: 15px;
+  }
+
+  .bar-label {
+    padding: 0;
+    width: 150px;
+    text-align: center;
+  }
+}

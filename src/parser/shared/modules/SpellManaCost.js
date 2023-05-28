@@ -1,16 +1,24 @@
-import SPELLS from 'common/SPELLS/index';
+import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Events from 'parser/core/Events';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
+
+import Expansion from '../../../game/Expansion';
 
 class SpellManaCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.MANA;
 
   incorrectCosts = {};
 
+  constructor(options) {
+    super(options);
+    this.addEventListener(Events.fightend, this.onFightend);
+  }
+
   getHardcodedManaCost(event) {
     const spellId = event.ability.guid;
     const spell = SPELLS[spellId];
-    return (spell && spell.manaCost) ? spell.manaCost : null;
+    return spell && spell.manaCost ? spell.manaCost : null;
   }
 
   getRawResourceCost(event) {
@@ -33,20 +41,25 @@ class SpellManaCost extends SpellResourceCost {
     if (!cost || cost === 0) {
       return 0;
     }
-    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp)) {
+    if (
+      this.owner.config.expansion === Expansion.Shadowlands &&
+      this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp)
+    ) {
       return 0;
     }
     return cost;
   }
 
-  on_fightend() {
+  onFightend() {
     const incorrectCostCount = Object.keys(this.incorrectCosts).length;
     if (incorrectCostCount === 0) {
       return;
     }
 
-    console.warn(`There were ${incorrectCostCount} abilities that did not match their expected cost, see below for suggested values.`);
-    Object.values(this.incorrectCosts).forEach(ability => console.warn(ability));
+    console.warn(
+      `There were ${incorrectCostCount} abilities that did not match their expected cost, see below for suggested values.`,
+    );
+    Object.values(this.incorrectCosts).forEach((ability) => console.warn(ability));
   }
 }
 

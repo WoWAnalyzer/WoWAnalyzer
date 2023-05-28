@@ -7,14 +7,14 @@ describe('core/Modules/Helpers/CritEffectBonus', () => {
   });
   it('calculates the result using its hooks', () => {
     const mod = new CritEffectBonus({});
-    mod.hook(critEffectModifier => critEffectModifier + 0.1);
+    mod.hook((critEffectModifier) => critEffectModifier + 0.1);
     expect(mod.getBonus(null)).toBe(2.1);
   });
   it('supports countless hooks', () => {
     const mod = new CritEffectBonus({});
-    mod.hook(critEffectModifier => critEffectModifier + 0.1);
-    mod.hook(critEffectModifier => critEffectModifier + 5);
-    mod.hook(critEffectModifier => critEffectModifier / 2);
+    mod.hook((critEffectModifier) => critEffectModifier + 0.1);
+    mod.hook((critEffectModifier) => critEffectModifier + 5);
+    mod.hook((critEffectModifier) => critEffectModifier / 2);
     expect(mod.getBonus(null)).toBe(3.55);
   });
   it('passes event around functional test', () => {
@@ -26,11 +26,11 @@ describe('core/Modules/Helpers/CritEffectBonus', () => {
     expect(mod.getBonus(myEvent)).toBe(14.34);
   });
   it('passes event around technical test', () => {
-      const mod = new CritEffectBonus({});
-      const myEvent = {};
-      const myHook = jest.fn();
-      mod.hook(myHook);
-      mod.getBonus(myEvent);
-      expect(myHook.mock.calls[0][1]).toBe(myEvent);
-    });
+    const mod = new CritEffectBonus({});
+    const myEvent = {};
+    const myHook = jest.fn();
+    mod.hook(myHook);
+    mod.getBonus(myEvent);
+    expect(myHook.mock.calls[0][1]).toBe(myEvent);
+  });
 });

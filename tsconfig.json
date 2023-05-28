@@ -1,0 +1,43 @@
+{
+  "compilerOptions": {
+    "lib": ["dom", "dom.iterable", "ES2021"],
+    "target": "ES2021",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "baseUrl": "src",
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["./types", "./src"],
+  // analysis is currently excluded to prevent parsing files that reference dead talents
+  // all files that are imported are processed even if excluded here, so this only excludes unimported files
+  "exclude": [
+    "src/analysis/retail/druid/guardian",
+    "src/analysis/retail/paladin/protection",
+    "src/analysis/retail/paladin/retribution"
+  ],
+  "files": [
+    "src/analysis/retail/druid/guardian/CONFIG.tsx",
+    "src/analysis/retail/druid/guardian/CHANGELOG.tsx",
+    "src/analysis/retail/paladin/protection/CONFIG.tsx",
+    "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
+    "src/analysis/retail/paladin/retribution/CONFIG.tsx",
+    "src/analysis/retail/paladin/retribution/CHANGELOG.tsx",
+    "src/analysis/retail/paladin/retribution/CHANGELOG.tsx"
+  ],
+  "ts-node": {
+    // these options are overrides used only by ts-node
+    "compilerOptions": {
+      "module": "commonjs"
+    }
+  }
+}

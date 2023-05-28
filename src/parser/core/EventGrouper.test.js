@@ -30,7 +30,7 @@ describe('EventGrouper', () => {
 
   it('Processes events correctly', () => {
     const eventGrouper = new EventGrouper(100);
-    const events = [ { timestamp: 1 }, { timestamp: 99 }, { timestamp: 102 }, { timestamp: 200 } ];
+    const events = [{ timestamp: 1 }, { timestamp: 99 }, { timestamp: 102 }, { timestamp: 200 }];
     const eventProcessor = eventGrouper.processEvent.bind(eventGrouper);
 
     // Add the boys in

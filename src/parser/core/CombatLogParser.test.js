@@ -1,6 +1,6 @@
 import CombatLogParser from './CombatLogParser';
-import TestCombatLogParser from './tests/TestCombatLogParser';
 import Events from './Events';
+import TestCombatLogParser from './tests/TestCombatLogParser';
 
 class MyModule {}
 const myModule = new MyModule();
@@ -11,6 +11,7 @@ class EmptyCombatLogParser extends CombatLogParser {
   static defaultModules = {};
   static specModules = {};
 }
+const fakeConfig = {};
 const fakeReport = {
   friendlies: [],
   friendlyPets: [],
@@ -27,6 +28,9 @@ const fakeCombatants = [
     talents: [],
     artifact: [],
     gear: [],
+    player: {
+      type: 'Warlock',
+    },
   },
 ];
 
@@ -40,7 +44,13 @@ describe('Core/CombatLogParser', () => {
           myModule: MyModule,
         };
       }
-      const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
+      const parser = new MyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+      );
       expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
       expect(Object.keys(parser._modules).length).toBe(1);
     });
@@ -50,7 +60,14 @@ describe('Core/CombatLogParser', () => {
           myModule: MyModule,
         };
       }
-      const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
+      const parser = new MyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+        null,
+      );
       expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
       expect(Object.keys(parser._modules).length).toBe(1);
     });
@@ -63,7 +80,13 @@ describe('Core/CombatLogParser', () => {
           myModule: MySubModule,
         };
       }
-      const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
+      const parser = new MyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+      );
       expect(parser.getModule(MyModule)).toBeInstanceOf(MySubModule);
       expect(Object.keys(parser._modules).length).toBe(1);
     });
@@ -78,7 +101,13 @@ describe('Core/CombatLogParser', () => {
           myModule: MySubModule,
         };
       }
-      const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
+      const parser = new MyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+      );
       expect(parser.error).toBeFalsy();
       expect(MyModule.mock.instances.length).toBe(0);
       expect(MySubModule.mock.instances.length).toBe(1);
@@ -92,8 +121,14 @@ describe('Core/CombatLogParser', () => {
           myModule: null,
         };
       }
-      const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
-      expect(parser.getModule(MyModule, true)).toBe(undefined);
+      const parser = new MyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+      );
+      expect(parser.getOptionalModule(MyModule)).toBe(undefined);
       expect(Object.keys(parser._modules).length).toBe(0);
     });
   });
@@ -107,7 +142,13 @@ describe('Core/CombatLogParser', () => {
           onemore: {},
         };
       }
-      const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
+      const parser = new MyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+      );
       expect(parser.getModule(MyModule)).toBeInstanceOf(MyModule);
       expect(parser.getModule(MyModule)).toBe(myModule);
     });
@@ -120,26 +161,46 @@ describe('Core/CombatLogParser', () => {
           onemore: {},
         };
       }
-      const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
+      const parser = new MyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+      );
       expect(parser.getModule(MyModule)).toBeInstanceOf(MySubModule);
       expect(parser.getModule(MyModule)).toBe(mySubModule);
       expect(parser.getModule(MySubModule)).toBeInstanceOf(MySubModule);
       expect(parser.getModule(MySubModule)).toBe(mySubModule);
     });
-    it('throws when a requested module doesn\'t exist', () => {
+    it("throws when a requested module doesn't exist", () => {
       // We don't want it to fail silently as this could lead to unexpected bugs
       class MyCombatLogParser extends EmptyCombatLogParser {
         _modules = {
           onemore: {},
         };
       }
-      const parser = new MyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
+      const parser = new MyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+      );
       expect(() => parser.getModule(MyModule)).toThrow();
     });
   });
   describe('module dependencies', () => {
-    it('loads a module without dependencies and reveals it under the `modules` property', () => { // this is more or less just a test whether our test method actually works
-      const parser = new EmptyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
+    it('loads a module without dependencies and reveals it under the `modules` property', () => {
+      // this is more or less just a test whether our test method actually works
+      const parser = new EmptyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+        null,
+      );
       expect(Object.keys(parser._modules).length).toBe(0); // sanity check
       parser.initializeModules({
         myModule: MyModule,
@@ -152,7 +213,14 @@ describe('Core/CombatLogParser', () => {
           parent: MyModule,
         };
       }
-      const parser = new EmptyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
+      const parser = new EmptyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+        null,
+      );
       parser.initializeModules({
         myModule: MyModule,
         myChildModule: MyChildModule,
@@ -167,7 +235,14 @@ describe('Core/CombatLogParser', () => {
           parent: MyModule,
         };
       }
-      const parser = new EmptyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
+      const parser = new EmptyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+        null,
+      );
       parser.initializeModules({
         myChildModule: MyChildModule, // this requires MyModule, so loading this will have to be delayed
         myParentModule: MyModule,
@@ -182,7 +257,14 @@ describe('Core/CombatLogParser', () => {
           parent: MyModule,
         };
       }
-      const parser = new EmptyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
+      const parser = new EmptyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+        null,
+      );
       expect(() => {
         parser.initializeModules({
           myChildModule: MyChildModule,
@@ -195,7 +277,14 @@ describe('Core/CombatLogParser', () => {
           parent: MyModule,
         };
       }
-      const parser = new EmptyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
+      const parser = new EmptyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+        null,
+      );
       parser.initializeModules({
         myModule: MySubModule,
         myChildModule: MyChildModule,
@@ -209,7 +298,14 @@ describe('Core/CombatLogParser', () => {
       MyChildModule.dependencies = {
         parent: MyModule,
       };
-      const parser = new EmptyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
+      const parser = new EmptyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+        null,
+      );
       parser.initializeModules({
         myModule: MyModule,
         myChildModule: MyChildModule,
@@ -223,7 +319,14 @@ describe('Core/CombatLogParser', () => {
       MyChildModule.dependencies = {
         parent: MyParentModule,
       };
-      const parser = new EmptyCombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants, null);
+      const parser = new EmptyCombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+        null,
+      );
       parser.initializeModules({
         myAlternativeModule: MyAlternativeModule,
         myChildModule: MyChildModule, // this requires MyModule, so loading this will have to be delayed
@@ -237,7 +340,13 @@ describe('Core/CombatLogParser', () => {
   });
   describe('implementation', () => {
     it('has a default config that works', () => {
-      const parser = new CombatLogParser(fakeReport, fakePlayer, fakeFight, fakeCombatants);
+      const parser = new CombatLogParser(
+        fakeConfig,
+        fakeReport,
+        fakePlayer,
+        fakeFight,
+        fakeCombatants,
+      );
       expect(Object.keys(parser._modules).length).toBeGreaterThan(0);
     });
   });
@@ -250,5 +359,5 @@ describe('Core/CombatLogParser', () => {
       parser.processEvents(events);
       expect(onFinish).toHaveBeenCalled();
     });
-});
+  });
 });

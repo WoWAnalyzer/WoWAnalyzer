@@ -1,0 +1,10 @@
+{
+  "name": "eslint-plugin-wowanalyzer",
+  "version": "0.0.0",
+  "description": "Custom ESLint rules for WoWAnalyzer",
+  "main": "index.js",
+  "license": "AGPLv3",
+  "peerDependencies": {
+    "eslint": "^8"
+  }
+}

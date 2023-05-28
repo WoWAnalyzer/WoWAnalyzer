@@ -4,10 +4,10 @@
 
 - **Class names** (e.g. analyzers, normalizers and other modules) should be named using PascalCasing.
 - **The class's file name** should match the class name.
-- ***Public* property names** should be named using camelCasing.
-- ***Private* property names** should be named like public method names, but prefixed with an underscore to denote they should not be accessed outside the class (though you can when inheriting).
-- ***Public* method names** should be named using camelCasing
-- ***Private* method names** should be named like public method names, but prefixed with an underscore to denote they should not be accessed outside the class.
+- **_Public_ property names** should be named using camelCasing.
+- **_Private_ property names** should be named like public method names, but prefixed with an underscore to denote they should not be accessed outside the class (though you can when inheriting).
+- **_Public_ method names** should be named using camelCasing
+- **_Private_ method names** should be named like public method names, but prefixed with an underscore to denote they should not be accessed outside the class.
 - **Log-event listeners** should be named using `on_<eventname>`.
 
 # Components
@@ -33,7 +33,7 @@ Functions that aren't part of a class should be camelCased.
 # Constants
 
 - **Constants** should be UPPER_CASED with underscores separating words. You're encouraged to make them as descriptive as possible, so they can be somewhat lengthy.
-- If you export a constant *as a default* in a file, it should match the constant naming.
+- If you export a constant _as a default_ in a file, it should match the constant naming.
 - A "constants.js" file with multiple constants should be lower-cased.
 
 # Folders

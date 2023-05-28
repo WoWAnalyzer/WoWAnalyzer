@@ -3,7 +3,7 @@ import retryingPromise, { MAX_ATTEMPTS } from './retryingPromise';
 describe('retryingPromise', () => {
   function makeTimersInstant() {
     global.oldSetTimeout = global.setTimeout;
-    global.setTimeout = jest.fn(func => global.oldSetTimeout(func, 0));
+    global.setTimeout = jest.fn((func) => global.oldSetTimeout(func, 0));
   }
   function resetTimers() {
     if (global.oldSetTimeout) {
@@ -39,10 +39,16 @@ describe('retryingPromise', () => {
     expect.assertions(1);
     const returnValue = {};
     let call = 0;
-    const result = await retryingPromise(() => call++ === 0 ? Promise.reject() : Promise.resolve(returnValue));
+    const result = await retryingPromise(() => {
+      if (call === 0) {
+        call += 1;
+        return Promise.reject();
+      }
+      return Promise.resolve(returnValue);
+    });
     expect(result).toBe(returnValue);
   });
-  it('gives up and returns the last error if it can\'t be resolved', async () => {
+  it("gives up and returns the last error if it can't be resolved", async () => {
     expect.assertions(1);
     const returnError = new Error('Something happened');
     try {
@@ -59,7 +65,7 @@ describe('retryingPromise', () => {
       // not relevant to test
     }
 
-    const timings = global.setTimeout.mock.calls.map(call => call[1]);
+    const timings = global.setTimeout.mock.calls.map((call) => call[1]);
     // This test only works if the max attempts is 3, otherwise we need to add timings
     expect(MAX_ATTEMPTS).toBe(3);
     // The delay is only called twice, making a total of 3 calls (at 0ms delay, 500ms, and 1000ms)

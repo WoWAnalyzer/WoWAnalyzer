@@ -1,0 +1,44 @@
+@import 'interface/Theme.scss';
+
+.cooldown-bar {
+  position: relative;
+  width: 100%;
+  background: transparentize($color: $muted, $amount: 0.75);
+  height: 24px;
+}
+
+.cooldown-bar-window {
+  display: inline-block;
+  position: absolute;
+  width: 100%;
+  height: 24px;
+  background: $muted;
+
+  .cooldown-unavailable {
+    background: transparentize($primaryColor, 0.3);
+  }
+
+  // completely transparent, but we still draw div for the tooltip
+  .cooldown-available {
+    background: transparentize($primaryColor, 1);
+  }
+
+  .cooldown-available-bad {
+    background: transparentize(#aa2222, 0.6);
+  }
+
+  .cast-chip {
+    background: #ffffff;
+  }
+
+  > div {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    line-height: 24px;
+
+    > img.icon.game {
+      height: 26px;
+    }
+  }
+}

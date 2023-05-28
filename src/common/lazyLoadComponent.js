@@ -1,18 +1,17 @@
-import React from 'react';
-
-import DelayRender from 'interface/common/DelayRender';
+import DelayRender from 'interface/DelayRender';
+import { PureComponent } from 'react';
 
 export default function lazyLoadComponent(load, delay = 1000) {
-  class ComponentLazyLoader extends React.PureComponent {
+  class ComponentLazyLoader extends PureComponent {
     static loadedComponent = null;
     state = {
-      loaded: !!ComponentLazyLoader.loadedComponent,
+      loaded: Boolean(ComponentLazyLoader.loadedComponent),
     };
 
     constructor() {
       super();
       if (!this.constructor.loadedComponent) {
-        load().then(component => {
+        load().then((component) => {
           this.constructor.loadedComponent = component;
           this.setState({
             loaded: true,

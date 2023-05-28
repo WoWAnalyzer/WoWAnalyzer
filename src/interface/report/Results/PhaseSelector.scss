@@ -1,9 +1,9 @@
-@import 'interface/layout/Theme.scss';
+@import 'interface/Theme.scss';
 
-.form-control.phase > option{
-  background-color: $backgroundColor
+.form-control.phase > option {
+  background-color: $backgroundColor;
 }
 
-.form-control.phase[disabled]{
+.form-control.phase[disabled] {
   background-color: inherit;
 }

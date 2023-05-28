@@ -1,0 +1,356 @@
+name: 'Build'
+
+on: [push, pull_request, merge_group]
+
+env:
+  CI: true
+
+jobs:
+  prepare:
+    name: 'Install dependencies'
+    runs-on: ubuntu-latest
+    env:
+      YARN_CACHE_FOLDER: .yarn-cache
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        id: cache
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          restore-keys: ${{ runner.os }}-node_modules-
+      - name: Get yarn cache directory path
+        if: steps.cache.outputs.cache-hit != 'true'
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      # Use week number for automatically purging the cache every week. This is
+      # useful because caching yarn-cache would otherwise lead it to grow
+      # indefinitely since old dependencies are never purged.
+      - name: Get week number
+        if: steps.cache.outputs.cache-hit != 'true'
+        id: week-number
+        run: echo "::set-output name=value::$(date +%W)"
+      - name: Cache "yarn-cache"
+        uses: martijnhols/actions-cache@v3
+        if: steps.cache.outputs.cache-hit != 'true'
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-${{ hashFiles('yarn.lock') }}
+          restore-keys: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-
+      - run: yarn --frozen-lockfile --prefer-offline
+        if: steps.cache.outputs.cache-hit != 'true'
+      - name: Save "node_modules" in cache
+        if: steps.cache.outputs.cache-hit != 'true'
+        uses: martijnhols/actions-cache/save@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ steps.cache.outputs.primary-key }}
+
+  # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
+  #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
+  #  support is popular (https://github.com/actions/cache/issues/16)
+
+  typecheck:
+    needs: [prepare]
+    name: 'Typecheck'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - run: yarn typecheck
+  linting:
+    needs: [prepare]
+    name: 'ESLint'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - run: yarn lint --max-warnings=0
+  prettier:
+    needs: [prepare]
+    name: 'Prettier'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - run: yarn prettier . --check
+  test-interface:
+    needs: [prepare]
+    # This should actually include anything but parser and integration tests
+    name: 'Interface tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - run: yarn test:interface --runInBand
+  test-parser:
+    needs: [prepare]
+    name: 'Parser tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - run: yarn test:parser --runInBand
+  test-integration:
+    needs: [prepare]
+    name: 'Integration tests'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - run: yarn test:integration --runInBand
+  build:
+    needs: [prepare]
+    name: 'Build'
+    runs-on: ubuntu-latest
+    if: github.repository == 'wowanalyzer/wowanalyzer'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - name: Extract messages
+        if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+        run: |
+          yarn extract
+          yarn lingui compile
+      - name: Production build
+        run: |
+          REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
+          REACT_APP_VERSION=$GITHUB_SHA
+          # We already ran ESLint in a separate step
+          DISABLE_AUTOMATIC_ESLINT=true
+          yarn build
+      - run: tar -czf build.tar.gz build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: build
+          path: build.tar.gz
+  e2e-build:
+    needs: [prepare]
+    name: 'e2e-build'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - name: Extract messages
+        run: |
+          yarn extract
+          yarn lingui compile
+      - name: Customized e2e production build
+        run: |
+          REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
+          REACT_APP_VERSION=$GITHUB_SHA
+          # Even though this is a "production" build, it's actually a "development" build
+          cp .env.development .env.production
+          # We already ran ESLint in a separate step
+          DISABLE_AUTOMATIC_ESLINT=true
+          yarn build
+      - run: tar -czf build.tar.gz build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: e2e-build
+          path: build.tar.gz
+
+  e2e-test:
+    needs: [e2e-build]
+    name: e2e-test-shard-${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - uses: actions/download-artifact@v3
+        with:
+          name: e2e-build
+      - run: tar -xzf build.tar.gz
+      - name: Install Playwright deps
+        run: yarn playwright install --with-deps
+      - name: Run Playwright tests
+        run: yarn e2e --shard=${{ matrix.shard }}/4
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report-shard-${{ matrix.shard }}
+          path: playwright-report/
+          retention-days: 30
+
+  # This only runs on PRs since it's not a part of the build step. This is
+  # required as mistakes in i18n tags may trigger errors, and we skip the
+  # extraction in the build for performance in PRs.
+  extract-verify:
+    needs: [prepare]
+    name: 'Verify i18n messages'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - name: Extract messages
+        run: yarn extract
+      - name: Compile messages
+        run: yarn lingui compile
+
+  docker-image:
+    needs:
+      [typecheck, linting, prettier, test-interface, test-parser, test-integration, e2e-test, build]
+    name: 'Publish Docker image'
+    runs-on: ubuntu-latest
+    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v1
+        with:
+          name: build
+          path: .
+      - run: tar -xzf build.tar.gz
+      # Remove files we no longer need to speed up sending context to Docker
+      - run: rm build.tar.gz
+      - name: Docker meta
+        id: docker_meta
+        uses: crazy-max/ghaction-docker-meta@v1
+        with:
+          images: wowanalyzer/wowanalyzer
+          tag-sha: true
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{secrets.DOCKER_USERNAME}}
+          password: ${{secrets.DOCKER_PASSWORD}}
+      - name: 'Build martijnhols/healfie:${{env.DOCKER_BUILD_TAG}}'
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
+
+  # TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
+
+  require-changelog-entry:
+    name: 'Has new changelog entry'
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    env:
+      YARN_CACHE_FOLDER: .yarn-cache
+    steps:
+      - uses: actions/checkout@v3
+      - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - run: node scripts/require-changelog-entry.js

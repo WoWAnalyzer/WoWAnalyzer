@@ -1,12 +1,9 @@
 # This greatly speeds up the build process if the user already has run `yarn install` locally
 node_modules
-build
 
 # Unused files
 .docker
 .docker*
-.travis
-.travis.yml
 Docker*
 *.md
 # .git is very slow and we don't need it for anything but `yarn test`

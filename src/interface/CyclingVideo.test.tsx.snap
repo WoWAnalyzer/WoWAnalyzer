@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CyclingVideo matches snapshot 1`] = `
+<video
+  autoPlay={true}
+  muted={true}
+  onEnded={[Function]}
+>
+  <source
+    src="1"
+    type="video/mp4"
+  />
+</video>
+`;
+
+exports[`CyclingVideo passes unrecognized props 1`] = `
+<video
+  autoPlay={true}
+  muted={true}
+  onEnded={[Function]}
+  style={
+    Object {
+      "color": "red",
+    }
+  }
+>
+  <source
+    src="1"
+    type="video/mp4"
+  />
+</video>
+`;

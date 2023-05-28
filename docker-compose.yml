@@ -5,6 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     container_name: wowanalyzer-dev
+    stdin_open: true
     ports:
       - 3000:3000
       - 35729:35729

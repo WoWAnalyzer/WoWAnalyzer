@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConditionDescription should return a description for a rule with a condition 1`] = `
+Array [
+  " ",
+  "because",
+  " ",
+  <a
+    className="spell-link-text"
+    href="https://wowhead.com/spell=2"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    <img
+      alt=""
+      className="icon game "
+      src="//render-us.worldofwarcraft.com/icons/56/inv_misc_questionmark.jpg"
+    />
+     
+    Unknown spell: 2
+  </a>,
+  " ",
+  "was",
+  " present",
+]
+`;

@@ -1,7 +1,7 @@
-import EventSubscriber, { SELECTED_PLAYER } from 'parser/core/EventSubscriber';
-import Abilities from 'parser/core/modules/Abilities';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Events from 'parser/core/Events';
+import EventSubscriber, { SELECTED_PLAYER } from 'parser/core/EventSubscriber';
+import Abilities from 'parser/core/modules/Abilities';
 
 /**
  * Validate that all spells castable by the player is in the spellbook

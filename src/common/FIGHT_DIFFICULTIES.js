@@ -1,7 +1,0 @@
-const FIGHT_DIFFICULTIES = {
-  NORMAL: 3,
-  HEROIC: 4,
-  MYTHIC: 5,
-};
-
-export default FIGHT_DIFFICULTIES;

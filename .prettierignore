@@ -1,0 +1,7 @@
+node_modules
+/build
+/src/localization/_build
+/src/localization/*/*.js
+/src/interface/static/bootstrap
+CHANGELOG.tsx
+CHANGELOG.js

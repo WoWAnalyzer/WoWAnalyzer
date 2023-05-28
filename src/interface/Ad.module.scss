@@ -1,0 +1,15 @@
+.outer_container {
+  display: block;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  &:empty,
+  &.show_background {
+    background-image: url('../../public/img/ad-fallback.jpg');
+  }
+
+  #leaderboard_atf > *,
+  iframe {
+    max-width: 970px;
+  }
+}

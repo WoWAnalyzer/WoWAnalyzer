@@ -1,0 +1,32 @@
+diff --git a/node_modules/vega-embed/build/vega-embed.js b/node_modules/vega-embed/build/vega-embed.js
+index 247d689..bd9f0c0 100644
+--- a/node_modules/vega-embed/build/vega-embed.js
++++ b/node_modules/vega-embed/build/vega-embed.js
+@@ -1587,11 +1587,6 @@
+       }
+     }
+ 
+-    try {
+-      // add if support for Symbol.iterator is present
+-      require('./iterator.js')(Yallist$1);
+-    } catch (er) {}
+-
+     const Yallist = yallist;
+     const MAX = Symbol('max');
+     const LENGTH = Symbol('length');
+diff --git a/node_modules/vega-embed/build/vega-embed.module.js b/node_modules/vega-embed/build/vega-embed.module.js
+index a55433a..e974141 100644
+--- a/node_modules/vega-embed/build/vega-embed.module.js
++++ b/node_modules/vega-embed/build/vega-embed.module.js
+@@ -1220,11 +1220,6 @@ function Node(value, prev, next, list) {
+   }
+ }
+ 
+-try {
+-  // add if support for Symbol.iterator is present
+-  require('./iterator.js')(Yallist$1);
+-} catch (er) {}
+-
+ var Yallist = yallist;
+ var MAX = Symbol('max');
+ var LENGTH = Symbol('length');

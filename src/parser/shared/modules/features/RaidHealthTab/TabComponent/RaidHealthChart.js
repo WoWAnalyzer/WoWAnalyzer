@@ -1,44 +1,39 @@
-import React from 'react';
+import { t } from '@lingui/macro';
+import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
-import {
-  FlexibleWidthXYPlot as XYPlot,
-  DiscreteColorLegend,
-  XAxis,
-  YAxis,
-  VerticalGridLines,
-  HorizontalGridLines,
-  AreaSeries,
-} from 'react-vis';
-import { formatDuration } from 'common/format';
-import VerticalLine from 'interface/others/charts/VerticalLine';
-
-import './RaidHealthChart.scss';
+import { Component } from 'react';
+import { AutoSizer } from 'react-virtualized';
 
 const DEATH_COLOR = 'rgba(255, 0, 0, 0.8)';
 
-class RaidHealthChart extends React.Component {
+class RaidHealthChart extends Component {
   static propTypes = {
-    players: PropTypes.arrayOf(PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      borderColor: PropTypes.string.isRequired,
-      backgroundColor: PropTypes.string.isRequired,
-      data: PropTypes.arrayOf(PropTypes.shape({
+    players: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        borderColor: PropTypes.string.isRequired,
+        backgroundColor: PropTypes.string.isRequired,
+        data: PropTypes.arrayOf(
+          PropTypes.shape({
+            x: PropTypes.number.isRequired,
+            y: PropTypes.number.isRequired,
+          }),
+        ).isRequired,
+      }),
+    ).isRequired,
+    deaths: PropTypes.arrayOf(
+      PropTypes.shape({
         x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-      })).isRequired,
-    })).isRequired,
-    deaths: PropTypes.arrayOf(PropTypes.shape({
-      x: PropTypes.number.isRequired,
-    })).isRequired,
+      }),
+    ).isRequired,
     startTime: PropTypes.number.isRequired,
     endTime: PropTypes.number.isRequired,
-    offsetTime: PropTypes.number.isRequired,
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      players: this.props.players.map(player => ({ disabled: false, ...player })),
+      players: this.props.players.map((player) => ({ disabled: false, ...player })),
     };
     this.togglePlayer = this.togglePlayer.bind(this);
   }
@@ -58,7 +53,7 @@ class RaidHealthChart extends React.Component {
   }
 
   render() {
-    const { players, deaths, startTime, endTime, offsetTime } = this.props;
+    const { players, deaths, startTime, endTime } = this.props;
     const xValues = [];
     const yValues = [];
     for (let i = 0; i < (endTime - startTime) / 1000; i += 30) {
@@ -68,77 +63,78 @@ class RaidHealthChart extends React.Component {
       yValues.push(i * 100);
     }
 
-    // XYPlot injects ton of properties into its children, I want a plain div
-    const LegendWrapper = (props) => (
-      <div className="legend-wrapper horizontal">
-        {props.children}
-      </div>
-    );
+    const xAxis = {
+      field: 'x',
+      type: 'quantitative',
+      title: 'Time',
+      axis: {
+        labelExpr: formatTime('datum.value * 1000'),
+      },
+    };
+
+    const deathSpec = {
+      data: {
+        name: 'deaths',
+      },
+      mark: {
+        type: 'rule',
+        color: DEATH_COLOR,
+      },
+      encoding: {
+        x: xAxis,
+      },
+    };
+
+    const hpSpec = {
+      data: {
+        name: 'hp',
+      },
+      mark: 'area',
+      selection: {
+        player: {
+          type: 'multi',
+          fields: ['title'],
+          bind: 'legend',
+        },
+      },
+      encoding: {
+        x: xAxis,
+        y: {
+          field: 'y',
+          type: 'quantitative',
+          stack: true,
+          title: t({
+            id: 'shared.modules.raidHealthTab.chart.title.y',
+            message: `Total Raid Health`,
+          }),
+        },
+        color: {
+          field: 'title',
+          type: 'nominal',
+          title: t({
+            id: 'common.player',
+            message: `Player`,
+          }),
+        },
+        opacity: {
+          condition: { selection: 'player', value: 1 },
+          value: 0.3,
+        },
+      },
+    };
+    const data = {
+      hp: [].concat(...players.map((p) => p.data.map((datum) => ({ ...datum, title: p.title })))),
+      deaths,
+    };
+
+    const spec = {
+      layer: [hpSpec, deathSpec],
+    };
 
     return (
-      <XYPlot
-        height={500}
-        yDomain={[0, players.length * 100]}
-        margin={{
-          left: 60,
-          top: 70,
-        }}
-        stackBy="y"
-      >
-        <LegendWrapper>
-          <DiscreteColorLegend
-            orientation="horizontal"
-            items={[
-              ...this.state.players.map(player => ({
-                title: player.title,
-                color: player.borderColor,
-                disabled: player.disabled,
-              })),
-              { title: 'Deaths', color: DEATH_COLOR },
-            ]}
-            onItemClick={(item, i) => {
-              if (item.title === 'Deaths') {
-                return;
-              }
-              this.togglePlayer(i);
-            }}
-          />
-        </LegendWrapper>
-        <XAxis tickValues={xValues} tickFormat={value => formatDuration(value + offsetTime/1000)} />
-        <YAxis tickValues={yValues} tickFormat={value => `${value}%`} />
-        <VerticalGridLines
-          tickValues={xValues}
-          style={{
-            strokeDasharray: 3,
-            stroke: 'white',
-            fill: 'white',
-          }}
-        />
-        <HorizontalGridLines
-          tickValues={yValues}
-          style={{
-            strokeDasharray: 3,
-            stroke: 'white',
-            fill: 'white',
-          }}
-        />
-        {this.state.players.filter(player => !player.disabled).map(player => (
-          <AreaSeries
-            data={player.data}
-            color={player.backgroundColor}
-            stroke="transparent"
-            stack
-          />
-        ))}
-        {deaths.map(({ x }) => (
-          <VerticalLine
-            value={x}
-            style={{
-              line: { background: DEATH_COLOR },
-            }}
-          />
-        ))}
-      </XYPlot>
+      <AutoSizer disableHeight>
+        {({ width }) => <BaseChart height={400} width={width} spec={spec} data={data} />}
+      </AutoSizer>
     );
   }
 }
