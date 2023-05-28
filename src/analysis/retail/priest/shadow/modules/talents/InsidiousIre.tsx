@@ -116,7 +116,7 @@ class InsidiousIre extends Analyzer {
       spell,
     });
 
-    // Parition casts by if the target was affected by all three dots and thus would have been ired
+    // Partition casts by if the target was affected by all three dots and thus would have been ired
     const [ired, unIred] = damageInstances.reduce<[DamageEvent[], DamageEvent[]]>(
       (result, damage) => {
         const enemy = this.enemies.getEntity(damage);
