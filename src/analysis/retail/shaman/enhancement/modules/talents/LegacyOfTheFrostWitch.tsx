@@ -68,20 +68,18 @@ class LegacyOfTheFrostWitch extends Analyzer {
     if (this.accumulatedSpend >= 10) {
       this.accumulatedSpend -= 10;
 
-      if (
-        this.spellUsable.isOnCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id) &&
-        !this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)
-      ) {
+      if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id)) {
         this.spellUsable.endCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id, event.timestamp, true);
-        this.stormStrikeResets += 1;
+        if (!this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
+          this.stormStrikeResets += 1;
+        }
       }
 
-      if (
-        this.spellUsable.isOnCooldown(spells.WINDSTRIKE_CAST.id) &&
-        this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)
-      ) {
+      if (this.spellUsable.isOnCooldown(spells.WINDSTRIKE_CAST.id)) {
         this.spellUsable.endCooldown(spells.WINDSTRIKE_CAST.id, event.timestamp, true);
-        this.windStrikeResets += 1;
+        if (this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
+          this.windStrikeResets += 1;
+        }
       }
     }
   }
