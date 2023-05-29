@@ -3,14 +3,13 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ResourceGenerated from 'parser/ui/ResourceGenerated';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { STORMSTRIKE_DAMAGE_SPELLS } from '../../constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const ELEMENTAL_ASSAULT = {
   INCREASE: 0.15,
@@ -65,19 +64,21 @@ class ElementalAssault extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
+        tooltip={
+          <>
+            {this.maelstromWeaponGained - this.maelstromWeaponWasted} Effective Maelstrom Gained
+            <br />
+            {this.maelstromWeaponGained} Total Maelstrom Gained
+            <br />
+            {this.maelstromWeaponWasted} Maelstrom Wasted
+          </>
+        }
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT.id}>
+        <TalentSpellText talent={TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
-            <br />
-            <ResourceGenerated
-              amount={this.maelstromWeaponGained}
-              wasted={this.maelstromWeaponWasted}
-              resourceType={SPELLS.MAELSTROM_WEAPON_BUFF}
-            />
-            <br />
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
