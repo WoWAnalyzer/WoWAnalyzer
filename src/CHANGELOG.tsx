@@ -24,7 +24,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
-  change(date(2023, 5, 29), 'Add missing Balance Druid haste buffs', Jundarer),
+  change(date(2023, 5, 29), 'Add missing Balance Druid haste buffs.', Jundarer),
   change(date(2023, 5, 21), <>Fix <ItemLink id={ITEMS.HISSING_RUNE_R3.id} /> showing as a weak enhancement.</>, Trevor),
   change(date(2023, 5, 21), <>Fix <ItemLink id={ITEMS.LAMBENT_ARMOR_KIT_R3.id} /> showing as a weak enchantment.</>, ToppleTheNun),
   change(date(2023, 5, 20), <>Add support for <ItemLink id={ITEMS.ENCHANT_WEAPON_SHADOWFLAME_WREATHE_R3.id} />, <ItemLink id={ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R3.id} />, and <ItemLink id={ITEMS.LAMBENT_ARMOR_KIT_R3.id} />.</>, ToppleTheNun),
