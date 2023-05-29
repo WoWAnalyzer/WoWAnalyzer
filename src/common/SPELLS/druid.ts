@@ -760,7 +760,7 @@ const spells = spellIndexableList({
     id: 393959,
     name: "Nature's Grace",
     icon: 'spell_nature_naturesblessing',
-  },  
+  },
   OWLKIN_FRENZY: {
     id: 157228,
     name: 'Owlkin Frenzy',
