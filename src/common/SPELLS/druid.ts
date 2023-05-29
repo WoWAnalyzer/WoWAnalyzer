@@ -756,6 +756,11 @@ const spells = spellIndexableList({
     name: 'Celestial Alignment',
     icon: 'spell_nature_natureguardian',
   },
+  NATURES_GRACE: {
+    id: 393959,
+    name: "Nature's Grace",
+    icon: 'spell_nature_naturesblessing',
+  },
   OWLKIN_FRENZY: {
     id: 157228,
     name: 'Owlkin Frenzy',

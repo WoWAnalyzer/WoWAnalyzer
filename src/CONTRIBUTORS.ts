@@ -2159,3 +2159,15 @@ export const Swolorno: Contributor = {
     },
   ],
 };
+export const Jundarer: Contributor = {
+  nickname: 'Jundarer',
+  github: 'Jundarer',
+  discord: 'Jundarer#7131',
+  mains: [
+    {
+      name: 'Jundarer',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/tarren-mill/Tunderer',
+    },
+  ],
+};

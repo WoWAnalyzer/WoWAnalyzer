@@ -68,6 +68,8 @@ class Haste extends Analyzer {
       hastePerStack: 0.04,
     },
     [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
+    [SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id]: 0.1,
+    [SPELLS.NATURES_GRACE.id]: 0.15,
     [SPELLS.FRANTIC_MOMENTUM.id]: 0.1, // TODO check for possible tuning updates
     //endregion
 
