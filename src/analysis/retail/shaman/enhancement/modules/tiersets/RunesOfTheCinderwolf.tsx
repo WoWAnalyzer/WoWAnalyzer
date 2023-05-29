@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import { formatNumber, formatPercentage } from 'common/format';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -13,23 +12,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 
 class RunesOfTheCinderwolf extends Analyzer {
-  protected twoSetActive = false;
-  protected fourSetActive = false;
-
-  protected volcanicStrengthExtraDamage = 0;
-  protected cracklingThunderExtraDamage = 0;
+  protected extraDamage = 0;
 
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.has4PieceByTier(TIERS.T30)) {
-      this.twoSetActive = true;
-      this.fourSetActive = true;
-    } else if (this.selectedCombatant.has2PieceByTier(TIERS.T30)) {
-      this.twoSetActive = true;
-    }
-
-    this.active = this.fourSetActive || this.twoSetActive;
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T30);
     if (!this.active) {
       return;
     }
@@ -41,16 +29,12 @@ class RunesOfTheCinderwolf extends Analyzer {
     );
   }
 
-  get totalExtraDamage() {
-    return this.volcanicStrengthExtraDamage + this.cracklingThunderExtraDamage;
-  }
-
   get extraDamagePercentage() {
-    return this.owner.getPercentageOfTotalDamageDone(this.totalExtraDamage);
+    return this.owner.getPercentageOfTotalDamageDone(this.extraDamage);
   }
 
   get totalExtraDps() {
-    return this.totalExtraDamage / (this.owner.fightDuration / 1000);
+    return this.extraDamage / (this.owner.fightDuration / 1000);
   }
 
   onDamage(event: DamageEvent) {
@@ -59,59 +43,25 @@ class RunesOfTheCinderwolf extends Analyzer {
       (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.PHYSICAL) ||
         isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.PHYSICAL))
     ) {
-      this.volcanicStrengthExtraDamage += calculateEffectiveDamage(event, 0.2);
+      this.extraDamage += calculateEffectiveDamage(event, 0.2);
     }
   }
 
   onChainLightning(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.CRACKLING_THUNDER_TIER_BUFF.id)) {
-      this.cracklingThunderExtraDamage += calculateEffectiveDamage(event, 1);
+      this.extraDamage += calculateEffectiveDamage(event, 1);
     }
   }
 
   statistic() {
-    let twoPieceStatistic = <></>;
-    let fourPieceStatistic = <></>;
-
-    if (this.fourSetActive) {
-      fourPieceStatistic = (
-        <>
-          <small>
-            <strong>4-piece bonus</strong>
-          </small>
-          <br />
-          <ItemDamageDone amount={this.volcanicStrengthExtraDamage} />
-        </>
-      );
-    }
-    if (this.twoSetActive) {
-      twoPieceStatistic = (
-        <>
-          <small>
-            <strong>2-piece bonus</strong>
-          </small>
-          <br />
-          <ItemDamageDone amount={this.cracklingThunderExtraDamage} />
-        </>
-      );
-    }
-
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE()}
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
-        tooltip={
-          <>
-            {formatNumber(this.totalExtraDps)} dps gained (
-            {formatPercentage(this.extraDamagePercentage)} % of total)
-          </>
-        }
       >
         <BoringValue label="Runes of the Cinderwolf">
-          {twoPieceStatistic}
-          <br />
-          {fourPieceStatistic}
+          <ItemDamageDone amount={this.extraDamage} />
         </BoringValue>
       </Statistic>
     );
