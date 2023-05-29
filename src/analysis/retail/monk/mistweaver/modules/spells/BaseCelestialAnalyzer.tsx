@@ -142,7 +142,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.goodSiDuration = this.selectedCombatant.hasTalent(
       TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
     )
-      ? 5000
+      ? 4000
       : 10000;
     this.goodLessonDuration = this.selectedCombatant.hasTalent(
       TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
