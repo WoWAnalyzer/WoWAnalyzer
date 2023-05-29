@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
+import { formatNumber, formatPercentage } from 'common/format';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -59,6 +60,12 @@ class RunesOfTheCinderwolf extends Analyzer {
         position={STATISTIC_ORDER.CORE()}
         category={STATISTIC_CATEGORY.ITEMS}
         size="flexible"
+        tooltip={
+          <>
+            {formatNumber(this.totalExtraDps)} dps gained (
+            {formatPercentage(this.extraDamagePercentage)} % of total)
+          </>
+        }
       >
         <BoringValue label="Runes of the Cinderwolf">
           <ItemDamageDone amount={this.extraDamage} />
