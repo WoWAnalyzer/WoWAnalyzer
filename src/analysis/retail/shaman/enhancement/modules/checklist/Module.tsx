@@ -7,6 +7,7 @@ import { apl, check as aplCheck } from '../apl/AplCheck';
 import WindfuryTotem from '../talents/WindfuryTotem';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
+import MaelstromWeaponDetails from '../resourcetracker/MaelstromWeaponDetails';
 // import Hailstorm from '../talents/Hailstorm';
 
 class Checklist extends BaseChecklist {
@@ -17,6 +18,7 @@ class Checklist extends BaseChecklist {
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     alwaysBeCasting: AlwaysBeCasting,
     windfuryTotem: WindfuryTotem,
+    maestromWeaponDetails: MaelstromWeaponDetails,
     // hailstorm: Hailstorm,
   };
 

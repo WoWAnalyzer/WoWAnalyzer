@@ -66,4 +66,8 @@ export function color(school: number): string {
   return `rgb(${color.join(', ')})`;
 }
 
+export function isMatchingDamageType(damageType: number, matchingType: number): boolean {
+  return (damageType & matchingType) === matchingType;
+}
+
 export default MAGIC_SCHOOLS;

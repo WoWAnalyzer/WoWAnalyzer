@@ -580,10 +580,20 @@ const spells = spellIndexableList({
     name: 'Stormbringer',
     icon: 'spell_nature_stormreach',
   },
-  CRACKLING_THUNDER_BUFF_T30_4PC: {
+  LEGACY_OF_THE_FROST_WITCH_BUFF: {
+    id: 384451,
+    name: 'Legacy of the Frost Witch',
+    icon: 'ability_thunderking_thunderstruck',
+  },
+  CRACKLING_THUNDER_TIER_BUFF: {
     id: 409834,
     name: 'Crackling Thunder',
     icon: 'ability_vehicle_electrocharge',
+  },
+  VOLCANIC_STRENGTH_TIER_BUFF: {
+    id: 409833,
+    name: 'Volcanic Strength',
+    icon: 'ability_rhyolith_volcano',
   },
   // Restoration Shaman
   HEALING_SURGE: {

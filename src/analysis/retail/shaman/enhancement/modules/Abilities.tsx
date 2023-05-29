@@ -418,7 +418,7 @@ class Abilities extends CoreAbilities {
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
         ],
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT) ? 90 : 120,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
@@ -430,21 +430,25 @@ class Abilities extends CoreAbilities {
         // This is no error. We actually use the elemental shaman elemental blast spell id.
         spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
-        charges:
-          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) +
-          (combatant.specId === 263
-            ? combatant.getRepeatedTalentCount(TALENTS_SHAMAN.LAVA_BURST_TALENT)
-            : 0),
+        charges: () => {
+          let charges = combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) ? 1 : 0;
+          // enhancement gets an additional charge if Lava Burst is talented
+          if (combatant.specId === 263) {
+            charges += combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT) ? 1 : 0;
+          }
+          return charges;
+        },
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
-          return combatant.specId === 262 ? 12 : 12 / (1 + haste);
+          // has no cooldown for elemental shamans
+          return combatant.specId === 262 ? 0 : 12 / (1 + haste);
         },
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.6,
+          recommendedEfficiency: 0.8,
         },
       },
       {
