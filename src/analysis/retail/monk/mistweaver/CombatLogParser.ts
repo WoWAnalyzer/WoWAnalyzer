@@ -88,6 +88,7 @@ import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
+import CallToDominance from '../shared/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -191,6 +192,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Borrowed Power
     t29TierSet: T29TierSet,
     t30TierSet: T30TierSet,
+    callToDominance: CallToDominance,
 
     // Mana Tab
     manaTracker: ManaTracker,
