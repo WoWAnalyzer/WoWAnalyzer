@@ -88,7 +88,7 @@ import T30TierSet from './modules/dragonflight/tier/T30MWTier';
 import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
-import CallToDominance from '../shared/items/dragonflight/CallToDominance';
+import CallToDominance from '../../../../common/ITEMS/dragonflight/trinkets/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
