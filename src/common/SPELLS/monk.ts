@@ -743,11 +743,6 @@ const spells = spellIndexableList({
     name: 'Windwalking',
     icon: 'monk_stance_whitetiger',
   },
-  INVOKE_XUEN_THE_WHITE_TIGER: {
-    id: 123904,
-    name: 'Invoke Xuen, the White Tiger',
-    icon: 'ability_monk_summontigerstatue',
-  },
   XUEN_CRACKLING_TIGER_LIGHTNING: {
     id: 123996,
     name: 'Crackling Tiger Lightning',

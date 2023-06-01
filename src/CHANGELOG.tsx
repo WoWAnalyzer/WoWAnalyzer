@@ -17,12 +17,15 @@ import {
   Vireve,
   Pilsung,
   HerzBlutRaffy,
-  Abelito75
+  Abelito75,
+  Jundarer
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 5, 31), <>Implement <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id}/> module for Monk, Shaman, and Warlock</>, Trevor),
+  change(date(2023, 5, 29), 'Add missing Balance Druid haste buffs.', Jundarer),
   change(date(2023, 5, 21), 'Refactor raid buff tracking and support tracking Windfury Totem.', ToppleTheNun),
   change(date(2023, 5, 21), <>Fix <ItemLink id={ITEMS.HISSING_RUNE_R3.id} /> showing as a weak enhancement.</>, Trevor),
   change(date(2023, 5, 21), <>Fix <ItemLink id={ITEMS.LAMBENT_ARMOR_KIT_R3.id} /> showing as a weak enchantment.</>, ToppleTheNun),
