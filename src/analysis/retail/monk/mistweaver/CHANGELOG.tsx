@@ -1,13 +1,11 @@
 import { change, date } from 'common/changelog';
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { emallson, Trevor, ToppleTheNun, Vetyst, Vohrr } from 'CONTRIBUTORS';
-import { ItemLink, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 
 
 export default [
-  change(date(2023, 5, 31), <>Add <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id}/> module</>, Trevor),
   change(date(2023, 5, 29), <>Lower suggested <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT}/> duration during celestial and implement <SpellLink spell={TALENTS_MONK.CHRYSALIS_TALENT}/></>, Trevor),
   change(date(2023, 5, 23), <>Add event fabrication for <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> cast prepull</>, Trevor),
   change(date(2023, 5, 23), <>Fix crash in celestial analysis due to pre-pull celestial cast</>, Trevor),

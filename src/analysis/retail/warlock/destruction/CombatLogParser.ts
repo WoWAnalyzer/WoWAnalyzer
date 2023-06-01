@@ -33,6 +33,7 @@ import SoulConduit from './modules/talents/SoulConduit';
 import SoulFire from './modules/talents/SoulFire';
 import FlashPoint from './modules/talents/FlashPoint';
 import BurnToAshes from './modules/talents/BurnToAshes';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     madnessOfAzhaqir: MadnessOfAzhaqir,
     flashPoint: FlashPoint,
     burnToAshes: BurnToAshes,
+    callToDominance: CallToDominance,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
