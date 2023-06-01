@@ -33,7 +33,7 @@ class Checklist extends BaseChecklist {
     const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);
     return (
       <Component
-        apl={apl}
+        apl={apl(this.owner.info)}
         checkResults={checkResults}
         combatant={this.combatants.selected}
         castEfficiency={this.castEfficiency}

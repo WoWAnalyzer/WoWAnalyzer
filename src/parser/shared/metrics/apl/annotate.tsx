@@ -16,6 +16,7 @@ export function ConditionDescription({
   }
 
   const desc = rule.condition?.describe(tense);
+  const customPrefix = rule.condition?.prefix ?? prefix ?? 'because';
 
   if (!desc || desc === '') {
     return null;
@@ -24,7 +25,7 @@ export function ConditionDescription({
   return (
     <>
       {' '}
-      {prefix || 'because'} {desc}
+      {customPrefix} {desc}
     </>
   );
 }

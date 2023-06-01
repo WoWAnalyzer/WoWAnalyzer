@@ -434,9 +434,9 @@ const spells = spellIndexableList({
     icon: 'spell_shaman_improvedfirenova',
   },
   DOOM_WINDS: {
-    id: 204945,
+    id: 384352,
     name: 'Doom Winds',
-    icon: 'inv_mace_1h_artifactdoomhammer_d_01',
+    icon: 'ability_ironmaidens_swirlingvortex',
   },
   STORMBRINGER_BUFF: {
     id: 201846,
@@ -584,6 +584,11 @@ const spells = spellIndexableList({
     id: 384451,
     name: 'Legacy of the Frost Witch',
     icon: 'ability_thunderking_thunderstruck',
+  },
+  EARTHEN_MIGHT_TIER_BUFF: {
+    id: 409689,
+    name: 'Earthen Might',
+    icon: 'inv_helmet_mail_raidshaman_j_01',
   },
   CRACKLING_THUNDER_TIER_BUFF: {
     id: 409834,

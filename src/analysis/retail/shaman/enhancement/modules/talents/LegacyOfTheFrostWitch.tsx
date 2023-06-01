@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import Events, { DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
+import Events, { DamageEvent, AnyEvent } from 'parser/core/Events';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import spells from 'common/SPELLS/shaman';
@@ -44,8 +44,12 @@ class LegacyOfTheFrostWitch extends Analyzer {
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(spells.MAELSTROM_WEAPON_BUFF),
-      this.onSpendMaelstrom,
+      Events.applybuff.by(SELECTED_PLAYER).spell(spells.LEGACY_OF_THE_FROST_WITCH_BUFF),
+      this.onProcLegacyOfTheFrostWitch,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(spells.LEGACY_OF_THE_FROST_WITCH_BUFF),
+      this.onProcLegacyOfTheFrostWitch,
     );
   }
 
@@ -58,28 +62,18 @@ class LegacyOfTheFrostWitch extends Analyzer {
     }
   }
 
-  onSpendMaelstrom(event: ChangeBuffStackEvent) {
-    // negative is a spend event
-    if (event.stacksGained < 0) {
-      this.accumulatedSpend += -event.stacksGained;
+  onProcLegacyOfTheFrostWitch(event: AnyEvent) {
+    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id, event.timestamp, true);
+      if (!this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
+        this.stormStrikeResets += 1;
+      }
     }
 
-    // if the stacks spent are greater than or equal to 10, reset the cooldown of storm strike and wind strike
-    if (this.accumulatedSpend >= 10) {
-      this.accumulatedSpend -= 10;
-
-      if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id)) {
-        this.spellUsable.endCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id, event.timestamp, true);
-        if (!this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
-          this.stormStrikeResets += 1;
-        }
-      }
-
-      if (this.spellUsable.isOnCooldown(spells.WINDSTRIKE_CAST.id)) {
-        this.spellUsable.endCooldown(spells.WINDSTRIKE_CAST.id, event.timestamp, true);
-        if (this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
-          this.windStrikeResets += 1;
-        }
+    if (this.spellUsable.isOnCooldown(spells.WINDSTRIKE_CAST.id)) {
+      this.spellUsable.endCooldown(spells.WINDSTRIKE_CAST.id, event.timestamp, true);
+      if (this.selectedCombatant.hasBuff(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
+        this.windStrikeResets += 1;
       }
     }
   }

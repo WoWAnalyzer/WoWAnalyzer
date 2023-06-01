@@ -3,16 +3,18 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 import { TIERS } from 'game/TIERS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
+import * as cnd from 'parser/shared/metrics/apl/conditions';
 import BoringValue from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 
-class RunesOfTheCinderwolf extends Analyzer {
+export default class RunesOfTheCinderwolf extends Analyzer {
   protected extraDamage = 0;
 
   constructor(options: Options) {
@@ -75,4 +77,29 @@ class RunesOfTheCinderwolf extends Analyzer {
   }
 }
 
-export default RunesOfTheCinderwolf;
+/** APL Rule Conditions unique to this tier set */
+
+export const sunderingToActivateEarthenMight = () => {
+  return {
+    spell: TALENTS_SHAMAN.SUNDERING_TALENT,
+    condition: cnd.describe(
+      cnd.has2PieceByTier(TIERS.T30),
+      (_) => (
+        <>
+          to activate <SpellLink spell={SPELLS.EARTHEN_MIGHT_TIER_BUFF} />
+        </>
+      ),
+      '',
+    ),
+  };
+};
+
+export const chainLightningWithCracklingThunder = () => {
+  return {
+    spell: TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT,
+    condition: cnd.and(
+      cnd.buffPresent(SPELLS.CRACKLING_THUNDER_TIER_BUFF),
+      cnd.buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
+    ),
+  };
+};

@@ -51,6 +51,7 @@ export interface Condition<T> {
   describe: (tense?: Tense) => ReactChild;
   // tooltip description for checklist
   tooltip?: () => ReactChild | undefined;
+  prefix?: string;
 }
 export type StateFor<T> = T extends (...args: any[]) => Condition<infer R> ? R : never;
 

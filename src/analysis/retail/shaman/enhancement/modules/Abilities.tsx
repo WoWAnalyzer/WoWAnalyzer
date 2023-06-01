@@ -430,18 +430,12 @@ class Abilities extends CoreAbilities {
         // This is no error. We actually use the elemental shaman elemental blast spell id.
         spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
-        charges: () => {
-          let charges = combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) ? 1 : 0;
-          // enhancement gets an additional charge if Lava Burst is talented
-          if (combatant.specId === 263) {
-            charges += combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT) ? 1 : 0;
-          }
-          return charges;
-        },
+        charges:
+          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) +
+          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.LAVA_BURST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => {
-          // has no cooldown for elemental shamans
-          return combatant.specId === 262 ? 0 : 12 / (1 + haste);
+          return 12 / (1 + haste);
         },
         gcd: {
           base: 1500,
