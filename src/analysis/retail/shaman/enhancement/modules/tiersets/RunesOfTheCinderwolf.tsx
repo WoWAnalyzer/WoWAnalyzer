@@ -3,33 +3,24 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { formatNumber, formatPercentage } from 'common/format';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 import { TIERS } from 'game/TIERS';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
+import * as cnd from 'parser/shared/metrics/apl/conditions';
 import BoringValue from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 
-class RunesOfTheCinderwolf extends Analyzer {
-  protected twoSetActive = false;
-  protected fourSetActive = false;
-
-  protected volcanicStrengthExtraDamage = 0;
-  protected cracklingThunderExtraDamage = 0;
+export default class RunesOfTheCinderwolf extends Analyzer {
+  protected extraDamage = 0;
 
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.has4PieceByTier(TIERS.T30)) {
-      this.twoSetActive = true;
-      this.fourSetActive = true;
-    } else if (this.selectedCombatant.has2PieceByTier(TIERS.T30)) {
-      this.twoSetActive = true;
-    }
-
-    this.active = this.fourSetActive || this.twoSetActive;
+    this.active = this.selectedCombatant.has4PieceByTier(TIERS.T30);
     if (!this.active) {
       return;
     }
@@ -41,16 +32,12 @@ class RunesOfTheCinderwolf extends Analyzer {
     );
   }
 
-  get totalExtraDamage() {
-    return this.volcanicStrengthExtraDamage + this.cracklingThunderExtraDamage;
-  }
-
   get extraDamagePercentage() {
-    return this.owner.getPercentageOfTotalDamageDone(this.totalExtraDamage);
+    return this.owner.getPercentageOfTotalDamageDone(this.extraDamage);
   }
 
   get totalExtraDps() {
-    return this.totalExtraDamage / (this.owner.fightDuration / 1000);
+    return this.extraDamage / (this.owner.fightDuration / 1000);
   }
 
   onDamage(event: DamageEvent) {
@@ -59,43 +46,17 @@ class RunesOfTheCinderwolf extends Analyzer {
       (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.PHYSICAL) ||
         isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.PHYSICAL))
     ) {
-      this.volcanicStrengthExtraDamage += calculateEffectiveDamage(event, 0.2);
+      this.extraDamage += calculateEffectiveDamage(event, 0.2);
     }
   }
 
   onChainLightning(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.CRACKLING_THUNDER_TIER_BUFF.id)) {
-      this.cracklingThunderExtraDamage += calculateEffectiveDamage(event, 1);
+      this.extraDamage += calculateEffectiveDamage(event, 1);
     }
   }
 
   statistic() {
-    let twoPieceStatistic = <></>;
-    let fourPieceStatistic = <></>;
-
-    if (this.fourSetActive) {
-      fourPieceStatistic = (
-        <>
-          <small>
-            <strong>4-piece bonus</strong>
-          </small>
-          <br />
-          <ItemDamageDone amount={this.volcanicStrengthExtraDamage} />
-        </>
-      );
-    }
-    if (this.twoSetActive) {
-      twoPieceStatistic = (
-        <>
-          <small>
-            <strong>2-piece bonus</strong>
-          </small>
-          <br />
-          <ItemDamageDone amount={this.cracklingThunderExtraDamage} />
-        </>
-      );
-    }
-
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE()}
@@ -109,13 +70,36 @@ class RunesOfTheCinderwolf extends Analyzer {
         }
       >
         <BoringValue label="Runes of the Cinderwolf">
-          {twoPieceStatistic}
-          <br />
-          {fourPieceStatistic}
+          <ItemDamageDone amount={this.extraDamage} />
         </BoringValue>
       </Statistic>
     );
   }
 }
 
-export default RunesOfTheCinderwolf;
+/** APL Rule Conditions unique to this tier set */
+
+export const sunderingToActivateEarthenMight = () => {
+  return {
+    spell: TALENTS_SHAMAN.SUNDERING_TALENT,
+    condition: cnd.describe(
+      cnd.has2PieceByTier(TIERS.T30),
+      (_) => (
+        <>
+          to activate <SpellLink spell={SPELLS.EARTHEN_MIGHT_TIER_BUFF} />
+        </>
+      ),
+      '',
+    ),
+  };
+};
+
+export const chainLightningWithCracklingThunder = () => {
+  return {
+    spell: TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT,
+    condition: cnd.and(
+      cnd.buffPresent(SPELLS.CRACKLING_THUNDER_TIER_BUFF),
+      cnd.buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
+    ),
+  };
+};

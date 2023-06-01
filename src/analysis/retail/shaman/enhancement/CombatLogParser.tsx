@@ -39,6 +39,7 @@ import StormBlast from './modules/talents/Stormblast';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
 import RunesOfTheCinderwolf from './modules/tiersets/RunesOfTheCinderwolf';
+import { ThorimsInvocationNormalizer } from './modules/normalizers/ThorimsInvocationNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -90,6 +91,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Tier
     tier28TwoSet: Tier28TwoSet,
     runesOfTheCinderwolf: RunesOfTheCinderwolf,
+
+    // Normalizers
+    thorimsInvocationNormalizer: ThorimsInvocationNormalizer,
 
     aplCheck: AplCheck,
   };

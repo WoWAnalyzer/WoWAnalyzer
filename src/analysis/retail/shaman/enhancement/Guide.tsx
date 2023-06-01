@@ -6,6 +6,7 @@ import { t, Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import MaelstromWeaponWasted from './modules/guide/MaelstromWeaponWasted';
+import Rotation from './modules/guide/Rotation';
 
 const GUIDE_SECTION_PREFIX = 'guide.shaman.enhancement.sections';
 
@@ -15,6 +16,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       {/* <IntroSection /> */}
       {/* <CooldownSection modules={modules} events={events} info={info} /> */}
       <ResourceUsageSection modules={modules} events={events} info={info} />
+      <Rotation modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
   );
