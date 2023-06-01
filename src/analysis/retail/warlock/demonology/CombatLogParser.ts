@@ -39,6 +39,7 @@ import ShadowsBite from './modules/talents/ShadowsBite';
 import SoulConduit from './modules/talents/SoulConduit';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -89,7 +90,9 @@ class CombatLogParser extends CoreCombatLogParser {
     shadowsBite: ShadowsBite,
     dreadCalling: DreadCalling,
 
+    // Items
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
+    callToDominance: CallToDominance,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
