@@ -1,20 +1,21 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { AlertWarning, SpellLink } from 'interface';
-import { useInfo } from 'interface/guide';
 import { BrewmasterApl } from '../AplCheck';
 
 const aplTitle = (choice: BrewmasterApl) => {
   switch (choice) {
-    case BrewmasterApl.BlackoutCombo:
-      return <SpellLink id={talents.BLACKOUT_COMBO_TALENT} />;
-    case BrewmasterApl.ChPDfB:
+    case BrewmasterApl.BoC_DfB:
       return (
         <>
-          <SpellLink id={talents.CHARRED_PASSIONS_TALENT} /> /{' '}
-          <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} />
+          <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> +{' '}
+          <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} />
         </>
       );
+    case BrewmasterApl.DfB:
+      return <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} />;
+    case BrewmasterApl.ChP:
+      return <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />;
     default:
       return <em>Fallback</em>;
   }
@@ -23,35 +24,41 @@ const aplTitle = (choice: BrewmasterApl) => {
 const BlackoutComboDescription = () => (
   <>
     <p>
-      The {aplTitle(BrewmasterApl.BlackoutCombo)} rotation uses{' '}
+      The {aplTitle(BrewmasterApl.BoC_DfB)} rotation uses{' '}
       <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> to empower{' '}
-      <SpellLink id={talents.KEG_SMASH_TALENT} /> and{' '}
-      <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> for increased tankiness.
+      <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> for both damage and tankiness.
     </p>
     <p>
       Your highest priority is to use <SpellLink id={SPELLS.BLACKOUT_KICK_BRM} /> as often as
-      possible, and use <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> to maintain{' '}
-      <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> with the buffed 10% damage reduction.
+      possible. Use the <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> buff on{' '}
+      <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> if available, and on{' '}
+      <SpellLink spell={talents.KEG_SMASH_TALENT} /> or <SpellLink spell={SPELLS.TIGER_PALM} /> if
+      not.
     </p>
     <small>
-      <strong>Note:</strong> Casting <SpellLink id={talents.BREATH_OF_FIRE_TALENT} />{' '}
-      <em>without</em> the buff will reduce your damage reduction back to 5%! If your targets are
-      already debuffed, you should skip <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> unless you
-      have the <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> buff!
+      <p>
+        <strong>Note:</strong> Casting <SpellLink id={talents.BREATH_OF_FIRE_TALENT} />{' '}
+        <em>without</em> the buff will reduce your damage reduction back to 5%! If your targets are
+        already debuffed, you should skip <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> unless
+        you have the <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> buff!
+      </p>
+      <p>
+        <strong>Note:</strong> The tooltip of <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> is
+        incorrect&mdash;the initial damage of <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> is
+        buffed, not the ticking damage.
+      </p>
     </small>
   </>
 );
 
-const ChPDfBDescription = () => {
-  const info = useInfo();
-
+const ChPDfBDescription = ({ apl }: { apl: BrewmasterApl }) => {
   return (
     <>
       <p>
-        The {aplTitle(BrewmasterApl.ChPDfB)} rotation is idental to the core rotation, except that{' '}
+        The {aplTitle(apl)} rotation is idental to the core rotation, except that{' '}
         <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> becomes much higher priority.
       </p>
-      {info?.combatant.hasTalent(talents.CHARRED_PASSIONS_TALENT) ? (
+      {apl === BrewmasterApl.ChP ? (
         <>
           <p>
             When playing <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />, you cast{' '}
@@ -98,10 +105,11 @@ const FallbackDescription = () => (
 
 const Description = ({ aplChoice }: { aplChoice: BrewmasterApl }) => {
   switch (aplChoice) {
-    case BrewmasterApl.BlackoutCombo:
+    case BrewmasterApl.BoC_DfB:
       return <BlackoutComboDescription />;
-    case BrewmasterApl.ChPDfB:
-      return <ChPDfBDescription />;
+    case BrewmasterApl.ChP:
+    case BrewmasterApl.DfB:
+      return <ChPDfBDescription apl={aplChoice} />;
     default:
       return <FallbackDescription />;
   }

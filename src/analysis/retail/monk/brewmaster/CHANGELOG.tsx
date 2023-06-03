@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 6, 3), <>Update rotation for patch 10.1.</>, emallson),
   change(date(2023, 3, 21), <>Marked as supported in patch 10.0.7.</>, emallson),
   change(date(2023, 3, 19), <>Improved Shuffle & Damage Taken displays on Raszageth.</>, emallson),
   change(date(2023, 3, 12), <>Update APL to handle <SpellLink id={talents.EXPLODING_KEG_TALENT} /> tech and add basic major cooldown list.</>, emallson),
