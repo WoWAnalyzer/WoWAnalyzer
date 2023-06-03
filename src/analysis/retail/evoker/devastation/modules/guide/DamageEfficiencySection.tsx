@@ -106,7 +106,7 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
               <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />
             </p>
             <p>
-              Aim to drop 75%-90% of ticks (i.e. clip) so you can consume ressources faster, aswell
+              Aim to drop 70%-90% of ticks (i.e. clip) so you can consume ressources faster, aswell
               as getting off more casts of important spells.
             </p>
           </div>
@@ -116,7 +116,7 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
             value={tickData.dragonRageTicks}
             total={tickData.totalPossibleDragonRageTicks}
             customTotal={tickData.totalPossibleDragonRageTicks * 0.75}
-            passed={tickData.dragonRageTickRatio < 0.9 && tickData.dragonRageTickRatio > 0.75}
+            passed={tickData.dragonRageTickRatio < 0.9 && tickData.dragonRageTickRatio > 0.7}
           />
         }
       />
