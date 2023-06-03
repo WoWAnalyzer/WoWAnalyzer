@@ -47,6 +47,7 @@ import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
+import Manipulation from './modules/talents/Manipulation';
 import InsanityGraph from './modules/guide/InsanityGraph';
 
 import FourSet from './modules/tier/Tier29ShadowPriest4Set';
@@ -103,6 +104,7 @@ class CombatLogParser extends MainCombatLogParser {
     idolOfNzoth: IdolOfNzoth,
     idolOfYshaarj: IdolOfYshaarj,
     insidiousIre: InsidiousIre,
+    manipulation: Manipulation,
 
     // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,
