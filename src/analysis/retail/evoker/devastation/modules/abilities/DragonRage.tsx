@@ -22,6 +22,7 @@ export type RageWindowCounter = {
   pyres: number;
   disintegrateTicks: number;
   end: number;
+  fightEndDuringDR: boolean;
 };
 
 class DragonRage extends Analyzer {
@@ -49,6 +50,7 @@ class DragonRage extends Analyzer {
           disintegrateTicks: 0,
           pyres: 0,
           end: 0,
+          fightEndDuringDR: false,
         };
       },
     );
@@ -57,8 +59,27 @@ class DragonRage extends Analyzer {
       (event) => {
         this.inDragonRageWindow = false;
         this.rageWindowCounters[this.totalCasts].end = event.timestamp;
+        // Janky solution to fix statistics window outputting more empower cast than actually occoured inside of DR window
+        // Still shows the spell in windowed timeline
+        // TODO: Proper solution would be to change empower logic all together so this doesn't happen in the first place
+        if ((this.currentRageWindow.end - this.currentRageWindow.start) / 1000 < 35) {
+          if (this.currentRageWindow.fireBreaths > 2) {
+            this.currentRageWindow.fireBreaths = 2;
+          }
+          if (this.currentRageWindow.eternitySurges > 2) {
+            this.currentRageWindow.eternitySurges = 2;
+          }
+        }
       },
     );
+    // Fix edgecase where DR window was registered but wasn't ended due to fight ending during the window
+    this.addEventListener(Events.fightend, (event) => {
+      if (this.inDragonRageWindow) {
+        this.inDragonRageWindow = false;
+        this.rageWindowCounters[this.totalCasts].fightEndDuringDR = true;
+        this.rageWindowCounters[this.totalCasts].end = event.timestamp;
+      }
+    });
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell([ESSENCE_BURST_DEV_BUFF, ESSENCE_BURST_TALENT]),

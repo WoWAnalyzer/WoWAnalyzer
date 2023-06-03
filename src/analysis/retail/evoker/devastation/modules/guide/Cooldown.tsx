@@ -8,6 +8,7 @@ import SPELLS from 'common/SPELLS';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from '../../CombatLogParser';
 import { SpellLink } from 'interface';
+import TALENTS from 'common/TALENTS/evoker';
 
 export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const castEfficiency = useAnalyzer(CastEfficiency);
@@ -23,7 +24,7 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
         These cooldowns are essential for maximizing your damage output. Top performing Evokers are
         able to acheive 100% efficiency with <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />,{' '}
         <SpellLink id={SPELLS.FIRE_BREATH.id} />, and <SpellLink id={SPELLS.ETERNITY_SURGE.id} />.
-        If talented into <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> aim for 80%
+        If talented into <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> aim for 90%
         efficiency.
       </p>
       <p>
@@ -35,7 +36,7 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
         </ul>
       </p>
       <CastEfficiencyBar
-        spellId={TALENTS_EVOKER.DRAGONRAGE_TALENT.id}
+        spellId={TALENTS.DRAGONRAGE_TALENT.id}
         gapHighlightMode={GapHighlight.All}
       />
       <CastEfficiencyBar
@@ -58,9 +59,7 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
           gapHighlightMode={GapHighlight.All}
         />
       )}
-      {info.combatant.hasTalent(TALENTS_EVOKER.ONYX_LEGACY_TALENT) && (
-        <CastEfficiencyBar spellId={SPELLS.DEEP_BREATH.id} gapHighlightMode={GapHighlight.All} />
-      )}
+      <CastEfficiencyBar spellId={SPELLS.DEEP_BREATH.id} gapHighlightMode={GapHighlight.All} />
     </Section>
   );
 }

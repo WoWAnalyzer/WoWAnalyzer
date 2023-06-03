@@ -238,6 +238,11 @@ const spells = spellIndexableList({
     name: 'Hover',
     icon: 'ability_evoker_hover',
   },
+  HOVER_BUFF: {
+    id: 358268,
+    name: 'Hover',
+    icon: 'ability_evoker_hover',
+  },
   RETURN: {
     id: 361227,
     name: 'Return',
@@ -297,6 +302,43 @@ const spells = spellIndexableList({
     id: 387350,
     name: 'Ouroboros',
     icon: 'ability_evoker_innatemagic',
+  },
+  BLAZING_SHARDS: {
+    // T30 4pc buff
+    id: 409848,
+    name: 'Blazing Shards',
+    icon: 'inv_elemental_crystal_shadow',
+  },
+  OBSIDIAN_SHARDS: {
+    // T30 2pc dot
+    id: 409776,
+    name: 'Obsidian Shards',
+    icon: 'inv_elemental_crystal_shadow',
+  },
+  IRIDESCENCE_BLUE: {
+    id: 386399,
+    name: 'Iridescence: Blue',
+    icon: 'inv_enchant_shardgleamingsmall',
+  },
+  IRIDESCENCE_RED: {
+    id: 386353,
+    name: 'Iridescence: Red',
+    icon: 'inv_enchant_shardradientsmall',
+  },
+  GLIDE: {
+    id: 358733,
+    name: 'Glide',
+    icon: 'ability_racial_glide',
+  },
+  LEAPING_FLAMES_BUFF: {
+    id: 370901,
+    name: 'Leaping Flames',
+    icon: 'spell_fire_flare',
+  },
+  ANCIENT_FLAME_BUFF: {
+    id: 375583,
+    name: 'Ancient Flame',
+    icon: 'inv_elemental_mote_fire01',
   },
 });
 

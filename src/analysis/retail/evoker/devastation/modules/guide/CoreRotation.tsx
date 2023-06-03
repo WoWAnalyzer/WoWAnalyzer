@@ -12,23 +12,16 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
     <Section title="Core Rotation (Experimental)">
       <p>
         The Devastation rotation is driven by a priority list. The priority list is primarily around
-        using your empowered spells: <SpellLink id={SPELLS.FIRE_BREATH.id} /> and{' '}
-        <SpellLink id={SPELLS.ETERNITY_SURGE.id} /> on CD and spending your{' '}
-        <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> on
+        using your important spells: <SpellLink id={SPELLS.FIRE_BREATH.id} />,{' '}
+        <SpellLink id={SPELLS.ETERNITY_SURGE.id} /> and <SpellLink id={SPELLS.SHATTERING_STAR.id} />{' '}
+        on CD and spending your <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> on
         <SpellLink id={SPELLS.DISINTEGRATE.id} /> for Single Target or{' '}
         <SpellLink id={TALENTS_EVOKER.PYRE_TALENT.id} /> for AoE.
       </p>
 
       <p>
-        This Action Priority List (APL) is based off the simple{' '}
-        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#single-target">
-          Single Target
-        </a>{' '}
-        and{' '}
-        <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#multi-target">
-          Multi-Target
-        </a>{' '}
-        rotation on Wowhead.
+        This Action Prioriy List (APL) is based off the Devastation APL found at{' '}
+        <a href="https://github.com/WyrmrestTemple/df-devastation">WyrmrestTemple.</a>
       </p>
       <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
       <hr />
@@ -37,7 +30,6 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
         It's not as precise as the raidbots APL because then there would be more steps here to
         explain and would be complex to follow. Some examples the accuracy misses out on are
         <ul>
-          <li>the opener</li>
           <li>boss mechanics that force you to move or change targets</li>
           <li>
             saving up <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> for{' '}

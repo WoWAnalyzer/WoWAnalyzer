@@ -2176,3 +2176,16 @@ export const Jundarer: Contributor = {
     },
   ],
 };
+export const Vollmer: Contributor = {
+  nickname: 'Vollmer',
+  github: 'Krealle',
+  discord: 'Vollmerino#2637',
+  avatar: avatar('Vollmer-avatar.png'),
+  mains: [
+    {
+      name: 'Vollmer',
+      spec: SPECS.DEVASTATION_EVOKER,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/ragnaros/Vollmer',
+    },
+  ],
+};

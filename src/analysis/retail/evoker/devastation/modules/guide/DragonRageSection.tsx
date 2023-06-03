@@ -11,57 +11,46 @@ import Casts, { isApplicableEvent } from 'interface/report/Results/Timeline/Cast
 import { RageWindowCounter } from '../abilities/DragonRage';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import { formatDurationMinSec } from 'common/format';
+import TALENTS from 'common/TALENTS/evoker';
 
 export function DragonRageSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   const rageWindows = Object.values(modules.dragonRage.rageWindowCounters);
   const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(
-    TALENTS_EVOKER.DRAGONRAGE_TALENT.id,
+    TALENTS.DRAGONRAGE_TALENT.id,
   );
 
   return (
-    <Section title="Dragon Rage">
+    <Section title="Dragonrage">
       <p>
         <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is your primary cooldown and
-        contributes a large portion of your DPS. Because this window gives us our mastery{' '}
+        contributes to a large portion of your DPS. Because this window gives us our mastery{' '}
         <SpellLink id={SPELLS.GIANT_SLAYER_MASTERY.id} /> with{' '}
         <SpellLink id={TALENTS_EVOKER.TYRANNY_TALENT} /> and gauranteed{' '}
         <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs, we need to utilize the talent{' '}
         <SpellLink id={TALENTS_EVOKER.ANIMOSITY_TALENT.id} /> to extend the buff duration as long as
         possible. We do this by trying to get in more than 2 rounds of{' '}
         <SpellLink id={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> and{' '}
-        <SpellLink id={SPELLS.FIRE_BREATH.id} /> by making the most of these talents:{' '}
-        <SpellLink id={TALENTS_EVOKER.CAUSALITY_TALENT} />,
-        <SpellLink id={TALENTS_EVOKER.FEED_THE_FLAMES_TALENT.id} />, and{' '}
+        <SpellLink id={SPELLS.FIRE_BREATH.id} /> by making the most of the talents:{' '}
+        <SpellLink id={TALENTS_EVOKER.CAUSALITY_TALENT} /> and{' '}
         <SpellLink id={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
       </p>
       <p>
-        To maximize the amount of <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs you
-        get in <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> you should only be casting{' '}
-        <SpellLink id={SPELLS.AZURE_STRIKE.id} /> or <SpellLink id={SPELLS.LIVING_FLAME_CAST} /> if{' '}
-        <SpellLink id={TALENTS_EVOKER.BURNOUT_TALENT.id} /> is talented and up.
+        To generate <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs inside of
+        <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> you should be casting{' '}
+        <SpellLink id={SPELLS.LIVING_FLAME_CAST} /> with <SpellLink id={SPELLS.BURNOUT_BUFF.id} />{' '}
+        or <SpellLink id={SPELLS.IRIDESCENCE_RED.id} />
+        or <SpellLink id={SPELLS.IRIDESCENCE_BLUE.id} /> is active. Use{' '}
+        <SpellLink id={SPELLS.AZURE_STRIKE.id} /> as a fallback filler.
       </p>
 
-      <SubSection title="Current Limits">
+      <SubSection title="Extension Limits">
         <p>
           You can gaurantee <strong>at least 2 casts</strong> of{' '}
           <SpellLink id={SPELLS.FIRE_BREATH.id} /> and{' '}
           <SpellLink id={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> by holding them if{' '}
-          <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is coming up in 10~15s (check out
-          the rotation above). But reaching more than that requires lust, haste, and RNG. To
-          understand this better checkout the{' '}
-          <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#maximizing-dragonrage">
-            Maximizing Dragonrage
-          </a>{' '}
-          section on wowhead.
+          <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is coming up in less than 13s.
+          Extending more than that requires lust, haste, and RNG.
         </p>
-        {info.combatant.hasTalent(TALENTS_EVOKER.EVERBURNING_FLAME_TALENT) && (
-          <p>
-            Since you have <SpellLink id={TALENTS_EVOKER.EVERBURNING_FLAME_TALENT.id} /> over{' '}
-            <SpellLink id={TALENTS_EVOKER.FEED_THE_FLAMES_TALENT.id} /> it could be harder to reach
-            4 empowered spells in a DR window.
-          </p>
-        )}
       </SubSection>
       {rageWindows.map((window, index) => {
         const relevantEvents = events
@@ -81,18 +70,15 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         return (
           <SubSection
             key={index}
-            title={`Dragon Rage Window ${index + 1} out of ${
-              castEffic?.maxCasts
-            } (${formatDurationMinSec((window.end - window.start) / 1000)})`}
+            title={`Dragon Rage Window ${index + 1} out of ${castEffic?.casts} (${(
+              (window.end - window.start) /
+              1000
+            ).toFixed(1)}s)`}
           >
+            {window.fightEndDuringDR && <small>Fight ended during Dragonrage.</small>}
             <ExplanationAndDataSubSection
               explanationPercent={30}
-              explanation={
-                <Statistics
-                  window={window}
-                  hasFeedTheFlames={info.combatant.hasTalent(TALENTS_EVOKER.FEED_THE_FLAMES_TALENT)}
-                />
-              }
+              explanation={<Statistics window={window} />}
               data={
                 <div style={{ overflowX: 'auto' }}>
                   <EmbeddedTimelineContainer
@@ -119,18 +105,11 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
 }
 
 // Need something prettier lol
-function Statistics({
-  window,
-  hasFeedTheFlames,
-}: {
-  window: RageWindowCounter;
-  hasFeedTheFlames?: boolean;
-}) {
+function Statistics({ window }: { window: RageWindowCounter }) {
   return (
     <ul>
       <li>
-        <SpellLink id={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/{hasFeedTheFlames ? 2 : 1}{' '}
-        casts
+        <SpellLink id={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/2 casts
       </li>
       <li>
         <SpellLink id={SPELLS.ETERNITY_SURGE.id} /> - {window.eternitySurges}/2 casts
