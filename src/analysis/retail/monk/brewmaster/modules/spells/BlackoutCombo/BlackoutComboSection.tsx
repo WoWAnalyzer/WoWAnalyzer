@@ -64,34 +64,82 @@ export default function BlackoutComboSection(): JSX.Element | null {
           <p>
             The recommended way to use <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} />
             's combo bonuses is:
-            <ul>
-              <li>
+          </p>
+          <ul>
+            <li>
+              <div>
                 <strong>
                   <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />: Always.
-                </strong>{' '}
-                This is the best effect offensively, and often defensively.
-              </li>
-              <li>
+                </strong>
+              </div>
+              <div>
+                The 50%{' '}
+                <TooltipElement
+                  content={
+                    <>
+                      The <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> tooltip is
+                      incorrect&mdash;it buffs the initial hit of{' '}
+                      <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />, not the ticking damage.
+                    </>
+                  }
+                >
+                  damage boost
+                </TooltipElement>{' '}
+                is very good, as is the extra 5% DR.
+              </div>
+            </li>
+            <li>
+              <div>
                 <strong>
-                  <SpellLink spell={talents.KEG_SMASH_TALENT} /> or{' '}
-                  <SpellLink spell={SPELLS.TIGER_PALM} />: Frequently,
+                  <SpellLink spell={talents.KEG_SMASH_TALENT} />
                 </strong>{' '}
-                but only if <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> isn't available.
-              </li>
-              <li>
+                or{' '}
                 <strong>
-                  <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />: Very Rarely.
-                </strong>{' '}
-                This has situational use, but is uncommon.
-              </li>
-              <li>
+                  <SpellLink spell={SPELLS.TIGER_PALM} />: Frequently.
+                </strong>
+              </div>
+              <div>
+                Only used when <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> isn't available,
+                but both effects are decent.
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>
+                  <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />: Rarely.
+                </strong>
+              </div>
+              <div>
+                Great when you need it, but the{' '}
+                <TooltipElement
+                  hoverable
+                  content={
+                    <>
+                      These are stacks of{' '}
+                      <SpellLink spell={talents.IMPROVED_CELESTIAL_BREW_TALENT} />, which is limited
+                      to 10 stacks total (including the 3 bonus from{' '}
+                      <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} />
+                      ).
+                    </>
+                  }
+                >
+                  stack cap
+                </TooltipElement>{' '}
+                still applies so you rarely do.
+              </div>
+            </li>
+            <li>
+              <div>
                 <strong>
                   <SpellLink spell={talents.PURIFYING_BREW_TALENT} />: Effectively Never.
-                </strong>{' '}
-                This effect is pretty weak in its current state.
-              </li>
-            </ul>
-          </p>
+                </strong>
+              </div>
+              <div>
+                Pausing <SpellLink spell={SPELLS.STAGGER} /> is extremely niche, so this doesn't
+                come up often.
+              </div>
+            </li>
+          </ul>
         </div>
         <ComboUsageTable>
           <tbody>
@@ -130,6 +178,13 @@ export default function BlackoutComboSection(): JSX.Element | null {
             possibleReasons={comboEffectOrder}
             badReason={ComboEffect.PurifyingBrew}
           />
+          <tbody>
+            <tr>
+              <td colSpan={3} style={{ paddingTop: '1em' }}>
+                <em>Work in Progress</em>
+              </td>
+            </tr>
+          </tbody>
         </ComboUsageTable>
       </ExplanationRow>
     </SubSection>

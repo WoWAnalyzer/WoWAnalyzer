@@ -42,11 +42,6 @@ const BlackoutComboDescription = () => (
         already debuffed, you should skip <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> unless
         you have the <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> buff!
       </p>
-      <p>
-        <strong>Note:</strong> The tooltip of <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> is
-        incorrect&mdash;the initial damage of <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> is
-        buffed, not the ticking damage.
-      </p>
     </small>
   </>
 );
