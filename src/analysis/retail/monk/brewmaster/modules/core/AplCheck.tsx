@@ -1,16 +1,15 @@
 import SPELLS from 'common/SPELLS';
 import { suggestion } from 'parser/core/Analyzer';
-import aplCheck, { Apl, build, CheckResult, PlayerInfo, tenseAlt } from 'parser/shared/metrics/apl';
+import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import talents from 'common/TALENTS/monk';
 import { AnyEvent } from 'parser/core/Events';
-import * as BoFLink from '../spells/BreathOfFire/normalizer';
-import * as BdbLink from '../talents/BonedustBrew/normalizer';
 import { SpellLink } from 'interface';
 import { SCK_DAMAGE_LINK } from '../../normalizers/SpinningCraneKick';
+import Spell from 'common/SPELLS/Spell';
 
-const AOE_SCK = {
+const SCK_AOE = {
   spell: SPELLS.SPINNING_CRANE_KICK_BRM,
   condition: cnd.targetsHit(
     { atLeast: 2 },
@@ -20,159 +19,132 @@ const AOE_SCK = {
   ),
 };
 
-const commonTop = [
-  {
-    spell: SPELLS.SPINNING_CRANE_KICK_BRM,
-    condition: cnd.optionalRule(
-      cnd.debuffPresent(talents.EXPLODING_KEG_TALENT, {
-        targetLinkRelation: SCK_DAMAGE_LINK,
-      }),
-    ),
-  },
-  {
-    spell: talents.BONEDUST_BREW_TALENT,
-    condition: cnd.describe(
-      cnd.debuffMissing(
-        talents.BONEDUST_BREW_TALENT,
-        {
-          pandemicCap: 1,
-          duration: 10000,
-          timeRemaining: 1000,
-        },
-        { targetLinkRelation: BdbLink.debuffApplicationRelation },
-      ),
-      (tense) => <>any enemies {tenseAlt(tense, 'are', 'were')} missing the debuff</>,
-    ),
-  },
-];
-const commonBottom = [
-  AOE_SCK,
+const SCK_CHP_WWTO = {
+  spell: SPELLS.SPINNING_CRANE_KICK_BRM,
+  condition: cnd.and(
+    cnd.hasTalent(talents.WALK_WITH_THE_OX_TALENT),
+    cnd.buffPresent(talents.CHARRED_PASSIONS_TALENT),
+  ),
+};
+
+const boc = (spell: Spell): Rule => ({
+  spell,
+  condition: cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF),
+});
+
+const refreshRjw = {
+  spell: talents.RUSHING_JADE_WIND_TALENT,
+  condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_TALENT, {
+    timeRemaining: 1500,
+    duration: 6000,
+    pandemicCap: 1.5,
+  }),
+};
+
+const applyRjw = {
+  spell: talents.RUSHING_JADE_WIND_TALENT,
+  condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_TALENT),
+};
+
+const refreshChp: Rule = {
+  spell: talents.BREATH_OF_FIRE_TALENT,
+  condition: cnd.buffMissing(talents.CHARRED_PASSIONS_TALENT, {
+    timeRemaining: 2000,
+    duration: 8000,
+    pandemicCap: 1,
+  }),
+};
+
+const EK_SCK: Rule = {
+  spell: SPELLS.SPINNING_CRANE_KICK_BRM,
+  condition: cnd.optionalRule(
+    cnd.debuffPresent(talents.EXPLODING_KEG_TALENT, {
+      targetLinkRelation: SCK_DAMAGE_LINK,
+    }),
+    <>
+      Use <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> to trigger the bonus damage from{' '}
+      <SpellLink spell={talents.EXPLODING_KEG_TALENT} /> while the debuff is active.
+    </>,
+    false,
+  ),
+};
+
+const commonLowPrio = [
+  refreshRjw,
+  SCK_AOE,
+  SCK_CHP_WWTO,
   SPELLS.TIGER_PALM,
   talents.CHI_WAVE_TALENT,
   talents.CHI_BURST_TALENT,
 ];
 
-const bofMissingCondition = cnd.debuffMissing(
-  SPELLS.BREATH_OF_FIRE_DEBUFF,
-  {
-    timeRemaining: 1500,
-    duration: 15000,
-    pandemicCap: 1.5,
-  },
-  { targetLinkRelation: BoFLink.targetRelation },
-);
+const commonHighPrio = [EK_SCK, talents.BONEDUST_BREW_TALENT];
 
-const rotation_boc = build([
-  ...commonTop,
+const rotation_boc_dfb = build([
+  ...commonHighPrio,
   SPELLS.BLACKOUT_KICK_BRM,
-  // we let you cast KS on 2+ targets regardless of BoC buff
-  {
-    spell: talents.KEG_SMASH_TALENT,
-    condition: cnd.targetsHit({ atLeast: 2 }),
-  },
-  // again, slight cheat. the official APL does some BoC counting to result in a fixed rotation. we're a little more fluid
   talents.RISING_SUN_KICK_TALENT,
-  {
-    spell: talents.BREATH_OF_FIRE_TALENT,
-    condition: cnd.describe(
-      cnd.and(cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF), bofMissingCondition),
-      (tense) => (
-        <>
-          <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF} /> {tenseAlt(tense, 'is', 'was')} active and
-          the empowered debuff is missing.
-        </>
-      ),
-    ),
-  },
-  {
-    spell: talents.KEG_SMASH_TALENT,
-    condition: cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF),
-  },
-  {
-    spell: talents.RUSHING_JADE_WIND_TALENT,
-    // lack of pandemic stuff is intentional
-    condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_TALENT),
-  },
-  {
-    spell: talents.KEG_SMASH_TALENT,
-    condition: cnd.describe(
-      cnd.and(
-        cnd.hasTalent(talents.STORMSTOUTS_LAST_KEG_TALENT),
-        cnd.spellCharges(talents.KEG_SMASH_TALENT, { atLeast: 1 }),
-      ),
-      (tense) => (
-        <>
-          you {tenseAlt(tense, 'have', 'had')} at least 1 charge (with{' '}
-          <SpellLink id={talents.STORMSTOUTS_LAST_KEG_TALENT} />)
-        </>
-      ),
-    ),
-  },
-  ...commonBottom,
+  applyRjw,
+  boc(talents.BREATH_OF_FIRE_TALENT),
+  talents.KEG_SMASH_TALENT,
+  ...commonLowPrio,
 ]);
 
-const rotation_noBoC_chpdfb = build([
-  ...commonTop,
-  {
-    spell: talents.BREATH_OF_FIRE_TALENT,
-    condition: cnd.hasTalent(talents.DRAGONFIRE_BREW_TALENT),
-  },
-  {
-    spell: talents.BREATH_OF_FIRE_TALENT,
-    condition: cnd.buffMissing(talents.CHARRED_PASSIONS_TALENT, {
-      duration: 8000,
-      // TODO: verify pandemic cap
-      pandemicCap: 1,
-      timeRemaining: 1500,
-    }),
-  },
+const rotation_dfb = build([
+  ...commonHighPrio,
   SPELLS.BLACKOUT_KICK_BRM,
-  talents.KEG_SMASH_TALENT,
-  {
-    spell: talents.RUSHING_JADE_WIND_TALENT,
-    condition: cnd.buffMissing(talents.RUSHING_JADE_WIND_TALENT, {
-      timeRemaining: 1500,
-      duration: 6000,
-      pandemicCap: 1.5,
-    }),
-  },
   talents.RISING_SUN_KICK_TALENT,
-  ...commonBottom,
+  applyRjw,
+  talents.BREATH_OF_FIRE_TALENT,
+  talents.KEG_SMASH_TALENT,
+  ...commonLowPrio,
+]);
+
+const rotation_chp = build([
+  ...commonHighPrio,
+  refreshChp,
+  SPELLS.BLACKOUT_KICK_BRM,
+  talents.RISING_SUN_KICK_TALENT,
+  applyRjw,
+  talents.KEG_SMASH_TALENT,
+  ...commonLowPrio,
 ]);
 
 const rotation_fallback = build([
-  ...commonTop,
+  ...commonHighPrio,
+  SPELLS.BLACKOUT_KICK_BRM,
   talents.RISING_SUN_KICK_TALENT,
   talents.KEG_SMASH_TALENT,
   talents.BREATH_OF_FIRE_TALENT,
-  SPELLS.BLACKOUT_KICK_BRM,
-  talents.RUSHING_JADE_WIND_TALENT,
-  // slight modification to the fallback APL - TP on ST, SCK on AoE
-  ...commonBottom,
+  ...commonLowPrio,
 ]);
 
 export enum BrewmasterApl {
-  BlackoutCombo,
-  ChPDfB,
+  BoC_DfB,
+  DfB,
+  ChP,
   Fallback,
 }
 
 export const chooseApl = (info: PlayerInfo): BrewmasterApl => {
-  if (info.combatant.hasTalent(talents.BLACKOUT_COMBO_TALENT)) {
-    return BrewmasterApl.BlackoutCombo;
-  } else if (
-    info.combatant.hasTalent(talents.DRAGONFIRE_BREW_TALENT) ||
-    info.combatant.hasTalent(talents.CHARRED_PASSIONS_TALENT)
+  if (
+    info.combatant.hasTalent(talents.BLACKOUT_COMBO_TALENT) &&
+    info.combatant.hasTalent(talents.DRAGONFIRE_BREW_TALENT)
   ) {
-    return BrewmasterApl.ChPDfB;
+    return BrewmasterApl.BoC_DfB;
+  } else if (info.combatant.hasTalent(talents.DRAGONFIRE_BREW_TALENT)) {
+    return BrewmasterApl.DfB;
+  } else if (info.combatant.hasTalent(talents.CHARRED_PASSIONS_TALENT)) {
+    return BrewmasterApl.ChP;
   } else {
     return BrewmasterApl.Fallback;
   }
 };
 
 const apls: Record<BrewmasterApl, Apl> = {
-  [BrewmasterApl.BlackoutCombo]: rotation_boc,
-  [BrewmasterApl.ChPDfB]: rotation_noBoC_chpdfb,
+  [BrewmasterApl.BoC_DfB]: rotation_boc_dfb,
+  [BrewmasterApl.DfB]: rotation_dfb,
+  [BrewmasterApl.ChP]: rotation_chp,
   [BrewmasterApl.Fallback]: rotation_fallback,
 };
 
