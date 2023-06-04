@@ -18,7 +18,7 @@ import T30DevaTier4P from './modules/dragonflight/tier/T30DevaTier4P';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CancelledCasts from './modules/features/CancelledCasts';
 import Catalyze from './modules/talents/Catalyze';
-import Scintilation from './modules/talents/Scintilation';
+import Scintillation from './modules/talents/Scintillation';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -35,7 +35,7 @@ class CombatLogParser extends MainCombatLogParser {
     cooldownThroughputTracker: CooldownThroughputTracker,
     cancelledCasts: CancelledCasts,
     catalyze: Catalyze,
-    scintilation: Scintilation,
+    scintillation: Scintillation,
 
     // abilities & talents
     disintegrate: Disintegrate,

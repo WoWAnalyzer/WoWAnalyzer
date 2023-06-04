@@ -12,10 +12,10 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const { ETERNITY_SURGE_DAM, ETERNITY_SURGE } = SPELLS;
 
-class Scintilation extends Analyzer {
+class Scintillation extends Analyzer {
   lastEternitySurgeCast: number = 0;
-  scintilationProcs: number = 0;
-  scintilationDamage: number = 0;
+  scintillationProcs: number = 0;
+  scintillationDamage: number = 0;
   waitingForEternitySurgeHit: boolean = false;
 
   constructor(options: Options) {
@@ -32,8 +32,8 @@ class Scintilation extends Analyzer {
   onHit(event: DamageEvent) {
     // Filter after first ES hit from eternity surge cast, so we only grab Scintilation procs
     if (!this.waitingForEternitySurgeHit) {
-      this.scintilationProcs += 1;
-      this.scintilationDamage += event.amount;
+      this.scintillationProcs += 1;
+      this.scintillationDamage += event.amount;
     } else {
       this.waitingForEternitySurgeHit = false;
     }
@@ -47,12 +47,12 @@ class Scintilation extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
       >
         <BoringSpellValueText spellId={TALENTS.SCINTILLATION_TALENT.id}>
-          <ItemDamageDone amount={this.scintilationDamage} /> <br />
-          <span style={{ fontSize: '65%' }}>{Math.floor(this.scintilationProcs)} procs.</span>
+          <ItemDamageDone amount={this.scintillationDamage} /> <br />
+          <span style={{ fontSize: '65%' }}>{Math.floor(this.scintillationProcs)} procs.</span>
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
 
-export default Scintilation;
+export default Scintillation;
