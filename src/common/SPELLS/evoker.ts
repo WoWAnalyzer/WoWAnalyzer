@@ -223,6 +223,11 @@ const spells = spellIndexableList({
     name: 'Fire Breath',
     icon: 'ability_evoker_firebreath',
   },
+  FIRE_BREATH_DOT: {
+    id: 357209,
+    name: 'Fire Breath',
+    icon: 'ability_evoker_firebreath',
+  },
   FIRE_BREATH_FONT: {
     id: 382266,
     name: 'Fire Breath',
