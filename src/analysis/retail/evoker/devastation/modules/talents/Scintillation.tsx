@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-const { ETERNITY_SURGE_DAM, ETERNITY_SURGE } = SPELLS;
+const { ETERNITY_SURGE_DAM, ETERNITY_SURGE, ETERNITY_SURGE_FONT } = SPELLS;
 
 class Scintillation extends Analyzer {
   lastEternitySurgeCast: number = 0;
@@ -21,10 +21,13 @@ class Scintillation extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(ETERNITY_SURGE), (event) => {
-      this.lastEternitySurgeCast = event.timestamp;
-      this.waitingForEternitySurgeHit = true;
-    });
+    this.addEventListener(
+      Events.empowerEnd.by(SELECTED_PLAYER).spell([ETERNITY_SURGE, ETERNITY_SURGE_FONT]),
+      (event) => {
+        this.lastEternitySurgeCast = event.timestamp;
+        this.waitingForEternitySurgeHit = true;
+      },
+    );
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ETERNITY_SURGE_DAM), this.onHit);
   }
