@@ -10,7 +10,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-const { DISINTEGRATE, FIRE_BREATH_FONT, FIRE_BREATH_DOT } = SPELLS;
+const { DISINTEGRATE, FIRE_BREATH_DOT } = SPELLS;
 
 class Catalyze extends Analyzer {
   fireBreathDamageDuringDisintegrate: number = 0;
@@ -30,19 +30,7 @@ class Catalyze extends Analyzer {
       this.disintegrateDebuffActive = false;
     });
 
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BREATH_DOT),
-      this.onHit,
-    );
-
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell([FIRE_BREATH_DOT, FIRE_BREATH_FONT]),
-      () => {
-        //this.extraDamageFromCatalyze = 0;
-        //this.onHit;
-        //console.log(event);
-      },
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_BREATH_DOT), this.onHit);
   }
 
   onHit(event: DamageEvent) {
