@@ -114,6 +114,11 @@ const spells = spellIndexableList({
     name: 'Eternity Surge',
     icon: 'ability_evoker_eternitysurge',
   },
+  ETERNITY_SURGE_DAM: {
+    id: 359077,
+    name: 'Eternity Surge',
+    icon: 'ability_evoker_eternitysurge',
+  },
   PYRE: {
     id: 357212,
     name: 'Pyre',
