@@ -1,7 +1,7 @@
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { suggestion } from 'parser/core/Analyzer';
 import { AnyEvent } from 'parser/core/Events';
-import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
+import aplCheck, { Apl, build, CheckResult, PlayerInfo } from 'parser/shared/metrics/apl';
 import {
   and,
   buffPresent,
@@ -11,10 +11,9 @@ import {
   spellCharges,
   describe,
   buffMissing,
-  lastSpellCast,
+  always,
 } from 'parser/shared/metrics/apl/conditions';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
-import { TIERS } from 'game/TIERS';
 import { SpellLink } from 'interface';
 import spells from 'common/SPELLS/shaman';
 import {
@@ -26,40 +25,34 @@ import {
  * Based on https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-guide
  */
 
-export const apl = (info: PlayerInfo): Apl => {
-  const rotation: Rule[] = [];
+const commonTop = [
+  {
+    spell: TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT,
+    condition: debuffMissing(spells.FLAME_SHOCK),
+  },
+  TALENTS_SHAMAN.FERAL_SPIRIT_TALENT,
+  TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
+  TALENTS_SHAMAN.DOOM_WINDS_TALENT,
+  sunderingToActivateEarthenMight(),
+];
 
-  // common priority to all builds
-  rotation.push(
-    {
-      spell: TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT,
-      condition: debuffMissing(spells.FLAME_SHOCK),
-    },
-    TALENTS_SHAMAN.FERAL_SPIRIT_TALENT,
-    TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
-    TALENTS_SHAMAN.DOOM_WINDS_TALENT,
-  );
-
-  if (info.combatant.has2PieceByTier(TIERS.T30)) {
-    rotation.push(sunderingToActivateEarthenMight());
-  }
-
-  if (info.combatant.hasTalent(TALENTS_SHAMAN.HOT_HAND_TALENT)) {
-    rotation.push(...elementalistCore(info));
-  } else {
-    rotation.push(...stormCore(info));
-  }
-
-  rotation.push({
+const commonEnd = [
+  {
     spell: spells.FLAME_SHOCK,
     condition: describe(
       debuffMissing(spells.FLAME_SHOCK, { duration: 18, timeRemaining: 18 }),
       () => <></>,
       '',
     ),
-  });
+  },
+];
 
-  return build(rotation);
+export const apl = (info: PlayerInfo): Apl => {
+  if (info.combatant.hasTalent(TALENTS_SHAMAN.HOT_HAND_TALENT)) {
+    return build(elementalistCore(info));
+  } else {
+    return build(stormCore(info));
+  }
 };
 
 export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
@@ -75,9 +68,8 @@ export default suggestion((events, info) => {
 });
 
 const elementalistCore = (info: PlayerInfo) => {
-  const result: Rule[] = [];
-
-  result.push(
+  return [
+    ...commonTop,
     spells.WINDSTRIKE_CAST,
     {
       spell: TALENTS_SHAMAN.LAVA_LASH_TALENT,
@@ -112,13 +104,7 @@ const elementalistCore = (info: PlayerInfo) => {
         buffPresent(TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT),
       ),
     },
-  );
-
-  if (info.combatant.has4PieceByTier(TIERS.T30)) {
-    result.push(chainLightningWithCracklingThunder());
-  }
-
-  result.push(
+    chainLightningWithCracklingThunder(),
     {
       spell: TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT,
       condition: buffStacks(spells.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
@@ -137,25 +123,17 @@ const elementalistCore = (info: PlayerInfo) => {
     TALENTS_SHAMAN.STORMSTRIKE_TALENT,
     TALENTS_SHAMAN.FROST_SHOCK_TALENT,
     TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT,
-  );
-
-  return result;
+    ...commonEnd,
+  ];
 };
 
 const stormCore = (info: PlayerInfo) => {
-  const result: Rule[] = [];
-
-  result.push(
+  return [
+    ...commonTop,
     {
       spell: spells.WINDSTRIKE_CAST,
       condition: describe(
-        and(
-          buffPresent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-          or(
-            lastSpellCast(spells.LIGHTNING_BOLT),
-            lastSpellCast(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT),
-          ),
-        ),
+        always(buffPresent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT)),
         () => <></>,
         '',
       ),
@@ -169,23 +147,13 @@ const stormCore = (info: PlayerInfo) => {
       ),
     },
     {
-      spell: TALENTS_SHAMAN.ICE_STRIKE_TALENT,
-      condition: buffPresent(TALENTS_SHAMAN.DOOM_WINDS_TALENT),
-    },
-    {
       spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT,
       condition: and(
         buffStacks(spells.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
         spellCharges(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT, { atLeast: 2, atMost: 2 }),
       ),
     },
-  );
-
-  if (info.combatant.has4PieceByTier(TIERS.T30)) {
-    result.push(chainLightningWithCracklingThunder());
-  }
-
-  result.push(
+    chainLightningWithCracklingThunder(),
     {
       spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT,
       condition: buffStacks(spells.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
@@ -195,6 +163,10 @@ const stormCore = (info: PlayerInfo) => {
       condition: buffStacks(spells.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
     },
     {
+      spell: TALENTS_SHAMAN.ICE_STRIKE_TALENT,
+      condition: buffPresent(TALENTS_SHAMAN.DOOM_WINDS_TALENT),
+    },
+    {
       spell: TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT,
       condition: buffPresent(TALENTS_SHAMAN.DOOM_WINDS_TALENT),
     },
@@ -202,12 +174,9 @@ const stormCore = (info: PlayerInfo) => {
       spell: spells.FLAME_SHOCK,
       condition: debuffMissing(spells.FLAME_SHOCK),
     },
-  );
-  result.push(
     TALENTS_SHAMAN.LAVA_LASH_TALENT,
     TALENTS_SHAMAN.ICE_STRIKE_TALENT,
     TALENTS_SHAMAN.FROST_SHOCK_TALENT,
-  );
-
-  return result;
+    ...commonEnd,
+  ];
 };
