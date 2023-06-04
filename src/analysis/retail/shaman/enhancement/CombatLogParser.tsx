@@ -40,10 +40,16 @@ import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
 import RunesOfTheCinderwolf from './modules/tiersets/RunesOfTheCinderwolf';
 import { ThorimsInvocationNormalizer } from './modules/normalizers/ThorimsInvocationNormalizer';
+import SpellUsable from './modules/core/SpellUsable';
+import Channeling from './modules/normalizers/MaelstromWeaponCastChannelHandler';
+import GlobalCooldown from './modules/core/GlobalCooldown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    spellUsable: SpellUsable,
+    globalCooldown: GlobalCooldown,
     // Shaman Shared
+    channeling: Channeling,
     ankhNormalizer: AnkhNormalizer,
 
     // Features
