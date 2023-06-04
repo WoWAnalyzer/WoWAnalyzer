@@ -19,6 +19,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import CancelledCasts from './modules/features/CancelledCasts';
 import Catalyze from './modules/talents/Catalyze';
 import Scintillation from './modules/talents/Scintillation';
+import Causality from './modules/talents/Causality';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -36,6 +37,7 @@ class CombatLogParser extends MainCombatLogParser {
     cancelledCasts: CancelledCasts,
     catalyze: Catalyze,
     scintillation: Scintillation,
+    causality: Causality,
 
     // abilities & talents
     disintegrate: Disintegrate,
