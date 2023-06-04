@@ -17,6 +17,7 @@ import Snapfire from './modules/abilities/Snapfire';
 import T30DevaTier4P from './modules/dragonflight/tier/T30DevaTier4P';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import CancelledCasts from './modules/features/CancelledCasts';
+import Catalyze from './modules/talents/Catalyze';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -32,6 +33,7 @@ class CombatLogParser extends MainCombatLogParser {
     apls: AplCheck,
     cooldownThroughputTracker: CooldownThroughputTracker,
     cancelledCasts: CancelledCasts,
+    catalyze: Catalyze,
 
     // abilities & talents
     disintegrate: Disintegrate,
