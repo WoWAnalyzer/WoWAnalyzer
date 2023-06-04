@@ -149,22 +149,23 @@ class Causality extends Analyzer {
         }
       >
         <label style={{ margin: '10px' }}>
-          <BoringSpellValueText spellId={TALENTS.CAUSALITY_TALENT.id}></BoringSpellValueText>
+          <BoringSpellValueText spellId={TALENTS.CAUSALITY_TALENT.id}>
+            <div>
+              <BoringSpellValue
+                spellId={SPELLS.ETERNITY_SURGE.id}
+                value={`${this.eternitySurgeCooldownReduced.toFixed(2)}s`}
+                label={<Trans>Total CDR</Trans>}
+              ></BoringSpellValue>
+            </div>
+            <div>
+              <BoringSpellValue
+                spellId={SPELLS.FIRE_BREATH.id}
+                value={`${this.fireBreathCooldownReduced.toFixed(2)}s`}
+                label={<Trans>Total CDR</Trans>}
+              ></BoringSpellValue>
+            </div>
+          </BoringSpellValueText>
         </label>
-        <div>
-          <BoringSpellValue
-            spellId={SPELLS.ETERNITY_SURGE.id}
-            value={`${this.eternitySurgeCooldownReduced.toFixed(2)}s`}
-            label={<Trans>Total CDR</Trans>}
-          ></BoringSpellValue>
-        </div>
-        <div>
-          <BoringSpellValue
-            spellId={SPELLS.FIRE_BREATH.id}
-            value={`${this.fireBreathCooldownReduced.toFixed(2)}s`}
-            label={<Trans>Total CDR</Trans>}
-          ></BoringSpellValue>
-        </div>
       </Statistic>
     );
   }
