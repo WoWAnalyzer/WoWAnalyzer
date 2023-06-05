@@ -20,6 +20,7 @@ import CancelledCasts from './modules/features/CancelledCasts';
 import Catalyze from './modules/talents/Catalyze';
 import Scintillation from './modules/talents/Scintillation';
 import Causality from './modules/talents/Causality';
+import Volatility from './modules/talents/Volatility';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -38,6 +39,7 @@ class CombatLogParser extends MainCombatLogParser {
     catalyze: Catalyze,
     scintillation: Scintillation,
     causality: Causality,
+    volatility: Volatility,
 
     // abilities & talents
     disintegrate: Disintegrate,
