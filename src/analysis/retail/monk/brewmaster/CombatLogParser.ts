@@ -55,6 +55,7 @@ import BreathOfFireDebuffTargetNormalizer from './modules/spells/BreathOfFire/no
 import BonedustBrewCastLinkNormalizer from './modules/talents/BonedustBrew/normalizer';
 import BrewmasterT29FourSet from './modules/items/Tier29/FourSet';
 import SpinningCraneKickLinkNormalizer from './normalizers/SpinningCraneKick';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -101,6 +102,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     stormstoutsLastKeg: StormtoutsLastKeg,
     t29fourSet: BrewmasterT29FourSet,
+    callToDominance: CallToDominance,
 
     // normalizers
     gotoxNorm: GiftOfTheOx,

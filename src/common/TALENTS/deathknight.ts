@@ -8,6 +8,7 @@ const talents = createTalentList({
     icon: 'ability_maldraxxus_deathknight',
     maxRanks: 1,
     entryIds: [96177],
+    definitionIds: [{ id: 101179, specId: 252 }],
   },
   ABSOLUTE_ZERO_TALENT: {
     id: 377047,
@@ -15,6 +16,7 @@ const talents = createTalentList({
     icon: 'spell_fire_blueflamering',
     maxRanks: 1,
     entryIds: [96223],
+    definitionIds: [{ id: 101225, specId: 251 }],
   },
   ACCLIMATION_TALENT: {
     id: 373926,
@@ -22,6 +24,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_iceboundfortitude',
     maxRanks: 1,
     entryIds: [96175],
+    definitionIds: [{ id: 101177, specId: 252 }],
   },
   ALL_WILL_SERVE_TALENT: {
     id: 194916,
@@ -29,6 +32,7 @@ const talents = createTalentList({
     icon: 'ability_fiegndead',
     maxRanks: 1,
     entryIds: [96317],
+    definitionIds: [{ id: 101319, specId: 252 }],
   },
   ANTI_MAGIC_BARRIER_TALENT: {
     id: 205727,
@@ -36,6 +40,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_antimagicshell',
     maxRanks: 1,
     entryIds: [96174],
+    definitionIds: [{ id: 101176, specId: 252 }],
   },
   ANTI_MAGIC_SHELL_TALENT: {
     id: 48707,
@@ -43,6 +48,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_antimagicshell',
     maxRanks: 1,
     entryIds: [96199],
+    definitionIds: [{ id: 101201, specId: 252 }],
   },
   ANTI_MAGIC_ZONE_TALENT: {
     id: 51052,
@@ -50,6 +56,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_antimagiczone',
     maxRanks: 1,
     entryIds: [96194],
+    definitionIds: [{ id: 101196, specId: 252 }],
   },
   APOCALYPSE_TALENT: {
     id: 275699,
@@ -57,6 +64,7 @@ const talents = createTalentList({
     icon: 'artifactability_unholydeathknight_deathsembrace',
     maxRanks: 1,
     entryIds: [96322],
+    definitionIds: [{ id: 101324, specId: 252 }],
   },
   ARMY_OF_THE_DAMNED_TALENT: {
     id: 276837,
@@ -64,6 +72,7 @@ const talents = createTalentList({
     icon: 'artifactability_unholydeathknight_deathsembrace',
     maxRanks: 1,
     entryIds: [96287],
+    definitionIds: [{ id: 101289, specId: 252 }],
   },
   ARMY_OF_THE_DEAD_TALENT: {
     id: 42650,
@@ -71,6 +80,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_armyofthedead',
     maxRanks: 1,
     entryIds: [96333],
+    definitionIds: [{ id: 101335, specId: 252 }],
     runesCost: 1,
   },
   ASPHYXIATE_TALENT: {
@@ -79,6 +89,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_asphixiate',
     maxRanks: 1,
     entryIds: [96193],
+    definitionIds: [{ id: 101195, specId: 252 }],
   },
   ASSIMILATION_TALENT: {
     id: 374383,
@@ -86,6 +97,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_antimagiczone',
     maxRanks: 1,
     entryIds: [96176],
+    definitionIds: [{ id: 101178, specId: 252 }],
   },
   AVALANCHE_TALENT: {
     id: 207142,
@@ -93,6 +105,7 @@ const talents = createTalentList({
     icon: 'spell_frost_icestorm',
     maxRanks: 1,
     entryIds: [96235],
+    definitionIds: [{ id: 101237, specId: 251 }],
   },
   BITING_COLD_TALENT: {
     id: 377056,
@@ -100,6 +113,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_remorselesswinters2',
     maxRanks: 1,
     entryIds: [96242],
+    definitionIds: [{ id: 101244, specId: 251 }],
   },
   BLINDING_SLEET_TALENT: {
     id: 207167,
@@ -107,6 +121,7 @@ const talents = createTalentList({
     icon: 'spell_frost_chillingblast',
     maxRanks: 1,
     entryIds: [96172],
+    definitionIds: [{ id: 101174, specId: 252 }],
   },
   BLOODDRINKER_TALENT: {
     id: 206931,
@@ -114,6 +129,7 @@ const talents = createTalentList({
     icon: 'ability_animusdraw',
     maxRanks: 1,
     entryIds: [96276],
+    definitionIds: [{ id: 101278, specId: 250 }],
     runesCost: 1,
   },
   BLOODSHOT_TALENT: {
@@ -122,6 +138,7 @@ const talents = createTalentList({
     icon: 'ability_warlock_baneofhavoc',
     maxRanks: 1,
     entryIds: [96256],
+    definitionIds: [{ id: 101258, specId: 250 }],
   },
   BLOODWORMS_TALENT: {
     id: 195679,
@@ -129,6 +146,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_soulleech',
     maxRanks: 1,
     entryIds: [96309],
+    definitionIds: [{ id: 101311, specId: 250 }],
   },
   BLOOD_BOIL_TALENT: {
     id: 50842,
@@ -136,6 +154,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_bloodboil',
     maxRanks: 1,
     entryIds: [96305],
+    definitionIds: [{ id: 101307, specId: 250 }],
   },
   BLOOD_DRAW_TALENT: {
     id: 374598,
@@ -143,6 +162,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_bloodoftheassassinated',
     maxRanks: 2,
     entryIds: [96208],
+    definitionIds: [{ id: 101210, specId: 252 }],
   },
   BLOOD_FEAST_TALENT: {
     id: 391386,
@@ -150,6 +170,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_vendetta',
     maxRanks: 1,
     entryIds: [96167],
+    definitionIds: [{ id: 101169, specId: 250 }],
   },
   BLOOD_SCENT_TALENT: {
     id: 374030,
@@ -157,6 +178,7 @@ const talents = createTalentList({
     icon: 'spell_chargepositive',
     maxRanks: 1,
     entryIds: [96195],
+    definitionIds: [{ id: 101197, specId: 252 }],
   },
   BLOOD_TAP_TALENT: {
     id: 221699,
@@ -164,6 +186,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_bloodtap',
     maxRanks: 1,
     entryIds: [96274],
+    definitionIds: [{ id: 101276, specId: 250 }],
   },
   BONEGRINDER_TALENT: {
     id: 377098,
@@ -171,6 +194,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_bonegrinder',
     maxRanks: 2,
     entryIds: [96253],
+    definitionIds: [{ id: 101255, specId: 251 }],
   },
   BONESTORM_TALENT: {
     id: 194844,
@@ -178,6 +202,7 @@ const talents = createTalentList({
     icon: 'achievement_boss_lordmarrowgar',
     maxRanks: 1,
     entryIds: [96258],
+    definitionIds: [{ id: 101260, specId: 250 }],
     runicPowerCost: 10,
   },
   BREATH_OF_SINDRAGOSA_TALENT: {
@@ -186,6 +211,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_breathofsindragosa',
     maxRanks: 1,
     entryIds: [96222],
+    definitionIds: [{ id: 101224, specId: 251 }],
     runicPowerCost: 0,
   },
   BRITTLE_TALENT: {
@@ -194,6 +220,7 @@ const talents = createTalentList({
     icon: 'ability_bosskilrogg_deaththroes',
     maxRanks: 1,
     entryIds: [96190],
+    definitionIds: [{ id: 101192, specId: 252 }],
   },
   BURSTING_SORES_TALENT: {
     id: 207264,
@@ -201,6 +228,7 @@ const talents = createTalentList({
     icon: 'ability_druid_infectedwound',
     maxRanks: 1,
     entryIds: [96299],
+    definitionIds: [{ id: 101301, specId: 252 }],
   },
   CHAINS_OF_ICE_TALENT: {
     id: 45524,
@@ -208,6 +236,7 @@ const talents = createTalentList({
     icon: 'spell_frost_chainsofice',
     maxRanks: 1,
     entryIds: [96210],
+    definitionIds: [{ id: 101212, specId: 252 }],
     runesCost: 1,
   },
   CHILL_STREAK_TALENT: {
@@ -216,6 +245,7 @@ const talents = createTalentList({
     icon: 'spell_frost_piercing_chill',
     maxRanks: 1,
     entryIds: [96228],
+    definitionIds: [{ id: 101230, specId: 251 }],
     runesCost: 1,
   },
   CLAWING_SHADOWS_TALENT: {
@@ -224,6 +254,7 @@ const talents = createTalentList({
     icon: 'warlock_curse_shadow',
     maxRanks: 1,
     entryIds: [96320],
+    definitionIds: [{ id: 101322, specId: 252 }],
     runesCost: 1,
   },
   CLEAVING_STRIKES_TALENT: {
@@ -232,6 +263,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_deathanddecay',
     maxRanks: 1,
     entryIds: [96202],
+    definitionIds: [{ id: 101204, specId: 252 }],
   },
   CLENCHING_GRASP_TALENT: {
     id: 389679,
@@ -239,6 +271,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_icygrip',
     maxRanks: 1,
     entryIds: [96191],
+    definitionIds: [{ id: 101193, specId: 252 }],
   },
   COAGULOPATHY_TALENT: {
     id: 391477,
@@ -246,6 +279,7 @@ const talents = createTalentList({
     icon: 'ability_skeer_bloodletting',
     maxRanks: 1,
     entryIds: [96166],
+    definitionIds: [{ id: 101168, specId: 250 }],
   },
   COIL_OF_DEVASTATION_TALENT: {
     id: 390270,
@@ -253,6 +287,7 @@ const talents = createTalentList({
     icon: 'ability_malkorok_blightofyshaarj_green',
     maxRanks: 1,
     entryIds: [96290],
+    definitionIds: [{ id: 101292, specId: 252 }],
   },
   COLDTHIRST_TALENT: {
     id: 378848,
@@ -260,6 +295,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_mindfreeze',
     maxRanks: 1,
     entryIds: [96173],
+    definitionIds: [{ id: 101175, specId: 252 }],
   },
   COLD_BLOODED_RAGE_TALENT: {
     id: 377083,
@@ -267,6 +303,7 @@ const talents = createTalentList({
     icon: 'inv_helm_plate_raiddeathknightmythic_q_01',
     maxRanks: 2,
     entryIds: [96254],
+    definitionIds: [{ id: 101256, specId: 251 }],
   },
   COLD_HEART_TALENT: {
     id: 281208,
@@ -274,6 +311,7 @@ const talents = createTalentList({
     icon: 'spell_frost_frozencore',
     maxRanks: 1,
     entryIds: [96163],
+    definitionIds: [{ id: 101165, specId: 251 }],
   },
   COMMANDER_OF_THE_DEAD_TALENT: {
     id: 390259,
@@ -281,6 +319,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_fumble',
     maxRanks: 1,
     entryIds: [96283],
+    definitionIds: [{ id: 101285, specId: 252 }],
   },
   CONSUMPTION_TALENT: {
     id: 274156,
@@ -288,6 +327,7 @@ const talents = createTalentList({
     icon: 'inv_axe_2h_artifactmaw_d_01',
     maxRanks: 1,
     entryIds: [96275],
+    definitionIds: [{ id: 101277, specId: 250 }],
   },
   CONTROL_UNDEAD_TALENT: {
     id: 111673,
@@ -295,6 +335,7 @@ const talents = createTalentList({
     icon: 'inv_misc_bone_skull_01',
     maxRanks: 1,
     entryIds: [96188],
+    definitionIds: [{ id: 101190, specId: 252 }],
     runesCost: 1,
   },
   CRIMSON_SCOURGE_TALENT: {
@@ -303,6 +344,7 @@ const talents = createTalentList({
     icon: 'ability_warrior_bloodnova',
     maxRanks: 1,
     entryIds: [96306],
+    definitionIds: [{ id: 101308, specId: 250 }],
   },
   DANCING_RUNE_WEAPON_TALENT: {
     id: 49028,
@@ -310,6 +352,7 @@ const talents = createTalentList({
     icon: 'inv_sword_07',
     maxRanks: 1,
     entryIds: [96269],
+    definitionIds: [{ id: 101271, specId: 250 }],
   },
   DARK_TRANSFORMATION_TALENT: {
     id: 63560,
@@ -317,6 +360,7 @@ const talents = createTalentList({
     icon: 'achievement_boss_festergutrotface',
     maxRanks: 1,
     entryIds: [96324],
+    definitionIds: [{ id: 101326, specId: 252 }],
   },
   DEATHS_CARESS_TALENT: {
     id: 195292,
@@ -324,6 +368,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_deathscaress',
     maxRanks: 1,
     entryIds: [96279],
+    definitionIds: [{ id: 101281, specId: 250 }],
     runesCost: 1,
   },
   DEATHS_ECHO_TALENT: {
@@ -332,6 +377,7 @@ const talents = createTalentList({
     icon: 'inv_fabric_ebonweave',
     maxRanks: 1,
     entryIds: [96184],
+    definitionIds: [{ id: 101186, specId: 252 }],
   },
   DEATHS_REACH_TALENT: {
     id: 276079,
@@ -339,6 +385,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_strangulate',
     maxRanks: 1,
     entryIds: [96186],
+    definitionIds: [{ id: 101188, specId: 252 }],
   },
   DEATH_PACT_TALENT: {
     id: 48743,
@@ -346,6 +393,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_deathpact',
     maxRanks: 1,
     entryIds: [96206],
+    definitionIds: [{ id: 101208, specId: 252 }],
   },
   DEATH_ROT_TALENT: {
     id: 377537,
@@ -353,6 +401,7 @@ const talents = createTalentList({
     icon: 'ability_creature_cursed_03',
     maxRanks: 1,
     entryIds: [96292],
+    definitionIds: [{ id: 101294, specId: 252 }],
   },
   DEATH_STRIKE_TALENT: {
     id: 49998,
@@ -360,6 +409,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_butcher2',
     maxRanks: 1,
     entryIds: [96200],
+    definitionIds: [{ id: 101202, specId: 252 }],
     runicPowerCost: 45,
   },
   DEFILE_TALENT: {
@@ -368,6 +418,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_defile',
     maxRanks: 1,
     entryIds: [96294],
+    definitionIds: [{ id: 101296, specId: 252 }],
     runesCost: 1,
   },
   EBON_FEVER_TALENT: {
@@ -376,6 +427,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_creepingplague',
     maxRanks: 1,
     entryIds: [96298],
+    definitionIds: [{ id: 101300, specId: 252 }],
   },
   EMPOWER_RUNE_WEAPON_FROST_TALENT: {
     id: 47568,
@@ -383,6 +435,7 @@ const talents = createTalentList({
     icon: 'inv_sword_62',
     maxRanks: 1,
     entryIds: [96229],
+    definitionIds: [{ id: 101231, specId: 251 }],
   },
   EMPOWER_RUNE_WEAPON_SHARED_TALENT: {
     id: 47568,
@@ -390,6 +443,7 @@ const talents = createTalentList({
     icon: 'inv_sword_62',
     maxRanks: 1,
     entryIds: [96178],
+    definitionIds: [{ id: 101180, specId: 252 }],
   },
   ENDURING_CHILL_TALENT: {
     id: 377376,
@@ -397,6 +451,7 @@ const talents = createTalentList({
     icon: 'spell_frost_piercing_chill',
     maxRanks: 1,
     entryIds: [96226],
+    definitionIds: [{ id: 101228, specId: 251 }],
   },
   ENDURING_STRENGTH_TALENT: {
     id: 377190,
@@ -404,6 +459,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_soulleech_2',
     maxRanks: 2,
     entryIds: [96230],
+    definitionIds: [{ id: 101232, specId: 251 }],
   },
   ENFEEBLE_TALENT: {
     id: 392566,
@@ -411,6 +467,7 @@ const talents = createTalentList({
     icon: 'ability_creature_poison_01',
     maxRanks: 1,
     entryIds: [96189],
+    definitionIds: [{ id: 101191, specId: 252 }],
   },
   EPIDEMIC_TALENT: {
     id: 207317,
@@ -418,6 +475,7 @@ const talents = createTalentList({
     icon: 'spell_nature_nullifydisease',
     maxRanks: 1,
     entryIds: [96296],
+    definitionIds: [{ id: 101298, specId: 252 }],
     runicPowerCost: 30,
   },
   ETERNAL_AGONY_TALENT: {
@@ -426,6 +484,7 @@ const talents = createTalentList({
     icon: 'spell_necro_deathsdoor',
     maxRanks: 1,
     entryIds: [96332],
+    definitionIds: [{ id: 101334, specId: 252 }],
   },
   EVERFROST_TALENT: {
     id: 376938,
@@ -433,6 +492,7 @@ const talents = createTalentList({
     icon: 'ability_mage_deepfreeze',
     maxRanks: 1,
     entryIds: [96164],
+    definitionIds: [{ id: 101166, specId: 251 }],
   },
   EVERLASTING_BOND_TALENT: {
     id: 377668,
@@ -440,6 +500,7 @@ const talents = createTalentList({
     icon: 'inv_sword_07',
     maxRanks: 1,
     entryIds: [96261],
+    definitionIds: [{ id: 101263, specId: 250 }],
   },
   FATAL_FIXATION_TALENT: {
     id: 405166,
@@ -447,6 +508,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_frozencenter',
     maxRanks: 1,
     entryIds: [96218],
+    definitionIds: [{ id: 101220, specId: 251 }],
   },
   FEASTING_STRIKES_TALENT: {
     id: 390161,
@@ -454,6 +516,7 @@ const talents = createTalentList({
     icon: 'spell_nature_rune',
     maxRanks: 1,
     entryIds: [96330],
+    definitionIds: [{ id: 101332, specId: 252 }],
   },
   FESTERING_STRIKE_TALENT: {
     id: 85948,
@@ -461,6 +524,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_festering_strike',
     maxRanks: 1,
     entryIds: [96326],
+    definitionIds: [{ id: 101328, specId: 252 }],
     runesCost: 2,
   },
   FESTERMIGHT_TALENT: {
@@ -469,6 +533,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_festermight',
     maxRanks: 2,
     entryIds: [96286],
+    definitionIds: [{ id: 101288, specId: 252 }],
   },
   FOUL_BULWARK_TALENT: {
     id: 206974,
@@ -476,6 +541,7 @@ const talents = createTalentList({
     icon: 'inv_armor_shield_naxxramas_d_02',
     maxRanks: 1,
     entryIds: [96302],
+    definitionIds: [{ id: 101304, specId: 250 }],
   },
   FRIGID_EXECUTIONER_TALENT: {
     id: 377073,
@@ -483,6 +549,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_focusedpower',
     maxRanks: 1,
     entryIds: [96251],
+    definitionIds: [{ id: 101253, specId: 251 }],
   },
   FROSTSCYTHE_TALENT: {
     id: 207230,
@@ -490,6 +557,7 @@ const talents = createTalentList({
     icon: 'inv_misc_2h_farmscythe_a_01',
     maxRanks: 1,
     entryIds: [96225],
+    definitionIds: [{ id: 101227, specId: 251 }],
     runesCost: 1,
   },
   FROSTWHELPS_AID_TALENT: {
@@ -498,6 +566,7 @@ const talents = createTalentList({
     icon: 'inv_pet_dkwhelplingfrost',
     maxRanks: 2,
     entryIds: [96236],
+    definitionIds: [{ id: 101238, specId: 251 }],
   },
   FROSTWYRMS_FURY_TALENT: {
     id: 279302,
@@ -505,6 +574,7 @@ const talents = createTalentList({
     icon: 'achievement_boss_sindragosa',
     maxRanks: 1,
     entryIds: [96224],
+    definitionIds: [{ id: 101226, specId: 251 }],
   },
   FROST_STRIKE_TALENT: {
     id: 49143,
@@ -512,6 +582,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_empowerruneblade2',
     maxRanks: 1,
     entryIds: [96245],
+    definitionIds: [{ id: 101247, specId: 251 }],
     runicPowerCost: 30,
   },
   GATHERING_STORM_TALENT: {
@@ -520,6 +591,7 @@ const talents = createTalentList({
     icon: 'spell_frost_ice_shards',
     maxRanks: 1,
     entryIds: [96239],
+    definitionIds: [{ id: 101241, specId: 251 }],
   },
   GHOULISH_FRENZY_TALENT: {
     id: 377587,
@@ -527,6 +599,7 @@ const talents = createTalentList({
     icon: 'ability_warlock_baneofhavoc',
     maxRanks: 2,
     entryIds: [96288],
+    definitionIds: [{ id: 101290, specId: 252 }],
   },
   GLACIAL_ADVANCE_TALENT: {
     id: 194913,
@@ -534,6 +607,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_glacialtrap',
     maxRanks: 1,
     entryIds: [96221],
+    definitionIds: [{ id: 101223, specId: 251 }],
     runicPowerCost: 30,
   },
   GLOOM_WARD_TALENT: {
@@ -542,6 +616,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_envelopingshadows',
     maxRanks: 1,
     entryIds: [96180],
+    definitionIds: [{ id: 101182, specId: 252 }],
   },
   GOREFIENDS_GRASP_TALENT: {
     id: 108199,
@@ -549,6 +624,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_aoedeathgrip',
     maxRanks: 1,
     entryIds: [96267],
+    definitionIds: [{ id: 101269, specId: 250 }],
   },
   GRIP_OF_THE_DEAD_TALENT: {
     id: 273952,
@@ -556,6 +632,7 @@ const talents = createTalentList({
     icon: 'ability_creature_disease_05',
     maxRanks: 1,
     entryIds: [96185],
+    definitionIds: [{ id: 101187, specId: 252 }],
   },
   HARBINGER_OF_DOOM_TALENT: {
     id: 276023,
@@ -563,6 +640,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_painspike',
     maxRanks: 1,
     entryIds: [96310],
+    definitionIds: [{ id: 101312, specId: 252 }],
   },
   HEARTBREAKER_TALENT: {
     id: 221536,
@@ -570,6 +648,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_deathstrike',
     maxRanks: 2,
     entryIds: [96266],
+    definitionIds: [{ id: 101268, specId: 250 }],
   },
   HEARTREND_TALENT: {
     id: 377655,
@@ -577,6 +656,7 @@ const talents = createTalentList({
     icon: 'inv_weapon_shortblade_40',
     maxRanks: 1,
     entryIds: [96262],
+    definitionIds: [{ id: 101264, specId: 250 }],
   },
   HEART_STRIKE_TALENT: {
     id: 206930,
@@ -584,6 +664,7 @@ const talents = createTalentList({
     icon: 'inv_weapon_shortblade_40',
     maxRanks: 1,
     entryIds: [96304],
+    definitionIds: [{ id: 101306, specId: 250 }],
     runesCost: 1,
   },
   HEMOSTASIS_TALENT: {
@@ -592,6 +673,7 @@ const talents = createTalentList({
     icon: 'ability_deathwing_bloodcorruption_earth',
     maxRanks: 1,
     entryIds: [96268],
+    definitionIds: [{ id: 101270, specId: 250 }],
   },
   HORN_OF_WINTER_TALENT: {
     id: 57330,
@@ -599,6 +681,7 @@ const talents = createTalentList({
     icon: 'inv_misc_horn_02',
     maxRanks: 1,
     entryIds: [96240],
+    definitionIds: [{ id: 101242, specId: 251 }],
   },
   HOWLING_BLAST_TALENT: {
     id: 49184,
@@ -606,6 +689,7 @@ const talents = createTalentList({
     icon: 'spell_frost_arcticwinds',
     maxRanks: 1,
     entryIds: [96244],
+    definitionIds: [{ id: 101246, specId: 251 }],
     runesCost: 1,
   },
   ICEBOUND_FORTITUDE_TALENT: {
@@ -614,6 +698,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_iceboundfortitude',
     maxRanks: 1,
     entryIds: [96213],
+    definitionIds: [{ id: 101215, specId: 252 }],
   },
   ICEBREAKER_TALENT: {
     id: 392950,
@@ -621,6 +706,7 @@ const talents = createTalentList({
     icon: 'ability_mage_icewall',
     maxRanks: 2,
     entryIds: [96161],
+    definitionIds: [{ id: 101163, specId: 251 }],
   },
   ICECAP_TALENT: {
     id: 207126,
@@ -628,6 +714,7 @@ const talents = createTalentList({
     icon: 'inv_misc_herb_icecap',
     maxRanks: 1,
     entryIds: [96162],
+    definitionIds: [{ id: 101164, specId: 251 }],
   },
   ICY_TALONS_TALENT: {
     id: 194878,
@@ -635,6 +722,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_icytalons',
     maxRanks: 2,
     entryIds: [96179],
+    definitionIds: [{ id: 101181, specId: 252 }],
   },
   IMPROVED_BONE_SHIELD_TALENT: {
     id: 374715,
@@ -642,6 +730,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_marrowrend',
     maxRanks: 1,
     entryIds: [96170],
+    definitionIds: [{ id: 101172, specId: 250 }],
   },
   IMPROVED_DEATH_COIL_TALENT: {
     id: 377580,
@@ -649,6 +738,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_deathcoil',
     maxRanks: 2,
     entryIds: [96321],
+    definitionIds: [{ id: 101323, specId: 252 }],
   },
   IMPROVED_DEATH_STRIKE_TALENT: {
     id: 374277,
@@ -656,6 +746,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_butcher2',
     maxRanks: 1,
     entryIds: [96196],
+    definitionIds: [{ id: 101198, specId: 252 }],
   },
   IMPROVED_FESTERING_STRIKE_TALENT: {
     id: 316867,
@@ -663,6 +754,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_festering_strike',
     maxRanks: 2,
     entryIds: [96329],
+    definitionIds: [{ id: 101331, specId: 252 }],
   },
   IMPROVED_FROST_STRIKE_TALENT: {
     id: 316803,
@@ -670,6 +762,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_empowerruneblade2',
     maxRanks: 2,
     entryIds: [96233],
+    definitionIds: [{ id: 101235, specId: 251 }],
   },
   IMPROVED_HEART_STRIKE_TALENT: {
     id: 374717,
@@ -677,6 +770,7 @@ const talents = createTalentList({
     icon: 'inv_weapon_shortblade_40',
     maxRanks: 2,
     entryIds: [96257],
+    definitionIds: [{ id: 101259, specId: 250 }],
   },
   IMPROVED_OBLITERATE_TALENT: {
     id: 317198,
@@ -684,6 +778,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_classicon',
     maxRanks: 1,
     entryIds: [96249],
+    definitionIds: [{ id: 101251, specId: 251 }],
   },
   IMPROVED_RIME_TALENT: {
     id: 316838,
@@ -691,6 +786,7 @@ const talents = createTalentList({
     icon: 'spell_frost_freezingbreath',
     maxRanks: 1,
     entryIds: [96241],
+    definitionIds: [{ id: 101243, specId: 251 }],
   },
   IMPROVED_VAMPIRIC_BLOOD_TALENT: {
     id: 317133,
@@ -698,6 +794,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_lifedrain',
     maxRanks: 2,
     entryIds: [96272],
+    definitionIds: [{ id: 101274, specId: 250 }],
   },
   INEXORABLE_ASSAULT_TALENT: {
     id: 253593,
@@ -705,6 +802,7 @@ const talents = createTalentList({
     icon: 'achievement_dungeon_icecrown_frostmourne',
     maxRanks: 1,
     entryIds: [96165],
+    definitionIds: [{ id: 101167, specId: 251 }],
   },
   INFECTED_CLAWS_TALENT: {
     id: 207272,
@@ -712,6 +810,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_thrash_ghoul',
     maxRanks: 1,
     entryIds: [96318],
+    definitionIds: [{ id: 101320, specId: 252 }],
   },
   INSATIABLE_BLADE_TALENT: {
     id: 377637,
@@ -719,6 +818,7 @@ const talents = createTalentList({
     icon: '70_inscription_vantus_rune_nightmare',
     maxRanks: 1,
     entryIds: [96260],
+    definitionIds: [{ id: 101262, specId: 250 }],
   },
   INSIDIOUS_CHILL_TALENT: {
     id: 391566,
@@ -726,6 +826,7 @@ const talents = createTalentList({
     icon: 'ability_racial_wardoftheloafrost',
     maxRanks: 1,
     entryIds: [96217],
+    definitionIds: [{ id: 101219, specId: 252 }],
   },
   INVIGORATING_FREEZE_TALENT: {
     id: 377092,
@@ -733,6 +834,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_frostfever',
     maxRanks: 2,
     entryIds: [96238],
+    definitionIds: [{ id: 101240, specId: 251 }],
   },
   IRON_HEART_TALENT: {
     id: 391395,
@@ -740,6 +842,7 @@ const talents = createTalentList({
     icon: 'inv_ragnaros_heart',
     maxRanks: 1,
     entryIds: [96307],
+    definitionIds: [{ id: 101309, specId: 250 }],
   },
   KILLING_MACHINE_TALENT: {
     id: 51128,
@@ -747,6 +850,7 @@ const talents = createTalentList({
     icon: 'inv_sword_122',
     maxRanks: 1,
     entryIds: [96247],
+    definitionIds: [{ id: 101249, specId: 251 }],
   },
   LEECHING_STRIKE_TALENT: {
     id: 377629,
@@ -754,6 +858,7 @@ const talents = createTalentList({
     icon: 'ability_deathwing_bloodcorruption_death',
     maxRanks: 1,
     entryIds: [96301],
+    definitionIds: [{ id: 101303, specId: 250 }],
   },
   MAGUS_OF_THE_DEAD_TALENT: {
     id: 390196,
@@ -761,6 +866,7 @@ const talents = createTalentList({
     icon: 'ability_maldraxxus_mage',
     maxRanks: 1,
     entryIds: [96282],
+    definitionIds: [{ id: 101284, specId: 252 }],
   },
   MARCH_OF_DARKNESS_TALENT: {
     id: 391546,
@@ -768,6 +874,7 @@ const talents = createTalentList({
     icon: 'ability_argus_deathfog',
     maxRanks: 1,
     entryIds: [96198],
+    definitionIds: [{ id: 101200, specId: 252 }],
   },
   MARK_OF_BLOOD_TALENT: {
     id: 206940,
@@ -775,6 +882,7 @@ const talents = createTalentList({
     icon: 'ability_hunter_rapidkilling',
     maxRanks: 1,
     entryIds: [96271],
+    definitionIds: [{ id: 101273, specId: 250 }],
   },
   MARROWREND_TALENT: {
     id: 195182,
@@ -782,6 +890,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_marrowrend',
     maxRanks: 1,
     entryIds: [96303],
+    definitionIds: [{ id: 101305, specId: 250 }],
     runesCost: 2,
   },
   MERCILESS_STRIKES_TALENT: {
@@ -790,6 +899,7 @@ const talents = createTalentList({
     icon: 'spell_chargepositive',
     maxRanks: 1,
     entryIds: [96214],
+    definitionIds: [{ id: 101216, specId: 252 }],
   },
   MIGHT_OF_THASSARIAN_TALENT: {
     id: 374111,
@@ -797,6 +907,7 @@ const talents = createTalentList({
     icon: 'spell_chargepositive',
     maxRanks: 1,
     entryIds: [96205],
+    definitionIds: [{ id: 101207, specId: 252 }],
   },
   MIND_FREEZE_TALENT: {
     id: 47528,
@@ -804,6 +915,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_mindfreeze',
     maxRanks: 1,
     entryIds: [96211],
+    definitionIds: [{ id: 101213, specId: 252 }],
     runicPowerCost: 0,
   },
   MORBIDITY_TALENT: {
@@ -812,6 +924,7 @@ const talents = createTalentList({
     icon: 'spell_necro_deathlyecho',
     maxRanks: 2,
     entryIds: [96334],
+    definitionIds: [{ id: 101336, specId: 252 }],
   },
   MURDEROUS_EFFICIENCY_TALENT: {
     id: 207061,
@@ -819,6 +932,7 @@ const talents = createTalentList({
     icon: 'spell_frost_frostarmor',
     maxRanks: 1,
     entryIds: [96252],
+    definitionIds: [{ id: 101254, specId: 251 }],
   },
   OBLITERATE_TALENT: {
     id: 49020,
@@ -826,6 +940,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_classicon',
     maxRanks: 1,
     entryIds: [96246],
+    definitionIds: [{ id: 101248, specId: 251 }],
     runesCost: 2,
   },
   OBLITERATION_TALENT: {
@@ -834,6 +949,7 @@ const talents = createTalentList({
     icon: 'inv_axe_114',
     maxRanks: 1,
     entryIds: [96220],
+    definitionIds: [{ id: 101222, specId: 251 }],
   },
   OSSUARY_TALENT: {
     id: 219786,
@@ -841,6 +957,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_brittlebones',
     maxRanks: 1,
     entryIds: [96277],
+    definitionIds: [{ id: 101279, specId: 250 }],
   },
   OUTBREAK_TALENT: {
     id: 77575,
@@ -848,6 +965,7 @@ const talents = createTalentList({
     icon: 'spell_deathvortex',
     maxRanks: 1,
     entryIds: [96328],
+    definitionIds: [{ id: 101330, specId: 252 }],
     runesCost: 1,
   },
   PERMAFROST_TALENT: {
@@ -856,6 +974,7 @@ const talents = createTalentList({
     icon: 'achievement_zone_frostfire',
     maxRanks: 1,
     entryIds: [96212],
+    definitionIds: [{ id: 101214, specId: 252 }],
   },
   PERSEVERANCE_OF_THE_EBON_BLADE_TALENT: {
     id: 374747,
@@ -863,6 +982,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_sanguinfortitude',
     maxRanks: 2,
     entryIds: [96255],
+    definitionIds: [{ id: 101257, specId: 250 }],
   },
   PESTILENCE_TALENT: {
     id: 277234,
@@ -870,6 +990,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_necroticplague',
     maxRanks: 1,
     entryIds: [96291],
+    definitionIds: [{ id: 101293, specId: 252 }],
   },
   PIERCING_CHILL_TALENT: {
     id: 377351,
@@ -877,6 +998,7 @@ const talents = createTalentList({
     icon: 'spell_frost_piercing_chill',
     maxRanks: 1,
     entryIds: [96227],
+    definitionIds: [{ id: 101229, specId: 251 }],
   },
   PILLAR_OF_FROST_TALENT: {
     id: 51271,
@@ -884,6 +1006,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_pillaroffrost',
     maxRanks: 1,
     entryIds: [96234],
+    definitionIds: [{ id: 101236, specId: 251 }],
   },
   PLAGUEBRINGER_TALENT: {
     id: 390175,
@@ -891,6 +1014,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_plaguestrike',
     maxRanks: 1,
     entryIds: [96319],
+    definitionIds: [{ id: 101321, specId: 252 }],
   },
   PROLIFERATING_CHILL_TALENT: {
     id: 373930,
@@ -898,6 +1022,7 @@ const talents = createTalentList({
     icon: 'spell_frost_chainsofice',
     maxRanks: 1,
     entryIds: [96215],
+    definitionIds: [{ id: 101217, specId: 252 }],
   },
   PURGATORY_TALENT: {
     id: 114556,
@@ -905,6 +1030,7 @@ const talents = createTalentList({
     icon: 'inv_misc_shadowegg',
     maxRanks: 1,
     entryIds: [96264],
+    definitionIds: [{ id: 101266, specId: 250 }],
   },
   RAGE_OF_THE_FROZEN_CHAMPION_TALENT: {
     id: 377076,
@@ -912,6 +1038,7 @@ const talents = createTalentList({
     icon: 'spell_mage_frostbomb',
     maxRanks: 1,
     entryIds: [96250],
+    definitionIds: [{ id: 101252, specId: 251 }],
   },
   RAISE_DEAD_SHARED_TALENT: {
     id: 46585,
@@ -919,6 +1046,7 @@ const talents = createTalentList({
     icon: 'inv_pet_ghoul',
     maxRanks: 1,
     entryIds: [96201],
+    definitionIds: [{ id: 101203, specId: 252 }],
   },
   RAISE_DEAD_UNHOLY_TALENT: {
     id: 46584,
@@ -926,6 +1054,7 @@ const talents = createTalentList({
     icon: 'inv_pet_ghoul',
     maxRanks: 1,
     entryIds: [96325],
+    definitionIds: [{ id: 101327, specId: 252 }],
   },
   RAPID_DECOMPOSITION_TALENT: {
     id: 194662,
@@ -933,6 +1062,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_deathsiphon2',
     maxRanks: 1,
     entryIds: [96273],
+    definitionIds: [{ id: 101275, specId: 250 }],
   },
   REAPING_TALENT: {
     id: 377514,
@@ -940,6 +1070,7 @@ const talents = createTalentList({
     icon: 'ability_deathwing_bloodcorruption_death',
     maxRanks: 1,
     entryIds: [96312],
+    definitionIds: [{ id: 101314, specId: 252 }],
   },
   RED_THIRST_TALENT: {
     id: 205723,
@@ -947,6 +1078,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_bloodpresence',
     maxRanks: 2,
     entryIds: [96263],
+    definitionIds: [{ id: 101265, specId: 250 }],
   },
   REINFORCED_BONES_TALENT: {
     id: 374737,
@@ -954,6 +1086,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_boneshield',
     maxRanks: 1,
     entryIds: [96300],
+    definitionIds: [{ id: 101302, specId: 250 }],
   },
   RELISH_IN_BLOOD_TALENT: {
     id: 317610,
@@ -961,6 +1094,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_roilingblood',
     maxRanks: 1,
     entryIds: [96280],
+    definitionIds: [{ id: 101282, specId: 250 }],
   },
   REPLENISHING_WOUNDS_TALENT: {
     id: 377585,
@@ -968,6 +1102,7 @@ const talents = createTalentList({
     icon: 'spell_yorsahj_bloodboil_purpleoil',
     maxRanks: 1,
     entryIds: [96297],
+    definitionIds: [{ id: 101299, specId: 252 }],
   },
   RIME_TALENT: {
     id: 59057,
@@ -975,6 +1110,7 @@ const talents = createTalentList({
     icon: 'spell_frost_freezingbreath',
     maxRanks: 1,
     entryIds: [96243],
+    definitionIds: [{ id: 101245, specId: 251 }],
   },
   ROTTEN_TOUCH_TALENT: {
     id: 390275,
@@ -982,6 +1118,7 @@ const talents = createTalentList({
     icon: 'ability_deathwing_grasping_tendrilsgreen',
     maxRanks: 1,
     entryIds: [96313],
+    definitionIds: [{ id: 101315, specId: 252 }],
   },
   RUNE_MASTERY_TALENT: {
     id: 374574,
@@ -989,6 +1126,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_hungeringruneblade',
     maxRanks: 2,
     entryIds: [96209],
+    definitionIds: [{ id: 101211, specId: 252 }],
   },
   RUNE_TAP_TALENT: {
     id: 194679,
@@ -996,6 +1134,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_runetap',
     maxRanks: 1,
     entryIds: [96278],
+    definitionIds: [{ id: 101280, specId: 250 }],
     runesCost: 1,
   },
   RUNIC_ATTENUATION_TALENT: {
@@ -1004,6 +1143,7 @@ const talents = createTalentList({
     icon: 'boss_odunrunes_blue',
     maxRanks: 1,
     entryIds: [96216],
+    definitionIds: [{ id: 101218, specId: 252 }],
   },
   RUNIC_COMMAND_TALENT: {
     id: 376251,
@@ -1011,6 +1151,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_remorselesswinters',
     maxRanks: 2,
     entryIds: [96232],
+    definitionIds: [{ id: 101234, specId: 251 }],
   },
   RUNIC_MASTERY_TALENT: {
     id: 390166,
@@ -1018,6 +1159,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_remorselesswinters',
     maxRanks: 2,
     entryIds: [96323],
+    definitionIds: [{ id: 101325, specId: 252 }],
   },
   RUPTURED_VISCERA_TALENT: {
     id: 390236,
@@ -1025,6 +1167,7 @@ const talents = createTalentList({
     icon: 'artifactability_unholydeathknight_flagellation',
     maxRanks: 1,
     entryIds: [96281],
+    definitionIds: [{ id: 101283, specId: 252 }],
   },
   SACRIFICIAL_PACT_TALENT: {
     id: 327574,
@@ -1032,6 +1175,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_corpseexplode',
     maxRanks: 1,
     entryIds: [96203],
+    definitionIds: [{ id: 101205, specId: 252 }],
     runicPowerCost: 20,
   },
   SANGUINE_GROUND_TALENT: {
@@ -1040,6 +1184,7 @@ const talents = createTalentList({
     icon: 'inv_artifact_corruptedbloodofzakajz',
     maxRanks: 1,
     entryIds: [96169],
+    definitionIds: [{ id: 101171, specId: 250 }],
   },
   SCOURGE_STRIKE_TALENT: {
     id: 55090,
@@ -1047,6 +1192,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_scourgestrike',
     maxRanks: 1,
     entryIds: [96327],
+    definitionIds: [{ id: 101329, specId: 252 }],
     runesCost: 1,
   },
   SHATTERING_BLADE_TALENT: {
@@ -1055,6 +1201,7 @@ const talents = createTalentList({
     icon: 'inv_7af_deathknight_frostmournefragment',
     maxRanks: 1,
     entryIds: [96231],
+    definitionIds: [{ id: 101233, specId: 251 }],
   },
   SHATTERING_BONE_TALENT: {
     id: 377640,
@@ -1062,6 +1209,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_shatteringbone',
     maxRanks: 2,
     entryIds: [96259],
+    definitionIds: [{ id: 101261, specId: 250 }],
   },
   SOUL_REAPER_TALENT: {
     id: 343294,
@@ -1069,6 +1217,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_soulreaper',
     maxRanks: 1,
     entryIds: [96181],
+    definitionIds: [{ id: 101183, specId: 252 }],
     runesCost: 1,
   },
   SUDDEN_DOOM_TALENT: {
@@ -1077,6 +1226,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_painspike',
     maxRanks: 1,
     entryIds: [96314],
+    definitionIds: [{ id: 101316, specId: 252 }],
   },
   SUMMON_GARGOYLE_TALENT: {
     id: 49206,
@@ -1084,6 +1234,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_summongargoyle',
     maxRanks: 1,
     entryIds: [96311],
+    definitionIds: [{ id: 101313, specId: 252 }],
   },
   SUPERSTRAIN_TALENT: {
     id: 390283,
@@ -1091,6 +1242,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_explode_ghoul',
     maxRanks: 1,
     entryIds: [96289],
+    definitionIds: [{ id: 101291, specId: 252 }],
   },
   SUPPRESSION_TALENT: {
     id: 374049,
@@ -1098,6 +1250,7 @@ const talents = createTalentList({
     icon: 'spell_chargepositive',
     maxRanks: 1,
     entryIds: [96204],
+    definitionIds: [{ id: 101206, specId: 252 }],
   },
   TIGHTENING_GRASP_TALENT: {
     id: 206970,
@@ -1105,6 +1258,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_aoedeathgrip',
     maxRanks: 1,
     entryIds: [96265],
+    definitionIds: [{ id: 101267, specId: 250 }],
   },
   TOMBSTONE_TALENT: {
     id: 219809,
@@ -1112,6 +1266,7 @@ const talents = createTalentList({
     icon: 'ability_fiegndead',
     maxRanks: 1,
     entryIds: [96270],
+    definitionIds: [{ id: 101272, specId: 250 }],
   },
   UMBILICUS_ETERNUS_TALENT: {
     id: 391517,
@@ -1119,6 +1274,7 @@ const talents = createTalentList({
     icon: 'artifactability_blooddeathknight_umbilicuseternus',
     maxRanks: 1,
     entryIds: [96168],
+    definitionIds: [{ id: 101170, specId: 250 }],
   },
   UNHOLY_ASSAULT_TALENT: {
     id: 207289,
@@ -1126,6 +1282,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_unholyfrenzy',
     maxRanks: 1,
     entryIds: [96285],
+    definitionIds: [{ id: 101287, specId: 252 }],
   },
   UNHOLY_AURA_TALENT: {
     id: 377440,
@@ -1133,6 +1290,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_decomposingaura',
     maxRanks: 2,
     entryIds: [96284],
+    definitionIds: [{ id: 101286, specId: 252 }],
   },
   UNHOLY_BLIGHT_TALENT: {
     id: 115989,
@@ -1140,6 +1298,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_contagion',
     maxRanks: 1,
     entryIds: [96295],
+    definitionIds: [{ id: 101297, specId: 252 }],
     runesCost: 1,
   },
   UNHOLY_BOND_TALENT: {
@@ -1148,6 +1307,7 @@ const talents = createTalentList({
     icon: 'inv_sword_1h_felfireraid_d_01',
     maxRanks: 2,
     entryIds: [96183],
+    definitionIds: [{ id: 101185, specId: 252 }],
   },
   UNHOLY_COMMAND_TALENT: {
     id: 316941,
@@ -1155,6 +1315,7 @@ const talents = createTalentList({
     icon: 'ability_rogue_deadlymomentum',
     maxRanks: 2,
     entryIds: [96331],
+    definitionIds: [{ id: 101333, specId: 252 }],
   },
   UNHOLY_ENDURANCE_TALENT: {
     id: 389682,
@@ -1162,6 +1323,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_subversion',
     maxRanks: 1,
     entryIds: [96192],
+    definitionIds: [{ id: 101194, specId: 252 }],
   },
   UNHOLY_GROUND_TALENT: {
     id: 374265,
@@ -1169,6 +1331,7 @@ const talents = createTalentList({
     icon: 'ability_deathknight_desecratedground',
     maxRanks: 1,
     entryIds: [96187],
+    definitionIds: [{ id: 101189, specId: 252 }],
   },
   UNHOLY_PACT_TALENT: {
     id: 319230,
@@ -1176,6 +1339,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_deathsembrace',
     maxRanks: 1,
     entryIds: [96316],
+    definitionIds: [{ id: 101318, specId: 252 }],
   },
   UNLEASHED_FRENZY_TALENT: {
     id: 376905,
@@ -1183,6 +1347,7 @@ const talents = createTalentList({
     icon: 'spell_deathknight_icetouch',
     maxRanks: 1,
     entryIds: [96248],
+    definitionIds: [{ id: 101250, specId: 251 }],
   },
   VAMPIRIC_BLOOD_TALENT: {
     id: 55233,
@@ -1190,6 +1355,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_lifedrain',
     maxRanks: 1,
     entryIds: [96308],
+    definitionIds: [{ id: 101310, specId: 250 }],
   },
   VETERAN_OF_THE_THIRD_WAR_TALENT: {
     id: 48263,
@@ -1197,6 +1363,7 @@ const talents = createTalentList({
     icon: 'spell_misc_warsongfocus',
     maxRanks: 2,
     entryIds: [96197],
+    definitionIds: [{ id: 101199, specId: 252 }],
   },
   VILE_CONTAGION_TALENT: {
     id: 390279,
@@ -1204,6 +1371,7 @@ const talents = createTalentList({
     icon: 'spell_shadow_plaguecloud',
     maxRanks: 1,
     entryIds: [96293],
+    definitionIds: [{ id: 101295, specId: 252 }],
     runicPowerCost: 30,
   },
   VORACIOUS_TALENT: {
@@ -1212,6 +1380,7 @@ const talents = createTalentList({
     icon: 'ability_ironmaidens_whirlofblood',
     maxRanks: 1,
     entryIds: [96171],
+    definitionIds: [{ id: 101173, specId: 250 }],
   },
   WILL_OF_THE_NECROPOLIS_TALENT: {
     id: 206967,
@@ -1219,6 +1388,7 @@ const talents = createTalentList({
     icon: 'achievement_boss_kelthuzad_01',
     maxRanks: 2,
     entryIds: [96182],
+    definitionIds: [{ id: 101184, specId: 252 }],
   },
   WRAITH_WALK_TALENT: {
     id: 212552,
@@ -1226,6 +1396,7 @@ const talents = createTalentList({
     icon: 'inv_helm_plate_raiddeathknight_p_01',
     maxRanks: 1,
     entryIds: [96207],
+    definitionIds: [{ id: 101209, specId: 252 }],
   },
 });
 

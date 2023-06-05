@@ -1,27 +1,23 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
+import DebuffUptime from 'parser/shared/modules/DebuffUptime';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import Enemies from 'parser/shared/modules/Enemies';
 import SPELLS from 'common/SPELLS/classic/warlock';
 import { SPELL_COLORS } from '../../constants';
 
-class CorruptionUptime extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-  };
-  protected enemies!: Enemies;
+export default class CorruptionUptime extends DebuffUptime {
+  debuffSpell = SPELLS.CORRUPTION;
+  debuffColor = SPELL_COLORS.CORRUPTION;
 
-  get uptime() {
-    return this.enemies.getBuffUptime(SPELLS.CORRUPTION.id) / this.owner.fightDuration;
+  get debuffUptime(): number {
+    return this.enemies.getBuffUptime(this.debuffSpell.id) / this.owner.fightDuration;
   }
 
   get suggestionThresholds() {
     return {
-      actual: this.uptime,
+      actual: this.debuffUptime,
       isLessThan: {
         minor: 0.85,
         average: 0.8,
@@ -31,33 +27,19 @@ class CorruptionUptime extends Analyzer {
     };
   }
 
-  get DowntimePerformance(): QualitativePerformance {
-    const suggestionThresholds = this.suggestionThresholds.isLessThan;
-    if (this.uptime > suggestionThresholds.minor) {
-      return QualitativePerformance.Perfect;
-    }
-    if (this.uptime >= suggestionThresholds.minor) {
-      return QualitativePerformance.Good;
-    }
-    if (this.uptime >= suggestionThresholds.average) {
-      return QualitativePerformance.Ok;
-    }
-    return QualitativePerformance.Fail;
-  }
-
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink spell={SPELLS.CORRUPTION} /> uptime can be improved. If necessary, use a
+          Your <SpellLink spell={this.debuffSpell} /> uptime can be improved. If necessary, use a
           debuff tracker to see your uptime on the boss.
         </>,
       )
-        .icon(SPELLS.CORRUPTION.icon)
+        .icon(this.debuffSpell.icon)
         .actual(
           t({
-            id: 'warlock.affliction.suggestions.corruption.uptime',
-            message: `${formatPercentage(actual)}% Corruption uptime`,
+            id: 'shared.suggestions.spells.uptime',
+            message: `${formatPercentage(actual)}% ${this.debuffSpell.name} uptime`,
           }),
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
@@ -65,17 +47,15 @@ class CorruptionUptime extends Analyzer {
   }
 
   get uptimeHistory() {
-    return this.enemies.getDebuffHistory(SPELLS.CORRUPTION.id);
+    return this.enemies.getDebuffHistory(this.debuffSpell.id);
   }
 
   subStatistic() {
     return uptimeBarSubStatistic(this.owner.fight, {
-      spells: [SPELLS.CORRUPTION],
+      spells: [this.debuffSpell],
       uptimes: this.uptimeHistory,
-      color: SPELL_COLORS.CORRUPTION,
+      color: this.debuffColor,
       perf: this.DowntimePerformance,
     });
   }
 }
-
-export default CorruptionUptime;

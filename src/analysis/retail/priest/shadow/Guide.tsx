@@ -17,11 +17,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
         <Section title="Spells">
-          {/* TODO: Fix SW:D efficency and add SW:D*/}
-          {/* TODO: Double check Void Bolt efficency*/}
           <CooldownGraphSubsection.CoreCooldownsGraph />
           {/* TODO: Add Active Time graph*/}
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
+          {info.combatant.hasTalent(TALENTS.INSIDIOUS_IRE_TALENT) &&
+            modules.insidiousIre.guideSubsection}
         </Section>
       </Section>
 

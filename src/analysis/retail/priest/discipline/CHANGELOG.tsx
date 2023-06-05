@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 5, 29), 'Fix Evangelism ramp crash.', ToppleTheNun),
+  change(date(2023, 5, 5), <>Added <SpellLink spell={TALENTS_PRIEST.AEGIS_OF_WRATH_TALENT.id}/> module.</>, Hana),
   change(date(2023, 4, 16), <>Aberrus 2p added.</>, Hana),
   change(date(2023, 4, 14), <>Added <SpellLink id={SPELLS.RADIANT_PROVIDENCE_BUFF.id}/> module.</>, Hana),
   change(date(2023, 3, 14), <><SpellLink id={TALENTS_PRIEST.WEAL_AND_WOE_TALENT.id}/> added.</>, Hana),

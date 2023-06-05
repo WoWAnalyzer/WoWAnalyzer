@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 4, 20), <>Add support for <SpellLink spell={TALENTS.UNBOUND_CHAOS_TALENT}/>.</>, ToppleTheNun),
   change(date(2023, 4, 6), <>Fix ordering of abilities in <SpellLink spell={TALENTS.ESSENCE_BREAK_TALENT} /> window.</>, ToppleTheNun),
   change(date(2023, 3, 16), <>Add tooltip explaining <SpellLink spell={TALENTS.BLIND_FURY_TALENT} />'s contribution to Fury waste.</>, ToppleTheNun),
   change(date(2023, 3, 12), <>Add <SpellLink spell={TALENTS.MOMENTUM_TALENT} /> to rotation section.</>, ToppleTheNun),

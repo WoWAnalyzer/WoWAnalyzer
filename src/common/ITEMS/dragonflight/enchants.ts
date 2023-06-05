@@ -182,6 +182,42 @@ const enchants = enchantIndexableList({
     icon: 'inv_misc_enchantedscroll',
     effectId: 6652,
   },
+  ENCHANT_WEAPON_SHADOWFLAME_WREATHE_R1: {
+    id: 204621,
+    name: 'Enchant Weapon - Shadowflame Wreathe',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6825,
+  },
+  ENCHANT_WEAPON_SHADOWFLAME_WREATHE_R2: {
+    id: 204622,
+    name: 'Enchant Weapon - Shadowflame Wreathe',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6826,
+  },
+  ENCHANT_WEAPON_SHADOWFLAME_WREATHE_R3: {
+    id: 204623,
+    name: 'Enchant Weapon - Shadowflame Wreathe',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6827,
+  },
+  ENCHANT_WEAPON_SPORE_TENDER_R1: {
+    id: 204613,
+    name: 'Enchant Weapon - Spore Tender',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6822,
+  },
+  ENCHANT_WEAPON_SPORE_TENDER_R2: {
+    id: 204614,
+    name: 'Enchant Weapon - Spore Tender',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6823,
+  },
+  ENCHANT_WEAPON_SPORE_TENDER_R3: {
+    id: 204615,
+    name: 'Enchant Weapon - Spore Tender',
+    icon: 'inv_misc_enchantedscroll',
+    effectId: 6824,
+  },
   ENCHANT_WEAPON_HIGH_INTENSITY_THERMAL_SCANNER_R1: {
     id: 198316,
     name: 'High Intensity Thermal Scanner',
@@ -808,6 +844,24 @@ const enchants = enchantIndexableList({
     icon: 'inv_misc_rune_09',
     effectId: 6695,
   },
+  HISSING_RUNE_R1: {
+    id: 204971,
+    name: 'Hissing Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6838,
+  },
+  HISSING_RUNE_R2: {
+    id: 204972,
+    name: 'Hissing Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6837,
+  },
+  HISSING_RUNE_R3: {
+    id: 204973,
+    name: 'Hissing Rune',
+    icon: 'inv_misc_rune_09',
+    effectId: 6839,
+  },
   HOWLING_RUNE_R1: {
     id: 194817,
     name: 'Howling Rune',
@@ -919,6 +973,24 @@ const enchants = enchantIndexableList({
     name: 'Fierce Armor Kit',
     icon: 'inv_10_skinning_consumable_armorkit_color1',
     effectId: 6490,
+  },
+  LAMBENT_ARMOR_KIT_R1: {
+    id: 204700,
+    name: 'Lambent Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_lambent',
+    effectId: 6828,
+  },
+  LAMBENT_ARMOR_KIT_R2: {
+    id: 204701,
+    name: 'Lambent Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_lambent',
+    effectId: 6829,
+  },
+  LAMBENT_ARMOR_KIT_R3: {
+    id: 204702,
+    name: 'Lambent Armor Kit',
+    icon: 'inv_10_skinning_consumable_armorkit_lambent',
+    effectId: 6830,
   },
 
   // Leg Enhancements - Tailoring

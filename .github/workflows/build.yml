@@ -198,13 +198,13 @@ jobs:
           DISABLE_AUTOMATIC_ESLINT=true
           yarn build
       - run: tar -czf build.tar.gz build
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v3
         with:
           name: build
           path: build.tar.gz
-  e2e:
+  e2e-build:
     needs: [prepare]
-    name: 'e2e'
+    name: 'e2e-build'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -232,14 +232,44 @@ jobs:
           # We already ran ESLint in a separate step
           DISABLE_AUTOMATIC_ESLINT=true
           yarn build
+      - run: tar -czf build.tar.gz build
+      - uses: actions/upload-artifact@v3
+        with:
+          name: e2e-build
+          path: build.tar.gz
+
+  e2e-test:
+    needs: [e2e-build]
+    name: e2e-test-shard-${{ matrix.shard }}
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1, 2, 3, 4]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+      - name: Restore "node_modules" from cache
+        uses: martijnhols/actions-cache/restore@v3
+        with:
+          path: |
+            node_modules
+            analysis/*/node_modules
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          required: true
+      - uses: actions/download-artifact@v3
+        with:
+          name: e2e-build
+      - run: tar -xzf build.tar.gz
       - name: Install Playwright deps
         run: yarn playwright install --with-deps
       - name: Run Playwright tests
-        run: yarn e2e
+        run: yarn e2e --shard=${{ matrix.shard }}/4
       - uses: actions/upload-artifact@v3
         if: always()
         with:
-          name: playwright-report
+          name: playwright-report-shard-${{ matrix.shard }}
           path: playwright-report/
           retention-days: 30
 
@@ -270,7 +300,8 @@ jobs:
         run: yarn lingui compile
 
   docker-image:
-    needs: [typecheck, linting, prettier, test-interface, test-parser, test-integration, e2e, build]
+    needs:
+      [typecheck, linting, prettier, test-interface, test-parser, test-integration, e2e-test, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')

@@ -94,7 +94,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_MONK.LIFE_COCOON_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
+        cooldown: combatant.hasTalent(TALENTS_MONK.CHRYSALIS_TALENT) ? 75 : 120,
         castEfficiency: {
           suggestion: true,
         },

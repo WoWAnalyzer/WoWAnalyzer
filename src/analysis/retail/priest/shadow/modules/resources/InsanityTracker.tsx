@@ -39,6 +39,9 @@ class InsanityTracker extends ResourceTracker {
     const spellId = event.ability.guid;
     let waste = 0;
     let gain = 0;
+    //void torrent does not show waste
+    //This gets waste for resource changes that give you less than the full amount due to overcapping.
+    //If you are at max insanity, no event occurs and that overcapping isn't calculated.
     if (spellId === TALENTS.VOID_TORRENT_TALENT.id) {
       gain = event.resourceChange;
       waste = VOID_TORRENT_INSANITY_PER_TICK - gain;

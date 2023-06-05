@@ -35,6 +35,7 @@ import TormentedCrescendo from './modules/spells/TormentedCrescendo';
 import UnstableAfflictionUptime from './modules/spells/UnstableAffliction';
 import VileTaint from './modules/spells/VileTaint';
 import WrathOfConsumption from './modules/spells/WrathOfConsumption';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -81,6 +82,9 @@ class CombatLogParser extends CoreCombatLogParser {
     tormentedCrescendo: TormentedCrescendo,
     vileTaint: VileTaint,
     wrathOfConsumption: WrathOfConsumption,
+
+    // Items
+    callToDominance: CallToDominance,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,

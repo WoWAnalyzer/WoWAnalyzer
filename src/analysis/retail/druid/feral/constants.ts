@@ -64,7 +64,7 @@ export const TIGERS_FURY_BOOSTED: Spell[] = [
 /** Multiplier to energy costs from having Incarnation: Avatar of Ashamane active */
 export const INCARN_ENERGY_MULT = 0.8;
 /** Multiplier to Ferocious Bite's energy cost and drain from the Relentless Predator talent */
-export const RELENTLESS_PREDATOR_FB_ENERGY_MULT = 0.6;
+export const RELENTLESS_PREDATOR_FB_ENERGY_MULT = 0.8;
 
 /** Shred's energy cost (before modifiers) */
 export const SHRED_ENERGY = 40;

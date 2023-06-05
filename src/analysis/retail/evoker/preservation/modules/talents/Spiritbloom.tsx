@@ -10,6 +10,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT, GuideContainer } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import SPELLS from 'common/SPELLS/evoker';
 
 interface CastInfo {
   timestamp: number;
@@ -38,7 +39,9 @@ class Spiritbloom extends Analyzer {
       ? 4
       : 3;
     this.addEventListener(
-      Events.empowerEnd.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.SPIRITBLOOM_TALENT),
+      Events.empowerEnd
+        .by(SELECTED_PLAYER)
+        .spell([TALENTS_EVOKER.SPIRITBLOOM_TALENT, SPELLS.SPIRITBLOOM_FONT]),
       this.onEndEmpower,
     );
   }
@@ -108,7 +111,11 @@ class Spiritbloom extends Analyzer {
   subStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS_EVOKER.SPIRITBLOOM_TALENT.id}
+        spellId={
+          this.selectedCombatant.hasTalent(TALENTS_EVOKER.FONT_OF_MAGIC_PRESERVATION_TALENT)
+            ? SPELLS.SPIRITBLOOM_FONT.id
+            : TALENTS_EVOKER.SPIRITBLOOM_TALENT.id
+        }
         gapHighlightMode={GapHighlight.FullCooldown}
         minimizeIcons
         useThresholds

@@ -37,6 +37,7 @@ import AplCheck from './modules/apl/AplCheck';
 import WitchDoctorsWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -93,8 +94,9 @@ class CombatLogParser extends CoreCombatLogParser {
     witchDoctorsWolfBones: WitchDoctorsWolfBones,
     seedsOfRampantGrowth: SeedsOfRampantGrowth,
 
-    // Tier
+    // Items
     tier28TwoSet: Tier28TwoSet,
+    callToDominance: CallToDominance,
 
     // TODO: Rework AplCheck for Dragonflight
     aplCheck: AplCheck,

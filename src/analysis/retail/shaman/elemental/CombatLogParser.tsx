@@ -31,6 +31,7 @@ import Stormkeeper from './modules/talents/Stormkeeper';
 import SurgeOfPower from './modules/talents/SurgeOfPower';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ankhNormalizer: AnkhNormalizer,
     checklist: Checklist,
     astralShift: AstralShift,
+    callToDominance: CallToDominance,
   };
 }
 

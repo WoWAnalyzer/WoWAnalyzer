@@ -3,7 +3,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { ComponentProps, ReactNode } from 'react';
 import { PerformanceMark, qualitativePerformanceToColor } from 'interface/guide';
 
-export const ColoredText = styled.text`
+export const ColoredText = styled.span`
   color: ${(props) => props.color};
 `;
 

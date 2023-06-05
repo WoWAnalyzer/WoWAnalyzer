@@ -11,9 +11,16 @@ enum EntryType {
   Passive = 'passive',
 }
 
+export interface TalentDefinitionId {
+  id: number;
+  specId: number;
+}
+
 export interface Talent extends Spell {
   maxRanks: number;
   entryIds: number[];
+  // this is mostly here for use by the spell link
+  definitionIds: TalentDefinitionId[];
   //These three are currently not exported in the script - but they could be if we deem the information necessary
   reqPoints?: number;
   talentType?: ClassNodeType;

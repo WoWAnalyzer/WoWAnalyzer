@@ -18,8 +18,12 @@ export function makeCharacterApiUrl(
   region?: string,
   realm?: string,
   name?: string,
+  classic?: boolean,
 ) {
   const parts = ['character'];
+  if (classic) {
+    parts.push('classic');
+  }
   if (characterId) {
     parts.push(characterId.toString());
   }

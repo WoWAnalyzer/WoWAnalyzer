@@ -31,6 +31,16 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
+      {
+        spell: [SPELLS.RUNE_STRIKE.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: null,
+      },
+      {
+        spell: [SPELLS.DEATH_STRIKE.id, ...SPELLS.DEATH_STRIKE.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
       // Rotational AOE
       {
         spell: [SPELLS.HOWLING_BLAST.id, ...SPELLS.HOWLING_BLAST.lowRanks],

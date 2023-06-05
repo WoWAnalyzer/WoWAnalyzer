@@ -9,8 +9,6 @@ import Corruption from '../spells/Corruption';
 import Immolate from '../spells/Immolate';
 import ShadowMastery from '../spells/ShadowMastery';
 
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-
 class DotUptimes extends Analyzer {
   static dependencies = {
     corruptionUptime: Corruption,
@@ -48,12 +46,12 @@ class DotUptimes extends Analyzer {
           increases damage done by <SpellLink spell={SPELLS.SHADOW_BOLT} /> and increases spell
           critical strike chance against the target for all casters in the raid.
         </p>
-        <RoundedPanel>
+        <p>
           <strong>Uptimes</strong>
           {this.corruptionUptime.subStatistic()}
           {this.immolateUptime.subStatistic()}
           {this.shadowMasteryUptime.subStatistic()}
-        </RoundedPanel>
+        </p>
       </>
     );
   }

@@ -6,13 +6,18 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Enemies, { encodeEventSourceString } from 'parser/shared/modules/Enemies';
 import { shouldIgnore } from 'parser/shared/modules/hit-tracking/utilities';
+import Abilities from '../Abilities';
 
 const DEBUG_ABILITIES = false;
 
 class BreathOfFire extends Analyzer {
   protected enemies!: Enemies;
+  protected abilities!: Abilities;
+  protected castEfficiency!: CastEfficiency;
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.BREATH_OF_FIRE_DEBUFF.id) / this.owner.fightDuration;
@@ -37,13 +42,38 @@ class BreathOfFire extends Analyzer {
 
   static dependencies = {
     enemies: Enemies,
+    abilities: Abilities,
+    castEfficiency: CastEfficiency,
   };
   hitsWithBoF = 0;
   hitsWithoutBoF = 0;
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(talents.BREATH_OF_FIRE_TALENT);
+
+    if (!this.active) {
+      return;
+    }
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
+    (options.abilities as Abilities).add({
+      spell: talents.BREATH_OF_FIRE_TALENT.id,
+      isDefensive: true,
+      buffSpellId: SPELLS.BREATH_OF_FIRE_DEBUFF.id,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      castEfficiency: {
+        maxCasts: this.selectedCombatant.hasTalent(talents.SALSALABIMS_STRENGTH_TALENT)
+          ? () =>
+              ((options.castEfficiency as CastEfficiency).getCastEfficiencyForSpell(
+                talents.KEG_SMASH_TALENT,
+              )?.maxCasts ?? 0) + 1
+          : undefined,
+      },
+      cooldown: 15,
+      gcd: {
+        static: 1000,
+      },
+    });
   }
 
   onDamageTaken(event: DamageEvent) {

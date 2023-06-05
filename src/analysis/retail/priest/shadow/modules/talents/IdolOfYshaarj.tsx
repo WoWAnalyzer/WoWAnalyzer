@@ -70,31 +70,36 @@ class IdolOfYshaarj extends Analyzer {
         <BoringSpellValueText spellId={TALENTS.IDOL_OF_YSHAARJ_TALENT.id}>
           <>
             <p>
-              {this.pride}{' '}
-              <small>
-                Healthy. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE.id} />
-              </small>
-              <br />
-              {this.despair}{' '}
-              <small>
-                Stunned. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_DESPAIR.id} />
-              </small>
-              <br />
-              {this.anger}{' '}
-              <small>
-                Enraged. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_ANGER.id} />
-              </small>
-              <br />
-              {this.fear}{' '}
-              <small>
-                Feared.
-                <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_FEAR.id} />
-              </small>
-              <br />
-              {this.getBuffViolence()}{' '}
-              <small>
-                No State. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE.id} />
-              </small>
+              <div>
+                {this.pride}{' '}
+                <small>
+                  Healthy. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE.id} />
+                </small>
+              </div>
+              <div>
+                {this.despair}{' '}
+                <small>
+                  Stunned. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_DESPAIR.id} />
+                </small>
+              </div>
+              <div>
+                {this.anger}{' '}
+                <small>
+                  Enraged. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_ANGER.id} />
+                </small>
+              </div>
+              <div>
+                {this.fear}{' '}
+                <small>
+                  Feared. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_FEAR.id} />
+                </small>
+              </div>
+              <div>
+                {this.getBuffViolence()}{' '}
+                <small>
+                  No State. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE.id} />
+                </small>
+              </div>
             </p>
           </>
           {/*the tooltip on wowhead doesn't match the tooltip on the in game buff, so the extra text is required to show which effect is which.*/}
