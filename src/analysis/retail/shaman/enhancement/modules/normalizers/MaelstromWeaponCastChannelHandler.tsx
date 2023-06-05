@@ -1,5 +1,5 @@
-import spells from 'common/SPELLS/shaman';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Analyzer';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import CoreChanneling, {
@@ -9,13 +9,14 @@ import CoreChanneling, {
   buffChannelSpec,
 } from 'parser/shared/normalizers/Channeling';
 
-const MAX_LOOK_FORWARD_MS = 10;
+const MAX_LOOK_FORWARD_MS = 25;
 
 class Channeling extends CoreChanneling {
   constructor(options: Options) {
     CoreChanneling.CHANNEL_SPECS.push(
-      instantCastNoBeginChannel(spells.LIGHTNING_BOLT.id),
-      instantCastNoBeginChannel(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id),
+      instantCastNoBeginChannel(SPELLS.LIGHTNING_BOLT.id),
+      instantCastNoBeginChannel(TALENTS.CHAIN_LIGHTNING_TALENT.id),
+      instantCastNoBeginChannel(TALENTS.ELEMENTAL_BLAST_TALENT.id),
     );
     super(options);
   }

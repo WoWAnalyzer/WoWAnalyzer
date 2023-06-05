@@ -1,17 +1,14 @@
-import spells from 'common/SPELLS/shaman';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
-const MAX_LOOK_FORWARD_MS = 10;
+const MAX_LOOK_FORWARD_MS = 100;
 export class ThorimsInvocationNormalizer extends EventsNormalizer {
   normalize(events: AnyEvent[]) {
     const fixedEvents: AnyEvent[] = [];
-    const thorimsInvocationCastIds = [
-      spells.LIGHTNING_BOLT.id,
-      TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id,
-    ];
-    const windstrikeId = spells.WINDSTRIKE_CAST.id;
+    const thorimsInvocationCastIds = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
+    const windstrikeId = SPELLS.WINDSTRIKE_CAST.id;
     const relevantIds = [windstrikeId, ...thorimsInvocationCastIds];
 
     events.forEach((event: AnyEvent, idx: number) => {

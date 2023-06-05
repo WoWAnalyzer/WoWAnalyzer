@@ -1,10 +1,10 @@
-import spells from 'common/SPELLS/shaman';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import { CastEvent } from 'parser/core/Events';
 import CoreGlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import Haste from 'parser/shared/modules/Haste';
 
-const noGCDSpellIds = [spells.LIGHTNING_BOLT.id, TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id];
+const noGCDSpellIds = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
 
 class GlobalCooldown extends CoreGlobalCooldown {
   static dependencies = {
@@ -17,7 +17,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
   onCast(event: CastEvent): void {
     if (
       noGCDSpellIds.includes(event.ability.guid) &&
-      this.isOnGlobalCooldown(spells.WINDSTRIKE_CAST.id)
+      this.isOnGlobalCooldown(SPELLS.WINDSTRIKE_CAST.id)
     ) {
       return;
     }

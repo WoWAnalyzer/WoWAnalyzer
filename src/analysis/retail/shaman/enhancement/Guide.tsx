@@ -4,9 +4,10 @@ import CombatLogParser from './CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import { t, Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/shaman';
 import MaelstromWeaponWasted from './modules/guide/MaelstromWeaponWasted';
 import Rotation from './modules/guide/Rotation';
+import SPELLS from 'common/SPELLS';
 
 const GUIDE_SECTION_PREFIX = 'guide.shaman.enhancement.sections';
 
@@ -34,7 +35,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
 //     )
 // }
 
-function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
+function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const wasted = modules.maelstromWeaponTracker.gainWaste;
   const gained = modules.maelstromWeaponTracker.rawGain;
   return (
@@ -52,8 +53,20 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
       >
         <p>
           <Trans id={`${GUIDE_SECTION_PREFIX}.resources.maelstromweapon.summary`}>
-            Enhancement's primary resource is{' '}
-            <SpellLink id={TALENTS_SHAMAN.MAELSTROM_WEAPON_TALENT.id} />
+            Enhancement's primary resource is <SpellLink id={TALENTS.MAELSTROM_WEAPON_TALENT.id} />.
+            {info.combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) && (
+              <>
+                {' '}
+                While you should avoid capping <SpellLink
+                  spell={TALENTS.MAELSTROM_WEAPON_TALENT}
+                />{' '}
+                whenever possible, it is more important to cast{' '}
+                <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />/
+                <SpellLink spell={TALENTS.STORMSTRIKE_TALENT} /> as much as possible to fish for{' '}
+                <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} /> procs than it is to
+                avoid overcapping.
+              </>
+            )}
           </Trans>
         </p>
         <MaelstromWeaponWasted

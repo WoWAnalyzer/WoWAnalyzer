@@ -11,6 +11,16 @@ const others = itemIndexableList({
     name: "Broodkeeper's Promise",
     icon: 'inv_10_dungeonjewelry_primalist_trinket_3_omni',
   },
+  FANG_ADORNMENTS: {
+    id: 377708,
+    name: 'Fang Adornments',
+    icon: 'inv_misc_blacksaberonfang',
+  },
+  ROILING_SHADOWFLAME: {
+    id: 406251,
+    name: 'Roiling Shadowflame',
+    icon: 'inv_shadowflame_buff',
+  },
 });
 
 export default others;

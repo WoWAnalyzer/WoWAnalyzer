@@ -27,7 +27,7 @@ const config: Config = {
     '/report/aK2vDdWLGjhqzktn/21-Normal+Dathea,+Ascended+-+Kill+(5:11)/Shmaddy/standard',
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
-  guideDefault: false,
+  guideDefault: true,
   parser: () =>
     import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
       (exports) => exports.default,
