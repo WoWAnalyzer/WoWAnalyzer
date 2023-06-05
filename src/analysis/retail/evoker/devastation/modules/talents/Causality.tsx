@@ -2,26 +2,35 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events from 'parser/core/Events';
+import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 
 const DIS_REDUCTION_MS = 500;
-const PYRE_REDUCTION_MS = 500;
+const PYRE_REDUCTION_MS = 400;
 
 class Causality extends Analyzer {
   combatant = this.selectedCombatant;
   fireBreathCooldownReduced: number = 0;
   fireBreathWastedCDR: number = 0;
+  fireBreatWastedCDRDuringBlazing: number = 0;
 
   eternitySurgeCooldownReduced: number = 0;
   eternitySurgeWastedCDR: number = 0;
+  eternitySurgeWastedCDRDuringBlazing: number = 0;
+
+  pyreCounter: number = 0;
+  maxPyreCount: number = 5;
+
+  pyreDamageEvent: number = 0;
+  previousPyreDamageEvent: number = 0;
 
   static dependencies = {
     spellUsable: SpellUsable,
@@ -35,94 +44,108 @@ class Causality extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DISINTEGRATE),
       this._disReduceCooldown,
     );
-    // TODO: This needs more work before it's ready for the world
-    // Pyre reduces based on enemies hit 0.4s per target hit - maximum 2s CDR = maximum of 5 damage events should be tracked
-    // It would be nice to just track after spell cast, buuut, we have volatility to take into account
-    /**this.addEventListener(
+
+    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PYRE),
       this._pyreReduceCooldown,
-    );**/
+    );
   }
 
-  // TODO: Make it not just add static values, check against if spells were actually effectively reduced by full amount
+  // Pyre can at most trigger 5 CDR events per cast (this includes Pyres procced from Volatility and Dragonrage)
+  _pyreReduceCooldown(event: DamageEvent) {
+    this.pyreDamageEvent = event.timestamp;
+
+    if (this.previousPyreDamageEvent < this.pyreDamageEvent) {
+      this.pyreCounter = 0;
+      this.previousPyreDamageEvent = this.pyreDamageEvent;
+    }
+    this.pyreCounter += 1;
+    if (this.pyreCounter <= this.maxPyreCount) {
+      this.calculateCDR(PYRE_REDUCTION_MS);
+    }
+  }
+
   _disReduceCooldown() {
+    this.calculateCDR(DIS_REDUCTION_MS);
+  }
+
+  // TODO: possibly track CDR gained from pyre and dis seperatly
+  calculateCDR(CDRAmount: number) {
     if (!this.combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)) {
       if (this.spellUsable.isOnCooldown(SPELLS.ETERNITY_SURGE.id)) {
         // Track the effective CDR
-        if (this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE.id) > DIS_REDUCTION_MS) {
-          this.eternitySurgeCooldownReduced += DIS_REDUCTION_MS / 1000;
+        if (this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE.id) > CDRAmount) {
+          this.eternitySurgeCooldownReduced += CDRAmount / 1000;
         } else {
           this.eternitySurgeCooldownReduced +=
             this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE.id) / 1000;
           this.eternitySurgeWastedCDR +=
-            (DIS_REDUCTION_MS - this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE.id)) /
-            1000;
+            (CDRAmount - this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE.id)) / 1000;
         }
-        this.spellUsable.reduceCooldown(SPELLS.ETERNITY_SURGE.id, DIS_REDUCTION_MS);
+        // Reduce the CD
+        this.spellUsable.reduceCooldown(SPELLS.ETERNITY_SURGE.id, CDRAmount);
       } else {
-        this.eternitySurgeWastedCDR += DIS_REDUCTION_MS / 1000;
+        if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
+          this.eternitySurgeWastedCDRDuringBlazing += CDRAmount / 1000;
+        }
+        this.eternitySurgeWastedCDR += CDRAmount / 1000;
       }
 
       if (this.spellUsable.isOnCooldown(SPELLS.FIRE_BREATH.id)) {
         // Track the effective CDR
-        if (this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH.id) > DIS_REDUCTION_MS) {
-          this.fireBreathCooldownReduced += DIS_REDUCTION_MS / 1000;
+        if (this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH.id) > CDRAmount) {
+          this.fireBreathCooldownReduced += CDRAmount / 1000;
         } else {
           this.fireBreathCooldownReduced +=
             this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH.id) / 1000;
           this.fireBreathWastedCDR +=
-            (DIS_REDUCTION_MS - this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH.id)) / 1000;
+            (CDRAmount - this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH.id)) / 1000;
         }
-        this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH.id, DIS_REDUCTION_MS);
+        // Reduce the CD
+        this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH.id, CDRAmount);
       } else {
-        this.fireBreathWastedCDR += DIS_REDUCTION_MS / 1000;
+        if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
+          this.fireBreatWastedCDRDuringBlazing += CDRAmount / 1000;
+        }
+        this.fireBreathWastedCDR += CDRAmount / 1000;
       }
     } else {
       if (this.spellUsable.isOnCooldown(SPELLS.ETERNITY_SURGE_FONT.id)) {
         // Track the effective CDR
-        if (this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE_FONT.id) > DIS_REDUCTION_MS) {
-          this.eternitySurgeCooldownReduced += DIS_REDUCTION_MS / 1000;
+        if (this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE_FONT.id) > CDRAmount) {
+          this.eternitySurgeCooldownReduced += CDRAmount / 1000;
         } else {
           this.eternitySurgeCooldownReduced +=
             this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE_FONT.id) / 1000;
           this.eternitySurgeWastedCDR +=
-            (DIS_REDUCTION_MS - this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE_FONT.id)) /
-            1000;
+            (CDRAmount - this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE_FONT.id)) / 1000;
         }
-        this.spellUsable.reduceCooldown(SPELLS.ETERNITY_SURGE_FONT.id, DIS_REDUCTION_MS);
+        // Reduce the CD
+        this.spellUsable.reduceCooldown(SPELLS.ETERNITY_SURGE_FONT.id, CDRAmount);
       } else {
-        this.eternitySurgeWastedCDR += DIS_REDUCTION_MS / 1000;
+        if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
+          this.eternitySurgeWastedCDRDuringBlazing += CDRAmount / 1000;
+        }
+        this.eternitySurgeWastedCDR += CDRAmount / 1000;
       }
       if (this.spellUsable.isOnCooldown(SPELLS.FIRE_BREATH_FONT.id)) {
         // Track the effective CDR
-        if (this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH_FONT.id) > DIS_REDUCTION_MS) {
-          this.fireBreathCooldownReduced += DIS_REDUCTION_MS / 1000;
+        if (this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH_FONT.id) > CDRAmount) {
+          this.fireBreathCooldownReduced += CDRAmount / 1000;
         } else {
           this.fireBreathCooldownReduced +=
             this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH_FONT.id) / 1000;
           this.fireBreathWastedCDR +=
-            (DIS_REDUCTION_MS - this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH_FONT.id)) /
-            1000;
+            (CDRAmount - this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH_FONT.id)) / 1000;
         }
-        this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH_FONT.id, DIS_REDUCTION_MS);
+        // Reduce the CD
+        this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH_FONT.id, CDRAmount);
       } else {
-        this.fireBreathWastedCDR += DIS_REDUCTION_MS / 1000;
+        if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
+          this.fireBreatWastedCDRDuringBlazing += CDRAmount / 1000;
+        }
+        this.fireBreathWastedCDR += CDRAmount / 1000;
       }
-    }
-  }
-
-  _pyreReduceCooldown() {
-    if (this.spellUsable.isOnCooldown(SPELLS.ETERNITY_SURGE.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.ETERNITY_SURGE.id, PYRE_REDUCTION_MS);
-    }
-    if (this.spellUsable.isOnCooldown(SPELLS.FIRE_BREATH.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH.id, PYRE_REDUCTION_MS);
-    }
-    if (this.spellUsable.isOnCooldown(SPELLS.ETERNITY_SURGE_FONT.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.ETERNITY_SURGE_FONT.id, PYRE_REDUCTION_MS);
-    }
-    if (this.spellUsable.isOnCooldown(SPELLS.FIRE_BREATH_FONT.id)) {
-      this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH_FONT.id, PYRE_REDUCTION_MS);
     }
   }
 
@@ -130,6 +153,7 @@ class Causality extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(60)}
+        category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
           <>
@@ -137,12 +161,16 @@ class Causality extends Analyzer {
               <li>
                 {' '}
                 <SpellLink spell={SPELLS.FIRE_BREATH} /> CDR wasted:{' '}
-                {this.fireBreathWastedCDR.toFixed(2)}s
+                <strong>{this.fireBreathWastedCDR.toFixed(2)}s</strong> of which{' '}
+                <strong>{this.fireBreatWastedCDRDuringBlazing.toFixed(2)}s</strong> was during{' '}
+                <SpellLink spell={SPELLS.BLAZING_SHARDS} />
               </li>
               <li>
                 {' '}
                 <SpellLink spell={SPELLS.ETERNITY_SURGE} /> CDR wasted:{' '}
-                {this.eternitySurgeWastedCDR.toFixed(2)}s
+                <strong>{this.eternitySurgeWastedCDR.toFixed(2)}s</strong> of which{' '}
+                <strong>{this.eternitySurgeWastedCDRDuringBlazing.toFixed(2)}s</strong> was during{' '}
+                <SpellLink spell={SPELLS.BLAZING_SHARDS} />
               </li>
             </ul>
           </>
