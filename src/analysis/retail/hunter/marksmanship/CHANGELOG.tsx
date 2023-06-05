@@ -1,8 +1,10 @@
 import { change, date } from 'common/changelog';
-import { Arlie, emallson, Putro, Swolorno } from 'CONTRIBUTORS';
-import { SpellLink } from 'interface';
+import { Arlie, emallson, Putro, Swolorno, Trevor } from 'CONTRIBUTORS';
+import { ItemLink, SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/hunter';
+import ITEMS from 'common/ITEMS';
 export default [
+  change(date(2023, 6, 4), <>Add <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id}/> module to hunter</>, Trevor),
   change(date(2023, 5, 9), <>Added support for T29 tier sets</>, Swolorno),
   change(date(2023, 1, 30), 'Fixed a crashing bug in the Checklist due to a no-longer generated statistic.', emallson),
   change(date(2023, 1, 30), <>Updated <SpellLink id={TALENTS.CALLING_THE_SHOTS_TALENT.id} /> to be 2.5 seconds per 50 focus as of 10.0.5.</>, Putro),
