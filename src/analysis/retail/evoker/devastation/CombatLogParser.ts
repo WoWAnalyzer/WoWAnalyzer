@@ -13,6 +13,7 @@ import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
 import DragonRage from './modules/abilities/DragonRage';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
+import EssenceBurstNormalizer from './modules/normalizers/EssenceBurstNormalizer';
 import Snapfire from './modules/abilities/Snapfire';
 import T30DevaTier4P from './modules/dragonflight/tier/T30DevaTier4P';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
@@ -29,6 +30,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,
+    essenceBurstNormalizer: EssenceBurstNormalizer,
 
     // features
     essenceTracker: EssenceTracker,

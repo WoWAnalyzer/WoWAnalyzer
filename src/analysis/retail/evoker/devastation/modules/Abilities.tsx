@@ -84,7 +84,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ESSENCE_BURST_DEV_BUFF.id,
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.HIDDEN,
         gcd: null,
         timelineSortIndex: 1,
       },

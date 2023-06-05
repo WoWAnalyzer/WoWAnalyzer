@@ -57,9 +57,14 @@ const COMMON_TOP: Rule[] = [
   },
   {
     spell: TALENTS.SHATTERING_STAR_TALENT,
-    condition: cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, {
-      atMost: cnd.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT) ? 1 : 0,
-    }),
+    condition: cnd.and(
+      cnd.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT),
+      cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, { atMost: 1 }),
+    ),
+  },
+  {
+    spell: TALENTS.SHATTERING_STAR_TALENT,
+    condition: cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, { atMost: 0 }),
   },
 
   // Use empower inside DR
