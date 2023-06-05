@@ -103,7 +103,7 @@ class EvangelismAnalysis extends Analyzer {
   }
   // figures out where the "ramp" actually starts
   cutSequence(ramp: CastEvent[]) {
-    while (!PEMITTED_RAMP_STARTERS.includes(ramp[0].ability.guid)) {
+    while (ramp.length > 0 && !PEMITTED_RAMP_STARTERS.includes(ramp[0].ability.guid)) {
       ramp.shift();
     }
     this.analyzeSequence(ramp);

@@ -38,6 +38,7 @@ import Serenity from './modules/talents/Serenity';
 import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     invokersDelight: InvokersDelight,
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
+    callToDominance: CallToDominance,
 
     // apl
     apl: AplCheck,

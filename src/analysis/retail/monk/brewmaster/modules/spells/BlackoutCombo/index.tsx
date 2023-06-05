@@ -11,7 +11,7 @@ import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { SPELLS_WHICH_REMOVE_BOC } from '../../constants';
+import { SPELLS_WHICH_REMOVE_BOC } from '../../../constants';
 
 const debug = false;
 const BOC_DURATION = 15000;

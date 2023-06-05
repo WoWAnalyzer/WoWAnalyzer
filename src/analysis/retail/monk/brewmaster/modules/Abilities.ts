@@ -36,16 +36,6 @@ class Abilities extends CoreAbilities {
         range: AbilityRange.Melee,
       },
       {
-        spell: talents.BREATH_OF_FIRE_TALENT.id,
-        isDefensive: true,
-        buffSpellId: SPELLS.BREATH_OF_FIRE_DEBUFF.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        gcd: {
-          static: 1000,
-        },
-      },
-      {
         spell: talents.RISING_SUN_KICK_TALENT.id,
         enabled: combatant.hasTalent(talents.RISING_SUN_KICK_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -83,7 +73,7 @@ class Abilities extends CoreAbilities {
         cooldown: 30,
         enabled: combatant.hasTalent(talents.CHI_BURST_TALENT),
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
         },
         gcd: {
           static: 1000,
@@ -95,7 +85,7 @@ class Abilities extends CoreAbilities {
         cooldown: 15,
         enabled: combatant.hasTalent(talents.CHI_WAVE_TALENT),
         castEfficiency: {
-          suggestion: true,
+          suggestion: false,
         },
         gcd: {
           static: 1000,
@@ -103,7 +93,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.CRACKLING_JADE_LIGHTNING.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
+        category: SPELL_CATEGORY.UTILITY,
         gcd: {
           // This was tested in-game (in Legion): it does NOT have a static GCD but a base GCD of 1sec and scales with Haste
           base: 1500,

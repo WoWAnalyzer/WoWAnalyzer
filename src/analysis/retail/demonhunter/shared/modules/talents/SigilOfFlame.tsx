@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
-import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import Events, { CastEvent } from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
@@ -47,12 +47,10 @@ export default class SigilOfFlame extends Analyzer {
       </p>
     );
 
-    const performances = this.cooldownUses.map((it) =>
-      spellUseToBoxRowEntry(it, this.owner.fight.start_time),
-    );
-
-    const goodCasts = performances.filter((it) => it.value === QualitativePerformance.Good).length;
-    const totalCasts = performances.length;
+    const goodCasts = this.cooldownUses.filter(
+      (it) => it.performance === QualitativePerformance.Good,
+    ).length;
+    const totalCasts = this.cooldownUses.length;
 
     return (
       <HideGoodCastsSpellUsageSubSection

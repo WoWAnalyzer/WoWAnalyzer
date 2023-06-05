@@ -7,7 +7,6 @@ import Events, {
   RemoveBuffEvent,
   DeathEvent,
   CastEvent,
-  SummonEvent,
   RefreshBuffEvent,
   HealEvent,
   DamageEvent,
@@ -77,8 +76,8 @@ class BaseCelestialAnalyzer extends Analyzer {
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ||
       this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT);
     this.addEventListener(
-      Events.summon
-        .to(SELECTED_PLAYER_PET)
+      Events.cast
+        .by(SELECTED_PLAYER)
         .spell([
           TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
           TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT,
@@ -143,7 +142,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     this.goodSiDuration = this.selectedCombatant.hasTalent(
       TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
     )
-      ? 5000
+      ? 4000
       : 10000;
     this.goodLessonDuration = this.selectedCombatant.hasTalent(
       TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT,
@@ -152,7 +151,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       : 25000;
   }
 
-  onSummon(event: SummonEvent) {
+  onSummon(event: CastEvent) {
     (lessonsDebug || siDebug) &&
       console.log('Celestial Summoned: ', this.owner.formatTimestamp(event.timestamp));
     this.celestialActive = true;

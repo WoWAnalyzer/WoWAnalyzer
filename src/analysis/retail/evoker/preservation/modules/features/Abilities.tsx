@@ -59,7 +59,7 @@ class Abilities extends CoreAbilities {
           ? SPELLS.SPIRITBLOOM_FONT.id
           : TALENTS.SPIRITBLOOM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 30,
+        cooldown: combatant.hasTalent(TALENTS.SPIRITUAL_CLARITY_TALENT) ? 20 : 30,
         gcd: {
           base: 1500,
         },

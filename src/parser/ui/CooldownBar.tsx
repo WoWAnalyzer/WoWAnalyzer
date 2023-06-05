@@ -295,7 +295,7 @@ function iconOrChip(spellId: number, minimizeIcons?: boolean, slimLines?: boolea
   return minimizeIcons ? (
     <div className="cast-chip" style={{ width: w, height: '100%' }} />
   ) : (
-    <SpellIcon noLink id={spellId} />
+    <SpellIcon noLink spell={spellId} />
   );
 }
 

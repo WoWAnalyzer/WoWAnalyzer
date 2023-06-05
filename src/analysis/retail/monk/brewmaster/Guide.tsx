@@ -17,6 +17,7 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import Explanation from 'interface/guide/components/Explanation';
 import { Highlight } from 'interface/Highlight';
+import BlackoutComboSection from './modules/spells/BlackoutCombo/BlackoutComboSection';
 
 const explainers = {
   explainSCK,
@@ -62,6 +63,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             violationExplainers={explainers}
           />
         </SubSection>
+        <BlackoutComboSection />
         <SubSection title="Major Cooldowns">
           <Explanation>
             <p>

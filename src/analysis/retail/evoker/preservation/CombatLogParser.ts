@@ -42,6 +42,7 @@ import EchoBreakdown from './modules/talents/EchoBreakdown';
 import Ouroboros from './modules/talents/Ouroboros';
 import T30PrevokerSet from './modules/dragonflight/tier/T30TierSet';
 import Guide from 'analysis/retail/evoker/preservation/Guide';
+import NozTeachings from './modules/talents/NozTeachings';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -96,6 +97,7 @@ class CombatLogParser extends CoreCombatLogParser {
     emeraldCommunion: EmeraldCommunion,
     sparkOfInsight: SparkOfInsight,
     ouroboros: Ouroboros,
+    nozTeachings: NozTeachings,
 
     // tier
     t30PrevokerTier: T30PrevokerSet,

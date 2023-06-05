@@ -35,6 +35,7 @@ import VampiricTouch from './modules/spells/VampiricTouch';
 import AuspiciousSpirits from './modules/talents/AuspiciousSpirits';
 import DeathAndMadness from './modules/talents/DeathAndMadness';
 import ShadowCrash from './modules/talents/ShadowCrash';
+import InsidiousIre from './modules/talents/InsidiousIre';
 import InescapableTorment from './modules/talents/InescapableTorment';
 import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
 import Deathspeaker from './modules/talents/Deathspeaker';
@@ -46,6 +47,7 @@ import IdolOfCthun from './modules/talents/IdolOfCthun';
 import IdolOfYoggSaron from './modules/talents/IdolOfYoggSaron';
 import IdolOfNzoth from './modules/talents/IdolOfNzoth';
 import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
+import Manipulation from './modules/talents/Manipulation';
 import InsanityGraph from './modules/guide/InsanityGraph';
 
 import FourSet from './modules/tier/Tier29ShadowPriest4Set';
@@ -101,6 +103,8 @@ class CombatLogParser extends MainCombatLogParser {
     idolOfYoggSaron: IdolOfYoggSaron,
     idolOfNzoth: IdolOfNzoth,
     idolOfYshaarj: IdolOfYshaarj,
+    insidiousIre: InsidiousIre,
+    manipulation: Manipulation,
 
     // normalizers:
     shadowfiendNormalizer: ShadowfiendNormalizer,

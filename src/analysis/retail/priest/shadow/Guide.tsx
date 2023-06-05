@@ -20,6 +20,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <CooldownGraphSubsection.CoreCooldownsGraph />
           {/* TODO: Add Active Time graph*/}
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
+          {info.combatant.hasTalent(TALENTS.INSIDIOUS_IRE_TALENT) &&
+            modules.insidiousIre.guideSubsection}
         </Section>
       </Section>
 
