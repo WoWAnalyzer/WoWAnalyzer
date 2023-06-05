@@ -38,7 +38,7 @@ import MaelstromWeaponDetails from './modules/resourcetracker/MaelstromWeaponDet
 import StormBlast from './modules/talents/Stormblast';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
-import RunesOfTheCinderwolf from './modules/tiersets/RunesOfTheCinderwolf';
+import Tier30 from './modules/dragonflight/Tier30';
 import { ThorimsInvocationNormalizer } from './modules/normalizers/ThorimsInvocationNormalizer';
 import SpellUsable from './modules/core/SpellUsable';
 import Channeling from './modules/normalizers/MaelstromWeaponCastChannelHandler';
@@ -96,7 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier
     tier28TwoSet: Tier28TwoSet,
-    runesOfTheCinderwolf: RunesOfTheCinderwolf,
+    tier30: Tier30,
 
     // Normalizers
     thorimsInvocationNormalizer: ThorimsInvocationNormalizer,

@@ -43,6 +43,12 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id,
         timelineHighlight: true,
       },
+      {
+        spellId: TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
+        triggeredBySpellId: TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.DOOM_WINDS_TALENT),
+        timelineHighlight: true,
+      },
     ];
   }
 }

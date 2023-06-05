@@ -21,6 +21,16 @@ const others = itemIndexableList({
     name: "Neltharion's Call to Dominance",
     icon: 'inv_10_dungeonjewelry_dragon_trinket_5_bronze',
   },
+  FANG_ADORNMENTS: {
+    id: 377708,
+    name: 'Fang Adornments',
+    icon: 'inv_misc_blacksaberonfang',
+  },
+  ROILING_SHADOWFLAME: {
+    id: 406251,
+    name: 'Roiling Shadowflame',
+    icon: 'inv_shadowflame_buff',
+  },
 });
 
 export default others;

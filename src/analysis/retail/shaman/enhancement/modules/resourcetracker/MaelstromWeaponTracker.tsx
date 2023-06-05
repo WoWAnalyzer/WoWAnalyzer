@@ -1,5 +1,5 @@
-import SPELLS from 'common/SPELLS/shaman';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RefreshBuffEvent, ChangeBuffStackEvent, EventType } from 'parser/core/Events';
@@ -36,12 +36,12 @@ class MaelstromWeaponTracker extends ResourceTracker {
     this.refundOnMiss = false;
     this.refundOnMissAmount = 0;
     this.isRegenHasted = false;
-    this.maxResource = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.OVERFLOWING_MAELSTROM_TALENT)
+    this.maxResource = this.selectedCombatant.hasTalent(TALENTS.OVERFLOWING_MAELSTROM_TALENT)
       ? 10
       : 5;
     this.allowMultipleGainsInSameTimestamp = true;
 
-    const rank = this.selectedCombatant.getTalentRank(TALENTS_SHAMAN.WITCH_DOCTORS_ANCESTRY_TALENT);
+    const rank = this.selectedCombatant.getTalentRank(TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT);
     this.cooldownPerMaelstromGained = WITCH_DOCTORS_ANCESTRY_REDUCTION_MS[rank];
 
     this.addEventListener(
@@ -135,13 +135,13 @@ class MaelstromWeaponTracker extends ResourceTracker {
   }
 
   reduceFeralSpiritCooldown() {
-    if (!this.selectedCombatant.hasTalent(TALENTS_SHAMAN.WITCH_DOCTORS_ANCESTRY_TALENT)) {
+    if (!this.selectedCombatant.hasTalent(TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT)) {
       return;
     }
 
-    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS.FERAL_SPIRIT_TALENT.id)) {
       const effectiveReduction = this.spellUsable.reduceCooldown(
-        TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
+        TALENTS.FERAL_SPIRIT_TALENT.id,
         this.cooldownPerMaelstromGained + this.outOfOrderCooldownReduction,
       );
       this.feralSpiritTotalCooldownReduction += effectiveReduction;
