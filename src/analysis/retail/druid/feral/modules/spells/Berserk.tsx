@@ -32,7 +32,7 @@ import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 
-const BERSERK_CDR_MS = 700;
+const BERSERK_CDR_MS = 500;
 const BERSERK_HARDCAST_DURATION = 20_000;
 const INCARN_HARDCAST_DURATION = 30_000;
 
