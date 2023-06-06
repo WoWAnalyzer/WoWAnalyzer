@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { DamageEvent } from 'parser/core/Events';
+import Events, { DamageEvent, ApplyBuffEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import Statistic from 'parser/ui/Statistic';
@@ -32,6 +32,9 @@ class Causality extends Analyzer {
   pyreDamageEvent: number = 0;
   previousPyreDamageEvent: number = 0;
 
+  pyreFromDragonrage: number = 0;
+  dragonRageApplied: number = 0;
+
   static dependencies = {
     spellUsable: SpellUsable,
   };
@@ -49,24 +52,40 @@ class Causality extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PYRE),
       this._pyreReduceCooldown,
     );
+
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.DRAGONRAGE_TALENT),
+      this.dragonRage,
+    );
   }
 
   // Pyre can at most trigger 5 CDR events per cast (this includes Pyres procced from Volatility and Dragonrage)
+  // With how dragonrage pyres work however, that would actually be 15 events (3xpyres)
   _pyreReduceCooldown(event: DamageEvent) {
     this.pyreDamageEvent = event.timestamp;
 
+    if (this.previousPyreDamageEvent < this.dragonRageApplied) {
+      this.pyreCounter = 0;
+      this.previousPyreDamageEvent = this.pyreDamageEvent;
+    }
     if (this.previousPyreDamageEvent < this.pyreDamageEvent) {
+      this.pyreFromDragonrage = 0;
       this.pyreCounter = 0;
       this.previousPyreDamageEvent = this.pyreDamageEvent;
     }
     this.pyreCounter += 1;
-    if (this.pyreCounter <= this.maxPyreCount) {
+    if (this.pyreCounter <= this.maxPyreCount + this.pyreFromDragonrage * 3) {
       this.calculateCDR(PYRE_REDUCTION_MS);
     }
   }
 
   _disReduceCooldown() {
     this.calculateCDR(DIS_REDUCTION_MS);
+  }
+
+  dragonRage(event: ApplyBuffEvent) {
+    this.dragonRageApplied = event.timestamp;
+    this.pyreFromDragonrage = 1;
   }
 
   // TODO: possibly track CDR gained from pyre and dis seperatly
