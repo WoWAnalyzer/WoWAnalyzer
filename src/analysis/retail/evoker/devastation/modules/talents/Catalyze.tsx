@@ -21,6 +21,7 @@ class Catalyze extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.CATALYZE_TALENT);
 
     this.addEventListener(Events.applydebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE), () => {
       this.disintegrateDebuffActive = true;
@@ -43,11 +44,12 @@ class Catalyze extends Analyzer {
   statistic() {
     this.extraDamageFromCatalyze = this.fireBreathDamageDuringDisintegrate / 2;
     this.extraTicksFromCatalyze = this.fireBreathTicks / 2;
+
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={TALENTS.CATALYZE_TALENT.id}>
           <ItemDamageDone amount={this.extraDamageFromCatalyze} /> <br />

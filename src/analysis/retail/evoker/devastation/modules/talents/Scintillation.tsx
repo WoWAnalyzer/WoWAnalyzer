@@ -20,6 +20,7 @@ class Scintillation extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SCINTILLATION_TALENT);
 
     this.addEventListener(
       Events.empowerEnd.by(SELECTED_PLAYER).spell([ETERNITY_SURGE, ETERNITY_SURGE_FONT]),
@@ -47,7 +48,7 @@ class Scintillation extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        category={STATISTIC_CATEGORY.GENERAL}
+        category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringSpellValueText spellId={TALENTS.SCINTILLATION_TALENT.id}>
           <ItemDamageDone amount={this.scintillationDamage} /> <br />

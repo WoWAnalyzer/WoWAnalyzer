@@ -23,6 +23,7 @@ class Volatility extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.VOLATILITY_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.DRAGONRAGE_TALENT),
@@ -73,20 +74,18 @@ class Volatility extends Analyzer {
   }
 
   statistic() {
-    if ((this.active = this.selectedCombatant.hasTalent(TALENTS.VOLATILITY_TALENT))) {
-      return (
-        <Statistic
-          position={STATISTIC_ORDER.OPTIONAL(13)}
-          size="flexible"
-          category={STATISTIC_CATEGORY.TALENTS}
-        >
-          <BoringSpellValueText spellId={TALENTS.VOLATILITY_TALENT.id}>
-            <ItemDamageDone amount={this.extraDamageFromVola} /> <br />
-            <span style={{ fontSize: '65%' }}>{Math.floor(this.volaProcs)} procs.</span>
-          </BoringSpellValueText>
-        </Statistic>
-      );
-    }
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(13)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.TALENTS}
+      >
+        <BoringSpellValueText spellId={TALENTS.VOLATILITY_TALENT.id}>
+          <ItemDamageDone amount={this.extraDamageFromVola} /> <br />
+          <span style={{ fontSize: '65%' }}>{Math.floor(this.volaProcs)} procs.</span>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 
