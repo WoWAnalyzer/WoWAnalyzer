@@ -10,36 +10,48 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
-const { ETERNITY_SURGE_DAM, ETERNITY_SURGE, ETERNITY_SURGE_FONT } = SPELLS;
+const { ETERNITY_SURGE_DAM, ETERNITY_SURGE, ETERNITY_SURGE_FONT, DISINTEGRATE } = SPELLS;
 
 class Scintillation extends Analyzer {
-  lastEternitySurgeCast: number = 0;
   scintillationProcs: number = 0;
   scintillationDamage: number = 0;
-  waitingForEternitySurgeHit: boolean = false;
+  awaitingEternitySurgeHit: boolean = false;
+  allowScintillationDetection: boolean = false;
+  lastEternitySurgeHit: number = 0;
+  scintProcNoted: number = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SCINTILLATION_TALENT);
 
     this.addEventListener(
-      Events.empowerEnd.by(SELECTED_PLAYER).spell([ETERNITY_SURGE, ETERNITY_SURGE_FONT]),
-      (event) => {
-        this.lastEternitySurgeCast = event.timestamp;
-        this.waitingForEternitySurgeHit = true;
+      Events.cast.by(SELECTED_PLAYER).spell([ETERNITY_SURGE, ETERNITY_SURGE_FONT]),
+      () => {
+        this.awaitingEternitySurgeHit = true;
+        this.allowScintillationDetection = false;
       },
     );
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DISINTEGRATE), () => {
+      this.allowScintillationDetection = true;
+    });
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(ETERNITY_SURGE_DAM), this.onHit);
   }
 
   onHit(event: DamageEvent) {
-    // Filter after first ES hit from eternity surge cast, so we only grab Scintilation procs
-    if (!this.waitingForEternitySurgeHit) {
+    if (this.awaitingEternitySurgeHit) {
+      this.lastEternitySurgeHit = event.timestamp;
+      this.awaitingEternitySurgeHit = false;
+      this.allowScintillationDetection = true;
+    }
+    if (this.allowScintillationDetection && event.timestamp > this.lastEternitySurgeHit) {
+      this.scintProcNoted = event.timestamp;
       this.scintillationProcs += 1;
+      this.allowScintillationDetection = false;
+    }
+    if (event.timestamp === this.scintProcNoted) {
       this.scintillationDamage += event.amount;
-    } else {
-      this.waitingForEternitySurgeHit = false;
     }
   }
 
