@@ -7,7 +7,14 @@ import { Item } from 'parser/ui/DonutChart';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
-const { BLAZING_SHARDS } = SPELLS;
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import BoringValueText from 'parser/ui/BoringValueText';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { SpellLink } from 'interface';
+
+const { BLAZING_SHARDS, OBSIDIAN_SHARDS } = SPELLS;
 
 const { DRAGONRAGE_TALENT } = TALENTS_EVOKER;
 
@@ -19,6 +26,10 @@ class T30DevaTier4P extends Analyzer {
   inDragonRageWindow: boolean = false;
   totalLostUptime: number = 0;
   totalCasts: number = 0;
+  obsidianShardsDam: number = 0;
+  obsidianShardsDamDuringBlazing: number = 0;
+  blazhingShardsActive: boolean = false;
+
   blazeShardCounters: {
     [window: number]: BlazeShardCounters;
   } = {
@@ -40,6 +51,13 @@ class T30DevaTier4P extends Analyzer {
       this.inDragonRageWindow = false;
     });
 
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(OBSIDIAN_SHARDS), (event) => {
+      this.obsidianShardsDam += event.amount;
+      if (this.blazhingShardsActive || this.inDragonRageWindow) {
+        this.obsidianShardsDamDuringBlazing += event.amount;
+      }
+    });
+
     // When blazing shard is applied track timestamp and increment counter
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
       this.totalCasts += 1;
@@ -51,11 +69,16 @@ class T30DevaTier4P extends Analyzer {
 
     // When blazing shard is refreshed track timestamp and increment counter
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
+      this.blazhingShardsActive = true;
       this.totalCasts += 1;
       this.blazeShardCounters[this.totalCasts] = {
         castTimeStamp: event.timestamp,
       };
       this.performanceCheck();
+    });
+
+    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
+      this.blazhingShardsActive = false;
     });
   }
 
@@ -152,6 +175,34 @@ class T30DevaTier4P extends Analyzer {
   }
   get lostUptime() {
     return this.totalLostUptime;
+  }
+
+  statistic() {
+    const damageFrom4Set =
+      this.obsidianShardsDamDuringBlazing - this.obsidianShardsDamDuringBlazing / 3;
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(5)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.ITEMS}
+        tooltip={
+          <>
+            <ul>
+              <li>
+                Wasted <SpellLink id={BLAZING_SHARDS} /> uptime: {this.totalLostUptime.toFixed(2)}s.
+              </li>
+            </ul>
+          </>
+        }
+      >
+        <BoringValueText label="Obsidian Secrets (T30 Set Bonus)">
+          <h4>2 Piece</h4>
+          <ItemDamageDone amount={this.obsidianShardsDam - damageFrom4Set} />
+          <h4>4 Piece</h4>
+          <ItemDamageDone amount={damageFrom4Set} />
+        </BoringValueText>
+      </Statistic>
+    );
   }
 }
 
