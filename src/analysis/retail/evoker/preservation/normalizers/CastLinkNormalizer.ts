@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS/evoker';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { Options } from 'parser/core/Module';
 import { TALENTS_EVOKER } from 'common/TALENTS';
@@ -42,6 +43,7 @@ export const SHIELD_FROM_TA_CAST = 'ShieldFromTACast';
 export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to Spark
 export const STASIS = 'Stasis';
 export const STASIS_FOR_RAMP = 'ForRamp';
+export const ESSENCE_RUSH = 'EssenceRush';
 
 export enum ECHO_TYPE {
   NONE,
@@ -586,13 +588,31 @@ const EVENT_LINKS: EventLink[] = [
     },
   },
   {
+    linkRelation: ESSENCE_RUSH,
+    reverseLinkRelation: ESSENCE_RUSH,
+    linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
+    referencedEventId: ITEMS.T30_ESSENCE_RUSH.id,
+    referencedEventType: EventType.ApplyBuff,
+    backwardBufferMs: 5000,
+  },
+  {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: FROM_HARDCAST,
     linkingEventId: SPELLS.ESSENCE_BURST_BUFF.id,
     linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
-    referencedEventId: [SPELLS.LIVING_FLAME_HEAL.id, SPELLS.LIVING_FLAME_DAMAGE.id],
-    referencedEventType: EventType.Cast,
-    backwardBufferMs: CAST_BUFFER_MS,
+    referencedEventId: [
+      SPELLS.LIVING_FLAME_HEAL.id,
+      SPELLS.LIVING_FLAME_DAMAGE.id,
+      SPELLS.LIVING_FLAME_CAST.id,
+    ],
+    referencedEventType: [EventType.Cast, EventType.Damage, EventType.Heal],
+    backwardBufferMs: 1500, // very large delay between application and lf event sometimes
+    forwardBufferMs: 10, // ordering
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(linkingEvent, ESSENCE_RUSH);
+    },
   },
   {
     linkRelation: STASIS_FOR_RAMP,

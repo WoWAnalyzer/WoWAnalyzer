@@ -529,6 +529,11 @@ export const DoxAshe: Contributor = {
   github: 'DoxAshe',
   discord: 'DoxAshe#8269',
 };
+export const Havoc: Contributor = {
+  nickname: 'Havoc',
+  github: 'comp615',
+  discord: 'Havoc#1035',
+};
 export const Vireve: Contributor = {
   nickname: 'Vireve',
   github: 'JeaneC',
@@ -2156,6 +2161,29 @@ export const Swolorno: Contributor = {
       name: 'Swolorno',
       spec: SPECS.MARKSMANSHIP_HUNTER,
       link: 'https://worldofwarcraft.com/en-gb/character/eu/twisting-nether/Swolorno',
+    },
+  ],
+};
+export const iTitou: Contributor = {
+  nickname: 'iTitou',
+  github: 'titouanc',
+  mains: [
+    {
+      name: 'Fantomeuh',
+      spec: SPECS.CLASSIC_DRUID_RESTORATION,
+      link: 'https://classic.warcraftlogs.com/character/eu/sulfuron/fantomeuh',
+    },
+  ],
+};
+export const Jundarer: Contributor = {
+  nickname: 'Jundarer',
+  github: 'Jundarer',
+  discord: 'Jundarer#7131',
+  mains: [
+    {
+      name: 'Jundarer',
+      spec: SPECS.BALANCE_DRUID,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/tarren-mill/Tunderer',
     },
   ],
 };

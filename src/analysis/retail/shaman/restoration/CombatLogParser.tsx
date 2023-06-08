@@ -68,6 +68,7 @@ import Tier30 from './modules/dragonflight/Tier30';
 import Tier30Normalizer from './normalizers/Tier30Normalizer';
 import Guide from './Guide';
 import Riptide from './modules/talents/Riptide';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -147,9 +148,10 @@ class CombatLogParser extends CoreCombatLogParser {
     riptideTracker: RiptideTracker,
     riptideAttributor: RiptideAttributor,
 
-    //Tier Sets
+    // Items
     tier30: Tier30,
     tier30Normalizer: Tier30Normalizer,
+    callToDominance: CallToDominance,
   };
   static guide = Guide;
 }

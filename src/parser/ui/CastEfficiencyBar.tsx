@@ -1,10 +1,30 @@
 import styled from '@emotion/styled';
 import { ReactNode } from 'react';
-import { CooldownBar } from 'parser/ui/CooldownBar';
+import { CooldownBar, CooldownWindow, GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import { BadColor, GoodColor, MediocreColor, OkColor, useAnalyzer } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { formatPercentage } from 'common/format';
+import Spell from 'common/SPELLS/Spell';
+
+type Props = {
+  /** The spellId to show cooldown bars for - this must match the ID of the spell's cast event */
+  spellId?: number;
+  spell?: Spell;
+  /** Gap highlight mode - see {@link GapHighlight} */
+  gapHighlightMode: GapHighlight;
+  /** If true, spell uses will be represented by a minimal white line instead of the spell icon.
+   *  Useful for spells on CD shorter than 30s where the icons might be too closely packed to
+   *  be usable */
+  minimizeIcons?: boolean;
+  slimLines?: boolean;
+  /**
+   * Windows where the spell is actually usable. Useful for execute spells or spells that only become active inside of a cooldown.
+   *
+   * If not specified, defaults to the whole fight.
+   */
+  activeWindows?: Array<CooldownWindow>;
+};
 
 /**
  * Displays a spell's cast efficiency on the left,
@@ -18,15 +38,18 @@ import { formatPercentage } from 'common/format';
  */
 export default function CastEfficiencyBar({
   spellId,
+  spell,
   gapHighlightMode,
   minimizeIcons,
   useThresholds,
   slimLines,
   activeWindows,
-}: React.ComponentProps<typeof CooldownBar> & {
+}: Props & {
   useThresholds?: boolean;
 }): JSX.Element {
-  const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(spellId);
+  const rawSpellId = spell ? spell.id : spellId!;
+  const spellObj = spell ? spell : spellId!;
+  const castEffic = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpellId(rawSpellId);
   let tooltip: ReactNode = `Couldn't get cast efficiency info!`;
   let utilDisplay = `N/A`;
   let textColor: string | undefined;
@@ -52,7 +75,7 @@ export default function CastEfficiencyBar({
     utilDisplay = formatPercentage(effectiveUtil, 0) + '%';
     tooltip = (
       <>
-        You cast <SpellLink id={spellId} /> <strong>{castEffic.casts}</strong> out of{' '}
+        You cast <SpellLink spell={spellObj} /> <strong>{castEffic.casts}</strong> out of{' '}
         <strong>{castEffic.maxCasts}</strong> possible times.
         <br />
         It was on cooldown for <strong>{formatPercentage(castEffic.efficiency, 0)}%</strong> of{' '}
@@ -66,14 +89,14 @@ export default function CastEfficiencyBar({
   return (
     <CooldownUtilBarContainer>
       <div style={{ color: textColor }}>
-        <SpellIcon id={spellId} style={{ height: '28px' }} />{' '}
+        <SpellIcon spell={spellObj} style={{ height: '28px' }} />{' '}
         <TooltipElement content={tooltip}>
           {utilDisplay} <small>effic</small>
         </TooltipElement>
       </div>
       <CooldownBar
         activeWindows={activeWindows}
-        spellId={spellId}
+        spellId={rawSpellId}
         gapHighlightMode={gapHighlightMode}
         minimizeIcons={minimizeIcons}
         slimLines={slimLines}
