@@ -1,0 +1,3 @@
+export const SCINTILLATION_PROC_CHANCE = 0.15;
+
+export const VOLATILITY_PROC_CHANCE = 0.15;

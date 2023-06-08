@@ -58,6 +58,9 @@ class DragonRage extends Analyzer {
       Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
       (event) => {
         this.inDragonRageWindow = false;
+        if (this.rageWindowCounters[this.totalCasts] === undefined) {
+          return;
+        }
         this.rageWindowCounters[this.totalCasts].end = event.timestamp;
         // Janky solution to fix statistics window outputting more empower cast than actually occoured inside of DR window
         // Still shows the spell in windowed timeline

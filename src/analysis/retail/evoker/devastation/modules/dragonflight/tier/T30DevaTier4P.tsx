@@ -154,21 +154,25 @@ class T30DevaTier4P extends Analyzer {
       {
         label: 'Dragonrage Active',
         value: perfect,
+        valueTooltip: perfect + ' empower casts',
         color: qualitativePerformanceToColor(QualitativePerformance.Perfect),
       },
       {
-        label: 'Blazing Shards not overriden',
+        label: 'Buff staggered correctly',
         value: good,
+        valueTooltip: good + ' empower casts',
         color: qualitativePerformanceToColor(QualitativePerformance.Good),
       },
       {
-        label: 'Blazing Shards overriden early',
+        label: 'Buff overriden with <0.5s left',
         value: ok,
+        valueTooltip: ok + ' empower casts',
         color: qualitativePerformanceToColor(QualitativePerformance.Ok),
       },
       {
-        label: 'Blazing Shards overriden too early',
+        label: 'Buff overriden with >0.5s left',
         value: fail,
+        valueTooltip: fail + ' empower casts',
         color: qualitativePerformanceToColor(QualitativePerformance.Fail),
       },
     ];

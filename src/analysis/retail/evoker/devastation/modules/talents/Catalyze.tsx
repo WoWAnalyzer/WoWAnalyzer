@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
+import { formatNumber } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
@@ -50,12 +51,17 @@ class Catalyze extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <ul>
+              <li>Extra ticks gained: {Math.floor(this.extraTicksFromCatalyze)}</li>
+              <li>Damage: {formatNumber(this.extraDamageFromCatalyze)}</li>
+            </ul>
+          </>
+        }
       >
         <BoringSpellValueText spellId={TALENTS.CATALYZE_TALENT.id}>
-          <ItemDamageDone amount={this.extraDamageFromCatalyze} /> <br />
-          <span style={{ fontSize: '65%' }}>
-            {Math.floor(this.extraTicksFromCatalyze)} extra ticks gained.
-          </span>
+          <ItemDamageDone amount={this.extraDamageFromCatalyze} />
         </BoringSpellValueText>
       </Statistic>
     );
