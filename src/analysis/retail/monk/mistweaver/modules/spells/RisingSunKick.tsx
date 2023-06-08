@@ -19,6 +19,7 @@ class RisingSunKick extends Analyzer {
 
   lastBOK: number = Number.MIN_SAFE_INTEGER;
   lastRSK: number = Number.MIN_SAFE_INTEGER;
+  lastRSKTFT: boolean = false;
   rskResets: number = 0;
 
   constructor(options: Options) {
@@ -40,9 +41,20 @@ class RisingSunKick extends Analyzer {
       this.lastRSK = event.timestamp;
       return;
     }
-
-    if (this.lastBOK > this.lastRSK) {
-      this.rskResets += 1;
+    if (
+      this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id, event.timestamp, 250)
+    ) {
+      //reduces the cooldown of TFT by '9s' via tooltip but is really reduced by 6 gcds
+      const cdr = event.globalCooldown ? event.globalCooldown.duration * 6 : 9000;
+      this.lastRSKTFT = true;
+      this.spellUsable.reduceCooldown(TALENTS_MONK.RISING_SUN_KICK_TALENT.id, cdr);
+    } else {
+      this.lastRSKTFT = false;
+    }
+    if (!this.lastRSKTFT) {
+      if (this.lastBOK > this.lastRSK) {
+        this.rskResets += 1;
+      }
     }
 
     this.lastRSK = event.timestamp;
