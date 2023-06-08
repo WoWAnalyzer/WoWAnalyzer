@@ -64,9 +64,9 @@ class Scintillation extends Analyzer {
 
   statistic() {
     // The graphs works until you input large numbers i.e a dungeon run TODO: fix
-    console.log(this.scintillationProcs);
+    /*console.log(this.scintillationProcs);
     console.log(this.scintillationProcChances);
-    console.log(SCINTILLATION_PROC_CHANCE);
+    console.log(SCINTILLATION_PROC_CHANCE);*/
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -88,7 +88,11 @@ class Scintillation extends Analyzer {
         <BoringSpellValueText spellId={TALENTS.SCINTILLATION_TALENT.id}>
           <ItemDamageDone amount={this.scintillationDamage} />
         </BoringSpellValueText>
-        {plotOneVariableBinomChart(126, 857, 0.15)}
+        {plotOneVariableBinomChart(
+          this.scintillationProcs,
+          this.scintillationProcChances,
+          SCINTILLATION_PROC_CHANCE,
+        )}
       </Statistic>
     );
   }
