@@ -346,7 +346,10 @@ class EssenceFont extends Analyzer {
             <ul>
               <li>{this.gomEFHits} additional hits</li>
               <li>{formatNumber(this.gomHealing)} additional healing</li>
-              <li>Essence Font Proc Ratio: {this.efProcRatio.toPrecision(2)}</li>
+              <li>
+                Avg number of GoMs hits per triggering event (aka Essence Font Proc Ratio):{' '}
+                {this.efProcRatio.toPrecision(2)}
+              </li>
             </ul>
             {this.chijitooltip()}
           </Trans>

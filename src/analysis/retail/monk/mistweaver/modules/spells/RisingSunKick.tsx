@@ -10,6 +10,8 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 
+const CAST_BUFFER_MS = 250;
+
 class RisingSunKick extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -42,7 +44,11 @@ class RisingSunKick extends Analyzer {
       return;
     }
     if (
-      this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id, event.timestamp, 250)
+      this.selectedCombatant.hasBuff(
+        TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id,
+        event.timestamp,
+        CAST_BUFFER_MS,
+      )
     ) {
       //reduces the cooldown of TFT by '9s' via tooltip but is really reduced by 6 gcds
       const cdr = event.globalCooldown ? event.globalCooldown.duration * 6 : 9000;
@@ -51,10 +57,8 @@ class RisingSunKick extends Analyzer {
     } else {
       this.lastRSKTFT = false;
     }
-    if (!this.lastRSKTFT) {
-      if (this.lastBOK > this.lastRSK) {
-        this.rskResets += 1;
-      }
+    if (!this.lastRSKTFT && this.lastBOK > this.lastRSK) {
+      this.rskResets += 1;
     }
 
     this.lastRSK = event.timestamp;
