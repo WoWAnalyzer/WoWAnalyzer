@@ -619,7 +619,7 @@ class RisingMist extends Analyzer {
       render: () => (
         <Panel
           title="Rising Mist Extension"
-          explanation="Listing of each applied hots' total duration after extension. *Keep in mind that our current 4-piece set bonus can extend hots past the 100% of max duration limit of Rising Mist*"
+          explanation="Listing of each applied hots' total duration after extension. *Keep in mind that there is latency time between Renewing Mist bounces which can give the appearance of hots lasting longer than 100% of max duration limit of Rising Mist*"
         >
           <Section title="Click to expand/collapse each section for each hot by source application">
             {this.entries()}
