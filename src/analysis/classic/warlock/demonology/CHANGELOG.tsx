@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { jazminite } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2023, 6, 9), 'Add Guide Cooldowns Graph subsection.', jazminite),
   change(date(2023, 5, 7), 'Updates to Guide Core section + added Spells subsection.', jazminite),
   change(date(2023, 4, 23), 'Started Guide and added Core and Preparation sections.', jazminite),
   change(date(2023, 4, 2), 'Remove static entries for Healthstone use in favor of HealthstoneChecker.', jazminite),
