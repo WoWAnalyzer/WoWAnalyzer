@@ -126,6 +126,7 @@ class Voidbolt extends ExecuteHelper {
     const averagecd = total / cd.length;
 
     this.miss = this.miss + Math.floor(waste / averagecd); //Any remainder is not a possible cast, so it is floored.
+    this.VB = [0]; //After calcuating the missed VB, removed them so they cannot be added again.
   }
 
   enterVoidform(event: ApplyBuffEvent) {
