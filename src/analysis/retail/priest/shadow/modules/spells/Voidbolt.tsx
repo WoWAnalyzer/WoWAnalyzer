@@ -89,43 +89,30 @@ class Voidbolt extends ExecuteHelper {
   //VB is an unusal spell. It is likely that using ExecuteHelper would be better than this for most spells.
   calculateMissedVB() {
     //console.log("VoidformArray", this.VB)
-    //convert raw timestamps of spellusables to time between them
-    const diff = [];
 
-    // start at 2, so first calc is [2]-[1]
-    //because [0] = 0, [1] = enterVF timestamp, [2] is first VB timestamp.
-    for (let i = 2; i < this.VB.length; i += 1) {
-      diff[i - 2] = this.VB[i] - this.VB[i - 1];
+    let waiting = 0; //time voidbolt spent on cooldown
+    let castCount = 0; // casts of voidbolt
+    let totalCD = 0; //time it took to come off cooldown
+
+    //start at 2, so first calc is [2]-[1]. because [0] = 0, [1] = enterVF timestamp, [2] is first VB timestamp.
+    //Every even is a VB cast, and every odd is it coming off cooldown
+    //Except the last timestamp is voidform ending, and is not a cast or a cooldown.
+    //If the last event is odd, then voidform ends while VB is on cooldown, so we do not want to add this time to the average recharge time.
+
+    for (let i = 2; i < this.VB.length; i += 2) {
+      //even - odd; cast - recharge
+      waiting += this.VB[i] - this.VB[i - 1];
     }
 
-    let waste = 0;
-    const cd = [];
-    let total = 0;
-
-    //even diff is time between available and cast
-    //odd diff is time waiting on cooldown.
-
-    //the last timestamp occurs when VF ends, and VB updates to no longer be usable
-    //If VB is off cooldown at this time, we want to add this time to the waste time
-    //if VB is on cooldown at this time, we do not want to add this time into the average recharge time.
-    for (let i = 0; i < diff.length; i += 1) {
-      if (i % 2 === 0) {
-        //even
-        waste = waste + diff[i];
-      }
-      if (i % 2 !== 0 && i !== diff.length - 1) {
-        //odd and not include final if it is odd.
-        cd.push(diff[i]);
-      }
+    for (let i = 3; i < this.VB.length - 1; i += 2) {
+      //odd - even. recharge - cast
+      totalCD += this.VB[i] - this.VB[i - 1];
+      castCount += 1;
     }
 
-    //find the average CD during this voidform
-    for (let i = 0; i < cd.length; i += 1) {
-      total = total + cd[i];
-    }
-    const averagecd = total / cd.length;
+    const averagecd = totalCD / castCount;
 
-    this.miss = this.miss + Math.floor(waste / averagecd); //Any remainder is not a possible cast, so it is floored.
+    this.miss = this.miss + Math.floor(waiting / averagecd); //Any remainder is not a possible cast, so it is floored.
     this.VB = [0]; //After calcuating the missed VB, removed them so they cannot be added again.
   }
 
