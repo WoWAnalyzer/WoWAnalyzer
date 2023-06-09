@@ -5,6 +5,7 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 6, 9), <>Add Cooldowns tab</>, Trevor),
   change(date(2023, 5, 24), <>Add <SpellLink spell={TALENTS_EVOKER.NOZDORMUS_TEACHINGS_TALENT}/> module</>, Trevor),
   change(date(2023, 5, 23), <>Improve accuracy of 4 piece module</>, Trevor),
   change(date(2023, 5, 19), <>Fix mana cost for <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT}/></>, Trevor),

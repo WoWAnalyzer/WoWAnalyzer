@@ -396,6 +396,11 @@ const spells = spellIndexableList({
     name: 'Calming Coalescence',
     icon: 'ability_monk_healthsphere',
   },
+  ESCAPE_FROM_REALITY_CAST: {
+    id: 343539,
+    name: 'Escape from Reality',
+    icon: 'inv_enchant_essencecosmicgreater',
+  },
   //Tier 30 2pc Buff
   SOULFANG_INFUSION: {
     id: 410007,
