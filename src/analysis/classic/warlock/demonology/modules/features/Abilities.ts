@@ -16,6 +16,7 @@ class Abilities extends CoreAbilities {
     }
     return cooldown;
   }
+
   spellbook() {
     const demoPoints = this.selectedCombatant.talentPoints[1];
     return [
