@@ -50,6 +50,7 @@ class EssenceFont extends Analyzer {
   gomHealing: number = 0;
   gomOverhealing: number = 0;
   gomEFHits: number = 0;
+  gomHits: number = 0;
   gomEFEvent: boolean = false;
   castEntries: BoxRowEntry[] = [];
   chijiActive: boolean = false;
@@ -99,6 +100,14 @@ class EssenceFont extends Analyzer {
     }
   }
 
+  get efProcRatio() {
+    return (
+      (this.gomEFHits + this.chijiGomEFHits) /
+        (this.gomHits - this.gomEFHits - this.chijiGomEFHits) +
+      1
+    );
+  }
+
   isValidEFEvent(event: HealEvent) {
     const combatant = this.combatants.players[event.targetID];
     if (!combatant) {
@@ -132,6 +141,7 @@ class EssenceFont extends Analyzer {
   }
 
   chijiGustHealing(event: HealEvent) {
+    this.gomHits += 1;
     if (!this.isValidEFEvent(event)) {
       return;
     }
@@ -148,6 +158,7 @@ class EssenceFont extends Analyzer {
   }
 
   gustHealing(event: HealEvent) {
+    this.gomHits += 1;
     if (!this.isValidEFEvent(event)) {
       return;
     }
@@ -335,6 +346,10 @@ class EssenceFont extends Analyzer {
             <ul>
               <li>{this.gomEFHits} additional hits</li>
               <li>{formatNumber(this.gomHealing)} additional healing</li>
+              <li>
+                Avg number of GoMs hits per triggering event (aka Essence Font Proc Ratio):{' '}
+                {this.efProcRatio.toPrecision(2)}
+              </li>
             </ul>
             {this.chijitooltip()}
           </Trans>
