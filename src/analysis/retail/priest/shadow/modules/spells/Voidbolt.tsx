@@ -87,7 +87,7 @@ class Voidbolt extends ExecuteHelper {
   }
 
   //VB is an unusal spell. It is likely that using ExecuteHelper would be better than this for most spells.
-  getVB() {
+  calculateMissedVB() {
     //console.log("VoidformArray", this.VB)
     //convert raw timestamps of spellusables to time between them
     const diff = [];
@@ -139,7 +139,7 @@ class Voidbolt extends ExecuteHelper {
     //to find the time between the last voidbolt update and end of voidform we need to add it in here.
     this.VB.push(event.timestamp);
     //Calculate missed potential casts of Void Bolt during this voidform.
-    this.getVB();
+    this.calculateMissedVB();
   }
 
   adjustMaxCasts() {
