@@ -8,7 +8,7 @@ import WindfuryTotem from '../talents/WindfuryTotem';
 import AlwaysBeCasting from '../features/AlwaysBeCasting';
 import Component from './Component';
 import MaelstromWeaponDetails from '../resourcetracker/MaelstromWeaponDetails';
-// import Hailstorm from '../talents/Hailstorm';
+import Hailstorm from '../talents/Hailstorm';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -19,7 +19,7 @@ class Checklist extends BaseChecklist {
     alwaysBeCasting: AlwaysBeCasting,
     windfuryTotem: WindfuryTotem,
     maestromWeaponDetails: MaelstromWeaponDetails,
-    // hailstorm: Hailstorm,
+    hailstorm: Hailstorm,
   };
 
   protected combatants!: Combatants;
@@ -27,7 +27,7 @@ class Checklist extends BaseChecklist {
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected windfuryTotem!: WindfuryTotem;
-  //protected hailstorm!: Hailstorm;
+  protected hailstorm!: Hailstorm;
 
   render() {
     const checkResults = aplCheck(this.owner.eventHistory, this.owner.info);

@@ -47,9 +47,9 @@ const MaelstromUsage = ({ modules, events, info }: GuideProps<typeof CombatLogPa
             the source of the encounter. You wasted{' '}
             <PerformancePercentage performance={performance} gained={gained} wasted={wasted} /> of
             your <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />.
-            {modules.maelstromWeaponGraph.plot}
           </Trans>
         </p>
+        {modules.maelstromWeaponGraph.plot}
       </SubSection>
     </Section>
   );

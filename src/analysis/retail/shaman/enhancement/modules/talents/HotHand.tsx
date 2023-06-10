@@ -22,14 +22,23 @@ import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldo
 import { SpellUse } from 'parser/core/SpellUsage/core';
 import { ReactNode } from 'react';
 
-interface HotHandRank {
+class HotHandRank {
   modRate: number;
   increase: number;
+
+  constructor(modRate: number, increase: number) {
+    this.modRate = modRate;
+    this.increase = increase;
+  }
+
+  get rate() {
+    return 1 / (1 - this.modRate);
+  }
 }
 
 const HOT_HAND: Record<number, HotHandRank> = {
-  1: { modRate: 2.5, increase: 0.4 },
-  2: { modRate: 4, increase: 0.6 },
+  1: new HotHandRank(0.5, 0.4),
+  2: new HotHandRank(0.75, 0.6),
 };
 
 interface HotHandProc extends SpellCast {
@@ -99,10 +108,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
   applyHotHand(event: ApplyBuffEvent) {
     // on application both resets the CD and applies a mod rate
     this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id);
-    this.spellUsable.applyCooldownRateChange(
-      TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
-      this.hotHand.modRate,
-    );
+    this.spellUsable.applyCooldownRateChange(TALENTS_SHAMAN.LAVA_LASH_TALENT.id, this.hotHand.rate);
     this.hotHandActive.startInterval(event.timestamp);
   }
 
@@ -114,7 +120,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
   removeHotHand(event: RemoveBuffEvent) {
     this.spellUsable.removeCooldownRateChange(
       TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
-      this.hotHand.modRate,
+      this.hotHand.rate,
     );
 
     this.hotHandActive.endInterval(event.timestamp);

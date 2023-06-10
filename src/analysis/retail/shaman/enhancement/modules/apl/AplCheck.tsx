@@ -44,7 +44,7 @@ const commonTop = [
       has2PieceByTier(TIERS.T30),
       (_) => (
         <>
-          to activate <SpellLink spell={SPELLS.EARTHEN_MIGHT_TIER_BUFF} />
+          to activate <SpellLink spell={SPELLS.EARTHEN_MIGHT_TIER_BUFF} /> (2-piece bonus)
         </>
       ),
       '',
@@ -205,7 +205,7 @@ const elementalistCore = (info: PlayerInfo) => {
     TALENTS.ICE_STRIKE_TALENT,
     {
       spell: TALENTS.FROST_SHOCK_TALENT,
-      condition: buffPresent(TALENTS.HAILSTORM_TALENT),
+      condition: buffPresent(SPELLS.HAILSTORM_BUFF),
     },
     TALENTS.LAVA_LASH_TALENT,
     TALENTS.STORMSTRIKE_TALENT,
@@ -276,21 +276,15 @@ const stormCore = (info: PlayerInfo): Rule[] => {
     condition: buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
   });
 
-  if (info.combatant.hasTalent(TALENTS.ICE_STRIKE_TALENT)) {
-    apl.push({
+  apl.push(
+    {
       spell: TALENTS.ICE_STRIKE_TALENT,
       condition: buffPresent(TALENTS.DOOM_WINDS_TALENT),
-    });
-  }
-
-  if (info.combatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT)) {
-    apl.push({
+    },
+    {
       spell: TALENTS.CRASH_LIGHTNING_TALENT,
       condition: buffPresent(TALENTS.DOOM_WINDS_TALENT),
-    });
-  }
-
-  apl.push(
+    },
     {
       spell: SPELLS.FLAME_SHOCK,
       condition: debuffMissing(SPELLS.FLAME_SHOCK),

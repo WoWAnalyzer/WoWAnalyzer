@@ -36,6 +36,7 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.HAILSTORM_BUFF.id,
+        triggeredBySpellId: TALENTS.HAILSTORM_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),
         timelineHighlight: true,
       },

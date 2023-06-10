@@ -45,6 +45,8 @@ import MaelstromWeaponCastNormalizer from './modules/normalizers/MaelstromWeapon
 import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
 import ThorimsInvocation from './modules/talents/ThorimsInvocation';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import AshenCatalyst from './modules/talents/AshenCatalyst';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -95,10 +97,14 @@ class CombatLogParser extends CoreCombatLogParser {
     stormbringer: Stormbringer,
     legacyOfTheFrostWitch: LegacyOfTheFrostWitch,
     thorimsInvocation: ThorimsInvocation,
+    ashenCatalyst: AshenCatalyst,
 
     // Tier
     tier28TwoSet: Tier28TwoSet,
     tier30: Tier30,
+
+    // Items
+    callToDominance: CallToDominance,
 
     // Normalizers
     eventLinkNormalizer: EventLinkNormalizer,
