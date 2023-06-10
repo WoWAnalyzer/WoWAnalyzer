@@ -350,6 +350,31 @@ const spells = spellIndexableList({
     name: 'Ancient Flame',
     icon: 'inv_elemental_mote_fire01',
   },
+  FIRESTORM_DAMAGE: {
+    id: 369374,
+    name: 'Firestorm',
+    icon: 'ability_evoker_firestorm',
+  },
+  VISAGE: {
+    id: 351239,
+    name: 'Visage',
+    icon: 'ability_racial_visage',
+  },
+  WING_BUFFET: {
+    id: 357214,
+    name: 'Wing Buffet',
+    icon: 'ability_racial_wingbuffet',
+  },
+  OPPRESING_ROAR: {
+    id: 406971,
+    name: 'Oppressing Roar',
+    icon: 'ability_evoker_oppressingroar',
+  },
+  UNRAVEL: {
+    id: 368432,
+    name: 'Unravel',
+    icon: 'ability_evoker_unravel',
+  },
 });
 
 export default spells;
