@@ -7,12 +7,16 @@ import { Item } from 'parser/ui/DonutChart';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
+import { formatNumber } from 'common/format';
+import { formatDuration } from 'common/format';
+
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { SpellLink } from 'interface';
+import { BLAZING_SHARDS_DURATION } from 'analysis/retail/evoker/devastation/constants';
 
 const { BLAZING_SHARDS, OBSIDIAN_SHARDS } = SPELLS;
 
@@ -20,6 +24,7 @@ const { DRAGONRAGE_TALENT } = TALENTS_EVOKER;
 
 export type BlazeShardCounters = {
   castTimeStamp: number;
+  extraDamageProvided: number;
 };
 
 class T30DevaTier4P extends Analyzer {
@@ -35,6 +40,7 @@ class T30DevaTier4P extends Analyzer {
   } = {
     0: {
       castTimeStamp: 0,
+      extraDamageProvided: 0,
     },
   };
 
@@ -43,54 +49,102 @@ class T30DevaTier4P extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT), () => {
-      this.inDragonRageWindow = true;
-    });
-
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT), () => {
-      this.inDragonRageWindow = false;
-    });
-
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(OBSIDIAN_SHARDS), (event) => {
       this.obsidianShardsDam += event.amount;
+      if (event.absorbed !== undefined) {
+        this.obsidianShardsDam += event.absorbed;
+      }
       if (this.blazhingShardsActive || this.inDragonRageWindow) {
         this.obsidianShardsDamDuringBlazing += event.amount;
+        this.blazeShardCounters[this.totalCasts].extraDamageProvided += event.amount;
+        if (event.absorbed !== undefined) {
+          this.obsidianShardsDamDuringBlazing += event.absorbed;
+          this.blazeShardCounters[this.totalCasts].extraDamageProvided += event.absorbed;
+        }
       }
-    });
-
-    // When blazing shard is applied track timestamp and increment counter
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
-      this.totalCasts += 1;
-      this.blazeShardCounters[this.totalCasts] = {
-        castTimeStamp: event.timestamp,
-      };
-      this.performanceCheck();
-    });
-
-    // When blazing shard is refreshed track timestamp and increment counter
-    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
-      this.blazhingShardsActive = true;
-      this.totalCasts += 1;
-      this.blazeShardCounters[this.totalCasts] = {
-        castTimeStamp: event.timestamp,
-      };
-      this.performanceCheck();
     });
 
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
       this.blazhingShardsActive = false;
+      if (!this.inDragonRageWindow) {
+        this.performanceCheck();
+      }
+    });
+
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
+      (event) => {
+        this.inDragonRageWindow = true;
+        this.totalCasts += 1;
+        this.blazeShardCounters[this.totalCasts] = {
+          castTimeStamp: event.timestamp,
+          extraDamageProvided: 0,
+        };
+      },
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
+      (event) => {
+        this.performanceCheck();
+        this.inDragonRageWindow = false;
+      },
+    );
+
+    // When blazing shard is applied track timestamp and increment counter
+    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
+      if (!this.inDragonRageWindow) {
+        this.blazhingShardsActive = true;
+        this.totalCasts += 1;
+        this.blazeShardCounters[this.totalCasts] = {
+          castTimeStamp: event.timestamp,
+          extraDamageProvided: 0,
+        };
+      }
+    });
+
+    // When blazing shard is refreshed track timestamp and increment counter
+    this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
+      if (!this.inDragonRageWindow) {
+        this.performanceCheck();
+        this.blazhingShardsActive = true;
+        this.totalCasts += 1;
+        this.blazeShardCounters[this.totalCasts] = {
+          castTimeStamp: event.timestamp,
+          extraDamageProvided: 0,
+        };
+      }
     });
   }
 
   performanceCheck() {
-    const blazingShardsBuffDuration = 5;
+    if (
+      this.blazeShardCounters[this.totalCasts] === undefined ||
+      this.blazeShardCounters[this.totalCasts - 1] === undefined
+    ) {
+      return;
+    }
     // Calculate the difference between applications of blazing shard to figure out if they overlap
     const blazeStagger =
       (this.blazeShardCounters[this.totalCasts].castTimeStamp -
         this.blazeShardCounters[this.totalCasts - 1].castTimeStamp) /
       1000;
     // Calculate the lost uptime
-    const blazeShardLoss = blazingShardsBuffDuration - blazeStagger;
+    const blazeShardLoss = BLAZING_SHARDS_DURATION - blazeStagger;
+
+    const castTimestamp =
+      this.blazeShardCounters[this.totalCasts].castTimeStamp - this.owner.fight.start_time;
+
+    let lostDamage = 0;
+    if (blazeShardLoss > 0) {
+      lostDamage =
+        (this.blazeShardCounters[this.totalCasts].extraDamageProvided / BLAZING_SHARDS_DURATION) *
+        blazeShardLoss;
+    }
+
+    const extraDamage =
+      this.blazeShardCounters[this.totalCasts].extraDamageProvided -
+      this.blazeShardCounters[this.totalCasts].extraDamageProvided / 3;
 
     // Keep track of total lost uptime. Ignore dragonrage windows
     if (blazeShardLoss > 0 && !this.inDragonRageWindow) {
@@ -100,9 +154,9 @@ class T30DevaTier4P extends Analyzer {
     let performance = QualitativePerformance.Fail;
     if (this.inDragonRageWindow) {
       performance = QualitativePerformance.Perfect;
-    } else if (blazeShardLoss < 0) {
+    } else if (blazeShardLoss < 0 && extraDamage !== 0) {
       performance = QualitativePerformance.Good;
-    } else if (blazeShardLoss <= 0.5) {
+    } else if (blazeShardLoss <= 0.5 || extraDamage === 0) {
       performance = QualitativePerformance.Ok;
     }
     this.windowEntries.push({
@@ -112,23 +166,47 @@ class T30DevaTier4P extends Analyzer {
           {this.inDragonRageWindow && (
             <div>
               <strong>Dragonrage Active</strong>
+
+              <li>Extra damage gained: {formatNumber(extraDamage)}</li>
+              <li>Timestamp: {formatDuration(castTimestamp)}</li>
             </div>
           )}
           {performance === QualitativePerformance.Good && (
+            // eslint-disable-next-line react/style-prop-object
             <div>
               <strong>Buff wasn't overridden</strong>
+              <li>Extra damage gained: {formatNumber(extraDamage)}</li>
+              <li>Timestamp: {formatDuration(castTimestamp)}</li>
             </div>
           )}
-          {performance === QualitativePerformance.Ok && (
+          {performance === QualitativePerformance.Ok && extraDamage > 0 && (
             <div>
-              <strong>Buff overridden early</strong>
-              <div>Buff remaining: {blazeShardLoss.toFixed(2)}s</div>
+              <strong>Buff overridden with {'<0.5s'} left</strong>
+
+              <li>Buff remaining: {blazeShardLoss.toFixed(2)}s</li>
+              <li>Extra damage gained: {formatNumber(extraDamage)}</li>
+              <li>Damage lost: ~{formatNumber(lostDamage)}</li>
+              <li>Timestamp: {formatDuration(castTimestamp)}</li>
+            </div>
+          )}
+          {performance === QualitativePerformance.Ok && extraDamage === 0 && (
+            <div>
+              <strong>Obsidian Shards didn't do damage</strong>
+              <li>
+                This could be caused by either refreshing buff <br />
+                too early, or <SpellLink spell={SPELLS.OBSIDIAN_SHARDS.id} /> not being up
+              </li>
+              <li>Timestamp: {formatDuration(castTimestamp)}</li>
             </div>
           )}
           {performance === QualitativePerformance.Fail && (
             <div>
-              <strong>Buff overridden too early</strong>
-              <div>Buff remaining: {blazeShardLoss.toFixed(2)}s</div>
+              <strong>Buff overridden with {'>0.5s'} left</strong>
+
+              <li>Buff remaining: {blazeShardLoss.toFixed(2)}s</li>
+              <li>Extra damage gained: {formatNumber(extraDamage)}</li>
+              <li>Damage lost: ~{formatNumber(lostDamage)}</li>
+              <li>Timestamp: {formatDuration(castTimestamp)}</li>
             </div>
           )}
         </div>
@@ -154,7 +232,7 @@ class T30DevaTier4P extends Analyzer {
       {
         label: 'Dragonrage Active',
         value: perfect,
-        valueTooltip: perfect + ' empower casts',
+        valueTooltip: perfect + ' applications',
         color: qualitativePerformanceToColor(QualitativePerformance.Perfect),
       },
       {
@@ -191,11 +269,17 @@ class T30DevaTier4P extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={
           <>
-            <ul>
-              <li>
-                Wasted <SpellLink id={BLAZING_SHARDS} /> uptime: {this.totalLostUptime.toFixed(2)}s.
-              </li>
-            </ul>
+            <li>
+              Wasted <SpellLink spell={BLAZING_SHARDS} /> uptime: {this.totalLostUptime.toFixed(2)}
+              s.
+            </li>
+            <li>
+              <SpellLink spell={OBSIDIAN_SHARDS} /> damage:{' '}
+              {formatNumber(this.obsidianShardsDam - damageFrom4Set)}
+            </li>
+            <li>
+              <SpellLink spell={BLAZING_SHARDS} /> damage: {formatNumber(damageFrom4Set)}
+            </li>
           </>
         }
       >
