@@ -1,12 +1,14 @@
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-
 import { ELEMENTAL_BLAST_BUFFS } from './constants';
+import DonutChart from 'parser/ui/DonutChart';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { formatPercentage } from 'common/format';
+import { SpellLink } from 'interface';
 
 class ElementalBlast extends Analyzer {
   currentBuffAmount = 0;
@@ -72,29 +74,40 @@ class ElementalBlast extends Analyzer {
     return this.resultDuration / this.owner.fightDuration;
   }
 
+  elementalBlastDonut() {
+    const items = [
+      {
+        color: '#9256ff',
+        label: <>Mastery</>,
+        spellId: SPELLS.ELEMENTAL_BLAST_MASTERY.id,
+        value: Number(formatPercentage(this.masteryUptime, 2)),
+      },
+      {
+        color: '#0ed59b',
+        label: <>Haste</>,
+        spellId: SPELLS.ELEMENTAL_BLAST_HASTE.id,
+        value: Number(formatPercentage(this.hasteUptime, 2)),
+      },
+      {
+        color: '#e01c1c',
+        label: <>Crit</>,
+        spellId: SPELLS.ELEMENTAL_BLAST_CRIT.id,
+        value: Number(formatPercentage(this.critUptime, 2)),
+      },
+    ];
+    return <DonutChart items={items} />;
+  }
+
   statistic() {
     return (
-      <StatisticBox
-        position={STATISTIC_ORDER.OPTIONAL()}
-        icon={<SpellIcon id={TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id} />}
-        value={`${formatPercentage(this.elementalBlastUptime)} %`}
-        label="Uptime"
-        tooltip={
-          <>
-            <span className="stat-mastery">
-              <strong>{formatPercentage(this.masteryUptime)}% Mastery</strong>
-            </span>
-            <br />
-            <span className="stat-criticalstrike">
-              <strong>{formatPercentage(this.critUptime)}% Crit</strong>
-            </span>
-            <br />
-            <span className="stat-haste">
-              <strong>{formatPercentage(this.hasteUptime)}% Haste</strong>
-            </span>
-          </>
-        }
-      />
+      <Statistic position={STATISTIC_ORDER.OPTIONAL()} category={STATISTIC_CATEGORY.TALENTS}>
+        <div className="pad">
+          <label>
+            <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT} /> distribution
+          </label>
+          {this.elementalBlastDonut()}
+        </div>
+      </Statistic>
     );
   }
 }
