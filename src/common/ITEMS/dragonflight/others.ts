@@ -6,6 +6,11 @@ const others = itemIndexableList({
     name: 'Draconic Augment Rune',
     icon: 'inv_10_jewelcrafting3_rainbowprism_color2',
   },
+  BROODKEEPERS_BLAZE: {
+    id: 394453,
+    name: "Broodkeeper's Blaze",
+    icon: 'inv_ember',
+  },
   BROODKEEPERS_PROMISE_HEAL: {
     id: 394457,
     name: "Broodkeeper's Promise",

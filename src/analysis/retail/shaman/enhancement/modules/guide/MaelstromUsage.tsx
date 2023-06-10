@@ -26,10 +26,10 @@ const MaelstromUsage = ({ modules, events, info }: GuideProps<typeof CombatLogPa
         <p>
           <Trans id="guide.shaman.enhancement.sections.resources.maelstromweapon.summary">
             Enhancement's primary resource is <SpellLink id={TALENTS.MAELSTROM_WEAPON_TALENT.id} />.
-            {info.combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) && (
+            {(info.combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) && (
               <>
                 {' '}
-                While you should avoid capping <SpellLink
+                While you should avoid wasting <SpellLink
                   spell={TALENTS.MAELSTROM_WEAPON_TALENT}
                 />{' '}
                 whenever possible, it is more important to cast{' '}
@@ -38,7 +38,7 @@ const MaelstromUsage = ({ modules, events, info }: GuideProps<typeof CombatLogPa
                 <SpellLink spell={TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT} /> procs than it is to
                 avoid overcapping.
               </>
-            )}
+            )) || <></>}
           </Trans>
         </p>
         <p>
@@ -47,6 +47,7 @@ const MaelstromUsage = ({ modules, events, info }: GuideProps<typeof CombatLogPa
             the source of the encounter. You wasted{' '}
             <PerformancePercentage performance={performance} gained={gained} wasted={wasted} /> of
             your <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />.
+            {modules.maelstromWeaponGraph.plot}
           </Trans>
         </p>
       </SubSection>
