@@ -30,7 +30,6 @@ import EyeOfInfinity from './modules/talents/EyeOfInfinity';
 import EngulfingBlaze from './modules/talents/EngulfingBlaze';
 import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
-import LeapingFlames from './modules/talents/LeapingFlames';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -62,7 +61,6 @@ class CombatLogParser extends MainCombatLogParser {
     engulfingBlaze: EngulfingBlaze,
     layWaste: LayWaste,
     iridescence: Iridescence,
-    leapingFlames: LeapingFlames,
 
     // core abilities
     disintegrate: Disintegrate,
