@@ -223,6 +223,11 @@ const spells = spellIndexableList({
     name: 'Deep Breath',
     icon: 'ability_evoker_deepbreath',
   },
+  DEEP_BREATH_DAM: {
+    id: 353759,
+    name: 'Deep Breath',
+    icon: 'ability_evoker_deepbreath',
+  },
   FIRE_BREATH: {
     id: 357208,
     name: 'Fire Breath',
