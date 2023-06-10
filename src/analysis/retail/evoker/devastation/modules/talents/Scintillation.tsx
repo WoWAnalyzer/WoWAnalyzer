@@ -9,10 +9,10 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 
 import { SCINTILLATION_PROC_CHANCE } from 'analysis/retail/evoker/devastation/constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const { ETERNITY_SURGE_DAM, ETERNITY_SURGE, ETERNITY_SURGE_FONT, DISINTEGRATE } = SPELLS;
 
@@ -59,14 +59,13 @@ class Scintillation extends Analyzer {
     }
     if (event.timestamp === this.scintProcNoted) {
       this.scintillationDamage += event.amount;
+      if (event.absorbed !== undefined) {
+        this.scintillationDamage += event.absorbed;
+      }
     }
   }
 
   statistic() {
-    // The graphs works until you input large numbers i.e a dungeon run TODO: fix
-    /*console.log(this.scintillationProcs);
-    console.log(this.scintillationProcChances);
-    console.log(SCINTILLATION_PROC_CHANCE);*/
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -74,20 +73,18 @@ class Scintillation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <ul>
-              <li>Procs: {Math.floor(this.scintillationProcs)}</li>
-              <li>
-                Expected procs:{' '}
-                {Math.floor(this.scintillationProcChances * SCINTILLATION_PROC_CHANCE)}
-              </li>
-              <li>Damage: {formatNumber(this.scintillationDamage)}</li>
-            </ul>
+            <li>Procs: {Math.floor(this.scintillationProcs)}</li>
+            <li>
+              Expected procs:{' '}
+              {Math.floor(this.scintillationProcChances * SCINTILLATION_PROC_CHANCE)}
+            </li>
+            <li>Damage: {formatNumber(this.scintillationDamage)}</li>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SCINTILLATION_TALENT.id}>
+        <TalentSpellText talent={TALENTS.SCINTILLATION_TALENT}>
           <ItemDamageDone amount={this.scintillationDamage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
         {plotOneVariableBinomChart(
           this.scintillationProcs,
           this.scintillationProcChances,

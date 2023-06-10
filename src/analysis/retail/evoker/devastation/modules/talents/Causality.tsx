@@ -9,12 +9,13 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
-
-const DIS_REDUCTION_MS = 500;
-const PYRE_REDUCTION_MS = 400;
+import {
+  CAUSALITY_DISINTEGRATE_CDR_MS,
+  CAUSALITY_PYRE_CDR_MS,
+} from 'analysis/retail/evoker/devastation/constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class Causality extends Analyzer {
   combatant = this.selectedCombatant;
@@ -75,12 +76,12 @@ class Causality extends Analyzer {
     }
     this.pyreCounter += 1;
     if (this.pyreCounter <= this.maxPyreCount + this.pyreFromDragonrage * 3) {
-      this.calculateCDR(PYRE_REDUCTION_MS);
+      this.calculateCDR(CAUSALITY_PYRE_CDR_MS);
     }
   }
 
   _disReduceCooldown() {
-    this.calculateCDR(DIS_REDUCTION_MS);
+    this.calculateCDR(CAUSALITY_DISINTEGRATE_CDR_MS);
   }
 
   dragonRage(event: ApplyBuffEvent) {
@@ -90,11 +91,12 @@ class Causality extends Analyzer {
 
   // TODO: possibly track CDR gained from pyre and dis seperatly
   calculateCDR(CDRAmount: number) {
+    const CDRAmountSeconds = CDRAmount / 1000;
     if (!this.combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)) {
       if (this.spellUsable.isOnCooldown(SPELLS.ETERNITY_SURGE.id)) {
         // Track the effective CDR
         if (this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE.id) > CDRAmount) {
-          this.eternitySurgeCooldownReduced += CDRAmount / 1000;
+          this.eternitySurgeCooldownReduced += CDRAmountSeconds;
         } else {
           this.eternitySurgeCooldownReduced +=
             this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE.id) / 1000;
@@ -105,15 +107,15 @@ class Causality extends Analyzer {
         this.spellUsable.reduceCooldown(SPELLS.ETERNITY_SURGE.id, CDRAmount);
       } else {
         if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
-          this.eternitySurgeWastedCDRDuringBlazing += CDRAmount / 1000;
+          this.eternitySurgeWastedCDRDuringBlazing += CDRAmountSeconds;
         }
-        this.eternitySurgeWastedCDR += CDRAmount / 1000;
+        this.eternitySurgeWastedCDR += CDRAmountSeconds;
       }
 
       if (this.spellUsable.isOnCooldown(SPELLS.FIRE_BREATH.id)) {
         // Track the effective CDR
         if (this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH.id) > CDRAmount) {
-          this.fireBreathCooldownReduced += CDRAmount / 1000;
+          this.fireBreathCooldownReduced += CDRAmountSeconds;
         } else {
           this.fireBreathCooldownReduced +=
             this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH.id) / 1000;
@@ -124,15 +126,15 @@ class Causality extends Analyzer {
         this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH.id, CDRAmount);
       } else {
         if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
-          this.fireBreatWastedCDRDuringBlazing += CDRAmount / 1000;
+          this.fireBreatWastedCDRDuringBlazing += CDRAmountSeconds;
         }
-        this.fireBreathWastedCDR += CDRAmount / 1000;
+        this.fireBreathWastedCDR += CDRAmountSeconds;
       }
     } else {
       if (this.spellUsable.isOnCooldown(SPELLS.ETERNITY_SURGE_FONT.id)) {
         // Track the effective CDR
         if (this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE_FONT.id) > CDRAmount) {
-          this.eternitySurgeCooldownReduced += CDRAmount / 1000;
+          this.eternitySurgeCooldownReduced += CDRAmountSeconds;
         } else {
           this.eternitySurgeCooldownReduced +=
             this.spellUsable.cooldownRemaining(SPELLS.ETERNITY_SURGE_FONT.id) / 1000;
@@ -143,14 +145,14 @@ class Causality extends Analyzer {
         this.spellUsable.reduceCooldown(SPELLS.ETERNITY_SURGE_FONT.id, CDRAmount);
       } else {
         if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
-          this.eternitySurgeWastedCDRDuringBlazing += CDRAmount / 1000;
+          this.eternitySurgeWastedCDRDuringBlazing += CDRAmountSeconds;
         }
-        this.eternitySurgeWastedCDR += CDRAmount / 1000;
+        this.eternitySurgeWastedCDR += CDRAmountSeconds;
       }
       if (this.spellUsable.isOnCooldown(SPELLS.FIRE_BREATH_FONT.id)) {
         // Track the effective CDR
         if (this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH_FONT.id) > CDRAmount) {
-          this.fireBreathCooldownReduced += CDRAmount / 1000;
+          this.fireBreathCooldownReduced += CDRAmountSeconds;
         } else {
           this.fireBreathCooldownReduced +=
             this.spellUsable.cooldownRemaining(SPELLS.FIRE_BREATH_FONT.id) / 1000;
@@ -161,9 +163,9 @@ class Causality extends Analyzer {
         this.spellUsable.reduceCooldown(SPELLS.FIRE_BREATH_FONT.id, CDRAmount);
       } else {
         if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
-          this.fireBreatWastedCDRDuringBlazing += CDRAmount / 1000;
+          this.fireBreatWastedCDRDuringBlazing += CDRAmountSeconds;
         }
-        this.fireBreathWastedCDR += CDRAmount / 1000;
+        this.fireBreathWastedCDR += CDRAmountSeconds;
       }
     }
   }
@@ -176,43 +178,39 @@ class Causality extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            <ul>
-              <li>
-                {' '}
-                <SpellLink spell={SPELLS.FIRE_BREATH} /> CDR wasted:{' '}
-                <strong>{this.fireBreathWastedCDR.toFixed(2)}s</strong> of which{' '}
-                <strong>{this.fireBreatWastedCDRDuringBlazing.toFixed(2)}s</strong> was during{' '}
-                <SpellLink spell={SPELLS.BLAZING_SHARDS} />
-              </li>
-              <li>
-                {' '}
-                <SpellLink spell={SPELLS.ETERNITY_SURGE} /> CDR wasted:{' '}
-                <strong>{this.eternitySurgeWastedCDR.toFixed(2)}s</strong> of which{' '}
-                <strong>{this.eternitySurgeWastedCDRDuringBlazing.toFixed(2)}s</strong> was during{' '}
-                <SpellLink spell={SPELLS.BLAZING_SHARDS} />
-              </li>
-            </ul>
+            <li>
+              {' '}
+              <SpellLink spell={SPELLS.FIRE_BREATH} /> CDR wasted:{' '}
+              <strong>{this.fireBreathWastedCDR.toFixed(2)}s</strong> of which{' '}
+              <strong>{this.fireBreatWastedCDRDuringBlazing.toFixed(2)}s</strong> was during{' '}
+              <SpellLink spell={SPELLS.BLAZING_SHARDS} />
+            </li>
+            <li>
+              {' '}
+              <SpellLink spell={SPELLS.ETERNITY_SURGE} /> CDR wasted:{' '}
+              <strong>{this.eternitySurgeWastedCDR.toFixed(2)}s</strong> of which{' '}
+              <strong>{this.eternitySurgeWastedCDRDuringBlazing.toFixed(2)}s</strong> was during{' '}
+              <SpellLink spell={SPELLS.BLAZING_SHARDS} />
+            </li>
           </>
         }
       >
-        <label style={{ margin: '10px' }}>
-          <BoringSpellValueText spellId={TALENTS.CAUSALITY_TALENT.id}>
-            <div>
-              <BoringSpellValue
-                spellId={SPELLS.ETERNITY_SURGE.id}
-                value={`${this.eternitySurgeCooldownReduced.toFixed(2)}s`}
-                label={<Trans>Total CDR</Trans>}
-              ></BoringSpellValue>
-            </div>
-            <div>
-              <BoringSpellValue
-                spellId={SPELLS.FIRE_BREATH.id}
-                value={`${this.fireBreathCooldownReduced.toFixed(2)}s`}
-                label={<Trans>Total CDR</Trans>}
-              ></BoringSpellValue>
-            </div>
-          </BoringSpellValueText>
-        </label>
+        <TalentSpellText talent={TALENTS.CAUSALITY_TALENT}>
+          <div>
+            <BoringSpellValue
+              spellId={SPELLS.ETERNITY_SURGE.id}
+              value={`${this.eternitySurgeCooldownReduced.toFixed(2)}s`}
+              label={<Trans>Total CDR</Trans>}
+            ></BoringSpellValue>
+          </div>
+          <div>
+            <BoringSpellValue
+              spellId={SPELLS.FIRE_BREATH.id}
+              value={`${this.fireBreathCooldownReduced.toFixed(2)}s`}
+              label={<Trans>Total CDR</Trans>}
+            ></BoringSpellValue>
+          </div>
+        </TalentSpellText>
       </Statistic>
     );
   }

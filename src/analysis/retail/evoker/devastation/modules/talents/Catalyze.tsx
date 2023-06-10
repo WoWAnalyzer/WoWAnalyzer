@@ -9,7 +9,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const { DISINTEGRATE, FIRE_BREATH_DOT } = SPELLS;
 
@@ -39,6 +39,9 @@ class Catalyze extends Analyzer {
     if (this.disintegrateDebuffActive) {
       this.fireBreathTicks += 1;
       this.fireBreathDamageDuringDisintegrate += event.amount;
+      if (event.absorbed !== undefined) {
+        this.fireBreathDamageDuringDisintegrate += event.absorbed;
+      }
     }
   }
 
@@ -53,16 +56,14 @@ class Catalyze extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <ul>
-              <li>Extra ticks gained: {Math.floor(this.extraTicksFromCatalyze)}</li>
-              <li>Damage: {formatNumber(this.extraDamageFromCatalyze)}</li>
-            </ul>
+            <li>Damage: {formatNumber(this.extraDamageFromCatalyze)}</li>
+            <li>Extra ticks gained: {Math.floor(this.extraTicksFromCatalyze)}</li>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.CATALYZE_TALENT.id}>
+        <TalentSpellText talent={TALENTS.CATALYZE_TALENT}>
           <ItemDamageDone amount={this.extraDamageFromCatalyze} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

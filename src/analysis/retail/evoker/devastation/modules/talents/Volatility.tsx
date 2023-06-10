@@ -9,10 +9,10 @@ import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Even
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import { plotOneVariableBinomChart } from 'parser/shared/modules/helpers/Probability';
 
 import { VOLATILITY_PROC_CHANCE } from 'analysis/retail/evoker/devastation/constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 //import { formatDuration } from 'common/format';
 
@@ -28,8 +28,7 @@ import { VOLATILITY_PROC_CHANCE } from 'analysis/retail/evoker/devastation/const
  * Sometimes you are able to cast pyre two times before a single damage event has been logged.
  * This is also something we have to account for, by looking for an extra damage event before we start allowing
  * Volatility tracking.
- * This code is most likely overly complex, but it works as inteded.
- * The module graph breaks with too high input values.
+ * This code is most likely overly complex, but it works as intended.
  *
  */
 
@@ -87,21 +86,11 @@ class Volatility extends Analyzer {
     // Pyre comes from Dragonrage
     if (this.previousPyreDamageEvent < this.dragonRageApplied) {
       this.previousPyreDamageEvent = this.currentPyreDamageEvent;
-      /*console.log(
-        'this hit should come from dragonrage: ' +
-          formatDuration(event.timestamp - this.fightStartTime),
-      );*/
     } // Pyre comes from cast
     else if (
       (this.amountToExpect > 0 || !this.expectVolaProc) &&
       this.previousPyreDamageEvent < this.currentPyreDamageEvent
     ) {
-      /*console.log(
-        'this hit should be from cast: ' +
-          this.amountToExpect +
-          ' timestamp: ' +
-          formatDuration(event.timestamp - this.fightStartTime),
-      );*/
       if (this.amountToExpect > 0) {
         this.amountToExpect -= 1;
       }
@@ -113,10 +102,6 @@ class Volatility extends Analyzer {
       this.amountToExpect === 0 &&
       this.expectVolaProc
     ) {
-      /*console.log(
-        'this hit should come from volatility: ' +
-          formatDuration(event.timestamp - this.fightStartTime),
-      );*/
       this.previousPyreDamageEvent = this.currentPyreDamageEvent;
       this.pyreFromDragonrage = false;
       this.volaProc = true;
@@ -129,12 +114,10 @@ class Volatility extends Analyzer {
       this.damageCounter += 1;
       if (this.damageCounter === 2) {
         this.dragonrageVolatilityProcChances += 2;
-        //console.log('Prochance increased by 2');
         this.expectVolaProc = true;
       }
       if (this.damageCounter === 3) {
         this.dragonrageVolatilityProcChances += 1;
-        //console.log('Prochance increased by 1');
       }
     }
     // END DRAGONRAGE
@@ -145,12 +128,10 @@ class Volatility extends Analyzer {
       this.damageCounter += 1;
       if (this.damageCounter === 2) {
         if (this.expectExtraCast) {
-          //console.log('Prochance increased by 2');
           this.castedVolatilityProcChances += 2;
           this.expectExtraCast = false;
         } else {
           this.castedVolatilityProcChances += 1;
-          //console.log('Prochance increased by 1');
         }
         this.expectVolaProc = true;
       }
@@ -159,10 +140,12 @@ class Volatility extends Analyzer {
     // VOLATILITY
     else if (this.volaProc) {
       this.extraDamageFromVola += event.amount;
+      if (event.absorbed !== undefined) {
+        this.extraDamageFromVola += event.absorbed;
+      }
       this.damageCounter += 1;
       if (this.damageCounter === 2) {
         this.volaVolatilityProcChances += 1;
-        //console.log('Prochance increased by 1');
       }
     }
   }
@@ -186,28 +169,26 @@ class Volatility extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <ul>
-              <li>
-                Procs: {Math.floor(this.volaProcs)}
-                <br />
-              </li>
-              <li>
-                Expected procs:{' '}
-                {Math.floor(
-                  (this.castedVolatilityProcChances +
-                    this.volaVolatilityProcChances +
-                    this.dragonrageVolatilityProcChances) *
-                    this.volatiliyActualProcChance,
-                )}
-              </li>
-              <li>Damage: {formatNumber(this.extraDamageFromVola)}</li>
-            </ul>
+            <li>
+              Procs: {Math.floor(this.volaProcs)}
+              <br />
+            </li>
+            <li>
+              Expected procs:{' '}
+              {Math.floor(
+                (this.castedVolatilityProcChances +
+                  this.volaVolatilityProcChances +
+                  this.dragonrageVolatilityProcChances) *
+                  this.volatiliyActualProcChance,
+              )}
+            </li>
+            <li>Damage: {formatNumber(this.extraDamageFromVola)}</li>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.VOLATILITY_TALENT.id}>
+        <TalentSpellText talent={TALENTS.VOLATILITY_TALENT}>
           <ItemDamageDone amount={this.extraDamageFromVola} />
-        </BoringSpellValueText>
+        </TalentSpellText>
         {plotOneVariableBinomChart(
           this.volaProcs,
           this.castedVolatilityProcChances +
