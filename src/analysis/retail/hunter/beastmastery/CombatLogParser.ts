@@ -54,6 +54,7 @@ import Bloodshed from './modules/talents/Bloodshed';
 import DirePack from './modules/talents/DirePack';
 import T29BMTier2P from './modules/items/T29BMTier2P';
 import T29BMTier4P from './modules/items/T29BMTier4P';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static guide = Guide;
@@ -128,6 +129,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Items
     t292p: T29BMTier2P,
     t294p: T29BMTier4P,
+    callToDominance: CallToDominance,
   };
 }
 

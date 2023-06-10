@@ -332,6 +332,16 @@ const spells = spellIndexableList({
   // TALENTS
   // ---------
   // Balance
+  ECLIPSE_SOLAR: {
+    id: 48517,
+    name: 'Eclipse (Solar)',
+    icon: 'ability_druid_eclipseorange',
+  },
+  ECLIPSE_LUNAR: {
+    id: 48518,
+    name: 'Eclipse (Lunar)',
+    icon: 'ability_druid_eclipse',
+  },
   FORCE_OF_NATURE: {
     id: 33831,
     name: 'Force of Nature',
@@ -365,10 +375,10 @@ const spells = spellIndexableList({
     lowRanks: [53200, 53199, 48505],
   },
   TYPHOON: {
-    id: 61384,
+    id: 53227,
     name: 'Typhoon',
     icon: 'ability_druid_typhoon',
-    lowRanks: [53226, 53225, 53223, 50516],
+    lowRanks: [61387, 61388, 61390, 61391],
   },
   // Feral Combat
   FERAL_CHARGE_BEAR: {

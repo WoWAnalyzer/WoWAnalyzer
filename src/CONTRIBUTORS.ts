@@ -2164,6 +2164,17 @@ export const Swolorno: Contributor = {
     },
   ],
 };
+export const iTitou: Contributor = {
+  nickname: 'iTitou',
+  github: 'titouanc',
+  mains: [
+    {
+      name: 'Fantomeuh',
+      spec: SPECS.CLASSIC_DRUID_RESTORATION,
+      link: 'https://classic.warcraftlogs.com/character/eu/sulfuron/fantomeuh',
+    },
+  ],
+};
 export const Jundarer: Contributor = {
   nickname: 'Jundarer',
   github: 'Jundarer',

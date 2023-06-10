@@ -43,11 +43,13 @@ import Ouroboros from './modules/talents/Ouroboros';
 import T30PrevokerSet from './modules/dragonflight/tier/T30TierSet';
 import Guide from 'analysis/retail/evoker/preservation/Guide';
 import NozTeachings from './modules/talents/NozTeachings';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     lowHealthHealing: LowHealthHealing,
     abilities: Abilities,
+    cooldowns: CooldownThroughputTracker,
 
     // Normalizer
     castLinkNormalizer: CastLinkNormalizer,

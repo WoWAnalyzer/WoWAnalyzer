@@ -1,3 +1,4 @@
+import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
@@ -62,7 +63,14 @@ const spells: number[] = [
   SPELLS.TRANQUILITY_HEAL.id,
   //endregion
 
+  //region monk
+  SPELLS.ESCAPE_FROM_REALITY_CAST.id,
+  //endregion
+
   //region trinket
+  //endregion
+  //region Embellishments
+  ITEMS.HEALING_DART_CAST.id,
   //endregion
 ];
 
