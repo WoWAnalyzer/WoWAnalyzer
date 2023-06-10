@@ -25,7 +25,9 @@ export function ConditionDescription({
   return (
     <>
       {' '}
-      {customPrefix} {desc}
+      {customPrefix}
+      {customPrefix ? ' ' : ''}
+      {desc}
     </>
   );
 }
