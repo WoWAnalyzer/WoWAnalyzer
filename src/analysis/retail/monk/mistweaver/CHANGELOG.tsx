@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 6, 8), <>Added <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT}/> proc ratio to tooltip of <SpellLink spell={SPELLS.GUSTS_OF_MISTS}/> from <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT}/> module. Added a fix for <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}/> resets incorrectly counting when <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> was used on <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}/></>, Vohrr),
+  change(date(2023, 5, 29), <>Lower suggested <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT}/> duration during celestial and implement <SpellLink spell={TALENTS_MONK.CHRYSALIS_TALENT}/></>, Trevor),
   change(date(2023, 5, 23), <>Add event fabrication for <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> cast prepull</>, Trevor),
   change(date(2023, 5, 23), <>Fix crash in celestial analysis due to pre-pull celestial cast</>, Trevor),
   change(date(2023, 5, 21), <>Fix uptime calculations when using <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT}/></>, Trevor),

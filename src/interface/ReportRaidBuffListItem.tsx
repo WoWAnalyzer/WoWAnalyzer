@@ -1,13 +1,14 @@
 import SpellIcon from 'interface/SpellIcon';
+import Spell from 'common/SPELLS/Spell';
 
 interface Props {
-  spellId: number;
+  spell: Spell;
   count: number;
 }
 
-const ReportRaidBuffListItem = ({ spellId, count }: Props) => (
+const ReportRaidBuffListItem = ({ spell, count }: Props) => (
   <div className={`panel ${count > 0 ? 'available' : 'unavailable'}`}>
-    <SpellIcon id={spellId} />
+    <SpellIcon spell={spell} />
     <div className="count">{count}</div>
   </div>
 );

@@ -39,6 +39,7 @@ import PreservationEvoker from 'analysis/retail/evoker/preservation';
 // Classic
 import ClassicDeathKnightFrost from 'analysis/classic/deathknight/frost';
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
+import ClassicDruidBalance from 'analysis/classic/druid/balance';
 import ClassicDruidRestoration from 'analysis/classic/druid/restoration';
 import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
 import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
@@ -111,6 +112,7 @@ const configs: Config[] = [
   ClassicDeathKnightFrost,
   ClassicDeathKnightUnholy,
 
+  ClassicDruidBalance,
   ClassicDruidRestoration,
 
   ClassicHunterSurvival,

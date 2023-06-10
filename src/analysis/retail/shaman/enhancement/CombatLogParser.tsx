@@ -37,9 +37,8 @@ import AplCheck from './modules/apl/AplCheck';
 import WitchDoctorsWolfBones from './modules/shadowlands/legendaries/WitchDoctorsWolfBones';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
-import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
-import ThorimsInvocation from './modules/talents/ThorimsInvocation';
-import ThorimsInvocationNormalizer from './modules/spells/ThorimsInvocation';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Shaman Shared
@@ -81,9 +80,6 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalSpirits: ElementalSpirits,
     feralSpirit: FeralSpirit,
     stormbringer: Stormbringer,
-    witchDoctorsAncestry: WitchDoctorsAncestry,
-    thorimsInvocation: ThorimsInvocation,
-    thorimsInvocationNormalizer: ThorimsInvocationNormalizer,
     // ascendance: Ascendance,
     // lashingFlames: LashingFlames,
     // earthenSpike: EarthenSpike,
@@ -98,8 +94,9 @@ class CombatLogParser extends CoreCombatLogParser {
     witchDoctorsWolfBones: WitchDoctorsWolfBones,
     seedsOfRampantGrowth: SeedsOfRampantGrowth,
 
-    // Tier
+    // Items
     tier28TwoSet: Tier28TwoSet,
+    callToDominance: CallToDominance,
 
     // TODO: Rework AplCheck for Dragonflight
     aplCheck: AplCheck,

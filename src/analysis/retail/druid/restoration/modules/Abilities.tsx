@@ -101,6 +101,14 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS_DRUID.NOURISH_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.NOURISH_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
       // Cooldowns
       {
         spell: SPELLS.TRANQUILITY_CAST.id,
