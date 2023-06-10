@@ -41,6 +41,7 @@ temp
 # Visual Studio code
 /.vscode
 **.code-workspace
+.vs
 
 .vs/ProjectSettings.json
 .vs/slnx.sqlite
