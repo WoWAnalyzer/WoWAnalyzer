@@ -8,7 +8,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class WitchDoctorsAncestry extends Analyzer {
   static dependencies = {
@@ -68,12 +68,12 @@ class WitchDoctorsAncestry extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.WITCH_DOCTORS_ANCESTRY_TALENT.id}>
+        <TalentSpellText talent={TALENTS_SHAMAN.WITCH_DOCTORS_ANCESTRY_TALENT}>
           <Trans id="shaman.ehancement.witchDoctorsAncestry.statistic">
             <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
             <small>average reduction</small>
           </Trans>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

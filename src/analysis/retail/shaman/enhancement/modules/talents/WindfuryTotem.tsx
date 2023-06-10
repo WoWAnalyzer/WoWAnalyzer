@@ -4,10 +4,10 @@ import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class WindfuryTotem extends Analyzer {
   constructor(options: Options) {
@@ -41,12 +41,12 @@ class WindfuryTotem extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE()}>
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id}>
+      <Statistic position={STATISTIC_ORDER.CORE()} size="flexible">
+        <TalentSpellText talent={TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -177,10 +177,8 @@ class LegacyOfTheFrostWitch extends Analyzer {
           <>
             <ItemDamageDone amount={this.extraDamage} />
             <br />
-            <UptimeIcon /> {formatNumber(
-              this.stormStrikeResets + this.windStrikeResets,
-            )} resets <br />
-            <small></small>
+            <UptimeIcon /> {formatNumber(this.stormStrikeResets + this.windStrikeResets)}{' '}
+            <small>resets</small>
           </>
         </TalentSpellText>
       </Statistic>

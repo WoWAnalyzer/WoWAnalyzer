@@ -1,15 +1,16 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/shaman';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
+import { SpellbookAura } from 'parser/core/modules/Aura';
 import CoreAuras from 'parser/core/modules/Auras';
 
 class Buffs extends CoreAuras {
-  auras() {
+  auras(): SpellbookAura[] {
     const combatant = this.selectedCombatant;
 
     return [
       {
-        spellId: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
+        spellId: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id,
         timelineHighlight: true,
       },
       {
@@ -30,24 +31,28 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.HOT_HAND_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.HOT_HAND_TALENT),
+        enabled: combatant.hasTalent(TALENTS.HOT_HAND_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.HAILSTORM_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.HAILSTORM_TALENT),
+        enabled: combatant.hasTalent(TALENTS.HAILSTORM_TALENT),
         timelineHighlight: true,
       },
       {
         spellId: SPELLS.WINDFURY_TOTEM_BUFF.id,
-        triggeredBySpellId: TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id,
+        triggeredBySpellId: TALENTS.WINDFURY_TOTEM_TALENT.id,
+      },
+      {
+        spellId: TALENTS.DOOM_WINDS_TALENT.id,
+        triggeredBySpellId: TALENTS.DOOM_WINDS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT),
         timelineHighlight: true,
       },
       {
-        spellId: TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
-        triggeredBySpellId: TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.DOOM_WINDS_TALENT),
-        timelineHighlight: true,
+        spellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
+        triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
       },
     ];
   }

@@ -600,6 +600,16 @@ const spells = spellIndexableList({
     name: 'Volcanic Strength',
     icon: 'ability_rhyolith_volcano',
   },
+  MANA_SPRING_ENHANCEMENT: {
+    id: 404550,
+    name: 'Mana Spring',
+    icon: 'spell_nature_manaregentotem',
+  },
+  ASHEN_CATALYST_BUFF: {
+    id: 390371,
+    name: 'Ashen Catalyst',
+    icon: 'spell_shaman_stormearthfire',
+  },
   // Restoration Shaman
   HEALING_SURGE: {
     id: 8004,
@@ -767,6 +777,11 @@ const spells = spellIndexableList({
     id: 375985,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
+  },
+  MANA_SPRING_RESTORATION: {
+    id: 404551,
+    name: 'Mana Spring',
+    icon: 'spell_nature_manaregentotem',
   },
 });
 

@@ -10,7 +10,6 @@ import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import WindfuryTotem from './modules/talents/WindfuryTotem';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
@@ -39,17 +38,19 @@ import StormBlast from './modules/talents/Stormblast';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
 import Tier30 from './modules/dragonflight/Tier30';
-import { ThorimsInvocationNormalizer } from './modules/normalizers/ThorimsInvocationNormalizer';
+import { EventOrderNormalizer } from './modules/normalizers/EventOrderNormalizer';
 import SpellUsable from './modules/core/SpellUsable';
-import Channeling from './modules/normalizers/MaelstromWeaponCastChannelHandler';
-import GlobalCooldown from './modules/core/GlobalCooldown';
+import ManaSpring from '../shared/talents/ManaSpring';
+import MaelstromWeaponCastNormalizer from './modules/normalizers/MaelstromWeaponCastNormalizer';
+import EventLinkNormalizer from './modules/normalizers/EventLinkNormalizer';
+import ThorimsInvocation from './modules/talents/ThorimsInvocation';
+import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
     // Shaman Shared
-    channeling: Channeling,
     ankhNormalizer: AnkhNormalizer,
 
     // Features
@@ -57,7 +58,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     buffs: Buffs,
     checklist: Checklist,
-    cooldownThroughputTracker: CooldownThroughputTracker,
 
     // Resources
     maelstromWeaponTracker: MaelstromWeaponTracker,
@@ -76,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     staticCharge: StaticCharge,
     spiritWolf: SpiritWolf,
     chainLightning: ChainLightning,
+    manaSpring: ManaSpring,
 
     // Enhancement Core Talents
     windfuryTotem: WindfuryTotem,
@@ -93,13 +94,16 @@ class CombatLogParser extends CoreCombatLogParser {
     feralSpirit: FeralSpirit,
     stormbringer: Stormbringer,
     legacyOfTheFrostWitch: LegacyOfTheFrostWitch,
+    thorimsInvocation: ThorimsInvocation,
 
     // Tier
     tier28TwoSet: Tier28TwoSet,
     tier30: Tier30,
 
     // Normalizers
-    thorimsInvocationNormalizer: ThorimsInvocationNormalizer,
+    eventLinkNormalizer: EventLinkNormalizer,
+    eventOrderNormalizer: EventOrderNormalizer,
+    maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,
 
     aplCheck: AplCheck,
   };

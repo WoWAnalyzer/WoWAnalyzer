@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS';
 import { SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/shaman';
 import { formatNumber, formatPercentage } from 'common/format';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 import { TIERS } from 'game/TIERS';
@@ -10,7 +10,6 @@ import ItemSetLink from 'interface/ItemSetLink';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
-import * as cnd from 'parser/shared/metrics/apl/conditions';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -34,7 +33,7 @@ export default class Tier30 extends Analyzer {
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_LIGHTNING_TALENT),
       this.onChainLightning,
     );
   }
@@ -126,30 +125,3 @@ export default class Tier30 extends Analyzer {
     );
   }
 }
-
-/** APL Rule Conditions unique to this tier set */
-
-export const sunderingToActivateEarthenMight = () => {
-  return {
-    spell: TALENTS_SHAMAN.SUNDERING_TALENT,
-    condition: cnd.describe(
-      cnd.has2PieceByTier(TIERS.T30),
-      (_) => (
-        <>
-          to activate <SpellLink spell={SPELLS.EARTHEN_MIGHT_TIER_BUFF} />
-        </>
-      ),
-      '',
-    ),
-  };
-};
-
-export const chainLightningWithCracklingThunder = () => {
-  return {
-    spell: TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT,
-    condition: cnd.and(
-      cnd.buffPresent(SPELLS.CRACKLING_THUNDER_TIER_BUFF),
-      cnd.buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 }),
-    ),
-  };
-};

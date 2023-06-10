@@ -11,20 +11,22 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { STORMSTRIKE_DAMAGE_SPELLS } from '../../constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const ELEMENTAL_ASSAULT = {
-  INCREASE: 0.15,
+const ELEMENTAL_ASSAULT_RANKS: Record<number, number> = {
+  1: 0.1,
+  2: 0.2,
 };
 
 const MAIN_HAND_DAMAGES = [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE.id];
 
 /**
- * Stormstrike damage is increased by 15%, and Stormstrike
- * now generates 1 stack of Maelstrom Weapon.
+ * Stormstrike damage is increased by [10/20]%, and Stormstrike
+ * has a [50/100]% chance to generate 1 stack of Maelstrom Weapon.
  *
  * Example Log:
  *
  */
 class ElementalAssault extends Analyzer {
+  protected damageIncrease: number = 0;
   protected damageGained: number = 0;
   protected maelstromWeaponGained: number = 0;
   protected maelstromWeaponWasted: number = 0;
@@ -38,6 +40,11 @@ class ElementalAssault extends Analyzer {
       return;
     }
 
+    this.damageIncrease =
+      ELEMENTAL_ASSAULT_RANKS[
+        this.selectedCombatant.getTalentRank(TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT)
+      ];
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStormstrikeDamage,
@@ -45,7 +52,7 @@ class ElementalAssault extends Analyzer {
   }
 
   onStormstrikeDamage(event: DamageEvent): void {
-    this.damageGained += calculateEffectiveDamage(event, ELEMENTAL_ASSAULT.INCREASE);
+    this.damageGained += calculateEffectiveDamage(event, this.damageIncrease);
 
     // Use main-hand to determine gained maelstrom weapon stacks, which should catch MW gained from Stormflurry also
     if (MAIN_HAND_DAMAGES.includes(event.ability.guid)) {
@@ -66,11 +73,11 @@ class ElementalAssault extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            {this.maelstromWeaponGained - this.maelstromWeaponWasted} Effective Maelstrom Gained
-            <br />
             {this.maelstromWeaponGained} Total Maelstrom Gained
             <br />
             {this.maelstromWeaponWasted} Maelstrom Wasted
+            <hr />
+            {this.maelstromWeaponGained - this.maelstromWeaponWasted} Effective Maelstrom Gained
           </>
         }
       >

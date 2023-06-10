@@ -543,6 +543,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id,
+        buffSpellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
