@@ -370,6 +370,11 @@ const spells = spellIndexableList({
     name: 'Wing Buffet',
     icon: 'ability_racial_wingbuffet',
   },
+  TAIL_SWIPE: {
+    id: 368970,
+    name: 'Tail Swipe',
+    icon: 'ability_racial_tailswipe.jpg',
+  },
   OPPRESING_ROAR: {
     id: 406971,
     name: 'Oppressing Roar',
@@ -379,6 +384,11 @@ const spells = spellIndexableList({
     id: 368432,
     name: 'Unravel',
     icon: 'ability_evoker_unravel',
+  },
+  SLEEP_WALK: {
+    id: 360806,
+    name: 'Sleep Walk',
+    icon: 'ability_xavius_dreamsimulacrum',
   },
 });
 
