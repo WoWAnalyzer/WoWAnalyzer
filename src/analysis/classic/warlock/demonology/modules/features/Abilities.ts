@@ -5,14 +5,26 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 class Abilities extends CoreAbilities {
   nemesisCD(spellId: number, demoPoints: number, cooldown: number) {
     if (spellId === SPELLS.FEL_DOMINATION.id || SPELLS.DEMONIC_EMPOWERMENT.id) {
-      if (demoPoints >= 43) {return cooldown * 0.7;}
-      if (demoPoints === 42) {return cooldown * 0.8;}
-      if (demoPoints === 41) {return cooldown * 0.9;}
+      if (demoPoints >= 43) {
+        return cooldown * 0.7;
+      }
+      if (demoPoints === 42) {
+        return cooldown * 0.8;
+      }
+      if (demoPoints === 41) {
+        return cooldown * 0.9;
+      }
     }
     if (spellId === SPELLS.METAMORPHOSIS.id) {
-      if (demoPoints >= 54) {return cooldown * 0.7;}
-      if (demoPoints === 53) {return cooldown * 0.8;}
-      if (demoPoints === 52) {return cooldown * 0.9;}
+      if (demoPoints >= 54) {
+        return cooldown * 0.7;
+      }
+      if (demoPoints === 53) {
+        return cooldown * 0.8;
+      }
+      if (demoPoints === 52) {
+        return cooldown * 0.9;
+      }
     }
     return cooldown;
   }
