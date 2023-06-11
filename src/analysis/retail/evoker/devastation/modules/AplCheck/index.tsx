@@ -7,7 +7,7 @@ import * as cnd from 'parser/shared/metrics/apl/conditions';
 
 import { AnyEvent, EventType } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { ResourceLink, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 
 const avoidIfDragonRageSoon = (time: number) => {
   return cnd.spellCooldownRemaining(TALENTS.DRAGONRAGE_TALENT, { atLeast: time });
@@ -30,23 +30,31 @@ const COMMON_TOP: Rule[] = [
     spell: TALENTS.SHATTERING_STAR_TALENT,
     condition: cnd.describe(cnd.optionalRule(cnd.spellAvailable(TALENTS.DRAGONRAGE_TALENT)), () => (
       <>
-        {' '}
-        <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> is off cooldown <strong>(AoE)</strong>
+        you are about to cast <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> <strong>(AoE)</strong>
       </>
     )),
   },
   {
     spell: TALENTS.DRAGONRAGE_TALENT,
-    condition: cnd.optionalRule(
-      cnd.or(
-        cnd.targetsHit(
-          { atLeast: 3 },
-          { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+    condition: cnd.describe(
+      cnd.optionalRule(
+        cnd.or(
+          cnd.targetsHit(
+            { atLeast: 3 },
+            { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+          ),
+          cnd.and(
+            cnd.spellCooldownRemaining(SPELLS.FIRE_BREATH, { atMost: 4000 }),
+            cnd.spellCooldownRemaining(SPELLS.ETERNITY_SURGE, { atMost: 10000 }),
+          ),
         ),
-        cnd.and(
-          cnd.spellCooldownRemaining(SPELLS.FIRE_BREATH, { atMost: 4000 }),
-          cnd.spellCooldownRemaining(SPELLS.ETERNITY_SURGE, { atMost: 10000 }),
-        ),
+      ),
+      () => (
+        <>
+          it would hit at least 3 targets or <SpellLink spell={SPELLS.FIRE_BREATH} /> will be off
+          cooldown in less than 4 seconds and <SpellLink spell={SPELLS.ETERNITY_SURGE} /> has no
+          more than 10 seconds remaining on cooldown
+        </>
       ),
     ),
   },
@@ -164,8 +172,8 @@ const COMMON_TOP: Rule[] = [
       ),
       () => (
         <>
-          you won't overcap on <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> or you don't play{' '}
-          <SpellLink spell={TALENTS.ARCANE_VIGOR_TALENT} />
+          you won't overcap on <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> or if you don't
+          play <SpellLink spell={TALENTS.ARCANE_VIGOR_TALENT} />
         </>
       ),
     ),
@@ -214,21 +222,43 @@ export const COMMON_BOTTOM: Rule[] = [
   },
   {
     spell: SPELLS.EMERALD_BLOSSOM_CAST,
-    condition: cnd.and(
-      cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-      cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
-      cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
-      cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
+    condition: cnd.describe(
+      cnd.and(
+        cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
+        cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
+        cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
+        cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
+      ),
+      () => (
+        <>
+          {' '}
+          you are talented into <SpellLink spell={TALENTS.ANCIENT_FLAME_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.SCARLET_ADAPTATION_TALENT} />, and you don't have either{' '}
+          <SpellLink spell={SPELLS.ANCIENT_FLAME_BUFF} /> or{' '}
+          <SpellLink spell={TALENTS.SCARLET_ADAPTATION_TALENT} /> buffs currently up
+        </>
+      ),
     ),
   },
 
   {
     spell: SPELLS.VERDANT_EMBRACE_HEAL,
-    condition: cnd.and(
-      cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-      cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
-      cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
-      cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
+    condition: cnd.describe(
+      cnd.and(
+        cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
+        cnd.hasTalent(TALENTS.ANCIENT_FLAME_TALENT),
+        cnd.buffMissing(SPELLS.ANCIENT_FLAME_BUFF),
+        cnd.hasTalent(TALENTS.SCARLET_ADAPTATION_TALENT),
+      ),
+      () => (
+        <>
+          {' '}
+          you are talented into <SpellLink spell={TALENTS.ANCIENT_FLAME_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.SCARLET_ADAPTATION_TALENT} />, and you don't have either{' '}
+          <SpellLink spell={SPELLS.ANCIENT_FLAME_BUFF} /> or{' '}
+          <SpellLink spell={TALENTS.SCARLET_ADAPTATION_TALENT} /> buffs currently up
+        </>
+      ),
     ),
   },
 
@@ -242,10 +272,19 @@ export const COMMON_BOTTOM: Rule[] = [
 
   {
     spell: SPELLS.LIVING_FLAME_CAST,
-    condition: cnd.or(
-      cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-      cnd.buffPresent(SPELLS.IRIDESCENCE_RED),
-      cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE),
+    condition: cnd.describe(
+      cnd.or(
+        cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
+        cnd.buffPresent(SPELLS.IRIDESCENCE_RED),
+        cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE),
+      ),
+      () => (
+        <>
+          <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> isn't active or if you have{' '}
+          <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> or{' '}
+          <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> up
+        </>
+      ),
     ),
   },
 
@@ -261,64 +300,132 @@ const default_rotation = build([
     condition: cnd.and(hasEssenceRequirement(3), cnd.lastSpellCast(SPELLS.DISINTEGRATE)),
   },
 
-  // Spend burnout procs without overcapping resources
+  // Leaping Flames with burnout
   {
     spell: SPELLS.LIVING_FLAME_CAST,
-    condition: cnd.describe(
-      cnd.and(
+    condition: cnd.and(
+      cnd.buffPresent(SPELLS.LEAPING_FLAMES_BUFF),
+      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atMost: 4 }),
+      cnd.buffMissing(SPELLS.ESSENCE_BURST_DEV_BUFF),
+      cnd.or(
+        cnd.targetsHit(
+          { atLeast: 4 },
+          {
+            lookahead: 2000,
+            targetType: EventType.Damage,
+            targetSpell: SPELLS.LIVING_FLAME_DAMAGE,
+          },
+        ),
         cnd.buffPresent(SPELLS.BURNOUT_BUFF),
-        cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atMost: 4 }),
-        cnd.or(
-          cnd.and(
-            cnd.buffPresent(SPELLS.LEAPING_FLAMES_BUFF),
-            cnd.buffMissing(SPELLS.ESSENCE_BURST_DEV_BUFF),
-          ),
-          cnd.and(
-            cnd.buffMissing(SPELLS.LEAPING_FLAMES_BUFF),
-            cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, { atMost: 1 }),
+        cnd.and(
+          cnd.buffPresent(TALENTS.SCARLET_ADAPTATION_TALENT),
+          cnd.targetsHit(
+            { atLeast: 3 },
+            {
+              lookahead: 2000,
+              targetType: EventType.Damage,
+              targetSpell: SPELLS.LIVING_FLAME_DAMAGE,
+            },
           ),
         ),
       ),
-      () => (
-        <>
-          <SpellLink spell={SPELLS.BURNOUT_BUFF} /> is present and you won't overcap on{' '}
-          <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} />
-        </>
+    ),
+  },
+  // Leaping flames no burnout
+  {
+    spell: SPELLS.LIVING_FLAME_CAST,
+    condition: cnd.and(
+      cnd.buffPresent(SPELLS.LEAPING_FLAMES_BUFF),
+      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atMost: 4 }),
+      cnd.buffMissing(SPELLS.ESSENCE_BURST_DEV_BUFF),
+      cnd.hasTalent(TALENTS.BURNOUT_TALENT),
+      cnd.targetsHit(
+        { atLeast: 3 },
+        {
+          lookahead: 2000,
+          targetType: EventType.Damage,
+          targetSpell: SPELLS.LIVING_FLAME_DAMAGE,
+        },
       ),
     ),
   },
 
-  // So, in theory there are quite a few conditionals that could be added to account for when to use pyre
-  // optimally in 2-4T depending on talent selection / situation / etc.
-  // But since the minor gains simply doesn't justify the added complexity - we'll keep it as is.
+  // Burnout no leaping flames
+  {
+    spell: SPELLS.LIVING_FLAME_CAST,
+    condition: cnd.and(
+      cnd.buffPresent(SPELLS.BURNOUT_BUFF),
+      cnd.buffMissing(SPELLS.LEAPING_FLAMES_BUFF),
+      cnd.hasResource(RESOURCE_TYPES.ESSENCE, { atMost: 4 }),
+      cnd.buffStacks(SPELLS.ESSENCE_BURST_DEV_BUFF, { atMost: 1 }),
+    ),
+  },
+
+  // Pyre when atleast 4 targets are hit
+  {
+    spell: TALENTS.PYRE_TALENT,
+    condition: cnd.targetsHit(
+      { atLeast: 4 },
+      { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+    ),
+  },
+  // Pyre when atleast 3 targets are hit with 15 stacks of CB
   {
     spell: TALENTS.PYRE_TALENT,
     condition: cnd.and(
-      hasEssenceRequirement(2),
-      cnd.hasTalent(TALENTS.VOLATILITY_TALENT),
       cnd.targetsHit(
         { atLeast: 3 },
         { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
       ),
+      cnd.buffStacks(SPELLS.CHARGED_BLAST, { atLeast: 15 }),
     ),
   },
+  // Pyre when atleast 3 targets are hit and if talented into CB and neither EB or blue buff is up
   {
     spell: TALENTS.PYRE_TALENT,
     condition: cnd.describe(
       cnd.and(
-        hasEssenceRequirement(2),
-        cnd.not(cnd.hasTalent(TALENTS.VOLATILITY_TALENT)),
         cnd.targetsHit(
-          { atLeast: 4 },
+          { atLeast: 3 },
           { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+        ),
+        cnd.hasTalent(TALENTS.CHARGED_BLAST_TALENT),
+        cnd.or(
+          cnd.not(cnd.buffPresent(SPELLS.ESSENCE_BURST_DEV_BUFF)),
+          cnd.not(cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE)),
         ),
       ),
       () => (
         <>
-          you have at least 2 <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> or{' '}
-          <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> is present, you don't have{' '}
-          <SpellLink spell={TALENTS.VOLATILITY_TALENT} /> talented and it would hit at least 4
-          targets
+          it would hit at least 3 targets and <SpellLink spell={SPELLS.CHARGED_BLAST} /> is talented
+          and neither <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> nor{' '}
+          <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> is up
+        </>
+      ),
+    ),
+  },
+  // Pyre when atleast 3 targets are hit if not playing CB aslong as both EB and blue buff isn't up at the same time.
+  {
+    spell: TALENTS.PYRE_TALENT,
+    condition: cnd.describe(
+      cnd.and(
+        cnd.targetsHit(
+          { atLeast: 3 },
+          { lookahead: 2000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
+        ),
+        cnd.not(cnd.hasTalent(TALENTS.CHARGED_BLAST_TALENT)),
+        cnd.not(
+          cnd.and(
+            cnd.buffPresent(SPELLS.ESSENCE_BURST_DEV_BUFF),
+            cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE),
+          ),
+        ),
+      ),
+      () => (
+        <>
+          it would hit at least 3 targets and both{' '}
+          <SpellLink spell={SPELLS.ESSENCE_BURST_DEV_BUFF} /> and{' '}
+          <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> isn't up
         </>
       ),
     ),
