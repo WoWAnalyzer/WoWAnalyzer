@@ -203,42 +203,6 @@ class Abilities extends CoreAbilities {
         gcd: null,
         enabled: true,
       },
-      {
-        spell: SPELLS.WING_BUFFET.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.HEAVY_WINGBEATS_TALENT) ? 45 : 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: true,
-      },
-      {
-        spell: SPELLS.TAIL_SWIPE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.CLOBBERING_SWEEP_TALENT) ? 45 : 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: true,
-      },
-      {
-        spell: SPELLS.OPPRESING_ROAR.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.OPPRESSING_ROAR_TALENT),
-      },
-      {
-        spell: SPELLS.SLEEP_WALK.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.SLEEP_WALK_TALENT),
-      },
       //endregion
       //region Defensive
       {
@@ -275,30 +239,9 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.SOURCE_OF_MAGIC_TALENT),
       },
       {
-        spell: SPELLS.FURY_OF_THE_ASPECTS.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: SPELLS.GLIDE.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: null,
-      },
-      {
-        spell: SPELLS.RETURN.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.VISAGE.id,
-        category: SPELL_CATEGORY.OTHERS,
-        gcd: {
-          base: 1500,
-        },
       },
       //endregion
     ];
