@@ -22,33 +22,33 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
   return (
     <Section title="Dragonrage">
       <p>
-        <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is your primary cooldown and
+        <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is your primary cooldown and
         contributes to a large portion of your DPS. Because this window gives us our mastery{' '}
-        <SpellLink id={SPELLS.GIANT_SLAYER_MASTERY.id} /> with{' '}
-        <SpellLink id={TALENTS_EVOKER.TYRANNY_TALENT} /> and gauranteed{' '}
-        <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs, we need to utilize the talent{' '}
-        <SpellLink id={TALENTS_EVOKER.ANIMOSITY_TALENT.id} /> to extend the buff duration as long as
-        possible. We do this by trying to get in more than 2 rounds of{' '}
-        <SpellLink id={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> and{' '}
-        <SpellLink id={SPELLS.FIRE_BREATH.id} /> by making the most of the talents:{' '}
-        <SpellLink id={TALENTS_EVOKER.CAUSALITY_TALENT} /> and{' '}
-        <SpellLink id={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
+        <SpellLink spell={SPELLS.GIANT_SLAYER_MASTERY.id} /> with{' '}
+        <SpellLink spell={TALENTS_EVOKER.TYRANNY_TALENT} /> and gauranteed{' '}
+        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs, we need to utilize the
+        talent <SpellLink spell={TALENTS_EVOKER.ANIMOSITY_TALENT.id} /> to extend the buff duration
+        as long as possible. We do this by trying to get in more than 2 rounds of{' '}
+        <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> and{' '}
+        <SpellLink spell={SPELLS.FIRE_BREATH.id} /> by making the most of the talents:{' '}
+        <SpellLink spell={TALENTS_EVOKER.CAUSALITY_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
       </p>
       <p>
-        To generate <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs inside of
-        <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> you should be casting{' '}
-        <SpellLink id={SPELLS.LIVING_FLAME_CAST} /> with <SpellLink id={SPELLS.BURNOUT_BUFF.id} />{' '}
-        or <SpellLink id={SPELLS.IRIDESCENCE_RED.id} />
-        or <SpellLink id={SPELLS.IRIDESCENCE_BLUE.id} /> is active. Use{' '}
-        <SpellLink id={SPELLS.AZURE_STRIKE.id} /> as a fallback filler.
+        To generate <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs inside of
+        <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> you should be casting{' '}
+        <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> with{' '}
+        <SpellLink id={SPELLS.BURNOUT_BUFF.id} /> or <SpellLink spell={SPELLS.IRIDESCENCE_RED.id} />
+        or <SpellLink spell={SPELLS.IRIDESCENCE_BLUE.id} /> is active. Use{' '}
+        <SpellLink spell={SPELLS.AZURE_STRIKE.id} /> as a fallback filler.
       </p>
 
       <SubSection title="Extension Limits">
         <p>
           You can gaurantee <strong>at least 2 casts</strong> of{' '}
-          <SpellLink id={SPELLS.FIRE_BREATH.id} /> and{' '}
-          <SpellLink id={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> by holding them if{' '}
-          <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is coming up in less than 13s.
+          <SpellLink spell={SPELLS.FIRE_BREATH.id} /> and{' '}
+          <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> by holding them if{' '}
+          <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is coming up in less than 13s.
           Extending more than that requires lust, haste, and RNG.
         </p>
       </SubSection>
@@ -109,19 +109,19 @@ function Statistics({ window }: { window: RageWindowCounter }) {
   return (
     <ul>
       <li>
-        <SpellLink id={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/2 casts
+        <SpellLink spell={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/2 casts
       </li>
       <li>
-        <SpellLink id={SPELLS.ETERNITY_SURGE.id} /> - {window.eternitySurges}/2 casts
+        <SpellLink spell={SPELLS.ETERNITY_SURGE.id} /> - {window.eternitySurges}/2 casts
       </li>
       <li>
-        <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> - {window.essenceBursts} casts
+        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> - {window.essenceBursts} casts
       </li>
       <li>
-        <SpellLink id={SPELLS.DISINTEGRATE.id} /> - {window.disintegrateTicks} ticks
+        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> - {window.disintegrateTicks} ticks
       </li>
       <li>
-        <SpellLink id={TALENTS_EVOKER.PYRE_TALENT.id} /> - {window.pyres} casts
+        <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT.id} /> - {window.pyres} casts
       </li>
     </ul>
   );

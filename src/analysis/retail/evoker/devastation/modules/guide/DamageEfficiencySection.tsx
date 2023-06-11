@@ -55,20 +55,22 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
   return (
     <SubSection title="Clipping/Chaining Disintegrate">
       <p>
-        You should always aim to chain <SpellLink id={SPELLS.DISINTEGRATE.id} />. Chaining refers to
-        recasting <SpellLink id={SPELLS.DISINTEGRATE.id} /> while already channeling a{' '}
-        <SpellLink id={SPELLS.DISINTEGRATE.id} /> after the penultimate (second to last) tick in
-        order to channel two <SpellLink id={SPELLS.DISINTEGRATE.id} /> in a row without downtime or
-        losing a tick. This is essentially just the same Pandemic effect that DoTs have since{' '}
-        <SpellLink id={SPELLS.DISINTEGRATE.id} /> funcions as a DoT.
+        You should always aim to chain <SpellLink spell={SPELLS.DISINTEGRATE.id} />. Chaining refers
+        to recasting <SpellLink spell={SPELLS.DISINTEGRATE.id} /> while already channeling a{' '}
+        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> after the penultimate (second to last) tick in
+        order to channel two <SpellLink spell={SPELLS.DISINTEGRATE.id} /> in a row without downtime
+        or losing a tick. This is essentially just the same Pandemic effect that DoTs have since{' '}
+        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> funcions as a DoT.
       </p>
       <p>
-        Inside of <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> you should be clipping{' '}
-        <SpellLink id={SPELLS.DISINTEGRATE.id} /> after the third tick with more important spells
-        such <SpellLink id={SPELLS.FIRE_BREATH.id} />, <SpellLink id={SPELLS.ETERNITY_SURGE.id} />,{' '}
-        <SpellLink id={SPELLS.SHATTERING_STAR.id} /> or <SpellLink id={SPELLS.BURNOUT_BUFF.id} />.
-        Aswell as early chaining your <SpellLink id={SPELLS.DISINTEGRATE.id} /> after the third tick
-        to maximize ressource generation and expenditure.
+        Inside of <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> you should be clipping{' '}
+        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> after the third tick with more important spells
+        such <SpellLink spell={SPELLS.FIRE_BREATH.id} />,{' '}
+        <SpellLink spell={SPELLS.ETERNITY_SURGE.id} />,{' '}
+        <SpellLink spell={SPELLS.SHATTERING_STAR.id} /> or{' '}
+        <SpellLink spell={SPELLS.BURNOUT_BUFF.id} />. Aswell as early chaining your{' '}
+        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> after the third tick to maximize ressource
+        generation and expenditure.
       </p>
       <p>
         See{' '}
@@ -82,8 +84,8 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
         explanation={
           <div>
             <p>
-              <SpellLink id={SPELLS.DISINTEGRATE.id} /> efficiency outside of{' '}
-              <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />
+              <SpellLink spell={SPELLS.DISINTEGRATE.id} /> efficiency outside of{' '}
+              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />
             </p>
             <p>You should not be dropping any ticks here.</p>
           </div>
@@ -102,8 +104,8 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
         explanation={
           <div>
             <p>
-              <SpellLink id={SPELLS.DISINTEGRATE.id} /> efficiency during
-              <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />
+              <SpellLink spell={SPELLS.DISINTEGRATE.id} /> efficiency during
+              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />
             </p>
             <p>
               Aim to drop 70%-90% of ticks (i.e. clip) so you can consume ressources faster, aswell
@@ -131,10 +133,10 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
           <p>
-            <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> procs are essential because
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> procs are essential because
             they help you cast your primary damaging spells,
-            <SpellLink id={SPELLS.DISINTEGRATE.id} /> and{' '}
-            <SpellLink id={TALENTS_EVOKER.PYRE_TALENT.id} />, for free. None should go to waste.
+            <SpellLink spell={SPELLS.DISINTEGRATE.id} /> and{' '}
+            <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT.id} />, for free. None should go to waste.
           </p>
         }
         data={
@@ -152,10 +154,10 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
           <p>
-            <SpellLink id={TALENTS_EVOKER.BURNOUT_TALENT.id} /> procs allow you to cast{' '}
-            <SpellLink id={SPELLS.LIVING_FLAME_CAST.id} /> instantly. Ideally none should go to
+            <SpellLink spell={TALENTS_EVOKER.BURNOUT_TALENT.id} /> procs allow you to cast{' '}
+            <SpellLink spell={SPELLS.LIVING_FLAME_CAST.id} /> instantly. Ideally none should go to
             waste, but some may drop during an intense{' '}
-            <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> window.
+            <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> window.
           </p>
         }
         data={
@@ -174,8 +176,8 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           explanationPercent={EXPLANATION_PERCENTAGE}
           explanation={
             <p>
-              <SpellLink id={TALENTS_EVOKER.SNAPFIRE_TALENT.id} /> procs allow you to cast{' '}
-              <SpellLink id={TALENTS_EVOKER.FIRESTORM_TALENT.id} />. None should to go waste
+              <SpellLink spell={TALENTS_EVOKER.SNAPFIRE_TALENT.id} /> procs allow you to cast{' '}
+              <SpellLink spell={TALENTS_EVOKER.FIRESTORM_TALENT.id} />. None should to go waste
             </p>
           }
           data={
@@ -202,16 +204,16 @@ function ShatteringStarSubsection({ modules, info }: GuideProps<typeof CombatLog
   return (
     <SubSection title="Shattering Star">
       <p>
-        <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> provides us with a small window
+        <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> provides us with a small window
         where our damage gets amplified. To maximize this window aim to have at least 1-2 uses of{' '}
-        <SpellLink id={SPELLS.DISINTEGRATE} /> or <SpellLink id={SPELLS.PYRE} /> by pooling{' '}
+        <SpellLink spell={SPELLS.DISINTEGRATE} /> or <SpellLink spell={SPELLS.PYRE} /> by pooling{' '}
         <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> and/or{' '}
-        <SpellLink id={SPELLS.ESSENCE_BURST_BUFF.id} /> when{' '}
-        <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> is almost off CD. Using{' '}
-        <SpellLink id={SPELLS.ETERNITY_SURGE} /> is also good, but don't hold the CD for this
-        window. With <SpellLink id={TALENTS_EVOKER.ARCANE_VIGOR_TALENT} /> talented, you should
-        always have atleast one use of <SpellLink id={SPELLS.DISINTEGRATE} />. For more tips, check
-        out mentions of Shattering Star in the{' '}
+        <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF.id} /> when{' '}
+        <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> is almost off CD. Using{' '}
+        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> is also good, but don't hold the CD for this
+        window. With <SpellLink spell={TALENTS_EVOKER.ARCANE_VIGOR_TALENT} /> talented, you should
+        always have atleast one use of <SpellLink spell={SPELLS.DISINTEGRATE} />. For more tips,
+        check out mentions of Shattering Star in the{' '}
         <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#rotation">
           Wowhead guide
         </a>
@@ -246,14 +248,14 @@ function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogPar
   return (
     <SubSection title="Blazing Shards">
       <p>
-        <SpellLink id={SPELLS.BLAZING_SHARDS} /> is a buff you gain from using{' '}
-        <SpellLink id={SPELLS.ETERNITY_SURGE} /> or <SpellLink id={SPELLS.FIRE_BREATH.id} />.
-        <SpellLink id={SPELLS.BLAZING_SHARDS} /> gives your{' '}
-        <SpellLink id={SPELLS.OBSIDIAN_SHARDS.id} /> DoT a 200% damage amp. This buff is fully
-        active during <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />.{' '}
-        <SpellLink id={SPELLS.BLAZING_SHARDS} /> isn't extended when you cast your empowers back to
-        back, it instead gets overriden. It is therefore important to stagger out your empowers to
-        maximize uptime of <SpellLink id={SPELLS.BLAZING_SHARDS} />.
+        <SpellLink spell={SPELLS.BLAZING_SHARDS} /> is a buff you gain from using{' '}
+        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> or <SpellLink spell={SPELLS.FIRE_BREATH.id} />.
+        <SpellLink spell={SPELLS.BLAZING_SHARDS} /> gives your{' '}
+        <SpellLink spell={SPELLS.OBSIDIAN_SHARDS.id} /> DoT a 200% damage amp. This buff is fully
+        active during <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />.{' '}
+        <SpellLink spell={SPELLS.BLAZING_SHARDS} /> isn't extended when you cast your empowers back
+        to back, it instead gets overriden. It is therefore important to stagger out your empowers
+        to maximize uptime of <SpellLink spell={SPELLS.BLAZING_SHARDS} />.
       </p>
       <p>
         Total uptime lost is: <strong>{modules.T30devaTier4P.lostUptime.toFixed(2)}s</strong>.
