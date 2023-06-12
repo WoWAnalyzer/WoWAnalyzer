@@ -3,6 +3,7 @@ import Expansion from 'game/Expansion';
 import CombatLogParser from './CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import CastingSubsection from './modules/guide/CastingSubsection';
+import CooldownGraphSubsection from './modules/guide/CooldownGraphSubsection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -15,7 +16,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </SubSection>
       </Section>
 
-      <Section title="Cooldowns"></Section>
+      <Section title="Cooldowns">
+        <CooldownGraphSubsection />
+      </Section>
 
       <Section title="Procs"></Section>
 

@@ -335,6 +335,9 @@ export const VeryBadColor = getComputedStyle(document.documentElement).getProper
 export const MediocreColor = getComputedStyle(document.documentElement).getPropertyValue(
   '--guide-mediocre-color',
 );
+export const AvailableColor = getComputedStyle(document.documentElement).getPropertyValue(
+  '--guide-available-color',
+);
 
 /** Shows a glyph - either a green checkmark or a red X depending on if 'pass' is true */
 export const PassFailCheckmark = ({ pass }: { pass: boolean }) =>

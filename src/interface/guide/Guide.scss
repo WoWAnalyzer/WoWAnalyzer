@@ -8,6 +8,7 @@ $bad-perf-color: #ac1f39;
 // extra colors for some special case stuff
 $very-bad-perf-color: #661111;
 $mediocre-perf-color: #dd5533;
+$available-cd-color: #696864;
 
 // for export
 :root {
@@ -17,6 +18,7 @@ $mediocre-perf-color: #dd5533;
   --guide-bad-color: #{$bad-perf-color};
   --guide-very-bad-color: #{$very-bad-perf-color};
   --guide-mediocre-color: #{$mediocre-perf-color};
+  --guide-available-color: #{$available-cd-color};
 }
 
 .guide-container {
