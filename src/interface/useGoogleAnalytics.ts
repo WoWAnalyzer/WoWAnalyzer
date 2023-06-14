@@ -15,6 +15,17 @@ declare global {
   }
 }
 
+/**
+ * This hook triggers a page view on Google Analytics when called.
+ *
+ * It will trigger at most one page view per component lifetime unless the `key` parameter is set.
+ *
+ * Setting the `key` parameter allows triggering page view events when the `key` changes. This is
+ * useful if you have a containing component like `DefaultTab` that may represent multiple logical pages.
+ *
+ * We use this rather than tying into the router or `window.location` in order to use spec and fight context
+ * to add extra tags to the page view event.
+ */
 export function usePageView(componentName: string, key?: unknown) {
   const config = useContext(ConfigContext);
   const fight = useContext(FightCtx);
