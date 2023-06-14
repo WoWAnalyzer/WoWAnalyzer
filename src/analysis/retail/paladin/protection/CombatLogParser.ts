@@ -10,7 +10,7 @@ import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent'
 
 import Abilities from './modules/Abilities';
 import AplCheck from './modules/core/AplCheck';
-import GrandCrusader from './modules/core/GrandCrusader';
+import GrandCrusader from './modules/talents/GrandCrusader';
 import Haste from './modules/core/Haste';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Checklist from './modules/features/Checklist/Module';
@@ -31,12 +31,16 @@ import MomentOfGlory from './modules/talents/MomentOfGlory';
 import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
+import ProtPaladinT304P from './modules/core/ProtPaladinT304P';
+import MyAbilityNormalizer from './modules/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Core
     grandCrusader: GrandCrusader,
     haste: Haste,
+    protPaladinT304P: ProtPaladinT304P,
+    myAbilityNormalizer: MyAbilityNormalizer,
 
     // Spells
     lightOfTheProtector: LightOfTheProtector,
