@@ -14,6 +14,8 @@ import Background from './images/weirdnelf.png';
 import PATCHES, { Patch } from './PATCHES';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
+import { usePageView } from 'interface/useGoogleAnalytics';
+import Expansion from 'game/Expansion';
 
 const makePreviousPatchUrl = (patch: Patch) => {
   // Handle the case where we don't need a URL prefix
@@ -28,37 +30,23 @@ interface Props {
   children: React.ReactNode;
 }
 
-const PatchChecker = ({ children }: Props) => {
+const PatchCheckerContents = ({
+  reportPatch,
+  reportExpansion,
+}: {
+  reportPatch: Patch | undefined;
+  reportExpansion: Expansion;
+}) => {
   const { report } = useReport();
   const dispatch = useWaDispatch();
-  const ignored = useWaSelector((state) => state.reportCodesIgnoredPreviousPatchWarning);
+  const reportDate = new Date(report.start).toLocaleDateString();
 
   const handleClickContinue = () => {
     dispatch(ignorePreviousPatchWarning(report.code));
   };
-  const isContinue = ignored.includes(report.code);
-
-  const reportTimestamp = report.start;
-  const reportDate = new Date(report.start).toLocaleDateString();
-  const reportGameVersion = report.gameVersion;
-
-  // Only check patches with matching game version
-  const patchesForGameVersion = PATCHES.filter((it) => it.gameVersion === reportGameVersion);
-
-  // Sort from latest to oldest
-  const orderedPatches = patchesForGameVersion.sort((a, b) => b.timestamp - a.timestamp);
-
-  const reportPatch = orderedPatches.find((patch) => reportTimestamp > patch.timestamp);
-  // This will get the expansion expected based on the game version of the report, which
-  // _can_ be different from the expansion from the report patch.
-  // If they're different, it might be a bug OR the patch might be missing from the patches file.
-  const reportExpansion = wclGameVersionToExpansion(report.gameVersion);
-
-  if ((reportPatch && reportPatch.isCurrent) || isContinue) {
-    return <>{children}</>;
-  }
-
+  usePageView('PatchChecker');
   const isThisExpansion = reportPatch?.expansion === reportExpansion;
+
   return (
     <div className="container offset">
       <h1>
@@ -157,6 +145,35 @@ const PatchChecker = ({ children }: Props) => {
       </Panel>
     </div>
   );
+};
+
+const PatchChecker = ({ children }: Props) => {
+  const { report } = useReport();
+  const ignored = useWaSelector((state) => state.reportCodesIgnoredPreviousPatchWarning);
+  const isContinue = ignored.includes(report.code);
+
+  const reportTimestamp = report.start;
+  const reportGameVersion = report.gameVersion;
+
+  // Only check patches with matching game version
+  const patchesForGameVersion = PATCHES.filter((it) => it.gameVersion === reportGameVersion);
+
+  // Sort from latest to oldest
+  const orderedPatches = patchesForGameVersion.sort((a, b) => b.timestamp - a.timestamp);
+
+  const reportPatch = orderedPatches.find((patch) => reportTimestamp > patch.timestamp);
+  // This will get the expansion expected based on the game version of the report, which
+  // _can_ be different from the expansion from the report patch.
+  // If they're different, it might be a bug OR the patch might be missing from the patches file.
+  const reportExpansion = wclGameVersionToExpansion(report.gameVersion);
+
+  const skipPatchChecker = (reportPatch && reportPatch.isCurrent) || isContinue;
+
+  if (skipPatchChecker) {
+    return <>{children}</>;
+  }
+
+  return <PatchCheckerContents reportExpansion={reportExpansion} reportPatch={reportPatch} />;
 };
 
 export default PatchChecker;

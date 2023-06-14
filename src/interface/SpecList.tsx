@@ -7,6 +7,7 @@ import Config from 'parser/Config';
 
 import SpecListItem from './SpecListItem';
 import './SpecList.css';
+import { usePageView } from './useGoogleAnalytics';
 
 const isAnySpecSupported = (configs: Config[]) =>
   configs.some((config) => config.patchCompatibility && config.expansion === RETAIL_EXPANSION);
@@ -38,6 +39,7 @@ const classicSpecs = AVAILABLE_CONFIGS.filter((it) => it.expansion <= CLASSIC_EX
 );
 
 const SpecListing = () => {
+  usePageView('SpecList');
   return (
     <>
       <DocumentTitle title="Specializations" />
