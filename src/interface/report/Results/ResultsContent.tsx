@@ -15,6 +15,7 @@ import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 import { useResults } from 'interface/report/Results/ResultsContext';
 import { useConfig } from 'interface/report/ConfigContext';
 import { useParams } from 'react-router-dom';
+import { usePageView } from 'interface/useGoogleAnalytics';
 
 const LazyTimelineTab = lazyLoadComponent(
   () =>
@@ -36,6 +37,7 @@ const LazyEventsTab = lazyLoadComponent(() =>
 export const OverviewTab = () => {
   const { combatLogParser: parser } = useCombatLogParser();
   const { isLoading, results } = useResults();
+  usePageView('Results/Overview');
 
   if (isLoading || !results) {
     return <ResultsLoadingIndicator />;
@@ -54,6 +56,7 @@ export const OverviewTab = () => {
 export const StatisticsTab = () => {
   const { combatLogParser: parser } = useCombatLogParser();
   const { adjustForDowntime, setAdjustForDowntime, isLoading, results } = useResults();
+  usePageView('Results/Statistics');
 
   if (isLoading || !results) {
     return <ResultsLoadingIndicator />;
@@ -72,6 +75,7 @@ export const StatisticsTab = () => {
 export const TimelineTab = () => {
   const { combatLogParser: parser } = useCombatLogParser();
   const { isLoading } = useResults();
+  usePageView('Results/Timeline');
 
   if (isLoading) {
     return <ResultsLoadingIndicator />;
@@ -83,6 +87,7 @@ export const TimelineTab = () => {
 export const EventsTab = () => {
   const { combatLogParser: parser } = useCombatLogParser();
   const { isLoading } = useResults();
+  usePageView('Results/Events');
 
   if (isLoading) {
     return <ResultsLoadingIndicator />;
@@ -99,6 +104,7 @@ export const CharacterTab = () => {
   const config = useConfig();
   const { combatLogParser: parser } = useCombatLogParser();
   const { isLoading } = useResults();
+  usePageView('Results/Character');
 
   if (isLoading) {
     return <ResultsLoadingIndicator />;
@@ -122,6 +128,7 @@ export const CharacterTab = () => {
 
 export const AboutTab = () => {
   const config = useConfig();
+  usePageView('Results/About');
   return (
     <div className="container">
       <About config={config} />
@@ -134,6 +141,7 @@ export const AboutTab = () => {
 export const DefaultTab = () => {
   const { resultTab } = useParams();
   const { isLoading, results } = useResults();
+  usePageView('Results/CustomTab', resultTab);
 
   if (isLoading || !results) {
     return <ResultsLoadingIndicator />;
