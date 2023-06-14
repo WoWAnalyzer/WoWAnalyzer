@@ -31,7 +31,9 @@ export function usePageView(componentName: string, key?: unknown) {
       fight_boss: fight?.fight.boss,
     };
     console.info('page view', props, componentName);
-    window.gtag('event', 'page_view', props);
+    if (window.gtag) {
+      window.gtag('event', 'page_view', props);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key]);
 }
