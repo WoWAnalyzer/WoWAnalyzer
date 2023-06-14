@@ -572,7 +572,7 @@ const spells = spellIndexableList({
   },
   HOT_HAND_BUFF: {
     id: 215785,
-    name: 'Hot Hand Buff',
+    name: 'Hot Hand',
     icon: 'spell_fire_playingwithfire',
   },
   STORMBRINGER: {

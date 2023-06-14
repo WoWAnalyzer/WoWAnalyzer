@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -440,10 +439,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
       },
       {
         spell: TALENTS_SHAMAN.STORMSTRIKE_TALENT.id,
@@ -451,17 +446,6 @@ class Abilities extends CoreAbilities {
         cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) =>
-            // Placeholder for enhancement's ascendance
-            calculateMaxCasts(
-              cooldown,
-              this.owner.fightDuration -
-                combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-            ),
         },
       },
       {
@@ -474,16 +458,6 @@ class Abilities extends CoreAbilities {
         cooldown: (haste) => 3 / (1 + haste),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) =>
-            // Placeholder for enhancement's ascendance
-            calculateMaxCasts(
-              cooldown,
-              combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-            ),
         },
       },
       {

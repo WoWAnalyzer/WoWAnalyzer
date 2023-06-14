@@ -103,7 +103,7 @@ class ElementalBlast extends Analyzer {
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} category={STATISTIC_CATEGORY.TALENTS}>
         <div className="pad">
           <label>
-            <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT} /> distribution
+            <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT} /> stat distribution
           </label>
           {this.elementalBlastDonut()}
         </div>

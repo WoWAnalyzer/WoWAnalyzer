@@ -47,11 +47,13 @@ import ThorimsInvocation from './modules/talents/ThorimsInvocation';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
+import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     spellUsable: SpellUsable,
     globalCooldown: GlobalCooldown,
+    cooldownThroughputTracker: CooldownThroughputTracker,
     // Shaman Shared
     ankhNormalizer: AnkhNormalizer,
 

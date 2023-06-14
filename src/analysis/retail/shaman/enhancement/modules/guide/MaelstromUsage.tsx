@@ -53,10 +53,6 @@ const MaelstromUsage = ({ modules, events, info }: GuideProps<typeof CombatLogPa
       </SubSection>
     </Section>
   );
-  if (!info) {
-    return null;
-  }
-  return <p></p>;
 };
 
 export default MaelstromUsage;

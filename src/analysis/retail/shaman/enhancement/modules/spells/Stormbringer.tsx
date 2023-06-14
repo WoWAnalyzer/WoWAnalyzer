@@ -1,8 +1,15 @@
-import SPELLS from 'common/SPELLS/shaman';
-import { TALENTS_SHAMAN } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/shaman';
+import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import UptimeIcon from 'interface/icons/Uptime';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { SpellLink } from 'interface';
 
 class Stormbringer extends Analyzer {
   static dependencies = {
@@ -10,6 +17,9 @@ class Stormbringer extends Analyzer {
   };
 
   protected spellUsable!: SpellUsable;
+  protected stormStrikeResets: number = 0;
+  protected windStrikeResets: number = 0;
+  protected wasted: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -18,16 +28,68 @@ class Stormbringer extends Analyzer {
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF),
       this.onStormbringerApplied,
     );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.STORMBRINGER_BUFF),
+      () => (this.wasted += 1),
+    );
   }
 
   onStormbringerApplied() {
-    if (this.spellUsable.isOnCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS_SHAMAN.STORMSTRIKE_TALENT.id);
+    let used = false;
+    if (this.spellUsable.isOnCooldown(TALENTS.STORMSTRIKE_TALENT.id)) {
+      this.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id);
+      if (!this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
+        this.stormStrikeResets += 1;
+        used = true;
+      }
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
       this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id);
+      if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
+        this.windStrikeResets += 1;
+        used = true;
+      }
     }
+
+    if (!used) {
+      this.wasted += 1;
+    }
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.CORE()}
+        category={STATISTIC_CATEGORY.GENERAL}
+        size="flexible"
+        tooltip={
+          <>
+            Reset breakdown:
+            <ul>
+              <li>
+                <strong>{this.stormStrikeResets}</strong>{' '}
+                <SpellLink spell={TALENTS.STORMSTRIKE_TALENT} /> resets
+              </li>
+              <li>
+                <strong>{this.windStrikeResets}</strong>{' '}
+                <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> resets
+              </li>
+            </ul>
+            <small>
+              <strong>{this.wasted}</strong> wasted procs
+            </small>
+          </>
+        }
+      >
+        <BoringSpellValueText spell={SPELLS.STORMBRINGER}>
+          <>
+            <UptimeIcon /> {formatNumber(this.stormStrikeResets + this.windStrikeResets)}{' '}
+            <small>resets</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
+    );
   }
 }
 

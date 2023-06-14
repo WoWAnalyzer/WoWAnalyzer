@@ -8,10 +8,13 @@ import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS, MAELSTROM_WEAPON_MS } from '../../con
 export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
 export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
 export const PRIMORDIAL_WAVE_FREE_LIGHTNING_BOLTS = 'primordial-wave-auto-cast';
+const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
+  (spell) => spell.id,
+);
 
 const maelstromWeaponInstantCastLink: EventLink = {
   linkRelation: MAELSTROM_WEAPON_INSTANT_CAST,
-  linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELLS,
+  linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   linkingEventType: [
     EventType.BeginCast,
     EventType.BeginChannel,
@@ -19,7 +22,7 @@ const maelstromWeaponInstantCastLink: EventLink = {
     EventType.FreeCast,
     EventType.EndChannel,
   ],
-  referencedEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELLS,
+  referencedEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   referencedEventType: [
     EventType.BeginCast,
     EventType.BeginChannel,
