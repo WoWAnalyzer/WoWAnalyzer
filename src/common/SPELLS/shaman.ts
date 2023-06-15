@@ -433,11 +433,6 @@ const spells = spellIndexableList({
     name: 'Fire Nova',
     icon: 'spell_shaman_improvedfirenova',
   },
-  DOOM_WINDS: {
-    id: 204945,
-    name: 'Doom Winds',
-    icon: 'inv_mace_1h_artifactdoomhammer_d_01',
-  },
   STORMBRINGER_BUFF: {
     id: 201846,
     name: 'Stormbringer Buff',
@@ -572,13 +567,48 @@ const spells = spellIndexableList({
   },
   HOT_HAND_BUFF: {
     id: 215785,
-    name: 'Hot Hand Buff',
+    name: 'Hot Hand',
     icon: 'spell_fire_playingwithfire',
   },
   STORMBRINGER: {
     id: 201845,
     name: 'Stormbringer',
     icon: 'spell_nature_stormreach',
+  },
+  LEGACY_OF_THE_FROST_WITCH_BUFF: {
+    id: 384451,
+    name: 'Legacy of the Frost Witch',
+    icon: 'ability_thunderking_thunderstruck',
+  },
+  EARTHEN_MIGHT_TIER_BUFF: {
+    id: 409689,
+    name: 'Earthen Might',
+    icon: 'inv_helmet_mail_raidshaman_j_01',
+  },
+  CRACKLING_THUNDER_TIER_BUFF: {
+    id: 409834,
+    name: 'Crackling Thunder',
+    icon: 'ability_vehicle_electrocharge',
+  },
+  VOLCANIC_STRENGTH_TIER_BUFF: {
+    id: 409833,
+    name: 'Volcanic Strength',
+    icon: 'ability_rhyolith_volcano',
+  },
+  MANA_SPRING_ENHANCEMENT: {
+    id: 404550,
+    name: 'Mana Spring',
+    icon: 'spell_nature_manaregentotem',
+  },
+  ASHEN_CATALYST_BUFF: {
+    id: 390371,
+    name: 'Ashen Catalyst',
+    icon: 'spell_shaman_stormearthfire',
+  },
+  STORMBLAST_DAMAGE: {
+    id: 390287,
+    name: 'Stormblast',
+    icon: 'spell_shaman_focusedstrikes',
   },
   // Restoration Shaman
   HEALING_SURGE: {
@@ -747,6 +777,11 @@ const spells = spellIndexableList({
     id: 375985,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
+  },
+  MANA_SPRING_RESTORATION: {
+    id: 404551,
+    name: 'Mana Spring',
+    icon: 'spell_nature_manaregentotem',
   },
 });
 

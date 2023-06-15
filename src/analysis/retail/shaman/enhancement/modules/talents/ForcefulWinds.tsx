@@ -10,12 +10,12 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const FORCEFUL_WINDS = {
-  INCREASE_PER_STACK: 0.5,
+  INCREASE_PER_STACK: 0.2,
 };
 
 /**
  * Windfury causes each successive Windfury attack within 15 sec to
- * increase the damage of Windfury by 50%, stacking up to 5 times.
+ * increase the damage of Windfury by 20%, stacking up to 5 times.
  */
 class ForcefulWinds extends Analyzer {
   protected damageGained: number = 0;

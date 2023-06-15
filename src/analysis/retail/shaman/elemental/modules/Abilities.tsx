@@ -62,7 +62,6 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ELEMENTAL_BLAST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12,
         gcd: {
           base: 1500,
         },
