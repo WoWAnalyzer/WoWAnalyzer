@@ -9,12 +9,6 @@ export interface Resource {
 }
 
 const RESOURCE_TYPES = asRestrictedTable<Resource>()({
-  MAELSTROM_WEAPON: {
-    id: -99,
-    name: 'Maestrom Weapon',
-    icon: 'spell_shaman_maelstromweapon',
-    url: 'maelstrom_weapon',
-  },
   MANA: {
     // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid, Evoker
     id: 0,

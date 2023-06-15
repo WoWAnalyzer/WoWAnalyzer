@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { RefreshBuffEvent, ChangeBuffStackEvent, EventType } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -12,6 +11,13 @@ export const GOOD_WASTED_PERCENT = 0.2;
 export const OK_WASTED_PERCENT = 0.3;
 
 const WITCH_DOCTORS_ANCESTRY_REDUCTION_MS: Record<number, number> = { 1: 1000, 2: 2000 };
+
+const MaelstromWeaponResource: Resource = {
+  id: -99,
+  name: 'Maestrom Weapon',
+  icon: 'spell_shaman_maelstromweapon',
+  url: 'maelstrom_weapon',
+};
 
 class MaelstromWeaponTracker extends ResourceTracker {
   static dependencies = {
@@ -32,7 +38,7 @@ class MaelstromWeaponTracker extends ResourceTracker {
 
   constructor(options: Options) {
     super(options);
-    this.resource = RESOURCE_TYPES.MAELSTROM_WEAPON;
+    this.resource = MaelstromWeaponResource;
     this.refundOnMiss = false;
     this.refundOnMissAmount = 0;
     this.isRegenHasted = false;
@@ -167,7 +173,7 @@ class MaelstromWeaponTracker extends ResourceTracker {
     return {
       amount: amount,
       max: this.maxResource,
-      type: RESOURCE_TYPES.MAELSTROM_WEAPON.id,
+      type: MaelstromWeaponResource.id,
     };
   }
 }
