@@ -433,11 +433,6 @@ const spells = spellIndexableList({
     name: 'Fire Nova',
     icon: 'spell_shaman_improvedfirenova',
   },
-  DOOM_WINDS: {
-    id: 384352,
-    name: 'Doom Winds',
-    icon: 'ability_ironmaidens_swirlingvortex',
-  },
   STORMBRINGER_BUFF: {
     id: 201846,
     name: 'Stormbringer Buff',
@@ -609,6 +604,11 @@ const spells = spellIndexableList({
     id: 390371,
     name: 'Ashen Catalyst',
     icon: 'spell_shaman_stormearthfire',
+  },
+  STORMBLAST_DAMAGE: {
+    id: 390287,
+    name: 'Stormblast',
+    icon: 'spell_shaman_focusedstrikes',
   },
   // Restoration Shaman
   HEALING_SURGE: {

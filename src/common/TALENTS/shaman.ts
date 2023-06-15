@@ -1244,7 +1244,7 @@ const talents = createTalentList({
     manaCost: 750,
   },
   STORMBLAST_TALENT: {
-    id: 390287,
+    id: 319930,
     name: 'Stormblast',
     icon: 'spell_shaman_focusedstrikes',
     maxRanks: 1,

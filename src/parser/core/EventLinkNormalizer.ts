@@ -86,7 +86,7 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
   }
 
   // detects if the given event matches all the conditions of the 'linking' event
-  protected _isLinking(el: EventLink, event: AnyEvent): boolean {
+  private _isLinking(el: EventLink, event: AnyEvent): boolean {
     const matchesType: boolean = Array.isArray(el.linkingEventType)
       ? el.linkingEventType.includes(event.type)
       : el.linkingEventType === event.type;
@@ -100,7 +100,7 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
   }
 
   // detects if the given event matches all the conditions of the 'referenced' event
-  protected _isReferenced(el: EventLink, event: AnyEvent): boolean {
+  private _isReferenced(el: EventLink, event: AnyEvent): boolean {
     const matchesType: boolean = Array.isArray(el.referencedEventType)
       ? el.referencedEventType.includes(event.type)
       : el.referencedEventType === event.type;
@@ -114,7 +114,7 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
   }
 
   // detects if the events must match source, and if so if their sources match
-  protected _sourceCheck(el: EventLink, event1: AnyEvent, event2: AnyEvent): boolean {
+  private _sourceCheck(el: EventLink, event1: AnyEvent, event2: AnyEvent): boolean {
     return (
       el.anySource ||
       (HasSource(event1) && HasSource(event2) && event1.sourceID === event2.sourceID)
@@ -122,7 +122,7 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
   }
 
   // detects if the events must match target, and if so if their targets match
-  protected _targetCheck(el: EventLink, event1: AnyEvent, event2: AnyEvent): boolean {
+  private _targetCheck(el: EventLink, event1: AnyEvent, event2: AnyEvent): boolean {
     return (
       el.anyTarget ||
       (HasTarget(event1) &&
@@ -134,11 +134,7 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
   /** checks that the referenced event matches the criteria and that the linking and
    * referenced events match each other, then adds the link(s).
    * Returns 1 iff a link is added, and 0 if not. */
-  protected _checkAndLink(
-    el: EventLink,
-    linkingEvent: AnyEvent,
-    referencedEvent: AnyEvent,
-  ): number {
+  private _checkAndLink(el: EventLink, linkingEvent: AnyEvent, referencedEvent: AnyEvent): number {
     if (
       this._isReferenced(el, referencedEvent) &&
       this._sourceCheck(el, linkingEvent, referencedEvent) &&

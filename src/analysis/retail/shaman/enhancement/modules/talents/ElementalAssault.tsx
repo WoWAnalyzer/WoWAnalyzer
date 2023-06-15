@@ -73,11 +73,12 @@ class ElementalAssault extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            {this.maelstromWeaponGained} Total Maelstrom Gained
-            <br />
-            {this.maelstromWeaponWasted} Maelstrom Wasted
+            <div>{this.maelstromWeaponGained} Total Maelstrom Gained</div>
+            <div>{this.maelstromWeaponWasted} Maelstrom Wasted</div>
             <hr />
-            {this.maelstromWeaponGained - this.maelstromWeaponWasted} Effective Maelstrom Gained
+            <div>
+              {this.maelstromWeaponGained - this.maelstromWeaponWasted} Effective Maelstrom Gained
+            </div>
           </>
         }
       >

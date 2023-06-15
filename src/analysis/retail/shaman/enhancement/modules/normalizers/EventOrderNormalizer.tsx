@@ -18,8 +18,10 @@ const thorimsInvocationEventOrder: EventOrder = {
     EventType.Cast,
     EventType.FreeCast,
     EventType.EndChannel,
+    EventType.Damage,
   ],
   bufferMs: MAELSTROM_WEAPON_MS,
+  anyTarget: true,
   updateTimestamp: true,
 };
 

@@ -1,11 +1,12 @@
+import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class StormBlast extends Analyzer {
   damage = 0;
@@ -19,7 +20,7 @@ class StormBlast extends Analyzer {
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.STORMBLAST_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.STORMBLAST_DAMAGE),
       this.onDamageEvent,
     );
   }
@@ -35,9 +36,9 @@ class StormBlast extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spell={TALENTS_SHAMAN.STORMBLAST_TALENT}>
+        <TalentSpellText talent={TALENTS_SHAMAN.STORMBLAST_TALENT}>
           <ItemDamageDone amount={this.damage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

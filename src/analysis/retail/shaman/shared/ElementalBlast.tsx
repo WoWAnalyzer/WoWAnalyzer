@@ -7,13 +7,17 @@ import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 
 class ElementalBlast extends Analyzer {
   currentBuffAmount = 0;
   lastFreshApply = 0;
   resultDuration = 0;
+  buffAmounts: Record<number, number> = {
+    [SPELLS.ELEMENTAL_BLAST_CRIT.id]: 0,
+    [SPELLS.ELEMENTAL_BLAST_MASTERY.id]: 0,
+    [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0,
+  };
 
   constructor(options: Options) {
     super(options);
@@ -33,6 +37,11 @@ class ElementalBlast extends Analyzer {
       Events.applybuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS),
       this.onApplyBuff,
     );
+
+    this.addEventListener(
+      Events.refreshbuff.to(SELECTED_PLAYER).spell(ELEMENTAL_BLAST_BUFFS),
+      (event) => (this.buffAmounts[event.ability.guid] += 1),
+    );
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
@@ -47,6 +56,7 @@ class ElementalBlast extends Analyzer {
       this.lastFreshApply = event.timestamp;
     }
     this.currentBuffAmount += 1;
+    this.buffAmounts[event.ability.guid] += 1;
   }
 
   get hasteUptime() {
@@ -80,19 +90,19 @@ class ElementalBlast extends Analyzer {
         color: '#9256ff',
         label: <>Mastery</>,
         spellId: SPELLS.ELEMENTAL_BLAST_MASTERY.id,
-        value: Number(formatPercentage(this.masteryUptime, 2)),
+        value: this.buffAmounts[SPELLS.ELEMENTAL_BLAST_MASTERY.id],
       },
       {
         color: '#0ed59b',
         label: <>Haste</>,
         spellId: SPELLS.ELEMENTAL_BLAST_HASTE.id,
-        value: Number(formatPercentage(this.hasteUptime, 2)),
+        value: this.buffAmounts[SPELLS.ELEMENTAL_BLAST_HASTE.id],
       },
       {
         color: '#e01c1c',
         label: <>Crit</>,
         spellId: SPELLS.ELEMENTAL_BLAST_CRIT.id,
-        value: Number(formatPercentage(this.critUptime, 2)),
+        value: this.buffAmounts[SPELLS.ELEMENTAL_BLAST_CRIT.id],
       },
     ];
     return <DonutChart items={items} />;

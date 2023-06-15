@@ -36,6 +36,21 @@ const others = itemIndexableList({
     name: 'Roiling Shadowflame',
     icon: 'inv_shadowflame_buff',
   },
+  ELEMENTIUM_POCKET_ANVIL_ANVIL_STRIKE: {
+    id: 401306,
+    name: 'Anvil Strike',
+    icon: 'inv_blacksmithing_khazgoriananvil',
+  },
+  ELEMENTIUM_POCKET_ECHOED_FLARE: {
+    id: 401324,
+    name: 'Echoed Flare',
+    icon: 'inv_shadowflame_nova',
+  },
+  MANIC_GRIEFTORCH: {
+    id: 382135,
+    name: 'Manic Grieftorch',
+    icon: 'shaman_talent_unleashedfury',
+  },
 });
 
 export default others;

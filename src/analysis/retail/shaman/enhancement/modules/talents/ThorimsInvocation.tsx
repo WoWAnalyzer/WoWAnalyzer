@@ -23,7 +23,8 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
  * discharge a Lightning Bolt or Chain Lightning at your enemy, whichever you most recently used. */
 
 interface ThorimsInvocationProc {
-  count: number;
+  casts: number;
+  hits?: number | undefined;
   damage: number;
 }
 
@@ -37,8 +38,8 @@ class ThorimsInvocation extends Analyzer {
   protected gcd!: GlobalCooldown;
   protected lastSpellId: number | undefined;
   protected procs: Record<number, ThorimsInvocationProc> = {
-    [SPELLS.LIGHTNING_BOLT.id]: { count: 0, damage: 0 },
-    [TALENTS.CHAIN_LIGHTNING_TALENT.id]: { count: 0, damage: 0 },
+    [SPELLS.LIGHTNING_BOLT.id]: { casts: 0, damage: 0 },
+    [TALENTS.CHAIN_LIGHTNING_TALENT.id]: { casts: 0, hits: 0, damage: 0 },
   };
   protected increaseDamage = 0;
   protected lastSpellCast: number | null = null;
@@ -75,15 +76,23 @@ class ThorimsInvocation extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    const linkedEvent = event._linkedEvents?.find((le) => le.relation === THORIMS_INVOCATION_LINK)
-      ?.event as DamageEvent;
-    if (!linkedEvent) {
+    const linkedEvents =
+      event._linkedEvents
+        ?.filter((le) => le.relation === THORIMS_INVOCATION_LINK)
+        .map((le) => le.event as DamageEvent) || [];
+    if (linkedEvents.length === 0) {
       return;
     }
-    const spellId = linkedEvent.ability.guid;
 
-    this.procs[spellId].count += 1;
-    this.procs[spellId].damage += linkedEvent.amount;
+    const spellId = linkedEvents[0].ability.guid;
+    const hits = linkedEvents.length;
+
+    this.procs[spellId].casts += 1;
+    this.procs[spellId].damage += linkedEvents.reduce(
+      (total: number, event: DamageEvent) => (total += event.amount),
+      0,
+    );
+    this.procs[spellId].hits! += hits;
     this.lastSpellCast = spellId;
 
     if (spellId === TALENTS.CHAIN_LIGHTNING_TALENT.id) {
@@ -106,7 +115,7 @@ class ThorimsInvocation extends Analyzer {
           id: 'shaman.enhancement.windstrike.inefficientCastReason',
           message: "You should have re-primed Thorim's Invocation with Lightning Bolt.",
         });
-      } else if (!cracklingThunder) {
+      } else if (!cracklingThunder && hits < 2) {
         event.meta = event.meta || {};
         event.meta.isInefficientCast = true;
         event.meta.inefficientCastReason = t({
@@ -131,8 +140,8 @@ class ThorimsInvocation extends Analyzer {
 
   get totalProcs() {
     return (
-      this.procs[SPELLS.LIGHTNING_BOLT.id].count +
-      this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].count
+      this.procs[SPELLS.LIGHTNING_BOLT.id].casts +
+      this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].casts
     );
   }
 
@@ -146,17 +155,31 @@ class ThorimsInvocation extends Analyzer {
           <>
             <Trans>
               <SpellLink spell={SPELLS.LIGHTNING_BOLT} />{' '}
-              <strong>{formatNumber(this.procs[SPELLS.LIGHTNING_BOLT.id].count)}</strong> casts -{' '}
+              <strong>{formatNumber(this.procs[SPELLS.LIGHTNING_BOLT.id].casts)}</strong> casts -{' '}
               <DamageIcon />{' '}
               <strong>{formatNumber(this.procs[SPELLS.LIGHTNING_BOLT.id].damage)}</strong> damage
               done
               <br />
-              <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />{' '}
-              <strong>{formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].count)}</strong>{' '}
-              casts - <DamageIcon />{' '}
-              <strong>{formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].damage)}</strong>{' '}
-              damage done
-              <br />
+              {this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].damage > 0 ? (
+                <>
+                  <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />{' '}
+                  <strong>
+                    {formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].casts)}
+                  </strong>{' '}
+                  casts (
+                  <strong>
+                    {formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].hits!)}
+                  </strong>{' '}
+                  hits) - <DamageIcon />{' '}
+                  <strong>
+                    {formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].damage)}
+                  </strong>{' '}
+                  damage done
+                  <br />
+                </>
+              ) : (
+                <></>
+              )}
               Total <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> and{' '}
               <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage increased by{' '}
               <DamageIcon /> <strong>{formatNumber(this.increaseDamage)}</strong>

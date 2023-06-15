@@ -33,11 +33,15 @@ export const MERGE_SPELLS = [
   },
 ];
 
-/** Ignore damage events from items and enchants */
+/** Ignore damage events from items and enchants for the
+ * purposes of damage amp effects */
 export const IGNORED_DAMAGE_EVENTS = [
   ITEMS.FANG_ADORNMENTS.id,
   ITEMS.ROILING_SHADOWFLAME.id,
   ITEMS.BROODKEEPERS_BLAZE.id,
+  ITEMS.ELEMENTIUM_POCKET_ANVIL_ANVIL_STRIKE,
+  ITEMS.ELEMENTIUM_POCKET_ECHOED_FLARE,
+  ITEMS.MANIC_GRIEFTORCH,
 ];
 
 export const MAELSTROM_WEAPON_ELIGIBLE_SPELLS: Spell[] = [
