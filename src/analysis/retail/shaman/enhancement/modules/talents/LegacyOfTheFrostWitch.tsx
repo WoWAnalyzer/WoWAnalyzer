@@ -16,11 +16,10 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import UptimeIcon from 'interface/icons/Uptime';
-import DamageIcon from 'interface/icons/Damage';
 import { SpellLink } from 'interface';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { IGNORED_DAMAGE_EVENTS, MERGE_SPELLS } from '../../constants';
+import { DamageIcon, UptimeIcon } from 'interface/icons';
 
 const DAMAGE_AMP_PERCENTAGE: Record<number, number> = { 1: 0.05, 2: 0.25 };
 
