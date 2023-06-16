@@ -143,6 +143,68 @@ class ThorimsInvocation extends Analyzer {
     );
   }
 
+  get lightningBoltStatisticTooltip() {
+    const proc = this.procs[SPELLS.LIGHTNING_BOLT.id];
+    const castComponent = (
+      <>
+        <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
+        {': '}
+        <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
+      </>
+    );
+    const damageComponent =
+      proc.casts > 0 ? (
+        <>
+          {' - '}
+          <DamageIcon /> <strong>{formatNumber(proc.damage)}</strong> damage done
+        </>
+      ) : (
+        <></>
+      );
+
+    return (
+      <>
+        <div>
+          {castComponent}
+          {damageComponent}
+        </div>
+      </>
+    );
+  }
+
+  get chainLightningStatisticTooltip() {
+    const proc = this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id];
+    if (proc.casts > 0) {
+      const hitsComponent =
+        proc.hits! > proc.casts ? (
+          <>
+            {' '}
+            (<strong>
+              {formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].hits!)}
+            </strong>{' '}
+            hits)
+          </>
+        ) : (
+          <></>
+        );
+
+      return (
+        <>
+          <div>
+            <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />
+            {': '}
+            <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
+            {hitsComponent}
+            {' - '}
+            <strong>{formatNumber(proc.damage)}</strong> damage done
+          </div>
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  }
+
   statistic() {
     return (
       <Statistic
@@ -152,35 +214,13 @@ class ThorimsInvocation extends Analyzer {
         tooltip={
           <>
             <Trans>
-              <SpellLink spell={SPELLS.LIGHTNING_BOLT} />{' '}
-              <strong>{formatNumber(this.procs[SPELLS.LIGHTNING_BOLT.id].casts)}</strong> casts -{' '}
-              <DamageIcon />{' '}
-              <strong>{formatNumber(this.procs[SPELLS.LIGHTNING_BOLT.id].damage)}</strong> damage
-              done
-              <br />
-              {this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].damage > 0 ? (
-                <>
-                  <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />{' '}
-                  <strong>
-                    {formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].casts)}
-                  </strong>{' '}
-                  casts (
-                  <strong>
-                    {formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].hits!)}
-                  </strong>{' '}
-                  hits) - <DamageIcon />{' '}
-                  <strong>
-                    {formatNumber(this.procs[TALENTS.CHAIN_LIGHTNING_TALENT.id].damage)}
-                  </strong>{' '}
-                  damage done
-                  <br />
-                </>
-              ) : (
-                <></>
-              )}
-              Total <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> and{' '}
-              <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage increased by{' '}
-              <DamageIcon /> <strong>{formatNumber(this.increaseDamage)}</strong>
+              {this.lightningBoltStatisticTooltip}
+              {this.chainLightningStatisticTooltip}
+              <div>
+                Total <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> and{' '}
+                <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage increased by{' '}
+                <DamageIcon /> <strong>{formatNumber(this.increaseDamage)}</strong>
+              </div>
             </Trans>
           </>
         }

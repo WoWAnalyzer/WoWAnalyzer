@@ -41,7 +41,7 @@ const thorimsInvocationCastLink: EventLink = {
   linkingEventType: EventType.Cast,
   referencedEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id],
   referencedEventType: [EventType.Damage],
-  forwardBufferMs: 100,
+  forwardBufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
 };
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
