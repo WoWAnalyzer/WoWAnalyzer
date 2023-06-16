@@ -65,20 +65,34 @@ class Stormbringer extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Reset breakdown:
-            <ul>
-              <li>
-                <strong>{this.stormStrikeResets}</strong>{' '}
-                <SpellLink spell={TALENTS.STORMSTRIKE_TALENT} /> resets
-              </li>
-              <li>
-                <strong>{this.windStrikeResets}</strong>{' '}
-                <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> resets
-              </li>
-            </ul>
-            <small>
-              <strong>{this.wasted}</strong> wasted procs
-            </small>
+            <div>
+              {this.selectedCombatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) ||
+              this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ? (
+                <>
+                  Reset breakdown:
+                  <ul>
+                    <li>
+                      <strong>{this.stormStrikeResets}</strong>{' '}
+                      <SpellLink spell={TALENTS.STORMSTRIKE_TALENT} /> resets
+                    </li>
+                    <li>
+                      <strong>{this.windStrikeResets}</strong>{' '}
+                      <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> resets
+                    </li>
+                  </ul>
+                </>
+              ) : (
+                <>
+                  <strong>{this.stormStrikeResets}</strong>{' '}
+                  <SpellLink spell={TALENTS.STORMSTRIKE_TALENT} /> resets
+                </>
+              )}
+            </div>
+            <div>
+              <small>
+                <strong>{this.wasted}</strong> wasted procs
+              </small>
+            </div>
           </>
         }
       >
