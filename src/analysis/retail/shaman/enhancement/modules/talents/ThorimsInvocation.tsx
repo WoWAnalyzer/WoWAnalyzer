@@ -102,6 +102,10 @@ class ThorimsInvocation extends Analyzer {
       const cracklingThunder = this.selectedCombatant.hasBuff(
         SPELLS.CRACKLING_THUNDER_TIER_BUFF.id,
       );
+      const inefficientCastReason = t({
+        id: 'shaman.enhancement.windstrike.inefficientCastReason',
+        message: "You should have re-primed Thorim's Invocation with Lightning Bolt.",
+      });
       if (
         mswStacks >= 5 &&
         !cracklingThunder &&
@@ -111,17 +115,11 @@ class ThorimsInvocation extends Analyzer {
       ) {
         event.meta = event.meta || {};
         event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = t({
-          id: 'shaman.enhancement.windstrike.inefficientCastReason',
-          message: "You should have re-primed Thorim's Invocation with Lightning Bolt.",
-        });
+        event.meta.inefficientCastReason = inefficientCastReason;
       } else if (!cracklingThunder && hits < 2) {
         event.meta = event.meta || {};
         event.meta.isInefficientCast = true;
-        event.meta.inefficientCastReason = t({
-          id: 'shaman.enhancement.windstrike.inefficientCastReason',
-          message: "Thorim's Invocation was not primed with Lightning Bolt.",
-        });
+        event.meta.inefficientCastReason = inefficientCastReason;
       }
     }
   }
