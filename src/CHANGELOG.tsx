@@ -24,6 +24,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 6, 17), 'Update articles to use new spell link format.', ToppleTheNun),
   change(date(2023, 5, 31), <>Implement <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id}/> module for Monk, Shaman, and Warlock</>, Trevor),
   change(date(2023, 5, 29), 'Add missing Balance Druid haste buffs.', Jundarer),
   change(date(2023, 5, 21), 'Refactor raid buff tracking and support tracking Windfury Totem.', ToppleTheNun),
