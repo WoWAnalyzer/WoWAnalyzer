@@ -43,7 +43,7 @@ export default (
     <br />
     <br />
     Imagine you were hit by a spell that does 1,000 raw damage. You have two damage reduction buffs
-    up, <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> giving 20% DR and Armor giving 40%
+    up, <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> giving 20% DR and Armor giving 40%
     DR. The effective damage taken would be <code>1000 * (100% - 20%) * (100% - 40%) =</code> 480
     damage. The total damage reduced would be 520 damage, or 52% effective DR.
     <br />
@@ -56,7 +56,7 @@ export default (
     <br />
     <br />
     Using the example values, we have a total of 520 damage reduced by 60% total <i>raw</i> damage
-    reduction. For <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> (the 20% DR buff) the
+    reduction. For <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> (the 20% DR buff) the
     resulting damage reduction of this method would be <code>520 / 60% * 20% =</code>{' '}
     <strong>173 damage</strong>.<br />
     <br />
@@ -73,9 +73,9 @@ export default (
     <br />
     <br />
     The most extreme example of this is static DR such as Armor or Versatility versus a short
-    duration or optional DR such as <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> or
+    duration or optional DR such as <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> or
     Devotion Aura. Both Armor and Versatility have a 100% uptime and are (mostly) non-variable. On
-    the other hand <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> can be timed to be active
+    the other hand <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> can be timed to be active
     at the exact right moment, or not at all, and Devotion Aura can be replaced with the other
     talents in the row; Aura of Mercy or Aura of Sacrifice.
     <br />
@@ -87,13 +87,13 @@ export default (
     <br />
     <br />
     Using the example values once again, we need two steps to determine the damage reduced by the
-    20% buff (<SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} />
+    20% buff (<SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} />
     ). First we need to account for the Armor DR since it's a static damage reduction. We can just
     use the regular damage reduction formula; <code>1,000 * (100% - 40%) =</code> 600 damage taken.
     Next we can calculate the damage taken after{' '}
-    <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> using the same formula with the new
+    <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> using the same formula with the new
     values; <code>600 * (100% - 20%) =</code> 480 damage taken. The difference is the the damage
-    reduced by <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} />; <code>600 - 480 =</code>{' '}
+    reduced by <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} />; <code>600 - 480 =</code>{' '}
     <strong>120 damage</strong>.<br />
     <br />
     This method is illustrated in the image below. Notice how the actual contribution of Devotion
@@ -112,7 +112,7 @@ export default (
     We can get the damage reduced of just the DR under analysis using the formula{' '}
     <code>actual damage taken / (100% - DR percentage) * DR percentage</code>. Using the example
     numbers, if we look at the damage reduced by{' '}
-    <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> (20% DR), we would find it reduced the
+    <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> (20% DR), we would find it reduced the
     damage taken by <code>480 / (100% - 20%) * 20% =</code> <strong>120 damage</strong>. This is the
     same result as the fair share approach for optional DRs, but it's much easier to calculate.
     <br />
@@ -126,7 +126,7 @@ export default (
     The big advantage of this approach is that it works under the assumption that all other DR buffs
     are out of your control and would have been there regardless. This is great for temporary or
     optional damage reduction effects such as Devotion Aura or{' '}
-    <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> as it perfectly isolates their value to
+    <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> as it perfectly isolates their value to
     show how much it was worth. It reveals how much effective damage reduction you would lose out on
     if you didn't have the talent, or if you didn't cast it when you did. Another advantage is that
     it discourages stacking DRs because the DR under analysis will get a low value out of it.
@@ -142,9 +142,9 @@ export default (
     analysis is the one thing that's optional and everything else likely would have been cast
     regardless. We assume you use the shown data to consider if you should use the talent at all, or
     maybe activate Aura Mastery at another time. For example you wouldn't change your{' '}
-    <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> cast based on having slightly more or
+    <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> cast based on having slightly more or
     less Armor, and you probably would have cast{' '}
-    <SpellLink id={TALENTS.DIVINE_PROTECTION_TALENT.id} /> regardless of being affected by Devotion
+    <SpellLink spell={TALENTS.DIVINE_PROTECTION_TALENT} /> regardless of being affected by Devotion
     Aura.
     <br />
     <br />

@@ -647,7 +647,7 @@ const Article = (props: ArticleProps) => {
         whatever argument you're having.
         <br />
         <br />
-        One thing that stands out is <SpellLink id={SPELLS.MARK_OF_THE_ANCIENT_PRIESTESS.id} />{' '}
+        One thing that stands out is <SpellLink spell={SPELLS.MARK_OF_THE_ANCIENT_PRIESTESS} />{' '}
         shows up in the list a lot. It might be worth reconsidering your neck enchant.
         <br />
         <br />
@@ -862,7 +862,7 @@ const Article = (props: ArticleProps) => {
         the hang of it and started work on Brewmaster Monk. Just like with the Guardian Druid
         analyzer the first version was pretty comprehensive, adding all sorts of interesting new
         statistics and even accounting well for all the weird combatlog interactions of{' '}
-        <SpellLink id={SPELLS.STAGGER.id} />.<br />
+        <SpellLink spell={SPELLS.STAGGER} />.<br />
         <br />
         <Image source={BrewmasterMonk} description="Brewmaster as it was on release" />
         <br />
@@ -873,8 +873,8 @@ const Article = (props: ArticleProps) => {
         In December 2017 <Contributor {...CONTRIBUTORS.emallson} /> took over as the primary
         maintainer of this spec. Initially, he wanted to use WoWAnalyzer as a platform for
         understanding the difficult-to-manually-analyze effectiveness of the{' '}
-        <SpellLink id={SPELLS.STAGGER.id} /> and Ironskin /{' '}
-        <SpellLink id={TALENTS_MONK.PURIFYING_BREW_TALENT.id} /> system. New Brewmasters often come
+        <SpellLink spell={SPELLS.STAGGER} /> and Ironskin /{' '}
+        <SpellLink spell={TALENTS_MONK.PURIFYING_BREW_TALENT} /> system. New Brewmasters often come
         to the <code>#brew_questions</code> channel with questions about Brew usage and Stagger, but
         actual performance on the spec can be very time-intensive both to explain and to analyze. To
         help address this, he's added statistics and suggestions that help explain why common issues
@@ -1160,7 +1160,7 @@ const Article = (props: ArticleProps) => {
       <Item title="Fixing combatlog bugs and inconsistencies: buff applications" date="10 Oct">
         Combat logs have a lot of bugs, inconsistencies and other things that make them hard to
         read. <b>Buff</b> events have many issues, such as spells like{' '}
-        <SpellLink id={SPELLS.BLOODLUST.id} /> never getting an apply-event, spells that have a 100%
+        <SpellLink spell={SPELLS.BLOODLUST} /> never getting an apply-event, spells that have a 100%
         uptime never appear and buffs applied before combat appear differently from all other buffs.
         <br />
         <br />
@@ -1900,7 +1900,7 @@ const Article = (props: ArticleProps) => {
           <br />
           <br />
           To understand what the project did back then you need to know that{' '}
-          <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER.id} icon>
+          <SpellLink spell={SPELLS.MASTERY_LIGHTBRINGER} icon>
             Mastery
           </SpellLink>{' '}
           causes a Holy Paladin's healing to be increased based on how close she is to the player
