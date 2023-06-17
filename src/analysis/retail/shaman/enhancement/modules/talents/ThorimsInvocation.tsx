@@ -12,10 +12,9 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
-import DamageIcon from 'interface/icons/Damage';
-import UptimeIcon from 'interface/icons/Uptime';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
+import { DamageIcon, UptimeIcon } from 'interface/icons';
 
 /** Lightning Bolt and Chain Lightning damage increased by 20%.
  *
@@ -156,7 +155,8 @@ class ThorimsInvocation extends Analyzer {
       proc.casts > 0 ? (
         <>
           {' - '}
-          <DamageIcon /> <strong>{formatNumber(proc.damage)}</strong> damage done
+          <DamageIcon /> <strong>{formatNumber(proc.damage)}</strong> damage done (<DamageIcon />{' '}
+          <strong>{formatNumber(proc.damage / proc.casts)}</strong> per cast)
         </>
       ) : (
         <></>
@@ -196,7 +196,8 @@ class ThorimsInvocation extends Analyzer {
             <strong>{formatNumber(proc.casts)}</strong> {proc.casts === 1 ? 'cast' : 'casts'}
             {hitsComponent}
             {' - '}
-            <strong>{formatNumber(proc.damage)}</strong> damage done
+            <strong>{formatNumber(proc.damage)}</strong> damage done (<DamageIcon />{' '}
+            <strong>{formatNumber(proc.damage / proc.casts)}</strong> per cast)
           </div>
         </>
       );
