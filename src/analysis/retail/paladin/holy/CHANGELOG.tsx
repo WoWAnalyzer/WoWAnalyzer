@@ -5,6 +5,8 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 6, 17), <>Devo Aura AM is 15%.</>, Abelito75),
+  change(date(2023, 6, 17), <>Rule of Law doens't increase Mastery Range.</>, Abelito75),
   change(date(2023, 6, 16), <>Average Light of Dawn Distance.</>, Abelito75),
   change(date(2023, 5, 15), <>Bump to full support</>, Trevor),
   change(date(2023, 4, 28), <>Add module for T30 Tier set</>, Trevor),

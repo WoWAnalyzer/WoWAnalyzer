@@ -18,7 +18,7 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatist
 
 // Source: https://github.com/MartijnHols/HolyPaladin/blob/master/Spells/Talents/60/DevotionAura.md#about-the-passive-effect
 const DEVOTION_AURA_PASSIVE_DAMAGE_REDUCTION = 0.03;
-const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.12;
+const DEVOTION_AURA_ACTIVE_DAMAGE_REDUCTION = 0.15;
 const debugg = false;
 
 /**
