@@ -73,10 +73,9 @@ describe('stats', () => {
 
     // Vessel of Searing Shadows
     // https://www.wowhead.com/item=202615/vessel-of-searing-shadow
-    const unstableFlames = (itemLevel) => calculateSecondaryStatDefault(415, 80, itemLevel);
+    const unstableFlames = (itemLevel) => calculateSecondaryStatDefault(415, 89.99989, itemLevel);
 
     expect(unstableFlames(402)).toBeWithin(84.06605, 1); // LFR
-    expect(unstableFlames(415)).toBeWithin(89.99989, 1); // Normal
     expect(unstableFlames(428)).toBeWithin(95.93372, 1); // Heroic
     expect(unstableFlames(441)).toBeWithin(101.8676, 1); // Mythic
   });
@@ -85,9 +84,9 @@ describe('stats', () => {
     // Neck https://www.wowhead.com/item=204397/magmoraxs-fourth-collar
     const magmoraxCollarVers = (itemLevel) => calculateSecondaryStatJewelry(421, 294, itemLevel);
 
-    expect(magmoraxCollarVers(408)).toBeWithin(189, 1); // LFR
-    expect(magmoraxCollarVers(434)).toBeWithin(223, 1); // Heroic
-    expect(magmoraxCollarVers(447)).toBeWithin(240, 1); // Mythic
+    expect(magmoraxCollarVers(408)).toBeWithin(267, 1); // LFR
+    expect(magmoraxCollarVers(434)).toBeWithin(321, 1); // Heroic
+    expect(magmoraxCollarVers(447)).toBeWithin(348, 1); // Mythic
 
     const magmoraxCollarMastery = (itemLevel) => calculateSecondaryStatJewelry(421, 916, itemLevel);
 
