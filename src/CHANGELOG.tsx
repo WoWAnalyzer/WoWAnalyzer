@@ -24,6 +24,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 6, 18), 'Add Vessel and Wafting Devotion haste buffs.', Jundarer),
   change(date(2023, 6, 17), 'Update core directories to use new spell link format.', ToppleTheNun),
   change(date(2023, 6, 17), 'Update articles to use new spell link format.', ToppleTheNun),
   change(date(2023, 5, 31), <>Implement <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id}/> module for Monk, Shaman, and Warlock</>, Trevor),

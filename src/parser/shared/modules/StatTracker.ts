@@ -1,5 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
 import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -20,6 +21,7 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import STAT from 'parser/shared/modules/features/STAT';
 
 import Expansion from '../../../game/Expansion';
+import { calculateSecondaryStatDefault } from 'parser/core/stats';
 
 const ARMOR_INT_BONUS = 0.05;
 
@@ -91,6 +93,14 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Trinkets
+    [SPELLS.UNSTABLE_FLAMES.id]: {
+      itemId: ITEMS.VESSEL_OF_SEARING_SHADOW.id,
+      haste: (_, item) => calculateSecondaryStatDefault(415, 90, item.itemLevel),
+    },
+    // endregion
+
+    // region Other
+    [SPELLS.WAFTING_DEVOTION.id]: { haste: 1743.14 },
     // endregion
 
     // region Racials
