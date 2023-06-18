@@ -1,7 +1,7 @@
 import multiplierTables from './statsMultiplierTables.generated';
 
 function scaleStat(baseItemLevel, baseStat, itemLevel) {
-  return Math.round(baseStat * 1.15 ** ((itemLevel - baseItemLevel) / 15));
+  return baseStat * 1.15 ** ((itemLevel - baseItemLevel) / 15);
 }
 function getMultiplier(multiplierTable, itemLevel) {
   return multiplierTable[itemLevel - 1];
