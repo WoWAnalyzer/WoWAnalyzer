@@ -101,6 +101,10 @@ class StatTracker extends Analyzer {
       itemId: ITEMS.VESSEL_OF_SEARING_SHADOW.id,
       haste: (_, item) => calculateSecondaryStatDefault(415, 90, item.itemLevel),
     },
+    [SPELLS.SPOILS_OF_NELTHARUS_HASTE.id]: {
+      itemId: ITEMS.SPOILS_OF_NELTHARUS.id,
+      haste: (_, item) => calculateSecondaryStatDefault(250, 547.57, item.itemLevel),
+    },
     // endregion
 
     // region Other
