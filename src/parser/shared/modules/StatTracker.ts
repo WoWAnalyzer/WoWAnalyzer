@@ -53,6 +53,10 @@ class StatTracker extends Analyzer {
     // TODO: Figure out how to make this work with multiple ranks of phials
     [SPELLS.CHARGED_PHIAL_OF_ALACRITY.id]: { speed: 630 },
     [SPELLS.PHIAL_OF_TEPID_VERSATILITY.id]: { versatility: 632 },
+    [SPELLS.ELEMENTAL_CHAOS_AIR.id]: { haste: 652 },
+    [SPELLS.ELEMENTAL_CHAOS_EARTH.id]: { mastery: 652 },
+    [SPELLS.ELEMENTAL_CHAOS_FIRE.id]: { crit: 652 },
+    [SPELLS.ELEMENTAL_CHAOS_FROST.id]: { versatility: 652 },
     // endregion
 
     //region Food
