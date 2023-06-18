@@ -62,79 +62,54 @@ describe('stats', () => {
     expect(drapeOfTitanicDreams(278)).toBeWithin(74, 1); // Mythic +15 Vault
   });
   it('scales secondary stat correctly', () => {
-    // The First Sigil (Trinket Versatility active)
-    // https://www.wowhead.com/item=188271/the-first-sigil?bonus=6805
-    const theFirstSigil = (itemLevel) => calculateSecondaryStatDefault(226, 1037, itemLevel);
+    // Spoils of Neltharus
+    // https://www.wowhead.com/item=193773/spoils-of-neltharus
+    const spoilsOfNeltharus = (itemLevel) => calculateSecondaryStatDefault(250, 547.57, itemLevel);
 
-    expect(theFirstSigil(239)).toBeWithin(1105, 1); // LFG
-    expect(theFirstSigil(252)).toBeWithin(1174, 1); // Normal
-    expect(theFirstSigil(265)).toBeWithin(1242, 1); // Heroic
-    expect(theFirstSigil(278)).toBeWithin(1311, 1); // Mythic
+    expect(spoilsOfNeltharus(382)).toBeWithin(2253.943, 1); // Normal
+    expect(spoilsOfNeltharus(402)).toBeWithin(2528.523, 1); // Mythic+
+    expect(spoilsOfNeltharus(441)).toBeWithin(3063.954, 1); // Max upgrade Mythic+
+    expect(spoilsOfNeltharus(447)).toBeWithin(3146.328, 1); // Vault
 
-    // Dungeon Item
-    // Back https://www.wowhead.com/item=185781/drape-of-titanic-dreams?bonus=6805
-    const drapeOfTitanicDreamsHaste = (itemLevel) =>
-      calculateSecondaryStatDefault(155, 16, itemLevel);
+    // Vessel of Searing Shadows
+    // https://www.wowhead.com/item=202615/vessel-of-searing-shadow
+    const unstableFlames = (itemLevel) => calculateSecondaryStatDefault(415, 80, itemLevel);
 
-    expect(drapeOfTitanicDreamsHaste(210)).toBeWithin(24, 1); // Normal
-    expect(drapeOfTitanicDreamsHaste(223)).toBeWithin(26, 1); // Heroic
-    expect(drapeOfTitanicDreamsHaste(236)).toBeWithin(28, 1); // Mythic 0
-    expect(drapeOfTitanicDreamsHaste(246)).toBeWithin(29, 1); // Mythic +5
-    expect(drapeOfTitanicDreamsHaste(255)).toBeWithin(30, 1); // Mythic +10
-    expect(drapeOfTitanicDreamsHaste(262)).toBeWithin(31, 1); // Mythic +15
-    expect(drapeOfTitanicDreamsHaste(278)).toBeWithin(33, 1); // Mythic +15 Vault
-
-    const drapeOfTitanicDreamsMastery = (itemLevel) =>
-      calculateSecondaryStatDefault(155, 33, itemLevel);
-
-    expect(drapeOfTitanicDreamsMastery(210)).toBeWithin(49, 1); // Normal
-    expect(drapeOfTitanicDreamsMastery(223)).toBeWithin(53, 1); // Heroic
-    expect(drapeOfTitanicDreamsMastery(236)).toBeWithin(56, 1); // Mythic 0
-    expect(drapeOfTitanicDreamsMastery(246)).toBeWithin(59, 1); // Mythic +5
-    expect(drapeOfTitanicDreamsMastery(255)).toBeWithin(61, 1); // Mythic +10
-    expect(drapeOfTitanicDreamsMastery(262)).toBeWithin(63, 1); // Mythic +15
-    expect(drapeOfTitanicDreamsMastery(278)).toBeWithin(68, 1); // Mythic +15 Vault
+    expect(unstableFlames(402)).toBeWithin(84.06605, 1); // LFR
+    expect(unstableFlames(415)).toBeWithin(89.99989, 1); // Normal
+    expect(unstableFlames(428)).toBeWithin(95.93372, 1); // Heroic
+    expect(unstableFlames(441)).toBeWithin(101.8676, 1); // Mythic
   });
   it('scales secondary stat for Jewelry correctly', () => {
     // Raid Item
-    // Neck https://www.wowhead.com/item=189838/beacon-of-stormwind?bonus=6805
-    const beaconOfStormwindCrit = (itemLevel) => calculateSecondaryStatJewelry(226, 172, itemLevel);
+    // Neck https://www.wowhead.com/item=204397/magmoraxs-fourth-collar
+    const magmoraxCollarVers = (itemLevel) => calculateSecondaryStatJewelry(421, 294, itemLevel);
 
-    expect(beaconOfStormwindCrit(239)).toBeWithin(189, 1); // LFR
-    expect(beaconOfStormwindCrit(252)).toBeWithin(206, 1); // Normal
-    expect(beaconOfStormwindCrit(265)).toBeWithin(223, 1); // Heroic
-    expect(beaconOfStormwindCrit(278)).toBeWithin(240, 1); // Mythic
+    expect(magmoraxCollarVers(408)).toBeWithin(189, 1); // LFR
+    expect(magmoraxCollarVers(434)).toBeWithin(223, 1); // Heroic
+    expect(magmoraxCollarVers(447)).toBeWithin(240, 1); // Mythic
 
-    const beaconOfStormwindMastery = (itemLevel) =>
-      calculateSecondaryStatJewelry(226, 43, itemLevel);
+    const magmoraxCollarMastery = (itemLevel) => calculateSecondaryStatJewelry(421, 916, itemLevel);
 
-    expect(beaconOfStormwindMastery(239)).toBeWithin(47, 1); // LFR
-    expect(beaconOfStormwindMastery(252)).toBeWithin(51, 1); // Normal
-    expect(beaconOfStormwindMastery(265)).toBeWithin(56, 1); // Heroic
-    expect(beaconOfStormwindMastery(278)).toBeWithin(60, 1); // Mythic
+    expect(magmoraxCollarMastery(408)).toBeWithin(832, 1); // LFR
+    expect(magmoraxCollarMastery(434)).toBeWithin(1001, 1); // Heroic
+    expect(magmoraxCollarMastery(447)).toBeWithin(1085, 1); // Mythic
 
     // Dungeon Item
-    // Ring https://www.wowhead.com/item=185813/signet-of-collapsing-stars?bonus=6805
-    const signetOfCollapsingStarHaste = (itemLevel) =>
-      calculateSecondaryStatJewelry(155, 47, itemLevel);
+    // Ring https://www.wowhead.com/item=193768/scalebane-signet
+    const scalebaneSignetCrit = (itemLevel) => calculateSecondaryStatJewelry(250, 76, itemLevel);
 
-    expect(signetOfCollapsingStarHaste(210)).toBeWithin(87, 1); // Normal
-    expect(signetOfCollapsingStarHaste(223)).toBeWithin(96, 1); // Heroic
-    expect(signetOfCollapsingStarHaste(236)).toBeWithin(106, 1); // Mythic 0
-    expect(signetOfCollapsingStarHaste(246)).toBeWithin(113, 1); // Mythic +5
-    expect(signetOfCollapsingStarHaste(255)).toBeWithin(120, 1); // Mythic +10
-    expect(signetOfCollapsingStarHaste(262)).toBeWithin(125, 1); // Mythic +15
-    expect(signetOfCollapsingStarHaste(278)).toBeWithin(137, 1); // Mythic +15 Vault
+    expect(scalebaneSignetCrit(382)).toBeWithin(275, 1); // Normal
+    expect(scalebaneSignetCrit(389)).toBeWithin(294, 1); // Heroic
+    expect(scalebaneSignetCrit(398)).toBeWithin(318, 1); // Mythic
+    expect(scalebaneSignetCrit(402)).toBeWithin(329, 1); // Mythic+
 
-    const signetOfCollapsingStarVers = (itemLevel) =>
-      calculateSecondaryStatJewelry(155, 56, itemLevel);
+    const scalebaneSignetMastery = (itemLevel) =>
+      calculateSecondaryStatJewelry(250, 167, itemLevel);
 
-    expect(signetOfCollapsingStarVers(210)).toBeWithin(103, 1); // Normal
-    expect(signetOfCollapsingStarVers(223)).toBeWithin(114, 1); // Heroic
-    expect(signetOfCollapsingStarVers(236)).toBeWithin(126, 1); // Mythic 0
-    expect(signetOfCollapsingStarVers(246)).toBeWithin(134, 1); // Mythic +5
-    expect(signetOfCollapsingStarVers(255)).toBeWithin(142, 1); // Mythic +10
-    expect(signetOfCollapsingStarVers(262)).toBeWithin(149, 1); // Mythic +15
-    expect(signetOfCollapsingStarVers(278)).toBeWithin(163, 1); // Mythic +15 Vault
+    expect(scalebaneSignetMastery(382)).toBeWithin(600, 1); // Normal
+    expect(scalebaneSignetMastery(389)).toBeWithin(642, 1); // Heroic
+    expect(scalebaneSignetMastery(398)).toBeWithin(695, 1); // Mythic
+    expect(scalebaneSignetMastery(402)).toBeWithin(718, 1); // Mythic+
   });
 });
