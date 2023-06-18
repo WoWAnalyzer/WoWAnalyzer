@@ -15,7 +15,7 @@ export default function hasLegendary(legendary: LegendarySpell): Condition<boole
     describe: (tense) => (
       <>
         you {tenseAlt(tense, 'have ', 'had ')}
-        <SpellLink id={legendary.id} /> equipped
+        <SpellLink spell={legendary.id} /> equipped
       </>
     ),
   };

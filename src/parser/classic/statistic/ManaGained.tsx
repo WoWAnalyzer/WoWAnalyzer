@@ -24,7 +24,7 @@ const ManaGained: Metric<React.ReactNode> = (events, info) => {
       {Object.keys(manaGainedBySpell)
         .map(Number)
         .map((spellId) => (
-          <BoringSpellValueText key={spellId} spellId={spellId}>
+          <BoringSpellValueText key={spellId} spell={spellId}>
             <ItemManaGained amount={manaGainedBySpell[spellId]} />
           </BoringSpellValueText>
         ))}

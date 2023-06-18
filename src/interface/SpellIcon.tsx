@@ -33,7 +33,7 @@ const SpellIcon = ({ id, spell, noLink, alt, ilvl, ...others }: Props) => {
   const spellData = spell ?? id;
   const spellInfo = useSpellInfo(spellData);
 
-  const spellWithFallback = spellInfo || {
+  const spellWithFallback = spellInfo ?? {
     name: 'Spell not recognized',
     icon: 'inv_misc_questionmark',
   };

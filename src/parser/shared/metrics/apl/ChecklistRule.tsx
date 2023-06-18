@@ -87,7 +87,7 @@ const Tooltip = ({
         <ul>
           {mistakes.map(([spellId, count]) => (
             <li key={spellId}>
-              <SpellLink id={parseInt(spellId)} /> ({count} times)
+              <SpellLink spell={parseInt(spellId)} /> ({count} times)
             </li>
           ))}
         </ul>
@@ -145,7 +145,7 @@ export function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element 
       {spells(rule).map((spell, index) => (
         <React.Fragment key={index}>
           {index > 0 ? ' or ' : ''}
-          <SpellLink id={spell.id} />
+          <SpellLink spell={spell.id} />
         </React.Fragment>
       ))}
     </>

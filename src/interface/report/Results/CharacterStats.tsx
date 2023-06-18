@@ -178,7 +178,7 @@ const CharacterStats = ({ statTracker }: Props) => {
           >
             <div className="col-xs-2 text-right">
               <SpellIcon
-                id={getTertiarySpell(stat)!}
+                spell={getTertiarySpell(stat)!}
                 style={{ height: '2em', borderRadius: 2, marginTop: '0.5em' }}
               />
             </div>

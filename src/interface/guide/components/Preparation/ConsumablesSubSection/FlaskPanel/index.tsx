@@ -27,7 +27,7 @@ const FlaskPanel = ({ recommendedFlasks, expansion }: Props) => {
   const flaskBuff = maybeGetSpell(flaskBuffId, expansion);
   const showCurrentFlaskBuff = flaskBuff ? (
     <>
-      : <SpellLink id={flaskBuff} />
+      : <SpellLink spell={flaskBuff} />
     </>
   ) : (
     <>.</>

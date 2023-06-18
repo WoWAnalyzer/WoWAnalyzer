@@ -5,15 +5,16 @@ import { useEffect } from 'react';
 import useSWR from 'swr';
 import Spell from 'common/SPELLS/Spell';
 import { useExpansionContext } from 'interface/report/ExpansionContext';
+import { getSpellId } from 'common/getSpellId';
 
 const fetcher = (...args: Parameters<typeof fetch>) => fetch(...args).then((res) => res.json());
 
 const useSpellInfo = (spell: number | Spell) => {
   const { expansion } = useExpansionContext();
-  const spellId = typeof spell === 'number' ? spell : spell.id;
+  const spellId = getSpellId(spell);
   const argumentAsSpell = typeof spell === 'number' ? maybeGetSpell(spellId, expansion) : spell;
 
-  const { data, error } = useSWR(makeApiUrl(`spell/${spellId}`), {
+  const { data, error } = useSWR<Spell>(makeApiUrl(`spell/${spellId}`), {
     fetcher,
     isPaused: () => argumentAsSpell !== undefined,
   });

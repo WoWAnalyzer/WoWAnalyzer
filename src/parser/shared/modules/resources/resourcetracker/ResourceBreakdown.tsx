@@ -113,7 +113,7 @@ class ResourceBreakdown extends Component<Props> {
               generated.map((ability) => (
                 <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink id={ability.abilityId} />
+                    <SpellLink spell={ability.abilityId} />
                   </td>
                   <td style={numberColumnStyle}>
                     <TooltipElement
@@ -176,7 +176,7 @@ class ResourceBreakdown extends Component<Props> {
                 spent.map((ability) => (
                   <tr key={ability.abilityId}>
                     <td style={{ width: '30%' }}>
-                      <SpellLink id={ability.abilityId} />
+                      <SpellLink spell={ability.abilityId} />
                     </td>
                     <td style={numberColumnStyle}>
                       <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>

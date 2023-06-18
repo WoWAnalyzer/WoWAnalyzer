@@ -14,7 +14,7 @@ export default function hasConduit(conduit: Spell): Condition<boolean> {
     validate: (state) => state,
     describe: (tense) => (
       <>
-        you {tenseAlt(tense, 'have', 'had')} <SpellLink id={conduit.id} /> equipped
+        you {tenseAlt(tense, 'have', 'had')} <SpellLink spell={conduit.id} /> equipped
       </>
     ),
   };

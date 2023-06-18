@@ -20,7 +20,7 @@ interface Props {
 const BoringSpellValue = ({ spellId, value, label, extra, className }: Props) => (
   <div className={`flex boring-value ${className || ''}`}>
     <div className="flex-sub icon">
-      <SpellIcon id={spellId} />
+      <SpellIcon spell={spellId} />
     </div>
     <div className="flex-main value">
       <div>{value}</div>

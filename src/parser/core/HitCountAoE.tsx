@@ -31,7 +31,7 @@ export default abstract class HitCountAoE extends Analyzer {
                   key={tracker.spell.id}
                   content={this.statisticTrackerTooltip(tracker)}
                 >
-                  <SpellIcon id={tracker.spell} />{' '}
+                  <SpellIcon spell={tracker.spell} />{' '}
                   {(tracker.casts === 0 ? 0 : tracker.hits / tracker.casts).toFixed(1)}{' '}
                 </TooltipElement>
                 <small>avg targets hit</small>
