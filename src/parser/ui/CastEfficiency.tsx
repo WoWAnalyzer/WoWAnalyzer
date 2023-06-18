@@ -66,7 +66,7 @@ const CastEfficiency = ({ abilities }: Props) => (
                   <tr key={ability.primarySpell}>
                     <td style={{ width: '35%' }}>
                       <SpellLink
-                        id={ability.primarySpell}
+                        spell={ability.primarySpell}
                         style={{ color: '#fff' }}
                         icon
                         iconStyle={{

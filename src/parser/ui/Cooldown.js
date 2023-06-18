@@ -134,15 +134,16 @@ class Cooldown extends Component {
     return (
       <article>
         <figure>
-          <SpellLink id={cooldown.spell} icon>
+          <SpellLink spell={cooldown.spell} icon>
             <Icon icon={cooldown.spell.icon} alt={cooldown.spell.name} />
           </SpellLink>
         </figure>
         <div className="row" style={{ width: '100%' }}>
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
             <header style={{ marginTop: 5, fontSize: '1.25em', marginBottom: '.1em' }}>
-              <SpellLink id={cooldown.spell} icon={false} /> ({formatDuration(cdStart - fightStart)}{' '}
-              -&gt; {formatDuration(end - fightStart)}) &nbsp;
+              <SpellLink spell={cooldown.spell} icon={false} /> (
+              {formatDuration(cdStart - fightStart)} -&gt; {formatDuration(end - fightStart)})
+              &nbsp;
               <TooltipElement
                 content={
                   <Trans id="shared.cooldownThroughputTracker.cooldown.events.tooltip">
@@ -166,7 +167,7 @@ class Cooldown extends Component {
                   .map((event, i) => (
                     <SpellLink
                       key={`${event.ability.guid}-${event.timestamp}-${i}`}
-                      id={event.ability.guid}
+                      spell={event.ability.guid}
                       icon={false}
                     >
                       <Icon
@@ -203,7 +204,7 @@ class Cooldown extends Component {
                       <div className="col-xs-10">
                         <SpellLink
                           key={`${event.ability.guid}-${event.timestamp}-${i}`}
-                          id={event.ability.guid}
+                          spell={event.ability.guid}
                           icon={false}
                         >
                           <Icon
@@ -263,7 +264,7 @@ class Cooldown extends Component {
                       >
                         <SpellLink
                           key={`${event.ability.guid}-${event.timestamp}-${i}`}
-                          id={event.ability.guid}
+                          spell={event.ability.guid}
                           icon={false}
                         >
                           <Icon

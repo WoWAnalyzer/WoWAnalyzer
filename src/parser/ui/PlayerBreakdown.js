@@ -161,7 +161,7 @@ class PlayerBreakdown extends Component {
                   return (
                     <tr key={spell.spellId}>
                       <td style={{ width: '20%' }}>
-                        <SpellLink id={spell.spellId} />
+                        <SpellLink spell={spell.spellId} />
                       </td>
                       <td style={{ width: 50, textAlign: 'right' }}>
                         {(Math.round(spell.masteryEffectiveness * 10000) / 100).toFixed(2)}%

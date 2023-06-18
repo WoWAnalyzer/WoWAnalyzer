@@ -108,7 +108,7 @@ function formatPercentUptime(uptime: number, total: number): string {
 function getSubUptimeIcon(spec: UptimeBarSpec) {
   return spec.spells.map((s) => (
     <>
-      <SpellIcon key={'Icon-' + s.name} id={s.id} />{' '}
+      <SpellIcon key={'Icon-' + s.name} spell={s.id} />{' '}
     </>
   ));
 }

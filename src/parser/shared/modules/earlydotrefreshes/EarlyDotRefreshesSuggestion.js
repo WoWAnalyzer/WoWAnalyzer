@@ -6,7 +6,7 @@ function suggest(when, suggestion) {
   when(suggestion).addSuggestion((suggest, actual, recommended) =>
     suggest(
       <>
-        You refreshed <SpellLink id={suggestion.spell.id} /> early {suggestion.count} times,
+        You refreshed <SpellLink spell={suggestion.spell.id} /> early {suggestion.count} times,
         resulting in {formatDuration(suggestion.wastedDuration)} seconds lost. The individual casts
         are highlighted on the timeline.
       </>,

@@ -35,7 +35,7 @@ export function debuffPresent(spell: Spell, targetOptions?: TargetOptions): Cond
     },
     describe: (tense) => (
       <>
-        <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} present on target
+        <SpellLink spell={spell.id} /> {tenseAlt(tense, 'is', 'was')} present on target
       </>
     ),
   };
