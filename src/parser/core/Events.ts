@@ -207,6 +207,17 @@ export interface Ability {
   abilityIcon: string;
 }
 
+export const isAbility = (x: unknown): x is Ability => {
+  const typedObj = x as Ability;
+  return (
+    ((typedObj !== null && typeof typedObj === 'object') || typeof typedObj === 'function') &&
+    typeof typedObj['name'] === 'string' &&
+    typeof typedObj['guid'] === 'number' &&
+    typeof typedObj['type'] === 'number' &&
+    typeof typedObj['abilityIcon'] === 'string'
+  );
+};
+
 /** The state of the TARGET'S resource. Each ClassResources refers to a specific resource.
  *  Events typically will have an array of these objects, one object per resource.
  *  All the player's resources are not guaranteed to show! Only the ones changing. */
