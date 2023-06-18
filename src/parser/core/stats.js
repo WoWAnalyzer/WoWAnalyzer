@@ -1,7 +1,7 @@
 import multiplierTables from './statsMultiplierTables.generated';
 
 function scaleStat(baseItemLevel, baseStat, itemLevel) {
-  return baseStat * 1.15 ** ((itemLevel - baseItemLevel) / 15);
+  return Math.round(baseStat * 1.15 ** ((itemLevel - baseItemLevel) / 15));
 }
 function getMultiplier(multiplierTable, itemLevel) {
   return multiplierTable[itemLevel - 1];
@@ -9,7 +9,7 @@ function getMultiplier(multiplierTable, itemLevel) {
 function scaleStatViaMultiplierTable(baseItemLevel, baseStat, itemLevel, multiplierTable) {
   const base = baseStat / getMultiplier(multiplierTable, baseItemLevel);
   const scaledBase = scaleStat(baseItemLevel, base, itemLevel);
-  return scaledBase * getMultiplier(multiplierTable, itemLevel);
+  return Math.round(scaledBase * getMultiplier(multiplierTable, itemLevel) * 1000) / 1000;
 }
 
 export function calculatePrimaryStat(baseItemLevel, baseStat, itemLevel) {

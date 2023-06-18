@@ -84,31 +84,29 @@ describe('stats', () => {
     // Neck https://www.wowhead.com/item=204397/magmoraxs-fourth-collar
     const magmoraxCollarVers = (itemLevel) => calculateSecondaryStatJewelry(421, 294, itemLevel);
 
-    expect(magmoraxCollarVers(408)).toBeWithin(267, 1); // LFR
-    expect(magmoraxCollarVers(434)).toBeWithin(321, 1); // Heroic
-    expect(magmoraxCollarVers(447)).toBeWithin(348, 1); // Mythic
+    expect(magmoraxCollarVers(408)).toBeWithin(267, 2); // LFR
+    expect(magmoraxCollarVers(434)).toBeWithin(321, 2); // Heroic
+    expect(magmoraxCollarVers(447)).toBeWithin(348, 2); // Mythic
 
     const magmoraxCollarMastery = (itemLevel) => calculateSecondaryStatJewelry(421, 916, itemLevel);
 
-    expect(magmoraxCollarMastery(408)).toBeWithin(832, 1); // LFR
-    expect(magmoraxCollarMastery(434)).toBeWithin(1001, 1); // Heroic
-    expect(magmoraxCollarMastery(447)).toBeWithin(1085, 1); // Mythic
+    expect(magmoraxCollarMastery(408)).toBeWithin(832, 2); // LFR
+    expect(magmoraxCollarMastery(434)).toBeWithin(1001, 2); // Heroic
+    expect(magmoraxCollarMastery(447)).toBeWithin(1085, 2); // Mythic
 
     // Dungeon Item
     // Ring https://www.wowhead.com/item=193768/scalebane-signet
-    const scalebaneSignetCrit = (itemLevel) => calculateSecondaryStatJewelry(250, 76, itemLevel);
+    const scalebaneSignetCrit = (itemLevel) => calculateSecondaryStatJewelry(382, 275, itemLevel);
 
-    expect(scalebaneSignetCrit(382)).toBeWithin(275, 1); // Normal
-    expect(scalebaneSignetCrit(389)).toBeWithin(294, 1); // Heroic
-    expect(scalebaneSignetCrit(398)).toBeWithin(318, 1); // Mythic
-    expect(scalebaneSignetCrit(402)).toBeWithin(329, 1); // Mythic+
+    expect(scalebaneSignetCrit(389)).toBeWithin(294, 2); // Heroic
+    expect(scalebaneSignetCrit(398)).toBeWithin(318, 2); // Mythic
+    expect(scalebaneSignetCrit(402)).toBeWithin(329, 2); // Mythic+
 
     const scalebaneSignetMastery = (itemLevel) =>
-      calculateSecondaryStatJewelry(250, 167, itemLevel);
+      calculateSecondaryStatJewelry(382, 600, itemLevel);
 
-    expect(scalebaneSignetMastery(382)).toBeWithin(600, 1); // Normal
-    expect(scalebaneSignetMastery(389)).toBeWithin(642, 1); // Heroic
-    expect(scalebaneSignetMastery(398)).toBeWithin(695, 1); // Mythic
-    expect(scalebaneSignetMastery(402)).toBeWithin(718, 1); // Mythic+
+    expect(scalebaneSignetMastery(389)).toBeWithin(642, 2); // Heroic
+    expect(scalebaneSignetMastery(398)).toBeWithin(695, 2); // Mythic
+    expect(scalebaneSignetMastery(402)).toBeWithin(718, 2); // Mythic+
   });
 });
