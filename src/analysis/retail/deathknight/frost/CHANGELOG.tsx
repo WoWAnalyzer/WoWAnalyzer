@@ -5,6 +5,7 @@ import { Khazak } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 6, 18), <>Fixed some casts of <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> being improperly counted</>, Khazak),
   change(date(2023, 4, 21), <>Added guide section for <SpellLink spell={talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT.id} /></>, Khazak),
   change(date(2023, 4, 11), 'Updated example report', Khazak),
   change(date(2023, 4, 6), <>Changed logic in <SpellLink spell={talents.KILLING_MACHINE_TALENT} /> module to show refreshes that happen during GCD lock</>, Khazak),
