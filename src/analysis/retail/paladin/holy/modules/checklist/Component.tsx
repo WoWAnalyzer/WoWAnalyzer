@@ -106,7 +106,11 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT) && (
           <AbilityRequirement spell={TALENTS.RULE_OF_LAW_TALENT.id} />
         )}
-        {false && <AbilityRequirement spell={TALENTS.DIVINE_TOLL_TALENT.id} />}
+
+        {combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT) && (
+          <AbilityRequirement spell={TALENTS.DIVINE_TOLL_TALENT.id} />
+        )}
+
         {/* We can't detect race, so disable this when it has never been cast. */}
         {castEfficiency.getCastEfficiencyForSpellId(SPELLS.ARCANE_TORRENT_MANA1.id) && (
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
