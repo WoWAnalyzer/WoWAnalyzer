@@ -71,15 +71,14 @@ class BreathOfSindragosa extends Analyzer {
 
   onFightEnd(event: FightEndEvent) {
     if (this.breathActive) {
-      this.casts -= 1;
+      const duration = event.timestamp - this.beginTimestamp;
+      this.castTracker.push({
+        timestamp: this.beginTimestamp,
+        startingRunicPower: this.startingRunicPower / 10,
+        duration: duration / 1000,
+        fightEnded: true,
+      });
     }
-    const duration = event.timestamp - this.beginTimestamp;
-    this.castTracker.push({
-      timestamp: this.beginTimestamp,
-      startingRunicPower: this.startingRunicPower / 10,
-      duration: duration / 1000,
-      fightEnded: true,
-    });
   }
 
   suggestions(when: When) {
@@ -89,11 +88,11 @@ class BreathOfSindragosa extends Analyzer {
           {' '}
           You are not getting good uptime from your{' '}
           <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that
-          lasts 25 seconds or more. To ensure a good duration, make sure you have 70+ Runic Power
-          pooled and have less than 4 Runes available before you start the cast. Also make sure to
-          use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a few seconds of casting
-          Breath of Sindragosa. Pay close attention to your Runic Power and make sure you are not
-          overcapping. {this.tickingOnFinishedString}
+          lasts {GOOD_BREATH_DURATION_MS / 1000} seconds or more. To ensure a good duration, make
+          sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start
+          the cast. Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a
+          few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and
+          make sure you are not overcapping. {this.tickingOnFinishedString}
         </>,
       )
         .icon(talents.BREATH_OF_SINDRAGOSA_TALENT.icon)
@@ -137,7 +136,9 @@ class BreathOfSindragosa extends Analyzer {
           this.casts
         } times for a combined total of ${(this.totalDuration / 1000).toFixed(1)} seconds.  ${
           this.badCasts
-        } casts were under 25 seconds.  ${this.tickingOnFinishedString}`}
+        } casts were under ${GOOD_BREATH_DURATION_MS / 1000} seconds.  ${
+          this.tickingOnFinishedString
+        }`}
         position={STATISTIC_ORDER.CORE(60)}
         size="flexible"
       >
