@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { Hartra344, Sref, ToppleTheNun, ap2355, attluh } from 'CONTRIBUTORS';
+import { Hartra344, Sref, ToppleTheNun, ap2355, attluh, Jundarer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 16), <>Updated <SpellLink id={TALENTS_DRUID.FURY_OF_ELUNE_TALENT}/> cooldown when using <SpellLink id={TALENTS_DRUID.RADIANT_MOONLIGHT_TALENT} /> </>, Jundarer),
   change(date(2023, 3, 16), <>Updated the downtime suggestion to show active downtime, rather than uptime, for clarity.</>, attluh),
   change(date(2023, 2, 6), <>Added statistics support for <SpellLink id={TALENTS_DRUID.SUNDERED_FIRMAMENT_TALENT} /></>, ap2355 ),
   change(date(2023, 1, 27), <>Corrected <SpellLink id={TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT} /> and <SpellLink id={TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT} /> tracking and cooldown if <SpellLink id={TALENTS_DRUID.ORBITAL_STRIKE_TALENT} /> is talented </>, ap2355 ),
