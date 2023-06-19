@@ -11,6 +11,11 @@ const others = spellIndexableList({
     name: 'Wafting Devotion',
     icon: 'inv_10_elementalcombinedfoozles_air',
   },
+  POWER_BEYOND_IMAGINATION: {
+    id: 409447,
+    name: 'Power Beyond Imagination',
+    icon: 'inv_cosmicvoid_debuff',
+  },
 });
 
 export default others;
