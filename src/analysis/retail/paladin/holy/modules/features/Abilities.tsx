@@ -426,6 +426,23 @@ class Abilities extends CoreAbilities {
         },
         timelineSortIndex: 107,
       },
+      {
+        spell: TALENTS.DIVINE_FAVOR_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_FAVOR_TALENT),
+        timelineSortIndex: 107,
+      },
+      {
+        spell: TALENTS.BARRIER_OF_FAITH_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.BARRIER_OF_FAITH_TALENT),
+        timelineSortIndex: 107,
+      },
     ];
   }
 }
