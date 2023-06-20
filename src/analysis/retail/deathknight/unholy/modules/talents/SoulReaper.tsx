@@ -69,7 +69,7 @@ class SoulReaper extends ExecuteHelper {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.SOUL_REAPER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SOUL_REAPER_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

@@ -92,7 +92,7 @@ class Blooddrinker extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.BLOODDRINKER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BLOODDRINKER_TALENT}>
           <Trans id="deathknight.blood.blooddrinker.statistic">
             {this._ruinedCasts} / {this._totalCasts} <small>Channels cancelled early</small>
           </Trans>

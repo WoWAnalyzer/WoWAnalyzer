@@ -77,8 +77,8 @@ class Ossuary extends Analyzer {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.ossuary.suggestion.suggestion">
-          Your <SpellLink id={TALENTS.OSSUARY_TALENT.id} /> usage can be improved. Avoid casting{' '}
-          <SpellLink id={TALENTS.DEATH_STRIKE_TALENT.id} /> while not having Ossuary up as you lose
+          Your <SpellLink spell={TALENTS.OSSUARY_TALENT} /> usage can be improved. Avoid casting{' '}
+          <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} /> while not having Ossuary up as you lose
           Runic Power by doing so.
         </Trans>,
       )
@@ -114,7 +114,7 @@ class Ossuary extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.OSSUARY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.OSSUARY_TALENT}>
           <Trans id="deathknight.blood.ossuary.statistic">
             {this.dsWithoutOS} / {this.dsWithOS + this.dsWithoutOS}{' '}
             <small>Death Strikes without Ossuary</small>

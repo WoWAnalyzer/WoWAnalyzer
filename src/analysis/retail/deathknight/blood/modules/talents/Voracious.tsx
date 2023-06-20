@@ -42,7 +42,7 @@ class Voracious extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
       >
-        <BoringSpellValueText spellId={TALENTS.VORACIOUS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.VORACIOUS_TALENT}>
           <Trans id="deathknight.blood.voracious.statistic">
             <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
           </Trans>

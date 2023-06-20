@@ -64,7 +64,7 @@ class RuneOfTheFallenCrusader extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id}>
+        <BoringSpellValueText spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER}>
           <Trans id="deathknight.shared.runeOfTheFallenCrusader.statistic">
             {formatPercentage(this.averageStrength)} % <small>average Strength</small>
           </Trans>
