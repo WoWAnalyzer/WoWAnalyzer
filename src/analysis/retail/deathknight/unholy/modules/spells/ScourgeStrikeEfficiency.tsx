@@ -72,9 +72,9 @@ class ScourgeStrikeEfficiency extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are casting <SpellLink id={this.activeSpell.id} /> too often. When spending runes
-          remember to cast <SpellLink id={this.activeSpell.id} /> instead on targets with no stacks
-          of <SpellLink id={this.activeSpell.id} />
+          You are casting <SpellLink spell={this.activeSpell} /> too often. When spending runes
+          remember to cast <SpellLink spell={this.activeSpell} /> instead on targets with no stacks
+          of <SpellLink spell={this.activeSpell} />
         </>,
       )
         .icon(this.activeSpell.icon)
@@ -98,7 +98,7 @@ class ScourgeStrikeEfficiency extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.SCOURGE_STRIKE.id}>
+        <BoringSpellValueText spell={SPELLS.SCOURGE_STRIKE}>
           <>
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>

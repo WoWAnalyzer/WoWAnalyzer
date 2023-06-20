@@ -15,10 +15,10 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            <SpellLink id={SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE.id} /> is a survivability runeforge
+            <SpellLink spell={SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE} /> is a survivability runeforge
             at the cost of damage and healing. Use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> and/or{' '}
-            <SpellLink id={SPELLS.RUNE_OF_RAZORICE.id} /> instead.
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> and/or{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_RAZORICE} /> instead.
           </>
         ),
       },
@@ -27,9 +27,9 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_SANGUINATION.id} /> as Frost Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> and/or{' '}
-            <SpellLink id={SPELLS.RUNE_OF_RAZORICE.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_SANGUINATION} /> as Frost Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> and/or{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_RAZORICE} /> instead.
           </>
         ),
       },
@@ -38,9 +38,9 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_APOCALYPSE.id} /> as Frost Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> and/or{' '}
-            <SpellLink id={SPELLS.RUNE_OF_RAZORICE.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_APOCALYPSE} /> as Frost Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> and/or{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_RAZORICE} /> instead.
           </>
         ),
       },
@@ -49,9 +49,9 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_UNENDING_THIRST.id} /> as Frost Death Knight,
-            use <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> and/or{' '}
-            <SpellLink id={SPELLS.RUNE_OF_RAZORICE.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_UNENDING_THIRST} /> as Frost Death Knight,
+            use <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> and/or{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_RAZORICE} /> instead.
           </>
         ),
       },
@@ -60,9 +60,9 @@ class FrostRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_SPELLWARDING.id} /> as Frost Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> and/or{' '}
-            <SpellLink id={SPELLS.RUNE_OF_RAZORICE.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_SPELLWARDING} /> as Frost Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> and/or{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_RAZORICE} /> instead.
           </>
         ),
       },

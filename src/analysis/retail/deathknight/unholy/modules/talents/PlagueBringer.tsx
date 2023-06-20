@@ -36,8 +36,8 @@ class PlagueBringer extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            You are not keeping up your <SpellLink id={SPELLS.PLAGUEBRINGER_BUFF.id} /> enough.{' '}
-            Prioritise maintaining it by using <SpellLink id={SPELLS.SCOURGE_STRIKE.id} />.
+            You are not keeping up your <SpellLink spell={SPELLS.PLAGUEBRINGER_BUFF} /> enough.{' '}
+            Prioritise maintaining it by using <SpellLink spell={SPELLS.SCOURGE_STRIKE} />.
           </span>,
         )
           .icon(SPELLS.PLAGUEBRINGER_BUFF.icon)
@@ -64,7 +64,7 @@ class PlagueBringer extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={TALENTS.PLAGUEBRINGER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.PLAGUEBRINGER_TALENT}>
           <>
             {formatPercentage(this.averageBuffUptime)}% <small>Plaguebringer uptime</small>
           </>

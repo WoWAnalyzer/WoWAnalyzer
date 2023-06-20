@@ -171,10 +171,10 @@ class MarrowrendUsage extends Analyzer {
       suggest(
         <Trans id="deathknight.blood.marrowrendUsage.suggestion.suggestion">
           You casted {this.badMRCasts} Marrowrends with more than {REFRESH_AT_STACKS} stacks of{' '}
-          <SpellLink id={SPELLS.BONE_SHIELD.id} /> that were not about to expire, wasting{' '}
+          <SpellLink spell={SPELLS.BONE_SHIELD} /> that were not about to expire, wasting{' '}
           {this.bsStacksWasted} stacks.
           <br />
-          Cast <SpellLink id={TALENTS.HEART_STRIKE_TALENT.id} /> instead if you are at{' '}
+          Cast <SpellLink spell={TALENTS.HEART_STRIKE_TALENT} /> instead if you are at{' '}
           {this.refreshAtStacks} stacks or above.
         </Trans>,
       )
@@ -213,7 +213,7 @@ class MarrowrendUsage extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.MARROWREND_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.MARROWREND_TALENT}>
           <Trans id="deathknight.blood.marrowrendUsage.statistic">
             {this.badMRCasts} / {this.totalMRCasts} <small>bad casts</small>
           </Trans>

@@ -101,7 +101,7 @@ class CrimsonScourge extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.crimsonScourge.suggestion.suggestion">
-          You had unspent <SpellLink id={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.id} /> procs. Make sure
+          You had unspent <SpellLink spell={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF} /> procs. Make sure
           you always use them.
         </Trans>,
       )
@@ -131,7 +131,7 @@ class CrimsonScourge extends Analyzer {
           message: `${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`,
         })}
       >
-        <BoringSpellValueText spellId={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF}>
           <Trans id="deathknight.blood.crimsonScourge.statistic">
             {formatPercentage(this.wastedCrimsonScourgeProcsPercent)} % <small>procs wasted</small>
           </Trans>

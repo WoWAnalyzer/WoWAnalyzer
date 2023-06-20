@@ -70,9 +70,9 @@ class VirulentPlagueEfficiency extends Analyzer {
     when(this.UptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.VIRULENT_PLAGUE.id} /> uptime can be improved. Try to pay
+          Your <SpellLink spell={SPELLS.VIRULENT_PLAGUE} /> uptime can be improved. Try to pay
           attention to when Virulent Plague is about to fall off the priority target, using{' '}
-          <SpellLink id={SPELLS.OUTBREAK.id} /> to refresh Virulent Plague. Using a debuff tracker
+          <SpellLink spell={SPELLS.OUTBREAK} /> to refresh Virulent Plague. Using a debuff tracker
           can help.
         </span>,
       )
@@ -90,7 +90,7 @@ class VirulentPlagueEfficiency extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.VIRULENT_PLAGUE.id}>
+        <BoringSpellValueText spell={SPELLS.VIRULENT_PLAGUE}>
           <>
             <UptimeIcon /> {formatPercentage(this.Uptime)}% <small>uptime</small>
           </>

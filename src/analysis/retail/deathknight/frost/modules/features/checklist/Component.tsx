@@ -52,7 +52,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           <>
             While some downtime is inevitable in fights with movement, you should aim to reduce
             downtime to prevent capping Runes. In a worst case scenario, you can cast{' '}
-            <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> to prevent Rune capping
+            <SpellLink spell={talents.HOWLING_BLAST_TALENT} /> to prevent Rune capping
           </>
         }
       >
@@ -69,7 +69,7 @@ const FrostDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         description={
           <>
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core
-            abilities. Cast <SpellLink id={talents.FROST_STRIKE_TALENT.id} /> when you have 73+
+            abilities. Cast <SpellLink spell={talents.FROST_STRIKE_TALENT} /> when you have 73+
             Runic Power to avoid overcapping.
           </>
         }

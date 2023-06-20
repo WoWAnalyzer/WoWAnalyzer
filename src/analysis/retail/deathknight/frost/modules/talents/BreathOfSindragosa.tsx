@@ -87,10 +87,10 @@ class BreathOfSindragosa extends Analyzer {
         <>
           {' '}
           You are not getting good uptime from your{' '}
-          <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> casts. A good cast is one that
+          <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> casts. A good cast is one that
           lasts {GOOD_BREATH_DURATION_MS / 1000} seconds or more. To ensure a good duration, make
           sure you have 70+ Runic Power pooled and have less than 4 Runes available before you start
-          the cast. Also make sure to use <SpellLink id={SPELLS.EMPOWER_RUNE_WEAPON.id} /> within a
+          the cast. Also make sure to use <SpellLink spell={SPELLS.EMPOWER_RUNE_WEAPON} /> within a
           few seconds of casting Breath of Sindragosa. Pay close attention to your Runic Power and
           make sure you are not overcapping. {this.tickingOnFinishedString}
         </>,
@@ -142,7 +142,7 @@ class BreathOfSindragosa extends Analyzer {
         position={STATISTIC_ORDER.CORE(60)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={talents.BREATH_OF_SINDRAGOSA_TALENT.id}>
+        <BoringSpellValueText spell={talents.BREATH_OF_SINDRAGOSA_TALENT}>
           <>
             {this.averageDuration.toFixed(1)}s <small>average duration</small>
           </>
@@ -155,7 +155,7 @@ class BreathOfSindragosa extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+          <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />
         </b>{' '}
         is your most significant source of damage. Your goal is to maximize the duration of it by
         playing around mechanics and maximizing your rp generation.
@@ -175,7 +175,7 @@ class BreathOfSindragosa extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+          <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />
         </strong>{' '}
         is your most important cooldown. To perform well with Frost, you need to make sure to
         sustain its duration as long as possible. To help with this, you want to cast it when you
@@ -191,7 +191,7 @@ class BreathOfSindragosa extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+              <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />
             </>
           );
           const checklistItems: CooldownExpandableItem[] = [];

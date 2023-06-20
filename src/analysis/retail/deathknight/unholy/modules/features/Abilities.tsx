@@ -103,7 +103,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <span>
-              Making sure to use <SpellLink id={SPELLS.APOCALYPSE.id} /> immediately after it's
+              Making sure to use <SpellLink spell={SPELLS.APOCALYPSE} /> immediately after it's
               cooldown is up is important, try to plan for it's use as it is coming off cooldown.
             </span>
           ),
@@ -144,7 +144,7 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: combatant.hasTalent(talents.SUMMON_GARGOYLE_TALENT) ? 0.65 : 0.9,
           extraSuggestion: (
             <>
-              You should use this with every <SpellLink id={talents.SUMMON_GARGOYLE_TALENT.id} /> if
+              You should use this with every <SpellLink spell={talents.SUMMON_GARGOYLE_TALENT} /> if
               it is talented. Otherwise use it with your other cooldowns when it is available.
             </>
           ),

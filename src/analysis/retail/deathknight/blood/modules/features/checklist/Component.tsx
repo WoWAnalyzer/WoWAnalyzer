@@ -43,7 +43,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.useShortCd.crimsonScourge">
-                <SpellLink id={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.id} /> procs spent
+                <SpellLink spell={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF} /> procs spent
               </Trans>
             }
             thresholds={thresholds.crimsonScourge}
@@ -78,7 +78,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <Trans id="deathknight.blood.checklist.dontCapResources.marrowrendEfficiency">
-              <SpellLink id={TALENTS.MARROWREND_TALENT.id} /> Efficiency
+              <SpellLink spell={TALENTS.MARROWREND_TALENT} /> Efficiency
             </Trans>
           }
           thresholds={thresholds.marrowrend}
@@ -86,7 +86,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <Trans id="deathknight.blood.checklist.dontCapResources.deathsCaressEfficiency">
-              <SpellLink id={TALENTS.DEATHS_CARESS_TALENT.id} /> Efficiency
+              <SpellLink spell={TALENTS.DEATHS_CARESS_TALENT} /> Efficiency
             </Trans>
           }
           thresholds={thresholds.deathsCaress}
@@ -109,7 +109,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.offensiveCd.consumption">
-                Possible <SpellLink id={TALENTS.CONSUMPTION_TALENT.id} /> Hits
+                Possible <SpellLink spell={TALENTS.CONSUMPTION_TALENT} /> Hits
               </Trans>
             }
             thresholds={thresholds.consumption}
@@ -119,7 +119,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.offensiveCd.bonestorm">
-                <SpellLink id={TALENTS.BONESTORM_TALENT.id} /> Efficiency
+                <SpellLink spell={TALENTS.BONESTORM_TALENT} /> Efficiency
               </Trans>
             }
             thresholds={thresholds.bonestorm}
@@ -140,7 +140,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <Trans id="deathknight.blood.checklist.buffsDebuffs.bloodPlague">
-              <SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> Uptime
+              <SpellLink spell={SPELLS.BLOOD_PLAGUE} /> Uptime
             </Trans>
           }
           thresholds={thresholds.bloodPlague}
@@ -149,7 +149,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
           <Requirement
             name={
               <Trans id="deathknight.blood.checklist.buffsDebuffs.markOfBlood">
-                <SpellLink id={TALENTS.MARK_OF_BLOOD_TALENT.id} /> Uptime
+                <SpellLink spell={TALENTS.MARK_OF_BLOOD_TALENT} /> Uptime
               </Trans>
             }
             thresholds={thresholds.markOfBlood}
@@ -158,7 +158,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <Trans id="deathknight.blood.checklist.buffsDebuffs.boneShield">
-              <SpellLink id={SPELLS.BONE_SHIELD.id} /> Uptime
+              <SpellLink spell={SPELLS.BONE_SHIELD} /> Uptime
             </Trans>
           }
           thresholds={thresholds.boneShield}
@@ -166,7 +166,7 @@ const BloodDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: Ch
         <Requirement
           name={
             <Trans id="deathknight.blood.checklist.buffsDebuffs.ossuary">
-              <SpellLink id={TALENTS.OSSUARY_TALENT.id} /> Efficiency
+              <SpellLink spell={TALENTS.OSSUARY_TALENT} /> Efficiency
             </Trans>
           }
           thresholds={thresholds.ossuary}

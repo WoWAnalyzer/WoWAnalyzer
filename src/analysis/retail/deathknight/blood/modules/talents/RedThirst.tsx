@@ -68,7 +68,7 @@ class RedThirst extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.RED_THIRST_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.RED_THIRST_TALENT}>
           <Trans id="deathknight.blood.redThirst.statistic">
             <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
             <small>average reduction</small>

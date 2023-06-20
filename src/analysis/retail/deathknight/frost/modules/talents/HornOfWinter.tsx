@@ -72,12 +72,12 @@ export default class HornOfWinter extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={talents.HORN_OF_WINTER_TALENT.id} />
+          <SpellLink spell={talents.HORN_OF_WINTER_TALENT} />
         </strong>{' '}
         is a strong resource cooldown used primarily to extend{' '}
-        <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />. It is best used when the Runic
+        <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />. It is best used when the Runic
         Power will not go to waste and you are unable to press{' '}
-        <SpellLink id={talents.OBLITERATE_TALENT.id} />
+        <SpellLink spell={talents.OBLITERATE_TALENT} />
       </p>
     );
 
@@ -89,7 +89,7 @@ export default class HornOfWinter extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={talents.HORN_OF_WINTER_TALENT.id} />
+              <SpellLink spell={talents.HORN_OF_WINTER_TALENT} />
             </>
           );
           const checklistItems: CooldownExpandableItem[] = [];

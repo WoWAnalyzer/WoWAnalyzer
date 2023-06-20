@@ -56,7 +56,7 @@ const reasonLabel = (reason: DeathStrikeReason) => {
     case DeathStrikeReason.LowHealth:
       return (
         <Trans id="blood.guide.death-strike.low-hp">
-          <SpellLink id={talents.DEATH_STRIKE_TALENT} /> at Low HP
+          <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> at Low HP
         </Trans>
       );
     case DeathStrikeReason.BloodShield:
@@ -70,7 +70,7 @@ const reasonLabel = (reason: DeathStrikeReason) => {
           }
         >
           <Trans id="blood.guide.death-strike.blood-shield">
-            Generate <SpellLink id={SPELLS.BLOOD_SHIELD} />
+            Generate <SpellLink spell={SPELLS.BLOOD_SHIELD} />
           </Trans>
         </TooltipElement>
       );
@@ -372,13 +372,13 @@ export function DeathStrikeSection(): JSX.Element | null {
     <Section title="Death Strike Usage">
       <Explanation>
         <p>
-          As a Blood Death Knight, <SpellLink id={talents.DEATH_STRIKE_TALENT} /> is both your main
-          defensive tool and one of your strongest damaging abilities. Balancing these two uses is
-          important to playing the spec well.
+          As a Blood Death Knight, <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> is both your
+          main defensive tool and one of your strongest damaging abilities. Balancing these two uses
+          is important to playing the spec well.
         </p>
         <p>
-          There are three main ways that you can use <SpellLink id={talents.DEATH_STRIKE_TALENT} />{' '}
-          defensively:
+          There are three main ways that you can use{' '}
+          <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> defensively:
           <ul>
             <li>
               You can use it while at <strong>low health</strong> to help recover, or
@@ -388,7 +388,7 @@ export function DeathStrikeSection(): JSX.Element | null {
               <TooltipElement
                 content={
                   <>
-                    <SpellLink id={talents.DEATH_STRIKE_TALENT} />
+                    <SpellLink spell={talents.DEATH_STRIKE_TALENT} />
                     's healing is based on the total amount of damage you took in the previous 5
                     seconds. This allows you to get a lot of healing from it, even if your HP never
                     gets very low.
@@ -402,7 +402,7 @@ export function DeathStrikeSection(): JSX.Element | null {
             <li>
               You can use it to generate a{' '}
               <strong>
-                <SpellLink id={SPELLS.BLOOD_SHIELD} />
+                <SpellLink spell={SPELLS.BLOOD_SHIELD} />
               </strong>{' '}
               absorb <em>before</em> a large Physical hit to help you survive it.
             </li>
@@ -411,12 +411,13 @@ export function DeathStrikeSection(): JSX.Element | null {
         <p>
           However, Blood currently has <em>too much</em>{' '}
           <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} /> for you to spend only on defensive
-          casts. If you try to only use <SpellLink id={talents.DEATH_STRIKE_TALENT} /> defensively,
-          you will waste most of the RP that you generate. To avoid this, weave casts of{' '}
-          <SpellLink id={talents.DEATH_STRIKE_TALENT} /> between your casts of{' '}
+          casts. If you try to only use <SpellLink spell={talents.DEATH_STRIKE_TALENT} />{' '}
+          defensively, you will waste most of the RP that you generate. To avoid this, weave casts
+          of <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> between your casts of{' '}
           <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} /> generators like{' '}
-          <SpellLink id={talents.HEART_STRIKE_TALENT} /> to keep the extra from going to waste. This
-          is called <strong>dumping</strong> <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
+          <SpellLink spell={talents.HEART_STRIKE_TALENT} /> to keep the extra from going to waste.
+          This is called <strong>dumping</strong>{' '}
+          <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
         </p>
       </Explanation>
       <ContentRow>
@@ -432,8 +433,8 @@ export function DeathStrikeSection(): JSX.Element | null {
                     <>
                       You took <strong>{formatNumber(totalDamage)}</strong> total damage. The value
                       shown here is a reasonable goal (~50% of damage taken) for how much you can
-                      heal back via <SpellLink id={talents.DEATH_STRIKE_TALENT} /> and{' '}
-                      <SpellLink id={SPELLS.BLOOD_SHIELD} />
+                      heal back via <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> and{' '}
+                      <SpellLink spell={SPELLS.BLOOD_SHIELD} />
                     </>
                   }
                 >
@@ -451,7 +452,7 @@ export function DeathStrikeSection(): JSX.Element | null {
                       color: GoodColor,
                       description: (
                         <>
-                          Healing by <SpellLink id={talents.DEATH_STRIKE_TALENT} />
+                          Healing by <SpellLink spell={talents.DEATH_STRIKE_TALENT} />
                         </>
                       ),
                     },
@@ -460,7 +461,7 @@ export function DeathStrikeSection(): JSX.Element | null {
                       color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
                       description: (
                         <>
-                          Physical damage absorbed by <SpellLink id={SPELLS.BLOOD_SHIELD} />
+                          Physical damage absorbed by <SpellLink spell={SPELLS.BLOOD_SHIELD} />
                         </>
                       ),
                     },
@@ -486,14 +487,14 @@ export function DeathStrikeSection(): JSX.Element | null {
                   content={
                     <>
                       <p>
-                        While <SpellLink id={talents.DEATH_STRIKE_TALENT} /> does not cost{' '}
+                        While <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> does not cost{' '}
                         <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> itself, every Rune spent
                         generates 10 or more <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />.
                       </p>
                       <p>
                         You can roughly convert every 4 unspent{' '}
                         <ResourceLink id={RESOURCE_TYPES.RUNES.id} /> into 1 lost{' '}
-                        <SpellLink id={talents.DEATH_STRIKE_TALENT} />.
+                        <SpellLink spell={talents.DEATH_STRIKE_TALENT} />.
                       </p>
                     </>
                   }
