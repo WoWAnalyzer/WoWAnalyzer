@@ -8,6 +8,7 @@ import { ResourceLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 6, 19), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 4, 29), 'Update SpellLink to use "spell" instead of "id".', ToppleTheNun),
   change(date(2023, 3, 21), 'Bump support to 10.0.7.', ToppleTheNun),
   change(date(2023, 3, 19), 'Add "Hide Good Casts" toggle to Core Rotation and Cooldown sections of the Guide.', ToppleTheNun),
