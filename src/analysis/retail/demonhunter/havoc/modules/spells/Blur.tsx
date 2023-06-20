@@ -31,7 +31,7 @@ export default class Blur extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink spell={SPELLS.BLUR.id} /> uptime can be improved. This is easy to maintain
+          Your <SpellLink spell={SPELLS.BLUR} /> uptime can be improved. This is easy to maintain
           and an important source of damage reduction.
         </>,
       )

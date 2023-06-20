@@ -66,7 +66,7 @@ class DemonBite extends Analyzer {
       suggest(
         <>
           {' '}
-          Try not to cast <SpellLink spell={SPELLS.DEMONS_BITE.id} /> when close to max Fury.
+          Try not to cast <SpellLink spell={SPELLS.DEMONS_BITE} /> when close to max Fury.
         </>,
       )
         .icon(SPELLS.DEMONS_BITE.icon)
