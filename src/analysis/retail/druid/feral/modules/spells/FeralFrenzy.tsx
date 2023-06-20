@@ -69,15 +69,15 @@ export default class FeralFrenzy extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_DRUID.FERAL_FRENZY_TALENT.id} />
+          <SpellLink spell={TALENTS_DRUID.FERAL_FRENZY_TALENT} />
         </strong>{' '}
         is a brief but extremely powerful bleed. It's best used soon after becoming available, but
         can be held a few seconds to line up with damage boosts. Always use with{' '}
-        <SpellLink id={SPELLS.TIGERS_FURY.id} /> active
+        <SpellLink spell={SPELLS.TIGERS_FURY} /> active
         {this.hasSwarm && (
           <>
             {' '}
-            and with <SpellLink id={SPELLS.ADAPTIVE_SWARM_DAMAGE.id} /> on the target (most of Feral
+            and with <SpellLink spell={SPELLS.ADAPTIVE_SWARM_DAMAGE} /> on the target (most of Feral
             Frenzy's damage is the bleed)
           </>
         )}
@@ -94,7 +94,7 @@ export default class FeralFrenzy extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_DRUID.FERAL_FRENZY_TALENT.id} />
+              <SpellLink spell={TALENTS_DRUID.FERAL_FRENZY_TALENT} />
             </>
           );
 
@@ -114,7 +114,7 @@ export default class FeralFrenzy extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.TIGERS_FURY.id} /> active
+                <SpellLink spell={SPELLS.TIGERS_FURY} /> active
               </>
             ),
             result: <PassFailCheckmark pass={cast.tfOnCast} />,
@@ -128,7 +128,7 @@ export default class FeralFrenzy extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  <SpellLink id={SPELLS.ADAPTIVE_SWARM_DAMAGE.id} /> on target
+                  <SpellLink spell={SPELLS.ADAPTIVE_SWARM_DAMAGE} /> on target
                 </>
               ),
               result: <PassFailCheckmark pass={cast.swarmOnTarget} />,

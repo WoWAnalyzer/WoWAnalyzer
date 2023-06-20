@@ -44,12 +44,12 @@ class Overgrowth extends Analyzer {
         tooltip={
           <>
             In overall numbers this talent is typically very weak in raid, and you'd be better off
-            taking <SpellLink id={TALENTS_DRUID.SPRING_BLOSSOMS_TALENT.id} /> instead. Its sole use
+            taking <SpellLink spell={TALENTS_DRUID.SPRING_BLOSSOMS_TALENT} /> instead. Its sole use
             is high HPCT tank healing in dungeons to allow more DPS time.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.OVERGROWTH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.OVERGROWTH_TALENT}>
           {formatNumber(this.averageHealingPerCast)}
           <small> avg. effective healing per cast</small>
         </BoringSpellValueText>

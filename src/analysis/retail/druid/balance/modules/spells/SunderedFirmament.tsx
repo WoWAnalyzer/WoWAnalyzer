@@ -46,7 +46,7 @@ class SunderedFirmament extends Analyzer {
           proc,
         )} procs of this talent which added ${dpsIncrease} to your DPS.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.SUNDERED_FIRMAMENT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.SUNDERED_FIRMAMENT_TALENT}>
           <>
             <ItemPercentDamageDone greaterThan amount={this.totalDamage} />
             <br />

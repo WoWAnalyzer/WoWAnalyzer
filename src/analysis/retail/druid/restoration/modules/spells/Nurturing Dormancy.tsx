@@ -110,13 +110,13 @@ class NurturingDormancy extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the healing due to <SpellLink id={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id} />{' '}
+            This is the healing due to <SpellLink spell={TALENTS_DRUID.NURTURING_DORMANCY_TALENT} />{' '}
             rejuv extensions. Over the course of the encounter, rejuvs were extended a total of{' '}
             <strong>{(this.attribution.totalExtension / 1000).toFixed(1)}s</strong>.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.NURTURING_DORMANCY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.NURTURING_DORMANCY_TALENT}>
           <ItemPercentHealingDone amount={this.attribution.healing} />
           <br />
         </BoringSpellValueText>

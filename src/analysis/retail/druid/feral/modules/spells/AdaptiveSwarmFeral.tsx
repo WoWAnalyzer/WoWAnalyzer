@@ -27,7 +27,7 @@ class AdaptiveSwarmFeral extends AdaptiveSwarmDamageDealer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT.id} />
+          <SpellLink spell={TALENTS_DRUID.ADAPTIVE_SWARM_TALENT} />
         </strong>{' '}
         is a 'bouncy' DoT / HoT that boosts your periodic effects on the target. As Feral is a
         damage-dealing spec, you should focus on maximizing the DoTs uptime by casting on enemy
@@ -35,13 +35,13 @@ class AdaptiveSwarmFeral extends AdaptiveSwarmDamageDealer {
         <br />
         {hasUs ? (
           <>
-            With <SpellLink id={TALENTS_DRUID.UNBRIDLED_SWARM_TALENT.id} /> and multiple consistent
+            With <SpellLink spell={TALENTS_DRUID.UNBRIDLED_SWARM_TALENT} /> and multiple consistent
             enemy targets, it should be possible to maintain high uptime on multiple targets. This
             talent's value diminishes considerable in single target encounters.
           </>
         ) : (
           <>
-            As you did not take <SpellLink id={TALENTS_DRUID.UNBRIDLED_SWARM_TALENT.id} />, you'll
+            As you did not take <SpellLink spell={TALENTS_DRUID.UNBRIDLED_SWARM_TALENT} />, you'll
             only be able to maintain one Swarm at a time. By refreshing on your primary target as
             soon as the previous Swarm falls, you should be able to maintain 60+% uptime.
           </>

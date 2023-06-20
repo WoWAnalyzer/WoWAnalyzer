@@ -38,7 +38,7 @@ class StellarFlareUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_TALENT.id} /> uptime can be improved. Try
+          Your <SpellLink spell={TALENTS_DRUID.STELLAR_FLARE_TALENT} /> uptime can be improved. Try
           to pay more attention to your Stellar Flare on the boss.
         </>,
       )

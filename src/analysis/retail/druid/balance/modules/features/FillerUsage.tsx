@@ -84,14 +84,14 @@ class FillerUsage extends Analyzer {
         <>
           You cast the wrong filler spell {this.badFillerCasts} times -{' '}
           {formatPercentage(actual, 1)}% of total filler casts. You should cast{' '}
-          <SpellLink id={SPELLS.WRATH_MOONKIN.id} /> during and after{' '}
-          <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} />, and you should cast{' '}
-          <SpellLink id={SPELLS.STARFIRE.id} /> during and after{' '}
-          <SpellLink id={SPELLS.ECLIPSE_LUNAR.id} />.
+          <SpellLink spell={SPELLS.WRATH_MOONKIN} /> during and after{' '}
+          <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />, and you should cast{' '}
+          <SpellLink spell={SPELLS.STARFIRE} /> during and after{' '}
+          <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />.
           <br />
           <br />
           The only exceptions are during{' '}
-          <SpellLink id={cooldownAbility(this.selectedCombatant).id} /> you should cast Wrath
+          <SpellLink spell={cooldownAbility(this.selectedCombatant)} /> you should cast Wrath
           against single targets and Starfire against multiple targets, and when you can hit{' '}
           {STARFIRE_TARGETS_FOR_SOLAR} targets you can cast Starfire event during Solar Eclipse.
           These exception are excluded from this statistic.

@@ -97,13 +97,13 @@ class RampantFerocity extends Analyzer {
                   <li>Hardcast: {this._formattedPercentDamage(this.hardcastRfDamage)}</li>
                   {hasApex && (
                     <li>
-                      <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} />:{' '}
+                      <SpellLink spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT} />:{' '}
                       {this._formattedPercentDamage(this.apexRfDamage)}
                     </li>
                   )}
                   {hasConvoke && (
                     <li>
-                      <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} />:{' '}
+                      <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} />:{' '}
                       {this._formattedPercentDamage(this.convokeRfDamage)}
                     </li>
                   )}
@@ -113,7 +113,7 @@ class RampantFerocity extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.RAMPANT_FEROCITY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.RAMPANT_FEROCITY_TALENT}>
           <ItemPercentDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>
