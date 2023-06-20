@@ -5,18 +5,16 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-
-import { cooldownAbility } from '../../constants';
 import { hardcastTargetsHit } from '../../normalizers/CastLinkNormalizer';
 
 // minimum targets Starfire must hit for it to be worth to cast in lunar eclipse/CA
-export const STARFIRE_TARGETS_FOR_SOLAR = 2;
+export const STARFIRE_TARGETS_TO_STARFIRE_DURING_CDS = 2;
+// minimum targets Starfire must hit for it to be worth to enter Lunar Eclipse
+export const STARFIRE_TARGETS_TO_ENTER_SOLAR = 3;
 
 const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.05;
 const MAJOR_THRESHOLD = 0.1;
-
-const DEBUG = false;
 
 class FillerUsage extends Analyzer {
   totalFillerCasts: number = 0;
@@ -26,6 +24,10 @@ class FillerUsage extends Analyzer {
     super(options);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STARFIRE), this.onStarfire);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WRATH_MOONKIN),
+      this.onWrath,
+    );
   }
 
   onStarfire(event: CastEvent) {
@@ -33,16 +35,40 @@ class FillerUsage extends Analyzer {
     if (
       !(
         this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
-        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) ||
-        cooldownAbility(this.selectedCombatant).id
+        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id)
       ) &&
-      hardcastTargetsHit(event) < STARFIRE_TARGETS_FOR_SOLAR
+      hardcastTargetsHit(event) > STARFIRE_TARGETS_TO_ENTER_SOLAR
     ) {
-      DEBUG && console.log('Bad Starfire @ ' + this.owner.formatTimestamp(event.timestamp));
       this.badFillerCasts += 1;
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `This was the wrong filler for the situation! you should use Wrath when out of eclipse and also in eclipse unless you can hit at least ${STARFIRE_TARGETS_FOR_SOLAR} targets.`;
+      event.meta.inefficientCastReason = `You should enter Solar Eclipse only when Starfire can hit more than ${STARFIRE_TARGETS_TO_ENTER_SOLAR} targets.`;
+    }
+    if (
+      (this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) &&
+        !this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id)) ||
+      (this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) &&
+        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) &&
+        hardcastTargetsHit(event) < STARFIRE_TARGETS_TO_STARFIRE_DURING_CDS &&
+        !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE.id))
+    ) {
+      this.badFillerCasts += 1;
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `You should never cast Starfire during Solar Eclipse and when it hits ${STARFIRE_TARGETS_TO_STARFIRE_DURING_CDS} or less targets during cooldowns.`;
+    }
+  }
+
+  // TODO: Make more accurate by counting active targets
+  onWrath(event: CastEvent) {
+    this.totalFillerCasts += 1;
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) &&
+      !this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id)
+    ) {
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = `You should never cast Wrath in Lunar Eclipse unless you are about to enter CA/Inc on single target.`;
     }
   }
 
@@ -89,12 +115,6 @@ class FillerUsage extends Analyzer {
           <SpellLink id={SPELLS.STARFIRE.id} /> during and after{' '}
           <SpellLink id={SPELLS.ECLIPSE_LUNAR.id} />.
           <br />
-          <br />
-          The only exceptions are during{' '}
-          <SpellLink id={cooldownAbility(this.selectedCombatant).id} /> you should cast Wrath
-          against single targets and Starfire against multiple targets, and when you can hit{' '}
-          {STARFIRE_TARGETS_FOR_SOLAR} targets you can cast Starfire event during Solar Eclipse.
-          These exception are excluded from this statistic.
         </>,
       )
         .icon(SPELLS.ECLIPSE.icon)

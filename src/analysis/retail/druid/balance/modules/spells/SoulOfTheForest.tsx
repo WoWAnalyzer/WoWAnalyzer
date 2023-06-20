@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const SOTF_WRATH_BONUS_AP = 0.5;
+const SOTF_WRATH_BONUS_AP = 0.6;
 
 class SoulOfTheForest extends Analyzer {
   constructor(options: Options) {
@@ -23,15 +23,16 @@ class SoulOfTheForest extends Analyzer {
     // we only care if we generated Astral Power by using Wrath while inside Solar Eclipse
     if (
       event.resourceChangeType !== RESOURCE_TYPES.ASTRAL_POWER.id ||
-      event.ability.guid !== SPELLS.WRATH_MOONKIN.id ||
       !this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id)
     ) {
       return;
     }
-
-    const apBeforeGain = event.resourceChange / (1 + SOTF_WRATH_BONUS_AP); //event.resourceChange contains the AP gained including modifiers, we need to calculate it back
-    const bonusAP = apBeforeGain * SOTF_WRATH_BONUS_AP; // calculate how much we gained from the talent
-    this.gainedAP += bonusAP;
+    if (event.ability.guid === SPELLS.WRATH_MOONKIN.id) {
+      const apBeforeGain = event.resourceChange / (1 + SOTF_WRATH_BONUS_AP); //event.resourceChange contains the AP gained including modifiers, we need to calculate it back
+      const bonusAP = apBeforeGain * SOTF_WRATH_BONUS_AP; // calculate how much we gained from the talent
+      this.gainedAP += bonusAP;
+    }
+    // TODO: Add some way to check Starfire targets hit
   }
 
   statistic() {

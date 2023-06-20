@@ -736,11 +736,6 @@ const spells = spellIndexableList({
     name: 'Starfall',
     icon: 'ability_druid_starfall',
   },
-  STELLAR_DRIFT: {
-    id: 202461,
-    name: 'Stellar Drift',
-    icon: 'spell_nature_starfall',
-  },
   FULL_MOON: {
     id: 274283,
     name: 'Full Moon',
@@ -860,6 +855,26 @@ const spells = spellIndexableList({
     id: 393944,
     name: "Starweaver's Weft",
     icon: 'spell_arcane_invocation',
+  },
+  WILD_MUSHROOM: {
+    id: 88751,
+    name: 'Wild Mushroom',
+    icon: 'druid_ability_wildmushroom_b',
+  },
+  ORBITAL_STRIKE: {
+    id: 361237,
+    name: 'Orbital Strike',
+    icon: 'spell_nature_natureguardian',
+  },
+  CRASHING_STAR: {
+    id: 408310,
+    name: 'Crashing Star',
+    icon: 'ability_druid_starfall',
+  },
+  WARRIOR_OF_ELUNE: {
+    id: 202425,
+    name: 'Warrior of Elune',
+    icon: 'spell_holy_elunesgrace',
   },
 
   /////////////////////////////////////////////////////////////////////////////
