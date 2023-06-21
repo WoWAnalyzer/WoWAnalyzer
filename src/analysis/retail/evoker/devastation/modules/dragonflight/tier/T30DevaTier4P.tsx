@@ -33,7 +33,7 @@ class T30DevaTier4P extends Analyzer {
   totalCasts: number = 0;
   obsidianShardsDam: number = 0;
   obsidianShardsDamDuringBlazing: number = 0;
-  blazhingShardsActive: boolean = false;
+  blazingShardsActive: boolean = false;
 
   blazeShardCounters: {
     [window: number]: BlazeShardCounters;
@@ -54,7 +54,7 @@ class T30DevaTier4P extends Analyzer {
       if (event.absorbed !== undefined) {
         this.obsidianShardsDam += event.absorbed;
       }
-      if (this.blazhingShardsActive || this.inDragonRageWindow) {
+      if (this.blazingShardsActive || this.inDragonRageWindow) {
         this.obsidianShardsDamDuringBlazing += event.amount;
         this.blazeShardCounters[this.totalCasts].extraDamageProvided += event.amount;
         if (event.absorbed !== undefined) {
@@ -65,7 +65,7 @@ class T30DevaTier4P extends Analyzer {
     });
 
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
-      this.blazhingShardsActive = false;
+      this.blazingShardsActive = false;
       if (!this.inDragonRageWindow) {
         this.performanceCheck();
       }
@@ -94,7 +94,7 @@ class T30DevaTier4P extends Analyzer {
     // When blazing shard is applied track timestamp and increment counter
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
       if (!this.inDragonRageWindow) {
-        this.blazhingShardsActive = true;
+        this.blazingShardsActive = true;
         this.totalCasts += 1;
         this.blazeShardCounters[this.totalCasts] = {
           castTimeStamp: event.timestamp,
@@ -107,7 +107,7 @@ class T30DevaTier4P extends Analyzer {
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
       if (!this.inDragonRageWindow) {
         this.performanceCheck();
-        this.blazhingShardsActive = true;
+        this.blazingShardsActive = true;
         this.totalCasts += 1;
         this.blazeShardCounters[this.totalCasts] = {
           castTimeStamp: event.timestamp,

@@ -25,7 +25,7 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> is your primary cooldown and
         contributes to a large portion of your DPS. Because this window gives us our mastery{' '}
         <SpellLink spell={SPELLS.GIANT_SLAYER_MASTERY} /> with{' '}
-        <SpellLink spell={TALENTS_EVOKER.TYRANNY_TALENT} /> and gauranteed{' '}
+        <SpellLink spell={TALENTS_EVOKER.TYRANNY_TALENT} /> and guaranteed{' '}
         <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs, we need to utilize the
         talent <SpellLink spell={TALENTS_EVOKER.ANIMOSITY_TALENT} /> to extend the buff duration as
         long as possible. We do this by trying to get in more than 2 rounds of{' '}
@@ -35,11 +35,11 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         <SpellLink spell={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
       </p>
       <p>
-        To generate <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs inside of
+        To generate <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs inside of{' '}
         <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> you should be casting{' '}
         <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> with{' '}
-        <SpellLink spell={SPELLS.BURNOUT_BUFF} /> or <SpellLink spell={SPELLS.IRIDESCENCE_RED} />
-        or <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> is active. Use{' '}
+        <SpellLink spell={SPELLS.BURNOUT_BUFF} /> or <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> or{' '}
+        <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> is active. Use{' '}
         <SpellLink spell={SPELLS.AZURE_STRIKE} /> as a fallback filler.
       </p>
 
@@ -70,7 +70,7 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         return (
           <SubSection
             key={index}
-            title={`Dragon Rage Window ${index + 1} out of ${castEffic?.casts} (${(
+            title={`Dragonrage Window ${index + 1} out of ${castEffic?.casts} (${(
               (window.end - window.start) /
               1000
             ).toFixed(1)}s)`}

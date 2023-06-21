@@ -144,7 +144,6 @@ const COMMON_TOP: Rule[] = [
       ),
       () => (
         <>
-          {' '}
           <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> isn't present <strong>(AoE)</strong>
         </>
       ),
