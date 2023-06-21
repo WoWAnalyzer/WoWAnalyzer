@@ -84,12 +84,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: IRIDESCENCE_RED_CONSUME,
     linkingEventId: [SPELLS.IRIDESCENCE_RED.id],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-    referencedEventId: [
-      SPELLS.PYRE.id,
-      SPELLS.PYRE_DENSE_TALENT.id,
-      SPELLS.LIVING_FLAME_CAST.id,
-      SPELLS.DEEP_BREATH.id,
-    ],
+    referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id, SPELLS.LIVING_FLAME_CAST.id],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
