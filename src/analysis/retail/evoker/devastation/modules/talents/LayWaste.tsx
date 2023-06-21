@@ -12,7 +12,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { LAY_WASTE_MULTIPLIER } from 'analysis/retail/evoker/devastation/constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const { FIRE_BREATH_DOT } = SPELLS;
+const { DEEP_BREATH_DAM } = SPELLS;
 
 class LayWaste extends Analyzer {
   deepBreathDamage: number = 0;
@@ -22,7 +22,7 @@ class LayWaste extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.LAY_WASTE_TALENT);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(FIRE_BREATH_DOT), this.onHit);
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(DEEP_BREATH_DAM), this.onHit);
   }
 
   onHit(event: DamageEvent) {
