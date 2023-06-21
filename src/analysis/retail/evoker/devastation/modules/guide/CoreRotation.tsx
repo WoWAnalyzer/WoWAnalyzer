@@ -12,11 +12,11 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
     <Section title="Core Rotation (Experimental)">
       <p>
         The Devastation rotation is driven by a priority list. The priority list is primarily around
-        using your important spells: <SpellLink id={SPELLS.FIRE_BREATH.id} />,{' '}
-        <SpellLink id={SPELLS.ETERNITY_SURGE.id} /> and <SpellLink id={SPELLS.SHATTERING_STAR.id} />{' '}
+        using your important spells: <SpellLink spell={SPELLS.FIRE_BREATH} />,{' '}
+        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> and <SpellLink spell={SPELLS.SHATTERING_STAR} />{' '}
         on CD and spending your <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> on
-        <SpellLink id={SPELLS.DISINTEGRATE.id} /> for Single Target or{' '}
-        <SpellLink id={TALENTS_EVOKER.PYRE_TALENT.id} /> for AoE.
+        <SpellLink spell={SPELLS.DISINTEGRATE} /> for Single Target or{' '}
+        <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} /> for AoE.
       </p>
 
       <p>
@@ -33,7 +33,7 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
           <li>boss mechanics that force you to move or change targets</li>
           <li>
             saving up <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> for{' '}
-            <SpellLink id={SPELLS.SHATTERING_STAR.id} />
+            <SpellLink spell={SPELLS.SHATTERING_STAR} />
           </li>
           <li>dealing with unique edge cases for AoE (work in progress)</li>
         </ul>

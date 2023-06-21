@@ -22,9 +22,9 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
     <Section title="Cooldowns">
       <p>
         These cooldowns are essential for maximizing your damage output. Top performing Evokers are
-        able to acheive 100% efficiency with <SpellLink id={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />,{' '}
-        <SpellLink id={SPELLS.FIRE_BREATH.id} />, and <SpellLink id={SPELLS.ETERNITY_SURGE.id} />.
-        If talented into <SpellLink id={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> aim for 90%
+        able to acheive 100% efficiency with <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />,{' '}
+        <SpellLink spell={SPELLS.FIRE_BREATH} />, and <SpellLink spell={SPELLS.ETERNITY_SURGE} />.
+        If talented into <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> aim for 90%
         efficiency.
       </p>
       <p>

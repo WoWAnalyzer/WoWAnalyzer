@@ -55,22 +55,20 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
   return (
     <SubSection title="Clipping/Chaining Disintegrate">
       <p>
-        You should always aim to chain <SpellLink spell={SPELLS.DISINTEGRATE.id} />. Chaining refers
-        to recasting <SpellLink spell={SPELLS.DISINTEGRATE.id} /> while already channeling a{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> after the penultimate (second to last) tick in
-        order to channel two <SpellLink spell={SPELLS.DISINTEGRATE.id} /> in a row without downtime
-        or losing a tick. This is essentially just the same Pandemic effect that DoTs have since{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> funcions as a DoT.
+        You should always aim to chain <SpellLink spell={SPELLS.DISINTEGRATE} />. Chaining refers to
+        recasting <SpellLink spell={SPELLS.DISINTEGRATE} /> while already channeling a{' '}
+        <SpellLink spell={SPELLS.DISINTEGRATE} /> after the penultimate (second to last) tick in
+        order to channel two <SpellLink spell={SPELLS.DISINTEGRATE} /> in a row without downtime or
+        losing a tick. This is essentially just the same Pandemic effect that DoTs have since{' '}
+        <SpellLink spell={SPELLS.DISINTEGRATE} /> funcions as a DoT.
       </p>
       <p>
-        Inside of <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> you should be clipping{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> after the third tick with more important spells
-        such <SpellLink spell={SPELLS.FIRE_BREATH.id} />,{' '}
-        <SpellLink spell={SPELLS.ETERNITY_SURGE.id} />,{' '}
-        <SpellLink spell={SPELLS.SHATTERING_STAR.id} /> or{' '}
-        <SpellLink spell={SPELLS.BURNOUT_BUFF.id} />. Aswell as early chaining your{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> after the third tick to maximize ressource
-        generation and expenditure.
+        Inside of <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> you should be clipping{' '}
+        <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick with more important spells
+        such <SpellLink spell={SPELLS.FIRE_BREATH} />, <SpellLink spell={SPELLS.ETERNITY_SURGE} />,{' '}
+        <SpellLink spell={SPELLS.SHATTERING_STAR} /> or <SpellLink spell={SPELLS.BURNOUT_BUFF} />.
+        Aswell as early chaining your <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick
+        to maximize ressource generation and expenditure.
       </p>
       <p>
         See{' '}
@@ -84,8 +82,8 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
         explanation={
           <div>
             <p>
-              <SpellLink spell={SPELLS.DISINTEGRATE.id} /> efficiency outside of{' '}
-              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />
+              <SpellLink spell={SPELLS.DISINTEGRATE} /> efficiency outside of{' '}
+              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
             <p>You should not be dropping any ticks here.</p>
           </div>
@@ -104,8 +102,8 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
         explanation={
           <div>
             <p>
-              <SpellLink spell={SPELLS.DISINTEGRATE.id} /> efficiency during
-              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />
+              <SpellLink spell={SPELLS.DISINTEGRATE} /> efficiency during
+              <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
             <p>
               Aim to drop 70%-90% of ticks (i.e. clip) so you can consume ressources faster, aswell
@@ -133,10 +131,10 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
           <p>
-            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> procs are essential because
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs are essential because
             they help you cast your primary damaging spells,
-            <SpellLink spell={SPELLS.DISINTEGRATE.id} /> and{' '}
-            <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT.id} />, for free. None should go to waste.
+            <SpellLink spell={SPELLS.DISINTEGRATE} /> and{' '}
+            <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} />, for free. None should go to waste.
           </p>
         }
         data={
@@ -154,10 +152,10 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
         explanationPercent={EXPLANATION_PERCENTAGE}
         explanation={
           <p>
-            <SpellLink spell={TALENTS_EVOKER.BURNOUT_TALENT.id} /> procs allow you to cast{' '}
-            <SpellLink spell={SPELLS.LIVING_FLAME_CAST.id} /> instantly. Ideally none should go to
+            <SpellLink spell={TALENTS_EVOKER.BURNOUT_TALENT} /> procs allow you to cast{' '}
+            <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> instantly. Ideally none should go to
             waste, but some may drop during an intense{' '}
-            <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> window.
+            <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> window.
           </p>
         }
         data={
@@ -176,8 +174,8 @@ function NoWastedProcsSubsection({ modules, info }: GuideProps<typeof CombatLogP
           explanationPercent={EXPLANATION_PERCENTAGE}
           explanation={
             <p>
-              <SpellLink spell={TALENTS_EVOKER.SNAPFIRE_TALENT.id} /> procs allow you to cast{' '}
-              <SpellLink spell={TALENTS_EVOKER.FIRESTORM_TALENT.id} />. None should to go waste
+              <SpellLink spell={TALENTS_EVOKER.SNAPFIRE_TALENT} /> procs allow you to cast{' '}
+              <SpellLink spell={TALENTS_EVOKER.FIRESTORM_TALENT} />. None should to go waste
             </p>
           }
           data={
@@ -208,8 +206,8 @@ function ShatteringStarSubsection({ modules, info }: GuideProps<typeof CombatLog
         where our damage gets amplified. To maximize this window aim to have at least 1-2 uses of{' '}
         <SpellLink spell={SPELLS.DISINTEGRATE} /> or <SpellLink spell={SPELLS.PYRE} /> by pooling{' '}
         <ResourceLink id={RESOURCE_TYPES.ESSENCE.id} /> and/or{' '}
-        <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF.id} /> when{' '}
-        <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT.id} /> is almost off CD. Using{' '}
+        <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> when{' '}
+        <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> is almost off CD. Using{' '}
         <SpellLink spell={SPELLS.ETERNITY_SURGE} /> is also good, but don't hold the CD for this
         window. With <SpellLink spell={TALENTS_EVOKER.ARCANE_VIGOR_TALENT} /> talented, you should
         always have atleast one use of <SpellLink spell={SPELLS.DISINTEGRATE} />. For more tips,
@@ -249,10 +247,10 @@ function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogPar
     <SubSection title="Blazing Shards">
       <p>
         <SpellLink spell={SPELLS.BLAZING_SHARDS} /> is a buff you gain from using{' '}
-        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> or <SpellLink spell={SPELLS.FIRE_BREATH.id} />.
+        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> or <SpellLink spell={SPELLS.FIRE_BREATH} />.
         <SpellLink spell={SPELLS.BLAZING_SHARDS} /> gives your{' '}
-        <SpellLink spell={SPELLS.OBSIDIAN_SHARDS.id} /> DoT a 200% damage amp. This buff is fully
-        active during <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} />.{' '}
+        <SpellLink spell={SPELLS.OBSIDIAN_SHARDS} /> DoT a 200% damage amp. This buff is fully
+        active during <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />.{' '}
         <SpellLink spell={SPELLS.BLAZING_SHARDS} /> isn't extended when you cast your empowers back
         to back, it instead gets overriden. It is therefore important to stagger out your empowers
         to maximize uptime of <SpellLink spell={SPELLS.BLAZING_SHARDS} />.

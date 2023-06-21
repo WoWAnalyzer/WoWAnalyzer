@@ -22,33 +22,33 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
   return (
     <Section title="Dragonrage">
       <p>
-        <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is your primary cooldown and
+        <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> is your primary cooldown and
         contributes to a large portion of your DPS. Because this window gives us our mastery{' '}
-        <SpellLink spell={SPELLS.GIANT_SLAYER_MASTERY.id} /> with{' '}
+        <SpellLink spell={SPELLS.GIANT_SLAYER_MASTERY} /> with{' '}
         <SpellLink spell={TALENTS_EVOKER.TYRANNY_TALENT} /> and gauranteed{' '}
         <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs, we need to utilize the
-        talent <SpellLink spell={TALENTS_EVOKER.ANIMOSITY_TALENT.id} /> to extend the buff duration
-        as long as possible. We do this by trying to get in more than 2 rounds of{' '}
-        <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> and{' '}
-        <SpellLink spell={SPELLS.FIRE_BREATH.id} /> by making the most of the talents:{' '}
+        talent <SpellLink spell={TALENTS_EVOKER.ANIMOSITY_TALENT} /> to extend the buff duration as
+        long as possible. We do this by trying to get in more than 2 rounds of{' '}
+        <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT} /> and{' '}
+        <SpellLink spell={SPELLS.FIRE_BREATH} /> by making the most of the talents:{' '}
         <SpellLink spell={TALENTS_EVOKER.CAUSALITY_TALENT} /> and{' '}
         <SpellLink spell={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
       </p>
       <p>
         To generate <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs inside of
-        <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> you should be casting{' '}
+        <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> you should be casting{' '}
         <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> with{' '}
-        <SpellLink id={SPELLS.BURNOUT_BUFF.id} /> or <SpellLink spell={SPELLS.IRIDESCENCE_RED.id} />
-        or <SpellLink spell={SPELLS.IRIDESCENCE_BLUE.id} /> is active. Use{' '}
-        <SpellLink spell={SPELLS.AZURE_STRIKE.id} /> as a fallback filler.
+        <SpellLink spell={SPELLS.BURNOUT_BUFF} /> or <SpellLink spell={SPELLS.IRIDESCENCE_RED} />
+        or <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> is active. Use{' '}
+        <SpellLink spell={SPELLS.AZURE_STRIKE} /> as a fallback filler.
       </p>
 
       <SubSection title="Extension Limits">
         <p>
           You can gaurantee <strong>at least 2 casts</strong> of{' '}
-          <SpellLink spell={SPELLS.FIRE_BREATH.id} /> and{' '}
-          <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT.id} /> by holding them if{' '}
-          <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT.id} /> is coming up in less than 13s.
+          <SpellLink spell={SPELLS.FIRE_BREATH} /> and{' '}
+          <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT} /> by holding them if{' '}
+          <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> is coming up in less than 13s.
           Extending more than that requires lust, haste, and RNG.
         </p>
       </SubSection>

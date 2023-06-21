@@ -194,7 +194,7 @@ class T30DevaTier4P extends Analyzer {
               <strong>Obsidian Shards didn't do damage</strong>
               <li>
                 This could be caused by either refreshing buff <br />
-                too early, or <SpellLink spell={SPELLS.OBSIDIAN_SHARDS.id} /> not being up
+                too early, or <SpellLink spell={SPELLS.OBSIDIAN_SHARDS} /> not being up
               </li>
               <li>Timestamp: {formatDuration(castTimestamp)}</li>
             </div>
