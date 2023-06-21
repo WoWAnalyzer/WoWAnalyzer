@@ -1,24 +1,27 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import Events, { ApplyBuffStackEvent, DamageEvent, RemoveBuffStackEvent } from 'parser/core/Events';
+import Events, {
+  ChangeBuffStackEvent,
+  DamageEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
 import AverageTargetsHit from 'parser/ui/AverageTargetsHit';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 
 const HAILSTORM = {
-  INCREASE_PER_STACK: 0.35,
+  INCREASE_PER_STACK: 0.15,
 };
 
-const MAX_STACKS = 5;
-const STACKS_CONSUMED_PER_FROST_SHOCK_CAST = 5;
-const MAX_MAELSTROM_WEAPON_STACKS_CONSUMED_PER_CAST = 5;
+const MAX_STACKS = 10;
+const STACKS_CONSUMED_PER_FROST_SHOCK_CAST = 10;
 
 /**
  * Each stack of Maelstrom Weapon consumed increases the damage of your next
@@ -36,6 +39,7 @@ class Hailstorm extends Analyzer {
   protected totalStacksGained: number = 0;
   protected overcappedStacks: number = 0;
   protected currentMaelstromWeaponStacks: number = 0;
+  protected maxStacksConsumedPerCast: number = 5;
 
   protected timestamp: number = 0;
 
@@ -48,24 +52,19 @@ class Hailstorm extends Analyzer {
       return;
     }
 
+    this.maxStacksConsumedPerCast = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.OVERFLOWING_MAELSTROM_TALENT,
+    )
+      ? 10
+      : 5;
+
     this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
       this.onMaelstromWeaponStackApply,
     );
 
-    const SPELLS_WITH_CAST_TIME: Spell[] = [
-      // TODO: Accept talents as spell
-      // TALENTS_SHAMAN.CHAIN_HEAL_TALENT,
-      // TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT,
-      SPELLS.HEALING_SURGE,
-      SPELLS.LIGHTNING_BOLT,
-    ];
-
-    SPELLS_WITH_CAST_TIME.forEach((spell) => {
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(spell),
-        this.onSpellWithCastTimeCast,
-      );
+    MAELSTROM_WEAPON_ELIGIBLE_SPELLS.forEach((spell) => {
+      this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(spell), this.onSpendMaelstrom);
     });
 
     this.addEventListener(
@@ -89,13 +88,13 @@ class Hailstorm extends Analyzer {
     );
   }
 
-  onMaelstromWeaponStackApply(event: ApplyBuffStackEvent) {
-    this.currentMaelstromWeaponStacks = event.stack;
+  onMaelstromWeaponStackApply(event: ChangeBuffStackEvent) {
+    this.currentMaelstromWeaponStacks = event.newStacks;
   }
 
-  onSpellWithCastTimeCast() {
+  onSpendMaelstrom() {
     const maelstromWeaponStacksConsumed = Math.min(
-      MAX_MAELSTROM_WEAPON_STACKS_CONSUMED_PER_CAST,
+      this.maxStacksConsumedPerCast,
       this.currentMaelstromWeaponStacks,
     );
     this.currentMaelstromWeaponStacks -= maelstromWeaponStacksConsumed;

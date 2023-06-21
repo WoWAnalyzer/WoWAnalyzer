@@ -1,6 +1,5 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import { calculateMaxCasts } from 'parser/core/EventCalculateLib';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -418,7 +417,7 @@ class Abilities extends CoreAbilities {
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
         ],
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT) ? 90 : 120,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
@@ -430,15 +429,15 @@ class Abilities extends CoreAbilities {
         // This is no error. We actually use the elemental shaman elemental blast spell id.
         spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
-        charges: combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
+        charges:
+          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) +
+          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.LAVA_BURST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12,
+        cooldown: (haste) => {
+          return 12 / (1 + haste);
+        },
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.6,
         },
       },
       {
@@ -447,17 +446,6 @@ class Abilities extends CoreAbilities {
         cooldown: (haste) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) =>
-            // Placeholder for enhancement's ascendance
-            calculateMaxCasts(
-              cooldown,
-              this.owner.fightDuration -
-                combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-            ),
         },
       },
       {
@@ -470,16 +458,6 @@ class Abilities extends CoreAbilities {
         cooldown: (haste) => 3 / (1 + haste),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.85,
-          maxCasts: (cooldown: number) =>
-            // Placeholder for enhancement's ascendance
-            calculateMaxCasts(
-              cooldown,
-              combatant.getBuffUptime(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id),
-            ),
         },
       },
       {
@@ -539,6 +517,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id,
+        buffSpellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
@@ -556,6 +535,19 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1000,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 1,
+        },
+      },
+      {
+        spell: TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.DOOM_WINDS_TALENT),
+        cooldown: 90,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
         },
         castEfficiency: {
           suggestion: true,

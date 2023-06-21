@@ -109,7 +109,7 @@ export const ActualCastDescription = ({
 }) => (
   <>
     At <EventTimestamp event={event} /> into the fight, you cast{' '}
-    <SpellLink id={event.ability.guid} />
+    <SpellLink spell={event.ability.guid} />
     {!omitTarget && event.targetID && (
       <>
         {' '}
@@ -152,7 +152,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
   },
   render: (claim) => (
     <Trans id="guide.apl.overcastFillers">
-      You frequently cast <SpellLink id={spells(claim.data)[0].id} /> when more important spells
+      You frequently cast <SpellLink spell={spells(claim.data)[0].id} /> when more important spells
       were available.
     </Trans>
   ),
@@ -163,7 +163,7 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
       </p>
       <p>
         This is a low-priority filler spell. You should instead cast a higher-priority spell like{' '}
-        <SpellLink id={violation.expectedCast[0].id} />.
+        <SpellLink spell={violation.expectedCast[0].id} />.
       </p>
     </>
   ),
@@ -220,7 +220,7 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
   },
   render: (claim) => (
     <Trans id="guide.apl.droppedRule">
-      You frequently skipped casting <SpellLink id={claim.data.spell.id} />
+      You frequently skipped casting <SpellLink spell={claim.data.spell.id} />
       {claim.data.rule.condition && (
         <>
           {' '}
@@ -243,7 +243,7 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
         ) : (
           'You '
         )}
-        should instead have cast <SpellLink id={violation.expectedCast[0].id} />.
+        should instead have cast <SpellLink spell={violation.expectedCast[0].id} />.
       </p>
     </>
   ),

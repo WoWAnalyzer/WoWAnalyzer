@@ -9,6 +9,7 @@ import Player from '../../parser/core/Player';
 import PlayerTile from './PlayerTile';
 
 import './PlayerSelection.scss';
+import { usePageView } from 'interface/useGoogleAnalytics';
 
 const ROLE_SORT_KEY: { [key: string]: number } = {
   [ROLES.TANK]: 0,
@@ -44,42 +45,45 @@ interface Props {
   makeUrl: (playerId: number, build?: string) => string;
 }
 
-const PlayerSelection = ({ report, combatants, makeUrl }: Props) => (
-  <div className="player-selection">
-    {report.friendlies
-      .flatMap((friendly) => {
-        const combatant = combatants.find((combatant) => combatant.sourceID === friendly.id);
-        if (!combatant) {
-          return [];
-        }
-        const exportedCharacter = report.exportedCharacters
-          ? report.exportedCharacters.find((char) => char.name === friendly.name)
-          : null;
+const PlayerSelection = ({ report, combatants, makeUrl }: Props) => {
+  usePageView('PlayerSelection');
+  return (
+    <div className="player-selection">
+      {report.friendlies
+        .flatMap((friendly) => {
+          const combatant = combatants.find((combatant) => combatant.sourceID === friendly.id);
+          if (!combatant) {
+            return [];
+          }
+          const exportedCharacter = report.exportedCharacters
+            ? report.exportedCharacters.find((char) => char.name === friendly.name)
+            : null;
 
-        return [
-          {
-            ...friendly,
-            combatant,
-            server: exportedCharacter?.server,
-            region: exportedCharacter?.region,
-          },
-        ];
-      })
-      .sort(sortPlayers)
-      .map((player) => (
-        <PlayerTile
-          key={player.guid}
-          player={player}
-          makeUrl={makeUrl}
-          config={getConfig(
-            wclGameVersionToExpansion(report.gameVersion),
-            player.combatant.specID,
-            player,
-            player.combatant,
-          )}
-        />
-      ))}
-  </div>
-);
+          return [
+            {
+              ...friendly,
+              combatant,
+              server: exportedCharacter?.server,
+              region: exportedCharacter?.region,
+            },
+          ];
+        })
+        .sort(sortPlayers)
+        .map((player) => (
+          <PlayerTile
+            key={player.guid}
+            player={player}
+            makeUrl={makeUrl}
+            config={getConfig(
+              wclGameVersionToExpansion(report.gameVersion),
+              player.combatant.specID,
+              player,
+              player.combatant,
+            )}
+          />
+        ))}
+    </div>
+  );
+};
 
 export default PlayerSelection;

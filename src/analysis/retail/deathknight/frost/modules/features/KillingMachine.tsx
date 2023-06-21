@@ -155,9 +155,9 @@ class KillingMachineEfficiency extends Analyzer {
       suggest(
         <Fragment>
           {' '}
-          You wasted <SpellLink id={SPELLS.KILLING_MACHINE.id} /> procs. You should be casting{' '}
-          <SpellLink id={talents.OBLITERATE_TALENT.id} /> or{' '}
-          <SpellLink id={talents.FROSTSCYTHE_TALENT.id} /> within 1 or 2 GCDs of gaining a Killing
+          You wasted <SpellLink spell={SPELLS.KILLING_MACHINE} /> procs. You should be casting{' '}
+          <SpellLink spell={talents.OBLITERATE_TALENT} /> or{' '}
+          <SpellLink spell={talents.FROSTSCYTHE_TALENT} /> within 1 or 2 GCDs of gaining a Killing
           Machine proc to avoid wasting it. See one of the guides on the About tab for more
           information on when another ability takes precedence over spending Killing Machine
         </Fragment>,
@@ -189,7 +189,7 @@ class KillingMachineEfficiency extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.KILLING_MACHINE.id}>
+        <BoringSpellValueText spell={SPELLS.KILLING_MACHINE}>
           <>
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
           </>
@@ -217,11 +217,11 @@ class KillingMachineEfficiency extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={talents.KILLING_MACHINE_TALENT.id} />
+          <SpellLink spell={talents.KILLING_MACHINE_TALENT} />
         </b>{' '}
         is your most important proc. You want to waste as few of them as possible. If you are
         playing 2H Frost it is even more important because{' '}
-        <SpellLink id={talents.OBLITERATE_TALENT} /> will be <b>the most important</b> source of
+        <SpellLink spell={talents.OBLITERATE_TALENT} /> will be <b>the most important</b> source of
         damage in your build.
       </p>
     );

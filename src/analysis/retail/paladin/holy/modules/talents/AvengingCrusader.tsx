@@ -16,7 +16,7 @@ import BeaconHealSource from '../beacons/BeaconHealSource';
  * Avenging Crusader
  *
  *  You become the ultimate crusader of light, increasing your Crusader Strike, Judgment, and auto-attack damage by 30%.
- *  Crusader Strike and Judgment cool down 30% faster and heal up to 3 injured allies for 250% of the damage they deal. Lasts 20 sec.
+ *  Crusader Strike and Judgment cool down 30% faster and heal up to 5 injured allies for 500% of the damage done, split evenly among them. Lasts 20 sec.
  *  Example Log: https://www.warcraftlogs.com/reports/Ht1XgQxaCGc8kbrA#fight=4&type=healing&source=13
  */
 class AvengingCrusader extends Analyzer {

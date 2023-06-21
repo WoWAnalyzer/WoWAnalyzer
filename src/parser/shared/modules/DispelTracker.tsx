@@ -51,7 +51,7 @@ class DispelTracker extends Analyzer {
           {Array.from(this.dispelEvents).map(([dispelledId, count]) => (
             <div className="flex" key={dispelledId}>
               <div className="flex-sub" style={{ flex: 3 }}>
-                <SpellLink id={Number(dispelledId)} />
+                <SpellLink spell={Number(dispelledId)} />
               </div>
               <div className="flex-sub" style={{ flex: 1, textAlign: 'right' }}>
                 {count}

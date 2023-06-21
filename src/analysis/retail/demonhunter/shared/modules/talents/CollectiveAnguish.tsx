@@ -20,8 +20,8 @@ class CollectiveAnguish extends Analyzer {
     }
     const spell =
       this.selectedCombatant.specId === SPECS.HAVOC_DEMON_HUNTER.id
-        ? TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT
-        : SPELLS.COLLECTIVE_ANGUISH;
+        ? SPELLS.COLLECTIVE_ANGUISH_FEL_DEVASTATION
+        : SPELLS.COLLECTIVE_ANGUISH_EYE_BEAM;
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(spell), this.onDamageEvent);
   }
 

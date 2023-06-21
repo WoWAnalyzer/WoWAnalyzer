@@ -115,7 +115,7 @@ class MightOfTheMountain extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} />}
+        icon={<SpellIcon spell={SPELLS.MIGHT_OF_THE_MOUNTAIN.id} />}
         value={value}
         label="Dwarf crit racial"
         tooltip={

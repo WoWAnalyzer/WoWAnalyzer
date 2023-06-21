@@ -377,7 +377,7 @@ class EncounterStats extends PureComponent<Props, State> {
                     {/*          className="col-lg-3 col-xs-4"*/}
                     {/*           style={{ textAlign: 'center' }}*/}
                     {/*         >*/}
-                    {/*           <SpellLink id={Number(talent)} icon={false}>*/}
+                    {/*           <SpellLink spell={Number(talent)} icon={false}>*/}
                     {/*            <SpellIcon*/}
                     {/*              style={{ width: '3em', height: '3em' }}*/}
                     {/*              id={Number(talent)}*/}

@@ -3,29 +3,30 @@ import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import ResourceGenerated from 'parser/ui/ResourceGenerated';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { STORMSTRIKE_DAMAGE_SPELLS } from '../../constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const ELEMENTAL_ASSAULT = {
-  INCREASE: 0.15,
+const ELEMENTAL_ASSAULT_RANKS: Record<number, number> = {
+  1: 0.1,
+  2: 0.2,
 };
 
 const MAIN_HAND_DAMAGES = [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE.id];
 
 /**
- * Stormstrike damage is increased by 15%, and Stormstrike
- * now generates 1 stack of Maelstrom Weapon.
+ * Stormstrike damage is increased by [10/20]%, and Stormstrike
+ * has a [50/100]% chance to generate 1 stack of Maelstrom Weapon.
  *
  * Example Log:
  *
  */
 class ElementalAssault extends Analyzer {
+  protected damageIncrease: number = 0;
   protected damageGained: number = 0;
   protected maelstromWeaponGained: number = 0;
   protected maelstromWeaponWasted: number = 0;
@@ -39,6 +40,11 @@ class ElementalAssault extends Analyzer {
       return;
     }
 
+    this.damageIncrease =
+      ELEMENTAL_ASSAULT_RANKS[
+        this.selectedCombatant.getTalentRank(TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT)
+      ];
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
       this.onStormstrikeDamage,
@@ -46,7 +52,7 @@ class ElementalAssault extends Analyzer {
   }
 
   onStormstrikeDamage(event: DamageEvent): void {
-    this.damageGained += calculateEffectiveDamage(event, ELEMENTAL_ASSAULT.INCREASE);
+    this.damageGained += calculateEffectiveDamage(event, this.damageIncrease);
 
     // Use main-hand to determine gained maelstrom weapon stacks, which should catch MW gained from Stormflurry also
     if (MAIN_HAND_DAMAGES.includes(event.ability.guid)) {
@@ -65,19 +71,22 @@ class ElementalAssault extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
+        tooltip={
+          <>
+            <div>{this.maelstromWeaponGained} Total Maelstrom Gained</div>
+            <div>{this.maelstromWeaponWasted} Maelstrom Wasted</div>
+            <hr />
+            <div>
+              {this.maelstromWeaponGained - this.maelstromWeaponWasted} Effective Maelstrom Gained
+            </div>
+          </>
+        }
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT.id}>
+        <TalentSpellText talent={TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
-            <br />
-            <ResourceGenerated
-              amount={this.maelstromWeaponGained}
-              wasted={this.maelstromWeaponWasted}
-              resourceType={SPELLS.MAELSTROM_WEAPON_BUFF}
-            />
-            <br />
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

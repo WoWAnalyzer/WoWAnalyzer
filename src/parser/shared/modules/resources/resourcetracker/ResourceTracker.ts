@@ -153,7 +153,10 @@ export default class ResourceTracker extends Analyzer {
    *  Override this with spellIds that don't refund. It's fine to leave this empty
    *  when refundOnMiss is false. */
   refundBlacklist: number[] = [];
-
+  /** Some specs (i.e. Enhancement Shaman's Maelstrom Weapon) allow for multiple gains within the same
+   *  timestamp as a valid gain.
+   */
+  allowMultipleGainsInSameTimestamp = false;
   // END override values
 
   /** Data object for the whole fight - updated during analysis */
@@ -398,7 +401,9 @@ export default class ResourceTracker extends Analyzer {
      * See MULTI_UPDATE_BUFFER_MS docs for more info on why this is needed */
     const calculatedBeforeAmount = this.current;
     const withinMultiUpdateBuffer =
-      prevUpdate && timestamp <= prevUpdate.timestamp + MULTI_UPDATE_BUFFER_MS;
+      !this.allowMultipleGainsInSameTimestamp &&
+      prevUpdate &&
+      timestamp <= prevUpdate.timestamp + MULTI_UPDATE_BUFFER_MS;
     const beforeAmount =
       reportedBeforeAmount !== undefined && !withinMultiUpdateBuffer
         ? reportedBeforeAmount

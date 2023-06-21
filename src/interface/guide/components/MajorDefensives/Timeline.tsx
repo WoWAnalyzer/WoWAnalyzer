@@ -70,7 +70,7 @@ export const MitigationLabel = ({
   const fightStart = useInfo()?.fightStart ?? 0;
   return (
     <>
-      <SpellLink id={mitigation.start.ability.guid} />
+      <SpellLink spell={mitigation.start.ability.guid} />
       {long ? ', active from ' : ' @ '}
       {formatDuration(mitigation.start.timestamp - fightStart)}
       {long ? ' to ' : ' - '}

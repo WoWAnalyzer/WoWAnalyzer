@@ -38,8 +38,8 @@ export default function buffStacks(spell: Spell, range: Range): Condition<number
       state >= (range.atLeast || 0) && (range.atMost === undefined || state <= range.atMost),
     describe: (tense) => (
       <>
-        you {tenseAlt(tense, 'have', 'had')} {formatRange(range)} <SpellLink id={spell.id} icon />{' '}
-        stacks
+        you {tenseAlt(tense, 'have', 'had')} {formatRange(range)}{' '}
+        <SpellLink spell={spell.id} icon /> stacks
       </>
     ),
   };

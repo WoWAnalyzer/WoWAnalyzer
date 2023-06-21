@@ -185,7 +185,7 @@ class Auras extends PureComponent {
     return (
       <SpellLink
         key={`cast-${left}-${event.ability.guid}`}
-        id={event.ability.guid}
+        spell={event.ability.guid}
         icon={false}
         className={`cast ${className}`}
         style={{

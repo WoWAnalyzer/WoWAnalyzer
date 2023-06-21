@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-const JUDGEMENT_HEALS = 25;
+const JUDGEMENT_HEALS = 5;
 
 class JudgmentOfLight extends Analyzer {
   counter = JUDGEMENT_HEALS;
@@ -47,7 +47,7 @@ class JudgmentOfLight extends Analyzer {
     this.wasted += JUDGEMENT_HEALS - this.counter;
     return (
       <Statistic position={STATISTIC_ORDER.CORE(10)} category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={TALENTS.JUDGMENT_OF_LIGHT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.JUDGMENT_OF_LIGHT_TALENT}>
           {formatNumber(this.wasted)} Wasted Stacks
         </BoringSpellValueText>
       </Statistic>

@@ -292,10 +292,15 @@ const spells = spellIndexableList({
     name: 'Spirit Bomb',
     icon: 'inv_icon_shadowcouncilorb_purple',
   },
-  COLLECTIVE_ANGUISH: {
+  COLLECTIVE_ANGUISH_EYE_BEAM: {
     id: 391058,
     name: 'Collective Anguish',
     icon: 'artifactability_havocdemonhunter_anguishofthedeceiver',
+  },
+  COLLECTIVE_ANGUISH_FEL_DEVASTATION: {
+    id: 393834,
+    name: 'Fel Devastation',
+    icon: 'ability_demonhunter_feldevastation',
   },
   PAINBRINGER_BUFF: {
     id: 212988,

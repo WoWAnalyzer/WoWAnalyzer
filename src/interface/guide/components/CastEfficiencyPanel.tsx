@@ -24,7 +24,7 @@ export default function CastEfficiencyPanel({
   useThresholds?: boolean;
 }) {
   const castEfficObj = useAnalyzer(CastEfficiency)!.getCastEfficiencyForSpellId(spell.id);
-  const spellName = useSpellLink ? <SpellLink id={spell} /> : spell.name;
+  const spellName = useSpellLink ? <SpellLink spell={spell} /> : spell.name;
   const ability = useAnalyzer(Abilities)!.getAbility(spell.id);
   const hasCharges = ability && ability.charges > 1;
   const gapHighlightMode = hasCharges ? GapHighlight.All : GapHighlight.FullCooldown;

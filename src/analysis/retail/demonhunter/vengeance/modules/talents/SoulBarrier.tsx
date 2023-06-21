@@ -85,7 +85,7 @@ class SoulBarrier extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your uptime with <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.id} /> can be
+          Your uptime with <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT} /> can be
           improved.
         </>,
       )

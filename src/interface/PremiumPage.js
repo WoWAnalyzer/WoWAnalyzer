@@ -35,6 +35,7 @@ export class PremiumPage extends PureComponent {
   };
 
   render() {
+    // TODO: usePageView
     const { user } = this.props;
 
     return (

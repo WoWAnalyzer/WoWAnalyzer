@@ -25,7 +25,7 @@ const FoodPanel = ({ recommendedFoods, expansion }: Props) => {
   const foodBuff = maybeGetSpell(foodBuffId, expansion);
   const showCurrentFoodBuff = foodBuff ? (
     <>
-      : <SpellLink id={foodBuff} />
+      : <SpellLink spell={foodBuff} />
     </>
   ) : (
     <>.</>

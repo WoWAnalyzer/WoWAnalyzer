@@ -56,7 +56,7 @@ class Suggestion extends PureComponent<Props, { expanded: boolean }> {
           onClick={details ? this.handleClick : undefined}
         >
           <div className="icon">
-            {icon ? <Icon icon={icon} alt="Icon" /> : spell ? <SpellIcon id={spell} /> : null}
+            {icon ? <Icon icon={icon} alt="Icon" /> : spell ? <SpellIcon spell={spell} /> : null}
           </div>
           <div className="suggestion">
             {children}

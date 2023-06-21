@@ -54,3 +54,13 @@ export interface SpellList<T extends Spell = Spell> {
 
 export const spellIndexableList = asRestrictedTable<Spell>();
 export const enchantIndexableList = asRestrictedTable<Enchant>();
+
+export const isSpell = (x: unknown): x is Spell => {
+  const typedObj = x as Spell;
+  return (
+    ((typedObj !== null && typeof typedObj === 'object') || typeof typedObj === 'function') &&
+    typeof typedObj['id'] === 'number' &&
+    typeof typedObj['name'] === 'string' &&
+    typeof typedObj['icon'] === 'string'
+  );
+};

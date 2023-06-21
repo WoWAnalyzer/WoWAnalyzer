@@ -49,7 +49,7 @@ class DamageTakenTable extends Component {
             </Tooltip>
           </td>
           <td>
-            <SpellLink id={ability.guid} icon={false}>
+            <SpellLink spell={ability.guid} icon={false}>
               <Icon icon={ability.abilityIcon} alt={ability.name} /> {ability.name}
             </SpellLink>
           </td>

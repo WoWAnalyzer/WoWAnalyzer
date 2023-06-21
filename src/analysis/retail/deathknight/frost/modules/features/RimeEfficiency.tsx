@@ -89,8 +89,8 @@ class RimeEfficiency extends Analyzer {
       suggest(
         <>
           {' '}
-          You are wasting <SpellLink id={SPELLS.RIME.id} /> procs. You should be casting{' '}
-          <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> as soon as possible when you have a
+          You are wasting <SpellLink spell={SPELLS.RIME} /> procs. You should be casting{' '}
+          <SpellLink spell={talents.HOWLING_BLAST_TALENT} /> as soon as possible when you have a
           Rime proc to avoid wasting it.
         </>,
       )
@@ -120,7 +120,7 @@ class RimeEfficiency extends Analyzer {
           this.refreshedRimeProcs
         } procs were overwritten by new procs.`}
       >
-        <BoringSpellValueText spellId={SPELLS.RIME.id}>
+        <BoringSpellValueText spell={SPELLS.RIME}>
           <>
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
           </>
@@ -148,19 +148,19 @@ class RimeEfficiency extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={talents.RIME_TALENT.id} />
+          <SpellLink spell={talents.RIME_TALENT} />
         </strong>{' '}
-        turns <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> from a weak ability you only use to
+        turns <SpellLink spell={talents.HOWLING_BLAST_TALENT} /> from a weak ability you only use to
         apply Frost Fever to a powerful spell that jumps to the top of the priority list. This is
-        especially true if <SpellLink id={talents.AVALANCHE_TALENT.id} /> or{' '}
-        <SpellLink id={talents.ICEBREAKER_TALENT.id} /> are talented. Rime has a chance to proc
-        whenever you cast <SpellLink id={talents.OBLITERATE_TALENT.id} /> and you prevent wasting
+        especially true if <SpellLink spell={talents.AVALANCHE_TALENT} /> or{' '}
+        <SpellLink spell={talents.ICEBREAKER_TALENT} /> are talented. Rime has a chance to proc
+        whenever you cast <SpellLink spell={talents.OBLITERATE_TALENT} /> and you prevent wasting
         the proc by making sure to consume Rime before casting Obliterate. You should aim to consume
         as many Rimes as you can. However, there are times when other spells take priority such as
-        casting <SpellLink id={talents.FROST_STRIKE_TALENT.id} /> to refresh{' '}
-        <SpellLink id={talents.ICY_TALONS_TALENT.id} /> or using{' '}
-        <SpellLink id={talents.OBLITERATE_TALENT.id} /> to maintain{' '}
-        <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> when your RP is low.
+        casting <SpellLink spell={talents.FROST_STRIKE_TALENT} /> to refresh{' '}
+        <SpellLink spell={talents.ICY_TALONS_TALENT} /> or using{' '}
+        <SpellLink spell={talents.OBLITERATE_TALENT} /> to maintain{' '}
+        <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> when your RP is low.
       </p>
     );
 
