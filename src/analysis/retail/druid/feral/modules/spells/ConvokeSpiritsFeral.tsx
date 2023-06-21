@@ -62,7 +62,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
         }
         dropdown={this.baseTable}
       >
-        <BoringSpellValueText spellId={SPELLS.CONVOKE_SPIRITS.id}>
+        <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>
           <ItemPercentDamageDone greaterThan amount={this.totalDamage} />
           <br />
         </BoringSpellValueText>
@@ -75,10 +75,10 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
+          <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />
         </strong>{' '}
         is a powerful but somewhat random burst of damage. It's best used immediately on cooldown.
-        Always use with <SpellLink id={SPELLS.TIGERS_FURY.id} /> active to benefit from the damage
+        Always use with <SpellLink spell={SPELLS.TIGERS_FURY} /> active to benefit from the damage
         boost, and ideally use it at low combo points to benefit from the combo points it will
         generate.
       </p>
@@ -94,7 +94,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
+              <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />
             </>
           );
 
@@ -114,7 +114,7 @@ class ConvokeSpiritsFeral extends ConvokeSpirits {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.TIGERS_FURY.id} /> active
+                <SpellLink spell={SPELLS.TIGERS_FURY} /> active
               </>
             ),
             result: <PassFailCheckmark pass={feralCast.tfOnCast} />,

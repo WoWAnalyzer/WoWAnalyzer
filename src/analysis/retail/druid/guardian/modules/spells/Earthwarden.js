@@ -94,7 +94,7 @@ class Earthwarden extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.EARTHWARDEN_BUFF.id} /> Hits mitigated by Earthwarden{' '}
+              <SpellIcon spell={SPELLS.EARTHWARDEN_BUFF} /> Hits mitigated by Earthwarden{' '}
             </>
           }
         >
@@ -111,9 +111,9 @@ class Earthwarden extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            <SpellLink id={SPELLS.EARTHWARDEN_TALENT.id} /> is not mitigating enough potential
+            <SpellLink spell={SPELLS.EARTHWARDEN_TALENT} /> is not mitigating enough potential
             damage to be effective. This is often caused by stacks being consumed too quickly due to
-            tanking multiple mobs and/or low <SpellLink id={SPELLS.THRASH_BEAR.id} /> casts.
+            tanking multiple mobs and/or low <SpellLink spell={SPELLS.THRASH_BEAR} /> casts.
             Consider using a different talent if you cannot get better usage from Earthwarden.
           </span>,
         )
@@ -138,7 +138,7 @@ class Earthwarden extends Analyzer {
         suggest(
           <span>
             The damage pattern of this encounter makes{' '}
-            <SpellLink id={SPELLS.EARTHWARDEN_TALENT.id} /> less effective. Consider using a
+            <SpellLink spell={SPELLS.EARTHWARDEN_TALENT} /> less effective. Consider using a
             different talent that will provide more value against non-melee damage.
           </span>,
         )

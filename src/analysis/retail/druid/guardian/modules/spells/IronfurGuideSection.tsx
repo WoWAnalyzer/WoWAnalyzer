@@ -10,6 +10,7 @@ import Ironfur, { IronfurTrackedHit } from 'analysis/retail/druid/guardian/modul
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatNumber } from 'common/format';
 import { SpellLink } from 'interface';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 function HitTooltipContent({ hit }: { hit: TrackedHit }) {
   const info = useInfo()!;
@@ -24,7 +25,7 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
       </div>
       <div>
         You took <strong>{formatNumber(damage)}</strong> from{' '}
-        <SpellLink id={hit.event.ability.guid}>{hit.event.ability.name}</SpellLink>.
+        <SpellLink spell={abilityToSpell(hit.event.ability)}>{hit.event.ability.name}</SpellLink>.
       </div>
     </div>
   );

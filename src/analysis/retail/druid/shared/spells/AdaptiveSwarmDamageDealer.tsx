@@ -63,7 +63,7 @@ class AdaptiveSwarmDamageDealer extends AdaptiveSwarm {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.ADAPTIVE_SWARM.id}>
+        <BoringSpellValueText spell={SPELLS.ADAPTIVE_SWARM}>
           <ItemPercentDamageDone amount={this.totalDamage} />
           <br />
         </BoringSpellValueText>

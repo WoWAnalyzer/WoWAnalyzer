@@ -60,7 +60,7 @@ class TouchTheCosmos extends Analyzer {
                 {Object.keys(this.totcBuffedAbilities).map((e) => (
                   <tr key={e}>
                     <th>
-                      <SpellLink id={Number(e)} />
+                      <SpellLink spell={Number(e)} />
                     </th>
                     <td>{this.totcBuffedAbilities[Number(e)]}</td>
                   </tr>
@@ -70,7 +70,7 @@ class TouchTheCosmos extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.TOUCH_THE_COSMOS.id}>
+        <BoringSpellValueText spell={SPELLS.TOUCH_THE_COSMOS}>
           <>
             {formatNumber(this.savedAP)} <small>Astral Power accounted in Pulsar</small>
           </>

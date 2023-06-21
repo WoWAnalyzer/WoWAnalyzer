@@ -123,7 +123,7 @@ export default class CarnivorousInstinct extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            The damage due specifically to the boost to <SpellLink id={SPELLS.TIGERS_FURY.id} />{' '}
+            The damage due specifically to the boost to <SpellLink spell={SPELLS.TIGERS_FURY} />{' '}
             damage bonus
           </>
         }

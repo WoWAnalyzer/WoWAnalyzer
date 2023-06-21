@@ -295,7 +295,7 @@ class Bloodtalons extends Analyzer {
         You applied Bloodtalons to <strong>{formatPercentage(this.percentBoosted, 1)}%</strong> of
         your finisher damage. Below{' '}
         {formatPercentage(LIONS_STRENGTH_DAMAGE_BONUS / BLOODTALONS_DAMAGE_BONUS, 0)}%,{' '}
-        <SpellLink id={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id}>Bite Force</SpellLink> would have
+        <SpellLink spell={TALENTS_DRUID.LIONS_STRENGTH_TALENT}>Bite Force</SpellLink> would have
         done more damage for you.
       </>
     );
@@ -318,7 +318,7 @@ class Bloodtalons extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+          <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
         </strong>{' '}
         changes your builder priorities. Pooling energy will make it easier to use three builders
         within a short window. It's worth using a sub-optimal builder if doing so would generate a
@@ -365,14 +365,14 @@ class Bloodtalons extends Analyzer {
                 </strong>
               </li>
               <li>
-                <SpellLink id={cdSpell(this.selectedCombatant).id} /> Hardcasts:{' '}
+                <SpellLink spell={cdSpell(this.selectedCombatant)} /> Hardcasts:{' '}
                 <strong>
                   {this.berserkBitesWithBt} / {this.berserkBites}
                 </strong>
               </li>
               {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
                 <li>
-                  <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />:{' '}
+                  <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />:{' '}
                   <strong>
                     {this.convokeBitesWithBt} / {this.convokeBites}
                   </strong>
@@ -380,7 +380,7 @@ class Bloodtalons extends Analyzer {
               )}
               {this.hasApex && (
                 <li>
-                  <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} />:{' '}
+                  <SpellLink spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT} />:{' '}
                   <strong>
                     {this.apexBitesWithBt} / {this.apexBites}
                   </strong>
@@ -388,7 +388,7 @@ class Bloodtalons extends Analyzer {
               )}
             </ul>
             <br />
-            Damage added due to <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} /> (opportunity
+            Damage added due to <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} /> (opportunity
             cost not included):{' '}
             <strong>
               {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.btDamage))}%
@@ -401,16 +401,16 @@ class Bloodtalons extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.CORE(40)}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.BLOODTALONS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.BLOODTALONS_TALENT}>
           <>
-            <SpellIcon id={SPELLS.FEROCIOUS_BITE.id} /> {this.bitesWithBt} / {this.totalBites}{' '}
+            <SpellIcon spell={SPELLS.FEROCIOUS_BITE} /> {this.bitesWithBt} / {this.totalBites}{' '}
             <small>buffed</small>
             <br />
-            <SpellIcon id={SPELLS.RIP.id} /> {this.ripsWithBt} / {this.rips} <small>buffed</small>
+            <SpellIcon spell={SPELLS.RIP} /> {this.ripsWithBt} / {this.rips} <small>buffed</small>
             {hasPw && (
               <>
                 <br />
-                <SpellIcon id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} /> {this.primalWrathsWithBt} /{' '}
+                <SpellIcon spell={TALENTS_DRUID.PRIMAL_WRATH_TALENT} /> {this.primalWrathsWithBt} /{' '}
                 {this.primalWraths} <small>buffed</small>
               </>
             )}

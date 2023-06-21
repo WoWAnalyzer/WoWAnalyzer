@@ -156,7 +156,7 @@ class SuddenAmbush extends Analyzer {
             Buff Utilization: <strong>{formatPercentage(this.saUtil, 1)}%</strong>
             <ul>
               <li>
-                <SpellIcon id={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT.id} /> Used:{' '}
+                <SpellIcon spell={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT} /> Used:{' '}
                 <strong>{this.saUsed}</strong>
               </li>
               <li>
@@ -176,18 +176,18 @@ class SuddenAmbush extends Analyzer {
             {hasDcr && (
               <>
                 (possibly more hits than uses due to{' '}
-                <SpellLink id={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT.id} />)
+                <SpellLink spell={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT} />)
               </>
             )}
             :
             <ul>
               <li>
-                <SpellLink id={SPELLS.SHRED.id} />: Boosted <strong>{this.boostedShreds}</strong>{' '}
+                <SpellLink spell={SPELLS.SHRED} />: Boosted <strong>{this.boostedShreds}</strong>{' '}
                 hits for{' '}
                 <strong>&gt;{this.owner.formatItemDamageDone(this.boostedShredDamage)}</strong>
               </li>
               <li>
-                <SpellLink id={SPELLS.RAKE.id} />: Boosted <strong>{this.boostedRakes}</strong> hits
+                <SpellLink spell={SPELLS.RAKE} />: Boosted <strong>{this.boostedRakes}</strong> hits
                 for <strong>{this.owner.formatItemDamageDone(this.boostedRakeDamage)}</strong>
               </li>
             </ul>

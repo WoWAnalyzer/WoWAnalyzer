@@ -137,7 +137,7 @@ class Ironbark extends Analyzer {
           <BoringValue
             label={
               <>
-                <SpellIcon id={SPELLS.IRONBARK.id} /> Average Ironbark mitigated and healed
+                <SpellIcon spell={SPELLS.IRONBARK} /> Average Ironbark mitigated and healed
               </>
             }
           >

@@ -89,30 +89,30 @@ class Sabertooth extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Percent boosted <SpellLink id={SPELLS.RIP.id} /> ticks:{' '}
+            Percent boosted <SpellLink spell={SPELLS.RIP} /> ticks:{' '}
             <strong>{formatPercentage(this.percentBoostedRipTicks, 1)}%</strong>
             <br />
             Breakdown by source:
             <ul>
               <li>
-                <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />:{' '}
+                <SpellLink spell={SPELLS.FEROCIOUS_BITE} />:{' '}
                 <strong>{this.owner.formatItemDamageDone(this.fbBoostDamage)}</strong>
               </li>
               {hasRf && (
                 <li>
-                  <SpellLink id={TALENTS_DRUID.RAMPANT_FEROCITY_TALENT.id} />:{' '}
+                  <SpellLink spell={TALENTS_DRUID.RAMPANT_FEROCITY_TALENT} />:{' '}
                   <strong>{this.owner.formatItemDamageDone(this.rfBoostDamage)}</strong>
                 </li>
               )}
               <li>
-                <SpellLink id={SPELLS.RIP.id} />:{' '}
+                <SpellLink spell={SPELLS.RIP} />:{' '}
                 <strong>{this.owner.formatItemDamageDone(this.ripBoostDamage)}</strong>
               </li>
             </ul>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.SABERTOOTH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.SABERTOOTH_TALENT}>
           <ItemPercentDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

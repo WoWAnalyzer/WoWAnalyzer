@@ -32,7 +32,7 @@ class SunfireUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.SUNFIRE.id} /> uptime can be improved. Try to pay more
+          Your <SpellLink spell={SPELLS.SUNFIRE} /> uptime can be improved. Try to pay more
           attention to your Sunfire on the boss.
         </>,
       )

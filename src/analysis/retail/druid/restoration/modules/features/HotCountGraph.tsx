@@ -83,11 +83,11 @@ class HotCountGraph extends BuffCountGraph {
           <>
             This graph shows the number of HoTs you had active over the course of the encounter. It
             can help you evaluate how effective you were at 'ramping' before using your cooldowns.
-            Having a <SpellLink id={SPELLS.WILD_GROWTH.id} /> and several{' '}
-            <SpellLink id={SPELLS.REJUVENATION.id} /> out before casting{' '}
-            <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} /> or{' '}
-            <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can drastically increase their
-            effectiveness. Even ramping before <SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> can be
+            Having a <SpellLink spell={SPELLS.WILD_GROWTH} /> and several{' '}
+            <SpellLink spell={SPELLS.REJUVENATION} /> out before casting{' '}
+            <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> or{' '}
+            <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> can drastically increase their
+            effectiveness. Even ramping before <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> can be
             helpful because the additional mastery stacks will boost the direct healing.
           </>
         }

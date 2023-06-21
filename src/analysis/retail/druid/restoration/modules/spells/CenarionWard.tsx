@@ -36,7 +36,7 @@ class CenarionWard extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_DRUID.CENARION_WARD_TALENT.id} />
+          <SpellLink spell={TALENTS_DRUID.CENARION_WARD_TALENT} />
         </b>{' '}
         is a talented HoT on a short cooldown. It is extremely powerful and efficient and should be
         cast virtually on cooldown. A tank is usually the best target.
@@ -73,7 +73,7 @@ class CenarionWard extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.CENARION_WARD_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.CENARION_WARD_TALENT}>
           <ItemPercentHealingDone amount={totalHealing} />
           <br />
         </BoringSpellValueText>

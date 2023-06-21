@@ -23,10 +23,10 @@ class RestoDruidHealingEfficiencyDetails extends HealingEfficiencyDetails {
         explanation={
           <>
             These stats include only your hardcasts - procs and casts due to{' '}
-            <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> are not included in this chart. <br />
+            <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> are not included in this chart. <br />
             Additional healing enabled by a HoT's mastery stack ARE counted here, but further
             implications of the cast (like a{' '}
-            <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.id} /> proc from
+            <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT} /> proc from
             Swiftmend) are not counted.
           </>
         }

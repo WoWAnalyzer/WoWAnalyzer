@@ -61,7 +61,7 @@ class Starweaver extends Analyzer {
                 {Object.keys(this.freeAbilities).map((e) => (
                   <tr key={e}>
                     <th>
-                      <SpellLink id={Number(e)} />
+                      <SpellLink spell={Number(e)} />
                     </th>
                     <td>{this.freeAbilities[Number(e)]}</td>
                   </tr>
@@ -71,7 +71,7 @@ class Starweaver extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.STARWEAVER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.STARWEAVER_TALENT}>
           <>
             {formatNumber(this.savedAP)} <small> Astral Power accounted in Pulsar </small>
           </>

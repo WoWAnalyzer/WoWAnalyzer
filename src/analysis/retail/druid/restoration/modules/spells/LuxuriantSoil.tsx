@@ -59,7 +59,7 @@ class LuxuriantSoil extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.LUXURIANT_SOIL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.LUXURIANT_SOIL_TALENT}>
           <ItemPercentHealingDone amount={this.healing} />
           <br />
         </BoringSpellValueText>
