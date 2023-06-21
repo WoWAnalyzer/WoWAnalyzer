@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2023, 6, 21), <>Fixed an issue where parried <SpellLink spell={SPELLS.FEROCIOUS_BITE}/> casts were counted as 0 CP casts.</>, Sref),
   change(date(2023, 6, 6), <>Fixed an issue where the analyzer was overstating the amount of cooldown reduction from <SpellLink spell={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT}/></>, Sref),
   change(date(2023, 5, 17), <>Fixed an issue where the <SpellLink id={TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT.id}/> value wasn't updated for 10.1</>, Sref),
   change(date(2023, 5, 4), <>Updated <SpellLink spell={SPELLS.THRASH_FERAL} /> handling for new spell ID</>, Sref),
