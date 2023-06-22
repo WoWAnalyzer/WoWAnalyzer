@@ -86,6 +86,10 @@ class Voidform extends Analyzer {
         Try to have all charges of <SpellLink id={SPELLS.MIND_BLAST.id} /> on cooldown before
         entering <SpellLink id={SPELLS.VOIDFORM_BUFF.id} />, since it will cause you to regain all
         charges.
+        <br />
+        Casting <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> during{' '}
+        <SpellLink id={SPELLS.VOIDFORM_BUFF.id} /> extends its duration by 2.5 seconds. Try to
+        extend voidform for as much as possible.
       </p>
     );
 
