@@ -5,6 +5,7 @@ import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent, CastEvent } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -13,7 +14,6 @@ import { EYE_OF_INFINITY_MULTIPLIER } from 'analysis/retail/evoker/devastation/c
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class EyeOfInfinity extends Analyzer {
-  eternitySurgeMainTargetDamage: number = 0;
   eyeOfInfinityDamage: number = 0;
   eternitySurgeMainTarget: number = 0;
   disintegrateMainTarget: number = 0;
@@ -58,19 +58,12 @@ class EyeOfInfinity extends Analyzer {
       event.timestamp > this.lastEternitySurgeHit
     ) {
       this.lastEternitySurgeHit = event.timestamp;
-      this.eternitySurgeMainTargetDamage += event.amount;
-      if (event.absorbed !== undefined) {
-        this.eternitySurgeMainTargetDamage += event.absorbed;
-      }
+      this.eyeOfInfinityDamage += calculateEffectiveDamage(event, EYE_OF_INFINITY_MULTIPLIER);
       this.hitCounter += 1;
     }
   }
 
   statistic() {
-    this.eyeOfInfinityDamage =
-      this.eternitySurgeMainTargetDamage -
-      this.eternitySurgeMainTargetDamage / (1 + EYE_OF_INFINITY_MULTIPLIER);
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

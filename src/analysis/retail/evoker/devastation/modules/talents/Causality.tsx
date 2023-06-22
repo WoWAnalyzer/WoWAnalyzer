@@ -46,12 +46,12 @@ class Causality extends Analyzer {
     this.active = this.selectedCombatant.hasTalent(TALENTS.CAUSALITY_TALENT);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.DISINTEGRATE),
-      this._disReduceCooldown,
+      this.disReduceCooldown,
     );
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PYRE),
-      this._pyreReduceCooldown,
+      this.pyreReduceCooldown,
     );
 
     this.addEventListener(
@@ -62,7 +62,7 @@ class Causality extends Analyzer {
 
   // Pyre can at most trigger 5 CDR events per cast (this includes Pyres procced from Volatility and Dragonrage)
   // With how dragonrage pyres work however, that would actually be 15 events (3xpyres)
-  _pyreReduceCooldown(event: DamageEvent) {
+  private pyreReduceCooldown(event: DamageEvent) {
     this.pyreDamageEvent = event.timestamp;
 
     if (this.previousPyreDamageEvent < this.dragonRageApplied) {
@@ -80,7 +80,7 @@ class Causality extends Analyzer {
     }
   }
 
-  _disReduceCooldown() {
+  private disReduceCooldown() {
     this.calculateCDR(CAUSALITY_DISINTEGRATE_CDR_MS);
   }
 
@@ -90,6 +90,7 @@ class Causality extends Analyzer {
   }
 
   // TODO: possibly track CDR gained from pyre and dis seperatly
+  // TODO: Simplify at some point.
   calculateCDR(CDRAmount: number) {
     const CDRAmountSeconds = CDRAmount / 1000;
     if (!this.combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)) {

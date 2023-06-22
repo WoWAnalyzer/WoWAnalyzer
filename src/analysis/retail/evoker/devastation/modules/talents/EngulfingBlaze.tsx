@@ -5,6 +5,7 @@ import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -13,7 +14,6 @@ import { ENGULFING_BLAZE_MULTIPLIER } from 'analysis/retail/evoker/devastation/c
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class EngulfingBlaze extends Analyzer {
-  livingFlameDamage: number = 0;
   engulfingBlazeDamage: number = 0;
 
   constructor(options: Options) {
@@ -27,16 +27,10 @@ class EngulfingBlaze extends Analyzer {
   }
 
   onHit(event: DamageEvent) {
-    this.livingFlameDamage += event.amount;
-    if (event.absorbed !== undefined) {
-      this.livingFlameDamage += event.absorbed;
-    }
+    this.engulfingBlazeDamage += calculateEffectiveDamage(event, ENGULFING_BLAZE_MULTIPLIER);
   }
 
   statistic() {
-    this.engulfingBlazeDamage =
-      this.livingFlameDamage - this.livingFlameDamage / (1 + ENGULFING_BLAZE_MULTIPLIER);
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

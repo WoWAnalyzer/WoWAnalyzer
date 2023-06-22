@@ -51,6 +51,7 @@ class Scintillation extends Analyzer {
       this.lastEternitySurgeHit = event.timestamp;
       this.awaitingEternitySurgeHit = false;
       this.allowScintillationDetection = true;
+      return;
     }
     if (this.allowScintillationDetection && event.timestamp > this.lastEternitySurgeHit) {
       this.scintProcNoted = event.timestamp;
@@ -58,10 +59,7 @@ class Scintillation extends Analyzer {
       this.allowScintillationDetection = false;
     }
     if (event.timestamp === this.scintProcNoted) {
-      this.scintillationDamage += event.amount;
-      if (event.absorbed !== undefined) {
-        this.scintillationDamage += event.absorbed;
-      }
+      this.scintillationDamage += event.amount + (event.absorbed ?? 0);
     }
   }
 

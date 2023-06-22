@@ -12,6 +12,7 @@ import Events, {
   RemoveDebuffEvent,
   HasRelatedEvent,
 } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -28,9 +29,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { DISINTEGRATE, PYRE, ESSENCE_BURST_DEV_BUFF } = SPELLS;
 
 class TitanicWrath extends Analyzer {
-  disintegrateDamage: number = 0;
   ticksToCount: number = 0;
-  pyreDamage: number = 0;
 
   titanicWrathDisintegrateDamage: number = 0;
   titanicWrathPyreDamage: number = 0;
@@ -104,31 +103,23 @@ class TitanicWrath extends Analyzer {
     if (event.ability.name === DISINTEGRATE.name) {
       if (this.ticksToCount > 0) {
         this.ticksToCount -= 1;
-        this.disintegrateDamage += event.amount;
-        if (event.absorbed !== undefined) {
-          this.disintegrateDamage += event.absorbed;
-        }
         this.trackDamage = false;
+        this.titanicWrathDisintegrateDamage += calculateEffectiveDamage(
+          event,
+          this.titanicWrathMultiplier,
+        );
       }
     } else if (event.ability.name === PYRE.name) {
       if (this.trackDamage || event.timestamp === this.lastDamEvent) {
         this.lastDamEvent = event.timestamp;
         this.trackDamage = false;
-        this.pyreDamage += event.amount;
+        this.titanicWrathPyreDamage += calculateEffectiveDamage(event, this.titanicWrathMultiplier);
         this.ticksToCount = 0;
-        if (event.absorbed !== undefined) {
-          this.pyreDamage += event.absorbed;
-        }
       }
     }
   }
 
   statistic() {
-    this.titanicWrathDisintegrateDamage =
-      this.disintegrateDamage - this.disintegrateDamage / (1 + this.titanicWrathMultiplier);
-    this.titanicWrathPyreDamage =
-      this.pyreDamage - this.pyreDamage / (1 + this.titanicWrathMultiplier);
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

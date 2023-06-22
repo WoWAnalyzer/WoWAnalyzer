@@ -5,6 +5,7 @@ import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -15,7 +16,6 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { DEEP_BREATH_DAM } = SPELLS;
 
 class LayWaste extends Analyzer {
-  deepBreathDamage: number = 0;
   layWasteDamage: number = 0;
 
   constructor(options: Options) {
@@ -26,26 +26,16 @@ class LayWaste extends Analyzer {
   }
 
   onHit(event: DamageEvent) {
-    this.deepBreathDamage += event.amount;
-    if (event.absorbed !== undefined) {
-      this.deepBreathDamage += event.absorbed;
-    }
+    this.layWasteDamage += calculateEffectiveDamage(event, LAY_WASTE_MULTIPLIER);
   }
 
   statistic() {
-    this.layWasteDamage =
-      this.deepBreathDamage - this.deepBreathDamage / (1 + LAY_WASTE_MULTIPLIER);
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            <li>Damage: {formatNumber(this.layWasteDamage)}</li>
-          </>
-        }
+        tooltip={<li>Damage: {formatNumber(this.layWasteDamage)}</li>}
       >
         <TalentSpellText talent={TALENTS.LAY_WASTE_TALENT}>
           <ItemDamageDone amount={this.layWasteDamage} />

@@ -38,10 +38,7 @@ class Catalyze extends Analyzer {
   onHit(event: DamageEvent) {
     if (this.disintegrateDebuffActive) {
       this.fireBreathTicks += 1;
-      this.fireBreathDamageDuringDisintegrate += event.amount;
-      if (event.absorbed !== undefined) {
-        this.fireBreathDamageDuringDisintegrate += event.absorbed;
-      }
+      this.fireBreathDamageDuringDisintegrate += event.amount + (event.absorbed ?? 0);
     }
   }
 

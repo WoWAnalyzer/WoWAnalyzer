@@ -2,7 +2,12 @@ import SPELLS from 'common/SPELLS';
 import { qualitativePerformanceToColor } from 'interface/guide';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  DamageEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { Item } from 'parser/ui/DonutChart';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { TALENTS_EVOKER } from 'common/TALENTS';
@@ -50,71 +55,89 @@ class T30DevaTier4P extends Analyzer {
     super(options);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(OBSIDIAN_SHARDS), (event) => {
-      this.obsidianShardsDam += event.amount;
-      if (event.absorbed !== undefined) {
-        this.obsidianShardsDam += event.absorbed;
-      }
-      if (this.blazingShardsActive || this.inDragonRageWindow) {
-        this.obsidianShardsDamDuringBlazing += event.amount;
-        this.blazeShardCounters[this.totalCasts].extraDamageProvided += event.amount;
-        if (event.absorbed !== undefined) {
-          this.obsidianShardsDamDuringBlazing += event.absorbed;
-          this.blazeShardCounters[this.totalCasts].extraDamageProvided += event.absorbed;
-        }
-      }
+      this.onObsidianShardsDamage(event);
     });
 
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
-      this.blazingShardsActive = false;
-      if (!this.inDragonRageWindow) {
-        this.performanceCheck();
-      }
+      this.onRemoveBlazingShards(event);
     });
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
       (event) => {
-        this.inDragonRageWindow = true;
-        this.totalCasts += 1;
-        this.blazeShardCounters[this.totalCasts] = {
-          castTimeStamp: event.timestamp,
-          extraDamageProvided: 0,
-        };
+        this.onApplyDragonrage(event);
       },
     );
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
       (event) => {
-        this.performanceCheck();
-        this.inDragonRageWindow = false;
+        this.onRemoveDragonrage(event);
       },
     );
 
-    // When blazing shard is applied track timestamp and increment counter
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
-      if (!this.inDragonRageWindow) {
-        this.blazingShardsActive = true;
-        this.totalCasts += 1;
-        this.blazeShardCounters[this.totalCasts] = {
-          castTimeStamp: event.timestamp,
-          extraDamageProvided: 0,
-        };
-      }
+      this.onApplyBlazingShards(event);
     });
 
-    // When blazing shard is refreshed track timestamp and increment counter
     this.addEventListener(Events.refreshbuff.by(SELECTED_PLAYER).spell(BLAZING_SHARDS), (event) => {
-      if (!this.inDragonRageWindow) {
-        this.performanceCheck();
-        this.blazingShardsActive = true;
-        this.totalCasts += 1;
-        this.blazeShardCounters[this.totalCasts] = {
-          castTimeStamp: event.timestamp,
-          extraDamageProvided: 0,
-        };
-      }
+      this.onRefreshBlazingShards(event);
     });
+  }
+
+  private onObsidianShardsDamage(event: DamageEvent) {
+    const total = event.amount + (event.absorbed ?? 0);
+    this.obsidianShardsDam += total;
+    if (this.blazingShardsActive || this.inDragonRageWindow) {
+      this.obsidianShardsDamDuringBlazing += total;
+      this.blazeShardCounters[this.totalCasts].extraDamageProvided += total;
+    }
+  }
+
+  private onApplyDragonrage(event: ApplyBuffEvent) {
+    this.inDragonRageWindow = true;
+    this.totalCasts += 1;
+    this.blazeShardCounters[this.totalCasts] = {
+      castTimeStamp: event.timestamp,
+      extraDamageProvided: 0,
+    };
+  }
+
+  private onRemoveDragonrage(event: RemoveBuffEvent) {
+    this.performanceCheck();
+    this.inDragonRageWindow = false;
+  }
+
+  // When blazing shard is applied track timestamp and increment counter
+  private onApplyBlazingShards(event: ApplyBuffEvent) {
+    if (!this.inDragonRageWindow) {
+      this.blazingShardsActive = true;
+      this.totalCasts += 1;
+      this.blazeShardCounters[this.totalCasts] = {
+        castTimeStamp: event.timestamp,
+        extraDamageProvided: 0,
+      };
+    }
+  }
+
+  // When blazing shard is refreshed track timestamp and increment counter
+  private onRefreshBlazingShards(event: RefreshBuffEvent) {
+    if (!this.inDragonRageWindow) {
+      this.performanceCheck();
+      this.blazingShardsActive = true;
+      this.totalCasts += 1;
+      this.blazeShardCounters[this.totalCasts] = {
+        castTimeStamp: event.timestamp,
+        extraDamageProvided: 0,
+      };
+    }
+  }
+
+  private onRemoveBlazingShards(event: RemoveBuffEvent) {
+    this.blazingShardsActive = false;
+    if (!this.inDragonRageWindow) {
+      this.performanceCheck();
+    }
   }
 
   performanceCheck() {

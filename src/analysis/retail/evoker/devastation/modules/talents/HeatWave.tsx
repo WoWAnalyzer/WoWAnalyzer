@@ -5,6 +5,7 @@ import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -15,7 +16,6 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { FIRE_BREATH_DOT } = SPELLS;
 
 class HeatWave extends Analyzer {
-  fireBreathDamage: number = 0;
   heatWaveDamage: number = 0;
   heatWaveDamageMultiplier: number = 0;
 
@@ -29,16 +29,10 @@ class HeatWave extends Analyzer {
   }
 
   onHit(event: DamageEvent) {
-    this.fireBreathDamage += event.amount;
-    if (event.absorbed !== undefined) {
-      this.fireBreathDamage += event.absorbed;
-    }
+    this.heatWaveDamage += calculateEffectiveDamage(event, this.heatWaveDamageMultiplier);
   }
 
   statistic() {
-    this.heatWaveDamage =
-      this.fireBreathDamage - this.fireBreathDamage / (1 + this.heatWaveDamageMultiplier);
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}

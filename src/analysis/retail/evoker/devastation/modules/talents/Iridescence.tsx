@@ -9,7 +9,9 @@ import Events, {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
   HasRelatedEvent,
+  CastEvent,
 } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -43,10 +45,6 @@ const FIRESTORM_DURATION = 12000;
 class Iridescence extends Analyzer {
   // Blue spell stuff
   ticksToCount: number = 0;
-  disintegrateDamage: number = 0;
-  azureStrikeDamage: number = 0;
-  shatteringStarDamage: number = 0;
-  unravelDamage: number = 0;
 
   iridescenceDisintegrateDamage: number = 0;
   iridescenceAzureStrikeDamage: number = 0;
@@ -54,19 +52,16 @@ class Iridescence extends Analyzer {
   iridescenceUnravelDamage: number = 0;
 
   // Red spell stuff
-  pyreDamage: number = 0;
-  livingFlameDamage: number = 0;
-  firestormDamage: number = 0;
-
   iridescencePyreDamage: number = 0;
   iridescenceLivingFlameDamage: number = 0;
   iridescenceFirestormDamage: number = 0;
 
-  lastDamEvent: number = 0;
-  lastFirestormEvent: number = 0;
+  lastPyreDamEvent: number = 0;
+  firestormCastEvent: number = 0;
 
   trackBlueDamage: boolean = false;
   trackRedDamage: boolean = false;
+  trackFirestorm: boolean = false;
   trackedSpells = [DISINTEGRATE, PYRE, LIVING_FLAME_DAMAGE, SHATTERING_STAR, AZURE_STRIKE, UNRAVEL];
 
   iridescenceSpells = [IRIDESCENCE_BLUE, IRIDESCENCE_RED];
@@ -75,9 +70,15 @@ class Iridescence extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.IRIDESCENCE_TALENT);
 
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onHit);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(DISINTEGRATE),
+      this.onDisintegrateCast,
+    );
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(DISINTEGRATE), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FIRESTORM_TALENT),
+      this.onFirestormCast,
+    );
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(this.iridescenceSpells),
@@ -93,6 +94,8 @@ class Iridescence extends Analyzer {
       Events.removedebuff.by(SELECTED_PLAYER).spell(DISINTEGRATE),
       this.removeDebuff,
     );
+
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onHit);
   }
 
   onBuffRemove(event: RemoveBuffEvent) {
@@ -121,11 +124,16 @@ class Iridescence extends Analyzer {
     }
   }
 
-  onCast() {
+  onDisintegrateCast() {
     // Chanined disintegrate will carry over a buffed tick to the non buffed cast
     if (this.ticksToCount > 0 && !this.trackBlueDamage) {
       this.ticksToCount = 1;
     }
+  }
+
+  onFirestormCast(event: CastEvent) {
+    this.firestormCastEvent = event.timestamp;
+    this.trackFirestorm = false;
   }
 
   removeDebuff() {
@@ -137,49 +145,43 @@ class Iridescence extends Analyzer {
     if (event.ability.name === DISINTEGRATE.name) {
       if (this.ticksToCount > 0) {
         this.ticksToCount -= 1;
-        this.disintegrateDamage += event.amount;
-        if (event.absorbed !== undefined) {
-          this.disintegrateDamage += event.absorbed;
+        this.iridescenceDisintegrateDamage += calculateEffectiveDamage(
+          event,
+          IRIDESCENCE_MULTIPLIER,
+        );
+        if (this.trackBlueDamage) {
+          this.trackBlueDamage = false;
         }
-        this.trackBlueDamage = false;
       }
     } else if (event.ability.name === AZURE_STRIKE.name && this.trackBlueDamage) {
-      this.azureStrikeDamage += event.amount;
-      if (event.absorbed !== undefined) {
-        this.disintegrateDamage += event.absorbed;
-      }
+      this.iridescenceAzureStrikeDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
       this.trackBlueDamage = false;
     } else if (event.ability.name === SHATTERING_STAR.name && this.trackBlueDamage) {
-      this.shatteringStarDamage += event.amount;
-      if (event.absorbed !== undefined) {
-        this.disintegrateDamage += event.absorbed;
-      }
+      this.iridescenceShatteringStarDamage += calculateEffectiveDamage(
+        event,
+        IRIDESCENCE_MULTIPLIER,
+      );
       this.trackBlueDamage = false;
     } else if (event.ability.name === UNRAVEL.name && this.trackBlueDamage) {
-      this.unravelDamage += event.amount;
-      if (event.absorbed !== undefined) {
-        this.disintegrateDamage += event.absorbed;
+      this.iridescenceUnravelDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
+      if (this.trackBlueDamage) {
+        this.trackBlueDamage = false;
       }
-      this.trackBlueDamage = false;
     }
     // Red spells
     else if (event.ability.name === PYRE.name) {
-      if (this.trackRedDamage || event.timestamp === this.lastDamEvent) {
-        this.lastDamEvent = event.timestamp;
-        this.trackRedDamage = false;
-        this.pyreDamage += event.amount;
-        this.ticksToCount = 0;
-        if (event.absorbed !== undefined) {
-          this.pyreDamage += event.absorbed;
+      if (this.trackRedDamage || event.timestamp === this.lastPyreDamEvent) {
+        this.lastPyreDamEvent = event.timestamp;
+        if (this.trackRedDamage) {
+          this.trackRedDamage = false;
         }
+        this.iridescencePyreDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
+        this.ticksToCount = 0;
       }
     } else if (event.ability.name === LIVING_FLAME_DAMAGE.name && this.trackRedDamage) {
+      this.iridescenceLivingFlameDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
       if (this.trackRedDamage) {
-        this.livingFlameDamage += event.amount;
         this.trackRedDamage = false;
-        if (event.absorbed !== undefined) {
-          this.livingFlameDamage += event.absorbed;
-        }
       }
     }
     // FIXME:
@@ -188,38 +190,18 @@ class Iridescence extends Analyzer {
     // That allows multiple Firestorms AND Iridescence at the same time.
     else if (
       event.ability.name === FIRESTORM_DAMAGE.name &&
-      (this.trackRedDamage || event.timestamp > this.lastFirestormEvent + FIRESTORM_DURATION)
+      (this.trackRedDamage ||
+        (event.timestamp > this.firestormCastEvent + FIRESTORM_DURATION && this.trackFirestorm))
     ) {
+      this.iridescenceFirestormDamage += calculateEffectiveDamage(event, IRIDESCENCE_MULTIPLIER);
       if (this.trackRedDamage) {
-        this.firestormDamage += event.amount;
-        if (this.trackRedDamage) {
-          this.lastFirestormEvent = event.timestamp;
-        }
         this.trackRedDamage = false;
-        if (event.absorbed !== undefined) {
-          this.firestormDamage += event.absorbed;
-        }
+        this.trackFirestorm = true;
       }
     }
   }
 
   statistic() {
-    // Blue spells
-    this.iridescenceDisintegrateDamage =
-      this.disintegrateDamage - this.disintegrateDamage / (1 + IRIDESCENCE_MULTIPLIER);
-    this.iridescenceAzureStrikeDamage =
-      this.azureStrikeDamage - this.azureStrikeDamage / (1 + IRIDESCENCE_MULTIPLIER);
-    this.iridescenceShatteringStarDamage =
-      this.shatteringStarDamage - this.shatteringStarDamage / (1 + IRIDESCENCE_MULTIPLIER);
-    this.iridescenceUnravelDamage =
-      this.unravelDamage - this.unravelDamage / (1 + IRIDESCENCE_MULTIPLIER);
-    // Red spells
-    this.iridescencePyreDamage = this.pyreDamage - this.pyreDamage / (1 + IRIDESCENCE_MULTIPLIER);
-    this.iridescenceLivingFlameDamage =
-      this.livingFlameDamage - this.livingFlameDamage / (1 + IRIDESCENCE_MULTIPLIER);
-    this.iridescenceFirestormDamage =
-      this.firestormDamage - this.firestormDamage / (1 + IRIDESCENCE_MULTIPLIER);
-
     const totalIridescenceDamage =
       this.iridescenceDisintegrateDamage +
       this.iridescenceAzureStrikeDamage +

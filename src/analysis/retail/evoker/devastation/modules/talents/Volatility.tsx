@@ -139,10 +139,7 @@ class Volatility extends Analyzer {
     // END CASTED
     // VOLATILITY
     else if (this.volaProc) {
-      this.extraDamageFromVola += event.amount;
-      if (event.absorbed !== undefined) {
-        this.extraDamageFromVola += event.absorbed;
-      }
+      this.extraDamageFromVola += event.amount + (event.absorbed ?? 0);
       this.damageCounter += 1;
       if (this.damageCounter === 2) {
         this.volaVolatilityProcChances += 1;

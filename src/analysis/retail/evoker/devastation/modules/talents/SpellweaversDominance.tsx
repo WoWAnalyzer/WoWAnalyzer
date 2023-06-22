@@ -6,6 +6,7 @@ import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -14,7 +15,6 @@ import { SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER } from 'analysis/retail/evoker/d
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class SpellweaversDominance extends Analyzer {
-  critDamage: number = 0;
   SpellweaversDominanceDamage: number = 0;
   heatWaveDamageCritMultiplier: number = SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER;
   spellsToTrack = [
@@ -39,27 +39,20 @@ class SpellweaversDominance extends Analyzer {
 
   onHit(event: DamageEvent) {
     if (event.hitType === HIT_TYPES.CRIT) {
-      this.critDamage += event.amount;
-      if (event.absorbed !== undefined) {
-        this.critDamage += event.absorbed;
-      }
+      this.SpellweaversDominanceDamage += calculateEffectiveDamage(
+        event,
+        SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER,
+      );
     }
   }
 
   statistic() {
-    this.SpellweaversDominanceDamage =
-      this.critDamage - this.critDamage / (1 + SPELLWEAVERS_DOMINANCE_CRIT_MULTIPLIER);
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            <li>Damage: {formatNumber(this.SpellweaversDominanceDamage)}</li>
-          </>
-        }
+        tooltip={<li>Damage: {formatNumber(this.SpellweaversDominanceDamage)}</li>}
       >
         <TalentSpellText talent={TALENTS.SPELLWEAVERS_DOMINANCE_TALENT}>
           <ItemDamageDone amount={this.SpellweaversDominanceDamage} />

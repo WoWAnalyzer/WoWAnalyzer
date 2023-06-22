@@ -5,6 +5,7 @@ import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { DamageEvent } from 'parser/core/Events';
+import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -16,8 +17,6 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 const { LIVING_FLAME_DAMAGE, AZURE_STRIKE } = SPELLS;
 
 class HonedAggression extends Analyzer {
-  livingFlameDamage: number = 0;
-  azureStrikeDamage: number = 0;
   honedAggressionLivingFlameDamage: number = 0;
   honedAggressionAzureDamage: number = 0;
   honedAggressionMultiplier: number = 0;
@@ -34,24 +33,19 @@ class HonedAggression extends Analyzer {
 
   onHit(event: DamageEvent) {
     if (event.ability.name === LIVING_FLAME_DAMAGE.name) {
-      this.livingFlameDamage += event.amount;
-      if (event.absorbed !== undefined) {
-        this.livingFlameDamage += event.absorbed;
-      }
+      this.honedAggressionLivingFlameDamage += calculateEffectiveDamage(
+        event,
+        this.honedAggressionMultiplier,
+      );
     } else if (event.ability.name === AZURE_STRIKE.name) {
-      this.azureStrikeDamage += event.amount;
-      if (event.absorbed !== undefined) {
-        this.azureStrikeDamage += event.absorbed;
-      }
+      this.honedAggressionAzureDamage += calculateEffectiveDamage(
+        event,
+        this.honedAggressionMultiplier,
+      );
     }
   }
 
   statistic() {
-    this.honedAggressionLivingFlameDamage =
-      this.livingFlameDamage - this.livingFlameDamage / (1 + this.honedAggressionMultiplier);
-    this.honedAggressionAzureDamage =
-      this.azureStrikeDamage - this.azureStrikeDamage / (1 + this.honedAggressionMultiplier);
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
