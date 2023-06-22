@@ -1,4 +1,3 @@
-/* eslint-disable no-plusplus */
 import OneVariableBinomialChart from 'parser/ui/OneVariableBinomialChart';
 
 /**
@@ -69,13 +68,13 @@ function binomialDistribution(n: number, k: number) {
   let denominator = 1;
 
   // Iterate from 1 to k to calculate the binomial coefficient.
-  for (let i = 1; i <= k; i++) {
+  for (let i = 1; i <= k; i += 1) {
     // Multiply the current result by the numerator and divide it by the denominator.
     result *= numerator;
     result /= denominator;
     // Update the numerator and denominator for the next iteration.
-    numerator--;
-    denominator++;
+    numerator -= 1;
+    denominator += 1;
   }
 
   // Return the calculated binomial coefficient.

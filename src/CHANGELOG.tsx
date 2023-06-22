@@ -24,6 +24,7 @@ import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 export default [
+  change(date(2023, 6, 22), 'Remove ESLint disable from probability module.', ToppleTheNun),
   change(date(2023, 6, 19), <>Implement <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> stat tracking</>, Jundarer),
   change(date(2023, 6, 18), 'Add Vessel, Spoils and Wafting Devotion haste buffs and update item scaling data.', Jundarer),
   change(date(2023, 6, 17), 'Update core directories to use new spell link format.', ToppleTheNun),
