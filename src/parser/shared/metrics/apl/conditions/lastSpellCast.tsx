@@ -29,7 +29,7 @@ export function lastSpellCast(spell: Spell): Condition<boolean> {
     validate: (state, _event) => state,
     describe: () => (
       <>
-        your last cast was <SpellLink id={spell.id} />
+        your last cast was <SpellLink spell={spell.id} />
       </>
     ),
   };

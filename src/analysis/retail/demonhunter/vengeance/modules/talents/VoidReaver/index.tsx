@@ -66,7 +66,7 @@ export default class VoidReaver extends HitBasedAnalyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Cast <SpellLink spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id} /> /{' '}
+          Cast <SpellLink spell={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT} /> /{' '}
           <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> /{' '}
           <SpellLink spell={SPELLS.SOUL_CLEAVE} /> more regularly while actively tanking the boss or
           when they use a big attack. You missed having Frailty up for{' '}

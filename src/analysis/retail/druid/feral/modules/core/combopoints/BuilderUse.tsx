@@ -71,7 +71,7 @@ class BuilderUse extends Analyzer {
         tooltip: (
           <>
             This only counts hardcasts -{' '}
-            <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> procs are omitted.
+            <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> procs are omitted.
           </>
         ),
       },
@@ -82,7 +82,7 @@ class BuilderUse extends Analyzer {
         tooltip: (
           <>
             This only counts hardcasts -{' '}
-            <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> procs are omitted.
+            <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> procs are omitted.
           </>
         ),
       },

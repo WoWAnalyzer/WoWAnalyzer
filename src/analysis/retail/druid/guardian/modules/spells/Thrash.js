@@ -24,12 +24,12 @@ class Thrash extends Analyzer {
         suggest(
           <span>
             {' '}
-            Your <SpellLink id={SPELLS.THRASH_BEAR_DOT.id} /> uptime was{' '}
+            Your <SpellLink spell={SPELLS.THRASH_BEAR_DOT} /> uptime was{' '}
             {formatPercentage(thrashUptimePercentage)}%, unless you have extended periods of
             downtime it should be near 100%. <br />
             Thrash applies a bleed which buffs the damage of{' '}
-            <SpellLink id={SPELLS.MANGLE_BEAR.id} /> by 20%. Thrash uptime is especially important
-            if you are talented into <SpellLink id={SPELLS.REND_AND_TEAR_TALENT.id} />, since it
+            <SpellLink spell={SPELLS.MANGLE_BEAR} /> by 20%. Thrash uptime is especially important
+            if you are talented into <SpellLink spell={SPELLS.REND_AND_TEAR_TALENT} />, since it
             buffs the rest of your damage and gives you extra damage reduction.
           </span>,
         )
@@ -55,7 +55,7 @@ class Thrash extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.THRASH_BEAR.id} /> Thrash uptime{' '}
+              <SpellIcon spell={SPELLS.THRASH_BEAR} /> Thrash uptime{' '}
             </>
           }
         >

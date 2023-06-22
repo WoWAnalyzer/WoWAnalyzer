@@ -391,7 +391,7 @@ class CastEfficiency extends Analyzer {
         suggest(
           <>
             <Trans id="shared.modules.castEfficiency.suggest">
-              Try to cast <SpellLink id={ability.primarySpell} /> more often.
+              Try to cast <SpellLink spell={ability.primarySpell} /> more often.
             </Trans>{' '}
             {ability.castEfficiency.extraSuggestion || ''}
           </>,

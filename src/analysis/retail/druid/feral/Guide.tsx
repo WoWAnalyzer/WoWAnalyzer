@@ -56,7 +56,7 @@ function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatL
           Most of your abilities either <strong>build</strong> or <strong>spend</strong> Combo
           Points. Never use a builder at max CPs, and always wait until {ACCEPTABLE_CPS} (
           {ACCEPTABLE_BERSERK_CPS} in <SpellLink spell={cdSpell(info.combatant)} />) to use a
-          spender (with the exception of your opening <SpellLink id={SPELLS.RIP.id} />
+          spender (with the exception of your opening <SpellLink spell={SPELLS.RIP} />
           ).
         </p>
         <SideBySidePanels>
@@ -108,7 +108,7 @@ function CooldownSection({ modules, events, info }: GuideProps<typeof CombatLogP
         Feral's cooldowns are powerful and should not be held on to for long. In order to maximize
         usages over the course of an encounter, you should aim to send the cooldown as soon as it
         becomes available (as long as it can do damage on target). It is particularly important to
-        use <SpellLink id={SPELLS.TIGERS_FURY.id} /> as often as possible.
+        use <SpellLink spell={SPELLS.TIGERS_FURY} /> as often as possible.
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
       <CooldownBreakdownSubsection modules={modules} events={events} info={info} />

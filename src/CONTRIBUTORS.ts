@@ -2187,3 +2187,29 @@ export const Jundarer: Contributor = {
     },
   ],
 };
+export const Vollmer: Contributor = {
+  nickname: 'Vollmer',
+  github: 'Krealle',
+  discord: 'Vollmerino#2637',
+  avatar: avatar('Vollmer-avatar.png'),
+  mains: [
+    {
+      name: 'Vollmer',
+      spec: SPECS.DEVASTATION_EVOKER,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/ragnaros/Vollmer',
+    },
+  ],
+};
+export const Seriousnes: Contributor = {
+  nickname: 'Seriousnes',
+  github: 'Seriousnes',
+  discord: 'Seriousnes#7895',
+  avatar: avatar('seriousnes-avatar.png'),
+  mains: [
+    {
+      name: 'Seriousnes',
+      spec: SPECS.ENHANCEMENT_SHAMAN,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/frostmourne/Seriousnes',
+    },
+  ],
+};

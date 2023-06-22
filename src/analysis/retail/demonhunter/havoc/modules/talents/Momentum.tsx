@@ -94,7 +94,7 @@ class Momentum extends Analyzer {
       suggest(
         <>
           {' '}
-          Maintain the <SpellLink spell={TALENTS.MOMENTUM_TALENT.id} /> buff to maximize damage.
+          Maintain the <SpellLink spell={TALENTS.MOMENTUM_TALENT} /> buff to maximize damage.
         </>,
       )
         .icon(TALENTS.MOMENTUM_TALENT.icon)

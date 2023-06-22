@@ -13,6 +13,7 @@ import HitBasedAnalyzer, {
 } from 'analysis/retail/demonhunter/vengeance/guide/HitBasedAnalyzer';
 import Spell from 'common/SPELLS/Spell';
 import useTooltip from 'interface/useTooltip';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 const HitTimelineContainer = styled.div`
   display: grid;
@@ -63,7 +64,7 @@ function HitTooltipContent({ hit, unmitigatedContent }: HitTooltipContentProps) 
       </div>
       <div>
         You took <strong>{formatNumber(hit.event.amount)}</strong> from{' '}
-        <SpellLink spell={hit.event.ability.guid}>{hit.event.ability.name}</SpellLink>.
+        <SpellLink spell={abilityToSpell(hit.event.ability)}>{hit.event.ability.name}</SpellLink>.
       </div>
       {!hit.mitigated && unmitigatedContent}
     </div>
@@ -105,7 +106,7 @@ function HitTimeline({ hits, showSourceName, unmitigatedContent }: HitTimelinePr
       {enemy?.name ?? 'Unknown'} ({ability.name})
     </a>
   ) : (
-    <SpellLink spell={ability.guid} style={style}>
+    <SpellLink spell={abilityToSpell(ability)} style={style}>
       {ability.name}
     </SpellLink>
   );

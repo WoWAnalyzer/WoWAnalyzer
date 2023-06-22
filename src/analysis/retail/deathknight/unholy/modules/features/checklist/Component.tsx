@@ -79,7 +79,7 @@ const UnholyDeathKnightChecklist = ({ combatant, castEfficiency, thresholds }: C
         description={
           <>
             Death Knights are a resource based class, relying on Runes and Runic Power to cast core
-            abilities. Cast <SpellLink id={SPELLS.DEATH_COIL.id} /> when you have 80 or more Runic
+            abilities. Cast <SpellLink spell={SPELLS.DEATH_COIL} /> when you have 80 or more Runic
             Power to avoid overcapping.
           </>
         }

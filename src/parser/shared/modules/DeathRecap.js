@@ -248,7 +248,7 @@ class DeathRecap extends PureComponent {
                           {formatDuration(event.time + this.props.report.fight.offset_time, 2)}
                         </td>
                         <td style={{ width: '20%' }}>
-                          <SpellLink id={event.ability.guid} icon={false}>
+                          <SpellLink spell={event.ability.guid} icon={false}>
                             <Icon icon={event.ability.abilityIcon} /> {event.ability.name}
                           </SpellLink>
                         </td>
@@ -279,7 +279,7 @@ class DeathRecap extends PureComponent {
                                 <SpellIcon
                                   key={e.id}
                                   style={{ border: '1px solid rgba(0, 0, 0, 0)' }}
-                                  id={e.id}
+                                  spell={e.id}
                                 />
                               ))}
                           <br />
@@ -290,7 +290,7 @@ class DeathRecap extends PureComponent {
                                 <SpellIcon
                                   key={e.id}
                                   style={{ border: '1px solid red' }}
-                                  id={e.id}
+                                  spell={e.id}
                                 />
                               ))}
                         </td>
@@ -299,7 +299,7 @@ class DeathRecap extends PureComponent {
                             <SpellIcon
                               key={e.id}
                               style={{ opacity: e.cooldownReady ? 1 : 0.2 }}
-                              id={e.id}
+                              spell={e.id}
                             />
                           ))}
                         </td>

@@ -46,6 +46,8 @@ import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import { BlessingOfTheSeasons } from './modules/talents/BlessingOfTheSeasons';
 import T30HpalTierSet from './modules/dragonflight/tier/T30TierSet';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
+import AverageLODDistance from './modules/features/AverageLODDistance';
+import ImbuedInfusion from './modules/talents/ImbuedInfusion';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -108,6 +110,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier Sets
     t30TierSet: T30HpalTierSet,
+    averageLODDistance: AverageLODDistance,
+    imbuedInfusion: ImbuedInfusion,
   };
 }
 

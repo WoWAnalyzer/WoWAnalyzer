@@ -51,7 +51,7 @@ class Dreamstate extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.DREAMSTATE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.DREAMSTATE_TALENT}>
           <>
             {formatNumber(this.owner.getPerMinute(this.totalCDR) / 1000)} s{' '}
             <small>CDR per minute</small>

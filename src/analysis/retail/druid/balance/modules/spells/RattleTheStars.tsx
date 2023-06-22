@@ -175,7 +175,7 @@ class RattleTheStars extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.RATTLE_THE_STARS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.RATTLE_THE_STARS_TALENT}>
           <>
             {formatNumber(this.totalAPSaved)} <small>Astral Power Saved</small>
             <br />

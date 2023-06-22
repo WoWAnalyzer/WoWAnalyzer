@@ -19,7 +19,7 @@ const PlayerInfoTalent = ({ talentEntry }: Props) => {
           <Icon icon={FALLBACK_ICON} style={{ width: '2em', height: '2em' }} />
         </div>
         <div className="talent-name">
-          <SpellLink id={talentEntry.spellID} icon={false}>
+          <SpellLink spell={talentEntry.spellID} icon={false}>
             Unknown talent: {talentEntry.spellID}
           </SpellLink>
         </div>
@@ -31,10 +31,10 @@ const PlayerInfoTalent = ({ talentEntry }: Props) => {
     <div className="talent-info-row" style={{ marginBottom: '0.8em', fontSize: '1.3em' }}>
       <>
         <div className="talent-icon">
-          <SpellIcon id={talent} style={{ width: '2em', height: '2em' }} />
+          <SpellIcon spell={talent} style={{ width: '2em', height: '2em' }} />
         </div>
         <div className="talent-name">
-          <SpellLink id={talent} icon={false}>
+          <SpellLink spell={talent} icon={false}>
             {talent.name}
           </SpellLink>
         </div>

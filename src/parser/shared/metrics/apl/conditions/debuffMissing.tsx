@@ -82,7 +82,7 @@ export function debuffMissing(
     },
     describe: (tense) => (
       <>
-        <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} missing{' '}
+        <SpellLink spell={spell.id} /> {tenseAlt(tense, 'is', 'was')} missing{' '}
         {optPandemic && <>or about to expire</>} from the target
       </>
     ),

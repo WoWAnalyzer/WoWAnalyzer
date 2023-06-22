@@ -106,7 +106,7 @@ class Bloodworms extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.BLOODWORMS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BLOODWORMS_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>

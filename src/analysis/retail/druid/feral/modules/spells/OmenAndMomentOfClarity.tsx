@@ -124,11 +124,11 @@ export default class OmenAndMomentOfClarity extends Analyzer {
       >
         <div className="pad boring-text">
           <label>
-            <SpellLink id={TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT} />{' '}
+            <SpellLink spell={TALENTS_DRUID.OMEN_OF_CLARITY_FERAL_TALENT} />{' '}
             {this.hasMoc && (
               <>
                 {' '}
-                / <SpellLink id={TALENTS_DRUID.MOMENT_OF_CLARITY_TALENT} />
+                / <SpellLink spell={TALENTS_DRUID.MOMENT_OF_CLARITY_TALENT} />
               </>
             )}
           </label>

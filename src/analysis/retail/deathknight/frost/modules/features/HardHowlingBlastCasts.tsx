@@ -51,7 +51,7 @@ class HardHowlingBlastCasts extends Analyzer {
         size="flexible"
         tooltip="You should aim to get this as close to 0 as possible. It is almost always a DPS loss to cast Howling Blast without Rime. It is okay to do this during extended periods of being out of melee range. In this case, it is acceptable to dump runes to build RP and stop yourself from capping runes. It is also okay to hardcast to apply Frost Fever to a target. The analyzer does not count it against you when you do this"
       >
-        <BoringSpellValueText spellId={talents.HOWLING_BLAST_TALENT.id}>
+        <BoringSpellValueText spell={talents.HOWLING_BLAST_TALENT}>
           <>
             {this.castsWithoutRime} <small>casts without Rime proc</small>
           </>

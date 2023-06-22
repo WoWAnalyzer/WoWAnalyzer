@@ -1,6 +1,5 @@
 import { Trans, t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, {
@@ -140,10 +139,6 @@ class MasteryEffectiveness extends Analyzer {
     }
 
     let distance = this.getPlayerDistance(event);
-    const isRuleOfLawActive = this.selectedCombatant.hasBuff(
-      TALENTS.RULE_OF_LAW_TALENT.id,
-      event.timestamp,
-    );
 
     if (!distance) {
       distance = this.distanceSum / this.distanceCount;
@@ -161,10 +156,7 @@ class MasteryEffectiveness extends Analyzer {
     this.distanceSum += distance;
     this.distanceCount += 1;
 
-    const masteryEffectiveness = MasteryEffectiveness.calculateMasteryEffectiveness(
-      distance,
-      isRuleOfLawActive,
-    );
+    const masteryEffectiveness = MasteryEffectiveness.calculateMasteryEffectiveness(distance);
     // Raw is the mastery effectiveness regardless of health pool and heal amount.
     this.rawMasteryEffectivenessSum += masteryEffectiveness;
     this.rawMasteryEffectivenessCount += 1;
@@ -266,10 +258,10 @@ class MasteryEffectiveness extends Analyzer {
   static calculateDistance(x1: number, y1: number, x2: number, y2: number) {
     return Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2)) / 100;
   }
-  static calculateMasteryEffectiveness(distance: number, isRuleOfLawActive: boolean) {
+  static calculateMasteryEffectiveness(distance: number) {
     // https://docs.google.com/spreadsheets/d/1kcIuIYgn61tZoAM6nS_vzGllOuIuMxBZXunDodBTvC0/edit?usp=sharing
-    const fullEffectivenessRadius = isRuleOfLawActive ? 15 : 10;
-    const falloffRadius = isRuleOfLawActive ? 60 : 40;
+    const fullEffectivenessRadius = 10;
+    const falloffRadius = 40;
 
     return Math.min(
       1,

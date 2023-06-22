@@ -6,8 +6,9 @@ function suggest(when, suggestion) {
   when(suggestion).addSuggestion((suggest, actual, recommended) =>
     suggest(
       <>
-        You refreshed <SpellLink id={suggestion.spell.id} /> early {suggestion.count} times when you
-        had better spells to cast. See the highlighted casts on the timeline for more information.
+        You refreshed <SpellLink spell={suggestion.spell.id} /> early {suggestion.count} times when
+        you had better spells to cast. See the highlighted casts on the timeline for more
+        information.
       </>,
     )
       .icon(suggestion.spell.icon)

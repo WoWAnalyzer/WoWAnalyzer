@@ -74,7 +74,7 @@ class GenericCastEfficiencyRequirement extends PureComponent<Props> {
     }
 
     return (
-      <Requirement name={name || <SpellLink id={spell} />} thresholds={thresholds} {...others} />
+      <Requirement name={name || <SpellLink spell={spell} />} thresholds={thresholds} {...others} />
     );
   }
 }

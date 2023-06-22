@@ -40,7 +40,7 @@ export function spellFractionalCharges(
     describe: (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} {formatRange(range)} charges of{' '}
-        <SpellLink id={spell.id} icon />
+        <SpellLink spell={spell.id} icon />
       </>
     ),
   };

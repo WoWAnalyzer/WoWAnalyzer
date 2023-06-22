@@ -25,8 +25,8 @@ const lowRankSpells = (spells: LowRankSpells, whitelist: LowRankSpells = []) =>
           .map((spellId) => ({
             text: (
               <Trans id="tbc.suggestions.lowRankSpells">
-                You cast a lower rank <SpellLink id={spellId} />. You should use the max rank{' '}
-                <SpellLink id={Number(primarySpellId)} /> instead.
+                You cast a lower rank <SpellLink spell={spellId} />. You should use the max rank{' '}
+                <SpellLink spell={Number(primarySpellId)} /> instead.
               </Trans>
             ),
             importance: SuggestionImportance.Regular,

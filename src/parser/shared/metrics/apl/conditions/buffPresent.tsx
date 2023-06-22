@@ -28,7 +28,7 @@ export function buffPresent(spell: Spell, latencyOffset: number = 0): Condition<
     validate: (state, event) => (state ? event.timestamp > state + latencyOffset : false),
     describe: (tense) => (
       <>
-        <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} present
+        <SpellLink spell={spell.id} /> {tenseAlt(tense, 'is', 'was')} present
       </>
     ),
   };
@@ -102,7 +102,7 @@ export function buffMissing(
       validateBuffMissing(event, ruleSpell, state, optPandemic),
     describe: (tense) => (
       <>
-        <SpellLink id={spell.id} /> {tenseAlt(tense, 'is', 'was')} missing{' '}
+        <SpellLink spell={spell.id} /> {tenseAlt(tense, 'is', 'was')} missing{' '}
         {optPandemic && <>or about to expire</>}
       </>
     ),

@@ -30,7 +30,7 @@
  *   const result = modules.foo.myAnalysisResult();
  *   return (
  *     <Section title="Basics of Foo">
- *       <SpellLink id={SPELLS.FOO.id} /> is very important to your success as a
+ *       <SpellLink spell={SPELLS.FOO.id} /> is very important to your success as a
  *       player. Optimizing it is very complicated. Here are some details on how
  *       you did:
  *
@@ -334,6 +334,9 @@ export const VeryBadColor = getComputedStyle(document.documentElement).getProper
 );
 export const MediocreColor = getComputedStyle(document.documentElement).getPropertyValue(
   '--guide-mediocre-color',
+);
+export const AvailableColor = getComputedStyle(document.documentElement).getPropertyValue(
+  '--guide-available-color',
 );
 
 /** Shows a glyph - either a green checkmark or a red X depending on if 'pass' is true */

@@ -53,14 +53,14 @@ export default class LionsStrength extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This counts the talent's direct (<SpellLink id={SPELLS.RIP.id} />,{' '}
-            <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />) and indirect (
-            <SpellLink id={SPELLS.TEAR.id} />, <SpellLink id={SPELLS.TEAR_OPEN_WOUNDS.id} />,{' '}
-            <SpellLink id={SPELLS.RAMPANT_FEROCITY.id} />) boosts.
+            This counts the talent's direct (<SpellLink spell={SPELLS.RIP} />,{' '}
+            <SpellLink spell={SPELLS.FEROCIOUS_BITE} />) and indirect (
+            <SpellLink spell={SPELLS.TEAR} />, <SpellLink spell={SPELLS.TEAR_OPEN_WOUNDS} />,{' '}
+            <SpellLink spell={SPELLS.RAMPANT_FEROCITY} />) boosts.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.LIONS_STRENGTH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.LIONS_STRENGTH_TALENT}>
           <ItemPercentDamageDone amount={this.lsDamage} />
         </BoringSpellValueText>
       </Statistic>

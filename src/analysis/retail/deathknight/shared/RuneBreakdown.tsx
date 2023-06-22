@@ -68,13 +68,15 @@ class RuneBreakdown extends ResourceBreakdown {
                 <td style={{ width: '30%' }}>
                   {ability.abilityId === SPELLS.RUNE_1.id && (
                     <>
-                      <SpellIcon id={ability.abilityId} noLink />{' '}
+                      <SpellIcon spell={ability.abilityId} noLink />{' '}
                       <Trans id="deathknight.shared.runeBreakdown.passive">
                         Passive Rune regeneration
                       </Trans>
                     </>
                   )}
-                  {ability.abilityId !== SPELLS.RUNE_1.id && <SpellLink id={ability.abilityId} />}
+                  {ability.abilityId !== SPELLS.RUNE_1.id && (
+                    <SpellLink spell={ability.abilityId} />
+                  )}
                 </td>
                 <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                   <TooltipElement
@@ -123,7 +125,7 @@ class RuneBreakdown extends ResourceBreakdown {
               {spent?.map((ability) => (
                 <tr key={ability.abilityId}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink id={ability.abilityId} />
+                    <SpellLink spell={ability.abilityId} />
                   </td>
                   <td style={{ width: 50, paddingRight: 5, textAlign: 'center' }}>
                     <TooltipElement content={`${formatPercentage(ability.spent / totalSpent)} %`}>

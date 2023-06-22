@@ -11,7 +11,7 @@ export default function hasTalent(talent: Talent): Condition<boolean> {
     validate: (state, _event) => state,
     describe: (tense) => (
       <>
-        you {tenseAlt(tense, 'have', 'had')} <SpellLink id={talent.id} /> talented
+        you {tenseAlt(tense, 'have', 'had')} <SpellLink spell={talent.id} /> talented
       </>
     ),
   };

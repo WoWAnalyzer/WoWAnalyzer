@@ -5,8 +5,11 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { CastEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 
 export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption';
+export const ESSENCE_BURST_GENERATED = 'EssenceBurstGenerated';
 export const BURNOUT_CONSUME = 'BurnoutConsumption';
 export const SNAPFIRE_CONSUME = 'SnapfireConsumption';
+export const IRIDESCENCE_RED_CONSUME = 'IridescentRedConsumption';
+export const IRIDESCENCE_BLUE_CONSUME = 'IridescentBlueConsumption';
 
 const CAST_BUFFER_MS = 100;
 const EVENT_LINKS: EventLink[] = [
@@ -28,6 +31,21 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: [TALENTS_EVOKER.ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: ESSENCE_BURST_GENERATED,
+    reverseLinkRelation: ESSENCE_BURST_GENERATED,
+    linkingEventId: [TALENTS_EVOKER.ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    referencedEventId: [
+      SPELLS.LIVING_FLAME_DAMAGE.id,
+      SPELLS.LIVING_FLAME_HEAL.id,
+      SPELLS.AZURE_STRIKE.id,
+    ],
     referencedEventType: EventType.Cast,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -59,6 +77,39 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 1000,
     isActive(c) {
       return c.hasTalent(TALENTS_EVOKER.FIRESTORM_TALENT);
+    },
+  },
+  {
+    linkRelation: IRIDESCENCE_RED_CONSUME,
+    reverseLinkRelation: IRIDESCENCE_RED_CONSUME,
+    linkingEventId: [SPELLS.IRIDESCENCE_RED.id],
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id, SPELLS.LIVING_FLAME_CAST.id],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.IRIDESCENCE_TALENT);
+    },
+  },
+  {
+    linkRelation: IRIDESCENCE_BLUE_CONSUME,
+    reverseLinkRelation: IRIDESCENCE_BLUE_CONSUME,
+    linkingEventId: [SPELLS.IRIDESCENCE_BLUE.id],
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    referencedEventId: [
+      SPELLS.DISINTEGRATE.id,
+      SPELLS.UNRAVEL.id,
+      SPELLS.AZURE_STRIKE.id,
+      SPELLS.SHATTERING_STAR.id,
+    ],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.IRIDESCENCE_TALENT);
     },
   },
 ];

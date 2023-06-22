@@ -59,7 +59,7 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
 
   renderLegendaryEffect({ id, icon }: { name: string; id: number; icon: string }) {
     return (
-      <SpellLink key={id} id={id} icon={false}>
+      <SpellLink key={id} spell={id} icon={false}>
         <Icon
           icon={icon}
           style={{
@@ -123,7 +123,7 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
                     {elem.advanced &&
                       elem.talents.map((talent) => (
                         <div key={talent.id} className="flex-sub">
-                          <SpellIcon id={talent} style={styles.icon} />
+                          <SpellIcon spell={talent} style={styles.icon} />
                         </div>
                       ))}
                   </div>

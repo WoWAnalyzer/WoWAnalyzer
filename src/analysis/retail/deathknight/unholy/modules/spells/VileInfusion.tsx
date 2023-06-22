@@ -39,8 +39,8 @@ class VileInfusion extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            You are not keeping up your <SpellLink id={SPELLS.T29_VILE_INFUSION_BUFF.id} /> enough.{' '}
-            Prioritise maintaining it by bursting <SpellLink id={SPELLS.FESTERING_WOUND.id} />
+            You are not keeping up your <SpellLink spell={SPELLS.T29_VILE_INFUSION_BUFF} /> enough.{' '}
+            Prioritise maintaining it by bursting <SpellLink spell={SPELLS.FESTERING_WOUND} />
             s.
           </span>,
         )
@@ -68,7 +68,7 @@ class VileInfusion extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.T29_VILE_INFUSION_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.T29_VILE_INFUSION_BUFF}>
           <>
             {formatPercentage(this.averageBuffUptime)}% <small>Vile Infusion uptime</small>
           </>

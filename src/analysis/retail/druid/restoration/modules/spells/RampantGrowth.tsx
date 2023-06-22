@@ -63,7 +63,7 @@ class RampantGrowth extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.RAMPANT_GROWTH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.RAMPANT_GROWTH_TALENT}>
           <ItemPercentHealingDone amount={this.hotAttributor.rampantGrowthAttrib.healing} />
         </BoringSpellValueText>
       </Statistic>

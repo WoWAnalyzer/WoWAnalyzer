@@ -155,7 +155,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
           amounts of damage. In order to maximize usages over the course of an encounter, you should
           aim to send the cooldown as soon as it becomes available (as long as it can do damage on
           target) if you won't need it for an upcoming mechanic. It is particularly important to use{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id} /> as often as possible.
+          <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} /> as often as possible.
         </Trans>
       </p>
       <HideExplanationsToggle id="hide-explanations-cooldowns" />

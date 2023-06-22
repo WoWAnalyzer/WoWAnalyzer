@@ -416,6 +416,33 @@ class Abilities extends CoreAbilities {
         gcd: undefined,
         timelineSortIndex: 106,
       },
+      {
+        spell: TALENTS.DIVINE_TOLL_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: combatant.hasTalent(TALENTS.QUICKENED_INVOCATION_TALENT) ? 45 : 60,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 107,
+      },
+      {
+        spell: TALENTS.DIVINE_FAVOR_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_FAVOR_TALENT),
+        timelineSortIndex: 107,
+      },
+      {
+        spell: TALENTS.BARRIER_OF_FAITH_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 30,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.BARRIER_OF_FAITH_TALENT),
+        timelineSortIndex: 107,
+      },
     ];
   }
 }

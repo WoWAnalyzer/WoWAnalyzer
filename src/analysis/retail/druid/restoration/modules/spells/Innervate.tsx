@@ -16,6 +16,7 @@ import CooldownExpandable, {
 import { GUIDE_CORE_EXPLANATION_PERCENT } from 'analysis/retail/druid/restoration/Guide';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 // TODO these mana values will probably need to be updated?
 export const INNERVATE_MANA_REQUIRED = 9000;
@@ -94,7 +95,7 @@ class Innervate extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.INNERVATE.id} />
+          <SpellLink spell={SPELLS.INNERVATE} />
         </strong>{' '}
         is best used during your ramp, or any time when you expect to spam cast. Typically it should
         be used as soon as it's available. Remember to fit a Wild Growth inside the Innervate, as
@@ -119,7 +120,7 @@ class Innervate extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={SPELLS.INNERVATE.id} /> ({formatNumber(cast.manaSaved)} mana saved)
+              <SpellLink spell={SPELLS.INNERVATE} /> ({formatNumber(cast.manaSaved)} mana saved)
             </>
           );
 
@@ -132,7 +133,7 @@ class Innervate extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                Cast <SpellLink id={SPELLS.WILD_GROWTH.id} />
+                Cast <SpellLink spell={SPELLS.WILD_GROWTH} />
               </>
             ),
             result: <PassFailCheckmark pass={castWildGrowth} />,
@@ -151,7 +152,7 @@ class Innervate extends Analyzer {
               <>
                 {cast.casts.map((c, iix) => (
                   <>
-                    <SpellIcon id={c.ability.guid} key={iix} />{' '}
+                    <SpellIcon spell={abilityToSpell(c.ability)} key={iix} />{' '}
                   </>
                 ))}
               </>
@@ -184,7 +185,7 @@ class Innervate extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.INNERVATE.id} /> Average mana saved
+              <SpellIcon spell={SPELLS.INNERVATE} /> Average mana saved
             </>
           }
         >

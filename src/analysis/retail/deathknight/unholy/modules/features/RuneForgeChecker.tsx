@@ -15,9 +15,9 @@ class UnholyRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            <SpellLink id={SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE.id} /> is a survivability runeforge
+            <SpellLink spell={SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE} /> is a survivability runeforge
             at the cost of damage and healing. Use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead
           </>
         ),
       },
@@ -26,8 +26,8 @@ class UnholyRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_RAZORICE.id} /> as Unholy Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_RAZORICE} /> as Unholy Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </>
         ),
       },
@@ -36,8 +36,8 @@ class UnholyRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_SANGUINATION.id} /> as Unholy Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_SANGUINATION} /> as Unholy Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </>
         ),
       },
@@ -46,8 +46,8 @@ class UnholyRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_APOCALYPSE.id} /> as Unholy Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_APOCALYPSE} /> as Unholy Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </>
         ),
       },
@@ -56,8 +56,8 @@ class UnholyRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_UNENDING_THIRST.id} /> as Unholy Death Knight,
-            use <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_UNENDING_THIRST} /> as Unholy Death Knight,
+            use <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </>
         ),
       },
@@ -66,8 +66,8 @@ class UnholyRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <>
-            Don't use <SpellLink id={SPELLS.RUNE_OF_SPELLWARDING.id} /> as Unholy Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_SPELLWARDING} /> as Unholy Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </>
         ),
       },

@@ -118,7 +118,7 @@ class Efflorescence extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.EFFLORESCENCE_CAST.id} />
+          <SpellLink spell={SPELLS.EFFLORESCENCE_CAST} />
         </b>{' '}
         is extremely mana efficient if you're good about placing it where raiders are standing.
         Under the boss is usually a safe bet. While it's acceptable to let it drop during heavy
@@ -147,7 +147,7 @@ class Efflorescence extends Analyzer {
           <div className="flex-sub bar-label">
             <SpellIcon
               key={'Icon-' + SPELLS.EFFLORESCENCE_CAST.name}
-              id={SPELLS.EFFLORESCENCE_CAST.id}
+              spell={SPELLS.EFFLORESCENCE_CAST}
             />{' '}
             <span style={{ color: EFFLO_BG_COLOR }}>
               {formatPercentage(this.uptimePercent, 0)}% <small>active</small>

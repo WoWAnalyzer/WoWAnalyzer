@@ -8,6 +8,7 @@ class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
     return [
+      //region Rotational
       {
         spell: TALENTS.PYRE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -23,6 +24,10 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
         enabled: combatant.hasTalent(TALENTS.FIRESTORM_TALENT),
       },
       {
@@ -30,7 +35,7 @@ class Abilities extends CoreAbilities {
           ? SPELLS.ETERNITY_SURGE_FONT.id
           : SPELLS.ETERNITY_SURGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
+        cooldown: combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT) ? 27 : 30,
         gcd: {
           base: 500,
         },
@@ -40,6 +45,22 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.ETERNITY_SURGE_TALENT),
       },
+      {
+        spell: TALENTS.SHATTERING_STAR_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 20,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          extraSuggestion: 'You should aim to use this off CD.',
+        },
+        enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT),
+      },
+      //endregion
+      //region Cooldowns
       {
         spell: TALENTS.DRAGONRAGE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -52,21 +73,22 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.9,
           recommendedEfficiency: 0.95,
         },
+        timelineSortIndex: 0,
         enabled: combatant.hasTalent(TALENTS.DRAGONRAGE_TALENT),
       },
+      //region Others
       {
-        spell: TALENTS.SHATTERING_STAR_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 15,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
-        },
-        enabled: combatant.hasTalent(TALENTS.SHATTERING_STAR_TALENT),
+        spell: [SPELLS.BURNOUT_BUFF.id],
+        category: SPELL_CATEGORY.HIDDEN,
+        gcd: null,
       },
+      {
+        spell: SPELLS.ESSENCE_BURST_DEV_BUFF.id,
+        category: SPELL_CATEGORY.HIDDEN,
+        gcd: null,
+        timelineSortIndex: 1,
+      },
+      //endregion
       ...super.spellbook(),
     ];
   }

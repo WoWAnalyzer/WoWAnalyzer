@@ -190,16 +190,16 @@ class Berserk extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={this.cdSpell.id} />
+          <SpellLink spell={this.cdSpell} />
         </strong>{' '}
         is our primary damage cooldown. It's best used as soon as it's available, but can be held to
         ensure you'll have full target uptime during its duration (don't use it when it will be
         interrupted by a fight mechanic).{' '}
         {this.hasIncarn && (
           <>
-            With <SpellLink id={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT} />, it's likely
-            you will be generating energy faster than you can spend it, so energy capping may be
-            unavoidable - just make sure you're using every GCD.
+            With <SpellLink spell={TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT} />, it's
+            likely you will be generating energy faster than you can spend it, so energy capping may
+            be unavoidable - just make sure you're using every GCD.
           </>
         )}
       </p>
@@ -220,7 +220,7 @@ class Berserk extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={this.cdSpell.id} />
+              <SpellLink spell={this.cdSpell} />
             </>
           );
 
@@ -234,7 +234,7 @@ class Berserk extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> during Berserk{' '}
+                  <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> during Berserk{' '}
                   <Tooltip
                     hoverable
                     content={
@@ -275,18 +275,18 @@ class Berserk extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={SPELLS.BERSERK.id}>
+        <BoringSpellValueText spell={SPELLS.BERSERK}>
           <>
             {this.hasHeartOfTheLion && (
               <>
-                <SpellIcon id={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT.id} />{' '}
+                <SpellIcon spell={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT} />{' '}
                 {(this.totalEffectiveCdReduced / 1000).toFixed(1)}s <small>eff. CD reduction</small>
               </>
             )}
             {this.hasBoth && <br />}
             {this.hasFrenzy && (
               <>
-                <SpellIcon id={SPELLS.FRENZIED_ASSAULT.id} />{' '}
+                <SpellIcon spell={SPELLS.FRENZIED_ASSAULT} />{' '}
                 <img src="/img/sword.png" alt="Damage" className="icon" />{' '}
                 {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDotDamage))} %{' '}
                 <small>

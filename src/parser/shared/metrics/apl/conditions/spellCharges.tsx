@@ -21,7 +21,7 @@ export default function spellCharges(spell: Spell, range: Range): Condition<numb
     describe: (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} {formatRange(range)} charges of{' '}
-        <SpellLink id={spell.id} icon />
+        <SpellLink spell={spell.id} icon />
       </>
     ),
   };

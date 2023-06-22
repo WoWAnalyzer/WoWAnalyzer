@@ -25,8 +25,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         <>
           Your downtime can be improved. Try to Always Be Casting (ABC), reducing time away from the
           boss unless due to mechanics. If you do have to move, try casting filler spells, such as{' '}
-          <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> or{' '}
-          <SpellLink id={SPELLS.REMORSELESS_WINTER.id} />.
+          <SpellLink spell={talents.HOWLING_BLAST_TALENT} /> or{' '}
+          <SpellLink spell={SPELLS.REMORSELESS_WINTER} />.
         </>,
       )
         .icon('spell_mage_altertime')

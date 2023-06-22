@@ -20,13 +20,13 @@ const config: Config = {
     <>
       Blood depends a lot on using his runes and how they're used in order to perform well.
       <br />
-      Overusing <SpellLink id={TALENTS.MARROWREND_TALENT.id} /> for example reduces the amount of
+      Overusing <SpellLink spell={TALENTS.MARROWREND_TALENT} /> for example reduces the amount of
       runic power you can generate, directly affecting the amount of{' '}
-      <SpellLink id={TALENTS.DEATH_STRIKE_TALENT.id} />
+      <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} />
       's.
       <br />
       <br />
-      Not only the amount of <SpellLink id={TALENTS.DEATH_STRIKE_TALENT.id} />
+      Not only the amount of <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} />
       's are important, timing is aswell. Make sure to check them in the 'Death Strike Timing'-tab
       below.
       <br />

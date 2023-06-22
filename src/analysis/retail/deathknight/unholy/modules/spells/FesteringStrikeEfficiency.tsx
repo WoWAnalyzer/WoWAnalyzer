@@ -69,9 +69,9 @@ class FesteringStrikeEfficiency extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are casting <SpellLink id={SPELLS.FESTERING_STRIKE.id} /> too often. When spending
-          runes remember to cast <SpellLink id={SPELLS.SCOURGE_STRIKE.id} /> instead on targets with
-          more than three stacks of <SpellLink id={SPELLS.FESTERING_WOUND.id} />
+          You are casting <SpellLink spell={SPELLS.FESTERING_STRIKE} /> too often. When spending
+          runes remember to cast <SpellLink spell={SPELLS.SCOURGE_STRIKE} /> instead on targets with
+          more than three stacks of <SpellLink spell={SPELLS.FESTERING_WOUND} />
         </>,
       )
         .icon(SPELLS.FESTERING_STRIKE.icon)
@@ -95,7 +95,7 @@ class FesteringStrikeEfficiency extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.FESTERING_STRIKE.id}>
+        <BoringSpellValueText spell={SPELLS.FESTERING_STRIKE}>
           <>
             {formatPercentage(this.strikeEfficiency)}% <small>efficiency</small>
           </>

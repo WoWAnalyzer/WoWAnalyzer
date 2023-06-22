@@ -42,7 +42,7 @@ class DonutChart extends PureComponent<Props> {
           ) => {
             label = tooltip ? <TooltipElement content={tooltip}>{label}</TooltipElement> : label;
             label = spellId ? (
-              <SpellLink id={spellId} ilvl={itemLevel}>
+              <SpellLink spell={spellId} ilvl={itemLevel}>
                 {label}
               </SpellLink>
             ) : (

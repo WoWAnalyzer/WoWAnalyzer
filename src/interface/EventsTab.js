@@ -179,7 +179,7 @@ class EventsTab extends Component {
 
     return (
       <>
-        <SpellLink id={spellId} icon={false}>
+        <SpellLink spell={spellId} icon={false}>
           {ability.abilityIcon && <Icon icon={ability.abilityIcon} />} {ability.name}
         </SpellLink>{' '}
         <small>ID: {spellId}</small>
