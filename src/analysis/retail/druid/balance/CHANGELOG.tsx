@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
-import { Hartra344, Sref, ToppleTheNun, ap2355, attluh } from 'CONTRIBUTORS';
+import { Hartra344, Sref, ToppleTheNun, ap2355, attluh, Jundarer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 3, 16), <>Update FotF, dot refreshes, rattle, sotf, filler usage and other small inaccuaries.</>, Jundarer),
   change(date(2023, 6, 20), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 3, 16), <>Updated the downtime suggestion to show active downtime, rather than uptime, for clarity.</>, attluh),
   change(date(2023, 2, 6), <>Added statistics support for <SpellLink spell={TALENTS_DRUID.SUNDERED_FIRMAMENT_TALENT} /></>, ap2355 ),

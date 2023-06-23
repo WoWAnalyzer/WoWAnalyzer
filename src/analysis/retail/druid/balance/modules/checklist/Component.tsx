@@ -118,13 +118,13 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       description={
         <>
           Getting into <SpellLink spell={SPELLS.ECLIPSE} /> quickly is a major contributor to your
-          damage. It procs our 4 piece <SpellLink spell={SPELLS.TOUCH_THE_COSMOS} /> as well as many
-          elements of our talent tree such as
-          <SpellLink spell={SPELLS.BALANCE_OF_ALL_THINGS_LUNAR} />. Which filler you use in eclipse
-          is now less important than just getting into eclipse in general, however as a rule of
-          thumb we should always enter <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> even in single
-          target and we should always cast <SpellLink spell={SPELLS.WRATH} /> in single target and{' '}
-          <SpellLink spell={SPELLS.STARFIRE} /> if there are 2 or more targets.
+          damage. It procs various buff such
+          <SpellLink spell={SPELLS.BALANCE_OF_ALL_THINGS_LUNAR} /> and{' '}
+          <SpellLink spell={TALENTS_DRUID.SOLSTICE_TALENT} />. On single target you should always
+          enter <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> and cast{' '}
+          <SpellLink spell={SPELLS.WRATH} />. On 3+ targets you should enter{' '}
+          <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> and cast
+          <SpellLink spell={SPELLS.STARFIRE} />.
         </>
       }
     >
