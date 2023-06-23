@@ -23,6 +23,11 @@ class HolyPrismTargetsHit extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(TALENTS.HOLY_PRISM_TALENT);
+    if (!this.active) {
+      return;
+    }
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_PRISM_TALENT),
       this.onCast,
