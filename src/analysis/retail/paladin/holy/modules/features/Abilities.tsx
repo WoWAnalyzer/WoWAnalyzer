@@ -152,15 +152,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS.BLESSING_OF_FREEDOM_TALENT),
       },
-      {
-        spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: hasted(7.5),
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT),
-      },
+      // Hammer of Wrath -> Check HammerOfWrath.TSX
       {
         spell: [SPELLS.CONCENTRATION_AURA.id, SPELLS.DEVOTION_AURA.id],
         category: SPELL_CATEGORY.UTILITY,
