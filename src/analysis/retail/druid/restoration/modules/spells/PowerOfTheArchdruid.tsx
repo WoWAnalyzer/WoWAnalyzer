@@ -101,12 +101,12 @@ class PowerOfTheArchdruid extends Analyzer {
             <ul>
               <li>
                 Created <strong>{this.rejuvsCreated}</strong>{' '}
-                <SpellLink id={SPELLS.REJUVENATION.id} /> HoTs for{' '}
+                <SpellLink spell={SPELLS.REJUVENATION} /> HoTs for{' '}
                 <strong>{this.owner.formatItemHealingDone(this.rejuvProcHealing)}</strong>
               </li>
               <li>
                 Created <strong>{this.regrowthsCreated}</strong>{' '}
-                <SpellLink id={SPELLS.REGROWTH.id} /> HoTs and Heals for{' '}
+                <SpellLink spell={SPELLS.REGROWTH} /> HoTs and Heals for{' '}
                 <strong>{this.owner.formatItemHealingDone(this.regrowthProcHealing)}</strong>
               </li>
             </ul>
@@ -120,7 +120,7 @@ class PowerOfTheArchdruid extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.POWER_OF_THE_ARCHDRUID_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>

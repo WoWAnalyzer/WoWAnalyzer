@@ -50,11 +50,11 @@ class InitialMarrowrendCast extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <Trans id="deathknight.blood.initialMarrowrend.suggestion">
-            Use your first <SpellLink id={TALENTS.MARROWREND_TALENT.id} /> together with{' '}
-            <SpellLink id={TALENTS.DANCING_RUNE_WEAPON_TALENT.id} /> to build up stacks of{' '}
-            <SpellLink id={SPELLS.BONE_SHIELD.id} /> faster without wasting as much runes. This will
+            Use your first <SpellLink spell={TALENTS.MARROWREND_TALENT} /> together with{' '}
+            <SpellLink spell={TALENTS.DANCING_RUNE_WEAPON_TALENT} /> to build up stacks of{' '}
+            <SpellLink spell={SPELLS.BONE_SHIELD} /> faster without wasting as much runes. This will
             also increase your initial threat-genration as your burst DPS will increase
-            significantly. Don't treat <SpellLink id={TALENTS.DANCING_RUNE_WEAPON_TALENT.id} /> as a
+            significantly. Don't treat <SpellLink spell={TALENTS.DANCING_RUNE_WEAPON_TALENT} /> as a
             defensive CD unless you really need the parry and increased Runic Power generation
             defensively.
           </Trans>,

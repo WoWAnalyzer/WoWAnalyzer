@@ -16,9 +16,9 @@ class BloodRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <Trans id="deathknight.blood.runeforgeSuggestion.stoneskinGargoyle">
-            <SpellLink id={SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE.id} /> is a survivability runeforge
+            <SpellLink spell={SPELLS.RUNE_OF_THE_STONESKIN_GARGOYLE} /> is a survivability runeforge
             at the cost of damage and healing. Use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> as there is no need for SSGs
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> as there is no need for SSGs
             EHP increase right now.
           </Trans>
         ),
@@ -28,8 +28,8 @@ class BloodRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <Trans id="deathknight.blood.runeforgeSuggestion.razorice">
-            Don't use <SpellLink id={SPELLS.RUNE_OF_RAZORICE.id} /> as Blood Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_RAZORICE} /> as Blood Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </Trans>
         ),
       },
@@ -38,8 +38,8 @@ class BloodRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <Trans id="deathknight.blood.runeforgeSuggestion.sanguination">
-            Don't use <SpellLink id={SPELLS.RUNE_OF_SANGUINATION.id} /> as Blood Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_SANGUINATION} /> as Blood Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </Trans>
         ),
       },
@@ -48,8 +48,8 @@ class BloodRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <Trans id="deathknight.blood.runeforgeSuggestion.apocalypse">
-            Don't use <SpellLink id={SPELLS.RUNE_OF_APOCALYPSE.id} /> as Blood Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_APOCALYPSE} /> as Blood Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </Trans>
         ),
       },
@@ -58,8 +58,8 @@ class BloodRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <Trans id="deathknight.blood.runeforgeSuggestion.unendingThirst">
-            Don't use <SpellLink id={SPELLS.RUNE_OF_UNENDING_THIRST.id} /> as Blood Death Knight,
-            use <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_UNENDING_THIRST} /> as Blood Death Knight,
+            use <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </Trans>
         ),
       },
@@ -68,8 +68,8 @@ class BloodRuneForgeChecker extends RuneForgeChecker {
         importance: SUGGESTION_IMPORTANCE.MAJOR,
         suggestion: (
           <Trans id="deathknight.blood.runeforgeSuggestion.spellwarding">
-            Don't use <SpellLink id={SPELLS.RUNE_OF_SPELLWARDING.id} /> as Blood Death Knight, use{' '}
-            <SpellLink id={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER.id} /> instead.
+            Don't use <SpellLink spell={SPELLS.RUNE_OF_SPELLWARDING} /> as Blood Death Knight, use{' '}
+            <SpellLink spell={SPELLS.RUNE_OF_THE_FALLEN_CRUSADER} /> instead.
           </Trans>
         ),
       },

@@ -50,10 +50,10 @@ class Apocalypse extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            You are casting <SpellLink id={SPELLS.APOCALYPSE.id} /> with too few{' '}
-            <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target. When casting{' '}
-            <SpellLink id={SPELLS.APOCALYPSE.id} />, make sure to have at least 4{' '}
-            <SpellLink id={SPELLS.FESTERING_WOUND.id} /> on the target.
+            You are casting <SpellLink spell={SPELLS.APOCALYPSE} /> with too few{' '}
+            <SpellLink spell={SPELLS.FESTERING_WOUND} /> on the target. When casting{' '}
+            <SpellLink spell={SPELLS.APOCALYPSE} />, make sure to have at least 4{' '}
+            <SpellLink spell={SPELLS.FESTERING_WOUND} /> on the target.
           </span>,
         )
           .icon(SPELLS.APOCALYPSE.icon)
@@ -79,7 +79,7 @@ class Apocalypse extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.APOCALYPSE.id}>
+        <BoringSpellValueText spell={SPELLS.APOCALYPSE}>
           <>
             {averageWoundsPopped} <small>average Wounds popped</small>
           </>

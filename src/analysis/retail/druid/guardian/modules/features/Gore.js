@@ -84,7 +84,7 @@ class Gore extends Analyzer {
         suggest(
           <span>
             You wasted {formatPercentage(unusedGoreProcs)}% of your{' '}
-            <SpellLink id={SPELLS.GORE_BEAR.id} /> procs. Try to use the procs as soon as you get
+            <SpellLink spell={SPELLS.GORE_BEAR} /> procs. Try to use the procs as soon as you get
             them so they are not overwritten.
           </span>,
         )
@@ -118,7 +118,7 @@ class Gore extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.GORE_BEAR.id} /> Unused Gore Proc's{' '}
+              <SpellIcon spell={SPELLS.GORE_BEAR} /> Unused Gore Proc's{' '}
             </>
           }
         >

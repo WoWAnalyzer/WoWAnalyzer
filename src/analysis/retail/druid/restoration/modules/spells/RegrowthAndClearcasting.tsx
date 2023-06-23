@@ -189,16 +189,16 @@ class RegrowthAndClearcasting extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.REGROWTH.id} />
+          <SpellLink spell={SPELLS.REGROWTH} />
         </b>{' '}
         is for urgent spot healing. The HoT is very weak - Regrowth is only efficient when its
         direct portion is effective. Exceptions are when Regrowth is free due to{' '}
-        <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> /{' '}
-        <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
+        <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> /{' '}
+        <SpellLink spell={SPELLS.NATURES_SWIFTNESS} />{' '}
         {hasAbundance && (
           <>
-            or cheap due to <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} />. With{' '}
-            <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} /> ramp with Rejuvenation, activate
+            or cheap due to <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} />. With{' '}
+            <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} /> ramp with Rejuvenation, activate
             cooldowns, and then fill with high-stack Regrowths.
           </>
         )}
@@ -227,32 +227,32 @@ class RegrowthAndClearcasting extends Analyzer {
         position={STATISTIC_ORDER.CORE(20)} // chosen for fixed ordering of general stats
         tooltip={
           <>
-            <SpellLink id={SPELLS.REGROWTH.id} /> is mana inefficient relative to{' '}
-            <SpellLink id={SPELLS.REJUVENATION.id} /> and should only be cast when free due to{' '}
-            <SpellLink id={SPELLS.INNERVATE.id} />, <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />{' '}
-            or <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />,{' '}
+            <SpellLink spell={SPELLS.REGROWTH} /> is mana inefficient relative to{' '}
+            <SpellLink spell={SPELLS.REJUVENATION} /> and should only be cast when free due to{' '}
+            <SpellLink spell={SPELLS.INNERVATE} />, <SpellLink spell={SPELLS.NATURES_SWIFTNESS} />{' '}
+            or <SpellLink spell={SPELLS.CLEARCASTING_BUFF} />,{' '}
             {this.hasAbundance && (
               <>
                 cheap due to {ABUNDANCE_EXCEPTION_STACKS}+{' '}
-                <SpellLink id={TALENTS_DRUID.ABUNDANCE_TALENT.id} /> stacks,
+                <SpellLink spell={TALENTS_DRUID.ABUNDANCE_TALENT} /> stacks,
               </>
             )}{' '}
             or to save a low health target.
             <br />
             <br />
             <strong>
-              You hardcast {this.totalRegrowths} <SpellLink id={SPELLS.REGROWTH.id} />
+              You hardcast {this.totalRegrowths} <SpellLink spell={SPELLS.REGROWTH} />
             </strong>
             <ul>
               <li>
-                <SpellIcon id={SPELLS.INNERVATE.id} />{' '}
-                <SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />{' '}
-                <SpellIcon id={SPELLS.NATURES_SWIFTNESS.id} /> Free Casts:{' '}
+                <SpellIcon spell={SPELLS.INNERVATE} />{' '}
+                <SpellIcon spell={SPELLS.CLEARCASTING_BUFF} />{' '}
+                <SpellIcon spell={SPELLS.NATURES_SWIFTNESS} /> Free Casts:{' '}
                 <strong>{this.freeRegrowths}</strong>
               </li>
               {this.hasAbundance && (
                 <li>
-                  <SpellIcon id={SPELLS.ABUNDANCE_BUFF.id} /> Cheap Casts:{' '}
+                  <SpellIcon spell={SPELLS.ABUNDANCE_BUFF} /> Cheap Casts:{' '}
                   <strong>{this.abundanceRegrowths}</strong>
                 </li>
               )}
@@ -267,11 +267,11 @@ class RegrowthAndClearcasting extends Analyzer {
             </ul>
             <br />
             <strong>
-              You gained {this.totalClearcasts} <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} />
+              You gained {this.totalClearcasts} <SpellLink spell={SPELLS.CLEARCASTING_BUFF} />
             </strong>
             <ul>
               <li>
-                <SpellIcon id={SPELLS.REGROWTH.id} /> Used: <strong>{this.usedClearcasts}</strong>
+                <SpellIcon spell={SPELLS.REGROWTH} /> Used: <strong>{this.usedClearcasts}</strong>
               </li>
               <li>
                 <CrossIcon /> Overwritten: <strong>{this.overwrittenClearcasts}</strong>
@@ -288,13 +288,13 @@ class RegrowthAndClearcasting extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.REGROWTH.id}>
+        <BoringSpellValueText spell={SPELLS.REGROWTH}>
           <>
             {this.badRegrowths === 0 ? <CheckmarkIcon /> : <CrossIcon />}
             {'  '}
             {this.badRegrowths} <small>bad casts</small>
             <br />
-            <SpellIcon id={SPELLS.CLEARCASTING_BUFF.id} />
+            <SpellIcon spell={SPELLS.CLEARCASTING_BUFF} />
             {'  '}
             {formatPercentage(this.clearcastUtilPercent, 1)}% <small>util</small>
           </>

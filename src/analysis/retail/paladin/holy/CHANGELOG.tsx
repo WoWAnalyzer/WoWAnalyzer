@@ -5,6 +5,12 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 6, 23), <>Holy Prism Average Targets Hit.</>, Abelito75),
+  change(date(2023, 6, 22), <>Updated Abilities.jpg.</>, Abelito75),
+  change(date(2023, 6, 19), <>Imbued Infusions.png enabled.</>, Abelito75),
+  change(date(2023, 6, 19), <>Divine Favor and Barrier of Faith Tracked.</>, Abelito75),
+  change(date(2023, 6, 19), <>Judgment of light is 5 not 25.</>, Abelito75),
+  change(date(2023, 6, 19), <>Divine Toll checklist item added.</>, Abelito75),
   change(date(2023, 6, 17), <>Devo Aura AM is 15%.</>, Abelito75),
   change(date(2023, 6, 17), <>Rule of Law doens't increase Mastery Range.</>, Abelito75),
   change(date(2023, 6, 16), <>Average Light of Dawn Distance.</>, Abelito75),

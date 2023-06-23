@@ -145,7 +145,7 @@ class RuneOfHysteria extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RUNE_OF_HYSTERIA.id}>
+        <BoringSpellValueText spell={SPELLS.RUNE_OF_HYSTERIA}>
           <Trans id="deathknight.shared.runeOfHysteria.statistic.text">
             {Math.floor(this.runicPowerGainedByHysteria)} <small>RP gained</small>
           </Trans>

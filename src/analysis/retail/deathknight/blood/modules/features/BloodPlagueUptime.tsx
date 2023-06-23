@@ -38,8 +38,8 @@ class BloodPlagueUptime extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.bloodPlague.suggestion.suggestion">
-          Your <SpellLink id={SPELLS.BLOOD_PLAGUE.id} /> uptime can be improved. Keeping{' '}
-          <SpellLink id={TALENTS.BLOOD_BOIL_TALENT.id} /> on cooldown should keep it up at all
+          Your <SpellLink spell={SPELLS.BLOOD_PLAGUE} /> uptime can be improved. Keeping{' '}
+          <SpellLink spell={TALENTS.BLOOD_BOIL_TALENT} /> on cooldown should keep it up at all
           times.
         </Trans>,
       )
@@ -62,7 +62,7 @@ class BloodPlagueUptime extends Analyzer {
   statistic() {
     return (
       <Statistic size="small" position={STATISTIC_ORDER.CORE(2)}>
-        <BoringSpellValueText spellId={SPELLS.BLOOD_PLAGUE.id}>
+        <BoringSpellValueText spell={SPELLS.BLOOD_PLAGUE}>
           <Trans id="deathknight.blood.bloodPlague.statistic">
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </Trans>

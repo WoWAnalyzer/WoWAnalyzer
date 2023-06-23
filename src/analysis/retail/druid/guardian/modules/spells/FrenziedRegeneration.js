@@ -102,7 +102,7 @@ class FrenziedRegeneration extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            You are casting <SpellLink id={SPELLS.FRENZIED_REGENERATION.id} /> inefficiently (at
+            You are casting <SpellLink spell={SPELLS.FRENZIED_REGENERATION} /> inefficiently (at
             high HP and after low damage intake). It is almost always better to wait until after you
             have taken a big hit to cast it, even if that means spending extended periods of time at
             maximum charges. If you don't already have one, consider getting an FR prediction

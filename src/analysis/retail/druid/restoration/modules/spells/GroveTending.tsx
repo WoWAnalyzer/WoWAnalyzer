@@ -59,7 +59,7 @@ class GroveTending extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.GROVE_TENDING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.GROVE_TENDING_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

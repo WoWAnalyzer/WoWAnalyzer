@@ -25,10 +25,10 @@ export default class BrutalSlash extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_DRUID.BRUTAL_SLASH_TALENT} />
+          <SpellLink spell={TALENTS_DRUID.BRUTAL_SLASH_TALENT} />
         </strong>{' '}
         is a charge based point-blank AoE builder. It is better damage-per-energy than{' '}
-        <SpellLink id={SPELLS.SHRED} /> even on single-target. Aim to never cap on charges.
+        <SpellLink spell={SPELLS.SHRED} /> even on single-target. Aim to never cap on charges.
       </p>
     );
 

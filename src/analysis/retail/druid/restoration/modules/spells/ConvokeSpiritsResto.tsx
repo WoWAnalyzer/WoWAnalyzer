@@ -191,13 +191,13 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
+          <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />
         </strong>{' '}
         is a powerful but somewhat random burst of healing.{' '}
         {hasCenariusGuidance && (
           <>
-            Due to <SpellLink id={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT.id} />, it also has a
-            decent chance of proccing <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />.
+            Due to <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT} />, it also has a
+            decent chance of proccing <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />.
           </>
         )}{' '}
         Its short cooldown and random nature mean its best used as it becomes available. The amount
@@ -219,7 +219,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> ({formatNumber(castTotalHealing)}{' '}
+              <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> ({formatNumber(castTotalHealing)}{' '}
               healing)
             </>
           );
@@ -237,7 +237,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
+                <SpellLink spell={SPELLS.WILD_GROWTH} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={wgRamp} />,
@@ -246,7 +246,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
+                <SpellLink spell={SPELLS.REJUVENATION} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={rejuvRamp} />,
@@ -256,13 +256,13 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             checklistItems.push({
               label: (
                 <>
-                  Avoid <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} /> clip{' '}
+                  Avoid <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> clip{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
-                        When casting <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> and{' '}
-                        <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} /> together, the Convoke
+                        When casting <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> and{' '}
+                        <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> together, the Convoke
                         should ALWAYS go first. This is both because the Convoke could proc Flourish
                         and cause you to clip your hardcast's buff, and also because Convoke
                         produces a lot of HoTs which Flourish could extend. If you got an{' '}
@@ -283,14 +283,14 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
             checklistItems.push({
               label: (
                 <>
-                  Sync with <SpellLink id={TALENTS_DRUID.REFORESTATION_TALENT.id} />{' '}
+                  Sync with <SpellLink spell={TALENTS_DRUID.REFORESTATION_TALENT} />{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
-                        <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />
+                        <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />
                         's power is greatly increased when in Tree of Life form. With the{' '}
-                        <SpellLink id={TALENTS_DRUID.REFORESTATION_TALENT.id} /> talent, you can
+                        <SpellLink spell={TALENTS_DRUID.REFORESTATION_TALENT} /> talent, you can
                         reasonably get a proc about once every minute, so it is recommended to sync
                         your procs with Convoke.
                       </>
@@ -343,7 +343,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                 <br />
                 <br />
                 In addition, you took advantage of the fact that{' '}
-                <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> boosts convoked Regrowth healing
+                <SpellLink spell={SPELLS.NATURES_SWIFTNESS} /> boosts convoked Regrowth healing
                 without consuming the buff. Nature's swiftness was active during{' '}
                 <strong>
                   {this.nsBoostedConvokeCount} out of {this.convokeCount}
@@ -389,7 +389,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
                     <td>
                       {convokeCast.spellIdToCasts.map((casts, spellId) => (
                         <>
-                          <SpellLink id={spellId} /> {casts} <br />
+                          <SpellLink spell={spellId} /> {casts} <br />
                         </>
                       ))}
                     </td>
@@ -400,7 +400,7 @@ class ConvokeSpiritsResto extends ConvokeSpirits {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT}>
           <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

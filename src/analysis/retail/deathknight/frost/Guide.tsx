@@ -25,7 +25,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="Runic Power">
           <p>
             Runic Power is builder/spender resource for Death Knights. For Frost Death Knights, it
-            is linked to Runes through <SpellLink id={spells.RUNIC_EMPOWERMENT.id} />. Spending
+            is linked to Runes through <SpellLink spell={spells.RUNIC_EMPOWERMENT} />. Spending
             Runes grants Runic Power, and spending Runic Power can recover Runes. This makes it
             important to not waste Runic Power, both so you can maximize spender casts and to get
             more casts of your Rune based abilities. However, because Rune spenders are a higher
@@ -38,10 +38,10 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <SubSection title="Resource Cooldowns">
             <p>
               Getting the most out of resource cooldowns while playing{' '}
-              <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} />
+              <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />
               is crucial to achieving good performance with this build. You want to use your
               resource cooldowns as often as possible to maximize how many resources you can put
-              into a single <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> cast without
+              into a single <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> cast without
               wasting any of the resources granted.
               {info.combatant.hasTalent(talents.HORN_OF_WINTER_TALENT) &&
                 modules.hornOfWinter.guideCastBreakdown}

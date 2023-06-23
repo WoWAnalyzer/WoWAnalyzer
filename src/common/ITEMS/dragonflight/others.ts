@@ -51,6 +51,11 @@ const others = itemIndexableList({
     name: 'Manic Grieftorch',
     icon: 'shaman_talent_unleashedfury',
   },
+  VOICE_OF_THE_SILENT_STAR: {
+    id: 204465,
+    name: 'Voice of the Silent Star',
+    icon: 'inv_cloth_raidpriestdragon_d_01_cape',
+  },
 });
 
 export default others;

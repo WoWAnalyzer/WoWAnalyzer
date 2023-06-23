@@ -9,7 +9,7 @@ function getMultiplier(multiplierTable, itemLevel) {
 function scaleStatViaMultiplierTable(baseItemLevel, baseStat, itemLevel, multiplierTable) {
   const base = baseStat / getMultiplier(multiplierTable, baseItemLevel);
   const scaledBase = scaleStat(baseItemLevel, base, itemLevel);
-  return Math.round(scaledBase * getMultiplier(multiplierTable, itemLevel));
+  return Math.round(scaledBase * getMultiplier(multiplierTable, itemLevel) * 1000) / 1000;
 }
 
 export function calculatePrimaryStat(baseItemLevel, baseStat, itemLevel) {

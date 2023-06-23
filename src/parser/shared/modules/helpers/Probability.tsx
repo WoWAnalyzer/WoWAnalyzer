@@ -56,22 +56,29 @@ export function findMax(n: number, pmf: (i: number, n: any) => any): { max: numb
 }
 
 function binomialDistribution(n: number, k: number) {
-  // n! / (k! * (n - k)!)
-  // factorials are awful, let's simplify a bit
-  // we know k < n:
-  // numerator: n! = 1 * 2 * ... * (n - k) * (n - k + 1) * (n - k + 2 ) * ... * n
-  // denominator: k! * (n - k)! = k! * 1 * 2 * ... * (n - k)
-  // cancelling out 1 * 2 * ... * (n - k) from both we get:
-  // (n - k + 1) * (n - k + 2) * ... n / k!
-  let numerator = 1;
+  // Use an iterative approach to avoid calculating factorials directly.
+  // Assumes non-negative integers for n and k.
+  // Check for special cases: when k is 0 or equal to n, the binomial coefficient is 1.
+  if (k === 0 || k === n) {
+    return 1;
+  }
+
+  let result = 1;
+  let numerator = n;
   let denominator = 1;
-  for (let i = n - k + 1; i <= n; i += 1) {
-    numerator *= i;
-  }
+
+  // Iterate from 1 to k to calculate the binomial coefficient.
   for (let i = 1; i <= k; i += 1) {
-    denominator *= i;
+    // Multiply the current result by the numerator and divide it by the denominator.
+    result *= numerator;
+    result /= denominator;
+    // Update the numerator and denominator for the next iteration.
+    numerator -= 1;
+    denominator += 1;
   }
-  return numerator / denominator;
+
+  // Return the calculated binomial coefficient.
+  return result;
 }
 
 function resetProbabilityArray(

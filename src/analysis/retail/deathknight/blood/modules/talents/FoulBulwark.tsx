@@ -65,7 +65,7 @@ class FoulBulwark extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.FOUL_BULWARK_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.FOUL_BULWARK_TALENT}>
           <Trans id="deathknight.blood.foulBulwark.statistic">
             {this.averageFoulBullwark}% <small>average buff</small>
           </Trans>

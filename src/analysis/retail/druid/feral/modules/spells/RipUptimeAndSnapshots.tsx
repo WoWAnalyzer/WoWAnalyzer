@@ -203,26 +203,26 @@ class RipUptimeAndSnapshots extends Snapshots {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.RIP.id} />
+          <SpellLink spell={SPELLS.RIP} />
         </b>{' '}
         is your highest damage-per-energy single target spender. Try to maintain 100% uptime.{' '}
         {hasPw ? (
           <>
-            Use <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} /> to apply it when you can hit
+            Use <SpellLink spell={TALENTS_DRUID.PRIMAL_WRATH_TALENT} /> to apply it when you can hit
             more than one target.
           </>
         ) : (
           <>
             You can even keep it active on multiple targets, though if a fight will frequently have
             multiple targets consider speccing for{' '}
-            <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />.
+            <SpellLink spell={TALENTS_DRUID.PRIMAL_WRATH_TALENT} />.
           </>
         )}{' '}
-        Don't refresh early, and try to always snapshot <SpellLink id={SPELLS.TIGERS_FURY.id} />
+        Don't refresh early, and try to always snapshot <SpellLink spell={SPELLS.TIGERS_FURY} />
         {this.hasBt && (
           <>
             {' '}
-            and <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+            and <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
           </>
         )}
         .

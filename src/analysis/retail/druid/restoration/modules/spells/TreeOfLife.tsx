@@ -227,7 +227,7 @@ class TreeOfLife extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id} />
+          <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} />
         </strong>{' '}
         is a longer, lower-impact cooldown. It should be planned around periods of high sustained
         healing.
@@ -247,7 +247,7 @@ class TreeOfLife extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id} /> is not providing
+          Your <SpellLink spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT} /> is not providing
           you much throughput. You may want to plan your CD usage better or pick another talent.
         </>,
       )
@@ -319,7 +319,7 @@ class TreeOfLife extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT}>
           <ItemPercentHealingDone amount={this._getTotalHealing(this.hardcast)} />
           <br />
         </BoringSpellValueText>

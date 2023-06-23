@@ -27,8 +27,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <Trans id="deathknight.blood.alwaysBeCasting.suggestion.suggestion">
             While some downtime is inevitable in fights with movement, you should aim to reduce
             downtime to prevent capping Runes. You can reduce downtime by casting ranged/filler
-            abilities like <SpellLink id={TALENTS.BLOODDRINKER_TALENT.id} /> or{' '}
-            <SpellLink id={TALENTS.BLOOD_BOIL_TALENT.id} />
+            abilities like <SpellLink spell={TALENTS.BLOODDRINKER_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS.BLOOD_BOIL_TALENT} />
           </Trans>,
         )
           .icon('spell_mage_altertime')

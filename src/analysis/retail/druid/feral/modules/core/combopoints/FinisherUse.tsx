@@ -72,8 +72,8 @@ class FinisherUse extends Analyzer {
         tooltip: (
           <>
             This only counts casts that actually spent CPs -{' '}
-            <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} /> and{' '}
-            <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> procs are omitted.
+            <SpellLink spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> procs are omitted.
           </>
         ),
       },
@@ -83,7 +83,7 @@ class FinisherUse extends Analyzer {
         value: this.lowCpRipApplies,
         tooltip: (
           <>
-            When <SpellLink id={SPELLS.RIP.id} /> is missing from a target, it's better to apply it
+            When <SpellLink spell={SPELLS.RIP} /> is missing from a target, it's better to apply it
             at low CPs than wait for max - but ideally you refresh before it drops at all.
           </>
         ),

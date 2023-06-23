@@ -161,7 +161,7 @@ class FerociousBite extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
+          <SpellLink spell={SPELLS.FEROCIOUS_BITE} />
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
         use Bite with at least {ACCEPTABLE_CPS} CPs ({ACCEPTABLE_BERSERK_CPS} during{' '}
@@ -172,7 +172,7 @@ class FerociousBite extends Analyzer {
         {this.hasSotf && (
           <>
             One exception: because you have{' '}
-            <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT.id} />, it is acceptable to
+            <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT} />, it is acceptable to
             use low energy bites during <SpellLink spell={cdSpell(this.selectedCombatant)} /> in
             order to get extra finishers in.
           </>
@@ -185,8 +185,8 @@ class FerociousBite extends Analyzer {
         {hasConvokeOrApex && (
           <>
             The below cast evaluations consider only CP spending Bites -{' '}
-            <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> and{' '}
-            <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} /> procs aren't included.
+            <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT} /> procs aren't included.
             <br />
           </>
         )}

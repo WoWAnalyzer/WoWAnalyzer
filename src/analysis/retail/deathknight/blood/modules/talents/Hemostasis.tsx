@@ -90,7 +90,7 @@ class Hemostasis extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.HEMOSTASIS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.HEMOSTASIS_TALENT}>
           <Trans id="deathknight.blood.hemostasis.statistic">
             {formatPercentage(this.averageIncrease)} % <small>average DS increase</small>
           </Trans>

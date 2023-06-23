@@ -31,8 +31,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           Resto Druids have access to a variety of powerful healing cooldowns. These cooldowns are
           very mana efficient and powerful, and you should aim to use them frequently. The
           effectiveness of your cooldowns will be greatly increased by "ramping" or pre-casting many{' '}
-          <SpellLink id={SPELLS.REJUVENATION.id} /> and a <SpellLink id={SPELLS.WILD_GROWTH.id} />{' '}
-          in order to maximize the number of <SpellLink id={SPELLS.MASTERY_HARMONY.id} /> stacks
+          <SpellLink spell={SPELLS.REJUVENATION} /> and a <SpellLink spell={SPELLS.WILD_GROWTH} />{' '}
+          in order to maximize the number of <SpellLink spell={SPELLS.MASTERY_HARMONY} /> stacks
           present when you activate your cooldown. Plan ahead by starting your ramp in the seconds
           before major raid damage hits. You should always have a Wild Growth out before activating
           one of your cooldowns.

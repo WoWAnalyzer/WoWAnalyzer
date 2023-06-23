@@ -117,7 +117,7 @@ class Tombstone extends Analyzer {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.tombstone.suggestion.suggestion">
-          You casted {this.wastedCasts} <SpellLink id={TALENTS.TOMBSTONE_TALENT.id} /> with less
+          You casted {this.wastedCasts} <SpellLink spell={TALENTS.TOMBSTONE_TALENT} /> with less
           than 5 charges causing a reduced absorb shield.
         </Trans>,
       )
@@ -199,7 +199,7 @@ class Tombstone extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.TOMBSTONE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.TOMBSTONE_TALENT}>
           <Trans id="deathknight.blood.tombstone.statistic">
             {this.wastedCasts} <small>Bad Casts</small>
           </Trans>

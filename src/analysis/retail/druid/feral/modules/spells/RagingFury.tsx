@@ -117,13 +117,13 @@ class RagingFury extends Analyzer {
         tooltip={
           <>
             This is the total damage added by the extended portions of{' '}
-            <SpellLink id={TALENTS_DRUID.TIGERS_FURY_TALENT.id} />.<br />
-            You extended each <SpellLink id={TALENTS_DRUID.TIGERS_FURY_TALENT.id} /> by an average
+            <SpellLink spell={TALENTS_DRUID.TIGERS_FURY_TALENT} />.<br />
+            You extended each <SpellLink spell={TALENTS_DRUID.TIGERS_FURY_TALENT} /> by an average
             of <strong>{(this.extensionPerCast / 1000).toFixed(1)}s</strong>.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.RAGING_FURY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.RAGING_FURY_TALENT}>
           <ItemPercentDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

@@ -166,7 +166,7 @@ class HitCountAoE extends Analyzer {
         label: (
           <>
             Hit 1 Target w/
-            <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+            <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
           </>
         ),
         value: this.swipeTracker!.oneHitsWithBt,
@@ -275,7 +275,7 @@ class HitCountAoE extends Analyzer {
         <p>
           <strong>AoE Abilities</strong> should usually only be used when you can hit more than one
           target, but some of them have applications on single target. The following charts count
-          only hardcasts - procs from <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} />{' '}
+          only hardcasts - procs from <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} />{' '}
           are excluded.
         </p>
         <SideBySidePanels>
@@ -283,12 +283,12 @@ class HitCountAoE extends Analyzer {
             <RoundedPanel>
               <div>
                 <strong>
-                  <SpellLink id={SPELLS.SWIPE_CAT.id} />
+                  <SpellLink spell={SPELLS.SWIPE_CAT} />
                 </strong>{' '}
                 {hasBt ? (
                   <>
                     is acceptable on single-target to proc{' '}
-                    <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+                    <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
                   </>
                 ) : (
                   <>should only be used on multiple targets</>
@@ -301,9 +301,9 @@ class HitCountAoE extends Analyzer {
             <RoundedPanel>
               <div>
                 <strong>
-                  <SpellLink id={TALENTS_DRUID.BRUTAL_SLASH_TALENT.id} />
+                  <SpellLink spell={TALENTS_DRUID.BRUTAL_SLASH_TALENT} />
                 </strong>{' '}
-                is better than <SpellLink id={SPELLS.SHRED.id} /> even on single-target
+                is better than <SpellLink spell={SPELLS.SHRED} /> even on single-target
               </div>
               {this.brsChart}
             </RoundedPanel>
@@ -311,9 +311,9 @@ class HitCountAoE extends Analyzer {
           <RoundedPanel>
             <div>
               <strong>
-                <SpellLink id={SPELLS.THRASH_FERAL.id} />
+                <SpellLink spell={SPELLS.THRASH_FERAL} />
               </strong>{' '}
-              is a small gain over <SpellLink id={SPELLS.SHRED.id} /> on single-target when not
+              is a small gain over <SpellLink spell={SPELLS.SHRED} /> on single-target when not
               clipping the DoT
             </div>
             {this.thrashChart}
@@ -322,7 +322,7 @@ class HitCountAoE extends Analyzer {
             <RoundedPanel>
               <div>
                 <strong>
-                  <SpellLink id={TALENTS_DRUID.PRIMAL_WRATH_TALENT.id} />
+                  <SpellLink spell={TALENTS_DRUID.PRIMAL_WRATH_TALENT} />
                 </strong>{' '}
                 should only be used on multiple targets
               </div>
@@ -371,7 +371,7 @@ class HitCountAoE extends Analyzer {
                     </>
                   }
                 >
-                  <SpellIcon id={tracker.spell.id} />{' '}
+                  <SpellIcon spell={tracker.spell} />{' '}
                   {(tracker.casts === 0 ? 0 : tracker.hits / tracker.casts).toFixed(1)}{' '}
                 </TooltipElement>
                 <small>avg targets hit</small>

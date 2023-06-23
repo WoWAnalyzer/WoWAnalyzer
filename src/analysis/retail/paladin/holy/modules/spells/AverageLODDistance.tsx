@@ -5,6 +5,7 @@ import Statistic from 'parser/ui/Statistic';
 import TALENTS from 'common/TALENTS/paladin';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import BoringValueText from 'parser/ui/BoringValueText';
+import { SpellIcon } from 'interface';
 
 class FillerFlashOfLight extends Analyzer {
   distanceSum = 0;
@@ -59,7 +60,13 @@ class FillerFlashOfLight extends Analyzer {
           <>This is the average distance between you and the person healed with Light of Dawn.</>
         }
       >
-        <BoringValueText label={<>Average LoD Distance</>}>
+        <BoringValueText
+          label={
+            <>
+              <SpellIcon spell={TALENTS.LIGHT_OF_DAWN_TALENT} /> Average LoD Distance
+            </>
+          }
+        >
           <>{(this.distanceSum / this.distanceCount).toFixed(2)} Yards</>
         </BoringValueText>
       </Statistic>

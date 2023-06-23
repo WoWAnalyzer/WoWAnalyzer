@@ -103,7 +103,7 @@ class Starlord extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.STARLORD_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.STARLORD_TALENT}>
           <>
             <HasteIcon /> {this.averageHaste} % <small>average haste gained</small>
           </>

@@ -46,7 +46,9 @@ import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import { BlessingOfTheSeasons } from './modules/talents/BlessingOfTheSeasons';
 import T30HpalTierSet from './modules/dragonflight/tier/T30TierSet';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
-import AverageLODDistance from './modules/features/AverageLODDistance';
+import AverageLODDistance from './modules/spells/AverageLODDistance';
+import ImbuedInfusion from './modules/talents/ImbuedInfusion';
+import HolyPrism from './modules/talents/HolyPrism';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -101,6 +103,9 @@ class CombatLogParser extends CoreCombatLogParser {
     divineToll: DivineToll,
     UntemperedDedication: UntemperedDedication,
     blessingOfTheSeasons: BlessingOfTheSeasons,
+    averageLODDistance: AverageLODDistance,
+    imbuedInfusion: ImbuedInfusion,
+    holyPrism: HolyPrism,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
@@ -109,7 +114,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier Sets
     t30TierSet: T30HpalTierSet,
-    AverageLODDistance: AverageLODDistance,
   };
 }
 

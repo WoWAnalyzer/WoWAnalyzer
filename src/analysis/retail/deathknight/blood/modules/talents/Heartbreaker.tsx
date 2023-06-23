@@ -65,7 +65,7 @@ class Heartbreaker extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.HEARTBREAKER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.HEARTBREAKER_TALENT}>
           <BoringResourceValue
             resource={RESOURCE_TYPES.RUNIC_POWER}
             value={this.totalRPGained}

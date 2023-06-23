@@ -159,14 +159,14 @@ class Flourish extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />
+          <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />
         </strong>{' '}
         requires a ramp more than any of your other cooldowns, as its power is based almost entirely
         in the HoTs present when you cast it. Cast many Rejuvenations, and then a Wild Growth a few
         seconds before you're ready to Flourish.{' '}
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
           <>
-            When pairing this with <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} />, the Convoke should
+            When pairing this with <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />, the Convoke should
             ALWAYS be cast first. This is because the Convoke will produce many HoTs which can be
             extended, but also because it could proc a Flourish thus allowing you to save the
             hardcast.
@@ -185,7 +185,7 @@ class Flourish extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} /> ({formatNumber(castTotalHealing)}{' '}
+              <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} /> ({formatNumber(castTotalHealing)}{' '}
               healing)
             </>
           );
@@ -202,7 +202,7 @@ class Flourish extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
+                <SpellLink spell={SPELLS.WILD_GROWTH} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={wgRamp} />,
@@ -211,7 +211,7 @@ class Flourish extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
+                <SpellLink spell={SPELLS.REJUVENATION} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={rejuvRamp} />,
@@ -221,13 +221,13 @@ class Flourish extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  Don't clip existing <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />{' '}
+                  Don't clip existing <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />{' '}
                   <Tooltip
                     hoverable
                     content={
                       <>
-                        <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can proc{' '}
-                        <SpellLink id={TALENTS_DRUID.FLOURISH_TALENT.id} />. After Convoking, always
+                        <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> can proc{' '}
+                        <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />. After Convoking, always
                         check to see if you get a proc before Flourishing. If you got a proc, you
                         need to wait before Flourishing so you don't overwrite the buff and lose a
                         lot of duration. If you got an{' '}
@@ -325,7 +325,7 @@ class Flourish extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.FLOURISH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.FLOURISH_TALENT}>
           <ItemPercentHealingDone approximate amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

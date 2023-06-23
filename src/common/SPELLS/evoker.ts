@@ -114,6 +114,11 @@ const spells = spellIndexableList({
     name: 'Eternity Surge',
     icon: 'ability_evoker_eternitysurge',
   },
+  ETERNITY_SURGE_DAM: {
+    id: 359077,
+    name: 'Eternity Surge',
+    icon: 'ability_evoker_eternitysurge',
+  },
   PYRE: {
     id: 357212,
     name: 'Pyre',
@@ -218,8 +223,18 @@ const spells = spellIndexableList({
     name: 'Deep Breath',
     icon: 'ability_evoker_deepbreath',
   },
+  DEEP_BREATH_DAM: {
+    id: 353759,
+    name: 'Deep Breath',
+    icon: 'ability_evoker_deepbreath',
+  },
   FIRE_BREATH: {
     id: 357208,
+    name: 'Fire Breath',
+    icon: 'ability_evoker_firebreath',
+  },
+  FIRE_BREATH_DOT: {
+    id: 357209,
     name: 'Fire Breath',
     icon: 'ability_evoker_firebreath',
   },
@@ -235,6 +250,11 @@ const spells = spellIndexableList({
   },
   HOVER: {
     id: 358267,
+    name: 'Hover',
+    icon: 'ability_evoker_hover',
+  },
+  HOVER_BUFF: {
+    id: 358268,
     name: 'Hover',
     icon: 'ability_evoker_hover',
   },
@@ -297,6 +317,68 @@ const spells = spellIndexableList({
     id: 387350,
     name: 'Ouroboros',
     icon: 'ability_evoker_innatemagic',
+  },
+  BLAZING_SHARDS: {
+    // T30 4pc buff
+    id: 409848,
+    name: 'Blazing Shards',
+    icon: 'inv_elemental_crystal_shadow',
+  },
+  OBSIDIAN_SHARDS: {
+    // T30 2pc dot
+    id: 409776,
+    name: 'Obsidian Shards',
+    icon: 'inv_elemental_crystal_shadow',
+  },
+  IRIDESCENCE_BLUE: {
+    id: 386399,
+    name: 'Iridescence: Blue',
+    icon: 'inv_enchant_shardgleamingsmall',
+  },
+  IRIDESCENCE_RED: {
+    id: 386353,
+    name: 'Iridescence: Red',
+    icon: 'inv_enchant_shardradientsmall',
+  },
+  GLIDE: {
+    id: 358733,
+    name: 'Glide',
+    icon: 'ability_racial_glide',
+  },
+  LEAPING_FLAMES_BUFF: {
+    id: 370901,
+    name: 'Leaping Flames',
+    icon: 'spell_fire_flare',
+  },
+  ANCIENT_FLAME_BUFF: {
+    id: 375583,
+    name: 'Ancient Flame',
+    icon: 'inv_elemental_mote_fire01',
+  },
+  FIRESTORM_DAMAGE: {
+    id: 369374,
+    name: 'Firestorm',
+    icon: 'ability_evoker_firestorm',
+  },
+  VISAGE: {
+    id: 351239,
+    name: 'Visage',
+    icon: 'ability_racial_visage',
+  },
+  WING_BUFFET: {
+    id: 357214,
+    name: 'Wing Buffet',
+    icon: 'ability_racial_wingbuffet',
+  },
+  OPPRESING_ROAR: {
+    id: 406971,
+    name: 'Oppressing Roar',
+    icon: 'ability_evoker_oppressingroar',
+  },
+  UNRAVEL: {
+    id: 368432,
+    name: 'Unravel',
+    icon: 'ability_evoker_unravel',
   },
 });
 

@@ -74,7 +74,7 @@ class WaningTwilight extends Analyzer {
         size="flexible"
         tooltip={`You had ${waningTwilightUptime}% uptime on this talent which added ${dpsAdded} to your DPS.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.WANING_TWILIGHT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.WANING_TWILIGHT_TALENT}>
           <>
             <UptimeIcon /> {waningTwilightUptime}% <small> uptime</small>
             <br />

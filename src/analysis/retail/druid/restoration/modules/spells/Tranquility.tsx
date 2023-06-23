@@ -76,7 +76,7 @@ class Tranquility extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.TRANQUILITY_CAST.id} />
+          <SpellLink spell={SPELLS.TRANQUILITY_CAST} />
         </strong>{' '}
         is the most independent of your cooldowns, and the one most likely to be assigned explicitly
         by your raid leader. It should typically be planned for a specific mechanic. The vast
@@ -95,7 +95,7 @@ class Tranquility extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={SPELLS.TRANQUILITY_CAST.id} /> ({formatNumber(castTotalHealing)}{' '}
+              <SpellLink spell={SPELLS.TRANQUILITY_CAST} /> ({formatNumber(castTotalHealing)}{' '}
               healing)
             </>
           );
@@ -112,7 +112,7 @@ class Tranquility extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.WILD_GROWTH.id} /> ramp
+                <SpellLink spell={SPELLS.WILD_GROWTH} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={wgRamp} />,
@@ -121,7 +121,7 @@ class Tranquility extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.REJUVENATION.id} /> ramp
+                <SpellLink spell={SPELLS.REJUVENATION} /> ramp
               </>
             ),
             result: <PassFailCheckmark pass={rejuvRamp} />,

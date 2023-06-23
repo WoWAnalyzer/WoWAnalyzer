@@ -10,7 +10,6 @@ const hasFont = (combatant: Combatant) =>
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT);
 
-// TODO: this mixes preservation talents in but not devastation talents
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
@@ -29,10 +28,13 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.EMERALD_BLOSSOM_CAST.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: combatant.spec === SPECS.PRESERVATION_EVOKER ? 0 : 30,
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.EMERALD_BLOSSOM_CAST.id],
+        isDefensive: true,
       },
       //endregion
       //region Damage Spells
@@ -59,6 +61,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        damageSpellIds: [SPELLS.LIVING_FLAME_DAMAGE.id],
       },
       {
         spell: SPELLS.AZURE_STRIKE.id,
@@ -71,6 +74,18 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS.VERDANT_EMBRACE_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 24,
+        enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT),
+        gcd: {
+          base: 1500,
+        },
+
+        damageSpellIds: [TALENTS.VERDANT_EMBRACE_TALENT.id],
+        isDefensive: true,
+      },
       //endregion
       //region Cooldowns
       {
@@ -79,39 +94,20 @@ class Abilities extends CoreAbilities {
           combatant.spec === SPECS.PRESERVATION_EVOKER
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
             : SPELL_CATEGORY.COOLDOWNS,
+        cooldown: combatant.hasTalent(TALENTS.ONYX_LEGACY_TALENT) ? 60 : 120,
+        gcd: {
+          base: 1500,
+        },
+        damageSpellIds: [SPELLS.DEEP_BREATH.id],
+      },
+      {
+        spell: TALENTS.TIP_THE_SCALES_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 120,
-        gcd: {
-          base: 1500,
-        },
+        enabled: combatant.hasTalent(TALENTS.TIP_THE_SCALES_TALENT),
       },
-      {
-        spell: TALENTS.LANDSLIDE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.LANDSLIDE_TALENT),
-      },
-      {
-        spell: TALENTS.OBSIDIAN_SCALES_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
-        charges: combatant.hasTalent(TALENTS.OBSIDIAN_BULWARK_TALENT) ? 2 : 1,
-        enabled: combatant.hasTalent(TALENTS.OBSIDIAN_SCALES_TALENT),
-      },
-      {
-        spell: TALENTS.VERDANT_EMBRACE_TALENT.id,
-        category:
-          combatant.spec === SPECS.PRESERVATION_EVOKER
-            ? SPELL_CATEGORY.ROTATIONAL
-            : SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 24,
-        enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT),
-        gcd: {
-          base: 1500,
-        },
-      },
+      //endregion
+      //region Utility
       {
         spell: TALENTS.CAUTERIZING_FLAME_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
@@ -122,18 +118,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.TIP_THE_SCALES_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS.TIP_THE_SCALES_TALENT),
-      },
-      {
-        spell: TALENTS.RENEWING_BLAZE_TALENT.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
-        enabled: combatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT),
-      },
-      {
         spell: TALENTS.ZEPHYR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 120,
@@ -141,9 +125,17 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        isDefensive: true,
       },
-      //endregion
-      //region Utility
+      {
+        spell: TALENTS.LANDSLIDE_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.LANDSLIDE_TALENT),
+      },
       {
         spell: TALENTS.EXPUNGE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
@@ -165,7 +157,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.QUELL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 40,
+        cooldown: combatant.hasTalent(TALENTS.IMPOSING_PRESENCE_TALENT) ? 20 : 40,
         enabled: combatant.hasTalent(TALENTS.QUELL_TALENT),
       },
       {
@@ -185,7 +177,9 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.RESCUE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
+        category: combatant.hasTalent(TALENTS.TWIN_GUARDIAN_TALENT)
+          ? SPELL_CATEGORY.DEFENSIVE
+          : SPELL_CATEGORY.UTILITY,
         cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.RESCUE_TALENT),
         gcd: {
@@ -204,10 +198,27 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HOVER.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 35,
+        cooldown: 30,
         charges: combatant.hasTalent(TALENTS.AERIAL_MASTERY_TALENT) ? 2 : 1,
         gcd: null,
         enabled: true,
+      },
+      //endregion
+      //region Defensive
+      {
+        spell: TALENTS.OBSIDIAN_SCALES_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 90,
+        charges: combatant.hasTalent(TALENTS.OBSIDIAN_BULWARK_TALENT) ? 2 : 1,
+        enabled: combatant.hasTalent(TALENTS.OBSIDIAN_SCALES_TALENT),
+        isDefensive: true,
+      },
+      {
+        spell: TALENTS.RENEWING_BLAZE_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: combatant.hasTalent(TALENTS.FIRE_WITHIN_TALENT) ? 60 : 90,
+        enabled: combatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT),
+        isDefensive: true,
       },
       //endregion
       //region Other
@@ -226,6 +237,11 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.SOURCE_OF_MAGIC_TALENT),
+      },
+      {
+        spell: SPELLS.GLIDE.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: null,
       },
       //endregion
     ];
