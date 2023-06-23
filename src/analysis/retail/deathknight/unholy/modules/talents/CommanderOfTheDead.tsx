@@ -75,11 +75,11 @@ class CommanderOfTheDead extends Analyzer {
         suggest(
           <span>
             You are not properly buffing your pets with{' '}
-            <SpellLink id={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id} />. Make sure to use{' '}
-            <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> after casting{' '}
-            <SpellLink id={SPELLS.ARMY_OF_THE_DEAD.id} />,{' '}
-            <SpellLink id={TALENTS.SUMMON_GARGOYLE_TALENT.id} /> and{' '}
-            <SpellLink id={SPELLS.APOCALYPSE.id} />.
+            <SpellLink spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF} />. Make sure to use{' '}
+            <SpellLink spell={SPELLS.DARK_TRANSFORMATION} /> after casting{' '}
+            <SpellLink spell={SPELLS.ARMY_OF_THE_DEAD} />,{' '}
+            <SpellLink spell={TALENTS.SUMMON_GARGOYLE_TALENT} /> and{' '}
+            <SpellLink spell={SPELLS.APOCALYPSE} />.
           </span>,
         )
           .icon(SPELLS.APOCALYPSE.icon)
@@ -104,7 +104,7 @@ class CommanderOfTheDead extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF}>
           <>
             {formatPercentage(this.averageSummonBuffed)}%{' '}
             <small>of pets buffed with Commander of the Dead</small>

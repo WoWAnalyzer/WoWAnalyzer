@@ -110,10 +110,10 @@ class FillerUsage extends Analyzer {
         <>
           You cast the wrong filler spell {this.badFillerCasts} times -{' '}
           {formatPercentage(actual, 1)}% of total filler casts. You should cast{' '}
-          <SpellLink id={SPELLS.WRATH_MOONKIN.id} /> during and after{' '}
-          <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} />, and you should cast{' '}
-          <SpellLink id={SPELLS.STARFIRE.id} /> during and after{' '}
-          <SpellLink id={SPELLS.ECLIPSE_LUNAR.id} />.
+          <SpellLink spell={SPELLS.WRATH_MOONKIN} /> during and after{' '}
+          <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />, and you should cast{' '}
+          <SpellLink spell={SPELLS.STARFIRE} /> during and after{' '}
+          <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />.
           <br />
         </>,
       )

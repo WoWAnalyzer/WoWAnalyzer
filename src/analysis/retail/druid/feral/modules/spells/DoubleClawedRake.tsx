@@ -89,7 +89,7 @@ class DoubleClawedRake extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT}>
           <ItemPercentDamageDone approximate amount={this.dcrDamage} />
         </BoringSpellValueText>
       </Statistic>

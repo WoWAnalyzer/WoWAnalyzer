@@ -79,7 +79,7 @@ class WillOfTheNecropolis extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.WILL_OF_THE_NECROPOLIS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.WILL_OF_THE_NECROPOLIS_TALENT}>
           <ItemHealingDone amount={this.totalWotnAbsorbed} />
         </BoringSpellValueText>
       </Statistic>

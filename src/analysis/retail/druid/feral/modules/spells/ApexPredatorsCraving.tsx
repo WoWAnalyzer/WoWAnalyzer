@@ -155,25 +155,25 @@ class ApexPredatorsCraving extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the damage done by the free <SpellLink id={SPELLS.FEROCIOUS_BITE.id} /> procced
+            This is the damage done by the free <SpellLink spell={SPELLS.FEROCIOUS_BITE} /> procced
             by Apex Predator's Craving
             {this.hasRf && (
               <>
                 {' '}
-                and the <SpellLink id={SPELLS.RAMPANT_FEROCITY.id} /> splash from those free bites
+                and the <SpellLink spell={SPELLS.RAMPANT_FEROCITY} /> splash from those free bites
               </>
             )}
             {this.hasSotf && (
               <>
                 , and the effective energy gained due to{' '}
-                <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id} /> from those bites
+                <SpellLink spell={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY} /> from those bites
               </>
             )}
             . You gained <strong>{this.buffsGainedPerMinute.toFixed(1)} procs per minute</strong>,
             for a total of <strong>{this.buffsGained} procs</strong>:
             <ul>
               <li>
-                <SpellIcon id={SPELLS.FEROCIOUS_BITE.id} /> Used: <strong>{this.buffsUsed}</strong>
+                <SpellIcon spell={SPELLS.FEROCIOUS_BITE} /> Used: <strong>{this.buffsUsed}</strong>
               </li>
               <li>
                 <CrossIcon /> Overwritten: <strong>{this.buffsOverwritten}</strong>
@@ -189,7 +189,7 @@ class ApexPredatorsCraving extends Analyzer {
             </ul>
             {this.hasSotf && (
               <>
-                Total <SpellLink id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id} /> energy gained
+                Total <SpellLink spell={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY} /> energy gained
                 from free bites was <strong>{this.sotfEnergyGained}</strong>.
                 <ul>
                   <li>
@@ -204,10 +204,10 @@ class ApexPredatorsCraving extends Analyzer {
             {this.hasRf && (
               <>
                 Breakdown between direct bite damage and from{' '}
-                <SpellLink id={SPELLS.RAMPANT_FEROCITY.id} />
+                <SpellLink spell={SPELLS.RAMPANT_FEROCITY} />
                 <ul>
                   <li>
-                    <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />:{' '}
+                    <SpellLink spell={SPELLS.FEROCIOUS_BITE} />:{' '}
                     <strong>
                       {formatPercentage(
                         this.owner.getPercentageOfTotalDamageDone(this.biteDamage),
@@ -217,7 +217,7 @@ class ApexPredatorsCraving extends Analyzer {
                     </strong>
                   </li>
                   <li>
-                    <SpellLink id={SPELLS.RAMPANT_FEROCITY.id} />:{' '}
+                    <SpellLink spell={SPELLS.RAMPANT_FEROCITY} />:{' '}
                     <strong>
                       {formatPercentage(
                         this.owner.getPercentageOfTotalDamageDone(this.rampantFerocityDamage),
@@ -232,12 +232,12 @@ class ApexPredatorsCraving extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT}>
           <ItemPercentDamageDone amount={this.totalDamage} />
           {this.hasSotf && (
             <>
               <br />
-              <SpellIcon id={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY.id} />{' '}
+              <SpellIcon spell={SPELLS.SOUL_OF_THE_FOREST_FERAL_ENERGY} />{' '}
               {this.sotfEnergyEffectivePerMinute.toFixed(0)} <small>energy per minute</small>
             </>
           )}

@@ -44,7 +44,7 @@ class SoulOfTheForest extends Analyzer {
           this.gainedAP,
         )} additional Astral Power by taking this talent.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.SOUL_OF_THE_FOREST_BALANCE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_BALANCE_TALENT}>
           <>
             {formatNumber(this.gainedAP)} <small>additional Astral Power generated</small>
           </>

@@ -104,15 +104,15 @@ export default class Tier30 extends Analyzer {
             2-Piece healing breakdown:
             <ul>
               <li>
-                <SpellLink id={SPELLS.REJUVENATION.id} />:{' '}
+                <SpellLink spell={SPELLS.REJUVENATION} />:{' '}
                 <strong>{this.owner.formatItemHealingDone(this.rejuv2pcHealing)}</strong>
               </li>
               <li>
-                <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />:{' '}
+                <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} />:{' '}
                 <strong>{this.owner.formatItemHealingDone(this.lb2pcHealing)}</strong>
               </li>
               <li>
-                <SpellLink id={SPELLS.REGROWTH.id} />:{' '}
+                <SpellLink spell={SPELLS.REGROWTH} />:{' '}
                 <strong>{this.owner.formatItemHealingDone(this.regrowth2pcHealing)}</strong>
               </li>
             </ul>
@@ -120,9 +120,9 @@ export default class Tier30 extends Analyzer {
               <>
                 The 4-Piece number includes only the healing directly caused by the faster tick
                 rate. It does <i>not</i> include second-order benefits of faster ticks such as more{' '}
-                <SpellLink id={TALENTS_DRUID.OMEN_OF_CLARITY_RESTORATION_TALENT.id} />, more{' '}
-                <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT.id} /> procs, more{' '}
-                <SpellLink id={TALENTS_DRUID.LUXURIANT_SOIL_TALENT.id} /> procs, etc.
+                <SpellLink spell={TALENTS_DRUID.OMEN_OF_CLARITY_RESTORATION_TALENT} />, more{' '}
+                <SpellLink spell={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT} /> procs, more{' '}
+                <SpellLink spell={TALENTS_DRUID.LUXURIANT_SOIL_TALENT} /> procs, etc.
               </>
             )}
             <br />

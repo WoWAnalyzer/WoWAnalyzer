@@ -106,7 +106,7 @@ export default class EmpowerRuneWeapon extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={spells.EMPOWER_RUNE_WEAPON} />
+          <SpellLink spell={spells.EMPOWER_RUNE_WEAPON} />
         </strong>{' '}
         is a strong resource cooldown used primarily to extend{' '}
         <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />. It is best used to extend your

@@ -136,16 +136,16 @@ class Tier29 extends Analyzer {
             <p>2pc healing amount assumes expected-value extra crits added to the listed spells.</p>
             {this.has4pc && (
               <p>
-                4pc healing amount counts only the boost to <SpellLink id={SPELLS.WILD_GROWTH.id} />
+                4pc healing amount counts only the boost to <SpellLink spell={SPELLS.WILD_GROWTH} />
                 .<br />
                 {this.nsCasts === 0 ? (
                   <>
                     The second part of your 4pc bonus had no effect because you never used{' '}
-                    <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} />!
+                    <SpellLink spell={SPELLS.NATURES_SWIFTNESS} />!
                   </>
                 ) : (
                   <>
-                    In addition, <SpellLink id={SPELLS.NATURES_SWIFTNESS.id} /> cooldown was reduced
+                    In addition, <SpellLink spell={SPELLS.NATURES_SWIFTNESS} /> cooldown was reduced
                     by an average of{' '}
                     <strong>
                       {(this.effectiveNaturesSwiftnessCdr / this.nsCasts / 1000).toFixed(1)}s per

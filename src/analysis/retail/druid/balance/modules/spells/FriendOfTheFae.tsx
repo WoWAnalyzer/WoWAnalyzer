@@ -47,7 +47,7 @@ class FriendOfTheFae extends Analyzer {
           this.uptime,
         )}% uptime on this talent which added ${dpsIncrease} to your DPS.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.FRIEND_OF_THE_FAE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.FRIEND_OF_THE_FAE_TALENT}>
           <>
             <ItemPercentDamageDone greaterThan amount={this.totalAddedDamage} />
             <br />

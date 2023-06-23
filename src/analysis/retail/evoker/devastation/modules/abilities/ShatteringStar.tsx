@@ -100,6 +100,9 @@ class ShatteringStar extends Analyzer {
   }
 
   onRemove() {
+    if (this.currentDamageCounter === undefined) {
+      return;
+    }
     this.isBuffOn = false;
 
     const goodSpells =
@@ -138,7 +141,9 @@ class ShatteringStar extends Analyzer {
     if (!this.isBuffOn) {
       return;
     }
-
+    if (this.currentDamageCounter === undefined) {
+      return;
+    }
     const currentWindow = this.currentDamageCounter;
 
     switch (castEvent.ability.guid) {

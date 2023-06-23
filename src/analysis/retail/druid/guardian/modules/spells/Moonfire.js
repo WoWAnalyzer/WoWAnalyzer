@@ -24,7 +24,7 @@ class Moonfire extends Analyzer {
         suggest(
           <span>
             {' '}
-            Your <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> uptime was{' '}
+            Your <SpellLink spell={SPELLS.MOONFIRE_DEBUFF} /> uptime was{' '}
             {formatPercentage(moonfireUptimePercentage)}%, unless you have extended periods of
             downtime it should be near 100%.
           </span>,
@@ -60,7 +60,7 @@ class Moonfire extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.MOONFIRE_DEBUFF.id} /> Moonfire uptime{' '}
+              <SpellIcon spell={SPELLS.MOONFIRE_DEBUFF} /> Moonfire uptime{' '}
             </>
           }
         >

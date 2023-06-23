@@ -80,8 +80,8 @@ class Frostscythe extends Analyzer {
     when(this.efficencyThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.FROSTSCYTHE_TALENT.id} /> efficiency can be improved. Only
-          cast Frostscythe if you have a <SpellLink id={SPELLS.KILLING_MACHINE.id} icon /> proc or
+          Your <SpellLink spell={talents.FROSTSCYTHE_TALENT} /> efficiency can be improved. Only
+          cast Frostscythe if you have a <SpellLink spell={SPELLS.KILLING_MACHINE} icon /> proc or
           you can hit 2+ targets.
         </>,
       )
@@ -103,7 +103,7 @@ class Frostscythe extends Analyzer {
         size="flexible"
         tooltip={`A good cast is one where you either hit 1+ targets with a Killing Machine buff or you hit 2+ targets.  You had ${this.goodCasts} / ${this.casts} good casts`}
       >
-        <BoringSpellValueText spellId={talents.FROSTSCYTHE_TALENT.id}>
+        <BoringSpellValueText spell={talents.FROSTSCYTHE_TALENT}>
           <>
             {formatPercentage(this.efficiency)} % <small>efficiency</small>
           </>

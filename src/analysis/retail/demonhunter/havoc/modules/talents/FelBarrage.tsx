@@ -68,15 +68,15 @@ class FelBarrage extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to cast <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} /> during{' '}
-          <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC.id} />.
+          Try to cast <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT} /> during{' '}
+          <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} />.
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id} /> casts
-            without <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC.id} />.
+            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT} /> casts without{' '}
+            <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} />.
           </>,
         )
         .recommended(`No bad casts is recommended.`),
@@ -101,7 +101,7 @@ class FelBarrage extends Analyzer {
         <TalentSpellText talent={TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT}>
           {this.badCasts}{' '}
           <small>
-            casts without <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC.id} />{' '}
+            casts without <SpellLink spell={SPELLS.METAMORPHOSIS_HAVOC} />{' '}
           </small>{' '}
           <br />
           {this.owner.formatItemDamageDone(this.damage)}

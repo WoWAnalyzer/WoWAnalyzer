@@ -98,7 +98,7 @@ class Abundance extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={TALENTS_DRUID.ABUNDANCE_TALENT.id} /> Average Abundance stacks
+              <SpellIcon spell={TALENTS_DRUID.ABUNDANCE_TALENT} /> Average Abundance stacks
             </>
           }
         >

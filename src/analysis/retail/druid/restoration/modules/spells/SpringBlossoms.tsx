@@ -60,7 +60,7 @@ class SpringBlossoms extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.SPRING_BLOSSOMS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.SPRING_BLOSSOMS_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

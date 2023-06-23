@@ -90,7 +90,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
           <>
             Used to proc{' '}
             <strong>
-              <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
             </strong>
             <br />
           </>
@@ -136,9 +136,9 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.MOONFIRE_FERAL.id} />
+          <SpellLink spell={SPELLS.MOONFIRE_FERAL} />
         </b>{' '}
-        (with <SpellLink id={TALENTS_DRUID.LUNAR_INSPIRATION_TALENT.id} />) is another builder DoT
+        (with <SpellLink spell={TALENTS_DRUID.LUNAR_INSPIRATION_TALENT} />) is another builder DoT
         that behaves like a long-range (but weaker) Rake. For usage advice, see the Rake section.
       </p>
     );
@@ -160,7 +160,7 @@ class MoonfireUptimeAndSnapshots extends Snapshots {
           {hasBt && (
             <>
               (or a cast with problems that procced{' '}
-              <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />)
+              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />)
             </>
           )}
           , Yellow is an ok cast (clipped duration but upgraded snapshot), Red is a bad cast

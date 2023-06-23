@@ -33,7 +33,7 @@ class MoonfireUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> uptime can be improved. Try to pay more
+          Your <SpellLink spell={SPELLS.MOONFIRE_DEBUFF} /> uptime can be improved. Try to pay more
           attention to your Moonfire on the boss.
         </>,
       )

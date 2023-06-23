@@ -132,8 +132,8 @@ class RageWasted extends Analyzer {
         suggest(
           <span>
             You are wasting rage. Try to spend rage before you reach the rage cap so you aren't
-            losing out on potential <SpellLink id={SPELLS.IRONFUR.id} />s or{' '}
-            <SpellLink id={SPELLS.MAUL.id} />
+            losing out on potential <SpellLink spell={SPELLS.IRONFUR} />s or{' '}
+            <SpellLink spell={SPELLS.MAUL} />
             s.
           </span>,
         )
@@ -169,7 +169,7 @@ class RageWasted extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.BRISTLING_FUR.id} /> Wasted Rage{' '}
+              <SpellIcon spell={SPELLS.BRISTLING_FUR} /> Wasted Rage{' '}
             </>
           }
         >

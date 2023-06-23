@@ -73,7 +73,7 @@ class GalacticGuardian extends Analyzer {
         suggest(
           <span>
             You wasted {formatPercentage(unusedGGProcs)}% of your{' '}
-            <SpellLink id={SPELLS.GALACTIC_GUARDIAN.id} /> procs. Try to use the procs as soon as
+            <SpellLink spell={SPELLS.GALACTIC_GUARDIAN} /> procs. Try to use the procs as soon as
             you get them so they are not overwritten.
           </span>,
         )
@@ -108,7 +108,7 @@ class GalacticGuardian extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.GALACTIC_GUARDIAN.id} /> Galactic Guardian Proc's{' '}
+              <SpellIcon spell={SPELLS.GALACTIC_GUARDIAN} /> Galactic Guardian Proc's{' '}
             </>
           }
         >

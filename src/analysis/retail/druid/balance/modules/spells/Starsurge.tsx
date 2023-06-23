@@ -77,8 +77,8 @@ class Starsurge extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.STARSURGE_MOONKIN.id} /> not during an{' '}
-          <SpellLink id={SPELLS.ECLIPSE.id} /> {this.badStarsurgeCasts} times -{' '}
+          You cast <SpellLink spell={SPELLS.STARSURGE_MOONKIN} /> not during an{' '}
+          <SpellLink spell={SPELLS.ECLIPSE} /> {this.badStarsurgeCasts} times -{' '}
           {formatPercentage(actual, 1)}% of total Starsurge casts. You should only cast Starsurge
           during an Eclipse.
         </>,

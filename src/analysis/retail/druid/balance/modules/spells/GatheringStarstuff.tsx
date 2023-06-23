@@ -205,7 +205,7 @@ class GatheringStarstuff extends Analyzer {
                 {Object.keys(this.castBuffedAbilities).map((e) => (
                   <tr key={e}>
                     <th>
-                      <SpellLink id={Number(e)} />
+                      <SpellLink spell={Number(e)} />
                     </th>
                     <td>{this.castBuffedAbilities[Number(e)]}</td>
                   </tr>
@@ -215,7 +215,7 @@ class GatheringStarstuff extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.GATHERING_STARSTUFF.id}>
+        <BoringSpellValueText spell={SPELLS.GATHERING_STARSTUFF}>
           <>
             {this.alreadyMaxStacksWhenCast} <small>charges overcapped ({wastePercentage}%)</small>
             <br />

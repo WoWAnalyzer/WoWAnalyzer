@@ -55,7 +55,7 @@ class HarmoniusBlooming extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.HARMONIOUS_BLOOMING_TALENT}>
           <ItemPercentHealingDone amount={this.extraStacksHealing} />
           <br />
         </BoringSpellValueText>

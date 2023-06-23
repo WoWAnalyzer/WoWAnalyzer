@@ -60,7 +60,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <Requirement
         name={
           <>
-            <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> uptime
+            <SpellLink spell={SPELLS.MOONFIRE_DEBUFF} /> uptime
           </>
         }
         thresholds={thresholds.moonfireUptime}
@@ -68,7 +68,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <Requirement
         name={
           <>
-            <SpellLink id={SPELLS.MOONFIRE_DEBUFF.id} /> good refreshes
+            <SpellLink spell={SPELLS.MOONFIRE_DEBUFF} /> good refreshes
           </>
         }
         thresholds={thresholds.moonfireRefresh}
@@ -76,7 +76,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <Requirement
         name={
           <>
-            <SpellLink id={SPELLS.SUNFIRE.id} /> uptime
+            <SpellLink spell={SPELLS.SUNFIRE} /> uptime
           </>
         }
         thresholds={thresholds.sunfireUptime}
@@ -84,7 +84,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       <Requirement
         name={
           <>
-            <SpellLink id={SPELLS.SUNFIRE.id} /> good refreshes
+            <SpellLink spell={SPELLS.SUNFIRE} /> good refreshes
           </>
         }
         thresholds={thresholds.sunfireRefresh}
@@ -93,7 +93,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_TALENT.id} /> uptime
+              <SpellLink spell={TALENTS_DRUID.STELLAR_FLARE_TALENT} /> uptime
             </>
           }
           thresholds={thresholds.stellarFlareUptime}
@@ -103,7 +103,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_DRUID.STELLAR_FLARE_TALENT.id} /> good refreshes
+              <SpellLink spell={TALENTS_DRUID.STELLAR_FLARE_TALENT} /> good refreshes
             </>
           }
           thresholds={thresholds.stellarFlareRefresh}
@@ -117,14 +117,14 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
       name="Use Eclipse"
       description={
         <>
-          Getting into <SpellLink id={SPELLS.ECLIPSE.id} /> quickly is a major contributor to your
+          Getting into <SpellLink spell={SPELLS.ECLIPSE} /> quickly is a major contributor to your
           damage. It procs various buff such
-          <SpellLink id={SPELLS.BALANCE_OF_ALL_THINGS_LUNAR.id} /> and{' '}
-          <SpellLink id={TALENTS_DRUID.SOLSTICE_TALENT.id} />. On single target you should always
-          enter <SpellLink id={SPELLS.ECLIPSE_SOLAR.id} /> and cast{' '}
-          <SpellLink id={SPELLS.WRATH.id} />. On 3+ targets you should enter{' '}
-          <SpellLink id={SPELLS.ECLIPSE_LUNAR.id} /> and cast
-          <SpellLink id={SPELLS.STARFIRE.id} />.
+          <SpellLink spell={SPELLS.BALANCE_OF_ALL_THINGS_LUNAR} /> and{' '}
+          <SpellLink spell={TALENTS_DRUID.SOLSTICE_TALENT} />. On single target you should always
+          enter <SpellLink spell={SPELLS.ECLIPSE_SOLAR} /> and cast{' '}
+          <SpellLink spell={SPELLS.WRATH} />. On 3+ targets you should enter{' '}
+          <SpellLink spell={SPELLS.ECLIPSE_LUNAR} /> and cast
+          <SpellLink spell={SPELLS.STARFIRE} />.
         </>
       }
     >

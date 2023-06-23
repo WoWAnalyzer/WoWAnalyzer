@@ -97,7 +97,7 @@ class NaturesVigil extends Analyzer {
                 const itemDps = itemPercent * totalDps;
                 return (
                   <li key={item.id}>
-                    <SpellLink id={item.id} /> - {formatNumber(itemDps)} DPS (
+                    <SpellLink spell={item.id} /> - {formatNumber(itemDps)} DPS (
                     {formatPercentage(itemPercent, 1)}%)
                   </li>
                 );
@@ -128,7 +128,7 @@ class NaturesVigil extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.NATURES_VIGIL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.NATURES_VIGIL_TALENT}>
           <ItemDamageDone amount={this.totalDamage} />
           <br />
         </BoringSpellValueText>

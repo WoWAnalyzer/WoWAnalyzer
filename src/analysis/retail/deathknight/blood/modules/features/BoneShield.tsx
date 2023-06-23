@@ -45,7 +45,7 @@ class BoneShield extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.boneShield.suggestion.suggestion">
-          Your <SpellLink id={SPELLS.BONE_SHIELD.id} /> uptime can be improved. Try to keep it up at
+          Your <SpellLink spell={SPELLS.BONE_SHIELD} /> uptime can be improved. Try to keep it up at
           all times.
         </Trans>,
       )
@@ -100,7 +100,7 @@ class BoneShield extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.BONE_SHIELD.id}>
+        <BoringSpellValueText spell={SPELLS.BONE_SHIELD}>
           <Trans id="deathknight.blood.boneShield.statistic">
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </Trans>
