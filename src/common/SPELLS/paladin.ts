@@ -294,6 +294,16 @@ const spells = spellIndexableList({
     name: 'Blessing of Spring',
     icon: 'ability_ardenweald_paladin_spring',
   },
+  EMPYREAN_LEGACY_BUFF: {
+    id: 387178,
+    name: 'Empyrean Legacy',
+    icon: 'item_holyspark',
+  },
+  EMPYREAN_LEGACY_DEBUFF: {
+    id: 387441,
+    name: 'Empyrean Legacy',
+    icon: 'spell_holy_dizzy',
+  },
 
   // Retribution Paladin:
   BLADE_OF_JUSTICE: {

@@ -5,6 +5,7 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 6, 23), <>Possible Empyrean Legacy Buffs and Buffs actually consumed.</>, Abelito75),
   change(date(2023, 6, 23), <>Holy Prism Average Targets Hit.</>, Abelito75),
   change(date(2023, 6, 22), <>Updated Abilities.jpg.</>, Abelito75),
   change(date(2023, 6, 19), <>Imbued Infusions.png enabled.</>, Abelito75),
