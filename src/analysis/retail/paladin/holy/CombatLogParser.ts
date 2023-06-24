@@ -49,6 +49,8 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
 import HolyPrism from './modules/talents/HolyPrism';
+import ELConsumedBuffs from './modules/talents/EmpyreanLegacy/ConsumedBuffs';
+import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -106,6 +108,8 @@ class CombatLogParser extends CoreCombatLogParser {
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
     holyPrism: HolyPrism,
+    elConsumedBuffs: ELConsumedBuffs,
+    elPossibleBuffs: ELPossibleBuffs,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

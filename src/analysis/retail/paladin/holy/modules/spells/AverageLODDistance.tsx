@@ -59,6 +59,7 @@ class FillerFlashOfLight extends Analyzer {
         tooltip={
           <>This is the average distance between you and the person healed with Light of Dawn.</>
         }
+        size="flexible"
       >
         <BoringValueText
           label={
