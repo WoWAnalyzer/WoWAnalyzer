@@ -109,6 +109,11 @@ const spells = spellIndexableList({
     name: 'Sizzling Seafood Medley',
     icon: 'inv_misc_food_draenor_sturgeonstew',
   },
+  THOUSANDBONE_TONGUESLICER: {
+    id: 382156,
+    name: 'Thousandbone Tongueslicer',
+    icon: 'inv_misc_food_154_fish_77',
+  },
   //endregion
 
   //region Great Feasts
