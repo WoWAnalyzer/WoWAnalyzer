@@ -18,12 +18,14 @@ import {
   Pilsung,
   HerzBlutRaffy,
   Abelito75,
-  Jundarer
+  Jundarer,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
+// prettier-ignore
 export default [
+  change(date(2023, 6, 25), 'Added many Aberrus DoTs to the ignore list for tank hit tracking', emallson),
   change(date(2023, 6, 22), 'Added Thousandbone Tongueslicer to list of high tier foods.', Sref),
   change(date(2023, 6, 22), 'Remove ESLint disable from probability module.', ToppleTheNun),
   change(date(2023, 6, 19), <>Implement <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> stat tracking</>, Jundarer),
