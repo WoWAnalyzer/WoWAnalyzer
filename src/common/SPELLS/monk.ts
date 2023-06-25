@@ -630,6 +630,11 @@ const spells = spellIndexableList({
     name: 'Chi Surge',
     icon: 'ability_monk_chiexplosion',
   },
+  CHARRED_PASSIONS_BUFF: {
+    id: 386963,
+    name: 'Charred Passions',
+    icon: 'ability_monk_mightyoxkick',
+  },
   // Tier 29 2-set bonus
   BREWMASTERS_RHYTHM_BUFF: {
     id: 394797,

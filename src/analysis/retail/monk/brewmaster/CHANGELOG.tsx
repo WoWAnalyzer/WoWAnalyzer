@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 6, 25), <>Fixed <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> buff checking in rotational tools.</>, emallson),
   change(date(2023, 6, 3), <>Fixed <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> cast efficiency when using <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />.</>, emallson),
   change(date(2023, 6, 3), <>Added basic <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> section.</>, emallson),
   change(date(2023, 6, 3), <>Update rotation for patch 10.1.</>, emallson),
