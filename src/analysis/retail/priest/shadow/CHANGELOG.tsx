@@ -5,6 +5,7 @@ import { DoxAshe, Havoc } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 6, 22), <>Track <SpellLink id={SPELLS.VOIDFORM}/> duration extension</>,DoxAshe),
   change(date(2023, 6, 7), <>Fix <SpellLink id={SPELLS.VOID_BOLT}/> cooldown tracking</>,DoxAshe),
   change(date(2023, 5, 29), <>Added <SpellLink id={TALENTS.MANIPULATION_TALENT}/> cooldown reduction</>,DoxAshe),
   change(date(2023, 5, 24), <>Added <SpellLink id={TALENTS.INSIDIOUS_IRE_TALENT}/> efficiency and damage</>,Havoc),
