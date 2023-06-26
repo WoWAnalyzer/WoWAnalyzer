@@ -2213,3 +2213,8 @@ export const Seriousnes: Contributor = {
     },
   ],
 };
+
+export const CodersKitchen: Contributor = {
+  nickname: 'coders-kitchen',
+  github: 'coders-kitchen',
+};
