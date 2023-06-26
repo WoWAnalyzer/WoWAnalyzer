@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -18,7 +18,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
             message:
               'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
@@ -35,7 +35,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
             message:
               'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
@@ -55,7 +55,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.bloodBoil',
             message: 'Should be casting it so you have at least one recharging.',
           }),
@@ -83,7 +83,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.dancingRuneWeapon',
             message: 'Should be used as an opener and used on CD for the dps boost.',
           }),
@@ -101,7 +101,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.blooddrinker',
             message: `Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.`,
           }),
@@ -174,7 +174,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
             message:
               'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
@@ -284,7 +284,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
             message:
               'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
@@ -302,7 +302,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
             message:
               'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake or to take the edge of big attacks.',
@@ -320,7 +320,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: t({
+          extraSuggestion: defineMessage({
             id: 'deathknight.blood.abilities.extraSuggestion.bloodTap',
             message: 'Use to generate extra runes at opportune times.',
           }),
