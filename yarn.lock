@@ -6651,8 +6651,9 @@ eslint-plugin-testing-library@^5.0.1:
   dependencies:
     "@typescript-eslint/utils" "^5.10.2"
 
-"eslint-plugin-wowanalyzer@file:./packages/eslint-plugin-wowanalyzer":
+"eslint-plugin-wowanalyzer@link:./packages/eslint-plugin-wowanalyzer":
   version "0.0.0"
+  uid ""
 
 eslint-plugin-you-dont-need-lodash-underscore@^6.10.0:
   version "6.12.0"
