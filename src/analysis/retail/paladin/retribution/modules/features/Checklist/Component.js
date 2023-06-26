@@ -46,7 +46,9 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.CRUSADER_STRIKE.id} />
+        {!combatant.hasTalent(TALENTS_PALADIN.CRUSADING_STRIKES_TALENT) && (
+          <AbilityRequirement spell={SPELLS.CRUSADER_STRIKE.id} />
+        )}
         <AbilityRequirement spell={SPELLS.JUDGMENT_CAST.id} />
         <AbilityRequirement spell={SPELLS.BLADE_OF_JUSTICE.id} />
         {!combatant.hasTalent(TALENTS_PALADIN.CONSECRATED_BLADE_TALENT) && (

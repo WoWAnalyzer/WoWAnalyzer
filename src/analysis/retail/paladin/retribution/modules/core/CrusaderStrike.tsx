@@ -1,12 +1,16 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent, CastEvent } from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/paladin';
 
 class CrusaderStrike extends Analyzer {
   wasteHP = false;
 
   constructor(options: Options) {
     super(options);
+
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.CONSECRATED_BLADE_TALENT);
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.CRUSADER_STRIKE),
       this.onCrusaderStrikeCast,

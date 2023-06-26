@@ -58,6 +58,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: !combatant.hasTalent(TALENTS_PALADIN.CRUSADING_STRIKES_TALENT),
         castEfficiency: {
           suggestion: true,
         },
