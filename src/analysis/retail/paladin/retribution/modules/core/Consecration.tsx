@@ -4,6 +4,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import TALENTS from 'common/TALENTS/paladin';
 
 class Consecration extends Analyzer {
   static dependencies = {
@@ -16,6 +17,9 @@ class Consecration extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+
+    this.active = !this.selectedCombatant.hasTalent(TALENTS.CONSECRATED_BLADE_TALENT);
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.CONSECRATION_DAMAGE),
       this.onConsecrationDamage,

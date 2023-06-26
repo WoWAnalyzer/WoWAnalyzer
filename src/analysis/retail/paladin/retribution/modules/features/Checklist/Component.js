@@ -49,7 +49,9 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         <AbilityRequirement spell={SPELLS.CRUSADER_STRIKE.id} />
         <AbilityRequirement spell={SPELLS.JUDGMENT_CAST.id} />
         <AbilityRequirement spell={SPELLS.BLADE_OF_JUSTICE.id} />
-        <AbilityRequirement spell={SPELLS.CONSECRATION_CAST.id} />
+        {!combatant.hasTalent(TALENTS_PALADIN.CONSECRATED_BLADE_TALENT) && (
+          <AbilityRequirement spell={SPELLS.CONSECRATION_CAST.id} />
+        )}
       </Rule>
       <Rule
         name="Use your cooldowns"
