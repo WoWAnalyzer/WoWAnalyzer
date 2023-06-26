@@ -147,5 +147,6 @@
     "moduleNameMapper": {
       "^@lingui/loader!.*$": "<rootDir>/linguiMessageMock.js"
     }
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }

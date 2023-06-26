@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -59,13 +59,13 @@ class RunicPowerDetails extends Analyzer {
       )
         .icon('inv_sword_62')
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.runicPowerDetails.suggestion.actual',
             message: `${formatPercentage(actual)}% wasted`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'shared.suggestion.recommended.lessThanPercent',
             message: `<${formatPercentage(recommended)}% is recommended`,
           }),
