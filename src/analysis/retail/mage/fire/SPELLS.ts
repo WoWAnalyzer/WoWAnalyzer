@@ -48,11 +48,6 @@ const spells = spellIndexableList({
     name: 'Scorch',
     icon: 'spell_fire_soulburn',
   },
-  PYROCLASM_BUFF: {
-    id: 269651,
-    name: 'Pyroclasm',
-    icon: 'spell_shaman_lavasurge',
-  },
   FLAME_PATCH_DAMAGE: {
     id: 205472,
     name: 'Flame Patch',
