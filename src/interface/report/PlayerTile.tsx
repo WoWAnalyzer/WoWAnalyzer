@@ -15,6 +15,7 @@ import getConfig from 'parser/getConfig';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { makeThumbnailUrl } from 'interface/makeAnalyzerUrl';
+import { useLingui } from '@lingui/react';
 
 interface Props {
   player: Player;
@@ -26,6 +27,7 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
   const classic = player.combatant.expansion === CLASSIC_EXPANSION_NAME;
   const characterInfo = useWaSelector((state) => getCharacterById(state, player.guid));
   const dispatch = useWaDispatch();
+  const { i18n } = useLingui();
 
   useEffect(() => {
     const load = async () => {
@@ -106,7 +108,7 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
         <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />
         <div className="about">
           <h1
-            className={spec.className.replace(' ', '')}
+            className={i18n._(spec.className).replace(' ', '')}
             // The name can't always fit so use a tooltip. We use title instead of the tooltip library for this because we don't want it to be distracting and the tooltip library would popup when hovering just to click an item, while this has a delay.
             title={player.name}
           >

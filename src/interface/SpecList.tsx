@@ -15,26 +15,26 @@ const isAnySpecSupported = (configs: Config[]) =>
   configs.some((config) => config.patchCompatibility && config.expansion === RETAIL_EXPANSION);
 
 const retailSpecs = AVAILABLE_CONFIGS.filter((it) => it.expansion > CLASSIC_EXPANSION);
-const retailSpecsAsMap = groupByToMap(retailSpecs, (spec) => spec.spec.className);
-const retailSpecsGroupedByClass = Array.from(retailSpecsAsMap.entries());
 
 const SpecListing = () => {
   usePageView('SpecList');
 
   const { i18n } = useLingui();
-  const retailClassesOrderedBySupport = useMemo(
-    () =>
-      retailSpecsGroupedByClass.sort(([classAName, classASpecs], [classBName, classBSpecs]) => {
+  const retailClassesOrderedBySupport = useMemo(() => {
+    const retailSpecsAsMap = groupByToMap(retailSpecs, (spec) => i18n._(spec.spec.className));
+    const retailSpecsGroupedByClass = Array.from(retailSpecsAsMap.entries());
+    return retailSpecsGroupedByClass.sort(
+      ([classAName, classASpecs], [classBName, classBSpecs]) => {
         const doesAHaveSupportedSpecs = isAnySpecSupported(classASpecs);
         const doesBHaveSupportedSpecs = isAnySpecSupported(classBSpecs);
         // B - A = supported classes are first
         // A - B = supported classes are last
         const supportedOrder = Number(doesBHaveSupportedSpecs) - Number(doesAHaveSupportedSpecs);
         // Order by support then by name comparison
-        return supportedOrder || i18n._(classAName).localeCompare(i18n._(classBName));
-      }),
-    [i18n],
-  );
+        return supportedOrder || classAName.localeCompare(classBName);
+      },
+    );
+  }, [i18n]);
   const classicSpecs = useMemo(
     () =>
       AVAILABLE_CONFIGS.filter((it) => it.expansion <= CLASSIC_EXPANSION).sort(

@@ -9,6 +9,7 @@ import SpecIcon from 'interface/SpecIcon';
 import AVAILABLE_CONFIGS from 'parser';
 import { ReactNode } from 'react';
 import * as React from 'react';
+import { i18n } from '@lingui/core';
 
 type ContributorProps = {
   contributorId: string;
@@ -30,7 +31,10 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
   renderCharacter(character: Character) {
     return (
       <div key={character.name}>
-        <a href={character.link} className={this.removeWhiteSpaces(character.spec.className)}>
+        <a
+          href={character.link}
+          className={this.removeWhiteSpaces(i18n._(character.spec.className))}
+        >
           <SpecIcon spec={character.spec} /> {character.name}
         </a>
       </div>
@@ -141,7 +145,7 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
         </div>
         <div className="col-md-9">
           {maintainedSpecs.map((spec) => (
-            <div key={spec.id} className={this.removeWhiteSpaces(spec.className)}>
+            <div key={spec.id} className={this.removeWhiteSpaces(i18n._(spec.className))}>
               <SpecIcon spec={spec} /> {spec.specName} {spec.className}
             </div>
           ))}

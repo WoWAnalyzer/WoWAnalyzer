@@ -24,6 +24,7 @@ import {
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
 
 import './ReportRaidBuffList.scss';
+import { useLingui } from '@lingui/react';
 
 // eslint-disable-next-line
 const RETAIL_RAID_BUFFS = new Map<Spell | Talent, Array<Class | object>>([
@@ -132,6 +133,7 @@ interface Props {
 }
 
 const ReportRaidBuffList = ({ report, combatants }: Props) => {
+  const { i18n } = useLingui();
   const isRetail = isRetailExpansion(wclGameVersionToExpansion(report.gameVersion));
   const getCompositionBreakdown = (combatants: CombatantInfoEvent[]) => {
     const results = new Map<Spell | Talent, number>();
@@ -153,7 +155,9 @@ const ReportRaidBuffList = ({ report, combatants }: Props) => {
       if (!config) {
         return map;
       }
-      const className = config.spec.className as Class;
+      // TODO: This is brittle because it depends on selected language
+      // TODO: TOPPLE FIX ME
+      const className = i18n._(config.spec.className) as Class;
       const combatantTalents = combatant.talentTree.map((talent) => talent.id);
 
       AVAILABLE_RAID_BUFFS.forEach((providedBy, spell) => {
