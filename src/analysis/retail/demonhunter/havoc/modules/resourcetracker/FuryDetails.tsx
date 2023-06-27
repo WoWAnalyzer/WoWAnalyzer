@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -40,7 +40,7 @@ class FuryDetails extends Analyzer {
       suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
         .icon(furyIcon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.havoc.suggestions.fury.wasted',
             message: `${formatPercentage(actual)}% Fury wasted`,
           }),

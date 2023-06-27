@@ -8,6 +8,8 @@ import StatisticsIcon from 'interface/icons/Statistics';
 import TimelineIcon from 'interface/icons/Timeline';
 import { ComponentType, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
+import { isMessageDescriptor } from 'localization/isMessageDescriptor';
+import { i18n } from '@lingui/core';
 
 interface Props {
   makeTabUrl: (url: string) => string;
@@ -44,7 +46,7 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
       ?.sort((a, b) => (a.order || 0) - (b.order || 0))
       .map((tab) => ({
         icon: tab.icon || OtherIcon,
-        name: tab.title,
+        name: isMessageDescriptor(tab.title) ? i18n._(tab.title) : tab.title,
         url: tab.url,
       })) || []),
     {

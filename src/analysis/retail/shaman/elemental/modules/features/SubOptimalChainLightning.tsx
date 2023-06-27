@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -80,7 +80,7 @@ class SubOptimalChainLightning extends Analyzer {
       )
         .icon(TALENTS.CHAIN_LIGHTNING_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.chainLightning.efficiency',
             message: `${actual.toFixed(1)} bad Chain Lightning per minute`,
           }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
@@ -69,7 +69,7 @@ class ShieldOfVengeance extends Analyzer {
       )
         .icon(SPELLS.SHIELD_OF_VENGEANCE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.retribution.suggestions.shieldOfVengeance.absorbUsed',
             message: `${formatPercentage(actual)}% Shield of Vengeance absorb used`,
           }),

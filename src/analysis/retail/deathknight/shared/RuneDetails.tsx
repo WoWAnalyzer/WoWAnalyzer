@@ -4,6 +4,7 @@ import Analyzer, { ParseResultsTab } from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
+import { i18n } from '@lingui/core';
 
 import RuneBreakdown from './RuneBreakdown';
 import RuneTracker from './RuneTracker';
@@ -40,10 +41,12 @@ class RuneDetails extends Analyzer {
         y: {
           field: 'y',
           type: 'quantitative',
-          title: defineMessage({
-            id: 'deathknight.shared.runeDetails.numberOfRunes',
-            message: '# of Runes',
-          }),
+          title: i18n._(
+            defineMessage({
+              id: 'deathknight.shared.runeDetails.numberOfRunes',
+              message: '# of Runes',
+            }),
+          ),
           axis: {
             grid: false,
             tickMinStep: 1,

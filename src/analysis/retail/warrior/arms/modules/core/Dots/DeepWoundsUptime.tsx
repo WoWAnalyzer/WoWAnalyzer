@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
@@ -43,7 +43,7 @@ class DeepWoundsUptime extends Analyzer {
       )
         .icon(SPELLS.MASTERY_DEEP_WOUNDS.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.arms.suggestions.deepWounds.uptime',
             message: `${formatPercentage(actual)}% Deep Wounds uptime`,
           }),

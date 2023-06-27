@@ -4,7 +4,7 @@ import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -57,7 +57,7 @@ export default class FlamesOfFury extends Analyzer {
       )
         .icon(TALENTS_DEMON_HUNTER.FLAMES_OF_FURY_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.shared.suggestions.sigilOfFlame.furyWasted',
             message: `${formatPercentage(actual)}% Fury wasted`,
           }),

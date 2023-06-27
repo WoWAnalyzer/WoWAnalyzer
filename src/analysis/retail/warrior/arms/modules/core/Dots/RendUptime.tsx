@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/warrior';
 import SPELLS from 'common/SPELLS';
@@ -51,7 +51,7 @@ class RendUptime extends Analyzer {
       )
         .icon(TALENTS.REND_ARMS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.arms.suggestions.rend.uptime',
             message: `${formatPercentage(actual)}% Rend uptime`,
           }),

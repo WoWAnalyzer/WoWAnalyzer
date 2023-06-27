@@ -7,12 +7,13 @@ import EventSubscriber, { EventListener, Options as _Options } from './EventSubs
 import { Info, Metric } from './metric';
 import Module from './Module';
 import { When } from './ParseResults';
+import { MessageDescriptor } from '@lingui/core';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 export type Options = _Options;
 
 export interface ParseResultsTab {
-  title: string;
+  title: string | MessageDescriptor;
   url: string;
   render: () => React.ReactNode;
 }

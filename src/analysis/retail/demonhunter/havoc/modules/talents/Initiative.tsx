@@ -3,7 +3,7 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -49,7 +49,7 @@ export default class Initiative extends Analyzer {
       )
         .icon(TALENTS_DEMON_HUNTER.INITIATIVE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.havoc.suggestions.momentum.uptime',
             message: `${formatPercentage(actual)}% buff uptime`,
           }),

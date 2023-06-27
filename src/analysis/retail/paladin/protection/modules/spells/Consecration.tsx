@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -59,7 +59,7 @@ class Consecration extends Analyzer {
       )
         .icon(SPELLS.CONSECRATION_CAST.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.protection.suggestions.consecration.hitsMitigated',
             message: `${formatPercentage(actual)}% of hits were mitigated by Consecration`,
           }),

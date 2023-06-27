@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { SpellLink } from 'interface';
@@ -75,7 +75,7 @@ export default class VoidReaver extends HitBasedAnalyzer {
       )
         .icon(TALENTS_DEMON_HUNTER.VOID_REAVER_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.vengeance.suggestions.fieryBrand.unmitgatedHits',
             message: `${formatPercentage(actual)}% unmitigated hits`,
           }),

@@ -5,7 +5,7 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage, formatThousands } from 'common/format';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -70,7 +70,7 @@ export default class BurningHatred extends Analyzer {
       )
         .icon(DH_SPELLS.IMMOLATION_AURA.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.havoc.suggestions.immolationAura.furyWasted',
             message: `${formatPercentage(actual)}% Fury wasted`,
           }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
@@ -72,7 +72,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         )
           .icon('petbattle_health-down')
           .actual(
-            t({
+            defineMessage({
               id: 'evoker.preservation.suggestions.alwaysBeCasting.nonHealing',
               message: `${formatPercentage(actual)}% non healing time`,
             }),
@@ -89,7 +89,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         )
           .icon('spell_mage_altertime')
           .actual(
-            t({
+            defineMessage({
               id: 'evoker.preservation.suggestions.alwaysBeCasting.downtime',
               message: `${formatPercentage(actual)}% downtime`,
             }),

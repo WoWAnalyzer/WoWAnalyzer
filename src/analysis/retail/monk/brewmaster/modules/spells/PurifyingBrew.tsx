@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
@@ -140,7 +140,7 @@ class PurifyingBrew extends Analyzer {
       )
         .icon(talents.PURIFYING_BREW_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.brewmaster.suggestions.purifyingBrew.avgdelay',
             message: `${actual.toFixed(2)}s Average Delay`,
           }),

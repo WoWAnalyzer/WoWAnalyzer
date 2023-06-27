@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -187,7 +187,7 @@ class DreamFlight extends Analyzer {
       )
         .icon(TALENTS_EVOKER.DREAM_FLIGHT_TALENT.icon)
         .actual(
-          `${formatPercentage(this.percentOfGroupHit, 2)}${t({
+          `${formatPercentage(this.percentOfGroupHit, 2)}${defineMessage({
             id: 'evoker.preservation.suggestions.dreamFlight.targetsHit',
             message: `% of group hit with Dream Flight`,
           })}`,

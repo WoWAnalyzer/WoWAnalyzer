@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellIcon, SpellLink } from 'interface';
@@ -74,7 +74,7 @@ class Haunt extends Analyzer {
       )
         .icon(TALENTS.HAUNT_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.haunt.uptime',
             message: `${formatPercentage(actual)}% Haunt uptime.`,
           }),

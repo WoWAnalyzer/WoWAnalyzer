@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -154,7 +154,7 @@ class RollTheBonesEfficiency extends Analyzer {
         )
           .icon(TALENTS.ROLL_THE_BONES_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'rogue.outlaw.suggestions.rollTheBones.efficiency',
               message: `${formatPercentage(actual)}% (${suggestion.pass} out of ${
                 suggestion.total

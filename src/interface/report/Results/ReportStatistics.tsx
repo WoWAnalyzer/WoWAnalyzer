@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { StatisticSize } from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -28,27 +28,27 @@ function sizeToInt(size: StatisticSize) {
 const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
   switch (key) {
     case STATISTIC_CATEGORY.GENERAL:
-      return t({
+      return defineMessage({
         id: 'interface.report.results.statistics.statistics',
         message: `Statistics`,
       });
     case STATISTIC_CATEGORY.TALENTS:
-      return t({
+      return defineMessage({
         id: 'interface.report.results.statistics.talents',
         message: `Talents`,
       });
     case STATISTIC_CATEGORY.COVENANTS:
-      return t({
+      return defineMessage({
         id: 'interface.report.results.statistics.covenants',
         message: `Covenants`,
       });
     case STATISTIC_CATEGORY.ITEMS:
-      return t({
+      return defineMessage({
         id: 'interface.report.results.statistics.items',
         message: `Items`,
       });
     case STATISTIC_CATEGORY.THEORYCRAFT:
-      return t({
+      return defineMessage({
         id: 'interface.report.results.statistics.theorycraft',
         message: `Theorycraft`,
       });

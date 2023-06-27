@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -39,7 +39,7 @@ class MoonfireUptime extends Analyzer {
       )
         .icon(SPELLS.MOONFIRE_DEBUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'druid.balance.suggestions.moonfire.uptime',
             message: `${formatPercentage(actual)}% Moonfire uptime`,
           }),

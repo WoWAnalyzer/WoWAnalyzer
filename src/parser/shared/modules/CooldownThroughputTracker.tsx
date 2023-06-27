@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { RETAIL_EXPANSION, CLASSIC_EXPANSION } from 'game/Expansion';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -322,7 +322,7 @@ class CooldownThroughputTracker extends Analyzer {
 
   tab() {
     return {
-      title: t({
+      title: defineMessage({
         id: 'shared.cooldownThroughputTracker.tab',
         message: `Cooldowns`,
       }),

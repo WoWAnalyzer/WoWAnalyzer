@@ -1,5 +1,5 @@
 // Based on Clearcasting Implementation done by @Blazyb
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -90,7 +90,7 @@ class Gore extends Analyzer {
         )
           .icon(SPELLS.GORE_BEAR.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'druid.guardian.suggestions.gore.unused',
               message: `${formatPercentage(unusedGoreProcs)}% unused`,
             }),

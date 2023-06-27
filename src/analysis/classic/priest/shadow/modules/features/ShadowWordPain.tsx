@@ -162,7 +162,7 @@ class ShadowWordPain extends Analyzer {
       )
         .icon('spell_shadow_shadowwordpain')
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.shadowWeavingUptime',
             message: `${formatPercentage(actual)}% Shadow Word: Pain uptime at 5 stacks`,
           }),
@@ -181,7 +181,7 @@ class ShadowWordPain extends Analyzer {
       )
         .icon('spell_shadow_shadowwordpain')
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.shadowWordPainOverwrite',
             message: `${actual} Shadow Word Pain Overwrites`,
           }),

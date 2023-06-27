@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { formatPercentage } from 'common/format';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -124,7 +124,7 @@ class JadeSerpentStatue extends Analyzer {
       )
         .icon(TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.icon)
         .actual(
-          `${formatPercentage(actual)}${t({
+          `${formatPercentage(actual)}${defineMessage({
             id: 'monk.mistweaver.jadeSerpentStatue.uptime',
             message: `% uptime`,
           })}`,

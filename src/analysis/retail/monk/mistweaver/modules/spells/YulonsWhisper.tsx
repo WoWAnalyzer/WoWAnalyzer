@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -72,7 +72,7 @@ class YulonsWhisper extends Analyzer {
       )
         .icon(TALENTS_MONK.YULONS_WHISPER_TALENT.icon)
         .actual(
-          `${actual.toFixed(2) + ' '}${t({
+          `${actual.toFixed(2) + ' '}${defineMessage({
             id: 'monk.mistweaver.suggestions.yulonsWhisper.avgTargets',
             message: `average targets hit`,
           })}`,

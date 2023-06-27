@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -65,7 +65,7 @@ class EssenceFontTargetsHit extends Analyzer {
       )
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
-          `${this.avgTargetsHitPerEF.toFixed(2)}${t({
+          `${this.avgTargetsHitPerEF.toFixed(2)}${defineMessage({
             id: 'monk.mistweaver.suggestions.essenceFont.averageTargetsHit',
             message: `average targets hit per cast`,
           })}`,

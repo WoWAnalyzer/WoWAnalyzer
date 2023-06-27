@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
@@ -25,7 +25,7 @@ class CancelledCasts extends CoreCancelledCasts {
       )
         .icon('inv_misc_map_01')
         .actual(
-          t({
+          defineMessage({
             id: 'druid.balance.suggestions.castsCancelled',
             message: `${formatPercentage(actual)}% casts cancelled`,
           }),

@@ -60,6 +60,9 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
   const spec = config?.spec;
   const build = getBuild(config, player.combatant);
   const missingBuild = config?.builds && !build;
+  const specName = spec?.specName ? i18n._(spec.specName) : undefined;
+  const className = spec?.className ? i18n._(spec.className) : undefined;
+
   if (!config || missingBuild) {
     return (
       <span
@@ -114,8 +117,8 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
           >
             {player.name}
           </h1>
-          <small title={`${spec.specName} ${spec.className}`}>
-            <SpecIcon spec={spec} /> {spec.specName} {spec.className}
+          <small title={`${specName} ${className}`}>
+            <SpecIcon spec={spec} /> {specName} {className}
           </small>
           <div className="flex text-muted text-small">
             <div className="flex-main">

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -49,7 +49,7 @@ class AgonyUptime extends Analyzer {
       suggest(text)
         .icon(SPELLS.AGONY.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.agony.uptime',
             message: `${formatPercentage(actual)}% Agony uptime`,
           }),
