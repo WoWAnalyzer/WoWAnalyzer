@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -82,12 +81,7 @@ class InsidiousIre extends Analyzer {
         </span>,
       )
         .icon(TALENTS.INSIDIOUS_IRE_TALENT.icon)
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.insidiousIre.efficiency',
-            message: `${formatPercentage(actual)}% Insidious Ire efficiency`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Insidious Ire efficiency`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
     if (this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT)) {
@@ -100,12 +94,7 @@ class InsidiousIre extends Analyzer {
           </span>,
         )
           .icon(TALENTS.INSIDIOUS_IRE_TALENT.icon)
-          .actual(
-            t({
-              id: 'priest.shadow.suggestions.insidiousIre.efficiency',
-              message: `${formatPercentage(actual)}% Insidious Ire efficiency`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% Insidious Ire efficiency`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`),
       );
     }

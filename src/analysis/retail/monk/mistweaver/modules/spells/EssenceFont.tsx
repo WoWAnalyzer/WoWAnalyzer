@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -324,12 +323,7 @@ class EssenceFont extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
-        .actual(
-          `${this.numCancelled} ${t({
-            id: `monk.mistweaver.suggestions.essenceFont.cancelledCasts`,
-            message: ` cancelled casts`,
-          })}`,
-        )
+        .actual(`${this.numCancelled}  cancelled casts`)
         .recommended(`0 cancelled casts is recommended`),
     );
   }
@@ -341,7 +335,7 @@ class EssenceFont extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
-          <Trans>
+          <>
             Mastery:
             <ul>
               <li>{this.gomEFHits} additional hits</li>
@@ -352,7 +346,7 @@ class EssenceFont extends Analyzer {
               </li>
             </ul>
             {this.chijitooltip()}
-          </Trans>
+          </>
         }
       >
         <BoringValueText

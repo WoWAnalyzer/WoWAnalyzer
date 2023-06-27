@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -13,6 +12,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TIERS } from 'game/TIERS';
+import { Fragment } from 'react';
 
 const SUGGESTED_MIN_TARGETS_FOR_BONESTORM = 1.5;
 const SUGGESTED_RUNIC_POWER_SPENT = 100;
@@ -97,55 +97,37 @@ class Bonestorm extends Analyzer {
     if (this.selectedCombatant.has2PieceByTier(TIERS.T28)) {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <Trans id="deathknight.blood.bonestorm.suggestion.2p.suggestion">
+          <>
             Try to cast <SpellLink spell={TALENTS.BONESTORM_TALENT} /> only when you have 100 or
             more Runic Power. The main purpose of <SpellLink spell={TALENTS.BONESTORM_TALENT} />{' '}
             once you have 2-piece is to quickly spend Runic Power on a high Damage Per Execution
             Time (DPET) ability.
-          </Trans>,
+          </>,
         )
           .icon(TALENTS.BONESTORM_TALENT.icon)
           .actual(
-            t({
-              id: 'deathknight.blood.bonestorm.suggestion.2p.actual',
-              message: `${formatPercentage(
-                actual,
-              )}% casts spent ${SUGGESTED_RUNIC_POWER_SPENT} Runic Power`,
-            }),
+            `${formatPercentage(actual)}% casts spent ${SUGGESTED_RUNIC_POWER_SPENT} Runic Power`,
           )
-          .recommended(
-            t({
-              id: 'deathknight.blood.bonestorm.suggestion.2p.recommended',
-              message: `${formatPercentage(recommended)}% is recommended`,
-            }),
-          ),
+          .recommended(`${formatPercentage(recommended)}% is recommended`),
       );
     } else {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <Trans id="deathknight.blood.bonestorm.suggestion.suggestion">
+          <>
             Try to cast <SpellLink spell={TALENTS.BONESTORM_TALENT} /> only if you can reliable hit
             2 or more targets to maximize the damage and healing. Casting{' '}
             <SpellLink spell={TALENTS.BONESTORM_TALENT} /> with only one target in range is only a
             minor DPS gain (~10 DPS) at the cost of pooling Runic Power, use{' '}
             <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} /> instead.
-          </Trans>,
+          </>,
         )
           .icon(TALENTS.BONESTORM_TALENT.icon)
           .actual(
-            t({
-              id: 'deathknight.blood.bonestorm.suggestion.actual',
-              message: `${formatPercentage(
-                actual,
-              )}% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`,
-            }),
+            `${formatPercentage(
+              actual,
+            )}% casts hit ${SUGGESTED_MIN_TARGETS_FOR_BONESTORM} or more targets`,
           )
-          .recommended(
-            t({
-              id: 'deathknight.blood.bonestorm.suggestion.recommended',
-              message: `${formatPercentage(recommended)}% is recommended`,
-            }),
-          ),
+          .recommended(`${formatPercentage(recommended)}% is recommended`),
       );
     }
   }
@@ -158,13 +140,13 @@ class Bonestorm extends Analyzer {
       const rpCost = formatNumber(cast.cost / 10);
 
       return (
-        <Trans id="deathknight.blood.bonestorm.tooltipRow" key={index}>
+        <Fragment key={index}>
           <div>
             Cast #{index + 1} (for {rpCost} RP) hit an average of {avgHits} target
             {avgHits <= 1 ? '' : 's'} for {avgDamage} per hit. ({totalDamage} total)
             <br />
           </div>
-        </Trans>
+        </Fragment>
       );
     });
   }

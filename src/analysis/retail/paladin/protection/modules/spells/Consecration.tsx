@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -58,12 +57,7 @@ class Consecration extends Analyzer {
         'Your Consecration usage can be improved. Maintain it to reduce all incoming damage and refresh it during rotational downtime.',
       )
         .icon(SPELLS.CONSECRATION_CAST.icon)
-        .actual(
-          t({
-            id: 'paladin.protection.suggestions.consecration.hitsMitigated',
-            message: `${formatPercentage(actual)}% of hits were mitigated by Consecration`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% of hits were mitigated by Consecration`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

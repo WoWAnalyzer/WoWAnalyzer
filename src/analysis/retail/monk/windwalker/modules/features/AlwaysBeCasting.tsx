@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -30,12 +29,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         </span>,
       )
         .icon('spell_mage_altertime')
-        .actual(
-          t({
-            id: 'monk.windwalker.alwaysBeCasting.downtime',
-            message: `${formatPercentage(actual)}% downtime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% downtime`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

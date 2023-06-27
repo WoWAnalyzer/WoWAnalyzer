@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatDuration, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -43,11 +43,11 @@ class FoulBulwark extends Analyzer {
           <table className="table table-condensed">
             <thead>
               <tr>
-                <Trans id="deathknight.blood.foulBulwark.statistic.headers">
+                <>
                   <th>HP-bonus</th>
                   <th>Time (s)</th>
                   <th>Time (%)</th>
-                </Trans>
+                </>
               </tr>
             </thead>
             <tbody>
@@ -66,9 +66,9 @@ class FoulBulwark extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS.FOUL_BULWARK_TALENT}>
-          <Trans id="deathknight.blood.foulBulwark.statistic">
+          <>
             {this.averageFoulBullwark}% <small>average buff</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import DiscordBotGif from 'articles/2017-10-21-DiscordBot/discord-bot.gif';
 import ChangelogPanel from 'interface/ChangelogPanel';
 import DiscordButton from 'interface/DiscordButton';
@@ -17,14 +17,14 @@ const AboutPage = () => {
     <>
       <DocumentTitle title="About WoWAnalyzer" />
 
-      <Panel title={<Trans id="interface.aboutPage.title">About WoWAnalyzer</Trans>}>
+      <Panel title={<>About WoWAnalyzer</>}>
         <img
           src={MasteryRadiusImage}
           alt="Mastery radius"
           className="pull-right"
           style={{ margin: 15 }}
         />
-        <Trans id="interface.aboutPage.about">
+        <>
           WoWAnalyzer is a tool to help you analyze and improve your World of Warcraft raiding
           performance through various relevant metrics and gameplay suggestions.
           <br />
@@ -49,10 +49,10 @@ const AboutPage = () => {
           raid night to continuously improve your performance and become a better player. Whether
           you're a new player learning a spec for the first time or an experienced player looking
           for information to help you min-max, WoWAnalyzer is a great tool to have in your arsenal!
-        </Trans>
+        </>
         <br />
         <br />
-        <Trans id="interface.aboutPage.howToUse">
+        <>
           Wondering how to use WoWAnalyzer? See the{' '}
           <a href="https://www.wowhead.com/how-to-use-wowanalyzer">
             <img src="/img/wowhead-tiny.png" style={{ height: '1em' }} alt="Wowhead" /> Wowhead
@@ -60,7 +60,7 @@ const AboutPage = () => {
           </a>
           . If you want to see an example report, click on your spec in the{' '}
           <Link to="/specs">Specializations</Link> list.
-        </Trans>
+        </>
         <br />
         <br />
         <DiscordButton /> <GithubButton /> <PatreonButton />
@@ -78,7 +78,7 @@ const AboutPage = () => {
                 className="flex-main"
                 style={{ fontSize: 24, padding: '5px 15px', lineHeight: 1.4 }}
               >
-                <Trans id="interface.aboutPage.introducingWOWABot">
+                <>
                   Introducing the <b>WoWAnalyzer</b>{' '}
                   <img
                     src={DiscordLogo}
@@ -86,15 +86,15 @@ const AboutPage = () => {
                     style={{ height: '2em', marginTop: 3 }}
                   />{' '}
                   bot
-                </Trans>
+                </>
               </div>
             </div>
             <div className="text-center">
               <div style={{ fontSize: 16, margin: '10px 25px 20px 25px' }}>
-                <Trans id="interface.aboutPage.introducingWOWABotDetails">
+                <>
                   Get users to analyze themselves without lifting a finger (even if they don't read
                   the pins).
-                </Trans>
+                </>
                 <br />
               </div>
               <div style={{ marginBottom: 7 }}>
@@ -103,12 +103,12 @@ const AboutPage = () => {
                   style={{ borderRadius: 0 }}
                   href="https://discordapp.com/oauth2/authorize?&client_id=368144406181838861&scope=bot&permissions=3072"
                 >
-                  <Trans id="interface.aboutPage.addBot">Add to Discord</Trans>
+                  <>Add to Discord</>
                 </a>
               </div>
 
               <a href="https://github.com/WoWAnalyzer/DiscordBot#wowanalyzer-discord-bot-">
-                <Trans id="interface.aboutPage.moreInfo">More info</Trans>
+                <>More info</>
               </a>
             </div>
           </div>

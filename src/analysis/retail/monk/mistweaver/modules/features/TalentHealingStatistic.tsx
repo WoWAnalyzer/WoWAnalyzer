@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
@@ -116,9 +116,9 @@ class TalentHealingStatistic extends Analyzer {
   statistic() {
     return (
       <StatisticsListBox
-        title={<Trans id="monk.mistweaver.talentBox.title">Talent Summary</Trans>}
+        title={<>Talent Summary</>}
         tooltip={
-          <Trans id="monk.mistweaver.talentBox.tooltip">
+          <>
             The purpose of this is to show the overall HPS impact of each talent. So not only what
             the talent itself did, but also feeding and synergy or interactions with other spells or
             talents. The percentage shown is what you'd lose without the talent, ignoring what you'd
@@ -128,7 +128,7 @@ class TalentHealingStatistic extends Analyzer {
             Note: Due to the synergies that exist between certain talents there is some overlap in
             the HPS contribution shown. Detailed breakdowns of each talent's impact can be found in
             the Talents Section.
-          </Trans>
+          </>
         }
         position={STATISTIC_ORDER.CORE(9)}
         category={STATISTIC_CATEGORY.GENERAL}

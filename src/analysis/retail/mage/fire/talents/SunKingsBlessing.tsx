@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import {
   MS_BUFFER_100,
   MS_BUFFER_250,
@@ -180,9 +180,9 @@ class SunKingsBlessing extends Analyzer {
       )
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.sunKingsBlessing.combustionDuringCombustion">
+          <>
             {formatNumber(actual)} bad uses
-          </Trans>,
+          </>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
@@ -199,9 +199,9 @@ class SunKingsBlessing extends Analyzer {
       )
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.sunKingsBlessing.expiredProcs">
+          <>
             {formatPercentage(actual)}% expired procs
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );

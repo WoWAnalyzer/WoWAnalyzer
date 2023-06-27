@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellIcon, SpellLink } from 'interface';
@@ -45,12 +44,7 @@ class RollTheBonesBuffs extends Analyzer {
         </>,
       )
         .icon(TALENTS.ROLL_THE_BONES_TALENT.icon)
-        .actual(
-          t({
-            id: 'rogue.outlaw.suggestions.rollTheBones.uptime',
-            message: `${formatPercentage(actual)}% Roll the Bones uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Roll the Bones uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

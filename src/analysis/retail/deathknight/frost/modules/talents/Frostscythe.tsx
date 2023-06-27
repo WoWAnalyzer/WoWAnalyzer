@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -86,12 +85,7 @@ class Frostscythe extends Analyzer {
         </>,
       )
         .icon(talents.FROSTSCYTHE_TALENT.icon)
-        .actual(
-          t({
-            id: 'deathknight.frost.frostScythe.efficiency',
-            message: `${formatPercentage(actual)}% Frostscythe efficiency`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Frostscythe efficiency`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

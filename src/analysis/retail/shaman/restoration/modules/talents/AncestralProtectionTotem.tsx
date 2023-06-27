@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -70,11 +70,11 @@ class AncestralProtectionTotem extends Analyzer {
   spellToText(ability: number) {
     switch (ability) {
       case TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id:
-        return <Trans id="shaman.restoration.apt.status.totemPlaced">Totem placed</Trans>;
+        return <>Totem placed</>;
       case SPELLS.TOTEMIC_REVIVAL_DEBUFF.id:
-        return <Trans id="shaman.restoration.apt.status.revivable">Able to revive</Trans>;
+        return <>Able to revive</>;
       case SPELLS.TOTEMIC_REVIVAL_CAST.id:
-        return <Trans id="shaman.restoration.apt.status.res">Resurrected</Trans>;
+        return <>Resurrected</>;
       default:
         return '';
     }
@@ -82,21 +82,21 @@ class AncestralProtectionTotem extends Analyzer {
 
   statistic() {
     const tooltip = this.loaded ? (
-      <Trans id="shaman.restoration.apt.statistic.tooltip.active">
+      <>
         This includes the APT casts of all Restoration Shamans in the fight.
-      </Trans>
+      </>
     ) : (
-      <Trans id="shaman.restoration.apt.statistic.tooltip.inactive">
+      <>
         Click to analyze APT usage on this fight.
-      </Trans>
+      </>
     );
     const value =
       this.aptEvents.length > 0 ? (
-        <Trans id="shaman.restoration.apt.statistic.label.success">
+        <>
           {this.aptEvents.length} events found
-        </Trans>
+        </>
       ) : (
-        <Trans id="shaman.restoration.apt.statistic.label.failure">No Results</Trans>
+        <>No Results</>
       );
 
     return (
@@ -104,7 +104,7 @@ class AncestralProtectionTotem extends Analyzer {
         loader={this.load.bind(this)}
         icon={<SpellIcon id={TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />}
         label={
-          <Trans id="shaman.restoration.apt.statistic.label">Ancestral Protection Totem</Trans>
+          <>Ancestral Protection Totem</>
         }
         value={value}
         tooltip={tooltip}
@@ -116,13 +116,13 @@ class AncestralProtectionTotem extends Analyzer {
             <thead>
               <tr>
                 <th>
-                  <Trans id="common.time">Time</Trans>
+                  <>Time</>
                 </th>
                 <th>
-                  <Trans id="common.player">Player</Trans>
+                  <>Player</>
                 </th>
                 <th style={{ textAlign: 'center' }}>
-                  <Trans id="common.ability">Ability</Trans>
+                  <>Ability</>
                 </th>
               </tr>
             </thead>

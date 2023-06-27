@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -129,12 +128,7 @@ class SpiritOfTheCrane extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.icon)
-        .actual(
-          `${formatNumber(this.manaReturn)}${t({
-            id: 'monk.mistweaver.suggestions.spiritOfTheCrane.manaReturned',
-            message: ` mana returned through Spirit of the Crane`,
-          })}`,
-        )
+        .actual(`${formatNumber(this.manaReturn)} mana returned through Spirit of the Crane`)
         .recommended(`${formatNumber(recommended)} is the recommended mana return`),
     );
   }

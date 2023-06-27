@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'parser/ui/Panel';
 
@@ -15,7 +15,7 @@ class HealingEfficiencyDetails extends Analyzer {
   statistic() {
     return (
       <Panel
-        title={<Trans id="shared.healingEfficiency.title">Mana Efficiency</Trans>}
+        title={<>Mana Efficiency</>}
         position={120}
       >
         <HealingEfficiencyBreakdown tracker={this.healingEfficiencyTracker} />

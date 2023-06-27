@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { isCurrentExpansion } from 'game/Expansion';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
@@ -42,23 +42,23 @@ const SpecListItem = ({
           {spec.specName} {spec.className}
         </h4>
         {!patchCompatibility ? (
-          <Trans id="interface.specListItem.notSupported">Not currently supported</Trans>
+          <>Not currently supported</>
         ) : !isPartial ? (
-          <Trans id="interface.specListItem.patchCompatability">
+          <>
             Accurate for patch {patchCompatibility}
-          </Trans>
+          </>
         ) : (
-          <Trans id="interface.specListItem.partialPatchCompatability">
+          <>
             Partial support for patch {patchCompatibility}
-          </Trans>
+          </>
         )}
         <br />
         {contributors.length !== 0 ? (
-          <Trans id="interface.specListItem.maintainer">Maintained by: {maintainers}</Trans>
+          <>Maintained by: {maintainers}</>
         ) : (
           <small>
             <em>
-              <Trans id="interface.specListItem.unmaintained">CURRENTLY UNMAINTAINED</Trans>
+              <>CURRENTLY UNMAINTAINED</>
             </em>
           </small>
         )}

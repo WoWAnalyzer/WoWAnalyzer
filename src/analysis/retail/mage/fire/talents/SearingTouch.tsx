@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -135,9 +135,9 @@ class SearingTouch extends Analyzer {
       )
         .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.searingTouch.executeCasts">
+          <>
             {formatPercentage(this.executeUtil)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
@@ -153,9 +153,9 @@ class SearingTouch extends Analyzer {
       )
         .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.searingTouch.nonExecuteScorchCasts">
+          <>
             {formatPercentage(this.nonExecuteUtil)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );

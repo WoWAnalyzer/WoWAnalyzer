@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
@@ -47,11 +47,11 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT),
           extraSuggestion: (
-            <Trans id="paladin.holy.modules.abilities.crusadersMightTalent">
+            <>
               When you are using <SpellLink spell={TALENTS.CRUSADERS_MIGHT_TALENT} /> it is
               important to use <SpellLink spell={SPELLS.CRUSADER_STRIKE} /> often enough to benefit
               from the talent. Use a different talent if you are unable to.
-            </Trans>
+            </>
           ),
           recommendedEfficiency: 0.35,
         },
@@ -70,12 +70,12 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: combatant.hasTalent(TALENTS.JUDGMENT_OF_LIGHT_TALENT),
           extraSuggestion: (
-            <Trans id="paladin.holy.modules.abilities.judgmentOfLightTalent">
+            <>
               You should cast it whenever <SpellLink spell={TALENTS.JUDGMENT_OF_LIGHT_TALENT} /> has
               dropped, which is usually on cooldown without delay. Alternatively you can ignore the
               debuff and just cast it whenever Judgment is available; there's nothing wrong with
               ignoring unimportant things to focus on important things.
-            </Trans>
+            </>
           ),
           recommendedEfficiency: 0.2,
         },
@@ -300,9 +300,9 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           extraSuggestion: (
-            <Trans id="paladin.holy.modules.abilities.castHolyShockRegularly">
+            <>
               Casting Holy Shock regularly is very important for performing well.
-            </Trans>
+            </>
           ),
           recommendedEfficiency: 0.8,
         },

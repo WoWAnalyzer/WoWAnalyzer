@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -75,12 +74,9 @@ class Felstorm extends Analyzer {
       )
         .icon(SPELLS.FELSTORM_BUFF.icon)
         .actual(
-          t({
-            id: 'warlock.demonology.suggestions.felstorm.casts',
-            message: `${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(
-              actual,
-            )} %) Felstorm casts.`,
-          }),
+          `${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(
+            actual,
+          )} %) Felstorm casts.`,
         )
         .recommended(`> ${formatPercentage(recommended)} % is recommended`),
     );

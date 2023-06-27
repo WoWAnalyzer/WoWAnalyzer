@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
@@ -67,10 +66,10 @@ class CrusadersMight extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = (
-        <Trans id="paladin.holy.modules.talents.crusadersMight.inefficientCast">
+        <>
           Holy Shock was off cooldown when you cast Crusader Strike. You should cast Holy Shock
           before Crusader Strike for maximum healing or damage.
-        </Trans>
+        </>
       );
     }
   }
@@ -91,7 +90,7 @@ class CrusadersMight extends Analyzer {
     when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
+          <>
             You cast <SpellLink id={SPELLS.CRUSADER_STRIKE} /> {this.wastedHolyShockReductionCount}{' '}
             times when
             <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
@@ -106,32 +105,21 @@ class CrusadersMight extends Analyzer {
             >
               build.
             </a>
-          </Trans>
+          </>
         </>,
       )
         .icon(TALENTS.HOLY_SHOCK_TALENT.icon)
         .actual(
-          t({
-            id: 'paladin.holy.modules.talents.crusadersMight.actual',
-
-            message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
-              Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
-            } missed.`,
-          }),
+          `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
+            Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
+          } missed.`,
         )
-        .recommended(
-          t({
-            id: 'paladin.holy.modules.talents.crusadersMight.recommended',
-            message: `Casting Holy Shock on cooldown is recommended.`,
-          }),
-        ),
+        .recommended(`Casting Holy Shock on cooldown is recommended.`),
     );
   }
 
   statistic() {
-    const formatSeconds = (seconds: string) => (
-      <Trans id="paladin.holy.modules.talents.crusadersMight.formatSeconds">{seconds}s</Trans>
-    );
+    const formatSeconds = (seconds: string) => <>{seconds}s</>;
 
     return (
       <StatisticBox
@@ -149,12 +137,10 @@ class CrusadersMight extends Analyzer {
             />{' '}
           </>
         }
-        label={
-          <Trans id="paladin.holy.modules.talents.crusadersMight.cdr">Cooldown reduction</Trans>
-        }
+        label={<>Cooldown reduction</>}
         tooltip={
           <>
-            <Trans id="paladin.holy.modules.talents.crusadersMight.tooltip">
+            <>
               You cast Crusader Strike <b>{this.wastedHolyShockReductionCount}</b> time
               {this.wastedHolyShockReductionCount === 1 ? '' : 's'} when Holy Shock was off
               cooldown.
@@ -164,7 +150,7 @@ class CrusadersMight extends Analyzer {
               <br />
               preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy
               Shock cast{this.holyShocksCastsLost === 1 ? '' : 's'}.<br />
-            </Trans>
+            </>
           </>
         }
       />

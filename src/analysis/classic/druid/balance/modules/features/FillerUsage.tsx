@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellLink } from 'interface';
@@ -90,12 +89,7 @@ class FillerUsage extends Analyzer {
         </>,
       )
         .icon(SPELLS.ECLIPSE_LUNAR.icon)
-        .actual(
-          t({
-            id: 'druid.balance.suggestions.filler.efficiency',
-            message: `${formatPercentage(actual, 1)}% wrong filler spell casts`,
-          }),
-        )
+        .actual(`${formatPercentage(actual, 1)}% wrong filler spell casts`)
         .recommended(`none are recommended`),
     );
   }

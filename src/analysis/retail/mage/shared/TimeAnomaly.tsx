@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -75,9 +75,9 @@ class TimeAnomaly extends Analyzer {
       )
         .icon(TALENTS.TIME_ANOMALY_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.timeAnomaly.utilization">
+          <>
             {formatPercentage(this.manaUtilization)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

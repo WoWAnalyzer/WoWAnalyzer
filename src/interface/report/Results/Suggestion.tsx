@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Icon from 'interface/Icon';
 import UpArrow from 'interface/icons/UpArrow';
 import SpellIcon from 'interface/SpellIcon';
@@ -10,17 +10,17 @@ function getIssueImportance(importance: ISSUE_IMPORTANCE) {
   switch (importance) {
     case ISSUE_IMPORTANCE.MAJOR:
       return (
-        <Trans id="interface.report.results.overview.suggestions.major">
+        <>
           Major <UpArrow />
-        </Trans>
+        </>
       );
     case ISSUE_IMPORTANCE.REGULAR:
-      return <Trans id="interface.report.results.overview.suggestions.average">Average</Trans>;
+      return <>Average</>;
     case ISSUE_IMPORTANCE.MINOR:
       return (
-        <Trans id="interface.report.results.overview.suggestions.minor">
+        <>
           Minor <UpArrow style={{ transform: 'rotate(180deg) translateZ(0)' }} />
-        </Trans>
+        </>
       );
     default:
       return '';

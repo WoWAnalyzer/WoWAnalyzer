@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Requirement, {
   RequirementThresholds,
 } from 'parser/shared/modules/features/Checklist/Requirement';
@@ -17,17 +17,17 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
       <>
         <Requirement
           name={
-            <Trans id="shared.modules.features.checklist.combatPotionsUsed">
+            <>
               Combat potions used
-            </Trans>
+            </>
           }
           thresholds={thresholds.potionsUsed}
         />
         <Requirement
           name={
-            <Trans id="shared.modules.features.checklist.highQualityCombatPotionsUsed">
+            <>
               High quality combat potions used
-            </Trans>
+            </>
           }
           thresholds={thresholds.bestPotionUsed}
         />
@@ -40,14 +40,14 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
     return (
       <>
         <Requirement
-          name={<Trans id="shared.modules.features.checklist.enchanted">All items enchanted</Trans>}
+          name={<>All items enchanted</>}
           thresholds={thresholds.itemsEnchanted}
         />
         <Requirement
           name={
-            <Trans id="shared.modules.features.checklist.enchantedHigh">
+            <>
               Using high quality enchants
-            </Trans>
+            </>
           }
           thresholds={thresholds.itemsBestEnchanted}
         />
@@ -61,17 +61,17 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
       <>
         <Requirement
           name={
-            <Trans id="shared.modules.features.checklist.allWeaponsEnhanced">
+            <>
               All weapons enhanced (oils/stones)
-            </Trans>
+            </>
           }
           thresholds={thresholds.weaponsEnhanced}
         />
         <Requirement
           name={
-            <Trans id="shared.modules.features.checklist.highQualityWeaponEnhancements">
+            <>
               Using high quality weapon enhancements
-            </Trans>
+            </>
           }
           thresholds={thresholds.bestWeaponEnhancements}
         />
@@ -84,12 +84,12 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
       <>
         <Requirement
           name={
-            <Trans id="shared.modules.features.checklist.flaskHigh">High quality flask used</Trans>
+            <>High quality flask used</>
           }
           thresholds={thresholds.higherFlaskPresent}
         />
         <Requirement
-          name={<Trans id="shared.modules.features.checklist.flask">Flask used</Trans>}
+          name={<>Flask used</>}
           thresholds={thresholds.flaskPresent}
         />
       </>
@@ -101,12 +101,12 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
       <>
         <Requirement
           name={
-            <Trans id="shared.modules.features.checklist.foodHigh">High quality food used</Trans>
+            <>High quality food used</>
           }
           thresholds={thresholds.higherFoodPresent}
         />
         <Requirement
-          name={<Trans id="shared.modules.features.checklist.food">Food used</Trans>}
+          name={<>Food used</>}
           thresholds={thresholds.foodPresent}
         />
       </>
@@ -117,7 +117,7 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
     return (
       <>
         <Requirement
-          name={<Trans id="shared.modules.features.checklist.augmentRune">Augment rune used</Trans>}
+          name={<>Augment rune used</>}
           thresholds={thresholds.augmentRunePresent}
         />
       </>
@@ -129,12 +129,12 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
 
     return (
       <Rule
-        name={<Trans id="shared.modules.features.checklist.wellPrepared">Be well prepared</Trans>}
+        name={<>Be well prepared</>}
         description={
-          <Trans id="shared.modules.features.checklist.wellPreparedDetails">
+          <>
             Being well prepared with food, flasks, potions and enchants is an easy way to improve
             your performance.
-          </Trans>
+          </>
         }
       >
         {this.renderEnchantRequirements()}

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -179,12 +178,7 @@ export default class LightOfTheProtector extends Analyzer {
         </>,
       )
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
-        .actual(
-          t({
-            id: 'paladin.protection.suggestions.lightOfTheProtector.averageDelay',
-            message: `${actual.toFixed(2)}s Average Delay`,
-          }),
-        )
+        .actual(`${actual.toFixed(2)}s Average Delay`)
         .recommended(`< ${recommended.toFixed(2)}s is recommended`),
     );
 
@@ -196,12 +190,7 @@ export default class LightOfTheProtector extends Analyzer {
         </>,
       )
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
-        .actual(
-          t({
-            id: 'paladin.protection.suggestions.lightOfTheProtector.overhealing',
-            message: `${formatPercentage(actual)}% Overhealing`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Overhealing`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
   }

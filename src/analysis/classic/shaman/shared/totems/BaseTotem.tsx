@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -75,10 +75,10 @@ export default class BaseTotem extends Analyzer {
             <thead>
               <tr>
                 <th>
-                  <Trans id="shaman.TotemTracker.TotemElement">Totem</Trans>
+                  <>Totem</>
                 </th>
                 <th>
-                  <Trans id="shaman.TotemTracker.TotemElementUptime">Uptime</Trans>
+                  <>Uptime</>
                 </th>
               </tr>
             </thead>

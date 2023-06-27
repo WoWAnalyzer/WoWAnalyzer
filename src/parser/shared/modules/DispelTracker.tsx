@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -46,7 +46,7 @@ class DispelTracker extends Analyzer {
       <Statistic position={STATISTIC_ORDER.OPTIONAL(1)} size="flexible">
         <div className="pad">
           <label>
-            <Trans id="shared.dispelTracker.label">Dispels</Trans>
+            <>Dispels</>
           </label>
           {Array.from(this.dispelEvents).map(([dispelledId, count]) => (
             <div className="flex" key={dispelledId}>
@@ -60,7 +60,7 @@ class DispelTracker extends Analyzer {
           ))}
           <div className="flex">
             <div className="flex-sub value" style={{ flex: 3 }}>
-              <Trans id="common.total">Total</Trans>
+              <>Total</>
             </div>
             <div className="flex-sub value" style={{ flex: 1, textAlign: 'right' }}>
               {this.dispelCount}

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -57,12 +56,7 @@ class Apocalypse extends Analyzer {
           </span>,
         )
           .icon(SPELLS.APOCALYPSE.icon)
-          .actual(
-            t({
-              id: 'deathknight.unholy.suggestions.apocalypse.efficiency',
-              message: `An average ${actual} of Festering Wounds were popped by Apocalypse`,
-            }),
-          )
+          .actual(`An average ${actual} of Festering Wounds were popped by Apocalypse`)
           .recommended(`${recommended} is recommended`)
           .regular(recommended - 1)
           .major(recommended - 2),

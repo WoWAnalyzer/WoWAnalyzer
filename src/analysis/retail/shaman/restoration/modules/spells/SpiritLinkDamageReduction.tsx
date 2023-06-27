@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import fetchWcl from 'common/fetchWclApi';
 import { formatThousands, formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
@@ -68,7 +68,7 @@ class SpiritLinkDamageReduction extends Analyzer {
 
   statistic() {
     const tooltip = (
-      <Trans id="shaman.restoration.slt.statistic.tooltip">
+      <>
         The total estimated damage reduced during Spirit Link was{' '}
         {formatThousands(this.damageReduced)} ({formatNumber(this.drps)} DRPS). This has a 99%
         accuracy.
@@ -77,7 +77,7 @@ class SpiritLinkDamageReduction extends Analyzer {
         This value is calculated using the <i>Optional DRs</i> method. This results in the lowest
         possible damage reduction value being shown. This should be the correct value in most
         circumstances. Health redistribution is not part of this calculated value.
-      </Trans>
+      </>
     );
 
     return (
@@ -86,9 +86,9 @@ class SpiritLinkDamageReduction extends Analyzer {
         loader={this.load.bind(this)}
         icon={<SpellIcon id={TALENTS.SPIRIT_LINK_TOTEM_TALENT.id} />}
         value={
-          <Trans id="shaman.restoration.slt.statistic.value">≈{formatNumber(this.drps)} DRPS</Trans>
+          <>≈{formatNumber(this.drps)} DRPS</>
         }
-        label={<Trans id="shaman.restoration.slt.statistic.label">Damage reduction</Trans>}
+        label={<>Damage reduction</>}
         tooltip={tooltip}
         drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -35,12 +34,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         </>,
       )
         .icon('spell_mage_altertime')
-        .actual(
-          t({
-            id: 'warlock.destruction.suggestions.alwaysBeCasting.downtime',
-            message: `${formatPercentage(actual)}% downtime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% downtime`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

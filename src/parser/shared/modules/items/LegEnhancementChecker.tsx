@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { Enchant } from 'common/SPELLS/Spell';
 import { ItemLink } from 'interface';
 import { EnhancementBoxRowEntry } from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
@@ -13,7 +13,7 @@ import typedKeys from 'common/typedKeys';
 // /report/YCNrxPnyHt9g6dhj/2-Mythic+Crawth+-+Kill+(1:45)/1-Sigilweaver/standard
 
 const LEG_SLOT = {
-  6: <Trans id="common.slots.legs">Legs</Trans>,
+  6: <>Legs</>,
 };
 
 class LegEnhancementChecker extends Analyzer {
@@ -133,48 +133,48 @@ class LegEnhancementChecker extends Analyzer {
         !recommendedEnhancementIds.includes(item.permanentEnchant ?? 0)
       ) {
         return (
-          <Trans id="shared.legEnhancementChecker.guide.strongEnhancement.labelWithRecommendation">
+          <>
             Your {slotName} has a strong leg enhancement but these are recommended:{' '}
             {recommendedEnhancementNames}
-          </Trans>
+          </>
         );
       }
       return (
-        <Trans id="shared.legEnhancementChecker.guide.strongEnhancement.label">
+        <>
           Your {slotName} has a strong leg enhancement (weapon oil/sharpening stone/weightstone).
           Good work!
-        </Trans>
+        </>
       );
     }
     if (hasEnhancement) {
       if (recommendedEnhancementNames) {
         return (
-          <Trans id="shared.legEnhancementChecker.guide.weakEnhancement.labelWithRecommendation">
+          <>
             Your {slotName} has a cheap leg enhancement. Apply a strong enhancement to very easily
             increase your throughput slightly. Recommended: {recommendedEnhancementNames}
-          </Trans>
+          </>
         );
       }
       return (
-        <Trans id="shared.legEnhancementChecker.guide.weakEnhancement.label">
+        <>
           Your {slotName} has a cheap leg enhancement. Apply a strong enhancement to very easily
           increase your throughput slightly.
-        </Trans>
+        </>
       );
     }
     if (recommendedEnhancementNames) {
       return (
-        <Trans id="shared.legEnhancementChecker.guide.noEnhancement.labelWithRecommendation">
+        <>
           Your {slotName} is missing a leg enhancement. Apply an enhancement to very easily increase
           your throughput slightly. Recommended: {recommendedEnhancementNames}
-        </Trans>
+        </>
       );
     }
     return (
-      <Trans id="shared.legEnhancementChecker.guide.noEnhancement.label">
+      <>
         Your {slotName} is missing a leg enhancement. Apply an enhancement to very easily increase
         your throughput slightly.
-      </Trans>
+      </>
     );
   }
 
@@ -214,14 +214,14 @@ class LegEnhancementChecker extends Analyzer {
         .isFalse()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.legEnhancementChecker.suggestions.noLegEnhancement.label">
+            <>
               Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
               is missing a leg enhancement. Apply an enhancement to very easily increase your
               throughput slightly.
-            </Trans>,
+            </>,
           )
             .icon(item.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
@@ -232,14 +232,14 @@ class LegEnhancementChecker extends Analyzer {
         .isTrue()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.legEnhancementChecker.suggestion.weakEnhancement.label">
+            <>
               Your
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>
               has a cheap leg enhancement. Apply a strong enhancement to very easily increase your
               throughput slightly.
-            </Trans>,
+            </>,
           )
             .icon(item.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.MINOR),

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import AlertWarning from 'interface/AlertWarning';
 import ReportIcon from 'interface/icons/Events';
 import GuildIcon from 'interface/icons/People';
@@ -63,12 +63,12 @@ class ReportSelectionHeader extends PureComponent {
             <NameSearch type={SearchType.CHARACTER} />
             <br />
             <AlertWarning>
-              <Trans id="interface.home.reportSelectionHeader.onlyRankedWCLogs">
+              <>
                 The character page will only show fights that have been ranked by Warcraft Logs.
                 Wipes are not included and during busy periods there might be a delay before new
                 reports appear. You can still analyze these fights by manually finding the report on
                 Warcraft Logs and using the report link.
-              </Trans>
+              </>
             </AlertWarning>
           </>
         );
@@ -93,14 +93,14 @@ class ReportSelectionHeader extends PureComponent {
                 <h1>WoWAnalyzer</h1>
               </a>
               <div id="reportSelectionHeader.improveYourPerformance">
-                <Trans id="interface.home.reportSelectionHeader.improveYourPerformance">
+                <>
                   Improve your performance with personal feedback and stats. Just enter the link of
                   a{' '}
                   <a href="https://www.warcraftlogs.com/" target="_blank" rel="noopener noreferrer">
                     Warcraft Logs
                   </a>{' '}
                   report below.
-                </Trans>
+                </>
               </div>
               <div style={{ margin: '30px auto', maxWidth: 700, textAlign: 'left' }}>
                 <nav>
@@ -113,7 +113,7 @@ class ReportSelectionHeader extends PureComponent {
                     >
                       <a href="/" style={{ padding: '5px' }} onClick={this.handleReportSearchClick}>
                         <ReportIcon />
-                        <Trans id="interface.home.reportSelectionHeader.report">Report</Trans>
+                        <>Report</>
                       </a>
                     </li>
                     <li
@@ -126,7 +126,7 @@ class ReportSelectionHeader extends PureComponent {
                         onClick={this.handleCharacterSearchClick}
                       >
                         <CharacterIcon />
-                        <Trans id="interface.home.reportSelectionHeader.character">Character</Trans>
+                        <>Character</>
                       </a>
                     </li>
                     <li
@@ -137,7 +137,7 @@ class ReportSelectionHeader extends PureComponent {
                     >
                       <a href="/" style={{ padding: '5px' }} onClick={this.handleGuildSearchClick}>
                         <GuildIcon />
-                        <Trans id="interface.home.reportSelectionHeader.guild">Guild</Trans>
+                        <>Guild</>
                       </a>
                     </li>
                   </ul>
@@ -148,9 +148,9 @@ class ReportSelectionHeader extends PureComponent {
             {reportHistory.length !== 0 && (
               <div className="col-md-4 text-left" style={{ marginTop: -10, marginBottom: -10 }}>
                 <small>
-                  <Trans id="interface.home.reportSelectionHeader.recentlyViewed">
+                  <>
                     Recently viewed
-                  </Trans>
+                  </>
                 </small>
                 <br />
 

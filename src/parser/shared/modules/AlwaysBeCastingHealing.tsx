@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -63,7 +62,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       <Statistic
         position={STATISTIC_ORDER.CORE(10)}
         tooltip={
-          <Trans id="shared.alwaysBeCastingHealing.statistic.tooltip">
+          <>
             This is the precise amount of time you were actively casting something or waiting for a
             Global Cooldown. The remaining time was downtime; you cast nothing and wasn't waiting
             for a global cooldown (i.e. "AFK time").
@@ -78,13 +77,13 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
             <br />
             <br />
             See the timeline for details.
-          </Trans>
+          </>
         }
         drilldown="timeline"
       >
         <div className="pad">
           <label>
-            <Trans id="shared.alwaysBeCastingHealing.statistic">Active time</Trans>
+            <>Active time</>
           </label>
 
           <Gauge value={activeTimePercentage} />
@@ -122,12 +121,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
         "Your time spent healing can be improved. Try to reduce the amount of time you're not healing, for example by reducing the delay between casting spells, moving during the GCD and if you have to move try to continue healing with instant spells.",
       )
         .icon('petbattle_health-down')
-        .actual(
-          t({
-            id: 'shared.suggestions.alwaysBeCastingHealing.timeSpentHealing',
-            message: `${formatPercentage(1 - actual)}% time spent healing`,
-          }),
-        )
+        .actual(`${formatPercentage(1 - actual)}% time spent healing`)
         .recommended(`>${formatPercentage(1 - recommended)}% is recommended`),
     );
     when(this.downtimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -135,12 +129,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
         "Your active time can be improved. Try to reduce your downtime, for example by reducing the delay between casting spells and when you're not healing try to contribute some damage.",
       )
         .icon('spell_mage_altertime')
-        .actual(
-          t({
-            id: 'shared.suggestions.alwaysBeCasting.activeTime',
-            message: `${formatPercentage(1 - actual)}% active time`,
-          }),
-        )
+        .actual(`${formatPercentage(1 - actual)}% active time`)
         .recommended(`>${formatPercentage(1 - recommended)}% is recommended`),
     );
   }

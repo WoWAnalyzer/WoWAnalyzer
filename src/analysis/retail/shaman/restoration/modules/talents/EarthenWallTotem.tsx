@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatDuration, formatNth, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -145,11 +145,11 @@ class EarthenWallTotem extends Analyzer {
       .isLessThan(RECOMMENDED_EFFICIENCY)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <Trans id="shaman.restoration.ewt.suggestion.label">
+          <>
             Try to cast <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and
             positions where there will be as many people taking damage possible inside of it to
             maximize the amount it absorbs.
-          </Trans>,
+          </>,
         )
           .icon(TALENTS.EARTHEN_WALL_TOTEM_TALENT.icon)
           .actual(`${this.earthenWallEfficiency.toFixed(2)}%`)
@@ -181,10 +181,10 @@ class EarthenWallTotem extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         position={STATISTIC_ORDER.OPTIONAL(60)}
         label={
-          <Trans id="shaman.restoration.ewt.statistic.label">Earthen Wall Totem efficiency</Trans>
+          <>Earthen Wall Totem efficiency</>
         }
         tooltip={
-          <Trans id="shaman.restoration.ewt.statistic.tooltip">
+          <>
             The percentage of the potential absorb of Earthen Wall Totem that was actually used. You
             cast a total of {casts} Earthen Wall Totems with a combined health of{' '}
             {formatNumber(this.totalPotentialHealing)}, which absorbed a total of{' '}
@@ -196,20 +196,20 @@ class EarthenWallTotem extends Analyzer {
             <br />
             <br />
             <strong>Pet healing is filtered out.</strong>
-          </Trans>
+          </>
         }
       >
         <table className="table table-condensed">
           <thead>
             <tr>
               <th>
-                <Trans id="common.cast">Cast</Trans>
+                <>Cast</>
               </th>
               <th>
-                <Trans id="common.time">Time</Trans>
+                <>Time</>
               </th>
               <th>
-                <Trans id="common.efficiency">Efficiency</Trans>
+                <>Efficiency</>
               </th>
             </tr>
           </thead>
@@ -248,9 +248,9 @@ class EarthenWallTotem extends Analyzer {
           this.owner.getPercentageOfTotalHealingDone(this.totalEffectiveHealing),
         )} %`}
         valueTooltip={
-          <Trans id="shaman.restoration.ewt.statisticlist.tooltip">
+          <>
             Pet healing is filtered out
-          </Trans>
+          </>
         }
       />
     );

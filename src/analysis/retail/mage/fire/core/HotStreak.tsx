@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import {
   COMBUSTION_END_BUFFER,
   FIRESTARTER_THRESHOLD,
@@ -47,7 +47,7 @@ class HotStreak extends Analyzer {
   missingHotStreakPreCast = () => {
     let hotStreakRemovals = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.HOT_STREAK });
     hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FIREBALL));
-    
+
     //If Hot Streak was used on Flamestrike, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, TALENTS.FLAMESTRIKE_TALENT));
 
@@ -189,9 +189,9 @@ class HotStreak extends Analyzer {
       )
         .icon(SPELLS.HOT_STREAK.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.hotStreak.expired">
+          <>
             {formatPercentage(this.hotStreakUtilizationThresholds.actual)}% expired
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
@@ -222,9 +222,9 @@ class HotStreak extends Analyzer {
       )
         .icon(SPELLS.HOT_STREAK.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.hostStreak.precasts.utilization">
+          <>
             {formatPercentage(this.castBeforeHotStreakThresholds.actual)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
@@ -240,9 +240,9 @@ class HotStreak extends Analyzer {
       )
         .icon(SPELLS.HOT_STREAK.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.hotStreak.wastedCrits">
+          <>
             {formatNumber(this.wastedCrits())} crits wasted
-          </Trans>,
+          </>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),
     );

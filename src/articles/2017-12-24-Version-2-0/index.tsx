@@ -14,7 +14,7 @@ export default (
     Hey all! We're very excited to finally be able to share with you version 2.0 of WoWAnalyzer!
     This has the biggest change since the introduction of suggestions: the checklist. The checklist
     is a much more intuitive way to convey your performance in a fight. Instead of individual (often
-    considered <i>harsh</i>) suggestions, the checklist shows an overview of <i>rules</i> which are
+    considered<i>harsh</i>) suggestions, the checklist shows an overview of<i>rules</i>which are
     marked with a green tick if you sufficiently passed the recommended thresholds for the
     requirements, and a red cross if your performance was below recommended parameters.
     <br />

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -79,7 +79,7 @@ class Blooddrinker extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.blood.blooddrinker.statistic.tooltip">
+          <>
             You lost <strong>{this._wastedTicks}</strong> out of <strong>{this._totalTicks}</strong>{' '}
             ticks.
             <br />
@@ -89,13 +89,13 @@ class Blooddrinker extends Analyzer {
             <strong>Healing:</strong> {formatThousands(this.totalHealing)} /{' '}
             {this.owner.formatItemHealingDone(this.totalHealing)}
             <br />
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS.BLOODDRINKER_TALENT}>
-          <Trans id="deathknight.blood.blooddrinker.statistic">
+          <>
             {this._ruinedCasts} / {this._totalCasts} <small>Channels cancelled early</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

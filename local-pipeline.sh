@@ -59,11 +59,4 @@ if [ "$1" = "build" ]; then
   fi
 fi
 
-# Verify i18n
-if ! yarn extract && yarn lingui compile;
-then
-  echo "i18n verification failed."
-  exit 1
-fi
-
 echo "All steps completed."

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { suggestion } from 'parser/core/Analyzer';
@@ -22,7 +22,7 @@ const lowRankSpellsPet = (spells: LowRankSpells) =>
             .filter((spellId) => casts[spellId] > 0)
             .map((spellId) => ({
               text: (
-                <Trans id="tbc.suggestions.hunter.lowRankSpellsPet">
+                <>
                   Your pet cast a lower rank <SpellLink id={spellId} />. You should teach your pet
                   the max rank <SpellLink id={Number(primarySpellId)} />. See{' '}
                   <a
@@ -33,7 +33,7 @@ const lowRankSpellsPet = (spells: LowRankSpells) =>
                     Petopia
                   </a>{' '}
                   for info on where to learn the max rank pet abilities.
-                </Trans>
+                </>
               ),
               importance: SuggestionImportance.Regular,
               icon: (SPELLS[Number(primarySpellId)] || SPELLS[spellId])?.icon,

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -40,12 +39,7 @@ class SoulShardDetails extends Analyzer {
       )
         .icon(RESOURCE_TYPES.SOUL_SHARDS.icon)
         .actual(
-          t({
-            id: 'warlock.affliction.suggestions.soulShards.wastedPerMinute',
-            message: `${this.soulShardTracker.wasted} Soul Shards wasted (${actual.toFixed(
-              2,
-            )} per minute)`,
-          }),
+          `${this.soulShardTracker.wasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`,
         )
         .recommended(
           `Wasting less than ${recommended.toFixed(2)} Soul Shards per minute is recommended`,

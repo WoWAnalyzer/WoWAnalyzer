@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -118,12 +117,7 @@ class StormElemental extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
         .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
-        .actual(
-          t({
-            id: 'shaman.elemental.suggestions.stormElemental.badCasts',
-            message: `${actual} other casts with Storm Elemental up`,
-          }),
-        )
+        .actual(`${actual} other casts with Storm Elemental up`)
         .recommended(`Only cast ${abilities} while Storm Elemental is up.`),
     );
   }

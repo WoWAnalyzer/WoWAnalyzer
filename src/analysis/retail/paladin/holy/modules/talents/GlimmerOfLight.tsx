@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -229,14 +229,14 @@ class GlimmerOfLight extends Analyzer {
   suggestions(when: When) {
     when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="paladin.holy.modules.talents.glimmerOfLight">
+        <>
           Your usage of <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> can be improved. To
           maximize the healing/damage done by <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT} />,
           try to keep as many buffs up as possible. Avoid overwritting buffs early, this suggestion
           does not take priority over healing targets with low health. If two targets have similar
           health pools priorize the target without a glimmer as your{' '}
           <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> will heal all players with active buffs.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.GLIMMER_OF_LIGHT_TALENT.icon)
         .actual(

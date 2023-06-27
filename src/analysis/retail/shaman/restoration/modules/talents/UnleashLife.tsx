@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -511,7 +511,7 @@ class UnleashLife extends Analyzer {
     const items = [
       {
         color: RESTORATION_COLORS.CHAIN_HEAL,
-        label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
+        label: <>Chain Heal</>,
         spellId: TALENTS.CHAIN_HEAL_TALENT.id,
         value: this.healingMap[TALENTS.CHAIN_HEAL_TALENT.id].amount,
         valueTooltip: this._tooltip({
@@ -524,7 +524,7 @@ class UnleashLife extends Analyzer {
       },
       {
         color: RESTORATION_COLORS.DOWNPOUR,
-        label: <Trans id="shaman.restoration.spell.downpour">Downpour</Trans>,
+        label: <>Downpour</>,
         spellId: TALENTS.DOWNPOUR_TALENT.id,
         value: this.healingMap[TALENTS.DOWNPOUR_TALENT.id].amount,
         valueTooltip: this._tooltip({
@@ -536,7 +536,7 @@ class UnleashLife extends Analyzer {
       },
       {
         color: RESTORATION_COLORS.HEALING_SURGE,
-        label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
+        label: <>Healing Surge</>,
         spellId: SPELLS.HEALING_SURGE.id,
         value: this.healingMap[SPELLS.HEALING_SURGE.id].amount,
         valueTooltip: this._tooltip({
@@ -547,7 +547,7 @@ class UnleashLife extends Analyzer {
       },
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
-        label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
+        label: <>Healing Wave</>,
         spellId: TALENTS.HEALING_WAVE_TALENT.id,
         value: this.healingMap[TALENTS.HEALING_WAVE_TALENT.id].amount,
         valueTooltip: this._tooltip(
@@ -565,7 +565,7 @@ class UnleashLife extends Analyzer {
       },
       {
         color: RESTORATION_COLORS.HEALING_RAIN,
-        label: <Trans id="shaman.restoration.spell.healing_rain">Healing Rain</Trans>,
+        label: <>Healing Rain</>,
         spellId: TALENTS.HEALING_RAIN_TALENT.id,
         value: this.healingMap[TALENTS.HEALING_RAIN_TALENT.id].amount,
         valueTooltip: this._tooltip(
@@ -587,7 +587,7 @@ class UnleashLife extends Analyzer {
       },
       {
         color: RESTORATION_COLORS.RIPTIDE,
-        label: <Trans id="shaman.restoration.spell.riptide">Riptide</Trans>,
+        label: <>Riptide</>,
         spellId: TALENTS.RIPTIDE_TALENT.id,
         value: this.healingMap[TALENTS.RIPTIDE_TALENT.id].amount,
         valueTooltip: this._tooltip({
@@ -598,7 +598,7 @@ class UnleashLife extends Analyzer {
       },
       {
         color: RESTORATION_COLORS.WELLSPRING,
-        label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
+        label: <>Wellspring</>,
         spellId: TALENTS.WELLSPRING_TALENT.id,
         value: this.healingMap[TALENTS.WELLSPRING_TALENT.id].amount,
         valueTooltip: this._tooltip({
@@ -739,12 +739,12 @@ class UnleashLife extends Analyzer {
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
         valueTooltip={
-          <Trans id="shaman.restoration.unleashLife.statistic.tooltip">
+          <>
             {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.directHealing))}% from
             Unleash Life and{' '}
             {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalBuffedHealing))}%
             from the healing buff.
-          </Trans>
+          </>
         }
       />
     );

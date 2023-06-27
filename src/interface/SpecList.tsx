@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import groupByToMap from 'common/groupByToMap';
 import { CLASSIC_EXPANSION, RETAIL_EXPANSION } from 'game/Expansion';
 import DocumentTitle from 'interface/DocumentTitle';
@@ -46,18 +46,18 @@ const SpecListing = () => {
 
       <div>
         <h1>
-          <Trans id="interface.specList.specs">Specializations</Trans>
+          <>Specializations</>
         </h1>
       </div>
       <small>
-        <Trans id="interface.specList.specs.label">
+        <>
           Click any specialization to view an example report for that spec.
-        </Trans>
+        </>
       </small>
 
       <div>
         <h2>
-          <Trans id="interface.specList.retail">Retail</Trans>
+          <>Retail</>
         </h2>
       </div>
 
@@ -71,7 +71,7 @@ const SpecListing = () => {
 
       <div>
         <h2>
-          <Trans id="interface.specList.classic">Classic</Trans>
+          <>Classic</>
         </h2>
       </div>
 

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -46,9 +46,9 @@ class ArcaneFamiliar extends Analyzer {
       )
         .icon(TALENTS.ARCANE_FAMILIAR_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.arcaneFamiliar.uptime">
+          <>
             {formatPercentage(this.uptime)}% Uptime
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

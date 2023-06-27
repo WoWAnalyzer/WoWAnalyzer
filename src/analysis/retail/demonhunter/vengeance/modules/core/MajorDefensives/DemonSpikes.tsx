@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import Events, { DamageEvent } from 'parser/core/Events';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { SpellLink } from 'interface';
-import { Trans } from '@lingui/macro';
+
 import { ReactNode } from 'react';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { getArmorMitigationForEvent } from 'parser/retail/armorMitigation';
@@ -49,10 +49,10 @@ export default class DemonSpikes extends MajorDefensiveBuff {
   description(): ReactNode {
     return (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.defensives.demonSpikes.explanation.summary">
+        <>
           <SpellLink spell={SPELLS.DEMON_SPIKES} /> nearly <strong>doubles</strong> the amount of
           armor that you have and is critical to have up while actively tanking melee hits.
-        </Trans>
+        </>
       </p>
     );
   }

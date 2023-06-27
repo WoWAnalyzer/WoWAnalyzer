@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -100,24 +99,14 @@ class CrimsonScourge extends Analyzer {
     }
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.crimsonScourge.suggestion.suggestion">
+        <>
           You had unspent <SpellLink spell={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF} /> procs. Make sure
           you always use them.
-        </Trans>,
+        </>,
       )
         .icon(SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.icon)
-        .actual(
-          t({
-            id: 'deathknight.blood.crimsonScourge.suggestion.actual',
-            message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'shared.suggestion.recommended.lessThanPercent',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% Crimson Scourge procs wasted`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -126,15 +115,12 @@ class CrimsonScourge extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
-        tooltip={t({
-          id: 'deathknight.blood.crimsonScourge.statistic.tooltip',
-          message: `${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`,
-        })}
+        tooltip={`${this.wastedCrimsonScourgeProcs} out of ${this.crimsonScourgeProcsCounter} procs wasted.`}
       >
         <BoringSpellValueText spell={SPELLS.CRIMSON_SCOURGE_TALENT_BUFF}>
-          <Trans id="deathknight.blood.crimsonScourge.statistic">
+          <>
             {formatPercentage(this.wastedCrimsonScourgeProcsPercent)} % <small>procs wasted</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

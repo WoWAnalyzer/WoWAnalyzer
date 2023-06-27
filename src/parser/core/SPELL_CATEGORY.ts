@@ -1,5 +1,3 @@
-import { t } from '@lingui/macro';
-
 enum SPELL_CATEGORY {
   ROTATIONAL,
   ROTATIONAL_AOE,
@@ -17,55 +15,25 @@ enum SPELL_CATEGORY {
 export function getSpellCategoryName(category: SPELL_CATEGORY) {
   switch (category) {
     case SPELL_CATEGORY.ROTATIONAL:
-      return t({
-        id: 'core.abilities.spellCategories.rotational',
-        message: `Rotational Spell`,
-      });
+      return 'Rotational Spell';
     case SPELL_CATEGORY.ROTATIONAL_AOE:
-      return t({
-        id: 'core.abilities.spellCategories.rotationalAoe',
-        message: `Spell (AOE)`,
-      });
+      return 'Spell (AOE)';
     case SPELL_CATEGORY.ITEMS:
-      return t({
-        id: 'core.abilities.spellCategories.items',
-        message: `Item`,
-      });
+      return 'Item';
     case SPELL_CATEGORY.COOLDOWNS:
-      return t({
-        id: 'core.abilities.spellCategories.cooldowns',
-        message: `Cooldown`,
-      });
+      return 'Cooldown';
     case SPELL_CATEGORY.DEFENSIVE:
-      return t({
-        id: 'core.abilities.spellCategories.defensive',
-        message: `Defensive Cooldown`,
-      });
+      return 'Defensive Cooldown';
     case SPELL_CATEGORY.SEMI_DEFENSIVE:
-      return t({
-        id: 'core.abilities.spellCategories.semiDefensive',
-        message: `Offensive & Defensive Cooldown`,
-      });
+      return 'Offensive & Defensive Cooldown';
     case SPELL_CATEGORY.OTHERS:
-      return t({
-        id: 'core.abilities.spellCategories.others',
-        message: `Spell`,
-      });
+      return 'Spell';
     case SPELL_CATEGORY.UTILITY:
-      return t({
-        id: 'core.abilities.spellCategories.utility',
-        message: `Utility`,
-      });
+      return 'Utility';
     case SPELL_CATEGORY.HEALER_DAMAGING_SPELL:
-      return t({
-        id: 'core.abilities.spellCategories.healerDamagingSpell',
-        message: `Damaging Spell`,
-      });
+      return 'Damaging Spell';
     case SPELL_CATEGORY.CONSUMABLE:
-      return t({
-        id: 'core.abilities.spellCategories.consumable',
-        message: `Consumable`,
-      });
+      return 'Consumable';
     default:
       // Should never happen
       return 'Unknown Spell Category';

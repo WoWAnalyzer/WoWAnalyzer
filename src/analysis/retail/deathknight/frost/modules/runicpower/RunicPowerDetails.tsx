@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -57,12 +56,7 @@ class RunicPowerDetails extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
         .icon('inv_sword_62')
-        .actual(
-          t({
-            id: 'deathknight.frost.suggestions.runicPower.wasted',
-            message: `${formatPercentage(actual)}% wasted`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% wasted`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

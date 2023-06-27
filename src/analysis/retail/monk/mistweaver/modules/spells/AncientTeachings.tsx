@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -241,12 +240,7 @@ class AncientTeachings extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.icon)
-        .actual(
-          `${formatPercentage(actual)}${t({
-            id: 'monk.mistweaver.suggestions.ancientTeachings.uptime',
-            message: `% uptime`,
-          })}`,
-        )
+        .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`${formatPercentage(recommended, 0)}% or better is recommended`),
     );
   }

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
@@ -84,10 +84,10 @@ class ManaTideTotem extends Analyzer {
             <thead>
               <tr>
                 <th>
-                  <Trans id="common.player">Player</Trans>
+                  <>Player</>
                 </th>
                 <th>
-                  <Trans id="common.stat.mana">Mana</Trans>
+                  <>Mana</>
                 </th>
               </tr>
             </thead>
@@ -114,9 +114,9 @@ class ManaTideTotem extends Analyzer {
           <div>
             <PersonIcon /> {formatNumber(this.regenOnPlayer)}{' '}
             <small>
-              <Trans id="shaman.restoration.manaTideTotem.statistic.manaRestored">
+              <>
                 Mana restored
-              </Trans>
+              </>
             </small>
             <br />
             <PeopleIcon /> {formatNumber(this.regenOnHealers)} <small>Mana restored (party)</small>

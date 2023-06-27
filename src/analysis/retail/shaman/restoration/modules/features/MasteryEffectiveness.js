@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -85,26 +85,26 @@ class MasteryEffectiveness extends Analyzer {
         label={
           <TooltipElement
             content={
-              <Trans id="shaman.restoration.masteryEffectiveness.statistic.tooltip">
+              <>
                 The percent of your mastery that you benefited from on average (so always between 0%
                 and 100%). Since you have {formatPercentage(masteryPercent)}% mastery, this means
                 that on average your heals were increased by{' '}
                 {formatPercentage(avgEffectiveMasteryPercent)}% by your mastery.
-              </Trans>
+              </>
             }
           >
-            <Trans id="shaman.restoration.masteryEffectiveness.statistic.label">
+            <>
               Mastery benefit
-            </Trans>
+            </>
           </TooltipElement>
         }
       />,
       <Panel
         key="Panel"
         title={
-          <Trans id="shaman.restoration.masteryEffectiveness.statistic.panel">
+          <>
             Mastery effectiveness breakdown
-          </Trans>
+          </>
         }
         position={200}
         pad={false}

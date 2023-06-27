@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { RETAIL_EXPANSION, CLASSIC_EXPANSION } from 'game/Expansion';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -322,24 +321,19 @@ class CooldownThroughputTracker extends Analyzer {
 
   tab() {
     return {
-      title: t({
-        id: 'shared.cooldownThroughputTracker.tab',
-        message: `Cooldowns`,
-      }),
+      title: `Cooldowns`,
       icon: CooldownIcon,
       url: 'cooldowns',
       render: () => (
         <Panel
-          title={
-            <Trans id="shared.cooldownThroughputTracker.tab.title">Throughput cooldowns</Trans>
-          }
+          title={<>Throughput cooldowns</>}
           explanation={
-            <Trans id="shared.cooldownThroughputTracker.tab.explanation">
+            <>
               This shows the effectiveness of your throughput cooldowns and your cast behavior
               during them. Click on <i>More</i> to see details such as the delay between casting
               spells and the healing or damage done with them. Take a look at the timeline for a
               different kind of view of your casts during buffs.
-            </Trans>
+            </>
           }
           pad={false}
         >

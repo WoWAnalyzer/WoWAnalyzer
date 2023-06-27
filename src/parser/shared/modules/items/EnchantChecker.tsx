@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
@@ -112,45 +112,45 @@ class EnchantChecker extends Analyzer {
         !recommendedEnchantIds.includes(item.permanentEnchant ?? 0)
       ) {
         return (
-          <Trans id="shared.enchantChecker.guide.strongEnchant.labelWithRecommendation">
+          <>
             Your {slotName} has a strong enchant but these are recommended:{' '}
             {recommendedEnchantNames}
-          </Trans>
+          </>
         );
       }
       return (
-        <Trans id="shared.enchantChecker.guide.strongEnchant.label">
+        <>
           Your {slotName} has a strong enchant. Good work!
-        </Trans>
+        </>
       );
     }
     if (hasEnchant) {
       if (recommendedEnchantNames) {
         return (
-          <Trans id="shared.enchantChecker.guide.weakEnchant.labelWithRecommendation">
+          <>
             Your {slotName} has a cheap enchant. Apply a stronger enchant to increase your
             throughput. Recommended: {recommendedEnchantNames}
-          </Trans>
+          </>
         );
       }
       return (
-        <Trans id="shared.enchantChecker.guide.weakEnchant.label">
+        <>
           Your {slotName} has a cheap enchant. Apply a stronger enchant to increase your throughput.
-        </Trans>
+        </>
       );
     }
     if (recommendedEnchantNames) {
       return (
-        <Trans id="shared.enchantChecker.guide.noEnchant.labelWithRecommendation">
+        <>
           Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
           Recommended: {recommendedEnchantNames}
-        </Trans>
+        </>
       );
     }
     return (
-      <Trans id="shared.enchantChecker.guide.noEnchant.label">
+      <>
         Your {slotName} is missing an enchant. Apply a strong enchant to increase your throughput.
-      </Trans>
+      </>
     );
   }
 
@@ -210,13 +210,13 @@ class EnchantChecker extends Analyzer {
         .isFalse()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.enchantChecker.suggestions.noEnchant.label">
+            <>
               Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
               is missing an enchant. Apply a strong enchant to increase your throughput.
-            </Trans>,
+            </>,
           )
             .icon(item.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.MAJOR),
@@ -227,13 +227,13 @@ class EnchantChecker extends Analyzer {
         .isTrue()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.enchantChecker.suggestions.weakEnchant.label">
+            <>
               Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
               has a cheap enchant. Apply a stronger enchant to increase your throughput.
-            </Trans>,
+            </>,
           )
             .icon(item.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.MINOR),

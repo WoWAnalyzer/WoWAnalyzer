@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { Enchant } from 'common/SPELLS/Spell';
 import { ItemLink } from 'interface';
 import { EnhancementBoxRowEntry } from 'interface/guide/components/Preparation/EnhancementSubSection/EnhancementBoxRow';
@@ -12,8 +12,8 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 // /report/XQrLTRC1bFWGAt3m/21-Mythic+The+Council+of+Blood+-+Wipe+10+(3:17)/Odsuv/standard
 
 const WEAPON_SLOTS = {
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+  15: <>Weapon</>,
+  16: <>OffHand</>,
 };
 
 class WeaponEnhancementChecker extends Analyzer {
@@ -137,49 +137,49 @@ class WeaponEnhancementChecker extends Analyzer {
         !recommendedEnhancementIds.includes(item.temporaryEnchant ?? 0)
       ) {
         return (
-          <Trans id="shared.enchantChecker.guide.strongEnhancement.labelWithRecommendation">
+          <>
             Your {slotName} has a strong enhancement (rune/sharpening stone/weightstone) but these
             are recommended: {recommendedEnhancementNames}
-          </Trans>
+          </>
         );
       }
       return (
-        <Trans id="shared.enchantChecker.guide.strongEnhancement.label">
+        <>
           Your {slotName} has a strong enhancement (rune/sharpening stone/weightstone). Good work!
-        </Trans>
+        </>
       );
     }
     if (hasEnhancement) {
       if (recommendedEnhancementNames) {
         return (
-          <Trans id="shared.enchantChecker.guide.weakEnhancement.labelWithRecommendation">
+          <>
             Your {slotName} has a cheap weapon enhancement (rune/sharpening stone/weightstone).
             Apply a strong enhancement to very easily increase your throughput slightly.
             Recommended: {recommendedEnhancementNames}
-          </Trans>
+          </>
         );
       }
       return (
-        <Trans id="shared.enchantChecker.guide.weakEnhancement.label">
+        <>
           Your {slotName} has a cheap weapon enhancement (rune/sharpening stone/weightstone). Apply
           a strong enhancement to very easily increase your throughput slightly.
-        </Trans>
+        </>
       );
     }
     if (recommendedEnhancementNames) {
       return (
-        <Trans id="shared.enchantChecker.guide.noEnhancement.labelWithRecommendation">
+        <>
           Your {slotName} is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply
           an enhancement to very easily increase your throughput slightly. Recommended:{' '}
           {recommendedEnhancementNames}
-        </Trans>
+        </>
       );
     }
     return (
-      <Trans id="shared.enchantChecker.guide.noEnhancement.label">
+      <>
         Your {slotName} is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply
         an enhancement to very easily increase your throughput slightly.
-      </Trans>
+      </>
     );
   }
 
@@ -219,14 +219,14 @@ class WeaponEnhancementChecker extends Analyzer {
         .isFalse()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.weaponEnhancementChecker.suggestions.noWeaponEnhancement.label">
+            <>
               Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
               is missing a weapon enhancement (rune/sharpening stone/weightstone). Apply an
               enhancement to very easily increase your throughput slightly.
-            </Trans>,
+            </>,
           )
             .icon(item.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
@@ -237,14 +237,14 @@ class WeaponEnhancementChecker extends Analyzer {
         .isTrue()
         .addSuggestion((suggest, actual, recommended) =>
           suggest(
-            <Trans id="shared.weaponEnhancementChecker.suggestions.weakWeaponEnhancement.label">
+            <>
               Your{' '}
               <ItemLink id={item.id} quality={item.quality} details={item} icon={false}>
                 {slotName}
               </ItemLink>{' '}
               has a cheap weapon enhancement (rune/sharpening stone/weightstone). Apply a strong
               enhancement to very easily increase your throughput slightly.
-            </Trans>,
+            </>,
           )
             .icon(item.icon)
             .staticImportance(SUGGESTION_IMPORTANCE.MINOR),

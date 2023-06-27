@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
@@ -53,11 +53,11 @@ function suggest(when: When, tracker: ResourceTracker, suggestion: Suggestion) {
       )
         .icon(suggestion.spell.icon)
         .actual(
-          <Trans id="shared.suggestions.resources.wasted">
+          <>
             {' '}
             {formatPercentage(wastedShare)}% wasted. Generated {tracked.generated} out of{' '}
             {maxGenerated} possible {resourceNameLower}{' '}
-          </Trans>,
+          </>,
         )
         .recommended(
           `<${formatPercentage(suggestion.minor)}%  ${resourceNameLower} wasted is recommend`,

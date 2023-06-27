@@ -16,7 +16,7 @@ export default (
     publishedBy={Zerotorescue}
   >
     Yay! WoWAnalyzer just turned two years old! We're not going to do a{' '}
-    <Link to={makeNewsUrl("WoWAnalyzer's first anniversary")}>year recap</Link> this year. That took
+    <Link to={makeNewsUrl("WoWAnalyzer's first anniversary")}>year recap</Link>this year. That took
     way too much time to make last time. Instead we spent an exorbitant amount of time on a complete
     redesign of the site. There's still a lot left to do before it's finished, but here are some of
     the things that are close to final.
@@ -72,7 +72,7 @@ export default (
     </div>
     These changes are coming as soon as they're ready. The release is currently planned for Q1 of
     2019 and more changes will be coming later in the year. Please consider{' '}
-    <Link to="premium">premium</Link> if you want to support development and keep the project moving
+    <Link to="premium">premium</Link>if you want to support development and keep the project moving
     forward a bit longer.
   </NewsRegularArticle>
 );

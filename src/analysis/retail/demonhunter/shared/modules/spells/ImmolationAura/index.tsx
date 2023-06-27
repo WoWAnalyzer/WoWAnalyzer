@@ -9,7 +9,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Events, { CastEvent } from 'parser/core/Events';
 import { getImmolationAuraInitialHits } from 'analysis/retail/demonhunter/vengeance/normalizers/ImmolationAuraLinker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { Trans } from '@lingui/macro';
+
 import { SpellLink } from 'interface';
 import FalloutSnippet from 'analysis/retail/demonhunter/shared/modules/spells/ImmolationAura/FalloutSnippet';
 import { ChecklistUsageInfo, SpellUse, spellUseToBoxRowEntry } from 'parser/core/SpellUsage/core';
@@ -72,7 +72,7 @@ class ImmolationAura extends Analyzer {
   vengeanceGuideSubsection(): JSX.Element {
     const explanation = (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.immolationAura.explanation">
+        <>
           <strong>
             <SpellLink spell={SPELLS.IMMOLATION_AURA} />
           </strong>{' '}
@@ -80,7 +80,7 @@ class ImmolationAura extends Analyzer {
           generating 8 <ResourceLink id={RESOURCE_TYPES.FURY.id} /> immediately
           <FalloutSnippet />. It then pulses damage every second for 6 seconds as well as generating
           2 <ResourceLink id={RESOURCE_TYPES.FURY.id} /> on each pulse.
-        </Trans>
+        </>
       </p>
     );
 
@@ -107,7 +107,7 @@ class ImmolationAura extends Analyzer {
             />
             <strong>
               <SpellLink spell={SPELLS.IMMOLATION_AURA} />{' '}
-              <Trans id="guide.castEfficiency">cast efficiency</Trans>
+              <>cast efficiency</>
             </strong>
             <CastEfficiencyBar
               spellId={SPELLS.IMMOLATION_AURA.id}

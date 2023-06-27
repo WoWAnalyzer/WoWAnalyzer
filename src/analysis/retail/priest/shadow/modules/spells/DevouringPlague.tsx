@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -43,12 +42,7 @@ class DevouringPlague extends Analyzer {
         </span>,
       )
         .icon(TALENTS.DEVOURING_PLAGUE_TALENT.icon)
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.devouringPlague.uptime',
-            message: `${formatPercentage(actual)}% Devouring Plauge uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Devouring Plauge uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

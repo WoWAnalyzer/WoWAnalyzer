@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -37,25 +36,15 @@ class BloodPlagueUptime extends Analyzer {
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.bloodPlague.suggestion.suggestion">
+        <>
           Your <SpellLink spell={SPELLS.BLOOD_PLAGUE} /> uptime can be improved. Keeping{' '}
           <SpellLink spell={TALENTS.BLOOD_BOIL_TALENT} /> on cooldown should keep it up at all
           times.
-        </Trans>,
+        </>,
       )
         .icon(SPELLS.BLOOD_PLAGUE.icon)
-        .actual(
-          t({
-            id: 'deathknight.blood.bloodPlague.suggestion.actual',
-            message: `${formatPercentage(actual)}% Blood Plague uptime`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'shared.suggestion.recommended.moreThanPercent',
-            message: `>${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% Blood Plague uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -63,9 +52,9 @@ class BloodPlagueUptime extends Analyzer {
     return (
       <Statistic size="small" position={STATISTIC_ORDER.CORE(2)}>
         <BoringSpellValueText spell={SPELLS.BLOOD_PLAGUE}>
-          <Trans id="deathknight.blood.bloodPlague.statistic">
+          <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

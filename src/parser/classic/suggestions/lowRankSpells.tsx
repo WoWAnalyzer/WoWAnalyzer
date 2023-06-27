@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { maybeGetSpell } from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { suggestion } from 'parser/core/Analyzer';
@@ -24,10 +24,10 @@ const lowRankSpells = (spells: LowRankSpells, whitelist: LowRankSpells = []) =>
           )
           .map((spellId) => ({
             text: (
-              <Trans id="tbc.suggestions.lowRankSpells">
+              <>
                 You cast a lower rank <SpellLink spell={spellId} />. You should use the max rank{' '}
                 <SpellLink spell={Number(primarySpellId)} /> instead.
-              </Trans>
+              </>
             ),
             importance: SuggestionImportance.Regular,
             icon: (maybeGetSpell(primarySpellId) || maybeGetSpell(spellId))?.icon,

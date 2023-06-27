@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -55,12 +54,7 @@ class InsanityUsage extends Analyzer {
         </>,
       )
         .icon(TALENTS.DEVOURING_PLAGUE_TALENT.icon)
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.insanity.usage',
-            message: `You wasted ${this.wasted} of your Insanity due to overcapping.`,
-          }),
-        )
+        .actual(`You wasted ${this.wasted} of your Insanity due to overcapping.`)
         .recommended(`Less than ${recommended} is recommended.`),
     );
   }

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -164,12 +163,7 @@ class Eradication extends Analyzer {
         </>,
       )
         .icon(TALENTS.ERADICATION_TALENT.icon)
-        .actual(
-          t({
-            id: 'warlock.destruction.suggestions.eradication.uptime',
-            message: `${formatPercentage(actual)}% Eradication uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Eradication uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

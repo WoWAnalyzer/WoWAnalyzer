@@ -1,4 +1,3 @@
-import { Trans, t } from '@lingui/macro';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
@@ -11,20 +10,10 @@ const MaelstromUsage = ({ modules, events, info }: GuideProps<typeof CombatLogPa
   const gained = modules.maelstromWeaponTracker.rawGain;
   const performance = modules.maelstromWeaponTracker.percentWastedPerformance;
   return (
-    <Section
-      title={t({
-        id: 'guide.shaman.enhancement.sections.resources.title',
-        message: 'Resources',
-      })}
-    >
-      <SubSection
-        title={t({
-          id: 'guide.shaman.enhancement.sections.resources.maelstromweapon.title',
-          message: 'Maelstrom Weapon',
-        })}
-      >
+    <Section title="Resources">
+      <SubSection title="Maelstrom Weapon">
         <p>
-          <Trans id="guide.shaman.enhancement.sections.resources.maelstromweapon.summary">
+          <>
             Enhancement's primary resource is <SpellLink id={TALENTS.MAELSTROM_WEAPON_TALENT.id} />.
             {(info.combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) && (
               <>
@@ -39,15 +28,15 @@ const MaelstromUsage = ({ modules, events, info }: GuideProps<typeof CombatLogPa
                 avoid overcapping.
               </>
             )) || <></>}
-          </Trans>
+          </>
         </p>
         <p>
-          <Trans id="guide.shaman.enhancement.sections.resources.maelstromweapon.chart">
+          <>
             The chart below shows your <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> over
             the source of the encounter. You wasted{' '}
             <PerformancePercentage performance={performance} gained={gained} wasted={wasted} /> of
             your <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />.
-          </Trans>
+          </>
         </p>
         {modules.maelstromWeaponGraph.plot}
       </SubSection>

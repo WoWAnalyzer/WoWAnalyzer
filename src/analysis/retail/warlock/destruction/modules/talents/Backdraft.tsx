@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -142,12 +141,7 @@ class Backdraft extends Analyzer {
         </>,
       )
         .icon(SPELLS.BACKDRAFT.icon)
-        .actual(
-          t({
-            id: 'warlock.destruction.suggestions.backdraft.wastedPerMinute',
-            message: `${actual.toFixed(2)} wasted Backdraft stacks per minute`,
-          }),
-        )
+        .actual(`${actual.toFixed(2)} wasted Backdraft stacks per minute`)
         .recommended(`< ${recommended} is recommended`),
     );
   }

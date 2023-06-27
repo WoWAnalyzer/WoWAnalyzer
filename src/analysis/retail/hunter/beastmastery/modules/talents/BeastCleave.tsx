@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -128,14 +128,14 @@ class BeastCleave extends Analyzer {
         )
           .icon(TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.icon)
           .actual(
-            <Trans id="hunter.beastmastery.suggestions.beastCleave.efficiency">
+            <>
               {actual} {actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage{' '}
-            </Trans>,
+            </>,
           )
           .recommended(
-            <Trans id="hunter.beastmastery.suggestions.beastCleave.recommended">
+            <>
               {recommended} is recommended{' '}
-            </Trans>,
+            </>,
           ),
       );
     }

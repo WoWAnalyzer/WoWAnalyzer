@@ -8,7 +8,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import FuryTracker from 'analysis/retail/demonhunter/vengeance/modules/resourcetracker/FuryTracker';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
-import { Trans } from '@lingui/macro';
+
 import {
   ChecklistUsageInfo,
   SpellUse,
@@ -81,7 +81,7 @@ export default class Fracture extends Analyzer {
   guideSubsection() {
     const explanation = (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
+        <>
           <strong>
             <SpellLink spell={TALENTS.FRACTURE_TALENT} />
           </strong>{' '}
@@ -92,7 +92,7 @@ export default class Fracture extends Analyzer {
           <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 3{' '}
           <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.inMetaFuryLimit}{' '}
           <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
-        </Trans>
+        </>
       </p>
     );
 

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -122,13 +121,11 @@ class ChiBurst extends Analyzer {
       )
         .icon(TALENTS_MONK.CHI_BURST_TALENT.icon)
         .actual(
-          `${this.avgTargetsHitPerCB.toFixed(2)} ${t({
-            id: 'monk.mistweaver.suggestions.chiBurst.targetsHit',
-            message: `targets hit per Chi Burst cast - `,
-          })}${formatPercentage(this.percentOfRaidHitByCB)}${t({
-            id: 'monk.mistweaver.suggestions.chiBurst.targetsHitPartTwo',
-            message: `% of raid hit`,
-          })}`,
+          `${this.avgTargetsHitPerCB.toFixed(
+            2,
+          )} targets hit per Chi Burst cast - ${formatPercentage(
+            this.percentOfRaidHitByCB,
+          )}% of raid hit`,
         )
         .recommended('30% of the raid hit is recommended'),
     );

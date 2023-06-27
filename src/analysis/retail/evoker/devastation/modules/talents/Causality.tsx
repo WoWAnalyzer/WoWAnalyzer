@@ -9,7 +9,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
-import { Trans } from '@lingui/macro';
+
 import { SpellLink } from 'interface';
 import {
   CAUSALITY_DISINTEGRATE_CDR_MS,
@@ -201,14 +201,14 @@ class Causality extends Analyzer {
             <BoringSpellValue
               spellId={SPELLS.ETERNITY_SURGE.id}
               value={`${this.eternitySurgeCooldownReduced.toFixed(2)}s`}
-              label={<Trans>Total CDR</Trans>}
+              label={<>Total CDR</>}
             ></BoringSpellValue>
           </div>
           <div>
             <BoringSpellValue
               spellId={SPELLS.FIRE_BREATH.id}
               value={`${this.fireBreathCooldownReduced.toFixed(2)}s`}
-              label={<Trans>Total CDR</Trans>}
+              label={<>Total CDR</>}
             ></BoringSpellValue>
           </div>
         </TalentSpellText>

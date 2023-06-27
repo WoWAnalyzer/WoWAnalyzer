@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -129,28 +129,28 @@ class Downpour extends Analyzer {
       <StatisticBox
         icon={<SpellIcon id={TALENTS.DOWNPOUR_TALENT.id} />}
         value={
-          <Trans id="shaman.restoration.downpour.statistic.value">
+          <>
             {downpourAverageCooldown.toFixed(1)} seconds
-          </Trans>
+          </>
         }
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
         label={
           <TooltipElement
             content={
-              <Trans id="shaman.restoration.downpour.statistic.label.tooltip">
+              <>
                 You cast a total of {downpourCasts} Downpours, which on average hit{' '}
                 {(downpourAverageHits + downpourAverageOverhealedHits).toFixed(1)} out of 6 targets.
                 Keep in mind, that Unleash Life can increase the maximum number of targets by 2.
                 <br />
                 Of those hits, {downpourAverageHits.toFixed(1)} had effective healing and increased
                 the cooldown.
-              </Trans>
+              </>
             }
           >
-            <Trans id="shaman.restoration.downpour.statistic.label">
+            <>
               Average Downpour cooldown
-            </Trans>
+            </>
           </TooltipElement>
         }
       />

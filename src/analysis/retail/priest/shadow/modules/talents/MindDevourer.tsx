@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -93,12 +92,7 @@ class MindDevourer extends Analyzer {
         </>,
       )
         .icon(TALENTS.MIND_DEVOURER_TALENT.icon)
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.mindDevourer.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} of Mind Devourer procs.`,
-          }),
-        )
+        .actual(`You wasted ${this.procsWasted} out of ${this.procsGained} of Mind Devourer procs.`)
         .recommended(`0 is recommended.`),
     );
   }

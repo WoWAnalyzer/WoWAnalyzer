@@ -8,7 +8,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
-import { Trans } from '@lingui/macro';
+
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { isDefined } from 'common/typeGuards';
@@ -40,14 +40,14 @@ export default class SoulCarver extends MajorCooldown<SoulCarverCooldownCast> {
 
   description() {
     return (
-      <Trans id="guide.demonhunter.vengeance.sections.cooldowns.soulCarver.explanation">
+      <>
         <strong>
           <SpellLink spell={TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT} />
         </strong>{' '}
         is a burst of damage that also generates a decent chunk of Soul Fragments.
         <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
         <FieryDemiseExplanation />
-      </Trans>
+      </>
     );
   }
 

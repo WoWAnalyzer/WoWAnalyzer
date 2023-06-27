@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
@@ -71,12 +70,7 @@ export default class DemonSpikes extends HitBasedAnalyzer {
         </>,
       )
         .icon(SPELLS.DEMON_SPIKES.icon)
-        .actual(
-          t({
-            id: 'demonhunter.vengeance.suggestions.demonSpikes.unmitgatedHits',
-            message: `${formatPercentage(actual)}% unmitigated physical hits`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% unmitigated physical hits`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

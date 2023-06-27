@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import {
   SERPENT_STING_SV_BASE_DURATION,
   SV_SERPENT_STING_COST,
@@ -210,14 +209,7 @@ class VolatileBomb extends Analyzer {
         </>,
       )
         .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
-        .actual(
-          t({
-            id: 'hunter.survival.suggestions.wildfireInfusion.castsWithoutSerpentSting',
-            message: `${actual} casts without ${(
-              <SpellLink id={SPELLS.SERPENT_STING_SV.id} />
-            )} on`,
-          }),
-        )
+        .actual(`${actual} casts without ${(<SpellLink id={SPELLS.SERPENT_STING_SV.id} />)} on`)
         .recommended(`<${recommended} is recommended`),
     );
   }

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -30,12 +29,7 @@ class Moonfire extends Analyzer {
           </span>,
         )
           .icon(SPELLS.MOONFIRE_DEBUFF.icon)
-          .actual(
-            t({
-              id: 'druid.guardian.suggestions.moonfire.uptime',
-              message: `${formatPercentage(moonfireUptimePercentage)}% uptime`,
-            }),
-          )
+          .actual(`${formatPercentage(moonfireUptimePercentage)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(recommended - 0.05)
           .major(recommended - 0.15),

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -39,12 +38,7 @@ class FuryDetails extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(`You wasted ${formatNumber(this.furyTracker.wasted)} Fury.`)
         .icon(furyIcon)
-        .actual(
-          t({
-            id: 'demonhunter.havoc.suggestions.fury.wasted',
-            message: `${formatPercentage(actual)}% Fury wasted`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Fury wasted`)
         .recommended(`<${formatPercentage(recommended)}% is recommended.`),
     );
   }

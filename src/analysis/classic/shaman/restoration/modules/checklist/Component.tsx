@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellIcon, SpellLink } from 'interface';
 import { TooltipElement } from 'interface/Tooltip';
@@ -34,101 +34,101 @@ const HealerChecklist = ({
   return (
     <Checklist>
       <Rule
-        name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
+        name={<>Keep your buffs up</>}
         description={
-          <Trans id="shaman.restoration.checklist.buffUptime.description">
+          <>
             Water Shield and Earth Shield should be applied prior to the fight starting and
             maintained. Your totems should be kept up as often as possible.
-          </Trans>
+          </>
         }
       >
         <>
           <Requirement
             name={
-              <Trans id="shaman.restoration.checklist.appliedPrepull">
+              <>
                 <SpellLink id={SPELLS.EARTH_SHIELD.id} /> applied prepull
-              </Trans>
+              </>
             }
             thresholds={thresholds.earthShieldPrepull}
           />
           <Requirement
             name={
-              <Trans id="shaman.restoration.checklist.uptime">
+              <>
                 <SpellLink id={SPELLS.EARTH_SHIELD.id} /> Uptime
-              </Trans>
+              </>
             }
             thresholds={thresholds.earthShieldUptime}
           />
         </>
         <Requirement
           name={
-            <Trans id="shaman.restoration.checklist.appliedPrepull">
+            <>
               <SpellLink id={SPELLS.WATER_SHIELD.id} /> applied prepull
-            </Trans>
+            </>
           }
           thresholds={thresholds.waterShieldPrepull}
         />
         <Requirement
           name={
-            <Trans id="shaman.restoration.checklist.uptime">
+            <>
               <SpellLink id={SPELLS.WATER_SHIELD.id} /> Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.waterShieldUptime}
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.fire">
+            <>
               <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.fireTotemUptime}
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.water">
+            <>
               <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem
               Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.waterTotemUptime}
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.earth">
+            <>
               <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem
               Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.earthTotemUptime}
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.air">
+            <>
               <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.airTotemUptime}
         />
       </Rule>
       <Rule
         name={
-          <Trans id="shaman.restoration.checklist.aoeSpell">Target AOE spells effectively</Trans>
+          <>Target AOE spells effectively</>
         }
         description={
-          <Trans id="shaman.restoration.checklist.aoeSpell.description">
+          <>
             Chain heal relies on who you target and where they are located to maximize healing
             potential. You should plan your chain heal ahead of time in preparation for where you
             expect raid members to be for the spells duration.
-          </Trans>
+          </>
         }
       >
         {thresholds.chainHealTargetThresholds.actual > 0 && (
           <Requirement
             name={
-              <Trans id="shaman.restoration.checklist.aoeSpell.targets">
+              <>
                 Average <SpellLink id={SPELLS.CHAIN_HEAL} /> targets
-              </Trans>
+              </>
             }
             thresholds={thresholds.chainHealTargetThresholds}
           />

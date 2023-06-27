@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
@@ -59,21 +59,21 @@ class MissingBeacons extends Analyzer {
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />}
         value={
           <span style={{ fontSize: '75%' }}>
-            <Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealing">
+            <>
               Up to {lostBeaconHealing}
-            </Trans>
+            </>
           </span>
         }
         label={
-          <Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealingLabel">
+          <>
             Beacon healing lost (missing beacon)
-          </Trans>
+          </>
         }
         tooltip={
-          <Trans id="paladin.holy.modules.beacons.missingBeacons.lostBeaconHealingTooltip">
+          <>
             The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon
             targets due to a missing beacon. When a beacon drops, re-apply it quickly.
-          </Trans>
+          </>
         }
       />
     );

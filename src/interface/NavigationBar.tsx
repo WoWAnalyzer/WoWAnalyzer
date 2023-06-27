@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import getFightName from 'common/getFightName';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
@@ -48,7 +48,7 @@ const NavigationBar = ({ children, ...others }: Props) => {
               {fight ? (
                 getFightName(report, fight)
               ) : (
-                <Trans id="interface.layout.navigationBar.fightSelection">Fight selection</Trans>
+                <>Fight selection</>
               )}
             </Link>
           </div>
@@ -57,7 +57,7 @@ const NavigationBar = ({ children, ...others }: Props) => {
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>
               {playerName || (
-                <Trans id="interface.layout.navigationBar.playerSelection">Player selection</Trans>
+                <>Player selection</>
               )}
             </Link>
           </div>
@@ -81,7 +81,7 @@ const NavigationBar = ({ children, ...others }: Props) => {
           {user && user.premium ? (
             <Tooltip
               content={
-                <Trans id="interface.layout.navigationBar.premiumActive">Premium active</Trans>
+                <>Premium active</>
               }
             >
               <Link to="/premium">
@@ -89,11 +89,11 @@ const NavigationBar = ({ children, ...others }: Props) => {
               </Link>
             </Tooltip>
           ) : (
-            <Tooltip content={<Trans id="interface.layout.navigationBar.premium">Premium</Trans>}>
+            <Tooltip content={<>Premium</>}>
               <Link to="/premium" className="premium">
                 <PremiumIcon />{' '}
                 <span className="optional">
-                  <Trans id="interface.layout.navigationBar.premium">Premium</Trans>
+                  <>Premium</>
                 </span>
               </Link>
             </Tooltip>

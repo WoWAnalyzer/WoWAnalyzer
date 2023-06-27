@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -45,14 +44,7 @@ class VileInfusion extends Analyzer {
           </span>,
         )
           .icon(SPELLS.PLAGUEBRINGER_BUFF.icon)
-          .actual(
-            t({
-              id: 'deathknight.unholy.suggestions.plaguebringer.uptime',
-              message: `Vile Infusion was up ${formatPercentage(
-                this.averageBuffUptime,
-              )}% of the time`,
-            }),
-          )
+          .actual(`Vile Infusion was up ${formatPercentage(this.averageBuffUptime)}% of the time`)
           .recommended(`${formatPercentage(recommended)}% is recommended`)
           .regular(recommended - 0.05)
           .major(recommended - 0.1),

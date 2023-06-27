@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -88,12 +87,7 @@ class OverpowerAnalyzer extends Analyzer {
         </>,
       )
         .icon(SPELLS.OVERPOWER.icon)
-        .actual(
-          t({
-            id: 'warrior.arms.suggestions.overpower.stacksWasted',
-            message: `${formatPercentage(actual)}% of Overpower stacks were wasted.`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% of Overpower stacks were wasted.`)
         .recommended(`${formatPercentage(recommended)}% is recommended.`),
     );
   }

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -63,12 +62,7 @@ class MaelstromDetails extends Analyzer {
         `You overcapped ${this.wasted} Maelstrom. Always prioritize spending it over avoiding the overcap of any other ability.`,
       )
         .icon('spell_shadow_mindflay')
-        .actual(
-          t({
-            id: 'shaman.shared.suggestions.maelstrom.overcapped',
-            message: `${formatPercentage(actual)}% overcapped Maelstrom`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% overcapped Maelstrom`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

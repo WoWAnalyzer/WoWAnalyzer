@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/hunter';
 import { SpellLink } from 'interface';
@@ -35,12 +34,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           </>,
         )
           .icon('spell_mage_altertime')
-          .actual(
-            t({
-              id: 'shared.suggestions.alwaysBeCasting.downtime',
-              message: `${formatPercentage(actual)}% downtime`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.15)
           .major(recommended + 0.2),

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -85,24 +85,24 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
   BarHeader = () => (
     <>
       <th>
-        <Trans id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans>
+        <>Mana Spent</>
       </th>
       {this.state.showHealing && (
         <>
           <th colSpan={2} className="text-center">
-            <Trans id="common.stat.healingPerMana">Healing per mana spent</Trans>
+            <>Healing per mana spent</>
           </th>
           <th colSpan={2} className="text-center">
             <TooltipElement
               content={
-                <Trans id="common.stat.healingPerExecutionTime.long">
+                <>
                   Healing per second spent casting the spell, including GCD wait time.
-                </Trans>
+                </>
               }
             >
-              <Trans id="common.stat.healingPerExecutionTime">
+              <>
                 Healing per second spent casting
-              </Trans>
+              </>
             </TooltipElement>
           </th>
         </>
@@ -110,12 +110,12 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
       {!this.state.showHealing && (
         <>
           <th colSpan={2} className="text-center">
-            <Trans id="common.stat.damagePerMana">Damage per mana spent</Trans>
+            <>Damage per mana spent</>
           </th>
           <th colSpan={2} className="text-center">
-            <Trans id="common.stat.damagePerExecutionTime.long">
+            <>
               Damage per second spent casting the spell
-            </Trans>
+            </>
           </th>
         </>
       )}
@@ -178,48 +178,48 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
       <th>
         <TooltipElement
           content={
-            <Trans id="shared.healingEfficiency.tableHeader.casts.tooltip">
+            <>
               Total Casts (Number of targets hit)
-            </Trans>
+            </>
           }
         >
-          <Trans id="shared.healingEfficiency.tableHeader.casts">Casts</Trans>
+          <>Casts</>
         </TooltipElement>
       </th>
       <th>
-        <Trans id="shared.healingEfficiency.tableHeader.manaSpent">Mana Spent</Trans>
+        <>Mana Spent</>
       </th>
       <th>
-        <Trans id="shared.healingEfficiency.tableHeader.timeSpent">Time Spent</Trans>
+        <>Time Spent</>
       </th>
       {this.state.showHealing && (
         <>
           <th>
-            <Trans id="shared.healingEfficiency.tableHeader.healingDone">Healing Done</Trans>
+            <>Healing Done</>
           </th>
           <th>
-            <Trans id="shared.healingEfficiency.tableHeader.overhealingDone">Overhealing</Trans>
+            <>Overhealing</>
           </th>
           <th>
             <TooltipElement
               content={
-                <Trans id="common.stat.healingPerMana.long">
+                <>
                   Healing per mana spent casting the spell
-                </Trans>
+                </>
               }
             >
-              <Trans id="common.stat.healingPerMana.short">HPM</Trans>
+              <>HPM</>
             </TooltipElement>
           </th>
           <th>
             <TooltipElement
               content={
-                <Trans id="common.stat.healingPerExecutionTime.long">
+                <>
                   Healing per second spent casting the spell, including GCD wait time.
-                </Trans>
+                </>
               }
             >
-              <Trans id="common.stat.healingPerExecutionTime.short">HPET</Trans>
+              <>HPET</>
             </TooltipElement>
           </th>
         </>
@@ -227,28 +227,28 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
       {!this.state.showHealing && (
         <>
           <th>
-            <Trans id="shared.healingEfficiency.tableHeader.damageDone">Damage Done</Trans>
+            <>Damage Done</>
           </th>
           <th>
             <TooltipElement
               content={
-                <Trans id="common.stat.damagePerMana.long">
+                <>
                   Damage per mana spent casting the spell
-                </Trans>
+                </>
               }
             >
-              <Trans id="common.stat.damagePerMana.short">DPM</Trans>
+              <>DPM</>
             </TooltipElement>
           </th>
           <th>
             <TooltipElement
               content={
-                <Trans id="common.stat.damagePerExecutionTime.long">
+                <>
                   Damage per second spent casting the spell
-                </Trans>
+                </>
               }
             >
-              <Trans id="common.stat.damagePerExecutionTime.short">DPET</Trans>
+              <>DPET</>
             </TooltipElement>
           </th>
         </>
@@ -327,7 +327,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
                 id="detailed-toggle"
               />
               <label htmlFor="detailed-toggle" style={{ marginLeft: '0.5em' }}>
-                <Trans id="shared.healingEfficiency.toggle.detailed">Detailed View</Trans>
+                <>Detailed View</>
               </label>
             </div>
           </div>
@@ -343,12 +343,12 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
                 id="cooldown-toggle"
               />
               <label htmlFor="cooldown-toggle" style={{ marginLeft: '0.5em' }}>
-                <Trans id="shared.healingEfficiency.toggle.cooldowns">Show Cooldowns</Trans>
+                <>Show Cooldowns</>
               </label>
             </div>
             <div className="toggle-control pull-left" style={{ marginLeft: '.5em' }}>
               <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em', marginRight: '1em' }}>
-                <Trans id="shared.healingEfficiency.toggle.damage">Show Damage</Trans>
+                <>Show Damage</>
               </label>
               <Toggle
                 defaultChecked
@@ -357,7 +357,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
                 id="healing-toggle"
               />
               <label htmlFor="healing-toggle" style={{ marginLeft: '0.5em' }}>
-                <Trans id="shared.healingEfficiency.toggle.healing">Show Healing</Trans>
+                <>Show Healing</>
               </label>
             </div>
           </div>
@@ -366,7 +366,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
           <thead>
             <tr>
               <th>
-                <Trans id="common.ability">Ability</Trans>
+                <>Ability</>
               </th>
               {this.state.detailedView ? <this.DetailHeader /> : <this.BarHeader />}
             </tr>

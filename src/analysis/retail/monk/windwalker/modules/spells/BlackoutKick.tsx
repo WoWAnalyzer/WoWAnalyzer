@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -152,12 +151,7 @@ class BlackoutKick extends Analyzer {
         </>,
       )
         .icon(SPELLS.BLACKOUT_KICK.icon)
-        .actual(
-          t({
-            id: 'monk.windwalker.suggestions.blackoutKick.cdrWasted',
-            message: `${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`,
-          }),
-        )
+        .actual(`${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`)
         .recommended(`${recommended} is recommended`),
     );
   }

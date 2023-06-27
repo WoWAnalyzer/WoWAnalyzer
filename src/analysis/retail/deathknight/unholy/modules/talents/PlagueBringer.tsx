@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -41,14 +40,7 @@ class PlagueBringer extends Analyzer {
           </span>,
         )
           .icon(SPELLS.PLAGUEBRINGER_BUFF.icon)
-          .actual(
-            t({
-              id: 'deathknight.unholy.suggestions.plaguebringer.uptime',
-              message: `Plaguebringer was up ${formatPercentage(
-                this.averageBuffUptime,
-              )}% of the time`,
-            }),
-          )
+          .actual(`Plaguebringer was up ${formatPercentage(this.averageBuffUptime)}% of the time`)
           .recommended(`${recommended * 100}% is recommended`)
           .regular(recommended - 0.05)
           .major(recommended - 0.1),

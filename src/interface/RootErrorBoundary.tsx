@@ -1,4 +1,3 @@
-import { Trans, t } from '@lingui/macro';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import FullscreenError from 'interface/FullscreenError';
 import ApiDownBackground from 'interface/images/api-down-background.gif';
@@ -121,14 +120,8 @@ class RootErrorBoundary extends React.PureComponent<Props, State> {
       if (this.state.error instanceof EventsParseError) {
         return (
           <FullscreenError
-            error={t({
-              id: 'interface.rootErrorBoundary.errorDuringAnalysis',
-              message: `An error occurred during analysis`,
-            })}
-            details={t({
-              id: 'interface.rootErrorBoundary.errorDuringAnalysisDetails',
-              message: `We ran into an error while looking at your gameplay and running our analysis. Please let us know on Discord and we will fix it for you.`,
-            })}
+            error="An error occurred during analysis"
+            details="We ran into an error while looking at your gameplay and running our analysis. Please let us know on Discord and we will fix it for you."
             background="https://media.giphy.com/media/2sdHZ0iBuI45s6fqc9/giphy.gif"
           />
         );
@@ -137,12 +130,8 @@ class RootErrorBoundary extends React.PureComponent<Props, State> {
       // TODO: Instead of hiding the entire app, show a small toaster instead. Not all uncaught errors are fatal.
       return (
         <FullscreenError
-          error={<Trans id="interface.rootErrorBoundary.errorOccurred">An error occurred.</Trans>}
-          details={
-            <Trans id="interface.rootErrorBoundary.errorOccurredDetails">
-              An unexpected error occurred in the app. Please try again.
-            </Trans>
-          }
+          error={<>An error occurred.</>}
+          details={<>An unexpected error occurred in the app. Please try again.</>}
           background={ApiDownBackground}
           errorDetails={
             <>
@@ -157,10 +146,10 @@ class RootErrorBoundary extends React.PureComponent<Props, State> {
           }
         >
           <div className="text-muted">
-            <Trans id="interface.rootErrorBoundary.bug">
+            <>
               This is usually caused by a bug, please let us know about the issue on GitHub or
               Discord so we can fix it.
-            </Trans>
+            </>
           </div>
         </FullscreenError>
       );

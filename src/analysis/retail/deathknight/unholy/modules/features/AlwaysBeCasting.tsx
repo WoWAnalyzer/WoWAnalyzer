@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -28,12 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         </span>,
       )
         .icon('spell_mage_altertime')
-        .actual(
-          t({
-            id: 'deathknight.unholy.suggestions.alwaysBeCasting',
-            message: `${formatPercentage(actual)}% downtime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% downtime`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

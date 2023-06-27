@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { SpellLink } from 'interface';
 import { SpecIcon } from 'interface';
@@ -155,7 +155,7 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
     return (
       <div>
         <div style={{ padding: '15px 30px' }}>
-          <Trans id="shared.lowHealthHealing.slider.maxHealth">Max health of target:</Trans>{' '}
+          <>Max health of target:</>{' '}
           <Slider
             {...sliderProps}
             defaultValue={this.state.maxPlayerHealthPercentage}
@@ -166,9 +166,9 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
             }}
           />
           <br />
-          <Trans id="shared.lowHealthHealing.slider.minEffective">
+          <>
             Min effective healing (percentage of target's health):
-          </Trans>{' '}
+          </>{' '}
           <Slider
             {...sliderProps}
             defaultValue={this.state.minHealOfMaxHealthPercentage}
@@ -184,16 +184,16 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
           <thead>
             <tr>
               <th>
-                <Trans id="common.time">Time</Trans>
+                <>Time</>
               </th>
               <th>
-                <Trans id="common.ability">Ability</Trans>
+                <>Ability</>
               </th>
               <th>
-                <Trans id="common.target">Target</Trans>
+                <>Target</>
               </th>
               <th colSpan={2}>
-                <Trans id="common.healingDone">Healing done</Trans>
+                <>Healing done</>
               </th>
             </tr>
           </thead>
@@ -235,20 +235,20 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
                     {healthPercentage < 0 ? (
                       <TooltipElement
                         content={
-                          <Trans id="shared.lowHealthHealing.table.event.tooltip">
+                          <>
                             This number may be negative when the player had an absorb larger than
                             his health pool.
-                          </Trans>
+                          </>
                         }
                       >
-                        <Trans id="shared.lowHealthHealing.table.event">
+                        <>
                           {formatPercentage(healthPercentage)}% health
-                        </Trans>
+                        </>
                       </TooltipElement>
                     ) : (
-                      <Trans id="shared.lowHealthHealing.table.event">
+                      <>
                         {formatPercentage(healthPercentage)}% health
-                      </Trans>
+                      </>
                     )}
                   </td>
                   <td style={{ width: '35%' }}>
@@ -271,7 +271,7 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
             })}
             <tr>
               <td colSpan={7}>
-                <Trans id="shared.lowHealthHealing.table.total">
+                <>
                   Total healing done on targets below {this.state.maxPlayerHealthPercentage * 100}%
                   health: {formatNumber(total)} (spread over {count} seperate heals).
                   <br />
@@ -279,7 +279,7 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
                   health for more than {Math.round(this.state.minHealOfMaxHealthPercentage * 100)}%
                   of target's max health: {formatNumber(totalBigHealing)} (spread over{' '}
                   {bigHealCount} seperate heals).
-                </Trans>
+                </>
               </td>
             </tr>
           </tbody>

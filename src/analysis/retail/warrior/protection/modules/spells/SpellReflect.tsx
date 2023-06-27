@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
@@ -72,12 +71,7 @@ class SpellReflect extends Analyzer {
         </>,
       )
         .icon(SPELLS.SPELL_REFLECTION.icon)
-        .actual(
-          t({
-            id: 'warrior.protection.suggestions.spellReflect.efficiency',
-            message: `${formatPercentage(actual)} % magic damage With Spell Reflect Up`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)} % magic damage With Spell Reflect Up`)
         .recommended(`${formatPercentage(recommended)} % recommended`),
     );
   }

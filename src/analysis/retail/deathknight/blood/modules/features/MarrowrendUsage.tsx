@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -105,12 +104,9 @@ class MarrowrendUsage extends Analyzer {
         const wasted = MR_GAIN - this.currentBoneShieldBuffer;
         this.badMRCasts += 1;
         this.bsStacksWasted += wasted;
-        badCast = t({
-          id: 'deathknight.blood.marrowrendUsage.badCast',
-          message: `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${durationLeft.toFixed(
-            1,
-          )} seconds left, wasting ${wasted} charges.`,
-        });
+        badCast = `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${durationLeft.toFixed(
+          1,
+        )} seconds left, wasting ${wasted} charges.`;
       }
 
       if (badCast) {
@@ -169,27 +165,19 @@ class MarrowrendUsage extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.marrowrendUsage.suggestion.suggestion">
+        <>
           You casted {this.badMRCasts} Marrowrends with more than {REFRESH_AT_STACKS} stacks of{' '}
           <SpellLink spell={SPELLS.BONE_SHIELD} /> that were not about to expire, wasting{' '}
           {this.bsStacksWasted} stacks.
           <br />
           Cast <SpellLink spell={TALENTS.HEART_STRIKE_TALENT} /> instead if you are at{' '}
           {this.refreshAtStacks} stacks or above.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.MARROWREND_TALENT.icon)
-        .actual(
-          t({
-            id: 'deathknight.blood.marrowrendUsage.suggestion.actual',
-            message: `${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`)
         .recommended(
-          t({
-            id: 'deathknight.blood.marrowrendUsage.suggestion.recommended',
-            message: `${this.bsStacksWasted} stacks wasted, ${this.totalStacksGenerated} stacks generated`,
-          }),
+          `${this.bsStacksWasted} stacks wasted, ${this.totalStacksGenerated} stacks generated`,
         ),
     );
   }
@@ -200,7 +188,7 @@ class MarrowrendUsage extends Analyzer {
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.blood.marrowrendUsage.statistic.tooltip">
+          <>
             {this.refreshMRCasts} casts to refresh Bone Shield, those do not count towards bad
             casts.
             <br />
@@ -210,13 +198,13 @@ class MarrowrendUsage extends Analyzer {
             <br />
             Avoid casting Marrowrend unless you have {this.refreshAtStacks} or less stacks or if
             Bone Shield has less than 6sec of its duration left.
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS.MARROWREND_TALENT}>
-          <Trans id="deathknight.blood.marrowrendUsage.statistic">
+          <>
             {this.badMRCasts} / {this.totalMRCasts} <small>bad casts</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
 import { setReport } from 'interface/actions/report';
@@ -167,14 +166,7 @@ const ReportLoader = ({ children }: Props) => {
     });
   }
   if (!report) {
-    return (
-      <ActivityIndicator
-        text={t({
-          id: 'interface.report.reportLoader',
-          message: `Pulling report info...`,
-        })}
-      />
-    );
+    return <ActivityIndicator text="Pulling report info..." />;
   }
 
   return (

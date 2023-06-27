@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -68,12 +67,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
         </>,
       )
         .icon(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.icon)
-        .actual(
-          t({
-            id: 'priest.shared.legendaries.twinsOfTheSunPriestess.efficiency',
-            message: `You had ${this.badCasts} ${castsPlural} of Power Infusion on yourself.`,
-          }),
-        )
+        .actual(`You had ${this.badCasts} ${castsPlural} of Power Infusion on yourself.`)
         .recommended(`No casts on yourself is recommended.`),
     );
   }

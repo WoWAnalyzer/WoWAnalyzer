@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -67,9 +67,9 @@ class CancelledCasts extends CoreCancelledCasts {
       )
         .icon('inv_misc_map_01')
         .actual(
-          <Trans id="mage.shared.suggestions.castsCancelled">
+          <>
             {formatPercentage(actual)}% casts cancelled
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );

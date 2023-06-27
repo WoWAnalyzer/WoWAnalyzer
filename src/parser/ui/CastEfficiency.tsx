@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { SpellLink, TooltipElement } from 'interface';
 import SPELL_CATEGORY, { getSpellCategoryName } from 'parser/core/SPELL_CATEGORY';
 import { AbilityCastEfficiency } from 'parser/shared/modules/CastEfficiency';
@@ -20,40 +19,38 @@ const CastEfficiency = ({ abilities }: Props) => (
                 <b>{getSpellCategoryName(category as SPELL_CATEGORY)}</b>
               </th>
               <th className="text-center">
-                <TooltipElement
-                  content={<Trans id="shared.castEfficiency.cpm.tooltip">Casts Per Minute</Trans>}
-                >
-                  <Trans id="shared.castEfficiency.cpm">CPM</Trans>
+                <TooltipElement content={<>Casts Per Minute</>}>
+                  <>CPM</>
                 </TooltipElement>
               </th>
               <th className="text-right">
                 <TooltipElement
                   content={
-                    <Trans id="shared.castEfficiency.casts.tooltip">
+                    <>
                       Maximum possible casts are based on the ability's cooldown and the fight
                       duration. For abilities that can have their cooldowns dynamically reduced or
                       reset, it's based on the average actual time it took the ability to cooldown
                       over the course of this encounter.
-                    </Trans>
+                    </>
                   }
                 >
-                  <Trans id="shared.castEfficiency.casts">Casts</Trans>
+                  <>Casts</>
                 </TooltipElement>
               </th>
               <th className="text-center">
                 <TooltipElement
                   content={
-                    <Trans id="shared.castEfficiency.timeOnCooldown.tooltip">
+                    <>
                       The percentage of time the spell was kept on cooldown. For spells without
                       charges this also includes when the spell was unavailable due to cast time or
                       time spent waiting for a GCD when the spell was reset due to a proc. Spells
                       with multiple charges count as on cooldown as long as you have fewer than
                       maximum charges. For spells with long cooldowns, it's possible to have well
                       below 100% on cooldown and still achieve maximum casts.
-                    </Trans>
+                    </>
                   }
                 >
-                  <Trans id="shared.castEfficiency.timeOnCooldown">Time on Cooldown</Trans>
+                  <>Time on Cooldown</>
                 </TooltipElement>
               </th>
               <th />
@@ -110,9 +107,7 @@ const CastEfficiency = ({ abilities }: Props) => (
                     <td style={{ width: '25%', color: 'orange' }}>
                       {canBeImproved &&
                         ability.castEfficiency &&
-                        ability.castEfficiency.suggestion && (
-                          <Trans id="shared.castEfficiency.canBeImproved">Can be improved.</Trans>
-                        )}
+                        ability.castEfficiency.suggestion && <>Can be improved.</>}
                     </td>
                   </tr>
                 );

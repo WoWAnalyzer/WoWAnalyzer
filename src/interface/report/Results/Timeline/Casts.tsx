@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatDuration } from 'common/format';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
@@ -202,9 +202,9 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
     if (event.isCancelled) {
       className += ' cancelled';
       castReason = (
-        <Trans id="interface.report.results.timeline.casts.neverFinished">
+        <>
           Cast never finished.
-        </Trans>
+        </>
       );
     }
     // If the beginchannel has a meta prop use that.
@@ -240,10 +240,10 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
       <Tooltip
         key={`channel-${left}-${event.ability.guid}`}
         content={
-          <Trans id="interface.report.results.timeline.casts.tooltip.xSecChannelByAbility">
+          <>
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s channel by{' '}
             {event.ability.name}
-          </Trans>
+          </>
         }
       >
         <div
@@ -264,10 +264,10 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
       <Tooltip
         key={`gcd-${left}-${event.ability.guid}`}
         content={
-          <Trans id="interface.report.results.timeline.casts.tooltip.xSecGCDByAbility">
+          <>
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Global
             Cooldown by {event.ability.name}
-          </Trans>
+          </>
         }
       >
         <div
@@ -288,10 +288,10 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
       <Tooltip
         key={`swing-${left}-${event.ability.guid}`}
         content={
-          <Trans id="interface.report.results.timeline.casts.tooltip.swingCooldown">
+          <>
             {formatDuration(fightDuration, 3)}: {(event.duration / 1000).toFixed(2)}s Swing cooldown
             ({(event.attackSpeed / 1000).toFixed(1)} attack speed)
-          </Trans>
+          </>
         }
       >
         <div
@@ -338,11 +338,11 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
       <Tooltip
         key={`channel-${left}-movement`}
         content={
-          <Trans id="interface.report.results.timeline.movement">
+          <>
             {formatDuration(movementStartRelative, 3)} - {formatDuration(movementEndRelative, 3)}:
             there was {distance.toFixed(1)} yards movement within this period. The start and stop
             time of the movement may vary due to incomplete log data.
-          </Trans>
+          </>
         }
       >
         <div

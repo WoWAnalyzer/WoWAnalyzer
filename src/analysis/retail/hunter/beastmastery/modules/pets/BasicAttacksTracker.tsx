@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -105,16 +105,16 @@ class BasicAttacks extends Analyzer {
       )
         .icon(SPELLS.BITE_BASIC_ATTACK.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.petBasicAttacks.actual">
+          <>
             {' '}
             Your pet didn't cast any Basic Attacks this fight{' '}
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="hunter.beastmastery.suggestions.petBasicAttacks.suggestions">
+          <>
             {' '}
             Your pet should be autocast Basic Attacks{' '}
-          </Trans>,
+          </>,
         ),
     );
   }

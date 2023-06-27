@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -141,12 +140,7 @@ class ShadowWordPain extends Analyzer {
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.shadowWordPain.uptime',
-            message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Shadow Word: Pain uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
 
@@ -161,12 +155,7 @@ class ShadowWordPain extends Analyzer {
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.shadowWordPain.shadowWeavingUptime',
-            message: `${formatPercentage(actual)}% Shadow Word: Pain uptime at 5 stacks`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Shadow Word: Pain uptime at 5 stacks`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
 
@@ -180,12 +169,7 @@ class ShadowWordPain extends Analyzer {
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.shadowWordPain.shadowWordPainOverwrite',
-            message: `${actual} Shadow Word Pain Overwrites`,
-          }),
-        )
+        .actual(`${actual} Shadow Word Pain Overwrites`)
         .recommended(`<${recommended} is recommended`),
     );
   }

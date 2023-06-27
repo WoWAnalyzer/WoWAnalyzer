@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import fetchWcl from 'common/fetchWclApi';
 import { formatNumber } from 'common/format';
 import { SpellIcon } from 'interface';
@@ -220,7 +220,7 @@ class Revitalize extends Analyzer {
           <thead>
             <tr>
               <th>
-                <Trans id="common.player">Player</Trans>
+                <>Player</>
               </th>
               <th>Procs</th>
               <th>Power</th>

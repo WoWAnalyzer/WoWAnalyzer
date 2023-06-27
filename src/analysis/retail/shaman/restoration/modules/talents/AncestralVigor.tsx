@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -100,26 +100,26 @@ class AncestralVigor extends Analyzer {
       this.disableStatistics = true;
     }
     const tooltip = this.loaded ? (
-      <Trans id="shaman.restoration.av.statistic.tooltip.active">
+      <>
         The amount of players that would have died without your Ancestral Vigor buff.
-      </Trans>
+      </>
     ) : (
-      <Trans id="shaman.restoration.av.statistic.tooltip.inactive">
+      <>
         Click to analyze how many lives were saved by the ancestral vigor buff.
-      </Trans>
+      </>
     );
     if (this.disableStatistics) {
       return (
         <StatisticBox
           icon={<SpellIcon id={SPELLS.ANCESTRAL_VIGOR.id} />}
-          label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
-          value={<Trans id="shaman.restoration.av.statistic.disabled">Module disabled</Trans>}
+          label={<>Lives saved</>}
+          value={<>Module disabled</>}
           tooltip={
-            <Trans id="shaman.restoration.av.statistic.disabled.reason">
+            <>
               There were multiple Restoration Shamans with Ancestral Vigor in your raid group, this
               causes major issues with buff tracking. As the results from this module would be very
               inaccurate, it was disabled.
-            </Trans>
+            </>
           }
           category={STATISTIC_CATEGORY.TALENTS}
           position={STATISTIC_ORDER.OPTIONAL(60)}
@@ -131,7 +131,7 @@ class AncestralVigor extends Analyzer {
           loader={this.load.bind(this)}
           icon={<SpellIcon id={SPELLS.ANCESTRAL_VIGOR.id} />}
           value={`≈${this.lifeSavingEvents.length}`}
-          label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
+          label={<>Lives saved</>}
           tooltip={tooltip}
           category={STATISTIC_CATEGORY.TALENTS}
           position={STATISTIC_ORDER.OPTIONAL(60)}
@@ -140,16 +140,16 @@ class AncestralVigor extends Analyzer {
             <thead>
               <tr>
                 <th>
-                  <Trans id="common.time">Time</Trans>
+                  <>Time</>
                 </th>
                 <th>
-                  <Trans id="common.player">Player</Trans>
+                  <>Player</>
                 </th>
                 <th style={{ textAlign: 'center' }}>
-                  <Trans id="common.ability">Ability</Trans>
+                  <>Ability</>
                 </th>
                 <th>
-                  <Trans id="common.health">Health</Trans>
+                  <>Health</>
                 </th>
               </tr>
             </thead>

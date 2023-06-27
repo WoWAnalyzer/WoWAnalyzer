@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { Fragment } from 'react';
 import SPELLS from 'common/SPELLS/classic';
 import { SpellLink } from 'interface';
@@ -25,24 +25,24 @@ const ClassicDemonologyChecklist = ({ combatant, castEfficiency, thresholds }: C
   );
 
   const curseOfTheElements = (
-    <Trans id="warlock.wotlk.shared.curses.curseOfElements">Curse of Elements</Trans>
+    <>Curse of Elements</>
   );
-  const curseOfDoom = <Trans id="warlock.wotlk.shared.curses.curseOfDoom">Curse of Doom</Trans>;
+  const curseOfDoom = <>Curse of Doom</>;
   const curseOfAgony = (
-    <Trans id="warlock.wotlk.shared.curses.curseOfAgony">Curse of Elements</Trans>
+    <>Curse of Elements</>
   );
 
   return (
     <Checklist>
       <Rule
         name={
-          <Trans id="warlock.wotlk.checklist.maintainCurse">
+          <>
             Maintain a curse on the primary target
-          </Trans>
+          </>
         }
         description={
           <Fragment>
-            <Trans id="warlock.wotlk.checklist.maintainCurse.description">
+            <>
               It is important to maintain a curse on the primary target. If there is no Unholy DK
               (applying <SpellLink id={SPELLS.EBON_PLAGUE}>Ebon Plague</SpellLink>) or Moonkin
               (applying <SpellLink id={SPELLS.EARTH_AND_MOON}>Earth and Moon</SpellLink>) in the
@@ -52,7 +52,7 @@ const ClassicDemonologyChecklist = ({ combatant, castEfficiency, thresholds }: C
               <SpellLink id={SPELLS.CURSE_OF_DOOM}>{curseOfDoom}</SpellLink> for a target alive more
               than a minute or <SpellLink id={SPELLS.CURSE_OF_AGONY}>{curseOfAgony}</SpellLink> for
               a target alive less than a minute.
-            </Trans>
+            </>
           </Fragment>
         }
         performanceMethod={PERFORMANCE_METHOD.FIRST}

@@ -1,5 +1,3 @@
-import { t } from '@lingui/macro';
-
 const DIFFICULTIES: {
   [key: string]: number;
 } = {
@@ -15,41 +13,20 @@ export function getLabel(difficulty?: number, hardModeLevel?: number) {
   const isHardMode = hardModeLevel ?? 0;
   switch (difficulty) {
     case DIFFICULTIES.LFR_RAID:
-      return t({
-        id: 'game.difficulties.lfr',
-        message: `LFR`,
-      });
+      return `LFR`;
     case DIFFICULTIES.NORMAL_RAID:
       if (isHardMode > 0) {
-        return t({
-          id: 'game.difficulties.hardmode',
-          message: `Hardmode`,
-        });
+        return `Hardmode`;
       } else {
-        return t({
-          id: 'game.difficulties.nhc',
-          message: `Normal`,
-        });
+        return `Normal`;
       }
     case DIFFICULTIES.HEROIC_RAID:
-      return t({
-        id: 'game.difficulties.hc',
-        message: `Heroic`,
-      });
+      return `Heroic`;
     case DIFFICULTIES.MYTHIC_RAID:
-      return t({
-        id: 'game.difficulties.mythic',
-        message: `Mythic`,
-      });
+      return `Mythic`;
     case DIFFICULTIES.MYTHIC_PLUS_DUNGEON:
-      return t({
-        id: 'game.difficulties.mythicPlus',
-        message: `Mythic+`,
-      });
+      return `Mythic+`;
     default:
-      return t({
-        id: 'game.difficulties.unknown',
-        message: `Unknown difficulty`,
-      });
+      return `Unknown difficulty`;
   }
 }

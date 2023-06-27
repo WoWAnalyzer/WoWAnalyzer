@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
@@ -107,12 +106,7 @@ class BreathOfFire extends Analyzer {
         </>,
       )
         .icon(talents.BREATH_OF_FIRE_TALENT.icon)
-        .actual(
-          t({
-            id: 'monk.brewmaster.suggestions.breathOfFire.hitsMitigated',
-            message: `${formatPercentage(actual)}% of hits mitigated with Breath of Fire`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% of hits mitigated with Breath of Fire`)
         .recommended(`> ${formatPercentage(recommended)}% is recommended`),
     );
   }

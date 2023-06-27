@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { HTMLAttributes } from 'react';
 import Toggle from 'react-toggle';
 
@@ -17,9 +17,9 @@ export const FilterByCovenantToggle = ({ initialValue, onChange, ...props }: Pro
     />
     <label htmlFor="filter-for-covenant-toggle">
       <small>
-        <Trans id="interface.report.results.character.killTimes.filterByCovenant">
+        <>
           Filter similiar kill times by your covenant
-        </Trans>
+        </>
       </small>
     </label>
   </div>

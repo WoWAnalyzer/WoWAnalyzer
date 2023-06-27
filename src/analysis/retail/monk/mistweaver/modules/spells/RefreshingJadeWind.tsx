@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -110,10 +109,9 @@ class RefreshingJadeWind extends Analyzer {
       )
         .icon(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.icon)
         .actual(
-          `${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${t({
-            id: 'monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit',
-            message: `% of targets hit per Refreshing Jade Wind`,
-          })}`,
+          `${formatPercentage(
+            this.avgTargetsHitPerRJWPercentage,
+          )} % of targets hit per Refreshing Jade Wind`,
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );

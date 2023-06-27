@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -122,24 +122,24 @@ class Resurgence extends Analyzer {
               <thead>
                 <tr>
                   <th>
-                    <Trans id="shaman.restoration.resurgence.statistic.tableHeader.spell">
+                    <>
                       Spell
-                    </Trans>
+                    </>
                   </th>
                   <th>
-                    <Trans id="shaman.restoration.resurgence.statistic.tableHeader.amount">
+                    <>
                       Amount
-                    </Trans>
+                    </>
                   </th>
                   <th>
-                    <Trans id="shaman.restoration.resurgence.statistic.tableHeader.crits">
+                    <>
                       Crits
-                    </Trans>
+                    </>
                   </th>
                   <th>
-                    <Trans id="shaman.restoration.resurgence.statistic.tableHeader.mana">
+                    <>
                       % of mana
-                    </Trans>
+                    </>
                   </th>
                 </tr>
               </thead>

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage, formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -61,18 +61,18 @@ class RedThirst extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.blood.redThirst.statistic.tooltip">
+          <>
             {formatNumber(this.reduction)} sec total effective reduction and{' '}
             {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%)
             wasted reduction.
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS.RED_THIRST_TALENT}>
-          <Trans id="deathknight.blood.redThirst.statistic">
+          <>
             <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
             <small>average reduction</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

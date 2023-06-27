@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -76,22 +75,14 @@ class ResourceBreakdown extends Component<Props> {
             <thead>
               <tr>
                 <th>
-                  <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
+                  <>Ability</>
                 </th>
                 <th colSpan={2}>
-                  <Trans id="shared.resourceBreakdown.generatedHeader">
-                    {resourceName} generated
-                  </Trans>
+                  <>{resourceName} generated</>
                 </th>
                 <th colSpan={2}>
-                  <TooltipElement
-                    content={t({
-                      id: 'shared.resourceBreakdown.wastedHeader.tooltip',
-                      message:
-                        'This is the amount of resources that were generated while you were already at cap.',
-                    })}
-                  >
-                    <Trans id="shared.resourceBreakdown.wastedHeader">{resourceName} wasted</Trans>
+                  <TooltipElement content="This is the amount of resources that were generated while you were already at cap.">
+                    <>{resourceName} wasted</>
                   </TooltipElement>
                 </th>
               </tr>
@@ -101,7 +92,7 @@ class ResourceBreakdown extends Component<Props> {
             {!hideGenerated && (
               <tr className="poor">
                 <td>
-                  <Trans id="shared.resourceBreakdown.total">Total</Trans>
+                  <>Total</>
                 </td>
                 <td style={numberColumnStyle}>{totalGenerated.toFixed(0)}</td>
                 <td></td>
@@ -148,24 +139,20 @@ class ResourceBreakdown extends Component<Props> {
             <thead>
               <tr>
                 <th>
-                  <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
+                  <>Ability</>
                 </th>
                 <th colSpan={2}>
-                  <Trans id="shared.resourceBreakdown.spentHeader">{resourceName} spent</Trans>
+                  <>{resourceName} spent</>
                 </th>
                 <th colSpan={2}>
-                  {showMaxSpenders ? (
-                    <>Max {resourceName} Casts / Total</>
-                  ) : (
-                    <Trans id="shared.resourceBreakdown.castsHeader">Casts</Trans>
-                  )}
+                  {showMaxSpenders ? <>Max {resourceName} Casts / Total</> : <>Casts</>}
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr className="poor">
                 <td>
-                  <Trans id="shared.resourceBreakdown.total">Total</Trans>
+                  <>Total</>
                 </td>
                 <td style={numberColumnStyle}>{totalSpent.toFixed(0)}</td>
                 <td></td>

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import AgilityIcon from 'interface/icons/Agility';
 import AvoidanceIcon from 'interface/icons/Avoidance';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
@@ -78,37 +78,37 @@ export function getNameTranslated(stat: STAT) {
   // there's stuff using getName with string functions which Trans breaks
   switch (stat) {
     case STAT.HEALTH:
-      return <Trans id="common.stat.health">Health</Trans>;
+      return <>Health</>;
     case STAT.STAMINA:
-      return <Trans id="common.stat.stamina">Stamina</Trans>;
+      return <>Stamina</>;
     case STAT.MANA:
-      return <Trans id="common.stat.mana">Mana</Trans>;
+      return <>Mana</>;
     case STAT.STRENGTH:
-      return <Trans id="common.stat.strength">Strength</Trans>;
+      return <>Strength</>;
     case STAT.AGILITY:
-      return <Trans id="common.stat.agility">Agility</Trans>;
+      return <>Agility</>;
     case STAT.INTELLECT:
-      return <Trans id="common.stat.intellect">Intellect</Trans>;
+      return <>Intellect</>;
     case STAT.CRITICAL_STRIKE:
-      return <Trans id="common.stat.criticalStrike">Critical Strike</Trans>;
+      return <>Critical Strike</>;
     case STAT.HASTE:
-      return <Trans id="common.stat.haste">Haste</Trans>;
+      return <>Haste</>;
     case STAT.HASTE_HPCT:
-      return <Trans id="common.stat.hasteHPCT">Haste (HPCT)</Trans>;
+      return <>Haste (HPCT)</>;
     case STAT.HASTE_HPM:
-      return <Trans id="common.stat.hasteHPM">Haste (HPM)</Trans>;
+      return <>Haste (HPM)</>;
     case STAT.MASTERY:
-      return <Trans id="common.stat.mastery">Mastery</Trans>;
+      return <>Mastery</>;
     case STAT.VERSATILITY:
-      return <Trans id="common.stat.versatility">Versatility</Trans>;
+      return <>Versatility</>;
     case STAT.VERSATILITY_DR:
-      return <Trans id="common.stat.versatilityDR">Versatility (with DR)</Trans>;
+      return <>Versatility (with DR)</>;
     case STAT.LEECH:
-      return <Trans id="common.stat.leech">Leech</Trans>;
+      return <>Leech</>;
     case STAT.AVOIDANCE:
-      return <Trans id="common.stat.avoidance">Avoidance</Trans>;
+      return <>Avoidance</>;
     case STAT.SPEED:
-      return <Trans id="common.stat.speed">Speed</Trans>;
+      return <>Speed</>;
     default:
       return null;
   }

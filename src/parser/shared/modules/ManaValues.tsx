@@ -1,6 +1,4 @@
-import { t } from '@lingui/macro';
-import { Trans } from '@lingui/macro';
-import { formatPercentage, formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
@@ -93,19 +91,14 @@ class ManaValues extends Analyzer {
       .isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <Trans id="shared.manaValues.suggestions.label">
+          <>
             You had mana left at the end of the fight. A good rule of thumb is having the same mana
             percentage as the bosses health percentage. Mana is indirectly tied with healing
             throughput and should be optimized.
-          </Trans>,
+          </>,
         )
           .icon('inv_elemental_mote_mana')
-          .actual(
-            `${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${t({
-              id: 'shared.suggestions.mana.efficiency',
-              message: `mana left`,
-            })}`,
-          )
+          .actual(`${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) mana left`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isGreaterThan.average)
           .major(this.suggestionThresholds.isGreaterThan.major),

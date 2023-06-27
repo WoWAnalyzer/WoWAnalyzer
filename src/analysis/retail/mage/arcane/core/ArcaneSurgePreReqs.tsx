@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { ARCANE_CHARGE_MAX_STACKS, ARCANE_HARMONY_MAX_STACKS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -181,9 +181,9 @@ class ArcaneSurgePreReqs extends Analyzer {
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.arcanePower.badCasts">
+          <>
             {this.badCooldownUses} Bad Cooldown Uses
-          </Trans>,
+          </>,
         )
         .recommended(`0 is recommended`),
     );

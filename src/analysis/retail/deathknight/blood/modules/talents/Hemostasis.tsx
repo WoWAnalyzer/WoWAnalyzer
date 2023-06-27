@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -82,18 +82,18 @@ class Hemostasis extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.blood.hemostasis.statistic.tooltip">
+          <>
             Resulting in {formatNumber(this.damage)} additional damage and {formatNumber(this.heal)}{' '}
             additional healing.
             <br />
             You gained {this.gainedBuffs} and wasted {this.wastedBuffs} stacks.
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS.HEMOSTASIS_TALENT}>
-          <Trans id="deathknight.blood.hemostasis.statistic">
+          <>
             {formatPercentage(this.averageIncrease)} % <small>average DS increase</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

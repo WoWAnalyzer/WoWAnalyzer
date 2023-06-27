@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -156,28 +156,28 @@ class FlashFlood extends Analyzer {
     const items = [
       {
         color: RESTORATION_COLORS.CHAIN_HEAL,
-        label: <Trans id="shaman.restoration.spell.chainHeal">Chain Heal</Trans>,
+        label: <>Chain Heal</>,
         spellId: TALENTS.CHAIN_HEAL_TALENT.id,
         value: this.spellsConsumingFlashFlood[TALENTS.CHAIN_HEAL_TALENT.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[TALENTS.CHAIN_HEAL_TALENT.id]),
       },
       {
         color: RESTORATION_COLORS.HEALING_WAVE,
-        label: <Trans id="shaman.restoration.spell.healingWave">Healing Wave</Trans>,
+        label: <>Healing Wave</>,
         spellId: TALENTS.HEALING_WAVE_TALENT.id,
         value: this.spellsConsumingFlashFlood[TALENTS.HEALING_WAVE_TALENT.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[TALENTS.HEALING_WAVE_TALENT.id]),
       },
       {
         color: RESTORATION_COLORS.HEALING_SURGE,
-        label: <Trans id="shaman.restoration.spell.healingSurge">Healing Surge</Trans>,
+        label: <>Healing Surge</>,
         spellId: SPELLS.HEALING_SURGE.id,
         value: this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[SPELLS.HEALING_SURGE.id]),
       },
       {
         color: RESTORATION_COLORS.RIPTIDE,
-        label: <Trans id="shaman.restoration.spell.healingRain">Healing Rain</Trans>,
+        label: <>Healing Rain</>,
         spellId: TALENTS.HEALING_RAIN_TALENT.id,
         value: this.spellsConsumingFlashFlood[TALENTS.HEALING_RAIN_TALENT.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[TALENTS.HEALING_RAIN_TALENT.id]),
@@ -187,7 +187,7 @@ class FlashFlood extends Analyzer {
     if (this.spellsConsumingFlashFlood[TALENTS.WELLSPRING_TALENT.id]) {
       const wellspring = {
         color: '#FEFEFE',
-        label: <Trans id="shaman.restoration.spell.wellspring">Wellspring</Trans>,
+        label: <>Wellspring</>,
         spellId: TALENTS.WELLSPRING_TALENT.id,
         value: this.spellsConsumingFlashFlood[TALENTS.WELLSPRING_TALENT.id].timeSaved,
         valueTooltip: makeTooltip(this.spellsConsumingFlashFlood[TALENTS.WELLSPRING_TALENT.id]),
@@ -207,29 +207,29 @@ class FlashFlood extends Analyzer {
       >
         <div className="pad">
           <label>
-            <Trans id="shaman.restoration.flashFlood.statistic.label">
+            <>
               <SpellLink id={TALENTS.FLASH_FLOOD_TALENT.id} /> usage
-            </Trans>
+            </>
           </label>
           <div className="flex">
             <div className="flex-main">
-              <Trans id="shaman.restoration.flashFlood.statistic.title">
+              <>
                 Total Cast Time Saved
-              </Trans>
+              </>
             </div>
             <div className="flex-sub text-right">
               <TooltipElement
                 content={
-                  <Trans id="shaman.restoration.flashFlood.statistic.description.tooltip">
+                  <>
                     Cast time saved by Flash Flood. <br />
                     {(this.totalTimeWasted / 1000).toFixed(2)} seconds 'saved' on reductions below
                     GCD.
-                  </Trans>
+                  </>
                 }
               >
-                <Trans id="shaman.restoration.flashFlood.statistic.description">
+                <>
                   {(this.totalTimeSaved / 1000).toFixed(2)} seconds
-                </Trans>
+                </>
               </TooltipElement>
             </div>
           </div>

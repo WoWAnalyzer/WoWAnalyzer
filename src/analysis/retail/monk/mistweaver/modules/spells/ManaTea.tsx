@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -180,12 +179,7 @@ class ManaTea extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
-        .actual(
-          `${formatNumber(this.avgMtSaves)}${t({
-            id: 'monk.mistweaver.suggestions.manaTea.avgManaSaved',
-            message: ` average mana saved per Mana Tea cast`,
-          })}`,
-        )
+        .actual(`${formatNumber(this.avgMtSaves)} average mana saved per Mana Tea cast`)
         .recommended(`${(recommended / 1000).toFixed(0)}k average mana saved is recommended`),
     );
     when(this.suggestionThresholdsOverhealing).addSuggestion((suggest, actual, recommended) =>
@@ -199,12 +193,7 @@ class ManaTea extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
-        .actual(
-          `${formatPercentage(this.avgOverhealing)}${t({
-            id: 'monk.mistweaver.suggestions.manaTea.avgOverHealing',
-            message: ` % average overhealing per Mana Tea cast`,
-          })}`,
-        )
+        .actual(`${formatPercentage(this.avgOverhealing)} % average overhealing per Mana Tea cast`)
         .recommended(`under ${formatPercentage(recommended)}% over healing is recommended`),
     );
   }

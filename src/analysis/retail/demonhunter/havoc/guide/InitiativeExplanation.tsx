@@ -1,5 +1,5 @@
 import { SpellLink } from 'interface';
-import { Trans } from '@lingui/macro';
+
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { useInfo } from 'interface/guide';
 
@@ -10,11 +10,11 @@ const InitiativeExplanation = () => {
   }
   return (
     <p>
-      <Trans id="guide.demonhunter.havoc.initiative.explanation">
+      <>
         Always use after casting <SpellLink spell={TALENTS_DEMON_HUNTER.VENGEFUL_RETREAT_TALENT} />{' '}
         so that you benefit from the increased critical strike chance provided by{' '}
         <SpellLink spell={TALENTS_DEMON_HUNTER.INITIATIVE_TALENT} />.
-      </Trans>
+      </>
     </p>
   );
 };

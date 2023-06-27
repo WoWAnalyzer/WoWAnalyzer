@@ -108,7 +108,6 @@ const NewsList = ({ topAnchor }: Props) => {
           );
         }
       })}
-
       <div className="row">
         <div className="col-xs-6">
           {hasOlder(page) && (

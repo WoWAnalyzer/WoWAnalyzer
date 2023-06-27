@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -138,12 +137,7 @@ class RageWasted extends Analyzer {
           </span>,
         )
           .icon(SPELLS.BRISTLING_FUR.icon)
-          .actual(
-            t({
-              id: 'druid.guardian.suggestions.rage.wasted',
-              message: `${formatPercentage(actual)}% wasted rage`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% wasted rage`)
           .recommended(`${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.02)
           .major(recommended + 0.05),

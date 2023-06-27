@@ -1,23 +1,23 @@
-import { Trans } from '@lingui/macro';
+
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 
 // Example logs with missing enchants:
 // https://www.warcraftlogs.com/reports/ydxavfGq1mBrM9Vc/#fight=1&source=14
 
 const ENCHANTABLE_SLOTS = {
-  0: <Trans id="common.slots.head">Head</Trans>,
-  2: <Trans id="common.slots.shoulder">Shoulder</Trans>,
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  // 5: <Trans id={"common.slots.belt"}>Belt</Trans>,        // Eng only
-  6: <Trans id="common.slots.legs">Legs</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  8: <Trans id="common.slots.bracers">Bracers</Trans>,
-  9: <Trans id="common.slots.gloves">Gloves</Trans>,
-  // 10: <Trans id="common.slots.ring">Ring</Trans>,        // Enchanter Only
-  // 11: <Trans id="common.slots.ring">Ring</Trans>,        // Enchanter Only
-  14: <Trans id="common.slots.cloak">Cloak</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  // 16: <Trans id="common.slots.offhand">OffHand</Trans>,
+  0: <>Head</>,
+  2: <>Shoulder</>,
+  4: <>Chest</>,
+  // 5: <Trans id={"common.slots.belt"}>Belt</>,        // Eng only
+  6: <>Legs</>,
+  7: <>Boots</>,
+  8: <>Bracers</>,
+  9: <>Gloves</>,
+  // 10: <>Ring</>,        // Enchanter Only
+  // 11: <>Ring</>,        // Enchanter Only
+  14: <>Cloak</>,
+  15: <>Weapon</>,
+  // 16: <>OffHand</>,
 };
 
 const MIN_ENCHANT_IDS = [

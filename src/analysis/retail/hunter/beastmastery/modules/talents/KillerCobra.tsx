@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -102,16 +102,16 @@ class KillerCobra extends Analyzer {
       )
         .icon(TALENTS.KILLER_COBRA_TALENT.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.killerCobra.efficiency">
+          <>
             {' '}
             You cast Cobra Shot while Kill Command wasn't on cooldown, whilst Bestial Wrath was up{' '}
             {actual} times.{' '}
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="hunter.beastmastery.suggestions.killerCobra.recommended">
+          <>
             {recommended} is recommended.
-          </Trans>,
+          </>,
         ),
     );
   }

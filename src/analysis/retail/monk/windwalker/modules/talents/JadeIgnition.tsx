@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/monk';
@@ -107,11 +107,11 @@ class JadeIgnition extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks">
+        <>
           {' '}
           You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of
           Fury at full stacks
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.JADE_IGNITION_TALENT.icon)
         .actual(`${formatPercentage(actual, 0)}% Stacks used`)

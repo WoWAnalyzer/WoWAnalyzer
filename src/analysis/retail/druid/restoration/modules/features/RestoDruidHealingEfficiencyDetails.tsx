@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import HealingEfficiencyBreakdown from 'parser/core/healingEfficiency/HealingEfficiencyBreakdown';
@@ -19,7 +19,7 @@ class RestoDruidHealingEfficiencyDetails extends HealingEfficiencyDetails {
   statistic() {
     return (
       <Panel
-        title={<Trans id="shared.healingEfficiency.title">Mana Efficiency</Trans>}
+        title={<>Mana Efficiency</>}
         explanation={
           <>
             These stats include only your hardcasts - procs and casts due to{' '}

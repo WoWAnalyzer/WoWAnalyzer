@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { SpellLink, SpellIcon } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
@@ -35,35 +35,35 @@ const MeleeChecklist = ({
       <Rule name="Keep Buffs Up" description={<>Totem uptime:</>}>
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.fire">
+            <>
               <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.fireTotemUptime}
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.water">
+            <>
               <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem
               Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.waterTotemUptime}
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.earth">
+            <>
               <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem
               Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.earthTotemUptime}
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.air">
+            <>
               <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem Uptime
-            </Trans>
+            </>
           }
           thresholds={thresholds.airTotemUptime}
         />

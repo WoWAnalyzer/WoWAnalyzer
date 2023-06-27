@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { MS_BUFFER_100 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -84,9 +84,9 @@ class MeteorRune extends Analyzer {
       )
         .icon(TALENTS.METEOR_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.meteor.runeOfPower.utilization">
+          <>
             {formatPercentage(this.meteorUtilization)}% Utilization`
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );

@@ -1,5 +1,3 @@
-import { t } from '@lingui/macro';
-import { Trans } from '@lingui/macro';
 import { formatNth, formatDuration } from 'common/format';
 import { SpellLink, SpecIcon } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -106,24 +104,14 @@ class ChainHeal extends Analyzer {
       .isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, _actual, _recommended) =>
         suggest(
-          <Trans id="shaman.restoration.suggestions.aoeTargets.label">
+          <>
             Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that
             it heals all {this.maxTargets} potential targets.
-          </Trans>,
+          </>,
         )
           .icon('spell_nature_healingwavegreater')
-          .actual(
-            `${suggestedThreshold.actual.toFixed(2)} ${t({
-              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
-              message: `average targets healed`,
-            })}`,
-          )
-          .recommended(
-            `${suggestedThreshold.isLessThan.minor} ${t({
-              id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
-              message: `average targets healed`,
-            })}`,
-          )
+          .actual(`${suggestedThreshold.actual.toFixed(2)} ${`average targets healed`}`)
+          .recommended(`${suggestedThreshold.isLessThan.minor} ${`average targets healed`}`)
           .regular(suggestedThreshold.isLessThan.average)
           .major(suggestedThreshold.isLessThan.major),
       );
@@ -195,32 +183,32 @@ class ChainHeal extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(70)}
         tooltip={
-          <Trans id="shaman.restoration.chainHeal.averageTargets.tooltip">
+          <>
             The average number of targets healed by Chain Heal out of the maximum amount of targets.
             You cast a total of {this.casts} Chain Heals, which healed an average of{' '}
             {this.avgHits.toFixed(2)} out of {this.maxTargets} targets.
-          </Trans>
+          </>
         }
         dropdown={
           singleHits.length > 0 && (
             <>
               <div className="pad">
-                <Trans id="shaman.restoration.chainHeal.averageTargets.title">
+                <>
                   Below are the casts that only hit the initial target. A large list indicates that
                   target selection is an area for improvement.
-                </Trans>
+                </>
               </div>
               <table className="table table-condensed">
                 <thead>
                   <tr>
                     <th>
-                      <Trans id="common.cast">Cast</Trans>
+                      <>Cast</>
                     </th>
                     <th>
-                      <Trans id="common.time">Time</Trans>
+                      <>Time</>
                     </th>
                     <th>
-                      <Trans id="common.target">Target</Trans>
+                      <>Target</>
                     </th>
                   </tr>
                 </thead>
@@ -246,9 +234,7 @@ class ChainHeal extends Analyzer {
         <BoringValue label={<SpellLink id={SPELLS.CHAIN_HEAL.id} />}>
           {this.avgHits.toFixed(2)}{' '}
           <small>
-            <Trans id="shaman.restoration.chainHeal.averageTargets">
-              Average Chain Heal targets
-            </Trans>
+            <>Average Chain Heal targets</>
           </small>
         </BoringValue>
         <div className="pad">

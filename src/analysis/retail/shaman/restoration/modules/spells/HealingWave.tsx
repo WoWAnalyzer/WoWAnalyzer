@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -73,11 +72,11 @@ class HealingWave extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = (
-        <Trans id="shaman.restoration.healingWave.inefficientCast.reason">
+        <>
           Riptide was off cooldown when you started casting this unbuffed Healing Wave. Casting
           Riptide into Healing Wave to generate and use a Tidal Wave stack, or using a Flash Flood
           buff (if talented) is a lot more efficient compared to casting a full-length Healing Wave.
-        </Trans>
+        </>
       );
     }
   }
@@ -115,12 +114,7 @@ class HealingWave extends Analyzer {
           </span>,
         )
           .icon(TALENTS.HEALING_WAVE_TALENT.icon)
-          .actual(
-            t({
-              id: 'shaman.restoration.suggestions.healingWave.unbuffed',
-              message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`,
-            }),
-          )
+          .actual(`${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`)
           .recommended(
             `${formatPercentage(
               suggestedThreshold.isGreaterThan.minor,

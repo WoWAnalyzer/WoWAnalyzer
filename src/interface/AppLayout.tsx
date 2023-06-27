@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import { internetExplorer } from 'interface/actions/internetExplorer';
 import { fetchUser } from 'interface/actions/user';
 import FullscreenError from 'interface/FullscreenError';
-import { t } from '@lingui/macro';
 import { Outlet } from 'react-router-dom';
 import Footer from 'interface/Footer';
 import PortalTarget from 'interface/PortalTarget';
@@ -40,10 +39,7 @@ const AppLayout = () => {
       <div className={`app ${openModals > 0 ? 'modal-open' : ''}`}>
         {isIE && (
           <FullscreenError
-            error={t({
-              id: 'home.internetExplorer.error',
-              message: `A wild INTERNET EXPLORER appeared!`,
-            })}
+            error="A wild INTERNET EXPLORER appeared!"
             details="This browser is too unstable for WoWAnalyzer to work properly."
             background="https://media.giphy.com/media/njYrp176NQsHS/giphy.gif"
           >

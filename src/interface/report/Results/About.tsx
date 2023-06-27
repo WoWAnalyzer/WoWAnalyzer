@@ -1,4 +1,3 @@
-import { Plural, Trans } from '@lingui/macro';
 import isLatestPatch from 'game/isLatestPatch';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
@@ -6,6 +5,7 @@ import Panel from 'interface/Panel';
 import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
 import { Link } from 'react-router-dom';
+import { plural } from 'common/plural';
 
 interface Props {
   config: Config;
@@ -17,19 +17,19 @@ const About = ({ config }: Props) => {
     contributors.length !== 0 ? (
       contributors.map((contributor) => <Contributor key={contributor.nickname} {...contributor} />)
     ) : (
-      <Trans id="interface.report.results.about.unmaintained">CURRENTLY UNMAINTAINED</Trans>
+      <>CURRENTLY UNMAINTAINED</>
     );
 
   return (
     <Panel
       title={
-        <Trans id="interface.report.results.about.aboutSpecnameClassname">
+        <>
           About {spec.specName} {spec.className}
-        </Trans>
+        </>
       }
       actions={
         <Link to="../events">
-          <Trans id="interface.report.results.about.viewEvents">View all events</Trans>
+          <>View all events</>
         </Link>
       }
     >
@@ -37,7 +37,7 @@ const About = ({ config }: Props) => {
 
       <div className="row" style={{ marginTop: '1em' }}>
         <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-          <Plural value={contributors.length} one="Contributor" other="Contributors" />
+          {plural(contributors.length, { one: 'Contributor', other: 'Contributors' })}
         </div>
         <div className="col-lg-8">
           <ReadableListing>{contributorinfo}</ReadableListing>
@@ -45,24 +45,24 @@ const About = ({ config }: Props) => {
       </div>
       <div className="row" style={{ marginTop: '0.5em' }}>
         <div className="col-lg-4" style={{ fontWeight: 'bold', paddingRight: 0 }}>
-          <Trans id="interface.report.results.about.updatedForPatch">Updated for patch</Trans>
+          <>Updated for patch</>
         </div>
         <div className="col-lg-8">{patchCompatibility}</div>
       </div>
       {!isLatestPatch(config) && (
         <AlertWarning style={{ marginTop: '1em' }}>
-          <Trans id="interface.report.results.about.outdated">
+          <>
             The analysis for this spec is outdated. It may be inaccurate for spells that were
             changed since patch {patchCompatibility}.
-          </Trans>
+          </>
         </AlertWarning>
       )}
       {isPartial && (
         <AlertWarning style={{ marginTop: '1em' }}>
-          <Trans id="interface.report.results.about.isPartial">
+          <>
             The analysis for this spec is incomplete. Important elements may be missing or some
             features lack sufficient accuracy.
-          </Trans>
+          </>
         </AlertWarning>
       )}
     </Panel>

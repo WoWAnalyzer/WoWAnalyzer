@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import CastSummaryAndBreakdown from 'analysis/retail/demonhunter/shared/guide/CastSummaryAndBreakdown';
 import { MS_BUFFER_250 } from 'analysis/retail/hunter/shared/constants';
 import { formatDuration, formatPercentage } from 'common/format';
@@ -183,15 +182,9 @@ class BarbedShot extends Analyzer {
       )
         .icon(TALENTS.BARBED_SHOT_TALENT.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.barbedShot.petBuff.uptime">
-            Your pet had the buff from Barbed Shot for {formatPercentage(actual)}% of the fight{' '}
-          </Trans>,
+          <>Your pet had the buff from Barbed Shot for {formatPercentage(actual)}% of the fight </>,
         )
-        .recommended(
-          <Trans id="hunter.beastmastery.suggestions.barbedShot.petBuff.recommended">
-            {formatPercentage(recommended)}% is recommended{' '}
-          </Trans>,
-        ),
+        .recommended(<>{formatPercentage(recommended)}% is recommended </>),
     );
     when(this.frenzy3StackThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -204,16 +197,12 @@ class BarbedShot extends Analyzer {
       )
         .icon(TALENTS.BARBED_SHOT_TALENT.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.barbedShot.threeStacks.uptime">
+          <>
             Your pet had 3 stacks of the buff from Barbed Shot for {formatPercentage(actual)}% of
             the fight
-          </Trans>,
+          </>,
         )
-        .recommended(
-          <Trans id="hunter.beastmastery.suggestions.barbedShot.threeStacks.recommended">
-            {formatPercentage(recommended)}% is recommended{' '}
-          </Trans>,
-        ),
+        .recommended(<>{formatPercentage(recommended)}% is recommended </>),
     );
   }
 
@@ -450,15 +439,9 @@ class BarbedShot extends Analyzer {
       <CastSummaryAndBreakdown
         spell={TALENTS.BARBED_SHOT_TALENT}
         castEntries={this.castEntries}
-        goodLabel={t({
-          id: 'guide.hunter.beastmastery.sections.rotation.barbedshot.data.summary.performance.good',
-          message: 'Barbed Shot',
-        })}
+        goodLabel="Barbed Shot"
         includeGoodCastPercentage
-        badLabel={t({
-          id: 'guide.hunter.beastmastery.sections.rotation.barbedshot.data.summary.performance.bad',
-          message: 'Bad Barbed Shots',
-        })}
+        badLabel="Bad Barbed Shots"
       />
     );
     return <ExplanationAndDataSubSection explanation={explanation} data={data} />;

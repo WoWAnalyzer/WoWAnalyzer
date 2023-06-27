@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
@@ -51,16 +51,16 @@ class SpiritWolf extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         icon={<SpellIcon id={TALENTS_SHAMAN.SPIRIT_WOLF_TALENT.id} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
-        label={<Trans id="shaman.shared.damageReduced.label">Estimated damage reduced</Trans>}
+        label={<>Estimated damage reduced</>}
         tooltip={
-          <Trans id="shaman.shared.damageReduced.tooltip">
+          <>
             The total estimated damage reduced was {formatThousands(this.damageReduced)}.<br />
             <br />
             This is the lowest possible value. This value is pretty accurate for this log if you are
             looking at the actual gain over not having{' '}
             <SpellLink id={TALENTS_SHAMAN.SPIRIT_WOLF_TALENT.id} /> bonus at all, but the gain may
             end up higher when taking interactions with other damage reductions into account.
-          </Trans>
+          </>
         }
       />
     );

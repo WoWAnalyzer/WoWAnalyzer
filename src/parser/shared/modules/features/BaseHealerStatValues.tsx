@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -488,28 +488,28 @@ abstract class BaseHealerStatValues extends Analyzer {
     switch (stat) {
       case STAT.HASTE_HPCT:
         return (
-          <Trans id="shared.healerStatValues.stats.hpct">
+          <>
             HPCT stands for "Healing per Cast Time". This is the value that Haste would be worth if
             you would cast everything you are already casting (and that scales with Haste) faster.
             Mana is not accounted for in any way and you should consider the Haste stat weight 0 if
             you run out of mana while doing everything else right.
-          </Trans>
+          </>
         );
       case STAT.HASTE_HPM:
         return (
-          <Trans id="shared.healerStatValues.stats.hpm">
+          <>
             HPM stands for "Healing per Mana". In valuing Haste, it considers only the faster HoT
             ticking and not the reduced cast times. Effectively it models haste's bonus to mana
             efficiency. This is typically the better calculation to use for raid encounters where
             mana is an issue.
-          </Trans>
+          </>
         );
       case STAT.VERSATILITY_DR:
         return (
-          <Trans id="shared.healerStatValues.stats.versDR">
+          <>
             Weight includes both healing boost and damage reduction, counting the damage reduced as
             additional throughput.
-          </Trans>
+          </>
         );
       default:
         return null;
@@ -548,7 +548,7 @@ abstract class BaseHealerStatValues extends Analyzer {
                     <th style={{ minWidth: 30, fontWeight: 400 }}>
                       <TooltipElement
                         content={
-                          <Trans id="shared.healerStatValues.statistic.title.tooltip">
+                          <>
                             These stat values are calculated using the actual circumstances of this
                             encounter. These values reveal the value of the last 1 rating of each
                             stat, they may not necessarily be the best way to gear. The stat values
@@ -557,10 +557,10 @@ abstract class BaseHealerStatValues extends Analyzer {
                             <br />
                             <br />
                             DPS gains are not included in any of the stat values.
-                          </Trans>
+                          </>
                         }
                       >
-                        <Trans id="shared.healerStatValues.statistic.title">Stat Values</Trans>
+                        <>Stat Values</>
                       </TooltipElement>
                       {this.qeLive && this.selectedCombatant.characterProfile && (
                         <Tooltip content="Opens in a new tab. Leverage the QE Live Tool to directly compare gear and trinkets based on your stat values.">
@@ -569,14 +569,14 @@ abstract class BaseHealerStatValues extends Analyzer {
                             target="_blank"
                             rel="noopener noreferrer"
                           >
-                            <Trans id="shared.healerStatValues.statistic.qeLink">
+                            <>
                               <img
                                 src={QELiveLogo}
                                 alt="Questionably Epic Live"
                                 style={{ height: '1.2em', marginLeft: 15 }}
                               />{' '}
                               Open Questionably Epic Live
-                            </Trans>
+                            </>
                           </a>
                         </Tooltip>
                       )}
@@ -588,12 +588,12 @@ abstract class BaseHealerStatValues extends Analyzer {
                     >
                       <TooltipElement
                         content={
-                          <Trans id="shared.healerStatValues.statistic.title.value.tooltip">
+                          <>
                             Normalized so Intellect is always 1.00.
-                          </Trans>
+                          </>
                         }
                       >
-                        <Trans id="shared.healerStatValues.statistic.title.value">Value</Trans>
+                        <>Value</>
                       </TooltipElement>
                     </th>
                   </tr>
@@ -619,9 +619,9 @@ abstract class BaseHealerStatValues extends Analyzer {
                           : formatNumber(ratingForOne)
                         : 'NYI';
                     const informationIconTooltip = (
-                      <Trans id="shared.healerStatValues.statistic.stats.tooltip">
+                      <>
                         {gainPerSecond} HPS per 1 rating / {rating} rating per 1% throughput
-                      </Trans>
+                      </>
                     );
 
                     return (

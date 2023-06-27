@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -116,24 +115,14 @@ class Tombstone extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholdsEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.tombstone.suggestion.suggestion">
+        <>
           You casted {this.wastedCasts} <SpellLink spell={TALENTS.TOMBSTONE_TALENT} /> with less
           than 5 charges causing a reduced absorb shield.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.TOMBSTONE_TALENT.icon)
-        .actual(
-          t({
-            id: 'deathknight.blood.tombstone.suggestion.actual',
-            message: `${formatPercentage(actual)}% bad Tombstone casts`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'shared.suggestion.recommended.lessThanPercent',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% bad Tombstone casts`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -143,19 +132,16 @@ class Tombstone extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(3)}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={t({
-          id: 'deathknight.blood.tombstone.statistic.tooltip',
-          message: 'Any cast without 5 charges is considered a wasted cast.',
-        })}
+        tooltip="Any cast without 5 charges is considered a wasted cast."
         dropdown={
           <table className="table table-condensed">
             <thead>
               <tr>
-                <Trans id="deathknight.blood.tombstone.statistic.headers">
+                <>
                   <th>Charges</th>
                   <th>RP Wasted</th>
                   <th>Absorb Used (%)</th>
-                </Trans>
+                </>
               </tr>
             </thead>
             <tbody>
@@ -165,10 +151,10 @@ class Tombstone extends Analyzer {
                   <td>
                     <TooltipElement
                       content={
-                        <Trans id="deathknight.blood.tombstone.statistic.rpWasted">
+                        <>
                           <strong>RP Generated:</strong>{' '}
                           {this.tombstone[i].rpGained - this.tombstone[i].rpWasted}
-                        </Trans>
+                        </>
                       }
                     >
                       {this.tombstone[i].rpWasted}
@@ -177,14 +163,14 @@ class Tombstone extends Analyzer {
                   <td>
                     <TooltipElement
                       content={
-                        <Trans id="deathknight.blood.tombstone.statistic.absorbUsed">
+                        <>
                           <strong>Damage Absorbed:</strong>{' '}
                           {formatNumber(this.tombstone[i].totalAbsorbed)} <br />
                           <strong>Absorb Shield: </strong>{' '}
                           {formatNumber(this.tombstone[i].absorbSize)} <br />
                           <strong>Healing: </strong>{' '}
                           {this.owner.formatItemHealingDone(this.tombstone[i].totalAbsorbed)}
-                        </Trans>
+                        </>
                       }
                     >
                       {formatPercentage(
@@ -200,9 +186,9 @@ class Tombstone extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS.TOMBSTONE_TALENT}>
-          <Trans id="deathknight.blood.tombstone.statistic">
+          <>
             {this.wastedCasts} <small>Bad Casts</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -61,12 +60,7 @@ class ShadowWordPain extends Analyzer {
         </span>,
       )
         .icon(SPELLS.SHADOW_WORD_PAIN.icon)
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.shadowWordPain.uptime',
-            message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Shadow Word: Pain uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

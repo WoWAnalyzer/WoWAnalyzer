@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -83,24 +83,24 @@ class TidalWaves extends Analyzer {
       .isGreaterThan(suggestedThresholds.isGreaterThan.minor)
       .addSuggestion((suggest) =>
         suggest(
-          <Trans id="shaman.restoration.suggestions.tidalWaves.label">
+          <>
             <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed{' '}
             <SpellLink id={TALENTS.HEALING_WAVE_TALENT.id} /> can make for some very efficient
             healing, consider casting more of them if you are running into mana issues (
             {formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).
-          </Trans>,
+          </>,
         )
           .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
           .actual(
-            <Trans id="shaman.restoration.suggestions.tidalWaves.actual">
+            <>
               {formatPercentage(suggestedThresholds.actual)}% unused Tidal waves
-            </Trans>,
+            </>,
           )
           .recommended(
-            <Trans id="shaman.restoration.suggestions.tidalWaves.recommended">
+            <>
               Less than {formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused is
               recommended
-            </Trans>,
+            </>,
           )
           .regular(suggestedThresholds.isGreaterThan.average)
           .major(suggestedThresholds.isGreaterThan.major),

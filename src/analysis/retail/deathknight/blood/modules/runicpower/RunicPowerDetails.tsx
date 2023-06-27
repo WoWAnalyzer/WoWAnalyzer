@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -51,25 +50,10 @@ class RunicPowerDetails extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        t({
-          id: 'deathknight.blood.runicPowerDetails.suggestion.suggestion',
-          message: `You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`,
-        }),
-      )
+      suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`)
         .icon('inv_sword_62')
-        .actual(
-          t({
-            id: 'deathknight.blood.runicPowerDetails.suggestion.actual',
-            message: `${formatPercentage(actual)}% wasted`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'shared.suggestion.recommended.lessThanPercent',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% wasted`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -78,20 +62,14 @@ class RunicPowerDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="small"
-        tooltip={t({
-          id: 'deathknight.blood.runicPowerDetails.statistic.tooltip',
-          message: `${this.runicPowerTracker.wasted} out of ${
-            this.runicPowerTracker.wasted + this.runicPowerTracker.generated
-          } Runic Power wasted.`,
-        })}
+        tooltip={`${this.runicPowerTracker.wasted} out of ${
+          this.runicPowerTracker.wasted + this.runicPowerTracker.generated
+        } Runic Power wasted.`}
       >
         <BoringResourceValue
           resource={RESOURCE_TYPES.RUNIC_POWER}
           value={`${formatPercentage(this.wastedPercent)} %`}
-          label={t({
-            id: 'deathknight.blood.runicPowerDetails.statistic.label',
-            message: 'Runic Power wasted',
-          })}
+          label="Runic Power wasted"
         />
       </Statistic>
     );

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -127,9 +127,9 @@ class MeteorCombustion extends Analyzer {
       )
         .icon(TALENTS.METEOR_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.meteor.combustion.utilization">
+          <>
             {formatPercentage(this.combustionUtilization)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );

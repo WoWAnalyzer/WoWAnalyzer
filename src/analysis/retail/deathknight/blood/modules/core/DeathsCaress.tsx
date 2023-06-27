@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -128,28 +127,20 @@ class DeathsCaress extends Analyzer {
   suggestions(when: When) {
     when(this.averageCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.deathsCaress.suggestion.suggestion">
+        <>
           Avoid casting <SpellLink spell={TALENTS.DEATHS_CARESS_TALENT} /> unless you're out of
           melee range and about to cap your runes while <SpellLink spell={this.DD_ABILITY} /> and{' '}
           <SpellLink spell={TALENTS.BLOODDRINKER_TALENT} /> are on cooldown. Dump runes primarily
           with <SpellLink spell={TALENTS.HEART_STRIKE_TALENT} />.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.DEATHS_CARESS_TALENT.icon)
         .actual(
-          t({
-            id: 'deathknight.blood.deathsCaress.suggestion.actual',
-            message: `${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${
-              TALENTS.DEATHS_CARESS_TALENT.name
-            } casts`,
-          }),
+          `${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${
+            TALENTS.DEATHS_CARESS_TALENT.name
+          } casts`,
         )
-        .recommended(
-          t({
-            id: 'deathknight.blood.deathsCaress.suggestion.recommended',
-            message: '0% are recommended',
-          }),
-        ),
+        .recommended('0% are recommended'),
     );
   }
 }

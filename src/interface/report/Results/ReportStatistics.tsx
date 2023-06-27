@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { StatisticSize } from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -28,30 +27,15 @@ function sizeToInt(size: StatisticSize) {
 const getStatisticGroupName = (key: STATISTIC_CATEGORY) => {
   switch (key) {
     case STATISTIC_CATEGORY.GENERAL:
-      return t({
-        id: 'interface.report.results.statistics.statistics',
-        message: `Statistics`,
-      });
+      return `Statistics`;
     case STATISTIC_CATEGORY.TALENTS:
-      return t({
-        id: 'interface.report.results.statistics.talents',
-        message: `Talents`,
-      });
+      return `Talents`;
     case STATISTIC_CATEGORY.COVENANTS:
-      return t({
-        id: 'interface.report.results.statistics.covenants',
-        message: `Covenants`,
-      });
+      return `Covenants`;
     case STATISTIC_CATEGORY.ITEMS:
-      return t({
-        id: 'interface.report.results.statistics.items',
-        message: `Items`,
-      });
+      return `Items`;
     case STATISTIC_CATEGORY.THEORYCRAFT:
-      return t({
-        id: 'interface.report.results.statistics.theorycraft',
-        message: `Theorycraft`,
-      });
+      return `Theorycraft`;
     default:
       throw new Error(`Unknown category: ${key}`);
   }
@@ -126,7 +110,7 @@ const ReportStatistics = ({
 
       {panels && panels.length > 0 && (
         <StatisticsSectionTitle>
-          <Trans id="report.statistics.details">Details</Trans>
+          <>Details</>
         </StatisticsSectionTitle>
       )}
 

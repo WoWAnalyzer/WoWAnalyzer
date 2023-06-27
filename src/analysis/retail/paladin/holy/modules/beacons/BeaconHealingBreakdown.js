@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import { SpellLink } from 'interface';
@@ -74,14 +74,14 @@ class BeaconHealingBreakdown extends Component {
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                     <TooltipElement
                       content={
-                        <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.total">
+                        <>
                           Total: {formatNumber(healing.effective)}
-                        </Trans>
+                        </>
                       }
                     >
-                      <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.hps">
+                      <>
                         {formatNumber((healing.effective / fightDuration) * 1000)} HPS
-                      </Trans>
+                      </>
                     </TooltipElement>
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -100,13 +100,13 @@ class BeaconHealingBreakdown extends Component {
         <thead>
           <tr>
             <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-              <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.name">Name</Trans>
+              <>Name</>
             </th>
             <th colSpan="3">
               <span style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-                <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.beaconHealingCaused">
+                <>
                   Beacon healing caused
-                </Trans>
+                </>
               </span>
               <div className="pull-right toggle-control">
                 <Toggle
@@ -116,16 +116,16 @@ class BeaconHealingBreakdown extends Component {
                   id="absolute-toggle"
                 />
                 <label htmlFor="absolute-toggle" style={{ marginLeft: '0.5em' }}>
-                  <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.relativeToTotalHealing">
+                  <>
                     relative to total healing
-                  </Trans>
+                  </>
                 </label>
               </div>
             </th>
             <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-              <Trans id="paladin.holy.modules.beacons.beaconHealingBreakdown.overheal">
+              <>
                 Overheal
-              </Trans>
+              </>
             </th>
           </tr>
         </thead>

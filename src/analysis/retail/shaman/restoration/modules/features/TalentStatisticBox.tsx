@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer from 'parser/core/Analyzer';
 import StatisticsListBox, { STATISTIC_ORDER } from 'parser/ui/StatisticsListBox';
@@ -116,9 +116,9 @@ class TalentStatisticBox extends Analyzer {
   statistic() {
     return (
       <StatisticsListBox
-        title={<Trans id="shaman.restoration.talentBox.title">Healing Contribution</Trans>}
+        title={<>Healing Contribution</>}
         tooltip={
-          <Trans id="shaman.restoration.talentBox.tooltip">
+          <>
             The purpose of this is to show the overall HPS impact of each talent. So not only what
             the talent itself did, but also feeding and synergy or interactions with other spells or
             talents. The percentage shown is what you'd lose without the talent, ignoring what you'd
@@ -128,7 +128,7 @@ class TalentStatisticBox extends Analyzer {
             <strong>Not Supported:</strong>
             <br />
             Echo of the Elements
-          </Trans>
+          </>
         }
         position={STATISTIC_ORDER.CORE(5)}
         bodyStyle={{}} // idk

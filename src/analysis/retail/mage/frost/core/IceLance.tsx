@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { MS_BUFFER_100, SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -149,9 +149,9 @@ class IceLance extends Analyzer {
       )
         .icon(TALENTS.ICE_LANCE_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.iceLance.nonShatterCasts">
+          <>
             {formatPercentage(actual)}% missed
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );

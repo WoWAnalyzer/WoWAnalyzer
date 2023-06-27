@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { MS_BUFFER_250 } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -206,9 +206,9 @@ class Pyroclasm extends Analyzer {
       )
         .icon(TALENTS.PYROCLASM_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.pyroclasm.wastedProcs">
+          <>
             {formatPercentage(this.procUtilization)}% utilization
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
@@ -230,9 +230,9 @@ class Pyroclasm extends Analyzer {
       )
         .icon(TALENTS.PYROCLASM_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.pyroclasm.pyroclasmCombustionUsage">
+          <>
             {formatNumber(actual)} bad uses
-          </Trans>,
+          </>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),
     );

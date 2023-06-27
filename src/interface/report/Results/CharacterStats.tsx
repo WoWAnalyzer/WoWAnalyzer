@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SpellIcon from 'interface/SpellIcon';
@@ -129,14 +129,14 @@ const CharacterStats = ({ statTracker }: Props) => {
         <div className="col-md-12">
           <Tooltip
             content={
-              <Trans id="shared.characterPanel.stats.pull.tooltip">
+              <>
                 These stats include any <strong>rating</strong> buffs, such as flasks, potions and
                 other buffs. Percentage buffs such as Bloodlust are <strong>not</strong> included.
-              </Trans>
+              </>
             }
           >
             <h2 style={{ marginTop: 0 }}>
-              <Trans id="shared.characterPanel.stats.pull">Stats on pull</Trans>
+              <>Stats on pull</>
             </h2>
           </Tooltip>
         </div>

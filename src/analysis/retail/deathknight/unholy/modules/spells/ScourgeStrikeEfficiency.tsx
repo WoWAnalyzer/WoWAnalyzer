@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -79,12 +78,9 @@ class ScourgeStrikeEfficiency extends Analyzer {
       )
         .icon(this.activeSpell.icon)
         .actual(
-          t({
-            id: 'deathknight.unholy.suggestions.scourgeStrike.efficiency',
-            message: `${formatPercentage(actual)}% of ${
-              this.activeSpell.name
-            } were used with Wounds on the target`,
-          }),
+          `${formatPercentage(actual)}% of ${
+            this.activeSpell.name
+          } were used with Wounds on the target`,
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );

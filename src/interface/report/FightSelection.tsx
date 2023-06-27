@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import getFightName from 'common/getFightName';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import ClassicLogWarning from 'interface/report/ClassicLogWarning';
@@ -31,45 +30,37 @@ const FightSelectionList = () => {
       <div className="flex wrapable" style={{ marginBottom: 15 }}>
         <div className="flex-main" style={{ position: 'relative' }}>
           <div className="back-button">
-            <Tooltip
-              content={t({
-                id: 'interface.report.fightSelection.tooltip.backToHome',
-                message: `Back to home`,
-              })}
-            >
+            <Tooltip content="Back to home">
               <Link to="/">
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                 <label>
                   {' '}
-                  <Trans id="interface.report.fightSelection.tooltip.home">Home</Trans>
+                  <>Home</>
                 </label>
               </Link>
             </Tooltip>
           </div>
           <h1 style={{ lineHeight: 1.4, margin: 0 }}>
-            <Trans id="interface.report.fightSelection.fightSelection">Fight selection</Trans>
+            <>Fight selection</>
           </h1>
           <small style={{ marginTop: -5 }}>
-            <Trans id="interface.report.fightSelection.fightSelectionDetails">
+            <>
               Select the fight you wish to analyze. If a boss or encounter is missing, or the list
               below is empty, press the Refresh button above to re-pull the log from Warcraft Logs.
               Additionally, please note that due to the way combat logs work, we are unable to
               evaluate Target Dummy logs.
-            </Trans>
+            </>
           </small>
         </div>
         <div className="flex-sub">
           <div>
             <Tooltip
               content={
-                <Trans id="interface.report.fightSelection.tooltip.refreshFightsList">
-                  This will refresh the fights list which can be useful if you're live logging.
-                </Trans>
+                <>This will refresh the fights list which can be useful if you're live logging.</>
               }
             >
               <Link to={makeAnalyzerUrl(report)} onClick={refreshReport}>
-                <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
-                <Trans id="interface.report.fightSelection.refresh">Refresh</Trans>
+                <span className="glyphicon glyphicon-refresh" aria-hidden="true" /> <>Refresh</>
               </Link>
             </Tooltip>
             <span className="toggle-control" style={{ marginLeft: 5 }}>
@@ -81,17 +72,14 @@ const FightSelectionList = () => {
               />
               <label htmlFor="kills-only-toggle">
                 {' '}
-                <Trans id="interface.report.fightSelection.killsOnly">Kills only</Trans>
+                <>Kills only</>
               </label>
             </span>
           </div>
         </div>
       </div>
-
       {isUnsupportedClassicVersion(report.gameVersion) && <ClassicLogWarning />}
-
       {reportDuration > MAX_REPORT_DURATION && <ReportDurationWarning duration={reportDuration} />}
-
       {!isUnsupportedClassicVersion(report.gameVersion) && (
         <FightSelectionPanel report={report} killsOnly={killsOnly} />
       )}
@@ -118,14 +106,7 @@ const FightSelection = ({ children }: Props) => {
   return (
     <>
       <DocumentTitle
-        title={
-          fight
-            ? t({
-                id: 'interface.report.fightSelection.documentTitle',
-                message: `${getFightName(report, fight)} in ${report.title}`,
-              })
-            : report.title
-        }
+        title={fight ? `${getFightName(report, fight)} in ${report.title}` : report.title}
       />
       <FightProvider fight={fight}>{children}</FightProvider>
     </>

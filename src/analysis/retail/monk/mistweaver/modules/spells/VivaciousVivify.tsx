@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -186,12 +185,7 @@ class VivaciousVivification extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.icon)
-        .actual(
-          `${this.wastedApplications + ' '}${t({
-            id: 'monk.mistweaver.suggestions.vivaciousVivification.wastedApplications',
-            message: `wasted applications`,
-          })}`,
-        )
+        .actual(`${this.wastedApplications} wasted applications`)
         .recommended(`0 wasted applications is recommended`),
     );
   }

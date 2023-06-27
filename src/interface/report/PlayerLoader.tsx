@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useCallback, useEffect, useReducer } from 'react';
-import { t, Trans } from '@lingui/macro';
+
 import { captureException } from 'common/errorLogger';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import getFightName from 'common/getFightName';
@@ -274,32 +274,19 @@ const PlayerLoader = ({ children }: Props) => {
   };
 
   const renderLoading = () => {
-    return (
-      <ActivityIndicator
-        text={t({
-          id: 'interface.report.renderLoading.fetchingPlayerInfo',
-          message: `Fetching player info...`,
-        })}
-      />
-    );
+    return <ActivityIndicator text="Fetching player info..." />;
   };
 
   const renderClassicWarning = () => {
     return (
       <div className="container offset">
-        <Panel
-          title={
-            <Trans id="interface.report.renderClassicWarning.classicUnsupported">
-              Sorry, Classic WoW Logs are not supported
-            </Trans>
-          }
-        >
+        <Panel title={<>Sorry, Classic WoW Logs are not supported</>}>
           <div className="flex wrapable">
             <div className="flex-main" style={{ minWidth: 400 }}>
-              <Trans id="interface.report.renderClassicWarning.classicUnsupportedDetails">
+              <>
                 The current report contains encounters from World of Warcraft: Classic. Currently
                 WoWAnalyzer does not support, and does not have plans to support, Classic WoW logs.
-              </Trans>
+              </>
               <br />
               <br />
             </div>
@@ -345,32 +332,16 @@ const PlayerLoader = ({ children }: Props) => {
       // Player data was in the report, but there was another issue
       if (hasDuplicatePlayers) {
         alert(
-          t({
-            id: 'interface.report.render.hasDuplicatePlayers',
-            message: `It appears like another "${playerName}" is in this log, please select the correct one`,
-          }),
+          `It appears like another "${playerName}" is in this log, please select the correct one`,
         );
       } else if (!combatant) {
-        alert(
-          t({
-            id: 'interface.report.render.dataNotAvailable',
-            message: `Player data does not seem to be available for the selected player in this fight.`,
-          }),
-        );
+        alert(`Player data does not seem to be available for the selected player in this fight.`);
       } else if (combatant.error || (!combatant.specID && combatant.specID !== 0)) {
         alert(
-          t({
-            id: 'interface.report.render.logCorrupted',
-            message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`,
-          }),
+          `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`,
         );
       } else if (!config || missingBuild) {
-        alert(
-          t({
-            id: 'interface.report.render.notSupported',
-            message: `This spec is not supported for this expansion.`,
-          }),
-        );
+        alert(`This spec is not supported for this expansion.`);
       }
     }
 
@@ -378,17 +349,12 @@ const PlayerLoader = ({ children }: Props) => {
       <div className="container offset">
         <div style={{ position: 'relative', marginBottom: 15 }}>
           <div className="back-button">
-            <Tooltip
-              content={t({
-                id: 'interface.report.render.backToFightSelection',
-                message: `Back to fight selection`,
-              })}
-            >
+            <Tooltip content="Back to fight selection">
               <Link to={`/report/${selectedReport.code}`}>
                 <span className="glyphicon glyphicon-chevron-left" aria-hidden="true" />
                 <label>
                   {' '}
-                  <Trans id="interface.report.render.labelFightSelection">Fight selection</Trans>
+                  <>Fight selection</>
                 </label>
               </Link>
             </Tooltip>
@@ -396,12 +362,10 @@ const PlayerLoader = ({ children }: Props) => {
           <div className="flex wrapable" style={{ marginBottom: 15 }}>
             <div className="flex-main">
               <h1 style={{ lineHeight: 1.4, margin: 0 }}>
-                <Trans id="interface.report.render.playerSelection">Player selection</Trans>
+                <>Player selection</>
               </h1>
               <small style={{ marginTop: -5 }}>
-                <Trans id="interface.report.render.playerSelectionDetails">
-                  Select the player you wish to analyze.
-                </Trans>
+                <>Select the player you wish to analyze.</>
               </small>
             </div>
             <div className="flex-sub">
@@ -415,13 +379,10 @@ const PlayerLoader = ({ children }: Props) => {
             </div>
           </div>
         </div>
-
         {selectedFight.end_time > MAX_REPORT_DURATION && (
           <ReportDurationWarning duration={reportDuration} />
         )}
-
         {combatants.length === 0 && <AdvancedLoggingWarning />}
-
         <PlayerSelection
           report={selectedReport}
           combatants={combatants}
@@ -437,14 +398,10 @@ const PlayerLoader = ({ children }: Props) => {
   return (
     <>
       <DocumentTitle
-        title={t({
-          id: 'interface.report.render.documentTitle',
-          message: `${getFightName(selectedReport, selectedFight)} by ${player.name} in ${
-            selectedReport.title
-          }`,
-        })}
+        title={`${getFightName(selectedReport, selectedFight)} by ${player.name} in ${
+          selectedReport.title
+        }`}
       />
-
       <PlayerProvider player={player} combatant={combatant} combatants={combatants}>
         {children}
       </PlayerProvider>

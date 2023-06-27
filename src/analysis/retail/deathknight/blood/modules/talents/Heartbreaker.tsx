@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import TALENTS from 'common/TALENTS/deathknight';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -57,22 +56,19 @@ class Heartbreaker extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.blood.heartbreaker.statistic.tooltip">
+          <>
             Resulting in about {Math.floor(this.totalRPGained / DEATHSTRIKE_COST)} extra Death
             Strikes.
             <br />
             Your Heart Strike hit on average {this.averageHeartStrikeHits} targets.
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS.HEARTBREAKER_TALENT}>
           <BoringResourceValue
             resource={RESOURCE_TYPES.RUNIC_POWER}
             value={this.totalRPGained}
-            label={t({
-              id: 'deathknight.blood.heartbreaker.statistic',
-              message: 'Runic Power generated',
-            })}
+            label="Runic Power generated"
           />
         </BoringSpellValueText>
       </Statistic>

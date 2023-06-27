@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
@@ -108,12 +107,7 @@ class ShieldBlock extends Analyzer {
         </>,
       )
         .icon(SPELLS.SHIELD_SLAM.icon)
-        .actual(
-          t({
-            id: 'warrior.protection.suggestions.shieldSlam.casts',
-            message: `${this.actualCasts} shield slam casts`,
-          }),
-        )
+        .actual(`${this.actualCasts} shield slam casts`)
         .recommended(
           `${(recommended * this.totalCastsAssumed).toFixed(0)} recommended out of ${
             this.totalCastsAssumed

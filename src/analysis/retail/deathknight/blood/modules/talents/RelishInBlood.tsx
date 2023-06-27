@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -71,27 +70,16 @@ class RelishInBlood extends Analyzer {
   suggestions(when: When) {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        t({
-          id: 'deathknight.blood.relishInBlood.suggestion.suggestion',
-          message: `Avoid being Runic Power capped at all times, you wasted ${this.runicPowerWasted} PR by
-          being RP capped`,
-        }),
+        `Avoid being Runic Power capped at all times, you wasted ${this.runicPowerWasted} PR by
+        being RP capped`,
       )
         .icon(TALENTS.RELISH_IN_BLOOD_TALENT.icon)
         .actual(
-          t({
-            id: 'deathknight.blood.relishInBlood.suggestion.actual',
-            message: `You wasted ${formatPercentage(actual)}% of RP from ${
-              TALENTS.RELISH_IN_BLOOD_TALENT.name
-            } by being RP capped.`,
-          }),
+          `You wasted ${formatPercentage(actual)}% of RP from ${
+            TALENTS.RELISH_IN_BLOOD_TALENT.name
+          } by being RP capped.`,
         )
-        .recommended(
-          t({
-            id: 'deathknight.blood.relishInBlood.suggestion.recommended',
-            message: `${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -102,20 +90,20 @@ class RelishInBlood extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.blood.relishInBlood.statistic.tooltip">
+          <>
             <strong>RP wasted: </strong> {this.runicPowerWasted} (
             {formatPercentage(this.rpWastePercentage)} %)
             <br />
             <strong>Healing: </strong> {formatNumber(this.healing)} <br />
             <strong>Overhealing: </strong> {formatNumber(this.overhealing)} (
             {formatPercentage(this.overhealPercentage)} %) <br />
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS.RELISH_IN_BLOOD_TALENT}>
-          <Trans id="deathknight.blood.relishInBlood.statistic">
+          <>
             {this.runicPowerGained} <small>RP gained</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

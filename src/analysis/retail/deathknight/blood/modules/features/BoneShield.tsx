@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -44,24 +43,14 @@ class BoneShield extends Analyzer {
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.boneShield.suggestion.suggestion">
+        <>
           Your <SpellLink spell={SPELLS.BONE_SHIELD} /> uptime can be improved. Try to keep it up at
           all times.
-        </Trans>,
+        </>,
       )
         .icon(SPELLS.BONE_SHIELD.icon)
-        .actual(
-          t({
-            id: 'deathknight.blood.boneShield.suggestion.actual',
-            message: `${formatPercentage(actual)}% Bone Shield uptime`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'shared.suggestion.recommended.moreThanPercent',
-            message: `>${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% Bone Shield uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -75,11 +64,11 @@ class BoneShield extends Analyzer {
             <table className="table table-condensed">
               <thead>
                 <tr>
-                  <Trans id="deathknight.blood.boneShield.statistic.header">
+                  <>
                     <th>Stacks</th>
                     <th>Time (s)</th>
                     <th>Time (%)</th>
-                  </Trans>
+                  </>
                 </tr>
               </thead>
               <tbody>
@@ -101,9 +90,9 @@ class BoneShield extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.BONE_SHIELD}>
-          <Trans id="deathknight.blood.boneShield.statistic">
+          <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

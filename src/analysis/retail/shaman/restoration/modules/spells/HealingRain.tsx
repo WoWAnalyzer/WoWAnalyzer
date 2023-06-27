@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
@@ -82,12 +81,7 @@ class HealingRain extends Analyzer {
           </span>,
         )
           .icon(TALENTS.HEALING_RAIN_TALENT.icon)
-          .actual(
-            t({
-              id: 'shaman.restoration.suggestions.healingRain.averageTargets',
-              message: `${suggestionThreshold.actual.toFixed(2)} average targets healed`,
-            }),
-          )
+          .actual(`${suggestionThreshold.actual.toFixed(2)} average targets healed`)
           .recommended(
             `${suggestionThreshold.isLessThan.minor} average targets healed is recommended`,
           )
@@ -225,15 +219,13 @@ class HealingRain extends Analyzer {
         label={
           <TooltipElement
             content={
-              <Trans id="shaman.restoration.healingRain.averageTargets.label.tooltip">
+              <>
                 The average number of targets healed by Healing Rain out of the maximum amount of 6
                 targets.
-              </Trans>
+              </>
             }
           >
-            <Trans id="shaman.restoration.healingRain.averageTargets.label">
-              Average Healing Rain Targets
-            </Trans>
+            <>Average Healing Rain Targets</>
           </TooltipElement>
         }
       />

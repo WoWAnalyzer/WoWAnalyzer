@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { Panel } from 'interface';
@@ -42,14 +41,7 @@ class SoulShardDetails extends Analyzer {
         "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
       )
         .icon(SPELLS.SOUL_SHARDS.icon)
-        .actual(
-          t({
-            id: 'warlock.destruction.suggestions.soulShard.wastedPerMinute',
-            message: `${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(
-              2,
-            )} per minute)`,
-          }),
-        )
+        .actual(`${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(2)} per minute)`)
         .recommended(`< ${recommended} Soul Shard Fragments per minute wasted are recommended`),
     );
   }

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -84,12 +83,9 @@ class CommanderOfTheDead extends Analyzer {
         )
           .icon(SPELLS.APOCALYPSE.icon)
           .actual(
-            t({
-              id: 'deathknight.unholy.suggestions.commanderofthedead.efficiency',
-              message: `An average ${formatPercentage(
-                this.averageSummonBuffed,
-              )}% of summons were buffed with Commander of the Dead`,
-            }),
+            `An average ${formatPercentage(
+              this.averageSummonBuffed,
+            )}% of summons were buffed with Commander of the Dead`,
           )
           .recommended(`${formatPercentage(recommended)}% is recommended`)
           .regular(recommended - 0.05)

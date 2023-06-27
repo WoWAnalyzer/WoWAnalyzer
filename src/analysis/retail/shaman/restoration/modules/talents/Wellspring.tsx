@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -110,11 +109,7 @@ class Wellspring extends Analyzer {
     }
     this.castEvent.meta = this.castEvent.meta || {};
     this.castEvent.meta.isInefficientCast = true;
-    this.castEvent.meta.inefficientCastReason = (
-      <Trans id="shaman.restoration.wellspring.inefficientCast.reason">
-        This Wellspring cast hit less than 6 targets.
-      </Trans>
-    );
+    this.castEvent.meta.inefficientCastReason = <>This Wellspring cast hit less than 6 targets.</>;
   }
 
   get averageHitsPerCast() {
@@ -141,19 +136,14 @@ class Wellspring extends Analyzer {
       .isLessThan(suggestionThreshold.isLessThan.minor)
       .addSuggestion((suggest, _actual, _recommended) =>
         suggest(
-          <Trans id="shaman.restoration.suggestions.wellSpring.label">
+          <>
             You're not making full use of the potential of{' '}
             <SpellLink id={TALENTS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured
             players with 6 people or more.
-          </Trans>,
+          </>,
         )
           .icon(TALENTS.WELLSPRING_TALENT.icon)
-          .actual(
-            `${formatPercentage(suggestionThreshold.actual)}% ${t({
-              id: 'shared.suggestions.efficiency',
-              message: `efficiency`,
-            })}`,
-          )
+          .actual(`${formatPercentage(suggestionThreshold.actual)}% ${`efficiency`}`)
           .recommended(
             `>${formatPercentage(suggestionThreshold.isLessThan.minor)}% efficiency is recommended`,
           )
@@ -182,17 +172,13 @@ class Wellspring extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={TALENTS.WELLSPRING_TALENT.id} />}
-        label={
-          <Trans id="shaman.restoration.wellspring.statistic.label">
-            Wellspring target efficiency
-          </Trans>
-        }
+        label={<>Wellspring target efficiency</>}
         value={`${formatPercentage(this.wellspringEfficiency)} %`}
         tooltip={
-          <Trans id="shaman.restoration.wellspring.statistic.tooltip">
+          <>
             The average number of targets healed by Wellspring out of the minimum amount of 6
             targets to archive the maximum potential healing.
-          </Trans>
+          </>
         }
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         position={STATISTIC_ORDER.OPTIONAL(100)}
@@ -201,10 +187,10 @@ class Wellspring extends Analyzer {
           <thead>
             <tr>
               <th>
-                <Trans id="common.cast">Cast</Trans>
+                <>Cast</>
               </th>
               <th>
-                <Trans id="common.time">Time</Trans>
+                <>Time</>
               </th>
               <th />
             </tr>

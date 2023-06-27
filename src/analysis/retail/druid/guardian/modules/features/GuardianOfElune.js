@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -107,12 +106,7 @@ class GuardianOfElune extends Analyzer {
           </span>,
         )
           .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
-          .actual(
-            t({
-              id: 'druid.guardian.suggestions.guardianOfElune.unused',
-              message: `${formatPercentage(unusedGoEProcs)}% unused`,
-            }),
-          )
+          .actual(`${formatPercentage(unusedGoEProcs)}% unused`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
           .regular(recommended + 0.15)
           .major(recommended + 0.3),

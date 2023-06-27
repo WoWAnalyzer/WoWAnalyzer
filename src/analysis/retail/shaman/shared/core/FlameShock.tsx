@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -89,12 +88,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
         </span>,
       )
         .icon(SPELLS.FLAME_SHOCK.icon)
-        .actual(
-          t({
-            id: 'shaman.elemental.suggestions.flameShock.uptime',
-            message: `${formatPercentage(actual)}% uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
 
@@ -109,14 +103,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
           </span>,
         )
           .icon(TALENTS_SHAMAN.LAVA_BURST_TALENT.icon)
-          .actual(
-            t({
-              id: 'shaman.elemental.suggestions.flameShock.efficiency',
-              message: `${formatNumber(
-                this.badLavaBursts,
-              )} Lava Burst casts without Flame Shock DOT`,
-            }),
-          )
+          .actual(`${formatNumber(this.badLavaBursts)} Lava Burst casts without Flame Shock DOT`)
           .recommended(`0 is recommended`)
           .major(recommended + 1),
       );

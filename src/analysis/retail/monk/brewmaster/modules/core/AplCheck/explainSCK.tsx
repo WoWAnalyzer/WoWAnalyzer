@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import talents from 'common/TALENTS/monk';
@@ -31,11 +31,11 @@ const claim: ViolationExplainer<Data>['claim'] = (_apl, result) => {
   ];
 };
 const render: ViolationExplainer<Data>['render'] = () => (
-  <Trans id="monk.brewmaster.guide.sck-overcast">
+  <>
     You frequently replaced <SpellLink id={SPELLS.TIGER_PALM} /> with{' '}
     <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM}>SCK</SpellLink>, even when only a single enemy
     was present.
-  </Trans>
+  </>
 );
 const describe: ViolationExplainer<Data>['describe'] = ({ violation }) => (
   <>

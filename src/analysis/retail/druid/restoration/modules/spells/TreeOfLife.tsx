@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -252,12 +251,7 @@ class TreeOfLife extends Analyzer {
         </>,
       )
         .icon(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.icon)
-        .actual(
-          t({
-            id: 'druid.restoration.suggestions.treeOfLife.efficiency',
-            message: `${formatPercentage(actual)}% healing`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% healing`)
         .recommended(`>${formatPercentage(recommended, 0)}% is recommended`),
     );
   }

@@ -202,7 +202,6 @@ const ReportLayout = () => (
   // TODO: Error boundary so all sub components don't need the errorHandler with the silly withRouter dependency. Instead just throw the error and let the boundary catch it - if possible.
   <>
     <NavigationBar />
-
     <ErrorBoundary>
       <ReportLoader>
         <ReportExpansionContextProvider>

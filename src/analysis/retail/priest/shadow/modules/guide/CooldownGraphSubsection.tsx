@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS/priest';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
-import { Trans } from '@lingui/macro';
+
 import Voidbolt from '../spells/Voidbolt';
 import ShadowWordDeath from '../spells/ShadowWordDeath';
 
@@ -58,13 +58,13 @@ const CoreCooldownsGraph = () => {
   let coreCooldown = coreCooldowns;
 
   let message = (
-    <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
+    <>
       <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
       should be keept on cooldown as much as possible. The same is true for{' '}
       <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> only during execute. These spells
       should also both be used when <SpellLink id={TALENTS.MINDBENDER_SHADOW_TALENT.id} /> is active
       with <SpellLink id={TALENTS.INESCAPABLE_TORMENT_TALENT.id} /> talented.
-    </Trans>
+    </>
   );
 
   const info = useInfo();
@@ -75,7 +75,7 @@ const CoreCooldownsGraph = () => {
       VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
 
     message = (
-      <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB">
+      <>
         <strong>Core Spells</strong> - <SpellLink id={SPELLS.MIND_BLAST.id} /> is a core spell that
         should be keept on cooldown as much as possible. The same is true for{' '}
         <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> only during execute. These spells
@@ -84,7 +84,7 @@ const CoreCooldownsGraph = () => {
         <br />
         During <SpellLink id={SPELLS.VOIDFORM.id} /> you gain access to{' '}
         <SpellLink id={SPELLS.VOID_BOLT.id} />, a powerful spell that should be cast when available.
-      </Trans>
+      </>
     );
   }
 
@@ -122,10 +122,10 @@ const CoreCooldownsGraph = () => {
 
 const ShortCooldownsGraph = () => {
   const message = (
-    <Trans id="guide.priest.shadow.sections.shortcooldowns.graph">
+    <>
       <strong>Short Cooldowns</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. Try to use these spells on cooldown.
-    </Trans>
+    </>
   );
   return CooldownGraphSubsection(shortCooldowns, message);
 };
@@ -138,11 +138,11 @@ const LongCooldownsGraph = () => {
   }
 
   const message = (
-    <Trans id="guide.priest.shadow.sections.longcooldowns.graph">
+    <>
       <strong>Major Cooldowns</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. You should use these cooldowns together when possible to
       maximize the damage they can deal, without missing any possible casts in the encounter.
-    </Trans>
+    </>
   );
   return CooldownGraphSubsection(longCooldowns, message);
 };

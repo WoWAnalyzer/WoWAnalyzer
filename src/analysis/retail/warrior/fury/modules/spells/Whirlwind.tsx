@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
@@ -160,12 +159,7 @@ class Whirlwind extends Analyzer {
         </>,
       )
         .icon(SPELLS.WHIRLWIND.icon)
-        .actual(
-          t({
-            id: 'warrior.fury.suggestions.whirlwind.badCasts',
-            message: `${formatPercentage(1 - actual)}% of bad Whirlwind casts`,
-          }),
-        )
+        .actual(`${formatPercentage(1 - actual)}% of bad Whirlwind casts`)
         .recommended(`${formatPercentage(recommended)}+% is recommended`),
     );
   }

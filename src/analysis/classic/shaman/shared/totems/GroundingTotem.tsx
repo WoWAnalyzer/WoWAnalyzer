@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Ability } from 'parser/core/Events';
@@ -49,10 +49,10 @@ class GroundingTotem extends Analyzer {
             <thead>
               <tr>
                 <th>
-                  <Trans id="common.groundingtotem.cast">Cast</Trans>
+                  <>Cast</>
                 </th>
                 <th>
-                  <Trans id="common.groundingtotem.spellgrounded">Spell Grounded</Trans>
+                  <>Spell Grounded</>
                 </th>
               </tr>
             </thead>

@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Trans } from '@lingui/macro';
+
 import { RuneTracker } from 'analysis/retail/deathknight/shared';
 import {
   line,
@@ -52,36 +52,36 @@ import { DEATH_STRIKE_CAST, DEATH_STRIKE_HEAL } from './normalizer';
 const reasonLabel = (reason: DeathStrikeReason) => {
   switch (reason) {
     case DeathStrikeReason.GoodHealing:
-      return <Trans id="blood.guide.death-strike.good-healing">Large Heal</Trans>;
+      return <>Large Heal</>;
     case DeathStrikeReason.LowHealth:
       return (
-        <Trans id="blood.guide.death-strike.low-hp">
+        <>
           <SpellLink spell={talents.DEATH_STRIKE_TALENT} /> at Low HP
-        </Trans>
+        </>
       );
     case DeathStrikeReason.BloodShield:
       return (
         <TooltipElement
           content={
-            <Trans id="blood.guide.death-strike.blood-shield.tooltip">
+            <>
               Only counts absorbs that mitigate hits for more than{' '}
               <strong>{formatPercentage(BLOOD_SHIELD_THRESHOLD, 0)}%</strong> of your HP.
-            </Trans>
+            </>
           }
         >
-          <Trans id="blood.guide.death-strike.blood-shield">
+          <>
             Generate <SpellLink spell={SPELLS.BLOOD_SHIELD} />
-          </Trans>
+          </>
         </TooltipElement>
       );
     case DeathStrikeReason.DumpRP:
       return (
-        <Trans id="blood.guide.death-strike.dump-rp">
+        <>
           Dump <ResourceLink id={RESOURCE_TYPES.RUNIC_POWER.id} />
-        </Trans>
+        </>
       );
     case DeathStrikeReason.Other:
-      return <Trans id="guide.unknown-reason">Other</Trans>;
+      return <>Other</>;
   }
 };
 

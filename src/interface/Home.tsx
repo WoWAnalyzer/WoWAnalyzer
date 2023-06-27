@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import Ad, { Location } from 'interface/Ad';
 import ErrorBoundary from 'interface/ErrorBoundary';
 import FingerprintFilledIcon from 'interface/icons/FingerprintFilled';
@@ -12,33 +11,32 @@ import { Link, Outlet, useLocation } from 'react-router-dom';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 
 import './Home.scss';
-import LanguageSwitcher from './LanguageSwitcher';
 import ReportSelectionHeader from './ReportSelectionHeader';
 
 const pages = [
   {
     icon: NewsIcon,
-    name: <Trans id="interface.home.page.news">News</Trans>,
+    name: <>News</>,
     url: 'news',
   },
   {
     icon: FingerprintFilledIcon,
-    name: <Trans id="interface.home.page.specs">Specs</Trans>,
+    name: <>Specs</>,
     url: 'specs',
   },
   {
     icon: Logo,
-    name: <Trans id="interface.home.page.about">About</Trans>,
+    name: <>About</>,
     url: 'about',
   },
   {
     icon: PremiumIcon,
-    name: <Trans id="interface.home.page.premium">Premium</Trans>,
+    name: <>Premium</>,
     url: 'premium',
   },
   {
     icon: HelpWantedIcon,
-    name: <Trans id="interface.home.page.helpWanted">Help wanted</Trans>,
+    name: <>Help wanted</>,
     url: 'help-wanted',
   },
 ];
@@ -51,9 +49,7 @@ const Home = () => {
 
   return (
     <div className="home-page">
-      <NavigationBar style={{ margin: 0, position: 'static' }}>
-        <LanguageSwitcher />
-      </NavigationBar>
+      <NavigationBar style={{ margin: 0, position: 'static' }} />
 
       <ReportSelectionHeader />
 

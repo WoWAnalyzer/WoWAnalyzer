@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -42,10 +41,7 @@ class Ossuary extends Analyzer {
 
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = t({
-        id: 'deathknight.blood.ossuary.ineffectiveCast',
-        message: `This Death Strike cast was without Ossuary.`,
-      });
+      event.meta.inefficientCastReason = `This Death Strike cast was without Ossuary.`;
     }
   }
 
@@ -76,25 +72,15 @@ class Ossuary extends Analyzer {
   suggestions(when: When) {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.ossuary.suggestion.suggestion">
+        <>
           Your <SpellLink spell={TALENTS.OSSUARY_TALENT} /> usage can be improved. Avoid casting{' '}
           <SpellLink spell={TALENTS.DEATH_STRIKE_TALENT} /> while not having Ossuary up as you lose
           Runic Power by doing so.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.OSSUARY_TALENT.icon)
-        .actual(
-          t({
-            id: 'deathknight.blood.ossuary.suggestion.actual',
-            message: `${formatPercentage(actual)}% Ossuary efficiency`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'deathknight.blood.ossuary.suggestion.recommended',
-            message: `${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% Ossuary efficiency`)
+        .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -104,21 +90,21 @@ class Ossuary extends Analyzer {
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.blood.ossuary.statistic.tooltip">
+          <>
             {this.dsWithoutOS * OSSUARY_RUNICPOWER_REDUCTION} RP wasted by casting them without
             Ossuary up.
             <br />
             {this.dsWithOS * OSSUARY_RUNICPOWER_REDUCTION} RP saved by casting them with Ossuary up.
             <br />
             {formatPercentage(this.uptime)}% uptime.
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS.OSSUARY_TALENT}>
-          <Trans id="deathknight.blood.ossuary.statistic">
+          <>
             {this.dsWithoutOS} / {this.dsWithOS + this.dsWithoutOS}{' '}
             <small>Death Strikes without Ossuary</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

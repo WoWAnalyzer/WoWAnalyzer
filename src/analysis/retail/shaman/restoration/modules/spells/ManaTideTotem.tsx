@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -76,10 +76,10 @@ class ManaTideTotem extends Analyzer {
             <thead>
               <tr>
                 <th>
-                  <Trans id="common.player">Player</Trans>
+                  <>Player</>
                 </th>
                 <th>
-                  <Trans id="common.stat.mana">Mana</Trans>
+                  <>Mana</>
                 </th>
               </tr>
             </thead>

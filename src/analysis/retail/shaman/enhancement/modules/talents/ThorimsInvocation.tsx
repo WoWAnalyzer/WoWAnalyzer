@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, DamageEvent } from 'parser/core/Events';
-import { Trans, t } from '@lingui/macro';
+
 import { THORIMS_INVOCATION_LINK } from '../normalizers/EventLinkNormalizer';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -102,10 +102,8 @@ class ThorimsInvocation extends Analyzer {
       const cracklingThunder = this.selectedCombatant.hasBuff(
         SPELLS.CRACKLING_THUNDER_TIER_BUFF.id,
       );
-      const inefficientCastReason = t({
-        id: 'shaman.enhancement.windstrike.inefficientCastReason',
-        message: "You should have re-primed Thorim's Invocation with Lightning Bolt.",
-      });
+      const inefficientCastReason =
+        "You should have re-primed Thorim's Invocation with Lightning Bolt.";
       if (
         mswStacks >= 5 &&
         !cracklingThunder &&
@@ -151,7 +149,7 @@ class ThorimsInvocation extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <Trans>
+            <>
               <SpellLink spell={SPELLS.LIGHTNING_BOLT} />{' '}
               <strong>{formatNumber(this.procs[SPELLS.LIGHTNING_BOLT.id].casts)}</strong> casts -{' '}
               <DamageIcon />{' '}
@@ -181,7 +179,7 @@ class ThorimsInvocation extends Analyzer {
               Total <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> and{' '}
               <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> damage increased by{' '}
               <DamageIcon /> <strong>{formatNumber(this.increaseDamage)}</strong>
-            </Trans>
+            </>
           </>
         }
       >

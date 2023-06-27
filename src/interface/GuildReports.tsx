@@ -1,5 +1,3 @@
-import { i18n } from '@lingui/core';
-import { Trans, defineMessage } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeGuildApiUrl } from 'common/makeApiUrl';
@@ -28,30 +26,12 @@ const REPORTS_TO_SHOW_DEFAULT = 25;
 const MONTHS_BACK_SEARCH = 3;
 
 const ERRORS = {
-  GUILD_NOT_FOUND: defineMessage({
-    id: 'interface.guildReports.errors.guildNotFound',
-    message: `We couldn't find your guild on Warcraft Logs`,
-  }),
-  NO_REPORTS_FOR_FILTER: defineMessage({
-    id: 'interface.guildReports.errors.noReportsForFilter',
-    message: `We couldn't find any reports`,
-  }),
-  WCL_API_ERROR: defineMessage({
-    id: 'interface.guildReports.errors.wclAPIError',
-    message: `Something went wrong talking to Warcraft Logs`,
-  }),
-  UNKNOWN_API_ERROR: defineMessage({
-    id: 'interface.guildReports.errors.unknownAPIError',
-    message: `Something went wrong talking to the server`,
-  }),
-  UNEXPECTED: defineMessage({
-    id: 'interface.guildReports.errors.unexpected',
-    message: `Something went wrong`,
-  }),
-  NOT_RESPONDING: defineMessage({
-    id: 'interface.guildReports.errors.notResponding',
-    message: `Request timed out`,
-  }),
+  GUILD_NOT_FOUND: `We couldn't find your guild on Warcraft Logs`,
+  NO_REPORTS_FOR_FILTER: `We couldn't find any reports`,
+  WCL_API_ERROR: `Something went wrong talking to Warcraft Logs`,
+  UNKNOWN_API_ERROR: `Something went wrong talking to the server`,
+  UNEXPECTED: `Something went wrong`,
+  NOT_RESPONDING: `Request timed out`,
 };
 
 interface Props {
@@ -272,7 +252,7 @@ class GuildReports extends Component<Props, State> {
 
     if (this.state.error === ERRORS.GUILD_NOT_FOUND) {
       errorMessage = (
-        <Trans id="interface.guildReports.errors.guildNotFoundDetails">
+        <>
           Please check your input and make sure that you've selected the correct region and realm.
           <br />
           If your input was correct, then make sure that someone in your raid logged the fight for
@@ -281,11 +261,11 @@ class GuildReports extends Component<Props, State> {
           <br />
           When you know for sure that you have logs on Warcraft Logs and you still get this error,
           please message us on {DISCORD} or create an issue on {GITHUB}.
-        </Trans>
+        </>
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
-        <Trans id="interface.guildReports.errors.notRespondingDetails">
+        <>
           It looks like we couldn't get a response in time from the API, this usually happens when
           the servers are under heavy load.
           <br />
@@ -293,7 +273,7 @@ class GuildReports extends Component<Props, State> {
           You could try and enter your report-code manually <Link to="/">here</Link>.<br />
           That would bypass the guild lookup and we should be able to analyze your report.
           <br />
-        </Trans>
+        </>
       );
     } else if (
       this.state.error === ERRORS.WCL_API_ERROR ||
@@ -301,21 +281,21 @@ class GuildReports extends Component<Props, State> {
       this.state.error === ERRORS.UNEXPECTED
     ) {
       errorMessage = (
-        <Trans id="interface.guildReports.errors.details">
+        <>
           {this.state.errorMessage}
           <br />
           Please message us on {DISCORD} or create an issue on {GITHUB} if this issue persists and
           we will fix it, eventually.
-        </Trans>
+        </>
       );
     } else if (this.state.error === ERRORS.NO_REPORTS_FOR_FILTER || filteredReports.length === 0) {
       errorMessage = (
-        <Trans id="interface.guildReports.errors.noReportsForFilterDetails">
+        <>
           Please check your filters and make sure that you logged those fights on Warcraft Logs.
           <br />
           <br />
           Don't know how to log your fights? Check out the {WCL_GUIDE} to get started.
-        </Trans>
+        </>
       );
     }
 
@@ -359,7 +339,7 @@ class GuildReports extends Component<Props, State> {
                 style={{ fontSize: 22 }}
               >
                 <ArmoryIcon style={{ marginRight: '0.3em' }} />
-                <Trans id="interface.armory.text">Armory</Trans>
+                <>Armory</>
               </a>
               <br />
               {this.props.region !== 'CN' && (
@@ -426,7 +406,7 @@ class GuildReports extends Component<Props, State> {
               {this.state.error && (
                 <span>
                   <Link to="/">
-                    <Trans id="interface.guildReports.home">Home</Trans>
+                    <>Home</>
                   </Link>{' '}
                   &gt;{' '}
                   <span>
@@ -448,23 +428,19 @@ class GuildReports extends Component<Props, State> {
                         }}
                       >
                         <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
-                        <Trans id="interface.guildReports.refresh">Refresh</Trans>
+                        <>Refresh</>
                       </Link>
                     </div>
                     <h1 style={{ display: 'inline-block' }}>
-                      {this.state.error ? (
-                        i18n._(this.state.error)
-                      ) : (
-                        <Trans id="interface.guildReports.guildReports">Guild Reports</Trans>
-                      )}
+                      {this.state.error ? this.state.error : <>Guild Reports</>}
                     </h1>
                     <small>
-                      <Trans id="interface.guildReports.guildReportsDetails">
+                      <>
                         This page will only show guild reports that are public and listed on
                         Warcraft Logs. If your reports are unlisted, you need to manually find the
                         report on Warcraft Logs and copy the direct report link to analyze a fight
                         missing from this page. If your reports are private, they can't be analyzed.
-                      </Trans>
+                      </>
                     </small>
                   </div>
                 )}
@@ -478,13 +454,7 @@ class GuildReports extends Component<Props, State> {
                           margin: '20px 0',
                         }}
                       >
-                        <ActivityIndicator
-                          text={
-                            <Trans id="interface.guildReports.fetchingReports">
-                              Fetching reports...
-                            </Trans>
-                          }
-                        />
+                        <ActivityIndicator text={<>Fetching reports...</>} />
                       </div>
                     )}
                     {!this.state.isLoading && errorMessage}

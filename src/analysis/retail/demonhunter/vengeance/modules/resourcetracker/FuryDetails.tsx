@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -50,12 +49,7 @@ class FuryDetails extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Fury.`)
         .icon('ability_demonhunter_demonspikes')
-        .actual(
-          t({
-            id: 'demonhunter.vengeance.suggestions.fury.wasted',
-            message: `${formatPercentage(actual)}% wasted`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% wasted`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import ITEMS from 'common/ITEMS';
 import { Enchant } from 'common/ITEMS/Item';
 import SPELLS from 'common/SPELLS';
@@ -36,36 +36,36 @@ const STR_SPECS = [
 ];
 
 const AGI_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  8: <Trans id="common.slots.bracers">Bracers</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  14: <Trans id="common.slots.cloak">Cloak</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+  4: <>Chest</>,
+  7: <>Boots</>,
+  8: <>Bracers</>,
+  10: <>Ring</>,
+  11: <>Ring</>,
+  14: <>Cloak</>,
+  15: <>Weapon</>,
+  16: <>OffHand</>,
 };
 
 const STR_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  8: <Trans id="common.slots.bracers">Bracers</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  14: <Trans id="common.slots.cloak">Cloak</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+  4: <>Chest</>,
+  7: <>Boots</>,
+  8: <>Bracers</>,
+  10: <>Ring</>,
+  11: <>Ring</>,
+  14: <>Cloak</>,
+  15: <>Weapon</>,
+  16: <>OffHand</>,
 };
 
 const INT_ENCHANTABLE_SLOTS = {
-  4: <Trans id="common.slots.chest">Chest</Trans>,
-  7: <Trans id="common.slots.boots">Boots</Trans>,
-  8: <Trans id="common.slots.bracers">Bracers</Trans>,
-  10: <Trans id="common.slots.ring">Ring</Trans>,
-  11: <Trans id="common.slots.ring">Ring</Trans>,
-  14: <Trans id="common.slots.cloak">Cloak</Trans>,
-  15: <Trans id="common.slots.weapon">Weapon</Trans>,
-  16: <Trans id="common.slots.offhand">OffHand</Trans>,
+  4: <>Chest</>,
+  7: <>Boots</>,
+  8: <>Bracers</>,
+  10: <>Ring</>,
+  11: <>Ring</>,
+  14: <>Cloak</>,
+  15: <>Weapon</>,
+  16: <>OffHand</>,
 };
 
 const MIN_ENCHANT_IDS = [

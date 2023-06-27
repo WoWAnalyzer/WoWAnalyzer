@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -72,12 +71,9 @@ class Slam extends Analyzer {
       )
         .icon(SPELLS.SLAM.icon)
         .actual(
-          t({
-            id: 'warrior.arms.suggestions.slam.efficiency',
-            message: `Slam was cast ${this.badCast} times accounting for ${formatPercentage(
-              actual,
-            )}% of total casts, while Mortal Strike or Execute was available.`,
-          }),
+          `Slam was cast ${this.badCast} times accounting for ${formatPercentage(
+            actual,
+          )}% of total casts, while Mortal Strike or Execute was available.`,
         )
         .recommended(`${recommended}% is recommended`),
     );

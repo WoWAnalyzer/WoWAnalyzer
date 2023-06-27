@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
@@ -89,12 +88,7 @@ class DemonicCalling extends Analyzer {
         </>,
       )
         .icon(TALENTS.DEMONIC_CALLING_TALENT.icon)
-        .actual(
-          t({
-            id: 'warlock.demonology.suggestions.demonicCalling.wastedProcsPerMinute',
-            message: `${actual.toFixed(2)} wasted procs per minute`,
-          }),
-        )
+        .actual(`${actual.toFixed(2)} wasted procs per minute`)
         .recommended(`< ${recommended} is recommended`),
     );
   }

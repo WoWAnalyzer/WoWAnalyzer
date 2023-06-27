@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -234,9 +234,9 @@ class WintersChill extends Analyzer {
       )
         .icon(TALENTS.ICE_LANCE_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.wintersChill.notShatteredIceLance">
+          <>
             {formatPercentage(1 - actual)}% Winter's Chill not shattered with Ice Lance
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(1 - recommended)}% is recommended`),
     );
@@ -262,10 +262,10 @@ class WintersChill extends Analyzer {
       )
         .icon(SPELLS.FROSTBOLT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.wintersChill.notShattered">
+          <>
             {formatPercentage(1 - actual)}% Winter's Chill not shattered with Frostbolt, Glacial
             Spike, or Ebonbolt
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(1 - recommended)}% is recommended`),
     );

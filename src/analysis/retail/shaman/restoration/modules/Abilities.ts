@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 // import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -240,10 +239,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HEALING_WAVE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.HEALING_WAVE_TALENT),
-        name: t({
-          id: 'shaman.restoration.abilities.buffedByTidalWave',
-          message: `Tidal Waved ${TALENTS.HEALING_WAVE_TALENT.name}`,
-        }),
+        name: `Tidal Waved ${TALENTS.HEALING_WAVE_TALENT.name}`,
         timelineSortIndex: 13,
         gcd: {
           base: 1500,
@@ -267,10 +263,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_SURGE.id,
-        name: t({
-          id: 'shaman.restoration.abilities.buffedByTidalWave',
-          message: `Tidal Waved ${SPELLS.HEALING_SURGE.name}`,
-        }),
+        name: `Tidal Waved ${SPELLS.HEALING_SURGE.name}`,
         timelineSortIndex: 14,
         gcd: {
           base: 1500,

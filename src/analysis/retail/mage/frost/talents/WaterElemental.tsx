@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -143,9 +143,9 @@ class WaterElemental extends Analyzer {
       )
         .icon(TALENTS.SUMMON_WATER_ELEMENTAL_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.waterElemental.uptime">
+          <>
             {formatPercentage(actual)}% uptime
-          </Trans>,
+          </>,
         )
         .recommended(
           `mirroring your own uptime (${formatPercentage(
@@ -163,13 +163,13 @@ class WaterElemental extends Analyzer {
       )
         .icon(SPELLS.WATERBOLT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.frostElemental.utilization">
+          <>
             {this._timestampFirstCast === 0
               ? 'Never attacked or not summoned'
               : 'First attack: ' +
                 formatDuration(this._timestampFirstCast - this.owner.fight.start_time) +
                 ' into the fight'}
-          </Trans>,
+          </>,
         )
         .recommended(`summoning pre-fight is recommended`),
     );

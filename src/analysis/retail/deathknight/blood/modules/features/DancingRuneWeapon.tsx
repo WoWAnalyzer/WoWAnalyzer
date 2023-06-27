@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -72,26 +71,26 @@ class DancingRuneWeapon extends Analyzer {
     if (spellId === TALENTS.CONSUMPTION_TALENT.id) {
       return (
         <>
-          <Trans id="deathknight.blood.drw.spellLinks.consumption">
+          <>
             and (if in AoE)
             <SpellLink spell={spellId} />
-          </Trans>
+          </>
         </>
       );
     } else if (index + 2 === ALLOWED_CASTS_DURING_DRW.length) {
       return (
         <>
-          <Trans id="deathknight.blood.drw.spellLinks.last">
+          <>
             <SpellLink spell={spellId} />{' '}
-          </Trans>
+          </>
         </>
       );
     } else {
       return (
         <>
-          <Trans id="deathknight.blood.drw.spellLinks.default">
+          <>
             <SpellLink spell={spellId} />,{' '}
-          </Trans>
+          </>
         </>
       );
     }
@@ -100,10 +99,10 @@ class DancingRuneWeapon extends Analyzer {
   get goodDRWSpells() {
     return (
       <div>
-        <Trans id="deathknight.blood.drw.suggestion.goodDrwSpells">
+        <>
           Try and prioritize{' '}
           {ALLOWED_CASTS_DURING_DRW.map((id, index) => this.spellLinks(id, index))}
-        </Trans>
+        </>
       </div>
     );
   }
@@ -111,26 +110,18 @@ class DancingRuneWeapon extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.drw.suggestion.suggestion">
+        <>
           Avoid casting spells during <SpellLink spell={TALENTS.DANCING_RUNE_WEAPON_TALENT} /> that
           don't benefit from the copies such as <SpellLink spell={TALENTS.BLOODDRINKER_TALENT} />{' '}
           and <SpellLink spell={this.DD_ABILITY} />. Check the cooldown-tab below for more detailed
           breakdown.{this.goodDRWSpells}
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.DANCING_RUNE_WEAPON_TALENT.icon)
         .actual(
-          t({
-            id: 'deathknight.blood.drw.suggestion.actual',
-            message: `${this.goodDRWCasts.length} out of ${this.castsDuringDRW.length} casts during DRW were good`,
-          }),
+          `${this.goodDRWCasts.length} out of ${this.castsDuringDRW.length} casts during DRW were good`,
         )
-        .recommended(
-          t({
-            id: 'deathknight.blood.drw.suggestion.recommended',
-            message: `${this.castsDuringDRW.length} recommended`,
-          }),
-        ),
+        .recommended(`${this.castsDuringDRW.length} recommended`),
     );
   }
 }

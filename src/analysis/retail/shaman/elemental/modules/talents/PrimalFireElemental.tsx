@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -109,12 +108,9 @@ class PrimalFireElemental extends Analyzer {
       )
         .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
-          t({
-            id: 'shaman.elemental.suggestions.primalFireElemental.unusedSpells',
-            message: `${formatNumber(
-              this.unusedSpells.length,
-            )} spell/-s not used by your Fire Elemental (${unusedSpellsString})`,
-          }),
+          `${formatNumber(
+            this.unusedSpells.length,
+          )} spell/-s not used by your Fire Elemental (${unusedSpellsString})`,
         )
         .recommended(`You should be using all spells of your Fire Elemental.`)
         .major(recommended + 1),
@@ -130,12 +126,7 @@ class PrimalFireElemental extends Analyzer {
         </span>,
       )
         .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
-        .actual(
-          t({
-            id: 'shaman.elemental.suggestions.primalFireElemental.meteorCastsMissed',
-            message: `${formatNumber(this.missedMeteorCasts)} missed Meteor Casts.`,
-          }),
-        )
+        .actual(`${formatNumber(this.missedMeteorCasts)} missed Meteor Casts.`)
         .recommended(`You should cast Meteor every time you summon your Fire Elemental `)
         .major(recommended + 1),
     );

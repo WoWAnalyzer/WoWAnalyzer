@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -96,14 +96,14 @@ class Bloodworms extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.blood.bloodworms.statistic.tooltip">
+          <>
             <strong>Damage:</strong> {formatThousands(this.totalDamage)} /{' '}
             {this.owner.formatItemDamageDone(this.totalDamage)}
             <br />
             <strong>Number of worms summoned:</strong> {this.totalSummons}
             <br />
             <strong>Number of worms popped early:</strong> {this.poppedWorms}
-          </Trans>
+          </>
         }
       >
         <BoringSpellValueText spell={TALENTS.BLOODWORMS_TALENT}>

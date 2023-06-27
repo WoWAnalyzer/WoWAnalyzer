@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -114,21 +114,21 @@ class DirectBeaconHealing extends Analyzer {
       .isGreaterThan(this.suggestionThresholds.isGreaterThan.minor)
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <Trans id="paladin.holy.modules.beacons.directBeaconHealing.suggestion">
+          <>
             You cast a lot of direct heals on beacon targets. Direct healing beacon targets is
             inefficient. Try to only cast on beacon targets when they would otherwise die.
-          </Trans>,
+          </>,
         )
           .icon('ability_paladin_beaconoflight')
           .actual(
-            <Trans id="paladin.holy.modules.beacons.directBeaconHealing.actual">
+            <>
               {formatPercentage(actual)}% of all your healing spell casts were on a beacon target
-            </Trans>,
+            </>,
           )
           .recommended(
-            <Trans id="paladin.holy.modules.beacons.directBeaconHealing.recommended">
+            <>
               &lt;{formatPercentage(recommended)}% is recommended
-            </Trans>,
+            </>,
           )
           .regular(this.suggestionThresholds.isGreaterThan.average)
           .major(this.suggestionThresholds.isGreaterThan.major),
@@ -143,9 +143,9 @@ class DirectBeaconHealing extends Analyzer {
             <SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />
           </div>
           <label>
-            <Trans id="paladin.holy.modules.beacons.directBeaconHealing.directBeaconHealing">
+            <>
               Direct beacon healing
-            </Trans>
+            </>
           </label>
 
           <div className="flex" style={{ marginTop: -10 }}>
@@ -156,9 +156,9 @@ class DirectBeaconHealing extends Analyzer {
               <div className="flex pull-right text-center" style={{ whiteSpace: 'nowrap' }}>
                 <div className="flex-main" style={{ marginRight: 15 }}>
                   <small>
-                    <Trans id="paladin.holy.modules.beacons.directBeaconHealing.hlFol">
+                    <>
                       HL/FoL
-                    </Trans>
+                    </>
                   </small>
                   <div className="value" style={{ fontSize: '1em' }}>
                     {formatPercentage(this.totalFoLHLOnBeaconPercentage, 0)}%
@@ -166,9 +166,9 @@ class DirectBeaconHealing extends Analyzer {
                 </div>
                 <div className="flex-main">
                   <small>
-                    <Trans id="paladin.holy.modules.beacons.directBeaconHealing.otherSpells">
+                    <>
                       Other spells
-                    </Trans>
+                    </>
                   </small>
                   <div className="value" style={{ fontSize: '1em' }}>
                     {formatPercentage(this.totalOtherSpellsOnBeaconPercentage, 0)}%

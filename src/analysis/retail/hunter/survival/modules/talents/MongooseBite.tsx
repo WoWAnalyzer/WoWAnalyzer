@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import {
   MONGOOSE_BITE_MAX_STACKS,
   MONGOOSE_BITE_MAX_TRAVEL_TIME,
@@ -239,12 +238,7 @@ class MongooseBite extends Analyzer {
         </>,
       )
         .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
-        .actual(
-          t({
-            id: 'hunter.survival.suggestions.mongooseBite.focusWindow',
-            message: `${formatNumber(actual)} average focus on new window.`,
-          }),
-        )
+        .actual(`${formatNumber(actual)} average focus on new window.`)
         .recommended(`>${formatNumber(recommended)} is recommended`),
     );
     when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) =>
@@ -255,12 +249,7 @@ class MongooseBite extends Analyzer {
         </>,
       )
         .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
-        .actual(
-          t({
-            id: 'hunter.survival.suggetsions.mongooseBite.maxStacksCasts',
-            message: `${formatPercentage(actual)}% casts on max stacks.`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% casts on max stacks.`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

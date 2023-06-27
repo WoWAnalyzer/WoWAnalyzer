@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -98,9 +98,9 @@ class MunchedProcs extends Analyzer {
       )
         .icon(TALENTS.FINGERS_OF_FROST_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.munchedProcs">
+          <>
             {formatPercentage(actual)}% procs wasted
-          </Trans>,
+          </>,
         )
         .recommended(formatPercentage(recommended)),
     );

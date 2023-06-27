@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -70,12 +69,7 @@ class DemonBite extends Analyzer {
         </>,
       )
         .icon(SPELLS.DEMONS_BITE.icon)
-        .actual(
-          t({
-            id: 'demonhunter.havoc.suggestions.demonsBite.furyWasted',
-            message: `${formatPercentage(actual)}% Fury wasted`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Fury wasted`)
         .recommended(`${formatPercentage(recommended)}% is recommended.`),
     );
   }

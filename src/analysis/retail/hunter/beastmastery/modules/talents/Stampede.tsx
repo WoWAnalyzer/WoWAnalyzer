@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { STAMPEDE_POTENTIAL_HITS } from 'analysis/retail/hunter/beastmastery/constants';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -103,14 +103,14 @@ class Stampede extends Analyzer {
       )
         .icon(TALENTS.STAMPEDE_TALENT.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.stampede.efficiency">
+          <>
             {actual} inefficient {actual > 1 ? 'casts' : 'cast'}
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="hunter.beastmastery.suggestions.stampede.recommended">
+          <>
             {recommended} is recommended
-          </Trans>,
+          </>,
         ),
     );
   }

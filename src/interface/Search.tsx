@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import DocumentTitle from 'interface/DocumentTitle';
 import { constructURL } from 'interface/ReportSelecter';
 import { useEffect, useState } from 'react';
@@ -24,21 +24,21 @@ const Search = () => {
     <div className="container">
       <DocumentTitle title="Search" />
       <h1>
-        <Trans id="interface.search.reportSearch">Report Search</Trans>
+        <>Report Search</>
       </h1>
       {valid ? (
         <>
-          <Trans id="interface.search.searchingFor">Searching for</Trans>{' '}
+          <>Searching for</>{' '}
         </>
       ) : (
         <>
-          <Trans id="interface.search.invalidSearchParameter">Invalid search parameter:</Trans>{' '}
+          <>Invalid search parameter:</>{' '}
         </>
       )}
       <b>{query}</b>
       <br />
       <br />
-      <Trans id="interface.search.supportedTerms">
+      <>
         Supported search terms:
         <br />
         <ul>
@@ -49,10 +49,10 @@ const Search = () => {
             https://worldofwarcraft.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;
           </li>
         </ul>
-      </Trans>
+      </>
       <br />
       <Link to="/">
-        <Trans id="interface.search.goBackHome">Go back home</Trans>
+        <>Go back home</>
       </Link>
     </div>
   );

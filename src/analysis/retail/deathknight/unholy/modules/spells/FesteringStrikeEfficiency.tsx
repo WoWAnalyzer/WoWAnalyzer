@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -76,12 +75,9 @@ class FesteringStrikeEfficiency extends Analyzer {
       )
         .icon(SPELLS.FESTERING_STRIKE.icon)
         .actual(
-          t({
-            id: 'deathknight.unholy.suggestions.festeringStrikes.efficiency',
-            message: `${formatPercentage(
-              actual,
-            )}% of Festering Strikes did not risk overcapping Festering Wounds`,
-          }),
+          `${formatPercentage(
+            actual,
+          )}% of Festering Strikes did not risk overcapping Festering Wounds`,
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );

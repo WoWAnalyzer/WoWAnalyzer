@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import CrossIcon from 'interface/icons/Cross';
 import { Options } from 'parser/core/Analyzer';
@@ -48,12 +47,7 @@ class CancelledCasts extends CoreCancelledCasts {
         </>,
       )
         .icon('inv_misc_map_01')
-        .actual(
-          t({
-            id: 'hunter.marksmanship.suggestions.castsCanceled.efficiency',
-            message: `${formatPercentage(1 - actual)}% casts cancelled`,
-          }),
-        )
+        .actual(`${formatPercentage(1 - actual)}% casts cancelled`)
         .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
     );
   }

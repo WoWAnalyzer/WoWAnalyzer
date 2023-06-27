@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -50,12 +49,7 @@ class RageDetails extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
         .icon('spell_nature_reincarnation')
-        .actual(
-          t({
-            id: 'warrior.protection.suggestions.rage.wasted',
-            message: `${formatPercentage(actual)}% wasted`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% wasted`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

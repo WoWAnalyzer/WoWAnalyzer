@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -89,12 +88,7 @@ class FistsofFury extends Analyzer {
         </span>,
       )
         .icon(SPELLS.FISTS_OF_FURY_CAST.icon)
-        .actual(
-          t({
-            id: 'monk.windwalker.suggestions.fistOfFury.avgTicksPerCast',
-            message: `${actual.toFixed(2)} average ticks on each Fists of Fury cast`,
-          }),
-        )
+        .actual(`${actual.toFixed(2)} average ticks on each Fists of Fury cast`)
         .recommended(`Aim to get ${recommended} ticks with each Fists of Fury cast.`),
     );
   }

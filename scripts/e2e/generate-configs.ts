@@ -1,20 +1,9 @@
-import { i18n } from '@lingui/core';
-import { en } from 'make-plural';
 import { format } from 'prettier';
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { existsSync, mkdirSync, writeFileSync } from 'fs';
 import { join } from 'path';
 import CONFIGS from 'parser';
 import { CLASSIC_EXPANSION, isCurrentExpansion } from 'game/Expansion';
 import isLatestPatch from 'game/isLatestPatch';
-
-i18n.loadLocaleData('en', { plurals: en });
-
-const pathToMessages = join(__dirname, '..', '..', 'src', 'localization', 'en', 'messages.json');
-const messagesRaw = readFileSync(pathToMessages, { encoding: 'utf-8' });
-const messages = JSON.parse(messagesRaw);
-
-i18n.load('en', messages);
-i18n.activate('en');
 
 const supportedConfigs = CONFIGS.filter(
   (it) => it.exampleReport && isLatestPatch(it) && isCurrentExpansion(it.expansion),

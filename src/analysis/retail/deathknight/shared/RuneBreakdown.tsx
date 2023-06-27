@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -34,30 +33,20 @@ class RuneBreakdown extends ResourceBreakdown {
           <thead>
             <tr>
               <th>
-                <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
+                <>Ability</>
               </th>
               <th colSpan={2}>
                 <TooltipElement
-                  content={t({
-                    id: 'deathknight.shared.runeBreakdown.generatedHeaderTooltip',
-                    message:
-                      'Runes generated from passive regeneration and abilities that accelerate it are estimates.',
-                  })}
+                  content="Runes generated from passive regeneration and abilities that accelerate it are estimates."
                 >
-                  <Trans id="shared.resourceBreakdown.generatedHeader">
-                    {resourceName} generated
-                  </Trans>
+                  <>{resourceName} generated</>
                 </TooltipElement>
               </th>
               <th colSpan={2}>
                 <TooltipElement
-                  content={t({
-                    id: 'shared.resourceBreakdown.wastedHeader.tooltip',
-                    message:
-                      'This is the amount of resources that were generated while you were already at cap.',
-                  })}
+                  content="This is the amount of resources that were generated while you were already at cap."
                 >
-                  <Trans id="shared.resourceBreakdown.wastedHeader">{resourceName} wasted</Trans>
+                  <>{resourceName} wasted</>
                 </TooltipElement>
               </th>
             </tr>
@@ -68,10 +57,7 @@ class RuneBreakdown extends ResourceBreakdown {
                 <td style={{ width: '30%' }}>
                   {ability.abilityId === SPELLS.RUNE_1.id && (
                     <>
-                      <SpellIcon spell={ability.abilityId} noLink />{' '}
-                      <Trans id="deathknight.shared.runeBreakdown.passive">
-                        Passive Rune regeneration
-                      </Trans>
+                      <SpellIcon spell={ability.abilityId} noLink /> <>Passive Rune regeneration</>
                     </>
                   )}
                   {ability.abilityId !== SPELLS.RUNE_1.id && (
@@ -111,13 +97,13 @@ class RuneBreakdown extends ResourceBreakdown {
             <thead>
               <tr>
                 <th>
-                  <Trans id="shared.resourceBreakdown.ability">Ability</Trans>
+                  <>Ability</>
                 </th>
                 <th colSpan={2}>
-                  <Trans id="shared.resourceBreakdown.spentHeader">{resourceName} spent</Trans>
+                  <>{resourceName} spent</>
                 </th>
                 <th colSpan={2}>
-                  <Trans id="shared.resourceBreakdown.castsHeader">Casts</Trans>
+                  <>Casts</>
                 </th>
               </tr>
             </thead>

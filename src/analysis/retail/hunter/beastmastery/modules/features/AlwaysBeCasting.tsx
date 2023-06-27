@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
@@ -29,17 +29,17 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       )
         .icon('spell_mage_altertime')
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.alwaysBeCasting.downtime">
+          <>
             {' '}
             {formatPercentage(1 - actual)}% downtime{' '}
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="hunter.beastmastery.suggestions.alwaysBeCasting.recommended">
+          <>
             {' '}
             {'<'}
             {formatPercentage(1 - recommended)}% is recommended{' '}
-          </Trans>,
+          </>,
         ),
     );
   }

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreCancelledCasts from 'parser/shared/modules/CancelledCasts';
@@ -27,12 +26,7 @@ class CancelledCasts extends CoreCancelledCasts {
         </>,
       )
         .icon('inv_misc_map_01')
-        .actual(
-          t({
-            id: 'common.suggestions.castsCancelled',
-            message: `${formatPercentage(actual)}% casts cancelled`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% casts cancelled`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { Race } from 'game/RACES';
 
 const CharacterRace = ({ race }: { race: Race }) => (
@@ -6,7 +6,7 @@ const CharacterRace = ({ race }: { race: Race }) => (
     <div className="row">
       <div className="col-md-12">
         <h2>
-          <Trans id="common.race">Race</Trans>
+          <>Race</>
         </h2>
       </div>
     </div>

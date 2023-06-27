@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import DiscordButton from 'interface/DiscordButton';
 import GitHubButton from 'interface/GitHubButton';
@@ -56,13 +56,13 @@ const PatchCheckerContents = ({
       <Panel
         title={
           isThisExpansion ? (
-            <Trans id="interface.report.patchChecker.earlierPatch">
+            <>
               This report is for an earlier patch
-            </Trans>
+            </>
           ) : (
-            <Trans id="interface.report.patchChecker.previousExpansion">
+            <>
               This report is for a previous expansion
-            </Trans>
+            </>
           )
         }
         pad={false}
@@ -70,7 +70,7 @@ const PatchCheckerContents = ({
         <div className="flex wrapable">
           <div className="flex-main pad">
             {isThisExpansion ? (
-              <Trans id="interface.report.patchChecker.viewAnalysisOnOlderVersion">
+              <>
                 WoWAnalyzer is constantly being updated to support the latest changes. This can
                 cause some functionality to be modified for the latest talents/traits/trinkets or be
                 removed.
@@ -82,9 +82,9 @@ const PatchCheckerContents = ({
                 <br />
                 If you would still like to view the analysis using the latest updates, you can click
                 'Continue anyway' below.
-              </Trans>
+              </>
             ) : (
-              <Trans id="interface.report.patchChecker.viewAnalysisOldExpansion">
+              <>
                 Due to the number of class changes since the last expansion (class abilities,
                 talents, etc.), the analysis provided by WoWAnalyzer will most likely be inaccurate.
                 <br />
@@ -98,14 +98,14 @@ const PatchCheckerContents = ({
                   onClick={handleClickContinue}
                   style={{ fontSize: '1.1em' }}
                 >
-                  <Trans id="interface.report.patchChecker.clickHere">click here</Trans>
+                  <>click here</>
                 </a>
                 .
                 <br />
                 <br />
                 If you would still like to view the analysis using the latest updates, you can click
                 'Continue anyway' below.
-              </Trans>
+              </>
             )}
             <br />
             <br />
@@ -115,9 +115,9 @@ const PatchCheckerContents = ({
             </div>
             <Tooltip
               content={
-                <Trans id="interface.report.patchChecker.khadgarApproves">
+                <>
                   Khadgar approves your bravery
-                </Trans>
+                </>
               }
             >
               <Link
@@ -126,7 +126,7 @@ const PatchCheckerContents = ({
                 style={{ fontSize: '1.1em' }}
               >
                 <Icon icon="quest_khadgar" />{' '}
-                <Trans id="interface.report.patchChecker.continueAnyway">Continue anyway</Trans>
+                <>Continue anyway</>
               </Link>
             </Tooltip>
           </div>

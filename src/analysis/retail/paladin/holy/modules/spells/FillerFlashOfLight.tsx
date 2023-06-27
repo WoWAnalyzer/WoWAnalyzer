@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
@@ -78,10 +77,10 @@ class FillerFlashOfLight extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = (
-        <Trans id="paladin.holy.modules.fillerFlashOfLight.inefficientCastReason">
+        <>
           Holy Shock was off cooldown when you started casting this unbuffed Flash of Light. You
           should cast Holy Shock instead.
-        </Trans>
+        </>
       );
     }
   }
@@ -105,15 +104,12 @@ class FillerFlashOfLight extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
-        <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion">
+        <>
           You started casting {this.inefficientCasts.length} filler{' '}
           <SpellLink id={SPELLS.FLASH_OF_LIGHT} />s while{' '}
           <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was{' '}
           <TooltipElement
-            content={t({
-              id: 'paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip',
-              message: `It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`,
-            })}
+            content={`It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`}
           >
             available
           </TooltipElement>{' '}
@@ -124,27 +120,16 @@ class FillerFlashOfLight extends Analyzer {
           ). <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> is a much more efficient spell and should
           be prioritized
           <TooltipElement
-            content={t({
-              id: 'paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions',
-              message: `There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.`,
-            })}
+            content={`There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.`}
           >
             *
           </TooltipElement>
           .
-        </Trans>,
+        </>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
-        .actual(
-          <Trans id="paladin.holy.modules.fillerFlashOfLight.actualInefficient">
-            {actual} casts while Holy Shock was available
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="paladin.holy.modules.fillerFlashOfLight.recommendedInefficient">
-            No inefficient casts is recommended
-          </Trans>,
-        ),
+        .actual(<>{actual} casts while Holy Shock was available</>)
+        .recommended(<>No inefficient casts is recommended</>),
     );
   }
 }

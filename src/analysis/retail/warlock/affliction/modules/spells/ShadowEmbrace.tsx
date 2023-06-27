@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -159,12 +158,7 @@ class ShadowEmbrace extends Analyzer {
         </>,
       )
         .icon(SPELLS.SHADOW_EMBRACE_DEBUFF.icon)
-        .actual(
-          t({
-            id: 'warlock.affliction.suggestions.shadowembrace.uptime',
-            message: `${formatPercentage(actual)}% Shadow Embrace uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Shadow Embrace uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

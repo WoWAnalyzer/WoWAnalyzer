@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -96,12 +95,7 @@ class BreathOfSindragosa extends Analyzer {
         </>,
       )
         .icon(talents.BREATH_OF_SINDRAGOSA_TALENT.icon)
-        .actual(
-          t({
-            id: 'deathknight.frost.suggestions.breathOfSindragosa.uptime',
-            message: `You averaged ${this.averageDuration.toFixed(1)} seconds of uptime per cast`,
-          }),
-        )
+        .actual(`You averaged ${this.averageDuration.toFixed(1)} seconds of uptime per cast`)
         .recommended(`>${recommended} seconds is recommended`),
     );
   }

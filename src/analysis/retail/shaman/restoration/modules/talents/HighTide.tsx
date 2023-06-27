@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -113,9 +113,9 @@ class HighTide extends Analyzer {
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
         valueTooltip={
-          <Trans id="shaman.restoration.highTide.statistic.tooltip">
+          <>
             {this.buffsConsumed} High Tide buff stacks used out of {this.buffsApplied}.
-          </Trans>
+          </>
         }
       />
     );

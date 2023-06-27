@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import GlobalCooldown from 'analysis/retail/hunter/beastmastery/modules/core/GlobalCooldown';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
@@ -148,17 +148,17 @@ class CobraShot extends Analyzer {
       )
         .icon(TALENTS.COBRA_SHOT_TALENT.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.cobraShot.efficiency">
+          <>
             {' '}
             You had {formatPercentage(actual)}% effective cooldown reduction of Kill Command
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="hunter.beastmastery.suggestions.cobraShot.recommended">
+          <>
             {' '}
             {'>'}
             {formatPercentage(recommended)}% is recommended
-          </Trans>,
+          </>,
         ),
     );
     when(this.wastedCobraShotsThreshold).addSuggestion((suggest, actual) =>
@@ -170,14 +170,14 @@ class CobraShot extends Analyzer {
       )
         .icon(TALENTS.COBRA_SHOT_TALENT.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.cobraShot.cooldown.wasted">
+          <>
             You cast {actual} Cobra Shots when Kill Command wasn't on cooldown
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="hunter.beastmastery.suggestions.cobraShot.cooldown.recommended">
+          <>
             0 inefficient casts is recommended
-          </Trans>,
+          </>,
         ),
     );
   }

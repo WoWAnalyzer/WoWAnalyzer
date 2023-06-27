@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
@@ -132,12 +131,7 @@ class Echo extends Analyzer {
         </>,
       )
         .icon(TALENTS_EVOKER.ECHO_TALENT.icon)
-        .actual(
-          `${actual} ${t({
-            id: 'evoker.preservation.suggestions.echo.wastedBuffs',
-            message: ` wasted Echo buff${actual > 1 ? 's' : ''}`,
-          })}`,
-        )
+        .actual(`${actual} ${` wasted Echo buff${actual > 1 ? 's' : ''}`}`)
         .recommended(`${recommended} wasted buffs recommended`),
     );
   }

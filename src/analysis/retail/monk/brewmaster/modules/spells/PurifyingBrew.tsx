@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
@@ -139,12 +138,7 @@ class PurifyingBrew extends Analyzer {
         </>,
       )
         .icon(talents.PURIFYING_BREW_TALENT.icon)
-        .actual(
-          t({
-            id: 'monk.brewmaster.suggestions.purifyingBrew.avgdelay',
-            message: `${actual.toFixed(2)}s Average Delay`,
-          }),
-        )
+        .actual(`${actual.toFixed(2)}s Average Delay`)
         .recommended(`< ${recommended.toFixed(2)}s is recommended`),
     );
   }

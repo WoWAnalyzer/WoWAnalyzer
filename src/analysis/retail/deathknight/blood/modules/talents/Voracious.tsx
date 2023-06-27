@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -43,9 +43,9 @@ class Voracious extends Analyzer {
         size="flexible"
       >
         <BoringSpellValueText spell={TALENTS.VORACIOUS_TALENT}>
-          <Trans id="deathknight.blood.voracious.statistic">
+          <>
             <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

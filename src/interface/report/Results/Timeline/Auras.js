@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatDuration } from 'common/format';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
@@ -148,10 +148,10 @@ class Auras extends PureComponent {
       <Tooltip
         key={`buff-${left}-${event.ability.guid}`}
         content={
-          <Trans id="interface.report.results.timeline.buffs.tooltip.gainedAbilityForXSec">
+          <>
             {formatDuration(fightDuration, 3)}: gained {event.ability.name} for{' '}
             {(duration / 1000).toFixed(2)}s
-          </Trans>
+          </>
         }
       >
         <div

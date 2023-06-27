@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -78,12 +77,7 @@ class GalacticGuardian extends Analyzer {
           </span>,
         )
           .icon(SPELLS.GALACTIC_GUARDIAN.icon)
-          .actual(
-            t({
-              id: 'druid.guardian.suggestions.galacticGuardian.unused',
-              message: `${formatPercentage(unusedGGProcs)}% unused`,
-            }),
-          )
+          .actual(`${formatPercentage(unusedGGProcs)}% unused`)
           .recommended(`${Math.round(formatPercentage(recommended))}% or less is recommended`)
           .regular(recommended + 0.15)
           .major(recommended + 0.3),

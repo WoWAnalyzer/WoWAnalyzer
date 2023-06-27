@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -61,14 +61,14 @@ class CastBehavior extends Analyzer {
       },
       {
         color: '#A93226',
-        label: <Trans id="paladin.holy.modules.castBehavior.wastedProcs">Wasted procs</Trans>,
+        label: <>Wasted procs</>,
         tooltip: (
-          <Trans id="paladin.holy.modules.castBehavior.wastedProcsDetails">
+          <>
             The amount of Infusion of Lights you did not use out of the total available. You cast{' '}
             {holyShockCasts} Holy Shocks with a {formatPercentage(holyShockCrits / holyShockCasts)}%
             crit ratio. This gave you {totalIolProcs} Infusion of Light procs, of which you used{' '}
             {totalIolUsages}.
-          </Trans>
+          </>
         ),
         value: unusedProcs,
       },
@@ -131,9 +131,9 @@ class CastBehavior extends Analyzer {
         <Statistic ultrawide>
           <div className="pad">
             <label>
-              <Trans id="paladin.holy.modules.castBehavior.infusionOfLightUsage">
+              <>
                 <SpellLink id={SPELLS.INFUSION_OF_LIGHT} /> usage
-              </Trans>
+              </>
             </label>
 
             {this.iolCastRatioChart()}
@@ -142,7 +142,7 @@ class CastBehavior extends Analyzer {
         <Statistic ultrawide>
           <div className="pad">
             <label>
-              <Trans id="paladin.holy.modules.castBehavior.fillers">Fillers</Trans>
+              <>Fillers</>
             </label>
 
             {this.fillerCastRatioChart()}

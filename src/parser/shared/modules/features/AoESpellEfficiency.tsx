@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import Spell from 'common/SPELLS/Spell';
 import { SpellIcon } from 'interface';
@@ -111,12 +110,7 @@ class AoESpellEfficiency extends Analyzer {
         </>,
       )
         .icon(this.ability.icon)
-        .actual(
-          t({
-            id: 'shared.suggestions.aoeSpells.efficiency',
-            message: `${this.totalHits} total hits`,
-          }),
-        )
+        .actual(`${this.totalHits} total hits`)
         .recommended(`${this.possibleHits} or more hits were possible`),
     );
   }

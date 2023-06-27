@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -35,12 +34,7 @@ class FrostFeverUptime extends Analyzer {
           </span>,
         )
           .icon(SPELLS.FROST_FEVER.icon)
-          .actual(
-            t({
-              id: 'deathknight.frost.suggestions.frostFever.uptime',
-              message: `${formatPercentage(actual)}% Frost Fever uptime`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% Frost Fever uptime`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`)
           .regular(recommended - 0.05)
           .major(recommended - 0.15),

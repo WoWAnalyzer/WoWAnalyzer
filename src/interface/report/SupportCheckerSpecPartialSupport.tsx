@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Config from 'parser/Config';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
@@ -16,11 +16,11 @@ interface Props {
 
 const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => (
   <SupportCheckerIssue
-    title={<Trans id="interface.report.supportChecker.specPartialSupport">Partial support</Trans>}
+    title={<>Partial support</>}
     config={config}
     {...others}
   >
-    <Trans id="interface.report.supportChecker.specPartialSupportDetails">
+    <>
       This spec has received updates for the latest patch but it is still missing important elements
       needed to provide you with good and reliable feedback.
       <br />
@@ -39,7 +39,7 @@ const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => (
       someone who might be interested helping people help themselves, check out{' '}
       <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or{' '}
       <a href="https://wowanalyzer.com/discord">Discord</a> for more information.
-    </Trans>
+    </>
   </SupportCheckerIssue>
 );
 

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import {
   SERPENT_STING_MM_BASE_DURATION,
   SERPENT_STING_MM_PANDEMIC,
@@ -167,12 +166,7 @@ class SerpentSting extends Analyzer {
         </>,
       )
         .icon(TALENTS_HUNTER.SERPENT_STING_TALENT.icon)
-        .actual(
-          t({
-            id: 'hunter.marksmanship.suggestions.serpentSting.refreshOutsidePandemic',
-            message: `You refreshed Serpent Sting ${actual} times when it wasn't in the pandemic window`,
-          }),
-        )
+        .actual(`You refreshed Serpent Sting ${actual} times when it wasn't in the pandemic window`)
         .recommended(`${recommended} non-pandemic refreshes is recommended`),
     );
 
@@ -184,12 +178,7 @@ class SerpentSting extends Analyzer {
         </>,
       )
         .icon(TALENTS_HUNTER.SERPENT_STING_TALENT.icon)
-        .actual(
-          t({
-            id: 'hunter.marksmanship.suggestions.serpentSting.uptime',
-            message: `You had an uptime of ${formatPercentage(actual, 0)}%`,
-          }),
-        )
+        .actual(`You had an uptime of ${formatPercentage(actual, 0)}%`)
         .recommended(`An uptime of >${formatPercentage(recommended, 0)}% is recommended`),
     );
   }

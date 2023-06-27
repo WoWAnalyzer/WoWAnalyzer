@@ -1,4 +1,3 @@
-import { Trans, t } from '@lingui/macro';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -114,7 +113,7 @@ const ReportSelecter = () => {
       <div className="report-selector">
         <Tooltip
           content={
-            <Trans id="interface.reportSelecter.reportSelecter.tooltip.supportedLinks">
+            <>
               Supported links:
               <br />
               <ul>
@@ -129,7 +128,7 @@ const ReportSelecter = () => {
                   https://www.wowchina.com/&lt;language-code&gt;/character/&lt;realm&gt;/&lt;name&gt;
                 </li>
               </ul>
-            </Trans>
+            </>
           }
         >
           {/*the div needs to be there (previously the tooltip was on input directly) because input sets its own ref and Tooltip would overwrite it*/}
@@ -143,10 +142,7 @@ const ReportSelecter = () => {
               ref={reportCodeRef}
               onChange={(e) => setReportCode(e.target.value)}
               value={reportCode}
-              placeholder={t({
-                id: 'interface.reportSelecter.reportSelecter.placeholder',
-                message: `https://www.warcraftlogs.com/reports/<report code>`,
-              })}
+              placeholder="https://www.warcraftlogs.com/reports/<report code>"
               autoCorrect="off"
               autoCapitalize="off"
               spellCheck="false"
@@ -156,8 +152,7 @@ const ReportSelecter = () => {
         </Tooltip>
 
         <button type="submit" className="btn btn-primary analyze">
-          <Trans id="interface.reportSelecter.reportSelecter.button">Analyze</Trans>{' '}
-          <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+          <>Analyze</> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </div>
     </form>

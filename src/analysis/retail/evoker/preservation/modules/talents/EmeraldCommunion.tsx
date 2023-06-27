@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -227,10 +226,10 @@ class EmeraldCommunion extends Analyzer {
       )
         .icon(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.icon)
         .actual(
-          `${formatPercentage(this.percentWithLifebindOnCast, 2)}${t({
-            id: 'evoker.preservation.suggestions.emeraldCommunion.numLifebinds',
-            message: `% of group with Lifebind when casting Emerald Communion`,
-          })}`,
+          `${formatPercentage(
+            this.percentWithLifebindOnCast,
+            2,
+          )}${`% of group with Lifebind when casting Emerald Communion`}`,
         )
         .recommended(`${recommended * 100}% or more is recommended`),
     );

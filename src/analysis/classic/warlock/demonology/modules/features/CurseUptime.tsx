@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -68,18 +67,11 @@ class CurseUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          <Trans id="warlock.wotlk.suggestions.curse.description">
-            Your curse uptime can be improved.
-          </Trans>
+          <>Your curse uptime can be improved.</>
         </span>,
       )
         .icon('classicon_warlock')
-        .actual(
-          t({
-            id: 'warlock.wotlk.suggestions.curse.uptime',
-            message: `${formatPercentage(actual)}% Curse uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Curse uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

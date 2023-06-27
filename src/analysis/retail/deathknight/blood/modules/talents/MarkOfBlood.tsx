@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -42,23 +41,13 @@ class MarkOfBlood extends Analyzer {
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.blood.markOfBlood.suggestion.suggestion">
+        <>
           Your <SpellLink spell={TALENTS.MARK_OF_BLOOD_TALENT} /> uptime can be improved.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.MARK_OF_BLOOD_TALENT.icon)
-        .actual(
-          t({
-            id: 'deathknight.blood.markOfBlood.suggestion.actual',
-            message: `${formatPercentage(actual)}% Mark Of Blood Uptime`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'shared.suggestion.recommended.moreThanPercent',
-            message: `>${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% Mark Of Blood Uptime`)
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
 
@@ -70,9 +59,9 @@ class MarkOfBlood extends Analyzer {
         size="flexible"
       >
         <BoringSpellValueText spell={TALENTS.MARK_OF_BLOOD_TALENT}>
-          <Trans id="deathknight.blood.markOfBlood.statistic">
+          <>
             <Uptime /> {formatPercentage(this.uptime)}% <small>Uptime</small>
-          </Trans>
+          </>
         </BoringSpellValueText>
       </Statistic>
     );

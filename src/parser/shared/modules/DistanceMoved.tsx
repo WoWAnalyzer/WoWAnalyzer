@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage, formatThousands } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, ResourceChangeEvent, HealEvent } from 'parser/core/Events';
@@ -105,7 +105,7 @@ class DistanceMoved extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.UNIMPORTANT()}
         tooltip={
-          <Trans id="shared.distanceMoved.statistic.tooltip">
+          <>
             Consider this when analyzing the fight, as some fights require more movement than
             others. Unnecessary movement can result in a DPS/HPS loss.
             <br />
@@ -117,12 +117,12 @@ class DistanceMoved extends Analyzer {
             )}{' '}
             yards per minute). This statistic may not be entirely accurate for fights with lots of
             problems.
-          </Trans>
+          </>
         }
       >
         <div className="pad">
           <label>
-            <Trans id="shared.distanceMoved.statistic.label">Distance moved</Trans>
+            <>Distance moved</>
           </label>
 
           <div className="value">

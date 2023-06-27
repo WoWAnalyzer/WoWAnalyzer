@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { useAnalyzer, useInfo } from 'interface/guide';
@@ -151,10 +151,10 @@ const overcastFillers: ViolationExplainer<InternalRule> = {
       .map(([rule, claims]) => ({ claims, data: rule }));
   },
   render: (claim) => (
-    <Trans id="guide.apl.overcastFillers">
+    <>
       You frequently cast <SpellLink spell={spells(claim.data)[0].id} /> when more important spells
       were available.
-    </Trans>
+    </>
   ),
   describe: ({ violation }) => (
     <>
@@ -219,7 +219,7 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
     );
   },
   render: (claim) => (
-    <Trans id="guide.apl.droppedRule">
+    <>
       You frequently skipped casting <SpellLink spell={claim.data.spell.id} />
       {claim.data.rule.condition && (
         <>
@@ -228,7 +228,7 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
         </>
       )}
       .
-    </Trans>
+    </>
   ),
   describe: ({ violation }) => (
     <>

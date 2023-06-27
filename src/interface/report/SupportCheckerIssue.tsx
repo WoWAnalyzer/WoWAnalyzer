@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Changelog from 'interface/Changelog';
 import Contributor from 'interface/ContributorButton';
 import Icon from 'interface/Icon';
@@ -48,14 +48,14 @@ const SupportCheckerIssue = ({
   );
   const maintainerStatus =
     contributors.length !== 0 ? (
-      <Trans id="interface.report.supportChecker.maintainedBy">
+      <>
         {spec.specName} {spec.className} is currently being maintained by {maintainers}.
-      </Trans>
+      </>
     ) : (
       <em>
-        <Trans id="interface.report.supportChecker.unmaintained">
+        <>
           {spec.specName} {spec.className} is not currently being maintained by anyone. :(
-        </Trans>
+        </>
       </em>
     );
 
@@ -73,9 +73,9 @@ const SupportCheckerIssue = ({
 
             <Tooltip
               content={
-                <Trans id="interface.report.supportChecker.tooltip.khadgarApproves">
+                <>
                   Khadgar approves your bravery
-                </Trans>
+                </>
               }
             >
               <Link
@@ -84,9 +84,9 @@ const SupportCheckerIssue = ({
                 style={{ fontSize: '1.2em' }}
               >
                 <Icon icon="quest_khadgar" />{' '}
-                <Trans id="interface.report.supportChecker.continueAnyway">
+                <>
                   I want to continue anyway
-                </Trans>
+                </>
               </Link>
             </Tooltip>
           </div>
@@ -105,7 +105,7 @@ const SupportCheckerIssue = ({
       </Panel>
 
       <Panel
-        title={<Trans id="supportCheckerIssue.specChangelog">Spec changelog</Trans>}
+        title={<>Spec changelog</>}
         pad={false}
       >
         <Changelog includeCore={false} changelog={changelog} />

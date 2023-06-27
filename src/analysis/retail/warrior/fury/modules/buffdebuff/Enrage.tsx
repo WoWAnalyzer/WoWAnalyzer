@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -64,12 +63,7 @@ class Enrage extends Analyzer {
         </>,
       )
         .icon(SPELLS.ENRAGE.icon)
-        .actual(
-          t({
-            id: 'warrior.fury.suggestions.enrage.uptime',
-            message: `${formatPercentage(actual)}% Enrage uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Enrage uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

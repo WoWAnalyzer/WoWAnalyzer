@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
@@ -26,9 +26,9 @@ const ReportHistory = (props) => {
                     {report.playerRealm} ({report.playerRegion})
                   </div>
                   <div className="flex-sub">
-                    <Trans id="interface.home.ReportHistory.viewedXDAgo">
+                    <>
                       viewed {Math.floor(Math.max(0, now - report.end) / 86400)}d ago
-                    </Trans>
+                    </>
                   </div>
                 </div>
               </div>
@@ -50,9 +50,9 @@ const ReportHistory = (props) => {
                 <div className="flex wrapable">
                   <div>{report.fightName}</div>
                   <div className="flex-sub">
-                    <Trans id="interface.home.ReportHistory.xDOldReport">
+                    <>
                       {Math.floor(Math.max(0, now - report.end) / 86400)}d old report
-                    </Trans>
+                    </>
                   </div>
                 </div>
               </div>
@@ -62,9 +62,9 @@ const ReportHistory = (props) => {
       ))}
       {reportHistory.length === 0 && (
         <li style={{ padding: '10px 22px' }}>
-          <Trans id="interface.home.ReportHistory.notViewedAnythingYet">
+          <>
             You haven't viewed anything yet.
-          </Trans>
+          </>
         </li>
       )}
     </ul>

@@ -1,4 +1,3 @@
-import { Trans, t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -88,92 +87,52 @@ class Overhealing extends Analyzer {
   suggestions(when: When) {
     when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="paladin.holy.modules.overhealing.lightOfDawnSuggestion">
+        <>
           Try to avoid overhealing with <SpellLink id={TALENTS.LIGHT_OF_DAWN_TALENT} />. Save it for
           when people are missing health.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.LIGHT_OF_DAWN_TALENT.icon)
-        .actual(
-          t({
-            id: 'paladin.holy.modules.overhealing.lightOfDawnSuggestion.actual',
-            message: `${formatPercentage(actual)}% overhealing`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'paladin.holy.modules.overhealing.lightOfDawnSuggestion.recommended',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% overhealing`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
 
     when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="paladin.holy.modules.overhealing.holyShockSuggestion">
+        <>
           Try to avoid overhealing with <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} />. Save it for
           when people are missing health.
-        </Trans>,
+        </>,
       )
         .icon(SPELLS.HOLY_SHOCK_HEAL.icon)
-        .actual(
-          t({
-            id: 'paladin.holy.modules.overhealing.holyShockSuggestion.actual',
-            message: `${formatPercentage(actual)}% overhealing`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'paladin.holy.modules.overhealing.holyShockSuggestion.recommended',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% overhealing`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
 
     when(this.flashOfLightSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="paladin.holy.modules.overhealing.flashOfLightSuggestion">
+        <>
           Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT} />. If Flash of Light
           would overheal it is generally advisable to cast a{' '}
           <SpellLink id={TALENTS.HOLY_LIGHT_TALENT} /> instead.
-        </Trans>,
+        </>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
-        .actual(
-          t({
-            id: 'paladin.holy.modules.overhealing.flashOfLightSuggestion.actual',
-            message: `${formatPercentage(actual)}% overhealing`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'paladin.holy.modules.overhealing.flashOfLightSuggestion.recommended',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% overhealing`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
 
     when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="paladin.holy.modules.overhealing.bestowFaithSuggestion">
+        <>
           Try to avoid overhealing with <SpellLink id={TALENTS.BESTOW_FAITH_TALENT} />. Cast it just
           before someone is about to take damage and consider casting it on targets other than
           tanks.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.BESTOW_FAITH_TALENT.icon)
-        .actual(
-          t({
-            id: 'paladin.holy.modules.overhealing.bestowFaithSuggestion.actual',
-            message: `${formatPercentage(actual)}% overhealing`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'paladin.holy.modules.overhealing.bestowFaithSuggestion.recommended',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
+        .actual(`${formatPercentage(actual)}% overhealing`)
+        .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }
 }

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage, formatNumber } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
@@ -47,9 +47,9 @@ class ArcaneManaValues extends ManaValues {
         )
           .icon('inv_elemental_mote_mana')
           .actual(
-            <Trans id="mage.arcane.suggestions.arcaneMana.manaLeft">
+            <>
               {formatPercentage(actual)}% (${formatNumber(this.endingMana)} mana left
-            </Trans>,
+            </>,
           )
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.suggestionThresholds.isGreaterThan.average)

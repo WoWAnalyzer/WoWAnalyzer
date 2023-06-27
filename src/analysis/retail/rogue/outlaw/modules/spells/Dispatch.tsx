@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -50,12 +49,7 @@ class Dispatch extends Analyzer {
         </>,
       )
         .icon(SPELLS.DISPATCH.icon)
-        .actual(
-          t({
-            id: 'rogue.outlaw.dispatch.efficiency',
-            message: `${formatPercentage(actual)}% inefficient casts`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% inefficient casts`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

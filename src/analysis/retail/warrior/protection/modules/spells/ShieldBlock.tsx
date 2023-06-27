@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
@@ -188,12 +187,7 @@ class ShieldBlock extends Analyzer {
         </>,
       )
         .icon(SPELLS.SHIELD_BLOCK.icon)
-        .actual(
-          t({
-            id: 'warrior.protection.suggestions.shieldBlock.goodCasts',
-            message: `${this.goodCast} good casts of shield block`,
-          }),
-        )
+        .actual(`${this.goodCast} good casts of shield block`)
         .recommended(`${Math.floor(recommended * (this.goodCast + this.badCast))} is recommended`),
     );
   }

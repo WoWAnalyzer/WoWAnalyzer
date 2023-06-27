@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -119,12 +118,7 @@ class Lifecycles extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.LIFECYCLES_TALENT.icon)
-        .actual(
-          `${formatNumber(actual)}${t({
-            id: 'monk.mistweaver.suggestions.lifecycles.manaSaved',
-            message: ` mana saved through Lifecycles`,
-          })}`,
-        )
+        .actual(`${formatNumber(actual)} mana saved through Lifecycles`)
         .recommended(`${formatNumber(recommended)} is the recommended amount of mana savings`),
     );
   }

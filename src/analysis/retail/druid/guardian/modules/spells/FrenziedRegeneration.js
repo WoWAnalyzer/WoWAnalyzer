@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -111,16 +110,13 @@ class FrenziedRegeneration extends Analyzer {
         )
           .icon(SPELLS.FRENZIED_REGENERATION.icon)
           .actual(
-            t({
-              id: 'druid.guardian.suggestions.frenziedRegeneration.efficiency',
-              message: `${formatPercentage(
-                actual,
-                0,
-              )}% of casts had a predicted heal of less than ${formatPercentage(
-                HEAL_THRESHOLD,
-                0,
-              )}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`,
-            }),
+            `${formatPercentage(
+              actual,
+              0,
+            )}% of casts had a predicted heal of less than ${formatPercentage(
+              HEAL_THRESHOLD,
+              0,
+            )}% and were cast above ${formatPercentage(HP_THRESHOLD, 0)}% HP`,
           )
           .recommended(`${recommended}% is recommended`)
           .regular(recommended + 0.05)

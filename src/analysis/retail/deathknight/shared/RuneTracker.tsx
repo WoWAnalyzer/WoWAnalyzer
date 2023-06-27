@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -333,22 +332,14 @@ class RuneTracker extends ResourceTracker {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="deathknight.shared.runeTracker.suggestion.suggestion">
+        <>
           You overcapped {formatPercentage(actual)}% of your runes. Try to always have at least 3
           runes on cooldown.
-        </Trans>,
+        </>,
       )
         .icon(SPELLS.RUNE_1.icon)
-        .actual(
-          <Trans id="deathknight.shared.runeTracker.suggestion.actual">
-            {formatPercentage(actual)}% runes overcapped
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="deathknight.shared.runeTracker.suggestion.recommended">
-            &lt;{formatPercentage(recommended)}% is recommended
-          </Trans>,
-        ),
+        .actual(<>{formatPercentage(actual)}% runes overcapped</>)
+        .recommended(<>&lt;{formatPercentage(recommended)}% is recommended</>),
     );
   }
 
@@ -360,28 +351,24 @@ class RuneTracker extends ResourceTracker {
         position={STATISTIC_ORDER.CORE(10)}
         size="flexible"
         tooltip={
-          <Trans id="deathknight.shared.runeTracker.statistic.tooltip">
+          <>
             Number of runes wasted: {formatNumber(this.runesWasted)} <br />
             These numbers only include runes wasted from passive regeneration. <br />
             The table below shows the time spent at any given number of runes available.
-          </Trans>
+          </>
         }
         dropdown={
           <table className="table table-condensed">
             <thead>
               <tr>
                 <th>
-                  <Trans id="deathknight.shared.runeTracker.statistic.header.runes">Runes</Trans>
+                  <>Runes</>
                 </th>
                 <th>
-                  <Trans id="deathknight.shared.runeTracker.statistic.header.timeAbs">
-                    Time (s)
-                  </Trans>
+                  <>Time (s)</>
                 </th>
                 <th>
-                  <Trans id="deathknight.shared.runeTracker.statistic.header.timePct">
-                    Time (%)
-                  </Trans>
+                  <>Time (%)</>
                 </th>
               </tr>
             </thead>
@@ -414,10 +401,7 @@ class RuneTracker extends ResourceTracker {
         <BoringResourceValue
           resource={RESOURCE_TYPES.RUNES}
           value={`${formatPercentage(1 - this.runeEfficiency)} %`}
-          label={t({
-            id: 'deathknight.shared.runeTracker.statistic.value',
-            message: 'Runes overcapped',
-          })}
+          label="Runes overcapped"
         />
       </Statistic>
     );

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import DocumentTitle from 'interface/DocumentTitle';
 import TwitterIcon from 'interface/icons/Twitter';
 
@@ -13,17 +13,17 @@ const News = () => {
       <div className="flex flex-news">
         <div className="flex-main">
           <h1 id="news-top">
-            <Trans id="interface.news.newStuff">New stuff</Trans>
+            <>New stuff</>
           </h1>
         </div>
         <div className="flex-sub flex-sub-news">
           <small>
-            <Trans id="interface.news.moreNews">More news?</Trans>
+            <>More news?</>
           </small>
           <span style={{ fontSize: 18, marginLeft: 10 }}>
             <TwitterIcon colored />{' '}
             <a href="https://twitter.com/WoWAnalyzer" style={{ fontSize: 16 }}>
-              <Trans id="interface.news.follow">Follow @WoWAnalyzer</Trans>
+              <>Follow @WoWAnalyzer</>
             </a>
           </span>
         </div>

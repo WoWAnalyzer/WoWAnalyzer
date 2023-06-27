@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -77,12 +76,7 @@ class VirulentPlagueEfficiency extends Analyzer {
         </span>,
       )
         .icon(SPELLS.VIRULENT_PLAGUE.icon)
-        .actual(
-          t({
-            id: 'deathknight.unholy.suggestions.virulentPlague.uptime',
-            message: `${formatPercentage(actual)}% Virulent Plague uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Virulent Plague uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

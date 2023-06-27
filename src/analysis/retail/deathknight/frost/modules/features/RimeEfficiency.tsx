@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -96,12 +95,9 @@ class RimeEfficiency extends Analyzer {
       )
         .icon(SPELLS.RIME.icon)
         .actual(
-          t({
-            id: 'deathknight.frost.suggestions.rime.wastedProcs',
-            message: `${formatPercentage(
-              this.wastedProcRate,
-            )}% of Rime procs were either refreshed and lost or expired without being used`,
-          }),
+          `${formatPercentage(
+            this.wastedProcRate,
+          )}% of Rime procs were either refreshed and lost or expired without being used`,
         )
         .recommended(`<${recommended} is recommended`),
     );

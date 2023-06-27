@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { TalentEntry } from 'parser/core/Events';
 import PlayerInfoTalent from 'interface/report/Results/PlayerInfoTalent';
 
@@ -11,13 +11,13 @@ const PlayerInfoTalents = ({ talents }: Props) => {
     return (
       <div className="player-details-talents">
         <h3>
-          <Trans id="common.talents">Talents</Trans>
+          <>Talents</>
         </h3>
         <div className="talent-info">
-          <Trans id="interface.report.talents.parseFailed">
+          <>
             An error occurred while parsing talents. Talent information for the build this log is
             from may not be available.
-          </Trans>
+          </>
         </div>
       </div>
     );
@@ -26,7 +26,7 @@ const PlayerInfoTalents = ({ talents }: Props) => {
   return (
     <div className="player-details-talents">
       <h3>
-        <Trans id="common.talents">Talents</Trans>
+        <>Talents</>
       </h3>
       <div className="talent-info">
         {talents.map((talent) => (

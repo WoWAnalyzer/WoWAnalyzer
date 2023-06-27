@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS/demonhunter';
 import Spell from 'common/SPELLS/Spell';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -78,12 +77,7 @@ export default class ShearFracture extends Analyzer {
         </>,
       )
         .icon(this.cast.icon)
-        .actual(
-          t({
-            id: 'demonhunter.vengence.suggestions.shearfracture.wastedCasts',
-            message: `${actual} bad casts`,
-          }),
-        )
+        .actual(`${actual} bad casts`)
         .recommended(`${recommended} bad casts are recommended`),
     );
   }

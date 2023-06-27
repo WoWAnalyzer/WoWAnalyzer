@@ -185,11 +185,6 @@ jobs:
             analysis/*/node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
           required: true
-      - name: Extract messages
-        if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
-        run: |
-          yarn extract
-          yarn lingui compile
       - name: Production build
         run: |
           REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
@@ -219,10 +214,6 @@ jobs:
             analysis/*/node_modules
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
           required: true
-      - name: Extract messages
-        run: |
-          yarn extract
-          yarn lingui compile
       - name: Customized e2e production build
         run: |
           REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
@@ -272,32 +263,6 @@ jobs:
           name: playwright-report-shard-${{ matrix.shard }}
           path: playwright-report/
           retention-days: 30
-
-  # This only runs on PRs since it's not a part of the build step. This is
-  # required as mistakes in i18n tags may trigger errors, and we skip the
-  # extraction in the build for performance in PRs.
-  extract-verify:
-    needs: [prepare]
-    name: 'Verify i18n messages'
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: '16.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
-          required: true
-      - name: Extract messages
-        run: yarn extract
-      - name: Compile messages
-        run: yarn lingui compile
 
   docker-image:
     needs:

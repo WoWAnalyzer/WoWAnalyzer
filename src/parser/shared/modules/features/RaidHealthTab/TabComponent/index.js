@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { Panel } from 'interface';
 import PropTypes from 'prop-types';
 
@@ -6,12 +6,12 @@ import Graph from './Graph';
 
 const Mana = ({ parser }) => (
   <Panel
-    title={<Trans id="shared.raidHealth.tab.title">Raid health</Trans>}
+    title={<>Raid health</>}
     explanation={
-      <Trans id="shared.raidHealth.tab.explanation">
+      <>
         The stacked health of your raid to give an idea of the healing intensity. Most progression
         raid fights the raid will rarely be topped.
-      </Trans>
+      </>
     }
   >
     <Graph

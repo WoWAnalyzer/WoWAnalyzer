@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import CombatLogParser from 'analysis/retail/hunter/beastmastery/CombatLogParser';
 import {
   RESOURCES_HUNTER_AVERAGE_THRESHOLD,
@@ -14,18 +13,8 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogParser>) {
   return (
-    <Section
-      title={t({
-        id: 'guide.hunter.beastmastery.sections.resources.title',
-        message: 'Resource Use',
-      })}
-    >
-      <SubSection
-        title={t({
-          id: 'guide.hunter.beastmastery.sections.resources.focus.title',
-          message: 'Focus',
-        })}
-      >
+    <Section title="Resource Use">
+      <SubSection title="Focus">
         <p>
           Your primary resource is <ResourceLink id={RESOURCE_TYPES.FOCUS.id} />. Typically, ability
           use will be limited by <ResourceLink id={RESOURCE_TYPES.FOCUS.id} />, not time. Avoid

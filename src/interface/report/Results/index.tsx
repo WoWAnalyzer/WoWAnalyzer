@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import getFightName from 'common/getFightName';
 import makeWclUrl from 'common/makeWclUrl';
 import { findByBossId, Phase } from 'game/raids';
@@ -222,23 +221,23 @@ const Results = (props: PassedProps) => {
         {props.timeFilter && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
-              <Trans id="interface.report.results.warning.timeFilter">
+              <>
                 These results are filtered to the selected time period. Time filtered results are
                 under development and may not be entirely accurate. <br /> Please report any issues
                 you may find on our GitHub or Discord.
-              </Trans>
+              </>
             </AlertWarning>
           </div>
         )}
         {props.build && props.build !== 'default' && (
           <div className="container">
             <AlertWarning style={{ marginBottom: 30 }}>
-              <Trans id="interface.report.results.warning.build">
+              <>
                 These results are analyzed under build different from the standard build. While this
                 will make some modules more accurate, some may also not provide the information you
                 expect them to. <br /> Please report any issues you may find on our GitHub or
                 Discord.
-              </Trans>
+              </>
             </AlertWarning>
           </div>
         )}
@@ -250,30 +249,25 @@ const Results = (props: PassedProps) => {
           <div className="row">
             <div className="col-md-8">
               <small>
-                <Trans id="interface.report.results.providedBy">Provided by</Trans>
+                <>Provided by</>
               </small>
               <div style={{ fontSize: 16 }}>
-                <Trans id="interface.report.results.providedByDetails">
+                <>
                   {props.config.spec.specName} {props.config.spec.className} analysis has been
                   provided by {contributorinfo}. They love hearing what you think, so please let
                   them know!{' '}
                   <Link to={props.makeTabUrl('about')}>
                     More information about this spec's analyzer.
                   </Link>
-                </Trans>
+                </>
               </div>
             </div>
             <div className="col-md-3">
               <small>
-                <Trans id="interface.report.results.viewOn">View on</Trans>
+                <>View on</>
               </small>
               <br />
-              <Tooltip
-                content={t({
-                  id: 'interface.report.results.tooltip.newTab.originalReport',
-                  message: `Opens in a new tab. View the original report.`,
-                })}
-              >
+              <Tooltip content="Opens in a new tab. View the original report.">
                 <a
                   href={makeWclUrl(
                     props.report.code,
@@ -294,10 +288,7 @@ const Results = (props: PassedProps) => {
               </Tooltip>
               <br />
               <Tooltip
-                content={t({
-                  id: 'interface.report.results.tooltip.newTab.insightsAndTimelines',
-                  message: `Opens in a new tab. View insights and timelines for raid encounters.`,
-                })}
+                content="Opens in a new tab. View insights and timelines for raid encounters."
               >
                 <a
                   href={`https://www.wipefest.net/report/${props.report.code}/fight/${props.fight.id}`}
@@ -311,13 +302,7 @@ const Results = (props: PassedProps) => {
               </Tooltip>
             </div>
             <div className="col-md-1">
-              <Tooltip
-                content={
-                  <Trans id="interface.report.results.tooltip.backToTop">
-                    Scroll back to the top.
-                  </Trans>
-                }
-              >
+              <Tooltip content={<>Scroll back to the top.</>}>
                 <ScrollToTop />
               </Tooltip>
             </div>

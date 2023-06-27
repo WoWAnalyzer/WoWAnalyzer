@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -47,12 +46,7 @@ class DivineHymn extends Analyzer {
           'You wasted Divine Hymn ticks. Try to avoid clipping the end of Divine Hymn as well as positioning such that you will not have to move during its duration. ',
         )
           .icon('spell_holy_divinehymn')
-          .actual(
-            t({
-              id: 'priest.holy.suggestions.divineHymn.wastedTicks',
-              message: `${actual} missed Hymn ticks`,
-            }),
-          )
+          .actual(`${actual} missed Hymn ticks`)
           .recommended('0 is recommended')
           .regular(recommended)
           .major(recommended),

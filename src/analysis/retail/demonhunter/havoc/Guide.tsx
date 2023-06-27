@@ -2,7 +2,7 @@ import { GuideProps, Section, SubSection } from 'interface/guide';
 import TALENTS from 'common/TALENTS/demonhunter';
 import { ResourceLink, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { t, Trans } from '@lingui/macro';
+
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
@@ -34,24 +34,14 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
   const percentAtFuryCapPerformance = modules.furyTracker.percentAtCapPerformance;
   const furyWasted = modules.furyTracker.wasted;
   return (
-    <Section
-      title={t({
-        id: 'guide.demonhunter.havoc.sections.resources.title',
-        message: 'Resource Use',
-      })}
-    >
-      <SubSection
-        title={t({
-          id: 'guide.demonhunter.havoc.sections.resources.fury.title',
-          message: 'Fury',
-        })}
-      >
+    <Section title="Resource Use">
+      <SubSection title="Fury">
         <p>
-          <Trans id="guide.demonhunter.havoc.sections.resources.fury.summary">
+          <>
             Havoc's primary resource is <ResourceLink id={RESOURCE_TYPES.FURY.id} />. You should
             avoid capping <ResourceLink id={RESOURCE_TYPES.FURY.id} /> - lost{' '}
             <ResourceLink id={RESOURCE_TYPES.FURY.id} /> generation is lost DPS.
-          </Trans>
+          </>
         </p>
         <FuryCapWaste
           percentAtCap={percentAtFuryCap}
@@ -69,12 +59,7 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
 
 function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section
-      title={t({
-        id: 'guide.demonhunter.havoc.sections.cooldowns.title',
-        message: 'Cooldowns',
-      })}
-    >
+    <Section title="Cooldowns">
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
       <CooldownGraphSubsection />
@@ -107,12 +92,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
 
 function RotationSection({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section
-      title={t({
-        id: 'guide.demonhunter.havoc.sections.rotation.title',
-        message: 'Rotation',
-      })}
-    >
+    <Section title="Rotation">
       <HideExplanationsToggle id="hide-explanations-rotations" />
       <HideGoodCastsToggle id="hide-good-casts-rotations" />
       {modules.throwGlaive.guideSubsection()}

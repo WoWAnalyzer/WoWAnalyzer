@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -69,12 +68,7 @@ export default class HammerOfTheRighteous extends Analyzer {
       )
         .icon(this.activeSpell.icon)
         .actual(
-          t({
-            id: 'paladin.protection.suggestions.hammerOfTheRighteous.efficiency',
-            message: `${formatPercentage(
-              this.badCastRatio,
-            )}% of casts while better spells were available`,
-          }),
+          `${formatPercentage(this.badCastRatio)}% of casts while better spells were available`,
         )
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );

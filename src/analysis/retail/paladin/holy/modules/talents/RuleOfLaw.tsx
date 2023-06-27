@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
@@ -35,21 +35,21 @@ class RuleOfLaw extends Analyzer {
   suggestions(when: When) {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="paladin.holy.modules.talents.ruleOfLaw.suggestion">
+        <>
           Your <SpellLink id={TALENTS.RULE_OF_LAW_TALENT} /> uptime can be improved. Try keeping at
           least 1 charge on cooldown; you should (almost) never be at max charges.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.RULE_OF_LAW_TALENT.icon)
         .actual(
-          <Trans id="paladin.holy.modules.talents.ruleOfLaw.actual">
+          <>
             {formatPercentage(actual)}% uptime
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="paladin.holy.modules.talents.ruleOfLaw.recommended">
+          <>
             &gt;{formatPercentage(recommended)}% is recommended
-          </Trans>,
+          </>,
         ),
     );
   }
@@ -72,9 +72,9 @@ class RuleOfLaw extends Analyzer {
             <SpellIcon id={TALENTS.RULE_OF_LAW_TALENT} />
           </div>
           <div className="flex-sub value">
-            <Trans id="paladin.holy.modules.talents.ruleOfLaw.smallUptime">
+            <>
               {formatPercentage(this.uptime, 0)}% <small>uptime</small>
-            </Trans>
+            </>
           </div>
           <div className="flex-main chart" style={{ padding: 15 }}>
             <UptimeBar

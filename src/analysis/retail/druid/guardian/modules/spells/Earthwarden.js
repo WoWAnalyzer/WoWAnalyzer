@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -118,14 +117,7 @@ class Earthwarden extends Analyzer {
           </span>,
         )
           .icon(SPELLS.EARTHWARDEN_TALENT.icon)
-          .actual(
-            t({
-              id: 'druid.guardian.suggestions.earthwarden.efficiency',
-              message: `${formatPercentage(
-                actual,
-              )}% of potential damage was mitigated by Earthwarden`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% of potential damage was mitigated by Earthwarden`)
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
           .regular(recommended - 0.1)
           .major(recommended - 0.2),
@@ -143,12 +135,7 @@ class Earthwarden extends Analyzer {
           </span>,
         )
           .icon(SPELLS.EARTHWARDEN_TALENT.icon)
-          .actual(
-            t({
-              id: 'druid.guardian.suggestions.earthwarden.notOptimal',
-              message: `${formatPercentage(actual)}% of total damage is melee attacks`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% of total damage is melee attacks`)
           .recommended(`${formatPercentage(recommended, 0)}% or more is recommended`)
           .regular(recommended - 0.05)
           .major(recommended - 0.1),

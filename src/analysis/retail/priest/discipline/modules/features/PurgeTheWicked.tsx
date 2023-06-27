@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -178,12 +177,7 @@ class PurgeTheWicked extends Analyzer {
           </span>,
         )
           .icon(this.dotSpell.icon)
-          .actual(
-            t({
-              id: 'priest.discipline.suggestions.purgeTheWicked.uptime',
-              message: `${formatPercentage(uptime)}% uptime`,
-            }),
-          )
+          .actual(`${formatPercentage(uptime)}% uptime`)
           .recommended(`>${formatPercentage(recommended, 0)}% is recommended`)
           .regular(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.regular)
           .major(SuggestionThresholds.PURGE_THE_WICKED_UPTIME.major),

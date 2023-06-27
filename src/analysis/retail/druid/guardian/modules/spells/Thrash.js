@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -34,12 +33,7 @@ class Thrash extends Analyzer {
           </span>,
         )
           .icon(SPELLS.THRASH_BEAR.icon)
-          .actual(
-            t({
-              id: 'druid.guardian.suggestions.thrash.uptime',
-              message: `${formatPercentage(thrashUptimePercentage)}% uptime`,
-            }),
-          )
+          .actual(`${formatPercentage(thrashUptimePercentage)}% uptime`)
           .recommended(`${Math.round(formatPercentage(recommended))}% is recommended`)
           .regular(recommended - 0.05)
           .major(recommended - 0.15),

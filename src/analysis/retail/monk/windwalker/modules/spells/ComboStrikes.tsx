@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -88,12 +87,7 @@ class ComboStrikes extends Analyzer {
         </span>,
       )
         .icon(SPELLS.COMBO_STRIKES.icon)
-        .actual(
-          t({
-            id: 'monk.windwalker.comboStrikes.masteryBreaksPerMinute',
-            message: `${actual.toFixed(2)} mastery breaks per minute.`,
-          }),
-        )
+        .actual(`${actual.toFixed(2)} mastery breaks per minute.`)
         .recommended(`mastery should be broken ${recommended} times`),
     );
   }

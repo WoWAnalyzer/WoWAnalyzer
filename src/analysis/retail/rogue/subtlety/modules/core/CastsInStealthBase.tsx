@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/rogue';
@@ -71,12 +70,7 @@ class CastsInStealthBase extends Analyzer {
           </>,
         )
           .icon(spell.icon)
-          .actual(
-            t({
-              id: 'rogue.subtlety.suggestions.castsInStealth.casts',
-              message: `${actual} ${spell.name} casts`,
-            }),
-          )
+          .actual(`${actual} ${spell.name} casts`)
           .recommended(`${recommended} is recommended`),
     );
   }
@@ -89,12 +83,7 @@ class CastsInStealthBase extends Analyzer {
         </>,
       )
         .icon(spell.icon)
-        .actual(
-          t({
-            id: 'rogue.subtlety.suggestions.castsInStealth.efficiency',
-            message: `${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`,
-          }),
-        )
+        .actual(`${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`)
         .recommended(`${this.maxCastsPerStealth} in each ${this.stealthCondition} window`),
     );
   }

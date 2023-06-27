@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { logout } from 'interface/actions/user';
 import CyclingVideo from 'interface/CyclingVideo';
 import GitHubMarkIcon from 'interface/icons/GitHubMarkLarge';
@@ -57,27 +57,27 @@ const LoggedIn = () => {
         <div className="text">
           <h1>
             <Textfit mode="single">
-              <Trans id="interface.premiumLoginPanel.logged-in.greeting">
+              <>
                 Hello {user.name?.trim()}.
-              </Trans>
+              </>
             </Textfit>
           </h1>
           {hasPremium ? (
             <div className="description">
-              <Trans id="interface.premiumLoginPanel.logged-in.hasPremium">
+              <>
                 Super thank you for your support! We hope you'll enjoy WoWAnalyzer Premium.
-              </Trans>
+              </>
             </div>
           ) : (
             <div className="description">
-              <Trans id="interface.premiumLoginPanel.logged-in.premiumNotUnlocked">
+              <>
                 You haven't unlocked Premium yet. See the panel to the right for more info.
-              </Trans>
+              </>
             </div>
           )}
           <div className="logout">
             <a href="/logout" onClick={handleClick}>
-              <LogoutIcon /> <Trans id="interface.premiumLoginPanel.logged-in.logout">Logout</Trans>
+              <LogoutIcon /> <>Logout</>
             </a>
           </div>
         </div>
@@ -121,12 +121,12 @@ const PremiumLoginPanel = () => {
           </div>
           <div className="col-md-12">
             <h1>
-              <Trans id="interface.premiumLoginPanel.panel.sign-in">Premium sign in</Trans>
+              <>Premium sign in</>
             </h1>
             <div className="description">
-              <Trans id="interface.premiumLoginPanel.panel.sign-in.description">
+              <>
                 Sign in with your Patreon or GitHub account using the buttons below.
-              </Trans>
+              </>
             </div>
           </div>
         </div>

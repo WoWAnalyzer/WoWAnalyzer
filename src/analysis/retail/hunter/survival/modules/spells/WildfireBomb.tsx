@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
@@ -126,12 +125,7 @@ class WildfireBomb extends Analyzer {
         </>,
       )
         .icon(SPELLS.WILDFIRE_BOMB.icon)
-        .actual(
-          t({
-            id: 'hunter.survival.suggestions.wildfireBomb.pandemic.efficiency',
-            message: `${actual} casts unnecessarily refreshed WFB`,
-          }),
-        )
+        .actual(`${actual} casts unnecessarily refreshed WFB`)
         .recommended(`<${recommended} is recommended`),
     );
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -142,12 +136,7 @@ class WildfireBomb extends Analyzer {
         </>,
       )
         .icon(SPELLS.WILDFIRE_BOMB.icon)
-        .actual(
-          t({
-            id: 'hunter.survival.suggestions.wildfireBomb.uptime',
-            message: `${formatPercentage(actual)}% uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

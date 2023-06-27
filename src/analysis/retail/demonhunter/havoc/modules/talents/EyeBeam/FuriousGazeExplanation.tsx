@@ -1,6 +1,6 @@
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS/demonhunter';
-import { Trans } from '@lingui/macro';
+
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { useInfo } from 'interface/guide';
 
@@ -15,10 +15,10 @@ const DemonicExplanation = ({ lineBreak }: Props) => {
   return (
     <>
       {lineBreak ? <br /> : ' '}
-      <Trans id="guide.demonhunter.havoc.furiousGaze.explanation">
+      <>
         It will grant <SpellLink spell={SPELLS.FURIOUS_GAZE} /> for a short duration when cast due
         to <SpellLink spell={TALENTS_DEMON_HUNTER.FURIOUS_GAZE_TALENT} />.
-      </Trans>
+      </>
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -94,9 +94,9 @@ class SolaceVsShieldDiscipline extends Analyzer {
               </div>
 
               <small>
-                <Trans id="priest.discipline.statistics.solace.manaRestored">
+                <>
                   Mana restored from Solace
-                </Trans>
+                </>
               </small>
             </div>
           </div>
@@ -109,9 +109,9 @@ class SolaceVsShieldDiscipline extends Analyzer {
                 this.consumedShields * (this.maxMana * SHIELD_DISC_MANA_RETURN_PERCENT),
               )}
               <small>
-                <Trans id="priest.discipline.statistics.solace.shieldDisciplinePotential">
+                <>
                   Shield Discipline potential return
-                </Trans>
+                </>
               </small>
             </div>
           </div>

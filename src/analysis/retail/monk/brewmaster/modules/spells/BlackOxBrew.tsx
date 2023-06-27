@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
@@ -97,12 +96,7 @@ class BlackOxBrew extends Analyzer {
         </>,
       )
         .icon(talents.BLACK_OX_BREW_TALENT.icon)
-        .actual(
-          t({
-            id: 'monk.brewmaster.suggestions.blackOxBrew.cdrWasted',
-            message: `${formatPercentage(actual)}% of Cooldown Reduction wasted`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% of Cooldown Reduction wasted`)
         .recommended(`< ${formatPercentage(recommended)}% is recommended`),
     );
   }

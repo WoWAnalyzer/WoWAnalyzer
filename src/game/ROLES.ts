@@ -1,4 +1,4 @@
-import { plural } from '@lingui/macro';
+import { plural } from 'common/plural';
 
 const ROLES = {
   TANK: 0,

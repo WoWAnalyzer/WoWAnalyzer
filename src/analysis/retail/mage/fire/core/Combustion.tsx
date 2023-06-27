@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -98,7 +98,7 @@ class CombustionCasts extends Analyzer {
 
   // prettier-ignore
   fireballCastsDuringCombustion = () => {
-    
+
     const casts = this.eventHistory.getEventsWithBuff(TALENTS.COMBUSTION_TALENT, EventType.Cast, SPELLS.FIREBALL);
 
     //If the Begin Cast event was before Combustion started, then disregard it.
@@ -216,9 +216,9 @@ class CombustionCasts extends Analyzer {
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.combustionCharges.phoenixFlames.utilization">
+          <>
             {formatPercentage(this.phoenixFlamesChargeUtil)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
@@ -236,9 +236,9 @@ class CombustionCasts extends Analyzer {
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.combustionCharges.flameOn.utilization">
+          <>
             {formatPercentage(this.fireBlastChargeUtil)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
@@ -256,9 +256,9 @@ class CombustionCasts extends Analyzer {
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.combustion.castDelay">
+          <>
             {formatNumber(actual)}s Avg. Pre-Cast Delay
-          </Trans>,
+          </>,
         )
         .recommended(`${recommended} is recommended`),
     );
@@ -277,9 +277,9 @@ class CombustionCasts extends Analyzer {
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.combustion.castsPerCombustion">
+          <>
             {this.fireballDuringCombustionThresholds.actual.toFixed(2)} Casts Per Combustion
-          </Trans>,
+          </>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),
     );

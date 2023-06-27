@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellIcon, SpellLink } from 'interface';
@@ -43,12 +42,7 @@ class SiphonLifeUptime extends Analyzer {
         </>,
       )
         .icon(TALENTS.SIPHON_LIFE_TALENT.icon)
-        .actual(
-          t({
-            id: 'warlock.affliction.suggestions.siphonLife.uptime',
-            message: `${formatPercentage(actual)}% Siphon Life uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Siphon Life uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

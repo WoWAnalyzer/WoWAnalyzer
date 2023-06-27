@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -40,12 +39,7 @@ class SoulShardDetails extends Analyzer {
         "You are wasting Soul Shards. Try to use them and not let them cap and go to waste unless you're preparing for bursting adds etc.",
       )
         .icon(SOUL_SHARD_ICON)
-        .actual(
-          t({
-            id: 'warlock.demonology.suggestions.soulShards.wastedPerMinutes',
-            message: `${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`,
-          }),
-        )
+        .actual(`${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`)
         .recommended(`< ${recommended.toFixed(2)} Soul Shards per minute wasted are recommended`),
     );
   }

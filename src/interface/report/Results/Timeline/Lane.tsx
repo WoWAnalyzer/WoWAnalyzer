@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Spell from 'common/SPELLS/Spell';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
@@ -103,10 +103,10 @@ class Lane extends PureComponent<Props> {
       <Tooltip
         key={`cooldown-${left}`}
         content={
-          <Trans id="interface.report.results.timeline.lane.tooltip.eventOrAbilityCooldown">
+          <>
             {event.ability.name} cooldown:{' '}
             {((event.timestamp - event.chargeStartTimestamp) / 1000).toFixed(1)}s
-          </Trans>
+          </>
         }
       >
         <div
@@ -129,9 +129,9 @@ class Lane extends PureComponent<Props> {
     return (
       <Tooltip
         content={
-          <Trans id="interface.report.results.timeline.lane.tooltip.chargeRestored">
+          <>
             Charge restored
-          </Trans>
+          </>
         }
       >
         <div
@@ -152,7 +152,7 @@ class Lane extends PureComponent<Props> {
     return (
       <Tooltip
         content={
-          <Trans id="interface.report.results.timeline.lane.tooltip.castable">Castable</Trans>
+          <>Castable</>
         }
       >
         <div

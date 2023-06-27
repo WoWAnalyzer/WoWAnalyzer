@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -130,9 +130,9 @@ class BrainFreeze extends Analyzer {
       )
         .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.brainFreeze.overwritten">
+          <>
             {formatPercentage(actual)}% overwritten
-          </Trans>,
+          </>,
         )
         .recommended(`Overwriting none is recommended`),
     );
@@ -146,9 +146,9 @@ class BrainFreeze extends Analyzer {
       )
         .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.brainFreeze.expired">
+          <>
             {formatPercentage(actual)}% expired
-          </Trans>,
+          </>,
         )
         .recommended(`Letting none expire is recommended`),
     );
@@ -166,7 +166,7 @@ class BrainFreeze extends Analyzer {
       )
         .icon(TALENTS.FLURRY_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.brainFreeze.casts">{formatNumber(actual)} casts</Trans>,
+          <>{formatNumber(actual)} casts</>,
         )
         .recommended(`Casting none is recommended`),
     );

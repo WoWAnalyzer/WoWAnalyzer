@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import VERSIONS from 'game/VERSIONS';
 import Config from 'parser/Config';
 import { WCLFight } from 'parser/core/Fight';
@@ -21,14 +21,14 @@ const SupportCheckerSpecOutOfDate = ({ config, ...others }: Props) => {
   return (
     <SupportCheckerIssue
       title={
-        <Trans id="interface.report.supportChecker.outdated">
+        <>
           This spec has not been updated for patch {gameVersion}
-        </Trans>
+        </>
       }
       config={config}
       {...others}
     >
-      <Trans id="interface.report.supportChecker.specNotSupportedDetails">
+      <>
         Sorry, this spec hasn't been updated for the latest patch so we're afraid it might be
         outdated and potentially mislead. We recommend reading the{' '}
         <a href="https://www.wowhead.com/class-guides">
@@ -45,7 +45,7 @@ const SupportCheckerSpecOutOfDate = ({ config, ...others }: Props) => {
         If you are interested or know someone who might be interested helping people help
         themselves, check out <a href="https://github.com/WoWAnalyzer/WoWAnalyzer">GitHub</a> or{' '}
         <a href="https://wowanalyzer.com/discord">Discord</a> for more information.
-      </Trans>
+      </>
     </SupportCheckerIssue>
   );
 };

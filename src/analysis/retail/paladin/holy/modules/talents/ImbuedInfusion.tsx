@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
@@ -75,10 +74,10 @@ class ImbuedInfusion extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = (
-        <Trans id="paladin.holy.modules.talents.imbuedInfusion.inefficientCast">
+        <>
           Holy Shock was off cooldown when you consumed Infusion of Light. You should cast Holy
           Shock before Crusader Strike for maximum healing or damage.
-        </Trans>
+        </>
       );
     }
   }
@@ -99,7 +98,7 @@ class ImbuedInfusion extends Analyzer {
     when(this.holyShocksMissedThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          <Trans id="paladin.holy.modules.talents.imbuedinfusion.suggestion">
+          <>
             You consumed <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} />{' '}
             {this.wastedHolyShockReductionCount} times when
             <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
@@ -114,32 +113,21 @@ class ImbuedInfusion extends Analyzer {
             >
               build.
             </a>
-          </Trans>
+          </>
         </>,
       )
         .icon(TALENTS.HOLY_SHOCK_TALENT.icon)
         .actual(
-          t({
-            id: 'paladin.holy.modules.talents.imbuedinfusion.actual',
-
-            message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
-              Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
-            } missed.`,
-          }),
+          `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
+            Math.floor(this.holyShocksCastsLost) === 1 ? '' : 's'
+          } missed.`,
         )
-        .recommended(
-          t({
-            id: 'paladin.holy.modules.talents.imbuedinfusion.recommended',
-            message: `Casting Holy Shock on cooldown is recommended.`,
-          }),
-        ),
+        .recommended(`Casting Holy Shock on cooldown is recommended.`),
     );
   }
 
   statistic() {
-    const formatSeconds = (seconds: string) => (
-      <Trans id="paladin.holy.modules.talents.imbuedinfusion.formatSeconds">{seconds}s</Trans>
-    );
+    const formatSeconds = (seconds: string) => <>{seconds}s</>;
 
     return (
       <Statistic
@@ -148,7 +136,7 @@ class ImbuedInfusion extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <Trans id="paladin.holy.modules.talents.imbuedinfusion.tooltip">
+            <>
               You consumed Infusion of Light <b>{this.wastedHolyShockReductionCount}</b> time
               {this.wastedHolyShockReductionCount === 1 ? '' : 's'} when Holy Shock was off
               cooldown.
@@ -158,7 +146,7 @@ class ImbuedInfusion extends Analyzer {
               <br />
               preventing you from <b>{Math.floor(this.holyShocksCastsLost)}</b> additional Holy
               Shock cast{this.holyShocksCastsLost === 1 ? '' : 's'}.<br />
-            </Trans>
+            </>
           </>
         }
       >

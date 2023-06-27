@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -89,9 +89,9 @@ class ArcaneSurgeActiveTime extends Analyzer {
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.arcanePower.arcanePowerActiveTime">
+          <>
             {formatPercentage(this.percentActiveTime)}% Active Time during Arcane Surge
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

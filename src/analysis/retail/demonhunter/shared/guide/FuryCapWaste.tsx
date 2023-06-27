@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink } from 'interface';
@@ -23,7 +23,7 @@ const FuryCapWaste = ({
 }: Props) => {
   return (
     <p>
-      <Trans id="guide.demonhunter.sections.resources.fury.chart">
+      <>
         The chart below shows your <ResourceLink id={RESOURCE_TYPES.FURY.id} /> over the course of
         the encounter. You wasted{' '}
         <PerformancePercentage
@@ -35,7 +35,7 @@ const FuryCapWaste = ({
           flatAmount={wasted}
         />{' '}
         of your <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
-      </Trans>
+      </>
     </p>
   );
 };

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -73,14 +72,9 @@ class MortalStrikeAnalyzer extends Analyzer {
       )
         .icon(SPELLS.MORTAL_STRIKE.icon)
         .actual(
-          t({
-            id: 'warrior.arms.suggestions.mortalStrike.efficiency',
-            message: `Mortal Strike was cast ${
-              this.mortalStrikeCasts
-            } times accounting for ${formatPercentage(
-              actual,
-            )}% of the total possible casts of Mortal Strike.`,
-          }),
+          `Mortal Strike was cast ${this.mortalStrikeCasts} times accounting for ${formatPercentage(
+            actual,
+          )}% of the total possible casts of Mortal Strike.`,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

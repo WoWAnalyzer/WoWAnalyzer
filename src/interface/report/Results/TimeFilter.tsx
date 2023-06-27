@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import Fight from 'parser/core/Fight';
 import { useEffect, useState } from 'react';
 import * as React from 'react';
@@ -65,7 +65,7 @@ const TimeFilter = (props: Props) => {
           className="btn btn-primary filter animated-button"
           disabled={isLoading || invalidTimes()}
         >
-          <Trans id="interface.report.results.timeFilter.filter">Filter</Trans>
+          <>Filter</>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
         <button
@@ -74,7 +74,7 @@ const TimeFilter = (props: Props) => {
           className="btn btn-primary reset-filter animated-button"
           disabled={isLoading || isReset()}
         >
-          <Trans id="interface.report.results.timeFilter.reset">Reset Filter</Trans>
+          <>Reset Filter</>
           <span className="glyphicon glyphicon-chevron-right" aria-hidden />
         </button>
       </div>

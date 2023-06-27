@@ -16,7 +16,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Enemies from 'parser/shared/modules/Enemies';
 import Enemy from 'parser/core/Enemy';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import { Trans } from '@lingui/macro';
+
 import { SpellLink } from 'interface';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import {
@@ -110,7 +110,7 @@ export default class SpiritBomb extends Analyzer {
   guideSubsection() {
     const explanation = (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.spritBomb.explanation">
+        <>
           <strong>
             <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} />
           </strong>{' '}
@@ -121,7 +121,7 @@ export default class SpiritBomb extends Analyzer {
           <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have{' '}
           {SPIRIT_BOMB_SOULS_IN_META}+ Soul Fragments available.
           <FieryDemiseExplanation />
-        </Trans>
+        </>
       </p>
     );
 

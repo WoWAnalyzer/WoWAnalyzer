@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -60,7 +59,7 @@ class ShadowyInsight extends Analyzer {
     if(Math.abs(this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id)) + Math.abs(this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id)) != this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id)){
       console.log("ERROR",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
     }
-    
+
     console.log("MB CAST",this.spellUsable.chargesAvailable(SPELLS.MIND_BLAST.id),"/",this.spellUsable.chargesOnCooldown(SPELLS.MIND_BLAST.id),"max:",this.abilities.getMaxCharges(SPELLS.MIND_BLAST.id));
     */
   }
@@ -105,12 +104,7 @@ class ShadowyInsight extends Analyzer {
         </>,
       )
         .icon(TALENTS.SHADOWY_INSIGHT_TALENT.icon)
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.shadowyInsight.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} Shadowy Insight procs.`,
-          }),
-        )
+        .actual(`You wasted ${this.procsWasted} out of ${this.procsGained} Shadowy Insight procs.`)
         .recommended(`0 is recommended.`),
     );
   }

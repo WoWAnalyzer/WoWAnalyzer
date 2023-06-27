@@ -8,7 +8,7 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import Events, { CastEvent, HasTarget } from 'parser/core/Events';
-import { Trans } from '@lingui/macro';
+
 import SpellLink from 'interface/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
 import { isDefined } from 'common/typeGuards';
@@ -55,7 +55,7 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
 
   description(): ReactNode {
     return (
-      <Trans id="guide.rogue.assassination.sections.cooldowns.exsanguinate.explanation">
+      <>
         <strong>
           <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />
         </strong>{' '}
@@ -69,7 +69,7 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
             <SpellLink id={TALENTS.DEATHMARK_TALENT} /> empowered bleeds.
           </>
         )}
-      </Trans>
+      </>
     );
   }
 

@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -82,9 +82,9 @@ class ArcaneMissiles extends Analyzer {
       )
         .icon(TALENTS.ARCANE_MISSILES_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.arcaneMissiles.clearCasting.uptime">
+          <>
             {formatPercentage(this.missilesUtilization)}% Uptime
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

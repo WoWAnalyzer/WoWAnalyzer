@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -115,12 +114,7 @@ class DesperatePrayer extends Analyzer {
             </>,
           )
             .icon(SPELLS.DESPERATE_PRAYER.icon)
-            .actual(
-              t({
-                id: 'priest.shared.suggestions.DesperatePrayer.efficiency',
-                message: `You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`,
-              }),
-            )
+            .actual(`You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`)
             .recommended(`0 is recommended`),
         );
     }

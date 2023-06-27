@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { STEADY_FOCUS_HASTE_PERCENT } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -79,10 +79,10 @@ class SteadyFocus extends Analyzer {
       )
         .icon(TALENTS_HUNTER.STEADY_FOCUS_TALENT.icon)
         .actual(
-          <Trans id="hunter.marksmanship.suggestions.steadyFocus.uptime">
+          <>
             {' '}
             {formatPercentage(actual)}% uptime{' '}
-          </Trans>,
+          </>,
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );

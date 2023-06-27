@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -276,12 +275,7 @@ class ThunderFocusTea extends Analyzer {
         </>,
       )
         .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)
-        .actual(
-          `${this.incorrectTftCasts} ${t({
-            id: 'monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts',
-            message: `incorrect casts with Thunder Focus Tea`,
-          })}`,
-        )
+        .actual(`${this.incorrectTftCasts} incorrect casts with Thunder Focus Tea`)
         .recommended(`${recommended} incorrect casts is recommended`),
     );
   }

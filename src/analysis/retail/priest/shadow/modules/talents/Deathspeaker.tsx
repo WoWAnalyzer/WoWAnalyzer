@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -117,12 +116,7 @@ class Deathspeaker extends Analyzer {
         </>,
       )
         .icon(TALENTS.DEATHSPEAKER_TALENT.icon)
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.deathspeaker.efficiency',
-            message: `You wasted ${this.procsWasted} out of ${this.procsGained} DeathSpeaker procs.`,
-          }),
-        )
+        .actual(`You wasted ${this.procsWasted} out of ${this.procsGained} DeathSpeaker procs.`)
         .recommended(`<0 is recommended.`),
     );
   }

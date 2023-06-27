@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -137,12 +136,7 @@ class Judgment extends Analyzer {
           </>,
         )
           .icon(SPELLS.JUDGMENT_DEBUFF.icon)
-          .actual(
-            t({
-              id: 'paladin.retribution.suggestions.judgement.consumed',
-              message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`,
-            }),
-          )
+          .actual(`${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`)
           .recommended(`>${formatPercentage(recommended)}% is recommended`),
       );
     }

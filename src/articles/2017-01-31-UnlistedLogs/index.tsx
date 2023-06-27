@@ -7,8 +7,8 @@ export default (
   <NewsRegularArticle title={title} publishedAt="2017-01-31" publishedBy={Zerotorescue}>
     Because Warcraft Logs offers no way to access private logs through the API, your logs must
     either be unlisted or public if you want to analyze them. If your guild has private logs you
-    will have to <a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a> or
-    change the existing logs to the <i>unlisted</i> privacy option instead.
+    will have to<a href="https://www.warcraftlogs.com/help/start/">upload your own logs</a>or change
+    the existing logs to the<i>unlisted</i>privacy option instead.
     <br />
     <br />
     Do note that due to a restrictive API request limit we have to aggressively cache all API

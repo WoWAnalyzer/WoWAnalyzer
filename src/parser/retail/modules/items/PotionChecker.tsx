@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import ITEMS from 'common/ITEMS/dragonflight/potions';
 import SPELLS from 'common/SPELLS/dragonflight/potions';
 import ALCHEMY from 'common/SPELLS/dragonflight/crafted/alchemy';
@@ -294,20 +294,20 @@ class PotionChecker extends Analyzer {
     this.setStrongPotionForSpec(this.selectedCombatant.specId);
     when(this.potionsUsedThresholds).addSuggestion((suggest) =>
       suggest(
-        <Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">
+        <>
           You used {this.potionsUsed} combat {this.potionsUsed === 1 ? 'potion' : 'potions'} during
           this encounter, but you could have used {this.maxPotions}. {this.suggestionMessage}
-        </Trans>,
+        </>,
       )
         .icon(this.strongPotionIcon)
         .staticImportance(SUGGESTION_IMPORTANCE.REGULAR),
     );
     when(this.potionStrengthThresholds).addSuggestion((suggest) =>
       suggest(
-        <Trans id="shared.modules.items.potionChecker.suggestions.weakPotion">
+        <>
           You used {this.weakPotionsUsed} weak {this.weakPotionsUsed === 1 ? 'potion' : 'potions'}.
           Use <ItemLink id={this.strongPotionId} /> for better results.
-        </Trans>,
+        </>,
       )
         .icon(this.strongPotionIcon)
         .staticImportance(SUGGESTION_IMPORTANCE.MINOR),

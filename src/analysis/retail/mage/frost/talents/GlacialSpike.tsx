@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -145,9 +145,9 @@ class GlacialSpike extends Analyzer {
       )
         .icon(TALENTS.GLACIAL_SPIKE_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.glacialSpike.castsWithoutShatter">
+          <>
             {formatPercentage(actual, 1)}% utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended, 1)}% is recommended`),
     );

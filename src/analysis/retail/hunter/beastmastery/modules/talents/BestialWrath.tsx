@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -134,18 +134,18 @@ class BestialWrath extends Analyzer {
       )
         .icon(TALENTS.BESTIAL_WRATH_TALENT.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.bestialWrath.focusPool.efficiency">
+          <>
             {' '}
             Average of {formatNumber(this.averageFocusAtBestialWrathCast)} focus at start of Bestial
             Wrath{' '}
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="hunter.beastmastery.suggestions.bestialWrath.focusPool.recommended">
+          <>
             {' '}
             {'>'}
             {recommended} focus is recommended{' '}
-          </Trans>,
+          </>,
         ),
     );
     when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) =>
@@ -160,16 +160,16 @@ class BestialWrath extends Analyzer {
       )
         .icon(TALENTS.BESTIAL_WRATH_TALENT.icon)
         .actual(
-          <Trans id="hunter.beastmastery.suggestions.bestialWrath.cooldown.efficiency">
+          <>
             You had {formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath
-          </Trans>,
+          </>,
         )
         .recommended(
-          <Trans id="hunter.beastmastery.suggestions.bestialWrath.cooldown.recommended">
+          <>
             {' '}
             {'>'}
             {formatPercentage(recommended)}% is recommended
-          </Trans>,
+          </>,
         ),
     );
   }

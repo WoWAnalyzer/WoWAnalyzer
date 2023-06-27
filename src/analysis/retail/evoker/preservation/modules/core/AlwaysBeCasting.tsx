@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
@@ -71,12 +70,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           'Your non healing time can be improved. Try to reduce the delay between casting spells and try to continue healing when you have to move.',
         )
           .icon('petbattle_health-down')
-          .actual(
-            t({
-              id: 'evoker.preservation.suggestions.alwaysBeCasting.nonHealing',
-              message: `${formatPercentage(actual)}% non healing time`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% non healing time`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.nonHealingTimeSuggestionThresholds.isGreaterThan.average)
           .major(this.nonHealingTimeSuggestionThresholds.isGreaterThan.major),
@@ -88,12 +82,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
           "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
         )
           .icon('spell_mage_altertime')
-          .actual(
-            t({
-              id: 'evoker.preservation.suggestions.alwaysBeCasting.downtime',
-              message: `${formatPercentage(actual)}% downtime`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(this.downtimeSuggestionThresholds.isGreaterThan.average)
           .major(this.downtimeSuggestionThresholds.isGreaterThan.major),

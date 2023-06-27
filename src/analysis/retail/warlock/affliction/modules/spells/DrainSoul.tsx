@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -113,12 +112,7 @@ class DrainSoul extends Analyzer {
         </>,
       )
         .icon('ability_hunter_snipershot')
-        .actual(
-          t({
-            id: 'warlock.affliction.suggestions.drainSoul.mobsSniped',
-            message: `${formatPercentage(actual)} % of mobs sniped.`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)} % of mobs sniped.`)
         .recommended(`>= ${formatPercentage(recommended)} % is recommended`),
     );
   }

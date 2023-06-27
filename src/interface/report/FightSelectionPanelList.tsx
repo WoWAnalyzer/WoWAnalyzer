@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatDuration } from 'common/format';
 import getFightName from 'common/getFightName';
 import getWipeCount from 'common/getWipeCount';
@@ -79,13 +79,13 @@ class FightSelectionPanelList extends PureComponent<Props> {
                             <div className="flex-main">
                               <Icon />{' '}
                               {pull.kill ? (
-                                <Trans id="interface.report.fightSelectionPanelList.kill">
+                                <>
                                   Kill
-                                </Trans>
+                                </>
                               ) : (
-                                <Trans id="interface.report.fightSelectionPanelList.wipe">
+                                <>
                                   Wipe {getWipeCount(fights, pull)}
-                                </Trans>
+                                </>
                               )}
                             </div>
                             <div className="flex-sub">
@@ -108,10 +108,10 @@ class FightSelectionPanelList extends PureComponent<Props> {
         })}
         <li className="item clearfix text-muted" style={{ paddingTop: 10, paddingBottom: 10 }}>
           <InformationIcon />{' '}
-          <Trans id="interface.report.fightSelectionPanelList.information">
+          <>
             You will usually get the most helpful results using raid fights where you're being
             challenged, such as progress raids.
-          </Trans>
+          </>
         </li>
       </ul>
     );

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -37,12 +36,7 @@ class SunfireUptime extends Analyzer {
         </>,
       )
         .icon(SPELLS.SUNFIRE.icon)
-        .actual(
-          t({
-            id: 'druid.balance.suggestions.sunfire.uptime',
-            message: `${formatPercentage(actual)}% Sunfire uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Sunfire uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

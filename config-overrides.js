@@ -9,17 +9,6 @@ const reportPlugins = () => (config) => {
   console.log(config.plugins.map((plugin) => plugin.constructor.name));
   process.exit();
 };
-const fixLingui = () => (config) => {
-  config.module.rules = [
-    ...config.module.rules,
-    // Fix for lingui loader https://github.com/lingui/js-lingui/issues/1048#issuecomment-822785379
-    {
-      resourceQuery: /as-js/,
-      type: 'javascript/auto',
-    },
-  ];
-  return config;
-};
 
 // Needed to ignore the mini-css-extract-plugin warnings which can not be fixed with a good solution
 // See https://stackoverflow.com/a/67579319
@@ -45,7 +34,6 @@ function addEmotion(config) {
 module.exports = override(
   addEmotion,
   babelInclude([path.resolve('./src')]),
-  fixLingui(),
   ignoreOrderMiniCssExtractPlugin,
   // customize-cra's disableEsLint disables the rules, but disabling the entire
   // plugin seem to give us more performance.

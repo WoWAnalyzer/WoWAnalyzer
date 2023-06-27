@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -71,9 +71,9 @@ class ShiftingPowerUsage extends Analyzer {
       )
         .icon(TALENTS.SHIFTING_POWER_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.shiftingPowerUsage.usagePercent">
+          <>
             {formatPercentage(actual)}% utilization
-          </Trans>,
+          </>,
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );

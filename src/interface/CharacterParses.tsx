@@ -1,5 +1,3 @@
-import { i18n, MessageDescriptor } from '@lingui/core';
-import { defineMessage, Trans } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
@@ -34,38 +32,17 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_ZONE = 33; // DEFAULT_ZONE changed from 29 to 31 folowing the 10.0.2 patch.
+const DEFAULT_ZONE = 33; // DEFAULT_ZONE changed from 31 to 33 folowing the 10.1 patch.
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
-  CHARACTER_NOT_FOUND: defineMessage({
-    id: 'interface.characterParses.characterParses.errors.characterNotFound',
-    message: `We couldn't find your character on Warcraft Logs`,
-  }),
-  NO_PARSES_FOR_TIER: defineMessage({
-    id: 'interface.characterParses.characterParses.errors.noParsesForTier',
-    message: `We couldn't find any logs`,
-  }),
-  CHARACTER_HIDDEN: defineMessage({
-    id: 'interface.characterParses.characterParses.errors.characterHidden',
-    message: `We could find your character but he's very shy`,
-  }),
-  WCL_API_ERROR: defineMessage({
-    id: 'interface.characterParses.characterParses.errors.wclAPIError',
-    message: `Something went wrong talking to Warcraft Logs`,
-  }),
-  UNKNOWN_API_ERROR: defineMessage({
-    id: 'interface.characterParses.characterParses.errors.unknownAPIError',
-    message: `Something went wrong talking to the server`,
-  }),
-  UNEXPECTED: defineMessage({
-    id: 'interface.characterParses.characterParses.errors.unexpected',
-    message: `Something went wrong`,
-  }),
-  NOT_RESPONDING: defineMessage({
-    id: 'interface.characterParses.characterParses.errors.notResponding',
-    message: `Request timed out`,
-  }),
+  CHARACTER_NOT_FOUND: `We couldn't find your character on Warcraft Logs`,
+  NO_PARSES_FOR_TIER: `We couldn't find any logs`,
+  CHARACTER_HIDDEN: `We could find your character but he's very shy`,
+  WCL_API_ERROR: `Something went wrong talking to Warcraft Logs`,
+  UNKNOWN_API_ERROR: `Something went wrong talking to the server`,
+  UNEXPECTED: `Something went wrong`,
+  NOT_RESPONDING: `Request timed out`,
 };
 
 interface CharacterParsesProps {
@@ -95,7 +72,7 @@ interface CharacterParsesState {
   avatarImage: string | null;
   parses: Parse[];
   isLoading: boolean;
-  error: MessageDescriptor | null;
+  error: string | null;
   errorMessage: string | null;
   realmSlug: string | null;
 }
@@ -442,7 +419,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     let errorMessage;
     if (this.state.error === ERRORS.CHARACTER_NOT_FOUND) {
       errorMessage = (
-        <Trans id="interface.characterParses.characterParses.errors.characterNotFoundDetails">
+        <>
           Please check your input and make sure that you've selected the correct region and realm.
           <br />
           If your input was correct, then make sure that someone in your raid logged the fight for
@@ -471,11 +448,11 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             Github
           </a>
           .
-        </Trans>
+        </>
       );
     } else if (this.state.error === ERRORS.NOT_RESPONDING) {
       errorMessage = (
-        <Trans id="interface.characterParses.characterParses.errors.notRespondingDetails">
+        <>
           It looks like we couldn't get a response in time from the API, this usually happens when
           the servers are under heavy load.
           <br />
@@ -484,11 +461,11 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           That would bypass the load-intensive character lookup and we should be able to analyze
           your report.
           <br />
-        </Trans>
+        </>
       );
     } else if (this.state.error === ERRORS.CHARACTER_HIDDEN) {
       errorMessage = (
-        <Trans id="interface.characterParses.characterParses.errors.characterHiddenDetails">
+        <>
           This character is hidden on warcraftlogs and we can't access the parses.
           <br />
           <br />
@@ -501,7 +478,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             Warcraft Logs{' '}
           </a>{' '}
           and hit the 'Refresh' button above once you're done.
-        </Trans>
+        </>
       );
     } else if (
       this.state.error === ERRORS.WCL_API_ERROR ||
@@ -509,7 +486,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       this.state.error === ERRORS.UNEXPECTED
     ) {
       errorMessage = (
-        <Trans id="interface.characterParses.characterParses.errors.details">
+        <>
           {this.state.errorMessage} Please message us on{' '}
           <a href="https://discord.gg/AxphPxU" target="_blank" rel="noopener noreferrer">
             Discord
@@ -523,11 +500,11 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             Github
           </a>{' '}
           if this issue persists and we will fix it, eventually.
-        </Trans>
+        </>
       );
     } else if (this.state.error === ERRORS.NO_PARSES_FOR_TIER || this.filterParses.length === 0) {
       errorMessage = (
-        <Trans id="interface.characterParses.characterParses.errors.noParsesForTierDetails">
+        <>
           Please check your filters and make sure that you logged those fights on Warcraft Logs.
           <br />
           <br />
@@ -540,7 +517,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
             Warcraft Logs guide
           </a>{' '}
           to get started.
-        </Trans>
+        </>
       );
     }
 
@@ -581,7 +558,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                 style={{ fontSize: 22 }}
               >
                 <ArmoryIcon style={{ marginRight: '0.3em' }} />
-                <Trans id="interface.armory.text">Armory</Trans>
+                <>Armory</>
               </a>
               <br />
               {this.props.region !== 'CN' && (
@@ -724,7 +701,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
               {this.state.error && (
                 <span>
                   <Link to="/">
-                    <Trans id="interface.characterParses.characterParses.home">Home</Trans>
+                    <>Home</>
                   </Link>{' '}
                   &gt;{' '}
                   <span>
@@ -746,25 +723,19 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                         }}
                       >
                         <span className="glyphicon glyphicon-refresh" aria-hidden="true" />{' '}
-                        <Trans id="interface.characterParses.characterParses.refresh">
-                          Refresh
-                        </Trans>
+                        <>Refresh</>
                       </Link>
                     </div>
                     <h1 style={{ display: 'inline-block' }}>
-                      {this.state.error ? (
-                        i18n._(this.state.error)
-                      ) : (
-                        <Trans id="interface.characterParses.characterParses.parses">Parses</Trans>
-                      )}
+                      {this.state.error ? this.state.error : <>Parses</>}
                     </h1>
                     <small>
-                      <Trans id="interface.characterParses.characterParses.parsesDetails">
+                      <>
                         This page will only show fights that have been ranked by Warcraft Logs.
                         Wipes are not included and during busy periods there might be a delay before
                         new reports appear. Manually find the report on Warcraft Logs and copy the
                         direct report link to analyze a fight missing from this page.
-                      </Trans>
+                      </>
                     </small>
                   </div>
                 )}
@@ -778,13 +749,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                           margin: '20px 0',
                         }}
                       >
-                        <ActivityIndicator
-                          text={
-                            <Trans id="interface.characterParses.characterParses.fetchingLogs">
-                              Fetching logs...
-                            </Trans>
-                          }
-                        />
+                        <ActivityIndicator text={<>Fetching logs...</>} />
                       </div>
                     )}
                     {!this.state.isLoading && errorMessage}

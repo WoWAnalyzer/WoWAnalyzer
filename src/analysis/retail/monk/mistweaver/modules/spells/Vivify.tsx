@@ -1,5 +1,4 @@
 // Based on Clearcasting Implementation done by @Blazyb
-import { t } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -219,12 +218,7 @@ class Vivify extends Analyzer {
         </>,
       )
         .icon(SPELLS.VIVIFY.icon)
-        .actual(
-          `${this.averageRemPerVivify.toFixed(2) + ' '}${t({
-            id: 'monk.mistweaver.suggestions.vivify.renewingMistsPerVivify',
-            message: ` Renewing Mists per Vivify`,
-          })}`,
-        )
+        .actual(`${this.averageRemPerVivify.toFixed(2) + ' '} Renewing Mists per Vivify`)
         .recommended(`${recommended.toFixed(2)} Renewing Mists are recommended per Vivify`),
     );
   }

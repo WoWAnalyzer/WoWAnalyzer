@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -75,12 +74,7 @@ class TigersFuryEnergy extends Analyzer {
         </>,
       )
         .icon(SPELLS.TIGERS_FURY.icon)
-        .actual(
-          t({
-            id: 'druid.feral.suggestions.tigerFuryEnergy.energyWasted',
-            message: `${formatPercentage(actual, 0)}% of generated energy wasted.`,
-          }),
-        )
+        .actual(`${formatPercentage(actual, 0)}% of generated energy wasted.`)
         .recommended(`No waste is recommended`),
     );
   }

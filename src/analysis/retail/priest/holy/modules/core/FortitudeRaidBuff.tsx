@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
@@ -30,12 +29,7 @@ class FortitudeRaidBuff extends Analyzer {
         'Remember to have Power Word: Fortitude always up and recast it on death/resurection.',
       )
         .icon(SPELLS.POWER_WORD_FORTITUDE.icon)
-        .actual(
-          t({
-            id: 'priest.holy.suggestions.fortitudeRaidBuff.uptime',
-            message: `${formatPercentage(actual)}% Power Word: Fortitude uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Power Word: Fortitude uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

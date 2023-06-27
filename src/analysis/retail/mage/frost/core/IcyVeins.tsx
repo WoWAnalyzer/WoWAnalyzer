@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -87,9 +87,9 @@ class IcyVeins extends Analyzer {
       )
         .icon(TALENTS.ICY_VEINS_TALENT.icon)
         .actual(
-          <Trans id="mage.frost.suggestions.icyVeins.icyVeinsActiveTime">
+          <>
             {formatPercentage(this.percentActiveTime)}% Active Time during Icy Veins
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

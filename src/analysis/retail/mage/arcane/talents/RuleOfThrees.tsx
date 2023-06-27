@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -68,9 +68,9 @@ class RuleOfThrees extends Analyzer {
       )
         .icon(TALENTS.RULE_OF_THREES_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.ruleOfThrees.utilization">
+          <>
             {formatPercentage(this.utilization)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

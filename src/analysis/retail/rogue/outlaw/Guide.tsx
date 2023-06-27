@@ -1,6 +1,6 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { t, Trans } from '@lingui/macro';
+
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
 import { ResourceLink, SpellLink } from 'interface';
@@ -26,20 +26,10 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
   const energyWasted = modules.energyTracker.wasted;
 
   return (
-    <Section
-      title={t({
-        id: 'guide.rogue.outlaw.sections.resources.title',
-        message: 'Resource Use',
-      })}
-    >
-      <SubSection
-        title={t({
-          id: 'guide.rogue.outlaw.sections.resources.energy.title',
-          message: 'Energy',
-        })}
-      >
+    <Section title="Resource Use">
+      <SubSection title="Energy">
         <p>
-          <Trans id="guide.rogue.outlaw.sections.resources.energy.summary">
+          <>
             Your primary resource is <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />. Typically,
             ability use will be limited by <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />, not time.
             Avoid capping <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> - lost{' '}
@@ -47,7 +37,7 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
             occasionally be impossible to avoid capping{' '}
             <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> - like while handling mechanics or during
             intermission phases.
-          </Trans>
+          </>
         </p>
         <EnergyCapWaste
           percentAtCap={percentAtCap}
@@ -60,18 +50,13 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
         <p></p>
         {info.combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT) && modules.bladeRush.guide}
       </SubSection>
-      <SubSection
-        title={t({
-          id: 'guide.rogue.outlaw.sections.resources.comboPoints.title',
-          message: 'Combo Points',
-        })}
-      >
+      <SubSection title="Combo Points">
         <p>
-          <Trans id="guide.rogue.outlaw.sections.resources.comboPoints.summary">
+          <>
             Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
             <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at 6 or 7 CPs,
             and always wait until 6 or more cps to use a spender.
-          </Trans>
+          </>
         </p>
         <SideBySidePanels>
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
@@ -79,9 +64,7 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
         </SideBySidePanels>
         <p></p>
         <p>
-          <Trans id="guide.rogue.outlaw.sections.resources.comboPoints.buildersBreakdown">
-            -- WIP section -- Higlight which builders the user is commonly overcapping with.
-          </Trans>
+          <>-- WIP section -- Higlight which builders the user is commonly overcapping with.</>
         </p>
       </SubSection>
     </Section>
@@ -89,16 +72,7 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
 }
 
 function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  return (
-    <Section
-      title={t({
-        id: 'guide.rogue.outlaw.sections.coreRotation.title',
-        message: 'Core rotation',
-      })}
-    >
-      {modules.finisherUse.guide}
-    </Section>
-  );
+  return <Section title="Core rotation">{modules.finisherUse.guide}</Section>;
 }
 
 function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser>) {

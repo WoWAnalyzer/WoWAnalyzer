@@ -1,4 +1,3 @@
-import LanguageSwitcher from './LanguageSwitcher';
 import NavigationBar from './NavigationBar';
 
 declare global {
@@ -36,9 +35,7 @@ function euOptOut() {
 export default function PrivacyPage() {
   return (
     <div className="home-page">
-      <NavigationBar>
-        <LanguageSwitcher />
-      </NavigationBar>
+      <NavigationBar />
       <main className="container">
         <h2>WoWAnalyzer Privacy Policy</h2>
         <p>Last Updated on January 17, 2022.</p>

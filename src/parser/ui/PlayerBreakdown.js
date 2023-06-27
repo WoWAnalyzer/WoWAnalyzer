@@ -1,7 +1,5 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import indexByProperty from 'common/indexByProperty';
-import SPECS from 'game/SPECS';
 import { TooltipElement } from 'interface';
 import { SpecIcon } from 'interface';
 import { SpellLink } from 'interface';
@@ -103,7 +101,7 @@ class PlayerBreakdown extends Component {
                   htmlFor="playerbreakdown-toggle"
                   style={{ marginLeft: '0.5em', marginRight: '1em' }}
                 >
-                  <Trans id="interface.playerBreakdown.toggle.spells">Spells</Trans>
+                  Spells
                 </label>
                 <Toggle
                   defaultChecked
@@ -112,7 +110,7 @@ class PlayerBreakdown extends Component {
                   id="playerbreakdown-toggle"
                 />
                 <label htmlFor="playerbreakdown-toggle" style={{ marginLeft: '0.5em' }}>
-                  <Trans id="interface.playerBreakdown.toggle.players">Players</Trans>
+                  Players
                 </label>
               </div>
             </div>
@@ -121,24 +119,18 @@ class PlayerBreakdown extends Component {
         <table className="data-table">
           <thead>
             <tr style={{ textTransform: 'uppercase' }}>
-              <th>
-                <Trans id="interface.playerBreakdown.name">Name</Trans>
-              </th>
-              <th colSpan="2">
-                <Trans id="interface.playerBreakdown.masteryEffectiveness">
-                  Mastery effectiveness
-                </Trans>
-              </th>
+              <th>Name</th>
+              <th colSpan="2">Mastery effectiveness</th>
               <th colSpan="3">
                 <TooltipElement
                   content={
-                    <Trans id="interface.playerBreakdown.masteryEffectivenessTooltip">
+                    <>
                       This is the amount of healing done by spells affected by mastery. Things like
                       Holy Paladin beacons or Restoration Shaman feeding are NOT included.
-                    </Trans>
+                    </>
                   }
                 >
-                  <Trans id="interface.playerBreakdown.healingDone">Healing done</Trans>
+                  Healing done
                 </TooltipElement>
               </th>
             </tr>

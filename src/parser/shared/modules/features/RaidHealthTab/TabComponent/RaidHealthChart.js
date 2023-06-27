@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
@@ -103,18 +102,12 @@ class RaidHealthChart extends Component {
           field: 'y',
           type: 'quantitative',
           stack: true,
-          title: t({
-            id: 'shared.modules.raidHealthTab.chart.title.y',
-            message: `Total Raid Health`,
-          }),
+          title: 'Total Raid Health',
         },
         color: {
           field: 'title',
           type: 'nominal',
-          title: t({
-            id: 'common.player',
-            message: `Player`,
-          }),
+          title: 'Player',
         },
         opacity: {
           condition: { selection: 'player', value: 1 },

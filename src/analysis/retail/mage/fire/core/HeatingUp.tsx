@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import {
   FIRESTARTER_THRESHOLD,
   SEARING_TOUCH_THRESHOLD,
@@ -149,9 +149,9 @@ class HeatingUp extends Analyzer {
       )
         .icon(SPELLS.FIRE_BLAST.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.heatingUp.fireBlastUtilization">
+          <>
             {formatPercentage(this.fireBlastUtilSuggestionThresholds.actual)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
@@ -167,9 +167,9 @@ class HeatingUp extends Analyzer {
       )
         .icon(TALENTS.PHOENIX_FLAMES_TALENT.icon)
         .actual(
-          <Trans id="mage.fire.suggestions.heatingUp.phoenixFlames.utilization">
+          <>
             {formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );

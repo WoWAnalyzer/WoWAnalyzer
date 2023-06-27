@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { makeCharacterApiUrl, makeGuildApiUrl } from 'common/makeApiUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
@@ -33,23 +32,13 @@ const NameSearch = ({ type }: Props) => {
       const makePageUrl = type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
 
       if (!region || !realm || !name) {
-        alert(
-          t({
-            id: 'interface.nameSearch.pleaseSelect',
-            message: `Please select a region, realm, and guild.`,
-          }),
-        );
+        alert(`Please select a region, realm, and guild.`);
         return;
       }
 
       // Checking for guild-exists here makes it more userfriendly and saves WCL-requests when guild doesn't exist
       if (loading) {
-        alert(
-          t({
-            id: 'interface.nameSearch.stillWorking',
-            message: `Still working...`,
-          }),
-        );
+        alert(`Still working...`);
         return;
       }
       setLoading(true);
@@ -63,28 +52,17 @@ const NameSearch = ({ type }: Props) => {
         }
         if (response.status === 500) {
           alert(
-            t({
-              id: 'interface.nameSearch.noResponse',
-              message: `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
-            }),
+            `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
           );
           setLoading(false);
           return;
         } else if (response.status === 404) {
-          alert(
-            t({
-              id: 'interface.nameSearch.nameNotFound',
-              message: `${name} not found on ${realm}. Double check the region, realm, and name.`,
-            }),
-          );
+          alert(`${name} not found on ${realm}. Double check the region, realm, and name.`);
           setLoading(false);
           return;
         } else if (!response.ok) {
           alert(
-            t({
-              id: 'interface.nameSearch.noAPIResponse',
-              message: `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
-            }),
+            `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
           );
           setLoading(false);
           return;
@@ -110,16 +88,7 @@ const NameSearch = ({ type }: Props) => {
     regionInput.current?.focus();
   }, []);
 
-  const namePlaceholder =
-    type === SearchType.CHARACTER
-      ? t({
-          id: 'interface.nameSearch.character',
-          message: `Character`,
-        })
-      : t({
-          id: 'interface.nameSearch.guild',
-          message: `Guild`,
-        });
+  const namePlaceholder = type === SearchType.CHARACTER ? `Character` : `Guild`;
   return (
     <form onSubmit={handleSubmit} className="character-guild-selector">
       <select
@@ -148,10 +117,7 @@ const NameSearch = ({ type }: Props) => {
             setCurrentRealm(value);
           }
         }}
-        placeholder={t({
-          id: 'interface.nameSearch.realm',
-          message: `Realm`,
-        })}
+        placeholder="Realm"
       />
       <input
         type="text"
@@ -167,8 +133,7 @@ const NameSearch = ({ type }: Props) => {
         type="submit"
         className={`btn btn-primary analyze animated-button ${loading ? 'fill-button' : ''}`}
       >
-        <Trans id="interface.nameSearch.search">Search</Trans>{' '}
-        <span className="glyphicon glyphicon-chevron-right" aria-hidden />
+        <>Search</> <span className="glyphicon glyphicon-chevron-right" aria-hidden />
       </button>
     </form>
   );

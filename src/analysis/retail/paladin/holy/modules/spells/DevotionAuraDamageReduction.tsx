@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import fetchWcl from 'common/fetchWclApi';
 import { formatThousands, formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
@@ -169,7 +169,7 @@ class DevotionAuraDamageReduction extends Analyzer {
 
   statistic() {
     const tooltip = (
-      <Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.tooltip">
+      <>
         The total estimated damage reduced <strong>by the passive</strong> was{' '}
         {formatThousands(this.passiveDamageReduced)} ({formatNumber(this.passiveDrps)} DRPS). This
         has high accuracy.
@@ -193,7 +193,7 @@ class DevotionAuraDamageReduction extends Analyzer {
         split among other nearby players, using your personal damage taken should average it out
         very closely. More extensive tests that go over all damage events have shown that this is
         usually a close approximation.
-      </Trans>
+      </>
     );
 
     return (
@@ -202,14 +202,14 @@ class DevotionAuraDamageReduction extends Analyzer {
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA} />}
         value={
-          <Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.drps">
+          <>
             ≈{formatNumber(this.totalDrps)} DRPS
-          </Trans>
+          </>
         }
         label={
-          <Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.damageReduction">
+          <>
             Damage reduction
-          </Trans>
+          </>
         }
         tooltip={tooltip}
         drilldown={makeWclUrl(this.owner.report.code, {

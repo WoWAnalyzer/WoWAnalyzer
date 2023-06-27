@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import {
   ARCANE_BLAST_BASE_MANA_COST,
   ARCANE_EXPLOSION_BASE_MANA_COST,
@@ -137,9 +137,9 @@ class ArcaneSurgeMana extends Analyzer {
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.arcanePowerMana.lowMana">
+          <>
             {formatPercentage(actual)}% Utilization
-          </Trans>,
+          </>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );

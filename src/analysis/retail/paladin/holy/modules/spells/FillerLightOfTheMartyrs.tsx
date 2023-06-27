@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -44,10 +43,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
     this.inefficientCasts.push(event);
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = t({
-      id: 'paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable',
-      message: `Holy Shock was available and should have been cast instead as it is a much more efficient spell.`,
-    });
+    event.meta.inefficientCastReason = `Holy Shock was available and should have been cast instead as it is a much more efficient spell.`;
   }
 
   get cpm() {
@@ -83,37 +79,30 @@ class FillerLightOfTheMartyrs extends Analyzer {
   suggestions(when: When) {
     when(this.cpmSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.suggestion">
+        <>
           You cast many <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />
           s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the
           Martyr when it will save someone's life or when moving and all other instant cast spells
           are on cooldown.
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.icon)
         .actual(
-          <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.actual">
+          <>
             {this.cpm.toFixed(2)} casts per minute - {this.casts} casts total
-          </Trans>,
+          </>,
         )
-        .recommended(
-          <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.recommended">
-            &lt;{recommended} casts per minute is recommended
-          </Trans>,
-        ),
+        .recommended(<>&lt;{recommended} casts per minute is recommended</>),
     );
 
     when(this.inefficientCpmSuggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
-        <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion">
+        <>
           You cast {this.inefficientCasts.length}{' '}
           <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />s while{' '}
           <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was{' '}
           <TooltipElement
-            content={t({
-              id: 'paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.availableWithin',
-              message: `It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`,
-            })}
+            content={`It was either already available or going to be available within ${HOLY_SHOCK_COOLDOWN_WAIT_TIME}ms.`}
           >
             available
           </TooltipElement>{' '}
@@ -124,27 +113,16 @@ class FillerLightOfTheMartyrs extends Analyzer {
           ). Try to <b>never</b> cast <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> when
           something else is available
           <TooltipElement
-            content={t({
-              id: 'paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.exceptions',
-              message: `There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.`,
-            })}
+            content={`There are very rare exceptions to this. For example it may be worth saving Holy Shock when you know you're going to be moving soon and you may have to heal yourself.`}
           >
             *
           </TooltipElement>
           .
-        </Trans>,
+        </>,
       )
         .icon(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.icon)
-        .actual(
-          <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.actual">
-            {this.inefficientCasts.length} casts while Holy Shock was available
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.recommended">
-            No inefficient casts is recommended
-          </Trans>,
-        ),
+        .actual(<>{this.inefficientCasts.length} casts while Holy Shock was available</>)
+        .recommended(<>No inefficient casts is recommended</>),
     );
   }
 }

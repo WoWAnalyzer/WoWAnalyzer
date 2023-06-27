@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber, formatPercentage } from 'common/format';
 import { makeAnalyzerUrl } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -132,13 +132,13 @@ class DeathTracker extends Analyzer {
         )
           .icon('ability_fiegndead')
           .actual(
-            <Trans id="shared.suggestions.deathTracker.deathTime">
+            <>
               {' '}
               You were dead for {formatPercentage(actual)}% of the fight{' '}
-            </Trans>,
+            </>,
           )
           .recommended(
-            <Trans id="shared.suggestions.deathTracker.recommended"> 0% is recommended </Trans>,
+            <> 0% is recommended </>,
           ),
       );
     }

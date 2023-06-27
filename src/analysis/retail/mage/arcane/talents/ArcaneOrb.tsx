@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -79,9 +79,9 @@ class ArcaneOrb extends Analyzer {
       )
         .icon(TALENTS.ARCANE_ORB_TALENT.icon)
         .actual(
-          <Trans id="mage.arcane.suggestions.arcaneOrb.badCasts">
+          <>
             {formatNumber(this.badCasts)} Missed Orbs
-          </Trans>,
+          </>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),
     );

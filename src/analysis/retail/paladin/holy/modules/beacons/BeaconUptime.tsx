@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { Options } from 'parser/core/Analyzer';
@@ -233,31 +233,31 @@ class BeaconUptime extends BeaconAnalyzer {
     //const boringSpellValueContainer = { display: 'flex', flexDirection: 'row' };
     const missingPrepullContainer = (
       <div style={{ color: 'red', margin: 'auto', textAlign: 'center' }}>
-        <Trans id="paladin.holy.modules.beacons.beaconUptime.notCastedPrepull">
+        <>
           Not
           <br />
           casted
           <br />
           prepull
-        </Trans>
+        </>
       </div>
     );
 
     const getLabel = (beaconId: number): React.ReactNode => {
       switch (beaconId) {
         case SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bolUptime">BoL Uptime</Trans>;
+          return <>BoL Uptime</>;
         case TALENTS.BEACON_OF_FAITH_TALENT.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bofUptime">BoF Uptime</Trans>;
+          return <>BoF Uptime</>;
         case TALENTS.BEACON_OF_VIRTUE_TALENT.id:
-          return <Trans id="paladin.holy.modules.beacons.beaconUptime.bovUptime">BoV Uptime</Trans>;
+          return <>BoV Uptime</>;
       }
     };
 
     return (
       <Statistic position={STATISTIC_ORDER.CORE(60)} size="flexible">
         <label style={{ margin: '10px' }}>
-          <Trans id="paladin.holy.modules.beacons.beaconUptime.beaconUptime">Beacon Uptime</Trans>
+          <>Beacon Uptime</>
         </label>
 
         {this.beaconBuffIds.map((beaconId) => {

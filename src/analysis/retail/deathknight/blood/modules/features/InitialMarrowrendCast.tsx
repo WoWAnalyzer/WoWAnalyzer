@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -49,7 +49,7 @@ class InitialMarrowrendCast extends Analyzer {
       .isTrue()
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
-          <Trans id="deathknight.blood.initialMarrowrend.suggestion">
+          <>
             Use your first <SpellLink spell={TALENTS.MARROWREND_TALENT} /> together with{' '}
             <SpellLink spell={TALENTS.DANCING_RUNE_WEAPON_TALENT} /> to build up stacks of{' '}
             <SpellLink spell={SPELLS.BONE_SHIELD} /> faster without wasting as much runes. This will
@@ -57,7 +57,7 @@ class InitialMarrowrendCast extends Analyzer {
             significantly. Don't treat <SpellLink spell={TALENTS.DANCING_RUNE_WEAPON_TALENT} /> as a
             defensive CD unless you really need the parry and increased Runic Power generation
             defensively.
-          </Trans>,
+          </>,
         ).icon(TALENTS.DANCING_RUNE_WEAPON_TALENT.icon),
       );
   }

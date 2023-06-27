@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { fetchTable } from 'common/fetchWclApi';
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -296,13 +295,7 @@ function PurifyReasonBreakdown({
       <tbody>
         <tr>
           <td>
-            <TooltipElement
-              content={t({
-                id: 'guide.monk.brewmaster.purifyingbrew.targetAmountPurified',
-                message:
-                  'A reasonable goal is to purify 40-50% of Staggered damage. If you purify at least 45%, this bar will be full.',
-              })}
-            >
+            <TooltipElement content="A reasonable goal is to purify 40-50% of Staggered damage. If you purify at least 45%, this bar will be full.">
               Amount Purified
             </TooltipElement>
           </td>
@@ -315,13 +308,7 @@ function PurifyReasonBreakdown({
         </tr>
         <tr>
           <td>
-            <TooltipElement
-              content={t({
-                id: 'guide.monk.brewmaster.purifyingbrew.targetChargesUsed',
-                message:
-                  'This value should be judged relative to the Active Tanking Time shown below. If the fraction of charges used is well below the fraction of time spent tanking, that is a serious problem.',
-              })}
-            >
+            <TooltipElement content="This value should be judged relative to the Active Tanking Time shown below. If the fraction of charges used is well below the fraction of time spent tanking, that is a serious problem.">
               Charges Used
             </TooltipElement>
           </td>

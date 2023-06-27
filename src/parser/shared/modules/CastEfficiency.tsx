@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -390,24 +389,20 @@ class CastEfficiency extends Analyzer {
       when(suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            <Trans id="shared.modules.castEfficiency.suggest">
+            <>
               Try to cast <SpellLink spell={ability.primarySpell} /> more often.
-            </Trans>{' '}
+            </>{' '}
             {ability.castEfficiency.extraSuggestion || ''}
           </>,
         )
           .spell(ability.primarySpell)
           .actual(
-            <Trans id="shared.modules.castEfficiency.actual">
+            <>
               {abilityInfo.casts} out of {abilityInfo.maxCasts} possible casts. You kept it on
               cooldown {formatPercentage(actual, 0)}% of the time.
-            </Trans>,
+            </>,
           )
-          .recommended(
-            <Trans id="shared.modules.castEfficiency.recommended">
-              &gt;{formatPercentage(recommended, 0)}% is recommended
-            </Trans>,
-          )
+          .recommended(<>&gt;{formatPercentage(recommended, 0)}% is recommended</>)
           .staticImportance(ability.castEfficiency.importance || null),
       );
     });
@@ -415,7 +410,7 @@ class CastEfficiency extends Analyzer {
 
   statistic() {
     return (
-      <Panel title={<Trans id="common.abilities">Abilities</Trans>} position={500} pad={false}>
+      <Panel title="Abilities" position={500} pad={false}>
         <CastEfficiencyComponent abilities={this.getCastEfficiency()} />
       </Panel>
     );

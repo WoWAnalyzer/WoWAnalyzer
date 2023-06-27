@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -92,12 +91,7 @@ class AoWProcTracker extends Analyzer {
         </>,
       )
         .icon(SPELLS.ART_OF_WAR.icon)
-        .actual(
-          t({
-            id: 'paladin.retribution.suggestions.artOfWar.procsUsed',
-            message: `${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`,
-          }),
-        )
+        .actual(`${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`)
         .recommended(`Using >${formatPercentage(recommended)}% is recommended`),
     );
   }

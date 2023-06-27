@@ -4,7 +4,6 @@ import user from 'interface/reducers/user';
 import report from 'interface/reducers/report';
 import combatants from 'interface/reducers/combatants';
 import reportHistory from 'interface/reducers/reportHistory';
-import language from 'interface/reducers/language';
 import specsIgnoredNotSupportedWarning from 'interface/reducers/specsIgnoredNotSupportedWarning';
 import openModals from 'interface/reducers/openModals';
 import charactersById from 'interface/reducers/charactersById';
@@ -21,7 +20,6 @@ export const store = configureStore({
     report,
     combatants,
     reportHistory,
-    language,
     specsIgnoredNotSupportedWarning,
     openModals,
     tooltips,

@@ -11,7 +11,6 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { getHealEvents } from '../../normalizers/CastLinkNormalizer';
 import { SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
-import { t } from '@lingui/macro';
 
 const BOUNTIFUL_ADDITIONAL_TARGETS = 2;
 const BASE_TARGETS = 3;
@@ -88,12 +87,7 @@ class EmeraldBlossom extends Analyzer {
         </>,
       )
         .icon(SPELLS.EMERALD_BLOSSOM.icon)
-        .actual(
-          `${this.averageNumTargets.toFixed(1)} ${t({
-            id: 'evoker.preservation.suggestions.emeraldBlossom.avgTargetsHit',
-            message: ` average targets hit`,
-          })}`,
-        )
+        .actual(`${this.averageNumTargets.toFixed(1)} ${` average targets hit`}`)
         .recommended(`at least ${recommended} targets hit recommended`),
     );
   }

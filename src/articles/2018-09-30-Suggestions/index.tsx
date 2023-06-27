@@ -24,6 +24,6 @@ export default (
     spec we should prioritize? Let us know on the new{' '}
     <a href="https://suggestions.wowanalyzer.com/">suggestions board</a>! There you can share your
     suggestions or give a vote to other people's amazing suggestions. And we'll even put a bounty on
-    the best suggestions using the funds raised with <Link to="/premium">Premium</Link>!
+    the best suggestions using the funds raised with<Link to="/premium">Premium</Link>!
   </NewsRegularArticle>
 );

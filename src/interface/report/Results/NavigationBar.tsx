@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+
 import AboutIcon from 'interface/icons/About';
 import ArmorIcon from 'interface/icons/Armor';
 import ChecklistIcon from 'interface/icons/Checklist';
@@ -27,17 +27,17 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
   const pages = [
     {
       icon: ChecklistIcon,
-      name: <Trans id="interface.report.results.navigationBar.overview">Overview</Trans>,
+      name: <>Overview</>,
       url: 'overview',
     },
     {
       icon: StatisticsIcon,
-      name: <Trans id="interface.report.results.navigationBar.statistics">Statistics</Trans>,
+      name: <>Statistics</>,
       url: 'statistics',
     },
     {
       icon: TimelineIcon,
-      name: <Trans id="interface.report.results.navigationBar.timeline">Timeline</Trans>,
+      name: <>Timeline</>,
       url: 'timeline',
     },
     ...(tabs
@@ -49,12 +49,12 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
       })) || []),
     {
       icon: ArmorIcon,
-      name: <Trans id="interface.report.results.navigationBar.character">Character</Trans>,
+      name: <>Character</>,
       url: 'character',
     },
     {
       icon: AboutIcon,
-      name: <Trans id="interface.report.results.navigationBar.about">About</Trans>,
+      name: <>About</>,
       url: 'about',
     },
   ];
@@ -62,7 +62,7 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
   if (selectedTab === 'events') {
     pages.push({
       icon: EventsIcon,
-      name: <Trans id="interface.report.results.navigationBar.events">Events</Trans>,
+      name: <>Events</>,
       url: 'events',
     });
   }

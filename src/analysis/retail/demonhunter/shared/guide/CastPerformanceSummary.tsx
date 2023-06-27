@@ -1,13 +1,13 @@
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Spell from 'common/SPELLS/Spell';
-import { t, Trans } from '@lingui/macro';
+
 import { formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 
-const perfectMessage = t({ id: 'guide.performance.perfect', message: 'perfect' });
-const goodMessage = t({ id: 'guide.performance.good', message: 'good' });
-const okMessage = t({ id: 'guide.performance.ok', message: 'ok' });
-const badMessage = t({ id: 'guide.performance.bad', message: 'bad' });
+const perfectMessage = 'perfect';
+const goodMessage = 'good';
+const okMessage = 'ok';
+const badMessage = 'bad';
 
 const performanceToMessage = (performance: QualitativePerformance) => {
   switch (performance) {
@@ -34,10 +34,10 @@ const CastPerformanceSummary = ({ casts, performance, spell, totalCasts }: Props
   const performanceMessage = performanceToMessage(performance);
   return (
     <p>
-      <Trans id="guide.castPerformanceSummary">
+      <>
         <strong>{formattedPercentage}%</strong> of your <SpellLink spell={spell} /> casts were{' '}
         {performanceMessage}.
-      </Trans>
+      </>
     </p>
   );
 };

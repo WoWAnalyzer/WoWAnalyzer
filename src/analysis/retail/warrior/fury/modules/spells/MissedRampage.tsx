@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -84,12 +83,7 @@ class MissedRampage extends Analyzer {
         </>,
       )
         .icon(SPELLS.RAMPAGE.icon)
-        .actual(
-          t({
-            id: 'warrior.fury.suggestions.rampages.missed',
-            message: `${actual} missed Rampages.`,
-          }),
-        )
+        .actual(`${actual} missed Rampages.`)
         .recommended(`${recommended} is recommended.`),
     );
   }

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -30,12 +29,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         </>,
       )
         .icon('spell_mage_altertime')
-        .actual(
-          t({
-            id: 'deathknight.frost.suggestions.alwaysBeCasting',
-            message: `${formatPercentage(actual)}% downtime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% downtime`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/warrior';
 import { SpellIcon } from 'interface';
@@ -126,14 +125,11 @@ class DefensiveStance extends Analyzer {
         )
           .icon(TALENTS.DEFENSIVE_STANCE_TALENT.icon)
           .actual(
-            t({
-              id: 'warrior.arms.suggestions.defensiveStance',
-              message: `A total of ${formatNumber(
-                dl,
-              )} of your damage has been reduced compared to ${formatNumber(
-                dr,
-              )} of the damage from the boss.`,
-            }),
+            `A total of ${formatNumber(
+              dl,
+            )} of your damage has been reduced compared to ${formatNumber(
+              dr,
+            )} of the damage from the boss.`,
           )
           .recommended('Reduced damage taken should be higher than your reduced damage.'),
       );

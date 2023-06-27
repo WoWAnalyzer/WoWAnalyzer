@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { HolyPowerTracker } from 'analysis/retail/paladin/shared';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -91,12 +90,7 @@ class Crusade extends Analyzer {
         </>,
       )
         .icon(TALENTS.CRUSADE_TALENT.icon)
-        .actual(
-          t({
-            id: 'paladin.retribution.suggestions.Crusade.efficiency',
-            message: `${formatNumber(this.badFirstGlobal)} bad first global(s)`,
-          }),
-        )
+        .actual(`${formatNumber(this.badFirstGlobal)} bad first global(s)`)
         .recommended(`0 is recommended`),
     );
   }

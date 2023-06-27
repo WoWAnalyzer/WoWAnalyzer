@@ -2,7 +2,7 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/demonhunter';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
-import { Trans } from '@lingui/macro';
+
 import { ReactNode } from 'react';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import {
@@ -36,10 +36,10 @@ export default class FieryBrand extends MajorDefensiveDebuff {
   description(): ReactNode {
     return (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.defensives.fieryBrand.explanation.summary">
+        <>
           <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> reduces the damage dealt to
           you by targets with its debuff by <strong>40%</strong>.
-        </Trans>
+        </>
       </p>
     );
   }

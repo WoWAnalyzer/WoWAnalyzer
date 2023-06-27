@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, EmpowerEndEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { t } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { getBuffEvents } from '../../normalizers/CastLinkNormalizer';
@@ -179,12 +178,7 @@ class DreamBreath extends Analyzer {
         </>,
       )
         .icon(TALENTS_EVOKER.DREAM_BREATH_TALENT.icon)
-        .actual(
-          `${this.averageTargetsHit.toFixed(1)} ${t({
-            id: 'evoker.preservation.suggestions.dreamBreath.avgTargetsHit',
-            message: ` average targets hit`,
-          })}`,
-        )
+        .actual(`${this.averageTargetsHit.toFixed(1)} average targets hit`)
         .recommended(`at least ${recommended} targets hit recommended`),
     );
   }
