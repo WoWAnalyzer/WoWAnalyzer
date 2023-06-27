@@ -38,12 +38,17 @@ const shortCooldowns: Cooldown[] = [
   { talent: TALENTS.MINDGAMES_TALENT },
 ];
 
-const longCooldowns: Cooldown[] = [
+const longCooldownsMB: Cooldown[] = [
   { talent: TALENTS.POWER_INFUSION_TALENT },
   { talent: TALENTS.DARK_ASCENSION_TALENT },
   { talent: TALENTS.VOID_ERUPTION_TALENT },
   { talent: TALENTS.MINDBENDER_SHADOW_TALENT },
-  //{ talent: TALENTS.SHADOWFIEND_TALENT }, TODO: Fix Shadowfiend when in this list
+];
+const longCooldownsSF: Cooldown[] = [
+  { talent: TALENTS.POWER_INFUSION_TALENT },
+  { talent: TALENTS.DARK_ASCENSION_TALENT },
+  { talent: TALENTS.VOID_ERUPTION_TALENT },
+  { talent: TALENTS.SHADOWFIEND_TALENT },
 ];
 
 const CoreCooldownsGraph = () => {
@@ -126,6 +131,12 @@ const ShortCooldownsGraph = () => {
 };
 
 const LongCooldownsGraph = () => {
+  const info = useInfo();
+  let longCooldowns = longCooldownsSF;
+  if (info!.combatant.hasTalent(TALENTS.MINDBENDER_SHADOW_TALENT)) {
+    longCooldowns = longCooldownsMB;
+  }
+
   const message = (
     <Trans id="guide.priest.shadow.sections.longcooldowns.graph">
       <strong>Major Cooldowns</strong> - this graph shows when you used your cooldowns and how long
