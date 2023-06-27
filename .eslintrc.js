@@ -1,7 +1,6 @@
 const CHECK_CODESTYLE = process.env.CODE_STYLE === 'true';
 const CI = Boolean(process.env.CI);
 const CHECK_SPELL_OBJECT = process.env.CHECK_SPELL_OBJECT === 'true';
-const CHECK_LINGUI_T_MACRO = process.env.CHECK_LINGUI_T_MACRO === 'true';
 
 module.exports = {
   extends: ['@martijnhols/eslint-config', 'plugin:react/jsx-runtime'],
@@ -13,7 +12,7 @@ module.exports = {
     'wowanalyzer/spell-link-spell-object': CHECK_SPELL_OBJECT ? 'error' : 'off',
     'wowanalyzer/spell-icon-spell-object': CHECK_SPELL_OBJECT ? 'error' : 'off',
     'wowanalyzer/boring-spell-value-text-spell-object': CHECK_SPELL_OBJECT ? 'error' : 'off',
-    'wowanalyzer/lingui-t-macro-outside-jsx': CHECK_LINGUI_T_MACRO ? 'error' : 'off',
+    'wowanalyzer/lingui-t-macro-outside-jsx': 'error',
     'no-use-before-define': 'off',
     'import/order': [
       // This is an annoying code style rule that can be fixed automatically.
