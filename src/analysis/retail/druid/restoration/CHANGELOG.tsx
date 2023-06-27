@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2023, 6, 26), <>Added statistic for <SpellLink spell={TALENTS_DRUID.WAKING_DREAM_TALENT}/>.</>, Sref),
   change(date(2023, 6, 20), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 5, 17), <>Added <SpellLink spell={TALENTS_DRUID.NOURISH_TALENT}/> to HPM and HPCT charts.</>, Sref),
   change(date(2023, 5, 4), <>Updated T30 (Aberrus) set to account for April 28 patch.</>, Sref),

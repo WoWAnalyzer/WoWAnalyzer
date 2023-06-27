@@ -7,6 +7,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import TALENTS from 'common/TALENTS/warrior';
 
 const debug = false;
 
@@ -25,10 +26,14 @@ class ShieldBlock extends Analyzer {
   averageCd = 0;
   actualCasts = 0;
   totalCastsAssumed = 0;
+  baseCd = 9;
 
   constructor(options: Options) {
     super(options);
     this.lastCast = this.owner.fight.start_time / 1000;
+
+    this.baseCd = this.selectedCombatant.hasTalent(TALENTS.AVATAR_PROTECTION_TALENT) ? 8 : 9;
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
       this.onSlamCast,
@@ -52,7 +57,7 @@ class ShieldBlock extends Analyzer {
     }
 
     this.currentCd =
-      9 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
+      this.baseCd / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
     this.lastCast = event.timestamp / 1000;
 
     this.totalCastsAssumed += 1;
