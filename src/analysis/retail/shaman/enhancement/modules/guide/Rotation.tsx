@@ -31,20 +31,11 @@ export default function Rotation({ modules, info }: GuideProps<typeof CombatLogP
       <AplSectionData checker={AplCheck.check} apl={AplCheck.apl(info)} />
       <hr />
       <p>
-        This list does not include cooldowns (e.g.{' '}
-        <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />,{' '}
+        This list does not include cooldowns (e.g. <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} />
+        , <SpellLink spell={TALENTS.ASCENDANCE_ENHANCEMENT_TALENT} />,{' '}
         <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />,{' '}
-        <SpellLink spell={TALENTS.SUNDERING_TALENT} /> and more). Cooldowns may often be held for
-        fight mechanics, and often appear as frequent violations.
-        {info.combatant.hasTalent(TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT) ? (
-          <>
-            <SpellLink spell={TALENTS.FERAL_SPIRIT_TALENT} /> is an exception due to it's high
-            priority in the rotation, and very short cooldown thanks to{' '}
-            <SpellLink spell={TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT} />
-          </>
-        ) : (
-          <></>
-        )}
+        <SpellLink spell={TALENTS.SUNDERING_TALENT} />, etc). Cooldowns may often be held for fight
+        mechanics, and appear as common problems which interfere with rotation analysis.
       </p>
       <p>
         This should be used as a reference point for improvement when comparing against other logs.

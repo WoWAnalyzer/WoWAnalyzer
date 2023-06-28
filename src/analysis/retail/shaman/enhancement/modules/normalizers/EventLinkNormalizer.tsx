@@ -3,14 +3,24 @@ import BaseEventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormali
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { EventType } from 'parser/core/Events';
-import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS, MAELSTROM_WEAPON_MS } from '../../constants';
+import {
+  MAELSTROM_WEAPON_ELIGIBLE_SPELLS,
+  MAELSTROM_WEAPON_MS,
+  STORMSTRIKE_CAST_SPELLS,
+  STORMSTRIKE_DAMAGE_SPELLS,
+} from '../../constants';
 
 export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
 export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
 export const PRIMORDIAL_WAVE_FREE_LIGHTNING_BOLTS = 'primordial-wave-auto-cast';
+export const STORMSTRIKE_LINK = 'stormstrike';
+export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
+
 const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
   (spell) => spell.id,
 );
+const stormStrikeSpellIds = STORMSTRIKE_CAST_SPELLS.map((spell) => spell.id);
+const stormStrikeDamageIds = STORMSTRIKE_DAMAGE_SPELLS.map((spell) => spell.id);
 
 const maelstromWeaponInstantCastLink: EventLink = {
   linkRelation: MAELSTROM_WEAPON_INSTANT_CAST,
@@ -44,9 +54,35 @@ const thorimsInvocationCastLink: EventLink = {
   forwardBufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
 };
+
+const stormStrikeLink: EventLink = {
+  linkRelation: STORMSTRIKE_LINK,
+  linkingEventId: stormStrikeSpellIds,
+  linkingEventType: EventType.Cast,
+  referencedEventId: stormStrikeDamageIds,
+  referencedEventType: EventType.Damage,
+  forwardBufferMs: 900,
+  anyTarget: true,
+};
+
+const chainLightningDamageLink: EventLink = {
+  linkRelation: CHAIN_LIGHTNING_LINK,
+  linkingEventId: TALENTS.CHAIN_LIGHTNING_TALENT.id,
+  linkingEventType: [EventType.Cast, EventType.FreeCast],
+  referencedEventId: TALENTS.CHAIN_LIGHTNING_TALENT.id,
+  referencedEventType: EventType.Damage,
+  forwardBufferMs: 100,
+  anyTarget: true,
+};
+
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
-    super(options, [maelstromWeaponInstantCastLink, thorimsInvocationCastLink]);
+    super(options, [
+      maelstromWeaponInstantCastLink,
+      thorimsInvocationCastLink,
+      stormStrikeLink,
+      chainLightningDamageLink,
+    ]);
   }
 }
 

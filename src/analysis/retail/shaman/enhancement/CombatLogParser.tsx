@@ -48,6 +48,7 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import Ascendance from 'analysis/retail/shaman/enhancement/modules/talents/Ascendance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -112,6 +113,8 @@ class CombatLogParser extends CoreCombatLogParser {
     eventLinkNormalizer: EventLinkNormalizer,
     eventOrderNormalizer: EventOrderNormalizer,
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,
+
+    ascendance: Ascendance,
 
     aplCheck: AplCheck,
   };

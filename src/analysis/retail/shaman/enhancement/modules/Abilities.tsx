@@ -97,7 +97,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT),
-        cooldown: combatant.hasTalent(TALENTS_SHAMAN.PLANES_TRAVELER_TALENT) ? 90 : 120,
+        cooldown: 90,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
       },
@@ -396,14 +396,16 @@ class Abilities extends CoreAbilities {
         // TODO: Correct Spell ID
         spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown: combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT) ? 1 : 180,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
+          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT),
         damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
         castEfficiency: {
-          suggestion: true,
+          suggestion: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
           recommendedEfficiency: 1.0,
         },
       },
@@ -553,6 +555,40 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 1,
         },
+      },
+      {
+        spell: SPELLS.WINDFURY_ATTACK.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.WINDFURY_WEAPON_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: SPELLS.FLAMETONGUE_ATTACK.id,
+        enabled: true,
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id],
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.STORMSTRIKE_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: SPELLS.STORMBLAST_DAMAGE.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.STORMBLAST_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: [SPELLS.WINDSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id],
+        enabled:
+          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
+          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: [SPELLS.WINDLASH.id, SPELLS.WINDLASH_OFFHAND.id],
+        enabled:
+          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
+          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
       },
     ];
   }

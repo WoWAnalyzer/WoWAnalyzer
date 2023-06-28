@@ -18,17 +18,20 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { SpellLink } from 'interface';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { IGNORED_DAMAGE_EVENTS, MERGE_SPELLS } from '../../constants';
 import { DamageIcon, UptimeIcon } from 'interface/icons';
+import Abilities from 'parser/core/modules/Abilities';
+import { MERGE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
 
 const DAMAGE_AMP_PERCENTAGE: Record<number, number> = { 1: 0.05, 2: 0.25 };
 
 class LegacyOfTheFrostWitch extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
+    abilities: Abilities,
   };
 
   protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
 
   protected accumulatedSpend = 0;
   protected damageAmpPercentage = 0;
@@ -68,7 +71,11 @@ class LegacyOfTheFrostWitch extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (IGNORED_DAMAGE_EVENTS.includes(event.ability.guid)) {
+    const ability =
+      event.ability.guid === SPELLS.MELEE.id
+        ? SPELLS.MELEE
+        : this.abilities.getAbility(event.ability.guid);
+    if (!ability) {
       return;
     }
     if (
