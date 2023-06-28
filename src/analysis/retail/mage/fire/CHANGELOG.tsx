@@ -5,6 +5,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 6, 27), <>Added <SpellLink id={TALENTS.TEMPORAL_WARP_TALENT.id} /> to list of Bloodlust Buffs.</>, Sharrq),
   change(date(2023, 2, 12), <>Marked the spec supported for 10.0.5</>, Sharrq),
   change(date(2022, 12, 13), <>Removed references to Infernal Cascade and replaced with <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT} /> functionality.</>, Sharrq),
   change(date(2022, 12, 13), <>Fixed <SpellLink id={TALENTS.SHIFTING_POWER_TALENT} /> functionality.</>, Sharrq),
