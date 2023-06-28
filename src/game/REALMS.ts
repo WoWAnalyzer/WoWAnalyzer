@@ -1,7 +1,15 @@
 // Generated file, changes will be overwritten!
-// eslint-disable
 
-export default {
+import { Region } from 'common/regions';
+
+interface Realm {
+  name: string;
+  slug: string;
+}
+
+export type RegionsWithRealms = Region;
+
+const REALMS: Record<Region, Realm[]> = {
   EU: [
     { name: 'Aegwynn', slug: 'aegwynn' },
     { name: 'Aerie Peak', slug: 'aerie-peak' },
@@ -294,6 +302,7 @@ export default {
   TW: [
     { name: '世界之樹', slug: 'world-tree' },
     { name: '亞雷戈斯', slug: 'arygos' },
+    { name: '克羅之刃', slug: 'krol-blade' },
     { name: '冰霜之刺', slug: 'frostmane' },
     { name: '冰風崗哨', slug: 'chillwind-point' },
     { name: '地獄吼', slug: 'hellscream' },
@@ -310,6 +319,7 @@ export default {
     { name: '狂熱之刃', slug: 'zealot-blade' },
     { name: '眾星之子', slug: 'queldorei' },
     { name: '米奈希爾', slug: 'menethil' },
+    { name: '老馬布蘭契', slug: 'old-blanchy' },
     { name: '聖光之願', slug: 'lights-hope' },
     { name: '血之谷', slug: 'bleeding-hollow' },
     { name: '語風', slug: 'whisperwind' },
@@ -943,3 +953,5 @@ export default {
     { name: '龙骨平原', slug: '龙骨平原' },
   ],
 };
+
+export default REALMS;
