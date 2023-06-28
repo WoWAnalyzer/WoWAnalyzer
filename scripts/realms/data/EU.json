@@ -1,2145 +1,1609 @@
 {
   "_links": {
-    "self": {
-      "href": "https://eu.api.blizzard.com/data/wow/realm/?namespace=dynamic-eu"
-    }
+    "self": { "href": "https://eu.api.blizzard.com/data/wow/realm/?namespace=dynamic-eu" }
   },
   "realms": [
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/500?namespace=dynamic-eu"
-      },
-      "name": "Aggramar",
-      "id": 500,
-      "slug": "aggramar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/501?namespace=dynamic-eu"
-      },
-      "name": "Arathor",
-      "id": 501,
-      "slug": "arathor"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/502?namespace=dynamic-eu"
-      },
-      "name": "Aszune",
-      "id": 502,
-      "slug": "aszune"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/503?namespace=dynamic-eu"
-      },
-      "name": "Azjol-Nerub",
-      "id": 503,
-      "slug": "azjolnerub"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/504?namespace=dynamic-eu"
-      },
-      "name": "Bloodhoof",
-      "id": 504,
-      "slug": "bloodhoof"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/505?namespace=dynamic-eu"
-      },
-      "name": "Doomhammer",
-      "id": 505,
-      "slug": "doomhammer"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/506?namespace=dynamic-eu"
-      },
-      "name": "Draenor",
-      "id": 506,
-      "slug": "draenor"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/507?namespace=dynamic-eu"
-      },
-      "name": "Dragonblight",
-      "id": 507,
-      "slug": "dragonblight"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/508?namespace=dynamic-eu"
-      },
-      "name": "Emerald Dream",
-      "id": 508,
-      "slug": "emerald-dream"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/509?namespace=dynamic-eu"
-      },
-      "name": "Garona",
-      "id": 509,
-      "slug": "garona"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/510?namespace=dynamic-eu"
-      },
-      "name": "Vol'jin",
-      "id": 510,
-      "slug": "voljin"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/511?namespace=dynamic-eu"
-      },
-      "name": "Sunstrider",
-      "id": 511,
-      "slug": "sunstrider"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/512?namespace=dynamic-eu"
-      },
-      "name": "Arak-arahm",
-      "id": 512,
-      "slug": "arakarahm"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/513?namespace=dynamic-eu"
-      },
-      "name": "Twilight's Hammer",
-      "id": 513,
-      "slug": "twilights-hammer"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/515?namespace=dynamic-eu"
-      },
-      "name": "Zenedar",
-      "id": 515,
-      "slug": "zenedar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/516?namespace=dynamic-eu"
-      },
-      "name": "Forscherliga",
-      "id": 516,
-      "slug": "forscherliga"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/517?namespace=dynamic-eu"
-      },
-      "name": "Medivh",
-      "id": 517,
-      "slug": "medivh"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/518?namespace=dynamic-eu"
-      },
-      "name": "Agamaggan",
-      "id": 518,
-      "slug": "agamaggan"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/519?namespace=dynamic-eu"
-      },
-      "name": "Al'Akir",
-      "id": 519,
-      "slug": "alakir"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/521?namespace=dynamic-eu"
-      },
-      "name": "Bladefist",
-      "id": 521,
-      "slug": "bladefist"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/522?namespace=dynamic-eu"
-      },
-      "name": "Bloodscalp",
-      "id": 522,
-      "slug": "bloodscalp"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/523?namespace=dynamic-eu"
-      },
-      "name": "Burning Blade",
-      "id": 523,
-      "slug": "burning-blade"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/524?namespace=dynamic-eu"
-      },
-      "name": "Burning Legion",
-      "id": 524,
-      "slug": "burning-legion"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/525?namespace=dynamic-eu"
-      },
-      "name": "Crushridge",
-      "id": 525,
-      "slug": "crushridge"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/526?namespace=dynamic-eu"
-      },
-      "name": "Daggerspine",
-      "id": 526,
-      "slug": "daggerspine"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/527?namespace=dynamic-eu"
-      },
-      "name": "Deathwing",
-      "id": 527,
-      "slug": "deathwing"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/528?namespace=dynamic-eu"
-      },
-      "name": "Dragonmaw",
-      "id": 528,
-      "slug": "dragonmaw"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/529?namespace=dynamic-eu"
-      },
-      "name": "Dunemaul",
-      "id": 529,
-      "slug": "dunemaul"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/531?namespace=dynamic-eu"
-      },
-      "name": "Dethecus",
-      "id": 531,
-      "slug": "dethecus"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/533?namespace=dynamic-eu"
-      },
-      "name": "Sinstralis",
-      "id": 533,
-      "slug": "sinstralis"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/535?namespace=dynamic-eu"
-      },
-      "name": "Durotan",
-      "id": 535,
-      "slug": "durotan"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/536?namespace=dynamic-eu"
-      },
-      "name": "Argent Dawn",
-      "id": 536,
-      "slug": "argent-dawn"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/537?namespace=dynamic-eu"
-      },
-      "name": "Kirin Tor",
-      "id": 537,
-      "slug": "kirin-tor"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/538?namespace=dynamic-eu"
-      },
-      "name": "Dalaran",
-      "id": 538,
-      "slug": "dalaran"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/539?namespace=dynamic-eu"
-      },
-      "name": "Archimonde",
-      "id": 539,
-      "slug": "archimonde"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/540?namespace=dynamic-eu"
-      },
-      "name": "Elune",
-      "id": 540,
-      "slug": "elune"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/541?namespace=dynamic-eu"
-      },
-      "name": "Illidan",
-      "id": 541,
-      "slug": "illidan"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/542?namespace=dynamic-eu"
-      },
-      "name": "Hyjal",
-      "id": 542,
-      "slug": "hyjal"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/543?namespace=dynamic-eu"
-      },
-      "name": "Kael'thas",
-      "id": 543,
-      "slug": "kaelthas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/544?namespace=dynamic-eu"
-      },
-      "name": "Ner'zhul",
-      "id": 544,
-      "slug": "nerzhul"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/545?namespace=dynamic-eu"
-      },
-      "name": "Cho'gall",
-      "id": 545,
-      "slug": "chogall"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/546?namespace=dynamic-eu"
-      },
-      "name": "Sargeras",
-      "id": 546,
-      "slug": "sargeras"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/547?namespace=dynamic-eu"
-      },
-      "name": "Runetotem",
-      "id": 547,
-      "slug": "runetotem"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/548?namespace=dynamic-eu"
-      },
-      "name": "Shadowsong",
-      "id": 548,
-      "slug": "shadowsong"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/549?namespace=dynamic-eu"
-      },
-      "name": "Silvermoon",
-      "id": 549,
-      "slug": "silvermoon"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/550?namespace=dynamic-eu"
-      },
-      "name": "Stormrage",
-      "id": 550,
-      "slug": "stormrage"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/551?namespace=dynamic-eu"
-      },
-      "name": "Terenas",
-      "id": 551,
-      "slug": "terenas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/552?namespace=dynamic-eu"
-      },
-      "name": "Thunderhorn",
-      "id": 552,
-      "slug": "thunderhorn"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/553?namespace=dynamic-eu"
-      },
-      "name": "Turalyon",
-      "id": 553,
-      "slug": "turalyon"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/554?namespace=dynamic-eu"
-      },
-      "name": "Ravencrest",
-      "id": 554,
-      "slug": "ravencrest"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/556?namespace=dynamic-eu"
-      },
-      "name": "Shattered Hand",
-      "id": 556,
-      "slug": "shattered-hand"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/557?namespace=dynamic-eu"
-      },
-      "name": "Skullcrusher",
-      "id": 557,
-      "slug": "skullcrusher"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/558?namespace=dynamic-eu"
-      },
-      "name": "Spinebreaker",
-      "id": 558,
-      "slug": "spinebreaker"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/559?namespace=dynamic-eu"
-      },
-      "name": "Stormreaver",
-      "id": 559,
-      "slug": "stormreaver"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/560?namespace=dynamic-eu"
-      },
-      "name": "Stormscale",
-      "id": 560,
-      "slug": "stormscale"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/561?namespace=dynamic-eu"
-      },
-      "name": "Earthen Ring",
-      "id": 561,
-      "slug": "earthen-ring"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/562?namespace=dynamic-eu"
-      },
-      "name": "Alexstrasza",
-      "id": 562,
-      "slug": "alexstrasza"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/563?namespace=dynamic-eu"
-      },
-      "name": "Alleria",
-      "id": 563,
-      "slug": "alleria"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/564?namespace=dynamic-eu"
-      },
-      "name": "Antonidas",
-      "id": 564,
-      "slug": "antonidas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/565?namespace=dynamic-eu"
-      },
-      "name": "Baelgun",
-      "id": 565,
-      "slug": "baelgun"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/566?namespace=dynamic-eu"
-      },
-      "name": "Blackhand",
-      "id": 566,
-      "slug": "blackhand"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/567?namespace=dynamic-eu"
-      },
-      "name": "Gilneas",
-      "id": 567,
-      "slug": "gilneas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/568?namespace=dynamic-eu"
-      },
-      "name": "Kargath",
-      "id": 568,
-      "slug": "kargath"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/569?namespace=dynamic-eu"
-      },
-      "name": "Khaz'goroth",
-      "id": 569,
-      "slug": "khazgoroth"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/570?namespace=dynamic-eu"
-      },
-      "name": "Lothar",
-      "id": 570,
-      "slug": "lothar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/571?namespace=dynamic-eu"
-      },
-      "name": "Madmortem",
-      "id": 571,
-      "slug": "madmortem"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/572?namespace=dynamic-eu"
-      },
-      "name": "Malfurion",
-      "id": 572,
-      "slug": "malfurion"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/573?namespace=dynamic-eu"
-      },
-      "name": "Zuluhed",
-      "id": 573,
-      "slug": "zuluhed"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/574?namespace=dynamic-eu"
-      },
-      "name": "Nozdormu",
-      "id": 574,
-      "slug": "nozdormu"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/575?namespace=dynamic-eu"
-      },
-      "name": "Perenolde",
-      "id": 575,
-      "slug": "perenolde"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/576?namespace=dynamic-eu"
-      },
-      "name": "Die Silberne Hand",
-      "id": 576,
-      "slug": "die-silberne-hand"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/577?namespace=dynamic-eu"
-      },
-      "name": "Aegwynn",
-      "id": 577,
-      "slug": "aegwynn"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/578?namespace=dynamic-eu"
-      },
-      "name": "Arthas",
-      "id": 578,
-      "slug": "arthas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/579?namespace=dynamic-eu"
-      },
-      "name": "Azshara",
-      "id": 579,
-      "slug": "azshara"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/580?namespace=dynamic-eu"
-      },
-      "name": "Blackmoore",
-      "id": 580,
-      "slug": "blackmoore"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/581?namespace=dynamic-eu"
-      },
-      "name": "Blackrock",
-      "id": 581,
-      "slug": "blackrock"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/582?namespace=dynamic-eu"
-      },
-      "name": "Destromath",
-      "id": 582,
-      "slug": "destromath"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/583?namespace=dynamic-eu"
-      },
-      "name": "Eredar",
-      "id": 583,
-      "slug": "eredar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/584?namespace=dynamic-eu"
-      },
-      "name": "Frostmourne",
-      "id": 584,
-      "slug": "frostmourne"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/585?namespace=dynamic-eu"
-      },
-      "name": "Frostwolf",
-      "id": 585,
-      "slug": "frostwolf"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/586?namespace=dynamic-eu"
-      },
-      "name": "Gorgonnash",
-      "id": 586,
-      "slug": "gorgonnash"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/587?namespace=dynamic-eu"
-      },
-      "name": "Gul'dan",
-      "id": 587,
-      "slug": "guldan"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/588?namespace=dynamic-eu"
-      },
-      "name": "Kel'Thuzad",
-      "id": 588,
-      "slug": "kelthuzad"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/589?namespace=dynamic-eu"
-      },
-      "name": "Kil'jaeden",
-      "id": 589,
-      "slug": "kiljaeden"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/590?namespace=dynamic-eu"
-      },
-      "name": "Mal'Ganis",
-      "id": 590,
-      "slug": "malganis"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/591?namespace=dynamic-eu"
-      },
-      "name": "Mannoroth",
-      "id": 591,
-      "slug": "mannoroth"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/592?namespace=dynamic-eu"
-      },
-      "name": "Zirkel des Cenarius",
-      "id": 592,
-      "slug": "zirkel-des-cenarius"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/593?namespace=dynamic-eu"
-      },
-      "name": "Proudmoore",
-      "id": 593,
-      "slug": "proudmoore"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/594?namespace=dynamic-eu"
-      },
-      "name": "Nathrezim",
-      "id": 594,
-      "slug": "nathrezim"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/600?namespace=dynamic-eu"
-      },
-      "name": "Dun Morogh",
-      "id": 600,
-      "slug": "dun-morogh"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/601?namespace=dynamic-eu"
-      },
-      "name": "Aman'Thul",
-      "id": 601,
-      "slug": "amanthul"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/602?namespace=dynamic-eu"
-      },
-      "name": "Sen'jin",
-      "id": 602,
-      "slug": "senjin"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/604?namespace=dynamic-eu"
-      },
-      "name": "Thrall",
-      "id": 604,
-      "slug": "thrall"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/605?namespace=dynamic-eu"
-      },
-      "name": "Theradras",
-      "id": 605,
-      "slug": "theradras"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/606?namespace=dynamic-eu"
-      },
-      "name": "Genjuros",
-      "id": 606,
-      "slug": "genjuros"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/607?namespace=dynamic-eu"
-      },
-      "name": "Balnazzar",
-      "id": 607,
-      "slug": "balnazzar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/608?namespace=dynamic-eu"
-      },
-      "name": "Anub'arak",
-      "id": 608,
-      "slug": "anubarak"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/609?namespace=dynamic-eu"
-      },
-      "name": "Wrathbringer",
-      "id": 609,
-      "slug": "wrathbringer"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/610?namespace=dynamic-eu"
-      },
-      "name": "Onyxia",
-      "id": 610,
-      "slug": "onyxia"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/611?namespace=dynamic-eu"
-      },
-      "name": "Nera'thor",
-      "id": 611,
-      "slug": "nerathor"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/612?namespace=dynamic-eu"
-      },
-      "name": "Nefarian",
-      "id": 612,
-      "slug": "nefarian"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/613?namespace=dynamic-eu"
-      },
-      "name": "Kult der Verdammten",
-      "id": 613,
-      "slug": "kult-der-verdammten"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/614?namespace=dynamic-eu"
-      },
-      "name": "Das Syndikat",
-      "id": 614,
-      "slug": "das-syndikat"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/615?namespace=dynamic-eu"
-      },
-      "name": "Terrordar",
-      "id": 615,
-      "slug": "terrordar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/616?namespace=dynamic-eu"
-      },
-      "name": "Krag'jin",
-      "id": 616,
-      "slug": "kragjin"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/617?namespace=dynamic-eu"
-      },
-      "name": "Der Rat von Dalaran",
-      "id": 617,
-      "slug": "der-rat-von-dalaran"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/618?namespace=dynamic-eu"
-      },
-      "name": "Nordrassil",
-      "id": 618,
-      "slug": "nordrassil"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/619?namespace=dynamic-eu"
-      },
-      "name": "Hellscream",
-      "id": 619,
-      "slug": "hellscream"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/621?namespace=dynamic-eu"
-      },
-      "name": "Laughing Skull",
-      "id": 621,
-      "slug": "laughing-skull"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/622?namespace=dynamic-eu"
-      },
-      "name": "Magtheridon",
-      "id": 622,
-      "slug": "magtheridon"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/623?namespace=dynamic-eu"
-      },
-      "name": "Quel'Thalas",
-      "id": 623,
-      "slug": "quelthalas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/624?namespace=dynamic-eu"
-      },
-      "name": "Neptulon",
-      "id": 624,
-      "slug": "neptulon"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/625?namespace=dynamic-eu"
-      },
-      "name": "Twisting Nether",
-      "id": 625,
-      "slug": "twisting-nether"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/626?namespace=dynamic-eu"
-      },
-      "name": "Ragnaros",
-      "id": 626,
-      "slug": "ragnaros"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/627?namespace=dynamic-eu"
-      },
-      "name": "The Maelstrom",
-      "id": 627,
-      "slug": "the-maelstrom"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/628?namespace=dynamic-eu"
-      },
-      "name": "Sylvanas",
-      "id": 628,
-      "slug": "sylvanas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/629?namespace=dynamic-eu"
-      },
-      "name": "Vashj",
-      "id": 629,
-      "slug": "vashj"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/630?namespace=dynamic-eu"
-      },
-      "name": "Bloodfeather",
-      "id": 630,
-      "slug": "bloodfeather"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/631?namespace=dynamic-eu"
-      },
-      "name": "Darksorrow",
-      "id": 631,
-      "slug": "darksorrow"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/632?namespace=dynamic-eu"
-      },
-      "name": "Frostwhisper",
-      "id": 632,
-      "slug": "frostwhisper"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/633?namespace=dynamic-eu"
-      },
-      "name": "Kor'gall",
-      "id": 633,
-      "slug": "korgall"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/635?namespace=dynamic-eu"
-      },
-      "name": "Defias Brotherhood",
-      "id": 635,
-      "slug": "defias-brotherhood"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/636?namespace=dynamic-eu"
-      },
-      "name": "The Venture Co",
-      "id": 636,
-      "slug": "the-venture-co"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/637?namespace=dynamic-eu"
-      },
-      "name": "Lightning's Blade",
-      "id": 637,
-      "slug": "lightnings-blade"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/638?namespace=dynamic-eu"
-      },
-      "name": "Haomarush",
-      "id": 638,
-      "slug": "haomarush"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/639?namespace=dynamic-eu"
-      },
-      "name": "Xavius",
-      "id": 639,
-      "slug": "xavius"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/640?namespace=dynamic-eu"
-      },
-      "name": "Khaz Modan",
-      "id": 640,
-      "slug": "khaz-modan"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/641?namespace=dynamic-eu"
-      },
-      "name": "Drek'Thar",
-      "id": 641,
-      "slug": "drekthar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/642?namespace=dynamic-eu"
-      },
-      "name": "Rashgarroth",
-      "id": 642,
-      "slug": "rashgarroth"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/643?namespace=dynamic-eu"
-      },
-      "name": "Throk'Feroth",
-      "id": 643,
-      "slug": "throkferoth"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/644?namespace=dynamic-eu"
-      },
-      "name": "Conseil des Ombres",
-      "id": 644,
-      "slug": "conseil-des-ombres"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/645?namespace=dynamic-eu"
-      },
-      "name": "Varimathras",
-      "id": 645,
-      "slug": "varimathras"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/646?namespace=dynamic-eu"
-      },
-      "name": "Hakkar",
-      "id": 646,
-      "slug": "hakkar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/647?namespace=dynamic-eu"
-      },
-      "name": "Les Sentinelles",
-      "id": 647,
-      "slug": "les-sentinelles"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1080?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1080?namespace=dynamic-eu" },
       "name": "Khadgar",
       "id": 1080,
       "slug": "khadgar"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1081?namespace=dynamic-eu"
-      },
-      "name": "Bronzebeard",
-      "id": 1081,
-      "slug": "bronzebeard"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1082?namespace=dynamic-eu"
-      },
-      "name": "Kul Tiras",
-      "id": 1082,
-      "slug": "kul-tiras"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1083?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1083?namespace=dynamic-eu" },
       "name": "Chromaggus",
       "id": 1083,
       "slug": "chromaggus"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1084?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1084?namespace=dynamic-eu" },
       "name": "Dentarg",
       "id": 1084,
       "slug": "dentarg"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1085?namespace=dynamic-eu"
-      },
-      "name": "Moonglade",
-      "id": 1085,
-      "slug": "moonglade"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1086?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1086?namespace=dynamic-eu" },
       "name": "La Croisade écarlate",
       "id": 1086,
       "slug": "la-croisade-écarlate"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1087?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/547?namespace=dynamic-eu" },
+      "name": "Runetotem",
+      "id": 547,
+      "slug": "runetotem"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/548?namespace=dynamic-eu" },
+      "name": "Shadowsong",
+      "id": 548,
+      "slug": "shadowsong"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/549?namespace=dynamic-eu" },
+      "name": "Silvermoon",
+      "id": 549,
+      "slug": "silvermoon"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/511?namespace=dynamic-eu" },
+      "name": "Sunstrider",
+      "id": 511,
+      "slug": "sunstrider"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1087?namespace=dynamic-eu" },
       "name": "Executus",
       "id": 1087,
       "slug": "executus"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1088?namespace=dynamic-eu"
-      },
-      "name": "Trollbane",
-      "id": 1088,
-      "slug": "trollbane"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1089?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1089?namespace=dynamic-eu" },
       "name": "Mazrigos",
       "id": 1089,
       "slug": "mazrigos"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1090?namespace=dynamic-eu"
-      },
-      "name": "Talnivarr",
-      "id": 1090,
-      "slug": "talnivarr"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1091?namespace=dynamic-eu"
-      },
-      "name": "Emeriss",
-      "id": 1091,
-      "slug": "emeriss"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1092?namespace=dynamic-eu"
-      },
-      "name": "Drak'thul",
-      "id": 1092,
-      "slug": "drakthul"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1093?namespace=dynamic-eu"
-      },
-      "name": "Ahn'Qiraj",
-      "id": 1093,
-      "slug": "ahnqiraj"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1096?namespace=dynamic-eu"
-      },
-      "name": "Scarshield Legion",
-      "id": 1096,
-      "slug": "scarshield-legion"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1097?namespace=dynamic-eu"
-      },
-      "name": "Ysera",
-      "id": 1097,
-      "slug": "ysera"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1098?namespace=dynamic-eu"
-      },
-      "name": "Malygos",
-      "id": 1098,
-      "slug": "malygos"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1099?namespace=dynamic-eu"
-      },
-      "name": "Rexxar",
-      "id": 1099,
-      "slug": "rexxar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1104?namespace=dynamic-eu"
-      },
-      "name": "Anetheron",
-      "id": 1104,
-      "slug": "anetheron"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1105?namespace=dynamic-eu"
-      },
-      "name": "Nazjatar",
-      "id": 1105,
-      "slug": "nazjatar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1106?namespace=dynamic-eu"
-      },
-      "name": "Tichondrius",
-      "id": 1106,
-      "slug": "tichondrius"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1117?namespace=dynamic-eu"
-      },
-      "name": "Steamwheedle Cartel",
-      "id": 1117,
-      "slug": "steamwheedle-cartel"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1118?namespace=dynamic-eu"
-      },
-      "name": "Die ewige Wacht",
-      "id": 1118,
-      "slug": "die-ewige-wacht"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1119?namespace=dynamic-eu"
-      },
-      "name": "Die Todeskrallen",
-      "id": 1119,
-      "slug": "die-todeskrallen"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1121?namespace=dynamic-eu"
-      },
-      "name": "Die Arguswacht",
-      "id": 1121,
-      "slug": "die-arguswacht"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1122?namespace=dynamic-eu"
-      },
-      "name": "Uldaman",
-      "id": 1122,
-      "slug": "uldaman"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1123?namespace=dynamic-eu"
-      },
-      "name": "Eitrigg",
-      "id": 1123,
-      "slug": "eitrigg"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1127?namespace=dynamic-eu"
-      },
-      "name": "Confrérie du Thorium",
-      "id": 1127,
-      "slug": "confrérie-du-thorium"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1298?namespace=dynamic-eu"
-      },
-      "name": "Vek'nilash",
-      "id": 1298,
-      "slug": "veknilash"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1299?namespace=dynamic-eu"
-      },
-      "name": "Boulderfist",
-      "id": 1299,
-      "slug": "boulderfist"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1300?namespace=dynamic-eu"
-      },
-      "name": "Frostmane",
-      "id": 1300,
-      "slug": "frostmane"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1301?namespace=dynamic-eu"
-      },
-      "name": "Outland",
-      "id": 1301,
-      "slug": "outland"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1303?namespace=dynamic-eu"
-      },
-      "name": "Grim Batol",
-      "id": 1303,
-      "slug": "grim-batol"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1304?namespace=dynamic-eu"
-      },
-      "name": "Jaedenar",
-      "id": 1304,
-      "slug": "jaedenar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1305?namespace=dynamic-eu"
-      },
-      "name": "Kazzak",
-      "id": 1305,
-      "slug": "kazzak"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1306?namespace=dynamic-eu"
-      },
-      "name": "Tarren Mill",
-      "id": 1306,
-      "slug": "tarren-mill"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1307?namespace=dynamic-eu"
-      },
-      "name": "Chamber of Aspects",
-      "id": 1307,
-      "slug": "chamber-of-aspects"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1308?namespace=dynamic-eu"
-      },
-      "name": "Ravenholdt",
-      "id": 1308,
-      "slug": "ravenholdt"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1309?namespace=dynamic-eu"
-      },
-      "name": "Pozzo dell'Eternità",
-      "id": 1309,
-      "slug": "pozzo-delleternità"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1310?namespace=dynamic-eu"
-      },
-      "name": "Eonar",
-      "id": 1310,
-      "slug": "eonar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1311?namespace=dynamic-eu"
-      },
-      "name": "Kilrogg",
-      "id": 1311,
-      "slug": "kilrogg"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1312?namespace=dynamic-eu"
-      },
-      "name": "Aerie Peak",
-      "id": 1312,
-      "slug": "aerie-peak"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1313?namespace=dynamic-eu"
-      },
-      "name": "Wildhammer",
-      "id": 1313,
-      "slug": "wildhammer"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1314?namespace=dynamic-eu"
-      },
-      "name": "Saurfang",
-      "id": 1314,
-      "slug": "saurfang"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1316?namespace=dynamic-eu"
-      },
-      "name": "Nemesis",
-      "id": 1316,
-      "slug": "nemesis"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1317?namespace=dynamic-eu"
-      },
-      "name": "Darkmoon Faire",
-      "id": 1317,
-      "slug": "darkmoon-faire"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1318?namespace=dynamic-eu"
-      },
-      "name": "Vek'lor",
-      "id": 1318,
-      "slug": "veklor"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1319?namespace=dynamic-eu"
-      },
-      "name": "Mug'thol",
-      "id": 1319,
-      "slug": "mugthol"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1320?namespace=dynamic-eu"
-      },
-      "name": "Taerar",
-      "id": 1320,
-      "slug": "taerar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1321?namespace=dynamic-eu"
-      },
-      "name": "Dalvengyr",
-      "id": 1321,
-      "slug": "dalvengyr"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1322?namespace=dynamic-eu"
-      },
-      "name": "Rajaxx",
-      "id": 1322,
-      "slug": "rajaxx"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1323?namespace=dynamic-eu"
-      },
-      "name": "Ulduar",
-      "id": 1323,
-      "slug": "ulduar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1324?namespace=dynamic-eu"
-      },
-      "name": "Malorne",
-      "id": 1324,
-      "slug": "malorne"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1326?namespace=dynamic-eu"
-      },
-      "name": "Der abyssische Rat",
-      "id": 1326,
-      "slug": "der-abyssische-rat"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1327?namespace=dynamic-eu"
-      },
-      "name": "Der Mithrilorden",
-      "id": 1327,
-      "slug": "der-mithrilorden"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1328?namespace=dynamic-eu"
-      },
-      "name": "Tirion",
-      "id": 1328,
-      "slug": "tirion"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1330?namespace=dynamic-eu"
-      },
-      "name": "Ambossar",
-      "id": 1330,
-      "slug": "ambossar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1331?namespace=dynamic-eu"
-      },
-      "name": "Suramar",
-      "id": 1331,
-      "slug": "suramar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1332?namespace=dynamic-eu"
-      },
-      "name": "Krasus",
-      "id": 1332,
-      "slug": "krasus"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1333?namespace=dynamic-eu"
-      },
-      "name": "Die Nachtwache",
-      "id": 1333,
-      "slug": "die-nachtwache"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1334?namespace=dynamic-eu"
-      },
-      "name": "Arathi",
-      "id": 1334,
-      "slug": "arathi"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1335?namespace=dynamic-eu"
-      },
-      "name": "Ysondre",
-      "id": 1335,
-      "slug": "ysondre"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1336?namespace=dynamic-eu"
-      },
-      "name": "Eldre'Thalas",
-      "id": 1336,
-      "slug": "eldrethalas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1337?namespace=dynamic-eu"
-      },
-      "name": "Culte de la Rive noire",
-      "id": 1337,
-      "slug": "culte-de-la-rive-noire"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1378?namespace=dynamic-eu"
-      },
-      "name": "Dun Modr",
-      "id": 1378,
-      "slug": "dun-modr"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1379?namespace=dynamic-eu"
-      },
-      "name": "Zul'jin",
-      "id": 1379,
-      "slug": "zuljin"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1380?namespace=dynamic-eu"
-      },
-      "name": "Uldum",
-      "id": 1380,
-      "slug": "uldum"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1381?namespace=dynamic-eu"
-      },
-      "name": "C'Thun",
-      "id": 1381,
-      "slug": "cthun"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1382?namespace=dynamic-eu"
-      },
-      "name": "Sanguino",
-      "id": 1382,
-      "slug": "sanguino"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1383?namespace=dynamic-eu"
-      },
-      "name": "Shen'dralar",
-      "id": 1383,
-      "slug": "shendralar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1384?namespace=dynamic-eu"
-      },
-      "name": "Tyrande",
-      "id": 1384,
-      "slug": "tyrande"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1385?namespace=dynamic-eu"
-      },
-      "name": "Exodar",
-      "id": 1385,
-      "slug": "exodar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1386?namespace=dynamic-eu"
-      },
-      "name": "Minahonda",
-      "id": 1386,
-      "slug": "minahonda"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1387?namespace=dynamic-eu"
-      },
-      "name": "Los Errantes",
-      "id": 1387,
-      "slug": "los-errantes"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1388?namespace=dynamic-eu"
-      },
-      "name": "Lightbringer",
-      "id": 1388,
-      "slug": "lightbringer"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1389?namespace=dynamic-eu"
-      },
-      "name": "Darkspear",
-      "id": 1389,
-      "slug": "darkspear"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1391?namespace=dynamic-eu"
-      },
-      "name": "Alonsus",
-      "id": 1391,
-      "slug": "alonsus"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1392?namespace=dynamic-eu"
-      },
-      "name": "Burning Steppes",
-      "id": 1392,
-      "slug": "burning-steppes"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1393?namespace=dynamic-eu"
-      },
-      "name": "Bronze Dragonflight",
-      "id": 1393,
-      "slug": "bronze-dragonflight"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1394?namespace=dynamic-eu"
-      },
-      "name": "Anachronos",
-      "id": 1394,
-      "slug": "anachronos"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1395?namespace=dynamic-eu"
-      },
-      "name": "Spirestone",
-      "id": 1395,
-      "slug": "colinas-pardas"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1400?namespace=dynamic-eu"
-      },
-      "name": "Un'Goro",
-      "id": 1400,
-      "slug": "ungoro"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1401?namespace=dynamic-eu"
-      },
-      "name": "Garrosh",
-      "id": 1401,
-      "slug": "garrosh"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1404?namespace=dynamic-eu"
-      },
-      "name": "Area 52",
-      "id": 1404,
-      "slug": "area-52"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1405?namespace=dynamic-eu"
-      },
-      "name": "Todeswache",
-      "id": 1405,
-      "slug": "todeswache"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1406?namespace=dynamic-eu"
-      },
-      "name": "Arygos",
-      "id": 1406,
-      "slug": "arygos"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1407?namespace=dynamic-eu"
-      },
-      "name": "Teldrassil",
-      "id": 1407,
-      "slug": "teldrassil"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1408?namespace=dynamic-eu"
-      },
-      "name": "Norgannon",
-      "id": 1408,
-      "slug": "norgannon"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1409?namespace=dynamic-eu"
-      },
-      "name": "Lordaeron",
-      "id": 1409,
-      "slug": "lordaeron"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1413?namespace=dynamic-eu"
-      },
-      "name": "Aggra (Português)",
-      "id": 1413,
-      "slug": "aggra-português"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1415?namespace=dynamic-eu"
-      },
-      "name": "Terokkar",
-      "id": 1415,
-      "slug": "terokkar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1416?namespace=dynamic-eu"
-      },
-      "name": "Blade's Edge",
-      "id": 1416,
-      "slug": "blades-edge"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1417?namespace=dynamic-eu"
-      },
-      "name": "Azuremyst",
-      "id": 1417,
-      "slug": "azuremyst"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1587?namespace=dynamic-eu"
-      },
-      "name": "Hellfire",
-      "id": 1587,
-      "slug": "hellfire"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1588?namespace=dynamic-eu"
-      },
-      "name": "Ghostlands",
-      "id": 1588,
-      "slug": "ghostlands"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1589?namespace=dynamic-eu"
-      },
-      "name": "Nagrand",
-      "id": 1589,
-      "slug": "nagrand"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1595?namespace=dynamic-eu"
-      },
-      "name": "The Sha'tar",
-      "id": 1595,
-      "slug": "the-shatar"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1596?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1596?namespace=dynamic-eu" },
       "name": "Karazhan",
       "id": 1596,
       "slug": "karazhan"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1597?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1597?namespace=dynamic-eu" },
       "name": "Auchindoun",
       "id": 1597,
       "slug": "auchindoun"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1598?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1598?namespace=dynamic-eu" },
       "name": "Shattered Halls",
       "id": 1598,
       "slug": "shattered-halls"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1602?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1602?namespace=dynamic-eu" },
       "name": "Гордунни",
       "id": 1602,
       "slug": "gordunni"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1603?namespace=dynamic-eu"
-      },
-      "name": "Король-лич",
-      "id": 1603,
-      "slug": "lich-king"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1604?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1604?namespace=dynamic-eu" },
       "name": "Свежеватель Душ",
       "id": 1604,
       "slug": "soulflayer"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1605?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1605?namespace=dynamic-eu" },
       "name": "Страж Смерти",
       "id": 1605,
       "slug": "deathguard"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1606?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1606?namespace=dynamic-eu" },
       "name": "Sporeggar",
       "id": 1606,
       "slug": "sporeggar"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1607?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1607?namespace=dynamic-eu" },
       "name": "Nethersturm",
       "id": 1607,
       "slug": "nethersturm"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1608?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1608?namespace=dynamic-eu" },
       "name": "Shattrath",
       "id": 1608,
       "slug": "shattrath"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1609?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1609?namespace=dynamic-eu" },
       "name": "Подземье",
       "id": 1609,
       "slug": "deepholm"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1610?namespace=dynamic-eu"
-      },
-      "name": "Седогрив",
-      "id": 1610,
-      "slug": "greymane"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1611?namespace=dynamic-eu"
-      },
-      "name": "Festung der Stürme",
-      "id": 1611,
-      "slug": "festung-der-stürme"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1612?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1612?namespace=dynamic-eu" },
       "name": "Echsenkessel",
       "id": 1612,
       "slug": "echsenkessel"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1613?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1613?namespace=dynamic-eu" },
       "name": "Blutkessel",
       "id": 1613,
       "slug": "blutkessel"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1614?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1614?namespace=dynamic-eu" },
       "name": "Галакронд",
       "id": 1614,
       "slug": "galakrond"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1615?namespace=dynamic-eu"
-      },
-      "name": "Ревущий фьорд",
-      "id": 1615,
-      "slug": "howling-fjord"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1616?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1616?namespace=dynamic-eu" },
       "name": "Разувий",
       "id": 1616,
       "slug": "razuvious"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1617?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1617?namespace=dynamic-eu" },
       "name": "Ткач Смерти",
       "id": 1617,
       "slug": "deathweaver"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1618?namespace=dynamic-eu"
-      },
-      "name": "Die Aldor",
-      "id": 1618,
-      "slug": "die-aldor"
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/551?namespace=dynamic-eu" },
+      "name": "Terenas",
+      "id": 551,
+      "slug": "terenas"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1619?namespace=dynamic-eu"
-      },
-      "name": "Das Konsortium",
-      "id": 1619,
-      "slug": "das-konsortium"
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/552?namespace=dynamic-eu" },
+      "name": "Thunderhorn",
+      "id": 552,
+      "slug": "thunderhorn"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1620?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/553?namespace=dynamic-eu" },
+      "name": "Turalyon",
+      "id": 553,
+      "slug": "turalyon"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/554?namespace=dynamic-eu" },
+      "name": "Ravencrest",
+      "id": 554,
+      "slug": "ravencrest"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/556?namespace=dynamic-eu" },
+      "name": "Shattered Hand",
+      "id": 556,
+      "slug": "shattered-hand"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/558?namespace=dynamic-eu" },
+      "name": "Spinebreaker",
+      "id": 558,
+      "slug": "spinebreaker"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/560?namespace=dynamic-eu" },
+      "name": "Stormscale",
+      "id": 560,
+      "slug": "stormscale"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/561?namespace=dynamic-eu" },
+      "name": "Earthen Ring",
+      "id": 561,
+      "slug": "earthen-ring"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/562?namespace=dynamic-eu" },
+      "name": "Alexstrasza",
+      "id": 562,
+      "slug": "alexstrasza"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/563?namespace=dynamic-eu" },
+      "name": "Alleria",
+      "id": 563,
+      "slug": "alleria"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/564?namespace=dynamic-eu" },
+      "name": "Antonidas",
+      "id": 564,
+      "slug": "antonidas"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/566?namespace=dynamic-eu" },
+      "name": "Blackhand",
+      "id": 566,
+      "slug": "blackhand"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/567?namespace=dynamic-eu" },
+      "name": "Gilneas",
+      "id": 567,
+      "slug": "gilneas"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/568?namespace=dynamic-eu" },
+      "name": "Kargath",
+      "id": 568,
+      "slug": "kargath"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/569?namespace=dynamic-eu" },
+      "name": "Khaz'goroth",
+      "id": 569,
+      "slug": "khazgoroth"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/571?namespace=dynamic-eu" },
+      "name": "Madmortem",
+      "id": 571,
+      "slug": "madmortem"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/573?namespace=dynamic-eu" },
+      "name": "Zuluhed",
+      "id": 573,
+      "slug": "zuluhed"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/574?namespace=dynamic-eu" },
+      "name": "Nozdormu",
+      "id": 574,
+      "slug": "nozdormu"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/575?namespace=dynamic-eu" },
+      "name": "Perenolde",
+      "id": 575,
+      "slug": "perenolde"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/577?namespace=dynamic-eu" },
+      "name": "Aegwynn",
+      "id": 577,
+      "slug": "aegwynn"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/600?namespace=dynamic-eu" },
+      "name": "Dun Morogh",
+      "id": 600,
+      "slug": "dun-morogh"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/604?namespace=dynamic-eu" },
+      "name": "Thrall",
+      "id": 604,
+      "slug": "thrall"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/605?namespace=dynamic-eu" },
+      "name": "Theradras",
+      "id": 605,
+      "slug": "theradras"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/606?namespace=dynamic-eu" },
+      "name": "Genjuros",
+      "id": 606,
+      "slug": "genjuros"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/607?namespace=dynamic-eu" },
+      "name": "Balnazzar",
+      "id": 607,
+      "slug": "balnazzar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/609?namespace=dynamic-eu" },
+      "name": "Wrathbringer",
+      "id": 609,
+      "slug": "wrathbringer"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1090?namespace=dynamic-eu" },
+      "name": "Talnivarr",
+      "id": 1090,
+      "slug": "talnivarr"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1091?namespace=dynamic-eu" },
+      "name": "Emeriss",
+      "id": 1091,
+      "slug": "emeriss"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1092?namespace=dynamic-eu" },
+      "name": "Drak'thul",
+      "id": 1092,
+      "slug": "drakthul"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1093?namespace=dynamic-eu" },
+      "name": "Ahn'Qiraj",
+      "id": 1093,
+      "slug": "ahnqiraj"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1097?namespace=dynamic-eu" },
+      "name": "Ysera",
+      "id": 1097,
+      "slug": "ysera"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1098?namespace=dynamic-eu" },
+      "name": "Malygos",
+      "id": 1098,
+      "slug": "malygos"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1104?namespace=dynamic-eu" },
+      "name": "Anetheron",
+      "id": 1104,
+      "slug": "anetheron"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1105?namespace=dynamic-eu" },
+      "name": "Nazjatar",
+      "id": 1105,
+      "slug": "nazjatar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1106?namespace=dynamic-eu" },
+      "name": "Tichondrius",
+      "id": 1106,
+      "slug": "tichondrius"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1117?namespace=dynamic-eu" },
+      "name": "Steamwheedle Cartel",
+      "id": 1117,
+      "slug": "steamwheedle-cartel"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1118?namespace=dynamic-eu" },
+      "name": "Die ewige Wacht",
+      "id": 1118,
+      "slug": "die-ewige-wacht"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1119?namespace=dynamic-eu" },
+      "name": "Die Todeskrallen",
+      "id": 1119,
+      "slug": "die-todeskrallen"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1121?namespace=dynamic-eu" },
+      "name": "Die Arguswacht",
+      "id": 1121,
+      "slug": "die-arguswacht"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1122?namespace=dynamic-eu" },
+      "name": "Uldaman",
+      "id": 1122,
+      "slug": "uldaman"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1127?namespace=dynamic-eu" },
+      "name": "Confrérie du Thorium",
+      "id": 1127,
+      "slug": "confrérie-du-thorium"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/507?namespace=dynamic-eu" },
+      "name": "Dragonblight",
+      "id": 507,
+      "slug": "dragonblight"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1306?namespace=dynamic-eu" },
+      "name": "Tarren Mill",
+      "id": 1306,
+      "slug": "tarren-mill"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1381?namespace=dynamic-eu" },
+      "name": "C'Thun",
+      "id": 1381,
+      "slug": "cthun"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1391?namespace=dynamic-eu" },
+      "name": "Alonsus",
+      "id": 1391,
+      "slug": "alonsus"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1416?namespace=dynamic-eu" },
+      "name": "Blade's Edge",
+      "id": 1416,
+      "slug": "blades-edge"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/505?namespace=dynamic-eu" },
+      "name": "Doomhammer",
+      "id": 505,
+      "slug": "doomhammer"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/513?namespace=dynamic-eu" },
+      "name": "Twilight's Hammer",
+      "id": 513,
+      "slug": "twilights-hammer"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/526?namespace=dynamic-eu" },
+      "name": "Daggerspine",
+      "id": 526,
+      "slug": "daggerspine"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/546?namespace=dynamic-eu" },
+      "name": "Sargeras",
+      "id": 546,
+      "slug": "sargeras"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/508?namespace=dynamic-eu" },
+      "name": "Emerald Dream",
+      "id": 508,
+      "slug": "emerald-dream"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/623?namespace=dynamic-eu" },
+      "name": "Quel'Thalas",
+      "id": 623,
+      "slug": "quelthalas"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/522?namespace=dynamic-eu" },
+      "name": "Bloodscalp",
+      "id": 522,
+      "slug": "bloodscalp"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/523?namespace=dynamic-eu" },
+      "name": "Burning Blade",
+      "id": 523,
+      "slug": "burning-blade"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/525?namespace=dynamic-eu" },
+      "name": "Crushridge",
+      "id": 525,
+      "slug": "crushridge"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/528?namespace=dynamic-eu" },
+      "name": "Dragonmaw",
+      "id": 528,
+      "slug": "dragonmaw"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/529?namespace=dynamic-eu" },
+      "name": "Dunemaul",
+      "id": 529,
+      "slug": "dunemaul"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/531?namespace=dynamic-eu" },
+      "name": "Dethecus",
+      "id": 531,
+      "slug": "dethecus"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/535?namespace=dynamic-eu" },
+      "name": "Durotan",
+      "id": 535,
+      "slug": "durotan"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/500?namespace=dynamic-eu" },
+      "name": "Aggramar",
+      "id": 500,
+      "slug": "aggramar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/501?namespace=dynamic-eu" },
+      "name": "Arathor",
+      "id": 501,
+      "slug": "arathor"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/503?namespace=dynamic-eu" },
+      "name": "Azjol-Nerub",
+      "id": 503,
+      "slug": "azjolnerub"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/506?namespace=dynamic-eu" },
+      "name": "Draenor",
+      "id": 506,
+      "slug": "draenor"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/510?namespace=dynamic-eu" },
+      "name": "Vol'jin",
+      "id": 510,
+      "slug": "voljin"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/512?namespace=dynamic-eu" },
+      "name": "Arak-arahm",
+      "id": 512,
+      "slug": "arakarahm"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/515?namespace=dynamic-eu" },
+      "name": "Zenedar",
+      "id": 515,
+      "slug": "zenedar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/518?namespace=dynamic-eu" },
+      "name": "Agamaggan",
+      "id": 518,
+      "slug": "agamaggan"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/521?namespace=dynamic-eu" },
+      "name": "Bladefist",
+      "id": 521,
+      "slug": "bladefist"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1337?namespace=dynamic-eu" },
+      "name": "Culte de la Rive noire",
+      "id": 1337,
+      "slug": "culte-de-la-rive-noire"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/536?namespace=dynamic-eu" },
+      "name": "Argent Dawn",
+      "id": 536,
+      "slug": "argent-dawn"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/610?namespace=dynamic-eu" },
+      "name": "Onyxia",
+      "id": 610,
+      "slug": "onyxia"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/612?namespace=dynamic-eu" },
+      "name": "Nefarian",
+      "id": 612,
+      "slug": "nefarian"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/614?namespace=dynamic-eu" },
+      "name": "Das Syndikat",
+      "id": 614,
+      "slug": "das-syndikat"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/621?namespace=dynamic-eu" },
+      "name": "Laughing Skull",
+      "id": 621,
+      "slug": "laughing-skull"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/624?namespace=dynamic-eu" },
+      "name": "Neptulon",
+      "id": 624,
+      "slug": "neptulon"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/625?namespace=dynamic-eu" },
+      "name": "Twisting Nether",
+      "id": 625,
+      "slug": "twisting-nether"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/627?namespace=dynamic-eu" },
+      "name": "The Maelstrom",
+      "id": 627,
+      "slug": "the-maelstrom"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/630?namespace=dynamic-eu" },
+      "name": "Bloodfeather",
+      "id": 630,
+      "slug": "bloodfeather"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/632?namespace=dynamic-eu" },
+      "name": "Frostwhisper",
+      "id": 632,
+      "slug": "frostwhisper"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/633?namespace=dynamic-eu" },
+      "name": "Kor'gall",
+      "id": 633,
+      "slug": "korgall"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/635?namespace=dynamic-eu" },
+      "name": "Defias Brotherhood",
+      "id": 635,
+      "slug": "defias-brotherhood"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/642?namespace=dynamic-eu" },
+      "name": "Rashgarroth",
+      "id": 642,
+      "slug": "rashgarroth"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/647?namespace=dynamic-eu" },
+      "name": "Les Sentinelles",
+      "id": 647,
+      "slug": "les-sentinelles"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1331?namespace=dynamic-eu" },
+      "name": "Suramar",
+      "id": 1331,
+      "slug": "suramar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1401?namespace=dynamic-eu" },
+      "name": "Garrosh",
+      "id": 1401,
+      "slug": "garrosh"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1406?namespace=dynamic-eu" },
+      "name": "Arygos",
+      "id": 1406,
+      "slug": "arygos"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1407?namespace=dynamic-eu" },
+      "name": "Teldrassil",
+      "id": 1407,
+      "slug": "teldrassil"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1409?namespace=dynamic-eu" },
+      "name": "Lordaeron",
+      "id": 1409,
+      "slug": "lordaeron"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1413?namespace=dynamic-eu" },
+      "name": "Aggra (Português)",
+      "id": 1413,
+      "slug": "aggra-português"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1415?namespace=dynamic-eu" },
+      "name": "Terokkar",
+      "id": 1415,
+      "slug": "terokkar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/565?namespace=dynamic-eu" },
+      "name": "Baelgun",
+      "id": 565,
+      "slug": "baelgun"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/545?namespace=dynamic-eu" },
+      "name": "Cho'gall",
+      "id": 545,
+      "slug": "chogall"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/618?namespace=dynamic-eu" },
+      "name": "Nordrassil",
+      "id": 618,
+      "slug": "nordrassil"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/628?namespace=dynamic-eu" },
+      "name": "Sylvanas",
+      "id": 628,
+      "slug": "sylvanas"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/641?namespace=dynamic-eu" },
+      "name": "Drek'Thar",
+      "id": 641,
+      "slug": "drekthar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1588?namespace=dynamic-eu" },
+      "name": "Ghostlands",
+      "id": 1588,
+      "slug": "ghostlands"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1595?namespace=dynamic-eu" },
+      "name": "The Sha'tar",
+      "id": 1595,
+      "slug": "the-shatar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1620?namespace=dynamic-eu" },
       "name": "Chants éternels",
       "id": 1620,
       "slug": "chants-éternels"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1621?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1621?namespace=dynamic-eu" },
       "name": "Marécage de Zangar",
       "id": 1621,
       "slug": "marécage-de-zangar"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1622?namespace=dynamic-eu"
-      },
-      "name": "Temple noir",
-      "id": 1622,
-      "slug": "temple-noir"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1623?namespace=dynamic-eu"
-      },
-      "name": "Дракономор",
-      "id": 1623,
-      "slug": "fordragon"
-    },
-    {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1624?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1624?namespace=dynamic-eu" },
       "name": "Naxxramas",
       "id": 1624,
       "slug": "naxxramas"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1625?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/578?namespace=dynamic-eu" },
+      "name": "Arthas",
+      "id": 578,
+      "slug": "arthas"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/579?namespace=dynamic-eu" },
+      "name": "Azshara",
+      "id": 579,
+      "slug": "azshara"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/580?namespace=dynamic-eu" },
+      "name": "Blackmoore",
+      "id": 580,
+      "slug": "blackmoore"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/582?namespace=dynamic-eu" },
+      "name": "Destromath",
+      "id": 582,
+      "slug": "destromath"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/583?namespace=dynamic-eu" },
+      "name": "Eredar",
+      "id": 583,
+      "slug": "eredar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/585?namespace=dynamic-eu" },
+      "name": "Frostwolf",
+      "id": 585,
+      "slug": "frostwolf"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/589?namespace=dynamic-eu" },
+      "name": "Kil'jaeden",
+      "id": 589,
+      "slug": "kiljaeden"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/590?namespace=dynamic-eu" },
+      "name": "Mal'Ganis",
+      "id": 590,
+      "slug": "malganis"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/592?namespace=dynamic-eu" },
+      "name": "Zirkel des Cenarius",
+      "id": 592,
+      "slug": "zirkel-des-cenarius"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/629?namespace=dynamic-eu" },
+      "name": "Vashj",
+      "id": 629,
+      "slug": "vashj"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/542?namespace=dynamic-eu" },
+      "name": "Hyjal",
+      "id": 542,
+      "slug": "hyjal"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1323?namespace=dynamic-eu" },
+      "name": "Ulduar",
+      "id": 1323,
+      "slug": "ulduar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1615?namespace=dynamic-eu" },
+      "name": "Ревущий фьорд",
+      "id": 1615,
+      "slug": "howling-fjord"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/519?namespace=dynamic-eu" },
+      "name": "Al'Akir",
+      "id": 519,
+      "slug": "alakir"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/559?namespace=dynamic-eu" },
+      "name": "Stormreaver",
+      "id": 559,
+      "slug": "stormreaver"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/622?namespace=dynamic-eu" },
+      "name": "Magtheridon",
+      "id": 622,
+      "slug": "magtheridon"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/637?namespace=dynamic-eu" },
+      "name": "Lightning's Blade",
+      "id": 637,
+      "slug": "lightnings-blade"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/537?namespace=dynamic-eu" },
+      "name": "Kirin Tor",
+      "id": 537,
+      "slug": "kirin-tor"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/539?namespace=dynamic-eu" },
+      "name": "Archimonde",
+      "id": 539,
+      "slug": "archimonde"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/540?namespace=dynamic-eu" },
+      "name": "Elune",
+      "id": 540,
+      "slug": "elune"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1307?namespace=dynamic-eu" },
+      "name": "Chamber of Aspects",
+      "id": 1307,
+      "slug": "chamber-of-aspects"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1308?namespace=dynamic-eu" },
+      "name": "Ravenholdt",
+      "id": 1308,
+      "slug": "ravenholdt"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1309?namespace=dynamic-eu" },
+      "name": "Pozzo dell'Eternità",
+      "id": 1309,
+      "slug": "pozzo-delleternità"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1310?namespace=dynamic-eu" },
+      "name": "Eonar",
+      "id": 1310,
+      "slug": "eonar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1298?namespace=dynamic-eu" },
+      "name": "Vek'nilash",
+      "id": 1298,
+      "slug": "veknilash"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1300?namespace=dynamic-eu" },
+      "name": "Frostmane",
+      "id": 1300,
+      "slug": "frostmane"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/504?namespace=dynamic-eu" },
+      "name": "Bloodhoof",
+      "id": 504,
+      "slug": "bloodhoof"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/543?namespace=dynamic-eu" },
+      "name": "Kael'thas",
+      "id": 543,
+      "slug": "kaelthas"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/638?namespace=dynamic-eu" },
+      "name": "Haomarush",
+      "id": 638,
+      "slug": "haomarush"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/640?namespace=dynamic-eu" },
+      "name": "Khaz Modan",
+      "id": 640,
+      "slug": "khaz-modan"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/645?namespace=dynamic-eu" },
+      "name": "Varimathras",
+      "id": 645,
+      "slug": "varimathras"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/646?namespace=dynamic-eu" },
+      "name": "Hakkar",
+      "id": 646,
+      "slug": "hakkar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/581?namespace=dynamic-eu" },
+      "name": "Blackrock",
+      "id": 581,
+      "slug": "blackrock"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/588?namespace=dynamic-eu" },
+      "name": "Kel'Thuzad",
+      "id": 588,
+      "slug": "kelthuzad"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/591?namespace=dynamic-eu" },
+      "name": "Mannoroth",
+      "id": 591,
+      "slug": "mannoroth"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/593?namespace=dynamic-eu" },
+      "name": "Proudmoore",
+      "id": 593,
+      "slug": "proudmoore"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/509?namespace=dynamic-eu" },
+      "name": "Garona",
+      "id": 509,
+      "slug": "garona"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1317?namespace=dynamic-eu" },
+      "name": "Darkmoon Faire",
+      "id": 1317,
+      "slug": "darkmoon-faire"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1318?namespace=dynamic-eu" },
+      "name": "Vek'lor",
+      "id": 1318,
+      "slug": "veklor"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1319?namespace=dynamic-eu" },
+      "name": "Mug'thol",
+      "id": 1319,
+      "slug": "mugthol"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1320?namespace=dynamic-eu" },
+      "name": "Taerar",
+      "id": 1320,
+      "slug": "taerar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1321?namespace=dynamic-eu" },
+      "name": "Dalvengyr",
+      "id": 1321,
+      "slug": "dalvengyr"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1322?namespace=dynamic-eu" },
+      "name": "Rajaxx",
+      "id": 1322,
+      "slug": "rajaxx"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1324?namespace=dynamic-eu" },
+      "name": "Malorne",
+      "id": 1324,
+      "slug": "malorne"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1326?namespace=dynamic-eu" },
+      "name": "Der abyssische Rat",
+      "id": 1326,
+      "slug": "der-abyssische-rat"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1327?namespace=dynamic-eu" },
+      "name": "Der Mithrilorden",
+      "id": 1327,
+      "slug": "der-mithrilorden"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1330?namespace=dynamic-eu" },
+      "name": "Ambossar",
+      "id": 1330,
+      "slug": "ambossar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1332?namespace=dynamic-eu" },
+      "name": "Krasus",
+      "id": 1332,
+      "slug": "krasus"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1334?namespace=dynamic-eu" },
+      "name": "Arathi",
+      "id": 1334,
+      "slug": "arathi"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1335?namespace=dynamic-eu" },
+      "name": "Ysondre",
+      "id": 1335,
+      "slug": "ysondre"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1336?namespace=dynamic-eu" },
+      "name": "Eldre'Thalas",
+      "id": 1336,
+      "slug": "eldrethalas"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1311?namespace=dynamic-eu" },
+      "name": "Kilrogg",
+      "id": 1311,
+      "slug": "kilrogg"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1313?namespace=dynamic-eu" },
+      "name": "Wildhammer",
+      "id": 1313,
+      "slug": "wildhammer"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1314?namespace=dynamic-eu" },
+      "name": "Saurfang",
+      "id": 1314,
+      "slug": "saurfang"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1316?namespace=dynamic-eu" },
+      "name": "Nemesis",
+      "id": 1316,
+      "slug": "nemesis"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1623?namespace=dynamic-eu" },
+      "name": "Дракономор",
+      "id": 1623,
+      "slug": "fordragon"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1625?namespace=dynamic-eu" },
       "name": "Борейская тундра",
       "id": 1625,
       "slug": "borean-tundra"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1626?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1626?namespace=dynamic-eu" },
       "name": "Les Clairvoyants",
       "id": 1626,
       "slug": "les-clairvoyants"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1922?namespace=dynamic-eu"
-      },
-      "name": "Азурегос",
-      "id": 1922,
-      "slug": "azuregos"
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/557?namespace=dynamic-eu" },
+      "name": "Skullcrusher",
+      "id": 557,
+      "slug": "skullcrusher"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1923?namespace=dynamic-eu"
-      },
-      "name": "Ясеневый лес",
-      "id": 1923,
-      "slug": "ashenvale"
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/570?namespace=dynamic-eu" },
+      "name": "Lothar",
+      "id": 570,
+      "slug": "lothar"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1924?namespace=dynamic-eu"
-      },
-      "name": "Пиратская Бухта",
-      "id": 1924,
-      "slug": "booty-bay"
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/533?namespace=dynamic-eu" },
+      "name": "Sinstralis",
+      "id": 533,
+      "slug": "sinstralis"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1925?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/615?namespace=dynamic-eu" },
+      "name": "Terrordar",
+      "id": 615,
+      "slug": "terrordar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1096?namespace=dynamic-eu" },
+      "name": "Scarshield Legion",
+      "id": 1096,
+      "slug": "scarshield-legion"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1082?namespace=dynamic-eu" },
+      "name": "Kul Tiras",
+      "id": 1082,
+      "slug": "kul-tiras"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/550?namespace=dynamic-eu" },
+      "name": "Stormrage",
+      "id": 550,
+      "slug": "stormrage"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/544?namespace=dynamic-eu" },
+      "name": "Ner'zhul",
+      "id": 544,
+      "slug": "nerzhul"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1378?namespace=dynamic-eu" },
+      "name": "Dun Modr",
+      "id": 1378,
+      "slug": "dun-modr"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1379?namespace=dynamic-eu" },
+      "name": "Zul'jin",
+      "id": 1379,
+      "slug": "zuljin"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1380?namespace=dynamic-eu" },
+      "name": "Uldum",
+      "id": 1380,
+      "slug": "uldum"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1382?namespace=dynamic-eu" },
+      "name": "Sanguino",
+      "id": 1382,
+      "slug": "sanguino"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1383?namespace=dynamic-eu" },
+      "name": "Shen'dralar",
+      "id": 1383,
+      "slug": "shendralar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1384?namespace=dynamic-eu" },
+      "name": "Tyrande",
+      "id": 1384,
+      "slug": "tyrande"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1385?namespace=dynamic-eu" },
+      "name": "Exodar",
+      "id": 1385,
+      "slug": "exodar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1387?namespace=dynamic-eu" },
+      "name": "Los Errantes",
+      "id": 1387,
+      "slug": "los-errantes"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1388?namespace=dynamic-eu" },
+      "name": "Lightbringer",
+      "id": 1388,
+      "slug": "lightbringer"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1389?namespace=dynamic-eu" },
+      "name": "Darkspear",
+      "id": 1389,
+      "slug": "darkspear"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1392?namespace=dynamic-eu" },
+      "name": "Burning Steppes",
+      "id": 1392,
+      "slug": "burning-steppes"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1393?namespace=dynamic-eu" },
+      "name": "Bronze Dragonflight",
+      "id": 1393,
+      "slug": "bronze-dragonflight"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1394?namespace=dynamic-eu" },
+      "name": "Anachronos",
+      "id": 1394,
+      "slug": "anachronos"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1395?namespace=dynamic-eu" },
+      "name": "Spirestone",
+      "id": 1395,
+      "slug": "colinas-pardas"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1400?namespace=dynamic-eu" },
+      "name": "Un'Goro",
+      "id": 1400,
+      "slug": "ungoro"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/541?namespace=dynamic-eu" },
+      "name": "Illidan",
+      "id": 541,
+      "slug": "illidan"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1099?namespace=dynamic-eu" },
+      "name": "Rexxar",
+      "id": 1099,
+      "slug": "rexxar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1611?namespace=dynamic-eu" },
+      "name": "Festung der Stürme",
+      "id": 1611,
+      "slug": "festung-der-stürme"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/587?namespace=dynamic-eu" },
+      "name": "Gul'dan",
+      "id": 587,
+      "slug": "guldan"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/502?namespace=dynamic-eu" },
+      "name": "Aszune",
+      "id": 502,
+      "slug": "aszune"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1312?namespace=dynamic-eu" },
+      "name": "Aerie Peak",
+      "id": 1312,
+      "slug": "aerie-peak"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/639?namespace=dynamic-eu" },
+      "name": "Xavius",
+      "id": 639,
+      "slug": "xavius"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/643?namespace=dynamic-eu" },
+      "name": "Throk'Feroth",
+      "id": 643,
+      "slug": "throkferoth"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1386?namespace=dynamic-eu" },
+      "name": "Minahonda",
+      "id": 1386,
+      "slug": "minahonda"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1328?namespace=dynamic-eu" },
+      "name": "Tirion",
+      "id": 1328,
+      "slug": "tirion"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/602?namespace=dynamic-eu" },
+      "name": "Sen'jin",
+      "id": 602,
+      "slug": "senjin"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1088?namespace=dynamic-eu" },
+      "name": "Trollbane",
+      "id": 1088,
+      "slug": "trollbane"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/601?namespace=dynamic-eu" },
+      "name": "Aman'Thul",
+      "id": 601,
+      "slug": "amanthul"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1081?namespace=dynamic-eu" },
+      "name": "Bronzebeard",
+      "id": 1081,
+      "slug": "bronzebeard"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1618?namespace=dynamic-eu" },
+      "name": "Die Aldor",
+      "id": 1618,
+      "slug": "die-aldor"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1622?namespace=dynamic-eu" },
+      "name": "Temple noir",
+      "id": 1622,
+      "slug": "temple-noir"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1925?namespace=dynamic-eu" },
       "name": "Вечная Песня",
       "id": 1925,
       "slug": "eversong"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1926?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1926?namespace=dynamic-eu" },
       "name": "Термоштепсель",
       "id": 1926,
       "slug": "thermaplugg"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1927?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1927?namespace=dynamic-eu" },
       "name": "Гром",
       "id": 1927,
       "slug": "grom"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1928?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1928?namespace=dynamic-eu" },
       "name": "Голдринн",
       "id": 1928,
       "slug": "goldrinn"
     },
     {
-      "key": {
-        "href": "https://eu.api.blizzard.com/data/wow/realm/1929?namespace=dynamic-eu"
-      },
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1929?namespace=dynamic-eu" },
       "name": "Черный Шрам",
       "id": 1929,
       "slug": "blackscar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/516?namespace=dynamic-eu" },
+      "name": "Forscherliga",
+      "id": 516,
+      "slug": "forscherliga"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1123?namespace=dynamic-eu" },
+      "name": "Eitrigg",
+      "id": 1123,
+      "slug": "eitrigg"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1405?namespace=dynamic-eu" },
+      "name": "Todeswache",
+      "id": 1405,
+      "slug": "todeswache"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/538?namespace=dynamic-eu" },
+      "name": "Dalaran",
+      "id": 538,
+      "slug": "dalaran"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/584?namespace=dynamic-eu" },
+      "name": "Frostmourne",
+      "id": 584,
+      "slug": "frostmourne"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/572?namespace=dynamic-eu" },
+      "name": "Malfurion",
+      "id": 572,
+      "slug": "malfurion"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/616?namespace=dynamic-eu" },
+      "name": "Krag'jin",
+      "id": 616,
+      "slug": "kragjin"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/586?namespace=dynamic-eu" },
+      "name": "Gorgonnash",
+      "id": 586,
+      "slug": "gorgonnash"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/524?namespace=dynamic-eu" },
+      "name": "Burning Legion",
+      "id": 524,
+      "slug": "burning-legion"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1417?namespace=dynamic-eu" },
+      "name": "Azuremyst",
+      "id": 1417,
+      "slug": "azuremyst"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/608?namespace=dynamic-eu" },
+      "name": "Anub'arak",
+      "id": 608,
+      "slug": "anubarak"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/611?namespace=dynamic-eu" },
+      "name": "Nera'thor",
+      "id": 611,
+      "slug": "nerathor"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/613?namespace=dynamic-eu" },
+      "name": "Kult der Verdammten",
+      "id": 613,
+      "slug": "kult-der-verdammten"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/617?namespace=dynamic-eu" },
+      "name": "Der Rat von Dalaran",
+      "id": 617,
+      "slug": "der-rat-von-dalaran"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/619?namespace=dynamic-eu" },
+      "name": "Hellscream",
+      "id": 619,
+      "slug": "hellscream"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/626?namespace=dynamic-eu" },
+      "name": "Ragnaros",
+      "id": 626,
+      "slug": "ragnaros"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/631?namespace=dynamic-eu" },
+      "name": "Darksorrow",
+      "id": 631,
+      "slug": "darksorrow"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/636?namespace=dynamic-eu" },
+      "name": "The Venture Co",
+      "id": 636,
+      "slug": "the-venture-co"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1303?namespace=dynamic-eu" },
+      "name": "Grim Batol",
+      "id": 1303,
+      "slug": "grim-batol"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1304?namespace=dynamic-eu" },
+      "name": "Jaedenar",
+      "id": 1304,
+      "slug": "jaedenar"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1305?namespace=dynamic-eu" },
+      "name": "Kazzak",
+      "id": 1305,
+      "slug": "kazzak"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1085?namespace=dynamic-eu" },
+      "name": "Moonglade",
+      "id": 1085,
+      "slug": "moonglade"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/644?namespace=dynamic-eu" },
+      "name": "Conseil des Ombres",
+      "id": 644,
+      "slug": "conseil-des-ombres"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/594?namespace=dynamic-eu" },
+      "name": "Nathrezim",
+      "id": 594,
+      "slug": "nathrezim"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1619?namespace=dynamic-eu" },
+      "name": "Das Konsortium",
+      "id": 1619,
+      "slug": "das-konsortium"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1299?namespace=dynamic-eu" },
+      "name": "Boulderfist",
+      "id": 1299,
+      "slug": "boulderfist"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/527?namespace=dynamic-eu" },
+      "name": "Deathwing",
+      "id": 527,
+      "slug": "deathwing"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1404?namespace=dynamic-eu" },
+      "name": "Area 52",
+      "id": 1404,
+      "slug": "area-52"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1333?namespace=dynamic-eu" },
+      "name": "Die Nachtwache",
+      "id": 1333,
+      "slug": "die-nachtwache"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1924?namespace=dynamic-eu" },
+      "name": "Пиратская Бухта",
+      "id": 1924,
+      "slug": "booty-bay"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1603?namespace=dynamic-eu" },
+      "name": "Король-лич",
+      "id": 1603,
+      "slug": "lich-king"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1587?namespace=dynamic-eu" },
+      "name": "Hellfire",
+      "id": 1587,
+      "slug": "hellfire"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1301?namespace=dynamic-eu" },
+      "name": "Outland",
+      "id": 1301,
+      "slug": "outland"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1610?namespace=dynamic-eu" },
+      "name": "Седогрив",
+      "id": 1610,
+      "slug": "greymane"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/517?namespace=dynamic-eu" },
+      "name": "Medivh",
+      "id": 517,
+      "slug": "medivh"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/576?namespace=dynamic-eu" },
+      "name": "Die Silberne Hand",
+      "id": 576,
+      "slug": "die-silberne-hand"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1589?namespace=dynamic-eu" },
+      "name": "Nagrand",
+      "id": 1589,
+      "slug": "nagrand"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1922?namespace=dynamic-eu" },
+      "name": "Азурегос",
+      "id": 1922,
+      "slug": "azuregos"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1923?namespace=dynamic-eu" },
+      "name": "Ясеневый лес",
+      "id": 1923,
+      "slug": "ashenvale"
+    },
+    {
+      "key": { "href": "https://eu.api.blizzard.com/data/wow/realm/1408?namespace=dynamic-eu" },
+      "name": "Norgannon",
+      "id": 1408,
+      "slug": "norgannon"
     }
   ]
 }

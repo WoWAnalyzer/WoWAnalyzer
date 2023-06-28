@@ -25,10 +25,18 @@ const output = {
 };
 
 fs.writeFileSync(
-  './output.js',
+  './output.ts',
   `// Generated file, changes will be overwritten!
-// eslint-disable
 
-export default ${JSON.stringify(output)};
+import { Region } from 'common/regions';
+
+interface Realm {
+  name: string;
+  slug: string;
+}
+
+const REALMS: Record<Region, Realm[]> = ${JSON.stringify(output)};
+
+export default REALMS;
 `,
 );
