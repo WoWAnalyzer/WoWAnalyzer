@@ -1,4 +1,3 @@
-
 import { ARCANE_CHARGE_MAX_STACKS, ARCANE_HARMONY_MAX_STACKS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -180,11 +179,7 @@ class ArcaneSurgePreReqs extends Analyzer {
         </>,
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
-        .actual(
-          <>
-            {this.badCooldownUses} Bad Cooldown Uses
-          </>,
-        )
+        .actual(<>{this.badCooldownUses} Bad Cooldown Uses</>)
         .recommended(`0 is recommended`),
     );
   }

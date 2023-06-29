@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -66,11 +65,7 @@ class Meteor extends Analyzer {
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.meteorCastEfficiency)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.meteorCastEfficiency)}% Utilization</>)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

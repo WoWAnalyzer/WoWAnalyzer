@@ -1,4 +1,3 @@
-
 import { MS_BUFFER_250 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -163,11 +162,7 @@ class FeelTheBurn extends Analyzer {
         </>,
       )
         .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% utilization</>)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

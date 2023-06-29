@@ -74,40 +74,24 @@ const CastSummaryAndBreakdown = ({
   const hasBadCasts = bad !== 0;
 
   const perfectExplanation = !perfectExtraExplanation ? (
-    <>
-      Blue is a perfect cast
-    </>
+    <>Blue is a perfect cast</>
   ) : (
-    <>
-      Blue is a perfect cast ({perfectExtraExplanation})
-    </>
+    <>Blue is a perfect cast ({perfectExtraExplanation})</>
   );
   const goodExplanation = !goodExtraExplanation ? (
-    <>
-      Green is a good cast
-    </>
+    <>Green is a good cast</>
   ) : (
-    <>
-      Green is a good cast ({goodExtraExplanation})
-    </>
+    <>Green is a good cast ({goodExtraExplanation})</>
   );
   const okExplanation = !okExtraExplanation ? (
-    <>
-      Yellow is an ok cast
-    </>
+    <>Yellow is an ok cast</>
   ) : (
-    <>
-      Yellow is an ok cast ({okExtraExplanation})
-    </>
+    <>Yellow is an ok cast ({okExtraExplanation})</>
   );
   const badExplanation = !badExtraExplanation ? (
-    <>
-      Red is a bad cast
-    </>
+    <>Red is a bad cast</>
   ) : (
-    <>
-      Red is a bad cast ({badExtraExplanation})
-    </>
+    <>Red is a bad cast ({badExtraExplanation})</>
   );
 
   const performanceExplanation = [
@@ -159,8 +143,7 @@ const CastSummaryAndBreakdown = ({
         />
       )}
       <strong>
-        <SpellLink spell={spell} />{' '}
-        <>casts</>
+        <SpellLink spell={spell} /> <>casts</>
       </strong>{' '}
       <small>
         - {performanceExplanation}. <MouseoverForMoreDetails /> <ClickToExpand />

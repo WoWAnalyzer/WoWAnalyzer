@@ -1,4 +1,3 @@
-
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import talents from 'common/TALENTS/monk';

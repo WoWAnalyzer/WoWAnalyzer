@@ -1,4 +1,3 @@
-
 import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import DiscordButton from 'interface/DiscordButton';
 import GitHubButton from 'interface/GitHubButton';
@@ -56,13 +55,9 @@ const PatchCheckerContents = ({
       <Panel
         title={
           isThisExpansion ? (
-            <>
-              This report is for an earlier patch
-            </>
+            <>This report is for an earlier patch</>
           ) : (
-            <>
-              This report is for a previous expansion
-            </>
+            <>This report is for a previous expansion</>
           )
         }
         pad={false}
@@ -113,20 +108,13 @@ const PatchCheckerContents = ({
             <div style={{ marginBottom: 15 }}>
               <GitHubButton /> <DiscordButton />
             </div>
-            <Tooltip
-              content={
-                <>
-                  Khadgar approves your bravery
-                </>
-              }
-            >
+            <Tooltip content={<>Khadgar approves your bravery</>}>
               <Link
                 to={window.location.pathname}
                 onClick={handleClickContinue}
                 style={{ fontSize: '1.1em' }}
               >
-                <Icon icon="quest_khadgar" />{' '}
-                <>Continue anyway</>
+                <Icon icon="quest_khadgar" /> <>Continue anyway</>
               </Link>
             </Tooltip>
           </div>

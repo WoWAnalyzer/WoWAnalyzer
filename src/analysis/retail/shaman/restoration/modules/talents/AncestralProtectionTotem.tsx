@@ -1,4 +1,3 @@
-
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -82,30 +81,18 @@ class AncestralProtectionTotem extends Analyzer {
 
   statistic() {
     const tooltip = this.loaded ? (
-      <>
-        This includes the APT casts of all Restoration Shamans in the fight.
-      </>
+      <>This includes the APT casts of all Restoration Shamans in the fight.</>
     ) : (
-      <>
-        Click to analyze APT usage on this fight.
-      </>
+      <>Click to analyze APT usage on this fight.</>
     );
     const value =
-      this.aptEvents.length > 0 ? (
-        <>
-          {this.aptEvents.length} events found
-        </>
-      ) : (
-        <>No Results</>
-      );
+      this.aptEvents.length > 0 ? <>{this.aptEvents.length} events found</> : <>No Results</>;
 
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
         icon={<SpellIcon id={TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />}
-        label={
-          <>Ancestral Protection Totem</>
-        }
+        label={<>Ancestral Protection Totem</>}
         value={value}
         tooltip={tooltip}
         category={STATISTIC_CATEGORY.TALENTS}

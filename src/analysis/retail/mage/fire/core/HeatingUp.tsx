@@ -1,4 +1,3 @@
-
 import {
   FIRESTARTER_THRESHOLD,
   SEARING_TOUCH_THRESHOLD,
@@ -148,11 +147,7 @@ class HeatingUp extends Analyzer {
         </>,
       )
         .icon(SPELLS.FIRE_BLAST.icon)
-        .actual(
-          <>
-            {formatPercentage(this.fireBlastUtilSuggestionThresholds.actual)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.fireBlastUtilSuggestionThresholds.actual)}% Utilization</>)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
     when(this.phoenixFlamesUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -167,9 +162,7 @@ class HeatingUp extends Analyzer {
       )
         .icon(TALENTS.PHOENIX_FLAMES_TALENT.icon)
         .actual(
-          <>
-            {formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual)}% Utilization
-          </>,
+          <>{formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual)}% Utilization</>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );

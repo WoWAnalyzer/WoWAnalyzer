@@ -1,4 +1,3 @@
-
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -108,11 +107,7 @@ class KillerCobra extends Analyzer {
             {actual} times.{' '}
           </>,
         )
-        .recommended(
-          <>
-            {recommended} is recommended.
-          </>,
-        ),
+        .recommended(<>{recommended} is recommended.</>),
     );
   }
 }

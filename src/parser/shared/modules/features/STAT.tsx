@@ -1,4 +1,3 @@
-
 import AgilityIcon from 'interface/icons/Agility';
 import AvoidanceIcon from 'interface/icons/Avoidance';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';

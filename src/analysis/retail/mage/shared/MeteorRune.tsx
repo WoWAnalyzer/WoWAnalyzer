@@ -1,4 +1,3 @@
-
 import { MS_BUFFER_100 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -83,11 +82,7 @@ class MeteorRune extends Analyzer {
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.meteorUtilization)}% Utilization`
-          </>,
-        )
+        .actual(<>{formatPercentage(this.meteorUtilization)}% Utilization`</>)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
@@ -29,12 +28,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         </>,
       )
         .icon('spell_mage_altertime')
-        .actual(
-          <>
-            {' '}
-            {formatPercentage(1 - actual)}% downtime{' '}
-          </>,
-        )
+        .actual(<> {formatPercentage(1 - actual)}% downtime </>)
         .recommended(
           <>
             {' '}

@@ -18,9 +18,7 @@ const FightDowntimeToggle = ({ initialValue, onChange, ...others }: Props) => (
     <label htmlFor="adjust-for-downtime-toggle">
       <>
         Adjust statistics for{' '}
-        <TooltipElement
-          content="Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included."
-        >
+        <TooltipElement content="Fight downtime is any forced downtime caused by fight mechanics or dying. Downtime caused by simply not doing anything is not included.">
           fight downtime
         </TooltipElement>{' '}
         (

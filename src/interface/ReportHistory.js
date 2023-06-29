@@ -1,4 +1,3 @@
-
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import { makePlainUrl } from 'interface/makeAnalyzerUrl';
 import REPORT_HISTORY_TYPES from 'interface/REPORT_HISTORY_TYPES';
@@ -26,9 +25,7 @@ const ReportHistory = (props) => {
                     {report.playerRealm} ({report.playerRegion})
                   </div>
                   <div className="flex-sub">
-                    <>
-                      viewed {Math.floor(Math.max(0, now - report.end) / 86400)}d ago
-                    </>
+                    <>viewed {Math.floor(Math.max(0, now - report.end) / 86400)}d ago</>
                   </div>
                 </div>
               </div>
@@ -50,9 +47,7 @@ const ReportHistory = (props) => {
                 <div className="flex wrapable">
                   <div>{report.fightName}</div>
                   <div className="flex-sub">
-                    <>
-                      {Math.floor(Math.max(0, now - report.end) / 86400)}d old report
-                    </>
+                    <>{Math.floor(Math.max(0, now - report.end) / 86400)}d old report</>
                   </div>
                 </div>
               </div>
@@ -62,9 +57,7 @@ const ReportHistory = (props) => {
       ))}
       {reportHistory.length === 0 && (
         <li style={{ padding: '10px 22px' }}>
-          <>
-            You haven't viewed anything yet.
-          </>
+          <>You haven't viewed anything yet.</>
         </li>
       )}
     </ul>

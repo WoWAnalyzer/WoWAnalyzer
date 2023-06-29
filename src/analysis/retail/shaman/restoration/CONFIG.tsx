@@ -1,4 +1,3 @@
-
 import { Arlie, niseko, Vohrr } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';

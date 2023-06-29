@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import { Tooltip } from 'interface';
@@ -231,12 +230,7 @@ class AlwaysBeCasting extends Analyzer {
         </>,
       )
         .icon('spell_mage_altertime')
-        .actual(
-          <>
-            {' '}
-            {formatPercentage(actual)}% downtime{' '}
-          </>,
-        )
+        .actual(<> {formatPercentage(actual)}% downtime </>)
         .recommended(
           <>
             {' '}

@@ -1,4 +1,3 @@
-
 import fetchWcl from 'common/fetchWclApi';
 import { formatThousands, formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
@@ -85,9 +84,7 @@ class SpiritLinkDamageReduction extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={TALENTS.SPIRIT_LINK_TOTEM_TALENT.id} />}
-        value={
-          <>≈{formatNumber(this.drps)} DRPS</>
-        }
+        value={<>≈{formatNumber(this.drps)} DRPS</>}
         label={<>Damage reduction</>}
         tooltip={tooltip}
         drilldown={makeWclUrl(this.owner.report.code, {

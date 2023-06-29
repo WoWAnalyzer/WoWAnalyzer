@@ -1,4 +1,3 @@
-
 import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -129,11 +128,7 @@ class BrainFreeze extends Analyzer {
         </>,
       )
         .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% overwritten
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% overwritten</>)
         .recommended(`Overwriting none is recommended`),
     );
     when(this.brainFreezeExpiredThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -145,11 +140,7 @@ class BrainFreeze extends Analyzer {
         </>,
       )
         .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% expired
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% expired</>)
         .recommended(`Letting none expire is recommended`),
     );
     when(this.overlappedFlurryThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -165,9 +156,7 @@ class BrainFreeze extends Analyzer {
         </>,
       )
         .icon(TALENTS.FLURRY_TALENT.icon)
-        .actual(
-          <>{formatNumber(actual)} casts</>,
-        )
+        .actual(<>{formatNumber(actual)} casts</>)
         .recommended(`Casting none is recommended`),
     );
   }

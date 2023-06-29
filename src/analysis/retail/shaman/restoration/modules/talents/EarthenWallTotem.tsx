@@ -1,4 +1,3 @@
-
 import { formatDuration, formatNth, formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -180,9 +179,7 @@ class EarthenWallTotem extends Analyzer {
         value={`${formatPercentage(this.earthenWallEfficiency)} %`}
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         position={STATISTIC_ORDER.OPTIONAL(60)}
-        label={
-          <>Earthen Wall Totem efficiency</>
-        }
+        label={<>Earthen Wall Totem efficiency</>}
         tooltip={
           <>
             The percentage of the potential absorb of Earthen Wall Totem that was actually used. You
@@ -247,11 +244,7 @@ class EarthenWallTotem extends Analyzer {
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalEffectiveHealing),
         )} %`}
-        valueTooltip={
-          <>
-            Pet healing is filtered out
-          </>
-        }
+        valueTooltip={<>Pet healing is filtered out</>}
       />
     );
   }

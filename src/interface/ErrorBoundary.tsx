@@ -1,4 +1,3 @@
-
 import { captureException } from 'common/errorLogger';
 import PropTypes from 'prop-types';
 import { Component, ErrorInfo, ReactNode } from 'react';
@@ -52,9 +51,7 @@ class ErrorBoundary extends Component<Props, State> {
       return (
         <div className="alert alert-danger">
           <h1 style={{ marginTop: 0 }}>
-            <>
-              An error occurred while trying to render this part of the page.
-            </>
+            <>An error occurred while trying to render this part of the page.</>
           </h1>
           <p className="text-muted">
             <>
@@ -84,9 +81,7 @@ class ErrorBoundary extends Component<Props, State> {
           )}
           {this.state.errorDetails && (
             <pre style={{ color: 'red' }}>
-              <>
-                The above error occurred in the component:
-              </>
+              <>The above error occurred in the component:</>
               {this.state.errorDetails}
             </pre>
           )}

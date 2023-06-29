@@ -1,4 +1,3 @@
-
 import { logout } from 'interface/actions/user';
 import CyclingVideo from 'interface/CyclingVideo';
 import GitHubMarkIcon from 'interface/icons/GitHubMarkLarge';
@@ -57,22 +56,16 @@ const LoggedIn = () => {
         <div className="text">
           <h1>
             <Textfit mode="single">
-              <>
-                Hello {user.name?.trim()}.
-              </>
+              <>Hello {user.name?.trim()}.</>
             </Textfit>
           </h1>
           {hasPremium ? (
             <div className="description">
-              <>
-                Super thank you for your support! We hope you'll enjoy WoWAnalyzer Premium.
-              </>
+              <>Super thank you for your support! We hope you'll enjoy WoWAnalyzer Premium.</>
             </div>
           ) : (
             <div className="description">
-              <>
-                You haven't unlocked Premium yet. See the panel to the right for more info.
-              </>
+              <>You haven't unlocked Premium yet. See the panel to the right for more info.</>
             </div>
           )}
           <div className="logout">
@@ -124,9 +117,7 @@ const PremiumLoginPanel = () => {
               <>Premium sign in</>
             </h1>
             <div className="description">
-              <>
-                Sign in with your Patreon or GitHub account using the buttons below.
-              </>
+              <>Sign in with your Patreon or GitHub account using the buttons below.</>
             </div>
           </div>
         </div>

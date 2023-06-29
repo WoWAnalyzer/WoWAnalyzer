@@ -1,4 +1,3 @@
-
 import Changelog from 'interface/Changelog';
 import Contributor from 'interface/ContributorButton';
 import Icon from 'interface/Icon';
@@ -71,22 +70,13 @@ const SupportCheckerIssue = ({
             <br />
             <br />
 
-            <Tooltip
-              content={
-                <>
-                  Khadgar approves your bravery
-                </>
-              }
-            >
+            <Tooltip content={<>Khadgar approves your bravery</>}>
               <Link
                 to={makeAnalyzerUrl(report, fight.id, player.id, selectedTab, build)}
                 onClick={onContinueAnyway}
                 style={{ fontSize: '1.2em' }}
               >
-                <Icon icon="quest_khadgar" />{' '}
-                <>
-                  I want to continue anyway
-                </>
+                <Icon icon="quest_khadgar" /> <>I want to continue anyway</>
               </Link>
             </Tooltip>
           </div>
@@ -104,10 +94,7 @@ const SupportCheckerIssue = ({
         </div>
       </Panel>
 
-      <Panel
-        title={<>Spec changelog</>}
-        pad={false}
-      >
+      <Panel title={<>Spec changelog</>} pad={false}>
         <Changelog includeCore={false} changelog={changelog} />
       </Panel>
     </Modal>

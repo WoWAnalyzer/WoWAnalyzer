@@ -1,4 +1,3 @@
-
 import Icon from 'interface/Icon';
 import UpArrow from 'interface/icons/UpArrow';
 import SpellIcon from 'interface/SpellIcon';

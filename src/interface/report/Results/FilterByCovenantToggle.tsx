@@ -1,4 +1,3 @@
-
 import { HTMLAttributes } from 'react';
 import Toggle from 'react-toggle';
 
@@ -17,9 +16,7 @@ export const FilterByCovenantToggle = ({ initialValue, onChange, ...props }: Pro
     />
     <label htmlFor="filter-for-covenant-toggle">
       <small>
-        <>
-          Filter similiar kill times by your covenant
-        </>
+        <>Filter similiar kill times by your covenant</>
       </small>
     </label>
   </div>

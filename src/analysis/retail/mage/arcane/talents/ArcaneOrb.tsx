@@ -1,4 +1,3 @@
-
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -78,11 +77,7 @@ class ArcaneOrb extends Analyzer {
         </>,
       )
         .icon(TALENTS.ARCANE_ORB_TALENT.icon)
-        .actual(
-          <>
-            {formatNumber(this.badCasts)} Missed Orbs
-          </>,
-        )
+        .actual(<>{formatNumber(this.badCasts)} Missed Orbs</>)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
   }

@@ -1,7 +1,6 @@
 import { SpellLink } from 'interface';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 
-
 import DownInFlamesExplanation from './DownInFlamesExplanation';
 import { useInfo } from 'interface/guide';
 

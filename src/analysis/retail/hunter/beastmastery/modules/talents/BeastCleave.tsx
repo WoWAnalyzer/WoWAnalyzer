@@ -1,4 +1,3 @@
-
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -132,11 +131,7 @@ class BeastCleave extends Analyzer {
               {actual} {actual === 1 ? 'cast' : 'casts'} without any Beast Cleave damage{' '}
             </>,
           )
-          .recommended(
-            <>
-              {recommended} is recommended{' '}
-            </>,
-          ),
+          .recommended(<>{recommended} is recommended </>),
       );
     }
   }

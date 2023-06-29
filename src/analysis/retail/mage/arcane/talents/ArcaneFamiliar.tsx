@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -45,11 +44,7 @@ class ArcaneFamiliar extends Analyzer {
         </>,
       )
         .icon(TALENTS.ARCANE_FAMILIAR_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.uptime)}% Uptime
-          </>,
-        )
+        .actual(<>{formatPercentage(this.uptime)}% Uptime</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

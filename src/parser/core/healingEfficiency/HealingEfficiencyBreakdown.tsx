@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -94,15 +93,9 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
           </th>
           <th colSpan={2} className="text-center">
             <TooltipElement
-              content={
-                <>
-                  Healing per second spent casting the spell, including GCD wait time.
-                </>
-              }
+              content={<>Healing per second spent casting the spell, including GCD wait time.</>}
             >
-              <>
-                Healing per second spent casting
-              </>
+              <>Healing per second spent casting</>
             </TooltipElement>
           </th>
         </>
@@ -113,9 +106,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
             <>Damage per mana spent</>
           </th>
           <th colSpan={2} className="text-center">
-            <>
-              Damage per second spent casting the spell
-            </>
+            <>Damage per second spent casting the spell</>
           </th>
         </>
       )}
@@ -176,13 +167,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
   DetailHeader = () => (
     <>
       <th>
-        <TooltipElement
-          content={
-            <>
-              Total Casts (Number of targets hit)
-            </>
-          }
-        >
+        <TooltipElement content={<>Total Casts (Number of targets hit)</>}>
           <>Casts</>
         </TooltipElement>
       </th>
@@ -201,23 +186,13 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
             <>Overhealing</>
           </th>
           <th>
-            <TooltipElement
-              content={
-                <>
-                  Healing per mana spent casting the spell
-                </>
-              }
-            >
+            <TooltipElement content={<>Healing per mana spent casting the spell</>}>
               <>HPM</>
             </TooltipElement>
           </th>
           <th>
             <TooltipElement
-              content={
-                <>
-                  Healing per second spent casting the spell, including GCD wait time.
-                </>
-              }
+              content={<>Healing per second spent casting the spell, including GCD wait time.</>}
             >
               <>HPET</>
             </TooltipElement>
@@ -230,24 +205,12 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
             <>Damage Done</>
           </th>
           <th>
-            <TooltipElement
-              content={
-                <>
-                  Damage per mana spent casting the spell
-                </>
-              }
-            >
+            <TooltipElement content={<>Damage per mana spent casting the spell</>}>
               <>DPM</>
             </TooltipElement>
           </th>
           <th>
-            <TooltipElement
-              content={
-                <>
-                  Damage per second spent casting the spell
-                </>
-              }
-            >
+            <TooltipElement content={<>Damage per second spent casting the spell</>}>
               <>DPET</>
             </TooltipElement>
           </th>

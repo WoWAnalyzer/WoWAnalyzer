@@ -1,4 +1,3 @@
-
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
@@ -59,16 +58,10 @@ class MissingBeacons extends Analyzer {
         icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />}
         value={
           <span style={{ fontSize: '75%' }}>
-            <>
-              Up to {lostBeaconHealing}
-            </>
+            <>Up to {lostBeaconHealing}</>
           </span>
         }
-        label={
-          <>
-            Beacon healing lost (missing beacon)
-          </>
-        }
+        label={<>Beacon healing lost (missing beacon)</>}
         tooltip={
           <>
             The amount of <strong>raw</strong> healing that didn't transfer to one or more beacon

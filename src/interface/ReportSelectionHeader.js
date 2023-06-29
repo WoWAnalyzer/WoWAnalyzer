@@ -1,4 +1,3 @@
-
 import AlertWarning from 'interface/AlertWarning';
 import ReportIcon from 'interface/icons/Events';
 import GuildIcon from 'interface/icons/People';
@@ -148,9 +147,7 @@ class ReportSelectionHeader extends PureComponent {
             {reportHistory.length !== 0 && (
               <div className="col-md-4 text-left" style={{ marginTop: -10, marginBottom: -10 }}>
                 <small>
-                  <>
-                    Recently viewed
-                  </>
+                  <>Recently viewed</>
                 </small>
                 <br />
 

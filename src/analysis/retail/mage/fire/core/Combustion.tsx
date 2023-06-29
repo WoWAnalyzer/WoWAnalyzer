@@ -1,4 +1,3 @@
-
 import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -215,11 +214,7 @@ class CombustionCasts extends Analyzer {
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.phoenixFlamesChargeUtil)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.phoenixFlamesChargeUtil)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
     when(this.fireBlastThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -235,11 +230,7 @@ class CombustionCasts extends Analyzer {
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.fireBlastChargeUtil)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.fireBlastChargeUtil)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
     when(this.combustionCastDelayThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -255,11 +246,7 @@ class CombustionCasts extends Analyzer {
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <>
-            {formatNumber(actual)}s Avg. Pre-Cast Delay
-          </>,
-        )
+        .actual(<>{formatNumber(actual)}s Avg. Pre-Cast Delay</>)
         .recommended(`${recommended} is recommended`),
     );
     when(this.fireballDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -277,9 +264,7 @@ class CombustionCasts extends Analyzer {
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
-          <>
-            {this.fireballDuringCombustionThresholds.actual.toFixed(2)} Casts Per Combustion
-          </>,
+          <>{this.fireballDuringCombustionThresholds.actual.toFixed(2)} Casts Per Combustion</>,
         )
         .recommended(`${formatNumber(recommended)} is recommended`),
     );

@@ -1,4 +1,3 @@
-
 import getFightName from 'common/getFightName';
 import DiscordIcon from 'interface/icons/DiscordTiny';
 import GitHubIcon from 'interface/icons/GitHubMarkSmall';
@@ -45,20 +44,14 @@ const NavigationBar = ({ children, ...others }: Props) => {
         {report && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report)}>
-              {fight ? (
-                getFightName(report, fight)
-              ) : (
-                <>Fight selection</>
-              )}
+              {fight ? getFightName(report, fight) : <>Fight selection</>}
             </Link>
           </div>
         )}
         {report && (fight || playerName) && (
           <div className="menu-item">
             <Link to={makeAnalyzerUrl(report, fight ? fight.id : undefined)}>
-              {playerName || (
-                <>Player selection</>
-              )}
+              {playerName || <>Player selection</>}
             </Link>
           </div>
         )}
@@ -79,11 +72,7 @@ const NavigationBar = ({ children, ...others }: Props) => {
         </Tooltip>
         <div className="menu-item required">
           {user && user.premium ? (
-            <Tooltip
-              content={
-                <>Premium active</>
-              }
-            >
+            <Tooltip content={<>Premium active</>}>
               <Link to="/premium">
                 <PremiumIcon /> <span className="optional">{user.name}</span>
               </Link>

@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -160,9 +159,7 @@ class BestialWrath extends Analyzer {
       )
         .icon(TALENTS.BESTIAL_WRATH_TALENT.icon)
         .actual(
-          <>
-            You had {formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath
-          </>,
+          <>You had {formatPercentage(actual)}% effective cooldown reduction of Bestial Wrath</>,
         )
         .recommended(
           <>

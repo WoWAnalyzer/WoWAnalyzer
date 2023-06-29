@@ -1,4 +1,3 @@
-
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -104,18 +103,8 @@ class BasicAttacks extends Analyzer {
         </>,
       )
         .icon(SPELLS.BITE_BASIC_ATTACK.icon)
-        .actual(
-          <>
-            {' '}
-            Your pet didn't cast any Basic Attacks this fight{' '}
-          </>,
-        )
-        .recommended(
-          <>
-            {' '}
-            Your pet should be autocast Basic Attacks{' '}
-          </>,
-        ),
+        .actual(<> Your pet didn't cast any Basic Attacks this fight </>)
+        .recommended(<> Your pet should be autocast Basic Attacks </>),
     );
   }
 

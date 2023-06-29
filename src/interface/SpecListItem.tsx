@@ -1,4 +1,3 @@
-
 import { isCurrentExpansion } from 'game/Expansion';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
@@ -44,13 +43,9 @@ const SpecListItem = ({
         {!patchCompatibility ? (
           <>Not currently supported</>
         ) : !isPartial ? (
-          <>
-            Accurate for patch {patchCompatibility}
-          </>
+          <>Accurate for patch {patchCompatibility}</>
         ) : (
-          <>
-            Partial support for patch {patchCompatibility}
-          </>
+          <>Partial support for patch {patchCompatibility}</>
         )}
         <br />
         {contributors.length !== 0 ? (

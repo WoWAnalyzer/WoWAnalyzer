@@ -1,4 +1,3 @@
-
 import { STAMPEDE_POTENTIAL_HITS } from 'analysis/retail/hunter/beastmastery/constants';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -107,11 +106,7 @@ class Stampede extends Analyzer {
             {actual} inefficient {actual > 1 ? 'casts' : 'cast'}
           </>,
         )
-        .recommended(
-          <>
-            {recommended} is recommended
-          </>,
-        ),
+        .recommended(<>{recommended} is recommended</>),
     );
   }
 

@@ -1,4 +1,3 @@
-
 import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -144,11 +143,7 @@ class GlacialSpike extends Analyzer {
         </>,
       )
         .icon(TALENTS.GLACIAL_SPIKE_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual, 1)}% utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(actual, 1)}% utilization</>)
         .recommended(`${formatPercentage(recommended, 1)}% is recommended`),
     );
   }

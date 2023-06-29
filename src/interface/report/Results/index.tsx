@@ -287,9 +287,7 @@ const Results = (props: PassedProps) => {
                 </a>
               </Tooltip>
               <br />
-              <Tooltip
-                content="Opens in a new tab. View insights and timelines for raid encounters."
-              >
+              <Tooltip content="Opens in a new tab. View insights and timelines for raid encounters.">
                 <a
                   href={`https://www.wipefest.net/report/${props.report.code}/fight/${props.fight.id}`}
                   target="_blank"

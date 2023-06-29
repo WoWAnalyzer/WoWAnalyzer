@@ -1,4 +1,3 @@
-
 import { formatPercentage, formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import UptimeIcon from 'interface/icons/Uptime';

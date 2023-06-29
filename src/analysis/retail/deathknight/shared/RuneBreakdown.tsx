@@ -36,16 +36,12 @@ class RuneBreakdown extends ResourceBreakdown {
                 <>Ability</>
               </th>
               <th colSpan={2}>
-                <TooltipElement
-                  content="Runes generated from passive regeneration and abilities that accelerate it are estimates."
-                >
+                <TooltipElement content="Runes generated from passive regeneration and abilities that accelerate it are estimates.">
                   <>{resourceName} generated</>
                 </TooltipElement>
               </th>
               <th colSpan={2}>
-                <TooltipElement
-                  content="This is the amount of resources that were generated while you were already at cap."
-                >
+                <TooltipElement content="This is the amount of resources that were generated while you were already at cap.">
                   <>{resourceName} wasted</>
                 </TooltipElement>
               </th>

@@ -1,4 +1,3 @@
-
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -94,9 +93,7 @@ class SolaceVsShieldDiscipline extends Analyzer {
               </div>
 
               <small>
-                <>
-                  Mana restored from Solace
-                </>
+                <>Mana restored from Solace</>
               </small>
             </div>
           </div>
@@ -109,9 +106,7 @@ class SolaceVsShieldDiscipline extends Analyzer {
                 this.consumedShields * (this.maxMana * SHIELD_DISC_MANA_RETURN_PERCENT),
               )}
               <small>
-                <>
-                  Shield Discipline potential return
-                </>
+                <>Shield Discipline potential return</>
               </small>
             </div>
           </div>

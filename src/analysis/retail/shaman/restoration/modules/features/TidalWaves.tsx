@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -91,11 +90,7 @@ class TidalWaves extends Analyzer {
           </>,
         )
           .icon(SPELLS.TIDAL_WAVES_BUFF.icon)
-          .actual(
-            <>
-              {formatPercentage(suggestedThresholds.actual)}% unused Tidal waves
-            </>,
-          )
+          .actual(<>{formatPercentage(suggestedThresholds.actual)}% unused Tidal waves</>)
           .recommended(
             <>
               Less than {formatPercentage(suggestedThresholds.isGreaterThan.minor, 0)}% unused is

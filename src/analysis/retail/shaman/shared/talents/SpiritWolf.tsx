@@ -1,4 +1,3 @@
-
 import { formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';

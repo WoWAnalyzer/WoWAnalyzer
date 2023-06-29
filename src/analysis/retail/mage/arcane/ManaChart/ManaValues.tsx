@@ -1,4 +1,3 @@
-
 import { formatPercentage, formatNumber } from 'common/format';
 import { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';

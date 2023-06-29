@@ -106,8 +106,7 @@ class ImmolationAura extends Analyzer {
               totalCasts={totalCasts}
             />
             <strong>
-              <SpellLink spell={SPELLS.IMMOLATION_AURA} />{' '}
-              <>cast efficiency</>
+              <SpellLink spell={SPELLS.IMMOLATION_AURA} /> <>cast efficiency</>
             </strong>
             <CastEfficiencyBar
               spellId={SPELLS.IMMOLATION_AURA.id}

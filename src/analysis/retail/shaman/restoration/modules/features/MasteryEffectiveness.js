@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -93,22 +92,11 @@ class MasteryEffectiveness extends Analyzer {
               </>
             }
           >
-            <>
-              Mastery benefit
-            </>
+            <>Mastery benefit</>
           </TooltipElement>
         }
       />,
-      <Panel
-        key="Panel"
-        title={
-          <>
-            Mastery effectiveness breakdown
-          </>
-        }
-        position={200}
-        pad={false}
-      >
+      <Panel key="Panel" title={<>Mastery effectiveness breakdown</>} position={200} pad={false}>
         <PlayerBreakdown
           report={this.report}
           spellreport={this.spellReport}

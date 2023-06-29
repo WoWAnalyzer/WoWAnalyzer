@@ -1,4 +1,3 @@
-
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
 import { Icon, SpellIcon, SpellLink } from 'interface';
 import { Tooltip, TooltipElement } from 'interface';

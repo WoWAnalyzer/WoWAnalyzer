@@ -1,4 +1,3 @@
-
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -42,11 +41,7 @@ class LightOfDawn extends Analyzer {
         <BoringSpellValue
           spellId={TALENTS.LIGHT_OF_DAWN_TALENT.id}
           value={playersHitPerCast.toFixed(2)}
-          label={
-            <>
-              Average targets hit per cast
-            </>
-          }
+          label={<>Average targets hit per cast</>}
           className="light-of-dawn-hits-per-cast"
           extra={<PlayerHits performance={performance} />}
         />

@@ -1,4 +1,3 @@
-
 import ITEMS from 'common/ITEMS/classic/potions';
 import SPELLS from 'common/SPELLS/classic/potions';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';

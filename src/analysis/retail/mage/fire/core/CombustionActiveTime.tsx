@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -104,11 +103,7 @@ class CombustionActiveTime extends Analyzer {
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.percentActiveTime)}% Active Time during Combustion
-          </>,
-        )
+        .actual(<>{formatPercentage(this.percentActiveTime)}% Active Time during Combustion</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

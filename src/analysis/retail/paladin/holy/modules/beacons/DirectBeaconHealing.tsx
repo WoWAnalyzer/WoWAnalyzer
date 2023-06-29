@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -125,11 +124,7 @@ class DirectBeaconHealing extends Analyzer {
               {formatPercentage(actual)}% of all your healing spell casts were on a beacon target
             </>,
           )
-          .recommended(
-            <>
-              &lt;{formatPercentage(recommended)}% is recommended
-            </>,
-          )
+          .recommended(<>&lt;{formatPercentage(recommended)}% is recommended</>)
           .regular(this.suggestionThresholds.isGreaterThan.average)
           .major(this.suggestionThresholds.isGreaterThan.major),
       );
@@ -143,9 +138,7 @@ class DirectBeaconHealing extends Analyzer {
             <SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />
           </div>
           <label>
-            <>
-              Direct beacon healing
-            </>
+            <>Direct beacon healing</>
           </label>
 
           <div className="flex" style={{ marginTop: -10 }}>
@@ -156,9 +149,7 @@ class DirectBeaconHealing extends Analyzer {
               <div className="flex pull-right text-center" style={{ whiteSpace: 'nowrap' }}>
                 <div className="flex-main" style={{ marginRight: 15 }}>
                   <small>
-                    <>
-                      HL/FoL
-                    </>
+                    <>HL/FoL</>
                   </small>
                   <div className="value" style={{ fontSize: '1em' }}>
                     {formatPercentage(this.totalFoLHLOnBeaconPercentage, 0)}%
@@ -166,9 +157,7 @@ class DirectBeaconHealing extends Analyzer {
                 </div>
                 <div className="flex-main">
                   <small>
-                    <>
-                      Other spells
-                    </>
+                    <>Other spells</>
                   </small>
                   <div className="value" style={{ fontSize: '1em' }}>
                     {formatPercentage(this.totalOtherSpellsOnBeaconPercentage, 0)}%

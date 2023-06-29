@@ -1,13 +1,10 @@
-
 import AlertWarning from 'interface/AlertWarning';
 
 const AdvancedLoggingWarning = () => (
   <div className="container">
     <AlertWarning style={{ marginBottom: 30 }}>
       <h2>
-        <>
-          Advanced Combat Logging not Enabled
-        </>
+        <>Advanced Combat Logging not Enabled</>
       </h2>
       <>
         Without Advanced Combat Logging, we are unable to get critical information about players

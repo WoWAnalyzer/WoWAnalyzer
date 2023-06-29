@@ -1,4 +1,3 @@
-
 import { formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
@@ -114,9 +113,7 @@ class ManaTideTotem extends Analyzer {
           <div>
             <PersonIcon /> {formatNumber(this.regenOnPlayer)}{' '}
             <small>
-              <>
-                Mana restored
-              </>
+              <>Mana restored</>
             </small>
             <br />
             <PeopleIcon /> {formatNumber(this.regenOnHealers)} <small>Mana restored (party)</small>

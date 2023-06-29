@@ -1,4 +1,3 @@
-
 import TALENTS from 'common/TALENTS/paladin';
 import { Panel } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -136,10 +135,7 @@ class DeathRecapTracker extends Analyzer {
       title: <>Death Recap</>,
       url: 'death-recap',
       render: () => (
-        <Panel
-          title={<>Death Recap</>}
-          pad={false}
-        >
+        <Panel title={<>Death Recap</>} pad={false}>
           <DeathRecap
             report={this.owner}
             events={this.secondsBeforeDeath}

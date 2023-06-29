@@ -1,4 +1,3 @@
-
 import Icon from 'interface/Icon';
 import Panel from 'interface/Panel';
 import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
@@ -25,9 +24,7 @@ class Suggestions extends PureComponent<Props> {
 
     return (
       <Panel
-        title={
-          <>Suggestions</>
-        }
+        title={<>Suggestions</>}
         explanation={
           <>
             Based on what you did in this fight, here are some things we think you might be able to
@@ -43,9 +40,7 @@ class Suggestions extends PureComponent<Props> {
               id="minor-issues-toggle"
             />
             <label htmlFor="minor-issues-toggle">
-              <>
-                Minor importance
-              </>
+              <>Minor importance</>
             </label>
           </div>
         }
@@ -59,9 +54,7 @@ class Suggestions extends PureComponent<Props> {
                 <Icon icon="thumbsup" alt="Thumbsup" />
               </div>
               <div className="suggestion">
-                <>
-                  There are no major issues in this fight. Good job!
-                </>
+                <>There are no major issues in this fight. Good job!</>
               </div>
             </li>
           )}

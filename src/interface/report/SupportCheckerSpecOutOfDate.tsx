@@ -1,4 +1,3 @@
-
 import VERSIONS from 'game/VERSIONS';
 import Config from 'parser/Config';
 import { WCLFight } from 'parser/core/Fight';
@@ -20,11 +19,7 @@ const SupportCheckerSpecOutOfDate = ({ config, ...others }: Props) => {
 
   return (
     <SupportCheckerIssue
-      title={
-        <>
-          This spec has not been updated for patch {gameVersion}
-        </>
-      }
+      title={<>This spec has not been updated for patch {gameVersion}</>}
       config={config}
       {...others}
     >

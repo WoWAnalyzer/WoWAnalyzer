@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -97,11 +96,7 @@ class MunchedProcs extends Analyzer {
         </>,
       )
         .icon(TALENTS.FINGERS_OF_FROST_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% procs wasted
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% procs wasted</>)
         .recommended(formatPercentage(recommended)),
     );
   }

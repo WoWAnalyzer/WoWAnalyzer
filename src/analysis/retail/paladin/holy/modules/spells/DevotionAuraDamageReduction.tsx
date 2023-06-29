@@ -1,4 +1,3 @@
-
 import fetchWcl from 'common/fetchWclApi';
 import { formatThousands, formatNumber } from 'common/format';
 import makeWclUrl from 'common/makeWclUrl';
@@ -201,16 +200,8 @@ class DevotionAuraDamageReduction extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
         icon={<SpellIcon id={SPELLS.DEVOTION_AURA} />}
-        value={
-          <>
-            ≈{formatNumber(this.totalDrps)} DRPS
-          </>
-        }
-        label={
-          <>
-            Damage reduction
-          </>
-        }
+        value={<>≈{formatNumber(this.totalDrps)} DRPS</>}
+        label={<>Damage reduction</>}
         tooltip={tooltip}
         drilldown={makeWclUrl(this.owner.report.code, {
           fight: this.owner.fightId,

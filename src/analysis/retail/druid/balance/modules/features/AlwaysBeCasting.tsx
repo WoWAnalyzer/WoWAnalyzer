@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -25,11 +24,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         </>,
       )
         .icon('spell_mage_altertime')
-        .actual(
-          <>
-            {formatPercentage(1 - actual)}% downtime
-          </>,
-        )
+        .actual(<>{formatPercentage(1 - actual)}% downtime</>)
         .recommended(`<${formatPercentage(1 - recommended)}% is recommended`),
     );
   }

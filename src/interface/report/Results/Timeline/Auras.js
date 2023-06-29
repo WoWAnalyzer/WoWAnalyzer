@@ -1,4 +1,3 @@
-
 import { formatDuration } from 'common/format';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';

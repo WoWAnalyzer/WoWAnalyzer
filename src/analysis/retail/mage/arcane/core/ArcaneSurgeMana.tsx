@@ -1,4 +1,3 @@
-
 import {
   ARCANE_BLAST_BASE_MANA_COST,
   ARCANE_EXPLOSION_BASE_MANA_COST,
@@ -136,11 +135,7 @@ class ArcaneSurgeMana extends Analyzer {
         </>,
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

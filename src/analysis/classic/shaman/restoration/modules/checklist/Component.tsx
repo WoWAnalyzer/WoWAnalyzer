@@ -1,4 +1,3 @@
-
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellIcon, SpellLink } from 'interface';
 import { TooltipElement } from 'interface/Tooltip';
@@ -112,9 +111,7 @@ const HealerChecklist = ({
         />
       </Rule>
       <Rule
-        name={
-          <>Target AOE spells effectively</>
-        }
+        name={<>Target AOE spells effectively</>}
         description={
           <>
             Chain heal relies on who you target and where they are located to maximize healing

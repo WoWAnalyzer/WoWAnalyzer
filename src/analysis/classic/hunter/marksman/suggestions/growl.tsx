@@ -1,4 +1,3 @@
-
 import SpellLink from 'interface/SpellLink';
 import { SuggestionImportance } from 'parser/core/CombatLogParser';
 import { AnyEvent } from 'parser/core/Events';

@@ -3,7 +3,6 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS/demonhunter';
 
-
 const FalloutSnippet = () => {
   const info = useInfo();
   if (!info || !info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FALLOUT_TALENT)) {

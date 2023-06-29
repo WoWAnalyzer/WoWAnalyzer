@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -34,11 +33,7 @@ class ArcaneIntellect extends Analyzer {
         </>,
       )
         .icon(SPELLS.ARCANE_INTELLECT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.uptime)}% Uptime
-          </>,
-        )
+        .actual(<>{formatPercentage(this.uptime)}% Uptime</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

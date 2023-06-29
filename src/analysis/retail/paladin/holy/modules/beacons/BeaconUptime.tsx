@@ -1,4 +1,3 @@
-
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { Options } from 'parser/core/Analyzer';

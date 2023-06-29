@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -88,11 +87,7 @@ class ArcaneSurgeActiveTime extends Analyzer {
         </>,
       )
         .icon(TALENTS.ARCANE_SURGE_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.percentActiveTime)}% Active Time during Arcane Surge
-          </>,
-        )
+        .actual(<>{formatPercentage(this.percentActiveTime)}% Active Time during Arcane Surge</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

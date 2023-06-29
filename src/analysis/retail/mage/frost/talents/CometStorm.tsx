@@ -1,4 +1,3 @@
-
 import { COMET_STORM_AOE_MIN_TARGETS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -101,11 +100,7 @@ class CometStorm extends Analyzer {
         </>,
       )
         .icon(TALENTS.COMET_STORM_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

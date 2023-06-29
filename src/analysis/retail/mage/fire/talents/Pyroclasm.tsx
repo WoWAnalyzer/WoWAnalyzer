@@ -1,4 +1,3 @@
-
 import { MS_BUFFER_250 } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -205,11 +204,7 @@ class Pyroclasm extends Analyzer {
         </>,
       )
         .icon(TALENTS.PYROCLASM_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.procUtilization)}% utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.procUtilization)}% utilization</>)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
     when(this.pyroclasmCombustionUsage).addSuggestion((suggest, actual, recommended) =>
@@ -229,11 +224,7 @@ class Pyroclasm extends Analyzer {
         </>,
       )
         .icon(TALENTS.PYROCLASM_TALENT.icon)
-        .actual(
-          <>
-            {formatNumber(actual)} bad uses
-          </>,
-        )
+        .actual(<>{formatNumber(actual)} bad uses</>)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
   }

@@ -1,4 +1,3 @@
-
 import { formatDuration } from 'common/format';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
@@ -201,11 +200,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
     let castReason;
     if (event.isCancelled) {
       className += ' cancelled';
-      castReason = (
-        <>
-          Cast never finished.
-        </>
-      );
+      castReason = <>Cast never finished.</>;
     }
     // If the beginchannel has a meta prop use that.
     // If it doesn't, look inside the trigger (which should be a begincast).

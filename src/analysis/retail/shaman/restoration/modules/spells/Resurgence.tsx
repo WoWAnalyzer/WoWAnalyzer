@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -122,24 +121,16 @@ class Resurgence extends Analyzer {
               <thead>
                 <tr>
                   <th>
-                    <>
-                      Spell
-                    </>
+                    <>Spell</>
                   </th>
                   <th>
-                    <>
-                      Amount
-                    </>
+                    <>Amount</>
                   </th>
                   <th>
-                    <>
-                      Crits
-                    </>
+                    <>Crits</>
                   </th>
                   <th>
-                    <>
-                      % of mana
-                    </>
+                    <>% of mana</>
                   </th>
                 </tr>
               </thead>

@@ -1,4 +1,3 @@
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { Ability, BeaconHealEvent } from 'parser/core/Events';
 import HealingValue from 'parser/shared/modules/HealingValue';
@@ -47,11 +46,7 @@ class BeaconHealingDone extends Analyzer {
   statistic() {
     return (
       <Panel
-        title={
-          <>
-            Beacon healing sources
-          </>
-        }
+        title={<>Beacon healing sources</>}
         explanation={
           <>
             Beacon healing is triggered by the <b>raw</b> healing done of your primary spells. This

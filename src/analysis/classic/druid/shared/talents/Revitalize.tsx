@@ -1,4 +1,3 @@
-
 import fetchWcl from 'common/fetchWclApi';
 import { formatNumber } from 'common/format';
 import { SpellIcon } from 'interface';

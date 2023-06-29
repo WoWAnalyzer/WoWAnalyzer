@@ -2,7 +2,6 @@ import { useInfo } from 'interface/guide';
 import TALENTS from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 
-
 const DemonicSnippet = () => {
   const info = useInfo();
   if (!info || !info.combatant.hasTalent(TALENTS.DEMONIC_TALENT)) {

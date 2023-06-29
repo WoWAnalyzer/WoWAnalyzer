@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -167,9 +166,7 @@ class RuneOfPower extends Analyzer {
         )
           .icon(TALENTS.RUNE_OF_POWER_TALENT.icon)
           .actual(
-            <>
-              Average {this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power
-            </>,
+            <>Average {this.roundedSecondsPerCast.toFixed(1)}s standing in each Rune of Power</>,
           )
           .recommended(`the full duration of ${formatNumber(RUNE_DURATION)}s is recommended`),
       );

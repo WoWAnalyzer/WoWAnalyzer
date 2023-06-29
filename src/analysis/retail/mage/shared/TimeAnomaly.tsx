@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -74,11 +73,7 @@ class TimeAnomaly extends Analyzer {
         </>,
       )
         .icon(TALENTS.TIME_ANOMALY_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.manaUtilization)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.manaUtilization)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage } from 'common/format';
 import { makeAnalyzerUrl } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -131,15 +130,8 @@ class DeathTracker extends Analyzer {
           </>,
         )
           .icon('ability_fiegndead')
-          .actual(
-            <>
-              {' '}
-              You were dead for {formatPercentage(actual)}% of the fight{' '}
-            </>,
-          )
-          .recommended(
-            <> 0% is recommended </>,
-          ),
+          .actual(<> You were dead for {formatPercentage(actual)}% of the fight </>)
+          .recommended(<> 0% is recommended </>),
       );
     }
     when(this._didCast)

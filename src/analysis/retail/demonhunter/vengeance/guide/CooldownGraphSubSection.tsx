@@ -6,7 +6,6 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 
-
 type Cooldown = {
   talent: Talent;
   extraTalents?: Talent[];

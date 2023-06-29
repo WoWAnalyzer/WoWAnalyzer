@@ -67,8 +67,7 @@ export default class SigilOfFlame extends Analyzer {
               totalCasts={totalCasts}
             />
             <strong>
-              <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
-              <>cast efficiency</>
+              <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} /> <>cast efficiency</>
             </strong>
             <CastEfficiencyBar
               spellId={this.spell.id}

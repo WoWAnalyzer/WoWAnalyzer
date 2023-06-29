@@ -1,4 +1,3 @@
-
 import DocumentTitle from 'interface/DocumentTitle';
 import TwitterIcon from 'interface/icons/Twitter';
 

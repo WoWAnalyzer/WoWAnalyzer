@@ -1,4 +1,3 @@
-
 import { Fragment } from 'react';
 import SPELLS from 'common/SPELLS/classic';
 import { SpellLink } from 'interface';
@@ -24,22 +23,14 @@ const ClassicDemonologyChecklist = ({ combatant, castEfficiency, thresholds }: C
     />
   );
 
-  const curseOfTheElements = (
-    <>Curse of Elements</>
-  );
+  const curseOfTheElements = <>Curse of Elements</>;
   const curseOfDoom = <>Curse of Doom</>;
-  const curseOfAgony = (
-    <>Curse of Elements</>
-  );
+  const curseOfAgony = <>Curse of Elements</>;
 
   return (
     <Checklist>
       <Rule
-        name={
-          <>
-            Maintain a curse on the primary target
-          </>
-        }
+        name={<>Maintain a curse on the primary target</>}
         description={
           <Fragment>
             <>

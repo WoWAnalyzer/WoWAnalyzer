@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -126,11 +125,7 @@ class MeteorCombustion extends Analyzer {
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.combustionUtilization)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.combustionUtilization)}% Utilization</>)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

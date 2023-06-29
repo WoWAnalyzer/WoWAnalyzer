@@ -1,4 +1,3 @@
-
 import Requirement, {
   RequirementThresholds,
 } from 'parser/shared/modules/features/Checklist/Requirement';
@@ -15,20 +14,9 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
 
     return (
       <>
+        <Requirement name={<>Combat potions used</>} thresholds={thresholds.potionsUsed} />
         <Requirement
-          name={
-            <>
-              Combat potions used
-            </>
-          }
-          thresholds={thresholds.potionsUsed}
-        />
-        <Requirement
-          name={
-            <>
-              High quality combat potions used
-            </>
-          }
+          name={<>High quality combat potions used</>}
           thresholds={thresholds.bestPotionUsed}
         />
       </>
@@ -39,16 +27,9 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
 
     return (
       <>
+        <Requirement name={<>All items enchanted</>} thresholds={thresholds.itemsEnchanted} />
         <Requirement
-          name={<>All items enchanted</>}
-          thresholds={thresholds.itemsEnchanted}
-        />
-        <Requirement
-          name={
-            <>
-              Using high quality enchants
-            </>
-          }
+          name={<>Using high quality enchants</>}
           thresholds={thresholds.itemsBestEnchanted}
         />
       </>
@@ -60,19 +41,11 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
     return (
       <>
         <Requirement
-          name={
-            <>
-              All weapons enhanced (oils/stones)
-            </>
-          }
+          name={<>All weapons enhanced (oils/stones)</>}
           thresholds={thresholds.weaponsEnhanced}
         />
         <Requirement
-          name={
-            <>
-              Using high quality weapon enhancements
-            </>
-          }
+          name={<>Using high quality weapon enhancements</>}
           thresholds={thresholds.bestWeaponEnhancements}
         />
       </>
@@ -83,15 +56,10 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
     return (
       <>
         <Requirement
-          name={
-            <>High quality flask used</>
-          }
+          name={<>High quality flask used</>}
           thresholds={thresholds.higherFlaskPresent}
         />
-        <Requirement
-          name={<>Flask used</>}
-          thresholds={thresholds.flaskPresent}
-        />
+        <Requirement name={<>Flask used</>} thresholds={thresholds.flaskPresent} />
       </>
     );
   }
@@ -99,16 +67,8 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
     const { thresholds } = this.props;
     return (
       <>
-        <Requirement
-          name={
-            <>High quality food used</>
-          }
-          thresholds={thresholds.higherFoodPresent}
-        />
-        <Requirement
-          name={<>Food used</>}
-          thresholds={thresholds.foodPresent}
-        />
+        <Requirement name={<>High quality food used</>} thresholds={thresholds.higherFoodPresent} />
+        <Requirement name={<>Food used</>} thresholds={thresholds.foodPresent} />
       </>
     );
   }
@@ -116,10 +76,7 @@ class PreparationRule extends PureComponent<PreparationRuleProps> {
     const { thresholds } = this.props;
     return (
       <>
-        <Requirement
-          name={<>Augment rune used</>}
-          thresholds={thresholds.augmentRunePresent}
-        />
+        <Requirement name={<>Augment rune used</>} thresholds={thresholds.augmentRunePresent} />
       </>
     );
   }

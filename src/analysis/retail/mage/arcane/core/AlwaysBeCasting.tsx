@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -25,11 +24,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             </span>,
           )
             .icon('spell_mage_altertime')
-            .actual(
-              <>
-                {formatPercentage(actual)}% downtime
-              </>,
-            )
+            .actual(<>{formatPercentage(actual)}% downtime</>)
             .recommended(`<${formatPercentage(recommended)}% is recommended`)
             .regular(recommended + 0.15)
             .major(recommended + 0.2),

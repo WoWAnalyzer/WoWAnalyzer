@@ -1,4 +1,3 @@
-
 import { STEADY_FOCUS_HASTE_PERCENT } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -78,12 +77,7 @@ class SteadyFocus extends Analyzer {
         </>,
       )
         .icon(TALENTS_HUNTER.STEADY_FOCUS_TALENT.icon)
-        .actual(
-          <>
-            {' '}
-            {formatPercentage(actual)}% uptime{' '}
-          </>,
-        )
+        .actual(<> {formatPercentage(actual)}% uptime </>)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

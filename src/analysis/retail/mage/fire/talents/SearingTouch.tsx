@@ -1,4 +1,3 @@
-
 import { SEARING_TOUCH_THRESHOLD, COMBUSTION_END_BUFFER } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -134,11 +133,7 @@ class SearingTouch extends Analyzer {
         </>,
       )
         .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.executeUtil)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.executeUtil)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
     when(this.nonExecuteSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
@@ -152,11 +147,7 @@ class SearingTouch extends Analyzer {
         </>,
       )
         .icon(TALENTS.SEARING_TOUCH_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.nonExecuteUtil)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.nonExecuteUtil)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
   }

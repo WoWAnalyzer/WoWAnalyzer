@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
@@ -70,11 +69,7 @@ class ShiftingPowerUsage extends Analyzer {
         </>,
       )
         .icon(TALENTS.SHIFTING_POWER_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% utilization</>)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import { SpellLink } from 'interface';
 import { SpecIcon } from 'interface';
@@ -166,9 +165,7 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
             }}
           />
           <br />
-          <>
-            Min effective healing (percentage of target's health):
-          </>{' '}
+          <>Min effective healing (percentage of target's health):</>{' '}
           <Slider
             {...sliderProps}
             defaultValue={this.state.minHealOfMaxHealthPercentage}
@@ -241,14 +238,10 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
                           </>
                         }
                       >
-                        <>
-                          {formatPercentage(healthPercentage)}% health
-                        </>
+                        <>{formatPercentage(healthPercentage)}% health</>
                       </TooltipElement>
                     ) : (
-                      <>
-                        {formatPercentage(healthPercentage)}% health
-                      </>
+                      <>{formatPercentage(healthPercentage)}% health</>
                     )}
                   </td>
                   <td style={{ width: '35%' }}>

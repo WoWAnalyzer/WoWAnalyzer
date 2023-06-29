@@ -1,4 +1,3 @@
-
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { EventType, HealEvent } from 'parser/core/Events';
@@ -21,9 +20,7 @@ class LowHealthHealing extends Analyzer {
         <Panel
           title={<>Triage healing</>}
           explanation={
-            <>
-              This shows all instances of healing people below a certain health threshold.
-            </>
+            <>This shows all instances of healing people below a certain health threshold.</>
           }
           pad={false}
         >

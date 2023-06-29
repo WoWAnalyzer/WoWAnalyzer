@@ -1,4 +1,3 @@
-
 import { RuneForgeChecker } from 'analysis/retail/deathknight/shared';
 import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';

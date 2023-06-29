@@ -1,4 +1,3 @@
-
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -142,11 +141,7 @@ class WaterElemental extends Analyzer {
         </>,
       )
         .icon(TALENTS.SUMMON_WATER_ELEMENTAL_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% uptime
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% uptime</>)
         .recommended(
           `mirroring your own uptime (${formatPercentage(
             this.abc.activeTimePercentage,

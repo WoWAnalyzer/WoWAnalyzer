@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -128,11 +127,7 @@ class Downpour extends Analyzer {
     return (
       <StatisticBox
         icon={<SpellIcon id={TALENTS.DOWNPOUR_TALENT.id} />}
-        value={
-          <>
-            {downpourAverageCooldown.toFixed(1)} seconds
-          </>
-        }
+        value={<>{downpourAverageCooldown.toFixed(1)} seconds</>}
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(90)}
         label={
@@ -148,9 +143,7 @@ class Downpour extends Analyzer {
               </>
             }
           >
-            <>
-              Average Downpour cooldown
-            </>
+            <>Average Downpour cooldown</>
           </TooltipElement>
         }
       />

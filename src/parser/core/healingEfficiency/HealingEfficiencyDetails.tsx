@@ -1,4 +1,3 @@
-
 import Analyzer from 'parser/core/Analyzer';
 import Panel from 'parser/ui/Panel';
 
@@ -14,10 +13,7 @@ class HealingEfficiencyDetails extends Analyzer {
 
   statistic() {
     return (
-      <Panel
-        title={<>Mana Efficiency</>}
-        position={120}
-      >
+      <Panel title={<>Mana Efficiency</>} position={120}>
         <HealingEfficiencyBreakdown tracker={this.healingEfficiencyTracker} />
       </Panel>
     );

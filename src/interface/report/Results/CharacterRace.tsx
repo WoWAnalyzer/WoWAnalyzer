@@ -1,4 +1,3 @@
-
 import { Race } from 'game/RACES';
 
 const CharacterRace = ({ race }: { race: Race }) => (

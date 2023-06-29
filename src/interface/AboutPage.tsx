@@ -1,4 +1,3 @@
-
 import DiscordBotGif from 'articles/2017-10-21-DiscordBot/discord-bot.gif';
 import ChangelogPanel from 'interface/ChangelogPanel';
 import DiscordButton from 'interface/DiscordButton';

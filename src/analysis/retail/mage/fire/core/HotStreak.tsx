@@ -1,4 +1,3 @@
-
 import {
   COMBUSTION_END_BUFFER,
   FIRESTARTER_THRESHOLD,
@@ -188,11 +187,7 @@ class HotStreak extends Analyzer {
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
-        .actual(
-          <>
-            {formatPercentage(this.hotStreakUtilizationThresholds.actual)}% expired
-          </>,
-        )
+        .actual(<>{formatPercentage(this.hotStreakUtilizationThresholds.actual)}% expired</>)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
     when(this.castBeforeHotStreakThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -221,11 +216,7 @@ class HotStreak extends Analyzer {
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
-        .actual(
-          <>
-            {formatPercentage(this.castBeforeHotStreakThresholds.actual)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.castBeforeHotStreakThresholds.actual)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
     when(this.wastedCritsThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -239,11 +230,7 @@ class HotStreak extends Analyzer {
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
-        .actual(
-          <>
-            {formatNumber(this.wastedCrits())} crits wasted
-          </>,
-        )
+        .actual(<>{formatNumber(this.wastedCrits())} crits wasted</>)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
   }

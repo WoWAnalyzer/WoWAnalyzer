@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
@@ -41,16 +40,8 @@ class RuleOfLaw extends Analyzer {
         </>,
       )
         .icon(TALENTS.RULE_OF_LAW_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% uptime
-          </>,
-        )
-        .recommended(
-          <>
-            &gt;{formatPercentage(recommended)}% is recommended
-          </>,
-        ),
+        .actual(<>{formatPercentage(actual)}% uptime</>)
+        .recommended(<>&gt;{formatPercentage(recommended)}% is recommended</>),
     );
   }
   statistic() {

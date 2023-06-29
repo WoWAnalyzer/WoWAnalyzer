@@ -1,4 +1,3 @@
-
 import Spell from 'common/SPELLS/Spell';
 import Icon from 'interface/Icon';
 import SpellLink from 'interface/SpellLink';
@@ -127,13 +126,7 @@ class Lane extends PureComponent<Props> {
     }
     const left = this.getOffsetLeft(event.timestamp);
     return (
-      <Tooltip
-        content={
-          <>
-            Charge restored
-          </>
-        }
-      >
+      <Tooltip content={<>Charge restored</>}>
         <div
           key={`recharge-${left}`}
           className="recharge"
@@ -150,11 +143,7 @@ class Lane extends PureComponent<Props> {
     const end = event.timestamp;
 
     return (
-      <Tooltip
-        content={
-          <>Castable</>
-        }
-      >
+      <Tooltip content={<>Castable</>}>
         <div
           key={`castable-${start}-${end}`}
           className="castable"

@@ -1,4 +1,3 @@
-
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -100,13 +99,9 @@ class AncestralVigor extends Analyzer {
       this.disableStatistics = true;
     }
     const tooltip = this.loaded ? (
-      <>
-        The amount of players that would have died without your Ancestral Vigor buff.
-      </>
+      <>The amount of players that would have died without your Ancestral Vigor buff.</>
     ) : (
-      <>
-        Click to analyze how many lives were saved by the ancestral vigor buff.
-      </>
+      <>Click to analyze how many lives were saved by the ancestral vigor buff.</>
     );
     if (this.disableStatistics) {
       return (

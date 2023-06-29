@@ -1,4 +1,3 @@
-
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
@@ -299,11 +298,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          extraSuggestion: (
-            <>
-              Casting Holy Shock regularly is very important for performing well.
-            </>
-          ),
+          extraSuggestion: <>Casting Holy Shock regularly is very important for performing well.</>,
           recommendedEfficiency: 0.8,
         },
         enabled: combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT),

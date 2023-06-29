@@ -1,4 +1,3 @@
-
 import { formatDuration } from 'common/format';
 import getFightName from 'common/getFightName';
 import getWipeCount from 'common/getWipeCount';
@@ -78,15 +77,7 @@ class FightSelectionPanelList extends PureComponent<Props> {
                           <div className="flex">
                             <div className="flex-main">
                               <Icon />{' '}
-                              {pull.kill ? (
-                                <>
-                                  Kill
-                                </>
-                              ) : (
-                                <>
-                                  Wipe {getWipeCount(fights, pull)}
-                                </>
-                              )}
+                              {pull.kill ? <>Kill</> : <>Wipe {getWipeCount(fights, pull)}</>}
                             </div>
                             <div className="flex-sub">
                               <small>{formatDuration(duration)}</small>{' '}

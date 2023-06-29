@@ -1,4 +1,3 @@
-
 import { ItemLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import { Item } from 'parser/core/Events';
@@ -118,11 +117,7 @@ class EnchantChecker extends Analyzer {
           </>
         );
       }
-      return (
-        <>
-          Your {slotName} has a strong enchant. Good work!
-        </>
-      );
+      return <>Your {slotName} has a strong enchant. Good work!</>;
     }
     if (hasEnchant) {
       if (recommendedEnchantNames) {

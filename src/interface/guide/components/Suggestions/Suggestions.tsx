@@ -16,9 +16,7 @@ const Suggestions = ({ parseResults, showMinorIssues }: SuggestionsProps) => (
           <Icon icon="thumbsup" alt="Thumbsup" />
         </div>
         <div className="suggestion">
-          <>
-            There are no major issues in this fight. Good job!
-          </>
+          <>There are no major issues in this fight. Good job!</>
         </div>
       </li>
     )}

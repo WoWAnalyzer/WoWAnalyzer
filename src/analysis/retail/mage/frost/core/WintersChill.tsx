@@ -1,4 +1,3 @@
-
 import { formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -233,11 +232,7 @@ class WintersChill extends Analyzer {
         </>,
       )
         .icon(TALENTS.ICE_LANCE_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(1 - actual)}% Winter's Chill not shattered with Ice Lance
-          </>,
-        )
+        .actual(<>{formatPercentage(1 - actual)}% Winter's Chill not shattered with Ice Lance</>)
         .recommended(`${formatPercentage(1 - recommended)}% is recommended`),
     );
     when(this.wintersChillPreCastThresholds).addSuggestion((suggest, actual, recommended) =>

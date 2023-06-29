@@ -1,4 +1,3 @@
-
 import { TalentEntry } from 'parser/core/Events';
 import PlayerInfoTalent from 'interface/report/Results/PlayerInfoTalent';
 

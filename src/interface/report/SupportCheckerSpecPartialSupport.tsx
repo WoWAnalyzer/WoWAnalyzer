@@ -1,4 +1,3 @@
-
 import Config from 'parser/Config';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
@@ -15,11 +14,7 @@ interface Props {
 }
 
 const SupportCheckerSpecPartialSupport = ({ config, ...others }: Props) => (
-  <SupportCheckerIssue
-    title={<>Partial support</>}
-    config={config}
-    {...others}
-  >
+  <SupportCheckerIssue title={<>Partial support</>} config={config} {...others}>
     <>
       This spec has received updates for the latest patch but it is still missing important elements
       needed to provide you with good and reliable feedback.

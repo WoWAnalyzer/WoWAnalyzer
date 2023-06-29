@@ -1,4 +1,3 @@
-
 import colorForPerformance from 'common/colorForPerformance';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import { Tooltip, TooltipElement } from 'interface';
@@ -48,11 +47,7 @@ class Requirement extends React.PureComponent<Props> {
       case ThresholdStyle.DECIMAL:
         return `${thresholds.actual.toFixed(2)}`;
       case ThresholdStyle.BOOLEAN:
-        return thresholds.actual ? (
-          <>Yes</>
-        ) : (
-          <>No</>
-        );
+        return thresholds.actual ? <>Yes</> : <>No</>;
       case ThresholdStyle.SECONDS:
         return `${thresholds.actual.toFixed(2)}s`;
       default:

@@ -1,4 +1,3 @@
-
 import Analyzer from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';

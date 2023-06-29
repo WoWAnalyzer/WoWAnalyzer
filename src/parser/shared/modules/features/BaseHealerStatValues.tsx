@@ -1,4 +1,3 @@
-
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
@@ -586,13 +585,7 @@ abstract class BaseHealerStatValues extends Analyzer {
                       style={{ minWidth: 30, fontWeight: 400 }}
                       colSpan={2}
                     >
-                      <TooltipElement
-                        content={
-                          <>
-                            Normalized so Intellect is always 1.00.
-                          </>
-                        }
-                      >
+                      <TooltipElement content={<>Normalized so Intellect is always 1.00.</>}>
                         <>Value</>
                       </TooltipElement>
                     </th>

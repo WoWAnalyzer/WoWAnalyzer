@@ -1,4 +1,3 @@
-
 import { maybeGetSpell } from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { suggestion } from 'parser/core/Analyzer';

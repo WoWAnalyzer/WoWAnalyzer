@@ -1,4 +1,3 @@
-
 import { formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';

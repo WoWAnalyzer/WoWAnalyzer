@@ -1,4 +1,3 @@
-
 import {
   MS_BUFFER_100,
   MS_BUFFER_250,
@@ -179,11 +178,7 @@ class SunKingsBlessing extends Analyzer {
         </>,
       )
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
-        .actual(
-          <>
-            {formatNumber(actual)} bad uses
-          </>,
-        )
+        .actual(<>{formatNumber(actual)} bad uses</>)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
     when(this.sunKingExpireThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -198,11 +193,7 @@ class SunKingsBlessing extends Analyzer {
         </>,
       )
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% expired procs
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% expired procs</>)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

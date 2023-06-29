@@ -1,4 +1,3 @@
-
 import groupByToMap from 'common/groupByToMap';
 import { CLASSIC_EXPANSION, RETAIL_EXPANSION } from 'game/Expansion';
 import DocumentTitle from 'interface/DocumentTitle';
@@ -50,9 +49,7 @@ const SpecListing = () => {
         </h1>
       </div>
       <small>
-        <>
-          Click any specialization to view an example report for that spec.
-        </>
+        <>Click any specialization to view an example report for that spec.</>
       </small>
 
       <div>

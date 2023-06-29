@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -105,11 +104,7 @@ class ArcaneEcho extends Analyzer {
         </>,
       )
         .icon(TALENTS.ARCANE_MISSILES_TALENT.icon)
-        .actual(
-          <>
-            {formatNumber(this.badTouchUses)} Bad Touch of the Magi Uses`
-          </>,
-        )
+        .actual(<>{formatNumber(this.badTouchUses)} Bad Touch of the Magi Uses`</>)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
   }

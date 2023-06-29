@@ -1,4 +1,3 @@
-
 import { MS_BUFFER_100, SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -148,11 +147,7 @@ class IceLance extends Analyzer {
         </>,
       )
         .icon(TALENTS.ICE_LANCE_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(actual)}% missed
-          </>,
-        )
+        .actual(<>{formatPercentage(actual)}% missed</>)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

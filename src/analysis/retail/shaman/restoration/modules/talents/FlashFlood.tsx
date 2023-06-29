@@ -1,4 +1,3 @@
-
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -213,9 +212,7 @@ class FlashFlood extends Analyzer {
           </label>
           <div className="flex">
             <div className="flex-main">
-              <>
-                Total Cast Time Saved
-              </>
+              <>Total Cast Time Saved</>
             </div>
             <div className="flex-sub text-right">
               <TooltipElement
@@ -227,9 +224,7 @@ class FlashFlood extends Analyzer {
                   </>
                 }
               >
-                <>
-                  {(this.totalTimeSaved / 1000).toFixed(2)} seconds
-                </>
+                <>{(this.totalTimeSaved / 1000).toFixed(2)} seconds</>
               </TooltipElement>
             </div>
           </div>

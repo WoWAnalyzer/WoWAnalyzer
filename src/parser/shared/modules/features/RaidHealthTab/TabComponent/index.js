@@ -1,4 +1,3 @@
-
 import { Panel } from 'interface';
 import PropTypes from 'prop-types';
 

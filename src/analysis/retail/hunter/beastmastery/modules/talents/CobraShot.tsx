@@ -1,4 +1,3 @@
-
 import GlobalCooldown from 'analysis/retail/hunter/beastmastery/modules/core/GlobalCooldown';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/hunter';
@@ -148,10 +147,7 @@ class CobraShot extends Analyzer {
       )
         .icon(TALENTS.COBRA_SHOT_TALENT.icon)
         .actual(
-          <>
-            {' '}
-            You had {formatPercentage(actual)}% effective cooldown reduction of Kill Command
-          </>,
+          <> You had {formatPercentage(actual)}% effective cooldown reduction of Kill Command</>,
         )
         .recommended(
           <>
@@ -169,16 +165,8 @@ class CobraShot extends Analyzer {
         </>,
       )
         .icon(TALENTS.COBRA_SHOT_TALENT.icon)
-        .actual(
-          <>
-            You cast {actual} Cobra Shots when Kill Command wasn't on cooldown
-          </>,
-        )
-        .recommended(
-          <>
-            0 inefficient casts is recommended
-          </>,
-        ),
+        .actual(<>You cast {actual} Cobra Shots when Kill Command wasn't on cooldown</>)
+        .recommended(<>0 inefficient casts is recommended</>),
     );
   }
 

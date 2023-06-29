@@ -1,4 +1,3 @@
-
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatPercentage, formatThousands } from 'common/format';
 import ITEMS from 'common/ITEMS';
@@ -195,9 +194,7 @@ class EncounterStats extends PureComponent<Props, State> {
       })
       .catch(() => {
         this.setState({
-          message: (
-            <>Something went wrong.</>
-          ),
+          message: <>Something went wrong.</>,
         });
       });
   }

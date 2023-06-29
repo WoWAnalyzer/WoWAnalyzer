@@ -1,4 +1,3 @@
-
 import { formatNumber, formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import { SpellLink } from 'interface';
@@ -72,16 +71,8 @@ class BeaconHealingBreakdown extends Component {
                     />
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                    <TooltipElement
-                      content={
-                        <>
-                          Total: {formatNumber(healing.effective)}
-                        </>
-                      }
-                    >
-                      <>
-                        {formatNumber((healing.effective / fightDuration) * 1000)} HPS
-                      </>
+                    <TooltipElement content={<>Total: {formatNumber(healing.effective)}</>}>
+                      <>{formatNumber((healing.effective / fightDuration) * 1000)} HPS</>
                     </TooltipElement>
                   </td>
                   <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
@@ -104,9 +95,7 @@ class BeaconHealingBreakdown extends Component {
             </th>
             <th colSpan="3">
               <span style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-                <>
-                  Beacon healing caused
-                </>
+                <>Beacon healing caused</>
               </span>
               <div className="pull-right toggle-control">
                 <Toggle
@@ -116,16 +105,12 @@ class BeaconHealingBreakdown extends Component {
                   id="absolute-toggle"
                 />
                 <label htmlFor="absolute-toggle" style={{ marginLeft: '0.5em' }}>
-                  <>
-                    relative to total healing
-                  </>
+                  <>relative to total healing</>
                 </label>
               </div>
             </th>
             <th style={{ fontWeight: 700, textTransform: 'uppercase' }}>
-              <>
-                Overheal
-              </>
+              <>Overheal</>
             </th>
           </tr>
         </thead>

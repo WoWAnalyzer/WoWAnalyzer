@@ -1,4 +1,3 @@
-
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -67,11 +66,7 @@ class RuleOfThrees extends Analyzer {
         </>,
       )
         .icon(TALENTS.RULE_OF_THREES_TALENT.icon)
-        .actual(
-          <>
-            {formatPercentage(this.utilization)}% Utilization
-          </>,
-        )
+        .actual(<>{formatPercentage(this.utilization)}% Utilization</>)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }

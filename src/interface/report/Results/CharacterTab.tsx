@@ -1,4 +1,3 @@
-
 import ArmoryIcon from 'interface/icons/Armory';
 import WoWAnalyzerIcon from 'interface/icons/WoWAnalyzer';
 import { makeCharacterUrl, makeArmoryUrl } from 'interface/makeAnalyzerUrl';

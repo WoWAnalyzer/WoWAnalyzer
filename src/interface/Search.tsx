@@ -1,4 +1,3 @@
-
 import DocumentTitle from 'interface/DocumentTitle';
 import { constructURL } from 'interface/ReportSelecter';
 import { useEffect, useState } from 'react';

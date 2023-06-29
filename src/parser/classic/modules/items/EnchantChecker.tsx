@@ -1,4 +1,3 @@
-
 import BaseEnchantChecker from 'parser/shared/modules/items/EnchantChecker';
 
 // Example logs with missing enchants:
