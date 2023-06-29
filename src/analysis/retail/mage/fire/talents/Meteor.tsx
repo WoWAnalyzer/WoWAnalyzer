@@ -11,18 +11,14 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import MeteorRune from './MeteorRune';
-
 class Meteor extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: Enemies,
-    meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
   };
   protected abilityTracker!: AbilityTracker;
   protected enemies!: Enemies;
-  protected meteorRune!: MeteorRune;
   protected meteorCombustion!: MeteorCombustion;
 
   constructor(options: Options) {
@@ -87,11 +83,6 @@ class Meteor extends Analyzer {
               <li>{this.totalMeteorCasts} Total Meteor casts</li>
               <li>{this.meteorMaxCasts} Adjusted max casts</li>
               <li>
-                {this.meteorRune.totalMeteorCasts - this.meteorRune.badMeteor} Meteor casts during
-                Rune of Power
-              </li>
-              <li>{this.meteorRune.badMeteor} Meteor casts without Rune of Power</li>
-              <li>
                 {this.meteorCombustion.combustionWithoutMeteor} Combustion casts without Meteor
               </li>
             </ul>
@@ -102,9 +93,6 @@ class Meteor extends Analyzer {
           <>
             {formatPercentage(this.meteorCastEfficiency, 0)}%{' '}
             <small>Adjusted Cast Efficiency</small>
-            <br />
-            {formatPercentage(this.meteorRune.meteorUtilization, 0)}%{' '}
-            <small>Overall Utilization</small>
             <br />
             {formatPercentage(this.meteorCombustion.combustionUtilization, 0)}%{' '}
             <small>Utilization during Combustion</small>

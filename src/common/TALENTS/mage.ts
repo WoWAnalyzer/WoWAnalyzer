@@ -845,6 +845,14 @@ const talents = createTalentList({
     entryIds: [80265],
     definitionIds: [{ id: 85268, specId: 63 }],
   },
+  UNLEASHED_INFERNO_TALENT: {
+    id: 416506,
+    name: 'Unleashed Inferno',
+    icon: 'spell_fire_felflamering_red',
+    maxRanks: 1,
+    entryIds: [80290],
+    definitionIds: [{ id: 85268, specId: 63 }],
+  },
   LIVING_BOMB_TALENT: {
     id: 44457,
     name: 'Living Bomb',

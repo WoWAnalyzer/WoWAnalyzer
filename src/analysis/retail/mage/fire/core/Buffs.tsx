@@ -32,11 +32,6 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.RUNE_OF_POWER_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT),
-        timelineHighlight: true,
-      },
-      {
         spellId: TALENTS.BLAZING_BARRIER_TALENT.id,
         triggeredBySpellId: TALENTS.BLAZING_BARRIER_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
