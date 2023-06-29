@@ -1,7 +1,15 @@
 // Generated file, changes will be overwritten!
-// eslint-disable
 
-export default {
+import { Region } from 'common/regions';
+
+interface Realm {
+  name: string;
+  slug: string;
+}
+
+export type RegionsWithRealms = Region;
+
+const REALMS: Record<Region, Realm[]> = {
   EU: [
     { name: 'Aegwynn', slug: 'aegwynn' },
     { name: 'Aerie Peak', slug: 'aerie-peak' },
@@ -294,6 +302,7 @@ export default {
   TW: [
     { name: '世界之樹', slug: 'world-tree' },
     { name: '亞雷戈斯', slug: 'arygos' },
+    { name: '克羅之刃', slug: 'krol-blade' },
     { name: '冰霜之刺', slug: 'frostmane' },
     { name: '冰風崗哨', slug: 'chillwind-point' },
     { name: '地獄吼', slug: 'hellscream' },
@@ -310,6 +319,7 @@ export default {
     { name: '狂熱之刃', slug: 'zealot-blade' },
     { name: '眾星之子', slug: 'queldorei' },
     { name: '米奈希爾', slug: 'menethil' },
+    { name: '老馬布蘭契', slug: 'old-blanchy' },
     { name: '聖光之願', slug: 'lights-hope' },
     { name: '血之谷', slug: 'bleeding-hollow' },
     { name: '語風', slug: 'whisperwind' },
@@ -942,74 +952,6 @@ export default {
     { name: '黑龙军团', slug: '黑龙军团' },
     { name: '龙骨平原', slug: '龙骨平原' },
   ],
-  classicEU: [
-    { name: 'Amnennar', slug: 'amnennar' },
-    { name: 'Auberdine', slug: 'auberdine' },
-    { name: 'Everlook', slug: 'everlook' },
-    { name: 'Firemaw', slug: 'firemaw' },
-    { name: 'Gehennas', slug: 'gehennas' },
-    { name: 'Giantstalker', slug: 'giantstalker' },
-    { name: 'Golemagg', slug: 'golemagg' },
-    { name: 'Hydraxian Waterlords', slug: 'hydraxian-waterlords' },
-    { name: "Jin'do", slug: 'jindo' },
-    { name: 'Mandokir', slug: 'mandokir' },
-    { name: 'Mirage Raceway', slug: 'mirage-raceway' },
-    { name: 'Mograine', slug: 'mograine' },
-    { name: 'Nethergarde Keep', slug: 'nethergarde-keep' },
-    { name: 'Patchwerk', slug: 'patchwerk' },
-    { name: 'Pyrewood Village', slug: 'pyrewood-village' },
-    { name: 'Razorfen', slug: 'razorfen' },
-    { name: 'Sulfuron', slug: 'sulfuron' },
-    { name: 'Thekal', slug: 'thekal' },
-    { name: 'Venoxis', slug: 'venoxis' },
-    { name: 'Землекрушитель', slug: 'earthshaker' },
-    { name: 'Испепелитель', slug: 'ashbringer' },
-    { name: 'Пламегор', slug: 'flamegor' },
-    { name: 'Превосходство', slug: 'transcendence' },
-    { name: 'Приозерье', slug: 'lakeshire' },
-    { name: 'Хроми', slug: 'chromie' },
-  ],
-  classicKR: [
-    { name: '라그나로스', slug: 'ragnaros' },
-    { name: '로크홀라', slug: 'lokholar' },
-    { name: '서리한', slug: 'frostmourne' },
-    { name: '소금 평원', slug: 'shimmering-flats' },
-    { name: '얼음피', slug: 'iceblood' },
-  ],
-  classicTW: [
-    { name: '伊弗斯', slug: 'ivus' },
-    { name: '古雷曼格', slug: 'golemagg' },
-    { name: '木喉要塞', slug: 'timbermaw-hold' },
-    { name: '札里克', slug: 'zeliek' },
-    { name: '烏蘇雷', slug: 'wushoolay' },
-    { name: '瑪拉頓', slug: 'maraudon' },
-    { name: '逐風者', slug: 'windseeker' },
-    { name: '阿拉希盆地', slug: 'arathi-basin' },
-    { name: '魚人', slug: 'murloc' },
-  ],
-  classicUS: [
-    { name: 'Angerforge', slug: 'angerforge' },
-    { name: 'Arugal', slug: 'arugal' },
-    { name: 'Ashkandi', slug: 'ashkandi' },
-    { name: 'Atiesh', slug: 'atiesh' },
-    { name: 'Azuresong', slug: 'azuresong' },
-    { name: 'Benediction', slug: 'benediction' },
-    { name: 'Bloodsail Buccaneers', slug: 'bloodsail-buccaneers' },
-    { name: 'Earthfury', slug: 'earthfury' },
-    { name: 'Eranikus', slug: 'eranikus' },
-    { name: 'Faerlina', slug: 'faerlina' },
-    { name: 'Grobbulus', slug: 'grobbulus' },
-    { name: 'Maladath', slug: 'maladath' },
-    { name: 'Mankrik', slug: 'mankrik' },
-    { name: 'Myzrael', slug: 'myzrael' },
-    { name: 'Old Blanchy', slug: 'old-blanchy' },
-    { name: 'Pagle', slug: 'pagle' },
-    { name: 'Remulos', slug: 'remulos' },
-    { name: 'Skyfury', slug: 'skyfury' },
-    { name: 'Sulfuras', slug: 'sulfuras' },
-    { name: 'Westfall', slug: 'westfall' },
-    { name: 'Whitemane', slug: 'whitemane' },
-    { name: 'Windseeker', slug: 'windseeker' },
-    { name: 'Yojamba', slug: 'yojamba' },
-  ],
 };
+
+export default REALMS;

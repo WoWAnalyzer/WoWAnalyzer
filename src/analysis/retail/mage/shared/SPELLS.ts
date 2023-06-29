@@ -169,6 +169,11 @@ const spells = spellIndexableList({
     name: 'Tempest Barrier',
     icon: 'inv_shield_1h_artifactstormfist_d_04',
   },
+  TEMPORAL_WARP_BUFF: {
+    id: 386540,
+    name: 'Temporal Warp',
+    icon: 'ability_bossmagistrix_timewarp2',
+  },
 });
 
 export default spells;
