@@ -1,10 +1,16 @@
 {
   "_links": {
-    "self": {
-      "href": "https://kr.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-kr"
-    }
+    "self": { "href": "https://kr.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-kr" }
   },
   "realms": [
+    {
+      "key": {
+        "href": "https://kr.api.blizzard.com/data/wow/realm/4681?namespace=dynamic-classic-kr"
+      },
+      "name": "KR1 CWOW GMSS 2",
+      "id": 4681,
+      "slug": "kr1-cwow-gmss-2"
+    },
     {
       "key": {
         "href": "https://kr.api.blizzard.com/data/wow/realm/4417?namespace=dynamic-classic-kr"
@@ -36,6 +42,14 @@
       "name": "라그나로스",
       "id": 4421,
       "slug": "ragnaros"
+    },
+    {
+      "key": {
+        "href": "https://kr.api.blizzard.com/data/wow/realm/4693?namespace=dynamic-classic-kr"
+      },
+      "name": "KR1 CWOW GMSS 1",
+      "id": 4693,
+      "slug": "kr1-cwow-gmss-1"
     },
     {
       "key": {

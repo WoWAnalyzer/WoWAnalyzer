@@ -53,7 +53,8 @@ class Channeling extends EventsNormalizer {
     buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
     buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
-    buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID
+    buffChannelSpec(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id), // TODO double check ID
+    buffChannelSpec(TALENTS_PRIEST.VOID_TORRENT_TALENT.id), // TODO double check ID
     // Rogue
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
