@@ -853,6 +853,14 @@ const talents = createTalentList({
     entryIds: [80290],
     definitionIds: [{ id: 85268, specId: 63 }],
   },
+  DEEP_IMPACT_TALENT: {
+    id: 416719,
+    name: 'Deep Impact',
+    icon: 'spell_fire_moltenblood',
+    maxRanks: 1,
+    entryIds: [80290],
+    definitionIds: [{ id: 85268, specId: 63 }],
+  },
   LIVING_BOMB_TALENT: {
     id: 44457,
     name: 'Living Bomb',

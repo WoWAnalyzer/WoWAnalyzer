@@ -18,6 +18,18 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.FIREBALL.id],
       },
       {
+        spell: TALENTS.METEOR_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: combatant.hasTalent(TALENTS.DEEP_IMPACT_TALENT) ? 30 : 45,
+        enabled: combatant.hasTalent(TALENTS.METEOR_TALENT),
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
+      {
         spell: SPELLS.FLAMESTRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {

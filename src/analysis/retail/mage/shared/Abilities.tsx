@@ -62,19 +62,6 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
       },
       {
-        spell: TALENTS.METEOR_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.METEOR_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 45,
-        castEfficiency: {
-          suggestion: false,
-        },
-        damageSpellIds: [SPELLS.METEOR_DAMAGE.id],
-      },
-      {
         spell: TALENTS.ICE_NOVA_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.ICE_NOVA_TALENT),
