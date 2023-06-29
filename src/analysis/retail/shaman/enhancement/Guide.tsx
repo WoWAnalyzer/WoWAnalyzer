@@ -8,10 +8,10 @@ import Cooldowns from './modules/guide/Cooldowns';
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <MaelstromUsage key="maelstromusage" modules={modules} events={events} info={info} />
-      <Rotation key="rotation" modules={modules} events={events} info={info} />
-      <Cooldowns key="cooldowns" modules={modules} events={events} info={info} />
-      <PreparationSection key="prep" />
+      <MaelstromUsage modules={modules} events={events} info={info} />
+      <Rotation modules={modules} events={events} info={info} />
+      <Cooldowns />
+      <PreparationSection />
     </>
   );
 }

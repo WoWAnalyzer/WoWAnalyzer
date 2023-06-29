@@ -1,7 +1,6 @@
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
 import TALENTS from 'common/TALENTS/shaman';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { SpellUse } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Events, { ApplyBuffEvent, CastEvent, EventType, RefreshBuffEvent } from 'parser/core/Events';
@@ -11,27 +10,29 @@ import {
 } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import { SpellLink } from 'interface';
 import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
+import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 
-interface AscendanceCooldownCast extends SpellCast {
+interface AscendanceUsage {
+  event: CastEvent;
   start: number;
   end: number;
-  buffedCasts: CastEvent[];
+  casts: CastEvent[];
 }
 
 const ASCENDANCE_DURATION = 15000;
 const DRE_DURATION = 6000;
 
-class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
+class Ascendance extends Analyzer {
   static dependencies = {
-    ...MajorCooldown.dependencies,
     spellUsable: SpellUsable,
   };
 
   protected spellUsable!: SpellUsable;
-  protected currentCooldown: AscendanceCooldownCast | null = null;
+  protected current: AscendanceUsage | null = null;
+  protected entries: BoxRowEntry[] = [];
 
   constructor(options: Options) {
-    super({ spell: TALENTS.ASCENDANCE_ENHANCEMENT_TALENT }, options);
+    super(options);
 
     // this can be active if either the Ascendance or Deeply Rooted Elements talents are chosen
     this.active =
@@ -66,17 +67,17 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   }
 
   onCastAscendance(event: CastEvent) {
-    this.currentCooldown = {
+    this.current = {
       event: event,
       start: event.timestamp,
       end: event.timestamp + ASCENDANCE_DURATION,
-      buffedCasts: [],
+      casts: [],
     };
   }
 
   onApplyBuff(event: ApplyBuffEvent | RefreshBuffEvent) {
     if (event.type === EventType.ApplyBuff) {
-      this.currentCooldown = {
+      this.current = {
         event: {
           ...event,
           type: EventType.Cast,
@@ -86,15 +87,15 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         },
         start: event.timestamp,
         end: event.timestamp + DRE_DURATION,
-        buffedCasts: [],
+        casts: [],
       };
-    } else if (this.currentCooldown) {
-      this.currentCooldown.end = event.timestamp + DRE_DURATION;
+    } else if (this.current) {
+      this.current.end = event.timestamp + DRE_DURATION;
     }
   }
 
   onCast(event: CastEvent) {
-    if (!this.currentCooldown) {
+    if (!this.current) {
       return;
     }
     if (
@@ -102,15 +103,20 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         (le) => le.relation === STORMSTRIKE_LINK || le.relation === THORIMS_INVOCATION_LINK,
       )
     ) {
-      this.currentCooldown.buffedCasts.push(event);
+      this.current.casts.push(event);
     }
   }
 
   onEndAscendance() {
-    if (this.currentCooldown) {
-      this.recordCooldown(this.currentCooldown);
-    }
-    this.currentCooldown = null;
+    this.recordPerformance(this.current);
+    this.current = null;
+  }
+
+  recordPerformance(usage: AscendanceUsage | null) {
+    const entry: BoxRowEntry = {
+      value: QualitativePerformance.Fail,
+    };
+    this.entries.push(entry);
   }
 
   description() {
@@ -124,7 +130,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     );
   }
 
-  explainPerformance(cast: AscendanceCooldownCast): SpellUse {
+  explainPerformance(cast: AscendanceUsage): SpellUse {
     return {
       event: cast.event,
       performance: QualitativePerformance.Perfect,
