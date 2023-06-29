@@ -21,7 +21,6 @@ class IcyPropulsion extends Analyzer {
   protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
 
-  conduitRank = 0;
   cooldownReduction = 0;
 
   constructor(options: Options) {

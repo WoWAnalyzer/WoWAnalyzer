@@ -9,13 +9,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 class TempestBarrier extends Analyzer {
-  conduitRank = 0;
   damageAbsorbed = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = false;
-    this.conduitRank = 0;
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TEMPEST_BARRIER_TALENT);
     this.addEventListener(
       Events.absorbed.by(SELECTED_PLAYER).spell(SPELLS.TEMPEST_BARRIER_ABSORB),
       this.onAbsorb,
