@@ -2,7 +2,6 @@ import {
   ArcaneIntellect,
   CancelledCasts,
   MirrorImage,
-  RuneOfPower,
   TimeAnomaly,
 } from 'analysis/retail/mage/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
@@ -42,7 +41,6 @@ class Checklist extends BaseChecklist {
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
     mirrorImage: MirrorImage,
-    runeOfPower: RuneOfPower,
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
@@ -62,7 +60,6 @@ class Checklist extends BaseChecklist {
   protected arcaneIntellect!: ArcaneIntellect;
   protected cancelledCasts!: CancelledCasts;
   protected mirrorImage!: MirrorImage;
-  protected runeOfPower!: RuneOfPower;
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
 
@@ -89,8 +86,6 @@ class Checklist extends BaseChecklist {
           manaOnKill: this.manaValues.suggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
-          runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
-          runeOfPowerOverlaps: this.runeOfPower.overlappedRunesThresholds,
           radiantSparkUtilization: this.radiantSpark.radiantSparkUsageThresholds,
         }}
       />

@@ -21,8 +21,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const PROC_BUFFER = 200;
-
 class HotStreak extends Analyzer {
   static dependencies = {
     sharedCode: SharedCode,
@@ -31,7 +29,6 @@ class HotStreak extends Analyzer {
   protected eventHistory!: EventHistory;
   protected sharedCode!: SharedCode;
 
-  hasPyroclasm: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT);
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
   hasHyperthermia: boolean = this.selectedCombatant.hasTalent(TALENTS.HYPERTHERMIA_TALENT);
@@ -80,12 +77,6 @@ class HotStreak extends Analyzer {
         return true;
       }
     });
-
-    //If Pyroclasm was removed within 200ms of the Hot Streak being removed then they probably precast a hard cast Pyroblast, so filter it out
-    hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const pyroclasmRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.PYROCLASM_BUFF, count: 1, startTimestamp: hs.timestamp, duration: PROC_BUFFER });
-      return !this.hasPyroclasm || !pyroclasmRemoved;
-    })
 
     //Highlight bad casts on timeline
     const tooltip = `This Pyroblast was cast using Hot Streak, but did not have a Fireball pre-cast in front of it.`
@@ -202,18 +193,9 @@ class HotStreak extends Analyzer {
           {this.hasFirestarter ? ' and the target is below 90% health' : ''}{' '}
           {this.hasSearingTouch ? ' and the target is over 30% health' : ''},{' '}
           <SpellLink id={SPELLS.HOT_STREAK.id} /> procs should be used immediately after casting{' '}
-          <SpellLink id={SPELLS.FIREBALL.id} />{' '}
-          {this.hasPyroclasm ? (
-            <>
-              {' '}
-              or after using a <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc{' '}
-            </>
-          ) : (
-            ''
-          )}
-          . This way, if one of the two abilities crit you will gain a new{' '}
-          <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will get a new{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this{' '}
+          <SpellLink id={SPELLS.FIREBALL.id} /> . This way, if one of the two abilities crit you
+          will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will
+          get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this{' '}
           {this.missingHotStreakPreCast()} times. If you have a{' '}
           <SpellLink id={SPELLS.HOT_STREAK.id} /> proc and need to move, you can hold the proc and
           cast <SpellLink id={SPELLS.SCORCH.id} /> once or twice until you are able to stop and cast{' '}
@@ -259,11 +241,10 @@ class HotStreak extends Analyzer {
             the procs that you get and avoid letting them expire. <br />
             <br />
             Additionally, to maximize your chance of getting Heating Up/Hot Streak procs, you should
-            hard cast Fireball
-            {this.hasPyroclasm ? ' (or Pyroblast if you have a Pyroclasm proc)' : ''} just before
-            using your Hot Streak proc unless you are guaranteed to crit via Firestarter, Searing
-            Touch, or Combustion. This way if one of the two spells crit you will get a new Heating
-            Up proc, and if both spells crit then you will get a new Hot Streak proc.
+            hard cast Fireball just before using your Hot Streak proc unless you are guaranteed to
+            crit via Firestarter, Searing Touch, or Combustion. This way if one of the two spells
+            crit you will get a new Heating Up proc, and if both spells crit then you will get a new
+            Hot Streak proc.
             <br />
             <ul>
               <li>Total procs - {this.totalHotStreakProcs}</li>

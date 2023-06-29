@@ -75,9 +75,9 @@ class RadiantSpark extends Analyzer {
     }
 
     //If we dont have Rune of Power on any cast, flag it as false
-    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
-      this.hasRuneOfPowerBuff = false;
-    }
+    //if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
+    //  this.hasRuneOfPowerBuff = false;
+    //}
 
     const spellId = event.ability.guid;
 
