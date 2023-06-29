@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { MS_BUFFER_250 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -27,7 +26,6 @@ class FeelTheBurn extends Analyzer {
   maxStackDuration = 0;
   totalBuffs = 0;
   combustionCount = 0;
-  isSKBCombust = false;
   totalCombustionDuration = 0;
 
   constructor(options: Options) {
@@ -36,10 +34,6 @@ class FeelTheBurn extends Analyzer {
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FEEL_THE_BURN_BUFF),
       this.onBuffStack,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustionApplied,
     );
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FEEL_THE_BURN_BUFF),
@@ -65,36 +59,7 @@ class FeelTheBurn extends Analyzer {
     }
   }
 
-  onCombustionApplied(event: ApplyBuffEvent) {
-    //If Combustion is already active (i.e. they extended Combustion with SKB), ignore it
-    //If Combustion ended within the last 3 seconds (i.e. they triggered SKB with enough time to bridge Infernal Cascade from one Combustion to the other), ignore it
-    const lastCombustEnd = this.eventHistory.last(
-      1,
-      3000,
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-    );
-    if (
-      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, event.timestamp - 10) ||
-      lastCombustEnd.length > 0
-    ) {
-      return;
-    }
-
-    const lastCombustStart = this.eventHistory.last(
-      1,
-      MS_BUFFER_250,
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-    );
-    if (lastCombustStart.length === 0) {
-      this.isSKBCombust = true;
-    }
-  }
-
   onCombustionRemoved(event: RemoveBuffEvent) {
-    //If the combustion was marked as an SKB Combustion, disregard
-    if (this.isSKBCombust) {
-      return;
-    }
     const lastCombustStart = this.eventHistory.last(
       1,
       undefined,
@@ -105,15 +70,14 @@ class FeelTheBurn extends Analyzer {
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
-    //If the Combustion was marked as an SKB Combustion or IC was not at max stacks, then disregard
-    if (this.buffStack !== MAX_STACKS || this.isSKBCombust) {
+    //If Feel the Burn was not at max stacks, then disregard
+    if (this.buffStack !== MAX_STACKS) {
       return;
     }
 
     this.maxStackDuration += event.timestamp - this.maxStackTimestamp;
     this.maxStackTimestamp = 0;
     this.buffStack = 0;
-    this.isSKBCombust = false;
   }
 
   get averageDuration() {
@@ -150,16 +114,18 @@ class FeelTheBurn extends Analyzer {
         <>
           Your <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> buff was at {MAX_STACKS} stacks
           for {formatPercentage(this.maxStackPercent)}% of your Combustion Uptime. Because so much
-          of your damage comes from your Combustion, it is important that you adjust your rotation
-          to maintain {MAX_STACKS} stacks of <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> for
-          as much of your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> as possible. This can be
-          done by alternating between using <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
-          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> to generate{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> instead of using all the charges of one, and then
-          all the charges of the other. <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />s that were
-          proc'd by <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> are not included in
-          this, unless you used the proc to extend an existing{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
+          of your damage comes from your Combustion, it is important that you build up and maintain{' '}
+          {MAX_STACKS} stacks of <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> for as much of
+          your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> as possible. Casting{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
+          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> will give you stacks of{' '}
+          <SpellLink id={SPELLS.FEEL_THE_BURN_BUFF.id} />, so just avoid running out of charges of
+          those spells or long gaps without casting one of those spells during{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. Additionally, if you are chaining{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> into{' '}
+          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} />, make sure you have adequate
+          charges to bridge your buff stacks from one{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> to the other.
         </>,
       )
         .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)
