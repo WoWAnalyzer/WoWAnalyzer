@@ -58,7 +58,12 @@ class Abilities extends CoreAbilities {
         },
         category: SPELL_CATEGORY.ROTATIONAL,
         buffSpellId: SPELLS.PUNISH_DEBUFF.id,
-        cooldown: (haste) => 9 / (1 + haste),
+        cooldown: (haste) => {
+          if (combatant.hasTalent(TALENTS.HONED_REFLEXES_PROTECTION_TALENT)) {
+            return 8 / (1 + haste);
+          }
+          return 9 / (1 + haste);
+        },
         timelineSortIndex: 1,
       },
       {
