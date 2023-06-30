@@ -4,7 +4,6 @@ import TALENTS from 'common/TALENTS/shaman';
 import { Talent } from 'common/TALENTS/types';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { Trans } from '@lingui/macro';
 
 interface Props {
   checklist: Talent[];
@@ -21,11 +20,11 @@ const COOLDOWNS: Talent[] = [
 function Cooldowns() {
   return (
     <Section title="Cooldowns">
-      <Trans id="guide.shaman.enhancement.sections.cooldowns">
+      <p>
         <strong>Cooldowns</strong> - this graph shows when you used your major cooldowns and how
         long you waited to use them again. Unless you're holding these for specific raid events, try
         to use these on as soon as they become available.
-      </Trans>
+      </p>
       <CooldownGraphSubsection checklist={COOLDOWNS} />
     </Section>
   );

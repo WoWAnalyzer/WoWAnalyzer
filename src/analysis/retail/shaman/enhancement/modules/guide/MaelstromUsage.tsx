@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import { GuideProps, Section, SubSection } from 'interface/guide';
@@ -7,12 +6,7 @@ import CombatLogParser from '../../CombatLogParser';
 const MaelstromUsage = ({ modules }: GuideProps<typeof CombatLogParser>) => {
   return (
     <Section title="Resources">
-      <SubSection
-        title={t({
-          id: 'guide.shaman.enhancement.sections.resources.maelstromweapon.title',
-          message: 'Maelstrom Weapon',
-        })}
-      >
+      <SubSection title="Maelstrom Weapon">
         <p>
           Enhancement's primary resource is <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} />.
           The chart below shows your <SpellLink spell={TALENTS.MAELSTROM_WEAPON_TALENT} /> over the
