@@ -7,6 +7,7 @@ import {
   BeginCastEvent,
   BeginChannelEvent,
   CastEvent,
+  EmpowerStartEvent,
   EndChannelEvent,
   EventType,
   HasAbility,
@@ -17,6 +18,7 @@ import InsertableEventsWrapper from 'parser/core/InsertableEventsWrapper';
 import { Options } from 'parser/core/Module';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+import { playerInfo } from '../metrics/apl/conditions/test-tools';
 
 /**
  * Channels and casts are handled differently in events, and some information is also missing and must be inferred.
@@ -54,6 +56,12 @@ class Channeling extends EventsNormalizer {
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
     buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
     buffChannelSpec(SPELLS.MIND_SEAR.id), // TODO double check ID
+    // Evoker
+    empowerChannelSpec(SPELLS.FIRE_BREATH.id),
+    empowerChannelSpec(SPELLS.FIRE_BREATH_FONT.id),
+    empowerChannelSpec(SPELLS.ETERNITY_SURGE.id),
+    empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id),
+    buffChannelSpec(SPELLS.DISINTEGRATE.id),
     // Rogue
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
@@ -190,6 +198,23 @@ export function beginCurrentChannel(event: BeginCastEvent | CastEvent, channelSt
   channelState.unresolvedChannel = beginChannel;
 }
 
+/** Updates the ChannelState with a BeginChannelEvent */
+export function beginEmpowerCurrentChannel(event: EmpowerStartEvent, channelState: ChannelState) {
+  const beginChannel: BeginChannelEvent = {
+    type: EventType.BeginChannel,
+    ability: event.ability,
+    timestamp: event.timestamp,
+    sourceID: event.sourceID,
+    isCancelled: false,
+    trigger: event,
+    targetIsFriendly: event.targetIsFriendly,
+    sourceIsFriendly: event.sourceIsFriendly,
+    targetID: event.target?.id,
+  };
+  channelState.eventsInserter.addAfterEvent(beginChannel, event);
+  channelState.unresolvedChannel = beginChannel;
+}
+
 function copyTargetData(target: ChannelState['unresolvedChannel'], source: AnyEvent) {
   if (source.type === EventType.Cast && target?.ability.guid === source.ability.guid) {
     target.targetID = source.targetID;
@@ -265,6 +290,61 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
           HasAbility(laterEvent) &&
           laterEvent.ability.guid === spellId &&
           (laterEvent.type === EventType.RemoveBuff || laterEvent.type === EventType.RemoveDebuff)
+        ) {
+          endCurrentChannel(laterEvent, state);
+          break;
+        }
+      }
+    }
+  };
+  return {
+    handler,
+    guids,
+  };
+}
+
+/**
+ * Helper to create a channel spec handler for Evokers empowered spells.
+ *
+ * This handler works by handling EmpowerStart events with the given guid, and then scanning forward for the
+ * matched EmpowerEnd, and then making the pair of beginchannel and endchannel events based on them.
+ * Sometimes Empowers don't produce EmpowerEnd, mainly when cancelling the spell. To account for this
+ * we will also cancel the channel on next cast or begincast
+ *
+ * Tipped Empowers don't produce a EmpowerStart event so we use this event to filter those out.
+ *
+ * @param spellId the guid for the tracked Cast and EmpowerStart/EmpowerEnd events.
+ */
+export function empowerChannelSpec(spellId: number): ChannelSpec {
+  const guids = [spellId];
+  const handler: ChannelHandler = (
+    event: AnyEvent,
+    events: AnyEvent[],
+    eventIndex: number,
+    state: ChannelState,
+  ) => {
+    if (event.type === EventType.EmpowerStart || event.type === EventType.Cast) {
+      // do standard start channel stuff
+      cancelCurrentChannel(event, state);
+      if (event.type === EventType.EmpowerStart) {
+        beginEmpowerCurrentChannel(event, state);
+      }
+      // now scan ahead for the matched empowerend, cast or begincast and end the channel at it
+      for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
+        const laterEvent = events[idx];
+        if (
+          HasAbility(laterEvent) &&
+          laterEvent.ability.guid === spellId &&
+          laterEvent.type === EventType.EmpowerEnd
+        ) {
+          endCurrentChannel(laterEvent, state);
+          break;
+        } else if (
+          laterEvent.type === EventType.BeginCast ||
+          (laterEvent.type === EventType.Cast &&
+            isRealCast(laterEvent) &&
+            laterEvent.timestamp > event.timestamp &&
+            event.sourceID === playerInfo.combatant.id)
         ) {
           endCurrentChannel(laterEvent, state);
           break;
