@@ -310,7 +310,7 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
  * This handler works by handling EmpowerStart events with the given guid, and then scanning forward for the
  * matched EmpowerEnd, and then making the pair of beginchannel and endchannel events based on them.
  * Sometimes Empowers don't produce EmpowerEnd, mainly when cancelling the spell. To account for this
- * we will also cancel the channel on next cast or begincast
+ * we will also cancel the channel on next cast, begincast or if buff is removed(fire breath).
  *
  * Tipped Empowers don't produce a EmpowerStart event so we use this event to filter those out.
  *
@@ -324,7 +324,11 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
     eventIndex: number,
     state: ChannelState,
   ) => {
-    if (event.type === EventType.EmpowerStart || event.type === EventType.Cast) {
+    if (
+      event.type === EventType.EmpowerStart ||
+      event.type === EventType.Cast ||
+      event.type === EventType.RemoveBuff
+    ) {
       // do standard start channel stuff
       cancelCurrentChannel(event, state);
       if (event.type === EventType.EmpowerStart) {
@@ -346,6 +350,14 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
             isRealCast(laterEvent) &&
             laterEvent.timestamp > event.timestamp &&
             event.sourceID === playerInfo.combatant.id)
+        ) {
+          endCurrentChannel(laterEvent, state);
+          break;
+        } else if (
+          HasAbility(laterEvent) &&
+          laterEvent.ability.guid === spellId &&
+          laterEvent.type === EventType.RemoveBuff &&
+          laterEvent.timestamp > event.timestamp
         ) {
           endCurrentChannel(laterEvent, state);
           break;
