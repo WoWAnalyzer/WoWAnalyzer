@@ -50,7 +50,7 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: PRIEST_TALENTS.POWER_INFUSION_TALENT.id,
-        triggeredBySpellId: TALENTS.RENEWING_BLAZE_TALENT.id,
+        triggeredBySpellId: PRIEST_TALENTS.POWER_INFUSION_TALENT.id,
         timelineHighlight: true,
       },
       // Bloodlust
