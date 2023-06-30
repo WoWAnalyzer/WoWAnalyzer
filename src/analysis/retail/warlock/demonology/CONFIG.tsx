@@ -24,11 +24,17 @@ export default {
         Council of the Black Harvest Discord
       </a>{' '}
       or{' '}
-      <a href="https://lockonestopshop.com" target="_blank" rel="noopener noreferrer">
-        Lock One Stop Shop
+      <a href="https://www.kalamazi.gg/guides/demonology" target="_blank" rel="noopener noreferrer">
+        Kalamazi&apos;s Demonology Guide
+      </a>{' '}
+      or{' '}
+      <a
+        href="https://www.method.gg/guides/demonology-warlock"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Method&apos;s Demonology Guide
       </a>
-      , if you'd like to discuss anything about this analyzer, message me at @Chizu#2873 on
-      WoWAnalyzer Discord.
       <br />
       <br />
     </>
