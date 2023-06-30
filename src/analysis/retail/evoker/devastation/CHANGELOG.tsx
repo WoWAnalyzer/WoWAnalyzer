@@ -2,8 +2,10 @@ import { change, date } from 'common/changelog';
 import { Tyndi, Vireve, Vollmer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
+import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2023, 6, 30), <>Added <SpellLink spell={SPELLS.DISINTEGRATE} />, <SpellLink spell={SPELLS.FIRE_BREATH} />, and <SpellLink spell={SPELLS.ETERNITY_SURGE} /> to channel list.</>, Vollmer),
   change(date(2023, 6, 11), <>Updated Guides for 10.1</>, Vollmer),
   change(date(2023, 6, 10), <>Added <SpellLink spell={TALENTS.ARCANE_INTENSITY_TALENT} /> module</>, Vollmer),
   change(date(2023, 6, 10), <>Added <SpellLink spell={TALENTS.ENGULFING_BLAZE_TALENT} /> module</>, Vollmer),
