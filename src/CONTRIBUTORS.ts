@@ -2218,3 +2218,8 @@ export const CodersKitchen: Contributor = {
   nickname: 'coders-kitchen',
   github: 'coders-kitchen',
 };
+
+export const Meldris: Contributor = {
+  nickname: 'Meldris',
+  github: 'Meldris',
+};

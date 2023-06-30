@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Sharrq, Zeboot, ToppleTheNun, Jonfanz, Mae, dodse } from 'CONTRIBUTORS';
+import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 6, 29), "Updated ABOUT with current guide links", Meldris),
   change(date(2023, 3, 9), "Update Soul Conduit to take into account being a 2 rank talent and different scaling", dodse),
   change(date(2023, 1, 4), "Add support for Shadow's Bite and Dread Calling talents", Mae),
   change(date(2022, 12, 29), 'Add support for Fel Covenant and 4 piece set bonus', Mae),
