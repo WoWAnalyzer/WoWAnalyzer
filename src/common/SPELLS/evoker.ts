@@ -380,6 +380,22 @@ const spells = spellIndexableList({
     name: 'Unravel',
     icon: 'ability_evoker_unravel',
   },
+  // Augmentation Spells
+  UPHEAVAL: {
+    id: 296286,
+    name: 'Upheaval',
+    icon: 'ability_evoker_upheaval',
+  },
+  UPHEAVAL_FONT: {
+    id: 408092,
+    name: 'Upheaval',
+    icon: 'ability_evoker_upheaval',
+  },
+  ESSENCE_BURST_AUGMENTATION_BUFF: {
+    id: 392268,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
+  },
 });
 
 export default spells;

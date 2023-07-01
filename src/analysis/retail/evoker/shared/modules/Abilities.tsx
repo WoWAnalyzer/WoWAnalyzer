@@ -8,7 +8,8 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 const hasFont = (combatant: Combatant) =>
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
-  combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT);
+  combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
+  combatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT);
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
@@ -48,7 +49,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 500,
         },
-        ...(combatant.spec === SPECS.DEVASTATION_EVOKER && {
+        ...(combatant.spec === (SPECS.DEVASTATION_EVOKER || SPECS.AUGMENTATION_EVOKER) && {
           castEfficiency: {
             suggestion: true,
             recommendedEfficiency: 0.95,
