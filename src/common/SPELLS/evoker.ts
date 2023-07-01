@@ -370,6 +370,11 @@ const spells = spellIndexableList({
     name: 'Wing Buffet',
     icon: 'ability_racial_wingbuffet',
   },
+  TAIL_SWIPE: {
+    id: 368970,
+    name: 'Tail Swipe',
+    icon: 'ability_racial_tailswipe',
+  },
   OPPRESING_ROAR: {
     id: 406971,
     name: 'Oppressing Roar',
