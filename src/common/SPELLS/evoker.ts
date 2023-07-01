@@ -396,6 +396,21 @@ const spells = spellIndexableList({
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
   },
+  EBON_MIGHT_BUFF_PERSONAL: {
+    id: 395296,
+    name: 'Ebon Might',
+    icon: 'spell_sarkareth',
+  },
+  EBON_MIGHT_BUFF_EXTERNAL: {
+    id: 395152,
+    name: 'Ebon Might',
+    icon: 'spell_sarkareth',
+  },
+  SANDS_OF_TIME: {
+    id: 395153,
+    name: 'Sands of Time',
+    icon: 'ability_evoker_sandsoftime',
+  },
 });
 
 export default spells;
