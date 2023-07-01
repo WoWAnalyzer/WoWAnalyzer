@@ -25,6 +25,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 6, 30), 'Regenerate talents.', ToppleTheNun),
   change(date(2023, 6, 28), 'Update retail realms for US, EU, TW, and KR.', ToppleTheNun),
   change(date(2023, 6, 26), 'Improve ability to have custom ESLint rules.', ToppleTheNun),
   change(date(2023, 6, 25), <>Correctly hide <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> if it isn't equipped.</>, Putro),
