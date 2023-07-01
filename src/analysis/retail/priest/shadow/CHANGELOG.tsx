@@ -5,6 +5,7 @@ import { DoxAshe, Havoc } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 6, 29), <>Add <SpellLink id={TALENTS.VOID_TORRENT_TALENT}/>, <SpellLink id={SPELLS.MIND_FLAY}/>, and <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE}/> to channeled spells to fix downtime and timeline</>,DoxAshe),
   change(date(2023, 6, 27), <>Add <SpellLink id={TALENTS.SHADOWFIEND_TALENT}/> cooldown tracking to guide view</>,DoxAshe),
   change(date(2023, 6, 22), <>Track <SpellLink id={SPELLS.VOIDFORM}/> duration extension</>,DoxAshe),
   change(date(2023, 6, 7), <>Fix <SpellLink id={SPELLS.VOID_BOLT}/> cooldown tracking</>,DoxAshe),

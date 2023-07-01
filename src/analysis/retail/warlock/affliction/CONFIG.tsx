@@ -26,6 +26,18 @@ const CONFIG: Config = {
       <a href="https://discord.gg/BlackHarvest" target="_blank" rel="noopener noreferrer">
         Council of the Black Harvest Discord
       </a>{' '}
+      or{' '}
+      <a href="https://www.kalamazi.gg/guides/affliction" target="_blank" rel="noopener noreferrer">
+        Kalamazi&apos;s Affliction Guide
+      </a>{' '}
+      or{' '}
+      <a
+        href="https://www.method.gg/guides/affliction-warlock"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Method&apos;s Affliction Guide
+      </a>
       Thanks and I hope you continue to enjoy the tool!
     </>
   ),

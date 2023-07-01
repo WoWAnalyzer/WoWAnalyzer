@@ -67,7 +67,7 @@
     "customize-cra": "^1.0.0",
     "decompress": "^4.2.1",
     "eslint-plugin-progress": "^0.0.1",
-    "eslint-plugin-wowanalyzer": "file:./packages/eslint-plugin-wowanalyzer",
+    "eslint-plugin-wowanalyzer": "link:./packages/eslint-plugin-wowanalyzer",
     "husky": "^8.0.0",
     "is-ci": "^3.0.1",
     "jest-canvas-mock": "^2.3.1",
