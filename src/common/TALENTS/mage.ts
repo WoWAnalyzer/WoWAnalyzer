@@ -1152,14 +1152,6 @@ const talents = createTalentList({
     entryIds: [80206],
     definitionIds: [{ id: 85209, specId: 62 }],
   },
-  RUNE_OF_POWER_TALENT: {
-    id: 116011,
-    name: 'Rune of Power',
-    icon: 'spell_mage_runeofpower',
-    maxRanks: 1,
-    entryIds: [80171],
-    definitionIds: [{ id: 85174, specId: 62 }],
-  },
   SCORCH_TALENT: {
     id: 2948,
     name: 'Scorch',
