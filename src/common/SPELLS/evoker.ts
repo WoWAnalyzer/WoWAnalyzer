@@ -416,6 +416,11 @@ const spells = spellIndexableList({
     name: 'Sands of Time',
     icon: 'ability_evoker_sandsoftime',
   },
+  PRESCIENCE_BUFF: {
+    id: 410089,
+    name: 'Prescience',
+    icon: 'ability_evoker_prescience',
+  },
 });
 
 export default spells;
