@@ -421,6 +421,16 @@ const spells = spellIndexableList({
     name: 'Prescience',
     icon: 'ability_evoker_prescience',
   },
+  SHIFTING_SANDS_BUFF: {
+    id: 413984,
+    name: 'Shifting Sands',
+    icon: 'ability_evoker_masterytimewalker',
+  },
+  TEMPORAL_WOUND_DEBUFF: {
+    id: 409560,
+    name: 'Temporal Wound',
+    icon: 'ability_evoker_breathofeons',
+  },
 });
 
 export default spells;
