@@ -11,6 +11,8 @@ import TimeSkip from './modules/talents/TimeSkip';
 import Accretion from './modules/talents/Accretion';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
+import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
+import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStackTracker';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -23,6 +25,8 @@ class CombatLogParser extends MainCombatLogParser {
     // Talents
     timeSkip: TimeSkip,
     accretion: Accretion,
+    blisteringScalesGraph: BlisteringScalesGraph,
+    blisteringScalesStackTracker: BlisteringScalesStackTracker,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,

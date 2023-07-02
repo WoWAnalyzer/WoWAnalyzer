@@ -1,4 +1,4 @@
-import { GuideProps, Section } from 'interface/guide';
+import { GuideProps, Section, SubSection } from 'interface/guide';
 
 import { useAnalyzer } from 'interface/guide';
 import TALENTS from 'common/TALENTS/evoker';
@@ -7,7 +7,6 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import SPELLS from 'common/SPELLS/evoker';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from '../../CombatLogParser';
-import { SpellLink } from 'interface';
 
 export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const castEfficiency = useAnalyzer(CastEfficiency);
@@ -19,42 +18,36 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
 
   return (
     <Section title="Cooldowns">
-      <p>
-        These cooldowns are essential for maximizing your damage output. Top performing Evokers are
-        able to acheive 100% efficiency with <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />,{' '}
-        <SpellLink spell={SPELLS.FIRE_BREATH} />, and <SpellLink spell={TALENTS.UPHEAVAL_TALENT} />.
-        If talented into <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> aim for 90% efficiency.
-      </p>
-      <p>
-        Legend
-        <ul>
-          <li>Gray - Spell was available</li>
-          <li>Yellow - Spell was on cooldown</li>
-          <li>Red - Spell was available and potentially affected your effieciency</li>
-        </ul>
-      </p>
-      <CastEfficiencyBar
-        spellId={TALENTS.BREATH_OF_EONS_TALENT.id}
-        gapHighlightMode={GapHighlight.All}
-      />
-      <CastEfficiencyBar
-        spellId={SPELLS.FIRE_BREATH_FONT.id}
-        gapHighlightMode={GapHighlight.FullCooldown}
-      />
-      <CastEfficiencyBar
-        spellId={SPELLS.UPHEAVAL_FONT.id}
-        gapHighlightMode={GapHighlight.FullCooldown}
-      />
-      <CastEfficiencyBar
-        spellId={TALENTS.BLISTERING_SCALES_TALENT.id}
-        gapHighlightMode={GapHighlight.FullCooldown}
-      />
-      {info.combatant.hasTalent(TALENTS.TIME_SKIP_TALENT) && (
+      <SubSection>
+        <p>
+          <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how
+          long you waited to use them again. Grey segments show when the spell was available, yellow
+          segments show when the spell was cooling down. Red segments highlight times when you could
+          have fit a whole extra use of the cooldown.
+        </p>
         <CastEfficiencyBar
-          spellId={TALENTS.TIME_SKIP_TALENT.id}
+          spellId={TALENTS.BREATH_OF_EONS_TALENT.id}
           gapHighlightMode={GapHighlight.All}
         />
-      )}
+        {info.combatant.hasTalent(TALENTS.TIME_SKIP_TALENT) && (
+          <CastEfficiencyBar
+            spellId={TALENTS.TIME_SKIP_TALENT.id}
+            gapHighlightMode={GapHighlight.All}
+          />
+        )}
+        <CastEfficiencyBar
+          spellId={TALENTS.BLISTERING_SCALES_TALENT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
+        <CastEfficiencyBar
+          spellId={SPELLS.FIRE_BREATH_FONT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
+        <CastEfficiencyBar
+          spellId={SPELLS.UPHEAVAL_FONT.id}
+          gapHighlightMode={GapHighlight.FullCooldown}
+        />
+      </SubSection>
     </Section>
   );
 }
