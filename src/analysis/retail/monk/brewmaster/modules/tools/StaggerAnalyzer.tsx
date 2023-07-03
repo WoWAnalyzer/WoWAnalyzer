@@ -1,6 +1,5 @@
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import { Talent } from 'common/TALENTS/types';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -10,11 +9,6 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import StaggerFabricator from '../core/StaggerFabricator';
-
-export interface StaggerStatisticProps {
-  talent: Talent;
-  triggerSpells: Spell[];
-}
 
 export default abstract class StaggerStatistic extends Analyzer {
   static dependencies = { fab: StaggerFabricator };
