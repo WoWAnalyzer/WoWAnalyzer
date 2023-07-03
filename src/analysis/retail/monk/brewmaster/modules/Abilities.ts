@@ -276,6 +276,7 @@ class Abilities extends CoreAbilities {
         spell: talents.SUMMON_WHITE_TIGER_STATUE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(talents.SUMMON_WHITE_TIGER_STATUE_TALENT),
+        damageSpellIds: [SPELLS.CLAW_OF_THE_WHITE_TIGER.id],
         gcd: {
           static: 1000,
         },

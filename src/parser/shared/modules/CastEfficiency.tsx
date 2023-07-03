@@ -80,7 +80,7 @@ class CastEfficiency extends Analyzer {
         } else if (
           event.updateType === UpdateSpellUsableType.EndCooldown &&
           //We're only interested in events that happened during the fight - any events outside of that are faked
-          //The remaining time between cast and endcooldown is counted as recharged time in endingRechargeTime
+          //The remaining time between last and fight endtime is counted as recharged time in endingRechargeTime
           event.timestamp <= this.owner.fight.end_time
         ) {
           //limit by start time in case of pre phase events

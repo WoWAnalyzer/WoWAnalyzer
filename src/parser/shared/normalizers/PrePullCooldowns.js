@@ -95,6 +95,7 @@ class PrePullCooldowns extends EventsNormalizer {
     const firstEventIndex = this.getFightStartIndex(events);
     const firstTimestamp = events[firstEventIndex].timestamp;
     const playerId = this.owner.playerId;
+    const petIds = new Set(this.owner.playerPets.map((pet) => pet.id));
 
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
@@ -114,9 +115,11 @@ class PrePullCooldowns extends EventsNormalizer {
               buffSpells[i].castId.includes(event.ability.guid)
             ) {
               //try to find corresponding cast, otherwise pass list of casts
-              prepullCasts.push(this.constructor._fabricateCastEvent(event));
+              prepullCasts.push(this.constructor._fabricateCastEvent(event, playerId));
             } else {
-              prepullCasts.push(this.constructor._fabricateCastEvent(event, buffSpells[i].castId));
+              prepullCasts.push(
+                this.constructor._fabricateCastEvent(event, playerId, buffSpells[i].castId),
+              );
             }
             buffSpells.splice(i, 1);
             break;
@@ -125,7 +128,7 @@ class PrePullCooldowns extends EventsNormalizer {
         continue;
       }
 
-      if (sourceId !== playerId) {
+      if (sourceId !== playerId && !petIds.has(sourceId)) {
         continue;
       }
 
@@ -167,7 +170,9 @@ class PrePullCooldowns extends EventsNormalizer {
         for (let i = 0; i < damageSpells.length; i += 1) {
           if (damageSpells[i].damageIds.some((id) => id === event.ability.guid)) {
             debug && console.debug(`Detected a precast damage cooldown: ${event.ability.name}`);
-            prepullCasts.push(this.constructor._fabricateCastEvent(event, damageSpells[i].castId));
+            prepullCasts.push(
+              this.constructor._fabricateCastEvent(event, playerId, damageSpells[i].castId),
+            );
             damageSpells.splice(i, 1);
             break;
           }
@@ -221,7 +226,7 @@ class PrePullCooldowns extends EventsNormalizer {
     return 1500;
   }
 
-  static _fabricateCastEvent(event, castId = null) {
+  static _fabricateCastEvent(event, sourceId, castId = null) {
     let ability = event.ability;
     if (castId) {
       if (castId instanceof Array) {
@@ -239,7 +244,7 @@ class PrePullCooldowns extends EventsNormalizer {
     return {
       type: EventType.Cast,
       ability: ability,
-      sourceID: event.sourceID,
+      sourceID: sourceId,
       sourceIsFriendly: event.sourceIsFriendly,
       targetID: event.targetID,
       targetIsFriendly: event.targetIsFriendly,
