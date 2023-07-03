@@ -24,15 +24,3 @@ jest.mock('react-router-dom', () => ({
       </routerified>
     ),
 }));
-
-jest.mock('@lingui/core', () => ({
-  i18n: {
-    _: (props) => JSON.stringify(props),
-    // eslint-disable-next-line @typescript-eslint/no-empty-function
-    loadLocaleData: () => {},
-  },
-}));
-jest.mock('@lingui/react', () => ({
-  Trans: (props) => <trans {...props} />,
-  I18nProvider: (props) => <i18n-provider {...props} />,
-}));
