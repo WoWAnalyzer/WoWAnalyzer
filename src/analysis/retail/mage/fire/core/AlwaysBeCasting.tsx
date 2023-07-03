@@ -25,7 +25,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         <>
           Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
           between casting spells. If you have to move, try casting{' '}
-          <SpellLink id={SPELLS.SCORCH.id} />{' '}
+          <SpellLink spell={SPELLS.SCORCH} />{' '}
         </>,
       )
         .icon('spell_mage_altertime')

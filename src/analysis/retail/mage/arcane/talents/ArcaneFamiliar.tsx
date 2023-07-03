@@ -38,7 +38,7 @@ class ArcaneFamiliar extends Analyzer {
     when(this.arcaneFamiliarUptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.ARCANE_FAMILIAR_TALENT.id} /> was up for{' '}
+          Your <SpellLink spell={TALENTS.ARCANE_FAMILIAR_TALENT} /> was up for{' '}
           {formatPercentage(this.uptime)}% of the fight. If your Arcane Familiar dies, make sure you
           recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight,
           consider taking a different talent.
@@ -63,7 +63,7 @@ class ArcaneFamiliar extends Analyzer {
           this.uptime,
         )}% of the fight. If your Arcane Familiar dies, make sure you recast it. If you are having trouble keeping the Arcane Familiar up for the entire fight, consider taking a different talent.`}
       >
-        <BoringSpellValueText spellId={TALENTS.ARCANE_FAMILIAR_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ARCANE_FAMILIAR_TALENT}>
           <>
             {formatPercentage(this.uptime, 0)}% <small>Buff uptime</small>
           </>

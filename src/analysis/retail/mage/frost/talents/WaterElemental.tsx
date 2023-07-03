@@ -136,7 +136,7 @@ class WaterElemental extends Analyzer {
     when(this.waterElementalUptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.SUMMON_WATER_ELEMENTAL_TALENT.id} /> uptime can be improved.
+          Your <SpellLink spell={TALENTS.SUMMON_WATER_ELEMENTAL_TALENT} /> uptime can be improved.
           The uptime of your Water Elemental should more or less mirror your own uptime, higher
           being better. Ensure you have your it summoned pre-pull and that it's always attacking.
         </>,
@@ -157,7 +157,7 @@ class WaterElemental extends Analyzer {
       suggest(
         <>
           Your Water Elemental should be able to cast Waterbolt right when the fight starts.
-          Therefore, cast <SpellLink id={TALENTS.SUMMON_WATER_ELEMENTAL_TALENT.id} /> before the
+          Therefore, cast <SpellLink spell={TALENTS.SUMMON_WATER_ELEMENTAL_TALENT} /> before the
           fight.
         </>,
       )
