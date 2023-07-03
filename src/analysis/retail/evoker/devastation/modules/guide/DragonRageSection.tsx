@@ -109,19 +109,19 @@ function Statistics({ window }: { window: RageWindowCounter }) {
   return (
     <ul>
       <li>
-        <SpellLink spell={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/2 casts
+        <SpellLink spell={SPELLS.FIRE_BREATH} /> - {window.fireBreaths}/2 casts
       </li>
       <li>
-        <SpellLink spell={SPELLS.ETERNITY_SURGE.id} /> - {window.eternitySurges}/2 casts
+        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> - {window.eternitySurges}/2 casts
       </li>
       <li>
-        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> - {window.essenceBursts} casts
+        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> - {window.essenceBursts} casts
       </li>
       <li>
-        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> - {window.disintegrateTicks} ticks
+        <SpellLink spell={SPELLS.DISINTEGRATE} /> - {window.disintegrateTicks} ticks
       </li>
       <li>
-        <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT.id} /> - {window.pyres} casts
+        <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} /> - {window.pyres} casts
       </li>
     </ul>
   );

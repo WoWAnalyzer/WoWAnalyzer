@@ -66,7 +66,7 @@ class GracePeriod extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <SpellLink id={TALENTS_EVOKER.GRACE_PERIOD_TALENT.id} /> provided the following:
+            <SpellLink spell={TALENTS_EVOKER.GRACE_PERIOD_TALENT} /> provided the following:
             <ul>
               <li>{formatNumber(this.healingFromIncrease)} effective healing</li>
               <li>{formatNumber(this.overhealFromIncrease)} overheal</li>

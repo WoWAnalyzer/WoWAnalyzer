@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
-import { Tyndi, Vireve, Vollmer } from 'CONTRIBUTORS';
+import { ToppleTheNun, Tyndi, Vireve, Vollmer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
 
 export default [
+  change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 11), <>Updated Guides for 10.1</>, Vollmer),
   change(date(2023, 6, 10), <>Added <SpellLink spell={TALENTS.ARCANE_INTENSITY_TALENT} /> module</>, Vollmer),
   change(date(2023, 6, 10), <>Added <SpellLink spell={TALENTS.ENGULFING_BLAZE_TALENT} /> module</>, Vollmer),
