@@ -148,7 +148,7 @@ class ThunderFocusTea extends Analyzer {
       value = QualitativePerformance.Good;
       tooltip = (
         <>
-          Correct cast: buffed <SpellLink id={spellId} />
+          Correct cast: buffed <SpellLink spell={spellId} />
         </>
       );
       this.correctCasts += 1;
@@ -156,14 +156,14 @@ class ThunderFocusTea extends Analyzer {
       value = QualitativePerformance.Ok;
       tooltip = (
         <>
-          Ok cast: buffed <SpellLink id={spellId} />
+          Ok cast: buffed <SpellLink spell={spellId} />
         </>
       );
     } else {
       value = QualitativePerformance.Fail;
       tooltip = (
         <>
-          Incorrect cast: buffed <SpellLink id={spellId} />
+          Incorrect cast: buffed <SpellLink spell={spellId} />
         </>
       );
     }
@@ -221,13 +221,13 @@ class ThunderFocusTea extends Analyzer {
         <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
         {this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT) && (
           <>
-            or <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (when talented into{' '}
-            <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />)
+            or <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (when talented into{' '}
+            <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} />)
           </>
         )}
-        . If you aren't talented into <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT.id} />,
-        then always use it on <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> or{' '}
-        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />.
+        . If you aren't talented into <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />,
+        then always use it on <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
+        <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />.
       </p>
     );
     const data = (
@@ -266,13 +266,13 @@ class ThunderFocusTea extends Analyzer {
   }
 
   suggestions(when: When) {
-    const elements = this.correctSpells.map((spell) => <SpellLink id={spell} key={spell} />);
+    const elements = this.correctSpells.map((spell) => <SpellLink spell={spell} key={spell} />);
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You are currently buffing spells other than{' '}
           {this.correctSpells.length === 1 ? elements[0] : [elements[0], ' and ', elements[1]]} with{' '}
-          <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
         </>,
       )
         .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)
@@ -295,7 +295,7 @@ class ThunderFocusTea extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> usage
+            <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> usage
           </label>
           {this.renderCastRatioChart()}
         </div>

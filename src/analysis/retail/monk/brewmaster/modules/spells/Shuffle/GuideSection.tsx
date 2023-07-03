@@ -34,17 +34,17 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
       </div>
       <div>
         You took <strong>{formatNumber(hit.event.amount)}</strong> from{' '}
-        <SpellLink id={hit.event.ability.guid}>{hit.event.ability.name}</SpellLink>.
+        <SpellLink spell={hit.event.ability.guid}>{hit.event.ability.name}</SpellLink>.
       </div>
       {hit.mitigated === QualitativePerformance.Fail && (
         <div>
-          <SpellLink id={SPELLS.SHUFFLE} /> would have reduced this by{' '}
+          <SpellLink spell={SPELLS.SHUFFLE} /> would have reduced this by{' '}
           <strong>
             {formatPercentage(lowEndPct, 0)}&ndash;{formatPercentage(highEndPct, 0)}%
           </strong>{' '}
           (to {formatNumber((1 - highEndPct) * hit.event.amount)}&ndash;
           {formatNumber((1 - lowEndPct) * hit.event.amount)}) by increasing the amount absorbed by{' '}
-          <SpellLink id={SPELLS.STAGGER} />.
+          <SpellLink spell={SPELLS.STAGGER} />.
         </div>
       )}
     </div>
@@ -87,15 +87,16 @@ export default function ShuffleSection(): JSX.Element {
       <ExplanationRow>
         <Explanation>
           <p>
-            <SpellLink id={SPELLS.SHUFFLE} /> nearly <strong>doubles</strong> the amount of damage
-            that is absorbed by <SpellLink id={SPELLS.STAGGER} />, and is critical to have up while
-            tanking. It is applied automatically by your core rotational abilities&mdash;so as long
-            as you are doing your rotation, you should have <SpellLink id={SPELLS.SHUFFLE} />.
+            <SpellLink spell={SPELLS.SHUFFLE} /> nearly <strong>doubles</strong> the amount of
+            damage that is absorbed by <SpellLink spell={SPELLS.STAGGER} />, and is critical to have
+            up while tanking. It is applied automatically by your core rotational abilities&mdash;so
+            as long as you are doing your rotation, you should have{' '}
+            <SpellLink spell={SPELLS.SHUFFLE} />.
           </p>
           <p>
-            This chart shows your <SpellLink id={SPELLS.SHUFFLE} /> uptime along with the damage
+            This chart shows your <SpellLink spell={SPELLS.SHUFFLE} /> uptime along with the damage
             that you took. <strong>You do not need 100% uptime!</strong> However, damage taken
-            without <SpellLink id={SPELLS.SHUFFLE} /> active (shown in{' '}
+            without <SpellLink spell={SPELLS.SHUFFLE} /> active (shown in{' '}
             <Highlight color={BadColor}>red</Highlight>) is very dangerous!
           </p>
         </Explanation>

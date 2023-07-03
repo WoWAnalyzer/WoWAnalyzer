@@ -118,7 +118,7 @@ class CalmingCoalescence extends Analyzer {
           </ul>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.CALMING_COALESCENCE_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.CALMING_COALESCENCE_BUFF}>
           <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>
       </Statistic>

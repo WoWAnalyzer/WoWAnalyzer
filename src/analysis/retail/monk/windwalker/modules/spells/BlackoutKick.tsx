@@ -97,11 +97,11 @@ class BlackoutKick extends Analyzer {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
       const linkList = availableImportantCast.map((spellId) => (
-        <SpellLink key={spellId} id={spellId} />
+        <SpellLink key={spellId} spell={spellId} />
       ));
       event.meta.inefficientCastReason = (
         <>
-          You cast this <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> while {oxfordCommaJoin(linkList)}{' '}
+          You cast this <SpellLink spell={SPELLS.BLACKOUT_KICK} /> while {oxfordCommaJoin(linkList)}{' '}
           was available.
         </>
       );
@@ -141,13 +141,13 @@ class BlackoutKick extends Analyzer {
 
   suggestions(when: When) {
     const linkList = this.IMPORTANT_SPELLS.map((spellId) => (
-      <SpellLink key={spellId} id={spellId} />
+      <SpellLink key={spellId} spell={spellId} />
     ));
 
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are wasting cooldown reduction by casting {<SpellLink id={SPELLS.BLACKOUT_KICK.id} />}{' '}
+          You are wasting cooldown reduction by casting {<SpellLink spell={SPELLS.BLACKOUT_KICK} />}{' '}
           while having important casts, such as {oxfordCommaJoin(linkList, 'or')} available
         </>,
       )
@@ -165,10 +165,10 @@ class BlackoutKick extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.BLACKOUT_KICK.id}>
+        <BoringSpellValueText spell={SPELLS.BLACKOUT_KICK}>
           <span>
             <SpellIcon
-              id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
+              spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',
@@ -178,7 +178,7 @@ class BlackoutKick extends Analyzer {
             <small>Seconds reduced</small>
             <br />
             <SpellIcon
-              id={SPELLS.FISTS_OF_FURY_CAST.id}
+              spell={SPELLS.FISTS_OF_FURY_CAST}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',

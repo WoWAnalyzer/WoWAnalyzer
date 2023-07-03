@@ -144,28 +144,28 @@ class Revival extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={this.getRevivalTalent()} />
+          <SpellLink spell={this.getRevivalTalent()} />
         </strong>{' '}
         is a fairly straightforward cooldown that should be used to heal burst damage events with a
         relatively short checklist to maximize its healing.
         {!this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT) && (
           <>
             {' '}
-            Always pre-cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to get as many
-            duplicated <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> heals as possible.{' '}
+            Always pre-cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to get as many
+            duplicated <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> heals as possible.{' '}
           </>
         )}{' '}
         {this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT) && (
           <>
             {' '}
             Do <b>not</b> cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> prior to{' '}
-            <SpellLink id={this.getRevivalTalent()} /> when talented into{' '}
+            <SpellLink spell={this.getRevivalTalent()} /> when talented into{' '}
             <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} /> as it is not mana efficient,
             regardless of doubling <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing.
           </>
         )}{' '}
-        If talented into <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
-        <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> if your next buff is not{' '}
+        If talented into <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, always pre-cast{' '}
+        <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> if your next buff is not{' '}
         <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />.
       </p>
     );
@@ -177,7 +177,7 @@ class Revival extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timeStamp)} &mdash;{' '}
-              <SpellLink id={this.getRevivalTalent()} />
+              <SpellLink spell={this.getRevivalTalent()} />
             </>
           );
           const checklistItems: CooldownExpandableItem[] = [];
@@ -192,7 +192,7 @@ class Revival extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on cast
+                  <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on cast
                 </>
               ),
               result: <PerformanceMark perf={efPerf} />,
@@ -222,7 +222,7 @@ class Revival extends Analyzer {
                         right before <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT} /> if the next
                         buff is not
                         <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} /> as haste does not buff{' '}
-                        <SpellLink id={TALENTS_MONK.REVIVAL_TALENT} /> in any way.
+                        <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT} /> in any way.
                       </>
                     }
                   >
@@ -257,7 +257,7 @@ class Revival extends Analyzer {
       <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
         <div className="pad">
           <label>
-            <SpellLink id={this.activeTalent.id}>{this.activeTalent.name}</SpellLink> breakdown
+            <SpellLink spell={this.activeTalent}>{this.activeTalent.name}</SpellLink> breakdown
           </label>
           {this.renderRevivalChart()}
         </div>
