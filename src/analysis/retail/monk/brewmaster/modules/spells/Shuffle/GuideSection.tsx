@@ -34,7 +34,7 @@ function HitTooltipContent({ hit }: { hit: TrackedHit }) {
       </div>
       <div>
         You took <strong>{formatNumber(hit.event.amount)}</strong> from{' '}
-        <SpellLink spell={hit.event.ability}>{hit.event.ability.name}</SpellLink>.
+        <SpellLink spell={hit.event.ability.guid}>{hit.event.ability.name}</SpellLink>.
       </div>
       {hit.mitigated === QualitativePerformance.Fail && (
         <div>
