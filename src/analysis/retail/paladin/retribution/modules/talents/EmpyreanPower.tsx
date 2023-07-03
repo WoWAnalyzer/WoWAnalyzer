@@ -104,7 +104,7 @@ class EmpyreanPower extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.EMPYREAN_POWER_TALENT_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.EMPYREAN_POWER_TALENT_BUFF}>
           <ItemDamageDone amount={this.damageDone} />
         </BoringSpellValueText>
         {this.procProbabilities.length > 0
