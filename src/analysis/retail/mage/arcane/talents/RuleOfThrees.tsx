@@ -58,11 +58,11 @@ class RuleOfThrees extends Analyzer {
     when(this.ruleOfThreesUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.ARCANE_BARRAGE_TALENT.id} />{' '}
+          You cast <SpellLink spell={TALENTS.ARCANE_BARRAGE_TALENT} />{' '}
           {this.barrageWithRuleOfThrees} times while you had the{' '}
-          <SpellLink id={SPELLS.RULE_OF_THREES_BUFF.id} /> buff. This buff makes your next{' '}
-          <SpellLink id={SPELLS.ARCANE_BLAST.id} /> or{' '}
-          <SpellLink id={TALENTS.ARCANE_MISSILES_TALENT.id} /> free after you gain your third Arcane
+          <SpellLink spell={SPELLS.RULE_OF_THREES_BUFF} /> buff. This buff makes your next{' '}
+          <SpellLink spell={SPELLS.ARCANE_BLAST} /> or{' '}
+          <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> free after you gain your third Arcane
           Charge, so you should ensure that you use the buff before clearing your charges.
         </>,
       )

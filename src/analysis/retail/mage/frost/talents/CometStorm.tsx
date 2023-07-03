@@ -87,17 +87,17 @@ class CometStorm extends Analyzer {
     when(this.cometStormUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to get the most out of your <SpellLink id={TALENTS.COMET_STORM_TALENT.id} />{' '}
+          You failed to get the most out of your <SpellLink spell={TALENTS.COMET_STORM_TALENT} />{' '}
           casts {this.badCometStormCast} times. Because the projectiles from{' '}
-          <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> no longer remove your stacks of{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL.id} />, you should always cast{' '}
-          <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> immediately after casting{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> and applying{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL} />. This way there is time for most/all of the comets
-          to hit the target before <SpellLink id={SPELLS.WINTERS_CHILL.id} /> expires.
-          Alternatively, if <SpellLink id={TALENTS.COMET_STORM_TALENT.id} /> will hit at least{' '}
+          <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> no longer remove your stacks of{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} />, you should always cast{' '}
+          <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> immediately after casting{' '}
+          <SpellLink spell={TALENTS.FLURRY_TALENT} /> and applying{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} />. This way there is time for most/all of the
+          comets to hit the target before <SpellLink spell={SPELLS.WINTERS_CHILL} /> expires.
+          Alternatively, if <SpellLink spell={TALENTS.COMET_STORM_TALENT} /> will hit at least{' '}
           {COMET_STORM_AOE_MIN_TARGETS} targets, then it is acceptable to use it without{' '}
-          <SpellLink id={TALENTS.SHATTER_TALENT.id} />/<SpellLink id={SPELLS.WINTERS_CHILL.id} />
+          <SpellLink spell={TALENTS.SHATTER_TALENT} />/<SpellLink spell={SPELLS.WINTERS_CHILL} />
         </>,
       )
         .icon(TALENTS.COMET_STORM_TALENT.icon)
