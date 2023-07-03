@@ -7,6 +7,7 @@ import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle'
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
+import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
 export function CoreRotationSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -31,6 +32,10 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
       </SubSection>
 
       <BlisteringScalesSection modules={modules} events={events} info={info} />
+
+      <SubSection>
+        <CooldownUsage analyzer={modules.prescience} title="Prescience" />
+      </SubSection>
 
       {modules.sandsOfTime.guideSubsection()}
     </Section>
