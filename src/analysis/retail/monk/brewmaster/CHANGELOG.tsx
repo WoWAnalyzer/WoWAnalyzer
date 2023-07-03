@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 3), <>Fixed handling of pre-pull <SpellLink spell={talents.SUMMON_WHITE_TIGER_STATUE_TALENT} /> casts.</>, emallson),
+  change(date(2023, 7, 3), <>Added statistics for <SpellLink spell={talents.QUICK_SIP_TALENT} />, <SpellLink spell={talents.STAGGERING_STRIKES_TALENT} />, and <SpellLink spell={talents.TRANQUIL_SPIRIT_TALENT} />.</>, emallson),
   change(date(2023, 6, 25), <>Fixed <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> buff checking in rotational tools.</>, emallson),
   change(date(2023, 6, 3), <>Fixed <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> cast efficiency when using <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />.</>, emallson),
   change(date(2023, 6, 3), <>Added basic <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> section.</>, emallson),

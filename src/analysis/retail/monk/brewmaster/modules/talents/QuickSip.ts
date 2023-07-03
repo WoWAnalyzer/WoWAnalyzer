@@ -1,8 +1,8 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import { Options } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import StaggerFabricator from '../core/StaggerFabricator';
+import StaggerStatistic from '../tools/StaggerAnalyzer';
 
 const QUICK_SIP_RATE = 0.01 / 3;
 const DAMAGE_BUFFER = 150; // for SCK to break this, you need over 150% haste. good luck.
@@ -13,16 +13,11 @@ const SHUFFLE_DURATION = {
   [SPELLS.SPINNING_CRANE_KICK_BRM.id]: 1,
 };
 
-export default class QuickSip extends Analyzer {
-  static dependencies = {
-    staggerFab: StaggerFabricator,
-  };
-
-  protected staggerFab!: StaggerFabricator;
+export default class QuickSip extends StaggerStatistic {
   protected rank: number;
 
   constructor(options: Options) {
-    super(options);
+    super(talents.QUICK_SIP_TALENT, options);
 
     this.rank = this.selectedCombatant.getTalentRank(talents.QUICK_SIP_TALENT);
     this.active = this.rank > 0;
@@ -59,9 +54,9 @@ export default class QuickSip extends Analyzer {
   private onDamage(event: DamageEvent) {
     if (this.isFirstHit(event)) {
       const pct = SHUFFLE_DURATION[event.ability.guid] * this.rank * QUICK_SIP_RATE;
-      const amount = this.staggerFab.staggerPool * pct;
+      const amount = this.fab.staggerPool * pct;
 
-      this.staggerFab.removeStagger(event, amount);
+      this.removeStagger(event, amount);
     }
 
     this.recordHit(event);
