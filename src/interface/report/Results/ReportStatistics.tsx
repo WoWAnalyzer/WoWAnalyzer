@@ -1,4 +1,5 @@
 import { defineMessage, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { StatisticSize } from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -79,6 +80,7 @@ const ReportStatistics = ({
     return obj;
   }, {});
   const panels = groups[STATISTIC_CATEGORY.PANELS];
+  const { i18n } = useLingui();
   delete groups[STATISTIC_CATEGORY.PANELS];
   const categoryByIndex = Object.values(STATISTIC_CATEGORY); // objects have a guaranteed order
 
@@ -110,7 +112,7 @@ const ReportStatistics = ({
                   )
                 }
               >
-                {getStatisticGroupName(name)}
+                {i18n._(getStatisticGroupName(name))}
               </StatisticsSectionTitle>
 
               <Masonry className="row statistics">
