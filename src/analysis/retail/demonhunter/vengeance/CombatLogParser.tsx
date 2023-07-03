@@ -64,9 +64,13 @@ import DemonSpikes2 from './modules/core/MajorDefensives/DemonSpikes';
 import Metamorphosis2 from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
+import DeathEventsRetriever from 'parser/shared/modules/DeathEventsRetriever';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Testing!
+    deathEventRetriever: DeathEventsRetriever,
+
     // Core Statistics
     mitigationCheck: MitigationCheck,
 

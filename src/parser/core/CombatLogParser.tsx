@@ -91,6 +91,7 @@ import { PlayerInfo } from './Player';
 import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
+import EventsRetriever from 'parser/core/EventsRetriever';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -528,6 +529,15 @@ class CombatLogParser {
         }
       });
     return events;
+  }
+
+  async retrieve(): Promise<AnyEvent[]> {
+    const retrieveEventPromises = this.activeModules
+      .filter((module) => module instanceof EventsRetriever)
+      .map((module) => module as EventsRetriever)
+      .map((module) => module.retrieve());
+    const settledPromises = await Promise.all(retrieveEventPromises);
+    return settledPromises.flat();
   }
 
   /** The amount of events parsed. This can reliably be used to determine if something should re-render. */
