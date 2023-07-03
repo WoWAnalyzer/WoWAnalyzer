@@ -96,6 +96,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               useThresholds
             />
           )}
+          {info.combatant.hasTalent(talents.BONEDUST_BREW_TALENT) && (
+            <CastEfficiencyBar
+              spellId={talents.BONEDUST_BREW_TALENT.id}
+              gapHighlightMode={GapHighlight.FullCooldown}
+              useThresholds
+            />
+          )}{' '}
           {info.combatant.hasTalent(talents.EXPLODING_KEG_TALENT) && (
             <CastEfficiencyBar
               spellId={talents.EXPLODING_KEG_TALENT.id}
