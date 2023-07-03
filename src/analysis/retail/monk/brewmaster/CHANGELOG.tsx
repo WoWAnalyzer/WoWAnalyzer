@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import { emallson } from 'CONTRIBUTORS';
+import { emallson, Putro } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 3), <>Fixed an issue regarding the cast efficiency of <SpellLink spell={talents.BLACK_OX_BREW_TALENT} />. </>, Putro),
   change(date(2023, 6, 25), <>Fixed <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> buff checking in rotational tools.</>, emallson),
   change(date(2023, 6, 3), <>Fixed <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> cast efficiency when using <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />.</>, emallson),
   change(date(2023, 6, 3), <>Added basic <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> section.</>, emallson),
