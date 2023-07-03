@@ -38,7 +38,7 @@ class SaveThemAll extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.SAVE_THEM_ALL_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.SAVE_THEM_ALL_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealed),
         )} %`}

@@ -101,7 +101,7 @@ class RisingMistBreakdown extends Analyzer {
     ];
     return (
       <>
-        <SpellLink id={talents.ENVELOPING_MIST_TALENT} /> extension healing by source:
+        <SpellLink spell={talents.ENVELOPING_MIST_TALENT} /> extension healing by source:
         <hr />
         <DonutChart items={items} />
       </>
@@ -129,7 +129,7 @@ class RisingMistBreakdown extends Analyzer {
       <>
         Additional bonus healing from the extra
         <br />
-        <SpellLink id={talents.ENVELOPING_MIST_TALENT} /> buff uptime by source:
+        <SpellLink spell={talents.ENVELOPING_MIST_TALENT} /> buff uptime by source:
         <hr />
         <DonutChart items={items} />
       </>
@@ -162,7 +162,7 @@ class RisingMistBreakdown extends Analyzer {
     ];
     return (
       <>
-        <SpellLink id={talents.RENEWING_MIST_TALENT} /> extension healing by source:
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> extension healing by source:
         <hr />
         <DonutChart items={items} />
       </>
@@ -172,16 +172,16 @@ class RisingMistBreakdown extends Analyzer {
   risingMistDirectTooltip() {
     return (
       <>
-        <SpellLink id={talents.RISING_MIST_TALENT} /> direct healing from{' '}
-        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> casts
+        <SpellLink spell={talents.RISING_MIST_TALENT} /> direct healing from{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> casts
         <ul>
           <li>
             {formatNumber(this.risingMist.averageHealing)} average healing per{' '}
-            <SpellLink id={talents.RISING_SUN_KICK_TALENT} />
+            <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
           </li>
           <li>
             {this.risingMist.averageTargetsPerRSKCast()} average hits per{' '}
-            <SpellLink id={talents.RISING_SUN_KICK_TALENT} />
+            <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
           </li>
         </ul>
       </>
@@ -215,10 +215,10 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         <strong>{this.risingMist.extraVivCleaves}</strong> total extra cleaves via{' '}
-        <SpellLink id={talents.INVIGORATING_MISTS_TALENT} />
+        <SpellLink spell={talents.INVIGORATING_MISTS_TALENT} />
         <br />
-        <SpellLink id={SPELLS.VIVIFY} /> healing via extended{' '}
-        <SpellLink id={talents.RENEWING_MIST_TALENT} />
+        <SpellLink spell={SPELLS.VIVIFY} /> healing via extended{' '}
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} />
         <br />
         by source:
         <hr />
@@ -231,7 +231,7 @@ class RisingMistBreakdown extends Analyzer {
     return (
       <>
         {formatNumber(this.risingMist.essenceFontExtensionHealing)}{' '}
-        <SpellLink id={SPELLS.ESSENCE_FONT_BUFF} /> extension healing
+        <SpellLink spell={SPELLS.ESSENCE_FONT_BUFF} /> extension healing
       </>
     );
   }
@@ -239,18 +239,18 @@ class RisingMistBreakdown extends Analyzer {
   gustsOfMistsTooltip() {
     return (
       <>
-        Additional <SpellLink id={SPELLS.GUSTS_OF_MISTS} /> healing from extended{' '}
-        <SpellLink id={talents.ESSENCE_FONT_TALENT} />
+        Additional <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing from extended{' '}
+        <SpellLink spell={talents.ESSENCE_FONT_TALENT} />
         <ul>
           {this.selectedCombatant.hasTalent(talents.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) && (
             <li>
               {formatNumber(this.risingMist.extraChijiGomHealing)}{' '}
-              <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> healing
+              <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> healing
             </li>
           )}
           <li>
-            {formatNumber(this.risingMist.extraGomHealing)} <SpellLink id={SPELLS.GUSTS_OF_MISTS} />{' '}
-            healing
+            {formatNumber(this.risingMist.extraGomHealing)}{' '}
+            <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing
           </li>
         </ul>
       </>
@@ -262,7 +262,7 @@ class RisingMistBreakdown extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink id={talents.RISING_MIST_TALENT.id} /> -{' '}
+            <SpellLink spell={talents.RISING_MIST_TALENT} /> -{' '}
             <ItemHealingDone amount={this.risingMist.totalHealing} />
           </>
         }

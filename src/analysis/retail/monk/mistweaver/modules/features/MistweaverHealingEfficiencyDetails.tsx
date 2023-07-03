@@ -20,39 +20,39 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
         title="Mana efficiency"
         explanation={
           <>
-            <SpellLink id={SPELLS.GUSTS_OF_MISTS.id} /> healing is added to the appropriate spell
-            that caused the gust. <br /> <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> is
+            <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing is added to the appropriate spell
+            that caused the gust. <br /> <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> is
             given the healing from duplicated gusts, since without{' '}
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> the second gust would not have
+            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> the second gust would not have
             happened. <br />
             {this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) && (
               <>
-                <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> is given the healing of{' '}
-                <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id} />. <br />
+                <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> is given the healing of{' '}
+                <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />. <br />
               </>
             )}
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> healing from{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> healing from{' '}
             {this.selectedCombatant.hasTalent(TALENTS_MONK.RAPID_DIFFUSION_TALENT) && (
               <>
-                <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id} /> is given to the spell that
+                <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} /> is given to the spell that
                 procced it. <br />
               </>
             )}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> is given the healing of{' '}
-            <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> since without casting{' '}
-            <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} />,{' '}
-            <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> healing would not occur. <br />
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> is given the healing of{' '}
+            <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> since without casting{' '}
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />,{' '}
+            <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> healing would not occur. <br />
             {this.selectedCombatant.hasTalent(TALENTS_MONK.MISTY_PEAKS_TALENT) && (
               <>
-                <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> healing is attributed to the
-                source cast of the <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> that
+                <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} /> healing is attributed to the
+                source cast of the <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> that
                 procced it.
               </>
             )}
             {this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) && (
               <>
-                <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT.id} /> healing is attributed to{' '}
-                <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id} />.
+                <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> healing is attributed to{' '}
+                <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />.
               </>
             )}
           </>

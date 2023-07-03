@@ -94,7 +94,7 @@ class BlackoutCombo extends Analyzer {
         suggest(
           <span>
             You wasted {formatPercentage(actual)}% of your{' '}
-            <SpellLink id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> procs. Try to use the procs as soon as
+            <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> procs. Try to use the procs as soon as
             you get them so they are not overwritten.
           </span>,
         )
@@ -144,7 +144,7 @@ class BlackoutCombo extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.BLACKOUT_COMBO_BUFF.id} /> Wasted Blackout Combo
+              <SpellIcon spell={SPELLS.BLACKOUT_COMBO_BUFF} /> Wasted Blackout Combo
             </>
           }
         >

@@ -33,8 +33,8 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         description={
           <>
             Spells with short cooldowns like{' '}
-            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> and{' '}
-            <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> should be used as often as possible.
+            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+            <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> should be used as often as possible.
           </>
         }
       >
@@ -55,15 +55,15 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         description={
           <>
             Make sure to use your procs and spells at the correct time. Wasting{' '}
-            <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs and not hitting all your{' '}
-            <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> ticks is a loss of potential damage.
+            <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> procs and not hitting all your{' '}
+            <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> ticks is a loss of potential damage.
           </>
         }
       >
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs used
+              <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> procs used
             </>
           }
           thresholds={thresholds.comboBreaker}
@@ -71,7 +71,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         <Requirement
           name={
             <>
-              Average ticks hit with <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} />
+              Average ticks hit with <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} />
             </>
           }
           thresholds={thresholds.fistsofFury}
@@ -80,7 +80,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks used
+                <SpellLink spell={SPELLS.JADE_IGNITION_BUFF} /> stacks used
               </>
             }
             thresholds={thresholds.jadeIgnition}
@@ -92,7 +92,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         description={
           <>
             Your cooldowns have a big impact on your damage output. Make sure you use them as much
-            as possible. <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} icon /> is both a defensive
+            as possible. <SpellLink spell={SPELLS.TOUCH_OF_KARMA_CAST} icon /> is both a defensive
             and offensive cooldown, but is mostly used offensively.
           </>
         }
@@ -109,7 +109,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         <Requirement
           name={
             <>
-              Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used
+              Absorb from <SpellLink spell={SPELLS.TOUCH_OF_KARMA_CAST} /> used
             </>
           }
           thresholds={thresholds.touchOfKarma}
@@ -121,8 +121,8 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
           <>
             Windwalker is heavily dependent on having enough Chi to cast your core spells on
             cooldown. Wasting Chi either by generating while capped or using{' '}
-            <SpellLink id={SPELLS.BLACKOUT_KICK.id} icon /> and{' '}
-            <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} icon /> too much will cause you to delay
+            <SpellLink spell={SPELLS.BLACKOUT_KICK} icon /> and{' '}
+            <SpellLink spell={SPELLS.SPINNING_CRANE_KICK} icon /> too much will cause you to delay
             your hard hitting Chi spenders and lose damage.
           </>
         }
@@ -131,7 +131,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         <Requirement
           name={
             <>
-              Wasted cooldown reduction from <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> per minute
+              Wasted cooldown reduction from <SpellLink spell={SPELLS.BLACKOUT_KICK} /> per minute
             </>
           }
           thresholds={thresholds.blackoutKick}
@@ -143,7 +143,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         description={
           <>
             Using the same damaging ability twice in a row will lose mastery benefit on the second
-            cast and drop the <SpellLink id={TALENTS_MONK.HIT_COMBO_TALENT.id} icon /> buff if
+            cast and drop the <SpellLink spell={TALENTS_MONK.HIT_COMBO_TALENT} icon /> buff if
             specced.
           </>
         }
@@ -151,7 +151,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.COMBO_STRIKES.id} /> breaks per minute
+              <SpellLink spell={SPELLS.COMBO_STRIKES} /> breaks per minute
             </>
           }
           thresholds={thresholds.comboStrikes}
@@ -160,7 +160,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_MONK.HIT_COMBO_TALENT.id} /> uptime
+                <SpellLink spell={TALENTS_MONK.HIT_COMBO_TALENT} /> uptime
               </>
             }
             thresholds={thresholds.hitCombo}
@@ -171,12 +171,12 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         <Rule
           name={
             <>
-              Utilize <SpellLink id={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.id} /> effectively
+              Utilize <SpellLink spell={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT} /> effectively
             </>
           }
           description={
             <>
-              Use <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> with high stacks and avoid
+              Use <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} /> with high stacks and avoid
               wasting stacks by using Chi spenders at cap
             </>
           }
@@ -184,7 +184,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
           <Requirement
             name={
               <>
-                Average stacks used per <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> cast{' '}
+                Average stacks used per <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} /> cast{' '}
               </>
             }
             thresholds={thresholds.lastEmperorsCapacitorAverageStacks}
@@ -227,10 +227,10 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         description={
           <>
             Make sure you use your defensive cooldowns at appropriate times throughout the fight.
-            Make sure to use <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> as much as possible to
+            Make sure to use <SpellLink spell={SPELLS.TOUCH_OF_KARMA_CAST} /> as much as possible to
             maximize its offensive benefit and use{' '}
-            <SpellLink id={TALENTS_MONK.DIFFUSE_MAGIC_TALENT.id} />
-            /<SpellLink id={TALENTS_MONK.DAMPEN_HARM_TALENT.id} icon /> for dangerous periods of
+            <SpellLink spell={TALENTS_MONK.DIFFUSE_MAGIC_TALENT} />
+            /<SpellLink spell={TALENTS_MONK.DAMPEN_HARM_TALENT} icon /> for dangerous periods of
             damage intake.
           </>
         }
@@ -245,7 +245,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         <Requirement
           name={
             <>
-              Absorb from <SpellLink id={SPELLS.TOUCH_OF_KARMA_CAST.id} /> used
+              Absorb from <SpellLink spell={SPELLS.TOUCH_OF_KARMA_CAST} /> used
             </>
           }
           thresholds={thresholds.touchOfKarma}
@@ -259,13 +259,13 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
           description={
             <>
               This section measures the quality of your rotation during the{' '}
-              <SpellLink id={TALENTS_MONK.SERENITY_TALENT.id} /> buff. The priority list differs{' '}
-              slightly with <SpellLink id={TALENTS_MONK.SERENITY_TALENT.id} /> active.
+              <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} /> buff. The priority list differs{' '}
+              slightly with <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} /> active.
               <p>
-                Note that during <SpellLink id={TALENTS_MONK.SERENITY_TALENT.id} />, it is best to{' '}
-                cancel <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> early with a{' '}
-                <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> or a{' '}
-                <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
+                Note that during <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />, it is best to{' '}
+                cancel <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> early with a{' '}
+                <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> or a{' '}
+                <SpellLink spell={SPELLS.BLACKOUT_KICK} />.
               </p>
               <p>
                 See the{' '}
@@ -286,8 +286,8 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         description={
           <>
             This section measures the quality of your rotation outside of{' '}
-            <SpellLink id={TALENTS_MONK.SERENITY_TALENT.id} />, including while{' '}
-            <SpellLink id={TALENTS_MONK.STORM_EARTH_AND_FIRE_TALENT.id} /> is active. See the{' '}
+            <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />, including while{' '}
+            <SpellLink spell={TALENTS_MONK.STORM_EARTH_AND_FIRE_TALENT} /> is active. See the{' '}
             <a href="https://www.peakofserenity.com/df/windwalker/pve-guide/">
               Peak of Serenity Guide
             </a>{' '}

@@ -38,7 +38,7 @@ const VIVIFY_8_REMS = {
     (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} 8 active{' '}
-        <SpellLink id={talents.RENEWING_MIST_TALENT} />
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} />
       </>
     ),
   ),
@@ -53,7 +53,7 @@ const VIVIFY_6_REMS = {
     (tense) => (
       <>
         you {tenseAlt(tense, 'have', 'had')} 6 active{' '}
-        <SpellLink id={talents.RENEWING_MIST_TALENT} />
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} />
       </>
     ),
   ),
@@ -71,7 +71,7 @@ const BLACKOUT_KICK = {
       cnd.spellCooldownRemaining(talents.RISING_SUN_KICK_TALENT, { atLeast: 3500, atMost: 12000 }),
       (tense) => (
         <>
-          <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> has more than half its cooldown
+          <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> has more than half its cooldown
           remaining
         </>
       ),
@@ -116,7 +116,7 @@ const rotation_rm_at_sg = build([
     condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
       <>
         {' '}
-        you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} />
+        you cast <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} />
       </>
     )),
   },
@@ -140,7 +140,7 @@ const rotation_rm_at_upw = build([
     condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
       <>
         {' '}
-        you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} />
+        you cast <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} />
       </>
     )),
   },
@@ -157,8 +157,9 @@ const rotation_rm_at_upw = build([
       ),
       (tense) => (
         <>
-          <SpellLink id={talents.ESSENCE_FONT_TALENT} /> {tenseAlt(tense, 'is', 'was')} on cooldown
-          and <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> is missing or about to expire.
+          <SpellLink spell={talents.ESSENCE_FONT_TALENT} /> {tenseAlt(tense, 'is', 'was')} on
+          cooldown and <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> is missing or about to
+          expire.
         </>
       ),
     ),
@@ -175,7 +176,7 @@ const rotation_rm_cf_shaohaos = build([
     condition: cnd.describe(cnd.lastSpellCast(talents.THUNDER_FOCUS_TEA_TALENT), (tense) => (
       <>
         {' '}
-        you cast <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} />
+        you cast <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} />
       </>
     )),
   },

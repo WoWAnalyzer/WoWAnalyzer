@@ -54,8 +54,8 @@ class SpellUsable extends CoreSpellUsable {
         this.lastPotentialTriggerForRskReset.meta.isEnhancedCast = true;
         this.lastPotentialTriggerForRskReset.meta.enhancedCastReason = (
           <>
-            This cast reset the cooldown of <SpellLink id={TALENTS.RISING_SUN_KICK_TALENT.id} /> due
-            to <SpellLink id={TALENTS.TEACHINGS_OF_THE_MONASTERY_TALENT} />
+            This cast reset the cooldown of <SpellLink spell={TALENTS.RISING_SUN_KICK_TALENT} /> due
+            to <SpellLink spell={TALENTS.TEACHINGS_OF_THE_MONASTERY_TALENT} />
           </>
         );
       }

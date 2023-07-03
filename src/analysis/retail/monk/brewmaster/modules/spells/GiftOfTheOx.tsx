@@ -92,7 +92,7 @@ export default class GiftOfTheOx extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={GIFT_OF_THE_OX_SPELLS[0].id} /> Gift of the Ox Healing
+              <SpellIcon spell={GIFT_OF_THE_OX_SPELLS[0]} /> Gift of the Ox Healing
             </>
           }
         >

@@ -74,8 +74,8 @@ export default class ScaldingBrew extends Analyzer {
           isInefficientCast: true,
           inefficientCastReason: (
             <>
-              This cast did not benefit from <SpellLink id={talents.SCALDING_BREW_TALENT.id} /> or
-              freshly apply the <SpellLink id={talents.KEG_SMASH_TALENT.id} /> debuff.
+              This cast did not benefit from <SpellLink spell={talents.SCALDING_BREW_TALENT} /> or
+              freshly apply the <SpellLink spell={talents.KEG_SMASH_TALENT} /> debuff.
             </>
           ),
         };
@@ -91,7 +91,7 @@ export default class ScaldingBrew extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={`${this.missedHits} of your Keg Smash hits (besides the initial debuff application) were without the Breath of Fire debuff.`}
       >
-        <BoringSpellValueText spellId={talents.SCALDING_BREW_TALENT.id}>
+        <BoringSpellValueText spell={talents.SCALDING_BREW_TALENT}>
           <>
             <ItemDamageDone amount={this.bonusDamage} />
           </>
