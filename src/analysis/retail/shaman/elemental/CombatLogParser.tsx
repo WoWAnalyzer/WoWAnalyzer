@@ -32,6 +32,7 @@ import SurgeOfPower from './modules/talents/SurgeOfPower';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import ElectrifiedShocks from './modules/talents/ElectrifiedShocks';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,6 +62,7 @@ class CombatLogParser extends CoreCombatLogParser {
     icefury: Icefury,
     stormkeeper: Stormkeeper,
     ascendance: Ascendance,
+    electrifiedShocks: ElectrifiedShocks,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,

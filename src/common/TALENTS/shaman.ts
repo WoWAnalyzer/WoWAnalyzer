@@ -398,6 +398,14 @@ const talents = createTalentList({
     entryIds: [101868],
     definitionIds: [{ id: 106822, specId: 262 }],
   },
+  ELECTRIFIED_SHOCKS_DEBUFF: {
+    id: 382089,
+    name: 'Electrified Shocks',
+    icon: 'inv_offhand_1h_artifactdoomhammer_d_02',
+    maxRanks: 1,
+    entryIds: [101868],
+    definitionIds: [{ id: 106822, specId: 262 }],
+  },
   ELEMENTAL_ASSAULT_TALENT: {
     id: 210853,
     name: 'Elemental Assault',
