@@ -84,7 +84,7 @@ class LoneWolf extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(20)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.LONE_WOLF_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.LONE_WOLF_BUFF}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

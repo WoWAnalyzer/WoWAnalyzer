@@ -34,7 +34,7 @@ class WailingArrow extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.WAILING_ARROW_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.WAILING_ARROW_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

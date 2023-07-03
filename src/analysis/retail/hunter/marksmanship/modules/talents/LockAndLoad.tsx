@@ -125,13 +125,13 @@ class LockAndLoad extends Analyzer {
               {plotOneVariableBinomChart(this.totalProcs, this.autoShots, LNL_PROC_CHANCE)}
               <p>
                 Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
-                your number of <SpellLink id={SPELLS.AUTO_SHOT.id} /> hits.
+                your number of <SpellLink spell={SPELLS.AUTO_SHOT} /> hits.
               </p>
             </div>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_HUNTER.LOCK_AND_LOAD_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.LOCK_AND_LOAD_TALENT}>
           <>
             {this.totalProcs} <small>procs</small>
             <br />

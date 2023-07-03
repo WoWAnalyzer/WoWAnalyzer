@@ -53,7 +53,7 @@ class TranquilizingShot extends DispelTracker {
           size="flexible"
           category={STATISTIC_CATEGORY.GENERAL}
         >
-          <BoringSpellValueText spellId={TALENTS.TRANQUILIZING_SHOT_TALENT.id}>
+          <BoringSpellValueText spell={TALENTS.TRANQUILIZING_SHOT_TALENT}>
             <>{this.totalDispels}</>
           </BoringSpellValueText>
         </Statistic>

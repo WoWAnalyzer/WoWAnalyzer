@@ -103,7 +103,7 @@ class ShrapnelBomb extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SHRAPNEL_BOMB_WFI.id}>
+        <BoringSpellValueText spell={SPELLS.SHRAPNEL_BOMB_WFI}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

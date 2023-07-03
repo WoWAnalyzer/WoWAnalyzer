@@ -21,9 +21,9 @@ class Focus extends Analyzer {
       major: 0.1,
       extraSuggestion: (
         <>
-          Try to keep focus below max by using <SpellLink id={SPELLS.SERPENT_STING_SV.id} />,{' '}
-          <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> or{' '}
-          <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />.
+          Try to keep focus below max by using <SpellLink spell={SPELLS.SERPENT_STING_SV} />,{' '}
+          <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} /> or{' '}
+          <SpellLink spell={TALENTS.RAPTOR_STRIKE_TALENT} />.
         </>
       ),
     });

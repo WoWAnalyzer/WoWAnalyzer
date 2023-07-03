@@ -75,7 +75,7 @@ class KillShot extends ExecuteHelper {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={this.activeKillShotSpell.id}>
+        <BoringSpellValueText spell={this.activeKillShotSpell}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

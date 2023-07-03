@@ -46,7 +46,7 @@ export default class T29BMTier2P extends Analyzer {
           <ItemDamageDone amount={this.totalDamage} />
           <br />≈{this.spellUsable.barbedShotResetsFromT29}{' '}
           <small>
-            <SpellLink id={TALENTS_HUNTER.BARBED_SHOT_TALENT.id} /> Resets
+            <SpellLink spell={TALENTS_HUNTER.BARBED_SHOT_TALENT} /> Resets
           </small>
         </BoringSpellValueText>
       </Statistic>
