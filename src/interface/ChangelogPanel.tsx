@@ -1,4 +1,5 @@
 import { t, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import CORE_CHANGELOG from 'CHANGELOG';
 import AVAILABLE_CONFIGS from 'parser';
 import { useState } from 'react';
@@ -8,6 +9,7 @@ import Changelog from './Changelog';
 const ChangelogPanel = () => {
   const [expanded, setExpanded] = useState<boolean>(false);
   const [changelogType, setChangelogType] = useState<number>(0);
+  const { i18n } = useLingui();
 
   const limit = expanded ? undefined : 10;
 
@@ -29,7 +31,7 @@ const ChangelogPanel = () => {
           </option>
           {AVAILABLE_CONFIGS.map((config) => (
             <option value={config.spec.id} key={config.spec.id}>
-              {config.spec.specName} {config.spec.className}
+              {config.spec.specName && i18n._(config.spec.specName)} {i18n._(config.spec.className)}
             </option>
           ))}
         </select>

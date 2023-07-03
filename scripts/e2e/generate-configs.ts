@@ -27,9 +27,9 @@ const specs = supportedConfigs.map((config) => {
     namePrefixParts.push('Classic');
   }
   if (config.spec.specName) {
-    nameParts.push(config.spec.specName);
+    nameParts.push(i18n._(config.spec.specName));
   }
-  nameParts.push(config.spec.className);
+  nameParts.push(i18n._(config.spec.className));
   return {
     name: nameParts.join(' '),
     fullName: namePrefixParts.concat(nameParts).join(' '),
