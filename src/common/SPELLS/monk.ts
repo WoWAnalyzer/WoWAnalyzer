@@ -206,6 +206,11 @@ const spells = spellIndexableList({
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
   },
+  CLAW_OF_THE_WHITE_TIGER: {
+    id: 389541,
+    name: 'Claw of the White Tiger',
+    icon: 'ability_monk_summonwhitetigerstatue',
+  },
 
   // Utility / Other
   DETOX: {
