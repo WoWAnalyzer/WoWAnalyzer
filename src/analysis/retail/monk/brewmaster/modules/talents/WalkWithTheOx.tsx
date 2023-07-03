@@ -107,7 +107,7 @@ export default class WalkWithTheOx extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.COVENANTS}
       >
-        <BoringSpellValueText spellId={talents.WALK_WITH_THE_OX_TALENT.id}>
+        <BoringSpellValueText spell={talents.WALK_WITH_THE_OX_TALENT}>
           <>
             <ItemDamageDone amount={this.additionalDamage} />
             <br />

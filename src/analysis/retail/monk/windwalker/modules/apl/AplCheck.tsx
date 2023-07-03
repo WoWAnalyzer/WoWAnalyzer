@@ -100,7 +100,7 @@ export const nonSerenityApl = build(
       spell: SPELLS.BLACKOUT_KICK,
       condition: describe(and(hasChi(1), not(lastSpellCast(SPELLS.BLACKOUT_KICK))), (tense) => (
         <>
-          <SpellLink id={SPELLS.BLACKOUT_KICK} /> was not your last cast.
+          <SpellLink spell={SPELLS.BLACKOUT_KICK} /> was not your last cast.
         </>
       )),
     },

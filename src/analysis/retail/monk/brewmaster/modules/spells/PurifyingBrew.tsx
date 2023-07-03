@@ -134,7 +134,7 @@ class PurifyingBrew extends Analyzer {
     when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should delay your <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> cast as little
+          You should delay your <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> cast as little
           as possible after being hit to maximize its effectiveness.
         </>,
       )
@@ -208,7 +208,7 @@ class PurifyingBrew extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={talents.PURIFYING_BREW_TALENT.id} /> Avg. Mitigation per Purifying Brew
+              <SpellIcon spell={talents.PURIFYING_BREW_TALENT} /> Avg. Mitigation per Purifying Brew
             </>
           }
         >

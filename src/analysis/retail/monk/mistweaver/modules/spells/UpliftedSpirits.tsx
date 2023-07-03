@@ -112,15 +112,15 @@ class UpliftedSpirits extends Analyzer {
             <br />
             Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
             <br />
-            Total reduction from <SpellLink id={SPELLS.VIVIFY.id} />:{' '}
+            Total reduction from <SpellLink spell={SPELLS.VIVIFY} />:{' '}
             {formatNumber(this.totalVivifyCdr / 1000)} Seconds
             <br />
-            Total reduction from <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />:{' '}
+            Total reduction from <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />:{' '}
             {formatNumber(this.totalRskCdr / 1000)} Seconds
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}>
           <ItemHealingDone amount={healing} />
           <div>
             {formatDuration(BASE_COOLDOWN - this.averageCdr)}{' '}

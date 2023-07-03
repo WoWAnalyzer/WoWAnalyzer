@@ -83,7 +83,7 @@ class ComboStrikes extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You ignored your <SpellLink id={SPELLS.COMBO_STRIKES.id} /> buff by casting the same spell
+          You ignored your <SpellLink spell={SPELLS.COMBO_STRIKES} /> buff by casting the same spell
           twice in a row, missing out on the damage increase from your mastery{HIT_COMBO_STRING}.
         </span>,
       )
@@ -127,14 +127,14 @@ class ComboStrikes extends Analyzer {
                         {formatDuration(item[0].timestamp - this.owner.fight.start_time)}
                       </th>
                       <td>
-                        <SpellIcon id={item[0].ability} style={{ height: '2.4em' }} />
+                        <SpellIcon spell={item[0].ability} style={{ height: '2.4em' }} />
                       </td>
                       <td>
-                        <SpellIcon id={item[1].ability} style={{ height: '2.4em' }} />
+                        <SpellIcon spell={item[1].ability} style={{ height: '2.4em' }} />
                       </td>
                       {item[2] && item[2].ability && (
                         <td>
-                          <SpellIcon id={item[2].ability} style={{ height: '2.4em' }} />
+                          <SpellIcon spell={item[2].ability} style={{ height: '2.4em' }} />
                         </td>
                       )}
                     </tr>
@@ -145,7 +145,7 @@ class ComboStrikes extends Analyzer {
           ) : null
         }
       >
-        <BoringSpellValueText spellId={SPELLS.COMBO_STRIKES.id}>
+        <BoringSpellValueText spell={SPELLS.COMBO_STRIKES}>
           {formatNumber(this.masteryDropEvents)} <small>Mastery benefit mistakes</small>
         </BoringSpellValueText>
       </Statistic>

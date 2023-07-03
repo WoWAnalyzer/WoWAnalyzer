@@ -69,20 +69,20 @@ const PurifyProblemDescription = ({ data }: { data: ProblemData }) =>
   data.type === ProblemType.MissedPurify ? (
     <p>
       You missed <strong>{data.data.length} or more</strong> potential casts of{' '}
-      <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> here that could've cleared a total of{' '}
+      <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> here that could've cleared a total of{' '}
       <strong>
         {formatNumber(data.data.map((datum) => datum.amountPurified).reduce((a, b) => a + b))}
       </strong>{' '}
       damage. While this may reduce the value of your later{' '}
-      <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> casts, it is likely to reduce your overall
+      <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> casts, it is likely to reduce your overall
       damage intake.
     </p>
   ) : (
     <p>
-      You cast <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> with low{' '}
-      <SpellLink id={SPELLS.STAGGER.id} />, clearing only{' '}
+      You cast <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> with low{' '}
+      <SpellLink spell={SPELLS.STAGGER} />, clearing only{' '}
       <strong>{formatNumber(data.data.purify.amount)}</strong> damage. The timing of this cast was
-      not while <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> was almost capped at 2 charges,
+      not while <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> was almost capped at 2 charges,
       leaving you with no charges available to deal with incoming damage.
     </p>
   );
@@ -249,7 +249,7 @@ function reasonLabel(reason: PurifyReason): React.ReactNode {
     case PurifyReason.RefreshPurifiedChi:
       return (
         <>
-          Refresh <SpellLink id={SPELLS.PURIFIED_CHI.id} /> Stacks
+          Refresh <SpellLink spell={SPELLS.PURIFIED_CHI} /> Stacks
         </>
       );
     default:
@@ -415,24 +415,24 @@ export function PurifySection({
   return (
     <SubSection title="Purifying Brew" id="purifying-brew">
       <p>
-        The primary method of removing damage from your <SpellLink id={SPELLS.STAGGER.id} /> pool is
-        casting <SpellLink id={talents.PURIFYING_BREW_TALENT.id} />. Your goal is twofold:
+        The primary method of removing damage from your <SpellLink spell={SPELLS.STAGGER} /> pool is
+        casting <SpellLink spell={talents.PURIFYING_BREW_TALENT} />. Your goal is twofold:
       </p>
       <ol>
         <li>
-          Don't waste any charges of <SpellLink id={talents.PURIFYING_BREW_TALENT.id} />
+          Don't waste any charges of <SpellLink spell={talents.PURIFYING_BREW_TALENT} />
         </li>
         <li>
-          Cast <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> when you have relatively high{' '}
-          <SpellLink id={SPELLS.STAGGER.id} />
+          Cast <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> when you have relatively high{' '}
+          <SpellLink spell={SPELLS.STAGGER} />
         </li>
       </ol>
       <p>
-        Due to our mastery, <SpellLink id={SPELLS.MASTERY_ELUSIVE_BRAWLER.id} />, moment-to-moment{' '}
-        <SpellLink id={SPELLS.STAGGER.id} /> level is highly unpredictable. As a result, the most
+        Due to our mastery, <SpellLink spell={SPELLS.MASTERY_ELUSIVE_BRAWLER} />, moment-to-moment{' '}
+        <SpellLink spell={SPELLS.STAGGER} /> level is highly unpredictable. As a result, the most
         reliable way to do this is by{' '}
         <strong>
-          casting <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> immediately after being hit by
+          casting <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> immediately after being hit by
           a large attack.
         </strong>{' '}
         On some fights, "large attack" may mean <em>Melee Attack</em>&mdash;there is not a

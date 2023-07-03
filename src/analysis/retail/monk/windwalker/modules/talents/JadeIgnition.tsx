@@ -95,7 +95,7 @@ class JadeIgnition extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={TALENTS.JADE_IGNITION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.JADE_IGNITION_TALENT}>
           <ItemDamageDone amount={this.damageDone} />
           <br />
           {formatPercentage(this.stackUsage, 0)}% <small>Stacks used</small>
@@ -109,7 +109,7 @@ class JadeIgnition extends Analyzer {
       suggest(
         <Trans id="monk.windwalker.suggestions.jadeIgnitionWastedStacks">
           {' '}
-          You wasted your <SpellLink id={SPELLS.JADE_IGNITION_BUFF.id} /> stacks by using Fists of
+          You wasted your <SpellLink spell={SPELLS.JADE_IGNITION_BUFF} /> stacks by using Fists of
           Fury at full stacks
         </Trans>,
       )

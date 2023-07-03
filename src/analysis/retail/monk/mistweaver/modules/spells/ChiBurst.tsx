@@ -77,12 +77,12 @@ class ChiBurst extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} />
         </b>{' '}
         is a filler spell that does consistent healing for 1 GCD and 0 mana, making it a very good
         button to press all around. <br />
-        <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} /> should ideally replace a cast of{' '}
-        <SpellLink id={SPELLS.TIGER_PALM.id} /> in your rotation.
+        <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> should ideally replace a cast of{' '}
+        <SpellLink spell={SPELLS.TIGER_PALM} /> in your rotation.
       </p>
     );
 
@@ -90,7 +90,7 @@ class ChiBurst extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> cast efficiency
           </strong>
           {this.subStatistic()}
         </RoundedPanel>
@@ -115,7 +115,7 @@ class ChiBurst extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing your <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} /> talent as
+          You are not utilizing your <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> talent as
           effectively as you should. You should work on both your positioning and aiming of the
           spell. Always aim for the highest concentration of players, which is normally melee.
         </>,

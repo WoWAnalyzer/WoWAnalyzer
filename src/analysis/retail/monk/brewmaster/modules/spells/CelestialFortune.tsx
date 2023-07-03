@@ -177,7 +177,7 @@ class CelestialFortune extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Celestial Fortune Healing
+              <SpellIcon spell={SPELLS.CELESTIAL_FORTUNE_HEAL} /> Celestial Fortune Healing
             </>
           }
         >
@@ -225,7 +225,7 @@ class CelestialFortune extends Analyzer {
               <tr key={id}>
                 <td />
                 <td>
-                  <SpellLink id={Number(id)} icon={false}>
+                  <SpellLink spell={Number(id)} icon={false}>
                     {maybeGetSpell(id) ? (
                       <>
                         <Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}
@@ -299,7 +299,7 @@ class CelestialFortune extends Analyzer {
         <Panel>
           <div style={{ marginTop: -10, marginBottom: -10 }}>
             <div style={{ padding: '1em' }}>
-              Bonus healing provided by <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />, broken
+              Bonus healing provided by <SpellLink spell={SPELLS.CELESTIAL_FORTUNE_HEAL} />, broken
               down by triggering spell and which player cast that spell.
             </div>
             <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>

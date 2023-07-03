@@ -138,7 +138,7 @@ class HighTolerance extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={talents.HIGH_TOLERANCE_TALENT.id} /> Avg. Haste from High Tolerance
+              <SpellIcon spell={talents.HIGH_TOLERANCE_TALENT} /> Avg. Haste from High Tolerance
             </>
           }
         >
