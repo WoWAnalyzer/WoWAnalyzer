@@ -7,7 +7,7 @@ import Buffs from 'parser/core/modules/Auras';
 
 import ApplyBuff from './ApplyBuff';
 
-const debug = true;
+const debug = false;
 
 /**
  * This normalizer attempts to track all potentially relevant casts that
@@ -96,7 +96,6 @@ class PrePullCooldowns extends EventsNormalizer {
     const firstTimestamp = events[firstEventIndex].timestamp;
     const playerId = this.owner.playerId;
     const petIds = new Set(this.owner.playerPets.map((pet) => pet.id));
-    console.log('pets', this.owner.playerPets, petIds);
 
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
