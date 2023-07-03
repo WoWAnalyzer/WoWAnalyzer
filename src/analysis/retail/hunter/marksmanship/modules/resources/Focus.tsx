@@ -16,13 +16,13 @@ class Focus extends Analyzer {
   suggestions(when: When) {
     const mmFocusExtraSuggestion = (
       <>
-        Try to keep focus below max by using <SpellLink id={SPELLS.AIMED_SHOT.id} />,{' '}
+        Try to keep focus below max by using <SpellLink spell={SPELLS.AIMED_SHOT} />,{' '}
         {this.selectedCombatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT) ? (
-          <SpellLink id={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id} />
+          <SpellLink spell={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT} />
         ) : (
-          <SpellLink id={SPELLS.ARCANE_SHOT.id} />
+          <SpellLink spell={SPELLS.ARCANE_SHOT} />
         )}{' '}
-        and <SpellLink id={TALENTS_HUNTER.MULTI_SHOT_MARKSMANSHIP_TALENT.id} />.
+        and <SpellLink spell={TALENTS_HUNTER.MULTI_SHOT_MARKSMANSHIP_TALENT} />.
       </>
     );
     resourceSuggest(when, this.focusTracker, {

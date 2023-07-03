@@ -43,7 +43,7 @@ class GuerrillaTactics extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.GUERRILLA_TACTICS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.GUERRILLA_TACTICS_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

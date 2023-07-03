@@ -125,10 +125,10 @@ class BestialWrath extends Analyzer {
     when(this.focusOnBestialWrathCastThreshold).addSuggestion((suggest, _actual, recommended) =>
       suggest(
         <>
-          You started your average <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> at{' '}
+          You started your average <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> at{' '}
           {formatNumber(this.averageFocusAtBestialWrathCast)} focus, try and pool a bit more before
-          casting <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} />. This can be achieved by not
-          casting abilities a few moments before <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} />{' '}
+          casting <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} />. This can be achieved by not
+          casting abilities a few moments before <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} />{' '}
           comes off cooldown.
         </>,
       )
@@ -151,9 +151,9 @@ class BestialWrath extends Analyzer {
     when(this.cdrEfficiencyBestialWrathThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          A crucial part of <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> is the cooldown
-          reduction of <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> it provides. Therefore
-          it's important to be casting <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> as often
+          A crucial part of <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> is the cooldown
+          reduction of <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> it provides. Therefore
+          it's important to be casting <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> as often
           as possible to ensure you'll be wasting as little potential cooldown reduction as
           possible.
         </>,
@@ -209,7 +209,7 @@ class BestialWrath extends Analyzer {
                       <td>
                         <>
                           {this.gainedBestialWraths.toFixed(1)}
-                          <SpellIcon id={TALENTS.BESTIAL_WRATH_TALENT.id} />
+                          <SpellIcon spell={TALENTS.BESTIAL_WRATH_TALENT} />
                         </>
                       </td>
                     </tr>
@@ -235,7 +235,7 @@ class BestialWrath extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.BESTIAL_WRATH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BESTIAL_WRATH_TALENT}>
           <>
             <UptimeIcon /> {this.percentUptime}% <small>uptime</small>
           </>

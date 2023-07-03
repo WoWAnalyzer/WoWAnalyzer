@@ -220,7 +220,7 @@ class MongooseBite extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.MONGOOSE_BITE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.MONGOOSE_BITE_TALENT}>
           <ItemDamageDone amount={this.damage} /> <br />
           {this.fiveStackMongooseBites}/{this.totalMongooseBites} <small>5 stack bites</small>
         </BoringSpellValueText>
@@ -232,10 +232,10 @@ class MongooseBite extends Analyzer {
     when(this.focusOnMongooseWindowThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          When talented into <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />, it's important to
+          When talented into <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />, it's important to
           have accumulated a good amount of focus before you open a{' '}
-          <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> window in order to maximize the number of{' '}
-          <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />s at high stacks.
+          <SpellLink spell={SPELLS.MONGOOSE_FURY} /> window in order to maximize the number of{' '}
+          <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />s at high stacks.
         </>,
       )
         .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
@@ -250,8 +250,8 @@ class MongooseBite extends Analyzer {
     when(this.mongoose5StackHitThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          It's important to cast as much <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />s as
-          possible when having max(5) stacks of <SpellLink id={SPELLS.MONGOOSE_FURY.id} />.
+          It's important to cast as much <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />s as
+          possible when having max(5) stacks of <SpellLink spell={SPELLS.MONGOOSE_FURY} />.
         </>,
       )
         .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
