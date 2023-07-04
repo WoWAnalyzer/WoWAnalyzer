@@ -29,7 +29,7 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         description={
           <>
             Using your core abilities as often as possible will typically result in better
-            performance, remember to <SpellLink id={SPELLS.SMITE.id} /> as often as you can!
+            performance, remember to <SpellLink spell={SPELLS.SMITE} /> as often as you can!
           </>
         }
       >
@@ -52,7 +52,7 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <>
             Cooldowns are an important part of healing, try to use them to counter fight mechanics.
             For example if a boss has burst damage every 3 minutes,{' '}
-            <SpellLink id={TALENTS.DIVINE_HYMN_TALENT.id} /> should be used to counter it.
+            <SpellLink spell={TALENTS.DIVINE_HYMN_TALENT} /> should be used to counter it.
           </>
         }
       >
@@ -80,7 +80,7 @@ const HolyPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         description={
           <>
             High downtime is inexcusable, while it may be tempting to not cast and save mana, Holy's
-            damage filler <SpellLink id={SPELLS.SMITE.id} /> is free. You can reduce your downtime
+            damage filler <SpellLink spell={SPELLS.SMITE} /> is free. You can reduce your downtime
             by reducing the delay between casting spells, anticipating movement, moving during the
             GCD, and{' '}
             <TooltipElement content="You can ignore this while learning Holy, but contributing DPS whilst healing is a major part of becoming a better than average player.">

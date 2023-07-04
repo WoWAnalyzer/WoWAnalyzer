@@ -333,7 +333,7 @@ class AtonementApplicatorBreakdown extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.ATONEMENT_BUFF.id}>Atonement</SpellLink> applicators breakdown
+            <SpellLink spell={SPELLS.ATONEMENT_BUFF}>Atonement</SpellLink> applicators breakdown
           </label>
           {this.renderAtonementApplicatorChart()}
         </div>

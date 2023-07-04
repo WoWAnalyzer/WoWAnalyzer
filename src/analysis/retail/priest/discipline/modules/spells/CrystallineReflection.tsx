@@ -89,7 +89,7 @@ class CrystallineReflection extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT.id}></SpellLink> damage
+            <SpellLink spell={TALENTS_PRIEST.CRYSTALLINE_REFLECTION_TALENT}></SpellLink> damage
             breakdown
           </label>
           {this.renderCrystallineReflectionChart()}

@@ -90,7 +90,7 @@ class SinsOfTheMany extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SINS_OF_THE_MANY.id}>
+        <BoringSpellValueText spell={SPELLS.SINS_OF_THE_MANY}>
           <ItemHealingDone amount={this.bonusHealing} /> <br />
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>

@@ -68,8 +68,8 @@ class MiracleWorker extends Analyzer {
         tooltip={
           <>
             The estimated number of additional casts granted from having an second charge of{' '}
-            <SpellLink id={TALENTS.HOLY_WORD_SERENITY_TALENT.id} /> and{' '}
-            <SpellLink id={TALENTS.HOLY_WORD_SANCTIFY_TALENT.id} />.
+            <SpellLink spell={TALENTS.HOLY_WORD_SERENITY_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.HOLY_WORD_SANCTIFY_TALENT} />.
           </>
         }
         category={STATISTIC_CATEGORY.TALENTS}
@@ -78,13 +78,13 @@ class MiracleWorker extends Analyzer {
           <>
             {extraSerenityCasts}{' '}
             <small>
-              extra <SpellLink id={TALENTS.HOLY_WORD_SERENITY_TALENT.id} /> cast
+              extra <SpellLink spell={TALENTS.HOLY_WORD_SERENITY_TALENT} /> cast
               {extraSerenityCasts > 1 ? 's' : ''}.
             </small>
             <br />
             {extraSanctifyCasts}{' '}
             <small>
-              extra <SpellLink id={TALENTS.HOLY_WORD_SANCTIFY_TALENT.id} /> cast
+              extra <SpellLink spell={TALENTS.HOLY_WORD_SANCTIFY_TALENT} /> cast
               {extraSerenityCasts > 1 ? 's' : ''}.
             </small>
           </>

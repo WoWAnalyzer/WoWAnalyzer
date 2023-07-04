@@ -7,6 +7,7 @@ import { TooltipElement } from 'interface';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { ChangeEvent, useCallback, useMemo, useState } from 'react';
 import Toggle from 'react-toggle';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 interface Props {
   analyzer: AtonementHealingDone;
@@ -16,7 +17,7 @@ interface Props {
 const getReason = (spellId: string) => {
   switch (Number(spellId)) {
     case -2: // Melee
-      return <SpellLink id={SPELLS.LIGHTSPAWN.id} />;
+      return <SpellLink spell={SPELLS.LIGHTSPAWN} />;
     default:
       return null;
   }
@@ -52,7 +53,7 @@ const AtonementHealingBreakdown = ({
                 <>
                   <tr key={ability.guid}>
                     <td style={{ width: '30%' }}>
-                      <SpellLink id={ability.guid} icon={false}>
+                      <SpellLink spell={abilityToSpell(ability)} icon={false}>
                         <Icon icon={ability.abilityIcon} /> {ability.name}
                       </SpellLink>
                       {reason && <> ({reason})</>}

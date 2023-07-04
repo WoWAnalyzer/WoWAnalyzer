@@ -97,7 +97,7 @@ class HarshDiscipline extends Analyzer {
         tooltip={
           <>
             <span>
-              Penance consumed <SpellLink id={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id} />{' '}
+              Penance consumed <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} />{' '}
               {this.harshPenances} times.{' '}
             </span>
             <br />
