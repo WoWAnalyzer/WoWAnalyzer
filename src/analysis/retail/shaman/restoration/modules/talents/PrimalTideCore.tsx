@@ -68,7 +68,7 @@ class PrimalTideCore extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={talents.PRIMAL_TIDE_CORE_TALENT.id} />}
+        title={<SpellLink spell={talents.PRIMAL_TIDE_CORE_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.ptcHealing))} %`}
       />
     );
@@ -83,7 +83,7 @@ class PrimalTideCore extends Analyzer {
         tooltip={
           <>
             This is only showing the additional riptide healing gained from{' '}
-            <SpellLink id={talents.PRIMAL_TIDE_CORE_TALENT} />
+            <SpellLink spell={talents.PRIMAL_TIDE_CORE_TALENT} />
           </>
         }
       >
@@ -92,7 +92,7 @@ class PrimalTideCore extends Analyzer {
           <br />
           {this.ptcProcs}{' '}
           <small>
-            additional <SpellLink id={talents.RIPTIDE_TALENT} />
+            additional <SpellLink spell={talents.RIPTIDE_TALENT} />
           </small>
         </TalentSpellText>
       </Statistic>

@@ -113,7 +113,7 @@ class AncestralReach extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={talents.ANCESTRAL_REACH_TALENT.id} />}
+        title={<SpellLink spell={talents.ANCESTRAL_REACH_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}

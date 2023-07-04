@@ -85,7 +85,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.
+          Your <SpellLink spell={SPELLS.FLAME_SHOCK} /> uptime can be improved.
         </span>,
       )
         .icon(SPELLS.FLAME_SHOCK.icon)
@@ -103,8 +103,8 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            Make sure to apply <SpellLink id={SPELLS.FLAME_SHOCK.id} /> to your target, so your{' '}
-            <SpellLink id={TALENTS_SHAMAN.LAVA_BURST_TALENT.id} /> is guaranteed to critically
+            Make sure to apply <SpellLink spell={SPELLS.FLAME_SHOCK} /> to your target, so your{' '}
+            <SpellLink spell={TALENTS_SHAMAN.LAVA_BURST_TALENT} /> is guaranteed to critically
             strike.
           </span>,
         )

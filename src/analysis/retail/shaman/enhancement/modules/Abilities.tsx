@@ -463,10 +463,11 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT),
         gcd: {
           base: 1500,
         },
-        cooldown: (haste) => 9 / (1 + haste),
+        cooldown: (haste) => 12 / (1 + haste),
       },
       {
         spell: TALENTS_SHAMAN.FERAL_LUNGE_TALENT.id,

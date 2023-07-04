@@ -39,8 +39,8 @@ class HealingSurge extends Analyzer {
       .addSuggestion((suggest) =>
         suggest(
           <span>
-            Casting <SpellLink id={SPELLS.HEALING_SURGE.id} /> without{' '}
-            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more
+            Casting <SpellLink spell={SPELLS.HEALING_SURGE} /> without{' '}
+            <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} /> is very inefficient, try not to cast more
             than is necessary.
           </span>,
         )

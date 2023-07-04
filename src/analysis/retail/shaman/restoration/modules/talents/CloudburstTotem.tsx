@@ -100,13 +100,13 @@ class CloudburstTotem extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} />
+          <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} />
         </b>{' '}
         is one of your most important and highest hps abilities. It is essential to have active
         whenever you plan on doing significant healing as it collects a portion of all healing done
-        by the shaman (this includes <SpellLink id={ITEMS.T30_TIDEWATERS_HEAL} /> healing!). It is
-        not necessary or possible to always have{' '}
-        <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} /> active, but make sure you are never
+        by the shaman (this includes <SpellLink spell={ITEMS.T30_TIDEWATERS_HEAL} /> healing!). It
+        is not necessary or possible to always have{' '}
+        <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} /> active, but make sure you are never
         sitting at 2 charges
       </p>
     );
@@ -115,7 +115,7 @@ class CloudburstTotem extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.guideSubStatistic()}
@@ -141,7 +141,7 @@ class CloudburstTotem extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

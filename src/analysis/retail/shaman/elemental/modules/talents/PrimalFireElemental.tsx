@@ -123,9 +123,9 @@ class PrimalFireElemental extends Analyzer {
     when(this.missedMeteorSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You are not using <SpellLink id={SPELLS.FIRE_ELEMENTAL_METEOR.id} /> every time you cast{' '}
-          <SpellLink id={TALENTS.FIRE_ELEMENTAL_TALENT.id} /> if you are using{' '}
-          <SpellLink id={TALENTS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if
+          You are not using <SpellLink spell={SPELLS.FIRE_ELEMENTAL_METEOR} /> every time you cast{' '}
+          <SpellLink spell={TALENTS.FIRE_ELEMENTAL_TALENT} /> if you are using{' '}
+          <SpellLink spell={TALENTS.PRIMAL_ELEMENTALIST_TALENT} />. Only wait with casting meteor if
           you wait for adds to spawn.
         </span>,
       )

@@ -141,7 +141,7 @@ class Sundering extends Analyzer {
       suggest(
         <>
           Consider the amount of enemies in the direction you're facing when casting{' '}
-          <SpellLink id={TALENTS_SHAMAN.SUNDERING_TALENT.id} /> to avoid missing it.
+          <SpellLink spell={TALENTS_SHAMAN.SUNDERING_TALENT} /> to avoid missing it.
         </>,
       )
         .icon(TALENTS_SHAMAN.SUNDERING_TALENT.icon)
