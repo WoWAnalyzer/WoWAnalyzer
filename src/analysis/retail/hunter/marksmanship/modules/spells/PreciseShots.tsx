@@ -149,7 +149,7 @@ class PreciseShots extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.PRECISE_SHOTS.id}>
+        <BoringSpellValueText spell={SPELLS.PRECISE_SHOTS}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

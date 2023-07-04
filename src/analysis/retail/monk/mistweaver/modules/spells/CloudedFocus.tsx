@@ -269,7 +269,7 @@ class CloudedFocus extends Analyzer {
           return map ? (
             <>
               <hr />
-              Casts at {key.at(-1)} <SpellIcon id={TALENTS_MONK.CLOUDED_FOCUS_TALENT} /> stacks:{' '}
+              Casts at {key.at(-1)} <SpellIcon spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} /> stacks:{' '}
               <b>{map?.casts}</b>
               <ul>
                 <li>
@@ -295,7 +295,7 @@ class CloudedFocus extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.healingDone),
         )} %`}
@@ -314,13 +314,13 @@ class CloudedFocus extends Analyzer {
             <ul>
               <li>
                 <strong>{formatNumber(this.getManaForSpell(SPELLS.VIVIFY.id))}</strong> mana saved
-                on <SpellLink id={SPELLS.VIVIFY} />
+                on <SpellLink spell={SPELLS.VIVIFY} />
               </li>
               <li>
                 <strong>
                   {formatNumber(this.getManaForSpell(TALENTS_MONK.ENVELOPING_MIST_TALENT.id))}
                 </strong>{' '}
-                mana saved on <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+                mana saved on <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
               </li>
             </ul>
           </>

@@ -39,8 +39,8 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               You should use this with every{' '}
-              <SpellLink id={talents.BREATH_OF_SINDRAGOSA_TALENT.id} /> if it is talented. Otherwise
-              use it with <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} />.
+              <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> if it is talented. Otherwise
+              use it with <SpellLink spell={talents.PILLAR_OF_FROST_TALENT} />.
             </>
           ),
         },
@@ -90,7 +90,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               Although you normally want to use this off CD, you can save it to line it up with{' '}
-              <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} icon />. You can also hold it if you
+              <SpellLink spell={talents.PILLAR_OF_FROST_TALENT} icon />. You can also hold it if you
               know there will be an opportunity to hit many enemies.
             </>
           ),
@@ -116,7 +116,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               Although you normally want to use this off CD, you can save it to line it up with{' '}
-              <SpellLink id={talents.PILLAR_OF_FROST_TALENT.id} icon />. You can also save it if you
+              <SpellLink spell={talents.PILLAR_OF_FROST_TALENT} icon />. You can also save it if you
               only have one target and another will spawn within 45 seconds.
             </>
           ),

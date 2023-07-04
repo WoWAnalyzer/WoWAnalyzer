@@ -74,7 +74,7 @@ class DancingRuneWeapon extends Analyzer {
         <>
           <Trans id="deathknight.blood.drw.spellLinks.consumption">
             and (if in AoE)
-            <SpellLink id={spellId} />
+            <SpellLink spell={spellId} />
           </Trans>
         </>
       );
@@ -82,7 +82,7 @@ class DancingRuneWeapon extends Analyzer {
       return (
         <>
           <Trans id="deathknight.blood.drw.spellLinks.last">
-            <SpellLink id={spellId} />{' '}
+            <SpellLink spell={spellId} />{' '}
           </Trans>
         </>
       );
@@ -90,7 +90,7 @@ class DancingRuneWeapon extends Analyzer {
       return (
         <>
           <Trans id="deathknight.blood.drw.spellLinks.default">
-            <SpellLink id={spellId} />,{' '}
+            <SpellLink spell={spellId} />,{' '}
           </Trans>
         </>
       );
@@ -112,9 +112,9 @@ class DancingRuneWeapon extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.drw.suggestion.suggestion">
-          Avoid casting spells during <SpellLink id={TALENTS.DANCING_RUNE_WEAPON_TALENT.id} /> that
-          don't benefit from the copies such as <SpellLink id={TALENTS.BLOODDRINKER_TALENT.id} />{' '}
-          and <SpellLink id={this.DD_ABILITY.id} />. Check the cooldown-tab below for more detailed
+          Avoid casting spells during <SpellLink spell={TALENTS.DANCING_RUNE_WEAPON_TALENT} /> that
+          don't benefit from the copies such as <SpellLink spell={TALENTS.BLOODDRINKER_TALENT} />{' '}
+          and <SpellLink spell={this.DD_ABILITY} />. Check the cooldown-tab below for more detailed
           breakdown.{this.goodDRWSpells}
         </Trans>,
       )

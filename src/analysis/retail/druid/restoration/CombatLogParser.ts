@@ -60,6 +60,7 @@ import Dreamstate from 'analysis/retail/druid/restoration/modules/spells/Dreamst
 import Tier29 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier29';
 import Tier30 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier30';
 import WildGrowthPrecastOrderNormalizer from 'analysis/retail/druid/restoration/normalizers/WildGrowthPrecastOrderNormalizer';
+import WakingDream from 'analysis/retail/druid/restoration/modules/spells/WakingDream';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -124,6 +125,7 @@ class CombatLogParser extends CoreCombatLogParser {
     overgrowth: Overgrowth,
     buddingLeaves: BuddingLeaves,
     dreamstate: Dreamstate,
+    wakingDream: WakingDream,
 
     // Mana Tab
     manaTracker: ManaTracker,

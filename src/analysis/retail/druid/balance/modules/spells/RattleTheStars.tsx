@@ -26,7 +26,7 @@ import {
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 
 const MAX_STACKS = 2;
-export const PERCENT_DAMAGE_INCREASE_PER_STACK = 0.1;
+export const PERCENT_DAMAGE_INCREASE_PER_STACK = 0.08;
 export const PERCENT_AP_SAVED_PER_STACK = 0.05;
 
 class RattleTheStars extends Analyzer {
@@ -175,7 +175,7 @@ class RattleTheStars extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.RATTLE_THE_STARS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.RATTLE_THE_STARS_TALENT}>
           <>
             {formatNumber(this.totalAPSaved)} <small>Astral Power Saved</small>
             <br />

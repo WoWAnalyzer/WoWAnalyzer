@@ -93,19 +93,19 @@ class Expiation extends Analyzer {
             Healing Breakdown:
             <ul>
               <li>
-                <SpellLink id={TALENTS_PRIEST.EXPIATION_TALENT.id} />:{' '}
+                <SpellLink spell={TALENTS_PRIEST.EXPIATION_TALENT} />:{' '}
                 {formatNumber(this.expiationHealing)}{' '}
               </li>
               <li>
-                <SpellLink id={TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id} />:{' '}
+                <SpellLink spell={TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT} />:{' '}
                 {formatNumber(this.deathHealing)}{' '}
               </li>
               <li>
-                <SpellLink id={SPELLS.MIND_BLAST.id} />:{formatNumber(this.mindBlastHealing)}{' '}
+                <SpellLink spell={SPELLS.MIND_BLAST} />:{formatNumber(this.mindBlastHealing)}{' '}
               </li>
             </ul>
-            The bonus damage to <SpellLink id={SPELLS.MIND_BLAST.id} /> and{' '}
-            <SpellLink id={TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT.id} /> was:{' '}
+            The bonus damage to <SpellLink spell={SPELLS.MIND_BLAST} /> and{' '}
+            <SpellLink spell={TALENTS_PRIEST.SHADOW_WORD_DEATH_TALENT} /> was:{' '}
             {formatNumber(this.bonusDamage)}.
           </>
         }

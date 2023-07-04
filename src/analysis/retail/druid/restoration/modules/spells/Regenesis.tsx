@@ -88,11 +88,11 @@ class Regenesis extends Analyzer {
             Breakdown by boosted spell:
             <ul>
               <li>
-                <SpellLink id={SPELLS.REJUVENATION.id} />:{' '}
+                <SpellLink spell={SPELLS.REJUVENATION} />:{' '}
                 <strong>{this.owner.formatItemHealingDone(this.rejuvBoostHealing)}</strong>
               </li>
               <li>
-                <SpellLink id={SPELLS.TRANQUILITY_HEAL.id} />:{' '}
+                <SpellLink spell={SPELLS.TRANQUILITY_HEAL} />:{' '}
                 <strong>{this.owner.formatItemHealingDone(this.tranqBoostHealing)}</strong>
               </li>
             </ul>

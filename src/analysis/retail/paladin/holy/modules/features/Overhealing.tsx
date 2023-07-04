@@ -89,8 +89,8 @@ class Overhealing extends Analyzer {
     when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.lightOfDawnSuggestion">
-          Try to avoid overhealing with <SpellLink id={TALENTS.LIGHT_OF_DAWN_TALENT} />. Save it for
-          when people are missing health.
+          Try to avoid overhealing with <SpellLink spell={TALENTS.LIGHT_OF_DAWN_TALENT} />. Save it
+          for when people are missing health.
         </Trans>,
       )
         .icon(TALENTS.LIGHT_OF_DAWN_TALENT.icon)
@@ -111,7 +111,7 @@ class Overhealing extends Analyzer {
     when(this.holyShockSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.holyShockSuggestion">
-          Try to avoid overhealing with <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} />. Save it for
+          Try to avoid overhealing with <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} />. Save it for
           when people are missing health.
         </Trans>,
       )
@@ -133,9 +133,9 @@ class Overhealing extends Analyzer {
     when(this.flashOfLightSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.flashOfLightSuggestion">
-          Try to avoid overhealing with <SpellLink id={SPELLS.FLASH_OF_LIGHT} />. If Flash of Light
-          would overheal it is generally advisable to cast a{' '}
-          <SpellLink id={TALENTS.HOLY_LIGHT_TALENT} /> instead.
+          Try to avoid overhealing with <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />. If Flash of
+          Light would overheal it is generally advisable to cast a{' '}
+          <SpellLink spell={TALENTS.HOLY_LIGHT_TALENT} /> instead.
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
@@ -156,8 +156,8 @@ class Overhealing extends Analyzer {
     when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.overhealing.bestowFaithSuggestion">
-          Try to avoid overhealing with <SpellLink id={TALENTS.BESTOW_FAITH_TALENT} />. Cast it just
-          before someone is about to take damage and consider casting it on targets other than
+          Try to avoid overhealing with <SpellLink spell={TALENTS.BESTOW_FAITH_TALENT} />. Cast it
+          just before someone is about to take damage and consider casting it on targets other than
           tanks.
         </Trans>,
       )

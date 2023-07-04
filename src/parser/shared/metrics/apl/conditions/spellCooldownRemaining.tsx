@@ -29,7 +29,7 @@ export default function spellCooldownRemaining(
     },
     describe: (tense) => (
       <>
-        <SpellLink id={spell.id} /> {tenseAlt(tense, 'has', 'had')} {formatTimestampRange(range)}{' '}
+        <SpellLink spell={spell.id} /> {tenseAlt(tense, 'has', 'had')} {formatTimestampRange(range)}{' '}
         seconds remaining on cooldown
       </>
     ),

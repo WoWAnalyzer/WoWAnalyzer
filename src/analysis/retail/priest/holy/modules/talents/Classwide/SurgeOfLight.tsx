@@ -76,7 +76,7 @@ class SurgeOfLight extends Analyzer {
           <>
             {this.solFlashHeals}{' '}
             <small>
-              free <SpellLink id={SPELLS.FLASH_HEAL.id} /> casts
+              free <SpellLink spell={SPELLS.FLASH_HEAL} /> casts
             </small>
             <br />
             <ItemManaGained amount={this.solManaSaved} useAbbrev />

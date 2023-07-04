@@ -219,7 +219,7 @@ class MistsOfLife extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.MISTS_OF_LIFE_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.MISTS_OF_LIFE_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -236,22 +236,22 @@ class MistsOfLife extends Analyzer {
         tooltip={
           <ul>
             <li>
-              Extra <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> direct healing:{' '}
+              Extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> direct healing:{' '}
               {formatNumber(this.extraEnvmHealing)}
             </li>
             <li>
-              Bonus healing from <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> buff:{' '}
+              Bonus healing from <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> buff:{' '}
               {formatNumber(this.extraEnvBonusHealing)}
             </li>
             <li>
-              Extra <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> direct healing:{' '}
+              Extra <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> direct healing:{' '}
               {formatNumber(this.extraRemHealing)}
             </li>
             <li>
-              Extra <SpellLink id={SPELLS.VIVIFY.id} /> cleaves: {this.extraVivCleaves}
+              Extra <SpellLink spell={SPELLS.VIVIFY} /> cleaves: {this.extraVivCleaves}
             </li>
             <li>
-              Extra <SpellLink id={SPELLS.VIVIFY.id} /> direct healing:{' '}
+              Extra <SpellLink spell={SPELLS.VIVIFY} /> direct healing:{' '}
               {formatNumber(this.extraVivHealing)}
             </li>
           </ul>

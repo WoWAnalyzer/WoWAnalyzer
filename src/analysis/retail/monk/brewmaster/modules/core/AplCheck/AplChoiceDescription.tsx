@@ -8,14 +8,14 @@ const aplTitle = (choice: BrewmasterApl) => {
     case BrewmasterApl.BoC_DfB:
       return (
         <>
-          <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> +{' '}
+          <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> +{' '}
           <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} />
         </>
       );
     case BrewmasterApl.DfB:
-      return <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} />;
+      return <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} />;
     case BrewmasterApl.ChP:
-      return <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />;
+      return <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />;
     default:
       return <em>Fallback</em>;
   }
@@ -25,11 +25,11 @@ const BlackoutComboDescription = () => (
   <>
     <p>
       The {aplTitle(BrewmasterApl.BoC_DfB)} rotation uses{' '}
-      <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> to empower{' '}
-      <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> for both damage and tankiness.
+      <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> to empower{' '}
+      <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> for both damage and tankiness.
     </p>
     <p>
-      Your highest priority is to use <SpellLink id={SPELLS.BLACKOUT_KICK_BRM} /> as often as
+      Your highest priority is to use <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} /> as often as
       possible. Use the <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> buff on{' '}
       <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> if available, and on{' '}
       <SpellLink spell={talents.KEG_SMASH_TALENT} /> or <SpellLink spell={SPELLS.TIGER_PALM} /> if
@@ -37,10 +37,10 @@ const BlackoutComboDescription = () => (
     </p>
     <small>
       <p>
-        <strong>Note:</strong> Casting <SpellLink id={talents.BREATH_OF_FIRE_TALENT} />{' '}
+        <strong>Note:</strong> Casting <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />{' '}
         <em>without</em> the buff will reduce your damage reduction back to 5%! If your targets are
-        already debuffed, you should skip <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> unless
-        you have the <SpellLink id={talents.BLACKOUT_COMBO_TALENT} /> buff!
+        already debuffed, you should skip <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> unless
+        you have the <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> buff!
       </p>
     </small>
   </>
@@ -51,30 +51,30 @@ const ChPDfBDescription = ({ apl }: { apl: BrewmasterApl }) => {
     <>
       <p>
         The {aplTitle(apl)} rotation is idental to the core rotation, except that{' '}
-        <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> becomes much higher priority.
+        <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> becomes much higher priority.
       </p>
       {apl === BrewmasterApl.ChP ? (
         <>
           <p>
-            When playing <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />, you cast{' '}
-            <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> as often as necessary to maintain the{' '}
-            <SpellLink id={talents.CHARRED_PASSIONS_TALENT} /> damage buff.
+            When playing <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />, you cast{' '}
+            <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> as often as necessary to maintain
+            the <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> damage buff.
           </p>
           <p>
             <small>
               <strong>Note:</strong> In previous patches, it was a damage boost to always use{' '}
-              <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM} /> instead of{' '}
-              <SpellLink id={SPELLS.TIGER_PALM} /> when using{' '}
-              <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />. That is no longer the
-              case&mdash;use <SpellLink id={SPELLS.TIGER_PALM} /> on single-target and{' '}
-              <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM} /> on AoE!
+              <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> instead of{' '}
+              <SpellLink spell={SPELLS.TIGER_PALM} /> when using{' '}
+              <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />. That is no longer the
+              case&mdash;use <SpellLink spell={SPELLS.TIGER_PALM} /> on single-target and{' '}
+              <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> on AoE!
             </small>
           </p>
         </>
       ) : (
         <p>
-          With <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} />,{' '}
-          <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> becomes one of your most important
+          With <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} />,{' '}
+          <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> becomes one of your most important
           spells. Cast it as often as possible.
         </p>
       )}
@@ -91,8 +91,8 @@ const FallbackDescription = () => (
       habits that work with the other variations.
     </p>
     <AlertWarning>
-      Using <SpellLink id={talents.CHARRED_PASSIONS_TALENT} /> or{' '}
-      <SpellLink id={talents.DRAGONFIRE_BREW_TALENT} /> is recommended, as both provide a large
+      Using <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> or{' '}
+      <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} /> is recommended, as both provide a large
       damage boost without making the rotation much more difficult.
     </AlertWarning>
   </>
@@ -120,11 +120,11 @@ export default function AplChoiceDescription({
       <p>
         Brewmasters have three variations on their core rotation, depending on which talents you
         choose. The core of the rotation remains the same (prioritize your low-cooldown, high-damage
-        abilities: <SpellLink id={SPELLS.BLACKOUT_KICK_BRM} />,{' '}
-        <SpellLink id={talents.KEG_SMASH_TALENT} />, and{' '}
-        <SpellLink id={talents.RISING_SUN_KICK_TALENT} />
+        abilities: <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />,{' '}
+        <SpellLink spell={talents.KEG_SMASH_TALENT} />, and{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
         ). The <strong>main difference</strong> is how important casting{' '}
-        <SpellLink id={talents.BREATH_OF_FIRE_TALENT} /> is.
+        <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> is.
       </p>
       <p>
         <strong>Selected Rotation:</strong> {aplTitle(aplChoice)}

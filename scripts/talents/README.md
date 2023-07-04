@@ -1,4 +1,4 @@
-## Usage
+np## Usage
 
 Run this script from the root folder to generate talents into src/common/TALENTS.
 
@@ -25,19 +25,12 @@ $ npx ts-node-dev --respawn .\scripts\talents\generate-talents.ts
 In order to update the spell power values used in the talent generation (like mana cost,
 fury cost, etc.), follow the below steps:
 
-- Log into one of your characters on live
-- Close the game
-- Clone https://github.com/simulationcraft/simc
-- `cd` into the `casc_extract` directory in the root of the repository
-- Run `pip install -r requirements.txt`
-- `cd` into the `db_extract3` directory in the root of the repository
-- Run `pip install -r requirements.txt`
-- `cd` back into the `casc_extract` directory
-- Run `WinGenerateSpellData.bat`
-- Check the `casc_extract/wow/WOWVERSION/DBFilesClient` directory for `SpellPower.db2` file
-- Download [DBC2CSV](https://github.com/Marlamin/DBC2CSV), making sure to install the prerequisites
-- Drag the `SpellPower.db2` file onto the DBC2CSV.exe
-- Copy the created `SpellPower.csv` into the `scripts/talents` directory, changing the name to `spellpower_WOWVERSION.csv`
+- Run the below script while providing it a build number
+
+```shell script
+$ npx ts-node-dev .\scripts\talents\download-spellpower.ts WOWVERSION
+```
+
 - Update the `LIVE_WOW_BUILD_NUMBER` value in `scripts/talents/generate-talents.ts` to match WOWVERSION
 
 ## PTR
@@ -59,17 +52,10 @@ $ npx ts-node-dev --respawn .\scripts\talents\generate-talents.ts --ptr
 In order to update the spell power values used in the talent generation (like mana cost,
 fury cost, etc.), follow the below steps:
 
-- Log into one of your characters on live
-- Close the game
-- Clone https://github.com/simulationcraft/simc
-- `cd` into the `casc_extract` directory in the root of the repository
-- Run `pip install -r requirements.txt`
-- `cd` into the `db_extract3` directory in the root of the repository
-- Run `pip install -r requirements.txt`
-- `cd` back into the `casc_extract` directory
-- Run `WinGenerateSpellDataPTR.bat`
-- Check the `casc_extract/wow_ptr/WOWVERSION/DBFilesClient` directory for `SpellPower.db2` file
-- Download [DBC2CSV](https://github.com/Marlamin/DBC2CSV), making sure to install the prerequisites
-- Drag the `SpellPower.db2` file onto the DBC2CSV.exe
-- Copy the created `SpellPower.csv` into the `scripts/talents` directory, changing the name to `spellpower_WOWVERSION.csv`
+- Run the below script while providing it a build number
+
+```shell script
+$ npx ts-node-dev .\scripts\talents\download-spellpower.ts WOWVERSION
+```
+
 - Update the `PTR_WOW_BUILD_NUMBER` value in `scripts/talents/generate-talents.ts` to match WOWVERSION

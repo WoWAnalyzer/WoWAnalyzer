@@ -102,11 +102,11 @@ class TasteForBlood extends Analyzer {
                 Damage Breakdown:
                 <ul>
                   <li>
-                    <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />:
+                    <SpellLink spell={SPELLS.FEROCIOUS_BITE} />:
                     <strong>{this.owner.formatItemDamageDone(this.fbBoostDamage)}</strong>
                   </li>
                   <li>
-                    <SpellLink id={SPELLS.RAMPANT_FEROCITY.id} />:
+                    <SpellLink spell={SPELLS.RAMPANT_FEROCITY} />:
                     <strong>{this.owner.formatItemDamageDone(this.rfBoostDamage)}</strong>
                   </li>
                 </ul>

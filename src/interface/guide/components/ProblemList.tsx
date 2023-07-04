@@ -171,7 +171,7 @@ export function NoProblem({ children }: React.PropsWithChildren<object>) {
      return (
        <>
          <p>
-           Your <SpellLink id={SPELLS.WHATEVER.id} /> overhealed by
+           Your <SpellLink spell={SPELLS.WHATEVER.id} /> overhealed by
            <strong>{formatNumber(overheal)}</strong>, wasting
            {pctWasted.toFixed(1)}% of the spell.
          </p>

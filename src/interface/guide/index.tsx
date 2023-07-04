@@ -30,7 +30,7 @@
  *   const result = modules.foo.myAnalysisResult();
  *   return (
  *     <Section title="Basics of Foo">
- *       <SpellLink id={SPELLS.FOO.id} /> is very important to your success as a
+ *       <SpellLink spell={SPELLS.FOO.id} /> is very important to your success as a
  *       player. Optimizing it is very complicated. Here are some details on how
  *       you did:
  *

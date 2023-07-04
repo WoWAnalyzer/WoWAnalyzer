@@ -15,7 +15,7 @@ const Recommendations = ({ header, recommendations }: Props) => (
     <ul className={styles['recommendations']}>
       {recommendations.map((recommendation) => (
         <li key={recommendation.id}>
-          <SpellLink id={recommendation} />
+          <SpellLink spell={recommendation} />
         </li>
       ))}
     </ul>

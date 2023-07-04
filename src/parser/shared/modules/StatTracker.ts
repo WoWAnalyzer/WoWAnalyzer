@@ -1,5 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
 import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -20,6 +21,7 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import STAT from 'parser/shared/modules/features/STAT';
 
 import Expansion from '../../../game/Expansion';
+import { calculateSecondaryStatDefault } from 'parser/core/stats';
 
 const ARMOR_INT_BONUS = 0.05;
 
@@ -51,6 +53,10 @@ class StatTracker extends Analyzer {
     // TODO: Figure out how to make this work with multiple ranks of phials
     [SPELLS.CHARGED_PHIAL_OF_ALACRITY.id]: { speed: 630 },
     [SPELLS.PHIAL_OF_TEPID_VERSATILITY.id]: { versatility: 632 },
+    [SPELLS.ELEMENTAL_CHAOS_AIR.id]: { haste: 652 },
+    [SPELLS.ELEMENTAL_CHAOS_EARTH.id]: { mastery: 652 },
+    [SPELLS.ELEMENTAL_CHAOS_FIRE.id]: { crit: 652 },
+    [SPELLS.ELEMENTAL_CHAOS_FROST.id]: { versatility: 652 },
     // endregion
 
     //region Food
@@ -91,6 +97,18 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Trinkets
+    [SPELLS.UNSTABLE_FLAMES.id]: {
+      itemId: ITEMS.VESSEL_OF_SEARING_SHADOW.id,
+      haste: (_, item) => calculateSecondaryStatDefault(415, 90, item.itemLevel),
+    },
+    [SPELLS.SPOILS_OF_NELTHARUS_HASTE.id]: {
+      itemId: ITEMS.SPOILS_OF_NELTHARUS.id,
+      haste: (_, item) => calculateSecondaryStatDefault(250, 547.57, item.itemLevel),
+    },
+    // endregion
+
+    // region Other
+    [SPELLS.WAFTING_DEVOTION.id]: { haste: 1743.14 },
     // endregion
 
     // region Racials

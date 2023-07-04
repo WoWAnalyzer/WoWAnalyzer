@@ -74,7 +74,7 @@ class Verdancy extends Analyzer {
                     minute
                   </li>
                   <li>
-                    <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT.id} /> Blooms:{' '}
+                    <SpellLink spell={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT} /> Blooms:{' '}
                     <strong>{this.owner.getPerMinute(this.photoBlooms).toFixed(1)}</strong> per
                     minute
                   </li>
@@ -93,7 +93,7 @@ class Verdancy extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.VERDANCY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.VERDANCY_TALENT}>
           <ItemPercentHealingDone
             amount={this.abilityTracker.getAbility(SPELLS.VERDANCY.id).healingEffective}
           />

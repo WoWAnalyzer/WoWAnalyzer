@@ -28,9 +28,9 @@ class FrostFeverUptime extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            Your <SpellLink id={SPELLS.FROST_FEVER.id} /> uptime can be improved. Try to pay
+            Your <SpellLink spell={SPELLS.FROST_FEVER} /> uptime can be improved. Try to pay
             attention to when Frost Fever is about to fall off the priority target, using{' '}
-            <SpellLink id={talents.HOWLING_BLAST_TALENT.id} /> to refresh Frost Fever. Using a
+            <SpellLink spell={talents.HOWLING_BLAST_TALENT} /> to refresh Frost Fever. Using a
             debuff tracker can help.
           </span>,
         )
@@ -50,7 +50,7 @@ class FrostFeverUptime extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(20)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.FROST_FEVER.id}>
+        <BoringSpellValueText spell={SPELLS.FROST_FEVER}>
           <>
             <UptimeIcon /> {formatPercentage(this.frostFeverUptime)}% <small>uptime</small>
           </>

@@ -48,16 +48,16 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
         name="Barbed Shot usage"
         description={
           <>
-            Using <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> properly is a key to achieving
+            Using <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> properly is a key to achieving
             high dps. This means maintaining the pet buff from{' '}
-            <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> as long as possible.
+            <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> as long as possible.
           </>
         }
       >
         <Requirement
           name={
             <>
-              Uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} />{' '}
+              Uptime of <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} />{' '}
             </>
           }
           thresholds={thresholds.frenzyUptimeSuggestionThreshold}
@@ -65,7 +65,7 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
         <Requirement
           name={
             <>
-              3 stack uptime of <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} />{' '}
+              3 stack uptime of <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} />{' '}
             </>
           }
           thresholds={thresholds.frenzy3StackSuggestionThreshold}
@@ -74,7 +74,7 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> CDR Efficiency
+                <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> CDR Efficiency
               </>
             }
             thresholds={thresholds.bestialWrathCDREfficiencyThreshold}
@@ -94,8 +94,8 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
         <Requirement
           name={
             <>
-              <SpellIcon id={TALENTS.COBRA_SHOT_TALENT.id} />
-              <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} icon={false} /> CDR efficiency
+              <SpellIcon spell={TALENTS.COBRA_SHOT_TALENT} />
+              <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} icon={false} /> CDR efficiency
             </>
           }
           thresholds={thresholds.cobraShotCDREfficiencyThreshold}
@@ -103,8 +103,8 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> casts when{' '}
-              <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> wasn't on cd
+              <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> casts when{' '}
+              <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> wasn't on cd
             </>
           }
           thresholds={thresholds.wastedCobraShotsThreshold}
@@ -113,7 +113,7 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
           name={
             <>
               <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> Average focus on{' '}
-              <SpellIcon id={TALENTS.BESTIAL_WRATH_TALENT.id} /> cast{' '}
+              <SpellIcon spell={TALENTS.BESTIAL_WRATH_TALENT} /> cast{' '}
             </>
           }
           thresholds={thresholds.bestialWrathFocusThreshold}
@@ -125,7 +125,7 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.BEAST_CLEAVE_BUFF.id} /> applications with 0 cleaves
+              <SpellLink spell={SPELLS.BEAST_CLEAVE_BUFF} /> applications with 0 cleaves
             </>
           }
           thresholds={thresholds.beastCleaveThresholds}
@@ -135,7 +135,7 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
             name={
               <>
                 {' '}
-                Wasted <SpellLink id={TALENTS.KILLER_COBRA_TALENT.id} /> resets{' '}
+                Wasted <SpellLink spell={TALENTS.KILLER_COBRA_TALENT} /> resets{' '}
               </>
             }
             thresholds={thresholds.wastedKillerCobraThreshold}
@@ -148,7 +148,7 @@ const BeastMasteryChecklist = (props: ChecklistProps) => {
           <>
             As a DPS, you should try to reduce the delay between casting spells, and stay off
             resource capping as much as possible. If everything is on cooldown, try and use{' '}
-            <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> to stay off the focus cap and do some
+            <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> to stay off the focus cap and do some
             damage.
           </>
         }

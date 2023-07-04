@@ -124,9 +124,9 @@ class RuneOfPower extends Analyzer {
           suggest(
             <>
               It is highly recommended to talent into{' '}
-              <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> when playing this spec. While it
+              <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> when playing this spec. While it
               can take some practice to master, when played correctly it outputs substantially more
-              DPS than <SpellLink id={TALENTS.INCANTERS_FLOW_TALENT.id} /> or.
+              DPS than <SpellLink spell={TALENTS.INCANTERS_FLOW_TALENT} /> or.
             </>,
           )
             .icon(TALENTS.RUNE_OF_POWER_TALENT.icon)
@@ -142,12 +142,12 @@ class RuneOfPower extends Analyzer {
     when(this.overlappedRunesThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> or an ability that
-          automatically casts <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> (Like{' '}
-          <SpellLink id={TALENTS.ICY_VEINS_TALENT.id} />,{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />, or{' '}
-          <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} />) while you still had a Rune down. Make
-          sure you are not overlapping your <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> so
+          You cast <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> or an ability that
+          automatically casts <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> (Like{' '}
+          <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />,{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />, or{' '}
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />) while you still had a Rune down. Make
+          sure you are not overlapping your <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> so
           you can get the most out of the damage buff that it provides.
         </>,
       )
@@ -160,7 +160,7 @@ class RuneOfPower extends Analyzer {
       when(this.roundedSecondsSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            You sometimes aren't standing in your <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} />{' '}
+            You sometimes aren't standing in your <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} />{' '}
             for its full duration. Try to only use it when you know you won't have to move for the
             duration of the effect.
           </>,
@@ -192,7 +192,7 @@ class RuneOfPower extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spellId={TALENTS.RUNE_OF_POWER_TALENT.id}>
+          <BoringSpellValueText spell={TALENTS.RUNE_OF_POWER_TALENT}>
             <>
               {formatPercentage(this.damagePercent, 0)}%{' '}
               <small>Damage added by Rune of Power</small>

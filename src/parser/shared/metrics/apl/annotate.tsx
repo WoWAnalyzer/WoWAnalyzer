@@ -38,7 +38,7 @@ export function InefficientCastAnnotation({ violation }: { violation: Violation 
       {violation.expectedCast.map((spell, index) => (
         <>
           {index > 0 ? ' and ' : ''}
-          <SpellLink key={spell.id} id={spell.id} />
+          <SpellLink key={spell.id} spell={spell.id} />
         </>
       ))}{' '}
       {violation.expectedCast.length > 1 ? 'were' : 'was'} available and higher priority

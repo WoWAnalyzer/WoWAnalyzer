@@ -100,17 +100,17 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to fit at least 2 casts of <SpellLink spell={SPELLS.CHAOS_STRIKE.id} /> /{' '}
-          <SpellLink spell={SPELLS.ANNIHILATION.id} />
+          Try to fit at least 2 casts of <SpellLink spell={SPELLS.CHAOS_STRIKE} /> /{' '}
+          <SpellLink spell={SPELLS.ANNIHILATION} />
           /
-          <SpellLink spell={SPELLS.BLADE_DANCE.id} /> / <SpellLink spell={SPELLS.DEATH_SWEEP.id} />{' '}
-          during your <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id} /> window.
+          <SpellLink spell={SPELLS.BLADE_DANCE} /> / <SpellLink spell={SPELLS.DEATH_SWEEP} /> during
+          your <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> window.
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.icon)
         .actual(
           <>
-            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT.id} /> casts.
+            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} /> casts.
           </>,
         )
         .recommended('No bad casts is recommended.'),

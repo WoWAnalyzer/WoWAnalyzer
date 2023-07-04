@@ -46,6 +46,7 @@ const HIGHER_FOOD_IDS: number[] = [
   SPELLS.SIZZLING_SEAFOOD_MEDLEY.id,
   // SPELLS.YUSAS_HEARTY_STEW.id,
   SPELLS.FATED_FORTUNE_COOKIE.id,
+  SPELLS.THOUSANDBONE_TONGUESLICER.id,
 ].filter((id) => id !== 0);
 
 class FoodChecker extends BaseFoodChecker {

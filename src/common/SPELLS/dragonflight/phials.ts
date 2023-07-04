@@ -78,6 +78,26 @@ const spells = spellIndexableList({
     name: 'Phial of Elemental Chaos',
     icon: 'inv_10_alchemy_bottle_shape2_orange',
   },
+  ELEMENTAL_CHAOS_AIR: {
+    id: 371350,
+    name: 'Elemental Chaos: Air',
+    icon: 'ability_druid_galewinds',
+  },
+  ELEMENTAL_CHAOS_EARTH: {
+    id: 371351,
+    name: 'Elemental Chaos: Earth',
+    icon: 'inv_misc_volatileearth',
+  },
+  ELEMENTAL_CHAOS_FIRE: {
+    id: 371348,
+    name: 'Elemental Chaos: Fire',
+    icon: 'ability_mage_livingbomb',
+  },
+  ELEMENTAL_CHAOS_FROST: {
+    id: 371353,
+    name: 'Elemental Chaos: Frost',
+    icon: 'spell_frost_ice-shards',
+  },
   //endregion
 });
 

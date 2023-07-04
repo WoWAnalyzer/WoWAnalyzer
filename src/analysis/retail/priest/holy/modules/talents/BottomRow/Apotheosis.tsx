@@ -63,7 +63,7 @@ class Apotheosis extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spellId={TALENTS.APOTHEOSIS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.APOTHEOSIS_TALENT}>
           <>
             <ItemManaGained
               amount={

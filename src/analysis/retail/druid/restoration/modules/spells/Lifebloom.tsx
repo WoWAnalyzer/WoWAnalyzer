@@ -149,23 +149,23 @@ class Lifebloom extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={SPELLS.LIFEBLOOM_HOT_HEAL.id} />
+            <SpellLink spell={SPELLS.LIFEBLOOM_HOT_HEAL} />
           </b>{' '}
           can only be active on {hasUndergrowth ? 'two targets' : 'one target'} at a time{' '}
           {hasUndergrowth && (
             <>
-              (due to <SpellLink id={TALENTS_DRUID.UNDERGROWTH_TALENT.id} />)
+              (due to <SpellLink spell={TALENTS_DRUID.UNDERGROWTH_TALENT} />)
             </>
           )}{' '}
           and provides similar throughput to Rejuvenation. However, it causes{' '}
-          <SpellLink id={SPELLS.CLEARCASTING_BUFF.id} /> procs and so is a big benefit to your mana
+          <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> procs and so is a big benefit to your mana
           efficiency. It should always be active on a target - the tank is usually a safe bet.
         </p>
         {hasVerdancy && (
           <p>
             Because you took{' '}
             <strong>
-              <SpellLink id={TALENTS_DRUID.VERDANCY_TALENT.id} />
+              <SpellLink spell={TALENTS_DRUID.VERDANCY_TALENT} />
             </strong>
             , you should take extra care to allow your Lifeblooms to bloom. Refreshing lifebloom
             early or swapping targets before the existing Lifebloom has completed both will cause
@@ -181,13 +181,13 @@ class Lifebloom extends Analyzer {
           <p>
             Because you took{' '}
             <strong>
-              <SpellLink id={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT.id} />
+              <SpellLink spell={TALENTS_DRUID.PHOTOSYNTHESIS_TALENT} />
             </strong>
             , high uptime is particularly important. Typically the Lifebloom-on-self effect is most
             powerful{' '}
             {hasVerdancy && (
               <>
-                but because you took <SpellLink id={TALENTS_DRUID.VERDANCY_TALENT.id} />, the extra
+                but because you took <SpellLink spell={TALENTS_DRUID.VERDANCY_TALENT} />, the extra
                 blooms from the 'on-others' effect will also be very powerful
               </>
             )}
@@ -195,7 +195,7 @@ class Lifebloom extends Analyzer {
             {hasUndergrowth && (
               <>
                 {' '}
-                Remember that <SpellLink id={TALENTS_DRUID.UNDERGROWTH_TALENT.id} /> allows two
+                Remember that <SpellLink spell={TALENTS_DRUID.UNDERGROWTH_TALENT} /> allows two
                 lifeblooms, and both will benefit!
               </>
             )}

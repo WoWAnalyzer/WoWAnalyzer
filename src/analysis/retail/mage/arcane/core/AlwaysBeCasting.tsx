@@ -20,8 +20,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             <span>
               Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
               between casting spells. If a fight requires movement, try saving{' '}
-              <SpellLink id={TALENTS.PRESENCE_OF_MIND_TALENT.id} /> to make your next 2{' '}
-              <SpellLink id={SPELLS.ARCANE_BLAST.id} /> casts instant.
+              <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} /> to make your next 2{' '}
+              <SpellLink spell={SPELLS.ARCANE_BLAST} /> casts instant.
             </span>,
           )
             .icon('spell_mage_altertime')

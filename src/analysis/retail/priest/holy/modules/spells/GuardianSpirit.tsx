@@ -60,7 +60,7 @@ class GuardianSpirit extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={TALENTS.GUARDIAN_SPIRIT_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.GUARDIAN_SPIRIT_TALENT} />}
         value={<ItemHealingDone amount={this.totalHealingFromGSBuff} />}
         label="Guardian Spirit Buff Contribution"
         tooltip={

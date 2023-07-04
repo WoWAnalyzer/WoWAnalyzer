@@ -5,6 +5,7 @@ import Spell from 'common/SPELLS/Spell';
 import SpellIcon from './SpellIcon';
 import useSpellInfo from './useSpellInfo';
 import useTooltip from './useTooltip';
+import { getSpellId } from 'common/getSpellId';
 
 interface BaseProps extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
   children?: React.ReactNode;
@@ -36,7 +37,7 @@ type Props = PropsWithId | PropsWithSpell;
 const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
   ({ id, spell, children, icon = true, iconStyle, ilvl, def, rank, ...other }: Props, ref) => {
     const spellData = spell ?? id;
-    const spellId = typeof spellData === 'number' ? spellData : spellData.id;
+    const spellId = getSpellId(spellData);
     const spellInfo = useSpellInfo(spellData);
     const { spell: spellTooltip } = useTooltip();
 

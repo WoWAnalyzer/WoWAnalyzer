@@ -90,7 +90,7 @@ class BlazeOfLight extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.BLAZE_OF_LIGHT_TALENT}>
           <>
             <ItemHealingDone amount={this.healing} /> <br />
             <ItemDamageDone amount={this.damage} />

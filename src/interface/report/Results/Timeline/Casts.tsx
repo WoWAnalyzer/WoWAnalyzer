@@ -107,7 +107,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
 
     const linkIcon = (children: ReactNode) => (
       <SpellLink
-        id={event.ability.guid}
+        spell={event.ability.guid}
         icon={false}
         className={`cast ${className}`}
         style={{

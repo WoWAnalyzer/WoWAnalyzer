@@ -124,7 +124,7 @@ class MistWrap extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.MIST_WRAP_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.MIST_WRAP_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -145,10 +145,10 @@ class MistWrap extends Analyzer {
             Overhealing: {formatNumber(this.overHealing)}
             <br />
             Bonus Healing from extra <SpellLink
-              id={SPELLS.ENVELOPING_BREATH_HEAL.id}
+              spell={SPELLS.ENVELOPING_BREATH_HEAL}
             /> duration: {formatNumber(this.envBreathHealingBoost)}
             <br />
-            Bonus Healing from extra <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} />{' '}
+            Bonus Healing from extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />{' '}
             duration: {formatNumber(this.envMistHealingBoost)}
           </>
         }

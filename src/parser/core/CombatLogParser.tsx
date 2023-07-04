@@ -90,6 +90,7 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
+import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -205,6 +206,7 @@ class CombatLogParser {
     bloodFury: BloodFury,
 
     // Items:
+    voiceOfTheSilentStar: VoiceOfTheSilentStar,
 
     // Enchants
 

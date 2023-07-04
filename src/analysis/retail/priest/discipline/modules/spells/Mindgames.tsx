@@ -94,7 +94,7 @@ class Mindgames extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.MINDGAMES_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.MINDGAMES_TALENT}>
           <>
             <ItemHealingDone
               amount={this.atonementHealing + this.directHealing + this.preventedDamage}

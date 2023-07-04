@@ -64,10 +64,10 @@ class TimeAnomaly extends Analyzer {
     when(this.timeAnomalyManaThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.ARCANE_BARRAGE_TALENT.id} /> with greater than 70% mana{' '}
+          You cast <SpellLink spell={TALENTS.ARCANE_BARRAGE_TALENT} /> with greater than 70% mana{' '}
           {this.conservedTooHigh} times. Because of the way{' '}
-          <SpellLink id={TALENTS.TIME_ANOMALY_TALENT.id} /> works, you can randomly gain the{' '}
-          <SpellLink id={TALENTS.EVOCATION_TALENT.id} /> effect causing your mana to rapidly
+          <SpellLink spell={TALENTS.TIME_ANOMALY_TALENT} /> works, you can randomly gain the{' '}
+          <SpellLink spell={TALENTS.EVOCATION_TALENT} /> effect causing your mana to rapidly
           increase. If you are conserving your mana too high, this can cause your mana to cap out at
           100% which is a waste. So if you are using the Time Anomaly talent, you should make sure
           you conserve below 70% mana to help prevent mana capping.

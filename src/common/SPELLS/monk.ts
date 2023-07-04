@@ -206,6 +206,11 @@ const spells = spellIndexableList({
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
   },
+  CLAW_OF_THE_WHITE_TIGER: {
+    id: 389541,
+    name: 'Claw of the White Tiger',
+    icon: 'ability_monk_summonwhitetigerstatue',
+  },
 
   // Utility / Other
   DETOX: {
@@ -629,6 +634,11 @@ const spells = spellIndexableList({
     id: 393786,
     name: 'Chi Surge',
     icon: 'ability_monk_chiexplosion',
+  },
+  CHARRED_PASSIONS_BUFF: {
+    id: 386963,
+    name: 'Charred Passions',
+    icon: 'ability_monk_mightyoxkick',
   },
   // Tier 29 2-set bonus
   BREWMASTERS_RHYTHM_BUFF: {

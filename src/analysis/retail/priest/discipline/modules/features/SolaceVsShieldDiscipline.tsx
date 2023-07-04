@@ -64,8 +64,8 @@ class SolaceVsShieldDiscipline extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            The value for <SpellLink id={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id} /> also
-            includes the mana cost of one <SpellLink id={SPELLS.SMITE.id} /> as it is assumed that
+            The value for <SpellLink spell={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT} /> also
+            includes the mana cost of one <SpellLink spell={SPELLS.SMITE} /> as it is assumed that
             this is what the cast would be replaced by when using Shield Discipline.
           </>
         }
@@ -75,15 +75,15 @@ class SolaceVsShieldDiscipline extends Analyzer {
             <>
               {' '}
               <h6>
-                <SpellLink id={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id} /> vs{' '}
-                <SpellLink id={TALENTS_PRIEST.SHIELD_DISCIPLINE_TALENT.id} />
+                <SpellLink spell={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT} /> vs{' '}
+                <SpellLink spell={TALENTS_PRIEST.SHIELD_DISCIPLINE_TALENT} />
               </h6>
             </>
           }
         >
           <div className="flex solace-value">
             <div className="flex-sub icon" id="solace-talent-icon">
-              <SpellIcon id={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id} />
+              <SpellIcon spell={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT} />
             </div>
             <div id="solace-info">
               <div className="solace-number">
@@ -102,7 +102,7 @@ class SolaceVsShieldDiscipline extends Analyzer {
           </div>
           <div className="flex solace-value">
             <div className="flex-sub icon" id="solace-talent-icon">
-              <SpellIcon id={TALENTS_PRIEST.SHIELD_DISCIPLINE_TALENT.id} />
+              <SpellIcon spell={TALENTS_PRIEST.SHIELD_DISCIPLINE_TALENT} />
             </div>
             <div id="solace-info">
               {formatThousands(

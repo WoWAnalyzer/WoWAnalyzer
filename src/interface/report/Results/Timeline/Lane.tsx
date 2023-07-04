@@ -78,7 +78,7 @@ class Lane extends PureComponent<Props> {
     return (
       <SpellLink
         key={`cast-${spellId}-${left}`}
-        id={spellId}
+        spell={spellId}
         icon={false}
         className="cast"
         style={{ left }}

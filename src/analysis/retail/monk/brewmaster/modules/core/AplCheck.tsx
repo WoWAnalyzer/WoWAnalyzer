@@ -23,7 +23,7 @@ const SCK_CHP_WWTO = {
   spell: SPELLS.SPINNING_CRANE_KICK_BRM,
   condition: cnd.and(
     cnd.hasTalent(talents.WALK_WITH_THE_OX_TALENT),
-    cnd.buffPresent(talents.CHARRED_PASSIONS_TALENT),
+    cnd.buffPresent(SPELLS.CHARRED_PASSIONS_BUFF),
   ),
 };
 
@@ -48,7 +48,7 @@ const applyRjw = {
 
 const refreshChp: Rule = {
   spell: talents.BREATH_OF_FIRE_TALENT,
-  condition: cnd.buffMissing(talents.CHARRED_PASSIONS_TALENT, {
+  condition: cnd.buffMissing(SPELLS.CHARRED_PASSIONS_BUFF, {
     timeRemaining: 2000,
     duration: 8000,
     pandemicCap: 1,
@@ -78,7 +78,7 @@ const commonLowPrio = [
   talents.CHI_BURST_TALENT,
 ];
 
-const commonHighPrio = [EK_SCK, talents.BONEDUST_BREW_TALENT];
+const commonHighPrio = [EK_SCK];
 
 const rotation_boc_dfb = build([
   ...commonHighPrio,

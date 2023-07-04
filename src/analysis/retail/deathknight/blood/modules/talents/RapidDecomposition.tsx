@@ -56,7 +56,7 @@ class RapidDecomposition extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.RAPID_DECOMPOSITION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.RAPID_DECOMPOSITION_TALENT}>
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>

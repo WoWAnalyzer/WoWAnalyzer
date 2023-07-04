@@ -43,8 +43,8 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
       <SubSection title="Astral Power">
         <p>
           Your primary resource is Astral Power. Most of your spells generate Astral Power, and then
-          it can be spent to cast <SpellLink id={TALENTS_DRUID.STARSURGE_SHARED_TALENT.id} /> or{' '}
-          <SpellLink id={TALENTS_DRUID.STARFALL_TALENT.id} />. Avoid capping Astral Power!
+          it can be spent to cast <SpellLink spell={TALENTS_DRUID.STARSURGE_SHARED_TALENT} /> or{' '}
+          <SpellLink spell={TALENTS_DRUID.STARFALL_TALENT} />. Avoid capping Astral Power!
         </p>
         The chart below shows your Astral Power over the course of the encounter. TODO show percent
         wasted.
@@ -59,7 +59,7 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
     <Section title="Rotation">
       <SubSection>
         <strong>
-          <SpellLink id={TALENTS_DRUID.ECLIPSE_TALENT.id} />
+          <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} />
         </strong>{' '}
         - TODO
       </SubSection>

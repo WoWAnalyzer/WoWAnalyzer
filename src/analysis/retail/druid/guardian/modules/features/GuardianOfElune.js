@@ -102,7 +102,7 @@ class GuardianOfElune extends Analyzer {
         suggest(
           <span>
             You wasted {formatPercentage(unusedGoEProcs)}% of your{' '}
-            <SpellLink id={SPELLS.GUARDIAN_OF_ELUNE.id} /> procs. Try to use the procs as soon as
+            <SpellLink spell={SPELLS.GUARDIAN_OF_ELUNE} /> procs. Try to use the procs as soon as
             you get them so they are not overwritten.
           </span>,
         )

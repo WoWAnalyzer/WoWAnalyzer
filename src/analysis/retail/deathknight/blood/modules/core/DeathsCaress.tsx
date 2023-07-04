@@ -129,10 +129,10 @@ class DeathsCaress extends Analyzer {
     when(this.averageCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="deathknight.blood.deathsCaress.suggestion.suggestion">
-          Avoid casting <SpellLink id={TALENTS.DEATHS_CARESS_TALENT.id} /> unless you're out of
-          melee range and about to cap your runes while <SpellLink id={this.DD_ABILITY.id} /> and{' '}
-          <SpellLink id={TALENTS.BLOODDRINKER_TALENT.id} /> are on cooldown. Dump runes primarily
-          with <SpellLink id={TALENTS.HEART_STRIKE_TALENT.id} />.
+          Avoid casting <SpellLink spell={TALENTS.DEATHS_CARESS_TALENT} /> unless you're out of
+          melee range and about to cap your runes while <SpellLink spell={this.DD_ABILITY} /> and{' '}
+          <SpellLink spell={TALENTS.BLOODDRINKER_TALENT} /> are on cooldown. Dump runes primarily
+          with <SpellLink spell={TALENTS.HEART_STRIKE_TALENT} />.
         </Trans>,
       )
         .icon(TALENTS.DEATHS_CARESS_TALENT.icon)

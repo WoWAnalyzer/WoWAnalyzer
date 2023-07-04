@@ -1,8 +1,6 @@
 {
   "_links": {
-    "self": {
-      "href": "https://tw.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-tw"
-    }
+    "self": { "href": "https://tw.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-tw" }
   },
   "realms": [
     {
@@ -39,6 +37,22 @@
     },
     {
       "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/4689?namespace=dynamic-classic-tw"
+      },
+      "name": "TW4 CWOW GMSS 1",
+      "id": 4689,
+      "slug": "tw4-cwow-gmss-1"
+    },
+    {
+      "key": {
+        "href": "https://tw.api.blizzard.com/data/wow/realm/4690?namespace=dynamic-classic-tw"
+      },
+      "name": "TW4 CWOW GMSS 2",
+      "id": 4690,
+      "slug": "tw4-cwow-gmss-2"
+    },
+    {
+      "key": {
         "href": "https://tw.api.blizzard.com/data/wow/realm/5740?namespace=dynamic-classic-tw"
       },
       "name": "阿拉希盆地",
@@ -68,14 +82,6 @@
       "name": "逐風者",
       "id": 5743,
       "slug": "windseeker"
-    },
-    {
-      "key": {
-        "href": "https://tw.api.blizzard.com/data/wow/realm/5744?namespace=dynamic-classic-tw"
-      },
-      "name": "木喉要塞",
-      "id": 5744,
-      "slug": "timbermaw-hold"
     }
   ]
 }

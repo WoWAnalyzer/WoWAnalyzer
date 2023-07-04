@@ -167,7 +167,7 @@ class MitigationCheck extends Analyzer {
               <tr key={spell}>
                 <td />
                 <th scope="row">
-                  <SpellLink id={spell} style={{ height: '2.5em' }} />
+                  <SpellLink spell={spell} style={{ height: '2.5em' }} />
                 </th>
                 <td>{formatNumber(this.checksPassedMap.get(spell))}</td>
                 <td>{formatNumber(this.checksFailedMap.get(spell))}</td>
@@ -194,7 +194,7 @@ class MitigationCheck extends Analyzer {
               <tr key={spell}>
                 <td />
                 <th scope="row">
-                  <SpellLink id={spell} style={{ height: '2.5em' }} />
+                  <SpellLink spell={spell} style={{ height: '2.5em' }} />
                 </th>
                 <td>{formatNumber(this.checksPassedMap.get(spell))}</td>
                 <td>{formatNumber(this.checksFailedMap.get(spell))}</td>
@@ -206,7 +206,7 @@ class MitigationCheck extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={spellIconId} />}
+        icon={<SpellIcon spell={spellIconId} />}
         value={`${formatPercentage(passSum / (passSum + failSum))} %`}
         label="Soft mitigation checks passed."
         tooltip={

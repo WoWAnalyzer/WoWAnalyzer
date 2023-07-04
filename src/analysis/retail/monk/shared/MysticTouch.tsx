@@ -59,7 +59,7 @@ class MysticTouch extends Analyzer {
       <LazyLoadStatisticBox
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.MYSTIC_TOUCH_DEBUFF.id} />}
+        icon={<SpellIcon spell={SPELLS.MYSTIC_TOUCH_DEBUFF} />}
         value={formatNumber(this.owner.getPerSecond(this.damageAdded)) + ' DPS'}
         label="Mystic Touch Damage Increased"
         tooltip={

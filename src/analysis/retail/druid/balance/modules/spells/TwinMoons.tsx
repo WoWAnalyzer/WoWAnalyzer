@@ -54,7 +54,7 @@ class TwinMoons extends Analyzer {
           this.moonfireCasts
         } casts. This talent added ${formatNumber(this.perSecond)} DPS to your Moonfire.`}
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.TWIN_MOONS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.TWIN_MOONS_TALENT}>
           <>
             {formatPercentage(this.percentTwoHits)} % <small>double hits</small>
             <br />

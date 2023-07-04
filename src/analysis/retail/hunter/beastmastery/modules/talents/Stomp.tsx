@@ -53,7 +53,7 @@ class Stomp extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.STOMP_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.STOMP_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

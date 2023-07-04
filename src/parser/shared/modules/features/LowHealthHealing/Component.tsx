@@ -223,7 +223,7 @@ class LowHealthHealing extends React.PureComponent<LowHealthHealingProps, LowHea
                   <td style={{ width: '25%' }}>
                     {event.abilities.map((ability) => (
                       <div key={event.abilities.indexOf(ability)}>
-                        <SpellLink id={ability.guid} />
+                        <SpellLink spell={ability.guid} />
                       </div>
                     ))}
                   </td>

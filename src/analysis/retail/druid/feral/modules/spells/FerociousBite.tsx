@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, TargettedEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EventType, TargettedEvent } from 'parser/core/Events';
 
 import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -22,6 +22,8 @@ import {
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BadColor, OkColor } from 'interface/guide';
+import { getHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -53,6 +55,13 @@ class FerociousBite extends Analyzer {
   onFbCast(event: CastEvent) {
     if (event.resourceCost && event.resourceCost[RESOURCE_TYPES.ENERGY.id] === 0) {
       return; // free FBs (like from Apex Predator's Craving) don't drain but do full damage
+    }
+
+    const damage = getHits(event)
+      .filter((e): e is DamageEvent => e.type === EventType.Damage)
+      .pop();
+    if (damage && damage.hitType === HIT_TYPES.PARRY) {
+      return; // parried FBs don't drain and don't cost CPs - shouldn't evaluate
     }
 
     const duringBerserkAndSotf =
@@ -152,7 +161,7 @@ class FerociousBite extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.FEROCIOUS_BITE.id} />
+          <SpellLink spell={SPELLS.FEROCIOUS_BITE} />
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied Rip to enemies. Always
         use Bite with at least {ACCEPTABLE_CPS} CPs ({ACCEPTABLE_BERSERK_CPS} during{' '}
@@ -163,7 +172,7 @@ class FerociousBite extends Analyzer {
         {this.hasSotf && (
           <>
             One exception: because you have{' '}
-            <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT.id} />, it is acceptable to
+            <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_FERAL_TALENT} />, it is acceptable to
             use low energy bites during <SpellLink spell={cdSpell(this.selectedCombatant)} /> in
             order to get extra finishers in.
           </>
@@ -176,8 +185,8 @@ class FerociousBite extends Analyzer {
         {hasConvokeOrApex && (
           <>
             The below cast evaluations consider only CP spending Bites -{' '}
-            <SpellLink id={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT.id} /> and{' '}
-            <SpellLink id={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT.id} /> procs aren't included.
+            <SpellLink spell={TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS_DRUID.APEX_PREDATORS_CRAVING_TALENT} /> procs aren't included.
             <br />
           </>
         )}

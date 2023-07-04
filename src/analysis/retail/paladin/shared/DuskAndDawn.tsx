@@ -108,7 +108,7 @@ export class DuskAndDawn extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.DEFAULT}
       >
-        <BoringSpellValueText spellId={TALENTS.OF_DUSK_AND_DAWN_HOLY_TALENT}>
+        <BoringSpellValueText spell={TALENTS.OF_DUSK_AND_DAWN_HOLY_TALENT}>
           <BoringSpellValue
             spellId={SPELLS.BLESSING_OF_DUSK}
             value={`${formatPercentage(this.duskUptimePct)}%`}

@@ -18,12 +18,25 @@ import {
   Pilsung,
   HerzBlutRaffy,
   Abelito75,
-  Jundarer
+  Jundarer,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
+// prettier-ignore
 export default [
+  change(date(2023, 7, 3), 'Fix an issue causing cast efficiency for spells to be artificially inflated', Putro),
+  change(date(2023, 6, 30), 'Regenerate talents.', ToppleTheNun),
+  change(date(2023, 6, 28), 'Update retail realms for US, EU, TW, and KR.', ToppleTheNun),
+  change(date(2023, 6, 26), 'Improve ability to have custom ESLint rules.', ToppleTheNun),
+  change(date(2023, 6, 25), <>Correctly hide <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> if it isn't equipped.</>, Putro),
+  change(date(2023, 6, 25), 'Added many Aberrus DoTs to the ignore list for tank hit tracking', emallson),
+  change(date(2023, 6, 22), 'Added Thousandbone Tongueslicer to list of high tier foods.', Sref),
+  change(date(2023, 6, 22), 'Remove ESLint disable from probability module.', ToppleTheNun),
+  change(date(2023, 6, 19), <>Implement <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> stat tracking</>, Jundarer),
+  change(date(2023, 6, 18), 'Add Vessel, Spoils and Wafting Devotion haste buffs and update item scaling data.', Jundarer),
+  change(date(2023, 6, 17), 'Update core directories to use new spell link format.', ToppleTheNun),
+  change(date(2023, 6, 17), 'Update articles to use new spell link format.', ToppleTheNun),
   change(date(2023, 5, 31), <>Implement <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id}/> module for Monk, Shaman, and Warlock</>, Trevor),
   change(date(2023, 5, 29), 'Add missing Balance Druid haste buffs.', Jundarer),
   change(date(2023, 5, 21), 'Refactor raid buff tracking and support tracking Windfury Totem.', ToppleTheNun),

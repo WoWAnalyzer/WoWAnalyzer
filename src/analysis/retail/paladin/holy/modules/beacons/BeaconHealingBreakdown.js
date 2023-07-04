@@ -49,7 +49,7 @@ class BeaconHealingBreakdown extends Component {
               return (
                 <tr key={ability.guid}>
                   <td style={{ width: '30%' }}>
-                    <SpellLink id={ability.guid} icon={false}>
+                    <SpellLink spell={ability} icon={false}>
                       <Icon icon={ability.abilityIcon} /> {ability.name}
                     </SpellLink>
                   </td>

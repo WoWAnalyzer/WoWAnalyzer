@@ -38,7 +38,7 @@ class MasterMarksman extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_HUNTER.MASTER_MARKSMAN_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.MASTER_MARKSMAN_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

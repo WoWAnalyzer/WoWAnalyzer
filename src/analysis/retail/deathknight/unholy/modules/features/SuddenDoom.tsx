@@ -62,7 +62,7 @@ class SuddenDoom extends Analyzer {
   get optionalSuggestion() {
     return this.selectedCombatant.hasTalent(TALENTS.ARMY_OF_THE_DAMNED_TALENT) ? (
       <>
-        , <SpellLink id={SPELLS.ARMY_OF_THE_DEAD.id} />, and <SpellLink id={SPELLS.APOCALYPSE.id} />
+        , <SpellLink spell={SPELLS.ARMY_OF_THE_DEAD} />, and <SpellLink spell={SPELLS.APOCALYPSE} />
       </>
     ) : (
       ''
@@ -73,10 +73,10 @@ class SuddenDoom extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are wasting procs of <SpellLink id={SPELLS.SUDDEN_DOOM_BUFF.id} />. It is important to
-          cast <SpellLink id={SPELLS.DEATH_COIL.id} /> as soon as possible after getting a proc to
+          You are wasting procs of <SpellLink spell={SPELLS.SUDDEN_DOOM_BUFF} />. It is important to
+          cast <SpellLink spell={SPELLS.DEATH_COIL} /> as soon as possible after getting a proc to
           ensure you are not losing potential cooldown reduction on{' '}
-          <SpellLink id={SPELLS.DARK_TRANSFORMATION.id} /> {this.optionalSuggestion}.
+          <SpellLink spell={SPELLS.DARK_TRANSFORMATION} /> {this.optionalSuggestion}.
         </>,
       )
         .icon(SPELLS.SUDDEN_DOOM_BUFF.icon)
@@ -97,7 +97,7 @@ class SuddenDoom extends Analyzer {
         size="flexible"
         tooltip="A proc counts as wasted if it fades without being used or if it refreshes"
       >
-        <BoringSpellValueText spellId={SPELLS.SUDDEN_DOOM_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.SUDDEN_DOOM_BUFF}>
           <>
             {this.wastedProcs} <small>wasted procs</small>
           </>

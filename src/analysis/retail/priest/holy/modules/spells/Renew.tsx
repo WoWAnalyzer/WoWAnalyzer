@@ -264,7 +264,7 @@ class Renew extends Analyzer {
     when(this.badRenewThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should cast <SpellLink id={TALENTS.RENEW_TALENT.id} /> less.
+          You should cast <SpellLink spell={TALENTS.RENEW_TALENT} /> less.
         </>,
       )
         .icon(TALENTS.RENEW_TALENT.icon)

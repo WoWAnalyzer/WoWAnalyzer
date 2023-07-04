@@ -38,7 +38,7 @@ class SteadyShot extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(2)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.STEADY_SHOT.id}>
+        <BoringSpellValueText spell={SPELLS.STEADY_SHOT}>
           <>
             {this.effectiveFocusGain}/{this.focusWasted + this.effectiveFocusGain}{' '}
             <small>possible focus gained</small>

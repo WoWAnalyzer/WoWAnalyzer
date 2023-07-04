@@ -38,7 +38,7 @@ class Enlightenment extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spellId={TALENTS.ENLIGHTENMENT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ENLIGHTENMENT_TALENT}>
           <ItemManaGained amount={this.enlightenmentMana} />
         </BoringSpellValueText>
       </Statistic>

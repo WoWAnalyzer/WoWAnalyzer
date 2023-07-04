@@ -66,7 +66,7 @@ export default class AnvilStave extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellLink id={talents.ANVIL__STAVE_TALENT} /> Cooldown Reduction
+              <SpellLink spell={talents.ANVIL__STAVE_TALENT} /> Cooldown Reduction
             </>
           }
         >

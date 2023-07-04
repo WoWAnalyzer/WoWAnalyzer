@@ -77,7 +77,7 @@ class Stagger extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.STAGGER.id} /> Damage staggered
+              <SpellIcon spell={SPELLS.STAGGER} /> Damage staggered
             </>
           }
         >

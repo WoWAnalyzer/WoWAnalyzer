@@ -216,13 +216,13 @@ class SoulOfTheForest extends Analyzer {
           firstGuid === SPELLS.REJUVENATION.id ||
           firstGuid === SPELLS.REJUVENATION_GERMINATION.id
         ) {
-          useText = <SpellLink id={SPELLS.REJUVENATION.id} />;
+          useText = <SpellLink spell={SPELLS.REJUVENATION} />;
           value = QualitativePerformance.Ok;
         } else if (firstGuid === SPELLS.REGROWTH.id) {
-          useText = <SpellLink id={SPELLS.REGROWTH.id} />;
+          useText = <SpellLink spell={SPELLS.REGROWTH} />;
           value = QualitativePerformance.Ok;
         } else if (firstGuid === SPELLS.WILD_GROWTH.id) {
-          useText = <SpellLink id={SPELLS.WILD_GROWTH.id} />;
+          useText = <SpellLink spell={SPELLS.WILD_GROWTH} />;
           value = QualitativePerformance.Good;
         } else {
           console.warn('SOTF reported as consumed by unexpected spell ID: ' + firstGuid);
@@ -296,14 +296,14 @@ class SoulOfTheForest extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.id} />
+          <SpellLink spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT} />
         </strong>{' '}
-        procs are highest value consumed with <SpellLink id={SPELLS.WILD_GROWTH.id} />, but{' '}
-        <SpellLink id={SPELLS.REJUVENATION.id} /> or <SpellLink id={SPELLS.REGROWTH.id} /> are
+        procs are highest value consumed with <SpellLink spell={SPELLS.WILD_GROWTH} />, but{' '}
+        <SpellLink spell={SPELLS.REJUVENATION} /> or <SpellLink spell={SPELLS.REGROWTH} /> are
         acceptable when one target needs big healing.{' '}
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
           <>
-            <SpellLink id={SPELLS.CONVOKE_SPIRITS.id} /> can overwrite procs - always use your proc
+            <SpellLink spell={SPELLS.CONVOKE_SPIRITS} /> can overwrite procs - always use your proc
             before casting Convoke. Never let a proc expire.
           </>
         )}
@@ -355,7 +355,7 @@ class SoulOfTheForest extends Analyzer {
             You used <strong>{this.totalUses}</strong> Soul of the Forest procs.
             <ul>
               <li>
-                <SpellLink id={SPELLS.REJUVENATION.id} />
+                <SpellLink spell={SPELLS.REJUVENATION} />
                 {this._spellReportLine(
                   this.rejuvTotalUses,
                   this.rejuvHardcastUses,
@@ -363,7 +363,7 @@ class SoulOfTheForest extends Analyzer {
                 )}
               </li>
               <li>
-                <SpellLink id={SPELLS.REGROWTH.id} />
+                <SpellLink spell={SPELLS.REGROWTH} />
                 {this._spellReportLine(
                   this.regrowthTotalUses,
                   this.regrowthHardcastUses,
@@ -371,7 +371,7 @@ class SoulOfTheForest extends Analyzer {
                 )}
               </li>
               <li>
-                <SpellLink id={SPELLS.WILD_GROWTH.id} />
+                <SpellLink spell={SPELLS.WILD_GROWTH} />
                 {this._spellReportLine(
                   this.wgTotalUses,
                   this.wgHardcastUses,
@@ -382,7 +382,7 @@ class SoulOfTheForest extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT}>
           <ItemPercentHealingDone amount={this.totalHealing} />
           <br />
         </BoringSpellValueText>

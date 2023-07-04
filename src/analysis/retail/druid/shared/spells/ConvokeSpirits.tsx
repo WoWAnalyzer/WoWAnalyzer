@@ -384,7 +384,7 @@ class ConvokeSpirits extends Analyzer {
         tooltip={this.baseTooltip}
         dropdown={this.baseTable}
       >
-        <BoringSpellValueText spellId={SPELLS.CONVOKE_SPIRITS.id}>-</BoringSpellValueText>
+        <BoringSpellValueText spell={SPELLS.CONVOKE_SPIRITS}>-</BoringSpellValueText>
       </Statistic>
     );
   }
@@ -413,7 +413,7 @@ class ConvokeSpirits extends Analyzer {
                 <td>
                   {convokeCast.spellIdToCasts.map((casts, spellId) => (
                     <>
-                      <SpellLink id={spellId} /> {casts} <br />
+                      <SpellLink spell={spellId} /> {casts} <br />
                     </>
                   ))}
                 </td>

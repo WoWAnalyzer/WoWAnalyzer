@@ -66,7 +66,7 @@ class EssenceFontUniqueTargets extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> Average Unique Targets Hit
+              <SpellIcon spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> Average Unique Targets Hit
             </>
           }
         >

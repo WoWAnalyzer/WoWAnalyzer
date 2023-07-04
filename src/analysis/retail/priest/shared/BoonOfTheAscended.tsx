@@ -266,7 +266,7 @@ class BoonOfTheAscended extends Analyzer {
     return Object.entries(this.ascendedSpellTracker).map(([spellId, data]) => (
       <tr key={'bota_' + spellId}>
         <td>
-          <SpellIcon id={Number(spellId)} style={{ height: '2.4em' }} />
+          <SpellIcon spell={Number(spellId)} style={{ height: '2.4em' }} />
         </td>
         <td>
           <TooltipElement

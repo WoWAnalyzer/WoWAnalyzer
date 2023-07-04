@@ -94,7 +94,7 @@ class HolyNova extends Analyzer {
     }
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.HOLY_NOVA_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.HOLY_NOVA_TALENT} />}
         value={
           <>
             Average Hits:&nbsp;
@@ -130,7 +130,7 @@ class HolyNova extends Analyzer {
     when(this.holyNovaThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should only cast <SpellLink id={TALENTS.HOLY_NOVA_TALENT.id} /> when you will hit 5 or
+          You should only cast <SpellLink spell={TALENTS.HOLY_NOVA_TALENT} /> when you will hit 5 or
           more targets.
         </>,
       )

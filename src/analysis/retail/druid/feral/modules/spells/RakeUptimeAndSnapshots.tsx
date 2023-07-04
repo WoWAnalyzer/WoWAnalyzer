@@ -123,7 +123,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
           <>
             Used to proc{' '}
             <strong>
-              <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />
+              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />
             </strong>
             <br />
           </>
@@ -169,19 +169,19 @@ class RakeUptimeAndSnapshots extends Snapshots {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.RAKE.id} />
+          <SpellLink spell={SPELLS.RAKE} />
         </b>{' '}
         is your highest damage-per-energy single target builder. Try to keep it active on all
         targets (except when in a many-target AoE situation). Rake snapshots{' '}
-        <SpellLink id={SPELLS.TIGERS_FURY.id} /> and{' '}
-        <SpellLink id={TALENTS_DRUID.POUNCING_STRIKES_TALENT.id} /> - when forced to refresh with a
+        <SpellLink spell={SPELLS.TIGERS_FURY} /> and{' '}
+        <SpellLink spell={TALENTS_DRUID.POUNCING_STRIKES_TALENT} /> - when forced to refresh with a
         weaker snapshot, try to wait until the last moment in order to overwrite the minimum amount
         of the stronger DoT.
         {hasBt && (
           <>
             {' '}
             It's always acceptable to do a sub-optimal Rake cast if needed to proc{' '}
-            <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />.
+            <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />.
           </>
         )}
       </p>
@@ -204,7 +204,7 @@ class RakeUptimeAndSnapshots extends Snapshots {
           {hasBt && (
             <>
               (or a cast with problems that procced{' '}
-              <SpellLink id={TALENTS_DRUID.BLOODTALONS_TALENT.id} />)
+              <SpellLink spell={TALENTS_DRUID.BLOODTALONS_TALENT} />)
             </>
           )}
           , Yellow is an ok cast (clipped duration but upgraded snapshot), Red is a bad cast
