@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import { emallson, ToppleTheNun } from 'CONTRIBUTORS';
+import { emallson, Putro, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 3), <>Fixed an issue regarding the cast efficiency of <SpellLink spell={talents.BLACK_OX_BREW_TALENT} />. </>, Putro),
   change(date(2023, 7, 3), <>Move <SpellLink spell={talents.BONEDUST_BREW_TALENT} /> from core rotation to cooldowns section to improve suggestions.</>, emallson),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 7, 3), <>Fixed handling of pre-pull <SpellLink spell={talents.SUMMON_WHITE_TIGER_STATUE_TALENT} /> casts.</>, emallson),
