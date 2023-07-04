@@ -5,6 +5,7 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 6, 23), <>Bar chart for average LoD Distance.</>, Abelito75),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 23), <>Possible Empyrean Legacy Buffs and Buffs actually consumed.</>, Abelito75),
   change(date(2023, 6, 23), <>Holy Prism Average Targets Hit.</>, Abelito75),
