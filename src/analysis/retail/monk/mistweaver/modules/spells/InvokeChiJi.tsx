@@ -296,7 +296,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -309,24 +309,25 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
         </strong>{' '}
-        requires some preparation to be used optimally. Press <SpellLink id={SPELLS.TIGER_PALM} />{' '}
-        to stack <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> to three, get all
-        of your <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> charges on cooldown, and then
-        cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> so that your subsequent{' '}
-        <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> events will be duplicated. <br />
-        During <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
-        <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> when at two stacks of{' '}
-        <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> to maximize mana efficiency and
+        requires some preparation to be used optimally. Press{' '}
+        <SpellLink spell={SPELLS.TIGER_PALM} /> to stack{' '}
+        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> to three, get all of
+        your <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> charges on cooldown, and then
+        cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> so that your subsequent{' '}
+        <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> events will be duplicated. <br />
+        During <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />, aim to cast{' '}
+        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> when at two stacks of{' '}
+        <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> to maximize mana efficiency and
         healing. <br />
         Choose your target carefully to to maximize targets hit by{' '}
-        <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL} />, which is where the majority of your
+        <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} />, which is where the majority of your
         healing comes from. It is important to avoid overcapping on{' '}
-        <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> and{' '}
-        <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks, and to recast{' '}
-        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
-        <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT} />
+        <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> and{' '}
+        <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks, and to recast{' '}
+        <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
+        <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT} />
       </p>
     );
 
@@ -338,7 +339,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} />
+              <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
             </>
           );
           const totmRefreshPerf =
@@ -360,15 +361,15 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast{' '}
+                <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> stacks on cast{' '}
                 <Tooltip
                   hoverable
                   content={
                     <>
                       Get 3 stacks of{' '}
-                      <SpellLink id={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so that you
-                      can instantly cast <SpellLink id={SPELLS.BLACKOUT_KICK} /> for 8 total{' '}
-                      <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
+                      <SpellLink spell={TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT} /> so that
+                      you can instantly cast <SpellLink spell={SPELLS.BLACKOUT_KICK} /> for 8 total{' '}
+                      <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} /> heals
                     </>
                   }
                 >
@@ -385,7 +386,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.TEACHINGS_OF_THE_MONASTERY} /> stacks wasted
+                <SpellLink spell={SPELLS.TEACHINGS_OF_THE_MONASTERY} /> stacks wasted
               </>
             ),
             result: <PerformanceMark perf={totmRefreshPerf} />,
@@ -394,7 +395,7 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
           checklistItems.push({
             label: (
               <>
-                <SpellLink id={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks wasted
+                <SpellLink spell={SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF} /> stacks wasted
               </>
             ),
             result: <PerformanceMark perf={chijiRefreshPerf} />,
@@ -433,28 +434,28 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             <ul>
               <li>
                 {formatNumber(this.gustHealing)} healing from{' '}
-                <SpellLink id={SPELLS.GUST_OF_MISTS_CHIJI.id} />.
+                <SpellLink spell={SPELLS.GUST_OF_MISTS_CHIJI} />.
               </li>
               <li>
                 {formatNumber(this.envelopHealing)}{' '}
-                <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> healing from{' '}
-                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
+                <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> healing from{' '}
+                <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
-                <SpellLink id={SPELLS.CHI_COCOON_HEAL_CHIIJI.id} /> healing from{' '}
-                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
+                <SpellLink spell={SPELLS.CHI_COCOON_HEAL_CHIIJI} /> healing from{' '}
+                <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
               </li>
             </ul>
             Stack Breakdown:
             <ul>
               <li>
                 {formatNumber(this.freeCasts)} free{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> cast(s).
+                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast(s).
               </li>
               <li>
                 {formatNumber(this.castsBelowMaxStacks)}{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> cast(s) below max (
+                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast(s) below max (
                 {MAX_CHIJI_STACKS}) Chi-Ji stacks.
               </li>
               <li>
@@ -473,9 +474,9 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id} /> and
+              <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} /> and
               <br />
-              <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />
+              <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />
             </>
           }
         >

@@ -160,7 +160,7 @@ class MindFlayInsanity extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You interrupted <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> early,
+          You interrupted <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> early,
           wasting {formatPercentage(this.ticksWastedPercentage)}% the channel!
         </>,
       )
@@ -182,7 +182,7 @@ class MindFlayInsanity extends Analyzer {
         size="flexible"
         tooltip={<>{this.ticksWasted} ticks wasted by cancelling the channel early.</>}
       >
-        <BoringSpellValueText spellId={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF}>
           <>
             <div>
               <UptimeIcon /> {this.casts} <small>buffs used out of {this.procsGained} </small>{' '}
@@ -228,9 +228,9 @@ class MindFlayInsanity extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF.id} />
+          <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_BUFF} />
         </b>{' '}
-        is gained every time you cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.<br />
+        is gained every time you cast <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.<br />
         This buff can stack two times.
       </p>
     );

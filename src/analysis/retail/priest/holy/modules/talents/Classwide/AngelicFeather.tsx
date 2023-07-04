@@ -39,7 +39,7 @@ class AngelicFeather extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(2)}
       >
-        <BoringSpellValueText spellId={TALENTS.ANGELIC_FEATHER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ANGELIC_FEATHER_TALENT}>
           {this.angelicFeatherCasts} Feather(s) cast
         </BoringSpellValueText>
       </Statistic>

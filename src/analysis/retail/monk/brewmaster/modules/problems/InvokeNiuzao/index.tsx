@@ -38,7 +38,7 @@ function NiuzaoChecklistHeader({ cast, info }: Pick<CommonProps, 'cast' | 'info'
   return (
     <SectionHeader>
       {formatDuration(cast.startEvent.timestamp - info.fightStart)} &mdash;{' '}
-      <SpellLink id={NIUZAO_BUFF_ID_TO_CAST[cast.startEvent.ability.guid]} /> (
+      <SpellLink spell={NIUZAO_BUFF_ID_TO_CAST[cast.startEvent.ability.guid]} /> (
       {formatNumber(cast.stompDamage)})
     </SectionHeader>
   );
@@ -86,7 +86,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
       {cast.sitDetected && (
         <p>
           <AlertWarning>
-            This cast of <SpellLink id={NIUZAO_BUFF_ID_TO_CAST[cast.startEvent.ability.guid]} />{' '}
+            This cast of <SpellLink spell={NIUZAO_BUFF_ID_TO_CAST[cast.startEvent.ability.guid]} />{' '}
             appears to have used <code>/sit</code> to inflate damage taken. This is a risky strat
             and should only be done with the approval of your raid group.
           </AlertWarning>
@@ -113,7 +113,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Started with 1+ <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> Charge
+                    Started with 1+ <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> Charge
                   </td>
                   <td>
                     <PassFailCheckmark pass={cast.purifyingAtCast.charges >= 1} />
@@ -145,8 +145,8 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Used <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to Buff{' '}
-                    <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
+                    Used <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> to Buff{' '}
+                    <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />
                   </td>
                   <td>
                     <PassFailCheckmark pass={wasActivelyTanking && purifiedEnough} />
@@ -158,11 +158,11 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                       content={
                         <>
                           This is the full amount of purified damage that contributed to any{' '}
-                          <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />. Niuzao takes 25% of this
+                          <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />. Niuzao takes 25% of this
                           amount as the base bonus damage, which may then be increased by effects
-                          like <SpellLink id={talents.WALK_WITH_THE_OX_TALENT.id} />. Purified
+                          like <SpellLink spell={talents.WALK_WITH_THE_OX_TALENT} />. Purified
                           damage that expired before the next{' '}
-                          <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> is not counted.
+                          <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> is not counted.
                         </>
                       }
                     >
@@ -181,7 +181,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
               <tbody>
                 <tr>
                   <td>
-                    <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> casts
+                    <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> casts
                   </td>
                   <td className="pass-fail-counts">
                     {cast.stomps.length} / {MAX_STOMPS[cast.startEvent.ability.guid]}
@@ -195,7 +195,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Possible <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> Casts
+                    Possible <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> Casts
                   </td>
                   <td className="pass-fail-counts">
                     {formatNumber(cast.purifies.length)} /{' '}
@@ -210,7 +210,7 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
                 </tr>
                 <tr>
                   <td>
-                    Total <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> damage
+                    Total <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> damage
                   </td>
                   <td className="pass-fail-counts">{formatNumber(cast.stompDamage)}</td>
                   <td></td>
@@ -264,36 +264,36 @@ export function ImprovedInvokeNiuzaoSection({
   return (
     <Section title="Invoke Niuzao, the Black Ox">
       <p>
-        With the <SpellLink id={talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> talent,{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> becomes one of the most
+        With the <SpellLink spell={talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> talent,{' '}
+        <SpellLink spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> becomes one of the most
         powerful damage cooldowns in the game&mdash;and one of the most dangerous. Using this
         ability, we can efficiently turn massive amounts of damage taken into massive amounts of
         damage dealt.
       </p>
       <p>
         This talent
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> to add 25% of the purified
-        damage to the next <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> within 6 seconds. Niuzao
-        casts <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} /> when he is summoned, and then every 5
+        <SpellLink spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> to add 25% of the purified
+        damage to the next <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> within 6 seconds. Niuzao
+        casts <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> when he is summoned, and then every 5
         seconds after that, for a total of 5
-        <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />s per{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} />.
+        <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />s per{' '}
+        <SpellLink spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} />.
         {shouldCheckWoo && (
           <>
-            A cast of <SpellLink id={talents.WEAPONS_OF_ORDER_TALENT.id} /> (with{' '}
-            <SpellLink id={talents.CALL_TO_ARMS_TALENT} />) will trigger 3{' '}
-            <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />
+            A cast of <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} /> (with{' '}
+            <SpellLink spell={talents.CALL_TO_ARMS_TALENT} />) will trigger 3{' '}
+            <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />
             s&mdash;though this Niuzao has some issues hitting bosses with large models.
           </>
         )}{' '}
-        Casting <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> prior to summoning Niuzao will
-        contribute to the damage of the first <SpellLink id={SPELLS.NIUZAO_STOMP_DAMAGE.id} />.
+        Casting <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> prior to summoning Niuzao will
+        contribute to the damage of the first <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />.
       </p>
       <p>
         Unlike most damage cooldowns, it is frequently correct to sacrifice a cast of{' '}
-        <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> in order to get a better
+        <SpellLink spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> in order to get a better
         cast later. This is because <em>so much</em> of the damage of this cooldown is tied up in
-        using <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> to convert damage taken into
+        using <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> to convert damage taken into
         damage dealt that a single <em>great</em> cast can be worth more than multiple mediocre
         casts.
       </p>
@@ -302,7 +302,7 @@ export function ImprovedInvokeNiuzaoSection({
           {efficiency && (
             <tr>
               <td>
-                <SpellLink id={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT.id} /> casts
+                <SpellLink spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> casts
               </td>
 
               <td className="pass-fail-counts">
@@ -316,7 +316,7 @@ export function ImprovedInvokeNiuzaoSection({
           {wooEfficiency && (
             <tr>
               <td>
-                <SpellLink id={talents.WEAPONS_OF_ORDER_TALENT.id} /> casts
+                <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} /> casts
               </td>
               <td className="pass-fail-counts">
                 {wooEfficiency?.casts} / {wooEfficiency?.maxCasts}{' '}

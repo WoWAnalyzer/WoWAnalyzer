@@ -28,8 +28,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <>
             Your downtime can be improved. Try to cast more, for example by reducing the delay
             between casting spells. Even if you have to move, try to cast something instant with
-            range like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or{' '}
-            <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} icon />.
+            range like <SpellLink spell={SPELLS.JUDGMENT_CAST} icon /> or{' '}
+            <SpellLink spell={TALENTS.AVENGERS_SHIELD_TALENT} icon />.
           </>,
         )
           .icon('spell_mage_altertime')

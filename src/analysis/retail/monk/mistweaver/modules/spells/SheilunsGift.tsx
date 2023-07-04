@@ -94,7 +94,7 @@ class SheilunsGift extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to not overcap on <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> clouds
+          Try to not overcap on <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> clouds
         </>,
       )
         .icon(TALENTS_MONK.SHEILUNS_GIFT_TALENT.icon)
@@ -106,7 +106,7 @@ class SheilunsGift extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}

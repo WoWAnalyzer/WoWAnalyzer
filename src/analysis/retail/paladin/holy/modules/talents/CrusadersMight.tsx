@@ -92,13 +92,13 @@ class CrusadersMight extends Analyzer {
       suggest(
         <>
           <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
-            You cast <SpellLink id={SPELLS.CRUSADER_STRIKE} /> {this.wastedHolyShockReductionCount}{' '}
-            times when
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
-            <SpellLink id={SPELLS.CRUSADER_STRIKE} /> should be used to reduce the cooldown of
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> and should never be cast when{' '}
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> is avalible. This is a core component of
-            the <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
+            You cast <SpellLink spell={SPELLS.CRUSADER_STRIKE} />{' '}
+            {this.wastedHolyShockReductionCount} times when
+            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
+            <SpellLink spell={SPELLS.CRUSADER_STRIKE} /> should be used to reduce the cooldown of
+            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and should never be cast when{' '}
+            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is avalible. This is a core component of
+            the <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
             <a
               href="https://questionablyepic.com/glimmer-of-light/"
               target="_blank"
@@ -136,12 +136,12 @@ class CrusadersMight extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(75)}
-        icon={<SpellIcon id={TALENTS.CRUSADERS_MIGHT_TALENT} />}
+        icon={<SpellIcon spell={TALENTS.CRUSADERS_MIGHT_TALENT} />}
         value={
           <>
             {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}
             <SpellIcon
-              id={TALENTS.HOLY_SHOCK_TALENT}
+              spell={TALENTS.HOLY_SHOCK_TALENT}
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',

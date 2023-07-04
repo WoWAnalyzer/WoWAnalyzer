@@ -161,7 +161,7 @@ class SerpentSting extends Analyzer {
     when(this.nonPandemicThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          It is not recommended to refresh <SpellLink id={TALENTS_HUNTER.SERPENT_STING_TALENT.id} />{' '}
+          It is not recommended to refresh <SpellLink spell={TALENTS_HUNTER.SERPENT_STING_TALENT} />{' '}
           earlier than when there is less than {formatPercentage(SERPENT_STING_MM_PANDEMIC, 0)}% of
           the duration remaining.
         </>,
@@ -179,7 +179,7 @@ class SerpentSting extends Analyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should make sure to keep up <SpellLink id={TALENTS_HUNTER.SERPENT_STING_TALENT.id} />{' '}
+          You should make sure to keep up <SpellLink spell={TALENTS_HUNTER.SERPENT_STING_TALENT} />{' '}
           by using it within the pandemic windows to maximize it's damage potential.
         </>,
       )
@@ -214,7 +214,7 @@ class SerpentSting extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_HUNTER.SERPENT_STING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.SERPENT_STING_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

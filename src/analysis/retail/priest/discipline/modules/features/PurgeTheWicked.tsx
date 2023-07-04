@@ -174,7 +174,7 @@ class PurgeTheWicked extends Analyzer {
       .addSuggestion((suggest: SuggestionFactory, actual: number, recommended: number) =>
         suggest(
           <span>
-            Your <SpellLink id={this.dotSpell.id} /> uptime can be improved.
+            Your <SpellLink spell={this.dotSpell} /> uptime can be improved.
           </span>,
         )
           .icon(this.dotSpell.icon)
@@ -203,7 +203,7 @@ class PurgeTheWicked extends Analyzer {
             this.ptwCleaveDamage,
           )} damage.`}
         >
-          <BoringSpellValueText spellId={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id}>
+          <BoringSpellValueText spell={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT}>
             {formatPercentage(uptime)}% Uptime <br />
             {this.extraPTWs} Extra DOTs
             <br />
@@ -213,7 +213,7 @@ class PurgeTheWicked extends Analyzer {
     } else {
       return (
         <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
-          <BoringSpellValueText spellId={SPELLS.SHADOW_WORD_PAIN.id}>
+          <BoringSpellValueText spell={SPELLS.SHADOW_WORD_PAIN}>
             {formatPercentage(uptime)}% Uptime
           </BoringSpellValueText>
         </Statistic>
@@ -226,12 +226,12 @@ class PurgeTheWicked extends Analyzer {
       <>
         <p>
           <b>
-            Maintain <SpellLink id={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id} />
+            Maintain <SpellLink spell={TALENTS_PRIEST.PURGE_THE_WICKED_TALENT} />
           </b>{' '}
           at all times. It is an efficient source of damage for atonement, and is the sole source of
-          procs for <SpellLink id={TALENTS_PRIEST.POWER_OF_THE_DARK_SIDE_TALENT.id} />. The uptime
+          procs for <SpellLink spell={TALENTS_PRIEST.POWER_OF_THE_DARK_SIDE_TALENT} />. The uptime
           of this debuff should be kept as high as possible. Consider using{' '}
-          <SpellLink id={TALENTS_PRIEST.PAINFUL_PUNISHMENT_TALENT.id} /> if you struggle to keep a
+          <SpellLink spell={TALENTS_PRIEST.PAINFUL_PUNISHMENT_TALENT} /> if you struggle to keep a
           good uptime.
         </p>
       </>
@@ -240,7 +240,7 @@ class PurgeTheWicked extends Analyzer {
     const data = (
       <div>
         <strong>
-          <SpellLink id={this.dotSpell.id} />
+          <SpellLink spell={this.dotSpell} />
         </strong>
         {this.subStatistic()}
       </div>

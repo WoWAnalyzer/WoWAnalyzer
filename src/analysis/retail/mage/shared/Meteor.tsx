@@ -58,10 +58,10 @@ class Meteor extends Analyzer {
     when(this.meteorEfficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You could have cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> {this.meteorMaxCasts}{' '}
+          You could have cast <SpellLink spell={TALENTS.METEOR_TALENT} /> {this.meteorMaxCasts}{' '}
           times during this fight, but you only cast it {this.totalMeteorCasts} times. While you
           should not cast Meteor on cooldown (since you need to have it available for{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
           ), you should be casting it at least once per minute.
         </>,
       )
@@ -98,7 +98,7 @@ class Meteor extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.METEOR_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.METEOR_TALENT}>
           <>
             {formatPercentage(this.meteorCastEfficiency, 0)}%{' '}
             <small>Adjusted Cast Efficiency</small>

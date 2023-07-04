@@ -118,7 +118,7 @@ class AMurderOfCrows extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.A_MURDER_OF_CROWS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.A_MURDER_OF_CROWS_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

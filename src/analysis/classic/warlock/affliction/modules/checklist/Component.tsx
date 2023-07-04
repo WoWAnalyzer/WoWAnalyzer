@@ -14,7 +14,7 @@ const ClassicAfflictionChecklist = ({ combatant, castEfficiency, thresholds }: C
     <Requirement
       name={
         <>
-          <SpellLink id={props.id} icon /> uptime
+          <SpellLink spell={props.spell} icon /> uptime
         </>
       }
       thresholds={props.thresholds}
@@ -27,12 +27,12 @@ const ClassicAfflictionChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Maintain your DoTs and debuffs"
         description="Affliction Warlocks rely heavily on DoTs to deal damage. Try to keep your DoT uptime as high as possible."
       >
-        <DotUptime id={SPELLS.CURSE_OF_AGONY.id} thresholds={thresholds.curseOfAgony} />
-        <DotUptime id={SPELLS.CORRUPTION.id} thresholds={thresholds.corruption} />
+        <DotUptime spell={SPELLS.CURSE_OF_AGONY} thresholds={thresholds.curseOfAgony} />
+        <DotUptime spell={SPELLS.CORRUPTION} thresholds={thresholds.corruption} />
         {combatant.talentPoints[0] >= 50 && (
-          <DotUptime id={SPELLS.HAUNT.id} thresholds={thresholds.haunt} />
+          <DotUptime spell={SPELLS.HAUNT} thresholds={thresholds.haunt} />
         )}
-        <DotUptime id={SPELLS.UNSTABLE_AFFLICTION.id} thresholds={thresholds.unstableAffliction} />
+        <DotUptime spell={SPELLS.UNSTABLE_AFFLICTION} thresholds={thresholds.unstableAffliction} />
       </Rule>
       <Rule
         name="Always Be Casting"

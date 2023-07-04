@@ -141,7 +141,7 @@ class Voidbolt extends ExecuteHelper {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={SPELLS.VOID_BOLT.id}>
+        <BoringSpellValueText spell={SPELLS.VOID_BOLT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

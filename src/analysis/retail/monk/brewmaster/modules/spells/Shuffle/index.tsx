@@ -110,7 +110,7 @@ export default class Shuffle extends Analyzer {
     when(this.uptimeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should maintain <SpellLink id={SPELLS.SHUFFLE.id} /> while actively tanking.
+          You should maintain <SpellLink spell={SPELLS.SHUFFLE} /> while actively tanking.
         </>,
       )
         .icon(SPELLS.SHUFFLE.icon)

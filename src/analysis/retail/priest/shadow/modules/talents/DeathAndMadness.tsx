@@ -73,7 +73,7 @@ class DeathAndMadness extends Analyzer {
         size="flexible"
         tooltip="Number of casts where the target was killed and insanity generated from it."
       >
-        <BoringSpellValueText spellId={TALENTS.DEATH_AND_MADNESS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DEATH_AND_MADNESS_TALENT}>
           <>
             <div>{formatNumber(this.resets)} Resets</div>
             <div>{formatNumber(this.kills)} Kills</div>

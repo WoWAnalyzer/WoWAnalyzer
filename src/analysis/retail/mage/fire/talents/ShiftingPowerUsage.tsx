@@ -59,14 +59,14 @@ class ShiftingPowerUsage extends Analyzer {
     when(this.shiftingPowerUsageThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You used <SpellLink id={TALENTS.SHIFTING_POWER_TALENT.id} /> while some critical abilities
+          You used <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> while some critical abilities
           (
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> and{' '}
-          <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} />) were not on cooldown. Since{' '}
-          <SpellLink id={TALENTS.SHIFTING_POWER_TALENT.id} /> will reduce the cooldown on these
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} />) were not on cooldown. Since{' '}
+          <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> will reduce the cooldown on these
           spells by a decent amount, you want to ensure that you do not cast it unless both{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> and{' '}
-          <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> are on cooldown.
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> are on cooldown.
         </>,
       )
         .icon(TALENTS.SHIFTING_POWER_TALENT.icon)

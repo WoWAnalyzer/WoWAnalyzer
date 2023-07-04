@@ -69,13 +69,13 @@ class SurgingShots extends Analyzer {
               )}
               <p>
                 Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
-                your number of <SpellLink id={SPELLS.AIMED_SHOT.id} /> casts.
+                your number of <SpellLink spell={SPELLS.AIMED_SHOT} /> casts.
               </p>
             </div>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SURGING_SHOTS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SURGING_SHOTS_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

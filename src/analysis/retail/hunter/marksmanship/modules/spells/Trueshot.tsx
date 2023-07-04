@@ -132,8 +132,8 @@ class Trueshot extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(1)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.TRUESHOT.id}>
-          <SpellIcon id={SPELLS.AIMED_SHOT.id} noLink /> {this.averageAimedShots.toFixed(1)}{' '}
+        <BoringSpellValueText spell={SPELLS.TRUESHOT}>
+          <SpellIcon spell={SPELLS.AIMED_SHOT} noLink /> {this.averageAimedShots.toFixed(1)}{' '}
           <small>per Trueshot</small>
           <br />
           <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/

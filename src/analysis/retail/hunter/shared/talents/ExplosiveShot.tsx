@@ -51,7 +51,7 @@ class ExplosiveShot extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.EXPLOSIVE_SHOT_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

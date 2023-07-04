@@ -73,8 +73,8 @@ class Disperion extends Analyzer {
         <span>
           You spent {Math.round(this.dispersionUptime / 1000)} seconds (out of a possible{' '}
           {Math.round(this.maxDispersionTime / 1000)} seconds) in{' '}
-          <SpellLink id={TALENTS.DISPERSION_TALENT.id} />. Consider using{' '}
-          <SpellLink id={TALENTS.DISPERSION_TALENT.id} /> less or cancel it early.
+          <SpellLink spell={TALENTS.DISPERSION_TALENT} />. Consider using{' '}
+          <SpellLink spell={TALENTS.DISPERSION_TALENT} /> less or cancel it early.
         </span>,
       )
         .icon(TALENTS.DISPERSION_TALENT.icon)

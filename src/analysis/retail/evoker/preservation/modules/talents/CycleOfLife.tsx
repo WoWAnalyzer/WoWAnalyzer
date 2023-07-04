@@ -231,7 +231,7 @@ class CycleOfLife extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_EVOKER.CYCLE_OF_LIFE_TALENT} /> healing contribution by spell
+            <SpellLink spell={TALENTS_EVOKER.CYCLE_OF_LIFE_TALENT} /> healing contribution by spell
           </label>
           {this.renderDonutChart()}
         </div>

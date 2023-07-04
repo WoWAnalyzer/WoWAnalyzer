@@ -219,7 +219,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       {
         label: (
           <>
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> recast
+            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> recast
           </>
         ),
         result: <PerformanceMark perf={recastPerf} />,
@@ -237,7 +237,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       {
         label: (
           <>
-            Cast <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+            Cast <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
           </>
         ),
         result: <PerformanceMark perf={castPerf} />,
@@ -342,8 +342,8 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} />s applied per{' '}
-          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+          <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} />s applied per{' '}
+          <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
         </>
       ),
       result: <PerformanceMark perf={envbPerf} />,
@@ -362,7 +362,7 @@ class BaseCelestialAnalyzer extends Analyzer {
     checklistItems.push({
       label: (
         <>
-          <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
+          <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts
         </>
       ),
       result: <PerformanceMark perf={envmPerf} />,
@@ -381,7 +381,7 @@ class BaseCelestialAnalyzer extends Analyzer {
       checklistItems.push({
         label: (
           <>
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on start
+            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> HoTs active on start
           </>
         ),
         result: <PerformanceMark perf={efPerf} />,
@@ -401,18 +401,18 @@ class BaseCelestialAnalyzer extends Analyzer {
       checklistItems.push({
         label: (
           <>
-            <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> uptime{' '}
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> uptime{' '}
             <Tooltip
               hoverable
               content={
                 <>
-                  Be sure to use <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-                  <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
+                  Be sure to use <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+                  <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
                   {this.selectedCombatant.hasTalent(
                     TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT,
                   ) && (
                     <>
-                      or <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} />
+                      or <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
                     </>
                   )}{' '}
                   for a multiplicative haste bonus
@@ -442,13 +442,13 @@ class BaseCelestialAnalyzer extends Analyzer {
       checklistItems.push({
         label: (
           <>
-            <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> uptime{' '}
+            <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} /> uptime{' '}
             <Tooltip
               hoverable
               content={
                 <>
-                  Cast <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to
-                  cover the entire duration of <SpellLink id={this.getCelestialTalent()} />
+                  Cast <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to
+                  cover the entire duration of <SpellLink spell={this.getCelestialTalent()} />
                 </>
               }
             >

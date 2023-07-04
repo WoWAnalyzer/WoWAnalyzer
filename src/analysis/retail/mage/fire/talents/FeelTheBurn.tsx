@@ -148,18 +148,18 @@ class FeelTheBurn extends Analyzer {
     when(this.maxStackUptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> buff was at {MAX_STACKS} stacks
+          Your <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> buff was at {MAX_STACKS} stacks
           for {formatPercentage(this.maxStackPercent)}% of your Combustion Uptime. Because so much
           of your damage comes from your Combustion, it is important that you adjust your rotation
-          to maintain {MAX_STACKS} stacks of <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> for
-          as much of your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> as possible. This can be
-          done by alternating between using <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
-          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> to generate{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> instead of using all the charges of one, and then
-          all the charges of the other. <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />s that were
-          proc'd by <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> are not included in
+          to maintain {MAX_STACKS} stacks of <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> for
+          as much of your <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> as possible. This can be
+          done by alternating between using <SpellLink spell={SPELLS.FIRE_BLAST} /> and{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> to generate{' '}
+          <SpellLink spell={SPELLS.HOT_STREAK} /> instead of using all the charges of one, and then
+          all the charges of the other. <SpellLink spell={TALENTS.COMBUSTION_TALENT} />s that were
+          proc'd by <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> are not included in
           this, unless you used the proc to extend an existing{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
         </>,
       )
         .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)
