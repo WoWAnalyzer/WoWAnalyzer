@@ -349,7 +349,7 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
           (laterEvent.type === EventType.Cast &&
             isRealCast(laterEvent) &&
             laterEvent.timestamp > event.timestamp &&
-            event.sourceID === playerInfo.combatant.id)
+            event.sourceID === playerInfo.playerId)
         ) {
           endCurrentChannel(laterEvent, state);
           break;
