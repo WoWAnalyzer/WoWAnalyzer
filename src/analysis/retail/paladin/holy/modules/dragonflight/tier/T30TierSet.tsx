@@ -148,7 +148,7 @@ class T30HpalTierSet extends Analyzer {
             <ul>
               <li>2 piece overhealing: {formatNumber(this.hsOverhealing)}</li>
               <li>
-                Wasted <SpellLink id={this.fourPcSpellId} /> CDR: {this.wastedCdr} seconds
+                Wasted <SpellLink spell={this.fourPcSpellId} /> CDR: {this.wastedCdr} seconds
               </li>
               <li>4 piece overhealing: {formatNumber(this.fourPcOverhealing)}</li>
               <li>{this.hpWasted} Holy Power wasted</li>
@@ -167,7 +167,7 @@ class T30HpalTierSet extends Analyzer {
           <ItemHealingDone amount={this.hsHealing} /> <br />
           {this.totalCdr}{' '}
           <small>
-            seconds of <SpellLink id={this.fourPcSpellId} /> CDR
+            seconds of <SpellLink spell={this.fourPcSpellId} /> CDR
           </small>
           <h4>4 Piece</h4>
           <ItemHealingDone amount={this.fourPcHealing} /> <br />

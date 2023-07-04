@@ -120,7 +120,7 @@ class WildfireBomb extends Analyzer {
     when(this.badWFBThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You shouldn't refresh <SpellLink id={SPELLS.WILDFIRE_BOMB.id} /> since it doesn't
+          You shouldn't refresh <SpellLink spell={SPELLS.WILDFIRE_BOMB} /> since it doesn't
           pandemic. It's generally better to cast something else and wait for the DOT to drop off
           before reapplying.
         </>,
@@ -137,7 +137,7 @@ class WildfireBomb extends Analyzer {
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try and maximize your uptime on <SpellLink id={SPELLS.WILDFIRE_BOMB.id} />. This is
+          Try and maximize your uptime on <SpellLink spell={SPELLS.WILDFIRE_BOMB} />. This is
           achieved through not unnecessarily refreshing the debuff as it doesn't pandemic.{' '}
         </>,
       )
@@ -159,7 +159,7 @@ class WildfireBomb extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={SPELLS.WILDFIRE_BOMB.id}>
+        <BoringSpellValueText spell={SPELLS.WILDFIRE_BOMB}>
           <>
             {this.averageTargetsHit.toFixed(2)} <small>average targets hit</small>
             <br />

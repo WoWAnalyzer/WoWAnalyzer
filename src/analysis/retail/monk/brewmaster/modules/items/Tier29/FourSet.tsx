@@ -50,8 +50,8 @@ export default class BrewmasterT29FourSet extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={{ ...SPELLS.BREWMASTERS_RHYTHM_BUFF, id: 393660 }} /> Wrappings of the
-              Waking Fist &mdash; 4pc
+              <SpellIcon spell={{ ...SPELLS.BREWMASTERS_RHYTHM_BUFF, id: 393660 }} /> Wrappings of
+              the Waking Fist &mdash; 4pc
             </>
           }
         >

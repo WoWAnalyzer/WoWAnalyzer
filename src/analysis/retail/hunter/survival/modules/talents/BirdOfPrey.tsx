@@ -125,10 +125,10 @@ class BirdOfPrey extends Analyzer {
     when(this.birdPercentEffectiveness).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          When talented into <SpellLink id={TALENTS.BIRDS_OF_PREY_TALENT.id} />, it's important to
-          cast <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />,{' '}
-          <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />, <SpellLink id={SPELLS.CARVE.id} /> or{' '}
-          <SpellLink id={TALENTS.BUTCHERY_TALENT.id} /> on the same target as your pet is attacking.
+          When talented into <SpellLink spell={TALENTS.BIRDS_OF_PREY_TALENT} />, it's important to
+          cast <SpellLink spell={TALENTS.RAPTOR_STRIKE_TALENT} />,{' '}
+          <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />, <SpellLink spell={SPELLS.CARVE} /> or{' '}
+          <SpellLink spell={TALENTS.BUTCHERY_TALENT} /> on the same target as your pet is attacking.
         </>,
       )
         .icon(TALENTS.BIRDS_OF_PREY_TALENT.icon)
@@ -162,7 +162,7 @@ class BirdOfPrey extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.BIRDS_OF_PREY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BIRDS_OF_PREY_TALENT}>
           <>
             <small>Extended CA by</small> {this.timeExtendedInSeconds}s
           </>

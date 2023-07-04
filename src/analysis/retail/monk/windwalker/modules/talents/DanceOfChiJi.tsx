@@ -50,7 +50,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
       event.meta.isEnhancedCast = true;
       const reason = (
         <>
-          This cast was empowered by <SpellLink id={SPELLS.DANCE_OF_CHI_JI_BUFF.id} />
+          This cast was empowered by <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} />
         </>
       );
       event.meta.enhancedCastReason = event.meta.enhancedCastReason ? (
@@ -79,7 +79,7 @@ class DANCE_OF_CHI_JI extends Analyzer {
         size="flexible"
         tooltip={<>Total damage increase: {formatNumber(this.damageGain)}</>}
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.DANCE_OF_CHI_JI_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_MONK.DANCE_OF_CHI_JI_TALENT}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of

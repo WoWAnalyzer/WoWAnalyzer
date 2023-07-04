@@ -88,7 +88,7 @@ class AoWProcTracker extends Analyzer {
       suggest(
         <>
           You used {formatPercentage(this.consumedProcsPercent)}% of your{' '}
-          <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs.
+          <SpellLink spell={SPELLS.ART_OF_WAR} icon /> procs.
         </>,
       )
         .icon(SPELLS.ART_OF_WAR.icon)
@@ -106,7 +106,7 @@ class AoWProcTracker extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(2)}
-        icon={<SpellIcon id={SPELLS.ART_OF_WAR.id} />}
+        icon={<SpellIcon spell={SPELLS.ART_OF_WAR} />}
         value={`${formatPercentage(this.consumedProcsPercent)}%`}
         label="Art of War Procs Used"
         tooltip={`You got ${this.totalAoWProcs} Art of War procs and used ${this.consumedAoWProcs} of them.`}

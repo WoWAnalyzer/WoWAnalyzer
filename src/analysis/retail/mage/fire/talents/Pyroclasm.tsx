@@ -198,8 +198,8 @@ class Pyroclasm extends Analyzer {
       suggest(
         <>
           You wasted {formatNumber(this.wastedProcs)} of your{' '}
-          <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> procs. These procs make your hard cast (non
-          instant) <SpellLink id={TALENTS.PYROBLAST_TALENT.id} /> casts deal {DAMAGE_MODIFIER}%
+          <SpellLink spell={TALENTS.PYROCLASM_TALENT} /> procs. These procs make your hard cast (non
+          instant) <SpellLink spell={TALENTS.PYROBLAST_TALENT} /> casts deal {DAMAGE_MODIFIER}%
           extra damage, so try and use them as quickly as possible so they do not expire or get
           overwritten.
         </>,
@@ -215,16 +215,16 @@ class Pyroclasm extends Analyzer {
     when(this.pyroclasmCombustionUsage).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You used your <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc during{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.badPyroclasmDuringCombustion} times
-          while you were capped or close to capping on <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
-          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />. While you do want to use your{' '}
-          <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> procs during{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> if they are available, you should use some
-          of your <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
-          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> charges first to ensure you are not
+          You used your <SpellLink spell={TALENTS.PYROCLASM_TALENT} /> proc during{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.badPyroclasmDuringCombustion} times
+          while you were capped or close to capping on <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. While you do want to use your{' '}
+          <SpellLink spell={TALENTS.PYROCLASM_TALENT} /> procs during{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> if they are available, you should use some
+          of your <SpellLink spell={SPELLS.FIRE_BLAST} /> and{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> charges first to ensure you are not
           capping them and therefore wasting them. The only exception to this is if your{' '}
-          <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc will expire before you can use your
+          <SpellLink spell={TALENTS.PYROCLASM_TALENT} /> proc will expire before you can use your
           other charges.
         </>,
       )
@@ -257,7 +257,7 @@ class Pyroclasm extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.PYROCLASM_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.PYROCLASM_TALENT}>
           <>
             {formatPercentage(this.procUtilization, 0)}% <small>Proc Utilization</small>
           </>

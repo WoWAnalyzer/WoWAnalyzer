@@ -72,7 +72,7 @@ class KillerCobra extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.KILLER_COBRA_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.KILLER_COBRA_TALENT}>
           <>
             {this.effectiveKillCommandResets}/
             {this.effectiveKillCommandResets + this.wastedKillerCobraCobraShots}{' '}
@@ -91,13 +91,13 @@ class KillerCobra extends Analyzer {
     when(this.wastedKillerCobraThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Avoid casting <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> whilst{' '}
-          <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> isn't on cooldown, when you have{' '}
-          <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> up. Utilize the reset effect of{' '}
-          <SpellLink id={TALENTS.KILLER_COBRA_TALENT.id} /> by only casting{' '}
-          <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> to reset{' '}
-          <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> when{' '}
-          <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> is up.{' '}
+          Avoid casting <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> whilst{' '}
+          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> isn't on cooldown, when you have{' '}
+          <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> up. Utilize the reset effect of{' '}
+          <SpellLink spell={TALENTS.KILLER_COBRA_TALENT} /> by only casting{' '}
+          <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> to reset{' '}
+          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> when{' '}
+          <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> is up.{' '}
         </>,
       )
         .icon(TALENTS.KILLER_COBRA_TALENT.icon)

@@ -1298,7 +1298,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103295],
     definitionIds: [{ id: 108300, specId: 102 }],
-    manaCost: 6000,
+    manaCost: 5500,
   },
   RELENTLESS_PREDATOR_TALENT: {
     id: 393771,

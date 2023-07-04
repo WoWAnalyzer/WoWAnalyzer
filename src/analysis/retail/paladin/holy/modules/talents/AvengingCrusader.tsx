@@ -130,7 +130,7 @@ class AvengingCrusader extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.AVENGING_CRUSADER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.AVENGING_CRUSADER_TALENT}>
           <ItemHealingDone amount={this.totalHealing} /> <br />
           {formatPercentage(this.critRate)}% Crit Rate
         </BoringSpellValueText>

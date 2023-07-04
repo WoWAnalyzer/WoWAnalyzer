@@ -64,7 +64,7 @@ class MendingProliferation extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={TALENTS_MONK.MENDING_PROLIFERATION_TALENT.id} /> Mending Proliferation
+              <SpellIcon spell={TALENTS_MONK.MENDING_PROLIFERATION_TALENT} /> Mending Proliferation
             </>
           }
         >

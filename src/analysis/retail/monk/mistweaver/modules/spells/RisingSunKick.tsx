@@ -73,14 +73,14 @@ class RisingSunKick extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
         </b>{' '}
         is one of your primary damaging spells but is also the 2nd highest priority healing spell{' '}
-        {'(behind '} <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
-        {') '}due to its synergy with <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} /> and{' '}
-        <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />. Using it as much as possible is
+        {'(behind '} <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        {') '}due to its synergy with <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />. Using it as much as possible is
         essential for maintaining high counts of{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
       </p>
     );
 
@@ -88,7 +88,7 @@ class RisingSunKick extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> cast efficiency
           </strong>
           {this.guideSubStatistic()}
         </RoundedPanel>

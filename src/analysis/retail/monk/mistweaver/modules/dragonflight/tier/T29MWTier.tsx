@@ -169,15 +169,15 @@ class T29TierSet extends Analyzer {
           <ul>
             <li>
               {formatDuration(this.totalExtensionDuration)} extra seconds of{' '}
-              <SpellLink id={SPELLS.RENEWING_MIST_HEAL.id} />
+              <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} />
             </li>
             <li>
-              {formatNumber(this.extraVivHealing)} extra <SpellLink id={SPELLS.VIVIFY.id} /> healing
+              {formatNumber(this.extraVivHealing)} extra <SpellLink spell={SPELLS.VIVIFY} /> healing
               from extensions
             </li>
             <li>
               {formatNumber(this.extraRemHealing)} extra{' '}
-              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> healing from extensions
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> healing from extensions
             </li>
           </ul>
         }

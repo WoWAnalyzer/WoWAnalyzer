@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
-import { Arlie, Jonfanz, ToppleTheNun, dodse } from 'CONTRIBUTORS';
+import { Arlie, Jonfanz, Meldris, ToppleTheNun, dodse } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 6, 29), "Updated ABOUT with current guide links", Meldris),
   change(date(2023, 3, 9), "Update Soul Conduit to take into account being a 2 rank talent and different scaling", dodse),
   change(date(2023, 3, 9), 'Update Vile Taint to track the right debuff id and rework hit tracking', dodse),
   change(date(2023, 3, 9), 'Add statistics for Pandemic Invocation, Inevitable Demise, Malefic Affliction and Wrath of Consumption', dodse),

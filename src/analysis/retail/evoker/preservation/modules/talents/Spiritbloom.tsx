@@ -50,12 +50,12 @@ class Spiritbloom extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.SPIRITBLOOM_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} />
         </b>{' '}
         is one of your empowered abilities and a very strong AoE triage heal that applies a powerful
         HoT with the Abberus (T30) tier set. You should try to use this ability at maximum
         Empowerment level whenever it is not on cooldown.{' '}
-        <SpellLink id={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is a strong candidate to consume{' '}
+        <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> is a strong candidate to consume{' '}
         <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> with, especially with the T30 tierset, but
         may vary based on playstyle.
       </p>
@@ -81,7 +81,7 @@ class Spiritbloom extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_EVOKER.SPIRITBLOOM_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}

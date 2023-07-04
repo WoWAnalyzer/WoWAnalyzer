@@ -137,7 +137,7 @@ class EnduringLuminescense extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.ENDURING_LUMINESCENCE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.ENDURING_LUMINESCENCE_TALENT}>
           <ItemHealingDone amount={total} />
         </BoringSpellValueText>
       </Statistic>

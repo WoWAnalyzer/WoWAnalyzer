@@ -126,8 +126,8 @@ class GlacialSpike extends Analyzer {
     when(this.glacialSpikeUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> without{' '}
-          <SpellLink id={TALENTS.SHATTER_TALENT.id} />
+          You cast <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> without{' '}
+          <SpellLink spell={TALENTS.SHATTER_TALENT} />
           ing it {this.spikeNotShattered} times. Because it is such a potent ability, it is
           important to maximize it's damage by only casting it if the target is
           <TooltipElement
@@ -165,7 +165,7 @@ class GlacialSpike extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.GLACIAL_SPIKE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.GLACIAL_SPIKE_TALENT}>
           {`${formatPercentage(this.utilPercentage, 0)}%`} <small>Cast utilization</small>
         </BoringSpellValueText>
       </Statistic>

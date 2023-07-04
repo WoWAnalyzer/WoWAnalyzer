@@ -42,10 +42,10 @@ class UntemperedDedication extends Analyzer {
     when(this.dropSuggestion).addSuggestion((suggest, actual) =>
       suggest(
         <span>
-          You dropped your <SpellLink id={TALENTS.UNTEMPERED_DEDICATION_TALENT} /> stacks {actual}{' '}
-          times. Try to keep it up at all times, as this is a fairly large loss of healing. If the
-          fight has a large amount of downtime forcing these drops, take this suggestion with a
-          grain of salt.
+          You dropped your <SpellLink spell={TALENTS.UNTEMPERED_DEDICATION_TALENT} /> stacks{' '}
+          {actual} times. Try to keep it up at all times, as this is a fairly large loss of healing.
+          If the fight has a large amount of downtime forcing these drops, take this suggestion with
+          a grain of salt.
         </span>,
       )
         .icon(TALENTS.UNTEMPERED_DEDICATION_TALENT.icon)

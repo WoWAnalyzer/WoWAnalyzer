@@ -59,8 +59,8 @@ class MaraadsOverheal extends Analyzer {
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid casting <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT} /> buffed
-          <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> when a large portion of it would
+          Try to avoid casting <SpellLink spell={TALENTS.MARAADS_DYING_BREATH_TALENT} /> buffed
+          <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> when a large portion of it would
           overheal. If you are finding that this is happening very frequently, consider using a
           different legendary.
         </>,

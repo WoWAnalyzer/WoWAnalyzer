@@ -17,7 +17,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
     <Requirement
       name={
         <>
-          <SpellLink id={props.id} icon /> uptime
+          <SpellLink spell={props.spell} icon /> uptime
         </>
       }
       thresholds={props.thresholds}
@@ -37,18 +37,18 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Maintain your DoTs and debuffs on the boss"
         description="Affliction Warlocks rely heavily on DoTs in order to deal damage to the target. You should try and have as high of an uptime as possible."
       >
-        <DotUptime id={SPELLS.AGONY.id} thresholds={thresholds.agony} />
-        <DotUptime id={SPELLS.CORRUPTION_CAST.id} thresholds={thresholds.corruption} />
-        <DotUptime id={SPELLS.UNSTABLE_AFFLICTION.id} thresholds={thresholds.unstableAffliction} />
+        <DotUptime spell={SPELLS.AGONY} thresholds={thresholds.agony} />
+        <DotUptime spell={SPELLS.CORRUPTION_CAST} thresholds={thresholds.corruption} />
+        <DotUptime spell={SPELLS.UNSTABLE_AFFLICTION} thresholds={thresholds.unstableAffliction} />
         {combatant.hasTalent(TALENTS.SHADOW_EMBRACE_TALENT) && (
-          <DotUptime id={TALENTS.SHADOW_EMBRACE_TALENT.id} thresholds={thresholds.shadowEmbrace} />
+          <DotUptime spell={TALENTS.SHADOW_EMBRACE_TALENT} thresholds={thresholds.shadowEmbrace} />
         )}
-        <DotUptime id={TALENTS.SHADOW_EMBRACE_TALENT.id} thresholds={thresholds.shadowEmbrace} />
+        <DotUptime spell={TALENTS.SHADOW_EMBRACE_TALENT} thresholds={thresholds.shadowEmbrace} />
         {combatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT) && (
-          <DotUptime id={TALENTS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />
+          <DotUptime spell={TALENTS.SIPHON_LIFE_TALENT} thresholds={thresholds.siphonLife} />
         )}
         {combatant.hasTalent(TALENTS.HAUNT_TALENT) && (
-          <DotUptime id={TALENTS.HAUNT_TALENT.id} thresholds={thresholds.haunt} />
+          <DotUptime spell={TALENTS.HAUNT_TALENT} thresholds={thresholds.haunt} />
         )}
       </Rule>
       <Rule
