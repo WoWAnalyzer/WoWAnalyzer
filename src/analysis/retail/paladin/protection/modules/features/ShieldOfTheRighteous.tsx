@@ -58,7 +58,7 @@ class ShieldOfTheRighteous extends Analyzer {
     when(this.hitsMitigatedThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should maintain <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> while actively
+          You should maintain <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> while actively
           tanking
         </>,
       )
@@ -72,7 +72,7 @@ class ShieldOfTheRighteous extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(10)}
-        icon={<SpellIcon id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />}
+        icon={<SpellIcon spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} />}
         value={`${formatPercentage(this.sotrHits / this.totalHits)}%`}
         label="Physical Hits Mitigated"
         tooltip={

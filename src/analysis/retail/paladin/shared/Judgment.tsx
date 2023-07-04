@@ -133,7 +133,7 @@ class Judgment extends Analyzer {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.
+            You're not consuming all your <SpellLink spell={SPELLS.JUDGMENT_CAST} icon /> debuffs.
           </>,
         )
           .icon(SPELLS.JUDGMENT_DEBUFF.icon)

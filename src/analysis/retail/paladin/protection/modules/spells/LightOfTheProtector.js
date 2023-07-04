@@ -173,7 +173,7 @@ export default class LightOfTheProtector extends Analyzer {
     when(this.delaySuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should delay your <SpellLink id={this.activeSpell.id} /> cast as little as possible
+          You should delay your <SpellLink spell={this.activeSpell} /> cast as little as possible
           after being hit to maximize its effect and to minimize the chance that you waste healing
           resources.
         </>,
@@ -191,7 +191,7 @@ export default class LightOfTheProtector extends Analyzer {
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should avoid casting <SpellLink id={this.activeSpell.id} /> while at very high health
+          You should avoid casting <SpellLink spell={this.activeSpell} /> while at very high health
           to avoid overhealing.
         </>,
       )
