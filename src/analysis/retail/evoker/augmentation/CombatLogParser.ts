@@ -17,6 +17,8 @@ import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStac
 
 import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 
+import BreathOfEons from './modules/abilities/BreathOfEon';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     abilities: Abilities,
@@ -24,6 +26,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Abilities
     sandsOfTime: SandsOfTime,
+    breathOfEons: BreathOfEons,
 
     // Talents
     timeSkip: TimeSkip,
