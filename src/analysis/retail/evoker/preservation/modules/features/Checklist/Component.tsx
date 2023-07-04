@@ -24,7 +24,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         name="Don't overcap Essence"
         description={
           <>
-            Abilities that cost essence like <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} /> are very
+            Abilities that cost essence like <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> are very
             powerful and are a core part of your healing as a Preservation Evoker. Make sure you are
             not overcapping on Essence too often.
           </>
@@ -64,7 +64,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           <Requirement
             name={
               <>
-                % of group hit with <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} />
+                % of group hit with <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} />
               </>
             }
             thresholds={thresholds.dreamFlight}
@@ -77,8 +77,8 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           <>
             Certain talents empower your abilities to enhance your healing, try to utilize your
             rotational spells more often for these benefits. For example, you should cast{' '}
-            <SpellLink id={SPELLS.LIVING_FLAME_CAST.id} /> frequently when talented into{' '}
-            <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} />.
+            <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> frequently when talented into{' '}
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} />.
           </>
         }
       >
@@ -86,7 +86,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs applied
+                <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> buffs applied
               </>
             }
             thresholds={thresholds.essenceBurstBuffApplies}
@@ -96,7 +96,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           <Requirement
             name={
               <>
-                Wasted <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buffs
+                Wasted <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buffs
               </>
             }
             thresholds={thresholds.callOfYsera}
@@ -111,7 +111,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           <Requirement
             name={
               <>
-                Wasted <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> stacks
+                Wasted <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> stacks
               </>
             }
             thresholds={thresholds.essenceBurst}
@@ -120,7 +120,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         <Requirement
           name={
             <>
-              Wasted <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id} /> buffs
+              Wasted <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> buffs
             </>
           }
           thresholds={thresholds.echo}
@@ -131,15 +131,15 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         description={
           <>
             Try to hit as many targets as possible with AoE spells such as{' '}
-            <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} /> and{' '}
-            <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+            <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> and{' '}
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
           </>
         }
       >
         <Requirement
           name={
             <>
-              Average targets hit by <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} />
+              Average targets hit by <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
             </>
           }
           thresholds={thresholds.emeraldBlossom}
@@ -148,7 +148,7 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
           name={
             <>
               Average targets hit by
-              <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+              <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
             </>
           }
           thresholds={thresholds.dreamBreath}

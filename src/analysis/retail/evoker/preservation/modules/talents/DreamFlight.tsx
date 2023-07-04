@@ -94,7 +94,7 @@ class DreamFlight extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} />
         </b>{' '}
         is a powerful healing CD that does an initial heal and leaves a powerful HoT on all targets
         hit. You should try to use it to cover high damage periods where your raid is clumped up in
@@ -106,7 +106,7 @@ class DreamFlight extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -181,7 +181,7 @@ class DreamFlight extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} /> is not hitting enough
+          Your <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> is not hitting enough
           targets.
         </>,
       )
