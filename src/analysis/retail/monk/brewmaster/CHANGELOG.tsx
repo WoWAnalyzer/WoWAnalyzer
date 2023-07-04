@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 3), <>Move <SpellLink spell={talents.BONEDUST_BREW_TALENT} /> from core rotation to cooldowns section to improve suggestions.</>, emallson),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 7, 3), <>Fixed handling of pre-pull <SpellLink spell={talents.SUMMON_WHITE_TIGER_STATUE_TALENT} /> casts.</>, emallson),
   change(date(2023, 7, 3), <>Added statistics for <SpellLink spell={talents.QUICK_SIP_TALENT} />, <SpellLink spell={talents.STAGGERING_STRIKES_TALENT} />, and <SpellLink spell={talents.TRANQUIL_SPIRIT_TALENT} />.</>, emallson),
