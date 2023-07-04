@@ -53,7 +53,7 @@ class OneWithThePack extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ONE_WITH_THE_PACK_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ONE_WITH_THE_PACK_TALENT}>
           <>
             ≈{(this.procChances * this.resetPercent).toFixed(1)} <small>resets</small>
           </>

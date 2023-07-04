@@ -74,7 +74,7 @@ class TimeBetweenRSKs extends Analyzer {
           <>
             {this.risingMist.averageTargetsPerRSKCast()}{' '}
             <small>
-              average <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} /> hits per cast
+              average <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> hits per cast
             </small>
           </>
           <br />

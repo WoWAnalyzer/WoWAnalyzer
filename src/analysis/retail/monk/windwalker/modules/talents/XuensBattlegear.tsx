@@ -104,10 +104,10 @@ class XuensBattlegear extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.XUENS_BATTLEGEAR_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_MONK.XUENS_BATTLEGEAR_TALENT}>
           <span>
             <SpellIcon
-              id={SPELLS.FISTS_OF_FURY_CAST.id}
+              spell={SPELLS.FISTS_OF_FURY_CAST}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',
@@ -117,7 +117,7 @@ class XuensBattlegear extends Analyzer {
             <small>Seconds reduced</small>
             <br />
             <SpellIcon
-              id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
+              spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',

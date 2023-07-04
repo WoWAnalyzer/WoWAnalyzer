@@ -66,8 +66,8 @@ class YulonsWhisper extends Analyzer {
       suggest(
         <>
           You are not hitting enough targets with{' '}
-          <SpellLink id={TALENTS_MONK.YULONS_WHISPER_TALENT.id} />, try positioning with more people
-          in front of you when using <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.YULONS_WHISPER_TALENT} />, try positioning with more people
+          in front of you when using <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
         </>,
       )
         .icon(TALENTS_MONK.YULONS_WHISPER_TALENT.icon)
@@ -91,7 +91,7 @@ class YulonsWhisper extends Analyzer {
         <BoringValueText
           label={
             <>
-              Average <SpellLink id={TALENTS_MONK.YULONS_WHISPER_TALENT.id} /> targets
+              Average <SpellLink spell={TALENTS_MONK.YULONS_WHISPER_TALENT} /> targets
             </>
           }
         >

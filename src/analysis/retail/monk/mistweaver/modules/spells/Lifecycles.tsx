@@ -114,7 +114,7 @@ class Lifecycles extends Analyzer {
       suggest(
         <>
           Your current spell usage is not taking full advantage of the{' '}
-          <SpellLink id={TALENTS_MONK.LIFECYCLES_TALENT.id} /> talent. You should be trying to
+          <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT} /> talent. You should be trying to
           alternate the use of these spells as often as possible to take advantage of the buff.
         </>,
       )

@@ -170,12 +170,12 @@ class ManaTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your mana spent during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> can be improved.
-          Aim to prioritize as many <SpellLink id={SPELLS.VIVIFY.id} /> casts until the last second
-          of the buff and then cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />.{' '}
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+          Your mana spent during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> can be improved.
+          Aim to prioritize as many <SpellLink spell={SPELLS.VIVIFY} /> casts until the last second
+          of the buff and then cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />.{' '}
+          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
           's mana cost is taken at the beginning of the channel, so you gain the benefit of{' '}
-          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> even if the channel continues past the
+          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> even if the channel continues past the
           buff.
         </>,
       )
@@ -192,8 +192,8 @@ class ManaTea extends Analyzer {
       suggest(
         <>
           Your average overhealing was high during your{' '}
-          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> usage. Consider using{' '}
-          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> during specific boss abilities or
+          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> usage. Consider using{' '}
+          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> during specific boss abilities or
           general periods of high damage to the raid. Also look to target low health raid members to
           avoid large amounts of overhealing.
         </>,
@@ -218,21 +218,21 @@ class ManaTea extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
         </strong>{' '}
         is a powerful buff that can save a large amount of mana and doubles as a throughput cooldown
         once you obtain your 4 piece tier set bonus. Aim to maximize effectiveness of{' '}
-        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> by spamming <SpellLink id={SPELLS.VIVIFY} />{' '}
-        during damage moments when you have at least 8{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on the raid.
+        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> by spamming{' '}
+        <SpellLink spell={SPELLS.VIVIFY} /> during damage moments when you have at least 8{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on the raid.
         <br />
         Alternatively, If talented into{' '}
-        <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and{' '}
-        <SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />, use{' '}
-        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> toward the end of your celestial for a
-        guaranteed proc of <SpellLink id={SPELLS.SOULFANG_VITALITY} /> and spam
-        <SpellLink id={SPELLS.VIVIFY} /> while channeling{' '}
-        <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT} />.
+        <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />, use{' '}
+        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> toward the end of your celestial for a
+        guaranteed proc of <SpellLink spell={SPELLS.SOULFANG_VITALITY} /> and spam
+        <SpellLink spell={SPELLS.VIVIFY} /> while channeling{' '}
+        <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />.
       </p>
     );
 
@@ -244,7 +244,7 @@ class ManaTea extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
+              <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
             </>
           );
           const checklistItems: CooldownExpandableItem[] = [];
@@ -257,7 +257,7 @@ class ManaTea extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                Mana saved during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />
+                Mana saved during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
               </>
             ),
             result: <PerformanceMark perf={manaPerf} />,
@@ -273,7 +273,7 @@ class ManaTea extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                Overhealing during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />
+                Overhealing during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
               </>
             ),
             result: <PerformanceMark perf={overhealingPerf} />,
@@ -291,7 +291,7 @@ class ManaTea extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  Avg <SpellLink id={SPELLS.VIVIFY} /> cleaves per cast
+                  Avg <SpellLink spell={SPELLS.VIVIFY} /> cleaves per cast
                 </>
               ),
               result: <PerformanceMark perf={vivCleavePerf} />,

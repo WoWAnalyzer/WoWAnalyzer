@@ -81,7 +81,7 @@ class GuardianAngel extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spellId={TALENTS.GUARDIAN_ANGEL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.GUARDIAN_ANGEL_TALENT}>
           {this.guardianSpiritRefreshCount} Guardian Spirit resets
           <br />
           {this.guardianSpiritHealCount} Guardian Spirits consumed

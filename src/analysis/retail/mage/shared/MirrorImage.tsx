@@ -53,7 +53,7 @@ class MirrorImage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.MIRROR_IMAGE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.MIRROR_IMAGE_TALENT}>
           <>
             {formatNumber(this.totalDamageReduction)} <small> Damage Avoided</small>
           </>

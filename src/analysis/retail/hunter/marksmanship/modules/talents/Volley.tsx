@@ -38,7 +38,7 @@ class Volley extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_HUNTER.VOLLEY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.VOLLEY_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

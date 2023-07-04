@@ -84,7 +84,7 @@ class FistsofFury extends Analyzer {
       suggest(
         <span>
           {' '}
-          You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and
+          You are cancelling your <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> casts early and
           losing ticks{' '}
         </span>,
       )
@@ -106,7 +106,7 @@ class FistsofFury extends Analyzer {
         size="flexible"
         tooltip="Fists of Fury ticks 5 times over the duration of the channel"
       >
-        <BoringSpellValueText spellId={SPELLS.FISTS_OF_FURY_CAST.id}>
+        <BoringSpellValueText spell={SPELLS.FISTS_OF_FURY_CAST}>
           {this.averageTicks.toFixed(2)} <small>Average ticks per cast</small>
         </BoringSpellValueText>
       </Statistic>

@@ -109,7 +109,7 @@ class Serenity extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.SERENITY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_MONK.SERENITY_TALENT}>
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageGain))} % of
@@ -118,7 +118,7 @@ class Serenity extends Analyzer {
           <br />
           <span style={{ fontSize: '75%' }}>
             <SpellIcon
-              id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id}
+              spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',
@@ -128,7 +128,7 @@ class Serenity extends Analyzer {
             <small>Seconds reduced</small>
             <br />
             <SpellIcon
-              id={SPELLS.FISTS_OF_FURY_CAST.id}
+              spell={SPELLS.FISTS_OF_FURY_CAST}
               style={{
                 height: '1.3em',
                 marginTop: '-1.em',

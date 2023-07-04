@@ -46,7 +46,7 @@ const precastFrostbolt: Condition<{ brainFreeze?: number; frostbolt?: number }> 
   },
   describe: () => (
     <>
-      <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> was just applied
+      <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> was just applied
     </>
   ),
 };

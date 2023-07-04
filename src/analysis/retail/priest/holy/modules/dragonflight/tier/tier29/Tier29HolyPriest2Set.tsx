@@ -101,7 +101,7 @@ class HolyPriestTier2Set extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spellId={SPELLS.HOLY_PRIEST_TIER_29_2_SET_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.HOLY_PRIEST_TIER_29_2_SET_BUFF}>
           {this.timeSaved} seconds of casting saved
           <br />
           {Math.floor(this.holyWordReduction)} seconds reduction of Holy Words

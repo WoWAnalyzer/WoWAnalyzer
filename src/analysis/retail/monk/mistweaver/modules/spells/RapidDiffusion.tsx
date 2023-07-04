@@ -160,12 +160,12 @@ class RapidDiffusion extends Analyzer {
     ];
     return (
       <>
-        <strong>{procs}</strong> additional <SpellLink id={spell.id} />{' '}
+        <strong>{procs}</strong> additional <SpellLink spell={spell} />{' '}
         {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from <br />
-        <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
+        <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
         {spell.id !== TALENTS_MONK.RENEWING_MIST_TALENT.id && (
           <>
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />s<br />
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />s<br />
           </>
         )}{' '}
         by source ability:
@@ -284,7 +284,7 @@ class RapidDiffusion extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -297,7 +297,7 @@ class RapidDiffusion extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT} /> -{' '}
+            <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} /> -{' '}
             <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
           </>
         }
@@ -310,14 +310,14 @@ class RapidDiffusion extends Analyzer {
               <>
                 Rapid Diffusion has an internal cooldown of 0.25 seconds, so this number may be
                 slightly lower than your total{' '}
-                <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> and{' '}
-                <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> casts.
+                <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> casts.
               </>
             }
           >
             {this.remCount}{' '}
             <small>
-              additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+              additional <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
             </small>
           </TooltipElement>
         }
