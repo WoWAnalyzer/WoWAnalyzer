@@ -73,7 +73,7 @@ class BlackOxBrew extends Analyzer {
   }
 
   _resetCB() {
-    const spellId = talents.BLACK_OX_BREW_TALENT.id;
+    const spellId = talents.CELESTIAL_BREW_TALENT.id;
     if (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
       this.spellUsable.endCooldown(spellId);
