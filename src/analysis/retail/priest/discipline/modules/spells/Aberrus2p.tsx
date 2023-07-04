@@ -92,15 +92,15 @@ class Aberrus2p extends Analyzer {
         tooltip={
           <>
             <SpellLink
-              id={
+              spell={
                 this.selectedCombatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT)
                   ? TALENTS_PRIEST.PURGE_THE_WICKED_TALENT.id
                   : SPELLS.SHADOW_WORD_PAIN.id
               }
             />{' '}
-            bonus <SpellLink id={SPELLS.ATONEMENT_BUFF} /> healing:{' '}
+            bonus <SpellLink spell={SPELLS.ATONEMENT_BUFF} /> healing:{' '}
             {formatNumber(this.bonusDoTHealing)} <br />
-            <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT} /> bonus healing:{' '}
+            <SpellLink spell={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT} /> bonus healing:{' '}
             {formatNumber(this.bonusRadianceHealing)}
           </>
         }

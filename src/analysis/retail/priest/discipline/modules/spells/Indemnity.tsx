@@ -93,12 +93,12 @@ class Indemnity extends Analyzer {
         tooltip={
           <>
             This value is calculated from the healing contributed from the last 2 seconds of the
-            applied <SpellLink id={SPELLS.ATONEMENT_BUFF.id} />.
+            applied <SpellLink spell={SPELLS.ATONEMENT_BUFF} />.
           </>
         }
       >
         <>
-          <BoringSpellValueText spellId={TALENTS_PRIEST.INDEMNITY_TALENT.id}>
+          <BoringSpellValueText spell={TALENTS_PRIEST.INDEMNITY_TALENT}>
             <ItemHealingDone amount={this.atonementHealing} /> <br />
           </BoringSpellValueText>
         </>

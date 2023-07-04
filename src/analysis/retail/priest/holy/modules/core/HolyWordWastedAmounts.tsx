@@ -27,7 +27,7 @@ class HolyWordWastedAmounts extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.HOLY_WORDS.id} />}
+        icon={<SpellIcon spell={SPELLS.HOLY_WORDS} />}
         value={`${formatPercentage(percWastedVersusTotal)}%`}
         label="Wasted Holy Words reduction"
         tooltip={

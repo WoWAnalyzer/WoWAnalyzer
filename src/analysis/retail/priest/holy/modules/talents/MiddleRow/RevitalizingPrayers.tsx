@@ -53,7 +53,7 @@ class RevitalizingPrayers extends Analyzer {
             {formatNumber(this.renewBuffsAppliedFromRevitalizingPrayers)} times.
             <br />
             This is equivalent to {this.fullLengthRenewsFromRevitalizingPrayers.toFixed(1)} full
-            legnth <SpellLink id={TALENTS.RENEW_TALENT.id} /> cast
+            legnth <SpellLink spell={TALENTS.RENEW_TALENT} /> cast
             {this.fullLengthRenewsFromRevitalizingPrayers > 1 ? 's' : ''}.
           </>
         }

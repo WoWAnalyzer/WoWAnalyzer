@@ -63,7 +63,7 @@ class ShadowPriestTierSet extends Analyzer {
     const uptimePercent = formatPercentage(this.uptime4Set / this.owner.fightDuration);
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF}>
           <UptimeIcon /> {uptimePercent}% <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>

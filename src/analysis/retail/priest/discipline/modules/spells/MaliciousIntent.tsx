@@ -95,7 +95,7 @@ class MaliciousIntent extends Analyzer {
         position={STATISTIC_ORDER.CORE(20)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.MALICIOUS_INTENT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.MALICIOUS_INTENT_TALENT}>
           <ItemHealingDone amount={this.healing} /> <br />
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>

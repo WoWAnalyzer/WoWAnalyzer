@@ -114,11 +114,11 @@ class WealAndWoe extends Analyzer {
             Healing Breakdown:
             <ul>
               <li>
-                <SpellLink id={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id} /> and{' '}
-                <SpellLink id={SPELLS.SMITE.id} />: {formatNumber(this.healing)}{' '}
+                <SpellLink spell={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT} /> and{' '}
+                <SpellLink spell={SPELLS.SMITE} />: {formatNumber(this.healing)}{' '}
               </li>
               <li>
-                <SpellLink id={SPELLS.POWER_WORD_SHIELD.id} />:{' '}
+                <SpellLink spell={SPELLS.POWER_WORD_SHIELD} />:{' '}
                 {formatNumber(this.powerWordShield.wealValue)}{' '}
               </li>
             </ul>

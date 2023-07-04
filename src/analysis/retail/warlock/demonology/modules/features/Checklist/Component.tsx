@@ -17,7 +17,7 @@ const DemonologyWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
     <Requirement
       name={
         <>
-          <SpellLink id={props.id} icon /> uptime
+          <SpellLink spell={props.spell} icon /> uptime
         </>
       }
       thresholds={props.thresholds}
@@ -55,7 +55,7 @@ const DemonologyWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
           <AbilityRequirement spell={TALENTS.POWER_SIPHON_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.DOOM_TALENT) && (
-          <DotUptime id={TALENTS.DOOM_TALENT.id} thresholds={thresholds.doom} />
+          <DotUptime spell={TALENTS.DOOM_TALENT} thresholds={thresholds.doom} />
         )}
         {combatant.hasTalent(TALENTS.SOUL_STRIKE_TALENT) && (
           <AbilityRequirement spell={TALENTS.SOUL_STRIKE_TALENT.id} />

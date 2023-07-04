@@ -223,23 +223,23 @@ class DivineWord extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spellId={TALENTS.DIVINE_WORD_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DIVINE_WORD_TALENT}>
           Usage: {this.sanctifyWordUse}
-          <SpellIcon id={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL.id} />
+          <SpellIcon spell={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL} />
           &nbsp;{this.serenityWordUse}
-          <SpellIcon id={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id} />
+          <SpellIcon spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF} />
           &nbsp;{this.chastiseWordUse}
-          <SpellIcon id={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id} />
+          <SpellIcon spell={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF} />
           <br />
           {this.divineWordCasts} total {castsString}
         </BoringSpellValueText>
-        <BoringSpellValueText spellId={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL.id}>
+        <BoringSpellValueText spell={SPELLS.DIVINE_WORD_SANCTIFY_TALENT_HEAL}>
           <ItemHealingDone amount={this.sanctifyHealing} />
         </BoringSpellValueText>
-        <BoringSpellValueText spellId={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.DIVINE_WORD_SERENITY_TALENT_BUFF}>
           <ItemHealingDone amount={this.serenityHealing} />
         </BoringSpellValueText>
-        <BoringSpellValueText spellId={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.DIVINE_WORD_CHASTISE_TALENT_BUFF}>
           <ItemDamageDone amount={this.chastiseDamage} />
           <br />
           {holyFireFromSmiteDuration} seconds of holy fire applied.

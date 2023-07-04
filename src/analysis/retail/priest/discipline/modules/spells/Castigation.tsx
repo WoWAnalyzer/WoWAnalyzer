@@ -108,7 +108,7 @@ class Castigation extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.CASTIGATION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.CASTIGATION_TALENT}>
           <ItemHealingDone amount={healing} />
         </BoringSpellValueText>
       </Statistic>
