@@ -29,11 +29,11 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         description={
           <>
             As a Mistweaver you only have a few rotational spells that should be cast on CD:{' '}
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> and{' '}
-            <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />. Casting these on CD will
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />. Casting these on CD will
             ensure that you maintain a high count of{' '}
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
-            's on the raid, maximizing the cleave healing from <SpellLink id={SPELLS.VIVIFY.id} />.
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+            's on the raid, maximizing the cleave healing from <SpellLink spell={SPELLS.VIVIFY} />.
           </>
         }
       >
@@ -41,7 +41,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> avg per Vivify cast
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> avg per Vivify cast
             </>
           }
           thresholds={thresholds.vivify}
@@ -79,8 +79,8 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
             <Requirement
               name={
                 <>
-                  <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> active during{' '}
-                  <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
+                  <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> active during{' '}
+                  <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
                 </>
               }
               thresholds={thresholds.renewingMistDuringManaTea}
@@ -108,8 +108,8 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> applied per{' '}
-              <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> cast
+              <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> applied per{' '}
+              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
             </>
           }
           thresholds={thresholds.envelopingBreath}
@@ -124,17 +124,17 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Position yourself well to maximize your most effective spells"
         description={
           <>
-            Effective use of <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> has a big impact
+            Effective use of <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> has a big impact
             on your healing. Ensure you stay in melee to maximize the number of targets that can be
-            in range of both <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> and other spells
-            such as <SpellLink id={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id} />.
+            in range of both <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> and other spells
+            such as <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} />.
           </>
         }
       >
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> targets hit
+              <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> targets hit
             </>
           }
           thresholds={thresholds.essenceFont}
@@ -143,7 +143,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id} /> % targets hit
+                <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} /> % targets hit
               </>
             }
             thresholds={thresholds.refreshingJadeWind}
@@ -153,7 +153,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_MONK.CHI_BURST_TALENT.id} /> targets hit
+                <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> targets hit
               </>
             }
             thresholds={thresholds.chiBurst}
@@ -162,7 +162,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> casts hitting 2 or fewer targets
+              <SpellLink spell={SPELLS.SPINNING_CRANE_KICK} /> casts hitting 2 or fewer targets
             </>
           }
           thresholds={thresholds.spinningCraneKick}
@@ -177,7 +177,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.id} /> mana returned
+                <SpellLink spell={TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT} /> mana returned
               </>
             }
             thresholds={thresholds.spiritOfTheCrane}
@@ -188,7 +188,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> mana saved
+                <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> mana saved
               </>
             }
             thresholds={thresholds.manaTea}
@@ -198,7 +198,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> % overhealing
+                <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> % overhealing
               </>
             }
             thresholds={thresholds.manaTeaOverhealing}
@@ -209,7 +209,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_MONK.LIFECYCLES_TALENT.id} /> mana saved
+                <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT} /> mana saved
               </>
             }
             thresholds={thresholds.lifecycles}
@@ -219,7 +219,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> Cast Uptime
+                <SpellLink spell={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT} /> Cast Uptime
               </>
             }
             thresholds={thresholds.jadeSerpentStatue}
@@ -234,7 +234,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} /> incorrect casts
+              <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> incorrect casts
             </>
           }
           thresholds={thresholds.thunderFocusTea}
@@ -242,7 +242,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> cancelled casts
+              <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cancelled casts
             </>
           }
           thresholds={thresholds.essenceFontCancelled}
@@ -250,7 +250,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} /> wasted applications
+              <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} /> wasted applications
             </>
           }
           thresholds={thresholds.vivaciousVivification}
@@ -258,7 +258,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id} /> wasted clouds
+              <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> wasted clouds
             </>
           }
           thresholds={thresholds.sheiluns}
@@ -288,7 +288,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         <Requirement
           name={
             <>
-              Effective <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} /> Casts
+              Effective <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} /> Casts
             </>
           }
           thresholds={thresholds.soothingMist}

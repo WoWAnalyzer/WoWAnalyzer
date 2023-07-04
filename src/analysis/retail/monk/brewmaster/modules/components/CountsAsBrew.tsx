@@ -37,7 +37,8 @@ const CountsAsBrew = ({
         content={
           <>
             This means that it benefits from the cooldown reduction on spells like{' '}
-            <SpellLink id={talents.KEG_SMASH_TALENT} /> and <SpellLink id={SPELLS.TIGER_PALM} />.
+            <SpellLink spell={talents.KEG_SMASH_TALENT} /> and{' '}
+            <SpellLink spell={SPELLS.TIGER_PALM} />.
           </>
         }
       >

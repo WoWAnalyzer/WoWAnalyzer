@@ -50,12 +50,12 @@ class LifeCocoon extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT} />
+          <SpellLink spell={TALENTS_MONK.LIFE_COCOON_TALENT} />
         </b>{' '}
         is a strong external cooldown that has many supporting talents in{' '}
-        <SpellLink id={TALENTS_MONK.MISTS_OF_LIFE_TALENT} />,{' '}
-        <SpellLink id={TALENTS_MONK.CHRYSALIS_TALENT} />, and{' '}
-        <SpellLink id={TALENTS_MONK.CALMING_COALESCENCE_TALENT} />, and is important as often as
+        <SpellLink spell={TALENTS_MONK.MISTS_OF_LIFE_TALENT} />,{' '}
+        <SpellLink spell={TALENTS_MONK.CHRYSALIS_TALENT} />, and{' '}
+        <SpellLink spell={TALENTS_MONK.CALMING_COALESCENCE_TALENT} />, and is important as often as
         possible while still getting good value from it. Similar to your other cooldowns, this just
         means don't hold it for so long that you miss out on an entire cast.
       </p>
@@ -65,7 +65,7 @@ class LifeCocoon extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.LIFE_COCOON_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_MONK.LIFE_COCOON_TALENT} /> cast efficiency
           </strong>
           {this.subStatistic()}
         </RoundedPanel>

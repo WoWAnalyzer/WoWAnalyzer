@@ -45,18 +45,18 @@ class SelfAtonementAnalyzer extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.FLASH_HEAL.id} />
+          <SpellLink spell={SPELLS.FLASH_HEAL} />
         </b>{' '}
-        applies <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} /> to yourself when used on
-        another target while using <SpellLink id={TALENTS_PRIEST.BINDING_HEALS_TALENT.id} />. It is
+        applies <SpellLink spell={TALENTS_PRIEST.ATONEMENT_TALENT} /> to yourself when used on
+        another target while using <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT} />. It is
         the most mana efficient way to apply atonements and you should avoid to ever apply{' '}
-        <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} /> manually to yourself.
+        <SpellLink spell={TALENTS_PRIEST.ATONEMENT_TALENT} /> manually to yourself.
       </p>
     );
     const data = (
       <div>
         <strong>
-          <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} /> applicator breakdown
+          <SpellLink spell={TALENTS_PRIEST.ATONEMENT_TALENT} /> applicator breakdown
         </strong>
         <small>
           {' '}

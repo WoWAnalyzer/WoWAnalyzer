@@ -37,8 +37,8 @@ class DevouringPlague extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> uptime can be improved. Try to
-          pay more attention to your <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> on the
+          Your <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> uptime can be improved. Try to
+          pay more attention to your <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on the
           boss.
         </span>,
       )

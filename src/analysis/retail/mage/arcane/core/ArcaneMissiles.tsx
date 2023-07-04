@@ -72,12 +72,12 @@ class ArcaneMissiles extends Analyzer {
     when(this.arcaneMissileUsageThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.ARCANE_MISSILES_TALENT.id} /> improperly{' '}
+          You cast <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> improperly{' '}
           {this.castWithoutClearcasting} times. In order to get the most out of{' '}
-          <SpellLink id={TALENTS.ARCANE_MISSILES_TALENT.id} /> you should only cast it if you have{' '}
-          <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> or if you are using{' '}
-          <SpellLink id={TALENTS.ARCANE_ECHO_TALENT.id} /> and the target has{' '}
-          <SpellLink id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} />.
+          <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> you should only cast it if you have{' '}
+          <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> or if you are using{' '}
+          <SpellLink spell={TALENTS.ARCANE_ECHO_TALENT} /> and the target has{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />.
         </>,
       )
         .icon(TALENTS.ARCANE_MISSILES_TALENT.icon)

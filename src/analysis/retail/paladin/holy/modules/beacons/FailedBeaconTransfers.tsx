@@ -44,7 +44,7 @@ class FailedBeaconTransfers extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.UNIMPORTANT(0)}
-        icon={<SpellIcon id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />}
+        icon={<SpellIcon spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF} />}
         value={
           <span style={{ fontSize: '75%' }}>
             <Trans id="paladin.holy.modules.beacons.failedBeaconTransfers.lostBeaconHealing">

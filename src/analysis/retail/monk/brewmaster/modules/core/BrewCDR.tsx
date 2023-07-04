@@ -150,7 +150,7 @@ class BrewCDR extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.TIGER_PALM.id} /> Effective Brew CDR
+              <SpellIcon spell={SPELLS.TIGER_PALM} /> Effective Brew CDR
             </>
           }
         >

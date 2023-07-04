@@ -122,7 +122,7 @@ class Schism extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.SCHISM_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.SCHISM_TALENT}>
           <ItemHealingDone amount={this.healing} /> <br />
           <ItemDamageDone amount={this.directDamage + this.damageFromBuff} />
         </BoringSpellValueText>

@@ -214,7 +214,7 @@ class Lifebind extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT} />{' '}
+            <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} />{' '}
             <small>healing breakdown by spell</small>
             <br />
           </label>

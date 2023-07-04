@@ -102,7 +102,7 @@ class BreathOfFire extends Analyzer {
     when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.BREATH_OF_FIRE_TALENT.id} /> usage can be improved. The
+          Your <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> usage can be improved. The
           associated debuff is a key part of our damage mitigation.
         </>,
       )

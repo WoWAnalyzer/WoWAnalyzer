@@ -98,7 +98,7 @@ export default class WordOfGlory extends Analyzer {
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid casting <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> when a large portion of it
+          Try to avoid casting <SpellLink spell={SPELLS.WORD_OF_GLORY} /> when a large portion of it
           would overheal.
         </>,
       )
@@ -110,8 +110,8 @@ export default class WordOfGlory extends Analyzer {
     when(this.wastedSlSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Make sure to use all of the free <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> casts granted
-          by <SpellLink id={SPELLS.SHINING_LIGHT.id} />.
+          Make sure to use all of the free <SpellLink spell={SPELLS.WORD_OF_GLORY} /> casts granted
+          by <SpellLink spell={SPELLS.SHINING_LIGHT} />.
         </>,
       )
         .icon(SPELLS.SHINING_LIGHT.icon)

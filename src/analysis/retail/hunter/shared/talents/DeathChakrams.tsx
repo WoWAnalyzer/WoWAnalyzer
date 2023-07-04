@@ -71,7 +71,7 @@ class DeathChakrams extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.DEATH_CHAKRAM_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DEATH_CHAKRAM_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

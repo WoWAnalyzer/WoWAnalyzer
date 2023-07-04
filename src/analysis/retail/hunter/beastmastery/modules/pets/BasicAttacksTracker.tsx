@@ -100,7 +100,7 @@ class BasicAttacks extends Analyzer {
         <>
           {' '}
           Make sure that your pet is casting it's Basic Attacks, such as{' '}
-          <SpellLink id={SPELLS.BITE_BASIC_ATTACK.id} />.
+          <SpellLink spell={SPELLS.BITE_BASIC_ATTACK} />.
         </>,
       )
         .icon(SPELLS.BITE_BASIC_ATTACK.icon)
@@ -169,7 +169,7 @@ class BasicAttacks extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={this.usedBasicAttack}>
+        <BoringSpellValueText spell={this.usedBasicAttack}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             {formatNumber(

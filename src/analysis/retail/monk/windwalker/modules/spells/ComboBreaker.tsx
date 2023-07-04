@@ -86,10 +86,10 @@ class ComboBreaker extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs should be used before you tiger
+          Your <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> procs should be used before you tiger
           palm again so they are not overwritten. While some will be overwritten due to higher
           priority of getting Chi for spenders, wasting{' '}
-          <SpellLink id={SPELLS.COMBO_BREAKER_BUFF.id} /> procs is not optimal.
+          <SpellLink spell={SPELLS.COMBO_BREAKER_BUFF} /> procs is not optimal.
         </span>,
       )
         .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
@@ -119,7 +119,7 @@ class ComboBreaker extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.COMBO_BREAKER_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.COMBO_BREAKER_BUFF}>
           {formatPercentage(this.usedCBProcs, 0)}% <small>Proc utilization</small>
         </BoringSpellValueText>
       </Statistic>

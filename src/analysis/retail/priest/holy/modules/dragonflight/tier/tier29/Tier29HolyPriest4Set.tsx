@@ -82,7 +82,7 @@ class HolyPriestTier4Set extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         position={STATISTIC_ORDER.OPTIONAL(1)}
       >
-        <BoringSpellValueText spellId={SPELLS.HOLY_PRIEST_TIER_29_4_SET_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.HOLY_PRIEST_TIER_29_4_SET_BUFF}>
           <ItemHealingDone amount={this.healingContributionOf4Set} />
         </BoringSpellValueText>
       </Statistic>

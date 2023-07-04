@@ -76,10 +76,10 @@ class MeteorRune extends Analyzer {
     when(this.meteorUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> without{' '}
-          <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> {this.badMeteor} times. In order to get
-          the most out of <SpellLink id={TALENTS.METEOR_TALENT.id} /> you should always cast it
-          while being buffed by <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} />.
+          You cast <SpellLink spell={TALENTS.METEOR_TALENT} /> without{' '}
+          <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> {this.badMeteor} times. In order to get
+          the most out of <SpellLink spell={TALENTS.METEOR_TALENT} /> you should always cast it
+          while being buffed by <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} />.
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)

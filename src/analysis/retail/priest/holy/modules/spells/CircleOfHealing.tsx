@@ -93,12 +93,12 @@ class CircleOfHealing extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.CIRCLE_OF_HEALING_TALENT.id} />
+          <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} />
         </b>{' '}
         is an extremely efficient group heal and should be cast anytime there are 4 or more injured
         targets in the raid. If you are running the{' '}
-        <SpellLink id={TALENTS.PRAYER_CIRCLE_TALENT.id} /> talent, make sure this is on cooldown
-        before casting <SpellLink id={TALENTS.PRAYER_OF_HEALING_TALENT.id} />.
+        <SpellLink spell={TALENTS.PRAYER_CIRCLE_TALENT} /> talent, make sure this is on cooldown
+        before casting <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} />.
       </p>
     );
 
@@ -141,7 +141,7 @@ class CircleOfHealing extends Analyzer {
       <Statistic
         tooltip={
           <>
-            <SpellLink id={TALENTS.CIRCLE_OF_HEALING_TALENT.id} /> Casts:{' '}
+            <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} /> Casts:{' '}
             {this.circleOfHealingCasts}
             <br />
             Total Healing: {formatThousands(this.circleOfHealingHealing)} (
@@ -154,7 +154,7 @@ class CircleOfHealing extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={TALENTS.CIRCLE_OF_HEALING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.CIRCLE_OF_HEALING_TALENT}>
           <ItemHealingDone amount={this.circleOfHealingHealing} />
         </BoringSpellValueText>
       </Statistic>

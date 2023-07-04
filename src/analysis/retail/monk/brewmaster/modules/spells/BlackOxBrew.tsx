@@ -93,7 +93,7 @@ class BlackOxBrew extends Analyzer {
     when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.BLACK_OX_BREW_TALENT.id} /> usage can be improved.
+          Your <SpellLink spell={talents.BLACK_OX_BREW_TALENT} /> usage can be improved.
         </>,
       )
         .icon(talents.BLACK_OX_BREW_TALENT.icon)

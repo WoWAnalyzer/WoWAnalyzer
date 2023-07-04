@@ -27,9 +27,9 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         description={
           <>
             You should try to avoid doing nothing during the fight. If you have to move, use your{' '}
-            <SpellLink id={SPELLS.DIVINE_STEED.id} icon /> to minimize downtime. Also use ranged
-            abilities like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> or{' '}
-            <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon /> if you are out of melee range for
+            <SpellLink spell={SPELLS.DIVINE_STEED} icon /> to minimize downtime. Also use ranged
+            abilities like <SpellLink spell={SPELLS.JUDGMENT_CAST} icon /> or{' '}
+            <SpellLink spell={SPELLS.BLADE_OF_JUSTICE} icon /> if you are out of melee range for
             extended periods of time.
           </>
         }
@@ -40,9 +40,9 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         name="Use core abilities as often as possible"
         description={
           <>
-            Spells with short cooldowns like <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon />,{' '}
-            <SpellLink id={SPELLS.BLADE_OF_JUSTICE.id} icon />, and{' '}
-            <SpellLink id={SPELLS.CRUSADER_STRIKE.id} icon /> should be used as often as possible.
+            Spells with short cooldowns like <SpellLink spell={SPELLS.JUDGMENT_CAST} icon />,{' '}
+            <SpellLink spell={SPELLS.BLADE_OF_JUSTICE} icon />, and{' '}
+            <SpellLink spell={SPELLS.CRUSADER_STRIKE} icon /> should be used as often as possible.
           </>
         }
       >
@@ -58,14 +58,14 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
             Retribution Paladin is a very cooldown dependant spec. Make sure you are keeping spells
             like{' '}
             <SpellLink
-              id={
+              spell={
                 combatant.hasTalent(TALENTS_PALADIN.CRUSADE_TALENT)
                   ? TALENTS_PALADIN.CRUSADE_TALENT.id
                   : TALENTS_PALADIN.AVENGING_WRATH_TALENT.id
               }
               icon
             />{' '}
-            and <SpellLink id={SPELLS.WAKE_OF_ASHES.id} /> on cooldown.
+            and <SpellLink spell={SPELLS.WAKE_OF_ASHES} /> on cooldown.
           </>
         }
       >
@@ -85,7 +85,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
           <Requirement
             name={
               <>
-                Good first global with <SpellLink id={TALENTS_PALADIN.CRUSADE_TALENT.id} icon />
+                Good first global with <SpellLink spell={TALENTS_PALADIN.CRUSADE_TALENT} icon />
               </>
             }
             thresholds={thresholds.crusade}
@@ -96,7 +96,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         name="Use procs and buffs efficiently"
         description={
           <>
-            Buffs and procs like <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> have a significant
+            Buffs and procs like <SpellLink spell={SPELLS.ART_OF_WAR} icon /> have a significant
             impact on your damage, use them well.
           </>
         }
@@ -104,7 +104,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.ART_OF_WAR.id} icon /> procs used
+              <SpellLink spell={SPELLS.ART_OF_WAR} icon /> procs used
             </>
           }
           thresholds={thresholds.artOfWar}
@@ -112,7 +112,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs consumed
+              <SpellLink spell={SPELLS.JUDGMENT_CAST} icon /> debuffs consumed
             </>
           }
           thresholds={thresholds.judgment}
@@ -130,8 +130,8 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         description={
           <>
             Use other spells in your toolkit to your advantage. For example, you can use{' '}
-            <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} icon /> to mitigate some damage and{' '}
-            <SpellLink id={SPELLS.LAY_ON_HANDS.id} icon /> to save your own or someone elses life.
+            <SpellLink spell={SPELLS.SHIELD_OF_VENGEANCE} icon /> to mitigate some damage and{' '}
+            <SpellLink spell={SPELLS.LAY_ON_HANDS} icon /> to save your own or someone elses life.
           </>
         }
       >
@@ -140,7 +140,7 @@ const RetributionPaladinChecklist = ({ combatant, castEfficiency, thresholds }) 
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.SHIELD_OF_VENGEANCE.id} icon /> Absorb Used
+              <SpellLink spell={SPELLS.SHIELD_OF_VENGEANCE} icon /> Absorb Used
             </>
           }
           thresholds={thresholds.shieldOfVengeance}

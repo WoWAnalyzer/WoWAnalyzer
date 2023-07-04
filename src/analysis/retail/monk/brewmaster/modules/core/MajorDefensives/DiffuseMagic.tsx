@@ -45,7 +45,7 @@ export class DiffuseMagic extends MajorDefensiveBuff {
     return (
       <>
         <p>
-          <SpellLink id={talents.DIFFUSE_MAGIC_TALENT} /> is a strong defensive against{' '}
+          <SpellLink spell={talents.DIFFUSE_MAGIC_TALENT} /> is a strong defensive against{' '}
           <em>Magic damage</em>, but useless against Physical. This makes it a niche spell that is
           sometimes the best spell in your kit, and sometimes not even talented.
         </p>

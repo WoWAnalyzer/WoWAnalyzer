@@ -114,7 +114,7 @@ class CelestialBrew extends MajorDefensiveBuff {
     return (
       <div>
         <p>
-          <SpellLink id={talents.CELESTIAL_BREW_TALENT} /> provides a low-cooldown shield for
+          <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> provides a low-cooldown shield for
           30-100% of your health bar. <CountsAsBrew baseCooldown={60} lightBrewing /> To use it
           effectively, you need to balance two goals: using it to <em>cover major damage events</em>
           , and using it <em>often</em>.
@@ -122,7 +122,7 @@ class CelestialBrew extends MajorDefensiveBuff {
         <p>
           If the <a href="#purifying-brew">previous section</a> shows many purifies for{' '}
           <em>Large Hits</em> or <em>High Stagger</em>, it is <strong>strongly recommended</strong>{' '}
-          that you also use <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />.
+          that you also use <SpellLink spell={talents.IMPROVED_CELESTIAL_BREW_TALENT} />.
         </p>
       </div>
     );
@@ -132,7 +132,7 @@ class CelestialBrew extends MajorDefensiveBuff {
     when(this.goodCastSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should try to use <SpellLink id={talents.CELESTIAL_BREW_TALENT.id} /> when most or all
+          You should try to use <SpellLink spell={talents.CELESTIAL_BREW_TALENT} /> when most or all
           of the absorb will be consumed.
         </>,
       )
@@ -174,7 +174,7 @@ class CelestialBrew extends MajorDefensiveBuff {
         <BoringValue
           label={
             <>
-              <SpellIcon id={talents.CELESTIAL_BREW_TALENT.id} /> Avg. Absorb per Celestial Brew
+              <SpellIcon spell={talents.CELESTIAL_BREW_TALENT} /> Avg. Absorb per Celestial Brew
             </>
           }
         >
@@ -249,14 +249,14 @@ class CelestialBrew extends MajorDefensiveBuff {
           color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
           description: (
             <>
-              Base <SpellLink id={this.spell} />
+              Base <SpellLink spell={this.spell} />
             </>
           ),
         },
         {
           amount: stackAmount,
           color: color(MAGIC_SCHOOLS.ids.HOLY),
-          description: <SpellLink id={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
+          description: <SpellLink spell={talents.IMPROVED_CELESTIAL_BREW_TALENT} />,
         },
       ];
     } else {

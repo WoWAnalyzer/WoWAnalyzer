@@ -109,8 +109,8 @@ class RenewingMistDuringManaTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          During <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> you should have a minimum of two{' '}
-          <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> out to maximize your healing
+          During <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> you should have a minimum of two{' '}
+          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> out to maximize your healing
           during the buff.
         </>,
       )

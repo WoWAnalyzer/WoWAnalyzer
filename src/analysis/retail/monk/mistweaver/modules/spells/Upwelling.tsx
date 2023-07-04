@@ -228,7 +228,7 @@ class Upwelling extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.UPWELLING_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealingAll),
         )} %`}
@@ -247,11 +247,11 @@ class Upwelling extends Analyzer {
             <div>
               Counts healing from extra bolts, healing from the extra 4 second of a hot on a normal
               bolt (first 18), healing from the full hot on{' '}
-              <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} /> bolts (post 18), and any mastery
+              <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} /> bolts (post 18), and any mastery
               event from the hot under the same idea as hot counting. We then subtract out the
               healing from estimated missed casts of{' '}
-              <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to account for less casts from
-              utilizing <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} /> stacks.
+              <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> to account for less casts from
+              utilizing <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} /> stacks.
             </div>
             <ul>
               <li>Extra Bolts: {formatNumber(this.extraBolts)}</li>
@@ -270,7 +270,7 @@ class Upwelling extends Analyzer {
                 {formatPercentage(this.overhealingMastery)}% overhealing)
               </li>
               <li>
-                Average <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} /> stacks:{' '}
+                Average <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} /> stacks:{' '}
                 {this.averageStacks.toFixed(2)}
               </li>
             </ul>
