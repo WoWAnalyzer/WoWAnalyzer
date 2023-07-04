@@ -337,7 +337,6 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
       // now scan ahead for the matched empowerend, cast or begincast and end the channel at it
       for (let idx = eventIndex + 1; idx < events.length; idx += 1) {
         const laterEvent = events[idx];
-        console.log(playerInfo.playerId);
         if (
           HasAbility(laterEvent) &&
           laterEvent.ability.guid === spellId &&
