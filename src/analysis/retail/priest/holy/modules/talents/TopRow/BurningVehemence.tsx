@@ -44,7 +44,7 @@ class BurningVehemence extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(15)}
       >
-        <BoringSpellValueText spellId={TALENTS.BURNING_VEHEMENCE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BURNING_VEHEMENCE_TALENT}>
           <ItemDamageDone amount={this.damageFromTalent} />
         </BoringSpellValueText>
       </Statistic>

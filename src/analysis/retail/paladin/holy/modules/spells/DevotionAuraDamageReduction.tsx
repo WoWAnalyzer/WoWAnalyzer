@@ -186,13 +186,15 @@ class DevotionAuraDamageReduction extends Analyzer {
         <br />
         Calculating the exact damage reduced by Devotion Aura is very time and resource consuming.
         This method uses a very close estimation. The active damage reduced is calculated by taking
-        the total damage taken of the entire raid during <SpellLink id={SPELLS.AURA_MASTERY} /> and
-        calculating the damage reduced during this time. The passive damage reduction is calculated
-        by taking the exact damage reduction factor applicable and calculating the damage reduced if
-        that full effect was applied to the Paladin. Even though the passive damage reduction is
-        split among other nearby players, using your personal damage taken should average it out
-        very closely. More extensive tests that go over all damage events have shown that this is
-        usually a close approximation.
+        the total damage taken of the entire raid during <SpellLink
+          spell={SPELLS.AURA_MASTERY}
+        />{' '}
+        and calculating the damage reduced during this time. The passive damage reduction is
+        calculated by taking the exact damage reduction factor applicable and calculating the damage
+        reduced if that full effect was applied to the Paladin. Even though the passive damage
+        reduction is split among other nearby players, using your personal damage taken should
+        average it out very closely. More extensive tests that go over all damage events have shown
+        that this is usually a close approximation.
       </Trans>
     );
 
@@ -200,7 +202,7 @@ class DevotionAuraDamageReduction extends Analyzer {
       <LazyLoadStatisticBox
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.DEVOTION_AURA} />}
+        icon={<SpellIcon spell={SPELLS.DEVOTION_AURA} />}
         value={
           <Trans id="paladin.holy.modules.talents.devotionAuraDamageReduction.drps">
             ≈{formatNumber(this.totalDrps)} DRPS

@@ -106,7 +106,7 @@ class SanctifiedPrayers extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={TALENTS.SANCTIFIED_PRAYERS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SANCTIFIED_PRAYERS_TALENT}>
           <ItemHealingDone amount={this.effectiveAdditionalHealing} />
         </BoringSpellValueText>
       </Statistic>

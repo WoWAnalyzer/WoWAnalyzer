@@ -153,14 +153,14 @@ class EssenceBurst extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} />
         </b>{' '}
         is a core buff that you should never let expire or refresh. In general, if you are playing
         an <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> focused build then all procs should be used
         on it and otherwise they should be spent on <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />
         . If you choose to talent into <SpellLink spell={TALENTS_EVOKER.ENERGY_LOOP_TALENT} />, then
-        you should use some procs on <SpellLink id={SPELLS.DISINTEGRATE} />, but this talent should
-        generally not be taken as it is an HPS loss.
+        you should use some procs on <SpellLink spell={SPELLS.DISINTEGRATE} />, but this talent
+        should generally not be taken as it is an HPS loss.
       </p>
     );
 
@@ -185,7 +185,7 @@ class EssenceBurst extends Analyzer {
           `Wasted from ${info.expired ? 'expiration' : 'refresh'}`
         ) : (
           <>
-            Consume ability: <SpellLink id={info.spell} />
+            Consume ability: <SpellLink spell={info.spell} />
           </>
         );
       const tooltip = (
@@ -202,7 +202,7 @@ class EssenceBurst extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumptions
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumptions
           </strong>
           <PerformanceBoxRow values={entries} />
         </RoundedPanel>
@@ -228,7 +228,7 @@ class EssenceBurst extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid wasting <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> stacks.
+          Try to avoid wasting <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> stacks.
         </>,
       )
         .icon(TALENTS_EVOKER.ESSENCE_BURST_TALENT.icon)
@@ -252,13 +252,13 @@ class EssenceBurst extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumption by spell
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumption by spell
           </label>
           {donutChart ? (
             donutChart
           ) : (
             <small>
-              You gained no <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> buffs during
+              You gained no <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> buffs during
               the encounter
             </small>
           )}

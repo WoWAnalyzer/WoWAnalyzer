@@ -15,7 +15,7 @@ export const apl = build([
     condition: cnd.optionalRule(
       cnd.buffMissing(SPELLS.CONSECRATION_BUFF),
       <>
-        <SpellLink id={SPELLS.CONSECRATION_CAST} /> is a potent defensive buff that you should
+        <SpellLink spell={SPELLS.CONSECRATION_CAST} /> is a potent defensive buff that you should
         maintain as often as possible. We cannot automatically determine if it is safe for you to
         drop the buff.
       </>,
@@ -36,7 +36,7 @@ export const apl = build([
     condition: cnd.optionalRule(
       cnd.hasResource(RESOURCE_TYPES.HOLY_POWER, { atLeast: 3 }),
       <>
-        <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> should be maintained while actively
+        <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> should be maintained while actively
         tanking and cast while not tanking to avoid capping Holy Power. We cannot automatically
         determine whether you are pooling resources prior to taking the boss back.
       </>,

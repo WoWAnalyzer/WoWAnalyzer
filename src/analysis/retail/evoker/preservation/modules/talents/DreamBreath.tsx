@@ -95,13 +95,13 @@ class DreamBreath extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
         </b>{' '}
         is one of your empowered abilities and a very strong HoT. You should aim to use it at
         Empower 1 in most scenarios, with the rare exception when you desperately need a burst AoE
-        heal. If talented into <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT.id} />, always use{' '}
-        <SpellLink id={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> prior to casting{' '}
-        <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />.
+        heal. If talented into <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} />, always use{' '}
+        <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> prior to casting{' '}
+        <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />.
       </p>
     );
 
@@ -135,7 +135,7 @@ class DreamBreath extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -175,7 +175,7 @@ class DreamBreath extends Analyzer {
       suggest(
         <>
           Try to maximize the amount of targets hit by{' '}
-          <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} />
         </>,
       )
         .icon(TALENTS_EVOKER.DREAM_BREATH_TALENT.icon)

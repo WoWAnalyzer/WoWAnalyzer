@@ -38,7 +38,7 @@ const DisciplinePriestChecklist = ({
         description={
           <>
             Using your core abilities as often as possible will typically result in better
-            performance, remember to <SpellLink id={SPELLS.SMITE.id} /> as often as you can!
+            performance, remember to <SpellLink spell={SPELLS.SMITE} /> as often as you can!
           </>
         }
       >
@@ -63,7 +63,7 @@ const DisciplinePriestChecklist = ({
           <>
             Cooldowns are an important part of healing, try to use them to counter fight mechanics.
             For example if a boss has burst damage every 1.5 minutes,{' '}
-            <SpellLink id={SPELLS.RAPTURE.id} /> should be used to counter it.
+            <SpellLink spell={SPELLS.RAPTURE} /> should be used to counter it.
           </>
         }
       >
@@ -100,7 +100,7 @@ const DisciplinePriestChecklist = ({
         description={
           <>
             High downtime is inexcusable, while it may be tempting to not cast and save mana,
-            Discipline's damage fillers such as <SpellLink id={SPELLS.SMITE.id} /> are extremely
+            Discipline's damage fillers such as <SpellLink spell={SPELLS.SMITE} /> are extremely
             cheap. You can reduce your downtime by reducing the delay between casting spells,
             anticipating movement, moving during the GCD, and{' '}
             <TooltipElement content="You can ignore this while learning Discipline, but contributing DPS whilst healing is a major part of becoming a better than average player.">

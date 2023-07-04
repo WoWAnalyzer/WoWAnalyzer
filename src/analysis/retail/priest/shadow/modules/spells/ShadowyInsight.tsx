@@ -101,7 +101,7 @@ class ShadowyInsight extends Analyzer {
       suggest(
         <>
           You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} /> procs.
+          <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT} /> procs.
         </>,
       )
         .icon(TALENTS.SHADOWY_INSIGHT_TALENT.icon)
@@ -118,7 +118,7 @@ class ShadowyInsight extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.GENERAL} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.SHADOWY_INSIGHT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SHADOWY_INSIGHT_TALENT}>
           <>
             {this.procsUsed}/{this.procsGained} <small>Procs Used</small>
           </>
@@ -141,10 +141,10 @@ class ShadowyInsight extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} />
+          <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT} />
         </b>{' '}
-        is gained randomly from <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> damage. <br />
-        Cast <SpellLink id={SPELLS.MIND_BLAST.id} /> while the buff is active to avoid wasting
+        is gained randomly from <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> damage. <br />
+        Cast <SpellLink spell={SPELLS.MIND_BLAST} /> while the buff is active to avoid wasting
         procs.
       </p>
     );

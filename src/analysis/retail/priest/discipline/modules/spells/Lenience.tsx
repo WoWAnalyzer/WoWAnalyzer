@@ -41,7 +41,7 @@ class Lenience extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={TALENTS_PRIEST.LENIENCE_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS_PRIEST.LENIENCE_TALENT} />}
         value={`>=${formatNumber((this.damageReducedDuringLenience / fightDuration) * 1000)} DRPS`}
         label="Damage reduced"
         tooltip={`The estimated damage reduced by Lenience's damage reduction was ${formatThousands(

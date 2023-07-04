@@ -121,7 +121,7 @@ class HymnBuffBenefit extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={TALENTS.DIVINE_HYMN_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.DIVINE_HYMN_TALENT} />}
         value={`≈${formatNumber((this.totalHealingFromHymnBuff / fightDuration) * 1000)} HPS`}
         label="Hymn Buff Contribution"
         tooltip={

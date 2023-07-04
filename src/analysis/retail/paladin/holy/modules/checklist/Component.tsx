@@ -33,7 +33,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
         description={
           <Trans id="paladin.holy.modules.checklist.usePrimarySpells.description">
-            <SpellLink id={SPELLS.HOLY_SHOCK_HEAL} />
+            <SpellLink spell={SPELLS.HOLY_SHOCK_HEAL} />
             is your most efficient healing spell available. Try to cast them as much as possible
             without overhealing.
             <TooltipElement
@@ -124,10 +124,10 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
         description={
           <Trans id="paladin.holy.modules.checklist.avoidFillerSpells.description">
-            <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> and{' '}
-            <SpellLink id={SPELLS.FLASH_OF_LIGHT} /> are inefficient spells to cast compared to the
-            alternatives. Try to only cast them when it will save someone's life or when you have to
-            move and all other instant cast spells are on cooldown.
+            <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> and{' '}
+            <SpellLink spell={SPELLS.FLASH_OF_LIGHT} /> are inefficient spells to cast compared to
+            the alternatives. Try to only cast them when it will save someone's life or when you
+            have to move and all other instant cast spells are on cooldown.
           </Trans>
         }
       >
@@ -142,7 +142,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         <Requirement
           name={
             <Trans id="paladin.holy.modules.checklist.totalFillerPerMinuteWhileHolyShock">
-              Total filler casts while <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was available
+              Total filler casts while <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was available
             </Trans>
           }
           thresholds={thresholds.fillerLightOfTheMartyrsInefficientCpm}
@@ -150,9 +150,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         <Requirement
           name={
             <Trans id="paladin.holy.modules.checklist.totalFillerWhileHolyShock">
-              Total filler <SpellLink id={SPELLS.FLASH_OF_LIGHT} />s cast while{' '}
+              Total filler <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />s cast while{' '}
               <span style={{ whiteSpace: 'nowrap' }}>
-                <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} />
+                <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} />
               </span>{' '}
               was available
             </Trans>
@@ -181,7 +181,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfLightAppliedPrepull">
                 <SpellLink
-                  id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF}
+                  spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF}
                   onClick={(e) => e.preventDefault()}
                 />{' '}
                 applied prepull
@@ -195,7 +195,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime">
                 <SpellLink
-                  id={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF}
+                  spell={SPELLS.BEACON_OF_LIGHT_CAST_AND_BUFF}
                   onClick={(e) => e.preventDefault()}
                 />{' '}
                 Uptime
@@ -209,7 +209,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentAppliedPrepull">
                 <SpellLink
-                  id={TALENTS.BEACON_OF_FAITH_TALENT}
+                  spell={TALENTS.BEACON_OF_FAITH_TALENT}
                   onClick={(e) => e.preventDefault()}
                 />{' '}
                 applied prepull
@@ -223,7 +223,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfFaithTalentUptime">
                 <SpellLink
-                  id={TALENTS.BEACON_OF_FAITH_TALENT}
+                  spell={TALENTS.BEACON_OF_FAITH_TALENT}
                   onClick={(e) => e.preventDefault()}
                 />{' '}
                 Uptime
@@ -237,7 +237,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             name={
               <Trans id="paladin.holy.modules.checklist.beaconOfVirtueTalentUptime">
                 <SpellLink
-                  id={TALENTS.BEACON_OF_VIRTUE_TALENT}
+                  spell={TALENTS.BEACON_OF_VIRTUE_TALENT}
                   onClick={(e) => e.preventDefault()}
                 />{' '}
                 Uptime
@@ -259,15 +259,15 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         name={
           <Trans id="paladin.holy.modules.checklist.positionWell">
             Position yourself well to maximize{' '}
-            <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER} onClick={(e) => e.preventDefault()} />
+            <SpellLink spell={SPELLS.MASTERY_LIGHTBRINGER} onClick={(e) => e.preventDefault()} />
           </Trans>
         }
         description={
           <Trans id="paladin.holy.modules.checklist.positionWell.description">
-            <SpellLink id={SPELLS.MASTERY_LIGHTBRINGER} /> has a big impact on the strength of your
-            heals. Try to stay close to the people you are healing to benefit the most from your
-            Mastery. Use <SpellLink id={TALENTS.RULE_OF_LAW_TALENT} /> when healing people further
-            away.
+            <SpellLink spell={SPELLS.MASTERY_LIGHTBRINGER} /> has a big impact on the strength of
+            your heals. Try to stay close to the people you are healing to benefit the most from
+            your Mastery. Use <SpellLink spell={TALENTS.RULE_OF_LAW_TALENT} /> when healing people
+            further away.
           </Trans>
         }
       >
