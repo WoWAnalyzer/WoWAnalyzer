@@ -127,7 +127,7 @@ class LegacyOfTheFrostWitch extends Analyzer {
   get extraDamage() {
     const spellList = Object.keys(this.buffedSpells).map((guid) => this.buffedSpells[Number(guid)]);
     if (spellList?.length > 0) {
-      return spellList.reduce((current, total) => (total += current));
+      return spellList.reduce((current, total) => (total += current), 0);
     }
     return 0;
   }
