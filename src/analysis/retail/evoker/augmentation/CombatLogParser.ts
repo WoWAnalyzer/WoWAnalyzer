@@ -6,6 +6,7 @@ import Buffs from './modules/Buffs';
 import Guide from './Guide';
 
 import SandsOfTime from './modules/abilities/SandsOfTime';
+import BreathOfEons from './modules/abilities/BreathOfEon';
 
 import TimeSkip from './modules/talents/TimeSkip';
 import Accretion from './modules/talents/Accretion';
@@ -16,11 +17,15 @@ import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
 import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStackTracker';
 
 import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
-
-import BreathOfEons from './modules/abilities/BreathOfEon';
+import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Normalizers
+    castLinkNormalizer: CastLinkNormalizer,
+    prescienceNormalizer: PrescienceNormalizer,
+
+    // Core
     abilities: Abilities,
     buffs: Buffs,
 
@@ -37,9 +42,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
-
-    // Normalizers
-    prescienceNormalizer: PrescienceNormalizer,
   };
   static guide = Guide;
 }

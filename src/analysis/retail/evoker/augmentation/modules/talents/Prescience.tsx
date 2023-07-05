@@ -9,7 +9,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ROLES from 'game/ROLES';
 import Combatants from 'parser/shared/modules/Combatants';
-import { getPrescienceBuffTarget } from '../normalizers/PrescienceNormalizer';
+import { getPrescienceBuffTarget } from '../normalizers/CastLinkNormalizer';
 import Combatant from 'parser/core/Combatant';
 
 /**
