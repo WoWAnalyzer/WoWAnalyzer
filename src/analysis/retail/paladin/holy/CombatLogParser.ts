@@ -51,6 +51,7 @@ import ImbuedInfusion from './modules/talents/ImbuedInfusion';
 import HolyPrism from './modules/talents/HolyPrism';
 import ELConsumedBuffs from './modules/talents/EmpyreanLegacy/ConsumedBuffs';
 import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
+import TirionsDevotion from './modules/talents/TirionsDevotion';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -110,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPrism: HolyPrism,
     elConsumedBuffs: ELConsumedBuffs,
     elPossibleBuffs: ELPossibleBuffs,
+    tirionsDevotion: TirionsDevotion,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
