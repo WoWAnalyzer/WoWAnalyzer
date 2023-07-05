@@ -5,7 +5,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import BoringValueText from 'parser/ui/BoringValueText';
-import { SpellIcon } from 'interface';
+import { SpellLink } from 'interface';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration } from 'common/format';
@@ -74,7 +74,7 @@ class TirionsDevotion extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon spell={TALENTS.TIRIONS_DEVOTION_TALENT} /> Total CDR
+              <SpellLink spell={TALENTS.TIRIONS_DEVOTION_TALENT} /> Total CDR
             </>
           }
         >
