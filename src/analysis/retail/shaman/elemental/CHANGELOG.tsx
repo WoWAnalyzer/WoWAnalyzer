@@ -5,7 +5,7 @@ import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic }
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2023, 7, 2), <>Update for Patch 10.1</>, Periodic),
+  change(date(2023, 7, 2), <>Update for Patch 10.1.  Revamped guide page.  Support for lightning builds.</>, Periodic),
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
   change(date(2022, 8, 15), <>Track haste gained from <SpellLink id={SPELLS.ELEMENTAL_BLAST.id} />.</>, Vetyst),
   change(date(2022, 3, 4), <>Fixed issue with <SpellLink id={TALENTS.FIRE_ELEMENTAL_TALENT.id} /> on the checklist when <SpellLink id={TALENTS.STORM_ELEMENTAL_TALENT.id} /> is selected.</>, emallson),
