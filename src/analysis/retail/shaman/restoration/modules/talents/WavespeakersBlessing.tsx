@@ -62,7 +62,7 @@ class WavespeakersBlessing extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={talents.WAVESPEAKERS_BLESSING_TALENT.id} />}
+        title={<SpellLink spell={talents.WAVESPEAKERS_BLESSING_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
@@ -79,20 +79,20 @@ class WavespeakersBlessing extends Analyzer {
             <ul>
               <li>
                 {formatNumber(this.healingFromHardcast)} from hardcast{' '}
-                <SpellLink id={talents.RIPTIDE_TALENT} />
+                <SpellLink spell={talents.RIPTIDE_TALENT} />
               </li>
               {this.pwaveActive && (
                 <li>
                   {formatNumber(this.healingFromPWaveRiptide)} from{' '}
-                  <SpellLink id={talents.PRIMORDIAL_WAVE_TALENT} />{' '}
-                  <SpellLink id={talents.RIPTIDE_TALENT} />
+                  <SpellLink spell={talents.PRIMORDIAL_WAVE_TALENT} />{' '}
+                  <SpellLink spell={talents.RIPTIDE_TALENT} />
                 </li>
               )}
               {this.ptcActive && (
                 <li>
                   {formatNumber(this.healingFromPTCRiptide)} from{' '}
-                  <SpellLink id={talents.PRIMAL_TIDE_CORE_TALENT} />{' '}
-                  <SpellLink id={talents.RIPTIDE_TALENT} />
+                  <SpellLink spell={talents.PRIMAL_TIDE_CORE_TALENT} />{' '}
+                  <SpellLink spell={talents.RIPTIDE_TALENT} />
                 </li>
               )}
             </ul>

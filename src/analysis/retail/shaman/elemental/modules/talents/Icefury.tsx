@@ -48,18 +48,18 @@ class Icefury extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          You should fully utilize your <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> casts by
-          casting 4 <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} />s before the{' '}
-          <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> buff expires. Pay attention to the remaining
+          You should fully utilize your <SpellLink spell={TALENTS.ICEFURY_TALENT} /> casts by
+          casting 4 <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} />s before the{' '}
+          <SpellLink spell={TALENTS.ICEFURY_TALENT} /> buff expires. Pay attention to the remaining
           duration of the buff to ensure you have time to use all of the stacks.
         </>,
       )
         .icon(TALENTS.ICEFURY_TALENT.icon)
         .actual(
           <>
-            On average, only {actual.toFixed(2)} <SpellLink id={TALENTS.ICEFURY_TALENT.id} />
-            (s) stacks were consumed with <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} /> casts
-            before <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> buff expired.
+            On average, only {actual.toFixed(2)} <SpellLink spell={TALENTS.ICEFURY_TALENT} />
+            (s) stacks were consumed with <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> casts
+            before <SpellLink spell={TALENTS.ICEFURY_TALENT} /> buff expired.
           </>,
         )
         .recommended("It's recommended to always consume all 4 stacks."),

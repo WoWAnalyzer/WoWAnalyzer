@@ -145,7 +145,7 @@ class AncestralProtectionTotem extends Analyzer {
                     </th>
                     <td className={specClassName}>{combatant.name}</td>
                     <td style={{ textAlign: 'center' }}>
-                      <SpellLink id={event.ability.guid} icon={false}>
+                      <SpellLink spell={event.ability.guid} icon={false}>
                         <Icon icon={event.ability.abilityIcon} />{' '}
                         {this.spellToText(event.ability.guid)}
                       </SpellLink>

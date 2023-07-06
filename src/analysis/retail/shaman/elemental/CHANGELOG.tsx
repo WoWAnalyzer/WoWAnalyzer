@@ -6,8 +6,8 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
-  change(date(2022, 8, 15), <>Track haste gained from <SpellLink id={SPELLS.ELEMENTAL_BLAST.id} />.</>, Vetyst),
-  change(date(2022, 3, 4), <>Fixed issue with <SpellLink id={TALENTS.FIRE_ELEMENTAL_TALENT.id} /> on the checklist when <SpellLink id={TALENTS.STORM_ELEMENTAL_TALENT.id} /> is selected.</>, emallson),
+  change(date(2022, 8, 15), <>Track haste gained from <SpellLink spell={SPELLS.ELEMENTAL_BLAST} />.</>, Vetyst),
+  change(date(2022, 3, 4), <>Fixed issue with <SpellLink spell={TALENTS.FIRE_ELEMENTAL_TALENT} /> on the checklist when <SpellLink spell={TALENTS.STORM_ELEMENTAL_TALENT} /> is selected.</>, emallson),
   change(date(2021, 6, 29), <>Bumped to 9.1, moved from partial.</>, Zea),
   change(date(2021, 6, 14), <>Added additional LIGHTNING_SHIELD_ELEMENTAL spellid. Fixed Stormkeeper damage calculation.</>, Zea),
   change(date(2021, 6, 11), <>Bumped version to 9.0.5, left as partial support. Also added spellID for elemental blast.</>, Zea),

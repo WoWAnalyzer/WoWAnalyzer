@@ -23,7 +23,7 @@ const maxStacksMSW = buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 10, atM
 
 export const apl = (info: PlayerInfo): Apl => {
   const combatant = info.combatant;
-  const rules: Rule[] = [TALENTS.FERAL_SPIRIT_TALENT];
+  const rules: Rule[] = [];
 
   if (combatant.hasTalent(TALENTS.LASHING_FLAMES_TALENT)) {
     rules.push({
@@ -74,21 +74,27 @@ export const apl = (info: PlayerInfo): Apl => {
     });
   }
 
-  rules.push(
-    {
-      spell: SPELLS.LIGHTNING_BOLT,
-      condition: combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT)
-        ? atLeastFiveMSW
-        : maxStacksMSW,
-    },
-    {
+  rules.push({
+    spell: SPELLS.LIGHTNING_BOLT,
+    condition: combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT)
+      ? atLeastFiveMSW
+      : maxStacksMSW,
+  });
+
+  if (combatant.hasTalent(TALENTS.ICE_STRIKE_TALENT)) {
+    rules.push({
       spell: TALENTS.ICE_STRIKE_TALENT,
       condition: buffPresent(TALENTS.DOOM_WINDS_TALENT),
-    },
-    {
+    });
+  }
+  if (combatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT)) {
+    rules.push({
       spell: TALENTS.CRASH_LIGHTNING_TALENT,
       condition: buffPresent(TALENTS.DOOM_WINDS_TALENT),
-    },
+    });
+  }
+
+  rules.push(
     {
       spell: SPELLS.FLAME_SHOCK,
       condition: debuffMissing(SPELLS.FLAME_SHOCK),

@@ -84,8 +84,8 @@ class TidalWaves extends Analyzer {
       .addSuggestion((suggest) =>
         suggest(
           <Trans id="shaman.restoration.suggestions.tidalWaves.label">
-            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> buffed{' '}
-            <SpellLink id={TALENTS.HEALING_WAVE_TALENT.id} /> can make for some very efficient
+            <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} /> buffed{' '}
+            <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> can make for some very efficient
             healing, consider casting more of them if you are running into mana issues (
             {formatPercentage(suggestedThresholds.actual)}% unused Tidal Waves).
           </Trans>,
