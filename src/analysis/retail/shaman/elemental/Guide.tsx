@@ -7,8 +7,8 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { SpellLink } from 'interface';
 import BoringResourceValue from 'parser/ui/BoringResourceValue';
 import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
-import { GUIDE_EXPLANATION_PERCENT_WIDTH } from '../shared/constants';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH } from './constants';
 
 /** The guide for Elemental Shamans. */
 export default function Guide(props: GuideProps<typeof CombatLogParser>) {

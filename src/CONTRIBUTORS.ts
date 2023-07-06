@@ -2225,6 +2225,7 @@ export const Meldris: Contributor = {
 };
 
 export const Periodic: Contributor = {
-  nickname: 'Iron',
+  nickname: 'Periodic',
   github: 'Periodic',
+  discord: 'periodic',
 };

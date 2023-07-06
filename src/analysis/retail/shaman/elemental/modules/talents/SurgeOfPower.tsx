@@ -13,7 +13,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { CastPerformanceBox, CastPerformanceEntry } from '../elements/CastPerformanceBox';
-import { GUIDE_EXPLANATION_PERCENT_WIDTH } from 'analysis/retail/shaman/shared/constants';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -24,8 +24,6 @@ const SURGE_OF_POWER = {
     TALENTS.CHAIN_LIGHTNING_TALENT,
   ],
 };
-
-const buffRemovalGracePeriodMs = 100;
 
 class SurgeOfPower extends Analyzer {
   sopBuffedAbilities: { [key: number]: number } = {};
@@ -82,7 +80,7 @@ class SurgeOfPower extends Analyzer {
       this.selectedCombatant.hasBuff(
         TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
         event.timestamp,
-        buffRemovalGracePeriodMs,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
       ) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
@@ -93,7 +91,7 @@ class SurgeOfPower extends Analyzer {
       !this.selectedCombatant.hasBuff(
         SPELLS.SURGE_OF_POWER_BUFF.id,
         event.timestamp,
-        buffRemovalGracePeriodMs,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
       )
     ) {
       return;
@@ -108,7 +106,7 @@ class SurgeOfPower extends Analyzer {
       this.selectedCombatant.hasBuff(
         TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
         event.timestamp,
-        buffRemovalGracePeriodMs,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
       ) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
@@ -132,7 +130,7 @@ class SurgeOfPower extends Analyzer {
         this.selectedCombatant.hasBuff(
           TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
           event.timestamp,
-          buffRemovalGracePeriodMs,
+          ON_CAST_BUFF_REMOVAL_GRACE_MS,
         )
       ) {
         this.castEntries.push({

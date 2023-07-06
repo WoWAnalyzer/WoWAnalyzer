@@ -13,7 +13,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { CastPerformanceBox, CastPerformanceEntry } from '../elements/CastPerformanceBox';
-import { GUIDE_EXPLANATION_PERCENT_WIDTH } from 'analysis/retail/shaman/shared/constants';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH } from '../../constants';
 
 const ElectrifiedShocksIncrease = 0.15;
 

@@ -4,7 +4,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { DamageEvent, ApplyDebuffEvent, RemoveDebuffEvent } from 'parser/core/Events';
+import { DamageEvent } from 'parser/core/Events';
 import Events from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import EarlyDotRefreshesAnalyzer from 'parser/shared/modules/earlydotrefreshes/EarlyDotRefreshes';
@@ -15,11 +15,10 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { Uptime } from 'parser/ui/UptimeBar';
 import UptimeStackBar, { StackUptime } from 'parser/ui/UptimeStackBar';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { GUIDE_EXPLANATION_PERCENT_WIDTH } from '../constants';
 import { TrackedBuffEvent } from 'parser/core/Entity';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH } from '../../elemental/constants';
 
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
@@ -42,7 +41,6 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
   badLavaBursts = 0;
 
   startTime = 0;
-  uptimeHistory: Uptime[] = [];
 
   get uptime() {
     return this.enemies.getBuffUptime(SPELLS.FLAME_SHOCK.id) / this.owner.fightDuration;
@@ -81,14 +79,6 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.LAVA_BURST_TALENT),
       this.onLavaBurst,
     );
-    this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.FLAME_SHOCK),
-      this.onFlameShockApplied,
-    );
-    this.addEventListener(
-      Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.FLAME_SHOCK),
-      this.onFlameShockRemoved,
-    );
   }
 
   onLavaBurst(event: DamageEvent) {
@@ -96,17 +86,6 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     if (target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)) {
       this.badLavaBursts += 1;
     }
-  }
-
-  onFlameShockApplied(event: ApplyDebuffEvent) {
-    this.startTime = event.timestamp;
-  }
-
-  onFlameShockRemoved(event: RemoveDebuffEvent) {
-    this.uptimeHistory.push({
-      start: this.startTime,
-      end: event.timestamp,
-    });
   }
 
   suggestions(when: When) {
@@ -152,6 +131,10 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     badRefreshSuggestion(when, this.refreshThreshold);
   }
 
+  /**
+   * Gets the debuff history with number of affected targets (stacks).
+   * `getDebuffHistory` doesn't handle the target count.
+   */
   getDebuffHistory(): { maxStacks: number; history: StackUptime[] } {
     type TempBuffInfo = {
       timestamp: number;

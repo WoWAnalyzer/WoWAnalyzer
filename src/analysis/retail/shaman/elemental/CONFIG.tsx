@@ -51,9 +51,8 @@ export default {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  // TODO: update
   exampleReport:
-    '/report/YgrNJWQpCwh4XBfj/5-Normal+The+Primal+Council+-+Kill+(4:15)/Blitzlimo/standard',
+    'http://localhost:3000/report/L1R2zVKY8ZDxCTNb/15-Mythic+Scalecommander+Sarkareth+-+Kill+(7:21)/Nerdshockz/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
