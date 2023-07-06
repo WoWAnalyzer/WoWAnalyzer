@@ -177,7 +177,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ASTRAL_SHIFT_TALENT.id,
         buffSpellId: TALENTS.ASTRAL_SHIFT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ASTRAL_SHIFT_TALENT),
-        cooldown: 90,
+        cooldown: combatant.hasTalent(TALENTS.PLANES_TRAVELER_TALENT) ? 90 : 120,
         category: SPELL_CATEGORY.DEFENSIVE,
       },
       {
@@ -203,6 +203,40 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 12,
         gcd: null,
+      },
+      {
+        spell: TALENTS.NATURES_SWIFTNESS_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS.NATURES_SWIFTNESS_TALENT),
+        cooldown: 60,
+        gcd: null,
+      },
+      {
+        spell: TALENTS.GUST_OF_WIND_TALENT.id,
+        category: SPELL_CATEGORY.OTHERS,
+        enabled: combatant.hasTalent(TALENTS.GUST_OF_WIND_TALENT),
+      },
+      {
+        spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_GUIDANCE_TALENT),
+        cooldown: 120,
+      },
+      {
+        spell: TALENTS.EARTH_ELEMENTAL_TALENT.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        enabled: combatant.hasTalent(TALENTS.EARTH_ELEMENTAL_TALENT),
+        cooldown: 300,
+      },
+      {
+        spell: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+        category: SPELL_CATEGORY.OTHERS,
+        enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
+        cooldown: combatant.hasTalent(TALENTS.GRACEFUL_SPIRIT_TALENT) ? 90 : 120,
+      },
+      {
+        spell: SPELLS.GHOST_WOLF.id,
+        category: SPELL_CATEGORY.OTHERS,
       },
       {
         spell: SPELLS.BLOODLUST.id,

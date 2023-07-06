@@ -1,23 +1,44 @@
 import SPELLS from 'common/SPELLS';
-import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { CastPerformanceBox, CastPerformanceEntry } from '../elements/CastPerformanceBox';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH } from 'analysis/retail/shaman/shared/constants';
 
 const ElectrifiedShocksIncrease = 0.15;
 
-type Stats = {
-  spell: Spell;
-  damageGained: number;
-  casts: number;
-  buffedCasts: number;
+const electrifiedShocks = {
+  increase: 0.15,
+  affectedCasts: [
+    SPELLS.LIGHTNING_BOLT,
+    TALENTS.CHAIN_LIGHTNING_TALENT,
+    TALENTS.ELEMENTAL_BLAST_TALENT,
+    TALENTS.EARTHQUAKE_TALENT,
+  ],
+  affectedDamage: [
+    SPELLS.LIGHTNING_BOLT,
+    SPELLS.LIGHTNING_BOLT_INSTANT,
+    SPELLS.LIGHTNING_BOLT_OVERLOAD,
+    SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT,
+    TALENTS.CHAIN_LIGHTNING_TALENT,
+    SPELLS.CHAIN_LIGHTNING_INSTANT,
+    SPELLS.CHAIN_LIGHTNING_OVERLOAD,
+    SPELLS.CHAIN_LIGHTNING_OVERLOAD_UNLIMITED_RANGE,
+    TALENTS.ELEMENTAL_BLAST_TALENT,
+    SPELLS.ELEMENTAL_BLAST_OVERLOAD,
+    TALENTS.EARTHQUAKE_TALENT,
+    SPELLS.EARTHQUAKE_DAMAGE,
+  ],
 };
 
 class ElectrifiedShocks extends Analyzer {
@@ -27,21 +48,9 @@ class ElectrifiedShocks extends Analyzer {
 
   protected enemies!: Enemies;
 
-  private casts = {
-    damageGained: 0,
-    lightningBolt: {
-      spell: SPELLS.LIGHTNING_BOLT,
-      damageGained: 0,
-      casts: 0,
-      buffedCasts: 0,
-    },
-    chainLightning: {
-      spell: SPELLS.CHAIN_LIGHTNING_INSTANT,
-      damageGained: 0,
-      casts: 0,
-      buffedCasts: 0,
-    },
-  };
+  damageGained = 0;
+  casts: Record<number, { casts: number; buffedCasts: number }> = {};
+  castEntries: CastPerformanceEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -50,50 +59,83 @@ class ElectrifiedShocks extends Analyzer {
       return;
     }
 
-    [
-      SPELLS.LIGHTNING_BOLT,
-      SPELLS.LIGHTNING_BOLT_INSTANT,
-      SPELLS.LIGHTNING_BOLT_OVERLOAD,
-      SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT,
-    ].forEach((spell) =>
-      this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER).spell(spell),
-        this.onLightningBoltDamage,
-      ),
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(electrifiedShocks.affectedDamage),
+      this.onAffectedDamage,
     );
 
-    [
-      TALENTS.CHAIN_LIGHTNING_TALENT,
-      SPELLS.CHAIN_LIGHTNING_INSTANT,
-      SPELLS.CHAIN_LIGHTNING_OVERLOAD,
-      SPELLS.CHAIN_LIGHTNING_OVERLOAD_UNLIMITED_RANGE,
-    ].forEach((spell) =>
-      this.addEventListener(
-        Events.damage.by(SELECTED_PLAYER).spell(spell),
-        this.onChainLightningDamage,
-      ),
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(electrifiedShocks.affectedCasts),
+      this.onAffectedCast,
     );
   }
 
-  onLightningBoltDamage(event: DamageEvent) {
-    const stats = this.casts.lightningBolt;
-    this.updateStats(event, stats);
+  onAffectedCast(event: DamageEvent) {
+    const spellId = event.ability.guid;
+    if (!this.casts[spellId]) {
+      this.casts[spellId] = { casts: 0, buffedCasts: 0 };
+    }
+    this.casts[spellId].casts += 1;
+    const target = this.enemies.getEntity(event);
+
+    const hasBuff = target && target.hasBuff(TALENTS.ELECTRIFIED_SHOCKS_DEBUFF.id);
+    if (hasBuff) {
+      this.casts[spellId].buffedCasts += 1;
+      this.castEntries.push({
+        value: QualitativePerformance.Good,
+        spellId,
+        timestamp: event.timestamp,
+      });
+    } else {
+      this.castEntries.push({
+        value: QualitativePerformance.Fail,
+        spellId,
+        timestamp: event.timestamp,
+      });
+    }
   }
 
-  onChainLightningDamage(event: DamageEvent) {
-    const stats = this.casts.chainLightning;
-    this.updateStats(event, stats);
-  }
-
-  private updateStats(event: DamageEvent, stats: Stats) {
-    stats.casts += 1;
+  onAffectedDamage(event: DamageEvent) {
     const target = this.enemies.getEntity(event);
     if (target && target.hasBuff(TALENTS.ELECTRIFIED_SHOCKS_DEBUFF.id)) {
-      stats.buffedCasts += 1;
       const damage = calculateEffectiveDamage(event, ElectrifiedShocksIncrease);
-      stats.damageGained += damage;
-      this.casts.damageGained += damage;
+      this.damageGained += damage;
     }
+  }
+
+  guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink id={TALENTS.ELECTRIFIED_SHOCKS_TALENT.id} />
+        </b>{' '}
+        greatly increases the strength of your nature spells such as{' '}
+        <SpellLink id={TALENTS.ELEMENTAL_BLAST_TALENT} />, <SpellLink id={SPELLS.LIGHTNING_BOLT} />,{' '}
+        <SpellLink id={TALENTS.CHAIN_LIGHTNING_TALENT} /> and{' '}
+        <SpellLink id={TALENTS.EARTHQUAKE_TALENT} />. The debuff does not need to be up at all
+        times, but should be up before you cast any of the affected spells. Periods of heavy
+        movement may require that you use your <SpellLink id={TALENTS.FROST_SHOCK_TALENT} /> early
+        to fill casts.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.ELECTRIFIED_SHOCKS_TALENT} /> value
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <CastPerformanceBox
+              entries={this.castEntries}
+              startTime={this.owner.fight.start_time}
+            />
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data, GUIDE_EXPLANATION_PERCENT_WIDTH);
   }
 
   statistic() {
@@ -108,40 +150,19 @@ class ElectrifiedShocks extends Analyzer {
                 <tr>
                   <th>Ability</th>
                   <th>Casts</th>
-                  <th>Buffed</th>
-                  <th>Damage</th>
+                  <th>% Buffed</th>
                 </tr>
               </thead>
               <tbody>
-                <tr key={SPELLS.LIGHTNING_BOLT.id}>
-                  <th>
-                    <SpellLink id={SPELLS.LIGHTNING_BOLT.id} />
-                  </th>
-                  <td>{this.casts.lightningBolt.casts}</td>
-                  <td>
-                    {Math.floor(
-                      (this.casts.lightningBolt.buffedCasts /
-                        (this.casts.lightningBolt.casts || 1)) *
-                        100,
-                    )}
-                    %
-                  </td>
-                </tr>
-                <tr key={TALENTS.CHAIN_LIGHTNING_TALENT.id}>
-                  <th>
-                    <SpellLink id={TALENTS.CHAIN_LIGHTNING_TALENT.id} />
-                  </th>
-                  <td>{this.casts.chainLightning.casts}</td>
-                  {/* TODO: percent formatting? */}
-                  <td>
-                    {Math.floor(
-                      (this.casts.chainLightning.buffedCasts /
-                        (this.casts.chainLightning.casts || 1)) *
-                        100,
-                    )}
-                    %
-                  </td>
-                </tr>
+                {Object.entries(this.casts).map(([guid, stats]) => (
+                  <tr key={guid}>
+                    <th>
+                      <SpellLink id={parseInt(guid, 10)} />
+                    </th>
+                    <td>{stats.casts}</td>
+                    <td>{Math.floor((stats.buffedCasts / (stats.casts || 1)) * 100)}%</td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </>
@@ -149,7 +170,7 @@ class ElectrifiedShocks extends Analyzer {
       >
         <BoringSpellValueText spellId={TALENTS.ELECTRIFIED_SHOCKS_TALENT.id}>
           <>
-            <ItemDamageDone amount={this.casts.damageGained} />
+            <ItemDamageDone amount={this.damageGained} />
           </>
         </BoringSpellValueText>
       </Statistic>

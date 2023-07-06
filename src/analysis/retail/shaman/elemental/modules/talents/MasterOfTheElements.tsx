@@ -2,14 +2,19 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { isTalent } from 'common/TALENTS/types';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { CastPerformanceBox, CastPerformanceEntry } from '../elements/CastPerformanceBox';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH } from 'analysis/retail/shaman/shared/constants';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
@@ -53,6 +58,7 @@ class MasterOfTheElements extends Analyzer {
   moteActivationTimestamp: number | null = null;
   moteConsumptionTimestamp: number | null = null;
   damageGained = 0;
+  castEntries: CastPerformanceEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -94,6 +100,37 @@ class MasterOfTheElements extends Analyzer {
     event.meta = event.meta || {};
     event.meta.isEnhancedCast = true;
     this.moteBuffedAbilities[event.ability.guid] += 1;
+
+    this.addCastEntry(event);
+  }
+
+  addCastEntry(event: CastEvent) {
+    const spellId = event.ability.guid;
+    if (
+      [
+        TALENTS.EARTH_SHOCK_TALENT.id,
+        TALENTS.EARTHQUAKE_TALENT.id,
+        TALENTS.ELEMENTAL_BLAST_TALENT.id,
+      ].includes(spellId)
+    ) {
+      this.castEntries.push({
+        value: QualitativePerformance.Good,
+        spellId,
+        timestamp: event.timestamp,
+      });
+    } else if ([SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id].includes(spellId)) {
+      this.castEntries.push({
+        value: QualitativePerformance.Ok,
+        spellId,
+        timestamp: event.timestamp,
+      });
+    } else {
+      this.castEntries.push({
+        value: QualitativePerformance.Fail,
+        spellId,
+        timestamp: event.timestamp,
+      });
+    }
   }
 
   _onLvBCast(event: CastEvent) {
@@ -124,7 +161,7 @@ class MasterOfTheElements extends Analyzer {
               <thead>
                 <tr>
                   <th>Ability</th>
-                  <th>Number of Buffed Casts</th>
+                  <th>Buffed Casts</th>
                 </tr>
               </thead>
               <tbody>
@@ -148,6 +185,43 @@ class MasterOfTheElements extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  performanceBoxValues() {
+    return Object.entries(this.moteBuffedAbilities)
+      .map(([id, count]) => [parseInt(id, 10), count] as const)
+      .filter(([id, count]) => id !== SPELLS.LIGHTNING_BOLT.id && count > 0);
+  }
+
+  guideSubsection() {
+    // TODO: ST vs AE, what if they don't have EB?
+    const explanation = (
+      <p>
+        All your <SpellLink id={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} /> should be spent on{' '}
+        <SpellLink id={TALENTS.EARTH_SHOCK_TALENT} />,{' '}
+        <SpellLink id={TALENTS.ELEMENTAL_BLAST_TALENT} /> or{' '}
+        <SpellLink id={TALENTS.EARTHQUAKE_TALENT} />
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink id={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id} /> usage
+          </strong>
+          <div className="flex-main chart" style={{ padding: 15 }}>
+            <CastPerformanceBox
+              entries={this.castEntries}
+              startTime={this.owner.fight.start_time}
+            />
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    // TODO: magic number
+    return explanationAndDataSubsection(explanation, data, GUIDE_EXPLANATION_PERCENT_WIDTH);
   }
 }
 

@@ -17,3 +17,5 @@ export const GWTF_SW_SCALING = [0, 7.5, 15];
 
 // Go with the flow - Gust of Wind
 export const GWTF_GOW_SCALING = [0, 5, 10];
+
+export const GUIDE_EXPLANATION_PERCENT_WIDTH = 40;
