@@ -25,6 +25,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 7), 'Add missing encounters to S2 M+.', ToppleTheNun),
   change(date(2023, 7, 7), 'Add patch 10.1.5 details.', ToppleTheNun),
   change(date(2023, 7, 3), 'Fix an issue causing cast efficiency for spells to be artificially inflated', Putro),
   change(date(2023, 6, 30), 'Regenerate talents.', ToppleTheNun),
