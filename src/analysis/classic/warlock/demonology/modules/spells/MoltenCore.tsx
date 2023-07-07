@@ -15,8 +15,6 @@ class MoltenCore extends Analyzer {
   procsExpired: number = 0; // Procs lost to time
   procsOver: number = 0; // Procs lost to overwriting them
 
-  lastProcTime: number = 0;
-  lastCastTime: number = 0;
   currentStacks: number = 0;
 
   constructor(options: Options) {
@@ -103,17 +101,17 @@ class MoltenCore extends Analyzer {
   get guideSubsection(): JSX.Element {
     const usedMC = {
       count: this.procsUsed,
-      label: 'Buffs Used',
+      label: 'Procs Used',
     };
 
     const overMC = {
       count: this.procsOver,
-      label: 'Buffs Overwritten',
+      label: 'Procs Overwritten',
     };
 
     const expiredMC = {
       count: this.procsExpired,
-      label: 'Buffs Expired',
+      label: 'Procs Expired',
     };
 
     const explanation = (
