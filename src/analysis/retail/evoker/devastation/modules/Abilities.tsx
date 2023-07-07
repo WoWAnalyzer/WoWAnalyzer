@@ -37,7 +37,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: combatant.hasTalent(TALENTS.EVENT_HORIZON_TALENT) ? 27 : 30,
         gcd: {
-          base: 500,
+          base: 1500,
         },
         castEfficiency: {
           suggestion: true,
