@@ -5,7 +5,6 @@ import TALENTS from 'common/TALENTS/evoker';
 
 import Events, { CastEvent } from 'parser/core/Events';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
-import { Uptime } from 'parser/ui/UptimeBar';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
@@ -22,17 +21,16 @@ import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
  *
  */
 
-type PossibleExtends = Uptime & {
+interface PossibleExtends {
   event: CastEvent;
   extended: boolean;
-};
+}
 
 class SandsOfTime extends Analyzer {
   private uses: SpellUse[] = [];
-  private uptime: PossibleExtends[] = [];
+  private extendAttempts: PossibleExtends[] = [];
 
   ebonMightActive: boolean = false;
-  ebonMightSpells = [SPELLS.EBON_MIGHT_BUFF_EXTERNAL, SPELLS.EBON_MIGHT_BUFF_PERSONAL];
   trackedSpells = [
     SPELLS.FIRE_BREATH,
     SPELLS.FIRE_BREATH_FONT,
@@ -44,37 +42,35 @@ class SandsOfTime extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(this.ebonMightSpells), () => {
-      this.ebonMightActive = true;
-    });
-    this.addEventListener(Events.removebuff.by(SELECTED_PLAYER).spell(this.ebonMightSpells), () => {
-      this.ebonMightActive = false;
-    });
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      () => {
+        this.ebonMightActive = true;
+      },
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      () => {
+        this.ebonMightActive = false;
+      },
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onCast);
 
     this.addEventListener(Events.fightend, this.finalize);
   }
 
   private onCast(event: CastEvent) {
-    const uptime: PossibleExtends = {
-      start: event.timestamp,
-      end: event.timestamp,
+    const extendAttempts: PossibleExtends = {
       event: event,
       extended: Boolean(this.ebonMightActive),
     };
 
-    this.uptime.push(uptime);
+    this.extendAttempts.push(extendAttempts);
   }
 
   private finalize() {
-    // finalize uptime
-    const uptime = this.uptime.at(-1);
-    if (uptime && uptime.end === uptime.start) {
-      uptime.end = this.owner.fight.end_time;
-    }
-
     // finalize performances
-    this.uses = this.uptime.map(this.sandOfTimeUsage);
+    this.uses = this.extendAttempts.map(this.sandOfTimeUsage);
   }
 
   private sandOfTimeUsage(possibleExtends: PossibleExtends): SpellUse {
@@ -101,8 +97,8 @@ class SandsOfTime extends Analyzer {
 
     const checklistItems: ChecklistUsageInfo[] = [
       {
-        check: 'consumption',
-        timestamp: possibleExtends.start,
+        check: 'possible-extends',
+        timestamp: possibleExtends.event.timestamp,
         performance,
         summary,
         details,
