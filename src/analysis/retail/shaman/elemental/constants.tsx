@@ -8,3 +8,10 @@ export const ELEMENTAL_BLAST_BUFFS: SpellInfo[] = [
 ];
 
 export const CRIT_MULTIPLIER = 2.5;
+
+/**
+ * Grace-period for checking if a buff is applied to the player.  Buffs that are
+ * removed on-cast (SK, MotE, SoP) may get removed before the actual spell cast
+ * is logged.
+ */
+export const ON_CAST_BUFF_REMOVAL_GRACE_MS = 50;

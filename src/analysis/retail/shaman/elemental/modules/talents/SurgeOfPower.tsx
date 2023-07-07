@@ -9,6 +9,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -58,13 +59,23 @@ class SurgeOfPower extends Analyzer {
   _onCast(event: CastEvent) {
     // cast lightning bolt with only SK buff active
     if (
-      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(
+        TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
+        event.timestamp,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
+      ) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
       this.skCasts += 1;
     }
 
-    if (!this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(
+        SPELLS.SURGE_OF_POWER_BUFF.id,
+        event.timestamp,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
+      )
+    ) {
       return;
     }
 
@@ -74,7 +85,11 @@ class SurgeOfPower extends Analyzer {
 
     // cast lightning bolt with SoP and SK buffs active
     if (
-      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(
+        TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
+        event.timestamp,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
+      ) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
       this.skSopCasts += 1;
