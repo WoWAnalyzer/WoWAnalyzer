@@ -46,12 +46,10 @@ class DotUptimes extends Analyzer {
           increases damage done by <SpellLink spell={SPELLS.SHADOW_BOLT} /> and increases spell
           critical strike chance against the target for all casters in the raid.
         </p>
-        <p>
-          <strong>Uptimes</strong>
-          {this.corruptionUptime.subStatistic()}
-          {this.immolateUptime.subStatistic()}
-          {this.shadowMasteryUptime.subStatistic()}
-        </p>
+        <strong>Uptimes</strong>
+        {this.corruptionUptime.subStatistic()}
+        {this.immolateUptime.subStatistic()}
+        {this.shadowMasteryUptime.subStatistic()}
       </>
     );
   }

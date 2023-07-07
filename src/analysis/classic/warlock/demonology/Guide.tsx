@@ -20,7 +20,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <CooldownGraphSubsection />
       </Section>
 
-      <Section title="Procs"></Section>
+      <Section title="Procs">{modules.moltenCore.guideSubsection}</Section>
 
       <PreparationSection expansion={Expansion.WrathOfTheLichKing} />
     </>
