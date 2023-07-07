@@ -33,6 +33,7 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ElectrifiedShocks from './modules/talents/ElectrifiedShocks';
+import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -64,6 +65,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stormkeeper: Stormkeeper,
     ascendance: Ascendance,
     electrifiedShocks: ElectrifiedShocks,
+    manaSpring: ManaSpring,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,

@@ -432,8 +432,8 @@ class UnleashLife extends Analyzer {
   private _tooltip(primary: TooltipData, secondary?: TooltipData) {
     return (
       <>
-        You used <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> on{' '}
-        <SpellLink id={primary.spellId} />{' '}
+        You used <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> on{' '}
+        <SpellLink spell={primary.spellId} />{' '}
         <strong>{this.healingMap[primary.spellId].casts} </strong>time
         {this.healingMap[primary.spellId].casts > 1 ? <>s</> : <></>}
         <hr />
@@ -445,7 +445,7 @@ class UnleashLife extends Analyzer {
           )}
           <li>
             <strong>{formatNumber(primary.amount)} </strong> extra{' '}
-            <SpellLink id={primary.spellId} /> healing
+            <SpellLink spell={primary.spellId} /> healing
           </li>
           {primary && primary.extraHits && (
             <li>
@@ -462,7 +462,7 @@ class UnleashLife extends Analyzer {
           {secondary && secondary.active && (
             <li>
               <strong>{formatNumber(secondary.amount)}</strong> extra{' '}
-              <SpellLink id={secondary.spellId} /> healing
+              <SpellLink spell={secondary.spellId} /> healing
             </li>
           )}
           {secondary && secondary.active && secondary.extraHits && (
@@ -649,16 +649,16 @@ class UnleashLife extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} />
+          <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />
         </b>{' '}
         is a very efficient heal on a short cooldown, however the true power of this spell comes
         from the potent buff it provides that can be consumed by a number of different abilities.
         This spell is best used in preparation for incoming damage to combo with one of your
-        stronger abilities like a <SpellLink id={TALENTS.HIGH_TIDE_TALENT} />
-        -buffed <SpellLink id={TALENTS.CHAIN_HEAL_TALENT} />, a{' '}
+        stronger abilities like a <SpellLink spell={TALENTS.HIGH_TIDE_TALENT} />
+        -buffed <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />, a{' '}
         <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
         -buffed <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />, or{' '}
-        <SpellLink id={TALENTS.HEALING_RAIN_TALENT} />
+        <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} />
       </p>
     );
 
@@ -666,7 +666,7 @@ class UnleashLife extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.guideSubStatistic()} <br />
@@ -702,14 +702,14 @@ class UnleashLife extends Analyzer {
       value = QualitativePerformance.Good;
       tooltip = (
         <>
-          Correct cast: buffed <SpellLink id={spellId} />
+          Correct cast: buffed <SpellLink spell={spellId} />
         </>
       );
     } else if (this.okSpells.includes(spellId)) {
       value = QualitativePerformance.Ok;
       tooltip = (
         <>
-          Ok cast: buffed <SpellLink id={spellId} />
+          Ok cast: buffed <SpellLink spell={spellId} />
         </>
       );
     } else {
@@ -722,7 +722,7 @@ class UnleashLife extends Analyzer {
           ) : (
             <>
               {' '}
-              buffed <SpellLink id={spellId} />
+              buffed <SpellLink spell={spellId} />
             </>
           )}
         </>
@@ -734,7 +734,7 @@ class UnleashLife extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}

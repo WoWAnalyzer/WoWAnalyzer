@@ -15,14 +15,14 @@ const EnhancementShamanChecklist = (props: ChecklistProps & AplRuleProps) => {
         name="Keep your Windfury Totem active"
         description={
           <>
-            You should aim to have 100% uptime on <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} />
+            You should aim to have 100% uptime on <SpellLink spell={SPELLS.WINDFURY_TOTEM_BUFF} />
           </>
         }
       >
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime
+              <SpellLink spell={SPELLS.WINDFURY_TOTEM_BUFF} /> uptime
             </>
           }
           thresholds={thresholds.windfuryTotemUptime}

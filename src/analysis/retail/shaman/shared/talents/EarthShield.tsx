@@ -109,7 +109,7 @@ class EarthShield extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -127,19 +127,19 @@ class EarthShield extends Analyzer {
     const explanation = (
       <>
         <b>
-          <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} />
+          <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} />
         </b>{' '}
         is the only shield shaman can place on allies and provides very strong throughput when
         combined with affecting talents in the class and spec tree.{' '}
-        <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> should be applied prior to the
+        <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> should be applied prior to the
         fight starting and maintained as it falls off throughout the encounter
         <br />
         {hasElementalOrbit && (
           <>
             <b>
-              <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} />
+              <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT} />
             </b>{' '}
-            allows you to place <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> on yourself
+            allows you to place <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> on yourself
             as well as an ally, and you should aim to maintain high uptime on both
             <br />
           </>
@@ -147,14 +147,14 @@ class EarthShield extends Analyzer {
         {hasEarthenHarmony && (
           <>
             <b>
-              <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} />
+              <SpellLink spell={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT} />
             </b>{' '}
-            augments <SpellLink id={TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id} /> even further by
+            augments <SpellLink spell={TALENTS_SHAMAN.EARTH_SHIELD_TALENT} /> even further by
             providing damage reduction
             <br />(
             <b>
               {formatNumber(this.earthenHarmony.totalDamageReduction)} was mitigated from{' '}
-              <SpellLink id={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT.id} />
+              <SpellLink spell={TALENTS_SHAMAN.EARTHEN_HARMONY_TALENT} />
             </b>
             )
           </>

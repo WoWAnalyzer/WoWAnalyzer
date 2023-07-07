@@ -197,7 +197,7 @@ class PrimordialWave extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -215,22 +215,22 @@ class PrimordialWave extends Analyzer {
           <>
             <ul>
               <li>
-                Average Riptides Per <SpellLink id={TALENTS.HEALING_WAVE_TALENT} />:{' '}
+                Average Riptides Per <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />:{' '}
                 {this.averageHealingWaveTargets.toFixed(2)}
               </li>
               <li>
                 {formatThousands(this.waveHealing)} healing via{' '}
-                <SpellLink id={TALENTS.HEALING_WAVE_TALENT} /> cleave,{' '}
+                <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> cleave,{' '}
                 {this.healingWaveOverhealingPercent}% Overheal
               </li>
               <li>
                 {formatThousands(this.healing)} healing via{' '}
-                <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />, {this.pwaveOverhealingPercent}
+                <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />, {this.pwaveOverhealingPercent}
                 % Overheal
               </li>
               <li>
                 {formatThousands(this.riptideHealing)} healing via{' '}
-                <SpellLink id={TALENTS.RIPTIDE_TALENT} />, {this.riptideOverhealingPercent}%
+                <SpellLink spell={TALENTS.RIPTIDE_TALENT} />, {this.riptideOverhealingPercent}%
                 Overheal
               </li>
             </ul>
@@ -243,9 +243,9 @@ class PrimordialWave extends Analyzer {
           <TooltipElement
             content={
               <>
-                The number of <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT} /> buffs that expired
-                without casting <SpellLink id={TALENTS.HEALING_WAVE_TALENT} /> ({this.wastedBuffs}{' '}
-                wasted of {this.buffCount} total)
+                The number of <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> buffs that
+                expired without casting <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> (
+                {this.wastedBuffs} wasted of {this.buffCount} total)
               </>
             }
           >
@@ -269,16 +269,16 @@ class PrimordialWave extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />
+          <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
         </b>{' '}
         is a powerful ability that heals an ally, applies a{' '}
-        <SpellLink id={TALENTS.RIPTIDE_TALENT} />, and makes your next{' '}
-        <SpellLink id={TALENTS.HEALING_WAVE_TALENT} /> cleave all allies with an active{' '}
-        <SpellLink id={TALENTS.RIPTIDE_TALENT} /> HoT. This cleave effect can be combined with
-        spells that increase the healing of <SpellLink id={TALENTS.HEALING_WAVE_TALENT} />, like{' '}
-        <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} /> and{' '}
-        <SpellLink id={ITEMS.T30_SWELLING_RAIN_BUFF} />, and turn that single target bonus into an
-        extremely potent group heal
+        <SpellLink spell={TALENTS.RIPTIDE_TALENT} />, and makes your next{' '}
+        <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> cleave all allies with an active{' '}
+        <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> HoT. This cleave effect can be combined with
+        spells that increase the healing of <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />, like{' '}
+        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> and{' '}
+        <SpellLink spell={ITEMS.T30_SWELLING_RAIN_BUFF} />, and turn that single target bonus into
+        an extremely potent group heal
       </p>
     );
 
@@ -286,7 +286,7 @@ class PrimordialWave extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.guideSubStatistic()}

@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/shaman';
@@ -31,17 +30,6 @@ export const MERGE_SPELLS = [
     SpellIds: [SPELLS.WINDSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id],
     NewSpell: SPELLS.WINDSTRIKE_CAST.id,
   },
-];
-
-/** Ignore damage events from items and enchants for the
- * purposes of damage amp effects */
-export const IGNORED_DAMAGE_EVENTS = [
-  ITEMS.FANG_ADORNMENTS.id,
-  ITEMS.ROILING_SHADOWFLAME.id,
-  ITEMS.BROODKEEPERS_BLAZE.id,
-  ITEMS.ELEMENTIUM_POCKET_ANVIL_ANVIL_STRIKE,
-  ITEMS.ELEMENTIUM_POCKET_ECHOED_FLARE,
-  ITEMS.MANIC_GRIEFTORCH,
 ];
 
 export const MAELSTROM_WEAPON_ELIGIBLE_SPELLS: Spell[] = [

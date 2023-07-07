@@ -8,13 +8,13 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { CastPerformanceBox, CastPerformanceEntry } from '../elements/CastPerformanceBox';
 import { GUIDE_EXPLANATION_PERCENT_WIDTH } from '../../constants';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
@@ -168,7 +168,7 @@ class MasterOfTheElements extends Analyzer {
                 {Object.keys(this.moteBuffedAbilities).map((e) => (
                   <tr key={e}>
                     <th>
-                      <SpellLink id={Number(e)} />
+                      <SpellLink spell={Number(e)} />
                     </th>
                     <td>{this.moteBuffedAbilities[Number(e)]}</td>
                   </tr>
@@ -178,11 +178,11 @@ class MasterOfTheElements extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id}>
+        <TalentSpellText talent={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

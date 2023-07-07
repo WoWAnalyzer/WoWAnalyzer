@@ -173,7 +173,7 @@ class SurgeOfPower extends Analyzer {
             {Object.keys(this.sopBuffedAbilities).map((e) => (
               <tr key={e}>
                 <th>
-                  <SpellLink id={Number(e)} />
+                  <SpellLink spell={Number(e)} />
                 </th>
                 <td>{this.sopBuffedAbilities[Number(e)]}</td>
               </tr>

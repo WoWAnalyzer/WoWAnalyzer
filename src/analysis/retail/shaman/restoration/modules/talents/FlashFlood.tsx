@@ -208,7 +208,7 @@ class FlashFlood extends Analyzer {
         <div className="pad">
           <label>
             <Trans id="shaman.restoration.flashFlood.statistic.label">
-              <SpellLink id={TALENTS.FLASH_FLOOD_TALENT.id} /> usage
+              <SpellLink spell={TALENTS.FLASH_FLOOD_TALENT} /> usage
             </Trans>
           </label>
           <div className="flex">

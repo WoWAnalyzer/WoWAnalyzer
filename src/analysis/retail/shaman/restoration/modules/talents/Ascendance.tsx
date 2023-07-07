@@ -35,7 +35,7 @@ class Ascendance extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.ASCENDANCE_RESTORATION_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.ASCENDANCE_RESTORATION_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

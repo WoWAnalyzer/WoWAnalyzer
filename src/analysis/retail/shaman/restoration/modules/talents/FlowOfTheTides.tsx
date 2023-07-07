@@ -157,7 +157,7 @@ class FlowOfTheTides extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={talents.FLOW_OF_THE_TIDES_TALENT.id} />}
+        title={<SpellLink spell={talents.FLOW_OF_THE_TIDES_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
