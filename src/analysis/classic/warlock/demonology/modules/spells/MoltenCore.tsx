@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import SPELLS from 'common/SPELLS/classic/warlock';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -79,17 +78,13 @@ class MoltenCore extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You lost {this.procsWasted} casts of <SpellLink spell={SPELLS.INCINERATE} />
+          You lost {this.procsWasted} buffed casts of <SpellLink spell={SPELLS.INCINERATE} /> or{' '}
+          <SpellLink spell={SPELLS.SOUL_FIRE} />
         </>,
       )
         .icon(SPELLS.MOLTEN_CORE_BUFF.icon)
-        .actual(
-          t({
-            id: 'priest.shadow.suggestions.mindSpikeInsanity.castLost',
-            message: `Lost ${this.procsWasted} casts of Mind Spike: Insanity.`,
-          }),
-        )
-        .recommended('No lost casts is recommended.'),
+        .actual(`${this.procsWasted} Molten Core buff procs wasted.`)
+        .recommended('No lost procs is recommended.'),
     );
   }
 
