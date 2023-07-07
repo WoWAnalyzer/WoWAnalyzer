@@ -10,6 +10,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -98,25 +99,33 @@ class SurgeOfPower extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Ability</th>
-              <th>Number of Buffed Casts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.keys(this.sopBuffedAbilities).map((e) => (
-              <tr key={e}>
-                <th>
-                  <SpellLink id={Number(e)} />
-                </th>
-                <td>{this.sopBuffedAbilities[Number(e)]}</td>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
+        dropdown={
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Ability</th>
+                <th>Number of Buffed Casts</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {Object.keys(this.sopBuffedAbilities).map((e) => (
+                <tr key={e}>
+                  <th>
+                    <SpellLink id={Number(e)} />
+                  </th>
+                  <td>{this.sopBuffedAbilities[Number(e)]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        }
+      >
+        <BoringSpellValueText spellId={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id}>
+          {Object.values(this.sopBuffedAbilities).reduce((a, b) => a + b)} buffs consumed
+        </BoringSpellValueText>
       </Statistic>
     );
   }
