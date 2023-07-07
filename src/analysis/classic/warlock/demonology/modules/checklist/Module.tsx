@@ -12,6 +12,7 @@ import CurseOfAgony from '../spells/CurseOfAgony';
 import CurseOfDoom from '../spells/CurseOfDoom';
 import CurseOfTheElements from '../spells/CurseOfTheElements';
 import Immolate from '../spells/Immolate';
+import MoltenCore from '../spells/MoltenCore';
 import ShadowMastery from '../spells/ShadowMastery';
 
 import Component from './Component';
@@ -32,6 +33,7 @@ class Checklist extends BaseChecklist {
     curseOfDoom: CurseOfDoom,
     curseOfTheElements: CurseOfTheElements,
     immolate: Immolate,
+    moltenCore: MoltenCore,
     shadowMastery: ShadowMastery,
   };
   protected castEfficiency!: CastEfficiency;
@@ -43,6 +45,7 @@ class Checklist extends BaseChecklist {
   protected curseOfDoom!: CurseOfDoom;
   protected curseOfTheElements!: CurseOfTheElements;
   protected immolate!: Immolate;
+  protected moltenCore!: MoltenCore;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected shadowMastery!: ShadowMastery;
 
@@ -59,6 +62,7 @@ class Checklist extends BaseChecklist {
           curseOfTheElements: this.curseOfTheElements.suggestionThresholds,
           curseUptime: this.curseUptime.suggestionThresholds,
           immolate: this.immolate.suggestionThresholds,
+          moltenCore: this.moltenCore.suggestionThresholds,
           shadowMastery: this.shadowMastery.suggestionThresholds,
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
         }}
