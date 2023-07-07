@@ -31,11 +31,11 @@ class ResonatingSphere extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} />
         </b>{' '}
         is a powerful AoE projectile that shields all allies it passes through. When not playing an{' '}
         <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> focused build, you should aim to cast it at
-        least once every 20 seconds to spread <SpellLink id={TALENTS_EVOKER.ECHO_TALENT} />.
+        least once every 20 seconds to spread <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />.
       </p>
     );
 
@@ -43,7 +43,7 @@ class ResonatingSphere extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -98,7 +98,7 @@ class ResonatingSphere extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_EVOKER.ECHO_TALENT} /> healing breakdown by type
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> healing breakdown by type
           </label>
           {this.renderDonutChart()}
         </div>

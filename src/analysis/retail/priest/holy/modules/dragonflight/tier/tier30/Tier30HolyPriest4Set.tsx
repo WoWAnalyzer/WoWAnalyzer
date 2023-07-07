@@ -132,7 +132,7 @@ class HolyPriestAbberus4Set extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spellId={SPELLS.HOLY_PRIEST_TIER_30_4_SET_BUFF.id}>
+          <BoringSpellValueText spell={SPELLS.HOLY_PRIEST_TIER_30_4_SET_BUFF}>
             <ItemHealingDone amount={this.healing} />
             {this.damage > 0 && <ItemDamageDone amount={this.damage} />}
           </BoringSpellValueText>

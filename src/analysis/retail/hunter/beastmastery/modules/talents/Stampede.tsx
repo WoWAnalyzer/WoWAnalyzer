@@ -93,11 +93,11 @@ class Stampede extends Analyzer {
     when(this.stampedeInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.STAMPEDE_TALENT.id} /> inefficiently {actual}{' '}
+          You cast <SpellLink spell={TALENTS.STAMPEDE_TALENT} /> inefficiently {actual}{' '}
           {actual > 1 ? 'times' : 'time'} throughout the fight. This means you've placed{' '}
-          <SpellLink id={TALENTS.STAMPEDE_TALENT.id} /> at a place where it was impossible for it to
+          <SpellLink spell={TALENTS.STAMPEDE_TALENT} /> at a place where it was impossible for it to
           deal it's full damage, or the enemy moved out of it. Avoid using{' '}
-          <SpellLink id={TALENTS.STAMPEDE_TALENT.id} /> on moments where it's likely the enemy will
+          <SpellLink spell={TALENTS.STAMPEDE_TALENT} /> on moments where it's likely the enemy will
           be moving out of it.
         </>,
       )
@@ -156,7 +156,7 @@ class Stampede extends Analyzer {
             </>
           }
         >
-          <BoringSpellValueText spellId={TALENTS.STAMPEDE_TALENT.id}>
+          <BoringSpellValueText spell={TALENTS.STAMPEDE_TALENT}>
             <>
               <ItemDamageDone amount={this.damage} />
               <br />

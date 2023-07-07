@@ -241,7 +241,7 @@ class MasteryEffectiveness extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.MASTERY_LIFEBINDER.id} />
+            <SpellLink spell={SPELLS.MASTERY_LIFEBINDER} />
           </label>
           <div className="value">
             {formatPercentage(this.percentOfHealingAffectedByMastery)}%

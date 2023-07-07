@@ -69,7 +69,7 @@ class AtonementHealingDone extends Analyzer {
         explanation={
           <>
             This shows a breakdown of the damage that caused{' '}
-            <SpellLink id={SPELLS.ATONEMENT_BUFF.id} /> healing.
+            <SpellLink spell={SPELLS.ATONEMENT_BUFF} /> healing.
           </>
         }
         position={90}

@@ -77,7 +77,7 @@ class ElementalOrbit extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_ORBIT_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.healing + this.buffHealing),
         )} %`}

@@ -25,7 +25,7 @@ class Tier28FourSet extends Analyzer {
       suggest(
         <>
           It is strongly adviced to select the{' '}
-          <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.id} /> talent while wearing the T28
+          <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT} /> talent while wearing the T28
           tier 4 piece set.
         </>,
       )

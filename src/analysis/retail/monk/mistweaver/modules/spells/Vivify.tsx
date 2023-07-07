@@ -164,16 +164,16 @@ class Vivify extends Analyzer {
     };
     const explanation = (
       <p>
-        <SpellLink id={SPELLS.VIVIFY} /> quickly becomes your best healing spell when you have high
-        counts of <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid via{' '}
-        <SpellLink id={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />, and will be a major portion of
-        your healing when used correctly. <SpellLink id={SPELLS.VIVIFY} />
+        <SpellLink spell={SPELLS.VIVIFY} /> quickly becomes your best healing spell when you have
+        high counts of <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid via{' '}
+        <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />, and will be a major portion of
+        your healing when used correctly. <SpellLink spell={SPELLS.VIVIFY} />
         's effectiveness goes hand in hand with your{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> count - the more you have out at a
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> count - the more you have out at a
         given time, the more healing and better mana efficiency this spell has. This further
         emphasizes the importance of casting your rotational abilities in{' '}
-        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> as often as possible.
+        <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> as often as possible.
       </p>
     );
     const data = (
@@ -181,12 +181,12 @@ class Vivify extends Analyzer {
         <RoundedPanel>
           <div>
             <strong>
-              <SpellLink id={SPELLS.VIVIFY} /> casts
+              <SpellLink spell={SPELLS.VIVIFY} /> casts
             </strong>{' '}
             <small>
               {' '}
               - Blue is a perfect cast with 10 or more{' '}
-              <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out, Green is a good cast
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out, Green is a good cast
               with 8 or more, Yellow is an ok cast at or above your expected average, and Red is a
               bad cast at low renewing mist count. Mouseover to see the count for each cast.
             </small>
@@ -194,11 +194,11 @@ class Vivify extends Analyzer {
           </div>
           <div style={styleObj}>
             <small style={styleObjInner}>
-              <SpellLink id={TALENTS_MONK.INVIGORATING_MISTS_TALENT} /> -{' '}
+              <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} /> -{' '}
             </small>
             <strong>{this.averageRemPerVivify.toFixed(1)}</strong>{' '}
             <small>
-              average cleaves per <SpellLink id={SPELLS.VIVIFY} />
+              average cleaves per <SpellLink spell={SPELLS.VIVIFY} />
             </small>
           </div>
         </RoundedPanel>
@@ -212,10 +212,10 @@ class Vivify extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are casting <SpellLink id={SPELLS.VIVIFY.id} /> with low counts of{' '}
-          <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> out on the raid. To ensure you are
-          gaining the maximum <SpellLink id={SPELLS.VIVIFY.id} /> healing, keep{' '}
-          <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> on cooldown.
+          You are casting <SpellLink spell={SPELLS.VIVIFY} /> with low counts of{' '}
+          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> out on the raid. To ensure you are
+          gaining the maximum <SpellLink spell={SPELLS.VIVIFY} /> healing, keep{' '}
+          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> on cooldown.
         </>,
       )
         .icon(SPELLS.VIVIFY.icon)
@@ -240,12 +240,12 @@ class Vivify extends Analyzer {
             <ul>
               <li>
                 {formatNumber(this.mainTargetHealing + this.cleaveHealing)} overall healing from
-                <SpellLink id={SPELLS.VIVIFY.id} />.
+                <SpellLink spell={SPELLS.VIVIFY} />.
               </li>
               <li>
                 {formatNumber(this.cleaveHealing)} portion of your{' '}
-                <SpellLink id={SPELLS.VIVIFY.id} /> healing to{' '}
-                <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> targets.
+                <SpellLink spell={SPELLS.VIVIFY} /> healing to{' '}
+                <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> targets.
               </li>
             </ul>
           </>
@@ -255,7 +255,7 @@ class Vivify extends Analyzer {
           <>
             {this.averageRemPerVivify.toFixed(2)}{' '}
             <small>
-              Average Cleaves per <SpellLink id={SPELLS.VIVIFY.id} />
+              Average Cleaves per <SpellLink spell={SPELLS.VIVIFY} />
             </small>
           </>
         </TalentSpellText>
@@ -295,7 +295,7 @@ class Vivify extends Analyzer {
         <br />
         {this.upliftedSpirits.active && (
           <>
-            <SpellLink id={this.upliftedSpirits.activeTalent.id} /> Cooldown Reduction:{' '}
+            <SpellLink spell={this.upliftedSpirits.activeTalent} /> Cooldown Reduction:{' '}
             {vivifyGoodCrits > 0 && <>{vivifyGoodCrits}s </>}
             {vivifyWastedCrits > 0 && <>{vivifyWastedCrits}s wasted</>}
             {vivifyGoodCrits + vivifyWastedCrits === 0 && <>0s</>}

@@ -66,12 +66,12 @@ class ThroesOfPain extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            <SpellLink id={TALENTS_PRIEST.THROES_OF_PAIN_TALENT.id} /> also restored{' '}
+            <SpellLink spell={TALENTS_PRIEST.THROES_OF_PAIN_TALENT} /> also restored{' '}
             {this.manaGained} mana.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.THROES_OF_PAIN_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.THROES_OF_PAIN_TALENT}>
           <>
             <ItemHealingDone amount={this.healing} /> <br />
             <ItemDamageDone amount={this.damage} /> <br />

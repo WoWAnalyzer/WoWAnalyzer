@@ -21,6 +21,6 @@ export interface TalentRequirementProps {
 }
 
 export interface DotUptimeProps {
-  id: number;
+  spell: Spell;
   thresholds: RequirementThresholds;
 }

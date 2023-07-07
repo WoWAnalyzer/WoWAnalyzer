@@ -107,8 +107,8 @@ class FillerFlashOfLight extends Analyzer {
       suggest(
         <Trans id="paladin.holy.modules.fillerFlashOfLight.suggestion">
           You started casting {this.inefficientCasts.length} filler{' '}
-          <SpellLink id={SPELLS.FLASH_OF_LIGHT} />s while{' '}
-          <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was{' '}
+          <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />s while{' '}
+          <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was{' '}
           <TooltipElement
             content={t({
               id: 'paladin.holy.modules.fillerFlashOfLight.suggestion.tooltip',
@@ -121,8 +121,8 @@ class FillerFlashOfLight extends Analyzer {
           {this.inefficientCasts
             .map((event) => this.owner.formatTimestamp(event.timestamp))
             .join(', ')}
-          ). <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> is a much more efficient spell and should
-          be prioritized
+          ). <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is a much more efficient spell and
+          should be prioritized
           <TooltipElement
             content={t({
               id: 'paladin.holy.modules.fillerFlashOfLight.suggestion.exceptions',

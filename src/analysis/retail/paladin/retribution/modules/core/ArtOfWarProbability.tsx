@@ -67,7 +67,7 @@ class ArtOfWarProbability extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.ART_OF_WAR.id} /> BoJ Reset Chance
+              <SpellLink spell={SPELLS.ART_OF_WAR} /> BoJ Reset Chance
             </>
           }
         >

@@ -12,20 +12,20 @@ function CastingSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
   const cancelledPercent = formatPercentage(cancelledMod.cancelledPercentage, 1);
   return (
     <>
-      <p>
-        <div>
-          <b>
-            <SpellLink spell={SPELLS.SHADOW_BOLT} />
-          </b>{' '}
-          |{' '}
-          <b>
-            <SpellLink spell={SPELLS.INCINERATE} />
-          </b>{' '}
-          |{' '}
-          <b>
-            <SpellLink spell={SPELLS.SOUL_FIRE} />
-          </b>
-        </div>
+      <div>
+        <b>
+          <SpellLink spell={SPELLS.SHADOW_BOLT} />
+        </b>{' '}
+        |{' '}
+        <b>
+          <SpellLink spell={SPELLS.INCINERATE} />
+        </b>{' '}
+        |{' '}
+        <b>
+          <SpellLink spell={SPELLS.SOUL_FIRE} />
+        </b>
+      </div>
+      <div>
         Demo Warlocks use filler spells when all DoTs and Debuffs are applied. Your go-to filler
         spell is <SpellLink spell={SPELLS.SHADOW_BOLT} />. It should be used to provide{' '}
         <SpellLink spell={SPELLS.SHADOW_MASTERY_DEBUFF} /> for the raid. When{' '}
@@ -34,22 +34,20 @@ function CastingSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
         your target falls below 35% health, you receive <SpellLink spell={SPELLS.DECIMATION} />{' '}
         which is used to cast <SpellLink spell={SPELLS.SOUL_FIRE} /> faster and without the cost of
         a Soul Shard.
-      </p>
+      </div>
       <hr />
-      <p>
-        <div>
-          <b>Always Be Casting (ABC)</b> throughout the encounter. When moving, use your instant
-          abilities or set up{' '}
-          <SpellLink spell={SPELLS.DEMONIC_CIRCLE_TELEPORT} icon>
-            Demonic Circle{' '}
-          </SpellLink>{' '}
-          to reduce your movement.
-        </div>
-        <small>
-          Some fights have unavoidable downtime due to events like phase transitions. In these
-          cases, keep active as much as possible.
-        </small>
-      </p>
+      <div>
+        <b>Always Be Casting (ABC)</b> throughout the encounter. When moving, use your instant
+        abilities or set up{' '}
+        <SpellLink spell={SPELLS.DEMONIC_CIRCLE_TELEPORT} icon>
+          Demonic Circle{' '}
+        </SpellLink>{' '}
+        to reduce your movement.
+      </div>
+      <small>
+        Some fights have unavoidable downtime due to events like phase transitions. In these cases,
+        keep active as much as possible.
+      </small>
       <div>
         <b>Active Time</b>:{' '}
         <PerformanceLabel performance={abcMod.DowntimePerformance}>

@@ -84,7 +84,7 @@ class EmeraldBlossom extends Analyzer {
       suggest(
         <>
           Try to maximize the amount of targets hit by{' '}
-          <SpellLink id={SPELLS.EMERALD_BLOSSOM_CAST.id} />
+          <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
         </>,
       )
         .icon(SPELLS.EMERALD_BLOSSOM.icon)
@@ -107,15 +107,15 @@ class EmeraldBlossom extends Analyzer {
         tooltip={
           <ul>
             <li>
-              Total Healing from <SpellLink id={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT.id} />:{' '}
+              Total Healing from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
               {formatNumber(this.bountifulBloomHealing)}
             </li>
             <li>
-              Total Overhealing from <SpellLink id={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT.id} />:{' '}
+              Total Overhealing from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
               {formatNumber(this.bountifulBloomOverhealing)}
             </li>
             <li>
-              Average extra hits from <SpellLink id={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT.id} />:{' '}
+              Average extra hits from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
               {this.averageExtraTargets.toFixed(2)}
             </li>
           </ul>

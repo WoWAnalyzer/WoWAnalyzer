@@ -131,7 +131,7 @@ class ArcaneSurgeMana extends Analyzer {
       suggest(
         <>
           You ran dangerously low or ran out of mana during{' '}
-          <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> {this.outOfMana} times. Running out of
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> {this.outOfMana} times. Running out of
           mana during Arcane Surge is a massive DPS loss and should be avoided at all costs.{' '}
         </>,
       )

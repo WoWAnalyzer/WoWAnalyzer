@@ -76,9 +76,9 @@ class InsidiousIre extends Analyzer {
     when(this.mindBlastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={TALENTS.INSIDIOUS_IRE_TALENT.id} /> efficiency can be improved. Try to
+          Your <SpellLink spell={TALENTS.INSIDIOUS_IRE_TALENT} /> efficiency can be improved. Try to
           ensure you have all three dots active on the target when you cast{' '}
-          <SpellLink id={SPELLS.MIND_BLAST.id} />.
+          <SpellLink spell={SPELLS.MIND_BLAST} />.
         </span>,
       )
         .icon(TALENTS.INSIDIOUS_IRE_TALENT.icon)
@@ -94,9 +94,9 @@ class InsidiousIre extends Analyzer {
       when(this.voidTorrentSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            Your <SpellLink id={TALENTS.INSIDIOUS_IRE_TALENT.id} /> efficiency can be improved. Try
+            Your <SpellLink spell={TALENTS.INSIDIOUS_IRE_TALENT} /> efficiency can be improved. Try
             to ensure you have all three dots active on the target when you cast{' '}
-            <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} />.
+            <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />.
           </span>,
         )
           .icon(TALENTS.INSIDIOUS_IRE_TALENT.icon)
@@ -168,11 +168,11 @@ class InsidiousIre extends Analyzer {
         <>
           <BoringSpellValueText
             key={TALENTS.INSIDIOUS_IRE_TALENT.id}
-            spellId={TALENTS.INSIDIOUS_IRE_TALENT.id}
+            spell={TALENTS.INSIDIOUS_IRE_TALENT}
           >
             <ItemDamageDone amount={mindBlast.damageGained + (voidTorrent?.damageGained || 0)} />
           </BoringSpellValueText>
-          <BoringSpellValueText key={SPELLS.MIND_BLAST.id} spellId={SPELLS.MIND_BLAST.id}>
+          <BoringSpellValueText key={SPELLS.MIND_BLAST.id} spell={SPELLS.MIND_BLAST}>
             <div>
               <UptimeIcon /> {formatPercentage(mindBlast.efficiency)} % <small>efficiency</small>
             </div>
@@ -181,7 +181,7 @@ class InsidiousIre extends Analyzer {
           {voidTorrent ? (
             <BoringSpellValueText
               key={TALENTS.VOID_TORRENT_TALENT.id}
-              spellId={TALENTS.VOID_TORRENT_TALENT.id}
+              spell={TALENTS.VOID_TORRENT_TALENT}
             >
               <div>
                 <UptimeIcon /> {formatPercentage(voidTorrent.efficiency)} %{' '}
@@ -205,12 +205,12 @@ class InsidiousIre extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={TALENTS.INSIDIOUS_IRE_TALENT.id} />
+            <SpellLink spell={TALENTS.INSIDIOUS_IRE_TALENT} />
           </b>{' '}
-          adds damange to <SpellLink id={SPELLS.MIND_BLAST.id} /> and{' '}
-          <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} /> when{' '}
-          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />
-          , and <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> are all active on the target.{' '}
+          adds damange to <SpellLink spell={SPELLS.MIND_BLAST} /> and{' '}
+          <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> when{' '}
+          <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />
+          , and <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> are all active on the target.{' '}
           <br />
           Check your DoT uptime, and be sure to cast these spells while Devouring Plague is fresh to
           increase damage.

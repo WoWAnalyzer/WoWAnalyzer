@@ -71,9 +71,9 @@ class ThermalVoid extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.THERMAL_VOID_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.THERMAL_VOID_TALENT}>
           <>
-            <SpellIcon id={TALENTS.ICY_VEINS_TALENT.id} /> +{formatNumber(totalIncrease / 1000)}{' '}
+            <SpellIcon spell={TALENTS.ICY_VEINS_TALENT} /> +{formatNumber(totalIncrease / 1000)}{' '}
             seconds
           </>
         </BoringSpellValueText>

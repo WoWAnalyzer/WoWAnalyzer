@@ -73,10 +73,10 @@ class PhoenixFlames extends Analyzer {
       suggest(
         <>
           You spent {formatNumber(this.cappedSeconds)}s ({formatPercentage(this.percentCapped)}% of
-          the fight) capped on <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> charges. While it
-          is important to pool charges for your next <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />
+          the fight) capped on <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> charges. While it
+          is important to pool charges for your next <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
           , you should also try to avoid capping on charges whenever possible. To avoid this, you
-          should use a charge of <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> if you are
+          should use a charge of <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> if you are
           capped or are about to cap on charges.
         </>,
       )

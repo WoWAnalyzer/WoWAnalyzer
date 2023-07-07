@@ -77,7 +77,12 @@ class CastEfficiency extends Analyzer {
         if (event.updateType === UpdateSpellUsableType.BeginCooldown) {
           lastRechargeTimestamp = event.timestamp;
           return acc;
-        } else if (event.updateType === UpdateSpellUsableType.EndCooldown) {
+        } else if (
+          event.updateType === UpdateSpellUsableType.EndCooldown &&
+          //We're only interested in events that happened during the fight - any events outside of that are faked
+          //The remaining time between last and fight endtime is counted as recharged time in endingRechargeTime
+          event.timestamp <= this.owner.fight.end_time
+        ) {
           //limit by start time in case of pre phase events
           recharges += 1;
           const timeSinceLastRecharge = event.timestamp - (lastRechargeTimestamp || 0);
@@ -101,9 +106,8 @@ class CastEfficiency extends Analyzer {
       ? 0
       : this.owner.currentTimestamp - Math.max(lastRechargeTimestamp, this.owner.fight.start_time);
 
-    const casts = history.filter((event) => event.type === EventType.Cast).length;
-
     const castEvents = history.filter((event) => event.type === EventType.Cast);
+    const casts = castEvents.length;
     const castTimestamps = castEvents.map((event) => event.timestamp - this.owner.fight.start_time);
 
     return {
@@ -314,19 +318,9 @@ class CastEfficiency extends Analyzer {
     } else {
       // Cast efficiency calculated as the percent of fight time spell was unavailable
       // The spell is considered unavailable if it is on cooldown, the time since it came off cooldown is less than the cast time or the cooldown was reset through a proc during a GCD
-      // Time Offset reduces the Unavailable time to account for the portion of the CD that extended beyond the end of the fight
       if (cooldown && availableFightDuration) {
         const timeOnCd = cdInfo.completedRechargeTime + cdInfo.endingRechargeTime;
-        const lastCastTimestamp = cdInfo.castTimestamps[cdInfo.castTimestamps.length - 1];
-        // If CD reducing effects are involved, use the average cd instead of the full length
-        // This prevents issues where timeOffset is negative due to the configured cd being
-        // longer than the fight length
-        const offsetCd = averageCooldown ? averageCooldown : cooldown * 1000;
-        const timeOffset =
-          lastCastTimestamp + offsetCd > availableFightDuration
-            ? offsetCd - (availableFightDuration - lastCastTimestamp)
-            : 0;
-        const timeUnavailable = timeOnCd + timeSpentCasting + timeWaitingOnGCD - timeOffset;
+        const timeUnavailable = timeOnCd + timeSpentCasting + timeWaitingOnGCD;
         efficiency = timeUnavailable / availableFightDuration;
       } else if (includeNoCooldownEfficiency) {
         efficiency = casts / rawMaxCasts!;

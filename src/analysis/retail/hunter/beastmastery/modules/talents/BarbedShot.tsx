@@ -177,7 +177,7 @@ class BarbedShot extends Analyzer {
       suggest(
         <>
           Your pet has a general low uptime of the buff from{' '}
-          <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />, you should never be sitting on 2 stacks
+          <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />, you should never be sitting on 2 stacks
           of this spell.{' '}
         </>,
       )
@@ -197,7 +197,7 @@ class BarbedShot extends Analyzer {
       suggest(
         <>
           Your pet has a general low uptime of the 3 stacked buff from{' '}
-          <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />. It's important to try and maintain the
+          <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />. It's important to try and maintain the
           buff at 3 stacks for as long as possible, this is done by spacing out your casts, but at
           the same time never letting them cap on charges.{' '}
         </>,
@@ -268,7 +268,7 @@ class BarbedShot extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.BARBED_SHOT_PET_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.BARBED_SHOT_PET_BUFF}>
           <>
             <UptimeIcon /> {formatPercentage(this.percentUptimeMaxStacks)}%{' '}
             <small>3 stack uptime</small>
@@ -319,7 +319,7 @@ class BarbedShot extends Analyzer {
       const tooltip = (
         <>
           {baseTooltip}
-          You refreshed <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> with
+          You refreshed <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> with
           {(frenzyBuffRemaining / 1000).toFixed(2)} seconds remaining.
         </>
       );
@@ -335,12 +335,12 @@ class BarbedShot extends Analyzer {
         <>
           {baseTooltip}
           You progressed towards {MAX_FRENZY_STACKS} stacks of{' '}
-          <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> while{' '}
-          <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> was available to reset charges
+          <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> while{' '}
+          <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> was available to reset charges
           afterwards.
           <br />
           Pet had {currentBarbedShotStacks} stacks of{' '}
-          <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} />.
+          <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} />.
         </>
       );
       this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
@@ -354,9 +354,9 @@ class BarbedShot extends Analyzer {
       const tooltip = (
         <>
           {baseTooltip}
-          You had <SpellLink id={TALENTS.CALL_OF_THE_WILD_TALENT.id} /> running with{' '}
-          <SpellLink id={TALENTS.WILD_INSTINCTS_TALENT.id} /> talented giving you a large amount of
-          resets to offset more aggressive usage of <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />
+          You had <SpellLink spell={TALENTS.CALL_OF_THE_WILD_TALENT} /> running with{' '}
+          <SpellLink spell={TALENTS.WILD_INSTINCTS_TALENT} /> talented giving you a large amount of
+          resets to offset more aggressive usage of <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />
         </>
       );
       this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
@@ -371,8 +371,8 @@ class BarbedShot extends Analyzer {
         <>
           {baseTooltip}
           You had <strong>{barbedShotFractionalCharges.toFixed(1)}</strong> charges of{' '}
-          <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> while talented into{' '}
-          <SpellLink id={TALENTS.WILD_CALL_TALENT.id} /> giving you more resets.
+          <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> while talented into{' '}
+          <SpellLink spell={TALENTS.WILD_CALL_TALENT} /> giving you more resets.
         </>
       );
       this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
@@ -387,7 +387,7 @@ class BarbedShot extends Analyzer {
       const tooltip = (
         <>
           {baseTooltip}
-          You used <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> as it was almost coming off
+          You used <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> as it was almost coming off
           cooldown.
         </>
       );
@@ -403,9 +403,9 @@ class BarbedShot extends Analyzer {
       const tooltip = (
         <>
           {baseTooltip}
-          You used <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> as{' '}
-          <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> was close to coming off cooldown while
-          talented into <SpellLink id={TALENTS.SCENT_OF_BLOOD_TALENT.id} />.
+          You used <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> as{' '}
+          <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> was close to coming off cooldown while
+          talented into <SpellLink spell={TALENTS.SCENT_OF_BLOOD_TALENT} />.
         </>
       );
       this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
@@ -414,15 +414,15 @@ class BarbedShot extends Analyzer {
     const badTooltip = (
       <>
         {baseTooltip} You didn't fulfill any of the criteria of casting a good{' '}
-        <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />.
+        <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />.
         <br />
         {barbedShotFractionalCharges < 1.4 && frenzyBuffRemaining > currentGCDWithBuffer && (
           <>
-            You should have delayed your <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> cast since{' '}
-            <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> had{' '}
+            You should have delayed your <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> cast since{' '}
+            <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> had{' '}
             {(frenzyBuffRemaining / 1000).toFixed(2)} seconds remaining, and you had{' '}
             {barbedShotFractionalCharges.toFixed(2)}{' '}
-            <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> charges available.
+            <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> charges available.
           </>
         )}
       </>
@@ -435,15 +435,15 @@ class BarbedShot extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />
+          <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />
         </strong>{' '}
         is your primary <strong>builder</strong> for <strong>Focus</strong>, and is used to maintain{' '}
-        <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> on your pet. With{' '}
-        <SpellLink id={TALENTS.BARBED_WRATH_TALENT.id} /> talented it helps to lower the cooldown of{' '}
-        <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> by a significant amount. Therefore you
-        should aim to keep <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> and{' '}
-        <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> rolling to maximize the potential of your{' '}
-        <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} /> usage.
+        <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> on your pet. With{' '}
+        <SpellLink spell={TALENTS.BARBED_WRATH_TALENT} /> talented it helps to lower the cooldown of{' '}
+        <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> by a significant amount. Therefore you
+        should aim to keep <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> and{' '}
+        <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> rolling to maximize the potential of your{' '}
+        <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> usage.
       </p>
     );
     const data = (

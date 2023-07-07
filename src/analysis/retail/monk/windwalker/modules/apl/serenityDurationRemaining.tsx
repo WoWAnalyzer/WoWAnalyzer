@@ -48,7 +48,7 @@ export function serenityDurationRemainingLT(
     },
     describe: (tense) => (
       <>
-        <SpellLink id={TALENTS.SERENITY_TALENT.id} /> {tenseAlt(tense, 'is', 'was')} within the last{' '}
+        <SpellLink spell={TALENTS.SERENITY_TALENT} /> {tenseAlt(tense, 'is', 'was')} within the last{' '}
         {durationLessThan / 1000} seconds of its duration
       </>
     ),

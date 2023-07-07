@@ -34,7 +34,7 @@ class PowerWordShieldWasted extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.POWER_WORD_SHIELD.id} />}
+        icon={<SpellIcon spell={SPELLS.POWER_WORD_SHIELD} />}
         value={`${formatNumber((wasted / this.owner.fightDuration) * 1000)} HPS`}
         label={
           <TooltipElement

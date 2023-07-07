@@ -108,7 +108,7 @@ class HighTide extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.HIGH_TIDE_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.HIGH_TIDE_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -134,9 +134,9 @@ class HighTide extends Analyzer {
           <TooltipElement
             content={
               <>
-                The number of <SpellLink id={TALENTS.HIGH_TIDE_TALENT} /> buffs that expired without
-                casting <SpellLink id={TALENTS.CHAIN_HEAL_TALENT} /> ({this.wastedBuffs} wasted of{' '}
-                {this.buffsApplied} total)
+                The number of <SpellLink spell={TALENTS.HIGH_TIDE_TALENT} /> buffs that expired
+                without casting <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> ({this.wastedBuffs}{' '}
+                wasted of {this.buffsApplied} total)
               </>
             }
           >

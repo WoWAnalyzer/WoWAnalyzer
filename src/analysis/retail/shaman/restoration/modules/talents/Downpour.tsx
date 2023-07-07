@@ -160,7 +160,7 @@ class Downpour extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.DOWNPOUR_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.DOWNPOUR_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

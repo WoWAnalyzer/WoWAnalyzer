@@ -14,7 +14,7 @@ function ResourceSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
         <b>
           <Trans id="guide.priest.shadow.sections.resources.insanity.summary">
             You should avoid capping insanity by using{' '}
-            <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />.
+            <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.
           </Trans>
         </b>
       </p>

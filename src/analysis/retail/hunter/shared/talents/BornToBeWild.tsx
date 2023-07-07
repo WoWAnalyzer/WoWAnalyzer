@@ -122,7 +122,7 @@ class BornToBeWild extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.BORN_TO_BE_WILD_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BORN_TO_BE_WILD_TALENT}>
           <>
             {formatNumber(this.effectiveTotalCDR / 1000)}s <small>total effective CDR</small>
           </>

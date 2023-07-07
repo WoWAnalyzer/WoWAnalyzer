@@ -61,7 +61,7 @@ class Manipulation extends Analyzer {
         size="flexible"
         tooltip="Amount of cooldown reduction for Mindgames"
       >
-        <BoringSpellValueText spellId={TALENTS.MANIPULATION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.MANIPULATION_TALENT}>
           <>
             <UptimeIcon /> {this.cooldown.toFixed(1)} <small> seconds</small>
           </>

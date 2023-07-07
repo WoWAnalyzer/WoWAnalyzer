@@ -116,9 +116,9 @@ class OvercapShieldOfTheRighteous extends Analyzer {
           tooltip={
             <>
               You lost {formatNumber(lostUptimeDueToOvercap / SECOND)} seconds due to overcapping{' '}
-              <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />.<br />
+              <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} />.<br />
               Overcapping occurs when you cast <SpellLink
-                id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
+                spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS}
               />{' '}
               with more than {formatNumber(SOTR_SOFT_CAP / SECOND)} seconds left on the buff.
             </>

@@ -72,9 +72,9 @@ class Penance extends Analyzer {
         size="small"
         tooltip={
           <>
-            Each <SpellLink id={SPELLS.PENANCE.id} /> cast has 3 bolts (4 if you're using{' '}
-            <SpellLink id={TALENTS_PRIEST.CASTIGATION_TALENT.id} />, and potentially 3 more if you
-            are using <SpellLink id={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT.id} />
+            Each <SpellLink spell={SPELLS.PENANCE} /> cast has 3 bolts (4 if you're using{' '}
+            <SpellLink spell={TALENTS_PRIEST.CASTIGATION_TALENT} />, and potentially 3 more if you
+            are using <SpellLink spell={TALENTS_PRIEST.HARSH_DISCIPLINE_TALENT} />
             ). You should try to let this channel finish as much as possible. You channeled Penance{' '}
             {this._casts} times.
           </>
@@ -85,8 +85,8 @@ class Penance extends Analyzer {
           value={this._missedBolts}
           label={
             <>
-              Wasted <SpellLink id={SPELLS.PENANCE.id} /> or{' '}
-              <SpellLink id={SPELLS.DARK_REPRIMAND_CAST.id} /> bolts.
+              Wasted <SpellLink spell={SPELLS.PENANCE} /> or{' '}
+              <SpellLink spell={SPELLS.DARK_REPRIMAND_CAST} /> bolts.
             </>
           }
         />

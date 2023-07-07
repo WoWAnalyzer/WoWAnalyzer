@@ -32,8 +32,8 @@ const claim: ViolationExplainer<Data>['claim'] = (_apl, result) => {
 };
 const render: ViolationExplainer<Data>['render'] = () => (
   <Trans id="monk.brewmaster.guide.sck-overcast">
-    You frequently replaced <SpellLink id={SPELLS.TIGER_PALM} /> with{' '}
-    <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM}>SCK</SpellLink>, even when only a single enemy
+    You frequently replaced <SpellLink spell={SPELLS.TIGER_PALM} /> with{' '}
+    <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM}>SCK</SpellLink>, even when only a single enemy
     was present.
   </Trans>
 );
@@ -47,8 +47,8 @@ const describe: ViolationExplainer<Data>['describe'] = ({ violation }) => (
       <TooltipElement content="The damage of Charred Passions was reduced by 50%.">
         recent nerf
       </TooltipElement>
-      , it is not worth casting <SpellLink id={SPELLS.SPINNING_CRANE_KICK_BRM} /> on single target
-      even when using <SpellLink id={talents.CHARRED_PASSIONS_TALENT} />.
+      , it is not worth casting <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> on single
+      target even when using <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />.
     </p>
   </>
 );

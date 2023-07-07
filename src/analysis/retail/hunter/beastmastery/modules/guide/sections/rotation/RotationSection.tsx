@@ -75,7 +75,7 @@ export default function RotationSection({ modules, info }: GuideProps<typeof Com
         <p>
           <Trans id="guide.hunter.beastmastery.sections.rotation.frenzy.summary">
             This graph shows the number of stacks of{' '}
-            <SpellLink id={SPELLS.BARBED_SHOT_PET_BUFF.id} /> you had. You want to maintain{' '}
+            <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> you had. You want to maintain{' '}
             {MAX_FRENZY_STACKS} stacks as much as possible to maximize your damage.
           </Trans>
         </p>

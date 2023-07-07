@@ -84,7 +84,7 @@ class ElementalSpirits extends Analyzer {
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} category={STATISTIC_CATEGORY.TALENTS}>
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT.id} /> distribution
+            <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_SPIRITS_TALENT} /> distribution
           </label>
           {this.elementalSpiritsDonut()}
         </div>

@@ -60,7 +60,7 @@ class DivineStar extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={TALENTS.DIVINE_STAR_SHARED_TALENT.id} />
+            <SpellLink spell={TALENTS.DIVINE_STAR_SHARED_TALENT} />
           </b>{' '}
           is a strong group heal on a short length cooldown. You will want to cast this on cooldown,
           only holding it for a few seconds if everyone is full health and you know group damage
@@ -87,7 +87,7 @@ class DivineStar extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
-        <BoringSpellValueText spellId={TALENTS.DIVINE_STAR_SHARED_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DIVINE_STAR_SHARED_TALENT}>
           <>
             <ItemHealingDone amount={this.divineStarHealing} />
             <br />

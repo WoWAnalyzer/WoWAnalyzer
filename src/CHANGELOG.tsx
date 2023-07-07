@@ -25,6 +25,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 3), 'Fix an issue causing cast efficiency for spells to be artificially inflated', Putro),
   change(date(2023, 6, 30), 'Regenerate talents.', ToppleTheNun),
   change(date(2023, 6, 28), 'Update retail realms for US, EU, TW, and KR.', ToppleTheNun),
   change(date(2023, 6, 26), 'Improve ability to have custom ESLint rules.', ToppleTheNun),
