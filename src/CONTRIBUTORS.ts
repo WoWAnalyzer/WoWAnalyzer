@@ -2223,3 +2223,14 @@ export const Meldris: Contributor = {
   nickname: 'Meldris',
   github: 'Meldris',
 };
+
+export const Periodic: Contributor = {
+  nickname: 'Periodic',
+  github: 'Periodic',
+  discord: 'periodic',
+};
+
+export const Awildfivreld: Contributor = {
+  nickname: 'Awildfivreld',
+  github: 'awildfivreld',
+};

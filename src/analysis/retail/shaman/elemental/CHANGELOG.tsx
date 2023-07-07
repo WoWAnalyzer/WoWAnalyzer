@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst } from 'CONTRIBUTORS';
+import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2022, 7, 7), <>Basic cleanup for 10.1.0.</>, Periodic),
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
   change(date(2022, 8, 15), <>Track haste gained from <SpellLink spell={SPELLS.ELEMENTAL_BLAST} />.</>, Vetyst),
   change(date(2022, 3, 4), <>Fixed issue with <SpellLink spell={TALENTS.FIRE_ELEMENTAL_TALENT} /> on the checklist when <SpellLink spell={TALENTS.STORM_ELEMENTAL_TALENT} /> is selected.</>, emallson),
