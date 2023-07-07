@@ -1,8 +1,8 @@
 import TALENTS from 'common/TALENTS/evoker';
-
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   Ability,
+  AnyEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   FightEndEvent,
@@ -32,6 +32,8 @@ export default class BlisteringScalesStackTracker extends Analyzer {
   currentBuffTargetId: number = 0;
 
   buffStackUpdates: BuffStackUpdate[] = [];
+
+  startStacksGathered: boolean = false;
 
   constructor(options: Options) {
     super(options);
@@ -75,12 +77,15 @@ export default class BlisteringScalesStackTracker extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
+    if (!this.startStacksGathered) {
+      this.createGraphStart(event);
+    }
     this.currentBuffTargetId = event.targetID;
     this._logAndPushUpdate(
       {
         type: event.type,
         timestamp: event.timestamp,
-        change: 15,
+        change: 15 - this.current,
         current: 15,
       },
       event.ability,
@@ -88,6 +93,9 @@ export default class BlisteringScalesStackTracker extends Analyzer {
   }
 
   onApplyBuffStack(event: ApplyBuffStackEvent) {
+    if (!this.startStacksGathered) {
+      this.createGraphStart(event);
+    }
     this._logAndPushUpdate(
       {
         type: event.type,
@@ -100,6 +108,9 @@ export default class BlisteringScalesStackTracker extends Analyzer {
   }
 
   onRemoveBuff(event: RemoveBuffEvent) {
+    if (!this.startStacksGathered) {
+      this.createGraphStart(event);
+    }
     if (event.targetID !== this.currentBuffTargetId) {
       return;
     }
@@ -115,6 +126,9 @@ export default class BlisteringScalesStackTracker extends Analyzer {
   }
 
   onRemoveBuffStack(event: RemoveBuffStackEvent) {
+    if (!this.startStacksGathered) {
+      this.createGraphStart(event);
+    }
     this._logAndPushUpdate(
       {
         type: event.type,
@@ -127,12 +141,27 @@ export default class BlisteringScalesStackTracker extends Analyzer {
   }
 
   onFightEnd(event: FightEndEvent) {
+    if (!this.startStacksGathered) {
+      this.createGraphStart(event);
+    }
     this._logAndPushUpdate({
       type: event.type,
       timestamp: event.timestamp,
       change: -this.current,
       current: 0,
     });
+  }
+
+  createGraphStart(event: AnyEvent) {
+    if (!this.startStacksGathered) {
+      this._logAndPushUpdate({
+        type: event.type,
+        timestamp: this.owner.fight.start_time,
+        change: 0,
+        current: 0,
+      });
+      this.startStacksGathered = true;
+    }
   }
 
   _logAndPushUpdate(update: BuffStackUpdate, spell?: Ability) {
