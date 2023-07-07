@@ -33,6 +33,8 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
 
       <BlisteringScalesSection modules={modules} events={events} info={info} />
 
+      {modules.ebonMight.guideSubsection()}
+
       <SubSection>
         <CooldownUsage analyzer={modules.prescience} title="Prescience" />
       </SubSection>
@@ -50,7 +52,7 @@ function BlisteringScalesSection({ modules, events, info }: GuideProps<typeof Co
           <strong>
             <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />
           </strong>{' '}
-          provides a 30% armor buff. <br />
+          provides your target with 30% of your armor. <br />
           There is essentially two ways to play with it, either upkeep on actively tanking tank.{' '}
           <br />
           Or place it on a Warrior for the damage amp the extra armor provides them through the
