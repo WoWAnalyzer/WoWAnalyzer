@@ -55,11 +55,11 @@ class Audacity extends Analyzer {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You casted <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> and/or{' '}
-          <SpellLink id={SPELLS.PISTOL_SHOT.id} /> while having an{' '}
-          <SpellLink id={TALENTS.AUDACITY_TALENT.id} /> proc. Try to prioritize{' '}
-          <SpellLink id={SPELLS.AMBUSH.id} /> as your combo point builder when you have{' '}
-          <SpellLink id={TALENTS.AUDACITY_TALENT.id} /> active to avoid the possibility of missing
+          You casted <SpellLink spell={SPELLS.SINISTER_STRIKE} /> and/or{' '}
+          <SpellLink spell={SPELLS.PISTOL_SHOT} /> while having an{' '}
+          <SpellLink spell={TALENTS.AUDACITY_TALENT} /> proc. Try to prioritize{' '}
+          <SpellLink spell={SPELLS.AMBUSH} /> as your combo point builder when you have{' '}
+          <SpellLink spell={TALENTS.AUDACITY_TALENT} /> active to avoid the possibility of missing
           additional procs.
         </>,
       )

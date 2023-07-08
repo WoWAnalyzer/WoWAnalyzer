@@ -44,10 +44,10 @@ class Opportunity extends Analyzer {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You casted <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> while having an{' '}
-          <SpellLink id={SPELLS.OPPORTUNITY.id} /> proc. Try to prioritize{' '}
-          <SpellLink id={SPELLS.PISTOL_SHOT.id} /> as your combo point builder when you have{' '}
-          <SpellLink id={SPELLS.OPPORTUNITY.id} /> active to avoid the possibility of missing
+          You casted <SpellLink spell={SPELLS.SINISTER_STRIKE} /> while having an{' '}
+          <SpellLink spell={SPELLS.OPPORTUNITY} /> proc. Try to prioritize{' '}
+          <SpellLink spell={SPELLS.PISTOL_SHOT} /> as your combo point builder when you have{' '}
+          <SpellLink spell={SPELLS.OPPORTUNITY} /> active to avoid the possibility of missing
           additional procs.
         </>,
       )

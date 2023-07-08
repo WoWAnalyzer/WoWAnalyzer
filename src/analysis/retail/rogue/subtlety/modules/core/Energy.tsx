@@ -34,7 +34,7 @@ class Energy extends Analyzer {
       major: 0.5,
       extraSuggestion: (
         <>
-          Try to spend energy before using <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} />, but do not
+          Try to spend energy before using <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} />, but do not
           delay it to avoid waste!{' '}
         </>
       ),

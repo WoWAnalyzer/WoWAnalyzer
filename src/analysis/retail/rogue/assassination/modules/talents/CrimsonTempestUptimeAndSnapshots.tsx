@@ -146,7 +146,7 @@ export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS.CRIMSON_TEMPEST_TALENT.id} />
+          <SpellLink spell={TALENTS.CRIMSON_TEMPEST_TALENT} />
         </strong>{' '}
         is your highest damage-per-energy AoE spender. Try to maintain 100% uptime. Don't refresh
         early.

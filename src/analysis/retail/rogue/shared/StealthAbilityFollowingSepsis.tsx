@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 const STEALTH_ABILITIES: Spell[] = [
   SPELLS.PICK_POCKET,
@@ -72,7 +73,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
           <tr key={idx}>
             <td>{this.owner.formatTimestamp(cast.timestamp)}</td>
             <td>
-              <SpellLink id={cast.ability.guid} />
+              <SpellLink spell={abilityToSpell(cast.ability)} />
             </td>
           </tr>
         </>,
@@ -82,8 +83,8 @@ class StealthAbilityFollowingSepsis extends Analyzer {
     if (this.badCasts.length === 0) {
       tooltip = (
         <>
-          You used <SpellLink id={this.properStealthAbility.id} />
-          following the completion of <SpellLink id={TALENTS.SEPSIS_TALENT.id} />
+          You used <SpellLink spell={this.properStealthAbility} />
+          following the completion of <SpellLink spell={TALENTS.SEPSIS_TALENT} />
           every time! Great job!
         </>
       );
@@ -91,8 +92,8 @@ class StealthAbilityFollowingSepsis extends Analyzer {
       tooltip = (
         <>
           You used the incorrect stealth ability instead of{' '}
-          <SpellLink id={this.properStealthAbility.id} />
-          following the completion of <SpellLink id={TALENTS.SEPSIS_TALENT.id} />
+          <SpellLink spell={this.properStealthAbility} />
+          following the completion of <SpellLink spell={TALENTS.SEPSIS_TALENT} />
         </>
       );
     }
