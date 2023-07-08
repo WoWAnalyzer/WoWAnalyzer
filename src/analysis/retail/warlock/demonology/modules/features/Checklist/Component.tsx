@@ -117,7 +117,6 @@ const DemonologyWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
         {combatant.hasTalent(TALENTS.DARK_PACT_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}

@@ -4,6 +4,7 @@ import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse } from 'CONT
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 8), "Removed Demonic Circle use tracker in utility and defensive spells", Meldris),
   change(date(2023, 6, 29), "Updated ABOUT with current guide links", Meldris),
   change(date(2023, 3, 9), "Update Soul Conduit to take into account being a 2 rank talent and different scaling", dodse),
   change(date(2023, 1, 4), "Add support for Shadow's Bite and Dread Calling talents", Mae),
