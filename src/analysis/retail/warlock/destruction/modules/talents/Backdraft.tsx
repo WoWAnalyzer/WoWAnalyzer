@@ -137,7 +137,7 @@ class Backdraft extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should use your <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks more. You have wasted{' '}
+          You should use your <SpellLink spell={SPELLS.BACKDRAFT} /> stacks more. You have wasted{' '}
           {this.wastedStacks} stacks this fight.
         </>,
       )

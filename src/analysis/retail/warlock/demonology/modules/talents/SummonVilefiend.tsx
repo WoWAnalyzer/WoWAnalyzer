@@ -30,7 +30,7 @@ class SummonVilefiend extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.SUMMON_VILEFIEND_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SUMMON_VILEFIEND_TALENT}>
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>

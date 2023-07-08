@@ -37,7 +37,7 @@ class ImmolateUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.IMMOLATE_DEBUFF.id} /> uptime can be improved. Try to pay more
+          Your <SpellLink spell={SPELLS.IMMOLATE_DEBUFF} /> uptime can be improved. Try to pay more
           attention to it as it provides a significant amount of Soul Shard Fragments over the fight
           and is also a big portion of your total damage.
         </>,
@@ -59,7 +59,7 @@ class ImmolateUptime extends Analyzer {
       <StatisticBar wide position={STATISTIC_ORDER.CORE(1)}>
         <div className="flex">
           <div className="flex-sub icon">
-            <SpellIcon id={SPELLS.IMMOLATE.id} />
+            <SpellIcon spell={SPELLS.IMMOLATE} />
           </div>
           <div className="flex-sub value">
             {formatPercentage(this.uptime, 0)} % <small>uptime</small>

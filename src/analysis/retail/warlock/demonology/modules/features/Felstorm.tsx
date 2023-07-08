@@ -69,7 +69,7 @@ class Felstorm extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should use your Felguard's <SpellLink id={SPELLS.FELSTORM_BUFF.id} /> more often,
+          You should use your Felguard's <SpellLink spell={SPELLS.FELSTORM_BUFF} /> more often,
           preferably on cooldown.
         </>,
       )

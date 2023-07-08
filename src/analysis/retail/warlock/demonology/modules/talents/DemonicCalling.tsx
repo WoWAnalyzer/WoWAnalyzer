@@ -77,13 +77,13 @@ class DemonicCalling extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should try to use your cheaper <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> as much
+          You should try to use your cheaper <SpellLink spell={SPELLS.CALL_DREADSTALKERS} /> as much
           as possible as Dreadstalkers make a great portion of your damage.
           <br />
           <br />
           <small>
             NOTE: Some wasted procs are probably unavoidable (e.g.{' '}
-            <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> on cooldown, proc waiting but gets
+            <SpellLink spell={SPELLS.CALL_DREADSTALKERS} /> on cooldown, proc waiting but gets
             overwritten by another)
           </small>
         </>,
@@ -102,7 +102,7 @@ class DemonicCalling extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.DEMONIC_CALLING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DEMONIC_CALLING_TALENT}>
           {this.wastedProcs} <small>Wasted procs</small>
         </BoringSpellValueText>
       </Statistic>

@@ -26,7 +26,7 @@ class DemonicCirclesCreated extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.DEMONIC_CIRCLE_SUMMON.id}>
+        <BoringSpellValueText spell={SPELLS.DEMONIC_CIRCLE_SUMMON}>
           {formatNumber(this.created)} Demonic Circle(s) created
         </BoringSpellValueText>
       </Statistic>
