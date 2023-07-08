@@ -4,12 +4,8 @@ import CombatLogParser from '../CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { SpellLink } from 'interface';
-import BoringResourceValue from 'parser/ui/BoringResourceValue';
-import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
-import { GUIDE_EXPLANATION_PERCENT_WIDTH } from '../constants';
-import { FlameShockGuide } from './FlameShockGuide';
+import { FlameShockSubSection } from './FlameShockSubSection';
+import { MaelstromSubSection } from './MaelstromSubSection';
 
 /** The guide for Elemental Shamans. */
 export default function ElementalGuide(props: GuideProps<typeof CombatLogParser>) {
@@ -24,6 +20,7 @@ export default function ElementalGuide(props: GuideProps<typeof CombatLogParser>
   );
 }
 
+/** A section for the core combo, abilities and buffs. */
 const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
   const { info, modules } = props;
   return (
@@ -34,11 +31,12 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
         modules.masterOfTheElements.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_SHAMAN.SURGE_OF_POWER_TALENT) &&
         modules.surgeOfPower.guideSubsection()}
-      <FlameShockGuide {...props} />
+      <FlameShockSubSection {...props} />
     </Section>
   );
 };
 
+/** The list of cooldowns to show. */
 const cooldownTalents = [
   TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT,
   TALENTS.NATURES_SWIFTNESS_TALENT,
@@ -47,6 +45,7 @@ const cooldownTalents = [
   TALENTS.FIRE_ELEMENTAL_TALENT,
 ];
 
+/** A section with basic cooldown efficiency information. */
 const CooldownSection = ({ info }: GuideProps<typeof CombatLogParser>) => (
   <Section title="Cooldowns">
     <p>
@@ -66,44 +65,16 @@ const CooldownSection = ({ info }: GuideProps<typeof CombatLogParser>) => (
   </Section>
 );
 
-const ResourceSection = ({ modules }: GuideProps<typeof CombatLogParser>) => {
-  const explanation = (
-    <>
-      <p>
-        Maelstrom is the primary resource of elemental shamans. It empowers our most powerful
-        spells: <SpellLink id={TALENTS.EARTH_SHOCK_TALENT} />,
-        <SpellLink id={TALENTS.EARTHQUAKE_TALENT} /> and{' '}
-        <SpellLink id={TALENTS.ELEMENTAL_BLAST_TALENT} />. These spells are almost always more
-        powerful than the alternatives so you will want to cast them as much as possible.
-      </p>
-      <p>
-        Maelstrom has a cap of 100 (or 150 with <SpellLink id={TALENTS.SWELLING_MAELSTROM_TALENT} />
-        ). Any maelstrom generated past that cap is wasted and will not contribute to your damage.
-      </p>
-    </>
-  );
-
-  const data = (
-    <RoundedPanel>
-      <BoringResourceValue
-        resource={{ id: 11 }}
-        label="Wasted Maelstrom"
-        value={modules.maelstromDetails.wasted}
-      />
-    </RoundedPanel>
-  );
-
+/** A section for information on resource usage. */
+const ResourceSection = (props: GuideProps<typeof CombatLogParser>) => {
   return (
     <Section title="Resources">
-      <ExplanationAndDataSubSection
-        explanation={explanation}
-        data={data}
-        explanationPercent={GUIDE_EXPLANATION_PERCENT_WIDTH}
-      />
+      <MaelstromSubSection {...props} />
     </Section>
   );
 };
 
+/** The list of defensive/utility cooldowns to track. */
 const defensiveTalents = [
   TALENTS.ASTRAL_SHIFT_TALENT,
   TALENTS.EARTH_ELEMENTAL_TALENT,
@@ -112,6 +83,7 @@ const defensiveTalents = [
   TALENTS.SPIRITWALKERS_GRACE_TALENT,
 ];
 
+/** A section with basic defensives efficiency information. */
 const DefensiveSection = ({ info }: GuideProps<typeof CombatLogParser>) => (
   <Section title="Defensives">
     <p>
