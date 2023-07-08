@@ -53,18 +53,18 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         description={
           <>
             The most important element of maximizing the damage of your rotation is ensuring that
-            you are <SpellLink id={TALENTS.SHATTER_TALENT.id} />
+            you are <SpellLink spell={TALENTS.SHATTER_TALENT} />
             ing as many of your spells as possible. The key aspect of this is taking advantage of
-            the <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff. Winter's Chill is applied to the
-            target when you cast <SpellLink id={TALENTS.FLURRY_TALENT.id} /> and makes the target
+            the <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff. Winter's Chill is applied to the
+            target when you cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and makes the target
             act as if it is frozen for a short duration of time. Therefore, you should cast a
-            rotational ability like <SpellLink id={SPELLS.FROSTBOLT.id} />,{' '}
-            <SpellLink id={TALENTS.EBONBOLT_TALENT.id} />, or{' '}
-            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} />, followed immediately by Flurry and
-            then end with two <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />
+            rotational ability like <SpellLink spell={SPELLS.FROSTBOLT} />,{' '}
+            <SpellLink spell={TALENTS.EBONBOLT_TALENT} />, or{' '}
+            <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />, followed immediately by Flurry and
+            then end with two <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />
             s. Against non-boss enemies, you can also utilize other things like{' '}
-            <SpellLink id={SPELLS.FROST_NOVA.id} /> or your pet's{' '}
-            <SpellLink id={SPELLS.FREEZE.id} /> to shatter spells as well.
+            <SpellLink spell={SPELLS.FROST_NOVA} /> or your pet's{' '}
+            <SpellLink spell={SPELLS.FREEZE} /> to shatter spells as well.
           </>
         }
       >
@@ -86,15 +86,15 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
             Frost Mage revolves almost entirely around utilizing your procs effectively. Therefore
             it is very important that when you get a proc, you use it quickly and efficiently to
             prevent them from expiring and to lessen the likelyhood of overwriting them or wasting
-            them. You should aim to use your <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} />{' '}
+            them. You should aim to use your <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />{' '}
             as quickly as possible to ensure that you do not overcap and to avoid wasting them.
             Additionally, you should try to ensure that you use all of your Fingers of Frost procs
-            before you use your <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc, but
+            before you use your <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc, but
             sometimes this is not possible. If you are already casting{' '}
-            <SpellLink id={SPELLS.FROSTBOLT.id} />, <SpellLink id={TALENTS.EBONBOLT_TALENT.id} />,
-            or <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> and you have both a{' '}
-            <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> and a{' '}
-            <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} /> proc, you should prioritize using
+            <SpellLink spell={SPELLS.FROSTBOLT} />, <SpellLink spell={TALENTS.EBONBOLT_TALENT} />,
+            or <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> and you have both a{' '}
+            <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and a{' '}
+            <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> proc, you should prioritize using
             the Brain Freeze and let the Fingers of Frost proc get wasted.
           </>
         }
@@ -118,20 +118,20 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         name="Use Glacial Spike properly"
         description={
           <>
-            When talented into <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> you should always
+            When talented into <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> you should always
             ensure that you are getting the most out of it, because a large part of your damage will
             come from making sure that you are handling Glacial Spike properly. As a rule, once you
             have Glacial Spike available, you should not cast it unless you can cast{' '}
-            <SpellLink id={TALENTS.FLURRY_TALENT.id} /> alongside it (
-            <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> {'>'}{' '}
-            <SpellLink id={TALENTS.FLURRY_TALENT.id} /> {'>'}
-            <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />) or if you also have the{' '}
-            <SpellLink id={TALENTS.SPLITTING_ICE_TALENT.id} /> and the Glacial Spike will hit a
+            <SpellLink spell={TALENTS.FLURRY_TALENT} /> alongside it (
+            <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> {'>'}{' '}
+            <SpellLink spell={TALENTS.FLURRY_TALENT} /> {'>'}
+            <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />) or if you also have the{' '}
+            <SpellLink spell={TALENTS.SPLITTING_ICE_TALENT} /> and the Glacial Spike will hit a
             second target. If neither of those are true, then you should continue casting{' '}
-            <SpellLink id={SPELLS.FROSTBOLT.id} /> until <SpellLink id={TALENTS.FLURRY_TALENT.id} />{' '}
-            is available or you get a <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT} /> proc. If you
+            <SpellLink spell={SPELLS.FROSTBOLT} /> until <SpellLink spell={TALENTS.FLURRY_TALENT} />{' '}
+            is available or you get a <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc. If you
             are consistently in situations where you are waiting to get a Brain Freeze proc, then
-            consider taking the <SpellLink id={TALENTS.EBONBOLT_TALENT.id} /> talent and saving it
+            consider taking the <SpellLink spell={TALENTS.EBONBOLT_TALENT} /> talent and saving it
             for when you need to generate a proc to use with Glacial Spike.
           </>
         }

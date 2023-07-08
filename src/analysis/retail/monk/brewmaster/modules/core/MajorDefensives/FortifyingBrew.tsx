@@ -80,14 +80,14 @@ export class FortifyingBrew extends MajorDefensiveBuff {
     return (
       <>
         <p>
-          <SpellLink id={talents.FORTIFYING_BREW_TALENT} /> is a flexible cooldown that combines
+          <SpellLink spell={talents.FORTIFYING_BREW_TALENT} /> is a flexible cooldown that combines
           with several talents for boosting its defensive power or reducing its cooldown.{' '}
           <CountsAsBrew
             baseCooldown={60 * 6}
             cdTooltip={
               <>
                 Reduced to {formatDurationMinSec(brewCooldownDisplay(4 * 60))} with{' '}
-                <SpellLink id={talents.EXPEDITIOUS_FORTIFICATION_TALENT} />.
+                <SpellLink spell={talents.EXPEDITIOUS_FORTIFICATION_TALENT} />.
               </>
             }
           />
@@ -109,7 +109,7 @@ export class FortifyingBrew extends MajorDefensiveBuff {
         </p>
         <p>
           <small>
-            <strong>Note:</strong> <SpellLink id={talents.IRONSHELL_BREW_TALENT} /> is not yet
+            <strong>Note:</strong> <SpellLink spell={talents.IRONSHELL_BREW_TALENT} /> is not yet
             supported.
           </small>
         </p>
@@ -141,19 +141,19 @@ export class FortifyingBrew extends MajorDefensiveBuff {
         color: color(MAGIC_SCHOOLS.ids.PHYSICAL),
         description: (
           <>
-            Base <SpellLink id={talents.FORTIFYING_BREW_TALENT} />
+            Base <SpellLink spell={talents.FORTIFYING_BREW_TALENT} />
           </>
         ),
       },
       {
         amount: purify,
         color: 'rgb(112, 181, 112)',
-        description: <SpellLink id={talents.FORTIFYING_BREW_DETERMINATION_TALENT} />,
+        description: <SpellLink spell={talents.FORTIFYING_BREW_DETERMINATION_TALENT} />,
       },
       {
         amount: gaiPlins,
         color: color(MAGIC_SCHOOLS.ids.HOLY),
-        description: <SpellLink id={talents.GAI_PLINS_IMPERIAL_BREW_TALENT} />,
+        description: <SpellLink spell={talents.GAI_PLINS_IMPERIAL_BREW_TALENT} />,
       },
     ].filter((seg) => seg.amount > 0);
   }

@@ -110,7 +110,7 @@ class Resurgence extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for{' '}
+            <SpellLink spell={SPELLS.RESURGENCE} iconStyle={{ height: '1.25em' }} /> accounted for{' '}
             {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your total
             available mana over the fight ({formatNumber(this.totalMana)} mana).
           </>

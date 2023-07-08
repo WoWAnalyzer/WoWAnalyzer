@@ -113,9 +113,9 @@ class CallOfYsera extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to empower all <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> casts using the{' '}
-          <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buff and avoid using it on{' '}
-          <SpellLink id={SPELLS.LIVING_FLAME_CAST.id} />
+          Try to empower all <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> casts using
+          the <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT} /> buff and avoid using it on{' '}
+          <SpellLink spell={SPELLS.LIVING_FLAME_CAST} />
         </>,
       )
         .icon(TALENTS_EVOKER.DREAM_BREATH_TALENT.icon)
@@ -202,15 +202,15 @@ class CallOfYsera extends Analyzer {
             Call Of Ysera's buff provided the following additional healing:
             <ul>
               <li>
-                <SpellLink id={SPELLS.LIVING_FLAME_CAST.id} /> Healing:{' '}
+                <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> Healing:{' '}
                 {formatNumber(this.extraLivingFlameHealing)}
               </li>
               <li>
-                <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} /> Hit Healing:{' '}
+                <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> Hit Healing:{' '}
                 {formatNumber(this.extraBreathHealing)}
               </li>
               <li>
-                <SpellLink id={TALENTS_EVOKER.DREAM_BREATH_TALENT.id} /> HoT Healing:{' '}
+                <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> HoT Healing:{' '}
                 {formatNumber(this.extraBreathHoTHealing)}
               </li>
             </ul>
@@ -221,7 +221,7 @@ class CallOfYsera extends Analyzer {
           <ItemHealingDone amount={this.totalBreathHealing + this.extraLivingFlameHealing} />
         </TalentSpellText>
         <div className="pad">
-          <SpellLink id={TALENTS_EVOKER.CALL_OF_YSERA_TALENT.id}>Sources:</SpellLink>
+          <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT}>Sources:</SpellLink>
           {this.renderCallOfYseraChart()}
         </div>
       </Statistic>

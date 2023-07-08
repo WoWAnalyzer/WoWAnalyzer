@@ -54,7 +54,7 @@ class ShiftingPowerUsage extends Analyzer {
     when(this.shiftingPowerUsageThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You used <SpellLink id={TALENTS.SHIFTING_POWER_TALENT.id} /> while some critical abilities
+          You used <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> while some critical abilities
           (
           <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> was not on cooldown. Since{' '}
           <SpellLink id={TALENTS.SHIFTING_POWER_TALENT.id} /> will reduce the cooldown on these

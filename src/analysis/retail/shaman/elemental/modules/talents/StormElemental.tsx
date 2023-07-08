@@ -106,8 +106,8 @@ class StormElemental extends Analyzer {
         }
       >
         <>
-          You cast <SpellLink id={SPELLS.LIGHTNING_BOLT.id} /> {this.averageLightningBoltCasts}{' '}
-          times per <SpellLink id={TALENTS.STORM_ELEMENTAL_TALENT.id} />
+          You cast <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> {this.averageLightningBoltCasts}{' '}
+          times per <SpellLink spell={TALENTS.STORM_ELEMENTAL_TALENT} />
         </>
       </Statistic>
     );

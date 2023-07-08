@@ -19,35 +19,35 @@ class Riptide extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={talents.RIPTIDE_TALENT.id} />
+          <SpellLink spell={talents.RIPTIDE_TALENT} />
         </b>{' '}
         is one of your core rotational abilities and primary sources of healing. It is your only
-        source of <SpellLink id={talents.TIDAL_WAVES_TALENT} /> and has numerous throughput
-        synergies with talents like <SpellLink id={talents.PRIMORDIAL_WAVE_TALENT} />,{' '}
-        <SpellLink id={talents.UNDERCURRENT_TALENT} />,{' '}
-        <SpellLink id={talents.ECHO_OF_THE_ELEMENTS_TALENT} />,
+        source of <SpellLink spell={talents.TIDAL_WAVES_TALENT} /> and has numerous throughput
+        synergies with talents like <SpellLink spell={talents.PRIMORDIAL_WAVE_TALENT} />,{' '}
+        <SpellLink spell={talents.UNDERCURRENT_TALENT} />,{' '}
+        <SpellLink spell={talents.ECHO_OF_THE_ELEMENTS_TALENT} />,
         {this.selectedCombatant.hasTalent(talents.FLOW_OF_THE_TIDES_TALENT) && (
           <>
-            <SpellLink id={talents.FLOW_OF_THE_TIDES_TALENT} />,{' '}
+            <SpellLink spell={talents.FLOW_OF_THE_TIDES_TALENT} />,{' '}
           </>
         )}
         {this.selectedCombatant.hasTalent(talents.PRIMAL_TIDE_CORE_TALENT) && (
           <>
-            <SpellLink id={talents.PRIMAL_TIDE_CORE_TALENT} />,{' '}
+            <SpellLink spell={talents.PRIMAL_TIDE_CORE_TALENT} />,{' '}
           </>
         )}
         {this.selectedCombatant.hasTalent(talents.DEEPLY_ROOTED_ELEMENTS_TALENT) && (
           <>
-            <SpellLink id={talents.DEEPLY_ROOTED_ELEMENTS_TALENT} />,{' '}
+            <SpellLink spell={talents.DEEPLY_ROOTED_ELEMENTS_TALENT} />,{' '}
           </>
         )}{' '}
-        etc. <SpellLink id={talents.RIPTIDE_TALENT.id} /> should be kept on cooldown as often as
+        etc. <SpellLink spell={talents.RIPTIDE_TALENT} /> should be kept on cooldown as often as
         possible, particularly with the addition of the{' '}
         <ItemSetLink id={SHAMAN_T30_ID}>
           <>Tier 30 Set Bonus</>
         </ItemSetLink>
         , whose power is directly tied to the number of active{' '}
-        <SpellLink id={talents.RIPTIDE_TALENT} /> HoTs out on the raid
+        <SpellLink spell={talents.RIPTIDE_TALENT} /> HoTs out on the raid
       </p>
     );
 
@@ -55,7 +55,7 @@ class Riptide extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={talents.RIPTIDE_TALENT} /> cast efficiency
+            <SpellLink spell={talents.RIPTIDE_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}

@@ -65,7 +65,7 @@ class IcyPropulsion extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ICY_PROPULSION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ICY_PROPULSION_TALENT}>
           <UptimeIcon /> {`${formatNumber(this.reductionSeconds)}s`} <small>Icy Veins CDR</small>
         </BoringSpellValueText>
       </Statistic>

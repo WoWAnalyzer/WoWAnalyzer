@@ -88,7 +88,7 @@ class Contrition extends Analyzer {
           this.owner.getPercentageOfTotalDamageDone(this.damagePenalty),
         )}% more damage.`}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.CONTRITION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.CONTRITION_TALENT}>
           <ItemHealingDone amount={healing} />
         </BoringSpellValueText>
       </Statistic>

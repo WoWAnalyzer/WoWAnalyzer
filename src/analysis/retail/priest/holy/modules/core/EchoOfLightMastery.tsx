@@ -98,7 +98,7 @@ class EchoOfLightMastery extends Analyzer {
         rows.push(
           <tr key={'mastery_' + spellDetails[i].spellId}>
             <td>
-              <SpellIcon id={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} />
+              <SpellIcon spell={Number(spellDetails[i].spellId)} style={{ height: '2.4em' }} />
             </td>
             <td>{formatNumber(spellDetails[i].effectiveHealing)}</td>
             <td>
@@ -365,7 +365,7 @@ class EchoOfLightMastery extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.ECHO_OF_LIGHT_MASTERY.id}>
+        <BoringSpellValueText spell={SPELLS.ECHO_OF_LIGHT_MASTERY}>
           <ItemHealingDone amount={this.effectiveHealing} />
         </BoringSpellValueText>
       </Statistic>

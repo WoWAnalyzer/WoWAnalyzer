@@ -75,7 +75,7 @@ class Afterlife extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(3)}
       >
-        <BoringSpellValueText spellId={TALENTS.AFTERLIFE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.AFTERLIFE_TALENT}>
           <ItemHealingDone amount={this.healingInAfterlife} />
         </BoringSpellValueText>
       </Statistic>

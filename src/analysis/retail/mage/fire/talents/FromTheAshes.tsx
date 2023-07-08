@@ -49,7 +49,7 @@ class FromTheAshes extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={TALENTS.FROM_THE_ASHES_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.FROM_THE_ASHES_TALENT}>
           <>
             {formatNumber(this.cooldownReductionSeconds)}s <small>Phoenix Flames CDR</small>
           </>

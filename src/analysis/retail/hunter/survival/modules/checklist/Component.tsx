@@ -66,10 +66,10 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           name="Mongoose Bite usage"
           description={
             <>
-              Using <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> properly is a key to
+              Using <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} /> properly is a key to
               achieving high dps. Maintaining high stacks of{' '}
-              <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> buff from as soon as possible and casting
-              as much <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />s on max stacks as possible
+              <SpellLink spell={SPELLS.MONGOOSE_FURY} /> buff from as soon as possible and casting
+              as much <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />s on max stacks as possible
               is considered to be most effective.
             </>
           }
@@ -78,7 +78,7 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             name={
               <>
                 <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink={false} /> Average focus on{' '}
-                <SpellLink id={SPELLS.MONGOOSE_FURY.id} /> opening window{' '}
+                <SpellLink spell={SPELLS.MONGOOSE_FURY} /> opening window{' '}
               </>
             }
             thresholds={thresholds.mongooseBiteAverageFocusThreshold}
@@ -86,8 +86,8 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} /> hits on max stacks of{' '}
-                <SpellLink id={SPELLS.MONGOOSE_FURY.id} />{' '}
+                <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} /> hits on max stacks of{' '}
+                <SpellLink spell={SPELLS.MONGOOSE_FURY} />{' '}
               </>
             }
             thresholds={thresholds.mongooseBite5StackHitPercentageThreshold}
@@ -109,7 +109,7 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.BIRDS_OF_PREY_TALENT.id} /> Effectiveness{' '}
+                <SpellLink spell={TALENTS.BIRDS_OF_PREY_TALENT} /> Effectiveness{' '}
               </>
             }
             thresholds={thresholds.birdPercentEffectiveness}
@@ -127,9 +127,9 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             As a DPS, you should try to reduce the delay between casting spells, and stay off
             resource capping as much as possible. If everything is on cooldown, try and use{' '}
             {combatant.hasTalent(TALENTS.MONGOOSE_BITE_TALENT) ? (
-              <SpellLink id={TALENTS.MONGOOSE_BITE_TALENT.id} />
+              <SpellLink spell={TALENTS.MONGOOSE_BITE_TALENT} />
             ) : (
-              <SpellLink id={TALENTS.RAPTOR_STRIKE_TALENT.id} />
+              <SpellLink spell={TALENTS.RAPTOR_STRIKE_TALENT} />
             )}{' '}
             to stay off the focus cap and do some damage.
           </>

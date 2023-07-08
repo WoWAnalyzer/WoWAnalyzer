@@ -26,12 +26,12 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         description={
           <>
             Any time you are not casting something, that is damage that is lost. Mage has many ways
-            to decrease downtime, such as using <SpellLink id={SPELLS.BLINK.id} /> to get somewhere
+            to decrease downtime, such as using <SpellLink spell={SPELLS.BLINK} /> to get somewhere
             faster so you can continue casting or using{' '}
-            <SpellLink id={TALENTS.PRESENCE_OF_MIND_TALENT.id} /> to get a couple casts in while you
+            <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} /> to get a couple casts in while you
             are moving; even phases where the only target is taking 99% reduced damage is an
-            opportunity to fish for <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> procs or to get
-            more stacks of <SpellLink id={SPELLS.ARCANE_HARMONY_BUFF.id} /> if you are using that
+            opportunity to fish for <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> procs or to get
+            more stacks of <SpellLink spell={SPELLS.ARCANE_HARMONY_BUFF} /> if you are using that
             legendary. While some encounters have forced downtime, which WoWAnalyzer does not
             account for, anything you can do to minimize your downtime will help your damage.
             Additionally, to better contextualize your downtime, we recommend comparing your
@@ -92,7 +92,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.EVOCATION_TALENT} /> Cast Efficiency
+                <SpellLink spell={TALENTS.EVOCATION_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.EVOCATION_TALENT.id}
@@ -102,7 +102,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.ARCANE_ORB_TALENT} /> Cast Efficiency
+                <SpellLink spell={TALENTS.ARCANE_ORB_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.ARCANE_ORB_TALENT.id}
@@ -112,7 +112,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.SUPERNOVA_TALENT} /> Cast Efficiency
+                <SpellLink spell={TALENTS.SUPERNOVA_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.SUPERNOVA_TALENT.id}
@@ -122,7 +122,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.RADIANT_SPARK_TALENT} /> Cast Efficiency
+                <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.RADIANT_SPARK_TALENT.id}
@@ -153,7 +153,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.SHIFTING_POWER_TALENT} /> Cast Efficiency
+                <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.SHIFTING_POWER_TALENT.id}
@@ -188,7 +188,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             The biggest aspect of playing Arcane properly is managing your mana effectively.
             Essentially your mana dictates how much damage you can do and therefore needs to be
             managed properly. Things such as running out of mana during{' '}
-            <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} />, letting your mana cap out at 100% for
+            <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />, letting your mana cap out at 100% for
             too long, or ending the fight with mana remaining all have negative effects on your DPS.
           </>
         }

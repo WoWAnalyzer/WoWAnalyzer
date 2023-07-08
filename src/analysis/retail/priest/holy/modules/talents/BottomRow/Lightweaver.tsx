@@ -117,13 +117,13 @@ class Lightweaver extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.LIGHTWEAVER_TALENT.id} />
+          <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} />
         </b>{' '}
         is a strong buff that you should be playing around to buff your{' '}
-        <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts. Focus on alternating your{' '}
-        <SpellLink id={SPELLS.FLASH_HEAL.id} /> and <SpellLink id={SPELLS.GREATER_HEAL.id} /> casts
+        <SpellLink spell={SPELLS.GREATER_HEAL} /> casts. Focus on alternating your{' '}
+        <SpellLink spell={SPELLS.FLASH_HEAL} /> and <SpellLink spell={SPELLS.GREATER_HEAL} /> casts
         to avoid wasting stacks of this buff. It is best to also move between different targets to
-        optimize the <SpellLink id={TALENTS.TRAIL_OF_LIGHT_TALENT.id} /> talent.
+        optimize the <SpellLink spell={TALENTS.TRAIL_OF_LIGHT_TALENT} /> talent.
       </p>
     );
 
@@ -160,12 +160,12 @@ class Lightweaver extends Analyzer {
     const data = (
       <div>
         <strong>
-          <SpellLink id={SPELLS.GREATER_HEAL.id} /> cast breakdown
+          <SpellLink spell={SPELLS.GREATER_HEAL} /> cast breakdown
         </strong>
         <small>
           {' '}
           - Green is a good cast. Yellow is a cast with very high overheal, and Red is a cast with
-          no <SpellLink id={TALENTS.LIGHTWEAVER_TALENT.id} /> buff.
+          no <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> buff.
         </small>
         <GradiatedPerformanceBar
           good={goodHeals}
@@ -174,12 +174,12 @@ class Lightweaver extends Analyzer {
         />
 
         <strong>
-          <SpellLink id={SPELLS.FLASH_HEAL.id} /> cast breakdown
+          <SpellLink spell={SPELLS.FLASH_HEAL} /> cast breakdown
         </strong>
         <small>
           {' '}
           - Green is a good cast. Yellow is a cast with very high overheal, and Red is a cast with
-          two stacks of <SpellLink id={TALENTS.LIGHTWEAVER_TALENT.id} /> already active.
+          two stacks of <SpellLink spell={TALENTS.LIGHTWEAVER_TALENT} /> already active.
         </small>
         <GradiatedPerformanceBar
           good={goodFlashHeals}
@@ -204,7 +204,7 @@ class Lightweaver extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${overhealingTooltipString}% overhealing`}
       >
-        <BoringSpellValueText spellId={TALENTS.LIGHTWEAVER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.LIGHTWEAVER_TALENT}>
           <ItemHealingDone amount={this.healingDoneFromTalent} />
         </BoringSpellValueText>
       </Statistic>

@@ -58,7 +58,7 @@ class NaturesGuardian extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.NATURES_GUARDIAN_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.NATURES_GUARDIAN_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

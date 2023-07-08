@@ -33,7 +33,7 @@ class InescapableTorment extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.INESCAPABLE_TORMENT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.INESCAPABLE_TORMENT_TALENT}>
           <div>
             <ItemDamageDone amount={this.damage} />{' '}
           </div>

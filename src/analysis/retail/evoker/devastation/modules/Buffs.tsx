@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS/evoker';
+import PRIEST_TALENTS from 'common/TALENTS/priest';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 import TALENTS from 'common/TALENTS/evoker';
@@ -46,6 +47,11 @@ class Buffs extends CoreAuras {
         spellId: TALENTS.RENEWING_BLAZE_TALENT.id,
         triggeredBySpellId: TALENTS.RENEWING_BLAZE_TALENT.id,
         timelineHighlight: false,
+      },
+      {
+        spellId: PRIEST_TALENTS.POWER_INFUSION_TALENT.id,
+        triggeredBySpellId: PRIEST_TALENTS.POWER_INFUSION_TALENT.id,
+        timelineHighlight: true,
       },
       // Bloodlust
       {

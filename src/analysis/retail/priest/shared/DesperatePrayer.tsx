@@ -96,7 +96,7 @@ class DesperatePrayer extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DESPERATE_PRAYER.id}>
+        <BoringSpellValueText spell={SPELLS.DESPERATE_PRAYER}>
           {this.desperatePrayerUsages.length} Casts
         </BoringSpellValueText>
       </Statistic>
@@ -111,7 +111,7 @@ class DesperatePrayer extends Analyzer {
         .addSuggestion((suggest) =>
           suggest(
             <>
-              You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.
+              You died with <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> available.
             </>,
           )
             .icon(SPELLS.DESPERATE_PRAYER.icon)

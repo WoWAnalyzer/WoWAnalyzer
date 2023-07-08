@@ -146,17 +146,17 @@ class ArcaneSurgePreReqs extends Analyzer {
     when(this.arcaneSurgePreReqThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> without proper setup{' '}
+          You cast <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> without proper setup{' '}
           {this.badCooldownUses} times. Arcane Surge has a short duration so you should get the most
           out of it by meeting all requirements before casting it.
           <ul>
             <li>
-              You have {ARCANE_CHARGE_MAX_STACKS} <SpellLink id={SPELLS.ARCANE_CHARGE.id} /> - You
+              You have {ARCANE_CHARGE_MAX_STACKS} <SpellLink spell={SPELLS.ARCANE_CHARGE} /> - You
               failed this {this.lowArcaneCharges} times.
             </li>
             <li>
               <>
-                You cast <SpellLink id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} />
+                You cast <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />
                 <TooltipElement content="Arcane Surge should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Surge to ensure that Rune of Power is up for the entire duration of Arcane Surge.">
                   immediately
                 </TooltipElement>
@@ -166,13 +166,13 @@ class ArcaneSurgePreReqs extends Analyzer {
             {this.hasArcaneHarmony && (
               <li>
                 You have {ARCANE_HARMONY_MAX_STACKS} stacks of{' '}
-                <SpellLink id={SPELLS.ARCANE_HARMONY_BUFF.id} /> - You failed this{' '}
+                <SpellLink spell={SPELLS.ARCANE_HARMONY_BUFF} /> - You failed this{' '}
                 {this.lowArcaneHarmonyStacks} times.
               </li>
             )}
             {this.isKyrian && (
               <li>
-                <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> is active. - You failed this{' '}
+                <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> is active. - You failed this{' '}
                 {this.noRadiantSpark} times.
               </li>
             )}
@@ -217,7 +217,7 @@ class ArcaneSurgePreReqs extends Analyzer {
               )}
               {this.hasArcaneHarmony && (
                 <li>
-                  <SpellLink id={TALENTS.RADIANT_SPARK_TALENT.id} /> is active - Missed{' '}
+                  <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> is active - Missed{' '}
                   {this.noRadiantSpark} times
                 </li>
               )}
@@ -225,7 +225,7 @@ class ArcaneSurgePreReqs extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ARCANE_SURGE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ARCANE_SURGE_TALENT}>
           <>
             {formatPercentage(this.cooldownUtilization, 0)}% <small> Cooldown utilization</small>
             {this.badCooldownUses > 0 && (

@@ -119,11 +119,11 @@ class BeastCleave extends Analyzer {
       when(this.beastCleavesWithoutHits).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            You cast <SpellLink id={TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT} /> {actual}{' '}
+            You cast <SpellLink spell={TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT} /> {actual}{' '}
             {actual === 1 ? 'time' : 'times'} without your pets doing any{' '}
-            <SpellLink id={SPELLS.BEAST_CLEAVE_PET_BUFF.id} /> damage onto additional targets. On
+            <SpellLink spell={SPELLS.BEAST_CLEAVE_PET_BUFF} /> damage onto additional targets. On
             single-target situations, avoid using{' '}
-            <SpellLink id={TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.id} />.
+            <SpellLink spell={TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT} />.
           </>,
         )
           .icon(TALENTS.MULTI_SHOT_BEAST_MASTERY_TALENT.icon)
@@ -145,7 +145,7 @@ class BeastCleave extends Analyzer {
     if (this.damage > 0) {
       return (
         <Statistic position={STATISTIC_ORDER.OPTIONAL(13)} size="flexible">
-          <BoringSpellValueText spellId={SPELLS.BEAST_CLEAVE_BUFF.id}>
+          <BoringSpellValueText spell={SPELLS.BEAST_CLEAVE_BUFF}>
             <>
               <ItemDamageDone amount={this.damage} />
               <br />

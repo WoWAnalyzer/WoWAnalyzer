@@ -41,7 +41,7 @@ class PowerWordBarrier extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={SPELLS.POWER_WORD_BARRIER_BUFF.id} />}
+        icon={<SpellIcon spell={SPELLS.POWER_WORD_BARRIER_BUFF} />}
         value={`≈${formatNumber(
           (this.damageReducedDuringPowerWordBarrier / fightDuration) * 1000,
         )} DRPS`}

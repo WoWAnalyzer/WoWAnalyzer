@@ -78,7 +78,7 @@ class SpinningCraneKick extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing your <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> spell as
+          You are not utilizing your <SpellLink spell={SPELLS.SPINNING_CRANE_KICK} /> spell as
           effectively as you should. You should work on both your positioning spell. Always aim for
           the highest concentration of enemies, which is normally melee.
         </>,

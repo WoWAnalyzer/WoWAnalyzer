@@ -17,7 +17,7 @@ const ClassicDemonologyChecklist = ({ combatant, castEfficiency, thresholds }: C
     <Requirement
       name={
         <>
-          <SpellLink id={props.id} icon /> uptime
+          <SpellLink spell={props.spell} icon /> uptime
         </>
       }
       thresholds={props.thresholds}
@@ -59,19 +59,19 @@ const ClassicDemonologyChecklist = ({ combatant, castEfficiency, thresholds }: C
       >
         <Requirement name="Total Curse Uptime" thresholds={thresholds.curseUptime} />
         <DotUptime
-          id={SPELLS.CURSE_OF_THE_ELEMENTS.id}
+          spell={SPELLS.CURSE_OF_THE_ELEMENTS}
           thresholds={thresholds.curseOfTheElements}
         />
-        <DotUptime id={SPELLS.CURSE_OF_DOOM.id} thresholds={thresholds.curseOfDoom} />
-        <DotUptime id={SPELLS.CURSE_OF_AGONY.id} thresholds={thresholds.curseOfAgony} />
+        <DotUptime spell={SPELLS.CURSE_OF_DOOM} thresholds={thresholds.curseOfDoom} />
+        <DotUptime spell={SPELLS.CURSE_OF_AGONY} thresholds={thresholds.curseOfAgony} />
       </Rule>
       <Rule
         name="Maintain DoTs and debuffs"
         description="Demonology Warlocks rely on Damage over Time spells (DoTs) to deal damage. Try to keep your DoT uptime as high as possible."
       >
-        <DotUptime id={SPELLS.CORRUPTION.id} thresholds={thresholds.corruption} />
-        <DotUptime id={SPELLS.IMMOLATE.id} thresholds={thresholds.immolate} />
-        <DotUptime id={SPELLS.SHADOW_MASTERY_DEBUFF.id} thresholds={thresholds.shadowMastery} />
+        <DotUptime spell={SPELLS.CORRUPTION} thresholds={thresholds.corruption} />
+        <DotUptime spell={SPELLS.IMMOLATE} thresholds={thresholds.immolate} />
+        <DotUptime spell={SPELLS.SHADOW_MASTERY_DEBUFF} thresholds={thresholds.shadowMastery} />
       </Rule>
       <Rule
         name="Always Be Casting"

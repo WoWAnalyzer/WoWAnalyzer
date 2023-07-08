@@ -116,7 +116,7 @@ class JadeSerpentStatue extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You selected <SpellLink id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id} /> as your
+          You selected <SpellLink spell={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT} /> as your
           talent. To gain the most value out of this talent you should have it casting on someone as
           often as possible. The priority should be tanks or any raid member taking heavy damage,
           such as from a specific DOT or boss mechanic.

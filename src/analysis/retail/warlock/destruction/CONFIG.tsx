@@ -19,8 +19,20 @@ export default {
         Council of the Black Harvest Discord
       </a>
       &nbsp; or{' '}
-      <a href="http://lockonestopshop.com" target="_blank" rel="noopener noreferrer">
-        Lock One Stop Shop
+      <a
+        href="https://www.kalamazi.gg/guides/destruction"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Kalamazi&apos;s Destruction Guide
+      </a>{' '}
+      or{' '}
+      <a
+        href="https://www.method.gg/guides/destruction-warlock"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Method&apos;s Destruction Guide
       </a>
       .
     </>

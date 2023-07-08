@@ -77,7 +77,7 @@ class SpiritOfRedemption extends Analyzer {
           <>
             We noticed that you didn't die during this encounter. It is recommended that you die
             within the last 15 seconds of each encounter to make the most of{' '}
-            <SpellLink id={SPELLS.SPIRIT_OF_REDEMPTION_BUFF.id} />. If you are having trouble dying,
+            <SpellLink spell={SPELLS.SPIRIT_OF_REDEMPTION_BUFF} />. If you are having trouble dying,
             try standing in fire.
           </>,
         )

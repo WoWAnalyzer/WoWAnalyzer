@@ -109,7 +109,7 @@ class PheromoneBomb extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.PHEROMONE_BOMB_WFI.id}>
+        <BoringSpellValueText spell={SPELLS.PHEROMONE_BOMB_WFI}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

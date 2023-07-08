@@ -174,7 +174,7 @@ class HotStreak extends Analyzer {
       suggest(
         <>
           You allowed {formatPercentage(this.expiredProcs() / this.totalHotStreakProcs)}% of your{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as
+          <SpellLink spell={SPELLS.HOT_STREAK} /> procs to expire. Try to use your procs as soon as
           possible to avoid this.
         </>,
       )
@@ -189,7 +189,7 @@ class HotStreak extends Analyzer {
     when(this.castBeforeHotStreakThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          When <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is not active
+          When <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is not active
           {this.hasFirestarter ? ' and the target is below 90% health' : ''}{' '}
           {this.hasSearingTouch ? ' and the target is over 30% health' : ''},{' '}
           <SpellLink id={SPELLS.HOT_STREAK.id} /> procs should be used immediately after casting{' '}
@@ -197,9 +197,9 @@ class HotStreak extends Analyzer {
           will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will
           get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this{' '}
           {this.missingHotStreakPreCast()} times. If you have a{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> proc and need to move, you can hold the proc and
-          cast <SpellLink id={SPELLS.SCORCH.id} /> once or twice until you are able to stop and cast{' '}
-          <SpellLink id={SPELLS.FIREBALL.id} /> or you can use your procs while you move.
+          <SpellLink spell={SPELLS.HOT_STREAK} /> proc and need to move, you can hold the proc and
+          cast <SpellLink spell={SPELLS.SCORCH} /> once or twice until you are able to stop and cast{' '}
+          <SpellLink spell={SPELLS.FIREBALL} /> or you can use your procs while you move.
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
@@ -215,7 +215,7 @@ class HotStreak extends Analyzer {
         <>
           You crit with {formatNumber(this.wastedCrits())} (
           {formatNumber(this.wastedCritsThresholds.actual)} Per Minute) direct damage abilities
-          while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those
+          while <SpellLink spell={SPELLS.HOT_STREAK} /> was active. This is a waste since those
           crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as
           possible to avoid this.
         </>,
@@ -255,7 +255,7 @@ class HotStreak extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HOT_STREAK.id}>
+        <BoringSpellValueText spell={SPELLS.HOT_STREAK}>
           <>
             {formatPercentage(this.hotStreakUtilizationThresholds.actual, 0)}%{' '}
             <small>Proc Utilization</small>

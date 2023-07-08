@@ -112,7 +112,7 @@ class FeelTheBurn extends Analyzer {
     when(this.maxStackUptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> buff was at {MAX_STACKS} stacks
+          Your <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> buff was at {MAX_STACKS} stacks
           for {formatPercentage(this.maxStackPercent)}% of your Combustion Uptime. Because so much
           of your damage comes from your Combustion, it is important that you build up and maintain{' '}
           {MAX_STACKS} stacks of <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> for as much of

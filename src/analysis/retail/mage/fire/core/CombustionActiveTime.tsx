@@ -98,11 +98,11 @@ class CombustionActiveTime extends Analyzer {
         <>
           You spent {formatNumber(this.downtimeSeconds)} seconds (
           {formatNumber(this.averageDowntime)}s per cast) not casting anything while{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> was active. Because a large portion of
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was active. Because a large portion of
           your damage comes from Combustion, you should ensure that you are getting the most out of
           it every time it is cast. While sometimes this is out of your control (you got targeted by
           a mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> when you are at a low risk of being
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> when you are at a low risk of being
           interrupted or when the target is vulnerable.
         </>,
       )
@@ -171,7 +171,7 @@ class CombustionActiveTime extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.COMBUSTION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.COMBUSTION_TALENT}>
           {formatPercentage(this.percentActiveTime)}% <small>Combustion Active Time</small>
           <br />
           {this.combustionPreCastDelay.combustionCastDelayThresholds.actual.toFixed(2)}s{' '}

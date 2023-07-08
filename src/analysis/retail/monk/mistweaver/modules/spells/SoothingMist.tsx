@@ -154,10 +154,10 @@ class SoothingMist extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest) =>
       suggest(
         <>
-          You are allowing <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} /> to channel for an
-          extended period of time. <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} /> does
+          You are allowing <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} /> to channel for an
+          extended period of time. <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} /> does
           little healing, so your time is better spent DPS'ing through the use of{' '}
-          <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} />.
+          <SpellLink spell={SPELLS.TIGER_PALM} /> and <SpellLink spell={SPELLS.BLACKOUT_KICK} />.
         </>,
       )
         .icon(TALENTS_MONK.SOOTHING_MIST_TALENT.icon)
@@ -167,9 +167,9 @@ class SoothingMist extends Analyzer {
     when(this.suggestionThresholdsCasting).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You were channeling <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} /> without
+          You were channeling <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} /> without
           casting spells during it. Replace this channel time with damage abilities like{' '}
-          <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />.
+          <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />.
         </>,
       )
         .icon(TALENTS_MONK.SOOTHING_MIST_TALENT.icon)

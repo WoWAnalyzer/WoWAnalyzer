@@ -1,4 +1,4 @@
-import { HawkCorrigan } from 'CONTRIBUTORS';
+import { Awildfivreld, Periodic } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 
@@ -6,10 +6,10 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [HawkCorrigan],
+  contributors: [Awildfivreld, Periodic],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: null,
+  patchCompatibility: '10.1.0' as const,
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -17,7 +17,8 @@ export default {
     <>
       Hello there! Welcome to the analyzer for Elemental Shaman! This analyzer has functionalities
       that I hope you find useful when playing the spec. If you have any input or suggestions please
-      contact HawkCorrigan(HawkCorrigan#1811) or Draenal(Draenal#4089) on Discord.
+      ask questions in the #elemental channel in the{' '}
+      <a href="https://discord.gg/earthshrine">Earthshrine discord</a>.
       <br />
       <br />
       <br />
@@ -51,7 +52,7 @@ export default {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/YgrNJWQpCwh4XBfj/5-Normal+The+Primal+Council+-+Kill+(4:15)/Blitzlimo/standard',
+    '/report/L1R2zVKY8ZDxCTNb/15-Mythic+Scalecommander+Sarkareth+-+Kill+(7:21)/Nerdshockz/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

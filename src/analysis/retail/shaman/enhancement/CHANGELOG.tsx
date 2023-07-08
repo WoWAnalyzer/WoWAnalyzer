@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Taum, Vetyst, Vohrr, xunni, Seriousnes } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2023, 6, 30), <>Adding support for major cooldown usage, various bug fixes</>, Seriousnes),
   change(date(2023, 5, 25), <>Update Enhancement module to 10.1 compatibility</>, Seriousnes),
   change(date(2023, 5, 5), <>Fix crash in Earth Shield Module</>, Vohrr),
   change(date(2022, 1, 1), <>Add Frost Shock cooldown so it displays on timeline.</>, xunni),

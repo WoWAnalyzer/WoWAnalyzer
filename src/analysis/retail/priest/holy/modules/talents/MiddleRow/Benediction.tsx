@@ -43,7 +43,7 @@ class Benediction extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
-        <BoringSpellValueText spellId={TALENTS.BENEDICTION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BENEDICTION_TALENT}>
           <ItemHealingDone amount={this.healingFromBenedictionRenews} />
         </BoringSpellValueText>
       </Statistic>

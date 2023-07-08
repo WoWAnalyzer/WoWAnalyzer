@@ -79,11 +79,11 @@ class ArcaneSurgeActiveTime extends Analyzer {
         <>
           You spent {formatNumber(this.downtimeSeconds)} seconds (
           {formatNumber(this.averageDowntime)}s per cast) not casting anything while{' '}
-          <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> was active. Because a large portion of
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> was active. Because a large portion of
           your damage comes from Arcane Surge, you should ensure that you are getting the most out
           of it every time it is cast. While sometimes this is out of your control (you got targeted
           by a mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
-          <SpellLink id={TALENTS.ARCANE_SURGE_TALENT.id} /> when you are at a low risk of being
+          <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> when you are at a low risk of being
           interrupted or when the target is vulnerable.
         </>,
       )
@@ -112,7 +112,7 @@ class ArcaneSurgeActiveTime extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ARCANE_SURGE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ARCANE_SURGE_TALENT}>
           {formatPercentage(this.percentActiveTime)}% <small>Arcane Surge Active Time</small>
         </BoringSpellValueText>
       </Statistic>

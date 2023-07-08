@@ -122,9 +122,9 @@ class SpiritOfTheCrane extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing your <SpellLink id={TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT.id} />{' '}
+          You are not utilizing your <SpellLink spell={TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT} />{' '}
           talent as effectively as you could. Make sure you are using any available downtime to use{' '}
-          <SpellLink id={SPELLS.TIGER_PALM.id} /> and <SpellLink id={SPELLS.BLACKOUT_KICK.id} /> to
+          <SpellLink spell={SPELLS.TIGER_PALM} /> and <SpellLink spell={SPELLS.BLACKOUT_KICK} /> to
           take advantage of this talent.
         </>,
       )

@@ -50,7 +50,7 @@ class EssenceFontHealingBreakdown extends Analyzer {
       <Statistic position={STATISTIC_ORDER.CORE(1)} size="flexible">
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id}>Essence Font</SpellLink> breakdown
+            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT}>Essence Font</SpellLink> breakdown
           </label>
           {this.renderEssenceFontChart()}
         </div>

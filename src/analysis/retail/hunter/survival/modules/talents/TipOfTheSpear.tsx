@@ -85,7 +85,7 @@ class TipOfTheSpear extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.TIP_OF_THE_SPEAR_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.TIP_OF_THE_SPEAR_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <small>Used</small> {this.usedStacks}/{this.usedStacks + this.wastedStacks}{' '}

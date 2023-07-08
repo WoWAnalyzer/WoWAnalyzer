@@ -125,10 +125,10 @@ class SearingTouch extends Analyzer {
     when(this.executeSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.FIREBALL.id} /> instead of{' '}
-          <SpellLink id={SPELLS.SCORCH.id} /> while the target was under 30% health{' '}
+          You cast <SpellLink spell={SPELLS.FIREBALL} /> instead of{' '}
+          <SpellLink spell={SPELLS.SCORCH} /> while the target was under 30% health{' '}
           {this.fireballExecuteCasts} times. When using{' '}
-          <SpellLink id={TALENTS.SEARING_TOUCH_TALENT.id} /> always use Scorch instead of Fireball
+          <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} /> always use Scorch instead of Fireball
           when the target is under 30% health since Scorch does 150% damage and is guaranteed to
           crit.
         </>,
@@ -144,10 +144,10 @@ class SearingTouch extends Analyzer {
     when(this.nonExecuteSuggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.SCORCH.id} /> while the target was over 30% health{' '}
+          You cast <SpellLink spell={SPELLS.SCORCH} /> while the target was over 30% health{' '}
           {this.nonExecuteScorchCasts} times. While this is acceptable when you need to move, you
           should aim to minimize this by limiting your movement and using spells like{' '}
-          <SpellLink id={SPELLS.BLINK.id} /> (or <SpellLink id={TALENTS.SHIMMER_TALENT.id} />) when
+          <SpellLink spell={SPELLS.BLINK} /> (or <SpellLink spell={TALENTS.SHIMMER_TALENT} />) when
           possible or by using your instant abilities and procs.
         </>,
       )
@@ -174,7 +174,7 @@ class SearingTouch extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SEARING_TOUCH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SEARING_TOUCH_TALENT}>
           <>
             {formatPercentage(this.executeUtil, 0)}% <small>Execute Utilization</small>
           </>

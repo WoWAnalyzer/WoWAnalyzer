@@ -23,8 +23,8 @@ class Focus extends Analyzer {
     const bmFocusExtraSuggestion = (
       <>
         Try to keep focus below max by using{' '}
-        <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> and{' '}
-        <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} />.
+        <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} />.
       </>
     );
     resourceSuggest(when, this.focusTracker, {

@@ -73,7 +73,7 @@ class ArcaneSurgeCasts extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ARCANE_SURGE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ARCANE_SURGE_TALENT}>
           <>
             <table className="table table-condensed">
               <tbody>
@@ -96,7 +96,7 @@ class ArcaneSurgeCasts extends Analyzer {
                   .map((spell) => (
                     <tr key={Number(spell)} style={{ fontSize: 16 }}>
                       <td>
-                        <SpellLink id={Number(spell[0])} />
+                        <SpellLink spell={Number(spell[0])} />
                       </td>
                       <td style={{ textAlign: 'center' }}>{spell[1]}</td>
                       <td style={{ textAlign: 'center' }}>

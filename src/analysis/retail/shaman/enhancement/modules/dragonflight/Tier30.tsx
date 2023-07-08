@@ -1,4 +1,3 @@
-import ITEMS from 'common/ITEMS';
 import { SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -14,11 +13,13 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
-
-// these embellishments deal physical and shadowflame (i.e. fire) damage respectively, but are not buffed by items
-const IGNORED_DAMAGE_EVENTS = [ITEMS.FANG_ADORNMENTS.id, ITEMS.ROILING_SHADOWFLAME.id];
+import Abilities from 'parser/core/modules/Abilities';
 
 export default class Tier30 extends Analyzer {
+  static dependencies = {
+    abilities: Abilities,
+  };
+  protected abilities!: Abilities;
   protected extraChainLightningDamage = 0;
   protected extraPhysicalDamge = 0;
   protected extraFireDamage = 0;
@@ -51,13 +52,20 @@ export default class Tier30 extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (IGNORED_DAMAGE_EVENTS.includes(event.ability.guid)) {
+    const ability =
+      event.ability.guid === SPELLS.MELEE.id
+        ? SPELLS.MELEE
+        : this.abilities.getAbility(event.ability.guid);
+    if (!ability) {
       return;
     }
     if (this.selectedCombatant.hasBuff(SPELLS.VOLCANIC_STRENGTH_TIER_BUFF.id)) {
+      /** Volcanic Strength "double-dips" on multi-school spells, e.g. Sundering deals
+       * flamestrike damage and is increased by both the physical AND fire components of the buff */
       if (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.PHYSICAL)) {
         this.extraPhysicalDamge += calculateEffectiveDamage(event, 0.2);
-      } else if (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.FIRE)) {
+      }
+      if (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.FIRE)) {
         this.extraFireDamage += calculateEffectiveDamage(event, 0.2);
       }
     }
