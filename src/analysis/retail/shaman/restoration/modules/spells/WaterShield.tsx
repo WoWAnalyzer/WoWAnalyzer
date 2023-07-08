@@ -92,7 +92,7 @@ class WaterShield extends Analyzer {
           </ul>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.WATER_SHIELD.id}>
+        <BoringSpellValueText spell={SPELLS.WATER_SHIELD}>
           <ItemManaGained amount={this.manaGain + this.regenOnPlayer} />
         </BoringSpellValueText>
       </Statistic>

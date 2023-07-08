@@ -29,7 +29,7 @@ class LiquidMagmaTotem extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.LIQUID_MAGMA_TOTEM_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
           </>

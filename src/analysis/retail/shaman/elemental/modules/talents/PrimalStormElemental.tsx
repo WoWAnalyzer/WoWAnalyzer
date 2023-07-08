@@ -142,7 +142,7 @@ class PrimalStormElemental extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.STORM_ELEMENTAL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.STORM_ELEMENTAL_TALENT}>
           <ItemDamageDone amount={this.damageGained} />
         </BoringSpellValueText>
       </Statistic>

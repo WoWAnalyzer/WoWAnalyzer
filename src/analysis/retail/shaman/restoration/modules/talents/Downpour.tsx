@@ -127,7 +127,7 @@ class Downpour extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.DOWNPOUR_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.DOWNPOUR_TALENT} />}
         value={
           <Trans id="shaman.restoration.downpour.statistic.value">
             {downpourAverageCooldown.toFixed(1)} seconds

@@ -176,7 +176,7 @@ class EarthenWallTotem extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} />}
         value={`${formatPercentage(this.earthenWallEfficiency)} %`}
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         position={STATISTIC_ORDER.OPTIONAL(60)}
