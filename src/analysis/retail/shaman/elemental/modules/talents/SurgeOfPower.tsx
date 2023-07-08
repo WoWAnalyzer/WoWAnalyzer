@@ -9,8 +9,9 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -149,6 +150,20 @@ class SurgeOfPower extends Analyzer {
           }),
         )
         .recommended(`100% is recommended.`),
+    );
+  }
+
+  guideSubsection(): JSX.Element {
+    const explanation = <>TODO</>;
+    const data = this.statistic();
+
+    return (
+      <ExplanationAndDataSubSection
+        title="Surge of Power"
+        explanationPercent={GUIDE_EXPLANATION_PERCENT_WIDTH}
+        explanation={explanation}
+        data={data}
+      />
     );
   }
 }

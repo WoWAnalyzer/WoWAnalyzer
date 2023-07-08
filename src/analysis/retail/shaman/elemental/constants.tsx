@@ -15,3 +15,5 @@ export const CRIT_MULTIPLIER = 2.5;
  * is logged.
  */
 export const ON_CAST_BUFF_REMOVAL_GRACE_MS = 50;
+
+export const GUIDE_EXPLANATION_PERCENT_WIDTH = 40;
