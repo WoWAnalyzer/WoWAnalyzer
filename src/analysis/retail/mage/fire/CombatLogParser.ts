@@ -40,6 +40,9 @@ import MeteorCombustion from './talents/MeteorCombustion';
 import SearingTouch from './talents/SearingTouch';
 import Meteor from './talents/Meteor';
 
+//Items
+import CharringEmbers from './items/CharringEmbers';
+
 //Normalizers
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
@@ -82,6 +85,9 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPowerUsage: ShiftingPowerUsage,
     feelTheBurn: FeelTheBurn,
     meteor: Meteor,
+
+    //Items - Fire
+    charringEmbers: CharringEmbers,
 
     //Talents - Shared
     mirrorImage: MirrorImage,

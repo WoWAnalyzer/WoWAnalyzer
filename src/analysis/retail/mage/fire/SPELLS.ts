@@ -88,6 +88,11 @@ const spells = spellIndexableList({
     name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
   },
+  CHARRING_EMBERS_DEBUFF: {
+    id: 408665,
+    name: 'Charring Embers',
+    icon: 'ability_warlock_burningembers',
+  },
 });
 
 export default spells;
