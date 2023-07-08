@@ -48,8 +48,8 @@ class SuddenDeath extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={SPELLS.EXECUTE_DAMAGE.id} /> with{' '}
-            <SpellLink id={TALENTS.SUDDEN_DEATH_SPEC_TALENT.id} /> damage
+            <SpellLink spell={SPELLS.EXECUTE_DAMAGE} /> with{' '}
+            <SpellLink spell={TALENTS.SUDDEN_DEATH_SPEC_TALENT} /> damage
           </>
         }
         value={formatNumber(this.totalDamages)}

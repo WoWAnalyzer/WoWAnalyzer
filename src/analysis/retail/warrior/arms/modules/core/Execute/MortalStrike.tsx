@@ -64,11 +64,11 @@ class MortalStrikeAnalyzer extends Analyzer {
     when(this.mortalStrikeUsageThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to use as many <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as possible. It is
+          Try to use as many <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> as possible. It is
           generally your strongest hitting ability, unless you are in{' '}
-          <SpellLink id={SPELLS.EXECUTE} /> range and have the{' '}
-          <SpellLink id={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent. Especially with the 4-set
-          bonus in Season 1 of Dragonflight, where keeping up your buff up is important.
+          <SpellLink spell={SPELLS.EXECUTE} /> range and have the{' '}
+          <SpellLink spell={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent. Especially with the
+          4-set bonus in Season 1 of Dragonflight, where keeping up your buff up is important.
         </>,
       )
         .icon(SPELLS.MORTAL_STRIKE.icon)

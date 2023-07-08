@@ -122,7 +122,7 @@ class IntoTheFray extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.INTO_THE_FRAY_TALENT.id} /> average haste gained
+              <SpellLink spell={TALENTS.INTO_THE_FRAY_TALENT} /> average haste gained
             </>
           }
         >

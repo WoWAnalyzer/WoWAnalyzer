@@ -89,7 +89,7 @@ class BoomingVoice extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than{' '}
+          You wasted Rage by casting <SpellLink spell={SPELLS.DEMORALIZING_SHOUT} /> with more than{' '}
           {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.
         </>,
       )
@@ -121,7 +121,7 @@ class BoomingVoice extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.BOOMING_VOICE_TALENT.id} /> Rage generated
+              <SpellLink spell={TALENTS.BOOMING_VOICE_TALENT} /> Rage generated
             </>
           }
         >

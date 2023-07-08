@@ -74,7 +74,7 @@ class Recklessness extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.RECKLESSNESS.id}>
+        <BoringSpellValueText spell={SPELLS.RECKLESSNESS}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

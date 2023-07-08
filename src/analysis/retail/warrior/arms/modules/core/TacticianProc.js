@@ -27,7 +27,7 @@ class TacticianProc extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
-        icon={<SpellIcon id={SPELLS.TACTICIAN.id} />}
+        icon={<SpellIcon spell={SPELLS.TACTICIAN} />}
         value={this.totalProcs}
         label="Total Tactician Procs"
         tooltip={`Tactician resets the cooldown on Overpower. You got ${this.totalProcs} more Overpower casts.`}

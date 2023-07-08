@@ -84,7 +84,7 @@ class AngerManagement extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={TALENTS.ANGER_MANAGEMENT_TALENT.id} /> CDR
+            <SpellLink spell={TALENTS.ANGER_MANAGEMENT_TALENT} /> CDR
           </>
         }
         value={`${formatDuration(

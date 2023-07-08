@@ -79,7 +79,7 @@ class AngerManagement extends Analyzer {
           {this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value) => (
             <tr key={value}>
               <td>
-                <SpellLink id={SPELLS[value].id} />
+                <SpellLink spell={SPELLS[value]} />
               </td>
               <td>{formatDuration(this.effectiveReduction[value])}</td>
               <td>{formatDuration(this.wastedReduction[value])}</td>
@@ -101,7 +101,7 @@ class AngerManagement extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.ANGER_MANAGEMENT_TALENT.id} /> Possible cooldown reduction
+              <SpellLink spell={TALENTS.ANGER_MANAGEMENT_TALENT} /> Possible cooldown reduction
             </>
           }
         >

@@ -41,7 +41,7 @@ class Avatar extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={TALENTS.AVATAR_SHARED_TALENT.id} /> bonus damage
+            <SpellLink spell={TALENTS.AVATAR_SHARED_TALENT} /> bonus damage
           </>
         }
         value={`${formatThousands(this.dps)} DPS`}

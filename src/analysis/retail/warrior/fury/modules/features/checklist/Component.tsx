@@ -30,7 +30,7 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} />{' '}
+              <SpellLink spell={SPELLS.WHIRLWIND_FURY_CAST} />{' '}
             </>
           }
           thresholds={thresholds.whirlWind}
@@ -44,9 +44,9 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         name="Use Rampage"
         description={
           <>
-            Using <SpellLink id={SPELLS.RAMPAGE.id} /> is an important part of the Fury rotation. If
-            you aren't Enraged, <SpellLink id={SPELLS.RAMPAGE.id} /> should be used as soon as you
-            have enough rage. Also, use <SpellLink id={SPELLS.RAMPAGE.id} /> if you would reach
+            Using <SpellLink spell={SPELLS.RAMPAGE} /> is an important part of the Fury rotation. If
+            you aren't Enraged, <SpellLink spell={SPELLS.RAMPAGE} /> should be used as soon as you
+            have enough rage. Also, use <SpellLink spell={SPELLS.RAMPAGE} /> if you would reach
             maximum rage otherwise.
           </>
         }
@@ -54,7 +54,7 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         <Requirement
           name={
             <>
-              Number of missed <SpellLink id={SPELLS.RAMPAGE.id} /> casts
+              Number of missed <SpellLink spell={SPELLS.RAMPAGE} /> casts
             </>
           }
           thresholds={thresholds.missedRampage}
@@ -73,7 +73,7 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <>
             As a melee DPS, it is important to stay within range of the target and cast your
             abiltiies promptly. If you find yourself out of range, try using{' '}
-            <SpellLink id={SPELLS.CHARGE.id} /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} /> to get
+            <SpellLink spell={SPELLS.CHARGE} /> and <SpellLink spell={SPELLS.HEROIC_LEAP} /> to get
             back more quickly.
           </>
         }
@@ -85,7 +85,7 @@ const FuryWarriorChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         description={
           <>
             Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top
-            priority as a Fury Warrior, so be sure to use <SpellLink id={SPELLS.RAMPAGE.id} /> to
+            priority as a Fury Warrior, so be sure to use <SpellLink spell={SPELLS.RAMPAGE} /> to
             avoid this.
           </>
         }
