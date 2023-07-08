@@ -103,7 +103,7 @@ class ShieldBlock extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> more often - it is your main{' '}
+          Try to cast <SpellLink spell={SPELLS.SHIELD_SLAM} /> more often - it is your main{' '}
           <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.
         </>,
       )

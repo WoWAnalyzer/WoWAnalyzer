@@ -27,25 +27,25 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Rotational Spells"
         description={
           <>
-            Be sure to use <SpellLink id={SPELLS.SHIELD_SLAM.id} /> and{' '}
-            <SpellLink id={SPELLS.THUNDER_CLAP.id} /> on cooldown to maximise your{' '}
+            Be sure to use <SpellLink spell={SPELLS.SHIELD_SLAM} /> and{' '}
+            <SpellLink spell={SPELLS.THUNDER_CLAP} /> on cooldown to maximise your{' '}
             <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generation and damage output.
-            <br /> <SpellLink id={SPELLS.REVENGE.id} /> can be used to avoid rage capping and{' '}
-            <SpellLink id={SPELLS.DEVASTATE.id} /> should only be used when every other spell
+            <br /> <SpellLink spell={SPELLS.REVENGE} /> can be used to avoid rage capping and{' '}
+            <SpellLink spell={SPELLS.DEVASTATE} /> should only be used when every other spell
             mentioned here is on cooldown.
           </>
         }
       >
         <AbilityRequirement spell={SPELLS.THUNDER_CLAP.id} />
         <Requirement
-          name={<SpellLink id={SPELLS.SHIELD_SLAM.id} />}
+          name={<SpellLink spell={SPELLS.SHIELD_SLAM} />}
           thresholds={thresholds.shieldSlam}
         />
         <AbilityRequirement spell={SPELLS.SHIELD_BLOCK.id} />
         <Requirement
           name={
             <>
-              Effective <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> Casts{' '}
+              Effective <SpellLink spell={SPELLS.SHIELD_BLOCK} /> Casts{' '}
             </>
           }
           thresholds={thresholds.shieldBlock}
@@ -74,7 +74,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         <Requirement
           name={
             <>
-              Magic damage with <SpellLink id={SPELLS.SPELL_REFLECTION.id} />
+              Magic damage with <SpellLink spell={SPELLS.SPELL_REFLECTION} />
             </>
           }
           thresholds={thresholds.spellReflect}
@@ -89,11 +89,11 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Offensive Cooldowns"
         description={
           <>
-            Using <SpellLink id={TALENTS.AVATAR_PROTECTION_TALENT.id} /> as often as possible is
+            Using <SpellLink spell={TALENTS.AVATAR_PROTECTION_TALENT} /> as often as possible is
             very important because it will increase your overall damage a lot and provides 30{' '}
             <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using{' '}
-            <SpellLink id={TALENTS.UNSTOPPABLE_FORCE_TALENT.id} /> remember that{' '}
-            <SpellLink id={TALENTS.THUNDER_CLAP_PROTECTION_TALENT.id} /> will have a reduced
+            <SpellLink spell={TALENTS.UNSTOPPABLE_FORCE_TALENT} /> remember that{' '}
+            <SpellLink spell={TALENTS.THUNDER_CLAP_PROTECTION_TALENT} /> will have a reduced
             cooldown so you can use it every other GCD.
           </>
         }
@@ -114,8 +114,8 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           <>
             Minimizing your wasted <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> should be top
             priority as a protection warrior so be sure to use{' '}
-            <SpellLink id={TALENTS.IGNORE_PAIN_TALENT.id} /> and{' '}
-            <SpellLink id={TALENTS.REVENGE_TALENT.id} /> to avoid this.
+            <SpellLink spell={TALENTS.IGNORE_PAIN_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.REVENGE_TALENT} /> to avoid this.
           </>
         }
       >
@@ -126,7 +126,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Utility"
         description={
           <>
-            Warriors main raid utility comes from <SpellLink id={TALENTS.RALLYING_CRY_TALENT.id} />{' '}
+            Warriors main raid utility comes from <SpellLink spell={TALENTS.RALLYING_CRY_TALENT} />{' '}
             - it should be used on high damage spikes to help people survive.
           </>
         }

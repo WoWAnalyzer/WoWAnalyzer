@@ -65,10 +65,10 @@ class HeavyRepercussions extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />
-          's during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of{' '}
-          <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of{' '}
-          <SpellLink id={SPELLS.SHIELD_SLAM.id} />.
+          Try and cast <SpellLink spell={SPELLS.SHIELD_SLAM} />
+          's during <SpellLink spell={SPELLS.SHIELD_BLOCK} /> to increase the uptime of{' '}
+          <SpellLink spell={SPELLS.SHIELD_BLOCK} /> and the damage of{' '}
+          <SpellLink spell={SPELLS.SHIELD_SLAM} />.
         </>,
       )
         .icon(TALENTS.HEAVY_REPERCUSSIONS_TALENT.icon)
@@ -105,7 +105,7 @@ class HeavyRepercussions extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage
+              <SpellLink spell={TALENTS.HEAVY_REPERCUSSIONS_TALENT} /> Extra Shield Block and Rage
             </>
           }
         >

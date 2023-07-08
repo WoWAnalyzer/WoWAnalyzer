@@ -106,7 +106,7 @@ class MeatCleaver extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={talents.MEAT_CLEAVER_TALENT.id}>
+        <BoringSpellValueText spell={talents.MEAT_CLEAVER_TALENT}>
           <>{this.rageGainedByMeatCleaver} rage gained</>
         </BoringSpellValueText>
       </Statistic>

@@ -82,8 +82,8 @@ class OverpowerAnalyzer extends Analyzer {
     when(this.WastedOverpowerThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid using <SpellLink id={SPELLS.OVERPOWER.id} icon /> at 2 stacks when{' '}
-          <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> is available. Use your stacks of Overpower
+          Try to avoid using <SpellLink spell={SPELLS.OVERPOWER} icon /> at 2 stacks when{' '}
+          <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> is available. Use your stacks of Overpower
           with Mortal Strike to avoid over stacking, which result in a loss of damage.
         </>,
       )
@@ -101,7 +101,7 @@ class OverpowerAnalyzer extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.OVERPOWER.id} />}
+        icon={<SpellIcon spell={SPELLS.OVERPOWER} />}
         label="Overpower Buffs Wasted"
         position={STATISTIC_ORDER.OPTIONAL(6)}
         value={

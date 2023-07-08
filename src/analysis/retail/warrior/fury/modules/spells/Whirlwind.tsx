@@ -155,7 +155,7 @@ class Whirlwind extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> poorly. Try to only use it
+          You're casting <SpellLink spell={SPELLS.WHIRLWIND_FURY_CAST} /> poorly. Try to only use it
           if your other abilities are on cooldown.
         </>,
       )

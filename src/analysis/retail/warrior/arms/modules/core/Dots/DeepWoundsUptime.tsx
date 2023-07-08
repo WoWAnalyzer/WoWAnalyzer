@@ -36,8 +36,8 @@ class DeepWoundsUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS.id} /> uptime can be improved. Try to use
-          your core abilities more often to apply <SpellLink id={SPELLS.DEEP_WOUNDS.id} /> on your
+          Your <SpellLink spell={SPELLS.MASTERY_DEEP_WOUNDS} /> uptime can be improved. Try to use
+          your core abilities more often to apply <SpellLink spell={SPELLS.DEEP_WOUNDS} /> on your
           target
         </>,
       )
@@ -57,7 +57,7 @@ class DeepWoundsUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.MASTERY_DEEP_WOUNDS.id} />
+          <SpellIcon spell={SPELLS.MASTERY_DEEP_WOUNDS} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

@@ -26,7 +26,7 @@ class SpearOfBastion extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.SPEAR_OF_BASTION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SPEAR_OF_BASTION_TALENT}>
           {this.owner.formatItemDamageDone(this._spearOfBastionDamage)}
         </BoringSpellValueText>
       </Statistic>

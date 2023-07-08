@@ -58,7 +58,7 @@ class Punish extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.PUNISH_TALENT.id} /> Damage contributed
+              <SpellLink spell={TALENTS.PUNISH_TALENT} /> Damage contributed
             </>
           }
         >

@@ -48,7 +48,7 @@ class RendAnalyzer extends EarlyDotRefreshesCore {
     when(this.suggestionThresholdsRendEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You refreshed <SpellLink id={TALENTS.REND_ARMS_TALENT.id} icon /> early{' '}
+          You refreshed <SpellLink spell={TALENTS.REND_ARMS_TALENT} icon /> early{' '}
           {this.suggestionThresholdsRendEfficiency.count} times.
         </>,
       )

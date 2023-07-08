@@ -73,7 +73,7 @@ class ImpenetrableWall extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.IMPENETRABLE_WALL_TALENT}>
+        <BoringSpellValueText spell={TALENTS.IMPENETRABLE_WALL_TALENT}>
           {this.effectiveRage} <small>rage</small> <br />
           {formatDuration(this.effectiveCDR)} <small>cdr</small>
         </BoringSpellValueText>
