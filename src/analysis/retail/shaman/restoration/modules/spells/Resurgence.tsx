@@ -147,7 +147,7 @@ class Resurgence extends Analyzer {
                 {this.resurgence.map((spell) => (
                   <tr key={spell.spellId}>
                     <th scope="row">
-                      <SpellIcon id={spell.spellId} style={{ height: '2.5em' }} />
+                      <SpellIcon spell={spell.spellId} style={{ height: '2.5em' }} />
                     </th>
                     <td>{formatNumber(spell.resurgenceTotal)}</td>
                     <td>{formatNumber(spell.castAmount)}</td>

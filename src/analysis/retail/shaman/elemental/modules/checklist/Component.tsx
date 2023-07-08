@@ -127,7 +127,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
                 <>
                   {' '}
                   While you should try to buff as many <SpellLink
-                    id={TALENTS.ICEFURY_TALENT.id}
+                    spell={TALENTS.ICEFURY_TALENT}
                   />{' '}
                   empowered <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> as you can with{' '}
                   <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />, it is far more

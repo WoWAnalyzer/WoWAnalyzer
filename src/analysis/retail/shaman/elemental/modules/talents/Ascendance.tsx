@@ -82,7 +82,7 @@ class Ascendance extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT}>
           <>
             On average {formatNumber(this.averageLavaBurstCasts)} Lava Bursts cast during
             Ascendance.

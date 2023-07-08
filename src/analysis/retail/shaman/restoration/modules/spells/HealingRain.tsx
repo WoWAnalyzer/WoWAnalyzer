@@ -219,7 +219,7 @@ class HealingRain extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.HEALING_RAIN_HEAL.id} />}
+        icon={<SpellIcon spell={SPELLS.HEALING_RAIN_HEAL} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
         label={
