@@ -128,19 +128,19 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
         <ul>
           <li>
             {' '}
-            <SpellLink id={TALENTS.GHOSTLY_STRIKE_TALENT} />
+            <SpellLink spell={TALENTS.GHOSTLY_STRIKE_TALENT} />
           </li>
           <li>
             {' '}
-            <SpellLink id={TALENTS.THISTLE_TEA_TALENT} />
+            <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />
           </li>
           <li>
             {' '}
-            <SpellLink id={TALENTS.KEEP_IT_ROLLING_TALENT} /> builds
+            <SpellLink spell={TALENTS.KEEP_IT_ROLLING_TALENT} /> builds
           </li>
           <li>
             {' '}
-            <SpellLink id={TALENTS.BLADE_FLURRY_TALENT} />
+            <SpellLink spell={TALENTS.BLADE_FLURRY_TALENT} />
           </li>
         </ul>
       </p>

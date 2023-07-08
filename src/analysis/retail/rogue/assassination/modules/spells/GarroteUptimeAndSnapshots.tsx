@@ -194,11 +194,11 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.GARROTE.id} />
+          <SpellLink spell={SPELLS.GARROTE} />
         </strong>{' '}
         is your highest damage-per-energy single target builder. Try to keep it active on all
         targets (except when in a many-target AoE situation). Garrote snapshots{' '}
-        <SpellLink id={TALENTS.IMPROVED_GARROTE_TALENT.id} /> - when forced to refresh with a weaker
+        <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} /> - when forced to refresh with a weaker
         snapshot, try to wait until the last moment in order to overwrite the minimum amount of the
         stronger DoT.
       </p>

@@ -74,8 +74,8 @@ export function betweenTheEyesMissing(): Condition<{ [key: string]: DurationData
     },
     describe: (tense) => (
       <>
-        <SpellLink id={BTE_ID} /> {tenseAlt(tense, 'is', 'was')} missing or about to expire from the
-        target
+        <SpellLink spell={BTE_ID} /> {tenseAlt(tense, 'is', 'was')} missing or about to expire from
+        the target
       </>
     ),
   };

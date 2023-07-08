@@ -78,7 +78,7 @@ const rtbCondition = () => {
       ),
       (tense) => (
         <>
-          <SpellLink id={SPELLS.SKULL_AND_CROSSBONES} /> {tenseAlt(tense, 'is', 'was')} missing
+          <SpellLink spell={SPELLS.SKULL_AND_CROSSBONES} /> {tenseAlt(tense, 'is', 'was')} missing
         </>
       ),
     ),
@@ -143,7 +143,7 @@ const COMMON_COOLDOWN: Rule[] = [
           <>
             {' '}
             you {tenseAlt(tense, 'have', 'had')} less than max stacks of{' '}
-            <SpellLink id={SPELLS.OPPORTUNITY} />
+            <SpellLink spell={SPELLS.OPPORTUNITY} />
           </>
         ),
       ),
@@ -162,8 +162,8 @@ const COMMON_COOLDOWN: Rule[] = [
       ),
       (tense) => (
         <>
-          <SpellLink id={SPELLS.AUDACITY_TALENT_BUFF} /> and <SpellLink id={SPELLS.OPPORTUNITY} />{' '}
-          {tenseAlt(tense, 'are', 'were')} missing
+          <SpellLink spell={SPELLS.AUDACITY_TALENT_BUFF} /> and{' '}
+          <SpellLink spell={SPELLS.OPPORTUNITY} /> {tenseAlt(tense, 'are', 'were')} missing
         </>
       ),
     ),
@@ -182,7 +182,7 @@ const COMMON_FINISHER: Rule[] = [
         ),
         (tense) => (
           <>
-            <SpellLink id={TALENTS.GREENSKINS_WICKERS_TALENT.id} /> buff{' '}
+            <SpellLink spell={TALENTS.GREENSKINS_WICKERS_TALENT} /> buff{' '}
             {tenseAlt(tense, 'is', 'was')} missing
           </>
         ),
@@ -259,7 +259,7 @@ export const COMMON_BUILDER: Rule[] = [
         <>
           {' '}
           you {tenseAlt(tense, 'have', 'had')} max stacks of{' '}
-          <SpellLink id={SPELLS.OPPORTUNITY.id} />
+          <SpellLink spell={SPELLS.OPPORTUNITY} />
         </>
       ),
     ),

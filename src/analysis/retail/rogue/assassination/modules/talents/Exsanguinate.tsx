@@ -57,16 +57,16 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
     return (
       <Trans id="guide.rogue.assassination.sections.cooldowns.exsanguinate.explanation">
         <strong>
-          <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />
+          <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} />
         </strong>{' '}
         is a powerful cooldown that improves the damage of any existing bleeds on the target. Always
         use it when you have existing bleeds on the target.
         {this.selectedCombatant.hasTalent(TALENTS.DEATHMARK_TALENT) && (
           <>
             <br />
-            Never use <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target is affected by{' '}
-            <SpellLink id={TALENTS.DEATHMARK_TALENT} />, as it will reduce the duration of{' '}
-            <SpellLink id={TALENTS.DEATHMARK_TALENT} /> empowered bleeds.
+            Never use <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target is affected
+            by <SpellLink spell={TALENTS.DEATHMARK_TALENT} />, as it will reduce the duration of{' '}
+            <SpellLink spell={TALENTS.DEATHMARK_TALENT} /> empowered bleeds.
           </>
         )}
       </Trans>
@@ -120,13 +120,13 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         performance: QualitativePerformance.Fail,
         summary: (
           <div>
-            Cast while target does not have <SpellLink id={TALENTS.DEATHMARK_TALENT} />
+            Cast while target does not have <SpellLink spell={TALENTS.DEATHMARK_TALENT} />
           </div>
         ),
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
-            <SpellLink id={TALENTS.DEATHMARK_TALENT} />. Try not doing that.
+            You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            <SpellLink spell={TALENTS.DEATHMARK_TALENT} />. Try not doing that.
           </div>
         ),
       };
@@ -135,13 +135,13 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
       performance: QualitativePerformance.Good,
       summary: (
         <div>
-          Cast while target does not have <SpellLink id={TALENTS.DEATHMARK_TALENT} />
+          Cast while target does not have <SpellLink spell={TALENTS.DEATHMARK_TALENT} />
         </div>
       ),
       details: (
         <div>
-          You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target did not have{' '}
-          <SpellLink id={TALENTS.DEATHMARK_TALENT} />.
+          You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target did not have{' '}
+          <SpellLink spell={TALENTS.DEATHMARK_TALENT} />.
         </div>
       ),
     };
@@ -154,13 +154,13 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         summary: (
           <div>
             Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
-            <SpellLink id={SPELLS.RUPTURE} />
+            <SpellLink spell={SPELLS.RUPTURE} />
           </div>
         ),
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target did not have{' '}
-            <SpellLink id={SPELLS.RUPTURE} /> applied.
+            You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target did not have{' '}
+            <SpellLink spell={SPELLS.RUPTURE} /> applied.
           </div>
         ),
       };
@@ -172,14 +172,14 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
           summary: (
             <div>
               Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
-              <SpellLink id={SPELLS.RUPTURE} />
+              <SpellLink spell={SPELLS.RUPTURE} />
             </div>
           ),
           details: (
             <div>
-              You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+              You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
               {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
-              <SpellLink id={SPELLS.RUPTURE} />. You were in your opener, so this is okay.
+              <SpellLink spell={SPELLS.RUPTURE} />. You were in your opener, so this is okay.
             </div>
           ),
         };
@@ -189,17 +189,17 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         summary: (
           <div>
             Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
-            <SpellLink id={SPELLS.RUPTURE} />
+            <SpellLink spell={SPELLS.RUPTURE} />
           </div>
         ),
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
             {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
-            <SpellLink id={SPELLS.RUPTURE} />. Try to have{' '}
+            <SpellLink spell={SPELLS.RUPTURE} />. Try to have{' '}
             {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
-            <SpellLink id={SPELLS.RUPTURE} /> when casting{' '}
-            <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />.
+            <SpellLink spell={SPELLS.RUPTURE} /> when casting{' '}
+            <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} />.
           </div>
         ),
       };
@@ -211,14 +211,14 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
           summary: (
             <div>
               Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
-              <SpellLink id={SPELLS.RUPTURE} />
+              <SpellLink spell={SPELLS.RUPTURE} />
             </div>
           ),
           details: (
             <div>
-              You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+              You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
               {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
-              <SpellLink id={SPELLS.RUPTURE} />. You were in your opener, so this is okay.
+              <SpellLink spell={SPELLS.RUPTURE} />. You were in your opener, so this is okay.
             </div>
           ),
         };
@@ -228,17 +228,17 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         summary: (
           <div>
             Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
-            <SpellLink id={SPELLS.RUPTURE} />
+            <SpellLink spell={SPELLS.RUPTURE} />
           </div>
         ),
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
             {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
-            <SpellLink id={SPELLS.RUPTURE} />. Try to have{' '}
+            <SpellLink spell={SPELLS.RUPTURE} />. Try to have{' '}
             {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
-            <SpellLink id={SPELLS.RUPTURE} /> when casting{' '}
-            <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />.
+            <SpellLink spell={SPELLS.RUPTURE} /> when casting{' '}
+            <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} />.
           </div>
         ),
       };
@@ -248,14 +248,14 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
       summary: (
         <div>
           Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_RUPTURE)}+ left on{' '}
-          <SpellLink id={SPELLS.RUPTURE} />
+          <SpellLink spell={SPELLS.RUPTURE} />
         </div>
       ),
       details: (
         <div>
-          You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+          You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
           {formatDurationMillisMinSec(cast.targetTimeLeftOnRupture)} left on{' '}
-          <SpellLink id={SPELLS.RUPTURE} />.
+          <SpellLink spell={SPELLS.RUPTURE} />.
         </div>
       ),
     };
@@ -268,13 +268,13 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         summary: (
           <div>
             Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
-            <SpellLink id={SPELLS.GARROTE} />
+            <SpellLink spell={SPELLS.GARROTE} />
           </div>
         ),
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target did not have{' '}
-            <SpellLink id={SPELLS.GARROTE} /> applied.
+            You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target did not have{' '}
+            <SpellLink spell={SPELLS.GARROTE} /> applied.
           </div>
         ),
       };
@@ -286,14 +286,14 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
           summary: (
             <div>
               Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
-              <SpellLink id={SPELLS.GARROTE} />
+              <SpellLink spell={SPELLS.GARROTE} />
             </div>
           ),
           details: (
             <div>
-              You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+              You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
               {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
-              <SpellLink id={SPELLS.GARROTE} />. You were in your opener, so this is okay.
+              <SpellLink spell={SPELLS.GARROTE} />. You were in your opener, so this is okay.
             </div>
           ),
         };
@@ -303,17 +303,17 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         summary: (
           <div>
             Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
-            <SpellLink id={SPELLS.GARROTE} />
+            <SpellLink spell={SPELLS.GARROTE} />
           </div>
         ),
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
             {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
-            <SpellLink id={SPELLS.GARROTE} />. Try to have{' '}
+            <SpellLink spell={SPELLS.GARROTE} />. Try to have{' '}
             {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
-            <SpellLink id={SPELLS.GARROTE} /> when casting{' '}
-            <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />.
+            <SpellLink spell={SPELLS.GARROTE} /> when casting{' '}
+            <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} />.
           </div>
         ),
       };
@@ -325,14 +325,14 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
           summary: (
             <div>
               Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
-              <SpellLink id={SPELLS.GARROTE} />
+              <SpellLink spell={SPELLS.GARROTE} />
             </div>
           ),
           details: (
             <div>
-              You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+              You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
               {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
-              <SpellLink id={SPELLS.GARROTE} />. You were in your opener, so this is okay.
+              <SpellLink spell={SPELLS.GARROTE} />. You were in your opener, so this is okay.
             </div>
           ),
         };
@@ -342,17 +342,17 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
         summary: (
           <div>
             Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
-            <SpellLink id={SPELLS.GARROTE} />
+            <SpellLink spell={SPELLS.GARROTE} />
           </div>
         ),
         details: (
           <div>
-            You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+            You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
             {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
-            <SpellLink id={SPELLS.GARROTE} />. Try to have{' '}
+            <SpellLink spell={SPELLS.GARROTE} />. Try to have{' '}
             {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
-            <SpellLink id={SPELLS.GARROTE} /> when casting{' '}
-            <SpellLink id={TALENTS.EXSANGUINATE_TALENT} />.
+            <SpellLink spell={SPELLS.GARROTE} /> when casting{' '}
+            <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} />.
           </div>
         ),
       };
@@ -362,14 +362,14 @@ export default class Exsanguinate extends MajorCooldown<ExsanguinateCast> {
       summary: (
         <div>
           Cast while target has {formatDurationMillisMinSec(OK_DURATION_ON_GARROTE)}+ left on{' '}
-          <SpellLink id={SPELLS.GARROTE} />
+          <SpellLink spell={SPELLS.GARROTE} />
         </div>
       ),
       details: (
         <div>
-          You cast <SpellLink id={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
+          You cast <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> while the target had{' '}
           {formatDurationMillisMinSec(cast.targetTimeLeftOnGarrote)} left on{' '}
-          <SpellLink id={SPELLS.GARROTE} />.
+          <SpellLink spell={SPELLS.GARROTE} />.
         </div>
       ),
     };

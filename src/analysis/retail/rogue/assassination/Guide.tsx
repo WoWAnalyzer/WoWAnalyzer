@@ -131,7 +131,7 @@ function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) 
         Assassination's cooldowns are decently powerful but should not be held on to for long. In
         order to maximize usages over the course of an encounter, you should aim to send the
         cooldown as soon as it becomes available (as long as it can do damage on target). It is
-        particularly important to use <SpellLink id={SPELLS.VANISH.id} /> as often as possible.
+        particularly important to use <SpellLink spell={SPELLS.VANISH} /> as often as possible.
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />

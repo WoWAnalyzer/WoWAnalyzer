@@ -37,7 +37,7 @@ export default class ThistleTea extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS.THISTLE_TEA_TALENT} />
+          <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />
         </strong>{' '}
         is used to generate 100 <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />. It should be used
         during your opener to get it on cooldown and then whenever you need energy.
@@ -110,7 +110,7 @@ export default class ThistleTea extends Analyzer {
         details = (
           <div>
             You wasted {wasted} <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> from this cast. Try
-            not to waste any energy when casting <SpellLink id={TALENTS.THISTLE_TEA_TALENT} />.
+            not to waste any energy when casting <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} />.
           </div>
         );
       }

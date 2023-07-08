@@ -73,7 +73,7 @@ class CastsInShadowDance extends CastsInStealthBase {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.SHADOW_DANCE_BUFF.id} /> Shadow Dance Uptime{' '}
+              <SpellIcon spell={SPELLS.SHADOW_DANCE_BUFF} /> Shadow Dance Uptime{' '}
             </>
           }
         >
