@@ -5,6 +5,7 @@ import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic, 
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 8), <>Add guide skeleton</>, Periodic),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2022, 7, 7), <>Basic cleanup for 10.1.0.</>, Periodic),
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
