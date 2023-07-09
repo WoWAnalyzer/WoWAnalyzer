@@ -9,8 +9,9 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ROLES from 'game/ROLES';
 import Combatants from 'parser/shared/modules/Combatants';
-import { getPrescienceBuffTarget } from '../normalizers/CastLinkNormalizer';
+import { getPrescienceBuffEvents } from '../normalizers/CastLinkNormalizer';
 import Combatant from 'parser/core/Combatant';
+import SPELLS from 'common/SPELLS/evoker';
 
 /**
  * Prescience is a core talent that buffs the target with 3% crit, as well
@@ -53,7 +54,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
           <strong>
             <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />
           </strong>{' '}
-          is a buff that should be used on cooldown. It should always be cast on DPS players.
+          provides your targets with 3% crit, along with making them priority targets for your other
+          buffs such as, <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> and{' '}
+          <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />. It is therefore import to upkeep this
+          buff on the correct targets.
         </p>
       </>
     );
@@ -94,7 +98,7 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
     );
 
     if (cast.onDPS) {
-      performance = QualitativePerformance.Perfect;
+      performance = QualitativePerformance.Good;
       details = (
         <div>
           Buffed DPS: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
@@ -102,10 +106,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         </div>
       );
     } else if (cast.onTank) {
-      performance = QualitativePerformance.Good;
+      performance = QualitativePerformance.Ok;
       details = (
         <div>
-          Buffed Tank: {this.currentBuffedPlayer?.name} with{' '}
+          Buffed Tank: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
           <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This is situationally okay, but should be
           avoided.
         </div>
@@ -129,6 +133,7 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
       details = (
         <div>
           You somehow managed to buff nothing with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />.
+          Most likely you buffed a friendly NPC.
         </div>
       );
     }
@@ -140,7 +145,16 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   }
 
   private onCast(event: CastEvent) {
-    const buffTarget = getPrescienceBuffTarget(event)?.targetID;
+    let buffTarget;
+    const relatedBuffEvents = getPrescienceBuffEvents(event);
+
+    for (let i = 0; i < relatedBuffEvents.length; i = i + 1) {
+      const targetID = relatedBuffEvents[i].targetID;
+      if (this.combatants.players[targetID]) {
+        buffTarget = targetID;
+        break;
+      }
+    }
 
     // If somehow the Prescience cast didn't actually buff a player return early
     if (!buffTarget) {

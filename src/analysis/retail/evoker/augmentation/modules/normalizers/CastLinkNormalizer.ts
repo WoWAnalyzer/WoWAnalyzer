@@ -1,12 +1,6 @@
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
-import {
-  ApplyBuffEvent,
-  CastEvent,
-  EventType,
-  GetRelatedEvents,
-  HasRelatedEvent,
-} from 'parser/core/Events';
+import { ApplyBuffEvent, CastEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 
@@ -45,19 +39,10 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function getPrescienceBuffTarget(event: CastEvent) {
-  if (HasRelatedEvent(event, PRESCIENCE_BUFF_CAST_LINK)) {
-    const buffevent = GetRelatedEvents(event, PRESCIENCE_BUFF_CAST_LINK).filter(
-      (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff,
-    );
-    for (const event of buffevent) {
-      // Filter out targets like Light hammer, to get the "real" target
-      if (event.targetID !== undefined) {
-        const buffEvent = event;
-        return buffEvent;
-      }
-    }
-  }
+export function getPrescienceBuffEvents(event: CastEvent): ApplyBuffEvent[] {
+  return GetRelatedEvents(event, PRESCIENCE_BUFF_CAST_LINK).filter(
+    (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff,
+  );
 }
 
 export default CastLinkNormalizer;

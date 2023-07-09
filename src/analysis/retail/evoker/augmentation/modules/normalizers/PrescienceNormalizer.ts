@@ -1,11 +1,18 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { PRESCIENCE_APPLY_REMOVE_LINK } from './CastLinkNormalizer';
+import Combatants from 'parser/shared/modules/Combatants';
 
-/** This normalizer removes the applybuff and removebuff from undefined targets
- * these targets are things like lights hammer which only taints our analysis */
+/** This normalizer removes the applybuff and removebuff from unwanted target
+ * This is targets like light's hammer and pets; these only inherit the buff from
+ * the main target - which only makes analysis harder. */
 
 class PrescienceNormalizer extends EventsNormalizer {
+  static dependencies = {
+    ...EventsNormalizer.dependencies,
+    combatants: Combatants,
+  };
+  protected combatants!: Combatants;
   normalize(events: AnyEvent[]): AnyEvent[] {
     const fixedEvents: AnyEvent[] = [];
     events.forEach((event: AnyEvent, idx: number) => {
@@ -15,7 +22,7 @@ class PrescienceNormalizer extends EventsNormalizer {
       if (linkedEvents) {
         if (
           (event.type === EventType.ApplyBuff || event.type === EventType.RemoveBuff) &&
-          event.targetID !== undefined
+          this.combatants.players[event.targetID]
         ) {
           fixedEvents.push(event);
         }
