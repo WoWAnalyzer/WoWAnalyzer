@@ -45,7 +45,7 @@ class InnerDemons extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.INNER_DEMONS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.INNER_DEMONS_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

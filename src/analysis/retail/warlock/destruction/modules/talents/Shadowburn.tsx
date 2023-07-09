@@ -66,7 +66,7 @@ class Shadowburn extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SHADOWBURN_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SHADOWBURN_TALENT}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damage))} % of total

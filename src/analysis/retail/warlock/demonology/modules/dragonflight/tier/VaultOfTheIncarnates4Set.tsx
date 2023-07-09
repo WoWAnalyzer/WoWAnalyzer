@@ -77,7 +77,7 @@ class DemonologyWarlockVaultOfTheIncarnates4Set extends Analyzer {
         }
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.BLAZING_METEOR.id}>
+        <BoringSpellValueText spell={SPELLS.BLAZING_METEOR}>
           {this.applications}{' '}
           <small>
             effective proc(s) (

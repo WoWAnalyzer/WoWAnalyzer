@@ -38,7 +38,7 @@ class FelCovenant extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE()}>
-        <BoringSpellValueText spellId={FelCovenant.buffId}>
+        <BoringSpellValueText spell={FelCovenant.buffId}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>
@@ -51,16 +51,16 @@ class FelCovenant extends Analyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={FelCovenant.buffId} /> uptime can be improved. Make sure it's always
-          active. Cast <SpellLink id={SPELLS.SHADOW_BOLT_DEMO.id} /> if the buff is about to fall
-          off.
+          Your <SpellLink spell={FelCovenant.buffId} /> uptime can be improved. Make sure it's
+          always active. Cast <SpellLink spell={SPELLS.SHADOW_BOLT_DEMO} /> if the buff is about to
+          fall off.
         </>,
       )
         .icon(SPELLS.FEL_COVENANT_BUFF.icon)
         .actual(
           <>
-            <SpellLink id={FelCovenant.buffId} /> was active for {formatPercentage(actual)}% of the
-            fight
+            <SpellLink spell={FelCovenant.buffId} /> was active for {formatPercentage(actual)}% of
+            the fight
           </>,
         )
         .recommended(`recommended: ${formatPercentage(recommended)}%`),

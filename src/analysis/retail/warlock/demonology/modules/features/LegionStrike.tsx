@@ -60,7 +60,7 @@ class LegionStrike extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your Felguard didn't cast <SpellLink id={SPELLS.FELGUARD_LEGION_STRIKE.id} /> at all.
+          Your Felguard didn't cast <SpellLink spell={SPELLS.FELGUARD_LEGION_STRIKE} /> at all.
           Remember to turn on the auto-cast for this ability as it's a great portion of your total
           damage.
         </>,
@@ -83,7 +83,7 @@ class LegionStrike extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spellId={SPELLS.FELGUARD_LEGION_STRIKE.id}>
+        <BoringSpellValueText spell={SPELLS.FELGUARD_LEGION_STRIKE}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

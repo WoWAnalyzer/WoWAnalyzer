@@ -101,7 +101,7 @@ class DrainSoul extends Analyzer {
           You sniped {formatPercentage(actual)} % of mobs in this fight (
           {this.mobsSniped - this._subtractBossShards} / {this.totalNumOfAdds}) for total of
           {this._shardsGained} Soul Shards. You could get up to {this.totalNumOfAdds} Shards from
-          them. Try to snipe shards from adds (cast <SpellLink id={TALENTS.DRAIN_SOUL_TALENT.id} />
+          them. Try to snipe shards from adds (cast <SpellLink spell={TALENTS.DRAIN_SOUL_TALENT} />
           on them before they die) as it is a great source of extra Soul Shards.
           <br />
           <br />
@@ -133,7 +133,7 @@ class DrainSoul extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} total damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.DRAIN_SOUL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DRAIN_SOUL_TALENT}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total
