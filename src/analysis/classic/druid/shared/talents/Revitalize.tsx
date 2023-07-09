@@ -206,7 +206,7 @@ class Revitalize extends Analyzer {
         loader={this.load.bind(this)}
         position={STATISTIC_ORDER.UNIMPORTANT(89)}
         label="Revitalize"
-        icon={<SpellIcon id={SPELLS.REVITALIZE_MANA} />}
+        icon={<SpellIcon spell={SPELLS.REVITALIZE_MANA} />}
         value={
           <>
             {this.totalProcs} procs{' '}

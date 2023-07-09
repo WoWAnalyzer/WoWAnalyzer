@@ -39,8 +39,8 @@ class HotCountGraph extends BuffCountGraph {
         explanation={
           <>
             This graph shows the number of HoTs you had active over the course of the encounter.
-            Maintaining a steady stream of <SpellLink id={SPELLS.WILD_GROWTH.id} /> and several{' '}
-            <SpellLink id={SPELLS.REJUVENATION.id} /> is best to maximise healing.
+            Maintaining a steady stream of <SpellLink spell={SPELLS.WILD_GROWTH} /> and several{' '}
+            <SpellLink spell={SPELLS.REJUVENATION} /> is best to maximise healing.
           </>
         }
       >

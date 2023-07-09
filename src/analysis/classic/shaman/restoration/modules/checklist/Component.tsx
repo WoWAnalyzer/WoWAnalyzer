@@ -46,7 +46,7 @@ const HealerChecklist = ({
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.appliedPrepull">
-                <SpellLink id={SPELLS.EARTH_SHIELD.id} /> applied prepull
+                <SpellLink spell={SPELLS.EARTH_SHIELD} /> applied prepull
               </Trans>
             }
             thresholds={thresholds.earthShieldPrepull}
@@ -54,7 +54,7 @@ const HealerChecklist = ({
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.uptime">
-                <SpellLink id={SPELLS.EARTH_SHIELD.id} /> Uptime
+                <SpellLink spell={SPELLS.EARTH_SHIELD} /> Uptime
               </Trans>
             }
             thresholds={thresholds.earthShieldUptime}
@@ -63,7 +63,7 @@ const HealerChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.restoration.checklist.appliedPrepull">
-              <SpellLink id={SPELLS.WATER_SHIELD.id} /> applied prepull
+              <SpellLink spell={SPELLS.WATER_SHIELD} /> applied prepull
             </Trans>
           }
           thresholds={thresholds.waterShieldPrepull}
@@ -71,7 +71,7 @@ const HealerChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.restoration.checklist.uptime">
-              <SpellLink id={SPELLS.WATER_SHIELD.id} /> Uptime
+              <SpellLink spell={SPELLS.WATER_SHIELD} /> Uptime
             </Trans>
           }
           thresholds={thresholds.waterShieldUptime}
@@ -79,7 +79,8 @@ const HealerChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.checklist.totemuptime.fire">
-              <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem Uptime
+              <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem
+              Uptime
             </Trans>
           }
           thresholds={thresholds.fireTotemUptime}
@@ -87,7 +88,7 @@ const HealerChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.checklist.totemuptime.water">
-              <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem
+              <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem
               Uptime
             </Trans>
           }
@@ -96,7 +97,7 @@ const HealerChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.checklist.totemuptime.earth">
-              <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem
+              <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem
               Uptime
             </Trans>
           }
@@ -105,7 +106,8 @@ const HealerChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.checklist.totemuptime.air">
-              <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem Uptime
+              <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem
+              Uptime
             </Trans>
           }
           thresholds={thresholds.airTotemUptime}
@@ -127,7 +129,7 @@ const HealerChecklist = ({
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.aoeSpell.targets">
-                Average <SpellLink id={SPELLS.CHAIN_HEAL} /> targets
+                Average <SpellLink spell={SPELLS.CHAIN_HEAL} /> targets
               </Trans>
             }
             thresholds={thresholds.chainHealTargetThresholds}

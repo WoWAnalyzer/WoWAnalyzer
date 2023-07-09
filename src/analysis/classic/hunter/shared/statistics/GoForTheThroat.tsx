@@ -37,7 +37,7 @@ const GoForTheThroat = statistic((events, { fightDuration, playerId, fightId, re
         view: 'events',
       })}
     >
-      <BoringSpellValueText spellId={GO_FOR_THE_THROAT}>
+      <BoringSpellValueText spell={GO_FOR_THE_THROAT}>
         {formatThousands((focusGained / fightDuration) * 1000 * 5)} focus gained{' '}
         <small>per 5sec</small>
         <br />

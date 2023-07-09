@@ -44,14 +44,15 @@ const ClassicDemonologyChecklist = ({ combatant, castEfficiency, thresholds }: C
           <Fragment>
             <Trans id="warlock.wotlk.checklist.maintainCurse.description">
               It is important to maintain a curse on the primary target. If there is no Unholy DK
-              (applying <SpellLink id={SPELLS.EBON_PLAGUE}>Ebon Plague</SpellLink>) or Moonkin
-              (applying <SpellLink id={SPELLS.EARTH_AND_MOON}>Earth and Moon</SpellLink>) in the
+              (applying <SpellLink spell={SPELLS.EBON_PLAGUE}>Ebon Plague</SpellLink>) or Moonkin
+              (applying <SpellLink spell={SPELLS.EARTH_AND_MOON}>Earth and Moon</SpellLink>) in the
               raid, use{' '}
-              <SpellLink id={SPELLS.CURSE_OF_THE_ELEMENTS}>{curseOfTheElements}</SpellLink>. After
-              the priority curse consideration, use{' '}
-              <SpellLink id={SPELLS.CURSE_OF_DOOM}>{curseOfDoom}</SpellLink> for a target alive more
-              than a minute or <SpellLink id={SPELLS.CURSE_OF_AGONY}>{curseOfAgony}</SpellLink> for
-              a target alive less than a minute.
+              <SpellLink spell={SPELLS.CURSE_OF_THE_ELEMENTS}>{curseOfTheElements}</SpellLink>.
+              After the priority curse consideration, use{' '}
+              <SpellLink spell={SPELLS.CURSE_OF_DOOM}>{curseOfDoom}</SpellLink> for a target alive
+              more than a minute or{' '}
+              <SpellLink spell={SPELLS.CURSE_OF_AGONY}>{curseOfAgony}</SpellLink> for a target alive
+              less than a minute.
             </Trans>
           </Fragment>
         }
@@ -79,7 +80,7 @@ const ClassicDemonologyChecklist = ({ combatant, castEfficiency, thresholds }: C
           <>
             Try to avoid downtime during the fight. When moving, use your instant abilities or set
             up{' '}
-            <SpellLink id={SPELLS.DEMONIC_CIRCLE_TELEPORT} icon>
+            <SpellLink spell={SPELLS.DEMONIC_CIRCLE_TELEPORT} icon>
               Demonic Circle
             </SpellLink>{' '}
             to reduce your movement.

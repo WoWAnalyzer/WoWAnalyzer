@@ -25,7 +25,7 @@ const CasterChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
         description={
           <>
             Try to avoid downtime during the fight. When moving, use your instant abilities, such as{' '}
-            <SpellLink id={SPELLS.AIMED_SHOT} /> or <SpellLink id={SPELLS.ARCANE_SHOT} />.
+            <SpellLink spell={SPELLS.AIMED_SHOT} /> or <SpellLink spell={SPELLS.ARCANE_SHOT} />.
           </>
         }
       >
