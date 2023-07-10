@@ -106,7 +106,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91541],
     definitionIds: [{ id: 96543, specId: 266 }],
-    soulShardsCost: 2,
   },
   BLOODBOUND_IMPS_TALENT: {
     id: 387349,
@@ -158,6 +157,14 @@ const talents = createTalentList({
     definitionIds: [{ id: 96489, specId: 267 }],
     manaCost: 2500,
   },
+  CAVITATION_TALENT: {
+    id: 416154,
+    name: 'Cavitation',
+    icon: 'warrior_talent_icon_mastercleaver',
+    maxRanks: 2,
+    entryIds: [91527],
+    definitionIds: [{ id: 96529, specId: 266 }],
+  },
   CHANNEL_DEMONFIRE_TALENT: {
     id: 196447,
     name: 'Channel Demonfire',
@@ -202,7 +209,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 96585, specId: 267 }],
   },
   CRASHING_CHAOS_TALENT: {
-    id: 387355,
+    id: 417234,
     name: 'Crashing Chaos',
     icon: 'inv_infernalmount',
     maxRanks: 2,
@@ -294,7 +301,7 @@ const talents = createTalentList({
     id: 205145,
     name: 'Demonic Calling',
     icon: 'ability_warlock_impoweredimp',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [91535],
     definitionIds: [{ id: 96537, specId: 266 }],
   },
@@ -348,14 +355,6 @@ const talents = createTalentList({
     entryIds: [91546],
     definitionIds: [{ id: 96548, specId: 266 }],
   },
-  DEMONIC_METEOR_TALENT: {
-    id: 387396,
-    name: 'Demonic Meteor',
-    icon: 'ability_warlock_handofguldan',
-    maxRanks: 1,
-    entryIds: [91530],
-    definitionIds: [{ id: 96532, specId: 266 }],
-  },
   DEMONIC_RESILIENCE_TALENT: {
     id: 389590,
     name: 'Demonic Resilience',
@@ -397,7 +396,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 96425, specId: 267 }],
   },
   DOOM_BLOSSOM_TALENT: {
-    id: 389764,
+    id: 416621,
     name: 'Doom Blossom',
     icon: 'ability_xavius_corruptingnova',
     maxRanks: 1,
@@ -434,7 +433,7 @@ const talents = createTalentList({
     id: 387391,
     name: 'Dread Calling',
     icon: 'inv_felhound3_shadow_mount',
-    maxRanks: 1,
+    maxRanks: 2,
     entryIds: [91517],
     definitionIds: [{ id: 96519, specId: 266 }],
   },
@@ -465,7 +464,7 @@ const talents = createTalentList({
   FEL_AND_STEEL_TALENT: {
     id: 386200,
     name: 'Fel and Steel',
-    icon: 'ability_creature_poison_01',
+    icon: 'ability_warrior_bladestorm',
     maxRanks: 1,
     entryIds: [91534],
     definitionIds: [{ id: 96536, specId: 266 }],
@@ -478,14 +477,6 @@ const talents = createTalentList({
     entryIds: [91461],
     definitionIds: [{ id: 96463, specId: 266 }],
   },
-  FEL_COVENANT_TALENT: {
-    id: 387432,
-    name: 'Fel Covenant',
-    icon: 'spell_shadow_detectinvisibility',
-    maxRanks: 2,
-    entryIds: [91518],
-    definitionIds: [{ id: 96520, specId: 266 }],
-  },
   FEL_DOMINATION_TALENT: {
     id: 333889,
     name: 'Fel Domination',
@@ -493,14 +484,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91439],
     definitionIds: [{ id: 96441, specId: 266 }],
-  },
-  FEL_MIGHT_TALENT: {
-    id: 387338,
-    name: 'Fel Might',
-    icon: 'ability_bossfelmagnaron_hand',
-    maxRanks: 1,
-    entryIds: [91532],
-    definitionIds: [{ id: 96534, specId: 266 }],
   },
   FEL_PACT_TALENT: {
     id: 386113,
@@ -664,6 +647,14 @@ const talents = createTalentList({
     definitionIds: [{ id: 96495, specId: 267 }],
     manaCost: 5000,
   },
+  HEAVY_HANDED_TALENT: {
+    id: 416183,
+    name: 'Heavy Handed',
+    icon: 'ability_butcher_heavyhanded',
+    maxRanks: 1,
+    entryIds: [91532],
+    definitionIds: [{ id: 96534, specId: 266 }],
+  },
   HORRIFY_TALENT: {
     id: 56244,
     name: 'Horrify',
@@ -679,6 +670,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91458],
     definitionIds: [{ id: 96460, specId: 266 }],
+    manaCost: 4500,
   },
   ICHOR_OF_DEVILS_TALENT: {
     id: 386664,
@@ -720,6 +712,14 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [91490],
     definitionIds: [{ id: 96492, specId: 267 }],
+  },
+  IMP_ERATOR_TALENT: {
+    id: 416230,
+    name: 'Imp-erator',
+    icon: 'spell_warlock_summonimpoutland',
+    maxRanks: 2,
+    entryIds: [91545],
+    definitionIds: [{ id: 96547, specId: 266 }],
   },
   IMP_GANG_BOSS_TALENT: {
     id: 387445,
@@ -765,7 +765,7 @@ const talents = createTalentList({
     id: 267216,
     name: 'Inner Demons',
     icon: 'ability_warlock_eradication',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [91547],
     definitionIds: [{ id: 96549, specId: 266 }],
   },
@@ -817,13 +817,13 @@ const talents = createTalentList({
     entryIds: [91480],
     definitionIds: [{ id: 96482, specId: 267 }],
   },
-  MALEFIC_AFFLICTION_TALENT: {
-    id: 389761,
-    name: 'Malefic Affliction',
-    icon: 'spell_shadow_unstableaffliction_3_purple',
+  MALEFIC_IMPACT_TALENT: {
+    id: 416341,
+    name: 'Malefic Impact',
+    icon: 'ability_warlock_handofguldan',
     maxRanks: 2,
-    entryIds: [91429],
-    definitionIds: [{ id: 96431, specId: 265 }],
+    entryIds: [91530],
+    definitionIds: [{ id: 96532, specId: 266 }],
   },
   MALEFIC_RAPTURE_TALENT: {
     id: 324536,
@@ -1014,14 +1014,6 @@ const talents = createTalentList({
     entryIds: [91496],
     definitionIds: [{ id: 96498, specId: 267 }],
   },
-  RIPPED_THROUGH_THE_PORTAL_TALENT: {
-    id: 387485,
-    name: 'Ripped through the Portal',
-    icon: 'spell_shadow_summonfelhunter',
-    maxRanks: 2,
-    entryIds: [91527],
-    definitionIds: [{ id: 96529, specId: 266 }],
-  },
   RITUAL_OF_RUIN_TALENT: {
     id: 387156,
     name: 'Ritual of Ruin',
@@ -1119,6 +1111,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91450],
     definitionIds: [{ id: 96452, specId: 266 }],
+    manaCost: 7500,
   },
   SHADOWFURY_TALENT: {
     id: 30283,
@@ -1134,8 +1127,8 @@ const talents = createTalentList({
     name: "Shadow's Bite",
     icon: 'spell_shadow_painspike',
     maxRanks: 1,
-    entryIds: [91545],
-    definitionIds: [{ id: 96547, specId: 266 }],
+    entryIds: [91518],
+    definitionIds: [{ id: 96520, specId: 266 }],
   },
   SHADOW_EMBRACE_TALENT: {
     id: 32388,
@@ -1419,6 +1412,14 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91572],
     definitionIds: [{ id: 96574, specId: 265 }],
+  },
+  XAVIUS_GAMBIT_TALENT: {
+    id: 416615,
+    name: "Xavius' Gambit",
+    icon: 'ability_xavius_blackeningsoul',
+    maxRanks: 2,
+    entryIds: [91429],
+    definitionIds: [{ id: 96431, specId: 265 }],
   },
 });
 
