@@ -78,15 +78,15 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
             Certain talents empower your abilities to enhance your healing, try to utilize your
             rotational spells more often for these benefits. For example, you should cast{' '}
             <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> frequently when talented into{' '}
-            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} />.
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />.
           </>
         }
       >
-        {combatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT) && (
+        {combatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT) && (
           <Requirement
             name={
               <>
-                <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> buffs applied
+                <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> buffs applied
               </>
             }
             thresholds={thresholds.essenceBurstBuffApplies}
@@ -107,11 +107,11 @@ const PreservationEvokerChecklist = ({ combatant, castEfficiency, thresholds }: 
         name="Use your procs and short CDs"
         description="Make sure to use your procs and spells at the correct time."
       >
-        {combatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT) && (
+        {combatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT) && (
           <Requirement
             name={
               <>
-                Wasted <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> stacks
+                Wasted <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> stacks
               </>
             }
             thresholds={thresholds.essenceBurst}

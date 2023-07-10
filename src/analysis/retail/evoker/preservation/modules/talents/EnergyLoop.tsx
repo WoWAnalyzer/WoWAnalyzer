@@ -53,7 +53,7 @@ class EnergyLoop extends Analyzer {
             <li>Raw mana gained: {formatNumber(this.rawManaGained)}</li>
             <li>
               Potential mana lost from using{' '}
-              <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> on{' '}
+              <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> on{' '}
               <SpellLink spell={SPELLS.DISINTEGRATE} />: {formatNumber(this.potentialManaLost)}
             </li>
           </ul>
