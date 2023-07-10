@@ -9,6 +9,7 @@ import {
   debuffMissing,
   spellCharges,
   describe,
+  buffMissing,
 } from 'parser/shared/metrics/apl/conditions';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import { SpellLink } from 'interface';
@@ -115,7 +116,7 @@ export const apl = (info: PlayerInfo): Apl => {
     rules.push({
       spell: SPELLS.LIGHTNING_BOLT,
       condition: describe(
-        atLeastFiveMSW,
+        and(atLeastFiveMSW, buffMissing(TALENTS.HAILSTORM_TALENT)),
         () => (
           <>
             to proc <SpellLink spell={TALENTS.HAILSTORM_TALENT} />
