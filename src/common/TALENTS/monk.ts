@@ -261,8 +261,8 @@ const talents = createTalentList({
     name: 'Counterstrike',
     icon: 'ability_monk_palmstrike',
     maxRanks: 1,
-    entryIds: [101441],
-    definitionIds: [{ id: 106443, specId: 268 }],
+    entryIds: [101442],
+    definitionIds: [{ id: 106444, specId: 268 }],
   },
   CRANE_VORTEX_TALENT: {
     id: 388848,
@@ -287,6 +287,14 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101437],
     definitionIds: [{ id: 106439, specId: 269 }],
+  },
+  DANCE_OF_THE_WIND_TALENT: {
+    id: 414132,
+    name: 'Dance of the Wind',
+    icon: 'ability_monk_dematerialize',
+    maxRanks: 1,
+    entryIds: [115760],
+    definitionIds: [{ id: 120772, specId: 269 }],
   },
   DANCING_MISTS_TALENT: {
     id: 388701,
@@ -436,8 +444,8 @@ const talents = createTalentList({
     name: 'Face Palm',
     icon: 'ability_monk_tigerpalm',
     maxRanks: 1,
-    entryIds: [101442],
-    definitionIds: [{ id: 106444, specId: 268 }],
+    entryIds: [101441],
+    definitionIds: [{ id: 106443, specId: 268 }],
   },
   FAELINE_HARMONY_TALENT: {
     id: 391412,
@@ -998,6 +1006,14 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101424],
     definitionIds: [{ id: 106426, specId: 269 }],
+  },
+  PRESS_THE_ADVANTAGE_TALENT: {
+    id: 418359,
+    name: 'Press the Advantage',
+    icon: 'inv__fistofthewhitetiger',
+    maxRanks: 1,
+    entryIds: [116131],
+    definitionIds: [{ id: 121143, specId: 268 }],
   },
   PRETENSE_OF_INSTABILITY_TALENT: {
     id: 393516,
@@ -1582,6 +1598,14 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101481],
     definitionIds: [{ id: 106483, specId: 269 }],
+  },
+  YULONS_GRACE_TALENT: {
+    id: 414131,
+    name: "Yu'lon's Grace",
+    icon: 'ability_monk_dragonkick',
+    maxRanks: 1,
+    entryIds: [115761],
+    definitionIds: [{ id: 120773, specId: 269 }],
   },
   YULONS_WHISPER_TALENT: {
     id: 388038,
