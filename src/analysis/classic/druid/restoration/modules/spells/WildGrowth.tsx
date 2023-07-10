@@ -144,7 +144,7 @@ class WildGrowth extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={SPELLS.WILD_GROWTH.id} />
+            <SpellLink spell={SPELLS.WILD_GROWTH} />
           </b>{' '}
           is your best healing spell when multiple raiders are injured. It quickly heals a lot of
           damage, but has a high mana cost. Use Wild Growth over Rejuvenation if there are at least
@@ -152,7 +152,7 @@ class WildGrowth extends Analyzer {
           hit - don't cast this on an isolated player!
         </p>
         <p>
-          Wild Growth can proc <SpellLink id={SPELLS.REVITALIZE_MANA} />
+          Wild Growth can proc <SpellLink spell={SPELLS.REVITALIZE_MANA} />
         </p>
       </>
     );
@@ -191,7 +191,7 @@ class WildGrowth extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.WILD_GROWTH.id} /> Average Effective Wild Growth Hits
+              <SpellIcon spell={SPELLS.WILD_GROWTH} /> Average Effective Wild Growth Hits
             </>
           }
         >

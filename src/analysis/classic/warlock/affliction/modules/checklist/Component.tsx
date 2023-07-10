@@ -40,7 +40,7 @@ const ClassicAfflictionChecklist = ({ combatant, castEfficiency, thresholds }: C
           <>
             Try to avoid downtime during the fight. When moving, use your instant abilities or set
             up{' '}
-            <SpellLink id={SPELLS.DEMONIC_CIRCLE_TELEPORT} icon>
+            <SpellLink spell={SPELLS.DEMONIC_CIRCLE_TELEPORT} icon>
               Demonic Circle
             </SpellLink>{' '}
             to reduce your movement.

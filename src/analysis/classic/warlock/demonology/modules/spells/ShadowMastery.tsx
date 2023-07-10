@@ -33,7 +33,7 @@ export default class ShadowMasteryUptime extends DebuffUptime {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Uptime on the <SpellLink id={this.debuffSpell} /> debuff can be improved. If there are
+          Uptime on the <SpellLink spell={this.debuffSpell} /> debuff can be improved. If there are
           multiple Warlocks in your raid, assign someone to keep up the debuff.
         </>,
       )

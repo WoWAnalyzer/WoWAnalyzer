@@ -23,7 +23,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <span>
           Your downtime can be improved. Try to reduce time away from the boss. If you have to move,
-          try casting filler spells, such as <SpellLink id={SPELLS.DEATH_COIL_DK} />.
+          try casting filler spells, such as <SpellLink spell={SPELLS.DEATH_COIL_DK} />.
         </span>,
       )
         .icon('spell_mage_altertime')

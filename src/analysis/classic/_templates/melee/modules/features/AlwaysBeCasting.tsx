@@ -25,7 +25,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           Your downtime can be improved. Try to reduce time away from the boss. If you have to move,
           use instant cast abilities, such as
           {/* UPDATE THE SPELLS BELOW */}
-          <SpellLink id={SPELLS.DEATH_COIL_DK} />.
+          <SpellLink spell={SPELLS.DEATH_COIL_DK} />.
         </span>,
       )
         .icon('spell_mage_altertime')

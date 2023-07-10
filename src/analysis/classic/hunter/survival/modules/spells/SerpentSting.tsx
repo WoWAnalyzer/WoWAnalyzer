@@ -33,7 +33,7 @@ class SerpentStingUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.SERPENT_STING.id} /> uptime can be improved. Use a debuff
+          Your <SpellLink spell={SPELLS.SERPENT_STING} /> uptime can be improved. Use a debuff
           tracker to see your uptime on the boss.
         </>,
       )
@@ -53,7 +53,7 @@ class SerpentStingUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.SERPENT_STING} />
+          <SpellIcon spell={SPELLS.SERPENT_STING} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

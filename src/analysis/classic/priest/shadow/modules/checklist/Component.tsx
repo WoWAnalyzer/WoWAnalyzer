@@ -29,8 +29,8 @@ const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
           <>
             DoTs are a big part of your damage. You should try to keep as high uptime on them as
             possible, but do not refresh them too early. Try to cast{' '}
-            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> after applying 5 stacks of{' '}
-            <SpellLink id={SPELLS.SHADOW_WEAVING_TALENT.id} />
+            <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> after applying 5 stacks of{' '}
+            <SpellLink spell={SPELLS.SHADOW_WEAVING_TALENT} />
           </>
         }
       >

@@ -15,6 +15,7 @@ import HotTrackerRestoDruid from 'analysis/classic/druid/restoration/modules/cor
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { formatPercentage } from 'common/format';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 const HIGH_VALUE_HOTS = [SPELLS.REJUVENATION.id, SPELLS.REGROWTH];
 
@@ -99,7 +100,11 @@ class Swiftmend extends Analyzer {
       <>
         removed{' '}
         <strong>
-          {removedHotHeal ? <SpellLink id={removedHotHeal.ability.guid} /> : 'unknown HoT'}
+          {removedHotHeal ? (
+            <SpellLink spell={abilityToSpell(removedHotHeal.ability)} />
+          ) : (
+            'unknown HoT'
+          )}
         </strong>
       </>
     );
@@ -124,15 +129,15 @@ class Swiftmend extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={SPELLS.SWIFTMEND.id} />
+            <SpellLink spell={SPELLS.SWIFTMEND} />
           </b>{' '}
           is our emergency heal that removes a HoT on its target, hurting overall throughput. Use
           only on targets who need urgent healing.
         </p>
         <p>
-          <strong>Note:</strong> If you are not using <SpellLink id={SPELLS.GLYPH_OF_SWIFTMEND} />,
-          you should. The healing, casting time, and mana gains from not having your Rejuv or
-          Regrowth consumed is invaluable.
+          <strong>Note:</strong> If you are not using{' '}
+          <SpellLink spell={SPELLS.GLYPH_OF_SWIFTMEND} />, you should. The healing, casting time,
+          and mana gains from not having your Rejuv or Regrowth consumed is invaluable.
         </p>
       </>
     );

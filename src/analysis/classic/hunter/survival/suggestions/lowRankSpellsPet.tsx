@@ -23,8 +23,8 @@ const lowRankSpellsPet = (spells: LowRankSpells) =>
             .map((spellId) => ({
               text: (
                 <Trans id="tbc.suggestions.hunter.lowRankSpellsPet">
-                  Your pet cast a lower rank <SpellLink id={spellId} />. You should teach your pet
-                  the max rank <SpellLink id={Number(primarySpellId)} />. See{' '}
+                  Your pet cast a lower rank <SpellLink spell={spellId} />. You should teach your
+                  pet the max rank <SpellLink spell={Number(primarySpellId)} />. See{' '}
                   <a
                     href="https://www.wow-petopia.com/classic_bc/abilities.php"
                     target="_blank"
