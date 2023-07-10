@@ -8,6 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
 const LEECH_PERCENT = 0.03;
 
@@ -24,8 +25,10 @@ class RegenerativeMagic extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    const percentFromTalent = LEECH_PERCENT / this.statTracker.currentLeechPercentage;
-    this.totalHealing += Math.floor(event.amount * percentFromTalent);
+    const increase =
+      this.statTracker.currentLeechPercentage /
+      (this.statTracker.currentLeechPercentage - LEECH_PERCENT);
+    this.totalHealing += calculateEffectiveHealing(event, increase);
   }
 
   statistic() {
