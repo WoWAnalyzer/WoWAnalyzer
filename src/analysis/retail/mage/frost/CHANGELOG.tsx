@@ -5,6 +5,7 @@ import { SpellLink } from 'interface';
 import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2023, 7, 10), 'Remove references to 10.1.5 removed talents.', Sharrq),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
 	change(date(2023, 6, 27), <>Added <SpellLink spell={TALENTS.TEMPORAL_WARP_TALENT} /> to list of Bloodlust Buffs.</>, Sharrq),
 	change(date(2023, 2, 12), <>Bumped support up to 10.0.5 and fixed an issue that could cause every Rune of Power cast to count as overlapped.</>, Sharrq),

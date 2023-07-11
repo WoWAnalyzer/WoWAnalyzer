@@ -5,6 +5,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 10), 'Remove references to 10.1.5 removed talents.', Sharrq),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 27), <>Added <SpellLink spell={TALENTS.TEMPORAL_WARP_TALENT} /> to list of Bloodlust Buffs.</>, Sharrq),
   change(date(2023, 2, 12), <>Marked the spec supported for 10.0.5</>, Sharrq),
