@@ -44,6 +44,7 @@ import T30PrevokerSet from './modules/dragonflight/tier/T30TierSet';
 import Guide from 'analysis/retail/evoker/preservation/Guide';
 import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     sparkOfInsight: SparkOfInsight,
     ouroboros: Ouroboros,
     nozTeachings: NozTeachings,
+    regenerativeMagic: RegenerativeMagic,
 
     // tier
     t30PrevokerTier: T30PrevokerSet,
