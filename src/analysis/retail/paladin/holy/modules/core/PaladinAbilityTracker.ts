@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/paladin';
 import { Ability, AbsorbedEvent, EventType, HealEvent } from 'parser/core/Events';
 import AbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 
@@ -36,7 +35,7 @@ class PaladinAbilityTracker extends AbilityTracker {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
-    if (spellId === SPELLS.FLASH_OF_LIGHT.id || spellId === TALENTS.HOLY_LIGHT_TALENT.id) {
+    if (spellId === SPELLS.FLASH_OF_LIGHT.id || spellId === SPELLS.HOLY_LIGHT.id) {
       const hasIol = this.selectedCombatant.hasBuff(
         SPELLS.INFUSION_OF_LIGHT.id,
         event.timestamp,

@@ -127,15 +127,6 @@ class Abilities extends CoreAbilities {
         gcd: null,
         cooldown: 300,
       },
-      {
-        spell: TALENTS.SUMMON_WATER_ELEMENTAL_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.SUMMON_WATER_ELEMENTAL_TALENT),
-        cooldown: 30,
-      },
       ...super.spellbook(),
     ];
   }

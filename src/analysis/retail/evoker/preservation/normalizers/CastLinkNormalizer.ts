@@ -370,7 +370,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT);
+      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT);
     },
   },
   {
@@ -383,7 +383,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: MAX_ESSENCE_BURST_DURATION,
     maximumLinks: 1,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT);
+      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT);
     },
     additionalCondition(linkingEvent, referencedEvent) {
       return !HasRelatedEvent(referencedEvent, ESSENCE_BURST_LINK);

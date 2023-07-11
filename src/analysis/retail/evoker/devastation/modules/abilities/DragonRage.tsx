@@ -17,7 +17,7 @@ const {
   ESSENCE_BURST_DEV_BUFF,
 } = SPELLS;
 
-const { DRAGONRAGE_TALENT, ESSENCE_BURST_TALENT, PYRE_TALENT } = TALENTS_EVOKER;
+const { DRAGONRAGE_TALENT, RUBY_ESSENCE_BURST_TALENT, PYRE_TALENT } = TALENTS_EVOKER;
 
 export type RageWindowCounter = {
   start: number;
@@ -60,7 +60,9 @@ class DragonRage extends Analyzer {
     });
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell([ESSENCE_BURST_DEV_BUFF, ESSENCE_BURST_TALENT]),
+      Events.applybuff
+        .by(SELECTED_PLAYER)
+        .spell([ESSENCE_BURST_DEV_BUFF, RUBY_ESSENCE_BURST_TALENT]),
       () => {
         if (!this.inDragonRageWindow) {
           return;

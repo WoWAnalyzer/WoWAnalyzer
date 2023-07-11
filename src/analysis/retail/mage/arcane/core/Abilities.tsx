@@ -34,9 +34,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ARCANE_BARRAGE_TALENT.id,
+        spell: SPELLS.ARCANE_BARRAGE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.ARCANE_BARRAGE_TALENT),
         cooldown: (haste: any) => 3 / (1 + haste),
         gcd: {
           base: 1500,
