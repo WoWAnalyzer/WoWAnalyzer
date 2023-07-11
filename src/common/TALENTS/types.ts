@@ -27,6 +27,15 @@ export interface Talent extends Spell {
   spellType?: EntryType;
 }
 
+export const PLACEHOLDER_TALENT: Talent = {
+  id: -1,
+  name: 'Unknown Spell',
+  icon: 'inv_misc_questionmark',
+  maxRanks: 0,
+  entryIds: [],
+  definitionIds: [],
+};
+
 export type SpellList<T, SpellType extends Spell = Spell> = { [Key in keyof T]: SpellType };
 
 export const createTalentList = <T>(v: SpellList<T, Talent>): SpellList<T, Talent> => v;
