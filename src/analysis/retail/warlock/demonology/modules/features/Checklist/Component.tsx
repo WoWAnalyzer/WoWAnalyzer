@@ -64,25 +64,6 @@ const DemonologyWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
       <Rule name="Don't cap your Soul Shards" description="Avoid overcapping Soul Shards.">
         <Requirement name="Wasted shards per minute" thresholds={thresholds.soulShards} />
       </Rule>
-      {combatant.hasTalent(TALENTS.FEL_COVENANT_TALENT) && (
-        <Rule
-          name="Keep Fel Covenant buff up"
-          description={
-            <>
-              You should aim to have 100% uptime on <SpellLink spell={SPELLS.FEL_COVENANT_BUFF} />
-            </>
-          }
-        >
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.FEL_COVENANT_TALENT} /> uptime
-              </>
-            }
-            thresholds={thresholds.felCovenant}
-          />
-        </Rule>
-      )}
       <Rule
         name="Use your cooldowns"
         description="Be mindful of your cooldowns if you are specced into them and use them when it's appropriate. It's okay to hold a cooldown for a little bit when the encounter requires it (burn phases), but generally speaking you should use them as much as you can."
