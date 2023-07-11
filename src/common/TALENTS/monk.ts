@@ -1139,6 +1139,7 @@ const talents = createTalentList({
     entryIds: [101508],
     definitionIds: [{ id: 106510, specId: 269 }],
     chiCost: 2,
+    manaCost: 6250,
   },
   RUSHING_JADE_WIND_TALENT: {
     id: 116847,
@@ -1264,7 +1265,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101509],
     definitionIds: [{ id: 106511, specId: 269 }],
-    manaCost: 0,
   },
   SPEAR_HAND_STRIKE_TALENT: {
     id: 116705,

@@ -801,7 +801,7 @@ const talents = createTalentList({
       { id: 117154, specId: 73 },
       { id: 119745, specId: 71 },
     ],
-    rageCost: 40,
+    rageCost: 35,
   },
   IMMOVABLE_OBJECT_TALENT: {
     id: 394307,

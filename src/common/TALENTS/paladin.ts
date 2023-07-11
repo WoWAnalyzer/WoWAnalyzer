@@ -86,6 +86,7 @@ const talents = createTalentList({
     entryIds: [102568],
     definitionIds: [{ id: 107573, specId: 65 }],
     holyPowerCost: 3,
+    manaCost: 1800,
   },
   AVENGING_WRATH_MIGHT_TALENT: {
     id: 31884,
@@ -155,7 +156,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [102533],
     definitionIds: [{ id: 107538, specId: 65 }],
-    manaCost: 0,
   },
   BEACON_OF_THE_LIGHTBRINGER_TALENT: {
     id: 197446,
@@ -221,7 +221,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [102430],
     definitionIds: [{ id: 107435, specId: 66 }],
-    manaCost: 0,
   },
   BLESSING_OF_FREEDOM_TALENT: {
     id: 1044,
@@ -772,7 +771,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [102431],
     definitionIds: [{ id: 107436, specId: 66 }],
-    manaCost: 0,
   },
   HAMMER_OF_WRATH_TALENT: {
     id: 24275,
@@ -1099,6 +1097,7 @@ const talents = createTalentList({
     entryIds: [102545],
     definitionIds: [{ id: 107550, specId: 65 }],
     holyPowerCost: 3,
+    manaCost: 600,
   },
   LIGHT_OF_JUSTICE_TALENT: {
     id: 404436,

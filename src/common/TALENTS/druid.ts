@@ -756,7 +756,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103135],
     definitionIds: [{ id: 108140, specId: 105 }],
-    manaCost: 0,
   },
   IRONBARK_TALENT: {
     id: 102342,
@@ -864,6 +863,7 @@ const talents = createTalentList({
     entryIds: [103299],
     definitionIds: [{ id: 108304, specId: 102 }],
     energyCost: 30,
+    comboPointsCost: 1,
   },
   MANGLE_TALENT: {
     id: 231064,
@@ -1144,6 +1144,7 @@ const talents = createTalentList({
     entryIds: [103184],
     definitionIds: [{ id: 108189, specId: 103 }],
     energyCost: 20,
+    comboPointsCost: 1,
   },
   PRIMORDIAL_ARCANIC_PULSAR_TALENT: {
     id: 393960,
@@ -1345,6 +1346,7 @@ const talents = createTalentList({
     entryIds: [103300],
     definitionIds: [{ id: 108305, specId: 102 }],
     energyCost: 20,
+    comboPointsCost: 1,
   },
   RISING_LIGHT_FALLING_NIGHT_TALENT: {
     id: 417712,
@@ -1488,7 +1490,6 @@ const talents = createTalentList({
       { id: 117972, specId: 103 },
       { id: 117969, specId: 104 },
     ],
-    manaCost: 0,
   },
   STARLORD_TALENT: {
     id: 202345,
@@ -1514,7 +1515,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103278],
     definitionIds: [{ id: 108283, specId: 104 }],
-    manaCost: 0,
   },
   STARWEAVER_TALENT: {
     id: 393940,

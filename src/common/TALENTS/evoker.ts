@@ -302,6 +302,7 @@ const talents = createTalentList({
     entryIds: [115653],
     definitionIds: [{ id: 120665, specId: 1468 }],
     essenceCost: 2,
+    manaCost: 4250,
   },
   EMERALD_COMMUNION_TALENT: {
     id: 370960,

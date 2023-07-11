@@ -513,7 +513,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103774],
     definitionIds: [{ id: 108779, specId: 257 }],
-    manaCost: 0,
   },
   HALO_SHADOW_TALENT: {
     id: 120644,
@@ -1069,7 +1068,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103822],
     definitionIds: [{ id: 108827, specId: 256 }],
-    manaCost: 0,
+    manaCost: 10000,
   },
   POWER_WORD_RADIANCE_TALENT: {
     id: 194509,
@@ -1317,7 +1316,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103704],
     definitionIds: [{ id: 108709, specId: 256 }],
-    manaCost: 0,
   },
   SCREAMS_OF_THE_VOID_TALENT: {
     id: 375767,
@@ -1384,7 +1382,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103864],
     definitionIds: [{ id: 108869, specId: 256 }],
-    manaCost: 0,
   },
   SHATTERED_PERCEPTIONS_TALENT: {
     id: 391112,

@@ -188,7 +188,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101949],
     definitionIds: [{ id: 107008, specId: 262 }],
-    manaCost: 0,
   },
   CLEANSE_SPIRIT_TALENT: {
     id: 51886,
@@ -239,7 +238,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101840],
     definitionIds: [{ id: 106879, specId: 263 }],
-    manaCost: 0,
   },
   CREATION_CORE_TALENT: {
     id: 383012,
@@ -318,7 +316,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101975],
     definitionIds: [{ id: 106971, specId: 262 }],
-    manaCost: 0,
   },
   EARTHLIVING_WEAPON_TALENT: {
     id: 382021,
@@ -416,7 +413,7 @@ const talents = createTalentList({
       { id: 106886, specId: 263 },
       { id: 106842, specId: 262 },
     ],
-    manaCost: 0,
+    maelstromCost: 90,
   },
   ELEMENTAL_EQUILIBRIUM_TALENT: {
     id: 378271,
@@ -522,7 +519,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101807],
     definitionIds: [{ id: 106899, specId: 263 }],
-    manaCost: 0,
   },
   FLAMES_OF_THE_CAULDRON_TALENT: {
     id: 378266,
@@ -606,7 +602,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101965],
     definitionIds: [{ id: 106961, specId: 262 }],
-    manaCost: 0,
   },
   FURTHER_BEYOND_TALENT: {
     id: 381787,
@@ -742,7 +737,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101870],
     definitionIds: [{ id: 106817, specId: 262 }],
-    manaCost: 0,
   },
   ICE_STRIKE_TALENT: {
     id: 342240,
@@ -751,7 +745,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101821],
     definitionIds: [{ id: 106866, specId: 263 }],
-    manaCost: 0,
   },
   IMPROVED_EARTHLIVING_WEAPON_TALENT: {
     id: 382315,
@@ -816,7 +809,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101950],
     definitionIds: [{ id: 106952, specId: 262 }],
-    manaCost: 0,
   },
   LAVA_LASH_TALENT: {
     id: 60103,
@@ -825,7 +817,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101805],
     definitionIds: [{ id: 106864, specId: 263 }],
-    manaCost: 0,
   },
   LAVA_SURGE_TALENT: {
     id: 77756,
@@ -869,7 +860,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101884],
     definitionIds: [{ id: 106851, specId: 262 }],
-    manaCost: 0,
   },
   LIVING_STREAM_TALENT: {
     id: 382482,
@@ -1001,7 +991,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101989],
     definitionIds: [{ id: 106984, specId: 262 }],
-    manaCost: 0,
   },
   POWER_OF_THE_MAELSTROM_TALENT: {
     id: 191861,
@@ -1070,7 +1059,6 @@ const talents = createTalentList({
       { id: 106905, specId: 264 },
       { id: 106840, specId: 262 },
     ],
-    manaCost: 0,
   },
   PURGE_TALENT: {
     id: 370,
@@ -1241,7 +1229,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101992],
     definitionIds: [{ id: 106987, specId: 262 }],
-    manaCost: 0,
   },
   STORMBLAST_TALENT: {
     id: 319930,
@@ -1290,7 +1277,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101804],
     definitionIds: [{ id: 106862, specId: 263 }],
-    manaCost: 0,
   },
   STORMS_WRATH_TALENT: {
     id: 392352,
@@ -1461,7 +1447,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101991],
     definitionIds: [{ id: 106986, specId: 262 }],
-    manaCost: 0,
   },
   TREMOR_TOTEM_TALENT: {
     id: 8143,
@@ -1470,7 +1455,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101958],
     definitionIds: [{ id: 106954, specId: 262 }],
-    manaCost: 0,
   },
   TUMBLING_WAVES_TALENT: {
     id: 382040,
@@ -1511,7 +1495,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101918],
     definitionIds: [{ id: 106906, specId: 264 }],
-    manaCost: 0,
   },
   UNRELENTING_CALAMITY_TALENT: {
     id: 382685,
@@ -1569,7 +1552,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101803],
     definitionIds: [{ id: 106870, specId: 263 }],
-    manaCost: 0,
   },
   WINDFURY_WEAPON_TALENT: {
     id: 33757,

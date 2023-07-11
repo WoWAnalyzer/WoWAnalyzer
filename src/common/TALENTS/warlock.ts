@@ -419,7 +419,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91566],
     definitionIds: [{ id: 96568, specId: 265 }],
-    manaCost: 0,
   },
   DREADLASH_TALENT: {
     id: 264078,
@@ -1220,7 +1219,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91578],
     definitionIds: [{ id: 96580, specId: 265 }],
-    manaCost: 0,
   },
   SOUL_STRIKE_TALENT: {
     id: 264057,
