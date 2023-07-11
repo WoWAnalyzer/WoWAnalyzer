@@ -1,24 +1,21 @@
 import { Trans } from '@lingui/macro';
 import {
   MS_BUFFER_100,
-  MS_BUFFER_250,
   COMBUSTION_DURATION,
   SKB_COMBUST_DURATION,
+  HOT_STREAK_SPENDERS,
 } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-
-const debug = false;
 
 class SunKingsBlessing extends Analyzer {
   static dependencies = {
@@ -26,115 +23,82 @@ class SunKingsBlessing extends Analyzer {
   };
   protected eventHistory!: EventHistory;
 
-  expiredBuffs = 0;
-  sunKingApplied = 0;
-  sunKingTotalDelay = 0;
-  totalSunKingBuffs = 0;
-  combustionCastDuringCombustion = 0;
-  wastedHotStreaks = 0;
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT);
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SUN_KINGS_BLESSING_BUFF_STACK),
-      this.onStackRemoved,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUN_KINGS_BLESSING_BUFF),
-      this.onSunKingApplied,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustionStart,
-    );
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustionCast,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SUN_KINGS_BLESSING_BUFF),
-      this.onSunKingRemoved,
-    );
   }
 
-  onStackRemoved(event: RemoveBuffEvent) {
-    const lastCast = this.eventHistory.last(
-      1,
-      MS_BUFFER_100,
-      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.PYROBLAST_TALENT, TALENTS.FLAMESTRIKE_TALENT]),
+  sunKingsBuffExpired = () => {
+    const buffRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, {
+      searchBackwards: true,
+      spell: SPELLS.SUN_KINGS_BLESSING_BUFF,
+    });
+    let expiredBuffs = 0;
+    buffRemoved.forEach((r) => {
+      const spender = this.eventHistory.getEvents(EventType.Cast, {
+        searchBackwards: true,
+        spell: HOT_STREAK_SPENDERS,
+        count: 1,
+        startTimestamp: r.timestamp,
+        duration: MS_BUFFER_100,
+      })[0];
+      expiredBuffs += spender ? 1 : 0;
+    });
+    return expiredBuffs;
+  };
+
+  combustCastDuringSKB = () => {
+    const casts = this.eventHistory.getEventsWithBuff(
+      TALENTS.COMBUSTION_TALENT,
+      EventType.Cast,
+      TALENTS.COMBUSTION_TALENT,
     );
-    if (lastCast.length === 0) {
-      debug && this.log('Sun King Blessing Stack expired');
-      this.expiredBuffs += 1;
-    }
-  }
+    return casts.length;
+  };
 
-  onSunKingApplied(event: ApplyBuffEvent) {
-    this.sunKingApplied = event.timestamp;
-    this.totalSunKingBuffs += 1;
-  }
-
-  onCombustionStart(event: ApplyBuffEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.SUN_KINGS_BLESSING_BUFF.id)) {
-      const lastPyroBegin = this.eventHistory.last(
-        1,
-        5000,
-        Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.PYROBLAST_TALENT),
-      );
-      const lastPyroCast = this.eventHistory.last(
-        1,
-        MS_BUFFER_250,
-        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PYROBLAST_TALENT),
-      );
-      if (
-        lastPyroCast.length === 0 ||
-        lastPyroBegin.length === 0 ||
-        lastPyroCast[0].timestamp - lastPyroBegin[0].timestamp < MS_BUFFER_250
-      ) {
-        return;
-      }
-      this.sunKingTotalDelay += lastPyroBegin[0].timestamp - this.sunKingApplied;
-    }
-  }
-
-  onCombustionCast(event: CastEvent) {
-    if (this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)) {
-      this.combustionCastDuringCombustion += 1;
-    }
-  }
-
-  onSunKingRemoved(event: RemoveBuffEvent) {
-    const sunKingStart = this.eventHistory.last(
-      1,
-      undefined,
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SUN_KINGS_BLESSING_BUFF),
-    )[0];
-    const hotStreaksDuringBuff = this.eventHistory.last(
-      undefined,
-      event.timestamp - sunKingStart.timestamp,
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_STREAK),
-    );
-    if (hotStreaksDuringBuff.length > 0) {
-      hotStreaksDuringBuff.forEach((buff) => {
-        if (event.timestamp - buff.timestamp > 50 && buff.timestamp - sunKingStart.timestamp > 50) {
-          this.wastedHotStreaks += 1;
-        }
+  hotStreaksWastedWithSKB = () => {
+    const buffRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, {
+      searchBackwards: true,
+      spell: SPELLS.SUN_KINGS_BLESSING_BUFF,
+    });
+    let hotStreakUses = 0;
+    buffRemoved.forEach((r) => {
+      const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
+        searchBackwards: true,
+        spell: SPELLS.SUN_KINGS_BLESSING_BUFF,
+        count: 1,
+        startTimestamp: r.timestamp,
+      })[0];
+      const hotStreaks = this.eventHistory.getEvents(EventType.RemoveBuff, {
+        searchBackwards: true,
+        spell: SPELLS.HOT_STREAK,
+        startTimestamp: r.timestamp,
+        duration: buffApply.timestamp - r.timestamp,
       });
-    }
-  }
+      hotStreakUses += hotStreaks.length;
+    });
+    return hotStreakUses;
+  };
 
-  get averageSunKingDelaySeconds() {
-    return this.sunKingTotalDelay / this.totalSunKingBuffs / 1000;
-  }
+  totalSunKingBuffs = () => {
+    const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
+      searchBackwards: true,
+      spell: SPELLS.SUN_KINGS_BLESSING_BUFF,
+    });
+    return buffApply.length;
+  };
 
   get percentSunKingBuffExpired() {
-    return this.expiredBuffs / this.totalSunKingBuffs;
+    return this.sunKingsBuffExpired() / this.totalSunKingBuffs();
+  }
+
+  get averageHotStreaksWithSKB() {
+    return this.hotStreaksWastedWithSKB() / this.totalSunKingBuffs();
   }
 
   get combustionDuringCombustionThresholds() {
     return {
-      actual: this.combustionCastDuringCombustion,
+      actual: this.combustCastDuringSKB(),
       isGreaterThan: {
         minor: 0,
         average: 1,
@@ -156,13 +120,25 @@ class SunKingsBlessing extends Analyzer {
     };
   }
 
+  get hotStreaksWithSKBThresholds() {
+    return {
+      actual: this.averageHotStreaksWithSKB,
+      isGreaterThan: {
+        minor: 1,
+        average: 2,
+        major: 3,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   suggestions(when: When) {
     when(this.combustionDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You used <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> while{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was already active{' '}
-          {this.combustionCastDuringCombustion} times. When using{' '}
+          {this.combustCastDuringSKB()} times. When using{' '}
           <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> and{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> at the same time, you want to ensure that{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is activated first by using{' '}
@@ -189,10 +165,10 @@ class SunKingsBlessing extends Analyzer {
     when(this.sunKingExpireThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You let <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> expire {this.expiredBuffs}{' '}
-          times ({formatPercentage(this.percentSunKingBuffExpired)}% of total{' '}
-          <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> buffs). While this is sometimes
-          unavoidable, try to ensure you are using your{' '}
+          You let <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> expire{' '}
+          {this.sunKingsBuffExpired()} times ({formatPercentage(this.percentSunKingBuffExpired)}% of
+          total <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> buffs). While this is
+          sometimes unavoidable, try to ensure you are using your{' '}
           <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> procs instead of letting them
           expire.
         </>,
@@ -204,6 +180,27 @@ class SunKingsBlessing extends Analyzer {
           </Trans>,
         )
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
+    );
+    when(this.hotStreaksWithSKBThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You used <SpellLink spell={SPELLS.HOT_STREAK} /> {this.hotStreaksWastedWithSKB()} times (
+          {this.averageHotStreaksWithSKB} per{' '}
+          <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />) while{' '}
+          <SpellLink spell={SPELLS.SUN_KINGS_BLESSING_BUFF} /> was ready. These{' '}
+          <SpellLink spell={SPELLS.HOT_STREAK} /> were wasted and could have been contributing
+          towards your next <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />. To avoid this,
+          ensure you are using <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> as quickly as
+          possible when it is available.
+        </>,
+      )
+        .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.sunKingsBlessing.hotStreaksWithSKB">
+            {formatPercentage(actual)}% expired procs
+          </Trans>,
+        )
+        .recommended(`<${formatNumber(recommended)} is recommended`),
     );
   }
 
@@ -225,12 +222,9 @@ class SunKingsBlessing extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.SUN_KINGS_BLESSING_BUFF}>
-          {this.averageSunKingDelaySeconds.toFixed(2)}s{' '}
-          <small>Avg. Sun King Activation Delay</small>
+          {this.sunKingsBuffExpired()} <small>Expired Sun King buffs</small>
           <br />
-          {this.expiredBuffs} <small>Expired Sun King buffs</small>
-          <br />
-          {this.wastedHotStreaks} <small>Wasted Hot Streaks</small>
+          {this.hotStreaksWastedWithSKB()} <small>Wasted Hot Streaks</small>
         </BoringSpellValueText>
       </Statistic>
     );
