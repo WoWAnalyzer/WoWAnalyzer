@@ -1,3 +1,4 @@
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -24,7 +25,7 @@ class ArcaneBombardment extends Analyzer {
     super(options);
     this.active = false;
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrageDamage,
     );
   }
