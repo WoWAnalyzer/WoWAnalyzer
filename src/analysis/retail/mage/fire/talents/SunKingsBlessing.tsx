@@ -62,7 +62,7 @@ class SunKingsBlessing extends Analyzer {
     const lastCast = this.eventHistory.last(
       1,
       MS_BUFFER_100,
-      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.PYROBLAST_TALENT, TALENTS.FLAMESTRIKE_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.PYROBLAST_TALENT, SPELLS.FLAMESTRIKE]),
     );
     if (lastCast.length === 0) {
       debug && this.log('Sun King Blessing Stack expired');

@@ -45,7 +45,6 @@ const spells: number[] = [
   //endregion
 
   //region Mage
-  SPELLS.RUNE_OF_POWER_BUFF.id,
   SPELLS.SHIFTING_POWER_TICK.id,
   //endregion
 

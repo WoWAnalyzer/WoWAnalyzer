@@ -11,25 +11,18 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const SPLITTING_ICE_DAMAGE_BONUS = 0.05;
 const GLACIAL_SPIKE_DAMAGE_BONUS = 0.65;
-const SPLITTABLE_CASTS = [
-  SPELLS.FROSTBOLT,
-  TALENTS.ICE_LANCE_TALENT,
-  TALENTS.GLACIAL_SPIKE_TALENT,
-  TALENTS.EBONBOLT_TALENT,
-];
+const SPLITTABLE_CASTS = [SPELLS.FROSTBOLT, TALENTS.ICE_LANCE_TALENT, TALENTS.GLACIAL_SPIKE_TALENT];
 
 const SPLITTABLE_DAMAGE = [
   SPELLS.ICE_LANCE_DAMAGE,
   SPELLS.ICICLE_DAMAGE,
   SPELLS.GLACIAL_SPIKE_DAMAGE,
-  SPELLS.EBONBOLT_DAMAGE,
 ];
 
 const debug = false;
 
 class SplittingIce extends Analyzer {
   hasGlacialSpike: boolean;
-  hasEbonbolt: boolean;
   cleaveDamage = 0; // all damage to secondary target
   boostDamage = 0; // damage to primary target attributable to boost
   castTarget = ''; // player's last directly targeted foe, used to tell which hit was on primary target
@@ -38,7 +31,6 @@ class SplittingIce extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SPLITTING_ICE_TALENT);
     this.hasGlacialSpike = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
-    this.hasEbonbolt = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT);
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPLITTABLE_CASTS), this.onCast);
     this.addEventListener(

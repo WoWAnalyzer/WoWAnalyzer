@@ -88,21 +88,6 @@ class Abilities extends CoreAbilities {
 
       // Cooldowns
       {
-        spell: TALENTS.RUNE_OF_POWER_TALENT.id,
-        buffSpellId: SPELLS.RUNE_OF_POWER_BUFF.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        enabled: combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 45,
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-        },
-        timelineSortIndex: 16, // Shares talent row with Mirror Image
-      },
-      {
         spell: SPELLS.TIME_WARP.id,
         buffSpellId: SPELLS.TIME_WARP.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -287,10 +272,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.INVISIBILITY_TALENT.id,
+        spell: SPELLS.INVISIBILITY.id,
         buffSpellId: SPELLS.INVISIBILITY_BUFF.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.INVISIBILITY_TALENT),
+        enabled: !combatant.hasTalent(TALENTS.GREATER_INVISIBILITY_TALENT),
         gcd: {
           base: 1500,
         },

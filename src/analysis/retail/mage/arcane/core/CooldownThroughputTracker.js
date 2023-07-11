@@ -14,11 +14,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       expansion: RETAIL_EXPANSION,
     },
     {
-      spell: TALENTS.RUNE_OF_POWER_TALENT.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      expansion: RETAIL_EXPANSION,
-    },
-    {
       spell: TALENTS.RADIANT_SPARK_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       expansion: RETAIL_EXPANSION,

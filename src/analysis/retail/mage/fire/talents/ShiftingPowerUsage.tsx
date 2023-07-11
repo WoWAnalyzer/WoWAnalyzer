@@ -20,9 +20,7 @@ class ShiftingPowerUsage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) &&
-      this.selectedCombatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT);
+    this.active = false; //Figure out if we need to do anything with this now that Rune of Power is gone
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHIFTING_POWER_TALENT),
       this.onCast,
@@ -30,10 +28,7 @@ class ShiftingPowerUsage extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (
-      !this.spellUsable.isOnCooldown(TALENTS.COMBUSTION_TALENT.id) ||
-      !this.spellUsable.isOnCooldown(TALENTS.RUNE_OF_POWER_TALENT.id)
-    ) {
+    if (!this.spellUsable.isOnCooldown(TALENTS.COMBUSTION_TALENT.id)) {
       this.badUses += 1;
     }
   }
@@ -61,12 +56,10 @@ class ShiftingPowerUsage extends Analyzer {
         <>
           You used <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> while some critical abilities
           (
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} />) were not on cooldown. Since{' '}
-          <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> will reduce the cooldown on these
-          spells by a decent amount, you want to ensure that you do not cast it unless both{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> and{' '}
-          <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> are on cooldown.
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> and Rune of Power) were not on cooldown.
+          Since <SpellLink spell={TALENTS.SHIFTING_POWER_TALENT} /> will reduce the cooldown on
+          these spells by a decent amount, you want to ensure that you do not cast it unless both{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> and Rune of Power are on cooldown.
         </>,
       )
         .icon(TALENTS.SHIFTING_POWER_TALENT.icon)

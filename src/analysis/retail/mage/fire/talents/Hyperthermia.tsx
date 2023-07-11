@@ -22,7 +22,7 @@ class Hyperthermia extends Analyzer {
   castsDuringHyperthermia = () =>
     this.eventHistory.getEventsWithBuff(SPELLS.HYPERTHERMIA_BUFF, EventType.Cast, [
       TALENTS.PYROBLAST_TALENT,
-      TALENTS.FLAMESTRIKE_TALENT,
+      SPELLS.FLAMESTRIKE,
     ]).length || 0;
 
   totalProcs = () =>

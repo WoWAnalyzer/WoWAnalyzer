@@ -80,22 +80,8 @@ class Abilities extends CoreAbilities {
         damageSpellIds: [SPELLS.COMET_STORM_DAMAGE.id],
       },
       {
-        spell: TALENTS.EBONBOLT_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 45,
-        enabled: combatant.hasTalent(TALENTS.EBONBOLT_TALENT),
-        castEfficiency: {
-          //If using Glacial Spike, it is recommended to hold Ebonbolt as an emergency proc if GS is available and you dont have a Brain Freeze Proc. Therefore, with good luck, it is possible to go the entire fight without casting Ebonbolt.
-          suggestion: !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT),
-          recommendedEfficiency: 0.9,
-        },
-        timelineSortIndex: 6,
-        damageSpellIds: [SPELLS.EBONBOLT_DAMAGE.id],
-      },
-      {
-        spell: TALENTS.BLIZZARD_TALENT.id,
+        spell: SPELLS.BLIZZARD.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: combatant.hasTalent(TALENTS.BLIZZARD_TALENT),
         cooldown: (haste: any) => 8 / (1 + haste),
         gcd: {
           base: 1500,
@@ -136,9 +122,8 @@ class Abilities extends CoreAbilities {
 
       //Utility
       {
-        spell: TALENTS.COLD_SNAP_TALENT.id,
+        spell: SPELLS.COLD_SNAP.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.COLD_SNAP_TALENT),
         gcd: null,
         cooldown: 300,
       },

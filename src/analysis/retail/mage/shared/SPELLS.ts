@@ -59,16 +59,6 @@ const spells = spellIndexableList({
     name: 'Time Warp',
     icon: 'ability_mage_timewarp',
   },
-  RUNE_OF_POWER_BUFF: {
-    id: 116014,
-    name: 'Rune of Power',
-    icon: 'spell_mage_runeofpower',
-  },
-  RUNE_OF_POWER_AUTOCAST: {
-    id: 342130,
-    name: 'Rune of Power',
-    icon: 'spell_mage_runeofpower',
-  },
   MIRROR_IMAGE_SUMMON: {
     id: 88088,
     name: 'Mirror Image',
@@ -88,6 +78,11 @@ const spells = spellIndexableList({
     id: 342246,
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
+  },
+  INVISIBILITY: {
+    id: 66,
+    name: 'Invisibility',
+    icon: 'ability_mage_invisibility',
   },
   SHIFTING_POWER_TICK: {
     id: 382445,

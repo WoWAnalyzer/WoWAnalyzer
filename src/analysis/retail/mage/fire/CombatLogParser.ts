@@ -5,12 +5,9 @@ import {
   ElementalBarrier,
   GroundingSurge,
   MirrorImage,
-  RuneOfPower,
-  RuneOfPowerNormalizer,
   ShiftingPower,
   TempestBarrier,
   Meteor,
-  MeteorRune,
   MasterOfTime,
   TimeAnomaly,
   SharedCode,
@@ -33,7 +30,6 @@ import HotStreak from './core/HotStreak';
 
 //Talents
 import PhoenixFlames from './talents/PhoenixFlames';
-import Pyroclasm from './talents/Pyroclasm';
 import ShiftingPowerUsage from './talents/ShiftingPowerUsage';
 import FeveredIncantation from './talents/FeveredIncantation';
 import Hyperthermia from './talents/Hyperthermia';
@@ -47,7 +43,6 @@ import SearingTouch from './talents/SearingTouch';
 //Normalizers
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
-import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
 import ScorchNormalizer from './normalizers/Scorch';
 import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
 
@@ -56,9 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
-    pyroclasmBuffNormalizer: PyroclasmBuffNormalizer,
     combustionNormalizer: CombustionNormalizer,
-    runeOfPowerNormalizer: RuneOfPowerNormalizer,
     sunKingsBlessingNormalizer: SunKingsBlessingNormalizer,
 
     //Checklist
@@ -81,7 +74,6 @@ class CombatLogParser extends CoreCombatLogParser {
     phoenixFlames: PhoenixFlames,
     kindling: Kindling,
     meteorCombustion: MeteorCombustion,
-    pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
     fromTheAshes: FromTheAshes,
     feveredIncantation: FeveredIncantation,
@@ -93,13 +85,11 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents - Shared
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
-    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
     shiftingPower: ShiftingPower,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
     tempestBarrier: TempestBarrier,
     meteor: Meteor,
-    meteorRune: MeteorRune,
     masterOfTime: MasterOfTime,
     timeAnomaly: TimeAnomaly,
 
