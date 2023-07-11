@@ -40,7 +40,6 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CRUSADER_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: hasted(6),
-        charges: combatant.hasTalent(TALENTS.RADIANT_ONSLAUGHT_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -276,7 +275,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.DIVINE_PROTECTION_TALENT.id,
+        spell: SPELLS.DIVINE_PROTECTION.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: unbreakable(60),
         castEfficiency: {
@@ -285,7 +284,6 @@ class Abilities extends CoreAbilities {
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         isDefensive: true,
-        enabled: combatant.hasTalent(TALENTS.DIVINE_PROTECTION_TALENT),
       },
       {
         spell: TALENTS.HOLY_SHOCK_TALENT.id,
@@ -309,12 +307,11 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT),
       },
       {
-        spell: TALENTS.HOLY_LIGHT_TALENT.id,
+        spell: SPELLS.HOLY_LIGHT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.HOLY_LIGHT_TALENT),
       },
       {
         spell: TALENTS.LIGHT_OF_DAWN_TALENT.id,
@@ -323,26 +320,6 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.LIGHT_OF_DAWN_TALENT),
-      },
-      {
-        spell: TALENTS.BESTOW_FAITH_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.7,
-        },
-        enabled: combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT),
-      },
-      {
-        spell: TALENTS.RULE_OF_LAW_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
-        charges: 2,
-        enabled: combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT),
       },
       {
         spell: TALENTS.AURA_MASTERY_TALENT.id,
