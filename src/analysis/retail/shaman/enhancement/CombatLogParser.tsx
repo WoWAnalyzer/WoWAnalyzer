@@ -48,7 +48,6 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import Stormstrike from 'analysis/retail/shaman/enhancement/modules/spells/Stormstrike';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -84,7 +83,6 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
 
     // Enhancement Core Talents
-    stormstrike: Stormstrike,
     windfuryTotem: WindfuryTotem,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,

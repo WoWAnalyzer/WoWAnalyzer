@@ -2,6 +2,7 @@ import { change, date } from 'common/changelog';
 import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2023, 7, 11), <>Added patch 10.1.5 details.</>, Seriousnes),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 30), <>Adding support for major cooldown usage, various bug fixes</>, Seriousnes),
   change(date(2023, 5, 25), <>Update Enhancement module to 10.1 compatibility</>, Seriousnes),
