@@ -12,6 +12,11 @@ const spells = spellIndexableList({
     name: 'Water Shield',
     icon: 'ability_shaman_watershield',
   },
+  ELECTRIFIED_SHOCKS_DEBUFF: {
+    id: 382089,
+    name: 'Electrified Shocks',
+    icon: 'inv_offhand_1h_artifactdoomhammer_d_02',
+  },
   PURIFY_SPIRIT: {
     id: 77130,
     name: 'Purify Spirit',

@@ -15,6 +15,8 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
+export const FLAMESHOCK_BASE_DURATION = 18000;
+
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
     ...EarlyDotRefreshesAnalyzer.dependencies,
@@ -28,7 +30,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       name: 'Flame Shock',
       debuffId: SPELLS.FLAME_SHOCK.id,
       castId: SPELLS.FLAME_SHOCK.id,
-      duration: 18000,
+      duration: FLAMESHOCK_BASE_DURATION,
       movementFiller: true,
     },
   ];

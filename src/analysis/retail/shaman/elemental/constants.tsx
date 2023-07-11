@@ -21,3 +21,7 @@ export const ON_CAST_BUFF_REMOVAL_GRACE_MS = 50;
  * in the guide section.  For use with `ExplanationAndDataSubSection`.
  */
 export const GUIDE_EXPLANATION_PERCENT_WIDTH = 40;
+
+export const ELECTRIFIED_SHOCKS_DURATION = 9000;
+export const ELEMENTAL_BLAST_COST = 75;
+export const EARTH_SHOCK_COST = 50;
