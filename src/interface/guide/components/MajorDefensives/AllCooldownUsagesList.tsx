@@ -253,7 +253,6 @@ const CooldownUsage = ({
   const [selectedMit, setSelectedMit] = useState<number | undefined>();
   const castEfficiency = useAnalyzer(CastEfficiency)?.getCastEfficiencyForSpell(analyzer.spell);
   const possibleUses = castEfficiency?.maxCasts ?? 0;
-  console.log(analyzer.spell.name, possibleUses);
   const performance = analyzer.mitigationPerformance(maxValue);
   const actualCasts = performance.length;
 

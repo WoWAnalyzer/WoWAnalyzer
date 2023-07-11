@@ -26,8 +26,9 @@ class RegenerativeMagic extends Analyzer {
 
   onHeal(event: HealEvent) {
     const increase =
+      1 -
       this.statTracker.currentLeechPercentage /
-      (this.statTracker.currentLeechPercentage - LEECH_PERCENT);
+        (this.statTracker.currentLeechPercentage - LEECH_PERCENT);
     this.totalHealing += calculateEffectiveHealing(event, increase);
   }
 
