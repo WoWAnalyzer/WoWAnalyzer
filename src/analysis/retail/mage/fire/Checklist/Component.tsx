@@ -118,10 +118,10 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             <SpellLink spell={SPELLS.HEATING_UP} /> proc. If you get a second consecutive crit with
             a direct damage ability, you will get a <SpellLink spell={SPELLS.HOT_STREAK} /> proc
             which makes your next <SpellLink spell={TALENTS.PYROBLAST_TALENT} /> or{' '}
-            <SpellLink spell={TALENTS.FLAMESTRIKE_TALENT} /> cast be instant cast. Additionally, you
-            have spells like <SpellLink spell={SPELLS.FIRE_BLAST} /> which is always guaranteed to
-            crit and spells like <SpellLink spell={SPELLS.SCORCH} /> which are guaranteed to crit
-            when the target is below 30% health (If you are using the{' '}
+            <SpellLink spell={SPELLS.FLAMESTRIKE} /> cast be instant cast. Additionally, you have
+            spells like <SpellLink spell={SPELLS.FIRE_BLAST} /> which is always guaranteed to crit
+            and spells like <SpellLink spell={SPELLS.SCORCH} /> which are guaranteed to crit when
+            the target is below 30% health (If you are using the{' '}
             <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} /> talent). These can be used to force{' '}
             <SpellLink spell={SPELLS.HOT_STREAK} /> procs.
           </>
@@ -190,16 +190,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             spell={TALENTS.BLAST_WAVE_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.RUNE_OF_POWER_TALENT.id}
-          />
-        )}
         {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT) && (
           <AbilityRequirement
             name={
@@ -220,13 +210,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             thresholds={thresholds.meteorEfficiency}
           />
         )}
-        {combatant.hasTalent(TALENTS.PYROCLASM_TALENT) && (
-          <Requirement
-            name="Pyroclasm procs used"
-            thresholds={thresholds.pyroclasmUtilization}
-            tooltip="Pyroclasm has a chance to give you a buff that makes your next non instant Pyroblast deal 225% additional damage. You should ensure that you are using these procs (especially during Combustion) somewhat quickly to ensure you dont waste or overwrite any of these procs."
-          />
-        )}
         {combatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT) && (
           <Requirement
             name="Spell usage during Searing Touch"
@@ -234,28 +217,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             tooltip="Searing Touch causes Scorch to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball."
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Average time spent inside Rune of Power"
-            thresholds={thresholds.runeOfPowerBuffUptime}
-            tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, then either plan out a more optimal time or place to be using your Rune of Power, or consider taking a different talent instead."
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Rune of Power overlapped casts"
-            thresholds={thresholds.runeOfPowerOverlaps}
-            tooltip="Casting your major cooldown (Combustion) automatically drops a Rune of Power at your feet, so you do not need to manually cast it before using Combustion. Because of this you should wait to use Rune of Power until after Combustion ends, or use it far enough before Combustion so that it will end before Combustion is cast to wasting uptime by having your runes overlapped."
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) &&
-          combatant.hasTalent(TALENTS.METEOR_TALENT) && (
-            <Requirement
-              name="Meteor Overall Utilization"
-              thresholds={thresholds.meteorUtilization}
-              tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
-            />
-          )}
         {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
           <Requirement
             name="Shifting Power proper usage"

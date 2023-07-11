@@ -118,16 +118,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={TALENTS.SUPERNOVA_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.RUNE_OF_POWER_TALENT} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.RUNE_OF_POWER_TALENT.id}
-          />
-        )}
         {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
           <AbilityRequirement
             name={
@@ -167,20 +157,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
               </>
             }
             spell={TALENTS.SHIFTING_POWER_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Average time spent inside Rune of Power"
-            thresholds={thresholds.runeOfPowerBuffUptime}
-            tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, then either plan out a more optimal time or place to be using your Rune of Power, or consider taking a different talent instead."
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Rune of Power overlapped casts"
-            thresholds={thresholds.runeOfPowerOverlaps}
-            tooltip="Casting your major cooldown (Combustion) automatically drops a Rune of Power at your feet, so you do not need to manually cast it before using Combustion. Because of this you should wait to use Rune of Power until after Combustion ends, or use it far enough before Combustion so that it will end before Combustion is cast to wasting uptime by having your runes overlapped."
           />
         )}
         {combatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT) && (

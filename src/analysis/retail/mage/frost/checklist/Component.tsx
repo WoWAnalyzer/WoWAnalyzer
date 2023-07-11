@@ -34,15 +34,8 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
       >
         <AbilityRequirement spell={TALENTS.ICY_VEINS_TALENT.id} />
         <AbilityRequirement spell={TALENTS.FROZEN_ORB_TALENT.id} />
-        {combatant.hasTalent(TALENTS.EBONBOLT_TALENT) &&
-          !combatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT) && (
-            <AbilityRequirement spell={TALENTS.EBONBOLT_TALENT.id} />
-          )}
         {combatant.hasTalent(TALENTS.COMET_STORM_TALENT) && (
           <AbilityRequirement spell={TALENTS.COMET_STORM_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <AbilityRequirement spell={TALENTS.RUNE_OF_POWER_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT) && (
           <AbilityRequirement spell={TALENTS.RAY_OF_FROST_TALENT.id} />
@@ -61,8 +54,7 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
             the <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff. Winter's Chill is applied to the
             target when you cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and makes the target
             act as if it is frozen for a short duration of time. Therefore, you should cast a
-            rotational ability like <SpellLink spell={SPELLS.FROSTBOLT} />,{' '}
-            <SpellLink spell={TALENTS.EBONBOLT_TALENT} />, or{' '}
+            rotational ability like <SpellLink spell={SPELLS.FROSTBOLT} />, or{' '}
             <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} />, followed immediately by Flurry and
             then end with two <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />
             s. Against non-boss enemies, you can also utilize other things like{' '}
@@ -94,8 +86,8 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
             Additionally, you should try to ensure that you use all of your Fingers of Frost procs
             before you use your <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc, but
             sometimes this is not possible. If you are already casting{' '}
-            <SpellLink spell={SPELLS.FROSTBOLT} />, <SpellLink spell={TALENTS.EBONBOLT_TALENT} />,
-            or <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> and you have both a{' '}
+            <SpellLink spell={SPELLS.FROSTBOLT} />, or{' '}
+            <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> and you have both a{' '}
             <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and a{' '}
             <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> proc, you should prioritize using
             the Brain Freeze and let the Fingers of Frost proc get wasted.
@@ -132,10 +124,7 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
             <SpellLink spell={TALENTS.SPLITTING_ICE_TALENT} /> and the Glacial Spike will hit a
             second target. If neither of those are true, then you should continue casting{' '}
             <SpellLink spell={SPELLS.FROSTBOLT} /> until <SpellLink spell={TALENTS.FLURRY_TALENT} />{' '}
-            is available or you get a <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc. If you
-            are consistently in situations where you are waiting to get a Brain Freeze proc, then
-            consider taking the <SpellLink spell={TALENTS.EBONBOLT_TALENT} /> talent and saving it
-            for when you need to generate a proc to use with Glacial Spike.
+            is available or you get a <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc.
           </>
         }
       >
@@ -150,13 +139,6 @@ const FrostMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklist
         name="Use your talents effectively"
         description="Regardless of which talents you select, you should ensure that you are utilizing them properly. If you are having trouble effectively using a particular talent, you should consider taking a different talent that you can utilize properly or focus on effectively using the talents that you have selected."
       >
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Rune of Power uptime"
-            thresholds={thresholds.runeOfPowerBuffUptime}
-            tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, consider taking a different talent instead."
-          />
-        )}
         {!combatant.hasTalent(TALENTS.LONELY_WINTER_TALENT) && (
           <Requirement
             name="Water Elemental utilization"

@@ -5,8 +5,6 @@ import {
   ElementalBarrier,
   GroundingSurge,
   MirrorImage,
-  RuneOfPower,
-  RuneOfPowerNormalizer,
   ShiftingPower,
   TempestBarrier,
   MasterOfTime,
@@ -54,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcaneSurgeNormalizer: ArcaneSurgeNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
-    runeOfPowerNormalizer: RuneOfPowerNormalizer,
 
     //Core
     checklist: Checklist,
@@ -91,7 +88,6 @@ class CombatLogParser extends CoreCombatLogParser {
     elementalBarrier: ElementalBarrier,
     timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
-    runeOfPower: RuneOfPower,
     arcaneIntellect: ArcaneIntellect,
   };
 }

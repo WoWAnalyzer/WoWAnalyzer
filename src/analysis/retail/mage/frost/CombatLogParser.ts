@@ -5,8 +5,6 @@ import {
   ElementalBarrier,
   GroundingSurge,
   MirrorImage,
-  RuneOfPower,
-  RuneOfPowerNormalizer,
   ShiftingPower,
   TempestBarrier,
   MasterOfTime,
@@ -52,7 +50,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     cometStormLinkNormalizer: CometStormLinkNormalizer,
-    runeOfPowerNormalizer: RuneOfPowerNormalizer,
 
     //Core
     abilities: Abilities,
@@ -83,7 +80,6 @@ class CombatLogParser extends CoreCombatLogParser {
     coldSnap: ColdSnap,
 
     //Talents - Shared
-    runeOfPower: RuneOfPower,
     elementalBarrier: ElementalBarrier,
     divertedEnergy: DivertedEnergy,
     groundingSurge: GroundingSurge,
