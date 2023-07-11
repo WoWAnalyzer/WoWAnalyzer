@@ -40,7 +40,6 @@ import AvengingCrusader from './modules/talents/AvengingCrusader';
 import CrusadersMight from './modules/talents/CrusadersMight';
 import GlimmerOfLight from './modules/talents/GlimmerOfLight';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
-import RuleOfLaw from './modules/talents/RuleOfLaw';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import { BlessingOfTheSeasons } from './modules/talents/BlessingOfTheSeasons';
@@ -94,7 +93,6 @@ class CombatLogParser extends CoreCombatLogParser {
     mightOfTheMountain: MightOfTheMountain,
 
     // Talents
-    ruleOfLaw: RuleOfLaw,
     devotionAuradamageReduction: DevotionAuraDamageReduction,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
