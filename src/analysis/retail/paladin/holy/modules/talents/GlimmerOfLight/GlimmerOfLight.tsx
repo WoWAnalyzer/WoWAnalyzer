@@ -22,7 +22,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import BeaconHealSource from '../beacons/BeaconHealSource';
+import BeaconHealSource from '../../beacons/BeaconHealSource';
 
 /**
  * Glimmer of Light
@@ -42,16 +42,25 @@ class GlimmerOfLight extends Analyzer {
   GLIMMER_CAP = 3;
 
   casts = 0;
-  damage = 0;
+  damageCast = 0;
   earlyRefresh = 0;
   glimmerBuffs: Array<ApplyBuffEvent | ApplyDebuffEvent> = [];
-  glimmerHits = 0;
-  healing = 0;
-  overCapHealing = 0;
-  healingTransfered = 0;
+  glimmerHitsCast = 0;
+  healingCast = 0;
+  healingTransferedCast = 0;
   overCap = 0;
   wastedEarlyRefresh = 0;
   wastedOverCap = 0;
+
+  lastCastTime = -1;
+
+  glisteningRadianceProcs = 0;
+  lastGlisteningRadianceProc = -1;
+  damageGlisteningRadiance = 0;
+  healingGlisteningRadiance = 0;
+  glimmerHitsGlisteningRadiance = 0;
+  healingTransferedGlisteningRadiance = 0;
+  hasGlisteningRadiance = false;
 
   constructor(options: Options) {
     super(options);
@@ -59,6 +68,8 @@ class GlimmerOfLight extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    this.hasGlisteningRadiance = this.selectedCombatant.hasTalent(TALENTS.GLORIOUS_DAWN_TALENT);
 
     this.GLIMMER_CAP = this.selectedCombatant.hasTalent(TALENTS.ILLUMINATION_TALENT)
       ? 8
@@ -98,12 +109,33 @@ class GlimmerOfLight extends Analyzer {
     );
   }
 
+  fromGlisteningRadiance(event: BeaconHealEvent | HealEvent | DamageEvent) {
+    return this.hasGlisteningRadiance && this.lastCastTime + 100 < event.timestamp;
+  }
+
+  updateGlisteningRadianceProcs(event: HealEvent | DamageEvent) {
+    if (
+      this.fromGlisteningRadiance(event) &&
+      (this.lastGlisteningRadianceProc === -1 ||
+        this.lastGlisteningRadianceProc + 250 < event.timestamp)
+    ) {
+      this.lastGlisteningRadianceProc = event.timestamp;
+      this.glisteningRadianceProcs += 1;
+    }
+  }
+
   onBeaconTransfer(event: BeaconHealEvent) {
     const spellId = event.originalHeal.ability.guid;
-    if (spellId !== TALENTS.GLIMMER_OF_LIGHT_TALENT.id) {
+    if (spellId !== SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id) {
       return;
     }
-    this.healingTransfered += event.amount + (event.absorbed || 0);
+    const amount = event.amount + (event.absorbed || 0);
+
+    if (this.fromGlisteningRadiance(event)) {
+      this.healingTransferedGlisteningRadiance += amount;
+    } else {
+      this.healingTransferedCast += amount;
+    }
   }
 
   onApplyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
@@ -116,6 +148,7 @@ class GlimmerOfLight extends Analyzer {
 
   onCast(event: CastEvent) {
     this.casts += 1;
+    this.lastCastTime = event.timestamp;
 
     const index = this.glimmerBuffs.findIndex((g) => g.targetID === event.targetID);
 
@@ -139,17 +172,33 @@ class GlimmerOfLight extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    this.damage += event.amount + (event.absorbed || 0);
-    this.glimmerHits += 1;
+    const amount = event.amount + (event.absorbed || 0);
+    this.updateGlisteningRadianceProcs(event);
+
+    if (this.fromGlisteningRadiance(event)) {
+      this.damageGlisteningRadiance += amount;
+      this.glimmerHitsGlisteningRadiance += 1;
+    } else {
+      this.damageCast += amount;
+      this.glimmerHitsCast += 1;
+    }
   }
 
   onHeal(event: HealEvent) {
-    this.healing += event.amount + (event.absorbed || 0);
-    this.glimmerHits += 1;
+    const amount = event.amount + (event.absorbed || 0);
+    this.updateGlisteningRadianceProcs(event);
+
+    if (this.fromGlisteningRadiance(event)) {
+      this.healingGlisteningRadiance += amount;
+      this.glimmerHitsGlisteningRadiance += 1;
+    } else {
+      this.healingCast += amount;
+      this.glimmerHitsCast += 1;
+    }
   }
 
   get hitsPerCast() {
-    return this.glimmerHits / this.casts;
+    return this.glimmerHitsCast / this.casts;
   }
 
   get holyShocksPerMinute() {
@@ -157,7 +206,7 @@ class GlimmerOfLight extends Analyzer {
   }
 
   get totalHealing() {
-    return this.healing + this.healingTransfered;
+    return this.healingCast + this.healingTransferedCast;
   }
 
   get earlyGlimmerRefreshLoss() {
@@ -178,9 +227,9 @@ class GlimmerOfLight extends Analyzer {
           <>
             Total healing done: <b>{formatNumber(this.totalHealing)}</b>
             <br />
-            Beacon healing transfered: <b>{formatNumber(this.healingTransfered)}</b>
+            Beacon healing transfered: <b>{formatNumber(this.healingTransferedCast)}</b>
             <br />
-            Glimmer damage: <b>{formatNumber(this.damage)}</b>
+            Glimmer damage: <b>{formatNumber(this.damageCast)}</b>
             <br />
             Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b>
             <br />
@@ -205,7 +254,7 @@ class GlimmerOfLight extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.GLIMMER_OF_LIGHT_TALENT}>
           <ItemHealingDone amount={this.totalHealing} /> <br />
-          <ItemDamageDone amount={this.damage} /> <br />
+          <ItemDamageDone amount={this.damageCast} /> <br />
           {this.hitsPerCast.toFixed(1)} Triggers/Cast
         </BoringSpellValueText>
       </Statistic>

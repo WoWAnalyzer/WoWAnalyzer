@@ -31,7 +31,6 @@ class CastBehavior extends Analyzer {
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
-    const holyShockCast = getAbility(TALENTS.HOLY_SHOCK_TALENT.id);
     const holyShockHeal = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
     const holyShockDamage = getAbility(SPELLS.HOLY_SHOCK_DAMAGE.id);
 
@@ -39,7 +38,7 @@ class CastBehavior extends Analyzer {
     const iolHolyLights = holyLight.healingIolHits || 0;
     const totalIolUsages = iolFlashOfLights + iolHolyLights;
 
-    const holyShockCasts = holyShockCast.casts || 0;
+    const holyShockCasts = holyShockHeal.healingHits;
     const holyShockCrits =
       (holyShockHeal.healingCriticalHits || 0) + (holyShockDamage.damageCriticalHits || 0);
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
