@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { CamClark } from 'CONTRIBUTORS';
+import { Abelito75 } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -9,7 +9,7 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [CamClark],
+  contributors: [Abelito75],
   expansion: Expansion.Dragonflight,
   patchCompatibility: '10.1.0',
   isPartial: false,

@@ -15,7 +15,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 // its one point right now but I already had this so w/e
-const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
+const COOLDOWN_REDUCTION_MS_PER_POINT = 2000;
 
 class ImbuedInfusion extends Analyzer {
   static dependencies = {

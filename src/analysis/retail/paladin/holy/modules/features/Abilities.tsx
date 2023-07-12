@@ -1,7 +1,6 @@
 import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { SpellLink } from 'interface';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
@@ -39,20 +38,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CRUSADER_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: hasted(6),
+        cooldown: hasted(7.8),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT),
-          extraSuggestion: (
-            <Trans id="paladin.holy.modules.abilities.crusadersMightTalent">
-              When you are using <SpellLink spell={TALENTS.CRUSADERS_MIGHT_TALENT} /> it is
-              important to use <SpellLink spell={SPELLS.CRUSADER_STRIKE} /> often enough to benefit
-              from the talent. Use a different talent if you are unable to.
-            </Trans>
-          ),
-          recommendedEfficiency: 0.35,
         },
       },
       {
@@ -65,18 +53,6 @@ class Abilities extends CoreAbilities {
         cooldown: hasted(12 - combatant.getTalentRank(TALENTS.SEAL_OF_ALACRITY_TALENT) * 0.5),
         gcd: {
           base: 1500,
-        },
-        castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS.JUDGMENT_OF_LIGHT_TALENT),
-          extraSuggestion: (
-            <Trans id="paladin.holy.modules.abilities.judgmentOfLightTalent">
-              You should cast it whenever <SpellLink spell={TALENTS.JUDGMENT_OF_LIGHT_TALENT} /> has
-              dropped, which is usually on cooldown without delay. Alternatively you can ignore the
-              debuff and just cast it whenever Judgment is available; there's nothing wrong with
-              ignoring unimportant things to focus on important things.
-            </Trans>
-          ),
-          recommendedEfficiency: 0.2,
         },
       },
       {
@@ -130,6 +106,32 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: SPELLS.DIVINE_PROTECTION.id,
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: unbreakable(60),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.6,
+          importance: ISSUE_IMPORTANCE.MINOR,
+        },
+        isDefensive: true,
+      },
+      {
+        spell: SPELLS.CLEANSE.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 8,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.HOLY_LIGHT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       // Tree
       {
@@ -138,7 +140,12 @@ class Abilities extends CoreAbilities {
         cooldown: unbreakable(60 * 10),
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.1,
+          recommendedEfficiency: this.selectedCombatant.hasTalent(
+            TALENTS.TIRIONS_DEVOTION_HOLY_TALENT,
+          )
+            ? 0.6
+            : 0.1,
+          importance: ISSUE_IMPORTANCE.MINOR,
         },
         enabled: combatant.hasTalent(TALENTS.LAY_ON_HANDS_TALENT),
       },
@@ -245,6 +252,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
         enabled: combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
       },
 
@@ -258,39 +268,12 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_BUFF
-        spell: TALENTS.BEACON_OF_FAITH_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT),
-      },
-      {
-        spell: SPELLS.CLEANSE.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 8,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.DIVINE_PROTECTION.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: unbreakable(60),
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.6,
-          importance: ISSUE_IMPORTANCE.MINOR,
-        },
-        isDefensive: true,
-      },
-      {
         spell: TALENTS.HOLY_SHOCK_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        charges: combatant.hasTalent(TALENTS.LIGHTS_CONVICTION_TALENT) ? 2 : 1,
         cooldown: (haste) => {
-          const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.4 : 0;
-          return hasted(7.5 * (1 - swCdr))(haste);
+          const swCdr = hasSanctifiedWrath && combatant.hasBuff(SPELLS.AVENGING_WRATH.id) ? 0.2 : 0;
+          return hasted(8.5 * (1 - swCdr))(haste);
         },
         gcd: {
           base: 1500,
@@ -305,13 +288,6 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.8,
         },
         enabled: combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT),
-      },
-      {
-        spell: SPELLS.HOLY_LIGHT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
       },
       {
         spell: TALENTS.LIGHT_OF_DAWN_TALENT.id,
@@ -336,9 +312,18 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.DIVINE_FAVOR_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
         enabled: combatant.hasTalent(TALENTS.DIVINE_FAVOR_TALENT),
+      },
+      {
+        spell: TALENTS.HAND_OF_DIVINITY_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.HAND_OF_DIVINITY_TALENT),
       },
       {
         spell: TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id,
@@ -355,6 +340,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
         enabled: combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT),
       },
       {
@@ -363,6 +351,9 @@ class Abilities extends CoreAbilities {
         cooldown: 20,
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
         },
         enabled: combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT),
       },
@@ -373,16 +364,28 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
         enabled: combatant.hasTalent(TALENTS.BARRIER_OF_FAITH_TALENT),
       },
       {
         spell: TALENTS.AVENGING_CRUSADER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 60,
         castEfficiency: {
           suggestion: true,
         },
         enabled: combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT),
+      },
+      {
+        // The primary beacon cast is registered as BEACON_OF_LIGHT_CAST_AND_BUFF
+        spell: TALENTS.BEACON_OF_FAITH_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.BEACON_OF_FAITH_TALENT),
       },
       {
         spell: TALENTS.BEACON_OF_VIRTUE_TALENT.id,
@@ -394,13 +397,16 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BEACON_OF_VIRTUE_TALENT),
       },
       {
-        spell: TALENTS.TYRS_DELIVERANCE_TALENT.id,
+        spell: TALENTS.DAYBREAK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.TYRS_DELIVERANCE_TALENT),
+        castEfficiency: {
+          suggestion: true,
+        },
+        enabled: combatant.hasTalent(TALENTS.DAYBREAK_TALENT),
       },
       {
         spell: [
@@ -415,6 +421,18 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.BLESSING_OF_SUMMER_TALENT),
+      },
+      {
+        spell: TALENTS.TYRS_DELIVERANCE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 90,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+        },
+        enabled: combatant.hasTalent(TALENTS.TYRS_DELIVERANCE_TALENT),
       },
     ];
   }
