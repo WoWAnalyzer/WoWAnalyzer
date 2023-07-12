@@ -4,7 +4,7 @@ import { BeaconTransferFailedEvent, HealEvent } from 'parser/core/Events';
 
 import { getBeaconSpellFactor } from '../../constants';
 
-// 30% of eligible healing is transfered by default
+// 25% of eligible healing is transfered by default
 const BEACON_TRANSFER_FACTOR = 0.25;
 // Commanding Light talent (1 ranks) can increase beacon transfer up to 35%
 const COMMANDING_LIGHT_BONUS_PER_POINT = 0.1;
