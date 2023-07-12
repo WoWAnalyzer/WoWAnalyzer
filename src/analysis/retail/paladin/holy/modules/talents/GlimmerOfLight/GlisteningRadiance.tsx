@@ -52,7 +52,7 @@ class GlisteningRadiance extends Analyzer {
         <BoringSpellValueText spell={TALENTS.GLISTENING_RADIANCE_TALENT}>
           <ItemHealingDone amount={totalHealing} /> <br />
           <ItemDamageDone amount={damage} /> <br />
-          {(hits / procs).toFixed(1)} Triggers/Procs
+          {(hits / procs).toFixed(1)} Triggers/Proc
         </BoringSpellValueText>
       </Statistic>
     );
