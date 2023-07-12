@@ -53,8 +53,8 @@ export enum ECHO_TYPE {
 
 const CAST_BUFFER_MS = 100;
 const ECHO_BUFFER = 500;
-const EB_BUFFER_MS = 2000;
-const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 2s to actually trigger
+const EB_BUFFER_MS = 1500;
+const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 1.5s to actually trigger
 const LIFEBIND_BUFFER = 5000 + CAST_BUFFER_MS; // 5s duration
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const MAX_ESSENCE_BURST_DURATION = 32000; // 15s duration can refresh to 30s with 2s of buffer
