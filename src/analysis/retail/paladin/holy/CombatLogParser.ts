@@ -38,7 +38,7 @@ import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfThe
 import LightOfDawn from './modules/spells/LightOfDawn';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import CrusadersMight from './modules/talents/CrusadersMight';
-import GlimmerOfLight from './modules/talents/GlimmerOfLight';
+import GlimmerOfLight from './modules/talents/GlimmerOfLight/GlimmerOfLight';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
@@ -52,6 +52,7 @@ import ELConsumedBuffs from './modules/talents/EmpyreanLegacy/ConsumedBuffs';
 import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
+import GlisteningRadiance from './modules/talents/GlimmerOfLight/GlisteningRadiance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -112,6 +113,7 @@ class CombatLogParser extends CoreCombatLogParser {
     elPossibleBuffs: ELPossibleBuffs,
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,
+    glisteningRadiance: GlisteningRadiance,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
