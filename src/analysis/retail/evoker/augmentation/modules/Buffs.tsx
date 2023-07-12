@@ -8,13 +8,19 @@ class Buffs extends CoreAuras {
     return [
       // Cooldowns
       {
-        spellId: TALENTS.BREATH_OF_EONS_TALENT.id,
+        spellId: SPELLS.TEMPORAL_WOUND_DEBUFF.id,
         timelineHighlight: true,
-        triggeredBySpellId: TALENTS.BREATH_OF_EONS_TALENT.id,
+        triggeredBySpellId: SPELLS.TEMPORAL_WOUND_DEBUFF.id,
       },
+      // Buffs
       {
         spellId: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
         triggeredBySpellId: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
+        triggeredBySpellId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
         timelineHighlight: true,
       },
       // Defensive

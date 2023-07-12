@@ -6,7 +6,7 @@ import Buffs from './modules/Buffs';
 import Guide from './Guide';
 
 import SandsOfTime from './modules/abilities/SandsOfTime';
-import BreathOfEons from './modules/abilities/BreathOfEon';
+//import BreathOfEons from './modules/abilities/BreathOfEon';
 import EbonMight from './modules/abilities/EbonMight';
 
 import TimeSkip from './modules/talents/TimeSkip';
@@ -32,7 +32,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Abilities
     sandsOfTime: SandsOfTime,
-    breathOfEons: BreathOfEons,
+    //breathOfEons: BreathOfEons,
     ebonMight: EbonMight,
 
     // Talents

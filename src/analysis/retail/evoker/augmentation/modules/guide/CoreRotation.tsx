@@ -1,5 +1,6 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
-import { TALENTS_EVOKER, TALENTS_WARRIOR } from 'common/TALENTS';
+import { TALENTS_EVOKER } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 import CombatLogParser from '../../CombatLogParser';
 import { SpellLink } from 'interface';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
@@ -13,12 +14,21 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
   return (
     <Section title="Core Rotation">
       <p>
-        Augmentation evoker has something something{' '}
-        <SpellLink spell={TALENTS_EVOKER.EBON_MIGHT_TALENT} /> something something about the thing
-        with the <SpellLink spell={TALENTS_EVOKER.PRESCIENCE_TALENT} /> . Can't forget about{' '}
-        <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} />. Something about the special
-        thing. Something about <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />. Can't
-        forget about <SpellLink spell={TALENTS_EVOKER.TIME_SKIP_TALENT} />
+        Augmentations core rotation revolves around proper upkeep of your buffs:{' '}
+        <SpellLink spell={TALENTS_EVOKER.EBON_MIGHT_TALENT} />,{' '}
+        <SpellLink spell={TALENTS_EVOKER.PRESCIENCE_TALENT} />,{' '}
+        <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />, and{' '}
+        <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />. While using your empowers:{' '}
+        <SpellLink spell={SPELLS.FIRE_BREATH} /> and <SpellLink spell={SPELLS.UPHEAVAL} /> on
+        cooldown, along with spending essence on{' '}
+        <SpellLink spell={TALENTS_EVOKER.ERUPTION_TALENT} />; using{' '}
+        <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> to fill in the gaps.
+        <br />
+        Your main cooldown, <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} />, should be
+        used alongside your other DPS players' major cooldowns, since it amplifies their damage.
+        Using <SpellLink spell={TALENTS_EVOKER.TIME_SKIP_TALENT} /> on every other{' '}
+        <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} /> to further amplify the burst
+        window.
       </p>
 
       <HideExplanationsToggle id="hide-explanations-rotations" />
@@ -53,10 +63,10 @@ function BlisteringScalesSection({ modules, events, info }: GuideProps<typeof Co
             <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />
           </strong>{' '}
           provides your target with 30% of your armor. <br />
-          There is essentially two ways to play with it, either upkeep on actively tanking tank.{' '}
+          This should be kept up on the currently actively tanking player.
           <br />
-          Or place it on a Warrior for the damage amp the extra armor provides them through the
-          talent <SpellLink spell={TALENTS_WARRIOR.ARMORED_TO_THE_TEETH_SHARED_TALENT} />
+          You can also use it as a powerful external with the talent{' '}
+          <SpellLink spell={TALENTS_EVOKER.MOLTEN_BLOOD_TALENT} />.
         </Explanation>
         <RoundedPanel>
           <p>

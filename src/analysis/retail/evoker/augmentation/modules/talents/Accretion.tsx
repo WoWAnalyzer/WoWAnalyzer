@@ -17,8 +17,7 @@ class Accretion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    // FIXME: remove comment
-    //this.active = this.selectedCombatant.hasTalent(TALENTS.ACCRETION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ACCRETION_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ERUPTION_TALENT),
       this.onCast,

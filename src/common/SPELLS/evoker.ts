@@ -387,7 +387,7 @@ const spells = spellIndexableList({
   },
   // Augmentation Spells
   UPHEAVAL: {
-    id: 296286,
+    id: 396286,
     name: 'Upheaval',
     icon: 'ability_evoker_upheaval',
   },

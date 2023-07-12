@@ -16,7 +16,7 @@ class BuffTrackerGraph extends BuffCountGraph {
     const buffSpecs: GraphedSpellSpec[] = [];
     buffSpecs.push({ spells: SPELLS.PRESCIENCE_BUFF, color: '#1ECBE1' });
     buffSpecs.push({
-      spells: TALENTS.EBON_MIGHT_TALENT,
+      spells: SPELLS.EBON_MIGHT_BUFF_EXTERNAL,
       color: '#E11E6A',
     });
     return buffSpecs;

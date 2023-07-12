@@ -320,10 +320,10 @@ class EbonMight extends Analyzer {
           <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} />
         </strong>{' '}
         Is one of the most important spells in your entire kit. It provides 4 allies with a
-        percentage of your mainstat. Preferring targets with{' '}
-        <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active. It is therefore important to makes
-        sure to have as many <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active as possible so
-        you can make sure the correct targets are buffed.
+        percentage of your mainstat, along with making them priority targets for{' '}
+        <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />.{' '}
+        <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> prefers targets with{' '}
+        <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active.
         <br />
         <br />
         If you recast <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> whilst it's still active you

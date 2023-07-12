@@ -7,17 +7,21 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import SPELLS from 'common/SPELLS/evoker';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from '../../CombatLogParser';
+import { SpellLink } from 'interface';
 
-export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
+export function CooldownSection({ info }: GuideProps<typeof CombatLogParser>) {
   const castEfficiency = useAnalyzer(CastEfficiency);
   if (!info || !castEfficiency) {
     return null;
   }
 
-  //const hasFontTalent = info.combatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT);
+  const hasFontTalent = info.combatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT);
 
   return (
     <Section title="Cooldowns">
+      <SubSection>
+        <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> Module coming soon<sup>TM</sup>!
+      </SubSection>
       <SubSection>
         <p>
           <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how
@@ -36,15 +40,11 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
           />
         )}
         <CastEfficiencyBar
-          spellId={TALENTS.BLISTERING_SCALES_TALENT.id}
+          spellId={hasFontTalent ? SPELLS.FIRE_BREATH_FONT.id : SPELLS.FIRE_BREATH.id}
           gapHighlightMode={GapHighlight.FullCooldown}
         />
         <CastEfficiencyBar
-          spellId={SPELLS.FIRE_BREATH_FONT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-        />
-        <CastEfficiencyBar
-          spellId={SPELLS.UPHEAVAL_FONT.id}
+          spellId={hasFontTalent ? SPELLS.UPHEAVAL_FONT.id : SPELLS.UPHEAVAL.id}
           gapHighlightMode={GapHighlight.FullCooldown}
         />
       </SubSection>

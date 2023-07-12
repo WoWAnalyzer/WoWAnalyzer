@@ -16,7 +16,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        //enabled: combatant.hasTalent(TALENTS.EBON_MIGHT_TALENT),
+        enabled: combatant.hasTalent(TALENTS.EBON_MIGHT_TALENT),
       },
       {
         spell: TALENTS.ERUPTION_TALENT.id,
@@ -24,7 +24,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        //enabled: combatant.hasTalent(TALENTS.ERUPTION_TALENT)),
+        enabled: combatant.hasTalent(TALENTS.ERUPTION_TALENT),
       },
       {
         spell: combatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
@@ -48,7 +48,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        //enabled: combatant.hasTalent(TALENTS.PRESCIENCE_TALENT)),
+        enabled: combatant.hasTalent(TALENTS.PRESCIENCE_TALENT),
       },
       {
         spell: TALENTS.BLISTERING_SCALES_TALENT.id,
@@ -57,7 +57,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        //enabled: combatant.hasTalent(TALENTS.BLISTERING_SCALES_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BLISTERING_SCALES_TALENT),
       },
       //endregion
       //region Cooldowns
@@ -73,7 +73,7 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.9,
           recommendedEfficiency: 0.95,
         },
-        //enabled: combatant.hasTalent(TALENTS.BREATH_OF_EONS_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BREATH_OF_EONS_TALENT),
       },
       {
         spell: TALENTS.TIME_SKIP_TALENT.id,
@@ -87,7 +87,7 @@ class Abilities extends CoreAbilities {
           majorIssueEfficiency: 0.9,
           recommendedEfficiency: 0.95,
         },
-        //enabled: combatant.hasTalent(TALENTS.TIME_SKIP_TALENT),
+        enabled: combatant.hasTalent(TALENTS.TIME_SKIP_TALENT),
       },
       {
         spell: TALENTS.BESTOW_WEYRNSTONE_TALENT.id,
@@ -96,7 +96,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        //enabled: combatant.hasTalent(TALENTS.BESTOW_WEYRNSTONE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BESTOW_WEYRNSTONE_TALENT),
       },
       {
         spell: TALENTS.SPATIAL_PARADOX_TALENT.id,
@@ -105,7 +105,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        //enabled: combatant.hasTalent(TALENTS.SPATIAL_PARADOX_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SPATIAL_PARADOX_TALENT),
       },
       //endregion
       //region Other
@@ -115,26 +115,13 @@ class Abilities extends CoreAbilities {
         gcd: null,
         timelineSortIndex: 1,
       },
+      {
+        spell: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
+        category: SPELL_CATEGORY.HIDDEN,
+        gcd: null,
+        enabled: combatant.hasTalent(TALENTS.EBON_MIGHT_TALENT),
+      },
       //endregion
-
-      // placeholder stuff
-      {
-        spell: SPELLS.FIRE_BREATH_FONT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.UPHEAVAL_FONT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 40,
-        gcd: {
-          base: 1500,
-        },
-        //enabled: combatant.hasTalent(TALENTS.UPHEAVAL_TALENT),
-      },
       ...super.spellbook(),
     ];
   }

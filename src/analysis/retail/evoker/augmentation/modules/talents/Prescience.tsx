@@ -11,7 +11,6 @@ import ROLES from 'game/ROLES';
 import Combatants from 'parser/shared/modules/Combatants';
 import { getPrescienceBuffEvents } from '../normalizers/CastLinkNormalizer';
 import Combatant from 'parser/core/Combatant';
-import SPELLS from 'common/SPELLS/evoker';
 
 /**
  * Prescience is a core talent that buffs the target with 3% crit, as well
@@ -54,10 +53,12 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
           <strong>
             <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />
           </strong>{' '}
-          provides your targets with 3% crit, along with making them priority targets for your other
-          buffs such as, <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> and{' '}
-          <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />. It is therefore import to upkeep this
-          buff on the correct targets.
+          is a skill that enhances the performance of DPS players by granting them Critical Strike
+          chance and the damage multiplier <SpellLink spell={TALENTS.FATE_MIRROR_TALENT} />. It can
+          be applied to up to two players simultaneously.{' '}
+          <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> prioritizes targets with{' '}
+          <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />, enabling you to select two recipients of
+          the buff regardless of their position.
         </p>
       </>
     );
