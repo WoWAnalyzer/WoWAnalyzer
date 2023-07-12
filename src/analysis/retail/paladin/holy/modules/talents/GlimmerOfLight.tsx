@@ -33,12 +33,13 @@ import BeaconHealSource from '../beacons/BeaconHealSource';
  */
 
 const BUFF_DURATION = 30;
-const GLIMMER_CAP = 8;
 
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
     beaconHealSource: BeaconHealSource,
   };
+
+  GLIMMER_CAP = 3;
 
   casts = 0;
   damage = 0;
@@ -58,6 +59,14 @@ class GlimmerOfLight extends Analyzer {
     if (!this.active) {
       return;
     }
+
+    this.GLIMMER_CAP = this.selectedCombatant.hasTalent(TALENTS.ILLUMINATION_TALENT)
+      ? 8
+      : this.GLIMMER_CAP;
+    this.GLIMMER_CAP = this.selectedCombatant.hasTalent(TALENTS.BLESSED_FOCUS_TALENT)
+      ? 1
+      : this.GLIMMER_CAP;
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_SHOCK_TALENT),
       this.onCast,
@@ -110,12 +119,13 @@ class GlimmerOfLight extends Analyzer {
 
     const index = this.glimmerBuffs.findIndex((g) => g.targetID === event.targetID);
 
-    if (this.glimmerBuffs.length >= GLIMMER_CAP) {
+    if (this.glimmerBuffs.length >= this.GLIMMER_CAP) {
       // Cast a new one while at cap (applybuff will occur later, so this will be accurate)
       this.overCap += 1;
       if (index < 0) {
         this.wastedOverCap +=
-          BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[GLIMMER_CAP - 1].timestamp);
+          BUFF_DURATION * 1000 -
+          (event.timestamp - this.glimmerBuffs[this.GLIMMER_CAP - 1].timestamp);
       } else {
         this.wastedOverCap +=
           BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
@@ -182,7 +192,7 @@ class GlimmerOfLight extends Analyzer {
               {(this.earlyGlimmerRefreshLoss * 100).toFixed(1)}%
             </b>
             <br />
-            Glimmer of Lights over {GLIMMER_CAP} buff cap: <b>{this.overCap}</b>
+            Glimmer of Lights over {this.GLIMMER_CAP} buff cap: <b>{this.overCap}</b>
             <br />
             Lost to over capping:{' '}
             <b>

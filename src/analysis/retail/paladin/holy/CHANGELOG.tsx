@@ -5,6 +5,7 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 7, 12), <>Update Glimmer of Light target cap and correct beacon transfer factor</>, Abelito75),
   change(date(2023, 7, 11), <>Updated ability definitions</>, Abelito75),
   change(date(2023, 7, 11), <>Added <SpellLink spell={TALENTS.RECLAMATION_TALENT} /></>, Abelito75),
   change(date(2023, 7, 5), <>Updated Tirion's Devotion title to not be confusing</>, Abelito75),
