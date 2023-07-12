@@ -33,7 +33,7 @@ class CurseOfDoom extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.CURSE_OF_DOOM.id} />
+          <SpellIcon spell={SPELLS.CURSE_OF_DOOM} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

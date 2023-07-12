@@ -52,7 +52,7 @@ class SoulFire extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SOUL_FIRE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SOUL_FIRE_TALENT}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

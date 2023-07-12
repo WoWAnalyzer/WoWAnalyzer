@@ -1,4 +1,3 @@
-import { t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -90,10 +89,7 @@ class Sundering extends Analyzer {
     this.missedCasts.forEach((cast) => {
       cast.meta = cast.meta || {};
       cast.meta.isInefficientCast = true;
-      cast.meta.inefficientCastReason = t({
-        id: 'shaman.enhancement.sundering.inefficientCastReason',
-        message: 'Sundering did not hit any targets.',
-      });
+      cast.meta.inefficientCastReason = <>Sundering did not hit any targets.</>;
     });
   }
 
@@ -103,13 +99,13 @@ class Sundering extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
-          <Trans id="shaman.enhancement.sundering.statistic.tooltip">
+          <>
             {this.misses} out of {this.casts} casts did not hit an enemy.
-          </Trans>
+          </>
         }
         size="flexible"
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.SUNDERING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_SHAMAN.SUNDERING_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
             <br />
@@ -143,22 +139,14 @@ class Sundering extends Analyzer {
   suggestions(when: When) {
     when(this.missesThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        <Trans id="shaman.enhancement.suggestions.sundering.suggest">
+        <>
           Consider the amount of enemies in the direction you're facing when casting{' '}
-          <SpellLink id={TALENTS_SHAMAN.SUNDERING_TALENT.id} /> to avoid missing it.
-        </Trans>,
+          <SpellLink spell={TALENTS_SHAMAN.SUNDERING_TALENT} /> to avoid missing it.
+        </>,
       )
         .icon(TALENTS_SHAMAN.SUNDERING_TALENT.icon)
-        .actual(
-          <Trans id="shaman.enhancement.suggestions.sundering.actual">
-            You missed {formatPercentage(actual)}% of cast(s)
-          </Trans>,
-        )
-        .recommended(
-          <Trans id="shaman.enhancement.suggestions.sundering.recommended">
-            less than {formatPercentage(recommended)} is recommended
-          </Trans>,
-        ),
+        .actual(<>You missed {formatPercentage(actual)}% of cast(s)</>)
+        .recommended(<>less than {formatPercentage(recommended)} is recommended</>),
     );
   }
 }

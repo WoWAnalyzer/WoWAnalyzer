@@ -11,7 +11,7 @@ const CAST_SPELLS = [
   SPELLS.ARCANE_BLAST,
   SPELLS.ARCANE_EXPLOSION,
   TALENTS.ARCANE_ORB_TALENT,
-  TALENTS.ARCANE_BARRAGE_TALENT,
+  SPELLS.ARCANE_BARRAGE,
   TALENTS.ARCANE_SURGE_TALENT,
 ];
 const AOE_TARGET_THRESHOLD = 3;
@@ -72,11 +72,6 @@ class RadiantSpark extends Analyzer {
     //If Radiant Spark is not active, then we do not need to check the Arcane Blast cast.
     if (!this.selectedCombatant.hasBuff(TALENTS.RADIANT_SPARK_TALENT.id)) {
       return;
-    }
-
-    //If we dont have Rune of Power on any cast, flag it as false
-    if (!this.selectedCombatant.hasBuff(SPELLS.RUNE_OF_POWER_BUFF.id)) {
-      this.hasRuneOfPowerBuff = false;
     }
 
     const spellId = event.ability.guid;

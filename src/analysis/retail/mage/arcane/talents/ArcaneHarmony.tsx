@@ -26,11 +26,11 @@ class ArcaneHarmony extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrageCast,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrageDamage,
     );
   }
@@ -51,9 +51,7 @@ class ArcaneHarmony extends Analyzer {
   }
 
   get averageStacks() {
-    return (
-      this.totalStacks / this.abilityTracker.getAbility(TALENTS.ARCANE_BARRAGE_TALENT.id).casts
-    );
+    return this.totalStacks / this.abilityTracker.getAbility(SPELLS.ARCANE_BARRAGE.id).casts;
   }
 
   get dpsIncrease() {
@@ -70,7 +68,7 @@ class ArcaneHarmony extends Analyzer {
         size="flexible"
         tooltip="Arcane Harmony makes Arcane Barrage do extra damage with more stacks. Try to hold Arcane Barrage until you reach 20 stacks of Arcane Harmony. You can spam Arcane Missiles to build stacks during Hero/Bloodlust/Timewarp while standing in your Rune of Power before starting the Radiant Spark Ramp."
       >
-        <BoringSpellValueText spellId={SPELLS.ARCANE_HARMONY_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.ARCANE_HARMONY_BUFF}>
           {formatNumber(this.bonusDamage)} <small>Bonus Damage</small>
           <br />
           {formatNumber(this.dpsIncrease)} <small>DPS</small>

@@ -147,7 +147,7 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.RUPTURE.id} />
+          <SpellLink spell={SPELLS.RUPTURE} />
         </strong>{' '}
         is your highest damage-per-energy single target spender. Try to maintain 100% uptime. Don't
         refresh early.

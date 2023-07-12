@@ -80,7 +80,7 @@ class TwistOfFate extends Analyzer {
           tofDamage,
         )}% of total damage); the healing gain of this damage was included in the shown numbers.`}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.TWIST_OF_FATE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.TWIST_OF_FATE_TALENT}>
           <ItemHealingDone amount={healing} />
           <br />
           <ItemDamageDone amount={damage} />

@@ -11,18 +11,14 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
-import MeteorRune from './MeteorRune';
-
 class Meteor extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     enemies: Enemies,
-    meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
   };
   protected abilityTracker!: AbilityTracker;
   protected enemies!: Enemies;
-  protected meteorRune!: MeteorRune;
   protected meteorCombustion!: MeteorCombustion;
 
   constructor(options: Options) {
@@ -58,10 +54,10 @@ class Meteor extends Analyzer {
     when(this.meteorEfficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You could have cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> {this.meteorMaxCasts}{' '}
+          You could have cast <SpellLink spell={TALENTS.METEOR_TALENT} /> {this.meteorMaxCasts}{' '}
           times during this fight, but you only cast it {this.totalMeteorCasts} times. While you
           should not cast Meteor on cooldown (since you need to have it available for{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
           ), you should be casting it at least once per minute.
         </>,
       )
@@ -87,24 +83,16 @@ class Meteor extends Analyzer {
               <li>{this.totalMeteorCasts} Total Meteor casts</li>
               <li>{this.meteorMaxCasts} Adjusted max casts</li>
               <li>
-                {this.meteorRune.totalMeteorCasts - this.meteorRune.badMeteor} Meteor casts during
-                Rune of Power
-              </li>
-              <li>{this.meteorRune.badMeteor} Meteor casts without Rune of Power</li>
-              <li>
                 {this.meteorCombustion.combustionWithoutMeteor} Combustion casts without Meteor
               </li>
             </ul>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.METEOR_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.METEOR_TALENT}>
           <>
             {formatPercentage(this.meteorCastEfficiency, 0)}%{' '}
             <small>Adjusted Cast Efficiency</small>
-            <br />
-            {formatPercentage(this.meteorRune.meteorUtilization, 0)}%{' '}
-            <small>Overall Utilization</small>
             <br />
             {formatPercentage(this.meteorCombustion.combustionUtilization, 0)}%{' '}
             <small>Utilization during Combustion</small>

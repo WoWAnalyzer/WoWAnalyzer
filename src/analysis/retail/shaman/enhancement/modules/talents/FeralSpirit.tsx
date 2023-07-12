@@ -50,7 +50,7 @@ class FeralSpirit extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT}>
           <>
             <ResourceGenerated
               amount={this.maelstromWeaponGained}

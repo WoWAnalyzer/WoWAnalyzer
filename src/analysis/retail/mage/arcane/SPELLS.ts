@@ -7,6 +7,11 @@
 import { spellIndexableList } from 'common/SPELLS/Spell';
 
 const spells = spellIndexableList({
+  ARCANE_BARRAGE: {
+    id: 44425,
+    name: 'Arcane Barrage',
+    icon: 'ability_mage_arcanebarrage',
+  },
   ARCANE_BLAST: {
     id: 30451,
     name: 'Arcane Blast',

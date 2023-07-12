@@ -26,19 +26,19 @@ const ProtectionPaladinChecklist = (props) => {
       <Rule
         name={
           <>
-            Mitigate incoming damage with <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> and{' '}
-            <SpellLink id={SPELLS.CONSECRATION_CAST.id} />
+            Mitigate incoming damage with <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> and{' '}
+            <SpellLink spell={SPELLS.CONSECRATION_CAST} />
           </>
         }
         description={
           <>
-            Maintain <SpellLink id={SPELLS.CONSECRATION_CAST.id} /> to reduce all incoming damage by
+            Maintain <SpellLink spell={SPELLS.CONSECRATION_CAST} /> to reduce all incoming damage by
             a flat amount and use it as a rotational filler if necessary.
             <br />
-            Use <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> to smooth out your physical
-            damage taken. <SpellLink id={TALENTS.ARDENT_DEFENDER_TALENT.id} /> can be used either as
+            Use <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> to smooth out your physical
+            damage taken. <SpellLink spell={TALENTS.ARDENT_DEFENDER_TALENT} /> can be used either as
             a cooldown to mitigate boss abilities or to cover time when{' '}
-            <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> is unavailable.
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> is unavailable.
           </>
         }
       >
@@ -46,7 +46,7 @@ const ProtectionPaladinChecklist = (props) => {
         <Requirement
           name={
             <>
-              Hits Mitigated with <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} />
+              Hits Mitigated with <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} />
             </>
           }
           thresholds={thresholds.sotrHitsMitigated}
@@ -55,7 +55,7 @@ const ProtectionPaladinChecklist = (props) => {
         <Requirement
           name={
             <>
-              Hits Mitigated with <SpellLink id={SPELLS.CONSECRATION_CAST.id} />
+              Hits Mitigated with <SpellLink spell={SPELLS.CONSECRATION_CAST} />
             </>
           }
           thresholds={thresholds.consecration}
@@ -64,17 +64,17 @@ const ProtectionPaladinChecklist = (props) => {
       <Rule
         name={
           <>
-            Use <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself
+            Use <SpellLink spell={SPELLS.WORD_OF_GLORY} /> to heal yourself
           </>
         }
         description={
           <>
-            You should use <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> to heal yourself (or others,
-            with <SpellLink id={TALENTS.HAND_OF_THE_PROTECTOR_TALENT.id} />
+            You should use <SpellLink spell={SPELLS.WORD_OF_GLORY} /> to heal yourself (or others,
+            with <SpellLink spell={TALENTS.HAND_OF_THE_PROTECTOR_TALENT} />
             ). However, you should <b>not</b> do this at the expense of{' '}
-            <SpellLink id={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id} /> uptime. Instead, take advantage of{' '}
-            <SpellLink id={SPELLS.SHINING_LIGHT.id} /> to make most of your{' '}
-            <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> casts free.
+            <SpellLink spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS} /> uptime. Instead, take advantage of{' '}
+            <SpellLink spell={SPELLS.SHINING_LIGHT} /> to make most of your{' '}
+            <SpellLink spell={SPELLS.WORD_OF_GLORY} /> casts free.
             <br />
             <em>Section under construction.</em>
           </>
@@ -83,7 +83,7 @@ const ProtectionPaladinChecklist = (props) => {
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.WORD_OF_GLORY.id} /> casts with large overhealing
+              <SpellLink spell={SPELLS.WORD_OF_GLORY} /> casts with large overhealing
             </>
           }
           tooltip="Critical heals are excluded. A cast is counted as having large overhealing if at least 25% of it overhealed."
@@ -92,7 +92,7 @@ const ProtectionPaladinChecklist = (props) => {
         <Requirement
           name={
             <>
-              Free casts from <SpellLink id={SPELLS.SHINING_LIGHT.id} /> wasted
+              Free casts from <SpellLink spell={SPELLS.SHINING_LIGHT} /> wasted
             </>
           }
           tooltip="A cast is wasted if the Shining Light buff expires without being used."

@@ -110,7 +110,7 @@ class Resurgence extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            <SpellLink id={SPELLS.RESURGENCE.id} iconStyle={{ height: '1.25em' }} /> accounted for{' '}
+            <SpellLink spell={SPELLS.RESURGENCE} iconStyle={{ height: '1.25em' }} /> accounted for{' '}
             {formatPercentage(this.totalResurgenceGain / this.totalMana, 0)}% of your total
             available mana over the fight ({formatNumber(this.totalMana)} mana).
           </>
@@ -147,7 +147,7 @@ class Resurgence extends Analyzer {
                 {this.resurgence.map((spell) => (
                   <tr key={spell.spellId}>
                     <th scope="row">
-                      <SpellIcon id={spell.spellId} style={{ height: '2.5em' }} />
+                      <SpellIcon spell={spell.spellId} style={{ height: '2.5em' }} />
                     </th>
                     <td>{formatNumber(spell.resurgenceTotal)}</td>
                     <td>{formatNumber(spell.castAmount)}</td>

@@ -50,7 +50,7 @@ class TheHoundmastersStratagem extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} bonus damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.THE_HOUNDMASTERS_STRATAGEM_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.THE_HOUNDMASTERS_STRATAGEM_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

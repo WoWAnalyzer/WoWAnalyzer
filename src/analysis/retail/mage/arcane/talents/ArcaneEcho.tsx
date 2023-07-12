@@ -96,12 +96,12 @@ class ArcaneEcho extends Analyzer {
     when(this.badTouchUsageThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to cast enough <SpellLink id={TALENTS.ARCANE_MISSILES_TALENT.id} /> into{' '}
-          <SpellLink id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} /> {this.badTouchUses} times. When
-          using <SpellLink id={TALENTS.ARCANE_ECHO_TALENT.id} /> you should be casting{' '}
-          <SpellLink id={TALENTS.ARCANE_MISSILES_TALENT.id} /> non-stop (Whether you have{' '}
-          <SpellLink id={SPELLS.CLEARCASTING_ARCANE.id} /> procs or not) until the{' '}
-          <SpellLink id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} /> debuff is removed from the target.
+          You failed to cast enough <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> into{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> {this.badTouchUses} times. When
+          using <SpellLink spell={TALENTS.ARCANE_ECHO_TALENT} /> you should be casting{' '}
+          <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> non-stop (Whether you have{' '}
+          <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> procs or not) until the{' '}
+          <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> debuff is removed from the target.
         </>,
       )
         .icon(TALENTS.ARCANE_MISSILES_TALENT.icon)
@@ -127,13 +127,13 @@ class ArcaneEcho extends Analyzer {
             : ''
         } In order to get the most out of Arcane Echo, you should be hard casting Arcane Missiles into Touch of the Magi until the debuff is removed.`}
       >
-        <BoringSpellValueText spellId={TALENTS.ARCANE_ECHO_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ARCANE_ECHO_TALENT}>
           <>
-            <SpellIcon id={TALENTS.ARCANE_MISSILES_TALENT.id} />{' '}
+            <SpellIcon spell={TALENTS.ARCANE_MISSILES_TALENT} />{' '}
             {formatNumber(this.averageCastsPerTouch)}{' '}
             <small>Average casts per Touch of the Magi</small>
             <br />
-            <SpellIcon id={TALENTS.TOUCH_OF_THE_MAGI_TALENT.id} />{' '}
+            <SpellIcon spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />{' '}
             {formatPercentage(this.touchUtilization)}% <small>Touch of the Magi Utilization</small>
           </>
         </BoringSpellValueText>

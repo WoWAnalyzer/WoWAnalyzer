@@ -50,7 +50,7 @@ class ImpendingVictory extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.IMPENDING_VICTORY_TALENT.id} /> Healing done
+              <SpellLink spell={TALENTS.IMPENDING_VICTORY_TALENT} /> Healing done
             </>
           }
         >

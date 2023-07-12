@@ -72,7 +72,7 @@ class SpellReflection extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.SPELL_REFLECTION_TALENT} /> Damage mitigated
+              <SpellLink spell={TALENTS.SPELL_REFLECTION_TALENT} /> Damage mitigated
             </>
           }
         >

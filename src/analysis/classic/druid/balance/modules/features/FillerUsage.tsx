@@ -83,7 +83,7 @@ class FillerUsage extends Analyzer {
           <ul>
             {ECLIPSE_FILLER.map(([eclipse, spell]) => (
               <li key={'eclipse-' + eclipse.id}>
-                <SpellLink id={spell.id} /> during and after <SpellLink id={eclipse.id} />
+                <SpellLink spell={spell} /> during and after <SpellLink spell={eclipse} />
               </li>
             ))}
           </ul>

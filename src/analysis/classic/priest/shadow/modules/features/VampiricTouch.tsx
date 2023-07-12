@@ -34,8 +34,8 @@ class VampiricTouch extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH} /> on the boss.
+          Your <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> on the boss.
         </span>,
       )
         .icon('spell_holy_stoicism')
@@ -54,7 +54,7 @@ class VampiricTouch extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.VAMPIRIC_TOUCH} />
+          <SpellIcon spell={SPELLS.VAMPIRIC_TOUCH} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

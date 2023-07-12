@@ -143,7 +143,7 @@ class Wellspring extends Analyzer {
         suggest(
           <Trans id="shaman.restoration.suggestions.wellSpring.label">
             You're not making full use of the potential of{' '}
-            <SpellLink id={TALENTS.WELLSPRING_TALENT.id} />. Try to aim it towards stacks of injured
+            <SpellLink spell={TALENTS.WELLSPRING_TALENT} />. Try to aim it towards stacks of injured
             players with 6 people or more.
           </Trans>,
         )
@@ -181,7 +181,7 @@ class Wellspring extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.WELLSPRING_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.WELLSPRING_TALENT} />}
         label={
           <Trans id="shaman.restoration.wellspring.statistic.label">
             Wellspring target efficiency
@@ -229,7 +229,7 @@ class Wellspring extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.WELLSPRING_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.WELLSPRING_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
@@ -240,11 +240,11 @@ class Wellspring extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.WELLSPRING_TALENT.id} />
+          <SpellLink spell={TALENTS.WELLSPRING_TALENT} />
         </b>{' '}
         is an efficient AoE heal on a short cooldown. The heal itself has travel time so its
-        possible to pre-cast it into a <SpellLink id={TALENTS.CLOUDBURST_TOTEM_TALENT} /> and have
-        the majority of its healing collected.
+        possible to pre-cast it into a <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} /> and
+        have the majority of its healing collected.
       </p>
     );
 
@@ -252,7 +252,7 @@ class Wellspring extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS.WELLSPRING_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS.WELLSPRING_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.guideSubStatistic()}

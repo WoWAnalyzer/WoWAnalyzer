@@ -66,7 +66,7 @@ class RollTheBonesEfficiency extends Analyzer {
           <>
             If you roll a single buff and it's not one of the two highest value, try to reroll it as
             soon as you can. If you roll a single buff and use{' '}
-            <SpellLink id={TALENTS.SLEIGHT_OF_HAND_TALENT.id} /> reroll any single roll, regardless
+            <SpellLink spell={TALENTS.SLEIGHT_OF_HAND_TALENT} /> reroll any single roll, regardless
             of the buff.
           </>
         ),
@@ -84,7 +84,7 @@ class RollTheBonesEfficiency extends Analyzer {
           <>
             If you ever roll a high value buff or multiple bufss, try to leave keep them as long as
             possible, refreshing with less than 3 seconds remaining. If you're using
-            <SpellLink id={TALENTS.SLEIGHT_OF_HAND_TALENT.id} /> no single buff is considered high
+            <SpellLink spell={TALENTS.SLEIGHT_OF_HAND_TALENT} /> no single buff is considered high
             value.
           </>
         ),
@@ -145,10 +145,10 @@ class RollTheBonesEfficiency extends Analyzer {
       when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            Your efficiency with refreshing <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} />{' '}
+            Your efficiency with refreshing <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} />{' '}
             after a {suggestion.label} roll could be improved.{' '}
-            <SpellLink id={SPELLS.BROADSIDE.id} /> and <SpellLink id={SPELLS.TRUE_BEARING.id} /> are
-            your highest value buffs from <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} />.{' '}
+            <SpellLink spell={SPELLS.BROADSIDE} /> and <SpellLink spell={SPELLS.TRUE_BEARING} /> are
+            your highest value buffs from <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} />.{' '}
             {suggestion.extraSuggestion || ''}
           </>,
         )

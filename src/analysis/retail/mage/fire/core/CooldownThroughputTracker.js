@@ -14,11 +14,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       expansion: RETAIL_EXPANSION,
     },
-    {
-      spell: SPELLS.RUNE_OF_POWER_BUFF.id,
-      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
-      expansion: RETAIL_EXPANSION,
-    },
   ];
 
   static castCooldowns = [...CoreCooldownThroughputTracker.castCooldowns];

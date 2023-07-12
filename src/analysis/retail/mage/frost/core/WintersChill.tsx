@@ -20,17 +20,9 @@ const WINTERS_CHILL_SPENDERS = [
   TALENTS.RAY_OF_FROST_TALENT,
 ];
 
-const WINTERS_CHILL_PRECAST_CASTS = [
-  SPELLS.FROSTBOLT,
-  TALENTS.EBONBOLT_TALENT,
-  TALENTS.GLACIAL_SPIKE_TALENT,
-];
+const WINTERS_CHILL_PRECAST_CASTS = [SPELLS.FROSTBOLT, TALENTS.GLACIAL_SPIKE_TALENT];
 
-const WINTERS_CHILL_PRECAST_DAMAGE = [
-  SPELLS.FROSTBOLT_DAMAGE,
-  SPELLS.EBONBOLT_DAMAGE,
-  SPELLS.GLACIAL_SPIKE_DAMAGE,
-];
+const WINTERS_CHILL_PRECAST_DAMAGE = [SPELLS.FROSTBOLT_DAMAGE, SPELLS.GLACIAL_SPIKE_DAMAGE];
 
 const debug = false;
 
@@ -43,7 +35,6 @@ class WintersChill extends Analyzer {
   protected eventHistory!: EventHistory;
 
   hasGlacialSpike: boolean = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
-  hasEbonbolt: boolean = this.selectedCombatant.hasTalent(TALENTS.EBONBOLT_TALENT);
 
   wintersChillHardCasts = () => {
     let debuffApplies = this.eventHistory.getEvents(EventType.ApplyDebuff, {
@@ -214,22 +205,22 @@ class WintersChill extends Analyzer {
     when(this.wintersChillShatterThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to properly take advantage of <SpellLink id={SPELLS.WINTERS_CHILL.id} /> on
+          You failed to properly take advantage of <SpellLink spell={SPELLS.WINTERS_CHILL} /> on
           your target {this.missedShatters} times ({formatPercentage(1 - actual)}%). After debuffing
-          the target via <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> and{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should ensure that you hit the target
+          the target via <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.FLURRY_TALENT} />, you should ensure that you hit the target
           with{' '}
           {this.hasGlacialSpike ? (
             <>
-              a <SpellLink id={TALENTS.GLACIAL_SPIKE_TALENT.id} /> and an{' '}
-              <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} /> (If Glacial Spike is available), or{' '}
+              a <SpellLink spell={TALENTS.GLACIAL_SPIKE_TALENT} /> and an{' '}
+              <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> (If Glacial Spike is available), or{' '}
             </>
           ) : (
             ''
           )}{' '}
-          two <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} />s before the{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff expires to get the most out of{' '}
-          <SpellLink id={TALENTS.SHATTER_TALENT.id} />.
+          two <SpellLink spell={TALENTS.ICE_LANCE_TALENT} />s before the{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff expires to get the most out of{' '}
+          <SpellLink spell={TALENTS.SHATTER_TALENT} />.
         </>,
       )
         .icon(TALENTS.ICE_LANCE_TALENT.icon)
@@ -243,21 +234,14 @@ class WintersChill extends Analyzer {
     when(this.wintersChillPreCastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to use a pre-cast ability before <SpellLink id={TALENTS.FLURRY_TALENT.id} />{' '}
+          You failed to use a pre-cast ability before <SpellLink spell={TALENTS.FLURRY_TALENT} />{' '}
           {this.missedPreCasts} times ({formatPercentage(1 - actual)}%). Because of the travel time
-          of <SpellLink id={TALENTS.FLURRY_TALENT.id} />, you should cast a damaging ability such as{' '}
-          <SpellLink id={SPELLS.FROSTBOLT.id} />{' '}
-          {this.hasEbonbolt ? (
-            <>
-              or <SpellLink id={TALENTS.EBONBOLT_TALENT.id} />
-            </>
-          ) : (
-            ''
-          )}{' '}
-          immediately before using <SpellLink id={TALENTS.FLURRY_TALENT.id} />. Doing this will
-          allow your pre-cast ability to hit the target after{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> (unless you are standing too close to the
-          target) allowing it to benefit from <SpellLink id={TALENTS.SHATTER_TALENT.id} />.
+          of <SpellLink spell={TALENTS.FLURRY_TALENT} />, you should cast a damaging ability such as{' '}
+          <SpellLink spell={SPELLS.FROSTBOLT} /> immediately before using{' '}
+          <SpellLink spell={TALENTS.FLURRY_TALENT} />. Doing this will allow your pre-cast ability
+          to hit the target after <SpellLink spell={TALENTS.FLURRY_TALENT} /> (unless you are
+          standing too close to the target) allowing it to benefit from{' '}
+          <SpellLink spell={TALENTS.SHATTER_TALENT} />.
         </>,
       )
         .icon(SPELLS.FROSTBOLT.icon)
@@ -288,11 +272,11 @@ class WintersChill extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.WINTERS_CHILL.id}>
-          <SpellIcon id={SPELLS.WINTERS_CHILL.id} /> {formatPercentage(this.shatterPercent, 0)}%{' '}
+        <BoringSpellValueText spell={SPELLS.WINTERS_CHILL}>
+          <SpellIcon spell={SPELLS.WINTERS_CHILL} /> {formatPercentage(this.shatterPercent, 0)}%{' '}
           <small>Spells shattered</small>
           <br />
-          <SpellIcon id={SPELLS.FROSTBOLT.id} /> {formatPercentage(this.preCastPercent, 0)}%{' '}
+          <SpellIcon spell={SPELLS.FROSTBOLT} /> {formatPercentage(this.preCastPercent, 0)}%{' '}
           <small>Pre-casts shattered</small>
         </BoringSpellValueText>
       </Statistic>

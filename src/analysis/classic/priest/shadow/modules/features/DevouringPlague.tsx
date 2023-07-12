@@ -33,8 +33,8 @@ class DevouringPlague extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink id={SPELLS.DEVOURING_PLAGUE.id} /> on the boss.
+          Your <SpellLink spell={SPELLS.DEVOURING_PLAGUE} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink spell={SPELLS.DEVOURING_PLAGUE} /> on the boss.
         </span>,
       )
         .icon('spell_shadow_devouringplague')
@@ -53,7 +53,7 @@ class DevouringPlague extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.DEVOURING_PLAGUE.id} />
+          <SpellIcon spell={SPELLS.DEVOURING_PLAGUE} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

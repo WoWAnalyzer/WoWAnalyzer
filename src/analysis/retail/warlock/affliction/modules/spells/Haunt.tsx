@@ -67,7 +67,7 @@ class Haunt extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.HAUNT_TALENT.id} /> debuff uptime is too low. While it's
+          Your <SpellLink spell={TALENTS.HAUNT_TALENT} /> debuff uptime is too low. While it's
           usually not possible to get 100% uptime due to travel and cast time, you should aim for as
           much uptime on the debuff as possible.
         </>,
@@ -95,7 +95,7 @@ class Haunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.HAUNT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.HAUNT_TALENT}>
           {formatPercentage(this.uptime)} % <small>uptime</small>
           <br />
           {formatNumber(this.dps)} DPS{' '}
@@ -112,7 +112,7 @@ class Haunt extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={TALENTS.HAUNT_TALENT.id} />
+          <SpellIcon spell={TALENTS.HAUNT_TALENT} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

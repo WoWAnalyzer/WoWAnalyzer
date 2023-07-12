@@ -369,7 +369,7 @@ class RisingMist extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.RISING_MIST_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -417,24 +417,24 @@ class RisingMist extends Analyzer {
   getSecondaryIcon(hot: Tracker) {
     //hardcast
     if (hot.maxDuration! >= 60000) {
-      return <SpellIcon id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id} />;
+      return <SpellIcon spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />;
     }
     if (this.hotTracker.fromMistsOfLife(hot)) {
-      return <SpellIcon id={TALENTS_MONK.LIFE_COCOON_TALENT.id} />;
+      return <SpellIcon spell={TALENTS_MONK.LIFE_COCOON_TALENT} />;
     }
     //rd
     if (this.hotTracker.fromRapidDiffusionEnvelopingMist(hot)) {
-      return <SpellIcon id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} />;
+      return <SpellIcon spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />;
     }
     if (this.hotTracker.fromRapidDiffusionRisingSunKick(hot)) {
-      return <SpellIcon id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} />;
+      return <SpellIcon spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />;
     }
     //dm
     if (this.hotTracker.fromDancingMistRapidDiffusion(hot)) {
-      return <SpellIcon id={TALENTS_MONK.RAPID_DIFFUSION_TALENT.id} />;
+      return <SpellIcon spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />;
     }
     if (this.hotTracker.fromDancingMistMistsOfLife(hot)) {
-      return <SpellIcon id={TALENTS_MONK.LIFE_COCOON_TALENT.id} />;
+      return <SpellIcon spell={TALENTS_MONK.LIFE_COCOON_TALENT} />;
     }
   }
 
@@ -519,7 +519,7 @@ class RisingMist extends Analyzer {
               >
                 <div style={liDivTitle}>
                   {this.getSecondaryIcon(tracker)}
-                  <SpellLink id={tracker.spellId} /> - {this.getSource(tracker)} @
+                  <SpellLink spell={tracker.spellId} /> - {this.getSource(tracker)} @
                   <strong>{this.owner.formatTimestamp(tracker.start, 2)}</strong>
                 </div>
                 <div style={liDivLabel}>{formatDuration(this.getDuration(tracker))}</div>

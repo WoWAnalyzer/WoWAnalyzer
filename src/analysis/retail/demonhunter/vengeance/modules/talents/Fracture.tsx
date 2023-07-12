@@ -5,7 +5,6 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import { SpellLink } from 'interface';
 import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import FuryTracker from 'analysis/retail/demonhunter/vengeance/modules/resourcetracker/FuryTracker';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
 import { Trans } from '@lingui/macro';
@@ -21,6 +20,9 @@ import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { getResourceChange } from 'analysis/retail/demonhunter/vengeance/normalizers/ShearFractureNormalizer';
+
+const BASE_FURY = 100;
 
 // Fracture fury gen (no T29): 25
 // Metamorphosis Fracture fury gen (no T29): 45
@@ -42,15 +44,14 @@ const getNonMetaInitialFuryLimit = (hasT292Pc: boolean) =>
 export default class Fracture extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    furyTracker: FuryTracker,
   };
 
   private cooldownUses: SpellUse[] = [];
   private inMetaFuryLimit = getMetaInitialFuryLimit(false);
   private notMetaFuryLimit = getNonMetaInitialFuryLimit(false);
+  private maximumFury = BASE_FURY;
 
   protected enemies!: Enemies;
-  protected furyTracker!: FuryTracker;
 
   constructor(options: Options) {
     super(options);
@@ -61,6 +62,11 @@ export default class Fracture extends Analyzer {
 
     const hasT292Pc = this.selectedCombatant.has2PieceByTier(TIERS.T29);
 
+    this.maximumFury =
+      BASE_FURY +
+      UNRESTRAINED_FURY_SCALING[
+        this.selectedCombatant.getTalentRank(TALENTS.UNRESTRAINED_FURY_TALENT)
+      ];
     this.inMetaFuryLimit =
       getMetaInitialFuryLimit(hasT292Pc) +
       UNRESTRAINED_FURY_SCALING[
@@ -131,6 +137,7 @@ export default class Fracture extends Analyzer {
     );
     const hasT292Piece = this.selectedCombatant.has2PieceByTier(TIERS.T29);
 
+    const hasExtraDetails = hasMetamorphosis || hasT292Piece;
     const extraDetails = (
       <div>
         {hasMetamorphosis && (
@@ -162,7 +169,7 @@ export default class Fracture extends Analyzer {
         actualPerformance !== QualitativePerformance.Fail
           ? `${actualPerformance} Usage`
           : 'Bad Usage',
-      extraDetails,
+      extraDetails: hasExtraDetails ? extraDetails : undefined,
     });
   }
 
@@ -171,12 +178,32 @@ export default class Fracture extends Analyzer {
       SPELLS.METAMORPHOSIS_TANK.id,
       event.timestamp,
     );
-    const amountOfFury = this.furyTracker.current;
+    const resourceChange = getResourceChange(event);
 
     const inMetamorphosisSummary = (
       <div>Cast at &lt; {this.inMetaFuryLimit} Fury during Metamorphosis</div>
     );
     const nonMetamorphosisSummary = <div>Cast at &lt; {this.notMetaFuryLimit} Fury</div>;
+
+    if (!resourceChange) {
+      return {
+        performance: QualitativePerformance.Ok,
+        summary: hasMetamorphosis ? inMetamorphosisSummary : nonMetamorphosisSummary,
+        details: (
+          <div>
+            Unable to determine from logs how much <ResourceLink id={RESOURCE_TYPES.FURY.id} /> you
+            had when you cast <SpellLink spell={TALENTS.FRACTURE_TALENT} />.
+          </div>
+        ),
+      };
+    }
+
+    // We need to back-calculate the fury performance due to Fracture event ordering causing the
+    // FuryTracker to not have the correct value when invoking `furyTracker.current`.
+    const amountNotWasted = resourceChange.resourceChange - resourceChange.waste;
+    const amountOfFuryAfterChange =
+      resourceChange.classResources?.find((it) => it.type === RESOURCE_TYPES.FURY.id)?.amount ?? 0;
+    const amountOfFury = amountOfFuryAfterChange - amountNotWasted;
 
     if (hasMetamorphosis) {
       if (amountOfFury < this.inMetaFuryLimit) {

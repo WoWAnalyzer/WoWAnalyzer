@@ -162,7 +162,7 @@ class HolyWordsReductionBySpell extends Analyzer {
                 {Object.keys(reductionBySpell).map((e, i) => (
                   <tr key={i}>
                     <td className="text-left">
-                      <SpellIcon id={Number(e)} /> {SPELLS[Number(e)].name}
+                      <SpellIcon spell={Number(e)} /> {SPELLS[Number(e)].name}
                     </td>
                     <td>{Math.ceil(reductionBySpell[e].base / 1000)}s</td>
                     {this.apotheosisActive && (
@@ -181,7 +181,7 @@ class HolyWordsReductionBySpell extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HOLY_WORDS.id}>
+        <BoringSpellValueText spell={SPELLS.HOLY_WORDS}>
           {formatPercentage(reductionRatio)}% Total Holy Word reduction
         </BoringSpellValueText>
       </Statistic>

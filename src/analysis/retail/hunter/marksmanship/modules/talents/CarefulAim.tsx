@@ -159,7 +159,7 @@ class CarefulAim extends ExecuteHelper {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_HUNTER.CAREFUL_AIM_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.CAREFUL_AIM_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

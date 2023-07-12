@@ -83,12 +83,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.FLAMESTRIKE_TALENT.id,
+        spell: SPELLS.FLAMESTRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.FLAMESTRIKE_TALENT),
       },
       {
         spell: TALENTS.LIVING_BOMB_TALENT.id,

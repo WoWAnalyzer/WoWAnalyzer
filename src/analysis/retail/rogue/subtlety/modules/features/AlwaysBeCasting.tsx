@@ -26,7 +26,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <span>
             Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
             between casting spells. If everything is on cooldown, try to use{' '}
-            <SpellLink id={SPELLS.BACKSTAB.id} /> or <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> to
+            <SpellLink spell={SPELLS.BACKSTAB} /> or <SpellLink spell={SPELLS.SHADOWSTRIKE} /> to
             stay off the energy cap and do some damage.
           </span>,
         )

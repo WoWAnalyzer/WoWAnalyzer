@@ -118,7 +118,7 @@ export default class FinisherUse extends Analyzer {
       summary: <></>,
       details: (
         <>
-          You cast <SpellLink id={spellId} />{' '}
+          You cast <SpellLink spell={spellId} />{' '}
         </>
       ),
     };
@@ -201,14 +201,14 @@ export default class FinisherUse extends Analyzer {
       <p>
         <strong>Finishers</strong> should typically be used at 1 below max combo points or higher.
         You want to maintain as close to possible 100% uptime on both{' '}
-        <SpellLink id={SPELLS.BETWEEN_THE_EYES} /> and <SpellLink id={SPELLS.SLICE_AND_DICE} />{' '}
-        buff.
+        <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> and{' '}
+        <SpellLink spell={SPELLS.SLICE_AND_DICE} /> buff.
         {this.hasGreenskinTalent && (
           <p>
             {' '}
-            Since you are talented into <SpellLink id={TALENTS.GREENSKINS_WICKERS_TALENT} /> you
-            want to cast <SpellLink id={SPELLS.BETWEEN_THE_EYES} /> as close to on cd as possible to
-            maximise the proc uptime.
+            Since you are talented into <SpellLink spell={TALENTS.GREENSKINS_WICKERS_TALENT} /> you
+            want to cast <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> as close to on cd as possible
+            to maximise the proc uptime.
           </p>
         )}
       </p>
@@ -249,9 +249,10 @@ export default class FinisherUse extends Analyzer {
       checkListFinisher.summary = <div>Between the eyes was ready</div>;
       checkListFinisher.details = (
         <div>
-          {checkListFinisher.details} with <SpellLink id={SPELLS.BETWEEN_THE_EYES} /> off cooldown,
-          when talented into <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT} /> you should
-          try to use <SpellLink id={SPELLS.BETWEEN_THE_EYES} /> as much on cd as possible.
+          {checkListFinisher.details} with <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> off
+          cooldown, when talented into <SpellLink spell={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT} />{' '}
+          you should try to use <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> as much on cd as
+          possible.
         </div>
       );
       return true;
@@ -266,11 +267,11 @@ export default class FinisherUse extends Analyzer {
       checkListFinisher.summary = <div>Between the eyes was ready</div>;
       checkListFinisher.details = (
         <div>
-          {checkListFinisher.details} with <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> off
+          {checkListFinisher.details} with <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> off
           cooldown, when talented into{' '}
-          <SpellLink id={TALENTS_ROGUE.IMPROVED_BETWEEN_THE_EYES_TALENT.id} /> try to use{' '}
-          <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> on cooldown with{' '}
-          <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff up.
+          <SpellLink spell={TALENTS_ROGUE.IMPROVED_BETWEEN_THE_EYES_TALENT} /> try to use{' '}
+          <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> on cooldown with{' '}
+          <SpellLink spell={SPELLS.RUTHLESS_PRECISION} /> buff up.
         </div>
       );
       return true;
@@ -281,8 +282,8 @@ export default class FinisherUse extends Analyzer {
       checkListFinisher.summary = <div>Between the eyes debuff was missing from the target</div>;
       checkListFinisher.details = (
         <div>
-          {checkListFinisher.details} with no <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> debuff
-          up and the spell ready to use, never let <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} />{' '}
+          {checkListFinisher.details} with no <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> debuff
+          up and the spell ready to use, never let <SpellLink spell={SPELLS.BETWEEN_THE_EYES} />{' '}
           debuff fall off.
         </div>
       );
@@ -298,10 +299,10 @@ export default class FinisherUse extends Analyzer {
       );
       checkListFinisher.details = (
         <div>
-          You cast <SpellLink id={SPELLS.DISPATCH.id} /> with{' '}
-          <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> off cooldown and{' '}
+          You cast <SpellLink spell={SPELLS.DISPATCH} /> with{' '}
+          <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> off cooldown and{' '}
           {formatDurationMillisMinSec(bteRemainingTime)} left on its debuff, try to refresh{' '}
-          <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> debuff early to not let it fall off.
+          <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> debuff early to not let it fall off.
         </div>
       );
       return true;
@@ -324,9 +325,9 @@ export default class FinisherUse extends Analyzer {
         checkListFinisher.summary = <div>Greenskin Wickers buff was already present</div>;
         checkListFinisher.details = (
           <div>
-            You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with a{' '}
-            <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> buff already present, try
-            to not override your <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} />{' '}
+            You used <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> with a{' '}
+            <SpellLink spell={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT} /> buff already present, try
+            to not override your <SpellLink spell={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT} />{' '}
             buffs.
           </div>
         );
@@ -334,8 +335,8 @@ export default class FinisherUse extends Analyzer {
         checkListFinisher.summary = <div>Between the eyes used</div>;
         checkListFinisher.details = (
           <div>
-            You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> and gained a{' '}
-            <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> buff.
+            You used <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> and gained a{' '}
+            <SpellLink spell={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT} /> buff.
           </div>
         );
       }
@@ -343,25 +344,25 @@ export default class FinisherUse extends Analyzer {
       checkListFinisher.performance = QualitativePerformance.Ok;
       checkListFinisher.details = (
         <div>
-          You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with{' '}
+          You used <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> with{' '}
           {formatDurationMillisMinSec(bteDebuffRemainingTime)} left on the debuff, since you aren't
-          playing <SpellLink id={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT.id} /> talent, you do not
+          playing <SpellLink spell={TALENTS_ROGUE.GREENSKINS_WICKERS_TALENT} /> talent, you do not
           need to refresh the debuff this early, try to instead keep the cooldown ready in case of
           target swapping for example. Refreshing the debuff early before a{' '}
-          <SpellLink id={TALENTS_ROGUE.SHADOW_DANCE_TALENT.id} /> window is however fine.
+          <SpellLink spell={TALENTS_ROGUE.SHADOW_DANCE_TALENT} /> window is however fine.
         </div>
       );
     } else if (bteDebuffRemainingTime === 0) {
       checkListFinisher.summary = <div>Between the eyes debuff applied</div>;
       checkListFinisher.details = (
         <div>
-          You applied <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> debuff.
+          You applied <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> debuff.
         </div>
       );
     } else {
       checkListFinisher.details = (
         <div>
-          You used <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> with{' '}
+          You used <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> with{' '}
           {formatDurationMillisMinSec(bteDebuffRemainingTime)} left on the debuff.
         </div>
       );
@@ -385,7 +386,7 @@ export default class FinisherUse extends Analyzer {
       checkListFinisher.summary = <div>Slice and dice buff was missing</div>;
       checkListFinisher.details = (
         <div>
-          {checkListFinisher.details} with <SpellLink id={SPELLS.SLICE_AND_DICE.id} /> buff down,
+          {checkListFinisher.details} with <SpellLink spell={SPELLS.SLICE_AND_DICE} /> buff down,
           try to maintain the buff at all time.
         </div>
       );
@@ -393,14 +394,14 @@ export default class FinisherUse extends Analyzer {
       checkListFinisher.details = (
         <div>
           {checkListFinisher.details} with {formatDurationMillisMinSec(bteCDRemainingTime)} left on{' '}
-          <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> cooldown.
+          <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> cooldown.
         </div>
       );
     } else {
       checkListFinisher.details = (
         <div>
           {checkListFinisher.details} with {formatDurationMillisMinSec(bteDebuffRemainingTime)} left
-          on <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> debuff.
+          on <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> debuff.
         </div>
       );
     }

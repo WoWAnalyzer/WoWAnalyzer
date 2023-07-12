@@ -122,7 +122,7 @@ class MasteryStats extends Analyzer {
       <Statistic position={STATISTIC_ORDER.CORE(2)} size="flexible">
         <div className="pad">
           <label>
-            <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> breakdown
+            <SpellLink spell={SPELLS.GUSTS_OF_MISTS}>Gusts of Mists</SpellLink> breakdown
           </label>
           {this.renderMasterySourceChart()}
         </div>

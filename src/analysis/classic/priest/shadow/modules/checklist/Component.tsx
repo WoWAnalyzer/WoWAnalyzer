@@ -14,7 +14,7 @@ const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
     <Requirement
       name={
         <>
-          <SpellLink id={props.id} icon /> uptime
+          <SpellLink spell={props.spell} icon /> uptime
         </>
       }
       thresholds={props.thresholds}
@@ -29,14 +29,14 @@ const PriestChecklist = ({ thresholds, castEfficiency, combatant }: ChecklistPro
           <>
             DoTs are a big part of your damage. You should try to keep as high uptime on them as
             possible, but do not refresh them too early. Try to cast{' '}
-            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> after applying 5 stacks of{' '}
-            <SpellLink id={SPELLS.SHADOW_WEAVING_TALENT.id} />
+            <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> after applying 5 stacks of{' '}
+            <SpellLink spell={SPELLS.SHADOW_WEAVING_TALENT} />
           </>
         }
       >
-        <DotUptime id={SPELLS.SHADOW_WORD_PAIN.id} thresholds={thresholds.shadowWordPain} />
-        <DotUptime id={SPELLS.VAMPIRIC_TOUCH.id} thresholds={thresholds.vampiricTouch} />
-        <DotUptime id={SPELLS.DEVOURING_PLAGUE.id} thresholds={thresholds.devouringPlague} />
+        <DotUptime spell={SPELLS.SHADOW_WORD_PAIN} thresholds={thresholds.shadowWordPain} />
+        <DotUptime spell={SPELLS.VAMPIRIC_TOUCH} thresholds={thresholds.vampiricTouch} />
+        <DotUptime spell={SPELLS.DEVOURING_PLAGUE} thresholds={thresholds.devouringPlague} />
       </Rule>
       {/* Enchants and Consumes */}
       <PreparationRule thresholds={thresholds} />

@@ -106,7 +106,7 @@ class Deluge extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.DELUGE_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.DELUGE_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
@@ -123,11 +123,11 @@ class Deluge extends Analyzer {
             <ul>
               <li>
                 {formatThousands(this.fromRiptideHealing)} from healing targets with{' '}
-                <SpellLink id={TALENTS.RIPTIDE_TALENT} />
+                <SpellLink spell={TALENTS.RIPTIDE_TALENT} />
               </li>
               <li>
                 {formatThousands(this.fromHealingRainHealing)} from healing targets inside your{' '}
-                <SpellLink id={TALENTS.HEALING_RAIN_TALENT} />
+                <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} />
               </li>
             </ul>
           </>

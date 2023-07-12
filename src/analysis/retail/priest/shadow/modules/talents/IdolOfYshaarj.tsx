@@ -67,37 +67,37 @@ class IdolOfYshaarj extends Analyzer {
         size="flexible"
         tooltip={<>Effects from {this.casts} casts of mindbenders</>}
       >
-        <BoringSpellValueText spellId={TALENTS.IDOL_OF_YSHAARJ_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.IDOL_OF_YSHAARJ_TALENT}>
           <>
             <p>
               <div>
                 {this.pride}{' '}
                 <small>
-                  Healthy. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE.id} />
+                  Healthy. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE} />
                 </small>
               </div>
               <div>
                 {this.despair}{' '}
                 <small>
-                  Stunned. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_DESPAIR.id} />
+                  Stunned. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_DESPAIR} />
                 </small>
               </div>
               <div>
                 {this.anger}{' '}
                 <small>
-                  Enraged. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_ANGER.id} />
+                  Enraged. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_ANGER} />
                 </small>
               </div>
               <div>
                 {this.fear}{' '}
                 <small>
-                  Feared. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_FEAR.id} />
+                  Feared. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_FEAR} />
                 </small>
               </div>
               <div>
                 {this.getBuffViolence()}{' '}
                 <small>
-                  No State. <SpellLink id={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE.id} />
+                  No State. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE} />
                 </small>
               </div>
             </p>

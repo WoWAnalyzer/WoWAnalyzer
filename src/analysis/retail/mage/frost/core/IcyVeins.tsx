@@ -77,11 +77,11 @@ class IcyVeins extends Analyzer {
         <>
           You spent {formatNumber(this.downtimeSeconds)} seconds (
           {formatNumber(this.averageDowntime)}s per cast) not casting anything while{' '}
-          <SpellLink id={TALENTS.ICY_VEINS_TALENT.id} /> was active. Because a large portion of your
+          <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> was active. Because a large portion of your
           damage comes from Icy Veins, you should ensure that you are getting the most out of it
           every time it is cast. While sometimes this is out of your control (you got targeted by a
           mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
-          <SpellLink id={TALENTS.ICY_VEINS_TALENT.id} /> when you are at a low risk of being
+          <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> when you are at a low risk of being
           interrupted or when the target is vulnerable.
         </>,
       )
@@ -110,7 +110,7 @@ class IcyVeins extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ICY_VEINS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ICY_VEINS_TALENT}>
           {formatPercentage(this.percentActiveTime)}% <small>Icy Veins Active Time</small>
         </BoringSpellValueText>
       </Statistic>

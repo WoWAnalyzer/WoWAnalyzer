@@ -27,7 +27,6 @@ import DemonicStrength from './modules/talents/DemonicStrength';
 import Doom from './modules/talents/Doom';
 import DreadCalling from './modules/talents/DreadCalling';
 import Dreadlash from './modules/talents/Dreadlash';
-import FelCovenant from './modules/talents/FelCovenant';
 import TheHoundmastersStratagem from './modules/talents/TheHoundmastersStratagem';
 import GrimoireFelguard from './modules/talents/GrimoireFelguard';
 import InnerDemons from './modules/talents/InnerDemons';
@@ -86,7 +85,6 @@ class CombatLogParser extends CoreCombatLogParser {
     grimoireFelguard: GrimoireFelguard,
     sacrificedSouls: SacrificedSouls,
     netherPortal: NetherPortal,
-    felCovenant: FelCovenant,
     shadowsBite: ShadowsBite,
     dreadCalling: DreadCalling,
 

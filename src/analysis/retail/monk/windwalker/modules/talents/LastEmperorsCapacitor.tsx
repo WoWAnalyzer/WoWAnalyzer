@@ -140,7 +140,7 @@ class LastEmperorsCapacitor extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -152,7 +152,7 @@ class LastEmperorsCapacitor extends Analyzer {
       suggest(
         <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks">
           {' '}
-          You wasted your <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks by using
+          You wasted your <SpellLink spell={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF} /> stacks by using
           chi spenders while at 20 stacks{' '}
         </Trans>,
       )
@@ -174,8 +174,8 @@ class LastEmperorsCapacitor extends Analyzer {
       suggest(
         <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks">
           {' '}
-          Your average number of <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks
-          used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> was low{' '}
+          Your average number of <SpellLink spell={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF} /> stacks
+          used when you cast <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} /> was low{' '}
         </Trans>,
       )
         .icon(TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.icon)

@@ -135,14 +135,14 @@ class CobraShot extends Analyzer {
     when(this.cdrEfficiencyCobraShotThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          A crucial part of <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> is the cooldown
-          reduction of <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> it provides. When
-          the cooldown of <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> is larger than
+          A crucial part of <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> is the cooldown
+          reduction of <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> it provides. When
+          the cooldown of <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> is larger than
           the duration of your GCD + 1s, you'll want to be casting{' '}
-          <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> to maximize the amount of casts of{' '}
-          <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} />. If the cooldown of{' '}
-          <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> is lower than GCD + 1s, you'll
-          only want to be casting <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} />, if you'd be
+          <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> to maximize the amount of casts of{' '}
+          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} />. If the cooldown of{' '}
+          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> is lower than GCD + 1s, you'll
+          only want to be casting <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} />, if you'd be
           capping focus otherwise.
         </>,
       )
@@ -164,8 +164,8 @@ class CobraShot extends Analyzer {
     when(this.wastedCobraShotsThreshold).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          You should never cast <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> when{' '}
-          <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> is off cooldown.
+          You should never cast <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> when{' '}
+          <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> is off cooldown.
         </>,
       )
         .icon(TALENTS.COBRA_SHOT_TALENT.icon)
@@ -203,7 +203,7 @@ class CobraShot extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.COBRA_SHOT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.COBRA_SHOT_TALENT}>
           <>
             {formatNumber(this.effectiveKCReductionMs / 1000)}s / {this.totalPossibleCDR / 1000}s
             <br />

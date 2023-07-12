@@ -62,7 +62,7 @@ class SunKingsBlessing extends Analyzer {
     const lastCast = this.eventHistory.last(
       1,
       MS_BUFFER_100,
-      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.PYROBLAST_TALENT, TALENTS.FLAMESTRIKE_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([TALENTS.PYROBLAST_TALENT, SPELLS.FLAMESTRIKE]),
     );
     if (lastCast.length === 0) {
       debug && this.log('Sun King Blessing Stack expired');
@@ -160,22 +160,22 @@ class SunKingsBlessing extends Analyzer {
     when(this.combustionDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You used <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> while{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> was already active{' '}
+          You used <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> while{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was already active{' '}
           {this.combustionCastDuringCombustion} times. When using{' '}
-          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> and{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> at the same time, you want to ensure that{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is activated first by using{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> just before your hard cast{' '}
-          <SpellLink id={TALENTS.PYROBLAST_TALENT.id} /> finishes casting. This is due to an odd
-          interaction where if <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is used while{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is already active (via{' '}
-          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} />) then the time remaining on{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> will be reset to{' '}
+          <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> at the same time, you want to ensure that{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is activated first by using{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> just before your hard cast{' '}
+          <SpellLink spell={TALENTS.PYROBLAST_TALENT} /> finishes casting. This is due to an odd
+          interaction where if <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is used while{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is already active (via{' '}
+          <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />) then the time remaining on{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> will be reset to{' '}
           {COMBUSTION_DURATION / 1000}sec instead of adding to it. But if{' '}
-          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> is activated after{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> it will add {SKB_COMBUST_DURATION / 1000}
-          sec to your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
+          <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> is activated after{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> it will add {SKB_COMBUST_DURATION / 1000}
+          sec to your <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
         </>,
       )
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
@@ -189,11 +189,11 @@ class SunKingsBlessing extends Analyzer {
     when(this.sunKingExpireThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You let <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> expire {this.expiredBuffs}{' '}
+          You let <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> expire {this.expiredBuffs}{' '}
           times ({formatPercentage(this.percentSunKingBuffExpired)}% of total{' '}
-          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> buffs). While this is sometimes
+          <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> buffs). While this is sometimes
           unavoidable, try to ensure you are using your{' '}
-          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} /> procs instead of letting them
+          <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> procs instead of letting them
           expire.
         </>,
       )
@@ -224,7 +224,7 @@ class SunKingsBlessing extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.SUN_KINGS_BLESSING_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.SUN_KINGS_BLESSING_BUFF}>
           {this.averageSunKingDelaySeconds.toFixed(2)}s{' '}
           <small>Avg. Sun King Activation Delay</small>
           <br />

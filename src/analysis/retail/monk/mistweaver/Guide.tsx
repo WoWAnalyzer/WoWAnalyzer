@@ -61,8 +61,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <p>
           <strong>
             It is important to note that using abilites like{' '}
-            <SpellLink id={modules.invokeChiJi.getCelestialTalent()} /> have their own priority that
-            supercedes the priority list below. This section omits all casts in those windows.
+            <SpellLink spell={modules.invokeChiJi.getCelestialTalent()} /> have their own priority
+            that supercedes the priority list below. This section omits all casts in those windows.
           </strong>
         </p>
         <SubSection>
@@ -101,12 +101,12 @@ function RemGraphSubsection({ modules, events, info }: GuideProps<typeof CombatL
   return (
     <SubSection>
       <strong>
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> Graph
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> Graph
       </strong>{' '}
-      - this graph shows how many <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> you have over
-      the course of the fight in relation to your{' '}
-      <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT.id} /> and <SpellLink id={SPELLS.VIVIFY} />{' '}
-      casts.
+      - this graph shows how many <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> you have
+      over the course of the fight in relation to your{' '}
+      <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
+      <SpellLink spell={SPELLS.VIVIFY} /> casts.
       {modules.remGraph.plot}
     </SubSection>
   );
@@ -123,27 +123,27 @@ function SheilunsGraph({ modules, events, info }: GuideProps<typeof CombatLogPar
     <>
       <p>
         <b>
-          <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} />
         </b>{' '}
         is a potent AoE spot heal and grants extremely strong throughput buffs when talented into{' '}
-        <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />. If talented into{' '}
-        <SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT} />, then try to cast{' '}
-        <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> as a powerful spot heal when you have
-        at least 4 stacks, while trying to avoid excessive overhealing. If talented into{' '}
-        <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, aim to cast{' '}
-        <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> before spamming{' '}
-        <SpellLink id={SPELLS.VIVIFY} /> during a{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> peak (8-10+ active HoTs) or before
+        <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />. If talented into{' '}
+        <SpellLink spell={TALENTS_MONK.VEIL_OF_PRIDE_TALENT} />, then try to cast{' '}
+        <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> as a powerful spot heal when you
+        have at least 4 stacks, while trying to avoid excessive overhealing. If talented into{' '}
+        <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, aim to cast{' '}
+        <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> before spamming{' '}
+        <SpellLink spell={SPELLS.VIVIFY} /> during a{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> peak (8-10+ active HoTs) or before
         casting{' '}
         {info.combatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT) ? (
-          <SpellLink id={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
+          <SpellLink spell={TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT} />
         ) : (
-          <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
+          <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
         )}
-        . You can cast <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with as little as 1
-        stack before casting <SpellLink id={TALENTS_MONK.REVIVAL_TALENT} /> in order to try to fish
-        for <SpellLink id={SPELLS.LESSON_OF_DOUBT_BUFF} /> to gain a significant healing boost to
-        one of your major raid cooldowns.
+        . You can cast <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with as little as 1
+        stack before casting <SpellLink spell={TALENTS_MONK.REVIVAL_TALENT} /> in order to try to
+        fish for <SpellLink spell={SPELLS.LESSON_OF_DOUBT_BUFF} /> to gain a significant healing
+        boost to one of your major raid cooldowns.
       </p>
     </>
   );
@@ -153,7 +153,7 @@ function SheilunsGraph({ modules, events, info }: GuideProps<typeof CombatLogPar
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> cloud efficiency
+            <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> cloud efficiency
           </strong>
           {modules.sheilunsGiftCloudGraph.plot}
         </RoundedPanel>
@@ -161,7 +161,7 @@ function SheilunsGraph({ modules, events, info }: GuideProps<typeof CombatLogPar
       <br />
       <RoundedPanel>
         <div style={styleObj}>
-          <SpellIcon id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} style={{ height: '28px' }} />{' '}
+          <SpellIcon spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} style={{ height: '28px' }} />{' '}
           <b>{modules.sheilunsGift.cloudsLost}</b>{' '}
           <small style={styleObjInner}>clouds wasted</small>
         </div>

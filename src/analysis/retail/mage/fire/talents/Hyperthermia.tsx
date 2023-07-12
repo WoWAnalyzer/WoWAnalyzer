@@ -22,7 +22,7 @@ class Hyperthermia extends Analyzer {
   castsDuringHyperthermia = () =>
     this.eventHistory.getEventsWithBuff(SPELLS.HYPERTHERMIA_BUFF, EventType.Cast, [
       TALENTS.PYROBLAST_TALENT,
-      TALENTS.FLAMESTRIKE_TALENT,
+      SPELLS.FLAMESTRIKE,
     ]).length || 0;
 
   totalProcs = () =>
@@ -38,7 +38,7 @@ class Hyperthermia extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.HYPERTHERMIA_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.HYPERTHERMIA_TALENT}>
           {formatNumber(this.totalProcs())} <small>Total Procs</small>
           <br />
           {formatNumber(this.castsPerProc)} <small>Avg. Casts per Proc</small>

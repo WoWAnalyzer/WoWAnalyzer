@@ -10,6 +10,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { PLACEHOLDER_TALENT } from 'common/TALENTS/types';
 
 const COOLDOWN_REDUCTION_MS = 1000;
 
@@ -26,7 +27,7 @@ class IcyPropulsion extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ICY_PROPULSION_TALENT);
+    this.active = false;
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 
@@ -66,7 +67,7 @@ class IcyPropulsion extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ICY_PROPULSION_TALENT.id}>
+        <BoringSpellValueText spell={PLACEHOLDER_TALENT}>
           <UptimeIcon /> {`${formatNumber(this.reductionSeconds)}s`} <small>Icy Veins CDR</small>
         </BoringSpellValueText>
       </Statistic>

@@ -745,6 +745,20 @@ const spells = spellIndexableList({
     name: 'Focusing Aim',
     icon: 'ability_impalingbolt',
   },
+  //T30 2P
+  T30_2P_BONUS_BEAST_MASTERY: {
+    id: 405524,
+    name: 'T30 2P',
+    icon: 'ability_hunter_killcommand',
+  },
+  //T30 4P
+
+  T30_4P_BONUS_BEAST_MASTERY: {
+    id: 405525,
+    name: 'T30 4P',
+    icon: 'ability_druid_ferociousbite',
+  },
+  //endregion
 });
 
 export default spells;

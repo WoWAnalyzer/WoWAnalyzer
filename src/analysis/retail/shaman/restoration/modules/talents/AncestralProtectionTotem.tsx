@@ -12,6 +12,7 @@ import { ApplyDebuffEvent, CastEvent, EventType, HasSource } from 'parser/core/E
 import Combatants from 'parser/shared/modules/Combatants';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 //RQXjBJ1kG9pAC2DV/21-Mythic++Atal'Dazar+-+Kill+(51:52)/Koorshaman/
 
@@ -102,7 +103,7 @@ class AncestralProtectionTotem extends Analyzer {
     return (
       <LazyLoadStatisticBox
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.ANCESTRAL_PROTECTION_TOTEM_TALENT} />}
         label={
           <Trans id="shaman.restoration.apt.statistic.label">Ancestral Protection Totem</Trans>
         }
@@ -145,7 +146,7 @@ class AncestralProtectionTotem extends Analyzer {
                     </th>
                     <td className={specClassName}>{combatant.name}</td>
                     <td style={{ textAlign: 'center' }}>
-                      <SpellLink id={event.ability.guid} icon={false}>
+                      <SpellLink spell={abilityToSpell(event.ability)} icon={false}>
                         <Icon icon={event.ability.abilityIcon} />{' '}
                         {this.spellToText(event.ability.guid)}
                       </SpellLink>

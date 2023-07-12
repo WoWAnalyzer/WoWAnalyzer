@@ -64,7 +64,7 @@ class Stoneform extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellIcon spell={SPELLS.STONEFORM_BUFF.id} />}
+        icon={<SpellIcon spell={SPELLS.STONEFORM_BUFF} />}
         value={`≈${formatNumber(this.drps)} DRPS`}
         label="Stoneform damage reduced"
         tooltip={

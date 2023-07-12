@@ -33,7 +33,9 @@ class ManaSpring extends Analyzer {
     }
 
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MANA_SPRING_ENHANCEMENT),
+      Events.resourcechange
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.MANA_SPRING_ENHANCEMENT, SPELLS.MANA_SPRING_RESTORATION]),
       this.onManaRestored,
     );
   }

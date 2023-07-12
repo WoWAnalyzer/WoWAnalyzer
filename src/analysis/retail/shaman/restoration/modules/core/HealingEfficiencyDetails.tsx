@@ -22,21 +22,21 @@ class HealingEfficiencyDetails extends CoreHealingEfficiencyDetails {
         explanation={
           <>
             <Trans id="shaman.restoration.healingEfficiencyDetails">
-              <SpellLink id={SPELLS.RESURGENCE.id} /> mana gained is removed from the spell, meaning
+              <SpellLink spell={SPELLS.RESURGENCE} /> mana gained is removed from the spell, meaning
               the mana spent of that spell will be lower.
               <br />
-              Healing that is caused by the <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> buff,
-              is added to <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT.id} /> instead of the spell
+              Healing that is caused by the <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> buff,
+              is added to <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> instead of the spell
               that was buffed.
               <br />
-              <SpellLink id={TALENTS.EARTH_SHIELD_TALENT.id} /> is given the healing from its
+              <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} /> is given the healing from its
               healing buff and is removed from the spells that were buffed.
             </Trans>
             <br />
             <Trans id="shaman.restoration.healingEfficiencyDetails2">
-              <SpellLink id={TALENTS.PRIMORDIAL_WAVE_TALENT.id} /> is given the healing from its
-              created <SpellLink id={TALENTS.RIPTIDE_TALENT.id} /> &{' '}
-              <SpellLink id={TALENTS.HEALING_WAVE_TALENT.id} /> and is removed from those spells.
+              <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> is given the healing from its
+              created <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> &{' '}
+              <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> and is removed from those spells.
             </Trans>
           </>
         }

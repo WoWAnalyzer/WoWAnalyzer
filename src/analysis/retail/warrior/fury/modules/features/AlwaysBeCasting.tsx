@@ -26,7 +26,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <span>
           Your downtime can be improved. Try to Always Be Casting (ABC). It's better to cast
-          low-priority abilities such as <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> than it is
+          low-priority abilities such as <SpellLink spell={SPELLS.WHIRLWIND_FURY_CAST} /> than it is
           to do nothing.
         </span>,
       )

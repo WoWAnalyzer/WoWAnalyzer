@@ -101,7 +101,7 @@ class Stasis extends Analyzer {
     }
     return (
       <>
-        <SpellLink key={key} id={spellid} />
+        <SpellLink key={key} spell={spellid} />
         <br />
       </>
     );
@@ -474,15 +474,15 @@ class Stasis extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} />
         </b>{' '}
         is a powerful talent that stores your 3 most recent healing spell that will be released with
         identical targets. Notably, it can not store{' '}
         <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} />,{' '}
         <SpellLink spell={TALENTS_EVOKER.REWIND_TALENT} />, or{' '}
         <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />. In general, you should always
-        store at least 1 <SpellLink id={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> if talented into{' '}
-        <SpellLink spell={TALENTS_EVOKER.RESONATING_SPHERE_TALENT} />. If not using{' '}
+        store at least 1 <SpellLink spell={TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT} /> if talented
+        into <SpellLink spell={TALENTS_EVOKER.RESONATING_SPHERE_TALENT} />. If not using{' '}
         <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> to ramp with{' '}
         <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />, then you should aim to use
         both <SpellLink spell={TALENTS_EVOKER.DREAM_BREATH_TALENT} /> and{' '}
@@ -498,7 +498,7 @@ class Stasis extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.STASIS_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -551,7 +551,7 @@ class Stasis extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         wide
       >
-        <SpellLink id={TALENTS_EVOKER.STASIS_TALENT.id} /> <small>spell breakdown</small>
+        <SpellLink spell={TALENTS_EVOKER.STASIS_TALENT} /> <small>spell breakdown</small>
         <br />
         <table className="table table-condensed">
           <thead>

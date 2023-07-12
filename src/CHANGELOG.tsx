@@ -25,6 +25,12 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 10), 'Regenerate talents for 10.1.5.', ToppleTheNun),
+  change(date(2023, 7, 10), 'Update remaining SpellLink usage.', ToppleTheNun),
+  change(date(2023, 7, 9), 'Update SpellLink usage for all classic specs.', ToppleTheNun),
+  change(date(2023, 7, 7), 'Add missing encounters to S2 M+.', ToppleTheNun),
+  change(date(2023, 7, 7), 'Add patch 10.1.5 details.', ToppleTheNun),
+  change(date(2023, 7, 3), 'Fix an issue causing cast efficiency for spells to be artificially inflated', Putro),
   change(date(2023, 6, 30), 'Regenerate talents.', ToppleTheNun),
   change(date(2023, 6, 28), 'Update retail realms for US, EU, TW, and KR.', ToppleTheNun),
   change(date(2023, 6, 26), 'Improve ability to have custom ESLint rules.', ToppleTheNun),

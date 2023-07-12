@@ -35,7 +35,7 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
           - like while handling mechanics or during intermission phases.
         </p>
         The chart below shows your <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> over the course of
-        the encounter. You spent{' '}
+        the encounter. You wasted{' '}
         <PerformanceStrongWithTooltip
           performance={modules.focusTracker.percentAtCapPerformance}
           tooltip={
@@ -54,8 +54,7 @@ export default function ResourceUseSection(modules: ModulesOf<typeof CombatLogPa
           {formatNumber(modules.focusTracker.wasted)} (
           {formatPercentage(modules.focusTracker.percentAtCap, 1)}%)
         </PerformanceStrongWithTooltip>{' '}
-        <ResourceLink id={RESOURCE_TYPES.FOCUS.id} /> wasted.
-        {modules.focusGraph.plot}
+        <ResourceLink id={RESOURCE_TYPES.FOCUS.id} />.{modules.focusGraph.plot}
       </SubSection>
     </Section>
   );

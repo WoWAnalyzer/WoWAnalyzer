@@ -42,11 +42,11 @@ export default class Envenom extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.ENVENOM.id} />
+          <SpellLink spell={SPELLS.ENVENOM} />
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied{' '}
-        <SpellLink id={SPELLS.RUPTURE} /> to enemies. Always use{' '}
-        <SpellLink id={SPELLS.ENVENOM.id} /> at {targetCps}-{maxCps} CPs.
+        <SpellLink spell={SPELLS.RUPTURE} /> to enemies. Always use{' '}
+        <SpellLink spell={SPELLS.ENVENOM} /> at {targetCps}-{maxCps} CPs.
       </p>
     );
 
@@ -88,38 +88,39 @@ export default class Envenom extends Analyzer {
     if (acceptableTimeLeftOnRupture) {
       ruptureDetails = (
         <div>
-          You cast <SpellLink id={SPELLS.ENVENOM} /> with{' '}
-          {formatDurationMillisMinSec(timeLeftOnRupture)} left on <SpellLink id={SPELLS.RUPTURE} />.
+          You cast <SpellLink spell={SPELLS.ENVENOM} /> with{' '}
+          {formatDurationMillisMinSec(timeLeftOnRupture)} left on{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />.
         </div>
       );
     } else if (timeLeftOnRupture > 1000) {
       ruptureDetails = (
         <div>
-          You cast <SpellLink id={SPELLS.ENVENOM} /> with{' '}
-          {formatDurationMillisMinSec(timeLeftOnRupture)} left on <SpellLink id={SPELLS.RUPTURE} />.
-          Try not to cast <SpellLink id={SPELLS.ENVENOM} /> with less than{' '}
-          {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left on{' '}
-          <SpellLink id={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
-          <SpellLink id={SPELLS.RUPTURE} />.
+          You cast <SpellLink spell={SPELLS.ENVENOM} /> with{' '}
+          {formatDurationMillisMinSec(timeLeftOnRupture)} left on{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />. Try not to cast <SpellLink spell={SPELLS.ENVENOM} />{' '}
+          with less than {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left
+          on <SpellLink spell={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />.
         </div>
       );
     } else if (timeLeftOnRupture > 0) {
       ruptureDetails = (
         <div>
-          You cast <SpellLink id={SPELLS.ENVENOM} /> with less than 1s left on{' '}
-          <SpellLink id={SPELLS.RUPTURE} />. Try not to cast <SpellLink id={SPELLS.ENVENOM} /> with
-          less than {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left on{' '}
-          <SpellLink id={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
-          <SpellLink id={SPELLS.RUPTURE} />.
+          You cast <SpellLink spell={SPELLS.ENVENOM} /> with less than 1s left on{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />. Try not to cast <SpellLink spell={SPELLS.ENVENOM} />{' '}
+          with less than {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left
+          on <SpellLink spell={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />.
         </div>
       );
     } else {
       ruptureDetails = (
         <div>
-          You cast <SpellLink id={SPELLS.ENVENOM} /> with no <SpellLink id={SPELLS.RUPTURE} />{' '}
+          You cast <SpellLink spell={SPELLS.ENVENOM} /> with no <SpellLink spell={SPELLS.RUPTURE} />{' '}
           applied to the target. Always ensure that your target has{' '}
-          <SpellLink id={SPELLS.RUPTURE} /> applied before casting <SpellLink id={SPELLS.ENVENOM} />
-          .
+          <SpellLink spell={SPELLS.RUPTURE} /> applied before casting{' '}
+          <SpellLink spell={SPELLS.ENVENOM} />.
         </div>
       );
     }
@@ -140,7 +141,7 @@ export default class Envenom extends Analyzer {
       cpsDetails = (
         <div>
           You spent {cpsSpent} CPs. Try to always spend at least {targetCps} CPs when casting{' '}
-          <SpellLink id={SPELLS.ENVENOM} />.
+          <SpellLink spell={SPELLS.ENVENOM} />.
         </div>
       );
     }

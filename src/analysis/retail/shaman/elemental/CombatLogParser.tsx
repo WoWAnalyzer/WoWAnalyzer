@@ -32,6 +32,8 @@ import SurgeOfPower from './modules/talents/SurgeOfPower';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
+import ElementalGuide from './guide/ElementalGuide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -61,6 +63,7 @@ class CombatLogParser extends CoreCombatLogParser {
     icefury: Icefury,
     stormkeeper: Stormkeeper,
     ascendance: Ascendance,
+    manaSpring: ManaSpring,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
@@ -70,6 +73,8 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     callToDominance: CallToDominance,
   };
+
+  static guide = ElementalGuide;
 }
 
 export default CombatLogParser;

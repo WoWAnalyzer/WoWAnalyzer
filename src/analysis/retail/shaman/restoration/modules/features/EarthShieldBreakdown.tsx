@@ -138,7 +138,7 @@ class EarthShieldBreakdown extends Analyzer {
   earthenHarmonyBaseTooltip() {
     return (
       <>
-        <SpellLink id={talents.EARTH_SHIELD_TALENT} />:
+        <SpellLink spell={talents.EARTH_SHIELD_TALENT} />:
         <br />
         {this.shieldIcon()}{' '}
         <strong>{formatNumber(this.earthenHarmony.earthShielddamageReduced)}</strong> damage
@@ -153,8 +153,8 @@ class EarthShieldBreakdown extends Analyzer {
   earthenHarmonyEOTooltip() {
     return (
       <>
-        <SpellLink id={talents.EARTH_SHIELD_TALENT} /> from{' '}
-        <SpellLink id={talents.ELEMENTAL_ORBIT_TALENT} />:
+        <SpellLink spell={talents.EARTH_SHIELD_TALENT} /> from{' '}
+        <SpellLink spell={talents.ELEMENTAL_ORBIT_TALENT} />:
         <br />
         {this.shieldIcon()}{' '}
         <strong>{formatNumber(this.earthenHarmony.elementalOrbitDamageReduced)}</strong> damage
@@ -171,7 +171,7 @@ class EarthShieldBreakdown extends Analyzer {
     return (
       <>
         {this.healingIcon()} <strong>{formatNumber(this.surgingShields.earthShieldHealing)}</strong>{' '}
-        additional <SpellLink id={talents.EARTH_SHIELD_TALENT} /> healing
+        additional <SpellLink spell={talents.EARTH_SHIELD_TALENT} /> healing
       </>
     );
   }
@@ -181,8 +181,8 @@ class EarthShieldBreakdown extends Analyzer {
       <>
         {this.healingIcon()}{' '}
         <strong>{formatNumber(this.surgingShields.elementalOrbitEarthShieldHealing)}</strong>{' '}
-        additional <SpellLink id={talents.EARTH_SHIELD_TALENT} /> healing from{' '}
-        <SpellLink id={talents.ELEMENTAL_ORBIT_TALENT} />
+        additional <SpellLink spell={talents.EARTH_SHIELD_TALENT} /> healing from{' '}
+        <SpellLink spell={talents.ELEMENTAL_ORBIT_TALENT} />
       </>
     );
   }
@@ -200,7 +200,7 @@ class EarthShieldBreakdown extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink id={talents.EARTH_SHIELD_TALENT.id} /> -{' '}
+            <SpellLink spell={talents.EARTH_SHIELD_TALENT} /> -{' '}
             <ItemHealingDone amount={this.totalHealing} displayPercentage={this.wide} />
           </>
         }

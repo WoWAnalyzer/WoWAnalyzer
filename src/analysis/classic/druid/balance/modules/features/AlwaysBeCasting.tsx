@@ -15,7 +15,7 @@ export const displayInstantCastSpells = () => (
     {instantCastSpells.map((s, i) => (
       <>
         {i ? ', ' : ' '}
-        <SpellLink key="abc-{i}" id={s} />
+        <SpellLink key="abc-{i}" spell={s} />
       </>
     ))}
   </>

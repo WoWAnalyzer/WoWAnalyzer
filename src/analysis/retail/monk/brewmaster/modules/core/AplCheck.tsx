@@ -78,7 +78,7 @@ const commonLowPrio = [
   talents.CHI_BURST_TALENT,
 ];
 
-const commonHighPrio = [EK_SCK, talents.BONEDUST_BREW_TALENT];
+const commonHighPrio = [EK_SCK];
 
 const rotation_boc_dfb = build([
   ...commonHighPrio,

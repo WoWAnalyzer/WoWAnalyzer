@@ -26,11 +26,11 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         description={
           <>
             Any time you are not casting something, that is damage that is lost. Mage has many ways
-            to decrease downtime, such as using <SpellLink id={SPELLS.BLINK.id} /> to get somewhere
-            faster so you can continue casting or using <SpellLink id={SPELLS.SCORCH.id} /> while
+            to decrease downtime, such as using <SpellLink spell={SPELLS.BLINK} /> to get somewhere
+            faster so you can continue casting or using <SpellLink spell={SPELLS.SCORCH} /> while
             you are moving; even phases where the only target is taking 99% reduced damage is an
             opportunity to fish for procs or get cooldown reduction from crits if you are using{' '}
-            <SpellLink id={TALENTS.KINDLING_TALENT.id} />. While some encounters have forced
+            <SpellLink spell={TALENTS.KINDLING_TALENT} />. While some encounters have forced
             downtime, which WoWAnalyzer does not account for, anything you can do to minimize your
             downtime will help your damage. Additionally, to better contextualize your downtime, we
             recommend comparing your downtime to another Fire Mage that did better than you on the
@@ -47,21 +47,21 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         description={
           <>
             As a Fire Mage, the vast majority if your damage is going to come from{' '}
-            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. Therefore it is critical that you do
+            <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. Therefore it is critical that you do
             everything you can to get the most out of{' '}
-            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />, including getting the most out of
-            abilities that empower <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. This not only
-            includes the abilities you use during <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />,
-            but also pooling resources, like <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
-            <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />, before{' '}
-            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
+            <SpellLink spell={TALENTS.COMBUSTION_TALENT} />, including getting the most out of
+            abilities that empower <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. This not only
+            includes the abilities you use during <SpellLink spell={TALENTS.COMBUSTION_TALENT} />,
+            but also pooling resources, like <SpellLink spell={SPELLS.FIRE_BLAST} /> and{' '}
+            <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />, before{' '}
+            <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
           </>
         }
       >
         <AbilityRequirement
           name={
             <>
-              <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> Cast Efficiency
+              <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> Cast Efficiency
             </>
           }
           spell={TALENTS.COMBUSTION_TALENT.id}
@@ -111,19 +111,19 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         description={
           <>
             Fire Mage revolves almost entirely around the buffs{' '}
-            <SpellLink id={SPELLS.HEATING_UP.id} /> and <SpellLink id={SPELLS.HOT_STREAK.id} />, so
+            <SpellLink spell={SPELLS.HEATING_UP} /> and <SpellLink spell={SPELLS.HOT_STREAK} />, so
             it is very important that you understand how these procs work. Essentially, when you get
-            a crit with a direct damage ability, like <SpellLink id={SPELLS.FIREBALL.id} /> or{' '}
-            <SpellLink id={TALENTS.PYROBLAST_TALENT.id} />, you will get a{' '}
-            <SpellLink id={SPELLS.HEATING_UP.id} /> proc. If you get a second consecutive crit with
-            a direct damage ability, you will get a <SpellLink id={SPELLS.HOT_STREAK.id} /> proc
-            which makes your next <SpellLink id={TALENTS.PYROBLAST_TALENT.id} /> or{' '}
-            <SpellLink id={TALENTS.FLAMESTRIKE_TALENT.id} /> cast be instant cast. Additionally, you
-            have spells like <SpellLink id={SPELLS.FIRE_BLAST.id} /> which is always guaranteed to
-            crit and spells like <SpellLink id={SPELLS.SCORCH.id} /> which are guaranteed to crit
-            when the target is below 30% health (If you are using the{' '}
-            <SpellLink id={TALENTS.SEARING_TOUCH_TALENT.id} /> talent). These can be used to force{' '}
-            <SpellLink id={SPELLS.HOT_STREAK.id} /> procs.
+            a crit with a direct damage ability, like <SpellLink spell={SPELLS.FIREBALL} /> or{' '}
+            <SpellLink spell={TALENTS.PYROBLAST_TALENT} />, you will get a{' '}
+            <SpellLink spell={SPELLS.HEATING_UP} /> proc. If you get a second consecutive crit with
+            a direct damage ability, you will get a <SpellLink spell={SPELLS.HOT_STREAK} /> proc
+            which makes your next <SpellLink spell={TALENTS.PYROBLAST_TALENT} /> or{' '}
+            <SpellLink spell={SPELLS.FLAMESTRIKE} /> cast be instant cast. Additionally, you have
+            spells like <SpellLink spell={SPELLS.FIRE_BLAST} /> which is always guaranteed to crit
+            and spells like <SpellLink spell={SPELLS.SCORCH} /> which are guaranteed to crit when
+            the target is below 30% health (If you are using the{' '}
+            <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} /> talent). These can be used to force{' '}
+            <SpellLink spell={SPELLS.HOT_STREAK} /> procs.
           </>
         }
       >
@@ -167,7 +167,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement
           name={
             <>
-              <SpellLink id={SPELLS.FIRE_BLAST.id} /> Cast Efficiency
+              <SpellLink spell={SPELLS.FIRE_BLAST} /> Cast Efficiency
             </>
           }
           spell={SPELLS.FIRE_BLAST.id}
@@ -175,7 +175,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement
           name={
             <>
-              <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> Cast Efficiency
+              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> Cast Efficiency
             </>
           }
           spell={TALENTS.PHOENIX_FLAMES_TALENT.id}
@@ -184,27 +184,17 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.BLAST_WAVE_TALENT.id} /> Cast Efficiency
+                <SpellLink spell={TALENTS.BLAST_WAVE_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.BLAST_WAVE_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.RUNE_OF_POWER_TALENT.id}
           />
         )}
         {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT) && (
           <AbilityRequirement
             name={
               <>
-                <SpellLink id={TALENTS.LIVING_BOMB_TALENT.id} /> Cast Efficiency
+                <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /> Cast Efficiency
               </>
             }
             spell={TALENTS.LIVING_BOMB_TALENT.id}
@@ -214,17 +204,10 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.METEOR_TALENT.id} />
+                <SpellLink spell={TALENTS.METEOR_TALENT} />
               </>
             }
             thresholds={thresholds.meteorEfficiency}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.PYROCLASM_TALENT) && (
-          <Requirement
-            name="Pyroclasm procs used"
-            thresholds={thresholds.pyroclasmUtilization}
-            tooltip="Pyroclasm has a chance to give you a buff that makes your next non instant Pyroblast deal 225% additional damage. You should ensure that you are using these procs (especially during Combustion) somewhat quickly to ensure you dont waste or overwrite any of these procs."
           />
         )}
         {combatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT) && (
@@ -234,28 +217,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             tooltip="Searing Touch causes Scorch to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball."
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Average time spent inside Rune of Power"
-            thresholds={thresholds.runeOfPowerBuffUptime}
-            tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, then either plan out a more optimal time or place to be using your Rune of Power, or consider taking a different talent instead."
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Rune of Power overlapped casts"
-            thresholds={thresholds.runeOfPowerOverlaps}
-            tooltip="Casting your major cooldown (Combustion) automatically drops a Rune of Power at your feet, so you do not need to manually cast it before using Combustion. Because of this you should wait to use Rune of Power until after Combustion ends, or use it far enough before Combustion so that it will end before Combustion is cast to wasting uptime by having your runes overlapped."
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) &&
-          combatant.hasTalent(TALENTS.METEOR_TALENT) && (
-            <Requirement
-              name="Meteor Overall Utilization"
-              thresholds={thresholds.meteorUtilization}
-              tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
-            />
-          )}
         {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
           <Requirement
             name="Shifting Power proper usage"

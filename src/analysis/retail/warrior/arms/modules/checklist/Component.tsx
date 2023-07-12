@@ -40,7 +40,7 @@ const ArmsWarriorChecklist = ({
             mistakes will compound themselves and result in a large final DPS loss. Use the graphic
             below to see if you are making small rotational mistakes.
             <strong> NOTE:</strong> The priority list below does not include{' '}
-            <SpellLink id={TALENTS.REND_ARMS_TALENT.id} icon />
+            <SpellLink spell={TALENTS.REND_ARMS_TALENT} icon />
             <br />
           </div>
         }
@@ -49,23 +49,24 @@ const ArmsWarriorChecklist = ({
         <Rule
           name={
             <>
-              Use <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> efficiently
+              Use <SpellLink spell={SPELLS.MORTAL_STRIKE} /> efficiently
             </>
           }
           description={
             <>
-              Try to use as many <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> as possible. It is
+              Try to use as many <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> as possible. It is
               generally your strongest hitting ability, unless you are in{' '}
-              <SpellLink id={SPELLS.EXECUTE} /> range and do not have the{' '}
-              <SpellLink id={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent. Especially with the
-              4-set bonus in Season 1 of Dragonflight, where keeping up your buff up is important.
+              <SpellLink spell={SPELLS.EXECUTE} /> range and do not have the{' '}
+              <SpellLink spell={TALENTS.EXECUTIONERS_PRECISION_TALENT} /> talent. Especially with
+              the 4-set bonus in Season 1 of Dragonflight, where keeping up your buff up is
+              important.
             </>
           }
         >
           <Requirement
             name={
               <>
-                <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> uses
+                <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> uses
               </>
             }
             thresholds={thresholds.mortalStrikeUsage}
@@ -85,7 +86,7 @@ const ArmsWarriorChecklist = ({
           <>
             As a melee DPS, it is important to stay within range of the target and cast your
             abilities promptly. If you find yourself out of range, try using{' '}
-            <SpellLink id={SPELLS.CHARGE.id} /> and <SpellLink id={SPELLS.HEROIC_LEAP.id} /> to get
+            <SpellLink spell={SPELLS.CHARGE} /> and <SpellLink spell={SPELLS.HEROIC_LEAP} /> to get
             back more quickly.
           </>
         }

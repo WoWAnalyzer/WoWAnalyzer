@@ -57,7 +57,7 @@ class Avatar extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={TALENTS.AVATAR_PROTECTION_TALENT.id} /> Damage Contributed
+              <SpellIcon spell={TALENTS.AVATAR_PROTECTION_TALENT} /> Damage Contributed
             </>
           }
         >

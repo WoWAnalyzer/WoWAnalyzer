@@ -47,7 +47,7 @@ class ShiftingPower extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.SHIFTING_POWER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SHIFTING_POWER_TALENT}>
           <>
             <small>Cooldown Reduction by Spell</small>
             <br />
@@ -56,7 +56,7 @@ class ShiftingPower extends Analyzer {
                 {Object.entries(this.spellReductions).map((spell, index) => (
                   <tr key={index} style={{ fontSize: 16 }}>
                     <td>
-                      <SpellLink id={Number(spell[0])} />
+                      <SpellLink spell={Number(spell[0])} />
                     </td>
                     <td>{formatNumber(spell[1] / 1000)}s</td>
                   </tr>

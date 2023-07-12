@@ -150,7 +150,7 @@ class SuddenDeath extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={talents.SUDDEN_DEATH_FURY_TALENT.id}>
+        <BoringSpellValueText spell={talents.SUDDEN_DEATH_FURY_TALENT}>
           <>
             {this.suddenDeathProcsUsed} / {this.suddenDeathProcs} procs used
           </>

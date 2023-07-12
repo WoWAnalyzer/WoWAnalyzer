@@ -59,7 +59,7 @@ class PainAndSuffering extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.PAIN_AND_SUFFERING_TALENT}>
           <>
             <ItemHealingDone amount={this.healing} /> <br />
             <ItemDamageDone amount={this.damage} />

@@ -6,6 +6,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 
 const AFFECTED_ABILITIES = [
   SPELLS.LIGHTNING_BOLT_OVERLOAD,
@@ -31,7 +33,13 @@ class Stormkeeper extends Analyzer {
   }
 
   onSKDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(
+        TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
+        event.timestamp,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
+      )
+    ) {
       return;
     }
 
@@ -41,12 +49,26 @@ class Stormkeeper extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT}>
           <>
             <ItemDamageDone amount={this.damageDoneByBuffedCasts} />
           </>
         </BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  guideSubsection(): JSX.Element {
+    const explanation = <>TODO</>;
+    const data = this.statistic();
+
+    return (
+      <ExplanationAndDataSubSection
+        title="Stormkeeper"
+        explanationPercent={GUIDE_EXPLANATION_PERCENT_WIDTH}
+        explanation={explanation}
+        data={data}
+      />
     );
   }
 }

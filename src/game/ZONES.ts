@@ -1,6 +1,7 @@
 // a butchered version of https://www.warcraftlogs.com:443/v1/zones
 // only includes the raids from Dragonflight (showing older logs wouldn't make sense)
 import mythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
+import mythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import vaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 import aberrus from 'game/raids/aberrus';
 
@@ -71,7 +72,16 @@ const ZONES: Zone[] = [
     id: 34,
     name: 'Mythic+ Season 2',
     frozen: false,
-    encounters: [],
+    encounters: [
+      mythicPlusSeasonTwo.bosses.BrackenhideHollow,
+      mythicPlusSeasonTwo.bosses.Freehold,
+      mythicPlusSeasonTwo.bosses.HallsOfInfusion,
+      mythicPlusSeasonTwo.bosses.NeltharionsLair,
+      mythicPlusSeasonTwo.bosses.Neltharus,
+      mythicPlusSeasonTwo.bosses.Uldaman,
+      mythicPlusSeasonTwo.bosses.Underrot,
+      mythicPlusSeasonTwo.bosses.VortexPinnacle,
+    ],
     usePtrTooltips: false,
   },
 ];

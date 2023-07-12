@@ -13,6 +13,11 @@ const spells = spellIndexableList({
     name: 'Fireball',
     icon: 'spell_fire_flamebolt',
   },
+  FLAMESTRIKE: {
+    id: 2120,
+    name: 'Flamestrike',
+    icon: 'spell_fire_selfdestruct',
+  },
   FIRE_BLAST: {
     id: 108853,
     name: 'Fire Blast',

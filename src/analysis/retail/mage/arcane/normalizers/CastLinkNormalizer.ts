@@ -34,9 +34,9 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_HARDCAST,
-    linkingEventId: TALENTS.ARCANE_BARRAGE_TALENT.id,
+    linkingEventId: SPELLS.ARCANE_BARRAGE.id,
     linkingEventType: EventType.Damage,
-    referencedEventId: TALENTS.ARCANE_BARRAGE_TALENT.id,
+    referencedEventId: SPELLS.ARCANE_BARRAGE.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: FORWARD_BUFFER_MS,
     backwardBufferMs: 1500,

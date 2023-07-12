@@ -45,7 +45,6 @@ const spells: number[] = [
   //endregion
 
   //region Mage
-  SPELLS.RUNE_OF_POWER_BUFF.id,
   SPELLS.SHIFTING_POWER_TICK.id,
   //endregion
 
@@ -65,6 +64,10 @@ const spells: number[] = [
 
   //region monk
   SPELLS.ESCAPE_FROM_REALITY_CAST.id,
+  //endregion
+
+  //region paladin
+  SPELLS.RECLAMATION_CAST.id,
   //endregion
 
   //region trinket

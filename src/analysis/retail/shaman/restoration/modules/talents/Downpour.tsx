@@ -127,7 +127,7 @@ class Downpour extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.DOWNPOUR_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.DOWNPOUR_TALENT} />}
         value={
           <Trans id="shaman.restoration.downpour.statistic.value">
             {downpourAverageCooldown.toFixed(1)} seconds
@@ -160,7 +160,7 @@ class Downpour extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.DOWNPOUR_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.DOWNPOUR_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

@@ -47,7 +47,7 @@ class Abilities extends CoreAbilities {
             : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
         gcd: {
-          base: 500,
+          base: 1500,
         },
         ...(combatant.spec === (SPECS.DEVASTATION_EVOKER || SPECS.AUGMENTATION_EVOKER) && {
           castEfficiency: {

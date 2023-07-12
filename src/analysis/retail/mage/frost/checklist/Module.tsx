@@ -1,4 +1,4 @@
-import { ArcaneIntellect, CancelledCasts, RuneOfPower } from 'analysis/retail/mage/shared';
+import { ArcaneIntellect, CancelledCasts } from 'analysis/retail/mage/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -29,7 +29,6 @@ class Checklist extends BaseChecklist {
     wintersChill: WintersChill,
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
-    runeOfPower: RuneOfPower,
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
     waterElemental: WaterElemental,
@@ -45,7 +44,6 @@ class Checklist extends BaseChecklist {
   protected wintersChill!: WintersChill;
   protected arcaneIntellect!: ArcaneIntellect;
   protected cancelledCasts!: CancelledCasts;
-  protected runeOfPower!: RuneOfPower;
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
   protected waterElemental!: WaterElemental;
@@ -71,7 +69,6 @@ class Checklist extends BaseChecklist {
           wintersChillHardCasts: this.wintersChill.wintersChillPreCastThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
-          runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
           waterElementalUptime: this.waterElemental.waterElementalUptimeThresholds,
         }}
       />

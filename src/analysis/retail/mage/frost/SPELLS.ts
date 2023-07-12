@@ -32,6 +32,11 @@ const spells = spellIndexableList({
     name: 'Frostbolt',
     icon: 'spell_frost_frostbolt02',
   },
+  BLIZZARD: {
+    id: 190356,
+    name: 'Blizzard',
+    icon: 'spell_frost_icestorm',
+  },
   WATERBOLT: {
     id: 31707,
     name: 'Waterbolt',
@@ -82,11 +87,6 @@ const spells = spellIndexableList({
     name: 'Frozen orb',
     icon: 'spell_frost_frozenorb',
   },
-  EBONBOLT_DAMAGE: {
-    id: 257538,
-    name: 'Ebonbolt',
-    icon: 'artifactability_frostmage_ebonbolt',
-  },
   COMET_STORM_DAMAGE: {
     id: 153596,
     name: 'Comet Storm',
@@ -116,6 +116,11 @@ const spells = spellIndexableList({
     id: 327327,
     name: 'Cold Front',
     icon: 'ability_mage_coldasice',
+  },
+  COLD_SNAP: {
+    id: 235219,
+    name: 'Cold Snap',
+    icon: 'spell_frost_wizardmark',
   },
 });
 

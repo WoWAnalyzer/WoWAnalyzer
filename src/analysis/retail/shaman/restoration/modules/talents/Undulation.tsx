@@ -38,7 +38,7 @@ class Undulation extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.UNDULATION_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.UNDULATION_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

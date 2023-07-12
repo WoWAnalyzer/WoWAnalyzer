@@ -36,7 +36,7 @@ class RushingJadeWind extends Analyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You had low uptime on <SpellLink id={talents.RUSHING_JADE_WIND_TALENT.id} />. Try to
+          You had low uptime on <SpellLink spell={talents.RUSHING_JADE_WIND_TALENT} />. Try to
           maintain 100% uptime by refreshing the buff before it drops.
         </>,
       )

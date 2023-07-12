@@ -38,8 +38,8 @@ const CONFIG: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/BZj17n6XTYCLaQPN/37-Hardmode+Thorim+-+Kill+(2:53)/Jazl',
-  guideDefault: false,
+  exampleReport: "/report/BMT7atLzGvV9R8FJ/11-Heroic+Twin+Val'kyr+-+Kill+(2:51)/Jazminites",
+  guideDefault: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

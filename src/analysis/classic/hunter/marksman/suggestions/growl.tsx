@@ -16,9 +16,9 @@ const growl =
       return {
         text: (
           <Trans id="tbc.suggestions.hunter.growl">
-            Your pet cast <SpellLink id={SPELLS.GROWL} />. You should not cast it when playing with
-            a tank to avoid your pet from taking aggro. In addition, casting{' '}
-            <SpellLink id={SPELLS.GROWL} /> costs energy, which may reduce your pet's DPS.
+            Your pet cast <SpellLink spell={SPELLS.GROWL} />. You should not cast it when playing
+            with a tank to avoid your pet from taking aggro. In addition, casting{' '}
+            <SpellLink spell={SPELLS.GROWL} /> costs energy, which may reduce your pet's DPS.
           </Trans>
         ),
         importance: SuggestionImportance.Regular,

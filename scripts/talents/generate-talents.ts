@@ -6,7 +6,7 @@ import {
   csvToObject,
   findResourceCost,
   printTalents,
-  readCsvFromFile,
+  readCsvFromUrl,
   readJsonFromUrl,
 } from './talent-tree-helpers';
 import {
@@ -20,12 +20,12 @@ import {
   TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '10.1.0.50000';
+const LIVE_WOW_BUILD_NUMBER = '10.1.5.50401';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
-const LIVE_SPELLPOWER_DATA_FILE = `./spellpower_${LIVE_WOW_BUILD_NUMBER}.csv`;
-const PTR_WOW_BUILD_NUMBER = '10.1.5.50232';
+const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
+const PTR_WOW_BUILD_NUMBER = '10.1.5.50401';
 const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/ptr/talents.json';
-const PTR_SPELLPOWER_DATA_FILE = `./spellpower_${PTR_WOW_BUILD_NUMBER}.csv`;
+const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   //TODO Non Mana users verification
@@ -49,10 +49,15 @@ const withResources = (
   talent: GenericTalentInterface,
   classId: number,
 ): GenericTalentInterface => {
-  const entryInSpellPowerTable = spellpower.find((e) => Number(e.SpellID) === talent.id);
-  if (entryInSpellPowerTable) {
+  const spellPowerEntries = spellpower.filter((e) => Number(e.SpellID) === talent.id);
+  let updatedTalent = talent;
+  for (const entryInSpellPowerTable of spellPowerEntries) {
     const resourceId = Number(entryInSpellPowerTable.PowerType);
     const resourceName = ResourceTypes[resourceId];
+    if (resourceName === undefined) {
+      // not all resources are in the enum. in particular: -2 is used for healing (i think?) and is not present
+      continue;
+    }
     const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
     const cost = findResourceCost(
       entryInSpellPowerTable,
@@ -60,14 +65,20 @@ const withResources = (
       classes[classId].baseMaxResource,
     );
 
-    return {
-      ...talent,
-      [resourceCostKey]: cost,
+    if (cost === 0) {
+      // some 0 costs are included in the SpellPower table. skip them
+      continue;
+    }
+
+    updatedTalent = {
+      ...updatedTalent,
+      // use the lowest observed non-zero cost.
+      // note: this is non-zero because we never reach this point with a 0 cost
+      [resourceCostKey]: Math.min(cost, updatedTalent[resourceCostKey] ?? Infinity),
     };
-  } else {
-    // no resource cost found
-    return talent;
   }
+
+  return updatedTalent;
 };
 
 const entryToSpell = (
@@ -134,9 +145,11 @@ async function generateTalents(isPTR: boolean = false) {
   const talents: ITalentTree[] = await readJsonFromUrl(
     isPTR ? PTR_TALENT_DATA_URL : LIVE_TALENT_DATA_URL,
   );
-  const spellpower: ISpellpower[] = csvToObject(
-    readCsvFromFile(isPTR ? PTR_SPELLPOWER_DATA_FILE : LIVE_SPELLPOWER_DATA_FILE),
+
+  const spellpowerCsv = await readCsvFromUrl(
+    isPTR ? PTR_SPELLPOWER_DATA_URL : LIVE_SPELLPOWER_DATA_URL,
   );
+  const spellpower: ISpellpower[] = csvToObject(spellpowerCsv);
 
   const talentsByClass = talents.reduce((map: Record<string, ITalentTree[]>, tree) => {
     if (!map[tree.className]) {

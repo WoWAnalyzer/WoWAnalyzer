@@ -49,7 +49,7 @@ class SpiritWolf extends Analyzer {
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(45)}
         category={STATISTIC_CATEGORY.TALENTS}
-        icon={<SpellIcon id={TALENTS_SHAMAN.SPIRIT_WOLF_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS_SHAMAN.SPIRIT_WOLF_TALENT} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
         label={<Trans id="shaman.shared.damageReduced.label">Estimated damage reduced</Trans>}
         tooltip={
@@ -58,7 +58,7 @@ class SpiritWolf extends Analyzer {
             <br />
             This is the lowest possible value. This value is pretty accurate for this log if you are
             looking at the actual gain over not having{' '}
-            <SpellLink id={TALENTS_SHAMAN.SPIRIT_WOLF_TALENT.id} /> bonus at all, but the gain may
+            <SpellLink spell={TALENTS_SHAMAN.SPIRIT_WOLF_TALENT} /> bonus at all, but the gain may
             end up higher when taking interactions with other damage reductions into account.
           </Trans>
         }

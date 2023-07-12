@@ -58,7 +58,7 @@ class FervorOfBattle extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={TALENTS.FERVOR_OF_BATTLE_TALENT.id} /> bonus damage
+            <SpellLink spell={TALENTS.FERVOR_OF_BATTLE_TALENT} /> bonus damage
           </>
         }
         value={`${formatThousands(this.dps)} DPS`}

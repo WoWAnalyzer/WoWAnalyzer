@@ -72,16 +72,16 @@ class DampenHarm extends MajorDefensiveBuff {
     return (
       <>
         <p>
-          <SpellLink id={talents.DAMPEN_HARM_TALENT} /> provides{' '}
+          <SpellLink spell={talents.DAMPEN_HARM_TALENT} /> provides{' '}
           <TooltipElement
             hoverable
             content={
               <>
                 The damage reduction is based on the amount of damage you'd take <em>after</em>{' '}
                 applying Armor, Versatility, and Avoidance, but <em>before</em> reductions from
-                absorbs like <SpellLink id={SPELLS.STAGGER} />,{' '}
-                <SpellLink id={talents.CELESTIAL_BREW_TALENT} />, or{' '}
-                <SpellLink id={talents.LIFE_COCOON_TALENT} />.
+                absorbs like <SpellLink spell={SPELLS.STAGGER} />,{' '}
+                <SpellLink spell={talents.CELESTIAL_BREW_TALENT} />, or{' '}
+                <SpellLink spell={talents.LIFE_COCOON_TALENT} />.
               </>
             }
           >

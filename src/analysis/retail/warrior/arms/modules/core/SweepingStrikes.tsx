@@ -68,9 +68,9 @@ class SweepingStrikes extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SWEEPING_STRIKES.id} icon /> before{' '}
-          <SpellLink id={SPELLS.COLOSSUS_SMASH.id} /> (or{' '}
-          <SpellLink id={TALENTS.WARBREAKER_TALENT.id} /> if talented).
+          Try to cast <SpellLink spell={SPELLS.SWEEPING_STRIKES} icon /> before{' '}
+          <SpellLink spell={SPELLS.COLOSSUS_SMASH} /> (or{' '}
+          <SpellLink spell={TALENTS.WARBREAKER_TALENT} /> if talented).
         </>,
       )
         .icon(SPELLS.SWEEPING_STRIKES.icon)

@@ -84,7 +84,7 @@ class SpiritLinkDamageReduction extends Analyzer {
       <LazyLoadStatisticBox
         position={STATISTIC_ORDER.OPTIONAL(60)}
         loader={this.load.bind(this)}
-        icon={<SpellIcon id={TALENTS.SPIRIT_LINK_TOTEM_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.SPIRIT_LINK_TOTEM_TALENT} />}
         value={
           <Trans id="shaman.restoration.slt.statistic.value">≈{formatNumber(this.drps)} DRPS</Trans>
         }

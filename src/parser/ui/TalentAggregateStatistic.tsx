@@ -104,7 +104,7 @@ function getPercentContribution(amount: number, bars: TalentAggregateBarSpec[]) 
  * @returns the SpellLink component for the given spec's spell
  */
 function getSpellLink(spec: TalentAggregateBarSpec, wide?: boolean) {
-  return <>{wide ? <SpellLink spell={spec.spell.id} /> : <SpellIcon spell={spec.spell.id} />} </>;
+  return <>{wide ? <SpellLink spell={spec.spell} /> : <SpellIcon spell={spec.spell} />} </>;
 }
 
 /**Determine scale factor for chart based on data items - calculate the inverse of each items percentage of total and take the lowest

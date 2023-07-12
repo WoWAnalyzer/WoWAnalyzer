@@ -9,31 +9,31 @@ const aplTitle = (choice: MistweaverApl) => {
     case MistweaverApl.RisingMistAncientTeachingsShaohaos:
       return (
         <>
-          <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
-          <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
-          <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />
+          <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
+          <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
+          <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />
         </>
       );
     case MistweaverApl.RisingMistAncientTeachingsUpwellFls:
       return (
         <>
-          <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
-          <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
-          <SpellLink id={talents.UPWELLING_TALENT} />
+          <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
+          <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> /{' '}
+          <SpellLink spell={talents.UPWELLING_TALENT} />
         </>
       );
     case MistweaverApl.RisingMistCloudedFocusShaohaos:
       return (
         <>
-          <SpellLink id={talents.RISING_MIST_TALENT} /> /{' '}
-          <SpellLink id={talents.CLOUDED_FOCUS_TALENT} /> /{' '}
-          <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />
+          <SpellLink spell={talents.RISING_MIST_TALENT} /> /{' '}
+          <SpellLink spell={talents.CLOUDED_FOCUS_TALENT} /> /{' '}
+          <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />
         </>
       );
     case MistweaverApl.AwakenedFaeline:
       return (
         <>
-          <SpellLink id={talents.AWAKENED_FAELINE_TALENT} />
+          <SpellLink spell={talents.AWAKENED_FAELINE_TALENT} />
         </>
       );
     default:
@@ -44,7 +44,7 @@ const aplTitle = (choice: MistweaverApl) => {
 const RisingMistDescription = () => {
   return (
     <>
-      <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> to extend hots and{' '}
+      <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> to extend hots and{' '}
     </>
   );
 };
@@ -52,9 +52,9 @@ const RisingMistDescription = () => {
 const AncientTeachingsDescription = () => {
   return (
     <>
-      to heal by using your damaging abilities (<SpellLink id={talents.RISING_SUN_KICK_TALENT} />,{' '}
-      <SpellLink id={SPELLS.BLACKOUT_KICK} />, and <SpellLink id={SPELLS.TIGER_PALM} />) via{' '}
-      <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />.
+      to heal by using your damaging abilities (<SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
+      , <SpellLink spell={SPELLS.BLACKOUT_KICK} />, and <SpellLink spell={SPELLS.TIGER_PALM} />) via{' '}
+      <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} />.
     </>
   );
 };
@@ -62,9 +62,9 @@ const AncientTeachingsDescription = () => {
 const CloudedFocusDescription = () => {
   return (
     <>
-      to make optimal use of your high <SpellLink id={talents.RENEWING_MIST_TALENT} /> count with{' '}
-      <SpellLink id={talents.CLOUDED_FOCUS_TALENT} />, which further empowers{' '}
-      <SpellLink id={SPELLS.VIVIFY} />
+      to make optimal use of your high <SpellLink spell={talents.RENEWING_MIST_TALENT} /> count with{' '}
+      <SpellLink spell={talents.CLOUDED_FOCUS_TALENT} />, which further empowers{' '}
+      <SpellLink spell={SPELLS.VIVIFY} />
     </>
   );
 };
@@ -72,9 +72,9 @@ const CloudedFocusDescription = () => {
 const ShaohaosDescription = () => {
   return (
     <>
-      You will aim to cast <SpellLink id={talents.SHEILUNS_GIFT_TALENT} /> to align with your
+      You will aim to cast <SpellLink spell={talents.SHEILUNS_GIFT_TALENT} /> to align with your
       cooldown usage and moments of heavy healing to make use of the various{' '}
-      <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} /> buffs.{' '}
+      <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} /> buffs.{' '}
     </>
   );
 };
@@ -82,8 +82,8 @@ const ShaohaosDescription = () => {
 const ThunderFocusTeaREM = () => {
   return (
     <>
-      <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} /> is primarily used on{' '}
-      <SpellLink id={talents.RENEWING_MIST_TALENT} /> with this build.
+      <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> is primarily used on{' '}
+      <SpellLink spell={talents.RENEWING_MIST_TALENT} /> with this build.
     </>
   );
 };
@@ -97,13 +97,13 @@ const RisingMistAncientTeachingsShaohaosDescription = () => {
         <AncientTeachingsDescription />
       </p>
       <p>
-        When playing <SpellLink id={talents.RISING_MIST_TALENT} /> and{' '}
-        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> with{' '}
-        <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
-        <SpellLink id={talents.RENEWING_MIST_TALENT} /> and{' '}
-        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
-        <SpellLink id={talents.ESSENCE_FONT_TALENT} /> as often as necessary to maintain the{' '}
-        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
+        When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> with{' '}
+        <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
+        <SpellLink spell={talents.ESSENCE_FONT_TALENT} /> as often as necessary to maintain the{' '}
+        <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} /> buff. <ShaohaosDescription />
         <ThunderFocusTeaREM />
       </p>
     </>
@@ -120,22 +120,22 @@ const RisingMistAncientTeachingsUpwelFlsDescription = () => {
         <AncientTeachingsDescription />
       </p>
       <p>
-        When playing <SpellLink id={talents.RISING_MIST_TALENT} /> and{' '}
-        <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />, you cast{' '}
-        <SpellLink id={talents.RENEWING_MIST_TALENT} /> and{' '}
-        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
-        <SpellLink id={talents.ESSENCE_FONT_TALENT} />{' '}
+        When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} />, you cast{' '}
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
+        <SpellLink spell={talents.ESSENCE_FONT_TALENT} />{' '}
         {info?.combatant.hasTalent(talents.FAELINE_STOMP_TALENT) ? (
           <>
-            or <SpellLink id={talents.FAELINE_STOMP_TALENT} /> if{' '}
-            <SpellLink id={talents.ESSENCE_FONT_TALENT} /> is on cooldown
+            or <SpellLink spell={talents.FAELINE_STOMP_TALENT} /> if{' '}
+            <SpellLink spell={talents.ESSENCE_FONT_TALENT} /> is on cooldown
           </>
         ) : (
           <></>
         )}{' '}
-        as often as necessary to maintain the <SpellLink id={talents.ANCIENT_TEACHINGS_TALENT} />{' '}
-        buff. <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} /> is primarily used on{' '}
-        <SpellLink id={talents.ESSENCE_FONT_TALENT} /> with this build.
+        as often as necessary to maintain the <SpellLink spell={talents.ANCIENT_TEACHINGS_TALENT} />{' '}
+        buff. <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> is primarily used on{' '}
+        <SpellLink spell={talents.ESSENCE_FONT_TALENT} /> with this build.
       </p>
     </>
   );
@@ -150,13 +150,13 @@ const RisingMistCloudedFocusShaohaosDescription = () => {
         <CloudedFocusDescription />
       </p>
       <p>
-        When playing <SpellLink id={talents.RISING_MIST_TALENT} /> and{' '}
-        <SpellLink id={talents.CLOUDED_FOCUS_TALENT} /> with{' '}
-        <SpellLink id={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
-        <SpellLink id={talents.RENEWING_MIST_TALENT} /> and{' '}
-        <SpellLink id={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
-        <SpellLink id={talents.SOOTHING_MIST_TALENT} /> prior to casting{' '}
-        <SpellLink id={SPELLS.VIVIFY} /> as your main source of healing. <ShaohaosDescription />
+        When playing <SpellLink spell={talents.RISING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.CLOUDED_FOCUS_TALENT} /> with{' '}
+        <SpellLink spell={talents.SHAOHAOS_LESSONS_TALENT} />, you cast{' '}
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> as often as possible, and cast{' '}
+        <SpellLink spell={talents.SOOTHING_MIST_TALENT} /> prior to casting{' '}
+        <SpellLink spell={SPELLS.VIVIFY} /> as your main source of healing. <ShaohaosDescription />
         <ThunderFocusTeaREM />
       </p>
     </>
@@ -168,7 +168,7 @@ const CleaveBuildNotYetSupportedDescription = () => {
     <>
       <p>
         <strong>
-          The <SpellLink id={talents.AWAKENED_FAELINE_TALENT} /> rotation is not currently
+          The <SpellLink spell={talents.AWAKENED_FAELINE_TALENT} /> rotation is not currently
           supported.
         </strong>
       </p>
@@ -190,7 +190,7 @@ const FallbackDescription = () => {
 
       {!info?.combatant.hasTalent(talents.RISING_MIST_TALENT) && (
         <AlertWarning>
-          Using <SpellLink id={talents.RISING_MIST_TALENT} /> is recommended, as it brings the
+          Using <SpellLink spell={talents.RISING_MIST_TALENT} /> is recommended, as it brings the
           entire spec's toolkit together by creating multiple synergies between talents.
         </AlertWarning>
       )}
@@ -223,9 +223,10 @@ export default function AplChoiceDescription({
       <p>
         Mistweavers have a few different variations to their core rotation, depending on your talent
         selection. The core of the rotations does not change with{' '}
-        <SpellLink id={talents.RENEWING_MIST_TALENT} />,{' '}
-        <SpellLink id={talents.RISING_SUN_KICK_TALENT} />, and{' '}
-        <SpellLink id={talents.THUNDER_FOCUS_TEA_TALENT} /> always being the top priority abilities.
+        <SpellLink spell={talents.RENEWING_MIST_TALENT} />,{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />, and{' '}
+        <SpellLink spell={talents.THUNDER_FOCUS_TEA_TALENT} /> always being the top priority
+        abilities.
       </p>
       <p>
         <strong>Selected Build:</strong> {aplTitle(aplChoice)}

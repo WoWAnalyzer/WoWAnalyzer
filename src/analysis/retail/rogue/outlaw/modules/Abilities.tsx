@@ -160,7 +160,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               You should delay using it to line it up with{' '}
-              <SpellLink id={TALENTS.BLADE_FLURRY_TALENT.id} icon /> in AoE scenarios.
+              <SpellLink spell={TALENTS.BLADE_FLURRY_TALENT} icon /> in AoE scenarios.
             </>
           ),
         },
@@ -178,7 +178,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               You should delay using it to line it up with{' '}
-              <SpellLink id={TALENTS.BLADE_FLURRY_TALENT.id} icon /> in AoE scenarios.
+              <SpellLink spell={TALENTS.BLADE_FLURRY_TALENT} icon /> in AoE scenarios.
             </>
           ),
         },
@@ -243,9 +243,9 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               In most fights this can be used on cooldown for an{' '}
-              <SpellLink id={SPELLS.AMBUSH.id} icon />, but it's perfectly fine to save this for a{' '}
-              <SpellLink id={SPELLS.CHEAP_SHOT.id} icon /> on adds, especially when talented for{' '}
-              <SpellLink id={TALENTS.PREY_ON_THE_WEAK_TALENT.id} icon />.
+              <SpellLink spell={SPELLS.AMBUSH} icon />, but it's perfectly fine to save this for a{' '}
+              <SpellLink spell={SPELLS.CHEAP_SHOT} icon /> on adds, especially when talented for{' '}
+              <SpellLink spell={TALENTS.PREY_ON_THE_WEAK_TALENT} icon />.
             </>
           ),
           importance: ISSUE_IMPORTANCE.MINOR,

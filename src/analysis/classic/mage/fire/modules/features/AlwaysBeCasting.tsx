@@ -31,7 +31,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <>
             Your downtime can be improved. Try to Always Be Casting (ABC). If you have to move, use
             instant cast spells, such as
-            <SpellLink id={SPELLS.FIRE_BLAST} /> or <SpellLink id={SPELLS.ICE_LANCE} />.
+            <SpellLink spell={SPELLS.FIRE_BLAST} /> or <SpellLink spell={SPELLS.ICE_LANCE} />.
           </>,
         )
           .icon('spell_mage_altertime')

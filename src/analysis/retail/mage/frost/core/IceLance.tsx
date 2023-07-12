@@ -139,11 +139,11 @@ class IceLance extends Analyzer {
     when(this.nonShatteredIceLanceThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} /> {this.nonShatteredCasts} times (
-          {formatPercentage(actual)}%) without <SpellLink id={TALENTS.SHATTER_TALENT.id} />. Make
+          You cast <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> {this.nonShatteredCasts} times (
+          {formatPercentage(actual)}%) without <SpellLink spell={TALENTS.SHATTER_TALENT} />. Make
           sure that you are only casting Ice Lance when the target has{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> (or other Shatter effects), if you have a{' '}
-          <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} /> proc, or if you are moving and you
+          <SpellLink spell={SPELLS.WINTERS_CHILL} /> (or other Shatter effects), if you have a{' '}
+          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> proc, or if you are moving and you
           cant cast anything else.
         </>,
       )
@@ -164,7 +164,7 @@ class IceLance extends Analyzer {
         size="flexible"
         tooltip="This is the percentage of Ice Lance casts that were shattered. The only time it is acceptable to cast Ice Lance without Shatter is if you are moving and you cant use anything else."
       >
-        <BoringSpellValueText spellId={TALENTS.ICE_LANCE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ICE_LANCE_TALENT}>
           {`${formatPercentage(this.shatteredPercent, 0)}%`} <small>Casts shattered</small>
         </BoringSpellValueText>
       </Statistic>

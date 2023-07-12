@@ -76,7 +76,7 @@ class BindingShot extends Analyzer {
     if (this._casts > 0) {
       return (
         <Statistic position={STATISTIC_ORDER.OPTIONAL(14)} size="flexible" category={this.category}>
-          <BoringSpellValueText spellId={TALENTS.BINDING_SHOT_TALENT.id}>
+          <BoringSpellValueText spell={TALENTS.BINDING_SHOT_TALENT}>
             <>
               {this._roots} <small>roots</small> / {this._applications} <small>possible</small>{' '}
               <br />

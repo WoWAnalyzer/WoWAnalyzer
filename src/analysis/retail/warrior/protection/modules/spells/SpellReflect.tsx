@@ -67,7 +67,7 @@ class SpellReflect extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} /> more often when magic damage is
+          Try to cast <SpellLink spell={SPELLS.SPELL_REFLECTION} /> more often when magic damage is
           going out to take less damage.
         </>,
       )

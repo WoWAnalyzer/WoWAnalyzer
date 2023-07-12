@@ -19,7 +19,7 @@ const COMBUSTION_PRE_CASTS = [
   SPELLS.FIREBALL,
   TALENTS.PYROBLAST_TALENT,
   SPELLS.SCORCH,
-  TALENTS.FLAMESTRIKE_TALENT,
+  SPELLS.FLAMESTRIKE,
 ];
 
 class CombustionCasts extends Analyzer {
@@ -208,10 +208,10 @@ class CombustionCasts extends Analyzer {
     when(this.phoenixFlamesThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowPhoenixFlamesCharges()}{' '}
-          times with less than 2 charges of <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />.
+          You cast <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.lowPhoenixFlamesCharges()}{' '}
+          times with less than 2 charges of <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />.
           Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get
-          as many <SpellLink id={SPELLS.HOT_STREAK.id} /> procs as possible before Combustion ends.
+          as many <SpellLink spell={SPELLS.HOT_STREAK} /> procs as possible before Combustion ends.
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
@@ -225,12 +225,12 @@ class CombustionCasts extends Analyzer {
     when(this.fireBlastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.lowFireBlastCharges()}{' '}
+          You cast <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.lowFireBlastCharges()}{' '}
           times with less than{' '}
           {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? '2' : '1'} charges of{' '}
-          <SpellLink id={SPELLS.FIRE_BLAST.id} />. Make sure you are saving at least{' '}
+          <SpellLink spell={SPELLS.FIRE_BLAST} />. Make sure you are saving at least{' '}
           {this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT) ? '2' : '1'} charges while
-          Combustion is on cooldown so you can get as many <SpellLink id={SPELLS.HOT_STREAK.id} />{' '}
+          Combustion is on cooldown so you can get as many <SpellLink spell={SPELLS.HOT_STREAK} />{' '}
           procs as possible before Combustion ends.
         </>,
       )
@@ -245,12 +245,12 @@ class CombustionCasts extends Analyzer {
     when(this.combustionCastDelayThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          On average, you used <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> with{' '}
+          On average, you used <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> with{' '}
           {formatNumber(actual)} seconds left on your pre-cast ability (The spell you were casting
-          when you used <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />
+          when you used <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
           ). In order to maximize the number of casts you can get in during{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />, it is recommended that you are activating{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> closer to the end of your pre-cast
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />, it is recommended that you are activating{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> closer to the end of your pre-cast
           (preferably within {recommended} seconds of the cast completing).
         </>,
       )
@@ -265,13 +265,13 @@ class CombustionCasts extends Analyzer {
     when(this.fireballDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You started to cast <SpellLink id={SPELLS.FIREBALL.id} /> {this.fireballBeginCasts} times
+          You started to cast <SpellLink spell={SPELLS.FIREBALL} /> {this.fireballBeginCasts} times
           ({this.fireballDuringCombustionThresholds.actual.toFixed(2)} per Combustion), and
           completed {this.fireballCastsDuringCombustion} casts, during{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. Combustion has a short duration, so you
-          are better off using instant abilities like <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
-          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />. If you run out of instant cast
-          abilities, use <SpellLink id={SPELLS.SCORCH.id} /> instead of Fireball since it has a
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. Combustion has a short duration, so you
+          are better off using instant abilities like <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. If you run out of instant cast
+          abilities, use <SpellLink spell={SPELLS.SCORCH} /> instead of Fireball since it has a
           shorter cast time.
         </>,
       )
@@ -302,7 +302,7 @@ class CombustionCasts extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.COMBUSTION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.COMBUSTION_TALENT}>
           <>
             <table className="table table-condensed">
               <tbody>
@@ -323,7 +323,7 @@ class CombustionCasts extends Analyzer {
                   .map((spell) => (
                     <tr key={Number(spell)} style={{ fontSize: 16 }}>
                       <td>
-                        <SpellLink id={Number(spell[0])} />
+                        <SpellLink spell={Number(spell[0])} />
                       </td>
                       <td style={{ textAlign: 'center' }}>{spell[1]}</td>
                       <td style={{ textAlign: 'center' }}>

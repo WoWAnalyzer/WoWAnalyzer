@@ -148,7 +148,7 @@ class VoidTorrent extends Analyzer {
     when(this.interruptThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You interrupted <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} /> early, wasting{' '}
+          You interrupted <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> early, wasting{' '}
           {formatSeconds(this.timeWasted)} channeling seconds! Try to position yourself & time it so
           you don't get interrupted due to mechanics.
         </>,
@@ -181,7 +181,7 @@ class VoidTorrent extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.VOID_TORRENT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.VOID_TORRENT_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <Insanity /> {this.insanityGained} <small>Insanity generated</small>
@@ -216,7 +216,7 @@ class VoidTorrent extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} />
+          <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
         </b>{' '}
         deals damage and generates 24 insanity over its 3 second channel.
         <br />

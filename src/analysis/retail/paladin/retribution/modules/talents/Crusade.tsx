@@ -84,10 +84,10 @@ class Crusade extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          You want to build stacks of <SpellLink id={TALENTS.CRUSADE_TALENT.id} icon /> as quickly
-          as possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or{' '}
-          <SpellLink id={SPELLS.DIVINE_STORM_DAMAGE.id} icon /> immediately after casting{' '}
-          <SpellLink id={TALENTS.CRUSADE_TALENT.id} icon />.
+          You want to build stacks of <SpellLink spell={TALENTS.CRUSADE_TALENT} icon /> as quickly
+          as possible. Make sure you are using <SpellLink spell={SPELLS.TEMPLARS_VERDICT} icon /> or{' '}
+          <SpellLink spell={SPELLS.DIVINE_STORM_DAMAGE} icon /> immediately after casting{' '}
+          <SpellLink spell={TALENTS.CRUSADE_TALENT} icon />.
         </>,
       )
         .icon(TALENTS.CRUSADE_TALENT.icon)

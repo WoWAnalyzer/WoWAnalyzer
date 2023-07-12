@@ -32,7 +32,7 @@ class GrimoireFelguard extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.GRIMOIRE_FELGUARD_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.GRIMOIRE_FELGUARD_TALENT}>
           <ItemDamageDone amount={damage} />
         </BoringSpellValueText>
       </Statistic>

@@ -90,7 +90,7 @@ class EarthShield extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(45)}
       >
-        <BoringValue label={<SpellLink id={SPELLS.EARTH_SHIELD.id} />}>
+        <BoringValue label={<SpellLink spell={SPELLS.EARTH_SHIELD} />}>
           <div>
             <UptimeIcon /> {formatPercentage(this.uptimePercent)}% <small>uptime</small>
             <br />

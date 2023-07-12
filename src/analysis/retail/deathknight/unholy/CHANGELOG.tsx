@@ -5,11 +5,12 @@ import { AlexanderJKremer, Bicepspump, Khazak, ToppleTheNun } from 'CONTRIBUTORS
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 11), <>Make <SpellLink spell={SPELLS.VIRULENT_PLAGUE} /> uptime thresholds based on disease buffing talents</>, Khazak),
   change(date(2023, 6, 19), 'Update SpellLink usage.', ToppleTheNun),
-  change(date(2023, 3, 3), `Updated suggestion text for ${<SpellLink spell={TALENTS.COMMANDER_OF_THE_DEAD_TALENT}/>}`, Khazak),
+  change(date(2023, 3, 3), <>Updated suggestion text for <SpellLink spell={TALENTS.COMMANDER_OF_THE_DEAD_TALENT}/></>, Khazak),
   change(date(2023, 2, 7), 'Fixed multiple SpellUsable errors', Khazak),
   change(date(2023, 1, 27), 'Added tracker for Vile Infusion', Bicepspump),
-  change(date(2023, 1, 24), `Added ${<SpellLink spell={SPELLS.T29_GHOULISH_INFUSION}/>}'s haste buff`, Khazak),
+  change(date(2023, 1, 24), <>Added <SpellLink spell={SPELLS.T29_GHOULISH_INFUSION}/>'s haste buff</>, Khazak),
   change(date(2023, 1, 18), 'Added Commander of the Dead Tracker', Bicepspump),
   change(date(2023, 1, 18), 'Moved from partial to full support', Bicepspump),
   change(date(2023, 1, 18), 'Added Plaguebringer Tracker', Bicepspump),

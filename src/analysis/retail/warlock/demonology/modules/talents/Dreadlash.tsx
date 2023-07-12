@@ -68,7 +68,7 @@ class Dreadlash extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.DREADLASH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DREADLASH_TALENT}>
           <ItemDamageDone amount={total} />
         </BoringSpellValueText>
       </Statistic>
