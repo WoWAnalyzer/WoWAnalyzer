@@ -11,7 +11,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
+const COOLDOWN_REDUCTION_MS_PER_POINT = 1500;
 
 class CrusadersMight extends Analyzer {
   static dependencies = {
