@@ -316,6 +316,11 @@ const spells = spellIndexableList({
     name: 'Empyrean Legacy',
     icon: 'spell_holy_dizzy',
   },
+  RECLAMATION_CAST: {
+    id: 415388,
+    name: 'Reclamation',
+    icon: 'ability_paladin_longarmofthelaw',
+  },
 
   // Retribution Paladin:
   BLADE_OF_JUSTICE: {
