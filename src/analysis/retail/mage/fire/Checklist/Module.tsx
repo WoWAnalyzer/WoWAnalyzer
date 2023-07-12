@@ -60,7 +60,6 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
-          phoenixFlamesCombustionCharges: this.combustion.phoenixFlamesThresholds,
           fireBlastCombustionCharges: this.combustion.fireBlastThresholds,
           fireballSpellUsageDuringCombustion: this.combustion.fireballDuringCombustionThresholds,
           combustionActiveTime: this.combustionActiveTime.combustionActiveTimeThresholds,

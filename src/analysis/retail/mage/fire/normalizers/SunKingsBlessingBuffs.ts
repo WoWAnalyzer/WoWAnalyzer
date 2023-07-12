@@ -8,7 +8,7 @@ const EVENT_ORDERS: EventOrder[] = [
   {
     beforeEventId: TALENTS.PYROBLAST_TALENT.id,
     beforeEventType: [EventType.Cast, EventType.BeginCast],
-    afterEventId: [SPELLS.FURY_OF_THE_SUN_KING.id, SPELLS.FURY_OF_THE_SUN_KING_STACK.id],
+    afterEventId: [SPELLS.FURY_OF_THE_SUN_KING.id, SPELLS.SUN_KINGS_BLESSING_BUFF_STACK.id],
     afterEventType: EventType.RemoveBuff,
     bufferMs: 50,
     anyTarget: true,

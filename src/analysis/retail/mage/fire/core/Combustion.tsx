@@ -51,31 +51,7 @@ class CombustionCasts extends Analyzer {
     );
 
     //Highlight bad casts
-    const tooltip =
-      'This Combustion was cast with a low amount of Fire Blast and/or Phoenix Flames charges.';
-    casts.forEach((cast) => highlightInefficientCast(cast, tooltip));
-
-    return casts.length;
-  };
-
-  lowPhoenixFlamesCharges = () => {
-    const maxPhoenixFlamesCharges =
-      2 + this.selectedCombatant.getTalentRank(TALENTS.CALL_OF_THE_SUN_KING_TALENT);
-    let casts = this.eventHistory.getEvents(EventType.Cast, {
-      searchBackwards: true,
-      spell: TALENTS.COMBUSTION_TALENT,
-    });
-
-    //Filter out casts where the player was capped or almost capped on charges
-    casts = casts.filter(
-      (cast) =>
-        this.cooldownHistory.chargesAvailable(TALENTS.PHOENIX_FLAMES_TALENT.id, cast.timestamp) <
-        maxPhoenixFlamesCharges - 1,
-    );
-
-    //Highlight bad casts
-    const tooltip =
-      'This Combustion was cast with a low amount of Fire Blast and/or Phoenix Flames charges.';
+    const tooltip = 'This Combustion was cast with a low amount of Fire Blast charges.';
     casts.forEach((cast) => highlightInefficientCast(cast, tooltip));
 
     return casts.length;
@@ -111,14 +87,6 @@ class CombustionCasts extends Analyzer {
     return fireballCasts.length;
   }
 
-  get phoenixFlamesChargeUtil() {
-    return (
-      1 -
-      this.lowPhoenixFlamesCharges() /
-        this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
-    );
-  }
-
   get fireBlastChargeUtil() {
     return (
       1 -
@@ -143,18 +111,6 @@ class CombustionCasts extends Analyzer {
         SPELLS.FIREBALL,
       ).length || 0
     );
-  }
-
-  get phoenixFlamesThresholds() {
-    return {
-      actual: this.phoenixFlamesChargeUtil,
-      isLessThan: {
-        minor: 1,
-        average: 0.65,
-        major: 0.45,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
   }
 
   get fireBlastThresholds() {
@@ -205,23 +161,6 @@ class CombustionCasts extends Analyzer {
   }
 
   suggestions(when: When) {
-    when(this.phoenixFlamesThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.lowPhoenixFlamesCharges()}{' '}
-          times with less than 2 charges of <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />.
-          Make sure you are saving at least 2 charges while Combustion is on cooldown so you can get
-          as many <SpellLink spell={SPELLS.HOT_STREAK} /> procs as possible before Combustion ends.
-        </>,
-      )
-        .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.combustionCharges.phoenixFlames.utilization">
-            {formatPercentage(this.phoenixFlamesChargeUtil)}% Utilization
-          </Trans>,
-        )
-        .recommended(`${formatPercentage(recommended)} is recommended`),
-    );
     when(this.fireBlastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

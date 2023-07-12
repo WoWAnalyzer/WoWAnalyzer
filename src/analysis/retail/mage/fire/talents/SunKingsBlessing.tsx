@@ -197,7 +197,7 @@ class SunKingsBlessing extends Analyzer {
         .icon(TALENTS.SUN_KINGS_BLESSING_TALENT.icon)
         .actual(
           <Trans id="mage.fire.suggestions.sunKingsBlessing.hotStreaksWithSKB">
-            {formatPercentage(actual)}% expired procs
+            {formatNumber(actual)}wasted Hot Streaks
           </Trans>,
         )
         .recommended(`<${formatNumber(recommended)} is recommended`),

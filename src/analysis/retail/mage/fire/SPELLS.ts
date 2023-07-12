@@ -93,6 +93,11 @@ const spells = spellIndexableList({
     name: 'Charring Embers',
     icon: 'ability_warlock_burningembers',
   },
+  FLAMES_FURY: {
+    id: 409964,
+    name: "Flame's Fury",
+    icon: 'inv_misc_volatilefire',
+  },
 });
 
 export default spells;
