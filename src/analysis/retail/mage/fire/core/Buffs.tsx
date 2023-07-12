@@ -49,7 +49,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SUN_KINGS_BLESSING_BUFF.id,
+        spellId: SPELLS.FURY_OF_THE_SUN_KING.id,
         enabled: combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT),
         timelineHighlight: true,
       },

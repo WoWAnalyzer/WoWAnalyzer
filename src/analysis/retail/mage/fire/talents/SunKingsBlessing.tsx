@@ -31,7 +31,7 @@ class SunKingsBlessing extends Analyzer {
   sunKingsBuffExpired = () => {
     const buffRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, {
       searchBackwards: true,
-      spell: SPELLS.SUN_KINGS_BLESSING_BUFF,
+      spell: SPELLS.FURY_OF_THE_SUN_KING,
     });
     let expiredBuffs = 0;
     buffRemoved.forEach((r) => {
@@ -59,13 +59,13 @@ class SunKingsBlessing extends Analyzer {
   hotStreaksWastedWithSKB = () => {
     const buffRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, {
       searchBackwards: true,
-      spell: SPELLS.SUN_KINGS_BLESSING_BUFF,
+      spell: SPELLS.FURY_OF_THE_SUN_KING,
     });
     let hotStreakUses = 0;
     buffRemoved.forEach((r) => {
       const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
         searchBackwards: true,
-        spell: SPELLS.SUN_KINGS_BLESSING_BUFF,
+        spell: SPELLS.FURY_OF_THE_SUN_KING,
         count: 1,
         startTimestamp: r.timestamp,
       })[0];
@@ -83,7 +83,7 @@ class SunKingsBlessing extends Analyzer {
   totalSunKingBuffs = () => {
     const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
       searchBackwards: true,
-      spell: SPELLS.SUN_KINGS_BLESSING_BUFF,
+      spell: SPELLS.FURY_OF_THE_SUN_KING,
     });
     return buffApply.length;
   };
@@ -187,7 +187,7 @@ class SunKingsBlessing extends Analyzer {
           You used <SpellLink spell={SPELLS.HOT_STREAK} /> {this.hotStreaksWastedWithSKB()} times (
           {this.averageHotStreaksWithSKB} per{' '}
           <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />) while{' '}
-          <SpellLink spell={SPELLS.SUN_KINGS_BLESSING_BUFF} /> was ready. These{' '}
+          <SpellLink spell={SPELLS.FURY_OF_THE_SUN_KING} /> was ready. These{' '}
           <SpellLink spell={SPELLS.HOT_STREAK} /> were wasted and could have been contributing
           towards your next <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} />. To avoid this,
           ensure you are using <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> as quickly as
@@ -221,7 +221,7 @@ class SunKingsBlessing extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.SUN_KINGS_BLESSING_BUFF}>
+        <BoringSpellValueText spell={SPELLS.FURY_OF_THE_SUN_KING}>
           {this.sunKingsBuffExpired()} <small>Expired Sun King buffs</small>
           <br />
           {this.hotStreaksWastedWithSKB()} <small>Wasted Hot Streaks</small>

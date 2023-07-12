@@ -78,10 +78,10 @@ const spells = spellIndexableList({
     name: 'Fevered Incantation',
     icon: 'inv_misc_enchantedpearld',
   },
-  SUN_KINGS_BLESSING_BUFF: {
+  FURY_OF_THE_SUN_KING: {
     id: 383883,
-    name: "Sun King's Blessing",
-    icon: 'ability_mage_firestarter',
+    name: 'Fury of the Sun King',
+    icon: 'ability_rhyolith_immolation',
   },
   SUN_KINGS_BLESSING_BUFF_STACK: {
     id: 383882,
