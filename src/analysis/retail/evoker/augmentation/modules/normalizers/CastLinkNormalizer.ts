@@ -14,7 +14,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: PRESCIENCE_BUFF_CAST_LINK,
     reverseLinkRelation: PRESCIENCE_BUFF_CAST_LINK,
     linkingEventId: SPELLS.PRESCIENCE_BUFF.id,
-    linkingEventType: EventType.ApplyBuff,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: TALENTS.PRESCIENCE_TALENT.id,
     referencedEventType: EventType.Cast,
     anyTarget: true,
@@ -41,7 +41,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 export function getPrescienceBuffEvents(event: CastEvent): ApplyBuffEvent[] {
   return GetRelatedEvents(event, PRESCIENCE_BUFF_CAST_LINK).filter(
-    (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff,
+    (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff || e.type === EventType.RefreshBuff,
   );
 }
 
