@@ -66,6 +66,10 @@ const spells: number[] = [
   SPELLS.ESCAPE_FROM_REALITY_CAST.id,
   //endregion
 
+  //region paladin
+  SPELLS.RECLAMATION_CAST.id,
+  //endregion
+
   //region trinket
   //endregion
   //region Embellishments
