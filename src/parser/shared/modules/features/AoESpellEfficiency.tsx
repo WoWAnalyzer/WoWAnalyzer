@@ -106,8 +106,8 @@ class AoESpellEfficiency extends Analyzer {
     when(this.hitSuggestionThreshold).addSuggestion((suggest) =>
       suggest(
         <>
-          It's benefitial to delay <SpellLink spell={this.ability.id} /> to hit multiple targets,
-          but don't delay it too long or you'll miss out on casts and possible hits.
+          It's benefitial to delay <SpellLink spell={this.ability} /> to hit multiple targets, but
+          don't delay it too long or you'll miss out on casts and possible hits.
         </>,
       )
         .icon(this.ability.icon)
@@ -125,7 +125,7 @@ class AoESpellEfficiency extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon spell={this.ability.id} />}
+        icon={<SpellIcon spell={this.ability} />}
         value={`${formatNumber((this.bonusDmg / this.owner.fightDuration) * 1000)} DPS`}
         label="Damage contributed"
         tooltip={`${this.ability.name} added a total of ${formatNumber(

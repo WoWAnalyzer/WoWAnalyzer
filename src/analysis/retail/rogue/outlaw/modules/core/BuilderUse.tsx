@@ -53,18 +53,18 @@ export default class BuilderUse extends Analyzer {
             <ul>
               <li>
                 {' '}
-                <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> casted at 6cp without{' '}
-                <SpellLink id={SPELLS.BROADSIDE.id} /> buff up
+                <SpellLink spell={SPELLS.SINISTER_STRIKE} /> casted at 6cp without{' '}
+                <SpellLink spell={SPELLS.BROADSIDE} /> buff up
               </li>
               <li>
                 {' '}
-                <SpellLink id={SPELLS.AMBUSH.id} /> casted at 6cp with{' '}
-                <SpellLink id={SPELLS.OUTLAW_ROGUE_TIER_28_2P_SET_BONUS.id} /> buff up
+                <SpellLink spell={SPELLS.AMBUSH} /> casted at 6cp with{' '}
+                <SpellLink spell={SPELLS.OUTLAW_ROGUE_TIER_28_2P_SET_BONUS} /> buff up
               </li>
               <li>
                 {' '}
-                <SpellLink id={talents.GHOSTLY_STRIKE_TALENT.id} /> casted at 6cp without{' '}
-                <SpellLink id={SPELLS.BROADSIDE.id} /> buff up
+                <SpellLink spell={talents.GHOSTLY_STRIKE_TALENT} /> casted at 6cp without{' '}
+                <SpellLink spell={SPELLS.BROADSIDE} /> buff up
               </li>
             </ul>
           </div>

@@ -28,9 +28,9 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           <>
             Subtlety rotation revolves around using your cooldowns effectively. To maximize your
             damage, you need to stack your cooldowns. Your cooldowns dictate your rotation. A base
-            rule of thumb is: use <SpellLink id={SPELLS.SYMBOLS_OF_DEATH.id} /> on cooldown, and use{' '}
-            <SpellLink id={SPELLS.SHADOW_DANCE.id} /> when symbols are active. However you should
-            never cap on <SpellLink id={SPELLS.SHADOW_DANCE.id} /> charges.
+            rule of thumb is: use <SpellLink spell={SPELLS.SYMBOLS_OF_DEATH} /> on cooldown, and use{' '}
+            <SpellLink spell={SPELLS.SHADOW_DANCE} /> when symbols are active. However you should
+            never cap on <SpellLink spell={SPELLS.SHADOW_DANCE} /> charges.
           </>
         }
       >
@@ -65,13 +65,13 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         description={
           <>
             Stealth is a core mechanic for Subtlety. When using{' '}
-            <SpellLink id={SPELLS.SHADOW_DANCE.id} />, <SpellLink id={SPELLS.VANISH.id} /> or{' '}
-            <SpellLink id={TALENTS.SUBTERFUGE_TALENT.id} /> you need to make the most of your
+            <SpellLink spell={SPELLS.SHADOW_DANCE} />, <SpellLink spell={SPELLS.VANISH} /> or{' '}
+            <SpellLink spell={TALENTS.SUBTERFUGE_TALENT} /> you need to make the most of your
             stealth abilities, using up every GCD. To achieve this you might need to pool some
             energy. Depending on your talents, the amount of energy required differs between 60 and
             90. Its also important to use correct spells in stealth, for example{' '}
-            <SpellLink id={SPELLS.BACKSTAB.id} /> should be replaced by{' '}
-            <SpellLink id={SPELLS.SHADOWSTRIKE.id} />
+            <SpellLink spell={SPELLS.BACKSTAB} /> should be replaced by{' '}
+            <SpellLink spell={SPELLS.SHADOWSTRIKE} />
           </>
         }
       >
@@ -88,7 +88,7 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <Requirement
           name={
             <>
-              Casts in <SpellLink id={SPELLS.SHADOW_DANCE.id} />
+              Casts in <SpellLink spell={SPELLS.SHADOW_DANCE} />
             </>
           }
           thresholds={thresholds.castsInShadowDance}
@@ -96,8 +96,8 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.BACKSTAB.id} /> used from{' '}
-              <SpellLink id={SPELLS.SHADOW_DANCE.id} />
+              <SpellLink spell={SPELLS.BACKSTAB} /> used from{' '}
+              <SpellLink spell={SPELLS.SHADOW_DANCE} />
             </>
           }
           thresholds={thresholds.backstabInShadowDance}
@@ -105,7 +105,7 @@ const SubRogueChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.BACKSTAB.id} />{' '}
+              <SpellLink spell={SPELLS.BACKSTAB} />{' '}
               <TooltipElement content="Includes Vanish and Subterfuge if talented">
                 used from Stealth*
               </TooltipElement>

@@ -151,12 +151,12 @@ class VanishFindWeakness extends Analyzer {
           category={STATISTIC_CATEGORY.GENERAL}
           tooltip={
             <>
-              You cast <SpellLink id={SPELLS.VANISH.id} /> {formatNumber(this.badVanishCasts.size)}{' '}
+              You cast <SpellLink spell={SPELLS.VANISH} /> {formatNumber(this.badVanishCasts.size)}{' '}
               times with more than {formatNumber(this.BAD_CAST_WINDOW / 1000)}s remaining on{' '}
-              <SpellLink id={SPELLS.FIND_WEAKNESS.id} />
+              <SpellLink spell={SPELLS.FIND_WEAKNESS} />
               on the current target. <br />
               We consider a cast to be bad if it was used to re-apply{' '}
-              <SpellLink id={SPELLS.FIND_WEAKNESS.id} /> to a target with more than{' '}
+              <SpellLink spell={SPELLS.FIND_WEAKNESS} /> to a target with more than{' '}
               {formatNumber(this.BAD_CAST_WINDOW / 1000)}s remaining.
             </>
           }

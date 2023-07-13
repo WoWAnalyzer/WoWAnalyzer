@@ -20,7 +20,7 @@ class Energy extends Analyzer {
       major: 0.15,
       extraSuggestion: (
         <>
-          Try to keep energy below max to avoid waisting <SpellLink id={SPELLS.COMBAT_POTENCY.id} />{' '}
+          Try to keep energy below max to avoid waisting <SpellLink spell={SPELLS.COMBAT_POTENCY} />{' '}
           procs.
         </>
       ),
@@ -35,7 +35,7 @@ class Energy extends Analyzer {
         extraSuggestion: (
           <>
             Try to keep energy below max to avoid waisting{' '}
-            <SpellLink id={TALENTS.BLADE_RUSH_TALENT.id} /> gains.
+            <SpellLink spell={TALENTS.BLADE_RUSH_TALENT} /> gains.
           </>
         ),
       });

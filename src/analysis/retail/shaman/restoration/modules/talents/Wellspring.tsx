@@ -181,7 +181,7 @@ class Wellspring extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.WELLSPRING_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.WELLSPRING_TALENT} />}
         label={
           <Trans id="shaman.restoration.wellspring.statistic.label">
             Wellspring target efficiency

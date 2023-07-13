@@ -8,6 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../restoration/Guide';
 import { getClearcastConsumer } from '../../restoration/modules/normalizers/CastLinkNormalizer';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 /**
  * OmenOfClarity procs Clearcasting
@@ -62,15 +63,15 @@ class OmenOfClarity extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={SPELLS.CLEARCASTING} />
+            <SpellLink spell={SPELLS.CLEARCASTING} />
           </b>{' '}
           procs reduce the cost of your next spell by 100%. It should ideally be used on high cost
           abilities.
         </p>
         {this._isResto && (
           <p>
-            The best option for Restoration Druids being a <SpellLink id={SPELLS.LIFEBLOOM} /> which
-            will cost nothing but return 50% of the cost of the spell, gaining you mana.
+            The best option for Restoration Druids being a <SpellLink spell={SPELLS.LIFEBLOOM} />{' '}
+            which will cost nothing but return 50% of the cost of the spell, gaining you mana.
           </p>
         )}
       </>
@@ -93,7 +94,8 @@ class OmenOfClarity extends Analyzer {
     return (
       <div>
         @ {this.owner.formatTimestamp(event.timestamp)} &mdash;{' '}
-        <SpellLink id={event.ability.guid} /> ({(delay / 1000).toFixed(1)}sec hesitation)
+        <SpellLink spell={abilityToSpell(event.ability)} /> ({(delay / 1000).toFixed(1)}sec
+        hesitation)
       </div>
     );
   }
@@ -107,7 +109,7 @@ class OmenOfClarity extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.CLEARCASTING} /> Omen of Clarity
+              <SpellIcon spell={SPELLS.CLEARCASTING} /> Omen of Clarity
             </>
           }
         >

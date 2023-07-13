@@ -76,7 +76,7 @@ class WitchDoctorsWolfBones extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.WITCH_DOCTORS_ANCESTRY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_SHAMAN.WITCH_DOCTORS_ANCESTRY_TALENT}>
           <>
             <CooldownIcon /> {formatDuration(this.totalCdrGained)}s{' '}
             <small> of Feral Spirit CDR</small>

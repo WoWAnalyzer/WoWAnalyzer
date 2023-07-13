@@ -53,7 +53,7 @@ class RollTheBonesCounter extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> distribution
+            <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} /> distribution
           </label>
           {this.rolltheBonesBuffDistributionChart()}
         </div>

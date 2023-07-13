@@ -15,7 +15,7 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 // its one point right now but I already had this so w/e
-const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
+const COOLDOWN_REDUCTION_MS_PER_POINT = 2000;
 
 class ImbuedInfusion extends Analyzer {
   static dependencies = {
@@ -44,7 +44,7 @@ class ImbuedInfusion extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FLASH_OF_LIGHT, TALENTS.HOLY_LIGHT_TALENT]),
+      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FLASH_OF_LIGHT, SPELLS.HOLY_LIGHT]),
       this.onCast,
     );
   }

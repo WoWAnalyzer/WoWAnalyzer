@@ -122,7 +122,7 @@ class SacrificedSouls extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.SACRIFICED_SOULS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SACRIFICED_SOULS_TALENT}>
           <ItemDamageDone amount={this.totalBonusDamage} />
         </BoringSpellValueText>
       </Statistic>

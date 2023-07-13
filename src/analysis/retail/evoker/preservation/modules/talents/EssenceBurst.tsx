@@ -54,7 +54,9 @@ class EssenceBurst extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT);
+    this.active = this.selectedCombatant.hasTalent(
+      TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT,
+    );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
       this.onBuffRemove,
@@ -153,7 +155,7 @@ class EssenceBurst extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} />
+          <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />
         </b>{' '}
         is a core buff that you should never let expire or refresh. In general, if you are playing
         an <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> focused build then all procs should be used
@@ -202,7 +204,7 @@ class EssenceBurst extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumptions
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> consumptions
           </strong>
           <PerformanceBoxRow values={entries} />
         </RoundedPanel>
@@ -228,10 +230,11 @@ class EssenceBurst extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid wasting <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> stacks.
+          Try to avoid wasting{' '}
+          <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> stacks.
         </>,
       )
-        .icon(TALENTS_EVOKER.ESSENCE_BURST_TALENT.icon)
+        .icon(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT.icon)
         .actual(
           `${actual} ${t({
             id: 'evoker.preservation.suggestions.essenceBurst.wastedStacks',
@@ -252,14 +255,15 @@ class EssenceBurst extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> consumption by spell
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> consumption by
+            spell
           </label>
           {donutChart ? (
             donutChart
           ) : (
             <small>
-              You gained no <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> buffs during
-              the encounter
+              You gained no <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />{' '}
+              buffs during the encounter
             </small>
           )}
           <ItemManaGained amount={this.manaSaved} useAbbrev />

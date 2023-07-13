@@ -107,7 +107,7 @@ class ChainHeal extends Analyzer {
       .addSuggestion((suggest, _actual, _recommended) =>
         suggest(
           <Trans id="shaman.restoration.suggestions.aoeTargets.label">
-            Try to always cast <SpellLink id={SPELLS.CHAIN_HEAL.id} /> on groups of people, so that
+            Try to always cast <SpellLink spell={SPELLS.CHAIN_HEAL} /> on groups of people, so that
             it heals all {this.maxTargets} potential targets.
           </Trans>,
         )
@@ -243,7 +243,7 @@ class ChainHeal extends Analyzer {
           )
         }
       >
-        <BoringValue label={<SpellLink id={SPELLS.CHAIN_HEAL.id} />}>
+        <BoringValue label={<SpellLink spell={SPELLS.CHAIN_HEAL} />}>
           {this.avgHits.toFixed(2)}{' '}
           <small>
             <Trans id="shaman.restoration.chainHeal.averageTargets">

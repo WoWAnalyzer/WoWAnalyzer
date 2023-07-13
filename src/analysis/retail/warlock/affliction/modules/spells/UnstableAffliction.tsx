@@ -34,7 +34,7 @@ class UnstableAfflictionUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION.id} /> uptime can be improved. Try to pay
+          Your <SpellLink spell={SPELLS.UNSTABLE_AFFLICTION} /> uptime can be improved. Try to pay
           more attention to your Unstable Affliction on the boss, perhaps use some debuff tracker.
         </>,
       )
@@ -54,7 +54,7 @@ class UnstableAfflictionUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.UNSTABLE_AFFLICTION.id} />
+          <SpellIcon spell={SPELLS.UNSTABLE_AFFLICTION} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

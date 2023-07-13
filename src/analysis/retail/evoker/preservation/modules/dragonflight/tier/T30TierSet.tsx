@@ -135,7 +135,7 @@ class T30PrevokerSet extends Analyzer {
                 content={
                   <>
                     {this.total4SetProcs} total{' '}
-                    <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs
+                    <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> procs
                     <br />
                     {this.wastedProcs} wasted procs from refreshes
                   </>

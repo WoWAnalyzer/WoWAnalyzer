@@ -28,8 +28,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <>
           Your downtime can be improved. Try to Always Be Casting (ABC). If you have to move, use
-          instant cast spells (DoTs or <SpellLink id={SPELLS.LIFE_TAP} />
-          ). Make use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE_SUMMON} /> when possible.
+          instant cast spells (DoTs or <SpellLink spell={SPELLS.LIFE_TAP} />
+          ). Make use of your <SpellLink spell={SPELLS.DEMONIC_CIRCLE_SUMMON} /> when possible.
         </>,
       )
         .icon('spell_mage_altertime')

@@ -45,7 +45,7 @@ class AbsoluteCorruption extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ABSOLUTE_CORRUPTION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ABSOLUTE_CORRUPTION_TALENT}>
           {formatNumber(this.dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.bonusDmg))} % of total

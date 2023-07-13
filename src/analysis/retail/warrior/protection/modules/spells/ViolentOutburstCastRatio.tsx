@@ -61,9 +61,9 @@ class ViolentOutburstCastRatio extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.VIOLENT_OUTBURST_TALENT.id}>
-          <SpellIcon id={SPELLS.THUNDER_CLAP.id} /> {this.tcUsage} :{' '}
-          <SpellIcon id={SPELLS.SHIELD_SLAM.id} /> {this.ssUsage}
+        <BoringSpellValueText spell={TALENTS.VIOLENT_OUTBURST_TALENT}>
+          <SpellIcon spell={SPELLS.THUNDER_CLAP} /> {this.tcUsage} :{' '}
+          <SpellIcon spell={SPELLS.SHIELD_SLAM} /> {this.ssUsage}
         </BoringSpellValueText>
       </Statistic>
     );

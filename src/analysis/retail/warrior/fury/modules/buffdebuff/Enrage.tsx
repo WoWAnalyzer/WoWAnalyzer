@@ -60,7 +60,7 @@ class Enrage extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.
+          Your <SpellLink spell={SPELLS.ENRAGE} /> uptime can be improved.
         </>,
       )
         .icon(SPELLS.ENRAGE.icon)
@@ -89,7 +89,7 @@ class Enrage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.ENRAGE.id}>
+        <BoringSpellValueText spell={SPELLS.ENRAGE}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

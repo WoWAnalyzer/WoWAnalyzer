@@ -119,6 +119,18 @@ const spells = spellIndexableList({
     name: 'Relentless Inquisitor',
     icon: 'spell_holy_mindvision',
   },
+  DIVINE_PROTECTION: {
+    id: 498,
+    name: 'Divine Protection',
+    icon: 'spell_holy_divineprotection',
+    manaCost: 1750,
+  },
+  HOLY_LIGHT: {
+    id: 82326,
+    name: 'Holy Light',
+    icon: 'spell_holy_surgeoflight',
+    manaCost: 8000,
+  },
 
   // Holy Paladin:
   MASTERY_LIGHTBRINGER: {
@@ -303,6 +315,11 @@ const spells = spellIndexableList({
     id: 387441,
     name: 'Empyrean Legacy',
     icon: 'spell_holy_dizzy',
+  },
+  RECLAMATION_CAST: {
+    id: 415388,
+    name: 'Reclamation',
+    icon: 'ability_paladin_longarmofthelaw',
   },
 
   // Retribution Paladin:

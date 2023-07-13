@@ -127,10 +127,10 @@ class BlockCheck extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You only had <SpellLink id={SPELLS.SHIELD_BLOCK_BUFF.id} />{' '}
+          You only had <SpellLink spell={SPELLS.SHIELD_BLOCK_BUFF} />{' '}
           {this.bolster && (
             <>
-              or <SpellLink id={SPELLS.LAST_STAND.id} />
+              or <SpellLink spell={SPELLS.LAST_STAND} />
             </>
           )}{' '}
           for {formatPercentage(actual)}% of physical damage taken. You should have one of the two
@@ -166,7 +166,7 @@ class BlockCheck extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.SHIELD_BLOCK_BUFF.id} /> Physical Hits Mitigated
+              <SpellIcon spell={SPELLS.SHIELD_BLOCK_BUFF} /> Physical Hits Mitigated
             </>
           }
         >

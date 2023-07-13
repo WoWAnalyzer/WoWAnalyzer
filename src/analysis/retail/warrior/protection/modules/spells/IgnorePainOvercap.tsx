@@ -107,7 +107,7 @@ class IgnorePainOvercap extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.IGNORE_PAIN.id} /> Ignore Pain Overcapped
+              <SpellIcon spell={SPELLS.IGNORE_PAIN} /> Ignore Pain Overcapped
             </>
           }
         >

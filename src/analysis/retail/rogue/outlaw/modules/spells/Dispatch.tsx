@@ -27,8 +27,8 @@ class Dispatch extends Analyzer {
   get delayedCastSuggestion() {
     return (
       <>
-        Whenever you have the <SpellLink id={SPELLS.RUTHLESS_PRECISION.id} /> buff, you should
-        prioritize <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> as your damaging spender.
+        Whenever you have the <SpellLink spell={SPELLS.RUTHLESS_PRECISION} /> buff, you should
+        prioritize <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> as your damaging spender.
       </>
     );
   }
@@ -45,8 +45,8 @@ class Dispatch extends Analyzer {
     when(this.thresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You casted <SpellLink id={SPELLS.DISPATCH.id} /> while{' '}
-          <SpellLink id={SPELLS.BETWEEN_THE_EYES.id} /> was available. {this.delayedCastSuggestion}
+          You casted <SpellLink spell={SPELLS.DISPATCH} /> while{' '}
+          <SpellLink spell={SPELLS.BETWEEN_THE_EYES} /> was available. {this.delayedCastSuggestion}
         </>,
       )
         .icon(SPELLS.DISPATCH.icon)

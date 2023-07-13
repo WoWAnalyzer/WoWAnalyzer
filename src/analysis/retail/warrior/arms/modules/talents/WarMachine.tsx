@@ -29,7 +29,7 @@ class WarMachine extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={TALENTS.WAR_MACHINE_ARMS_TALENT.id} /> uptime
+            <SpellLink spell={TALENTS.WAR_MACHINE_ARMS_TALENT} /> uptime
           </>
         }
         value={`${formatPercentage(this.uptime)} %`}

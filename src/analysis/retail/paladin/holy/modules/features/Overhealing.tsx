@@ -70,20 +70,6 @@ class Overhealing extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
-  get bestowFaithOverhealing() {
-    return this.getOverhealingPercentage(TALENTS.BESTOW_FAITH_TALENT.id);
-  }
-  get bestowFaithSuggestionThresholds() {
-    return {
-      actual: this.bestowFaithOverhealing,
-      isGreaterThan: {
-        minor: 0.4,
-        average: 0.5,
-        major: 0.6,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
 
   suggestions(when: When) {
     when(this.lightOfDawnSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -135,7 +121,7 @@ class Overhealing extends Analyzer {
         <Trans id="paladin.holy.modules.overhealing.flashOfLightSuggestion">
           Try to avoid overhealing with <SpellLink spell={SPELLS.FLASH_OF_LIGHT} />. If Flash of
           Light would overheal it is generally advisable to cast a{' '}
-          <SpellLink spell={TALENTS.HOLY_LIGHT_TALENT} /> instead.
+          <SpellLink spell={SPELLS.HOLY_LIGHT} /> instead.
         </Trans>,
       )
         .icon(SPELLS.FLASH_OF_LIGHT.icon)
@@ -148,29 +134,6 @@ class Overhealing extends Analyzer {
         .recommended(
           t({
             id: 'paladin.holy.modules.overhealing.flashOfLightSuggestion.recommended',
-            message: `<${formatPercentage(recommended)}% is recommended`,
-          }),
-        ),
-    );
-
-    when(this.bestowFaithSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="paladin.holy.modules.overhealing.bestowFaithSuggestion">
-          Try to avoid overhealing with <SpellLink spell={TALENTS.BESTOW_FAITH_TALENT} />. Cast it
-          just before someone is about to take damage and consider casting it on targets other than
-          tanks.
-        </Trans>,
-      )
-        .icon(TALENTS.BESTOW_FAITH_TALENT.icon)
-        .actual(
-          t({
-            id: 'paladin.holy.modules.overhealing.bestowFaithSuggestion.actual',
-            message: `${formatPercentage(actual)}% overhealing`,
-          }),
-        )
-        .recommended(
-          t({
-            id: 'paladin.holy.modules.overhealing.bestowFaithSuggestion.recommended',
             message: `<${formatPercentage(recommended)}% is recommended`,
           }),
         ),

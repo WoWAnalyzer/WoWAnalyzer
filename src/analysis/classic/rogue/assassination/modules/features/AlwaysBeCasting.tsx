@@ -23,7 +23,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <span>
           Your downtime can be improved by staying within melee range of the boss. If you are far
-          out of range, use <SpellLink id={SPELLS.SPRINT} /> to return to the boss.
+          out of range, use <SpellLink spell={SPELLS.SPRINT} /> to return to the boss.
         </span>,
       )
         .icon('spell_mage_altertime')

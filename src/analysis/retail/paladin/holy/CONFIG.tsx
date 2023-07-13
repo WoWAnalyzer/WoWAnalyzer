@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { CamClark } from 'CONTRIBUTORS';
+import { Abelito75 } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -9,7 +9,7 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [CamClark],
+  contributors: [Abelito75],
   expansion: Expansion.Dragonflight,
   patchCompatibility: '10.1.0',
   isPartial: false,
@@ -46,7 +46,7 @@ const config: Config = {
     </>
   ),
   exampleReport:
-    '/report/mWxqCgyDB7atVrd1/4-Mythic+Skolex,+the+Insatiable+Ravener+-+Kill+(4:30)/Claríus/standard',
+    '/report/K3QhqX8brd7aHJn4/26-Mythic+The+Vigilant+Steward,+Zskarn+-+Kill+(4:15)/467-Mytholcgy/standard',
 
   //
   spec: SPECS.HOLY_PALADIN,

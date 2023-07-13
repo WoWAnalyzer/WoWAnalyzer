@@ -7,6 +7,8 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 11), 'Update for 10.1.5.', ToppleTheNun),
+  change(date(2023, 7, 9), <>Add statistic about amount of <SpellLink spell={SPELLS.DEMON_SPIKES} /> wasted.</>, ToppleTheNun),
   change(date(2023, 7, 8), <>Fix determination of <SpellLink spell={TALENTS.FRACTURE_TALENT} /> quality based on Fury amounts.</>, ToppleTheNun),
   change(date(2023, 3, 21), <>Fix some good <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> casts showing as bad.</>, ToppleTheNun),
   change(date(2023, 3, 16), 'Update the default log.', ToppleTheNun),

@@ -33,6 +33,7 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
+import ElementalGuide from './guide/ElementalGuide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -72,6 +73,8 @@ class CombatLogParser extends CoreCombatLogParser {
     astralShift: AstralShift,
     callToDominance: CallToDominance,
   };
+
+  static guide = ElementalGuide;
 }
 
 export default CombatLogParser;

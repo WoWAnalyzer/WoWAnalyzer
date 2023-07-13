@@ -37,7 +37,7 @@ class HotStreak extends Analyzer {
   expiredProcs = () =>
     this.sharedCode.getExpiredProcs(SPELLS.HOT_STREAK, [
       TALENTS.PYROBLAST_TALENT,
-      TALENTS.FLAMESTRIKE_TALENT,
+      SPELLS.FLAMESTRIKE,
     ]).length || 0;
 
   // prettier-ignore
@@ -46,7 +46,7 @@ class HotStreak extends Analyzer {
     hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FIREBALL));
     
     //If Hot Streak was used on Flamestrike, filter it out
-    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, TALENTS.FLAMESTRIKE_TALENT));
+    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FLAMESTRIKE));
 
     //If Combustion or Hyperthermia was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
@@ -192,10 +192,10 @@ class HotStreak extends Analyzer {
           When <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is not active
           {this.hasFirestarter ? ' and the target is below 90% health' : ''}{' '}
           {this.hasSearingTouch ? ' and the target is over 30% health' : ''},{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> procs should be used immediately after casting{' '}
-          <SpellLink id={SPELLS.FIREBALL.id} /> . This way, if one of the two abilities crit you
-          will gain a new <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will
-          get a new <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this{' '}
+          <SpellLink spell={SPELLS.HOT_STREAK} /> procs should be used immediately after casting{' '}
+          <SpellLink spell={SPELLS.FIREBALL} /> . This way, if one of the two abilities crit you
+          will gain a new <SpellLink spell={SPELLS.HEATING_UP} /> proc, and if both crit you will
+          get a new <SpellLink spell={SPELLS.HOT_STREAK} /> proc. You failed to do this{' '}
           {this.missingHotStreakPreCast()} times. If you have a{' '}
           <SpellLink spell={SPELLS.HOT_STREAK} /> proc and need to move, you can hold the proc and
           cast <SpellLink spell={SPELLS.SCORCH} /> once or twice until you are able to stop and cast{' '}

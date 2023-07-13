@@ -79,6 +79,11 @@ const spells = spellIndexableList({
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
   },
+  INVISIBILITY: {
+    id: 66,
+    name: 'Invisibility',
+    icon: 'ability_mage_invisibility',
+  },
   SHIFTING_POWER_TICK: {
     id: 382445,
     name: 'Shifting Power',

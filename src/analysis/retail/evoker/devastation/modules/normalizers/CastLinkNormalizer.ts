@@ -16,7 +16,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ESSENCE_BURST_CONSUME,
     reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [TALENTS_EVOKER.ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
+    linkingEventId: [TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: SPELLS.DISINTEGRATE.id,
 
@@ -28,7 +28,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ESSENCE_BURST_CONSUME,
     reverseLinkRelation: ESSENCE_BURST_CONSUME,
-    linkingEventId: [TALENTS_EVOKER.ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
+    linkingEventId: [TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: [SPELLS.PYRE.id, SPELLS.PYRE_DENSE_TALENT.id],
     referencedEventType: EventType.Cast,
@@ -39,7 +39,7 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: ESSENCE_BURST_GENERATED,
     reverseLinkRelation: ESSENCE_BURST_GENERATED,
-    linkingEventId: [TALENTS_EVOKER.ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
+    linkingEventId: [TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id, SPELLS.ESSENCE_BURST_DEV_BUFF.id],
     linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
     referencedEventId: [
       SPELLS.LIVING_FLAME_DAMAGE.id,

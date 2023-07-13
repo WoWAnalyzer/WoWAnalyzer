@@ -79,18 +79,17 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         description={
           <>
             Use other spells in your toolkit to your advantage. For example, you can try to minimize
-            necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />,{' '}
-            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon />,{' '}
-            <SpellLink id={TALENTS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with{' '}
-            <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/
-            <SpellLink id={TALENTS.DARK_PACT_TALENT.id} icon />.<br />
+            necessary movement by using <SpellLink spell={SPELLS.DEMONIC_GATEWAY_CAST} icon />,{' '}
+            <SpellLink spell={SPELLS.DEMONIC_CIRCLE} icon />,{' '}
+            <SpellLink spell={TALENTS.BURNING_RUSH_TALENT} icon /> or mitigate incoming damage with{' '}
+            <SpellLink spell={SPELLS.UNENDING_RESOLVE} icon />/
+            <SpellLink spell={TALENTS.DARK_PACT_TALENT} icon />.<br />
             While you shouldn't cast these defensives on cooldown, be aware of them and use them
             whenever effective. Not using them at all indicates you might not be aware of them or
             not using them optimally.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
         {combatant.hasTalent(TALENTS.DARK_PACT_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
@@ -101,14 +100,14 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         description={
           <>
             You should try to avoid doing nothing during the fight. When you're out of Soul Shards,
-            cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/
-            <SpellLink id={TALENTS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you
+            cast <SpellLink spell={SPELLS.SHADOW_BOLT_AFFLI} icon />/
+            <SpellLink spell={TALENTS.DRAIN_SOUL_TALENT} icon />, refresh your DoTs etc. When you
             have to move, use your instant abilities or try to utilize{' '}
-            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon>
+            <SpellLink spell={SPELLS.DEMONIC_CIRCLE} icon>
               Teleport
             </SpellLink>{' '}
             or{' '}
-            <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>
+            <SpellLink spell={SPELLS.DEMONIC_GATEWAY_CAST} icon>
               Gateway
             </SpellLink>{' '}
             to reduce the movement even further.

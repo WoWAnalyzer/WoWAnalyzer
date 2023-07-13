@@ -97,7 +97,7 @@ class SummonDemonicTyrant extends Analyzer {
       return (
         <tr key={demonSource}>
           <td align="left">
-            <SpellLink id={Number(demonSource)} />
+            <SpellLink spell={Number(demonSource)} />
           </td>
           <td align="center">
             {(mergedPets[Number(demonSource)] / this._petsPerCast.length).toFixed(2)}
@@ -134,7 +134,7 @@ class SummonDemonicTyrant extends Analyzer {
         dropdown={petTable}
         footer={tyrantFooter}
       >
-        <BoringSpellValueText spellId={SPELLS.SUMMON_DEMONIC_TYRANT.id}>
+        <BoringSpellValueText spell={SPELLS.SUMMON_DEMONIC_TYRANT}>
           {`${avgPets.toFixed(2)}`} <small>Avg. demons empowered</small>
         </BoringSpellValueText>
       </StatisticBox>

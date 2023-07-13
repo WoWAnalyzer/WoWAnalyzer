@@ -65,8 +65,8 @@ class Slam extends Analyzer {
     when(this.badCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid using <SpellLink id={SPELLS.SLAM.id} /> when{' '}
-          <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> or <SpellLink id={SPELLS.EXECUTE.id} /> is
+          Try to avoid using <SpellLink spell={SPELLS.SLAM} /> when{' '}
+          <SpellLink spell={SPELLS.MORTAL_STRIKE} /> or <SpellLink spell={SPELLS.EXECUTE} /> is
           available as it is more rage efficient.
         </>,
       )

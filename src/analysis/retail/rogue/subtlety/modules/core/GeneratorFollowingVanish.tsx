@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 class GeneratorFollowingVanish extends Analyzer {
   generatorSpells = [
@@ -56,7 +57,7 @@ class GeneratorFollowingVanish extends Analyzer {
       suggest(
         <>
           Try to avoid casting non-generator spells as the cast following{' '}
-          <SpellLink id={SPELLS.VANISH.id} />.
+          <SpellLink spell={SPELLS.VANISH} />.
         </>,
       )
         .icon(SPELLS.SHADOWSTRIKE.icon)
@@ -73,7 +74,7 @@ class GeneratorFollowingVanish extends Analyzer {
         <tr key={idx}>
           <td>{this.owner.formatTimestamp(castPair[0].timestamp)}</td>
           <td>
-            <SpellIcon id={castPair[1].ability.guid} />
+            <SpellIcon spell={abilityToSpell(castPair[1].ability)} />
           </td>
           <td>{this.owner.formatTimestamp(castPair[1].timestamp)}</td>
         </tr>
@@ -87,7 +88,7 @@ class GeneratorFollowingVanish extends Analyzer {
           category={STATISTIC_CATEGORY.GENERAL}
           tooltip={
             <>
-              You cast non-generators following <SpellLink id={SPELLS.VANISH.id} />{' '}
+              You cast non-generators following <SpellLink spell={SPELLS.VANISH} />{' '}
               {formatNumber(this.badFollowingVanishCasts.length)} times and generators{' '}
               {formatNumber(this.goodFollowingVanishCasts.length)} times.
             </>

@@ -47,7 +47,7 @@ class AstralShift extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        icon={<SpellIcon id={TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT} />}
         value={`≈${formatNumber(this.totalDrps)} DRPS`}
         label={<Trans id="shaman.shared.damageReduced.label">Estimated damage reduced</Trans>}
         tooltip={

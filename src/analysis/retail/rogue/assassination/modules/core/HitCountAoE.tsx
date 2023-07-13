@@ -103,7 +103,7 @@ export default class HitCountAoE extends CoreHitCountAoE {
           <RoundedPanel>
             <div>
               <strong>
-                <SpellLink id={SPELLS.FAN_OF_KNIVES} />{' '}
+                <SpellLink spell={SPELLS.FAN_OF_KNIVES} />{' '}
               </strong>{' '}
               should only be used on three or more targets.
             </div>
@@ -113,7 +113,7 @@ export default class HitCountAoE extends CoreHitCountAoE {
             <RoundedPanel>
               <div>
                 <strong>
-                  <SpellLink id={TALENTS.CRIMSON_TEMPEST_TALENT} />{' '}
+                  <SpellLink spell={TALENTS.CRIMSON_TEMPEST_TALENT} />{' '}
                 </strong>{' '}
                 should only be used on multiple targets.
               </div>

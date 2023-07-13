@@ -90,6 +90,7 @@ const talents = createTalentList({
     entryIds: [112600],
     definitionIds: [{ id: 117605, specId: 261 }],
     energyCost: 35,
+    comboPointsCost: 1,
   },
   BLADE_FLURRY_TALENT: {
     id: 13877,
@@ -204,6 +205,7 @@ const talents = createTalentList({
     entryIds: [112517],
     definitionIds: [{ id: 117522, specId: 259 }],
     energyCost: 30,
+    comboPointsCost: 1,
   },
   CUT_TO_THE_CHASE_TALENT: {
     id: 51667,
@@ -1046,6 +1048,7 @@ const talents = createTalentList({
     entryIds: [112603],
     definitionIds: [{ id: 117608, specId: 261 }],
     energyCost: 30,
+    comboPointsCost: 1,
   },
   SEPSIS_TALENT: {
     id: 385408,

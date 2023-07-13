@@ -52,7 +52,7 @@ class WellPlacedSteel extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.IMPROVED_SHIV_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.IMPROVED_SHIV_TALENT}>
           <ItemDamageDone amount={this.bonusDamage} />
         </BoringSpellValueText>
       </Statistic>

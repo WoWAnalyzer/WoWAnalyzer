@@ -62,9 +62,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT) && (
           <AbilityRequirement spell={TALENTS.HAMMER_OF_WRATH_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.BESTOW_FAITH_TALENT) && (
-          <AbilityRequirement spell={TALENTS.BESTOW_FAITH_TALENT.id} />
-        )}
         {combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT) && (
           <AbilityRequirement spell={TALENTS.LIGHTS_HAMMER_TALENT.id} />
         )}
@@ -103,9 +100,6 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <AbilityRequirement spell={TALENTS.AVENGING_CRUSADER_TALENT.id} />
         )}
         <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
-        {combatant.hasTalent(TALENTS.RULE_OF_LAW_TALENT) && (
-          <AbilityRequirement spell={TALENTS.RULE_OF_LAW_TALENT.id} />
-        )}
 
         {combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT) && (
           <AbilityRequirement spell={TALENTS.DIVINE_TOLL_TALENT.id} />
@@ -266,8 +260,7 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <Trans id="paladin.holy.modules.checklist.positionWell.description">
             <SpellLink spell={SPELLS.MASTERY_LIGHTBRINGER} /> has a big impact on the strength of
             your heals. Try to stay close to the people you are healing to benefit the most from
-            your Mastery. Use <SpellLink spell={TALENTS.RULE_OF_LAW_TALENT} /> when healing people
-            further away.
+            your Mastery.
           </Trans>
         }
       >
@@ -330,9 +323,9 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.DIVINE_STEED_TALENT) && (
           <AbilityRequirement spell={TALENTS.DIVINE_STEED_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.DIVINE_PROTECTION_TALENT) && (
-          <AbilityRequirement spell={TALENTS.DIVINE_PROTECTION_TALENT.id} />
-        )}
+
+        <AbilityRequirement spell={SPELLS.DIVINE_PROTECTION.id} />
+
         {combatant.hasTalent(TALENTS.BLESSING_OF_SACRIFICE_TALENT) && (
           <AbilityRequirement spell={TALENTS.BLESSING_OF_SACRIFICE_TALENT.id} />
         )}

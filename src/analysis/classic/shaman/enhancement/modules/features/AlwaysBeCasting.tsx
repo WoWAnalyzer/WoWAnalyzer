@@ -23,8 +23,8 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <span>
           Your downtime can be improved. Try to reduce time away from the boss. If you have to move,
-          use instant cast abilities, such as <SpellLink id={SPELLS.FLAME_SHOCK} /> or{' '}
-          <SpellLink id={SPELLS.EARTH_SHOCK} />.
+          use instant cast abilities, such as <SpellLink spell={SPELLS.FLAME_SHOCK} /> or{' '}
+          <SpellLink spell={SPELLS.EARTH_SHOCK} />.
         </span>,
       )
         .icon('spell_mage_altertime')

@@ -30,8 +30,7 @@ class CastBehavior extends Analyzer {
     const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(TALENTS.HOLY_LIGHT_TALENT.id);
-    const holyShockCast = getAbility(TALENTS.HOLY_SHOCK_TALENT.id);
+    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
     const holyShockHeal = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
     const holyShockDamage = getAbility(SPELLS.HOLY_SHOCK_DAMAGE.id);
 
@@ -39,7 +38,7 @@ class CastBehavior extends Analyzer {
     const iolHolyLights = holyLight.healingIolHits || 0;
     const totalIolUsages = iolFlashOfLights + iolHolyLights;
 
-    const holyShockCasts = holyShockCast.casts || 0;
+    const holyShockCasts = holyShockHeal.healingHits;
     const holyShockCrits =
       (holyShockHeal.healingCriticalHits || 0) + (holyShockDamage.damageCriticalHits || 0);
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
@@ -55,8 +54,8 @@ class CastBehavior extends Analyzer {
       },
       {
         color: '#F57C00',
-        label: TALENTS.HOLY_LIGHT_TALENT.name,
-        spellId: TALENTS.HOLY_LIGHT_TALENT.id,
+        label: SPELLS.HOLY_LIGHT.name,
+        spellId: SPELLS.HOLY_LIGHT.id,
         value: iolHolyLights,
       },
       {
@@ -82,7 +81,7 @@ class CastBehavior extends Analyzer {
     const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(TALENTS.HOLY_LIGHT_TALENT.id);
+    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
     const lightOfTheMartyr = getAbility(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
@@ -107,8 +106,8 @@ class CastBehavior extends Analyzer {
         },
         {
           color: '#F57C00',
-          label: TALENTS.HOLY_LIGHT_TALENT.name,
-          spellId: TALENTS.HOLY_LIGHT_TALENT.id,
+          label: SPELLS.HOLY_LIGHT.name,
+          spellId: SPELLS.HOLY_LIGHT.id,
           value: fillerHolyLights,
         },
         {

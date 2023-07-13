@@ -166,7 +166,7 @@ class ChainHeal extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.CHAIN_HEAL_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.CHAIN_HEAL_TALENT} />}
         value={this.avgHits.toFixed(2)}
         position={STATISTIC_ORDER.OPTIONAL(70)}
         label={

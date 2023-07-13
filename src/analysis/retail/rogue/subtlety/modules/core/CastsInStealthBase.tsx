@@ -66,7 +66,7 @@ class CastsInStealthBase extends Analyzer {
       (suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) =>
         suggest(
           <>
-            Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} />{' '}
+            Use <SpellLink spell={SPELLS.SHADOWSTRIKE} /> instead of <SpellLink spell={spell} />{' '}
             during {this.stealthCondition}.{' '}
           </>,
         )

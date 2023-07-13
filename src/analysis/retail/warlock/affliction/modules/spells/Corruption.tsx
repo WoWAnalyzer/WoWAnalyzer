@@ -34,7 +34,7 @@ class CorruptionUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.CORRUPTION_CAST.id} /> uptime can be improved. Try to pay more
+          Your <SpellLink spell={SPELLS.CORRUPTION_CAST} /> uptime can be improved. Try to pay more
           attention to your Corruption on the boss, perhaps use some debuff tracker.
         </>,
       )
@@ -54,7 +54,7 @@ class CorruptionUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.CORRUPTION_CAST.id} />
+          <SpellIcon spell={SPELLS.CORRUPTION_CAST} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

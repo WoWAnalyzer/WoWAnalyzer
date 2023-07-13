@@ -24,7 +24,6 @@ import DrainSoul from './modules/spells/DrainSoul';
 import DreadTouch from './modules/spells/DreadTouch';
 import Haunt from './modules/spells/Haunt';
 import InevitableDemise from './modules/spells/InevitableDemise';
-import MaleficAffliction from './modules/spells/MaleficAffliction';
 import Nightfall from './modules/spells/Nightfall';
 import PandemicInvocation from './modules/spells/PandemicInvocation';
 import PhantomSingularity from './modules/spells/PhantomSingularity';
@@ -73,7 +72,6 @@ class CombatLogParser extends CoreCombatLogParser {
     inevitableDemise: InevitableDemise,
     grimoireOfSacrifice: GrimoireOfSacrifice,
     haunt: Haunt,
-    maleficAffliction: MaleficAffliction,
     nightfall: Nightfall,
     pandemicInvocation: PandemicInvocation,
     phantomSingularity: PhantomSingularity,

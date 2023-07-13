@@ -23,7 +23,7 @@ class TirionsDevotion extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(TALENTS.TIRIONS_DEVOTION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.TIRIONS_DEVOTION_HOLY_TALENT);
     if (!this.active) {
       return;
     }
@@ -74,7 +74,7 @@ class TirionsDevotion extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink spell={TALENTS.TIRIONS_DEVOTION_TALENT} /> Total CDR
+              <SpellLink spell={TALENTS.TIRIONS_DEVOTION_HOLY_TALENT} /> Total CDR
             </>
           }
         >

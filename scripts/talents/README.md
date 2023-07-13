@@ -25,15 +25,11 @@ $ npx ts-node-dev --respawn .\scripts\talents\generate-talents.ts
 In order to update the spell power values used in the talent generation (like mana cost,
 fury cost, etc.), follow the below steps:
 
-- Run the below script while providing it a build number
-
-```shell script
-$ npx ts-node-dev .\scripts\talents\download-spellpower.ts WOWVERSION
-```
-
-- Update the `LIVE_WOW_BUILD_NUMBER` value in `scripts/talents/generate-talents.ts` to match WOWVERSION
+- Update the `LIVE_WOW_BUILD_NUMBER` value in `scripts/talents/generate-talents.ts` to match the version of WoW you want to use
 
 ## PTR
+
+Sometimes, the PTR used for an upcoming version won't be on the `ptr`, it will be on `xptr`. To resolve this, change the `PTR_TALENT_DATA_URL` value to use `xptr` instead of `ptr`.
 
 To run it once
 
@@ -52,10 +48,4 @@ $ npx ts-node-dev --respawn .\scripts\talents\generate-talents.ts --ptr
 In order to update the spell power values used in the talent generation (like mana cost,
 fury cost, etc.), follow the below steps:
 
-- Run the below script while providing it a build number
-
-```shell script
-$ npx ts-node-dev .\scripts\talents\download-spellpower.ts WOWVERSION
-```
-
-- Update the `PTR_WOW_BUILD_NUMBER` value in `scripts/talents/generate-talents.ts` to match WOWVERSION
+- Update the `PTR_WOW_BUILD_NUMBER` value in `scripts/talents/generate-talents.ts` to match the version of WoW you want to use

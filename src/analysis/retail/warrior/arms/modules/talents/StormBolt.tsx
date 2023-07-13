@@ -40,7 +40,7 @@ class StormBolt extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={TALENTS.STORM_BOLT_TALENT.id} /> Stun
+            <SpellLink spell={TALENTS.STORM_BOLT_TALENT} /> Stun
           </>
         }
         value={formatNumber(this.stun)}

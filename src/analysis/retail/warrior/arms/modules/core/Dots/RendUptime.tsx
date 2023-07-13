@@ -45,7 +45,7 @@ class RendUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.REND_ARMS_TALENT.id} /> uptime can be improved. If you choose
+          Your <SpellLink spell={TALENTS.REND_ARMS_TALENT} /> uptime can be improved. If you choose
           this talent, you better use it !
         </>,
       )
@@ -65,7 +65,7 @@ class RendUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={TALENTS.REND_ARMS_TALENT.id} />
+          <SpellIcon spell={TALENTS.REND_ARMS_TALENT} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

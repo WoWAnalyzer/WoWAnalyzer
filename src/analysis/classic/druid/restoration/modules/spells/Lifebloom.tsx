@@ -76,7 +76,7 @@ class Lifebloom extends Analyzer {
         <br />
         {isClearcast && (
           <strong>
-            <SpellLink id={SPELLS.CLEARCASTING} /> proc
+            <SpellLink spell={SPELLS.CLEARCASTING} /> proc
           </strong>
         )}
         {isHealingTrance && (
@@ -127,13 +127,13 @@ class Lifebloom extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={SPELLS.LIFEBLOOM.id} />
+            <SpellLink spell={SPELLS.LIFEBLOOM} />
           </b>{' '}
           is a heal-over-time effect that heals every second for 7 seconds and stacks up to 3 times.
           When it expires it heals for an additional amount and refunds half the mana cost.
         </p>
         <p>
-          Casting this during a <SpellLink id={SPELLS.CLEARCASTING} /> or{' '}
+          Casting this during a <SpellLink spell={SPELLS.CLEARCASTING} /> or{' '}
           <ItemLink id={ITEMS.SOUL_PRESERVER.id} /> proc, will generate mana.
         </p>
       </>
@@ -164,7 +164,7 @@ class Lifebloom extends Analyzer {
         size="flexible"
         tooltip="Mana returned during clearcasting procs (no mana cost)."
       >
-        <BoringValue label={<SpellLink id={SPELLS.LIFEBLOOM_REGEN} />}>
+        <BoringValue label={<SpellLink spell={SPELLS.LIFEBLOOM_REGEN} />}>
           <div>
             <ManaIcon /> {formatNumber(this.manaFromLifebloom)} <small>mana returned</small>
             <br />

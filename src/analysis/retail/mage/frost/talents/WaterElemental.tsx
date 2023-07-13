@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber, formatThousands, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/mage';
+import { PLACEHOLDER_TALENT } from 'common/TALENTS/types';
 import { SpellLink } from 'interface';
 import CooldownIcon from 'interface/icons/Cooldown';
 import UptimeIcon from 'interface/icons/Uptime';
@@ -32,7 +32,7 @@ class WaterElemental extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.LONELY_WINTER_TALENT);
+    this.active = false;
 
     this.addEventListener(
       Events.begincast.by(SELECTED_PLAYER_PET).spell(SPELLS.WATERBOLT),
@@ -136,12 +136,12 @@ class WaterElemental extends Analyzer {
     when(this.waterElementalUptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink spell={TALENTS.SUMMON_WATER_ELEMENTAL_TALENT} /> uptime can be improved.
-          The uptime of your Water Elemental should more or less mirror your own uptime, higher
-          being better. Ensure you have your it summoned pre-pull and that it's always attacking.
+          Your <SpellLink spell={PLACEHOLDER_TALENT} /> uptime can be improved. The uptime of your
+          Water Elemental should more or less mirror your own uptime, higher being better. Ensure
+          you have your it summoned pre-pull and that it's always attacking.
         </>,
       )
-        .icon(TALENTS.SUMMON_WATER_ELEMENTAL_TALENT.icon)
+        .icon(PLACEHOLDER_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.waterElemental.uptime">
             {formatPercentage(actual)}% uptime
@@ -157,8 +157,7 @@ class WaterElemental extends Analyzer {
       suggest(
         <>
           Your Water Elemental should be able to cast Waterbolt right when the fight starts.
-          Therefore, cast <SpellLink spell={TALENTS.SUMMON_WATER_ELEMENTAL_TALENT} /> before the
-          fight.
+          Therefore, cast <SpellLink spell={PLACEHOLDER_TALENT} /> before the fight.
         </>,
       )
         .icon(SPELLS.WATERBOLT.icon)

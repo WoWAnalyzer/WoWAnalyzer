@@ -78,7 +78,7 @@ class FireAndBrimstone extends Analyzer {
       .addSuggestion((suggest) =>
         suggest(
           <>
-            Your <SpellLink id={TALENTS.FIRE_AND_BRIMSTONE_TALENT.id} icon /> talent didn't
+            Your <SpellLink spell={TALENTS.FIRE_AND_BRIMSTONE_TALENT} icon /> talent didn't
             contribute any bonus fragments. When there are no adds to cleave onto, this talent is
             useless and you should switch to a different talent.
           </>,
@@ -97,7 +97,7 @@ class FireAndBrimstone extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.bonusDmg)} bonus cleaved damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.FIRE_AND_BRIMSTONE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.FIRE_AND_BRIMSTONE_TALENT}>
           {this.bonusFragments} <small>bonus Soul Shard Fragments</small> <br />
           {formatNumber(this.dps)} DPS{' '}
           <small>

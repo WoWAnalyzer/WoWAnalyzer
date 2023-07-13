@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic } from 'CONTRIBUTORS';
+import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 8), <>Add guide skeleton</>, Periodic),
+  change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2022, 7, 7), <>Basic cleanup for 10.1.0.</>, Periodic),
   change(date(2022, 10, 18), <>Cleanup majority of old spells.</>, Vetyst),
   change(date(2022, 8, 15), <>Track haste gained from <SpellLink spell={SPELLS.ELEMENTAL_BLAST} />.</>, Vetyst),

@@ -1,4 +1,4 @@
-export const EXTENDED_SPIKES_SCALING = [0, 0.001, 0.002];
+export const EXTENDED_SPIKES_SCALING = [0, 1, 2];
 
 export const CHAINS_OF_ANGER_SCALING = [0, 1, 2];
 

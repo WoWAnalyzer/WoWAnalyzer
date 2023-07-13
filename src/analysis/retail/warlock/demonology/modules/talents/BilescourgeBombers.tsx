@@ -31,7 +31,7 @@ class BilescourgeBombers extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.BILESCOURGE_BOMBERS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BILESCOURGE_BOMBERS_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

@@ -113,10 +113,10 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             <SpellLink spell={SPELLS.HEATING_UP} /> proc. If you get a second consecutive crit with
             a direct damage ability, you will get a <SpellLink spell={SPELLS.HOT_STREAK} /> proc
             which makes your next <SpellLink spell={TALENTS.PYROBLAST_TALENT} /> or{' '}
-            <SpellLink spell={TALENTS.FLAMESTRIKE_TALENT} /> cast be instant cast. Additionally, you
-            have spells like <SpellLink spell={SPELLS.FIRE_BLAST} /> which is always guaranteed to
-            crit and spells like <SpellLink spell={SPELLS.SCORCH} /> which are guaranteed to crit
-            when the target is below 30% health (If you are using the{' '}
+            <SpellLink spell={SPELLS.FLAMESTRIKE} /> cast be instant cast. Additionally, you have
+            spells like <SpellLink spell={SPELLS.FIRE_BLAST} /> which is always guaranteed to crit
+            and spells like <SpellLink spell={SPELLS.SCORCH} /> which are guaranteed to crit when
+            the target is below 30% health (If you are using the{' '}
             <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} /> talent). These can be used to force{' '}
             <SpellLink spell={SPELLS.HOT_STREAK} /> procs.
           </>

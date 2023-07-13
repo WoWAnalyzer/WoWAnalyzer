@@ -15,6 +15,12 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import Abilities from 'parser/core/modules/Abilities';
 
+const ADDITIONAL_DAMAGE_RATIO = {
+  FIRE: 0.2,
+  PHYSICAL: 0.2,
+  CHAIN_LIGHTNING: 0.2,
+};
+
 export default class Tier30 extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -63,17 +69,23 @@ export default class Tier30 extends Analyzer {
       /** Volcanic Strength "double-dips" on multi-school spells, e.g. Sundering deals
        * flamestrike damage and is increased by both the physical AND fire components of the buff */
       if (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.PHYSICAL)) {
-        this.extraPhysicalDamge += calculateEffectiveDamage(event, 0.2);
+        this.extraPhysicalDamge += calculateEffectiveDamage(
+          event,
+          ADDITIONAL_DAMAGE_RATIO.PHYSICAL,
+        );
       }
       if (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.FIRE)) {
-        this.extraFireDamage += calculateEffectiveDamage(event, 0.2);
+        this.extraFireDamage += calculateEffectiveDamage(event, ADDITIONAL_DAMAGE_RATIO.FIRE);
       }
     }
   }
 
   onChainLightning(event: DamageEvent) {
     if (this.selectedCombatant.hasBuff(SPELLS.CRACKLING_THUNDER_TIER_BUFF.id)) {
-      this.extraChainLightningDamage += calculateEffectiveDamage(event, 1);
+      this.extraChainLightningDamage += calculateEffectiveDamage(
+        event,
+        ADDITIONAL_DAMAGE_RATIO.CHAIN_LIGHTNING,
+      );
     }
   }
 

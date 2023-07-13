@@ -54,7 +54,7 @@ class ForcefulWinds extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.FORCEFUL_WINDS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_SHAMAN.FORCEFUL_WINDS_TALENT}>
           <>
             <ItemDamageDone amount={this.damageGained} />
             <br />

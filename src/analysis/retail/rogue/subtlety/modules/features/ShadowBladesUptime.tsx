@@ -23,7 +23,7 @@ class ShadowBladesUptime extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={TALENTS.SHADOW_BLADES_TALENT.id} /> Shadow Blades Uptime
+              <SpellIcon spell={TALENTS.SHADOW_BLADES_TALENT} /> Shadow Blades Uptime
             </>
           }
         >

@@ -259,10 +259,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.INVISIBILITY_TALENT.id,
+        spell: SPELLS.INVISIBILITY.id,
         buffSpellId: SPELLS.INVISIBILITY_BUFF.id,
         category: SPELL_CATEGORY.UTILITY,
-        enabled: combatant.hasTalent(TALENTS.INVISIBILITY_TALENT),
+        enabled: !combatant.hasTalent(TALENTS.GREATER_INVISIBILITY_TALENT),
         gcd: {
           base: 1500,
         },

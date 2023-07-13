@@ -5,6 +5,9 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 11), <>Fix <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}/></>, Trevor),
+  change(date(2023, 7, 11), <>Fix <SpellLink spell={TALENTS_EVOKER.REGENERATIVE_MAGIC_TALENT}/></>, Trevor),
+  change(date(2023, 7, 11), <>Update modules for 10.1.5</>, Trevor),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 9), <>Add Cooldowns tab</>, Trevor),
   change(date(2023, 5, 24), <>Add <SpellLink spell={TALENTS_EVOKER.NOZDORMUS_TEACHINGS_TALENT}/> module</>, Trevor),
@@ -71,12 +74,12 @@ export default [
   change(date(2022, 12, 4), <>Add <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT}/> module and update checklist</>, Trevor),
   change(date(2022, 12, 4), <>Add <SpellLink spell={TALENTS_EVOKER.RENEWING_BREATH_TALENT}/> module</>, Trevor),
   change(date(2022, 12, 4), <>Added module for <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}/></>, Trevor),
-  change(date(2022, 12, 4), <>Add suggestion for <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT}/> based on buffs consumed</>, Trevor),
-  change(date(2022, 12, 3), <>Fixed empty <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT}/> chart when player never gains the buff</>, Trevor),
+  change(date(2022, 12, 4), <>Add suggestion for <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> based on buffs consumed</>, Trevor),
+  change(date(2022, 12, 3), <>Fixed empty <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> chart when player never gains the buff</>, Trevor),
   change(date(2022, 11, 29), <>Added <SpellLink spell={SPELLS.EMERALD_BLOSSOM}/> module</>, Trevor),
   change(date(2022, 11, 27), <>Add modules for <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT}/> and <SpellLink spell={TALENTS_EVOKER.RESONATING_SPHERE_TALENT}/></>, Trevor),
   change(date(2022, 11, 22), 'Cleanup Preservation Evoker files', Trevor),
-  change(date(2022, 11, 22), <>Added <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT}/> module</>, Trevor),
+  change(date(2022, 11, 22), <>Added <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> module</>, Trevor),
   change(date(2022, 11, 21), 'Updated contributor and support status for Preservation', Vohrr),
   change(date(2022, 11, 18), <>Added <SpellLink spell={TALENTS_EVOKER.CALL_OF_YSERA_TALENT}/> module.</>, Vohrr),
   change(date(2022, 11, 16), <>Updated removed shields from Mastery Effectiveness for a rework and relabeled and added a tooltip indicating such</>, Vohrr),

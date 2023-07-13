@@ -27,7 +27,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <span>
             Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
             between casting spells. If everything is on cooldown, try and use{' '}
-            <SpellLink id={SPELLS.SINISTER_STRIKE.id} /> to stay off the energy cap and do some
+            <SpellLink spell={SPELLS.SINISTER_STRIKE} /> to stay off the energy cap and do some
             damage.
           </span>,
         )
