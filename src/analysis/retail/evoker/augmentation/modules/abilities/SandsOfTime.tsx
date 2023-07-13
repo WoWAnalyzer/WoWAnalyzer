@@ -76,7 +76,10 @@ class SandsOfTime extends Analyzer {
   private sandOfTimeUsage(possibleExtends: PossibleExtends): SpellUse {
     const extended = possibleExtends.extended;
     const spell = possibleExtends.event.ability.guid;
-    const performance = extended ? QualitativePerformance.Good : QualitativePerformance.Fail;
+    let performance = extended ? QualitativePerformance.Good : QualitativePerformance.Fail;
+    if (spell === TALENTS.ERUPTION_TALENT.id && !extended) {
+      performance = QualitativePerformance.Ok;
+    }
     const summary = (
       <div>
         Extended with <SpellLink spell={spell} />
