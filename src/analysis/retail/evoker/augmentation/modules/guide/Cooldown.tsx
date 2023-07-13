@@ -33,12 +33,13 @@ export function CooldownSection({ info }: GuideProps<typeof CombatLogParser>) {
           spellId={TALENTS.BREATH_OF_EONS_TALENT.id}
           gapHighlightMode={GapHighlight.All}
         />
-        {info.combatant.hasTalent(TALENTS.TIME_SKIP_TALENT) && (
-          <CastEfficiencyBar
-            spellId={TALENTS.TIME_SKIP_TALENT.id}
-            gapHighlightMode={GapHighlight.All}
-          />
-        )}
+        {info.combatant.hasTalent(TALENTS.TIME_SKIP_TALENT) &&
+          !info.combatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) && (
+            <CastEfficiencyBar
+              spellId={TALENTS.TIME_SKIP_TALENT.id}
+              gapHighlightMode={GapHighlight.All}
+            />
+          )}
         <CastEfficiencyBar
           spellId={hasFontTalent ? SPELLS.FIRE_BREATH_FONT.id : SPELLS.FIRE_BREATH.id}
           gapHighlightMode={GapHighlight.FullCooldown}
