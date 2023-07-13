@@ -4,6 +4,7 @@ import {
   COMBUSTION_DURATION,
   SKB_COMBUST_DURATION,
   HOT_STREAK_SPENDERS,
+  SharedCode,
 } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
@@ -20,8 +21,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 class SunKingsBlessing extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
+    sharedCode: SharedCode,
   };
   protected eventHistory!: EventHistory;
+  protected sharedCode!: SharedCode;
 
   constructor(options: Options) {
     super(options);
@@ -29,22 +32,13 @@ class SunKingsBlessing extends Analyzer {
   }
 
   sunKingsBuffExpired = () => {
-    const buffRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, {
-      searchBackwards: true,
-      spell: SPELLS.FURY_OF_THE_SUN_KING,
-    });
-    let expiredBuffs = 0;
-    buffRemoved.forEach((r) => {
-      const spender = this.eventHistory.getEvents(EventType.Cast, {
-        searchBackwards: true,
-        spell: HOT_STREAK_SPENDERS,
-        count: 1,
-        startTimestamp: r.timestamp,
-        duration: MS_BUFFER_100,
-      })[0];
-      expiredBuffs += spender ? 1 : 0;
-    });
-    return expiredBuffs;
+    const expiredProcs = this.sharedCode.getExpiredProcs(
+      SPELLS.FURY_OF_THE_SUN_KING,
+      HOT_STREAK_SPENDERS,
+      MS_BUFFER_100,
+      10,
+    );
+    return expiredProcs.length;
   };
 
   combustCastDuringSKB = () => {
