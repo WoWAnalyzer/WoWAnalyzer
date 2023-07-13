@@ -5,6 +5,7 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 13), <>Fix <SpellLink spell={TALENTS_EVOKER.REGENERATIVE_MAGIC_TALENT}/></>, Trevor),
   change(date(2023, 7, 11), <>Fix <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}/></>, Trevor),
   change(date(2023, 7, 11), <>Fix <SpellLink spell={TALENTS_EVOKER.REGENERATIVE_MAGIC_TALENT}/></>, Trevor),
   change(date(2023, 7, 11), <>Update modules for 10.1.5</>, Trevor),
