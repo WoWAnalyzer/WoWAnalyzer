@@ -10,6 +10,7 @@ import Events, {
   BeaconHealEvent,
   CastEvent,
   DamageEvent,
+  HasRelatedEvent,
   HealEvent,
   RemoveBuffEvent,
   RemoveDebuffEvent,
@@ -23,6 +24,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import BeaconHealSource from '../../beacons/BeaconHealSource';
+import { FROM_DAYBREAK } from '../../../normalizers/CastLinkNormalizer';
 
 /**
  * Glimmer of Light
@@ -174,6 +176,10 @@ class GlimmerOfLight extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
+    if (HasRelatedEvent(event, FROM_DAYBREAK)) {
+      return;
+    }
+
     const amount = event.amount + (event.absorbed || 0);
     this.updateGlisteningRadianceProcs(event);
 
@@ -187,6 +193,10 @@ class GlimmerOfLight extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
+    if (HasRelatedEvent(event, FROM_DAYBREAK)) {
+      return;
+    }
+
     const amount = event.amount + (event.absorbed || 0);
     this.updateGlisteningRadianceProcs(event);
 
