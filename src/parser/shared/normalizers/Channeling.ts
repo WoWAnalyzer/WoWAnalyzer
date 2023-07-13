@@ -62,6 +62,8 @@ class Channeling extends EventsNormalizer {
     empowerChannelSpec(SPELLS.FIRE_BREATH_FONT.id),
     empowerChannelSpec(SPELLS.ETERNITY_SURGE.id),
     empowerChannelSpec(SPELLS.ETERNITY_SURGE_FONT.id),
+    empowerChannelSpec(SPELLS.UPHEAVAL.id),
+    empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id),
     buffChannelSpec(SPELLS.DISINTEGRATE.id),
     // Rogue
     // Druid
