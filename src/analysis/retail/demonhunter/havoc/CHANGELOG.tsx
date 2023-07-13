@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 13), 'Disable checklist.', ToppleTheNun),
   change(date(2023, 7, 11), 'Update for 10.1.5.', ToppleTheNun),
   change(date(2023, 6, 17), <>Fix damage calculations for <SpellLink spell={TALENTS.COLLECTIVE_ANGUISH_TALENT} />.</>, ToppleTheNun),
   change(date(2023, 4, 20), <>Add support for <SpellLink spell={TALENTS.UNBOUND_CHAOS_TALENT} />.</>, ToppleTheNun),
