@@ -21,14 +21,15 @@ class RegenerativeMagic extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.REGENERATIVE_MAGIC_TALENT);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LEECH), this.onHeal);
   }
 
   onHeal(event: HealEvent) {
     const increase =
-      1 -
       this.statTracker.currentLeechPercentage /
-        (this.statTracker.currentLeechPercentage - LEECH_PERCENT);
+        (this.statTracker.currentLeechPercentage - LEECH_PERCENT) -
+      1;
     this.totalHealing += calculateEffectiveHealing(event, increase);
   }
 

@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [Vetyst, Seriousnes],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: '10.1.0',
+  patchCompatibility: '10.1.5',
   isPartial: false,
   description: (
     <>
