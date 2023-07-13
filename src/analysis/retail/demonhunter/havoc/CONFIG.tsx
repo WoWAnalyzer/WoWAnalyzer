@@ -52,6 +52,7 @@ const CONFIG: Config = {
   exampleReport:
     '/report/RFwbnM4JcfvjNtmg/40-Mythic+Rashok,+the+Elder+-+Kill+(6:25)/Sadegirl/standard',
   guideDefault: true,
+  guideOnly: true,
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

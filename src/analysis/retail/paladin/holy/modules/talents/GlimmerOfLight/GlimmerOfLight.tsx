@@ -1,5 +1,3 @@
-import { Trans } from '@lingui/macro';
-import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
@@ -10,21 +8,20 @@ import Events, {
   BeaconHealEvent,
   CastEvent,
   DamageEvent,
-  HasRelatedEvent,
   HealEvent,
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import BeaconHealSource from '../../beacons/BeaconHealSource';
-import { FROM_DAYBREAK } from '../../../normalizers/CastLinkNormalizer';
+import { ALL_HOLY_POWER_SPENDERS } from 'analysis/retail/paladin/shared/constants';
+import Spell from 'common/SPELLS/Spell';
+import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
+import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
+import { formatNumber } from 'common/format';
 
 /**
  * Glimmer of Light
@@ -33,9 +30,6 @@ import { FROM_DAYBREAK } from '../../../normalizers/CastLinkNormalizer';
  * When you Holy Shock, all targets with Glimmer of Light are damaged for 1076 or healed for 1587. (at ilvl 400)
  * Example Log: https://www.warcraftlogs.com/reports/TX4nzPy8WwrfLv97#fight=19&type=auras&source=5&ability=287280
  */
-
-const BUFF_DURATION = 30;
-
 class GlimmerOfLight extends Analyzer {
   static dependencies = {
     beaconHealSource: BeaconHealSource,
@@ -43,26 +37,11 @@ class GlimmerOfLight extends Analyzer {
 
   GLIMMER_CAP = 3;
 
-  casts = 0;
-  damageHS = 0;
-  earlyRefresh = 0;
-  glimmerBuffs: Array<ApplyBuffEvent | ApplyDebuffEvent> = [];
-  glimmerHitsHS = 0;
-  healingHS = 0;
-  healingTransferedHS = 0;
-  overCap = 0;
-  wastedEarlyRefresh = 0;
-  wastedOverCap = 0;
-
+  glimmerStatTracker: GlimmerMap = {};
+  glimmerBuffTracker: { [key: number]: number } = {};
+  lastCast = -1;
   lastCastTime = -1;
-
-  glisteningRadianceProcs = 0;
   lastGlisteningRadianceProc = -1;
-  damageGlisteningRadiance = 0;
-  healingGlisteningRadiance = 0;
-  glimmerHitsGlisteningRadiance = 0;
-  healingTransferedGlisteningRadiance = 0;
-  hasGlisteningRadiance = false;
 
   constructor(options: Options) {
     super(options);
@@ -71,8 +50,8 @@ class GlimmerOfLight extends Analyzer {
       return;
     }
 
-    this.hasGlisteningRadiance = this.selectedCombatant.hasTalent(
-      TALENTS.GLISTENING_RADIANCE_TALENT,
+    this.glimmerStatTracker[TALENTS.HOLY_SHOCK_TALENT.id] = emptyGlimmerSource(
+      TALENTS.HOLY_SHOCK_TALENT,
     );
 
     this.GLIMMER_CAP = this.selectedCombatant.hasTalent(TALENTS.ILLUMINATION_TALENT)
@@ -82,19 +61,23 @@ class GlimmerOfLight extends Analyzer {
       ? 1
       : this.GLIMMER_CAP;
 
+    // Base Glimmer tracking Requirements
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_SHOCK_TALENT),
-      this.onCast,
+      this.updateLastCast,
     );
+
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT),
-      this.onHeal,
+      this.onGlimmerHeal,
     );
     this.addEventListener(Events.beacontransfer.by(SELECTED_PLAYER), this.onBeaconTransfer);
+
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT),
-      this.onDamage,
+      this.onGlimmerDamage,
     );
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
       this.onApplyBuff,
@@ -111,20 +94,37 @@ class GlimmerOfLight extends Analyzer {
       Events.removedebuff.by(SELECTED_PLAYER).spell(SPELLS.GLIMMER_OF_LIGHT_BUFF),
       this.onRemoveBuff,
     );
-  }
 
-  fromGlisteningRadiance(event: BeaconHealEvent | HealEvent | DamageEvent) {
-    return this.hasGlisteningRadiance && this.lastCastTime + 200 < event.timestamp;
-  }
+    // if we have Glistening Radiance do these things
+    if (this.selectedCombatant.hasTalent(TALENTS.GLISTENING_RADIANCE_TALENT)) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(ALL_HOLY_POWER_SPENDERS),
+        this.updateLastCast,
+      );
+      this.glimmerStatTracker[TALENTS.GLISTENING_RADIANCE_TALENT.id] = emptyGlimmerSource(
+        TALENTS.GLISTENING_RADIANCE_TALENT,
+      );
+    }
 
-  updateGlisteningRadianceProcs(event: HealEvent | DamageEvent) {
-    if (
-      this.fromGlisteningRadiance(event) &&
-      (this.lastGlisteningRadianceProc === -1 ||
-        this.lastGlisteningRadianceProc + 250 < event.timestamp)
-    ) {
-      this.lastGlisteningRadianceProc = event.timestamp;
-      this.glisteningRadianceProcs += 1;
+    // if we have DayBreak do these things
+    if (this.selectedCombatant.hasTalent(TALENTS.DAYBREAK_TALENT)) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DAYBREAK_TALENT),
+        this.updateLastCast,
+      );
+      this.glimmerStatTracker[TALENTS.DAYBREAK_TALENT.id] = emptyGlimmerSource(
+        TALENTS.DAYBREAK_TALENT,
+      );
+    }
+    // if we have divine toll
+    if (this.selectedCombatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT)) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_TOLL_TALENT),
+        this.updateLastCast,
+      );
+      this.glimmerStatTracker[TALENTS.DIVINE_TOLL_TALENT.id] = emptyGlimmerSource(
+        TALENTS.DIVINE_TOLL_TALENT,
+      );
     }
   }
 
@@ -135,189 +135,151 @@ class GlimmerOfLight extends Analyzer {
     }
     const amount = event.amount + (event.absorbed || 0);
 
-    if (this.fromGlisteningRadiance(event)) {
-      this.healingTransferedGlisteningRadiance += amount;
-    } else {
-      this.healingTransferedHS += amount;
+    const toUpdate = this.glimmerStatTracker[this.lastCast];
+    if (!toUpdate) {
+      return;
     }
+
+    toUpdate.beacon += amount;
   }
 
   onApplyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
-    this.glimmerBuffs.unshift(event);
+    this.glimmerBuffTracker[event.targetID] = event.timestamp;
   }
 
   onRemoveBuff(event: RemoveBuffEvent | RemoveDebuffEvent) {
-    this.glimmerBuffs = this.glimmerBuffs.filter((buff) => buff.targetID !== event.targetID);
+    delete this.glimmerBuffTracker[event.targetID];
   }
 
-  onCast(event: CastEvent) {
-    this.casts += 1;
+  onGlimmerDamage(event: DamageEvent) {
+    this.updateGR(event);
+    const amount = event.amount + (event.absorbed || 0);
+
+    const toUpdate = this.glimmerStatTracker[this.lastCast];
+    if (!toUpdate) {
+      return;
+    }
+
+    toUpdate.damage += amount;
+    toUpdate.hits += 1;
+  }
+
+  onGlimmerHeal(event: HealEvent) {
+    this.updateGR(event);
+    const amount = event.amount + (event.absorbed || 0);
+    if (this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id) {
+      console.log(
+        `amount: ${event.amount} absorbed: ${event.absorbed || 0} overheal: ${event.overheal || 0}`,
+      );
+    }
+
+    const toUpdate = this.glimmerStatTracker[this.lastCast];
+    if (!toUpdate) {
+      return;
+    }
+
+    toUpdate.healing += amount;
+    toUpdate.hits += 1;
+    if (this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id) {
+      console.log(toUpdate);
+    }
+  }
+
+  updateGR(event: DamageEvent | HealEvent) {
+    if (
+      this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id &&
+      this.lastCastTime > this.lastGlisteningRadianceProc + 250
+    ) {
+      this.glimmerStatTracker[this.lastCast].procs += 1;
+      this.lastGlisteningRadianceProc = event.timestamp;
+    }
+  }
+
+  updateLastCast(event: CastEvent) {
     this.lastCastTime = event.timestamp;
-
-    const index = this.glimmerBuffs.findIndex((g) => g.targetID === event.targetID);
-
-    if (this.glimmerBuffs.length >= this.GLIMMER_CAP) {
-      // Cast a new one while at cap (applybuff will occur later, so this will be accurate)
-      this.overCap += 1;
-      if (index < 0) {
-        this.wastedOverCap +=
-          BUFF_DURATION * 1000 -
-          (event.timestamp - this.glimmerBuffs[this.GLIMMER_CAP - 1].timestamp);
-      } else {
-        this.wastedOverCap +=
-          BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
-      }
-    } else if (index >= 0) {
-      // if an active glimmer was overwritten //
-      this.wastedEarlyRefresh +=
-        BUFF_DURATION * 1000 - (event.timestamp - this.glimmerBuffs[index].timestamp);
-      this.earlyRefresh += 1;
-    }
-  }
-
-  onDamage(event: DamageEvent) {
-    if (HasRelatedEvent(event, FROM_DAYBREAK)) {
-      return;
-    }
-
-    const amount = event.amount + (event.absorbed || 0);
-    this.updateGlisteningRadianceProcs(event);
-
-    if (this.fromGlisteningRadiance(event)) {
-      this.damageGlisteningRadiance += amount;
-      this.glimmerHitsGlisteningRadiance += 1;
+    const holyPowerBased = ALL_HOLY_POWER_SPENDERS.find((spell) => spell.id === event.ability.guid);
+    if (holyPowerBased) {
+      this.lastCast = TALENTS.GLISTENING_RADIANCE_TALENT.id;
     } else {
-      this.damageHS += amount;
-      this.glimmerHitsHS += 1;
+      this.lastCast = event.ability.guid;
+      this.glimmerStatTracker[this.lastCast].procs += 1;
     }
   }
 
-  onHeal(event: HealEvent) {
-    if (HasRelatedEvent(event, FROM_DAYBREAK)) {
-      return;
-    }
+  makeBars() {
+    return Object.keys(this.glimmerStatTracker).map((key) => {
+      const source = this.glimmerStatTracker[Number(key)];
 
-    const amount = event.amount + (event.absorbed || 0);
-    this.updateGlisteningRadianceProcs(event);
-
-    if (this.fromGlisteningRadiance(event)) {
-      this.healingGlisteningRadiance += amount;
-      this.glimmerHitsGlisteningRadiance += 1;
-    } else {
-      this.healingHS += amount;
-      this.glimmerHitsHS += 1;
-    }
-  }
-
-  get hitsPerCast() {
-    return this.glimmerHitsHS / this.casts;
-  }
-
-  get holyShocksPerMinute() {
-    return this.casts / (this.owner.fightDuration / 60000);
-  }
-
-  get totalHealing() {
-    return this.healingHS + this.healingTransferedHS;
-  }
-
-  get earlyGlimmerRefreshLoss() {
-    return this.wastedEarlyRefresh / (this.casts * BUFF_DURATION * 1000);
-  }
-
-  get overCapGlimmerLoss() {
-    return this.wastedOverCap / (this.casts * BUFF_DURATION * 1000);
+      return {
+        spell: source.spell,
+        amount: source.healing + source.beacon,
+        color: '#ff6200',
+        tooltip: (
+          <>
+            Healing: {formatNumber(source.healing)} <br />
+            Beacon: {formatNumber(source.beacon)} <br />
+            Damage: {formatNumber(source.damage)} <br />
+            Procs/Trigger: {(source.hits / source.procs).toFixed(1)}
+          </>
+        ),
+        subSpecs: [
+          {
+            spell: SPELLS.BEACON_OF_LIGHT_HEAL,
+            amount: source.beacon,
+            color: '#ffac1c',
+          },
+        ],
+      };
+    });
   }
 
   statistic() {
+    const totalHealing = Object.keys(this.glimmerStatTracker)
+      .map(
+        (key) =>
+          this.glimmerStatTracker[Number(key)].healing +
+          this.glimmerStatTracker[Number(key)].beacon,
+      )
+      .reduce((previous, current) => previous + current);
+
     return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL()}
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip={
+      <TalentAggregateStatisticContainer
+        title={
           <>
-            Total healing done: <b>{formatNumber(this.totalHealing)}</b>
-            <br />
-            Beacon healing transfered: <b>{formatNumber(this.healingTransferedHS)}</b>
-            <br />
-            Glimmer damage: <b>{formatNumber(this.damageHS)}</b>
-            <br />
-            Holy Shocks/minute: <b>{this.holyShocksPerMinute.toFixed(1)}</b>
-            <br />
-            Early refresh(s): <b>{this.earlyRefresh}</b>
-            <br />
-            Lost to early refresh:{' '}
-            <b>
-              {(this.wastedEarlyRefresh / 1000).toFixed(1)}(sec){' '}
-              {(this.earlyGlimmerRefreshLoss * 100).toFixed(1)}%
-            </b>
-            <br />
-            Glimmer of Lights over {this.GLIMMER_CAP} buff cap: <b>{this.overCap}</b>
-            <br />
-            Lost to over capping:{' '}
-            <b>
-              {(this.wastedOverCap / 1000).toFixed(1)}(sec){' '}
-              {(this.overCapGlimmerLoss * 100).toFixed(1)}%
-            </b>
-            <br />
+            <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> -{' '}
+            <ItemHealingDone amount={totalHealing} />
           </>
         }
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.CORE(1)}
+        wide
       >
-        <BoringSpellValueText spell={TALENTS.GLIMMER_OF_LIGHT_TALENT}>
-          <ItemHealingDone amount={this.totalHealing} /> <br />
-          <ItemDamageDone amount={this.damageHS} /> <br />
-          {this.hitsPerCast.toFixed(1)} Triggers/Cast
-        </BoringSpellValueText>
-      </Statistic>
-    );
-  }
-
-  get suggestEarlyRefresh() {
-    return {
-      actual: this.earlyGlimmerRefreshLoss,
-      isGreaterThan: {
-        minor: 0.15,
-        average: 0.25,
-        major: 0.35,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get suggestGlimmerCap() {
-    return {
-      actual: this.overCapGlimmerLoss,
-      isGreaterThan: {
-        minor: 0.15,
-        average: 0.25,
-        major: 0.35,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestEarlyRefresh).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <Trans id="paladin.holy.modules.talents.glimmerOfLight">
-          Your usage of <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> can be improved. To
-          maximize the healing/damage done by <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} />,
-          try to keep as many buffs up as possible. Avoid overwritting buffs early, this suggestion
-          does not take priority over healing targets with low health. If two targets have similar
-          health pools priorize the target without a glimmer as your{' '}
-          <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> will heal all players with active buffs.
-        </Trans>,
-      )
-        .icon(TALENTS.GLIMMER_OF_LIGHT_TALENT.icon)
-        .actual(
-          `Uptime lost to early Glimmer refresh was ${formatPercentage(
-            this.earlyGlimmerRefreshLoss,
-          )}%`,
-        )
-        .recommended(`< ${this.suggestEarlyRefresh.isGreaterThan.minor * 100}% is recommended`),
+        <TalentAggregateBars bars={this.makeBars()} wide></TalentAggregateBars>
+      </TalentAggregateStatisticContainer>
     );
   }
 }
 
 export default GlimmerOfLight;
+
+type GlimmerMap = {
+  [key: number]: GlimmerSource;
+};
+
+type GlimmerSource = {
+  procs: number;
+  damage: number;
+  healing: number;
+  hits: number;
+  beacon: number;
+  spell: Spell;
+};
+
+const emptyGlimmerSource = (spell: Spell): GlimmerSource => ({
+  beacon: 0,
+  damage: 0,
+  healing: 0,
+  hits: 0,
+  procs: 0,
+  spell,
+});

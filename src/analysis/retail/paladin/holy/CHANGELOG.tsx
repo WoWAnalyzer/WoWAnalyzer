@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/paladin';
 
 export default [
   change(date(2023, 7, 12), <>Added <SpellLink spell={TALENTS.DAYBREAK_TALENT} /></>, Tialyss),
+  change(date(2023, 7, 12), <>Glimmer rewrite</>, Abelito75),
   change(date(2023, 7, 12), <>Check for the right talent</>, Abelito75),
   change(date(2023, 7, 12), <>Update Glimmer of Light target cap and correct beacon transfer factor</>, Abelito75),
   change(date(2023, 7, 11), <>Updated ability definitions</>, Abelito75),

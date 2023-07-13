@@ -52,7 +52,6 @@ import ELConsumedBuffs from './modules/talents/EmpyreanLegacy/ConsumedBuffs';
 import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
-import GlisteningRadiance from './modules/talents/GlimmerOfLight/GlisteningRadiance';
 import Daybreak from './modules/talents/Daybreak';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -114,7 +113,6 @@ class CombatLogParser extends CoreCombatLogParser {
     elPossibleBuffs: ELPossibleBuffs,
     tirionsDevotion: TirionsDevotion,
     reclamation: Reclamation,
-    glisteningRadiance: GlisteningRadiance,
     daybreak: Daybreak,
 
     // HolyPower
