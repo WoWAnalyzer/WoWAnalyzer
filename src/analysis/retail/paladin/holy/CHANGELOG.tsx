@@ -5,8 +5,10 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
-  change(date(2023, 7, 12), <>Added <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> to Infusion of Light usage</>, Tialyss),
-  change(date(2023, 7, 12), <>Added <SpellLink spell={TALENTS.DIVINE_REVELATIONS_TALENT} /></>, Tialyss),
+  change(date(2023, 7, 14), <>Added <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> to Infusion of Light usage</>, Tialyss),
+  change(date(2023, 7, 14), <>Added <SpellLink spell={TALENTS.DIVINE_REVELATIONS_TALENT} /></>, Tialyss),
+  change(date(2023, 7, 14), <>Added <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /></>, Abelito75),
+  change(date(2023, 7, 13), <>Added <SpellLink spell={TALENTS.DAYBREAK_TALENT} /></>, Tialyss),
   change(date(2023, 7, 12), <>Glimmer rewrite</>, Abelito75),
   change(date(2023, 7, 12), <>Check for the right talent</>, Abelito75),
   change(date(2023, 7, 12), <>Update Glimmer of Light target cap and correct beacon transfer factor</>, Abelito75),
