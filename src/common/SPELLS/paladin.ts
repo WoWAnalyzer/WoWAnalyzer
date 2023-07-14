@@ -321,6 +321,16 @@ const spells = spellIndexableList({
     name: 'Reclamation',
     icon: 'ability_paladin_longarmofthelaw',
   },
+  TYRS_DELIVERANCE_HEALING_INCREASE: {
+    id: 200654,
+    name: "Tyr's Deliverance",
+    icon: 'inv_mace_2h_artifactsilverhand_d_01',
+  },
+  RESPLENDENT_LIGHT_HEAL: {
+    id: 392903,
+    name: 'Resplendent Light',
+    icon: 'ability_priest_voidshift',
+  },
 
   // Retribution Paladin:
   BLADE_OF_JUSTICE: {
