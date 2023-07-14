@@ -30,13 +30,11 @@ class CombustionActiveTime extends Analyzer {
 
   combustionActiveTime = () => {
     const buffEnds = this.eventHistory.getEvents(EventType.RemoveBuff, {
-      searchBackwards: true,
       spell: TALENTS.COMBUSTION_TALENT,
     });
     let activeTime = 0;
     buffEnds.forEach((e) => {
       const buffApplied = this.eventHistory.getEvents(EventType.ApplyBuff, {
-        searchBackwards: true,
         spell: TALENTS.COMBUSTION_TALENT,
         count: 1,
         startTimestamp: e.timestamp,
@@ -49,7 +47,6 @@ class CombustionActiveTime extends Analyzer {
     //If Combustion was active when the fight ended, then add that activeTime as well since there is no End Buff
     if (this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, this.owner.fight.end_time)) {
       const buffApplied = this.eventHistory.getEvents(EventType.ApplyBuff, {
-        searchBackwards: true,
         spell: TALENTS.COMBUSTION_TALENT,
         count: 1,
       })[0];

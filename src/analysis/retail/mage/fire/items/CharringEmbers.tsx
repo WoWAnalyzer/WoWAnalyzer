@@ -36,7 +36,6 @@ class CharringEmbers extends Analyzer {
 
   noPhoenixFlames = () => {
     const buffApplies = this.eventHistory.getEvents(EventType.ApplyBuff, {
-      searchBackwards: true,
       spell: SPELLS.FLAMES_FURY,
     });
     let noPhoenixFlames = 0;

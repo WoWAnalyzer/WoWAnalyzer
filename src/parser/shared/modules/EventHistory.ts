@@ -175,7 +175,7 @@ class EventHistory extends Module {
   getEvents<ET extends EventType>(
     eventType: ET,
     {
-      searchBackwards,
+      searchBackwards = true,
       spell,
       count,
       startTimestamp,
@@ -208,7 +208,7 @@ class EventHistory extends Module {
     eventType: ET,
     spell?: SpellInfo | SpellInfo[],
   ): Array<MappedEvent<ET>> {
-    const events = this.getEvents(eventType, { searchBackwards: true, spell: spell });
+    const events = this.getEvents(eventType, { spell: spell });
     const filteredEvents = events.filter((e) =>
       this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1),
     );
@@ -226,7 +226,7 @@ class EventHistory extends Module {
     eventType: ET,
     spell?: SpellInfo | SpellInfo[],
   ): Array<MappedEvent<ET>> {
-    const events = this.getEvents(eventType, { searchBackwards: true, spell: spell });
+    const events = this.getEvents(eventType, { spell: spell });
     const filteredEvents = events.filter(
       (e) => !this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1),
     );

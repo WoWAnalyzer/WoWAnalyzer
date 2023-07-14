@@ -39,7 +39,6 @@ class CombustionCasts extends Analyzer {
   lowFireBlastCharges = () => {
     const maxFireBlastCharges = 1 + this.selectedCombatant.getTalentRank(TALENTS.FLAME_ON_TALENT);
     let casts = this.eventHistory.getEvents(EventType.Cast, {
-      searchBackwards: true,
       spell: TALENTS.COMBUSTION_TALENT,
     });
 
@@ -59,11 +58,11 @@ class CombustionCasts extends Analyzer {
 
   //prettier-ignore
   preCastDelay = () => {
-    const combustCasts = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: TALENTS.COMBUSTION_TALENT });
+    const combustCasts = this.eventHistory.getEvents(EventType.Cast, { spell: TALENTS.COMBUSTION_TALENT });
     const combustionCasts: number[] = [];
 
     combustCasts.forEach(cast => {
-      const preCastBegin = this.eventHistory.getEvents(EventType.BeginCast, { searchBackwards: true, spell: COMBUSTION_PRE_CASTS, count: 1, startTimestamp: cast.timestamp })[0]
+      const preCastBegin = this.eventHistory.getEvents(EventType.BeginCast, { spell: COMBUSTION_PRE_CASTS, count: 1, startTimestamp: cast.timestamp })[0]
       if (preCastBegin && preCastBegin.castEvent) {
         const castDelay = preCastBegin.castEvent.timestamp > cast.timestamp ? preCastBegin.castEvent.timestamp - cast.timestamp : 0
         combustionCasts[cast.timestamp] = castDelay
@@ -79,7 +78,7 @@ class CombustionCasts extends Analyzer {
 
     //If the Begin Cast event was before Combustion started, then disregard it.
     const fireballCasts = casts.filter((e: CastEvent) => {
-      const beginCast = this.eventHistory.getEvents(EventType.BeginCast, { searchBackwards: true, spell: SPELLS.FIREBALL, count: 1, startTimestamp: e.timestamp })[0];
+      const beginCast = this.eventHistory.getEvents(EventType.BeginCast, { spell: SPELLS.FIREBALL, count: 1, startTimestamp: e.timestamp })[0];
       return beginCast ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, beginCast.timestamp) : false;
     });
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
@@ -130,7 +129,6 @@ class CombustionCasts extends Analyzer {
       actual:
         this.totalPreCastDelay /
         (this.eventHistory.getEvents(EventType.Cast, {
-          searchBackwards: true,
           spell: TALENTS.COMBUSTION_TALENT,
         }).length || 0) /
         1000,
@@ -148,7 +146,6 @@ class CombustionCasts extends Analyzer {
       actual:
         this.fireballCastsDuringCombustion() /
           this.eventHistory.getEvents(EventType.Cast, {
-            searchBackwards: true,
             spell: TALENTS.COMBUSTION_TALENT,
           }).length || 0,
       isGreaterThan: {

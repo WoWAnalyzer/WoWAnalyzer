@@ -52,19 +52,16 @@ class SunKingsBlessing extends Analyzer {
 
   hotStreaksWastedWithSKB = () => {
     const buffRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, {
-      searchBackwards: true,
       spell: SPELLS.FURY_OF_THE_SUN_KING,
     });
     let hotStreakUses = 0;
     buffRemoved.forEach((r) => {
       const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
-        searchBackwards: true,
         spell: SPELLS.FURY_OF_THE_SUN_KING,
         count: 1,
         startTimestamp: r.timestamp,
       })[0];
       const hotStreaks = this.eventHistory.getEvents(EventType.RemoveBuff, {
-        searchBackwards: true,
         spell: SPELLS.HOT_STREAK,
         startTimestamp: r.timestamp,
         duration: buffApply.timestamp - r.timestamp,
@@ -76,7 +73,6 @@ class SunKingsBlessing extends Analyzer {
 
   totalSunKingBuffs = () => {
     const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
-      searchBackwards: true,
       spell: SPELLS.FURY_OF_THE_SUN_KING,
     });
     return buffApply.length;
