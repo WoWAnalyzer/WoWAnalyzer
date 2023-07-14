@@ -23,7 +23,7 @@ import {
   hasTalent,
 } from 'parser/shared/metrics/apl/conditions';
 
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { ROLL_THE_BONES_BUFFS } from '../../constants';
@@ -297,7 +297,7 @@ export const apl = (): Apl => {
   return hidden_opportunity_rotation;
 };
 
-export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
+export const check = (events: MappedEvent[], info: PlayerInfo): CheckResult => {
   const check = aplCheck(apl());
   return check(events, info);
 };

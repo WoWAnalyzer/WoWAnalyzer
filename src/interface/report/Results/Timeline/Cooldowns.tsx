@@ -1,5 +1,5 @@
 import Spell from 'common/SPELLS/Spell';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { PureComponent } from 'react';
 
@@ -10,7 +10,7 @@ interface Props {
   start: number;
   end: number;
   secondWidth: number;
-  eventsBySpellId: Map<number, AnyEvent[]>;
+  eventsBySpellId: Map<number, MappedEvent[]>;
   abilities: Abilities;
   /**
    * Show exactly a set of spells, even if not cast or if other spells are present in `eventsBySpellId`.
@@ -21,7 +21,7 @@ interface Props {
 }
 
 class Cooldowns extends PureComponent<Props> {
-  getSortIndex([spellId, events]: [number, AnyEvent[]]) {
+  getSortIndex([spellId, events]: [number, MappedEvent[]]) {
     const ability = this.props.abilities.getAbility(spellId);
     if (!ability?.timelineSortIndex) {
       return 1000 - events.length;
@@ -30,15 +30,15 @@ class Cooldowns extends PureComponent<Props> {
     }
   }
 
-  renderLanes(eventsBySpellId: Map<number, AnyEvent[]>, growUp: boolean) {
-    const entries: Array<[number, AnyEvent[]]> =
+  renderLanes(eventsBySpellId: Map<number, MappedEvent[]>, growUp: boolean) {
+    const entries: Array<[number, MappedEvent[]]> =
       this.props.exactlySpells?.map((spell) => [spell.id, eventsBySpellId.get(spell.id) ?? []]) ??
       Array.from(eventsBySpellId);
     return entries
       .sort((a, b) => this.getSortIndex(growUp ? b : a) - this.getSortIndex(growUp ? a : b))
       .map((item) => this.renderLane(item));
   }
-  renderLane([spellId, events]: [number, AnyEvent[]]) {
+  renderLane([spellId, events]: [number, MappedEvent[]]) {
     return (
       <Lane
         key={spellId}

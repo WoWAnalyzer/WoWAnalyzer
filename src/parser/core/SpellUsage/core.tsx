@@ -1,6 +1,6 @@
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { createContext, ReactNode, useContext } from 'react';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import styled from '@emotion/styled';
 import { formatDuration } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
@@ -29,7 +29,7 @@ export interface ChecklistUsageInfo extends UsageInfo {
  * up said quality.
  */
 export interface SpellUse {
-  event: AnyEvent;
+  event: MappedEvent;
   checklistItems: ChecklistUsageInfo[];
   performance: QualitativePerformance;
   extraDetails?: ReactNode;

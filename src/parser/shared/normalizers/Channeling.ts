@@ -3,7 +3,7 @@ import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import { TALENTS_MAGE, TALENTS_MONK } from 'common/TALENTS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import {
-  AnyEvent,
+  MappedEvent,
   BeginCastEvent,
   BeginChannelEvent,
   CastEvent,
@@ -112,7 +112,7 @@ class Channeling extends EventsNormalizer {
     });
   }
 
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     const eventsInserter: InsertableEventsWrapper = new InsertableEventsWrapper(events);
 
     const channelState: ChannelState = {
@@ -122,7 +122,7 @@ class Channeling extends EventsNormalizer {
 
     // for each event, check if there is a special case handler for that GUID -
     // if so - call the handler, if not - call the default handling
-    events.forEach((event: AnyEvent, index: number) => {
+    events.forEach((event: MappedEvent, index: number) => {
       if (!HasSource(event) || event.sourceID !== this.selectedCombatant.id) {
         return; // only concerned with events coming from selected player
       }
@@ -141,8 +141,8 @@ class Channeling extends EventsNormalizer {
    * Handles the default cases of regular cast time spells, instants, and 'fake' casts
    */
   defaultHandler(
-    event: AnyEvent,
-    events: AnyEvent[],
+    event: MappedEvent,
+    events: MappedEvent[],
     eventIndex: number,
     channelState: ChannelState,
   ): void {
@@ -216,7 +216,7 @@ export function beginEmpowerCurrentChannel(event: EmpowerStartEvent, channelStat
   channelState.unresolvedChannel = beginChannel;
 }
 
-function copyTargetData(target: ChannelState['unresolvedChannel'], source: AnyEvent) {
+function copyTargetData(target: ChannelState['unresolvedChannel'], source: MappedEvent) {
   if (source.type === EventType.Cast && target?.ability.guid === source.ability.guid) {
     target.targetID = source.targetID;
     target.targetInstance = source.targetInstance;
@@ -225,7 +225,7 @@ function copyTargetData(target: ChannelState['unresolvedChannel'], source: AnyEv
 }
 
 /** Updates the ChannelState with a EndChannelEvent tied to the current channel */
-export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
+export function endCurrentChannel(event: MappedEvent, channelState: ChannelState) {
   if (!channelState.unresolvedChannel) {
     // TODO log error?
     return;
@@ -250,7 +250,7 @@ export function endCurrentChannel(event: AnyEvent, channelState: ChannelState) {
  * @param channelState the current channel state
  * @param currentEvent the current event being handled
  */
-export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: ChannelState) {
+export function cancelCurrentChannel(currentEvent: MappedEvent, channelState: ChannelState) {
   if (channelState.unresolvedChannel !== null) {
     channelState.unresolvedChannel.isCancelled = true;
     channelState.unresolvedChannel = null;
@@ -275,8 +275,8 @@ export function cancelCurrentChannel(currentEvent: AnyEvent, channelState: Chann
 export function buffChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
-    event: AnyEvent,
-    events: AnyEvent[],
+    event: MappedEvent,
+    events: MappedEvent[],
     eventIndex: number,
     state: ChannelState,
   ) => {
@@ -319,8 +319,8 @@ export function buffChannelSpec(spellId: number): ChannelSpec {
 export function empowerChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
-    event: AnyEvent,
-    events: AnyEvent[],
+    event: MappedEvent,
+    events: MappedEvent[],
     eventIndex: number,
     state: ChannelState,
   ) => {
@@ -388,8 +388,8 @@ export function empowerChannelSpec(spellId: number): ChannelSpec {
 export function nextCastChannelSpec(spellId: number): ChannelSpec {
   const guids = [spellId];
   const handler: ChannelHandler = (
-    event: AnyEvent,
-    events: AnyEvent[],
+    event: MappedEvent,
+    events: MappedEvent[],
     eventIndex: number,
     state: ChannelState,
   ) => {
@@ -430,9 +430,9 @@ export type ChannelSpec = {
  * be called *instead of* the default handling code for any events that trigger it. */
 export type ChannelHandler = (
   /** The event to handle */
-  event: AnyEvent,
+  event: MappedEvent,
   /** All events in the encounter */
-  events: AnyEvent[],
+  events: MappedEvent[],
   /** The event to handle's index */
   eventIndex: number,
   /** The channel state, to be updated depending on handling */

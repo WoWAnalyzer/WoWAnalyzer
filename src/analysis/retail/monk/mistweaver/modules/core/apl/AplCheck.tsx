@@ -5,7 +5,7 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import * as mwCnd from './conditions';
 import talents from 'common/TALENTS/monk';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -246,7 +246,7 @@ export const apl = (info: PlayerInfo): Apl => {
   return apls[chooseApl(info)];
 };
 
-export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
+export const check = (events: MappedEvent[], info: PlayerInfo): CheckResult => {
   const check = aplCheck(apl(info));
   return check(events, info);
 };

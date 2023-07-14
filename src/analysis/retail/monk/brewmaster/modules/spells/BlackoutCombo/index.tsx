@@ -5,7 +5,7 @@ import talents from 'common/TALENTS/monk';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AnyEvent, CastEvent } from 'parser/core/Events';
+import Events, { MappedEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -52,13 +52,13 @@ class BlackoutCombo extends Analyzer {
     );
   }
 
-  onApplyBuff(event: AnyEvent) {
+  onApplyBuff(event: MappedEvent) {
     debug && console.log('Blackout combo applied');
     this.blackoutComboBuffs += 1;
     this.lastBlackoutComboCast = event.timestamp;
   }
 
-  onRefreshBuff(event: AnyEvent) {
+  onRefreshBuff(event: MappedEvent) {
     debug && console.log('Blackout combo refreshed');
 
     if (event.timestamp - this.lastBlackoutComboCast < REFRESH_BUFFER) {

@@ -1,4 +1,4 @@
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import metric from 'parser/core/metric';
 
 interface ResourcesGained {
@@ -12,7 +12,7 @@ interface ResourcesGained {
 /**
  * Returns an object with the total resource gained per resource.
  */
-const resourceGained = (events: AnyEvent[]) =>
+const resourceGained = (events: MappedEvent[]) =>
   events.reduce<ResourcesGained>((obj, event) => {
     if (event.type === EventType.ResourceChange) {
       obj[event.targetID] = obj[event.targetID] || {};

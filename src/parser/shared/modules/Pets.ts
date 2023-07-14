@@ -1,4 +1,4 @@
-import { AnyEvent, HasSource, HasTarget } from 'parser/core/Events';
+import { MappedEvent, HasSource, HasTarget } from 'parser/core/Events';
 import Pet from 'parser/core/Pet';
 
 import Entities from './Entities';
@@ -12,15 +12,15 @@ class Pets extends Entities<Pet> {
     return this.pets;
   }
 
-  getSourceEntity(event: AnyEvent) {
+  getSourceEntity(event: MappedEvent) {
     return this.getEntityFromEvent(event, false);
   }
 
-  getEntity(event: AnyEvent) {
+  getEntity(event: MappedEvent) {
     return this.getEntityFromEvent(event, true);
   }
 
-  getEntityFromEvent(event: AnyEvent, fromTarget: boolean): Pet | null {
+  getEntityFromEvent(event: MappedEvent, fromTarget: boolean): Pet | null {
     let entityId: number;
     if (fromTarget) {
       if (!HasTarget(event) || !event.targetIsFriendly) {

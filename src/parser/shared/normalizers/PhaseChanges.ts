@@ -1,11 +1,11 @@
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /**
  * Normalizes phase events to ensure they are ordered correctly
  */
 class FightEnd extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     const phaseEvents = events.filter(
       (event) => event.type === EventType.PhaseStart || event.type === EventType.PhaseEnd,
     );

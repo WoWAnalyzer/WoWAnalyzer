@@ -1,6 +1,6 @@
 import Spell from 'common/SPELLS/Spell';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { CastEvent, DamageEvent, EventType, MappedEvent } from 'parser/core/Events';
+import { CastEvent, DamageEvent, EventType, AnyEvent } from 'parser/core/Events';
 import { debuffMissing } from './debuffMissing';
 import { cast, dummyBuff, dummyCast, runCondition } from './test-tools';
 
@@ -15,7 +15,7 @@ function debuff<T extends DebuffEventType>(
   type: T,
   targetID: number,
   targetInstance?: number,
-): MappedEvent<T> {
+): AnyEvent<T> {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return {
     timestamp,
@@ -31,7 +31,7 @@ function debuff<T extends DebuffEventType>(
     targetInstance,
     sourceIsFriendly: true,
     targetIsFriendly: false,
-  } as MappedEvent<T>;
+  } as AnyEvent<T>;
 }
 
 describe('debuffMissing', () => {

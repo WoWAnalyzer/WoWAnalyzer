@@ -1,4 +1,4 @@
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 
 import Module from './Module';
 
@@ -12,10 +12,10 @@ abstract class EventsNormalizer extends Module {
    * @param {Array} events
    * @returns {Array}
    */
-  abstract normalize(events: AnyEvent[]): AnyEvent[];
+  abstract normalize(events: MappedEvent[]): MappedEvent[];
 
   // Convenience methods
-  getFightStartIndex(events: AnyEvent[]): number {
+  getFightStartIndex(events: MappedEvent[]): number {
     for (let i = 0; i < events.length; i += 1) {
       const event = events[i];
       if (event.type !== EventType.CombatantInfo) {

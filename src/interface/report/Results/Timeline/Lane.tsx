@@ -5,7 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   CastEvent,
   EventType,
@@ -21,7 +21,7 @@ const PREPHASE_BUFFER = 1000; //ms a prephase event gets displayed before the ph
 
 type Props = {
   spell?: Spell;
-  children: AnyEvent[];
+  children: MappedEvent[];
   fightStartTimestamp: number;
   fightEndTimestamp: number;
   secondWidth: number;
@@ -35,7 +35,7 @@ class Lane extends PureComponent<Props> {
   }
 
   lastApplyBuff: ApplyBuffEvent | null = null;
-  renderEvent(event: AnyEvent) {
+  renderEvent(event: MappedEvent) {
     switch (event.type) {
       case EventType.FilterCooldownInfo:
       case EventType.Cast:

@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   EventType,
   GetRelatedEvents,
@@ -19,12 +19,12 @@ export const SOTF_BUFFS_HEAL = 'BuffsHeal';
 const SOTF_BUFFER_MS = 50;
 
 /** Additional condition for rejuv requires the SotF to be buffing nothing else */
-const REJUV_CONDITION = (linkingEvent: AnyEvent, referencedEvent: AnyEvent) =>
+const REJUV_CONDITION = (linkingEvent: MappedEvent, referencedEvent: MappedEvent) =>
   !referencedEvent._linkedEvents ||
   !referencedEvent._linkedEvents.find((link) => link.relation === SOTF_BUFFS_HEAL);
 
 /** Additional condition for regrowth requires the SotF to be buffing only the direct heal and the buff application */
-const REGROWTH_CONDITION = (linkingEvent: AnyEvent, referencedEvent: AnyEvent) => {
+const REGROWTH_CONDITION = (linkingEvent: MappedEvent, referencedEvent: MappedEvent) => {
   if (linkingEvent.type === EventType.Heal && (linkingEvent as HealEvent).tick) {
     return false;
   }
@@ -41,7 +41,7 @@ const REGROWTH_CONDITION = (linkingEvent: AnyEvent, referencedEvent: AnyEvent) =
 };
 
 /** Additional condition for wild growth requires the SotF to only be buffing other wild growths */
-const WG_CONDITION = (linkingEvent: AnyEvent, referencedEvent: AnyEvent) =>
+const WG_CONDITION = (linkingEvent: MappedEvent, referencedEvent: MappedEvent) =>
   !referencedEvent._linkedEvents ||
   !referencedEvent._linkedEvents.find(
     (link) =>
@@ -108,7 +108,7 @@ export function getSotfBuffs(event: RemoveBuffEvent): Array<AbilityEvent<any>> {
 export function buffedBySotf(
   event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
 ): RemoveBuffEvent | undefined {
-  const sotfs: AnyEvent[] = GetRelatedEvents(event, BUFFED_BY_SOTF);
+  const sotfs: MappedEvent[] = GetRelatedEvents(event, BUFFED_BY_SOTF);
   if (sotfs.length === 0) {
     return undefined;
   } else {

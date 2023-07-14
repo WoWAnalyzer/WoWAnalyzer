@@ -1,6 +1,6 @@
 import TALENTS from 'common/TALENTS/shaman';
 import { suggestion } from 'parser/core/Analyzer';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import {
   and,
@@ -168,7 +168,7 @@ export const apl = (info: PlayerInfo): Apl => {
   return build(rules);
 };
 
-export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
+export const check = (events: MappedEvent[], info: PlayerInfo): CheckResult => {
   const check = aplCheck(apl(info));
   return check(events, info);
 };

@@ -1,6 +1,6 @@
 import CASTABLE_WHILE_CASTING_SPELLS from 'parser/core/CASTABLE_WHILE_CASTING_SPELLS';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
-import { AnyEvent, BeginCastEvent, EventType, CastEvent } from 'parser/core/Events';
+import { MappedEvent, BeginCastEvent, EventType, CastEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /**
@@ -44,7 +44,7 @@ class CancelledCasts extends EventsNormalizer {
     }
   }
 
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     events.forEach((event) => {
       if (!this.owner.byPlayer(event)) {
         // We don't get `begincast` events from other players, but we do get `cast` events. This might confuse this method so just ignore all events from other players.

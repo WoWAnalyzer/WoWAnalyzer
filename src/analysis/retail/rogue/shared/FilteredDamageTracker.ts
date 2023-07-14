@@ -1,5 +1,5 @@
 import Spell from 'common/SPELLS/Spell';
-import { AnyEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
+import { MappedEvent, CastEvent, DamageEvent, HealEvent } from 'parser/core/Events';
 import DamageTracker from 'parser/shared/modules/AbilityTracker';
 import { ReactNode } from 'react';
 
@@ -30,7 +30,7 @@ class FilteredDamageTracker extends DamageTracker {
     super.onCast(event);
   }
 
-  shouldProcessEvent(event: AnyEvent) {
+  shouldProcessEvent(event: MappedEvent) {
     return false;
   }
 

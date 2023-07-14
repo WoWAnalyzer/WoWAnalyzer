@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID as TALENTS } from 'common/TALENTS';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const MAX_DELAY = 200;
@@ -24,8 +24,8 @@ const MAX_DELAY = 200;
  * Form can still be tracked using the INCARNATION_TREE_OF_LIFE_TALENT buff.
  */
 class TreeOfLifeNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
+  normalize(events: MappedEvent[]) {
+    const fixedEvents: MappedEvent[] = [];
     events.forEach((event, eventIndex) => {
       fixedEvents.push(event);
 

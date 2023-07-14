@@ -15,7 +15,7 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import TALENTS from 'common/TALENTS/monk';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { serenityDurationRemainingLT } from 'analysis/retail/monk/windwalker/modules/apl/serenityDurationRemaining';
 import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 
@@ -125,7 +125,7 @@ export const nonSerenityApl = build(
   }),
 );
 
-export const serenityProps = (events: AnyEvent[], info: PlayerInfo): AplRuleProps => {
+export const serenityProps = (events: MappedEvent[], info: PlayerInfo): AplRuleProps => {
   const check = aplCheck(serenityApl);
   return {
     apl: serenityApl,
@@ -133,7 +133,7 @@ export const serenityProps = (events: AnyEvent[], info: PlayerInfo): AplRuleProp
   };
 };
 
-export const nonSerenityProps = (events: AnyEvent[], info: PlayerInfo): AplRuleProps => {
+export const nonSerenityProps = (events: MappedEvent[], info: PlayerInfo): AplRuleProps => {
   const check = aplCheck(nonSerenityApl);
   return {
     apl: nonSerenityApl,

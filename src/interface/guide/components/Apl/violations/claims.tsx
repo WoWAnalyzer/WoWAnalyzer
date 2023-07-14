@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import Spell from 'common/SPELLS/Spell';
 import { SpellLink } from 'interface';
 import { useAnalyzer, useInfo } from 'interface/guide';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import {
   Apl,
   CheckResult,
@@ -61,7 +61,7 @@ const defaultClaimFilter = (
   return claims.size > minClaimCount(result) && claims.size / (successes + claims.size) > 0.4;
 };
 
-function TargetName({ event }: { event: AnyEvent }) {
+function TargetName({ event }: { event: MappedEvent }) {
   const combatants = useAnalyzer(Enemies);
   const friendlies = useAnalyzer(Combatants);
   const { npc: npcTooltip } = useTooltip();
@@ -80,7 +80,7 @@ function TargetName({ event }: { event: AnyEvent }) {
   return <span className="spell-link-text">Unknown</span>;
 }
 
-function EventTimestamp({ event }: { event: AnyEvent }) {
+function EventTimestamp({ event }: { event: MappedEvent }) {
   const info = useInfo();
 
   if (!info) {

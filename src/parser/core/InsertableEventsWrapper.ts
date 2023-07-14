@@ -1,4 +1,4 @@
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 
 /**
  * A wrapper to allow easy insertion of multiple new events into an existing event listing.
@@ -8,10 +8,10 @@ import { AnyEvent } from 'parser/core/Events';
  * having to worry about handling things in strict order to make the splice work properly.
  */
 class InsertableEventsWrapper {
-  events: AnyEvent[];
-  toAdd: Array<{ event: AnyEvent; index: number }> = [];
+  events: MappedEvent[];
+  toAdd: Array<{ event: MappedEvent; index: number }> = [];
 
-  constructor(events: AnyEvent[]) {
+  constructor(events: MappedEvent[]) {
     this.events = events;
   }
 
@@ -21,7 +21,7 @@ class InsertableEventsWrapper {
    * @param existingEvent an event in the original events array.
    *   Events previously inserted by this wrapper will *not* be found and should not be passed here.
    */
-  addAfterEvent(newEvent: AnyEvent, existingEvent: AnyEvent): void {
+  addAfterEvent(newEvent: MappedEvent, existingEvent: MappedEvent): void {
     const index = this.events.indexOf(existingEvent);
     if (index === -1) {
       console.error(
@@ -40,7 +40,7 @@ class InsertableEventsWrapper {
    * Will always be inserted after original events with the same timestamp.
    * @param newEvent the event to insert. Will be marked as 'fabricated'.
    */
-  addByTime(newEvent: AnyEvent): void {
+  addByTime(newEvent: MappedEvent): void {
     const found = this.events.some((event, index) => {
       if (event.timestamp > newEvent.timestamp) {
         // 'some' short circuits on the first true return, so this should only ever insert one
@@ -62,7 +62,7 @@ class InsertableEventsWrapper {
    *   Only considers the original array, vvents previously inserted by this wrapper will *not* be
    *   considered by this index.
    */
-  addAfterIndex(newEvent: AnyEvent, index: number): void {
+  addAfterIndex(newEvent: MappedEvent, index: number): void {
     newEvent.__fabricated = true;
     this.toAdd.push({ event: newEvent, index });
   }
@@ -70,13 +70,13 @@ class InsertableEventsWrapper {
   /**
    * Builds and returns a new array from the original events plus the newly inserted ones.
    */
-  build(): AnyEvent[] {
+  build(): MappedEvent[] {
     // sort toAdd list to be in order by insert index
     this.toAdd.sort((a, b) => a.index - b.index);
     let currToAdd = 0;
 
-    const newEvents: AnyEvent[] = [];
-    this.events.forEach((event: AnyEvent, index: number) => {
+    const newEvents: MappedEvent[] = [];
+    this.events.forEach((event: MappedEvent, index: number) => {
       newEvents.push(event);
       while (currToAdd < this.toAdd.length && this.toAdd[currToAdd].index === index) {
         newEvents.push(this.toAdd[currToAdd].event);

@@ -1,4 +1,4 @@
-import { AnyEvent, CastEvent, DeathEvent, Item } from 'parser/core/Events';
+import { MappedEvent, CastEvent, DeathEvent, Item } from 'parser/core/Events';
 import { WCLReport } from 'parser/core/Report';
 import Spell from 'common/SPELLS/Spell';
 
@@ -16,7 +16,7 @@ export type WCLGuildReportsResponse = WCLGuildReport[];
 export type WCLFightsResponse = WCLReport;
 
 export interface WCLEventsResponse {
-  events: AnyEvent[];
+  events: MappedEvent[];
   nextPageTimestamp?: number;
 }
 
@@ -127,8 +127,8 @@ export interface WCLBossResources {
 export interface WCLThreatBand {
   startTime: number;
   endTime: number;
-  startEvent: AnyEvent;
-  endEvent: AnyEvent;
+  startEvent: MappedEvent;
+  endEvent: MappedEvent;
 }
 
 export interface WCLThreatTarget {

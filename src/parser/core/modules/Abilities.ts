@@ -5,7 +5,7 @@ import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
 
 import AbilityTracker from '../../shared/modules/AbilityTracker';
-import { AnyEvent, EventType } from '../Events';
+import { MappedEvent, EventType } from '../Events';
 import Ability, { SpellbookAbility } from './Ability';
 
 export const AbilityRange = {
@@ -163,7 +163,7 @@ class Abilities extends Module {
     this.activeAbilities[abilityIndex].charges = maxCharges;
   }
 
-  increaseMaxCharges(event: AnyEvent, spellId: number, increaseBy: number) {
+  increaseMaxCharges(event: MappedEvent, spellId: number, increaseBy: number) {
     const currentCharges = this.getMaxCharges(spellId);
 
     if (currentCharges === undefined) {
@@ -183,7 +183,7 @@ class Abilities extends Module {
     );
   }
 
-  decreaseMaxCharges(event: AnyEvent, spellId: number, decreaseBy: number) {
+  decreaseMaxCharges(event: MappedEvent, spellId: number, decreaseBy: number) {
     const currentCharges = this.getMaxCharges(spellId);
 
     if (currentCharges === undefined) {

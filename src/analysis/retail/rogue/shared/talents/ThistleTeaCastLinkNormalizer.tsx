@@ -1,6 +1,6 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
-  AnyEvent,
+  MappedEvent,
   CastEvent,
   EventType,
   GetRelatedEvents,
@@ -35,12 +35,12 @@ export default class ThistleTeaCastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(event: AnyEvent): boolean {
+export function isFromHardcast(event: MappedEvent): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function getHardcast(event: ResourceChangeEvent): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
+  const events: MappedEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
   return events.length === 0 ? undefined : (events[0] as CastEvent);
 }
 

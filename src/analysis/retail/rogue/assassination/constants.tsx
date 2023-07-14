@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
-import { AnyEvent, CastEvent } from 'parser/core/Events';
+import { MappedEvent, CastEvent } from 'parser/core/Events';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Combatant from 'parser/core/Combatant';
@@ -176,5 +176,5 @@ export const animachargedCheckedUsageInfo = (
 
 export const pandemicMaxDuration = (duration: number) => duration * 1.3;
 
-export const isInOpener = (event: AnyEvent, fight: Fight) =>
+export const isInOpener = (event: MappedEvent, fight: Fight) =>
   event.timestamp - fight.start_time <= OPENER_MAX_DURATION_MS;

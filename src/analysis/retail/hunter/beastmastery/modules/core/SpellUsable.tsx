@@ -6,7 +6,7 @@ import { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import Events, {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   CastEvent,
   DamageEvent,
   EventType,
@@ -18,8 +18,8 @@ class SpellUsable extends CoreSpellUsable {
     ...CoreSpellUsable.dependencies,
   };
 
-  lastPotentialTriggerForBarbedShotReset: AnyEvent | null = null;
-  lastPotentialTriggerForKillCommandReset: AnyEvent | null = null;
+  lastPotentialTriggerForBarbedShotReset: MappedEvent | null = null;
+  lastPotentialTriggerForKillCommandReset: MappedEvent | null = null;
 
   private _has2pc: boolean = false;
   private _tierCanResetBarbedShot: boolean = false;

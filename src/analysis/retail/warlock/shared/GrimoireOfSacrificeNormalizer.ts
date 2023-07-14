@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { AnyEvent, ApplyBuffEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, ApplyBuffEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 class GrimoireOfSacrificeNormalizer extends EventsNormalizer {
@@ -8,7 +8,7 @@ class GrimoireOfSacrificeNormalizer extends EventsNormalizer {
   // It's easily possible to pre-cast this before combat, and never let it drop, so the only GoSac related events are "damage" events, which screws up uptime calculations
 
   // Iterate through events, when the FIRST GoSac thing we encounter is a "damage" event, we can assume it was precasted, so insert a fabricated "applybuff" event in the beginning
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     const firstEventIndex = this.getFightStartIndex(events);
 
     for (let i = 0; i < events.length; i += 1) {

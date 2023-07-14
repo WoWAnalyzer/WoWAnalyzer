@@ -1,5 +1,5 @@
 import Combatant from './Combatant';
-import { AnyEvent } from './Events';
+import { MappedEvent } from './Events';
 import Ability from './modules/Ability';
 import { PetInfo } from './Pet';
 
@@ -17,7 +17,7 @@ export interface Info {
   combatant: Combatant;
 }
 
-export type Metric<Value = any> = (events: AnyEvent[], info: Info, ...args: any[]) => Value;
+export type Metric<Value = any> = (events: MappedEvent[], info: Info, ...args: any[]) => Value;
 
 // Shallow compare all args including the events array
 function isEqual(args: any[], lastArgs: any[]) {
@@ -33,14 +33,14 @@ function isEqual(args: any[], lastArgs: any[]) {
  * no performance impact when the metric is used multiple times (and this may
  * do more in the future.)
  */
-const metric = <T extends any[], U>(fn: (events: AnyEvent[], ...args: T) => U) => {
+const metric = <T extends any[], U>(fn: (events: MappedEvent[], ...args: T) => U) => {
   // We store the last events in the CombatLogParser anyway, so leaving
   // instances in stats should not be significant.
   let lastArgs: any[] | undefined = undefined;
   let lastValue: any | undefined = undefined;
   // TODO: Memoize multiple
 
-  return (events: AnyEvent[], ...args: T): U => {
+  return (events: MappedEvent[], ...args: T): U => {
     const allArgs = [events, ...args];
     if (!lastArgs || !isEqual(allArgs, lastArgs)) {
       lastValue = fn(events, ...args);

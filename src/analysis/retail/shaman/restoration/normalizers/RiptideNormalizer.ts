@@ -1,13 +1,13 @@
-import { AnyEvent, EventType, HealEvent } from 'parser/core/Events';
+import { MappedEvent, EventType, HealEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import TALENTS from 'common/TALENTS/shaman';
 
 class RiptideNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
+  normalize(events: MappedEvent[]) {
+    const fixedEvents: MappedEvent[] = [];
     let healEvent: HealEvent | null = null;
 
-    events.forEach((event: AnyEvent, eventIndex) => {
+    events.forEach((event: MappedEvent, eventIndex) => {
       if (
         event.type === EventType.Heal &&
         event.ability.guid === TALENTS.RIPTIDE_TALENT.id &&

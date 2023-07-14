@@ -5,7 +5,7 @@ import { SpellIcon } from 'interface';
 import { SpecIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
-import Events, { EventType, AnyEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, { EventType, MappedEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -112,7 +112,7 @@ class Revitalize extends Analyzer {
     );
   }
 
-  resourceEventReduce = (totals: ResourcesByPlayer, evt: AnyEvent) => {
+  resourceEventReduce = (totals: ResourcesByPlayer, evt: MappedEvent) => {
     if (
       evt.type !== EventType.ResourceChange || // Not a resource event
       !hasCorrespondingHeal(this.eligibleCasts[evt.targetID], evt)

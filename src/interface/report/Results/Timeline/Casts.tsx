@@ -5,7 +5,7 @@ import SpellLink from 'interface/SpellLink';
 import Tooltip from 'interface/Tooltip';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import {
-  AnyEvent,
+  MappedEvent,
   AutoAttackCooldownEvent,
   BeginChannelEvent,
   CastEvent,
@@ -37,7 +37,7 @@ type ApplicableCastEvent =
   | AutoAttackCooldownEvent;
 export const isApplicableEvent =
   (playerId: number) =>
-  (event: AnyEvent): event is ApplicableCastEvent => {
+  (event: MappedEvent): event is ApplicableCastEvent => {
     // we don't use `HasSource` because not every event has the full SourcedEvent field set
     if (!('sourceID' in event) || event.sourceID !== playerId) {
       // Ignore pet/boss casts
@@ -82,7 +82,7 @@ type MovementInstance = { start: number; end: number; distance: number };
 interface Props extends HTMLAttributes<HTMLDivElement> {
   start: number;
   secondWidth: number;
-  events: AnyEvent[];
+  events: MappedEvent[];
   movement?: MovementInstance[];
 }
 
@@ -305,7 +305,7 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
     );
   };
 
-  const renderEvent = (event: AnyEvent) => {
+  const renderEvent = (event: MappedEvent) => {
     switch (event.type) {
       case EventType.FreeCast:
       case EventType.Cast:

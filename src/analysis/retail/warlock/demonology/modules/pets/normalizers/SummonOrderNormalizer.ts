@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const MS_BUFFER = 100;
 
 class SummonOrderNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
-    const _events: AnyEvent[] = [];
+  normalize(events: MappedEvent[]) {
+    const _events: MappedEvent[] = [];
 
     events.forEach((event, idx) => {
       _events.push(event);
@@ -29,13 +29,13 @@ class SummonOrderNormalizer extends EventsNormalizer {
   }
 
   // helper
-  isTyrantSummon(event: AnyEvent) {
+  isTyrantSummon(event: MappedEvent) {
     return (
       event.type === EventType.Summon && event.ability.guid === SPELLS.SUMMON_DEMONIC_TYRANT.id
     );
   }
 
-  isDogSummon(event: AnyEvent) {
+  isDogSummon(event: MappedEvent) {
     return (
       event.type === EventType.Summon &&
       (event.ability.guid === SPELLS.DREADSTALKER_SUMMON_1.id ||
@@ -43,13 +43,13 @@ class SummonOrderNormalizer extends EventsNormalizer {
     );
   }
 
-  swapEvents(_events: AnyEvent[], previousEventIndex: number, previousEvent: AnyEvent) {
+  swapEvents(_events: MappedEvent[], previousEventIndex: number, previousEvent: MappedEvent) {
     _events.splice(previousEventIndex, 1);
     _events.push(previousEvent);
     previousEvent.__reordered = true;
   }
 
-  isDemonFire(previousEvent: AnyEvent, event: AnyEvent) {
+  isDemonFire(previousEvent: MappedEvent, event: MappedEvent) {
     return (
       previousEvent.type === EventType.BeginCast &&
       previousEvent.ability.guid === SPELLS.DEMONIC_TYRANT_DAMAGE.id

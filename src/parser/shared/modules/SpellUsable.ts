@@ -3,7 +3,7 @@ import { maybeGetSpell } from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   CastEvent,
   ChangeHasteEvent,
   EventType,
@@ -463,7 +463,7 @@ class SpellUsable extends Analyzer {
   //
 
   /** On every event, we need to check if an existing tracked cooldown has expired */
-  protected onEvent(event: AnyEvent) {
+  protected onEvent(event: MappedEvent) {
     const currentTimestamp = event.timestamp;
 
     Object.entries(this._currentCooldowns).forEach(([spellId, cdInfo]) => {

@@ -22,7 +22,7 @@ import { MitigationSegments } from 'interface/guide/components/MajorDefensives/M
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import ProblemList, { ProblemRendererProps } from 'interface/guide/components/ProblemList';
 import {
-  AnyEvent,
+  MappedEvent,
   BaseCastEvent,
   EventType,
   HasHitpoints,
@@ -228,7 +228,7 @@ const DeathStrikeProblemChart = ({
     () => ({
       runicPower: events
         .filter(
-          (event): event is AnyEvent & Required<Pick<BaseCastEvent<any>, 'classResources'>> =>
+          (event): event is MappedEvent & Required<Pick<BaseCastEvent<any>, 'classResources'>> =>
             'classResources' in event && event.classResources !== undefined,
         )
         .map((event) => {

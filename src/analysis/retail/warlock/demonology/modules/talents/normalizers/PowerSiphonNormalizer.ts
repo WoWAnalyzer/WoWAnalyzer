@@ -1,5 +1,5 @@
 import TALENTS from 'common/TALENTS/warlock';
-import { AnyEvent, BeginCastEvent, CastEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, BeginCastEvent, CastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeEventSourceString } from 'parser/shared/modules/Enemies';
 
@@ -16,7 +16,7 @@ class PowerSiphonNormalizer extends EventsNormalizer {
 
   // This normalizer looks at Power Siphon casts, and looks for Wild Imp activity AFTER the cast, storing which Wild Imps were active AFTER the cast
   // If I can store the info inside the PS cast (with __modified flag) I should be able to correctly filter Imps that should actually die in the DemoPets.js Analyzer
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     if (!this.selectedCombatant.hasTalent(TALENTS.POWER_SIPHON_TALENT)) {
       return events;
     }

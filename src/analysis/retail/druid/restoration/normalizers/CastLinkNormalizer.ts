@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   CastEvent,
   EventType,
@@ -172,7 +172,7 @@ export function isFromOvergrowth(event: ApplyBuffEvent | RefreshBuffEvent): bool
 }
 
 /** Returns the buff application and direct heal events caused by the given hardcast */
-export function getHeals(event: CastEvent): AnyEvent[] {
+export function getHeals(event: CastEvent): MappedEvent[] {
   return GetRelatedEvents(event, APPLIED_HEAL);
 }
 
@@ -196,7 +196,7 @@ export function causedBloom(event: RemoveBuffEvent | RefreshBuffEvent): boolean 
 
 /** Gets the tranquility "tick cast" events caused by channeling the given Tranquility w/
  *  cast ID `TRANQUILITY_CAST`. */
-export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
+export function getTranquilityTicks(event: CastEvent): MappedEvent[] {
   return GetRelatedEvents(event, CAUSED_TICK);
 }
 

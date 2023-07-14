@@ -3,7 +3,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
@@ -150,18 +150,18 @@ class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(event: AnyEvent): boolean {
+export function isFromHardcast(event: MappedEvent): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
-export function isFromDoubleClawedRake(event: AnyEvent): boolean {
+export function isFromDoubleClawedRake(event: MappedEvent): boolean {
   return HasRelatedEvent(event, FROM_DOUBLE_CLAWED_RAKE);
 }
 
 export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
+  const events: MappedEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
   return events.length === 0 ? undefined : (events[0] as CastEvent);
 }
 
@@ -174,7 +174,7 @@ export function isFromPrimalWrath(event: ApplyDebuffEvent | RefreshDebuffEvent):
 export function getPrimalWrath(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_PRIMAL_WRATH);
+  const events: MappedEvent[] = GetRelatedEvents(event, FROM_PRIMAL_WRATH);
   return events.length === 0 ? undefined : (events[0] as CastEvent);
 }
 

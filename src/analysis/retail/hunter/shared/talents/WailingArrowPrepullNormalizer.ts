@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 const debug = false;
@@ -10,7 +10,7 @@ const debug = false;
  * This normalizer can fabricate both begin cast and cast success events for Wailing Arrow if it's necessary.
  */
 class WailingArrowPrepullNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     const fixedEvents: any[] = [];
     let lastBeginCastTimestamp: number | null = null;
     let lastCastSuccessTimestamp: number | null = null;

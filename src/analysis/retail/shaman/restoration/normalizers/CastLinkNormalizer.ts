@@ -1,7 +1,7 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   CastEvent,
   EventType,
@@ -38,7 +38,7 @@ import SPELLS from 'common/SPELLS';
 
 /*
   This file is for attributing the various sources of spell applications to their respective abilities and talents.
-  It is needed because there are certain abilities that can have multiple sources based on talents, 
+  It is needed because there are certain abilities that can have multiple sources based on talents,
   i.e. riptide -> primorial wave & primal tide core
 */
 const EVENT_LINKS: EventLink[] = [
@@ -337,7 +337,7 @@ export function wasRiptideConsumed(event: CastEvent | RemoveBuffEvent): boolean 
 }
 
 export function getConsumedRiptide(event: CastEvent): AbilityEvent<any> | undefined {
-  const removedHots: AnyEvent[] = GetRelatedEvents(event, FLOW_OF_THE_TIDES);
+  const removedHots: MappedEvent[] = GetRelatedEvents(event, FLOW_OF_THE_TIDES);
   return removedHots.length !== 0 && HasAbility(removedHots[0]) ? removedHots[0] : undefined;
 }
 

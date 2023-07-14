@@ -3,13 +3,13 @@ import { Boss, findByBossId } from 'game/raids';
 import Guide, { GuideContainer, GuideContext, ModulesOf } from 'interface/guide';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import {
-  AnyEvent,
+  MappedEvent,
   CombatantInfoEvent,
   Event,
   EventType,
   HasSource,
   HasTarget,
-  MappedEvent,
+  AnyEvent,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
@@ -517,7 +517,7 @@ class CombatLogParser {
     }
     return module;
   }
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     this.activeModules
       .filter((module) => module instanceof EventsNormalizer)
       .map((module) => module as EventsNormalizer)
@@ -532,8 +532,8 @@ class CombatLogParser {
 
   /** The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
-  eventHistory: AnyEvent[] = [];
-  addEventListener<ET extends EventType, E extends MappedEvent<ET>>(
+  eventHistory: MappedEvent[] = [];
+  addEventListener<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
     module: Module,
@@ -627,7 +627,7 @@ class CombatLogParser {
    *  fields in order for the name to be looked up - if either of these are missing, 'none'
    *  is returned. If they are present but the Entity with the given ID can't be found,
    *  'unknown' is returned. */
-  getTargetName(event: AnyEvent): string {
+  getTargetName(event: MappedEvent): string {
     if (
       !('targetID' in event) ||
       typeof event.targetID !== 'number' ||
@@ -648,7 +648,7 @@ class CombatLogParser {
    *  fields in order for the name to be looked up - if either of these are missing, 'none'
    *  is returned. If they are present but the Entity with the given ID can't be found,
    *  'unknown' is returned. */
-  getSourceName(event: AnyEvent): string {
+  getSourceName(event: MappedEvent): string {
     if (
       !('sourceID' in event) ||
       typeof event.sourceID !== 'number' ||
@@ -783,7 +783,7 @@ class CombatLogParser {
    * time some events may be modified. Fabricated events will never appear in
    * this array (unless fabricated in a normalizer).
    */
-  normalizedEvents: AnyEvent[] = [];
+  normalizedEvents: MappedEvent[] = [];
   get info(): Info {
     return {
       abilities: this.getModule(Abilities).abilities,

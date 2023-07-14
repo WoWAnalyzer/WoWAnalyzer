@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import { AnyEvent, EventType, SummonEvent } from 'parser/core/Events';
+import { MappedEvent, EventType, SummonEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import { isPermanentPet } from 'parser/shared/modules/pets/helpers';
@@ -20,7 +20,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
   // This normalizer looks at first 30 seconds (because that's hypothetically the longest any temporary pet can live, given a 15 second duration and 15 second extension via Demonic Tyrant, realistically lower because of GCD and cast time of DT)
   // And if it finds begincast, cast or damage events from a pet that isn't summoned yet, fabricates a summon event for them
 
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     debug &&
       console.log(
         'playerPets',

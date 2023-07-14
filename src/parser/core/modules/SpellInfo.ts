@@ -1,6 +1,6 @@
 import { maybeGetSpell, registerSpell } from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { Ability, AnyEvent } from 'parser/core/Events';
+import Events, { Ability, MappedEvent } from 'parser/core/Events';
 
 /**
  * We automatically discover spell info from the combat log so we can avoid many
@@ -12,7 +12,7 @@ class SpellInfo extends Analyzer {
     this.addEventListener(Events.any, this.onEvent);
   }
 
-  onEvent(event: AnyEvent) {
+  onEvent(event: MappedEvent) {
     if ('ability' in event) {
       this.addSpellInfo(event.ability);
     }

@@ -1,7 +1,7 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Entity, { TrackedBuffEvent } from 'parser/core/Entity';
 import Events, {
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   ApplyDebuffEvent,
@@ -22,7 +22,7 @@ const debug = false;
 const APPLY = 'apply';
 const REMOVE = 'remove';
 
-export function encodeFriendlyEventTargetString(event: AnyEvent) {
+export function encodeFriendlyEventTargetString(event: MappedEvent) {
   if (!HasTarget(event)) {
     return null;
   }
@@ -55,7 +55,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
 
   abstract getEntities(): { [entityId: number]: T };
 
-  abstract getEntity(event: AnyEvent): T | null;
+  abstract getEntity(event: MappedEvent): T | null;
 
   applyBuff(event: ApplyBuffEvent | ApplyDebuffEvent) {
     if (

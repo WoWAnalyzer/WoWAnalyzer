@@ -1,4 +1,4 @@
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 
 /**
  * Groups events based on a given timestamp threshold
@@ -11,7 +11,7 @@ import { AnyEvent } from 'parser/core/Events';
 
 export default class EventGrouper {
   threshold: number;
-  cache: { [stem: number]: AnyEvent[] };
+  cache: { [stem: number]: MappedEvent[] };
 
   constructor(threshold: number) {
     this.threshold = threshold;
@@ -24,7 +24,7 @@ export default class EventGrouper {
       [Symbol.iterator]();
   }
 
-  processEvent(event: AnyEvent) {
+  processEvent(event: MappedEvent) {
     const stemTimestamp = this.getStemTimestamp(event);
     if (!stemTimestamp) {
       this.addNewStemTimestamp(event);
@@ -34,7 +34,7 @@ export default class EventGrouper {
     this.cache[stemTimestamp] = [...this.cache[stemTimestamp], event];
   }
 
-  getStemTimestamp(event: AnyEvent) {
+  getStemTimestamp(event: MappedEvent) {
     return (
       Object.keys(this.cache).map(Number).filter(this.withinThreshold(event.timestamp))[0] || null
     );
@@ -45,7 +45,7 @@ export default class EventGrouper {
       timestamp <= stemTimestamp + this.threshold && timestamp > stemTimestamp;
   }
 
-  addNewStemTimestamp(event: AnyEvent) {
+  addNewStemTimestamp(event: MappedEvent) {
     this.cache[event.timestamp] = [event];
   }
 }

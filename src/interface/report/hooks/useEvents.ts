@@ -1,5 +1,5 @@
 import { fetchEvents } from 'common/fetchWclApi';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
 import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
@@ -14,7 +14,7 @@ const useEvents = ({
   fight: WCLFight;
   player: PlayerInfo;
 }) => {
-  const [events, setEvents] = useState<AnyEvent[] | null>(null);
+  const [events, setEvents] = useState<MappedEvent[] | null>(null);
 
   useEffect(() => {
     const load = async () => {

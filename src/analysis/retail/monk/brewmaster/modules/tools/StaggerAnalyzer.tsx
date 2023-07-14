@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { Talent } from 'common/TALENTS/types';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import ItemDamageTaken from 'parser/ui/ItemDamageTaken';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -18,7 +18,7 @@ export default abstract class StaggerStatistic extends Analyzer {
   private removalEventCount = 0;
   private talent: Talent;
 
-  protected removeStagger(event: AnyEvent, amount: number) {
+  protected removeStagger(event: MappedEvent, amount: number) {
     this.staggerRemoved += this.fab.removeStagger(event, amount);
     this.removalEventCount += 1;
   }

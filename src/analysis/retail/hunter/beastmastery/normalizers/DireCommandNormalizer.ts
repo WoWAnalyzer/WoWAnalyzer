@@ -1,18 +1,18 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 class DireCommandNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
+  normalize(events: MappedEvent[]) {
+    const fixedEvents: MappedEvent[] = [];
     const killCommandCastId = TALENTS_HUNTER.KILL_COMMAND_SHARED_TALENT.id;
     const direBeastCastId = [TALENTS_HUNTER.DIRE_BEAST_TALENT.id, SPELLS.DIRE_BEAST_GLYPHED.id];
     const direBeastSummonCastId = [SPELLS.DIRE_BEAST_SUMMON.id, SPELLS.DIRE_BEAST_GLYPHED.id];
     const relevantIds = [killCommandCastId, ...direBeastCastId];
     const bufferMs = 50;
 
-    events.forEach((event: AnyEvent, idx: number) => {
+    events.forEach((event: MappedEvent, idx: number) => {
       //We are only interested in Kill Command and Dire Beast casts
       fixedEvents.push(event);
       if (event.type !== EventType.Cast) {

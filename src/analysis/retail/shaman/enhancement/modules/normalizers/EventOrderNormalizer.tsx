@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { Options } from 'parser/core/Analyzer';
 import BaseEventOrderNormalizer, { EventOrder } from 'parser/core/EventOrderNormalizer';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import { MAELSTROM_WEAPON_MS } from '../../constants';
 
 /** Thorim's Invocation automatically casts Lightning Bolts when Windstrike used, but
@@ -36,14 +36,14 @@ export class EventOrderNormalizer extends BaseEventOrderNormalizer {
 
   /** After the base normalize is done, we're changing all auto-casts of Lightning Bolt
    * from Windstrike into 'freecast' so they don't interfere with the APL */
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     events = super.normalize(events);
 
-    const fixedEvents: AnyEvent[] = [];
+    const fixedEvents: MappedEvent[] = [];
     const thorimsInvocationCastIds = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
     const windstrikeId = SPELLS.WINDSTRIKE_CAST.id;
 
-    events.forEach((event: AnyEvent, idx: number) => {
+    events.forEach((event: MappedEvent, idx: number) => {
       fixedEvents.push(event);
       // non-cast events are irrelevant
       if (event.type !== EventType.Cast) {

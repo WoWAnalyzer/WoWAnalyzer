@@ -8,7 +8,7 @@ import Combatant from 'parser/core/Combatant';
 import EventFilter, { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, {
   Item,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   ApplyDebuffEvent,
   ChangeBuffStackEvent,
@@ -311,15 +311,15 @@ class Haste extends Analyzer {
     return value;
   }
 
-  _applyHasteGain(event: AnyEvent, haste: number) {
+  _applyHasteGain(event: MappedEvent, haste: number) {
     this._setHaste(event, Haste.addHaste(this.current, haste));
   }
 
-  _applyHasteLoss(event: AnyEvent, haste: number) {
+  _applyHasteLoss(event: MappedEvent, haste: number) {
     this._setHaste(event, Haste.removeHaste(this.current, haste));
   }
 
-  _setHaste(event: AnyEvent, haste: number) {
+  _setHaste(event: MappedEvent, haste: number) {
     if (isNaN(haste)) {
       throw new Error('Attempted to set an invalid Haste value. Something broke.');
     }
@@ -329,7 +329,7 @@ class Haste extends Analyzer {
     this._triggerChangeHaste(event, oldHaste, this.current);
   }
 
-  _triggerChangeHaste(event: AnyEvent | null, oldHaste: number | null, newHaste: number) {
+  _triggerChangeHaste(event: MappedEvent | null, oldHaste: number | null, newHaste: number) {
     const fabricatedEvent = {
       type: EventType.ChangeHaste,
       sourceID: event ? (event as SourcedEvent<any>).sourceID : this.owner.playerId,

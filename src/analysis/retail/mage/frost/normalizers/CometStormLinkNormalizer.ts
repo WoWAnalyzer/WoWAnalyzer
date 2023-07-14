@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { AnyEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
+import { MappedEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 2500;
@@ -30,7 +30,7 @@ class CometStormLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function cometStormHits(event: AnyEvent) {
+export function cometStormHits(event: MappedEvent) {
   return GetRelatedEvents(event, HITS_TARGET);
 }
 

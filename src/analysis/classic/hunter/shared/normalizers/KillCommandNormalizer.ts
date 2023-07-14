@@ -1,7 +1,7 @@
 import HIT_TYPES from 'game/HIT_TYPES';
 import {
   Ability,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   EventType,
   RefreshBuffEvent,
@@ -22,7 +22,7 @@ import SPELLS from 'common/SPELLS/classic/hunter';
  * - This buff duration is refreshed for 5 sec by additional crits
  */
 class KillCommandNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     let buffEndTimestamp: number | undefined;
 
     const playerId = this.owner.playerId;
@@ -34,7 +34,7 @@ class KillCommandNormalizer extends EventsNormalizer {
       type: 2,
     };
 
-    return events.reduce<AnyEvent[]>((newEvents, event: AnyEvent) => {
+    return events.reduce<MappedEvent[]>((newEvents, event: MappedEvent) => {
       if (buffEndTimestamp !== undefined && event.timestamp > buffEndTimestamp) {
         const newEvent: RemoveBuffEvent = {
           ability,

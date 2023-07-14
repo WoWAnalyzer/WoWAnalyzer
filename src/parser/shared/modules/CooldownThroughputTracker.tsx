@@ -8,7 +8,7 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import EventFilter, { SELECTED_PLAYER_PET } from 'parser/core/EventFilter';
 import Events, {
-  AnyEvent,
+  MappedEvent,
   AbsorbedEvent,
   ApplyBuffEvent,
   ApplyDebuffEvent,
@@ -64,7 +64,7 @@ export type TrackedCooldown = CooldownSpell & {
   cdStart: number;
   /** The timestamp the Cooldown ends / we stop trakcing */
   end: number | null;
-  events: AnyEvent[];
+  events: MappedEvent[];
 };
 
 class CooldownThroughputTracker extends Analyzer {
@@ -165,7 +165,7 @@ class CooldownThroughputTracker extends Analyzer {
   }
 
   addCooldown(cooldownSpell: CooldownSpell, timestamp: number): TrackedCooldown {
-    let events: AnyEvent[] = [];
+    let events: MappedEvent[] = [];
     const cdStart = timestamp;
     let start = cdStart;
     const startBufferMS = cooldownSpell.startBufferMS;

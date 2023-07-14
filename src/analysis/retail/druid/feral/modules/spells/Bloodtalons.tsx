@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { SpellLink, SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AnyEvent,
+  MappedEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
@@ -263,7 +263,7 @@ class Bloodtalons extends Analyzer {
     }
   }
 
-  _hasBt(event: AnyEvent): boolean {
+  _hasBt(event: MappedEvent): boolean {
     return this.selectedCombatant.hasBuff(SPELLS.BLOODTALONS_BUFF.id, event.timestamp, BUFFER_MS);
   }
 

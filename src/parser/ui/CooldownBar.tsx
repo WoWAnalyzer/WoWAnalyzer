@@ -2,7 +2,7 @@ import './CooldownBar.scss';
 import { formatDuration } from 'common/format';
 import { SpellIcon, Tooltip } from 'interface';
 import {
-  AnyEvent,
+  MappedEvent,
   EventType,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
@@ -309,6 +309,6 @@ function timestampOrFightTerminus(timestamp: number, fightStart: number, fightEn
   }
 }
 
-function IsUpdateSpellUsable(event: AnyEvent): event is UpdateSpellUsableEvent {
+function IsUpdateSpellUsable(event: MappedEvent): event is UpdateSpellUsableEvent {
   return event.type === EventType.UpdateSpellUsable;
 }

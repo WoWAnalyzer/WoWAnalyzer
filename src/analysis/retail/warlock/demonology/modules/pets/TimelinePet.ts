@@ -1,4 +1,4 @@
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { PetInfo } from 'parser/core/Pet';
 
 const DEMONIC_TYRANT_EXTENSION = 15000;
@@ -23,7 +23,7 @@ export const DESPAWN_REASONS = {
   NEW_PERMANENT_PET: 'Killed by summoning new permanent pet',
 };
 
-type PetHistoryEntry = [number, string, AnyEvent];
+type PetHistoryEntry = [number, string, MappedEvent];
 
 export class TimelinePet {
   name!: string;
@@ -78,7 +78,7 @@ export class TimelinePet {
     this.currentEnergy = 100;
   }
 
-  updatePosition(event: AnyEvent) {
+  updatePosition(event: MappedEvent) {
     this.x = 'x' in event ? event.x ?? null : null;
     this.y = 'y' in event ? event.y ?? null : null;
   }

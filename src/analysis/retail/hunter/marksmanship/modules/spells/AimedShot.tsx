@@ -2,7 +2,7 @@ import { TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE } from 'analysis/retail/hunter/ma
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   CastEvent,
   EventType,
@@ -55,7 +55,7 @@ class AimedShot extends Analyzer {
     );
   }
 
-  onEvent(event: AnyEvent) {
+  onEvent(event: MappedEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
@@ -80,7 +80,7 @@ class AimedShot extends Analyzer {
     this.lastReductionTimestamp = event.timestamp;
   }
 
-  reduceAimedShotCooldown(event: AnyEvent, spellReductionSpeed: number) {
+  reduceAimedShotCooldown(event: MappedEvent, spellReductionSpeed: number) {
     const maxReductionMs: number =
       (event.timestamp - this.lastReductionTimestamp) * spellReductionSpeed;
     debug &&

@@ -1,5 +1,5 @@
 import {
-  AnyEvent,
+  MappedEvent,
   BeginChannelEvent,
   CastEvent,
   DamageEvent,
@@ -28,7 +28,7 @@ export interface ArcaneMissilesBeginChannelEvent extends BeginChannelEvent {
   arcaneMissilesDamageEvents: DamageEvent[];
 }
 
-function isArcaneMissilesEvent(event: AnyEvent) {
+function isArcaneMissilesEvent(event: MappedEvent) {
   return (
     (event.type === EventType.Cast || event.type === EventType.Damage) &&
     event.ability?.guid === SPELLS.ARCANE_MISSILES.id
@@ -86,10 +86,10 @@ function isNewArcaneMissiles(
 class ArcaneMissilesNormalizer extends EventsNormalizer {
   beginChannelEvent?: ArcaneMissilesBeginChannelEvent;
 
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
+  normalize(events: MappedEvent[]) {
+    const fixedEvents: MappedEvent[] = [];
 
-    events.forEach((event: AnyEvent, index: number) => {
+    events.forEach((event: MappedEvent, index: number) => {
       if (event.type === EventType.Cast && isArcaneMissilesEvent(event)) {
         // Check to see if this is a new arcane missiles cast
         if (isNewArcaneMissiles(event, this.beginChannelEvent)) {

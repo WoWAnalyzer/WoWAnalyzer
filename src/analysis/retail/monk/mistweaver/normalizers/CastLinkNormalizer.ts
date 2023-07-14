@@ -4,7 +4,7 @@ import { Options } from 'parser/core/Module';
 import { TALENTS_MONK } from 'common/TALENTS';
 import {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   EventType,
   GetRelatedEvents,
@@ -47,7 +47,7 @@ const FOUND_REMS: Map<string, number | null> = new Map();
 
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
-  It is needed because mistweaver talents can proc ReM/EnvM, 
+  It is needed because mistweaver talents can proc ReM/EnvM,
   but not all are extended by RM nor do they trigger the flat RM Heal
   */
 const EVENT_LINKS: EventLink[] = [
@@ -349,7 +349,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 }
 
 // given list of events, find event closest to given timestamp
-function getClosestEvent(timestamp: number, events: AnyEvent[]): AnyEvent {
+function getClosestEvent(timestamp: number, events: MappedEvent[]): MappedEvent {
   let minEvent = events[0];
   events.forEach(function (ev) {
     if (Math.abs(timestamp - ev.timestamp) < Math.abs(timestamp - minEvent.timestamp)) {

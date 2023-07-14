@@ -6,7 +6,7 @@ import Events, {
   AddStaggerEvent,
   RemoveStaggerEvent,
   AbsorbedEvent,
-  AnyEvent,
+  MappedEvent,
   CastEvent,
   DamageEvent,
   DeathEvent,
@@ -33,7 +33,7 @@ type PurifyBreakdown = {
   [key: number]: number;
 };
 
-export type MaxHPEvent = AnyEvent & { maxHitPoints?: number };
+export type MaxHPEvent = MappedEvent & { maxHitPoints?: number };
 
 /**
  * Fabricate events corresponding to stagger pool updates. Each stagger

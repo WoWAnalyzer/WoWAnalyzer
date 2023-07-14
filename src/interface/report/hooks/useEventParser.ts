@@ -4,7 +4,7 @@ import getBuild from 'interface/selectors/url/report/getBuild';
 import Config from 'parser/Config';
 import CharacterProfile from 'parser/core/CharacterProfile';
 import CombatLogParser from 'parser/core/CombatLogParser';
-import { AnyEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, CombatantInfoEvent, EventType } from 'parser/core/Events';
 import Fight from 'parser/core/Fight';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import { PlayerInfo } from 'parser/core/Player';
@@ -38,7 +38,7 @@ interface Props {
   applyPhaseFilter: (phase: string, instance: any) => null;
   parserClass?: new (...args: ConstructorParameters<typeof CombatLogParser>) => CombatLogParser;
   characterProfile: CharacterProfile | null;
-  events?: AnyEvent[];
+  events?: MappedEvent[];
   dependenciesLoading?: boolean;
 }
 

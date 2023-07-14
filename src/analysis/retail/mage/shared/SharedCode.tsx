@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
 import { SpellInfo } from 'parser/core/EventFilter';
-import { HasTarget, HasHitpoints, EventType, CastEvent, AnyEvent } from 'parser/core/Events';
+import { HasTarget, HasHitpoints, EventType, CastEvent, MappedEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -38,7 +38,7 @@ class SharedCode extends Analyzer {
    * @param preCastSpell an optional spell that you want to look for. Leave undefined to get the precast spell regardless of what spell it is.
    * @returns the event for the precast spell, or undefined if none was found.
    */
-  getPreCast(event: AnyEvent, preCastSpell?: SpellInfo | SpellInfo[]): CastEvent | undefined {
+  getPreCast(event: MappedEvent, preCastSpell?: SpellInfo | SpellInfo[]): CastEvent | undefined {
     return this.eventHistory
       .getEvents(EventType.Cast, {
         searchBackwards: true,
@@ -78,7 +78,7 @@ class SharedCode extends Analyzer {
    * @param event the event that you want to check the target's health on.
    * @returns the target's health percentage (in decimal, i.e. 0.75 = 75%)
    */
-  getTargetHealth(event: AnyEvent) {
+  getTargetHealth(event: MappedEvent) {
     if (!HasTarget(event)) {
       return;
     }

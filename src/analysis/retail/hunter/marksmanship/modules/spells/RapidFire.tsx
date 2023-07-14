@@ -6,7 +6,7 @@ import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   ResourceChangeEvent,
   EventType,
@@ -71,7 +71,7 @@ class RapidFire extends Analyzer {
     );
   }
 
-  onEvent(event: AnyEvent) {
+  onEvent(event: MappedEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
@@ -95,7 +95,7 @@ class RapidFire extends Analyzer {
     this.lastReductionTimestamp = event.timestamp;
   }
 
-  reduceRapidFireCooldown(event: AnyEvent, spellReductionSpeed: number) {
+  reduceRapidFireCooldown(event: MappedEvent, spellReductionSpeed: number) {
     const maxReductionMs: number =
       (event.timestamp - this.lastReductionTimestamp) * spellReductionSpeed;
     debug &&

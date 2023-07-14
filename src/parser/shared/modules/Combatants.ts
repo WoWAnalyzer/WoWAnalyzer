@@ -1,5 +1,5 @@
 import Combatant from 'parser/core/Combatant';
-import { AnyEvent, HasSource, HasTarget } from 'parser/core/Events';
+import { MappedEvent, HasSource, HasTarget } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 import Entities from './Entities';
@@ -12,7 +12,7 @@ class Combatants extends Entities<Combatant> {
   getEntities() {
     return this.players;
   }
-  getEntity(event: AnyEvent) {
+  getEntity(event: MappedEvent) {
     if (!HasTarget(event)) {
       return null;
     }
@@ -23,7 +23,7 @@ class Combatants extends Entities<Combatant> {
     return combatant;
   }
 
-  getSourceEntity(event: AnyEvent) {
+  getSourceEntity(event: MappedEvent) {
     if (!HasSource(event)) {
       return null;
     }

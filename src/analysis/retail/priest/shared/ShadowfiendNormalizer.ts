@@ -1,9 +1,9 @@
 import SPELLS from 'common/SPELLS';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 class ShadowfiendNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     events.forEach((event, eventIndex) => {
       if (event.type === EventType.Cast) {
         const spellId = event.ability.guid;

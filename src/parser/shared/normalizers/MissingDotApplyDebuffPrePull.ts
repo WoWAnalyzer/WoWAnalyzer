@@ -1,4 +1,4 @@
-import { AnyEvent, DamageEvent, EventType, ApplyDebuffEvent } from 'parser/core/Events';
+import { MappedEvent, DamageEvent, EventType, ApplyDebuffEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 // We can stop the normalization after 5 seconds. Any dot that was applied during pre-pull should've ticked.
@@ -22,7 +22,7 @@ export interface DotStatus {
 class MissingDotApplyDebuffPrePull extends EventsNormalizer {
   static dots: Dot[] = [];
 
-  normalize(events: AnyEvent[]): AnyEvent[] {
+  normalize(events: MappedEvent[]): MappedEvent[] {
     const ctor = this.constructor as typeof MissingDotApplyDebuffPrePull;
 
     const fightStartTimestamp = this.owner.fight.start_time;

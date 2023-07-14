@@ -4,7 +4,7 @@ import EventFilter, {
   SELECTED_PLAYER_PET,
   SpellInfo,
 } from 'parser/core/EventFilter';
-import { HasAbility, AnyEvent, EventType, MappedEvent } from 'parser/core/Events';
+import { HasAbility, MappedEvent, EventType, AnyEvent } from 'parser/core/Events';
 import Module from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
@@ -18,7 +18,7 @@ type EventSearchOptions = {
 };
 
 class EventHistory extends Module {
-  protected buildFilter<ET extends EventType, E extends AnyEvent>(
+  protected buildFilter<ET extends EventType, E extends MappedEvent>(
     initialFilter: (event: E) => boolean,
     maxTime?: number,
     filterDef?: EventFilter<ET>,
@@ -83,13 +83,13 @@ class EventHistory extends Module {
    * @param fromTimestamp an optional timestamp to start searching from
    * @returns the last `count` events that match the given filters, with the oldest events first
    */
-  public last<ET extends EventType, E extends MappedEvent<ET>>(
+  public last<ET extends EventType, E extends AnyEvent<ET>>(
     count?: number,
     maxTime?: number,
     filterDef?: EventFilter<ET>,
     fromTimestamp?: number,
   ): E[] {
-    let filter = (event: AnyEvent) => true;
+    let filter = (event: MappedEvent) => true;
 
     if (fromTimestamp) {
       const prevFilter = filter;
@@ -123,13 +123,13 @@ class EventHistory extends Module {
     return history as E[];
   }
 
-  public next<ET extends EventType, E extends MappedEvent<ET>>(
+  public next<ET extends EventType, E extends AnyEvent<ET>>(
     count?: number,
     maxTime?: number,
     filterDef?: EventFilter<ET>,
     fromTimestamp?: number,
   ): E[] {
-    let filter = (event: AnyEvent) => true;
+    let filter = (event: MappedEvent) => true;
 
     if (fromTimestamp) {
       const prevFilter = filter;
@@ -182,7 +182,7 @@ class EventHistory extends Module {
       duration,
       includePets,
     }: EventSearchOptions = {},
-  ): Array<MappedEvent<ET>> {
+  ): Array<AnyEvent<ET>> {
     const source = includePets ? SELECTED_PLAYER | SELECTED_PLAYER_PET : SELECTED_PLAYER;
     const eventFilter = spell
       ? new EventFilter(eventType).by(source).spell(spell)
@@ -207,7 +207,7 @@ class EventHistory extends Module {
     buff: SpellInfo,
     eventType: ET,
     spell?: SpellInfo | SpellInfo[],
-  ): Array<MappedEvent<ET>> {
+  ): Array<AnyEvent<ET>> {
     const events = this.getEvents(eventType, { searchBackwards: true, spell: spell });
     const filteredEvents = events.filter((e) =>
       this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1),
@@ -225,7 +225,7 @@ class EventHistory extends Module {
     buff: SpellInfo,
     eventType: ET,
     spell?: SpellInfo | SpellInfo[],
-  ): Array<MappedEvent<ET>> {
+  ): Array<AnyEvent<ET>> {
     const events = this.getEvents(eventType, { searchBackwards: true, spell: spell });
     const filteredEvents = events.filter(
       (e) => !this.selectedCombatant.hasBuff(buff.id, e.timestamp - 1),

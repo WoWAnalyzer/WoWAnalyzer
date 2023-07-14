@@ -1,4 +1,4 @@
-import { AnyEvent, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
+import { MappedEvent, EventType, HasAbility, HasSource, HasTarget } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
 import { encodeEventTargetString } from 'parser/shared/modules/Enemies';
@@ -27,7 +27,7 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
   }
 
   // detects if the given event matches all the conditions of the 'before' event
-  private _isBefore(eo: EventOrder, event: AnyEvent): boolean {
+  private _isBefore(eo: EventOrder, event: MappedEvent): boolean {
     const matchesType: boolean = Array.isArray(eo.beforeEventType)
       ? eo.beforeEventType.includes(event.type)
       : eo.beforeEventType === event.type;
@@ -41,7 +41,7 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
   }
 
   // detects if the given event matches all the conditions of the 'after' event
-  private _isAfter(eo: EventOrder, event: AnyEvent): boolean {
+  private _isAfter(eo: EventOrder, event: MappedEvent): boolean {
     const matchesType: boolean = Array.isArray(eo.afterEventType)
       ? eo.afterEventType.includes(event.type)
       : eo.afterEventType === event.type;
@@ -55,7 +55,7 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
   }
 
   // detects if the events must match source, and if so if their sources match
-  private _sourceCheck(eo: EventOrder, event1: AnyEvent, event2: AnyEvent): boolean {
+  private _sourceCheck(eo: EventOrder, event1: MappedEvent, event2: MappedEvent): boolean {
     return (
       eo.anySource ||
       (HasSource(event1) && HasSource(event2) && event1.sourceID === event2.sourceID)
@@ -63,7 +63,7 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
   }
 
   // detects if the events must match target, and if so if their targets match
-  private _targetCheck(eo: EventOrder, event1: AnyEvent, event2: AnyEvent): boolean {
+  private _targetCheck(eo: EventOrder, event1: MappedEvent, event2: MappedEvent): boolean {
     return (
       eo.anyTarget ||
       (HasTarget(event1) &&
@@ -72,12 +72,12 @@ abstract class EventOrderNormalizer extends EventsNormalizer {
     );
   }
 
-  normalize(events: AnyEvent[]): AnyEvent[] {
+  normalize(events: MappedEvent[]): MappedEvent[] {
     // check each event order directive
     this.eventOrders.forEach((eo: EventOrder) => {
-      const fixedEvents: AnyEvent[] = [];
+      const fixedEvents: MappedEvent[] = [];
       // loop through all events in order
-      events.forEach((event: AnyEvent, eventIndex: number) => {
+      events.forEach((event: MappedEvent, eventIndex: number) => {
         fixedEvents.push(event);
         // if we find a match of the 'before' ability
         if (this._isBefore(eo, event)) {

@@ -1,4 +1,4 @@
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 
 import buffApplications from './buffApplications';
@@ -8,7 +8,7 @@ import buffApplications from './buffApplications';
  * total may be longer than the fight duration).
  */
 const buffUptimeTotal = (
-  events: AnyEvent[],
+  events: MappedEvent[],
   info: Pick<Info, 'playerId' | 'fightStart' | 'fightEnd'>,
   spellId: number,
 ) => {

@@ -2,7 +2,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { Options } from 'parser/core/Module';
 import {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
@@ -90,14 +90,14 @@ export default class CastLinkNormalizer extends EventLinkNormalizer {
   }
 }
 
-export function isFromHardcast(event: AnyEvent): boolean {
+export function isFromHardcast(event: MappedEvent): boolean {
   return HasRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
+  const events: MappedEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
   return events.length === 0 ? undefined : (events[0] as CastEvent);
 }
 

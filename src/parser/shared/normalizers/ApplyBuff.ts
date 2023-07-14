@@ -1,6 +1,6 @@
 import { maybeGetSpell } from 'common/SPELLS';
 import {
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   CombatantInfoEvent,
   EventType,
@@ -30,7 +30,7 @@ class ApplyBuff extends EventsNormalizer {
     [playerid: number]: number[];
   } = {};
 
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     const firstEventIndex = this.getFightStartIndex(events);
     const firstStartTimestamp = this.owner.fight.start_time;
     const playersById = this.owner.players.reduce<{

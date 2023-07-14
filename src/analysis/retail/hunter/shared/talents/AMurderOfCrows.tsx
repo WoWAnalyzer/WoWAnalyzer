@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AnyEvent, DamageEvent } from 'parser/core/Events';
+import Events, { MappedEvent, DamageEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -67,7 +67,7 @@ class AMurderOfCrows extends Analyzer {
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
   }
 
-  checkForReset(event: AnyEvent) {
+  checkForReset(event: MappedEvent) {
     // Checks if we've had atleast 1 damage tick of the currently applied crows, and checks that crows is in fact on cooldown.
     if (
       this.lastDamageTick &&

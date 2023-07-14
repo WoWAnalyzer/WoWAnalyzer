@@ -33,7 +33,7 @@
  */
 import Spell from 'common/SPELLS/Spell';
 import {
-  AnyEvent,
+  MappedEvent,
   HasAbility,
   HasLocation,
   HasSource,
@@ -88,11 +88,13 @@ export type LocationState = {
   minHitboxes: Record<string, number>;
 };
 
-function HasResourceActor(event: AnyEvent): event is AnyEvent & { resourceActor: ResourceActor } {
+function HasResourceActor(
+  event: MappedEvent,
+): event is MappedEvent & { resourceActor: ResourceActor } {
   return 'resourceActor' in event;
 }
 
-function playerLocation(state: LocationState, event: AnyEvent): LocationEvent<any> | undefined {
+function playerLocation(state: LocationState, event: MappedEvent): LocationEvent<any> | undefined {
   if (
     HasLocation(event) &&
     HasResourceActor(event) &&
@@ -175,7 +177,7 @@ function inferHitboxSize(state: LocationState, event: TargettedEvent<any> & Loca
   state.minHitboxes[targetKey] = newHitbox;
 }
 
-export function updateLocationState(state: LocationState, event: AnyEvent): LocationState {
+export function updateLocationState(state: LocationState, event: MappedEvent): LocationState {
   if (!HasLocation(event)) {
     return state;
   }
@@ -228,7 +230,7 @@ const STALE_PLAYER_CUTOFF = 2000;
  * This is implemented to assume the positive---if we can't tell given the
  * information available, then we just assume you're in range.
  */
-export function isInRange(state: LocationState, event: AnyEvent, spell: Spell): boolean {
+export function isInRange(state: LocationState, event: MappedEvent, spell: Spell): boolean {
   if (!HasTarget(event)) {
     // current event doesn't have a target, we just guess that you can
     return true;

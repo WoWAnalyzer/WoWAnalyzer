@@ -1,4 +1,4 @@
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { MAELSTROM_WEAPON_INSTANT_CAST } from './EventLinkNormalizer';
 
@@ -6,9 +6,9 @@ import { MAELSTROM_WEAPON_INSTANT_CAST } from './EventLinkNormalizer';
  * events for instant cast enhancement spells */
 
 class MaelstromWeaponCastNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]): AnyEvent[] {
-    const fixedEvents: AnyEvent[] = [];
-    events.forEach((event: AnyEvent, idx: number) => {
+  normalize(events: MappedEvent[]): MappedEvent[] {
+    const fixedEvents: MappedEvent[] = [];
+    events.forEach((event: MappedEvent, idx: number) => {
       const linkedEvents = event._linkedEvents?.find(
         (x) => x.relation === MAELSTROM_WEAPON_INSTANT_CAST,
       );

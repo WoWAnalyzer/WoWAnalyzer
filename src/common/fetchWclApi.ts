@@ -1,6 +1,6 @@
 import { captureException } from 'common/errorLogger';
 import ExtendableError from 'es6-error';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 
 import { QueryParams } from './makeApiUrl';
 import makeWclApiUrl from './makeWclApiUrl';
@@ -209,7 +209,7 @@ export async function fetchEvents(
 ) {
   let pageStartTimestamp = fightStart;
 
-  let events: AnyEvent[] = [];
+  let events: MappedEvent[] = [];
   let page = 0;
   // eslint-disable-next-line no-constant-condition
   while (true) {

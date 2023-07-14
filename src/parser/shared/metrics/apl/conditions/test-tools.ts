@@ -1,7 +1,7 @@
 import Spell from 'common/SPELLS/Spell';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import Combatant from 'parser/core/Combatant';
-import { AnyEvent, CastEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, CastEvent, EventType } from 'parser/core/Events';
 import { AbilityRange } from 'parser/core/modules/Abilities';
 import Ability from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -31,7 +31,7 @@ export const playerInfo: PlayerInfo = {
   ],
 };
 
-export function runCondition<T>(cnd: Condition<T>, events: AnyEvent[], initialState?: T): T {
+export function runCondition<T>(cnd: Condition<T>, events: MappedEvent[], initialState?: T): T {
   let state = initialState ?? cnd.init(playerInfo);
 
   for (const event of events) {

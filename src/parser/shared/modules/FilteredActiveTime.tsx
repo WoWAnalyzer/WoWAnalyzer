@@ -1,10 +1,10 @@
 import Analyzer from 'parser/core/Analyzer';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 
 const BUFFER = 3000;
 
 class FilteredActiveTime extends Analyzer {
-  filterEvents(events: AnyEvent[], start: number, end: number) {
+  filterEvents(events: MappedEvent[], start: number, end: number) {
     let filteredEvents = [];
     filteredEvents = events.filter(
       (event) =>
@@ -15,7 +15,7 @@ class FilteredActiveTime extends Analyzer {
     return filteredEvents;
   }
 
-  getActiveTime(start: number, end: number, events: AnyEvent[] = this.owner.eventHistory) {
+  getActiveTime(start: number, end: number, events: MappedEvent[] = this.owner.eventHistory) {
     let activeTime = 0;
     let lastGCD: {
       duration: number;
@@ -75,7 +75,7 @@ class FilteredActiveTime extends Analyzer {
     return activeTime;
   }
 
-  getDowntime(start: number, end: number, events: AnyEvent[] = this.owner.eventHistory) {
+  getDowntime(start: number, end: number, events: MappedEvent[] = this.owner.eventHistory) {
     const activeTime = this.getActiveTime(start, end, events);
     const duration = end - start;
     return duration - activeTime;

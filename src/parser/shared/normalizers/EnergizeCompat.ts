@@ -1,9 +1,9 @@
-import { EventType, Event, AnyEvent } from 'parser/core/Events';
+import { EventType, Event, MappedEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 type EnergizeEvent = Event<'energize'>;
 
-type CompatEvent = AnyEvent | EnergizeEvent;
+type CompatEvent = MappedEvent | EnergizeEvent;
 
 /**
  * Temporary compatibility class to convert old energize events to new
@@ -14,7 +14,7 @@ type CompatEvent = AnyEvent | EnergizeEvent;
  **/
 export default class EnergizeCompat extends EventsNormalizer {
   priority = -1000;
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     return events.map((event) => {
       if ((event as CompatEvent).type === 'energize') {
         event.type = EventType.ResourceChange;

@@ -4,7 +4,7 @@ import Combatant from 'parser/core/Combatant';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   FightEndEvent,
@@ -801,7 +801,7 @@ abstract class HotTracker extends Analyzer {
 
   // TODO remove this? It's mostly OBE by EventList and HasTarget
   // gets an event's target ... returns null if for any reason the event should not be further processed
-  _getTarget(event: AnyEvent) {
+  _getTarget(event: MappedEvent) {
     const target = this.combatants.getEntity(event);
     if (target === null || !HasTarget(event)) {
       return null; // target wasn't important (a pet probably)

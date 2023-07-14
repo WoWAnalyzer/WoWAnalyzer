@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import SpellLink from 'interface/SpellLink';
 import { suggestion } from 'parser/core/Analyzer';
 import { SuggestionImportance } from 'parser/core/CombatLogParser';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import castCount from 'parser/shared/metrics/castCount';
 
@@ -12,7 +12,7 @@ export interface LowRankSpells {
 }
 
 const lowRankSpellsPet = (spells: LowRankSpells) =>
-  suggestion((events: AnyEvent[], { pets }: Pick<Info, 'pets'>) =>
+  suggestion((events: MappedEvent[], { pets }: Pick<Info, 'pets'>) =>
     pets.flatMap((pet) => {
       const casts = castCount(events, pet.id);
 

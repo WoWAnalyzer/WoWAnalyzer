@@ -9,10 +9,10 @@ import Events, {
   AbilityEvent,
   HasSource,
   HasTarget,
-  AnyEvent,
+  MappedEvent,
   DamageEvent,
   FightEndEvent,
-  MappedEvent,
+  AnyEvent,
   ResourceActor,
   EventType,
 } from 'parser/core/Events';
@@ -73,7 +73,7 @@ export const debuff = (
  * sometimes it makes sense to use other things (like `AbsorbedEvent` or `HealEvent`).
  */
 export type MitigatedEvent = {
-  event: AnyEvent;
+  event: MappedEvent;
   mitigatedAmount: number;
 };
 
@@ -86,8 +86,8 @@ export type MitigatedEvent = {
  * (typically, you only need the timestamps).
  */
 export type Mitigation<Apply extends EventType = any, Remove extends EventType = any> = {
-  start: MappedEvent<Apply>;
-  end: MappedEvent<Remove> | FightEndEvent;
+  start: AnyEvent<Apply>;
+  end: AnyEvent<Remove> | FightEndEvent;
   mitigated: MitigatedEvent[];
   amount: number;
 };
@@ -216,7 +216,7 @@ export default class MajorDefensive<
   /**
    * Get the map key for the buff/debuff target.
    */
-  protected getBuffTarget(event: MappedEvent<Apply> | MappedEvent<Remove>): string | undefined {
+  protected getBuffTarget(event: AnyEvent<Apply> | AnyEvent<Remove>): string | undefined {
     if (HasTarget(event)) {
       return encodeTargetString(event.targetID, event.targetInstance);
     } else {
@@ -228,7 +228,7 @@ export default class MajorDefensive<
    * Get the map key for a mitigaton event. If this is a buff, we get the target. If it is a debuff, we get the source.
    * Basically the reverse of `getBuffTarget`.
    */
-  protected getKeyForMitigation(event: AnyEvent): string | undefined {
+  protected getKeyForMitigation(event: MappedEvent): string | undefined {
     if (this.trackOn === ResourceActor.Source && HasTarget(event)) {
       return encodeTargetString(event.targetID, event.targetInstance);
     } else if (this.trackOn === ResourceActor.Target && HasSource(event)) {
@@ -243,7 +243,7 @@ export default class MajorDefensive<
     key && this.currentMitigations.get(key)?.mitigated.push(mitigation);
   }
 
-  protected defensiveActive(event: AnyEvent): boolean {
+  protected defensiveActive(event: MappedEvent): boolean {
     const key = this.getKeyForMitigation(event);
 
     if (!key) {
@@ -253,7 +253,7 @@ export default class MajorDefensive<
     return this.currentMitigations.has(key);
   }
 
-  private onApply(event: MappedEvent<Apply>) {
+  private onApply(event: AnyEvent<Apply>) {
     const target = this.getBuffTarget(event);
     if (!target) {
       console.warn('Unable to determine target for Major Defensive analyzer', this.spell, event);
@@ -265,7 +265,7 @@ export default class MajorDefensive<
     });
   }
 
-  private onRemove(event: MappedEvent<Remove>) {
+  private onRemove(event: AnyEvent<Remove>) {
     const target = this.getBuffTarget(event);
     const current = target && this.currentMitigations.get(target);
     if (!current) {
@@ -326,7 +326,7 @@ export default class MajorDefensive<
   get firstSeenMaxHp(): number {
     return (
       this.owner.eventHistory.find(
-        (event): event is AnyEvent & { maxHitPoints: number } =>
+        (event): event is MappedEvent & { maxHitPoints: number } =>
           'maxHitPoints' in event &&
           event.resourceActor === ResourceActor.Target &&
           event.targetID === this.selectedCombatant.id,

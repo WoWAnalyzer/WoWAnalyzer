@@ -1,6 +1,6 @@
 import type Spell from 'common/SPELLS/Spell';
 import {
-  AnyEvent,
+  MappedEvent,
   BeginChannelEvent,
   CastEvent,
   EventType,
@@ -44,9 +44,9 @@ export interface Condition<T> {
   // produce the initial state object
   init: (info: PlayerInfo) => T;
   // Update the internal condition state
-  update: (state: T, event: AnyEvent) => T;
+  update: (state: T, event: MappedEvent) => T;
   // validate whether the condition applies for the supplied event.
-  validate: (state: T, event: AplTriggerEvent, spell: Spell, lookahead: AnyEvent[]) => boolean;
+  validate: (state: T, event: AplTriggerEvent, spell: Spell, lookahead: MappedEvent[]) => boolean;
   // describe the condition. it should fit following "This rule was active because..."
   describe: (tense?: Tense) => ReactChild;
   // tooltip description for checklist
@@ -241,7 +241,7 @@ function initState(apl: Apl, info: PlayerInfo): ConditionState {
   );
 }
 
-function updateState(apl: Apl, oldState: ConditionState, event: AnyEvent): ConditionState {
+function updateState(apl: Apl, oldState: ConditionState, event: MappedEvent): ConditionState {
   return (
     apl.conditions?.reduce((state: ConditionState, cnd: Condition<any>) => {
       state[cnd.key] = cnd.update(oldState[cnd.key], event);
@@ -260,10 +260,10 @@ export const spells = (rule: InternalRule): Spell[] =>
   rule.spell.type === TargetType.SpellList ? rule.spell.target : [rule.spell.target];
 
 export function lookaheadSlice(
-  events: AnyEvent[],
+  events: MappedEvent[],
   startIx: number,
   duration: number | undefined,
-): AnyEvent[] {
+): MappedEvent[] {
   if (!duration) {
     return [];
   }
@@ -292,7 +292,7 @@ function ruleApplies(
   rule: InternalRule,
   abilities: Set<number>,
   result: CheckState,
-  events: AnyEvent[],
+  events: MappedEvent[],
   eventIndex: number,
   requireCooldownAvailable: boolean = false,
 ): Spell[] | false {
@@ -358,7 +358,7 @@ export function applicableRule(
   apl: Apl,
   abilities: Set<number>,
   result: CheckState,
-  events: AnyEvent[],
+  events: MappedEvent[],
   eventIndex: number,
   requireCooldownAvailable: boolean = false,
 ): ApplicableRule | undefined {
@@ -377,7 +377,7 @@ export function applicableRule(
   }
 }
 
-function updateAbilities(state: AbilityState, event: AnyEvent): AbilityState {
+function updateAbilities(state: AbilityState, event: MappedEvent): AbilityState {
   if (event.type === EventType.UpdateSpellUsable) {
     state[event.ability.guid] = event;
   }
@@ -389,7 +389,7 @@ function updateAbilities(state: AbilityState, event: AnyEvent): AbilityState {
  * on every event, this only determines if the rule checking needs to apply.
  */
 export function aplProcessesEvent(
-  event: AnyEvent,
+  event: MappedEvent,
   result: CheckState,
   applicableSpells: Set<number>,
   playerId: number,
@@ -419,7 +419,7 @@ export function knownSpells(
   return { abilities, applicableSpells };
 }
 
-export function updateCheckState(result: CheckState, apl: Apl, event: AnyEvent): CheckState {
+export function updateCheckState(result: CheckState, apl: Apl, event: MappedEvent): CheckState {
   if (event.type === EventType.BeginChannel) {
     result.mostRecentBeginCast = event;
   } else if (event.type === EventType.EndChannel) {

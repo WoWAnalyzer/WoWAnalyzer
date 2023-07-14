@@ -189,7 +189,7 @@ type MappedEventTypes = {
   [EventType.FilterBuffInfo]: FilterBuffInfoEvent;
 };
 
-export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> =
+export type MappedEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> =
   MappedEventTypes[ET];
 
 export interface Ability {
@@ -299,19 +299,23 @@ export function HasLocation<T extends EventType>(event: Event<T>): event is Loca
 
 /** Gets the events related to the given event with the given relation (key). Events will not
  *  by default have any relations, you must add them with an {@link EventLinkNormalizer}. */
-export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
+export function GetRelatedEvents(event: MappedEvent, relation: string): MappedEvent[] {
   return event?._linkedEvents?.filter((le) => le.relation === relation).map((le) => le.event) ?? [];
 }
 
 /** Returns true iff the given event has a relation with the given relation (key). Events will not
  *  by default have any relations, you must add them with an {@link EventLinkNormalizer}. */
-export function HasRelatedEvent(event: AnyEvent, relation: string): boolean {
+export function HasRelatedEvent(event: MappedEvent, relation: string): boolean {
   return event?._linkedEvents?.find((le) => le.relation === relation) !== undefined;
 }
 
 /** Adds a relation between events using the `_linkedEvents` field.
  *  This should not be done manually, use {@link EventLinkNormalizer} */
-export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent: AnyEvent): void {
+export function AddRelatedEvent(
+  event: MappedEvent,
+  relation: string,
+  relatedEvent: MappedEvent,
+): void {
   if (!event?._linkedEvents) {
     event._linkedEvents = [];
   }
@@ -319,7 +323,7 @@ export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent:
   event.__modified = true;
 }
 
-export type MappedEvent<T extends EventType> = T extends keyof MappedEventTypes
+export type AnyEvent<T extends EventType> = T extends keyof MappedEventTypes
   ? MappedEventTypes[T]
   : Event<T>;
 
@@ -346,7 +350,7 @@ export interface LinkedEvent {
   /** A string specifying the relationship of the linked event. Will be used as a key during lookup */
   relation: string;
   /** The linked event */
-  event: AnyEvent;
+  event: MappedEvent;
 }
 
 export interface CastTarget {
@@ -390,7 +394,7 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
     isEnhancedCast?: boolean;
     enhancedCastReason?: React.ReactNode;
   };
-  trigger?: AnyEvent;
+  trigger?: MappedEvent;
 }
 
 export interface EndChannelEvent extends Event<EventType.EndChannel> {
@@ -399,7 +403,7 @@ export interface EndChannelEvent extends Event<EventType.EndChannel> {
   start: number;
   duration: number;
   beginChannel: BeginChannelEvent;
-  trigger?: AnyEvent;
+  trigger?: MappedEvent;
 }
 
 export interface BaseCastEvent<T extends string> extends Event<T> {
@@ -934,7 +938,7 @@ export interface ChangeStatsEvent extends Event<EventType.ChangeStats> {
   sourceID: number;
   targetID: number;
   targetIsFriendly: true;
-  trigger: AnyEvent;
+  trigger: MappedEvent;
   after: Stats;
   before: Stats;
   delta: Stats;

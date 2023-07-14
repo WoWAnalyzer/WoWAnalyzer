@@ -2,7 +2,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/druid';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AnyEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
+import Events, { MappedEvent, CastEvent, EventType, HealEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import HealingValue from 'parser/shared/modules/HealingValue';
 import BoringValue from 'parser/ui/BoringValueText';
@@ -87,7 +87,7 @@ class WildGrowth extends Analyzer {
     this.recentWgTargetHealing = {};
     this.recentWgTimestamp = event.timestamp;
     getHeals(event).forEach(
-      (applyHot: AnyEvent) =>
+      (applyHot: MappedEvent) =>
         (applyHot.type === EventType.ApplyBuff || applyHot.type === EventType.RefreshBuff) &&
         (this.recentWgTargetHealing[applyHot.targetID] = {
           appliedTimestamp: applyHot.timestamp,

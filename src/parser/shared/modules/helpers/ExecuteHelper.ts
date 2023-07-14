@@ -4,7 +4,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
   Ability,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   DamageEvent,
   FightEndEvent,
@@ -35,15 +35,15 @@ export enum ExecuteRangeType {
 
 type HealthExecuteRange = {
   type: ExecuteRangeType.Health;
-  startEvent: AnyEvent;
-  endEvent: AnyEvent;
+  startEvent: MappedEvent;
+  endEvent: MappedEvent;
   ability?: undefined;
 };
 
 type BuffExecuteRange = {
   type: Exclude<ExecuteRangeType, ExecuteRangeType.Health>;
-  startEvent: AnyEvent;
-  endEvent: AnyEvent;
+  startEvent: MappedEvent;
+  endEvent: MappedEvent;
   ability: Ability;
 };
 

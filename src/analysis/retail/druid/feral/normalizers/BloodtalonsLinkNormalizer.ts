@@ -2,7 +2,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 import { Options } from 'parser/core/Module';
 import SPELLS from 'common/SPELLS';
 import {
-  AnyEvent,
+  MappedEvent,
   CastEvent,
   EventType,
   GetRelatedEvents,
@@ -22,7 +22,7 @@ const CAST_BUFFER_MS = 50;
 /** Bloodtalons can be procced by spells cast up to 4 seconds beforehand */
 const BLOODTALONS_BUFFER_MS = 4050;
 /** Condition to ensure spells attributed to causing the proc are 3 unique spells */
-const THREE_UNIQUE_SPELLS_CONDITION = (linkingEvent: AnyEvent, referencedEvent: AnyEvent) => {
+const THREE_UNIQUE_SPELLS_CONDITION = (linkingEvent: MappedEvent, referencedEvent: MappedEvent) => {
   const spellsSoFar = GetRelatedEvents(linkingEvent, PROCCED_BY);
   if (spellsSoFar.length >= 3) {
     return false;

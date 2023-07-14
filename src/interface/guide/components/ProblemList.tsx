@@ -1,4 +1,4 @@
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import { useEffect, useMemo, useState } from 'react';
 import './ProblemList.scss';
@@ -77,7 +77,7 @@ export type Problem<T> = {
    - It is okay if you compute some extra data from the `events` list to show more detail, make a graph, etc.
  */
 export type ProblemRendererProps<T> = {
-  events: AnyEvent[];
+  events: MappedEvent[];
   problem: Problem<T>;
   info: Info;
 };
@@ -205,7 +205,7 @@ export default function ProblemList<T>({
   label,
 }: {
   problems: Array<Problem<T>>;
-  events: AnyEvent[];
+  events: MappedEvent[];
   renderer: ProblemRenderer<T>;
   info: Info;
   label?: string;

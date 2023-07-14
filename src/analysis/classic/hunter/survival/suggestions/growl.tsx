@@ -1,7 +1,7 @@
 import { Trans } from '@lingui/macro';
 import SpellLink from 'interface/SpellLink';
 import { SuggestionImportance } from 'parser/core/CombatLogParser';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 
 import growlCasts from '../metrics/growlCasts';
@@ -9,7 +9,7 @@ import * as SPELLS from '../../shared/SPELLS_PET';
 
 const growl =
   () =>
-  (events: AnyEvent[], { pets }: Pick<Info, 'pets'>) => {
+  (events: MappedEvent[], { pets }: Pick<Info, 'pets'>) => {
     const casts = growlCasts(events, pets);
 
     if (casts > 0) {

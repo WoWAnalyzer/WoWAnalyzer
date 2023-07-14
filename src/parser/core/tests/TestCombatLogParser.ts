@@ -4,7 +4,7 @@ import Config from 'parser/Config';
 import Report from 'parser/core/Report';
 import { PlayerInfo } from 'parser/core/Player';
 import Fight from 'parser/core/Fight';
-import { AnyEvent, CombatantInfoEvent } from 'parser/core/Events';
+import { MappedEvent, CombatantInfoEvent } from 'parser/core/Events';
 import Combatant from 'parser/core/Combatant';
 import TestCombatant from 'parser/core/tests/TestCombatant';
 import {
@@ -55,7 +55,7 @@ class TestCombatLogParser extends CombatLogParser {
     );
   }
 
-  processEvents(events: AnyEvent[]) {
+  processEvents(events: MappedEvent[]) {
     events.forEach((event) => this.getModule(EventEmitter).triggerEvent(event));
   }
 }

@@ -1,5 +1,5 @@
 import SPELLS from 'common/SPELLS';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import MissingDotApplyDebuffPrePull, {
   Dot,
@@ -24,7 +24,7 @@ describe('core/Modules/Normalizers/MissingDotApplyDebuffPrePull', () => {
   });
 
   it('fabricates an apply debuff event when a dot damage event is found before any apply debuff event', () => {
-    const events: AnyEvent[] = [
+    const events: MappedEvent[] = [
       {
         timestamp: 1000,
         type: EventType.Damage,
@@ -73,7 +73,7 @@ describe('core/Modules/Normalizers/MissingDotApplyDebuffPrePull', () => {
   });
 
   it("doesn't fabricate an apply debuff event when one already exists", () => {
-    const events: AnyEvent[] = [
+    const events: MappedEvent[] = [
       {
         timestamp: 50,
         type: EventType.ApplyDebuff,
@@ -118,7 +118,7 @@ describe('core/Modules/Normalizers/MissingDotApplyDebuffPrePull', () => {
   });
 
   it("doesn't fabricate an apply debuff for an out-of-order damage/apply debuff pair", () => {
-    const events: AnyEvent[] = [
+    const events: MappedEvent[] = [
       {
         timestamp: 50,
         type: EventType.Damage,

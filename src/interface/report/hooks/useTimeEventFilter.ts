@@ -1,6 +1,6 @@
 import { captureException } from 'common/errorLogger';
 import {
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   ApplyDebuffEvent,
@@ -32,7 +32,7 @@ const eventFollows = (e: BuffEvent | StackEvent, e2: BuffEvent | StackEvent) =>
   e2.sourceID === e.sourceID &&
   e2.targetID === e.targetID;
 
-function findRelevantPostFilterEvents(events: AnyEvent[]) {
+function findRelevantPostFilterEvents(events: MappedEvent[]) {
   return events
     .filter(
       (e): e is CastEvent =>
@@ -55,7 +55,7 @@ type StackEvent =
   | RemoveDebuffStackEvent;
 type BuffEvent = ApplyBuffEvent | ApplyDebuffEvent | RemoveBuffEvent | RemoveDebuffEvent;
 type CastRelevantEvent = CastEvent | FilterCooldownInfoEvent;
-function findRelevantPreFilterEvents(events: AnyEvent[]) {
+function findRelevantPreFilterEvents(events: MappedEvent[]) {
   const buffEvents: BuffEvent[] = []; //(de)buff apply events for (de)buffs that stay active going into the time period
   const stackEvents: StackEvent[] = []; //stack events related to the above buff events that happen after the buff is applied
   const castEvents: CastRelevantEvent[] = []; //latest cast event of each cast by player for cooldown tracking
@@ -67,7 +67,7 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
         e.targetID === e2.targetID &&
         e.sourceID === e2.targetID,
     ) !== undefined;
-  const buffIsRemoved = (e: BuffEvent, buffRelevantEvents: AnyEvent[]) =>
+  const buffIsRemoved = (e: BuffEvent, buffRelevantEvents: MappedEvent[]) =>
     buffRelevantEvents.find(
       (e2) => e2.type === e.type.replace('apply', 'remove') && eventFollows(e, e2 as BuffEvent),
     ) !== undefined;
@@ -88,7 +88,7 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
             buffEvents.push(e as BuffEvent);
             //find relevant stack information for active buff / debuff
             stackEvents.push(
-              ...buffRelevantEvents.reverse().reduce((arr: StackEvent[], e2: AnyEvent) => {
+              ...buffRelevantEvents.reverse().reduce((arr: StackEvent[], e2: MappedEvent) => {
                 //traverse through all following stack events in chronological order
                 if (eventFollows(e as BuffEvent, e2 as StackEvent)) {
                   //if stack is added, add the event to the end of the array
@@ -157,7 +157,7 @@ function findRelevantPreFilterEvents(events: AnyEvent[]) {
  * @return {Array}
  *  List of filtered events
  */
-export function filterEvents(events: AnyEvent[], start: number, end: number) {
+export function filterEvents(events: MappedEvent[], start: number, end: number) {
   function createFilterBuffInfoEvent(e: BuffEvent | StackEvent): FilterBuffInfoEvent {
     return {
       ...e,
@@ -208,7 +208,7 @@ interface Config {
   phase: string;
   phaseinstance: number;
   bossPhaseEvents: PhaseEvent[] | null;
-  events: AnyEvent[] | null;
+  events: MappedEvent[] | null;
 }
 
 const useTimeEventFilter = ({
@@ -221,7 +221,7 @@ const useTimeEventFilter = ({
   events,
 }: Config) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [stateEvents, setStateEvents] = useState<AnyEvent[] | undefined>(undefined);
+  const [stateEvents, setStateEvents] = useState<MappedEvent[] | undefined>(undefined);
   const [stateFight, setStateFight] = useState<Fight | undefined>(undefined);
 
   useEffect(() => {
@@ -231,7 +231,7 @@ const useTimeEventFilter = ({
 
     const makeEvents = (): {
       start: number;
-      events: AnyEvent[];
+      events: MappedEvent[];
       end: number;
     } => {
       if (!filter) {

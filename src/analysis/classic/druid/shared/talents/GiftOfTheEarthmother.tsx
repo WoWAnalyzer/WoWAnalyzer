@@ -1,5 +1,5 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import Events, { AnyEvent } from 'parser/core/Events';
+import Events, { MappedEvent } from 'parser/core/Events';
 import Haste from '../Haste';
 
 /**
@@ -23,7 +23,7 @@ class GiftOfTheEarthmother extends Analyzer {
     this.addEventListener(Events.any, this.addGotEHaste);
   }
 
-  addGotEHaste(event: AnyEvent) {
+  addGotEHaste(event: MappedEvent) {
     const newHaste = this.haste.current + this.goteHaste;
     this.haste._setHaste(event, newHaste);
     this.active = false;

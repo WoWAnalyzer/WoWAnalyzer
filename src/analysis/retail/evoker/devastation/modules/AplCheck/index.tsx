@@ -5,7 +5,7 @@ import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import TALENTS from 'common/TALENTS/evoker';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 
@@ -442,7 +442,7 @@ export const apl = (): Apl => {
   return default_rotation;
 };
 
-export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
+export const check = (events: MappedEvent[], info: PlayerInfo): CheckResult => {
   const check = aplCheck(apl());
   return check(events, info);
 };

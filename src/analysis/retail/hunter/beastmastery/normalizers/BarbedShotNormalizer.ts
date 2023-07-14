@@ -1,12 +1,12 @@
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 export default class BarbedShotNormalizer extends EventsNormalizer {
-  normalize(events: AnyEvent[]) {
-    const fixedEvents: AnyEvent[] = [];
+  normalize(events: MappedEvent[]) {
+    const fixedEvents: MappedEvent[] = [];
     const possibleBarbedShotBuffs = [
       SPELLS.BARBED_SHOT_BUFF.id,
       SPELLS.BARBED_SHOT_BUFF_2.id,
@@ -18,7 +18,7 @@ export default class BarbedShotNormalizer extends EventsNormalizer {
       SPELLS.BARBED_SHOT_BUFF_8.id,
     ];
 
-    events.forEach((event: AnyEvent, idx: number) => {
+    events.forEach((event: MappedEvent, idx: number) => {
       fixedEvents.push(event);
       if (event.type !== EventType.Cast) {
         return;

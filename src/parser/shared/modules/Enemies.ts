@@ -1,6 +1,12 @@
 import Enemy from 'parser/core/Enemy';
 import { TrackedBuffEvent } from 'parser/core/Entity';
-import { AnyEvent, HasSource, HasTarget, SourcedEvent, TargettedEvent } from 'parser/core/Events';
+import {
+  MappedEvent,
+  HasSource,
+  HasTarget,
+  SourcedEvent,
+  TargettedEvent,
+} from 'parser/core/Events';
 
 import Entities from './Entities';
 
@@ -12,8 +18,8 @@ type EnemyBuffHistory = {
 };
 
 export function encodeEventTargetString(event: TargettedEvent<any>): string;
-export function encodeEventTargetString(event: AnyEvent): string | null;
-export function encodeEventTargetString(event: AnyEvent) {
+export function encodeEventTargetString(event: MappedEvent): string | null;
+export function encodeEventTargetString(event: MappedEvent) {
   if (!HasTarget(event)) {
     return null;
   }
@@ -21,8 +27,8 @@ export function encodeEventTargetString(event: AnyEvent) {
 }
 
 export function encodeEventSourceString(event: SourcedEvent<any>): string;
-export function encodeEventSourceString(event: AnyEvent): string | null;
-export function encodeEventSourceString(event: AnyEvent) {
+export function encodeEventSourceString(event: MappedEvent): string | null;
+export function encodeEventSourceString(event: MappedEvent) {
   if (!HasSource(event)) {
     return null;
   }
@@ -50,7 +56,7 @@ class Enemies extends Entities<Enemy> {
    * @param {object} event
    * @returns {Enemy|null}
    */
-  getEntity(event: AnyEvent): Enemy | null {
+  getEntity(event: MappedEvent): Enemy | null {
     if (!HasTarget(event)) {
       return null;
     }
@@ -82,7 +88,7 @@ class Enemies extends Entities<Enemy> {
    * @param {object} event
    * @returns {Enemy|null}
    */
-  getSourceEntity(event: AnyEvent): Enemy | null {
+  getSourceEntity(event: MappedEvent): Enemy | null {
     if (!HasSource(event)) {
       return null;
     }

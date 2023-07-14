@@ -5,7 +5,7 @@ import { AlertWarning, ControlledExpandable, SpellLink, Tooltip } from 'interfac
 import { GuideProps, Section, SectionHeader, SubSection } from 'interface/guide';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import InformationIcon from 'interface/icons/Information';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { useMemo, useState } from 'react';
@@ -32,7 +32,7 @@ const TARGET_PURIFIES = {
   [SPELLS.CTA_INVOKE_NIUZAO_BUFF.id]: 4,
 };
 
-export type CommonProps = { cast: NiuzaoCastData; info: Info; events: AnyEvent[] };
+export type CommonProps = { cast: NiuzaoCastData; info: Info; events: MappedEvent[] };
 
 function NiuzaoChecklistHeader({ cast, info }: Pick<CommonProps, 'cast' | 'info'>): JSX.Element {
   return (

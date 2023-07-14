@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
-  AnyEvent,
+  MappedEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
@@ -74,7 +74,7 @@ export function isFromHardcast(
 export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
+  const events: MappedEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
   return events.length === 0 ? undefined : (events[0] as CastEvent);
 }
 

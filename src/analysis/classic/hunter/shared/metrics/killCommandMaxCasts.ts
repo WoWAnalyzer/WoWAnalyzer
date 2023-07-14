@@ -1,4 +1,4 @@
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import metric, { Info } from 'parser/core/metric';
 import SPELLS from 'common/SPELLS/classic/hunter';
 
@@ -7,7 +7,7 @@ import SPELLS from 'common/SPELLS/classic/hunter';
  * Does not account for fluctuating cooldowns.
  */
 const killCommandMaxCasts = (
-  events: AnyEvent[],
+  events: MappedEvent[],
   { playerId, fightStart, fightEnd }: Pick<Info, 'playerId' | 'fightStart' | 'fightEnd'>,
   cooldown: number,
 ) => {

@@ -73,7 +73,7 @@ import { ControlledExpandable } from 'interface/Expandable';
 import DropdownIcon from 'interface/icons/Dropdown';
 import type { Options } from 'parser/core/Analyzer';
 import type CombatLogParser from 'parser/core/CombatLogParser';
-import { AnyEvent } from 'parser/core/Events';
+import { MappedEvent } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import Module from 'parser/core/Module';
 import React, { useContext, useMemo, useState } from 'react';
@@ -117,7 +117,7 @@ export type ModulesOf<T extends typeof CombatLogParser> = ConstructedModules<
  */
 export type GuideProps<T extends typeof CombatLogParser> = {
   modules: ModulesOf<T>;
-  events: AnyEvent[];
+  events: MappedEvent[];
   info: Info;
 };
 

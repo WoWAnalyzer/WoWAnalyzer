@@ -2,7 +2,7 @@ import Spell from 'common/SPELLS/Spell';
 import {
   EventType,
   CastEvent,
-  AnyEvent,
+  MappedEvent,
   ApplyBuffEvent,
   RemoveBuffEvent,
   UpdateSpellUsableType,
@@ -42,7 +42,7 @@ const info: PlayerInfo = {
 // The end event uses `timestamp + cooldown - 1` as the timestamp, with the -1
 // preventing casting at exactly cd end from spurious failures due to unstable
 // sorting.
-const cast = (timestamp: number, cooldown: number, spell: Spell): AnyEvent[] => {
+const cast = (timestamp: number, cooldown: number, spell: Spell): MappedEvent[] => {
   const cdInfo = {
     overallStart: timestamp,
     chargeStart: timestamp,
@@ -84,7 +84,7 @@ const cast = (timestamp: number, cooldown: number, spell: Spell): AnyEvent[] => 
   ];
 };
 
-const applybuff = (timestamp: number, duration: number, spell: Spell): AnyEvent[] => [
+const applybuff = (timestamp: number, duration: number, spell: Spell): MappedEvent[] => [
   {
     timestamp,
     ability: ability(spell),

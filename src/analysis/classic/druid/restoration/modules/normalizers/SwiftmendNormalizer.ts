@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS/classic/druid';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
-  AnyEvent,
+  MappedEvent,
   CastEvent,
   EventType,
   GetRelatedEvents,
@@ -32,7 +32,7 @@ class SwiftmendNormalizer extends EventLinkNormalizer {
 }
 
 export function getRemovedHot(event: CastEvent): AbilityEvent<any> | undefined {
-  const removedHots: AnyEvent[] = GetRelatedEvents(event, CONSUMED_HOT);
+  const removedHots: MappedEvent[] = GetRelatedEvents(event, CONSUMED_HOT);
   return removedHots.length !== 0 && HasAbility(removedHots[0]) ? removedHots[0] : undefined;
 }
 

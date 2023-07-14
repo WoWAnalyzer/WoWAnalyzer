@@ -1,6 +1,6 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Enemy from 'parser/core/Enemy';
-import Events, { AnyEvent, HasHitpoints, HasTarget } from 'parser/core/Events';
+import Events, { MappedEvent, HasHitpoints, HasTarget } from 'parser/core/Events';
 
 import { encodeTargetString } from './Enemies';
 
@@ -28,7 +28,7 @@ class EnemiesHealth extends Analyzer {
   }
 
   /** Tracks health of all enemies so that we know the percentage when the trinket is used. */
-  private trackHealths(event: AnyEvent) {
+  private trackHealths(event: MappedEvent) {
     if (!HasTarget(event) || !HasHitpoints(event)) {
       return;
     }
@@ -42,7 +42,7 @@ class EnemiesHealth extends Analyzer {
     };
   }
 
-  getHealthEnemy(event: AnyEvent): EnemyHealth | null {
+  getHealthEnemy(event: MappedEvent): EnemyHealth | null {
     if (!HasTarget(event) || event.targetIsFriendly) {
       return null;
     }

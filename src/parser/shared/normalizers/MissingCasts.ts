@@ -1,4 +1,4 @@
-import { AnyEvent, ApplyBuffEvent, CastEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, ApplyBuffEvent, CastEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
 /*
@@ -11,7 +11,7 @@ class MissingCasts extends EventsNormalizer {
    */
   static missingCastBuffs: number[] = [];
 
-  normalize(events: AnyEvent[]) {
+  normalize(events: MappedEvent[]) {
     // Just in case someone chooses to extend this module to modify missingCastBuffs instead of adding to it here...
     const ctor = this.constructor as typeof MissingCasts;
     const missingCastEvents = events

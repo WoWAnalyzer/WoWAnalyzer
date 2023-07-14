@@ -1,4 +1,4 @@
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { MappedEvent, EventType } from 'parser/core/Events';
 import metric from 'parser/core/metric';
 
 /**
@@ -28,7 +28,7 @@ export function findLast<T>(
  * Returns an object with all buff applications. Should probably not be used
  * directly in configs, but only internally by other shared stats.
  */
-const buffApplications = (events: AnyEvent[]) =>
+const buffApplications = (events: MappedEvent[]) =>
   events.reduce<{
     [spellId: number]: {
       [sourceId: number]: Array<{
