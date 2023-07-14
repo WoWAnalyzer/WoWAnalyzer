@@ -17,6 +17,12 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 const HEALING_INC = 0.25;
+const BUFFED_SPELLS = [
+  SPELLS.HOLY_SHOCK_HEAL,
+  SPELLS.FLASH_OF_LIGHT,
+  SPELLS.HOLY_LIGHT,
+  SPELLS.RESPLENDENT_LIGHT_HEAL,
+];
 
 class TyrsDeliverance extends Analyzer {
   static dependencies = {
@@ -32,8 +38,8 @@ class TyrsDeliverance extends Analyzer {
   healing: number = 0;
   overhealing: number = 0;
 
-  incHealing: number = 0;
-  incOverhealing: number = 0;
+  incHealing: Record<number, number> = {};
+  incOverhealing: Record<number, number> = {};
 
   constructor(options: Options) {
     super(options);
@@ -55,35 +61,18 @@ class TyrsDeliverance extends Analyzer {
       Events.heal.spell([SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE]).by(SELECTED_PLAYER),
       this.onDirectHeal,
     );
-    this.addEventListener(
-      Events.heal
-        .spell([
-          SPELLS.HOLY_SHOCK_HEAL,
-          SPELLS.FLASH_OF_LIGHT,
-          SPELLS.HOLY_LIGHT,
-          SPELLS.RESPLENDENT_LIGHT_HEAL,
-        ])
-        .by(SELECTED_PLAYER),
-      this.onBuffedHeal,
-    );
+    this.addEventListener(Events.heal.spell(BUFFED_SPELLS).by(SELECTED_PLAYER), this.onBuffedHeal);
   }
 
   onApply(event: ApplyBuffEvent) {
     this.casts += 1;
     this.lastApply = event.timestamp;
-    console.log('GLIMDEBUG apply buff', this.owner.formatTimestamp(event.timestamp));
   }
 
   onRemove(event: RemoveBuffEvent | FightEndEvent) {
     if (!this.selectedCombatant.hasBuff(TALENTS.TYRS_DELIVERANCE_TALENT.id)) {
       return;
     }
-    console.log(
-      'GLIMDEBUG remove buff',
-      this.owner.formatTimestamp(this.lastApply),
-      this.owner.formatTimestamp(event.timestamp),
-      event.type,
-    );
 
     if (this.lastApply === 0) {
       this.lastApply = this.owner.fight.start_time;
@@ -110,12 +99,18 @@ class TyrsDeliverance extends Analyzer {
       )
     ) {
       const effectiveHealingBoost = calculateEffectiveHealing(event, HEALING_INC);
-      this.incHealing += effectiveHealingBoost;
+      const spellId = event.ability.guid;
+      this.incHealing[spellId] = (this.incHealing[spellId] || 0) + effectiveHealingBoost;
 
-      this.incOverhealing +=
+      this.incOverhealing[spellId] =
+        (this.incOverhealing[spellId] || 0) +
         (event.amount + (event.absorbed || 0) + (event.overheal || 0)) * HEALING_INC -
         effectiveHealingBoost;
     }
+  }
+
+  totalHealing() {
+    return this.healing + Object.values(this.incHealing).reduce((sum, val) => sum + val, 0);
   }
 
   statistic() {
@@ -127,8 +122,17 @@ class TyrsDeliverance extends Analyzer {
           <>
             Direct Healing Done: {formatNumber(this.healing)} <br />
             Direct Overhealing Done: {formatNumber(this.overhealing)} <br />
-            Other spells' healing increased: {formatNumber(this.incHealing)} <br />
-            Other spells' overhealing increased: {formatNumber(this.incOverhealing)} <br />
+            {BUFFED_SPELLS.map((spell) => {
+              return (
+                <>
+                  <SpellLink spell={spell} /> healing increased:{' '}
+                  {formatNumber(this.incHealing[spell.id])}
+                  <br />
+                  <SpellLink spell={spell} /> overhealing increased:{' '}
+                  {formatNumber(this.incOverhealing[spell.id])} <br />
+                </>
+              );
+            })}
           </>
         }
       >
@@ -139,7 +143,7 @@ class TyrsDeliverance extends Analyzer {
             </>
           }
         >
-          {this.owner.formatItemHealingDone(this.healing + this.incHealing)} <br />
+          {this.owner.formatItemHealingDone(this.totalHealing())} <br />
           {formatDuration(this.duration / this.casts)} <small>average buff duration</small>
         </BoringValueText>
       </Statistic>
