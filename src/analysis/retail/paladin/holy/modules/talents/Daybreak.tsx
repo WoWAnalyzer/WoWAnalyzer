@@ -1,13 +1,7 @@
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink, TooltipElement } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, {
-  AnyEvent,
-  CastEvent,
-  EventType,
-  GetRelatedEvents,
-  ResourceChangeEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
@@ -36,26 +30,30 @@ class Daybreak extends Analyzer {
   onCast(event: CastEvent) {
     this.castEvents.push(event);
 
-    const manaEvents = GetRelatedEvents(event, DAYBREAK_MANA);
-    manaEvents.forEach((e: AnyEvent) => {
-      const rce = e as ResourceChangeEvent;
-      this.manaGained += rce.resourceChange;
-      this.manaWasted += rce.waste;
+    GetRelatedEvents(event, DAYBREAK_MANA).forEach((e) => {
+      if (e.type === EventType.ResourceChange) {
+        this.manaGained += e.resourceChange;
+        this.manaWasted += e.waste;
+      }
     });
   }
 
-  getEffectiveHealing(event: AnyEvent) {
-    if (event.type !== EventType.Heal) {
-      return 0;
-    }
-    return event.amount + (event.absorbed || 0);
+  getEffectiveHealing(cast: CastEvent) {
+    return GetRelatedEvents(cast, DAYBREAK_HEALING).reduce((sum, healEvent) => {
+      if (healEvent.type === EventType.Heal) {
+        return sum + healEvent.amount + (healEvent.absorbed || 0);
+      }
+      return sum;
+    }, 0);
   }
 
-  getOverhealing(event: AnyEvent) {
-    if (event.type !== EventType.Heal) {
-      return 0;
-    }
-    return event.overheal || 0;
+  getOverhealing(cast: CastEvent) {
+    return GetRelatedEvents(cast, DAYBREAK_HEALING).reduce((sum, healEvent) => {
+      if (healEvent.type === EventType.Heal) {
+        return sum + (healEvent.overheal || 0);
+      }
+      return sum;
+    }, 0);
   }
 
   statistic() {
@@ -80,22 +78,8 @@ class Daybreak extends Analyzer {
                 <tr key={i}>
                   <td>{this.owner.formatTimestamp(cast.timestamp)}</td>
                   <td>{GetRelatedEvents(cast, DAYBREAK_MANA).length}</td>
-                  <td>
-                    {formatNumber(
-                      GetRelatedEvents(cast, DAYBREAK_HEALING).reduce(
-                        (sum, e) => sum + this.getEffectiveHealing(e),
-                        0,
-                      ),
-                    )}
-                  </td>
-                  <td>
-                    {formatNumber(
-                      GetRelatedEvents(cast, DAYBREAK_HEALING).reduce(
-                        (sum, e) => sum + this.getOverhealing(e),
-                        0,
-                      ),
-                    )}
-                  </td>
+                  <td>{formatNumber(this.getEffectiveHealing(cast))}</td>
+                  <td>{formatNumber(this.getOverhealing(cast))}</td>
                 </tr>
               ))}
             </tbody>
