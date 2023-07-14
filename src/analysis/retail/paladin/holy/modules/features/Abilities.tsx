@@ -420,6 +420,9 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        castEfficiency: {
+          suggestion: true,
+        },
         enabled: combatant.hasTalent(TALENTS.BLESSING_OF_SUMMER_TALENT),
       },
       {
