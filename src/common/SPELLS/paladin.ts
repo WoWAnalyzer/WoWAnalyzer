@@ -331,6 +331,11 @@ const spells = spellIndexableList({
     name: 'Resplendent Light',
     icon: 'ability_priest_voidshift',
   },
+  DAYBREAK_ENERGIZE: {
+    id: 414176,
+    name: 'Daybreak',
+    icon: 'spell_holy_aspiration',
+  },
 
   // Retribution Paladin:
   BLADE_OF_JUSTICE: {
