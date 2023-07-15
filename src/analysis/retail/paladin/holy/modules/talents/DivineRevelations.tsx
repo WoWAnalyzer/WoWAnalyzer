@@ -19,7 +19,6 @@ class DivineRevelations extends Analyzer {
   lastCast: number = 0;
 
   healing: number = 0;
-  overhealing: number = 0;
 
   resourceGained: Map<number, number> = new Map<number, number>();
 
@@ -58,10 +57,6 @@ class DivineRevelations extends Analyzer {
 
     const effectiveHealingBoost = calculateEffectiveHealing(event, FLASH_HEAL_INCREASE);
     this.healing += effectiveHealingBoost;
-
-    this.overhealing +=
-      (event.amount + (event.absorbed || 0) + (event.overheal || 0)) * FLASH_HEAL_INCREASE -
-      effectiveHealingBoost;
   }
 
   mana(event: ResourceChangeEvent) {
@@ -87,7 +82,6 @@ class DivineRevelations extends Analyzer {
         tooltip={
           <>
             Healing Done: {this.healing.toFixed(2)} <br />
-            Overhealing Done: {this.overhealing.toFixed(2)} <br />
             Mana from Holy Light: {this.resourceGained.get(SPELLS.HOLY_LIGHT.id) || 0} <br />
             Mana from Judgment: {this.resourceGained.get(SPELLS.JUDGMENT_CAST_HOLY.id) || 0} <br />
           </>

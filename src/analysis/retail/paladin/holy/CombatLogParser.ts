@@ -53,7 +53,7 @@ import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
 import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
 import LightsProtection from './modules/talents/GlimmerOfLight/LightsProtection';
-import Daybreak from './modules/talents/Daybreak';
+import Daybreak from './modules/talents/GlimmerOfLight/Daybreak';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
