@@ -1,13 +1,13 @@
 // Generated file, changes will be overwritten!
 
-import { Region } from 'common/regions';
+import { Region, ClassicRegion } from 'common/regions';
 
 interface Realm {
   name: string;
   slug: string;
 }
 
-const REALMS: Record<Region, Realm[]> = {
+export const REALMS: Record<Region, Realm[]> = {
   EU: [
     { name: 'Aegwynn', slug: 'aegwynn' },
     { name: 'Aerie Peak', slug: 'aerie-peak' },
@@ -950,7 +950,10 @@ const REALMS: Record<Region, Realm[]> = {
     { name: '黑龙军团', slug: '黑龙军团' },
     { name: '龙骨平原', slug: '龙骨平原' },
   ],
-  classicEU: [
+};
+
+export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
+  EU: [
     { name: 'Amnennar', slug: 'amnennar' },
     { name: 'Auberdine', slug: 'auberdine' },
     { name: 'Everlook', slug: 'everlook' },
@@ -977,7 +980,7 @@ const REALMS: Record<Region, Realm[]> = {
     { name: 'Приозерье', slug: 'lakeshire' },
     { name: 'Хроми', slug: 'chromie' },
   ],
-  classicKR: [
+  KR: [
     { name: 'KR1 CWOW GMSS 1', slug: 'kr1-cwow-gmss-1' },
     { name: '라그나로스', slug: 'ragnaros' },
     { name: '로크홀라', slug: 'lokholar' },
@@ -985,7 +988,7 @@ const REALMS: Record<Region, Realm[]> = {
     { name: '소금 평원', slug: 'shimmering-flats' },
     { name: '얼음피', slug: 'iceblood' },
   ],
-  classicTW: [
+  TW: [
     { name: '伊弗斯', slug: 'ivus' },
     { name: '古雷曼格', slug: 'golemagg' },
     { name: '札里克', slug: 'zeliek' },
@@ -995,7 +998,7 @@ const REALMS: Record<Region, Realm[]> = {
     { name: '阿拉希盆地', slug: 'arathi-basin' },
     { name: '魚人', slug: 'murloc' },
   ],
-  classicUS: [
+  US: [
     { name: 'Angerforge', slug: 'angerforge' },
     { name: 'Arugal', slug: 'arugal' },
     { name: 'Ashkandi', slug: 'ashkandi' },
@@ -1021,5 +1024,3 @@ const REALMS: Record<Region, Realm[]> = {
     { name: 'Yojamba', slug: 'yojamba' },
   ],
 };
-
-export default REALMS;

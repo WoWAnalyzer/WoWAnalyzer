@@ -1,4 +1,4 @@
-import REALMS from 'game/REALMS';
+import { REALMS } from 'game/REALMS';
 
 import makeUrl from './makeUrl';
 import { isSupportedRegion } from 'common/regions';
