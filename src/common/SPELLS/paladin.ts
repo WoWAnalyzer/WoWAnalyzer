@@ -321,6 +321,11 @@ const spells = spellIndexableList({
     name: 'Reclamation',
     icon: 'ability_paladin_longarmofthelaw',
   },
+  DIVINE_REVELATIONS_ENERGIZE: {
+    id: 387812,
+    name: 'Divine Revelations',
+    icon: 'ability_paladin_infusionoflight',
+  },
   DAYBREAK_ENERGIZE: {
     id: 414176,
     name: 'Daybreak',
