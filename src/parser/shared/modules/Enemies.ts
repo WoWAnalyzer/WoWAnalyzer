@@ -11,6 +11,16 @@ type EnemyBuffHistory = {
   end: number;
 };
 
+/** Stack-based uptime events */
+type StackUptime = {
+  /** Timestamp in milliseconds of the uptime start */
+  start: number;
+  /** Timestamp in milliseconds of the uptime end */
+  end: number;
+  /** The number of stacks active during this time */
+  stacks: number;
+};
+
 export function encodeEventTargetString(event: TargettedEvent<any>): string;
 export function encodeEventTargetString(event: AnyEvent): string | null;
 export function encodeEventTargetString(event: AnyEvent) {
@@ -217,6 +227,74 @@ class Enemies extends Entities<Enemy> {
       history.push(current);
     }
     return history;
+  }
+
+  /**
+   * Gets the debuff history with number of affected targets (stacks).  It
+   * returns a history and the maximum number of stacks reached. Used e.g. with
+   * <UptimeStackBar>
+   */
+  getDebuffStackHistory(spellId: number): { maxStacks: number; stackUptimeHistory: StackUptime[] } {
+    // This first section gathers all the buff gain and loss from all enemies
+    // and splits it into gain and loss events.
+    type TempBuffInfo = {
+      timestamp: number;
+      type: 'apply' | 'remove';
+      buff: TrackedBuffEvent;
+    };
+    const events: TempBuffInfo[] = [];
+    const enemies = this.getEntities();
+    Object.values(enemies).forEach((enemy) => {
+      enemy.getBuffHistory(spellId, this.owner.playerId).forEach((buff) => {
+        events.push({
+          timestamp: buff.start,
+          type: 'apply',
+          buff,
+        });
+        events.push({
+          // If the debuff was not removed it must have lasted until the end of the fight.
+          timestamp: buff.end !== null ? buff.end : this.owner.fight.end_time,
+          type: 'remove',
+          buff,
+        });
+      });
+    });
+
+    // This second section sorts the events by time, then walks the array
+    // building up a list of events where it changed.
+    const stackUptimeHistory: StackUptime[] = [];
+    let active = 0;
+    let maxStacks = 0;
+    let prevTimestamp: number | null = null;
+    events
+      .sort((a, b) => a.timestamp - b.timestamp)
+      .forEach((event) => {
+        const prevActive = active;
+        if (event.type === 'apply') {
+          active += 1;
+          if (active > maxStacks) {
+            maxStacks = active;
+          }
+        }
+        if (event.type === 'remove') {
+          active -= 1;
+        }
+        if (prevTimestamp === null) {
+          prevTimestamp = event.timestamp;
+          return;
+        }
+
+        if (prevActive > 0) {
+          console.log('Adding entry', prevTimestamp, event.timestamp, prevActive);
+          stackUptimeHistory.push({
+            start: prevTimestamp,
+            end: event.timestamp,
+            stacks: prevActive,
+          });
+        }
+        prevTimestamp = event.timestamp;
+      });
+    return { maxStacks, stackUptimeHistory };
   }
 }
 
