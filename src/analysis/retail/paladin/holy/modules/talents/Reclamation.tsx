@@ -15,7 +15,6 @@ class Reclamation extends Analyzer {
   lastCast: number = 0;
 
   healing: number = 0;
-  overhealing: number = 0;
 
   resourceGained: Map<number, number> = new Map<number, number>();
   damageDone: number = 0;
@@ -49,10 +48,6 @@ class Reclamation extends Analyzer {
     const ratio = (1 - (event.hitPoints - event.amount) / event.maxHitPoints) * MAX_BOOST;
     const effectiveHealingBoost = calculateEffectiveHealing(event, ratio);
     this.healing += effectiveHealingBoost;
-
-    this.overhealing +=
-      (event.amount + (event.absorbed || 0) + (event.overheal || 0)) * ratio -
-      effectiveHealingBoost;
   }
 
   damage(event: DamageEvent) {
@@ -87,7 +82,6 @@ class Reclamation extends Analyzer {
         tooltip={
           <>
             Healing Done: {this.healing.toFixed(2)} <br />
-            Overhealing Done: {this.overhealing.toFixed(2)} <br />
             Damage Done: {this.damageDone.toFixed(2)} <br />
             Mana from Holy Shock: {this.resourceGained.get(TALENTS.HOLY_SHOCK_TALENT.id) || 0}{' '}
             <br />
