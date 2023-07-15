@@ -25,6 +25,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 14), 'Updates Classic Realms', jazminite),
   change(date(2023, 7, 13), 'Mark 10.1.5 as the active patch.', ToppleTheNun),
   change(date(2023, 7, 10), 'Regenerate talents for 10.1.5.', ToppleTheNun),
   change(date(2023, 7, 10), 'Update remaining SpellLink usage.', ToppleTheNun),
