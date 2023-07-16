@@ -7,7 +7,7 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 export const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
 export const PRESCIENCE_APPLY_REMOVE_LINK = 'prescienceApplyRemoveLink';
 
-export const PRESCIENCE_BUFFER = 100;
+export const PRESCIENCE_BUFFER = 150;
 
 const EVENT_LINKS: EventLink[] = [
   {
