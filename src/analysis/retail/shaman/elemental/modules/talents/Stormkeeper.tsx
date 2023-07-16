@@ -6,12 +6,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import {
-  EARTH_SHOCK_COST,
-  ELECTRIFIED_SHOCKS_DURATION,
-  ELEMENTAL_BLAST_COST,
-  ON_CAST_BUFF_REMOVAL_GRACE_MS,
-} from '../../constants';
+import { ELECTRIFIED_SHOCKS_DURATION, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
@@ -31,6 +26,7 @@ import { ResourceLink, SpellIcon, SpellLink } from 'interface';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { formatDuration } from 'common/format';
 import { PerformanceMark } from 'interface/guide';
+import SpellMaelstromCost from '../core/SpellMaelstromCost';
 
 const SK_DAMAGE_AFFECTED_ABILITIES = [
   SPELLS.LIGHTNING_BOLT_OVERLOAD,
@@ -111,18 +107,19 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     maelstromTracker: MaelstromTracker,
     enemies: Enemies,
     spellUsable: SpellUsable,
+    spellMaelstromCost: SpellMaelstromCost,
   };
 
   protected maelstromTracker!: MaelstromTracker;
   protected enemies!: Enemies;
   protected spellUsable!: SpellUsable;
   protected abilities!: Abilities;
+  protected spellMaelstromCost!: SpellMaelstromCost;
 
   activeWindow: SKCast | null = null;
   lastSKHardcast: CastEvent | null = null;
 
   stSpender: Talent;
-  _stSpenderCost: number;
 
   damageDoneByBuffedCasts = 0;
 
@@ -132,11 +129,6 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     this.stSpender = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)
       ? TALENTS.ELEMENTAL_BLAST_TALENT
       : TALENTS.EARTH_SHOCK_TALENT;
-    this._stSpenderCost =
-      this.stSpender.id === TALENTS.ELEMENTAL_BLAST_TALENT.id
-        ? ELEMENTAL_BLAST_COST
-        : EARTH_SHOCK_COST;
-
     this.active =
       this.selectedCombatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) > 0;
     if (!this.active) {
@@ -211,7 +203,8 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       /* If the user started the window with a spender, then the maelstrom
       has already been consumed */
       if (event.ability.guid === this.stSpender.id) {
-        this.activeWindow.maelstromOnCast += this._stSpenderCost;
+        const resourceCost = event.resourceCost ? event.resourceCost : {};
+        this.activeWindow.maelstromOnCast += resourceCost[RESOURCE_TYPES.MAELSTROM.id] || 0;
       }
     }
 
@@ -352,18 +345,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   /**
    * Determine the performance of how much maelstrom the user had when casting SK
    */
-  _determineMaelstromPerformance(cast: SKCast): QualitativePerformance {
-    let maelstromRequired;
-    if (cast.event.timestamp < this.owner.fight.start_time) {
-      maelstromRequired = BASE_MAELSTROM_REQUIRED_PREPULL_CAST;
-    } else {
-      maelstromRequired = BASE_MAELSTROM_REQUIRED;
-    }
-
-    if (cast.sopOnCast) {
-      maelstromRequired -= this._stSpenderCost;
-    }
-
+  _determineMaelstromPerformance(maelstromRequired: number, cast: SKCast): QualitativePerformance {
     let maelstromOnCastPerformance = QualitativePerformance.Ok;
     if (
       cast.maelstromOnCast >
@@ -378,7 +360,21 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   }
 
   _explainMaelstromPerformance(cast: SKCast) {
-    const maelstromOnCastPerformance = this._determineMaelstromPerformance(cast);
+    let maelstromRequired;
+    if (cast.event.timestamp < this.owner.fight.start_time) {
+      maelstromRequired = BASE_MAELSTROM_REQUIRED_PREPULL_CAST;
+    } else {
+      maelstromRequired = BASE_MAELSTROM_REQUIRED;
+    }
+
+    if (cast.sopOnCast) {
+      maelstromRequired -= this.spellMaelstromCost.findAdjustedSpellResourceCost(
+        this.stSpender.id,
+        this.stSpender.maelstromCost || 0,
+      );
+    }
+
+    const maelstromOnCastPerformance = this._determineMaelstromPerformance(maelstromRequired, cast);
 
     const checklistItem = {
       performance: maelstromOnCastPerformance,
@@ -390,6 +386,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       details: (
         <span>
           {cast.maelstromOnCast} <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> on window start{' '}
+          (Should have been {maelstromRequired})
         </span>
       ),
       check: 'stormkeeper-maelstrom',
