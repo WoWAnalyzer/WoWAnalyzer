@@ -2,9 +2,14 @@ import SPELLS from 'common/SPELLS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 import TALENTS from 'common/TALENTS/paladin';
+import { SpellbookAura } from 'parser/core/modules/Aura';
 
 class Buffs extends CoreAuras {
-  auras() {
+  static dependencies = {
+    ...CoreAuras.dependencies,
+  };
+
+  auras(): SpellbookAura[] {
     const combatant = this.selectedCombatant;
     return [
       {
