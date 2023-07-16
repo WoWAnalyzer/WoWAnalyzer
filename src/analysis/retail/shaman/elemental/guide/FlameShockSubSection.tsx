@@ -26,8 +26,9 @@ export const FlameShockSubSection = ({
           <SpellLink spell={SPELLS.FLAME_SHOCK} />
         </b>{' '}
         is one of the best sources of damage for it's cast time. Additionally, it makes every{' '}
-        <SpellLink spell={TALENTS_SHAMAN.LAVA_BURST_TALENT} /> into a critical hit. This should
-        always be up on your target at low target counts.
+        <SpellLink spell={TALENTS_SHAMAN.LAVA_BURST_TALENT} /> into a critical hit. This should{' '}
+        always be up on your target at low target counts so every{' '}
+        <SpellLink spell={TALENTS_SHAMAN.LAVA_BURST_TALENT} /> critically hits.
       </p>
       {info.combatant.hasTalent(TALENTS_SHAMAN.LAVA_SURGE_TALENT) && (
         <p>
@@ -45,20 +46,29 @@ export const FlameShockSubSection = ({
         <strong>
           <SpellLink spell={SPELLS.FLAME_SHOCK} /> uptime
         </strong>
-        <div className="flex-main chart" style={{ height: '40px' }}>
+        <div className="flex-main">
           {formatPercentage((modules.flameShock as FlameShock).uptime)}% <small>uptime</small>
-          <UptimeStackBar
-            start={info.fightStart}
-            end={info.fightEnd}
-            barColor="#ac1f39"
-            timeTooltip
-            {...modules.flameShock.getDebuffStackHistory()}
-          />
+          <div
+            style={{
+              height: '40px' /* UptimeStackBar floats and doesn't have an intrinsic height */,
+            }}
+          >
+            <UptimeStackBar
+              start={info.fightStart}
+              end={info.fightEnd}
+              barColor="#ac1f39"
+              timeTooltip
+              {...modules.flameShock.getDebuffStackHistory()}
+            />
+          </div>
         </div>
-        <div className="flex-main chart" style={{ padding: 15 }}>
-          {modules.flameShock.badLavaBursts} <SpellLink spell={TALENTS_SHAMAN.LAVA_BURST_TALENT} />{' '}
-          without <SpellLink spell={SPELLS.FLAME_SHOCK} />
-        </div>
+        {modules.flameShock.badLavaBursts > 0 && (
+          <div className="flex-main">
+            {modules.flameShock.badLavaBursts}{' '}
+            <SpellLink spell={TALENTS_SHAMAN.LAVA_BURST_TALENT} /> without{' '}
+            <SpellLink spell={SPELLS.FLAME_SHOCK} />
+          </div>
+        )}
       </RoundedPanel>
     </div>
   );
