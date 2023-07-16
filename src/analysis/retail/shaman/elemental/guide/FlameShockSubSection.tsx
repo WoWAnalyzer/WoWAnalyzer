@@ -53,6 +53,11 @@ export const FlameShockSubSection = ({
               height: '40px' /* UptimeStackBar floats and doesn't have an intrinsic height */,
             }}
           >
+            {
+              // TODO: move this to a BuffStackGraph.  That's a bit more
+              // complicated as that is built to work with a BuffStackTracker.
+              // However, this is a debuff count!
+            }
             <UptimeStackBar
               start={info.fightStart}
               end={info.fightEnd}
