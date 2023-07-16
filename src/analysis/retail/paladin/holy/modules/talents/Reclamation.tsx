@@ -56,7 +56,7 @@ class Reclamation extends Analyzer {
       return;
     }
 
-    const ratio = (1 - (event.hitPoints - event.amount) / event.maxHitPoints) * MAX_BOOST;
+    const ratio = (1 - (event.hitPoints + event.amount) / event.maxHitPoints) * MAX_BOOST;
     this.damageDone += calculateEffectiveDamage(event, ratio);
   }
 
