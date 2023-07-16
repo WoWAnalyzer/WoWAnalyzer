@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import TALENTS from 'common/TALENTS/paladin';
+import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 7, 16), <>Fixed inaccuracy in <SpellLink spell={TALENTS_PALADIN.RECLAMATION_TALENT}/></>, Abelito75),
   change(date(2023, 7, 15), <>Removing Dumb Overhealing statistics I caused</>, Abelito75),
   change(date(2023, 7, 14), <>Added <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> to Infusion of Light usage</>, Tialyss),
   change(date(2023, 7, 14), <>Added <SpellLink spell={TALENTS.DIVINE_REVELATIONS_TALENT} /></>, Tialyss),
