@@ -82,12 +82,16 @@ class Reclamation extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Healing Done: {formatNumber(this.healing)} <br />
-            Damage Done: {formatNumber(this.damageDone)} <br />
-            Mana from <SpellLink spell={TALENTS_PALADIN.HOLY_SHOCK_TALENT} />:{' '}
-            {this.resourceGained.get(TALENTS.HOLY_SHOCK_TALENT.id) || 0} <br />
-            Mana from <SpellLink spell={SPELLS.CRUSADER_STRIKE} />:{' '}
-            {this.resourceGained.get(SPELLS.CRUSADER_STRIKE.id) || 0} <br />
+            <div>Healing Done: {formatNumber(this.healing)}</div>
+            <div>Damage Done: {formatNumber(this.damageDone)}</div>
+            <div>
+              Mana from <SpellLink spell={TALENTS_PALADIN.HOLY_SHOCK_TALENT} />:{' '}
+              {formatNumber(this.resourceGained.get(TALENTS.HOLY_SHOCK_TALENT.id) || 0)}
+            </div>
+            <div>
+              Mana from <SpellLink spell={SPELLS.CRUSADER_STRIKE} />:{' '}
+              {formatNumber(this.resourceGained.get(SPELLS.CRUSADER_STRIKE.id) || 0)}
+            </div>
           </>
         }
       >
