@@ -92,7 +92,7 @@ const MISSING_MOTE_PERFORMANCE = QualitativePerformance.Ok;
  */
 const BASE_MAELSTROM_REQUIRED = 90;
 /** Maelstrom required on first WINDOW_START_SPELLS if SK was cast before pull. */
-const BASE_MAELSTROM_REQUIRED_PREPULL_CAST = 29;
+const BASE_MAELSTROM_REQUIRED_PREPULL_CAST = 39; // IF + FrS
 
 /** How much maelstrom the first spell in the SK damage rotation generates,
  * presuming they cast the entire rotation after pressing SK. This value is
