@@ -214,6 +214,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [96222],
     definitionIds: [{ id: 101224, specId: 251 }],
+    runicPowerCostPerSecond: 18,
   },
   BRITTLE_TALENT: {
     id: 374504,
