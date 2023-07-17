@@ -85,7 +85,7 @@ class GrandCrusader extends Analyzer {
   }
 
   statistic() {
-    const gcJProcs = this.protPaladinT304p.procs();
+    const gcJProcs = this.protPaladinT304p.gcJudgmentCrits;
     //As we use a different formula than the standard one for XAxis, we send it along as a parameter
     const binomChartXAxis = {
       title: 'Reset %',

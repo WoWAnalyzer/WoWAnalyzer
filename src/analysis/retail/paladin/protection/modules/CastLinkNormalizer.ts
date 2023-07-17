@@ -23,7 +23,8 @@ const GRAND_CRUSADER_PARRY = 'FromHardCast';
 const FROM_HARDCAST = 'FromHardcast';
 const CONSUMED_PROC = 'ConsumedProc';
 
-const EVENT_LINKGCCS: EventLink[] = [
+const EVENT_LINKS: EventLink[] = [
+  // Crusader Strike Cast
   {
     linkRelation: GRAND_CRUSADER_CAST,
     referencedEventId: TALENTS.GRAND_CRUSADER_TALENT.id,
@@ -45,9 +46,8 @@ const EVENT_LINKGCCS: EventLink[] = [
     backwardBufferMs: BUFFER_MS,
     anyTarget: true,
   },
-];
 
-const EVENT_LINKGCHOTR: EventLink[] = [
+  // Hammer of the Righteous Cast
   {
     linkRelation: GRAND_CRUSADER_CAST,
     referencedEventId: TALENTS.GRAND_CRUSADER_TALENT.id,
@@ -69,9 +69,8 @@ const EVENT_LINKGCHOTR: EventLink[] = [
     backwardBufferMs: BUFFER_MS,
     anyTarget: true,
   },
-];
 
-const EVENT_LINKGCBH: EventLink[] = [
+  // Blessed Hammer Cast
   {
     linkRelation: GRAND_CRUSADER_CAST,
     reverseLinkRelation: GRAND_CRUSADER_CAST,
@@ -95,9 +94,8 @@ const EVENT_LINKGCBH: EventLink[] = [
     backwardBufferMs: BUFFER_MS,
     anyTarget: true,
   },
-];
 
-const EVENT_LINKGCP: EventLink[] = [
+  // Parry
   {
     linkRelation: GRAND_CRUSADER_CAST,
     reverseLinkRelation: GRAND_CRUSADER_CAST,
@@ -125,9 +123,8 @@ const EVENT_LINKGCP: EventLink[] = [
     additionalCondition: (linkingEvent) =>
       linkingEvent.type === EventType.Damage && linkingEvent.hitType === HIT_TYPES.PARRY,
   },
-];
 
-const EVENT_LINKGCJ: EventLink[] = [
+  // Judgement Crit - Tier 30 4pc
   {
     linkRelation: GRAND_CRUSADER_CAST,
     reverseLinkRelation: GRAND_CRUSADER_CAST,
@@ -158,13 +155,7 @@ const EVENT_LINKGCJ: EventLink[] = [
 
 class MyAbilityNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
-    super(options, [
-      ...EVENT_LINKGCCS,
-      ...EVENT_LINKGCHOTR,
-      ...EVENT_LINKGCBH,
-      ...EVENT_LINKGCJ,
-      ...EVENT_LINKGCP,
-    ]);
+    super(options, [...EVENT_LINKS]);
   }
 }
 
@@ -177,7 +168,7 @@ export function gcJudgmentCrit(event: ApplyBuffEvent | RefreshBuffEvent): Damage
 export function getHardcast(event: DamageEvent): CastEvent | undefined {
   return GetRelatedEvents(event, FROM_HARDCAST)
     .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .pop();
+    .at(-1);
 }
 
 export function consumedProc(event: DamageEvent): boolean {

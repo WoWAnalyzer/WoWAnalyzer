@@ -20,10 +20,7 @@ import Abilities from '../Abilities';
 const JUDGM_PROC_CHANCE = 0.5;
 
 class ProtPaladinT304P extends Analyzer {
-  private gcJudgmentCrits: number = 0;
-  procs() {
-    return this.gcJudgmentCrits;
-  }
+  gcJudgmentCrits: number = 0;
 
   static dependencies = {
     abilities: Abilities,
@@ -38,11 +35,11 @@ class ProtPaladinT304P extends Analyzer {
     );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
-      this.onApplyBuff,
+      this.trackGrandCrusaderProcs,
     );
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.GRAND_CRUSADER_BUFF),
-      this.onRefreshBuff,
+      this.trackGrandCrusaderProcs,
     );
   }
 
@@ -58,20 +55,10 @@ class ProtPaladinT304P extends Analyzer {
   // If not, count it as a GC proc, and have inverse counter in GC.tsx
   _lastResetSource: CastEvent | DamageEvent | null = null;
 
-  private onApplyBuff(event: ApplyBuffEvent) {
-    // If no Judgment crit for apply buff, T30 4p isn't why we got GC
-    if (gcJudgmentCrit(event)) {
-      console.log('NoProc APPLY BUFF');
-      this.gcJudgmentCrits += 1;
-    }
-    return;
-  }
-
-  private onRefreshBuff(event: RefreshBuffEvent) {
+  private trackGrandCrusaderProcs(event: RefreshBuffEvent | ApplyBuffEvent) {
     // const gcjudgmentCrit = gcJudgmentCrit(event);
     // If no Judgment crit for apply buff, T30 4p isn't why we got GC
     if (gcJudgmentCrit(event)) {
-      console.log('NoProc Refresh BUFF');
       this.gcJudgmentCrits += 1;
     }
     return;
