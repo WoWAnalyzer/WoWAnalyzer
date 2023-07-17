@@ -494,6 +494,16 @@ const spells = spellIndexableList({
     name: 'Sacrifice of the Just',
     icon: 'spell_holy_divineshield',
   },
+  INSPIRING_VANGUARD_BUFF: {
+    id: 393019,
+    name: 'Inspiring Vanguard',
+    icon: 'inv_helmet_74',
+  },
+  GRAND_CRUSADER_BUFF: {
+    id: 85416,
+    name: 'Grand Crusader',
+    icon: 'inv_helmet_74',
+  },
 
   // Buffs
   SHIELD_OF_THE_RIGHTEOUS_BUFF: {
