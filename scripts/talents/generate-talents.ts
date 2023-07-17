@@ -5,6 +5,7 @@ import {
   createTalentKey,
   csvToObject,
   findResourceCost,
+  findResourceCostPerSecond,
   printTalents,
   readCsvFromUrl,
   readJsonFromUrl,
@@ -14,16 +15,17 @@ import {
   GenericTalentInterface,
   ISpellpower,
   ITalentTree,
+  ResourceCostPerSecondType,
   ResourceCostType,
   ResourceTypes,
   TalentEntry,
   TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '10.1.5.50401';
+const LIVE_WOW_BUILD_NUMBER = '10.1.5.50469';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
-const PTR_WOW_BUILD_NUMBER = '10.1.5.50401';
+const PTR_WOW_BUILD_NUMBER = '10.1.5.50469';
 const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/ptr/talents.json';
 const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
 
@@ -59,23 +61,39 @@ const withResources = (
       continue;
     }
     const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
+    const resourceCostPerSecondKey = `${camalize(
+      resourceName,
+    )}CostPerSecond` as ResourceCostPerSecondType;
     const cost = findResourceCost(
       entryInSpellPowerTable,
       resourceId,
       classes[classId].baseMaxResource,
     );
+    const costPerSecond = findResourceCostPerSecond(
+      entryInSpellPowerTable,
+      resourceId,
+      classes[classId].baseMaxResource,
+    );
 
-    if (cost === 0) {
-      // some 0 costs are included in the SpellPower table. skip them
-      continue;
+    if (cost !== 0) {
+      updatedTalent = {
+        ...updatedTalent,
+        // use the lowest observed non-zero cost.
+        // note: this is non-zero because we never reach this point with a 0 cost
+        [resourceCostKey]: Math.min(cost, updatedTalent[resourceCostKey] ?? Infinity),
+      };
     }
-
-    updatedTalent = {
-      ...updatedTalent,
-      // use the lowest observed non-zero cost.
-      // note: this is non-zero because we never reach this point with a 0 cost
-      [resourceCostKey]: Math.min(cost, updatedTalent[resourceCostKey] ?? Infinity),
-    };
+    if (costPerSecond !== 0) {
+      updatedTalent = {
+        ...updatedTalent,
+        // use the lowest observed non-zero cost.
+        // note: this is non-zero because we never reach this point with a 0 cost
+        [resourceCostPerSecondKey]: Math.min(
+          costPerSecond,
+          updatedTalent[resourceCostPerSecondKey] ?? Infinity,
+        ),
+      };
+    }
   }
 
   return updatedTalent;

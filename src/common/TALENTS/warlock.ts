@@ -419,6 +419,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [91566],
     definitionIds: [{ id: 96568, specId: 265 }],
+    manaCostPerSecond: 2500,
   },
   DREADLASH_TALENT: {
     id: 264078,

@@ -1265,6 +1265,8 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101509],
     definitionIds: [{ id: 106511, specId: 269 }],
+    manaCostPerSecond: 1000,
+    energyCostPerSecond: 15,
   },
   SPEAR_HAND_STRIKE_TALENT: {
     id: 116705,
