@@ -35,6 +35,10 @@ export default class BlisteringScalesStackTracker extends Analyzer {
 
   startStacksGathered: boolean = false;
 
+  maxBlisteringStacks: number = this.selectedCombatant.hasTalent(TALENTS.REGENERATIVE_CHITIN_TALENT)
+    ? 20
+    : 15;
+
   constructor(options: Options) {
     super(options);
     this.addEventListener(
@@ -85,8 +89,8 @@ export default class BlisteringScalesStackTracker extends Analyzer {
       {
         type: event.type,
         timestamp: event.timestamp,
-        change: 15 - this.current,
-        current: 15,
+        change: this.maxBlisteringStacks - this.current,
+        current: this.maxBlisteringStacks,
       },
       event.ability,
     );
