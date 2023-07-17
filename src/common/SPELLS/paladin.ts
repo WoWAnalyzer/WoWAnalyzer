@@ -373,11 +373,6 @@ const spells = spellIndexableList({
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
   },
-  WAKE_OF_ASHES: {
-    id: 255937,
-    name: 'Wake of Ashes',
-    icon: 'inv_sword_2h_artifactashbringerfire_d_03',
-  },
   DIVINE_PURPOSE_BUFF: {
     id: 223819,
     name: 'Divine Purpose',
@@ -454,6 +449,21 @@ const spells = spellIndexableList({
     id: 406647,
     name: 'Templar Slash',
     icon: 'inv_sword_2h_artifactashbringerpurified_d_03',
+  },
+  CRUSADING_STRIKES: {
+    id: 406834,
+    name: 'Crusading Strikes',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  VANGUARDS_MOMENTUM: {
+    id: 403081,
+    name: "Vanguard's Momentum",
+    icon: 'ability_paladin_speedoflight',
+  },
+  DIVINE_AUXILIARY: {
+    id: 408386,
+    name: 'Divine Auxiliary',
+    icon: 'spell_holy_righteousfury',
   },
 
   // Protection
