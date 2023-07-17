@@ -1,7 +1,7 @@
-import indexById, { asRestrictedTable } from 'common/indexById';
+import indexById from 'common/indexById';
 import { Soulbind } from 'parser/core/Events';
 
-const SOULBINDS = asRestrictedTable<Soulbind>()({
+const SOULBINDS = {
   NIYA: {
     name: 'Niya',
     id: 1,
@@ -86,6 +86,6 @@ const SOULBINDS = asRestrictedTable<Soulbind>()({
     garrisonTalentTreeId: 365,
     capstoneTraitID: 352188,
   },
-});
+} satisfies Record<string, Soulbind>;
 
 export default indexById<Soulbind, typeof SOULBINDS>(SOULBINDS);

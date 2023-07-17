@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
+const items = {
   //region Balance
   //endregion
   //region Feral
@@ -11,5 +11,5 @@ const items = itemIndexableList({
   //endregion
   //region Shared
   //endregion
-});
+} satisfies Record<string, Item>;
 export default items;

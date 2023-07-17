@@ -12,7 +12,7 @@ export default class Abilities extends CoreAbilities {
     return [
       // Baseline
       {
-        spell: SPELLS.GLIDE.id,
+        spell: SPELLS.GLIDE_DH.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 1,
         gcd: null,
