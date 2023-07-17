@@ -25,6 +25,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 17), 'Make patch incompatibility warning more clear.', ToppleTheNun),
   change(date(2023, 7, 17), 'Add ability to support talents that cost resources per second; regenerate talents.', ToppleTheNun),
   change(date(2023, 7, 13), 'Mark 10.1.5 as the active patch.', ToppleTheNun),
   change(date(2023, 7, 10), 'Regenerate talents for 10.1.5.', ToppleTheNun),
