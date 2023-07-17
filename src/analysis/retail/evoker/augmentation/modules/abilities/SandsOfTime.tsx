@@ -3,13 +3,14 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, EmpowerEndEvent, EventType } from 'parser/core/Events';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { isFromTipTheScales } from '../normalizers/CastLinkNormalizer';
 
 /**
  * Sands of time is an innate ability for Augmentation.
@@ -18,11 +19,10 @@ import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
  * This effect can also crit increases the extended amount by 50%.
  * This modules will simply compare the casts aforementioned spells, and if the
  * casts were outside of your Ebon Might windows, they are considered bad casts.
- *
  */
 
 interface PossibleExtends {
-  event: CastEvent;
+  event: CastEvent | EmpowerEndEvent;
   extended: boolean;
 }
 
@@ -31,14 +31,8 @@ class SandsOfTime extends Analyzer {
   private extendAttempts: PossibleExtends[] = [];
 
   ebonMightActive: boolean = false;
-  trackedSpells = [
-    SPELLS.FIRE_BREATH,
-    SPELLS.FIRE_BREATH_FONT,
-    SPELLS.UPHEAVAL,
-    SPELLS.UPHEAVAL_FONT,
-    TALENTS.ERUPTION_TALENT,
-    TALENTS.BREATH_OF_EONS_TALENT,
-  ];
+  trackedSpells = [TALENTS.ERUPTION_TALENT, TALENTS.BREATH_OF_EONS_TALENT];
+  empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
   constructor(options: Options) {
     super(options);
 
@@ -55,11 +49,23 @@ class SandsOfTime extends Analyzer {
       },
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onCast);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(this.empowers), this.onCast);
 
     this.addEventListener(Events.fightend, this.finalize);
   }
 
-  private onCast(event: CastEvent) {
+  private onCast(event: CastEvent | EmpowerEndEvent) {
+    if (
+      event.type === EventType.Cast &&
+      !(
+        event.ability.guid === TALENTS.ERUPTION_TALENT.id ||
+        event.ability.guid === TALENTS.BREATH_OF_EONS_TALENT.id
+      )
+    ) {
+      if (!isFromTipTheScales(event)) {
+        return;
+      }
+    }
     const extendAttempts: PossibleExtends = {
       event: event,
       extended: Boolean(this.ebonMightActive),
@@ -145,7 +151,9 @@ class SandsOfTime extends Analyzer {
         title="Sands of Time"
         explanation={explanation}
         uses={this.uses}
-        castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}
+        castBreakdownSmallText={
+          <> - These boxes represent each cast, colored by how good the usage was.</>
+        }
         onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
       />
