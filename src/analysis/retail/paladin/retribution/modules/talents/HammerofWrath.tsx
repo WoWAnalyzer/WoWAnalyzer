@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ResourceChangeEvent, CastEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
 
 // TODO: Needs updating with ExecuteHelper
 

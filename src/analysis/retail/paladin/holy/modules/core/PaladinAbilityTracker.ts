@@ -1,11 +1,13 @@
 import SPELLS from 'common/SPELLS';
-import { Ability, AbsorbedEvent, EventType, HealEvent } from 'parser/core/Events';
+import TALENTS from 'common/TALENTS/paladin';
+import { Ability, AbsorbedEvent, EventType, HealEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 
 import BeaconTargets from '../beacons/BeaconTargets';
+import { Options } from 'parser/core/Analyzer';
 
-const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
-const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
+export const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
+export const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
 
 export interface TrackedPaladinAbility extends TrackedAbility {
   healingIolHits?: number;
@@ -24,6 +26,13 @@ class PaladinAbilityTracker extends AbilityTracker {
     beaconTargets: BeaconTargets,
   };
   protected beaconTargets!: BeaconTargets;
+
+  judgmentTracked: boolean = false;
+
+  constructor(options: Options) {
+    super(options);
+    this.judgmentTracked = this.selectedCombatant.hasTalent(TALENTS.DIVINE_REVELATIONS_TALENT);
+  }
 
   getAbility(spellId: number, abilityInfo: Ability | null = null): TrackedPaladinAbility {
     return super.getAbility(spellId, abilityInfo);
@@ -60,6 +69,29 @@ class PaladinAbilityTracker extends AbilityTracker {
       if (event.type === EventType.Heal) {
         cast.healingBeaconAbsorbed = (cast.healingBeaconAbsorbed || 0) + (event.absorbed || 0);
         cast.healingBeaconOverheal = (cast.healingBeaconOverheal || 0) + (event.overheal || 0);
+      }
+    }
+  }
+
+  onCast(event: CastEvent) {
+    super.onCast(event);
+    if (!this.judgmentTracked) {
+      return;
+    }
+
+    const spellId = event.ability.guid;
+    const cast = this.getAbility(spellId, event.ability);
+
+    if (spellId === SPELLS.JUDGMENT_CAST_HOLY.id) {
+      const hasIol = this.selectedCombatant.hasBuff(
+        SPELLS.INFUSION_OF_LIGHT.id,
+        event.timestamp,
+        INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER,
+        INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME,
+      );
+
+      if (hasIol) {
+        cast.healingIolHits = (cast.healingIolHits || 0) + 1;
       }
     }
   }

@@ -321,6 +321,11 @@ const spells = spellIndexableList({
     name: 'Reclamation',
     icon: 'ability_paladin_longarmofthelaw',
   },
+  DIVINE_REVELATIONS_ENERGIZE: {
+    id: 387812,
+    name: 'Divine Revelations',
+    icon: 'ability_paladin_infusionoflight',
+  },
   DAYBREAK_ENERGIZE: {
     id: 414176,
     name: 'Daybreak',
@@ -367,11 +372,6 @@ const spells = spellIndexableList({
     id: 224239,
     name: 'Divine Storm',
     icon: 'ability_paladin_divinestorm',
-  },
-  WAKE_OF_ASHES: {
-    id: 255937,
-    name: 'Wake of Ashes',
-    icon: 'inv_sword_2h_artifactashbringerfire_d_03',
   },
   DIVINE_PURPOSE_BUFF: {
     id: 223819,
@@ -450,6 +450,21 @@ const spells = spellIndexableList({
     name: 'Templar Slash',
     icon: 'inv_sword_2h_artifactashbringerpurified_d_03',
   },
+  CRUSADING_STRIKES: {
+    id: 406834,
+    name: 'Crusading Strikes',
+    icon: 'inv_sword_2h_artifactashbringer_d_01',
+  },
+  VANGUARDS_MOMENTUM: {
+    id: 403081,
+    name: "Vanguard's Momentum",
+    icon: 'ability_paladin_speedoflight',
+  },
+  DIVINE_AUXILIARY: {
+    id: 408386,
+    name: 'Divine Auxiliary',
+    icon: 'spell_holy_righteousfury',
+  },
 
   // Protection
   // GoAK has a different spell ID with Glyph of the Queen
@@ -478,6 +493,16 @@ const spells = spellIndexableList({
     id: 209285,
     name: 'Sacrifice of the Just',
     icon: 'spell_holy_divineshield',
+  },
+  INSPIRING_VANGUARD_BUFF: {
+    id: 393019,
+    name: 'Inspiring Vanguard',
+    icon: 'inv_helmet_74',
+  },
+  GRAND_CRUSADER_BUFF: {
+    id: 85416,
+    name: 'Grand Crusader',
+    icon: 'inv_helmet_74',
   },
 
   // Buffs

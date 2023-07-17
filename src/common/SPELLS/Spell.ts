@@ -6,33 +6,49 @@ export default interface Spell {
   icon: string;
   //Death Knights
   runesCost?: number;
+  runesCostPerSecond?: number;
   runicPowerCost?: number;
+  runicPowerCostPerSecond?: number;
   //Demon Hunter
   furyCost?: number;
+  furyCostPerSecond?: number;
   painCost?: number;
+  painCostPerSecond?: number;
   //Druid
   lunarPowerCost?: number;
+  lunarPowerCostPerSecond?: number;
   //Feral Druid & Rogue
   energyCost?: number;
+  energyCostPerSecond?: number;
   comboPointsCost?: number;
+  comboPointsCostPerSecond?: number;
   //Hunter
   focusCost?: number;
-  //Mage, Healers & Warlock
+  focusCostPerSecond?: number;
+  //Mage, Paladin, Evoker, Healers & Warlock
   manaCost?: number;
+  manaCostPerSecond?: number;
   //Monk
   chiCost?: number;
+  chiCostPerSecond?: number;
   //Paladin
   holyPowerCost?: number;
+  holyPowerCostPerSecond?: number;
   //Priest
   insanityCost?: number;
+  insanityCostPerSecond?: number;
   // Shaman
   maelstromCost?: number;
+  maelstromCostPerSecond?: number;
   //Warlock
   soulShardsCost?: number;
+  soulShardsCostPerSecond?: number;
   //Warrior
   rageCost?: number;
+  rageCostPerSecond?: number;
   //Evoker
   essenceCost?: number;
+  essenceCostPerSecond?: number;
   //Classic
   lowRanks?: Array<number>;
 }

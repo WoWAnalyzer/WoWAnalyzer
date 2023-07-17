@@ -6,7 +6,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { DAYBREAK_HEALING, DAYBREAK_MANA } from '../../normalizers/CastLinkNormalizer';
+import { DAYBREAK_HEALING, DAYBREAK_MANA } from '../../../normalizers/CastLinkNormalizer';
 import { formatNumber } from 'common/format';
 
 class Daybreak extends Analyzer {
@@ -47,15 +47,6 @@ class Daybreak extends Analyzer {
     }, 0);
   }
 
-  getOverhealing(cast: CastEvent) {
-    return GetRelatedEvents(cast, DAYBREAK_HEALING).reduce((sum, healEvent) => {
-      if (healEvent.type === EventType.Heal) {
-        return sum + (healEvent.overheal || 0);
-      }
-      return sum;
-    }, 0);
-  }
-
   statistic() {
     return (
       <Statistic
@@ -70,7 +61,6 @@ class Daybreak extends Analyzer {
                   <TooltipElement content="Number of glimmers absorbed">#</TooltipElement>
                 </th>
                 <th>Healing</th>
-                <th>Overhealing</th>
               </tr>
             </thead>
             <tbody>
@@ -79,7 +69,6 @@ class Daybreak extends Analyzer {
                   <td>{this.owner.formatTimestamp(cast.timestamp)}</td>
                   <td>{GetRelatedEvents(cast, DAYBREAK_MANA).length}</td>
                   <td>{formatNumber(this.getEffectiveHealing(cast))}</td>
-                  <td>{formatNumber(this.getOverhealing(cast))}</td>
                 </tr>
               ))}
             </tbody>

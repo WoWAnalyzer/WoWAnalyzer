@@ -1,13 +1,13 @@
 import { t } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
-import { SpellLink } from 'interface';
-import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import SPELLS from 'common/SPELLS/paladin';
+import TALENTS from 'common/TALENTS/paladin';
+import { SpellIcon, SpellLink } from 'interface';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  DamageEvent,
   CastEvent,
-  ResourceChangeEvent,
+  DamageEvent,
   FightEndEvent,
+  ResourceChangeEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -30,15 +30,15 @@ class WakeofAshes extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.WAKE_OF_ASHES_TALENT),
       this.onWakeofAshesDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.WAKE_OF_ASHES_TALENT),
       this.onWakeofAshesCast,
     );
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.WAKE_OF_ASHES),
+      Events.resourcechange.by(SELECTED_PLAYER).spell(TALENTS.WAKE_OF_ASHES_TALENT),
       this.onWakeofAshesEnergize,
     );
     this.addEventListener(Events.fightend, this.onFinished);
@@ -76,7 +76,7 @@ class WakeofAshes extends Analyzer {
   }
 
   get averageHitPerCast() {
-    return this.totalHits / this.abilityTracker.getAbility(SPELLS.WAKE_OF_ASHES.id).casts;
+    return this.totalHits / this.abilityTracker.getAbility(TALENTS.WAKE_OF_ASHES_TALENT.id).casts;
   }
 
   get badCastsThresholds() {
@@ -95,12 +95,12 @@ class WakeofAshes extends Analyzer {
     when(this.badCastsThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          <SpellLink spell={SPELLS.WAKE_OF_ASHES} /> hit 0 targets {actual} time(s).{' '}
+          <SpellLink spell={TALENTS.WAKE_OF_ASHES_TALENT} /> hit 0 targets {actual} time(s).{' '}
           <SpellLink spell={SPELLS.BLADE_OF_JUSTICE} /> has the same range of 12yds. You can use
           this as a guideline to tell if targets will be in range.
         </>,
       )
-        .icon(SPELLS.WAKE_OF_ASHES.icon)
+        .icon(TALENTS.WAKE_OF_ASHES_TALENT.icon)
         .actual(
           t({
             id: 'paladin.retribution.suggestions.wakeOfAshes.efficiency',
@@ -115,7 +115,7 @@ class WakeofAshes extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE()}
-        icon={<SpellIcon spell={SPELLS.WAKE_OF_ASHES} />}
+        icon={<SpellIcon spell={TALENTS.WAKE_OF_ASHES_TALENT} />}
         value={
           <>
             {this.averageHitPerCast.toFixed(2)} Average
