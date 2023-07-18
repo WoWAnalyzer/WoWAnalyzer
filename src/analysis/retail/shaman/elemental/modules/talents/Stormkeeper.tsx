@@ -70,6 +70,7 @@ const WINDOW_START_SPELLS = [
   TALENTS.LAVA_BURST_TALENT.id,
   TALENTS.EARTH_SHOCK_TALENT.id,
   TALENTS.ELEMENTAL_BLAST_TALENT.id,
+  TALENTS.EARTHQUAKE_TALENT.id,
 ];
 
 // Spells that must have SOP if cast within the SK window
