@@ -174,41 +174,6 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       return;
     }
 
-    if (!this.activeWindow && WINDOW_START_SPELLS.includes(event.ability.guid)) {
-      this.activeWindow = {
-        event: this.lastSKHardcast,
-        maelstromOnCast: this.maelstromTracker.current,
-        flameshockDurationOnCast: this.enemies.getLongestDurationRemaining(
-          SPELLS.FLAME_SHOCK.id,
-          FLAMESHOCK_BASE_DURATION,
-          FLAMESHOCK_BASE_DURATION * (1 + PANDEMIC_WINDOW),
-          event.timestamp,
-        ),
-        electrifiedShocksDurationOnCast: this.enemies.getLongestDurationRemaining(
-          SPELLS.ELECTRIFIED_SHOCKS_DEBUFF.id,
-          ELECTRIFIED_SHOCKS_DURATION,
-          ELECTRIFIED_SHOCKS_DURATION,
-          event.timestamp,
-        ),
-        sopOnCast: this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id),
-        moteOnCast: this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id),
-        timeline: {
-          start: this.lastSKHardcast.timestamp,
-          end: -1,
-          events: [this.lastSKHardcast],
-          performance: QualitativePerformance.Perfect,
-        },
-        firstRotationCast: event,
-      };
-
-      /* If the user started the window with a spender, then the maelstrom
-      has already been consumed */
-      if (event.ability.guid === this.stSpender.id) {
-        const resourceCost = event.resourceCost ? event.resourceCost : {};
-        this.activeWindow.maelstromOnCast += resourceCost[RESOURCE_TYPES.MAELSTROM.id] || 0;
-      }
-    }
-
     if (this.activeWindow) {
       const isPrepull = this.activeWindow.event.timestamp < this.owner.fight.start_time;
       const spenderNotAlreadyCast = !this.activeWindow.timeline.events
@@ -257,6 +222,46 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       }
 
       this.activeWindow.timeline.events.push(event);
+    } else if (WINDOW_START_SPELLS.includes(event.ability.guid)) {
+      // Create the window if it doesn't exist.
+
+      const eventResourceCost = event.resourceCost
+        ? event.resourceCost[RESOURCE_TYPES.MAELSTROM.id]
+        : 0;
+
+      this.activeWindow = {
+        event: this.lastSKHardcast,
+        // The resourceTracker has already accounted for the resource cost of
+        // this cast. If it did cost maelstrom, we want to un-do that in the SK window calculation.
+        maelstromOnCast: this.maelstromTracker.current + eventResourceCost,
+        flameshockDurationOnCast:
+          this.enemies
+            .getEntity(event)
+            ?.getRemainingBuffTimeAtTimestamp(
+              SPELLS.FLAME_SHOCK.id,
+              FLAMESHOCK_BASE_DURATION,
+              FLAMESHOCK_BASE_DURATION * (1 + PANDEMIC_WINDOW),
+              event.timestamp,
+            ) || 0,
+        electrifiedShocksDurationOnCast:
+          this.enemies
+            .getEntity(event)
+            ?.getRemainingBuffTimeAtTimestamp(
+              SPELLS.ELECTRIFIED_SHOCKS_DEBUFF.id,
+              ELECTRIFIED_SHOCKS_DURATION,
+              ELECTRIFIED_SHOCKS_DURATION,
+              event.timestamp,
+            ) || 0,
+        sopOnCast: this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id),
+        moteOnCast: this.selectedCombatant.hasBuff(SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id),
+        timeline: {
+          start: this.lastSKHardcast.timestamp,
+          end: -1,
+          events: [this.lastSKHardcast],
+          performance: QualitativePerformance.Perfect,
+        },
+        firstRotationCast: event,
+      };
     }
   }
 
