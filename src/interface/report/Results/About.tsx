@@ -52,8 +52,8 @@ const About = ({ config }: Props) => {
       {!isLatestPatch(config) && (
         <AlertWarning style={{ marginTop: '1em' }}>
           <Trans id="interface.report.results.about.outdated">
-            The analysis for this spec is outdated. It may be inaccurate for spells that were
-            changed since patch {patchCompatibility}.
+            The analysis for this spec is outdated. Analysis for spells that were changed after
+            patch {patchCompatibility} may be inaccurate.
           </Trans>
         </AlertWarning>
       )}
