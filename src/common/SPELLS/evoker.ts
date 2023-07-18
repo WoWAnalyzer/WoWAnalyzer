@@ -431,6 +431,11 @@ const spells = spellIndexableList({
     name: 'Temporal Wound',
     icon: 'ability_evoker_breathofeons',
   },
+  BLACK_ATTUNEMENT: {
+    id: 403264,
+    name: 'Black Attunement',
+    icon: 'ability_evoker_blackattunement',
+  },
 });
 
 export default spells;

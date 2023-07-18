@@ -26,6 +26,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: combatant.spec !== SPECS.AUGMENTATION_EVOKER,
       },
       {
         spell: SPELLS.EMERALD_BLOSSOM_CAST.id,
@@ -57,7 +58,7 @@ class Abilities extends CoreAbilities {
         }),
       },
       {
-        spell: SPELLS.LIVING_FLAME_CAST.id,
+        spell: [SPELLS.LIVING_FLAME_CAST.id, SPELLS.LIVING_FLAME_HEAL.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -76,7 +77,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.VERDANT_EMBRACE_TALENT.id,
+        spell: [TALENTS.VERDANT_EMBRACE_TALENT.id, SPELLS.VERDANT_EMBRACE_HEAL.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 24,
         enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT),
@@ -100,6 +101,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         damageSpellIds: [SPELLS.DEEP_BREATH.id],
+        enabled: !combatant.hasTalent(TALENTS.BREATH_OF_EONS_TALENT),
       },
       {
         spell: TALENTS.TIP_THE_SCALES_TALENT.id,

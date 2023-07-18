@@ -121,6 +121,11 @@ class Abilities extends CoreAbilities {
         gcd: null,
         enabled: combatant.hasTalent(TALENTS.EBON_MIGHT_TALENT),
       },
+      {
+        spell: SPELLS.BLACK_ATTUNEMENT.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: null,
+      },
       //endregion
       ...super.spellbook(),
     ];
