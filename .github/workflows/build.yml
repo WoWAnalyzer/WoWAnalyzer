@@ -185,10 +185,11 @@ jobs:
         run: |
           REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
           REACT_APP_VERSION=$GITHUB_SHA
-          REACT_APP_ENABLE_GA=true
           # We already ran ESLint in a separate step
           DISABLE_AUTOMATIC_ESLINT=true
           yarn build
+        env:
+          REACT_APP_ENABLE_GA: true
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
