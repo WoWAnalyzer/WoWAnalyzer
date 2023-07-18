@@ -7,12 +7,15 @@ import SPELLS from 'common/SPELLS/evoker';
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
+    const intervowenThreadsMultiplier = combatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT)
+      ? 0.9
+      : 1;
     return [
       //region Rotational
       {
         spell: TALENTS.EBON_MIGHT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 30 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -31,7 +34,7 @@ class Abilities extends CoreAbilities {
           ? SPELLS.UPHEAVAL_FONT.id
           : SPELLS.UPHEAVAL.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 40,
+        cooldown: 40 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -44,7 +47,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.PRESCIENCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 12,
+        cooldown: 12 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -53,7 +56,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLISTERING_SCALES_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 30 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -64,7 +67,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BREATH_OF_EONS_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
+        cooldown: 120 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -78,7 +81,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TIME_SKIP_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
+        cooldown: 180 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -92,7 +95,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BESTOW_WEYRNSTONE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 60 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -101,7 +104,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SPATIAL_PARADOX_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
+        cooldown: 120 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
