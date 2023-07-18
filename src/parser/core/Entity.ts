@@ -211,11 +211,10 @@ class Entity {
     sourceId: number | null = null,
   ): Map<number, number> {
     const buffTimesAtApplication: Map<number, number> = new Map<number, number>();
-    const sortedApplicationTimestamps: number[] = [];
 
-    this.getBuffHistory(spellId, sourceId).forEach((e) => {
-      sortedApplicationTimestamps.push(e.timestamp, ...e.refreshHistory);
-    });
+    const sortedApplicationTimestamps: number[] = this.getBuffHistory(spellId, sourceId).flatMap(
+      (e) => [e.timestamp, ...e.refreshHistory],
+    );
 
     sortedApplicationTimestamps.sort((a, b) => a - b);
 
