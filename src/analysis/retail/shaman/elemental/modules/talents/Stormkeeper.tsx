@@ -538,23 +538,23 @@ class Stormkeeper extends MajorCooldown<SKCast> {
           massively amplifies the strength of your next two
           <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> or
           <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />
-          s. Therefore, you want to combine this effect with as many of the other damage amplifying
-          effects you have at your disposal.
+          casts. Therefore, you want to combine this effect with as many of the other damage
+          amplifying effects you have at your disposal.
         </p>
         <p>
           In short, the ideal cast order is the following: <br />
           <small>For more information, see the written guides.</small>
         </p>
         <p>
-          (<SpellIcon spell={SPELLS.FLAME_SHOCK} /> -&gt;) (
-          <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> -&gt;)
-          <SpellIcon spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} /> -&gt;
-          <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> -&gt;
-          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_TALENT} /> -&gt;
-          <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> -&gt;
-          <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> -&gt;
-          <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> -&gt;
-          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_TALENT} /> -&gt;
+          (<SpellIcon spell={SPELLS.FLAME_SHOCK} /> &rarr;) (
+          <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> &rarr;)
+          <SpellIcon spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_TALENT} /> &rarr;
+          <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
+          <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_TALENT} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} />
         </p>
         <p>
