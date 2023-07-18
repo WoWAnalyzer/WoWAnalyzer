@@ -50,6 +50,8 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
       </SubSection>
 
       {modules.sandsOfTime.guideSubsection()}
+
+      {modules.shiftingSands.guideSubsection()}
     </Section>
   );
 }
