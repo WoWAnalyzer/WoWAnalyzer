@@ -304,9 +304,9 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         }}
       >
         {showPrecastAny && (
-          <>
+          <p style={{ marginBottom: '0px' }}>
             <strong>Precast</strong>
-          </>
+          </p>
         )}
         {showPrecastSop && (
           <p>
