@@ -13,6 +13,9 @@
  **************************************************************************************************************** */
 
 import indexById, { proxyRestrictedTable } from 'common/indexById';
+import Expansion, { RETAIL_EXPANSION } from 'game/Expansion';
+import { maybeGetSpell as maybeGetClassicSpell } from 'common/SPELLS/classic';
+import safeMerge from 'common/safeMerge';
 
 import DEATH_KNIGHT from './deathknight';
 import DEMON_HUNTER from './demonhunter';
@@ -35,31 +38,29 @@ import SHAMAN from './shaman';
 import Spell, { Enchant } from './Spell';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
-import Expansion from 'game/Expansion';
-import { maybeGetSpell as maybeGetClassicSpell } from 'common/SPELLS/classic';
 
-const ABILITIES = {
-  ...OTHERS,
-  ...ENCOUNTER,
-  ...RACIALS,
-  ...DEATH_KNIGHT,
-  ...DEMON_HUNTER,
-  ...DRUID,
-  ...EVOKER,
-  ...HUNTER,
-  ...MAGE,
-  ...ARCANE_MAGE,
-  ...FIRE_MAGE,
-  ...FROST_MAGE,
-  ...MONK,
-  ...PALADIN,
-  ...PRIEST,
-  ...ROGUE,
-  ...SHAMAN,
-  ...WARLOCK,
-  ...WARRIOR,
-  ...DRAGONFLIGHT,
-} as const;
+const ABILITIES = safeMerge(
+  OTHERS,
+  ENCOUNTER,
+  RACIALS,
+  DEATH_KNIGHT,
+  DEMON_HUNTER,
+  DRUID,
+  EVOKER,
+  HUNTER,
+  MAGE,
+  ARCANE_MAGE,
+  FIRE_MAGE,
+  FROST_MAGE,
+  MONK,
+  PALADIN,
+  PRIEST,
+  ROGUE,
+  SHAMAN,
+  WARLOCK,
+  WARRIOR,
+  DRAGONFLIGHT,
+);
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);
 const SPELLS = proxyRestrictedTable(InternalSpellTable, 'SPELLS', 'maybeGetSpell');
@@ -68,7 +69,7 @@ export default SPELLS;
 
 export function maybeGetSpell(
   key: string | number | undefined,
-  expansion = Expansion.Dragonflight,
+  expansion = RETAIL_EXPANSION,
 ): Spell | undefined {
   if (expansion === Expansion.WrathOfTheLichKing) {
     return maybeGetClassicSpell(key);

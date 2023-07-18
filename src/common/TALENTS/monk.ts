@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ACCUMULATING_MIST_TALENT: {
     id: 388564,
     name: 'Accumulating Mist',
@@ -1265,6 +1265,8 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101509],
     definitionIds: [{ id: 106511, specId: 269 }],
+    manaCostPerSecond: 1000,
+    energyCostPerSecond: 15,
   },
   SPEAR_HAND_STRIKE_TALENT: {
     id: 116705,
@@ -1632,7 +1634,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 106370, specId: 270 }],
     manaCost: 2500,
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_MONK };

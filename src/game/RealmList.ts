@@ -1,4 +1,4 @@
-import GENERATED_REALMS from './REALMS';
+import { REALMS } from './REALMS';
 
 interface RealmList {
   [region: string]: Realm[];
@@ -9,4 +9,4 @@ interface Realm {
   slug: string;
 }
 
-export default GENERATED_REALMS as RealmList;
+export default REALMS as RealmList;

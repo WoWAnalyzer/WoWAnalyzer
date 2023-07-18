@@ -5,7 +5,7 @@ import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -29,6 +29,8 @@ class SurgeOfPower extends Analyzer {
   // total SK lightning bolt casts
   skCasts = 0;
 
+  sopActive = false;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
@@ -41,9 +43,21 @@ class SurgeOfPower extends Analyzer {
     });
 
     this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_POWER_BUFF),
+      this.onSopGain,
+    );
+
+    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SURGE_OF_POWER.AFFECTED_CASTS),
       this._onCast,
     );
+  }
+
+  onSopGain(event: ApplyBuffEvent) {
+    // There are instances where there are two cast events within the grace window
+    // for determining if SoP is active. This boolean overrides that, to ensure
+    // that only one of the spells are marked as empowered.
+    this.sopActive = true;
   }
 
   get suggestionThresholds() {
@@ -76,7 +90,8 @@ class SurgeOfPower extends Analyzer {
         SPELLS.SURGE_OF_POWER_BUFF.id,
         event.timestamp,
         ON_CAST_BUFF_REMOVAL_GRACE_MS,
-      )
+      ) ||
+      !this.sopActive
     ) {
       return;
     }
@@ -84,6 +99,7 @@ class SurgeOfPower extends Analyzer {
     event.meta = event.meta || {};
     event.meta.isEnhancedCast = true;
     this.sopBuffedAbilities[event.ability.guid] += 1;
+    this.sopActive = false;
 
     // cast lightning bolt with SoP and SK buffs active
     if (

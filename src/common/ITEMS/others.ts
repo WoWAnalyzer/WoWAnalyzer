@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
+const items = {
   //fallback icon for encounter stats
   UNKNOWN_TRINKET: {
     id: 0,
@@ -18,6 +18,6 @@ const items = itemIndexableList({
     name: "The Deceiver's Blood Pact",
     icon: 'inv_boots_chain_07',
   },
-});
+} satisfies Record<string, Item>;
 
 export default items;

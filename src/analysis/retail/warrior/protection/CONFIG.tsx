@@ -45,7 +45,7 @@ const CONFIG: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/jzYPLqfVm3pW9nX7/1-Mythic+Skolex,+the+Insatiable+Ravener+-+Kill+(5:26)/Sense/standard',
+    '/report/471LzwXpgtPTJGaq/31-Mythic+Rashok,+the+Elder+-+Kill+(5:50)/Sense/standard/overview',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

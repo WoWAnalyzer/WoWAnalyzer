@@ -2,16 +2,16 @@ import SPELLS from 'common/SPELLS';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { TALENTS_PALADIN } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/paladin';
 
 class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: SPELLS.WAKE_OF_ASHES.id,
+        spell: TALENTS.WAKE_OF_ASHES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 45,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -23,11 +23,11 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_PALADIN.CRUSADE_TALENT.id,
+        spell: TALENTS.CRUSADE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        buffSpellId: TALENTS_PALADIN.CRUSADE_TALENT.id,
+        buffSpellId: TALENTS.CRUSADE_TALENT.id,
         cooldown: 120,
-        enabled: combatant.hasTalent(TALENTS_PALADIN.CRUSADE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.CRUSADE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -40,8 +40,11 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.AVENGING_WRATH.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         buffSpellId: SPELLS.AVENGING_WRATH.id,
-        cooldown: 120,
-        enabled: !combatant.hasTalent(TALENTS_PALADIN.CRUSADE_TALENT),
+        cooldown: 60,
+        enabled:
+          (combatant.hasTalent(TALENTS.AVENGING_WRATH_TALENT) ||
+            combatant.hasTalent(TALENTS.AVENGING_WRATH_MIGHT_TALENT)) &&
+          !combatant.hasTalent(TALENTS.CRUSADE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
@@ -51,10 +54,41 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: TALENTS.FINAL_RECKONING_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        enabled: combatant.hasTalent(TALENTS.FINAL_RECKONING_TALENT),
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.EXECUTION_SENTENCE_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        enabled: combatant.hasTalent(TALENTS.EXECUTION_SENTENCE_TALENT),
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+        },
+      },
+      {
+        spell: TALENTS.DIVINE_TOLL_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        enabled: combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+        },
+      },
+
+      {
         spell: SPELLS.CRUSADER_STRIKE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         charges: 2,
         cooldown: (haste: number) => 6 / (1 + haste),
+        enabled:
+          !combatant.hasTalent(TALENTS.CRUSADING_STRIKES_TALENT) &&
+          !combatant.hasTalent(TALENTS.TEMPLAR_STRIKES_TALENT),
         gcd: {
           base: 1500,
         },
@@ -63,9 +97,34 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HAMMER_OF_WRATH.id,
+        spell: SPELLS.CRUSADING_STRIKES.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.CRUSADING_STRIKES_TALENT),
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
+      {
+        spell: SPELLS.TEMPLAR_STRIKE.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.TEMPLAR_STRIKES_TALENT),
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
+      {
+        spell: SPELLS.TEMPLAR_SLASH.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS.TEMPLAR_STRIKES_TALENT),
+        castEfficiency: {
+          suggestion: false,
+        },
+      },
+      {
+        spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 7.5 / (1 + haste),
+        enabled: combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT),
         gcd: {
           base: 1500,
         },
@@ -85,9 +144,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.BLADE_OF_JUSTICE.id,
+        spell: TALENTS.BLADE_OF_JUSTICE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 12 / (1 + haste),
+        charges: combatant.hasTalent(TALENTS.IMPROVED_BLADE_OF_JUSTICE_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
@@ -97,27 +157,36 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.TEMPLARS_VERDICT.id,
+        spell: TALENTS.FINAL_VERDICT_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.FINAL_VERDICT_TALENT),
+      },
+      {
+        spell: TALENTS.JUSTICARS_VENGEANCE_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.JUSTICARS_VENGEANCE_TALENT),
+      },
+      {
+        spell: TALENTS.DIVINE_STORM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
         },
       },
       {
-        spell: SPELLS.DIVINE_STORM_DAMAGE.id,
+        spell: TALENTS.EXECUTION_SENTENCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_PALADIN.EXECUTION_SENTENCE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.EXECUTION_SENTENCE_TALENT),
         castEfficiency: {
           suggestion: true,
         },
@@ -135,12 +204,13 @@ class Abilities extends CoreAbilities {
           importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
+
       //Utility
       {
-        spell: SPELLS.SHIELD_OF_VENGEANCE.id,
+        spell: TALENTS.SHIELD_OF_VENGEANCE_TALENT.id,
         buffSpellId: SPELLS.SHIELD_OF_VENGEANCE.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS_PALADIN.UNBREAKABLE_SPIRIT_TALENT) ? 84 : 120,
+        cooldown: combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT) ? 60 : 90,
         gcd: {
           base: 1500,
         },
@@ -151,14 +221,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_PALADIN.JUSTICARS_VENGEANCE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_PALADIN.JUSTICARS_VENGEANCE_TALENT),
-      },
-      {
         spell: SPELLS.WORD_OF_GLORY.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: {
@@ -166,27 +228,27 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_PALADIN.BLINDING_LIGHT_TALENT.id,
+        spell: TALENTS.BLINDING_LIGHT_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 90,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PALADIN.BLINDING_LIGHT_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BLINDING_LIGHT_TALENT),
       },
       {
-        spell: TALENTS_PALADIN.REPENTANCE_TALENT.id,
+        spell: TALENTS.REPENTANCE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_PALADIN.REPENTANCE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.REPENTANCE_TALENT),
       },
       {
-        spell: SPELLS.DIVINE_STEED_BUFF.id,
+        spell: TALENTS.DIVINE_STEED_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        charges: combatant.hasTalent(TALENTS_PALADIN.CAVALIER_TALENT) ? 2 : 1,
+        charges: combatant.hasTalent(TALENTS.CAVALIER_TALENT) ? 2 : 1,
         cooldown: 45,
         gcd: {
           base: 1500,
@@ -196,27 +258,9 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.LAY_ON_HANDS.id,
         isDefensive: true,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_PALADIN.UNBREAKABLE_SPIRIT_TALENT) ? 420 : 600,
+        cooldown: combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT) ? 420 : 600,
         castEfficiency: {
           recommendedEfficiency: 0.1,
-        },
-      },
-      {
-        spell: TALENTS_PALADIN.BLESSING_OF_FREEDOM_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 25,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: TALENTS_PALADIN.BLESSING_OF_PROTECTION_TALENT.id,
-        buffSpellId: TALENTS_PALADIN.BLESSING_OF_PROTECTION_TALENT.id,
-        isDefensive: true,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 300,
-        gcd: {
-          base: 1500,
         },
       },
       {
@@ -233,7 +277,7 @@ class Abilities extends CoreAbilities {
         cooldown: 8,
       },
       {
-        spell: TALENTS_PALADIN.REBUKE_TALENT.id,
+        spell: TALENTS.REBUKE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 15,
       },
@@ -241,7 +285,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.DIVINE_SHIELD.id,
         buffSpellId: SPELLS.DIVINE_SHIELD.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS_PALADIN.UNBREAKABLE_SPIRIT_TALENT) ? 210 : 300,
+        cooldown: combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT) ? 210 : 300,
         gcd: {
           base: 1500,
         },
@@ -255,18 +299,60 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_PALADIN.BLESSING_OF_SACRIFICE_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
-      },
-      {
-        spell: SPELLS.CLEANSE.id,
+        spell: TALENTS.CLEANSE_TOXINS_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS.TURN_EVIL_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 15,
+        channel: (haste: number) => 1.5 / (1 + haste),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SENSE_UNDEAD.id,
+        category: SPELL_CATEGORY.UTILITY,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS.id,
+        category: SPELL_CATEGORY.UTILITY,
+      },
+
+      // Blessings
+      {
+        spell: TALENTS.BLESSING_OF_FREEDOM_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 25,
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.BLESSING_OF_SACRIFICE_TALENT.id,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 120,
+      },
+      {
+        spell: TALENTS.BLESSING_OF_PROTECTION_TALENT.id,
+        buffSpellId: TALENTS.BLESSING_OF_PROTECTION_TALENT.id,
+        isDefensive: true,
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 300,
+        gcd: {
+          base: 1500,
+        },
+      },
+
+      // Auras
       {
         spell: SPELLS.CRUSADER_AURA.id,
         category: SPELL_CATEGORY.UTILITY,
@@ -294,27 +380,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-      },
-      {
-        spell: TALENTS_PALADIN.TURN_EVIL_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
-        channel: (haste: number) => 1.5 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.SENSE_UNDEAD.id,
-        category: SPELL_CATEGORY.UTILITY,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS.id,
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown: 1,
       },
     ];
   }

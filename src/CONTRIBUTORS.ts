@@ -1908,6 +1908,19 @@ export const xepheris: Contributor = {
   ],
 };
 
+export const Woliance: Contributor = {
+  nickname: 'Woliance',
+  github: 'Woliance',
+  discord: 'Woliance',
+  mains: [
+    {
+      name: 'Woliance',
+      spec: SPECS.PROTECTION_PALADIN,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/tarren-mill/Woliance',
+    },
+  ],
+};
+
 export const Hana: Contributor = {
   nickname: 'Hana',
   github: 'OisinOD',
