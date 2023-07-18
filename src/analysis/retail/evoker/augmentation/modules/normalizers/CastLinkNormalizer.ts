@@ -13,9 +13,11 @@ import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer'
 export const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
 export const PRESCIENCE_APPLY_REMOVE_LINK = 'prescienceApplyRemoveLink';
 export const TIP_THE_SCALES_CONSUME = 'tipTheScalesConsume';
+export const BREATH_EBON_APPLY_LINK = 'breathEbonApplyLink';
 
 export const PRESCIENCE_BUFFER = 150;
 export const CAST_BUFFER_MS = 100;
+export const BREATH_EBON_BUFFER = 250;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -55,6 +57,16 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    linkRelation: BREATH_EBON_APPLY_LINK,
+    reverseLinkRelation: BREATH_EBON_APPLY_LINK,
+    linkingEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
+    referencedEventType: EventType.ApplyBuff,
+    anyTarget: true,
+    forwardBufferMs: BREATH_EBON_BUFFER,
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -71,6 +83,10 @@ export function getPrescienceBuffEvents(event: CastEvent): ApplyBuffEvent[] {
 
 export function isFromTipTheScales(event: CastEvent) {
   return HasRelatedEvent(event, TIP_THE_SCALES_CONSUME);
+}
+
+export function ebonIsFromBreath(event: ApplyBuffEvent) {
+  return HasRelatedEvent(event, BREATH_EBON_APPLY_LINK);
 }
 
 export default CastLinkNormalizer;

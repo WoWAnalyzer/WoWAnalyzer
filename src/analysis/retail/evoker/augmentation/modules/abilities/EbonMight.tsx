@@ -23,6 +23,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { ebonIsFromBreath } from '../normalizers/CastLinkNormalizer';
 
 const PANDEMIC_WINDOW = 0.3;
 
@@ -106,7 +107,9 @@ class EbonMight extends Analyzer {
       oldBuffRemainder: this.ebonMightTimeLeft(event),
       currentMastery: this.stats.currentMasteryPercentage,
     });
-    this.currentEbonMightDuration = this.calculateEbonMightDuration(event);
+    this.currentEbonMightDuration = ebonIsFromBreath(event)
+      ? 5
+      : this.calculateEbonMightDuration(event);
     this.currentEbonMightCastTime = event.timestamp;
     this.ebonMightActive = true;
     //console.log('Applied at: ' +formatDuration(event.timestamp - this.owner.fight.start_time) +' Duration: ' +this.currentEbonMightDuration,);
