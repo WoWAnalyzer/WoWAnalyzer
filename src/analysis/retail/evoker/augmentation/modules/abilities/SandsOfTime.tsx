@@ -31,8 +31,14 @@ class SandsOfTime extends Analyzer {
   private extendAttempts: PossibleExtends[] = [];
 
   ebonMightActive: boolean = false;
-  trackedSpells = [TALENTS.ERUPTION_TALENT, TALENTS.BREATH_OF_EONS_TALENT];
-  empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
+  trackedSpells = [
+    TALENTS.ERUPTION_TALENT,
+    TALENTS.BREATH_OF_EONS_TALENT,
+    SPELLS.FIRE_BREATH,
+    SPELLS.FIRE_BREATH_FONT,
+    SPELLS.UPHEAVAL,
+    SPELLS.UPHEAVAL_FONT,
+  ];
   constructor(options: Options) {
     super(options);
 
@@ -49,7 +55,10 @@ class SandsOfTime extends Analyzer {
       },
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onCast);
-    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(this.empowers), this.onCast);
+    this.addEventListener(
+      Events.empowerEnd.by(SELECTED_PLAYER).spell(this.trackedSpells),
+      this.onCast,
+    );
 
     this.addEventListener(Events.fightend, this.finalize);
   }
