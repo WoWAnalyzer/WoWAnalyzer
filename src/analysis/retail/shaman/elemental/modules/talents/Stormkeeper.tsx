@@ -537,9 +537,8 @@ class Stormkeeper extends MajorCooldown<SKCast> {
           </strong>{' '}
           massively amplifies the strength of your next two
           <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> or
-          <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} />
-          casts. Therefore, you want to combine this effect with as many of the other damage
-          amplifying effects you have at your disposal.
+          <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> casts. Therefore, you want to combine
+          this effect with as many of the other damage amplifying effects you have at your disposal.
         </p>
         <p>
           In short, the ideal cast order is the following: <br />
