@@ -348,10 +348,9 @@ async function generateTalents(isPTR: boolean = false) {
     fs.writeFileSync(
       `./src/common/TALENTS/${lowerCasedClassName}.ts`,
       `// Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({${printTalents(talents)}
-  });
+const talents = {${printTalents(talents)}} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_${className.toUpperCase().replace(' ', '_')}}

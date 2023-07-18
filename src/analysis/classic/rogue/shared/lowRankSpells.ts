@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS/classic/rogue';
 
 const lowRankSpells = Object.entries(SPELLS).reduce((result, [str, obj]) => {
-  if (obj.lowRanks) {
+  if ('lowRanks' in obj && obj.lowRanks) {
     Object.assign(result, { [obj.id]: [...obj.lowRanks] });
   }
   return result;

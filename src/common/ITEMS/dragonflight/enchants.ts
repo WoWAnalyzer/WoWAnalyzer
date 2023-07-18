@@ -1,6 +1,6 @@
-import { enchantIndexableList } from 'common/ITEMS/Item';
+import { Enchant } from 'common/ITEMS/Item';
 
-const enchants = enchantIndexableList({
+const enchants = {
   // Weapons
   ENCHANT_WEAPON_BURNING_DEVOTION_R1: {
     id: 199966,
@@ -1062,6 +1062,6 @@ const enchants = enchantIndexableList({
     icon: 'spell_fire_flametounge',
     effectId: 5401,
   },
-});
+} satisfies Record<string, Enchant>;
 
 export default enchants;

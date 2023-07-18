@@ -1,5 +1,3 @@
-import { asRestrictedTable } from 'common/indexById';
-
 export default interface Item {
   id: number;
   name: string;
@@ -16,6 +14,3 @@ export interface Enchant extends Item {
 export interface ItemList<T extends Item = Item> {
   [key: string]: T;
 }
-
-export const itemIndexableList = asRestrictedTable<Item>();
-export const enchantIndexableList = asRestrictedTable<Enchant>();

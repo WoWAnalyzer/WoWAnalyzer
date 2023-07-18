@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   // --------
   // SHARED
   // --------
@@ -296,6 +296,6 @@ const spells = spellIndexableList({
     name: 'Vigilance',
     icon: 'ability_warrior_vigilance',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

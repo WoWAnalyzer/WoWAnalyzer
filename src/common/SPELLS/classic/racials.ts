@@ -4,9 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   // ALLIANCE
   // Human
   WILL_TO_SURVIVE: {
@@ -131,6 +131,6 @@ const spells = spellIndexableList({
     name: 'Arcane Torrent',
     icon: 'spell_shadow_teleport',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

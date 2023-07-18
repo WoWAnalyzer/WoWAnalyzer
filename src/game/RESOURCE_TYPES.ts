@@ -1,4 +1,4 @@
-import indexById, { asRestrictedTable } from 'common/indexById';
+import indexById from 'common/indexById';
 import { ClassResources } from 'parser/core/Events';
 
 export interface Resource {
@@ -8,7 +8,7 @@ export interface Resource {
   url: string;
 }
 
-const RESOURCE_TYPES = asRestrictedTable<Resource>()({
+const RESOURCE_TYPES = {
   MANA: {
     // Paladin, Priest, Shaman, Mage, Warlock, Monk, Druid, Evoker
     id: 0,
@@ -137,7 +137,7 @@ const RESOURCE_TYPES = asRestrictedTable<Resource>()({
     icon: 'ability_evoker_powernexus',
     url: 'essence',
   },
-});
+} satisfies Record<string, Resource>;
 
 export default indexById<Resource, typeof RESOURCE_TYPES>(RESOURCE_TYPES);
 

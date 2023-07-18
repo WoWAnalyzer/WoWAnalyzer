@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
+const items = {
   // id = item id
   POTION_OF_SPEED: {
     id: 40211,
@@ -12,6 +12,6 @@ const items = itemIndexableList({
     name: 'Runic Mana Potion',
     icon: 'inv_alchemy_elixir_02',
   },
-});
+} satisfies Record<string, Item>;
 
 export default items;
