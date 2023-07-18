@@ -188,6 +188,8 @@ jobs:
           # We already ran ESLint in a separate step
           DISABLE_AUTOMATIC_ESLINT=true
           yarn build
+        env:
+          REACT_APP_ENABLE_GA: true
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
