@@ -18,25 +18,28 @@ const output = {
   TW: reformatFile('./data/TW.json'),
   US: reformatFile('./data/US.json'),
   CN: reformatFile('./data/CN.json'),
-  classicEU: reformatFile('./data/classicEU.json'),
-  classicKR: reformatFile('./data/classicKR.json'),
-  classicTW: reformatFile('./data/classicTW.json'),
-  classicUS: reformatFile('./data/classicUS.json'),
+};
+
+const classic_output = {
+  EU: reformatFile('./data/classicEU.json'),
+  KR: reformatFile('./data/classicKR.json'),
+  TW: reformatFile('./data/classicTW.json'),
+  US: reformatFile('./data/classicUS.json'),
 };
 
 fs.writeFileSync(
   './output.ts',
   `// Generated file, changes will be overwritten!
 
-import { Region } from 'common/regions';
+import { Region, ClassicRegion } from 'common/regions';
 
 interface Realm {
   name: string;
   slug: string;
 }
 
-const REALMS: Record<Region, Realm[]> = ${JSON.stringify(output)};
+export const REALMS: Record<Region, Realm[]> = ${JSON.stringify(output)};
 
-export default REALMS;
+export const REALMS: Record<Region, Realm[]> = ${JSON.stringify(classic_output)};
 `,
 );

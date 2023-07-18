@@ -28,15 +28,15 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         description={
           <>
             Be sure to use <SpellLink spell={SPELLS.SHIELD_SLAM} /> and{' '}
-            <SpellLink spell={SPELLS.THUNDER_CLAP} /> on cooldown to maximise your{' '}
-            <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generation and damage output.
+            <SpellLink spell={TALENTS.THUNDER_CLAP_PROTECTION_TALENT} /> on cooldown to maximise
+            your <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generation and damage output.
             <br /> <SpellLink spell={SPELLS.REVENGE} /> can be used to avoid rage capping and{' '}
             <SpellLink spell={SPELLS.DEVASTATE} /> should only be used when every other spell
             mentioned here is on cooldown.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.THUNDER_CLAP.id} />
+        <AbilityRequirement spell={TALENTS.THUNDER_CLAP_PROTECTION_TALENT.id} />
         <Requirement
           name={<SpellLink spell={SPELLS.SHIELD_SLAM} />}
           thresholds={thresholds.shieldSlam}

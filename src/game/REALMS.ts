@@ -1,15 +1,13 @@
 // Generated file, changes will be overwritten!
 
-import { Region } from 'common/regions';
+import { Region, ClassicRegion } from 'common/regions';
 
 interface Realm {
   name: string;
   slug: string;
 }
 
-export type RegionsWithRealms = Region;
-
-const REALMS: Record<Region, Realm[]> = {
+export const REALMS: Record<Region, Realm[]> = {
   EU: [
     { name: 'Aegwynn', slug: 'aegwynn' },
     { name: 'Aerie Peak', slug: 'aerie-peak' },
@@ -954,4 +952,75 @@ const REALMS: Record<Region, Realm[]> = {
   ],
 };
 
-export default REALMS;
+export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
+  EU: [
+    { name: 'Amnennar', slug: 'amnennar' },
+    { name: 'Auberdine', slug: 'auberdine' },
+    { name: 'Everlook', slug: 'everlook' },
+    { name: 'Firemaw', slug: 'firemaw' },
+    { name: 'Gehennas', slug: 'gehennas' },
+    { name: 'Giantstalker', slug: 'giantstalker' },
+    { name: 'Golemagg', slug: 'golemagg' },
+    { name: 'Hydraxian Waterlords', slug: 'hydraxian-waterlords' },
+    { name: "Jin'do", slug: 'jindo' },
+    { name: 'Mandokir', slug: 'mandokir' },
+    { name: 'Mirage Raceway', slug: 'mirage-raceway' },
+    { name: 'Mograine', slug: 'mograine' },
+    { name: 'Nethergarde Keep', slug: 'nethergarde-keep' },
+    { name: 'Patchwerk', slug: 'patchwerk' },
+    { name: 'Pyrewood Village', slug: 'pyrewood-village' },
+    { name: 'Razorfen', slug: 'razorfen' },
+    { name: 'Sulfuron', slug: 'sulfuron' },
+    { name: 'Thekal', slug: 'thekal' },
+    { name: 'Venoxis', slug: 'venoxis' },
+    { name: 'Землекрушитель', slug: 'earthshaker' },
+    { name: 'Испепелитель', slug: 'ashbringer' },
+    { name: 'Пламегор', slug: 'flamegor' },
+    { name: 'Превосходство', slug: 'transcendence' },
+    { name: 'Приозерье', slug: 'lakeshire' },
+    { name: 'Хроми', slug: 'chromie' },
+  ],
+  KR: [
+    { name: 'KR1 CWOW GMSS 1', slug: 'kr1-cwow-gmss-1' },
+    { name: '라그나로스', slug: 'ragnaros' },
+    { name: '로크홀라', slug: 'lokholar' },
+    { name: '서리한', slug: 'frostmourne' },
+    { name: '소금 평원', slug: 'shimmering-flats' },
+    { name: '얼음피', slug: 'iceblood' },
+  ],
+  TW: [
+    { name: '伊弗斯', slug: 'ivus' },
+    { name: '古雷曼格', slug: 'golemagg' },
+    { name: '札里克', slug: 'zeliek' },
+    { name: '烏蘇雷', slug: 'wushoolay' },
+    { name: '瑪拉頓', slug: 'maraudon' },
+    { name: '逐風者', slug: 'windseeker' },
+    { name: '阿拉希盆地', slug: 'arathi-basin' },
+    { name: '魚人', slug: 'murloc' },
+  ],
+  US: [
+    { name: 'Angerforge', slug: 'angerforge' },
+    { name: 'Arugal', slug: 'arugal' },
+    { name: 'Ashkandi', slug: 'ashkandi' },
+    { name: 'Atiesh', slug: 'atiesh' },
+    { name: 'Azuresong', slug: 'azuresong' },
+    { name: 'Benediction', slug: 'benediction' },
+    { name: 'Bloodsail Buccaneers', slug: 'bloodsail-buccaneers' },
+    { name: 'Earthfury', slug: 'earthfury' },
+    { name: 'Eranikus', slug: 'eranikus' },
+    { name: 'Faerlina', slug: 'faerlina' },
+    { name: 'Grobbulus', slug: 'grobbulus' },
+    { name: 'Maladath', slug: 'maladath' },
+    { name: 'Mankrik', slug: 'mankrik' },
+    { name: 'Myzrael', slug: 'myzrael' },
+    { name: 'Old Blanchy', slug: 'old-blanchy' },
+    { name: 'Pagle', slug: 'pagle' },
+    { name: 'Remulos', slug: 'remulos' },
+    { name: 'Skyfury', slug: 'skyfury' },
+    { name: 'Sulfuras', slug: 'sulfuras' },
+    { name: 'Westfall', slug: 'westfall' },
+    { name: 'Whitemane', slug: 'whitemane' },
+    { name: 'Windseeker', slug: 'windseeker' },
+    { name: 'Yojamba', slug: 'yojamba' },
+  ],
+};
