@@ -185,7 +185,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
         !this.selectedCombatant.hasBuff(
           SPELLS.MASTER_OF_THE_ELEMENTS_BUFF.id,
           event.timestamp,
-          100,
+          ON_CAST_BUFF_REMOVAL_GRACE_MS,
         ) &&
         // Some rotations cast SK before pull. In this case, the rotation is slightly different.
         !(isPrepull && spenderNotAlreadyCast)
@@ -207,7 +207,11 @@ class Stormkeeper extends MajorCooldown<SKCast> {
 
       if (
         SPELLS_SOP_BUFF_REQUIRED.includes(event.ability.guid) &&
-        !this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id, event.timestamp, 100) &&
+        !this.selectedCombatant.hasBuff(
+          SPELLS.SURGE_OF_POWER_BUFF.id,
+          event.timestamp,
+          ON_CAST_BUFF_REMOVAL_GRACE_MS,
+        ) &&
         // Some rotations cast SK before pull. In this case, the rotation is slightly different.
         !(isPrepull && sopSpellNotAlreadyCast)
       ) {
