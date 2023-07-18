@@ -42,9 +42,11 @@ const PANDEMIC_WINDOW = 0.3;
 
 interface EbonMightCooldownCast {
   event: AnyEvent;
-  prescienceBuffsActive: number;
   oldBuffRemainder: number;
   currentMastery: number;
+}
+interface PrescienceBuffs {
+  event: ApplyBuffEvent | RemoveBuffEvent;
 }
 
 class EbonMight extends Analyzer {
@@ -53,10 +55,9 @@ class EbonMight extends Analyzer {
   };
   protected stats!: StatTracker;
 
-  currentPrescienceTargets: number = 0;
-
   private uses: SpellUse[] = [];
   private ebonMightCasts: EbonMightCooldownCast[] = [];
+  private prescienceCasts: PrescienceBuffs[] = [];
 
   ebonMightActive: boolean = false;
   currentEbonMightDuration: number = 0;
@@ -103,7 +104,6 @@ class EbonMight extends Analyzer {
   private onEbonApply(event: ApplyBuffEvent) {
     this.ebonMightCasts.push({
       event: event,
-      prescienceBuffsActive: this.currentPrescienceTargets,
       oldBuffRemainder: this.ebonMightTimeLeft(event),
       currentMastery: this.stats.currentMasteryPercentage,
     });
@@ -124,7 +124,6 @@ class EbonMight extends Analyzer {
   private onEbonRefresh(event: RefreshBuffEvent) {
     this.ebonMightCasts.push({
       event: event,
-      prescienceBuffsActive: this.currentPrescienceTargets,
       oldBuffRemainder: this.ebonMightTimeLeft(event),
       currentMastery: this.stats.currentMasteryPercentage,
     });
@@ -133,11 +132,15 @@ class EbonMight extends Analyzer {
     //console.log('Refreshed at: ' + formatDuration(event.timestamp - this.owner.fight.start_time) +' Duration: ' +this.currentEbonMightDuration,);
   }
 
-  private onPrescienceApply() {
-    this.currentPrescienceTargets = this.currentPrescienceTargets + 1;
+  private onPrescienceApply(event: ApplyBuffEvent) {
+    this.prescienceCasts.push({
+      event: event,
+    });
   }
-  private onPrescienceRemove() {
-    this.currentPrescienceTargets = this.currentPrescienceTargets - 1;
+  private onPrescienceRemove(event: RemoveBuffEvent) {
+    this.prescienceCasts.push({
+      event: event,
+    });
   }
 
   private onCast(event: CastEvent) {
@@ -204,12 +207,15 @@ class EbonMight extends Analyzer {
 
   private finalize() {
     // finalize performances
-    //console.log(this.ebonMightCasts);
-    this.uses = this.ebonMightCasts.map(this.ebonMightUsage);
+    this.uses = this.ebonMightCasts.map((ebonMightCooldownCast) =>
+      this.ebonMightUsage(ebonMightCooldownCast, this.prescienceCasts),
+    );
   }
 
-  private ebonMightUsage(ebonMightCooldownCast: EbonMightCooldownCast): SpellUse {
-    const prescienceBuffsActive = ebonMightCooldownCast.prescienceBuffsActive;
+  private ebonMightUsage(
+    ebonMightCooldownCast: EbonMightCooldownCast,
+    prescienceCasts: PrescienceBuffs[],
+  ): SpellUse {
     const oldDuration = ebonMightCooldownCast.oldBuffRemainder;
     const ebonMightPandemicAmount =
       EBON_MIGHT_BASE_DURATION_MS *
@@ -219,6 +225,20 @@ class EbonMight extends Analyzer {
     let performance;
     let summary;
     let details;
+    let prescienceBuffsActive = 0;
+
+    prescienceCasts.forEach((event) => {
+      if (
+        event.event.timestamp <= ebonMightCooldownCast.event.timestamp &&
+        (event.event.type === 'applybuff' || event.event.type === 'removebuff')
+      ) {
+        if (event.event.type === 'applybuff') {
+          prescienceBuffsActive = prescienceBuffsActive + 1;
+        } else if (event.event.type === 'removebuff') {
+          prescienceBuffsActive = prescienceBuffsActive - 1;
+        }
+      }
+    });
 
     if (oldDuration > 0) {
       performance =
@@ -248,8 +268,8 @@ class EbonMight extends Analyzer {
     } else {
       summary = (
         <div>
-          You had {ebonMightCooldownCast.prescienceBuffsActive}{' '}
-          <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active on cast.
+          You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active on
+          cast.
         </div>
       );
       // Case 1: 2 buffed targets
@@ -257,8 +277,8 @@ class EbonMight extends Analyzer {
         performance = QualitativePerformance.Perfect;
         details = (
           <div>
-            You had {ebonMightCooldownCast.prescienceBuffsActive}{' '}
-            <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active on cast. Good job!
+            You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active
+            on cast. Good job!
           </div>
         );
       }
@@ -267,9 +287,8 @@ class EbonMight extends Analyzer {
         performance = QualitativePerformance.Ok;
         details = (
           <div>
-            You had {ebonMightCooldownCast.prescienceBuffsActive}{' '}
-            <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active on cast. Try to line it up so you
-            have two active.
+            You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active
+            on cast. Try to line it up so you have two active.
           </div>
         );
       }
