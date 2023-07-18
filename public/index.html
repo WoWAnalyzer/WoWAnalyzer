@@ -88,7 +88,7 @@
         color: #e45a5a;
       }
     </style>
-    <% if (process.env.NODE_ENV === 'production') { %>
+    <% if (process.env.REACT_APP_ENABLE_GA !== undefined) { %>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MW95W6NHVC"></script>
     <script>
       var ramp = {
