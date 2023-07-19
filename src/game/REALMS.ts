@@ -981,7 +981,6 @@ export const CLASSIC_REALMS: Record<ClassicRegion, Realm[]> = {
     { name: 'Хроми', slug: 'chromie' },
   ],
   KR: [
-    { name: 'KR1 CWOW GMSS 1', slug: 'kr1-cwow-gmss-1' },
     { name: '라그나로스', slug: 'ragnaros' },
     { name: '로크홀라', slug: 'lokholar' },
     { name: '서리한', slug: 'frostmourne' },
