@@ -70,7 +70,13 @@ class Daybreak extends Analyzer {
 
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(<>Stop sucking</>)
+      suggest(
+        <>
+          Using <SpellLink spell={TALENTS.DAYBREAK_TALENT} /> with higher counts of{' '}
+          <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> will result in more Healing and
+          Mana.{' '}
+        </>,
+      )
         .icon(TALENTS.DAYBREAK_TALENT.icon)
         .actual(`${actual} Glimmers consumed per Daybreak`)
         .recommended(`${recommended} Glimmers consumed per Daybreak`),
