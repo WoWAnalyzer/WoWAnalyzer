@@ -59,17 +59,15 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_SHOCK_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.HAMMER_OF_WRATH_TALENT) && (
-          <AbilityRequirement spell={TALENTS.HAMMER_OF_WRATH_TALENT.id} />
-        )}
         {combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT) && (
           <AbilityRequirement spell={TALENTS.LIGHTS_HAMMER_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.CRUSADERS_MIGHT_TALENT) && (
-          <AbilityRequirement spell={SPELLS.CRUSADER_STRIKE.id} />
-        )}
         {combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT) && (
           <AbilityRequirement spell={TALENTS.HOLY_PRISM_TALENT.id} />
+        )}
+        {/* Add IoL Consumption */}
+        {combatant.hasTalent(TALENTS.BARRIER_OF_FAITH_TALENT) && (
+          <AbilityRequirement spell={TALENTS.BARRIER_OF_FAITH_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -92,6 +90,21 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           </Trans>
         }
       >
+        {combatant.hasTalent(TALENTS.DAYBREAK_TALENT) && (
+          <AbilityRequirement spell={TALENTS.DAYBREAK_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.DAYBREAK_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> consumed per
+                <SpellLink spell={TALENTS.DAYBREAK_TALENT} />
+              </>
+            }
+            thresholds={thresholds.daybreak}
+          />
+        )}
+
         {/* Avenging Crusader replaces Avenging Wrath */}
         {!combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={SPELLS.AVENGING_WRATH.id} />
@@ -99,10 +112,16 @@ const HolyPaladinChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.AVENGING_CRUSADER_TALENT) && (
           <AbilityRequirement spell={TALENTS.AVENGING_CRUSADER_TALENT.id} />
         )}
-        <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
 
+        <AbilityRequirement spell={SPELLS.AURA_MASTERY.id} />
         {combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT) && (
           <AbilityRequirement spell={TALENTS.DIVINE_TOLL_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.HAND_OF_DIVINITY_TALENT) && (
+          <AbilityRequirement spell={TALENTS.HAND_OF_DIVINITY_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.DIVINE_FAVOR_TALENT) && (
+          <AbilityRequirement spell={TALENTS.DIVINE_FAVOR_TALENT.id} />
         )}
 
         {/* We can't detect race, so disable this when it has never been cast. */}
