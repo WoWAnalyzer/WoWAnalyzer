@@ -8,6 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { DAYBREAK_HEALING, DAYBREAK_MANA } from '../../../normalizers/CastLinkNormalizer';
 import { formatNumber } from 'common/format';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class Daybreak extends Analyzer {
   castEvents: CastEvent[] = [];
@@ -45,6 +46,41 @@ class Daybreak extends Analyzer {
       }
       return sum;
     }, 0);
+  }
+
+  get glimmersPerDaybreak() {
+    return (
+      this.castEvents
+        .map((event) => GetRelatedEvents(event, DAYBREAK_MANA).length)
+        .reduce((previous, current) => previous + current, 0) / this.castEvents.length
+    );
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.glimmersPerDaybreak,
+      isLessThan: {
+        minor: 7.5,
+        average: 7,
+        major: 6,
+      },
+      style: ThresholdStyle.DECIMAL,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Using <SpellLink spell={TALENTS.DAYBREAK_TALENT} /> with higher counts of{' '}
+          <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> will result in more Healing and
+          Mana.{' '}
+        </>,
+      )
+        .icon(TALENTS.DAYBREAK_TALENT.icon)
+        .actual(`${actual} Glimmers consumed per Daybreak`)
+        .recommended(`${recommended} Glimmers consumed per Daybreak`),
+    );
   }
 
   statistic() {
