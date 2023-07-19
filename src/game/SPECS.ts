@@ -806,6 +806,26 @@ const SPECS = {
       spec: 2,
     },
   },
+  AUGMENTATION_EVOKER: {
+    id: 1473,
+    index: 38,
+    className: t({
+      id: 'specs.evoker',
+      message: `Evoker`,
+    }),
+    specName: t({
+      id: 'specs.augmentation',
+      message: 'Augmentation',
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    masterySpellId: 406380,
+    masteryCoefficient: 0.4,
+    ranking: {
+      class: 13,
+      spec: 3,
+    },
+  },
 
   // --------------
   // CLASSIC SPECS
@@ -1477,7 +1497,11 @@ export const DRUID_SPECS: Spec[] = [
   SPECS.GUARDIAN_DRUID,
   SPECS.RESTORATION_DRUID,
 ];
-export const EVOKER_SPECS: Spec[] = [SPECS.DEVASTATION_EVOKER, SPECS.PRESERVATION_EVOKER];
+export const EVOKER_SPECS: Spec[] = [
+  SPECS.DEVASTATION_EVOKER,
+  SPECS.PRESERVATION_EVOKER,
+  SPECS.AUGMENTATION_EVOKER,
+];
 export const HUNTER_SPECS: Spec[] = [
   SPECS.SURVIVAL_HUNTER,
   SPECS.BEAST_MASTERY_HUNTER,
