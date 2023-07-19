@@ -1,4 +1,4 @@
-import { formatDuration, formatNumber } from 'common/format';
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
@@ -128,8 +128,6 @@ class TyrsDeliverance extends Analyzer {
                   <SpellLink spell={spell} /> healing increased:{' '}
                   {formatNumber(this.incHealing[spell.id])}
                   <br />
-                  <SpellLink spell={spell} /> overhealing increased:{' '}
-                  {formatNumber(this.incOverhealing[spell.id])} <br />
                 </>
               );
             })}
@@ -144,7 +142,6 @@ class TyrsDeliverance extends Analyzer {
           }
         >
           {this.owner.formatItemHealingDone(this.totalHealing())} <br />
-          {formatDuration(this.duration / this.casts)} <small>average buff duration</small>
         </BoringValueText>
       </Statistic>
     );
