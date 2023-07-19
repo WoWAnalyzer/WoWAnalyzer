@@ -6,11 +6,13 @@ import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/Guide
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
-import CooldownGraphSubsection from 'analysis/retail/paladin/retribution/guide/CooldownGraphSubsection';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
 import TALENTS from 'common/TALENTS/paladin';
 import SpellLink from 'interface/SpellLink';
+import CooldownGraphSubsection, {
+  Cooldown,
+} from 'interface/guide/components/CooldownGraphSubSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -98,6 +100,24 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
   );
 }
 
+const cooldowns: Cooldown[] = [
+  {
+    spell: TALENTS.WAKE_OF_ASHES_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.WAKE_OF_ASHES_TALENT),
+  },
+  {
+    spell: TALENTS.FINAL_RECKONING_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.FINAL_RECKONING_TALENT),
+  },
+  {
+    spell: TALENTS.EXECUTION_SENTENCE_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.EXECUTION_SENTENCE_TALENT),
+  },
+  {
+    spell: TALENTS.DIVINE_TOLL_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
+  },
+];
 function CooldownSection() {
   return (
     <Section title="Cooldowns">
@@ -108,7 +128,7 @@ function CooldownSection() {
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />
-      <CooldownGraphSubsection />
+      <CooldownGraphSubsection cooldowns={cooldowns} />
     </Section>
   );
 }
