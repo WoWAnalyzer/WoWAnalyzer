@@ -4,6 +4,7 @@ import Events, {
   AnyEvent,
   ApplyBuffEvent,
   CastEvent,
+  EmpowerEndEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
@@ -63,14 +64,8 @@ class EbonMight extends Analyzer {
   currentEbonMightDuration: number = 0;
   currentEbonMightCastTime: number = 0;
 
-  trackedSpells = [
-    SPELLS.FIRE_BREATH,
-    SPELLS.FIRE_BREATH_FONT,
-    SPELLS.UPHEAVAL,
-    SPELLS.UPHEAVAL_FONT,
-    TALENTS.ERUPTION_TALENT,
-    TALENTS.BREATH_OF_EONS_TALENT,
-  ];
+  trackedSpells = [TALENTS.ERUPTION_TALENT, TALENTS.BREATH_OF_EONS_TALENT];
+  empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
 
   constructor(options: Options) {
     super(options);
@@ -89,6 +84,8 @@ class EbonMight extends Analyzer {
     );
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onCast);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(this.empowers), this.onCast);
+
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRESCIENCE_BUFF),
       this.onPrescienceApply,
@@ -143,7 +140,7 @@ class EbonMight extends Analyzer {
     });
   }
 
-  private onCast(event: CastEvent) {
+  private onCast(event: CastEvent | EmpowerEndEvent) {
     this.extendEbongMight(event);
   }
 
@@ -167,7 +164,7 @@ class EbonMight extends Analyzer {
   /* Here we figure out how much to extend the current buffs, we average
    * out the crit chance of the +50% effect, gives accurate enough results
    * for what we need.*/
-  private extendEbongMight(event: CastEvent) {
+  private extendEbongMight(event: CastEvent | EmpowerEndEvent) {
     if (!this.ebonMightActive) {
       return;
     }

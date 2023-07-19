@@ -20,12 +20,14 @@ import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStac
 
 import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
+import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Normalizers
     castLinkNormalizer: CastLinkNormalizer,
     prescienceNormalizer: PrescienceNormalizer,
+    empowerNormalizer: EmpowerNormalizer,
 
     // Core
     abilities: Abilities,

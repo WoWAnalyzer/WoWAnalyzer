@@ -3,14 +3,13 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 
-import Events, { CastEvent, EmpowerEndEvent, EventType } from 'parser/core/Events';
+import Events, { CastEvent, EmpowerEndEvent } from 'parser/core/Events';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
-import { isFromTipTheScales } from '../normalizers/CastLinkNormalizer';
 
 /**
  * Sands of time is an innate ability for Augmentation.
@@ -31,14 +30,8 @@ class SandsOfTime extends Analyzer {
   private extendAttempts: PossibleExtends[] = [];
 
   ebonMightActive: boolean = false;
-  trackedSpells = [
-    TALENTS.ERUPTION_TALENT,
-    TALENTS.BREATH_OF_EONS_TALENT,
-    SPELLS.FIRE_BREATH,
-    SPELLS.FIRE_BREATH_FONT,
-    SPELLS.UPHEAVAL,
-    SPELLS.UPHEAVAL_FONT,
-  ];
+  trackedSpells = [TALENTS.ERUPTION_TALENT, TALENTS.BREATH_OF_EONS_TALENT];
+  empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
   constructor(options: Options) {
     super(options);
 
@@ -55,26 +48,12 @@ class SandsOfTime extends Analyzer {
       },
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onCast);
-    this.addEventListener(
-      Events.empowerEnd.by(SELECTED_PLAYER).spell(this.trackedSpells),
-      this.onCast,
-    );
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(this.empowers), this.onCast);
 
     this.addEventListener(Events.fightend, this.finalize);
   }
 
   private onCast(event: CastEvent | EmpowerEndEvent) {
-    if (
-      event.type === EventType.Cast &&
-      !(
-        event.ability.guid === TALENTS.ERUPTION_TALENT.id ||
-        event.ability.guid === TALENTS.BREATH_OF_EONS_TALENT.id
-      )
-    ) {
-      if (!isFromTipTheScales(event)) {
-        return;
-      }
-    }
     const extendAttempts: PossibleExtends = {
       event: event,
       extended: Boolean(this.ebonMightActive),
