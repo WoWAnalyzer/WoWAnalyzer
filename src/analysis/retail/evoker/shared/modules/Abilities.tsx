@@ -8,11 +8,15 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 const hasFont = (combatant: Combatant) =>
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
-  combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT);
+  combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT) ||
+  combatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT);
 
 class Abilities extends CoreAbilities {
   spellbook(): SpellbookAbility[] {
     const combatant = this.selectedCombatant;
+    const intervowenThreadsMultiplier = combatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT)
+      ? 0.9
+      : 1;
     return [
       //region Rotational Spells
       {
@@ -25,11 +29,13 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: combatant.spec !== SPECS.AUGMENTATION_EVOKER,
       },
       {
         spell: SPELLS.EMERALD_BLOSSOM_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: combatant.spec === SPECS.PRESERVATION_EVOKER ? 0 : 30,
+        cooldown:
+          combatant.spec === SPECS.PRESERVATION_EVOKER ? 0 : 30 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -44,11 +50,11 @@ class Abilities extends CoreAbilities {
           combatant.spec === SPECS.PRESERVATION_EVOKER
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
             : SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 30,
+        cooldown: 30 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
-        ...(combatant.spec === SPECS.DEVASTATION_EVOKER && {
+        ...(combatant.spec === (SPECS.DEVASTATION_EVOKER || SPECS.AUGMENTATION_EVOKER) && {
           castEfficiency: {
             suggestion: true,
             recommendedEfficiency: 0.95,
@@ -56,7 +62,7 @@ class Abilities extends CoreAbilities {
         }),
       },
       {
-        spell: SPELLS.LIVING_FLAME_CAST.id,
+        spell: [SPELLS.LIVING_FLAME_CAST.id, SPELLS.LIVING_FLAME_HEAL.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -75,9 +81,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.VERDANT_EMBRACE_TALENT.id,
+        spell: [TALENTS.VERDANT_EMBRACE_TALENT.id, SPELLS.VERDANT_EMBRACE_HEAL.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 24,
+        cooldown: 24 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT),
         gcd: {
           base: 1500,
@@ -94,16 +100,19 @@ class Abilities extends CoreAbilities {
           combatant.spec === SPECS.PRESERVATION_EVOKER
             ? SPELL_CATEGORY.HEALER_DAMAGING_SPELL
             : SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS.ONYX_LEGACY_TALENT) ? 60 : 120,
+        cooldown: combatant.hasTalent(TALENTS.ONYX_LEGACY_TALENT)
+          ? 60
+          : 120 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
         damageSpellIds: [SPELLS.DEEP_BREATH.id],
+        enabled: !combatant.hasTalent(TALENTS.BREATH_OF_EONS_TALENT),
       },
       {
         spell: TALENTS.TIP_THE_SCALES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
+        cooldown: 120 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.TIP_THE_SCALES_TALENT),
       },
       //endregion
@@ -111,7 +120,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.CAUTERIZING_FLAME_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
+        cooldown: 60 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.CAUTERIZING_FLAME_TALENT),
         gcd: {
           base: 1500,
@@ -120,7 +129,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.ZEPHYR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
+        cooldown: 120 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.ZEPHYR_TALENT),
         gcd: {
           base: 1500,
@@ -130,7 +139,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.LANDSLIDE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 90,
+        cooldown: 90 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -139,7 +148,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.EXPUNGE_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 8,
+        cooldown: 8 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.EXPUNGE_TALENT),
         gcd: {
           base: 1500,
@@ -148,7 +157,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.SLEEP_WALK_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 15,
+        cooldown: 15 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },
@@ -157,13 +166,15 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.QUELL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS.IMPOSING_PRESENCE_TALENT) ? 20 : 40,
+        cooldown: combatant.hasTalent(TALENTS.IMPOSING_PRESENCE_TALENT)
+          ? 20 * intervowenThreadsMultiplier
+          : 40 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.QUELL_TALENT),
       },
       {
         spell: TALENTS.UNRAVEL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 9,
+        cooldown: 9 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.UNRAVEL_TALENT),
         gcd: {
           base: 1500,
@@ -172,7 +183,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.OPPRESSING_ROAR_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
+        cooldown: 120 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.OPPRESSING_ROAR_TALENT),
       },
       {
@@ -180,7 +191,7 @@ class Abilities extends CoreAbilities {
         category: combatant.hasTalent(TALENTS.TWIN_GUARDIAN_TALENT)
           ? SPELL_CATEGORY.DEFENSIVE
           : SPELL_CATEGORY.UTILITY,
-        cooldown: 60,
+        cooldown: 60 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.RESCUE_TALENT),
         gcd: {
           base: 1500,
@@ -189,7 +200,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.TIME_SPIRAL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 120,
+        cooldown: 120 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.TIME_SPIRAL_TALENT),
         gcd: {
           base: 1500,
@@ -198,7 +209,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.HOVER.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 30,
+        cooldown: 30 * intervowenThreadsMultiplier,
         charges: combatant.hasTalent(TALENTS.AERIAL_MASTERY_TALENT) ? 2 : 1,
         gcd: null,
         enabled: true,
@@ -208,7 +219,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.OBSIDIAN_SCALES_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: 90,
+        cooldown: 90 * intervowenThreadsMultiplier,
         charges: combatant.hasTalent(TALENTS.OBSIDIAN_BULWARK_TALENT) ? 2 : 1,
         enabled: combatant.hasTalent(TALENTS.OBSIDIAN_SCALES_TALENT),
         isDefensive: true,
@@ -216,7 +227,9 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.RENEWING_BLAZE_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
-        cooldown: combatant.hasTalent(TALENTS.FIRE_WITHIN_TALENT) ? 60 : 90,
+        cooldown: combatant.hasTalent(TALENTS.FIRE_WITHIN_TALENT)
+          ? 60 * intervowenThreadsMultiplier
+          : 90 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.RENEWING_BLAZE_TALENT),
         isDefensive: true,
       },
@@ -225,7 +238,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.BLESSING_OF_THE_BRONZE.id,
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: 15,
+        cooldown: 15 * intervowenThreadsMultiplier,
         gcd: {
           base: 1500,
         },

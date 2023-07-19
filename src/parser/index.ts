@@ -36,6 +36,7 @@ import HavocDemonHunter from 'analysis/retail/demonhunter/havoc';
 import VengeanceDemonHunter from 'analysis/retail/demonhunter/vengeance';
 import DevastationEvoker from 'analysis/retail/evoker/devastation';
 import PreservationEvoker from 'analysis/retail/evoker/preservation';
+import AugmentationEvoker from 'analysis/retail/evoker/augmentation';
 // Classic
 import ClassicDeathKnightFrost from 'analysis/classic/deathknight/frost';
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
@@ -71,6 +72,7 @@ const configs: Config[] = [
 
   DevastationEvoker,
   PreservationEvoker,
+  AugmentationEvoker,
 
   BeastMasteryHunter,
   MarksmanshipHunter,

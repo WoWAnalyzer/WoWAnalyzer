@@ -369,6 +369,11 @@ const spells = {
     name: 'Wing Buffet',
     icon: 'ability_racial_wingbuffet',
   },
+  TAIL_SWIPE: {
+    id: 368970,
+    name: 'Tail Swipe',
+    icon: 'ability_racial_tailswipe',
+  },
   OPPRESING_ROAR: {
     id: 406971,
     name: 'Oppressing Roar',
@@ -378,6 +383,57 @@ const spells = {
     id: 368432,
     name: 'Unravel',
     icon: 'ability_evoker_unravel',
+  },
+  // Augmentation Spells
+  UPHEAVAL: {
+    id: 396286,
+    name: 'Upheaval',
+    icon: 'ability_evoker_upheaval',
+  },
+  UPHEAVAL_FONT: {
+    id: 408092,
+    name: 'Upheaval',
+    icon: 'ability_evoker_upheaval',
+  },
+  ESSENCE_BURST_AUGMENTATION_BUFF: {
+    id: 392268,
+    name: 'Essence Burst',
+    icon: 'ability_evoker_essenceburst',
+  },
+  EBON_MIGHT_BUFF_PERSONAL: {
+    id: 395296,
+    name: 'Ebon Might',
+    icon: 'spell_sarkareth',
+  },
+  EBON_MIGHT_BUFF_EXTERNAL: {
+    id: 395152,
+    name: 'Ebon Might',
+    icon: 'spell_sarkareth',
+  },
+  SANDS_OF_TIME: {
+    id: 395153,
+    name: 'Sands of Time',
+    icon: 'ability_evoker_sandsoftime',
+  },
+  PRESCIENCE_BUFF: {
+    id: 410089,
+    name: 'Prescience',
+    icon: 'ability_evoker_prescience',
+  },
+  SHIFTING_SANDS_BUFF: {
+    id: 413984,
+    name: 'Shifting Sands',
+    icon: 'ability_evoker_masterytimewalker',
+  },
+  TEMPORAL_WOUND_DEBUFF: {
+    id: 409560,
+    name: 'Temporal Wound',
+    icon: 'ability_evoker_breathofeons',
+  },
+  BLACK_ATTUNEMENT: {
+    id: 403264,
+    name: 'Black Attunement',
+    icon: 'ability_evoker_blackattunement',
   },
 } satisfies Record<string, Spell>;
 
