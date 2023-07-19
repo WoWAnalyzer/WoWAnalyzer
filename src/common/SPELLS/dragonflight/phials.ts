@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   //region Air Phials
   AERATED_PHIAL_OF_QUICK_HANDS: {
     id: 381264,
@@ -99,6 +99,6 @@ const spells = spellIndexableList({
     icon: 'spell_frost_ice-shards',
   },
   //endregion
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

@@ -5,7 +5,7 @@
  *   icon: string,
  * },
  */
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({});
+const items = {} satisfies Record<string, Item>;
 export default items;

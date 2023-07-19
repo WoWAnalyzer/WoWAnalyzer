@@ -793,21 +793,7 @@ export const Abelito75: Contributor = {
   nickname: 'Abelito75',
   github: 'abelito75',
   avatar: avatar('Abelito75-avatar.png'),
-  about: 'MW Vet in Peak of Serenity discord, MW Theorycrafter',
-  mains: [
-    {
-      name: 'Magnapinna',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/malganis/Magnapinna',
-    },
-  ],
-  alts: [
-    {
-      name: 'Barreleye',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://raider.io/characters/us/malganis/Barreleye',
-    },
-  ],
+  about: 'Guy doing random things',
 };
 export const HolySchmidt: Contributor = {
   nickname: 'HolySchmidt',
@@ -1904,6 +1890,19 @@ export const xepheris: Contributor = {
       name: 'Xepheris',
       spec: SPECS.VENGEANCE_DEMON_HUNTER,
       link: 'https://worldofwarcraft.com/en-us/character/eu/blackmoore/Xepheris',
+    },
+  ],
+};
+
+export const Woliance: Contributor = {
+  nickname: 'Woliance',
+  github: 'Woliance',
+  discord: 'Woliance',
+  mains: [
+    {
+      name: 'Woliance',
+      spec: SPECS.PROTECTION_PALADIN,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/tarren-mill/Woliance',
     },
   ],
 };

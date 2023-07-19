@@ -1,13 +1,14 @@
+import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/paladin';
+import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage, calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
-import BoringValueText from 'parser/ui/BoringValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const MAX_BOOST = 0.5;
 
@@ -15,7 +16,6 @@ class Reclamation extends Analyzer {
   lastCast: number = 0;
 
   healing: number = 0;
-  overhealing: number = 0;
 
   resourceGained: Map<number, number> = new Map<number, number>();
   damageDone: number = 0;
@@ -32,7 +32,7 @@ class Reclamation extends Analyzer {
     );
     this.addEventListener(Events.heal.spell(SPELLS.HOLY_SHOCK_HEAL).by(SELECTED_PLAYER), this.heal);
     this.addEventListener(
-      Events.damage.spell(SPELLS.CRUSADER_STRIKE).by(SELECTED_PLAYER),
+      Events.damage.spell([SPELLS.CRUSADER_STRIKE, SPELLS.HOLY_SHOCK_DAMAGE]).by(SELECTED_PLAYER),
       this.damage,
     );
     this.addEventListener(
@@ -49,10 +49,6 @@ class Reclamation extends Analyzer {
     const ratio = (1 - (event.hitPoints - event.amount) / event.maxHitPoints) * MAX_BOOST;
     const effectiveHealingBoost = calculateEffectiveHealing(event, ratio);
     this.healing += effectiveHealingBoost;
-
-    this.overhealing +=
-      (event.amount + (event.absorbed || 0) + (event.overheal || 0)) * ratio -
-      effectiveHealingBoost;
   }
 
   damage(event: DamageEvent) {
@@ -60,8 +56,8 @@ class Reclamation extends Analyzer {
       return;
     }
 
-    const ratio = ((event.hitPoints - event.amount) / event.maxHitPoints) * MAX_BOOST;
-    this.damageDone = +Number(calculateEffectiveDamage(event, ratio));
+    const ratio = (1 - (event.hitPoints + event.amount) / event.maxHitPoints) * MAX_BOOST;
+    this.damageDone += calculateEffectiveDamage(event, ratio);
   }
 
   mana(event: ResourceChangeEvent) {
@@ -86,28 +82,26 @@ class Reclamation extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            Healing Done: {this.healing.toFixed(2)} <br />
-            Overhealing Done: {this.overhealing.toFixed(2)} <br />
-            Damage Done: {this.damageDone.toFixed(2)} <br />
-            Mana from Holy Shock: {this.resourceGained.get(TALENTS.HOLY_SHOCK_TALENT.id) || 0}{' '}
-            <br />
-            Mana from Crusader Strike: {this.resourceGained.get(SPELLS.CRUSADER_STRIKE.id) ||
-              0}{' '}
-            <br />
+            <div>Healing Done: {formatNumber(this.healing)}</div>
+            <div>Damage Done: {formatNumber(this.damageDone)}</div>
+            <div>
+              Mana from <SpellLink spell={TALENTS_PALADIN.HOLY_SHOCK_TALENT} />:{' '}
+              {formatNumber(this.resourceGained.get(TALENTS.HOLY_SHOCK_TALENT.id) || 0)}
+            </div>
+            <div>
+              Mana from <SpellLink spell={SPELLS.CRUSADER_STRIKE} />:{' '}
+              {formatNumber(this.resourceGained.get(SPELLS.CRUSADER_STRIKE.id) || 0)}
+            </div>
           </>
         }
       >
-        <BoringValueText
-          label={
-            <>
-              <SpellLink spell={TALENTS.RECLAMATION_TALENT} />
-            </>
-          }
-        >
-          {this.owner.formatItemHealingDone(this.healing)} <br />
-          {this.owner.formatItemDamageDone(this.damageDone)} <br />
-          <ItemManaGained amount={totalMana} />
-        </BoringValueText>
+        <TalentSpellText talent={TALENTS_PALADIN.RECLAMATION_TALENT}>
+          <div>{this.owner.formatItemHealingDone(this.healing)}</div>
+          <div>{this.owner.formatItemDamageDone(this.damageDone)}</div>
+          <div>
+            <ItemManaGained amount={totalMana} />
+          </div>
+        </TalentSpellText>
       </Statistic>
     );
   }

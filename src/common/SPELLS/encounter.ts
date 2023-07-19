@@ -1,5 +1,5 @@
-import { spellIndexableList } from './Spell';
+import Spell from 'common/SPELLS/Spell';
 
-const spells = spellIndexableList({});
+const spells = {} satisfies Record<string, Spell>;
 
 export default spells;

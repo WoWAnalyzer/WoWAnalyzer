@@ -1,9 +1,10 @@
 import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/paladin';
 import { SpellLink } from 'interface';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   get suggestionThresholds() {
@@ -14,11 +15,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         average: 0.25,
         major: 0.35,
       },
-      style: 'percentage',
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
-  suggestions(when) {
+  suggestions(when: When) {
     const boss = this.owner.boss;
 
     if (!boss || !boss.fight.disableDowntimeSuggestion) {

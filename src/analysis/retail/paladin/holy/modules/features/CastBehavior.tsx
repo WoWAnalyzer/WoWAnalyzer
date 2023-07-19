@@ -33,12 +33,14 @@ class CastBehavior extends Analyzer {
     const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
     const holyShockHeal = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
     const holyShockDamage = getAbility(SPELLS.HOLY_SHOCK_DAMAGE.id);
+    const judgment = getAbility(SPELLS.JUDGMENT_CAST_HOLY.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
-    const totalIolUsages = iolFlashOfLights + iolHolyLights;
+    const iolJudgments = judgment.healingIolHits || 0;
+    const totalIolUsages = iolFlashOfLights + iolHolyLights + iolJudgments;
 
-    const holyShockCasts = holyShockHeal.healingHits;
+    const holyShockCasts = (holyShockHeal.healingHits || 0) + (holyShockDamage.damageHits || 0);
     const holyShockCrits =
       (holyShockHeal.healingCriticalHits || 0) + (holyShockDamage.damageCriticalHits || 0);
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
@@ -57,6 +59,12 @@ class CastBehavior extends Analyzer {
         label: SPELLS.HOLY_LIGHT.name,
         spellId: SPELLS.HOLY_LIGHT.id,
         value: iolHolyLights,
+      },
+      {
+        color: '#F8b700',
+        label: SPELLS.JUDGMENT_CAST_HOLY.name,
+        spellId: SPELLS.JUDGMENT_CAST_HOLY.id,
+        value: iolJudgments,
       },
       {
         color: '#A93226',

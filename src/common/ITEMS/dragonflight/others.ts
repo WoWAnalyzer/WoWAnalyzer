@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const others = itemIndexableList({
+const others = {
   DRACONIC_AUGMENT_RUNE: {
     id: 201325,
     name: 'Draconic Augment Rune',
@@ -56,6 +56,6 @@ const others = itemIndexableList({
     name: 'Voice of the Silent Star',
     icon: 'inv_cloth_raidpriestdragon_d_01_cape',
   },
-});
+} satisfies Record<string, Item>;
 
 export default others;

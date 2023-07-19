@@ -3,9 +3,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { spellIndexableList } from './Spell';
+import Spell from 'common/SPELLS/Spell';
 
-const spells = spellIndexableList({
+const spells = {
   // General:
   FAKE_SPELL: {
     id: -100,
@@ -490,6 +490,6 @@ const spells = spellIndexableList({
     name: 'Draconic Empowerment',
     icon: 'inv_misc_head_dragon_black',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

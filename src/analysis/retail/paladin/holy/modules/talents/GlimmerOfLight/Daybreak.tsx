@@ -6,8 +6,9 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { DAYBREAK_HEALING, DAYBREAK_MANA } from '../../normalizers/CastLinkNormalizer';
+import { DAYBREAK_HEALING, DAYBREAK_MANA } from '../../../normalizers/CastLinkNormalizer';
 import { formatNumber } from 'common/format';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 class Daybreak extends Analyzer {
   castEvents: CastEvent[] = [];
@@ -47,13 +48,39 @@ class Daybreak extends Analyzer {
     }, 0);
   }
 
-  getOverhealing(cast: CastEvent) {
-    return GetRelatedEvents(cast, DAYBREAK_HEALING).reduce((sum, healEvent) => {
-      if (healEvent.type === EventType.Heal) {
-        return sum + (healEvent.overheal || 0);
-      }
-      return sum;
-    }, 0);
+  get glimmersPerDaybreak() {
+    return (
+      this.castEvents
+        .map((event) => GetRelatedEvents(event, DAYBREAK_MANA).length)
+        .reduce((previous, current) => previous + current, 0) / this.castEvents.length
+    );
+  }
+
+  get suggestionThresholds() {
+    return {
+      actual: this.glimmersPerDaybreak,
+      isLessThan: {
+        minor: 7.5,
+        average: 7,
+        major: 6,
+      },
+      style: ThresholdStyle.DECIMAL,
+    };
+  }
+
+  suggestions(when: When) {
+    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Using <SpellLink spell={TALENTS.DAYBREAK_TALENT} /> with higher counts of{' '}
+          <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} /> will result in more Healing and
+          Mana.{' '}
+        </>,
+      )
+        .icon(TALENTS.DAYBREAK_TALENT.icon)
+        .actual(`${actual} Glimmers consumed per Daybreak`)
+        .recommended(`${recommended} Glimmers consumed per Daybreak`),
+    );
   }
 
   statistic() {
@@ -70,7 +97,6 @@ class Daybreak extends Analyzer {
                   <TooltipElement content="Number of glimmers absorbed">#</TooltipElement>
                 </th>
                 <th>Healing</th>
-                <th>Overhealing</th>
               </tr>
             </thead>
             <tbody>
@@ -79,7 +105,6 @@ class Daybreak extends Analyzer {
                   <td>{this.owner.formatTimestamp(cast.timestamp)}</td>
                   <td>{GetRelatedEvents(cast, DAYBREAK_MANA).length}</td>
                   <td>{formatNumber(this.getEffectiveHealing(cast))}</td>
-                  <td>{formatNumber(this.getOverhealing(cast))}</td>
                 </tr>
               ))}
             </tbody>

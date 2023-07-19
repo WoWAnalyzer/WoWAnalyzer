@@ -44,7 +44,9 @@ class ImbuedInfusion extends Analyzer {
       return;
     }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell([SPELLS.FLASH_OF_LIGHT, SPELLS.HOLY_LIGHT]),
+      Events.cast
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.FLASH_OF_LIGHT, SPELLS.HOLY_LIGHT, SPELLS.JUDGMENT_CAST_HOLY]),
       this.onCast,
     );
   }

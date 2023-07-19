@@ -1,11 +1,18 @@
 import { change, date } from 'common/changelog';
-import TALENTS from 'common/TALENTS/paladin';
+import TALENTS, { TALENTS_PALADIN } from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONTRIBUTORS';
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
-  change(date(2023, 7, 14), <>Added <SpellLink spell={TALENTS.TYRS_DELIVERANCE_TALENT} /></>, Tialyss),
+  change(date(2023, 7, 19), <>Added <SpellLink spell={TALENTS.TYRS_DELIVERANCE_TALENT} /></>, Tialyss),
+  change(date(2023, 7, 17), <>Judgment can consume IoL for Imbued Light</>, Abelito75),
+  change(date(2023, 7, 17), <>Checklist updated and 10.1.5 marked as supported</>, Abelito75),
+  change(date(2023, 7, 17), <>Fixex inaccuracy in <SpellLink spell={TALENTS.DAYBREAK_TALENT} /></>, Tialyss),
+  change(date(2023, 7, 16), <>Fixed inaccuracy in <SpellLink spell={TALENTS_PALADIN.RECLAMATION_TALENT}/></>, Trevor),
+  change(date(2023, 7, 15), <>Removing Dumb Overhealing statistics I caused</>, Abelito75),
+  change(date(2023, 7, 14), <>Added <SpellLink spell={SPELLS.JUDGMENT_CAST_HOLY} /> to Infusion of Light usage</>, Tialyss),
+  change(date(2023, 7, 14), <>Added <SpellLink spell={TALENTS.DIVINE_REVELATIONS_TALENT} /></>, Tialyss),
   change(date(2023, 7, 14), <>Added <SpellLink spell={TALENTS.LIGHTS_PROTECTION_TALENT} /></>, Abelito75),
   change(date(2023, 7, 13), <>Added <SpellLink spell={TALENTS.DAYBREAK_TALENT} /></>, Tialyss),
   change(date(2023, 7, 12), <>Glimmer rewrite</>, Abelito75),

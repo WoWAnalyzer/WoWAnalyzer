@@ -23,6 +23,8 @@ import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { formatNumber } from 'common/format';
 
+const DEBUG = false;
+
 /**
  * Glimmer of Light
  * Requires Paladin (Holy, Holy)
@@ -167,7 +169,7 @@ class GlimmerOfLight extends Analyzer {
   onGlimmerHeal(event: HealEvent) {
     this.updateGR(event);
     const amount = event.amount + (event.absorbed || 0);
-    if (this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id) {
+    if (DEBUG && this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id) {
       console.log(
         `amount: ${event.amount} absorbed: ${event.absorbed || 0} overheal: ${event.overheal || 0}`,
       );
@@ -180,7 +182,7 @@ class GlimmerOfLight extends Analyzer {
 
     toUpdate.healing += amount;
     toUpdate.hits += 1;
-    if (this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id) {
+    if (DEBUG && this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id) {
       console.log(toUpdate);
     }
   }

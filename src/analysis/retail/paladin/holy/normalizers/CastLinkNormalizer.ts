@@ -54,6 +54,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ResourceChange],
     anyTarget: true,
     reverseLinkRelation: FROM_DAYBREAK,
+    forwardBufferMs: 100,
+    backwardBufferMs: 100,
   },
 ];
 
