@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const trinkets = itemIndexableList({
+const trinkets = {
   SPOILS_OF_NELTHARUS: {
     id: 193773,
     name: 'Spoils of Neltharus',
@@ -11,6 +11,6 @@ const trinkets = itemIndexableList({
     name: 'Vessel of Searing Shadow',
     icon: 'inv_trinket_mawraid_01_purple',
   },
-});
+} satisfies Record<string, Item>;
 
 export default trinkets;

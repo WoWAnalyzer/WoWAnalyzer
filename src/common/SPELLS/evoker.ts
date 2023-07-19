@@ -3,10 +3,9 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
+import Spell from 'common/SPELLS/Spell';
 
-import { spellIndexableList } from './Spell';
-
-const spells = spellIndexableList({
+const spells = {
   // Preservation Spells
   MASTERY_LIFEBINDER: {
     id: 363510,
@@ -340,7 +339,7 @@ const spells = spellIndexableList({
     name: 'Iridescence: Red',
     icon: 'inv_enchant_shardradientsmall',
   },
-  GLIDE: {
+  GLIDE_EVOKER: {
     id: 358733,
     name: 'Glide',
     icon: 'ability_racial_glide',
@@ -380,6 +379,6 @@ const spells = spellIndexableList({
     name: 'Unravel',
     icon: 'ability_evoker_unravel',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

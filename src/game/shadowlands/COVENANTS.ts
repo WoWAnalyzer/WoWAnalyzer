@@ -1,7 +1,7 @@
-import indexById, { asRestrictedTable } from 'common/indexById';
+import indexById from 'common/indexById';
 import { Covenant } from 'parser/core/Events';
 
-const COVENANTS = asRestrictedTable<Covenant>()({
+const COVENANTS = {
   KYRIAN: {
     name: 'Kyrian',
     description:
@@ -34,7 +34,7 @@ const COVENANTS = asRestrictedTable<Covenant>()({
     spellID: 321078,
     icon: 'ui_sigil_necrolord',
   },
-});
+} satisfies Record<string, Covenant>;
 
 export default indexById<Covenant, typeof COVENANTS>(COVENANTS);
 

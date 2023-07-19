@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
+const items = {
   FISH_FEAST: { id: 43015, name: 'Fish Feast', icon: 'inv_misc_fish_52' },
   DRAGONFIN_FILET: { id: 43000, name: 'Dragonfin Filet', icon: 'inv_misc_food_75' },
   FIRECRACKER_SALMON: { id: 34767, name: 'Firecracker Salmon', icon: 'inv_misc_food_141_fish' },
@@ -60,5 +60,5 @@ const items = itemIndexableList({
   PICKLED_FANGTOOTH: { id: 34765, name: 'Pickled Fangtooth', icon: 'inv_misc_food_76' },
   MIGHTY_RHINO_DOGS: { id: 34758, name: 'Mighty Rhino Dogs', icon: 'inv_misc_food_66' },
   ROASTED_WORG: { id: 34751, name: 'Roasted Worg', icon: 'inv_misc_food_86_basilisk' },
-});
+} satisfies Record<string, Item>;
 export default items;

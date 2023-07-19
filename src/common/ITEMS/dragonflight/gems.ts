@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const gems = itemIndexableList({
+const gems = {
   // Rudimentary Gems
   SOLID_ETERNITY_EMBER_R1: {
     id: 192913,
@@ -447,6 +447,6 @@ const gems = itemIndexableList({
     name: 'Resplendent Illimited Diamond',
     icon: 'inv_10_jewelcrafting_gem3primal_cut_blue',
   },
-});
+} satisfies Record<string, Item>;
 
 export default gems;

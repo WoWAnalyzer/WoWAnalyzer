@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import indexById, { asRestrictedTable } from 'common/indexById';
+import indexById from 'common/indexById';
 
 import PRIMARY_STATS from './PRIMARY_STATS';
 import ROLES from './ROLES';
@@ -45,9 +45,7 @@ export function specMasteryCoefficient(spec: Spec | undefined): number | undefin
   }
 }
 
-const specIndexableList = asRestrictedTable<Spec>();
-
-const SPECS = specIndexableList({
+const SPECS = {
   ARCANE_MAGE: {
     id: 62,
     index: 0,
@@ -1465,7 +1463,7 @@ const SPECS = specIndexableList({
     },
     icon: 'Druid-Guardian',
   },
-});
+} satisfies Record<string, Spec>;
 
 export const DEATH_KNIGHT_SPECS: Spec[] = [
   SPECS.BLOOD_DEATH_KNIGHT,

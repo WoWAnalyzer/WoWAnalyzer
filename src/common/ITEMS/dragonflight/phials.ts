@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const phials = itemIndexableList({
+const phials = {
   // Air Phials
   AERATED_PHIAL_OF_QUICK_HANDS_R1: {
     id: 197720,
@@ -216,6 +216,6 @@ const phials = itemIndexableList({
     name: 'Phial of Elemental Chaos',
     icon: 'inv_10_alchemy_bottle_shape2_orange',
   },
-});
+} satisfies Record<string, Item>;
 
 export default phials;

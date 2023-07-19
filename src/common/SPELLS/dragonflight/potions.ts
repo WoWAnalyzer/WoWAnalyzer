@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   //region Air Potions
   AERATED_MANA_POTION: {
     id: 370607,
@@ -90,6 +90,6 @@ const spells = spellIndexableList({
     icon: 'trade_alchemy_dpotion_b20',
   },
   //endregion
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

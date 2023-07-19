@@ -1,5 +1,3 @@
-import { asRestrictedTable } from '../indexById';
-
 export default interface Spell {
   id: number;
   name: string;
@@ -67,9 +65,6 @@ export interface Enchant extends Spell {
 export interface SpellList<T extends Spell = Spell> {
   [key: string | number]: T;
 }
-
-export const spellIndexableList = asRestrictedTable<Spell>();
-export const enchantIndexableList = asRestrictedTable<Enchant>();
 
 export const isSpell = (x: unknown): x is Spell => {
   const typedObj = x as Spell;
