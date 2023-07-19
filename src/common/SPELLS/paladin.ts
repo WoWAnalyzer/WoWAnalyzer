@@ -22,7 +22,7 @@ const spells = {
     id: 275773,
     name: 'Judgment',
     icon: 'spell_holy_righteousfury',
-    manaCost: 300,
+    manaCost: 6000,
   },
   JUDGMENT_CAST_PROTECTION: {
     id: 275779,
@@ -128,7 +128,7 @@ const spells = {
     id: 82326,
     name: 'Holy Light',
     icon: 'spell_holy_surgeoflight',
-    manaCost: 8000,
+    manaCost: 6000,
   },
 
   // Holy Paladin:
@@ -275,6 +275,11 @@ const spells = {
     name: 'Golden Path',
     icon: 'ability_priest_cascade',
   },
+  SEAL_OF_MERCY_HEAL_TALENT: {
+    id: 384906,
+    name: 'Seal of Mercy',
+    icon: 'spell_holy_greaterblessingofsalvation',
+  },
   UNTEMPERED_DEDICATION_BUFF: {
     id: 387815,
     name: 'Untempered Dedication',
@@ -340,6 +345,21 @@ const spells = {
     name: 'Daybreak',
     icon: 'spell_holy_aspiration',
   },
+  DIVINE_RESONANCE_TALENT_HOLY: {
+    id: 386730,
+    name: 'Divine Resonance',
+    icon: 'ability_bastion_paladin',
+  },
+  RISING_SUNLIGHT_BUFF: {
+    id: 414204,
+    name: 'Rising Sunlight',
+    icon: 'spell_priest_divinestar_holy',
+  },
+  SEAL_OF_THE_CRUSADER_HEAL: {
+    id: 416771,
+    name: 'Seal of the Crusader',
+    icon: 'spell_holy_holysmite',
+  },
 
   // Retribution Paladin:
   BLADE_OF_JUSTICE: {
@@ -365,6 +385,11 @@ const spells = {
   JUDGMENT_DEBUFF_HOLY: {
     id: 214222,
     name: 'Judgment',
+    icon: 'spell_holy_righteousfury',
+  },
+  GREATER_JUDGMENT_HEAL_HOLY: {
+    id: 414019,
+    name: 'Greater Judgment',
     icon: 'spell_holy_righteousfury',
   },
   TEMPLARS_VERDICT_DAMAGE: {

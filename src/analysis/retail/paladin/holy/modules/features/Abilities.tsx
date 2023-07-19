@@ -54,6 +54,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        healSpellIds: [SPELLS.GREATER_JUDGMENT_HEAL_HOLY.id],
       },
       {
         spell: SPELLS.FLASH_OF_LIGHT.id,
@@ -131,6 +132,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        healSpellIds: [SPELLS.RESPLENDENT_LIGHT_HEAL.id],
       },
 
       // Tree
@@ -287,6 +289,9 @@ class Abilities extends CoreAbilities {
           ),
           recommendedEfficiency: 0.8,
         },
+        // Not putting Glimmer in here, tracking separately in HolyPaladinHealingEfficiencyTracker
+        healSpellIds: [SPELLS.HOLY_SHOCK_HEAL.id],
+        damageSpellIds: [SPELLS.HOLY_SHOCK_DAMAGE.id],
         enabled: combatant.hasTalent(TALENTS.HOLY_SHOCK_TALENT),
       },
       {
@@ -295,6 +300,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        healSpellIds: [SPELLS.LIGHT_OF_DAWN_HEAL.id],
         enabled: combatant.hasTalent(TALENTS.LIGHT_OF_DAWN_TALENT),
       },
       {
@@ -343,6 +349,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        healSpellIds: [SPELLS.LIGHTS_HAMMER_HEAL.id],
         enabled: combatant.hasTalent(TALENTS.LIGHTS_HAMMER_TALENT),
       },
       {
@@ -355,6 +362,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        healSpellIds: [SPELLS.HOLY_PRISM_HEAL.id, SPELLS.HOLY_PRISM_HEAL_DIRECT.id],
         enabled: combatant.hasTalent(TALENTS.HOLY_PRISM_TALENT),
       },
       {
@@ -435,6 +443,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
+        healSpellIds: [SPELLS.TYRS_DELIVERANCE_HEALING_INCREASE.id],
         enabled: combatant.hasTalent(TALENTS.TYRS_DELIVERANCE_TALENT),
       },
     ];

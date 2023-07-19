@@ -74,7 +74,7 @@ class HealingEfficiencyBreakdown extends Component<Props, State> {
   ) => (
     <tr key={spellDetail.spell.id}>
       <td>
-        <SpellLink spell={spellDetail.spell.id} />
+        <SpellLink spell={spellDetail.spell} />
       </td>
       {this.state.detailedView
         ? this.DetailView(spellDetail)
