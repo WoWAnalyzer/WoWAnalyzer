@@ -11,7 +11,7 @@ class Accretion extends Analyzer {
   };
   protected spellUsable!: SpellUsable;
 
-  currentUpheavel = this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
+  currentUpheaval = this.selectedCombatant.hasTalent(TALENTS.FONT_OF_MAGIC_AUGMENTATION_TALENT)
     ? SPELLS.UPHEAVAL_FONT.id
     : SPELLS.UPHEAVAL.id;
 
@@ -25,7 +25,7 @@ class Accretion extends Analyzer {
   }
 
   onCast() {
-    this.spellUsable.reduceCooldown(this.currentUpheavel, ACCRETION_CDR_MS);
+    this.spellUsable.reduceCooldown(this.currentUpheaval, ACCRETION_CDR_MS);
   }
 }
 
