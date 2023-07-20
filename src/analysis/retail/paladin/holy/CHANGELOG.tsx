@@ -5,6 +5,8 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 7, 19), <>Added <SpellLink spell={TALENTS.TYRS_DELIVERANCE_TALENT} /></>, Tialyss),
+  change(date(2023, 7, 17), <>Judgment can consume IoL for Imbued Light</>, Abelito75),
   change(date(2023, 7, 17), <>Checklist updated and 10.1.5 marked as supported</>, Abelito75),
   change(date(2023, 7, 17), <>Fixex inaccuracy in <SpellLink spell={TALENTS.DAYBREAK_TALENT} /></>, Tialyss),
   change(date(2023, 7, 16), <>Fixed inaccuracy in <SpellLink spell={TALENTS_PALADIN.RECLAMATION_TALENT}/></>, Trevor),
