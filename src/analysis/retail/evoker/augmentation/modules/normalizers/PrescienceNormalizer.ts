@@ -17,8 +17,7 @@ import {
  * https://www.warcraftlogs.com/reports/xPazJHL8ApcZv6dh#fight=last&type=auras&pins=0%24Separate%24%23244F4B%24casts%240%240.0.0.Any%24186387984.0.0.Evoker%24true%240.0.0.Any%24false%24409311&source=249&ability=410089&view=events&start=11179569&end=11237544
  *
  * Usually Prescience is applied twice before combat if playing optimally, we would
- * like to include these in our analysis, so we need to create pre-pull events for it
- * along with making sure we put it on CD so we have accurate statics. */
+ * like to include these in our analysis, so we need to create pre-pull events for it */
 
 class PrescienceNormalizer extends EventsNormalizer {
   static dependencies = {
