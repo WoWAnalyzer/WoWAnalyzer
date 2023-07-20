@@ -5,7 +5,8 @@ import { Hartra344, Sref, ToppleTheNun, ap2355, attluh, Jundarer } from 'CONTRIB
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2023, 3, 16), <>Update FotF, dot refreshes, rattle, sotf, filler usage and other small inaccuaries.</>, Jundarer),
+  change(date(2023, 8, 20), <>Update for 10.1.5 and show Eclipses on timeline.</>, Jundarer),
+  change(date(2023, 7, 16), <>Update FotF, dot refreshes, rattle, sotf, filler usage and other small inaccuaries.</>, Jundarer),
   change(date(2023, 6, 20), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 3, 16), <>Updated the downtime suggestion to show active downtime, rather than uptime, for clarity.</>, attluh),
   change(date(2023, 2, 6), <>Added statistics support for <SpellLink spell={TALENTS_DRUID.SUNDERED_FIRMAMENT_TALENT} /></>, ap2355 ),

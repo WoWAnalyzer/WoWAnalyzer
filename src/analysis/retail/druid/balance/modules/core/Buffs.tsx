@@ -16,20 +16,28 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.ECLIPSE_LUNAR.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.ECLIPSE_SOLAR.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.WILD_CHARGE_TALENT.id,
         timelineHighlight: false,
       },
       {
         spellId: SPELLS.BALANCE_OF_ALL_THINGS_SOLAR.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.BALANCE_OF_ALL_THINGS_LUNAR.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.OWLKIN_FRENZY.id,
-        timelineHighlight: true,
+        timelineHighlight: false,
       },
       {
         spellId: SPELLS.BARKSKIN.id,
