@@ -157,6 +157,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
       }
     }
 
+    if (event.prepull) {
+      buffTarget = event.targetID;
+    }
+
     // If somehow the Prescience cast didn't actually buff a player return early
     if (!buffTarget) {
       this.recordCooldown({
