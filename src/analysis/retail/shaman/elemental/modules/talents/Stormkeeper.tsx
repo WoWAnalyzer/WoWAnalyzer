@@ -102,6 +102,9 @@ const BASE_MAELSTROM_REQUIRED_PREPULL_CAST = 39; // IF + FrS
  */
 const FIRST_CAST_MAELSTROM_GENERATION = 12; // LvB
 
+const FLAMESHOCK_IDEAL_DURATION_REMAINING = 10000;
+const ELECTRIFIED_SHOCKS_IDEAL_DURATION_REMAINING = 6000;
+
 class Stormkeeper extends MajorCooldown<SKCast> {
   static dependencies = {
     ...MajorCooldown.dependencies,
@@ -396,8 +399,8 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       ),
       details: (
         <span>
-          {cast.maelstromOnCast} <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> on window start{' '}
-          (Should have been {maelstromRequired})
+          Had at least {maelstromRequired} <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> on
+          window start (you had {cast.maelstromOnCast})
         </span>
       ),
       check: 'stormkeeper-maelstrom',
@@ -408,7 +411,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   }
 
   _determineFlameshockPerformance(flameshockDurationOnCast: number): QualitativePerformance {
-    if (flameshockDurationOnCast > 10000) {
+    if (flameshockDurationOnCast > FLAMESHOCK_IDEAL_DURATION_REMAINING) {
       return QualitativePerformance.Perfect;
     } else {
       return QualitativePerformance.Ok;
@@ -428,8 +431,9 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       details: (
         <span>
           {' '}
-          <SpellLink spell={SPELLS.FLAME_SHOCK} />: {formatDuration(cast.flameshockDurationOnCast)}s
-          remaining on window start
+          <SpellLink spell={SPELLS.FLAME_SHOCK} /> had at least{' '}
+          {formatDuration(FLAMESHOCK_IDEAL_DURATION_REMAINING)} seconds remaining on window start
+          (you had {formatDuration(cast.flameshockDurationOnCast)}s)
         </span>
       ),
       check: 'stormkeeper-flameshock',
@@ -440,7 +444,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   }
 
   _determineElshocksPerformance(elshocksDurationOnCast: number): QualitativePerformance {
-    if (elshocksDurationOnCast > 6000) {
+    if (elshocksDurationOnCast > ELECTRIFIED_SHOCKS_IDEAL_DURATION_REMAINING) {
       return QualitativePerformance.Perfect;
     } else {
       return QualitativePerformance.Ok;
@@ -463,8 +467,9 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       details: (
         <span>
           {' '}
-          <SpellLink spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} />:{' '}
-          {formatDuration(cast.electrifiedShocksDurationOnCast)}s remaining on window start
+          <SpellLink spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} /> had at least{' '}
+          {formatDuration(ELECTRIFIED_SHOCKS_IDEAL_DURATION_REMAINING)} seconds remaining on window
+          start (you had {formatDuration(cast.electrifiedShocksDurationOnCast)}s)
         </span>
       ),
       check: 'stormkeeper-elshocks',
