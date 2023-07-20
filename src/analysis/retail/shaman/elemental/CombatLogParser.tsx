@@ -35,6 +35,7 @@ import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDomi
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import ElementalGuide from './guide/ElementalGuide';
 import SpellMaelstromCost from './modules/core/SpellMaelstromCost';
+import SpenderWindow from './modules/features/SpenderWindow';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     alwaysBeCasting: AlwaysBeCasting,
     subOptimalChainLightning: SubOptimalChainLightning,
+    spenderWindow: SpenderWindow,
 
     // Talents
     aftershock: Aftershock,
