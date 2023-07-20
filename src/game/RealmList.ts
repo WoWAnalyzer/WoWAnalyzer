@@ -1,4 +1,4 @@
-import { REALMS } from './REALMS';
+import { REALMS, CLASSIC_REALMS } from './REALMS';
 
 interface RealmList {
   [region: string]: Realm[];
@@ -9,4 +9,5 @@ interface Realm {
   slug: string;
 }
 
-export default REALMS as RealmList;
+export const REALM_LIST: RealmList = REALMS;
+export const CLASSIC_REALM_LIST: RealmList = CLASSIC_REALMS;
