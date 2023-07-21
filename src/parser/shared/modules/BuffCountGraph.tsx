@@ -309,6 +309,13 @@ abstract class BuffCountGraph extends Analyzer {
   }
 
   get plot() {
+    // If the x-axis is too long, we enable horizontal scrolling, for better readability
+    const graphLenght = this.lastTimestamp - this.owner.fight.start_time;
+    const threshold = 8 * 60 * 1000;
+
+    // If we go above threshold make a tick each 20s
+    const tickCount = graphLenght > threshold ? Math.floor(graphLenght / 20000) : 25;
+
     const spec: VisualizationSpec = {
       data: {
         name: 'graphData',
@@ -328,7 +335,7 @@ abstract class BuffCountGraph extends Analyzer {
           type: 'quantitative' as const,
           axis: {
             labelExpr: formatTime('datum.value'),
-            tickCount: 25,
+            tickCount: tickCount,
             grid: false,
           },
           scale: {
@@ -344,26 +351,38 @@ abstract class BuffCountGraph extends Analyzer {
       ],
     };
 
+    // Calculate the width percentage so the graph has consistent size
+    const widthPercentage = graphLenght > threshold ? (graphLenght / threshold) * 100 : 100;
+
     return (
       <div
         className="graph-container"
         style={{
           width: '100%',
-          minHeight: 200,
+          overflowX: graphLenght > threshold ? 'auto' : 'hidden', // Enable horizontal scrolling if the data length exceeds the threshold
         }}
       >
-        <AutoSizer>
-          {({ width, height }) => (
-            <BaseChart
-              spec={spec}
-              data={{
-                graphData: this.graphData,
-              }}
-              width={width}
-              height={height}
-            />
-          )}
-        </AutoSizer>
+        <div
+          style={{
+            padding: graphLenght > threshold ? '0 0 30px' : '0 0 0px', // Add padding so scrollbar doesn't overlap x-axis
+            width: `${widthPercentage}%`,
+            overflowY: 'hidden',
+            minHeight: 200,
+          }}
+        >
+          <AutoSizer>
+            {({ width, height }) => (
+              <BaseChart
+                spec={spec}
+                data={{
+                  graphData: this.graphData,
+                }}
+                width={width}
+                height={height}
+              />
+            )}
+          </AutoSizer>
+        </div>
       </div>
     );
   }
