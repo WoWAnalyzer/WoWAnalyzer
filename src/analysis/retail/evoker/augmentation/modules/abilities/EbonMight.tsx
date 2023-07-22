@@ -24,8 +24,11 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
-import { ebonIsFromBreath } from '../normalizers/CastLinkNormalizer';
+import { ebonIsFromBreath, getEbonMightBuffEvents } from '../normalizers/CastLinkNormalizer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Combatants from 'parser/shared/modules/Combatants';
+import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
 
 const PANDEMIC_WINDOW = 0.3;
 
@@ -46,6 +49,7 @@ interface EbonMightCooldownCast {
   event: AnyEvent;
   oldBuffRemainder: number;
   currentMastery: number;
+  buffedTargets: ApplyBuffEvent[] | RefreshBuffEvent[];
 }
 interface PrescienceBuffs {
   event: ApplyBuffEvent | RemoveBuffEvent;
@@ -55,9 +59,11 @@ class EbonMight extends Analyzer {
   static dependencies = {
     stats: StatTracker,
     spellUsable: SpellUsable,
+    combatants: Combatants,
   };
   protected stats!: StatTracker;
   protected spellUsable!: SpellUsable;
+  protected combatants!: Combatants;
 
   private uses: SpellUse[] = [];
   private ebonMightCasts: EbonMightCooldownCast[] = [];
@@ -102,10 +108,12 @@ class EbonMight extends Analyzer {
   }
 
   private onEbonApply(event: ApplyBuffEvent) {
+    const buffedTargets = getEbonMightBuffEvents(event);
     this.ebonMightCasts.push({
       event: event,
       oldBuffRemainder: this.ebonMightTimeLeft(event),
       currentMastery: this.stats.currentMasteryPercentage,
+      buffedTargets,
     });
     this.currentEbonMightDuration = ebonIsFromBreath(event)
       ? 5
@@ -126,10 +134,12 @@ class EbonMight extends Analyzer {
   }
 
   private onEbonRefresh(event: RefreshBuffEvent) {
+    const buffedTargets = getEbonMightBuffEvents(event);
     this.ebonMightCasts.push({
       event: event,
       oldBuffRemainder: this.ebonMightTimeLeft(event),
       currentMastery: this.stats.currentMasteryPercentage,
+      buffedTargets,
     });
     this.currentEbonMightDuration = this.calculateEbonMightDuration(event);
     this.currentEbonMightCastTime = event.timestamp;
@@ -220,6 +230,48 @@ class EbonMight extends Analyzer {
     ebonMightCooldownCast: EbonMightCooldownCast,
     prescienceCasts: PrescienceBuffs[],
   ): SpellUse {
+    const presciencePerformanceCheck = this.getPresciencePerformance(
+      ebonMightCooldownCast,
+      prescienceCasts,
+    );
+
+    const rolePerformanceCheck = this.getRolePerformance(ebonMightCooldownCast);
+
+    const checklistItems: ChecklistUsageInfo[] = [
+      {
+        check: 'prescience-performance',
+        timestamp: ebonMightCooldownCast.event.timestamp,
+        ...presciencePerformanceCheck,
+      },
+    ];
+    if (rolePerformanceCheck) {
+      checklistItems.push({
+        check: 'role-performance',
+        timestamp: ebonMightCooldownCast.event.timestamp,
+        ...rolePerformanceCheck,
+      });
+    }
+
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+    );
+
+    return {
+      event: ebonMightCooldownCast.event,
+      performance: actualPerformance,
+      checklistItems,
+      performanceExplanation:
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
+    };
+  }
+
+  /** Do Performance check for amount of prescience active on cast */
+  private getPresciencePerformance(
+    ebonMightCooldownCast: EbonMightCooldownCast,
+    prescienceCasts: PrescienceBuffs[],
+  ) {
     const oldDuration = ebonMightCooldownCast.oldBuffRemainder;
     const ebonMightPandemicAmount =
       EBON_MIGHT_BASE_DURATION_MS *
@@ -230,6 +282,8 @@ class EbonMight extends Analyzer {
     let summary;
     let details;
     let prescienceBuffsActive = 0;
+    const PERFECT_PRESCIENCE_BUFFS = 2;
+    const OK_PRESCIENCE_BUFFS = 1;
 
     prescienceCasts.forEach((event) => {
       if (
@@ -247,7 +301,7 @@ class EbonMight extends Analyzer {
     if (oldDuration > 0) {
       performance =
         oldDuration < ebonMightPandemicAmount
-          ? QualitativePerformance.Perfect
+          ? QualitativePerformance.Good
           : QualitativePerformance.Fail;
       summary = (
         <div>
@@ -276,8 +330,7 @@ class EbonMight extends Analyzer {
           cast.
         </div>
       );
-      // Case 1: 2 buffed targets
-      if (prescienceBuffsActive >= 2) {
+      if (prescienceBuffsActive >= PERFECT_PRESCIENCE_BUFFS) {
         performance = QualitativePerformance.Perfect;
         details = (
           <div>
@@ -285,19 +338,16 @@ class EbonMight extends Analyzer {
             on cast. Good job!
           </div>
         );
-      }
-      // Case 2: 1 buffed target
-      else if (prescienceBuffsActive === 1) {
+      } else if (prescienceBuffsActive === OK_PRESCIENCE_BUFFS) {
         performance = QualitativePerformance.Ok;
         details = (
           <div>
             You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active
-            on cast. Try to line it up so you have two active.
+            on cast. Try to line it up so you have two active, so you can better control who your{' '}
+            <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> goes on.
           </div>
         );
-      }
-      // Case 3: 0 buffed targets
-      else {
+      } else {
         performance = QualitativePerformance.Fail;
         details = (
           <div>
@@ -310,29 +360,72 @@ class EbonMight extends Analyzer {
       }
     }
 
-    const checklistItems: ChecklistUsageInfo[] = [
-      {
-        check: 'buffed-targets',
-        timestamp: ebonMightCooldownCast.event.timestamp,
-        performance,
-        summary,
-        details,
-      },
-    ];
-
-    const actualPerformance = combineQualitativePerformances(
-      checklistItems.map((item) => item.performance),
-    );
-
-    return {
-      event: ebonMightCooldownCast.event,
-      performance: actualPerformance,
-      checklistItems,
-      performanceExplanation:
-        actualPerformance !== QualitativePerformance.Fail
-          ? `${actualPerformance} Usage`
-          : 'Bad Usage',
+    const performanceCheck = {
+      performance: performance,
+      summary: summary,
+      details: details,
     };
+
+    return performanceCheck;
+  }
+
+  /** Do role/spec Performance check for players
+   * getting buffed are DPS (excluding Aug this one is a crime!) */
+  private getRolePerformance(ebonMightCooldownCast: EbonMightCooldownCast) {
+    // Only run the check if there is actually 4 dps players amongus
+    const players = Object.values(this.combatants.players);
+
+    const enoughDPSFound =
+      players.reduce((dpsCount, player) => {
+        const targetID = player._combatantInfo.sourceID;
+
+        const isRangedDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.RANGED;
+        const isMeleeDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.MELEE;
+        const isAugmentation =
+          this.combatants.players[targetID]?.spec === SPECS.AUGMENTATION_EVOKER;
+
+        return (isRangedDPS || isMeleeDPS) && !isAugmentation ? dpsCount + 1 : dpsCount;
+      }, 0) >= 4;
+
+    if (!enoughDPSFound || !ebonMightCooldownCast.buffedTargets) {
+      return;
+    }
+
+    let rolePerformance = QualitativePerformance.Perfect;
+    const buffedPlayers: JSX.Element[] = [];
+
+    ebonMightCooldownCast.buffedTargets.forEach((player) => {
+      const currentPlayer = this.combatants.players[player.targetID];
+      const className = currentPlayer.spec?.className.replace(/\s/g, '') ?? '';
+      let currentPlayerRole = 'DPS';
+      if (
+        currentPlayer.spec?.role === ROLES.HEALER ||
+        currentPlayer.spec?.role === ROLES.TANK ||
+        currentPlayer.spec === SPECS.AUGMENTATION_EVOKER
+      ) {
+        if (currentPlayer.spec?.role === ROLES.HEALER) {
+          currentPlayerRole = 'Healer';
+        } else if (currentPlayer.spec?.role === ROLES.TANK) {
+          currentPlayerRole = 'Tank';
+        } else {
+          currentPlayerRole = 'Augmentation';
+        }
+        rolePerformance = QualitativePerformance.Fail;
+      }
+      buffedPlayers.push(
+        <div>
+          Buffed {currentPlayerRole}: <span className={className}>{currentPlayer.name}</span>
+        </div>,
+      );
+    });
+
+    const performanceCheck = {
+      performance: rolePerformance,
+      summary: <div>Buffed 4 DPS</div>,
+      details: <div>{buffedPlayers}</div>,
+    };
+
+    return performanceCheck;
   }
 
   guideSubsection(): JSX.Element | null {

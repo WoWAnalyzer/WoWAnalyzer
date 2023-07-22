@@ -72,7 +72,7 @@ class SandsOfTime extends Analyzer {
     const spell = possibleExtends.event.ability.guid;
     let performance = extended ? QualitativePerformance.Good : QualitativePerformance.Fail;
     if (spell === TALENTS.ERUPTION_TALENT.id && !extended) {
-      performance = QualitativePerformance.Ok;
+      performance = QualitativePerformance.Fail;
     }
     const summary = (
       <div>
@@ -140,7 +140,12 @@ class SandsOfTime extends Analyzer {
         explanation={explanation}
         uses={this.uses}
         castBreakdownSmallText={
-          <> - These boxes represent each cast, colored by how good the usage was.</>
+          <>
+            {' '}
+            - Green is a good cast where you extended you{' '}
+            <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> window, Red is a bad cast where you
+            didn't extend.
+          </>
         }
         onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
