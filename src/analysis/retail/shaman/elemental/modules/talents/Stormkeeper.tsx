@@ -287,7 +287,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     this.damageDoneByBuffedCasts += event.amount + (event.absorbed || 0);
   }
 
-  _explainTimelineWithDetails(cast: SKCast) {
+  private explainTimelineWithDetails(cast: SKCast) {
     const checklistItem = {
       performance: cast.timeline.performance,
       summary: <span>Spell order</span>,
@@ -359,7 +359,10 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   /**
    * Determine the performance of how much maelstrom the user had when casting SK
    */
-  _determineMaelstromPerformance(maelstromRequired: number, cast: SKCast): QualitativePerformance {
+  private determineMaelstromPerformance(
+    maelstromRequired: number,
+    cast: SKCast,
+  ): QualitativePerformance {
     let maelstromOnCastPerformance = QualitativePerformance.Ok;
     if (
       cast.maelstromOnCast >
@@ -373,7 +376,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     return maelstromOnCastPerformance;
   }
 
-  _explainMaelstromPerformance(cast: SKCast) {
+  private explainMaelstromPerformance(cast: SKCast) {
     let maelstromRequired;
     if (cast.event.timestamp < this.owner.fight.start_time) {
       maelstromRequired = BASE_MAELSTROM_REQUIRED_PREPULL_CAST;
@@ -388,7 +391,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       );
     }
 
-    const maelstromOnCastPerformance = this._determineMaelstromPerformance(maelstromRequired, cast);
+    const maelstromOnCastPerformance = this.determineMaelstromPerformance(maelstromRequired, cast);
 
     const checklistItem = {
       performance: maelstromOnCastPerformance,
@@ -410,7 +413,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     return checklistItem;
   }
 
-  _determineFlameshockPerformance(flameshockDurationOnCast: number): QualitativePerformance {
+  private determineFlameshockPerformance(flameshockDurationOnCast: number): QualitativePerformance {
     if (flameshockDurationOnCast > FLAMESHOCK_IDEAL_DURATION_REMAINING) {
       return QualitativePerformance.Perfect;
     } else {
@@ -418,8 +421,8 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     }
   }
 
-  _explainFlSPerformance(cast: SKCast) {
-    const FlSPerformance = this._determineFlameshockPerformance(cast.flameshockDurationOnCast);
+  private explainFlSPerformance(cast: SKCast) {
+    const FlSPerformance = this.determineFlameshockPerformance(cast.flameshockDurationOnCast);
 
     const checklistItem = {
       performance: FlSPerformance,
@@ -443,7 +446,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     return checklistItem;
   }
 
-  _determineElshocksPerformance(elshocksDurationOnCast: number): QualitativePerformance {
+  private determineElshocksPerformance(elshocksDurationOnCast: number): QualitativePerformance {
     if (elshocksDurationOnCast > ELECTRIFIED_SHOCKS_IDEAL_DURATION_REMAINING) {
       return QualitativePerformance.Perfect;
     } else {
@@ -451,8 +454,8 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     }
   }
 
-  _explainElShocksPerformance(cast: SKCast) {
-    const ElShocksPerformance = this._determineElshocksPerformance(
+  private explainElShocksPerformance(cast: SKCast) {
+    const ElShocksPerformance = this.determineElshocksPerformance(
       cast.electrifiedShocksDurationOnCast,
     );
 
@@ -479,7 +482,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
     return checklistItem;
   }
 
-  _determineTotalWindowPerformance(
+  private determineTotalWindowPerformance(
     timelinePerformance: QualitativePerformance,
     maelstromOnCastPerformance: QualitativePerformance,
     FlSPerformance: QualitativePerformance,
@@ -502,12 +505,12 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   }
 
   explainPerformance(cast: SKCast): SpellUse {
-    const timeline = this._explainTimelineWithDetails(cast);
-    const maelstromOnCast = this._explainMaelstromPerformance(cast);
-    const FlSDuration = this._explainFlSPerformance(cast);
-    const ELShocksperf = this._explainElShocksPerformance(cast);
+    const timeline = this.explainTimelineWithDetails(cast);
+    const maelstromOnCast = this.explainMaelstromPerformance(cast);
+    const FlSDuration = this.explainFlSPerformance(cast);
+    const ELShocksperf = this.explainElShocksPerformance(cast);
 
-    const totalPerformance = this._determineTotalWindowPerformance(
+    const totalPerformance = this.determineTotalWindowPerformance(
       timeline.checklistItem.performance,
       maelstromOnCast.performance,
       FlSDuration.performance,
