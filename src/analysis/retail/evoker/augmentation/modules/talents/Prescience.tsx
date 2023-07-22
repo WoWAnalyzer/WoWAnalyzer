@@ -90,7 +90,6 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   }
 
   private prescienceWindowCastPerformance(cast: PrescienceCooldownCast): UsageInfo {
-    console.log(cast);
     const className = this.currentBuffedPlayer?.spec?.className.replace(/\s/g, '') ?? '';
     let performance = QualitativePerformance.Fail;
     const summary = <div>Buffed a DPS</div>;
@@ -162,7 +161,6 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   private onCast(event: CastEvent) {
     let buffTarget;
     const relatedBuffEvents = getPrescienceBuffEvents(event);
-    console.log(event);
 
     for (let i = 0; i < relatedBuffEvents.length; i = i + 1) {
       const targetID = relatedBuffEvents[i].targetID;
