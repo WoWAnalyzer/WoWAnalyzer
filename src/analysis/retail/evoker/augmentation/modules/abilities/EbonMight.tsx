@@ -373,15 +373,19 @@ class EbonMight extends Analyzer {
    * getting buffed are DPS (excluding Aug this one is a crime!) */
   private getRolePerformance(ebonMightCooldownCast: EbonMightCooldownCast) {
     // Only run the check if there is actually 4 dps players amongus
+    const players = Object.values(this.combatants.players);
+
     const enoughDPSFound =
-      (ebonMightCooldownCast.buffedTargets as (ApplyBuffEvent | RefreshBuffEvent)[]).reduce(
-        (dpsCount, buffedTarget) =>
-          this.combatants.players[buffedTarget.targetID]?.spec?.role === ROLES.DPS.RANGED ||
-          this.combatants.players[buffedTarget.targetID]?.spec?.role === ROLES.DPS.MELEE
-            ? dpsCount + 1
-            : dpsCount,
-        0,
-      ) >= 4;
+      players.reduce((dpsCount, player) => {
+        const targetID = player._combatantInfo.sourceID;
+
+        const isRangedDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.RANGED;
+        const isMeleeDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.MELEE;
+        const isAugmentation =
+          this.combatants.players[targetID]?.spec === SPECS.AUGMENTATION_EVOKER;
+
+        return (isRangedDPS || isMeleeDPS) && !isAugmentation ? dpsCount + 1 : dpsCount;
+      }, 0) >= 4;
 
     if (!enoughDPSFound || !ebonMightCooldownCast.buffedTargets) {
       return;
