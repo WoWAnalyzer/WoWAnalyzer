@@ -37,14 +37,6 @@
     },
     {
       "key": {
-        "href": "https://kr.api.blizzard.com/data/wow/realm/4693?namespace=dynamic-classic-kr"
-      },
-      "name": "KR1 CWOW GMSS 1",
-      "id": 4693,
-      "slug": "kr1-cwow-gmss-1"
-    },
-    {
-      "key": {
         "href": "https://kr.api.blizzard.com/data/wow/realm/4840?namespace=dynamic-classic-kr"
       },
       "name": "서리한",

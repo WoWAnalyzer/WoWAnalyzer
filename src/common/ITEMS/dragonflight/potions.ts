@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const potions = itemIndexableList({
+const potions = {
   //region Air Potions
   AERATED_MANA_POTION_R1: {
     id: 191384,
@@ -252,6 +252,6 @@ const potions = itemIndexableList({
     icon: 'trade_alchemy_dpotion_b20',
   },
   //endregion
-});
+} satisfies Record<string, Item>;
 
 export default potions;

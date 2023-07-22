@@ -1,5 +1,5 @@
 import { t } from '@lingui/macro';
-import indexById, { asRestrictedTable } from 'common/indexById';
+import indexById from 'common/indexById';
 
 import PRIMARY_STATS from './PRIMARY_STATS';
 import ROLES from './ROLES';
@@ -45,9 +45,7 @@ export function specMasteryCoefficient(spec: Spec | undefined): number | undefin
   }
 }
 
-const specIndexableList = asRestrictedTable<Spec>();
-
-const SPECS = specIndexableList({
+const SPECS = {
   ARCANE_MAGE: {
     id: 62,
     index: 0,
@@ -808,6 +806,26 @@ const SPECS = specIndexableList({
       spec: 2,
     },
   },
+  AUGMENTATION_EVOKER: {
+    id: 1473,
+    index: 38,
+    className: t({
+      id: 'specs.evoker',
+      message: `Evoker`,
+    }),
+    specName: t({
+      id: 'specs.augmentation',
+      message: 'Augmentation',
+    }),
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    masterySpellId: 406380,
+    masteryCoefficient: 0.4,
+    ranking: {
+      class: 13,
+      spec: 3,
+    },
+  },
 
   // --------------
   // CLASSIC SPECS
@@ -1465,7 +1483,7 @@ const SPECS = specIndexableList({
     },
     icon: 'Druid-Guardian',
   },
-});
+} satisfies Record<string, Spec>;
 
 export const DEATH_KNIGHT_SPECS: Spec[] = [
   SPECS.BLOOD_DEATH_KNIGHT,
@@ -1479,7 +1497,11 @@ export const DRUID_SPECS: Spec[] = [
   SPECS.GUARDIAN_DRUID,
   SPECS.RESTORATION_DRUID,
 ];
-export const EVOKER_SPECS: Spec[] = [SPECS.DEVASTATION_EVOKER, SPECS.PRESERVATION_EVOKER];
+export const EVOKER_SPECS: Spec[] = [
+  SPECS.DEVASTATION_EVOKER,
+  SPECS.PRESERVATION_EVOKER,
+  SPECS.AUGMENTATION_EVOKER,
+];
 export const HUNTER_SPECS: Spec[] = [
   SPECS.SURVIVAL_HUNTER,
   SPECS.BEAST_MASTERY_HUNTER,

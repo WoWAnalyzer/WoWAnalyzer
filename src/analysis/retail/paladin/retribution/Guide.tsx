@@ -6,11 +6,13 @@ import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/Guide
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
-import CooldownGraphSubsection from 'analysis/retail/paladin/retribution/guide/CooldownGraphSubsection';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
 import TALENTS from 'common/TALENTS/paladin';
 import SpellLink from 'interface/SpellLink';
+import CooldownGraphSubsection, {
+  Cooldown,
+} from 'interface/guide/components/CooldownGraphSubSection';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -26,16 +28,17 @@ const PERFECT_HOLY_POWER_CAP = 0.1;
 const GOOD_HOLY_POWER_CAP = 0.15;
 const OK_HOLY_POWER_CAP = 0.2;
 function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
-  const percentAtHolyPowerCap = modules.holyPowerTracker.percentAtCap;
-  let percentAtHolyPowerCapPerformance = QualitativePerformance.Fail;
-  if (percentAtHolyPowerCap <= PERFECT_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Perfect;
-  } else if (percentAtHolyPowerCap <= GOOD_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Good;
-  } else if (percentAtHolyPowerCap <= OK_HOLY_POWER_CAP) {
-    percentAtHolyPowerCapPerformance = QualitativePerformance.Ok;
-  }
   const holyPowerWasted = modules.holyPowerTracker.wasted;
+  const holyPowerTotal = modules.holyPowerTracker.generated;
+  const wastedHolyPowerPercentage = holyPowerWasted / holyPowerTotal;
+  let wastedHolyPowerPercentagePerformance = QualitativePerformance.Fail;
+  if (wastedHolyPowerPercentage <= PERFECT_HOLY_POWER_CAP) {
+    wastedHolyPowerPercentagePerformance = QualitativePerformance.Perfect;
+  } else if (wastedHolyPowerPercentage <= GOOD_HOLY_POWER_CAP) {
+    wastedHolyPowerPercentagePerformance = QualitativePerformance.Good;
+  } else if (wastedHolyPowerPercentage <= OK_HOLY_POWER_CAP) {
+    wastedHolyPowerPercentagePerformance = QualitativePerformance.Ok;
+  }
 
   return (
     <Section title="Resource Use">
@@ -54,11 +57,11 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
             <p>
               You wasted{' '}
               <PerformancePercentage
-                performance={percentAtHolyPowerCapPerformance}
+                performance={wastedHolyPowerPercentagePerformance}
                 perfectPercentage={PERFECT_HOLY_POWER_CAP}
                 goodPercentage={GOOD_HOLY_POWER_CAP}
                 okPercentage={OK_HOLY_POWER_CAP}
-                percentage={percentAtHolyPowerCap}
+                percentage={wastedHolyPowerPercentage}
                 flatAmount={holyPowerWasted}
               />{' '}
               of your <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} />.
@@ -71,14 +74,14 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
               </p>
             ) : null}
             {info.combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT) &&
-            percentAtHolyPowerCap > PERFECT_HOLY_POWER_CAP ? (
+            wastedHolyPowerPercentage > PERFECT_HOLY_POWER_CAP ? (
               <p>
                 Some of this might be attributable to the Judgments from{' '}
                 <SpellLink spell={TALENTS.DIVINE_TOLL_TALENT} />.
               </p>
             ) : null}
             {info.combatant.hasTalent(TALENTS.DIVINE_RESONANCE_RETRIBUTION_TALENT) &&
-            percentAtHolyPowerCap > PERFECT_HOLY_POWER_CAP ? (
+            wastedHolyPowerPercentage > PERFECT_HOLY_POWER_CAP ? (
               <p>
                 Some of this might be attributable to the free Judgments from{' '}
                 <SpellLink spell={TALENTS.DIVINE_RESONANCE_RETRIBUTION_TALENT} />.
@@ -97,6 +100,24 @@ function ResourceUsageSection({ modules, info }: GuideProps<typeof CombatLogPars
   );
 }
 
+const cooldowns: Cooldown[] = [
+  {
+    spell: TALENTS.WAKE_OF_ASHES_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.WAKE_OF_ASHES_TALENT),
+  },
+  {
+    spell: TALENTS.FINAL_RECKONING_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.FINAL_RECKONING_TALENT),
+  },
+  {
+    spell: TALENTS.EXECUTION_SENTENCE_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.EXECUTION_SENTENCE_TALENT),
+  },
+  {
+    spell: TALENTS.DIVINE_TOLL_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
+  },
+];
 function CooldownSection() {
   return (
     <Section title="Cooldowns">
@@ -107,7 +128,7 @@ function CooldownSection() {
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />
-      <CooldownGraphSubsection />
+      <CooldownGraphSubsection cooldowns={cooldowns} />
     </Section>
   );
 }

@@ -4,11 +4,11 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { spellIndexableList } from './Spell';
+import Spell from './Spell';
 
-const spells = spellIndexableList({
+const spells = {
   //region Shared
-  GLIDE: {
+  GLIDE_DH: {
     id: 131347,
     name: 'Glide',
     icon: 'ability_demonhunter_glide',
@@ -556,6 +556,6 @@ const spells = spellIndexableList({
     icon: 'ability_demonhunter_eyebeam',
   },
   //endregion
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

@@ -54,6 +54,8 @@ import TirionsDevotion from './modules/talents/TirionsDevotion';
 import Reclamation from './modules/talents/Reclamation';
 import LightsProtection from './modules/talents/GlimmerOfLight/LightsProtection';
 import Daybreak from './modules/talents/GlimmerOfLight/Daybreak';
+import TyrsDeliverance from './modules/talents/TyrsDeliverance/TyrsDeliverance';
+import BoundlessSalvation from './modules/talents/TyrsDeliverance/BoundlessSalvation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -116,6 +118,8 @@ class CombatLogParser extends CoreCombatLogParser {
     reclamation: Reclamation,
     lightsProtection: LightsProtection,
     daybreak: Daybreak,
+    tyrsDeliverance: TyrsDeliverance,
+    boundlessSalvation: BoundlessSalvation,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,

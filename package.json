@@ -40,9 +40,12 @@
     "vega-lite": "^5.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.7",
-    "@babel/plugin-proposal-private-property-in-object": "^7.20.5",
-    "@babel/register": "^7.18.9",
+    "@babel/preset-env": "7.22.5",
+    "@babel/preset-react": "7.22.5",
+    "@babel/preset-typescript": "7.22.5",
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "@babel/register": "7.22.5",
+    "@babel/types": "7.22.5",
     "@emotion/babel-plugin": "^11.10.5",
     "@lingui/cli": "3.14.0",
     "@lingui/loader": "3.14.0",
@@ -86,8 +89,8 @@
   "resolutions": {
     "@lingui/cli": "3.14.0",
     "@lingui/core": "3.14.0",
-    "@typescript-eslint/eslint-plugin": "^5.47.1",
-    "@typescript-eslint/parser": "^5.47.1",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "eslint-plugin-react": "^7.26.1",
     "prettier-plugin-tailwindcss": "0.1.7"
   },
