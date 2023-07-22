@@ -36,9 +36,9 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: PRESCIENCE_APPLY_REMOVE_LINK,
     linkingEventId: SPELLS.PRESCIENCE_BUFF.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.RemoveBuff],
+    linkingEventType: [EventType.ApplyBuff, EventType.RemoveBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.PRESCIENCE_BUFF.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RemoveBuff],
+    referencedEventType: [EventType.ApplyBuff, EventType.RemoveBuff, EventType.RefreshBuff],
     anyTarget: true,
     forwardBufferMs: 5000,
     backwardBufferMs: 5000,
