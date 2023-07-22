@@ -19,12 +19,14 @@ import {
   HerzBlutRaffy,
   Abelito75,
   Jundarer,
+  Vollmer,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 21), 'Add scrollability to Buff count graphs', Vollmer),
   change(date(2023, 7, 19), 'Update NameSearch to swap between Retail and Classic Realm lists', jazminite),
   change(date(2023, 7, 17), 'Update spell registration to use `satisfies` keyword', ToppleTheNun),
   change(date(2023, 7, 17), 'Make patch incompatibility warning more clear.', ToppleTheNun),
