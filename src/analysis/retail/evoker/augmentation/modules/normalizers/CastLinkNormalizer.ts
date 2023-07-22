@@ -14,10 +14,12 @@ export const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
 export const PRESCIENCE_APPLY_REMOVE_LINK = 'prescienceApplyRemoveLink';
 export const TIP_THE_SCALES_CONSUME = 'tipTheScalesConsume';
 export const BREATH_EBON_APPLY_LINK = 'breathEbonApplyLink';
+export const EBON_MIGHT_BUFF_LINKS = 'ebonMightBuffLinks';
 
 export const PRESCIENCE_BUFFER = 150;
 export const CAST_BUFFER_MS = 100;
 export const BREATH_EBON_BUFFER = 250;
+export const EBON_MIGHT_BUFFER = 150;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -66,6 +68,17 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.ApplyBuff,
     anyTarget: true,
     forwardBufferMs: BREATH_EBON_BUFFER,
+  },
+  {
+    linkRelation: EBON_MIGHT_BUFF_LINKS,
+    reverseLinkRelation: EBON_MIGHT_BUFF_LINKS,
+    linkingEventId: SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    anyTarget: true,
+    forwardBufferMs: EBON_MIGHT_BUFFER,
+    backwardBufferMs: EBON_MIGHT_BUFFER,
   },
 ];
 
