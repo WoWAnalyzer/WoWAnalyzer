@@ -6,6 +6,7 @@ import {
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
+  RefreshBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
@@ -90,6 +91,12 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 export function getPrescienceBuffEvents(event: CastEvent): ApplyBuffEvent[] {
   return GetRelatedEvents(event, PRESCIENCE_BUFF_CAST_LINK).filter(
+    (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff || e.type === EventType.RefreshBuff,
+  );
+}
+
+export function getEbonMightBuffEvents(event: ApplyBuffEvent | RefreshBuffEvent): ApplyBuffEvent[] {
+  return GetRelatedEvents(event, EBON_MIGHT_BUFF_LINKS).filter(
     (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff || e.type === EventType.RefreshBuff,
   );
 }
