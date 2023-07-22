@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import type { Suggestion } from './CombatLogParser';
 import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
-import Events, { AnyEvent, EventType, MappedEvent } from './Events';
+import Events, { AnyEvent, EventType } from './Events';
 import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
 import { Info, Metric } from './metric';
 import Module from './Module';
@@ -30,7 +30,7 @@ class Analyzer extends EventSubscriber {
   constructor(options: Options) {
     super(options);
   }
-  addEventListener<ET extends EventType, E extends MappedEvent<ET>>(
+  addEventListener<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
   ) {
