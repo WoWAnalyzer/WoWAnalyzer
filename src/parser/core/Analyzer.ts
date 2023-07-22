@@ -49,6 +49,20 @@ class Analyzer extends EventSubscriber {
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   tab(): ParseResultsTab | void {}
+
+  static withDependencies<T extends Dependencies>(deps: T) {
+    return class extends Analyzer {
+      static dependencies = deps;
+
+      protected readonly deps: InjectedDependencies<T>;
+
+      constructor(options: Options) {
+        super(options);
+
+        this.deps = options as InjectedDependencies<T>;
+      }
+    };
+  }
 }
 
 export default Analyzer;
