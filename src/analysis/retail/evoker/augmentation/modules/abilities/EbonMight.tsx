@@ -25,6 +25,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { ebonIsFromBreath } from '../normalizers/CastLinkNormalizer';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 const PANDEMIC_WINDOW = 0.3;
 
@@ -53,8 +54,10 @@ interface PrescienceBuffs {
 class EbonMight extends Analyzer {
   static dependencies = {
     stats: StatTracker,
+    spellUsable: SpellUsable,
   };
   protected stats!: StatTracker;
+  protected spellUsable!: SpellUsable;
 
   private uses: SpellUse[] = [];
   private ebonMightCasts: EbonMightCooldownCast[] = [];
@@ -109,6 +112,10 @@ class EbonMight extends Analyzer {
       : this.calculateEbonMightDuration(event);
     this.currentEbonMightCastTime = event.timestamp;
     this.ebonMightActive = true;
+    // If Ebon Might was cast pre-pull, make sure we put it on CD
+    if (event.prepull && this.spellUsable.isAvailable(TALENTS.EBON_MIGHT_TALENT.id)) {
+      this.spellUsable.beginCooldown(event, TALENTS.EBON_MIGHT_TALENT.id);
+    }
     //console.log('Applied at: ' +formatDuration(event.timestamp - this.owner.fight.start_time) +' Duration: ' +this.currentEbonMightDuration,);
   }
 
