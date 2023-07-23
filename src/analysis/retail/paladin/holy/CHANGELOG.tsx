@@ -5,6 +5,7 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 7, 23), <>IoL can be consumed by Judgment without Divine Revelations.</>, Abelito75),
   change(date(2023, 7, 17), <>Judgment can consume IoL for Imbued Light</>, Abelito75),
   change(date(2023, 7, 17), <>Checklist updated and 10.1.5 marked as supported</>, Abelito75),
   change(date(2023, 7, 17), <>Fixex inaccuracy in <SpellLink spell={TALENTS.DAYBREAK_TALENT} /></>, Tialyss),
