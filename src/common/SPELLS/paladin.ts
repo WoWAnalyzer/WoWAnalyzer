@@ -325,6 +325,16 @@ const spells = {
     name: 'Divine Revelations',
     icon: 'ability_paladin_infusionoflight',
   },
+  TYRS_DELIVERANCE_HEALING_INCREASE: {
+    id: 200654,
+    name: "Tyr's Deliverance",
+    icon: 'inv_mace_2h_artifactsilverhand_d_01',
+  },
+  RESPLENDENT_LIGHT_HEAL: {
+    id: 392903,
+    name: 'Resplendent Light',
+    icon: 'ability_priest_voidshift',
+  },
   DAYBREAK_ENERGIZE: {
     id: 414176,
     name: 'Daybreak',

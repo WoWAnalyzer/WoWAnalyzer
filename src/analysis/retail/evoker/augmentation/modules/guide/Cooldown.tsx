@@ -29,25 +29,44 @@ export function CooldownSection({ info }: GuideProps<typeof CombatLogParser>) {
           segments show when the spell was cooling down. Red segments highlight times when you could
           have fit a whole extra use of the cooldown.
         </p>
-        <CastEfficiencyBar
-          spellId={TALENTS.BREATH_OF_EONS_TALENT.id}
-          gapHighlightMode={GapHighlight.All}
-        />
+        {info.combatant.hasTalent(TALENTS.BREATH_OF_EONS_TALENT) && (
+          <CastEfficiencyBar
+            spell={TALENTS.BREATH_OF_EONS_TALENT}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
+        )}
+        {!info.combatant.hasTalent(TALENTS.BREATH_OF_EONS_TALENT) && (
+          <CastEfficiencyBar
+            spell={SPELLS.DEEP_BREATH}
+            gapHighlightMode={GapHighlight.FullCooldown}
+          />
+        )}
         {info.combatant.hasTalent(TALENTS.TIME_SKIP_TALENT) &&
           !info.combatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) && (
             <CastEfficiencyBar
-              spellId={TALENTS.TIME_SKIP_TALENT.id}
-              gapHighlightMode={GapHighlight.All}
+              spell={TALENTS.TIME_SKIP_TALENT}
+              gapHighlightMode={GapHighlight.FullCooldown}
             />
           )}
+        {info.combatant.hasTalent(TALENTS.PRESCIENCE_TALENT) && (
+          <CastEfficiencyBar
+            spell={TALENTS.PRESCIENCE_TALENT}
+            gapHighlightMode={GapHighlight.All}
+            minimizeIcons
+          />
+        )}
         <CastEfficiencyBar
-          spellId={hasFontTalent ? SPELLS.FIRE_BREATH_FONT.id : SPELLS.FIRE_BREATH.id}
+          spell={hasFontTalent ? SPELLS.FIRE_BREATH_FONT : SPELLS.FIRE_BREATH}
           gapHighlightMode={GapHighlight.FullCooldown}
+          minimizeIcons
         />
-        <CastEfficiencyBar
-          spellId={hasFontTalent ? SPELLS.UPHEAVAL_FONT.id : SPELLS.UPHEAVAL.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-        />
+        {info.combatant.hasTalent(TALENTS.UPHEAVAL_TALENT) && (
+          <CastEfficiencyBar
+            spell={hasFontTalent ? SPELLS.UPHEAVAL_FONT : SPELLS.UPHEAVAL}
+            gapHighlightMode={GapHighlight.FullCooldown}
+            minimizeIcons
+          />
+        )}
       </SubSection>
     </Section>
   );

@@ -1935,6 +1935,12 @@ export const Omegabiscuit: Contributor = {
   github: 'omegabiscuit',
 };
 
+export const Ahri: Contributor = {
+  nickname: 'Ahri',
+  github: 'ahriandel',
+  discord: 'ahriandel',
+};
+
 export const ToppleTheNun: Contributor = {
   nickname: 'ToppleTheNun',
   github: 'ToppleTheNun',

@@ -2,10 +2,11 @@ import { t, Trans } from '@lingui/macro';
 import { makeCharacterApiUrl, makeGuildApiUrl } from 'common/makeApiUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
-import REALMS from 'game/RealmList';
+import { REALM_LIST, CLASSIC_REALM_LIST } from 'game/RealmList';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
+import { RETAIL_EXPANSION_NAME, CLASSIC_EXPANSION_NAME } from 'game/Expansion';
 
 export enum SearchType {
   CHARACTER = 'Character',
@@ -16,9 +17,14 @@ interface Props {
   type: SearchType;
 }
 const NameSearch = ({ type }: Props) => {
+  const retailExpansion = RETAIL_EXPANSION_NAME.toUpperCase();
+  const classicExpansion = CLASSIC_EXPANSION_NAME.toUpperCase();
   const [loading, setLoading] = useState(false);
+  const [currentGame, setCurrentGame] = useState(retailExpansion);
+  const [currentRealms, setCurrentRealms] = useState(REALM_LIST);
   const [currentRegion, setCurrentRegion] = useState('EU');
   const [currentRealm, setCurrentRealm] = useState('');
+  const gameInput = useRef<HTMLSelectElement>(null);
   const regionInput = useRef<HTMLSelectElement>(null);
   const nameInput = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
@@ -27,22 +33,23 @@ const NameSearch = ({ type }: Props) => {
     async (e: FormEvent) => {
       e.preventDefault();
 
+      const game = gameInput.current?.value;
       const region = regionInput.current?.value;
       const realm = currentRealm;
       const name = nameInput.current?.value;
       const makePageUrl = type === SearchType.CHARACTER ? makeCharacterPageUrl : makeGuildPageUrl;
 
-      if (!region || !realm || !name) {
+      if (!game || !region || !realm || !name) {
         alert(
           t({
             id: 'interface.nameSearch.pleaseSelect',
-            message: `Please select a region, realm, and guild.`,
+            message: `Please select a game, region, realm, and guild.`,
           }),
         );
         return;
       }
 
-      // Checking for guild-exists here makes it more userfriendly and saves WCL-requests when guild doesn't exist
+      // Checking for guild-exists here makes it more user-friendly and saves WCL-requests when guild doesn't exist
       if (loading) {
         alert(
           t({
@@ -74,7 +81,7 @@ const NameSearch = ({ type }: Props) => {
           alert(
             t({
               id: 'interface.nameSearch.nameNotFound',
-              message: `${name} not found on ${realm}. Double check the region, realm, and name.`,
+              message: `${name} not found on ${realm}. Double check the game, region, realm, and name.`,
             }),
           );
           setLoading(false);
@@ -96,10 +103,25 @@ const NameSearch = ({ type }: Props) => {
     [currentRealm, navigate, loading, type],
   );
 
+  const changeGame = (targetGame: string) => {
+    if (targetGame === retailExpansion) {
+      setCurrentRealms(REALM_LIST);
+    } else {
+      setCurrentRealms(CLASSIC_REALM_LIST);
+    }
+    setCurrentGame(targetGame);
+    if (currentRegion === 'CN') {
+      setCurrentRegion('EU');
+    } else {
+      setCurrentRegion(currentRegion);
+    }
+    setCurrentRealm('');
+  };
+
   const changeRegion = (targetRegion: string) => {
     let newRealm = currentRealm;
     // If the new region doesn't have a realm by the same name, clear the input
-    if (!REALMS[targetRegion].some((realm) => realm.name === newRealm)) {
+    if (!currentRealms[targetRegion].some((realm) => realm.name === newRealm)) {
       newRealm = '';
     }
     setCurrentRegion(targetRegion);
@@ -123,12 +145,25 @@ const NameSearch = ({ type }: Props) => {
   return (
     <form onSubmit={handleSubmit} className="character-guild-selector">
       <select
+        className="form-control game"
+        ref={gameInput}
+        defaultValue={currentGame}
+        onChange={(e) => changeGame(e.target.value)}
+      >
+        <option key="retail" value={retailExpansion}>
+          {retailExpansion}
+        </option>
+        <option hidden key="classic" value={classicExpansion}>
+          {classicExpansion}
+        </option>
+      </select>
+      <select
         className="form-control region"
         ref={regionInput}
         defaultValue={currentRegion}
         onChange={(e) => changeRegion(e.target.value)}
       >
-        {Object.keys(REALMS).map((elem) => (
+        {Object.keys(currentRealms).map((elem) => (
           <option key={elem} value={elem}>
             {elem}
           </option>
@@ -138,7 +173,7 @@ const NameSearch = ({ type }: Props) => {
         key={currentRegion}
         className="realm"
         search
-        options={REALMS[currentRegion].map((elem) => ({
+        options={currentRealms[currentRegion].map((elem) => ({
           value: elem.name,
           name: elem.name,
         }))}
