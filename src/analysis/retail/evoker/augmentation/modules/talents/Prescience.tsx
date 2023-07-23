@@ -12,6 +12,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { getPrescienceBuffEvents } from '../normalizers/CastLinkNormalizer';
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
+import { i18n } from '@lingui/core';
 
 /**
  * Prescience is a core talent that buffs the target with 3% crit, as well
@@ -90,7 +91,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   }
 
   private prescienceWindowCastPerformance(cast: PrescienceCooldownCast): UsageInfo {
-    const className = this.currentBuffedPlayer?.spec?.className.replace(/\s/g, '') ?? '';
+    const i18nClassName = this.currentBuffedPlayer?.spec?.className
+      ? i18n._(this.currentBuffedPlayer.spec.className)
+      : undefined;
+    const className = i18nClassName?.replace(/\s/g, '') ?? '';
     let performance = QualitativePerformance.Fail;
     const summary = <div>Buffed a DPS</div>;
     let details = (

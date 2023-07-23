@@ -12,6 +12,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import ROLES from 'game/ROLES';
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
+import { i18n } from '@lingui/core';
 
 interface ShiftingSandsApplications {
   event: ApplyBuffEvent;
@@ -165,7 +166,10 @@ class ShiftingSands extends Analyzer {
   }
 
   private getRolePerformance(application: ShiftingSandsApplications) {
-    const className = application.combatant.spec?.className.replace(/\s/g, '') ?? '';
+    const i18nClassName = application.combatant.spec?.className
+      ? i18n._(application.combatant.spec?.className)
+      : undefined;
+    const className = i18nClassName?.replace(/\s/g, '') ?? '';
     const roleSummary = <div>Buffed DPS player.</div>;
     let rolePerformance;
 
