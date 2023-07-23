@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellLink, TooltipElement } from 'interface';
-import { SubSection, useAnalyzer } from 'interface/guide';
+import { SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import CastReasonBreakdownTableContents from 'interface/guide/components/CastReasonBreakdownTableContents';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import PassFailBar from 'interface/guide/components/PassFailBar';
@@ -18,9 +18,9 @@ enum ComboEffect {
 }
 
 const comboEffectOrder = [
+  ComboEffect.TigerPalm,
   ComboEffect.BreathOfFire,
   ComboEffect.KegSmash,
-  ComboEffect.TigerPalm,
   ComboEffect.CelestialBrew,
   ComboEffect.PurifyingBrew,
 ];
@@ -43,6 +43,9 @@ const ComboUsageTable = styled.table`
 
 export default function BlackoutComboSection(): JSX.Element | null {
   const analyzer = useAnalyzer(BlackoutCombo);
+  const info = useInfo();
+
+  const hasPta = info?.combatant.hasTalent(talents.PRESS_THE_ADVANTAGE_TALENT);
 
   const reasons = useMemo(() => {
     if (!analyzer?.active) {
@@ -53,6 +56,14 @@ export default function BlackoutComboSection(): JSX.Element | null {
       Array.from({ length: count }, () => ({ reason: parseInt(spellId) as ComboEffect })),
     );
   }, [analyzer]);
+
+  const possibleCombos = useMemo(
+    () =>
+      hasPta
+        ? comboEffectOrder.filter((effect) => effect !== ComboEffect.TigerPalm)
+        : comboEffectOrder,
+    [hasPta],
+  );
 
   if (!analyzer?.active) {
     return null;
@@ -66,41 +77,40 @@ export default function BlackoutComboSection(): JSX.Element | null {
             's combo bonuses is:
           </p>
           <ul>
-            <li>
+            <li style={{ opacity: hasPta ? 0.5 : 1 }}>
               <div>
                 <strong>
-                  <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />: Always.
+                  <SpellLink spell={SPELLS.TIGER_PALM} />: On Single-Target.
                 </strong>
               </div>
               <div>
-                The 50%{' '}
-                <TooltipElement
-                  content={
-                    <>
-                      The <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> tooltip is
-                      incorrect&mdash;it buffs the initial hit of{' '}
-                      <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />, not the ticking damage.
-                    </>
-                  }
-                >
-                  damage boost
-                </TooltipElement>{' '}
-                is very good, as is the extra 5% DR.
+                Comboing <SpellLink spell={SPELLS.TIGER_PALM} /> is the best way to use{' '}
+                <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> for damage in single-target and
+                light AoE settings. You will frequently see high ranked raiders using this option.
               </div>
             </li>
             <li>
               <div>
                 <strong>
-                  <SpellLink spell={talents.KEG_SMASH_TALENT} />
-                </strong>{' '}
-                or{' '}
-                <strong>
-                  <SpellLink spell={SPELLS.TIGER_PALM} />: Frequently.
+                  <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />: On Multi-Target.
                 </strong>
               </div>
               <div>
-                Only used when <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> isn't available,
-                but both effects are decent.
+                The 50% damage boost is very good, as is the extra 5% DR. This is generally the
+                default combo on trash in Mythic+.
+              </div>
+            </li>
+            <li>
+              <div>
+                <strong>
+                  <SpellLink spell={talents.KEG_SMASH_TALENT} />: Often.
+                </strong>
+              </div>
+              <div>
+                Purely defensive, but not bad. You can combo more often than you can use{' '}
+                <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />, so this is often used in
+                multi-target settings where <SpellLink spell={SPELLS.TIGER_PALM} /> is less
+                valuable.
               </div>
             </li>
             <li>
@@ -136,7 +146,7 @@ export default function BlackoutComboSection(): JSX.Element | null {
               </div>
               <div>
                 Pausing <SpellLink spell={SPELLS.STAGGER} /> is extremely niche, so this doesn't
-                come up often.
+                come up often. Most uses you see of this in top logs are accidental.
               </div>
             </li>
           </ul>
@@ -175,7 +185,7 @@ export default function BlackoutComboSection(): JSX.Element | null {
           <CastReasonBreakdownTableContents
             casts={reasons}
             label={comboEffectLabel}
-            possibleReasons={comboEffectOrder}
+            possibleReasons={possibleCombos}
             badReason={ComboEffect.PurifyingBrew}
           />
           <tbody>

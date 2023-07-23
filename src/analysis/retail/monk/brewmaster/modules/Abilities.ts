@@ -52,6 +52,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TIGER_PALM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(talents.PRESS_THE_ADVANTAGE_TALENT),
         gcd: {
           static: 1000,
         },
