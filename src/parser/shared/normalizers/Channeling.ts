@@ -66,6 +66,7 @@ class Channeling extends EventsNormalizer {
     empowerChannelSpec(SPELLS.UPHEAVAL_FONT.id),
     buffChannelSpec(SPELLS.DISINTEGRATE.id),
     buffChannelSpec(TALENTS_EVOKER.BREATH_OF_EONS_TALENT.id),
+    buffChannelSpec(TALENTS_EVOKER.TIME_SKIP_TALENT.id),
     // Rogue
     // Druid
     buffChannelSpec(SPELLS.CONVOKE_SPIRITS.id),
