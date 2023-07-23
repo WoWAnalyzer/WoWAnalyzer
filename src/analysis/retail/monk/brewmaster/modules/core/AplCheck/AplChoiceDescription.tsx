@@ -1,59 +1,91 @@
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import talents from 'common/TALENTS/monk';
 import { AlertWarning, SpellLink } from 'interface';
+import { useInfo } from 'interface/guide';
 import { BrewmasterApl } from '../AplCheck';
 
 const aplTitle = (choice: BrewmasterApl) => {
   switch (choice) {
-    case BrewmasterApl.BoC_DfB:
+    case BrewmasterApl.BoC_TP:
       return (
         <>
           <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> +{' '}
-          <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} />
+          <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />
         </>
       );
-    case BrewmasterApl.DfB:
-      return <SpellLink spell={talents.DRAGONFIRE_BREW_TALENT} />;
-    case BrewmasterApl.ChP:
-      return <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />;
+    case BrewmasterApl.PTA:
+      return <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} />;
     default:
       return <em>Fallback</em>;
   }
 };
 
+const SpellSeq = (props: { spells: Spell[] }) => <></>;
+
+const cooldown = {
+  id: -1,
+  name: 'Cooldown',
+  icon: 'inv_misc_questionmark',
+};
+
 const BlackoutComboDescription = () => (
   <>
     <p>
-      The {aplTitle(BrewmasterApl.BoC_DfB)} rotation uses{' '}
+      The {aplTitle(BrewmasterApl.BoC_TP)} rotation uses{' '}
       <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> to empower{' '}
-      <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> for both damage and tankiness.
+      <SpellLink spell={SPELLS.TIGER_PALM} /> for immense single-target damage.
     </p>
     <p>
-      Your highest priority is to use <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} /> as often as
-      possible. Use the <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> buff on{' '}
-      <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> if available, and on{' '}
-      <SpellLink spell={talents.KEG_SMASH_TALENT} /> or <SpellLink spell={SPELLS.TIGER_PALM} /> if
-      not.
+      This rotation is very different from normal. It is built around two alternating "blocks" based
+      around <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} /> and{' '}
+      <SpellLink spell={SPELLS.TIGER_PALM} />:
     </p>
-    <small>
-      <p>
-        <strong>Note:</strong> Casting <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} />{' '}
-        <em>without</em> the buff will reduce your damage reduction back to 5%! If your targets are
-        already debuffed, you should skip <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> unless
-        you have the <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} /> buff!
-      </p>
-    </small>
+    <ul>
+      <li>
+        The{' '}
+        <SpellLink spell={talents.CHARRED_PASSIONS_TALENT}>
+          <strong>ChP</strong>
+        </SpellLink>{' '}
+        block maintains <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />:{' '}
+        <SpellSeq
+          spells={[
+            SPELLS.BLACKOUT_KICK_BRM,
+            SPELLS.TIGER_PALM,
+            talents.KEG_SMASH_TALENT,
+            talents.BREATH_OF_FIRE_TALENT,
+          ]}
+        />
+      </li>
+      <li>
+        The <strong>Cooldown</strong> block spends your other cooldowns:{' '}
+        <SpellSeq spells={[SPELLS.BLACKOUT_KICK_BRM, SPELLS.TIGER_PALM, cooldown, cooldown]} />
+      </li>
+    </ul>
+    <p>
+      By alternating between these blocks, you balance efficiently spending cooldowns with effective
+      use of <SpellLink spell={talents.BLACKOUT_COMBO_TALENT} />.
+    </p>
   </>
 );
 
 const ChPDfBDescription = ({ apl }: { apl: BrewmasterApl }) => {
+  const info = useInfo();
+
+  if (
+    !info?.combatant.hasTalent(talents.CHARRED_PASSIONS_TALENT) &&
+    !info?.combatant.hasTalent(talents.DRAGONFIRE_BREW_TALENT)
+  ) {
+    return <FallbackDescription />;
+  }
+
   return (
     <>
       <p>
         The {aplTitle(apl)} rotation is idental to the core rotation, except that{' '}
         <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> becomes much higher priority.
       </p>
-      {apl === BrewmasterApl.ChP ? (
+      {info?.combatant.hasTalent(talents.CHARRED_PASSIONS_TALENT) ? (
         <>
           <p>
             When playing <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />, you cast{' '}
@@ -98,15 +130,33 @@ const FallbackDescription = () => (
   </>
 );
 
+const PTADescription = () => (
+  <>
+    <p>
+      The {aplTitle(BrewmasterApl.PTA)} rotation is very similar to the normal rotation, except you
+      play around casting <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> or{' '}
+      <SpellLink spell={talents.KEG_SMASH_TALENT} /> with your 10-stack{' '}
+      <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT}>PtA</SpellLink> buff.
+    </p>
+    <AlertWarning>
+      Using <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} /> will result in many empty GCDs.
+      While it may be tempting to use <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> to fill
+      them, SCK can cause you getting stacks of{' '}
+      <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} />! If you are not playing around your
+      swing timer, you should avoid casting <SpellLink spell={SPELLS.SPINNING_CRANE_KICK_BRM} /> on
+      single target!
+    </AlertWarning>
+  </>
+);
+
 const Description = ({ aplChoice }: { aplChoice: BrewmasterApl }) => {
   switch (aplChoice) {
-    case BrewmasterApl.BoC_DfB:
+    case BrewmasterApl.BoC_TP:
       return <BlackoutComboDescription />;
-    case BrewmasterApl.ChP:
-    case BrewmasterApl.DfB:
-      return <ChPDfBDescription apl={aplChoice} />;
+    case BrewmasterApl.PTA:
+      return <PTADescription />;
     default:
-      return <FallbackDescription />;
+      return <ChPDfBDescription apl={aplChoice} />;
   }
 };
 
@@ -119,12 +169,10 @@ export default function AplChoiceDescription({
     <>
       <p>
         Brewmasters have three variations on their core rotation, depending on which talents you
-        choose. The core of the rotation remains the same (prioritize your low-cooldown, high-damage
-        abilities: <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />,{' '}
+        choose. The core of the rotation remains the same in most cases: prioritize your
+        low-cooldown, high-damage abilities like <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />,{' '}
         <SpellLink spell={talents.KEG_SMASH_TALENT} />, and{' '}
-        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />
-        ). The <strong>main difference</strong> is how important casting{' '}
-        <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> is.
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />.
       </p>
       <p>
         <strong>Selected Rotation:</strong> {aplTitle(aplChoice)}
