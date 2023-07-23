@@ -59,10 +59,11 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
       );
     }
 
+    const specName = SPECS[spec].specName;
     return (
       <>
         <SpecIcon spec={SPECS[spec]} style={{ height: '2em', width: '2em', marginRight: 10 }} />
-        {SPECS[spec].specName} {SPECS[spec].className}
+        {specName ? i18n._(specName) : null} {i18n._(SPECS[spec].className)}
       </>
     );
   }
@@ -146,7 +147,8 @@ class ContributorDetails extends React.PureComponent<ContributorProps> {
         <div className="col-md-9">
           {maintainedSpecs.map((spec) => (
             <div key={spec.id} className={this.removeWhiteSpaces(i18n._(spec.className))}>
-              <SpecIcon spec={spec} /> {spec.specName} {spec.className}
+              <SpecIcon spec={spec} /> {spec.specName ? i18n._(spec.specName) : null}{' '}
+              {i18n._(spec.className)}
             </div>
           ))}
         </div>
