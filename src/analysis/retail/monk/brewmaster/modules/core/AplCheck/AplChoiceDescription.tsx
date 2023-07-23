@@ -1,8 +1,11 @@
+import styled from '@emotion/styled';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import talents from 'common/TALENTS/monk';
-import { AlertWarning, SpellLink } from 'interface';
+import { AlertWarning, SpellIcon, SpellLink } from 'interface';
 import { useInfo } from 'interface/guide';
+import { ChevronIcon } from 'interface/icons';
+import { Fragment } from 'react';
 import { BrewmasterApl } from '../AplCheck';
 
 const aplTitle = (choice: BrewmasterApl) => {
@@ -21,7 +24,33 @@ const aplTitle = (choice: BrewmasterApl) => {
   }
 };
 
-const SpellSeq = (props: { spells: Spell[] }) => <></>;
+const SequenceContainer = styled.div`
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  height: 24px;
+
+  & svg {
+    transform: rotate(-90deg);
+    height: 18px;
+    margin-top: calc(24px / 2 - 18px / 2);
+  }
+
+  & img.icon {
+    height: 24px;
+  }
+`;
+
+const SpellSeq = ({ spells }: { spells: Spell[] }) => (
+  <SequenceContainer>
+    {spells.map((spell, index, array) => (
+      <Fragment key={index}>
+        <SpellIcon spell={spell} key={index} />
+        {index < array.length - 1 && <ChevronIcon />}
+      </Fragment>
+    ))}
+  </SequenceContainer>
+);
 
 const cooldown = {
   id: -1,
@@ -47,7 +76,7 @@ const BlackoutComboDescription = () => (
         <SpellLink spell={talents.CHARRED_PASSIONS_TALENT}>
           <strong>ChP</strong>
         </SpellLink>{' '}
-        block maintains <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />:{' '}
+        block maintains <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />: Cast{' '}
         <SpellSeq
           spells={[
             SPELLS.BLACKOUT_KICK_BRM,
@@ -58,8 +87,11 @@ const BlackoutComboDescription = () => (
         />
       </li>
       <li>
-        The <strong>Cooldown</strong> block spends your other cooldowns:{' '}
-        <SpellSeq spells={[SPELLS.BLACKOUT_KICK_BRM, SPELLS.TIGER_PALM, cooldown, cooldown]} />
+        The <strong>Cooldown</strong> block spends your other cooldowns: Cast{' '}
+        <SpellSeq spells={[SPELLS.BLACKOUT_KICK_BRM, SPELLS.TIGER_PALM, cooldown, cooldown]} />,
+        filling in the <SpellIcon spell={cooldown} />s with spells like{' '}
+        <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> or{' '}
+        <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} />.
       </li>
     </ul>
     <p>
