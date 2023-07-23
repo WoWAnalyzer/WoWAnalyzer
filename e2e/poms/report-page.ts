@@ -85,11 +85,15 @@ export class ReportPage {
     await this.page.goto(reportUrl);
 
     // Wait for any of the elements we know of to be visible.
-    await Promise.race([
-      this.earlierExpansionHeading.waitFor(),
-      this.earlierPatchHeading.waitFor(),
-      this.bossDifficultyAndNameHeader.waitFor(),
-    ]);
+    await this.earlierExpansionHeading
+      .or(this.earlierPatchHeading)
+      .or(this.bossDifficultyAndNameHeader)
+      .waitFor();
+    // await Promise.race([
+    //   this.earlierExpansionHeading.waitFor(),
+    //   this.earlierPatchHeading.waitFor(),
+    //   this.bossDifficultyAndNameHeader.waitFor(),
+    // ]);
 
     if ((await this.earlierExpansionHeading.isVisible()) && handleExpansionChecker) {
       await this.continueAnywayLink.click();
