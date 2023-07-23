@@ -70,7 +70,7 @@ const BlackoutComboDescription = () => (
       around <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} /> and{' '}
       <SpellLink spell={SPELLS.TIGER_PALM} />:
     </p>
-    <ul>
+    <ul style={{ marginBottom: '10px' }}>
       <li>
         The{' '}
         <SpellLink spell={talents.CHARRED_PASSIONS_TALENT}>
