@@ -644,7 +644,7 @@
   "interface.report.supportChecker.continueAnyway": "Продолжить в любом случае",
   "interface.report.supportChecker.maintainedBy": "",
   "interface.report.supportChecker.outdated": "",
-  "interface.report.supportChecker.specNotSupportedDetails": "Для данной специализации анализ может быть некорректным, так как мы не учитывали для него изменения последнего патча. Рекомендуем ознакомиться с профильными гайдами на соответствующих ресурсах, например на <0><1/> Wowhead</0> и <2>Icy Veins</2>. Также Вы можете обратиться в <3>классовые каналы Discord</3>.<4/><5/>В ближайшее время поддержка {0} {1} не планируется. Мы ищем людей, желающих заняться поддержкой данной специализации, поскольку сейчас, судя по устаревшему {2} {3}, этим никто не занят. Если Вам это интересно или Вы знаете кого-то, кто может быть в этом заинтересован, зайдите в наш <6>GitHub</6> или <7>Discord</7> чтобы получить больше информации.<8/><9/>Если Вы хотите чтобы мы сконцентрировались на поддержке данной специализации Вы можете поддержать ее на <10>доске предложений</10>. Самые популярные запросы будут проспонсированы из средств, собранных за счет <11>Премиум подписок</11>.",
+  "interface.report.supportChecker.specNotSupportedDetails": "",
   "interface.report.supportChecker.specPartialSupport": "",
   "interface.report.supportChecker.specPartialSupportDetails": "",
   "interface.report.supportChecker.tooltip.khadgarApproves": "Кадгар одобряет Вашу решимость",
