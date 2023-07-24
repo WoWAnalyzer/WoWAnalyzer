@@ -70,6 +70,14 @@ const commonLowPrio = [
   SPELLS.TIGER_PALM,
   talents.CHI_WAVE_TALENT,
   talents.CHI_BURST_TALENT,
+  {
+    spell: SPELLS.SPINNING_CRANE_KICK_BRM,
+    condition: cnd.optionalRule(
+      cnd.describe(cnd.hasTalent(talents.PRESS_THE_ADVANTAGE_TALENT), (tense) => (
+        <>it {tenseAlt(tense, 'would', 'did')} not skip your next auto-attack</>
+      )),
+    ),
+  },
 ];
 
 const commonHighPrio = [EK_SCK];
