@@ -43,27 +43,29 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
   }
 
   get totalCDR() {
+    const { ks, tp, bob, anvilStave, pta } = this.deps;
     let totalCDR = 0;
     // add in KS CDR...
-    totalCDR += this.deps.ks.cdr;
-    totalCDR += this.deps.ks.bocCDR;
+    totalCDR += ks.cdr;
+    totalCDR += ks.bocCDR;
     // ...and TP...
-    totalCDR += this.deps.tp.cdr;
+    totalCDR += tp.cdr;
     // ...and BoB...
-    totalCDR += this.deps.bob.cdr[talents.PURIFYING_BREW_TALENT.id];
-    totalCDR += this.deps.anvilStave.cdr;
-    totalCDR += this.deps.pta.brewCDRTotal;
+    totalCDR += bob.cdr[talents.PURIFYING_BREW_TALENT.id];
+    totalCDR += anvilStave.cdr;
+    totalCDR += pta.brewCDRTotal;
     return totalCDR;
   }
 
   get maxTotalCDR() {
+    const { ks, tp, bob, pta } = this.deps;
     // some passive talents like anvil & stave don't track wasted cdr (yet?)
     return (
-      this.deps.ks.wastedCDR +
-      this.deps.ks.wastedBocCDR +
-      this.deps.tp.wastedCDR +
-      this.deps.bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] +
-      this.deps.pta.wastedBrewCDR +
+      ks.wastedCDR +
+      ks.wastedBocCDR +
+      tp.wastedCDR +
+      bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] +
+      pta.wastedBrewCDR +
       this.totalCDR
     );
   }
@@ -97,6 +99,7 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
   }
 
   statistic() {
+    const { ks, pta, tp, bob, anvilStave } = this.deps;
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL()}
@@ -106,48 +109,44 @@ class BrewCDR extends Analyzer.withDependencies(deps) {
             Your cooldowns were reduced by:
             <ul>
               <li>
-                {this.deps.ks.totalCasts} Keg Smash casts —{' '}
-                <strong>{(this.deps.ks.cdr / 1000).toFixed(2)}s</strong> (
-                <strong>{(this.deps.ks.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
+                {ks.totalCasts} Keg Smash casts — <strong>{(ks.cdr / 1000).toFixed(2)}s</strong> (
+                <strong>{(ks.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
               </li>
-              {this.deps.ks.bocHits > 0 && (
+              {ks.bocHits > 0 && (
                 <li>
-                  Using Blackout Combo on {this.deps.ks.bocHits} Keg Smash hits —{' '}
-                  <strong>{(this.deps.ks.bocCDR / 1000).toFixed(2)}s</strong> (
-                  <strong>{(this.deps.ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)
+                  Using Blackout Combo on {ks.bocHits} Keg Smash hits —{' '}
+                  <strong>{(ks.bocCDR / 1000).toFixed(2)}s</strong> (
+                  <strong>{(ks.wastedBocCDR / 1000).toFixed(2)}s</strong> wasted)
                 </li>
               )}
-              {!this.deps.pta.active && (
+              {!pta.active && (
                 <li>
-                  {this.deps.tp.totalCasts} Tiger Palm hits —{' '}
-                  <strong>{(this.deps.tp.cdr / 1000).toFixed(2)}s</strong> (
-                  <strong>{(this.deps.tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
+                  {tp.totalCasts} Tiger Palm hits — <strong>{(tp.cdr / 1000).toFixed(2)}s</strong> (
+                  <strong>{(tp.wastedCDR / 1000).toFixed(2)}s</strong> wasted)
                 </li>
               )}
-              {this.deps.bob.active && (
+              {bob.active && (
                 <li>
-                  {this.deps.bob.casts} Black Ox Brew casts —{' '}
-                  <strong>
-                    {(this.deps.bob.cdr[talents.PURIFYING_BREW_TALENT.id] / 1000).toFixed(2)}s
-                  </strong>{' '}
+                  {bob.casts} Black Ox Brew casts —{' '}
+                  <strong>{(bob.cdr[talents.PURIFYING_BREW_TALENT.id] / 1000).toFixed(2)}s</strong>{' '}
                   (
                   <strong>
-                    {(this.deps.bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] / 1000).toFixed(2)}s
+                    {(bob.wastedCDR[talents.PURIFYING_BREW_TALENT.id] / 1000).toFixed(2)}s
                   </strong>{' '}
                   wasted)
                 </li>
               )}
-              {this.deps.anvilStave.active && (
+              {anvilStave.active && (
                 <li>
-                  {this.deps.anvilStave.count} Anvil & Stave triggers -{' '}
-                  <strong>{(this.deps.anvilStave.cdr / 1000).toFixed(2)}s</strong>
+                  {anvilStave.count} Anvil & Stave triggers -{' '}
+                  <strong>{(anvilStave.cdr / 1000).toFixed(2)}s</strong>
                 </li>
               )}
-              {this.deps.pta.active && (
+              {pta.active && (
                 <li>
-                  {this.deps.pta.meleeCount} Press the Advantage triggers -{' '}
-                  <strong>{(this.deps.pta.brewCDRTotal / 1000).toFixed(2)}s</strong> (
-                  <strong>{(this.deps.pta.wastedBrewCDR / 1000).toFixed(2)}s</strong> wasted)
+                  {pta.meleeCount} Press the Advantage triggers -{' '}
+                  <strong>{(pta.brewCDRTotal / 1000).toFixed(2)}s</strong> (
+                  <strong>{(pta.wastedBrewCDR / 1000).toFixed(2)}s</strong> wasted)
                 </li>
               )}
             </ul>
