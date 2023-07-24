@@ -74,13 +74,24 @@ const commonLowPrio = [
 
 const commonHighPrio = [EK_SCK];
 
-const chpSequenceCnd = cnd.and(
-  cnd.hasTalent(talents.CHARRED_PASSIONS_TALENT),
-  cnd.buffMissing(SPELLS.CHARRED_PASSIONS_BUFF, {
-    pandemicCap: 1,
-    duration: 8000,
-    timeRemaining: 4000,
-  }),
+const chpSequenceCnd = cnd.describe(
+  cnd.and(
+    cnd.hasTalent(talents.CHARRED_PASSIONS_TALENT),
+    cnd.buffMissing(SPELLS.CHARRED_PASSIONS_BUFF, {
+      pandemicCap: 1,
+      duration: 8000,
+      timeRemaining: 4000,
+    }),
+  ),
+  () => (
+    <>
+      performing the{' '}
+      <strong>
+        Maintain <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} />
+      </strong>{' '}
+      block
+    </>
+  ),
 );
 
 const chp_sequence = [
@@ -101,27 +112,44 @@ const chp_sequence = [
 const dump_cd_sequence: Rule[] = [
   {
     spell: SPELLS.TIGER_PALM,
-    condition: cnd.optionalRule(cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF)),
-  },
-  {
-    spell: SPELLS.TIGER_PALM,
-    condition: cnd.and(
-      cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF),
-      cnd.spellCooldownRemaining(SPELLS.BLACKOUT_KICK_BRM, { atMost: 2000 }),
+    condition: cnd.describe(
+      cnd.or(
+        cnd.optionalRule(cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF)),
+        cnd.and(
+          cnd.buffPresent(SPELLS.BLACKOUT_COMBO_BUFF),
+          cnd.spellCooldownRemaining(SPELLS.BLACKOUT_KICK_BRM, { atMost: 2000 }),
+        ),
+      ),
+      (tense) => (
+        <>
+          performing the <strong>Spend Cooldowns</strong> block and{' '}
+          <SpellLink spell={SPELLS.BLACKOUT_COMBO_BUFF} /> {tenseAlt(tense, 'is', 'was')} present
+        </>
+      ),
     ),
   },
   // this is fairly lax. could prioritize it a bit but not going to for now.
-  [
-    talents.BONEDUST_BREW_TALENT,
-    talents.EXPLODING_KEG_TALENT,
-    talents.WEAPONS_OF_ORDER_TALENT,
-    talents.SUMMON_WHITE_TIGER_STATUE_TALENT,
-    talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT,
-    talents.RISING_SUN_KICK_TALENT,
-    talents.RUSHING_JADE_WIND_TALENT,
-    talents.CHI_WAVE_TALENT,
-    talents.CHI_BURST_TALENT,
-  ],
+  {
+    spell: [
+      talents.BONEDUST_BREW_TALENT,
+      talents.EXPLODING_KEG_TALENT,
+      talents.WEAPONS_OF_ORDER_TALENT,
+      talents.SUMMON_WHITE_TIGER_STATUE_TALENT,
+      talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT,
+      talents.RISING_SUN_KICK_TALENT,
+      talents.RUSHING_JADE_WIND_TALENT,
+      talents.CHI_WAVE_TALENT,
+      talents.CHI_BURST_TALENT,
+    ],
+    description: (
+      <>
+        Spend cooldowns like <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />,{' '}
+        <SpellLink spell={talents.RUSHING_JADE_WIND_TALENT} />,{' '}
+        <SpellLink spell={talents.BONEDUST_BREW_TALENT} />, or{' '}
+        <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} />
+      </>
+    ),
+  },
 ];
 
 const rotation_boc_tp = build([
@@ -137,10 +165,10 @@ const rotation_boc_tp = build([
         }),
         cnd.spellCooldownRemaining(SPELLS.BLACKOUT_KICK_BRM, { atMost: 2000 }),
       ),
-      () => (
+      (tense) => (
         <>
-          to apply <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> before casting{' '}
-          <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />.
+          <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> {tenseAlt(tense, 'is', 'was')}{' '}
+          missing before casting <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />.
         </>
       ),
     ),
