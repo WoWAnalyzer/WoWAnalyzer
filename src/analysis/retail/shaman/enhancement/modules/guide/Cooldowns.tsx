@@ -1,9 +1,11 @@
-import { Section, SubSection, useAnalyzer, useInfo } from 'interface/guide';
+import { GuideProps, Section, SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { Talent } from 'common/TALENTS/types';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
+import CombatLogParser from 'analysis/retail/shaman/enhancement/CombatLogParser';
+import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
 interface Props {
   checklist: Talent[];
@@ -17,15 +19,23 @@ const COOLDOWNS: Talent[] = [
   TALENTS.ASCENDANCE_ENHANCEMENT_TALENT,
 ];
 
-function Cooldowns() {
+function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
-      <p>
-        <strong>Cooldowns</strong> - this graph shows when you used your major cooldowns and how
-        long you waited to use them again. Unless you're holding these for specific raid events, try
-        to use these on as soon as they become available.
-      </p>
-      <CooldownGraphSubsection checklist={COOLDOWNS} />
+      <SubSection title="Cooldowns">
+        <p>
+          <strong>Cooldowns</strong> - this graph shows when you used your major cooldowns and how
+          long you waited to use them again. Unless you're holding these for specific raid events,
+          try to use these on as soon as they become available.
+        </p>
+        <CooldownGraphSubsection checklist={COOLDOWNS} />
+      </SubSection>
+      {(info.combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
+        info.combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) && (
+        <SubSection title="Ascendance">
+          <CooldownUsage analyzer={modules.ascendance} />
+        </SubSection>
+      )}
     </Section>
   );
 }

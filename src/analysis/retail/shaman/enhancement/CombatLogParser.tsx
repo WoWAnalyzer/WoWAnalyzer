@@ -48,6 +48,8 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import AscendanceNormalizer from 'analysis/retail/shaman/enhancement/modules/normalizers/AscendanceNormalizer';
+import Ascendance from 'analysis/retail/shaman/enhancement/modules/talents/Ascendance';
 import Windstrike from './modules/spells/Windstrike';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -84,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
 
     // Enhancement Core Talents
+    ascendance: Ascendance,
     windfuryTotem: WindfuryTotem,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
@@ -114,6 +117,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eventLinkNormalizer: EventLinkNormalizer,
     eventOrderNormalizer: EventOrderNormalizer,
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,
+    ascendanceNormalizer: AscendanceNormalizer,
 
     aplCheck: AplCheck,
   };
