@@ -1,6 +1,6 @@
 import { CastEvent } from './Events';
 
-export const addInefficenetCastReason = (event: CastEvent, reason?: React.ReactNode) => {
+export const addInefficientCastReason = (event: CastEvent, reason?: React.ReactNode) => {
   const meta = (event.meta = event.meta || {});
   meta.isInefficientCast = true;
   if (!reason) {
