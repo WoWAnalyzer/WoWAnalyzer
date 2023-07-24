@@ -94,7 +94,7 @@ class AncientFlame extends Analyzer {
         important to weave in casts of <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> between casts
         of <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> in order to generate{' '}
         <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />. Not utilizing this
-        talent will lead to both an HPS and DPS loss, while also making the build more mana starved
+        talent will lead to both an HPS and DPS loss, while also making the build more mana-starved
         than it should be.
       </p>
     );
