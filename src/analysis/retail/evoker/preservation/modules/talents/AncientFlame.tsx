@@ -4,9 +4,6 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
-import Statistic from 'parser/ui/Statistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -126,17 +123,6 @@ class AncientFlame extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
-  }
-
-  statistic() {
-    return (
-      <Statistic
-        position={STATISTIC_ORDER.OPTIONAL(5)}
-        size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={<ul></ul>}
-      ></Statistic>
-    );
   }
 }
 
