@@ -48,6 +48,7 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import Windstrike from './modules/spells/Windstrike';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -100,6 +101,7 @@ class CombatLogParser extends CoreCombatLogParser {
     legacyOfTheFrostWitch: LegacyOfTheFrostWitch,
     thorimsInvocation: ThorimsInvocation,
     ashenCatalyst: AshenCatalyst,
+    windstrike: Windstrike,
 
     // Tier
     tier28TwoSet: Tier28TwoSet,

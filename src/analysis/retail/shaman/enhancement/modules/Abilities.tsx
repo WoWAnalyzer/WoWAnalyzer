@@ -449,18 +449,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WINDSTRIKE_CAST.id,
-        // Placeholder for enhancement's ascendance
-        enabled:
-          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT) ||
-          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 3 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT),
