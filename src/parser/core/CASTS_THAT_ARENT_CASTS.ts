@@ -38,6 +38,10 @@ const spells: number[] = [
   SPELLS.ABOMINATION_LIMB_GRIP_TICK.id,
   //endregion
 
+  //region Evoker
+  SPELLS.VERDANT_EMBRACE_HEAL.id,
+  //endregion
+
   //region Hunter
   SPELLS.BARBED_SHOT_PET_BUFF.id, //The buff applied to BM Hunter pet when casting Barbed Shot
   SPELLS.DIRE_BEAST_SUMMON.id, //Additional cast event associated with summoning a Dire Beast
