@@ -209,6 +209,16 @@ export default function AplChoiceDescription({
       <p>
         <strong>Selected Rotation:</strong> {aplTitle(aplChoice)}
       </p>
+      {aplChoice !== BrewmasterApl.BoC_TP && (
+        <p>
+          This rotation is driven by a <em>priority list</em>. When using an ability, you should try
+          to use the one that is <em>highest</em> on the list. Doing this improves your damage by
+          prioritizing high-damage, high-impact spells like{' '}
+          <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> and{' '}
+          <SpellLink spell={talents.KEG_SMASH_TALENT} /> over low-priority "filler" spells like{' '}
+          <SpellLink spell={SPELLS.TIGER_PALM} />.
+        </p>
+      )}{' '}
       <Description aplChoice={aplChoice} />
     </>
   );

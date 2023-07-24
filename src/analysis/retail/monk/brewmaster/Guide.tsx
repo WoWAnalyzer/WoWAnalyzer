@@ -48,16 +48,6 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       </Section>
       <MajorDefensivesSection />
       <Section title="Core Rotation">
-        {AplCheck.chooseApl(info) !== AplCheck.BrewmasterApl.BoC_TP && (
-          <p>
-            The Brewmaster rotation is driven by a <em>priority list</em>. When using an ability,
-            you should try to use the one that is <em>highest</em> on the list. Doing this improves
-            your damage by prioritizing high-damage, high-impact spells like{' '}
-            <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /> and{' '}
-            <SpellLink spell={talents.KEG_SMASH_TALENT} /> over low-priority "filler" spells like{' '}
-            <SpellLink spell={SPELLS.TIGER_PALM} />.
-          </p>
-        )}
         <AplChoiceDescription aplChoice={AplCheck.chooseApl(info)} />
         <SubSection>
           <AplSectionData
