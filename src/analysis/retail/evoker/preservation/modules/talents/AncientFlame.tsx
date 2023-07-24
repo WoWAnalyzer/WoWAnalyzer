@@ -114,7 +114,9 @@ class AncientFlame extends Analyzer {
         of <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> in order to generate{' '}
         <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />. Not utilizing this
         talent will lead to both an HPS and DPS loss, while also making the build more mana-starved
-        than it should be.
+        than it should be. It is okay to cast multiple <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />s
+        in a row and waste the buff at times, but this should not be consistent occurrence
+        throughout a fight.
       </p>
     );
     const data = (
