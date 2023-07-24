@@ -5,6 +5,8 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2023, 7, 24), <>Added <SpellLink spell={SPELLS.DEEP_BREATH} /> to channel list.</>, Vollmer),
+  change(date(2023, 7, 24), 'Update APL Check.', Vollmer),
   change(date(2023, 7, 23), 'Update example log.', Vollmer),
   change(date(2023, 7, 18), 'Update patch compatability for 10.1.5.', Vollmer),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
