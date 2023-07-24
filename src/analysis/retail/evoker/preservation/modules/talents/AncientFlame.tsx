@@ -42,21 +42,40 @@ class AncientFlame extends Analyzer {
   }
 
   onRefresh(event: RefreshBuffEvent) {
-    const tooltip = (
-      <>
-        <div>
-          <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT} /> applied @{' '}
-          {this.owner.formatTimestamp(this.applyTime)}
-        </div>
-        <div>
-          You wasted this buff by casting another <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> or{' '}
-          <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> @{' '}
-          {this.owner.formatTimestamp(event.timestamp)} before casting{' '}
-          <SpellLink spell={SPELLS.LIVING_FLAME_CAST} />
-        </div>
-      </>
-    );
-    const value = QualitativePerformance.Fail;
+    let tooltip = null;
+    let value = QualitativePerformance.Good;
+    // 1 stack after cast = they were at 2 so not a waste
+    if (this.selectedCombatant.getBuffStacks(SPELLS.ESSENCE_BURST_BUFF.id) === 1) {
+      tooltip = (
+        <>
+          <div>
+            <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT} /> applied @{' '}
+            {this.owner.formatTimestamp(this.applyTime)}
+          </div>
+          <div>
+            You refreshed this buff but you were capped on{' '}
+            <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> stacks, which
+            makes this refresh not a misplay.
+          </div>
+        </>
+      );
+    } else {
+      tooltip = (
+        <>
+          <div>
+            <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT} /> applied @{' '}
+            {this.owner.formatTimestamp(this.applyTime)}
+          </div>
+          <div>
+            You wasted this buff by casting another <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> or{' '}
+            <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> @{' '}
+            {this.owner.formatTimestamp(event.timestamp)} before casting{' '}
+            <SpellLink spell={SPELLS.LIVING_FLAME_CAST} />
+          </div>
+        </>
+      );
+      value = QualitativePerformance.Fail;
+    }
     this.consumptions.push({ value, tooltip });
   }
 
