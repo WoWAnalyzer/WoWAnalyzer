@@ -26,6 +26,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 23), 'Tooltip on Timeline Improvements', Abelito75),
   change(date(2023, 7, 22), 'Update Classic Enchants', jazminite),
   change(date(2023, 7, 21), 'Add scrollability to Buff count graphs', Vollmer),
   change(date(2023, 7, 19), 'Update NameSearch to swap between Retail and Classic Realm lists', jazminite),

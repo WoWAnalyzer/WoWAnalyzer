@@ -173,15 +173,14 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
       hasLowered = true;
     }
 
-    let castReason;
     const meta = event.meta;
+    const castReason = generateTooltip(meta);
+
     if (meta) {
       if (meta.isInefficientCast) {
         className += ' inefficient';
-        castReason = meta.inefficientCastReason;
       } else if (meta.isEnhancedCast) {
         className += ' enhanced';
-        castReason = meta.enhancedCastReason;
       }
     }
 
@@ -217,13 +216,12 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
       ((event.trigger?.type === EventType.Cast || event.trigger?.type === EventType.BeginChannel) &&
         event.trigger?.meta) ||
       (event.trigger?.type === EventType.BeginCast && event.trigger.castEvent?.meta);
+    castReason = meta ? generateTooltip(meta) : castReason;
     if (meta) {
       if (meta.isInefficientCast) {
         className += ' inefficient';
-        castReason = meta.inefficientCastReason;
       } else if (meta.isEnhancedCast) {
         className += ' enhanced';
-        castReason = meta.enhancedCastReason;
       }
     }
 
@@ -376,6 +374,40 @@ const Casts = ({ start, secondWidth, events, movement, ...others }: Props) => {
       {movement && movement.map(renderMovement)}
     </div>
   );
+};
+
+const generateTooltip = (meta?: {
+  isInefficientCast?: boolean;
+  inefficientCastReason?: React.ReactNode;
+  isEnhancedCast?: boolean;
+  enhancedCastReason?: React.ReactNode;
+}) => {
+  let castReason: React.ReactNode;
+  if (meta) {
+    if (meta.inefficientCastReason) {
+      castReason = (
+        <>
+          <h3>Inefficient Cast Reasons</h3>
+          {meta.inefficientCastReason}
+        </>
+      );
+    }
+    if (meta.enhancedCastReason) {
+      castReason = (
+        <>
+          {castReason ? (
+            <>
+              {castReason}
+              <br />
+            </>
+          ) : null}
+          <h3>Enhanced Cast Reasons</h3>
+          {meta.enhancedCastReason}
+        </>
+      );
+    }
+  }
+  return castReason;
 };
 
 export default Casts;
