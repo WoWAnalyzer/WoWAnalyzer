@@ -1,8 +1,8 @@
-export default {
+module.exports = {
   catalogs: [
     {
       path: 'src/localization/{locale}/messages',
-      include: ['<rootDir>/src/', '<rootDir>/analysis/'],
+      include: ['<rootDir>/src/'],
     },
   ],
   locales: ['de', 'en', 'es', 'fr', 'it', 'ko', 'pl', 'pt', 'ru', 'zh'],
