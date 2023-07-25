@@ -37,7 +37,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/PdZjrmG4qaK8y7WD/44-Heroic+Terros+-+Kill+(6:16)/Mauly',
+  exampleReport:
+    '/report/f4ThvLDtZcMkKmWq/27-Mythic+Rashok,+the+Elder+-+Kill+(6:08)/Eisenpelz/standard',
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
   // not multiply temporary buffs.
