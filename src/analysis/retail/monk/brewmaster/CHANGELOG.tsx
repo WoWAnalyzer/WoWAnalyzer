@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 25), <>Update example report to be a 10.1.5 log</>, emallson),
   change(date(2023, 7, 24), <>Update rotational support for 10.1.5</>, emallson),
   change(date(2023, 7, 22), <>Added support for <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} />.</>, emallson),
   change(date(2023, 7, 3), <>Fixed an issue regarding the cast efficiency of <SpellLink spell={talents.BLACK_OX_BREW_TALENT} />. </>, Putro),
