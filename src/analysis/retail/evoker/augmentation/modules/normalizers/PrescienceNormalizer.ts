@@ -47,7 +47,7 @@ class PrescienceNormalizer extends EventsNormalizer {
           ) {
             targetStatus[event.targetID] = true;
             fixedEvents.push(event);
-          } else if (event.type === EventType.RemoveBuff || EventType.RefreshBuff) {
+          } else if (event.type === EventType.RemoveBuff || event.type === EventType.RefreshBuff) {
             targetStatus[event.targetID] = false;
             fixedEvents.push(event);
             /**Check if the buff was applied pre-combat
