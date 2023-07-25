@@ -5,7 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
-    change(date(2023, 7, 25), <>Fix another edgecase with spell={TALENTS.PRESCIENCE_TALENT} being applied twice.</>, Vollmer),
+    change(date(2023, 7, 25), <>Fix another edgecase with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> being applied twice.</>, Vollmer),
     change(date(2023, 7, 22), <>Add <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> to channeled spells to fix downtime and timeline.</>, Vollmer),
     change(date(2023, 7, 22), <>Update performance check for <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} />, <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> and <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> .</>, Vollmer),
     change(date(2023, 7, 22), <>Fix <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> sometimes being applied twice.</>, Vollmer),
