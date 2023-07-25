@@ -11,6 +11,8 @@ import {
   RemoveBuffEvent,
 } from 'parser/core/Events';
 
+export const PTA_TRIGGER_BUFF = 'pta-trigger-buff';
+export const PTA_TRIGGER_CAST = 'pta-trigger-cast';
 export const PTA_BONUS_CAST = 'pta-bonus-cast';
 export const PTA_BUFF = 'pta-buff';
 export const KS_DAMAGE = 'ks-damage';
@@ -32,6 +34,19 @@ const LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     maximumLinks: 1,
     anyTarget: true,
+  },
+  {
+    linkRelation: PTA_TRIGGER_CAST,
+    reverseLinkRelation: PTA_TRIGGER_BUFF,
+    linkingEventId: SPELLS.PRESS_THE_ADVANTAGE_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    backwardBufferMs: 2000,
+    referencedEventId: [talents.RISING_SUN_KICK_TALENT.id, talents.KEG_SMASH_TALENT.id],
+    referencedEventType: EventType.Cast,
+    maximumLinks: 1,
+    anyTarget: true,
+    additionalCondition: (_linkingEvent, referencedEvent) =>
+      GetRelatedEvents(referencedEvent, PTA_BUFF).length === 0,
   },
   {
     linkRelation: KS_CAST,
