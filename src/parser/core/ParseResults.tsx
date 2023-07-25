@@ -34,7 +34,7 @@ abstract class SuggestionAssertion<T extends number | boolean> {
   addSuggestion(func: (suggest: SuggestionFactory, actual: T, recommended: T) => Suggestion) {
     if (this._isApplicable()) {
       const suggestion = func(
-        (suggestionText: React.ReactNode) => new Suggestion(suggestionText),
+        (suggestionText: React.ReactNode | MessageDescriptor) => new Suggestion(suggestionText),
         this._actual,
         this._triggerThreshold,
       );
@@ -225,7 +225,7 @@ export class BoolSuggestionAssertion extends SuggestionAssertion<boolean> {
   }
 }
 
-export type SuggestionFactory = (suggest: React.ReactNode) => Suggestion;
+export type SuggestionFactory = (suggest: React.ReactNode | MessageDescriptor) => Suggestion;
 
 class Suggestion {
   _text: React.ReactNode;
@@ -238,9 +238,10 @@ class Suggestion {
   _staticImportance: ISSUE_IMPORTANCE | null = null;
   _details: (() => React.ReactNode) | null = null;
 
-  constructor(text: React.ReactNode) {
-    this._text = text;
+  constructor(text: React.ReactNode | MessageDescriptor) {
+    this._text = isMessageDescriptor(text) ? i18n._(text) : text;
   }
+
   icon(icon: string) {
     this._icon = icon;
     return this;
