@@ -70,6 +70,15 @@ const spells: number[] = [
   SPELLS.RECLAMATION_CAST.id,
   //endregion
 
+  //region warrior
+  SPELLS.RAMPAGE_1.id,
+  SPELLS.RAMPAGE_2.id,
+  SPELLS.RAMPAGE_3.id,
+  SPELLS.RAMPAGE_4.id,
+  SPELLS.HACK_AND_SLASH.id,
+  SPELLS.WRATH_AND_FURY.id,
+  //endregion
+
   //region trinket
   //endregion
   //region Embellishments

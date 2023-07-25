@@ -3,12 +3,6 @@ import { containsOptionalCondition } from './optionalRule';
 
 type ConditionMap = { [k: string]: Condition<any> };
 
-// TODO: this doesn't state-share with other conditions. don't think its a real big issue tho?
-/**
-   NOTE: this module is untested and may not work as intended. I implemented it
-   then realized I didn't need it. It remains here because it *should* still
-   work, but take care.
-**/
 export default function and(...conditions: Array<Condition<any>>): Condition<any> {
   const key = `and-${conditions.map((cnd) => cnd.key).join('-')}`;
   if (process.env.NODE_ENV !== 'production' && conditions.some(containsOptionalCondition)) {

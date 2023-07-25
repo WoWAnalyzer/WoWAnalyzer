@@ -21,14 +21,12 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import RageDetail from './modules/features/RageDetails';
 import RageTracker from './modules/features/RageTracker';
 import SpellUsable from './modules/features/SpellUsable';
-//import Talents from './modules/talents';
 import AngerManagement from './modules/talents/AngerManagement';
 import Avatar from './modules/talents/Avatar';
 import Cleave from './modules/talents/Cleave';
 import DefensiveStance from './modules/talents/DefensiveStance';
 import FervorOfBattle from './modules/talents/FervorOfBattle';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
-//import Ravager from './modules/talents/Ravager';
 import SecondWind from './modules/talents/SecondWind';
 import Skullsplitter from './modules/talents/Skullsplitter';
 import StormBolt from './modules/talents/StormBolt';
@@ -41,6 +39,7 @@ import SpellReflection from '../shared/modules/talents/SpellReflection';
 import FatalMark from './modules/talents/FatalMark';
 import ExecuteNormalizer from './normalizers/ExecuteNormalizer';
 import SkullsplitterDotNormalizer from './normalizers/SkullsplitterExpiredDots';
+import BlademastersTormentNormalizer from './modules/talents/BlademastersTorment';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -49,6 +48,7 @@ class CombatLogParser extends CoreCombatLogParser {
     battlelordBuff: BattlelordBuff,
     executeNormalizer: ExecuteNormalizer,
     skullsplitterDotNormalizer: SkullsplitterDotNormalizer,
+    blademaastersTormetNormalizer: BlademastersTormentNormalizer,
 
     // WarriorCore
     abilities: Abilities,
@@ -83,7 +83,6 @@ class CombatLogParser extends CoreCombatLogParser {
     rendRefreshes: RendRefreshes,
 
     // Talents
-    //talents: Talents,
     angerManagement: AngerManagement,
     defensiveStance: DefensiveStance,
     skullsplitter: Skullsplitter,
@@ -96,7 +95,6 @@ class CombatLogParser extends CoreCombatLogParser {
     cleave: Cleave,
     warbreaker: Warbreaker,
     avatar: Avatar,
-    //ravager: Ravager,
     spellReflection: SpellReflection,
     fatalMark: FatalMark,
 
