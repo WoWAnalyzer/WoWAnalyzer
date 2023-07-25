@@ -23,6 +23,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import { MERGE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
 
 const DAMAGE_AMP_PERCENTAGE: Record<number, number> = { 1: 0.05, 2: 0.25 };
+const debug = true;
 
 class LegacyOfTheFrostWitch extends Analyzer {
   static dependencies = {
@@ -106,14 +107,26 @@ class LegacyOfTheFrostWitch extends Analyzer {
       this.lastApply = event.timestamp;
     }
     if (this.spellUsable.isOnCooldown(TALENTS.STORMSTRIKE_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp, true);
+      debug &&
+        console.log(
+          `Stormstrike reset by Legacy of the Frost Witch at timestamp: ${
+            event.timestamp
+          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
+        );
+      this.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp);
       if (!this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
         this.stormStrikeResets += 1;
       }
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp, true);
+      debug &&
+        console.log(
+          `Windstrike reset by Legacy of the Frost Witch at timestamp: ${
+            event.timestamp
+          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
+        );
+      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp);
       if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
         this.windStrikeResets += 1;
       }

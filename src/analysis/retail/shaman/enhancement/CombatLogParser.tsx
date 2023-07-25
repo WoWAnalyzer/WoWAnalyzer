@@ -50,7 +50,6 @@ import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AscendanceNormalizer from 'analysis/retail/shaman/enhancement/modules/normalizers/AscendanceNormalizer';
 import Ascendance from 'analysis/retail/shaman/enhancement/modules/talents/Ascendance';
-import Windstrike from './modules/spells/Windstrike';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -104,7 +103,6 @@ class CombatLogParser extends CoreCombatLogParser {
     legacyOfTheFrostWitch: LegacyOfTheFrostWitch,
     thorimsInvocation: ThorimsInvocation,
     ashenCatalyst: AshenCatalyst,
-    windstrike: Windstrike,
 
     // Tier
     tier28TwoSet: Tier28TwoSet,

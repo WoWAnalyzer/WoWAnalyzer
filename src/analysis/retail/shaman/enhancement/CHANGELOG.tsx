@@ -1,7 +1,10 @@
 import { change, date } from 'common/changelog';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun } from 'CONTRIBUTORS';
+import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 25), <>Adding <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> cooldown analysis</>, Seriousnes),
   change(date(2023, 7, 24), <>Added Windstrike analyzer for max casts</>, Seriousnes),
   change(date(2023, 7, 11), <>Added patch 10.1.5 details.</>, Seriousnes),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),

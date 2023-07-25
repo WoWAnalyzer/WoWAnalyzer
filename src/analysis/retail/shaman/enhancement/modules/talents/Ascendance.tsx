@@ -1,31 +1,55 @@
-import Events, { AnyEvent, CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, {
+  AnyEvent,
+  CastEvent,
+  DamageEvent,
+  UpdateSpellUsableEvent,
+  UpdateSpellUsableType,
+} from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
-import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
-import { SpellUse } from 'parser/core/SpellUsage/core';
+import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import Abilities from '../Abilities';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import Haste from 'parser/shared/modules/Haste';
+import { THORIMS_INVOCATION_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+
+const NonMissedCastSpells = [
+  TALENTS_SHAMAN.SUNDERING_TALENT.id,
+  TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
+  TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
+  SPELLS.WINDSTRIKE_CAST.id,
+];
 
 interface AscendanceCooldownCast extends SpellCast {
   casts: CastEvent[];
   extraDamage: number;
   startTime: number;
   endTime: number;
+  missedWindstrikes: number;
 }
 
 class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   static dependencies = {
     ...MajorCooldown.dependencies,
-    enemies: Enemies,
+    haste: Haste,
     spellUsable: SpellUsable,
+    abilities: Abilities,
   };
 
-  protected enemies!: Enemies;
+  protected haste!: Haste;
   protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
+
   protected currentCooldown: AscendanceCooldownCast | null = null;
+  protected windstrikeOnCooldown: boolean = true;
+  protected hasteAdjustedWastedCooldown: number = 0;
+  protected lastCooldownWasteCheck: number = 0;
 
   constructor(options: Options) {
     super({ spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT }, options);
@@ -36,27 +60,88 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       return;
     }
 
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
+    (options.abilities as Abilities).add({
+      spell: SPELLS.WINDSTRIKE_CAST.id,
+      category: SPELL_CATEGORY.ROTATIONAL,
+      cooldown: (haste: number) => 3 / (1 + haste),
+      gcd: {
+        base: 1500,
+      },
+      castEfficiency: {
+        suggestion: true,
+        recommendedEfficiency: 1,
+        maxCasts: () => this.maxCasts,
+      },
+    });
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+      this.onAscendanceCast,
+    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onGeneralCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-      this.onEnd,
+      this.onAscendanceEnd,
     );
-    this.addEventListener(Events.fightend, this.onEnd);
+    this.addEventListener(Events.fightend, this.onAscendanceEnd);
+    this.addEventListener(
+      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.WINDSTRIKE_CAST),
+      this.detectWindstrikeCasts,
+    );
   }
 
-  onCast(event: CastEvent) {
-    if (event.ability.guid === TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id) {
-      this.currentCooldown ??= {
-        event: event,
-        casts: [],
-        extraDamage: 0,
-        startTime: event.timestamp,
-        endTime: 0,
-      };
-    } else if (this.currentCooldown) {
-      this.currentCooldown.casts.push(event);
+  detectWindstrikeCasts(event: UpdateSpellUsableEvent) {
+    if (event.updateType === UpdateSpellUsableType.BeginCooldown) {
+      this.windstrikeOnCooldown = true;
     }
+    if (event.updateType === UpdateSpellUsableType.EndCooldown) {
+      this.windstrikeOnCooldown = false;
+      this.lastCooldownWasteCheck = event.timestamp;
+    }
+  }
+
+  get maxCasts() {
+    return this.casts.reduce(
+      (total: number, cast: AscendanceCooldownCast) =>
+        (total +=
+          cast.missedWindstrikes +
+          cast.casts.filter((c) => c.ability.guid === SPELLS.WINDSTRIKE_CAST.id).length),
+      0,
+    );
+  }
+
+  /**
+   * When Ascendance is cast, being recording the cooldown usage
+   * @remarks
+   * Deeply Rooted Elements appears as a fabricated cast
+   */
+  onAscendanceCast(event: CastEvent) {
+    this.currentCooldown ??= {
+      event: event,
+      casts: [],
+      extraDamage: 0,
+      startTime: event.timestamp,
+      endTime: 0,
+      missedWindstrikes: 0,
+    };
+  }
+
+  onGeneralCast(event: CastEvent) {
+    if (
+      !this.currentCooldown ||
+      event.ability.guid === TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id ||
+      !event.globalCooldown
+    ) {
+      return;
+    }
+    if (!NonMissedCastSpells.includes(event.ability.guid)) {
+      const currentHaste = this.haste.current;
+      this.hasteAdjustedWastedCooldown +=
+        (event.timestamp - this.lastCooldownWasteCheck) * (1 + currentHaste);
+    }
+    this.lastCooldownWasteCheck = event.timestamp;
+    this.currentCooldown!.casts.push(event);
   }
 
   onDamage(event: DamageEvent) {
@@ -65,9 +150,14 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     }
   }
 
-  onEnd(event: AnyEvent) {
+  onAscendanceEnd(event: AnyEvent) {
     if (this.currentCooldown) {
+      const windstrike = this.abilities.getAbility(SPELLS.WINDSTRIKE_CAST.id)!;
       this.currentCooldown.endTime = event.timestamp;
+      this.currentCooldown.missedWindstrikes = Math.floor(
+        this.hasteAdjustedWastedCooldown / (windstrike.getCooldown(0) * 1000),
+      );
+
       this.recordCooldown(this.currentCooldown);
       this.currentCooldown = null;
     }
@@ -101,13 +191,137 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     );
   }
 
+  windstrikePerformance(cast: AscendanceCooldownCast): UsageInfo {
+    const windstrikesCasts = cast.casts.filter(
+      (c) => c.ability.guid === SPELLS.WINDSTRIKE_CAST.id,
+    ).length;
+    const maximumNumberOfWindstrikesPossible = windstrikesCasts + cast.missedWindstrikes;
+
+    const windstrikeSummary = (
+      <div>
+        Cast {maximumNumberOfWindstrikesPossible}+ <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />
+        (s) during window
+      </div>
+    );
+
+    if (cast.missedWindstrikes === 0) {
+      return {
+        performance: QualitativePerformance.Perfect,
+        summary: windstrikeSummary,
+        details: (
+          <div>
+            You cast {windstrikesCasts} <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />
+            (s).
+          </div>
+        ),
+      };
+    }
+    return {
+      performance:
+        cast.missedWindstrikes === 1 ? QualitativePerformance.Good : QualitativePerformance.Ok,
+      summary: windstrikeSummary,
+      details: (
+        <div>
+          You cast {windstrikesCasts} <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />
+          (s) when you could have cast {maximumNumberOfWindstrikesPossible}
+        </div>
+      ),
+    };
+  }
+
+  thorimsInvocationPerformance(cast: AscendanceCooldownCast): UsageInfo[] | undefined {
+    const result: UsageInfo[] = [];
+    const windstrikes = cast.casts.filter((c) => c.ability.guid === SPELLS.WINDSTRIKE_CAST.id);
+    const thorimsInvocationFreeCasts = windstrikes.map((event: CastEvent) => {
+      return event._linkedEvents
+        ?.filter((le) => le.relation === THORIMS_INVOCATION_LINK)
+        .map((le) => le.event as DamageEvent);
+    });
+
+    // casts without any maelstrom are bad casts
+    const noMaelstromCasts = thorimsInvocationFreeCasts.filter((fc) => !fc).length;
+    if (noMaelstromCasts) {
+      result.push({
+        performance: QualitativePerformance.Fail,
+        summary: (
+          <div>
+            You cast <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> with no{' '}
+            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+          </div>
+        ),
+        details: (
+          <div>
+            <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> has significantly lower priority when you
+            have no stacks of <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+          </div>
+        ),
+      });
+    }
+
+    const chainLightningCastsWith1Hit = thorimsInvocationFreeCasts.filter((fc) => {
+      if (fc) {
+        return (
+          fc.filter((de) => de.ability.guid === TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT.id).length ===
+          1
+        );
+      }
+      return false;
+    }).length;
+    if (chainLightningCastsWith1Hit > 0) {
+      result.push({
+        performance: QualitativePerformance.Ok,
+        summary: (
+          <div>
+            <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> was primed with{' '}
+            <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} />
+          </div>
+        ),
+        details: (
+          <div>
+            <SpellLink spell={TALENTS_SHAMAN.THORIMS_INVOCATION_TALENT} /> cast
+            <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} />{' '}
+            {chainLightningCastsWith1Hit} time(s) only hitting one target.
+          </div>
+        ),
+      });
+    }
+    return result.length > 0 ? result : undefined;
+  }
+
   explainPerformance(cast: AscendanceCooldownCast): SpellUse {
-    const performance: QualitativePerformance = QualitativePerformance.Perfect;
+    const checklistItems: ChecklistUsageInfo[] = [];
+
+    const windstrikePerformance = this.windstrikePerformance(cast);
+    const thorimsInvocationPerformance = this.thorimsInvocationPerformance(cast);
+
+    checklistItems.push({
+      check: 'windstrike',
+      timestamp: cast.event.timestamp,
+      ...windstrikePerformance,
+    });
+
+    if (thorimsInvocationPerformance) {
+      thorimsInvocationPerformance.forEach((item) => {
+        checklistItems.push({
+          check: 'thorims-invocation',
+          timestamp: cast.event.timestamp,
+          ...item,
+        });
+      });
+    }
+
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+    );
+
     return {
       event: cast.event,
-      checklistItems: [],
-      performance: performance,
-      performanceExplanation: <>{performance} Usage</>,
+      checklistItems: checklistItems,
+      performance: actualPerformance,
+      performanceExplanation:
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
     };
   }
 }
