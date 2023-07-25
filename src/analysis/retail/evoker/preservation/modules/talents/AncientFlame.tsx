@@ -3,13 +3,19 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { reduce } from 'vega-lite/build/src/encoding';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { getAncientFlameSource } from '../../normalizers/CastLinkNormalizer';
 
 class AncientFlame extends Analyzer {
   consumptions: BoxRowEntry[] = [];
@@ -24,36 +30,29 @@ class AncientFlame extends Analyzer {
       this.onRefresh,
     );
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_FLAME_BUFF),
-      this.onApply,
-    );
-    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ANCIENT_FLAME_BUFF),
       this.onConsume,
     );
   }
 
-  onApply(event: ApplyBuffEvent) {
-    this.lastApply = event;
-  }
-
-  get applyTime() {
-    return this.lastApply?.timestamp || this.owner.fight.start_time;
-  }
-
   onRefresh(event: RefreshBuffEvent) {
     let tooltip = null;
     let value = QualitativePerformance.Good;
-    // 1 stack after cast = they were at 2 so not a waste
-    if (this.selectedCombatant.getBuffStacks(SPELLS.ESSENCE_BURST_BUFF.id) === 1) {
+    const applyEvent = getAncientFlameSource(event) as CastEvent;
+    // 1 stack after eb cast = they were at 2 so not a waste
+    if (
+      applyEvent.ability.guid === SPELLS.EMERALD_BLOSSOM_CAST.id &&
+      this.selectedCombatant.getBuffStacks(SPELLS.ESSENCE_BURST_BUFF.id) === 1
+    ) {
       tooltip = (
         <>
           <div>
             <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT} /> applied @{' '}
-            {this.owner.formatTimestamp(this.applyTime)}
+            {this.owner.formatTimestamp(applyEvent.timestamp ?? this.owner.fight.start_time)}
           </div>
           <div>
-            You refreshed this buff but you were capped on{' '}
+            You refreshed this buff by casting <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} /> but
+            you were capped on{' '}
             <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> stacks, which
             makes this refresh not a misplay.
           </div>
@@ -64,11 +63,10 @@ class AncientFlame extends Analyzer {
         <>
           <div>
             <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT} /> applied @{' '}
-            {this.owner.formatTimestamp(this.applyTime)}
+            {this.owner.formatTimestamp(applyEvent.timestamp ?? this.owner.fight.start_time)}
           </div>
           <div>
-            You wasted this buff by casting another <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> or{' '}
-            <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> @{' '}
+            You wasted this buff by casting another <SpellLink spell={applyEvent.ability.guid} /> @{' '}
             {this.owner.formatTimestamp(event.timestamp)} before casting{' '}
             <SpellLink spell={SPELLS.LIVING_FLAME_CAST} />
           </div>
@@ -80,18 +78,19 @@ class AncientFlame extends Analyzer {
   }
 
   onConsume(event: RemoveBuffEvent) {
+    const applyEvent = getAncientFlameSource(event);
     const tooltip = (
       <>
         <div>
           <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT} /> applied @{' '}
-          {this.owner.formatTimestamp(this.applyTime)}
+          {this.owner.formatTimestamp(applyEvent.timestamp ?? this.owner.fight.start_time)}
         </div>
         <div>Consumed @ {this.owner.formatTimestamp(event.timestamp)}</div>
       </>
     );
     const value = QualitativePerformance.Good;
     this.consumptions.push({ value, tooltip });
-    this.consumeTimes.push(event.timestamp - this.applyTime);
+    this.consumeTimes.push(event.timestamp - applyEvent.timestamp ?? this.owner.fight.start_time);
   }
 
   get averageTimeToConsume() {
@@ -111,12 +110,13 @@ class AncientFlame extends Analyzer {
       <p>
         When playing an <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> focused build, it is extremely
         important to weave in casts of <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> between casts
-        of <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> in order to generate{' '}
+        of <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> and{' '}
+        <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> in order to generate{' '}
         <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} />. Not utilizing this
-        talent will lead to both an HPS and DPS loss, while also making the build more mana-starved
-        than it should be. It is okay to cast multiple <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />s
-        in a row and waste the buff at times, but this should not be consistent occurrence
-        throughout a fight.
+        talent will reduce your HPS, DPS, and mana efficiency. It is okay to refresh the buff during
+        times of high damage intake where casting <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />{' '}
+        multiple times in a row is needed to keep the raid alive or when you are capped on{' '}
+        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> stacks.
       </p>
     );
     const data = (
