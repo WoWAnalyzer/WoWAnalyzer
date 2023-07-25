@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -40,7 +40,7 @@ class UnstableAfflictionUptime extends Analyzer {
       )
         .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.unstableAffliction.uptime',
             message: `${formatPercentage(actual)}% Unstable Affliction uptime.`,
           }),

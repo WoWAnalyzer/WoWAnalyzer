@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -46,7 +46,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           )
             .icon('spell_mage_altertime')
             .actual(
-              t({
+              defineMessage({
                 id: 'mage.frost.suggestions.alwaysBeCasting.downtime',
                 message: `${formatPercentage(actual)}% downtime`,
               }),

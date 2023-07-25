@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -46,7 +46,7 @@ class HealingSurge extends Analyzer {
         )
           .icon(SPELLS.HEALING_SURGE.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shaman.restoration.suggestions.healingSurge.unbuffed',
               message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`,
             }),

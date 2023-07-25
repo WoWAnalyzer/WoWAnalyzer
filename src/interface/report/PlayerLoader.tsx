@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useCallback, useEffect, useReducer } from 'react';
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, t, Trans } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import { fetchCombatants, LogNotFoundError } from 'common/fetchWclApi';
 import getFightName from 'common/getFightName';
@@ -36,6 +36,7 @@ import { getPlayerNameFromParam } from 'interface/selectors/url/report/getPlayer
 import { isClassicExpansion } from 'game/Expansion';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { CLASSIC_EXPANSION } from 'game/Expansion';
+import { i18n } from '@lingui/core';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
@@ -345,31 +346,39 @@ const PlayerLoader = ({ children }: Props) => {
       // Player data was in the report, but there was another issue
       if (hasDuplicatePlayers) {
         alert(
-          t({
-            id: 'interface.report.render.hasDuplicatePlayers',
-            message: `It appears like another "${playerName}" is in this log, please select the correct one`,
-          }),
+          i18n._(
+            defineMessage({
+              id: 'interface.report.render.hasDuplicatePlayers',
+              message: `It appears like another "${playerName}" is in this log, please select the correct one`,
+            }),
+          ),
         );
       } else if (!combatant) {
         alert(
-          t({
-            id: 'interface.report.render.dataNotAvailable',
-            message: `Player data does not seem to be available for the selected player in this fight.`,
-          }),
+          i18n._(
+            defineMessage({
+              id: 'interface.report.render.dataNotAvailable',
+              message: `Player data does not seem to be available for the selected player in this fight.`,
+            }),
+          ),
         );
       } else if (combatant.error || (!combatant.specID && combatant.specID !== 0)) {
         alert(
-          t({
-            id: 'interface.report.render.logCorrupted',
-            message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`,
-          }),
+          i18n._(
+            defineMessage({
+              id: 'interface.report.render.logCorrupted',
+              message: `The data received from WCL for this player is corrupt, this player can not be analyzed in this fight.`,
+            }),
+          ),
         );
       } else if (!config || missingBuild) {
         alert(
-          t({
-            id: 'interface.report.render.notSupported',
-            message: `This spec is not supported for this expansion.`,
-          }),
+          i18n._(
+            defineMessage({
+              id: 'interface.report.render.notSupported',
+              message: `This spec is not supported for this expansion.`,
+            }),
+          ),
         );
       }
     }

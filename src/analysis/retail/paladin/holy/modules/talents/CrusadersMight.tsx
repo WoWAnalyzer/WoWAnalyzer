@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
@@ -111,7 +111,7 @@ class CrusadersMight extends Analyzer {
       )
         .icon(TALENTS.HOLY_SHOCK_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.holy.modules.talents.crusadersMight.actual',
 
             message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
@@ -120,7 +120,7 @@ class CrusadersMight extends Analyzer {
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'paladin.holy.modules.talents.crusadersMight.recommended',
             message: `Casting Holy Shock on cooldown is recommended.`,
           }),

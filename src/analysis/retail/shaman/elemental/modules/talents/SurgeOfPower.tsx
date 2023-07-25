@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -158,7 +158,7 @@ class SurgeOfPower extends Analyzer {
       )
         .icon(TALENTS.SURGE_OF_POWER_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered',
             message: `${formatPercentage(
               actual,

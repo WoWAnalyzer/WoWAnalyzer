@@ -1,7 +1,7 @@
 import Analyzer from 'parser/core/Analyzer';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -37,7 +37,7 @@ export default class Blur extends Analyzer {
       )
         .icon(SPELLS.BLUR.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.shared.suggestions.blur.uptime',
             message: `${formatPercentage(actual)}% Blur uptime`,
           }),

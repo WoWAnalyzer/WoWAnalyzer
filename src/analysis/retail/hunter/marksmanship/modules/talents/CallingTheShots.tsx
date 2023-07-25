@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { CTS_CDR_PER_FOCUS } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TALENTS_HUNTER } from 'common/TALENTS';
@@ -98,7 +98,7 @@ class CallingTheShots extends Analyzer {
       )
         .icon(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.marksmanship.suggestions.callingTheShots.efficiency',
             message: `You had ${formatPercentage(
               actual,

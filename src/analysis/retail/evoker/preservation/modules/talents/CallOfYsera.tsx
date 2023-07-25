@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import LivingFlame from 'analysis/retail/evoker/shared/modules/core/LivingFlame';
 import { SPELL_COLORS } from 'analysis/retail/monk/mistweaver/constants';
 import { formatNumber, formatThousands } from 'common/format';
@@ -120,7 +120,7 @@ class CallOfYsera extends Analyzer {
       )
         .icon(TALENTS_EVOKER.DREAM_BREATH_TALENT.icon)
         .actual(
-          `${this.percentDbBuffed.toFixed(1)}${t({
+          `${this.percentDbBuffed.toFixed(1)}${defineMessage({
             id: 'evoker.preservation.suggestions.callOfYsera.percentBuffed',
             message: `% of casts buffed`,
           })}`,

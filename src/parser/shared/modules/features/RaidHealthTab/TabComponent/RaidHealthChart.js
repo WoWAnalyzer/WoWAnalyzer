@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import PropTypes from 'prop-types';
 import { Component } from 'react';
@@ -103,7 +103,7 @@ class RaidHealthChart extends Component {
           field: 'y',
           type: 'quantitative',
           stack: true,
-          title: t({
+          title: defineMessage({
             id: 'shared.modules.raidHealthTab.chart.title.y',
             message: `Total Raid Health`,
           }),
@@ -111,7 +111,7 @@ class RaidHealthChart extends Component {
         color: {
           field: 'title',
           type: 'nominal',
-          title: t({
+          title: defineMessage({
             id: 'common.player',
             message: `Player`,
           }),

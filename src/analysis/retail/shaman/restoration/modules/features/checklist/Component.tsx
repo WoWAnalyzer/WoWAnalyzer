@@ -223,7 +223,6 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             your downtime by reducing the delay between casting spells, anticipating movement,
             moving during the GCD, and{' '}
             <TooltipElement
-              wrapperStyles={{ display: 'inline' }}
               content={t({
                 id: 'shaman.restoration.checklist.inactivity.description.tooltip',
                 message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`,

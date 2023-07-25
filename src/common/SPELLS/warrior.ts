@@ -376,6 +376,16 @@ const spells = {
     name: 'Raging Blow',
     icon: 'warrior_wild_strike',
   },
+  HACK_AND_SLASH: {
+    id: 383873,
+    name: 'Hack and Slash',
+    icon: 'ability_warrior_savageblow',
+  },
+  WRATH_AND_FURY: {
+    id: 392937,
+    name: 'Wrath and Fury',
+    icon: 'warrior_wild_strike',
+  },
   RAMPAGE: {
     id: 184367,
     name: 'Rampage',

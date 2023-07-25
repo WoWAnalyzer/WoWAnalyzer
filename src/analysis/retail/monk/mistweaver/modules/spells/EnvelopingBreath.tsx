@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -117,7 +117,7 @@ class EnvelopingBreath extends Analyzer {
       )
         .icon(SPELLS.ENVELOPING_BREATH_HEAL.icon)
         .actual(
-          `${this.averageEnvBPerEnv.toFixed(2) + ' '}${t({
+          `${this.averageEnvBPerEnv.toFixed(2) + ' '}${defineMessage({
             id: 'monk.mistweaver.suggestions.envelopingBreath.averageEnvBPerEnv',
             message: ` Enveloping Breaths per Enveloping Mist during Celestial`,
           })}`,

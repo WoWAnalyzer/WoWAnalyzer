@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -137,7 +137,7 @@ class DeathsCaress extends Analyzer {
       )
         .icon(TALENTS.DEATHS_CARESS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.deathsCaress.suggestion.actual',
             message: `${formatPercentage(this.badDcCasts / this.dcCasts)}% bad ${
               TALENTS.DEATHS_CARESS_TALENT.name
@@ -145,7 +145,7 @@ class DeathsCaress extends Analyzer {
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'deathknight.blood.deathsCaress.suggestion.recommended',
             message: '0% are recommended',
           }),

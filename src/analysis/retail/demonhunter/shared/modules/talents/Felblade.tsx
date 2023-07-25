@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -71,7 +71,7 @@ class Felblade extends Analyzer {
       )
         .icon(TALENTS_DEMON_HUNTER.FELBLADE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.havoc.suggestions.felBlade.furyWasted',
             message: `${formatPercentage(actual)}% Fury wasted`,
           }),

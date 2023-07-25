@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage, formatDuration, formatNth } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -149,7 +149,7 @@ class Wellspring extends Analyzer {
         )
           .icon(TALENTS.WELLSPRING_TALENT.icon)
           .actual(
-            `${formatPercentage(suggestionThreshold.actual)}% ${t({
+            `${formatPercentage(suggestionThreshold.actual)}% ${defineMessage({
               id: 'shared.suggestions.efficiency',
               message: `efficiency`,
             })}`,

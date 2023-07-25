@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -73,20 +73,20 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
   suggestions(when: When) {
     when(this.hitRatioSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        t({
+        defineMessage({
           id: 'paladin.protection.modules.features.noDamageShieldOfTheRighteous.suggestion',
           message: `SotR is a major source of damage. Make sure that each cast hits at least 1 enemy.`,
         }),
       )
         .icon(SPELLS.SHIELD_OF_THE_RIGHTEOUS.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.protection.modules.features.noDamageShieldOfTheRighteous.actual',
             message: `${formatPercentage(actual)}% of casts hit at least 1 target.`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'paladin.protection.modules.features.noDamageShieldOfTheRighteous.recommended',
             message: `>${formatPercentage(recommended)}% is recommended`,
           }),

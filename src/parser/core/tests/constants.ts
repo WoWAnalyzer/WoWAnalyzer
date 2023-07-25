@@ -7,7 +7,9 @@ import type Fight from 'parser/core/Fight';
 import type CharacterProfile from 'parser/core/CharacterProfile';
 
 export const TEST_SPEC: Spec = {
-  className: '',
+  className: {
+    id: '',
+  },
   id: 0,
   index: 0,
   primaryStat: '',

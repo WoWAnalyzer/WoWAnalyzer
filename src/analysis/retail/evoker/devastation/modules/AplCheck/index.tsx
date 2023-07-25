@@ -26,38 +26,7 @@ const COMMON_TOP: Rule[] = [
     spell: TALENTS.FIRESTORM_TALENT,
     condition: cnd.buffPresent(SPELLS.SNAPFIRE_BUFF),
   },
-  {
-    spell: TALENTS.SHATTERING_STAR_TALENT,
-    condition: cnd.describe(cnd.optionalRule(cnd.spellAvailable(TALENTS.DRAGONRAGE_TALENT)), () => (
-      <>
-        you are about to cast <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> <strong>(AoE)</strong>
-      </>
-    )),
-  },
-  {
-    spell: TALENTS.DRAGONRAGE_TALENT,
-    condition: cnd.describe(
-      cnd.optionalRule(
-        cnd.or(
-          cnd.targetsHit(
-            { atLeast: 3 },
-            { lookahead: 3000, targetType: EventType.Damage, targetSpell: SPELLS.PYRE },
-          ),
-          cnd.and(
-            cnd.spellCooldownRemaining(SPELLS.FIRE_BREATH, { atMost: 4000 }),
-            cnd.spellCooldownRemaining(SPELLS.ETERNITY_SURGE, { atMost: 10000 }),
-          ),
-        ),
-      ),
-      () => (
-        <>
-          it would hit at least 3 targets or <SpellLink spell={SPELLS.FIRE_BREATH} /> will be off
-          cooldown in less than 4 seconds and <SpellLink spell={SPELLS.ETERNITY_SURGE} /> has no
-          more than 10 seconds remaining on cooldown
-        </>
-      ),
-    ),
-  },
+
   // With Event Horizon talented, use Eternity Surge before Fire Breath during DR
   {
     spell: SPELLS.ETERNITY_SURGE,
@@ -81,20 +50,14 @@ const COMMON_TOP: Rule[] = [
     spell: SPELLS.FIRE_BREATH,
     condition: cnd.or(
       cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(
-        cnd.buffMissing(SPELLS.BLAZING_SHARDS),
-        cnd.optionalRule(avoidIfDragonRageSoon(13000)),
-      ),
+      cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
     ),
   },
   {
     spell: SPELLS.FIRE_BREATH_FONT,
     condition: cnd.or(
       cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(
-        cnd.buffMissing(SPELLS.BLAZING_SHARDS),
-        cnd.optionalRule(avoidIfDragonRageSoon(13000)),
-      ),
+      cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
     ),
   },
   // Use ES over star in AoE
@@ -107,10 +70,7 @@ const COMMON_TOP: Rule[] = [
       ),
       cnd.or(
         cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-        cnd.and(
-          cnd.buffMissing(SPELLS.BLAZING_SHARDS),
-          cnd.optionalRule(avoidIfDragonRageSoon(13000)),
-        ),
+        cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
       ),
     ),
   },
@@ -123,10 +83,7 @@ const COMMON_TOP: Rule[] = [
       ),
       cnd.or(
         cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-        cnd.and(
-          cnd.buffMissing(SPELLS.BLAZING_SHARDS),
-          cnd.optionalRule(avoidIfDragonRageSoon(13000)),
-        ),
+        cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
       ),
     ),
   },
@@ -184,20 +141,14 @@ const COMMON_TOP: Rule[] = [
     spell: SPELLS.ETERNITY_SURGE,
     condition: cnd.or(
       cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(
-        cnd.buffMissing(SPELLS.BLAZING_SHARDS),
-        cnd.optionalRule(avoidIfDragonRageSoon(13000)),
-      ),
+      cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
     ),
   },
   {
     spell: SPELLS.ETERNITY_SURGE_FONT,
     condition: cnd.or(
       cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(
-        cnd.buffMissing(SPELLS.BLAZING_SHARDS),
-        cnd.optionalRule(avoidIfDragonRageSoon(13000)),
-      ),
+      cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
     ),
   },
   // Hard cast only Firestorm in AoE
@@ -272,19 +223,22 @@ export const COMMON_BOTTOM: Rule[] = [
   {
     spell: SPELLS.LIVING_FLAME_CAST,
     condition: cnd.describe(
-      cnd.or(
-        cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
-        cnd.buffPresent(SPELLS.IRIDESCENCE_RED),
-        cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE),
+      cnd.and(
+        cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
+        cnd.or(cnd.buffPresent(SPELLS.IRIDESCENCE_RED), cnd.buffPresent(SPELLS.IRIDESCENCE_BLUE)),
       ),
       () => (
         <>
-          <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> isn't active or if you have{' '}
+          <SpellLink spell={TALENTS.DRAGONRAGE_TALENT} /> is present and{' '}
           <SpellLink spell={SPELLS.IRIDESCENCE_BLUE} /> or{' '}
-          <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> up
+          <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> is present.
         </>
       ),
     ),
+  },
+  {
+    spell: SPELLS.LIVING_FLAME_CAST,
+    condition: cnd.buffMissing(TALENTS.DRAGONRAGE_TALENT),
   },
 
   SPELLS.AZURE_STRIKE,
@@ -296,7 +250,10 @@ const default_rotation = build([
   // Chained disintegrate - Chaining takes prio over clipping
   {
     spell: SPELLS.DISINTEGRATE,
-    condition: cnd.and(hasEssenceRequirement(3), cnd.lastSpellCast(SPELLS.DISINTEGRATE)),
+    condition: cnd.and(
+      cnd.always(hasEssenceRequirement(3)),
+      cnd.lastSpellCast(SPELLS.DISINTEGRATE),
+    ),
   },
 
   // Leaping Flames with burnout
@@ -432,7 +389,7 @@ const default_rotation = build([
 
   {
     spell: SPELLS.DISINTEGRATE,
-    condition: hasEssenceRequirement(3),
+    condition: cnd.always(hasEssenceRequirement(3)),
   },
 
   ...COMMON_BOTTOM,

@@ -1,0 +1,10 @@
+diff --git a/node_modules/@wowanalyzer/react-tooltip-lite/dist/index.d.ts b/node_modules/@wowanalyzer/react-tooltip-lite/dist/index.d.ts
+index 3c52480..f2ebbb6 100644
+--- a/node_modules/@wowanalyzer/react-tooltip-lite/dist/index.d.ts
++++ b/node_modules/@wowanalyzer/react-tooltip-lite/dist/index.d.ts
+@@ -1,4 +1,4 @@
+-declare module 'react-tooltip-lite' {
++declare module '@wowanalyzer/react-tooltip-lite' {
+ 
+   import * as React from 'react';
+ 

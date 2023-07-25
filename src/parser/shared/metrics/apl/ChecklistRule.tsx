@@ -153,6 +153,9 @@ export function RuleSpellsDescription({ rule }: { rule: AplRule }): JSX.Element 
 }
 
 export function RuleDescription({ rule }: { rule: AplRule }): JSX.Element {
+  if (rule.description) {
+    return <>{rule.description}</>;
+  }
   return (
     <>
       Cast <RuleSpellsDescription rule={rule} />

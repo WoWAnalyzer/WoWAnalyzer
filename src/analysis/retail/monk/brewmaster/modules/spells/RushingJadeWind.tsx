@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
@@ -42,7 +42,7 @@ class RushingJadeWind extends Analyzer {
       )
         .icon(talents.RUSHING_JADE_WIND_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.brewmaster.suggestions.rushingJadeWind.uptime',
             message: `${formatPercentage(actual)}% uptime`,
           }),

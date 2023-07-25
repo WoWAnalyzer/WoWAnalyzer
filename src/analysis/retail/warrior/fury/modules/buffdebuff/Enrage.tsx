@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -65,7 +65,7 @@ class Enrage extends Analyzer {
       )
         .icon(SPELLS.ENRAGE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.fury.suggestions.enrage.uptime',
             message: `${formatPercentage(actual)}% Enrage uptime`,
           }),

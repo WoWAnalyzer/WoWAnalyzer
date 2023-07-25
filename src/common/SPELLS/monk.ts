@@ -4,6 +4,7 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 import Spell from 'common/SPELLS/Spell';
+import talents from 'common/TALENTS/monk';
 
 const spells = {
   // Shared
@@ -644,6 +645,14 @@ const spells = {
     id: 394797,
     name: "Brewmaster's Rhythm",
     icon: 'ability_monk_standingkick',
+  },
+  PRESS_THE_ADVANTAGE_BUFF: {
+    ...talents.PRESS_THE_ADVANTAGE_TALENT,
+    id: 418361,
+  },
+  PRESS_THE_ADVANTAGE_DMG: {
+    ...talents.PRESS_THE_ADVANTAGE_TALENT,
+    id: 418360,
   },
 
   // Windwalker Spells

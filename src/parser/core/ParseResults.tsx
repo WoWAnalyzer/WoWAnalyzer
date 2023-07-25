@@ -4,6 +4,8 @@ import { Suggestion as SuggestionData } from 'parser/core/CombatLogParser';
 import * as React from 'react';
 
 import ISSUE_IMPORTANCE from './ISSUE_IMPORTANCE';
+import { i18n, MessageDescriptor } from '@lingui/core';
+import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 
 enum AssertionMode {
   IS_GREATER_THAN = '>',
@@ -247,12 +249,14 @@ class Suggestion {
     this._spell = spellId;
     return this;
   }
-  actual(actualText: React.ReactNode) {
-    this._actualText = actualText;
+  actual(actualText: React.ReactNode | MessageDescriptor) {
+    this._actualText = isMessageDescriptor(actualText) ? i18n._(actualText) : actualText;
     return this;
   }
-  recommended(recommendedText: React.ReactNode) {
-    this._recommendedText = recommendedText;
+  recommended(recommendedText: React.ReactNode | MessageDescriptor) {
+    this._recommendedText = isMessageDescriptor(recommendedText)
+      ? i18n._(recommendedText)
+      : recommendedText;
     return this;
   }
   regular(value: number) {

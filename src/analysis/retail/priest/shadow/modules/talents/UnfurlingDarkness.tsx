@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -77,7 +77,7 @@ class UnfurlingDarkness extends Analyzer {
       )
         .icon(SPELLS.UNFURLING_DARKNESS_BUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.unfurlingDarkness.efficiency',
             message: `You wasted ${this.procsWasted} out of ${this.procsGained} Unfurling Darkness procs.`,
           }),

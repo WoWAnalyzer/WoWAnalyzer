@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import {
   BOP_CA_EXTENSION_PER_CAST,
@@ -133,7 +133,7 @@ class BirdOfPrey extends Analyzer {
       )
         .icon(TALENTS.BIRDS_OF_PREY_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.survival.suggestions.birdOfPrey.efficiency',
             message: `${formatPercentage(
               actual,

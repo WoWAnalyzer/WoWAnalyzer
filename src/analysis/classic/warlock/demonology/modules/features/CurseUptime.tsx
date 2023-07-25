@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import Analyzer from 'parser/core/Analyzer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -75,7 +75,7 @@ class CurseUptime extends Analyzer {
       )
         .icon('classicon_warlock')
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.wotlk.suggestions.curse.uptime',
             message: `${formatPercentage(actual)}% Curse uptime`,
           }),

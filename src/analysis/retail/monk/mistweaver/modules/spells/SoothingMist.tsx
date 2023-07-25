@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -174,7 +174,7 @@ class SoothingMist extends Analyzer {
       )
         .icon(TALENTS_MONK.SOOTHING_MIST_TALENT.icon)
         .actual(
-          `${formatPercentage(this.badSooms / this.totalSoomCasts)}${t({
+          `${formatPercentage(this.badSooms / this.totalSoomCasts)}${defineMessage({
             id: 'monk.mistweaver.suggestions.soothingMist.channelingWithoutCastingSpells',
             message: `% of Soothing Mist casts with max spells casted`,
           })}`,

@@ -5,6 +5,7 @@ import { Abelito75, carglass, Carrottopp, Otthopsy, bandit, Toreole, emallson, T
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 23), <>Normalize extra casts from <SpellLink spell={TALENTS.BLADEMASTERS_TORMENT_TALENT}/>.</>, ToppleTheNun),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 1, 30), 'Fixed a crashing bug in the rage tracker.', emallson),
   change(date(2023, 1, 27), <>Updated Ability list for 10.0.5; Added Skullsplitter bleed damage contribution</>, Toreole),

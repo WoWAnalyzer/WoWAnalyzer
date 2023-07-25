@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans, defineMessage } from '@lingui/macro';
 import TALENTS from 'common/TALENTS/paladin';
 import { Panel } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -133,7 +133,10 @@ class DeathRecapTracker extends Analyzer {
     }
 
     return {
-      title: <Trans id="interface.report.results.navigationBar.deathRecap">Death Recap</Trans>,
+      title: defineMessage({
+        id: 'interface.report.results.navigationBar.deathRecap',
+        message: 'Death Recap',
+      }),
       url: 'death-recap',
       render: () => (
         <Panel
