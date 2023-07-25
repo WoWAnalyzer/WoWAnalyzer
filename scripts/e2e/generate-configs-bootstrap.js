@@ -29,4 +29,4 @@ global.React = {
   },
 };
 
-require('./generate-configs');
+require('./generate-configs').generateConfigs();
