@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -67,7 +67,7 @@ class LegionStrike extends Analyzer {
       )
         .icon(SPELLS.FELGUARD_LEGION_STRIKE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.demonology.suggestions.legionStrike.casts',
             message: `${actual} Legion Strike casts`,
           }),

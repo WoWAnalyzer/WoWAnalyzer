@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -51,7 +51,7 @@ class Dispatch extends Analyzer {
       )
         .icon(SPELLS.DISPATCH.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.outlaw.dispatch.efficiency',
             message: `${formatPercentage(actual)}% inefficient casts`,
           }),

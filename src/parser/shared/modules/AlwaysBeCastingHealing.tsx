@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { EndChannelEvent, GlobalCooldownEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -123,7 +123,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       )
         .icon('petbattle_health-down')
         .actual(
-          t({
+          defineMessage({
             id: 'shared.suggestions.alwaysBeCastingHealing.timeSpentHealing',
             message: `${formatPercentage(1 - actual)}% time spent healing`,
           }),
@@ -136,7 +136,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
       )
         .icon('spell_mage_altertime')
         .actual(
-          t({
+          defineMessage({
             id: 'shared.suggestions.alwaysBeCasting.activeTime',
             message: `${formatPercentage(1 - actual)}% active time`,
           }),

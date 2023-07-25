@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
@@ -99,7 +99,7 @@ class Momentum extends Analyzer {
       )
         .icon(TALENTS.MOMENTUM_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.havoc.suggestions.momentum.uptime',
             message: `${formatPercentage(actual)}% buff uptime`,
           }),

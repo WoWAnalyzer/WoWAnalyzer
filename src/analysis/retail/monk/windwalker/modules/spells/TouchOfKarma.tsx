@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -65,7 +65,7 @@ class TouchOfKarma extends Analyzer {
       )
         .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.suggestions.touchOfKarma.absorbUsed',
             message: `${formatPercentage(actual)}% Touch of Karma absorb used`,
           }),

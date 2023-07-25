@@ -1,6 +1,6 @@
 // Heavily inspired by resource breakdown in Feral and Retribution
 
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -47,7 +47,7 @@ class ChiDetails extends Analyzer {
       suggest('You are wasting Chi. Try to use it and not let it cap and go to waste')
         .icon('creatureportrait_bubble')
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.suggestions.chi.wastedPerMinute',
             message: `${this.chiWasted} Chi wasted (${actual.toFixed(2)} per minute)`,
           }),

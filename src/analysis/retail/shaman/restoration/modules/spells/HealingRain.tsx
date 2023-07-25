@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
@@ -83,7 +83,7 @@ class HealingRain extends Analyzer {
         )
           .icon(TALENTS.HEALING_RAIN_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shaman.restoration.suggestions.healingRain.averageTargets',
               message: `${suggestionThreshold.actual.toFixed(2)} average targets healed`,
             }),

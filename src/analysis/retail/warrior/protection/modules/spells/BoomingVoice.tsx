@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -95,7 +95,7 @@ class BoomingVoice extends Analyzer {
       )
         .icon(TALENTS.BOOMING_VOICE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.protection.suggestions.boominVoice.rage.wasted',
             message: `${actual} Rage wasted`,
           }),

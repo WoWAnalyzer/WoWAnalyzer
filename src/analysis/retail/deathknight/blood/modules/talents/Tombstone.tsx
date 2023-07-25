@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, t, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -123,13 +123,13 @@ class Tombstone extends Analyzer {
       )
         .icon(TALENTS.TOMBSTONE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.tombstone.suggestion.actual',
             message: `${formatPercentage(actual)}% bad Tombstone casts`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'shared.suggestion.recommended.lessThanPercent',
             message: `<${formatPercentage(recommended)}% is recommended`,
           }),

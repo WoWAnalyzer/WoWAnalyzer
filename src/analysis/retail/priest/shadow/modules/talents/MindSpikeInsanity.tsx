@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -157,7 +157,7 @@ class MindFlayInsanity extends Analyzer {
       )
         .icon(TALENTS.SURGE_OF_INSANITY_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.mindSpikeInsanity.castLost',
             message: `Lost ${this.procsWasted} casts of Mind Spike: Insanity.`,
           }),

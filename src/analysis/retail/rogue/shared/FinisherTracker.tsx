@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -96,7 +96,7 @@ class FinisherTracker extends Analyzer {
       )
         .icon(this.suggestionIcon())
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.shared.suggestions.finishers.efficiency',
             message: `${formatPercentage(actual)}% (${this.inefficientFinisherCount} out of ${
               this.totalFinisherCount

@@ -5,6 +5,8 @@ import ReadableListing from 'interface/ReadableListing';
 import Config from 'parser/Config';
 
 import SpecIcon from './SpecIcon';
+import { useLingui } from '@lingui/react';
+import { isDefined } from 'common/typeGuards';
 
 const SpecListItem = ({
   spec,
@@ -14,7 +16,13 @@ const SpecListItem = ({
   isPartial,
   expansion,
 }: Config) => {
-  const className = spec.className.replace(/ /g, '');
+  const { i18n } = useLingui();
+
+  const i18nSpecName = spec.specName ? i18n._(spec.specName) : undefined;
+  const i18nClassName = i18n._(spec.className);
+  const displayName = [i18nSpecName, i18nClassName].filter(isDefined).join(' ');
+
+  const className = i18n._(spec.className).replace(/ /g, '');
   const Component = exampleReport && isCurrentExpansion(expansion) ? 'a' : 'div';
 
   const maintainers = (
@@ -38,9 +46,7 @@ const SpecListItem = ({
         </figure>
       </div>
       <div className="description">
-        <h4 className={className}>
-          {spec.specName} {spec.className}
-        </h4>
+        <h4 className={className}>{displayName}</h4>
         {!patchCompatibility ? (
           <Trans id="interface.specListItem.notSupported">Not currently supported</Trans>
         ) : !isPartial ? (

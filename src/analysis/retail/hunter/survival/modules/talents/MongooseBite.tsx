@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import {
   MONGOOSE_BITE_MAX_STACKS,
   MONGOOSE_BITE_MAX_TRAVEL_TIME,
@@ -240,7 +240,7 @@ class MongooseBite extends Analyzer {
       )
         .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.survival.suggestions.mongooseBite.focusWindow',
             message: `${formatNumber(actual)} average focus on new window.`,
           }),
@@ -256,7 +256,7 @@ class MongooseBite extends Analyzer {
       )
         .icon(TALENTS.MONGOOSE_BITE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.survival.suggetsions.mongooseBite.maxStacksCasts',
             message: `${formatPercentage(actual)}% casts on max stacks.`,
           }),

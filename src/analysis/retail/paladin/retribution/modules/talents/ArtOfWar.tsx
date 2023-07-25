@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
@@ -92,7 +92,7 @@ class AoWProcTracker extends Analyzer {
       )
         .icon(SPELLS.ART_OF_WAR.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.retribution.suggestions.artOfWar.procsUsed',
             message: `${formatPercentage(this.consumedProcsPercent)}% proc(s) used.`,
           }),

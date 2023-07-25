@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -96,7 +96,7 @@ class RimeEfficiency extends Analyzer {
       )
         .icon(SPELLS.RIME.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.frost.suggestions.rime.wastedProcs',
             message: `${formatPercentage(
               this.wastedProcRate,

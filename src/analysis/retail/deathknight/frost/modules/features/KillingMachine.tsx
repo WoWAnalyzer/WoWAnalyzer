@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -164,7 +164,7 @@ class KillingMachineEfficiency extends Analyzer {
       )
         .icon(SPELLS.KILLING_MACHINE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.frost.suggestions.killingMachine.wasted',
             message: `${formatPercentage(
               this.wastedProcRate,

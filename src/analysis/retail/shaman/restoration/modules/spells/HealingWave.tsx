@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -116,7 +116,7 @@ class HealingWave extends Analyzer {
         )
           .icon(TALENTS.HEALING_WAVE_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shaman.restoration.suggestions.healingWave.unbuffed',
               message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`,
             }),

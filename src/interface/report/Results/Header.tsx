@@ -17,6 +17,7 @@ import TimeFilter from './TimeFilter';
 import DungeonPullSelector from './DungeonPullSelector';
 
 import './Header.scss';
+import { useLingui } from '@lingui/react';
 
 interface Props {
   config: Config;
@@ -57,6 +58,8 @@ const Header = ({
   tabs,
   selectedTab,
 }: Props) => {
+  const { i18n } = useLingui();
+
   let playerThumbnail;
   if (characterProfile?.thumbnail) {
     playerThumbnail = `https://render-${characterProfile.region}.worldofwarcraft.com/character/${characterProfile.thumbnail}`;
@@ -117,7 +120,7 @@ const Header = ({
               />
             )}
             <h2>
-              {spec.specName} {spec.className}
+              {spec.specName ? i18n._(spec.specName) : ''} {i18n._(spec.className)}
             </h2>
             <h1 className="name">{name}</h1>
           </div>

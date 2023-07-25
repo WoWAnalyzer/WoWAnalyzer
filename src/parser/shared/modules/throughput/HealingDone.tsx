@@ -11,6 +11,7 @@ import ThroughputPerformance, { UNAVAILABLE } from 'parser/ui/ThroughputPerforma
 import { AutoSizer } from 'react-virtualized';
 
 import HealingValue from '../HealingValue';
+import { i18n } from '@lingui/core';
 
 class HealingDone extends Analyzer {
   constructor(options: Options) {
@@ -151,7 +152,9 @@ class HealingDone extends Analyzer {
                       <>
                         Your HPS compared to the HPS of a top 100 player. To become a top 100{' '}
                         <span className={this.selectedCombatant.player.type.replace(' ', '')}>
-                          {this.selectedCombatant.spec?.specName || null}{' '}
+                          {this.selectedCombatant.spec?.specName
+                            ? i18n._(this.selectedCombatant.spec.specName)
+                            : null}{' '}
                           {this.selectedCombatant.player.type}
                         </span>{' '}
                         on this fight you need to do at least{' '}

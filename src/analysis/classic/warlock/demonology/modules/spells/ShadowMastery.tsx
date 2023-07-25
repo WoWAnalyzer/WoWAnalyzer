@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import DebuffUptime from 'parser/shared/modules/DebuffUptime';
@@ -39,7 +39,7 @@ export default class ShadowMasteryUptime extends DebuffUptime {
       )
         .icon(this.debuffSpell.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shared.suggestions.spells.uptime',
             message: `${formatPercentage(actual)}% ${this.debuffSpell.name} uptime`,
           }),
