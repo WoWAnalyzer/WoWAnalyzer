@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -33,13 +33,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         )
           .icon('spell_mage_altertime')
           .actual(
-            t({
+            defineMessage({
               id: 'deathknight.blood.alwaysBeCasting.suggestion.actual',
               message: `${formatPercentage(actual)}% downtime`,
             }),
           )
           .recommended(
-            t({
+            defineMessage({
               id: 'shared.suggestion.recommended.lessThanPercent',
               message: `<${formatPercentage(recommended)}% is recommended`,
             }),

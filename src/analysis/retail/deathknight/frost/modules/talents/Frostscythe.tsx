@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -87,7 +87,7 @@ class Frostscythe extends Analyzer {
       )
         .icon(talents.FROSTSCYTHE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.frost.frostScythe.efficiency',
             message: `${formatPercentage(actual)}% Frostscythe efficiency`,
           }),

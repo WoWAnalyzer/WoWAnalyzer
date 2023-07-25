@@ -11,6 +11,8 @@ import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import Combatants from 'parser/shared/modules/Combatants';
 import ROLES from 'game/ROLES';
 import Combatant from 'parser/core/Combatant';
+import SPECS from 'game/SPECS';
+import { i18n } from '@lingui/core';
 
 interface ShiftingSandsApplications {
   event: ApplyBuffEvent;
@@ -54,30 +56,52 @@ class ShiftingSands extends Analyzer {
 
   private finalize() {
     // finalize performances
-    this.uses = this.shiftingSandsApplications.map(this.explainPerformance);
+    this.uses = this.shiftingSandsApplications.map((application) =>
+      this.explainPerformance(application),
+    );
   }
 
   private explainPerformance(application: ShiftingSandsApplications): SpellUse {
-    const className = application.combatant.spec?.className.replace(/\s/g, '') ?? '';
-    let ebonMightPerformance;
-    let presciencePerformance;
-    let rolePerformance;
-    let performance = QualitativePerformance.Fail;
+    let performance = QualitativePerformance.Perfect;
 
-    if (application.ebonMightOn && application.prescienceOn) {
-      performance = QualitativePerformance.Perfect;
-    } else if (application.ebonMightOn && !application.prescienceOn) {
+    const ebonMightPerformance = this.getEbonMightPerformance(application);
+    const presciencePerformance = this.getPresciencePerformance(application);
+    const rolePerformance = this.getRolePerformance(application);
+
+    if (
+      ebonMightPerformance.performance === QualitativePerformance.Fail ||
+      rolePerformance.performance === QualitativePerformance.Fail
+    ) {
+      performance = QualitativePerformance.Fail;
+    } else if (presciencePerformance.performance === QualitativePerformance.Fail) {
       performance = QualitativePerformance.Good;
     }
-    if (application.combatant.spec?.role === ROLES.HEALER) {
-      performance = QualitativePerformance.Fail;
-    } else if (
-      application.combatant.spec?.role === ROLES.TANK &&
-      performance !== QualitativePerformance.Fail
-    ) {
-      performance = QualitativePerformance.Ok;
-    }
 
+    const checklistItems: ChecklistUsageInfo[] = [
+      {
+        check: 'ebon-might-active',
+        timestamp: application.event.timestamp,
+        ...ebonMightPerformance,
+      },
+      {
+        check: 'prescience-active',
+        timestamp: application.event.timestamp,
+        ...presciencePerformance,
+      },
+      { check: 'role-performance', timestamp: application.event.timestamp, ...rolePerformance },
+    ];
+
+    return {
+      event: application.event,
+      performance: performance,
+      checklistItems,
+      performanceExplanation:
+        performance !== QualitativePerformance.Fail ? `${performance} Usage` : 'Bad Usage',
+    };
+  }
+
+  private getEbonMightPerformance(application: ShiftingSandsApplications) {
+    let ebonMightPerformance;
     const ebonSummary = (
       <div>
         Have <SpellLink spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} /> active
@@ -106,7 +130,11 @@ class ShiftingSands extends Analyzer {
         ),
       };
     }
+    return ebonMightPerformance;
+  }
 
+  private getPresciencePerformance(application: ShiftingSandsApplications) {
+    let presciencePerformance;
     const prescienceSummary = (
       <div>
         Have <SpellLink spell={SPELLS.PRESCIENCE_BUFF} /> active
@@ -134,8 +162,16 @@ class ShiftingSands extends Analyzer {
         ),
       };
     }
+    return presciencePerformance;
+  }
 
+  private getRolePerformance(application: ShiftingSandsApplications) {
+    const i18nClassName = application.combatant.spec?.className
+      ? i18n._(application.combatant.spec?.className)
+      : undefined;
+    const className = i18nClassName?.replace(/\s/g, '') ?? '';
     const roleSummary = <div>Buffed DPS player.</div>;
+    let rolePerformance;
 
     if (
       !(application.combatant.spec?.role === ROLES.DPS.RANGED) &&
@@ -159,6 +195,18 @@ class ShiftingSands extends Analyzer {
             </div>
           ),
       };
+    } else if (application.combatant.spec === SPECS.AUGMENTATION_EVOKER) {
+      rolePerformance = {
+        performance: QualitativePerformance.Fail,
+        summary: roleSummary,
+        details: (
+          <div>
+            Buffed Augmentation: <span className={className}>{application.combatant.name}</span>{' '}
+            with <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />. This should never happen! Make
+            sure you position yourself better to avoid this.
+          </div>
+        ),
+      };
     } else {
       rolePerformance = {
         performance: QualitativePerformance.Good,
@@ -171,28 +219,7 @@ class ShiftingSands extends Analyzer {
         ),
       };
     }
-
-    const checklistItems: ChecklistUsageInfo[] = [
-      {
-        check: 'ebon-might-active',
-        timestamp: application.event.timestamp,
-        ...ebonMightPerformance,
-      },
-      {
-        check: 'prescience-active',
-        timestamp: application.event.timestamp,
-        ...presciencePerformance,
-      },
-      { check: 'role-performance', timestamp: application.event.timestamp, ...rolePerformance },
-    ];
-
-    return {
-      event: application.event,
-      performance: performance,
-      checklistItems,
-      performanceExplanation:
-        performance !== QualitativePerformance.Fail ? `${performance} Usage` : 'Bad Usage',
-    };
+    return rolePerformance;
   }
 
   guideSubsection(): JSX.Element | null {

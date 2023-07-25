@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -253,7 +253,7 @@ class TreeOfLife extends Analyzer {
       )
         .icon(TALENTS_DRUID.INCARNATION_TREE_OF_LIFE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'druid.restoration.suggestions.treeOfLife.efficiency',
             message: `${formatPercentage(actual)}% healing`,
           }),

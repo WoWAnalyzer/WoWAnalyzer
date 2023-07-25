@@ -65,6 +65,9 @@ export const serenityApl = build(
     if ('condition' in rule) {
       return { spell: rule.spell, condition: andSerenity(rule.condition) };
     }
+    if ('description' in rule) {
+      return { ...rule, condition: inSerenity };
+    }
     return { spell: rule, condition: inSerenity };
   }),
 );
@@ -120,6 +123,9 @@ export const nonSerenityApl = build(
   ].map((rule: Rule) => {
     if ('condition' in rule) {
       return { spell: rule.spell, condition: andNotSerenity(rule.condition) };
+    }
+    if ('description' in rule) {
+      return { ...rule, condition: notSerenity };
     }
     return { spell: rule, condition: notSerenity };
   }),

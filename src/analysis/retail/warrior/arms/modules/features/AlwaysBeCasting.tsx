@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -25,7 +25,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       )
         .icon(SPELLS.ALTER_TIME_BUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.arms.suggestions.alwaysBeCasting.downtime',
             message: `${formatPercentage(actual)}% downtime`,
           }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -83,7 +83,7 @@ class InsidiousIre extends Analyzer {
       )
         .icon(TALENTS.INSIDIOUS_IRE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.insidiousIre.efficiency',
             message: `${formatPercentage(actual)}% Insidious Ire efficiency`,
           }),
@@ -101,7 +101,7 @@ class InsidiousIre extends Analyzer {
         )
           .icon(TALENTS.INSIDIOUS_IRE_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'priest.shadow.suggestions.insidiousIre.efficiency',
               message: `${formatPercentage(actual)}% Insidious Ire efficiency`,
             }),

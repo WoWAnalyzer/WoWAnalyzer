@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 import { formatPercentage, formatNumber } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -101,7 +101,7 @@ class ManaValues extends Analyzer {
         )
           .icon('inv_elemental_mote_mana')
           .actual(
-            `${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${t({
+            `${formatPercentage(actual)}% (${formatNumber(this.endingMana)}) ${defineMessage({
               id: 'shared.suggestions.mana.efficiency',
               message: `mana left`,
             })}`,

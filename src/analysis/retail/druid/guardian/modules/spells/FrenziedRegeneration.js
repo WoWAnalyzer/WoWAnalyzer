@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -111,7 +111,7 @@ class FrenziedRegeneration extends Analyzer {
         )
           .icon(SPELLS.FRENZIED_REGENERATION.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'druid.guardian.suggestions.frenziedRegeneration.efficiency',
               message: `${formatPercentage(
                 actual,

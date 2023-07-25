@@ -19,14 +19,20 @@ import {
   HerzBlutRaffy,
   Abelito75,
   Jundarer,
+  Vollmer,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 25), 'Fix crash when using certain i18n functions.', ToppleTheNun),
+  change(date(2023, 7, 22), 'Update i18n library version.', [ToppleTheNun, emallson]),
+  change(date(2023, 7, 22), 'Update Classic Enchants', jazminite),
+  change(date(2023, 7, 21), 'Add scrollability to Buff count graphs', Vollmer),
   change(date(2023, 7, 19), 'Update NameSearch to swap between Retail and Classic Realm lists', jazminite),
   change(date(2023, 7, 17), 'Update spell registration to use `satisfies` keyword', ToppleTheNun),
+  change(date(2023, 7, 17), 'Remove MappedEvent', Tialyss),
   change(date(2023, 7, 17), 'Make patch incompatibility warning more clear.', ToppleTheNun),
   change(date(2023, 7, 17), 'Add ability to support talents that cost resources per second; regenerate talents.', ToppleTheNun),
   change(date(2023, 7, 14), 'Updates for Classic Realms', jazminite),

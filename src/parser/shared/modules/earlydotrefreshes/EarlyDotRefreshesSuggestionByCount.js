@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 
@@ -12,7 +12,7 @@ function suggest(when, suggestion) {
     )
       .icon(suggestion.spell.icon)
       .actual(
-        t({
+        defineMessage({
           id: 'shared.suggestions.dots.countEarlyRefreshes',
           message: `${formatPercentage(actual)}% effective duration`,
         }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellIcon } from 'interface';
@@ -88,7 +88,7 @@ class XuensBattlegear extends Analyzer {
       )
         .icon(TALENTS_MONK.XUENS_BATTLEGEAR_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.suggestions.xuensBattlegear.cdrWasted',
             message: `${actual.toFixed(2)} seconds of wasted cooldown reduction per minute`,
           }),

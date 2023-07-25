@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -81,7 +81,7 @@ class SuddenDoom extends Analyzer {
       )
         .icon(SPELLS.SUDDEN_DOOM_BUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.unholy.suggestions.suddendoom.wastedProcs',
             message: `${this.wastedProcs} procs were refreshed or expired without being used`,
           }),

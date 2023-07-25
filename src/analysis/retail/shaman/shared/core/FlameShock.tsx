@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -15,6 +15,8 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
+export const FLAMESHOCK_BASE_DURATION = 18000;
+
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
     ...EarlyDotRefreshesAnalyzer.dependencies,
@@ -28,7 +30,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       name: 'Flame Shock',
       debuffId: SPELLS.FLAME_SHOCK.id,
       castId: SPELLS.FLAME_SHOCK.id,
-      duration: 18000,
+      duration: FLAMESHOCK_BASE_DURATION,
       movementFiller: true,
     },
   ];
@@ -90,7 +92,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       )
         .icon(SPELLS.FLAME_SHOCK.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.flameShock.uptime',
             message: `${formatPercentage(actual)}% uptime`,
           }),
@@ -110,7 +112,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
         )
           .icon(TALENTS_SHAMAN.LAVA_BURST_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shaman.elemental.suggestions.flameShock.efficiency',
               message: `${formatNumber(
                 this.badLavaBursts,

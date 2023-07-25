@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -102,7 +102,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
         )
           .icon(SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shared.suggestions.dots.badRefreshes',
               message: `${formatPercentage(actual)}% of good Deep Wounds refreshes.`,
             }),

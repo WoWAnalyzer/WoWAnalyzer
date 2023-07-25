@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -120,13 +120,13 @@ class DancingRuneWeapon extends Analyzer {
       )
         .icon(TALENTS.DANCING_RUNE_WEAPON_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.drw.suggestion.actual',
             message: `${this.goodDRWCasts.length} out of ${this.castsDuringDRW.length} casts during DRW were good`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'deathknight.blood.drw.suggestion.recommended',
             message: `${this.castsDuringDRW.length} recommended`,
           }),

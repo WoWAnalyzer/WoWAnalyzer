@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -277,7 +277,7 @@ class ThunderFocusTea extends Analyzer {
       )
         .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)
         .actual(
-          `${this.incorrectTftCasts} ${t({
+          `${this.incorrectTftCasts} ${defineMessage({
             id: 'monk.mistweaver.suggestions.thunderFocusTea.incorrectCasts',
             message: `incorrect casts with Thunder Focus Tea`,
           })}`,

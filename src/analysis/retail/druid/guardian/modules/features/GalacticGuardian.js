@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -79,7 +79,7 @@ class GalacticGuardian extends Analyzer {
         )
           .icon(SPELLS.GALACTIC_GUARDIAN.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'druid.guardian.suggestions.galacticGuardian.unused',
               message: `${formatPercentage(unusedGGProcs)}% unused`,
             }),

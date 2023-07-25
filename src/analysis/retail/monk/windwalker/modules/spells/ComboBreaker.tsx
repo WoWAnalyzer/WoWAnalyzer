@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -94,7 +94,7 @@ class ComboBreaker extends Analyzer {
       )
         .icon(SPELLS.COMBO_BREAKER_BUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.suggestions.comboBreaker.procsUsed',
             message: `${formatPercentage(actual)}% used Combo Breaker procs`,
           }),

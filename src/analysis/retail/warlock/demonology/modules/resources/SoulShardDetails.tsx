@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { Panel } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -41,7 +41,7 @@ class SoulShardDetails extends Analyzer {
       )
         .icon(SOUL_SHARD_ICON)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.demonology.suggestions.soulShards.wastedPerMinutes',
             message: `${shardsWasted} Soul Shards wasted (${actual.toFixed(2)} per minute)`,
           }),

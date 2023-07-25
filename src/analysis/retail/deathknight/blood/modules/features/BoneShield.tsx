@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -51,13 +51,13 @@ class BoneShield extends Analyzer {
       )
         .icon(SPELLS.BONE_SHIELD.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.boneShield.suggestion.actual',
             message: `${formatPercentage(actual)}% Bone Shield uptime`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'shared.suggestion.recommended.moreThanPercent',
             message: `>${formatPercentage(recommended)}% is recommended`,
           }),

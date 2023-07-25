@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -91,7 +91,7 @@ class VirulentPlagueEfficiency extends Analyzer {
       )
         .icon(SPELLS.VIRULENT_PLAGUE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.unholy.suggestions.virulentPlague.uptime',
             message: `${formatPercentage(actual)}% Virulent Plague uptime`,
           }),

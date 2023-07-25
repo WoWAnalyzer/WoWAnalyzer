@@ -7,6 +7,7 @@ import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import * as React from 'react';
 
 import Abilities from './Abilities';
+import { MessageDescriptor } from '@lingui/core';
 
 export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = TrackedAbility> {
   /**
@@ -76,7 +77,7 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
      * Extra suggestion text for after the Cast Efficiency suggestion. Use this
      * for example to give the user a reason why.
      */
-    extraSuggestion?: React.ReactNode;
+    extraSuggestion?: React.ReactNode | MessageDescriptor;
     /**
      * A function to get the amount of casts done of a spell.
      * @deprecated Usage should be avoided. This may be removed in the future.

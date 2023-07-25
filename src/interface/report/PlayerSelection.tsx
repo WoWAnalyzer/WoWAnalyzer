@@ -10,6 +10,7 @@ import PlayerTile from './PlayerTile';
 
 import './PlayerSelection.scss';
 import { usePageView } from 'interface/useGoogleAnalytics';
+import { i18n } from '@lingui/core';
 
 const ROLE_SORT_KEY: { [key: string]: number } = {
   [ROLES.TANK]: 0,
@@ -30,8 +31,8 @@ function sortPlayers(a: Player, b: Player) {
     return aRoleSortKey - bRoleSortKey;
   }
 
-  const aSpecSortKey = aSpec ? aSpec.className : '';
-  const bSpecSortKey = bSpec ? bSpec.className : '';
+  const aSpecSortKey = aSpec ? i18n._(aSpec.className) : '';
+  const bSpecSortKey = bSpec ? i18n._(bSpec.className) : '';
   if (aSpecSortKey !== bSpecSortKey) {
     return aSpecSortKey.localeCompare(bSpecSortKey);
   }

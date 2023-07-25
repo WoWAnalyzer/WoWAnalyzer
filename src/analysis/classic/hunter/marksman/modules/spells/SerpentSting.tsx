@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/hunter';
 import { SpellLink, SpellIcon } from 'interface';
@@ -39,7 +39,7 @@ class SerpentStingUptime extends Analyzer {
       )
         .icon(SPELLS.SERPENT_STING.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.suggestions.serpentsting.uptime',
             message: `${formatPercentage(actual)}% Serpent Sting uptime`,
           }),

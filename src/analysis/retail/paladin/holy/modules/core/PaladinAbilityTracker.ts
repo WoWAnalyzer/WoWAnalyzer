@@ -1,10 +1,8 @@
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/paladin';
 import { Ability, AbsorbedEvent, EventType, HealEvent, CastEvent } from 'parser/core/Events';
 import AbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 
 import BeaconTargets from '../beacons/BeaconTargets';
-import { Options } from 'parser/core/Analyzer';
 
 export const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 export const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
@@ -26,13 +24,6 @@ class PaladinAbilityTracker extends AbilityTracker {
     beaconTargets: BeaconTargets,
   };
   protected beaconTargets!: BeaconTargets;
-
-  judgmentTracked: boolean = false;
-
-  constructor(options: Options) {
-    super(options);
-    this.judgmentTracked = this.selectedCombatant.hasTalent(TALENTS.DIVINE_REVELATIONS_TALENT);
-  }
 
   getAbility(spellId: number, abilityInfo: Ability | null = null): TrackedPaladinAbility {
     return super.getAbility(spellId, abilityInfo);
@@ -75,9 +66,6 @@ class PaladinAbilityTracker extends AbilityTracker {
 
   onCast(event: CastEvent) {
     super.onCast(event);
-    if (!this.judgmentTracked) {
-      return;
-    }
 
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
@@ -90,6 +78,7 @@ class PaladinAbilityTracker extends AbilityTracker {
         INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME,
       );
 
+      // this really isn't just healing hits... but whatever
       if (hasIol) {
         cast.healingIolHits = (cast.healingIolHits || 0) + 1;
       }

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -94,7 +94,7 @@ class MindDevourer extends Analyzer {
       )
         .icon(TALENTS.MIND_DEVOURER_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.mindDevourer.efficiency',
             message: `You wasted ${this.procsWasted} out of ${this.procsGained} of Mind Devourer procs.`,
           }),

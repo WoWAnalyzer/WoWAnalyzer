@@ -15,6 +15,7 @@ import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useLingui } from '@lingui/react';
 
 interface Props {
   report: Report;
@@ -35,6 +36,7 @@ const SupportCheckerIssue = ({
   children,
   onContinueAnyway,
 }: Props) => {
+  const { i18n } = useLingui();
   const location = useLocation();
   const selectedTab = getResultTab(location.pathname);
   const build = getBuild(location.pathname) || undefined;
@@ -49,12 +51,14 @@ const SupportCheckerIssue = ({
   const maintainerStatus =
     contributors.length !== 0 ? (
       <Trans id="interface.report.supportChecker.maintainedBy">
-        {spec.specName} {spec.className} is currently being maintained by {maintainers}.
+        {spec.specName ? i18n._(spec.specName) : null} {i18n._(spec.className)} is currently being
+        maintained by {maintainers}.
       </Trans>
     ) : (
       <em>
         <Trans id="interface.report.supportChecker.unmaintained">
-          {spec.specName} {spec.className} is not currently being maintained by anyone. :(
+          {spec.specName ? i18n._(spec.specName) : null} {i18n._(spec.className)} is not currently
+          being maintained by anyone. :(
         </Trans>
       </em>
     );

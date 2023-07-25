@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, t, Trans } from '@lingui/macro';
 import { makeCharacterApiUrl, makeGuildApiUrl } from 'common/makeApiUrl';
 import makeCharacterPageUrl from 'common/makeCharacterPageUrl';
 import makeGuildPageUrl from 'common/makeGuildPageUrl';
@@ -6,6 +6,7 @@ import { REALM_LIST, CLASSIC_REALM_LIST } from 'game/RealmList';
 import { FormEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SelectSearch from 'react-select-search';
+import { useLingui } from '@lingui/react';
 import { RETAIL_EXPANSION_NAME, CLASSIC_EXPANSION_NAME } from 'game/Expansion';
 
 export enum SearchType {
@@ -28,6 +29,7 @@ const NameSearch = ({ type }: Props) => {
   const regionInput = useRef<HTMLSelectElement>(null);
   const nameInput = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const { i18n } = useLingui();
 
   const handleSubmit = useCallback(
     async (e: FormEvent) => {
@@ -41,10 +43,12 @@ const NameSearch = ({ type }: Props) => {
 
       if (!game || !region || !realm || !name) {
         alert(
-          t({
-            id: 'interface.nameSearch.pleaseSelect',
-            message: `Please select a game, region, realm, and guild.`,
-          }),
+          i18n._(
+            defineMessage({
+              id: 'interface.nameSearch.pleaseSelect',
+              message: `Please select a game, region, realm, and guild.`,
+            }),
+          ),
         );
         return;
       }
@@ -52,10 +56,12 @@ const NameSearch = ({ type }: Props) => {
       // Checking for guild-exists here makes it more user-friendly and saves WCL-requests when guild doesn't exist
       if (loading) {
         alert(
-          t({
-            id: 'interface.nameSearch.stillWorking',
-            message: `Still working...`,
-          }),
+          i18n._(
+            defineMessage({
+              id: 'interface.nameSearch.stillWorking',
+              message: `Still working...`,
+            }),
+          ),
         );
         return;
       }
@@ -70,28 +76,34 @@ const NameSearch = ({ type }: Props) => {
         }
         if (response.status === 500) {
           alert(
-            t({
-              id: 'interface.nameSearch.noResponse',
-              message: `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
-            }),
+            i18n._(
+              defineMessage({
+                id: 'interface.nameSearch.noResponse',
+                message: `It looks like we couldn't get a response in time from the API. Try and paste your report-code manually.`,
+              }),
+            ),
           );
           setLoading(false);
           return;
         } else if (response.status === 404) {
           alert(
-            t({
-              id: 'interface.nameSearch.nameNotFound',
-              message: `${name} not found on ${realm}. Double check the game, region, realm, and name.`,
-            }),
+            i18n._(
+              defineMessage({
+                id: 'interface.nameSearch.nameNotFound',
+                message: `${name} not found on ${realm}. Double check the game, region, realm, and name.`,
+              }),
+            ),
           );
           setLoading(false);
           return;
         } else if (!response.ok) {
           alert(
-            t({
-              id: 'interface.nameSearch.noAPIResponse',
-              message: `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
-            }),
+            i18n._(
+              defineMessage({
+                id: 'interface.nameSearch.noAPIResponse',
+                message: `It looks like we couldn't get a response in time from the API, this usually happens when the servers are under heavy load. Please try and use your report-code or try again later.`,
+              }),
+            ),
           );
           setLoading(false);
           return;
@@ -100,7 +112,7 @@ const NameSearch = ({ type }: Props) => {
 
       navigate(makePageUrl(region, realm, name));
     },
-    [currentRealm, navigate, loading, type],
+    [currentRealm, type, loading, navigate, i18n],
   );
 
   const changeGame = (targetGame: string) => {
@@ -134,11 +146,11 @@ const NameSearch = ({ type }: Props) => {
 
   const namePlaceholder =
     type === SearchType.CHARACTER
-      ? t({
+      ? defineMessage({
           id: 'interface.nameSearch.character',
           message: `Character`,
         })
-      : t({
+      : defineMessage({
           id: 'interface.nameSearch.guild',
           message: `Guild`,
         });
@@ -196,7 +208,7 @@ const NameSearch = ({ type }: Props) => {
         autoCorrect="off"
         autoCapitalize="off"
         spellCheck="false"
-        placeholder={namePlaceholder}
+        placeholder={i18n._(namePlaceholder)}
       />
       <button
         type="submit"
