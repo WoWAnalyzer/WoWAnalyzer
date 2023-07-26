@@ -146,6 +146,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       endTime: 0,
       hasteAdjustedWastedCooldown: 0,
     };
+    this.lastCooldownWasteCheck = event.timestamp;
   }
 
   onGeneralCast(event: CastEvent) {

@@ -419,9 +419,7 @@ class Abilities extends CoreAbilities {
           combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) +
           combatant.getRepeatedTalentCount(TALENTS_SHAMAN.LAVA_BURST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => {
-          return 12 / (1 + haste);
-        },
+        cooldown: 12,
         gcd: {
           base: 1500,
         },

@@ -4,6 +4,8 @@ import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun } from 'CONTRIBUTO
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 26), <>Swapped <SpellLink spell={TALENTS_SHAMAN.ICE_STRIKE_TALENT} /> and <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> order in APL</>, Seriousnes),
+  change(date(2023, 7, 26), <><SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT} /> cooldown should not be reduced by haste</>, Seriousnes),
   change(date(2023, 7, 25), <>Adding <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> cooldown analysis</>, Seriousnes),
   change(date(2023, 7, 24), <>Added Windstrike analyzer for max casts</>, Seriousnes),
   change(date(2023, 7, 11), <>Added patch 10.1.5 details.</>, Seriousnes),
