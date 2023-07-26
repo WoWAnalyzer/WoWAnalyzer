@@ -30,7 +30,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
-          base: 1500,
+          base: 500,
         },
         castEfficiency: {
           suggestion: true,
@@ -61,7 +61,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: combatant.hasTalent(TALENTS.SPIRITUAL_CLARITY_TALENT) ? 20 : 30,
         gcd: {
-          base: 1500,
+          base: 500,
         },
         enabled: combatant.hasTalent(TALENTS.SPIRITBLOOM_TALENT),
         castEfficiency: {

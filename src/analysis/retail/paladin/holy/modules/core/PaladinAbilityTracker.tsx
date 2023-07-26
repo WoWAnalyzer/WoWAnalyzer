@@ -3,6 +3,8 @@ import { Ability, AbsorbedEvent, EventType, HealEvent, CastEvent } from 'parser/
 import AbilityTracker, { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 
 import BeaconTargets from '../beacons/BeaconTargets';
+import { addEnhancedCastReason } from 'parser/core/EventMetaLib';
+import SpellLink from 'interface/SpellLink';
 
 export const INFUSION_OF_LIGHT_BUFF_EXPIRATION_BUFFER = 150; // the buff expiration can occur several MS before the heal event is logged, this is the buffer time that an IoL charge may have dropped during which it will still be considered active.
 export const INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME = 200; // if someone heals with FoL and then immediately casts a HS race conditions may occur. This prevents that (although the buff is probably not applied before the FoL).
@@ -17,6 +19,12 @@ export interface TrackedPaladinAbility extends TrackedAbility {
   healingBeaconAbsorbed?: number;
   healingBeaconOverheal?: number;
 }
+
+const TIMELINE_REASON = (
+  <>
+    This cast consumed <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} />.
+  </>
+);
 
 class PaladinAbilityTracker extends AbilityTracker {
   static dependencies = {
@@ -70,7 +78,11 @@ class PaladinAbilityTracker extends AbilityTracker {
     const spellId = event.ability.guid;
     const cast = this.getAbility(spellId, event.ability);
 
-    if (spellId === SPELLS.JUDGMENT_CAST_HOLY.id) {
+    if (
+      [SPELLS.JUDGMENT_CAST_HOLY.id, SPELLS.FLASH_OF_LIGHT.id, SPELLS.HOLY_LIGHT.id].includes(
+        spellId,
+      )
+    ) {
       const hasIol = this.selectedCombatant.hasBuff(
         SPELLS.INFUSION_OF_LIGHT.id,
         event.timestamp,
@@ -78,9 +90,12 @@ class PaladinAbilityTracker extends AbilityTracker {
         INFUSION_OF_LIGHT_BUFF_MINIMAL_ACTIVE_TIME,
       );
 
-      // this really isn't just healing hits... but whatever
       if (hasIol) {
-        cast.healingIolHits = (cast.healingIolHits || 0) + 1;
+        addEnhancedCastReason(event, TIMELINE_REASON);
+        // this really isn't just healing hits... but whatever
+        if (spellId === SPELLS.JUDGMENT_CAST_HOLY.id) {
+          cast.healingIolHits = (cast.healingIolHits || 0) + 1;
+        }
       }
     }
   }

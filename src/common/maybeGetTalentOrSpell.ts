@@ -9,9 +9,11 @@ export const maybeGetTalentOrSpell = (
   if (isClassicExpansion(expansion)) {
     return maybeGetSpell(key, expansion);
   }
-  const talent = maybeGetTalent(key);
-  if (talent) {
-    return talent;
+  if (typeof key === 'number') {
+    const talent = maybeGetTalent(key);
+    if (talent) {
+      return talent;
+    }
   }
   return maybeGetSpell(key, expansion);
 };
