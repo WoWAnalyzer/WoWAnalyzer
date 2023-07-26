@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2023, 7, 25), 'Fix crash when using certain i18n functions.', ToppleTheNun),
+  change(date(2023, 7, 23), 'Tooltip on Timeline Improvements', Abelito75),
   change(date(2023, 7, 22), 'Update i18n library version.', [ToppleTheNun, emallson]),
   change(date(2023, 7, 22), 'Update Classic Enchants', jazminite),
   change(date(2023, 7, 21), 'Add scrollability to Buff count graphs', Vollmer),
