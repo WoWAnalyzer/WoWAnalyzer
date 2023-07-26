@@ -45,6 +45,7 @@ import Guide from 'analysis/retail/evoker/preservation/Guide';
 import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
+import AncientFlame from './modules/talents/AncientFlame';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotAttributor: HotAttributor,
 
     //talents
+    ancientFlame: AncientFlame,
     echo: Echo,
     echoBreakdown: EchoBreakdown,
     dreamBreath: DreamBreath,
