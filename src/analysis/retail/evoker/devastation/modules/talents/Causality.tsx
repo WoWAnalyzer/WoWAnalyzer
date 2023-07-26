@@ -25,9 +25,9 @@ class Causality extends Analyzer {
 
   enemyHitCounter: number[][] = [];
 
-  pyreCounters!: Map<number, number>;
   maxPyreCount: number = 5;
   previousPyreDamageEvent: number = 0;
+  pyreCounter: number = 0;
 
   eternitySurgeSpell = this.combatant.hasTalent(TALENTS.FONT_OF_MAGIC_DEVASTATION_TALENT)
     ? SPELLS.ETERNITY_SURGE_FONT
@@ -83,9 +83,9 @@ class Causality extends Analyzer {
    *
    * Due to all of this, it is fairly annoying to attribute damage events to any singular
    * Pyre.
-   * Solution used is to compare each damage in a given tick and see how much each individual
-   * enemy is hit, if they are hit multiple times we can safely assume it was from
-   * another unique Pyre cast.
+   * Solution used is to count amount of targets hit on a given tick, if the same target is
+   * hit twice, we assume it's a new pyre event and start to recount.
+   * We will also reset counter once a new hit later than the buffer amount happens.
    * From my testing this provides very accurate results.
    * There are potentially some very specific edgecases that would break this, but
    * so far I haven't experienced this. */
@@ -96,10 +96,13 @@ class Causality extends Analyzer {
     const buffer = 20;
 
     // Buffer here helps when event timings are slightly off
-    if (this.previousPyreDamageEvent + buffer < currentTimestamp) {
+    if (
+      this.previousPyreDamageEvent + buffer < currentTimestamp ||
+      (this.enemyHitCounter[targetId] && this.enemyHitCounter[targetId][targetInstance])
+    ) {
       this.previousPyreDamageEvent = currentTimestamp;
-      this.pyreCounters = new Map<number, number>();
       this.enemyHitCounter = [];
+      this.pyreCounter = 0;
     }
 
     if (!this.enemyHitCounter[targetId]) {
@@ -108,14 +111,10 @@ class Causality extends Analyzer {
 
     if (!this.enemyHitCounter[targetId][targetInstance]) {
       this.enemyHitCounter[targetId][targetInstance] = 1;
-    } else {
-      this.enemyHitCounter[targetId][targetInstance] += 1;
     }
 
-    const enemyCounter = this.enemyHitCounter[targetId][targetInstance];
-    const nestedCounter = this.pyreCounters.get(enemyCounter) || 0;
-    if (nestedCounter < this.maxPyreCount) {
-      this.pyreCounters.set(enemyCounter, nestedCounter + 1);
+    if (this.pyreCounter < this.maxPyreCount) {
+      this.pyreCounter += 1;
       this.calculateCDR(CAUSALITY_PYRE_CDR_MS, SPELLS.PYRE.id);
     }
   }
@@ -125,28 +124,17 @@ class Causality extends Analyzer {
   }
 
   calculateCDR(CDRAmount: number, sourceId: number) {
-    const CDRAmountSeconds = CDRAmount / 1000;
-
     for (const spellId of this.spellIds) {
       const source = this.sourceData[sourceId];
-      const isOnCooldown = this.spellUsable.isOnCooldown(spellId);
 
-      if (isOnCooldown) {
-        if (this.spellUsable.cooldownRemaining(spellId) > CDRAmount) {
-          source.CDR += CDRAmountSeconds;
-        } else {
-          const effectiveCDR = this.spellUsable.cooldownRemaining(spellId) / 1000;
-          const wastedCDR = (CDRAmount - this.spellUsable.cooldownRemaining(spellId)) / 1000;
+      const effectiveCDR = this.spellUsable.reduceCooldown(spellId, CDRAmount);
+      const wastedCDR = CDRAmount - effectiveCDR;
 
-          source.CDR += effectiveCDR;
-          source.wastedCDR += wastedCDR;
-        }
-        this.spellUsable.reduceCooldown(spellId, CDRAmount);
+      source.CDR += effectiveCDR / 1000;
+      if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
+        source.wastedCDRDuringBlazing += wastedCDR / 1000;
       } else {
-        if (this.combatant.hasBuff(SPELLS.BLAZING_SHARDS.id)) {
-          source.wastedCDRDuringBlazing += CDRAmountSeconds;
-        }
-        source.wastedCDR += CDRAmountSeconds;
+        source.wastedCDR += wastedCDR / 1000;
       }
     }
   }
