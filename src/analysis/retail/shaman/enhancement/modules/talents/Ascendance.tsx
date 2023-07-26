@@ -74,7 +74,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       },
       castEfficiency: {
         suggestion: true,
-        recommendedEfficiency: 0.85,
+        recommendedEfficiency: 0.8,
         maxCasts: () => this.maxCasts,
       },
     });
@@ -248,9 +248,9 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     }
     return {
       performance:
-        castsAsPercentageOfMax >= 0.85
+        castsAsPercentageOfMax >= 0.8
           ? QualitativePerformance.Good
-          : castsAsPercentageOfMax >= 0.7
+          : castsAsPercentageOfMax >= 0.6
           ? QualitativePerformance.Ok
           : QualitativePerformance.Fail,
       summary: windstrikeSummary,
