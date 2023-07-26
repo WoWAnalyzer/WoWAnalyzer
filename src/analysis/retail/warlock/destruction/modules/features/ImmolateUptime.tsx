@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -44,7 +44,7 @@ class ImmolateUptime extends Analyzer {
       )
         .icon(SPELLS.IMMOLATE_DEBUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.destruction.suggestions.immolate.uptime',
             message: `${formatPercentage(actual)}% Immolate uptime`,
           }),

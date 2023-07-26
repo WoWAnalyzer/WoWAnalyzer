@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -108,7 +108,7 @@ class GuardianOfElune extends Analyzer {
         )
           .icon(SPELLS.GUARDIAN_OF_ELUNE.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'druid.guardian.suggestions.guardianOfElune.unused',
               message: `${formatPercentage(unusedGoEProcs)}% unused`,
             }),

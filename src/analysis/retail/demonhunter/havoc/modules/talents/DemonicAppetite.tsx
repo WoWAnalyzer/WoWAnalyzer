@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -63,7 +63,7 @@ class DemonicAppetite extends Analyzer {
       )
         .icon(TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'demonhunter.havoc.suggestions.demonicAppetite.furyWasted',
             message: `${formatPercentage(actual)}% Fury wasted`,
           }),

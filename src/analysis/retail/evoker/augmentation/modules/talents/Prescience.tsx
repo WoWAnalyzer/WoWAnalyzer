@@ -11,6 +11,8 @@ import ROLES from 'game/ROLES';
 import Combatants from 'parser/shared/modules/Combatants';
 import { getPrescienceBuffEvents } from '../normalizers/CastLinkNormalizer';
 import Combatant from 'parser/core/Combatant';
+import SPECS from 'game/SPECS';
+import { i18n } from '@lingui/core';
 
 /**
  * Prescience is a core talent that buffs the target with 3% crit, as well
@@ -89,7 +91,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   }
 
   private prescienceWindowCastPerformance(cast: PrescienceCooldownCast): UsageInfo {
-    const className = this.currentBuffedPlayer?.spec?.className.replace(/\s/g, '') ?? '';
+    const i18nClassName = this.currentBuffedPlayer?.spec?.className
+      ? i18n._(this.currentBuffedPlayer.spec.className)
+      : undefined;
+    const className = i18nClassName?.replace(/\s/g, '') ?? '';
     let performance = QualitativePerformance.Fail;
     const summary = <div>Buffed a DPS</div>;
     let details = (
@@ -99,13 +104,25 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
     );
 
     if (cast.onDPS) {
-      performance = QualitativePerformance.Good;
-      details = (
-        <div>
-          Buffed DPS: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
-          <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. Good job!
-        </div>
-      );
+      // Bonk players for buffing other Augs
+      if (this.currentBuffedPlayer?.spec === SPECS.AUGMENTATION_EVOKER) {
+        performance = QualitativePerformance.Fail;
+        details = (
+          <div>
+            Buffed Augmentation: <span className={className}>{this.currentBuffedPlayer?.name}</span>{' '}
+            with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. This should never happen! Make
+            sure you position yourself better to avoid this.
+          </div>
+        );
+      } else {
+        performance = QualitativePerformance.Good;
+        details = (
+          <div>
+            Buffed DPS: <span className={className}>{this.currentBuffedPlayer?.name}</span> with{' '}
+            <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. Good job!
+          </div>
+        );
+      }
     } else if (cast.onTank) {
       performance = QualitativePerformance.Ok;
       details = (
@@ -127,7 +144,7 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
       details = (
         <div>
           Buffed: yourself with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. You should always
-          try and buff DPS players.
+          try and buff DPS players. Make sure to position yourself so you buff the intended players.
         </div>
       );
     } else {
@@ -155,6 +172,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
         buffTarget = targetID;
         break;
       }
+    }
+
+    if (event.prepull) {
+      buffTarget = event.targetID;
     }
 
     // If somehow the Prescience cast didn't actually buff a player return early

@@ -387,7 +387,8 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           // eslint-disable-next-line no-restricted-syntax
           .filter((item, index, self) => self.indexOf(item) === index)
           .map((e) => e.specName)
-          .filter(isDefined);
+          .filter(isDefined)
+          .map((e) => i18n._(e));
 
         const parses = this.changeParseStructure(rawParses);
 

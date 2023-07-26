@@ -5,7 +5,7 @@ import { Hartra344, Sref, ToppleTheNun, ap2355, attluh, Jundarer } from 'CONTRIB
 import { SpellLink } from 'interface';
 
 export default [
-  change(date(2023, 8, 20), <>Update for 10.1.5 and show Eclipses on timeline.</>, Jundarer),
+  change(date(2023, 7, 20), <>Update for 10.1.5 and show Eclipses on timeline.</>, Jundarer),
   change(date(2023, 7, 16), <>Update FotF, dot refreshes, rattle, sotf, filler usage and other small inaccuracies.</>, Jundarer),
   change(date(2023, 6, 20), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 3, 16), <>Updated the downtime suggestion to show active downtime, rather than uptime, for clarity.</>, attluh),

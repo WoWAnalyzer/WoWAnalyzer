@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -44,7 +44,7 @@ class StellarFlareUptime extends Analyzer {
       )
         .icon(TALENTS_DRUID.STELLAR_FLARE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'druid.balance.suggestions.stellarFlare.uptime',
             message: `${formatPercentage(actual)}% Stellar Flare uptime`,
           }),

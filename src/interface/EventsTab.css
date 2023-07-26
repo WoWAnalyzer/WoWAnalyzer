@@ -45,7 +45,8 @@
   color: orange;
 }
 .events-tab .cast,
-.events-tab .begincast {
+.events-tab .begincast,
+.events-tab .freecast {
   color: hotpink;
 }
 .events-tab .applybuff,

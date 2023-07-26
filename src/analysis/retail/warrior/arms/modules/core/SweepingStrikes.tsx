@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -75,7 +75,7 @@ class SweepingStrikes extends Analyzer {
       )
         .icon(SPELLS.SWEEPING_STRIKES.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.arms.suggestions.sweepingStrikes.efficiency',
             message: `Sweeping Strikes was used ${formatPercentage(
               actual,

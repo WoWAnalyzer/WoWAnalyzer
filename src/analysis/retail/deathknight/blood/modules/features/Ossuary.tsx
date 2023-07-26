@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -42,7 +42,7 @@ class Ossuary extends Analyzer {
 
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = t({
+      event.meta.inefficientCastReason = defineMessage({
         id: 'deathknight.blood.ossuary.ineffectiveCast',
         message: `This Death Strike cast was without Ossuary.`,
       });
@@ -84,13 +84,13 @@ class Ossuary extends Analyzer {
       )
         .icon(TALENTS.OSSUARY_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.ossuary.suggestion.actual',
             message: `${formatPercentage(actual)}% Ossuary efficiency`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'deathknight.blood.ossuary.suggestion.recommended',
             message: `${formatPercentage(recommended)}% is recommended`,
           }),

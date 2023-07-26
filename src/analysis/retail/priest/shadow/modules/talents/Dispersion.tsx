@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -79,7 +79,7 @@ class Disperion extends Analyzer {
       )
         .icon(TALENTS.DISPERSION_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.dispersion.uptime',
             message: `${formatPercentage(actual)}% Dispersion uptime`,
           }),

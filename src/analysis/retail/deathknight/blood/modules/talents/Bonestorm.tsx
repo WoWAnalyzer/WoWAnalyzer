@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -106,7 +106,7 @@ class Bonestorm extends Analyzer {
         )
           .icon(TALENTS.BONESTORM_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'deathknight.blood.bonestorm.suggestion.2p.actual',
               message: `${formatPercentage(
                 actual,
@@ -114,7 +114,7 @@ class Bonestorm extends Analyzer {
             }),
           )
           .recommended(
-            t({
+            defineMessage({
               id: 'deathknight.blood.bonestorm.suggestion.2p.recommended',
               message: `${formatPercentage(recommended)}% is recommended`,
             }),
@@ -133,7 +133,7 @@ class Bonestorm extends Analyzer {
         )
           .icon(TALENTS.BONESTORM_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'deathknight.blood.bonestorm.suggestion.actual',
               message: `${formatPercentage(
                 actual,
@@ -141,7 +141,7 @@ class Bonestorm extends Analyzer {
             }),
           )
           .recommended(
-            t({
+            defineMessage({
               id: 'deathknight.blood.bonestorm.suggestion.recommended',
               message: `${formatPercentage(recommended)}% is recommended`,
             }),

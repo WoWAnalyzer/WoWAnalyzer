@@ -5,6 +5,7 @@ import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic, 
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 16), <>Add a section on usage of Stormkeeper</>, Awildfivreld),
   change(date(2023, 7, 13), <>Fix a bug where the timeline showed too many abilities as empowered by <SpellLink spell={TALENTS.SURGE_OF_POWER_TALENT} /></>, Awildfivreld),
   change(date(2023, 7, 8), <>Add guide skeleton</>, Periodic),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),

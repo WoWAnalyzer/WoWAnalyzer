@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -114,7 +114,7 @@ class DrainSoul extends Analyzer {
       )
         .icon('ability_hunter_snipershot')
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.drainSoul.mobsSniped',
             message: `${formatPercentage(actual)} % of mobs sniped.`,
           }),

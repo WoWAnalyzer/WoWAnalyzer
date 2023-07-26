@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -142,7 +142,7 @@ class ShadowWordPain extends Analyzer {
       )
         .icon('spell_shadow_shadowwordpain')
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.uptime',
             message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`,
           }),
@@ -162,7 +162,7 @@ class ShadowWordPain extends Analyzer {
       )
         .icon('spell_shadow_shadowwordpain')
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.shadowWeavingUptime',
             message: `${formatPercentage(actual)}% Shadow Word: Pain uptime at 5 stacks`,
           }),
@@ -181,7 +181,7 @@ class ShadowWordPain extends Analyzer {
       )
         .icon('spell_shadow_shadowwordpain')
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.shadowWordPainOverwrite',
             message: `${actual} Shadow Word Pain Overwrites`,
           }),

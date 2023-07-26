@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -45,13 +45,13 @@ class BloodPlagueUptime extends Analyzer {
       )
         .icon(SPELLS.BLOOD_PLAGUE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.bloodPlague.suggestion.actual',
             message: `${formatPercentage(actual)}% Blood Plague uptime`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'shared.suggestion.recommended.moreThanPercent',
             message: `>${formatPercentage(recommended)}% is recommended`,
           }),

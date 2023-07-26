@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -77,7 +77,7 @@ class HitCombo extends Analyzer {
       )
         .icon(TALENTS_MONK.HIT_COMBO_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.suggestions.hitCombo.uptime',
             message: `${formatPercentage(actual)} % uptime`,
           }),

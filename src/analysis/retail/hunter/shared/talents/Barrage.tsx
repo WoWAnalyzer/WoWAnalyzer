@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
@@ -104,7 +104,7 @@ class Barrage extends Analyzer {
       )
         .icon(TALENTS.BARRAGE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.shared.suggestions.barrage.efficiency',
             message: `${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`,
           }),

@@ -17,6 +17,7 @@ import { ConditionDescription } from 'parser/shared/metrics/apl/annotate';
 import Enemies from 'parser/shared/modules/Enemies';
 import useTooltip from 'interface/useTooltip';
 import Combatants from 'parser/shared/modules/Combatants';
+import { useLingui } from '@lingui/react';
 
 export type AplProblemData<T> = {
   claims: Set<Violation>;
@@ -65,6 +66,7 @@ function TargetName({ event }: { event: AnyEvent }) {
   const combatants = useAnalyzer(Enemies);
   const friendlies = useAnalyzer(Combatants);
   const { npc: npcTooltip } = useTooltip();
+  const { i18n } = useLingui();
 
   if (!combatants) {
     return null;
@@ -73,7 +75,8 @@ function TargetName({ event }: { event: AnyEvent }) {
   const enemy = combatants.getEntity(event);
   const friendly = friendlies?.getEntity(event);
   if (!enemy && friendly) {
-    return <span className={friendly.spec?.className}>{friendly.name}</span>;
+    const className = friendly.spec?.className ? i18n._(friendly.spec.className) : undefined;
+    return <span className={className}>{friendly.name}</span>;
   } else if (enemy && !friendly) {
     return <a href={npcTooltip(enemy.guid)}>{enemy.name}</a>;
   }

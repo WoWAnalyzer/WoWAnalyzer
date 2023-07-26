@@ -1,13 +1,13 @@
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Spell from 'common/SPELLS/Spell';
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 
-const perfectMessage = t({ id: 'guide.performance.perfect', message: 'perfect' });
-const goodMessage = t({ id: 'guide.performance.good', message: 'good' });
-const okMessage = t({ id: 'guide.performance.ok', message: 'ok' });
-const badMessage = t({ id: 'guide.performance.bad', message: 'bad' });
+const perfectMessage = defineMessage({ id: 'guide.performance.perfect', message: 'perfect' });
+const goodMessage = defineMessage({ id: 'guide.performance.good', message: 'good' });
+const okMessage = defineMessage({ id: 'guide.performance.ok', message: 'ok' });
+const badMessage = defineMessage({ id: 'guide.performance.bad', message: 'bad' });
 
 const performanceToMessage = (performance: QualitativePerformance) => {
   switch (performance) {

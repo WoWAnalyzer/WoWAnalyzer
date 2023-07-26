@@ -12,7 +12,6 @@ import Events, {
   AnyEvent,
   DamageEvent,
   FightEndEvent,
-  MappedEvent,
   ResourceActor,
   EventType,
 } from 'parser/core/Events';
@@ -86,8 +85,8 @@ export type MitigatedEvent = {
  * (typically, you only need the timestamps).
  */
 export type Mitigation<Apply extends EventType = any, Remove extends EventType = any> = {
-  start: MappedEvent<Apply>;
-  end: MappedEvent<Remove> | FightEndEvent;
+  start: AnyEvent<Apply>;
+  end: AnyEvent<Remove> | FightEndEvent;
   mitigated: MitigatedEvent[];
   amount: number;
 };
@@ -216,7 +215,7 @@ export default class MajorDefensive<
   /**
    * Get the map key for the buff/debuff target.
    */
-  protected getBuffTarget(event: MappedEvent<Apply> | MappedEvent<Remove>): string | undefined {
+  protected getBuffTarget(event: AnyEvent<Apply> | AnyEvent<Remove>): string | undefined {
     if (HasTarget(event)) {
       return encodeTargetString(event.targetID, event.targetInstance);
     } else {
@@ -253,7 +252,7 @@ export default class MajorDefensive<
     return this.currentMitigations.has(key);
   }
 
-  private onApply(event: MappedEvent<Apply>) {
+  private onApply(event: AnyEvent<Apply>) {
     const target = this.getBuffTarget(event);
     if (!target) {
       console.warn('Unable to determine target for Major Defensive analyzer', this.spell, event);
@@ -265,7 +264,7 @@ export default class MajorDefensive<
     });
   }
 
-  private onRemove(event: MappedEvent<Remove>) {
+  private onRemove(event: AnyEvent<Remove>) {
     const target = this.getBuffTarget(event);
     const current = target && this.currentMitigations.get(target);
     if (!current) {

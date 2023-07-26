@@ -52,7 +52,7 @@ class Abilities extends CoreAbilities {
             : SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30 * intervowenThreadsMultiplier,
         gcd: {
-          base: 1500,
+          base: 500,
         },
         ...(combatant.spec === (SPECS.DEVASTATION_EVOKER || SPECS.AUGMENTATION_EVOKER) && {
           castEfficiency: {
@@ -62,7 +62,7 @@ class Abilities extends CoreAbilities {
         }),
       },
       {
-        spell: [SPELLS.LIVING_FLAME_CAST.id, SPELLS.LIVING_FLAME_HEAL.id],
+        spell: SPELLS.LIVING_FLAME_CAST.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -81,7 +81,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: [TALENTS.VERDANT_EMBRACE_TALENT.id, SPELLS.VERDANT_EMBRACE_HEAL.id],
+        spell: TALENTS.VERDANT_EMBRACE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 24 * intervowenThreadsMultiplier,
         enabled: combatant.hasTalent(TALENTS.VERDANT_EMBRACE_TALENT),

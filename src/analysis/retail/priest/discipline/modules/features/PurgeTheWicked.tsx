@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -179,7 +179,7 @@ class PurgeTheWicked extends Analyzer {
         )
           .icon(this.dotSpell.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'priest.discipline.suggestions.purgeTheWicked.uptime',
               message: `${formatPercentage(uptime)}% uptime`,
             }),

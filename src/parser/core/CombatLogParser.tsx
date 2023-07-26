@@ -9,7 +9,6 @@ import {
   EventType,
   HasSource,
   HasTarget,
-  MappedEvent,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
@@ -533,7 +532,7 @@ class CombatLogParser {
   /** The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory: AnyEvent[] = [];
-  addEventListener<ET extends EventType, E extends MappedEvent<ET>>(
+  addEventListener<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
     module: Module,
