@@ -31,7 +31,7 @@ interface AscendanceCooldownCast extends SpellCast {
   extraDamage: number;
   startTime: number;
   endTime: number;
-  missedWindstrikes: number;
+  hasteAdjustedWastedCooldown: number;
 }
 
 class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
@@ -48,7 +48,6 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
   protected currentCooldown: AscendanceCooldownCast | null = null;
   protected windstrikeOnCooldown: boolean = true;
-  protected hasteAdjustedWastedCooldown: number = 0;
   protected lastCooldownWasteCheck: number = 0;
 
   constructor(options: Options) {
@@ -60,7 +59,13 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       return;
     }
 
-    (options.abilities as Abilities).add({
+    const ascendanceCooldown = this.selectedCombatant.hasTalent(
+      TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
+    )
+      ? 180
+      : -1;
+    const abilities = options.abilities as Abilities;
+    abilities.add({
       spell: SPELLS.WINDSTRIKE_CAST.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: (haste: number) => 3 / (1 + haste),
@@ -69,8 +74,24 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       },
       castEfficiency: {
         suggestion: true,
-        recommendedEfficiency: 1,
+        recommendedEfficiency: 0.85,
         maxCasts: () => this.maxCasts,
+      },
+    });
+    abilities.add({
+      spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
+      category: SPELL_CATEGORY.COOLDOWNS,
+      cooldown: ascendanceCooldown,
+      gcd: {
+        base: 1500,
+      },
+      enabled:
+        this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
+        this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT),
+      damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
+      castEfficiency: {
+        suggestion: this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        recommendedEfficiency: 1.0,
       },
     });
 
@@ -105,8 +126,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     return this.casts.reduce(
       (total: number, cast: AscendanceCooldownCast) =>
         (total +=
-          cast.missedWindstrikes +
-          cast.casts.filter((c) => c.ability.guid === SPELLS.WINDSTRIKE_CAST.id).length),
+          cast.casts.filter((c) => c.ability.guid === SPELLS.WINDSTRIKE_CAST.id).length +
+          this.getMissedWindstrikes(cast)),
       0,
     );
   }
@@ -123,7 +144,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       extraDamage: 0,
       startTime: event.timestamp,
       endTime: 0,
-      missedWindstrikes: 0,
+      hasteAdjustedWastedCooldown: 0,
     };
   }
 
@@ -136,9 +157,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       return;
     }
     if (!NonMissedCastSpells.includes(event.ability.guid)) {
-      const currentHaste = this.haste.current;
-      this.hasteAdjustedWastedCooldown +=
-        (event.timestamp - this.lastCooldownWasteCheck) * (1 + currentHaste);
+      this.currentCooldown.hasteAdjustedWastedCooldown +=
+        this.hasteAdjustedCooldownWasteSinceLastWasteCheck(event);
     }
     this.lastCooldownWasteCheck = event.timestamp;
     this.currentCooldown!.casts.push(event);
@@ -152,15 +172,17 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
   onAscendanceEnd(event: AnyEvent) {
     if (this.currentCooldown) {
-      const windstrike = this.abilities.getAbility(SPELLS.WINDSTRIKE_CAST.id)!;
       this.currentCooldown.endTime = event.timestamp;
-      this.currentCooldown.missedWindstrikes = Math.floor(
-        this.hasteAdjustedWastedCooldown / (windstrike.getCooldown(0) * 1000),
-      );
-
+      this.currentCooldown.hasteAdjustedWastedCooldown +=
+        this.hasteAdjustedCooldownWasteSinceLastWasteCheck(event);
       this.recordCooldown(this.currentCooldown);
       this.currentCooldown = null;
     }
+  }
+
+  hasteAdjustedCooldownWasteSinceLastWasteCheck(event: AnyEvent): number {
+    const currentHaste = this.haste.current;
+    return (event.timestamp - this.lastCooldownWasteCheck) * (1 + currentHaste);
   }
 
   description(): JSX.Element {
@@ -191,20 +213,27 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     );
   }
 
+  getMissedWindstrikes(cast: AscendanceCooldownCast): number {
+    return Math.floor(cast.hasteAdjustedWastedCooldown / 3000);
+  }
+
   windstrikePerformance(cast: AscendanceCooldownCast): UsageInfo {
     const windstrikesCasts = cast.casts.filter(
       (c) => c.ability.guid === SPELLS.WINDSTRIKE_CAST.id,
     ).length;
-    const maximumNumberOfWindstrikesPossible = windstrikesCasts + cast.missedWindstrikes;
+    const missedWindstrikes = this.getMissedWindstrikes(cast);
+    const maximumNumberOfWindstrikesPossible = windstrikesCasts + missedWindstrikes;
+    const castsAsPercentageOfMax = windstrikesCasts / maximumNumberOfWindstrikesPossible;
 
     const windstrikeSummary = (
       <div>
-        Cast {maximumNumberOfWindstrikesPossible}+ <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />
+        Cast {Math.floor(maximumNumberOfWindstrikesPossible * 0.85)}+{' '}
+        <SpellLink spell={SPELLS.WINDSTRIKE_CAST} />
         (s) during window
       </div>
     );
 
-    if (cast.missedWindstrikes === 0) {
+    if (missedWindstrikes === 0) {
       return {
         performance: QualitativePerformance.Perfect,
         summary: windstrikeSummary,
@@ -218,7 +247,11 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     }
     return {
       performance:
-        cast.missedWindstrikes === 1 ? QualitativePerformance.Good : QualitativePerformance.Ok,
+        castsAsPercentageOfMax >= 0.85
+          ? QualitativePerformance.Good
+          : castsAsPercentageOfMax >= 0.7
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail,
       summary: windstrikeSummary,
       details: (
         <div>

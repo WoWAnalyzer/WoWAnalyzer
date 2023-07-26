@@ -1,6 +1,6 @@
 import { GuideProps, Section, SubSection, useAnalyzer, useInfo } from 'interface/guide';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
-import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import { Talent } from 'common/TALENTS/types';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
@@ -30,8 +30,8 @@ function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
         </p>
         <CooldownGraphSubsection checklist={COOLDOWNS} />
       </SubSection>
-      {(info.combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
-        info.combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) && (
+      {(info.combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
+        info.combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) && (
         <SubSection title="Ascendance">
           <CooldownUsage analyzer={modules.ascendance} />
         </SubSection>
