@@ -1,4 +1,4 @@
-import { defineMessage, t } from '@lingui/macro';
+import { defineMessage, t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -52,10 +52,9 @@ class RunicPowerDetails extends Analyzer {
   suggestions(when: When) {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        defineMessage({
-          id: 'deathknight.blood.runicPowerDetails.suggestion.suggestion',
-          message: `You wasted ${formatPercentage(this.wastedPercent)}% of your Runic Power.`,
-        }),
+        <Trans id="deathknight.blood.runicPowerDetails.suggestion.suggestion">
+          You wasted {formatPercentage(this.wastedPercent)}% of your Runic Power.
+        </Trans>,
       )
         .icon('inv_sword_62')
         .actual(
