@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
@@ -90,12 +89,7 @@ class SoulBarrier extends Analyzer {
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'demonhunter.vengeance.suggestions.soulBarrier.uptime',
-            message: `${formatPercentage(actual)}% Soul Barrier`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Soul Barrier`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }

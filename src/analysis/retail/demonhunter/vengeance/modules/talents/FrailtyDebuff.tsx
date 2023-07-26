@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -53,12 +52,7 @@ class FrailtyDebuff extends Analyzer {
         </>,
       )
         .icon(SPELLS.FRAILTY.icon)
-        .actual(
-          defineMessage({
-            id: 'demonhunter.vengeance.frailtyDebuff.uptime',
-            message: `${formatPercentage(actual)}% Frailty uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Frailty uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
