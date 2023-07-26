@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS/demonhunter';
 import Spell from 'common/SPELLS/Spell';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -67,7 +66,7 @@ export default class ShearFracture extends Analyzer {
     this.badCasts += 1;
     this.lastCast.meta = this.lastCast.meta || {};
     this.lastCast.meta.isInefficientCast = true;
-    this.lastCast.meta.inefficientCastReason = 'Fracture cast that over capped souls';
+    this.lastCast.meta.inefficientCastReason = 'Fracture cast that overcapped souls';
   }
 
   suggestions(when: When) {
@@ -78,12 +77,7 @@ export default class ShearFracture extends Analyzer {
         </>,
       )
         .icon(this.cast.icon)
-        .actual(
-          defineMessage({
-            id: 'demonhunter.vengence.suggestions.shearfracture.wastedCasts',
-            message: `${actual} bad casts`,
-          }),
-        )
+        .actual(`${actual} bad casts`)
         .recommended(`${recommended} bad casts are recommended`),
     );
   }

@@ -6,17 +6,19 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import CooldownGraphSubsection, {
+  Cooldown,
+} from 'interface/guide/components/CooldownGraphSubSection';
 
 import CombatLogParser from './CombatLogParser';
-import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import MajorDefensives from './modules/core/MajorDefensives';
 import {
   GOOD_TIME_AT_FURY_CAP,
   OK_TIME_AT_FURY_CAP,
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -107,6 +109,38 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
   );
 }
 
+const cooldowns: Cooldown[] = [
+  {
+    spell: TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT,
+    isActive: (c) =>
+      c.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT) &&
+      c.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT),
+  },
+];
 function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Cooldowns">
@@ -119,7 +153,7 @@ function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       </p>
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
-      <CooldownGraphSubsection />
+      <CooldownGraphSubsection cooldowns={cooldowns} />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) && (
         <CooldownUsage analyzer={modules.felDevastation} />
       )}

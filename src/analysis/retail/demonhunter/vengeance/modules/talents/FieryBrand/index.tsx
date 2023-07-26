@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { SpellLink } from 'interface';
@@ -75,12 +74,7 @@ export default class FieryBrand extends HitBasedAnalyzer {
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'demonhunter.vengeance.suggestions.fieryBrand.unmitgatedHits',
-            message: `${formatPercentage(actual)}% unmitigated hits`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% unmitigated hits`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }
