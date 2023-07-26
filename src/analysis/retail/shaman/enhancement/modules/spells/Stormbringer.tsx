@@ -11,7 +11,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
 
-const debug = true;
+const debug = false;
 
 class Stormbringer extends Analyzer {
   static dependencies = {

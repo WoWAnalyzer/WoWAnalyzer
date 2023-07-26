@@ -23,7 +23,7 @@ import Abilities from 'parser/core/modules/Abilities';
 import { MERGE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
 
 const DAMAGE_AMP_PERCENTAGE: Record<number, number> = { 1: 0.05, 2: 0.25 };
-const debug = true;
+const debug = false;
 
 class LegacyOfTheFrostWitch extends Analyzer {
   static dependencies = {
