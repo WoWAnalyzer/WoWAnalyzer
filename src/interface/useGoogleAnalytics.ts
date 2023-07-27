@@ -41,7 +41,6 @@ export function usePageView(componentName: string, key?: unknown) {
       fight_difficulty: fight?.fight.difficulty,
       fight_boss: fight?.fight.boss,
     };
-    console.log(props);
     if (window.gtag) {
       window.gtag('event', 'page_view', props);
     }
