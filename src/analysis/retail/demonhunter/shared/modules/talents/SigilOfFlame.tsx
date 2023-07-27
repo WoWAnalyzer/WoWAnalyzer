@@ -3,7 +3,6 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import Events, { CastEvent } from 'parser/core/Events';
-import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -36,14 +35,12 @@ export default class SigilOfFlame extends Analyzer {
   guideSubsection(): JSX.Element {
     const explanation = (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.sigilOfFlame.explanation">
-          <strong>
-            <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />
-          </strong>{' '}
-          is one of your <strong>builders</strong>. It generates{' '}
-          <ResourceLink id={RESOURCE_TYPES.FURY.id} /> places a Sigil on the ground that activates
-          after a delay, dealing fire damage immediately and applying a DoT to any targets hit.
-        </Trans>
+        <strong>
+          <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />
+        </strong>{' '}
+        is one of your <strong>builders</strong>. It generates{' '}
+        <ResourceLink id={RESOURCE_TYPES.FURY.id} /> places a Sigil on the ground that activates
+        after a delay, dealing fire damage immediately and applying a DoT to any targets hit.
       </p>
     );
 
@@ -67,8 +64,7 @@ export default class SigilOfFlame extends Analyzer {
               totalCasts={totalCasts}
             />
             <strong>
-              <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
-              <Trans id="guide.castEfficiency">cast efficiency</Trans>
+              <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} /> cast efficiency
             </strong>
             <CastEfficiencyBar
               spellId={this.spell.id}

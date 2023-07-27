@@ -11,7 +11,6 @@ import {
   SPIRIT_BOMB_SOULS_IN_META,
   SPIRIT_BOMB_SOULS_OUT_OF_META,
 } from 'analysis/retail/demonhunter/vengeance/constants';
-import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/demonhunter';
 import {
@@ -53,16 +52,14 @@ export default class SoulCleave extends Analyzer {
     ) : null;
     const explanation = (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.soulCleave.explanation">
-          <strong>
-            <SpellLink spell={SPELLS.SOUL_CLEAVE} />
-          </strong>{' '}
-          is your primary <strong>spender</strong> of <ResourceLink id={RESOURCE_TYPES.FURY.id} />{' '}
-          and <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-          s. It consumes up to 2 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-          s.
-          {spiritBombSnippet}
-        </Trans>
+        <strong>
+          <SpellLink spell={SPELLS.SOUL_CLEAVE} />
+        </strong>{' '}
+        is your primary <strong>spender</strong> of <ResourceLink id={RESOURCE_TYPES.FURY.id} /> and{' '}
+        <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+        s. It consumes up to 2 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+        s.
+        {spiritBombSnippet}
       </p>
     );
 

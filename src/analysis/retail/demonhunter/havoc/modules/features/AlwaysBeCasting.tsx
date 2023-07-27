@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -36,12 +35,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           </>,
         )
           .icon('spell_mage_altertime')
-          .actual(
-            defineMessage({
-              id: 'demonhunter.havoc.suggestions.alwaysBeCasting.downtime',
-              message: `${formatPercentage(actual)}% downtime`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`),
       );
     }

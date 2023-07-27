@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
@@ -98,12 +97,7 @@ class Momentum extends Analyzer {
         </>,
       )
         .icon(TALENTS.MOMENTUM_TALENT.icon)
-        .actual(
-          defineMessage({
-            id: 'demonhunter.havoc.suggestions.momentum.uptime',
-            message: `${formatPercentage(actual)}% buff uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% buff uptime`)
         .recommended(`${formatPercentage(recommended)}% is recommended.`),
     );
   }
