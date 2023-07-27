@@ -72,11 +72,11 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     super(options);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.LAVA_BURST_TALENT),
-      this.onDamage,
+      this.onLavaBurst,
     );
   }
 
-  onDamage(event: DamageEvent) {
+  onLavaBurst(event: DamageEvent) {
     const target = this.enemies.getEntity(event);
     if (target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)) {
       this.badLavaBursts += 1;
@@ -124,6 +124,10 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       );
 
     badRefreshSuggestion(when, this.refreshThreshold);
+  }
+
+  getDebuffStackHistory() {
+    return this.enemies.getDebuffStackHistory(SPELLS.FLAME_SHOCK.id);
   }
 
   statistic() {
