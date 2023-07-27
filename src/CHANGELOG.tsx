@@ -27,7 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2023, 7, 27), 'Add the Sarkareth haste buff', Awildfivreld),
+  change(date(2023, 7, 27), 'Add Sarkareth haste buff', Awildfivreld),
   change(date(2023, 7, 27), 'Fix i18n in suggestions.', ToppleTheNun),
   change(date(2023, 7, 25), 'Improve consistency when fetching talents for tables.', ToppleTheNun),
   change(date(2023, 7, 25), 'Fix crash when using certain i18n functions.', ToppleTheNun),
