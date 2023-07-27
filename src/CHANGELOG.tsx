@@ -20,12 +20,14 @@ import {
   Abelito75,
   Jundarer,
   Vollmer,
+  Awildfivreld,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 27), 'Add Sarkareth haste buff', Awildfivreld),
   change(date(2023, 7, 27), 'Fix i18n in suggestions.', ToppleTheNun),
   change(date(2023, 7, 25), 'Improve consistency when fetching talents for tables.', ToppleTheNun),
   change(date(2023, 7, 25), 'Fix crash when using certain i18n functions.', ToppleTheNun),
@@ -49,15 +51,15 @@ export default [
   change(date(2023, 6, 30), 'Regenerate talents.', ToppleTheNun),
   change(date(2023, 6, 28), 'Update retail realms for US, EU, TW, and KR.', ToppleTheNun),
   change(date(2023, 6, 26), 'Improve ability to have custom ESLint rules.', ToppleTheNun),
-  change(date(2023, 6, 25), <>Correctly hide <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> if it isn't equipped.</>, Putro),
+  change(date(2023, 6, 25), <>Correctly hide <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id} /> if it isn't equipped.</>, Putro),
   change(date(2023, 6, 25), 'Added many Aberrus DoTs to the ignore list for tank hit tracking', emallson),
   change(date(2023, 6, 22), 'Added Thousandbone Tongueslicer to list of high tier foods.', Sref),
   change(date(2023, 6, 22), 'Remove ESLint disable from probability module.', ToppleTheNun),
-  change(date(2023, 6, 19), <>Implement <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> stat tracking</>, Jundarer),
+  change(date(2023, 6, 19), <>Implement <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id} /> stat tracking</>, Jundarer),
   change(date(2023, 6, 18), 'Add Vessel, Spoils and Wafting Devotion haste buffs and update item scaling data.', Jundarer),
   change(date(2023, 6, 17), 'Update core directories to use new spell link format.', ToppleTheNun),
   change(date(2023, 6, 17), 'Update articles to use new spell link format.', ToppleTheNun),
-  change(date(2023, 5, 31), <>Implement <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id}/> module for Monk, Shaman, and Warlock</>, Trevor),
+  change(date(2023, 5, 31), <>Implement <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id} /> module for Monk, Shaman, and Warlock</>, Trevor),
   change(date(2023, 5, 29), 'Add missing Balance Druid haste buffs.', Jundarer),
   change(date(2023, 5, 21), 'Refactor raid buff tracking and support tracking Windfury Totem.', ToppleTheNun),
   change(date(2023, 5, 21), <>Fix <ItemLink id={ITEMS.HISSING_RUNE_R3.id} /> showing as a weak enhancement.</>, Trevor),
@@ -68,8 +70,8 @@ export default [
   change(date(2023, 5, 10), 'Add Classic Character Thumbnails to PlayerSelection page.', jazminite),
   change(date(2023, 5, 10), 'Speed up e2e tests.', ToppleTheNun),
   change(date(2023, 5, 10), 'Fix Echo of Nelthation display.', ToppleTheNun),
-  change(date(2023, 5, 10), 'Add season 2 dungeon backgrounds.',  ToppleTheNun),
-  change(date(2023, 5, 10), 'Fix Kazzara displaying as Magmorax.',  ToppleTheNun),
+  change(date(2023, 5, 10), 'Add season 2 dungeon backgrounds.', ToppleTheNun),
+  change(date(2023, 5, 10), 'Fix Kazzara displaying as Magmorax.', ToppleTheNun),
   change(date(2023, 5, 9), 'Changed default zone for character parses to Aberrus', emallson),
   change(date(2023, 5, 8), 'Add Classic Realm data to scripts/realms.', jazminite),
   change(date(2023, 5, 8), 'Add Trial of the Grand Crusader raid and images for Classic WotLK.', jazminite),
@@ -122,7 +124,7 @@ export default [
   change(date(2023, 1, 31), 'Add raid specific haste buffs for Classic WotLK (Ulduar).', jazminite),
   change(date(2023, 1, 30), 'Lookup Classic spec by talent tree IF the icon is generic. Generic icons occur when the player changes talents during raid.', jazminite),
   change(date(2023, 1, 30), 'Update retail talent data', emallson),
-  change(date(2023, 1, 30), <>Fixed potion checker for <SpellLink spell={ITEMS.POTION_OF_CHILLED_CLARITY_R3}/></>, Trevor),
+  change(date(2023, 1, 30), <>Fixed potion checker for <SpellLink spell={ITEMS.POTION_OF_CHILLED_CLARITY_R3} /></>, Trevor),
   change(date(2023, 1, 30), "Correct an issue with accessing undefined values in GetRelatedEvents, HasRelatedEvent and AddRelatedEvent", Putro),
   change(date(2023, 1, 26), 'Update performance box rows to use CSS grid instead of flexbox.', ToppleTheNun),
   change(date(2023, 1, 25), 'Bump retail patch to 10.0.5.', ToppleTheNun),
