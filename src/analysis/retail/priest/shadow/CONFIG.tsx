@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [DoxAshe],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.1.0',
+  patchCompatibility: '10.1.5',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -41,7 +41,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    'report/m7cTKbN9FhYzDkw8/1-Normal+Kazzara,+the+Hellforged+-+Kill+(3:54)/Doxashe/standard',
+    '/report/GqzB6QcYKfML91Ty/1-Heroic+Kazzara,+the+Hellforged+-+Kill+(3:12)/Doxashe/standard',
   guideDefault: true,
 
   // Don't change anything below this line;

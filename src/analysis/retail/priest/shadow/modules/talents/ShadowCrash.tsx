@@ -129,9 +129,8 @@ class ShadowCrash extends Analyzer {
         </b>{' '}
         deals damage and applies <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> to targets it hits.
         <br />
-        Use <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} /> on cooldown to deal damage, apply your
-        DoTs, and generate insanity. You can hold this ability if it will allow you to hit more
-        targets.
+        Use <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} /> to apply your DoTs, and generate
+        insanity. You should hold this ability if it will allow you to hit more targets.
       </p>
     );
 

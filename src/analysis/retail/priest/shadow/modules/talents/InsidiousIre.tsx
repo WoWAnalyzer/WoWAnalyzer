@@ -212,8 +212,8 @@ class InsidiousIre extends Analyzer {
           <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />
           , and <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> are all active on the target.{' '}
           <br />
-          Check your DoT uptime, and be sure to cast these spells while Devouring Plague is fresh to
-          increase damage.
+          Be sure to cast these spells while Devouring Plague is on your target to increase their
+          damage.
         </p>
         {!this.selectedCombatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) ? (
           <b>You should really talent Void Torrent in combination with this talent!</b>
