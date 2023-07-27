@@ -1,4 +1,5 @@
 import { MessageDescriptor } from '@lingui/core';
+import { isValidElement } from 'react';
 
 // This is kind of ugly but I generated it, so I'm keeping it for now.
 export const isMessageDescriptor = (obj: unknown): obj is MessageDescriptor => {
@@ -12,6 +13,9 @@ export const isMessageDescriptor = (obj: unknown): obj is MessageDescriptor => {
     (typeof typedObj['values'] === 'undefined' ||
       (((typedObj['values'] !== null && typeof typedObj['values'] === 'object') ||
         typeof typedObj['values'] === 'function') &&
-        Object.entries<any>(typedObj['values']).every(([key, _value]) => typeof key === 'string')))
+        Object.entries<any>(typedObj['values']).every(
+          ([key, _value]) => typeof key === 'string',
+        ))) &&
+    !isValidElement(typedObj)
   );
 };
