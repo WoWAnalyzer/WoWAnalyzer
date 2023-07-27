@@ -24,7 +24,7 @@ interface FinishedSpenderWindow extends ActiveSpenderWindow {
   sopUse: CastEvent;
 }
 
-const SOP_SPENDERS = [
+const SOP_CONSUME_SPELLS = [
   SPELLS.LIGHTNING_BOLT,
   TALENTS.CHAIN_LIGHTNING_TALENT,
   SPELLS.FLAME_SHOCK,
@@ -32,7 +32,7 @@ const SOP_SPENDERS = [
   TALENTS.LAVA_BURST_TALENT,
 ];
 
-const GOOD_SOP_SPENDERS = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
+const GOOD_SOP_CONSUMERS = [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id];
 
 const PERFECT_WINDOWS_THRESHOLD: GTEThreshold = {
   type: 'gte',
@@ -74,33 +74,34 @@ class SpenderWindow extends Analyzer {
 
   protected enemies!: Enemies;
 
-  activeSpenderWindow: ActiveSpenderWindow | null;
-  spenderWindows: FinishedSpenderWindow[];
+  activeSpenderWindow: ActiveSpenderWindow | null = null;
+  spenderWindows: FinishedSpenderWindow[] = [];
 
-  private stSpender: Talent = TALENTS.EARTH_SHOCK_TALENT;
+  private stMSSpender: Talent = TALENTS.EARTH_SHOCK_TALENT;
 
   constructor(options: Options) {
     super(options);
 
-    this.activeSpenderWindow = null;
-    this.spenderWindows = [];
-
     if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)) {
-      this.stSpender = TALENTS.ELEMENTAL_BLAST_TALENT;
+      this.stMSSpender = TALENTS.ELEMENTAL_BLAST_TALENT;
     }
 
     this.enabled = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
 
     /* There is no point in tracking this at all if the player doesn't have SoP */
     if (!this.enabled) {
-      return;
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(this.stMSSpender),
+        this.onMSSpender,
+      );
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(SOP_CONSUME_SPELLS),
+        this.onSopConsumer,
+      );
     }
-
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.stSpender), this.onSpender);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SOP_SPENDERS), this.onSopSpender);
   }
 
-  onSpender(event: CastEvent) {
+  onMSSpender(event: CastEvent) {
     if (this.activeSpenderWindow) {
       return;
     }
@@ -117,11 +118,9 @@ class SpenderWindow extends Analyzer {
     };
   }
 
-  onSopSpender(event: CastEvent) {
-    if (!this.activeSpenderWindow) {
-      return;
-    }
+  onSopConsumer(event: CastEvent) {
     if (
+      !this.activeSpenderWindow ||
       !this.selectedCombatant.hasBuff(
         SPELLS.SURGE_OF_POWER_BUFF.id,
         null,
@@ -168,7 +167,7 @@ class SpenderWindow extends Analyzer {
     const explanation = (
       <>
         <p>
-          In single target, when you intend to cast <SpellLink spell={this.stSpender} />
+          In single target, when you intend to cast <SpellLink spell={this.stMSSpender} />
           , you should perform the following cast sequence (sometimes called the "Spender window"):
           <br />
           <small>For more information, see the written guides</small>
@@ -177,7 +176,7 @@ class SpenderWindow extends Analyzer {
           (<SpellIcon spell={SPELLS.FLAME_SHOCK} />
           <SpellIcon spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} /> &rarr;)
           <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
-          <SpellIcon spell={this.stSpender} /> &rarr;
+          <SpellIcon spell={this.stMSSpender} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} />
         </p>
         <p>
@@ -210,7 +209,7 @@ class SpenderWindow extends Analyzer {
 
     this.spenderWindows.forEach((w) => {
       let perfect = true;
-      if (!GOOD_SOP_SPENDERS.includes(w.sopUse?.ability.guid || 0)) {
+      if (!GOOD_SOP_CONSUMERS.includes(w.sopUse?.ability.guid || 0)) {
         windowBreakdown.wrongSop.push(w);
         perfect = false;
       }
@@ -273,7 +272,7 @@ class SpenderWindow extends Analyzer {
           this.spenderWindowsRow(
             windowBreakdown.missingMote,
             <>
-              <SpellLink spell={this.stSpender} /> cast without{' '}
+              <SpellLink spell={this.stMSSpender} /> cast without{' '}
               <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />:{' '}
             </>,
             MISSING_MOTE_THRESHOLD,
