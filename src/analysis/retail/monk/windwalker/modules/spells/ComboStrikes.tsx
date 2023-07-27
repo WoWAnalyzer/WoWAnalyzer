@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -89,7 +89,7 @@ class ComboStrikes extends Analyzer {
       )
         .icon(SPELLS.COMBO_STRIKES.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.comboStrikes.masteryBreaksPerMinute',
             message: `${actual.toFixed(2)} mastery breaks per minute.`,
           }),

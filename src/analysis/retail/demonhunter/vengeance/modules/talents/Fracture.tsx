@@ -7,7 +7,6 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { UNRESTRAINED_FURY_SCALING } from 'analysis/retail/demonhunter/shared';
 import { TIERS } from 'game/TIERS';
-import { Trans } from '@lingui/macro';
 import {
   ChecklistUsageInfo,
   SpellUse,
@@ -87,18 +86,16 @@ export default class Fracture extends Analyzer {
   guideSubsection() {
     const explanation = (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.fracture.explanation">
-          <strong>
-            <SpellLink spell={TALENTS.FRACTURE_TALENT} />
-          </strong>{' '}
-          is your primary <strong>builder</strong> for <ResourceLink id={RESOURCE_TYPES.FURY.id} />{' '}
-          and <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-          s. Cast it when you have less than 4 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and
-          less than {this.notMetaFuryLimit} <ResourceLink id={RESOURCE_TYPES.FURY.id} />. In{' '}
-          <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 3{' '}
-          <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.inMetaFuryLimit}{' '}
-          <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
-        </Trans>
+        <strong>
+          <SpellLink spell={TALENTS.FRACTURE_TALENT} />
+        </strong>{' '}
+        is your primary <strong>builder</strong> for <ResourceLink id={RESOURCE_TYPES.FURY.id} />{' '}
+        and <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+        s. Cast it when you have less than 4 <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and
+        less than {this.notMetaFuryLimit} <ResourceLink id={RESOURCE_TYPES.FURY.id} />. In{' '}
+        <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />, cast it when you have less than 3{' '}
+        <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s and less than {this.inMetaFuryLimit}{' '}
+        <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
       </p>
     );
 

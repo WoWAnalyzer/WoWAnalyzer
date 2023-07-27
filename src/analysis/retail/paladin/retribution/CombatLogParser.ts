@@ -1,32 +1,37 @@
 import {
   DivinePurpose,
-  HolyPowerTracker,
   HolyPowerDetails,
-  Judgment,
   HolyPowerPerMinute,
+  HolyPowerTracker,
+  Judgment,
 } from 'analysis/retail/paladin/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
-import ArtOfWar from './modules/core/ArtOfWar';
-import ArtOfWarProbability from './modules/core/ArtOfWarProbability';
-import BladeofJustice from './modules/core/BladeofJustice';
+import ArtOfWar from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWar';
+import ArtOfWarProbability from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWarProbability';
+import BladeofJustice from 'analysis/retail/paladin/retribution/modules/talents/BladeofJustice';
 import Consecration from './modules/core/Consecration';
 import CrusaderStrike from './modules/core/CrusaderStrike';
-import HammerofWrathRetribution from './modules/core/HammerofWrath';
-import ShieldOfVengeance from './modules/core/ShieldOfVengeance';
-import WakeofAshes from './modules/core/WakeofAshes';
+import HammerofWrathRetribution from 'analysis/retail/paladin/retribution/modules/talents/HammerofWrath';
+import ShieldOfVengeance from 'analysis/retail/paladin/retribution/modules/talents/ShieldOfVengeance';
+import WakeofAshes from 'analysis/retail/paladin/retribution/modules/talents/WakeofAshes';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
-import Checklist from './modules/features/Checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import FinalVerdict from './modules/items/FinalVerdict';
+import FinalVerdict from 'analysis/retail/paladin/retribution/modules/talents/FinalVerdict';
 import Crusade from './modules/talents/Crusade';
 import EmpyreanPower from './modules/talents/EmpyreanPower';
+import BuilderUse from './modules/core/BuilderUse';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
+  static guide = Guide;
+
   static specModules = {
-    // PaladinCore
+    // Core
+    builderUse: BuilderUse,
+
     artOfWar: ArtOfWar,
     artOfWarProbability: ArtOfWarProbability,
 
@@ -35,7 +40,6 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
     cooldownThroughputTracker: CooldownThroughputTracker,
-    checklist: Checklist,
     bladeofJustice: BladeofJustice,
     crusaderStrike: CrusaderStrike,
     shieldOfVengeance: ShieldOfVengeance,

@@ -1,10 +1,11 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 // import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import { i18n } from '@lingui/core';
 
 import { ABILITIES_AFFECTED_BY_HEALING_INCREASES } from '../constants';
 import { TrackedRestoShamanAbility } from './core/RestorationAbilityTracker';
@@ -240,10 +241,12 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HEALING_WAVE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.HEALING_WAVE_TALENT),
-        name: t({
-          id: 'shaman.restoration.abilities.buffedByTidalWave',
-          message: `Tidal Waved ${TALENTS.HEALING_WAVE_TALENT.name}`,
-        }),
+        name: i18n._(
+          defineMessage({
+            id: 'shaman.restoration.abilities.buffedByTidalWave',
+            message: `Tidal Waved ${TALENTS.HEALING_WAVE_TALENT.name}`,
+          }),
+        ),
         timelineSortIndex: 13,
         gcd: {
           base: 1500,
@@ -267,10 +270,12 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.HEALING_SURGE.id,
-        name: t({
-          id: 'shaman.restoration.abilities.buffedByTidalWave',
-          message: `Tidal Waved ${SPELLS.HEALING_SURGE.name}`,
-        }),
+        name: i18n._(
+          defineMessage({
+            id: 'shaman.restoration.abilities.buffedByTidalWave',
+            message: `Tidal Waved ${SPELLS.HEALING_SURGE.name}`,
+          }),
+        ),
         timelineSortIndex: 14,
         gcd: {
           base: 1500,

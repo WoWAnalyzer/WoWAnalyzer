@@ -9,7 +9,6 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import DemonicExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/DemonicExplanation';
-import { Trans } from '@lingui/macro';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { getDamageEvents } from 'analysis/retail/demonhunter/vengeance/normalizers/FelDevastationNormalizer';
@@ -49,12 +48,10 @@ export default class FelDevastation extends MajorCooldown<FelDevastationCooldown
     return (
       <>
         <section style={{ marginBottom: 20 }}>
-          <Trans id="guide.demonhunter.vengeance.sections.cooldowns.felDevastation.explanation">
-            <strong>
-              <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
-            </strong>{' '}
-            is a large burst of damage and healing.
-          </Trans>
+          <strong>
+            <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} />
+          </strong>{' '}
+          is a large burst of damage and healing.
         </section>
         <section>
           <DemonicExplanation lineBreak />

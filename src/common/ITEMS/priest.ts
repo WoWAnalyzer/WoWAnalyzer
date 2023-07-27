@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
+const items = {
   //region Discipline
 
   //endregion
@@ -20,5 +20,5 @@ const items = itemIndexableList({
     icon: 'inv_glyph_minorpriest',
   },
   //endregion
-});
+} satisfies Record<string, Item>;
 export default items;

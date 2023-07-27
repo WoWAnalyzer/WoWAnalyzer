@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
+import { i18n } from '@lingui/core';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -105,12 +106,14 @@ class MarrowrendUsage extends Analyzer {
         const wasted = MR_GAIN - this.currentBoneShieldBuffer;
         this.badMRCasts += 1;
         this.bsStacksWasted += wasted;
-        badCast = t({
-          id: 'deathknight.blood.marrowrendUsage.badCast',
-          message: `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${durationLeft.toFixed(
-            1,
-          )} seconds left, wasting ${wasted} charges.`,
-        });
+        badCast = i18n._(
+          defineMessage({
+            id: 'deathknight.blood.marrowrendUsage.badCast',
+            message: `You made this cast with ${boneShieldStacks} stacks of Bone Shield while it had ${durationLeft.toFixed(
+              1,
+            )} seconds left, wasting ${wasted} charges.`,
+          }),
+        );
       }
 
       if (badCast) {
@@ -180,13 +183,13 @@ class MarrowrendUsage extends Analyzer {
       )
         .icon(TALENTS.MARROWREND_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.marrowrendUsage.suggestion.actual',
             message: `${formatPercentage(actual)}% wasted ${SPELLS.BONE_SHIELD.name} stacks`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'deathknight.blood.marrowrendUsage.suggestion.recommended',
             message: `${this.bsStacksWasted} stacks wasted, ${this.totalStacksGenerated} stacks generated`,
           }),

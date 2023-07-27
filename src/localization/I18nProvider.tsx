@@ -57,8 +57,10 @@ const I18nProvider = ({ children }: Props) => {
     return null;
   }
 
+  // we don't force a render on locale change in tests because there will never be a locale change.
+  // this behavior is different in lingui v4 and once we upgrade can probably get removed
   return (
-    <LinguiI18nProvider i18n={i18n}>
+    <LinguiI18nProvider i18n={i18n} forceRenderOnLocaleChange={process.env.NODE_ENV !== 'test'}>
       <Helmet>
         {/* Specify the correct language to disable translation plugins, and try to disable translation plugins. This is needed because they modify the DOM, which can cause React to crash. */}
         <html lang={activeLocale} translate="no" />

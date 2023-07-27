@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -54,7 +54,7 @@ class RendAnalyzer extends EarlyDotRefreshesCore {
       )
         .icon(TALENTS.REND_ARMS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shared.suggestions.dots.badRefreshes',
             message: `${formatPercentage(actual)}% of good Rend refreshes.`,
           }),

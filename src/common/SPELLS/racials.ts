@@ -3,10 +3,9 @@
  * You need to do this manually, usually an easy way to do this is by searching a racial or race on Wowhead. Here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
+import Spell from 'common/SPELLS/Spell';
 
-import { spellIndexableList } from './Spell';
-
-const spells = spellIndexableList({
+const spells = {
   // Blood Elf
   ARCANE_TORRENT_MANA1: {
     id: 155145,
@@ -299,6 +298,6 @@ const spells = spellIndexableList({
     name: 'Awakened',
     icon: 'ability_racial_awakened',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

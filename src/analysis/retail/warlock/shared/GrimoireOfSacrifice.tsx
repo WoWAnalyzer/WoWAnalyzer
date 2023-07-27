@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -51,7 +51,7 @@ class GrimoireOfSacrifice extends Analyzer {
       )
         .icon(TALENTS.GRIMOIRE_OF_SACRIFICE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.shared.suggestions.grimoireOfSacrifice.uptime',
             message: `${formatPercentage(actual)} % Grimoire of Sacrifice uptime.`,
           }),

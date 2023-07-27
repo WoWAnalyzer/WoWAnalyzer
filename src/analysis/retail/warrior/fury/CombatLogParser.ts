@@ -16,13 +16,13 @@ import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
 import AngerManagement from './modules/talents/AngerManagement';
-//import ImpendingVicory from './modules/talents/ImpendingVictory';
 import MeatCleaver from './modules/talents/MeatCleaver';
 import RecklessAbandon from './modules/talents/RecklessAbandon';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
+import BerserkersTormentNormalizer from './modules/talents/BerserkersTorment';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -39,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
     rageDetails: RageDetails,
 
     enrageNormalizer: EnrageNormalizer,
+    berserkersTormentNormalizer: BerserkersTormentNormalizer,
 
     enrageUptime: Enrage,
 
@@ -47,7 +48,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //talents
     angerManagement: AngerManagement,
-    //impendingVictory: ImpendingVicory,
     meatCleaver: MeatCleaver,
     recklessAbandon: RecklessAbandon,
     suddenDeath: SuddenDeath,

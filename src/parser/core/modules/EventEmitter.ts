@@ -2,7 +2,7 @@ import ModuleError from 'parser/core/ModuleError';
 
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from '../Analyzer';
 import EventFilter, { SpellFilter } from '../EventFilter';
-import Events, { EventType, HasAbility, MappedEvent } from '../Events';
+import Events, { EventType, HasAbility, AnyEvent } from '../Events';
 import { EventListener } from '../EventSubscriber';
 import Module, { Options } from '../Module';
 
@@ -10,7 +10,7 @@ const CATCH_ALL_EVENT = EventType.Event;
 
 const PROFILE = false;
 
-type BoundListener<ET extends EventType, E extends MappedEvent<ET>> = {
+type BoundListener<ET extends EventType, E extends AnyEvent<ET>> = {
   eventFilter: ET | EventFilter<ET>;
   module: Module;
   listener: EventListener<ET, E>;
@@ -47,7 +47,7 @@ class EventEmitter extends Module {
    * @param {function} listener
    * @param {Module} module
    */
-  addEventListener<ET extends EventType, T extends MappedEvent<ET>>(
+  addEventListener<ET extends EventType, T extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, T>,
     module: Module,
@@ -61,7 +61,7 @@ class EventEmitter extends Module {
     });
     this.numEventListeners += 1;
   }
-  _compileListener<ET extends EventType, E extends MappedEvent<ET>>(
+  _compileListener<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
     module: Module,
@@ -76,7 +76,7 @@ class EventEmitter extends Module {
   }
 
   numActualExecutions = 0;
-  _prependCounter<ET extends EventType, E extends MappedEvent<ET>>(
+  _prependCounter<ET extends EventType, E extends AnyEvent<ET>>(
     listener: EventListener<ET, E>,
   ): EventListener<ET, E> {
     return (event) => {
@@ -84,7 +84,7 @@ class EventEmitter extends Module {
       listener(event);
     };
   }
-  _prependActiveCheck<ET extends EventType, E extends MappedEvent<ET>>(
+  _prependActiveCheck<ET extends EventType, E extends AnyEvent<ET>>(
     listener: EventListener<ET, E>,
     module: Module,
   ): EventListener<ET, E> {
@@ -94,7 +94,7 @@ class EventEmitter extends Module {
       }
     };
   }
-  _prependFilters<ET extends EventType, E extends MappedEvent<ET>>(
+  _prependFilters<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: EventFilter<ET>,
     listener: EventListener<ET, E>,
   ): EventListener<ET, E> {
@@ -113,7 +113,7 @@ class EventEmitter extends Module {
     return listener;
   }
 
-  createByCheck<ET extends EventType, E extends MappedEvent<ET>>(
+  createByCheck<ET extends EventType, E extends AnyEvent<ET>>(
     by: number,
   ): ((event: E) => boolean) | null {
     const requiresSelectedPlayer = by & SELECTED_PLAYER;
@@ -129,7 +129,7 @@ class EventEmitter extends Module {
       return null;
     }
   }
-  _prependByCheck<ET extends EventType, E extends MappedEvent<ET>>(
+  _prependByCheck<ET extends EventType, E extends AnyEvent<ET>>(
     listener: EventListener<ET, E>,
     by: number,
   ): EventListener<ET, E> {
@@ -145,7 +145,7 @@ class EventEmitter extends Module {
     };
   }
 
-  createToCheck<ET extends EventType>(to: number): ((event: MappedEvent<ET>) => boolean) | null {
+  createToCheck<ET extends EventType>(to: number): ((event: AnyEvent<ET>) => boolean) | null {
     const requiresSelectedPlayer = to & SELECTED_PLAYER;
     const requiresSelectedPlayerPet = to & SELECTED_PLAYER_PET;
     if (requiresSelectedPlayer && requiresSelectedPlayerPet) {
@@ -158,7 +158,7 @@ class EventEmitter extends Module {
       return null;
     }
   }
-  _prependToCheck<ET extends EventType, E extends MappedEvent<ET>>(
+  _prependToCheck<ET extends EventType, E extends AnyEvent<ET>>(
     listener: EventListener<ET, E>,
     to: number,
   ): EventListener<ET, E> {
@@ -173,7 +173,7 @@ class EventEmitter extends Module {
     };
   }
 
-  createSpellCheck<ET extends EventType, E extends MappedEvent<ET>>(
+  createSpellCheck<ET extends EventType, E extends AnyEvent<ET>>(
     spell: SpellFilter,
   ): (event: E) => boolean {
     if (spell instanceof Array) {
@@ -183,7 +183,7 @@ class EventEmitter extends Module {
     return (event) => HasAbility(event) && event.ability.guid === spellId;
   }
 
-  _prependSpellCheck<ET extends EventType, E extends MappedEvent<ET>>(
+  _prependSpellCheck<ET extends EventType, E extends AnyEvent<ET>>(
     listener: EventListener<ET, E>,
     spell: SpellFilter,
   ): EventListener<ET, E> {
@@ -198,7 +198,7 @@ class EventEmitter extends Module {
   numTriggeredEvents = 0;
   numListenersCalled = 0;
   _isHandlingEvent = false;
-  triggerEvent<ET extends EventType, E extends MappedEvent<ET>>(event: E) {
+  triggerEvent<ET extends EventType, E extends AnyEvent<ET>>(event: E) {
     if (process.env.NODE_ENV !== 'production') {
       this._validateEvent(event);
     }
@@ -254,7 +254,7 @@ class EventEmitter extends Module {
   }
 
   timePerModule!: Map<Module, number>;
-  profile<ET extends EventType, E extends MappedEvent<ET>>(
+  profile<ET extends EventType, E extends AnyEvent<ET>>(
     run: (options: BoundListener<ET, E>) => void,
   ) {
     return (options: BoundListener<ET, E>) => {

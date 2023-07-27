@@ -1,4 +1,4 @@
-import { Trans, t } from '@lingui/macro';
+import { Trans, defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
@@ -390,13 +390,13 @@ class MasteryEffectiveness extends Analyzer {
       )
         .icon('inv_hammer_04')
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.holy.modules.masteryEffectiveness.suggestion.actual',
             message: `${formatPercentage(actual)}% mastery effectiveness`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'paladin.holy.modules.masteryEffectiveness.suggestion.recommended',
             message: `>${formatPercentage(recommended)}% is recommended`,
           }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCastingHealing from 'parser/shared/modules/AlwaysBeCastingHealing';
@@ -96,7 +96,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')
           .actual(
-            t({
+            defineMessage({
               id: 'shared.suggestions.alwaysBeCasting.downtime',
               message: `${formatPercentage(actual)}% downtime`,
             }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { isItAprilFoolDay } from 'common/aprilFools';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -83,7 +83,7 @@ class SpiritOfRedemption extends Analyzer {
         )
           .icon('inv_enchant_essenceeternallarge')
           .actual(
-            t({
+            defineMessage({
               id: 'priest.holy.suggestions.spiritOfRedemption.efficiency',
               message: `${actual} seconds spent redeeming`,
             }),

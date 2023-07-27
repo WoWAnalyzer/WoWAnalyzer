@@ -14,12 +14,34 @@ import Combatant from '../../core/Combatant';
 import { EventType, UpdateSpellUsableEvent, UpdateSpellUsableType } from '../../core/Events';
 import Ability, { SpellbookAbility } from '../../core/modules/Ability';
 import AbilityTracker from './AbilityTracker';
+import { useLingui } from '@lingui/react';
+import { isMessageDescriptor } from 'localization/isMessageDescriptor';
 
 const DEFAULT_RECOMMENDED = 0.8;
 const DEFAULT_AVERAGE_DOWNSTEP = 0.05;
 const DEFAULT_MAJOR_DOWNSTEP = 0.15;
 const seconds = (ms: number) => ms / 1000;
 const minutes = (ms: number) => seconds(ms) / 60;
+
+interface CastEfficiencySuggestionProps {
+  ability: Ability;
+}
+const CastEfficiencySuggestion = ({ ability }: CastEfficiencySuggestionProps) => {
+  const { i18n } = useLingui();
+
+  const extraSuggestion = isMessageDescriptor(ability.castEfficiency.extraSuggestion)
+    ? i18n._(ability.castEfficiency.extraSuggestion)
+    : ability.castEfficiency.extraSuggestion;
+
+  return (
+    <>
+      <Trans id="shared.modules.castEfficiency.suggest">
+        Try to cast <SpellLink spell={ability.primarySpell} /> more often.
+      </Trans>{' '}
+      {extraSuggestion ?? ''}
+    </>
+  );
+};
 
 export interface AbilityCastEfficiency {
   ability: Ability;
@@ -382,14 +404,7 @@ class CastEfficiency extends Analyzer {
       };
 
       when(suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-        suggest(
-          <>
-            <Trans id="shared.modules.castEfficiency.suggest">
-              Try to cast <SpellLink spell={ability.primarySpell} /> more often.
-            </Trans>{' '}
-            {ability.castEfficiency.extraSuggestion || ''}
-          </>,
-        )
+        suggest(<CastEfficiencySuggestion ability={ability} />)
           .spell(ability.primarySpell)
           .actual(
             <Trans id="shared.modules.castEfficiency.actual">

@@ -22,6 +22,7 @@ export enum ResourceTypes {
 }
 
 export type ResourceCostType = Uncapitalize<`${keyof typeof ResourceTypes}Cost`>;
+export type ResourceCostPerSecondType = Uncapitalize<`${keyof typeof ResourceTypes}CostPerSecond`>;
 
 export type GenericTalentDefinitionId = {
   id: number;
@@ -30,6 +31,8 @@ export type GenericTalentDefinitionId = {
 
 export type GenericTalentInterface = {
   [key in ResourceCostType]?: number;
+} & {
+  [key in ResourceCostPerSecondType]?: number;
 } & {
   id: number;
   name: string;

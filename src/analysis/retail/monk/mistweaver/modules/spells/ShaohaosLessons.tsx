@@ -143,7 +143,7 @@ class ShaohaosLessons extends Analyzer {
     ) {
       return;
     }
-    const enemyHealthPercent = (event.hitPoints - event.amount) / event.maxHitPoints;
+    const enemyHealthPercent = (event.hitPoints + event.amount) / event.maxHitPoints;
     const damageIncrease = (1 - enemyHealthPercent) * DOUBT_INCREASE;
     this.doubtDamage += calculateEffectiveDamage(event, damageIncrease);
   }

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
@@ -139,7 +139,7 @@ class BlockCheck extends Analyzer {
       )
         .icon(SPELLS.SHIELD_BLOCK_BUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.protection.suggestions.block.damageMitigated',
             message: `${formatPercentage(actual)}% was mitigated by a block spell`,
           }),

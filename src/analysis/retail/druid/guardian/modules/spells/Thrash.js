@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -35,7 +35,7 @@ class Thrash extends Analyzer {
         )
           .icon(SPELLS.THRASH_BEAR.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'druid.guardian.suggestions.thrash.uptime',
               message: `${formatPercentage(thrashUptimePercentage)}% uptime`,
             }),

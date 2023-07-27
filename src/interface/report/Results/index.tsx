@@ -37,6 +37,7 @@ import Header from './Header';
 import ItemWarning from './ItemWarning';
 import ScrollToTop from './ScrollToTop';
 import ZONES from 'game/ZONES';
+import { useLingui } from '@lingui/react';
 
 interface PassedProps {
   parser: CombatLogParser;
@@ -65,6 +66,7 @@ const Results = (props: PassedProps) => {
   const dispatch = useDispatch();
   const [adjustForDowntime, setAdjustForDowntime] = useState(false);
   const [results, setResults] = useState<ParseResults | null>(null);
+  const { i18n } = useLingui();
 
   const generateResults = useCallback(() => {
     if (props.parser == null) {
@@ -254,9 +256,9 @@ const Results = (props: PassedProps) => {
               </small>
               <div style={{ fontSize: 16 }}>
                 <Trans id="interface.report.results.providedByDetails">
-                  {props.config.spec.specName} {props.config.spec.className} analysis has been
-                  provided by {contributorinfo}. They love hearing what you think, so please let
-                  them know!{' '}
+                  {props.config.spec.specName ? i18n._(props.config.spec.specName) : null}{' '}
+                  {i18n._(props.config.spec.className)} analysis has been provided by{' '}
+                  {contributorinfo}. They love hearing what you think, so please let them know!{' '}
                   <Link to={props.makeTabUrl('about')}>
                     More information about this spec's analyzer.
                   </Link>
