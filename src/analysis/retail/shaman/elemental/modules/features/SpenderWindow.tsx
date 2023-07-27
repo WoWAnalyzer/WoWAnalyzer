@@ -101,6 +101,9 @@ class SpenderWindow extends Analyzer {
     }
   }
 
+  /**
+   * Start a new spender window if one is not already active.
+   */
   onMSSpender(event: CastEvent) {
     if (this.activeSpenderWindow) {
       return;
@@ -118,6 +121,9 @@ class SpenderWindow extends Analyzer {
     };
   }
 
+  /**
+   * End a spender window if there is an active one.
+   */
   onSopConsumer(event: CastEvent) {
     if (
       !this.activeSpenderWindow ||
@@ -143,6 +149,14 @@ class SpenderWindow extends Analyzer {
     this.activeSpenderWindow = null;
   }
 
+  /**
+   * Create a single row for the spender window section.
+   * @param subWindow The windows that applies for this row.
+   * @param header The text preceeding the performance mark
+   * @param performanceThresholds Which thresholds to use to calculate performance
+   * @param windowTimestampCallable The fucntion to render the timestamps list for the window. Defaults to show '@ 0:01, 0:34' etc.
+   * @returns
+   */
   private spenderWindowsRow(
     subWindow: FinishedSpenderWindow[],
     header: JSX.Element,

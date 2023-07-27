@@ -3,6 +3,10 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatNumber, formatPercentage } from 'common/format';
 import PerformanceStrongWithTooltip from 'interface/PerformanceStrongWithTooltip';
 
+/**
+ * Thresholds for a performance percentage, where the actual value is compared
+ * using the <= operator.
+ */
 export interface LTEThreshold {
   type: 'lte';
   perfect: number;
@@ -10,6 +14,10 @@ export interface LTEThreshold {
   ok: number;
 }
 
+/**
+ * Thresholds for a performance percentage, where the actual value is compared
+ * using the >= operator.
+ */
 export interface GTEThreshold {
   type: 'gte';
   perfect: number;
@@ -18,14 +26,15 @@ export interface GTEThreshold {
 }
 
 interface Props {
-  threshold: LTEThreshold | GTEThreshold;
-  percentage: number;
-  flatAmount: number;
+  threshold: LTEThreshold | GTEThreshold /** The threshold to compare against. */;
+  percentage: number /** The actual percentage value to compare against the threshold */;
+  flatAmount: number /** The flat amount of the percentage (the numerator) */;
 }
 /**
  * Element that shows a performance percentage with a tooltip.
  *
- * The performance is computed based on the given threshold.
+ * The performance is computed based on the given threshold. Computation starts
+ * by comparing against perfect, good and ok thresholds in order, returning the first one that matched.
  */
 const ThresoldPerformancePercentage = ({ threshold, percentage, flatAmount }: Props) => {
   let signJsx;
