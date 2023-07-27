@@ -285,7 +285,6 @@ class Enemies extends Entities<Enemy> {
         }
 
         if (prevActive > 0) {
-          console.log('Adding entry', prevTimestamp, event.timestamp, prevActive);
           stackUptimeHistory.push({
             start: prevTimestamp,
             end: event.timestamp,
