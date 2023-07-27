@@ -35,12 +35,13 @@ export function usePageView(componentName: string, key?: unknown) {
       page_location: window.location.href,
       component_name: componentName,
       component_view_key: key,
-      player_class: config?.spec.className,
-      player_spec: config?.spec.specName,
+      player_class: config?.spec.className?.id,
+      player_spec: config?.spec.specName?.id,
       fight_is_dungeon: fight?.fight.dungeonPulls !== undefined,
       fight_difficulty: fight?.fight.difficulty,
       fight_boss: fight?.fight.boss,
     };
+    console.log(props);
     if (window.gtag) {
       window.gtag('event', 'page_view', props);
     }
