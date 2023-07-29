@@ -131,10 +131,11 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getEssenceFontDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone += this.essenceFont.totalHealing;
+    spellInfo.healingDone = this.essenceFont.totalHealing;
     spellInfo.overhealingDone += this.essenceFont.totalOverhealing;
     spellInfo.healingDone += this.ancientTeachings.totalHealing;
     spellInfo.overhealingDone += this.ancientTeachings.overhealing;
+    spellInfo.timeSpentCasting = this.essenceFont.timeSpent;
     return spellInfo;
   }
 
