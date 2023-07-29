@@ -19,7 +19,13 @@ interface BaseSpec {
 export interface RetailSpec extends BaseSpec {
   masterySpellId: number;
   masteryCoefficient: number;
+  /**
+   * String key used by WCL to identify the class.
+   */
   wclClassName: string;
+  /**
+   * String key used by WCL to identify the spec.
+   */
   wclSpecName: string;
 }
 
