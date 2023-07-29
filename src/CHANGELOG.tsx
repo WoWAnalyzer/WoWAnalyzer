@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 29), 'Fix another issue loading parses using character search', emallson),
   change(date(2023, 7, 29), 'Fix an issue loading parses using character search', Putro),
   change(date(2023, 7, 27), 'Add Sarkareth haste buff', Awildfivreld),
   change(date(2023, 7, 27), 'Fix i18n in suggestions.', ToppleTheNun),
