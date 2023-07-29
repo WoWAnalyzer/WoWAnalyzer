@@ -107,11 +107,6 @@ const spells = {
     name: 'Essence Font',
     icon: 'ability_monk_essencefont',
   },
-  ESSENCE_FONT_CHANNELING_BUFF: {
-    id: 191837,
-    name: 'Essence Font',
-    icon: 'ability_monk_essencefont',
-  },
   SECRET_INFUSION_CRIT_BUFF: {
     id: 388498,
     name: 'Secret infusion',

@@ -109,7 +109,7 @@ class EssenceFont extends Analyzer {
   }
 
   get timeSpentCasting() {
-    return this.selectedCombatant.getBuffUptime(SPELLS.ESSENCE_FONT_CHANNELING_BUFF.id);
+    return this.selectedCombatant.getBuffUptime(TALENTS_MONK.ESSENCE_FONT_TALENT.id);
   }
 
   isValidEFEvent(event: HealEvent) {
