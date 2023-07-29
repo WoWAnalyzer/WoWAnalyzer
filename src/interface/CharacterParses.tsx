@@ -5,7 +5,7 @@ import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from '
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
 import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
-import SPECS from 'game/SPECS';
+import SPECS, { isRetailSpec } from 'game/SPECS';
 import ZONES from 'game/ZONES';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/ActivityIndicator';
@@ -83,7 +83,7 @@ interface Player {
 }
 
 interface CharacterParsesState {
-  specs: string[];
+  specs: Array<{ en: string; translated: string }>;
   class: string;
   activeSpec: string[];
   activeDifficultyIds: number[];
@@ -383,12 +383,12 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
 
         const charClass = rawParses[0].class;
         const specs = Object.values(SPECS)
-          .filter((e) => e.className === charClass)
+          .filter((e) => e.className.message === charClass)
           // eslint-disable-next-line no-restricted-syntax
           .filter((item, index, self) => self.indexOf(item) === index)
+          .filter(isRetailSpec) //Classic doesn't support look up by characters at the moment
           .map((e) => e.specName)
-          .filter(isDefined)
-          .map((e) => i18n._(e));
+          .filter(isDefined);
 
         const parses = this.changeParseStructure(rawParses);
 
@@ -400,8 +400,10 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
         });
 
         this.setState({
-          specs: specs,
-          activeSpec: specs.map((elem) => elem.replace(' ', '')),
+          specs: specs.map((elem) => {
+            return { en: elem.message!, translated: i18n._(elem) };
+          }),
+          activeSpec: specs.map((elem) => elem.message!.replace(' ', '')),
           class: charClass,
           parses: parses,
           isLoading: false,
@@ -689,18 +691,18 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           <div className="row">
             <div className="col-md-12">
               <div className="panel character-filters">
-                {this.state.specs.map((elem, index) => (
+                {this.state.specs.map((specName, index) => (
                   <div
                     key={index}
-                    onClick={() => this.updateSpec(elem.replace(' ', ''))}
+                    onClick={() => this.updateSpec(specName.en.replace(' ', ''))}
                     className={
-                      this.state.activeSpec.includes(elem.replace(' ', ''))
+                      this.state.activeSpec.includes(specName.en.replace(' ', ''))
                         ? 'selected spec-filter character-filter'
                         : 'spec-filter character-filter'
                     }
-                    style={{ backgroundImage: `url(${this.iconPath(elem)})` }}
+                    style={{ backgroundImage: `url(${this.iconPath(specName.en)})` }}
                   >
-                    {elem}
+                    {specName.translated}
                   </div>
                 ))}
 
