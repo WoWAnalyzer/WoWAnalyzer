@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 export default [
+  change(date(2023, 7, 29), 'Mark Beast Mastery as compatible for 10.1.5', Putro),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 7, 3), 'Added support for Tier 30 2piece and 4piece', Putro),
   change(date(2023, 5, 8), <>Fixed an issue with <SpellLink spell={TALENTS.BLOODSHED_TALENT} />. </>, Putro),
