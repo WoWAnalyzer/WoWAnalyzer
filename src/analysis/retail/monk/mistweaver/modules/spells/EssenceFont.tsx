@@ -4,9 +4,7 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
-  BeginChannelEvent,
   CastEvent,
-  EndChannelEvent,
   HealEvent,
   RemoveBuffEvent,
   UpdateSpellUsableEvent,
@@ -61,8 +59,6 @@ class EssenceFont extends Analyzer {
   chijiGomEFHits: number = 0;
   lastCdEnd: number = 0;
   numCancelled: number = 0;
-  lastStart: number = 0;
-  timeSpent: number = 0;
 
   totalHealing: number = 0;
   totalOverhealing: number = 0;
@@ -102,14 +98,6 @@ class EssenceFont extends Analyzer {
         this.chijiGustHealing,
       );
     }
-    this.addEventListener(
-      Events.BeginChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
-      this.onBeginChannel,
-    );
-    this.addEventListener(
-      Events.EndChannel.by(SELECTED_PLAYER).spell(TALENTS_MONK.ESSENCE_FONT_TALENT),
-      this.onEndChannel,
-    );
   }
 
   get efProcRatio() {
@@ -120,12 +108,8 @@ class EssenceFont extends Analyzer {
     );
   }
 
-  onBeginChannel(event: BeginChannelEvent) {
-    this.lastStart = event.timestamp;
-  }
-
-  onEndChannel(event: EndChannelEvent) {
-    this.timeSpent += event.timestamp - this.lastStart;
+  get timeSpentCasting() {
+    return this.selectedCombatant.getBuffUptime(SPELLS.ESSENCE_FONT_CHANNELING_BUFF.id);
   }
 
   isValidEFEvent(event: HealEvent) {
