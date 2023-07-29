@@ -30,9 +30,7 @@ export interface RetailSpec extends BaseSpec {
 }
 
 export interface ClassicSpec extends BaseSpec {
-  // old-style classic analyzers that haven't been ported to spec-based ones yet
-  // do not have these properties
-  icon?: string;
+  icon: string;
   treeIndex?: number; // which tree (0,1,2) is for this spec. used as a fallback to try to do SOMETHING
 }
 
@@ -704,6 +702,8 @@ const SPECS = {
       id: 'specs.demonology',
       message: `Demonology`,
     }),
+    wclClassName: 'Warlock',
+    wclSpecName: 'Demonology',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77219,
