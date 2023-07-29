@@ -17,7 +17,6 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { WCLParse, WCLParsesResponse } from 'common/WCL_TYPES';
-import { isDefined } from 'common/typeGuards';
 import { isSupportedRegion } from 'common/regions';
 
 import './CharacterParses.scss';
@@ -382,13 +381,12 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
         }
 
         const charClass = rawParses[0].class;
-        const specs = Object.values(SPECS)
-          .filter((e) => e.className.message === charClass)
-          // eslint-disable-next-line no-restricted-syntax
-          .filter((item, index, self) => self.indexOf(item) === index)
+        const specs = Object.entries(SPECS)
+          // SPECS is indexed both by name and id. only take the id-keyed entries
+          .filter(([k]) => Number.isFinite(Number(k)))
+          .map(([, v]) => v)
           .filter(isRetailSpec) //Classic doesn't support look up by characters at the moment
-          .map((e) => e.specName)
-          .filter(isDefined);
+          .filter((e) => e.wclClassName === charClass);
 
         const parses = this.changeParseStructure(rawParses);
 
@@ -401,9 +399,12 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
 
         this.setState({
           specs: specs.map((elem) => {
-            return { en: elem.message!, translated: i18n._(elem) };
+            return {
+              en: elem.wclSpecName,
+              translated: elem.specName ? i18n._(elem.specName) : elem.wclSpecName,
+            };
           }),
-          activeSpec: specs.map((elem) => elem.message!.replace(' ', '')),
+          activeSpec: specs.map((elem) => elem.wclSpecName.replace(' ', '')),
           class: charClass,
           parses: parses,
           isLoading: false,
