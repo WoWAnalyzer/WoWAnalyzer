@@ -108,6 +108,10 @@ class EssenceFont extends Analyzer {
     );
   }
 
+  get timeSpentCasting() {
+    return this.selectedCombatant.getBuffUptime(TALENTS_MONK.ESSENCE_FONT_TALENT.id);
+  }
+
   isValidEFEvent(event: HealEvent) {
     const combatant = this.combatants.players[event.targetID];
     if (!combatant) {
