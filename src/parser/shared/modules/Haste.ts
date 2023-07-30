@@ -111,6 +111,11 @@ class Haste extends Analyzer {
     [CLASSIC_SPELLS.SLAG_IMBUED.id]: 1, // Ulduar - Ignis
     [CLASSIC_SPELLS.STARLIGHT.id]: 0.5, // Ulduar - Hodir
     //endregion
+
+    //region Encounter
+    //Raids
+    [SPELLS.ASTRAL_FLARE_BUFF.id]: { hastePerStack: 0.05 }, // Sarkareth
+    //endregion
   };
 
   get changehaste() {

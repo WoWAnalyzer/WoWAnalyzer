@@ -10,6 +10,13 @@ export const TEST_SPEC: Spec = {
   className: {
     id: '',
   },
+  specName: {
+    id: '',
+  },
+  wclClassName: 'Test',
+  wclSpecName: 'Test',
+  masterySpellId: 0,
+  masteryCoefficient: 0,
   id: 0,
   index: 0,
   primaryStat: '',

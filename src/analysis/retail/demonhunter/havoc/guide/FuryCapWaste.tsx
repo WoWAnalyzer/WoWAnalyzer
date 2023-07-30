@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
@@ -32,19 +31,17 @@ const FuryCapWaste = ({
 
   return (
     <p>
-      <Trans id="guide.demonhunter.havoc.sections.resources.fury.chart">
-        The chart below shows your <ResourceLink id={RESOURCE_TYPES.FURY.id} /> over the course of
-        the encounter. You wasted{' '}
-        <PerformancePercentage
-          performance={percentAtCapPerformance}
-          perfectPercentage={perfectTimeAtFuryCap}
-          goodPercentage={goodTimeAtFuryCap}
-          okPercentage={okTimeAtFuryCap}
-          percentage={percentAtCap}
-          flatAmount={wasted}
-        />{' '}
-        of your <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
-      </Trans>
+      The chart below shows your <ResourceLink id={RESOURCE_TYPES.FURY.id} /> over the course of the
+      encounter. You wasted{' '}
+      <PerformancePercentage
+        performance={percentAtCapPerformance}
+        perfectPercentage={perfectTimeAtFuryCap}
+        goodPercentage={goodTimeAtFuryCap}
+        okPercentage={okTimeAtFuryCap}
+        percentage={percentAtCap}
+        flatAmount={wasted}
+      />{' '}
+      of your <ResourceLink id={RESOURCE_TYPES.FURY.id} />.
       {info.combatant.hasTalent(TALENTS.BLIND_FURY_TALENT) && (
         <>
           {' '}
