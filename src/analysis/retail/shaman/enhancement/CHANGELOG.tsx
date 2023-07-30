@@ -4,6 +4,8 @@ import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun } from 'CONTRIBUTO
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 31), <>Updated example report</>, Seriousnes),
+  change(date(2023, 7, 31), <>Reordered guide sections</>, Seriousnes),
   change(date(2023, 7, 30), <>Added <SpellLink spell={TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT} /> statistic</>, Seriousnes),
   change(date(2023, 7, 26), <>Swapped <SpellLink spell={TALENTS_SHAMAN.ICE_STRIKE_TALENT} /> and <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> order in APL</>, Seriousnes),
   change(date(2023, 7, 26), <><SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT} /> cooldown should not be reduced by haste</>, Seriousnes),

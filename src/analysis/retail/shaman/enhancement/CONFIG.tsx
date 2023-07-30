@@ -1,4 +1,4 @@
-import { Vetyst, Seriousnes } from 'CONTRIBUTORS';
+import { Seriousnes } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
@@ -7,7 +7,7 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Vetyst, Seriousnes],
+  contributors: [Seriousnes],
   expansion: Expansion.Dragonflight,
   patchCompatibility: '10.1.5',
   isPartial: false,
@@ -24,7 +24,7 @@ const config: Config = {
     </>
   ),
   exampleReport:
-    '/report/aK2vDdWLGjhqzktn/21-Normal+Dathea,+Ascended+-+Kill+(5:11)/Shmaddy/standard',
+    '/report/THf6VKq7PYd8FCg3/6-Heroic+Rashok,+the+Elder+-+Kill+(3:26)/Seriousnes/standard',
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
   guideDefault: true,

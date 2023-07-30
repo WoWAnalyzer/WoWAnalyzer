@@ -70,11 +70,12 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     if (!this.active) {
       return;
     }
-    const ascendanceCooldown = this.selectedCombatant.hasTalent(
+    const ascendanceCooldowns = this.selectedCombatant.hasTalent(
       TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
     )
-      ? 180
-      : -1;
+      ? { cooldown: 180, gcd: { base: 1500 } }
+      : { cooldown: -1, gcd: null };
+
     const abilities = options.abilities as Abilities;
     abilities.add({
       spell: SPELLS.WINDSTRIKE_CAST.id,
@@ -92,10 +93,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     abilities.add({
       spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
       category: SPELL_CATEGORY.COOLDOWNS,
-      cooldown: ascendanceCooldown,
-      gcd: {
-        base: 1500,
-      },
+      cooldown: ascendanceCooldowns.cooldown,
+      gcd: ascendanceCooldowns.gcd,
       enabled:
         this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
         this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT),
