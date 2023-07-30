@@ -18,6 +18,11 @@ import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Haste from 'parser/shared/modules/Haste';
 import { THORIMS_INVOCATION_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import TalentSpellText from 'parser/ui/TalentSpellText';
+import { formatNumber } from 'common/format';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import Statistic from 'parser/ui/Statistic';
 
 const NonMissedCastSpells = [
   TALENTS_SHAMAN.SUNDERING_TALENT.id,
@@ -25,6 +30,11 @@ const NonMissedCastSpells = [
   TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
   SPELLS.WINDSTRIKE_CAST.id,
 ];
+const SIMULATED_MEDIAN_CASTS_PER_DRE = 13;
+
+interface Casts {
+  count: number;
+}
 
 interface AscendanceCooldownCast extends SpellCast {
   casts: CastEvent[];
@@ -50,6 +60,8 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   protected windstrikeOnCooldown: boolean = true;
   protected lastCooldownWasteCheck: number = 0;
 
+  protected castsPerAscendance: Casts[] = [{ count: 0 }];
+
   constructor(options: Options) {
     super({ spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT }, options);
     this.active =
@@ -58,7 +70,6 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     if (!this.active) {
       return;
     }
-
     const ascendanceCooldown = this.selectedCombatant.hasTalent(
       TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
     )
@@ -110,6 +121,14 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.WINDSTRIKE_CAST),
       this.detectWindstrikeCasts,
     );
+    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+      this.addEventListener(
+        Events.cast
+          .by(SELECTED_PLAYER)
+          .spell([TALENTS_SHAMAN.STORMSTRIKE_TALENT, SPELLS.WINDSTRIKE_CAST]),
+        this.onProcEligibleCast,
+      );
+    }
   }
 
   detectWindstrikeCasts(event: UpdateSpellUsableEvent) {
@@ -138,6 +157,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
    * Deeply Rooted Elements appears as a fabricated cast
    */
   onAscendanceCast(event: CastEvent) {
+    this.castsPerAscendance.push({ count: 0 });
     this.currentCooldown ??= {
       event: event,
       casts: [],
@@ -179,6 +199,10 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       this.recordCooldown(this.currentCooldown);
       this.currentCooldown = null;
     }
+  }
+
+  onProcEligibleCast(event: CastEvent) {
+    this.castsPerAscendance.at(-1)!.count += 1;
   }
 
   hasteAdjustedCooldownWasteSinceLastWasteCheck(event: AnyEvent): number {
@@ -357,6 +381,51 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           ? `${actualPerformance} Usage`
           : 'Bad Usage',
     };
+  }
+
+  statistic() {
+    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+      const casts = this.castsPerAscendance.map((cast: Casts) => cast.count);
+      const totalCasts = casts.reduce((total, current) => (total += current), 0);
+      const minToProc = Math.min(...casts);
+      const maxToProc = Math.max(...casts);
+      const median = getMedian(casts)!;
+
+      return (
+        <Statistic
+          position={STATISTIC_ORDER.OPTIONAL()}
+          category={STATISTIC_CATEGORY.TALENTS}
+          size="flexible"
+          tooltip={
+            <>
+              <ul>
+                <li>Min casts before proc: {minToProc}</li>
+                <li>Max casts before proc: {maxToProc}</li>
+                <li>Total casts: {totalCasts}</li>
+                <li>Expected procs: {formatNumber(totalCasts / SIMULATED_MEDIAN_CASTS_PER_DRE)}</li>
+              </ul>
+            </>
+          }
+        >
+          <TalentSpellText talent={TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT}>
+            {formatNumber(median)} <small>casts per proc</small>
+          </TalentSpellText>
+        </Statistic>
+      );
+    }
+  }
+}
+
+function getMedian(values: number[]): number | undefined {
+  if (values.length > 0) {
+    values.sort(function (a, b) {
+      return a - b;
+    });
+    const half = Math.floor(values.length / 2);
+    if (values.length % 2) {
+      return values[half];
+    }
+    return (values[half - 1] + values[half]) / 2.0;
   }
 }
 
