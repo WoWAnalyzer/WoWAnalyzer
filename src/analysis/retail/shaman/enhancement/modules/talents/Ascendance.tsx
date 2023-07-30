@@ -408,7 +408,15 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
           }
         >
           <TalentSpellText talent={TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT}>
-            {formatNumber(median)} <small>casts per proc</small>
+            <div>
+              {formatNumber(median)} <small>casts per proc</small>
+            </div>
+            <div>
+              {formatNumber(casts.length)}{' '}
+              <small>
+                <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> procs
+              </small>
+            </div>
           </TalentSpellText>
         </Statistic>
       );
