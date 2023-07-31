@@ -1049,6 +1049,26 @@ const enchants = {
     effectId: 6538,
   },
 
+  // Belt Enchantments - Blacksmithing
+  SHADOWED_BELT_CLASP_R1: {
+    id: 205043,
+    name: 'Shadowed Belt Clasp',
+    icon: 'inv_10_skinning_craftedoptionalreagent_armorbuckles_color2',
+    effectId: 6906,
+  },
+  SHADOWED_BELT_CLASP_R2: {
+    id: 205044,
+    name: 'Shadowed Belt Clasp',
+    icon: 'inv_10_skinning_craftedoptionalreagent_armorbuckles_color2',
+    effectId: 6905,
+  },
+  SHADOWED_BELT_CLASP_R3: {
+    id: 205039,
+    name: 'Shadowed Belt Clasp',
+    icon: 'inv_10_skinning_craftedoptionalreagent_armorbuckles_color2',
+    effectId: 6904,
+  },
+
   //Shaman Only
   FLAMETONGUE_WEAPON: {
     id: 334294,

@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 31), <>Add enchantment check for <ItemLink id={ITEMS.SHADOWED_BELT_CLASP_R3.id} />.</>,  ToppleTheNun),
   change(date(2023, 7, 29), 'Fix another issue loading parses using character search', emallson),
   change(date(2023, 7, 29), 'Fix an issue loading parses using character search', Putro),
   change(date(2023, 7, 27), 'Add Sarkareth haste buff', Awildfivreld),

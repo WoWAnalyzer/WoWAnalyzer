@@ -203,7 +203,7 @@ const MAX_ENCHANT_IDS = [
 ];
 
 class EnchantChecker extends BaseEnchantChecker {
-  get EnchantableSlots(): any {
+  get EnchantableSlots(): Record<number, JSX.Element> {
     return ENCHANTABLE_SLOTS;
   }
 
