@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse } from 'CONTRIBUTORS';
+import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 31), 'Update CDR on Dark Pact and Unending Resolve', Arlie),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 7, 8), "Removed Demonic Circle use tracker in utility and defensive spells", Meldris),
   change(date(2023, 6, 29), "Updated ABOUT with current guide links", Meldris),
