@@ -10,6 +10,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { formatPercentage } from 'common/format';
+import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
 
 const DIRE_FIXATION_BOOST = 0.08;
 // from spell data
@@ -88,10 +92,45 @@ export default class DireFixation extends Analyzer.withDependencies(deps) {
         }
       >
         <BoringSpellValueText spell={TALENTS_DRUID.DIRE_FIXATION_TALENT}>
-          <ItemPercentDamageDone amount={damage} />
+          <ItemPercentDamageDone amount={this.damage} />
           <br />
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get uptimeBar() {
+    return uptimeBarSubStatistic(
+      this.owner.fight,
+      {
+        spells: [TALENTS_DRUID.DIRE_FIXATION_TALENT],
+        uptimes: this.deps.enemies.getDebuffHistory(SPELLS.DIRE_FIXATION_DEBUFF.id),
+      },
+      [],
+      SubPercentageStyle.RELATIVE,
+    );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS_DRUID.DIRE_FIXATION_TALENT} />
+        </b>{' '}
+        is important to maintain in Single Target situations and even worthwhile to maintain in low
+        target count AoE. You should be close to 100% just be playing your rotation normally.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>Dire Fixation uptime</strong>
+          {this.uptimeBar}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }
