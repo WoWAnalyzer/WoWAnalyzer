@@ -19,10 +19,11 @@ import Haste from 'parser/shared/modules/Haste';
 import { THORIMS_INVOCATION_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
+import Uptime from 'interface/icons/Uptime';
 
 const NonMissedCastSpells = [
   TALENTS_SHAMAN.SUNDERING_TALENT.id,
@@ -389,7 +390,6 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       const minToProc = Math.min(...casts);
       const maxToProc = Math.max(...casts);
       const median = getMedian(casts)!;
-
       return (
         <Statistic
           position={STATISTIC_ORDER.OPTIONAL()}
@@ -415,6 +415,16 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
               <small>
                 <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> procs
               </small>
+            </div>
+            <div>
+              <Uptime />{' '}
+              {formatPercentage(
+                this.selectedCombatant.getBuffUptime(
+                  TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
+                ) / this.owner.fightDuration,
+                2,
+              )}
+              % <small>uptime</small>
             </div>
           </TalentSpellText>
         </Statistic>

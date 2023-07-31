@@ -1,11 +1,7 @@
-import {
-  AnkhNormalizer,
-  AstralShift,
-  FlameShock,
-  StaticCharge,
-} from 'analysis/retail/shaman/shared';
+import { AnkhNormalizer, AstralShift, StaticCharge } from 'analysis/retail/shaman/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+import FlameShock from 'analysis/retail/shaman/enhancement/modules/spells/FlameShock';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
