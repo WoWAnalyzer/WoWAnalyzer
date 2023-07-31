@@ -12,7 +12,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.CONSECRATION_CAST.id,
         buffSpellId: SPELLS.CONSECRATION_BUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 4.5 / (1 + haste),
+        cooldown: (haste: number) => 4.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -20,7 +20,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.BLESSED_HAMMER_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 6 / (1 + haste),
+        cooldown: (haste: number) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -34,7 +34,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.AVENGERS_SHIELD_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 15 / (1 + haste),
+        cooldown: (haste: number) => 15 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -57,7 +57,7 @@ class Abilities extends CoreAbilities {
         // T15: Holy Shield
         spell: TALENTS.HAMMER_OF_THE_RIGHTEOUS_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 6 / (1 + haste),
+        cooldown: (haste: number) => 6 / (1 + haste),
         charges: 2,
         gcd: {
           base: 1500,
@@ -70,20 +70,13 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.JUDGMENT_CAST_PROTECTION.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 6 / (1 + haste),
+        cooldown: (haste: number) => 6 / (1 + haste),
         charges: combatant.hasTalent(TALENTS.CRUSADERS_JUDGMENT_TALENT) ? 2 : 1,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-        },
-      },
-      {
-        spell: SPELLS.WORD_OF_GLORY.id,
-        category: SPELL_CATEGORY.DEFENSIVE,
-        gcd: {
-          base: 1500,
         },
       },
       //COOLDOWNS
@@ -115,8 +108,26 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.AVENGING_WRATH_TALENT.id,
         buffSpellId: TALENTS.AVENGING_WRATH_TALENT.id,
-        category: SPELL_CATEGORY.SEMI_DEFENSIVE,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
         cooldown: 120,
+        enabled:
+          combatant.hasTalent(TALENTS.AVENGING_WRATH_TALENT) &&
+          !combatant.hasTalent(TALENTS.SENTINEL_TALENT),
+      },
+      {
+        spell: TALENTS.SENTINEL_TALENT.id,
+        buffSpellId: TALENTS.SENTINEL_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        cooldown: 120,
+        enabled: combatant.hasTalent(TALENTS.SENTINEL_TALENT),
       },
       {
         spell: TALENTS.LAY_ON_HANDS_TALENT.id,
@@ -195,7 +206,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 7.5 / (1 + haste),
+        cooldown: (haste: number) => 7.5 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -241,6 +252,42 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         enabled: combatant.hasTalent(TALENTS.FINAL_STAND_TALENT),
+      },
+      {
+        spell: TALENTS.DIVINE_TOLL_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT),
+      },
+      {
+        spell: TALENTS.MOMENT_OF_GLORY_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 120,
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        enabled: combatant.hasTalent(TALENTS.MOMENT_OF_GLORY_TALENT),
+      },
+      {
+        spell: TALENTS.EYE_OF_TYR_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60, // * (combatant.hasTalent(TALENTS.INMOST_LIGHT_TALENT) ? 0.75 : 1),
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+        },
+        gcd: {
+          base: 1500,
+        },
+        enabled: combatant.hasTalent(TALENTS.EYE_OF_TYR_TALENT),
       },
     ];
   }

@@ -34,14 +34,27 @@ import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJ
 import ProtPaladinT304P from './modules/core/ProtPaladinT304P';
 import MyAbilityNormalizer from './modules/CastLinkNormalizer';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
+import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
+import BuilderUse from './modules/core/BuilderUse';
+import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
+import ArdentDefender from './modules/core/Defensives/ArdentDefender';
+import EyeOfTyr from './modules/core/Defensives/EyeOfTyr';
+import Guide from './Guide';
+import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 
 class CombatLogParser extends CoreCombatLogParser {
+  static guide = Guide;
   static specModules = {
     // Core
+    builderUse: BuilderUse,
     grandCrusader: GrandCrusader,
     haste: Haste,
     protPaladinT304P: ProtPaladinT304P,
+
+    //Normalizers
+    guardianOfAncientQueens: GuardianOfAncientQueens,
     myAbilityNormalizer: MyAbilityNormalizer,
+    defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Spells
     lightOfTheProtector: LightOfTheProtector,
@@ -61,8 +74,11 @@ class CombatLogParser extends CoreCombatLogParser {
     noDamageSOTR: NoDamageShieldOfTheRighteous,
     overcapSOTR: OvercapShieldOfTheRighteous,
 
-    // Normalizers
-    guardianOfAncientQueens: GuardianOfAncientQueens,
+    // Defensive Usage
+    defensiveBuffs: DefensiveBuffs,
+    guardianOfAncientKings: GuardianOfAncientKings,
+    ardentDefender: ArdentDefender,
+    eyeOfTyr: EyeOfTyr,
 
     // Talents
     righteousProtector: RighteousProtector,

@@ -20,12 +20,10 @@
   "include": ["./types", "./src"],
   // analysis is currently excluded to prevent parsing files that reference dead talents
   // all files that are imported are processed even if excluded here, so this only excludes unimported files
-  "exclude": ["src/analysis/retail/druid/guardian", "src/analysis/retail/paladin/protection"],
+  "exclude": ["src/analysis/retail/druid/guardian"],
   "files": [
     "src/analysis/retail/druid/guardian/CONFIG.tsx",
-    "src/analysis/retail/druid/guardian/CHANGELOG.tsx",
-    "src/analysis/retail/paladin/protection/CONFIG.tsx",
-    "src/analysis/retail/paladin/protection/CHANGELOG.tsx"
+    "src/analysis/retail/druid/guardian/CHANGELOG.tsx"
   ],
   "ts-node": {
     // these options are overrides used only by ts-node
