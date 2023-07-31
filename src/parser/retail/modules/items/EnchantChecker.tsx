@@ -37,6 +37,8 @@ const STR_SPECS = [
 
 const AGI_ENCHANTABLE_SLOTS = {
   4: <Trans id="common.slots.chest">Chest</Trans>,
+  5: <Trans id="common.slots.belt">Belt</Trans>,
+  6: <Trans id="common.slots.legs">Legs</Trans>,
   7: <Trans id="common.slots.boots">Boots</Trans>,
   8: <Trans id="common.slots.bracers">Bracers</Trans>,
   10: <Trans id="common.slots.ring">Ring</Trans>,
@@ -48,6 +50,8 @@ const AGI_ENCHANTABLE_SLOTS = {
 
 const STR_ENCHANTABLE_SLOTS = {
   4: <Trans id="common.slots.chest">Chest</Trans>,
+  5: <Trans id="common.slots.belt">Belt</Trans>,
+  6: <Trans id="common.slots.legs">Legs</Trans>,
   7: <Trans id="common.slots.boots">Boots</Trans>,
   8: <Trans id="common.slots.bracers">Bracers</Trans>,
   10: <Trans id="common.slots.ring">Ring</Trans>,
@@ -59,6 +63,8 @@ const STR_ENCHANTABLE_SLOTS = {
 
 const INT_ENCHANTABLE_SLOTS = {
   4: <Trans id="common.slots.chest">Chest</Trans>,
+  5: <Trans id="common.slots.belt">Belt</Trans>,
+  6: <Trans id="common.slots.legs">Legs</Trans>,
   7: <Trans id="common.slots.boots">Boots</Trans>,
   8: <Trans id="common.slots.bracers">Bracers</Trans>,
   10: <Trans id="common.slots.ring">Ring</Trans>,
@@ -168,6 +174,18 @@ const MIN_ENCHANT_IDS = [
   ITEMS.ENCHANT_RING_WRIT_OF_VERSATILITY_R1,
   ITEMS.ENCHANT_RING_WRIT_OF_VERSATILITY_R2,
   ITEMS.ENCHANT_RING_WRIT_OF_VERSATILITY_R3,
+  ITEMS.FIERCE_ARMOR_KIT_R1,
+  ITEMS.FIERCE_ARMOR_KIT_R2,
+  ITEMS.FROSTED_ARMOR_KIT_R1,
+  ITEMS.FROSTED_ARMOR_KIT_R2,
+  ITEMS.LAMBENT_ARMOR_KIT_R1,
+  ITEMS.LAMBENT_ARMOR_KIT_R2,
+  ITEMS.FROZEN_SPELLTHREAD_R1,
+  ITEMS.FROZEN_SPELLTHREAD_R2,
+  ITEMS.TEMPORAL_SPELLTHREAD_R1,
+  ITEMS.TEMPORAL_SPELLTHREAD_R2,
+  ITEMS.SHADOWED_BELT_CLASP_R1,
+  ITEMS.SHADOWED_BELT_CLASP_R2,
 ].map((item) => (item as Enchant).effectId);
 
 const MAX_ENCHANT_IDS = [
@@ -199,6 +217,14 @@ const MAX_ENCHANT_IDS = [
   ITEMS.ENCHANT_RING_DEVOTION_OF_MASTERY_R3,
   ITEMS.ENCHANT_RING_DEVOTION_OF_VERSATILITY_R3,
 
+  ITEMS.FIERCE_ARMOR_KIT_R3,
+  ITEMS.FROSTED_ARMOR_KIT_R3,
+  ITEMS.LAMBENT_ARMOR_KIT_R3,
+  ITEMS.FROZEN_SPELLTHREAD_R3,
+  ITEMS.TEMPORAL_SPELLTHREAD_R3,
+
+  ITEMS.SHADOWED_BELT_CLASP_R3,
+
   // Death Knight only
   SPELLS.RUNE_OF_THE_FALLEN_CRUSADER,
   SPELLS.RUNE_OF_RAZORICE,
@@ -211,7 +237,7 @@ const MAX_ENCHANT_IDS = [
 ].map((item) => (item as Enchant).effectId);
 
 class EnchantChecker extends BaseEnchantChecker {
-  get EnchantableSlots(): any {
+  get EnchantableSlots(): Record<number, JSX.Element> {
     return AGI_SPECS.includes(this.selectedCombatant.specId)
       ? AGI_ENCHANTABLE_SLOTS
       : STR_SPECS.includes(this.selectedCombatant.specId)

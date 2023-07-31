@@ -11,7 +11,6 @@ interface Props {
   recommendedFlasks?: Spell[];
   recommendedFoods?: Spell[];
   recommendedWeaponEnhancements?: Record<number, Enchant[]>;
-  recommendedLegEnhancements?: Enchant[];
   expansion?: Expansion;
 }
 const PreparationSection = ({
@@ -19,16 +18,12 @@ const PreparationSection = ({
   recommendedFlasks,
   recommendedFoods,
   recommendedWeaponEnhancements,
-  recommendedLegEnhancements,
   expansion = Expansion.Dragonflight,
 }: Props) => (
   <Section title="Preparation">
     <EnchantmentSubSection recommendedEnchantments={recommendedEnchantments} />
     {isRetailExpansion(expansion) && (
-      <EnhancementSubSection
-        recommendedLegEnhancements={recommendedLegEnhancements}
-        recommendedWeaponEnhancements={recommendedWeaponEnhancements}
-      />
+      <EnhancementSubSection recommendedWeaponEnhancements={recommendedWeaponEnhancements} />
     )}
     <ConsumablesSubSection
       recommendedFlasks={recommendedFlasks}
