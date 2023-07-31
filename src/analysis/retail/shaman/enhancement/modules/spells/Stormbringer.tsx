@@ -2,14 +2,16 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Events, { ApplyBuffEvent, RefreshBuffEvent } from 'parser/core/Events';
 import UptimeIcon from 'interface/icons/Uptime';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SpellLink } from 'interface';
+import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
+
+const debug = false;
 
 class Stormbringer extends Analyzer {
   static dependencies = {
@@ -34,10 +36,16 @@ class Stormbringer extends Analyzer {
     );
   }
 
-  onStormbringerApplied() {
+  onStormbringerApplied(event: ApplyBuffEvent | RefreshBuffEvent) {
     let used = false;
     if (this.spellUsable.isOnCooldown(TALENTS.STORMSTRIKE_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id);
+      debug &&
+        console.log(
+          `Stormstrike reset by stormbringer at timestamp: ${
+            event.timestamp
+          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
+        );
+      this.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp);
       if (!this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
         this.stormStrikeResets += 1;
         used = true;
@@ -45,7 +53,13 @@ class Stormbringer extends Analyzer {
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id);
+      debug &&
+        console.log(
+          `Windstrike reset by stormbringer at timestamp: ${
+            event.timestamp
+          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
+        );
+      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp);
       if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
         this.windStrikeResets += 1;
         used = true;

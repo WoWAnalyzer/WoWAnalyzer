@@ -402,6 +402,11 @@ const spells = {
     name: 'Crackling Surge',
     icon: 'spell_beastmaster_wolf',
   },
+  FERAL_SPIRIT_BUFF_EARTHEN_WEAPON: {
+    id: 392375,
+    name: 'Earthen Weapon',
+    icon: 'spell_shaman_unleashweapon_earth',
+  },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
     name: 'Stormstrike',

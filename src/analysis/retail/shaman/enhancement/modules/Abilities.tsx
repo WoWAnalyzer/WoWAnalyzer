@@ -393,21 +393,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        // TODO: Correct Spell ID
-        spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-        damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
-        castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-          recommendedEfficiency: 1.0,
-        },
-      },
-      {
         spell: TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
         buffSpellId: [
           //Feral Spirit isn't an actual buff, so we can only show the Elemental
@@ -415,6 +400,7 @@ class Abilities extends CoreAbilities {
           SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
+          SPELLS.FERAL_SPIRIT_BUFF_EARTHEN_WEAPON.id,
         ],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
@@ -433,9 +419,7 @@ class Abilities extends CoreAbilities {
           combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) +
           combatant.getRepeatedTalentCount(TALENTS_SHAMAN.LAVA_BURST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => {
-          return 12 / (1 + haste);
-        },
+        cooldown: 12,
         gcd: {
           base: 1500,
         },
@@ -444,18 +428,6 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.STORMSTRIKE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 7.5 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.WINDSTRIKE_CAST.id,
-        // Placeholder for enhancement's ascendance
-        enabled:
-          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT) ||
-          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 3 / (1 + haste),
         gcd: {
           base: 1500,
         },
