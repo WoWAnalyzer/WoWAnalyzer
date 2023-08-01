@@ -26,6 +26,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 1), 'Add Irideus Fragment and Mirror of Fractured Tomorrows trinkets.', Vollmer),
   change(date(2023, 7, 25), 'Improve consistency when fetching talents for tables.', ToppleTheNun),
   change(date(2023, 7, 25), 'Fix crash when using certain i18n functions.', ToppleTheNun),
   change(date(2023, 7, 23), 'Tooltip on Timeline Improvements', Abelito75),
