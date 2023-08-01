@@ -476,8 +476,12 @@ class BreathOfEonsRotational extends Analyzer {
       breathWindow.breathPerformance = perfWindow;
       breathWindow.end = event.timestamp;
 
+      const endTimestamp =
+        event.timestamp + GRAPHBUFFER < this.owner.fight.end_time
+          ? event.timestamp + GRAPHBUFFER
+          : this.owner.fight.end_time;
       perfWindow.temporalWoundsCounter.push({
-        timestamp: event.timestamp + GRAPHBUFFER,
+        timestamp: endTimestamp,
         count: 0,
       });
 
@@ -532,6 +536,7 @@ class BreathOfEonsRotational extends Analyzer {
       <BreathOfEonsSection
         windows={this.windows}
         fightStartTime={this.owner.fight.start_time}
+        fightEndTime={this.owner.fight.end_time}
         ebonMightCount={this.ebonMightCount}
         shiftingSandsCount={this.shiftingSandsCount}
       />

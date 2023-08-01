@@ -13,6 +13,7 @@ import { t } from '@lingui/macro';
 type Props = {
   windows: BreathOfEonsWindows[];
   fightStartTime: number;
+  fightEndTime: number;
   ebonMightCount: SpellTracker[];
   shiftingSandsCount: SpellTracker[];
 };
@@ -20,6 +21,7 @@ type Props = {
 const BreathOfEonsSection: React.FC<Props> = ({
   windows,
   fightStartTime,
+  fightEndTime,
   ebonMightCount,
   shiftingSandsCount,
 }) => {
@@ -223,6 +225,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
             <BreathOfEonsGraph
               window={currentWindow}
               fightStartTime={fightStartTime}
+              fightEndTime={fightEndTime}
               ebonMightCount={ebonMightCount}
               shiftingSandsCount={shiftingSandsCount}
             />

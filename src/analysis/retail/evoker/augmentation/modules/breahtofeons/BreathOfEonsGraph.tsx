@@ -10,6 +10,7 @@ import { Field } from 'vega-lite/build/src/channeldef';
 type Props = {
   window: BreathOfEonsWindows;
   fightStartTime: number;
+  fightEndTime: number;
   ebonMightCount: SpellTracker[];
   shiftingSandsCount: SpellTracker[];
 };
@@ -17,11 +18,15 @@ type Props = {
 const BreathOfEonsPlot: React.FC<Props> = ({
   window,
   fightStartTime,
+  fightEndTime,
   ebonMightCount,
   shiftingSandsCount,
 }) => {
   const startTime = window.start - GRAPHBUFFER;
-  const endTime = window.end + GRAPHBUFFER;
+  let endTime = window.end + GRAPHBUFFER;
+  if (endTime > fightEndTime) {
+    endTime = fightEndTime;
+  }
 
   /** This is used to filter through event counters to make new ones
    * that are limited to within the timeframe of our current breath windows.
@@ -29,6 +34,7 @@ const BreathOfEonsPlot: React.FC<Props> = ({
   const filterItems = (items: SpellTracker[]): SpellTracker[] => {
     let filteredItems: SpellTracker[] = [];
     let prevCount = 0;
+    let endFound = false;
 
     for (let i = 0; i < items.length; i += 1) {
       const entry = items[i];
@@ -48,8 +54,12 @@ const BreathOfEonsPlot: React.FC<Props> = ({
         filteredItems.push({ timestamp: timestamp, count: count });
       } else if (timestamp > endTime) {
         filteredItems.push({ timestamp: endTime, count: prevCount });
+        endFound = true;
         break;
       }
+    }
+    if (!endFound) {
+      filteredItems.push({ timestamp: endTime, count: prevCount });
     }
     return filteredItems;
   };
