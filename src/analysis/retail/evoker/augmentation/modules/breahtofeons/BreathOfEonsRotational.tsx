@@ -507,10 +507,12 @@ class BreathOfEonsRotational extends Analyzer {
         timestamp: this.owner.fight.end_time,
         count: this.ebonMightCounter,
       });
-      this.currentPerformanceBreathWindow.temporalWoundsCounter.push({
-        timestamp: this.owner.fight.end_time,
-        count: this.activeDebuffs,
-      });
+      if (this.currentPerformanceBreathWindow.temporalWoundsCounter.length > 0) {
+        this.currentPerformanceBreathWindow.temporalWoundsCounter.push({
+          timestamp: this.owner.fight.end_time,
+          count: this.activeDebuffs,
+        });
+      }
     }
   }
 
