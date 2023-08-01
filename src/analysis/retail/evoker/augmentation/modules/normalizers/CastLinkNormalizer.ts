@@ -2,11 +2,14 @@ import SPELLS from 'common/SPELLS/evoker';
 import TALENTS from 'common/TALENTS/evoker';
 import {
   ApplyBuffEvent,
+  ApplyDebuffEvent,
   CastEvent,
+  DamageEvent,
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
   RefreshBuffEvent,
+  RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
@@ -18,10 +21,17 @@ export const BREATH_EBON_APPLY_LINK = 'breathEbonApplyLink';
 export const EBON_MIGHT_BUFF_LINKS = 'ebonMightBuffLinks';
 export const EBON_MIGHT_APPLY_REMOVE_LINK = 'ebonMightApplyRemoveLink';
 
+export const BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK = 'breathOfEonsCastDebuffApplyLink';
+export const BREATH_OF_EONS_CAST_BUFF_LINK = 'breathOfEonsCastBuffLink';
+export const BREATH_OF_EONS_DAMAGE_LINK = 'breathOfEonsDamageLink';
+
 export const PRESCIENCE_BUFFER = 150;
 export const CAST_BUFFER_MS = 100;
 export const BREATH_EBON_BUFFER = 250;
 export const EBON_MIGHT_BUFFER = 150;
+export const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
+export const BREATH_OF_EONS_BUFF_BUFFER = 8000;
+export const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -93,6 +103,37 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 0,
     backwardBufferMs: 0,
   },
+  {
+    linkRelation: BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK,
+    reverseLinkRelation: BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK,
+    linkingEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.TEMPORAL_WOUND_DEBUFF.id,
+    referencedEventType: EventType.ApplyDebuff,
+    anyTarget: true,
+    forwardBufferMs: BREATH_OF_EONS_DEBUFF_APPLY_BUFFER,
+  },
+  // Used to help determine time spend flying
+  {
+    linkRelation: BREATH_OF_EONS_CAST_BUFF_LINK,
+    reverseLinkRelation: BREATH_OF_EONS_CAST_BUFF_LINK,
+    linkingEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RemoveBuff, EventType.Cast],
+    referencedEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RemoveBuff, EventType.Cast],
+    anyTarget: true,
+    forwardBufferMs: BREATH_OF_EONS_BUFF_BUFFER,
+  },
+  {
+    linkRelation: BREATH_OF_EONS_DAMAGE_LINK,
+    reverseLinkRelation: BREATH_OF_EONS_DAMAGE_LINK,
+    linkingEventId: SPELLS.TEMPORAL_WOUND_DEBUFF.id,
+    linkingEventType: EventType.RemoveDebuff,
+    referencedEventId: SPELLS.BREATH_OF_EONS_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: false,
+    forwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER,
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -110,6 +151,24 @@ export function getPrescienceBuffEvents(event: CastEvent): ApplyBuffEvent[] {
 export function getEbonMightBuffEvents(event: ApplyBuffEvent | RefreshBuffEvent): ApplyBuffEvent[] {
   return GetRelatedEvents(event, EBON_MIGHT_BUFF_LINKS).filter(
     (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff || e.type === EventType.RefreshBuff,
+  );
+}
+
+export function getBreathOfEonsDebuffApplyEvents(event: CastEvent): ApplyDebuffEvent[] {
+  return GetRelatedEvents(event, BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK).filter(
+    (e): e is ApplyDebuffEvent => e.type === EventType.ApplyDebuff,
+  );
+}
+
+export function getBreathOfEonsBuffEvents(event: CastEvent): ApplyBuffEvent[] {
+  return GetRelatedEvents(event, BREATH_OF_EONS_CAST_BUFF_LINK).filter(
+    (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff || e.type === EventType.RemoveBuff,
+  );
+}
+
+export function getBreathOfEonsDamageEvents(event: RemoveDebuffEvent): DamageEvent[] {
+  return GetRelatedEvents(event, BREATH_OF_EONS_DAMAGE_LINK).filter(
+    (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }
 
