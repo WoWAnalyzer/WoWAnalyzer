@@ -106,6 +106,8 @@ class HealingEfficiencyTracker extends Analyzer {
     };
 
     spellInfo.manaSpent = spenders[spellId] ? spenders[spellId].spent : 0;
+    const timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId);
+    spellInfo.timeSpentCasting = timeSpentCasting.timeSpentCasting + timeSpentCasting.gcdSpent;
 
     // All of the following information can be derived from the data in SpellInfo.
     // Now we can add custom logic for spells.
@@ -120,8 +122,6 @@ class HealingEfficiencyTracker extends Analyzer {
     spellInfo.hpm = spellInfo.healingDone / spellInfo.manaSpent || 0;
     spellInfo.dpm = spellInfo.damageDone / spellInfo.manaSpent || 0;
 
-    const timeSpentCasting = this.castEfficiency.getTimeSpentCasting(spellId);
-    spellInfo.timeSpentCasting = timeSpentCasting.timeSpentCasting + timeSpentCasting.gcdSpent;
     spellInfo.percentTimeSpentCasting = spellInfo.timeSpentCasting / this.owner.fightDuration;
 
     spellInfo.hpet = spellInfo.healingDone / spellInfo.timeSpentCasting || 0;

@@ -2,6 +2,7 @@ import { DemonicCirclesCreated } from 'analysis/retail/warlock/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 import DemonologyWarlockVaultOfTheIncarnates4Set from './modules/dragonflight/tier/VaultOfTheIncarnates4Set';
+import DemonologyWarlockAberrus2Set from './modules/dragonflight/tier/Aberrus2Set';
 
 import Abilities from './modules/features/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
@@ -21,6 +22,7 @@ import PrepullPetNormalizer from './modules/pets/normalizers/PrepullPetNormalize
 import SummonOrderNormalizer from './modules/pets/normalizers/SummonOrderNormalizer';
 import SoulShardDetails from './modules/resources/SoulShardDetails';
 import SoulShardTracker from './modules/resources/SoulShardTracker';
+import SoulShardGraph from './modules/resources/SoulShardGraph';
 import BilescourgeBombers from './modules/talents/BilescourgeBombers';
 import DemonicCalling from './modules/talents/DemonicCalling';
 import DemonicStrength from './modules/talents/DemonicStrength';
@@ -39,6 +41,7 @@ import SoulConduit from './modules/talents/SoulConduit';
 import SoulStrike from './modules/talents/SoulStrike';
 import SummonVilefiend from './modules/talents/SummonVilefiend';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -54,6 +57,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // Core
     soulShardTracker: SoulShardTracker,
     soulShardDetails: SoulShardDetails,
+    soulshardGraph: SoulShardGraph,
     demonicCirclesCreated: DemonicCirclesCreated,
 
     // Pets
@@ -91,10 +95,13 @@ class CombatLogParser extends CoreCombatLogParser {
     // Items
     vaultOfTheIncarnates4Set: DemonologyWarlockVaultOfTheIncarnates4Set,
     callToDominance: CallToDominance,
+    aberrus2Set: DemonologyWarlockAberrus2Set,
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;

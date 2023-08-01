@@ -5,7 +5,6 @@ import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { GapHighlight } from 'parser/ui/CooldownBar';
-import { Trans } from '@lingui/macro';
 
 type Cooldown = {
   talent: Talent;
@@ -48,12 +47,12 @@ const CooldownGraphSubsection = () => {
 
   return (
     <SubSection>
-      <Trans id="guide.demonhunter.havoc.sections.cooldowns.graph">
+      <p>
         <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
         you waited to use them again. Grey segments show when the spell was available, yellow
         segments show when the spell was cooling down. Red segments highlight times when you could
         have fit a whole extra use of the cooldown.
-      </Trans>
+      </p>
       <CastEfficiencyBar
         spellId={SPELLS.METAMORPHOSIS_HAVOC.id}
         gapHighlightMode={GapHighlight.FullCooldown}

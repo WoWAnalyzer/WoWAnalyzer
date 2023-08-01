@@ -1,11 +1,7 @@
-import {
-  AnkhNormalizer,
-  AstralShift,
-  FlameShock,
-  StaticCharge,
-} from 'analysis/retail/shaman/shared';
+import { AnkhNormalizer, AstralShift, StaticCharge } from 'analysis/retail/shaman/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+import FlameShock from 'analysis/retail/shaman/enhancement/modules/spells/FlameShock';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
@@ -48,6 +44,8 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
+import AscendanceNormalizer from 'analysis/retail/shaman/enhancement/modules/normalizers/AscendanceNormalizer';
+import Ascendance from 'analysis/retail/shaman/enhancement/modules/talents/Ascendance';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -83,6 +81,7 @@ class CombatLogParser extends CoreCombatLogParser {
     manaSpring: ManaSpring,
 
     // Enhancement Core Talents
+    ascendance: Ascendance,
     windfuryTotem: WindfuryTotem,
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
@@ -112,6 +111,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eventLinkNormalizer: EventLinkNormalizer,
     eventOrderNormalizer: EventOrderNormalizer,
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,
+    ascendanceNormalizer: AscendanceNormalizer,
 
     aplCheck: AplCheck,
   };

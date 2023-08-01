@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 7, 29), <>Fixed bug in healing per time spent calculation for <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT}/></>, Trevor),
   change(date(2023, 7, 16), <>Fixed bug in damage calculation for <SpellLink spell={SPELLS.LESSON_OF_DOUBT_BUFF}/></>, Vohrr),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 30), <>Bump sample report to current raid</>, Vohrr),
