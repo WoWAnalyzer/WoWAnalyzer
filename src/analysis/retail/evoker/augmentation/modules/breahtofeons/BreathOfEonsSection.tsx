@@ -74,133 +74,137 @@ const BreathOfEonsSection: React.FC<Props> = ({
         </p>
       </div>
       <div className="breath-explanation-container">
-        <table className="breath-explanations">
-          <tbody>
-            <tr>
-              <td>Ebon Might Uptime</td>
-              <td className="pass-fail-counts">
-                {' '}
-                {(
-                  (currentWindow.end -
-                    currentWindow.start -
-                    breathPerformance.ebonMightDroppedDuration) /
-                  1000
-                ).toFixed(1)}
-                s / {((currentWindow.end - currentWindow.start) / 1000).toFixed(1)}s
-              </td>
-              <td>
-                <PassFailBar
-                  pass={
-                    currentWindow.end -
-                    currentWindow.start -
-                    breathPerformance.ebonMightDroppedDuration
-                  }
-                  total={currentWindow.end - currentWindow.start}
-                />
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <TooltipElement
-                  content={t({
-                    id: 'guide.augmentation.breathofeons.damage',
-                    message:
-                      'This value indicates the amount of damage you did, along with the potential damage you lost to mobs dying early. This value is a guesstimation and therefore not 100% accurate.',
-                  })}
-                >
-                  Damage
-                </TooltipElement>
-              </td>
-              <td>
-                {formatNumber(breathPerformance.damage)} /{' '}
-                {formatNumber(breathPerformance.damage + breathPerformance.potentialLostDamage)}
-              </td>
-              <td>
-                <PassFailBar
-                  pass={breathPerformance.damage}
-                  total={breathPerformance.damage + breathPerformance.potentialLostDamage}
-                />
-              </td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr>
-              <strong>Cast performance</strong>
-            </tr>
-            <tr>
-              <td>
-                <SpellLink spell={SPELLS.FIRE_BREATH} /> casts{' '}
-              </td>
-              <td>
-                {breathPerformance.fireBreaths} / {breathPerformance.possibleFireBreaths}
-              </td>
-              <td>
-                <PassFailBar
-                  pass={breathPerformance.fireBreaths}
-                  total={breathPerformance.possibleFireBreaths}
-                />
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <SpellLink spell={SPELLS.UPHEAVAL} /> casts{' '}
-              </td>
-              <td>
-                {breathPerformance.upheavels} / {breathPerformance.possibleUpheavels}
-              </td>
-              <td>
-                <PassFailBar
-                  pass={breathPerformance.upheavels}
-                  total={breathPerformance.possibleUpheavels}
-                />
-              </td>
-            </tr>
-            {breathPerformance.timeskipTalented && (
+        {breathPerformance.temporalWoundsCounter.length > 0 ? (
+          <table className="breath-explanations">
+            <tbody>
               <tr>
-                <td>
-                  <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> casts{' '}
-                </td>
-                <td>
-                  {breathPerformance.timeSkips} / {breathPerformance.possibleTimeSkips}
+                <td>Ebon Might Uptime</td>
+                <td className="pass-fail-counts">
+                  {' '}
+                  {(
+                    (currentWindow.end -
+                      currentWindow.start -
+                      breathPerformance.ebonMightDroppedDuration) /
+                    1000
+                  ).toFixed(1)}
+                  s / {((currentWindow.end - currentWindow.start) / 1000).toFixed(1)}s
                 </td>
                 <td>
                   <PassFailBar
-                    pass={breathPerformance.timeSkips}
-                    total={breathPerformance.possibleTimeSkips}
+                    pass={
+                      currentWindow.end -
+                      currentWindow.start -
+                      breathPerformance.ebonMightDroppedDuration
+                    }
+                    total={currentWindow.end - currentWindow.start}
                   />
                 </td>
               </tr>
-            )}
-            <tr>
-              <td>Potion used </td>
-              <td>
-                {breathPerformance.potionUsed} / {breathPerformance.possiblePotions}
-              </td>
-              <td>
-                <PassFailBar
-                  pass={breathPerformance.potionUsed}
-                  total={breathPerformance.possiblePotions}
-                />
-              </td>
-            </tr>
-            {breathPerformance.possibleTrinkets >= 0 && (
+
               <tr>
-                <td>Trinket used </td>
                 <td>
-                  {breathPerformance.trinketUsed} / {breathPerformance.possibleTrinkets}
+                  <TooltipElement
+                    content={t({
+                      id: 'guide.augmentation.breathofeons.damage',
+                      message:
+                        'This value indicates the amount of damage you did, along with the potential damage you lost to mobs dying early. This value is a guesstimation and therefore not 100% accurate.',
+                    })}
+                  >
+                    Damage
+                  </TooltipElement>
+                </td>
+                <td>
+                  {formatNumber(breathPerformance.damage)} /{' '}
+                  {formatNumber(breathPerformance.damage + breathPerformance.potentialLostDamage)}
                 </td>
                 <td>
                   <PassFailBar
-                    pass={breathPerformance.trinketUsed}
-                    total={breathPerformance.possibleTrinkets}
+                    pass={breathPerformance.damage}
+                    total={breathPerformance.damage + breathPerformance.potentialLostDamage}
                   />
                 </td>
               </tr>
-            )}
-          </tbody>
-        </table>
+            </tbody>
+            <tbody>
+              <tr>
+                <strong>Cast performance</strong>
+              </tr>
+              <tr>
+                <td>
+                  <SpellLink spell={SPELLS.FIRE_BREATH} /> casts{' '}
+                </td>
+                <td>
+                  {breathPerformance.fireBreaths} / {breathPerformance.possibleFireBreaths}
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={breathPerformance.fireBreaths}
+                    total={breathPerformance.possibleFireBreaths}
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <SpellLink spell={SPELLS.UPHEAVAL} /> casts{' '}
+                </td>
+                <td>
+                  {breathPerformance.upheavels} / {breathPerformance.possibleUpheavels}
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={breathPerformance.upheavels}
+                    total={breathPerformance.possibleUpheavels}
+                  />
+                </td>
+              </tr>
+              {breathPerformance.timeskipTalented && (
+                <tr>
+                  <td>
+                    <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> casts{' '}
+                  </td>
+                  <td>
+                    {breathPerformance.timeSkips} / {breathPerformance.possibleTimeSkips}
+                  </td>
+                  <td>
+                    <PassFailBar
+                      pass={breathPerformance.timeSkips}
+                      total={breathPerformance.possibleTimeSkips}
+                    />
+                  </td>
+                </tr>
+              )}
+              <tr>
+                <td>Potion used </td>
+                <td>
+                  {breathPerformance.potionUsed} / {breathPerformance.possiblePotions}
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={breathPerformance.potionUsed}
+                    total={breathPerformance.possiblePotions}
+                  />
+                </td>
+              </tr>
+              {breathPerformance.possibleTrinkets >= 0 && (
+                <tr>
+                  <td>Trinket used </td>
+                  <td>
+                    {breathPerformance.trinketUsed} / {breathPerformance.possibleTrinkets}
+                  </td>
+                  <td>
+                    <PassFailBar
+                      pass={breathPerformance.trinketUsed}
+                      total={breathPerformance.possibleTrinkets}
+                    />
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        ) : (
+          <table></table>
+        )}
         <div className="graph-window-container">
           <header>
             <span>
