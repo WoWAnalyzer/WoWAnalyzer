@@ -100,8 +100,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <>
             Many talents add procs to increase the power of your abilities. Make sure to use them to
             maximize the damage these talents can give you, and gain extra insanity.
-            <SpellLink spell={TALENTS.SURGE_OF_INSANITY_TALENT} /> is a low priority. If you had a
-            higher priority spells available, it is better to not use these procs.
             <br />
           </>
         }

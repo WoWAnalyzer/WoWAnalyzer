@@ -71,7 +71,7 @@ class Voidbolt extends ExecuteHelper {
       },
       castEfficiency: {
         suggestion: true,
-        recommendedEfficiency: 0.85,
+        recommendedEfficiency: 0.95,
         maxCasts: () => this.maxCasts,
       },
     });

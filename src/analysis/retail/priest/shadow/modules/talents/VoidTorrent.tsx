@@ -220,8 +220,9 @@ class VoidTorrent extends Analyzer {
         </b>{' '}
         deals damage and generates 24 insanity over its 3 second channel.
         <br />
-        You should cast this spell as often as you can, without overcapping insanity. When you use
-        this spell, it should always be fully channeled.
+        You should cast this spell as often as you can, without overcapping insanity, whith{' '}
+        <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on your target. When you use this
+        spell, it should always be fully channeled.
       </p>
     );
 

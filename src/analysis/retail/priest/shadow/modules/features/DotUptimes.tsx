@@ -67,7 +67,7 @@ class DotUptimes extends Analyzer {
           wasting insanity.
         </b>
         <br />
-        Unlike most DoTs when reapplied, any remaining damage will be added to the new effect. In
+        Unlike most DoTs, when reapplied any remaining damage will be added to the new effect. In
         addition to dealing damage, it increases all your damage through{' '}
         <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
       </p>
