@@ -65,8 +65,8 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.8,
+          suggestion: false,
+          recommendedEfficiency: 0.4,
         },
         enabled: combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT),
         damageSpellIds: [SPELLS.SHADOW_CRASH_TALENT_DAMAGE.id],
@@ -80,7 +80,7 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.6,
         },
         enabled: combatant.hasTalent(TALENTS.MINDGAMES_TALENT),
       },

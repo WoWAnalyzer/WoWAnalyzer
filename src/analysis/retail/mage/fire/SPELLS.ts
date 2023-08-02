@@ -4,9 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { spellIndexableList } from 'common/SPELLS/Spell';
+import Spell from 'common/SPELLS/Spell';
 
-const spells = spellIndexableList({
+const spells = {
   //Fire
   FIREBALL: {
     id: 133,
@@ -98,6 +98,6 @@ const spells = spellIndexableList({
     name: "Flame's Fury",
     icon: 'inv_misc_volatilefire',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -106,6 +106,10 @@ class EssenceFont extends Analyzer {
         (this.gomHits - this.gomEFHits - this.chijiGomEFHits) +
       1
     );
+  }
+
+  get timeSpentCasting() {
+    return this.selectedCombatant.getBuffUptime(TALENTS_MONK.ESSENCE_FONT_TALENT.id);
   }
 
   isValidEFEvent(event: HealEvent) {
@@ -325,7 +329,7 @@ class EssenceFont extends Analyzer {
       )
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
-          `${this.numCancelled} ${t({
+          `${this.numCancelled} ${defineMessage({
             id: `monk.mistweaver.suggestions.essenceFont.cancelledCasts`,
             message: ` cancelled casts`,
           })}`,

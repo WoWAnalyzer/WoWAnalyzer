@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -85,7 +85,7 @@ class SpinningCraneKick extends Analyzer {
       )
         .icon(SPELLS.SPINNING_CRANE_KICK.icon)
         .actual(
-          `${this.badSCKcount}${t({
+          `${this.badSCKcount}${defineMessage({
             id: 'monk.mistweaver.suggestions.spinningCraneKick.efficiency',
             message: ` Spinning Crane Kicks that hit fewer than 3 enemies`,
           })}`,

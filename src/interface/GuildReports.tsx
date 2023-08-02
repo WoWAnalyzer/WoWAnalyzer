@@ -19,7 +19,7 @@ import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg';
 import HORDE_PICTURE from './images/horde_guild_banner_onyx.jpg';
 
 const loadRealms = () =>
-  retryingPromise(() => import('game/RealmList').then((exports) => exports.default));
+  retryingPromise(() => import('game/RealmList').then((exports) => exports.REALM_LIST));
 
 const ZONE_ALL = -1;
 const ZONE_DEFAULT = ZONE_ALL;

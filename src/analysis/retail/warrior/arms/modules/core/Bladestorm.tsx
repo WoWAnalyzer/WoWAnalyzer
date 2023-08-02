@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -187,7 +187,7 @@ class Bladestorm extends Analyzer {
       )
         .icon(SPELLS.BLADESTORM.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.arms.suggestions.bladestorm.efficiency',
             message: `Bladestorm was used incorrectly  ${formatPercentage(actual)}% of the time.`,
           }),

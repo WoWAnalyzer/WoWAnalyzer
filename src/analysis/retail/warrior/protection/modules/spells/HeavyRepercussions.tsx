@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -73,7 +73,7 @@ class HeavyRepercussions extends Analyzer {
       )
         .icon(TALENTS.HEAVY_REPERCUSSIONS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts',
             message: `${formatPercentage(actual)}% cast during Shield Block`,
           }),

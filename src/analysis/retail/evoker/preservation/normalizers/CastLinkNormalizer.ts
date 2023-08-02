@@ -19,6 +19,8 @@ import {
 } from 'parser/core/Events';
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 
+export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
+export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
 export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
@@ -629,6 +631,34 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  {
+    linkRelation: ANCIENT_FLAME,
+    reverseLinkRelation: ANCIENT_FLAME,
+    linkingEventId: [TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id, SPELLS.EMERALD_BLOSSOM_CAST.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ANCIENT_FLAME_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.ANCIENT_FLAME_TALENT);
+    },
+  },
+  {
+    linkRelation: ANCIENT_FLAME_CONSUME,
+    reverseLinkRelation: ANCIENT_FLAME_CONSUME,
+    linkingEventId: SPELLS.ANCIENT_FLAME_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.ANCIENT_FLAME_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    maximumLinks: 1,
+    forwardBufferMs: 1000 * 60 * 20, // has no duration so lets use safe upper bound on fight duration
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.ANCIENT_FLAME_TALENT);
+    },
+  },
 ];
 
 /**
@@ -783,6 +813,13 @@ export function isEbFromT30Tier(
   return (
     !HasRelatedEvent(applyEvent, FROM_HARDCAST) && !HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT)
   );
+}
+
+export function getAncientFlameSource(event: ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent) {
+  return GetRelatedEvents(
+    event,
+    event.type === EventType.RemoveBuff ? ANCIENT_FLAME_CONSUME : ANCIENT_FLAME,
+  )[0];
 }
 
 export default CastLinkNormalizer;

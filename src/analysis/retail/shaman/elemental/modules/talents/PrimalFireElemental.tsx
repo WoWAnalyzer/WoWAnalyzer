@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -109,7 +109,7 @@ class PrimalFireElemental extends Analyzer {
       )
         .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.primalFireElemental.unusedSpells',
             message: `${formatNumber(
               this.unusedSpells.length,
@@ -131,7 +131,7 @@ class PrimalFireElemental extends Analyzer {
       )
         .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.primalFireElemental.meteorCastsMissed',
             message: `${formatNumber(this.missedMeteorCasts)} missed Meteor Casts.`,
           }),

@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
@@ -54,12 +53,7 @@ class SoulsOvercap extends Analyzer {
         </>,
       )
         .icon(SPELLS.SOUL_FRAGMENT.icon)
-        .actual(
-          t({
-            id: 'demonhunter.vengeance.suggestions.souls.wasted',
-            message: `${formatPercentage(this.wastePerGenerated())}% wasted Soul Fragments.`,
-          }),
-        )
+        .actual(`${formatPercentage(this.wastePerGenerated())}% wasted Soul Fragments.`)
         .recommended(`${formatPercentage(recommended)}% or less is recommended`),
     );
   }

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -13,7 +13,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         suggest(<span> Your downtime can be improved. Try to Always Be Casting (ABC)..</span>)
           .icon('spell_mage_altertime')
           .actual(
-            t({
+            defineMessage({
               id: 'warrior.protection.suggestions.alwaysBeCasting.downtime',
               message: `${formatPercentage(actual)}% downtime`,
             }),

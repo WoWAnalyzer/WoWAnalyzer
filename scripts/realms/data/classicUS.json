@@ -173,38 +173,6 @@
     },
     {
       "key": {
-        "href": "https://us.api.blizzard.com/data/wow/realm/4649?namespace=dynamic-classic-us"
-      },
-      "name": "US1 CWOW Web",
-      "id": 4649,
-      "slug": "us1-cwow-web"
-    },
-    {
-      "key": {
-        "href": "https://us.api.blizzard.com/data/wow/realm/4651?namespace=dynamic-classic-us"
-      },
-      "name": "US2 CWOW Web",
-      "id": 4651,
-      "slug": "us2-cwow-web"
-    },
-    {
-      "key": {
-        "href": "https://us.api.blizzard.com/data/wow/realm/4653?namespace=dynamic-classic-us"
-      },
-      "name": "US1 CWOW GMSS 1",
-      "id": 4653,
-      "slug": "us1-cwow-gmss-1"
-    },
-    {
-      "key": {
-        "href": "https://us.api.blizzard.com/data/wow/realm/4654?namespace=dynamic-classic-us"
-      },
-      "name": "US1 CWOW GMSS 2",
-      "id": 4654,
-      "slug": "us1-cwow-gmss-2"
-    },
-    {
-      "key": {
         "href": "https://us.api.blizzard.com/data/wow/realm/4795?namespace=dynamic-classic-us"
       },
       "name": "Angerforge",

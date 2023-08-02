@@ -15,7 +15,7 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SPELL_COLORS } from 'analysis/retail/evoker/preservation/constants';
 import DonutChart from 'parser/ui/DonutChart';
 import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
@@ -236,7 +236,7 @@ class EssenceBurst extends Analyzer {
       )
         .icon(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT.icon)
         .actual(
-          `${actual} ${t({
+          `${actual} ${defineMessage({
             id: 'evoker.preservation.suggestions.essenceBurst.wastedStacks',
             message: ` wasted Essence Burst stacks`,
           })}`,

@@ -1,8 +1,8 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
 // These are all the Well Fed buffs associated with each of the foods listed below.
 // There is double up, so there is a chance the other food was used and it just shares the same buff as these.
-const spells = spellIndexableList({
+const spells = {
   FISH_FEAST: {
     id: 57399,
     name: 'Fish Feast',
@@ -113,6 +113,6 @@ const spells = spellIndexableList({
     name: 'Cuttlesteak',
     icon: 'inv_misc_food_133_meat',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

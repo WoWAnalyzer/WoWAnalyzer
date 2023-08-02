@@ -7,7 +7,7 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import { Panel } from 'interface';
 
 import EssenceTracker from './EssenceTracker';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 
@@ -46,7 +46,7 @@ class EssenceDetails extends Analyzer {
       suggest(<>You are overcapping on Essence</>)
         .icon(TALENTS_EVOKER.POWER_NEXUS_TALENT.icon)
         .actual(
-          `${this.wasted.toFixed(2)} ${t({
+          `${this.wasted.toFixed(2)} ${defineMessage({
             id: 'evoker.preservation.suggestions.essenceDetails.wasted',
             message: ` wasted Essence`,
           })}`,

@@ -9,13 +9,11 @@ import {
   EventType,
   HasSource,
   HasTarget,
-  MappedEvent,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
-import LegEnhancementChecker from 'parser/retail/modules/items/LegEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
@@ -194,7 +192,6 @@ class CombatLogParser {
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
     weaponEnhancementChecker: WeaponEnhancementChecker,
-    legEnhancementChecker: LegEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Racials
@@ -533,7 +530,7 @@ class CombatLogParser {
   /** The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory: AnyEvent[] = [];
-  addEventListener<ET extends EventType, E extends MappedEvent<ET>>(
+  addEventListener<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
     module: Module,

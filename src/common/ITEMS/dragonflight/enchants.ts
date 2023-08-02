@@ -1,6 +1,6 @@
-import { enchantIndexableList } from 'common/ITEMS/Item';
+import { Enchant } from 'common/ITEMS/Item';
 
-const enchants = enchantIndexableList({
+const enchants = {
   // Weapons
   ENCHANT_WEAPON_BURNING_DEVOTION_R1: {
     id: 199966,
@@ -1049,6 +1049,26 @@ const enchants = enchantIndexableList({
     effectId: 6538,
   },
 
+  // Belt Enchantments - Blacksmithing
+  SHADOWED_BELT_CLASP_R1: {
+    id: 205043,
+    name: 'Shadowed Belt Clasp',
+    icon: 'inv_10_skinning_craftedoptionalreagent_armorbuckles_color2',
+    effectId: 6906,
+  },
+  SHADOWED_BELT_CLASP_R2: {
+    id: 205044,
+    name: 'Shadowed Belt Clasp',
+    icon: 'inv_10_skinning_craftedoptionalreagent_armorbuckles_color2',
+    effectId: 6905,
+  },
+  SHADOWED_BELT_CLASP_R3: {
+    id: 205039,
+    name: 'Shadowed Belt Clasp',
+    icon: 'inv_10_skinning_craftedoptionalreagent_armorbuckles_color2',
+    effectId: 6904,
+  },
+
   //Shaman Only
   FLAMETONGUE_WEAPON: {
     id: 334294,
@@ -1062,6 +1082,6 @@ const enchants = enchantIndexableList({
     icon: 'spell_fire_flametounge',
     effectId: 5401,
   },
-});
+} satisfies Record<string, Enchant>;
 
 export default enchants;

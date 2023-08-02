@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -45,7 +45,7 @@ class VampiricTouch extends Analyzer {
       )
         .icon(SPELLS.VAMPIRIC_TOUCH.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.vampiricTouch.uptime',
             message: `${formatPercentage(actual)}% Vampiric Touch uptime`,
           }),

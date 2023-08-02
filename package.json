@@ -7,9 +7,9 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@lingui/core": "3.14.0",
-    "@lingui/macro": "3.14.0",
-    "@lingui/react": "3.14.0",
+    "@lingui/core": "3.17.2",
+    "@lingui/macro": "3.17.2",
+    "@lingui/react": "3.17.2",
     "@reduxjs/toolkit": "^1.9.1",
     "@types/react-toggle": "^4.0.3",
     "@wowanalyzer/react-tooltip-lite": "^3.1.1",
@@ -40,12 +40,15 @@
     "vega-lite": "^5.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.7",
-    "@babel/plugin-proposal-private-property-in-object": "^7.20.5",
-    "@babel/register": "^7.18.9",
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
+    "@babel/preset-env": "7.22.5",
+    "@babel/preset-react": "7.22.5",
+    "@babel/preset-typescript": "7.22.5",
+    "@babel/register": "7.22.5",
+    "@babel/types": "7.22.5",
     "@emotion/babel-plugin": "^11.10.5",
-    "@lingui/cli": "3.14.0",
-    "@lingui/loader": "3.14.0",
+    "@lingui/cli": "3.17.2",
+    "@lingui/loader": "3.17.2",
     "@martijnhols/eslint-config": "^5.1.0",
     "@playwright/test": "^1.30.0",
     "@sentry/browser": "^7.28.1",
@@ -84,10 +87,10 @@
     "typescript": "^4.9.4"
   },
   "resolutions": {
-    "@lingui/cli": "3.14.0",
-    "@lingui/core": "3.14.0",
-    "@typescript-eslint/eslint-plugin": "^5.47.1",
-    "@typescript-eslint/parser": "^5.47.1",
+    "@lingui/cli": "3.17.2",
+    "@lingui/core": "3.17.2",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "eslint-plugin-react": "^7.26.1",
     "prettier-plugin-tailwindcss": "0.1.7"
   },
@@ -144,5 +147,6 @@
     "moduleNameMapper": {
       "^@lingui/loader!.*$": "<rootDir>/linguiMessageMock.js"
     }
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }

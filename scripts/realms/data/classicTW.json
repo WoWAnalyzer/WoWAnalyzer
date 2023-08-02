@@ -37,22 +37,6 @@
     },
     {
       "key": {
-        "href": "https://tw.api.blizzard.com/data/wow/realm/4689?namespace=dynamic-classic-tw"
-      },
-      "name": "TW4 CWOW GMSS 1",
-      "id": 4689,
-      "slug": "tw4-cwow-gmss-1"
-    },
-    {
-      "key": {
-        "href": "https://tw.api.blizzard.com/data/wow/realm/4690?namespace=dynamic-classic-tw"
-      },
-      "name": "TW4 CWOW GMSS 2",
-      "id": 4690,
-      "slug": "tw4-cwow-gmss-2"
-    },
-    {
-      "key": {
         "href": "https://tw.api.blizzard.com/data/wow/realm/5740?namespace=dynamic-classic-tw"
       },
       "name": "阿拉希盆地",

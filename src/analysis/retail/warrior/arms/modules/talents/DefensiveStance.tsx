@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/warrior';
 import { SpellIcon } from 'interface';
@@ -126,7 +126,7 @@ class DefensiveStance extends Analyzer {
         )
           .icon(TALENTS.DEFENSIVE_STANCE_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'warrior.arms.suggestions.defensiveStance',
               message: `A total of ${formatNumber(
                 dl,

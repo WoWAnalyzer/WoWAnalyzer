@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -50,7 +50,7 @@ class DarkEvangelism extends Analyzer {
       )
         .icon(TALENTS.DARK_EVANGELISM_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.darkEvangilism.uptime',
             message: `${formatPercentage(actual)}% Dark Evangilism uptime`,
           }),

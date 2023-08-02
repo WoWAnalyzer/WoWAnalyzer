@@ -1,10 +1,10 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { HolyPowerTracker } from 'analysis/retail/paladin/shared';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyBuffStackEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
@@ -92,7 +92,7 @@ class Crusade extends Analyzer {
       )
         .icon(TALENTS.CRUSADE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.retribution.suggestions.Crusade.efficiency',
             message: `${formatNumber(this.badFirstGlobal)} bad first global(s)`,
           }),

@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ACCUMULATIVE_SHIELDING_TALENT: {
     id: 382800,
     name: 'Accumulative Shielding',
@@ -1404,7 +1404,7 @@ const talents = createTalentList({
     entryIds: [80236],
     definitionIds: [{ id: 85239, specId: 64 }],
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_MAGE };

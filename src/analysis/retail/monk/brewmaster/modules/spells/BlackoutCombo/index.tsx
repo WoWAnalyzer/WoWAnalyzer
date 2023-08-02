@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
@@ -100,7 +100,7 @@ class BlackoutCombo extends Analyzer {
         )
           .icon(SPELLS.BLACKOUT_COMBO_BUFF.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'monk.brewmaster.suggestions.blackoutCombo.wasted',
               message: `${formatPercentage(actual)}% unused`,
             }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
@@ -155,7 +155,7 @@ class VoidTorrent extends Analyzer {
       )
         .icon(TALENTS.VOID_TORRENT_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.voidTorrent.secondsLost',
             message: `Lost ${formatSeconds(this.timeWasted)} seconds of Void Torrent.`,
           }),
@@ -220,8 +220,9 @@ class VoidTorrent extends Analyzer {
         </b>{' '}
         deals damage and generates 24 insanity over its 3 second channel.
         <br />
-        You should cast this spell as often as you can, without overcapping insanity. When you use
-        this spell, it should always be fully channeled.
+        You should cast this spell as often as you can, without overcapping insanity, whith{' '}
+        <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on your target. When you use this
+        spell, it should always be fully channeled.
       </p>
     );
 

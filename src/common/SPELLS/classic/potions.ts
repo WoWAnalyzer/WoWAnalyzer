@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   // id = buff or spell id
   CRAZY_ALCHEMISTS_POTION: {
     id: 53750,
@@ -77,6 +77,6 @@ const spells = spellIndexableList({
     name: 'Runic Mana Potion',
     icon: 'inv_alchemy_elixir_02',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -102,7 +102,7 @@ class VanishFindWeakness extends Analyzer {
   suggestions(when: When) {
     when(this.badVanishCastsSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        t({
+        defineMessage({
           id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.suggestion',
           message: `Avoid casting Vanish with more than ${
             this.BAD_CAST_WINDOW / 1000
@@ -111,7 +111,7 @@ class VanishFindWeakness extends Analyzer {
       )
         .icon(SPELLS.VANISH.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.actual',
             message: `You cast Vanish ${this.badVanishCasts.size} times with more than ${
               this.BAD_CAST_WINDOW / 1000
@@ -119,7 +119,7 @@ class VanishFindWeakness extends Analyzer {
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.recommended',
             message: `Do not cast Vanish with more than ${
               this.BAD_CAST_WINDOW / 1000

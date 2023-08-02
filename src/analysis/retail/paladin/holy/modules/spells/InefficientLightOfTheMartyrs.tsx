@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
@@ -63,7 +63,7 @@ class InefficientLightOfTheMartyrs extends Analyzer {
     if (effectiveHealing <= 0) {
       cast.meta = cast.meta || {};
       cast.meta.isInefficientCast = true;
-      cast.meta.inefficientCastReason = t({
+      cast.meta.inefficientCastReason = defineMessage({
         id: 'paladin.holy.timeline.badLotM',
         message: `This cast dealt more damage to you than it healed the target. If there is nothing to heal, you should deal damage instead.`,
       });

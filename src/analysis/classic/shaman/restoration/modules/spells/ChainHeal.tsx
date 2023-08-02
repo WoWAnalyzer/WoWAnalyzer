@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 import { formatNth, formatDuration } from 'common/format';
 import { SpellLink, SpecIcon } from 'interface';
@@ -113,13 +113,13 @@ class ChainHeal extends Analyzer {
         )
           .icon('spell_nature_healingwavegreater')
           .actual(
-            `${suggestedThreshold.actual.toFixed(2)} ${t({
+            `${suggestedThreshold.actual.toFixed(2)} ${defineMessage({
               id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
               message: `average targets healed`,
             })}`,
           )
           .recommended(
-            `${suggestedThreshold.isLessThan.minor} ${t({
+            `${suggestedThreshold.isLessThan.minor} ${defineMessage({
               id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
               message: `average targets healed`,
             })}`,

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -157,7 +157,7 @@ class MindFlayInsanity extends Analyzer {
       )
         .icon(TALENTS.SURGE_OF_INSANITY_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.mindSpikeInsanity.castLost',
             message: `Lost ${this.procsWasted} casts of Mind Spike: Insanity.`,
           }),
@@ -208,7 +208,8 @@ class MindFlayInsanity extends Analyzer {
           <SpellLink spell={SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF} />
         </b>{' '}
         is gained every time you cast <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.<br />
-        This buff can stack two times.
+        This buff can stack two times. Try to use these procs before overwriting them with devouring
+        plague, unless you would otherwise overcap insanity.
       </p>
     );
     const data = (

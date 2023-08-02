@@ -1,10 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic, ToppleTheNun } from 'CONTRIBUTORS';
+import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic, ToppleTheNun, Awildfivreld } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 26), <>Adds Flame Shock Guide section</>, Periodic),
+  change(date(2023, 7, 16), <>Add a section on usage of Stormkeeper</>, Awildfivreld),
+  change(date(2023, 7, 13), <>Fix a bug where the timeline showed too many abilities as empowered by <SpellLink spell={TALENTS.SURGE_OF_POWER_TALENT} /></>, Awildfivreld),
   change(date(2023, 7, 8), <>Add guide skeleton</>, Periodic),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2022, 7, 7), <>Basic cleanup for 10.1.0.</>, Periodic),

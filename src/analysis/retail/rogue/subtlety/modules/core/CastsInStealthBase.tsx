@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/rogue';
@@ -72,7 +72,7 @@ class CastsInStealthBase extends Analyzer {
         )
           .icon(spell.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'rogue.subtlety.suggestions.castsInStealth.casts',
               message: `${actual} ${spell.name} casts`,
             }),
@@ -90,7 +90,7 @@ class CastsInStealthBase extends Analyzer {
       )
         .icon(spell.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.subtlety.suggestions.castsInStealth.efficiency',
             message: `${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`,
           }),

@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -71,7 +71,7 @@ class RelishInBlood extends Analyzer {
   suggestions(when: When) {
     when(this.efficiencySuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        t({
+        defineMessage({
           id: 'deathknight.blood.relishInBlood.suggestion.suggestion',
           message: `Avoid being Runic Power capped at all times, you wasted ${this.runicPowerWasted} PR by
           being RP capped`,
@@ -79,7 +79,7 @@ class RelishInBlood extends Analyzer {
       )
         .icon(TALENTS.RELISH_IN_BLOOD_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.relishInBlood.suggestion.actual',
             message: `You wasted ${formatPercentage(actual)}% of RP from ${
               TALENTS.RELISH_IN_BLOOD_TALENT.name
@@ -87,7 +87,7 @@ class RelishInBlood extends Analyzer {
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'deathknight.blood.relishInBlood.suggestion.recommended',
             message: `${formatPercentage(recommended)}% is recommended`,
           }),

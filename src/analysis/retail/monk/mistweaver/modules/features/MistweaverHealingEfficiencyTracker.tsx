@@ -108,7 +108,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   getSoothingMistDetails(spellInfo: SpellInfoDetails) {
     // the default tracker gets the healing of the soothing mists, but only the mana for the first cast. Every tick costs mana.
-    spellInfo.manaSpent = this.soothingMist.soomTicks * TALENTS_MONK.SOOTHING_MIST_TALENT.manaCost!;
+    spellInfo.manaSpent =
+      this.soothingMist.soomTicks * (TALENTS_MONK.SOOTHING_MIST_TALENT.manaCostPerSecond ?? 0);
     spellInfo.healingDone = spellInfo.healingDone + this.soothingMist.gustsHealing;
     return spellInfo;
   }
@@ -130,10 +131,11 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   }
 
   getEssenceFontDetails(spellInfo: SpellInfoDetails) {
-    spellInfo.healingDone += this.essenceFont.totalHealing;
-    spellInfo.overhealingDone += this.essenceFont.totalOverhealing;
+    spellInfo.healingDone = this.essenceFont.totalHealing;
+    spellInfo.overhealingDone = this.essenceFont.totalOverhealing;
     spellInfo.healingDone += this.ancientTeachings.totalHealing;
     spellInfo.overhealingDone += this.ancientTeachings.overhealing;
+    spellInfo.timeSpentCasting = this.essenceFont.timeSpentCasting;
     return spellInfo;
   }
 

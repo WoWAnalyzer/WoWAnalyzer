@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/rogue';
@@ -65,7 +65,7 @@ class Audacity extends Analyzer {
       )
         .icon(TALENTS.AUDACITY_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.outlaw.suggestions.audacity.efficiency',
             message: `${formatPercentage(actual)}% inefficient casts`,
           }),

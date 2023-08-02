@@ -5,13 +5,13 @@
  *   icon: string,
  * },
  */
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
+const items = {
   HEALING_DART_CAST: {
     id: 385350,
     name: 'Healing Dart',
     icon: 'inv_gizmo_runichealthinjector',
   },
-});
+} satisfies Record<string, Item>;
 export default items;

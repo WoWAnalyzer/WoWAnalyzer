@@ -5,6 +5,7 @@ import { Abelito75, Greedyhugs, ToppleTheNun, CodersKitchen } from 'CONTRIBUTORS
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 18), 'Update abilities', Abelito75),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 25), 'Reduce CD of Shield Slam, when Honed Reflexes is skilled.', CodersKitchen),
   change(date(2022, 3, 11), 'Initial pass to make sure everything is cash money. ', Abelito75),

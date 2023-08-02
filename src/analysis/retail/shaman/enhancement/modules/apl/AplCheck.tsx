@@ -125,12 +125,12 @@ export const apl = (info: PlayerInfo): Apl => {
       spell: SPELLS.FLAME_SHOCK,
       condition: debuffMissing(SPELLS.FLAME_SHOCK),
     },
-    TALENTS.ICE_STRIKE_TALENT,
     {
       spell: TALENTS.FROST_SHOCK_TALENT,
       condition: buffPresent(SPELLS.HAILSTORM_BUFF),
     },
     TALENTS.LAVA_LASH_TALENT,
+    TALENTS.ICE_STRIKE_TALENT,
   );
 
   if (!combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {

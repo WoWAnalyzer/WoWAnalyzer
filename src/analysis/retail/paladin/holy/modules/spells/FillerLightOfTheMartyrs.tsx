@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, t, Trans } from '@lingui/macro';
+import { i18n } from '@lingui/core';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -44,10 +45,12 @@ class FillerLightOfTheMartyrs extends Analyzer {
     this.inefficientCasts.push(event);
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = t({
-      id: 'paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable',
-      message: `Holy Shock was available and should have been cast instead as it is a much more efficient spell.`,
-    });
+    event.meta.inefficientCastReason = i18n._(
+      defineMessage({
+        id: 'paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable',
+        message: `Holy Shock was available and should have been cast instead as it is a much more efficient spell.`,
+      }),
+    );
   }
 
   get cpm() {

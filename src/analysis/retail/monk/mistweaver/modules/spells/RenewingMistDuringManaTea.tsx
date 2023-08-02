@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
@@ -116,7 +116,7 @@ class RenewingMistDuringManaTea extends Analyzer {
       )
         .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
         .actual(
-          `${this.avgRemDuringMT.toFixed(2)}${t({
+          `${this.avgRemDuringMT.toFixed(2)}${defineMessage({
             id: 'monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists',
             message: ` average Renewing Mists during Mana Tea`,
           })}`,

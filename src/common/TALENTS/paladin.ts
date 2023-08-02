@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ADJUDICATION_TALENT: {
     id: 406157,
     name: 'Adjudication',
@@ -1756,7 +1756,7 @@ const talents = createTalentList({
     entryIds: [102616],
     definitionIds: [{ id: 107621, specId: 66 }],
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_PALADIN };

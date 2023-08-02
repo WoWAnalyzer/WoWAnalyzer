@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
-import { Sharrq, ogunb, Meldris, ToppleTheNun, Omegabiscuit, Mae, dodse} from 'CONTRIBUTORS';
+import { Arlie, Sharrq, ogunb, Meldris, ToppleTheNun, Omegabiscuit, Mae, dodse} from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 7, 8), 'Update CDR on Dark Pact and Unending Resolve', Arlie),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 7, 8), "Removed Demonic Circle use tracker in utility and defensive spells", Meldris),
   change(date(2023, 6, 29), "Updated ABOUT with current guide links", Meldris),

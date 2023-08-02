@@ -1,0 +1,472 @@
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import TALENTS from 'common/TALENTS/evoker';
+import Events, {
+  AnyEvent,
+  ApplyBuffEvent,
+  CastEvent,
+  EmpowerEndEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
+import SPELLS from 'common/SPELLS/evoker';
+import {
+  EBON_MIGHT_BASE_DURATION_MS,
+  TIMEWALKER_BASE_EXTENTION,
+  ERUPTION_EXTENTION_MS,
+  EMPOWER_EXTENTION_MS,
+  BREATH_OF_EONS_EXTENTION_MS,
+  SANDS_OF_TIME_CRIT_MOD,
+} from 'analysis/retail/evoker/augmentation/constants';
+import StatTracker from 'parser/shared/modules/StatTracker';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
+import { SpellLink } from 'interface';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { ebonIsFromBreath, getEbonMightBuffEvents } from '../normalizers/CastLinkNormalizer';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Combatants from 'parser/shared/modules/Combatants';
+import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
+import { i18n } from '@lingui/core';
+
+const PANDEMIC_WINDOW = 0.3;
+
+/**
+ * Ebon Might is the most important spell in Augmentations kit
+ * It provides your targets with a percentage of your own mainstat,
+ * as well as making them targets for Breath of Eon damage component.
+ *
+ * Ebon Might gets it duration increased by an amount equal to our Mastery,
+ * along with being extended by Sands of Time.
+ * Since we can't get the current duration easily we will instead by calculating
+ * a rough estimation of the duration, since we need it for refresh analysis.
+ * This is obviously not going to give 100% accurate results, but should be within
+ * a range that we can give decently accurate analysis.
+ */
+
+interface EbonMightCooldownCast {
+  event: AnyEvent;
+  oldBuffRemainder: number;
+  currentMastery: number;
+  buffedTargets: ApplyBuffEvent[] | RefreshBuffEvent[];
+}
+interface PrescienceBuffs {
+  event: ApplyBuffEvent | RemoveBuffEvent;
+}
+
+class EbonMight extends Analyzer {
+  static dependencies = {
+    stats: StatTracker,
+    spellUsable: SpellUsable,
+    combatants: Combatants,
+  };
+  protected stats!: StatTracker;
+  protected spellUsable!: SpellUsable;
+  protected combatants!: Combatants;
+
+  private uses: SpellUse[] = [];
+  private ebonMightCasts: EbonMightCooldownCast[] = [];
+  private prescienceCasts: PrescienceBuffs[] = [];
+
+  ebonMightActive: boolean = false;
+  currentEbonMightDuration: number = 0;
+  currentEbonMightCastTime: number = 0;
+
+  trackedSpells = [TALENTS.ERUPTION_TALENT, TALENTS.BREATH_OF_EONS_TALENT];
+  empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
+
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonRemove,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.EBON_MIGHT_BUFF_PERSONAL),
+      this.onEbonRefresh,
+    );
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.trackedSpells), this.onCast);
+    this.addEventListener(Events.empowerEnd.by(SELECTED_PLAYER).spell(this.empowers), this.onCast);
+
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.PRESCIENCE_BUFF),
+      this.onPrescienceApply,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRESCIENCE_BUFF),
+      this.onPrescienceRemove,
+    );
+
+    this.addEventListener(Events.fightend, this.finalize);
+  }
+
+  private onEbonApply(event: ApplyBuffEvent) {
+    const buffedTargets = getEbonMightBuffEvents(event);
+    this.ebonMightCasts.push({
+      event: event,
+      oldBuffRemainder: this.ebonMightTimeLeft(event),
+      currentMastery: this.stats.currentMasteryPercentage,
+      buffedTargets,
+    });
+    this.currentEbonMightDuration = ebonIsFromBreath(event)
+      ? 5
+      : this.calculateEbonMightDuration(event);
+    this.currentEbonMightCastTime = event.timestamp;
+    this.ebonMightActive = true;
+    // If Ebon Might was cast pre-pull, make sure we put it on CD
+    if (event.prepull && this.spellUsable.isAvailable(TALENTS.EBON_MIGHT_TALENT.id)) {
+      this.spellUsable.beginCooldown(event, TALENTS.EBON_MIGHT_TALENT.id);
+    }
+    //console.log('Applied at: ' +formatDuration(event.timestamp - this.owner.fight.start_time) +' Duration: ' +this.currentEbonMightDuration,);
+  }
+
+  private onEbonRemove(event: RemoveBuffEvent) {
+    this.ebonMightActive = false;
+    this.currentEbonMightDuration = 0;
+    //console.log('Removed at: ' + formatDuration(event.timestamp - this.owner.fight.start_time));
+  }
+
+  private onEbonRefresh(event: RefreshBuffEvent) {
+    const buffedTargets = getEbonMightBuffEvents(event);
+    this.ebonMightCasts.push({
+      event: event,
+      oldBuffRemainder: this.ebonMightTimeLeft(event),
+      currentMastery: this.stats.currentMasteryPercentage,
+      buffedTargets,
+    });
+    this.currentEbonMightDuration = this.calculateEbonMightDuration(event);
+    this.currentEbonMightCastTime = event.timestamp;
+    //console.log('Refreshed at: ' + formatDuration(event.timestamp - this.owner.fight.start_time) +' Duration: ' +this.currentEbonMightDuration,);
+  }
+
+  private onPrescienceApply(event: ApplyBuffEvent) {
+    this.prescienceCasts.push({
+      event: event,
+    });
+  }
+  private onPrescienceRemove(event: RemoveBuffEvent) {
+    this.prescienceCasts.push({
+      event: event,
+    });
+  }
+
+  private onCast(event: CastEvent | EmpowerEndEvent) {
+    this.extendEbongMight(event);
+  }
+
+  /* Here we figure out how long the duration should be based on current mastery
+   * as well pandemiccing the current buff if we are refreshing */
+  private calculateEbonMightDuration(event: AnyEvent) {
+    const masteryPercentage = this.stats.currentMasteryPercentage;
+    let ebonMightTimeLeft = this.ebonMightTimeLeft(event);
+    const ebonMightCastDuration =
+      EBON_MIGHT_BASE_DURATION_MS * (1 + TIMEWALKER_BASE_EXTENTION + masteryPercentage);
+
+    if (ebonMightTimeLeft > ebonMightCastDuration * PANDEMIC_WINDOW) {
+      ebonMightTimeLeft = ebonMightCastDuration * PANDEMIC_WINDOW;
+    }
+
+    const ebonMightDuration = ebonMightCastDuration + ebonMightTimeLeft;
+
+    return ebonMightDuration;
+  }
+
+  /* Here we figure out how much to extend the current buffs, we average
+   * out the crit chance of the +50% effect, gives accurate enough results
+   * for what we need.*/
+  private extendEbongMight(event: CastEvent | EmpowerEndEvent) {
+    if (!this.ebonMightActive) {
+      return;
+    }
+
+    const ebonMightTimeLeft = this.ebonMightTimeLeft(event);
+    const critChance = this.stats.currentCritPercentage;
+    const critMod = 1 + SANDS_OF_TIME_CRIT_MOD * critChance;
+
+    let newEbonMightDuration;
+
+    if (event.ability.guid === TALENTS.BREATH_OF_EONS_TALENT.id) {
+      newEbonMightDuration = ebonMightTimeLeft + BREATH_OF_EONS_EXTENTION_MS * critMod;
+    } else if (event.ability.guid === TALENTS.ERUPTION_TALENT.id) {
+      newEbonMightDuration = ebonMightTimeLeft + ERUPTION_EXTENTION_MS * critMod;
+    } else {
+      newEbonMightDuration = ebonMightTimeLeft + EMPOWER_EXTENTION_MS * critMod;
+    }
+
+    this.currentEbonMightCastTime = event.timestamp;
+    this.currentEbonMightDuration = newEbonMightDuration;
+    //console.log('Ebon Might Extended: ' +this.currentEbonMightDuration / 1000 +' timestamp: ' + formatDuration(event.timestamp - this.owner.fight.start_time), );
+  }
+
+  private ebonMightTimeLeft(event: AnyEvent) {
+    if (this.currentEbonMightCastTime === 0) {
+      return 0;
+    }
+    const timeSinceLast = event.timestamp - this.currentEbonMightCastTime;
+    //console.log('Time since last: ' + timeSinceLast / 1000);
+    const ebonMightTimeLeft = this.currentEbonMightDuration - timeSinceLast;
+    //console.log( 'Ebon Might Time Left: ' +ebonMightTimeLeft / 1000 +' timestamp: ' + formatDuration(event.timestamp - this.owner.fight.start_time),);
+    if (ebonMightTimeLeft < 0) {
+      return 0;
+    }
+    return ebonMightTimeLeft;
+  }
+
+  private finalize() {
+    // finalize performances
+    this.uses = this.ebonMightCasts.map((ebonMightCooldownCast) =>
+      this.ebonMightUsage(ebonMightCooldownCast, this.prescienceCasts),
+    );
+  }
+
+  private ebonMightUsage(
+    ebonMightCooldownCast: EbonMightCooldownCast,
+    prescienceCasts: PrescienceBuffs[],
+  ): SpellUse {
+    const presciencePerformanceCheck = this.getPresciencePerformance(
+      ebonMightCooldownCast,
+      prescienceCasts,
+    );
+
+    const rolePerformanceCheck = this.getRolePerformance(ebonMightCooldownCast);
+
+    const checklistItems: ChecklistUsageInfo[] = [
+      {
+        check: 'prescience-performance',
+        timestamp: ebonMightCooldownCast.event.timestamp,
+        ...presciencePerformanceCheck,
+      },
+    ];
+    if (rolePerformanceCheck) {
+      checklistItems.push({
+        check: 'role-performance',
+        timestamp: ebonMightCooldownCast.event.timestamp,
+        ...rolePerformanceCheck,
+      });
+    }
+
+    const actualPerformance = combineQualitativePerformances(
+      checklistItems.map((item) => item.performance),
+    );
+
+    return {
+      event: ebonMightCooldownCast.event,
+      performance: actualPerformance,
+      checklistItems,
+      performanceExplanation:
+        actualPerformance !== QualitativePerformance.Fail
+          ? `${actualPerformance} Usage`
+          : 'Bad Usage',
+    };
+  }
+
+  /** Do Performance check for amount of prescience active on cast */
+  private getPresciencePerformance(
+    ebonMightCooldownCast: EbonMightCooldownCast,
+    prescienceCasts: PrescienceBuffs[],
+  ) {
+    const oldDuration = ebonMightCooldownCast.oldBuffRemainder;
+    const ebonMightPandemicAmount =
+      EBON_MIGHT_BASE_DURATION_MS *
+      (1 + TIMEWALKER_BASE_EXTENTION + ebonMightCooldownCast.currentMastery) *
+      PANDEMIC_WINDOW;
+
+    let performance;
+    let summary;
+    let details;
+    let prescienceBuffsActive = 0;
+    const PERFECT_PRESCIENCE_BUFFS = 2;
+    const OK_PRESCIENCE_BUFFS = 1;
+
+    prescienceCasts.forEach((event) => {
+      if (
+        event.event.timestamp <= ebonMightCooldownCast.event.timestamp &&
+        (event.event.type === 'applybuff' || event.event.type === 'removebuff')
+      ) {
+        if (event.event.type === 'applybuff') {
+          prescienceBuffsActive = prescienceBuffsActive + 1;
+        } else if (event.event.type === 'removebuff') {
+          prescienceBuffsActive = prescienceBuffsActive - 1;
+        }
+      }
+    });
+
+    if (oldDuration > 0) {
+      performance =
+        oldDuration < ebonMightPandemicAmount
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Fail;
+      summary = (
+        <div>
+          Refreshed <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> inside the pandemic window.
+        </div>
+      );
+      details =
+        oldDuration < ebonMightPandemicAmount ? (
+          <div>
+            You refreshed <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> inside the pandemic
+            window. Good job!
+          </div>
+        ) : (
+          <div>
+            You refreshed <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> before the pandemic
+            window. <br />
+            <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> had ~{(oldDuration / 1000).toFixed(2)}s
+            remaining; Meaning you lost ~
+            {((oldDuration - ebonMightPandemicAmount) / 1000).toFixed(2)}s of uptime.
+          </div>
+        );
+    } else {
+      summary = (
+        <div>
+          You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active on
+          cast.
+        </div>
+      );
+      if (prescienceBuffsActive >= PERFECT_PRESCIENCE_BUFFS) {
+        performance = QualitativePerformance.Perfect;
+        details = (
+          <div>
+            You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active
+            on cast. Good job!
+          </div>
+        );
+      } else if (prescienceBuffsActive === OK_PRESCIENCE_BUFFS) {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active
+            on cast. Try to line it up so you have two active, so you can better control who your{' '}
+            <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> goes on.
+          </div>
+        );
+      } else {
+        performance = QualitativePerformance.Fail;
+        details = (
+          <div>
+            You didn't have any <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active on cast! You
+            should always make sure to get your <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />{' '}
+            buffs out, so you can control who your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} />{' '}
+            goes on.
+          </div>
+        );
+      }
+    }
+
+    const performanceCheck = {
+      performance: performance,
+      summary: summary,
+      details: details,
+    };
+
+    return performanceCheck;
+  }
+
+  /** Do role/spec Performance check for players
+   * getting buffed are DPS (excluding Aug this one is a crime!) */
+  private getRolePerformance(ebonMightCooldownCast: EbonMightCooldownCast) {
+    // Only run the check if there is actually 4 dps players amongus
+    const players = Object.values(this.combatants.players);
+
+    const enoughDPSFound =
+      players.reduce((dpsCount, player) => {
+        const targetID = player._combatantInfo.sourceID;
+
+        const isRangedDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.RANGED;
+        const isMeleeDPS = this.combatants.players[targetID]?.spec?.role === ROLES.DPS.MELEE;
+        const isAugmentation =
+          this.combatants.players[targetID]?.spec === SPECS.AUGMENTATION_EVOKER;
+
+        return (isRangedDPS || isMeleeDPS) && !isAugmentation ? dpsCount + 1 : dpsCount;
+      }, 0) >= 4;
+
+    if (!enoughDPSFound || !ebonMightCooldownCast.buffedTargets) {
+      return;
+    }
+
+    let rolePerformance = QualitativePerformance.Perfect;
+    const buffedPlayers: JSX.Element[] = [];
+
+    ebonMightCooldownCast.buffedTargets.forEach((player) => {
+      const currentPlayer = this.combatants.players[player.targetID];
+      const i18nClassName = currentPlayer.spec?.className
+        ? i18n._(currentPlayer.spec.className)
+        : undefined;
+      const className = i18nClassName?.replace(/\s/g, '') ?? '';
+      let currentPlayerRole = 'DPS';
+      if (
+        currentPlayer.spec?.role === ROLES.HEALER ||
+        currentPlayer.spec?.role === ROLES.TANK ||
+        currentPlayer.spec === SPECS.AUGMENTATION_EVOKER
+      ) {
+        if (currentPlayer.spec?.role === ROLES.HEALER) {
+          currentPlayerRole = 'Healer';
+        } else if (currentPlayer.spec?.role === ROLES.TANK) {
+          currentPlayerRole = 'Tank';
+        } else {
+          currentPlayerRole = 'Augmentation';
+        }
+        rolePerformance = QualitativePerformance.Fail;
+      }
+      buffedPlayers.push(
+        <div>
+          Buffed {currentPlayerRole}: <span className={className}>{currentPlayer.name}</span>
+        </div>,
+      );
+    });
+
+    const performanceCheck = {
+      performance: rolePerformance,
+      summary: <div>Buffed 4 DPS</div>,
+      details: <div>{buffedPlayers}</div>,
+    };
+
+    return performanceCheck;
+  }
+
+  guideSubsection(): JSX.Element | null {
+    if (!this.active) {
+      return null;
+    }
+
+    const explanation = (
+      <section>
+        <strong>
+          <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} />
+        </strong>{' '}
+        Is one of the most important spells in your entire kit. It provides 4 allies with a
+        percentage of your mainstat, along with making them priority targets for{' '}
+        <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />.{' '}
+        <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> prefers targets with{' '}
+        <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active.
+        <br />
+        <br />
+        If you recast <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> whilst it's still active you
+        will refresh the buff on your current targets.
+      </section>
+    );
+
+    return (
+      <HideGoodCastsSpellUsageSubSection
+        title="Ebon Might"
+        explanation={explanation}
+        uses={this.uses}
+        castBreakdownSmallText={
+          <> - These boxes represent each cast, colored by how good the usage was.</>
+        }
+        onPerformanceBoxClick={logSpellUseEvent}
+        abovePerformanceDetails={<div style={{ marginBottom: 10 }}></div>}
+      />
+    );
+  }
+}
+
+export default EbonMight;

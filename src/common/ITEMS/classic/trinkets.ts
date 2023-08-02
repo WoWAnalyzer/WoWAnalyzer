@@ -1,6 +1,6 @@
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
+const items = {
   // id = item id
   // --------
   // PHASE 1
@@ -305,6 +305,6 @@ const items = itemIndexableList({
     buffId: 398488,
     buffName: 'Wrathstone',
   },
-});
+} satisfies Record<string, Item>;
 
 export default items;

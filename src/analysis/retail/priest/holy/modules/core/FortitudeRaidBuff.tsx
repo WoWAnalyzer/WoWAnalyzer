@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer from 'parser/core/Analyzer';
@@ -31,7 +31,7 @@ class FortitudeRaidBuff extends Analyzer {
       )
         .icon(SPELLS.POWER_WORD_FORTITUDE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.holy.suggestions.fortitudeRaidBuff.uptime',
             message: `${formatPercentage(actual)}% Power Word: Fortitude uptime`,
           }),

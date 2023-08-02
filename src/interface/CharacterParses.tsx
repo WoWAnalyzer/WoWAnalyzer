@@ -5,7 +5,7 @@ import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from '
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
 import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
-import SPECS from 'game/SPECS';
+import SPECS, { isRetailSpec } from 'game/SPECS';
 import ZONES from 'game/ZONES';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/ActivityIndicator';
@@ -17,14 +17,13 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { WCLParse, WCLParsesResponse } from 'common/WCL_TYPES';
-import { isDefined } from 'common/typeGuards';
 import { isSupportedRegion } from 'common/regions';
 
 import './CharacterParses.scss';
 import ParsesList, { Parse } from './CharacterParsesList';
 
 const loadRealms = () =>
-  retryingPromise(() => import('game/REALMS').then((exports) => exports.default));
+  retryingPromise(() => import('game/REALMS').then((exports) => exports.REALMS));
 
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;
@@ -83,7 +82,7 @@ interface Player {
 }
 
 interface CharacterParsesState {
-  specs: string[];
+  specs: Array<{ en: string; translated: string }>;
   class: string;
   activeSpec: string[];
   activeDifficultyIds: number[];
@@ -382,12 +381,12 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
         }
 
         const charClass = rawParses[0].class;
-        const specs = Object.values(SPECS)
-          .filter((e) => e.className === charClass)
-          // eslint-disable-next-line no-restricted-syntax
-          .filter((item, index, self) => self.indexOf(item) === index)
-          .map((e) => e.specName)
-          .filter(isDefined);
+        const specs = Object.entries(SPECS)
+          // SPECS is indexed both by name and id. only take the id-keyed entries
+          .filter(([k]) => Number.isFinite(Number(k)))
+          .map(([, v]) => v)
+          .filter(isRetailSpec) //Classic doesn't support look up by characters at the moment
+          .filter((e) => e.wclClassName === charClass);
 
         const parses = this.changeParseStructure(rawParses);
 
@@ -399,8 +398,13 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
         });
 
         this.setState({
-          specs: specs,
-          activeSpec: specs.map((elem) => elem.replace(' ', '')),
+          specs: specs.map((elem) => {
+            return {
+              en: elem.wclSpecName,
+              translated: elem.specName ? i18n._(elem.specName) : elem.wclSpecName,
+            };
+          }),
+          activeSpec: specs.map((elem) => elem.wclSpecName.replace(' ', '')),
           class: charClass,
           parses: parses,
           isLoading: false,
@@ -688,18 +692,18 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           <div className="row">
             <div className="col-md-12">
               <div className="panel character-filters">
-                {this.state.specs.map((elem, index) => (
+                {this.state.specs.map((specName, index) => (
                   <div
                     key={index}
-                    onClick={() => this.updateSpec(elem.replace(' ', ''))}
+                    onClick={() => this.updateSpec(specName.en.replace(' ', ''))}
                     className={
-                      this.state.activeSpec.includes(elem.replace(' ', ''))
+                      this.state.activeSpec.includes(specName.en.replace(' ', ''))
                         ? 'selected spec-filter character-filter'
                         : 'spec-filter character-filter'
                     }
-                    style={{ backgroundImage: `url(${this.iconPath(elem)})` }}
+                    style={{ backgroundImage: `url(${this.iconPath(specName.en)})` }}
                   >
-                    {elem}
+                    {specName.translated}
                   </div>
                 ))}
 

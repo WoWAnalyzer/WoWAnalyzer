@@ -162,7 +162,7 @@ abstract class Entities<T extends Entity> extends Analyzer {
       existingBuff.refreshHistory.push(event.timestamp);
     } else {
       console.error(
-        "Buff refreshed while active buff wasn't known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.",
+        `${event.ability.name} buff was refreshed while active buff wasn't known. Was this buff applied pre-combat? Maybe we should register the buff with start time as fight start when this happens, but it might also be a basic case of erroneous combatlog ordering.`,
       );
     }
   }

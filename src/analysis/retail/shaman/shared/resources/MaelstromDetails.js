@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
@@ -64,7 +64,7 @@ class MaelstromDetails extends Analyzer {
       )
         .icon('spell_shadow_mindflay')
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.shared.suggestions.maelstrom.overcapped',
             message: `${formatPercentage(actual)}% overcapped Maelstrom`,
           }),

@@ -34,6 +34,7 @@ import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import ElementalGuide from './guide/ElementalGuide';
+import SpellMaelstromCost from './modules/core/SpellMaelstromCost';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +69,7 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
     maelstromTab: MaelstromTab,
+    spellMaelstromCost: SpellMaelstromCost,
     ankhNormalizer: AnkhNormalizer,
     checklist: Checklist,
     astralShift: AstralShift,

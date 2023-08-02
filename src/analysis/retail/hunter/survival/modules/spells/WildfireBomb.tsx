@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { WILDFIRE_BOMB_LEEWAY_BUFFER } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
@@ -127,7 +127,7 @@ class WildfireBomb extends Analyzer {
       )
         .icon(SPELLS.WILDFIRE_BOMB.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.survival.suggestions.wildfireBomb.pandemic.efficiency',
             message: `${actual} casts unnecessarily refreshed WFB`,
           }),
@@ -143,7 +143,7 @@ class WildfireBomb extends Analyzer {
       )
         .icon(SPELLS.WILDFIRE_BOMB.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.survival.suggestions.wildfireBomb.uptime',
             message: `${formatPercentage(actual)}% uptime`,
           }),

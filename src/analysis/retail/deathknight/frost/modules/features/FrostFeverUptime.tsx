@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -36,7 +36,7 @@ class FrostFeverUptime extends Analyzer {
         )
           .icon(SPELLS.FROST_FEVER.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'deathknight.frost.suggestions.frostFever.uptime',
               message: `${formatPercentage(actual)}% Frost Fever uptime`,
             }),

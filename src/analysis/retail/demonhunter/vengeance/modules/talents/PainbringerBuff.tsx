@@ -3,7 +3,6 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import { SpellLink } from 'interface';
-import { t } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -45,12 +44,7 @@ export default class PainbringerBuff extends Analyzer {
         </>,
       )
         .icon(TALENTS_DEMON_HUNTER.PAINBRINGER_TALENT.icon)
-        .actual(
-          t({
-            id: 'demonhunter.vengeance.painbringerBuff.uptime',
-            message: `${formatPercentage(actual)}% Painbringer uptime`,
-          }),
-        )
+        .actual(`${formatPercentage(actual)}% Painbringer uptime`)
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
     );
   }
