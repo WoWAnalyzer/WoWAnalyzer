@@ -4,8 +4,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -20,80 +19,91 @@ class FeelTheBurn extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected eventHistory!: EventHistory;
 
-  bonusDamage = 0;
-  buffStack = 0;
-  maxStackTimestamp = 0;
-  maxStackDuration = 0;
-  totalBuffs = 0;
-  combustionCount = 0;
-  totalCombustionDuration = 0;
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FEEL_THE_BURN_BUFF),
-      this.onBuffStack,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FEEL_THE_BURN_BUFF),
-      this.onBuffStack,
-    );
-    this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.FEEL_THE_BURN_BUFF, TALENTS.COMBUSTION_TALENT]),
-      this.onBuffRemoved,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustionRemoved,
-    );
   }
 
-  onBuffStack(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    const buff = this.selectedCombatant.getBuff(SPELLS.FEEL_THE_BURN_BUFF.id);
-    if (buff && buff.stacks > this.buffStack) {
-      this.buffStack = buff.stacks;
-      this.maxStackTimestamp = this.buffStack === MAX_STACKS ? event.timestamp : 0;
-    }
-  }
+  maxStackTimestamps = () => {
+    const maxStackDurations: { start: number; end: number }[] = [];
+    const buffHistory = this.selectedCombatant.getBuffHistory(SPELLS.FEEL_THE_BURN_BUFF.id);
+    let index = 0;
+    buffHistory.forEach((b) => {
+      const maxStack = b.stackHistory.find((s) => s.stacks === MAX_STACKS);
+      if (maxStack) {
+        maxStackDurations[index] = {
+          start: maxStack.timestamp,
+          end: b.end || this.owner.fight.end_time,
+        };
+        index += 1;
+      }
+    });
+    return maxStackDurations;
+  };
 
-  onCombustionRemoved(event: RemoveBuffEvent) {
-    const lastCombustStart = this.eventHistory.last(
-      1,
-      undefined,
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-    );
-    this.totalCombustionDuration +=
-      event.timestamp - (lastCombustStart[0]?.timestamp ?? this.owner.fight.start_time);
-  }
+  combustionTimestamps = () => {
+    const combustionDurations: { start: number; end: number }[] = [];
+    const combustionStarts = this.eventHistory.getEvents(EventType.ApplyBuff, {
+      spell: TALENTS.COMBUSTION_TALENT,
+    });
+    let index = 0;
+    combustionStarts.forEach((c) => {
+      const endTimestamp = this.eventHistory.getEvents(EventType.RemoveBuff, {
+        searchBackwards: false,
+        spell: TALENTS.COMBUSTION_TALENT,
+        startTimestamp: c.timestamp,
+        count: 1,
+      })[0];
+      combustionDurations[index] = {
+        start: c.timestamp,
+        end: endTimestamp ? endTimestamp.timestamp : this.owner.fight.end_time,
+      };
+      index += 1;
+    });
+    return combustionDurations;
+  };
 
-  onBuffRemoved(event: RemoveBuffEvent) {
-    //If Feel the Burn was not at max stacks, then disregard
-    if (this.buffStack !== MAX_STACKS) {
-      return;
-    }
+  totalCombustionDuration = () => {
+    let combustionDuration = 0;
+    this.combustionTimestamps().forEach((c) => (combustionDuration += c.end - c.start));
+    return combustionDuration;
+  };
 
-    this.maxStackDuration += event.timestamp - this.maxStackTimestamp;
-    this.maxStackTimestamp = 0;
-    this.buffStack = 0;
+  //prettier-ignore
+  maxStacksDuration = () => {
+    let duration = 0;
+    this.maxStackTimestamps().forEach((s) => {
+      //If Combustion started while Feel the Burn was at max stacks
+      //Count duration from Combustion Start until Combustion End or Feel the Burn End, whichever is sooner.
+      if (this.combustionTimestamps().find(c => c.start >= s.start && c.start <= s.end)) {
+        const combustion = this.combustionTimestamps().find(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0};
+        duration += Math.min(combustion.end, s.end) - combustion.start;
+      }
+
+      //If Combustion was already running when Feel the Burn reached max stacks
+      //Count duration from Feel the Burn Start until Combustion End or Feel the Burn End, whichever is sooner
+      if (this.combustionTimestamps().find(c => s.start >= c.start && s.start <= c.end)) {
+        const combustion = this.combustionTimestamps().find(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0};
+        duration += Math.min(combustion.end, s.end) - s.start;
+      }
+    })
+    return duration;
   }
 
   get averageDuration() {
     return (
-      this.maxStackDuration /
+      this.maxStacksDuration() /
       1000 /
       this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
 
   get maxStackPercent() {
-    return this.maxStackDuration / this.totalCombustionDuration;
+    return this.maxStacksDuration() / this.totalCombustionDuration();
   }
 
   get downtimeSeconds() {
-    return (this.totalCombustionDuration - this.maxStackDuration) / 1000;
+    return this.totalCombustionDuration() - this.maxStacksDuration() / 1000;
   }
 
   get maxStackUptimeThresholds() {
