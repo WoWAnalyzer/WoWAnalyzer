@@ -454,7 +454,7 @@ class BreathOfEonsRotational extends Analyzer {
       perfWindow.earlyDeaths += 1;
     } else {
       damageEvents.forEach((damageEvent) => {
-        perfWindow.damage += damageEvent.amount ?? damageEvent.absorbed;
+        perfWindow.damage += damageEvent.amount + (damageEvent.absorbed ?? 0);
       });
       perfWindow.succesfulHits += 1;
     }
