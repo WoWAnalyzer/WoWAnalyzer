@@ -66,7 +66,7 @@ class AncientMadness extends Analyzer {
         size="flexible"
         tooltip="The damage displayed is the additional damage you gained from taking this talent."
       >
-        <BoringSpellValueText spell={TALENTS.ANCIENT_MADNESS_TALENT}>
+        <BoringSpellValueText spell={SPELLS.ANCIENT_MADNESS_TALENT}>
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
       </Statistic>
