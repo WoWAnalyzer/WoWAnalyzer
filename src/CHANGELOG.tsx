@@ -21,12 +21,14 @@ import {
   Jundarer,
   Vollmer,
   Awildfivreld,
+  Tapir,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 3), 'Update Rapture analysis now ignores off GCD spells and enchants', Tapir),
   change(date(2023, 7, 31), <>Add enchantment check for <ItemLink id={ITEMS.SHADOWED_BELT_CLASP_R3.id} />.</>,  ToppleTheNun),
   change(date(2023, 7, 29), 'Fix another issue loading parses using character search', emallson),
   change(date(2023, 7, 29), 'Fix an issue loading parses using character search', Putro),
