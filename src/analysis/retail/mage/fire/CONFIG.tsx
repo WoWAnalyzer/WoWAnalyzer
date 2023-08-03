@@ -33,7 +33,8 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: 'report/rGN84WHjg72LqzFc/23-Mythic+Terros+-+Kill+(5:56)/Wardaalsahra/standard',
+  exampleReport:
+    'report/XLj7amG2gr4Hwdb3/30-Heroic+Rashok,+the+Elder+-+Kill+(4:35)/Pyrenn/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
