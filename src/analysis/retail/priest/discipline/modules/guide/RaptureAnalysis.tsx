@@ -93,6 +93,9 @@ class RaptureAnalysis extends Analyzer {
     if (this.ramps.length < 1) {
       return;
     }
+    if (!this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
+      return;
+    }
 
     if (
       event.ability.guid === TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id &&
