@@ -1,11 +1,13 @@
+import { Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { TIERS } from 'game/TIERS';
 import { formatPercentage } from 'common/format';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import { SpellLink } from 'interface';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { EventType } from 'parser/core/Events';
-import { ThresholdStyle } from 'parser/core/ParseResults';
+import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
@@ -87,12 +89,38 @@ class CharringEmbers extends Analyzer {
     };
   }
 
+  suggestions(when: When) {
+    when(this.noPhoenixFlamesThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          Your <SpellLink spell={SPELLS.FLAMES_FURY} /> proc'd {this.noPhoenixFlames} times while
+          you had no charges of <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> available.
+          Because of this, you were forced to wait for{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> to come off cooldown before you could
+          use these charges. To prevent this, you should avoid using all of your{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> charges to ensure you always have one
+          charge available, or will gain a charge within a few seconds, when{' '}
+          <SpellLink spell={SPELLS.FLAMES_FURY} /> triggers.
+        </>,
+      )
+        .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.charringEmbers.noPhoenixFlames">
+            {formatPercentage(actual)}% utilization
+          </Trans>,
+        )
+        .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
+  }
+
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible" tooltip={<>PLACEHOLDER</>}>
         <BoringSpellValueText spell={SPELLS.CHARRING_EMBERS_DEBUFF}>
           <>
             {formatPercentage(this.uptimePercent, 2)}% <small>Charring Embers Uptime</small>
+            <br />
+            {this.noPhoenixFlames} <small>Procs w/o Phoenix Flames avail.</small>
           </>
         </BoringSpellValueText>
       </Statistic>

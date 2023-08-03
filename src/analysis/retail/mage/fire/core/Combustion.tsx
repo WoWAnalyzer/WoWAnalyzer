@@ -73,7 +73,6 @@ class CombustionCasts extends Analyzer {
 
   // prettier-ignore
   fireballCastsDuringCombustion = () => {
-    
     const casts = this.eventHistory.getEventsWithBuff(TALENTS.COMBUSTION_TALENT, EventType.Cast, SPELLS.FIREBALL);
 
     //If the Begin Cast event was before Combustion started, then disregard it.

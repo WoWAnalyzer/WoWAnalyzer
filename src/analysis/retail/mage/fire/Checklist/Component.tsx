@@ -175,26 +175,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           }
           spell={TALENTS.PHOENIX_FLAMES_TALENT.id}
         />
-        {combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.BLAST_WAVE_TALENT} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.BLAST_WAVE_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.LIVING_BOMB_TALENT.id}
-          />
-        )}
         {combatant.hasTalent(TALENTS.METEOR_TALENT) && (
           <Requirement
             name={
