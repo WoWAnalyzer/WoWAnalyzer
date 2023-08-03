@@ -53,11 +53,6 @@ const spells = {
     name: 'Scorch',
     icon: 'spell_fire_soulburn',
   },
-  PYROCLASM_BUFF: {
-    id: 269651,
-    name: 'Pyroclasm',
-    icon: 'spell_shaman_lavasurge',
-  },
   FLAME_PATCH_DAMAGE: {
     id: 205472,
     name: 'Flame Patch',
@@ -83,15 +78,25 @@ const spells = {
     name: 'Fevered Incantation',
     icon: 'inv_misc_enchantedpearld',
   },
-  SUN_KINGS_BLESSING_BUFF: {
+  FURY_OF_THE_SUN_KING: {
     id: 383883,
-    name: "Sun King's Blessing",
-    icon: 'ability_mage_firestarter',
+    name: 'Fury of the Sun King',
+    icon: 'ability_rhyolith_immolation',
   },
   SUN_KINGS_BLESSING_BUFF_STACK: {
     id: 383882,
     name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
+  },
+  CHARRING_EMBERS_DEBUFF: {
+    id: 408665,
+    name: 'Charring Embers',
+    icon: 'ability_warlock_burningembers',
+  },
+  FLAMES_FURY: {
+    id: 409964,
+    name: "Flame's Fury",
+    icon: 'inv_misc_volatilefire',
   },
 } satisfies Record<string, Spell>;
 

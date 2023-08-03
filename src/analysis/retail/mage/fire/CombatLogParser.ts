@@ -3,11 +3,10 @@ import {
   CancelledCasts,
   DivertedEnergy,
   ElementalBarrier,
-  GroundingSurge,
+  QuickWitted,
   MirrorImage,
   ShiftingPower,
   TempestBarrier,
-  Meteor,
   MasterOfTime,
   TimeAnomaly,
   SharedCode,
@@ -39,6 +38,10 @@ import FromTheAshes from './talents/FromTheAshes';
 import Kindling from './talents/Kindling';
 import MeteorCombustion from './talents/MeteorCombustion';
 import SearingTouch from './talents/SearingTouch';
+import Meteor from './talents/Meteor';
+
+//Items
+import CharringEmbers from './items/CharringEmbers';
 
 //Normalizers
 import CombustionNormalizer from './normalizers/Combustion';
@@ -81,15 +84,18 @@ class CombatLogParser extends CoreCombatLogParser {
     sunKingsBlessing: SunKingsBlessing,
     shiftingPowerUsage: ShiftingPowerUsage,
     feelTheBurn: FeelTheBurn,
+    meteor: Meteor,
+
+    //Items - Fire
+    charringEmbers: CharringEmbers,
 
     //Talents - Shared
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
     shiftingPower: ShiftingPower,
     divertedEnergy: DivertedEnergy,
-    groundingSurge: GroundingSurge,
+    quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
-    meteor: Meteor,
     masterOfTime: MasterOfTime,
     timeAnomaly: TimeAnomaly,
 

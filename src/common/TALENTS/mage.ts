@@ -825,6 +825,14 @@ const talents = {
     entryIds: [80265],
     definitionIds: [{ id: 85268, specId: 63 }],
   },
+  UNLEASHED_INFERNO_TALENT: {
+    id: 416506,
+    name: 'Unleashed Inferno',
+    icon: 'spell_fire_felflamering_red',
+    maxRanks: 1,
+    entryIds: [80290],
+    definitionIds: [{ id: 85268, specId: 63 }],
+  },
   LIVING_BOMB_TALENT: {
     id: 44457,
     name: 'Living Bomb',
@@ -1355,14 +1363,6 @@ const talents = {
     entryIds: [80302],
     definitionIds: [{ id: 85305, specId: 62 }],
     manaCost: 12500,
-  },
-  UNLEASHED_INFERNO_TALENT: {
-    id: 416506,
-    name: 'Unleashed Inferno',
-    icon: 'spell_fire_felflamering_red',
-    maxRanks: 1,
-    entryIds: [116063],
-    definitionIds: [{ id: 121075, specId: 63 }],
   },
   VOLATILE_DETONATION_TALENT: {
     id: 389627,
