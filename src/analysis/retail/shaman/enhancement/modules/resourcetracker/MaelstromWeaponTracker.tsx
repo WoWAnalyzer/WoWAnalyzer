@@ -2,10 +2,21 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { Resource } from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { RefreshBuffEvent, ChangeBuffStackEvent, EventType } from 'parser/core/Events';
+import Events, {
+  RefreshBuffEvent,
+  ChangeBuffStackEvent,
+  EventType,
+  AbilityEvent,
+  SourcedEvent,
+  CastEvent,
+  FreeCastEvent,
+  AddRelatedEvent,
+} from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
+import { MAELSTROM_WEAPON_SPEND_LINK } from '../normalizers/EventLinkNormalizer';
 
 export const PERFECT_WASTED_PERCENT = 0.1;
 export const GOOD_WASTED_PERCENT = 0.2;
@@ -20,7 +31,7 @@ const MaelstromWeaponResource: Resource = {
   url: 'maelstrom_weapon',
 };
 
-class MaelstromWeaponTracker extends ResourceTracker {
+export default class extends ResourceTracker {
   static dependencies = {
     ...ResourceTracker.dependencies,
     spellUsable: SpellUsable,
@@ -33,6 +44,7 @@ class MaelstromWeaponTracker extends ResourceTracker {
 
   spellUsable!: SpellUsable;
 
+  spender: (AbilityEvent<any> & SourcedEvent<any>) | null = null;
   nextRefreshIsWaste = false;
   lastAppliedTime = 0;
   expiredWaste = 0;
@@ -59,7 +71,6 @@ class MaelstromWeaponTracker extends ResourceTracker {
       Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
       this.onStacksChange,
     );
-
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
       this.onFeralSpiritCast,
@@ -71,6 +82,10 @@ class MaelstromWeaponTracker extends ResourceTracker {
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
       this.onFeralSpiritCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
+      this.onSpender,
     );
   }
 
@@ -115,7 +130,19 @@ class MaelstromWeaponTracker extends ResourceTracker {
       this.reduceFeralSpiritCooldown();
     } else {
       this.nextRefreshIsWaste = false;
-      this._applySpender(event, -event.stacksGained, this.getMaelstromResource(event));
+      const resource = this.getMaelstromResource(event);
+      if (this.spender) {
+        AddRelatedEvent(this.spender, MAELSTROM_WEAPON_SPEND_LINK, event);
+        this._applySpender(this.spender, -event.stacksGained, resource);
+        this.spender = null;
+      } else {
+        console.error(
+          `Unknown spender error - ${event.stacksGained} spent at ${
+            event.timestamp
+          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
+        );
+        this._applySpender(event, -event.stacksGained);
+      }
     }
   }
 
@@ -177,6 +204,8 @@ class MaelstromWeaponTracker extends ResourceTracker {
       type: MaelstromWeaponResource.id,
     };
   }
-}
 
-export default MaelstromWeaponTracker;
+  onSpender(event: CastEvent | FreeCastEvent) {
+    this.spender = event;
+  }
+}

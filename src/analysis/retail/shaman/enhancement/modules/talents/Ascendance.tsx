@@ -24,6 +24,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import Uptime from 'interface/icons/Uptime';
+import typedKeys from 'common/typedKeys';
 
 const NonMissedCastSpells = [
   TALENTS_SHAMAN.SUNDERING_TALENT.id,
@@ -270,6 +271,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         ),
       };
     }
+
     return {
       performance:
         castsAsPercentageOfMax >= 0.8
@@ -300,11 +302,11 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     const noMaelstromCasts = thorimsInvocationFreeCasts.filter((fc) => !fc).length;
     if (noMaelstromCasts) {
       result.push({
-        performance: QualitativePerformance.Fail,
+        performance: QualitativePerformance.Ok,
         summary: (
           <div>
             You cast <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> with no{' '}
-            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />
+            <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> {noMaelstromCasts} time(s).
           </div>
         ),
         details: (
@@ -372,6 +374,27 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       checklistItems.map((item) => item.performance),
     );
 
+    const fillerSpells = cast.casts
+      .filter((c) => c.ability.guid !== SPELLS.WINDSTRIKE_CAST.id)
+      .reduce((group: Record<number, number>, castEvent: CastEvent) => {
+        group[castEvent.ability.guid] = group[castEvent.ability.guid] || 0;
+        group[castEvent.ability.guid] += 1;
+        return group;
+      }, {});
+
+    const fillerSpellsList = typedKeys(fillerSpells).map((spellId) => {
+      const casts = fillerSpells[spellId];
+      return (
+        <>
+          <li>
+            <div>
+              {casts} x <SpellLink spell={spellId} />
+            </div>
+          </li>
+        </>
+      );
+    });
+
     return {
       event: cast.event,
       checklistItems: checklistItems,
@@ -380,6 +403,12 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         actualPerformance !== QualitativePerformance.Fail
           ? `${actualPerformance} Usage`
           : 'Bad Usage',
+      extraDetails: fillerSpellsList.length > 0 && (
+        <>
+          Filler spells cast
+          <ul>{fillerSpellsList}</ul>
+        </>
+      ),
     };
   }
 
