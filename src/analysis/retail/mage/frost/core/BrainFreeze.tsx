@@ -25,7 +25,6 @@ class BrainFreeze extends Analyzer {
 
   overlappedFlurries = () => {
     let casts = this.eventHistory.getEvents(EventType.Cast, {
-      searchBackwards: true,
       spell: TALENTS.FLURRY_TALENT,
     });
     casts = casts.filter((c) => {
@@ -44,7 +43,6 @@ class BrainFreeze extends Analyzer {
   get totalProcs() {
     return (
       this.eventHistory.getEvents(EventType.ApplyBuff, {
-        searchBackwards: true,
         spell: SPELLS.BRAIN_FREEZE_BUFF,
       }).length || 0
     );
@@ -53,7 +51,6 @@ class BrainFreeze extends Analyzer {
   get overwrittenProcs() {
     return (
       this.eventHistory.getEvents(EventType.RefreshBuff, {
-        searchBackwards: true,
         spell: SPELLS.BRAIN_FREEZE_BUFF,
       }).length || 0
     );

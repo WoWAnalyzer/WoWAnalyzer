@@ -537,6 +537,21 @@ const spells = {
     name: 'Lightwell',
     icon: 'spell_holy_summonlightwell',
   },
+  DIVINE_IMAGE_HEALING_LIGHT_HEAL: {
+    id: 196909,
+    name: 'Healing Light',
+    icon: 'inv_staff_2h_artifactheartofkure_d_04',
+  },
+  DIVINE_IMAGE_DAZZLING_LIGHT_HEAL: {
+    id: 196810,
+    name: 'Dazzling Light',
+    icon: 'spell_holy_divineprovidence',
+  },
+  DIVINE_IMAGE_BLESSED_LIGHT_HEAL: {
+    id: 196813,
+    name: 'Blessed Light',
+    icon: 'spell_holy_divineprovidence',
+  },
   HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {
     id: 200196,
     name: 'Holy Word: Chastise',

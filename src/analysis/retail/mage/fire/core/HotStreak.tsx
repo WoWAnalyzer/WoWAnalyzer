@@ -42,7 +42,7 @@ class HotStreak extends Analyzer {
 
   // prettier-ignore
   missingHotStreakPreCast = () => {
-    let hotStreakRemovals = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.HOT_STREAK });
+    let hotStreakRemovals = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: SPELLS.HOT_STREAK });
     hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FIREBALL));
     
     //If Hot Streak was used on Flamestrike, filter it out
@@ -57,7 +57,7 @@ class HotStreak extends Analyzer {
 
     //If Combustion ended less than 3 seconds ago, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: TALENTS.COMBUSTION_TALENT, count: 1, startTimestamp: hs.timestamp })[0];
+      const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: TALENTS.COMBUSTION_TALENT, count: 1, startTimestamp: hs.timestamp })[0];
       return !combustionEnded || hs.timestamp - combustionEnded.timestamp > COMBUSTION_END_BUFFER;
     })
 
@@ -81,7 +81,7 @@ class HotStreak extends Analyzer {
     //Highlight bad casts on timeline
     const tooltip = `This Pyroblast was cast using Hot Streak, but did not have a Fireball pre-cast in front of it.`
     hotStreakRemovals.forEach((cast) => {
-      const pyroCast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: TALENTS.PYROBLAST_TALENT, count: 1, startTimestamp: cast.timestamp, duration: 250 })
+      const pyroCast = this.eventHistory.getEvents(EventType.Cast, { spell: TALENTS.PYROBLAST_TALENT, count: 1, startTimestamp: cast.timestamp, duration: 250 })
       highlightInefficientCast(pyroCast, tooltip)
     })
 
@@ -101,7 +101,7 @@ class HotStreak extends Analyzer {
 
     //Filter out Phoenix Flames cleaves
     events = events.filter(e => {
-      const cast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
+      const cast = this.eventHistory.getEvents(EventType.Cast, { spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
       if (cast && HasTarget(cast)) {
         const castTarget = encodeTargetString(cast.targetID, cast.targetInstance);
         return castTarget === encodeTargetString(e.targetID, e.targetInstance);
@@ -111,13 +111,13 @@ class HotStreak extends Analyzer {
 
     //If the player got a Pyromaniac proc, then dont count it as a wasted proc because there is nothing they could have done to prevent the crit from being wasted.
     events = events.filter((e) => {
-      const pyromaniacProc = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.HOT_STREAK, count: 1, startTimestamp: e.timestamp, duration: 250 })[0];
+      const pyromaniacProc = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: SPELLS.HOT_STREAK, count: 1, startTimestamp: e.timestamp, duration: 250 })[0];
       return !this.hasPyromaniac || !pyromaniacProc;
     });
 
     //Highlight Timeline
     events.forEach((e) => {
-      const cast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
+      const cast = this.eventHistory.getEvents(EventType.Cast, { spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
       const tooltip = 'This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak. To avoid this, make sure you use your Hot Streak procs as soon as possible.';
       cast && highlightInefficientCast(cast, tooltip);
     });
@@ -127,7 +127,6 @@ class HotStreak extends Analyzer {
   get totalHotStreakProcs() {
     return (
       this.eventHistory.getEvents(EventType.ApplyBuff, {
-        searchBackwards: true,
         spell: SPELLS.HOT_STREAK,
       }).length || 0
     );

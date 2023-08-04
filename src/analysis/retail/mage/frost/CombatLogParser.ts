@@ -3,7 +3,7 @@ import {
   CancelledCasts,
   DivertedEnergy,
   ElementalBarrier,
-  GroundingSurge,
+  QuickWitted,
   MirrorImage,
   ShiftingPower,
   TempestBarrier,
@@ -82,7 +82,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Talents - Shared
     elementalBarrier: ElementalBarrier,
     divertedEnergy: DivertedEnergy,
-    groundingSurge: GroundingSurge,
+    quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
     shiftingPower: ShiftingPower,
     masterOfTime: MasterOfTime,

@@ -1,12 +1,10 @@
 import { Trans } from '@lingui/macro';
-import { MS_BUFFER_250 } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { ApplyBuffEvent, ApplyBuffStackEvent, RemoveBuffEvent } from 'parser/core/Events';
+import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -21,115 +19,91 @@ class FeelTheBurn extends Analyzer {
   protected abilityTracker!: AbilityTracker;
   protected eventHistory!: EventHistory;
 
-  bonusDamage = 0;
-  buffStack = 0;
-  maxStackTimestamp = 0;
-  maxStackDuration = 0;
-  totalBuffs = 0;
-  combustionCount = 0;
-  isSKBCombust = false;
-  totalCombustionDuration = 0;
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT);
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FEEL_THE_BURN_BUFF),
-      this.onBuffStack,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustionApplied,
-    );
-    this.addEventListener(
-      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FEEL_THE_BURN_BUFF),
-      this.onBuffStack,
-    );
-    this.addEventListener(
-      Events.removebuff
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.FEEL_THE_BURN_BUFF, TALENTS.COMBUSTION_TALENT]),
-      this.onBuffRemoved,
-    );
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.onCombustionRemoved,
-    );
   }
 
-  onBuffStack(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    const buff = this.selectedCombatant.getBuff(SPELLS.FEEL_THE_BURN_BUFF.id);
-    if (buff && buff.stacks > this.buffStack) {
-      this.buffStack = buff.stacks;
-      this.maxStackTimestamp = this.buffStack === MAX_STACKS ? event.timestamp : 0;
-    }
-  }
+  maxStackTimestamps = () => {
+    const maxStackDurations: { start: number; end: number }[] = [];
+    const buffHistory = this.selectedCombatant.getBuffHistory(SPELLS.FEEL_THE_BURN_BUFF.id);
+    let index = 0;
+    buffHistory.forEach((b) => {
+      const maxStack = b.stackHistory.find((s) => s.stacks === MAX_STACKS);
+      if (maxStack) {
+        maxStackDurations[index] = {
+          start: maxStack.timestamp,
+          end: b.end || this.owner.fight.end_time,
+        };
+        index += 1;
+      }
+    });
+    return maxStackDurations;
+  };
 
-  onCombustionApplied(event: ApplyBuffEvent) {
-    //If Combustion is already active (i.e. they extended Combustion with SKB), ignore it
-    //If Combustion ended within the last 3 seconds (i.e. they triggered SKB with enough time to bridge Infernal Cascade from one Combustion to the other), ignore it
-    const lastCombustEnd = this.eventHistory.last(
-      1,
-      3000,
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-    );
-    if (
-      this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, event.timestamp - 10) ||
-      lastCombustEnd.length > 0
-    ) {
-      return;
-    }
+  combustionTimestamps = () => {
+    const combustionDurations: { start: number; end: number }[] = [];
+    const combustionStarts = this.eventHistory.getEvents(EventType.ApplyBuff, {
+      spell: TALENTS.COMBUSTION_TALENT,
+    });
+    let index = 0;
+    combustionStarts.forEach((c) => {
+      const endTimestamp = this.eventHistory.getEvents(EventType.RemoveBuff, {
+        searchBackwards: false,
+        spell: TALENTS.COMBUSTION_TALENT,
+        startTimestamp: c.timestamp,
+        count: 1,
+      })[0];
+      combustionDurations[index] = {
+        start: c.timestamp,
+        end: endTimestamp ? endTimestamp.timestamp : this.owner.fight.end_time,
+      };
+      index += 1;
+    });
+    return combustionDurations;
+  };
 
-    const lastCombustStart = this.eventHistory.last(
-      1,
-      MS_BUFFER_250,
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-    );
-    if (lastCombustStart.length === 0) {
-      this.isSKBCombust = true;
-    }
-  }
+  totalCombustionDuration = () => {
+    let totalDuration = 0;
+    this.combustionTimestamps().forEach((c) => (totalDuration += c.end - c.start));
+    return totalDuration;
+  };
 
-  onCombustionRemoved(event: RemoveBuffEvent) {
-    //If the combustion was marked as an SKB Combustion, disregard
-    if (this.isSKBCombust) {
-      return;
-    }
-    const lastCombustStart = this.eventHistory.last(
-      1,
-      undefined,
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-    );
-    this.totalCombustionDuration +=
-      event.timestamp - (lastCombustStart[0]?.timestamp ?? this.owner.fight.start_time);
-  }
+  //prettier-ignore
+  maxStacksDuration = () => {
+    let duration = 0;
+    this.maxStackTimestamps().forEach((s) => {
+      //If Combustion started while Feel the Burn was at max stacks
+      //Count duration from Combustion Start until Combustion End or Feel the Burn End, whichever is sooner.
+      if (this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end)) {
+        const combustions = this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0};
+        combustions.forEach(c => duration += Math.min(c.end, s.end) - c.start);
+      }
 
-  onBuffRemoved(event: RemoveBuffEvent) {
-    //If the Combustion was marked as an SKB Combustion or IC was not at max stacks, then disregard
-    if (this.buffStack !== MAX_STACKS || this.isSKBCombust) {
-      return;
-    }
-
-    this.maxStackDuration += event.timestamp - this.maxStackTimestamp;
-    this.maxStackTimestamp = 0;
-    this.buffStack = 0;
-    this.isSKBCombust = false;
+      //If Combustion was already running when Feel the Burn reached max stacks
+      //Count duration from Feel the Burn Start until Combustion End or Feel the Burn End, whichever is sooner
+      if (this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end)) {
+        const combustions = this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0};
+        combustions.forEach(c => duration += Math.min(c.end, s.end) - s.start);
+      }
+    })
+    return duration;
   }
 
   get averageDuration() {
     return (
-      this.maxStackDuration /
+      this.maxStacksDuration() /
       1000 /
       this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
 
   get maxStackPercent() {
-    return this.maxStackDuration / this.totalCombustionDuration;
+    return this.maxStacksDuration() / this.totalCombustionDuration();
   }
 
   get downtimeSeconds() {
-    return (this.totalCombustionDuration - this.maxStackDuration) / 1000;
+    return this.totalCombustionDuration() - this.maxStacksDuration() / 1000;
   }
 
   get maxStackUptimeThresholds() {
@@ -150,16 +124,18 @@ class FeelTheBurn extends Analyzer {
         <>
           Your <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> buff was at {MAX_STACKS} stacks
           for {formatPercentage(this.maxStackPercent)}% of your Combustion Uptime. Because so much
-          of your damage comes from your Combustion, it is important that you adjust your rotation
-          to maintain {MAX_STACKS} stacks of <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> for
-          as much of your <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> as possible. This can be
-          done by alternating between using <SpellLink spell={SPELLS.FIRE_BLAST} /> and{' '}
-          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> to generate{' '}
-          <SpellLink spell={SPELLS.HOT_STREAK} /> instead of using all the charges of one, and then
-          all the charges of the other. <SpellLink spell={TALENTS.COMBUSTION_TALENT} />s that were
-          proc'd by <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> are not included in
-          this, unless you used the proc to extend an existing{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
+          of your damage comes from your Combustion, it is important that you build up and maintain{' '}
+          {MAX_STACKS} stacks of <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> for as much of
+          your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> as possible. Casting{' '}
+          <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
+          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> will give you stacks of{' '}
+          <SpellLink id={SPELLS.FEEL_THE_BURN_BUFF.id} />, so just avoid running out of charges of
+          those spells or long gaps without casting one of those spells during{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. Additionally, if you are chaining{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> into{' '}
+          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} />, make sure you have adequate
+          charges to bridge your buff stacks from one{' '}
+          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> to the other.
         </>,
       )
         .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)

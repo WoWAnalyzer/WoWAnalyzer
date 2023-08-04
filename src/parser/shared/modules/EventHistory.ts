@@ -175,7 +175,7 @@ class EventHistory extends Module {
   getEvents<ET extends EventType>(
     eventType: ET,
     {
-      searchBackwards,
+      searchBackwards = true,
       spell,
       count,
       startTimestamp,
