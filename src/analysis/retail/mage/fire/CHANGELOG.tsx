@@ -6,6 +6,8 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 3), <>Fixed an issue that was causing <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> to not check every <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.</>, Sharrq),
+  change(date(2023, 8, 3), <>Added warning to not use <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /></>, Sharrq),
   change(date(2023, 8, 2), <>Marked the spec supported for 10.1.5</>, Sharrq),
   change(date(2023, 8, 2), <>Added support for <SpellLink spell={TALENTS.UNLEASHED_INFERNO_TALENT} /></>, Sharrq),
   change(date(2023, 8, 2), <>Added tracking for wasted <SpellLink spell={SPELLS.HOT_STREAK} /> uses while <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> was ready</>, Sharrq),

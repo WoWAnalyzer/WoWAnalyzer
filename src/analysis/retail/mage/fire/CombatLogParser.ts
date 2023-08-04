@@ -39,6 +39,7 @@ import Kindling from './talents/Kindling';
 import MeteorCombustion from './talents/MeteorCombustion';
 import SearingTouch from './talents/SearingTouch';
 import Meteor from './talents/Meteor';
+import LivingBomb from './talents/LivingBomb';
 
 //Items
 import CharringEmbers from './items/CharringEmbers';
@@ -85,6 +86,7 @@ class CombatLogParser extends CoreCombatLogParser {
     shiftingPowerUsage: ShiftingPowerUsage,
     feelTheBurn: FeelTheBurn,
     meteor: Meteor,
+    livingBomb: LivingBomb,
 
     //Items - Fire
     charringEmbers: CharringEmbers,
