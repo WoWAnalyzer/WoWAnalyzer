@@ -64,9 +64,9 @@ class FeelTheBurn extends Analyzer {
   };
 
   totalCombustionDuration = () => {
-    let combustionDuration = 0;
-    this.combustionTimestamps().forEach((c) => (combustionDuration += c.end - c.start));
-    return combustionDuration;
+    let totalDuration = 0;
+    this.combustionTimestamps().forEach((c) => (totalDuration += c.end - c.start));
+    return totalDuration;
   };
 
   //prettier-ignore
@@ -75,16 +75,16 @@ class FeelTheBurn extends Analyzer {
     this.maxStackTimestamps().forEach((s) => {
       //If Combustion started while Feel the Burn was at max stacks
       //Count duration from Combustion Start until Combustion End or Feel the Burn End, whichever is sooner.
-      if (this.combustionTimestamps().find(c => c.start >= s.start && c.start <= s.end)) {
-        const combustion = this.combustionTimestamps().find(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0};
-        duration += Math.min(combustion.end, s.end) - combustion.start;
+      if (this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end)) {
+        const combustions = this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0};
+        combustions.forEach(c => duration += Math.min(c.end, s.end) - c.start);
       }
 
       //If Combustion was already running when Feel the Burn reached max stacks
       //Count duration from Feel the Burn Start until Combustion End or Feel the Burn End, whichever is sooner
-      if (this.combustionTimestamps().find(c => s.start >= c.start && s.start <= c.end)) {
-        const combustion = this.combustionTimestamps().find(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0};
-        duration += Math.min(combustion.end, s.end) - s.start;
+      if (this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end)) {
+        const combustions = this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0};
+        combustions.forEach(c => duration += Math.min(c.end, s.end) - s.start);
       }
     })
     return duration;
