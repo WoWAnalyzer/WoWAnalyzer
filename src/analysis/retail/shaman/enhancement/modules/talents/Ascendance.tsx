@@ -24,6 +24,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import Uptime from 'interface/icons/Uptime';
+import typedKeys from 'common/typedKeys';
 
 const NonMissedCastSpells = [
   TALENTS_SHAMAN.SUNDERING_TALENT.id,
@@ -381,8 +382,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         return group;
       }, {});
 
-    const fillerSpellsList = Object.keys(fillerSpells).map((k) => {
-      const spellId = Number(k);
+    const fillerSpellsList = typedKeys(fillerSpells).map((spellId) => {
       const casts = fillerSpells[spellId];
       return (
         <>

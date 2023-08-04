@@ -15,6 +15,7 @@ export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
 export const PRIMORDIAL_WAVE_FREE_LIGHTNING_BOLTS = 'primordial-wave-auto-cast';
 export const STORMSTRIKE_LINK = 'stormstrike';
 export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
+export const MAELSTROM_WEAPON_SPEND_LINK = 'maelstrom-spender';
 
 const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
   (spell) => spell.id,

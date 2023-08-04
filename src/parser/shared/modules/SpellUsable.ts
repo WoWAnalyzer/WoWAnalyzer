@@ -16,6 +16,8 @@ import Events, {
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import Haste from './Haste';
+import StatTracker from './StatTracker';
 
 const DEBUG = false;
 
@@ -55,9 +57,13 @@ class SpellUsable extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
     abilities: Abilities,
+    haste: Haste,
+    statTracker: StatTracker,
   };
   protected eventEmitter!: EventEmitter;
   protected abilities!: Abilities;
+  protected haste!: Haste;
+  protected statTracker!: StatTracker;
 
   /** Trackers for currently active cooldowns.
    *  Spells that aren't on cooldown won't have an entry in this mapping */
@@ -225,27 +231,16 @@ class SpellUsable extends Analyzer {
       // end cooldown and begin cooldown to represent what happened
       const remainingCooldown = cdInfo.expectedEnd - triggeringEvent.timestamp;
       if (remainingCooldown > COOLDOWN_LAG_MARGIN) {
-        console.error(
-          'Cooldown error - ' +
-            spellName(cdSpellId) +
-            ' ID=' +
-            cdSpellId +
-            " was used while SpellUsable's tracker thought it had no available charges. " +
-            'This could happen due to missing haste buffs, missing CDR, missing reductions/resets, ' +
-            'or incorrect ability config.\n' +
-            'Expected time left on CD: ' +
-            remainingCooldown +
-            '\n' +
-            'Current Time: ' +
-            triggeringEvent.timestamp +
-            ' (' +
-            this.owner.formatTimestamp(triggeringEvent.timestamp, 3) +
-            ')' +
-            '\n' +
-            'CooldownInfo object before update: ' +
-            JSON.stringify(cdInfo) +
-            '\n',
-        );
+        console.error(`Cooldown error - ${spellName(
+          cdSpellId,
+        )} ID=${cdSpellId} was used while SpellUsable's tracker thought it had no available charges. This could happen due to missing haste buffs, missing CDR, missing reductions/resets, or incorrect ability config.
+Expected time left on CD: ${remainingCooldown}
+Current Time: ${triggeringEvent.timestamp} (${this.owner.formatTimestamp(
+          triggeringEvent.timestamp,
+          3,
+        )})
+Current Haste: ${formatPercentage(this.haste.current, 2)}% (${this.statTracker.currentHasteRating})
+CooldownInfo object before update: ${JSON.stringify(cdInfo)}`);
       }
 
       // trigger an end cooldown and then immediately a begin cooldown

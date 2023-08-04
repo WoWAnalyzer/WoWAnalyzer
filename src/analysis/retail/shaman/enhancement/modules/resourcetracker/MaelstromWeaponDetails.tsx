@@ -5,7 +5,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import TALENTS from 'common/TALENTS/shaman';
 
-class MaelstromWeaponDetails extends Analyzer {
+export default class extends Analyzer {
   static dependencies = {
     maelstromWeaponTracker: MaelstromWeaponTracker,
   };
@@ -36,5 +36,3 @@ class MaelstromWeaponDetails extends Analyzer {
     );
   }
 }
-
-export default MaelstromWeaponDetails;

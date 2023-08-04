@@ -99,14 +99,14 @@ export default class Tier30 extends Analyzer {
           <>
             <SpellLink spell={SPELLS.VOLCANIC_STRENGTH_TIER_BUFF} />
             <ul>
-              <li>
+              <li key="phys">
                 Physical damage: <strong>{formatNumber(this.extraPhysicalDamge)}</strong> (
                 {formatPercentage(
                   this.owner.getPercentageOfTotalDamageDone(this.extraPhysicalDamge),
                 )}
                 %)
               </li>
-              <li>
+              <li key="fire">
                 Fire damage: <strong>{formatNumber(this.extraFireDamage)}</strong> (
                 {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.extraFireDamage))}
                 %)
@@ -115,7 +115,7 @@ export default class Tier30 extends Analyzer {
             <SpellLink spell={SPELLS.CRACKLING_THUNDER_TIER_BUFF} />{' '}
             <small>does not include damage gained from refunded maelstrom</small>
             <ul>
-              <li>
+              <li key="chl">
                 Chain Lightning: <strong>{formatNumber(this.extraChainLightningDamage)}</strong> (
                 {formatPercentage(
                   this.owner.getPercentageOfTotalDamageDone(this.extraChainLightningDamage),

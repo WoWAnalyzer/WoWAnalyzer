@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/shaman';
+import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { suggestion } from 'parser/core/Analyzer';
 import { AnyEvent } from 'parser/core/Events';
 import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
@@ -27,21 +27,19 @@ export const apl = (info: PlayerInfo): Apl => {
   const combatant = info.combatant;
   const rules: Rule[] = [];
 
-  if (combatant.hasTalent(TALENTS.LASHING_FLAMES_TALENT)) {
+  combatant.hasTalent(TALENTS.LASHING_FLAMES_TALENT) &&
     rules.push({
       spell: SPELLS.FLAME_SHOCK,
       condition: debuffMissing(SPELLS.FLAME_SHOCK),
     });
-  }
 
   rules.push({
     spell: SPELLS.WINDSTRIKE_CAST,
     condition: buffPresent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT),
   });
 
-  if (combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+  combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) &&
     rules.push(TALENTS.STORMSTRIKE_TALENT);
-  }
 
   rules.push({
     spell: TALENTS.LAVA_LASH_TALENT,
@@ -53,12 +51,11 @@ export const apl = (info: PlayerInfo): Apl => {
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
       condition: atLeastFiveMSW,
     });
-    if (!combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT)) {
+    !combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT) &&
       rules.push({
         spell: TALENTS.LAVA_BURST_TALENT,
         condition: atLeastFiveMSW,
       });
-    }
     rules.push({
       spell: SPELLS.LIGHTNING_BOLT,
       condition: combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT)
@@ -101,43 +98,47 @@ export const apl = (info: PlayerInfo): Apl => {
         ),
       },
       {
+        spell: TALENTS.LAVA_BURST_TALENT,
+        condition: atLeastFiveMSW,
+      },
+      {
         spell: SPELLS.LIGHTNING_BOLT,
         condition: maxStacksMSW,
       },
     );
   }
 
-  if (combatant.hasTalent(TALENTS.ICE_STRIKE_TALENT)) {
-    rules.push({
-      spell: TALENTS.ICE_STRIKE_TALENT,
-      condition: buffPresent(TALENTS.DOOM_WINDS_TALENT),
-    });
-  }
-  if (combatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT)) {
-    rules.push({
-      spell: TALENTS.CRASH_LIGHTNING_TALENT,
-      condition: buffPresent(TALENTS.DOOM_WINDS_TALENT),
-    });
+  if (combatant.hasTalent(TALENTS_SHAMAN.DOOM_WINDS_TALENT)) {
+    rules.push(
+      {
+        spell: TALENTS.ICE_STRIKE_TALENT,
+        condition: buffPresent(TALENTS.DOOM_WINDS_TALENT),
+      },
+      {
+        spell: TALENTS.CRASH_LIGHTNING_TALENT,
+        condition: buffPresent(TALENTS.DOOM_WINDS_TALENT),
+      },
+    );
   }
 
-  rules.push(
-    {
+  !combatant.hasTalent(TALENTS.LASHING_FLAMES_TALENT) &&
+    rules.push({
       spell: SPELLS.FLAME_SHOCK,
       condition: debuffMissing(SPELLS.FLAME_SHOCK),
-    },
+    });
+
+  rules.push(
+    TALENTS.ICE_STRIKE_TALENT,
     {
       spell: TALENTS.FROST_SHOCK_TALENT,
       condition: buffPresent(SPELLS.HAILSTORM_BUFF),
     },
     TALENTS.LAVA_LASH_TALENT,
-    TALENTS.ICE_STRIKE_TALENT,
   );
 
-  if (!combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
+  !combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) &&
     rules.push(TALENTS.STORMSTRIKE_TALENT);
-  }
-
-  if (combatant.hasTalent(TALENTS.HAILSTORM_TALENT)) {
+  combatant.hasTalent(TALENTS.HAILSTORM_TALENT) &&
     rules.push({
       spell: SPELLS.LIGHTNING_BOLT,
       condition: describe(and(atLeastFiveMSW, buffMissing(TALENTS.HAILSTORM_TALENT)), () => (
@@ -147,25 +148,19 @@ export const apl = (info: PlayerInfo): Apl => {
         </>
       )),
     });
-  }
 
-  rules.push(TALENTS.FROST_SHOCK_TALENT);
-
-  if (combatant.hasTalent(TALENTS.CRASH_LIGHTNING_TALENT)) {
-    rules.push(TALENTS.CRASH_LIGHTNING_TALENT);
-  }
-
-  if (
-    !combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT) &&
-    !combatant.hasTalent(TALENTS.HAILSTORM_TALENT)
-  ) {
+  !combatant.hasTalent(TALENTS.HAILSTORM_TALENT) && rules.push(TALENTS.FROST_SHOCK_TALENT);
+  rules.push(TALENTS.CRASH_LIGHTNING_TALENT);
+  !combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT) &&
+    !combatant.hasTalent(TALENTS.HAILSTORM_TALENT) &&
     rules.push({
       spell: SPELLS.LIGHTNING_BOLT,
       condition: atLeastFiveMSW,
     });
-  }
 
-  return build(rules);
+  const apl = build(rules);
+
+  return apl;
 };
 
 export const check = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
