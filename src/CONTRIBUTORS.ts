@@ -2239,3 +2239,8 @@ export const Awildfivreld: Contributor = {
   nickname: 'Awildfivreld',
   github: 'awildfivreld',
 };
+
+export const Melnais: Contributor = {
+  nickname: 'Melnais',
+  github: 'agrabovskis',
+};

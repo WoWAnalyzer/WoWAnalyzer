@@ -1,7 +1,9 @@
 import { change, date } from 'common/changelog';
 import { jazminite } from 'CONTRIBUTORS';
+import { Melnais } from 'CONTRIBUTORS';
 
 export default [
+  change(date(2023, 8, 4), 'Add Decimation to timeline', Melnais),
   change(date(2023, 7, 6), 'Add Guide Procs subsection + set guide to default view.', jazminite),
   change(date(2023, 6, 9), 'Add Guide Cooldowns Graph subsection.', jazminite),
   change(date(2023, 5, 7), 'Updates to Guide Core section + added Spells subsection.', jazminite),
