@@ -8,19 +8,18 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Events, { ApplyBuffEvent, DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamageFromCritIncrease } from 'parser/core/EventCalculateLib';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const ANCIENT_MADNESS_CRIT_INCREASE = 0.1; //Starts by giving 10% crit
 const ANCEINT_MADNESS_CRIT_DECREASE_PER_SECOND = 0.005; //Reduces by 0.5% per second
-/**
- * Ranged auto-attacks have a 15% chance to increase the critical strike chance of your next Arcane Shot or Multi-Shot by 100%.
- */
+
 class AncientMadness extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
 
   totalDamage: number = 0;
-  startTime = 0;
+  startTime: number = 0;
 
   protected statTracker!: StatTracker;
 
@@ -43,7 +42,7 @@ class AncientMadness extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (event.hitType === 2) {
+    if (event.hitType === HIT_TYPES.CRIT) {
       //only crit events should be sent to effectiveDamageFromCritIncrease,
       const timeSinceCast = Math.floor((event.timestamp - this.startTime) / 1000); //time since buff activation rounded to nearest second.
       const currentCritIncrease =
@@ -61,11 +60,7 @@ class AncientMadness extends Analyzer {
 
   statistic() {
     return (
-      <Statistic
-        category={STATISTIC_CATEGORY.TALENTS}
-        size="flexible"
-        tooltip="The damage displayed is the additional damage you gained from taking this talent."
-      >
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spell={SPELLS.ANCIENT_MADNESS_TALENT}>
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
