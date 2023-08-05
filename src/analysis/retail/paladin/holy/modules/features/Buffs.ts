@@ -64,9 +64,6 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.DIVINE_PROTECTION.id,
       },
       {
-        spellId: SPELLS.DIVINE_PROTECTION.id,
-      },
-      {
         spellId: SPELLS.DIVINE_SHIELD.id,
       },
       {
