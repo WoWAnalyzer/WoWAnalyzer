@@ -131,10 +131,35 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
     );
   }
 
+  /**
+   * Prevents the relinking of an event that is already linked for a given reason
+   * @returns True if event is already linked
+   */
+  private _alreadyLinked(
+    el: EventLink,
+    linkingEvent: AnyEvent,
+    referencedEvent: AnyEvent,
+  ): boolean {
+    return Boolean(
+      linkingEvent._linkedEvents?.find((alreadyLinkedEvent) => {
+        // Do a reference check. If its the same refernece, its already linked
+        return (
+          alreadyLinkedEvent.event === referencedEvent &&
+          el.linkRelation === alreadyLinkedEvent.relation
+        );
+      }),
+    );
+  }
+
   /** checks that the referenced event matches the criteria and that the linking and
    * referenced events match each other, then adds the link(s).
    * Returns 1 iff a link is added, and 0 if not. */
   private _checkAndLink(el: EventLink, linkingEvent: AnyEvent, referencedEvent: AnyEvent): number {
+    // Make sure we don't already have this event linked
+    if (this._alreadyLinked(el, linkingEvent, referencedEvent)) {
+      return 0;
+    }
+
     if (
       this._isReferenced(el, referencedEvent) &&
       this._sourceCheck(el, linkingEvent, referencedEvent) &&

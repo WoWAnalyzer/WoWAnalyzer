@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 4), <>Added additional checks to make sure EventLinkedNormalizer doens't re-add the same events.</>,  Abelito75),
   change(date(2023, 7, 31), <>Add enchantment check for <ItemLink id={ITEMS.SHADOWED_BELT_CLASP_R3.id} />.</>,  ToppleTheNun),
   change(date(2023, 7, 29), 'Fix another issue loading parses using character search', emallson),
   change(date(2023, 7, 29), 'Fix an issue loading parses using character search', Putro),
