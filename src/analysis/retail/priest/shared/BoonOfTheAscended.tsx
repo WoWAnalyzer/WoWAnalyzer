@@ -339,7 +339,7 @@ class BoonOfTheAscended extends Analyzer {
   //       }
   //       category={STATISTIC_CATEGORY.COVENANTS}
   //     >
-  //       <BoringSpellValueText spellId={SPELLS.BOON_OF_THE_ASCENDED.id}>
+  //       <BoringSpellValueText spell={SPELLS.BOON_OF_THE_ASCENDED.id}>
   //         <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} />
   //         <br />
   //         <ItemDamageDone amount={this.totalDamage} />

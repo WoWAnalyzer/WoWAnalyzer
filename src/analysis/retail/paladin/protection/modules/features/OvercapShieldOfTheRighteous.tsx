@@ -145,7 +145,7 @@ class OvercapShieldOfTheRighteous extends Analyzer {
           }
         >
           <BoringSpellValue
-            spellId={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
+            spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
             value={`${formatNumber(lostUptimeDueToOvercap / SECOND)}s`}
             label="Uptime lost to overcapping"
           />

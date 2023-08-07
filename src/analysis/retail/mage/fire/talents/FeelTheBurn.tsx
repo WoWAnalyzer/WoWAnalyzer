@@ -125,17 +125,17 @@ class FeelTheBurn extends Analyzer {
           Your <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> buff was at {MAX_STACKS} stacks
           for {formatPercentage(this.maxStackPercent)}% of your Combustion Uptime. Because so much
           of your damage comes from your Combustion, it is important that you build up and maintain{' '}
-          {MAX_STACKS} stacks of <SpellLink id={TALENTS.FEEL_THE_BURN_TALENT.id} /> for as much of
-          your <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> as possible. Casting{' '}
-          <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
-          <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> will give you stacks of{' '}
-          <SpellLink id={SPELLS.FEEL_THE_BURN_BUFF.id} />, so just avoid running out of charges of
-          those spells or long gaps without casting one of those spells during{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. Additionally, if you are chaining{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> into{' '}
-          <SpellLink id={TALENTS.SUN_KINGS_BLESSING_TALENT.id} />, make sure you have adequate
+          {MAX_STACKS} stacks of <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT.id} /> for as much
+          of your <SpellLink spell={TALENTS.COMBUSTION_TALENT.id} /> as possible. Casting{' '}
+          <SpellLink spell={SPELLS.FIRE_BLAST.id} /> or{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT.id} /> will give you stacks of{' '}
+          <SpellLink spell={SPELLS.FEEL_THE_BURN_BUFF.id} />, so just avoid running out of charges
+          of those spells or long gaps without casting one of those spells during{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT.id} />. Additionally, if you are chaining{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT.id} /> into{' '}
+          <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT.id} />, make sure you have adequate
           charges to bridge your buff stacks from one{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> to the other.
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT.id} /> to the other.
         </>,
       )
         .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)

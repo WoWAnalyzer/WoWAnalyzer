@@ -124,7 +124,7 @@ class GrandCrusader extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.GRAND_CRUSADER_TALENT.id}
+          spell={TALENTS.GRAND_CRUSADER_TALENT.id}
           value={`${this.gcProcs - gcJProcs} Resets`}
           label="Grand Crusader"
         />

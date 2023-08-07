@@ -45,7 +45,7 @@ class ElementalConduit extends Analyzer {
   //       size="flexible"
   //       category={STATISTIC_CATEGORY.ITEMS}
   //     >
-  //       <BoringSpellValueText spellId={SPELLS.ELEMENTAL_CONDUIT.id}>
+  //       <BoringSpellValueText spell={SPELLS.ELEMENTAL_CONDUIT.id}>
   //         <CooldownIcon /> {formatDuration(this.totalCdrGained)}s{' '}
   //         <small> of Chain Harvest CDR</small>
   //         <br />
