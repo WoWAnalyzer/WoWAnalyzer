@@ -31,6 +31,7 @@ import Punish from './modules/spells/Punish';
 import WarMachine from './modules/spells/WarMachine';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
+import RavagerHitCheck from './modules/spells/RavagerHitCheck';
 
 //legendaries
 
@@ -73,6 +74,7 @@ class CombatLogParser extends CoreCombatLogParser {
     violentOutburstTimeBetweenBuffs: ViolentOutburstTimeBetweenBuffs,
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
+    ravagerHitCheck: RavagerHitCheck,
   };
 }
 
