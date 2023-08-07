@@ -175,7 +175,7 @@ class VanishFindWeakness extends Analyzer {
           }
         >
           <BoringSpellValue
-            spellId={SPELLS.VANISH.id}
+            spell={SPELLS.VANISH.id}
             value={`${this.badVanishCasts.size} bad casts`}
             label="Bad casts regarding Find Weakness"
           />

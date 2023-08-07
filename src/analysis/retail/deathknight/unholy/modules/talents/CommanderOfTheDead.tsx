@@ -104,7 +104,7 @@ class CommanderOfTheDead extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id}>
           <>
             {formatPercentage(this.averageSummonBuffed)}%{' '}
             <small>of pets buffed with Commander of the Dead</small>

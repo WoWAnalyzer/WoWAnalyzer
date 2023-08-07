@@ -199,15 +199,15 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
       {/*  <Rule*/}
       {/*    name={*/}
       {/*      <>*/}
-      {/*        Fixate spirits to benefit from <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} />*/}
+      {/*        Fixate spirits to benefit from <SpellLink spell={SPELLS.COORDINATED_OFFENSIVE.id} />*/}
       {/*      </>*/}
       {/*    }*/}
       {/*    description={*/}
       {/*      <>*/}
-      {/*        If you choose to use the <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> conduit,*/}
-      {/*        you need to use <SpellLink id={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to gain the*/}
+      {/*        If you choose to use the <SpellLink spell={SPELLS.COORDINATED_OFFENSIVE.id} /> conduit,*/}
+      {/*        you need to use <SpellLink spell={SPELLS.STORM_EARTH_AND_FIRE_FIXATE.id} /> to gain the*/}
       {/*        damage bonus, even if there is only one target. You should fixate as soon as you have*/}
-      {/*        5 stacks of <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> or when all targets are*/}
+      {/*        5 stacks of <SpellLink spell={SPELLS.MARK_OF_THE_CRANE.id} /> or when all targets are*/}
       {/*        marked.*/}
       {/*      </>*/}
       {/*    }*/}
@@ -215,7 +215,7 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
       {/*    <Requirement*/}
       {/*      name={*/}
       {/*        <>*/}
-      {/*          Percentage of possible <SpellLink id={SPELLS.COORDINATED_OFFENSIVE.id} /> damage*/}
+      {/*          Percentage of possible <SpellLink spell={SPELLS.COORDINATED_OFFENSIVE.id} /> damage*/}
       {/*        </>*/}
       {/*      }*/}
       {/*      thresholds={thresholds.coordinatedOffensiveDamageBenefit}*/}

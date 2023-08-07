@@ -40,7 +40,7 @@ class LightOfDawn extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(60)} size="small">
         <BoringSpellValue
-          spellId={TALENTS.LIGHT_OF_DAWN_TALENT.id}
+          spell={TALENTS.LIGHT_OF_DAWN_TALENT.id}
           value={playersHitPerCast.toFixed(2)}
           label={
             <Trans id="paladin.holy.modules.lightOfDawn.avgHitPerCast">
