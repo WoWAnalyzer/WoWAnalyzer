@@ -562,6 +562,13 @@ const spells = {
     name: 'Strike Vulnerabilities',
     icon: 'ability_criticalstrike',
   },
+
+  // Talent in here so SpellLink doesn't return Unknown
+  IMPENETRABLE_WALL_TALENT: {
+    id: 384072,
+    name: 'Impenetrable Wall',
+    icon: 'ability_warrior_shieldguard',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
