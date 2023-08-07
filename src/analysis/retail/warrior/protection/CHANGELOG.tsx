@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 7), <>Updated Rage Tracker to more accurately track <SpellLink spell={TALENTS_WARRIOR.HEAVY_REPERCUSSIONS_TALENT} /> and <SpellLink spell={TALENTS_WARRIOR.IMPENETRABLE_WALL_TALENT}/> while also adding <SpellLink spell={TALENTS_WARRIOR.UNNERVING_FOCUS_TALENT}/> </>, Abelito75),
   change(date(2023, 8, 6), <>Updated <SpellLink spell={TALENTS_WARRIOR.HEAVY_REPERCUSSIONS_TALENT}/> rage generation</>, Abelito75),
   change(date(2023, 8, 6), <>Added <SpellLink spell={TALENTS_WARRIOR.RAVAGER_TALENT}/> hit checker</>, Abelito75),
   change(date(2023, 8, 6), <>Hide <SpellLink spell={TALENTS_WARRIOR.BATTLE_STANCE_TALENT}/>, <SpellLink spell={SPELLS.HEROIC_THROW}/>, <SpellLink spell={SPELLS.HAMSTRING}/>, <SpellLink spell={SPELLS.BATTLE_SHOUT}/>, <SpellLink spell={TALENTS_WARRIOR.HEROIC_LEAP_TALENT}/> and <SpellLink spell={TALENTS_WARRIOR.CHALLENGING_SHOUT_TALENT}/> </>, Abelito75),

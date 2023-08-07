@@ -9,10 +9,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 
-import RageTracker from '../core/RageTracker';
-
 const REDUCTION = 5000;
-const EXTRA_RAGE = 5;
 
 /**
  * Whenever you cast a shield slam reduce shield wall by 5 second and gain 3 extra rage.
@@ -20,11 +17,9 @@ const EXTRA_RAGE = 5;
 class ImpenetrableWall extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    rageTracker: RageTracker,
   };
 
   protected spellUsable!: SpellUsable;
-  protected rageTracker!: RageTracker;
 
   effectiveCDR = 0;
   wastedCDR = 0;
@@ -50,14 +45,6 @@ class ImpenetrableWall extends Analyzer {
     } else {
       this.wastedCDR += REDUCTION;
     }
-
-    if (this.rageTracker.maxResource > this.rageTracker.current + EXTRA_RAGE) {
-      this.effectiveRage += 3;
-    } else {
-      const effective = this.rageTracker.maxResource - this.rageTracker.current;
-      this.effectiveRage += effective;
-      this.wastedRage += EXTRA_RAGE - effective;
-    }
   }
 
   statistic() {
@@ -66,15 +53,9 @@ class ImpenetrableWall extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            Wasted Rage: {this.wastedRage} <br />
-            Wasted CDR: {formatDuration(this.wastedCDR)}
-          </>
-        }
+        tooltip={<>Wasted CDR: {formatDuration(this.wastedCDR)}</>}
       >
         <BoringSpellValueText spell={TALENTS.IMPENETRABLE_WALL_TALENT}>
-          {this.effectiveRage} <small>rage</small> <br />
           {formatDuration(this.effectiveCDR)} <small>cdr</small>
         </BoringSpellValueText>
       </Statistic>

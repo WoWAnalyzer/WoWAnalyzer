@@ -32,11 +32,15 @@ import WarMachine from './modules/spells/WarMachine';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import RavagerHitCheck from './modules/spells/RavagerHitCheck';
+import RageGenerationNormalizer from './normalizers/RageGenerationNormalizer';
 
 //legendaries
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
+    // Normalizer
+    rageGenerationNormalizer: RageGenerationNormalizer,
+
     // Core
     haste: Haste,
     mitigationCheck: MitigationCheck,
