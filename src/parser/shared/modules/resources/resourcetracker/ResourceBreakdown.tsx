@@ -105,7 +105,7 @@ class ResourceBreakdown extends Component<Props> {
                 </td>
                 <td style={numberColumnStyle}>{totalGenerated.toFixed(0)}</td>
                 <td></td>
-                <td style={numberColumnStyle}>{totalWasted}</td>
+                <td style={numberColumnStyle}>{totalWasted.toFixed(0)}</td>
                 <td></td>
               </tr>
             )}

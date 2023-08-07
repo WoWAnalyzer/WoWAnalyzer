@@ -28,7 +28,6 @@ import BoomingVoice from './modules/spells/BoomingVoice';
 import HeavyRepercussions from './modules/spells/HeavyRepercussions';
 import IntoTheFray from './modules/spells/IntoTheFray';
 import Punish from './modules/spells/Punish';
-import WarMachine from './modules/spells/WarMachine';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import RavagerHitCheck from './modules/spells/RavagerHitCheck';
@@ -70,7 +69,6 @@ class CombatLogParser extends CoreCombatLogParser {
     boomingVoice: BoomingVoice,
     heavyRepercussions: HeavyRepercussions,
     intoTheFray: IntoTheFray,
-    warMachine: WarMachine,
     punish: Punish,
     impenetrableWall: ImpenetrableWall,
     thunderlord: Thunderlord,

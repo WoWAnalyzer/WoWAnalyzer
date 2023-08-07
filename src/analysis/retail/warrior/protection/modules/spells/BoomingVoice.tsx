@@ -1,5 +1,4 @@
 import { defineMessage } from '@lingui/macro';
-import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -38,7 +37,7 @@ class BoomingVoice extends Analyzer {
       this.onShoutCast,
     );
     this.addEventListener(
-      Events.resourcechange.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
+      Events.resourcechange.to(SELECTED_PLAYER).spell(TALENTS.BOOMING_VOICE_TALENT),
       this.onShoutEnergize,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
@@ -110,23 +109,16 @@ class BoomingVoice extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            {formatNumber(this.bonusDmg)} damage contributed
-            <br />
-            {this.rageWasted} Rage wasted
-          </>
-        }
       >
         <BoringValueText
           label={
             <>
-              <SpellLink spell={TALENTS.BOOMING_VOICE_TALENT} /> Rage generated
+              <SpellLink spell={TALENTS.BOOMING_VOICE_TALENT} /> Damage
             </>
           }
         >
           <>
-            {this.rageGenerated} <small>rage</small>
+            {this.owner.getPerSecond(this.bonusDmg).toFixed(2)} <small>DPS</small>
           </>
         </BoringValueText>
       </Statistic>
