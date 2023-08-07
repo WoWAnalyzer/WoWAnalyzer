@@ -12,7 +12,7 @@ import TALENTS from 'common/TALENTS/warrior';
 const REDUCTION = 5000;
 
 /**
- * Whenever you cast a shield slam reduce shield wall by 5 second and gain 3 extra rage.
+ * Whenever you cast a shield slam reduce shield wall by 5 second
  */
 class ImpenetrableWall extends Analyzer {
   static dependencies = {
@@ -23,9 +23,6 @@ class ImpenetrableWall extends Analyzer {
 
   effectiveCDR = 0;
   wastedCDR = 0;
-
-  effectiveRage = 0;
-  wastedRage = 0;
 
   constructor(options: Options) {
     super(options);

@@ -93,7 +93,7 @@ class HeavyRepercussions extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink spell={TALENTS.HEAVY_REPERCUSSIONS_TALENT} /> Extra Shield Block and Rage
+              <SpellLink spell={TALENTS.HEAVY_REPERCUSSIONS_TALENT} /> Extra Shield Block
             </>
           }
         >

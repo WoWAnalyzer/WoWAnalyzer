@@ -524,6 +524,11 @@ const spells = {
     name: 'Shield Wall',
     icon: 'ability_warrior_shieldwall',
   },
+  UNNERVING_FOCUS_BUFF: {
+    id: 384043,
+    name: 'Unnerving Focus',
+    icon: 'rogue_shadowfocus',
+  },
 
   //Passives
   DEEP_WOUNDS: {
