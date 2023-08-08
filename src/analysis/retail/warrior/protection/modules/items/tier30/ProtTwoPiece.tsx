@@ -79,7 +79,7 @@ class ImpenetrableWall extends Analyzer {
         tooltip={<></>}
       >
         <BoringValueText label="Heartfire Sentinel's Authority 2 Piece (T30 Set Bonus)">
-          <ItemCooldownReduction effective={this.effectiveCDR} waste={this.wastedCDR} />
+          <ItemCooldownReduction effective={this.effectiveCDR} waste={this.wastedCDR} /> <br />
           <ItemDamageDone amount={this.increasedDamage} />
         </BoringValueText>
       </Statistic>
