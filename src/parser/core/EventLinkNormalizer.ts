@@ -152,11 +152,14 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
 
   normalize(events: AnyEvent[]): AnyEvent[] {
     // check each event link directive
-    this.eventLinks.forEach((el: EventLink) => {
-      if (!el.isActive || el.isActive(this.selectedCombatant)) {
-        // loop through all events in order
-        events.forEach((event: AnyEvent, eventIndex: number) => {
-          // if we find a match of a linking ability
+    events.forEach((event: AnyEvent, eventIndex: number) => {
+      if (event._processedLinks) {
+        return;
+      }
+      // loop through all events in order
+      this.eventLinks.forEach((el: EventLink) => {
+        // if we find a match of a linking ability
+        if (!el.isActive || el.isActive(this.selectedCombatant)) {
           if (this._isLinking(el, event)) {
             let linksMade = 0;
             const maxLinks =
@@ -192,8 +195,9 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
               }
             }
           }
-        });
-      }
+        }
+      });
+      event._processedLinks = true;
     });
     return events;
   }
