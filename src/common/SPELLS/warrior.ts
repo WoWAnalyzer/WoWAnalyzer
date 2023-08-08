@@ -543,6 +543,16 @@ const spells = {
     name: 'Violent Outburst',
     icon: 'ability_warrior_furiousresolve',
   },
+  EARTHEN_TANCITY: {
+    id: 410218,
+    name: 'Earthen Tenacity',
+    icon: 'inv_misc_head_dragon_red',
+  },
+  EARTHEN_SMASH: {
+    id: 410219,
+    name: 'Earthen Smash',
+    icon: 'inv_misc_head_dragon_red',
+  },
 
   //Fatality talent is split into 3 IDs, the talent (703), and these two.
   FATAL_MARK_DEBUFF: {

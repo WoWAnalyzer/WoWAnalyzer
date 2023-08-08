@@ -11,6 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 const BOOMING_VOICE_DAMAGE_INCREASE = 0.2;
 const BOOMING_VOICE_RAGE_GENERATION = 30;
@@ -117,9 +118,7 @@ class BoomingVoice extends Analyzer {
             </>
           }
         >
-          <>
-            {this.owner.getPerSecond(this.bonusDmg).toFixed(2)} <small>DPS</small>
-          </>
+          <ItemDamageDone amount={this.bonusDmg} />
         </BoringValueText>
       </Statistic>
     );
