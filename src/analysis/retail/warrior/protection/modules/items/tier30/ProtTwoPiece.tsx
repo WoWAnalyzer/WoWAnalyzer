@@ -78,7 +78,7 @@ class ImpenetrableWall extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={<></>}
       >
-        <BoringValueText label="Heartfire Sentinel's Authority 2 Piece (T30 Set Bonus)">
+        <BoringValueText label="Fangs of the Vermillion Forge 2 Piece (T30 Set Bonus)">
           <ItemCooldownReduction effective={this.effectiveCDR} waste={this.wastedCDR} /> <br />
           <ItemDamageDone amount={this.increasedDamage} />
         </BoringValueText>

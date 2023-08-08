@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 7), <>Corrected Tier name</>, Abelito75),
   change(date(2023, 8, 7), <>Two and Four Piece, UI normalized</>, Abelito75),
   change(date(2023, 8, 7), <>Rage Tracker updates... Meeles included</>, Abelito75),
   change(date(2023, 8, 7), <>Updated Rage Tracker to more accurately track <SpellLink spell={TALENTS_WARRIOR.HEAVY_REPERCUSSIONS_TALENT} /> and <SpellLink spell={TALENTS_WARRIOR.IMPENETRABLE_WALL_TALENT}/> while also adding <SpellLink spell={TALENTS_WARRIOR.UNNERVING_FOCUS_TALENT}/> </>, Abelito75),
