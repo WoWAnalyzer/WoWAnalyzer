@@ -20,6 +20,7 @@ class InescapableTorment extends Analyzer {
   extension: number = 0;
   castTime: number = 0;
   MBExtension: BoxRowEntry[] = [];
+  recentIT: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -89,9 +90,13 @@ class InescapableTorment extends Analyzer {
 
   onDamage(event: DamageEvent) {
     this.damage += event.amount + (event.absorbed || 0);
-    this.extension +=
-      INESCAPABLE_TORMENT_EXTENSION *
-      this.selectedCombatant.getTalentRank(TALENTS.INESCAPABLE_TORMENT_TALENT);
+    //Inescapable Torment can hit 5 targets at once, but it only gives the extension for the first one hit.
+    if (event.timestamp !== this.recentIT) {
+      this.extension +=
+        INESCAPABLE_TORMENT_EXTENSION *
+        this.selectedCombatant.getTalentRank(TALENTS.INESCAPABLE_TORMENT_TALENT);
+    }
+    this.recentIT = event.timestamp;
   }
 
   statistic() {
