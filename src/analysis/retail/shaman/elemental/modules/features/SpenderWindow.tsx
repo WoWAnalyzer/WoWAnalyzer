@@ -70,8 +70,6 @@ class SpenderWindow extends Analyzer {
     enemies: Enemies,
   };
 
-  active: boolean;
-
   protected enemies!: Enemies;
 
   activeSpenderWindow: ActiveSpenderWindow | null = null;
