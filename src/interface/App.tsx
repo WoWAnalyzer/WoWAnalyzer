@@ -92,6 +92,7 @@ const Search = lazyLoadComponent(() =>
 const appRoutes = createRoutesFromElements(
   <Route path="/" element={<AppLayout />} errorElement={<RouterErrorBoundary />}>
     <Route path="character/:region/:realm/:name" element={<CharacterPage />} />
+    <Route path="character/:classic/:region/:realm/:name" element={<CharacterPage />} />
     <Route path="guild/:region/:realm/:name" element={<GuildPage />} />
     <Route path="report/:reportCode/:fightId?/:player?/:build?" element={<ReportLayout />}>
       <Route index element={<OverviewTab />} />

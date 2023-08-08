@@ -3,24 +3,37 @@ import { useParams } from 'react-router-dom';
 import DocumentTitle from 'interface/DocumentTitle';
 
 import CharacterParses from './CharacterParses';
+import ClassicParses from 'interface/classic/CharacterParses';
 import { usePageView } from './useGoogleAnalytics';
 
 const CharacterPage = () => {
-  const { region, realm, name } = useParams();
+  const { classic, region, realm, name } = useParams();
   const regionDecoded = decodeURI(region?.replace(/\+/g, ' ') ?? '').toUpperCase();
   const realmDecoded = decodeURI(realm?.replace(/\+/g, ' ') ?? '');
   const nameDecoded = decodeURI(name?.replace(/\+/g, ' ') ?? '');
   usePageView('CharacterPage');
 
-  return (
-    <>
-      <DocumentTitle title={`${nameDecoded}-${realmDecoded} (${regionDecoded})`} />
+  if (classic) {
+    return (
+      <>
+        <DocumentTitle title={`${nameDecoded}-${realmDecoded} (${regionDecoded})`} />
 
-      <NavigationBar />
+        <NavigationBar />
 
-      <CharacterParses region={regionDecoded} realm={realmDecoded} name={nameDecoded} />
-    </>
-  );
+        <ClassicParses region={regionDecoded} realm={realmDecoded} name={nameDecoded} />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <DocumentTitle title={`${nameDecoded}-${realmDecoded} (${regionDecoded})`} />
+
+        <NavigationBar />
+
+        <CharacterParses region={regionDecoded} realm={realmDecoded} name={nameDecoded} />
+      </>
+    );
+  }
 };
 
 export default CharacterPage;
