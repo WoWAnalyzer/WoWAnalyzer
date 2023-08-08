@@ -98,7 +98,6 @@ class HeatingUp extends Analyzer {
   get totalFireBlasts() {
     return (
       this.eventHistory.getEvents(EventType.Cast, {
-        searchBackwards: true,
         spell: SPELLS.FIRE_BLAST,
       }).length || 0
     );
@@ -124,7 +123,6 @@ class HeatingUp extends Analyzer {
         1 -
           this.phoenixFlamesDuringHotStreak() /
             this.eventHistory.getEvents(EventType.Cast, {
-              searchBackwards: true,
               spell: TALENTS.PHOENIX_FLAMES_TALENT,
             }).length || 0,
       isLessThan: {

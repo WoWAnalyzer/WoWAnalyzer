@@ -38,7 +38,6 @@ class WintersChill extends Analyzer {
 
   wintersChillHardCasts = () => {
     let debuffApplies = this.eventHistory.getEvents(EventType.ApplyDebuff, {
-      searchBackwards: true,
       spell: SPELLS.WINTERS_CHILL,
     });
 
@@ -51,7 +50,6 @@ class WintersChill extends Analyzer {
         startTimestamp: e.timestamp,
       })[0];
       const preCast = this.eventHistory.getEvents(EventType.Cast, {
-        searchBackwards: true,
         spell: WINTERS_CHILL_PRECAST_CASTS,
         count: 1,
         startTimestamp: e.timestamp,
@@ -107,7 +105,6 @@ class WintersChill extends Analyzer {
 
   wintersChillShatters = () => {
     let debuffApplies = this.eventHistory.getEvents(EventType.ApplyDebuff, {
-      searchBackwards: true,
       spell: SPELLS.WINTERS_CHILL,
     });
 
@@ -154,7 +151,6 @@ class WintersChill extends Analyzer {
 
   get totalProcs() {
     return this.eventHistory.getEvents(EventType.ApplyDebuff, {
-      searchBackwards: true,
       spell: SPELLS.WINTERS_CHILL,
     }).length;
   }

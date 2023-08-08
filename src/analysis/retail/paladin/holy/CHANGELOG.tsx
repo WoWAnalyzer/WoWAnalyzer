@@ -5,6 +5,7 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 8, 4), <>Fixed Death Recap Double Buff Display.</>, Abelito75),
   change(date(2023, 7, 23), <>IoL can be consumed by Judgment without Divine Revelations.</>, Abelito75),
   change(date(2023, 7, 19), <>Added <SpellLink spell={TALENTS.TYRS_DELIVERANCE_TALENT} /></>, Tialyss),
   change(date(2023, 7, 17), <>Judgment can consume IoL for Imbued Light</>, Abelito75),

@@ -2,9 +2,17 @@ import { change, date } from 'common/changelog';
 import { TALENTS_WARRIOR } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import { Abelito75, Greedyhugs, ToppleTheNun, CodersKitchen } from 'CONTRIBUTORS';
+import SPELLS from 'common/SPELLS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 7), <>Corrected Tier name</>, Abelito75),
+  change(date(2023, 8, 7), <>Two and Four Piece, UI normalized</>, Abelito75),
+  change(date(2023, 8, 7), <>Rage Tracker updates... Meeles included</>, Abelito75),
+  change(date(2023, 8, 7), <>Updated Rage Tracker to more accurately track <SpellLink spell={TALENTS_WARRIOR.HEAVY_REPERCUSSIONS_TALENT} /> and <SpellLink spell={TALENTS_WARRIOR.IMPENETRABLE_WALL_TALENT}/> while also adding <SpellLink spell={TALENTS_WARRIOR.UNNERVING_FOCUS_TALENT}/> </>, Abelito75),
+  change(date(2023, 8, 6), <>Updated <SpellLink spell={TALENTS_WARRIOR.HEAVY_REPERCUSSIONS_TALENT}/> rage generation</>, Abelito75),
+  change(date(2023, 8, 6), <>Added <SpellLink spell={TALENTS_WARRIOR.RAVAGER_TALENT}/> hit checker</>, Abelito75),
+  change(date(2023, 8, 6), <>Hide <SpellLink spell={TALENTS_WARRIOR.BATTLE_STANCE_TALENT}/>, <SpellLink spell={SPELLS.HEROIC_THROW}/>, <SpellLink spell={SPELLS.HAMSTRING}/>, <SpellLink spell={SPELLS.BATTLE_SHOUT}/>, <SpellLink spell={TALENTS_WARRIOR.HEROIC_LEAP_TALENT}/> and <SpellLink spell={TALENTS_WARRIOR.CHALLENGING_SHOUT_TALENT}/> </>, Abelito75),
   change(date(2023, 7, 18), 'Update abilities', Abelito75),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 25), 'Reduce CD of Shield Slam, when Honed Reflexes is skilled.', CodersKitchen),

@@ -11,17 +11,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 
-import RageTracker from '../core/RageTracker';
-
 const HEAVY_REPERCUSSIONS_SHIELD_BLOCK_EXTEND_MS = 1000;
 
 class HeavyRepercussions extends Analyzer {
-  static dependencies = {
-    rageTracker: RageTracker,
-  };
-
-  protected rageTracker!: RageTracker;
-
   sbExtended = 0;
   sbCasts = 0;
 
@@ -85,10 +77,6 @@ class HeavyRepercussions extends Analyzer {
   statistic() {
     const sbExtendedMS = this.sbExtended * HEAVY_REPERCUSSIONS_SHIELD_BLOCK_EXTEND_MS;
 
-    const rageByShieldSlam = this.rageTracker.getGeneratedBySpell(SPELLS.SHIELD_SLAM.id);
-    const rageWastedByShieldSlam = this.rageTracker.getWastedBySpell(SPELLS.SHIELD_SLAM.id);
-    const rageFromTalent = ((rageByShieldSlam + rageWastedByShieldSlam) / 18) * 3;
-
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
@@ -105,13 +93,12 @@ class HeavyRepercussions extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink spell={TALENTS.HEAVY_REPERCUSSIONS_TALENT} /> Extra Shield Block and Rage
+              <SpellLink spell={TALENTS.HEAVY_REPERCUSSIONS_TALENT} /> Extra Shield Block
             </>
           }
         >
           <>
             {formatPercentage(sbExtendedMS / (this.shieldBlockuptime - sbExtendedMS))}% <br />
-            {rageFromTalent} <small>rage</small>
           </>
         </BoringValueText>
       </Statistic>

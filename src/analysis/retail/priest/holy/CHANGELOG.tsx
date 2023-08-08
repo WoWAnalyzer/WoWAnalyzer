@@ -4,6 +4,7 @@ import { Hana, Litena, Squided, ToppleTheNun, Trevor } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 8, 1), <>Add <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT}/></>, Hana),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 5, 11), <>Fix crash in Holy Priest T30 module</>, Trevor),
   change(date(2023, 4, 26), <>Restyle Surge of Light and import it for Discipline</>, Hana),

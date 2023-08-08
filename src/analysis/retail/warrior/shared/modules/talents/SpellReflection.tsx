@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { formatNumber } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/warrior';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
@@ -9,6 +8,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import BoringValueText from 'parser/ui/BoringValueText';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
+import ItemDamageTaken from 'parser/ui/ItemDamageTaken';
 
 class SpellReflection extends Analyzer {
   private totalCasts = 0;
@@ -76,11 +76,7 @@ class SpellReflection extends Analyzer {
             </>
           }
         >
-          <>
-            {formatNumber(this.totalMitigation)} <small>total</small>
-            <br />
-            {formatNumber(this.averageMitigationPerCast)} <small>average</small>
-          </>
+          <ItemDamageTaken amount={this.totalMitigation} />
         </BoringValueText>
       </Statistic>
     );

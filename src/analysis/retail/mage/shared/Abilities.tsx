@@ -62,19 +62,6 @@ class Abilities extends CoreAbilities {
         cooldown: 25,
       },
       {
-        spell: TALENTS.METEOR_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.METEOR_TALENT),
-        gcd: {
-          base: 1500,
-        },
-        cooldown: 45,
-        castEfficiency: {
-          suggestion: false,
-        },
-        damageSpellIds: [SPELLS.METEOR_DAMAGE.id],
-      },
-      {
         spell: TALENTS.ICE_NOVA_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.ICE_NOVA_TALENT),
@@ -114,7 +101,7 @@ class Abilities extends CoreAbilities {
         cooldown:
           combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
           combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
-            ? 25 / (1 + combatant.getTalentRank(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) * 0.1)
+            ? 25 / 1.3
             : 25,
         gcd: {
           base: 1500,
@@ -127,8 +114,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
         cooldown:
           combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.BLAZING_BARRIER_TALENT.id)
-            ? 25 / (1 + combatant.getTalentRank(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) * 0.1)
+          combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
+            ? 25 / 1.3
             : 25,
         gcd: {
           base: 1500,
@@ -141,8 +128,8 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.PRISMATIC_BARRIER_TALENT),
         cooldown:
           combatant.hasTalent(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) &&
-          combatant.hasBuff(TALENTS.PRISMATIC_BARRIER_TALENT.id)
-            ? 25 / (1 + combatant.getTalentRank(TALENTS.ACCUMULATIVE_SHIELDING_TALENT) * 0.1)
+          combatant.hasBuff(TALENTS.ICE_BARRIER_TALENT.id)
+            ? 25 / 1.3
             : 25,
         gcd: {
           base: 1500,
@@ -153,7 +140,7 @@ class Abilities extends CoreAbilities {
         buffSpellId: TALENTS.ICE_BLOCK_TALENT.id,
         category: SPELL_CATEGORY.DEFENSIVE,
         enabled: combatant.hasTalent(TALENTS.ICE_BLOCK_TALENT),
-        cooldown: 240 - combatant.getTalentRank(TALENTS.WINTERS_PROTECTION_TALENT) * 20,
+        cooldown: 240 - combatant.getTalentRank(TALENTS.WINTERS_PROTECTION_TALENT) * 30,
         gcd: {
           base: 1500,
         },
@@ -192,7 +179,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLINK.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: !combatant.hasTalent(TALENTS.SHIMMER_TALENT),
-        cooldown: 15 - combatant.getTalentRank(TALENTS.FLOW_OF_TIME_TALENT),
+        cooldown: 15 - combatant.getTalentRank(TALENTS.FLOW_OF_TIME_TALENT) * 2,
         gcd: {
           base: 1500,
         },
@@ -210,7 +197,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.SHIMMER_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         enabled: combatant.hasTalent(TALENTS.SHIMMER_TALENT),
-        cooldown: 25 - combatant.getTalentRank(TALENTS.FLOW_OF_TIME_TALENT),
+        cooldown: 25 - combatant.getTalentRank(TALENTS.FLOW_OF_TIME_TALENT) * 2,
         charges: 2,
         gcd: null,
       },

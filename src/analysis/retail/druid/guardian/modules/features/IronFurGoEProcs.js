@@ -32,7 +32,7 @@ class IronFurGoEProcs extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.IRONFUR.id}
+          spell={SPELLS.IRONFUR.id}
           value={`${formatPercentage(nonGoEIronFur / (nonGoEIronFur + GoEIronFur))}%`}
           label="Unbuffed Ironfur"
         />

@@ -1,7 +1,5 @@
-import { formatDuration } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -10,11 +8,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
+import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 
-const POSSIBLE_TALENTS_AFFECTED_BY_ANGER_MANAGEMENT = [
-  TALENTS.AVATAR_PROTECTION_TALENT,
-  TALENTS.SHIELD_WALL_TALENT,
-];
 const RAGE_NEEDED_FOR_A_PROC = 10;
 const CDR_PER_PROC = 1000; // ms
 
@@ -22,28 +17,27 @@ class AngerManagement extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
   };
-  totalRageSpend = 0;
-  wastedReduction: { [spellId: number]: number } = {};
-  effectiveReduction: { [spellId: number]: number } = {};
+
   protected spellUsable!: SpellUsable;
-  COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT: number[] = [];
+
+  hasAvatar = false;
+  avatarEffectiveCDR = 0;
+  avatarWastedCDR = 0;
+
+  hasShieldWall = false;
+  shieldWallEffectiveCDR = 0;
+  shieldWallWastedCDR = 0;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT);
+    this.hasAvatar = this.selectedCombatant.hasTalent(TALENTS.AVATAR_PROTECTION_TALENT);
+    this.hasShieldWall = this.selectedCombatant.hasTalent(TALENTS.SHIELD_WALL_TALENT);
+
     if (!this.active) {
       return;
     }
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    POSSIBLE_TALENTS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
-      if (this.selectedCombatant.hasTalent(e)) {
-        this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.push(e.id);
-      }
-    });
-    this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
-      this.wastedReduction[e] = 0;
-      this.effectiveReduction[e] = 0;
-    });
   }
 
   onCast(event: CastEvent) {
@@ -53,41 +47,32 @@ class AngerManagement extends Analyzer {
     }
     const rageSpend = classResources.cost / RAGE_NEEDED_FOR_A_PROC;
     const reduction = (rageSpend / RAGE_NEEDED_FOR_A_PROC) * CDR_PER_PROC;
-    this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.forEach((e) => {
-      if (!this.spellUsable.isOnCooldown(e)) {
-        this.wastedReduction[e] += reduction;
-      } else {
-        const effectiveReduction = this.spellUsable.reduceCooldown(e, reduction);
-        this.effectiveReduction[e] += effectiveReduction;
-        this.wastedReduction[e] += reduction - effectiveReduction;
-      }
-    });
-    this.totalRageSpend += rageSpend;
-  }
 
-  get tooltip() {
-    return (
-      <table className="table table-condensed">
-        <thead>
-          <tr>
-            <th>Spell</th>
-            <th>Effective</th>
-            <th>Wasted</th>
-          </tr>
-        </thead>
-        <tbody>
-          {this.COOLDOWNS_AFFECTED_BY_ANGER_MANAGEMENT.map((value) => (
-            <tr key={value}>
-              <td>
-                <SpellLink spell={SPELLS[value]} />
-              </td>
-              <td>{formatDuration(this.effectiveReduction[value])}</td>
-              <td>{formatDuration(this.wastedReduction[value])}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    );
+    if (this.hasAvatar) {
+      if (!this.spellUsable.isOnCooldown(TALENTS.AVATAR_PROTECTION_TALENT.id)) {
+        this.avatarWastedCDR += reduction;
+      } else {
+        const effectiveReduction = this.spellUsable.reduceCooldown(
+          TALENTS.AVATAR_PROTECTION_TALENT.id,
+          reduction,
+        );
+        this.avatarEffectiveCDR += effectiveReduction;
+        this.avatarWastedCDR += reduction - effectiveReduction;
+      }
+    }
+
+    if (this.hasShieldWall) {
+      if (!this.spellUsable.isOnCooldown(TALENTS.SHIELD_WALL_TALENT.id)) {
+        this.shieldWallWastedCDR += reduction;
+      } else {
+        const effectiveReduction = this.spellUsable.reduceCooldown(
+          TALENTS.SHIELD_WALL_TALENT.id,
+          reduction,
+        );
+        this.shieldWallEffectiveCDR += effectiveReduction;
+        this.shieldWallWastedCDR += reduction - effectiveReduction;
+      }
+    }
   }
 
   statistic() {
@@ -95,17 +80,23 @@ class AngerManagement extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
-        wide
         category={STATISTIC_CATEGORY.TALENTS}
       >
         <BoringValueText
           label={
             <>
-              <SpellLink spell={TALENTS.ANGER_MANAGEMENT_TALENT} /> Possible cooldown reduction
+              <SpellLink spell={TALENTS.ANGER_MANAGEMENT_TALENT} /> Cooldown Reduction
             </>
           }
         >
-          {this.tooltip}
+          <SpellIcon spell={TALENTS.AVATAR_PROTECTION_TALENT} />{' '}
+          <ItemCooldownReduction effective={this.avatarEffectiveCDR} waste={this.avatarWastedCDR} />
+          <br />
+          <SpellIcon spell={TALENTS.SHIELD_WALL_TALENT} />{' '}
+          <ItemCooldownReduction
+            effective={this.shieldWallEffectiveCDR}
+            waste={this.shieldWallWastedCDR}
+          />
         </BoringValueText>
       </Statistic>
     );

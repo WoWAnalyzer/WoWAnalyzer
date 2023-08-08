@@ -7,7 +7,8 @@ import useSpellInfo from './useSpellInfo';
 import useTooltip from './useTooltip';
 import { getSpellId } from 'common/getSpellId';
 
-interface BaseProps extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
+interface Props extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> {
+  spell: number | Spell;
   children?: React.ReactNode;
   icon?: boolean;
   iconStyle?: CSSProperties;
@@ -16,27 +17,9 @@ interface BaseProps extends Omit<React.HTMLAttributes<HTMLAnchorElement>, 'id'> 
   def?: number;
 }
 
-interface PropsWithId extends BaseProps {
-  /**
-   * @deprecated use {@link spell} instead.
-   */
-  id: number | Spell;
-  spell?: never;
-}
-
-interface PropsWithSpell extends BaseProps {
-  /**
-   * @deprecated use {@link spell} instead.
-   */
-  id?: never;
-  spell: number | Spell;
-}
-
-type Props = PropsWithId | PropsWithSpell;
-
 const SpellLink = React.forwardRef<HTMLAnchorElement, Props>(
-  ({ id, spell, children, icon = true, iconStyle, ilvl, def, rank, ...other }: Props, ref) => {
-    const spellData = spell ?? id;
+  ({ spell, children, icon = true, iconStyle, ilvl, def, rank, ...other }: Props, ref) => {
+    const spellData = spell;
     const spellId = getSpellId(spellData);
     const spellInfo = useSpellInfo(spellData);
     const { spell: spellTooltip } = useTooltip();

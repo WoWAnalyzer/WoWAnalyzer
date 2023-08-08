@@ -59,9 +59,13 @@ class Voidform extends Analyzer {
         <strong>{extension.toFixed(1)}</strong>
       </>
     );
-    const value = QualitativePerformance.Good;
-    //The Performance value of the extension is complicated, and needs to be tested further.
-    //for now, at least having the extension time per voidform is useful.
+    let value = QualitativePerformance.Good;
+    if (extension <= 15) {
+      value = QualitativePerformance.Ok;
+    }
+    if (extension <= 10) {
+      value = QualitativePerformance.Fail;
+    }
     this.VFExtension.push({ value, tooltip });
   }
 

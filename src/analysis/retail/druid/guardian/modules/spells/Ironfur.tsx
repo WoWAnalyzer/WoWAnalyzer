@@ -186,7 +186,7 @@ export default class Ironfur extends Analyzer {
   //     .addSuggestion((suggest, actual, recommended) =>
   //       suggest(
   //         <span>
-  //           You only had the <SpellLink id={SPELLS.IRONFUR.id} /> buff for{' '}
+  //           You only had the <SpellLink spell={SPELLS.IRONFUR.id} /> buff for{' '}
   //           {formatPercentage(actual)}% of physical damage taken. You should have the Ironfur buff
   //           up to mitigate as much physical damage as possible.
   //         </span>,
