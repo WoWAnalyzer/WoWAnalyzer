@@ -48,10 +48,10 @@ class InescapableTorment extends Analyzer {
       );
 
       let value = QualitativePerformance.Good;
-      if (this.extension <= 7) {
+      if (this.extension <= 6) {
         value = QualitativePerformance.Ok;
       }
-      if (this.extension <= 4) {
+      if (this.extension <= 3) {
         value = QualitativePerformance.Fail;
       }
 
@@ -75,10 +75,10 @@ class InescapableTorment extends Analyzer {
       );
 
       let value = QualitativePerformance.Good;
-      if (this.extension <= 7) {
+      if (this.extension <= 6) {
         value = QualitativePerformance.Ok;
       }
-      if (this.extension <= 4) {
+      if (this.extension <= 3) {
         value = QualitativePerformance.Fail;
       }
 
