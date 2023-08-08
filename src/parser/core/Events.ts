@@ -5,6 +5,7 @@ import * as React from 'react';
 import EventFilter from './EventFilter';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
+import { EventLink } from './EventLinkNormalizer';
 
 export enum EventType {
   Destroy = 'destroy', // super rare, apparently happens on dausegne, no idea what it is?
@@ -330,6 +331,8 @@ export interface Event<T extends string> {
   prepull?: boolean;
   /** Other events associated with this event. Added by WoWA normalizers. Meaning is context sensitive */
   _linkedEvents?: LinkedEvent[];
+  // true if links have been processed for this event to prevent duplicate linking
+  _processedLinks?: Set<EventLink>;
   /** True iff the event was created by WoWA */
   __fabricated?: boolean;
   /** True iff the event's content was modified by WoWA */
