@@ -96,6 +96,8 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         modules.adaptiveSwarm.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT) &&
         modules.brutalSlash.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.DIRE_FIXATION_TALENT) &&
+        modules.direFixation.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
   );
