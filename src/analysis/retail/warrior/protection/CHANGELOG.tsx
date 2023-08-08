@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 8), <>Fix 2 set CDR spell</>, Abelito75),
   change(date(2023, 8, 7), <>Corrected Tier name</>, Abelito75),
   change(date(2023, 8, 7), <>Two and Four Piece, UI normalized</>, Abelito75),
   change(date(2023, 8, 7), <>Rage Tracker updates... Meeles included</>, Abelito75),

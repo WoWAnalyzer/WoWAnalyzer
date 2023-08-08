@@ -1083,6 +1083,12 @@ const spells = {
     name: "Cat's Curiosity",
     icon: 'inv_jewelcrafting_gem_30',
   },
+  // debuff from Dire Fixation
+  DIRE_FIXATION_DEBUFF: {
+    id: 417713,
+    name: 'Dire Fixation',
+    icon: 'ability_druid_primalprecision',
+  },
   // feral legion tier sets
   FERAL_DRUID_T19_2SET_BONUS_BUFF: {
     id: 211140,
