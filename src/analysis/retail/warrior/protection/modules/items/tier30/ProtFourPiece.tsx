@@ -76,7 +76,7 @@ class ImpenetrableWall extends Analyzer {
           </>
         }
       >
-        <BoringValueText label="Heartfire Sentinel's Authority 4 Piece (T30 Set Bonus)">
+        <BoringValueText label="Fangs of the Vermillion Forge 4 Piece (T30 Set Bonus)">
           <ItemDamageDone amount={totalDamage} />
           <br />
           <ItemDamageTaken amount={this.damageReduction} />
