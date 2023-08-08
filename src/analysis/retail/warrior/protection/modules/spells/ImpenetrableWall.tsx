@@ -1,4 +1,3 @@
-import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -8,6 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
+import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 
 const REDUCTION = 5000;
 
@@ -50,10 +50,9 @@ class ImpenetrableWall extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={<>Wasted CDR: {formatDuration(this.wastedCDR)}</>}
       >
         <BoringSpellValueText spell={TALENTS.IMPENETRABLE_WALL_TALENT}>
-          {formatDuration(this.effectiveCDR)} <small>cdr</small>
+          <ItemCooldownReduction effective={this.effectiveCDR} waste={this.wastedCDR} />
         </BoringSpellValueText>
       </Statistic>
     );
