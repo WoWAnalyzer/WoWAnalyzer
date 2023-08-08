@@ -51,8 +51,8 @@ class ImpenetrableWall extends Analyzer {
       : 1;
     const effectiveReduction = REDUCTION * effectMultiplilier;
 
-    if (this.spellUsable.isOnCooldown(SPELLS.SHIELD_WALL.id)) {
-      const cdr = this.spellUsable.reduceCooldown(SPELLS.SHIELD_WALL.id, effectiveReduction);
+    if (this.spellUsable.isOnCooldown(SPELLS.LAST_STAND.id)) {
+      const cdr = this.spellUsable.reduceCooldown(SPELLS.LAST_STAND.id, effectiveReduction);
       this.effectiveCDR += cdr;
       this.wastedCDR += effectiveReduction - cdr;
     } else {
@@ -76,7 +76,6 @@ class ImpenetrableWall extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={<></>}
       >
         <BoringValueText label="Fangs of the Vermillion Forge 2 Piece (T30 Set Bonus)">
           <ItemCooldownReduction effective={this.effectiveCDR} waste={this.wastedCDR} /> <br />
