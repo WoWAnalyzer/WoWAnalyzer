@@ -151,12 +151,12 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
   }
 
   normalize(events: AnyEvent[]): AnyEvent[] {
-    // check each event link directive
+    // loop through all events in order
     events.forEach((event: AnyEvent, eventIndex: number) => {
       if (event._processedLinks) {
         return;
       }
-      // loop through all events in order
+      // check each event link directive
       this.eventLinks.forEach((el: EventLink) => {
         // if we find a match of a linking ability
         if (!el.isActive || el.isActive(this.selectedCombatant)) {
