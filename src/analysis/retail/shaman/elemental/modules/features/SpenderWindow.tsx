@@ -70,7 +70,7 @@ class SpenderWindow extends Analyzer {
     enemies: Enemies,
   };
 
-  enabled: boolean;
+  active: boolean;
 
   protected enemies!: Enemies;
 
@@ -86,19 +86,17 @@ class SpenderWindow extends Analyzer {
       this.stMSSpender = TALENTS.ELEMENTAL_BLAST_TALENT;
     }
 
-    this.enabled = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
 
     /* There is no point in tracking this at all if the player doesn't have SoP */
-    if (!this.enabled) {
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(this.stMSSpender),
-        this.onMSSpender,
-      );
-      this.addEventListener(
-        Events.cast.by(SELECTED_PLAYER).spell(SOP_CONSUME_SPELLS),
-        this.onSopConsumer,
-      );
-    }
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(this.stMSSpender),
+      this.onMSSpender,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SOP_CONSUME_SPELLS),
+      this.onSopConsumer,
+    );
   }
 
   /**
