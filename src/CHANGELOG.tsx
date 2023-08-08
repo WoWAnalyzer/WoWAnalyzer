@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 8), 'Update dependencies.', ToppleTheNun),
   change(date(2023, 8, 8), 'Deduplicate the dependencies of the project', Putro),
   change(date(2023, 8, 7), 'Remove some deprecated code.', ToppleTheNun),
   change(date(2023, 7, 31), <>Add enchantment check for <ItemLink id={ITEMS.SHADOWED_BELT_CLASP_R3.id} />.</>,  ToppleTheNun),
