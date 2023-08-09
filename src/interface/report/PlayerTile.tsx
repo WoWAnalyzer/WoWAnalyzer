@@ -16,6 +16,9 @@ import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { makeThumbnailUrl } from 'interface/makeAnalyzerUrl';
 import { useLingui } from '@lingui/react';
+import SPECS from 'game/SPECS';
+import { isFightDungeon } from 'common/isFightDungeon';
+import { useFight } from 'interface/report/context/FightContext';
 
 interface Props {
   player: Player;
@@ -28,6 +31,7 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
   const characterInfo = useWaSelector((state) => getCharacterById(state, player.guid));
   const dispatch = useWaDispatch();
   const { i18n } = useLingui();
+  const { fight } = useFight();
 
   useEffect(() => {
     const load = async () => {
@@ -98,6 +102,41 @@ const PlayerTile = ({ player, makeUrl, config }: Props) => {
           <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />
           <div className="about">
             <h1>{player.name}</h1>
+          </div>
+        </div>
+      </span>
+    );
+  }
+  if (spec.id === SPECS.AUGMENTATION_EVOKER.id && isFightDungeon(fight)) {
+    return (
+      <span
+        className="player"
+        onClick={() => {
+          alert(
+            `Augmentation Evoker is not currently supported for M+ logs due to issues with retrieving the appropriate data for analysis. Augmentation is still supported for raid and we hope to re-enable it for M+ soon.`,
+          );
+        }}
+      >
+        <div className="role" />
+        <div className="card">
+          <div className="avatar" style={{ backgroundImage: `url(${avatar})` }} />
+          <div className="about">
+            <h1
+              className={i18n._(spec.className).replace(' ', '')}
+              // The name can't always fit so use a tooltip. We use title instead of the tooltip library for this because we don't want it to be distracting and the tooltip library would popup when hovering just to click an item, while this has a delay.
+              title={player.name}
+            >
+              {player.name}
+            </h1>
+            <small title={`${specName} ${className}`}>
+              <SpecIcon spec={spec} /> {specName} {className}
+            </small>
+            <div className="flex text-muted text-small">
+              <div className="flex-main">
+                <Icon icon="inv_helmet_03" />{' '}
+                {Math.round(getAverageItemLevel(player.combatant.gear))}
+              </div>
+            </div>
           </div>
         </div>
       </span>

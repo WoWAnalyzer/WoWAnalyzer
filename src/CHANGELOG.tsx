@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 9), 'Disable Augmentation Evoker analysis in M+.', ToppleTheNun),
   change(date(2023, 8, 8), 'Fix bug in EventLinkNormalizer', Trevor),
   change(date(2023, 8, 8), 'Deduplicate the dependencies of the project', Putro),
   change(date(2023, 8, 7), 'Remove some deprecated code.', ToppleTheNun),
