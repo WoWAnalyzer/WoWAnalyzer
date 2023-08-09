@@ -126,7 +126,7 @@ class InescapableTorment extends Analyzer {
         Casting <SpellLink spell={SPELLS.MIND_BLAST} /> or{' '}
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} /> during{' '}
         <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> extends its duration by 0.7 seconds
-        and deals damage. Try to use these spells as much as possible in this window.
+        and deals damage.
       </p>
     );
 
