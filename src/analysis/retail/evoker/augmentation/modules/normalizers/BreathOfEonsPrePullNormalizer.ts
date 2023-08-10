@@ -1,6 +1,7 @@
 import { AnyEvent, EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import TALENTS from 'common/TALENTS/evoker';
+import { getBreathOfEonsCastEvent } from './CastLinkNormalizer';
 
 /** This Normalizer is used to deal with pre-pull Breath of Eons
  * When you used Breath of Eons pre-pull you won't create a Cast event
@@ -31,7 +32,7 @@ class BreathOfEonsPrePullNormalizer extends EventsNormalizer {
       ) {
         // If the buff is removed before we find the start event
         // Fabricate BuffApply event at fight start
-        if (event.type !== EventType.Cast) {
+        if (event.type !== EventType.Cast && getBreathOfEonsCastEvent(event).length === 0) {
           if (event.type === EventType.RemoveBuff) {
             const fabricatedApplyBuffEvent = {
               ...event,
