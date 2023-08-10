@@ -37,6 +37,7 @@ import { isClassicExpansion } from 'game/Expansion';
 import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { i18n } from '@lingui/core';
+import { uniqueBy } from 'common/uniqueBy';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
@@ -150,10 +151,11 @@ const PlayerLoader = ({ children }: Props) => {
       }
 
       try {
-        const combatants = (await fetchCombatantsWithClassicRP(
+        const rawCombatants = (await fetchCombatantsWithClassicRP(
           selectedReport,
           selectedFight,
         )) as CombatantInfoEvent[];
+        const combatants = uniqueBy(rawCombatants, (c) => c.sourceID);
 
         let combatantsWithGear = 0;
         let tanks = 0;
@@ -178,6 +180,7 @@ const PlayerLoader = ({ children }: Props) => {
             return;
           }
           combatant.player = player;
+
           if (SPECS[combatant.specID]) {
             // TODO: TBC support: specID is always null, so look at talents to figure out the most likely spec. Or use friendly.icon. Then make a table that has roles for that. Cumbersome, but not too difficult.
             // TODO: Move this code to the component that renders the tanks/healers/dps/ranged
@@ -197,26 +200,26 @@ const PlayerLoader = ({ children }: Props) => {
               default:
                 break;
             }
-          }
-
-          const config = getConfig(CLASSIC_EXPANSION, 1, player, combatant);
-          if (config) {
-            if (config?.spec) {
-              switch (config?.spec.role) {
-                case ROLES.TANK:
-                  tanks += 1;
-                  break;
-                case ROLES.HEALER:
-                  healers += 1;
-                  break;
-                case ROLES.DPS.MELEE:
-                  dps += 1;
-                  break;
-                case ROLES.DPS.RANGED:
-                  ranged += 1;
-                  break;
-                default:
-                  break;
+          } else {
+            const config = getConfig(CLASSIC_EXPANSION, 1, player, combatant);
+            if (config) {
+              if (config?.spec) {
+                switch (config?.spec.role) {
+                  case ROLES.TANK:
+                    tanks += 1;
+                    break;
+                  case ROLES.HEALER:
+                    healers += 1;
+                    break;
+                  case ROLES.DPS.MELEE:
+                    dps += 1;
+                    break;
+                  case ROLES.DPS.RANGED:
+                    ranged += 1;
+                    break;
+                  default:
+                    break;
+                }
               }
             }
           }
