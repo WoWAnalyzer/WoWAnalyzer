@@ -31,19 +31,23 @@ class Module {
         '`options` is a required parameter. Make sure you pass it to a `super();` call.',
       );
     }
-    const { owner, priority, ...others } = options;
+    const { owner, priority } = options;
     this.owner = owner;
     this.priority = priority;
+  }
 
-    // This doesn't set the properties of any class that inherits this class
-    // since a parent constructor can't override the values of a child's class
-    // properties.
-    // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
-    Object.keys(others).forEach((key) => {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this[key] = others[key];
-    });
+  static applyDependencies(options: Options, instance: Module) {
+    // We can't set the options via the constructor since the child fields are initialized to undefined.
+    // as we move towards a `this.deps` world, this ceases to be a problem.
+    //
+    // See https://github.com/Microsoft/TypeScript/issues/6110, https://github.com/microsoft/TypeScript/issues/37640 for more info
+    Object.keys(options)
+      .filter((key) => options[key] instanceof Module)
+      .forEach((key) => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        instance[key] = options[key];
+      });
   }
 
   get consoleMeta() {
