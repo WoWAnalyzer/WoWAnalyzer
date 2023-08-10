@@ -136,7 +136,7 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
-  priority = 1;
+  priority = 100;
   constructor(options: Options) {
     super(options, EVENT_LINKS);
   }
