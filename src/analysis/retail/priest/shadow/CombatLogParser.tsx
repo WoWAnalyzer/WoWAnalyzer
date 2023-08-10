@@ -40,6 +40,7 @@ import InescapableTorment from './modules/talents/InescapableTorment';
 import UnfurlingDarkness from './modules/talents/UnfurlingDarkness';
 import Deathspeaker from './modules/talents/Deathspeaker';
 import MindSpikeInsanity from './modules/talents/MindSpikeInsanity';
+import AncientMadness from './modules/talents/AncientMadness';
 import VoidTorrent from './modules/talents/VoidTorrent';
 import MindFlayInsanity from './modules/talents/MindFlayInsanity';
 import MindDevourer from './modules/talents/MindDevourer';
@@ -88,6 +89,7 @@ class CombatLogParser extends MainCombatLogParser {
     darkEvangelism: DarkEvangelism,
 
     // talents:
+    ancientMadness: AncientMadness,
     deathAndMadness: DeathAndMadness,
     unfurlingDarkness: UnfurlingDarkness,
     twistOfFate: TwistOfFate,

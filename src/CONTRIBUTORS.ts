@@ -2239,6 +2239,7 @@ export const Awildfivreld: Contributor = {
   nickname: 'Awildfivreld',
   github: 'awildfivreld',
 };
+
 export const Tapir: Contributor = {
   nickname: 'Tapir',
   github: 'Tapir42',
@@ -2250,4 +2251,9 @@ export const Tapir: Contributor = {
       link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/sylvanas/tapriest',
     },
   ],
+};
+
+export const Melnais: Contributor = {
+  nickname: 'Melnais',
+  github: 'agrabovskis',
 };

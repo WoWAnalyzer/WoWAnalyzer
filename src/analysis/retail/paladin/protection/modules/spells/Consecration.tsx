@@ -72,7 +72,7 @@ class Consecration extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(2)} size="flexible">
         <BoringSpellValue
-          spellId={SPELLS.CONSECRATION_CAST.id}
+          spell={SPELLS.CONSECRATION_CAST.id}
           value={`${formatPercentage(this.pctHitsMitigated)} %`}
           label="Hits Mitigated w/ Consecration"
         />

@@ -47,7 +47,7 @@ class UnleashedInferno extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.TALENTS}>
-        <BoringSpellValueText spellId={TALENTS.UNLEASHED_INFERNO_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.UNLEASHED_INFERNO_TALENT.id}>
           <>
             {formatNumber(this.cooldownReductionSeconds)}s{' '}
             <small>Combustion Cooldown Reduction</small>

@@ -54,9 +54,6 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
           combatant.hasTalent(TALENTS.DEMORALIZING_SHOUT_TALENT) && (
             <AbilityRequirement spell={SPELLS.DEMORALIZING_SHOUT.id} />
           )}
-        {combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT) && (
-          <AbilityRequirement spell={TALENTS.THUNDEROUS_ROAR_TALENT.id} />
-        )}
       </Rule>
 
       <Rule
@@ -90,7 +87,7 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         description={
           <>
             Using <SpellLink spell={TALENTS.AVATAR_PROTECTION_TALENT} /> as often as possible is
-            very important because it will increase your overall damage a lot and provides 30{' '}
+            very important because it will increase your overall damage a lot and provides 10{' '}
             <ResourceLink id={RESOURCE_TYPES.RAGE.id} />.<br /> If you are also using{' '}
             <SpellLink spell={TALENTS.UNSTOPPABLE_FORCE_TALENT} /> remember that{' '}
             <SpellLink spell={TALENTS.THUNDER_CLAP_PROTECTION_TALENT} /> will have a reduced
@@ -101,10 +98,23 @@ const ProtectionWarriorChecklist = ({ combatant, castEfficiency, thresholds }: C
         <TalentCastEfficiencyRequirement talent={TALENTS.AVATAR_PROTECTION_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.DEMORALIZING_SHOUT_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.RAVAGER_TALENT} />
+        {combatant.hasTalent(TALENTS.RAVAGER_TALENT) && (
+          <Requirement
+            name={
+              <>
+                <SpellLink spell={TALENTS.RAVAGER_TALENT} /> Effective Hits
+              </>
+            }
+            thresholds={thresholds.ravagerHitCheck}
+          />
+        )}
         <TalentCastEfficiencyRequirement talent={TALENTS.SHIELD_CHARGE_TALENT} />
         <TalentCastEfficiencyRequirement talent={TALENTS.SPEAR_OF_BASTION_TALENT} />
         {combatant.hasTalent(TALENTS.SONIC_BOOM_TALENT) && (
           <AbilityRequirement spell={TALENTS.SHOCKWAVE_TALENT.id} />
+        )}
+        {combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT) && (
+          <AbilityRequirement spell={TALENTS.THUNDEROUS_ROAR_TALENT.id} />
         )}
       </Rule>
 

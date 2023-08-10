@@ -156,7 +156,7 @@ class Judgment extends Analyzer {
         tooltip={this.getStatisticTooltip()}
       >
         <BoringSpellValue
-          spellId={SPELLS.JUDGMENT_DEBUFF.id}
+          spell={SPELLS.JUDGMENT_DEBUFF.id}
           value={`${formatNumber(this.totalJudgmentConsumptions)}`}
           label="Judgment Debuffs Consumed"
         />

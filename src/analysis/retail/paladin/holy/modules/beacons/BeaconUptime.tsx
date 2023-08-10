@@ -264,10 +264,10 @@ class BeaconUptime extends BeaconAnalyzer {
           return (
             <div key={beaconId}>
               <BoringSpellValue
-                spellId={beaconId}
+                spell={beaconId}
                 value={`${this.getUptime(beaconId)}%`}
                 label={getLabel(beaconId)}
-              ></BoringSpellValue>
+              />
               {this.prepullSuggestion && this.missingPrepull[beaconId] && missingPrepullContainer}
             </div>
           );

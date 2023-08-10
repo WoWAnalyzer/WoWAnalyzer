@@ -40,7 +40,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: SPELL_CATEGORY.UTILITY,
+        category: SPELL_CATEGORY.HIDDEN,
       },
       {
         spell: SPELLS.VICTORY_RUSH.id,
@@ -78,7 +78,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BATTLE_SHOUT.id,
-        category: SPELL_CATEGORY.UTILITY,
+        category: SPELL_CATEGORY.HIDDEN,
         gcd: {
           base: 1500,
         },
@@ -98,7 +98,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.HIDDEN,
       },
       {
         spell: SPELLS.DEVASTATE.id,
@@ -115,7 +115,7 @@ class Abilities extends CoreAbilities {
         enabled:
           combatant.hasTalent(TALENTS.BATTLE_STANCE_TALENT) ||
           combatant.hasTalent(TALENTS.DEFENSIVE_STANCE_TALENT),
-        category: SPELL_CATEGORY.OTHERS,
+        category: SPELL_CATEGORY.HIDDEN,
         cooldown: 3000,
       },
       {
@@ -178,7 +178,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.HEROIC_LEAP_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.HEROIC_LEAP_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
+        category: SPELL_CATEGORY.HIDDEN,
         cooldown: 45 - (combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT) ? 15 : 0),
       },
       {
@@ -325,7 +325,7 @@ class Abilities extends CoreAbilities {
           combatant.hasTalent(TALENTS.CHALLENGING_SHOUT_TALENT) &&
           !combatant.hasTalent(TALENTS.DISRUPTING_SHOUT_TALENT),
 
-        category: SPELL_CATEGORY.UTILITY,
+        category: SPELL_CATEGORY.HIDDEN,
         cooldown: 90,
       },
       {

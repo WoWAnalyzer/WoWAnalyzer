@@ -146,9 +146,9 @@ class InvokeYulon extends BaseCelestialAnalyzer {
     /* Disabled for 10.1 since we will want to use TFT at the end of the ramp to ensure 4pc */
     /* <ul>
           <li>
-            If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
-            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste bonus
+            If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
+            <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste bonus
           </li>
         </ul> */
 
