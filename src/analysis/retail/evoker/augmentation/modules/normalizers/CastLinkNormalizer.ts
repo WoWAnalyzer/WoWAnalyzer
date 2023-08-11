@@ -9,7 +9,6 @@ import {
   GetRelatedEvents,
   HasRelatedEvent,
   RefreshBuffEvent,
-  RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -174,12 +173,6 @@ export function getBreathOfEonsBuffEvents(event: CastEvent): ApplyBuffEvent[] {
 export function getBreathOfEonsDamageEvents(event: RemoveDebuffEvent): DamageEvent[] {
   return GetRelatedEvents(event, BREATH_OF_EONS_DAMAGE_LINK).filter(
     (e): e is DamageEvent => e.type === EventType.Damage,
-  );
-}
-
-export function getBreathOfEonsCastEvent(event: ApplyBuffEvent | RemoveBuffEvent): CastEvent[] {
-  return GetRelatedEvents(event, BREATH_OF_EONS_CAST_BUFF_LINK).filter(
-    (e): e is CastEvent => e.type === EventType.Cast,
   );
 }
 
