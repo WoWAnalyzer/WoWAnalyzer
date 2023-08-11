@@ -23,7 +23,6 @@ import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
-//import BreathOfEonsPrePullNormalizer from './modules/normalizers/BreathOfEonsPrePullNormalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -32,7 +31,6 @@ class CombatLogParser extends MainCombatLogParser {
     prescienceNormalizer: PrescienceNormalizer,
     empowerNormalizer: EmpowerNormalizer,
     ebonMightNormalizer: EbonMightNormalizer,
-    //breathOfEonsPrePullNormalizer: BreathOfEonsPrePullNormalizer,
 
     // Core
     abilities: Abilities,
