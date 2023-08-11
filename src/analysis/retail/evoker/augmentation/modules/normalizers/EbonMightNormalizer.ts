@@ -23,6 +23,7 @@ import SPELLS from 'common/SPELLS/evoker';
  * */
 
 class EbonMightNormalizer extends EventsNormalizer {
+  priority = 101;
   static dependencies = {
     ...EventsNormalizer.dependencies,
   };
