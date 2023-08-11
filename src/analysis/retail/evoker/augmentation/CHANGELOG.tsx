@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+    change(date(2023, 8, 10), <>Normalize pre-pull <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> usage.</>, Vollmer),
     change(date(2023, 8, 1), <>Add missing trinkets to timeline.</>, Vollmer),
     change(date(2023, 8, 1), <>Implement <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> module.</>, Vollmer),
     change(date(2023, 8, 1), <>Fix edgecase for <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> being removed and re-applied instead of refreshed.</>, Vollmer),

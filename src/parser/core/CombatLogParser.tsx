@@ -363,20 +363,13 @@ class CombatLogParser {
     options: { [prop: string]: any; priority: number },
     desiredModuleName = `module${Object.keys(this._modules).length}`,
   ) {
-    // eslint-disable-next-line new-cap
-    const module = new moduleClass({
+    const fullOptions = {
       ...options,
       owner: this,
-    });
-    if (options) {
-      // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
-      // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
-      Object.keys(options).forEach((key) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        module[key] = options[key];
-      });
-    }
+    };
+    // eslint-disable-next-line new-cap
+    const module = new moduleClass(fullOptions);
+    Module.applyDependencies(fullOptions, module);
     // TODO: Remove module naming
     module.key = desiredModuleName;
     this._modules[desiredModuleName] = module;
