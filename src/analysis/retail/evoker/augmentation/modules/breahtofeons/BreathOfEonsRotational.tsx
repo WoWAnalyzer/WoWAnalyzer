@@ -227,12 +227,7 @@ class BreathOfEonsRotational extends Analyzer {
      * Due to other Augmentations apparently also wanting to use Breath of Eons alongside you :) */
     const flightEvents = getBreathOfEonsBuffEvents(event);
     const flightData: SpellTracker[] = [];
-    let debuffHits = getBreathOfEonsDebuffApplyEvents(event).length;
-    // if breath was from pre-cast we won't neccesarily have the proper links.
-    // So set this to 1 to make graph look proper
-    if (debuffHits === 0) {
-      debuffHits = 1;
-    }
+    const debuffHits = getBreathOfEonsDebuffApplyEvents(event).length;
 
     // Create counter for Flight Time
     flightEvents.forEach((flightEvent) => {
