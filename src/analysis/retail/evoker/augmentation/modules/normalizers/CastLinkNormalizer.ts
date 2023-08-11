@@ -136,6 +136,11 @@ const EVENT_LINKS: EventLink[] = [
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
+  // This is set to lower priority than default since
+  // to create proper links on events fabcricated using PrePullCooldownsNormalizer
+  // We need to ensure this runs after the PrePullCooldownsNormalizer
+  // This is neccessary if we want BreathOfEons module to function properly
+  // With pre-pull casts of Breath of Eons
   priority = 100;
   constructor(options: Options) {
     super(options, EVENT_LINKS);

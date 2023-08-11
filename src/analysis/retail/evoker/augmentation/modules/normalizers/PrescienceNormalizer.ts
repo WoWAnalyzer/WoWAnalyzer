@@ -20,6 +20,7 @@ import {
  * like to include these in our analysis, so we need to create pre-pull events for it */
 
 class PrescienceNormalizer extends EventsNormalizer {
+  // Set lower priority to ensure this runs after our CastLinkNormalizer
   priority = 101;
   static dependencies = {
     ...EventsNormalizer.dependencies,

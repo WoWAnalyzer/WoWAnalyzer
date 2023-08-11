@@ -10,6 +10,7 @@ import { isFromTipTheScales } from './CastLinkNormalizer';
  */
 
 class EmpowerNormalizer extends EventsNormalizer {
+  // Set lower priority to ensure this runs after our CastLinkNormalizer
   priority = 101;
   normalize(events: AnyEvent[]): AnyEvent[] {
     const fixedEvents: any[] = [];
