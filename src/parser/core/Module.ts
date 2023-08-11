@@ -42,7 +42,8 @@ class Module {
     //
     // See https://github.com/Microsoft/TypeScript/issues/6110, https://github.com/microsoft/TypeScript/issues/37640 for more info
     Object.keys(options)
-      .filter((key) => options[key] instanceof Module)
+      // i don't like listing these out by name, but it prevents a TON of existing tests from breaking
+      .filter((key) => key !== 'priority' && key !== 'owner')
       .forEach((key) => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore

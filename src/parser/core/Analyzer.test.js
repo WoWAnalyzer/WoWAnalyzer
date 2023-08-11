@@ -1,3 +1,4 @@
+import Module from 'parser/core/Module';
 import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
@@ -22,12 +23,14 @@ describe('Core/Analyzer', () => {
 
       expect(myModule.owner).toBe(myOwner);
     });
-    it('dependencies are available as properties', () => {
+    it('dependencies are not available as properties after construction unless Module.applyDependencies is called', () => {
       const myDependency = {};
       const myModule = new Analyzer({
         myDependency,
       });
 
+      expect(myModule.myDependency).toBeUndefined();
+      Module.applyDependencies({ myDependency }, myModule);
       expect(myModule.myDependency).toBe(myDependency);
     });
     it('priority is availabe as property', () => {
