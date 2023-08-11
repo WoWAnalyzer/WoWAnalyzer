@@ -34,6 +34,7 @@ class Module {
     const { owner, priority } = options;
     this.owner = owner;
     this.priority = priority;
+    Module.applyDependencies(options, this);
   }
 
   static applyDependencies(options: Options, instance: Module) {

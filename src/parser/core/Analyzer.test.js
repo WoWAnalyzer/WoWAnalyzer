@@ -23,14 +23,12 @@ describe('Core/Analyzer', () => {
 
       expect(myModule.owner).toBe(myOwner);
     });
-    it('dependencies are not available as properties after construction unless Module.applyDependencies is called', () => {
+    it('dependencies are available as properties', () => {
       const myDependency = {};
       const myModule = new Analyzer({
         myDependency,
       });
 
-      expect(myModule.myDependency).toBeUndefined();
-      Module.applyDependencies({ myDependency }, myModule);
       expect(myModule.myDependency).toBe(myDependency);
     });
     it('priority is availabe as property', () => {
