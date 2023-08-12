@@ -1,6 +1,7 @@
 import CombatLogParser from './CombatLogParser';
 import Events from './Events';
 import TestCombatLogParser from './tests/TestCombatLogParser';
+import Module from './Module';
 
 class MyModule {}
 const myModule = new MyModule();
@@ -313,9 +314,9 @@ describe('Core/CombatLogParser', () => {
       expect(parser.getModule(MyChildModule).parent).toBeInstanceOf(MyModule);
     });
     it('automatically prioritizes execution order of modules based on dependency requirements', () => {
-      const MyAlternativeModule = jest.fn();
-      const MyParentModule = jest.fn();
-      const MyChildModule = jest.fn();
+      const MyAlternativeModule = class extends Module {};
+      const MyParentModule = class extends Module {};
+      const MyChildModule = class extends Module {};
       MyChildModule.dependencies = {
         parent: MyParentModule,
       };

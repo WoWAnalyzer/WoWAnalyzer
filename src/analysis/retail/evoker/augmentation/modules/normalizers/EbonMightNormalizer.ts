@@ -23,6 +23,8 @@ import SPELLS from 'common/SPELLS/evoker';
  * */
 
 class EbonMightNormalizer extends EventsNormalizer {
+  // Set lower priority to ensure this runs after our CastLinkNormalizer
+  priority = 101;
   static dependencies = {
     ...EventsNormalizer.dependencies,
   };
