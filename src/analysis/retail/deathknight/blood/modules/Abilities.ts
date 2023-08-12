@@ -323,6 +323,7 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
         cooldown: 15,
+        charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         timelineSortIndex: 5,
       },
       {
@@ -427,12 +428,14 @@ class Abilities extends CoreAbilities {
           minimum: 500,
         },
         cooldown: 15,
+        charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         timelineSortIndex: 14,
       },
       {
         spell: SPELLS.DEATHS_ADVANCE.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
+        charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
         timelineSortIndex: 14,
       },
       {
