@@ -241,9 +241,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.ROTATIONAL,
         //buff spell id later?
         enabled: combatant.hasTalent(TALENTS.EMPOWER_RUNE_WEAPON_SHARED_TALENT),
-        gcd: {
-          base: 1500,
-        },
+        gcd: null,
         cooldown: 120,
         castEfficiency: {
           suggestion: true,
@@ -436,6 +434,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         charges: combatant.hasTalent(TALENTS.DEATHS_ECHO_TALENT) ? 2 : 1,
+        gcd: null,
         timelineSortIndex: 14,
       },
       {
