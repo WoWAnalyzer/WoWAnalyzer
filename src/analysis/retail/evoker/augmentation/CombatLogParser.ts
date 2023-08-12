@@ -9,6 +9,7 @@ import SandsOfTime from './modules/abilities/SandsOfTime';
 //import BreathOfEons from './modules/abilities/BreathOfEon';
 import EbonMight from './modules/abilities/EbonMight';
 import ShiftingSands from './modules/abilities/ShiftingSands';
+import BreathOfEonsRotational from './modules/breahtofeons/BreathOfEonsRotational';
 
 import TimeSkip from './modules/talents/TimeSkip';
 import Accretion from './modules/talents/Accretion';
@@ -38,6 +39,7 @@ class CombatLogParser extends MainCombatLogParser {
     // Abilities
     sandsOfTime: SandsOfTime,
     //breathOfEons: BreathOfEons,
+    breathOfEonsRotational: BreathOfEonsRotational,
     ebonMight: EbonMight,
     shiftingSands: ShiftingSands,
 
