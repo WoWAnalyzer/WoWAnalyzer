@@ -36,9 +36,7 @@ class InescapableTorment extends Analyzer {
     this.addEventListener(Events.fightend, this.onEnd);
   }
 
-  onCast(event: CastEvent) {
-    //Since there is no way to tell when mindbender ends, we resolve the previous Mindbender when a new one is cast.
-    //If this is not the first mindbender cast, then we generate the extension.
+  private finalizeMindBenderCast() {
     if (this.castTime !== 0) {
       const tooltip = (
         <>
@@ -57,6 +55,12 @@ class InescapableTorment extends Analyzer {
 
       this.MBExtension.push({ value, tooltip });
     }
+  }
+
+  onCast(event: CastEvent) {
+    //Since there is no way to tell when mindbender ends, we resolve the previous Mindbender when a new one is cast.
+    //If this is not the first mindbender cast, then we generate the extension.
+    this.finalizeMindBenderCast();
 
     this.totalTime += this.extension; // add previous extension to total time.
     this.castTime = event.timestamp; //get cast time for current mindbender.
@@ -66,24 +70,7 @@ class InescapableTorment extends Analyzer {
   onEnd(event: FightEndEvent) {
     //Since there is no way to tell when mindbender ends, we resolve the last Mindbender when the fight is over.
     //So long as a mindbender was cast, we generate the extension.
-    if (this.castTime !== 0) {
-      const tooltip = (
-        <>
-          @<strong>{this.owner.formatTimestamp(this.castTime)}</strong>, Extension:
-          <strong>{this.extension.toFixed(1)}</strong>
-        </>
-      );
-
-      let value = QualitativePerformance.Good;
-      if (this.extension <= 6) {
-        value = QualitativePerformance.Ok;
-      }
-      if (this.extension <= 3) {
-        value = QualitativePerformance.Fail;
-      }
-
-      this.MBExtension.push({ value, tooltip });
-    }
+    this.finalizeMindBenderCast();
 
     this.totalTime += this.extension; // add previous extension to total time.
   }
