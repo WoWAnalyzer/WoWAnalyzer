@@ -67,6 +67,7 @@ import RadiantProvidence from './modules/spells/RadiantProvidence';
 import { SurgeOfLight } from '../holy/modules/talents/Classwide';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
 import Benevolence from '../shared/Benevolence';
+import WordsOfThePious from './modules/spells/WordsOfThePious';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -143,6 +144,7 @@ class CombatLogParser extends CoreCombatLogParser {
     SurgeOfLight: SurgeOfLight,
     aberrus2p: Aberrus2p,
     benevolence: Benevolence,
+    wordsOfThePious: WordsOfThePious,
 
     // Items:
     radiantProvidence: RadiantProvidence,
