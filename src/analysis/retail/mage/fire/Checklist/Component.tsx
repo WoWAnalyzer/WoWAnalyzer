@@ -72,11 +72,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           tooltip="When Combustion is about 25-30 seconds away from coming off cooldown, unless you are going to hold Combustion for something, it is important to stop using your Fire Blast charges so you can pool them for Combustion. At a minimum, you want to go into Combustion with 2 Fire Blast charges available, preferably with the third about to come off cooldown (Assuming you are using Flame On)."
         />
         <Requirement
-          name="Pooling Phoenix Flames Charges"
-          thresholds={thresholds.phoenixFlamesCombustionCharges}
-          tooltip="When outside of Combustion, you should avoid using your Phoenix Flames charges so that they have time to come off cooldown before Combustion is available again. Typically, the only time you want to use a Phoenix Flames charge outside of Combustion is if you are capped on charges or are about to cap and will not be casting Combustion soon."
-        />
-        <Requirement
           name="Fireball casts during Combustion"
           thresholds={thresholds.fireballSpellUsageDuringCombustion}
           tooltip="Due to Combustion's short duration, you should never cast Fireball during Combustion. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
@@ -180,26 +175,6 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           }
           spell={TALENTS.PHOENIX_FLAMES_TALENT.id}
         />
-        {combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.BLAST_WAVE_TALENT} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.BLAST_WAVE_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.LIVING_BOMB_TALENT.id}
-          />
-        )}
         {combatant.hasTalent(TALENTS.METEOR_TALENT) && (
           <Requirement
             name={

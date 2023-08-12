@@ -5,6 +5,7 @@ import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic, 
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 8, 6), <>Add a section on proper use of single target spenders.</>, Awildfivreld),
   change(date(2023, 7, 26), <>Adds Flame Shock Guide section</>, Periodic),
   change(date(2023, 7, 16), <>Add a section on usage of Stormkeeper</>, Awildfivreld),
   change(date(2023, 7, 13), <>Fix a bug where the timeline showed too many abilities as empowered by <SpellLink spell={TALENTS.SURGE_OF_POWER_TALENT} /></>, Awildfivreld),

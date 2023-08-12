@@ -537,6 +537,21 @@ const spells = {
     name: 'Lightwell',
     icon: 'spell_holy_summonlightwell',
   },
+  DIVINE_IMAGE_HEALING_LIGHT_HEAL: {
+    id: 196909,
+    name: 'Healing Light',
+    icon: 'inv_staff_2h_artifactheartofkure_d_04',
+  },
+  DIVINE_IMAGE_DAZZLING_LIGHT_HEAL: {
+    id: 196810,
+    name: 'Dazzling Light',
+    icon: 'spell_holy_divineprovidence',
+  },
+  DIVINE_IMAGE_BLESSED_LIGHT_HEAL: {
+    id: 196813,
+    name: 'Blessed Light',
+    icon: 'spell_holy_divineprovidence',
+  },
   HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {
     id: 200196,
     name: 'Holy Word: Chastise',
@@ -824,6 +839,13 @@ const spells = {
     name: 'Devoured Violence',
     icon: 'sha_spell_warlock_demonsoul',
   },
+
+  ANCIENT_MADNESS_TALENT: {
+    id: 341240,
+    name: 'Ancient Madness',
+    icon: 'spell_priest_void-flay',
+  },
+
   //Shadow Tier
   SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
     id: 394963,

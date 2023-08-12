@@ -105,7 +105,7 @@ class FirstAvenger extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.SOARING_SHIELD_TALENT.id}
+          spell={TALENTS.SOARING_SHIELD_TALENT.id}
           value={formatNumber(this.averageExtraDamage)}
           label={
             <>

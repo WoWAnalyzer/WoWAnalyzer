@@ -46,6 +46,7 @@ import BrutalSlash from 'analysis/retail/druid/feral/modules/spells/BrutalSlash'
 import OmenAndMomentOfClarity from 'analysis/retail/druid/feral/modules/spells/OmenAndMomentOfClarity';
 import FeralFrenzy from 'analysis/retail/druid/feral/modules/spells/FeralFrenzy';
 import Tier29 from 'analysis/retail/druid/feral/modules/dragonflight/Tier29';
+import DireFixation from 'analysis/retail/druid/feral/modules/spells/DireFixation';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -108,6 +109,7 @@ class CombatLogParser extends CoreCombatLogParser {
     brutalSlash: BrutalSlash,
     omenAndMomentOfClarity: OmenAndMomentOfClarity,
     feralFrenzy: FeralFrenzy,
+    direFixation: DireFixation,
 
     // tier
     tier29: Tier29,

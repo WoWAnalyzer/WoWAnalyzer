@@ -2239,3 +2239,34 @@ export const Awildfivreld: Contributor = {
   nickname: 'Awildfivreld',
   github: 'awildfivreld',
 };
+
+export const Tapir: Contributor = {
+  nickname: 'Tapir',
+  github: 'Tapir42',
+  discord: 'Tapir#8523',
+  mains: [
+    {
+      name: 'Tapriest',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/sylvanas/tapriest',
+    },
+  ],
+};
+
+export const Melnais: Contributor = {
+  nickname: 'Melnais',
+  github: 'agrabovskis',
+};
+
+export const beckeeh: Contributor = {
+  nickname: 'beckeeh',
+  github: 'lavjamanxd',
+  discord: 'beckeeh',
+  mains: [
+    {
+      name: 'Beckeeh',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://classic.warcraftlogs.com/character/eu/nethergarde-keep/beckeeh',
+    },
+  ],
+};

@@ -33,6 +33,7 @@ import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import ProtPaladinT304P from './modules/core/ProtPaladinT304P';
 import MyAbilityNormalizer from './modules/CastLinkNormalizer';
+import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,6 +60,9 @@ class CombatLogParser extends CoreCombatLogParser {
     mitigationcheck: MitigationCheck,
     noDamageSOTR: NoDamageShieldOfTheRighteous,
     overcapSOTR: OvercapShieldOfTheRighteous,
+
+    // Normalizers
+    guardianOfAncientQueens: GuardianOfAncientQueens,
 
     // Talents
     righteousProtector: RighteousProtector,

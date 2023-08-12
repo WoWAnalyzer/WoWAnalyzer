@@ -27,7 +27,6 @@ class Hyperthermia extends Analyzer {
 
   totalProcs = () =>
     this.eventHistory.getEvents(EventType.ApplyBuff, {
-      searchBackwards: true,
       spell: SPELLS.HYPERTHERMIA_BUFF,
     }).length || 0;
 

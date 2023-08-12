@@ -1,4 +1,4 @@
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { AnyEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/evoker';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { PRESCIENCE_APPLY_REMOVE_LINK } from './CastLinkNormalizer';
@@ -20,6 +20,8 @@ import {
  * like to include these in our analysis, so we need to create pre-pull events for it */
 
 class PrescienceNormalizer extends EventsNormalizer {
+  // Set lower priority to ensure this runs after our CastLinkNormalizer
+  priority = 101;
   static dependencies = {
     ...EventsNormalizer.dependencies,
     combatants: Combatants,
@@ -31,9 +33,7 @@ class PrescienceNormalizer extends EventsNormalizer {
     const fixedEvents: any[] = [];
     const targetStatus: { [key: number]: boolean } = {};
     events.forEach((event: AnyEvent, idx: number) => {
-      const linkedEvents = event._linkedEvents?.find(
-        (x) => x.relation === PRESCIENCE_APPLY_REMOVE_LINK,
-      );
+      const linkedEvents = HasRelatedEvent(event, PRESCIENCE_APPLY_REMOVE_LINK);
       if (linkedEvents) {
         if (
           (event.type === EventType.ApplyBuff ||

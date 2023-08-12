@@ -99,7 +99,7 @@ class HolyPrismTargetsHit extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.HOLY_PRISM_TALENT.id}
+          spell={TALENTS.HOLY_PRISM_TALENT.id}
           value={averageTargetsHit}
           label="Average Targets Hit per Cast"
           className="light-of-dawn-hits-per-cast"
