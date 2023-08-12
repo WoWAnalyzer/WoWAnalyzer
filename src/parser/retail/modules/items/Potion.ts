@@ -41,12 +41,21 @@ class Potion extends Analyzer {
     return this.constructor as typeof Potion;
   }
 
+  /**
+   * Determine if this class should activate. Called during constructor, so dependencies are NOT available on `this`.
+   */
+  protected shouldActivate(options: Options) {
+    return true;
+  }
+
   constructor(options: Options) {
     super(options);
-    if (!this.isAvailable) {
-      this.active = false;
+    this.active = this.shouldActivate(options);
+
+    if (!this.active) {
       return;
     }
+
     (options.abilities as Abilities).add({
       spell: this.static.spells,
       category: SPELL_CATEGORY.CONSUMABLE,
@@ -66,11 +75,6 @@ class Potion extends Analyzer {
         });
       });
     }
-  }
-
-  // To be overwriten by classes extending the Potion module.
-  get isAvailable() {
-    return true;
   }
 
   get spellId() {
