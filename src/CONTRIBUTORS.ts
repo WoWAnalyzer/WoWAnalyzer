@@ -2257,3 +2257,16 @@ export const Melnais: Contributor = {
   nickname: 'Melnais',
   github: 'agrabovskis',
 };
+
+export const beckeeh: Contributor = {
+  nickname: 'beckeeh',
+  github: 'lavjamanxd',
+  discord: 'beckeeh',
+  mains: [
+    {
+      name: 'Beckeeh',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://classic.warcraftlogs.com/character/eu/nethergarde-keep/beckeeh',
+    },
+  ],
+};
