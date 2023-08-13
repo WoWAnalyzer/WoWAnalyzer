@@ -1,6 +1,6 @@
 import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import { Icon, ResourceLink } from 'interface';
+import { Expandable, Icon, ResourceLink } from 'interface';
 import Analyzer from 'parser/core/Analyzer';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import Panel from 'parser/ui/Panel';
@@ -9,9 +9,10 @@ import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import MaelstromTracker from './MaelstromTracker';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import MaelstromGraph from './MaelstromGraph';
-import { SubSection } from 'interface/guide';
+import { SectionHeader, SubSection } from 'interface/guide';
 import ThresholdPerformancePercentage from '../features/shared/ThresholdPerformancePercentage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import Statistics from 'interface/icons/Statistics';
 
 const MINOR_THRESHOLD = 0;
 const AVERAGE_THRESHOLD = 0.02;
@@ -86,7 +87,18 @@ class MaelstromDetails extends Analyzer {
           flatAmount={this.wasted}
         />{' '}
         <ResourceLink id={RESOURCE_TYPES.MAELSTROM.id} /> during this fight.
-        {this.maelstromGraph.plot}
+        <div style={{ marginTop: '20px' }}>
+          <Expandable
+            header={
+              <SectionHeader>
+                <Statistics /> Maelstrom timeline graph
+              </SectionHeader>
+            }
+            element="section"
+          >
+            {this.maelstromGraph.plot}
+          </Expandable>
+        </div>
       </SubSection>
     );
   }
