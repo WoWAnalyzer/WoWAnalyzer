@@ -296,6 +296,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.RUNE_TAP_TALENT.id,
         buffSpellId: TALENTS.RUNE_TAP_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RUNE_TAP_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: 25,
         charges: 2,

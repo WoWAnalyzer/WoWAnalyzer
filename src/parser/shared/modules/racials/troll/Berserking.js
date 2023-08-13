@@ -26,7 +26,7 @@ class Berserking extends Analyzer {
     this.castEfficiency =
       options.castEfficiency === undefined ? this.castEfficiency : options.castEfficiency;
 
-    this.abilities.add({
+    options.abilities.add({
       spell: SPELLS.BERSERKING.id,
       category: SPELL_CATEGORY.COOLDOWNS,
       cooldown: 180,
