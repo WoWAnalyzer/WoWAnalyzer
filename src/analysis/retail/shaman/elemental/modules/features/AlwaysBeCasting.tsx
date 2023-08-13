@@ -14,12 +14,14 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
   uptimeHistory: UptimeHistoryEntry[] = [];
 
   onGCD(event: GlobalCooldownEvent) {
+    const super_result = super.onGCD(event);
+
     this.uptimeHistory.push({
       timestamp: this.owner.currentTimestamp,
       uptimePct: this.activeTimePercentage,
     });
 
-    return super.onGCD(event);
+    return super_result;
   }
 
   get suggestionThresholds() {

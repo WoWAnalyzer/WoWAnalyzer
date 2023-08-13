@@ -1,6 +1,3 @@
-//Based on Main/Mana.js and parser/VengeanceDemonHunter/Modules/PainChart
-//Note: For those that might wish to add Boss Health in the future- some of the work is already done here: https://github.com/leapis/WoWAnalyzer/tree/focusChartBossHealth
-
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { AutoSizer } from 'react-virtualized';
 import { VisualizationSpec } from 'react-vega';
@@ -15,7 +12,7 @@ interface GraphData {
   activeTimePercentage: number;
 }
 
-const GRAPH_SAMPLE_COUNT = 2; // Show every Nth GCD in the graph.
+const GRAPH_SAMPLE_COUNT = 2; // Show value for every Nth GCD in the graph.
 const GRAPH_MAX_Y = 1; // The maximum value on the Y axis. Used to prevent the graph skyrocketing.
 
 export default function getUptimeGraph(
@@ -128,7 +125,7 @@ export default function getUptimeGraph(
 
   const graphData: GraphData[] = [];
   uptimeHistory.forEach(({ timestamp, uptimePct }, i) => {
-    // Don't need **every** cast here.
+    // Don't need **every** GCD here.
     if (i % GRAPH_SAMPLE_COUNT === 0) {
       graphData.push({
         timestamp: timestamp,
