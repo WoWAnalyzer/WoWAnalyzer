@@ -1,4 +1,3 @@
-import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
@@ -20,11 +19,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          }),
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -38,11 +34,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          }),
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -56,11 +49,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          }),
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -77,11 +67,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          }),
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         isDefensive: true,
@@ -95,11 +82,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          }),
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         isDefensive: true,
@@ -121,11 +105,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          }),
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         isDefensive: true,
@@ -150,11 +131,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          }),
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -170,11 +148,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
-          }),
+          extraSuggestion:
+            'Defensive CDs like this are meant to be used smartly. Use it to smooth regular damage intake, to take the edge of big attacks, or heal up quickly after a large hit.',
         },
         timelineSortIndex: 10,
       },
@@ -190,11 +165,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.abominationlimb',
-            message:
-              'Should be used on CD. You may delay it a little to not over cap on bone shield charges or if you need its pulling of mobs.',
-          }),
+          extraSuggestion:
+            'Should be used on CD. You may delay it a little to not over cap on bone shield charges or if you need its pulling of mobs.',
         },
       },
       {
@@ -209,10 +181,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.bloodBoil',
-            message: 'Should be casting it so you have at least one recharging.',
-          }),
+          extraSuggestion: 'Should be casting it so you have at least one recharging.',
         },
         timelineSortIndex: 4,
       },
@@ -228,11 +197,8 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.dancingRuneWeapon',
-            message:
-              'Should be used as an opener and usally used on CD. You may delay it a little so as to not over cap bone charges to much or if you know there is a large pack of adds incoming.',
-          }),
+          extraSuggestion:
+            'Should be used as an opener and usally used on CD. You may delay it a little so as to not over cap bone charges to much or if you know there is a large pack of adds incoming.',
         },
         timelineSortIndex: 9,
       },
@@ -246,10 +212,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.empowerruneweapon',
-            message: 'Be mindful of the haste/runic power increase and make use of it.',
-          }),
+          extraSuggestion: 'Be mindful of the haste/runic power increase and make use of it.',
         },
         timelineSortIndex: 9,
       },
@@ -264,10 +227,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.blooddrinker',
-            message: `Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.`,
-          }),
+          extraSuggestion: `Mostly used as a dps CD. Should be almost casted on CD. Good to use when you're running to the boss or can't melee them.`,
         },
         timelineSortIndex: 6,
       },
@@ -358,10 +318,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.bloodTap',
-            message: 'Use to generate extra runes at opportune times.',
-          }),
+          extraSuggestion: 'Use to generate extra runes at opportune times.',
           importance: ISSUE_IMPORTANCE.MINOR,
         },
         timelineSortIndex: 10,
@@ -377,14 +334,12 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.5,
-          extraSuggestion: defineMessage({
-            id: 'deathknight.blood.abilities.extraSuggestion.defensiveCd',
-            message:
-              'Use this on CD and try to only use it when it consumes 5 boneshield charges and can reduce 20 seconds off dancing rune weapon.',
-          }),
+          extraSuggestion:
+            'Use this on CD and try to only use it when it consumes 5 boneshield charges and can reduce 20 seconds off dancing rune weapon.',
         },
         timelineSortIndex: 10,
       },
+
       {
         spell: TALENTS.BONESTORM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
