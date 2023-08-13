@@ -111,8 +111,9 @@ abstract class ResourceGraph extends Analyzer {
 export type GraphData = {
   /** Timestamp of the data point */
   timestamp: number;
-  /** Amount of resource at the given time */
-  amount: number;
+
+  /** Graph library supports arbitrary keys, which can be referenced in the spec. */
+  [key: string]: number;
   // TODO also include max, rate, etc??
 };
 
