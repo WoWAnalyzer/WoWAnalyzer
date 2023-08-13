@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 12), 'Add Classic character parse page', jazminite),
   change(date(2023, 8, 7), 'Refactor EventLinkNormalizer', Trevor),
   change(date(2023, 8, 7), 'Remove some deprecated code.', ToppleTheNun),
   change(date(2023, 7, 31), <>Add enchantment check for <ItemLink id={ITEMS.SHADOWED_BELT_CLASP_R3.id} />.</>,  ToppleTheNun),

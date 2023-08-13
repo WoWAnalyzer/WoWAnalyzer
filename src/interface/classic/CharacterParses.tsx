@@ -3,7 +3,7 @@ import { defineMessage, Trans } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import retryingPromise from 'common/retryingPromise';
-import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
+import { CLASSIC_DIFFICULTIES, getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
 import SPECS, { isRetailSpec } from 'game/SPECS';
 import ZONES from 'game/classic/ZONES';
 import { appendReportHistory } from 'interface/actions/reportHistory';
@@ -18,7 +18,7 @@ import { WCLParse, WCLParsesResponse } from 'common/WCL_TYPES';
 import { isSupportedRegion } from 'common/regions';
 
 import '../CharacterParses.scss';
-import ParsesList, { Parse } from '../CharacterParsesList';
+import ParsesList, { Parse } from './CharacterParsesList';
 
 const loadRealms = () =>
   retryingPromise(() => import('game/REALMS').then((exports) => exports.CLASSIC_REALMS));
@@ -104,7 +104,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       specs: [],
       class: '',
       activeSpec: [],
-      activeDifficultyIds: Object.values(DIFFICULTIES),
+      activeDifficultyIds: Object.values(CLASSIC_DIFFICULTIES),
       activeZoneID: DEFAULT_ZONE,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
@@ -215,7 +215,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       name: elem.encounterName,
       spec: elem.spec.replace(' ', ''),
       difficulty: elem.difficulty,
-
+      size: elem.size,
       report_code: elem.reportID,
 
       report_fight: elem.fightID,
@@ -296,6 +296,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     return fetchWcl<WCLParsesResponse>(
       `parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
       {
+        game: 'classic',
         includeCombatantInfo: true,
         metric: this.state.metric,
         zone: this.state.activeZoneID,
@@ -636,7 +637,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                   </div>
                 ))}
 
-                {Object.values(DIFFICULTIES).map((difficultyId) => (
+                {Object.values(CLASSIC_DIFFICULTIES).map((difficultyId) => (
                   <div
                     key={difficultyId}
                     onClick={() => this.updateDifficulty(difficultyId)}
