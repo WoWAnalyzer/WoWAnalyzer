@@ -9,6 +9,8 @@ import SPELLS from 'common/SPELLS';
 import { calculateEffectiveDamageReduction } from 'parser/core/EventCalculateLib';
 import { formatNumber } from 'common/format';
 
+const TALENT_DR = 0.1;
+
 class LightsProtection extends Analyzer {
   roughDR = 0;
   glimmerBuffs = 0;
@@ -47,7 +49,7 @@ class LightsProtection extends Analyzer {
     if (this.glimmerBuffs === 0) {
       return;
     }
-    this.roughDR += calculateEffectiveDamageReduction(event, 0.16);
+    this.roughDR += calculateEffectiveDamageReduction(event, TALENT_DR);
   }
 
   statistic() {
