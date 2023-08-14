@@ -5,6 +5,7 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 8, 11), <>Small Mastery Update.</>, Abelito75),
   change(date(2023, 8, 11), <>Reduced Lights Protections DR value.</>, Abelito75),
   change(date(2023, 8, 4), <>Fixed Death Recap Double Buff Display.</>, Abelito75),
   change(date(2023, 7, 23), <>IoL can be consumed by Judgment without Divine Revelations.</>, Abelito75),
