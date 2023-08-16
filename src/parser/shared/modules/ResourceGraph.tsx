@@ -25,7 +25,7 @@ abstract class ResourceGraph extends Analyzer {
   }
 
   resourceName(): string {
-    return 'Resources';
+    return this.tracker().resource.name;
   }
 
   /** Some are scaled differently in events vs the user facing value. Implementer may override
