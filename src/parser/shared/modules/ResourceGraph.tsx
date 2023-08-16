@@ -8,10 +8,24 @@ abstract class ResourceGraph extends Analyzer {
   /** Implementer must override this to return the ResourceTracker for the resource to graph */
   abstract tracker(): ResourceTracker;
 
+  /** Implementer may set this to include the wasted line on the graph.
+   *  Note that the ResourceTracker must have events with `Event.changeWaste` for this to work.
+   */
+  includeWasted: boolean = false;
+
   /** Implementer may override this to give the graph line a custom color.
    *  Color must be in format '#rrggbb', where rr gg and bb are hex values. */
   lineColor(): string | undefined {
     return undefined;
+  }
+
+  /** Implementer may override this to give the wasted line a custom color. */
+  wastedColor(): string {
+    return 'rgba(255,90,160,1)';
+  }
+
+  resourceName(): string {
+    return 'Resources';
   }
 
   /** Some are scaled differently in events vs the user facing value. Implementer may override
@@ -34,6 +48,11 @@ abstract class ResourceGraph extends Analyzer {
           calculate: `datum.timestamp - ${this.owner.fight.start_time}`,
           as: 'timestamp_shifted',
         },
+        {
+          // Tooltips cant have calculated fields, so we need to calculate this here.
+          calculate: formatTime('datum.timestamp_shifted'),
+          as: 'timestamp_humanized',
+        },
       ],
       encoding: {
         x: {
@@ -49,39 +68,130 @@ abstract class ResourceGraph extends Analyzer {
           },
           title: null,
         },
-        y: {
-          field: 'amount',
-          type: 'quantitative' as const,
+      },
+      layer: [
+        {
+          layer: [
+            // First layer always applies. Show the line of current resources.
+            {
+              mark: {
+                type: 'line' as const,
+                color: this.lineColor(),
+                interpolate: 'step-after' as const,
+              },
+            },
+            // Makes a visual point if the "hover" signal defined further down is active for this point.
+            { transform: [{ filter: { param: 'hover', empty: false } }], mark: 'point' },
+          ],
+          encoding: {
+            y: {
+              field: 'amount',
+              title: this.resourceName(),
+              type: 'quantitative' as const,
+              axis: {
+                grid: true,
+              },
+            },
+          },
         },
-      },
-      resolve: {
-        scale: { y: 'independent' as const },
-      },
-      mark: {
-        type: 'line' as const,
-        color: this.lineColor(),
-      },
+        // Contrived logic to conditionally include this layer if the wasted line is enabled on the class.
+        ...(this.includeWasted
+          ? [
+              {
+                layer: [
+                  {
+                    // First layer always applies
+                    mark: {
+                      type: 'line' as const,
+                      color: this.wastedColor(),
+                      interpolate: 'step-before' as const,
+                    },
+                  },
+                  // Makes a visual point if the "hover" signal defined further down is active for this point.
+                  {
+                    transform: [{ filter: { param: 'hover', empty: false } }],
+                    mark: 'point' as const,
+                  },
+                ],
+                encoding: {
+                  y: {
+                    field: 'wasted',
+                    title: `Wasted ${this.resourceName()}`,
+                    type: 'quantitative' as const,
+                    axis: {
+                      grid: true,
+                    },
+                  },
+                },
+              },
+            ]
+          : []),
+        {
+          // Define one vertical line (type=rule) per datapoint that is white.
+          mark: {
+            type: 'rule',
+            color: 'white',
+          },
+          encoding: {
+            opacity: {
+              // If the "hover" signal is active, make the line slightly opaque, else invisible.
+              condition: {
+                value: 0.3,
+                param: 'hover',
+                empty: false,
+              },
+              value: 0,
+            },
+            tooltip: [
+              { field: 'timestamp_humanized', type: 'nominal', title: 'Time' },
+              { field: 'amount', type: 'quantitative', title: this.resourceName() },
+              // Contrived way of conditionally including this object if the wasted line is enabled on the class.
+              ...(this.includeWasted
+                ? [
+                    {
+                      field: 'wasted',
+                      type: 'quantitative' as const,
+                      title: `Wasted ${this.resourceName()}`,
+                    },
+                  ]
+                : []),
+            ],
+          },
+          // Activate the "hover" signal on the closest datapoint to the mouse cursor.
+          params: [
+            {
+              name: 'hover',
+              select: {
+                type: 'point',
+                fields: ['timestamp_shifted'],
+                nearest: true,
+                on: 'mouseover',
+                clear: 'mouseout',
+              },
+            },
+          ],
+        },
+      ],
       config: {
         view: {},
       },
     };
   }
-
   get graphData() {
     const graphData: GraphData[] = [];
     const tracker = this.tracker();
     const scaleFactor = this.scaleFactor();
     tracker.resourceUpdates.forEach((u) => {
-      if (u.change !== 0) {
-        graphData.push({
-          timestamp: u.timestamp,
-          amount: (u.current - (u.change || 0)) * scaleFactor,
-        });
-      }
-      graphData.push({
+      const data: GraphData = {
         timestamp: u.timestamp,
         amount: u.current * scaleFactor,
-      });
+      };
+
+      if (this.includeWasted) {
+        data.wasted = (u.changeWaste || 0) * scaleFactor;
+      }
+
+      graphData.push(data);
     });
 
     return { graphData };
