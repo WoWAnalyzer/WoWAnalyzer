@@ -37,8 +37,8 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_RETAIL_ZONE = 33; // DEFAULT_ZONE changed from 29 to 31 folowing the 10.0.2 patch.
-const DEFAULT_CLASSIC_ZONE = 1018;
+const DEFAULT_RETAIL_ZONE = 33; // Aberrus
+const DEFAULT_CLASSIC_ZONE = 1018; // ToGC
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
