@@ -22,9 +22,11 @@ const styles = {
 };
 
 export interface Parse {
+  encounterId: number;
   name: string;
   spec: string;
   difficulty: number;
+  size: number;
   report_code: string;
   report_fight: number;
   historical_percent: number;
@@ -40,15 +42,10 @@ interface CharacterParsesListProps {
   parses: Parse[];
   class: string;
   metric: string;
+  isClassic: boolean;
 }
 
 class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
-  constructor(props: CharacterParsesListProps) {
-    super(props);
-    this.renderLegendaryEffect = this.renderLegendaryEffect.bind(this);
-    this.renderItem = this.renderItem.bind(this);
-  }
-
   iconPath(specName: string) {
     return `/specs/${this.props.class.replace(' ', '')}-${specName.replace(' ', '')}.jpg`;
   }
@@ -94,6 +91,26 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
 
   render() {
     const { parses } = this.props;
+    let detailIcons: (elem: Parse) => JSX.Element;
+
+    if (this.props.isClassic) {
+      detailIcons = (elem: Parse) => (
+        <div className="col-md-2 text-center">
+          {elem.advanced && elem.gear.filter(this.itemFilter).map(this.renderItem)}
+        </div>
+      );
+    } else {
+      detailIcons = (elem: Parse) => (
+        <div className="col-md-4 flex wrapable">
+          {elem.advanced &&
+            elem.talents.slice(0, 8).map((talent) => (
+              <div key={talent.id} className="flex-sub">
+                <SpellIcon spell={talent} style={styles.icon} />
+              </div>
+            ))}
+        </div>
+      );
+    }
     return (
       <ul className="list parses-list">
         {parses.map((elem) => {
@@ -114,19 +131,17 @@ class CharacterParsesList extends PureComponent<CharacterParsesListProps> {
                       <span className="boss">{elem.name}</span>
                     </div>
                   </div>
+                  {this.props.isClassic && (
+                    <div className="col-md-2 text-center" style={{ color: 'white' }}>
+                      {elem.advanced && elem.size} Player
+                    </div>
+                  )}
                   <div className="col-md-2 text-right">
                     <div className={rankingColor(elem.historical_percent / 100)}>
                       {this.formatPerformance(elem)}
                     </div>
                   </div>
-                  <div className="col-md-4 flex wrapable">
-                    {elem.advanced &&
-                      elem.talents.map((talent) => (
-                        <div key={talent.id} className="flex-sub">
-                          <SpellIcon spell={talent} style={styles.icon} />
-                        </div>
-                      ))}
-                  </div>
+                  {detailIcons(elem)}
                   <div className="col-md-2" style={{ color: 'white', textAlign: 'right' }}>
                     {new Date(elem.start_time).toLocaleDateString()}
                     {elem.advanced && (
