@@ -5,6 +5,7 @@ import { HawkCorrigan, Putro, Zeboot, Maximaw, Zea, emallson, Vetyst, Periodic, 
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 8, 13), <>Add section on always be casting, with graph.</>, Awildfivreld),
   change(date(2023, 8, 12), <>Fix and improve the resource graph, and add a section on it in the guide section.</>, Awildfivreld),
   change(date(2023, 8, 6), <>Add a section on proper use of single target spenders.</>, Awildfivreld),
   change(date(2023, 7, 26), <>Adds Flame Shock Guide section</>, Periodic),
