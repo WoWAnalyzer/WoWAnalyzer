@@ -6,7 +6,7 @@ import SPELLS from 'common/SPELLS/evoker';
 
 export default [
     change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.SYMBIOTIC_BLOOM_TALENT} />.</>, Vollmer),
-    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.BLISTERING_SCALES_TALENT} />, <SpellLink spell={TALENTS.PERMEATING_CHILL_TALENT} /> & <SpellLink spell={TALENTS.REACTIVE_HIDE_TALENT} />.</>, Vollmer),
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.BLISTERING_SCALES_TALENT} />, <SpellLink spell={TALENTS.REGENERATIVE_CHITIN_TALENT} /> & <SpellLink spell={TALENTS.REACTIVE_HIDE_TALENT} />.</>, Vollmer),
     change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.TECTONIC_LOCUS_TALENT} />.</>, Vollmer),
     change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.VOLCANISM_TALENT} />.</>, Vollmer),
     change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.RICOCHETING_PYROCLAST_TALENT} />.</>, Vollmer),
