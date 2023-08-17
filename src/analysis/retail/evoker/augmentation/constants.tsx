@@ -11,6 +11,7 @@ export const TIMEWALKER_BASE_EXTENTION = 0.04;
 export const ERUPTION_EXTENTION_MS = 1000;
 export const EMPOWER_EXTENTION_MS = 2000;
 export const BREATH_OF_EONS_EXTENTION_MS = 5000;
+export const DREAM_OF_SPRINGS_EXTENTION_MS = 1000;
 export const SANDS_OF_TIME_CRIT_MOD = 0.5;
 
 // Prescience

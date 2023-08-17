@@ -16,6 +16,7 @@ import {
   EMPOWER_EXTENTION_MS,
   BREATH_OF_EONS_EXTENTION_MS,
   SANDS_OF_TIME_CRIT_MOD,
+  DREAM_OF_SPRINGS_EXTENTION_MS,
 } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
@@ -74,7 +75,11 @@ class EbonMight extends Analyzer {
   currentEbonMightDuration: number = 0;
   currentEbonMightCastTime: number = 0;
 
-  trackedSpells = [TALENTS.ERUPTION_TALENT, TALENTS.BREATH_OF_EONS_TALENT];
+  trackedSpells = [
+    TALENTS.ERUPTION_TALENT,
+    TALENTS.BREATH_OF_EONS_TALENT,
+    SPELLS.EMERALD_BLOSSOM_CAST,
+  ];
   empowers = [SPELLS.FIRE_BREATH, SPELLS.FIRE_BREATH_FONT, SPELLS.UPHEAVAL, SPELLS.UPHEAVAL_FONT];
 
   constructor(options: Options) {
@@ -183,7 +188,11 @@ class EbonMight extends Analyzer {
    * out the crit chance of the +50% effect, gives accurate enough results
    * for what we need.*/
   private extendEbongMight(event: CastEvent | EmpowerEndEvent) {
-    if (!this.ebonMightActive) {
+    if (
+      !this.ebonMightActive ||
+      (event.ability.guid === SPELLS.EMERALD_BLOSSOM_CAST.id &&
+        !this.selectedCombatant.hasTalent(TALENTS.DREAM_OF_SPRING_TALENT))
+    ) {
       return;
     }
 
@@ -197,6 +206,8 @@ class EbonMight extends Analyzer {
       newEbonMightDuration = ebonMightTimeLeft + BREATH_OF_EONS_EXTENTION_MS * critMod;
     } else if (event.ability.guid === TALENTS.ERUPTION_TALENT.id) {
       newEbonMightDuration = ebonMightTimeLeft + ERUPTION_EXTENTION_MS * critMod;
+    } else if (event.ability.guid === SPELLS.EMERALD_BLOSSOM_CAST.id) {
+      newEbonMightDuration = ebonMightTimeLeft + DREAM_OF_SPRINGS_EXTENTION_MS * critMod;
     } else {
       newEbonMightDuration = ebonMightTimeLeft + EMPOWER_EXTENTION_MS * critMod;
     }
