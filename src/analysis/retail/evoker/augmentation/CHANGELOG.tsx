@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.TECTONIC_LOCUS_TALENT} />.</>, Vollmer),
     change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.VOLCANISM_TALENT} />.</>, Vollmer),
     change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.RICOCHETING_PYROCLAST_TALENT} />.</>, Vollmer),
     change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.PUPIL_OF_ALEXSTRASZA_TALENT} />.</>, Vollmer),

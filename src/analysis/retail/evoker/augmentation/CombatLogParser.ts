@@ -17,6 +17,7 @@ import Prescience from './modules/talents/Prescience';
 import Anachronism from './modules/talents/Anachronism';
 import PupilOfAlexstrasza from './modules/talents/PupilOfAlexstrasza';
 import RicochetingPyroclast from './modules/talents/RicochetingPyroclast';
+import TectonicLocus from './modules/talents/TectonicLocus';
 import Volcanism from './modules/talents/Volcanism';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
@@ -56,6 +57,7 @@ class CombatLogParser extends MainCombatLogParser {
     anachronism: Anachronism,
     pupilOfAlexstrasza: PupilOfAlexstrasza,
     ricochetingPyroclast: RicochetingPyroclast,
+    tectonicLocus: TectonicLocus,
     volcanism: Volcanism,
 
     // Features

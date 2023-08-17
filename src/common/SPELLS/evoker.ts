@@ -395,6 +395,11 @@ const spells = {
     name: 'Upheaval',
     icon: 'ability_evoker_upheaval',
   },
+  UPHEAVAL_DAM: {
+    id: 396288,
+    name: 'Upheaval',
+    icon: 'ability_evoker_upheaval',
+  },
   ESSENCE_BURST_AUGMENTATION_BUFF: {
     id: 392268,
     name: 'Essence Burst',
