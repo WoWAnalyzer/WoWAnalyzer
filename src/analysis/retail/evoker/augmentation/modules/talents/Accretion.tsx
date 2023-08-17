@@ -138,6 +138,7 @@ class Accretion extends Analyzer {
       console.log('total damage: ' + this.totalDamageDone);
       console.log('ebon might damage: ' + this.totalEbonMightDamage);
       console.log('shifting sand damage: ' + this.totalShiftingSandsDamage);
+      console.log('effective cdr: ' + this.effectiveUpheavelCDR / 1000);
       console.log('additional upheaval casts via CDR: ' + additionalUpheavalCastsViaCdr);
       console.log('total upheavel casts: ' + this.totalUpheavelCasts);
       console.log('avg upheaval cast damage: ' + avgUpheavalCastDamage);
@@ -164,6 +165,11 @@ class Accretion extends Analyzer {
   }
 
   statistic() {
+    // If the talent didn't provide enough CDR to actually be relevant
+    // Then no reason to show it
+    if (this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel === 0) {
+      return null;
+    }
     const damageSources = [
       {
         color: 'rgb(255, 255, 0)',
