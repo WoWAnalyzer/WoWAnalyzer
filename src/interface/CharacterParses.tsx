@@ -26,8 +26,12 @@ import { isSupportedRegion } from 'common/regions';
 import './CharacterParses.scss';
 import ParsesList, { Parse } from './CharacterParsesList';
 
-const loadRealms = () =>
-  retryingPromise(() => import('game/REALMS').then((exports) => exports.REALMS));
+const loadRealms = (classic: boolean) =>
+  retryingPromise(() =>
+    classic
+      ? import('game/REALMS').then((exports) => exports.CLASSIC_REALMS)
+      : import('game/REALMS').then((exports) => exports.REALMS),
+  );
 
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;
@@ -339,7 +343,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       );
       return null;
     }
-    const realms = await loadRealms();
+    const realms = await loadRealms(this.isClassic);
     // Use the slug from REALMS when available, otherwise try realm-prop and fail
     // TODO: Can we make this return results more reliably?
     const realmsInRegion = realms[this.props.region];
