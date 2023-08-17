@@ -5,6 +5,7 @@ import {
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
+  EmpowerEndEvent,
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
@@ -13,6 +14,14 @@ import {
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
+
+/** So sometimes when Ebon Might should be extended
+ * it just kinda doesn't? This messes with our analysis so
+ * let's check if it failed to extend where it should
+ * See example of this here (upheavel should have extended but didnt):
+ * https://www.warcraftlogs.com/reports/1JqKrX2vLxb6Zyp9/#fight=8&source=3&pins=2%24Off%24%23244F4B%24expression%24type%20%3D%20%22empowerend%22%20or%20type%3D%22removebuff%22&view=events&start=1402475&end=1408776
+ */
+export const FAILED_EXTENSION_LINK = 'failedExtensionLink';
 
 export const PRESCIENCE_BUFF_CAST_LINK = 'prescienceBuffCastLink';
 export const PRESCIENCE_APPLY_REMOVE_LINK = 'prescienceApplyRemoveLink';
@@ -132,6 +141,31 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: false,
     forwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER,
   },
+  {
+    linkRelation: FAILED_EXTENSION_LINK,
+    reverseLinkRelation: FAILED_EXTENSION_LINK,
+    linkingEventId: [
+      SPELLS.FIRE_BREATH.id,
+      SPELLS.FIRE_BREATH_FONT.id,
+      SPELLS.UPHEAVAL.id,
+      SPELLS.UPHEAVAL_FONT.id,
+    ],
+    linkingEventType: EventType.EmpowerEnd,
+    referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    forwardBufferMs: 850,
+  },
+  {
+    linkRelation: FAILED_EXTENSION_LINK,
+    reverseLinkRelation: FAILED_EXTENSION_LINK,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    forwardBufferMs: 850,
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
@@ -182,6 +216,10 @@ export function isFromTipTheScales(event: CastEvent) {
 
 export function ebonIsFromBreath(event: ApplyBuffEvent) {
   return HasRelatedEvent(event, BREATH_EBON_APPLY_LINK);
+}
+
+export function failedEbonMightExtention(event: CastEvent | EmpowerEndEvent) {
+  return HasRelatedEvent(event, FAILED_EXTENSION_LINK);
 }
 
 export default CastLinkNormalizer;
