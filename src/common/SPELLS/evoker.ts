@@ -455,6 +455,11 @@ const spells = {
     name: 'Reactive Hide',
     icon: 'ability_evoker_reactivehide',
   },
+  SYMBIOTIC_BLOOM_BUFF: {
+    id: 410686,
+    name: 'Symbiotic Bloom',
+    icon: 'inv_10_herb_seed_magiccolor5',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
