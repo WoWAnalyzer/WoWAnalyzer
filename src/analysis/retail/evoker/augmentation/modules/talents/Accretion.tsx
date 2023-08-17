@@ -5,7 +5,7 @@ import Events, { DamageEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import {
   ACCRETION_CDR_MS,
-  EMPOWER_EXTENTION_MS,
+  EMPOWER_EXTENSION_MS,
   SANDS_OF_TIME_CRIT_MOD,
 } from 'analysis/retail/evoker/augmentation/constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
@@ -89,7 +89,7 @@ class Accretion extends Analyzer {
     const critChance = this.stats.currentCritPercentage;
     const critMod = 1 + SANDS_OF_TIME_CRIT_MOD * critChance;
     if (this.selectedCombatant.hasBuff(SPELLS.EBON_MIGHT_BUFF_PERSONAL.id)) {
-      this.ebonMightUpheavelExtention += EMPOWER_EXTENTION_MS * critMod;
+      this.ebonMightUpheavelExtention += EMPOWER_EXTENSION_MS * critMod;
     }
     this.totalUpheavelCasts += 1;
   }
