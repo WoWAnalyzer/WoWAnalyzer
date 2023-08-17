@@ -205,6 +205,17 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: 850,
   },
+  {
+    linkRelation: ERUPTION_CHITIN_LINK,
+    reverseLinkRelation: ERUPTION_CHITIN_LINK,
+    linkingEventId: TALENTS.ERUPTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: TALENTS.BLISTERING_SCALES_TALENT.id,
+    referencedEventType: EventType.ApplyBuffStack,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 class CastLinkNormalizer extends EventLinkNormalizer {
