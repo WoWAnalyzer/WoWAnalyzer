@@ -30,6 +30,8 @@ export const BREATH_EBON_APPLY_LINK = 'breathEbonApplyLink';
 export const EBON_MIGHT_BUFF_LINKS = 'ebonMightBuffLinks';
 export const EBON_MIGHT_APPLY_REMOVE_LINK = 'ebonMightApplyRemoveLink';
 
+export const ESSENCE_BURST_GENERATED = 'EssenceBurstGenerated';
+
 export const BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK = 'breathOfEonsCastDebuffApplyLink';
 export const BREATH_OF_EONS_CAST_BUFF_LINK = 'breathOfEonsCastBuffLink';
 export const BREATH_OF_EONS_DAMAGE_LINK = 'breathOfEonsDamageLink';
@@ -142,6 +144,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER,
   },
   {
+    linkRelation: ESSENCE_BURST_GENERATED,
+    reverseLinkRelation: ESSENCE_BURST_GENERATED,
+    linkingEventId: TALENTS.PRESCIENCE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
     linkRelation: FAILED_EXTENSION_LINK,
     reverseLinkRelation: FAILED_EXTENSION_LINK,
     linkingEventId: [
@@ -216,6 +229,10 @@ export function isFromTipTheScales(event: CastEvent) {
 
 export function ebonIsFromBreath(event: ApplyBuffEvent) {
   return HasRelatedEvent(event, BREATH_EBON_APPLY_LINK);
+}
+
+export function generatedEssenceBurst(event: CastEvent) {
+  return HasRelatedEvent(event, ESSENCE_BURST_GENERATED);
 }
 
 export function failedEbonMightExtention(event: CastEvent | EmpowerEndEvent) {

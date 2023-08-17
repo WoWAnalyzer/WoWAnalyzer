@@ -15,3 +15,6 @@ export const SANDS_OF_TIME_CRIT_MOD = 0.5;
 
 // Prescience
 export const PRESICENCE_BASE_DURATION_MS = 18000;
+
+// Talent multipliers
+export const ANACHRONISM_ESSCENCE_CHANCE = 0.35;
