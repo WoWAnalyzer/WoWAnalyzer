@@ -16,6 +16,7 @@ import Accretion from './modules/talents/Accretion';
 import Prescience from './modules/talents/Prescience';
 import Anachronism from './modules/talents/Anachronism';
 import PupilOfAlexstrasza from './modules/talents/PupilOfAlexstrasza';
+import RicochetingPyroclast from './modules/talents/RicochetingPyroclast';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
@@ -53,6 +54,7 @@ class CombatLogParser extends MainCombatLogParser {
     prescience: Prescience,
     anachronism: Anachronism,
     pupilOfAlexstrasza: PupilOfAlexstrasza,
+    ricochetingPyroclast: RicochetingPyroclast,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
