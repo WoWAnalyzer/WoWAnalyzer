@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 16), 'Add Classic buffs that effect haste rating', jazminite),
   change(date(2023, 8, 12), 'Add Classic character parse page', jazminite),
   change(date(2023, 8, 9), 'Fix combatant count in M+.', ToppleTheNun),
   change(date(2023, 8, 9), 'Disable Augmentation Evoker analysis in M+.', ToppleTheNun),

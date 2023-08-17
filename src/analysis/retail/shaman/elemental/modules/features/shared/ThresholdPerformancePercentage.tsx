@@ -28,7 +28,7 @@ export interface GTEThreshold {
 interface Props {
   threshold: LTEThreshold | GTEThreshold /** The threshold to compare against. */;
   percentage: number /** The actual percentage value to compare against the threshold */;
-  flatAmount: number /** The flat amount of the percentage (the numerator) */;
+  flatAmount?: number /** The flat amount of the percentage (the numerator). Will only show percentage if not specified. */;
 }
 /**
  * Element that shows a performance percentage with a tooltip.
@@ -60,6 +60,17 @@ const ThresoldPerformancePercentage = ({ threshold, percentage, flatAmount }: Pr
     performance = QualitativePerformance.Fail;
   }
 
+  let child;
+  if (flatAmount) {
+    child = (
+      <>
+        {formatNumber(flatAmount)} ({formatPercentage(percentage)}%)
+      </>
+    );
+  } else {
+    child = <>{formatPercentage(percentage)}%</>;
+  }
+
   const perfectSign = threshold.perfect > 0 ? <>{signJsx}=</> : <>=</>;
   return (
     <PerformanceStrongWithTooltip
@@ -77,7 +88,7 @@ const ThresoldPerformancePercentage = ({ threshold, percentage, flatAmount }: Pr
         </>
       }
     >
-      {formatNumber(flatAmount)} ({formatPercentage(percentage)}%)
+      {child}
     </PerformanceStrongWithTooltip>
   );
 };

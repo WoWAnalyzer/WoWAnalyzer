@@ -496,6 +496,9 @@ class BreathOfEonsRotational extends Analyzer {
   }
 
   private finalize() {
+    if (!this.currentBreathWindow) {
+      return;
+    }
     // Clean up current window if it runs out during combat end / death etc..
     const breathWindow = this.currentBreathWindow;
     if (breathWindow.end === 0) {

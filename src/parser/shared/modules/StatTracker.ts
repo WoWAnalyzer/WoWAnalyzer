@@ -1,5 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import CLASSIC_SPELLS from 'common/SPELLS/classic';
 import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
 import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
@@ -20,7 +21,7 @@ import Events, {
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import STAT from 'parser/shared/modules/features/STAT';
 
-import Expansion from '../../../game/Expansion';
+import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 
 const ARMOR_INT_BONUS = 0.05;
@@ -118,6 +119,11 @@ class StatTracker extends Analyzer {
     [SPELLS.FEROCITY_OF_THE_FROSTWOLF.id]: { mastery: 125 },
     [SPELLS.MIGHT_OF_THE_BLACKROCK.id]: { versatility: 125 },
     // endregion
+
+    // region Classic WotLK
+    [CLASSIC_SPELLS.HYPERSPEED_ACCELERATION.id]: { haste: 340 },
+    [CLASSIC_SPELLS.POTION_OF_SPEED.id]: { haste: 500 },
+    // endregion
   };
 
   // all known stat buffs
@@ -198,7 +204,7 @@ class StatTracker extends Analyzer {
 
   get activeStats(): STAT[] {
     switch (this.owner.config.expansion) {
-      case Expansion.TheBurningCrusade:
+      case CLASSIC_EXPANSION:
         return [
           STAT.HEALTH,
           STAT.STAMINA,
