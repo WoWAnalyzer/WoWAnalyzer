@@ -19,6 +19,7 @@ import PupilOfAlexstrasza from './modules/talents/PupilOfAlexstrasza';
 import RicochetingPyroclast from './modules/talents/RicochetingPyroclast';
 import TectonicLocus from './modules/talents/TectonicLocus';
 import Volcanism from './modules/talents/Volcanism';
+import BlisteringScales from './modules/talents/BlisteringScales';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
@@ -59,6 +60,7 @@ class CombatLogParser extends MainCombatLogParser {
     ricochetingPyroclast: RicochetingPyroclast,
     tectonicLocus: TectonicLocus,
     volcanism: Volcanism,
+    blisteringScales: BlisteringScales,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,

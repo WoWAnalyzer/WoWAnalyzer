@@ -445,6 +445,16 @@ const spells = {
     name: 'Black Attunement',
     icon: 'ability_evoker_blackattunement',
   },
+  BLISTERING_SCALES_DAM: {
+    id: 360828,
+    name: 'Blistering Scales',
+    icon: 'ability_evoker_blisteringscales',
+  },
+  REACTIVE_HIDE_BUFF: {
+    id: 410256,
+    name: 'Reactive Hide',
+    icon: 'ability_evoker_reactivehide',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

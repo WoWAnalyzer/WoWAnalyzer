@@ -37,6 +37,7 @@ export const BREATH_OF_EONS_CAST_BUFF_LINK = 'breathOfEonsCastBuffLink';
 export const BREATH_OF_EONS_DAMAGE_LINK = 'breathOfEonsDamageLink';
 
 export const ERUPTION_CAST_DAM_LINK = 'eruptionCastDamLink';
+export const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
 export const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
 
 export const PRESCIENCE_BUFFER = 150;
@@ -258,6 +259,10 @@ export function getPupilDamageEvents(event: CastEvent): DamageEvent[] {
   return GetRelatedEvents(event, PUPIL_OF_ALEXSTRASZA_LINK).filter(
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
+}
+
+export function chitinBuffStackGained(event: CastEvent) {
+  return HasRelatedEvent(event, ERUPTION_CHITIN_LINK);
 }
 
 export function isFromTipTheScales(event: CastEvent) {
