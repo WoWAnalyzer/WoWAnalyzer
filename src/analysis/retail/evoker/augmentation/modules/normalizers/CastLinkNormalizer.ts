@@ -36,6 +36,8 @@ export const BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK = 'breathOfEonsCastDebuffAppl
 export const BREATH_OF_EONS_CAST_BUFF_LINK = 'breathOfEonsCastBuffLink';
 export const BREATH_OF_EONS_DAMAGE_LINK = 'breathOfEonsDamageLink';
 
+export const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
+
 export const PRESCIENCE_BUFFER = 150;
 export const CAST_BUFFER_MS = 100;
 export const BREATH_EBON_BUFFER = 250;
@@ -43,6 +45,7 @@ export const EBON_MIGHT_BUFFER = 150;
 export const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
 export const BREATH_OF_EONS_BUFF_BUFFER = 8000;
 export const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
+export const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -144,6 +147,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: BREATH_OF_EONS_DAMAGE_BUFFER,
   },
   {
+    linkRelation: PUPIL_OF_ALEXSTRASZA_LINK,
+    reverseLinkRelation: PUPIL_OF_ALEXSTRASZA_LINK,
+    linkingEventId: SPELLS.LIVING_FLAME_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.LIVING_FLAME_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    maximumLinks: 2,
+    forwardBufferMs: PUPIL_OF_ALEXSTRASZA_BUFFER,
+  },
+  {
     linkRelation: ESSENCE_BURST_GENERATED,
     reverseLinkRelation: ESSENCE_BURST_GENERATED,
     linkingEventId: TALENTS.PRESCIENCE_TALENT.id,
@@ -223,6 +237,11 @@ export function getBreathOfEonsDamageEvents(event: RemoveDebuffEvent): DamageEve
   );
 }
 
+export function getPupilDamageEvents(event: CastEvent): DamageEvent[] {
+  return GetRelatedEvents(event, PUPIL_OF_ALEXSTRASZA_LINK).filter(
+    (e): e is DamageEvent => e.type === EventType.Damage,
+  );
+}
 export function isFromTipTheScales(event: CastEvent) {
   return HasRelatedEvent(event, TIP_THE_SCALES_CONSUME);
 }

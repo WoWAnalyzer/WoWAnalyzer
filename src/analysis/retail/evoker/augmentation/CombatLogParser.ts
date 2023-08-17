@@ -15,6 +15,7 @@ import TimeSkip from './modules/talents/TimeSkip';
 import Accretion from './modules/talents/Accretion';
 import Prescience from './modules/talents/Prescience';
 import Anachronism from './modules/talents/Anachronism';
+import PupilOfAlexstrasza from './modules/talents/PupilOfAlexstrasza';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
@@ -51,6 +52,7 @@ class CombatLogParser extends MainCombatLogParser {
     blisteringScalesStackTracker: BlisteringScalesStackTracker,
     prescience: Prescience,
     anachronism: Anachronism,
+    pupilOfAlexstrasza: PupilOfAlexstrasza,
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
