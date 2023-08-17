@@ -18,6 +18,11 @@ export const GLIMMER_PROC = 'GlimmerProc';
 export const HOLY_SHOCK_SOURCE = 'HolyShockSource';
 export const RISING_SUNLIGHT = 'RisingSunlight';
 
+const SHORT_BUFFER_MS = 100;
+const MED_BUFFER_MS = 350;
+const LONG_BUFFER_MS = 1000;
+const DIVINE_RESONANCE_DURATION_MS = 15000;
+
 const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: LIGHTS_HAMMER_HEAL,
@@ -36,18 +41,19 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: DAYBREAK_MANA,
+    reverseLinkRelation: FROM_DAYBREAK,
     linkingEventId: TALENTS.DAYBREAK_TALENT.id,
     linkingEventType: EventType.Cast,
     referencedEventId: SPELLS.DAYBREAK_ENERGIZE.id,
     referencedEventType: [EventType.ResourceChange],
     anyTarget: true,
-    reverseLinkRelation: FROM_DAYBREAK,
-    forwardBufferMs: 100,
-    backwardBufferMs: 100,
+    forwardBufferMs: SHORT_BUFFER_MS,
+    backwardBufferMs: SHORT_BUFFER_MS,
   },
   // Attribute glimmers proccing from Daybreak, Glistening Radiance, and Divine Toll
   {
     linkRelation: GLIMMER_PROC,
+    reverseLinkRelation: GLIMMER_PROC,
     linkingEventId: [
       SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id,
       SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT.id,
@@ -63,12 +69,12 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.Cast],
     maximumLinks: 1,
     anyTarget: true,
-    reverseLinkRelation: GLIMMER_PROC,
-    backwardBufferMs: 350,
+    backwardBufferMs: MED_BUFFER_MS,
   },
   // Attribute glimmers proccing from holy shock casts.
   {
     linkRelation: GLIMMER_PROC,
+    reverseLinkRelation: GLIMMER_PROC,
     linkingEventId: [
       SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id,
       SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT.id,
@@ -78,8 +84,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     maximumLinks: 1,
     anyTarget: true,
-    reverseLinkRelation: GLIMMER_PROC,
-    backwardBufferMs: 350,
+    backwardBufferMs: MED_BUFFER_MS,
     additionalCondition(sourceEvent) {
       return !HasRelatedEvent(sourceEvent, GLIMMER_PROC);
     },
@@ -87,6 +92,7 @@ const EVENT_LINKS: EventLink[] = [
   // Attribute glimmers proccing from rising sunlight extra holy shocks
   {
     linkRelation: GLIMMER_PROC,
+    reverseLinkRelation: GLIMMER_PROC,
     linkingEventId: [
       SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id,
       SPELLS.GLIMMER_OF_LIGHT_DAMAGE_TALENT.id,
@@ -96,8 +102,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     maximumLinks: 1,
     anyTarget: true,
-    reverseLinkRelation: GLIMMER_PROC,
-    backwardBufferMs: 1000,
+    backwardBufferMs: LONG_BUFFER_MS,
     additionalCondition(sourceEvent) {
       return !HasRelatedEvent(sourceEvent, GLIMMER_PROC);
     },
@@ -105,24 +110,24 @@ const EVENT_LINKS: EventLink[] = [
   // Attribute holy shock damage/heal events to a cast of Holy Shock
   {
     linkRelation: HOLY_SHOCK_SOURCE,
+    reverseLinkRelation: HOLY_SHOCK_SOURCE,
     linkingEventId: TALENTS.HOLY_SHOCK_TALENT.id,
     linkingEventType: EventType.Cast,
     referencedEventId: [SPELLS.HOLY_SHOCK_HEAL.id, SPELLS.HOLY_SHOCK_DAMAGE.id],
     referencedEventType: [EventType.Heal, EventType.Damage],
     maximumLinks: 1,
-    reverseLinkRelation: HOLY_SHOCK_SOURCE,
-    forwardBufferMs: 100,
+    forwardBufferMs: SHORT_BUFFER_MS,
   },
   // Attribute holy shock damage/heal events to a cast of Divine Toll
   {
     linkRelation: HOLY_SHOCK_SOURCE,
+    reverseLinkRelation: HOLY_SHOCK_SOURCE,
     linkingEventId: TALENTS.DIVINE_TOLL_TALENT.id,
     linkingEventType: EventType.Cast,
     referencedEventId: [SPELLS.HOLY_SHOCK_HEAL.id, SPELLS.HOLY_SHOCK_DAMAGE.id],
     referencedEventType: [EventType.Heal, EventType.Damage],
     maximumLinks: 6, // 10.1.5 bug -- divine toll sends 6 instead of 5
-    reverseLinkRelation: HOLY_SHOCK_SOURCE,
-    forwardBufferMs: 200,
+    forwardBufferMs: MED_BUFFER_MS,
     anyTarget: true,
     additionalCondition(_, referencedEvent) {
       return !HasRelatedEvent(referencedEvent, HOLY_SHOCK_SOURCE);
@@ -131,24 +136,24 @@ const EVENT_LINKS: EventLink[] = [
   // Find the holy shock cast that is going to trigger extra shocks from rising sunlight
   {
     linkRelation: RISING_SUNLIGHT,
+    reverseLinkRelation: RISING_SUNLIGHT,
     linkingEventId: SPELLS.RISING_SUNLIGHT_BUFF.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: TALENTS.HOLY_SHOCK_TALENT.id,
     referencedEventType: EventType.Cast,
-    reverseLinkRelation: RISING_SUNLIGHT,
     anyTarget: true,
-    backwardBufferMs: 100,
+    backwardBufferMs: SHORT_BUFFER_MS,
     maximumLinks: 1,
   },
   // Attribute 2 repeats of holy shock damage/heal events to Rising Sunlight talent
   {
     linkRelation: HOLY_SHOCK_SOURCE,
+    reverseLinkRelation: HOLY_SHOCK_SOURCE,
     linkingEventId: SPELLS.RISING_SUNLIGHT_BUFF.id,
     linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: [SPELLS.HOLY_SHOCK_HEAL.id, SPELLS.HOLY_SHOCK_DAMAGE.id],
     referencedEventType: [EventType.Heal, EventType.Damage],
-    reverseLinkRelation: HOLY_SHOCK_SOURCE,
-    forwardBufferMs: 1000,
+    forwardBufferMs: LONG_BUFFER_MS,
     anyTarget: true,
     maximumLinks: 2,
     additionalCondition(sourceEvent, referencedEvent) {
@@ -165,12 +170,12 @@ const EVENT_LINKS: EventLink[] = [
   // Attribute 3 repeats of holy shock damage/heal events to Divine Resonance talent
   {
     linkRelation: HOLY_SHOCK_SOURCE,
+    reverseLinkRelation: HOLY_SHOCK_SOURCE,
     linkingEventId: SPELLS.DIVINE_RESONANCE_TALENT_HOLY.id,
     linkingEventType: EventType.ApplyBuff,
     referencedEventId: [SPELLS.HOLY_SHOCK_HEAL.id, SPELLS.HOLY_SHOCK_DAMAGE.id],
     referencedEventType: [EventType.Heal, EventType.Damage],
-    reverseLinkRelation: HOLY_SHOCK_SOURCE,
-    forwardBufferMs: 16000,
+    forwardBufferMs: DIVINE_RESONANCE_DURATION_MS + LONG_BUFFER_MS,
     maximumLinks: 3,
     anyTarget: true,
     additionalCondition(sourceEvent, referencedEvent) {
