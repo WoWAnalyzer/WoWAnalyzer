@@ -123,11 +123,6 @@ class Accretion extends Analyzer {
   }
 
   statistic() {
-    // If the talent didn't provide enough CDR to actually be relevant
-    // Then no reason to show it
-    if (this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel === 0) {
-      return null;
-    }
     const damageSources = [
       {
         color: 'rgb(255, 255, 0)',
@@ -170,17 +165,40 @@ class Accretion extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.ACCRETION_TALENT}>
-          <ItemDamageDone
-            amount={this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel}
-          />
-        </TalentSpellText>
-        <div className="pad">
-          <label>
-            <Trans>Damage sources</Trans>
-          </label>
-          <DonutChart items={damageSources} />
-        </div>
+        {(this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel > 0 && (
+          <div>
+            <TalentSpellText talent={TALENTS.ACCRETION_TALENT}>
+              <ItemDamageDone
+                amount={
+                  this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel
+                }
+              />
+            </TalentSpellText>
+            <div className="pad">
+              <label>
+                <Trans>Damage sources</Trans>
+              </label>
+              <DonutChart items={damageSources} />
+            </div>
+          </div>
+        )) || (
+          <div className="pad">
+            <label>
+              <Trans>
+                <SpellLink spell={TALENTS.ACCRETION_TALENT} />
+              </Trans>
+            </label>
+            <p>
+              You didn't gain enough CDR to get any extra casts of{' '}
+              <SpellLink spell={TALENTS.UPHEAVAL_TALENT} />.
+              <br />
+              This is either caused by you not casting <SpellLink
+                spell={TALENTS.ERUPTION_TALENT}
+              />{' '}
+              enough, or the fight being too short.
+            </p>
+          </div>
+        )}
       </Statistic>
     );
   }
