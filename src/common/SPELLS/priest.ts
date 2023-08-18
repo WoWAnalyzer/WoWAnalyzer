@@ -404,6 +404,11 @@ const spells = {
     name: 'Burning Vehemence',
     icon: 'ability_paladin_sacredcleansing',
   },
+  WORDS_OF_THE_PIOUS_BUFF: {
+    id: 390933,
+    name: 'Words of the Pious',
+    icon: 'ability_priest_clarityofwill',
+  },
 
   // Holy Priest Spells
   GREATER_HEAL: {

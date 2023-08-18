@@ -34,6 +34,11 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS.RENEWING_BLAZE_TALENT.id,
         timelineHighlight: false,
       },
+      {
+        spellId: TALENTS.BREATH_OF_EONS_TALENT.id,
+        triggeredBySpellId: TALENTS.BREATH_OF_EONS_TALENT.id,
+        timelineHighlight: false,
+      },
       // Bloodlust
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),

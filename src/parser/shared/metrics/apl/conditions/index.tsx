@@ -5,6 +5,7 @@ export { buffPresent, buffMissing } from './buffPresent';
 export { default as hasTalent } from './hasTalent';
 export { default as spellAvailable } from './spellAvailable';
 export { default as spellCooldownRemaining } from './spellCooldownRemaining';
+export { default as buffRemaining } from './buffRemaining';
 export { default as hasResource } from './hasResource';
 export { default as inExecute } from './inExecute';
 export { default as or } from './or';

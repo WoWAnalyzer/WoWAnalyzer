@@ -27,9 +27,16 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2023, 8, 8), 'Update dependencies.', ToppleTheNun),
+  change(date(2023, 8, 18), 'Update dependencies.', ToppleTheNun),
+  change(date(2023, 8, 16), 'Add Classic buffs that effect haste rating', jazminite),
+  change(date(2023, 8, 12), 'Add Classic character parse page', jazminite),
+  change(date(2023, 8, 9), 'Fix combatant count in M+.', ToppleTheNun),
+  change(date(2023, 8, 9), 'Disable Augmentation Evoker analysis in M+.', ToppleTheNun),
+  change(date(2023, 8, 8), 'Fix bug in EventLinkNormalizer', Trevor),
   change(date(2023, 8, 8), 'Deduplicate the dependencies of the project', Putro),
   change(date(2023, 8, 7), 'Remove some deprecated code.', ToppleTheNun),
+  change(date(2023, 8, 1), 'Add Irideus Fragment and Mirror of Fractured Tomorrows trinkets.', Vollmer),
+  change(date(2023, 8, 2), 'Add support for buffRemaining in the APL modules.', Putro),
   change(date(2023, 7, 31), <>Add enchantment check for <ItemLink id={ITEMS.SHADOWED_BELT_CLASP_R3.id} />.</>,  ToppleTheNun),
   change(date(2023, 7, 29), 'Fix another issue loading parses using character search', emallson),
   change(date(2023, 7, 29), 'Fix an issue loading parses using character search', Putro),

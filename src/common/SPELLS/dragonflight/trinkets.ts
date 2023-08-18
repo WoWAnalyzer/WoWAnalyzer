@@ -26,6 +26,16 @@ const spells = {
     name: 'Spoils of Neltharus',
     icon: 'ability_mount_goatmount',
   },
+  IRIDEUS_FRAGMENT: {
+    id: 383941,
+    name: 'Irideus Fragment',
+    icon: 'inv_10_dungeonjewelry_titan_trinket_1facefragment_color3',
+  },
+  MIRROR_OF_FRACTURED_TOMORROWS: {
+    id: 418527,
+    name: 'Mirror of Fractured Tomorrows',
+    icon: 'achievement_dungeon_ulduarraid_misc_06',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
