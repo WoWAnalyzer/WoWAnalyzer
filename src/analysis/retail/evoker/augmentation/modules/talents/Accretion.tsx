@@ -19,8 +19,6 @@ import { SpellLink } from 'interface';
 import { Trans } from '@lingui/macro';
 import DonutChart from 'parser/ui/DonutChart';
 
-const debug = false;
-
 /**
  * Eruption reduces the remaining cooldown of Upheaval by 1.0 sec.
  */
@@ -45,10 +43,6 @@ class Accretion extends Analyzer {
   totalUpheavelCasts: number = 0;
   effectiveUpheavelCDR: number = 0;
   ebonMightUpheavelExtention: number = 0;
-
-  ebonMightPercentage: number = 0;
-  shiftingSandsPercentage: number = 0;
-  upheavelPercentage: number = 0;
 
   accretionEbonMight: number = 0;
   accretionShiftingSands: number = 0;
@@ -117,51 +111,15 @@ class Accretion extends Analyzer {
 
     this.accretionUpheavel = avgUpheavalCastDamage * additionalUpheavalCastsViaCdr;
 
-    this.upheavelPercentage = (this.accretionUpheavel / this.totalDamageDone) * 100;
-
     const avgShiftingSandsDamage =
       this.totalShiftingSandsDamage / this.totalShiftingSandsApplications;
 
     this.accretionShiftingSands = avgShiftingSandsDamage * additionalUpheavalCastsViaCdr;
 
-    this.shiftingSandsPercentage = (this.accretionShiftingSands / this.totalDamageDone) * 100;
-
     const cdrUpheavelExtention =
       (this.ebonMightUpheavelExtention / this.totalUpheavelCasts) * additionalUpheavalCastsViaCdr;
 
     this.accretionEbonMight = (this.totalEbonMightDamage / EbonMightUptime) * cdrUpheavelExtention;
-
-    this.ebonMightPercentage = (this.accretionEbonMight / this.totalDamageDone) * 100;
-
-    if (debug) {
-      console.log('upheavel dam: ' + this.totalUpheavelDamage);
-      console.log('total damage: ' + this.totalDamageDone);
-      console.log('ebon might damage: ' + this.totalEbonMightDamage);
-      console.log('shifting sand damage: ' + this.totalShiftingSandsDamage);
-      console.log('effective cdr: ' + this.effectiveUpheavelCDR / 1000);
-      console.log('additional upheaval casts via CDR: ' + additionalUpheavalCastsViaCdr);
-      console.log('total upheavel casts: ' + this.totalUpheavelCasts);
-      console.log('avg upheaval cast damage: ' + avgUpheavalCastDamage);
-      console.log('cdr upheaval damage: ' + this.accretionUpheavel);
-      console.log('upheaval percentage: ' + this.upheavelPercentage);
-      console.log('avg shifting cast damage: ' + avgShiftingSandsDamage);
-      console.log('cdr shifting damage: ' + this.accretionShiftingSands);
-      console.log('shifting percentage: ' + this.shiftingSandsPercentage);
-      console.log('total em uptime: ' + EbonMightUptime);
-      console.log('em extension via upheaval: ' + this.ebonMightUpheavelExtention);
-      console.log('em extetion from extra casts: ' + cdrUpheavelExtention);
-      console.log('em damage via extension: ' + this.accretionEbonMight);
-      console.log('em percentage: ' + this.ebonMightPercentage);
-      console.log(
-        'accretion value: ' +
-          (
-            this.upheavelPercentage +
-            this.ebonMightPercentage +
-            this.shiftingSandsPercentage
-          ).toFixed(2) +
-          '%',
-      );
-    }
   }
 
   statistic() {
