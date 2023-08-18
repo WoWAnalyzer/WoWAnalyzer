@@ -56,7 +56,6 @@ function generateHealingItems(
 
 function ScovSourceDonut(props: ScovSourceDonutProps) {
   const abilities = Array.from(props.abilityMap.values());
-  console.log(props.healingMap);
 
   return (
     <aside className="pad">

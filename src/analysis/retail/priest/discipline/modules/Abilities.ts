@@ -16,7 +16,12 @@ class Abilities extends CoreAbilities {
     const combatant = this.selectedCombatant;
     return [
       {
-        spell: [SPELLS.PENANCE_CAST.id, SPELLS.PENANCE.id],
+        spell: [
+          SPELLS.PENANCE_CAST.id,
+          SPELLS.PENANCE.id,
+          SPELLS.DARK_REPRIMAND_CAST.id,
+          SPELLS.DARK_REPRIMAND_DAMAGE.id,
+        ],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 9,
         gcd: {
@@ -94,7 +99,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_PRIEST.DIVINE_STAR_SHARED_TALENT.id,
+        spell: [
+          TALENTS_PRIEST.DIVINE_STAR_SHARED_TALENT.id,
+          TALENTS_PRIEST.DIVINE_STAR_SHADOW_TALENT.id,
+        ],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 15,
         gcd: {
@@ -106,7 +114,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.HALO_TALENT.id,
+        spell: [SPELLS.HALO_TALENT.id, TALENTS_PRIEST.HALO_SHADOW_TALENT.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 40,
         gcd: {
@@ -146,6 +154,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_LIFE_TALENT),
       },
       {
         spell: TALENTS_PRIEST.MINDGAMES_TALENT.id,
@@ -154,6 +163,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        enabled: combatant.hasTalent(TALENTS_PRIEST.MINDGAMES_TALENT),
       },
       {
         spell: SPELLS.SHADOWFIEND.id,
@@ -186,7 +196,7 @@ class Abilities extends CoreAbilities {
         cooldown: 90,
       },
       {
-        spell: SPELLS.POWER_WORD_BARRIER_CAST.id,
+        spell: [SPELLS.POWER_WORD_BARRIER_CAST.id, TALENTS_PRIEST.LUMINOUS_BARRIER_TALENT.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 3 * 60,
         gcd: {
@@ -216,6 +226,13 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS_PRIEST.HOLY_NOVA_TALENT.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: {
+          base: 1500,
+        },
+      },
 
       {
         spell: TALENTS_PRIEST.ANGELIC_FEATHER_TALENT.id,
@@ -235,12 +252,14 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.LEAP_OF_FAITH.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 150,
+        cooldown: combatant.hasTalent(TALENTS_PRIEST.MOVE_WITH_GRACE_TALENT) ? 60 : 90,
+        enabled: combatant.hasTalent(TALENTS_PRIEST.LEAP_OF_FAITH_TALENT),
       },
       {
         spell: SPELLS.MIND_CONTROL.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: combatant.hasTalent(TALENTS_PRIEST.DOMINATE_MIND_TALENT) ? 120 : 0,
+        enabled: combatant.hasTalent(TALENTS_PRIEST.MIND_CONTROL_TALENT),
       },
       {
         spell: SPELLS.MASS_DISPEL.id,

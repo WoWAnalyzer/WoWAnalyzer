@@ -15,6 +15,7 @@ class CombatPotion extends Potion {
     SPELLS.POTION_OF_CHILLED_CLARITY_R1.id,
     SPELLS.POTION_OF_CHILLED_CLARITY_R2.id,
     SPELLS.POTION_OF_CHILLED_CLARITY_R3.id,
+    SPELLS.AERATED_MANA_POTION.id,
   ];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {
@@ -29,6 +30,7 @@ class CombatPotion extends Potion {
       SPELLS.POTION_OF_CHILLED_CLARITY_R1.id,
       SPELLS.POTION_OF_CHILLED_CLARITY_R2.id,
       SPELLS.POTION_OF_CHILLED_CLARITY_R3.id,
+      SPELLS.AERATED_MANA_POTION.id,
     ],
   };
 }

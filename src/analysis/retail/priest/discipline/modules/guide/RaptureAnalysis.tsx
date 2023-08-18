@@ -81,7 +81,6 @@ class RaptureAnalysis extends Analyzer {
   // groups all the casts just before you cast evangelism
   onRaptureCast(event: CastEvent) {
     this.ramps.push({ timestamp: event.timestamp, rampHistory: [], damageRotation: [] });
-    console.log(this.ramps);
     this.finishedRamping = false;
     this.radianceCounter = 0;
   }
