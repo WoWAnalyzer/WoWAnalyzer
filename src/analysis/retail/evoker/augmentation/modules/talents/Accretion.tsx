@@ -165,7 +165,7 @@ class Accretion extends Analyzer {
           </>
         }
       >
-        {(this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel > 0 && (
+        {this.accretionShiftingSands + this.accretionEbonMight + this.accretionUpheavel > 0 ? (
           <div>
             <TalentSpellText talent={TALENTS.ACCRETION_TALENT}>
               <ItemDamageDone
@@ -181,7 +181,7 @@ class Accretion extends Analyzer {
               <DonutChart items={damageSources} />
             </div>
           </div>
-        )) || (
+        ) : (
           <div className="pad">
             <label>
               <Trans>
