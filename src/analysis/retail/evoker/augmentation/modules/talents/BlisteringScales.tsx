@@ -20,7 +20,7 @@ import { SpellLink } from 'interface';
  * Blistering Scales is essentially Augmentations external
  * it provides your target with 30% of your armor along with doing AoE
  * to nearby enemies when said target is meleed. Consuming 1 stack.
- * This effect has an ICD of 3-4s
+ * This effect has an ICD of ~2s
  *
  * There are three supporting talents to Blistering Scales:
  * 1. Reactive Hide:
