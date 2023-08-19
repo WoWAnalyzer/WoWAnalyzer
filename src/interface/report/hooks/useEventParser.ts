@@ -14,7 +14,7 @@ import { useLocation } from 'react-router-dom';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
-const MAX_BATCH_DURATION = 32; // ms
+const MAX_BATCH_DURATION = 66.67; // ms
 const bench = (id: string) => console.time(id);
 const benchEnd = (id: string) => console.timeEnd(id);
 
