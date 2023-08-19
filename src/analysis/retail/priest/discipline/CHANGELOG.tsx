@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 8, 18), <>Cleared some console logs, updated some spells for cast efficiency, updated some mana costs</>, Hana),
   change(date(2023, 8, 12), <>'Add <SpellLink spell={TALENTS_PRIEST.WORDS_OF_THE_PIOUS_TALENT}/>'</>, Hana),
   change(date(2023, 8, 3), 'Update Rapture analysis now ignores off GCD spells and enchants', Tapir),
   change(date(2023, 8, 1), <>Add <SpellLink spell={TALENTS_PRIEST.BENEVOLENCE_TALENT}/></>, Hana),
