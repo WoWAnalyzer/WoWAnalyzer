@@ -41,9 +41,11 @@ const ResultsLoader = () => {
   const events = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
-  const { loadingState: bossPhaseEventsLoadingState, events: bossPhaseEvents } = useBossPhaseEvents(
-    { report, fight },
-  );
+  const {
+    loadingState: bossPhaseEventsLoadingState,
+    events: bossPhaseEvents,
+    phaseConfigs: bossPhaseConfigs,
+  } = useBossPhaseEvents({ report, fight });
 
   const { characterProfile, isLoading: isLoadingCharacterProfile } = useCharacterProfile({
     report,
@@ -58,6 +60,7 @@ const ResultsLoader = () => {
     bossPhaseEventsLoaded: bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING,
     fight,
     bossPhaseEvents,
+    bossPhaseConfigs,
   });
 
   const applyPhaseFilter = useCallback(
