@@ -259,3 +259,60 @@ export async function fetchTable<T extends WCLResponseJSON>(
     sourceid: sourceId,
   });
 }
+
+function rawFetchEventsPageView(
+  view: string,
+  code: string,
+  start: number,
+  end: number,
+  filter?: string,
+  additionalArgs?: Record<string, unknown>,
+) {
+  return fetchWcl<WCLEventsResponse>(`report/events/${view}/${code}`, {
+    start,
+    end,
+    filter,
+    translate: true, // it's better to have 1 consistent language so long as we don't have the entire site localized
+    ...additionalArgs,
+  });
+}
+export async function fetchEventsView(
+  view: string,
+  reportCode: string,
+  fightStart: number,
+  fightEnd: number,
+  filter?: string,
+  additionalArgs?: Record<string, unknown>,
+  maxPages = 3,
+) {
+  let pageStartTimestamp = fightStart;
+
+  let events: AnyEvent[] = [];
+  let page = 0;
+  // eslint-disable-next-line no-constant-condition
+  while (true) {
+    // eslint-disable-next-line no-await-in-loop
+    const json = await rawFetchEventsPageView(
+      view,
+      reportCode,
+      pageStartTimestamp,
+      fightEnd,
+      filter,
+      additionalArgs,
+    );
+    events = [...events, ...(json.events ?? [])];
+    if (json.nextPageTimestamp) {
+      if (json.nextPageTimestamp > fightEnd) {
+        console.error('nextPageTimestamp is after fightEnd, do we need to manually filter too?');
+      }
+      pageStartTimestamp = json.nextPageTimestamp;
+      page += 1;
+      if (page >= maxPages) {
+        throw new Error('Interrupting due to exceeded max events pages. Something has gone wrong.');
+      }
+    } else {
+      break;
+    }
+  }
+  return events;
+}

@@ -11,6 +11,7 @@ import { PlayerInfo } from 'parser/core/Player';
 import Report from 'parser/core/Report';
 import { useEffect, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useRetrievedEvents } from 'interface/report/hooks/useRetrievedEvents';
 
 const BENCHMARK = false;
 // Picking a correct batch duration is hard. I tried various durations to get the batch sizes to 1 frame, but that results in a lot of wasted time waiting for the next frame. 30ms (33 fps) as well causes a lot of wasted time. 60ms (16fps) seem to have really low wasted time while not blocking the UI anymore than a user might expect.
@@ -108,20 +109,23 @@ const useEventParser = ({
     config,
   ]);
 
+  const retrievedEvents = useRetrievedEvents({ combatLogParser: parser });
+
   const normalizedEvents = useMemo(() => {
     bench('normalizing events');
-    if (events === undefined || parser === null) {
+    if (events === undefined || retrievedEvents === undefined || parser === null) {
       benchEnd('normalizing events');
       return null;
     }
+    const combinedEvents = events.concat(retrievedEvents ?? []);
     // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
     const result = parser
-      .normalize(events.filter((event) => event.type !== EventType.CombatantInfo))
+      .normalize(combinedEvents.filter((event) => event.type !== EventType.CombatantInfo))
       //sort now normalized events to avoid new fabricated events like "prepull" casts etc being in incorrect order with casts "kept" from before the filter
       .sort((a, b) => a.timestamp - b.timestamp);
     benchEnd('normalizing events');
     return result;
-  }, [events, parser]);
+  }, [events, parser, retrievedEvents]);
 
   useEffect(() => {
     setEventIndex(0);
