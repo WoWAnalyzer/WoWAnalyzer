@@ -15,6 +15,9 @@ import Meteor from '../talents/Meteor';
 import MeteorCombustion from '../talents/MeteorCombustion';
 import SearingTouch from '../talents/SearingTouch';
 import Component from './Component';
+import ImprovedScorch from '../talents/ImprovedScorch';
+import LivingBomb from '../talents/LivingBomb';
+import CharringEmbers from '../items/CharringEmbers';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -24,9 +27,12 @@ class Checklist extends BaseChecklist {
     combustionActiveTime: CombustionActiveTime,
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
+    charringEmbers: CharringEmbers,
     searingTouch: SearingTouch,
     meteor: Meteor,
     meteorCombustion: MeteorCombustion,
+    improvedScorch: ImprovedScorch,
+    livingBomb: LivingBomb,
     feelTheBurn: FeelTheBurn,
     shiftingPowerUsage: ShiftingPowerUsage,
     castEfficiency: CastEfficiency,
@@ -40,9 +46,12 @@ class Checklist extends BaseChecklist {
   protected combustionActiveTime!: CombustionActiveTime;
   protected heatingUp!: HeatingUp;
   protected hotStreak!: HotStreak;
+  protected charringEmbers!: CharringEmbers;
   protected searingTouch!: SearingTouch;
   protected meteor!: Meteor;
   protected meteorCombustion!: MeteorCombustion;
+  protected improvedScorch!: ImprovedScorch;
+  protected livingBomb!: LivingBomb;
   protected feelTheBurn!: FeelTheBurn;
   protected shiftingPowerUsage!: ShiftingPowerUsage;
   protected castEfficiency!: CastEfficiency;
@@ -60,7 +69,7 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
-          fireBlastCombustionCharges: this.combustion.fireBlastThresholds,
+          //fireBlastCombustionCharges: this.combustion.fireBlastThresholds,
           fireballSpellUsageDuringCombustion: this.combustion.fireballDuringCombustionThresholds,
           combustionActiveTime: this.combustionActiveTime.combustionActiveTimeThresholds,
           combustionPreCastDelay: this.combustion.combustionCastDelayThresholds,
@@ -69,8 +78,13 @@ class Checklist extends BaseChecklist {
           hotStreakUtilization: this.hotStreak.hotStreakUtilizationThresholds,
           hotStreakWastedCrits: this.hotStreak.wastedCritsThresholds,
           hotStreakPreCasts: this.hotStreak.castBeforeHotStreakThresholds,
+          charringEmbersUptime: this.charringEmbers.charringEmbersUptimeThresholds,
+          flamesFuryWastedProcs: this.charringEmbers.wastedProcsThresholds,
+          flamesFuryNoPhoenix: this.charringEmbers.noPhoenixFlamesThresholds,
           searingTouchUtilization: this.searingTouch.executeSuggestionThreshold,
           meteorEfficiency: this.meteor.meteorEfficiencySuggestionThresholds,
+          improvedScorchUptime: this.improvedScorch.uptimePercentThresholds,
+          livingBombCasts: this.livingBomb.livingBombCastThresholds,
           feelTheBurnMaxStacks: this.feelTheBurn.maxStackUptimeThresholds,
           shiftingPowerUsage: this.shiftingPowerUsage.shiftingPowerUsageThresholds,
           meteorCombustionUtilization: this.meteorCombustion.meteorCombustionSuggestionThresholds,

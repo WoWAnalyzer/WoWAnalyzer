@@ -98,6 +98,11 @@ const spells = {
     name: "Flame's Fury",
     icon: 'inv_misc_volatilefire',
   },
+  IMPROVED_SCORCH_BUFF: {
+    id: 383608,
+    name: 'Improved Scorch',
+    icon: 'ability_mage_fierypayback',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
