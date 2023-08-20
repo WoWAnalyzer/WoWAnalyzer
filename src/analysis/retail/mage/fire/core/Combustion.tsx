@@ -12,8 +12,6 @@ import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import CooldownHistory from 'parser/shared/modules/CooldownHistory';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import Haste from 'parser/shared/modules/Haste';
-import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -31,15 +29,11 @@ class CombustionCasts extends Analyzer {
     abilityTracker: AbilityTracker,
     eventHistory: EventHistory,
     cooldownHistory: CooldownHistory,
-    haste: Haste,
-    statTracker: StatTracker,
   };
   protected sharedCode!: SharedCode;
   protected abilityTracker!: AbilityTracker;
   protected eventHistory!: EventHistory;
   protected cooldownHistory!: CooldownHistory;
-  protected haste!: Haste;
-  protected statTracker!: StatTracker;
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
