@@ -98,7 +98,7 @@ class NoDamageShieldOfTheRighteous extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.DEFAULT} size="flexible">
         <BoringSpellValue
-          spellId={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
+          spell={SPELLS.SHIELD_OF_THE_RIGHTEOUS.id}
           value={`${formatPercentage(this.sotrCastToHitRatio)} %`}
           label={
             <Trans id="paladin.protection.modules.features.noDamageShieldOfTheRighteous.sotrHit">

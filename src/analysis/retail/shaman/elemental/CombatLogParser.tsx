@@ -4,9 +4,6 @@ import {
   EarthShield,
   ElementalBlast,
   FlameShock,
-  MaelstromDetails,
-  MaelstromTab,
-  MaelstromTracker,
   SpiritWolf,
   StaticCharge,
 } from 'analysis/retail/shaman/shared';
@@ -35,6 +32,10 @@ import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDomi
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 import ElementalGuide from './guide/ElementalGuide';
 import SpellMaelstromCost from './modules/core/SpellMaelstromCost';
+import SpenderWindow from './modules/features/SpenderWindow';
+import MaelstromTracker from './modules/resources/MaelstromTracker';
+import MaelstromDetails from './modules/resources/MaelstromDetails';
+import MaelstromGraph from './modules/resources/MaelstromGraph';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -46,6 +47,7 @@ class CombatLogParser extends CoreCombatLogParser {
     cancelledCasts: CancelledCasts,
     alwaysBeCasting: AlwaysBeCasting,
     subOptimalChainLightning: SubOptimalChainLightning,
+    spenderWindow: SpenderWindow,
 
     // Talents
     aftershock: Aftershock,
@@ -68,7 +70,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
-    maelstromTab: MaelstromTab,
+    maelstromGraph: MaelstromGraph,
     spellMaelstromCost: SpellMaelstromCost,
     ankhNormalizer: AnkhNormalizer,
     checklist: Checklist,

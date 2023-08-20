@@ -91,7 +91,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.SANCTIFIED_WRATH_PROTECTION_TALENT.id}
+          spell={TALENTS.SANCTIFIED_WRATH_PROTECTION_TALENT.id}
           value={formatNumber(bonusHP)}
           label="Extra Holy Power"
         />

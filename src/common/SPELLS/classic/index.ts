@@ -33,6 +33,7 @@ import Raids from './raids';
 import Tailoring from './tailoring';
 import Food from './food';
 import Alchemy from './alchemy';
+import Potions from './potions';
 
 const ABILITIES = {
   ...DEATH_KNIGHT,
@@ -51,6 +52,7 @@ const ABILITIES = {
   ...Tailoring,
   ...Food,
   ...Alchemy,
+  ...Potions,
 } as const;
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

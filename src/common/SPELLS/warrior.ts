@@ -524,6 +524,11 @@ const spells = {
     name: 'Shield Wall',
     icon: 'ability_warrior_shieldwall',
   },
+  UNNERVING_FOCUS_BUFF: {
+    id: 384043,
+    name: 'Unnerving Focus',
+    icon: 'rogue_shadowfocus',
+  },
 
   //Passives
   DEEP_WOUNDS: {
@@ -537,6 +542,16 @@ const spells = {
     id: 386478,
     name: 'Violent Outburst',
     icon: 'ability_warrior_furiousresolve',
+  },
+  EARTHEN_TANCITY: {
+    id: 410218,
+    name: 'Earthen Tenacity',
+    icon: 'inv_misc_head_dragon_red',
+  },
+  EARTHEN_SMASH: {
+    id: 410219,
+    name: 'Earthen Smash',
+    icon: 'inv_misc_head_dragon_red',
   },
 
   //Fatality talent is split into 3 IDs, the talent (703), and these two.
@@ -561,6 +576,13 @@ const spells = {
     id: 394173,
     name: 'Strike Vulnerabilities',
     icon: 'ability_criticalstrike',
+  },
+
+  // Talent in here so SpellLink doesn't return Unknown
+  IMPENETRABLE_WALL_TALENT: {
+    id: 384072,
+    name: 'Impenetrable Wall',
+    icon: 'ability_warrior_shieldguard',
   },
 } satisfies Record<string, Spell>;
 

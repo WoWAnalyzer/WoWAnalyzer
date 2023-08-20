@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2023, 7, 31), <>Added a guide entry and a statistic for <SpellLink spell={TALENTS_DRUID.DIRE_FIXATION_TALENT}/>. Bumped support to 10.1.5</>, Sref),
   change(date(2023, 6, 21), <>Fixed an issue where parried <SpellLink spell={SPELLS.FEROCIOUS_BITE}/> casts were counted as 0 CP casts.</>, Sref),
   change(date(2023, 6, 20), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 6), <>Fixed an issue where the analyzer was overstating the amount of cooldown reduction from <SpellLink spell={TALENTS_DRUID.BERSERK_HEART_OF_THE_LION_TALENT}/></>, Sref),

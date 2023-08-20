@@ -5,6 +5,8 @@ import { DoxAshe, Havoc, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 8, 8), <>Improve <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT}/> duration extension tracking and guide view,</>,DoxAshe),
+  change(date(2023, 8, 2), <>Add statistic for <SpellLink spell={TALENTS.ANCIENT_MADNESS_TALENT}/> damage contribution,</>,DoxAshe),
   change(date(2023, 7, 26), <>Update suggestions for spell usage in guide view for 10.1.5</>,DoxAshe),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 29), <>Add <SpellLink spell={TALENTS.VOID_TORRENT_TALENT}/>, <SpellLink spell={SPELLS.MIND_FLAY}/>, and <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE}/> to channeled spells to fix downtime and timeline</>,DoxAshe),

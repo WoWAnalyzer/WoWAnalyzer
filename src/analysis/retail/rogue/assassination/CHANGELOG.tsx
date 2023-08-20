@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
+  change(date(2023, 8, 7), 'Mark Assassination as supported for 10.1.5.', ToppleTheNun),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 3, 21), 'Bump to 10.0.7.', ToppleTheNun),
   change(date(2023, 3, 19), 'Add "Hide Good Casts" toggle to Core Rotation and Cooldown sections of the Guide.', ToppleTheNun),

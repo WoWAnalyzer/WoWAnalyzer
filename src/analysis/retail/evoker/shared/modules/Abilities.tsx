@@ -5,6 +5,8 @@ import Combatant from 'parser/core/Combatant';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
+import spells from 'common/SPELLS/dragonflight/trinkets';
+import trinkets from 'common/ITEMS/dragonflight/trinkets';
 
 const hasFont = (combatant: Combatant) =>
   combatant.hasTalent(TALENTS.FONT_OF_MAGIC_PRESERVATION_TALENT) ||
@@ -255,6 +257,37 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.GLIDE_EVOKER.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: null,
+      },
+      //endregion
+      //region Items
+      {
+        spell: spells.IRIDEUS_FRAGMENT.id,
+        category: SPELL_CATEGORY.ITEMS,
+        name: 'Irideus_Fragment',
+        gcd: null,
+        cooldown: 180,
+        enabled: combatant.hasTrinket(trinkets.IRIDEUS_FRAGMENT.id),
+      },
+      {
+        spell: [
+          spells.SPOILS_OF_NELTHARUS_CRIT.id,
+          spells.SPOILS_OF_NELTHARUS_HASTE.id,
+          spells.SPOILS_OF_NELTHARUS_MASTERY.id,
+          spells.SPOILS_OF_NELTHARUS_VERSATILITY.id,
+        ],
+        category: SPELL_CATEGORY.ITEMS,
+        name: 'Spoils_of_Neltharus',
+        gcd: null,
+        cooldown: 120,
+        enabled: combatant.hasTrinket(trinkets.SPOILS_OF_NELTHARUS.id),
+      },
+      {
+        spell: spells.MIRROR_OF_FRACTURED_TOMORROWS.id,
+        category: SPELL_CATEGORY.ITEMS,
+        name: 'Irideus_Fragment',
+        gcd: null,
+        cooldown: 180,
+        enabled: combatant.hasTrinket(trinkets.MIRROR_OF_FRACTURED_TOMORROWS.id),
       },
       //endregion
     ];

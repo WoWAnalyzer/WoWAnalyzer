@@ -141,7 +141,7 @@ const BalanceDruidChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
   //       <>
   //         While you sometimes cannot avoid overcapping, you should try to avoid overcapping your
   //         Astral Power. You should never overcap Astral Power during{' '}
-  //         <SpellLink id={SPELLS.ECLIPSE.id} /> or <SpellLink id={cooldownAbility(combatant).id} />.
+  //         <SpellLink spell={SPELLS.ECLIPSE.id} /> or <SpellLink spell={cooldownAbility(combatant).id} />.
   //       </>
   //     }
   //   ></Rule>

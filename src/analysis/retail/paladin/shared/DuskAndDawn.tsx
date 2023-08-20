@@ -110,12 +110,12 @@ export class DuskAndDawn extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.OF_DUSK_AND_DAWN_HOLY_TALENT}>
           <BoringSpellValue
-            spellId={SPELLS.BLESSING_OF_DUSK}
+            spell={SPELLS.BLESSING_OF_DUSK}
             value={`${formatPercentage(this.duskUptimePct)}%`}
             label="Dusk Uptime"
           />
           <BoringSpellValue
-            spellId={SPELLS.BLESSING_OF_DAWN}
+            spell={SPELLS.BLESSING_OF_DAWN}
             value={`${formatPercentage(this.dawnUptimePct)}%`}
             label="Dawn Uptime"
           />

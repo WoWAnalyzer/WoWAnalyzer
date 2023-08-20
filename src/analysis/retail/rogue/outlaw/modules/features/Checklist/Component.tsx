@@ -109,7 +109,7 @@ const OutlawRogueChecklist = ({
           <>
             Make sure to use your <SpellLink spell={TALENTS.AUDACITY_TALENT} /> procs
           </>
-        } //"Make sure to use your <SpellLink id={TALENTS.AUDACITY_TALENT.id}/> procs"
+        } //"Make sure to use your <SpellLink spell={TALENTS.AUDACITY_TALENT.id}/> procs"
         description={
           <>
             Your <SpellLink spell={TALENTS.AUDACITY_TALENT} /> proc will be more valuable than a{' '}

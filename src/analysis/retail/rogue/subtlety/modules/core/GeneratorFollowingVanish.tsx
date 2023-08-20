@@ -109,7 +109,7 @@ class GeneratorFollowingVanish extends Analyzer {
           }
         >
           <BoringSpellValue
-            spellId={SPELLS.VANISH.id}
+            spell={SPELLS.VANISH.id}
             value={`${this.badFollowingVanishCasts.length} non-generators cast`}
             label="Non-generators Cast After Vanish"
           />

@@ -115,7 +115,7 @@ class ProtPaladinT304P extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.GRAND_CRUSADER_TALENT.id}
+          spell={TALENTS.GRAND_CRUSADER_TALENT.id}
           value={`${this.gcJudgmentCrits} Resets`}
           label="Tier Bonus"
         />

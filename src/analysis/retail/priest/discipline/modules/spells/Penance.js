@@ -81,7 +81,7 @@ class Penance extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={SPELLS.PENANCE.id}
+          spell={SPELLS.PENANCE.id}
           value={this._missedBolts}
           label={
             <>

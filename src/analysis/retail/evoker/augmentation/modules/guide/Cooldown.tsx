@@ -7,9 +7,8 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import SPELLS from 'common/SPELLS/evoker';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from '../../CombatLogParser';
-import { SpellLink } from 'interface';
 
-export function CooldownSection({ info }: GuideProps<typeof CombatLogParser>) {
+export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const castEfficiency = useAnalyzer(CastEfficiency);
   if (!info || !castEfficiency) {
     return null;
@@ -19,9 +18,7 @@ export function CooldownSection({ info }: GuideProps<typeof CombatLogParser>) {
 
   return (
     <Section title="Cooldowns">
-      <SubSection>
-        <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> Module coming soon<sup>TM</sup>!
-      </SubSection>
+      {modules.breathOfEonsRotational.guideSubsection()}
       <SubSection>
         <p>
           <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how

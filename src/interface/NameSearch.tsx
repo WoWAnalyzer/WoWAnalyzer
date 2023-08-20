@@ -66,8 +66,8 @@ const NameSearch = ({ type }: Props) => {
         return;
       }
       setLoading(true);
-      // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
-      if (region !== 'CN') {
+      // There is no API for CN or Classic
+      if (game === retailExpansion && region !== 'CN') {
         let response;
         if (type === SearchType.GUILD) {
           response = await fetch(makeGuildApiUrl(region, realm, name));
@@ -109,10 +109,13 @@ const NameSearch = ({ type }: Props) => {
           return;
         }
       }
-
-      navigate(makePageUrl(region, realm, name));
+      if (game === classicExpansion) {
+        navigate(makePageUrl(region, realm, name, true));
+      } else {
+        navigate(makePageUrl(region, realm, name));
+      }
     },
-    [currentRealm, type, loading, navigate, i18n],
+    [currentRealm, type, loading, navigate, i18n, classicExpansion, retailExpansion],
   );
 
   const changeGame = (targetGame: string) => {
