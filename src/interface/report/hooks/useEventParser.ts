@@ -178,18 +178,26 @@ const useEventParser = ({
     //
     // As long as event processing isn't done, we keep requesting idle callbacks to process batches. Once we're done (or the component is unmounted),
     // we end the loop by not calling `next()`
+
+    // `requestIdleCallback` is not available in safari. this allows us to use the better method on
+    // chrome/firefox and fallback to setTimeout on safari and other webkit browsers
+    const runTrigger =
+      'requestIdleCallback' in window
+        ? (cb: () => void) => requestIdleCallback(cb, { timeout: 50 })
+        : (cb: () => void) => setTimeout(cb, 0);
     let isCancelled = false;
     const next = () =>
-      requestIdleCallback(
-        () => {
-          const done = processEventBatch();
+      runTrigger(() => {
+        if (isCancelled) {
+          return;
+        }
 
-          if (!done && !isCancelled) {
-            next();
-          }
-        },
-        { timeout: 50 },
-      );
+        const done = processEventBatch();
+
+        if (!done && !isCancelled) {
+          next();
+        }
+      });
 
     next();
 
