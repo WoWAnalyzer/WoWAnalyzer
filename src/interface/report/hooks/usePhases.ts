@@ -1,6 +1,7 @@
-import { findByBossId, Phase } from 'game/raids';
+import { Phase } from 'game/raids';
 import { EventType, PhaseEvent } from 'parser/core/Events';
 import { WCLFight } from 'parser/core/Fight';
+import PhaseConfig from 'parser/core/PhaseConfig';
 import { useEffect, useState } from 'react';
 
 export const SELECTION_ALL_PHASES = 'ALL';
@@ -10,10 +11,12 @@ const usePhases = ({
   fight,
   bossPhaseEventsLoaded,
   bossPhaseEvents,
+  bossPhaseConfigs,
 }: {
   fight: WCLFight;
   bossPhaseEventsLoaded: boolean;
   bossPhaseEvents: PhaseEvent[] | null;
+  bossPhaseConfigs: Record<string, PhaseConfig> | undefined;
 }) => {
   const [phases, setPhases] = useState<{ [key: string]: Phase } | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -40,8 +43,7 @@ const usePhases = ({
           .map((e: PhaseEvent) => e.phase.key),
       ); //distinct phase ends
       const phaseKeys = phaseStarts.filter((e) => phaseEnds.includes(e)); //only include phases that contain start and end event
-      const boss = findByBossId(fight.boss);
-      const bossPhases = (boss && boss.fight.phases) || {};
+      const bossPhases = bossPhaseConfigs ?? {};
       return Object.keys(bossPhases)
         .filter((e) => phaseKeys.includes(e)) //only include boss phases that have a valid phase key
         .reduce((obj, key) => {
@@ -88,7 +90,7 @@ const usePhases = ({
 
     setPhases(null);
     parse();
-  }, [bossPhaseEventsLoaded, bossPhaseEvents, fight]);
+  }, [bossPhaseEventsLoaded, bossPhaseEvents, fight, bossPhaseConfigs]);
 
   return { phases, isLoading };
 };
