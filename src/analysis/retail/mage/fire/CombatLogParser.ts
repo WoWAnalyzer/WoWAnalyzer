@@ -40,6 +40,7 @@ import MeteorCombustion from './talents/MeteorCombustion';
 import SearingTouch from './talents/SearingTouch';
 import Meteor from './talents/Meteor';
 import LivingBomb from './talents/LivingBomb';
+import ImprovedScorch from './talents/ImprovedScorch';
 
 //Items
 import CharringEmbers from './items/CharringEmbers';
@@ -87,6 +88,7 @@ class CombatLogParser extends CoreCombatLogParser {
     feelTheBurn: FeelTheBurn,
     meteor: Meteor,
     livingBomb: LivingBomb,
+    improvedScorch: ImprovedScorch,
 
     //Items - Fire
     charringEmbers: CharringEmbers,

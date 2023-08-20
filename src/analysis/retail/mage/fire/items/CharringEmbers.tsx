@@ -15,6 +15,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import CooldownHistory from 'parser/shared/modules/CooldownHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { SharedCode } from '../../shared';
 
 class CharringEmbers extends Analyzer {
   static dependencies = {
@@ -22,11 +23,13 @@ class CharringEmbers extends Analyzer {
     eventHistory: EventHistory,
     cooldownHistory: CooldownHistory,
     spellUsable: SpellUsable,
+    sharedCode: SharedCode,
   };
   protected enemies!: Enemies;
   protected eventHistory!: EventHistory;
   protected cooldownHistory!: CooldownHistory;
   protected spellUsable!: SpellUsable;
+  protected sharedCode!: SharedCode;
 
   constructor(options: Options) {
     super(options);
@@ -60,6 +63,39 @@ class CharringEmbers extends Analyzer {
     return uptime;
   };
 
+  overwrittenProcs = () => {
+    const buffRefreshes = this.eventHistory.getEvents(EventType.RefreshBuff, {
+      spell: SPELLS.FLAMES_FURY,
+    });
+    if (buffRefreshes) {
+      let overwritten = 0;
+      buffRefreshes.forEach((r) => {
+        const prevProcs = this.selectedCombatant.getBuff(SPELLS.FLAMES_FURY.id, r.timestamp - 10);
+        overwritten += prevProcs && prevProcs.stacks ? prevProcs.stacks : 0;
+      });
+      return overwritten;
+    } else {
+      return 0;
+    }
+  };
+
+  expiredProcs = () => {
+    const expiredBuffs = this.sharedCode.getExpiredProcs(
+      SPELLS.FLAMES_FURY,
+      TALENTS.PHOENIX_FLAMES_TALENT,
+    );
+    if (expiredBuffs) {
+      let expired = 0;
+      expiredBuffs.forEach((e) => {
+        const prevProcs = this.selectedCombatant.getBuff(SPELLS.FLAMES_FURY.id, e.timestamp - 10);
+        expired += prevProcs && prevProcs.stacks ? prevProcs.stacks : 0;
+      });
+      return expired;
+    } else {
+      return 0;
+    }
+  };
+
   noPhoenixFlames = () => {
     const buffApplies = this.eventHistory.getEvents(EventType.ApplyBuff, {
       spell: SPELLS.FLAMES_FURY,
@@ -77,6 +113,10 @@ class CharringEmbers extends Analyzer {
     return this.charringEmbersUptime() / this.owner.fightDuration;
   }
 
+  get wastedProcs() {
+    return this.overwrittenProcs() + this.expiredProcs();
+  }
+
   get noPhoenixFlamesThresholds() {
     return {
       actual: this.noPhoenixFlames(),
@@ -86,6 +126,30 @@ class CharringEmbers extends Analyzer {
         major: 2,
       },
       style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get wastedProcsThresholds() {
+    return {
+      actual: this.wastedProcs,
+      isGreaterThan: {
+        minor: 0,
+        average: 1,
+        major: 2,
+      },
+      style: ThresholdStyle.NUMBER,
+    };
+  }
+
+  get charringEmbersUptimeThresholds() {
+    return {
+      actual: this.uptimePercent,
+      isLessThan: {
+        minor: 0.9,
+        average: 0.8,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
     };
   }
 
@@ -103,9 +167,46 @@ class CharringEmbers extends Analyzer {
           <SpellLink spell={SPELLS.FLAMES_FURY} /> triggers.
         </>,
       )
-        .icon(TALENTS.FEEL_THE_BURN_TALENT.icon)
+        .icon(SPELLS.CHARRING_EMBERS_DEBUFF.icon)
         .actual(
           <Trans id="mage.fire.suggestions.charringEmbers.noPhoenixFlames">
+            {actual} procs without Phoenix Flames
+          </Trans>,
+        )
+        .recommended(`>${recommended} is recommended`),
+    );
+    when(this.wastedProcsThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You had {this.overwrittenProcs()} procs of <SpellLink spell={SPELLS.FLAMES_FURY} /> that
+          were overwritten and {this.expiredProcs()} procs which expired. Make sure you use your
+          procs before they expire or before <SpellLink spell={SPELLS.FLAMES_FURY} /> procs again.
+        </>,
+      )
+        .icon(SPELLS.CHARRING_EMBERS_DEBUFF.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.charringEmbers.wastedProcs">
+            {actual} procs wasted
+          </Trans>,
+        )
+        .recommended(`>${recommended} is recommended`),
+    );
+    when(this.charringEmbersUptimeThresholds).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          You had {formatPercentage(actual)}% uptime on{' '}
+          <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} />. In order to maximize your damage, you
+          should keep this debuff up for as much of the fight as possible. To do this, you can use{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> outside of{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> when the debuff is about to fall off.
+          Though you should also ensure that you do not use all of your{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> charges to avoid a situation where{' '}
+          <SpellLink spell={SPELLS.FLAMES_FURY} /> procs and you cannot use it.
+        </>,
+      )
+        .icon(SPELLS.CHARRING_EMBERS_DEBUFF.icon)
+        .actual(
+          <Trans id="mage.fire.suggestions.charringEmbers.uptimePercent">
             {formatPercentage(actual)}% utilization
           </Trans>,
         )
@@ -115,12 +216,14 @@ class CharringEmbers extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible" tooltip={<>PLACEHOLDER</>}>
+      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
         <BoringSpellValueText spell={SPELLS.CHARRING_EMBERS_DEBUFF}>
           <>
-            {formatPercentage(this.uptimePercent, 2)}% <small>Charring Embers Uptime</small>
+            {formatPercentage(this.uptimePercent, 2)}% <small>Debuff Uptime</small>
             <br />
-            {this.noPhoenixFlames} <small>Procs w/o Phoenix Flames avail.</small>
+            {this.wastedProcs} <small>Wasted Procs</small>
+            <br />
+            {this.noPhoenixFlames()} <small>Procs w/o Phoenix Flames avail.</small>
           </>
         </BoringSpellValueText>
       </Statistic>
