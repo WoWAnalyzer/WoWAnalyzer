@@ -59,13 +59,11 @@ class ImprovedScorch extends Analyzer {
   improvedScorchUptime = () => {
     const history = this.enemies.getDebuffHistory(SPELLS.IMPROVED_SCORCH_BUFF.id);
     let uptime = 0;
-    this.log(history);
     history.forEach((d) => (uptime += d.end - d.start));
     return uptime;
   };
 
   get uptimePercent() {
-    this.log(this.executeTime);
     return this.improvedScorchUptime() / this.executeTime;
   }
 
