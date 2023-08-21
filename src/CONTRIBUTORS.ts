@@ -77,6 +77,18 @@ export const Fashathus: Contributor = {
     },
   ],
 };
+export const Bigsxy: Contributor = {
+  nickname: 'big',
+  github: 'juemrami',
+  discord: 'bigsexy#2241',
+  mains: [
+    {
+      name: 'Bigsexsee',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/illidan/bigsexsee',
+    },
+  ],
+};
 export const ab: Contributor = {
   nickname: 'ab',
   github: 'alex-bau',
