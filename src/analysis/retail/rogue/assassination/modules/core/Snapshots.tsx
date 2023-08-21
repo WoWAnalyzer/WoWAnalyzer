@@ -15,7 +15,8 @@ export const IMPROVED_GARROTE_SPEC: StaticSnapshotSpec = {
     c.hasBuff(SPELLS.STEALTH_BUFF.id, timestamp, IMPROVED_GARROTE_STEALTH_BUFFER) ||
     c.hasBuff(SPELLS.VANISH_BUFF.id, timestamp, IMPROVED_GARROTE_STEALTH_BUFFER) ||
     c.hasBuff(SPELLS.SHADOW_DANCE_BUFF.id, timestamp, IMPROVED_GARROTE_STEALTH_BUFFER) ||
-    c.hasBuff(SPELLS.IMPROVED_GARROTE_BUFF.id, timestamp, IMPROVED_GARROTE_STEALTH_BUFFER),
+    c.hasBuff(SPELLS.IMPROVED_GARROTE_BUFF.id, timestamp, IMPROVED_GARROTE_STEALTH_BUFFER) ||
+    c.hasBuff(SPELLS.SEPSIS_BUFF.id, timestamp, BUFF_DROP_BUFFER),
   displayColor: GoodColor,
   boostStrength: () => 0.5,
 };
