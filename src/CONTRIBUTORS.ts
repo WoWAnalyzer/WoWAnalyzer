@@ -77,7 +77,7 @@ export const Fashathus: Contributor = {
     },
   ],
 };
-export const juemrami: Contributor = {
+export const Bigsxy: Contributor = {
   nickname: 'big',
   github: 'juemrami',
   discord: 'bigsexy#2241',
