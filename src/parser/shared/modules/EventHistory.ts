@@ -4,7 +4,8 @@ import EventFilter, {
   SELECTED_PLAYER_PET,
   SpellInfo,
 } from 'parser/core/EventFilter';
-import { HasAbility, AnyEvent, EventType } from 'parser/core/Events';
+import { HasAbility, HasTarget, AnyEvent, EventType } from 'parser/core/Events';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 import Module from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 
@@ -12,6 +13,7 @@ type EventSearchOptions = {
   searchBackwards?: boolean;
   spell?: SpellInfo | SpellInfo[];
   count?: number;
+  targetID?: number;
   startTimestamp?: number;
   duration?: number;
   includePets?: boolean;
@@ -81,6 +83,7 @@ class EventHistory extends Module {
    * @param maxTime the maximum number of milliseconds to look back, or null for no limit
    * @param filterDef an optional EventFilter to apply to all events
    * @param fromTimestamp an optional timestamp to start searching from
+   * @param targetID an optional targetID to limit results to
    * @returns the last `count` events that match the given filters, with the oldest events first
    */
   public last<ET extends EventType, E extends AnyEvent<ET>>(
@@ -88,6 +91,7 @@ class EventHistory extends Module {
     maxTime?: number,
     filterDef?: EventFilter<ET>,
     fromTimestamp?: number,
+    targetID?: number,
   ): E[] {
     let filter = (event: AnyEvent) => true;
 
@@ -117,17 +121,33 @@ class EventHistory extends Module {
     filter = this.buildFilter(filter, maxTime, filterDef);
 
     let history = this.owner.eventHistory.filter((event) => filter(event));
+    if (targetID) {
+      history = history.filter(
+        (h) =>
+          HasTarget(h) &&
+          encodeTargetString(h.targetID, h.targetInstance) === encodeTargetString(targetID),
+      );
+    }
     if (count && count < history.length) {
       history = history.slice(-count);
     }
     return history as E[];
   }
 
+  /**
+   * @param count the maximum number of events to return, or null for no limit
+   * @param maxTime the maximum number of milliseconds to look back, or null for no limit
+   * @param filterDef an optional EventFilter to apply to all events
+   * @param fromTimestamp an optional timestamp to start searching from
+   * @param targetID an optional targetID to limit results to
+   * @returns the last `count` events that match the given filters, with the oldest events first
+   */
   public next<ET extends EventType, E extends AnyEvent<ET>>(
     count?: number,
     maxTime?: number,
     filterDef?: EventFilter<ET>,
     fromTimestamp?: number,
+    targetID?: number,
   ): E[] {
     let filter = (event: AnyEvent) => true;
 
@@ -157,6 +177,13 @@ class EventHistory extends Module {
     filter = this.buildFilter(filter, maxTime, filterDef);
 
     let history = this.owner.eventHistory.filter((event) => filter(event));
+    if (targetID) {
+      history = history.filter(
+        (h) =>
+          HasTarget(h) &&
+          encodeTargetString(h.targetID, h.targetInstance) === encodeTargetString(targetID),
+      );
+    }
     if (count && count < history.length) {
       history = history.slice(0, count);
     }
@@ -169,6 +196,7 @@ class EventHistory extends Module {
    * @param spell the specific spell (or an array of spells) you are searching for. Leave undefined for all spells.
    * @param count the number of events to get. Leave undefined for no limit.
    * @param startTimestamp the timestamp to start searching from. Searches search backwards from the startTimestamp. Leave undefined for the end of the fight
+   * @param targetID the ID of the target you want to limit results to. Leave undefined for no filtering based on targetID.
    * @param duration the amount of time in milliseconds to search. Leave undefined for no limit.
    * @returns an array of events that meet the provided criteria
    */
@@ -179,6 +207,7 @@ class EventHistory extends Module {
       spell,
       count,
       startTimestamp,
+      targetID,
       duration,
       includePets,
     }: EventSearchOptions = {},
@@ -188,8 +217,8 @@ class EventHistory extends Module {
       ? new EventFilter(eventType).by(source).spell(spell)
       : new EventFilter(eventType).by(source);
     const events = searchBackwards
-      ? this.last(count, duration, eventFilter, startTimestamp)
-      : this.next(count, duration, eventFilter, startTimestamp);
+      ? this.last(count, duration, eventFilter, startTimestamp, targetID)
+      : this.next(count, duration, eventFilter, startTimestamp, targetID);
 
     const filteredEvents = events.filter((e) =>
       HasAbility(e) ? !CASTS_THAT_ARENT_CASTS.includes(e.ability.guid) : true,
