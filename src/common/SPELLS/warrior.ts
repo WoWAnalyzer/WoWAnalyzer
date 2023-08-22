@@ -455,6 +455,26 @@ const spells = {
     name: 'Bloodbath',
     icon: 'ability_warrior_bloodbath',
   },
+  ODYNS_FURY: {
+    id: 385060,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_1: {
+    id: 385059,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_2: {
+    id: 385061,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_3: {
+    id: 385062,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
 
   // Protection:
   DEVASTATE: {
