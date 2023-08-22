@@ -60,6 +60,14 @@ class StealthAbilityFollowingSepsis extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.SEPSIS_BUFF.id, event.timestamp)) {
       return;
     }
+    // Ignore Ambush casts durring Blindside procs
+    if (
+      this.selectedCombatant.hasTalent(TALENTS.BLINDSIDE_TALENT) &&
+      this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp) &&
+      event.ability.guid === SPELLS.AMBUSH.id
+    ) {
+      return;
+    }
     if (event.ability.guid !== this.properStealthAbility.id) {
       debug && console.log(`Recorded bad cast with id ${event.ability.guid}`);
       this.badCasts.push(event);
