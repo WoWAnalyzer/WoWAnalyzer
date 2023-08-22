@@ -171,6 +171,20 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.95,
         },
       },
+      {
+        spell: SPELLS.ODYNS_FURY.id,
+        enabled: combatant.hasTalent(talents.ODYNS_FURY_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 45,
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          importance: ISSUE_IMPORTANCE.MAJOR,
+          recommendedEfficiency: 0.95,
+        },
+      },
       // Defensive
       {
         spell: SPELLS.SPELL_REFLECTION.id,
