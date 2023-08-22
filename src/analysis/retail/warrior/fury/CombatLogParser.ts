@@ -10,6 +10,7 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageNormalizer from './modules/normalizers/Enrage';
+import RecklessAbandonNormalizer from './modules/normalizers/RecklessAbandon';
 import SpearOfBastion from './modules/talents/SpearOfBastion';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
@@ -26,6 +27,7 @@ import BerserkersTormentNormalizer from './modules/talents/BerserkersTorment';
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
+    recklessAbandonNormalizer: RecklessAbandonNormalizer,
     enrageNormalizer: EnrageNormalizer,
     berserkersTormentNormalizer: BerserkersTormentNormalizer,
 
