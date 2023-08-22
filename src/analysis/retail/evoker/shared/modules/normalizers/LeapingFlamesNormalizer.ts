@@ -18,7 +18,9 @@ export const LEAPING_FLAMES_CONSUME = 'leapingFlamesConsume';
 export const ESSENCE_BURST_GENERATED = 'essenceBurstGenerated';
 export const ESSENCE_BURST_CAST_GENERATED = 'essenceBurstCastGenerated';
 
-const LEAPING_FLAMES_BUFFER = 1000;
+const LEAPING_FLAMES_HIT_BUFFER = 1000;
+const ESSENCE_BURST_BUFFER = 20;
+const LEAPING_FLAMES_CONSUME_BUFFER = 10;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -29,7 +31,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.LIVING_FLAME_HEAL.id],
     referencedEventType: [EventType.Damage, EventType.Heal],
     anyTarget: true,
-    forwardBufferMs: LEAPING_FLAMES_BUFFER,
+    forwardBufferMs: LEAPING_FLAMES_HIT_BUFFER,
     isActive(c) {
       return c.hasTalent(TALENTS_EVOKER.LEAPING_FLAMES_TALENT);
     },
@@ -42,6 +44,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.LEAPING_FLAMES_BUFF.id,
     referencedEventType: EventType.RemoveBuff,
     anyTarget: true,
+    forwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
+    backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
     isActive(c) {
       return c.hasTalent(TALENTS_EVOKER.LEAPING_FLAMES_TALENT);
     },
@@ -62,8 +66,8 @@ const EVENT_LINKS: EventLink[] = [
     ],
     referencedEventType: [EventType.Damage, EventType.Heal],
     anyTarget: true,
-    forwardBufferMs: 20,
-    backwardBufferMs: 20, // Sometimes the EB comes a bit early/late
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER, // Sometimes the EB comes a bit early/late
     maximumLinks: 1,
   },
   {
