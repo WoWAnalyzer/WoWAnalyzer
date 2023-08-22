@@ -31,6 +31,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        // In case of Reckless Abandon, Crushing Blow is normalized to Raging Blow
+        // Here's an old example https://www.warcraftlogs.com/reports/xPbBQnpkJm7r1FyK#fight=32&type=damage-done&source=18
         spell: SPELLS.RAGING_BLOW.id,
         enabled: combatant.hasTalent(talents.RAGING_BLOW_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
@@ -45,8 +47,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        enabled: combatant.hasTalent(talents.BLOODTHIRST_TALENT),
+        // In case of Reckless Abandon, Bloodbath is normalized to Bloodthirst
+        // Here's an old example https://www.warcraftlogs.com/reports/xPbBQnpkJm7r1FyK#fight=32&type=damage-done&source=18
         spell: SPELLS.BLOODTHIRST.id,
+        enabled: combatant.hasTalent(talents.BLOODTHIRST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 4.5 / (1 + haste),
         gcd: {
