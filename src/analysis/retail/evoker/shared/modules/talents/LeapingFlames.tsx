@@ -9,6 +9,8 @@ import {
   getLeapingDamageEvents,
   getLeapingHealEvents,
   generatedEssenceBurst,
+  getCastedGeneratedEssenceBurst,
+  isFromLeapingFlames,
 } from '../normalizers/LeapingFlamesNormalizer';
 
 import { getPupilDamageEvents } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
@@ -22,7 +24,6 @@ import Soup from 'interface/icons/Soup';
 import { SpellLink } from 'interface';
 import SPECS from 'game/SPECS';
 
-const SHOW_EB_GEN = false; // Needs more work before it can be shown
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
  */
@@ -43,7 +44,44 @@ class LeapingFlames extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    if (!isFromLeapingFlames(event)) {
+      return;
+    }
+
     const damageEvents = getLeapingDamageEvents(event);
+    const damageHits = damageEvents.length;
+
+    /** With Living Flame Essence Burst is for damage events generated on cast (for the most part)
+     * and for heal events it's generated on hit.
+     *
+     * This obviously is not 100% correct, since you could generate two EB on cast
+     * where neither came from original LF, buuuut it'll be accurate enough. */
+    if (getCastedGeneratedEssenceBurst(event).length > 0) {
+      const dragonrageActive = this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id);
+      /**
+       * Dragonrage gives guranteed EB on hit, so we can only ever max generate one extra from Leaping
+       * Case 1: We hit 3+ targets, Dragonrage isn't active, and we generated 2 EB on cast (We get 2+ extra chances to generated EB)
+       * Case 2: We generated 2 EB (assumed that we hit 2 targets since otherwise we couldn't actually generate 2 EB)
+       * Case 3: 1 EB generated and we hit 2+ targets, and Dragonrage not active
+       *
+       * We will give some extra in favor of Leaping depending on target counts, since it does
+       * increase the likelyhood of generating EB.
+       * This is basicly done to account for the fact that we don't know if EB's comes from original LF
+       * or Leaping LFs.
+       */
+      const extraHitFactor = 0.25;
+      if (
+        damageHits > 2 &&
+        !dragonrageActive &&
+        getCastedGeneratedEssenceBurst(event).length === 2
+      ) {
+        this.essenceBurstGenerated += 1 + damageHits * extraHitFactor;
+      } else if (getCastedGeneratedEssenceBurst(event).length === 2) {
+        this.essenceBurstGenerated += 1;
+      } else if (damageHits > 1 && !dragonrageActive) {
+        this.essenceBurstGenerated += 0 + damageHits * extraHitFactor;
+      }
+    }
 
     /** Logic needed to account for Pupil of Alexstraza for Augmentation
      * Pupil also sends out a cleave LF */
@@ -61,14 +99,11 @@ class LeapingFlames extends Analyzer {
       });
     }
 
-    if (damageEvents.length > 0) {
+    if (damageHits > 0) {
       damageEvents.forEach((damEvent) => {
         // If the target hit wasn't the main target we can safely assume it came from Leaping Flames
         if (damEvent.targetID !== event.targetID) {
           this.leapingFlamesDamage += damEvent.amount + (damEvent.absorbed ?? 0);
-          // This solution is slightly broken for damage events due to
-          // Blizzard sometimes giving the EB on hit, and sometimes on cast
-          // Blizz pls fix
           if (generatedEssenceBurst(damEvent)) {
             this.essenceBurstGenerated += 1;
           }
@@ -104,7 +139,6 @@ class LeapingFlames extends Analyzer {
             <li>Damage: {formatNumber(this.leapingFlamesDamage)}</li>
             <li>Healing: {formatNumber(this.leapingFlamesHealing)}</li>
             <li>Overhealing: {formatNumber(this.leapingFlamesOverHealing)}</li>
-            {SHOW_EB_GEN && <li>Essence Burst Generated: {this.essenceBurstGenerated}</li>}
           </>
         }
       >
@@ -115,15 +149,13 @@ class LeapingFlames extends Analyzer {
           <div>
             <ItemHealingDone amount={this.leapingFlamesHealing} />
           </div>
-          {SHOW_EB_GEN && (
-            <div>
-              <Soup /> {this.essenceBurstGenerated}
-              <small>
-                {' '}
-                <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> generated
-              </small>
-            </div>
-          )}
+          <div>
+            <Soup /> {Math.floor(this.essenceBurstGenerated)}
+            <small>
+              {' '}
+              <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> generated
+            </small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );
