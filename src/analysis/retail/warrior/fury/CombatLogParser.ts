@@ -1,5 +1,4 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
-import Channeling from 'parser/shared/normalizers/Channeling';
 
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
@@ -26,20 +25,23 @@ import BerserkersTormentNormalizer from './modules/talents/BerserkersTorment';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
-    abilities: Abilities,
-    alwaysBeCasting: AlwaysBeCasting,
-    channeling: Channeling,
-    checklist: Checklist,
-    cooldownThroughputTracker: CooldownThroughputTracker,
-    spellUsable: SpellUsable,
-    buffs: Buffs,
-
-    whirlWind: WhirlWind,
-    rageTracker: RageTracker,
-    rageDetails: RageDetails,
-
+    // Normalizer
     enrageNormalizer: EnrageNormalizer,
     berserkersTormentNormalizer: BerserkersTormentNormalizer,
+
+    // Core
+    buffs: Buffs,
+
+    // Features
+    abilities: Abilities,
+    alwaysBeCasting: AlwaysBeCasting,
+    spellUsable: SpellUsable,
+    cooldownThroughputTracker: CooldownThroughputTracker,
+    checklist: Checklist,
+
+    rageTracker: RageTracker,
+    rageDetails: RageDetails,
+    whirlWind: WhirlWind,
 
     enrageUptime: Enrage,
 
