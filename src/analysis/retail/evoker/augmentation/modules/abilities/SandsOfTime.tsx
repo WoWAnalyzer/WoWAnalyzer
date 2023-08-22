@@ -10,6 +10,7 @@ import { SpellLink } from 'interface';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
+import { failedEbonMightExtention } from '../normalizers/CastLinkNormalizer';
 
 /**
  * Sands of time is an innate ability for Augmentation.
@@ -68,7 +69,10 @@ class SandsOfTime extends Analyzer {
   }
 
   private sandOfTimeUsage(possibleExtends: PossibleExtends): SpellUse {
-    const extended = possibleExtends.extended;
+    let extended = possibleExtends.extended;
+    if (failedEbonMightExtention(possibleExtends.event)) {
+      extended = false;
+    }
     const spell = possibleExtends.event.ability.guid;
     let performance = extended ? QualitativePerformance.Good : QualitativePerformance.Fail;
     if (spell === TALENTS.ERUPTION_TALENT.id && !extended) {

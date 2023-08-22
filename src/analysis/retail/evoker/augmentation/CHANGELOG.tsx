@@ -5,6 +5,14 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.SYMBIOTIC_BLOOM_TALENT} />.</>, Vollmer),
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.BLISTERING_SCALES_TALENT} />, <SpellLink spell={TALENTS.REGENERATIVE_CHITIN_TALENT} /> & <SpellLink spell={TALENTS.REACTIVE_HIDE_TALENT} />.</>, Vollmer),
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.TECTONIC_LOCUS_TALENT} />.</>, Vollmer),
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.VOLCANISM_TALENT} />.</>, Vollmer),
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.RICOCHETING_PYROCLAST_TALENT} />.</>, Vollmer),
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.PUPIL_OF_ALEXSTRASZA_TALENT} />.</>, Vollmer),
+    change(date(2023, 8, 17), <>Add statistics for <SpellLink spell={TALENTS.ANACHRONISM_TALENT} />.</>, Vollmer),
+    change(date(2023, 8, 17), <>Fixed edgecase for <SpellLink spell={SPELLS.SANDS_OF_TIME} /> where <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> should have extended but didn't.</>, Vollmer),
     change(date(2023, 8, 14), <>Fixed issue when <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> wasn't used.</>, Vollmer),
     change(date(2023, 8, 10), <>Normalize pre-pull <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> usage.</>, Vollmer),
     change(date(2023, 8, 1), <>Add missing trinkets to timeline.</>, Vollmer),
