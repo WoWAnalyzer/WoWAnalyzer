@@ -4,7 +4,7 @@ import talents from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellUsable from '../features/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';

@@ -7,7 +7,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellUsable from '../features/SpellUsable';
 
 import RageTracker from '../core/RageTracker';
 
