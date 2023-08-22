@@ -3,6 +3,9 @@ import { AnyEvent, EventType } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/warrior';
 import { Options } from 'parser/core/Module';
 
+/**
+ * Normalizer to modify Berserkers Torment casts of Avatar/Recklessness to be FreeCast events
+ */
 export default class BerserkersTormentNormalizer extends EventsNormalizer {
   constructor(options: Options) {
     super(options);
@@ -18,7 +21,6 @@ export default class BerserkersTormentNormalizer extends EventsNormalizer {
     const bufferMs = 50;
 
     events.forEach((event: AnyEvent, idx: number) => {
-      //We are only interested in Kill Command and Dire Beast casts
       fixedEvents.push(event);
       if (event.type !== EventType.Cast) {
         return;
