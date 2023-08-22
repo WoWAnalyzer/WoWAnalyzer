@@ -9,6 +9,7 @@ import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
+import BerserkersTormentNormalizer from './modules/normalizers/BerserkersTorment';
 import EnrageNormalizer from './modules/normalizers/Enrage';
 import RecklessAbandonNormalizer from './modules/normalizers/RecklessAbandon';
 import SpearOfBastion from './modules/talents/SpearOfBastion';
@@ -21,15 +22,14 @@ import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
-import BerserkersTormentNormalizer from './modules/talents/BerserkersTorment';
 import HackAndSlash from './modules/talents/HackAndSlash';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
+    berserkersTormentNormalizer: BerserkersTormentNormalizer,
     recklessAbandonNormalizer: RecklessAbandonNormalizer,
     enrageNormalizer: EnrageNormalizer,
-    berserkersTormentNormalizer: BerserkersTormentNormalizer,
 
     // Core
     buffs: Buffs,
