@@ -23,6 +23,7 @@ import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import BerserkersTormentNormalizer from './modules/talents/BerserkersTorment';
+import HackAndSlash from './modules/talents/HackAndSlash';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -59,6 +60,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spearofBastion: SpearOfBastion,
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
+    hackAndSlash: HackAndSlash,
   };
 }
 
