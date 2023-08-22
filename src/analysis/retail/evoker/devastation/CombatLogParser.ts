@@ -31,8 +31,16 @@ import EngulfingBlaze from './modules/talents/EngulfingBlaze';
 import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
 
+// Shared
+import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Shared
+    leapingFlamesNormalizer: LeapingFlamesNormalizer,
+    leapingFlames: LeapingFlames,
+
+    // Core
     abilities: Abilities,
     buffs: Buffs,
 
