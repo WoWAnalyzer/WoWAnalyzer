@@ -4,13 +4,16 @@ import { formatNumber } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, GetRelatedEvents, HasRelatedEvent } from 'parser/core/Events';
 import {
   getLeapingDamageEvents,
   getLeapingHealEvents,
   generatedEssenceBurst,
   getCastedGeneratedEssenceBurst,
   isFromLeapingFlames,
+  getWastedEssenceBurst,
+  ESSENCE_BURST_CAST_GENERATED,
+  ESSENCE_BURST_GENERATED,
 } from '../normalizers/LeapingFlamesNormalizer';
 
 import { getPupilDamageEvents } from 'analysis/retail/evoker/augmentation/modules/normalizers/CastLinkNormalizer';
@@ -23,6 +26,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import Soup from 'interface/icons/Soup';
 import { SpellLink } from 'interface';
 import SPECS from 'game/SPECS';
+import { InformationIcon } from 'interface/icons';
 
 /**
  * Fire Breath causes your next Living Flame to strike 1 additional target per empower level.
@@ -32,6 +36,7 @@ class LeapingFlames extends Analyzer {
   leapingFlamesHealing: number = 0;
   leapingFlamesOverHealing: number = 0;
   essenceBurstGenerated: number = 0;
+  essenceBurstWasted: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -59,9 +64,10 @@ class LeapingFlames extends Analyzer {
     if (getCastedGeneratedEssenceBurst(event).length > 0) {
       const dragonrageActive = this.selectedCombatant.hasBuff(TALENTS.DRAGONRAGE_TALENT.id);
       /**
-       * Dragonrage gives guranteed EB on hit, so we can only ever max generate one extra from Leaping
+       * Dragonrage gives guranteed EB on hit, so we can only ever max generate one extra from Leaping during Dragonrage
+       *
        * Case 1: We hit 3+ targets, Dragonrage isn't active, and we generated 2 EB on cast (We get 2+ extra chances to generated EB)
-       * Case 2: We generated 2 EB (assumed that we hit 2 targets since otherwise we couldn't actually generate 2 EB)
+       * Case 2: We generated 2 EB (assumed that we hit 2+ targets since otherwise we couldn't actually generate 2 EB)
        * Case 3: 1 EB generated and we hit 2+ targets, and Dragonrage not active
        *
        * We will give some extra in favor of Leaping depending on target counts, since it does
@@ -77,10 +83,22 @@ class LeapingFlames extends Analyzer {
       ) {
         this.essenceBurstGenerated += 1 + damageHits * extraHitFactor;
       } else if (getCastedGeneratedEssenceBurst(event).length === 2) {
-        this.essenceBurstGenerated += 1;
+        this.essenceBurstGenerated += 1 + damageHits * extraHitFactor;
       } else if (damageHits > 1 && !dragonrageActive) {
         this.essenceBurstGenerated += 0 + damageHits * extraHitFactor;
       }
+    }
+
+    /** Much like the logic above, check the cast event and see if we wasted/overcapped EB
+     * We basicly just check for amount of RefreshBuff events there were for EB, each one is an overcap */
+    const hasAttunement = this.selectedCombatant.hasTalent(TALENTS.ESSENCE_ATTUNEMENT_TALENT); // This talent makes EB stack to 2 charges
+    if (getCastedGeneratedEssenceBurst(event).length === 1 && hasAttunement) {
+      this.essenceBurstWasted += Math.min(getWastedEssenceBurst(event).length, 1);
+    } else if (getCastedGeneratedEssenceBurst(event).length === 0) {
+      this.essenceBurstWasted += Math.min(
+        getWastedEssenceBurst(event).length,
+        hasAttunement ? 2 : 1,
+      );
     }
 
     /** Logic needed to account for Pupil of Alexstraza for Augmentation
@@ -121,7 +139,16 @@ class LeapingFlames extends Analyzer {
           this.leapingFlamesHealing += healEvent.amount;
           this.leapingFlamesOverHealing += healEvent.overheal ?? 0;
           if (generatedEssenceBurst(healEvent)) {
-            this.essenceBurstGenerated += 1;
+            // This logic makes sure that we don't double count EB's
+            // Events are weird but this solution works
+            if (
+              !HasRelatedEvent(
+                GetRelatedEvents(healEvent, ESSENCE_BURST_GENERATED)[0],
+                ESSENCE_BURST_CAST_GENERATED,
+              )
+            ) {
+              this.essenceBurstGenerated += 1;
+            }
           }
         }
       });
@@ -154,6 +181,13 @@ class LeapingFlames extends Analyzer {
             <small>
               {' '}
               <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> generated
+            </small>
+          </div>
+          <div>
+            <InformationIcon /> {Math.floor(this.essenceBurstWasted)}
+            <small>
+              {' '}
+              <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> wasted
             </small>
           </div>
         </TalentSpellText>

@@ -11,16 +11,18 @@ import {
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
+  RefreshBuffEvent,
 } from 'parser/core/Events';
 
 export const LEAPING_FLAMES_HITS = 'leapingFlamesHits';
 export const LEAPING_FLAMES_CONSUME = 'leapingFlamesConsume';
 export const ESSENCE_BURST_GENERATED = 'essenceBurstGenerated';
 export const ESSENCE_BURST_CAST_GENERATED = 'essenceBurstCastGenerated';
+export const ESSENCE_BURST_WASTED = 'essenceBurstWasted';
 
 const LEAPING_FLAMES_HIT_BUFFER = 1000;
 const ESSENCE_BURST_BUFFER = 20;
-const LEAPING_FLAMES_CONSUME_BUFFER = 10;
+const LEAPING_FLAMES_CONSUME_BUFFER = 35;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -81,6 +83,23 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
     referencedEventId: SPELLS.LIVING_FLAME_CAST.id,
     referencedEventType: EventType.Cast,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
+    anyTarget: true,
+  },
+  {
+    linkRelation: ESSENCE_BURST_WASTED,
+    reverseLinkRelation: ESSENCE_BURST_WASTED,
+    linkingEventId: [
+      TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id,
+      SPELLS.ESSENCE_BURST_DEV_BUFF.id,
+      SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
+    ],
+    linkingEventType: EventType.RefreshBuff,
+    referencedEventId: SPELLS.LIVING_FLAME_CAST.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: ESSENCE_BURST_BUFFER,
+    backwardBufferMs: ESSENCE_BURST_BUFFER,
     anyTarget: true,
   },
 ];
@@ -109,6 +128,12 @@ export function getCastedGeneratedEssenceBurst(
   return GetRelatedEvents(event, ESSENCE_BURST_CAST_GENERATED).filter(
     (e): e is ApplyBuffEvent | ApplyBuffStackEvent =>
       e.type === EventType.ApplyBuff || e.type === EventType.ApplyBuffStack,
+  );
+}
+
+export function getWastedEssenceBurst(event: CastEvent): RefreshBuffEvent[] {
+  return GetRelatedEvents(event, ESSENCE_BURST_WASTED).filter(
+    (e): e is RefreshBuffEvent => e.type === EventType.RefreshBuff,
   );
 }
 
