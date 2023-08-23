@@ -3,6 +3,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
 import RageDetails from './modules/core/RageDetails';
+import RageGraph from './modules/core/RageGraph';
 import RageTracker from './modules/core/RageTracker';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
@@ -42,6 +43,7 @@ class CombatLogParser extends CoreCombatLogParser {
     checklist: Checklist,
 
     rageTracker: RageTracker,
+    rageGraph: RageGraph,
     rageDetails: RageDetails,
     whirlWind: WhirlWind,
 
