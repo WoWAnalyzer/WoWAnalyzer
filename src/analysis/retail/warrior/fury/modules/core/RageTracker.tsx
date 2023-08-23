@@ -1,9 +1,10 @@
+import { RAGE_SCALE_FACTOR } from 'analysis/retail/druid/guardian/modules/core/rage/RageTracker';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
 import HIT_TYPES from 'game/HIT_TYPES';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
 // https://wowpedia.fandom.com/wiki/Rage
@@ -16,13 +17,16 @@ class RageTracker extends ResourceTracker {
   vengeanceRageSaved: number = 0;
   lastMeleeTaken: number = 0;
 
-  maxResource: number = 100;
+  maxResource: number = 100 / RAGE_SCALE_FACTOR;
 
   constructor(options: Options) {
     super(options);
     this.resource = RESOURCE_TYPES.RAGE;
 
-    this.maxResource += this.selectedCombatant.getTalentRank(TALENTS.OVERWHELMING_RAGE_TALENT) * 15;
+    // Add 15 rage for each rank of Overwhelming Rage, adjust for scale factor
+    this.maxResource +=
+      this.selectedCombatant.getTalentRank(TALENTS.OVERWHELMING_RAGE_TALENT) *
+      (15 / RAGE_SCALE_FACTOR);
 
     this.setupAutoAttackRage();
   }
@@ -60,19 +64,16 @@ class RageTracker extends ResourceTracker {
 
       this.processInvisibleEnergize(
         SPELLS.RAGE_AUTO_ATTACKS.id,
-        AutoAtackRagePerSwing * (reck ? 2 : 1),
+        (AutoAtackRagePerSwing * (reck ? 2 : 1)) / RAGE_SCALE_FACTOR,
         event.timestamp,
       );
     });
   }
 
-  getAdjustedCost(event: CastEvent) {
-    let cost = this.getResource(event)?.cost;
-    if (!cost) {
-      return 0;
-    }
-    cost /= 10;
-    return cost;
+  /** All rage amounts multiplied by 10 - except gain and waste for some reason */
+  getAdjustedGain(event: ResourceChangeEvent): { gain: number; waste: number } {
+    const baseGain = super.getAdjustedGain(event);
+    return { gain: baseGain.gain / RAGE_SCALE_FACTOR, waste: baseGain.waste / RAGE_SCALE_FACTOR };
   }
 }
 
