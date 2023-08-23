@@ -22,7 +22,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           restore-keys: ${{ runner.os }}-node_modules-
       - name: Get yarn cache directory path
         if: steps.cache.outputs.cache-hit != 'true'
@@ -70,7 +70,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn typecheck
   linting:
@@ -87,7 +87,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn lint --max-warnings=0
   prettier:
@@ -104,7 +104,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn prettier . --check
   test-interface:
@@ -122,7 +122,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:interface --runInBand
   test-parser:
@@ -139,7 +139,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:parser --runInBand
   test-integration:
@@ -156,7 +156,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:integration --runInBand
   build:
@@ -174,7 +174,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
@@ -209,7 +209,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - name: Extract messages
         run: |
@@ -247,7 +247,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - uses: actions/download-artifact@v3
         with:
@@ -282,7 +282,7 @@ jobs:
         with:
           path: |
             node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v4
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - name: Extract messages
         run: yarn extract
