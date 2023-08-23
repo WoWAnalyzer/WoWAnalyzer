@@ -187,6 +187,7 @@ jobs:
           REACT_APP_VERSION=$GITHUB_SHA
           # We already ran ESLint in a separate step
           DISABLE_AUTOMATIC_ESLINT=true
+          DISABLE_ESLINT_PLUGIN=true
           yarn build
         env:
           REACT_APP_ENABLE_GA: true
@@ -223,6 +224,7 @@ jobs:
           cp .env.development .env.production
           # We already ran ESLint in a separate step
           DISABLE_AUTOMATIC_ESLINT=true
+          DISABLE_ESLINT_PLUGIN=true
           yarn build
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
