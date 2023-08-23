@@ -1,5 +1,7 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+import ChampionsMight from '../shared/modules/talents/ChampionsMight';
+import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
 import RageDetails from './modules/core/RageDetails';
@@ -12,7 +14,6 @@ import SpellUsable from './modules/features/SpellUsable';
 import BerserkersTormentNormalizer from './modules/normalizers/BerserkersTorment';
 import EnrageNormalizer from './modules/normalizers/Enrage';
 import RecklessAbandonNormalizer from './modules/normalizers/RecklessAbandon';
-import ChampionsSpear from './modules/talents/ChampionsSpear';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -53,10 +54,11 @@ class CombatLogParser extends CoreCombatLogParser {
     angerManagement: AngerManagement,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
-    spearofBastion: ChampionsSpear,
+    championsSpear: ChampionsSpear,
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
     hackAndSlash: HackAndSlash,
+    championsMight: ChampionsMight,
   };
 }
 

@@ -274,9 +274,19 @@ const spells = {
     name: 'Impending Victory',
     icon: 'spell_impending_victory',
   },
-  SPEAR_OF_BASTION: {
+  CHAMPIONS_SPEAR: {
+    id: 376079,
+    name: "Champion's Spear",
+    icon: 'ability_bastion_warrior',
+  },
+  CHAMPIONS_SPEAR_DAMAGE: {
     id: 376080,
-    name: 'Spear of Bastion',
+    name: "Champion's Spear",
+    icon: 'ability_bastion_warrior',
+  },
+  CHAMPIONS_MIGHT: {
+    id: 386286,
+    name: "Champion's Might",
     icon: 'ability_bastion_warrior',
   },
 
