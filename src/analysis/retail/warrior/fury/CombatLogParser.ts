@@ -12,7 +12,6 @@ import SpellUsable from './modules/features/SpellUsable';
 import BerserkersTormentNormalizer from './modules/normalizers/BerserkersTorment';
 import EnrageNormalizer from './modules/normalizers/Enrage';
 import RecklessAbandonNormalizer from './modules/normalizers/RecklessAbandon';
-import SpearOfBastion from './modules/talents/SpearOfBastion';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -20,7 +19,9 @@ import AngerManagement from './modules/talents/AngerManagement';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
+import ElysianMight from '../shared/modules/talents/ElysianMight';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
+import SpearOfBastion from '../shared/modules/talents/SpearOfBastion';
 import HackAndSlash from './modules/talents/HackAndSlash';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -57,6 +58,7 @@ class CombatLogParser extends CoreCombatLogParser {
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
     hackAndSlash: HackAndSlash,
+    elysianMight: ElysianMight,
   };
 }
 

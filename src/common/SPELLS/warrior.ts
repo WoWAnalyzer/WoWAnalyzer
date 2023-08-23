@@ -275,8 +275,18 @@ const spells = {
     icon: 'spell_impending_victory',
   },
   SPEAR_OF_BASTION: {
+    id: 376079,
+    name: 'Spear of Bastion',
+    icon: 'ability_bastion_warrior',
+  },
+  SPEAR_OF_BASTION_DAMAGE: {
     id: 376080,
     name: 'Spear of Bastion',
+    icon: 'ability_bastion_warrior',
+  },
+  ELYSIAN_MIGHT_BUFF: {
+    id: 311193,
+    name: 'Elysian Might',
     icon: 'ability_bastion_warrior',
   },
 
