@@ -3063,10 +3063,10 @@
     "@webassemblyjs/ast" "1.11.1"
     "@xtuc/long" "4.2.2"
 
-"@wowanalyzer/react-tooltip-lite@^3.1.1":
-  version "3.1.1"
-  resolved "https://registry.yarnpkg.com/@wowanalyzer/react-tooltip-lite/-/react-tooltip-lite-3.1.1.tgz#2f8e567631a2d0dc78b9fcb06606ab961c0ef5a4"
-  integrity sha512-WXpVevJlXfwoOBTfk+2Toir6XJxqlmhGY96QUhpTqIsnw49usFHgQlPpBzDCgv8eUVwEGvXzyFz2SjxbdRfx6Q==
+"@wowanalyzer/react-tooltip-lite@^3.1.2":
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@wowanalyzer/react-tooltip-lite/-/react-tooltip-lite-3.1.2.tgz#9dd14fff47fa2eeabc479988ab7ac69c180f7d1e"
+  integrity sha512-p0Q/DvhOW/GmVENEDWCT/ZS9Ghy4neG6CntlUaaXrtrAa70A7yWxvk9a0VdFeETG6k2m1C0k3EQkeN5HamRtqQ==
   dependencies:
     prop-types "^15.5.8"
     react-minimalist-portal "2.3.1"
