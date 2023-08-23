@@ -14,9 +14,6 @@ const DEFAULT_SPEED_2H = 3.6;
 const DEFAULT_SPEED_1H = 2.6;
 
 class RageTracker extends ResourceTracker {
-  vengeanceRageSaved: number = 0;
-  lastMeleeTaken: number = 0;
-
   maxResource: number = 100 / RAGE_SCALE_FACTOR;
 
   constructor(options: Options) {
