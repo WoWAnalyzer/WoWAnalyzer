@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
-import { formatDurationMinSec, formatNumber, formatPercentage } from 'common/format';
+import { formatDurationMillisMinSec, formatNumber, formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 import { SpellLink } from 'interface';
 import { DamageIcon, UptimeIcon } from 'interface/icons';
@@ -8,6 +8,7 @@ import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import BoringValue from 'parser/ui/BoringValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -70,12 +71,46 @@ class ElysianMight extends Analyzer {
     this._actualBuffUptime = this.selectedCombatant.getBuffUptime(SPELLS.ELYSIAN_MIGHT_BUFF.id);
   }
 
+  private uptimeSuggestionThreshold() {
+    return {
+      actual: this.uptimePercentage(),
+      isLessThan: {
+        minor: 0.95,
+        average: 0.87,
+        major: 0.78,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   public uptimePercentage() {
     return this._actualBuffUptime / this._maximumBuffUptime;
   }
 
   public increasedCritDamage() {
     return this._increasedCritDamage;
+  }
+
+  suggestions(when: When) {
+    when(this.uptimeSuggestionThreshold()).addSuggestion((suggest, actual, recommended) =>
+      suggest(
+        <>
+          To gain the full benefit of <SpellLink spell={SPELLS.SPEAR_OF_BASTION} /> and{' '}
+          <SpellLink spell={TALENTS.ELYSIAN_MIGHT_TALENT} />, you must stand at the spear for the
+          duration. If you cannot stand in the Spear for most of the duration, you might be better
+          of with another talent, such as <SpellLink spell={TALENTS.THUNDEROUS_ROAR_TALENT} />.
+        </>,
+      )
+        .icon(TALENTS.ELYSIAN_MIGHT_TALENT.icon)
+        .actual(
+          `You stood in the spear for a total of ${formatDurationMillisMinSec(
+            this._actualBuffUptime,
+          )} out of a possible ${formatDurationMillisMinSec(
+            this._maximumBuffUptime,
+          )} (${formatPercentage(actual, 1)}%)`,
+        )
+        .recommended(`${formatPercentage(recommended, 0)}%> uptime is recommended`),
+    );
   }
 
   statistic() {
@@ -89,8 +124,8 @@ class ElysianMight extends Analyzer {
             <p>
               To gain the benefit of <SpellLink spell={TALENTS.ELYSIAN_MIGHT_TALENT} />, you must
               stand in the Spear for the duration. Out of the theoretically possible{' '}
-              {formatDurationMinSec(this._maximumBuffUptime / 1000)}, you had an uptime of{' '}
-              {formatDurationMinSec(this._actualBuffUptime / 1000)}
+              {formatDurationMillisMinSec(this._maximumBuffUptime)}, you had an uptime of{' '}
+              {formatDurationMillisMinSec(this._actualBuffUptime)}
             </p>
             <p>
               A total of {this._numberOfCrits} crits were increased by{' '}
