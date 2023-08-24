@@ -69,8 +69,10 @@ class RageDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={`${formatNumber(this.rageTracker.wasted)} out of ${formatNumber(
-          this.rageTracker.wasted + this.rageTracker.generated,
+        tooltip={`${formatNumber(
+          this.rageTracker.wasted * RAGE_SCALE_FACTOR,
+        )} out of ${formatNumber(
+          (this.rageTracker.wasted + this.rageTracker.generated) * RAGE_SCALE_FACTOR,
         )} Rage wasted.`}
       >
         <BoringResourceValue
