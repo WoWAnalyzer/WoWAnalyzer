@@ -7,13 +7,28 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 
+/**
+ * Calculate the effective resource gain from various mulplicative effects.
+ */
+function calculateEffectiveResourceGain(
+  { gain, waste }: { gain: number; waste: number },
+  increase: number,
+): number {
+  const total = gain + waste;
+  const bonus = total - total / (1 + increase);
+  return Math.max(0, bonus - waste);
+}
+
 // https://wowpedia.fandom.com/wiki/Rage
 const MH_AUTO_ATTACK_RAGE_PS = 1.75;
 const OH_AUTO_ATTACK_RAGE_PS = 0.875;
 const DEFAULT_SPEED_2H = 3.6;
 const DEFAULT_SPEED_1H = 2.6;
+const RECKLESSNESS_RAGE_INCREASE = 1;
 
 class RageTracker extends ResourceTracker {
+  _recklessGenerated: number = 0;
+
   maxResource: number = 100 / RAGE_SCALE_FACTOR;
 
   constructor(options: Options) {
@@ -57,20 +72,52 @@ class RageTracker extends ResourceTracker {
         return;
       }
 
-      const reck = this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id, event.timestamp);
+      let totalRage = AutoAtackRagePerSwing / RAGE_SCALE_FACTOR;
 
-      this.processInvisibleEnergize(
+      if (this.recklessBuff(event.timestamp)) {
+        totalRage *= 1 + RECKLESSNESS_RAGE_INCREASE;
+      }
+
+      const result = this.processInvisibleEnergize(
         SPELLS.RAGE_AUTO_ATTACKS.id,
-        (AutoAtackRagePerSwing * (reck ? 2 : 1)) / RAGE_SCALE_FACTOR,
+        totalRage,
         event.timestamp,
       );
+
+      this.trackRecklessRage(result);
     });
+  }
+
+  private recklessBuff(timestamp?: number | null): boolean {
+    return this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id, timestamp);
+  }
+
+  /**
+   * If the player has the Recklessness buff active, track the rage gain from it.
+   */
+  private trackRecklessRage({ gain, waste }: { gain: number; waste: number }, timestamp?: number) {
+    if (this.recklessBuff(timestamp)) {
+      this._recklessGenerated += calculateEffectiveResourceGain(
+        { gain, waste },
+        RECKLESSNESS_RAGE_INCREASE,
+      );
+    }
+  }
+
+  onEnergize(event: ResourceChangeEvent): void {
+    this.trackRecklessRage(this.getAdjustedGain(event), event.timestamp);
+
+    super.onEnergize(event);
   }
 
   /** All rage amounts multiplied by 10 - except gain and waste for some reason */
   getAdjustedGain(event: ResourceChangeEvent): { gain: number; waste: number } {
     const baseGain = super.getAdjustedGain(event);
     return { gain: baseGain.gain / RAGE_SCALE_FACTOR, waste: baseGain.waste / RAGE_SCALE_FACTOR };
+  }
+
+  get recklessGenerated() {
+    return this._recklessGenerated;
   }
 }
 

@@ -227,12 +227,23 @@ export default class ResourceTracker extends Analyzer {
    * @param {number} spellId - The spellId to attribute the resource gain to
    * @param {number} amount - The raw amount of resources to gain
    * @param {number} timestamp - The timestamp this is occuring
+   * @returns - The gain and waste amounts
    */
-  processInvisibleEnergize(spellId: number, amount: number, timestamp: number) {
+  processInvisibleEnergize(
+    spellId: number,
+    amount: number,
+    timestamp: number,
+  ): {
+    gain: number;
+    waste: number;
+  } {
     const maxGain = this.maxResource !== undefined ? this.maxResource - this.current : amount;
     const gain = Math.min(amount, maxGain);
     const waste = Math.max(amount - maxGain, 0);
     this._applyBuilder(spellId, gain, waste, timestamp);
+
+    // Return values to caller
+    return { gain, waste };
   }
 
   /** Handles a ResourceChangeEvent (a resource gain e.g. a builder),

@@ -1,28 +1,24 @@
-import { formatPercentage, formatThousands } from 'common/format';
+import { RAGE_SCALE_FACTOR } from 'analysis/retail/warrior/constants';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { formatNumber, formatPercentage } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { DamageEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
+import RageTracker from '../core/RageTracker';
 
 class Recklessness extends Analyzer {
-  reckRageGen: number = 0;
-  totalRageGen: number = 0;
-  reckDamage: number = 0;
+  static dependencies = {
+    rageTracker: RageTracker,
+  };
+
+  protected rageTracker!: RageTracker;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(talents.RECKLESSNESS_TALENT);
-
-    this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).to(SELECTED_PLAYER),
-      this.onPlayerEnergize,
-    );
-    this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
   }
 
   get uptime() {
@@ -30,33 +26,7 @@ class Recklessness extends Analyzer {
   }
 
   get ratioReckRageGen() {
-    return this.reckRageGen / this.totalRageGen;
-  }
-
-  get reckDPS() {
-    return this.owner.getPercentageOfTotalDamageDone(this.reckDamage);
-  }
-
-  onPlayerEnergize(event: ResourceChangeEvent) {
-    const resource =
-      event.classResources &&
-      event.classResources.find((classResources) => classResources.type === RESOURCE_TYPES.RAGE.id);
-
-    if (!resource) {
-      return;
-    }
-
-    if (this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id)) {
-      this.reckRageGen += event.resourceChange / 2;
-    }
-
-    this.totalRageGen += event.resourceChange;
-  }
-
-  onPlayerDamage(event: DamageEvent) {
-    if (this.selectedCombatant.hasBuff(SPELLS.RECKLESSNESS.id)) {
-      this.reckDamage += event.amount;
-    }
+    return this.rageTracker.recklessGenerated / this.rageTracker.generated;
   }
 
   statistic() {
@@ -65,12 +35,9 @@ class Recklessness extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            <strong>Extra Rage Generated:</strong> {this.reckRageGen}
+            {formatNumber(this.rageTracker.recklessGenerated * RAGE_SCALE_FACTOR)} extra rage
+            generated
             <br />
-            <strong>Percent of total rage generated during recklessness:</strong>{' '}
-            {formatPercentage(this.ratioReckRageGen)}%<br />
-            <strong>Percent of total damage done during recklessness:</strong>{' '}
-            {formatPercentage(this.reckDPS)}% ({formatThousands(this.reckDamage)})
           </>
         }
       >
