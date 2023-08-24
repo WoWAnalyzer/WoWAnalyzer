@@ -139,6 +139,9 @@ function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) 
       {info.combatant.hasTalent(TALENTS.EXSANGUINATE_TALENT) && (
         <CooldownUsage analyzer={modules.exsanguinate} />
       )}
+      {info.combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
+        <CooldownUsage analyzer={modules.sepsis} />
+      )}
     </Section>
   );
 }

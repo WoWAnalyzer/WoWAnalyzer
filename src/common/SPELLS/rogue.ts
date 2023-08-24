@@ -7,6 +7,7 @@ import Spell from 'common/SPELLS/Spell';
 
 const spells = {
   // Defensive general spells
+
   CRIMSON_VIAL: {
     id: 185311,
     name: 'Crimson Vial',
@@ -116,6 +117,11 @@ const spells = {
   },
   SEPSIS_BUFF: {
     id: 375939,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
+  SEPSIS_DEBUFF: {
+    id: 385408,
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
   },

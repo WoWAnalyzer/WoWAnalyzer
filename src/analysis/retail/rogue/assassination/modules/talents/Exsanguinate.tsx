@@ -14,7 +14,6 @@ import Enemies from 'parser/shared/modules/Enemies';
 import { isDefined } from 'common/typeGuards';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-
 import GarroteUptimeAndSnapshots from '../spells/GarroteUptimeAndSnapshots';
 import RuptureUptimeAndSnapshots from '../spells/RuptureUptimeAndSnapshots';
 import { isInOpener } from 'analysis/retail/rogue/assassination/constants';
