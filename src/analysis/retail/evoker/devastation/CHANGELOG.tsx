@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2023, 8, 25), <>Add <SpellLink spell={TALENTS.LEAPING_FLAMES_TALENT} /> module.</>, Vollmer),
   change(date(2023, 7, 26), <>Update <SpellLink spell={TALENTS.CAUSALITY_TALENT} /> module & CDR calculation.</>, Vollmer),
   change(date(2023, 7, 24), <>Added <SpellLink spell={SPELLS.DEEP_BREATH} /> to channel list.</>, Vollmer),
   change(date(2023, 7, 24), 'Update APL Check.', Vollmer),
