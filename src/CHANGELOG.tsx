@@ -27,6 +27,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 23), 'Revert upgrade of charting library to fix area charts.', emallson),
   change(date(2023, 8, 19), 'Add support for Warcraft Logs\' phase data in new logs.', emallson),
   change(date(2023, 8, 18), 'Update dependencies.', ToppleTheNun),
   change(date(2023, 8, 16), 'Add Classic buffs that effect haste rating', jazminite),

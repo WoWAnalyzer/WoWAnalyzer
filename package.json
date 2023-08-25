@@ -12,7 +12,7 @@
     "@lingui/react": "3.17.2",
     "@reduxjs/toolkit": "^1.9.5",
     "@types/react-toggle": "^4.0.3",
-    "@wowanalyzer/react-tooltip-lite": "^3.1.1",
+    "@wowanalyzer/react-tooltip-lite": "^3.1.2",
     "core-js": "3.32.0",
     "es6-error": "^4.1.1",
     "make-plural": "^7.3.0",
@@ -36,8 +36,8 @@
     "sass-text-stroke": "1.2.0",
     "swr": "^2.2.0",
     "universal-cookie": "^4.0.4",
-    "vega": "~5.25.0",
-    "vega-lite": "^5.14.1"
+    "vega": "~5.23.0",
+    "vega-lite": "^5.6.0"
   },
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
