@@ -166,6 +166,8 @@ class LeapingFlames extends Analyzer {
             <li>Damage: {formatNumber(this.leapingFlamesDamage)}</li>
             <li>Healing: {formatNumber(this.leapingFlamesHealing)}</li>
             <li>Overhealing: {formatNumber(this.leapingFlamesOverHealing)}</li>
+            Wasted <SpellLink spell={SPELLS.ESSENCE_BURST_BUFF} /> represent the amount you lost out
+            on due to overcapping.
           </>
         }
       >
