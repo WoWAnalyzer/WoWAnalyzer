@@ -10,6 +10,7 @@ import {
   EventType,
   GetRelatedEvents,
   RemoveBuffEvent,
+  RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { CAST_BUFFER_MS, FROM_HARDCAST } from './CastLinkNormalizer';
 import Combatant from 'parser/core/Combatant';
@@ -128,34 +129,35 @@ export const getSepsisConsumptionCastForBuffEvent = (
 ): CastEvent | undefined => {
   if (event.type === EventType.ApplyBuff) {
     const removeBuffEvent = getAuraLifetimeEvent(event);
-    event = removeBuffEvent ? (removeBuffEvent as RemoveBuffEvent) : event;
+    event = removeBuffEvent ? removeBuffEvent : event;
   }
   return GetRelatedEvents(event, BUFF_CONSUMPTION_EVENT)
     .filter((e): e is CastEvent => e.type === EventType.Cast)
     .at(0);
 };
 
-/** Returns the time remaining on the Sepsis buff's duration window at the time of the buffs removal.
- * @param {RemoveBuffEvent | ApplyBuffEvent} event The Apply or Remove Buff event related to the Sepsis buff.
- */
-export const getTimeRemainingAtRemoval = (event: RemoveBuffEvent | ApplyBuffEvent): number => {
-  const eventLimit = getAuraLifetimeEvent(event);
-  if (eventLimit) {
-    const t0 = eventLimit.timestamp;
-    const t1 = event.timestamp;
-    const timeRemaining = SEPSIS_BUFF_DURATION - Math.abs(t1 - t0);
-    return timeRemaining;
-  }
-  return 0;
-};
-/** Returns either that starting or ending event for the buff related to the given event.  */
-const getAuraLifetimeEvent = (
-  event: ApplyBuffEvent | RemoveBuffEvent,
-): ApplyBuffEvent | RemoveBuffEvent | undefined => {
+type MatchedLifetimeEvent<
+  T extends ApplyBuffEvent | RemoveBuffEvent | ApplyDebuffEvent | RemoveDebuffEvent,
+> = T extends ApplyBuffEvent
+  ? RemoveBuffEvent | undefined
+  : T extends RemoveBuffEvent
+  ? ApplyBuffEvent | undefined
+  : T extends ApplyDebuffEvent
+  ? RemoveDebuffEvent | undefined
+  : T extends RemoveDebuffEvent
+  ? ApplyDebuffEvent | undefined
+  : never;
+/** Returns either the starting or ending event for the buff related to the given event. ie If given application event it will return removal and vice versa*/
+export function getAuraLifetimeEvent<
+  T extends ApplyBuffEvent | RemoveBuffEvent | ApplyDebuffEvent | RemoveDebuffEvent,
+>(event: T): MatchedLifetimeEvent<T> {
   return GetRelatedEvents(event, AURA_LIFETIME_EVENT)
     .filter(
-      (e): e is ApplyBuffEvent | RemoveBuffEvent =>
-        e.type === EventType.ApplyBuff || e.type === EventType.RemoveBuff,
+      (e): e is T =>
+        e.type === EventType.ApplyBuff ||
+        e.type === EventType.RemoveBuff ||
+        e.type === EventType.ApplyDebuff ||
+        e.type === EventType.RemoveDebuff,
     )
-    .at(0);
-};
+    .at(0) as MatchedLifetimeEvent<T>;
+}

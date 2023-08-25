@@ -6,7 +6,7 @@ import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
-  change(date(2023, 8, 23), "Improved support for sepsis with a cooldown usage section, and clearer snapshotting information.", Bigsxy),
+  change(date(2023, 8, 24), `Improved support for Sepsis with Coooldown breakdown + Snapshoting`, Bigsxy),
   change(date(2023, 8, 21), 'Add support for usage of Sepsis with Improved Garrote.', Bigsxy),
   change(date(2023, 8, 7), 'Mark Assassination as supported for 10.1.5.', ToppleTheNun),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),

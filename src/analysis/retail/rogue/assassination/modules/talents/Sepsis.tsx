@@ -7,7 +7,14 @@ import React, { ReactNode } from 'react';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyDebuffEvent,
+  CastEvent,
+  EventType,
+  RemoveBuffEvent,
+  RemoveDebuffEvent,
+} from 'parser/core/Events';
 import { Trans } from '@lingui/macro';
 import SpellLink from 'interface/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -18,16 +25,21 @@ import {
   getRelatedBuffApplicationFromHardcast,
   getDebuffApplicationFromHardcast,
   SEPSIS_DEBUFF_DURATION,
-  getTimeRemainingAtRemoval,
   getSepsisConsumptionCastForBuffEvent,
+  SEPSIS_BUFF_DURATION,
+  getAuraLifetimeEvent,
 } from '../../normalizers/SepsisLinkNormalizer';
 import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
 import { Expandable } from 'interface';
 import { SectionHeader } from 'interface/guide';
 import { BUFF_DROP_BUFFER } from 'parser/core/DotSnapshots';
 import { formatPercentage } from 'common/format';
+import { GARROTE_BASE_DURATION, isInOpener } from '../../constants';
 
 const SHIV_DURATION = 8 * 1000;
+const PRIMARY_BUFF_KEY = 1;
+const SECONDARY_BUFF_KEY = 2;
+
 const formatSeconds = (ms: number, precision: number = 0): string => {
   if (ms % 1000 === 0) {
     return (ms / 1000).toFixed(0);
@@ -35,22 +47,35 @@ const formatSeconds = (ms: number, precision: number = 0): string => {
   return (ms / 1000).toFixed(precision);
 };
 
+interface SepsisDebuff {
+  application: ApplyDebuffEvent;
+  removal?: RemoveDebuffEvent;
+  timeRemainingOnRemoval: number;
+  start: number;
+  end?: number;
+}
+interface SepsisBuff {
+  application: ApplyBuffEvent;
+  removal?: RemoveBuffEvent;
+  timeRemainingOnRemoval: number;
+  start: number;
+  end?: number;
+  consumeCast: CastEvent | undefined;
+}
 interface SepsisCast extends SpellCast {
-  buffOneAbility: CastEvent | undefined;
-  buffOneTimeRemaining: number;
-
-  buffTwoAbility: CastEvent | undefined;
-  buffTwoTimeRemaining: number;
+  buffs: {
+    [PRIMARY_BUFF_KEY]?: SepsisBuff;
+    [SECONDARY_BUFF_KEY]?: SepsisBuff;
+  };
+  debuff?: SepsisDebuff;
   shivCount: number;
   timeSpentInShiv: number;
 }
-
 export default class Sepsis extends MajorCooldown<SepsisCast> {
   static dependencies = {
     ...MajorCooldown.dependencies,
     enemies: Enemies,
   };
-
   protected enemies!: Enemies;
   overallSepsisCasts: SepsisCast[] = [];
   usingLightweightShiv: boolean = this.selectedCombatant.hasTalent(TALENTS.LIGHTWEIGHT_SHIV_TALENT);
@@ -143,13 +168,14 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     const buffOneChecklistItem = createChecklistItem(
       'initial-sepsis-buff',
       sepsisCast,
-      this.buffOnePerformance(sepsisCast),
+      this.buffUsagePerformance(sepsisCast, PRIMARY_BUFF_KEY),
     );
     const buffTwoChecklistItem = createChecklistItem(
       'secondary-sepsis-buff',
       sepsisCast,
-      this.buffTwoPerformance(sepsisCast),
+      this.buffUsagePerformance(sepsisCast, SECONDARY_BUFF_KEY),
     );
+
     const shivChecklistItem = this.usingLightweightShiv
       ? createChecklistItem('shiv', sepsisCast, this.shivPerformance(sepsisCast))
       : undefined;
@@ -172,112 +198,126 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     };
   }
 
-  private buffOnePerformance(cast: SepsisCast): UsageInfo | undefined {
-    const buffOneSummary = (
-      <div>
-        Consume the first <SpellLink spell={TALENTS.SEPSIS_TALENT} /> buff with{' '}
-        <SpellLink spell={SPELLS.GARROTE} /> as early as possible.
-      </div>
-    );
-    if (!cast.buffOneAbility) {
-      return {
-        performance: QualitativePerformance.Fail,
-        summary: buffOneSummary,
-        details: (
-          <div>
-            You did not consume the first <SpellLink spell={TALENTS.SEPSIS_TALENT} /> buff.
-          </div>
-        ),
-      };
-    } else if (cast.buffOneAbility) {
-      if (cast.buffOneAbility.ability.guid !== SPELLS.GARROTE.id) {
-        return {
-          performance: QualitativePerformance.Fail,
-          summary: buffOneSummary,
-          details: (
-            <div>
-              You incorrectly cast <SpellLink spell={cast.buffOneAbility.ability.guid} /> to consume
-              the first <SpellLink spell={TALENTS.SEPSIS_TALENT} /> buff. Remember, you should
-              always be using the Sepsis buff to apply an empowered{' '}
-              <SpellLink spell={SPELLS.GARROTE} />.
-            </div>
-          ),
-        };
-      }
-      if (cast.buffOneAbility.ability.guid === SPELLS.GARROTE.id) {
-        if (cast.buffOneTimeRemaining < 5 * 1000) {
-          return {
-            performance: QualitativePerformance.Ok,
-            summary: buffOneSummary,
-            details: (
-              <div>
-                You cast <SpellLink spell={cast.buffOneAbility.ability.guid} /> to consume the first
-                buff, with {formatSeconds(cast.buffOneTimeRemaining, 2)} seconds left on the{' '}
-                <SpellLink spell={TALENTS.SEPSIS_TALENT} /> buff. This is okay, but you should
-                consider using the first buff earlier.
-              </div>
-            ),
-          };
-        }
-        if (cast.buffOneTimeRemaining >= 5 * 1000) {
-          return {
-            performance: QualitativePerformance.Perfect,
-            summary: buffOneSummary,
-            details: (
-              <div>
-                You cast <SpellLink spell={cast.buffOneAbility.ability.guid} /> to consume the first
-                buff, with {formatSeconds(cast.buffOneTimeRemaining, 2)} seconds left.
-              </div>
-            ),
-          };
-        }
-      }
-    }
-  }
+  private buffUsagePerformance(
+    cast: SepsisCast,
+    buffId: keyof SepsisCast['buffs'],
+  ): UsageInfo | undefined {
+    const summaryForBuff = {
+      [PRIMARY_BUFF_KEY]: (
+        <>
+          Consume the first <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff with{' '}
+          <SpellLink spell={SPELLS.GARROTE} /> as early as possible.
+        </>
+      ) as React.ReactNode,
+      [SECONDARY_BUFF_KEY]: (
+        <>
+          Consume the second <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff with{' '}
+          <SpellLink spell={SPELLS.GARROTE} /> as late as possible while maintaining full uptime on{' '}
+          <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} />.
+        </>
+      ) as React.ReactNode,
+    };
+    const usageDetails = {
+      [PRIMARY_BUFF_KEY]: (
+        <>
+          You did not consume the first <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff.
+        </>
+      ) as React.ReactNode,
+      [SECONDARY_BUFF_KEY]: (
+        <>
+          You did not consume the second <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff.
+        </>
+      ) as React.ReactNode,
+    };
+    let buffPerformance = QualitativePerformance.Fail;
+    const buff = cast.buffs[buffId];
+    if (buff && buff.consumeCast) {
+      const firstOrSecond = buffId === PRIMARY_BUFF_KEY ? 'first' : 'second';
+      if (buff.consumeCast.ability.guid !== SPELLS.GARROTE.id) {
+        usageDetails[buffId] = (
+          <>
+            You incorrectly cast <SpellLink spell={buff.consumeCast.ability.guid} /> to consume the{' '}
+            {firstOrSecond} <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff. You should always be
+            using the buff to cast or extend an empowered <SpellLink spell={SPELLS.GARROTE} />.
+          </>
+        );
+      } else {
+        buffPerformance = QualitativePerformance.Perfect;
+        usageDetails[buffId] = (
+          <>
+            You cast <SpellLink spell={SPELLS.GARROTE} /> to consume the {firstOrSecond}{' '}
+            <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff with{' '}
+            {formatSeconds(buff.timeRemainingOnRemoval, 2)} seconds remaining it's duration.
+          </>
+        );
+        // If the applied garrote will outlast (ie its not "full") the fight then disregard any "early" or "late" consume rules
+        const expectedGarroteEnd = buff.consumeCast.timestamp + GARROTE_BASE_DURATION;
+        const willBeFullGarrote = expectedGarroteEnd < this.owner.fight.end_time;
 
-  private buffTwoPerformance(cast: SepsisCast): UsageInfo | undefined {
-    const buffTwoSummary: React.ReactNode = (
-      <div>
-        Consume the second <SpellLink spell={TALENTS.SEPSIS_TALENT} /> buff with{' '}
-        <SpellLink spell={SPELLS.GARROTE} /> as late as possible while maintaining full uptime on{' '}
-        <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} />.
-      </div>
-    );
-    if (!cast.buffTwoAbility) {
-      return {
-        performance: QualitativePerformance.Fail,
-        summary: buffTwoSummary,
-        details: (
-          <div>
-            You did not consume the second <SpellLink spell={TALENTS.SEPSIS_TALENT} /> buff.
-          </div>
-        ),
-      };
+        // Primary buff specific checks
+        if (buffId === PRIMARY_BUFF_KEY) {
+          const isLateConsume = buff.timeRemainingOnRemoval < 5 * 1000;
+          const isOpenerCast = isInOpener(buff.consumeCast, this.owner.fight);
+          if (isLateConsume && !isOpenerCast && willBeFullGarrote) {
+            buffPerformance = QualitativePerformance.Good;
+            usageDetails[buffId] = (
+              <>
+                {usageDetails[buffId]} This is okay, but you should consider using the first buff
+                earlier to get an empowered <SpellLink spell={SPELLS.GARROTE} /> ticking as soon as
+                possible. Specially outside of the opener as you likely will not have an{' '}
+                <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} /> running when you cast{' '}
+                <SpellLink spell={TALENTS.SEPSIS_TALENT} />
+              </>
+            );
+          }
+        }
+        // Secondary buff specific checks
+        if (buffId === SECONDARY_BUFF_KEY) {
+          const isEarlyConsume = buff.timeRemainingOnRemoval > 3 * 1000;
+          if (isEarlyConsume) {
+            if (willBeFullGarrote) {
+              buffPerformance = QualitativePerformance.Good;
+            }
+            usageDetails[buffId] = (
+              <>
+                {usageDetails[buffId]}{' '}
+                {willBeFullGarrote && (
+                  <>
+                    This is okay, but you should consider using the second buff as late as possible
+                    to maximize uptime on <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} />
+                  </>
+                )}
+                {!willBeFullGarrote && <>This is fine, since the fight was ending soon.</>}
+              </>
+            );
+          }
+        }
+      }
     }
-    if (cast.buffTwoAbility?.ability.guid === SPELLS.GARROTE.id) {
-      return {
-        performance: QualitativePerformance.Perfect,
-        summary: buffTwoSummary,
-        details: (
-          <div>
-            You cast <SpellLink spell={SPELLS.GARROTE} /> to consume the second buff, with{' '}
-            {formatSeconds(cast.buffTwoTimeRemaining, 2)} seconds left.
-          </div>
-        ),
-      };
-    } else {
-      return {
-        performance: QualitativePerformance.Fail,
-        summary: buffTwoSummary,
-        details: (
-          <div>
-            You incorrectly cast <SpellLink spell={cast.buffTwoAbility?.ability.guid} /> to consume
-            the second <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff. You should always be using the
-            buff to cast or extend an empowered <SpellLink spell={SPELLS.GARROTE} />.
-          </div>
-        ),
-      };
+    // edge case: if fight ends before buff is consumed or before 2nd buff is gained
+    if (cast.event.timestamp + SEPSIS_BUFF_DURATION > this.owner.fight.end_time) {
+      buffPerformance = QualitativePerformance.Perfect;
+      if (!buff) {
+        // could also return undefined here to not show buff performance since it was never gained
+        usageDetails[buffId] = (
+          <>
+            Fight ended before you gained the <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff.
+          </>
+        );
+      } else if (!buff.consumeCast) {
+        usageDetails[buffId] = (
+          <>
+            {usageDetails[buffId]} However its seems the fight ended shortly after or before the
+            buff was gained.
+          </>
+        );
+      }
     }
+    return {
+      performance: buffPerformance,
+      summary: <div>{summaryForBuff[buffId]}</div>,
+      details: <div>{usageDetails[buffId]}</div>,
+    };
   }
 
   private shivPerformance(cast: SepsisCast): UsageInfo | undefined {
@@ -297,24 +337,43 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     );
     let performance = QualitativePerformance.Fail;
 
-    const overLapPercent = Math.min(1, (cast.timeSpentInShiv + BUFF_DROP_BUFFER) / SHIV_DURATION);
+    let overlapPercent = Math.min(1, (cast.timeSpentInShiv + BUFF_DROP_BUFFER) / SHIV_DURATION);
+
+    // check if sepsis debuff is set to expire after the fight ends so we don't expect all 8s of shiv to be used.
+    const sepsisDurationAtFightEnd =
+      cast.event.timestamp + SEPSIS_DEBUFF_DURATION - this.owner.fight.end_time;
+    let effectiveSepsisDuration = SEPSIS_DEBUFF_DURATION;
+    if (sepsisDurationAtFightEnd > 0) {
+      effectiveSepsisDuration = SEPSIS_DEBUFF_DURATION - sepsisDurationAtFightEnd;
+      overlapPercent = Math.min(
+        1,
+        (cast.timeSpentInShiv + BUFF_DROP_BUFFER) / effectiveSepsisDuration,
+      );
+    }
+
     if (cast.shivCount > 0) {
-      if (overLapPercent >= 0.9) {
+      if (overlapPercent >= 0.9) {
         performance = QualitativePerformance.Perfect;
-      } else if (overLapPercent >= 0.85) {
+      } else if (overlapPercent >= 0.85) {
         performance = QualitativePerformance.Good;
-      } else if (overLapPercent >= 0.75) {
+      } else if (overlapPercent >= 0.75) {
         performance = QualitativePerformance.Ok;
       }
       castDetails = (
         <div>
           You cast {cast.shivCount} <SpellLink spell={SPELLS.SHIV} />
-          (s) with {formatSeconds(cast.timeSpentInShiv, 2)}s ({formatPercentage(overLapPercent, 1)}
+          (s) with {formatSeconds(cast.timeSpentInShiv, 2)}s ({formatPercentage(overlapPercent, 1)}
           %) of it's debuff covering your <SpellLink spell={TALENTS.SEPSIS_TALENT} /> debuff.{' '}
-          {overLapPercent < 0.85 && (
+          {overlapPercent < 0.85 && effectiveSepsisDuration > SHIV_DURATION && (
             <>
               Ideally all {formatSeconds(SHIV_DURATION)} seconds of Shiv should be inside of the{' '}
               {formatSeconds(SEPSIS_DEBUFF_DURATION)}s Sepsis debuff window.
+            </>
+          )}
+          {sepsisDurationAtFightEnd > 0 && (
+            <>
+              Your <SpellLink spell={TALENTS.SEPSIS_TALENT} /> debuff was up for{' '}
+              {formatSeconds(effectiveSepsisDuration)}s before the fight ended.
             </>
           )}
         </div>
@@ -362,41 +421,60 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       this.recordCooldown({ ...sepsisCast, timeSpentInShiv: overlapMs, shivCount: castCount });
     });
   }
-  private onSepsisCast(event: CastEvent) {
-    let buffOneAbility: CastEvent | undefined;
-    let buffOneTimeRemaining = 0;
-
-    let buffTwoAbility: CastEvent | undefined;
-    let buffTwoTimeRemaining = 0;
+  private onSepsisCast(cast: CastEvent) {
+    const sepsisBuffs: SepsisCast['buffs'] = {
+      [PRIMARY_BUFF_KEY]: undefined,
+      [SECONDARY_BUFF_KEY]: undefined,
+    };
+    let sepsisDebuff: SepsisDebuff | undefined;
 
     const initialBuffApplication = getRelatedBuffApplicationFromHardcast(
-      event,
+      cast,
       'InstantAuraApplication',
     );
-    if (initialBuffApplication) {
-      buffOneAbility = getSepsisConsumptionCastForBuffEvent(initialBuffApplication);
-      if (buffOneAbility) {
-        buffOneTimeRemaining = getTimeRemainingAtRemoval(initialBuffApplication);
-      }
-    }
-
     const delayedBuffApplication = getRelatedBuffApplicationFromHardcast(
-      event,
+      cast,
       'DelayedAuraApplication',
     );
-    if (delayedBuffApplication) {
-      buffTwoAbility = getSepsisConsumptionCastForBuffEvent(delayedBuffApplication);
-      if (buffTwoAbility) {
-        buffTwoTimeRemaining = getTimeRemainingAtRemoval(delayedBuffApplication);
-      }
-    }
+    const debuffApplication = getDebuffApplicationFromHardcast(cast);
 
+    [initialBuffApplication, delayedBuffApplication, debuffApplication].forEach((application) => {
+      if (application) {
+        if (application.type === EventType.ApplyBuff) {
+          const start = application.timestamp;
+          const removal = getAuraLifetimeEvent(application);
+          const end = removal ? removal.timestamp : start + SEPSIS_BUFF_DURATION;
+          const consumeCast = getSepsisConsumptionCastForBuffEvent(application);
+          const buffId =
+            Math.abs(cast.timestamp - start) <= BUFF_DROP_BUFFER
+              ? PRIMARY_BUFF_KEY
+              : SECONDARY_BUFF_KEY;
+          sepsisBuffs[buffId] = {
+            application,
+            removal,
+            timeRemainingOnRemoval: SEPSIS_BUFF_DURATION - Math.abs(end - start),
+            consumeCast,
+            start,
+            end,
+          };
+        } else if (application.type === EventType.ApplyDebuff) {
+          const start = application.timestamp;
+          const removal = getAuraLifetimeEvent(application);
+          const end = removal ? removal.timestamp : start + SEPSIS_DEBUFF_DURATION;
+          sepsisDebuff = {
+            application,
+            removal,
+            timeRemainingOnRemoval: SEPSIS_DEBUFF_DURATION - Math.abs(end - start),
+            start,
+            end,
+          };
+        }
+      }
+    });
     this.overallSepsisCasts.push({
-      event,
-      buffOneAbility,
-      buffOneTimeRemaining,
-      buffTwoAbility,
-      buffTwoTimeRemaining,
+      event: cast,
+      buffs: sepsisBuffs,
+      debuff: sepsisDebuff,
       shivCount: 0,
       timeSpentInShiv: 0,
     });

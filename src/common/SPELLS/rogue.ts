@@ -7,7 +7,6 @@ import Spell from 'common/SPELLS/Spell';
 
 const spells = {
   // Defensive general spells
-
   CRIMSON_VIAL: {
     id: 185311,
     name: 'Crimson Vial',
