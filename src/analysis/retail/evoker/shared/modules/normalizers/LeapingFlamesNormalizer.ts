@@ -34,9 +34,6 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.Damage, EventType.Heal],
     anyTarget: true,
     forwardBufferMs: LEAPING_FLAMES_HIT_BUFFER,
-    isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.LEAPING_FLAMES_TALENT);
-    },
   },
   {
     linkRelation: LEAPING_FLAMES_CONSUME,
@@ -48,9 +45,6 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
     backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
-    isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.LEAPING_FLAMES_TALENT);
-    },
   },
   {
     linkRelation: ESSENCE_BURST_GENERATED,
@@ -107,6 +101,7 @@ const EVENT_LINKS: EventLink[] = [
 class LeapingFlamesNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_EVOKER.LEAPING_FLAMES_TALENT);
   }
 }
 
