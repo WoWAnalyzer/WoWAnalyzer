@@ -1,26 +1,12 @@
-import { formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
-import { Expandable, SpellLink } from 'interface';
-import { PerformanceMark, SectionHeader } from 'interface/guide';
-import CooldownExpandable, {
-  CooldownExpandableItem,
-} from 'interface/guide/components/CooldownExpandable';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { ELECTRIFIED_SHOCKS_DURATION, GUIDE_EXPLANATION_PERCENT_WIDTH } from '../../constants';
-
-const IF_COOLDOWN_REMAINING_PERFECT = 1000;
-const IF_COOLDOWN_REMAINING_GOOD = 5000;
-const IF_COOLDOWN_REMAINING_OK = 9000;
-
-const STACKS_USED_PEREFECT = 4;
-const STACKS_USED_OK = 3;
+import { ELECTRIFIED_SHOCKS_DURATION } from '../../constants';
 
 interface ActiveIFWindow {
   start: number;
@@ -47,9 +33,7 @@ class Icefury extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active =
-      this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT) &&
-      this.selectedCombatant.hasTalent(TALENTS.ELECTRIFIED_SHOCKS_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT);
 
     this.activeIFWindow = null;
 
@@ -125,117 +109,6 @@ class Icefury extends Analyzer {
       },
       style: ThresholdStyle.DECIMAL,
     };
-  }
-
-  get guideSubsection() {
-    const description = (
-      <>
-        <p>
-          When casting <SpellLink spell={TALENTS.ICEFURY_TALENT} />, your next 4
-          <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> casts apply{' '}
-          <SpellLink spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} /> to affected target(s). Electrified
-          shocks is a substantial damage multiplier to your other nature spells. You should
-          therefore aim to keep this buff up on your target whenever you otherwise are dealing
-          damage to the target.
-        </p>
-        <p>
-          You can achieve continious uptime of{' '}
-          <SpellLink spell={TALENTS.ELECTRIFIED_SHOCKS_TALENT} /> if you cast{' '}
-          <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> on average about every 7.5 seconds.
-        </p>
-      </>
-    );
-
-    const casts = this.icefuryWindows.map((ifw) => {
-      const header = (
-        <>
-          @ {this.owner.formatTimestamp(ifw.start)} &mdash;{' '}
-          <SpellLink spell={TALENTS.ICEFURY_TALENT} />
-        </>
-      );
-
-      let fsCastPerf = QualitativePerformance.Fail;
-      if (ifw.empoweredCasts === STACKS_USED_PEREFECT) {
-        fsCastPerf = QualitativePerformance.Perfect;
-      } else if (ifw.empoweredCasts === STACKS_USED_OK) {
-        fsCastPerf = QualitativePerformance.Ok;
-      }
-
-      const fsCastChecklistItem: CooldownExpandableItem = {
-        label: <>Frost shock casts</>,
-        result: (
-          <>
-            <PerformanceMark perf={fsCastPerf} />
-          </>
-        ),
-        details: <>{ifw.empoweredCasts} / 4 stacks used</>,
-      };
-
-      let fsSpreadPerf = QualitativePerformance.Fail;
-      if (ifw.icefuryCooldownLeft <= IF_COOLDOWN_REMAINING_PERFECT) {
-        fsSpreadPerf = QualitativePerformance.Perfect;
-      } else if (ifw.icefuryCooldownLeft < IF_COOLDOWN_REMAINING_GOOD) {
-        fsSpreadPerf = QualitativePerformance.Good;
-      } else if (ifw.icefuryCooldownLeft < IF_COOLDOWN_REMAINING_OK) {
-        fsSpreadPerf = QualitativePerformance.Ok;
-      }
-
-      const fsSpreadChecklistItem: CooldownExpandableItem = {
-        label: (
-          <>
-            <SpellLink spell={TALENTS.ICEFURY_TALENT} /> cooldown remaining on window end
-          </>
-        ),
-        result: (
-          <>
-            <PerformanceMark perf={fsSpreadPerf} />
-          </>
-        ),
-        details: <>{formatDuration(ifw.icefuryCooldownLeft)}</>,
-      };
-
-      return {
-        _key: 'icefury-' + ifw.start,
-        header: header,
-        perf: getLowestPerf([fsCastPerf, fsSpreadPerf]),
-        checklistItems: [fsCastChecklistItem, fsSpreadChecklistItem],
-      };
-    });
-
-    const imperfectWindows = casts
-      .filter((c) => c.perf !== QualitativePerformance.Perfect)
-      .map((c) => <CooldownExpandable key={c._key} {...c} />);
-    const perfectWindows = casts
-      .filter((c) => c.perf === QualitativePerformance.Perfect)
-      .map((c) => <CooldownExpandable key={c._key} {...c} />);
-
-    const data = (
-      <div>
-        <strong>Cast breakdown</strong> -{' '}
-        <small>Breakdown of how well you used each Icefury window.</small>
-        {imperfectWindows}
-        <br />
-        <Expandable
-          header={
-            <SectionHeader>
-              {' '}
-              <PerformanceMark perf={QualitativePerformance.Perfect} /> Perfect windows -{' '}
-              {perfectWindows.length}
-            </SectionHeader>
-          }
-          element="section"
-        >
-          {perfectWindows}
-        </Expandable>
-      </div>
-    );
-
-    return explanationAndDataSubsection(
-      description,
-      data,
-      GUIDE_EXPLANATION_PERCENT_WIDTH,
-      'Icefury',
-    );
   }
 
   suggestions(when: When) {
