@@ -54,7 +54,7 @@ const CoreSection = (props: GuideProps<typeof CombatLogParser>) => {
       {modules.spenderWindow.active && modules.spenderWindow.guideSubsection()}
       {modules.maelstromDetails.guideSubsection}
       {modules.alwaysBeCasting.guideSubsection}
-      {modules.icefury.guideSubsection}
+      {modules.icefury.active && modules.icefury.guideSubsection}
       {info.combatant.hasTalent(TALENTS_SHAMAN.MASTER_OF_THE_ELEMENTS_TALENT) &&
         modules.masterOfTheElements.guideSubsection()}
       <FlameShockSubSection {...props} />

@@ -13,10 +13,14 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { getLowestPerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { ELECTRIFIED_SHOCKS_DURATION, GUIDE_EXPLANATION_PERCENT_WIDTH } from '../../constants';
 
 const IF_COOLDOWN_REMAINING_PERFECT = 1000;
 const IF_COOLDOWN_REMAINING_GOOD = 5000;
 const IF_COOLDOWN_REMAINING_OK = 9000;
+
+const STACKS_USED_PEREFECT = 4;
+const STACKS_USED_OK = 3;
 
 interface ActiveIFWindow {
   start: number;
@@ -43,7 +47,9 @@ class Icefury extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT);
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.ELECTRIFIED_SHOCKS_TALENT);
 
     this.activeIFWindow = null;
 
@@ -89,7 +95,7 @@ class Icefury extends Analyzer {
       ...this.activeIFWindow,
       end: event.timestamp,
       icefuryCooldownLeft: Math.max(
-        this.spellUsable.cooldownRemaining(TALENTS.ICEFURY_TALENT.id) - 9000,
+        this.spellUsable.cooldownRemaining(TALENTS.ICEFURY_TALENT.id) - ELECTRIFIED_SHOCKS_DURATION,
         0,
       ),
     });
@@ -149,9 +155,9 @@ class Icefury extends Analyzer {
       );
 
       let fsCastPerf = QualitativePerformance.Fail;
-      if (ifw.empoweredCasts === 4) {
+      if (ifw.empoweredCasts === STACKS_USED_PEREFECT) {
         fsCastPerf = QualitativePerformance.Perfect;
-      } else if (ifw.empoweredCasts === 3) {
+      } else if (ifw.empoweredCasts === STACKS_USED_OK) {
         fsCastPerf = QualitativePerformance.Ok;
       }
 
@@ -224,7 +230,12 @@ class Icefury extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(description, data);
+    return explanationAndDataSubsection(
+      description,
+      data,
+      GUIDE_EXPLANATION_PERCENT_WIDTH,
+      'Icefury',
+    );
   }
 
   suggestions(when: When) {
