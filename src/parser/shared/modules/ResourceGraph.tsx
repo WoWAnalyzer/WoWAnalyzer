@@ -8,25 +8,10 @@ abstract class ResourceGraph extends Analyzer {
   /** Implementer must override this to return the ResourceTracker for the resource to graph */
   abstract tracker(): ResourceTracker;
 
-  /** Implementer may set this to include the wasted line on the graph.
-   *  Note that the ResourceTracker must have events with `Event.changeWaste` for this to work.
-   */
-  includeWasted: boolean = true;
-
   /** Implementer may override this to give the graph line a custom color.
    *  Color must be in format '#rrggbb', where rr gg and bb are hex values. */
   lineColor(): string | undefined {
     return undefined;
-  }
-
-  /** Implementer may override this to give the wasted line a custom color. */
-  wastedColor(): string {
-    return 'rgba(255,90,160,1)';
-  }
-
-  /** Implementer may override the default resource name in the graph and tooltip. */
-  resourceName(): string {
-    return this.tracker().resource.name;
   }
 
   /** Some are scaled differently in events vs the user facing value. Implementer may override
