@@ -112,7 +112,6 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     if (wasUnacceptableDowngrade) {
       snapshotPerformance = QualitativePerformance.Fail;
       snapshotSummary = <div>Unacceptable downgrade of snapshot</div>;
-      console.debug(snapshots, prevSnapshots);
       snapshotDetails = (
         <div>
           Unacceptable downgrade of snapshot. Try not to overwrite your snapshotted Garrote unless
