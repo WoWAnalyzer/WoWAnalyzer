@@ -15,7 +15,6 @@ import Events, {
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import { Trans } from '@lingui/macro';
 import SpellLink from 'interface/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
 import { isDefined } from 'common/typeGuards';
@@ -94,13 +93,11 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       <>
         <ExplanationSection>
           <p>
-            <Trans id="guide.rogue.assassination.sections.cooldowns.sepsis.explanation">
-              <strong>
-                <SpellLink spell={TALENTS.SEPSIS_TALENT} />
-              </strong>{' '}
-              is a strong cooldown that allows for much higher uptime on
-              <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} /> in fights.
-            </Trans>
+            <strong>
+              <SpellLink spell={TALENTS.SEPSIS_TALENT} />
+            </strong>{' '}
+            is a strong cooldown that allows for much higher uptime on
+            <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} /> in fights.
           </p>
         </ExplanationSection>
         <ExplanationSection>
@@ -205,15 +202,12 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     const summaryForBuff = {
       [PRIMARY_BUFF_KEY]: (
         <>
-          Consume the first <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff with{' '}
-          <SpellLink spell={SPELLS.GARROTE} /> as early as possible.
+          Use <SpellLink spell={SPELLS.GARROTE} /> to consume the Sepsis buff early.
         </>
       ) as React.ReactNode,
       [SECONDARY_BUFF_KEY]: (
         <>
-          Consume the second <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff with{' '}
-          <SpellLink spell={SPELLS.GARROTE} /> as late as possible while maintaining full uptime on{' '}
-          <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} />.
+          Use <SpellLink spell={SPELLS.GARROTE} /> to consume the Sepsis buff late.
         </>
       ) as React.ReactNode,
     };
@@ -247,7 +241,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
           <>
             You cast <SpellLink spell={SPELLS.GARROTE} /> to consume the {firstOrSecond}{' '}
             <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff with{' '}
-            {formatSeconds(buff.timeRemainingOnRemoval, 2)} seconds remaining it's duration.
+            {formatSeconds(buff.timeRemainingOnRemoval, 2)} seconds remaining on it's duration.
           </>
         );
         // If the applied garrote will outlast (ie its not "full") the fight then disregard any "early" or "late" consume rules
@@ -258,13 +252,14 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
         if (buffId === PRIMARY_BUFF_KEY) {
           const isLateConsume = buff.timeRemainingOnRemoval < 5 * 1000;
           const isOpenerCast = isInOpener(buff.consumeCast, this.owner.fight);
+          // still good, just not "perfect"
           if (isLateConsume && !isOpenerCast && willBeFullGarrote) {
             buffPerformance = QualitativePerformance.Good;
             usageDetails[buffId] = (
               <>
-                {usageDetails[buffId]} This is okay, but you should consider using the first buff
-                earlier to get an empowered <SpellLink spell={SPELLS.GARROTE} /> ticking as soon as
-                possible. Specially outside of the opener as you likely will not have an{' '}
+                {usageDetails[buffId]} You should consider using the first buff earlier to get an
+                empowered <SpellLink spell={SPELLS.GARROTE} /> ticking as soon as possible.
+                Specially outside of the opener as you likely will not have an{' '}
                 <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} /> running when you cast{' '}
                 <SpellLink spell={TALENTS.SEPSIS_TALENT} />
               </>
@@ -274,20 +269,13 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
         // Secondary buff specific checks
         if (buffId === SECONDARY_BUFF_KEY) {
           const isEarlyConsume = buff.timeRemainingOnRemoval > 3 * 1000;
-          if (isEarlyConsume) {
-            if (willBeFullGarrote) {
-              buffPerformance = QualitativePerformance.Good;
-            }
+          // likewise, still good, just not "perfect"
+          if (isEarlyConsume && willBeFullGarrote) {
+            buffPerformance = QualitativePerformance.Good;
             usageDetails[buffId] = (
               <>
-                {usageDetails[buffId]}{' '}
-                {willBeFullGarrote && (
-                  <>
-                    This is okay, but you should consider using the second buff as late as possible
-                    to maximize uptime on <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} />
-                  </>
-                )}
-                {!willBeFullGarrote && <>This is fine, since the fight was ending soon.</>}
+                {usageDetails[buffId]} Consider using the second buff as late as possible to
+                maximize uptime on <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} />
               </>
             );
           }
@@ -305,14 +293,17 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
           </>
         );
       } else if (!buff.consumeCast) {
+        // TODO:
+        // Ideally this check should only pass if combatant already has an empowered garrote active.
         usageDetails[buffId] = (
           <>
-            {usageDetails[buffId]} However its seems the fight ended shortly after or before the
-            buff was gained.
+            {usageDetails[buffId]} However, its seems the fight ended shortly after the buff was
+            gained.
           </>
         );
       }
     }
+
     return {
       performance: buffPerformance,
       summary: <div>{summaryForBuff[buffId]}</div>,
@@ -323,10 +314,8 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
   private shivPerformance(cast: SepsisCast): UsageInfo | undefined {
     const shivSummary: React.ReactNode = (
       <div>
-        Cast <SpellLink spell={SPELLS.SHIV} /> during <SpellLink spell={TALENTS.SEPSIS_TALENT} /> so
-        that you get a the full {formatSeconds(SHIV_DURATION)} seconds of{' '}
-        <SpellLink spell={SPELLS.SHIV} /> overlapping with the{' '}
-        <SpellLink spell={TALENTS.SEPSIS_TALENT} /> debuff.
+        Cast <SpellLink spell={SPELLS.SHIV} /> shortly after applying{' '}
+        <SpellLink spell={TALENTS.SEPSIS_TALENT} />.
       </div>
     );
     let castDetails: React.ReactNode = (
