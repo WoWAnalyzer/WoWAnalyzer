@@ -3,18 +3,11 @@ import MajorCooldown, {
   SpellCast,
 } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import React, { ReactNode } from 'react';
+import React from 'react';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
-import Events, {
-  ApplyBuffEvent,
-  ApplyDebuffEvent,
-  CastEvent,
-  EventType,
-  RemoveBuffEvent,
-  RemoveDebuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffEvent, ApplyDebuffEvent, CastEvent, EventType } from 'parser/core/Events';
 import SpellLink from 'interface/SpellLink';
 import Enemies from 'parser/shared/modules/Enemies';
 import { isDefined } from 'common/typeGuards';
@@ -23,10 +16,12 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import {
   getRelatedBuffApplicationFromHardcast,
   getDebuffApplicationFromHardcast,
-  SEPSIS_DEBUFF_DURATION,
   getSepsisConsumptionCastForBuffEvent,
-  SEPSIS_BUFF_DURATION,
   getAuraLifetimeEvent,
+} from '../../normalizers/SepsisLinkNormalizer';
+import {
+  SEPSIS_DEBUFF_DURATION,
+  SEPSIS_BUFF_DURATION,
 } from '../../normalizers/SepsisLinkNormalizer';
 import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
 import { Expandable } from 'interface';
@@ -34,8 +29,11 @@ import { SectionHeader } from 'interface/guide';
 import { BUFF_DROP_BUFFER } from 'parser/core/DotSnapshots';
 import { formatPercentage } from 'common/format';
 import { GARROTE_BASE_DURATION, isInOpener } from '../../constants';
+import { CAST_BUFFER_MS } from '../../normalizers/CastLinkNormalizer';
+import { TrackedBuffEvent } from 'parser/core/Entity';
 
 const SHIV_DURATION = 8 * 1000;
+const BASE_ROGUE_GCD = 1000;
 const PRIMARY_BUFF_KEY = 1;
 const SECONDARY_BUFF_KEY = 2;
 
@@ -47,18 +45,13 @@ const formatSeconds = (ms: number, precision: number = 0): string => {
 };
 
 interface SepsisDebuff {
-  application: ApplyDebuffEvent;
-  removal?: RemoveDebuffEvent;
+  applyEvent: ApplyDebuffEvent;
   timeRemainingOnRemoval: number;
   start: number;
   end?: number;
 }
-interface SepsisBuff {
-  application: ApplyBuffEvent;
-  removal?: RemoveBuffEvent;
-  timeRemainingOnRemoval: number;
-  start: number;
-  end?: number;
+interface SepsisBuff extends Omit<SepsisDebuff, 'applyEvent'> {
+  applyEvent: ApplyBuffEvent;
   consumeCast: CastEvent | undefined;
 }
 interface SepsisCast extends SpellCast {
@@ -67,8 +60,11 @@ interface SepsisCast extends SpellCast {
     [SECONDARY_BUFF_KEY]?: SepsisBuff;
   };
   debuff?: SepsisDebuff;
-  shivCount: number;
-  timeSpentInShiv: number;
+  shivData?: {
+    events: TrackedBuffEvent[];
+    overlapMs: number;
+    overlapPercent: number;
+  };
 }
 export default class Sepsis extends MajorCooldown<SepsisCast> {
   static dependencies = {
@@ -88,7 +84,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     this.addEventListener(Events.fightend, this.onEnd);
   }
 
-  description(): ReactNode {
+  description(): React.ReactNode {
     return (
       <>
         <ExplanationSection>
@@ -282,19 +278,17 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
         }
       }
     }
-    // edge case: if fight ends before buff is consumed or before 2nd buff is gained
+    // Edge case: if fight ends before 2nd buff is gained or before buff is used.
     if (cast.event.timestamp + SEPSIS_BUFF_DURATION > this.owner.fight.end_time) {
       buffPerformance = QualitativePerformance.Perfect;
       if (!buff) {
-        // could also return undefined here to not show buff performance since it was never gained
+        // could also return undefined here to not show any buff performance since it was never gained
         usageDetails[buffId] = (
           <>
             Fight ended before you gained the <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff.
           </>
         );
       } else if (!buff.consumeCast) {
-        // TODO:
-        // Ideally this check should only pass if combatant already has an empowered garrote active.
         usageDetails[buffId] = (
           <>
             {usageDetails[buffId]} However, its seems the fight ended shortly after the buff was
@@ -313,101 +307,127 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
 
   private shivPerformance(cast: SepsisCast): UsageInfo | undefined {
     const shivSummary: React.ReactNode = (
-      <div>
+      <>
         Cast <SpellLink spell={SPELLS.SHIV} /> shortly after applying{' '}
         <SpellLink spell={TALENTS.SEPSIS_TALENT} />.
-      </div>
+      </>
     );
     let castDetails: React.ReactNode = (
-      <div>
+      <>
         You did not cast <SpellLink spell={SPELLS.SHIV.id} /> during{' '}
         <SpellLink spell={TALENTS.SEPSIS_TALENT.id} />.
-      </div>
+      </>
     );
     let performance = QualitativePerformance.Fail;
 
-    let overlapPercent = Math.min(1, (cast.timeSpentInShiv + BUFF_DROP_BUFFER) / SHIV_DURATION);
-
-    // check if sepsis debuff is set to expire after the fight ends so we don't expect all 8s of shiv to be used.
-    const sepsisDurationAtFightEnd =
-      cast.event.timestamp + SEPSIS_DEBUFF_DURATION - this.owner.fight.end_time;
-    let effectiveSepsisDuration = SEPSIS_DEBUFF_DURATION;
-    if (sepsisDurationAtFightEnd > 0) {
-      effectiveSepsisDuration = SEPSIS_DEBUFF_DURATION - sepsisDurationAtFightEnd;
-      overlapPercent = Math.min(
-        1,
-        (cast.timeSpentInShiv + BUFF_DROP_BUFFER) / effectiveSepsisDuration,
-      );
-    }
-
-    if (cast.shivCount > 0) {
+    // Note: cast.debuff & cast.shivData will be defined if shivCasts > 0
+    // check is redundant but here for typing purposes
+    const shivCasts = cast.shivData?.events.length || 0;
+    if (shivCasts > 0 && cast.debuff && cast.shivData) {
+      const { events, overlapMs, overlapPercent } = cast.shivData;
       if (overlapPercent >= 0.9) {
         performance = QualitativePerformance.Perfect;
-      } else if (overlapPercent >= 0.85) {
+      } else if (overlapPercent >= 0.8) {
         performance = QualitativePerformance.Good;
-      } else if (overlapPercent >= 0.75) {
+      } else if (overlapPercent >= 0.65) {
         performance = QualitativePerformance.Ok;
       }
+      const sepsisRemainingOnFightEnd =
+        cast.debuff.start + SEPSIS_DEBUFF_DURATION - this.owner.fight.end_time;
       castDetails = (
-        <div>
-          You cast {cast.shivCount} <SpellLink spell={SPELLS.SHIV} />
-          (s) with {formatSeconds(cast.timeSpentInShiv, 2)}s ({formatPercentage(overlapPercent, 1)}
+        <>
+          You cast {shivCasts} <SpellLink spell={SPELLS.SHIV} />
+          (s) with {formatSeconds(overlapMs, 2)}s ({formatPercentage(overlapPercent, 1)}
           %) of it's debuff covering your <SpellLink spell={TALENTS.SEPSIS_TALENT} /> debuff.{' '}
-          {overlapPercent < 0.85 && effectiveSepsisDuration > SHIV_DURATION && (
-            <>
-              Ideally all {formatSeconds(SHIV_DURATION)} seconds of Shiv should be inside of the{' '}
-              {formatSeconds(SEPSIS_DEBUFF_DURATION)}s Sepsis debuff window.
-            </>
-          )}
-          {sepsisDurationAtFightEnd > 0 && (
-            <>
-              Your <SpellLink spell={TALENTS.SEPSIS_TALENT} /> debuff was up for{' '}
-              {formatSeconds(effectiveSepsisDuration)}s before the fight ended.
-            </>
-          )}
-        </div>
+        </>
       );
+      if (overlapPercent < 0.85) {
+        let additionalDetails: React.ReactNode = <></>;
+        additionalDetails = (
+          <>
+            Aim to have all {formatSeconds(SHIV_DURATION)} seconds of the Shiv debuff line up with
+            the {formatSeconds(SEPSIS_DEBUFF_DURATION)}s Sepsis DoT.
+          </>
+        );
+        // Edge case for last sepsis cast
+        if (sepsisRemainingOnFightEnd > 0) {
+          // Check to see if last Shiv cast comes before 3rd GCD after sepsis
+          const castTimeDiff = Math.abs(events[shivCasts - 1].start - cast.debuff.start);
+          const withinGracePeriod = castTimeDiff < 3 * BASE_ROGUE_GCD + CAST_BUFFER_MS;
+
+          performance = withinGracePeriod
+            ? QualitativePerformance.Perfect
+            : QualitativePerformance.Good;
+          additionalDetails = (
+            <>
+              The fight ended after{' '}
+              {formatSeconds(SEPSIS_DEBUFF_DURATION - sepsisRemainingOnFightEnd)} seconds of{' '}
+              <SpellLink spell={TALENTS.SEPSIS_TALENT} />
+              {withinGracePeriod ? '.' : ', but Shiv could have still been used earlier.'}{' '}
+            </>
+          );
+          castDetails = (
+            <>
+              {castDetails} {additionalDetails}
+            </>
+          );
+        }
+      }
     }
     return {
       performance: performance,
       summary: shivSummary,
-      details: castDetails,
+      details: <div>{castDetails}</div>,
     };
   }
 
   /** Returns the amount of time that the Shiv debuff overlaps with the Sepsis debuff, along with the amount of Shiv casts within the sepsis debuff.
    * Count will usually be 1, but trying to cover the case where you chain Shivs to cover the full debuff.
    */
-  private getShivOverlapForSepsisCast(sepsisCast: CastEvent) {
-    const sepsisDebuffApply = getDebuffApplicationFromHardcast(sepsisCast);
+  private getShivOverlapForSepsisCast(cast: Omit<SepsisCast, 'shivData'>): SepsisCast['shivData'] {
+    const events: TrackedBuffEvent[] = [];
     let overlapMs = 0;
-    let castCount = 0;
-    if (sepsisDebuffApply) {
-      const enemy = this.enemies.getEntity(sepsisCast);
-      const shivs = enemy?.getBuffHistory(SPELLS.SHIV_DEBUFF.id, sepsisDebuffApply.sourceID);
-      let startTimePtr = sepsisDebuffApply.timestamp;
-      const sepsisEnd = sepsisDebuffApply.timestamp + SEPSIS_DEBUFF_DURATION;
-      shivs?.forEach((shiv) => {
-        startTimePtr = Math.max(startTimePtr, shiv.timestamp);
+    let expectedOverlap = SHIV_DURATION;
+    let overlapPercent = 0;
+    // check for debuff portion of sepsis
+    if (cast.debuff) {
+      const applyEvent = cast.debuff.applyEvent;
+      const enemy = this.enemies.getEntity(cast.event);
+      const shivs = enemy?.getBuffHistory(SPELLS.SHIV_DEBUFF.id, applyEvent.sourceID);
+      let startTimePtr = applyEvent.timestamp;
+      const sepsisEnd = cast.debuff?.end || applyEvent.timestamp + SEPSIS_DEBUFF_DURATION;
+      const isLastSepsis = sepsisEnd >= this.owner.fight.end_time;
+      shivs?.forEach((shivDebuff) => {
+        startTimePtr = Math.max(startTimePtr, shivDebuff.timestamp);
         if (startTimePtr > sepsisEnd) {
           return;
         }
-        if (shiv.end && shiv.end > startTimePtr) {
-          overlapMs += Math.min(shiv.end, sepsisEnd) - startTimePtr;
-          startTimePtr = shiv.end;
-          castCount += 1;
+        if (shivDebuff.end && shivDebuff.end > startTimePtr) {
+          overlapMs += Math.min(shivDebuff.end, sepsisEnd) - startTimePtr;
+          events.push(shivDebuff);
+          startTimePtr = shivDebuff.end;
         }
       });
+      // check if sepsis debuff is set to expire after the fight ends so we don't expect all 8s of shiv to be used.
+      if (isLastSepsis) {
+        const remainingDurationAtFightEnd =
+          cast.debuff.start + SEPSIS_DEBUFF_DURATION - this.owner.fight.end_time;
+        expectedOverlap = SEPSIS_DEBUFF_DURATION - remainingDurationAtFightEnd;
+      }
     }
-    overlapMs = Math.min(overlapMs + BUFF_DROP_BUFFER, SHIV_DURATION);
-    return { overlapMs, castCount };
+    overlapMs = Math.min(overlapMs + BUFF_DROP_BUFFER, expectedOverlap);
+    overlapPercent = Math.min(1, overlapMs / expectedOverlap);
+    return { events, overlapMs, overlapPercent };
   }
 
   private onEnd() {
     // Without a normalizer for Shiv, its hard to get Shiv casts/debuff data while the fight is "ongoing". So we do it at the end.
     this.overallSepsisCasts.forEach((sepsisCast) => {
-      const { overlapMs, castCount } = this.getShivOverlapForSepsisCast(sepsisCast.event);
-      this.recordCooldown({ ...sepsisCast, timeSpentInShiv: overlapMs, shivCount: castCount });
+      const shivData = this.getShivOverlapForSepsisCast(sepsisCast);
+      this.recordCooldown({
+        ...sepsisCast,
+        shivData,
+      });
     });
   }
   private onSepsisCast(cast: CastEvent) {
@@ -430,30 +450,31 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     [initialBuffApplication, delayedBuffApplication, debuffApplication]
       .filter(isDefined)
       .forEach((application) => {
+        const isBuff = application.type === EventType.ApplyBuff;
         const start = application.timestamp;
-        if (application.type === EventType.ApplyBuff) {
-          const removal = getAuraLifetimeEvent(application);
-          const end = removal ? removal.timestamp : start + SEPSIS_BUFF_DURATION;
+        const expectedDuration = isBuff ? SEPSIS_BUFF_DURATION : SEPSIS_DEBUFF_DURATION;
+        const removal = getAuraLifetimeEvent(application);
+        const end = removal ? removal.timestamp : start + expectedDuration; // default to full duration
+        const activeDuration = end - start;
+        const timeRemainingOnRemoval = expectedDuration - activeDuration;
+        if (isBuff) {
           const consumeCast = getSepsisConsumptionCastForBuffEvent(application);
           const buffId =
             Math.abs(cast.timestamp - start) <= BUFF_DROP_BUFFER
               ? PRIMARY_BUFF_KEY
               : SECONDARY_BUFF_KEY;
           sepsisBuffs[buffId] = {
-            application,
-            removal,
-            timeRemainingOnRemoval: SEPSIS_BUFF_DURATION - Math.abs(end - start),
+            applyEvent: application,
+            timeRemainingOnRemoval,
             consumeCast,
             start,
             end,
           };
-        } else if (application.type === EventType.ApplyDebuff) {
-          const removal = getAuraLifetimeEvent(application);
-          const end = removal ? removal.timestamp : start + SEPSIS_DEBUFF_DURATION;
+        } else {
+          // application isDebuff
           sepsisDebuff = {
-            application,
-            removal,
-            timeRemainingOnRemoval: SEPSIS_DEBUFF_DURATION - Math.abs(end - start),
+            applyEvent: application,
+            timeRemainingOnRemoval,
             start,
             end,
           };
@@ -463,8 +484,6 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       event: cast,
       buffs: sepsisBuffs,
       debuff: sepsisDebuff,
-      shivCount: 0,
-      timeSpentInShiv: 0,
     });
   }
 }
