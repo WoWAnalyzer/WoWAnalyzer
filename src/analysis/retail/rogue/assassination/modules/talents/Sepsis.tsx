@@ -427,10 +427,11 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     );
     const debuffApplication = getDebuffApplicationFromHardcast(cast);
 
-    [initialBuffApplication, delayedBuffApplication, debuffApplication].forEach((application) => {
-      if (application) {
+    [initialBuffApplication, delayedBuffApplication, debuffApplication]
+      .filter(isDefined)
+      .forEach((application) => {
+        const start = application.timestamp;
         if (application.type === EventType.ApplyBuff) {
-          const start = application.timestamp;
           const removal = getAuraLifetimeEvent(application);
           const end = removal ? removal.timestamp : start + SEPSIS_BUFF_DURATION;
           const consumeCast = getSepsisConsumptionCastForBuffEvent(application);
@@ -447,7 +448,6 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
             end,
           };
         } else if (application.type === EventType.ApplyDebuff) {
-          const start = application.timestamp;
           const removal = getAuraLifetimeEvent(application);
           const end = removal ? removal.timestamp : start + SEPSIS_DEBUFF_DURATION;
           sepsisDebuff = {
@@ -458,8 +458,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
             end,
           };
         }
-      }
-    });
+      });
     this.overallSepsisCasts.push({
       event: cast,
       buffs: sepsisBuffs,
