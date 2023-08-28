@@ -13,7 +13,6 @@ import {
   RemoveDebuffEvent,
 } from 'parser/core/Events';
 import { CAST_BUFFER_MS, FROM_HARDCAST } from './CastLinkNormalizer';
-import Combatant from 'parser/core/Combatant';
 import { BUFF_DROP_BUFFER } from 'parser/core/DotSnapshots';
 
 const CONSUME_ON_CAST_BUFFER_MS = 200;
@@ -33,8 +32,9 @@ const AURA_LIFETIME_EVENT = 'AuraLifetimeEvent';
 const INSTANT_APPLICATION = 'InstantAuraApplication';
 const DELAYED_APPLICATION = 'DelayedAuraApplication';
 const BUFF_CONSUMPTION_EVENT = 'BuffConsumptionEvent';
-const isUsingSepsis = (c: Combatant): boolean => c.hasTalent(TALENTS.SEPSIS_TALENT);
-const isDelayedBuffApplication = (linkingEvent: AnyEvent, referencedEvent: AnyEvent): boolean => {
+
+/**@returns `true` if the linking event comes *after* the referenced event, `false` otherwise. */
+const isFutureEvent = (linkingEvent: AnyEvent, referencedEvent: AnyEvent): boolean => {
   return linkingEvent.timestamp > referencedEvent.timestamp + CAST_BUFFER_MS;
 };
 
@@ -50,7 +50,6 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
-    isActive: isUsingSepsis,
   },
   // Link a Stealth Ability cast to the consumption of a Sepsis buff
   // Note: A "Blindside" Ambush will not be linked to the consumption of the Sepsis buff since the link only checks for the last 200ms, where rogue GCD is 1s.
@@ -65,7 +64,6 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CONSUME_ON_CAST_BUFFER_MS,
     maximumLinks: 1,
     anyTarget: true,
-    isActive: isUsingSepsis,
   },
   // Link a *delayed Sepsis buff application to its corresponding cast
   {
@@ -78,8 +76,7 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: SEPSIS_DEBUFF_DURATION + BUFF_DROP_BUFFER,
     maximumLinks: 1,
     anyTarget: true,
-    isActive: isUsingSepsis,
-    additionalCondition: isDelayedBuffApplication,
+    additionalCondition: isFutureEvent,
   },
   // Link a Sepsis a buff/debuff application event to its corresponding removal event and vice versa.
   // Im calling them "lifetime" events because with either you can get the full duration of the buff/debuff in events
@@ -93,13 +90,13 @@ const EVENT_LINKS: EventLink[] = [
     // Sepsis Buffs/Debuffs both last 10s
     backwardBufferMs: SEPSIS_DEBUFF_DURATION + BUFF_DROP_BUFFER,
     maximumLinks: 1,
-    isActive: isUsingSepsis,
   },
 ];
 
 export default class SepsisLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, EVENT_LINKS);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SEPSIS_TALENT);
   }
 }
 
@@ -139,25 +136,25 @@ export const getSepsisConsumptionCastForBuffEvent = (
 type MatchedLifetimeEvent<
   T extends ApplyBuffEvent | RemoveBuffEvent | ApplyDebuffEvent | RemoveDebuffEvent,
 > = T extends ApplyBuffEvent
-  ? RemoveBuffEvent | undefined
+  ? RemoveBuffEvent
   : T extends RemoveBuffEvent
-  ? ApplyBuffEvent | undefined
+  ? ApplyBuffEvent
   : T extends ApplyDebuffEvent
-  ? RemoveDebuffEvent | undefined
+  ? RemoveDebuffEvent
   : T extends RemoveDebuffEvent
-  ? ApplyDebuffEvent | undefined
+  ? ApplyDebuffEvent
   : never;
 /** Returns either the starting or ending event for the buff related to the given event. ie If given application event it will return removal and vice versa*/
 export function getAuraLifetimeEvent<
   T extends ApplyBuffEvent | RemoveBuffEvent | ApplyDebuffEvent | RemoveDebuffEvent,
->(event: T): MatchedLifetimeEvent<T> {
+>(event: T): MatchedLifetimeEvent<T> | undefined {
   return GetRelatedEvents(event, AURA_LIFETIME_EVENT)
     .filter(
-      (e): e is T =>
-        e.type === EventType.ApplyBuff ||
-        e.type === EventType.RemoveBuff ||
-        e.type === EventType.ApplyDebuff ||
-        e.type === EventType.RemoveDebuff,
+      (matchedEvent): matchedEvent is MatchedLifetimeEvent<T> =>
+        matchedEvent.type === EventType.ApplyBuff ||
+        matchedEvent.type === EventType.RemoveBuff ||
+        matchedEvent.type === EventType.ApplyDebuff ||
+        matchedEvent.type === EventType.RemoveDebuff,
     )
-    .at(0) as MatchedLifetimeEvent<T>;
+    .at(0);
 }
