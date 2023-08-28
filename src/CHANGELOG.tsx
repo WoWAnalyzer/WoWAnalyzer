@@ -22,12 +22,14 @@ import {
   Vollmer,
   Awildfivreld,
   nullDozzer,
+  Bigsxy,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 27), 'Fixed broken Warcraft Logs link on the character page.', Bigsxy),
   change(date(2023, 8, 24), 'Stop showing warning of limited support while developing locally', nullDozzer),
   change(date(2023, 8, 23), 'Revert upgrade of charting library to fix area charts.', emallson),
   change(date(2023, 8, 19), 'Add support for Warcraft Logs\' phase data in new logs.', emallson),

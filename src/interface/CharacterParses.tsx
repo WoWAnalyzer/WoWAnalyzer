@@ -480,7 +480,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
   }
 
   formattedCharacterLink() {
-    return `${this.wclDomain}.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`;
+    return `${this.wclDomain}/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`;
   }
 
   render() {
