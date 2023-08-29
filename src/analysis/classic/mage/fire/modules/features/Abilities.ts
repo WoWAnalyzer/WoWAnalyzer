@@ -11,7 +11,7 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.LIVING_BOMB.id, ...SPELLS.LIVING_BOMB.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: null,
+        gcd: { base: 1500 },
       },
       {
         spell: [SPELLS.FIREBALL.id, ...SPELLS.FIREBALL.lowRanks],
