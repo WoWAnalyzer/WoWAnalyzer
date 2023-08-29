@@ -192,7 +192,7 @@ const spells = {
   },
   ELEMENTAL_BLAST_OVERLOAD: {
     id: 120588,
-    name: 'Elemental Blast',
+    name: 'Elemental Blast Overload',
     icon: 'shaman_talent_elementalblast',
   },
   ELEMENTAL_BLAST_HASTE: {
@@ -263,6 +263,11 @@ const spells = {
   EARTHQUAKE_DAMAGE: {
     id: 77478,
     name: 'Earthquake',
+    icon: 'spell_shaman_earthquake',
+  },
+  EARTHQUAKE_OVERLOAD_DAMAGE: {
+    id: 298765,
+    name: 'Earthquake Overload',
     icon: 'spell_shaman_earthquake',
   },
   EARTHQUAKE_SEISMIC_LIGHTNING: {

@@ -1,7 +1,7 @@
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
@@ -9,6 +9,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { ELECTRIFIED_SHOCKS_DURATION } from '../../constants';
 
 interface ActiveIFWindow {
+  event: CastEvent;
   start: number;
   empoweredCasts: number;
 }
@@ -43,8 +44,8 @@ class Icefury extends Analyzer {
     );
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ICEFURY_TALENT),
-      this.onIcefuryBuff,
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICEFURY_TALENT),
+      this.onIcefuryCast,
     );
 
     this.addEventListener(
@@ -53,23 +54,17 @@ class Icefury extends Analyzer {
     );
   }
 
-  onIcefuryBuff(event: ApplyBuffEvent) {
-    this.activeIFWindow = { start: event.timestamp, empoweredCasts: 0 };
-  }
-
-  onIcefuryRefresh(event: RefreshBuffEvent) {
-    if (!this.activeIFWindow) {
-      return;
+  onIcefuryCast(event: CastEvent) {
+    if (this.activeIFWindow) {
+      this.icefuryWindows.push({
+        ...this.activeIFWindow,
+        end: event.timestamp,
+        icefuryCooldownLeft: 0,
+      });
     }
-    this.icefuryWindows.push({
-      ...this.activeIFWindow,
-      end: event.timestamp,
-      icefuryCooldownLeft: 0,
-    });
 
-    this.activeIFWindow = { start: event.timestamp, empoweredCasts: 0 };
+    this.activeIFWindow = { event: event, start: event.timestamp, empoweredCasts: 0 };
   }
-
   onIcefuryBuffDropoff(event: RemoveBuffEvent) {
     if (!this.activeIFWindow) {
       return;
