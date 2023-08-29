@@ -31,8 +31,15 @@ import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
+//Shared
+import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
+
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
+    // Shared
+    leapingFlamesNormalizer: LeapingFlamesNormalizer,
+    leapingFlames: LeapingFlames,
+
     // Normalizers
     castLinkNormalizer: CastLinkNormalizer,
     prescienceNormalizer: PrescienceNormalizer,
