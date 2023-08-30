@@ -345,7 +345,7 @@ export default class ElectrifiedShocks extends Analyzer {
         <TalentSpellText talent={TALENTS.ELECTRIFIED_SHOCKS_TALENT}>
           <ItemDamageDone
             amount={Object.values(this.damageDoneByCast).reduce(
-              (a, b) => a + b['none'].damageGainedByElshocks,
+              (a, b) => a + b['none'].damageGainedByElshocks + b['SK'].damageGainedByElshocks,
               0,
             )}
           />
