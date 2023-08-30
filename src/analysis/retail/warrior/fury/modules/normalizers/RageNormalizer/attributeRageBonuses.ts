@@ -1,3 +1,4 @@
+import calculateResourceIncrease from 'analysis/retail/warrior/shared/calculateResourceIncrease';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/warrior';
@@ -80,28 +81,19 @@ function removeMultiplicitiveIncrease(
   amount: number,
   referenceTalent: Spell,
 ): ResourceChangeEvent {
-  const rawResourceChange = event.resourceChange;
-  // Step 2.a find our increase
-  const rageIncrease = rawResourceChange - rawResourceChange / (1 + amount);
-  const baseRage = rawResourceChange - rageIncrease;
-  // Step 2.b Noramlize to no decimals (no fractional rage)
-  const noDecimalRageIncrease = Math.ceil(rageIncrease);
-  const noDecmialBaseRage = Math.ceil(baseRage);
-  // Step 2.c Find how much waste we have for each event
-  const rageIncreaseWaste =
-    noDecimalRageIncrease - Math.max(noDecimalRageIncrease - event.waste, 0);
-  const remainingWaste = Math.max(event.waste - rageIncreaseWaste);
-  const baseRageWaste = noDecmialBaseRage - Math.max(noDecmialBaseRage - remainingWaste, 0);
-  // Step 2.d update base event
+  const { base, bonus } = calculateResourceIncrease(event, amount);
+
+  // Update base event
   event.__modified = true;
-  event.resourceChange = noDecmialBaseRage;
-  event.waste = baseRageWaste;
-  // Step 2.e create new event
+  event.resourceChange = base.gain;
+  event.waste = base.waste;
+
+  // Create new event
   const newEvent: ResourceChangeEvent = {
     ...event,
     __fabricated: true,
-    waste: rageIncreaseWaste,
-    resourceChange: noDecimalRageIncrease,
+    waste: bonus.waste,
+    resourceChange: bonus.gain,
     ability: {
       abilityIcon: referenceTalent.icon,
       guid: referenceTalent.id,
