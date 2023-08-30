@@ -2,9 +2,9 @@ import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
-import Combatant from 'parser/core/Combatant';
 import { AnyEvent, EventType, ResourceChangeEvent } from 'parser/core/Events';
 import { WARMACHINE_FURY_INCREASE } from './constants';
+import RageNormalizer from './index';
 
 // Spear
 const PIERCING_VERDICT_INCREASE = 1;
@@ -15,18 +15,15 @@ const STORM_OF_STEEL_INCREASE = 10;
 /**
  * Modifies all rage events to add separate events for talents/buffs that modify rage generation.
  */
-export default function attributeRageBonuses(
-  selectedCombatant: Combatant,
-  events: AnyEvent[],
-): AnyEvent[] {
+export default function attributeRageBonuses(this: RageNormalizer, events: AnyEvent[]): AnyEvent[] {
   // auto attacks
-  const hasWM = selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT);
+  const hasWM = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT);
 
   // spear of bastion
-  const hasPV = selectedCombatant.hasTalent(TALENTS_WARRIOR.PIERCING_VERDICT_TALENT);
+  const hasPV = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.PIERCING_VERDICT_TALENT);
 
   // ravager
-  const hasSoS = selectedCombatant.hasTalent(TALENTS_WARRIOR.STORM_OF_STEEL_TALENT);
+  const hasSoS = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.STORM_OF_STEEL_TALENT);
 
   const updatedEvents: AnyEvent[] = [];
 
