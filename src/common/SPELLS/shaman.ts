@@ -11,6 +11,11 @@ const spells = {
     name: 'Water Shield',
     icon: 'ability_shaman_watershield',
   },
+  EARTH_SHOCK_OVERLOAD: {
+    id: 381725,
+    name: 'Earth Shock Overload',
+    icon: 'spell_nature_earthshock',
+  },
   ELECTRIFIED_SHOCKS_DEBUFF: {
     id: 382089,
     name: 'Electrified Shocks',
