@@ -25,7 +25,9 @@ const DEFAULT_SPEED_1H = 2.6;
 export default function generateRageEvents(this: RageNormalizer, events: AnyEvent[]): AnyEvent[] {
   const updatedEvents: AnyEvent[] = [];
 
-  const hasRecklessness = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.RECKLESSNESS_TALENT);
+  const hasRecklessness =
+    this.selectedCombatant.hasTalent(TALENTS_WARRIOR.RECKLESSNESS_TALENT) ||
+    this.selectedCombatant.hasTalent(TALENTS_WARRIOR.BERSERKERS_TORMENT_TALENT);
 
   const using1H = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.SINGLE_MINDED_FURY_TALENT);
   const speed = using1H ? DEFAULT_SPEED_1H : DEFAULT_SPEED_2H;
