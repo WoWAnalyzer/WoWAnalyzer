@@ -86,22 +86,24 @@ export default function generateRageEvents(
         }
         const isMax = Math.ceil(rage ? rage.amount : lastRageCount) === Math.ceil(maxRage);
 
-        // Handle windfury
         const extraAttack = getWindfuryExtraAttack(event);
+
+        const isOffHand = extraAttack
+          ? // If it is windfury attack, look at spell id
+            extraAttack.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id
+          : // If we are at max rage, we don't know how much the hit would have generated
+          // If generated was 0 (probably a miss)
+          isMax || generated < 1
+          ? !lastHitWasOffHand
+          : // If we are not at max rage, the generated value is
+            generated < (ragePerSwingMH + ragePerSwingOH) / 2;
+
+        const expectedGenration = isOffHand ? ragePerSwingOH : ragePerSwingMH;
+
+        // If we're not at max, we have not wasted even if expectedGeneration mismatches
+        const rageWasted = isMax ? expectedGenration - generated : 0;
+
         if (extraAttack) {
-          // This is stupid, but if last hit was
-          const isOffHand = extraAttack.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id;
-
-          const expectedGenration = isOffHand ? ragePerSwingMH : ragePerSwingOH;
-
-          // We're at max, we've probably wasted rage
-          let rageWasted = 0;
-          if (isMax) {
-            rageWasted = expectedGenration - generated;
-          } else {
-            rageWasted = 0;
-          }
-
           const newEvent = {
             ...extraAttack,
 
@@ -121,33 +123,16 @@ export default function generateRageEvents(
 
           updatedEvents.push(newEvent as any as ResourceChangeEvent);
         } else {
-          // If we're not at max rage, we've generated the full amount, and we can use the
-          // full amount to figure out if MH/OH
-          const isOffHand =
-            // If we are at max rage, we don't know how much the hit would have generated
-            // If generated was 0 (probably a miss)
-            isMax || generated < 1
-              ? !lastHitWasOffHand
-              : // If we are not at max rage, the generated value is
-                generated < (ragePerSwingMH + ragePerSwingOH) / 2;
-
-          const expectedGenration = isOffHand ? ragePerSwingOH : ragePerSwingMH;
-
-          // We're at max, we've probably wasted rage
-          let rageWastedFromAuto = 0;
-          if (isMax) {
-            rageWastedFromAuto = expectedGenration - generated;
-          } else {
-            rageWastedFromAuto = 0;
-          }
           const newEvent = _coerceCastToResourceChange(
             event,
             isMax ? expectedGenration : generated,
-            rageWastedFromAuto,
+            rageWasted,
             RESOURCE_TYPES.RAGE,
           );
+
           updatedEvents.push(newEvent);
 
+          // If it was a non-windfury hit, we track last hit
           lastHitWasOffHand = isOffHand;
         }
       }
