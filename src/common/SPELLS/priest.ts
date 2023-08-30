@@ -113,7 +113,7 @@ const spells = {
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 7750,
+    manaCost: 6000,
   },
   SHIELD_OF_ABSOLUTION_BUFF: {
     id: 394624,
@@ -381,7 +381,7 @@ const spells = {
     id: 204197,
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
-    manaCost: 900,
+    manaCost: 4500,
   },
   PURGE_THE_WICKED_BUFF: {
     id: 204213,
@@ -403,6 +403,11 @@ const spells = {
     id: 400370,
     name: 'Burning Vehemence',
     icon: 'ability_paladin_sacredcleansing',
+  },
+  WORDS_OF_THE_PIOUS_BUFF: {
+    id: 390933,
+    name: 'Words of the Pious',
+    icon: 'ability_priest_clarityofwill',
   },
 
   // Holy Priest Spells
@@ -579,7 +584,7 @@ const spells = {
     id: 8092,
     name: 'Mind Blast',
     icon: 'spell_shadow_unholyfrenzy',
-    manaCost: 1250,
+    manaCost: 4000,
   },
   MIND_FLAY: {
     id: 15407,

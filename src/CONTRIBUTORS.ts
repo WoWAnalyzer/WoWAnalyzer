@@ -77,6 +77,18 @@ export const Fashathus: Contributor = {
     },
   ],
 };
+export const Bigsxy: Contributor = {
+  nickname: 'big',
+  github: 'juemrami',
+  discord: 'bigsexy#2241',
+  mains: [
+    {
+      name: 'Bigsexsee',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/illidan/bigsexsee',
+    },
+  ],
+};
 export const ab: Contributor = {
   nickname: 'ab',
   github: 'alex-bau',
@@ -2256,4 +2268,17 @@ export const Tapir: Contributor = {
 export const Melnais: Contributor = {
   nickname: 'Melnais',
   github: 'agrabovskis',
+};
+
+export const beckeeh: Contributor = {
+  nickname: 'beckeeh',
+  github: 'lavjamanxd',
+  discord: 'beckeeh',
+  mains: [
+    {
+      name: 'Beckeeh',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://classic.warcraftlogs.com/character/eu/nethergarde-keep/beckeeh',
+    },
+  ],
 };

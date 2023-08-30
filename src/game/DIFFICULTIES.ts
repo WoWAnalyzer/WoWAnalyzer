@@ -12,6 +12,13 @@ const DIFFICULTIES: {
 };
 export default DIFFICULTIES;
 
+export const CLASSIC_DIFFICULTIES: {
+  [key: string]: number;
+} = {
+  NORMAL_RAID: 3,
+  HEROIC_RAID: 4,
+};
+
 export function getLabel(difficulty?: number, hardModeLevel?: number) {
   const isHardMode = hardModeLevel ?? 0;
   switch (difficulty) {

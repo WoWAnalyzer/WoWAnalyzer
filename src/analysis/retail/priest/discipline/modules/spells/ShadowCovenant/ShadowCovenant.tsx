@@ -130,7 +130,6 @@ class ShadowCovenant extends Analyzer {
   }
 
   statistic() {
-    console.log(this.healingMap);
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}

@@ -6,6 +6,10 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2023, 8, 20), <>Added <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} />, <SpellLink spell={TALENTS.IMPROVED_SCORCH_TALENT} />, and <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /> to the Checklist.</>, Sharrq),
+  change(date(2023, 8, 20), <>Removed checks for <SpellLink spell={TALENTS.FIRE_BLAST_TALENT} /> pooling.</>, Sharrq),
+  change(date(2023, 8, 20), <>Adjusted <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> to not mark <SpellLink spell={SPELLS.FIREBALL} /> casts as mistakes if the player has two lust effects active.</>, Sharrq),
+  change(date(2023, 8, 20), <>Added support for <SpellLink spell={TALENTS.IMPROVED_SCORCH_TALENT} />.</>, Sharrq),
   change(date(2023, 8, 3), <>Fixed an issue that was causing <SpellLink spell={TALENTS.FEEL_THE_BURN_TALENT} /> to not check every <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.</>, Sharrq),
   change(date(2023, 8, 3), <>Added warning to not use <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /></>, Sharrq),
   change(date(2023, 8, 2), <>Marked the spec supported for 10.1.5</>, Sharrq),

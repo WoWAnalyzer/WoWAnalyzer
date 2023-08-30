@@ -3,6 +3,7 @@ import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
+import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer from 'parser/core/Analyzer';
@@ -36,6 +37,9 @@ class CombustionCasts extends Analyzer {
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
+  //Removing this check for now as it is not relevant, but might become relevant again in the future
+  //So just commenting it out for now.
+  /*
   lowFireBlastCharges = () => {
     const maxFireBlastCharges = 1 + this.selectedCombatant.getTalentRank(TALENTS.FLAME_ON_TALENT);
     let casts = this.eventHistory.getEvents(EventType.Cast, {
@@ -55,6 +59,7 @@ class CombustionCasts extends Analyzer {
 
     return casts.length;
   };
+  */
 
   //prettier-ignore
   preCastDelay = () => {
@@ -76,15 +81,24 @@ class CombustionCasts extends Analyzer {
     const casts = this.eventHistory.getEventsWithBuff(TALENTS.COMBUSTION_TALENT, EventType.Cast, SPELLS.FIREBALL);
 
     //If the Begin Cast event was before Combustion started, then disregard it.
-    const fireballCasts = casts.filter((e: CastEvent) => {
+    let fireballCasts = casts.filter((e: CastEvent) => {
       const beginCast = this.eventHistory.getEvents(EventType.BeginCast, { spell: SPELLS.FIREBALL, count: 1, startTimestamp: e.timestamp })[0];
       return beginCast ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, beginCast.timestamp) : false;
     });
+
+    //If the player has Double Lust running, then diregard it.
+    fireballCasts = fireballCasts.filter((f) => {
+      let activeBuffs = 0;
+      Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)).forEach(lust => activeBuffs += this.selectedCombatant.hasBuff(lust, f.timestamp) ? 1 : 0)
+      return activeBuffs < 2 ? true : false;
+    })
+
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
     fireballCasts && highlightInefficientCast(fireballCasts, tooltip);
     return fireballCasts.length;
   }
 
+  /*
   get fireBlastChargeUtil() {
     return (
       1 -
@@ -92,6 +106,7 @@ class CombustionCasts extends Analyzer {
         this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
     );
   }
+  */
 
   get totalPreCastDelay() {
     const casts = this.preCastDelay();
@@ -111,6 +126,7 @@ class CombustionCasts extends Analyzer {
     );
   }
 
+  /*
   get fireBlastThresholds() {
     return {
       actual: this.fireBlastChargeUtil,
@@ -122,6 +138,7 @@ class CombustionCasts extends Analyzer {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
+  */
 
   get combustionCastDelayThresholds() {
     return {
@@ -157,6 +174,7 @@ class CombustionCasts extends Analyzer {
   }
 
   suggestions(when: When) {
+    /*
     when(this.fireBlastThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
@@ -177,6 +195,7 @@ class CombustionCasts extends Analyzer {
         )
         .recommended(`${formatPercentage(recommended)} is recommended`),
     );
+    */
     when(this.combustionCastDelayThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>

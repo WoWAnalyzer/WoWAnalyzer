@@ -1,11 +1,12 @@
 import { change, date } from 'common/changelog';
-import { ToppleTheNun } from 'CONTRIBUTORS';
+import { ToppleTheNun, Bigsxy} from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
+  change(date(2023, 8, 21), 'Add support for usage of Sepsis with Improved Garrote.', Bigsxy),
   change(date(2023, 8, 7), 'Mark Assassination as supported for 10.1.5.', ToppleTheNun),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 3, 21), 'Bump to 10.0.7.', ToppleTheNun),

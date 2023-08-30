@@ -395,6 +395,11 @@ const spells = {
     name: 'Upheaval',
     icon: 'ability_evoker_upheaval',
   },
+  UPHEAVAL_DAM: {
+    id: 396288,
+    name: 'Upheaval',
+    icon: 'ability_evoker_upheaval',
+  },
   ESSENCE_BURST_AUGMENTATION_BUFF: {
     id: 392268,
     name: 'Essence Burst',
@@ -439,6 +444,21 @@ const spells = {
     id: 403264,
     name: 'Black Attunement',
     icon: 'ability_evoker_blackattunement',
+  },
+  BLISTERING_SCALES_DAM: {
+    id: 360828,
+    name: 'Blistering Scales',
+    icon: 'ability_evoker_blisteringscales',
+  },
+  REACTIVE_HIDE_BUFF: {
+    id: 410256,
+    name: 'Reactive Hide',
+    icon: 'ability_evoker_reactivehide',
+  },
+  SYMBIOTIC_BLOOM_BUFF: {
+    id: 410686,
+    name: 'Symbiotic Bloom',
+    icon: 'inv_10_herb_seed_magiccolor5',
   },
 } satisfies Record<string, Spell>;
 

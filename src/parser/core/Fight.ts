@@ -27,6 +27,15 @@ export interface WCLFight {
   fightPercentage?: number;
   hardModeLevel?: number;
   dungeonPulls?: WCLDungeonPull[];
+  phases?: WCLPhaseTransition[];
+}
+
+export interface WCLPhaseTransition {
+  /**
+   * The id of the phase. 1-indexed, names are stored in `WCLReport.phases`.
+   */
+  id: number;
+  startTime: number;
 }
 
 //generated or applied properties

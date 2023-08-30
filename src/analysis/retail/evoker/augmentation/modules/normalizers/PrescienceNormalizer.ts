@@ -1,4 +1,4 @@
-import { AnyEvent, EventType } from 'parser/core/Events';
+import { AnyEvent, EventType, HasRelatedEvent } from 'parser/core/Events';
 import TALENTS from 'common/TALENTS/evoker';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { PRESCIENCE_APPLY_REMOVE_LINK } from './CastLinkNormalizer';
@@ -6,7 +6,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import {
   PRESICENCE_BASE_DURATION_MS,
-  TIMEWALKER_BASE_EXTENTION,
+  TIMEWALKER_BASE_EXTENSION,
 } from 'analysis/retail/evoker/augmentation/constants';
 
 /** This normalizer removes the applybuff and removebuff from unwanted target
@@ -20,6 +20,8 @@ import {
  * like to include these in our analysis, so we need to create pre-pull events for it */
 
 class PrescienceNormalizer extends EventsNormalizer {
+  // Set lower priority to ensure this runs after our CastLinkNormalizer
+  priority = 101;
   static dependencies = {
     ...EventsNormalizer.dependencies,
     combatants: Combatants,
@@ -31,9 +33,7 @@ class PrescienceNormalizer extends EventsNormalizer {
     const fixedEvents: any[] = [];
     const targetStatus: { [key: number]: boolean } = {};
     events.forEach((event: AnyEvent, idx: number) => {
-      const linkedEvents = event._linkedEvents?.find(
-        (x) => x.relation === PRESCIENCE_APPLY_REMOVE_LINK,
-      );
+      const linkedEvents = HasRelatedEvent(event, PRESCIENCE_APPLY_REMOVE_LINK);
       if (linkedEvents) {
         if (
           (event.type === EventType.ApplyBuff ||
@@ -55,7 +55,7 @@ class PrescienceNormalizer extends EventsNormalizer {
              * We need this event for more accurate analysis */
             const prescienceBuffDuration =
               PRESICENCE_BASE_DURATION_MS *
-              (1 + TIMEWALKER_BASE_EXTENTION + this.stats.currentMasteryPercentage);
+              (1 + TIMEWALKER_BASE_EXTENSION + this.stats.currentMasteryPercentage);
             if (event.timestamp < this.owner.fight.start_time + prescienceBuffDuration) {
               const fabricatedCastEvent = {
                 ...event,

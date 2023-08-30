@@ -227,6 +227,7 @@ class BreathOfEonsRotational extends Analyzer {
      * Due to other Augmentations apparently also wanting to use Breath of Eons alongside you :) */
     const flightEvents = getBreathOfEonsBuffEvents(event);
     const flightData: SpellTracker[] = [];
+    const debuffHits = getBreathOfEonsDebuffApplyEvents(event).length;
 
     // Create counter for Flight Time
     flightEvents.forEach((flightEvent) => {
@@ -234,7 +235,7 @@ class BreathOfEonsRotational extends Analyzer {
         flightData.push({ timestamp: flightEvent.timestamp, count: 0 });
         flightData.push({
           timestamp: flightEvent.timestamp,
-          count: getBreathOfEonsDebuffApplyEvents(event).length / 2,
+          count: debuffHits / 2,
         });
       } else {
         flightData.push({ timestamp: flightEvent.timestamp, count: 0 });
@@ -495,6 +496,9 @@ class BreathOfEonsRotational extends Analyzer {
   }
 
   private finalize() {
+    if (!this.currentBreathWindow) {
+      return;
+    }
     // Clean up current window if it runs out during combat end / death etc..
     const breathWindow = this.currentBreathWindow;
     if (breathWindow.end === 0) {

@@ -5,6 +5,7 @@ import {
   EnergyTracker,
   SpellEnergyCost,
   SpellUsable,
+  StealthAbilityFollowingSepsis,
   ThistleTeaCastLinkNormalizer,
 } from 'analysis/retail/rogue/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -54,6 +55,7 @@ class CombatLogParser extends CoreCombatLogParser {
     finisherUse: FinisherUse,
     hitCountAoe: HitCountAoE,
     dotUptimesAndSnapshots: DotUptimesAndSnapshots,
+    stealthAbilityFollowingSepsis: StealthAbilityFollowingSepsis,
 
     // Spells
     garroteUptimeAndSnapshots: GarroteUptimeAndSnapshots,

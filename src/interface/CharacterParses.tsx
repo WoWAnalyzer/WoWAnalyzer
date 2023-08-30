@@ -4,9 +4,13 @@ import { captureException } from 'common/errorLogger';
 import fetchWcl, { CharacterNotFoundError, UnknownApiError, WclApiError } from 'common/fetchWclApi';
 import { makeCharacterApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
-import DIFFICULTIES, { getLabel as getDifficultyLabel } from 'game/DIFFICULTIES';
+import RETAIL_DIFFICULTIES, {
+  CLASSIC_DIFFICULTIES,
+  getLabel as getDifficultyLabel,
+} from 'game/DIFFICULTIES';
 import SPECS, { isRetailSpec } from 'game/SPECS';
-import ZONES from 'game/ZONES';
+import RETAIL_ZONES from 'game/ZONES';
+import CLASSIC_ZONES from 'game/classic/ZONES';
 import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
@@ -22,8 +26,12 @@ import { isSupportedRegion } from 'common/regions';
 import './CharacterParses.scss';
 import ParsesList, { Parse } from './CharacterParsesList';
 
-const loadRealms = () =>
-  retryingPromise(() => import('game/REALMS').then((exports) => exports.REALMS));
+const loadRealms = (classic: boolean) =>
+  retryingPromise(() =>
+    classic
+      ? import('game/REALMS').then((exports) => exports.CLASSIC_REALMS)
+      : import('game/REALMS').then((exports) => exports.REALMS),
+  );
 
 //rendering 400+ parses takes quite some time
 const RENDER_LIMIT = 100;
@@ -33,7 +41,8 @@ const ORDER_BY = {
   DPS: 1,
   PERCENTILE: 2,
 };
-const DEFAULT_ZONE = 33; // DEFAULT_ZONE changed from 29 to 31 folowing the 10.0.2 patch.
+const DEFAULT_RETAIL_ZONE = 33; // Aberrus
+const DEFAULT_CLASSIC_ZONE = 1018; // ToGC
 const BOSS_DEFAULT_ALL_BOSSES = 0;
 const FALLBACK_PICTURE = '/img/fallback-character.jpg';
 const ERRORS = {
@@ -71,6 +80,7 @@ interface CharacterParsesProps {
   region: string;
   realm: string;
   name: string;
+  game?: 'classic' | 'retail' | string | null;
   appendReportHistory: typeof appendReportHistory;
 }
 
@@ -87,7 +97,7 @@ interface CharacterParsesState {
   activeSpec: string[];
   activeDifficultyIds: number[];
   activeZoneID: number;
-  activeEncounter: string | number;
+  activeEncounter: number;
   sortBy: number;
   metric: string;
   image: string | null;
@@ -106,8 +116,10 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       specs: [],
       class: '',
       activeSpec: [],
-      activeDifficultyIds: Object.values(DIFFICULTIES),
-      activeZoneID: DEFAULT_ZONE,
+      activeDifficultyIds: Object.values(
+        this.isClassic ? CLASSIC_DIFFICULTIES : RETAIL_DIFFICULTIES,
+      ),
+      activeZoneID: this.isClassic ? DEFAULT_CLASSIC_ZONE : DEFAULT_RETAIL_ZONE,
       activeEncounter: BOSS_DEFAULT_ALL_BOSSES,
       sortBy: ORDER_BY.DATE,
       metric: 'dps',
@@ -119,15 +131,14 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       errorMessage: null,
       realmSlug: this.props.realm,
     };
+  }
 
-    this.updateDifficulty = this.updateDifficulty.bind(this);
-    this.updateSpec = this.updateSpec.bind(this);
+  get isClassic() {
+    return this.props.game === 'classic';
+  }
 
-    this.load = this.load.bind(this);
-    this.changeParseStructure = this.changeParseStructure.bind(this);
-    this.iconPath = this.iconPath.bind(this);
-    this.updateZoneMetricBoss = this.updateZoneMetricBoss.bind(this);
-    this.appendHistory = this.appendHistory.bind(this);
+  get difficulties() {
+    return this.isClassic ? CLASSIC_DIFFICULTIES : RETAIL_DIFFICULTIES;
   }
 
   async componentDidMount() {
@@ -150,7 +161,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     });
   }
 
-  updateZoneMetricBoss(zone: number, metric: string, boss: number | string) {
+  updateZoneMetricBoss(zone: number, metric: string, boss: number) {
     this.setState(
       {
         activeZoneID: zone,
@@ -207,16 +218,20 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       return filteredParses.slice(0, RENDER_LIMIT);
     }
 
-    filteredParses = filteredParses.filter((elem) => elem.name === this.state.activeEncounter);
+    filteredParses = filteredParses.filter(
+      (elem) => elem.encounterId === this.state.activeEncounter,
+    );
 
     return filteredParses.slice(0, RENDER_LIMIT);
   }
 
   changeParseStructure(rawParses: WCLParse[]) {
     const parses = rawParses.map<Parse>((elem) => ({
+      encounterId: elem.encounterID,
       name: elem.encounterName,
       spec: elem.spec.replace(' ', ''),
       difficulty: elem.difficulty,
+      size: elem.size,
 
       report_code: elem.reportID,
 
@@ -236,11 +251,28 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     return parses;
   }
 
+  get zones() {
+    return this.isClassic ? CLASSIC_ZONES : RETAIL_ZONES;
+  }
+
   get zoneBosses() {
-    return ZONES.find((zone) => zone.id === this.state.activeZoneID)?.encounters;
+    return this.zones.find((zone) => zone.id === this.state.activeZoneID)?.encounters;
   }
 
   async fetchBattleNetInfo() {
+    if (this.isClassic) {
+      // Skip Blizzard API - Classic is not supported
+      this.setState(
+        {
+          image: FALLBACK_PICTURE,
+        },
+        () => {
+          this.load();
+        },
+      );
+      return;
+    }
+
     const { region, realm, name } = this.props;
 
     // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
@@ -311,7 +343,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       );
       return null;
     }
-    const realms = await loadRealms();
+    const realms = await loadRealms(this.isClassic);
     // Use the slug from REALMS when available, otherwise try realm-prop and fail
     // TODO: Can we make this return results more reliably?
     const realmsInRegion = realms[this.props.region];
@@ -349,6 +381,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
     return fetchWcl<WCLParsesResponse>(
       `parses/character/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
       {
+        game: this.isClassic ? 'classic' : undefined,
         includeCombatantInfo: true,
         metric: this.state.metric,
         zone: this.state.activeZoneID,
@@ -440,6 +473,14 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           });
         }
       });
+  }
+
+  get wclDomain() {
+    return this.isClassic ? 'https://classic.warcraftlogs.com' : 'https://www.warcraftlogs.com';
+  }
+
+  formattedCharacterLink() {
+    return `${this.wclDomain}/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`;
   }
 
   render() {
@@ -536,11 +577,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           <br />
           <br />
           Don't know how to log your fights? Check{' '}
-          <a
-            href="https://www.warcraftlogs.com/help/start/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
+          <a href={`${this.wclDomain}/help/start/`} target="_blank" rel="noopener noreferrer">
             Warcraft Logs guide
           </a>{' '}
           to get started.
@@ -548,8 +585,12 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
       );
     }
 
-    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
-    if (this.props.region === 'CN') {
+    let battleNetUrl:
+      | string
+      | undefined = `https://worldofwarcraft.com/en-${this.props.region}/character/${this.state.realmSlug}/${this.props.name}`;
+    if (this.isClassic) {
+      battleNetUrl = undefined;
+    } else if (this.props.region === 'CN') {
       battleNetUrl = `https://www.wowchina.com/zh-cn/character/${this.state.realmSlug}/${this.props.name}`;
     }
 
@@ -568,7 +609,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
           <div className="info container">
             <div className="boss">
               <a
-                href={`https://www.warcraftlogs.com/character/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                href={this.formattedCharacterLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
@@ -577,20 +618,28 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                 <WarcraftLogsIcon /> Warcraft Logs
               </a>
               <br />
-              <a
-                href={battleNetUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 22 }}
-              >
-                <ArmoryIcon style={{ marginRight: '0.3em' }} />
-                <Trans id="interface.armory.text">Armory</Trans>
-              </a>
-              <br />
+              {battleNetUrl && (
+                <>
+                  <a
+                    href={battleNetUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn"
+                    style={{ fontSize: 22 }}
+                  >
+                    <ArmoryIcon style={{ marginRight: '0.3em' }} />
+                    <Trans id="interface.armory.text">Armory</Trans>
+                  </a>
+                  <br />
+                </>
+              )}
               {this.props.region !== 'CN' && (
                 <a
-                  href={`https://www.wipefest.net/character/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
+                  href={`https://www.wipefest.gg/character/${this.props.name}/${
+                    this.state.realmSlug
+                  }/${this.props.region}?gameVersion=${
+                    this.isClassic ? 'warcraft-classic' : 'warcraft-live'
+                  }`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
@@ -628,7 +677,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                       )
                     }
                   >
-                    {Object.values(ZONES)
+                    {Object.values(this.zones)
                       .reverse()
                       .map((elem) => (
                         <option key={elem.id} value={elem.id}>
@@ -642,12 +691,12 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                   <select
                     className="form-control"
                     value={this.state.activeEncounter}
-                    onChange={(e) => this.setState({ activeEncounter: e.target.value })}
+                    onChange={(e) => this.setState({ activeEncounter: Number(e.target.value) })}
                     defaultValue={BOSS_DEFAULT_ALL_BOSSES}
                   >
                     <option value={BOSS_DEFAULT_ALL_BOSSES}>All bosses</option>
                     {this.zoneBosses?.map((e) => (
-                      <option key={e.id} value={e.name}>
+                      <option key={e.id} value={e.id}>
                         {e.name}
                       </option>
                     ))}
@@ -707,7 +756,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                   </div>
                 ))}
 
-                {Object.values(DIFFICULTIES).map((difficultyId) => (
+                {Object.values(this.difficulties).map((difficultyId) => (
                   <div
                     key={difficultyId}
                     onClick={() => this.updateDifficulty(difficultyId)}
@@ -794,6 +843,7 @@ class CharacterParses extends Component<CharacterParsesProps, CharacterParsesSta
                     {!this.state.isLoading && errorMessage}
                     {!this.state.isLoading && (
                       <ParsesList
+                        isClassic={this.isClassic}
                         parses={this.filterParses}
                         class={this.state.class}
                         metric={this.state.metric}
