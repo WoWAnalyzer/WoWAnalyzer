@@ -112,7 +112,7 @@ class Icefury extends Analyzer {
         <>
           You should fully utilize your <SpellLink spell={TALENTS.ICEFURY_TALENT} /> casts by
           casting 4 <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} />s before the{' '}
-          <SpellLink spell={TALENTS.ICEFURY_TALENT} /> buff expires.Pay attention to the remaining
+          <SpellLink spell={TALENTS.ICEFURY_TALENT} /> buff expires. Pay attention to the remaining
           duration of the buff to ensure you have time to use all of the stacks.
         </>,
       )

@@ -265,11 +265,6 @@ const spells = {
     name: 'Earthquake',
     icon: 'spell_shaman_earthquake',
   },
-  EARTHQUAKE_OVERLOAD_DAMAGE: {
-    id: 298765,
-    name: 'Earthquake Overload',
-    icon: 'spell_shaman_earthquake',
-  },
   EARTHQUAKE_SEISMIC_LIGHTNING: {
     id: 243073,
     name: 'Seismic Lightning',
