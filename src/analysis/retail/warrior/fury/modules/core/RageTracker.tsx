@@ -25,10 +25,6 @@ class RageTracker extends ResourceTracker {
     const baseCost = super.getAdjustedCost(event);
     return baseCost ? baseCost * RAGE_SCALE_FACTOR : undefined;
   }
-
-  get recklessGenerated() {
-    return 0;
-  }
 }
 
 export default RageTracker;
