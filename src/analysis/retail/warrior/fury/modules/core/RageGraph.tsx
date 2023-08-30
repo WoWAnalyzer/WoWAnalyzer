@@ -1,4 +1,4 @@
-import { RAGE_SCALE_FACTOR } from 'analysis/retail/druid/guardian/modules/core/rage/RageTracker';
+import { RAGE_SCALE_FACTOR } from 'analysis/retail/warrior/constants';
 import ResourceGraph from 'parser/shared/modules/ResourceGraph';
 import RageTracker from './RageTracker';
 
