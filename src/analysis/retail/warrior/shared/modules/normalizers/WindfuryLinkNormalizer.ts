@@ -47,8 +47,17 @@ class WindfuryLinkNormalizer extends EventLinkNormalizer {
 
 export default WindfuryLinkNormalizer;
 
-export function getWindfuryExtraAttack(event: CastEvent): ExtraAttacksEvent | undefined {
-  const relatedEvent = GetRelatedEvents(event, WINDFURY_TRIGGERED)[0];
+/**
+ * Each Windfury proc connects a chain of 3 events:
+ *
+ * 1. The Melee attack that **_trigger_** the Windfury proc
+ * 2. The **_Windfury_** "Extra Attacks" event
+ * 3. The new Melee attack that was **_triggered_** by the Windfury proc
+ *
+ * This function returns **Windfury** (2) from the **Trigger** (1)
+ */
+export function getWindfuryFromTrigger(event: CastEvent): ExtraAttacksEvent | undefined {
+  const relatedEvent = GetRelatedEvents(event, TRIGGERED_WINDFURY)[0];
 
   if (!relatedEvent) {
     return undefined;
@@ -61,26 +70,25 @@ export function getWindfuryExtraAttack(event: CastEvent): ExtraAttacksEvent | un
   return relatedEvent;
 }
 
-export function getTriggeringAttack(event: ExtraAttacksEvent): CastEvent | undefined {
-  const relatedEvent = GetRelatedEvents(event, WINDFURY_TRIGGERED_BY)[0];
+/**
+ * Each Windfury proc connects a chain of 3 events:
+ *
+ * 1. The Melee attack that **_trigger_** the Windfury proc
+ * 2. The **_Windfury_** "Extra Attacks" event
+ * 3. The new Melee attack that was **_triggered_** by the Windfury proc
+ *
+ * This function returns **Windfury** (2) from the **Triggered** (3)
+ */
+export function getWindfuryFromTriggered(event: CastEvent): ExtraAttacksEvent | undefined {
+  const relatedEvent = GetRelatedEvents(event, WINDFURY_TRIGGERED)[0];
 
   if (!relatedEvent) {
     return undefined;
   }
 
-  if (relatedEvent.type !== EventType.Cast) {
-    throw new Error('Somehow linked to non-cast event');
+  if (relatedEvent.type !== EventType.ExtraAttacks) {
+    throw new Error('Somehow linked to non-extra attack event');
   }
 
   return relatedEvent;
-}
-
-export function getOriginalAttack(event: CastEvent): CastEvent | undefined {
-  const extraAttack = getWindfuryExtraAttack(event);
-
-  if (!extraAttack) {
-    return undefined;
-  }
-
-  return getTriggeringAttack(extraAttack);
 }

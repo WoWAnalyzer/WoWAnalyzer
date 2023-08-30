@@ -1,11 +1,14 @@
 import { RAGE_SCALE_FACTOR } from 'analysis/retail/warrior/constants';
-import { getWindfuryExtraAttack } from 'analysis/retail/warrior/shared/modules/normalizers/WindfuryLinkNormalizer';
+import {
+  getWindfuryFromTrigger,
+  getWindfuryFromTriggered,
+} from 'analysis/retail/warrior/shared/modules/normalizers/WindfuryLinkNormalizer';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
 import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
+import Combatant from 'parser/core/Combatant';
 import { AnyEvent, CastEvent, EventType, HasSource, ResourceChangeEvent } from 'parser/core/Events';
 import { RECKLESSNESS_INCREASE, WARMACHINE_FURY_INCREASE } from './constants';
-import Combatant from 'parser/core/Combatant';
 
 // Auto Attacks
 // https://wowpedia.fandom.com/wiki/Rage
@@ -86,17 +89,33 @@ export default function generateRageEvents(
         }
         const isMax = Math.ceil(rage ? rage.amount : lastRageCount) === Math.ceil(maxRage);
 
-        const extraAttack = getWindfuryExtraAttack(event);
+        const extraAttack = getWindfuryFromTriggered(event);
 
-        const isOffHand = extraAttack
-          ? // If it is windfury attack, look at spell id
-            extraAttack.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id
-          : // If we are at max rage, we don't know how much the hit would have generated
-          // If generated was 0 (probably a miss)
-          isMax || generated < 1
-          ? !lastHitWasOffHand
-          : // If we are not at max rage, the generated value is
-            generated < (ragePerSwingMH + ragePerSwingOH) / 2;
+        const isOffHand = (() => {
+          if (extraAttack) {
+            // If it is windfury attack, look at spell id
+            return extraAttack.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id;
+          } else {
+            // if it is not a windfury attack.
+
+            const windfuryProc = getWindfuryFromTrigger(event);
+            if (windfuryProc != null) {
+              // If this attack triggered a windfury proc, we can look at the id of the proc
+              return windfuryProc.ability.guid === SPELLS.WINDFURY_EXTRA_ATTACK_OH.id;
+            }
+
+            if (!isMax && generated > 0) {
+              // As long as we are not capped, and didn't miss,
+              // we can look at the rage generated to figure out if it was offhand
+              // We use the average as a threshold, to allow some variance
+              return generated < (ragePerSwingMH + ragePerSwingOH) / 2;
+            }
+
+            // If it did not proc windfury, and we are capped or missed, we can't tell
+            // so we assume alternating swings
+            return !lastHitWasOffHand;
+          }
+        })();
 
         const expectedGenration = isOffHand ? ragePerSwingOH : ragePerSwingMH;
 
