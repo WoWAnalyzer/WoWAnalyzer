@@ -1,4 +1,3 @@
-import { RAGE_SCALE_FACTOR } from 'analysis/retail/warrior/constants';
 import WindfuryLinkNormalizer from 'analysis/retail/warrior/shared/modules/normalizers/WindfuryLinkNormalizer';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -8,6 +7,7 @@ import { AnyEvent, EventType, ResourceChangeEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { WARMACHINE_FURY_INCREASE } from './constants';
 import generateRageEvents from './generateRageEvents';
+import scaleRageGainEvents from './scaleRageGainEvents';
 
 // Spear
 const PIERCING_VERDICT_INCREASE = 1;
@@ -94,16 +94,17 @@ class RageNormalizer extends EventsNormalizer {
   maxRage: number = 0;
 
   hasRecklessness = false;
-  hasSMF = false;
   hasWM = false;
   hasPV = false;
   hasSoS = false;
 
   normalize(events: AnyEvent[]): AnyEvent[] {
+    events = scaleRageGainEvents(events);
+    events = generateRageEvents(this.selectedCombatant, events);
+
     this.hasRecklessness = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.RECKLESSNESS_TALENT);
 
     // auto attacks
-    this.hasSMF = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.SINGLE_MINDED_FURY_TALENT);
     this.hasWM = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT);
 
     // spear of bastion
@@ -114,18 +115,7 @@ class RageNormalizer extends EventsNormalizer {
 
     const updatedEvents: AnyEvent[] = [];
 
-    const fixedGainEvents = events.map((event) => {
-      if (!('resourceChange' in event) || !('waste' in event)) {
-        return event;
-      }
-
-      return {
-        ...event,
-        resourceChange: event.resourceChange / RAGE_SCALE_FACTOR,
-        waste: event.waste / RAGE_SCALE_FACTOR,
-      };
-    });
-    generateRageEvents(this.selectedCombatant, fixedGainEvents).forEach((event: AnyEvent) => {
+    events.forEach((event: AnyEvent) => {
       updatedEvents.push(event);
 
       if (event.type !== EventType.ResourceChange) {
