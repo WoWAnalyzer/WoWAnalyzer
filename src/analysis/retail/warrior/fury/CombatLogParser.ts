@@ -20,14 +20,18 @@ import AngerManagement from './modules/talents/AngerManagement';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
+import WindfuryLinkNormalizer from '../shared/modules/normalizers/WindfuryLinkNormalizer';
 import ElysianMight from '../shared/modules/talents/ElysianMight';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import SpearOfBastion from '../shared/modules/talents/SpearOfBastion';
 import HackAndSlash from './modules/talents/HackAndSlash';
+import RageNormalizer from './modules/normalizers/RageNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
+    windfuryNormalizer: WindfuryLinkNormalizer,
+    rageNormalizer: RageNormalizer,
     berserkersTormentNormalizer: BerserkersTormentNormalizer,
     recklessAbandonNormalizer: RecklessAbandonNormalizer,
     enrageNormalizer: EnrageNormalizer,
