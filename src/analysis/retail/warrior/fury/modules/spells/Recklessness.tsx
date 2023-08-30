@@ -1,6 +1,6 @@
 import { RAGE_SCALE_FACTOR } from 'analysis/retail/warrior/constants';
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
+import SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import { formatNumber, formatPercentage } from 'common/format';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -19,8 +19,8 @@ class Recklessness extends Analyzer {
     super(options);
 
     this.active =
-      this.selectedCombatant.hasTalent(talents.RECKLESSNESS_TALENT) ||
-      this.selectedCombatant.hasTalent(talents.BERSERKERS_TORMENT_TALENT);
+      this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT);
   }
 
   get uptime() {

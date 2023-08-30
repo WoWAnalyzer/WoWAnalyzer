@@ -1,6 +1,6 @@
 import { defineMessage } from '@lingui/macro';
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
+import SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -25,7 +25,7 @@ class MissedRampage extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.RAMPAGE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.RAMPAGE_TALENT);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell([...RAGE_GENERATORS]), this.onCast);
   }
 
