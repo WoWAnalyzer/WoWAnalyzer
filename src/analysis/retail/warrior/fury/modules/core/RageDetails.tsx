@@ -1,5 +1,4 @@
 import { defineMessage } from '@lingui/macro';
-import { RAGE_SCALE_FACTOR } from 'analysis/retail/warrior/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -69,10 +68,8 @@ class RageDetails extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(3)}
         size="flexible"
-        tooltip={`${formatNumber(
-          this.rageTracker.wasted * RAGE_SCALE_FACTOR,
-        )} out of ${formatNumber(
-          (this.rageTracker.wasted + this.rageTracker.generated) * RAGE_SCALE_FACTOR,
+        tooltip={`${formatNumber(this.rageTracker.wasted)} out of ${formatNumber(
+          this.rageTracker.wasted + this.rageTracker.generated,
         )} Rage wasted.`}
       >
         <BoringResourceValue
@@ -92,11 +89,7 @@ class RageDetails extends Analyzer {
         <>
           <Panel title="Rage over time">{this.rageGraph.plot}</Panel>
           <Panel title="Breakdown">
-            <ResourceBreakdown
-              tracker={this.rageTracker}
-              showSpenders
-              scaleFactor={RAGE_SCALE_FACTOR}
-            />
+            <ResourceBreakdown tracker={this.rageTracker} showSpenders />
           </Panel>
         </>
       ),

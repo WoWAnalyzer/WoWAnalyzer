@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+import WindfuryLinkNormalizer from '../shared/modules/normalizers/WindfuryLinkNormalizer';
 import ChampionsMight from '../shared/modules/talents/ChampionsMight';
 import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
 import Abilities from './modules/Abilities';
@@ -24,10 +25,13 @@ import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import HackAndSlash from './modules/talents/HackAndSlash';
+import RageNormalizer from './modules/normalizers/RageNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     // Normalizer
+    windfuryNormalizer: WindfuryLinkNormalizer,
+    rageNormalizer: RageNormalizer,
     berserkersTormentNormalizer: BerserkersTormentNormalizer,
     recklessAbandonNormalizer: RecklessAbandonNormalizer,
     enrageNormalizer: EnrageNormalizer,
