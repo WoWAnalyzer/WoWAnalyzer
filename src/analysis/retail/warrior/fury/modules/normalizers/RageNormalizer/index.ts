@@ -90,28 +90,18 @@ class RageNormalizer extends EventsNormalizer {
     return newEvent;
   }
 
-  lastRageCount: number = 0;
-  maxRage: number = 0;
-
-  hasRecklessness = false;
-  hasWM = false;
-  hasPV = false;
-  hasSoS = false;
-
   normalize(events: AnyEvent[]): AnyEvent[] {
     events = scaleRageGainEvents(events);
     events = generateRageEvents(this.selectedCombatant, events);
 
-    this.hasRecklessness = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.RECKLESSNESS_TALENT);
-
     // auto attacks
-    this.hasWM = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT);
+    const hasWM = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT);
 
     // spear of bastion
-    this.hasPV = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.PIERCING_VERDICT_TALENT);
+    const hasPV = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.PIERCING_VERDICT_TALENT);
 
     // ravager
-    this.hasSoS = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.STORM_OF_STEEL_TALENT);
+    const hasSoS = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.STORM_OF_STEEL_TALENT);
 
     const updatedEvents: AnyEvent[] = [];
 
@@ -125,7 +115,7 @@ class RageNormalizer extends EventsNormalizer {
       // This is the auto attack area
       if (event.ability.guid === SPELLS.MELEE.id) {
         // lets move onto War Machine
-        if (this.hasWM) {
+        if (hasWM) {
           const newEvent = this._removeMultiplicitiveIncrease(
             event,
             WARMACHINE_FURY_INCREASE,
@@ -136,7 +126,7 @@ class RageNormalizer extends EventsNormalizer {
         }
       }
 
-      if (this.hasPV) {
+      if (hasPV) {
         // Spear of Bastion Area
         if (event.ability.guid === SPELLS.SPEAR_OF_BASTION.id) {
           const newEvent = this._removeMultiplicitiveIncrease(
@@ -148,7 +138,7 @@ class RageNormalizer extends EventsNormalizer {
         }
       }
 
-      if (this.hasSoS) {
+      if (hasSoS) {
         if (event.ability.guid === SPELLS.RAVAGER_ENERGIZE.id) {
           const newEvent = this._removeAdditiveIncrease(
             event,
