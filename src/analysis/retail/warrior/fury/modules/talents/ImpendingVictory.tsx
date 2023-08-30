@@ -1,6 +1,6 @@
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
+import SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent, HealEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -14,7 +14,7 @@ class ImpendingVicory extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(talents.IMPENDING_VICTORY_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT);
 
     if (!this.active) {
       return;
@@ -25,7 +25,7 @@ class ImpendingVicory extends Analyzer {
       this.onImpendingVictoryHeal,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(talents.IMPENDING_VICTORY_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.IMPENDING_VICTORY_TALENT),
       this.onImpendingVictoryDamage,
     );
   }
@@ -56,7 +56,7 @@ class ImpendingVicory extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={talents.IMPENDING_VICTORY_TALENT}>
+        <BoringSpellValueText spell={TALENTS.IMPENDING_VICTORY_TALENT}>
           <>{formatNumber(this.totalHeal)} Healing</>
         </BoringSpellValueText>
       </Statistic>

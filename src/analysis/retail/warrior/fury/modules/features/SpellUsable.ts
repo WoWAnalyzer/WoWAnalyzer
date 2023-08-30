@@ -1,5 +1,5 @@
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
+import SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import { Options } from 'parser/core/Analyzer';
 import { AbilityEvent, CastEvent } from 'parser/core/Events';
 import CoreSpellUsable from 'parser/shared/modules/SpellUsable';
@@ -14,7 +14,7 @@ class SpellUsable extends CoreSpellUsable {
 
   constructor(options: Options) {
     super(options);
-    this.hasSuddenDeath = this.selectedCombatant.hasTalent(talents.SUDDEN_DEATH_FURY_TALENT);
+    this.hasSuddenDeath = this.selectedCombatant.hasTalent(TALENTS.SUDDEN_DEATH_FURY_TALENT);
   }
 
   onCast(event: CastEvent) {

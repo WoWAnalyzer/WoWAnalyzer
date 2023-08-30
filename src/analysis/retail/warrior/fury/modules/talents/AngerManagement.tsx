@@ -1,4 +1,4 @@
-import talents from 'common/TALENTS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import { formatDuration } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
@@ -38,9 +38,9 @@ class AngerManagement extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.talentAngerManagement = this.selectedCombatant.hasTalent(talents.ANGER_MANAGEMENT_TALENT);
-    this.talentRecklessness = this.selectedCombatant.hasTalent(talents.RECKLESSNESS_TALENT);
-    this.talentRavager = this.selectedCombatant.hasTalent(talents.RAVAGER_TALENT);
+    this.talentAngerManagement = this.selectedCombatant.hasTalent(TALENTS.ANGER_MANAGEMENT_TALENT);
+    this.talentRecklessness = this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT);
+    this.talentRavager = this.selectedCombatant.hasTalent(TALENTS.RAVAGER_TALENT);
 
     this.active = this.talentAngerManagement && (this.talentRecklessness || this.talentRavager);
 
@@ -67,7 +67,7 @@ class AngerManagement extends Analyzer {
 
     if (this.talentRavager) {
       const effectiveReduction = this.spellUsable.reduceCooldown(
-        talents.RAVAGER_TALENT.id,
+        TALENTS.RAVAGER_TALENT.id,
         reduction,
       );
       this.ravagerCDR.effective += effectiveReduction;
@@ -76,7 +76,7 @@ class AngerManagement extends Analyzer {
 
     if (this.talentRecklessness) {
       const effectiveReduction = this.spellUsable.reduceCooldown(
-        talents.RECKLESSNESS_TALENT.id,
+        TALENTS.RECKLESSNESS_TALENT.id,
         reduction,
       );
       this.recklessnessCDR.effective += effectiveReduction;
@@ -100,13 +100,13 @@ class AngerManagement extends Analyzer {
 
   private extraRecklessnessCasts = () =>
     this.extraCasts(
-      this.spellUsable.fullCooldownDuration(talents.RECKLESSNESS_TALENT.id),
+      this.spellUsable.fullCooldownDuration(TALENTS.RECKLESSNESS_TALENT.id),
       this.recklessnessCDR.effective,
     );
 
   private extraRavagerCasts = () =>
     this.extraCasts(
-      this.spellUsable.fullCooldownDuration(talents.RAVAGER_TALENT.id),
+      this.spellUsable.fullCooldownDuration(TALENTS.RAVAGER_TALENT.id),
       this.ravagerCDR.effective,
     );
 
@@ -140,7 +140,7 @@ class AngerManagement extends Analyzer {
                 {this.talentRecklessness && (
                   <tr>
                     <td>
-                      <SpellLink spell={talents.RECKLESSNESS_TALENT.id} />
+                      <SpellLink spell={TALENTS.RECKLESSNESS_TALENT.id} />
                     </td>
                     <td>{formatDuration(this.recklessnessCDR.effective)}</td>
                     <td>{formatDuration(this.recklessnessCDR.wasted)}</td>
@@ -149,7 +149,7 @@ class AngerManagement extends Analyzer {
                 {this.talentRavager && (
                   <tr>
                     <td>
-                      <SpellLink spell={talents.RAVAGER_TALENT.id} />
+                      <SpellLink spell={TALENTS.RAVAGER_TALENT.id} />
                     </td>
                     <td>{formatDuration(this.ravagerCDR.effective)}</td>
                     <td>{formatDuration(this.ravagerCDR.wasted)}</td>
@@ -160,17 +160,17 @@ class AngerManagement extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={talents.ANGER_MANAGEMENT_TALENT}>
+        <BoringSpellValueText spell={TALENTS.ANGER_MANAGEMENT_TALENT}>
           {this.talentRecklessness && (
             <div>
-              <SpellLink spell={talents.RECKLESSNESS_TALENT.id} />
+              <SpellLink spell={TALENTS.RECKLESSNESS_TALENT.id} />
               <br />
               {this.extraRecklessnessCasts()} <small>extra casts.</small>
             </div>
           )}
           {this.talentRavager && (
             <div>
-              <SpellLink spell={talents.RAVAGER_TALENT.id} />
+              <SpellLink spell={TALENTS.RAVAGER_TALENT.id} />
               <br />
               {this.extraRavagerCasts()} <small>extra casts.</small>
             </div>

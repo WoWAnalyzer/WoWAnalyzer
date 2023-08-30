@@ -1,6 +1,6 @@
 import { formatPercentage, formatThousands } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
+import SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -36,8 +36,8 @@ class SuddenDeath extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.selectedCombatant.hasTalent(talents.SUDDEN_DEATH_FURY_TALENT);
-    this.executeThreshold = this.selectedCombatant.hasTalent(talents.MASSACRE_FURY_TALENT)
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SUDDEN_DEATH_FURY_TALENT);
+    this.executeThreshold = this.selectedCombatant.hasTalent(TALENTS.MASSACRE_FURY_TALENT)
       ? 0.35
       : this.executeThreshold;
 
@@ -150,7 +150,7 @@ class SuddenDeath extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={talents.SUDDEN_DEATH_FURY_TALENT}>
+        <BoringSpellValueText spell={TALENTS.SUDDEN_DEATH_FURY_TALENT}>
           <>
             {this.suddenDeathProcsUsed} / {this.suddenDeathProcs} procs used
           </>
