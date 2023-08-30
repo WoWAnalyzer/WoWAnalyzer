@@ -4,7 +4,7 @@ import {
   getWindfuryFromTriggered,
 } from 'analysis/retail/warrior/shared/modules/normalizers/WindfuryLinkNormalizer';
 import SPELLS from 'common/SPELLS';
-import { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
 import { AnyEvent, CastEvent, EventType, HasSource, ResourceChangeEvent } from 'parser/core/Events';
 import { RECKLESSNESS_INCREASE, WARMACHINE_FURY_INCREASE } from './constants';
@@ -26,10 +26,10 @@ export default function generateRageEvents(this: RageNormalizer, events: AnyEven
   const updatedEvents: AnyEvent[] = [];
 
   const hasRecklessness =
-    this.selectedCombatant.hasTalent(TALENTS_WARRIOR.RECKLESSNESS_TALENT) ||
-    this.selectedCombatant.hasTalent(TALENTS_WARRIOR.BERSERKERS_TORMENT_TALENT);
+    this.selectedCombatant.hasTalent(TALENTS.RECKLESSNESS_TALENT) ||
+    this.selectedCombatant.hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT);
 
-  const using1H = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.SINGLE_MINDED_FURY_TALENT);
+  const using1H = this.selectedCombatant.hasTalent(TALENTS.SINGLE_MINDED_FURY_TALENT);
   const speed = using1H ? DEFAULT_SPEED_1H : DEFAULT_SPEED_2H;
 
   // While it would be nice to look at the speed or slot for weapons, I don't know if that's possible
@@ -37,7 +37,7 @@ export default function generateRageEvents(this: RageNormalizer, events: AnyEven
   let unbuffedRagePerSwingMH = MH_AUTO_ATTACK_RAGE_PS * speed;
   let unbuffedRagePerSwingOH = OH_AUTO_ATTACK_RAGE_PS * speed;
 
-  if (this.selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT)) {
+  if (this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_FURY_TALENT)) {
     unbuffedRagePerSwingMH += unbuffedRagePerSwingMH * WARMACHINE_FURY_INCREASE;
     unbuffedRagePerSwingOH += unbuffedRagePerSwingOH * WARMACHINE_FURY_INCREASE;
   }

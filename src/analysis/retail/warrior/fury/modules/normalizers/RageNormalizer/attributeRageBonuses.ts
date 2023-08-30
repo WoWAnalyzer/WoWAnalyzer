@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import { AnyEvent, EventType, ResourceChangeEvent } from 'parser/core/Events';
 import { WARMACHINE_FURY_INCREASE } from './constants';
@@ -17,13 +17,13 @@ const STORM_OF_STEEL_INCREASE = 10;
  */
 export default function attributeRageBonuses(this: RageNormalizer, events: AnyEvent[]): AnyEvent[] {
   // auto attacks
-  const hasWM = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT);
+  const hasWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_FURY_TALENT);
 
   // spear of bastion
-  const hasPV = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.PIERCING_VERDICT_TALENT);
+  const hasPV = this.selectedCombatant.hasTalent(TALENTS.PIERCING_VERDICT_TALENT);
 
   // ravager
-  const hasSoS = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.STORM_OF_STEEL_TALENT);
+  const hasSoS = this.selectedCombatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT);
 
   const updatedEvents: AnyEvent[] = [];
 
@@ -54,7 +54,7 @@ export default function attributeRageBonuses(this: RageNormalizer, events: AnyEv
         const newEvent = removeMultiplicitiveIncrease(
           event,
           PIERCING_VERDICT_INCREASE,
-          TALENTS_WARRIOR.PIERCING_VERDICT_TALENT,
+          TALENTS.PIERCING_VERDICT_TALENT,
         );
         updatedEvents.push(newEvent);
       }
@@ -65,7 +65,7 @@ export default function attributeRageBonuses(this: RageNormalizer, events: AnyEv
         const newEvent = removeAdditiveIncrease(
           event,
           STORM_OF_STEEL_INCREASE,
-          TALENTS_WARRIOR.STORM_OF_STEEL_TALENT,
+          TALENTS.STORM_OF_STEEL_TALENT,
         );
         updatedEvents.push(newEvent);
       }

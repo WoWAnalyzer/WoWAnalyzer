@@ -1,9 +1,8 @@
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
+import SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import TALENTS from 'common/TALENTS/warrior';
 
 // Sample - Cold Steel, Anger Management, Spear of Bastion
 // https://www.warcraftlogs.com/reports/RVwcm3bNzJaXAMqW#fight=4&type=summary&source=17
@@ -15,7 +14,7 @@ class Abilities extends CoreAbilities {
       // Rotational
       {
         spell: SPELLS.RAMPAGE.id,
-        enabled: combatant.hasTalent(talents.RAMPAGE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.RAMPAGE_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -23,7 +22,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.ONSLAUGHT_TALENT.id,
-        enabled: combatant.hasTalent(talents.ONSLAUGHT_TALENT),
+        enabled: combatant.hasTalent(TALENTS.ONSLAUGHT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 18,
         gcd: {
@@ -34,7 +33,7 @@ class Abilities extends CoreAbilities {
         // In case of Reckless Abandon, Crushing Blow is normalized to Raging Blow
         // Here's an old example https://www.warcraftlogs.com/reports/xPbBQnpkJm7r1FyK#fight=32&type=damage-done&source=18
         spell: SPELLS.RAGING_BLOW.id,
-        enabled: combatant.hasTalent(talents.RAGING_BLOW_TALENT),
+        enabled: combatant.hasTalent(TALENTS.RAGING_BLOW_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) =>
           (combatant.hasTalent(TALENTS.HONED_REFLEXES_FURY_TALENT) ? 8 : 9) / (1 + haste),
@@ -50,7 +49,7 @@ class Abilities extends CoreAbilities {
         // In case of Reckless Abandon, Bloodbath is normalized to Bloodthirst
         // Here's an old example https://www.warcraftlogs.com/reports/xPbBQnpkJm7r1FyK#fight=32&type=damage-done&source=18
         spell: SPELLS.BLOODTHIRST.id,
-        enabled: combatant.hasTalent(talents.BLOODTHIRST_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BLOODTHIRST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 4.5 / (1 + haste),
         gcd: {
@@ -83,7 +82,7 @@ class Abilities extends CoreAbilities {
       },
       // Others
       {
-        enabled: combatant.hasTalent(talents.IMPENDING_VICTORY_TALENT),
+        enabled: combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT),
         spell: SPELLS.IMPENDING_VICTORY_TALENT_HEAL.id,
         category: SPELL_CATEGORY.OTHERS,
         cooldown: 30,
@@ -92,7 +91,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        enabled: !combatant.hasTalent(talents.IMPENDING_VICTORY_TALENT),
+        enabled: !combatant.hasTalent(TALENTS.IMPENDING_VICTORY_TALENT),
         spell: SPELLS.VICTORY_RUSH.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: {
@@ -101,7 +100,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.THUNDER_CLAP.id,
-        enabled: combatant.hasTalent(talents.THUNDER_CLAP_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS.THUNDER_CLAP_SHARED_TALENT),
         category: SPELL_CATEGORY.OTHERS,
         cooldown: 6,
         gcd: {
@@ -111,7 +110,7 @@ class Abilities extends CoreAbilities {
       // Cooldown
       {
         spell: SPELLS.RECKLESSNESS.id,
-        enabled: combatant.hasTalent(talents.RECKLESSNESS_TALENT),
+        enabled: combatant.hasTalent(TALENTS.RECKLESSNESS_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
@@ -122,8 +121,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.RAVAGER_TALENT.id,
-        enabled: combatant.hasTalent(talents.RAVAGER_TALENT),
+        spell: TALENTS.RAVAGER_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.RAVAGER_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -136,8 +135,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.AVATAR_SHARED_TALENT.id,
-        enabled: combatant.hasTalent(talents.AVATAR_SHARED_TALENT),
+        spell: TALENTS.AVATAR_SHARED_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.AVATAR_SHARED_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
@@ -149,7 +148,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.THUNDEROUS_ROAR_TALENT.id,
-        enabled: combatant.hasTalent(talents.THUNDEROUS_ROAR_TALENT),
+        enabled: combatant.hasTalent(TALENTS.THUNDEROUS_ROAR_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90 - (combatant.hasTalent(TALENTS.UPROAR_TALENT) ? 30 : 0),
         gcd: {
@@ -163,7 +162,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.SPEAR_OF_BASTION_TALENT.id,
-        enabled: combatant.hasTalent(talents.SPEAR_OF_BASTION_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SPEAR_OF_BASTION_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: {
@@ -177,7 +176,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ODYNS_FURY.id,
-        enabled: combatant.hasTalent(talents.ODYNS_FURY_TALENT),
+        enabled: combatant.hasTalent(TALENTS.ODYNS_FURY_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
@@ -192,7 +191,7 @@ class Abilities extends CoreAbilities {
       // Defensive
       {
         spell: SPELLS.SPELL_REFLECTION.id,
-        enabled: combatant.hasTalent(talents.SPELL_REFLECTION_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SPELL_REFLECTION_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: SPELLS.SPELL_REFLECTION.id,
         cooldown: 25,
@@ -200,7 +199,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.ENRAGED_REGENERATION.id,
-        enabled: combatant.hasTalent(talents.ENRAGED_REGENERATION_TALENT),
+        enabled: combatant.hasTalent(TALENTS.ENRAGED_REGENERATION_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: SPELLS.ENRAGED_REGENERATION.id,
         cooldown: 120,
@@ -213,7 +212,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.BITTER_IMMUNITY_TALENT.id,
-        enabled: combatant.hasTalent(talents.BITTER_IMMUNITY_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BITTER_IMMUNITY_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: TALENTS.BITTER_IMMUNITY_TALENT.id,
         cooldown: 3 * 60,
@@ -221,7 +220,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.RALLYING_CRY.id,
-        enabled: combatant.hasTalent(talents.RALLYING_CRY_TALENT),
+        enabled: combatant.hasTalent(TALENTS.RALLYING_CRY_TALENT),
         category: SPELL_CATEGORY.DEFENSIVE,
         buffSpellId: SPELLS.RALLYING_CRY_BUFF.id,
         cooldown: 180,
@@ -240,28 +239,28 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.CHARGE.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 20 - (combatant.hasTalent(talents.DOUBLE_TIME_TALENT) ? 3 : 0),
-        charges: 1 + (combatant.hasTalent(talents.DOUBLE_TIME_TALENT) ? 1 : 0),
+        cooldown: 20 - (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT) ? 3 : 0),
+        charges: 1 + (combatant.hasTalent(TALENTS.DOUBLE_TIME_TALENT) ? 1 : 0),
       },
       {
         spell: SPELLS.HEROIC_LEAP.id,
-        enabled: combatant.hasTalent(talents.HEROIC_LEAP_TALENT),
+        enabled: combatant.hasTalent(TALENTS.HEROIC_LEAP_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         buffSpellId: SPELLS.BOUNDING_STRIDE_BUFF.id,
-        cooldown: 45 - (combatant.hasTalent(talents.BOUNDING_STRIDE_TALENT) ? 15 : 0),
+        cooldown: 45 - (combatant.hasTalent(TALENTS.BOUNDING_STRIDE_TALENT) ? 15 : 0),
         charges: 1,
         gcd: null,
       },
       {
         spell: SPELLS.INTERVENE_CAST.id,
-        enabled: combatant.hasTalent(talents.INTERVENE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.INTERVENE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: null,
       },
       {
-        spell: talents.STORM_BOLT_TALENT.id,
-        enabled: combatant.hasTalent(talents.STORM_BOLT_TALENT),
+        spell: TALENTS.STORM_BOLT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.STORM_BOLT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -276,7 +275,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.SHOCKWAVE_TALENT.id,
-        enabled: combatant.hasTalent(talents.SHOCKWAVE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SHOCKWAVE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 40,
         gcd: {
@@ -291,17 +290,17 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BERSERKER_RAGE.id,
-        enabled: combatant.hasTalent(talents.BERSERKER_RAGE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.BERSERKER_RAGE_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         buffSpellId: SPELLS.BERSERKER_RAGE.id,
         cooldown: 60,
         gcd: null,
       },
       {
-        spell: talents.BERSERKER_SHOUT_TALENT.id,
-        enabled: combatant.hasTalent(talents.BERSERKER_SHOUT_TALENT),
+        spell: TALENTS.BERSERKER_SHOUT_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.BERSERKER_SHOUT_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        buffSpellId: talents.BERSERKER_SHOUT_TALENT.id,
+        buffSpellId: TALENTS.BERSERKER_SHOUT_TALENT.id,
         cooldown: 60,
         gcd: null,
       },
@@ -315,7 +314,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.TITANIC_THROW_TALENT.id,
-        enabled: combatant.hasTalent(talents.TITANIC_THROW_TALENT),
+        enabled: combatant.hasTalent(TALENTS.TITANIC_THROW_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -324,7 +323,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: TALENTS.WRECKING_THROW_TALENT.id,
-        enabled: combatant.hasTalent(talents.WRECKING_THROW_TALENT),
+        enabled: combatant.hasTalent(TALENTS.WRECKING_THROW_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
@@ -333,7 +332,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.SHATTERING_THROW.id,
-        enabled: combatant.hasTalent(talents.SHATTERING_THROW_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SHATTERING_THROW_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
         gcd: {
