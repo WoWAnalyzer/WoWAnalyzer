@@ -120,7 +120,9 @@ export const getRelatedBuffApplicationFromHardcast = (
     .at(0);
 };
 
-/** Returns the stealth ability `CastEvent` for the given Sepsis `ApplyBuffEvent` or `RemoveBuffEvent`, if any exists. An `Undefined` result implies the buff went unused. */
+/** Returns the stealth ability `CastEvent` for the given Sepsis `BuffEvent` if any exists, and `undefined` otherwise.
+ * An `undefined` return implies the buff went unused
+ */
 export const getSepsisConsumptionCastForBuffEvent = (
   event: ApplyBuffEvent | RemoveBuffEvent,
 ): CastEvent | undefined => {

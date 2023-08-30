@@ -282,7 +282,6 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     if (cast.event.timestamp + SEPSIS_BUFF_DURATION > this.owner.fight.end_time) {
       buffPerformance = QualitativePerformance.Perfect;
       if (!buff) {
-        // could also return undefined here to not show any buff performance since it was never gained
         usageDetails[buffId] = (
           <>
             Fight ended before you gained the <SpellLink spell={SPELLS.SEPSIS_BUFF} /> buff.
@@ -351,7 +350,8 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
         );
         // Edge case for last sepsis cast
         if (sepsisRemainingOnFightEnd > 0) {
-          // Check to see if last Shiv cast comes before 3rd GCD after sepsis
+          // Check to see if last Shiv cast comes before the 3rd GCD after sepsis.
+          // if the shiv was cast within 1-2GCDs assume it would've been `Perfect`
           const castTimeDiff = Math.abs(events[shivCasts - 1].start - cast.debuff.start);
           const withinGracePeriod = castTimeDiff < 3 * BASE_ROGUE_GCD + CAST_BUFFER_MS;
 
@@ -381,15 +381,16 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     };
   }
 
-  /** Returns the amount of time that the Shiv debuff overlaps with the Sepsis debuff, along with the amount of Shiv casts within the sepsis debuff.
-   * Count will usually be 1, but trying to cover the case where you chain Shivs to cover the full debuff.
+  /** Returns the amount of time that the Shiv debuff overlaps with the Sepsis debuff,
+   * along with the amount of Shiv `TrackedBuffEvent`s found within the Sepsis window.
+   * There will usually be 1 event for each debuff, but trying to cover the case where you chain Shivs to cover the full debuff.
    */
   private getShivOverlapForSepsisCast(cast: Omit<SepsisCast, 'shivData'>): SepsisCast['shivData'] {
     const events: TrackedBuffEvent[] = [];
     let overlapMs = 0;
     let expectedOverlap = SHIV_DURATION;
     let overlapPercent = 0;
-    // check for debuff portion of sepsis
+
     if (cast.debuff) {
       const applyEvent = cast.debuff.applyEvent;
       const enemy = this.enemies.getEntity(cast.event);
@@ -421,7 +422,6 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
   }
 
   private onEnd() {
-    // Without a normalizer for Shiv, its hard to get Shiv casts/debuff data while the fight is "ongoing". So we do it at the end.
     this.overallSepsisCasts.forEach((sepsisCast) => {
       const shivData = this.getShivOverlapForSepsisCast(sepsisCast);
       this.recordCooldown({
