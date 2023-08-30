@@ -1,0 +1,2 @@
+export const WARMACHINE_FURY_INCREASE = 0.2;
+export const RECKLESSNESS_INCREASE = 1;
