@@ -2,7 +2,7 @@ import { formatDuration, formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Icefury from './Icefury';
-import { Expandable, SpellLink } from 'interface';
+import { Expandable, SpellIcon, SpellLink } from 'interface';
 import { getLowestPerf } from 'parser/ui/QualitativePerformance';
 import { SectionHeader } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -25,6 +25,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import Spell from 'common/SPELLS/Spell';
 
 const IF_COOLDOWN_THRESHOLD: LTEThreshold = {
   type: 'lte',
@@ -61,20 +62,7 @@ const Table = styled.table`
   margin-top: 1em;
 `;
 
-const ALL_NATURE_DAMAGE = [
-  TALENTS.EARTH_SHOCK_TALENT,
-  TALENTS.ELEMENTAL_BLAST_TALENT,
-  SPELLS.ELEMENTAL_BLAST_OVERLOAD,
-  SPELLS.LIGHTNING_BOLT,
-  SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT,
-  TALENTS.CHAIN_LIGHTNING_TALENT,
-  SPELLS.CHAIN_LIGHTNING_OVERLOAD,
-  SPELLS.EARTHQUAKE_DAMAGE,
-  SPELLS.EARTHQUAKE_OVERLOAD_DAMAGE,
-  SPELLS.FLAME_SHOCK,
-];
-
-const GUIDE_RELEVANT_NATURE_DAMAGE = [
+const RELEVANT_NATURE_DAMAGE = [
   TALENTS.EARTH_SHOCK_TALENT,
   TALENTS.ELEMENTAL_BLAST_TALENT,
   SPELLS.ELEMENTAL_BLAST_OVERLOAD,
@@ -93,37 +81,53 @@ export default class ElectrifiedShocks extends Analyzer {
   protected icefury!: Icefury;
   protected enemies!: Enemies;
 
-  damageDoneByCast: { [key: number]: DamageDoneByCastEntry } = {};
+  // I'll be the first to admit that this solution is not perfect, but
+  // this analyzer needs to track both normal spells, and some of the same spells with modifiers (LBSK in this case)
+  damageDoneByCast: { [key: number]: { none: DamageDoneByCastEntry; SK: DamageDoneByCastEntry } } =
+    {};
 
   constructor(options: Options) {
     super(options);
 
-    ALL_NATURE_DAMAGE.forEach((spell) => {
+    RELEVANT_NATURE_DAMAGE.forEach((spell) => {
       this.damageDoneByCast[spell.id] = {
-        hitsWithElshocks: 0,
-        hitsWithoutElshocks: 0,
-        damageGainedByElshocks: 0,
+        none: {
+          hitsWithElshocks: 0,
+          hitsWithoutElshocks: 0,
+          damageGainedByElshocks: 0,
+        },
+        SK: {
+          hitsWithElshocks: 0,
+          hitsWithoutElshocks: 0,
+          damageGainedByElshocks: 0,
+        },
       };
     });
 
-    // Don't need to check if Icefury is chosen here, as it is impoosible to take
+    // Don't need to check if Icefury is chosen here, as it is impossible to take
     // electrified shocks without it.
     this.active = this.selectedCombatant.hasTalent(TALENTS.ELECTRIFIED_SHOCKS_TALENT);
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(ALL_NATURE_DAMAGE),
+      Events.damage.by(SELECTED_PLAYER).spell(RELEVANT_NATURE_DAMAGE),
       this.onDamage,
     );
   }
   onDamage(event: DamageEvent) {
+    let modifier: 'none' | 'SK' = 'none';
+    if (this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id)) {
+      if (event.ability.guid === SPELLS.LIGHTNING_BOLT.id) {
+        modifier = 'SK';
+      } else if (event.ability.guid === SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id) {
+        modifier = 'SK';
+      }
+    }
     if (this.enemies.getEntity(event)?.hasBuff(SPELLS.ELECTRIFIED_SHOCKS_DEBUFF.id)) {
-      this.damageDoneByCast[event.ability.guid].hitsWithElshocks += 1;
-      this.damageDoneByCast[event.ability.guid].damageGainedByElshocks += calculateEffectiveDamage(
-        event,
-        0.15,
-      );
+      this.damageDoneByCast[event.ability.guid][modifier].hitsWithElshocks += 1;
+      this.damageDoneByCast[event.ability.guid][modifier].damageGainedByElshocks +=
+        calculateEffectiveDamage(event, 0.15);
     } else {
-      this.damageDoneByCast[event.ability.guid].hitsWithoutElshocks += 1;
+      this.damageDoneByCast[event.ability.guid][modifier].hitsWithoutElshocks += 1;
     }
   }
 
@@ -195,18 +199,41 @@ export default class ElectrifiedShocks extends Analyzer {
     };
 
     Object.entries(this.damageDoneByCast).forEach(([spellId, damageDone]) => {
-      if (!GUIDE_RELEVANT_NATURE_DAMAGE.some((spell) => spell.id === parseInt(spellId))) {
-        return;
-      }
-
-      totalDamageDone.hitsWithElshocks += damageDone.hitsWithElshocks;
-      totalDamageDone.hitsWithoutElshocks += damageDone.hitsWithoutElshocks;
-      totalDamageDone.damageGainedByElshocks += damageDone.damageGainedByElshocks;
+      totalDamageDone.hitsWithElshocks += damageDone.none.hitsWithElshocks;
+      totalDamageDone.hitsWithoutElshocks += damageDone.none.hitsWithoutElshocks;
+      totalDamageDone.damageGainedByElshocks += damageDone.none.damageGainedByElshocks;
     });
 
     const performances = casts.map((cast) =>
       spellUseToBoxRowEntry(cast, this.owner.fight.start_time),
     );
+
+    const tableRow = (
+      spell: Spell,
+      dmgDoneByCast: DamageDoneByCastEntry,
+      spellPrefix: JSX.Element | null = null,
+    ) => {
+      const damageWithElshocks = dmgDoneByCast.hitsWithElshocks;
+      const damageWithoutElshocks = dmgDoneByCast.hitsWithoutElshocks;
+      const damageWithElsocksPercentage =
+        (damageWithElshocks / (damageWithElshocks + damageWithoutElshocks)) * 100;
+
+      if (damageWithElshocks + damageWithoutElshocks === 0) {
+        return <></>;
+      }
+
+      return (
+        <tr key={spell.id}>
+          <td style={{ whiteSpace: 'nowrap' }}>
+            {spellPrefix || <></>}
+            <SpellLink spell={spell} />
+          </td>
+          <td>{formatNumber(damageWithElshocks)}</td>
+          <td>{formatNumber(damageWithoutElshocks)}</td>
+          <td>{damageWithElsocksPercentage.toFixed(2)}%</td>
+        </tr>
+      );
+    };
 
     const data = (
       <div>
@@ -264,25 +291,22 @@ export default class ElectrifiedShocks extends Analyzer {
                   </tr>
                 </thead>
                 <tbody>
-                  {GUIDE_RELEVANT_NATURE_DAMAGE.map((spell) => {
-                    const damageWithElshocks = this.damageDoneByCast[spell.id].hitsWithElshocks;
-                    const damageWithoutElshocks =
-                      this.damageDoneByCast[spell.id].hitsWithoutElshocks;
-                    const damageWithElsocksPercentage =
-                      (damageWithElshocks / (damageWithElshocks + damageWithoutElshocks)) * 100;
-
-                    if (damageWithElshocks + damageWithoutElshocks === 0) {
-                      return <></>;
-                    }
-
-                    return (
-                      <tr key={spell.id}>
-                        <td><SpellLink spell={spell} /></td>
-                        <td>{formatNumber(damageWithElshocks)}</td>
-                        <td>{formatNumber(damageWithoutElshocks)}</td>
-                        <td>{damageWithElsocksPercentage.toFixed(2)}%</td>
-                      </tr>
-                    );
+                  {tableRow(
+                    SPELLS.LIGHTNING_BOLT,
+                    this.damageDoneByCast[SPELLS.LIGHTNING_BOLT.id].SK,
+                    <>
+                      <SpellIcon spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} />
+                    </>,
+                  )}
+                  {tableRow(
+                    SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT,
+                    this.damageDoneByCast[SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id].SK,
+                    <>
+                      <SpellIcon spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} />
+                    </>,
+                  )}
+                  {RELEVANT_NATURE_DAMAGE.map((spell) => {
+                    return tableRow(spell, this.damageDoneByCast[spell.id].none);
                   })}
                 </tbody>
               </Table>
@@ -320,7 +344,7 @@ export default class ElectrifiedShocks extends Analyzer {
         <TalentSpellText talent={TALENTS.ELECTRIFIED_SHOCKS_TALENT}>
           <ItemDamageDone
             amount={Object.values(this.damageDoneByCast).reduce(
-              (a, b) => a + b.damageGainedByElshocks,
+              (a, b) => a + b['none'].damageGainedByElshocks,
               0,
             )}
           />
