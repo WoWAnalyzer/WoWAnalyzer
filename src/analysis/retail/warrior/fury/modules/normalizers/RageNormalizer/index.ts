@@ -12,10 +12,11 @@ class RageNormalizer extends EventsNormalizer {
   };
 
   normalize(events: AnyEvent[]): AnyEvent[] {
-    events = scaleRageGainEvents(events);
-    events = generateRageEvents(this.selectedCombatant, events);
-    events = attributeRageBonuses(this.selectedCombatant, events);
-    return events;
+    return [
+      scaleRageGainEvents,
+      generateRageEvents.bind(this),
+      attributeRageBonuses.bind(this),
+    ].reduce((e, fn) => fn(e), events);
   }
 }
 

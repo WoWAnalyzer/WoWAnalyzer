@@ -6,9 +6,9 @@ import {
 import SPELLS from 'common/SPELLS';
 import { TALENTS_WARRIOR } from 'common/TALENTS/warrior';
 import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
-import Combatant from 'parser/core/Combatant';
 import { AnyEvent, CastEvent, EventType, HasSource, ResourceChangeEvent } from 'parser/core/Events';
 import { RECKLESSNESS_INCREASE, WARMACHINE_FURY_INCREASE } from './constants';
+import RageNormalizer from './index';
 
 // Auto Attacks
 // https://wowpedia.fandom.com/wiki/Rage
@@ -22,15 +22,12 @@ const DEFAULT_SPEED_1H = 2.6;
  * Goes through all events, and inserts `ResourceChangeEvent`s for rage generation
  * for auto attacks.
  */
-export default function generateRageEvents(
-  selectedCombatant: Combatant,
-  events: AnyEvent[],
-): AnyEvent[] {
+export default function generateRageEvents(this: RageNormalizer, events: AnyEvent[]): AnyEvent[] {
   const updatedEvents: AnyEvent[] = [];
 
-  const hasRecklessness = selectedCombatant.hasTalent(TALENTS_WARRIOR.RECKLESSNESS_TALENT);
+  const hasRecklessness = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.RECKLESSNESS_TALENT);
 
-  const using1H = selectedCombatant.hasTalent(TALENTS_WARRIOR.SINGLE_MINDED_FURY_TALENT);
+  const using1H = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.SINGLE_MINDED_FURY_TALENT);
   const speed = using1H ? DEFAULT_SPEED_1H : DEFAULT_SPEED_2H;
 
   // While it would be nice to look at the speed or slot for weapons, I don't know if that's possible
@@ -38,7 +35,7 @@ export default function generateRageEvents(
   let unbuffedRagePerSwingMH = MH_AUTO_ATTACK_RAGE_PS * speed;
   let unbuffedRagePerSwingOH = OH_AUTO_ATTACK_RAGE_PS * speed;
 
-  if (selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT)) {
+  if (this.selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_FURY_TALENT)) {
     unbuffedRagePerSwingMH += unbuffedRagePerSwingMH * WARMACHINE_FURY_INCREASE;
     unbuffedRagePerSwingOH += unbuffedRagePerSwingOH * WARMACHINE_FURY_INCREASE;
   }
@@ -78,7 +75,7 @@ export default function generateRageEvents(
       }
     }
 
-    if (HasSource(event) && event.sourceID === selectedCombatant.id) {
+    if (HasSource(event) && event.sourceID === this.selectedCombatant.id) {
       // auto-attack
       if (event.type === EventType.Cast && event.ability.guid === SPELLS.MELEE.id) {
         const rage = _getRage(event);
