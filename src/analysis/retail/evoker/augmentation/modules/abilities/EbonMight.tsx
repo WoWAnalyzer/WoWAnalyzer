@@ -408,30 +408,35 @@ class EbonMight extends Analyzer {
 
     ebonMightCooldownCast.buffedTargets.forEach((player) => {
       const currentPlayer = this.combatants.players[player.targetID];
-      const i18nClassName = currentPlayer.spec?.className
-        ? i18n._(currentPlayer.spec.className)
-        : undefined;
-      const className = i18nClassName?.replace(/\s/g, '') ?? '';
-      let currentPlayerRole = 'DPS';
-      if (
-        currentPlayer.spec?.role === ROLES.HEALER ||
-        currentPlayer.spec?.role === ROLES.TANK ||
-        currentPlayer.spec === SPECS.AUGMENTATION_EVOKER
-      ) {
-        if (currentPlayer.spec?.role === ROLES.HEALER) {
-          currentPlayerRole = 'Healer';
-        } else if (currentPlayer.spec?.role === ROLES.TANK) {
-          currentPlayerRole = 'Tank';
-        } else {
-          currentPlayerRole = 'Augmentation';
+      if (currentPlayer.spec) {
+        const i18nClassName = currentPlayer.spec.className
+          ? i18n._(currentPlayer.spec.className)
+          : undefined;
+
+        const className = i18nClassName?.replace(/\s/g, '') ?? '';
+        let currentPlayerRole = 'DPS';
+        if (
+          currentPlayer.spec.role === ROLES.HEALER ||
+          currentPlayer.spec.role === ROLES.TANK ||
+          currentPlayer.spec === SPECS.AUGMENTATION_EVOKER
+        ) {
+          if (currentPlayer.spec.role === ROLES.HEALER) {
+            currentPlayerRole = 'Healer';
+          } else if (currentPlayer.spec.role === ROLES.TANK) {
+            currentPlayerRole = 'Tank';
+          } else {
+            currentPlayerRole = 'Augmentation';
+          }
+          rolePerformance = QualitativePerformance.Fail;
         }
-        rolePerformance = QualitativePerformance.Fail;
+        buffedPlayers.push(
+          <div>
+            Buffed {currentPlayerRole}: <span className={className}>{currentPlayer.name}</span>
+          </div>,
+        );
+      } else {
+        buffedPlayers.push(<div>Buffed {currentPlayer.name}</div>);
       }
-      buffedPlayers.push(
-        <div>
-          Buffed {currentPlayerRole}: <span className={className}>{currentPlayer.name}</span>
-        </div>,
-      );
     });
 
     const performanceCheck = {
