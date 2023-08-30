@@ -3,6 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { AutoSizer } from 'react-virtualized';
 import { VisualizationSpec } from 'react-vega';
+import { Color } from 'vega';
 
 abstract class ResourceGraph extends Analyzer {
   /** Implementer must override this to return the ResourceTracker for the resource to graph */
@@ -14,13 +15,22 @@ abstract class ResourceGraph extends Analyzer {
   includeWasted: boolean = false;
 
   /** Implementer may override this to give the graph line a custom color.
-   *  Color must be in format '#rrggbb', where rr gg and bb are hex values. */
-  lineColor(): string | undefined {
+   *
+   * Accepts a valid CSS color string. For example: #f304d3, #ccc, rgb(253, 12, 134), steelblue.
+   *
+   * Ref https://vega.github.io/vega-lite/docs/types.html#color
+   */
+  lineColor(): Color | undefined {
     return undefined;
   }
 
-  /** Implementer may override this to give the wasted line a custom color. */
-  wastedColor(): string {
+  /** Implementer may override this to give the wasted line a custom color.
+   *
+   * Accepts a valid CSS color string. For example: #f304d3, #ccc, rgb(253, 12, 134), steelblue.
+   *
+   * Ref https://vega.github.io/vega-lite/docs/types.html#color
+   */
+  wastedColor(): Color {
     return 'rgba(255,90,160,1)';
   }
 
