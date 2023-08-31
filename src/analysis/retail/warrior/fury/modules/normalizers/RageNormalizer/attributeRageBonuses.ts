@@ -85,7 +85,7 @@ function removeMultiplicitiveIncrease(
 
   // Update base event
   event.__modified = true;
-  event.resourceChange = base.gain;
+  event.resourceChange = base.gain + base.waste;
   event.waste = base.waste;
 
   // Create new event
@@ -93,7 +93,7 @@ function removeMultiplicitiveIncrease(
     ...event,
     __fabricated: true,
     waste: bonus.waste,
-    resourceChange: bonus.gain,
+    resourceChange: bonus.gain + bonus.waste,
     ability: {
       abilityIcon: referenceTalent.icon,
       guid: referenceTalent.id,
