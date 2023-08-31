@@ -7,6 +7,11 @@ interface GainWaste {
 
 /**
  * Calculates the increase that a multiplicative `increase` has had on `event`.
+ *
+ * - `gain` is the effective gain, not including waste
+ * - `waste` is the amount of waste that was generated
+ *
+ * If you want something corresponding `resourceChange`, use `gain + waste`.
  */
 export default function calculateResourceIncrease(
   event: ResourceChangeEvent,
@@ -14,25 +19,19 @@ export default function calculateResourceIncrease(
 ): { base: GainWaste; bonus: GainWaste } {
   const rawResourceChange = event.resourceChange;
   // Find our increase
-  const resourceIncrease = rawResourceChange - rawResourceChange / (1 + increase);
+  const resourceIncrease = Math.ceil(rawResourceChange - rawResourceChange / (1 + increase));
   const baseResource = rawResourceChange - resourceIncrease;
-  // Noramlize to no decimals (no fractional resources)
-  const noDecimalResourceIncrease = Math.ceil(resourceIncrease);
-  const noDecmialBaseResource = Math.ceil(baseResource);
   // Find how much waste we have for each event
-  const resourceIncreaseWaste =
-    noDecimalResourceIncrease - Math.max(noDecimalResourceIncrease - event.waste, 0);
-  const remainingWaste = Math.max(event.waste - resourceIncreaseWaste, 0);
-  const baseResourceWaste =
-    noDecmialBaseResource - Math.max(noDecmialBaseResource - remainingWaste, 0);
+  const resourceIncreaseWaste = resourceIncrease - Math.max(resourceIncrease - event.waste, 0);
+  const remainingWaste = event.waste - resourceIncreaseWaste;
 
   return {
     base: {
-      gain: noDecmialBaseResource,
-      waste: baseResourceWaste,
+      gain: baseResource - remainingWaste,
+      waste: remainingWaste,
     },
     bonus: {
-      gain: noDecimalResourceIncrease,
+      gain: resourceIncrease - resourceIncreaseWaste,
       waste: resourceIncreaseWaste,
     },
   };
