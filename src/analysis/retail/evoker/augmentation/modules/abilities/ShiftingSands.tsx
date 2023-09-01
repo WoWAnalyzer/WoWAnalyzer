@@ -42,16 +42,16 @@ class ShiftingSands extends Analyzer {
   }
 
   private onCast(event: ApplyBuffEvent) {
-    const shiftingSandsApplications: ShiftingSandsApplications = {
+    const target = this.combatants.players[event.targetID];
+
+    const shiftingSandsApplication: ShiftingSandsApplications = {
       event: event,
-      ebonMightOn: this.combatants.players[event.targetID].hasBuff(
-        SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id,
-      ),
-      prescienceOn: this.combatants.players[event.targetID].hasBuff(SPELLS.PRESCIENCE_BUFF.id),
-      combatant: this.combatants.players[event.targetID],
+      ebonMightOn: target.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id) ?? false,
+      prescienceOn: target.hasBuff(SPELLS.PRESCIENCE_BUFF.id) ?? false,
+      combatant: target,
     };
 
-    this.shiftingSandsApplications.push(shiftingSandsApplications);
+    this.shiftingSandsApplications.push(shiftingSandsApplication);
   }
 
   private finalize() {
