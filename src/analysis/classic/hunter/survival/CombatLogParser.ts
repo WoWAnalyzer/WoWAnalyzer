@@ -1,5 +1,8 @@
 // Base file
 import BaseCombatLogParser from 'parser/classic/CombatLogParser';
+
+import Haste from './modules/features/Haste';
+
 // Shared
 import { suggestion } from 'parser/core/Analyzer';
 import lowRankSpellsSuggestion from 'parser/classic/suggestions/lowRankSpells';
@@ -27,6 +30,7 @@ import growl from './suggestions/growl';
 
 class CombatLogParser extends BaseCombatLogParser {
   static specModules = {
+    haste: Haste,
     // Shared
     lowRankSpells: lowRankSpellsSuggestion(lowRankSpells, whitelist),
     lowRankPetSpells: lowRankSpellsPetSuggestion(lowRankSpellsPet),

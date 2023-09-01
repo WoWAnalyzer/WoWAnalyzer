@@ -32,6 +32,83 @@ interface HasteBuff {
 
 type HasteBuffMap = { [spellId: number]: number | HasteBuff };
 
+const HASTE_BUFFS: HasteBuffMap = {
+  // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
+
+  ...BLOODLUST_BUFFS,
+  [SPELLS.BERSERKING.id]: 0.1,
+  [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
+  [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
+  [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
+
+  //region Demon Hunter
+  [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
+  [SPELLS.FURIOUS_GAZE.id]: 0.1, // Havoc DH haste buff from fully channeling a cast of Eye Beam
+  //endregion
+
+  //region Death Knight Haste Buffs
+  [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
+  [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15,
+  [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
+  [SPELLS.T29_GHOULISH_INFUSION.id]: 0.08,
+  [SPELLS.UNHOLY_GROUND_HASTE_BUFF.id]: 0.05,
+  //endregion
+
+  //region Druid Haste Buffs
+  [SPELLS.STARLORD.id]: {
+    hastePerStack: 0.04,
+  },
+  [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
+  [SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id]: 0.1,
+  [SPELLS.NATURES_GRACE.id]: 0.15,
+  [SPELLS.FRANTIC_MOMENTUM.id]: 0.1, // TODO check for possible tuning updates
+  //endregion
+
+  //region Hunter Haste Buffs
+  [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
+  [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
+  //endregion
+
+  //region Paladin
+  [SPELLS.RELENTLESS_INQUISITOR_TALENT_BUFF.id]: {
+    hastePerStack: 0.01,
+  },
+
+  //region Priest
+  [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.25,
+  [SPELLS.BORROWED_TIME_BUFF.id]: 0.08,
+  [SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF.id]: 0.04,
+  //endregion
+
+  //region Mage
+  [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
+  [TALENTS_MAGE.TOME_OF_ANTONIDAS_TALENT.id]: 0.02,
+  //endregion
+
+  //region Monk
+  [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
+  [SPELLS.FURY_OF_XUEN_BUFF.id]: 0.05,
+  [SPELLS.SECRET_INFUSION_HASTE_BUFF.id]: 0, // manually set in monk files
+  [SPELLS.LESSON_OF_FEAR_BUFF.id]: 0.25,
+  //endregion
+
+  //region Shaman
+  [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0.03,
+  //endregion
+
+  //region CLASSIC
+  // Raids
+  [CLASSIC_SPELLS.SHADOW_CRASH.id]: 1, // Ulduar - General Vezax
+  [CLASSIC_SPELLS.SLAG_IMBUED.id]: 1, // Ulduar - Ignis
+  [CLASSIC_SPELLS.STARLIGHT.id]: 0.5, // Ulduar - Hodir
+  //endregion
+
+  //region Encounter
+  //Raids
+  [SPELLS.ASTRAL_FLARE_BUFF.id]: { hastePerStack: 0.05 }, // Sarkareth
+  //endregion
+};
+
 class Haste extends Analyzer {
   static dependencies = {
     eventEmitter: EventEmitter,
@@ -41,81 +118,8 @@ class Haste extends Analyzer {
   protected statTracker!: StatTracker;
   protected eventEmitter!: EventEmitter;
 
-  static HASTE_BUFFS: HasteBuffMap = {
-    // HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
-
-    ...BLOODLUST_BUFFS,
-    [SPELLS.BERSERKING.id]: 0.1,
-    [SPELLS.IN_FOR_THE_KILL_TALENT_BUFF.id]: 0.1,
-    [SPELLS.REVERSE_ENTROPY_BUFF.id]: 0.15,
-    [SPELLS.ENRAGE.id]: 0.25, // Fury Warrior
-
-    //region Demon Hunter
-    [SPELLS.METAMORPHOSIS_HAVOC_BUFF.id]: 0.25,
-    [SPELLS.FURIOUS_GAZE.id]: 0.1, // Havoc DH haste buff from fully channeling a cast of Eye Beam
-    //endregion
-
-    //region Death Knight Haste Buffs
-    [SPELLS.BONE_SHIELD.id]: 0.1, // Blood BK haste buff from maintaining boneshield
-    [SPELLS.EMPOWER_RUNE_WEAPON.id]: 0.15,
-    [TALENTS_DEATH_KNIGHT.UNHOLY_ASSAULT_TALENT.id]: 0.3,
-    [SPELLS.T29_GHOULISH_INFUSION.id]: 0.08,
-    [SPELLS.UNHOLY_GROUND_HASTE_BUFF.id]: 0.05,
-    //endregion
-
-    //region Druid Haste Buffs
-    [SPELLS.STARLORD.id]: {
-      hastePerStack: 0.04,
-    },
-    [SPELLS.CELESTIAL_ALIGNMENT.id]: 0.1,
-    [SPELLS.INCARNATION_CHOSEN_OF_ELUNE.id]: 0.1,
-    [SPELLS.NATURES_GRACE.id]: 0.15,
-    [SPELLS.FRANTIC_MOMENTUM.id]: 0.1, // TODO check for possible tuning updates
-    //endregion
-
-    //region Hunter Haste Buffs
-    [SPELLS.DIRE_BEAST_BUFF.id]: 0.05,
-    [SPELLS.STEADY_FOCUS_BUFF.id]: 0.07,
-    //endregion
-
-    //region Paladin
-    [SPELLS.RELENTLESS_INQUISITOR_TALENT_BUFF.id]: {
-      hastePerStack: 0.01,
-    },
-
-    //region Priest
-    [TALENTS_PRIEST.POWER_INFUSION_TALENT.id]: 0.25,
-    [SPELLS.BORROWED_TIME_BUFF.id]: 0.08,
-    [SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF.id]: 0.04,
-    //endregion
-
-    //region Mage
-    [TALENTS_MAGE.ICY_VEINS_TALENT.id]: 0.3,
-    [TALENTS_MAGE.TOME_OF_ANTONIDAS_TALENT.id]: 0.02,
-    //endregion
-
-    //region Monk
-    [SPELLS.INVOKERS_DELIGHT_BUFF.id]: 0.33,
-    [SPELLS.FURY_OF_XUEN_BUFF.id]: 0.05,
-    [SPELLS.SECRET_INFUSION_HASTE_BUFF.id]: 0, // manually set in monk files
-    [SPELLS.LESSON_OF_FEAR_BUFF.id]: 0.25,
-    //endregion
-
-    //region Shaman
-    [SPELLS.ELEMENTAL_BLAST_HASTE.id]: 0.03,
-    //endregion
-
-    //region CLASSIC
-    // Raids
-    [CLASSIC_SPELLS.SHADOW_CRASH.id]: 1, // Ulduar - General Vezax
-    [CLASSIC_SPELLS.SLAG_IMBUED.id]: 1, // Ulduar - Ignis
-    [CLASSIC_SPELLS.STARLIGHT.id]: 0.5, // Ulduar - Hodir
-    //endregion
-
-    //region Encounter
-    //Raids
-    [SPELLS.ASTRAL_FLARE_BUFF.id]: { hastePerStack: 0.05 }, // Sarkareth
-    //endregion
+  protected hasteBuffs: HasteBuffMap = {
+    ...HASTE_BUFFS,
   };
 
   get changehaste() {
@@ -137,6 +141,19 @@ class Haste extends Analyzer {
     this.addEventListener(Events.changedebuffstack.to(SELECTED_PLAYER), this.onChangeDebuffStack);
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER), this.onRemoveDebuff);
     this.addEventListener(Events.ChangeStats.to(SELECTED_PLAYER), this.onChangeStats);
+  }
+
+  /**
+   * Adds a buff that affects the haste percentage.
+   *
+   * > HASTE RATING BUFFS ARE HANDLED BY THE STATTRACKER MODULE
+   */
+  addHasteBuff(
+    spellId: number,
+    /** Either a haste rating percentage (10% = 0.1), or a {@link HasteBuff} object. */
+    haste: number | HasteBuff,
+  ): void {
+    this.hasteBuffs[spellId] = haste;
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -245,7 +262,7 @@ class Haste extends Analyzer {
    * Gets the base Haste gain for the provided spell.
    */
   _getBaseHasteGain(spellId: number) {
-    const hasteBuff = Haste.HASTE_BUFFS[spellId] || undefined;
+    const hasteBuff = this.hasteBuffs[spellId] || undefined;
 
     if (typeof hasteBuff === 'number') {
       // A regular number is a static Haste percentage
@@ -282,7 +299,7 @@ class Haste extends Analyzer {
   }
 
   _getHastePerStackGain(spellId: number) {
-    const hasteBuff = Haste.HASTE_BUFFS[spellId] || undefined;
+    const hasteBuff = this.hasteBuffs[spellId] || undefined;
 
     if (typeof hasteBuff === 'number') {
       // hasteBuff being a number is shorthand for static haste only

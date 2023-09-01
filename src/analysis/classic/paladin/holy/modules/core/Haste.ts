@@ -5,7 +5,8 @@ import SPELLS from 'common/SPELLS/classic/paladin';
 class Haste extends CoreHaste {
   constructor(options: Options) {
     super(options);
-    Haste.HASTE_BUFFS[SPELLS.JUDGEMENTS_OF_THE_PURE.id] = 0.15;
+
+    this.addHasteBuff(SPELLS.JUDGEMENTS_OF_THE_PURE.id, 0.15);
   }
 }
 
