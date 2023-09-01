@@ -203,6 +203,7 @@ class Haste extends Analyzer {
     if (debug && 'ability' in event.trigger) {
       const spellName = event.trigger.ability ? event.trigger.ability.name : 'unknown';
       console.log(
+        formatMilliseconds(this.owner.fightDuration),
         `Haste: Current haste: ${formatPercentage(this.current!)}% (haste RATING changed by ${
           event.delta.haste
         } from ${spellName})`,
@@ -244,6 +245,7 @@ class Haste extends Analyzer {
 
       debug &&
         console.log(
+          formatMilliseconds(this.owner.fightDuration),
           `Haste: Current haste: ${formatPercentage(this.current!)}% (lost ${formatPercentage(
             haste,
           )}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`,
@@ -291,6 +293,7 @@ class Haste extends Analyzer {
 
       debug &&
         console.log(
+          formatMilliseconds(this.owner.fightDuration),
           `Haste: Current haste: ${formatPercentage(this.current!)}% (gained ${formatPercentage(
             haste * event.stacksGained,
           )}% from ${SPELLS[spellId] ? SPELLS[spellId].name : spellId})`,
