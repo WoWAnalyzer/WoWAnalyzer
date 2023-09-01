@@ -576,7 +576,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   }
 
   guideSubsection(): JSX.Element {
-    return <CooldownUsage analyzer={this} />;
+    return <CooldownUsage analyzer={this} title="Stormkeeper" />;
   }
 }
 

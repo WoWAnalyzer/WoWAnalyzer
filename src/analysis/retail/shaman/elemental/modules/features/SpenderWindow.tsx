@@ -11,7 +11,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
-import { ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 
 interface ActiveSpenderWindow {
   timestamp: number;
@@ -297,7 +297,12 @@ class SpenderWindow extends Analyzer {
       </div>
     );
 
-    return explanationAndDataSubsection(explanation, data);
+    return explanationAndDataSubsection(
+      explanation,
+      data,
+      GUIDE_EXPLANATION_PERCENT_WIDTH,
+      'Spender window',
+    );
   }
 }
 
