@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
 import { isCurrentExpansion } from 'game/Expansion';
 import Contributor from 'interface/ContributorButton';
@@ -23,7 +24,7 @@ const SpecListItem = ({
   const displayName = [i18nSpecName, i18nClassName].filter(isDefined).join(' ');
 
   const className = i18n._(spec.className).replace(/ /g, '');
-  const Component = exampleReport && isCurrentExpansion(expansion) ? 'a' : 'div';
+  const Component = exampleReport && isCurrentExpansion(expansion) ? Link : 'div';
 
   const maintainers = (
     <ReadableListing>
@@ -36,7 +37,7 @@ const SpecListItem = ({
   return (
     <Component
       key={spec.id}
-      href={exampleReport}
+      to={exampleReport?.replace(/^\/*/, '/')}
       title={exampleReport ? 'Open example report' : undefined}
       className="spec-card"
     >
