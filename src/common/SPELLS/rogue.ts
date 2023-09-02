@@ -119,6 +119,11 @@ const spells = {
     name: 'Sepsis',
     icon: 'ability_ardenweald_rogue',
   },
+  SEPSIS_DEBUFF: {
+    id: 385408,
+    name: 'Sepsis',
+    icon: 'ability_ardenweald_rogue',
+  },
   ANIMACHARGED_CP2: {
     id: 323558,
     name: 'Echoing Reprimand',

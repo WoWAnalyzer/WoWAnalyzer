@@ -36,6 +36,7 @@ import SpenderWindow from './modules/features/SpenderWindow';
 import MaelstromTracker from './modules/resources/MaelstromTracker';
 import MaelstromDetails from './modules/resources/MaelstromDetails';
 import MaelstromGraph from './modules/resources/MaelstromGraph';
+import ElectrifiedShocks from './modules/talents/ElectrifiedShocks';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -67,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     stormkeeper: Stormkeeper,
     ascendance: Ascendance,
     manaSpring: ManaSpring,
+    electrifiedShocks: ElectrifiedShocks,
 
     maelstromTracker: MaelstromTracker,
     maelstromDetails: MaelstromDetails,
