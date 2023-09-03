@@ -24,6 +24,15 @@ class Enrage extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active =
+      this.selectedCombatant.hasTalent(TALENTS.BLOODTHIRST_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.RAMPAGE_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.ONSLAUGHT_TALENT);
+
+    if (!this.active) {
+      return;
+    }
+
     if (this.selectedCombatant.hasTalent(TALENTS.IMPROVED_ENRAGE_TALENT)) {
       // Inform the haste module that if we have enrage, we have 15% haste
       Haste.HASTE_BUFFS[SPELLS.ENRAGE.id] = 0.15;
