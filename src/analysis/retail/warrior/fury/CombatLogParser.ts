@@ -2,6 +2,7 @@ import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
+import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import RageGraph from './modules/core/RageGraph';
 import RageTracker from './modules/core/RageTracker';
@@ -38,6 +39,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Core
     buffs: Buffs,
+    haste: Haste,
 
     // Features
     abilities: Abilities,
