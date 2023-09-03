@@ -46,6 +46,11 @@ const spells = {
     name: 'Accelerating Sandglass',
     icon: 'ability_evoker_timelessness',
   },
+  ACCELERATING_SANDGLASS_DAMAGE: {
+    id: 417458,
+    name: 'Accelerating Sandglass',
+    icon: 'ability_bossmagistrix_timewarp2',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

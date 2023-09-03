@@ -1,8 +1,9 @@
 import ITEMS from 'common/ITEMS/dragonflight';
 import SPELLS from 'common/SPELLS/dragonflight/trinkets';
-import { formatNumber } from 'common/format';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { Item } from 'parser/core/Events';
+import { formatNumber, formatPercentage } from 'common/format';
+import { DamageIcon, HasteIcon } from 'interface/icons';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { DamageEvent, Item } from 'parser/core/Events';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
@@ -17,6 +18,8 @@ class AcceleratingSandglass extends Analyzer {
 
   item!: Item;
   hastePerStack!: number;
+  damageCount = 0;
+  totalDamage = 0;
 
   constructor(options: Options & { statTracker: StatTracker }) {
     super(options);
@@ -33,6 +36,16 @@ class AcceleratingSandglass extends Analyzer {
     options.statTracker.add(SPELLS.ACCELERATING_SANDGLASS_DRAINING.id, {
       haste: this.hastePerStack,
     });
+
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ACCELERATING_SANDGLASS_DAMAGE),
+      this.onDamage,
+    );
+  }
+
+  onDamage(event: DamageEvent) {
+    this.damageCount += 1;
+    this.totalDamage += event.amount + (event.absorbed || 0);
   }
 
   get averageStacks() {
@@ -55,12 +68,25 @@ class AcceleratingSandglass extends Analyzer {
           <>
             During the fight you had an average of {averageStacks.toFixed(1)} stacks, giving{' '}
             {formatNumber(this.hastePerStack)} haste per stack, resulting in an average of{' '}
-            {averageHaste} haste over the duration of the fight
+            {averageHaste} haste over the duration of the fight.
+            <br />
+            <br />
+            Damage triggered {this.damageCount} times for an average of{' '}
+            {formatNumber(this.totalDamage / this.damageCount)} per time, and a total of{' '}
+            {formatNumber(this.totalDamage)} damage.
           </>
         }
       >
         <BoringItemValueText item={this.item}>
-          {averageHaste} <small>haste on average</small>
+          <div>
+            <HasteIcon /> {averageHaste} <small>haste on average</small>
+          </div>
+          <div>
+            <DamageIcon /> {formatNumber(this.owner.getPerSecond(this.totalDamage))} DPS{' '}
+            <small>
+              {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.totalDamage))}%
+            </small>
+          </div>
         </BoringItemValueText>
       </Statistic>
     );
