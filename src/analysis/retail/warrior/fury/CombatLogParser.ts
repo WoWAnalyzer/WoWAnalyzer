@@ -11,7 +11,6 @@ import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import BerserkersTormentNormalizer from './modules/normalizers/BerserkersTorment';
 import EnrageNormalizer from './modules/normalizers/Enrage';
 import RecklessAbandonNormalizer from './modules/normalizers/RecklessAbandon';
 import MissedRampage from './modules/spells/MissedRampage';
@@ -33,7 +32,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizer
     windfuryNormalizer: WindfuryLinkNormalizer,
     rageNormalizer: RageNormalizer,
-    berserkersTormentNormalizer: BerserkersTormentNormalizer,
     recklessAbandonNormalizer: RecklessAbandonNormalizer,
     enrageNormalizer: EnrageNormalizer,
 
