@@ -11,7 +11,8 @@ import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
-import EnrageNormalizer from './modules/normalizers/Enrage';
+import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
+import EnrageRefreshNormalizer from './modules/normalizers/EnrageRefresh';
 import RecklessAbandonNormalizer from './modules/normalizers/RecklessAbandon';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
@@ -33,7 +34,8 @@ class CombatLogParser extends CoreCombatLogParser {
     windfuryNormalizer: WindfuryLinkNormalizer,
     rageNormalizer: RageNormalizer,
     recklessAbandonNormalizer: RecklessAbandonNormalizer,
-    enrageNormalizer: EnrageNormalizer,
+    enrageRefreshNormalizer: EnrageRefreshNormalizer,
+    enrageBeforeBloodthirst: EnrageBeforeBloodthirst,
 
     // Core
     buffs: Buffs,
