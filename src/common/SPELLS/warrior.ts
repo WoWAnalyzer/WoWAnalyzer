@@ -233,6 +233,11 @@ const spells = {
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
+  ONSLAUGHT: {
+    id: 315720,
+    name: 'Onslaught',
+    icon: 'ability_warrior_trauma',
+  },
 
   // Arms/Fury:
   PIERCING_HOWL: {
@@ -288,6 +293,21 @@ const spells = {
     id: 311193,
     name: 'Elysian Might',
     icon: 'ability_bastion_warrior',
+  },
+  WILD_STRIKES: {
+    id: 392778,
+    name: 'Wild Strikes',
+    icon: 'ability_ghoulfrenzy',
+  },
+  AVATAR_SHARED: {
+    id: 107574,
+    name: 'Avatar',
+    icon: 'warrior_talent_icon_avatar',
+  },
+  AVATAR_PROTECTION: {
+    id: 401150,
+    name: 'Avatar',
+    icon: 'warrior_talent_icon_avatar',
   },
 
   // Arms:
@@ -484,6 +504,11 @@ const spells = {
     id: 385062,
     name: "Odyn's Fury",
     icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  FRENZY: {
+    id: 335082,
+    name: 'Frenzy',
+    icon: 'ability_rogue_bloodyeye',
   },
 
   // Protection:

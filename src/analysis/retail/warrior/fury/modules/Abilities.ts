@@ -21,10 +21,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ONSLAUGHT_TALENT.id,
+        spell: SPELLS.ONSLAUGHT.id,
         enabled: combatant.hasTalent(TALENTS.ONSLAUGHT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 18,
+        cooldown: (haste: number) => 18 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -63,7 +63,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: !false,
       },
       {
         spell: SPELLS.SLAM.id,
@@ -110,7 +109,9 @@ class Abilities extends CoreAbilities {
       // Cooldown
       {
         spell: SPELLS.RECKLESSNESS.id,
-        enabled: combatant.hasTalent(TALENTS.RECKLESSNESS_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.RECKLESSNESS_TALENT) ||
+          combatant.hasTalent(TALENTS.BERSERKERS_TORMENT_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         gcd: null,
@@ -135,7 +136,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.AVATAR_SHARED_TALENT.id,
+        spell: SPELLS.AVATAR_SHARED.id,
         enabled: combatant.hasTalent(TALENTS.AVATAR_SHARED_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
