@@ -105,6 +105,14 @@ export default class ThistleTea extends Analyzer {
             okay because it's part of your opener.
           </div>
         );
+      } else if (wasted <= 10) {
+        performance = QualitativePerformance.Ok;
+        details = (
+          <div>
+            You wasted {wasted} <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> from this cast. The
+            wasted energy in this case is fairly small, but can be improved.
+          </div>
+        );
       } else {
         performance = QualitativePerformance.Fail;
         details = (
