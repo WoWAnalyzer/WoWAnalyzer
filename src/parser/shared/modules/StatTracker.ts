@@ -129,7 +129,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Other
-    [SPELLS.WAFTING_DEVOTION.id]: { haste: 1743.14 },
     // endregion
 
     // region Racials

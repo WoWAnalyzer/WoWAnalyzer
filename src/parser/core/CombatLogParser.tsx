@@ -88,6 +88,7 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
+import WaftingDevotion from 'parser/retail/modules/features/enchants/dragonflight/WaftingDevotion';
 import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/AcceleratingSandglass';
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
 
@@ -208,6 +209,7 @@ class CombatLogParser {
     voiceOfTheSilentStar: VoiceOfTheSilentStar,
 
     // Enchants
+    waftingDevotion: WaftingDevotion,
 
     // Crafted
 
