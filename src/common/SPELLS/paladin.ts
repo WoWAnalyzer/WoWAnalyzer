@@ -340,6 +340,11 @@ const spells = {
     name: 'Daybreak',
     icon: 'spell_holy_aspiration',
   },
+  SHIELD_OF_THE_RIGHTEOUS_HOLY: {
+    id: 415091,
+    name: 'Shield of the Righteous',
+    icon: 'ability_paladin_shieldofvengeance',
+  },
 
   // Retribution Paladin:
   BLADE_OF_JUSTICE: {

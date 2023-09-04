@@ -44,7 +44,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS.id,
+        spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS_HOLY.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
       },
       {
