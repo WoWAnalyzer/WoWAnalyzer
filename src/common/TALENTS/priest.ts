@@ -1570,7 +1570,7 @@ const talents = {
   VOID_ERUPTION_TALENT: {
     id: 228260,
     name: 'Void Eruption',
-    icon: 'spell_priest_void_blast',
+    icon: 'spell_priest_void-blast',
     maxRanks: 1,
     entryIds: [103674],
     definitionIds: [{ id: 108679, specId: 258 }],
