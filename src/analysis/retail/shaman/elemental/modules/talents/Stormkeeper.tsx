@@ -69,7 +69,7 @@ const WINDOW_START_SPELLS = [
   TALENTS.CHAIN_LIGHTNING_TALENT.id,
   TALENTS.LAVA_BURST_TALENT.id,
   TALENTS.EARTH_SHOCK_TALENT.id,
-  TALENTS.ELEMENTAL_BLAST_TALENT.id,
+  TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
   TALENTS.EARTHQUAKE_TALENT.id,
 ];
 
@@ -130,8 +130,8 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   constructor(options: Options) {
     super({ spell: TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT }, options);
 
-    this.stSpender = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)
-      ? TALENTS.ELEMENTAL_BLAST_TALENT
+    this.stSpender = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT)
+      ? TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT
       : TALENTS.EARTH_SHOCK_TALENT;
     this.active =
       this.selectedCombatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) > 0;
@@ -558,11 +558,11 @@ class Stormkeeper extends MajorCooldown<SKCast> {
           <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> &rarr;)
           <SpellIcon spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} /> &rarr;
           <SpellIcon spell={TALENTS.FROST_SHOCK_TALENT} /> &rarr;
           <SpellIcon spell={TALENTS.LAVA_BURST_TALENT} /> &rarr;
-          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_TALENT} /> &rarr;
+          <SpellIcon spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> &rarr;
           <SpellIcon spell={SPELLS.LIGHTNING_BOLT} />
         </p>
         <p>

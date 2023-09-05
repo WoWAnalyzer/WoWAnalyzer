@@ -80,8 +80,8 @@ class SpenderWindow extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT)) {
-      this.stMSSpender = TALENTS.ELEMENTAL_BLAST_TALENT;
+    if (this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT)) {
+      this.stMSSpender = TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT;
     }
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
