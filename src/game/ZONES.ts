@@ -12,7 +12,7 @@ interface Encounter {
   name: string;
 }
 
-interface Zone {
+export interface Zone {
   id: number;
   name: string;
   frozen?: boolean;

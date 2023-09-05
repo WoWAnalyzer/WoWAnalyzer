@@ -29,6 +29,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 9, 5), 'Add Classic Guild page', jazminite),
   change(date(2023, 9, 2), 'Fix some spec links not working in some scenarions', nullDozzer),
   change(date(2023, 8, 30), 'Update SpellLinks to automatically support talents.', ToppleTheNun),
   change(date(2023, 8, 27), 'Fixed broken Warcraft Logs link on the character page.', Bigsxy),
