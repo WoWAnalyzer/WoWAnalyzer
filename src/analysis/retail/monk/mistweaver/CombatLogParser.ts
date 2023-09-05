@@ -59,7 +59,6 @@ import MistsOfLife from './modules/spells/MistsOfLife';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
-import SpiritOfTheCrane from './modules/spells/SpiritOfTheCrane';
 import VivaciousVivification from './modules/spells/VivaciousVivify';
 import Upwelling from './modules/spells/Upwelling';
 import YulonsWhisper from './modules/spells/YulonsWhisper';
@@ -169,7 +168,6 @@ class CombatLogParser extends CoreCombatLogParser {
     revival: Revival,
     risingMist: RisingMist,
     risingSunRevival: RisingSunRevival,
-    spiritOfTheCrane: SpiritOfTheCrane,
     soothingMist: SoothingMist,
     thunderFocusTea: ThunderFocusTea,
     upwelling: Upwelling,
