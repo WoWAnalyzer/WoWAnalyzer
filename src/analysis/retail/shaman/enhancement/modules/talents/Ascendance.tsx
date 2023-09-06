@@ -2,6 +2,7 @@ import Events, {
   AnyEvent,
   CastEvent,
   DamageEvent,
+  FightEndEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
@@ -36,6 +37,7 @@ const SIMULATED_MEDIAN_CASTS_PER_DRE = 13;
 
 interface Casts {
   count: number;
+  noProcBeforeEnd?: boolean | undefined;
 }
 
 interface AscendanceCooldownCast extends SpellCast {
@@ -62,7 +64,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   protected windstrikeOnCooldown: boolean = true;
   protected lastCooldownWasteCheck: number = 0;
 
-  protected castsPerAscendance: Casts[] = [{ count: 0 }];
+  protected castsBeforeAscendanceProc: Casts[] = [{ count: 0 }];
 
   constructor(options: Options) {
     super({ spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT }, options);
@@ -117,7 +119,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
       this.onAscendanceEnd,
     );
-    this.addEventListener(Events.fightend, this.onAscendanceEnd);
+    this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.WINDSTRIKE_CAST),
       this.detectWindstrikeCasts,
@@ -158,7 +160,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
    * Deeply Rooted Elements appears as a fabricated cast
    */
   onAscendanceCast(event: CastEvent) {
-    this.castsPerAscendance.push({ count: 0 });
+    this.castsBeforeAscendanceProc.push({ count: 0 });
     this.currentCooldown ??= {
       event: event,
       casts: [],
@@ -203,7 +205,15 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
   }
 
   onProcEligibleCast(event: CastEvent) {
-    this.castsPerAscendance.at(-1)!.count += 1;
+    this.castsBeforeAscendanceProc.at(-1)!.count += 1;
+  }
+
+  onFightEnd(event: FightEndEvent) {
+    const cast = this.castsBeforeAscendanceProc.at(-1);
+    if (cast) {
+      cast.noProcBeforeEnd = true;
+    }
+    this.onAscendanceEnd(event);
   }
 
   hasteAdjustedCooldownWasteSinceLastWasteCheck(event: AnyEvent): number {
@@ -386,7 +396,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       const casts = fillerSpells[spellId];
       return (
         <>
-          <li>
+          <li key={`${cast.startTime}-${spellId}`}>
             <div>
               {casts} x <SpellLink spell={spellId} />
             </div>
@@ -414,11 +424,18 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
   statistic() {
     if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT)) {
-      const casts = this.castsPerAscendance.map((cast: Casts) => cast.count);
-      const totalCasts = casts.reduce((total, current) => (total += current), 0);
-      const minToProc = Math.min(...casts);
-      const maxToProc = Math.max(...casts);
-      const median = getMedian(casts)!;
+      // don't include casts that didn't lead to a proc in casts per proc statistic
+      const castsBeforeAscendanceProc = this.castsBeforeAscendanceProc
+        .filter((cast: Casts) => !cast.noProcBeforeEnd)
+        .map((cast: Casts) => cast.count);
+      const minToProc = Math.min(...castsBeforeAscendanceProc);
+      const maxToProc = Math.max(...castsBeforeAscendanceProc);
+      const median = getMedian(castsBeforeAscendanceProc)!;
+      // do include them in overall casts to get the expected procs based on simulation results
+      const totalCasts = this.castsBeforeAscendanceProc.reduce(
+        (total, current: Casts) => (total += current.count),
+        0,
+      );
       return (
         <Statistic
           position={STATISTIC_ORDER.OPTIONAL()}
@@ -440,7 +457,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
               {formatNumber(median)} <small>casts per proc</small>
             </div>
             <div>
-              {formatNumber(casts.length)}{' '}
+              {formatNumber(castsBeforeAscendanceProc.length)}{' '}
               <small>
                 <SpellLink spell={TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT} /> procs
               </small>

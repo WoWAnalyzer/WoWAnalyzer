@@ -4,6 +4,7 @@ import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun } from 'CONTRIBUTO
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 9, 6), <>Fixed <SpellLink spell={TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT} /> statistic having one more proc than actually occured.</>, Seriousnes),
   change(date(2023, 8, 4), <>Added filler spell details to Ascendance analyzer</>, Seriousnes),
   change(date(2023, 7, 31), <>Updated example report</>, Seriousnes),
   change(date(2023, 7, 31), <>Reordered guide sections</>, Seriousnes),
