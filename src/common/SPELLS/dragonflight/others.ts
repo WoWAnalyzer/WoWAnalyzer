@@ -16,6 +16,12 @@ const others = {
     name: 'Power Beyond Imagination',
     icon: 'inv_cosmicvoid_debuff',
   },
+  // 'Disintegrate' ability from The Forgotten Experiements encounter
+  RIONTHUS_DISINTEGRATE: {
+    id: 405457,
+    name: 'Disintegrate',
+    icon: 'ability_evoker_disintegrate',
+  },
 } satisfies Record<string, Spell>;
 
 export default others;

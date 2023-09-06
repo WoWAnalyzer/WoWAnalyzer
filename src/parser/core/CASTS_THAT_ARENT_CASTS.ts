@@ -23,6 +23,10 @@ const spells: number[] = [
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
 
+  //region Boss abilities
+  SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
+  //endregion
+
   //region Consumables
   //endregion
 
