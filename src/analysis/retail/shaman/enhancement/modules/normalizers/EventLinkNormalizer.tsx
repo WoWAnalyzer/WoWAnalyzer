@@ -76,6 +76,16 @@ const chainLightningDamageLink: EventLink = {
   anyTarget: true,
 };
 
+const maelstromWeaponSenderLink: EventLink = {
+  linkRelation: MAELSTROM_WEAPON_SPEND_LINK,
+  linkingEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
+  linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+  referencedEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
+  referencedEventType: [EventType.Cast, EventType.FreeCast],
+  backwardBufferMs: 25,
+  anyTarget: true,
+};
+
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
     super(options, [
@@ -83,6 +93,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       thorimsInvocationCastLink,
       stormStrikeLink,
       chainLightningDamageLink,
+      maelstromWeaponSenderLink,
     ]);
   }
 }

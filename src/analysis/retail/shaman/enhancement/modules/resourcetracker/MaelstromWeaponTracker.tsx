@@ -6,17 +6,21 @@ import Events, {
   RefreshBuffEvent,
   ChangeBuffStackEvent,
   EventType,
-  AbilityEvent,
-  SourcedEvent,
   CastEvent,
   FreeCastEvent,
-  AddRelatedEvent,
+  LinkedEvent,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+  ClassResources,
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import { MAELSTROM_WEAPON_SPEND_LINK } from '../normalizers/EventLinkNormalizer';
+
+const DEBUG = false;
 
 export const PERFECT_WASTED_PERCENT = 0.1;
 export const GOOD_WASTED_PERCENT = 0.2;
@@ -44,8 +48,8 @@ export default class extends ResourceTracker {
 
   spellUsable!: SpellUsable;
 
-  spender: (AbilityEvent<any> & SourcedEvent<any>) | null = null;
-  nextRefreshIsWaste = false;
+  ignoreNextRefresh = true;
+  isDead: boolean = false;
   lastAppliedTime = 0;
   expiredWaste = 0;
 
@@ -64,14 +68,6 @@ export default class extends ResourceTracker {
     this.cooldownPerMaelstromGained = WITCH_DOCTORS_ANCESTRY_REDUCTION_MS[rank];
 
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.onRefresh,
-    );
-    this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.onStacksChange,
-    );
-    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
       this.onFeralSpiritCast,
     );
@@ -83,9 +79,26 @@ export default class extends ResourceTracker {
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
       this.onFeralSpiritCast,
     );
+
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
-      this.onSpender,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onChangeStack,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onChangeStack,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onChangeStack,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onChangeStack,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onRefresh,
     );
   }
 
@@ -115,40 +128,73 @@ export default class extends ResourceTracker {
     return QualitativePerformance.Fail;
   }
 
-  onStacksChange(event: ChangeBuffStackEvent) {
-    if (event.stacksGained > 0) {
-      this._applyBuilder(
-        event.ability.guid,
-        event.stacksGained,
-        0,
-        event.timestamp,
-        this.getMaelstromResource(event),
-      );
-      if (this.current === 10) {
-        this.nextRefreshIsWaste = true;
-      }
+  onChangeStack(
+    event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent,
+  ) {
+    let newStacks = 0;
+    if (event.type === EventType.ApplyBuff) {
+      newStacks = 1;
+    } else if (event.type === EventType.ApplyBuffStack) {
+      newStacks = event.stack;
+    } else if (event.type === EventType.RemoveBuffStack) {
+      newStacks = event.stack;
+    }
+
+    const change = newStacks - this.current;
+    if (change === 0) {
+      DEBUG &&
+        console.warn(
+          `Unexpected zero gain @ ${this.owner.formatTimestamp(event.timestamp, 1)}`,
+          event,
+        );
+      return;
+    }
+    const resource: ClassResources = {
+      amount: change > 0 ? newStacks : this.current,
+      max: this.maxResource,
+      type: this.resource.id,
+    };
+
+    if (change > 0) {
+      this._applyBuilder(event.ability.guid, change, 0, event.timestamp, resource);
       this.reduceFeralSpiritCooldown();
     } else {
-      this.nextRefreshIsWaste = false;
-      const resource = this.getMaelstromResource(event);
-      if (this.spender) {
-        AddRelatedEvent(this.spender, MAELSTROM_WEAPON_SPEND_LINK, event);
-        this._applySpender(this.spender, -event.stacksGained, resource);
-        this.spender = null;
+      this.ignoreNextRefresh = false;
+      const spenderEvent = event._linkedEvents?.find(
+        (le: LinkedEvent) => le.relation === MAELSTROM_WEAPON_SPEND_LINK,
+      )?.event as CastEvent | FreeCastEvent | undefined;
+      if (spenderEvent) {
+        this._applySpender(spenderEvent, -change, resource);
       } else {
-        console.error(
-          `Unknown spender error - ${event.stacksGained} spent at ${
-            event.timestamp
-          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
+        DEBUG &&
+          console.warn(
+            `Resource change @ ${this.owner.formatTimestamp(
+              event.timestamp,
+              1,
+            )} is not linked to a maelstrom spender`,
+            event,
+          );
+        // if there is no linked event, the stacks expired naturally or death
+        this._logAndPushUpdate(
+          {
+            type: 'drain',
+            timestamp: event.timestamp,
+            current: 0,
+            max: this.maxResource,
+            rate: 0,
+            atCap: false,
+          },
+          newStacks,
+          newStacks,
+          false,
         );
-        this._applySpender(event, -event.stacksGained);
       }
     }
   }
 
   onRefresh(event: RefreshBuffEvent) {
-    if (this.nextRefreshIsWaste) {
-      this.nextRefreshIsWaste = false;
+    if (this.ignoreNextRefresh) {
+      this.ignoreNextRefresh = false;
       return;
     }
 
@@ -203,9 +249,5 @@ export default class extends ResourceTracker {
       max: this.maxResource,
       type: MaelstromWeaponResource.id,
     };
-  }
-
-  onSpender(event: CastEvent | FreeCastEvent) {
-    this.spender = event;
   }
 }
