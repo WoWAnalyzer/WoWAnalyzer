@@ -21,6 +21,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {modules.lifebloom.guideSubsection}
         {modules.efflorescence.guideSubsection}
         {modules.swiftmend.guideSubsection}
+        {info.combatant.hasTalent(TALENTS_DRUID.GROVE_GUARDIANS_TALENT) &&
+          modules.groveGuardians.guideSubsection}
         {info.combatant.hasTalent(TALENTS_DRUID.SOUL_OF_THE_FOREST_RESTORATION_TALENT) &&
           modules.soulOfTheForest.guideSubsection}
         {info.combatant.hasTalent(TALENTS_DRUID.CENARION_WARD_TALENT) &&
