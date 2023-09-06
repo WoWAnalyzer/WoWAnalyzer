@@ -412,11 +412,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        // This is no error. We actually use the elemental shaman elemental blast spell id.
-        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT.id,
+        /** This is not a mistake.
+         * The spell id for both specs is the Elemental Shaman talent id.
+         * Enabled MUST check the enhancement version of the talent, while Charges needs to use the elemental version
+         */
+        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT),
         charges:
-          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT) +
+          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT) +
           combatant.getRepeatedTalentCount(TALENTS_SHAMAN.LAVA_BURST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12,
