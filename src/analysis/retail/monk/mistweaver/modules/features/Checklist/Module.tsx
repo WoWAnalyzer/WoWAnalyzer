@@ -12,9 +12,9 @@ import Vivify from '../../spells/Vivify';
 import ChiBurst from '../../spells/ChiBurst';
 import JadeSerpentStatue from '../../spells/JadeSerpentStatue';
 import Lifecycles from '../../spells/Lifecycles';
-import ManaTea from '../../spells/ManaTea';
+//import ManaTea from '../../spells/ManaTea';
 import RefreshingJadeWind from '../../spells/RefreshingJadeWind';
-import RenewingMistDuringManaTea from '../../spells/RenewingMistDuringManaTea';
+//import RenewingMistDuringManaTea from '../../spells/RenewingMistDuringManaTea';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 import VivaciousVivification from '../../spells/VivaciousVivify';
@@ -33,10 +33,10 @@ class Checklist extends BaseChecklist {
     essenceFontTargetsHit: EssenceFontTargetsHit,
     refreshingJadeWind: RefreshingJadeWind,
     chiBurst: ChiBurst,
-    manaTea: ManaTea,
+    //manaTea: ManaTea,
     lifecycles: Lifecycles,
     thunderFocusTea: ThunderFocusTea,
-    renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    //renewingMistDuringManaTea: RenewingMistDuringManaTea,
     spinningCraneKick: SpinningCraneKick,
     vivify: Vivify,
     jadeSerpentStatue: JadeSerpentStatue,
@@ -55,10 +55,10 @@ class Checklist extends BaseChecklist {
   protected essenceFontTargetsHit!: EssenceFontTargetsHit;
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected chiBurst!: ChiBurst;
-  protected manaTea!: ManaTea;
+  //protected manaTea!: ManaTea;
   protected lifecycles!: Lifecycles;
   protected thunderFocusTea!: ThunderFocusTea;
-  protected renewingMistDuringManaTea!: RenewingMistDuringManaTea;
+  //protected renewingMistDuringManaTea!: RenewingMistDuringManaTea;
   protected spinningCraneKick!: SpinningCraneKick;
   protected vivify!: Vivify;
   protected jadeSerpentStatue!: JadeSerpentStatue;
@@ -84,12 +84,9 @@ class Checklist extends BaseChecklist {
           envelopingBreath: this.envelopingBreath.suggestionThresholds,
           refreshingJadeWind: this.refreshingJadeWind.suggestionThresholds,
           chiBurst: this.chiBurst.suggestionThresholds,
-          manaTea: this.manaTea.suggestionThresholds,
-          manaTeaOverhealing: this.manaTea.suggestionThresholdsOverhealing,
           spinningCraneKick: this.spinningCraneKick.suggestionThresholds,
           lifecycles: this.lifecycles.suggestionThresholds,
           thunderFocusTea: this.thunderFocusTea.suggestionThresholds,
-          renewingMistDuringManaTea: this.renewingMistDuringManaTea.suggestionThresholds,
           vivify: this.vivify.suggestionThresholds,
           jadeSerpentStatue: this.jadeSerpentStatue.suggestionThresholds,
           soothingMist: this.soothingMist.suggestionThresholdsCasting,

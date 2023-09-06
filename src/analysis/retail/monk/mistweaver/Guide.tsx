@@ -200,13 +200,6 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />
-      {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) && (
-        <CastEfficiencyBar
-          spellId={TALENTS_MONK.MANA_TEA_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
     </SubSection>
   );
 }
