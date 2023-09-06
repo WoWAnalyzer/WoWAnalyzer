@@ -173,17 +173,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         name="Pick the right tools for the fight"
         description="The throughput gain of some talents might vary greatly. Consider switching to a more reliable alternative if something is underperforming regularly."
       >
-        {combatant.hasTalent(TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT) && (
-          <Requirement
-            name={
-              <>
-                <SpellLink spell={TALENTS_MONK.SPIRIT_OF_THE_CRANE_TALENT} /> mana returned
-              </>
-            }
-            thresholds={thresholds.spiritOfTheCrane}
-          />
-        )}
-
         {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) && (
           <Requirement
             name={

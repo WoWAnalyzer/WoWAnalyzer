@@ -15,7 +15,6 @@ import Lifecycles from '../../spells/Lifecycles';
 import ManaTea from '../../spells/ManaTea';
 import RefreshingJadeWind from '../../spells/RefreshingJadeWind';
 import RenewingMistDuringManaTea from '../../spells/RenewingMistDuringManaTea';
-import SpiritOfTheCrane from '../../spells/SpiritOfTheCrane';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import Component from './Component';
 import VivaciousVivification from '../../spells/VivaciousVivify';
@@ -34,7 +33,6 @@ class Checklist extends BaseChecklist {
     essenceFontTargetsHit: EssenceFontTargetsHit,
     refreshingJadeWind: RefreshingJadeWind,
     chiBurst: ChiBurst,
-    spiritOfTheCrane: SpiritOfTheCrane,
     manaTea: ManaTea,
     lifecycles: Lifecycles,
     thunderFocusTea: ThunderFocusTea,
@@ -57,7 +55,6 @@ class Checklist extends BaseChecklist {
   protected essenceFontTargetsHit!: EssenceFontTargetsHit;
   protected refreshingJadeWind!: RefreshingJadeWind;
   protected chiBurst!: ChiBurst;
-  protected spiritOfTheCrane!: SpiritOfTheCrane;
   protected manaTea!: ManaTea;
   protected lifecycles!: Lifecycles;
   protected thunderFocusTea!: ThunderFocusTea;
@@ -87,7 +84,6 @@ class Checklist extends BaseChecklist {
           envelopingBreath: this.envelopingBreath.suggestionThresholds,
           refreshingJadeWind: this.refreshingJadeWind.suggestionThresholds,
           chiBurst: this.chiBurst.suggestionThresholds,
-          spiritOfTheCrane: this.spiritOfTheCrane.suggestionThresholds,
           manaTea: this.manaTea.suggestionThresholds,
           manaTeaOverhealing: this.manaTea.suggestionThresholdsOverhealing,
           spinningCraneKick: this.spinningCraneKick.suggestionThresholds,
