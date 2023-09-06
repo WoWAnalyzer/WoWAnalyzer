@@ -148,7 +148,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       this.onSKCast,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STORMKEEPER_BUFF_AND_CAST),
       this.onSKFalloff,
     );
     this.addEventListener(

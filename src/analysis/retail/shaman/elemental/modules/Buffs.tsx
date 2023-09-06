@@ -31,7 +31,9 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
         triggeredBySpellId: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
-        enabled: combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) ||
+          combatant.hasTalent(TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT),
         timelineHighlight: true,
       },
       {
