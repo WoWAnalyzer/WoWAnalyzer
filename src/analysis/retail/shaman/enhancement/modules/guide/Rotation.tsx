@@ -44,12 +44,12 @@ export default function Rotation({ modules, info }: GuideProps<typeof CombatLogP
         <br />
         <br />
         Potential areas of inaccuracy:
-        <ul>
-          <li>Holding cooldowns for raid events</li>
-          <li>Multiple targets</li>
-          <li>Movement or periods of downtime</li>
-        </ul>
       </p>
+      <ul>
+        <li>Holding cooldowns for raid events</li>
+        <li>Multiple targets</li>
+        <li>Movement or periods of downtime</li>
+      </ul>
     </Section>
   );
 }
