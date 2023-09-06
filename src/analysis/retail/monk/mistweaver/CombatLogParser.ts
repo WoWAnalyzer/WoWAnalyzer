@@ -53,11 +53,11 @@ import ChiBurst from './modules/spells/ChiBurst';
 import InvokeChiJi from './modules/spells/InvokeChiJi';
 import JadeSerpentStatue from './modules/spells/JadeSerpentStatue';
 import Lifecycles from './modules/spells/Lifecycles';
-import ManaTea from './modules/spells/ManaTea';
+//import ManaTea from './modules/spells/ManaTea';
 import MistyPeaks from './modules/spells/MistyPeaks';
 import MistsOfLife from './modules/spells/MistsOfLife';
 import RefreshingJadeWind from './modules/spells/RefreshingJadeWind';
-import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
+//import RenewingMistDuringManaTea from './modules/spells/RenewingMistDuringManaTea';
 import RisingMist from './modules/spells/RisingMist';
 import VivaciousVivification from './modules/spells/VivaciousVivify';
 import Upwelling from './modules/spells/Upwelling';
@@ -158,13 +158,13 @@ class CombatLogParser extends CoreCombatLogParser {
     jadeBond: JadeBond,
     lifecycles: Lifecycles,
     mistWrap: MistWrap,
-    manaTea: ManaTea,
+    //manaTea: ManaTea,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
     refreshingJadeWind: RefreshingJadeWind,
     renewingMist: RenewingMist,
-    renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    //renewingMistDuringManaTea: RenewingMistDuringManaTea,
     revival: Revival,
     risingMist: RisingMist,
     risingSunRevival: RisingSunRevival,
