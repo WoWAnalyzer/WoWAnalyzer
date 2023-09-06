@@ -9,7 +9,7 @@ import CHANGELOG from './CHANGELOG';
 const config: Config = {
   contributors: [Seriousnes],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: '10.1.5',
+  patchCompatibility: '10.1.7',
   isPartial: false,
   description: (
     <>
@@ -24,7 +24,7 @@ const config: Config = {
     </>
   ),
   exampleReport:
-    '/report/THf6VKq7PYd8FCg3/6-Heroic+Rashok,+the+Elder+-+Kill+(3:26)/Seriousnes/standard',
+    '/report/p4MjCghDVP6TGvfQ/1-Heroic+Rashok,+the+Elder+-+Kill+(2:36)/Seriousnes/standard',
   spec: SPECS.ENHANCEMENT_SHAMAN,
   changelog: CHANGELOG,
   guideDefault: true,
