@@ -74,7 +74,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.MANA_TEA_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
+        {/* {combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
           !combatant.hasTalent(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT) && (
             <Requirement
               name={
@@ -85,7 +85,7 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
               }
               thresholds={thresholds.renewingMistDuringManaTea}
             />
-          )}
+          )} */}
         {combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.CHI_BURST_TALENT.id} />
         )}
