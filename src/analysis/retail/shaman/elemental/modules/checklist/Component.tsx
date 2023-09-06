@@ -53,7 +53,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
         )}
         {(combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) ||
           combatant.hasTalent(TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT)) && (
-          <AbilityRequirement spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id} />
+          <AbilityRequirement spell={SPELLS.STORMKEEPER_BUFF_AND_CAST.id} />
         )}
         {combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT) && (
           <AbilityRequirement spell={TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id} />
