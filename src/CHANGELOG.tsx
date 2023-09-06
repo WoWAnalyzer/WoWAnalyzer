@@ -29,6 +29,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 9, 6), "Reworked getRepeatedTalentCount to use getTalentRank behind the scenes, and renamed it to getMultipleTalentRanks.", Putro),
   change(date(2023, 9, 5), 'Update talent data for patch 10.1.7', emallson),
   change(date(2023, 9, 2), 'Fix some spec links not working in some scenarions', nullDozzer),
   change(date(2023, 8, 30), 'Update SpellLinks to automatically support talents.', ToppleTheNun),

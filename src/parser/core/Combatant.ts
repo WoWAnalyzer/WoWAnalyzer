@@ -128,13 +128,11 @@ class Combatant extends Entity {
   }
 
   /**
-   * Return the number of times that a talent has been taken for repeated
-   * talents (like Empower Rune Weapon or Stormkeeper).
+   * Return the number of ranks that the provided talents have in total.
+   * Useful for repeated talents (like Empower Rune Weapon or Stormkeeper).
    */
-  getRepeatedTalentCount(talent: Talent): number {
-    return this._combatantInfo.talentTree.filter((entry) =>
-      talent.entryIds.some((talentEntryId) => talentEntryId === entry.id),
-    ).length;
+  getMultipleTalentRanks(...talents: Talent[]): number {
+    return talents.reduce((count, talent) => count + this.getTalentRank(talent), 0);
   }
 
   /** Returns the number of points the combatant has in the specified talent. If the talent

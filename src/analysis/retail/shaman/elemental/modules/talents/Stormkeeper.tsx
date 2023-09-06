@@ -134,7 +134,10 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       ? TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT
       : TALENTS.EARTH_SHOCK_TALENT;
     this.active =
-      this.selectedCombatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) > 0;
+      this.selectedCombatant.getMultipleTalentRanks(
+        TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT,
+        TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT,
+      ) > 0;
     if (!this.active) {
       return;
     }

@@ -105,7 +105,10 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
         enabled: combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        charges: combatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+        charges: combatant.getMultipleTalentRanks(
+          TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT,
+          TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT,
+        ),
         cooldown: 60,
         gcd: {
           base: 1500,
