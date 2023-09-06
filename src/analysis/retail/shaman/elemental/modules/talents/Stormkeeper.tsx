@@ -141,7 +141,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onEventDuringSK);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORMKEEPER_BUFF_AND_CAST),
       this.onSKCast,
     );
     this.addEventListener(
@@ -276,7 +276,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   onSKDamage(event: DamageEvent) {
     if (
       !this.selectedCombatant.hasBuff(
-        TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
+        SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
         event.timestamp,
         ON_CAST_BUFF_REMOVAL_GRACE_MS,
       )

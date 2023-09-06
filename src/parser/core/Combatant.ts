@@ -132,7 +132,9 @@ class Combatant extends Entity {
    * talents (like Empower Rune Weapon or Stormkeeper).
    */
   getRepeatedTalentCount(talent: Talent): number {
-    return this._combatantInfo.talentTree.filter((entry) => entry.spellID === talent.id).length;
+    return this._combatantInfo.talentTree.filter((entry) =>
+      talent.entryIds.some((talentEntryId) => talentEntryId === entry.id),
+    ).length;
   }
 
   /** Returns the number of points the combatant has in the specified talent. If the talent

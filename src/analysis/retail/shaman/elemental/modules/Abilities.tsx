@@ -102,7 +102,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
+        spell: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
         enabled: combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
         charges: combatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
