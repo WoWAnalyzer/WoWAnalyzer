@@ -58,8 +58,8 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
         {combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT) && (
           <AbilityRequirement spell={TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT) && (
-          <AbilityRequirement spell={TALENTS.ELEMENTAL_BLAST_TALENT.id} />
+        {combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT) && (
+          <AbilityRequirement spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id} />
         )}
       </Rule>
       <Rule
