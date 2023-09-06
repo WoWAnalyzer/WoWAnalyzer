@@ -290,7 +290,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101842],
     definitionIds: [{ id: 106901, specId: 264 }],
-    manaCost: 7500,
+    manaCost: 1500,
   },
   EARTHEN_HARMONY_TALENT: {
     id: 382020,
@@ -403,17 +403,22 @@ const talents = {
     entryIds: [101827],
     definitionIds: [{ id: 106860, specId: 263 }],
   },
-  ELEMENTAL_BLAST_TALENT: {
+  ELEMENTAL_BLAST_ELEMENTAL_TALENT: {
     id: 117014,
     name: 'Elemental Blast',
     icon: 'shaman_talent_elementalblast',
     maxRanks: 1,
-    entryIds: [101831, 101866],
-    definitionIds: [
-      { id: 106886, specId: 263 },
-      { id: 106842, specId: 262 },
-    ],
+    entryIds: [101866],
+    definitionIds: [{ id: 106842, specId: 262 }],
     maelstromCost: 90,
+  },
+  ELEMENTAL_BLAST_ENHANCEMENT_TALENT: {
+    id: 394150,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+    maxRanks: 1,
+    entryIds: [101831],
+    definitionIds: [{ id: 106886, specId: 263 }],
   },
   ELEMENTAL_EQUILIBRIUM_TALENT: {
     id: 378271,
@@ -670,22 +675,20 @@ const talents = {
     manaCost: 2160,
   },
   HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
-    id: 5394,
+    id: 392916,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
     maxRanks: 1,
     entryIds: [101900],
     definitionIds: [{ id: 106920, specId: 264 }],
-    manaCost: 900,
   },
   HEALING_STREAM_TOTEM_SHARED_TALENT: {
-    id: 5394,
+    id: 392915,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
     maxRanks: 1,
     entryIds: [101998],
     definitionIds: [{ id: 106993, specId: 262 }],
-    manaCost: 900,
   },
   HEALING_TIDE_TOTEM_TALENT: {
     id: 108280,
@@ -1247,7 +1250,7 @@ const talents = {
     definitionIds: [{ id: 106869, specId: 263 }],
   },
   STORMKEEPER_1_ELEMENTAL_TALENT: {
-    id: 191634,
+    id: 392714,
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
     maxRanks: 1,
@@ -1255,7 +1258,7 @@ const talents = {
     definitionIds: [{ id: 106820, specId: 262 }],
   },
   STORMKEEPER_2_ELEMENTAL_TALENT: {
-    id: 191634,
+    id: 392763,
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
     maxRanks: 1,

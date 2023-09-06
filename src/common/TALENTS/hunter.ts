@@ -1060,9 +1060,9 @@ const talents = {
     entryIds: [100518],
     definitionIds: [{ id: 105520, specId: 255 }],
   },
-  SENTINEL_OWL_TALENT: {
-    id: 388045,
-    name: 'Sentinel Owl',
+  SENTINEL_TALENT: {
+    id: 393505,
+    name: 'Sentinel',
     icon: 'ability_hunter_sentinelowl',
     maxRanks: 1,
     entryIds: [100520],

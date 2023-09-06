@@ -59,8 +59,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ELEMENTAL_BLAST_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT),
+        spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
