@@ -36,6 +36,9 @@ export const ABILITIES_AFFECTED_BY_HEALING_INCREASES: number[] = [
   SPELLS.ADAPTIVE_SWARM_HEAL.id,
   SPELLS.GROVE_TENDING.id,
   SPELLS.VERDANCY.id,
+  SPELLS.GROVE_GUARDIANS_SWIFTMEND.id,
+  SPELLS.GROVE_GUARDIANS_NOURISH.id,
+  SPELLS.GROVE_GUARDIANS_WILD_GROWTH.id,
 ];
 
 // procs Nature's Vigil
@@ -53,10 +56,17 @@ export const SINGLE_TARGET_HEALING: Spell[] = [
   SPELLS.SWIFTMEND,
   SPELLS.ADAPTIVE_SWARM_HEAL,
   SPELLS.GROVE_TENDING,
+  // Grove Guardians don't count ):
 ];
 
 export const ABILITIES_AFFECTED_BY_HEALING_INCREASES_SPELL_OBJECTS =
   ABILITIES_AFFECTED_BY_HEALING_INCREASES.map((id) => SPELLS[id]);
+
+/** IDs of heals that get triple benefit from mastery */
+export const TRIPLE_MASTERY_BENEFIT_IDS: number[] = [
+  TALENTS_DRUID.NOURISH_TALENT.id,
+  SPELLS.GROVE_GUARDIANS_NOURISH.id,
+];
 
 /** IDs of all buffs that give a mastery stack */
 export const MASTERY_STACK_BUFF_IDS: number[] = [
