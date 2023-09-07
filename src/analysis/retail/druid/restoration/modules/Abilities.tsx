@@ -109,6 +109,19 @@ class Abilities extends CoreAbilities {
           base: 1500,
         },
       },
+      {
+        spell: TALENTS_DRUID.GROVE_GUARDIANS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DRUID.GROVE_GUARDIANS_TALENT),
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: null, // odd that it's off GCD, but it is
+        cooldown: 20,
+        charges: 3,
+        castEfficiency: {
+          recommendedEfficiency: 0.8,
+          averageIssueEfficiency: 0.6,
+          majorIssueEfficiency: 0.3,
+        },
+      },
       // Cooldowns
       {
         spell: SPELLS.TRANQUILITY_CAST.id,

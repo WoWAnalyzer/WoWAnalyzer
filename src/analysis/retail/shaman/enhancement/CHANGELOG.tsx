@@ -1,9 +1,10 @@
 import { change, date } from 'common/changelog';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun } from 'CONTRIBUTORS';
+import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun, Putro } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 9, 6), <>Fix <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT} /> not working after 10.1.7.</>, Putro),
   change(date(2023, 8, 4), <>Added filler spell details to Ascendance analyzer</>, Seriousnes),
   change(date(2023, 7, 31), <>Updated example report</>, Seriousnes),
   change(date(2023, 7, 31), <>Reordered guide sections</>, Seriousnes),

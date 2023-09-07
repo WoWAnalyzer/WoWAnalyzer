@@ -46,7 +46,7 @@ class LuxuriantSoil extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            This is the healing attributable to rejuvenations spawned by the Unending Growth talent.
+            This is the healing attributable to rejuvenations spawned by the Luxuriant Soil talent.
             This amount includes the mastery benefit.
             <ul>
               <li>

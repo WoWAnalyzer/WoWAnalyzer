@@ -330,6 +330,11 @@ const spells = {
     name: 'Unlimited Power Buff',
     icon: 'ability_shaman_ascendance',
   },
+  STORMKEEPER_BUFF_AND_CAST: {
+    id: 191634,
+    name: 'Stormkeeper',
+    icon: 'ability_thunderking_lightningwhip',
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 157331,

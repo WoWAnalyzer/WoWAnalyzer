@@ -134,18 +134,21 @@ class Stormkeeper extends MajorCooldown<SKCast> {
       ? TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT
       : TALENTS.EARTH_SHOCK_TALENT;
     this.active =
-      this.selectedCombatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) > 0;
+      this.selectedCombatant.getMultipleTalentRanks(
+        TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT,
+        TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT,
+      ) > 0;
     if (!this.active) {
       return;
     }
 
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onEventDuringSK);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.STORMKEEPER_BUFF_AND_CAST),
       this.onSKCast,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.STORMKEEPER_BUFF_AND_CAST),
       this.onSKFalloff,
     );
     this.addEventListener(
@@ -276,7 +279,7 @@ class Stormkeeper extends MajorCooldown<SKCast> {
   onSKDamage(event: DamageEvent) {
     if (
       !this.selectedCombatant.hasBuff(
-        TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
+        SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
         event.timestamp,
         ON_CAST_BUFF_REMOVAL_GRACE_MS,
       )
