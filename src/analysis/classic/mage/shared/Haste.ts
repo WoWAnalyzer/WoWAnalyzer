@@ -2,7 +2,8 @@ import CoreHaste from 'parser/shared/modules/Haste';
 import SPELLS from 'common/SPELLS/classic/mage';
 
 class Haste extends CoreHaste {
-  static HASTE_BUFFS = {
+  hasteBuffs = {
+    ...super.hasteBuffs,
     [SPELLS.ICY_VEINS.id]: 0.2,
   };
 }
