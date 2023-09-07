@@ -65,7 +65,7 @@ const Table = styled.table`
 const RELEVANT_NATURE_DAMAGE = [
   TALENTS.EARTH_SHOCK_TALENT,
   SPELLS.EARTH_SHOCK_OVERLOAD,
-  TALENTS.ELEMENTAL_BLAST_TALENT,
+  TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
   SPELLS.ELEMENTAL_BLAST_OVERLOAD,
   SPELLS.LIGHTNING_BOLT,
   SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT,
@@ -116,7 +116,7 @@ export default class ElectrifiedShocks extends Analyzer {
   }
   onDamage(event: DamageEvent) {
     let modifier: 'none' | 'SK' = 'none';
-    if (this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.STORMKEEPER_BUFF_AND_CAST.id)) {
       if (event.ability.guid === SPELLS.LIGHTNING_BOLT.id) {
         modifier = 'SK';
       } else if (event.ability.guid === SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id) {

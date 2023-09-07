@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
 
   spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
-    const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_HOLY_TALENT);
+    const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT);
     const hasUnbreakable = combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT);
     const unbreakable = (baseCD: number) => {
       if (hasUnbreakable) {

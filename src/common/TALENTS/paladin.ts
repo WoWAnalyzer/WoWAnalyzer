@@ -79,17 +79,15 @@ const talents = {
     definitionIds: [{ id: 107476, specId: 66 }],
   },
   AVENGING_CRUSADER_TALENT: {
-    id: 216331,
+    id: 394088,
     name: 'Avenging Crusader',
     icon: 'ability_paladin_veneration',
     maxRanks: 1,
     entryIds: [102568],
     definitionIds: [{ id: 107573, specId: 65 }],
-    holyPowerCost: 3,
-    manaCost: 1800,
   },
   AVENGING_WRATH_MIGHT_TALENT: {
-    id: 31884,
+    id: 384442,
     name: 'Avenging Wrath: Might',
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
@@ -101,7 +99,7 @@ const talents = {
     ],
   },
   AVENGING_WRATH_TALENT: {
-    id: 31884,
+    id: 384376,
     name: 'Avenging Wrath',
     icon: 'spell_holy_avenginewrath',
     maxRanks: 1,
@@ -409,7 +407,7 @@ const talents = {
     definitionIds: [{ id: 107465, specId: 66 }],
   },
   CRUSADE_TALENT: {
-    id: 231895,
+    id: 384392,
     name: 'Crusade',
     icon: 'ability_paladin_sanctifiedwrath',
     maxRanks: 1,
@@ -1108,13 +1106,12 @@ const talents = {
     definitionIds: [{ id: 119835, specId: 70 }],
   },
   LIGHT_OF_THE_MARTYR_TALENT: {
-    id: 183998,
+    id: 219562,
     name: 'Light of the Martyr',
-    icon: 'ability_paladin_lightofthemartyr',
+    icon: 'spell_holy_power',
     maxRanks: 1,
     entryIds: [102540],
     definitionIds: [{ id: 107545, specId: 65 }],
-    manaCost: 800,
   },
   LIGHT_OF_THE_TITANS_TALENT: {
     id: 378405,
@@ -1364,21 +1361,16 @@ const talents = {
     entryIds: [115034],
     definitionIds: [{ id: 120041, specId: 65 }],
   },
-  SANCTIFIED_WRATH_HOLY_TALENT: {
+  SANCTIFIED_WRATH_TALENT: {
     id: 53376,
     name: 'Sanctified Wrath',
     icon: 'ability_paladin_judgementsofthejust',
     maxRanks: 1,
-    entryIds: [102578],
-    definitionIds: [{ id: 107583, specId: 65 }],
-  },
-  SANCTIFIED_WRATH_PROTECTION_TALENT: {
-    id: 31884,
-    name: 'Sanctified Wrath',
-    icon: 'ability_paladin_judgementsofthejust',
-    maxRanks: 1,
-    entryIds: [102611],
-    definitionIds: [{ id: 107616, specId: 66 }],
+    entryIds: [102611, 102578],
+    definitionIds: [
+      { id: 107616, specId: 66 },
+      { id: 107583, specId: 65 },
+    ],
   },
   SANCTIFY_TALENT: {
     id: 382536,
@@ -1496,7 +1488,7 @@ const talents = {
     definitionIds: [{ id: 107530, specId: 70 }],
   },
   SENTINEL_TALENT: {
-    id: 389539,
+    id: 385438,
     name: 'Sentinel',
     icon: 'spell_holy_holynova',
     maxRanks: 1,

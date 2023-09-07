@@ -106,10 +106,10 @@ class Abilities extends CoreAbilities {
         cooldown: 1,
         enabled:
           combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT) ||
-          combatant.hasTalent(TALENTS.SHADOWSTEP_SPEC_TALENT),
+          combatant.hasTalent(TALENTS.SHADOWSTEP_ASSASSINATION_TALENT),
         charges:
           combatant.getTalentRank(TALENTS.SHADOWSTEP_SHARED_TALENT) +
-          combatant.getTalentRank(TALENTS.SHADOWSTEP_SPEC_TALENT),
+          combatant.getTalentRank(TALENTS.SHADOWSTEP_ASSASSINATION_TALENT),
       },
       {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
