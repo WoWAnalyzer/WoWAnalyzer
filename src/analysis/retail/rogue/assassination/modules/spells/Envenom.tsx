@@ -17,7 +17,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import Enemies from 'parser/shared/modules/Enemies';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
-const MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS = 5000;
+const MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS = 3000;
 
 export default class Envenom extends Analyzer {
   static dependencies = {

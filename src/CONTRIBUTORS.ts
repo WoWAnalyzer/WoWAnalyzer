@@ -78,7 +78,7 @@ export const Fashathus: Contributor = {
   ],
 };
 export const Bigsxy: Contributor = {
-  nickname: 'big',
+  nickname: 'Bigsxy',
   github: 'juemrami',
   discord: 'bigsexy#2241',
   mains: [
@@ -2281,4 +2281,10 @@ export const beckeeh: Contributor = {
       link: 'https://classic.warcraftlogs.com/character/eu/nethergarde-keep/beckeeh',
     },
   ],
+};
+export const Whispyr: Contributor = {
+  nickname: 'Whispyr',
+  github: 'JannickMueller-Whispyr',
+  discord: 'Whispyr#0001',
+  avatar: avatar('Whispyr-avatar.png'),
 };

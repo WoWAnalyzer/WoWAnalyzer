@@ -19,7 +19,7 @@ export default class SpellMaelstromCost extends SpellResourceCost {
     if (spellID === TALENTS.EARTHQUAKE_TALENT.id || spellID === TALENTS.EARTH_SHOCK_TALENT.id) {
       return originalCost - 5 * this.eotsRanks;
     }
-    if (spellID === TALENTS.ELEMENTAL_BLAST_TALENT.id) {
+    if (spellID === TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id) {
       return originalCost - Math.floor(7.5 * this.eotsRanks);
     }
 

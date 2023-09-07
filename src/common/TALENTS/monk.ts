@@ -389,6 +389,14 @@ const talents = {
     entryIds: [101475],
     definitionIds: [{ id: 106477, specId: 269 }],
   },
+  ENERGIZING_BREW_TALENT: {
+    id: 422031,
+    name: 'Energizing Brew',
+    icon: 'ui_profession_herbalism',
+    maxRanks: 1,
+    entryIds: [101380],
+    definitionIds: [{ id: 106382, specId: 270 }],
+  },
   ENVELOPING_MIST_TALENT: {
     id: 124682,
     name: 'Enveloping Mist',
@@ -565,7 +573,7 @@ const talents = {
     definitionIds: [{ id: 106472, specId: 268 }],
   },
   FORTIFYING_BREW_TALENT: {
-    id: 115203,
+    id: 388917,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
@@ -874,8 +882,8 @@ const talents = {
     name: 'Lifecycles',
     icon: 'ability_monk_souldance',
     maxRanks: 1,
-    entryIds: [101380],
-    definitionIds: [{ id: 106382, specId: 270 }],
+    entryIds: [101379],
+    definitionIds: [{ id: 106381, specId: 270 }],
   },
   LIFE_COCOON_TALENT: {
     id: 116849,
@@ -895,12 +903,13 @@ const talents = {
     definitionIds: [{ id: 106450, specId: 268 }],
   },
   MANA_TEA_TALENT: {
-    id: 197908,
+    id: 115869,
     name: 'Mana Tea',
     icon: 'monk_ability_cherrymanatea',
     maxRanks: 1,
-    entryIds: [101379],
-    definitionIds: [{ id: 106381, specId: 270 }],
+    entryIds: [101395],
+    definitionIds: [{ id: 106397, specId: 270 }],
+    manaCost: 2500,
   },
   MARK_OF_THE_CRANE_TALENT: {
     id: 220357,
@@ -909,14 +918,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101434],
     definitionIds: [{ id: 106436, specId: 269 }],
-  },
-  MASTERY_OF_MIST_TALENT: {
-    id: 281231,
-    name: 'Mastery of Mist',
-    icon: 'spell_nature_wispsplodegreen',
-    maxRanks: 1,
-    entryIds: [101395],
-    definitionIds: [{ id: 106397, specId: 270 }],
   },
   MENDING_PROLIFERATION_TALENT: {
     id: 388509,
@@ -1291,14 +1292,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [101427],
     definitionIds: [{ id: 106429, specId: 269 }],
-  },
-  SPIRIT_OF_THE_CRANE_TALENT: {
-    id: 210802,
-    name: 'Spirit of the Crane',
-    icon: 'monk_stance_redcrane',
-    maxRanks: 1,
-    entryIds: [101361],
-    definitionIds: [{ id: 106363, specId: 270 }],
   },
   SPIRIT_OF_THE_OX_TALENT: {
     id: 400629,

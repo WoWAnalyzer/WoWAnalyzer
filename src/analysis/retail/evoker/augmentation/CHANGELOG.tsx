@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+    change(date(2023, 9, 2), <>Fix issue with <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> module when targets wasn't defined.</>, Vollmer),
     change(date(2023, 8, 31), <>Fix issue with <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> module when targets buffs wasn't defined.</>, Vollmer),
     change(date(2023, 8, 30), <>Fix issue with <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> module when buff target spec wasn't defined.</>, Vollmer),
     change(date(2023, 8, 25), <>Add <SpellLink spell={TALENTS.LEAPING_FLAMES_TALENT} /> module.</>, Vollmer),

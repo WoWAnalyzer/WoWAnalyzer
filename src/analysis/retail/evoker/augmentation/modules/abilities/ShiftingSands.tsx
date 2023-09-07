@@ -44,6 +44,16 @@ class ShiftingSands extends Analyzer {
   private onCast(event: ApplyBuffEvent) {
     const target = this.combatants.players[event.targetID];
 
+    /** The target isn't in the combatants list
+     * Rare edgecase that appears to be caused by some form of log corruption.
+     * Our analysis code will not work with this, so we'll just ignore this cast.
+     *
+     * Link for future reference:
+     * /report/t6Nv7xz9XJy8DAdq/22-Heroic+Balakar+Khan+-+Kill+(0:53)/Modria/standard */
+    if (!target) {
+      return;
+    }
+
     const shiftingSandsApplication: ShiftingSandsApplications = {
       event: event,
       ebonMightOn: target.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id) ?? false,
