@@ -413,13 +413,12 @@ const talents = {
     manaCost: 2500,
   },
   DRAIN_SOUL_TALENT: {
-    id: 198590,
+    id: 388667,
     name: 'Drain Soul',
     icon: 'spell_shadow_haunting',
     maxRanks: 1,
     entryIds: [91566],
     definitionIds: [{ id: 96568, specId: 265 }],
-    manaCostPerSecond: 2500,
   },
   DREADLASH_TALENT: {
     id: 264078,
@@ -1290,7 +1289,7 @@ const talents = {
     manaCost: 5000,
   },
   SUMMON_SOULKEEPER_TALENT: {
-    id: 386256,
+    id: 386244,
     name: 'Summon Soulkeeper',
     icon: 'spell_fel_elementaldevastation',
     maxRanks: 1,

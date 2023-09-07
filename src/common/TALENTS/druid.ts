@@ -103,7 +103,7 @@ const talents = {
     definitionIds: [{ id: 108171, specId: 103 }],
   },
   BERSERK_PERSISTENCE_TALENT: {
-    id: 50334,
+    id: 377779,
     name: 'Berserk: Persistence',
     icon: 'ability_druid_berserk',
     maxRanks: 1,
@@ -111,7 +111,7 @@ const talents = {
     definitionIds: [{ id: 108216, specId: 104 }],
   },
   BERSERK_RAVAGE_TALENT: {
-    id: 50334,
+    id: 343240,
     name: 'Berserk: Ravage',
     icon: 'ability_druid_berserk',
     maxRanks: 1,
@@ -119,7 +119,7 @@ const talents = {
     definitionIds: [{ id: 108221, specId: 104 }],
   },
   BERSERK_TALENT: {
-    id: 106951,
+    id: 343223,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
     maxRanks: 1,
@@ -127,7 +127,7 @@ const talents = {
     definitionIds: [{ id: 108167, specId: 103 }],
   },
   BERSERK_UNCHECKED_AGGRESSION_TALENT: {
-    id: 50334,
+    id: 377623,
     name: 'Berserk: Unchecked Aggression',
     icon: 'ability_druid_berserk',
     maxRanks: 1,
@@ -200,7 +200,7 @@ const talents = {
     definitionIds: [{ id: 108160, specId: 103 }],
   },
   CELESTIAL_ALIGNMENT_TALENT: {
-    id: 194223,
+    id: 395022,
     name: 'Celestial Alignment',
     icon: 'spell_nature_natureguardian',
     maxRanks: 1,
@@ -280,14 +280,6 @@ const talents = {
     entryIds: [103291],
     definitionIds: [{ id: 108296, specId: 102 }],
     manaCost: 600,
-  },
-  DEEP_FOCUS_TALENT: {
-    id: 403949,
-    name: 'Deep Focus',
-    icon: 'spell_nature_naturesblessing',
-    maxRanks: 1,
-    entryIds: [114809],
-    definitionIds: [{ id: 119816, specId: 105 }],
   },
   DENIZEN_OF_THE_DREAM_TALENT: {
     id: 394065,
@@ -382,9 +374,9 @@ const talents = {
     id: 392124,
     name: 'Embrace of the Dream',
     icon: 'ability_druid_healinginstincts',
-    maxRanks: 2,
-    entryIds: [103126],
-    definitionIds: [{ id: 108131, specId: 105 }],
+    maxRanks: 1,
+    entryIds: [117101],
+    definitionIds: [{ id: 122113, specId: 105 }],
   },
   FELINE_SWIFTNESS_TALENT: {
     id: 131768,
@@ -434,14 +426,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [109844],
     definitionIds: [{ id: 114849, specId: 102 }],
-  },
-  FORESTS_FLOW_TALENT: {
-    id: 400531,
-    name: "Forest's Flow",
-    icon: 'ability_druid_giftoftheearthmother',
-    maxRanks: 1,
-    entryIds: [114726],
-    definitionIds: [{ id: 119733, specId: 105 }],
   },
   FORESTWALK_TALENT: {
     id: 400129,
@@ -539,6 +523,15 @@ const talents = {
     maxRanks: 1,
     entryIds: [103196],
     definitionIds: [{ id: 108201, specId: 104 }],
+  },
+  GROVE_GUARDIANS_TALENT: {
+    id: 102693,
+    name: 'Grove Guardians',
+    icon: 'ability_druid_forceofnature',
+    maxRanks: 1,
+    entryIds: [117102],
+    definitionIds: [{ id: 122114, specId: 105 }],
+    manaCost: 600,
   },
   GROVE_TENDING_TALENT: {
     id: 383192,
@@ -678,7 +671,7 @@ const talents = {
     definitionIds: [{ id: 108183, specId: 103 }],
   },
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: {
-    id: 102560,
+    id: 394013,
     name: 'Incarnation: Chosen of Elune',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
@@ -686,7 +679,7 @@ const talents = {
     definitionIds: [{ id: 114844, specId: 102 }],
   },
   INCARNATION_GUARDIAN_OF_URSOC_TALENT: {
-    id: 102558,
+    id: 394786,
     name: 'Incarnation: Guardian of Ursoc',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
@@ -880,6 +873,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [103322],
     definitionIds: [{ id: 108327, specId: 102 }],
+  },
+  MASTER_SHAPESHIFTER_TALENT: {
+    id: 289237,
+    name: 'Master Shapeshifter',
+    icon: 'ability_druid_mastershapeshifter',
+    maxRanks: 1,
+    entryIds: [114809],
+    definitionIds: [{ id: 119816, specId: 105 }],
   },
   MATTED_FUR_TALENT: {
     id: 385786,
@@ -1955,8 +1956,8 @@ const talents = {
     name: 'Wild Synthesis',
     icon: 'spell_nature_protectionformnature',
     maxRanks: 1,
-    entryIds: [114725],
-    definitionIds: [{ id: 119732, specId: 105 }],
+    entryIds: [117103],
+    definitionIds: [{ id: 122115, specId: 105 }],
   },
   YSERAS_GIFT_TALENT: {
     id: 145108,

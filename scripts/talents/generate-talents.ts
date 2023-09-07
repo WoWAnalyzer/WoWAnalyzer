@@ -22,10 +22,10 @@ import {
   TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '10.1.5.50469';
+const LIVE_WOW_BUILD_NUMBER = '10.1.7.51187';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
-const PTR_WOW_BUILD_NUMBER = '10.1.5.50469';
+const PTR_WOW_BUILD_NUMBER = '10.1.7.51187';
 const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/ptr/talents.json';
 const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
 
