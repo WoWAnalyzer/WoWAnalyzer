@@ -178,6 +178,21 @@ const spells = {
     name: 'Enveloping Breath',
     icon: 'ability_monk_jadeserpentbreath',
   },
+  MANA_TEA_STACK: {
+    id: 115867,
+    name: 'Mana Tea',
+    icon: 'inv_misc_herb_jadetealeaf',
+  },
+  MANA_TEA_CAST: {
+    id: 115294,
+    name: 'Mana Tea',
+    icon: 'monk_ability_cherrymanatea',
+  },
+  MANA_TEA_BUFF: {
+    id: 197908,
+    name: 'Mana Tea',
+    icon: 'monk_ability_cherrymanatea',
+  },
   SOOTHING_BREATH: {
     id: 343737,
     name: 'Soothing Breath',

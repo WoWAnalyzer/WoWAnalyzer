@@ -26,11 +26,11 @@ class RenewingMistDuringManaTea extends Analyzer {
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_BUFF),
       this.manaTeaStart,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_BUFF),
       this.manaTeaEnd,
     );
 
