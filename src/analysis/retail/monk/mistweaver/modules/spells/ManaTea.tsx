@@ -25,7 +25,10 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
 import { PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
-import { getManaTeaStacksConsumed } from '../../normalizers/CastLinkNormalizer';
+import {
+  getManaTeaChannelDuration,
+  getManaTeaStacksConsumed,
+} from '../../normalizers/CastLinkNormalizer';
 
 interface ManaTeaTracker {
   timestamp: number;
@@ -36,6 +39,7 @@ interface ManaTeaTracker {
   healing: number;
   stacksConsumed: number;
   manaRestored: number;
+  channelTime: number;
 }
 
 class ManaTea extends Analyzer {
@@ -94,6 +98,7 @@ class ManaTea extends Analyzer {
       overhealing: 0,
       stacksConsumed: getManaTeaStacksConsumed(event),
       manaRestored: this.manaRestoredSinceLastApply,
+      channelTime: getManaTeaChannelDuration(event),
     });
     this.manaRestoredSinceLastApply = 0;
   }
@@ -161,6 +166,13 @@ class ManaTea extends Analyzer {
 
   get avgManaRestored() {
     return this.manaRestoredMT / this.manateaCount || 0;
+  }
+
+  get avgChannelDuration() {
+    return (
+      this.castTrackers.reduce((prev: number, cur: ManaTeaTracker) => prev + cur.channelTime, 0) /
+      this.castTrackers.length
+    );
   }
 
   get suggestionThresholds() {
@@ -370,6 +382,7 @@ class ManaTea extends Analyzer {
               Average <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> stacks:{' '}
               {formatNumber(this.avgStacks)}
             </div>
+            <div>Average channel duration: {(this.avgChannelDuration / 1000).toFixed(1)}s</div>
           </>
         }
       >

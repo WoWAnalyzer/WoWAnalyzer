@@ -558,4 +558,8 @@ export function getManaTeaStacksConsumed(event: ApplyBuffEvent) {
   return Math.round(diff / 1000);
 }
 
+export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
+  return GetRelatedEvents(event, MT_BUFF_REMOVAL)[0].timestamp - event.timestamp;
+}
+
 export default CastLinkNormalizer;
