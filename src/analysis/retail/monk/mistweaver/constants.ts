@@ -43,6 +43,7 @@ export const RAPID_DIFFUSION_DURATION = 3000; // per rank
 export const RISING_MIST_EXTENSION = 4000;
 export const ENVELOPING_MIST_INCREASE = 0.3;
 export const MISTWRAP_INCREASE = 0.1;
+export const YULON_REDUCTION = 0.5;
 
 export const LIFECYCLES_MANA_PERC_REDUCTION = 0.25;
 

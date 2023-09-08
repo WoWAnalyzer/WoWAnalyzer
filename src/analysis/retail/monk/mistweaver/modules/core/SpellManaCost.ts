@@ -1,16 +1,19 @@
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { ApplyBuffStackEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { CF_BUFF_PER_STACK } from '../../constants';
+import {
+  CF_BUFF_PER_STACK,
+  MANA_TEA_REDUCTION,
+  MAX_CHIJI_STACKS,
+  YULON_REDUCTION,
+} from '../../constants';
+import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 
 const CF_SPELLS: Set<number> = new Set([SPELLS.VIVIFY.id, TALENTS_MONK.ENVELOPING_MIST_TALENT.id]);
 
-class MWSpellManaCost extends SpellResourceCost {
-  static resourceType = RESOURCE_TYPES.MANA;
+class MWSpellManaCost extends SpellManaCost {
   currentBuffs: Set<number> = new Set();
   hasCF: boolean = false;
   hasChiji: boolean = false;
@@ -49,22 +52,30 @@ class MWSpellManaCost extends SpellResourceCost {
   }
 
   getCurrentMultiplierForSpell(spellID: number): number {
-    if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id) ||
+      (spellID === SPELLS.VIVIFY.id &&
+        this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id))
+    ) {
       return 0;
     }
     const cloudedFocusMultiplier =
       this.hasCF && CF_SPELLS.has(spellID) ? 1 - this.cfStacks * CF_BUFF_PER_STACK : 1;
     const chijiMultiplier =
       this.hasChiji && spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id
-        ? 1 - this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) / 3
+        ? 1 -
+          this.selectedCombatant.getBuffStacks(SPELLS.INVOKE_CHIJI_THE_RED_CRANE_BUFF.id) /
+            MAX_CHIJI_STACKS
         : 1;
     const yulonMultiplier =
       !this.hasChiji &&
       spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id &&
       this.selectedCombatant.hasBuff(SPELLS.INVOKE_YULON_BUFF.id)
-        ? 0.5
+        ? YULON_REDUCTION
         : 1;
-    const manaTeaMultiplier = this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id) ? 0.5 : 1;
+    const manaTeaMultiplier = this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)
+      ? MANA_TEA_REDUCTION
+      : 1;
     return manaTeaMultiplier * cloudedFocusMultiplier * chijiMultiplier * yulonMultiplier;
   }
 }
