@@ -88,6 +88,7 @@ import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
 import CallToDominance from '../../../../parser/retail/modules/items/dragonflight/CallToDominance';
+import MWSpellManaCost from './modules/core/SpellManaCost';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,6 +98,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotRemovalNormalizer: HotRemovalNormalizer,
 
     // Core
+    mwSpellManaCost: MWSpellManaCost,
     lowHealthHealing: LowHealthHealing,
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
