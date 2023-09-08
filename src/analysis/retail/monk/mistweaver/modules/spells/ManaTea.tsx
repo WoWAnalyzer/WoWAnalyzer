@@ -12,6 +12,7 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   HealEvent,
+  RefreshBuffEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -58,6 +59,7 @@ class ManaTea extends Analyzer {
   effectiveHealing: number = 0;
   manaPerManaTeaGoal: number = 0;
   overhealing: number = 0;
+  stacksWasted: number = 0;
   manaRestoredSinceLastApply: number = 0;
   protected abilityTracker!: AbilityTracker;
 
@@ -78,6 +80,10 @@ class ManaTea extends Analyzer {
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_BUFF),
       this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_STACK),
+      this.onStackWaste,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivCast);
@@ -158,6 +164,10 @@ class ManaTea extends Analyzer {
   onManaRestored(event: ResourceChangeEvent) {
     this.manaRestoredSinceLastApply += event.resourceChange;
     this.manaRestoredMT += event.resourceChange;
+  }
+
+  onStackWaste(event: RefreshBuffEvent) {
+    this.stacksWasted += 1;
   }
 
   get avgMtSaves() {
@@ -388,6 +398,7 @@ class ManaTea extends Analyzer {
               {this.avgStacks.toFixed(1)}
             </div>
             <div>Average channel duration: {(this.avgChannelDuration / 1000).toFixed(1)}s</div>
+            <div>Total wasted stacks: {this.stacksWasted}</div>
           </>
         }
       >
