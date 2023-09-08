@@ -4,7 +4,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { GlobalCooldownEvent } from 'parser/core/Events';
-import getUptimeGraph, { UptimeHistoryEntry } from './getUptimeGraph';
+import getUptimeGraph, { UptimeHistoryEntry } from 'parser/shared/modules/getUptimeGraph';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
