@@ -342,7 +342,6 @@ class Disintegrate extends Analyzer {
     ) {
       return null;
     }
-    console.log(this.dragonrageBuffCounter);
     return (
       <SubSection title="Disintegrate">
         <p>
