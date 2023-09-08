@@ -8,7 +8,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import ThresholdPerformancePercentage from './shared/ThresholdPerformancePercentage';
 import Statistics from 'interface/icons/Statistics';
-import getUptimeGraph, { UptimeHistoryEntry } from './shared/getUptimeGraph';
+import getUptimeGraph, { UptimeHistoryEntry } from 'parser/shared/modules/getUptimeGraph';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   uptimeHistory: UptimeHistoryEntry[] = [];
