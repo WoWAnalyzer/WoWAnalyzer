@@ -1,6 +1,6 @@
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { MaelstromWeaponSpenders, MaelstromWeaponTracker } from '../resourcetracker';
-import { TALENTS_SHAMAN } from '../../../../../../common/TALENTS';
+import { TALENTS_SHAMAN } from 'common/TALENTS';
 
 class StaticAccumulation extends Analyzer {
   static dependencies = {
