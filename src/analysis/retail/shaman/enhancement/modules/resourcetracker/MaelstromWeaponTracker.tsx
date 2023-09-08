@@ -156,10 +156,10 @@ export default class extends ResourceTracker {
     };
 
     if (change > 0) {
+      this.ignoreNextRefresh = true;
       this._applyBuilder(event.ability.guid, change, 0, event.timestamp, resource);
       this.reduceFeralSpiritCooldown();
     } else {
-      this.ignoreNextRefresh = false;
       const spenderEvent = event._linkedEvents?.find(
         (le: LinkedEvent) => le.relation === MAELSTROM_WEAPON_SPEND_LINK,
       )?.event as CastEvent | FreeCastEvent | undefined;
