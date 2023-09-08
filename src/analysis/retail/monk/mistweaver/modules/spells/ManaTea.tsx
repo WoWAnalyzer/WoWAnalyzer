@@ -39,7 +39,7 @@ interface ManaTeaTracker {
   healing: number;
   stacksConsumed: number;
   manaRestored: number;
-  channelTime: number;
+  channelTime: number | undefined;
 }
 
 class ManaTea extends Analyzer {
@@ -169,10 +169,15 @@ class ManaTea extends Analyzer {
   }
 
   get avgChannelDuration() {
-    return (
-      this.castTrackers.reduce((prev: number, cur: ManaTeaTracker) => prev + cur.channelTime, 0) /
-      this.castTrackers.length
-    );
+    let totalValid = 0;
+    let totalDuration = 0;
+    this.castTrackers.forEach((tracker) => {
+      if (tracker !== undefined) {
+        totalValid += 1;
+        totalDuration += tracker.channelTime!;
+      }
+    });
+    return totalDuration / totalValid;
   }
 
   get suggestionThresholds() {
@@ -380,7 +385,7 @@ class ManaTea extends Analyzer {
             <div>Total mana restored: {formatNumber(this.manaRestoredMT)}</div>
             <div>
               Average <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> stacks:{' '}
-              {formatNumber(this.avgStacks)}
+              {this.avgStacks.toFixed(1)}
             </div>
             <div>Average channel duration: {(this.avgChannelDuration / 1000).toFixed(1)}s</div>
           </>
