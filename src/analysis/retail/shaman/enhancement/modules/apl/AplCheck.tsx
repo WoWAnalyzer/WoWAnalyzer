@@ -50,7 +50,7 @@ export const apl = (info: PlayerInfo): Apl => {
 
   if (combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT)) {
     rules.push({
-      spell: TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
+      spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
       condition: atLeastFiveMSW,
     });
     if (!combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT)) {
@@ -68,10 +68,10 @@ export const apl = (info: PlayerInfo): Apl => {
   } else {
     rules.push(
       {
-        spell: TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
+        spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
         condition: and(
           atLeastFiveMSW,
-          spellCharges(TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT, { atLeast: 2, atMost: 2 }),
+          spellCharges(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT, { atLeast: 2, atMost: 2 }),
         ),
       },
       {
@@ -83,7 +83,7 @@ export const apl = (info: PlayerInfo): Apl => {
         condition: and(atLeastFiveMSW, buffPresent(SPELLS.CRACKLING_THUNDER_TIER_BUFF)),
       },
       {
-        spell: TALENTS.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
+        spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
         condition: and(
           atLeastFiveMSW,
           describe(

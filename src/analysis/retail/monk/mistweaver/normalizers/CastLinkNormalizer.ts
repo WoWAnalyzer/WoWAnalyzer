@@ -37,11 +37,15 @@ export const EXPEL_HARM_GOM = 'EHGOM';
 export const SOOM_GOM = 'SoomGOM';
 export const VIVIFY = 'Vivify';
 export const CALMING_COALESCENCE = 'Calming Coalescence';
+export const MANA_TEA_CHANNEL = 'MTChannel';
+export const MANA_TEA_CAST_LINK = 'MTLink';
+export const MT_BUFF_REMOVAL = 'MTStack';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
 const CAST_BUFFER_MS = 100;
 const EF_BUFFER = 7000;
+const MAX_MT_CHANNEL = 20000;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS: Map<string, number | null> = new Map();
 
@@ -331,6 +335,44 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_MONK.CALMING_COALESCENCE_TALENT);
     },
   },
+  {
+    linkRelation: MANA_TEA_CHANNEL,
+    linkingEventId: SPELLS.MANA_TEA_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.MANA_TEA_CAST.id,
+    referencedEventType: EventType.RemoveBuff,
+    forwardBufferMs: MAX_MT_CHANNEL,
+    maximumLinks: 1,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
+    },
+  },
+  {
+    linkRelation: MANA_TEA_CAST_LINK,
+    reverseLinkRelation: MANA_TEA_CAST_LINK,
+    linkingEventId: SPELLS.MANA_TEA_CAST.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.MANA_TEA_BUFF.id,
+    referencedEventType: EventType.ApplyBuff,
+    forwardBufferMs: MAX_MT_CHANNEL,
+    maximumLinks: 1,
+    anyTarget: true,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
+    },
+  },
+  {
+    linkRelation: MT_BUFF_REMOVAL,
+    linkingEventId: SPELLS.MANA_TEA_BUFF.id,
+    linkingEventType: EventType.ApplyBuff,
+    referencedEventId: SPELLS.MANA_TEA_BUFF.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    forwardBufferMs: MAX_MT_CHANNEL,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
+    },
+  },
 ];
 
 /**
@@ -523,6 +565,21 @@ export function getVivifiesPerCast(event: CastEvent) {
 
 export function getNumberOfBolts(event: CastEvent) {
   return GetRelatedEvents(event, ESSENCE_FONT).length;
+}
+
+// we use time to get stacks because it can be cast prepull
+export function getManaTeaStacksConsumed(event: ApplyBuffEvent) {
+  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0].timestamp - event.timestamp;
+  // 1s of mana reduction per stack
+  return Math.round(diff / 1000);
+}
+
+export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
+  const castEvent = GetRelatedEvents(event, MANA_TEA_CAST_LINK)[0];
+  if (castEvent === undefined) {
+    return undefined;
+  }
+  return GetRelatedEvents(castEvent, MANA_TEA_CHANNEL)[0].timestamp - castEvent.timestamp;
 }
 
 export default CastLinkNormalizer;

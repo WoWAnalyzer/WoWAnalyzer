@@ -168,7 +168,7 @@ const NameSearch = ({ type }: Props) => {
         <option key="retail" value={retailExpansion}>
           {retailExpansion}
         </option>
-        <option hidden key="classic" value={classicExpansion}>
+        <option key="classic" value={classicExpansion}>
           {classicExpansion}
         </option>
       </select>

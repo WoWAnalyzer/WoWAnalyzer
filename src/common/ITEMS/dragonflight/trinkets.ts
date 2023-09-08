@@ -26,6 +26,11 @@ const trinkets = {
     name: 'Vessel of Searing Shadow',
     icon: 'inv_trinket_mawraid_01_purple',
   },
+  ACCELERATING_SANDGLASS: {
+    id: 207566,
+    name: 'Accelerating Sandglass',
+    icon: 'ability_bossmagistrix_timewarp2',
+  },
 } satisfies Record<string, Item>;
 
 export default trinkets;

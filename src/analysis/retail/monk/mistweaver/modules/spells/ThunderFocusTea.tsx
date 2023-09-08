@@ -23,6 +23,12 @@ const debug = false;
 
 //TODO clean up and make easier to add triggers
 class ThunderFocusTea extends Analyzer {
+  static dependencies = {
+    haste: Haste,
+  };
+
+  protected haste!: Haste;
+
   castEntries: BoxRowEntry[] = [];
   castsTftRsk: number = 0;
   castsTftViv: number = 0;
@@ -42,21 +48,22 @@ class ThunderFocusTea extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.haste = options.haste as Haste;
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT);
     const secretInfusionRank = this.selectedCombatant.getTalentRank(
       TALENTS_MONK.SECRET_INFUSION_TALENT,
     );
     switch (secretInfusionRank) {
       case 1: {
-        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0.08;
+        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0.08);
         break;
       }
       case 2: {
-        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0.15;
+        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0.15);
         break;
       }
       default: {
-        Haste.HASTE_BUFFS[SPELLS.SECRET_INFUSION_HASTE_BUFF.id] = 0;
+        this.haste.addHasteBuff(SPELLS.SECRET_INFUSION_HASTE_BUFF.id, 0);
       }
     }
     this.ftActive = this.selectedCombatant.hasTalent(TALENTS_MONK.FOCUSED_THUNDER_TALENT);
