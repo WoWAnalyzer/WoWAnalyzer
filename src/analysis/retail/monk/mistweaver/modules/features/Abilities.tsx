@@ -56,12 +56,15 @@ class Abilities extends CoreAbilities {
         timelineSortIndex: 17,
       },
       {
-        spell: TALENTS_MONK.MANA_TEA_TALENT.id,
+        spell: SPELLS.MANA_TEA_CAST.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
         enabled: combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT),
         castEfficiency: {
           suggestion: true,
+        },
+        gcd: {
+          base: 1500,
         },
         timelineSortIndex: 15,
       },

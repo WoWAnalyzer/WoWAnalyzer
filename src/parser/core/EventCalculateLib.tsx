@@ -1,4 +1,4 @@
-import { DamageEvent, HealEvent } from 'parser/core/Events';
+import { DamageEvent, HealEvent, ResourceChangeEvent } from 'parser/core/Events';
 
 /**
  * This should honestly be done away with but there are so many unique Events/Sub-Events that call the calculateEffectiveHealing fucntions
@@ -239,4 +239,17 @@ export function calculateHealTargetHealthPercent(
   } else {
     return targetHealthPercent;
   }
+}
+
+/**
+ * Calculate what percent of a resource restore is attributable to a % increase
+ * @param event a resource change event
+ * @param increase percent increase in [0,1]
+ * @return effective increase
+ */
+export function calculateEffectiveResourceRestored(event: ResourceChangeEvent, increase: number) {
+  const relativeIncrease = 1 + increase;
+  const manaIncrease = event.resourceChange - event.resourceChange / relativeIncrease;
+  const effective = manaIncrease - event.waste;
+  return Math.max(effective, 0);
 }
