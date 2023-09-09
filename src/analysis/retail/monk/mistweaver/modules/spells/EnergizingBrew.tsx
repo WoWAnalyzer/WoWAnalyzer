@@ -10,10 +10,15 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { getManaTeaChannelDuration } from '../../normalizers/CastLinkNormalizer';
+import GlobalCooldown from '../core/GlobalCooldown';
 
 const MANA_INCREASE = 0.2;
 
 class EnergizingBrew extends Analyzer {
+  static dependencies = {
+    globalCooldown: GlobalCooldown,
+  };
+  protected globalCooldown!: GlobalCooldown;
   totalRestored: number = 0;
   timeSaved: number = 0;
   totalTeas: number = 0;
@@ -34,8 +39,18 @@ class EnergizingBrew extends Analyzer {
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
+    // no time is saved pre pull
+    if (event.prepull) {
+      return;
+    }
     // channel duration is equal to time saved because its 50% faster
-    this.timeSaved += getManaTeaChannelDuration(event) || 0;
+    const duration = getManaTeaChannelDuration(event);
+    const gcdTime = this.globalCooldown.getGlobalCooldownDuration(TALENTS_MONK.MANA_TEA_TALENT.id);
+    // if full mana tea duration <= gcd time then we wouldn't have saved any time
+    if (!duration || duration <= gcdTime / 2) {
+      return;
+    }
+    this.timeSaved += duration;
     this.totalTeas += 1;
   }
 
