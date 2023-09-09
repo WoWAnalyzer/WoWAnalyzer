@@ -45,8 +45,7 @@ class EnergizingBrew extends Analyzer {
     }
     // channel duration is equal to time saved because its 50% faster
     const duration = getManaTeaChannelDuration(event);
-    const gcdTime = this.globalCooldown.getGlobalCooldownDuration(SPELLS.VIVIFY.id); // dummy full gcd spell
-    console.log(gcdTime, duration);
+    const gcdTime = this.globalCooldown.getGlobalCooldownDuration(SPELLS.MANA_TEA_CAST.id);
     // if full mana tea duration <= gcd time then we wouldn't have saved any time
     if (!duration || duration <= gcdTime / 2) {
       return;
