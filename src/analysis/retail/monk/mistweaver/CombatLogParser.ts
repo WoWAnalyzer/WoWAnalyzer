@@ -52,7 +52,6 @@ import AverageTimeBetweenRSKSs from './modules/spells/AverageTimeBetweenRSKs';
 import ChiBurst from './modules/spells/ChiBurst';
 import InvokeChiJi from './modules/spells/InvokeChiJi';
 import JadeSerpentStatue from './modules/spells/JadeSerpentStatue';
-//import Lifecycles from './modules/spells/Lifecycles';
 import ManaTea from './modules/spells/ManaTea';
 import MistyPeaks from './modules/spells/MistyPeaks';
 import MistsOfLife from './modules/spells/MistsOfLife';
@@ -89,6 +88,7 @@ import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
 import CallToDominance from '../../../../parser/retail/modules/items/dragonflight/CallToDominance';
 import MWSpellManaCost from './modules/core/SpellManaCost';
+import ManaTeaSources from './modules/spells/ManaTeaSources';
 import EnergizingBrew from './modules/spells/EnergizingBrew';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -160,9 +160,9 @@ class CombatLogParser extends CoreCombatLogParser {
     invokeYulon: InvokeYulon,
     jadeSerpentStatue: JadeSerpentStatue,
     jadeBond: JadeBond,
-    //lifecycles: Lifecycles,
     mistWrap: MistWrap,
     manaTea: ManaTea,
+    manaTeaSources: ManaTeaSources,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
