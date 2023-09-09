@@ -32,7 +32,7 @@ import {
 } from '../../normalizers/CastLinkNormalizer';
 import { MANA_TEA_REDUCTION } from '../../constants';
 
-interface ManaTeaTracker {
+export interface ManaTeaTracker {
   timestamp: number;
   manaSaved: number;
   totalVivifyCleaves: number;
