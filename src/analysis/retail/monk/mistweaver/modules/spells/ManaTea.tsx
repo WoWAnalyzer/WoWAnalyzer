@@ -32,6 +32,7 @@ import {
   getManaTeaStacksConsumed,
 } from '../../normalizers/CastLinkNormalizer';
 import { MANA_TEA_MAX_STACKS, MANA_TEA_REDUCTION } from '../../constants';
+import Haste from 'parser/shared/modules/Haste';
 
 interface ManaTeaTracker {
   timestamp: number;
@@ -49,9 +50,11 @@ class ManaTea extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    haste: Haste,
   };
 
   protected renewingMistDuringManaTea!: RenewingMistDuringManaTea;
+  protected haste!: Haste;
 
   manaSavedMT: number = 0;
   manaRestoredMT: number = 0;
@@ -107,10 +110,17 @@ class ManaTea extends Analyzer {
       stacksConsumed: getManaTeaStacksConsumed(event),
       manaRestored: this.manaRestoredSinceLastApply,
       channelTime: event?.prepull
-        ? 0.5 * getManaTeaStacksConsumed(event)
+        ? this.estimatedChannelTime(event)
         : getManaTeaChannelDuration(event),
     });
     this.manaRestoredSinceLastApply = 0;
+  }
+
+  private estimatedChannelTime(event: ApplyBuffEvent): number {
+    const channelTimePerTick =
+      (this.selectedCombatant.hasTalent(TALENTS_MONK.ENERGIZING_BREW_TALENT) ? 0.25 : 0.5) /
+      (1 + this.haste.current);
+    return channelTimePerTick * getManaTeaStacksConsumed(event);
   }
 
   heal(event: HealEvent) {
