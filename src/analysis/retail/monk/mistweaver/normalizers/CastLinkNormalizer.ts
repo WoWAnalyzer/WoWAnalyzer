@@ -40,6 +40,7 @@ export const CALMING_COALESCENCE = 'Calming Coalescence';
 export const MANA_TEA_CHANNEL = 'MTChannel';
 export const MANA_TEA_CAST_LINK = 'MTLink';
 export const MT_BUFF_REMOVAL = 'MTStack';
+export const MT_STACK_CHANGE = 'MTStackChange';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
@@ -373,6 +374,16 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
     },
   },
+  {
+    linkRelation: MT_STACK_CHANGE,
+    linkingEventId: SPELLS.MANA_TEA_STACK.id,
+    linkingEventType: EventType.RefreshBuff,
+    referencedEventId: SPELLS.MANA_TEA_STACK.id,
+    referencedEventType: [EventType.RemoveBuffStack, EventType.ApplyBuffStack],
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
+    },
+  },
 ];
 
 /**
@@ -580,6 +591,10 @@ export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
     return undefined;
   }
   return GetRelatedEvents(castEvent, MANA_TEA_CHANNEL)[0].timestamp - castEvent.timestamp;
+}
+
+export function HasStackChange(event: RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, MT_STACK_CHANGE);
 }
 
 export default CastLinkNormalizer;
