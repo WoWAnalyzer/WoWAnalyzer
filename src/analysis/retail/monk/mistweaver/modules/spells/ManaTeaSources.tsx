@@ -42,21 +42,25 @@ class ManaTeaSources extends Analyzer {
     }
   }
 
-  renderChart() {
+  renderChart(wasted: boolean) {
+    const naturalStacks = wasted ? this.naturalStacks.wastedStacks : this.naturalStacks.usedStacks;
+    const lifecyclesStacks = wasted
+      ? this.lifecyclesStacks.wastedStacks
+      : this.lifecyclesStacks.usedStacks;
     const items = [
       {
         color: SPELL_COLORS.VIVIFY,
         label: 'Lifecycles',
         spellId: TALENTS_MONK.LIFECYCLES_TALENT.id,
-        value: this.lifecyclesStacks.usedStacks,
-        valueTooltip: formatNumber(this.lifecyclesStacks.usedStacks),
+        value: lifecyclesStacks,
+        valueTooltip: formatNumber(lifecyclesStacks),
       },
       {
         color: SPELL_COLORS.REVIVAL,
         label: 'Mana Tea',
         spellId: TALENTS_MONK.MANA_TEA_TALENT.id,
-        value: this.naturalStacks.usedStacks,
-        valueTooltip: formatNumber(this.naturalStacks.usedStacks),
+        value: naturalStacks,
+        valueTooltip: formatNumber(naturalStacks),
       },
     ];
 
@@ -72,9 +76,15 @@ class ManaTeaSources extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}></SpellLink> stacks breakdown
+            <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}></SpellLink> unwasted stacks breakdown
           </label>
-          {this.renderChart()}
+          {this.renderChart(false /* wasted */)}
+        </div>
+        <div className="pad">
+          <label>
+            <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}></SpellLink> wasted stacks breakdown
+          </label>
+          {this.renderChart(true /* wasted */)}
         </div>
       </Statistic>
     );
