@@ -338,7 +338,7 @@ class Disintegrate extends Analyzer {
     if (
       !this.active ||
       this.owner.report.zone === 34 ||
-      this.disintegrateTicksCounter.length === 0
+      this.disintegrateTicksCounter.length === 1
     ) {
       return null;
     }
