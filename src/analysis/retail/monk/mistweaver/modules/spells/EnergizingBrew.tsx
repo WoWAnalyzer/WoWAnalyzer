@@ -24,6 +24,7 @@ class EnergizingBrew extends Analyzer {
   totalTeas: number = 0;
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.ENERGIZING_BREW_TALENT);
     this.addEventListener(
       Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_CAST),
       this.onManaRestore,
