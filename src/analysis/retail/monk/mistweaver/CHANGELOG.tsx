@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 9, 9), <>Added <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/> module.</>, Trevor),
+  change(date(2023, 9, 9), <>Add <SpellLink spell={TALENTS_MONK.ENERGIZING_BREW_TALENT}/> module</>, Trevor),
   change(date(2023, 9, 9), <>Fixed Wasted stacks and prepull casts of <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> causing average channel duration to be NaN</>, Vohrr),
   change(date(2023, 9, 7), <>Improve mana reduction logic in all modules</>, Trevor),
   change(date(2023, 9, 6), <>Disable <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/> and implement <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> statistic</>, Trevor),

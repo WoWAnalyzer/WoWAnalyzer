@@ -34,7 +34,7 @@ import {
 import { MANA_TEA_MAX_STACKS, MANA_TEA_REDUCTION } from '../../constants';
 import Haste from 'parser/shared/modules/Haste';
 
-interface ManaTeaTracker {
+export interface ManaTeaTracker {
   timestamp: number;
   manaSaved: number;
   totalVivifyCleaves: number;

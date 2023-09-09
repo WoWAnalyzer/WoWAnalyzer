@@ -89,6 +89,7 @@ import SecretInfusion from './modules/spells/SecretInfusion';
 import CallToDominance from '../../../../parser/retail/modules/items/dragonflight/CallToDominance';
 import MWSpellManaCost from './modules/core/SpellManaCost';
 import ManaTeaSources from './modules/spells/ManaTeaSources';
+import EnergizingBrew from './modules/spells/EnergizingBrew';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -145,6 +146,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // MW Talents
     ancientTeachings: AncientTeachings,
     cloudedFocus: CloudedFocus,
+    energizingBrew: EnergizingBrew,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
     essenceFont: EssenceFont,
