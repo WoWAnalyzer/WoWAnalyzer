@@ -89,6 +89,7 @@ import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
 import CallToDominance from '../../../../parser/retail/modules/items/dragonflight/CallToDominance';
 import MWSpellManaCost from './modules/core/SpellManaCost';
+import ManaTeaSources from './modules/spells/ManaTeaSources';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -161,6 +162,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //lifecycles: Lifecycles,
     mistWrap: MistWrap,
     manaTea: ManaTea,
+    manaTeaSources: ManaTeaSources,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,
