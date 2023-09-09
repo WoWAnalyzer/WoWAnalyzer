@@ -377,6 +377,16 @@ const EVENT_LINKS: EventLink[] = [
     },
   },
   {
+    linkRelation: MT_STACK_CHANGE,
+    linkingEventId: SPELLS.MANA_TEA_STACK.id,
+    linkingEventType: EventType.RefreshBuff,
+    referencedEventId: SPELLS.MANA_TEA_STACK.id,
+    referencedEventType: [EventType.RemoveBuffStack, EventType.ApplyBuffStack],
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
+    },
+  },
+  {
     linkRelation: LIFECYCLES,
     reverseLinkRelation: LIFECYCLES,
     linkingEventId: [SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id, SPELLS.LIFECYCLES_VIVIFY_BUFF.id],
@@ -387,16 +397,6 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT);
-    },
-  },
-  {
-    linkRelation: MT_STACK_CHANGE,
-    linkingEventId: SPELLS.MANA_TEA_STACK.id,
-    linkingEventType: EventType.RefreshBuff,
-    referencedEventId: SPELLS.MANA_TEA_STACK.id,
-    referencedEventType: [EventType.RemoveBuffStack, EventType.ApplyBuffStack],
-    isActive(c) {
-      return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
     },
   },
 ];
