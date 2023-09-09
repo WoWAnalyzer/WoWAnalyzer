@@ -111,11 +111,11 @@ class ManaTeaSources extends Analyzer {
           <>
             <div>
               <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT} /> stack efficiency:{' '}
-              {formatPercentage(this.lifecyclesEfficiency)}
+              {formatPercentage(this.lifecyclesEfficiency)}%
             </div>
             <div>
               <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> natural stack efficiency:{' '}
-              {formatPercentage(this.mtEfficiency)}
+              {formatPercentage(this.mtEfficiency)}%
             </div>
           </>
         }
