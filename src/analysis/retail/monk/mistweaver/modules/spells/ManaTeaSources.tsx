@@ -104,9 +104,9 @@ class ManaTeaSources extends Analyzer {
   statistic() {
     return (
       <Statistic
-        position={STATISTIC_ORDER.CORE(10)}
         size="flexible"
-        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.OPTIONAL(1)}
+        category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
           <>
             <div>
