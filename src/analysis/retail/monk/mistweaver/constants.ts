@@ -34,6 +34,7 @@ export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;
 // Talent Constants
 export const CF_BUFF_PER_STACK = 0.2;
 export const MAX_CHIJI_STACKS = 3;
+export const MANA_TEA_MAX_STACKS = 20;
 export const MANA_TEA_REDUCTION = 0.5;
 export const JADE_BOND_INC = 0.4;
 export const NOURISHING_CHI_INC = 0.2;
