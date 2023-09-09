@@ -27,10 +27,11 @@ import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
 import { PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import {
+  HasStackChange,
   getManaTeaChannelDuration,
   getManaTeaStacksConsumed,
 } from '../../normalizers/CastLinkNormalizer';
-import { MANA_TEA_REDUCTION } from '../../constants';
+import { MANA_TEA_MAX_STACKS, MANA_TEA_REDUCTION } from '../../constants';
 
 interface ManaTeaTracker {
   timestamp: number;
@@ -105,7 +106,9 @@ class ManaTea extends Analyzer {
       overhealing: 0,
       stacksConsumed: getManaTeaStacksConsumed(event),
       manaRestored: this.manaRestoredSinceLastApply,
-      channelTime: getManaTeaChannelDuration(event),
+      channelTime: event?.prepull
+        ? 0.5 * getManaTeaStacksConsumed(event)
+        : getManaTeaChannelDuration(event),
     });
     this.manaRestoredSinceLastApply = 0;
   }
@@ -156,6 +159,14 @@ class ManaTea extends Analyzer {
   }
 
   onStackWaste(event: RefreshBuffEvent) {
+    if (
+      HasStackChange(event) ||
+      this.selectedCombatant.getBuffStacks(SPELLS.MANA_TEA_STACK.id, event.timestamp) <
+        MANA_TEA_MAX_STACKS
+    ) {
+      return;
+    }
+
     this.stacksWasted += 1;
   }
 
