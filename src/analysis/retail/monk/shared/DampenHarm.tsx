@@ -1,3 +1,4 @@
+import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { SpellLink, TooltipElement } from 'interface';
@@ -14,11 +15,21 @@ import Events, {
   DrainEvent,
   HealEvent,
 } from 'parser/core/Events';
+import BoringValue from 'parser/ui/BoringValueText';
+import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { ReactNode } from 'react';
 
+type Hit = {
+  amount: number;
+  relativeAmount: number;
+  drPercent: number;
+};
+
 class DampenHarm extends MajorDefensiveBuff {
   currentMaxHP = 0;
+
+  hitsMitigated: Hit[] = [];
 
   constructor(options: Options) {
     super(talents.DAMPEN_HARM_TALENT, buff(talents.DAMPEN_HARM_TALENT), options);
@@ -56,6 +67,12 @@ class DampenHarm extends MajorDefensiveBuff {
     } else {
       drdh = 0.6 - 0.5 * Math.sqrt(0.64 - (6 * hitSize) / (5 * maxHP));
     }
+
+    this.hitsMitigated.push({
+      amount: hitSize,
+      relativeAmount: hitSize / maxHP,
+      drPercent: drdh,
+    });
 
     const mitigatedAmount = absoluteMitigation(event, drdh);
     this.recordMitigation({
@@ -99,7 +116,38 @@ class DampenHarm extends MajorDefensiveBuff {
   }
 
   statistic(): ReactNode {
-    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.TALENTS} />;
+    const relevantHits = this.hitsMitigated.filter((hit) => hit.relativeAmount >= 0.05);
+    const avgDr =
+      relevantHits.reduce((total, hit) => total + hit.drPercent, 0) / relevantHits.length;
+    const trueAvgDr =
+      this.hitsMitigated.reduce((total, hit) => total + hit.drPercent, 0) /
+      this.hitsMitigated.length;
+    return (
+      <>
+        <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.TALENTS} />
+        {relevantHits.length > 0 && (
+          <Statistic
+            size="flexible"
+            tooltip={
+              <>
+                Mitigated {relevantHits.length} hits. Hits for less than 5% of max HP are excluded
+                from average. When they are included, avg DR is {formatPercentage(trueAvgDr)}%
+              </>
+            }
+          >
+            <BoringValue
+              label={
+                <>
+                  Average <SpellLink spell={talents.DAMPEN_HARM_TALENT} /> Damage Reduction
+                </>
+              }
+            >
+              {formatPercentage(avgDr)}%
+            </BoringValue>
+          </Statistic>
+        )}
+      </>
+    );
   }
 }
 
