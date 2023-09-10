@@ -219,10 +219,10 @@ class BuffTargetHelper extends Analyzer {
 
       content.push(
         <div key={i}>
-          <p style={{ fontSize: '12px', margin: '0' }}>
+          <p className="intervalTitle">
             Top 4 Pumpers for interval {intervalStart} - {intervalEnd}:
           </p>
-          <ul style={{ fontSize: '12px' }}>{formattedEntries}</ul>
+          <ul className="intervalEntry">{formattedEntries}</ul>
         </div>,
       );
     }
