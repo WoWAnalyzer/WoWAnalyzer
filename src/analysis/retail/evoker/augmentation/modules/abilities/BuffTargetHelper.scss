@@ -1,0 +1,22 @@
+@import 'interface/Theme.scss';
+
+.copyButton {
+  background-color: #fab700;
+  color: #211510;
+  text-shadow: none;
+  display: block;
+  line-height: 16.8px;
+  font-size: 14px;
+  border-radius: 6px;
+  height: 38px;
+  width: 140px;
+  border: none;
+  font-family: Open Sans, Century Gothic, sans-serif;
+  font-weight: 600;
+  margin-bottom: 20px;
+  margin-left: -20px;
+
+  &:hover {
+    background-color: darken($color: #fab700, $amount: 7);
+  }
+}
