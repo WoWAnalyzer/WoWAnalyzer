@@ -31,6 +31,8 @@ import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
+import BuffTargetHelper from './modules/abilities/BuffTargetHelper';
+
 //Shared
 import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
 
@@ -73,6 +75,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
+    buffTargetHelper: BuffTargetHelper,
   };
   static guide = Guide;
 }

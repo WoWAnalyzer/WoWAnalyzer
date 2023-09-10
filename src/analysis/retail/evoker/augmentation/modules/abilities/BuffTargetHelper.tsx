@@ -1,0 +1,242 @@
+import { i18n } from '@lingui/core';
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/evoker';
+import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
+import fetchWcl from 'common/fetchWclApi';
+import { formatDuration, formatNumber } from 'common/format';
+import ROLES from 'game/ROLES';
+import SPECS from 'game/SPECS';
+import { SpellIcon, SpellLink } from 'interface';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Events from 'parser/core/Events';
+import Combatants from 'parser/shared/modules/Combatants';
+import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import './BuffTargetHelper.scss';
+
+/**
+ * @key Player Name
+ * @value Array of damage for each interval
+ */
+const playerMap: Map<string, number[]> = new Map();
+
+/**
+ * Used to only grab DPS players, excluding Augmentation
+ * @key Player Name
+ * @value ClassName
+ */
+const playerWhitelist: Map<string, string> = new Map();
+
+/**
+ * @key ClassName
+ * @value mrt color code
+ */
+const mrtColorMap: Map<string, string> = new Map([
+  ['Mage', '|cff3fc7eb'],
+  ['Paladin', '|cfff48cba'],
+  ['Warrior', '|cffc69b6d'],
+  ['Druid', '|cffff7c0a'],
+  ['DeathKnight', '|cffc41e3a'],
+  ['Hunter', '|cffaad372'],
+  ['Priest', '|cffffffff'],
+  ['Rogue', '|cfffff468'],
+  ['Shaman', '|cff0070dd'],
+  ['Warlock', '|cff8788ee'],
+  ['Monk', '|cff00ff98'],
+  ['DemonHunter', '|cffa330c9'],
+  ['Evoker', '|cff33937f'],
+]);
+
+/** SpellIds to blacklist, ie. trinkets that doesnt add contribution */
+const blacklist = [
+  402583, // Beacon
+  408671, // Bomb dispenser
+  401303, // Pocket Anvil
+  401395, // Vessel
+  418774, // Mirror
+];
+
+let mrtPumperNote = '';
+
+class BuffTargetHelper extends Analyzer {
+  static dependencies = {
+    combatants: Combatants,
+  };
+  protected combatants!: Combatants;
+
+  interval: number =
+    30 * 1000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
+
+  fightStart: number = this.owner.fight.start_time;
+  fightEnd: number = this.owner.fight.end_time;
+
+  constructor(options: Options) {
+    super(options);
+
+    this.addEventListener(Events.fightend, () => {
+      const players = Object.values(this.combatants.players);
+      players.forEach((player) => {
+        if (
+          player.spec?.role !== ROLES.HEALER &&
+          player.spec?.role !== ROLES.TANK &&
+          player.spec !== SPECS.AUGMENTATION_EVOKER
+        ) {
+          const i18nClassName = player.spec?.className ? i18n._(player.spec.className) : '';
+          const className = i18nClassName?.replace(/\s/g, '') ?? '';
+
+          playerWhitelist.set(player.name, className);
+        }
+      });
+    });
+  }
+
+  /** Generate filter based on black list */
+  getFilter() {
+    const filterString = blacklist.map((id) => `ability.id!=${id}`).join(' OR ');
+    const filter = `(IN RANGE WHEN ${filterString} END)`;
+
+    return filter;
+  }
+
+  /**
+   * Should add support for phased fights
+   * eg. Sark when you go downstairs for P1
+   * So instead of going strictly in 30 seconds intervals one after the other
+   * we would jump ahead in time to ignore phased periods where there is zero damage
+   * This would provide more accurate/relevant information
+   *
+   * This is on the backburner for now.
+   */
+  async loadInterval() {
+    let currentTime = this.fightStart;
+    /** If we already populated the map no need to do it again
+     * eg. someone went to stats and loaded the componented, then
+     * went to overview and back and loaded it again, no need to
+     * re-query WCL events
+     */
+    if (playerMap.size > 0) {
+      return;
+    }
+
+    while (currentTime < this.fightEnd) {
+      await this.getDamage(currentTime);
+      currentTime += this.interval;
+    }
+  }
+
+  async getDamage(currentTime: number) {
+    return fetchWcl(`report/tables/damage-done/${this.owner.report.code}`, {
+      start: currentTime,
+      end: currentTime + this.interval,
+      filter: this.getFilter(),
+    }).then((json) => {
+      const data = json as WCLDamageDoneTableResponse;
+      data.entries.forEach((entry) => {
+        if (playerWhitelist.has(entry.name)) {
+          if (!playerMap.get(entry.name)) {
+            playerMap.set(entry.name, [entry.total]);
+          } else {
+            playerMap.get(entry.name)?.push(entry.total);
+          }
+        }
+      });
+    });
+  }
+
+  findTopPumpers() {
+    /** Don't run if no player damage is found
+     * Essentially prevents it from running when page is loaded
+     * and only when load button is pressed
+     */
+    if (playerMap.size === 0) {
+      return;
+    }
+
+    console.log(playerMap);
+    const content = [];
+    content.push(
+      <div className="container">
+        <button onClick={this.handleCopyClick} className="copyButton">
+          Copy MRT note to clipboard
+        </button>
+      </div>,
+    );
+
+    /** Find the top 4 pumpers for each interval */
+    for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
+      const sortedEntries = [...playerMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
+
+      // Get the top 4 entries
+      const top4Entries = sortedEntries.slice(0, 4);
+      const top2Entries = sortedEntries.slice(0, 2);
+
+      // Create the list of top 4 pumpers
+      const formattedEntries = top4Entries.map(([name, values]) => (
+        <li key={name}>
+          <span className={playerWhitelist.get(name)}>{name}</span>: {formatNumber(values[i])}
+        </li>
+      ));
+
+      const intervalStart = formatDuration(i * this.interval);
+      let intervalEnd = formatDuration((i + 1) * this.interval);
+      if (intervalEnd > formatDuration(this.fightEnd - this.fightStart)) {
+        intervalEnd = formatDuration(this.fightEnd - this.fightStart);
+      }
+
+      // Make a mofoing MRT note for the top 2 pumpers
+      // So the payphoners knows who to prescience without thinking gladge
+      // bro this shit should prolly account for the extended presc
+      // that the 10.2 tier set gives, but man fuck that noise, gotta
+      // allow the payphoners to think a lil bit for themselves
+      if (i === 0) {
+        mrtPumperNote += 'PREPULL - ';
+      } else {
+        mrtPumperNote += intervalStart + ' - ';
+      }
+      mrtPumperNote += top2Entries
+        .map(([name]) => mrtColorMap.get(playerWhitelist.get(name) ?? '') + name + '|r')
+        .join(' ');
+      mrtPumperNote += '\n';
+
+      console.log('Top 4 Pumpers for interval', i + 1, 'are:', formattedEntries);
+
+      content.push(
+        <div key={i}>
+          <p style={{ fontSize: '12px', margin: '0' }}>
+            Top 4 Pumpers for interval {intervalStart} - {intervalEnd}:
+          </p>
+          <ul style={{ fontSize: '12px' }}>{formattedEntries}</ul>
+        </div>,
+      );
+    }
+
+    return content;
+  }
+
+  handleCopyClick = () => {
+    navigator.clipboard.writeText(mrtPumperNote);
+  };
+
+  statistic() {
+    return (
+      <LazyLoadStatisticBox
+        category={STATISTIC_CATEGORY.TALENTS}
+        position={STATISTIC_ORDER.CORE(1)}
+        loader={this.loadInterval.bind(this)}
+        icon={<SpellIcon spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} />}
+        value={this.findTopPumpers()}
+        label="Find optimal buff targets"
+        tooltip={
+          <>
+            This is a tool to help you find the optimal buff targets for Ebon Might. It will show
+            you the top 4 pumpers for each 30 second interval (27 with{' '}
+            <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} />
+            ).
+          </>
+        }
+      />
+    );
+  }
+}
+
+export default BuffTargetHelper;
