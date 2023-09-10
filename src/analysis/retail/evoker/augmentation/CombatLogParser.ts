@@ -23,6 +23,7 @@ import Volcanism from './modules/talents/Volcanism';
 import BlisteringScales from './modules/talents/BlisteringScales';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
+import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
 import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStackTracker';
 
@@ -30,8 +31,6 @@ import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
 import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
-
-import BuffTargetHelper from './modules/abilities/BuffTargetHelper';
 
 //Shared
 import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
