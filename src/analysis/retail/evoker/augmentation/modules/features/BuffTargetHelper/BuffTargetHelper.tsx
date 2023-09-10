@@ -18,7 +18,7 @@ import './BuffTargetHelper.scss';
  * @key Player Name
  * @value Array of damage for each interval
  */
-const playerMap: Map<string, number[]> = new Map();
+const playerDamageMap: Map<string, number[]> = new Map();
 
 /**
  * Used to only grab DPS players, excluding Augmentation
@@ -57,7 +57,7 @@ const blacklist = [
   418774, // Mirror
 ];
 
-let mrtPumperNote = '';
+let mrtPrescienceHelperNote = '';
 
 class BuffTargetHelper extends Analyzer {
   static dependencies = {
@@ -121,7 +121,7 @@ class BuffTargetHelper extends Analyzer {
      * went to overview and back to stats and loaded it again.
      * no need to re-query WCL events
      */
-    if (playerMap.size > 0) {
+    if (playerDamageMap.size > 0) {
       return;
     }
 
@@ -140,10 +140,10 @@ class BuffTargetHelper extends Analyzer {
       const data = json as WCLDamageDoneTableResponse;
       data.entries.forEach((entry) => {
         if (playerWhitelist.has(entry.name)) {
-          if (!playerMap.get(entry.name)) {
-            playerMap.set(entry.name, [entry.total]);
+          if (!playerDamageMap.get(entry.name)) {
+            playerDamageMap.set(entry.name, [entry.total]);
           } else {
-            playerMap.get(entry.name)?.push(entry.total);
+            playerDamageMap.get(entry.name)?.push(entry.total);
           }
         }
       });
@@ -155,11 +155,11 @@ class BuffTargetHelper extends Analyzer {
      * Essentially prevents it from running when page is loaded
      * and only when load button is pressed
      */
-    if (playerMap.size === 0) {
+    if (playerDamageMap.size === 0) {
       return;
     }
 
-    console.log(playerMap);
+    console.log(playerDamageMap);
     const content = [];
     content.push(
       <div className="container">
@@ -171,7 +171,7 @@ class BuffTargetHelper extends Analyzer {
 
     /** Find the top 4 pumpers for each interval */
     for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
-      const sortedEntries = [...playerMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
+      const sortedEntries = [...playerDamageMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
 
       // Get the top 4 entries
       const top4Entries = sortedEntries.slice(0, 4);
@@ -206,14 +206,14 @@ class BuffTargetHelper extends Analyzer {
        * that on out for themselves.
        */
       if (i === 0) {
-        mrtPumperNote += 'PREPULL - ';
+        mrtPrescienceHelperNote += 'PREPULL - ';
       } else {
-        mrtPumperNote += intervalStart + ' - ';
+        mrtPrescienceHelperNote += intervalStart + ' - ';
       }
-      mrtPumperNote += top2Entries
+      mrtPrescienceHelperNote += top2Entries
         .map(([name]) => mrtColorMap.get(playerWhitelist.get(name) ?? '') + name + '|r')
         .join(' ');
-      mrtPumperNote += '\n';
+      mrtPrescienceHelperNote += '\n';
 
       console.log('Top 4 Pumpers for interval', i + 1, 'are:', formattedEntries);
 
@@ -231,7 +231,7 @@ class BuffTargetHelper extends Analyzer {
   }
 
   handleCopyClick = () => {
-    navigator.clipboard.writeText(mrtPumperNote);
+    navigator.clipboard.writeText(mrtPrescienceHelperNote);
   };
 
   statistic() {
@@ -247,8 +247,9 @@ class BuffTargetHelper extends Analyzer {
           <>
             This is a tool to help you find the optimal buff targets for Ebon Might. It will show
             you the top 4 pumpers for each 30 second interval (27 with{' '}
-            <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} />
-            ).
+            <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} />)
+            <br />
+            This module will also produce a MRT note for prescience timings.
           </>
         }
       />
