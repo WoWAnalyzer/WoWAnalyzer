@@ -22,6 +22,7 @@ const playerMap: Map<string, number[]> = new Map();
 
 /**
  * Used to only grab DPS players, excluding Augmentation
+ * We use ClassName so we can apply colors to our output
  * @key Player Name
  * @value ClassName
  */
@@ -64,6 +65,7 @@ class BuffTargetHelper extends Analyzer {
   };
   protected combatants!: Combatants;
 
+  // This could be set to fixed 30s intervals, but might as well give some attention to the Interwoven gamers!
   interval: number =
     30 * 1000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
 
@@ -73,6 +75,7 @@ class BuffTargetHelper extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
       const players = Object.values(this.combatants.players);
       players.forEach((player) => {
@@ -90,10 +93,14 @@ class BuffTargetHelper extends Analyzer {
     });
   }
 
-  /** Generate filter based on black list */
+  /** Generate filter based on black list and whitelist */
   getFilter() {
-    const filterString = blacklist.map((id) => `ability.id!=${id}`).join(' OR ');
-    const filter = `(IN RANGE WHEN ${filterString} END)`;
+    const playerNames = Array.from(playerWhitelist.keys());
+    const nameFilter = playerNames.map((name) => `source.name="${name}"`).join(' OR ');
+
+    const abilityFilter = blacklist.map((id) => `ability.id!=${id}`).join(' OR ');
+
+    const filter = `(IN RANGE WHEN ${abilityFilter} AND ${nameFilter} END)`;
 
     return filter;
   }
@@ -110,9 +117,9 @@ class BuffTargetHelper extends Analyzer {
   async loadInterval() {
     let currentTime = this.fightStart;
     /** If we already populated the map no need to do it again
-     * eg. someone went to stats and loaded the componented, then
-     * went to overview and back and loaded it again, no need to
-     * re-query WCL events
+     * eg. someone went to stats and loaded the component, then
+     * went to overview and back to stats and loaded it again.
+     * no need to re-query WCL events
      */
     if (playerMap.size > 0) {
       return;
@@ -197,7 +204,6 @@ class BuffTargetHelper extends Analyzer {
        * It's possible that with 10.2 tier set that you need to think a bit harder about every
        * third prescience, since it's extended, buuut for now I'll let people figure
        * that on out for themselves.
-       *
        */
       if (i === 0) {
         mrtPumperNote += 'PREPULL - ';
