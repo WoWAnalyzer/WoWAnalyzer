@@ -197,6 +197,7 @@ class BuffTargetHelper extends Analyzer {
        * It's possible that with 10.2 tier set that you need to think a bit harder about every
        * third prescience, since it's extended, buuut for now I'll let people figure
        * that on out for themselves.
+       *
        */
       if (i === 0) {
         mrtPumperNote += 'PREPULL - ';
