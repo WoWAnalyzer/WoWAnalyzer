@@ -48,7 +48,7 @@ const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
 const CAST_BUFFER_MS = 100;
 const EF_BUFFER = 7000;
-const MAX_MT_CHANNEL = 20000;
+const MAX_MT_CHANNEL = 25000;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS: Map<string, number | null> = new Map();
 

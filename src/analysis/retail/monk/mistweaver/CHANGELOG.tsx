@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 9, 10), <>Fixed <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> crash from encounter phasing.</>, Vohrr),
   change(date(2023, 9, 9), <>Added <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/> module.</>, Trevor),
   change(date(2023, 9, 9), <>Add <SpellLink spell={TALENTS_MONK.ENERGIZING_BREW_TALENT}/> module</>, Trevor),
   change(date(2023, 9, 9), <>Fixed Wasted stacks and prepull casts of <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> causing average channel duration to be NaN</>, Vohrr),
