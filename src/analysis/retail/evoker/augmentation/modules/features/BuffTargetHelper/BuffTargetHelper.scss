@@ -22,10 +22,18 @@
 }
 
 .intervalTitle {
-  font-size: 13px;
+  font-size: 14px;
   margin: 0;
 }
 
+.intervalList {
+  padding: 0;
+  margin-bottom: 14px;
+  line-height: 16.8px;
+}
+
 .intervalEntry {
-  font-size: 12px;
+  font-size: 13px;
+  display: inline-block;
+  margin-left: 8px;
 }

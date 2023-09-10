@@ -179,7 +179,7 @@ class BuffTargetHelper extends Analyzer {
 
       // Create the list of top 4 pumpers
       const formattedEntries = top4Entries.map(([name, values]) => (
-        <li key={name}>
+        <li key={name} className="intervalEntry">
           <span className={playerWhitelist.get(name)}>{name}</span>: {formatNumber(values[i])}
         </li>
       ));
@@ -222,7 +222,7 @@ class BuffTargetHelper extends Analyzer {
           <p className="intervalTitle">
             Top 4 Pumpers for interval {intervalStart} - {intervalEnd}:
           </p>
-          <ul className="intervalEntry">{formattedEntries}</ul>
+          <ul className="intervalList">{formattedEntries}</ul>
         </div>,
       );
     }
