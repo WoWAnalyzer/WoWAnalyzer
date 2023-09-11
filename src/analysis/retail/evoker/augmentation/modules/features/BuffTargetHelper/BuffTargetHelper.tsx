@@ -190,30 +190,7 @@ class BuffTargetHelper extends Analyzer {
         intervalEnd = formatDuration(this.fightEnd - this.fightStart);
       }
 
-      /**
-       * Create a MRT note for who to Prescience and when
-       * This is pretty basic in design for now, but it will do as advertised.
-       * Ideally you would most likely assign with more macro, but w/e
-       *
-       * Format is basicly:
-       * PREPULL - |cff8788eeOlgey|r |cffc41e3aDérp|r
-       * 0:30 - |cff33937fVollmer|r |cff3fc7ebMcbaguette|r
-       * 1:00 - |cfff48cbaFrøkentut|r |cff33937fVollmer|r
-       * etc..
-       *
-       * It's possible that with 10.2 tier set that you need to think a bit harder about every
-       * third prescience, since it's extended, buuut for now I'll let people figure
-       * that on out for themselves.
-       */
-      if (i === 0) {
-        mrtPrescienceHelperNote += 'PREPULL - ';
-      } else {
-        mrtPrescienceHelperNote += intervalStart + ' - ';
-      }
-      mrtPrescienceHelperNote += top2Entries
-        .map(([name]) => mrtColorMap.get(playerWhitelist.get(name) ?? '') + name + '|r')
-        .join(' ');
-      mrtPrescienceHelperNote += '\n';
+      this.addEntryToMRTNote(top2Entries, i, intervalStart);
 
       console.log('Top 4 Pumpers for interval', i + 1, 'are:', formattedEntries);
 
@@ -228,6 +205,28 @@ class BuffTargetHelper extends Analyzer {
     }
 
     return content;
+  }
+
+  /**
+   * Create a MRT note for who to Prescience and when
+   * This is pretty basic in design for now, but it will do as advertised.
+   *
+   * Format is basicly:
+   * PREPULL - |cff8788eeOlgey|r |cffc41e3aDérp|r
+   * 0:30 - |cff33937fVollmer|r |cff3fc7ebMcbaguette|r
+   * 1:00 - |cfff48cbaFrøkentut|r |cff33937fVollmer|r
+   * etc..
+   */
+  addEntryToMRTNote(top2Pumpers: [string, number[]][], index: number, interval: string) {
+    if (index === 0) {
+      mrtPrescienceHelperNote += 'PREPULL - ';
+    } else {
+      mrtPrescienceHelperNote += interval + ' - ';
+    }
+    mrtPrescienceHelperNote += top2Pumpers
+      .map(([name]) => mrtColorMap.get(playerWhitelist.get(name) ?? '') + name + '|r')
+      .join(' ');
+    mrtPrescienceHelperNote += '\n';
   }
 
   handleCopyClick = () => {
