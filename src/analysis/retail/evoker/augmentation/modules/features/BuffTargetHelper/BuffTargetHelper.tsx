@@ -12,6 +12,7 @@ import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { isFightDungeon } from 'common/isFightDungeon';
 import './BuffTargetHelper.scss';
 
 /**
@@ -74,6 +75,7 @@ class BuffTargetHelper extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = !isFightDungeon(this.owner.fight);
 
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
