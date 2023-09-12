@@ -15,6 +15,7 @@ import Events, {
 import DisintegratePlot from './DisintegrateGraph';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
+import { isFightDungeon } from 'common/isFightDungeon';
 
 const { DISINTEGRATE } = SPELLS;
 
@@ -337,7 +338,7 @@ class Disintegrate extends Analyzer {
      */
     if (
       !this.active ||
-      this.owner.report.zone === 34 ||
+      isFightDungeon(this.owner.fight) ||
       this.disintegrateTicksCounter.length === 1
     ) {
       return null;
