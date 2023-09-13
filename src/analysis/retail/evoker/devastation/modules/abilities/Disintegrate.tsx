@@ -12,7 +12,7 @@ import Events, {
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import DisintegratePlot from './DisintegrateGraph';
+import DisintegratePlot, { SpellTracker } from './DisintegrateGraph';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
 import { isFightDungeon } from 'common/isFightDungeon';
@@ -22,12 +22,6 @@ const { DISINTEGRATE } = SPELLS;
 const { DRAGONRAGE_TALENT } = TALENTS;
 
 const TICKS_PER_DISINTEGRATE = 4;
-
-export type SpellTracker = {
-  timestamp: number;
-  count: number;
-  tooltip: string;
-};
 
 /**
  * Disintegrate is Devastation's ST spender, it is one of the primary focus points of your rotation.
@@ -61,6 +55,7 @@ class Disintegrate extends Analyzer {
   currentRemainingTicks: number = 0;
   isCurrentCastChained: boolean = false;
   disintegrateClipSpell: CastEvent | undefined = undefined;
+  inFightWithDungeonBoss: boolean = false;
   /** Spells that you can/should clip with
    * Any other spell used to clip Disintegrate
    * is counted as a cancelled cast
@@ -86,17 +81,16 @@ class Disintegrate extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-
-    this.dragonrageBuffCounter.push({
-      timestamp: this.owner.fight.start_time,
-      count: 0,
-      tooltip: '',
-    });
-    this.disintegrateTicksCounter.push({
-      timestamp: this.owner.fight.start_time,
-      count: 0,
-      tooltip: '',
-    });
+    if (!isFightDungeon(this.owner.fight)) {
+      this.dragonrageBuffCounter.push({
+        timestamp: this.owner.fight.start_time,
+        count: 0,
+      });
+      this.disintegrateTicksCounter.push({
+        timestamp: this.owner.fight.start_time,
+        count: 0,
+      });
+    }
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
@@ -139,6 +133,12 @@ class Disintegrate extends Analyzer {
         this.disintegrateClipSpell = event;
       }
     });
+
+    // Add event listeners for boss fight start/end
+    /**
+     * Here we figure out when a boss fight start/ends for m+ runs
+     * We use this to initialize our GraphInputs so we have proper start/end times
+     */
   }
 
   onBuffApply(event: ApplyBuffEvent) {
@@ -263,7 +263,6 @@ class Disintegrate extends Analyzer {
     this.disintegrateTicksCounter.push({
       timestamp: event.timestamp,
       count: this.currentRemainingTicks,
-      tooltip: '',
     });
   }
 
@@ -333,16 +332,12 @@ class Disintegrate extends Analyzer {
   /** Evaluate individual disintegrate casts */
   guideSubSection(): JSX.Element | null {
     /**
-     * Don't show graph in m+
      * Don't show graph if the player didn't cast Disintegrate
      */
-    if (
-      !this.active ||
-      isFightDungeon(this.owner.fight) ||
-      this.disintegrateTicksCounter.length === 1
-    ) {
+    if (!this.active || this.disintegrateTicksCounter.length === 1) {
       return null;
     }
+
     return (
       <SubSection title="Disintegrate">
         <p>
@@ -369,14 +364,7 @@ class Disintegrate extends Analyzer {
         <DisintegratePlot
           fightStartTime={this.owner.fight.start_time}
           fightEndTime={this.owner.fight.end_time}
-          spellTrackers={[
-            this.disintegrateTicksCounter,
-            this.disintegrateCasts,
-            this.disintegrateChainCasts,
-            this.problemPoints,
-            this.dragonrageBuffCounter,
-            this.disintegrateClips,
-          ]}
+          multiGraph={isFightDungeon(this.owner.fight) ? true : false}
         />
       </SubSection>
     );

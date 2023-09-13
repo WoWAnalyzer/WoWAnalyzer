@@ -5,15 +5,55 @@ import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 import { UnitSpec } from 'vega-lite/build/src/spec';
 import { Field } from 'vega-lite/build/src/channeldef';
-import { SpellTracker } from './Disintegrate';
+
+/**
+ * Represents the configuration options for the individual graphs that
+ * should be rendered.
+ */
+export type GraphData = {
+  graphData: DataSeries[];
+  /** Optional title, used for multigraph rendering */
+  title?: string;
+  /** timestamp to start rendering the graph at */
+  startTime?: number;
+  /** timestamp to end rendering the graph at */
+  endTime?: number;
+};
+
+/**
+ * Represents a series of data points for the graph, including information
+ * about individual SpellTrackers, their visualization type (point, line, area),
+ * and color.
+ * This is the data we hand to Vega for graphing.
+ */
+export type DataSeries = {
+  spellTracker: SpellTracker[];
+  /** The type of data this is */
+  type: 'point' | 'line' | 'area';
+  color: string;
+};
+
+/**
+ * Represents a data point for tracking spells, including timestamp, count,
+ * and an optional tooltip.
+ */
+export type SpellTracker = {
+  /** Timestamp the event occured */
+  timestamp: number;
+  /** y-axis value */
+  count: number;
+  /** Optional tooltip, used for points */
+  tooltip?: string;
+};
 
 type Props = {
   fightStartTime: number;
   fightEndTime: number;
-  spellTrackers: SpellTracker[][];
+  graphData?: GraphData[];
+  multiGraph?: boolean;
 };
 
-const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, spellTrackers }) => {
+const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graphData }) => {
   const colorData = {
     dragonrageBuffCounter: '#CCCCCC',
     disintegrateCasts: '#2ecc71',
@@ -22,7 +62,7 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, spell
     problemPoints: 'red',
   };
 
-  /** We want high fidelity for ticks so it's easier to look up specfic timings on logs/vods */
+  /** We want high fidelity for ticks so it's easier to look up specific timings on logs/vods */
   const tickCount = (fightEndTime - fightStartTime) / 1000;
   const xAxis = {
     field: 'timestamp_shifted',
@@ -140,13 +180,6 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, spell
     ],
   };
 
-  const disintegrateTicksCounter = spellTrackers[0];
-  const disintegrateCasts = spellTrackers[1];
-  const disintegrateChainCasts = spellTrackers[2];
-  const problemPoints = spellTrackers[3];
-  const dragonrageBuffCounter = spellTrackers[4];
-  const disintegrateClips = spellTrackers[5];
-
   // If the x-axis is too long, we enable horizontal scrolling, for better readability
   const graphLength = fightEndTime - fightStartTime;
   const threshold = 0.6 * 60 * 1000;
@@ -171,21 +204,7 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, spell
         }}
       >
         <AutoSizer>
-          {({ width, height }) => (
-            <BaseChart
-              spec={spec}
-              data={{
-                disintegrateTicksCounter: disintegrateTicksCounter,
-                disintegrateCasts: disintegrateCasts,
-                disintegrateChainCasts: disintegrateChainCasts,
-                problemPoints: problemPoints,
-                dragonrageBuffCounter: dragonrageBuffCounter,
-                disintegrateClips: disintegrateClips,
-              }}
-              width={width}
-              height={height}
-            />
-          )}
+          {({ width, height }) => <BaseChart spec={spec} data={{}} width={width} height={height} />}
         </AutoSizer>
       </div>
     </div>
