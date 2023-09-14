@@ -318,7 +318,8 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
       {graphData.length > 1 && (
         <header>
           <span>
-            Boss Fight: {currentWindowIndex + 1} out of {graphData.length}
+            {graphData[currentWindowIndex].title ? graphData[currentWindowIndex].title : 'Fight'}:{' '}
+            {currentWindowIndex + 1} out of {graphData.length}
           </span>
           <div className="btn-group">
             <button onClick={goToPrevWindow} disabled={currentWindowIndex === 0}>
