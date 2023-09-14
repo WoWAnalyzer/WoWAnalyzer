@@ -345,7 +345,7 @@ class Disintegrate extends Analyzer {
       {
         spellTracker: this.disintegrateTicksCounter,
         type: 'line',
-        color: 'blue',
+        color: '#4C78A8',
       },
       {
         spellTracker: this.disintegrateCasts,
