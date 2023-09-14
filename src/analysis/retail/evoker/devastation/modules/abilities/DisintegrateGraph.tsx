@@ -51,7 +51,6 @@ type Props = {
   fightStartTime: number;
   fightEndTime: number;
   graphData: GraphData[];
-  multiGraph?: boolean;
 };
 
 /**

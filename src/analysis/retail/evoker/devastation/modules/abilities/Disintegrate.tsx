@@ -20,7 +20,6 @@ import DisintegratePlot, {
 } from './DisintegrateGraph';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
-import { isFightDungeon } from 'common/isFightDungeon';
 
 const { DISINTEGRATE } = SPELLS;
 
@@ -406,7 +405,6 @@ class Disintegrate extends Analyzer {
           fightStartTime={this.owner.fight.start_time}
           fightEndTime={this.owner.fight.end_time}
           graphData={this.graphData}
-          multiGraph={isFightDungeon(this.owner.fight) ? true : false}
         />
       </SubSection>
     );
