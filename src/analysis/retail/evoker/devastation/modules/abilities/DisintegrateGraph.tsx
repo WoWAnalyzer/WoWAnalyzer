@@ -84,14 +84,7 @@ export const generateGraphData = (
       const timestamp = entry.timestamp;
       const count = entry.count;
 
-      if (timestamp < startTime && series.type !== 'point') {
-        filteredSpellTracker[0] = {
-          timestamp: timestamp,
-          count: count,
-          tooltip: entry.tooltip,
-        };
-        prevCount = count;
-      } else if (timestamp >= startTime && timestamp <= endTime) {
+      if (timestamp >= startTime && timestamp <= endTime) {
         if (filteredSpellTracker.length === 0 && series.type !== 'point') {
           // Give initial value so a line doesnt just abruptly appear
           filteredSpellTracker.push({
