@@ -12,7 +12,12 @@ import Events, {
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import DisintegratePlot, { SpellTracker } from './DisintegrateGraph';
+import DisintegratePlot, {
+  GraphData,
+  DataSeries,
+  SpellTracker,
+  generateGraphData,
+} from './DisintegrateGraph';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
 import { isFightDungeon } from 'common/isFightDungeon';
@@ -56,6 +61,9 @@ class Disintegrate extends Analyzer {
   isCurrentCastChained: boolean = false;
   disintegrateClipSpell: CastEvent | undefined = undefined;
   inFightWithDungeonBoss: boolean = false;
+
+  startTime: number = this.owner.fight.start_time;
+  endTime: number = this.owner.fight.end_time;
   /** Spells that you can/should clip with
    * Any other spell used to clip Disintegrate
    * is counted as a cancelled cast
@@ -72,6 +80,8 @@ class Disintegrate extends Analyzer {
     TALENTS.PYRE_TALENT,
   ];
 
+  graphData: GraphData[] = [];
+
   disintegrateTicksCounter: SpellTracker[] = [];
   disintegrateCasts: SpellTracker[] = [];
   disintegrateChainCasts: SpellTracker[] = [];
@@ -81,16 +91,6 @@ class Disintegrate extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    if (!isFightDungeon(this.owner.fight)) {
-      this.dragonrageBuffCounter.push({
-        timestamp: this.owner.fight.start_time,
-        count: 0,
-      });
-      this.disintegrateTicksCounter.push({
-        timestamp: this.owner.fight.start_time,
-        count: 0,
-      });
-    }
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(DRAGONRAGE_TALENT),
@@ -139,6 +139,7 @@ class Disintegrate extends Analyzer {
      * Here we figure out when a boss fight start/ends for m+ runs
      * We use this to initialize our GraphInputs so we have proper start/end times
      */
+    this.addEventListener(Events.fightend, this.pushToGraphData);
   }
 
   onBuffApply(event: ApplyBuffEvent) {
@@ -329,6 +330,46 @@ class Disintegrate extends Analyzer {
     });
   }
 
+  /** Generate graph data */
+  pushToGraphData() {
+    const dataSeries: DataSeries[] = [
+      {
+        spellTracker: this.dragonrageBuffCounter,
+        type: 'area',
+        color: '#CCCCCC',
+      },
+      {
+        spellTracker: this.disintegrateTicksCounter,
+        type: 'line',
+        color: 'blue',
+      },
+      {
+        spellTracker: this.disintegrateCasts,
+        type: 'point',
+        color: '#2ecc71',
+      },
+      {
+        spellTracker: this.disintegrateChainCasts,
+        type: 'point',
+        color: 'orange',
+      },
+      {
+        spellTracker: this.disintegrateClips,
+        type: 'point',
+        color: '#9b59b6',
+      },
+      {
+        spellTracker: this.problemPoints,
+        type: 'point',
+        color: 'red',
+      },
+    ];
+
+    const newGraphData = generateGraphData(dataSeries, this.startTime, this.endTime);
+    console.log(newGraphData);
+    this.graphData.push(newGraphData);
+  }
+
   /** Evaluate individual disintegrate casts */
   guideSubSection(): JSX.Element | null {
     /**
@@ -364,6 +405,7 @@ class Disintegrate extends Analyzer {
         <DisintegratePlot
           fightStartTime={this.owner.fight.start_time}
           fightEndTime={this.owner.fight.end_time}
+          graphData={this.graphData}
           multiGraph={isFightDungeon(this.owner.fight) ? true : false}
         />
       </SubSection>
