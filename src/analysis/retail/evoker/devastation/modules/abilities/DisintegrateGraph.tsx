@@ -6,6 +6,7 @@ import { AutoSizer } from 'react-virtualized';
 import { UnitSpec } from 'vega-lite/build/src/spec';
 import { Field } from 'vega-lite/build/src/channeldef';
 import { InlineData } from 'vega-lite/build/src/data';
+import 'analysis/retail/evoker/augmentation/modules/breahtofeons/Section.scss';
 
 /**
  * Represents the configuration options for the individual graphs that
