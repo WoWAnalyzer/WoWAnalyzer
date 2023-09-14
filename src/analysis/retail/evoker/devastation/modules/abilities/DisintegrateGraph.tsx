@@ -1,10 +1,11 @@
 // DisintegratePlot.tsx
-import React from 'react';
+import React, { useState } from 'react';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
 import { UnitSpec } from 'vega-lite/build/src/spec';
 import { Field } from 'vega-lite/build/src/channeldef';
+import { InlineData } from 'vega-lite/build/src/data';
 
 /**
  * Represents the configuration options for the individual graphs that
@@ -49,18 +50,160 @@ export type SpellTracker = {
 type Props = {
   fightStartTime: number;
   fightEndTime: number;
-  graphData?: GraphData[];
+  graphData: GraphData[];
   multiGraph?: boolean;
 };
 
-const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graphData }) => {
-  const colorData = {
-    dragonrageBuffCounter: '#CCCCCC',
-    disintegrateCasts: '#2ecc71',
-    disintegrateChainCasts: 'orange',
-    disintegrateClips: '#9b59b6',
-    problemPoints: 'red',
+/**
+ * Function to generate GraphData from a list of DataSeries.
+ * This function will look through the dataSeries and produce
+ * produce a formatted set that falls within the given time range.
+ * then it will return the graphData.
+ * @param data The dataseries you want to include in the graph
+ * @param startTime Startime for graph
+ * @param endTime Endtime for graph
+ * @param title Optional title for multigraphs
+ * @returns GraphData object.
+ */
+export const generateGraphData = (
+  data: DataSeries[],
+  startTime: number,
+  endTime: number,
+  title?: string,
+): GraphData => {
+  const filteredData: DataSeries[] = [];
+
+  /**  */
+  data.forEach((series) => {
+    // Make new filtered SpellTracker
+    const filteredSpellTracker: SpellTracker[] = [];
+
+    let prevCount = 0;
+    let endFound = false;
+    for (let i = 0; i < series.spellTracker.length; i += 1) {
+      const entry = series.spellTracker[i];
+      const timestamp = entry.timestamp;
+      const count = entry.count;
+
+      if (timestamp < startTime && series.type !== 'point') {
+        filteredSpellTracker[0] = {
+          timestamp: timestamp,
+          count: count,
+          tooltip: entry.tooltip,
+        };
+        prevCount = count;
+      } else if (timestamp >= startTime && timestamp <= endTime) {
+        if (filteredSpellTracker.length === 0 && series.type !== 'point') {
+          // Give initial value so a line doesnt just abruptly appear
+          filteredSpellTracker.push({
+            timestamp: startTime,
+            count: 0,
+            tooltip: entry.tooltip,
+          });
+        }
+        filteredSpellTracker.push({
+          timestamp: timestamp,
+          count: count,
+          tooltip: entry.tooltip,
+        });
+        prevCount = count;
+      } else if (timestamp > endTime) {
+        if (series.type !== 'point') {
+          filteredSpellTracker.push({
+            timestamp: endTime,
+            count: prevCount,
+            tooltip: entry.tooltip,
+          });
+        }
+        endFound = true;
+        break;
+      }
+    }
+
+    if (!endFound && series.type !== 'point') {
+      filteredSpellTracker.push({
+        timestamp: endTime,
+        count: prevCount,
+      });
+    }
+
+    filteredData.push({
+      spellTracker: filteredSpellTracker,
+      type: series.type,
+      color: series.color,
+    });
+  });
+
+  const graphData: GraphData = {
+    graphData: filteredData,
+    title: title,
+    startTime: startTime,
+    endTime: endTime,
   };
+  return graphData;
+};
+
+const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graphData }) => {
+  /** Logic for handling display of windows */
+  const [currentWindowIndex, setCurrentWindowIndex] = useState(0);
+
+  const goToNextWindow = () => {
+    setCurrentWindowIndex((prevIndex) => (prevIndex + 1) % graphData.length);
+  };
+  const goToPrevWindow = () => {
+    setCurrentWindowIndex((prevIndex) => (prevIndex - 1 + graphData.length) % graphData.length);
+  };
+
+  const currentWindow = graphData[currentWindowIndex];
+  let currentGraph: GraphData;
+  if (currentWindow) {
+    currentGraph = graphData[currentWindowIndex];
+  }
+
+  function generateAreas():
+    | UnitSpec<Field>[]
+    | import('vega-lite/build/src/spec').LayerSpec<Field>[] {
+    const areas: UnitSpec<Field>[] = [];
+    currentGraph.graphData.forEach((dataSeries) => {
+      if (dataSeries.type === 'area') {
+        areas.push({
+          ...area(dataSeries.spellTracker, dataSeries.color),
+        });
+      }
+    });
+
+    return areas;
+  }
+
+  function generateLines():
+    | UnitSpec<Field>[]
+    | import('vega-lite/build/src/spec').LayerSpec<Field>[] {
+    const lines: UnitSpec<Field>[] = [];
+    currentGraph.graphData.forEach((dataSeries) => {
+      if (dataSeries.type === 'line') {
+        lines.push({
+          ...line(dataSeries.spellTracker, dataSeries.color),
+        });
+      }
+    });
+
+    return lines;
+  }
+
+  function generatePoints():
+    | UnitSpec<Field>[]
+    | import('vega-lite/build/src/spec').LayerSpec<Field>[] {
+    const points: UnitSpec<Field>[] = [];
+    currentGraph.graphData.forEach((dataSeries) => {
+      if (dataSeries.type === 'point') {
+        points.push({
+          ...point(dataSeries.spellTracker, dataSeries.color, 'tooltip'),
+        });
+      }
+    });
+
+    return points;
+  }
 
   /** We want high fidelity for ticks so it's easier to look up specific timings on logs/vods */
   const tickCount = (fightEndTime - fightStartTime) / 1000;
@@ -90,8 +233,8 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
     },
   };
 
-  const line = (dataName: string): UnitSpec<Field> => ({
-    data: { name: dataName },
+  const line = (data: InlineData, color: string): UnitSpec<Field> => ({
+    data: { values: data },
     mark: {
       type: 'line',
       interpolate: 'step-after',
@@ -105,14 +248,12 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
       },
     ],
     encoding: {
-      color: {
-        type: 'nominal',
-      },
+      color: { value: color },
     },
   });
 
-  const area = (dataName: string, color: string): UnitSpec<Field> => ({
-    data: { name: dataName },
+  const area = (data: InlineData, color: string): UnitSpec<Field> => ({
+    data: { values: data },
     mark: {
       type: 'area',
       interpolate: 'step-after',
@@ -132,8 +273,12 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
     },
   });
 
-  const point = (dataName: string, color: string, tooltipFieldName: string): UnitSpec<Field> => ({
-    data: { name: dataName },
+  const point = (
+    data: InlineData,
+    color: string,
+    tooltipFieldName: string | undefined,
+  ): UnitSpec<Field> => ({
+    data: { values: data },
     mark: {
       type: 'point' as const,
       shape: 'circle',
@@ -158,26 +303,7 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
       y: yAxis,
     },
 
-    layer: [
-      {
-        ...area('dragonrageBuffCounter', colorData.dragonrageBuffCounter),
-      },
-      {
-        ...line('disintegrateTicksCounter'),
-      },
-      {
-        ...point('disintegrateCasts', colorData.disintegrateCasts, 'tooltip'),
-      },
-      {
-        ...point('disintegrateChainCasts', colorData.disintegrateChainCasts, 'tooltip'),
-      },
-      {
-        ...point('problemPoints', colorData.problemPoints, 'tooltip'),
-      },
-      {
-        ...point('disintegrateClips', colorData.disintegrateClips, 'tooltip'),
-      },
-    ],
+    layer: [...generateAreas(), ...generateLines(), ...generatePoints()],
   };
 
   // If the x-axis is too long, we enable horizontal scrolling, for better readability
@@ -188,24 +314,56 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
   const widthPercentage = graphLength > threshold ? (graphLength / threshold) * 100 : 100;
 
   return (
-    <div
-      className="graph-container"
-      style={{
-        width: '100%',
-        overflowX: graphLength > threshold ? 'auto' : 'hidden', // Enable horizontal scrolling if the data length exceeds the threshold
-      }}
-    >
+    <div className="graph-window-container">
+      {graphData.length > 1 && (
+        <header>
+          <span>
+            Boss Fight: {currentWindowIndex + 1} out of {graphData.length}
+          </span>
+          <div className="btn-group">
+            <button onClick={goToPrevWindow} disabled={currentWindowIndex === 0}>
+              <span
+                className="icon-button glyphicon glyphicon-chevron-left"
+                aria-hidden="true"
+              ></span>
+            </button>
+            <button onClick={goToNextWindow} disabled={currentWindowIndex === graphData.length - 1}>
+              <span
+                className="icon-button glyphicon glyphicon-chevron-right"
+                aria-hidden="true"
+              ></span>
+            </button>
+          </div>
+        </header>
+      )}
       <div
+        className="graph-container"
         style={{
-          padding: graphLength > threshold ? '0 0 30px' : '0 0 0px', // Add padding so scrollbar doesn't overlap x-axis
-          width: `${widthPercentage}%`,
-          overflowY: 'hidden',
-          minHeight: 250,
+          width: '100%',
+          overflowX: graphLength > threshold ? 'auto' : 'hidden', // Enable horizontal scrolling if the data length exceeds the threshold
         }}
       >
-        <AutoSizer>
-          {({ width, height }) => <BaseChart spec={spec} data={{}} width={width} height={height} />}
-        </AutoSizer>
+        <div
+          style={{
+            padding: graphLength > threshold ? '0 0 30px' : '0 0 0px', // Add padding so scrollbar doesn't overlap x-axis
+            width: `${widthPercentage}%`,
+            overflowY: 'hidden',
+            minHeight: 250,
+          }}
+        >
+          <AutoSizer>
+            {({ width, height }) => (
+              <BaseChart
+                spec={spec}
+                data={{
+                  currentGraph: currentGraph,
+                }}
+                width={width}
+                height={height}
+              />
+            )}
+          </AutoSizer>
+        </div>
       </div>
     </div>
   );
