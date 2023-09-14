@@ -20,6 +20,7 @@ import DisintegratePlot, {
 } from './DisintegrateGraph';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
+import { isFightDungeon } from 'common/isFightDungeon';
 
 const { DISINTEGRATE } = SPELLS;
 
@@ -61,8 +62,9 @@ class Disintegrate extends Analyzer {
   disintegrateClipSpell: CastEvent | undefined = undefined;
   inFightWithDungeonBoss: boolean = false;
 
-  startTime: number = this.owner.fight.start_time;
-  endTime: number = this.owner.fight.end_time;
+  fightStartTime: number = 0;
+  fightEndTime: number = 0;
+
   /** Spells that you can/should clip with
    * Any other spell used to clip Disintegrate
    * is counted as a cancelled cast
@@ -133,12 +135,9 @@ class Disintegrate extends Analyzer {
       }
     });
 
-    // Add event listeners for boss fight start/end
-    /**
-     * Here we figure out when a boss fight start/ends for m+ runs
-     * We use this to initialize our GraphInputs so we have proper start/end times
-     */
-    this.addEventListener(Events.fightend, this.pushToGraphData);
+    this.addEventListener(Events.fightend, () => {
+      this.pushToGraphData();
+    });
   }
 
   onBuffApply(event: ApplyBuffEvent) {
@@ -331,6 +330,12 @@ class Disintegrate extends Analyzer {
 
   /** Generate graph data */
   pushToGraphData() {
+    // don't generate a graph if Disintegrate hasn't been used.
+    if (this.disintegrateTicksCounter.length === 0) {
+      return;
+    }
+
+    /** Create our dataSeries*/
     const dataSeries: DataSeries[] = [
       {
         spellTracker: this.dragonrageBuffCounter,
@@ -364,17 +369,37 @@ class Disintegrate extends Analyzer {
       },
     ];
 
-    const newGraphData = generateGraphData(dataSeries, this.startTime, this.endTime);
-    console.log(newGraphData);
-    this.graphData.push(newGraphData);
+    /** If we are in a dungeon we only want to show the graph for bosses
+     * So we split it up into multigraphs.
+     */
+    if (isFightDungeon(this.owner.fight)) {
+      this.owner.fight.dungeonPulls?.forEach((dungeonPull) => {
+        if (dungeonPull.boss) {
+          const newGraphData = generateGraphData(
+            dataSeries,
+            dungeonPull.start_time,
+            dungeonPull.end_time,
+            dungeonPull.name,
+          );
+          this.graphData.push(newGraphData);
+        }
+      });
+    } else {
+      const newGraphData = generateGraphData(
+        dataSeries,
+        this.owner.fight.start_time,
+        this.owner.fight.end_time,
+      );
+      this.graphData.push(newGraphData);
+    }
   }
 
   /** Evaluate individual disintegrate casts */
   guideSubSection(): JSX.Element | null {
     /**
-     * Don't show graph if the player didn't cast Disintegrate
+     * Don't show graph if we don't have anything to show
      */
-    if (!this.active || this.disintegrateTicksCounter.length === 1) {
+    if (!this.active || this.graphData.length === 0) {
       return null;
     }
 

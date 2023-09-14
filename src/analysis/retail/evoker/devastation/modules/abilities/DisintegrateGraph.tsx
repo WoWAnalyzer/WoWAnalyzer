@@ -13,12 +13,12 @@ import { InlineData } from 'vega-lite/build/src/data';
  */
 export type GraphData = {
   graphData: DataSeries[];
+  /** timestamp to start rendering the graph at */
+  startTime: number;
+  /** timestamp to end rendering the graph at */
+  endTime: number;
   /** Optional title, used for multigraph rendering */
   title?: string;
-  /** timestamp to start rendering the graph at */
-  startTime?: number;
-  /** timestamp to end rendering the graph at */
-  endTime?: number;
 };
 
 /**
@@ -198,7 +198,8 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
   }
 
   /** We want high fidelity for ticks so it's easier to look up specific timings on logs/vods */
-  const tickCount = (fightEndTime - fightStartTime) / 1000;
+  const tickCount =
+    (graphData[currentWindowIndex].endTime - graphData[currentWindowIndex].startTime) / 1000;
   const xAxis = {
     field: 'timestamp_shifted',
     type: 'quantitative' as const,
@@ -299,7 +300,8 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
   };
 
   // If the x-axis is too long, we enable horizontal scrolling, for better readability
-  const graphLength = fightEndTime - fightStartTime;
+  const graphLength =
+    graphData[currentWindowIndex].endTime - graphData[currentWindowIndex].startTime;
   const threshold = 0.6 * 60 * 1000;
 
   // Calculate the width percentage so the graph has consistent size
