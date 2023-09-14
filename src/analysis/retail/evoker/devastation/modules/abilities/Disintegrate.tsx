@@ -330,7 +330,7 @@ class Disintegrate extends Analyzer {
 
   /** Generate graph data */
   pushToGraphData() {
-    // don't generate a graph if Disintegrate hasn't been used.
+    // don't generate graph data if Disintegrate hasn't been used.
     if (this.disintegrateTicksCounter.length === 0) {
       return;
     }

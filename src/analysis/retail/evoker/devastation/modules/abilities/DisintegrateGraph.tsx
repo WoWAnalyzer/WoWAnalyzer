@@ -17,7 +17,8 @@ export type GraphData = {
   startTime: number;
   /** timestamp to end rendering the graph at */
   endTime: number;
-  /** Optional title, used for multigraph rendering */
+  /** Optional title, used for multigraph rendering.
+   * Will not render on single graphs*/
   title?: string;
 };
 
@@ -56,7 +57,7 @@ type Props = {
 /**
  * Function to generate GraphData from a list of DataSeries.
  * This function will look through the dataSeries and produce
- * produce a formatted set that falls within the given time range.
+ * a formatted set that falls within the given time range.
  * then it will return the graphData.
  * @param data The dataseries you want to include in the graph
  * @param startTime Startime for graph
@@ -72,7 +73,6 @@ export const generateGraphData = (
 ): GraphData => {
   const filteredData: DataSeries[] = [];
 
-  /**  */
   data.forEach((series) => {
     // Make new filtered SpellTracker
     const filteredSpellTracker: SpellTracker[] = [];
@@ -296,6 +296,7 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
       y: yAxis,
     },
 
+    /** We generate our different layers individually else it starts overwriting each other and it's a mess */
     layer: [...generateAreas(), ...generateLines(), ...generatePoints()],
   };
 
