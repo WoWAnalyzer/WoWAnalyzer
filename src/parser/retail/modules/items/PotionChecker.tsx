@@ -3,65 +3,20 @@ import ITEMS from 'common/ITEMS/dragonflight/potions';
 import SPELLS from 'common/SPELLS/dragonflight/potions';
 import ALCHEMY from 'common/SPELLS/dragonflight/crafted/alchemy';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import SPECS from 'game/SPECS';
+import ROLES from 'game/ROLES';
+import { Spec } from 'game/SPECS';
 import { ItemLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, FilterCooldownInfoEvent } from 'parser/core/Events';
 import SUGGESTION_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 
 const debug = false;
 
 // these suggestions are all based on Icy Veins guide recommendations, i.e. which potion to use in which situation.
 // most guides recommend to use Battle Potion of Primary Stat, but I have broken out the class/spec combos whose guides
 // recommend to use Rising Death or Bursting Blood in certain situations.
-const AGI_SPECS: number[] = [
-  SPECS.GUARDIAN_DRUID.id,
-  SPECS.FERAL_DRUID.id,
-  SPECS.BEAST_MASTERY_HUNTER.id,
-  SPECS.MARKSMANSHIP_HUNTER.id,
-  SPECS.ASSASSINATION_ROGUE.id,
-  SPECS.OUTLAW_ROGUE.id,
-  SPECS.SUBTLETY_ROGUE.id,
-  SPECS.ENHANCEMENT_SHAMAN.id,
-  SPECS.BREWMASTER_MONK.id,
-  SPECS.WINDWALKER_MONK.id,
-  SPECS.VENGEANCE_DEMON_HUNTER.id,
-  SPECS.HAVOC_DEMON_HUNTER.id,
-  SPECS.SURVIVAL_HUNTER.id,
-];
-
-const STR_SPECS: number[] = [
-  SPECS.PROTECTION_PALADIN.id,
-  SPECS.PROTECTION_WARRIOR.id,
-  SPECS.BLOOD_DEATH_KNIGHT.id,
-  SPECS.RETRIBUTION_PALADIN.id,
-  SPECS.ARMS_WARRIOR.id,
-  SPECS.FURY_WARRIOR.id,
-  SPECS.FROST_DEATH_KNIGHT.id,
-  SPECS.UNHOLY_DEATH_KNIGHT.id,
-];
-
-const INT_SPECS: number[] = [
-  SPECS.SHADOW_PRIEST.id,
-  SPECS.FROST_MAGE.id,
-  SPECS.AFFLICTION_WARLOCK.id,
-  SPECS.DEMONOLOGY_WARLOCK.id,
-  SPECS.DESTRUCTION_WARLOCK.id,
-  SPECS.ELEMENTAL_SHAMAN.id,
-  SPECS.FIRE_MAGE.id,
-  SPECS.ARCANE_MAGE.id,
-  SPECS.BALANCE_DRUID.id,
-];
-
-const HEALER_SPECS: number[] = [
-  SPECS.HOLY_PALADIN.id,
-  SPECS.RESTORATION_DRUID.id,
-  SPECS.HOLY_PRIEST.id,
-  SPECS.DISCIPLINE_PRIEST.id,
-  SPECS.MISTWEAVER_MONK.id,
-  SPECS.RESTORATION_SHAMAN.id,
-];
 
 const BOTTLED_PUTRESCENCE: number[] = [
   // Bottled Putrescence specs
@@ -241,57 +196,57 @@ class PotionChecker extends Analyzer {
     return 'Since you are able to use a combat potion every 5 minutes, you should ensure that you are getting the maximum number of potions in each encounter.';
   }
 
-  potionAdjuster(specID: number) {
-    if (BOTTLED_PUTRESCENCE.includes(specID)) {
+  potionAdjuster(spec: Spec) {
+    if (BOTTLED_PUTRESCENCE.includes(spec.id)) {
       this.potionId = ITEMS.BOTTLED_PUTRESCENCE_R3.id;
       this.potionIcon = ITEMS.BOTTLED_PUTRESCENCE_R3.icon;
       this.addedSuggestionText = true;
-    } else if (POTION_OF_FROZEN_FOCUS.includes(specID)) {
+    } else if (POTION_OF_FROZEN_FOCUS.includes(spec.id)) {
       this.potionId = ITEMS.POTION_OF_FROZEN_FOCUS_R3.id;
       this.potionIcon = ITEMS.POTION_OF_FROZEN_FOCUS_R3.icon;
       this.addedSuggestionText = true;
-    } else if (RESIDUAL_NEURAL_CHANNELING_AGENT.includes(specID)) {
+    } else if (RESIDUAL_NEURAL_CHANNELING_AGENT.includes(spec.id)) {
       this.potionId = ITEMS.RESIDUAL_NEURAL_CHANNELING_AGENT_R3.id;
       this.potionIcon = ITEMS.RESIDUAL_NEURAL_CHANNELING_AGENT_R3.icon;
       this.addedSuggestionText = true;
-    } else if (DELICATE_SUSPENSION_OF_SPORES.includes(specID)) {
+    } else if (DELICATE_SUSPENSION_OF_SPORES.includes(spec.id)) {
       this.potionId = ITEMS.DELICATE_SUSPENSION_OF_SPORES_R3.id;
       this.potionIcon = ITEMS.DELICATE_SUSPENSION_OF_SPORES_R3.icon;
       this.addedSuggestionText = true;
-    } else if (POTION_OF_CHILLED_CLARITY.includes(specID)) {
+    } else if (POTION_OF_CHILLED_CLARITY.includes(spec.id)) {
       this.potionId = ITEMS.POTION_OF_CHILLED_CLARITY_R3.id;
       this.potionIcon = ITEMS.POTION_OF_CHILLED_CLARITY_R3.icon;
       this.addedSuggestionText = true;
-    } else if (AGI_SPECS.includes(specID)) {
+    } else if (spec.primaryStat === PRIMARY_STAT.AGILITY) {
       this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
       this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
-    } else if (STR_SPECS.includes(specID)) {
+    } else if (spec.primaryStat === PRIMARY_STAT.STRENGTH) {
       this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
       this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
-    } else if (INT_SPECS.includes(specID)) {
+    } else if (spec.primaryStat === PRIMARY_STAT.INTELLECT) {
       this.potionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
       this.potionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
-    } else if (HEALER_SPECS.includes(specID)) {
+    } else if (spec.role === ROLES.HEALER) {
       this.isHealer = true;
     }
   }
 
-  setStrongPotionForSpec(specID: number) {
-    if (AGI_SPECS.includes(specID)) {
+  setStrongPotionForSpec(spec: Spec) {
+    if (spec.primaryStat === PRIMARY_STAT.AGILITY) {
       this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
       this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
-    } else if (STR_SPECS.includes(specID)) {
+    } else if (spec.primaryStat === PRIMARY_STAT.STRENGTH) {
       this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
       this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
-    } else if (INT_SPECS.includes(specID)) {
+    } else if (spec.primaryStat === PRIMARY_STAT.INTELLECT) {
       this.strongPotionId = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id;
       this.strongPotionIcon = ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.icon;
     }
   }
 
   suggestions(when: When) {
-    this.potionAdjuster(this.selectedCombatant.specId);
-    this.setStrongPotionForSpec(this.selectedCombatant.specId);
+    this.potionAdjuster(this.selectedCombatant.spec);
+    this.setStrongPotionForSpec(this.selectedCombatant.spec);
     when(this.potionsUsedThresholds).addSuggestion((suggest) =>
       suggest(
         <Trans id="shared.modules.items.potionChecker.suggestions.potionsUsed">
