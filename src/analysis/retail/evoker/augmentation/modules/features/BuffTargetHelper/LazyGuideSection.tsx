@@ -26,7 +26,7 @@ function LazyGuideSection({ loader, value, className }: Props) {
     <>
       {!content && !loading && (
         <button onClick={handleButtonClick} disabled={loading} className={className}>
-          {loading ? 'Loading...' : 'Load Data'}
+          {loading ? 'Loading...' : 'Click to load'}
         </button>
       )}
       {loading ? <p>Loading data...</p> : content}
