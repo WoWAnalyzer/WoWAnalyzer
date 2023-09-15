@@ -55,6 +55,10 @@ const blacklist: number[] = [
   401303, // Pocket Anvil
   401395, // Vessel
   418774, // Mirror
+  400223, // Thorns of Iron
+  322109, // Touch of Death
+  124280, // Touch of Karma
+  184689, // Shield of Vengeance
 ];
 
 /**
