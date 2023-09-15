@@ -37,3 +37,21 @@
   display: inline-block;
   margin-left: 8px;
 }
+
+.table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.table thead tr {
+  color: #ffffff;
+  text-align: left;
+}
+
+.table th,
+.table td {
+  padding: 10px 12px;
+  border: 1px solid rgb(255, 255, 255);
+}
