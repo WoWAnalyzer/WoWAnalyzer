@@ -129,7 +129,7 @@ class BuffTargetHelper extends Analyzer {
 
     const promises = [];
     while (currentTime < this.fightEnd) {
-      promises.push(this.getDamage(currentTime));
+      await this.getDamage(currentTime);
       currentTime += this.interval;
     }
     await Promise.all(promises);
