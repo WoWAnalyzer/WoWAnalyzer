@@ -173,7 +173,11 @@ class BuffTargetHelper extends Analyzer {
       </tr>
     );
 
-    const button = <button className="copyButton">Copy MRT note to clipboard</button>;
+    const button = (
+      <button className="copyButton" onClick={this.handleCopyClick}>
+        Copy MRT note to clipboard
+      </button>
+    );
 
     /** Find the top 4 pumpers for each interval */
     for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
