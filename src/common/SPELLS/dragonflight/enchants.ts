@@ -26,6 +26,16 @@ const enchants = {
     name: 'Burning Writ',
     icon: 'inv_10_elementalshardfoozles_fire',
   },
+  EARTHEN_WRIT_BUFF: {
+    id: 390170,
+    name: 'Earthen Writ',
+    icon: 'inv_10_elementalshardfoozles_earth',
+  },
+  FROZEN_WRIT_BUFF: {
+    id: 390242,
+    name: 'Frozen Writ',
+    icon: 'inv_10_elementalshardfoozles_frost',
+  },
 } satisfies Record<string, Spell>;
 
 export default enchants;
