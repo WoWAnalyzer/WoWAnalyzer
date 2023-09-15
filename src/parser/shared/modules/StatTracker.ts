@@ -28,7 +28,7 @@ import { calculateSecondaryStatDefault } from 'parser/core/stats';
  * Generates a {@link StatBuff} object that defines a buff that gives the
  * appropiate {@link PRIMARY_STAT} for the current spec.
  */
-function primaryStat(value: number): StatBuff {
+export function primaryStat(value: number): StatBuff {
   return {
     strength: ({ spec }: Combatant) => (spec.primaryStat === PRIMARY_STAT.STRENGTH ? value : 0),
     agility: ({ spec }: Combatant) => (spec.primaryStat === PRIMARY_STAT.AGILITY ? value : 0),
