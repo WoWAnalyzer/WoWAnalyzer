@@ -116,7 +116,6 @@ class BuffTargetHelper extends Analyzer {
    * This is on the backburner for now.
    */
   async loadInterval() {
-    console.log('running loadInterval');
     let currentTime = this.fightStart;
     /** If we already populated the map no need to do it again
      * eg. someone went to stats and loaded the component, then
@@ -131,7 +130,6 @@ class BuffTargetHelper extends Analyzer {
       await this.getDamage(currentTime);
       currentTime += this.interval;
     }
-    console.log('finished loadInterval');
   }
 
   async getDamage(currentTime: number) {
@@ -154,7 +152,6 @@ class BuffTargetHelper extends Analyzer {
   }
 
   findTopPumpers() {
-    console.log('findTopPumpers Ran');
     /** Don't run if no player damage is found
      * Essentially prevents it from running when page is loaded
      * and only when load button is pressed
@@ -163,7 +160,6 @@ class BuffTargetHelper extends Analyzer {
       return;
     }
 
-    const contentRows = [];
     const tableRows: any[] = [];
 
     const headerRow = (
@@ -190,13 +186,6 @@ class BuffTargetHelper extends Analyzer {
       const top4Entries = sortedEntries.slice(0, 4);
       const top2Entries = sortedEntries.slice(0, 2);
 
-      // Create the list of top 4 pumpers
-      const formattedEntries = top4Entries.map(([name, values]) => (
-        <li key={name} className="intervalEntry">
-          <span className={playerWhitelist.get(name)}>{name}</span>: {formatNumber(values[i])}
-        </li>
-      ));
-
       const formattedEntriesTable = top4Entries.map(([name, values]) => (
         <td key={name}>
           <span className={playerWhitelist.get(name)}>
@@ -218,15 +207,6 @@ class BuffTargetHelper extends Analyzer {
         </tr>,
       );
 
-      contentRows.push(
-        <div key={i}>
-          <p className="intervalTitle">
-            Top 4 Pumpers for interval {intervalStart} - {intervalEnd}:
-          </p>
-          <ul className="intervalList">{formattedEntries}</ul>
-        </div>,
-      );
-
       this.addEntryToMRTNote(top2Entries, i, intervalStart);
     }
 
@@ -242,14 +222,6 @@ class BuffTargetHelper extends Analyzer {
         {button}
       </div>
     );
-
-    const content = (
-      <div>
-        {button}
-        {contentRows}
-      </div>
-    );
-    console.log('findTopPumpers return', content);
     return tableContent;
   }
 
