@@ -183,7 +183,15 @@ class BuffTargetHelper extends Analyzer {
 
     /** Find the top 4 pumpers for each interval */
     for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
-      const sortedEntries = [...playerDamageMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
+      const sortedEntries = [...playerDamageMap.entries()].sort((a, b) => {
+        // Ensure that both arrays have the same length before comparing
+        if (a[1].length === b[1].length) {
+          return b[1][i] - a[1][i];
+        }
+
+        // Handle the case where arrays have different lengths
+        return b[1].length - a[1].length;
+      });
 
       // Get the top 4 entries
       const top4Entries = sortedEntries.slice(0, 4);
