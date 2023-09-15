@@ -1,17 +1,13 @@
 import { i18n } from '@lingui/core';
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatNumber } from 'common/format';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
-import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { isFightDungeon } from 'common/isFightDungeon';
 import './BuffTargetHelper.scss';
 import BuffTargetHelperSection from './BuffTargetHelperSection';
@@ -283,27 +279,6 @@ class BuffTargetHelper extends Analyzer {
     navigator.clipboard.writeText(mrtPrescienceHelperNote);
   };
 
-  statistic() {
-    return (
-      <LazyLoadStatisticBox
-        category={STATISTIC_CATEGORY.TALENTS}
-        position={STATISTIC_ORDER.CORE(1)}
-        loader={this.loadInterval.bind(this)}
-        icon={<SpellIcon spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} />}
-        value={this.findTopPumpers()}
-        label="Find optimal buff targets"
-        tooltip={
-          <>
-            This is a tool to help you find the optimal buff targets for Ebon Might. It will show
-            you the top 4 pumpers for each 30 second interval (27 with{' '}
-            <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} />)
-            <br />
-            This module will also produce a MRT note for prescience timings.
-          </>
-        }
-      />
-    );
-  }
   guideSubsection(): JSX.Element | null {
     if (!this.active) {
       return null;
