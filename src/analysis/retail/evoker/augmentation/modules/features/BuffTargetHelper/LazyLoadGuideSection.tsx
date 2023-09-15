@@ -11,7 +11,7 @@ interface Props {
  * @value function to return JSX element to be rendered
  * @className optional class name for button
  */
-function LazyGuideSection({ loader, value, className }: Props) {
+function LazyLoadGuideSection({ loader, value, className }: Props) {
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState<JSX.Element | undefined>(undefined);
 
@@ -34,4 +34,4 @@ function LazyGuideSection({ loader, value, className }: Props) {
   );
 }
 
-export default LazyGuideSection;
+export default LazyLoadGuideSection;

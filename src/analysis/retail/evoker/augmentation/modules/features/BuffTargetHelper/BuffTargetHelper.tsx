@@ -12,7 +12,7 @@ import { isFightDungeon } from 'common/isFightDungeon';
 import './BuffTargetHelper.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
-import LazyGuideSection from './LazyGuideSection';
+import LazyLoadGuideSection from './LazyLoadGuideSection';
 
 /**
  * @key Player Name
@@ -324,7 +324,7 @@ class BuffTargetHelper extends Analyzer {
             <p>This module will also produce a MRT note for prescience timings.</p>
           </div>
           <div>
-            <LazyGuideSection
+            <LazyLoadGuideSection
               loader={this.loadInterval.bind(this)}
               value={this.findTopPumpers.bind(this)}
               className="button"
