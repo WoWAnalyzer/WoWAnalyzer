@@ -20,7 +20,7 @@ function BuffTargetHelperSection({ loader, value }: Props) {
   return (
     <>
       {!htmlContent && !loading && (
-        <button onClick={handleButtonClick} disabled={loading} className="copyButton">
+        <button onClick={handleButtonClick} disabled={loading} className="button">
           {loading ? 'Loading...' : 'Load Data'}
         </button>
       )}
