@@ -79,6 +79,7 @@ class BuffTargetHelper extends Analyzer {
 
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
+      playerDamageMap.clear();
       const players = Object.values(this.combatants.players);
       players.forEach((player) => {
         if (
