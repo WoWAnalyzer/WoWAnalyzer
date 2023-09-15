@@ -11,6 +11,8 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { isFightDungeon } from 'common/isFightDungeon';
 import './BuffTargetHelper.scss';
 import BuffTargetHelperSection from './BuffTargetHelperSection';
+import { SubSection } from 'interface/guide';
+import { SpellLink } from 'interface';
 
 /**
  * @key Player Name
@@ -257,10 +259,19 @@ class BuffTargetHelper extends Analyzer {
     }
 
     return (
-      <BuffTargetHelperSection
-        loader={this.loadInterval.bind(this)}
-        value={this.findTopPumpers.bind(this)}
-      />
+      <SubSection title="Buff Helper">
+        <p>
+          This is a tool to help you find the optimal buff targets for Ebon Might. It will show you
+          the top 4 pumpers for each 30 second interval (27 with{' '}
+          <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} />)
+          <br />
+          This module will also produce a MRT note for prescience timings.
+        </p>
+        <BuffTargetHelperSection
+          loader={this.loadInterval.bind(this)}
+          value={this.findTopPumpers.bind(this)}
+        />
+      </SubSection>
     );
   }
 }
