@@ -16,7 +16,7 @@ import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { makeThumbnailUrl } from 'interface/makeAnalyzerUrl';
 import { useLingui } from '@lingui/react';
-import SPECS, { Spec } from 'game/SPECS';
+import { Spec } from 'game/SPECS';
 import { isFightDungeon } from 'common/isFightDungeon';
 import { useFight } from 'interface/report/context/FightContext';
 
@@ -92,10 +92,11 @@ const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) =
 interface PlayerTileProps {
   player: Player;
   makeUrl: (playerId: number, build?: string) => string;
+  anyAugmentationEvokers?: boolean;
   config?: Config;
 }
 
-const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
+const PlayerTile = ({ player, makeUrl, anyAugmentationEvokers, config }: PlayerTileProps) => {
   const classic = player.combatant.expansion === CLASSIC_EXPANSION_NAME;
   const characterInfo = useWaSelector((state) => getCharacterById(state, player.guid));
   const dispatch = useWaDispatch();
@@ -151,9 +152,9 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
       />
     );
   }
-  if (spec.id === SPECS.AUGMENTATION_EVOKER.id && isFightDungeon(fight)) {
+  if (anyAugmentationEvokers && isFightDungeon(fight)) {
     return (
-      <BlockLoading message="Augmentation Evoker is not currently supported for M+ logs due to issues with retrieving the appropriate data for analysis. Augmentation is still supported for raid and we hope to re-enable it for M+ soon.">
+      <BlockLoading message="M+ logs containing Augmentation Evoker are currently not supported due to issues with retrieving the appropriate data for analysis. Augmentation is still supported for raid and we hope to re-enable it for M+ soon.">
         <PlayerTileContents avatar={avatar} player={player} spec={spec} />
       </BlockLoading>
     );
