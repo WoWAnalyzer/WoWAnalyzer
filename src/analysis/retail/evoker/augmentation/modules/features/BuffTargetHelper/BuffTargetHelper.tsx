@@ -75,7 +75,6 @@ class BuffTargetHelper extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = !isFightDungeon(this.owner.fight);
-    this.findTopPumpers = this.findTopPumpers.bind(this);
 
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
@@ -174,11 +173,7 @@ class BuffTargetHelper extends Analyzer {
       </tr>
     );
 
-    const button = (
-      <div className="container">
-        <button className="copyButton">Copy MRT note to clipboard</button>
-      </div>
-    );
+    const button = <button className="copyButton">Copy MRT note to clipboard</button>;
 
     /** Find the top 4 pumpers for each interval */
     for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
@@ -260,17 +255,25 @@ class BuffTargetHelper extends Analyzer {
 
     return (
       <SubSection title="Buff Helper">
-        <p>
-          This is a tool to help you find the optimal buff targets for Ebon Might. It will show you
-          the top 4 pumpers for each 30 second interval (27 with{' '}
-          <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} />)
-          <br />
-          This module will also produce a MRT note for prescience timings.
-        </p>
-        <BuffTargetHelperSection
-          loader={this.loadInterval.bind(this)}
-          value={this.findTopPumpers.bind(this)}
-        />
+        <div className="grid">
+          <div>
+            <p>
+              This module will help you with finding the optimal buff targets for{' '}
+              <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. It will show you the top 4 DPS for
+              each 30 second interval (27 with{' '}
+              <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} /> talented)
+              <br />
+              This module will also produce a MRT note for prescience timings.
+            </p>
+          </div>
+          <div>
+            <BuffTargetHelperSection
+              loader={this.loadInterval.bind(this)}
+              value={this.findTopPumpers.bind(this)}
+            />
+          </div>
+        </div>
       </SubSection>
     );
   }
