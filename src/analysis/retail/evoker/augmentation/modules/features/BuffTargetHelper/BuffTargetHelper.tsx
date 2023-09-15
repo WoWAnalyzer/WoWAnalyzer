@@ -14,6 +14,7 @@ import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatist
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { isFightDungeon } from 'common/isFightDungeon';
 import './BuffTargetHelper.scss';
+import BuffTargetHelperSection from './BuffTargetHelperSection';
 
 /**
  * @key Player Name
@@ -76,6 +77,7 @@ class BuffTargetHelper extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = !isFightDungeon(this.owner.fight);
+    this.findTopPumpers = this.findTopPumpers.bind(this);
 
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
@@ -118,6 +120,7 @@ class BuffTargetHelper extends Analyzer {
    * This is on the backburner for now.
    */
   async loadInterval() {
+    console.log('running loadInterval');
     let currentTime = this.fightStart;
     /** If we already populated the map no need to do it again
      * eg. someone went to stats and loaded the component, then
@@ -132,6 +135,7 @@ class BuffTargetHelper extends Analyzer {
       await this.getDamage(currentTime);
       currentTime += this.interval;
     }
+    console.log('finished loadInterval');
   }
 
   async getDamage(currentTime: number) {
@@ -154,6 +158,7 @@ class BuffTargetHelper extends Analyzer {
   }
 
   findTopPumpers() {
+    console.log('findTopPumpers Ran');
     /** Don't run if no player damage is found
      * Essentially prevents it from running when page is loaded
      * and only when load button is pressed
@@ -162,14 +167,23 @@ class BuffTargetHelper extends Analyzer {
       return;
     }
 
-    console.log(playerDamageMap);
-    const content = [];
-    content.push(
+    const contentRows = [];
+    const tableRows: any[] = [];
+
+    const headerRow = (
+      <tr>
+        <th>Time</th>
+        <th>Player - Damage</th>
+        <th>Player - Damage</th>
+        <th>Player - Damage</th>
+        <th>Player - Damage</th>
+      </tr>
+    );
+
+    const button = (
       <div className="container">
-        <button onClick={this.handleCopyClick} className="copyButton">
-          Copy MRT note to clipboard
-        </button>
-      </div>,
+        <button className="copyButton">Copy MRT note to clipboard</button>
+      </div>
     );
 
     /** Find the top 4 pumpers for each interval */
@@ -187,17 +201,28 @@ class BuffTargetHelper extends Analyzer {
         </li>
       ));
 
+      const formattedEntriesTable = top4Entries.map(([name, values]) => (
+        <td key={name}>
+          <span className={playerWhitelist.get(name)}>
+            {name} - {formatNumber(values[i])}
+          </span>
+        </td>
+      ));
+
       const intervalStart = formatDuration(i * this.interval);
       let intervalEnd = formatDuration((i + 1) * this.interval);
       if (intervalEnd > formatDuration(this.fightEnd - this.fightStart)) {
         intervalEnd = formatDuration(this.fightEnd - this.fightStart);
       }
 
-      this.addEntryToMRTNote(top2Entries, i, intervalStart);
+      tableRows.push(
+        <tr key={i}>
+          <td>{`${intervalStart} - ${intervalEnd}`}</td>
+          {formattedEntriesTable}
+        </tr>,
+      );
 
-      console.log('Top 4 Pumpers for interval', i + 1, 'are:', formattedEntries);
-
-      content.push(
+      contentRows.push(
         <div key={i}>
           <p className="intervalTitle">
             Top 4 Pumpers for interval {intervalStart} - {intervalEnd}:
@@ -205,9 +230,31 @@ class BuffTargetHelper extends Analyzer {
           <ul className="intervalList">{formattedEntries}</ul>
         </div>,
       );
+
+      this.addEntryToMRTNote(top2Entries, i, intervalStart);
     }
 
-    return content;
+    const tableContent = (
+      <div>
+        <table>
+          <tbody className="table">
+            {headerRow}
+            {tableRows}
+          </tbody>
+        </table>
+        <br />
+        {button}
+      </div>
+    );
+
+    const content = (
+      <div>
+        {button}
+        {contentRows}
+      </div>
+    );
+    console.log('findTopPumpers return', content);
+    return tableContent;
   }
 
   /**
@@ -254,6 +301,18 @@ class BuffTargetHelper extends Analyzer {
             This module will also produce a MRT note for prescience timings.
           </>
         }
+      />
+    );
+  }
+  guideSubsection(): JSX.Element | null {
+    if (!this.active) {
+      return null;
+    }
+
+    return (
+      <BuffTargetHelperSection
+        loader={this.loadInterval.bind(this)}
+        value={this.findTopPumpers.bind(this)}
       />
     );
   }
