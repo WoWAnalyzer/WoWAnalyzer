@@ -127,10 +127,12 @@ class BuffTargetHelper extends Analyzer {
       return;
     }
 
+    const promises = [];
     while (currentTime < this.fightEnd) {
-      await this.getDamage(currentTime);
+      promises.push(this.getDamage(currentTime));
       currentTime += this.interval;
     }
+    await Promise.all(promises);
   }
 
   async getDamage(currentTime: number) {
@@ -267,9 +269,9 @@ class BuffTargetHelper extends Analyzer {
               <SpellLink spell={TALENTS.PRESCIENCE_TALENT} />. It will show you the top 4 DPS for
               each 30 second interval (27 with{' '}
               <SpellLink spell={TALENTS.INTERWOVEN_THREADS_TALENT} /> talented)
-              <br />
-              This module will also produce a MRT note for prescience timings.
             </p>
+            <p>Damage events that doesn't get amplified by your buffs will be ignored.</p>
+            <p>This module will also produce a MRT note for prescience timings.</p>
           </div>
           <div>
             <BuffTargetHelperSection
