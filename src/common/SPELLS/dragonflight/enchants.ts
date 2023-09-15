@@ -21,6 +21,11 @@ const enchants = {
     name: 'Burning Devotion',
     icon: 'inv_10_elementalcombinedfoozles_fire',
   },
+  BURNING_WRIT_BUFF: {
+    id: 390165,
+    name: 'Burning Writ',
+    icon: 'inv_10_elementalshardfoozles_fire',
+  },
 } satisfies Record<string, Spell>;
 
 export default enchants;
