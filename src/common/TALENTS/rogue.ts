@@ -1088,24 +1088,29 @@ const talents = {
     entryIds: [112575],
     definitionIds: [{ id: 117580, specId: 261 }],
   },
-  SHADOWSTEP_SHARED_TALENT: {
-    id: 36554,
+  SHADOWSTEP_ASSASSINATION_TALENT: {
+    id: 394932,
     name: 'Shadowstep',
-    icon: 'ability_rogue_shadowstep',
+    icon: 'rogue_shadowfocus',
+    maxRanks: 1,
+    entryIds: [112675],
+    definitionIds: [{ id: 117680, specId: 259 }],
+  },
+  SHADOWSTEP_SHARED_TALENT: {
+    id: 394931,
+    name: 'Shadowstep',
+    icon: 'rogue_shadowfocus',
     maxRanks: 1,
     entryIds: [112583],
     definitionIds: [{ id: 117588, specId: 261 }],
   },
-  SHADOWSTEP_SPEC_TALENT: {
-    id: 36554,
+  SHADOWSTEP_SUBTLETY_TALENT: {
+    id: 394935,
     name: 'Shadowstep',
-    icon: 'ability_rogue_shadowstep',
+    icon: 'rogue_shadowfocus',
     maxRanks: 1,
-    entryIds: [112675, 112617],
-    definitionIds: [
-      { id: 117680, specId: 259 },
-      { id: 117622, specId: 261 },
-    ],
+    entryIds: [112617],
+    definitionIds: [{ id: 117622, specId: 261 }],
   },
   SHADOW_BLADES_TALENT: {
     id: 121471,
@@ -1116,9 +1121,9 @@ const talents = {
     definitionIds: [{ id: 117619, specId: 261 }],
   },
   SHADOW_DANCE_TALENT: {
-    id: 185313,
+    id: 394930,
     name: 'Shadow Dance',
-    icon: 'ability_rogue_shadowdance',
+    icon: 'rogue_shadowfocus',
     maxRanks: 1,
     entryIds: [112577],
     definitionIds: [{ id: 117582, specId: 261 }],

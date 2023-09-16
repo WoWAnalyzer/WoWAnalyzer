@@ -47,8 +47,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {(info.combatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) ||
           info.combatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT)) &&
           modules.revival.guideCastBreakdown}
-        {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
-          modules.manaTea.guideCastBreakdown}
+        {/* {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) &&
+          modules.manaTea.guideCastBreakdown} */}
         <HotGraphSubsection modules={modules} events={events} info={info} />
       </Section>
       <Section title="Core Rotation">
@@ -200,13 +200,6 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />
-      {info.combatant.hasTalent(TALENTS_MONK.MANA_TEA_TALENT) && (
-        <CastEfficiencyBar
-          spellId={TALENTS_MONK.MANA_TEA_TALENT.id}
-          gapHighlightMode={GapHighlight.FullCooldown}
-          useThresholds
-        />
-      )}
     </SubSection>
   );
 }

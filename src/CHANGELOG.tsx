@@ -29,6 +29,14 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 9, 12), 'Disable M+ logs containing Augmentation Evokers temporarily.', ToppleTheNun),
+  change(date(2023, 9, 6), "Reworked getRepeatedTalentCount to use getTalentRank behind the scenes, and renamed it to getMultipleTalentRanks.", Putro),
+  change(date(2023, 9, 5), 'Add Classic Guild page', jazminite),
+  change(date(2023, 9, 5), 'Update talent data for patch 10.1.7', emallson),
+  change(date(2023, 9, 4), <>Add module for tracking of <ItemLink id={ITEMS.ACCELERATING_SANDGLASS.id}/>.</>, nullDozzer),
+  change(date(2023, 9, 2), 'Refactor haste buffs to be more understandable. Implements some haste buffs that were non-functional.', nullDozzer),
+  change(date(2023, 9, 2), 'Fix some spec links not working in some scenarions', nullDozzer),
+  change(date(2023, 8, 30), 'Update SpellLinks to automatically support talents.', ToppleTheNun),
   change(date(2023, 8, 27), 'Fixed broken Warcraft Logs link on the character page.', Bigsxy),
   change(date(2023, 8, 24), 'Stop showing warning of limited support while developing locally', nullDozzer),
   change(date(2023, 8, 23), 'Revert upgrade of charting library to fix area charts.', emallson),

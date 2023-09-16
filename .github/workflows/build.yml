@@ -27,14 +27,14 @@ jobs:
       - name: Get yarn cache directory path
         if: steps.cache.outputs.cache-hit != 'true'
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       # Use week number for automatically purging the cache every week. This is
       # useful because caching yarn-cache would otherwise lead it to grow
       # indefinitely since old dependencies are never purged.
       - name: Get week number
         if: steps.cache.outputs.cache-hit != 'true'
         id: week-number
-        run: echo "::set-output name=value::$(date +%W)"
+        run: echo "value=$(date +%W)" >> $GITHUB_OUTPUT
       - name: Cache "yarn-cache"
         uses: martijnhols/actions-cache@v3
         if: steps.cache.outputs.cache-hit != 'true'
@@ -181,16 +181,16 @@ jobs:
         run: |
           yarn extract
           yarn lingui compile
+      - name: Calculate environment name
+        id: environment-name
+        run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
       - name: Production build
-        run: |
-          REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
-          REACT_APP_VERSION=$GITHUB_SHA
-          # We already ran ESLint in a separate step
-          DISABLE_AUTOMATIC_ESLINT=true
-          DISABLE_ESLINT_PLUGIN=true
-          yarn build
+        run: yarn build
         env:
+          DISABLE_AUTOMATIC_ESLINT: true
           REACT_APP_ENABLE_GA: true
+          REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
+          REACT_APP_VERSION: ${{ github.sha }}
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
@@ -216,16 +216,20 @@ jobs:
         run: |
           yarn extract
           yarn lingui compile
-      - name: Customized e2e production build
-        run: |
-          REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
-          REACT_APP_VERSION=$GITHUB_SHA
-          # Even though this is a "production" build, it's actually a "development" build
-          cp .env.development .env.production
-          # We already ran ESLint in a separate step
-          DISABLE_AUTOMATIC_ESLINT=true
-          DISABLE_ESLINT_PLUGIN=true
-          yarn build
+      - name: Calculate environment name
+        id: environment-name
+        run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+      - name: Customize production environment variables
+        # Even though this is a "production" build, it's actually a "development" build we're
+        # using for e2e testing.
+        run: cp .env.development .env.production
+      - name: Production build
+        run: yarn build
+        env:
+          DISABLE_AUTOMATIC_ESLINT: true
+          REACT_APP_ENABLE_GA: true
+          REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
+          REACT_APP_VERSION: ${{ github.sha }}
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:

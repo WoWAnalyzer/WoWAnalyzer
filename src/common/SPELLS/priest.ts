@@ -131,6 +131,16 @@ const spells = {
     icon: 'spell_holy_holysmite',
     manaCost: 1000,
   },
+  SHADOW_SMITE: {
+    id: 425529,
+    name: 'Smite',
+    icon: 'spell_fire_twilightflamestrike',
+  },
+  ULTIMATE_PENITENCE_DAMAGE: {
+    id: 421543,
+    name: 'Ultimate Penitence',
+    icon: 'ability_priest_ascendance',
+  },
   POWER_WORD_RADIANCE: {
     id: 194509,
     name: 'Power Word: Radiance',

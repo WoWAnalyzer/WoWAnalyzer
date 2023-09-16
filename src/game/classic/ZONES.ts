@@ -1,18 +1,6 @@
 import ulduar from 'game/raids/ulduar';
 import togc from 'game/raids/trialofthegrandcrusader';
-
-interface Encounter {
-  id: number;
-  name: string;
-}
-
-interface Zone {
-  id: number;
-  name: string;
-  frozen?: boolean;
-  encounters: Encounter[];
-  usePtrTooltips?: boolean;
-}
+import { Zone } from 'game/ZONES';
 
 const ZONES: Zone[] = [
   {

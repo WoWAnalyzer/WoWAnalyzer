@@ -23,6 +23,10 @@ const spells: number[] = [
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
 
+  //region Boss abilities
+  SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
+  //endregion
+
   //region Consumables
   //endregion
 
@@ -36,6 +40,7 @@ const spells: number[] = [
   SPELLS.RUNE_3.id,
   SPELLS.ABOMINATION_LIMB_TICK.id,
   SPELLS.ABOMINATION_LIMB_GRIP_TICK.id,
+  SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id,
   //endregion
 
   //region Evoker

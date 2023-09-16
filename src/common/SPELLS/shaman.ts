@@ -11,6 +11,11 @@ const spells = {
     name: 'Water Shield',
     icon: 'ability_shaman_watershield',
   },
+  EARTH_SHOCK_OVERLOAD: {
+    id: 381725,
+    name: 'Earth Shock Overload',
+    icon: 'spell_nature_earthshock',
+  },
   ELECTRIFIED_SHOCKS_DEBUFF: {
     id: 382089,
     name: 'Electrified Shocks',
@@ -192,7 +197,7 @@ const spells = {
   },
   ELEMENTAL_BLAST_OVERLOAD: {
     id: 120588,
-    name: 'Elemental Blast',
+    name: 'Elemental Blast Overload',
     icon: 'shaman_talent_elementalblast',
   },
   ELEMENTAL_BLAST_HASTE: {
@@ -324,6 +329,11 @@ const spells = {
     id: 272737,
     name: 'Unlimited Power Buff',
     icon: 'ability_shaman_ascendance',
+  },
+  STORMKEEPER_BUFF_AND_CAST: {
+    id: 191634,
+    name: 'Stormkeeper',
+    icon: 'ability_thunderking_lightningwhip',
   },
   // Elemental Pet Spells
   WIND_GUST: {

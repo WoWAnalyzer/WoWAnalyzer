@@ -463,6 +463,24 @@ const spells = {
     name: 'Tenacious Flourishing',
     icon: 'talentspec_druid_restoration',
   },
+  // 'Swiftmend' cast by Grove Guardians
+  GROVE_GUARDIANS_SWIFTMEND: {
+    id: 422094,
+    name: 'Swiftmend',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  // 'Nourish' cast by Grove Guardians
+  GROVE_GUARDIANS_NOURISH: {
+    id: 422090,
+    name: 'Nourish',
+    icon: 'ability_druid_nourish',
+  },
+  // 'Wild Growth' cast by Grove Guardians
+  GROVE_GUARDIANS_WILD_GROWTH: {
+    id: 422382,
+    name: 'Wild Growth',
+    icon: 'ability_druid_flourish',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // GUARDIAN / BEAR

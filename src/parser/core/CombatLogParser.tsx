@@ -88,6 +88,7 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
+import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/AcceleratingSandglass';
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
 
 // This prints to console anything that the DI has to do
@@ -203,6 +204,7 @@ class CombatLogParser {
     bloodFury: BloodFury,
 
     // Items:
+    acceleratingSandglass: AcceleratingSandglass,
     voiceOfTheSilentStar: VoiceOfTheSilentStar,
 
     // Enchants

@@ -23,7 +23,7 @@ class Abilities extends CoreAbilities {
 
   spellbook(): Array<SpellbookAbility<TrackedPaladinAbility>> {
     const combatant = this.selectedCombatant;
-    const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_HOLY_TALENT);
+    const hasSanctifiedWrath = combatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT);
     const hasUnbreakable = combatant.hasTalent(TALENTS.UNBREAKABLE_SPIRIT_TALENT);
     const unbreakable = (baseCD: number) => {
       if (hasUnbreakable) {
@@ -44,7 +44,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS.id,
+        spell: SPELLS.SHIELD_OF_THE_RIGHTEOUS_HOLY.id,
         category: SPELL_CATEGORY.HEALER_DAMAGING_SPELL,
       },
       {

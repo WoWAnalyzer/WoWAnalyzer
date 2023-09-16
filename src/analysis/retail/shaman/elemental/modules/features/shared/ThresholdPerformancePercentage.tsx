@@ -30,6 +30,26 @@ interface Props {
   percentage: number /** The actual percentage value to compare against the threshold */;
   flatAmount?: number /** The flat amount of the percentage (the numerator). Will only show percentage if not specified. */;
 }
+
+export function determinePerformance(actual: number, threshold: LTEThreshold | GTEThreshold) {
+  const ops = {
+    lte: (a: number, b: number) => a <= b,
+    gte: (a: number, b: number) => a >= b,
+  };
+
+  let performance;
+  if (ops[threshold.type](actual, threshold.perfect)) {
+    performance = QualitativePerformance.Perfect;
+  } else if (ops[threshold.type](actual, threshold.good)) {
+    performance = QualitativePerformance.Good;
+  } else if (ops[threshold.type](actual, threshold.ok)) {
+    performance = QualitativePerformance.Ok;
+  } else {
+    performance = QualitativePerformance.Fail;
+  }
+
+  return performance;
+}
 /**
  * Element that shows a performance percentage with a tooltip.
  *
@@ -44,21 +64,7 @@ const ThresoldPerformancePercentage = ({ threshold, percentage, flatAmount }: Pr
     signJsx = <>&gt;</>;
   }
 
-  const ops = {
-    lte: (a: number, b: number) => a <= b,
-    gte: (a: number, b: number) => a >= b,
-  };
-
-  let performance;
-  if (ops[threshold.type](percentage, threshold.perfect)) {
-    performance = QualitativePerformance.Perfect;
-  } else if (ops[threshold.type](percentage, threshold.good)) {
-    performance = QualitativePerformance.Good;
-  } else if (ops[threshold.type](percentage, threshold.ok)) {
-    performance = QualitativePerformance.Ok;
-  } else {
-    performance = QualitativePerformance.Fail;
-  }
+  const performance = determinePerformance(percentage, threshold);
 
   let child;
   if (flatAmount) {

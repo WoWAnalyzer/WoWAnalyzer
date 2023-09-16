@@ -5,6 +5,7 @@ import { AlexanderJKremer, Bicepspump, Khazak, ToppleTheNun } from 'CONTRIBUTORS
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 9, 15), <>Fix <SpellLink spell={TALENTS.COMMANDER_OF_THE_DEAD_TALENT} /> showing as a cast</>, Khazak),
   change(date(2023, 7, 18), 'Bump for 10.1.5', Khazak),
   change(date(2023, 7, 11), <>Make <SpellLink spell={SPELLS.VIRULENT_PLAGUE} /> uptime thresholds based on disease buffing talents</>, Khazak),
   change(date(2023, 6, 19), 'Update SpellLink usage.', ToppleTheNun),

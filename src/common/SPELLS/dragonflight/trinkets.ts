@@ -36,6 +36,21 @@ const spells = {
     name: 'Mirror of Fractured Tomorrows',
     icon: 'achievement_dungeon_ulduarraid_misc_06',
   },
+  ACCELERATING_SANDGLASS_DRAINING: {
+    id: 417452,
+    name: 'Accelerating Sandglass',
+    icon: 'ability_bossmagistrix_timewarp2',
+  },
+  ACCELERATING_SANDGLASS_EMPTY: {
+    id: 417456,
+    name: 'Accelerating Sandglass',
+    icon: 'ability_evoker_timelessness',
+  },
+  ACCELERATING_SANDGLASS_DAMAGE: {
+    id: 417458,
+    name: 'Accelerating Sandglass',
+    icon: 'ability_bossmagistrix_timewarp2',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

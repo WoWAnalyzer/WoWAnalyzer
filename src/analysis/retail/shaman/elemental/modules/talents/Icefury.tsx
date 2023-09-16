@@ -1,27 +1,95 @@
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
+import Enemies from 'parser/shared/modules/Enemies';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { ELECTRIFIED_SHOCKS_DURATION } from '../../constants';
+
+interface ActiveIFWindow {
+  event: CastEvent;
+  start: number;
+  empoweredCasts: number;
+}
+
+interface FinishedIFWindow extends ActiveIFWindow {
+  end: number;
+  icefuryCooldownLeft: number;
+}
 
 class Icefury extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
+    spellUsable: SpellUsable,
+    enemies: Enemies,
   };
-  empoweredFrostShockCasts = 0;
+  activeIFWindow: ActiveIFWindow | null;
+  icefuryWindows: FinishedIFWindow[] = [];
+
+  protected spellUsable!: SpellUsable;
   protected abilityTracker!: AbilityTracker;
+  protected enemies!: Enemies;
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.ICEFURY_TALENT);
-    if (!this.active) {
-      return;
-    }
+
+    this.activeIFWindow = null;
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.FROST_SHOCK_TALENT),
       this.onFrostShockCast,
     );
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICEFURY_TALENT),
+      this.onIcefuryCast,
+    );
+
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ICEFURY_TALENT),
+      this.onIcefuryBuffDropoff,
+    );
+  }
+
+  onIcefuryCast(event: CastEvent) {
+    if (this.activeIFWindow) {
+      this.icefuryWindows.push({
+        ...this.activeIFWindow,
+        end: event.timestamp,
+        icefuryCooldownLeft: 0,
+      });
+    }
+
+    this.activeIFWindow = { event: event, start: event.timestamp, empoweredCasts: 0 };
+  }
+  onIcefuryBuffDropoff(event: RemoveBuffEvent) {
+    if (!this.activeIFWindow) {
+      return;
+    }
+
+    this.icefuryWindows.push({
+      ...this.activeIFWindow,
+      end: event.timestamp,
+      icefuryCooldownLeft: Math.max(
+        this.spellUsable.cooldownRemaining(TALENTS.ICEFURY_TALENT.id) - ELECTRIFIED_SHOCKS_DURATION,
+        0,
+      ),
+    });
+    this.activeIFWindow = null;
+  }
+  onFrostShockCast() {
+    if (!this.activeIFWindow) {
+      return;
+    }
+
+    this.activeIFWindow.empoweredCasts += 1;
+  }
+
+  get empoweredFrostShockCasts() {
+    return this.icefuryWindows.map((e) => e.empoweredCasts).reduce((a, b) => a + b, 0);
   }
 
   get suggestionThresholds() {
@@ -36,12 +104,6 @@ class Icefury extends Analyzer {
       },
       style: ThresholdStyle.DECIMAL,
     };
-  }
-
-  onFrostShockCast() {
-    if (this.selectedCombatant.hasBuff(TALENTS.ICEFURY_TALENT.id)) {
-      this.empoweredFrostShockCasts += 1;
-    }
   }
 
   suggestions(when: When) {

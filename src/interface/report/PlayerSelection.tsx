@@ -70,11 +70,14 @@ const PlayerSelection = ({ report, combatants, makeUrl }: Props) => {
           ];
         })
         .sort(sortPlayers)
-        .map((player) => (
+        .map((player, _, players) => (
           <PlayerTile
             key={player.guid}
             player={player}
             makeUrl={makeUrl}
+            anyAugmentationEvokers={players.some(
+              (it) => it.combatant.specID === SPECS.AUGMENTATION_EVOKER.id,
+            )}
             config={getConfig(
               wclGameVersionToExpansion(report.gameVersion),
               player.combatant.specID,

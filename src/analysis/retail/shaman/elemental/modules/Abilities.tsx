@@ -59,8 +59,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ELEMENTAL_BLAST_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT),
+        spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -102,10 +102,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+        spell: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
+        enabled:
+          combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) ||
+          combatant.hasTalent(TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        charges: combatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+        charges: combatant.getMultipleTalentRanks(
+          TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT,
+          TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT,
+        ),
         cooldown: 60,
         gcd: {
           base: 1500,
