@@ -359,6 +359,7 @@ const spells = {
     id: 416771,
     name: 'Seal of the Crusader',
     icon: 'spell_holy_holysmite',
+  },
   SHIELD_OF_THE_RIGHTEOUS_HOLY: {
     id: 415091,
     name: 'Shield of the Righteous',
