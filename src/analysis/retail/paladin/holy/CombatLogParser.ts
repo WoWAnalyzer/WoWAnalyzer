@@ -56,6 +56,12 @@ import LightsProtection from './modules/talents/GlimmerOfLight/LightsProtection'
 import Daybreak from './modules/talents/GlimmerOfLight/Daybreak';
 import TyrsDeliverance from './modules/talents/TyrsDeliverance/TyrsDeliverance';
 import BoundlessSalvation from './modules/talents/TyrsDeliverance/BoundlessSalvation';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import SpellManaCost from 'parser/shared/modules/SpellManaCost';
+import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinHealingEfficiencyTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -125,6 +131,14 @@ class CombatLogParser extends CoreCombatLogParser {
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
+
+    // Mana Tab
+    spellManaCost: SpellManaCost,
+    manaTracker: ManaTracker,
+    hpmTracker: HolyPaladinHealingEfficiencyTracker,
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
+    hpmDetails: HealingEfficiencyDetails,
 
     // Tier Sets
     t30TierSet: T30HpalTierSet,
