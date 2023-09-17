@@ -117,14 +117,12 @@ export default function ElementalGuide(props: GuideProps<typeof CombatLogParser>
         <CooldownGraphSubsection
           cooldowns={defensiveTalents}
           description={
-            <>
-              <p>
-                <strong>Defensives and utility</strong> - Defensive and utility talent usage may
-                vary from fight to fight. They may need to be delayed for specific mechanics. In
-                general, any amount of usage is good, but anywhere you could fit in another usage is
-                a theoretical loss.
-              </p>
-            </>
+            <p>
+              <strong>Defensives and utility</strong> - Defensive and utility talent usage may vary
+              from fight to fight. They may need to be delayed for specific mechanics. In general,
+              any amount of usage is good, but anywhere you could fit in another usage is a
+              theoretical loss.
+            </p>
           }
         />
       </Section>
