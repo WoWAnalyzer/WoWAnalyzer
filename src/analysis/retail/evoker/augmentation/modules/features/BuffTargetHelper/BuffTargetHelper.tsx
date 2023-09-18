@@ -15,20 +15,6 @@ import { SpellLink } from 'interface';
 import LazyLoadGuideSection from './LazyLoadGuideSection';
 
 /**
- * @key Player Name
- * @value Array of damage for each interval
- */
-const playerDamageMap: Map<string, number[]> = new Map();
-
-/**
- * Used to only grab DPS players, excluding Augmentation
- * We use ClassName so we can apply colors to our output
- * @key Player Name
- * @value ClassName
- */
-const playerWhitelist: Map<string, string> = new Map();
-
-/**
  * @key ClassName
  * @value mrt color code
  */
@@ -88,6 +74,20 @@ class BuffTargetHelper extends Analyzer {
   };
   protected combatants!: Combatants;
 
+  /**
+   * @key Player Name
+   * @value Array of damage for each interval
+   */
+  playerDamageMap: Map<string, number[]> = new Map();
+
+  /**
+   * Used to only grab DPS players, excluding Augmentation
+   * We use ClassName so we can apply colors to our output
+   * @key Player Name
+   * @value ClassName
+   */
+  playerWhitelist: Map<string, string> = new Map();
+
   // This could be set to fixed 30s intervals, but might as well give some attention to the Interwoven gamers!
   interval: number =
     30 * 1000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
@@ -103,12 +103,6 @@ class BuffTargetHelper extends Analyzer {
 
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
-      /** Clear the maps, we do this since otherwise it has a tendency
-       * to keep the values from a previous fight if you swap around without
-       * refreshing the browser */
-      playerDamageMap.clear();
-      playerWhitelist.clear();
-
       const players = Object.values(this.combatants.players);
       players.forEach((player) => {
         if (!player.spec) {
@@ -122,7 +116,7 @@ class BuffTargetHelper extends Analyzer {
           const i18nClassName = player.spec.className ? i18n._(player.spec.className) : '';
           const className = i18nClassName?.replace(/\s/g, '') ?? '';
 
-          playerWhitelist.set(player.name, className);
+          this.playerWhitelist.set(player.name, className);
         }
       });
     });
@@ -130,12 +124,14 @@ class BuffTargetHelper extends Analyzer {
 
   /** Generate filter based on black list and whitelist */
   getFilter() {
-    const playerNames = Array.from(playerWhitelist.keys());
-    const nameFilter = playerNames.map((name) => `source.name="${name}"`).join(' OR ');
+    const playerNames = Array.from(this.playerWhitelist.keys());
+    const nameFilter = playerNames
+      .map((name) => `source.name="${name}" OR source.owner.name="${name}"`)
+      .join(' OR ');
 
-    const abilityFilter = blacklist.map((id) => `ability.id!=${id}`).join(' OR ');
+    const abilityFilter = blacklist.map((id) => `ability.id=${id}`).join(' OR ');
 
-    const filter = `(IN RANGE WHEN ${abilityFilter} AND ${nameFilter} END)`;
+    const filter = `not(${abilityFilter}) AND (${nameFilter})`;
 
     return filter;
   }
@@ -155,7 +151,7 @@ class BuffTargetHelper extends Analyzer {
      * went to overview and back to stats and loaded it again.
      * no need to re-query WCL events
      */
-    if (playerDamageMap.size > 0) {
+    if (this.playerDamageMap.size > 0) {
       return;
     }
 
@@ -176,11 +172,11 @@ class BuffTargetHelper extends Analyzer {
     }).then((json) => {
       const data = json as WCLDamageDoneTableResponse;
       data.entries.forEach((entry) => {
-        if (playerWhitelist.has(entry.name)) {
-          if (!playerDamageMap.get(entry.name)) {
-            playerDamageMap.set(entry.name, [entry.total]);
+        if (this.playerWhitelist.has(entry.name)) {
+          if (!this.playerDamageMap.get(entry.name)) {
+            this.playerDamageMap.set(entry.name, [entry.total]);
           } else {
-            playerDamageMap.get(entry.name)?.push(entry.total);
+            this.playerDamageMap.get(entry.name)?.push(entry.total);
           }
         }
       });
@@ -195,11 +191,11 @@ class BuffTargetHelper extends Analyzer {
        * and their damage entry now no longer mathces up
        * we fix this by manually pushing in a zero value.
        */
-      for (const [name] of playerWhitelist) {
-        const damageEntries = playerDamageMap.get(name);
+      for (const [name] of this.playerWhitelist) {
+        const damageEntries = this.playerDamageMap.get(name);
 
         if (!damageEntries) {
-          playerDamageMap.set(name, [0]);
+          this.playerDamageMap.set(name, [0]);
         } else if (damageEntries.length < index) {
           damageEntries.push(0);
         }
@@ -212,7 +208,7 @@ class BuffTargetHelper extends Analyzer {
      * Essentially prevents it from running when page is loaded
      * and only when load button is pressed
      */
-    if (playerDamageMap.size === 0) {
+    if (this.playerDamageMap.size === 0) {
       return;
     }
 
@@ -236,7 +232,7 @@ class BuffTargetHelper extends Analyzer {
 
     /** Find the top 4 pumpers for each interval */
     for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
-      const sortedEntries = [...playerDamageMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
+      const sortedEntries = [...this.playerDamageMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
 
       // Get the top 4 entries, used for the table.
       const top4Entries = sortedEntries.slice(0, 4);
@@ -250,7 +246,7 @@ class BuffTargetHelper extends Analyzer {
 
       const formattedEntriesTable = top4Entries.map(([name, values]) => (
         <td key={name}>
-          <span className={playerWhitelist.get(name)}>
+          <span className={this.playerWhitelist.get(name)}>
             {name} - {formatNumber(values[i])}
           </span>
         </td>
@@ -304,7 +300,7 @@ class BuffTargetHelper extends Analyzer {
       this.mrtPrescienceHelperNote += interval + ' - ';
     }
     this.mrtPrescienceHelperNote += top2Pumpers
-      .map(([name]) => mrtColorMap.get(playerWhitelist.get(name) ?? '') + name + '|r')
+      .map(([name]) => mrtColorMap.get(this.playerWhitelist.get(name) ?? '') + name + '|r')
       .join(' ');
     this.mrtPrescienceHelperNote += '\n';
   }
