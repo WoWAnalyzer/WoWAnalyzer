@@ -37,14 +37,19 @@ const mrtColorMap: Map<string, string> = new Map([
 /** SpellIds to blacklist, ie. trinkets that doesnt add contribution */
 const blacklist: number[] = [
   402583, // Beacon
-  408671, // Bomb dispenser
-  401303, // Pocket Anvil
-  401395, // Vessel
+  408682, // Bomb dispenser
+  408694, // Bomb dispenser
+  401324, // Pocket Anvil
+  401306, // Pocket Anvil
+  401422, // Vessel (Shadow Spike)
+  401428, // Vessel (Ravenous Shadowflame)
   418774, // Mirror
   400223, // Thorns of Iron
   322109, // Touch of Death
   124280, // Touch of Karma
   184689, // Shield of Vengeance
+  379403, // Toxic Thorn Footwraps
+  408791, // Ashkandur
 ];
 
 /**
