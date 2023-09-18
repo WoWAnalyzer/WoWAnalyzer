@@ -201,7 +201,7 @@ class BuffTargetHelper extends Analyzer {
         if (!damageEntries) {
           playerDamageMap.set(name, [0]);
         } else if (damageEntries.length < index) {
-          playerDamageMap.get(name)?.push(0);
+          damageEntries.push(0);
         }
       }
     });
