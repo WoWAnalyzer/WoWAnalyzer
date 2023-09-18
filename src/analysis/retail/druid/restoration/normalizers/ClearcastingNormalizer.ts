@@ -3,7 +3,7 @@ import { CastEvent, EventType, HasRelatedEvent, RemoveBuffEvent } from 'parser/c
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 
-const BUFFER_MS = 50;
+const BUFFER_MS = 200;
 const BUFFED_REGROWTH = 'BuffedRegrowth';
 const BUFFED_BY_CLEARCAST = 'BuffedByClearcast';
 
@@ -12,7 +12,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: BUFFED_REGROWTH,
     reverseLinkRelation: BUFFED_BY_CLEARCAST,
     linkingEventId: SPELLS.CLEARCASTING_BUFF.id,
-    linkingEventType: EventType.RemoveBuff,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
     referencedEventId: SPELLS.REGROWTH.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: BUFFER_MS,
