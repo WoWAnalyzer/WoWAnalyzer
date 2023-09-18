@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 9, 17), <>Reorder guide sections and make the guide default.</>, Awildfivreld),
+  change(date(2023, 9, 17), <>Use core ResourceTracker logic now that it is available.</>, Awildfivreld),
   change(date(2023, 9, 30), <>Use the correct spell id for <SpellLink spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} /> casts.</>, Putro),
   change(date(2023, 8, 30), <>Add section on electrified shocks.</>, Awildfivreld),
   change(date(2023, 8, 13), <>Add section on always be casting, with graph.</>, Awildfivreld),
