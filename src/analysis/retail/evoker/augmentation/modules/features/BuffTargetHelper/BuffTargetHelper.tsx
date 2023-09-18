@@ -160,14 +160,15 @@ class BuffTargetHelper extends Analyzer {
     }
 
     let currentTime = this.fightStart;
-
+    let index = 0;
     while (currentTime < this.fightEnd) {
-      await this.getDamage(currentTime);
+      index += 1;
+      await this.getDamage(currentTime, index);
       currentTime += this.interval;
     }
   }
 
-  async getDamage(currentTime: number) {
+  async getDamage(currentTime: number, index: number) {
     return fetchWcl(`report/tables/damage-done/${this.owner.report.code}`, {
       start: currentTime,
       end: currentTime + this.interval,
@@ -183,6 +184,26 @@ class BuffTargetHelper extends Analyzer {
           }
         }
       });
+
+      /** Check if a player didn't get an entry
+       * This happens when they either:
+       * 1. fall asleep at the wheel
+       * 2. deadge
+       * 3. taking their sweet time with mechanics
+       *
+       * This causes issues when they potentially later get ressed
+       * and their damage entry now no longer mathces up
+       * we fix this by manually pushing in a zero value.
+       */
+      for (const [name] of playerWhitelist) {
+        const damageEntries = playerDamageMap.get(name);
+
+        if (!damageEntries) {
+          playerDamageMap.set(name, [0]);
+        } else if (damageEntries.length < index) {
+          playerDamageMap.get(name)?.push(0);
+        }
+      }
     });
   }
 
@@ -215,19 +236,7 @@ class BuffTargetHelper extends Analyzer {
 
     /** Find the top 4 pumpers for each interval */
     for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
-      const sortedEntries = [...playerDamageMap.entries()].sort((a, b) => {
-        /**Ensure that both arrays have the same length before comparing
-         * We need to do this check due how we set up our data structure.
-         * If players die early they do no damage, and therefor dont generate
-         * extra entries, therefor this check is needed.
-         */
-        if (a[1].length === b[1].length) {
-          return b[1][i] - a[1][i];
-        }
-
-        // Handle the case where arrays have different lengths
-        return b[1].length - a[1].length;
-      });
+      const sortedEntries = [...playerDamageMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
 
       // Get the top 4 entries, used for the table.
       const top4Entries = sortedEntries.slice(0, 4);
