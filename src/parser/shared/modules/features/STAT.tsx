@@ -13,17 +13,20 @@ import StaminaIcon from 'interface/icons/Stamina';
 import StrengthIcon from 'interface/icons/Strength';
 import VersatilityIcon from 'interface/icons/Versatility';
 
-export enum STAT {
-  // Primary
+export enum PRIMARY_STAT {
   STRENGTH = 'strength',
   AGILITY = 'agility',
   INTELLECT = 'intellect',
-  // Secondary
+}
+
+export enum SECONDARY_STAT {
   CRITICAL_STRIKE = 'criticalstrike',
   HASTE = 'haste',
   MASTERY = 'mastery',
   VERSATILITY = 'versatility',
-  // Other
+}
+
+export enum OTHER_STAT {
   HEALTH = 'health',
   STAMINA = 'stamina',
   MANA = 'mana',
@@ -36,20 +39,16 @@ export enum STAT {
   UNKNOWN = 'unknown',
 }
 
+type STAT = PRIMARY_STAT | SECONDARY_STAT | OTHER_STAT;
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+const STAT = {
+  ...PRIMARY_STAT,
+  ...SECONDARY_STAT,
+  ...OTHER_STAT,
+};
+
 export default STAT;
-
-export enum PRIMARY_STAT {
-  STRENGTH = STAT.STRENGTH,
-  AGILITY = STAT.AGILITY,
-  INTELLECT = STAT.INTELLECT,
-}
-
-export enum SECONDARY_STAT {
-  CRITICAL_STRIKE = STAT.CRITICAL_STRIKE,
-  HASTE = STAT.HASTE,
-  MASTERY = STAT.MASTERY,
-  VERSATILITY = STAT.VERSATILITY,
-}
 
 export function getName(stat: STAT) {
   switch (stat) {
