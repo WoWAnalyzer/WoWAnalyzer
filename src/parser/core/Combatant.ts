@@ -46,7 +46,7 @@ class Combatant extends Entity {
     return this._combatantInfo.player;
   }
 
-  get spec(): Spec {
+  get spec(): Spec | undefined {
     return SPECS[this.specId];
   }
 
