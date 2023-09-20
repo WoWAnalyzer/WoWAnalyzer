@@ -293,7 +293,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: VIVIFY,
     linkingEventId: [SPELLS.VIVIFY.id],
     linkingEventType: [EventType.Cast, EventType.BeginChannel],
-    referencedEventId: [SPELLS.VIVIFY.id],
+    referencedEventId: [SPELLS.INVIGORATING_MISTS_HEAL.id, SPELLS.VIVIFY.id],
     referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -595,7 +595,7 @@ export function getNumberOfBolts(event: CastEvent) {
 
 // we use time to get stacks because it can be cast prepull
 export function getManaTeaStacksConsumed(event: ApplyBuffEvent) {
-  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0].timestamp - event.timestamp;
+  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0]?.timestamp - event.timestamp || 0;
   // 1s of mana reduction per stack
   return Math.round(diff / 1000);
 }

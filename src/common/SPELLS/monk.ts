@@ -433,6 +433,24 @@ const spells = {
     name: 'Soulfang Vitality',
     icon: 'nv_helm_leather_raidmonkdragon_d_01',
   },
+  //Tier 31 2pc Buff
+  CHI_HARMONY_HEAL_BONUS: {
+    id: 423439,
+    name: 'Chi Harmony',
+    icon: 'ability-monk-counteractmagic',
+  },
+  //Tier 31 2pc Buff
+  CHI_HARMONY_HEAL: {
+    id: 423458,
+    name: 'Chi Harmony',
+    icon: 'ability-monk-counteractmagic',
+  },
+  //Invigorating Mist Heal
+  INVIGORATING_MISTS_HEAL: {
+    id: 425804,
+    name: 'Invigorating Mists',
+    icon: 'ability_monk_vivify',
+  },
   // Brewmaster
   NIUZAO_STOMP_DAMAGE: {
     id: 227291,

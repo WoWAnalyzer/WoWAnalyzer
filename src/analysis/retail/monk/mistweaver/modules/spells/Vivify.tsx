@@ -70,7 +70,10 @@ class Vivify extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(RAPID_DIFFUSION_SPELLS),
       this.rapidDiffusionReMs,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleViv);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.INVIGORATING_MISTS_HEAL]),
+      this.handleViv,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.handleMastery,
@@ -265,6 +268,10 @@ class Vivify extends Analyzer {
 
   private _tallyCastEntry(event: CastEvent) {
     const vivifyHits = getVivifiesPerCast(event) as HealEvent[];
+    console.log('vivify hits: ', vivifyHits);
+    const invigoratingMistHits = vivifyHits.filter(
+      (invigMists) => invigMists.ability.guid === SPELLS.INVIGORATING_MISTS_HEAL.id,
+    );
     let vivifyGoodCrits = 0;
     let vivifyWastedCrits = 0;
     if (this.upliftedSpirits.active) {
@@ -278,7 +285,7 @@ class Vivify extends Analyzer {
         }
       });
     }
-    const rems = vivifyHits.length - 1;
+    const rems = invigoratingMistHits.length;
     let value = QualitativePerformance.Fail;
     if (rems >= 10) {
       value = QualitativePerformance.Perfect;

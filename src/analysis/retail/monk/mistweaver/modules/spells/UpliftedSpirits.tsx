@@ -47,7 +47,10 @@ class UpliftedSpirits extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_DAMAGE),
       this.rskHit,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyHit);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.INVIGORATING_MISTS_HEAL]),
+      this.vivifyHit,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeTalent), this.onCast);
   }
 

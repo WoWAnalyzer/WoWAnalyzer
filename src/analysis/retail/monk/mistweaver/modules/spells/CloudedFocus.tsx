@@ -19,7 +19,6 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { getVivifiesPerCast } from '../../normalizers/CastLinkNormalizer';
 import DonutChart from 'parser/ui/DonutChart';
 import { CF_BUFF_PER_STACK, SPELL_COLORS } from '../../constants';
 import WarningIcon from 'interface/icons/Warning';
@@ -75,7 +74,9 @@ class CloudedFocus extends Analyzer {
         color: SPELL_COLORS.VIVIFY,
         label: 'Vivify',
         spellId: SPELLS.VIVIFY.id,
-        value: this.getHealingForSpell(SPELLS.VIVIFY.id),
+        value:
+          this.getHealingForSpell(SPELLS.VIVIFY.id) +
+          this.getHealingForSpell(SPELLS.INVIGORATING_MISTS_HEAL.id),
         valueTooltip: this.chartTooltip(SPELLS.VIVIFY.id),
         valuePercent: true,
       },
@@ -128,16 +129,18 @@ class CloudedFocus extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.VIVIFY, TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.ENVELOPING_BREATH_HEAL]),
+        .spell([
+          SPELLS.VIVIFY,
+          SPELLS.INVIGORATING_MISTS_HEAL,
+          TALENTS_MONK.ENVELOPING_MIST_TALENT,
+          SPELLS.ENVELOPING_BREATH_HEAL,
+        ]),
       this.calculateHealingEffect,
     );
   }
 
   calculateManaEffect(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.VIVIFY.id && this.stacks > 0) {
-      this.tallyPrimaryTargetOverheal(event);
-    }
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
@@ -153,6 +156,9 @@ class CloudedFocus extends Analyzer {
     const spellId = event.ability.guid;
     if (this.stacks === 0) {
       return;
+    }
+    if (spellId === SPELLS.VIVIFY.id && this.stacks > 0) {
+      this.tallyPrimaryTargetOverheal(event);
     }
     this.addHealingToStackMap(spellId, event);
     this.healingDone += calculateEffectiveHealing(event, this.stacks * CF_BUFF_PER_STACK);
@@ -182,17 +188,9 @@ class CloudedFocus extends Analyzer {
     this.manaStacks = 0;
   }
 
-  tallyPrimaryTargetOverheal(event: CastEvent) {
-    const vivifies = getVivifiesPerCast(event) as HealEvent[];
-    if (!vivifies) {
-      return;
-    }
-    const primaryVivify = vivifies.filter((viv) => event.targetID === viv.targetID)[0];
-    if (!primaryVivify) {
-      return;
-    }
-    this.primaryTargetHealing += primaryVivify.amount + (primaryVivify.absorbed || 0);
-    this.primaryTargetOverheal += primaryVivify.overheal || 0;
+  tallyPrimaryTargetOverheal(event: HealEvent) {
+    this.primaryTargetHealing += event.amount + (event.absorbed || 0);
+    this.primaryTargetOverheal += event.overheal || 0;
   }
 
   addManaToStackMap(spellId: number, cost: number) {
