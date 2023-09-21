@@ -36,7 +36,6 @@ class Combatants extends Entities<Combatant> {
   }
 
   _selected: SelectedCombatant;
-  /** @returns Combatant */
   get selected() {
     return this._selected;
   }
