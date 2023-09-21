@@ -72,7 +72,7 @@ import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
 import Analyzer from './Analyzer';
-import Combatant from './Combatant';
+import SelectedCombatant from './SelectedCombatant';
 import EventFilter from './EventFilter';
 import EventsNormalizer from './EventsNormalizer';
 import { EventListener } from './EventSubscriber';
@@ -269,7 +269,7 @@ class CombatLogParser {
   get players(): PlayerInfo[] {
     return this.report.friendlies;
   }
-  get selectedCombatant(): Combatant {
+  get selectedCombatant(): SelectedCombatant {
     return this.getModule(Combatants).selected;
   }
 

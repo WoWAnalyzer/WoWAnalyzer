@@ -5,7 +5,7 @@ import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
 import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatant from 'parser/core/Combatant';
+import SelectedCombatant from 'parser/core/SelectedCombatant';
 import { SpellInfo } from 'parser/core/EventFilter';
 import Events, {
   CastEvent,
@@ -30,9 +30,12 @@ import { calculateSecondaryStatDefault } from 'parser/core/stats';
  */
 export function primaryStat(value: number): StatBuff {
   return {
-    strength: ({ spec }: Combatant) => (spec.primaryStat === PRIMARY_STAT.STRENGTH ? value : 0),
-    agility: ({ spec }: Combatant) => (spec.primaryStat === PRIMARY_STAT.AGILITY ? value : 0),
-    intellect: ({ spec }: Combatant) => (spec.primaryStat === PRIMARY_STAT.INTELLECT ? value : 0),
+    strength: ({ spec }: SelectedCombatant) =>
+      spec.primaryStat === PRIMARY_STAT.STRENGTH ? value : 0,
+    agility: ({ spec }: SelectedCombatant) =>
+      spec.primaryStat === PRIMARY_STAT.AGILITY ? value : 0,
+    intellect: ({ spec }: SelectedCombatant) =>
+      spec.primaryStat === PRIMARY_STAT.INTELLECT ? value : 0,
   };
 }
 
@@ -1030,7 +1033,7 @@ export type PlayerMultipliers = Stats;
  * or as a dynamically generated value using the combatant and item
  * (typically an item buff will have power based on its ilvl)
  */
-export type BuffVal = number | ((s: Combatant, t: Item) => number);
+export type BuffVal = number | ((s: SelectedCombatant, t: Item) => number);
 
 /**
  * A buff that boosts player stats.
