@@ -115,7 +115,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: [EventType.ApplyBuff],
     referencedEventId: SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id,
     referencedEventType: [EventType.RemoveBuff],
-    anyTarget: true,
+    anyTarget: false,
   },
   {
     linkRelation: BREATH_OF_EONS_CAST_DEBUFF_APPLY_LINK,

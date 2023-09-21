@@ -120,6 +120,7 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
           />
         }
       />
+      {modules.disintegrate.guideSubSection()}
     </SubSection>
   );
 }

@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { isTalent } from 'common/TALENTS/types';
 import { SpellLink } from 'interface';
-import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
@@ -11,7 +10,6 @@ import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { GUIDE_EXPLANATION_PERCENT_WIDTH } from '../../constants';
 
 const MASTER_OF_THE_ELEMENTS = {
   INCREASE: 0.2,
@@ -149,20 +147,6 @@ class MasterOfTheElements extends Analyzer {
           </>
         </TalentSpellText>
       </Statistic>
-    );
-  }
-
-  guideSubsection(): JSX.Element {
-    const explanation = <>TODO</>;
-    const data = this.statistic();
-
-    return (
-      <ExplanationAndDataSubSection
-        title="Master of the Elements"
-        explanationPercent={GUIDE_EXPLANATION_PERCENT_WIDTH}
-        explanation={explanation}
-        data={data}
-      />
     );
   }
 }

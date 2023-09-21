@@ -29,6 +29,10 @@ type CooldownGraphSubsectionProps = {
    */
   title?: string;
   /**
+   * A description that we may want to render as part of the subsection.
+   */
+  description?: JSX.Element;
+  /**
    * How many casts of a spell will remove its icon from the graph? Defaults to 10.
    */
   tooManyCasts?: number;
@@ -43,6 +47,7 @@ type CooldownGraphSubsectionProps = {
 const CooldownGraphSubsection = ({
   cooldowns,
   title,
+  description,
   tooManyCasts = 10,
 }: CooldownGraphSubsectionProps) => {
   const info = useInfo();
@@ -59,12 +64,18 @@ const CooldownGraphSubsection = ({
     return casts >= tooManyCasts;
   });
 
-  return (
-    <SubSection title={title}>
+  description = description ?? (
+    <>
       <strong>Cooldown Graph</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. Grey segments show when the spell was available, yellow segments
       show when the spell was cooling down. Red segments highlight times when you could have fit a
       whole extra use of the cooldown.
+    </>
+  );
+
+  return (
+    <SubSection title={title}>
+      {description}
       {activeCooldowns.map((cooldownCheck) => (
         <CastEfficiencyBar
           key={cooldownCheck.spell.id}

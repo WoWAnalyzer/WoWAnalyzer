@@ -3,11 +3,13 @@ import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  AbilityEvent,
   ApplyBuffEvent,
   ApplyDebuffEvent,
   BeaconHealEvent,
-  CastEvent,
   DamageEvent,
+  GetRelatedEvents,
+  HasRelatedEvent,
   HealEvent,
   RemoveBuffEvent,
   RemoveDebuffEvent,
@@ -22,8 +24,13 @@ import Spell from 'common/SPELLS/Spell';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { formatNumber } from 'common/format';
+import { GLIMMER_PROC } from '../../../normalizers/CastLinkNormalizer';
 
-const DEBUG = false;
+const GLISTENING_RADIANCE_IDS = Object.fromEntries(
+  ALL_HOLY_POWER_SPENDERS.map((spender) => {
+    return [spender.id, TALENTS.GLISTENING_RADIANCE_TALENT.id];
+  }),
+);
 
 /**
  * Glimmer of Light
@@ -41,9 +48,6 @@ class GlimmerOfLight extends Analyzer {
 
   glimmerStatTracker: GlimmerMap = {};
   glimmerBuffTracker: { [key: number]: number } = {};
-  lastCast = -1;
-  lastCastTime = -1;
-  lastGlisteningRadianceProc = -1;
 
   constructor(options: Options) {
     super(options);
@@ -66,7 +70,7 @@ class GlimmerOfLight extends Analyzer {
     // Base Glimmer tracking Requirements
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.HOLY_SHOCK_TALENT),
-      this.updateLastCast,
+      this.updateProcs,
     );
 
     this.addEventListener(
@@ -101,7 +105,7 @@ class GlimmerOfLight extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.GLISTENING_RADIANCE_TALENT)) {
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(ALL_HOLY_POWER_SPENDERS),
-        this.updateLastCast,
+        this.updateProcs,
       );
       this.glimmerStatTracker[TALENTS.GLISTENING_RADIANCE_TALENT.id] = emptyGlimmerSource(
         TALENTS.GLISTENING_RADIANCE_TALENT,
@@ -112,7 +116,7 @@ class GlimmerOfLight extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.DAYBREAK_TALENT)) {
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DAYBREAK_TALENT),
-        this.updateLastCast,
+        this.updateProcs,
       );
       this.glimmerStatTracker[TALENTS.DAYBREAK_TALENT.id] = emptyGlimmerSource(
         TALENTS.DAYBREAK_TALENT,
@@ -122,11 +126,44 @@ class GlimmerOfLight extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.DIVINE_TOLL_TALENT)) {
       this.addEventListener(
         Events.cast.by(SELECTED_PLAYER).spell(TALENTS.DIVINE_TOLL_TALENT),
-        this.updateLastCast,
+        this.updateProcs,
       );
       this.glimmerStatTracker[TALENTS.DIVINE_TOLL_TALENT.id] = emptyGlimmerSource(
         TALENTS.DIVINE_TOLL_TALENT,
       );
+    }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.RISING_SUNLIGHT_TALENT)) {
+      this.addEventListener(
+        Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.RISING_SUNLIGHT_BUFF),
+        this.updateProcs,
+      );
+      this.addEventListener(
+        Events.removebuffstack.to(SELECTED_PLAYER).spell(SPELLS.RISING_SUNLIGHT_BUFF),
+        this.updateProcs,
+      );
+      this.glimmerStatTracker[SPELLS.RISING_SUNLIGHT_BUFF.id] = emptyGlimmerSource(
+        TALENTS.RISING_SUNLIGHT_TALENT,
+      );
+    }
+  }
+
+  updateProcs(event: AbilityEvent<any>) {
+    if (!HasRelatedEvent(event, GLIMMER_PROC)) {
+      return;
+    }
+    const sourceID = event.ability.guid;
+    const fixedID = GLISTENING_RADIANCE_IDS[sourceID] ?? sourceID;
+    this.glimmerStatTracker[fixedID].procs += 1;
+  }
+
+  getGlimmerSource(event: HealEvent | DamageEvent) {
+    if (HasRelatedEvent(event, GLIMMER_PROC)) {
+      const sourceEvent = GetRelatedEvents(event, GLIMMER_PROC)[0];
+      const sourceID = (sourceEvent as AbilityEvent<string>).ability.guid;
+      const fixedID = GLISTENING_RADIANCE_IDS[sourceID] ?? sourceID;
+
+      return fixedID;
     }
   }
 
@@ -135,10 +172,16 @@ class GlimmerOfLight extends Analyzer {
     if (spellId !== SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id) {
       return;
     }
+    const source = this.getGlimmerSource(event.originalHeal);
+    if (!source) {
+      this.error('no source found for glimmer', event.originalHeal);
+      return;
+    }
     const amount = event.amount + (event.absorbed || 0);
 
-    const toUpdate = this.glimmerStatTracker[this.lastCast];
+    const toUpdate = this.glimmerStatTracker[source];
     if (!toUpdate) {
+      this.warn('untracked glimmer source', source);
       return;
     }
 
@@ -154,11 +197,16 @@ class GlimmerOfLight extends Analyzer {
   }
 
   onGlimmerDamage(event: DamageEvent) {
-    this.updateGR(event);
     const amount = event.amount + (event.absorbed || 0);
+    const source = this.getGlimmerSource(event);
+    if (!source) {
+      this.error('no source found for glimmer', event);
+      return;
+    }
 
-    const toUpdate = this.glimmerStatTracker[this.lastCast];
+    const toUpdate = this.glimmerStatTracker[source];
     if (!toUpdate) {
+      this.warn('untracked glimmer source', source);
       return;
     }
 
@@ -167,45 +215,32 @@ class GlimmerOfLight extends Analyzer {
   }
 
   onGlimmerHeal(event: HealEvent) {
-    this.updateGR(event);
     const amount = event.amount + (event.absorbed || 0);
-    if (DEBUG && this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id) {
-      console.log(
-        `amount: ${event.amount} absorbed: ${event.absorbed || 0} overheal: ${event.overheal || 0}`,
-      );
+    const source = this.getGlimmerSource(event);
+    if (!source) {
+      this.error('no source found for glimmer', event);
+      return;
     }
 
-    const toUpdate = this.glimmerStatTracker[this.lastCast];
+    const toUpdate = this.glimmerStatTracker[source];
     if (!toUpdate) {
+      this.warn('untracked glimmer source', source);
       return;
     }
 
     toUpdate.healing += amount;
     toUpdate.hits += 1;
-    if (DEBUG && this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id) {
-      console.log(toUpdate);
-    }
   }
 
-  updateGR(event: DamageEvent | HealEvent) {
-    if (
-      this.lastCast === TALENTS.GLISTENING_RADIANCE_TALENT.id &&
-      this.lastCastTime > this.lastGlisteningRadianceProc + 250
-    ) {
-      this.glimmerStatTracker[this.lastCast].procs += 1;
-      this.lastGlisteningRadianceProc = event.timestamp;
+  procsPerTrigger(source: GlimmerSource) {
+    let rv = source.hits / source.procs;
+    // Rising Sunlight procs 2 extra holy shocks, each one triggers your glimmers.
+    // Divide by 2 here for clarity to show how many glimmers you had out rather than
+    // how many damage/heal events were triggered.
+    if (source.spell.id === TALENTS.RISING_SUNLIGHT_TALENT.id) {
+      rv = rv / 2;
     }
-  }
-
-  updateLastCast(event: CastEvent) {
-    this.lastCastTime = event.timestamp;
-    const holyPowerBased = ALL_HOLY_POWER_SPENDERS.find((spell) => spell.id === event.ability.guid);
-    if (holyPowerBased) {
-      this.lastCast = TALENTS.GLISTENING_RADIANCE_TALENT.id;
-    } else {
-      this.lastCast = event.ability.guid;
-      this.glimmerStatTracker[this.lastCast].procs += 1;
-    }
+    return rv.toFixed(1);
   }
 
   makeBars() {
@@ -221,7 +256,7 @@ class GlimmerOfLight extends Analyzer {
             Healing: {formatNumber(source.healing)} <br />
             Beacon: {formatNumber(source.beacon)} <br />
             Damage: {formatNumber(source.damage)} <br />
-            Procs/Trigger: {(source.hits / source.procs).toFixed(1)}
+            Procs/Trigger: {this.procsPerTrigger(source)}
           </>
         ),
         subSpecs: [

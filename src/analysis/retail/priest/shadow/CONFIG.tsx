@@ -41,7 +41,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/GqzB6QcYKfML91Ty/1-Heroic+Kazzara,+the+Hellforged+-+Kill+(3:12)/Doxashe/standard',
+    '/report/T49nh8pPAy1KNgdk/1-Heroic+Kazzara,+the+Hellforged+-+Kill+(3:14)/Doxashe/standard',
   guideDefault: true,
 
   // Don't change anything below this line;
