@@ -55,7 +55,7 @@ class Combatants extends Entities<Combatant> {
       }
     });
     const selected = this.players[this.owner.playerId];
-    if (!validSelectedCombatant(selected)) {
+    if (selected != null && !validSelectedCombatant(selected)) {
       throw new Error('Invalid selected combatant');
     }
     this._selected = selected;
