@@ -1,3 +1,4 @@
+import { Arlie } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
@@ -6,7 +7,7 @@ import CHANGELOG from './CHANGELOG';
 
 export default {
   // The people that have contributed to this spec recently. People don't have to sign up to be long-time maintainers to be included in this list. If someone built a large part of the spec or contributed something recently to that spec, they can be added to the contributors list. If someone goes MIA, they may be removed after major changes or during a new expansion.
-  contributors: [],
+  contributors: [Arlie],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
   patchCompatibility: null,
@@ -24,23 +25,31 @@ export default {
         Council of the Black Harvest Discord
       </a>{' '}
       or{' '}
-      <a href="https://lockonestopshop.com" target="_blank" rel="noopener noreferrer">
-        Lock One Stop Shop
+      <a href="https://www.kalamazi.gg/guides/demonology" target="_blank" rel="noopener noreferrer">
+        Kalamazi&apos;s Demonology Guide
+      </a>{' '}
+      or{' '}
+      <a
+        href="https://www.method.gg/guides/demonology-warlock"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Method&apos;s Demonology Guide
       </a>
-      , if you'd like to discuss anything about this analyzer, message me at @Chizu#2873 on
-      WoWAnalyzer Discord.
       <br />
       <br />
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/DPwyKpWBZ6F947mx/2-Normal+Mekkatorque+-+Kill+(7:19)/17-Deathmash',
+  exampleReport:
+    '/report/fQLVhqzPZyGAta3n/1-Mythic+Kazzara,+the+Hellforged+-+Kill+(3:54)/Robinwltwo/standard/overview',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.DEMONOLOGY_WARLOCK,
   // The contents of your changelog.
   changelog: CHANGELOG,
+  guideDefault: true,
   // The CombatLogParser class for your spec.
   parser: () =>
     import('./CombatLogParser' /* webpackChunkName: "DemonologyWarlock" */).then(

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { CTS_CDR_PER_FOCUS } from 'analysis/retail/hunter/marksmanship/constants';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TALENTS_HUNTER } from 'common/TALENTS';
@@ -91,14 +91,14 @@ class CallingTheShots extends Analyzer {
     when(this.callingTheShotsEfficacyThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          When talented into <SpellLink id={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.id} />, it is
+          When talented into <SpellLink spell={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT} />, it is
           important to maximize its potential by not spending focus while{' '}
-          <SpellLink id={TALENTS_HUNTER.TRUESHOT_TALENT.id} /> isn't on cooldown.
+          <SpellLink spell={TALENTS_HUNTER.TRUESHOT_TALENT} /> isn't on cooldown.
         </>,
       )
         .icon(TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.marksmanship.suggestions.callingTheShots.efficiency',
             message: `You had ${formatPercentage(
               actual,
@@ -116,7 +116,7 @@ class CallingTheShots extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT}>
           <>
             {formatNumber(this.effectiveTrueshotReductionMs / 1000)}s /{' '}
             {formatNumber(

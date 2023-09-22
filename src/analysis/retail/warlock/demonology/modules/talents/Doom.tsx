@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
@@ -51,13 +51,13 @@ class Doom extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.DOOM_TALENT.id} /> uptime can be improved. Try to pay more
+          Your <SpellLink spell={TALENTS.DOOM_TALENT} /> uptime can be improved. Try to pay more
           attention to your Doom on the boss, as it is one of your Soul Shard generators.
         </>,
       )
         .icon(TALENTS.DOOM_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.demonology.suggestions.doom.uptime',
             message: `${formatPercentage(actual)}% Doom uptime`,
           }),
@@ -73,7 +73,7 @@ class Doom extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.DOOM_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DOOM_TALENT}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Uptime</small>

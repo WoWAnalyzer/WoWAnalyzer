@@ -62,7 +62,7 @@ class RapidRecovery extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            {this.ticksLost.toFixed(1)} ticks of <SpellLink id={TALENTS.RENEW_TALENT.id} /> lost to
+            {this.ticksLost.toFixed(1)} ticks of <SpellLink spell={TALENTS.RENEW_TALENT} /> lost to
             duration decrease.
             <br />
             This number is estimated by using the player's haste value at time of renew application.

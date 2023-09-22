@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -78,14 +78,14 @@ class SpinningCraneKick extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing your <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> spell as
+          You are not utilizing your <SpellLink spell={SPELLS.SPINNING_CRANE_KICK} /> spell as
           effectively as you should. You should work on both your positioning spell. Always aim for
           the highest concentration of enemies, which is normally melee.
         </>,
       )
         .icon(SPELLS.SPINNING_CRANE_KICK.icon)
         .actual(
-          `${this.badSCKcount}${t({
+          `${this.badSCKcount}${defineMessage({
             id: 'monk.mistweaver.suggestions.spinningCraneKick.efficiency',
             message: ` Spinning Crane Kicks that hit fewer than 3 enemies`,
           })}`,

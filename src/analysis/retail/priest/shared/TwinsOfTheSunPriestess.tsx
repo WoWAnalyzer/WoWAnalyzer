@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -62,14 +62,14 @@ class TwinsOfTheSunPriestess extends Analyzer {
       suggest(
         <>
           You had {this.badCasts} bad {castsPlural} of{' '}
-          <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> by using it on yourself. When taking
+          <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> by using it on yourself. When taking
           this talent, make sure to always use it on an ally. By using it on yourself, you lose out
-          on a free <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> for a raid member.
+          on a free <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> for a raid member.
         </>,
       )
         .icon(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shared.legendaries.twinsOfTheSunPriestess.efficiency',
             message: `You had ${this.badCasts} ${castsPlural} of Power Infusion on yourself.`,
           }),
@@ -85,7 +85,7 @@ class TwinsOfTheSunPriestess extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(15)}
         size="flexible"
       >
-        <BoringSpellValueText spellId={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT}>
           {formatNumber(this.goodCasts)}/{formatNumber(this.totalCasts)} Uses
         </BoringSpellValueText>
       </Statistic>
@@ -106,12 +106,12 @@ class TwinsOfTheSunPriestess extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT.id} />
+          <SpellLink spell={TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT} />
         </b>{' '}
-        gives you <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> when used on an ally.
+        gives you <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> when used on an ally.
         <br />
         When taking this talent, make sure to always use it on an ally. By using it on yourself, you
-        lose out on a free <SpellLink id={TALENTS.POWER_INFUSION_TALENT.id} /> for a raid member.
+        lose out on a free <SpellLink spell={TALENTS.POWER_INFUSION_TALENT} /> for a raid member.
       </p>
     );
 

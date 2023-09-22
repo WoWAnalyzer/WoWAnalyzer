@@ -98,7 +98,6 @@ class HeatingUp extends Analyzer {
   get totalFireBlasts() {
     return (
       this.eventHistory.getEvents(EventType.Cast, {
-        searchBackwards: true,
         spell: SPELLS.FIRE_BLAST,
       }).length || 0
     );
@@ -124,7 +123,6 @@ class HeatingUp extends Analyzer {
         1 -
           this.phoenixFlamesDuringHotStreak() /
             this.eventHistory.getEvents(EventType.Cast, {
-              searchBackwards: true,
               spell: TALENTS.PHOENIX_FLAMES_TALENT,
             }).length || 0,
       isLessThan: {
@@ -140,10 +138,10 @@ class HeatingUp extends Analyzer {
     when(this.fireBlastUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={SPELLS.FIRE_BLAST.id} /> {this.fireBlastDuringHotStreak()} times
-          while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active and{' '}
+          You cast <SpellLink spell={SPELLS.FIRE_BLAST} /> {this.fireBlastDuringHotStreak()} times
+          while <SpellLink spell={SPELLS.HOT_STREAK} /> was active and{' '}
           {this.fireBlastWithoutHeatingUp()} times while you didnt have{' '}
-          <SpellLink id={SPELLS.HEATING_UP.id} />. Make sure that you are only using Fire Blast to
+          <SpellLink spell={SPELLS.HEATING_UP} />. Make sure that you are only using Fire Blast to
           convert Heating Up into Hot Streak or if you are going to cap on charges.
         </>,
       )
@@ -158,11 +156,11 @@ class HeatingUp extends Analyzer {
     when(this.phoenixFlamesUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />{' '}
-          {this.phoenixFlamesDuringHotStreak()} times while <SpellLink id={SPELLS.HOT_STREAK.id} />{' '}
-          was active. This is a waste as the <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />{' '}
-          could have contributed towards the next <SpellLink id={SPELLS.HEATING_UP.id} /> or{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} />.
+          You cast <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />{' '}
+          {this.phoenixFlamesDuringHotStreak()} times while <SpellLink spell={SPELLS.HOT_STREAK} />{' '}
+          was active. This is a waste as the <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />{' '}
+          could have contributed towards the next <SpellLink spell={SPELLS.HEATING_UP} /> or{' '}
+          <SpellLink spell={SPELLS.HOT_STREAK} />.
         </>,
       )
         .icon(TALENTS.PHOENIX_FLAMES_TALENT.icon)
@@ -196,13 +194,13 @@ class HeatingUp extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HEATING_UP.id}>
+        <BoringSpellValueText spell={SPELLS.HEATING_UP}>
           <>
-            <SpellIcon id={SPELLS.FIRE_BLAST.id} />{' '}
+            <SpellIcon spell={SPELLS.FIRE_BLAST} />{' '}
             {formatPercentage(this.fireBlastUtilSuggestionThresholds.actual, 0)}%{' '}
             <small>Fire Blast Utilization</small>
             <br />
-            <SpellIcon id={TALENTS.PHOENIX_FLAMES_TALENT.id} />{' '}
+            <SpellIcon spell={TALENTS.PHOENIX_FLAMES_TALENT} />{' '}
             {formatPercentage(this.phoenixFlamesUtilSuggestionThresholds.actual, 0)}%{' '}
             <small>Phoenix Flames Utilization</small>
           </>

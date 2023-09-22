@@ -16,6 +16,7 @@ import {
 import { Options } from 'parser/core/Module';
 
 const CAST_BUFFER_MS = 200;
+const AFTER_CAST_BUFFER_MS = 300; // parries can be delayed even more...
 
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_DOUBLE_CLAWED_RAKE = 'FromDoubleClawedRake';
@@ -41,7 +42,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS_DRUID.PRIMAL_WRATH_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
     anyTarget: true,
     isActive: (c) => c.hasTalent(TALENTS_DRUID.PRIMAL_WRATH_TALENT),
   },
@@ -52,7 +53,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RAKE.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
   },
   {
     linkRelation: FROM_DOUBLE_CLAWED_RAKE,
@@ -61,7 +62,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RAKE.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
     anyTarget: true,
     additionalCondition: (le, re) => !isFromHardcast(le),
     isActive: (c) => c.hasTalent(TALENTS_DRUID.DOUBLE_CLAWED_RAKE_TALENT),
@@ -73,7 +74,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.RAKE.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -86,12 +87,13 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
     linkingEventId: SPELLS.FEROCIOUS_BITE.id,
     linkingEventType: EventType.Damage,
     referencedEventId: SPELLS.FEROCIOUS_BITE.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
   },
   {
     linkRelation: FROM_HARDCAST,
@@ -101,7 +103,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
     anyTarget: true,
     isActive: (c) => c.hasTalent(TALENTS_DRUID.BRUTAL_SLASH_TALENT),
   },
@@ -113,7 +115,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.SWIPE_CAT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
     anyTarget: true,
   },
   {

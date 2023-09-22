@@ -33,16 +33,17 @@ export class ZenMeditation extends MajorDefensiveBuff {
     return (
       <>
         <p>
-          <SpellLink id={talents.ZEN_MEDITATION_TALENT} /> is one of the most powerful defensive
+          <SpellLink spell={talents.ZEN_MEDITATION_TALENT} /> is one of the most powerful defensive
           cooldowns in the game, and sports one of the longest cooldowns to compensate. Since the
           cooldown is so long, it is difficult to use effectively without researching a fight's
           damage patterns in advance.
         </p>
         <p>
           <small>
-            You will usually want to use <SpellLink id={talents.FUNDAMENTAL_OBSERVATION_TALENT} />{' '}
-            if you expect to be using <SpellLink id={talents.ZEN_MEDITATION_TALENT} /> while
-            actively tanking, as many bosses can auto-attack while casting.
+            You will usually want to use{' '}
+            <SpellLink spell={talents.FUNDAMENTAL_OBSERVATION_TALENT} /> if you expect to be using{' '}
+            <SpellLink spell={talents.ZEN_MEDITATION_TALENT} /> while actively tanking, as many
+            bosses can auto-attack while casting.
           </small>
         </p>
       </>

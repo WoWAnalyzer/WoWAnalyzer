@@ -65,6 +65,9 @@ export const serenityApl = build(
     if ('condition' in rule) {
       return { spell: rule.spell, condition: andSerenity(rule.condition) };
     }
+    if ('description' in rule) {
+      return { ...rule, condition: inSerenity };
+    }
     return { spell: rule, condition: inSerenity };
   }),
 );
@@ -100,7 +103,7 @@ export const nonSerenityApl = build(
       spell: SPELLS.BLACKOUT_KICK,
       condition: describe(and(hasChi(1), not(lastSpellCast(SPELLS.BLACKOUT_KICK))), (tense) => (
         <>
-          <SpellLink id={SPELLS.BLACKOUT_KICK} /> was not your last cast.
+          <SpellLink spell={SPELLS.BLACKOUT_KICK} /> was not your last cast.
         </>
       )),
     },
@@ -120,6 +123,9 @@ export const nonSerenityApl = build(
   ].map((rule: Rule) => {
     if ('condition' in rule) {
       return { spell: rule.spell, condition: andNotSerenity(rule.condition) };
+    }
+    if ('description' in rule) {
+      return { ...rule, condition: notSerenity };
     }
     return { spell: rule, condition: notSerenity };
   }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
@@ -134,13 +134,13 @@ class PurifyingBrew extends Analyzer {
     when(this.purifyDelaySuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should delay your <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> cast as little
+          You should delay your <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> cast as little
           as possible after being hit to maximize its effectiveness.
         </>,
       )
         .icon(talents.PURIFYING_BREW_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.brewmaster.suggestions.purifyingBrew.avgdelay',
             message: `${actual.toFixed(2)}s Average Delay`,
           }),
@@ -208,7 +208,7 @@ class PurifyingBrew extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={talents.PURIFYING_BREW_TALENT.id} /> Avg. Mitigation per Purifying Brew
+              <SpellIcon spell={talents.PURIFYING_BREW_TALENT} /> Avg. Mitigation per Purifying Brew
             </>
           }
         >

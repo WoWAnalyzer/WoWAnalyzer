@@ -1,4 +1,5 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, t, Trans } from '@lingui/macro';
+import { i18n } from '@lingui/core';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
@@ -44,10 +45,12 @@ class FillerLightOfTheMartyrs extends Analyzer {
     this.inefficientCasts.push(event);
     event.meta = event.meta || {};
     event.meta.isInefficientCast = true;
-    event.meta.inefficientCastReason = t({
-      id: 'paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable',
-      message: `Holy Shock was available and should have been cast instead as it is a much more efficient spell.`,
-    });
+    event.meta.inefficientCastReason = i18n._(
+      defineMessage({
+        id: 'paladin.holy.modules.fillerLightOfTheMatyrs.holyShockWasAvailable',
+        message: `Holy Shock was available and should have been cast instead as it is a much more efficient spell.`,
+      }),
+    );
   }
 
   get cpm() {
@@ -84,7 +87,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
     when(this.cpmSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.suggestion">
-          You cast many <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />
+          You cast many <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />
           s. Light of the Martyr is an inefficient spell to cast, try to only cast Light of the
           Martyr when it will save someone's life or when moving and all other instant cast spells
           are on cooldown.
@@ -107,8 +110,8 @@ class FillerLightOfTheMartyrs extends Analyzer {
       suggest(
         <Trans id="paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion">
           You cast {this.inefficientCasts.length}{' '}
-          <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />s while{' '}
-          <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was{' '}
+          <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />s while{' '}
+          <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was{' '}
           <TooltipElement
             content={t({
               id: 'paladin.holy.modules.fillerLightOfTheMatyrs.inefficientSuggestion.availableWithin',
@@ -121,7 +124,7 @@ class FillerLightOfTheMartyrs extends Analyzer {
           {this.inefficientCasts
             .map((event) => this.owner.formatTimestamp(event.timestamp))
             .join(', ')}
-          ). Try to <b>never</b> cast <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> when
+          ). Try to <b>never</b> cast <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> when
           something else is available
           <TooltipElement
             content={t({

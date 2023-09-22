@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 const STEALTH_ABILITIES: Spell[] = [
   SPELLS.PICK_POCKET,
@@ -17,6 +18,7 @@ const STEALTH_ABILITIES: Spell[] = [
   SPELLS.SAP,
   SPELLS.AMBUSH,
   SPELLS.SHADOWSTRIKE,
+  SPELLS.GARROTE,
 ];
 
 const debug = false;
@@ -33,11 +35,17 @@ class StealthAbilityFollowingSepsis extends Analyzer {
     super(options);
 
     const specId = this.selectedCombatant.specId;
-    // Outlaw and Assassination should use Ambush, Sub should use Shadowstrike.
-    this.properStealthAbility =
-      specId === SPECS.OUTLAW_ROGUE.id || specId === SPECS.ASSASSINATION_ROGUE.id
-        ? SPELLS.AMBUSH
-        : SPELLS.SHADOWSTRIKE;
+    if (specId === SPECS.OUTLAW_ROGUE.id) {
+      // Outlaw should use Ambush,
+      this.properStealthAbility = SPELLS.AMBUSH;
+    } else if (specId === SPECS.ASSASSINATION_ROGUE.id) {
+      // Assassination should use garrote when running impoved garrote, otherwise ambush
+      const hasImprovedGarrote = this.selectedCombatant.hasTalent(TALENTS.IMPROVED_GARROTE_TALENT);
+      this.properStealthAbility = hasImprovedGarrote ? SPELLS.GARROTE : SPELLS.AMBUSH;
+    } else {
+      // Sub should use Shadowstrike
+      this.properStealthAbility = SPELLS.SHADOWSTRIKE;
+    }
 
     this.active = this.selectedCombatant.hasTalent(TALENTS.SEPSIS_TALENT);
     if (!this.active) {
@@ -48,9 +56,16 @@ class StealthAbilityFollowingSepsis extends Analyzer {
       this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(ability), this.onStealthAbility);
     });
   }
-
   onStealthAbility(event: CastEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.SEPSIS_BUFF.id, event.timestamp)) {
+      return;
+    }
+    // Ignore Ambush casts durring Blindside procs
+    if (
+      this.selectedCombatant.hasTalent(TALENTS.BLINDSIDE_TALENT) &&
+      this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp) &&
+      event.ability.guid === SPELLS.AMBUSH.id
+    ) {
       return;
     }
     if (event.ability.guid !== this.properStealthAbility.id) {
@@ -60,7 +75,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
       event.meta.isInefficientCast = true;
       event.meta.inefficientCastReason = `You used the incorrect Stealth ability. You should've used ${this.properStealthAbility.name}.`;
     } else {
-      debug && console.log(`Recurded good cast with id ${event.ability.guid}`);
+      debug && console.log(`Recorded good cast with id ${event.ability.guid}`);
     }
   }
 
@@ -72,7 +87,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
           <tr key={idx}>
             <td>{this.owner.formatTimestamp(cast.timestamp)}</td>
             <td>
-              <SpellLink id={cast.ability.guid} />
+              <SpellLink spell={abilityToSpell(cast.ability)} />
             </td>
           </tr>
         </>,
@@ -82,17 +97,16 @@ class StealthAbilityFollowingSepsis extends Analyzer {
     if (this.badCasts.length === 0) {
       tooltip = (
         <>
-          You used <SpellLink id={this.properStealthAbility.id} />
-          following the completion of <SpellLink id={TALENTS.SEPSIS_TALENT.id} />
-          every time! Great job!
+          You used <SpellLink spell={this.properStealthAbility} /> following the completion of{' '}
+          <SpellLink spell={TALENTS.SEPSIS_TALENT} /> every time! Great job!
         </>
       );
     } else {
       tooltip = (
         <>
           You used the incorrect stealth ability instead of{' '}
-          <SpellLink id={this.properStealthAbility.id} />
-          following the completion of <SpellLink id={TALENTS.SEPSIS_TALENT.id} />
+          <SpellLink spell={this.properStealthAbility} />
+          following the completion of <SpellLink spell={TALENTS.SEPSIS_TALENT} />
         </>
       );
     }
@@ -124,7 +138,7 @@ class StealthAbilityFollowingSepsis extends Analyzer {
           dropdown={dropdown}
         >
           <BoringSpellValue
-            spellId={TALENTS.SEPSIS_TALENT.id}
+            spell={TALENTS.SEPSIS_TALENT.id}
             value={`${this.badCasts.length}`}
             label="Bad Casts after Sepsis Finishes"
           />

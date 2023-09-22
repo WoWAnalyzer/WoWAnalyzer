@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
+import { TIERS } from 'game/TIERS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -32,11 +33,6 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.RUNE_OF_POWER_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT),
-        timelineHighlight: true,
-      },
-      {
         spellId: TALENTS.BLAZING_BARRIER_TALENT.id,
         triggeredBySpellId: TALENTS.BLAZING_BARRIER_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.BLAZING_BARRIER_TALENT),
@@ -54,13 +50,23 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SUN_KINGS_BLESSING_BUFF.id,
+        spellId: SPELLS.FURY_OF_THE_SUN_KING.id,
         enabled: combatant.hasTalent(TALENTS.SUN_KINGS_BLESSING_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.FLAMES_FURY.id,
+        enabled: combatant.has4PieceByTier(TIERS.T30),
         timelineHighlight: true,
       },
       {
         spellId: TALENTS.MIRROR_IMAGE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.MIRROR_IMAGE_TALENT),
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.IMPROVED_SCORCH_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.IMPROVED_SCORCH_TALENT),
         timelineHighlight: true,
       },
       {

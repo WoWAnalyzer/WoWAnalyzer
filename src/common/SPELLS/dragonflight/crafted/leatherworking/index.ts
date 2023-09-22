@@ -5,14 +5,14 @@
  *   icon: string,
  * },
  */
-import { spellIndexableList } from 'common/SPELLS/Spell';
+import Spell from 'common/SPELLS/Spell';
 
-const items = spellIndexableList({
+const items = {
   FERAL_HIDE_DRUMS: {
     id: 381301,
     name: 'Feral Hide Drums',
     icon: 'inv_10_skinning_consumable_leatherdrums_color1',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default items;

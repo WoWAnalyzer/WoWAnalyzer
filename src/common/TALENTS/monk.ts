@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ACCUMULATING_MIST_TALENT: {
     id: 388564,
     name: 'Accumulating Mist',
@@ -261,8 +261,8 @@ const talents = createTalentList({
     name: 'Counterstrike',
     icon: 'ability_monk_palmstrike',
     maxRanks: 1,
-    entryIds: [101441],
-    definitionIds: [{ id: 106443, specId: 268 }],
+    entryIds: [101442],
+    definitionIds: [{ id: 106444, specId: 268 }],
   },
   CRANE_VORTEX_TALENT: {
     id: 388848,
@@ -287,6 +287,14 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101437],
     definitionIds: [{ id: 106439, specId: 269 }],
+  },
+  DANCE_OF_THE_WIND_TALENT: {
+    id: 414132,
+    name: 'Dance of the Wind',
+    icon: 'ability_monk_dematerialize',
+    maxRanks: 1,
+    entryIds: [115760],
+    definitionIds: [{ id: 120772, specId: 269 }],
   },
   DANCING_MISTS_TALENT: {
     id: 388701,
@@ -381,6 +389,14 @@ const talents = createTalentList({
     entryIds: [101475],
     definitionIds: [{ id: 106477, specId: 269 }],
   },
+  ENERGIZING_BREW_TALENT: {
+    id: 422031,
+    name: 'Energizing Brew',
+    icon: 'ui_profession_herbalism',
+    maxRanks: 1,
+    entryIds: [101380],
+    definitionIds: [{ id: 106382, specId: 270 }],
+  },
   ENVELOPING_MIST_TALENT: {
     id: 124682,
     name: 'Enveloping Mist',
@@ -436,8 +452,8 @@ const talents = createTalentList({
     name: 'Face Palm',
     icon: 'ability_monk_tigerpalm',
     maxRanks: 1,
-    entryIds: [101442],
-    definitionIds: [{ id: 106444, specId: 268 }],
+    entryIds: [101441],
+    definitionIds: [{ id: 106443, specId: 268 }],
   },
   FAELINE_HARMONY_TALENT: {
     id: 391412,
@@ -557,7 +573,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 106472, specId: 268 }],
   },
   FORTIFYING_BREW_TALENT: {
-    id: 115203,
+    id: 388917,
     name: 'Fortifying Brew',
     icon: 'ability_monk_fortifyingale_new',
     maxRanks: 1,
@@ -866,8 +882,8 @@ const talents = createTalentList({
     name: 'Lifecycles',
     icon: 'ability_monk_souldance',
     maxRanks: 1,
-    entryIds: [101380],
-    definitionIds: [{ id: 106382, specId: 270 }],
+    entryIds: [101379],
+    definitionIds: [{ id: 106381, specId: 270 }],
   },
   LIFE_COCOON_TALENT: {
     id: 116849,
@@ -887,12 +903,13 @@ const talents = createTalentList({
     definitionIds: [{ id: 106450, specId: 268 }],
   },
   MANA_TEA_TALENT: {
-    id: 197908,
+    id: 115869,
     name: 'Mana Tea',
     icon: 'monk_ability_cherrymanatea',
     maxRanks: 1,
-    entryIds: [101379],
-    definitionIds: [{ id: 106381, specId: 270 }],
+    entryIds: [101395],
+    definitionIds: [{ id: 106397, specId: 270 }],
+    manaCost: 2500,
   },
   MARK_OF_THE_CRANE_TALENT: {
     id: 220357,
@@ -901,14 +918,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101434],
     definitionIds: [{ id: 106436, specId: 269 }],
-  },
-  MASTERY_OF_MIST_TALENT: {
-    id: 281231,
-    name: 'Mastery of Mist',
-    icon: 'spell_nature_wispsplodegreen',
-    maxRanks: 1,
-    entryIds: [101395],
-    definitionIds: [{ id: 106397, specId: 270 }],
   },
   MENDING_PROLIFERATION_TALENT: {
     id: 388509,
@@ -998,6 +1007,14 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101424],
     definitionIds: [{ id: 106426, specId: 269 }],
+  },
+  PRESS_THE_ADVANTAGE_TALENT: {
+    id: 418359,
+    name: 'Press the Advantage',
+    icon: 'inv__fistofthewhitetiger',
+    maxRanks: 1,
+    entryIds: [116131],
+    definitionIds: [{ id: 121143, specId: 268 }],
   },
   PRETENSE_OF_INSTABILITY_TALENT: {
     id: 393516,
@@ -1123,6 +1140,7 @@ const talents = createTalentList({
     entryIds: [101508],
     definitionIds: [{ id: 106510, specId: 269 }],
     chiCost: 2,
+    manaCost: 6250,
   },
   RUSHING_JADE_WIND_TALENT: {
     id: 116847,
@@ -1248,7 +1266,8 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101509],
     definitionIds: [{ id: 106511, specId: 269 }],
-    manaCost: 0,
+    manaCostPerSecond: 1000,
+    energyCostPerSecond: 15,
   },
   SPEAR_HAND_STRIKE_TALENT: {
     id: 116705,
@@ -1273,14 +1292,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101427],
     definitionIds: [{ id: 106429, specId: 269 }],
-  },
-  SPIRIT_OF_THE_CRANE_TALENT: {
-    id: 210802,
-    name: 'Spirit of the Crane',
-    icon: 'monk_stance_redcrane',
-    maxRanks: 1,
-    entryIds: [101361],
-    definitionIds: [{ id: 106363, specId: 270 }],
   },
   SPIRIT_OF_THE_OX_TALENT: {
     id: 400629,
@@ -1583,6 +1594,14 @@ const talents = createTalentList({
     entryIds: [101481],
     definitionIds: [{ id: 106483, specId: 269 }],
   },
+  YULONS_GRACE_TALENT: {
+    id: 414131,
+    name: "Yu'lon's Grace",
+    icon: 'ability_monk_dragonkick',
+    maxRanks: 1,
+    entryIds: [115761],
+    definitionIds: [{ id: 120773, specId: 269 }],
+  },
   YULONS_WHISPER_TALENT: {
     id: 388038,
     name: "Yu'lon's Whisper",
@@ -1608,7 +1627,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 106370, specId: 270 }],
     manaCost: 2500,
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_MONK };

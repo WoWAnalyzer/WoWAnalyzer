@@ -17,7 +17,7 @@ export interface WCLReport {
   enemies: EnemyInfo[];
   friendlyPets: PetInfo[];
   enemyPets: PetInfo[];
-  phases: unknown[];
+  phases: WCLReportPhases[];
   logVersion: number;
   gameVersion: number;
   title: string;
@@ -26,6 +26,18 @@ export interface WCLReport {
   end: number;
   zone: number;
   exportedCharacters: ExportedCharacter[];
+}
+
+export interface WCLReportPhases {
+  boss: number;
+  /**
+   * This is present for all games, but only used for FFXIV as far as I know. We can safely ignore it (for now).
+   */
+  separatesWipes: boolean;
+  /**
+   * Phase names.
+   */
+  phases: Record<number, string>;
 }
 
 export interface Report extends WCLReport {

@@ -12,14 +12,7 @@ const thorimsInvocationEventOrder: EventOrder = {
   beforeEventId: SPELLS.WINDSTRIKE_CAST.id,
   beforeEventType: EventType.Cast,
   afterEventId: [SPELLS.LIGHTNING_BOLT.id, TALENTS.CHAIN_LIGHTNING_TALENT.id],
-  afterEventType: [
-    EventType.BeginCast,
-    EventType.BeginChannel,
-    EventType.Cast,
-    EventType.FreeCast,
-    EventType.EndChannel,
-    EventType.Damage,
-  ],
+  afterEventType: EventType.Cast,
   bufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
   updateTimestamp: true,
@@ -34,7 +27,6 @@ const primordialWaveEventOrder: EventOrder = {
   beforeEventType: EventType.Cast,
   bufferMs: 100,
   updateTimestamp: true,
-  anyTarget: true,
 };
 
 export class EventOrderNormalizer extends BaseEventOrderNormalizer {

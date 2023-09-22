@@ -110,7 +110,7 @@ class ManaTideTotem extends Analyzer {
           </table>
         }
       >
-        <BoringValue label={<SpellLink id={SPELLS.MANA_TIDE_TOTEM.id} />}>
+        <BoringValue label={<SpellLink spell={SPELLS.MANA_TIDE_TOTEM} />}>
           <div>
             <PersonIcon /> {formatNumber(this.regenOnPlayer)}{' '}
             <small>

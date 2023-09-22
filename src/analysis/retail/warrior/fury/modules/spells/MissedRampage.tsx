@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -75,17 +75,17 @@ class MissedRampage extends Analyzer {
       suggest(
         <>
           There were {actual} times you casted a rage generating ability when you should have cast{' '}
-          <SpellLink id={SPELLS.RAMPAGE.id} />.
-          <SpellLink id={SPELLS.RAMPAGE.id} /> is your 2nd highest damage ability behind{' '}
-          <SpellLink id={SPELLS.EXECUTE_FURY.id} /> and causes you to{' '}
-          <SpellLink id={SPELLS.ENRAGE.id} />, increasing all of your damage done. You should never
-          hold a <SpellLink id={SPELLS.RAMPAGE.id} />, unless you are casting{' '}
-          <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> to cleave it.
+          <SpellLink spell={SPELLS.RAMPAGE} />.
+          <SpellLink spell={SPELLS.RAMPAGE} /> is your 2nd highest damage ability behind{' '}
+          <SpellLink spell={SPELLS.EXECUTE_FURY} /> and causes you to{' '}
+          <SpellLink spell={SPELLS.ENRAGE} />, increasing all of your damage done. You should never
+          hold a <SpellLink spell={SPELLS.RAMPAGE} />, unless you are casting{' '}
+          <SpellLink spell={SPELLS.WHIRLWIND_FURY_CAST} /> to cleave it.
         </>,
       )
         .icon(SPELLS.RAMPAGE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.fury.suggestions.rampages.missed',
             message: `${actual} missed Rampages.`,
           }),

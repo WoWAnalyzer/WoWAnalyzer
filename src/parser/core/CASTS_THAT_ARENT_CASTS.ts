@@ -23,6 +23,10 @@ const spells: number[] = [
   SPELLS.CLOUDBURST_TOTEM_RECALL.id, // Cloudburst reactivation
   TALENTS_SHAMAN.SPIRITWALKERS_GRACE_TALENT.id,
 
+  //region Boss abilities
+  SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
+  //endregion
+
   //region Consumables
   //endregion
 
@@ -36,6 +40,11 @@ const spells: number[] = [
   SPELLS.RUNE_3.id,
   SPELLS.ABOMINATION_LIMB_TICK.id,
   SPELLS.ABOMINATION_LIMB_GRIP_TICK.id,
+  SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id,
+  //endregion
+
+  //region Evoker
+  SPELLS.VERDANT_EMBRACE_HEAL.id,
   //endregion
 
   //region Hunter
@@ -45,7 +54,6 @@ const spells: number[] = [
   //endregion
 
   //region Mage
-  SPELLS.RUNE_OF_POWER_BUFF.id,
   SPELLS.SHIFTING_POWER_TICK.id,
   //endregion
 
@@ -65,6 +73,19 @@ const spells: number[] = [
 
   //region monk
   SPELLS.ESCAPE_FROM_REALITY_CAST.id,
+  //endregion
+
+  //region paladin
+  SPELLS.RECLAMATION_CAST.id,
+  //endregion
+
+  //region warrior
+  SPELLS.RAMPAGE_1.id,
+  SPELLS.RAMPAGE_2.id,
+  SPELLS.RAMPAGE_3.id,
+  SPELLS.RAMPAGE_4.id,
+  SPELLS.HACK_AND_SLASH.id,
+  SPELLS.WRATH_AND_FURY.id,
   //endregion
 
   //region trinket

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -126,12 +126,12 @@ class VivaciousVivification extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} />
         </b>{' '}
-        is a buff that enables an instant <SpellLink id={SPELLS.VIVIFY} /> every 10 seconds. Try to
-        use this buff when you have at least 6 <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
-        HoTs out as healing and mana warrant.{' '}
-        <i>It is not necessary to have good efficiency on this buff usage</i>
+        is a buff that enables an instant <SpellLink spell={SPELLS.VIVIFY} /> every 10 seconds. Try
+        to use this buff when you have at least 6{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out as healing and mana
+        warrant. <i>It is not necessary to have good efficiency on this buff usage</i>
       </p>
     );
     this.unusableUptimes.at(-1)!.end = this.owner.fight.end_time;
@@ -145,11 +145,11 @@ class VivaciousVivification extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} /> utilization
+            <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} /> utilization
           </strong>
           <small>
             Grey periods indicate times that you could have used your{' '}
-            <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} /> buff effectively, but
+            <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} /> buff effectively, but
             did not.
           </small>
 
@@ -180,14 +180,14 @@ class VivaciousVivification extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are overcapping on <SpellLink id={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.id} />{' '}
-          when the raid has a high amount of <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />{' '}
-          and wasting instant <SpellLink id={SPELLS.VIVIFY.id} /> casts
+          You are overcapping on <SpellLink spell={TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT} />{' '}
+          when the raid has a high amount of <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
+          and wasting instant <SpellLink spell={SPELLS.VIVIFY} /> casts
         </>,
       )
         .icon(TALENTS_MONK.VIVACIOUS_VIVIFICATION_TALENT.icon)
         .actual(
-          `${this.wastedApplications + ' '}${t({
+          `${this.wastedApplications + ' '}${defineMessage({
             id: 'monk.mistweaver.suggestions.vivaciousVivification.wastedApplications',
             message: `wasted applications`,
           })}`,

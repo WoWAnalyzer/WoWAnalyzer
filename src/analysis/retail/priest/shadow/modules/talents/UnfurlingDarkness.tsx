@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -72,12 +72,12 @@ class UnfurlingDarkness extends Analyzer {
       suggest(
         <>
           You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} /> procs.{' '}
+          <SpellLink spell={TALENTS.UNFURLING_DARKNESS_TALENT} /> procs.{' '}
         </>,
       )
         .icon(SPELLS.UNFURLING_DARKNESS_BUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.unfurlingDarkness.efficiency',
             message: `You wasted ${this.procsWasted} out of ${this.procsGained} Unfurling Darkness procs.`,
           }),
@@ -89,7 +89,7 @@ class UnfurlingDarkness extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.UNFURLING_DARKNESS_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.UNFURLING_DARKNESS_BUFF}>
           <>
             {this.getProcsUsed()}/{this.procsGained} <small>Procs Used</small>
           </>
@@ -112,10 +112,10 @@ class UnfurlingDarkness extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} />
+          <SpellLink spell={TALENTS.UNFURLING_DARKNESS_TALENT} />
         </b>{' '}
-        is gained by casting <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />.<br />
-        Cast <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> while the buff is active to avoid wasting
+        is gained by casting <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />.<br />
+        Cast <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> while the buff is active to avoid wasting
         procs.
       </p>
     );

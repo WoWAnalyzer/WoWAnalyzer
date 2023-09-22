@@ -25,7 +25,6 @@ class SharedCode extends Analyzer {
    */
   isHardcast(cast: CastEvent) {
     const beginCast = this.eventHistory.getEvents(EventType.BeginCast, {
-      searchBackwards: true,
       spell: SPELLS[cast.ability.guid],
       count: 1,
       startTimestamp: cast.timestamp,
@@ -41,7 +40,6 @@ class SharedCode extends Analyzer {
   getPreCast(event: AnyEvent, preCastSpell?: SpellInfo | SpellInfo[]): CastEvent | undefined {
     return this.eventHistory
       .getEvents(EventType.Cast, {
-        searchBackwards: true,
         spell: preCastSpell,
         count: 1,
         startTimestamp: event.timestamp + 1,
@@ -53,21 +51,26 @@ class SharedCode extends Analyzer {
   /**
    * @param buff the spell object for the proc's buff.
    * @param spenderSpell the spell object (or an array of spell objects) that are used to spend the proc.
+   * @param buffer the number of milliseconds to look before the buff removal
+   * @param afterBuffer the number of milliseconds to look after the buff removel if the events are out of order.
    * @returns an array of remove buff events that had expired
    */
-  getExpiredProcs(buff: SpellInfo, spenderSpell: SpellInfo | SpellInfo[]) {
+  getExpiredProcs(
+    buff: SpellInfo,
+    spenderSpell: SpellInfo | SpellInfo[],
+    buffer = 0,
+    afterBuffer = 0,
+  ) {
     const events = this.eventHistory.getEvents(EventType.RemoveBuff, {
-      searchBackwards: true,
       spell: buff,
     });
 
     const filteredEvents = events.filter((e) => {
       const castEvent = this.eventHistory.getEvents(EventType.Cast, {
-        searchBackwards: true,
         spell: spenderSpell,
         count: 1,
-        startTimestamp: e.timestamp + 1,
-        duration: 250,
+        startTimestamp: e.timestamp + afterBuffer,
+        duration: buffer,
       })[0];
       return !castEvent;
     });

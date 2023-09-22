@@ -62,7 +62,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.PRECISE_SHOTS.id} /> utilization
+              <SpellLink spell={SPELLS.PRECISE_SHOTS} /> utilization
             </>
           }
           thresholds={thresholds.preciseShotsThresholds}
@@ -72,7 +72,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_HUNTER.SERPENT_STING_TALENT.id} /> uptime
+                <SpellLink spell={TALENTS_HUNTER.SERPENT_STING_TALENT} /> uptime
               </>
             }
             thresholds={thresholds.serpentStingUptimeThresholds}
@@ -83,7 +83,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           <Requirement
             name={
               <>
-                Refreshes of <SpellLink id={TALENTS_HUNTER.SERPENT_STING_TALENT.id} /> that didn't
+                Refreshes of <SpellLink spell={TALENTS_HUNTER.SERPENT_STING_TALENT} /> that didn't
                 pandemic{' '}
               </>
             }
@@ -95,7 +95,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT.id} /> CDR efficiency{' '}
+                <SpellLink spell={TALENTS_HUNTER.CALLING_THE_SHOTS_TALENT} /> CDR efficiency{' '}
               </>
             }
             thresholds={thresholds.callingTheShotsThresholds}
@@ -106,7 +106,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS_HUNTER.STEADY_FOCUS_TALENT.id} /> buff uptime
+                <SpellLink spell={TALENTS_HUNTER.STEADY_FOCUS_TALENT} /> buff uptime
               </>
             }
             thresholds={thresholds.steadyFocusThresholds}
@@ -120,7 +120,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           <>
             As a DPS, you should try to reduce the delay between casting spells. This is especially
             true as a Marksmanship that should be casting something all the time, because you can
-            always be casting <SpellLink id={SPELLS.STEADY_SHOT.id} /> if nothing else is available.
+            always be casting <SpellLink spell={SPELLS.STEADY_SHOT} /> if nothing else is available.
           </>
         }
       >
@@ -136,9 +136,9 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
             Capping on Focus is a loss of potential DPS, as you could've used that Focus for a
             damaging ability at a later point. If everything is on cooldown, try and use{' '}
             {combatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT) ? (
-              <SpellLink id={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT.id} />
+              <SpellLink spell={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT} />
             ) : (
-              <SpellLink id={SPELLS.ARCANE_SHOT.id} />
+              <SpellLink spell={SPELLS.ARCANE_SHOT} />
             )}{' '}
             to stay off the focus cap and do some damage.
           </>

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -102,15 +102,15 @@ class RefreshingJadeWind extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You are not utilizing your <SpellLink id={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id} />{' '}
-          effectively. <SpellLink id={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.id} /> excells when
+          You are not utilizing your <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} />{' '}
+          effectively. <SpellLink spell={TALENTS_MONK.REFRESHING_JADE_WIND_TALENT} /> excells when
           you hit 6 targets for the duration of the spell. The easiest way to accomplish this is to
           stand in melee, but there can be other uses when the raid stacks for various abilities.
         </>,
       )
         .icon(TALENTS_MONK.REFRESHING_JADE_WIND_TALENT.icon)
         .actual(
-          `${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${t({
+          `${formatPercentage(this.avgTargetsHitPerRJWPercentage)}${defineMessage({
             id: 'monk.mistweaver.suggestions.refreshingJadeWind.avgTargetsHit',
             message: `% of targets hit per Refreshing Jade Wind`,
           })}`,

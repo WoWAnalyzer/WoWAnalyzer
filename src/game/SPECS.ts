@@ -1,15 +1,16 @@
-import { t } from '@lingui/macro';
-import indexById, { asRestrictedTable } from 'common/indexById';
+import { defineMessage } from '@lingui/macro';
+import indexById from 'common/indexById';
 
 import PRIMARY_STATS from './PRIMARY_STATS';
 import ROLES from './ROLES';
+import { MessageDescriptor } from '@lingui/core';
 
 interface BaseSpec {
   id: number;
   type?: string;
   index: number;
-  className: string;
-  specName?: string;
+  className: MessageDescriptor;
+  specName?: MessageDescriptor;
   role: number;
   primaryStat: string;
   ranking: { class: number; spec: number };
@@ -18,12 +19,18 @@ interface BaseSpec {
 export interface RetailSpec extends BaseSpec {
   masterySpellId: number;
   masteryCoefficient: number;
+  /**
+   * String key used by WCL to identify the class.
+   */
+  wclClassName: string;
+  /**
+   * String key used by WCL to identify the spec.
+   */
+  wclSpecName: string;
 }
 
 export interface ClassicSpec extends BaseSpec {
-  // old-style classic analyzers that haven't been ported to spec-based ones yet
-  // do not have these properties
-  icon?: string;
+  icon: string;
   treeIndex?: number; // which tree (0,1,2) is for this spec. used as a fallback to try to do SOMETHING
 }
 
@@ -45,20 +52,20 @@ export function specMasteryCoefficient(spec: Spec | undefined): number | undefin
   }
 }
 
-const specIndexableList = asRestrictedTable<Spec>();
-
-const SPECS = specIndexableList({
+const SPECS = {
   ARCANE_MAGE: {
     id: 62,
     index: 0,
-    className: t({
+    className: defineMessage({
       id: 'specs.mage',
       message: `Mage`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.mage.arcane',
       message: `Arcane`,
     }),
+    wclClassName: 'Mage',
+    wclSpecName: 'Arcane',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 190740,
@@ -71,14 +78,16 @@ const SPECS = specIndexableList({
   FIRE_MAGE: {
     id: 63,
     index: 1,
-    className: t({
+    className: defineMessage({
       id: 'specs.mage',
       message: `Mage`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.fire',
       message: `Fire`,
     }),
+    wclClassName: 'Mage',
+    wclSpecName: 'Fire',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 12846,
@@ -91,14 +100,16 @@ const SPECS = specIndexableList({
   FROST_MAGE: {
     id: 64,
     index: 2,
-    className: t({
+    className: defineMessage({
       id: 'specs.mage',
       message: `Mage`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.frost',
       message: `Frost`,
     }),
+    wclClassName: 'Mage',
+    wclSpecName: 'Frost',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 76613,
@@ -111,14 +122,16 @@ const SPECS = specIndexableList({
   HOLY_PALADIN: {
     id: 65,
     index: 3,
-    className: t({
+    className: defineMessage({
       id: 'specs.paladin',
       message: `Paladin`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.holy',
       message: `Holy`,
     }),
+    wclClassName: 'Paladin',
+    wclSpecName: 'Holy',
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 183997,
@@ -131,14 +144,16 @@ const SPECS = specIndexableList({
   PROTECTION_PALADIN: {
     id: 66,
     index: 4,
-    className: t({
+    className: defineMessage({
       id: 'specs.paladin',
       message: `Paladin`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.protection',
       message: `Protection`,
     }),
+    wclClassName: 'Paladin',
+    wclSpecName: 'Protection',
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76671,
@@ -151,14 +166,16 @@ const SPECS = specIndexableList({
   RETRIBUTION_PALADIN: {
     id: 70,
     index: 5,
-    className: t({
+    className: defineMessage({
       id: 'specs.paladin',
       message: `Paladin`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.retribution',
       message: `Retribution`,
     }),
+    wclClassName: 'Paladin',
+    wclSpecName: 'Retribution',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 267316,
@@ -171,14 +188,16 @@ const SPECS = specIndexableList({
   ARMS_WARRIOR: {
     id: 71,
     index: 6,
-    className: t({
+    className: defineMessage({
       id: 'specs.warrior',
       message: `Warrior`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.arms',
       message: `Arms`,
     }),
+    wclClassName: 'Warrior',
+    wclSpecName: 'Arms',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76838,
@@ -191,14 +210,16 @@ const SPECS = specIndexableList({
   FURY_WARRIOR: {
     id: 72,
     index: 7,
-    className: t({
+    className: defineMessage({
       id: 'specs.warrior',
       message: `Warrior`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.fury',
       message: `Fury`,
     }),
+    wclClassName: 'Warrior',
+    wclSpecName: 'Fury',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76856,
@@ -211,14 +232,16 @@ const SPECS = specIndexableList({
   PROTECTION_WARRIOR: {
     id: 73,
     index: 8,
-    className: t({
+    className: defineMessage({
       id: 'specs.warrior',
       message: `Warrior`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.protection',
       message: `Protection`,
     }),
+    wclClassName: 'Warrior',
+    wclSpecName: 'Protection',
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 76857,
@@ -231,14 +254,16 @@ const SPECS = specIndexableList({
   BALANCE_DRUID: {
     id: 102,
     index: 9,
-    className: t({
+    className: defineMessage({
       id: 'specs.druid',
       message: `Druid`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.balance',
       message: `Balance`,
     }),
+    wclClassName: 'Druid',
+    wclSpecName: 'Balance',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 326085,
@@ -251,14 +276,16 @@ const SPECS = specIndexableList({
   FERAL_DRUID: {
     id: 103,
     index: 10,
-    className: t({
+    className: defineMessage({
       id: 'specs.druid',
       message: `Druid`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.feral',
       message: `Feral`,
     }),
+    wclClassName: 'Druid',
+    wclSpecName: 'Feral',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 77493,
@@ -271,14 +298,16 @@ const SPECS = specIndexableList({
   GUARDIAN_DRUID: {
     id: 104,
     index: 11,
-    className: t({
+    className: defineMessage({
       id: 'specs.druid',
       message: `Druid`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.guardian',
       message: `Guardian`,
     }),
+    wclClassName: 'Druid',
+    wclSpecName: 'Guardian',
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 155783,
@@ -291,14 +320,16 @@ const SPECS = specIndexableList({
   RESTORATION_DRUID: {
     id: 105,
     index: 12,
-    className: t({
+    className: defineMessage({
       id: 'specs.druid',
       message: `Druid`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.restoration',
       message: `Restoration`,
     }),
+    wclClassName: 'Druid',
+    wclSpecName: 'Restoration',
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77495,
@@ -311,14 +342,16 @@ const SPECS = specIndexableList({
   BLOOD_DEATH_KNIGHT: {
     id: 250,
     index: 13,
-    className: t({
+    className: defineMessage({
       id: 'specs.deathKnight',
       message: `Death Knight`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.blood',
       message: `Blood`,
     }),
+    wclClassName: 'Death Knight',
+    wclSpecName: 'Blood',
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77513,
@@ -331,14 +364,16 @@ const SPECS = specIndexableList({
   FROST_DEATH_KNIGHT: {
     id: 251,
     index: 14,
-    className: t({
+    className: defineMessage({
       id: 'specs.deathKnight',
       message: `Death Knight`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.frost',
       message: `Frost`,
     }),
+    wclClassName: 'Death Knight',
+    wclSpecName: 'Frost',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77514,
@@ -351,14 +386,16 @@ const SPECS = specIndexableList({
   UNHOLY_DEATH_KNIGHT: {
     id: 252,
     index: 15,
-    className: t({
+    className: defineMessage({
       id: 'specs.deathKnight',
       message: `Death Knight`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.unholy',
       message: `Unholy`,
     }),
+    wclClassName: 'Death Knight',
+    wclSpecName: 'Unholy',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.STRENGTH,
     masterySpellId: 77515,
@@ -371,14 +408,16 @@ const SPECS = specIndexableList({
   BEAST_MASTERY_HUNTER: {
     id: 253,
     index: 16,
-    className: t({
+    className: defineMessage({
       id: 'specs.hunter',
       message: `Hunter`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.beastMastery',
       message: `Beast Mastery`,
     }),
+    wclClassName: 'Hunter',
+    wclSpecName: 'Beast Mastery',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76657,
@@ -391,14 +430,16 @@ const SPECS = specIndexableList({
   MARKSMANSHIP_HUNTER: {
     id: 254,
     index: 17,
-    className: t({
+    className: defineMessage({
       id: 'specs.hunter',
       message: `Hunter`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.marksmanship',
       message: `Marksmanship`,
     }),
+    wclClassName: 'Hunter',
+    wclSpecName: 'Marksmanship',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 193468,
@@ -411,14 +452,16 @@ const SPECS = specIndexableList({
   SURVIVAL_HUNTER: {
     id: 255,
     index: 18,
-    className: t({
+    className: defineMessage({
       id: 'specs.hunter',
       message: `Hunter`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.survival',
       message: `Survival`,
     }),
+    wclClassName: 'Hunter',
+    wclSpecName: 'Survival',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 191334,
@@ -431,14 +474,16 @@ const SPECS = specIndexableList({
   DISCIPLINE_PRIEST: {
     id: 256,
     index: 19,
-    className: t({
+    className: defineMessage({
       id: 'specs.priest',
       message: `Priest`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.discipline',
       message: `Discipline`,
     }),
+    wclClassName: 'Priest',
+    wclSpecName: 'Discipline',
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 271534,
@@ -451,14 +496,16 @@ const SPECS = specIndexableList({
   HOLY_PRIEST: {
     id: 257,
     index: 20,
-    className: t({
+    className: defineMessage({
       id: 'specs.priest',
       message: `Priest`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.holy',
       message: `Holy`,
     }),
+    wclClassName: 'Priest',
+    wclSpecName: 'Holy',
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77485,
@@ -471,14 +518,16 @@ const SPECS = specIndexableList({
   SHADOW_PRIEST: {
     id: 258,
     index: 21,
-    className: t({
+    className: defineMessage({
       id: 'specs.priest',
       message: `Priest`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.shadow',
       message: `Shadow`,
     }),
+    wclClassName: 'Priest',
+    wclSpecName: 'Shadow',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77486,
@@ -491,14 +540,16 @@ const SPECS = specIndexableList({
   ASSASSINATION_ROGUE: {
     id: 259,
     index: 22,
-    className: t({
+    className: defineMessage({
       id: 'specs.rogue',
       message: `Rogue`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.assassination',
       message: `Assassination`,
     }),
+    wclClassName: 'Rogue',
+    wclSpecName: 'Assassination',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76803,
@@ -511,14 +562,16 @@ const SPECS = specIndexableList({
   OUTLAW_ROGUE: {
     id: 260,
     index: 23,
-    className: t({
+    className: defineMessage({
       id: 'specs.rogue',
       message: `Rogue`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.outlaw',
       message: `Outlaw`,
     }),
+    wclClassName: 'Rogue',
+    wclSpecName: 'Outlaw',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76806,
@@ -531,14 +584,16 @@ const SPECS = specIndexableList({
   SUBTLETY_ROGUE: {
     id: 261,
     index: 24,
-    className: t({
+    className: defineMessage({
       id: 'specs.rogue',
       message: `Rogue`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.subtlety',
       message: `Subtlety`,
     }),
+    wclClassName: 'Rogue',
+    wclSpecName: 'Subtlety',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 76808,
@@ -551,14 +606,16 @@ const SPECS = specIndexableList({
   ELEMENTAL_SHAMAN: {
     id: 262,
     index: 25,
-    className: t({
+    className: defineMessage({
       id: 'specs.shaman',
       message: `Shaman`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.elemental',
       message: `Elemental`,
     }),
+    wclClassName: 'Shaman',
+    wclSpecName: 'Elemental',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 168534,
@@ -571,14 +628,16 @@ const SPECS = specIndexableList({
   ENHANCEMENT_SHAMAN: {
     id: 263,
     index: 26,
-    className: t({
+    className: defineMessage({
       id: 'specs.shaman',
       message: `Shaman`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.enhancement',
       message: `Enhancement`,
     }),
+    wclClassName: 'Shaman',
+    wclSpecName: 'Enhancement',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 77223,
@@ -591,14 +650,16 @@ const SPECS = specIndexableList({
   RESTORATION_SHAMAN: {
     id: 264,
     index: 27,
-    className: t({
+    className: defineMessage({
       id: 'specs.shaman',
       message: `Shaman`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.restoration',
       message: `Restoration`,
     }),
+    wclClassName: 'Shaman',
+    wclSpecName: 'Restoration',
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77226,
@@ -611,14 +672,16 @@ const SPECS = specIndexableList({
   AFFLICTION_WARLOCK: {
     id: 265,
     index: 28,
-    className: t({
+    className: defineMessage({
       id: 'specs.warlock',
       message: `Warlock`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.affliction',
       message: `Affliction`,
     }),
+    wclClassName: 'Warlock',
+    wclSpecName: 'Affliction',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77215,
@@ -631,14 +694,16 @@ const SPECS = specIndexableList({
   DEMONOLOGY_WARLOCK: {
     id: 266,
     index: 29,
-    className: t({
+    className: defineMessage({
       id: 'specs.warlock',
       message: `Warlock`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.demonology',
       message: `Demonology`,
     }),
+    wclClassName: 'Warlock',
+    wclSpecName: 'Demonology',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77219,
@@ -651,14 +716,16 @@ const SPECS = specIndexableList({
   DESTRUCTION_WARLOCK: {
     id: 267,
     index: 30,
-    className: t({
+    className: defineMessage({
       id: 'specs.warlock',
       message: `Warlock`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.destruction',
       message: `Destruction`,
     }),
+    wclClassName: 'Warlock',
+    wclSpecName: 'Destruction',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 77220,
@@ -671,14 +738,16 @@ const SPECS = specIndexableList({
   BREWMASTER_MONK: {
     id: 268,
     index: 31,
-    className: t({
+    className: defineMessage({
       id: 'specs.monk',
       message: `Monk`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.brewmaster',
       message: `Brewmaster`,
     }),
+    wclClassName: 'Monk',
+    wclSpecName: 'Brewmaster',
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 117906,
@@ -691,14 +760,16 @@ const SPECS = specIndexableList({
   WINDWALKER_MONK: {
     id: 269,
     index: 32,
-    className: t({
+    className: defineMessage({
       id: 'specs.monk',
       message: `Monk`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.windwalker',
       message: `Windwalker`,
     }),
+    wclClassName: 'Monk',
+    wclSpecName: 'Windwalker',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 115636,
@@ -711,14 +782,16 @@ const SPECS = specIndexableList({
   MISTWEAVER_MONK: {
     id: 270,
     index: 33,
-    className: t({
+    className: defineMessage({
       id: 'specs.monk',
       message: `Monk`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.mistweaver',
       message: `Mistweaver`,
     }),
+    wclClassName: 'Monk',
+    wclSpecName: 'Mistweaver',
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 117907,
@@ -731,14 +804,16 @@ const SPECS = specIndexableList({
   HAVOC_DEMON_HUNTER: {
     id: 577,
     index: 34,
-    className: t({
+    className: defineMessage({
       id: 'specs.demonHunter',
       message: `Demon Hunter`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.havoc',
       message: `Havoc`,
     }),
+    wclClassName: 'Demon Hunter',
+    wclSpecName: 'Havoc',
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 185164,
@@ -751,14 +826,16 @@ const SPECS = specIndexableList({
   VENGEANCE_DEMON_HUNTER: {
     id: 581,
     index: 35,
-    className: t({
+    className: defineMessage({
       id: 'specs.demonHunter',
       message: `Demon Hunter`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.vengeance',
       message: `Vengeance`,
     }),
+    wclClassName: 'Demon Hunter',
+    wclSpecName: 'Vengeance',
     role: ROLES.TANK,
     primaryStat: PRIMARY_STATS.AGILITY,
     masterySpellId: 203747,
@@ -771,14 +848,16 @@ const SPECS = specIndexableList({
   DEVASTATION_EVOKER: {
     id: 1467,
     index: 36,
-    className: t({
+    className: defineMessage({
       id: 'specs.evoker',
       message: `Evoker`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.devastation',
       message: 'Devastation',
     }),
+    wclClassName: 'Evoker',
+    wclSpecName: 'Devastation',
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 362980,
@@ -791,14 +870,16 @@ const SPECS = specIndexableList({
   PRESERVATION_EVOKER: {
     id: 1468,
     index: 37,
-    className: t({
+    className: defineMessage({
       id: 'specs.evoker',
       message: `Evoker`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.preservation',
       message: 'Preservation',
     }),
+    wclClassName: 'Evoker',
+    wclSpecName: 'Preservation',
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STATS.INTELLECT,
     masterySpellId: 363510,
@@ -806,6 +887,28 @@ const SPECS = specIndexableList({
     ranking: {
       class: 13,
       spec: 2,
+    },
+  },
+  AUGMENTATION_EVOKER: {
+    id: 1473,
+    index: 38,
+    className: defineMessage({
+      id: 'specs.evoker',
+      message: `Evoker`,
+    }),
+    specName: defineMessage({
+      id: 'specs.augmentation',
+      message: 'Augmentation',
+    }),
+    wclClassName: 'Evoker',
+    wclSpecName: 'Augmentation',
+    role: ROLES.DPS.RANGED,
+    primaryStat: PRIMARY_STATS.INTELLECT,
+    masterySpellId: 406380,
+    masteryCoefficient: 0.4,
+    ranking: {
+      class: 13,
+      spec: 3,
     },
   },
 
@@ -816,11 +919,11 @@ const SPECS = specIndexableList({
     id: 161,
     index: 100,
     type: 'Warrior',
-    className: t({
+    className: defineMessage({
       id: 'specs.warrior',
       message: `Warrior`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.arms',
       message: `Arms`,
     }),
@@ -837,11 +940,11 @@ const SPECS = specIndexableList({
     id: 164,
     index: 101,
     type: 'Warrior',
-    className: t({
+    className: defineMessage({
       id: 'specs.warrior',
       message: `Warrior`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.fury',
       message: `Fury`,
     }),
@@ -858,11 +961,11 @@ const SPECS = specIndexableList({
     id: 163,
     index: 102,
     type: 'Warrior',
-    className: t({
+    className: defineMessage({
       id: 'specs.warrior',
       message: `Warrior`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.protection',
       message: `Protection`,
     }),
@@ -879,11 +982,11 @@ const SPECS = specIndexableList({
     id: 382,
     type: 'Paladin',
     index: 103,
-    className: t({
+    className: defineMessage({
       id: 'className.paladin',
       message: `Paladin`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.holy',
       message: `Holy`,
     }),
@@ -900,11 +1003,11 @@ const SPECS = specIndexableList({
     id: 383,
     type: 'Paladin',
     index: 104,
-    className: t({
+    className: defineMessage({
       id: 'className.paladin',
       message: `Paladin`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.protection',
       message: `Protection`,
     }),
@@ -921,11 +1024,11 @@ const SPECS = specIndexableList({
     id: 381,
     type: 'Paladin',
     index: 105,
-    className: t({
+    className: defineMessage({
       id: 'className.paladin',
       message: `Paladin`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.retribution',
       message: `Retribution`,
     }),
@@ -942,11 +1045,11 @@ const SPECS = specIndexableList({
     id: 361,
     type: 'Hunter',
     index: 106,
-    className: t({
+    className: defineMessage({
       id: 'className.hunter',
       message: `Hunter`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.beastMastery',
       message: `Beast Mastery`,
     }),
@@ -963,11 +1066,11 @@ const SPECS = specIndexableList({
     id: 363,
     type: 'Hunter',
     index: 107,
-    className: t({
+    className: defineMessage({
       id: 'className.hunter',
       message: `Hunter`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.marksmanship',
       message: `Marksmanship`,
     }),
@@ -984,11 +1087,11 @@ const SPECS = specIndexableList({
     id: 362,
     type: 'Hunter',
     index: 108,
-    className: t({
+    className: defineMessage({
       id: 'className.hunter',
       message: `Hunter`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.survival',
       message: `Survival`,
     }),
@@ -1005,11 +1108,11 @@ const SPECS = specIndexableList({
     id: 182,
     type: 'Rogue',
     index: 109,
-    className: t({
+    className: defineMessage({
       id: 'className.rogue',
       message: `Rogue`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.assassination',
       message: `Assassination`,
     }),
@@ -1026,11 +1129,11 @@ const SPECS = specIndexableList({
     id: 181,
     type: 'Rogue',
     index: 110,
-    className: t({
+    className: defineMessage({
       id: 'className.rogue',
       message: `Rogue`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.combat',
       message: `Combat`,
     }),
@@ -1047,11 +1150,11 @@ const SPECS = specIndexableList({
     id: 183,
     type: 'Rogue',
     index: 111,
-    className: t({
+    className: defineMessage({
       id: 'className.rogue',
       message: `Rogue`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.subtlety',
       message: `Subtlety`,
     }),
@@ -1068,11 +1171,11 @@ const SPECS = specIndexableList({
     id: 201,
     type: 'Priest',
     index: 112,
-    className: t({
+    className: defineMessage({
       id: 'className.priest',
       message: `Priest`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.discipline',
       message: `Discipline`,
     }),
@@ -1089,11 +1192,11 @@ const SPECS = specIndexableList({
     id: 202,
     type: 'Priest',
     index: 113,
-    className: t({
+    className: defineMessage({
       id: 'className.priest',
       message: `Priest`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.holy',
       message: `Holy`,
     }),
@@ -1110,11 +1213,11 @@ const SPECS = specIndexableList({
     id: 203,
     type: 'Priest',
     index: 114,
-    className: t({
+    className: defineMessage({
       id: 'className.priest',
       message: `Priest`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.shadow',
       message: `Shadow`,
     }),
@@ -1131,11 +1234,11 @@ const SPECS = specIndexableList({
     id: 398,
     type: 'DeathKnight',
     index: 115,
-    className: t({
+    className: defineMessage({
       id: 'specs.deathKnight',
       message: `Death Knight`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.blood',
       message: `Blood`,
     }),
@@ -1152,11 +1255,11 @@ const SPECS = specIndexableList({
     id: 399,
     type: 'DeathKnight',
     index: 116,
-    className: t({
+    className: defineMessage({
       id: 'specs.deathKnight',
       message: `Death Knight`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.frost',
       message: `Frost`,
     }),
@@ -1173,11 +1276,11 @@ const SPECS = specIndexableList({
     id: 400,
     type: 'DeathKnight',
     index: 117,
-    className: t({
+    className: defineMessage({
       id: 'specs.deathKnight',
       message: `Death Knight`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.unholy',
       message: `Unholy`,
     }),
@@ -1195,11 +1298,11 @@ const SPECS = specIndexableList({
     id: 2610,
     type: 'Shaman',
     index: 118,
-    className: t({
+    className: defineMessage({
       id: 'className.shaman',
       message: `Shaman`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.elemental',
       message: `Elemental`,
     }),
@@ -1217,11 +1320,11 @@ const SPECS = specIndexableList({
     id: 2630,
     type: 'Shaman',
     index: 119,
-    className: t({
+    className: defineMessage({
       id: 'className.shaman',
       message: `Shaman`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.enhancement',
       message: `Enhancement`,
     }),
@@ -1239,11 +1342,11 @@ const SPECS = specIndexableList({
     id: 2620,
     type: 'Shaman',
     index: 120,
-    className: t({
+    className: defineMessage({
       id: 'className.shaman',
       message: `Shaman`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.restoration',
       message: `Restoration`,
     }),
@@ -1260,11 +1363,11 @@ const SPECS = specIndexableList({
     id: 81,
     index: 121,
     type: 'Mage',
-    className: t({
+    className: defineMessage({
       id: 'specs.mage',
       message: `Mage`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.mage.arcane',
       message: `Arcane`,
     }),
@@ -1281,11 +1384,11 @@ const SPECS = specIndexableList({
     id: 41,
     index: 122,
     type: 'Mage',
-    className: t({
+    className: defineMessage({
       id: 'specs.mage',
       message: `Mage`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.fire',
       message: `Fire`,
     }),
@@ -1302,11 +1405,11 @@ const SPECS = specIndexableList({
     id: 61,
     index: 123,
     type: 'Mage',
-    className: t({
+    className: defineMessage({
       id: 'specs.mage',
       message: `Mage`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.frost',
       message: `Frost`,
     }),
@@ -1323,11 +1426,11 @@ const SPECS = specIndexableList({
     id: 302,
     type: 'Warlock',
     index: 124,
-    className: t({
+    className: defineMessage({
       id: 'className.warlock',
       message: `Warlock`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.affliction',
       message: `Affliction`,
     }),
@@ -1344,11 +1447,11 @@ const SPECS = specIndexableList({
     id: 303,
     type: 'Warlock',
     index: 125,
-    className: t({
+    className: defineMessage({
       id: 'className.warlock',
       message: `Warlock`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.demonology',
       message: `Demonology`,
     }),
@@ -1365,11 +1468,11 @@ const SPECS = specIndexableList({
     id: 301,
     type: 'Warlock',
     index: 126,
-    className: t({
+    className: defineMessage({
       id: 'className.warlock',
       message: `Warlock`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.destruction',
       message: `Destruction`,
     }),
@@ -1386,11 +1489,11 @@ const SPECS = specIndexableList({
     id: 283,
     type: 'Druid',
     index: 127,
-    className: t({
+    className: defineMessage({
       id: 'className.druid',
       message: `Druid`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.balance',
       message: `Balance`,
     }),
@@ -1407,11 +1510,11 @@ const SPECS = specIndexableList({
     id: 281,
     type: 'Druid',
     index: 128,
-    className: t({
+    className: defineMessage({
       id: 'className.druid',
       message: `Druid`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.feral',
       message: `Feral`,
     }),
@@ -1428,11 +1531,11 @@ const SPECS = specIndexableList({
     id: 282,
     type: 'Druid',
     index: 129,
-    className: t({
+    className: defineMessage({
       id: 'className.druid',
       message: `Druid`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.restoration',
       message: `Restoration`,
     }),
@@ -1449,11 +1552,11 @@ const SPECS = specIndexableList({
     id: 284,
     type: 'Druid',
     index: 130,
-    className: t({
+    className: defineMessage({
       id: 'className.druid',
       message: `Druid`,
     }),
-    specName: t({
+    specName: defineMessage({
       id: 'specs.guardian',
       message: `Guardian`,
     }),
@@ -1465,7 +1568,7 @@ const SPECS = specIndexableList({
     },
     icon: 'Druid-Guardian',
   },
-});
+} satisfies Record<string, Spec>;
 
 export const DEATH_KNIGHT_SPECS: Spec[] = [
   SPECS.BLOOD_DEATH_KNIGHT,
@@ -1479,7 +1582,11 @@ export const DRUID_SPECS: Spec[] = [
   SPECS.GUARDIAN_DRUID,
   SPECS.RESTORATION_DRUID,
 ];
-export const EVOKER_SPECS: Spec[] = [SPECS.DEVASTATION_EVOKER, SPECS.PRESERVATION_EVOKER];
+export const EVOKER_SPECS: Spec[] = [
+  SPECS.DEVASTATION_EVOKER,
+  SPECS.PRESERVATION_EVOKER,
+  SPECS.AUGMENTATION_EVOKER,
+];
 export const HUNTER_SPECS: Spec[] = [
   SPECS.SURVIVAL_HUNTER,
   SPECS.BEAST_MASTERY_HUNTER,

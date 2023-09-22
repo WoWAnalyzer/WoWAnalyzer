@@ -16,18 +16,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         </Section>
         <Section title="DoTs">{modules.dotUptimes.guideSubsection}</Section>
 
-        <Section title="Spells">
-          <CooldownGraphSubsection.CoreCooldownsGraph />
-          {/* TODO: Add Active Time graph*/}
+        <Section title="Active Time">
           <CastingSubsection.CastingSubsection modules={modules} events={events} info={info} />
-          {info.combatant.hasTalent(TALENTS.INSIDIOUS_IRE_TALENT) &&
-            modules.insidiousIre.guideSubsection}
         </Section>
       </Section>
 
       <Section title="Cooldowns">
-        <Section title="Short Cooldowns">
+        <Section title="Core Spells">
+          <CooldownGraphSubsection.CoreCooldownsGraph />
           <CooldownGraphSubsection.ShortCooldownsGraph />
+          {info.combatant.hasTalent(TALENTS.INSIDIOUS_IRE_TALENT) &&
+            modules.insidiousIre.guideSubsection}
           {info.combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) &&
             modules.voidTorrent.guideSubsection}
           {info.combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT) &&
@@ -37,6 +36,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           <CooldownGraphSubsection.LongCooldownsGraph />
           {info.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) &&
             modules.voidform.guideSubsection}
+          {info.combatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT) &&
+            modules.inescapableTorment.guideSubsection}
           {info.combatant.hasTalent(TALENTS.TWINS_OF_THE_SUN_PRIESTESS_TALENT) &&
             modules.twinsOfTheSunPriestess.guideSubsection}
         </Section>

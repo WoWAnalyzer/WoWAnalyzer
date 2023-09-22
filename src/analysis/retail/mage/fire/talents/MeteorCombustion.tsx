@@ -118,9 +118,9 @@ class MeteorCombustion extends Analyzer {
     when(this.meteorCombustionSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You failed to cast <SpellLink id={TALENTS.METEOR_TALENT.id} /> during{' '}
-          <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> {this.combustionWithoutMeteor} times. In
-          order to make the most of Combustion and <SpellLink id={SPELLS.IGNITE.id} />, you should
+          You failed to cast <SpellLink spell={TALENTS.METEOR_TALENT} /> during{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.combustionWithoutMeteor} times. In
+          order to make the most of Combustion and <SpellLink spell={SPELLS.IGNITE} />, you should
           always cast Meteor during Combustion. If Meteor will not come off cooldown before
           Combustion is available, then you should hold Meteor for Combustion.
         </>,

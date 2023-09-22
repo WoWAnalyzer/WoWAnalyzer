@@ -97,9 +97,9 @@ class MaraadsCastRatio extends Analyzer {
     when(this.unbuffedLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid casting unbuffed <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />, as it
-          is a very inefficient spell when it isn't buffed by{' '}
-          <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT} />.
+          Try to avoid casting unbuffed <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />, as
+          it is a very inefficient spell when it isn't buffed by{' '}
+          <SpellLink spell={TALENTS.MARAADS_DYING_BREATH_TALENT} />.
         </>,
       )
         .icon(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.icon)
@@ -109,11 +109,11 @@ class MaraadsCastRatio extends Analyzer {
     when(this.notEnoughLOTMSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid wasting the <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT} /> proc,
+          Try to avoid wasting the <SpellLink spell={TALENTS.MARAADS_DYING_BREATH_TALENT} /> proc,
           either by overwriting it or by allowing it to time out, as you are wasting a large amount
           of healing by wasting it. If you are frequently unable to find a suitable target for your
-          buffed <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />, consider using a different
-          legendary.
+          buffed <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} />, consider using a
+          different legendary.
         </>,
       )
         .icon(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.icon)

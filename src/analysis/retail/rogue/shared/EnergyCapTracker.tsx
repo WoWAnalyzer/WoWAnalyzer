@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatDuration, formatPercentage } from 'common/format';
 import { Icon } from 'interface';
 import { Tooltip } from 'interface';
@@ -44,7 +44,7 @@ class EnergyCapTracker extends Analyzer {
       )
         .icon('spell_shadow_shadowworddominate')
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.shared.suggestions.energy.capped',
             message: `${actual.toFixed(1)} regenerated energy lost per minute due to being capped.`,
           }),

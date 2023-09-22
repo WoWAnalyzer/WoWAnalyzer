@@ -1,5 +1,6 @@
 import HIT_TYPES from 'game/HIT_TYPES';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Module from 'parser/core/Module';
 import Events from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
@@ -170,8 +171,9 @@ class RegenResourceCapTracker extends Analyzer {
     return (this.missedRegen / this.owner.fightDuration) * 1000 * 60;
   }
 
-  constructor(...args) {
-    super(...args);
+  constructor(options) {
+    super(options);
+    Module.applyDependencies(options, this);
     // can't know resource state for certain until the first combat events, but assume a regenerating resource starts full.
     const max = this.currentMaxResourceWithFallback();
     this.regenState = {

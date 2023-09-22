@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
@@ -101,14 +101,14 @@ class AncientTeachings extends Analyzer {
     const explanation = (
       <>
         <strong>
-          <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />
+          <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />
         </strong>{' '}
         is a powerful buff that enables you to do consistent healing while doing damage, a core
         identity of Mistweaver Monk. Try to maintain your buff at all times by casting{' '}
-        <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> or{' '}
-        <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT} /> between usages of{' '}
-        <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> when talented into{' '}
-        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />.
+        <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> or{' '}
+        <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} /> between usages of{' '}
+        <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> when talented into{' '}
+        <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} />.
       </>
     );
 
@@ -116,7 +116,7 @@ class AncientTeachings extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> uptime
+            <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> uptime
           </strong>
           {this.subStatistic()}
         </RoundedPanel>
@@ -205,22 +205,23 @@ class AncientTeachings extends Analyzer {
   getTooltip(spellId: number, secondarySourceId?: number) {
     return (
       <>
-        From your {this.damageSpellsCount.get(spellId) || 0} <SpellLink id={spellId} />{' '}
+        From your {this.damageSpellsCount.get(spellId) || 0} <SpellLink spell={spellId} />{' '}
         {secondarySourceId && (
           <>
-            from <SpellLink id={secondarySourceId} />
+            from <SpellLink spell={secondarySourceId} />
           </>
         )}
         :
         <ul>
           <li>
-            {secondarySourceId && <SpellLink id={secondarySourceId} />} <SpellLink id={spellId} />{' '}
-            did damage {this.missedDamageSpells.get(spellId) || 0} times without the{' '}
-            <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff active
+            {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
+            <SpellLink spell={spellId} /> did damage {this.missedDamageSpells.get(spellId) || 0}{' '}
+            times without the <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff
+            active
           </li>
           <li>
-            {secondarySourceId && <SpellLink id={secondarySourceId} />} <SpellLink id={spellId} />{' '}
-            converted to healing{' '}
+            {secondarySourceId && <SpellLink spell={secondarySourceId} />}{' '}
+            <SpellLink spell={spellId} /> converted to healing{' '}
             {(this.damageSpellsCount.get(spellId) || 0) -
               (this.missedDamageSpells.get(spellId) || 0)}{' '}
             times for a total of {formatNumber(this.damageSpellToHealing.get(spellId) || 0)} healing
@@ -234,15 +235,15 @@ class AncientTeachings extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You had suboptimal <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id} /> buff
-          uptime, try using <SpellLink id={TALENTS_MONK.FAELINE_STOMP_TALENT.id} /> and{' '}
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> more frequently in order to
+          You had suboptimal <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> buff
+          uptime, try using <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> more frequently in order to
           maintain the buff
         </>,
       )
         .icon(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.icon)
         .actual(
-          `${formatPercentage(actual)}${t({
+          `${formatPercentage(actual)}${defineMessage({
             id: 'monk.mistweaver.suggestions.ancientTeachings.uptime',
             message: `% uptime`,
           })}`,
@@ -256,7 +257,7 @@ class AncientTeachings extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT.id} /> -{' '}
+            <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> -{' '}
             <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
           </>
         }

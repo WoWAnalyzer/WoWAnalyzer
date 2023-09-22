@@ -1,10 +1,4 @@
-import {
-  ArcaneIntellect,
-  CancelledCasts,
-  RuneOfPower,
-  Meteor,
-  MeteorRune,
-} from 'analysis/retail/mage/shared';
+import { ArcaneIntellect, CancelledCasts } from 'analysis/retail/mage/shared';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -15,12 +9,15 @@ import CombustionActiveTime from '../core/CombustionActiveTime';
 import Combustion from '../core/Combustion';
 import HeatingUp from '../core/HeatingUp';
 import HotStreak from '../core/HotStreak';
-import Pyroclasm from '../talents/Pyroclasm';
 import ShiftingPowerUsage from '../talents/ShiftingPowerUsage';
 import FeelTheBurn from '../talents/FeelTheBurn';
+import Meteor from '../talents/Meteor';
 import MeteorCombustion from '../talents/MeteorCombustion';
 import SearingTouch from '../talents/SearingTouch';
 import Component from './Component';
+import ImprovedScorch from '../talents/ImprovedScorch';
+import LivingBomb from '../talents/LivingBomb';
+import CharringEmbers from '../items/CharringEmbers';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -30,17 +27,17 @@ class Checklist extends BaseChecklist {
     combustionActiveTime: CombustionActiveTime,
     heatingUp: HeatingUp,
     hotStreak: HotStreak,
-    pyroclasm: Pyroclasm,
+    charringEmbers: CharringEmbers,
     searingTouch: SearingTouch,
     meteor: Meteor,
-    meteorRune: MeteorRune,
     meteorCombustion: MeteorCombustion,
+    improvedScorch: ImprovedScorch,
+    livingBomb: LivingBomb,
     feelTheBurn: FeelTheBurn,
     shiftingPowerUsage: ShiftingPowerUsage,
     castEfficiency: CastEfficiency,
     arcaneIntellect: ArcaneIntellect,
     cancelledCasts: CancelledCasts,
-    runeOfPower: RuneOfPower,
     alwaysBeCasting: AlwaysBeCasting,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
   };
@@ -49,17 +46,17 @@ class Checklist extends BaseChecklist {
   protected combustionActiveTime!: CombustionActiveTime;
   protected heatingUp!: HeatingUp;
   protected hotStreak!: HotStreak;
-  protected pyroclasm!: Pyroclasm;
+  protected charringEmbers!: CharringEmbers;
   protected searingTouch!: SearingTouch;
   protected meteor!: Meteor;
-  protected meteorRune!: MeteorRune;
   protected meteorCombustion!: MeteorCombustion;
+  protected improvedScorch!: ImprovedScorch;
+  protected livingBomb!: LivingBomb;
   protected feelTheBurn!: FeelTheBurn;
   protected shiftingPowerUsage!: ShiftingPowerUsage;
   protected castEfficiency!: CastEfficiency;
   protected arcaneIntellect!: ArcaneIntellect;
   protected cancelledCasts!: CancelledCasts;
-  protected runeOfPower!: RuneOfPower;
   protected alwaysBeCasting!: AlwaysBeCasting;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
 
@@ -72,8 +69,7 @@ class Checklist extends BaseChecklist {
           ...this.preparationRuleAnalyzer.thresholds,
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.suggestionThresholds,
-          phoenixFlamesCombustionCharges: this.combustion.phoenixFlamesThresholds,
-          fireBlastCombustionCharges: this.combustion.fireBlastThresholds,
+          //fireBlastCombustionCharges: this.combustion.fireBlastThresholds,
           fireballSpellUsageDuringCombustion: this.combustion.fireballDuringCombustionThresholds,
           combustionActiveTime: this.combustionActiveTime.combustionActiveTimeThresholds,
           combustionPreCastDelay: this.combustion.combustionCastDelayThresholds,
@@ -82,17 +78,18 @@ class Checklist extends BaseChecklist {
           hotStreakUtilization: this.hotStreak.hotStreakUtilizationThresholds,
           hotStreakWastedCrits: this.hotStreak.wastedCritsThresholds,
           hotStreakPreCasts: this.hotStreak.castBeforeHotStreakThresholds,
-          pyroclasmUtilization: this.pyroclasm.procUtilizationThresholds,
+          charringEmbersUptime: this.charringEmbers.charringEmbersUptimeThresholds,
+          flamesFuryWastedProcs: this.charringEmbers.wastedProcsThresholds,
+          flamesFuryNoPhoenix: this.charringEmbers.noPhoenixFlamesThresholds,
           searingTouchUtilization: this.searingTouch.executeSuggestionThreshold,
           meteorEfficiency: this.meteor.meteorEfficiencySuggestionThresholds,
-          meteorUtilization: this.meteorRune.meteorUtilSuggestionThresholds,
+          improvedScorchUptime: this.improvedScorch.uptimePercentThresholds,
+          livingBombCasts: this.livingBomb.livingBombCastThresholds,
           feelTheBurnMaxStacks: this.feelTheBurn.maxStackUptimeThresholds,
           shiftingPowerUsage: this.shiftingPowerUsage.shiftingPowerUsageThresholds,
           meteorCombustionUtilization: this.meteorCombustion.meteorCombustionSuggestionThresholds,
           arcaneIntellectUptime: this.arcaneIntellect.suggestionThresholds,
           cancelledCasts: this.cancelledCasts.suggestionThresholds,
-          runeOfPowerBuffUptime: this.runeOfPower.roundedSecondsSuggestionThresholds,
-          runeOfPowerOverlaps: this.runeOfPower.overlappedRunesThresholds,
         }}
       />
     );

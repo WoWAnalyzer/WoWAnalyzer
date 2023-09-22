@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatMilliseconds, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -102,7 +102,7 @@ class VanishFindWeakness extends Analyzer {
   suggestions(when: When) {
     when(this.badVanishCastsSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
-        t({
+        defineMessage({
           id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.suggestion',
           message: `Avoid casting Vanish with more than ${
             this.BAD_CAST_WINDOW / 1000
@@ -111,7 +111,7 @@ class VanishFindWeakness extends Analyzer {
       )
         .icon(SPELLS.VANISH.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.actual',
             message: `You cast Vanish ${this.badVanishCasts.size} times with more than ${
               this.BAD_CAST_WINDOW / 1000
@@ -119,7 +119,7 @@ class VanishFindWeakness extends Analyzer {
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'rogue.subtlety.suggestions.findWeaknessAndVanish.badCasts.recommended',
             message: `Do not cast Vanish with more than ${
               this.BAD_CAST_WINDOW / 1000
@@ -151,12 +151,12 @@ class VanishFindWeakness extends Analyzer {
           category={STATISTIC_CATEGORY.GENERAL}
           tooltip={
             <>
-              You cast <SpellLink id={SPELLS.VANISH.id} /> {formatNumber(this.badVanishCasts.size)}{' '}
+              You cast <SpellLink spell={SPELLS.VANISH} /> {formatNumber(this.badVanishCasts.size)}{' '}
               times with more than {formatNumber(this.BAD_CAST_WINDOW / 1000)}s remaining on{' '}
-              <SpellLink id={SPELLS.FIND_WEAKNESS.id} />
+              <SpellLink spell={SPELLS.FIND_WEAKNESS} />
               on the current target. <br />
               We consider a cast to be bad if it was used to re-apply{' '}
-              <SpellLink id={SPELLS.FIND_WEAKNESS.id} /> to a target with more than{' '}
+              <SpellLink spell={SPELLS.FIND_WEAKNESS} /> to a target with more than{' '}
               {formatNumber(this.BAD_CAST_WINDOW / 1000)}s remaining.
             </>
           }
@@ -175,7 +175,7 @@ class VanishFindWeakness extends Analyzer {
           }
         >
           <BoringSpellValue
-            spellId={SPELLS.VANISH.id}
+            spell={SPELLS.VANISH.id}
             value={`${this.badVanishCasts.size} bad casts`}
             label="Bad casts regarding Find Weakness"
           />

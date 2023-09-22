@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -136,13 +136,13 @@ class ShadowWordPain extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.
+          Your <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> on the boss.
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.uptime',
             message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`,
           }),
@@ -153,16 +153,16 @@ class ShadowWordPain extends Analyzer {
     when(this.shadowWeavingSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You should apply <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> when you have 5 stacks of{' '}
-          <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />. The damage of{' '}
-          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> snapshots when you apply it, but not when
-          you refresh it. The more stacks of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} /> you
+          You should apply <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> when you have 5 stacks of{' '}
+          <SpellLink spell={SPELLS.SHADOW_WEAVING_BUFF} />. The damage of{' '}
+          <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> snapshots when you apply it, but not when
+          you refresh it. The more stacks of <SpellLink spell={SPELLS.SHADOW_WEAVING_BUFF} /> you
           have when applying SWP, the better.
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.shadowWeavingUptime',
             message: `${formatPercentage(actual)}% Shadow Word: Pain uptime at 5 stacks`,
           }),
@@ -173,15 +173,15 @@ class ShadowWordPain extends Analyzer {
     when(this.shadowWordPainOverwriteThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> is automatically refreshed by{' '}
-          <SpellLink id={SPELLS.PAIN_AND_SUFFERING_TALENT.id} />. Try to avoid hardcasting{' '}
-          <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> unless you cast it with less than 5 stacks
-          of <SpellLink id={SPELLS.SHADOW_WEAVING_BUFF.id} />
+          <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> is automatically refreshed by{' '}
+          <SpellLink spell={SPELLS.PAIN_AND_SUFFERING_TALENT} />. Try to avoid hardcasting{' '}
+          <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> unless you cast it with less than 5 stacks
+          of <SpellLink spell={SPELLS.SHADOW_WEAVING_BUFF} />
         </span>,
       )
         .icon('spell_shadow_shadowwordpain')
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.shadowWordPainOverwrite',
             message: `${actual} Shadow Word Pain Overwrites`,
           }),
@@ -195,7 +195,7 @@ class ShadowWordPain extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.SHADOW_WORD_PAIN.id} />
+          <SpellIcon spell={SPELLS.SHADOW_WORD_PAIN} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)}% <small>uptime</small>

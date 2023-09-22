@@ -3,10 +3,8 @@ import {
   CancelledCasts,
   DivertedEnergy,
   ElementalBarrier,
-  GroundingSurge,
+  QuickWitted,
   MirrorImage,
-  RuneOfPower,
-  RuneOfPowerNormalizer,
   ShiftingPower,
   TempestBarrier,
   MasterOfTime,
@@ -54,7 +52,6 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneChargesNormalizer: ArcaneChargesNormalizer,
     arcaneSurgeNormalizer: ArcaneSurgeNormalizer,
     castLinkNormalizer: CastLinkNormalizer,
-    runeOfPowerNormalizer: RuneOfPowerNormalizer,
 
     //Core
     checklist: Checklist,
@@ -85,13 +82,12 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Talents - Shared
     divertedEnergy: DivertedEnergy,
-    groundingSurge: GroundingSurge,
+    quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
     timeAnomaly: TimeAnomaly,
     masterOfTime: MasterOfTime,
-    runeOfPower: RuneOfPower,
     arcaneIntellect: ArcaneIntellect,
   };
 }

@@ -37,7 +37,7 @@ export default class BaseTotem extends Analyzer {
     return (
       <tr>
         <td>
-          <SpellLink id={spellId} />
+          <SpellLink spell={spellId} />
         </td>
         <td>{formatPercentage(this.totemTracker.totemUptimePercentage(spellId))}</td>
       </tr>
@@ -50,7 +50,7 @@ export default class BaseTotem extends Analyzer {
     </tbody>
   );
 
-  TotemIcon = () => <SpellIcon id={this.totemTracker.primaryTotemUsed(this.myTotemElement)} />;
+  TotemIcon = () => <SpellIcon spell={this.totemTracker.primaryTotemUsed(this.myTotemElement)} />;
 
   get suggestionThreshold() {
     return {

@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ACID_RAIN_TALENT: {
     id: 378443,
     name: 'Acid Rain',
@@ -57,7 +57,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101930],
     definitionIds: [{ id: 106930, specId: 264 }],
-    manaCost: 5500,
+    manaCost: 1100,
   },
   ANCESTRAL_REACH_TALENT: {
     id: 382732,
@@ -170,7 +170,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101961],
     definitionIds: [{ id: 106957, specId: 262 }],
-    manaCost: 5000,
+    manaCost: 1000,
   },
   CHAIN_HEAL_TALENT: {
     id: 1064,
@@ -179,7 +179,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101951],
     definitionIds: [{ id: 106951, specId: 262 }],
-    manaCost: 15000,
+    manaCost: 3000,
   },
   CHAIN_LIGHTNING_TALENT: {
     id: 188443,
@@ -188,7 +188,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101949],
     definitionIds: [{ id: 107008, specId: 262 }],
-    manaCost: 500,
   },
   CLEANSE_SPIRIT_TALENT: {
     id: 51886,
@@ -197,7 +196,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101966],
     definitionIds: [{ id: 106966, specId: 262 }],
-    manaCost: 3250,
+    manaCost: 5000,
   },
   CLOUDBURST_TOTEM_TALENT: {
     id: 157153,
@@ -206,7 +205,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101933],
     definitionIds: [{ id: 106926, specId: 264 }],
-    manaCost: 4300,
+    manaCost: 860,
   },
   CONTINUOUS_WAVES_TALENT: {
     id: 382046,
@@ -239,7 +238,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101840],
     definitionIds: [{ id: 106879, specId: 263 }],
-    manaCost: 500,
   },
   CREATION_CORE_TALENT: {
     id: 383012,
@@ -292,7 +290,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101842],
     definitionIds: [{ id: 106901, specId: 264 }],
-    manaCost: 7500,
+    manaCost: 1500,
   },
   EARTHEN_HARMONY_TALENT: {
     id: 382020,
@@ -309,7 +307,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101931],
     definitionIds: [{ id: 106931, specId: 264 }],
-    manaCost: 5500,
+    manaCost: 1100,
   },
   EARTHGRAB_TOTEM_TALENT: {
     id: 51485,
@@ -318,7 +316,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101975],
     definitionIds: [{ id: 106971, specId: 262 }],
-    manaCost: 1250,
   },
   EARTHLIVING_WEAPON_TALENT: {
     id: 382021,
@@ -352,7 +349,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [102004],
     definitionIds: [{ id: 106968, specId: 262 }],
-    manaCost: 5000,
+    manaCost: 1000,
   },
   EARTH_SHOCK_TALENT: {
     id: 8042,
@@ -406,17 +403,22 @@ const talents = createTalentList({
     entryIds: [101827],
     definitionIds: [{ id: 106860, specId: 263 }],
   },
-  ELEMENTAL_BLAST_TALENT: {
+  ELEMENTAL_BLAST_ELEMENTAL_TALENT: {
     id: 117014,
     name: 'Elemental Blast',
     icon: 'shaman_talent_elementalblast',
     maxRanks: 1,
-    entryIds: [101831, 101866],
-    definitionIds: [
-      { id: 106886, specId: 263 },
-      { id: 106842, specId: 262 },
-    ],
-    manaCost: 1375,
+    entryIds: [101866],
+    definitionIds: [{ id: 106842, specId: 262 }],
+    maelstromCost: 90,
+  },
+  ELEMENTAL_BLAST_ENHANCEMENT_TALENT: {
+    id: 394150,
+    name: 'Elemental Blast',
+    icon: 'shaman_talent_elementalblast',
+    maxRanks: 1,
+    entryIds: [101831],
+    definitionIds: [{ id: 106886, specId: 263 }],
   },
   ELEMENTAL_EQUILIBRIUM_TALENT: {
     id: 378271,
@@ -513,7 +515,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101850],
     definitionIds: [{ id: 106837, specId: 262 }],
-    manaCost: 2500,
+    manaCost: 500,
   },
   FIRE_NOVA_TALENT: {
     id: 333974,
@@ -522,7 +524,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101807],
     definitionIds: [{ id: 106899, specId: 263 }],
-    manaCost: 500,
   },
   FLAMES_OF_THE_CAULDRON_TALENT: {
     id: 378266,
@@ -606,7 +607,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101965],
     definitionIds: [{ id: 106961, specId: 262 }],
-    manaCost: 500,
   },
   FURTHER_BEYOND_TALENT: {
     id: 381787,
@@ -639,7 +639,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101967],
     definitionIds: [{ id: 106964, specId: 262 }],
-    manaCost: 10000,
+    manaCost: 1200,
   },
   GUARDIANS_CUDGEL_TALENT: {
     id: 381819,
@@ -672,25 +672,23 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101923],
     definitionIds: [{ id: 106911, specId: 264 }],
-    manaCost: 10800,
+    manaCost: 2160,
   },
   HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
-    id: 5394,
+    id: 392916,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
     maxRanks: 1,
     entryIds: [101900],
     definitionIds: [{ id: 106920, specId: 264 }],
-    manaCost: 4500,
   },
   HEALING_STREAM_TOTEM_SHARED_TALENT: {
-    id: 5394,
+    id: 392915,
     name: 'Healing Stream Totem',
     icon: 'inv_spear_04',
     maxRanks: 1,
     entryIds: [101998],
     definitionIds: [{ id: 106993, specId: 262 }],
-    manaCost: 4500,
   },
   HEALING_TIDE_TOTEM_TALENT: {
     id: 108280,
@@ -699,7 +697,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101912],
     definitionIds: [{ id: 106942, specId: 264 }],
-    manaCost: 2800,
+    manaCost: 560,
   },
   HEALING_WAVE_TALENT: {
     id: 77472,
@@ -708,7 +706,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101904],
     definitionIds: [{ id: 106918, specId: 264 }],
-    manaCost: 7500,
+    manaCost: 1500,
   },
   HEX_TALENT: {
     id: 51514,
@@ -742,7 +740,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101870],
     definitionIds: [{ id: 106817, specId: 262 }],
-    manaCost: 1500,
   },
   ICE_STRIKE_TALENT: {
     id: 342240,
@@ -751,7 +748,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101821],
     definitionIds: [{ id: 106866, specId: 263 }],
-    manaCost: 1650,
   },
   IMPROVED_EARTHLIVING_WEAPON_TALENT: {
     id: 382315,
@@ -816,7 +812,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101950],
     definitionIds: [{ id: 106952, specId: 262 }],
-    manaCost: 1250,
   },
   LAVA_LASH_TALENT: {
     id: 60103,
@@ -825,7 +820,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101805],
     definitionIds: [{ id: 106864, specId: 263 }],
-    manaCost: 0,
   },
   LAVA_SURGE_TALENT: {
     id: 77756,
@@ -869,7 +863,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101884],
     definitionIds: [{ id: 106851, specId: 262 }],
-    manaCost: 1750,
   },
   LIVING_STREAM_TALENT: {
     id: 382482,
@@ -1001,7 +994,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101989],
     definitionIds: [{ id: 106984, specId: 262 }],
-    manaCost: 1250,
   },
   POWER_OF_THE_MAELSTROM_TALENT: {
     id: 191861,
@@ -1070,7 +1062,6 @@ const talents = createTalentList({
       { id: 106905, specId: 264 },
       { id: 106840, specId: 262 },
     ],
-    manaCost: 1500,
   },
   PURGE_TALENT: {
     id: 370,
@@ -1079,7 +1070,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101968],
     definitionIds: [{ id: 106965, specId: 262 }],
-    manaCost: 5000,
+    manaCost: 800,
   },
   RAGING_MAELSTROM_TALENT: {
     id: 384143,
@@ -1131,7 +1122,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101905],
     definitionIds: [{ id: 106805, specId: 264 }],
-    manaCost: 4000,
+    manaCost: 800,
   },
   ROLLING_MAGMA_TALENT: {
     id: 386443,
@@ -1172,7 +1163,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101955],
     definitionIds: [{ id: 106975, specId: 262 }],
-    manaCost: 7050,
+    manaCost: 1410,
   },
   SPIRITWALKERS_TIDAL_TOTEM_TALENT: {
     id: 404522,
@@ -1189,7 +1180,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101913],
     definitionIds: [{ id: 106933, specId: 264 }],
-    manaCost: 5500,
+    manaCost: 1100,
   },
   SPIRIT_WALK_TALENT: {
     id: 58875,
@@ -1241,7 +1232,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101992],
     definitionIds: [{ id: 106987, specId: 262 }],
-    manaCost: 750,
   },
   STORMBLAST_TALENT: {
     id: 319930,
@@ -1260,7 +1250,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 106869, specId: 263 }],
   },
   STORMKEEPER_1_ELEMENTAL_TALENT: {
-    id: 191634,
+    id: 392714,
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
     maxRanks: 1,
@@ -1268,7 +1258,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 106820, specId: 262 }],
   },
   STORMKEEPER_2_ELEMENTAL_TALENT: {
-    id: 191634,
+    id: 392763,
     name: 'Stormkeeper',
     icon: 'ability_thunderking_lightningwhip',
     maxRanks: 1,
@@ -1290,7 +1280,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101804],
     definitionIds: [{ id: 106862, specId: 263 }],
-    manaCost: 1000,
   },
   STORMS_WRATH_TALENT: {
     id: 392352,
@@ -1307,6 +1296,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101849],
     definitionIds: [{ id: 106836, specId: 262 }],
+    manaCost: 500,
   },
   SUNDERING_TALENT: {
     id: 197214,
@@ -1315,7 +1305,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101841],
     definitionIds: [{ id: 106874, specId: 263 }],
-    manaCost: 3000,
+    manaCost: 600,
   },
   SURGE_OF_POWER_TALENT: {
     id: 262303,
@@ -1460,7 +1450,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101991],
     definitionIds: [{ id: 106986, specId: 262 }],
-    manaCost: 750,
   },
   TREMOR_TOTEM_TALENT: {
     id: 8143,
@@ -1469,7 +1458,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101958],
     definitionIds: [{ id: 106954, specId: 262 }],
-    manaCost: 1150,
   },
   TUMBLING_WAVES_TALENT: {
     id: 382040,
@@ -1510,7 +1498,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101918],
     definitionIds: [{ id: 106906, specId: 264 }],
-    manaCost: 2000,
   },
   UNRELENTING_CALAMITY_TALENT: {
     id: 382685,
@@ -1559,7 +1546,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101937],
     definitionIds: [{ id: 106936, specId: 264 }],
-    manaCost: 10000,
+    manaCost: 2000,
   },
   WINDFURY_TOTEM_TALENT: {
     id: 8512,
@@ -1568,7 +1555,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [101803],
     definitionIds: [{ id: 106870, specId: 263 }],
-    manaCost: 750,
   },
   WINDFURY_WEAPON_TALENT: {
     id: 33757,
@@ -1618,7 +1604,7 @@ const talents = createTalentList({
     entryIds: [101837],
     definitionIds: [{ id: 106891, specId: 263 }],
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_SHAMAN };

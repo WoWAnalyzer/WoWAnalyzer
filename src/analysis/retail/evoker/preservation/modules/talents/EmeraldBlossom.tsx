@@ -11,7 +11,7 @@ import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { getHealEvents } from '../../normalizers/CastLinkNormalizer';
 import { SpellLink } from 'interface';
 import { formatNumber } from 'common/format';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 
 const BOUNTIFUL_ADDITIONAL_TARGETS = 2;
 const BASE_TARGETS = 3;
@@ -84,12 +84,12 @@ class EmeraldBlossom extends Analyzer {
       suggest(
         <>
           Try to maximize the amount of targets hit by{' '}
-          <SpellLink id={SPELLS.EMERALD_BLOSSOM_CAST.id} />
+          <SpellLink spell={SPELLS.EMERALD_BLOSSOM_CAST} />
         </>,
       )
         .icon(SPELLS.EMERALD_BLOSSOM.icon)
         .actual(
-          `${this.averageNumTargets.toFixed(1)} ${t({
+          `${this.averageNumTargets.toFixed(1)} ${defineMessage({
             id: 'evoker.preservation.suggestions.emeraldBlossom.avgTargetsHit',
             message: ` average targets hit`,
           })}`,
@@ -107,15 +107,15 @@ class EmeraldBlossom extends Analyzer {
         tooltip={
           <ul>
             <li>
-              Total Healing from <SpellLink id={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT.id} />:{' '}
+              Total Healing from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
               {formatNumber(this.bountifulBloomHealing)}
             </li>
             <li>
-              Total Overhealing from <SpellLink id={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT.id} />:{' '}
+              Total Overhealing from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
               {formatNumber(this.bountifulBloomOverhealing)}
             </li>
             <li>
-              Average extra hits from <SpellLink id={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT.id} />:{' '}
+              Average extra hits from <SpellLink spell={TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT} />:{' '}
               {this.averageExtraTargets.toFixed(2)}
             </li>
           </ul>

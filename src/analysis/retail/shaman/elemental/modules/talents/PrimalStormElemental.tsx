@@ -117,7 +117,7 @@ class PrimalStormElemental extends Analyzer {
     when(this.badCastsSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You are not using <SpellLink id={SPELLS.CALL_LIGHTNING.id} /> on cooldown.
+          You are not using <SpellLink spell={SPELLS.CALL_LIGHTNING} /> on cooldown.
         </span>,
       )
         .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
@@ -138,11 +138,11 @@ class PrimalStormElemental extends Analyzer {
         tooltip={
           <>
             Your Storm Elemental cast {formatNumber(this.badCasts)} spells without{' '}
-            <SpellLink id={SPELLS.CALL_LIGHTNING.id} />
+            <SpellLink spell={SPELLS.CALL_LIGHTNING} />
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.STORM_ELEMENTAL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.STORM_ELEMENTAL_TALENT}>
           <ItemDamageDone amount={this.damageGained} />
         </BoringSpellValueText>
       </Statistic>

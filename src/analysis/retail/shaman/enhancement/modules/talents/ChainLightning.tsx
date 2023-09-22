@@ -1,7 +1,11 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events from 'parser/core/Events';
+import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
+import { CHAIN_LIGHTNING_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
+import SPELLS from 'common/SPELLS';
+import { TIERS } from 'game/TIERS';
+import { SpellLink } from 'interface';
 
 const CRASH_LIGHTNING_REDUCTION = 1000;
 
@@ -20,20 +24,53 @@ class ChainLightning extends Analyzer {
   };
 
   protected spellUsable!: SpellUsable;
+  protected has4pcT30: boolean = false;
 
   constructor(options: Options) {
     super(options);
 
     this.active = this.selectedCombatant.hasTalent(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT);
-
     if (!this.active) {
       return;
     }
+    this.has4pcT30 = this.selectedCombatant.has4PieceByTier(TIERS.T30);
+
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT),
+      this.onCast,
+    );
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT),
       this.onDamage,
     );
+  }
+
+  onCast(event: CastEvent) {
+    const hits =
+      event._linkedEvents?.filter((le) => le.relation === CHAIN_LIGHTNING_LINK).length || 0;
+    if (hits < 2) {
+      if (this.has4pcT30) {
+        if (!this.selectedCombatant.getBuff(SPELLS.CRACKLING_THUNDER_TIER_BUFF.id)) {
+          event.meta = event.meta || {};
+          event.meta.isInefficientCast = true;
+          event.meta.inefficientCastReason = (
+            <>
+              <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} /> only hit one target and
+              was cast without <SpellLink spell={SPELLS.CRACKLING_THUNDER_TIER_BUFF} />
+            </>
+          );
+        }
+      }
+    } else {
+      event.meta = event.meta || {};
+      event.meta.isInefficientCast = true;
+      event.meta.inefficientCastReason = (
+        <>
+          <SpellLink spell={TALENTS_SHAMAN.CHAIN_LIGHTNING_TALENT} /> only hit one target
+        </>
+      );
+    }
   }
 
   onDamage() {

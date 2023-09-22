@@ -76,11 +76,11 @@ class PowerWordRadiance extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id} />
+          <SpellLink spell={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT} />
         </strong>{' '}
         is the fastest way to apply lots of atonements, and casting it effectively is an important
         part of maximising the value of ramps with and without{' '}
-        <SpellLink id={TALENTS_PRIEST.EVANGELISM_TALENT.id} />. Try to make sure every cast applies
+        <SpellLink spell={TALENTS_PRIEST.EVANGELISM_TALENT} />. Try to make sure every cast applies
         5 atonements, and that it isn't cast on a target which already has atonement.
       </p>
     );
@@ -114,12 +114,12 @@ class PowerWordRadiance extends Analyzer {
     const data = (
       <div>
         <strong>
-          <SpellLink id={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id} />
+          <SpellLink spell={TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT} />
         </strong>
         <small>
           {' '}
           - Green means a good cast. Yellow means a cast was either used on a target which already
-          had <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} /> or a cast applied less than five
+          had <SpellLink spell={TALENTS_PRIEST.ATONEMENT_TALENT} /> or a cast applied less than five
           atonements. Red means both of the yellow cases occured.
         </small>
         <PerformanceBoxRow values={castPerfBoxes} />

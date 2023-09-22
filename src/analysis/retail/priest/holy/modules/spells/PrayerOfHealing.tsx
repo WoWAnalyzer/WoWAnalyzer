@@ -180,18 +180,18 @@ class PrayerOfHealing extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id} />
+            <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />
           </b>{' '}
           is your primary raid healing spell. It will be the majority of your healing casts in raid,
           but you should try to only cast it when your holy words and other short cooldowns like{' '}
-          <SpellLink id={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT.id} /> and{' '}
-          <SpellLink id={TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT.id} /> are not available.
+          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_MENDING_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS_PRIEST.CIRCLE_OF_HEALING_TALENT} /> are not available.
         </p>
         <p>
-          If you are running the <SpellLink id={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT.id} />{' '}
-          and/or <SpellLink id={TALENTS_PRIEST.PRAYER_CIRCLE_TALENT.id} /> talents, make sure to
+          If you are running the <SpellLink spell={TALENTS_PRIEST.SANCTIFIED_PRAYERS_TALENT} />{' '}
+          and/or <SpellLink spell={TALENTS_PRIEST.PRAYER_CIRCLE_TALENT} /> talents, make sure to
           apply these buffs before casting{' '}
-          <SpellLink id={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT.id} />. Remember, this spell does
+          <SpellLink spell={TALENTS_PRIEST.PRAYER_OF_HEALING_TALENT} />. Remember, this spell does
           not have any smart healing and only allies within 40 yards can be hit - don't cast this on
           an isolated player!
         </p>
@@ -206,13 +206,13 @@ class PrayerOfHealing extends Analyzer {
             <li>
               <span style={{ color: PerfectColor }}>Blue</span> is a perfect cast, where all
               talented Prayer of Healing buffs are applied,{' '}
-              <SpellLink id={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id} /> is on cooldown,{' '}
+              <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown,{' '}
               {POH_MAX_TARGETS_HIT} targets are hit, and no targets are fully overhealed.
             </li>
             <li>
               <span style={{ color: GoodColor }}>Green</span> is a good cast, where all Prayer of
               Healing buffs are either applied or not available to be applied, and{' '}
-              <SpellLink id={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT.id} /> is on cooldown.
+              <SpellLink spell={TALENTS_PRIEST.HOLY_WORD_SANCTIFY_TALENT} /> is on cooldown.
             </li>
             <li>
               <span style={{ color: OkColor }}>Yellow</span> is an ok cast, where one or more Prayer
@@ -238,7 +238,7 @@ class PrayerOfHealing extends Analyzer {
       <Statistic
         tooltip={
           <>
-            <SpellLink id={TALENTS.PRAYER_OF_HEALING_TALENT.id} /> Casts:{' '}
+            <SpellLink spell={TALENTS.PRAYER_OF_HEALING_TALENT} /> Casts:{' '}
             {this.prayerOfHealingCasts}
             <br />
             Total Healing: {formatThousands(this.prayerOfHealingHealing)} (
@@ -251,7 +251,7 @@ class PrayerOfHealing extends Analyzer {
         category={STATISTIC_CATEGORY.GENERAL}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={TALENTS.PRAYER_OF_HEALING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.PRAYER_OF_HEALING_TALENT}>
           <ItemHealingDone amount={this.prayerOfHealingHealing} />
         </BoringSpellValueText>
       </Statistic>

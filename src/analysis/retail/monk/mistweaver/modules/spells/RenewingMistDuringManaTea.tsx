@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink, TooltipElement } from 'interface';
@@ -26,11 +26,11 @@ class RenewingMistDuringManaTea extends Analyzer {
     }
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_BUFF),
       this.manaTeaStart,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_BUFF),
       this.manaTeaEnd,
     );
 
@@ -109,14 +109,14 @@ class RenewingMistDuringManaTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          During <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> you should have a minimum of two{' '}
-          <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} /> out to maximize your healing
+          During <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> you should have a minimum of two{' '}
+          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> out to maximize your healing
           during the buff.
         </>,
       )
         .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
         .actual(
-          `${this.avgRemDuringMT.toFixed(2)}${t({
+          `${this.avgRemDuringMT.toFixed(2)}${defineMessage({
             id: 'monk.mistweaver.suggestions.renewingMistDuringManaTea.avgRenewingMists',
             message: ` average Renewing Mists during Mana Tea`,
           })}`,

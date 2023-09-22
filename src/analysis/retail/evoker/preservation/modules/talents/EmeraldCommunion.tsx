@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -122,10 +122,10 @@ class EmeraldCommunion extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />
         </b>{' '}
         is a powerful healing CD that restores %HP/%Mana over it's duration. When combined with{' '}
-        <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT} /> which can easily be applied to a large
+        <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> which can easily be applied to a large
         portion of the raid with <SpellLink spell={TALENTS_EVOKER.RESONATING_SPHERE_TALENT} />,{' '}
         <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> will do an insane amount of
         healing that can cover almost any mechanic in the game.
@@ -135,7 +135,7 @@ class EmeraldCommunion extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -221,13 +221,13 @@ class EmeraldCommunion extends Analyzer {
       suggest(
         <>
           Try to make sure that you buff as many players as possible with{' '}
-          <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT} /> prior to casting{' '}
-          <SpellLink id={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />.
+          <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> prior to casting{' '}
+          <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />.
         </>,
       )
         .icon(TALENTS_EVOKER.EMERALD_COMMUNION_TALENT.icon)
         .actual(
-          `${formatPercentage(this.percentWithLifebindOnCast, 2)}${t({
+          `${formatPercentage(this.percentWithLifebindOnCast, 2)}${defineMessage({
             id: 'evoker.preservation.suggestions.emeraldCommunion.numLifebinds',
             message: `% of group with Lifebind when casting Emerald Communion`,
           })}`,

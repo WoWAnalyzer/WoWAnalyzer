@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
@@ -11,7 +11,7 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-const COOLDOWN_REDUCTION_MS_PER_POINT = 1000;
+const COOLDOWN_REDUCTION_MS_PER_POINT = 1500;
 
 class CrusadersMight extends Analyzer {
   static dependencies = {
@@ -92,13 +92,13 @@ class CrusadersMight extends Analyzer {
       suggest(
         <>
           <Trans id="paladin.holy.modules.talents.crusadersMight.suggestion">
-            You cast <SpellLink id={SPELLS.CRUSADER_STRIKE} /> {this.wastedHolyShockReductionCount}{' '}
-            times when
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
-            <SpellLink id={SPELLS.CRUSADER_STRIKE} /> should be used to reduce the cooldown of
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> and should never be cast when{' '}
-            <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> is avalible. This is a core component of
-            the <SpellLink id={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
+            You cast <SpellLink spell={SPELLS.CRUSADER_STRIKE} />{' '}
+            {this.wastedHolyShockReductionCount} times when
+            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
+            <SpellLink spell={SPELLS.CRUSADER_STRIKE} /> should be used to reduce the cooldown of
+            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and should never be cast when{' '}
+            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is avalible. This is a core component of
+            the <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
             <a
               href="https://questionablyepic.com/glimmer-of-light/"
               target="_blank"
@@ -111,7 +111,7 @@ class CrusadersMight extends Analyzer {
       )
         .icon(TALENTS.HOLY_SHOCK_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.holy.modules.talents.crusadersMight.actual',
 
             message: `${Math.floor(this.holyShocksCastsLost)} Holy Shock cast${
@@ -120,7 +120,7 @@ class CrusadersMight extends Analyzer {
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'paladin.holy.modules.talents.crusadersMight.recommended',
             message: `Casting Holy Shock on cooldown is recommended.`,
           }),
@@ -136,12 +136,12 @@ class CrusadersMight extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL(75)}
-        icon={<SpellIcon id={TALENTS.CRUSADERS_MIGHT_TALENT} />}
+        icon={<SpellIcon spell={TALENTS.CRUSADERS_MIGHT_TALENT} />}
         value={
           <>
             {formatSeconds((this.effectiveHolyShockReductionMs / 1000).toFixed(1))}{' '}
             <SpellIcon
-              id={TALENTS.HOLY_SHOCK_TALENT}
+              spell={TALENTS.HOLY_SHOCK_TALENT}
               style={{
                 height: '1.3em',
                 marginTop: '-.1em',

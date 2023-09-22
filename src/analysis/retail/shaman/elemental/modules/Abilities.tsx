@@ -59,8 +59,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ELEMENTAL_BLAST_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT),
+        spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -102,10 +102,15 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+        spell: SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
+        enabled:
+          combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) ||
+          combatant.hasTalent(TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        charges: combatant.getRepeatedTalentCount(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT),
+        charges: combatant.getMultipleTalentRanks(
+          TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT,
+          TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT,
+        ),
         cooldown: 60,
         gcd: {
           base: 1500,
@@ -125,6 +130,12 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 0.9,
         },
+      },
+      {
+        spell: TALENTS.EARTH_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.EARTH_ELEMENTAL_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60 * 5,
       },
 
       {
@@ -177,7 +188,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.ASTRAL_SHIFT_TALENT.id,
         buffSpellId: TALENTS.ASTRAL_SHIFT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.ASTRAL_SHIFT_TALENT),
-        cooldown: 90,
+        cooldown: 120 - combatant.getTalentRank(TALENTS.PLANES_TRAVELER_TALENT) * 30,
         category: SPELL_CATEGORY.DEFENSIVE,
       },
       {
@@ -203,6 +214,41 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 12,
         gcd: null,
+      },
+      {
+        spell: TALENTS.NATURES_SWIFTNESS_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.NATURES_SWIFTNESS_TALENT),
+        category: SPELL_CATEGORY.COOLDOWNS,
+        cooldown: 60,
+        gcd: null,
+      },
+      {
+        spell: TALENTS.SPIRITWALKERS_GRACE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.SPIRITWALKERS_GRACE_TALENT),
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown:
+          120 -
+          combatant.getTalentRank(TALENTS.GRACEFUL_SPIRIT_TALENT) * 30 -
+          combatant.getTalentRank(TALENTS.GO_WITH_THE_FLOW_TALENT) * 5,
+        gcd: null,
+      },
+      {
+        spell: TALENTS.GUST_OF_WIND_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.GUST_OF_WIND_TALENT),
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown: 30 - combatant.getTalentRank(TALENTS.GO_WITH_THE_FLOW_TALENT) * 5,
+        gcd: null,
+      },
+      {
+        spell: TALENTS.ANCESTRAL_GUIDANCE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.ANCESTRAL_GUIDANCE_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 120,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.GHOST_WOLF.id,
+        category: SPELL_CATEGORY.OTHERS,
       },
       {
         spell: SPELLS.BLOODLUST.id,

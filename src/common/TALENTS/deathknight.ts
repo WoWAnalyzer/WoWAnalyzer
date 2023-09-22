@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ABOMINATION_LIMB_TALENT: {
     id: 383269,
     name: 'Abomination Limb',
@@ -82,6 +82,7 @@ const talents = createTalentList({
     entryIds: [96333],
     definitionIds: [{ id: 101335, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   ASPHYXIATE_TALENT: {
     id: 221562,
@@ -131,6 +132,7 @@ const talents = createTalentList({
     entryIds: [96276],
     definitionIds: [{ id: 101278, specId: 250 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   BLOODSHOT_TALENT: {
     id: 391398,
@@ -212,7 +214,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [96222],
     definitionIds: [{ id: 101224, specId: 251 }],
-    runicPowerCost: 0,
+    runicPowerCostPerSecond: 18,
   },
   BRITTLE_TALENT: {
     id: 374504,
@@ -238,6 +240,7 @@ const talents = createTalentList({
     entryIds: [96210],
     definitionIds: [{ id: 101212, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   CHILL_STREAK_TALENT: {
     id: 305392,
@@ -247,6 +250,7 @@ const talents = createTalentList({
     entryIds: [96228],
     definitionIds: [{ id: 101230, specId: 251 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   CLAWING_SHADOWS_TALENT: {
     id: 207311,
@@ -256,6 +260,7 @@ const talents = createTalentList({
     entryIds: [96320],
     definitionIds: [{ id: 101322, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   CLEAVING_STRIKES_TALENT: {
     id: 316916,
@@ -337,6 +342,7 @@ const talents = createTalentList({
     entryIds: [96188],
     definitionIds: [{ id: 101190, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   CRIMSON_SCOURGE_TALENT: {
     id: 81136,
@@ -370,6 +376,7 @@ const talents = createTalentList({
     entryIds: [96279],
     definitionIds: [{ id: 101281, specId: 250 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   DEATHS_ECHO_TALENT: {
     id: 356367,
@@ -420,6 +427,7 @@ const talents = createTalentList({
     entryIds: [96294],
     definitionIds: [{ id: 101296, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   EBON_FEVER_TALENT: {
     id: 207269,
@@ -430,7 +438,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 101300, specId: 252 }],
   },
   EMPOWER_RUNE_WEAPON_FROST_TALENT: {
-    id: 47568,
+    id: 392963,
     name: 'Empower Rune Weapon',
     icon: 'inv_sword_62',
     maxRanks: 1,
@@ -438,7 +446,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 101231, specId: 251 }],
   },
   EMPOWER_RUNE_WEAPON_SHARED_TALENT: {
-    id: 47568,
+    id: 392962,
     name: 'Empower Rune Weapon',
     icon: 'inv_sword_62',
     maxRanks: 1,
@@ -526,6 +534,7 @@ const talents = createTalentList({
     entryIds: [96326],
     definitionIds: [{ id: 101328, specId: 252 }],
     runesCost: 2,
+    runicPowerCost: -20,
   },
   FESTERMIGHT_TALENT: {
     id: 377590,
@@ -666,6 +675,7 @@ const talents = createTalentList({
     entryIds: [96304],
     definitionIds: [{ id: 101306, specId: 250 }],
     runesCost: 1,
+    runicPowerCost: -15,
   },
   HEMOSTASIS_TALENT: {
     id: 273946,
@@ -691,6 +701,7 @@ const talents = createTalentList({
     entryIds: [96244],
     definitionIds: [{ id: 101246, specId: 251 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   ICEBOUND_FORTITUDE_TALENT: {
     id: 48792,
@@ -892,6 +903,7 @@ const talents = createTalentList({
     entryIds: [96303],
     definitionIds: [{ id: 101305, specId: 250 }],
     runesCost: 2,
+    runicPowerCost: -20,
   },
   MERCILESS_STRIKES_TALENT: {
     id: 373923,
@@ -916,7 +928,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [96211],
     definitionIds: [{ id: 101213, specId: 252 }],
-    runicPowerCost: 0,
   },
   MORBIDITY_TALENT: {
     id: 377592,
@@ -967,6 +978,7 @@ const talents = createTalentList({
     entryIds: [96328],
     definitionIds: [{ id: 101330, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   PERMAFROST_TALENT: {
     id: 207200,
@@ -1136,6 +1148,7 @@ const talents = createTalentList({
     entryIds: [96278],
     definitionIds: [{ id: 101280, specId: 250 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   RUNIC_ATTENUATION_TALENT: {
     id: 207104,
@@ -1194,6 +1207,7 @@ const talents = createTalentList({
     entryIds: [96327],
     definitionIds: [{ id: 101329, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   SHATTERING_BLADE_TALENT: {
     id: 207057,
@@ -1219,6 +1233,7 @@ const talents = createTalentList({
     entryIds: [96181],
     definitionIds: [{ id: 101183, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   SUDDEN_DOOM_TALENT: {
     id: 49530,
@@ -1300,6 +1315,7 @@ const talents = createTalentList({
     entryIds: [96295],
     definitionIds: [{ id: 101297, specId: 252 }],
     runesCost: 1,
+    runicPowerCost: -10,
   },
   UNHOLY_BOND_TALENT: {
     id: 374261,
@@ -1398,7 +1414,7 @@ const talents = createTalentList({
     entryIds: [96207],
     definitionIds: [{ id: 101209, specId: 252 }],
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_DEATH_KNIGHT };

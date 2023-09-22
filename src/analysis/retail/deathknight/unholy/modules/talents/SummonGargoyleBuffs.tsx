@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -90,14 +90,14 @@ class SummonGargoyleBuffs extends Analyzer {
         )
           .icon(TALENTS.SUMMON_GARGOYLE_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'deathknight.unholy.suggestions.summongargoyle.buffing',
               message: `Gargoyle was buffed with an average ${this.averageBuffAmount} Runic Power`,
             }),
           )
           .recommended(`${recommended} is recommended`)
-          .regular(recommended - 60)
-          .major(recommended - 120),
+          .regular(recommended - 30)
+          .major(recommended - 60),
       );
   }
 
@@ -108,7 +108,7 @@ class SummonGargoyleBuffs extends Analyzer {
         position={STATISTIC_ORDER.CORE(6)}
         size="flexible"
       >
-        <BoringSpellValueText spell={TALENTS.SUMMON_GARGOYLE_TALENT}>
+        <BoringSpellValueText spell={TALENTS.SUMMON_GARGOYLE_TALENT.id}>
           <>
             {this.averageBuffAmount} <small>Runic Power buffed on averge</small>
           </>

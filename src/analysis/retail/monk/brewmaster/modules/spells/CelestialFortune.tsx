@@ -25,13 +25,15 @@ type TrackedHealing = {
 const totalTrackedHealing = (value: TrackedHealing) =>
   Object.values(value).reduce((a, b) => a + b.amount, 0);
 
+const CELESTIAL_FORTUNE_COEFF = 0.8;
+
 /**
  * Celestial Fortune
  *
  * CF has two effects:
  *
  * 1. Any non-absorb heal has a chance equal to your crit% to trigger
- * CF, healing you for an additional 65%
+ * CF, healing you for an additional 80%
  *
  * 2. Any absorb is increased by a factor of (1 + crit%)
  *
@@ -139,13 +141,34 @@ class CelestialFortune extends Analyzer {
     }
   }
 
+  /**
+   * Certain effects (like Bonedust Brew) trigger heals at the same timestamp that
+   * both *can* trigger CF, but *may not* trigger CF. There may even be multiple
+   * CF triggers in a row (which is currently unhandled, need to switch to
+   * EventLinkNormalizer for that).
+   *
+   * The current implementation checks for heals that match a whitelist that are more than 10% off of the expected amount.
+   */
+  private shouldSkipHeal(event: HealEvent, expectedHeal: number): boolean {
+    return (
+      event.ability.guid === SPELLS.BONEDUST_BREW_HEAL.id &&
+      Math.abs(expectedHeal - event.amount - (event.overheal ?? 0)) / expectedHeal > 0.1
+    );
+  }
+
   _addHealing(event: HealEvent) {
     if (this._nextCFHeal === null) {
       return;
     }
     const totalCFAmount = this._nextCFHeal.amount + (this._nextCFHeal.overheal || 0);
+    if (this.shouldSkipHeal(event, totalCFAmount / CELESTIAL_FORTUNE_COEFF)) {
+      return;
+    }
     const totalAmount = event.amount + (event.overheal || 0);
-    if (Math.abs(totalCFAmount - 0.65 * totalAmount) > 0.1 * totalAmount && totalAmount > 100) {
+    if (
+      Math.abs(totalCFAmount - CELESTIAL_FORTUNE_COEFF * totalAmount) > 0.1 * totalAmount &&
+      totalAmount > 100
+    ) {
       console.warn('Potential CF misalignment', event, this._nextCFHeal);
     }
 
@@ -177,7 +200,7 @@ class CelestialFortune extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} /> Celestial Fortune Healing
+              <SpellIcon spell={SPELLS.CELESTIAL_FORTUNE_HEAL} /> Celestial Fortune Healing
             </>
           }
         >
@@ -225,7 +248,7 @@ class CelestialFortune extends Analyzer {
               <tr key={id}>
                 <td />
                 <td>
-                  <SpellLink id={Number(id)} icon={false}>
+                  <SpellLink spell={Number(id)} icon={false}>
                     {maybeGetSpell(id) ? (
                       <>
                         <Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}
@@ -299,7 +322,7 @@ class CelestialFortune extends Analyzer {
         <Panel>
           <div style={{ marginTop: -10, marginBottom: -10 }}>
             <div style={{ padding: '1em' }}>
-              Bonus healing provided by <SpellLink id={SPELLS.CELESTIAL_FORTUNE_HEAL.id} />, broken
+              Bonus healing provided by <SpellLink spell={SPELLS.CELESTIAL_FORTUNE_HEAL} />, broken
               down by triggering spell and which player cast that spell.
             </div>
             <table className="data-table" style={{ marginTop: 10, marginBottom: 10 }}>

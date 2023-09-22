@@ -1,0 +1,82 @@
+import MainCombatLogParser from 'parser/core/CombatLogParser';
+
+import Abilities from './modules/Abilities';
+import Buffs from './modules/Buffs';
+
+import Guide from './Guide';
+
+import SandsOfTime from './modules/abilities/SandsOfTime';
+//import BreathOfEons from './modules/abilities/BreathOfEon';
+import EbonMight from './modules/abilities/EbonMight';
+import ShiftingSands from './modules/abilities/ShiftingSands';
+import BreathOfEonsRotational from './modules/breahtofeons/BreathOfEonsRotational';
+
+import TimeSkip from './modules/talents/TimeSkip';
+import Accretion from './modules/talents/Accretion';
+import Prescience from './modules/talents/Prescience';
+import Anachronism from './modules/talents/Anachronism';
+import PupilOfAlexstrasza from './modules/talents/PupilOfAlexstrasza';
+import RicochetingPyroclast from './modules/talents/RicochetingPyroclast';
+import SymbioticBloom from './modules/talents/SymbioticBloom';
+import TectonicLocus from './modules/talents/TectonicLocus';
+import Volcanism from './modules/talents/Volcanism';
+import BlisteringScales from './modules/talents/BlisteringScales';
+
+import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
+import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
+import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
+import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStackTracker';
+
+import PrescienceNormalizer from './modules/normalizers/PrescienceNormalizer';
+import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
+import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
+import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
+
+//Shared
+import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
+
+class CombatLogParser extends MainCombatLogParser {
+  static specModules = {
+    // Shared
+    leapingFlamesNormalizer: LeapingFlamesNormalizer,
+    leapingFlames: LeapingFlames,
+
+    // Normalizers
+    castLinkNormalizer: CastLinkNormalizer,
+    prescienceNormalizer: PrescienceNormalizer,
+    empowerNormalizer: EmpowerNormalizer,
+    ebonMightNormalizer: EbonMightNormalizer,
+
+    // Core
+    abilities: Abilities,
+    buffs: Buffs,
+
+    // Abilities
+    sandsOfTime: SandsOfTime,
+    //breathOfEons: BreathOfEons,
+    breathOfEonsRotational: BreathOfEonsRotational,
+    ebonMight: EbonMight,
+    shiftingSands: ShiftingSands,
+
+    // Talents
+    timeSkip: TimeSkip,
+    accretion: Accretion,
+    blisteringScalesGraph: BlisteringScalesGraph,
+    blisteringScalesStackTracker: BlisteringScalesStackTracker,
+    prescience: Prescience,
+    anachronism: Anachronism,
+    pupilOfAlexstrasza: PupilOfAlexstrasza,
+    ricochetingPyroclast: RicochetingPyroclast,
+    symbioticBloom: SymbioticBloom,
+    tectonicLocus: TectonicLocus,
+    volcanism: Volcanism,
+    blisteringScales: BlisteringScales,
+
+    // Features
+    buffTrackerGraph: BuffTrackerGraph,
+    buffTargetHelper: BuffTargetHelper,
+  };
+  static guide = Guide;
+}
+
+export default CombatLogParser;

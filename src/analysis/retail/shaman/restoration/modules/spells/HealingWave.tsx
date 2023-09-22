@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -108,15 +108,15 @@ class HealingWave extends Analyzer {
       .addSuggestion((suggest) =>
         suggest(
           <span>
-            Casting <SpellLink id={TALENTS.HEALING_WAVE_TALENT.id} /> without{' '}
-            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon /> is slow and generally inefficient.
+            Casting <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> without{' '}
+            <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} icon /> is slow and generally inefficient.
             Consider casting a riptide first to generate{' '}
-            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} icon />
+            <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} icon />
           </span>,
         )
           .icon(TALENTS.HEALING_WAVE_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shaman.restoration.suggestions.healingWave.unbuffed',
               message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Waves`,
             }),

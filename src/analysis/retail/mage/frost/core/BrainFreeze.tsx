@@ -25,7 +25,6 @@ class BrainFreeze extends Analyzer {
 
   overlappedFlurries = () => {
     let casts = this.eventHistory.getEvents(EventType.Cast, {
-      searchBackwards: true,
       spell: TALENTS.FLURRY_TALENT,
     });
     casts = casts.filter((c) => {
@@ -44,7 +43,6 @@ class BrainFreeze extends Analyzer {
   get totalProcs() {
     return (
       this.eventHistory.getEvents(EventType.ApplyBuff, {
-        searchBackwards: true,
         spell: SPELLS.BRAIN_FREEZE_BUFF,
       }).length || 0
     );
@@ -53,7 +51,6 @@ class BrainFreeze extends Analyzer {
   get overwrittenProcs() {
     return (
       this.eventHistory.getEvents(EventType.RefreshBuff, {
-        searchBackwards: true,
         spell: SPELLS.BRAIN_FREEZE_BUFF,
       }).length || 0
     );
@@ -121,11 +118,11 @@ class BrainFreeze extends Analyzer {
       suggest(
         <>
           You overwrote {formatPercentage(actual)}% of your{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> procs. You should use your{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> procs as soon as possible and avoid
+          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> procs. You should use your{' '}
+          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> procs as soon as possible and avoid
           letting them expire or be overwritten whenever possible. There are not any situations
           where it would be advantageous to hold your{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} />.
+          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} />.
         </>,
       )
         .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
@@ -140,7 +137,7 @@ class BrainFreeze extends Analyzer {
       suggest(
         <>
           You allowed {formatPercentage(actual)}% of your{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> procs to expire. Make sure you are using
+          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> procs to expire. Make sure you are using
           your procs as soon as possible to avoid this.
         </>,
       )
@@ -155,13 +152,13 @@ class BrainFreeze extends Analyzer {
     when(this.overlappedFlurryThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.FLURRY_TALENT} /> and applied{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL} /> while the target still had the{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> debuff on them {this.overlappedFlurries()}{' '}
-          times. Casting <SpellLink id={TALENTS.FLURRY_TALENT} /> applies 2 stacks of{' '}
-          <SpellLink id={SPELLS.WINTERS_CHILL.id} /> to the target so you should always ensure you
-          are spending both stacks before you cast <SpellLink id={TALENTS.FLURRY_TALENT} /> and
-          apply <SpellLink id={SPELLS.WINTERS_CHILL} /> again.
+          You cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and applied{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} /> while the target still had the{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff on them {this.overlappedFlurries()}{' '}
+          times. Casting <SpellLink spell={TALENTS.FLURRY_TALENT} /> applies 2 stacks of{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} /> to the target so you should always ensure you
+          are spending both stacks before you cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and
+          apply <SpellLink spell={SPELLS.WINTERS_CHILL} /> again.
         </>,
       )
         .icon(TALENTS.FLURRY_TALENT.icon)
@@ -188,7 +185,7 @@ class BrainFreeze extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.BRAIN_FREEZE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BRAIN_FREEZE_TALENT}>
           {formatPercentage(this.utilPercent, 0)}% <small>Proc utilization</small>
         </BoringSpellValueText>
       </Statistic>

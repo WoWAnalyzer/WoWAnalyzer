@@ -1,8 +1,6 @@
 {
   "_links": {
-    "self": {
-      "href": "https://kr.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-kr"
-    }
+    "self": { "href": "https://kr.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-kr" }
   },
   "realms": [
     {

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/warlock';
 import { SpellLink } from 'interface';
@@ -34,13 +34,13 @@ class CorruptionUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.CORRUPTION.id} /> uptime can be improved. Use a debuff tracker
+          Your <SpellLink spell={SPELLS.CORRUPTION} /> uptime can be improved. Use a debuff tracker
           to see your uptime on the boss.
         </>,
       )
         .icon(SPELLS.CORRUPTION.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.corruption.uptime',
             message: `${formatPercentage(actual)}% Corruption uptime`,
           }),
@@ -54,7 +54,7 @@ class CorruptionUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.CORRUPTION.id} />
+          <SpellIcon spell={SPELLS.CORRUPTION} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

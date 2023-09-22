@@ -3,7 +3,7 @@ import { SpellLink } from 'interface';
 import { Options } from 'parser/core/Analyzer';
 import Enemies from 'parser/shared/modules/Enemies';
 import DotSnapshots, { SnapshotSpec } from 'parser/core/DotSnapshots';
-import { IMPROVED_GARROTE_SPEC } from '../core/Snapshots';
+import { IMPROVED_GARROTE_SPEC, SEPSIS_EMPOWERED_GARROTE_SPEC } from '../core/Snapshots';
 import { ApplyDebuffEvent, RefreshDebuffEvent } from 'parser/core/Events';
 import {
   animachargedCheckedUsageInfo,
@@ -31,7 +31,12 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
   protected enemies!: Enemies;
 
   constructor(options: Options) {
-    super(SPELLS.GARROTE, SPELLS.GARROTE, [IMPROVED_GARROTE_SPEC], options);
+    super(
+      SPELLS.GARROTE,
+      SPELLS.GARROTE,
+      [IMPROVED_GARROTE_SPEC, SEPSIS_EMPOWERED_GARROTE_SPEC],
+      options,
+    );
   }
 
   getDotExpectedDuration(event: ApplyDebuffEvent | RefreshDebuffEvent): number {
@@ -59,11 +64,26 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     if (!cast) {
       return;
     }
+    // TODO: This is a bit of a hack, but it works for now. We should probably have a better way.
+    const usingSepsisBreakdown = this.applicableSnapshots.some(
+      (e) => e.name === SEPSIS_EMPOWERED_GARROTE_SPEC.name,
+    );
+    if (usingSepsisBreakdown) {
+      //Filter out IMPROVED_GARROTE_SPEC if SEPSIS_EMPOWERED_GARROTE_SPEC is present.
+      //They are the same snapshot (0.5 boost) but separated for coloring purposes.
+      snapshots = snapshots.some((ss) => ss.name === SEPSIS_EMPOWERED_GARROTE_SPEC.name)
+        ? snapshots.filter((ss) => ss.name !== IMPROVED_GARROTE_SPEC.name)
+        : snapshots;
 
-    // log the cast
-    // const targetName = this.owner.getTargetName(cast);
-    // const snapshotNames = snapshots.map((ss) => ss.name);
-    // const prevSnapshotNames = prevSnapshots === null ? null : prevSnapshots.map((ss) => ss.name);
+      prevSnapshots = prevSnapshots?.some((ss) => ss.name === SEPSIS_EMPOWERED_GARROTE_SPEC.name)
+        ? prevSnapshots.filter((ss) => ss.name !== IMPROVED_GARROTE_SPEC.name)
+        : prevSnapshots;
+
+      // recalculate power
+      power = snapshots.reduce((acc, ss) => acc * (1 + ss.boostStrength), 1);
+      prevPower = prevSnapshots?.reduce((acc, ss) => acc * (1 + ss.boostStrength), 1) || 0;
+    }
+
     const wasUnacceptableDowngrade =
       prevPower > power && remainingOnPrev > SNAPSHOT_DOWNGRADE_BUFFER;
     const wasUpgrade = prevPower < power;
@@ -117,7 +137,7 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     }
     if (
       clipped > 0 &&
-      !snapshots.some((snapshot) => snapshot.name === IMPROVED_GARROTE_SPEC.name)
+      !snapshots.some((snapshot) => this.applicableSnapshots.some((e) => e.name === snapshot.name))
     ) {
       snapshotPerformance = wasUpgrade ? QualitativePerformance.Ok : QualitativePerformance.Fail;
       snapshotSummary = wasUpgrade ? (
@@ -194,13 +214,21 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={SPELLS.GARROTE.id} />
+          <SpellLink spell={SPELLS.GARROTE} />
         </strong>{' '}
         is your highest damage-per-energy single target builder. Try to keep it active on all
         targets (except when in a many-target AoE situation). Garrote snapshots{' '}
-        <SpellLink id={TALENTS.IMPROVED_GARROTE_TALENT.id} /> - when forced to refresh with a weaker
+        <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} /> - when forced to refresh with a weaker
         snapshot, try to wait until the last moment in order to overwrite the minimum amount of the
-        stronger DoT.
+        stronger DoT.{' '}
+        {this.selectedCombatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
+          <>
+            <br />
+            The free stealth abilities granted from <SpellLink spell={SPELLS.SEPSIS_BUFF} /> can
+            also be used to apply/refresh an instance of{' '}
+            <SpellLink spell={TALENTS.IMPROVED_GARROTE_TALENT} />.
+          </>
+        )}
       </p>
     );
 

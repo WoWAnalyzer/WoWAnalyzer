@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ABUNDANCE_TALENT: {
     id: 207383,
     name: 'Abundance',
@@ -20,7 +20,7 @@ const talents = createTalentList({
       { id: 108128, specId: 105 },
       { id: 108180, specId: 103 },
     ],
-    manaCost: 2500,
+    manaCost: 500,
   },
   AETHERIAL_KINDLING_TALENT: {
     id: 327541,
@@ -103,7 +103,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 108171, specId: 103 }],
   },
   BERSERK_PERSISTENCE_TALENT: {
-    id: 50334,
+    id: 377779,
     name: 'Berserk: Persistence',
     icon: 'ability_druid_berserk',
     maxRanks: 1,
@@ -111,7 +111,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 108216, specId: 104 }],
   },
   BERSERK_RAVAGE_TALENT: {
-    id: 50334,
+    id: 343240,
     name: 'Berserk: Ravage',
     icon: 'ability_druid_berserk',
     maxRanks: 1,
@@ -119,7 +119,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 108221, specId: 104 }],
   },
   BERSERK_TALENT: {
-    id: 106951,
+    id: 343223,
     name: 'Berserk',
     icon: 'ability_druid_berserk',
     maxRanks: 1,
@@ -127,7 +127,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 108167, specId: 103 }],
   },
   BERSERK_UNCHECKED_AGGRESSION_TALENT: {
-    id: 50334,
+    id: 377623,
     name: 'Berserk: Unchecked Aggression',
     icon: 'ability_druid_berserk',
     maxRanks: 1,
@@ -200,7 +200,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 108160, specId: 103 }],
   },
   CELESTIAL_ALIGNMENT_TALENT: {
-    id: 194223,
+    id: 395022,
     name: 'Celestial Alignment',
     icon: 'spell_nature_natureguardian',
     maxRanks: 1,
@@ -214,7 +214,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103104],
     definitionIds: [{ id: 108109, specId: 105 }],
-    manaCost: 4600,
+    manaCost: 920,
   },
   CENARIUS_GUIDANCE_TALENT: {
     id: 393371,
@@ -279,15 +279,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103291],
     definitionIds: [{ id: 108296, specId: 102 }],
-    manaCost: 3000,
-  },
-  DEEP_FOCUS_TALENT: {
-    id: 403949,
-    name: 'Deep Focus',
-    icon: 'spell_nature_naturesblessing',
-    maxRanks: 1,
-    entryIds: [114809],
-    definitionIds: [{ id: 119816, specId: 105 }],
+    manaCost: 600,
   },
   DENIZEN_OF_THE_DREAM_TALENT: {
     id: 394065,
@@ -296,6 +288,14 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [109852],
     definitionIds: [{ id: 114857, specId: 102 }],
+  },
+  DIRE_FIXATION_TALENT: {
+    id: 417710,
+    name: 'Dire Fixation',
+    icon: 'ability_druid_primalprecision',
+    maxRanks: 1,
+    entryIds: [103144],
+    definitionIds: [{ id: 108149, specId: 103 }],
   },
   DOUBLE_CLAWED_RAKE_TALENT: {
     id: 391700,
@@ -352,7 +352,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103111],
     definitionIds: [{ id: 108116, specId: 105 }],
-    manaCost: 8500,
+    manaCost: 1700,
   },
   ELUNES_FAVORED_TALENT: {
     id: 370586,
@@ -374,9 +374,9 @@ const talents = createTalentList({
     id: 392124,
     name: 'Embrace of the Dream',
     icon: 'ability_druid_healinginstincts',
-    maxRanks: 2,
-    entryIds: [103126],
-    definitionIds: [{ id: 108131, specId: 105 }],
+    maxRanks: 1,
+    entryIds: [117101],
+    definitionIds: [{ id: 122113, specId: 105 }],
   },
   FELINE_SWIFTNESS_TALENT: {
     id: 131768,
@@ -427,14 +427,6 @@ const talents = createTalentList({
     entryIds: [109844],
     definitionIds: [{ id: 114849, specId: 102 }],
   },
-  FORESTS_FLOW_TALENT: {
-    id: 400531,
-    name: "Forest's Flow",
-    icon: 'ability_druid_giftoftheearthmother',
-    maxRanks: 1,
-    entryIds: [114726],
-    definitionIds: [{ id: 119733, specId: 105 }],
-  },
   FORESTWALK_TALENT: {
     id: 400129,
     name: 'Forestwalk',
@@ -468,14 +460,6 @@ const talents = createTalentList({
     entryIds: [109870],
     definitionIds: [{ id: 114875, specId: 102 }],
   },
-  FRONT_OF_THE_PACK_TALENT: {
-    id: 377835,
-    name: 'Front of the Pack',
-    icon: 'spell_druid_stampedingroar_cat',
-    maxRanks: 1,
-    entryIds: [103189],
-    definitionIds: [{ id: 108194, specId: 104 }],
-  },
   FUNGAL_GROWTH_TALENT: {
     id: 392999,
     name: 'Fungal Growth',
@@ -505,8 +489,8 @@ const talents = createTalentList({
     name: 'Galactic Guardian',
     icon: 'spell_frost_iceclaw',
     maxRanks: 1,
-    entryIds: [103214],
-    definitionIds: [{ id: 108219, specId: 104 }],
+    entryIds: [103212],
+    definitionIds: [{ id: 108217, specId: 104 }],
   },
   GALE_WINDS_TALENT: {
     id: 400142,
@@ -539,6 +523,15 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103196],
     definitionIds: [{ id: 108201, specId: 104 }],
+  },
+  GROVE_GUARDIANS_TALENT: {
+    id: 102693,
+    name: 'Grove Guardians',
+    icon: 'ability_druid_forceofnature',
+    maxRanks: 1,
+    entryIds: [117102],
+    definitionIds: [{ id: 122114, specId: 105 }],
+    manaCost: 600,
   },
   GROVE_TENDING_TALENT: {
     id: 383192,
@@ -579,7 +572,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103289],
     definitionIds: [{ id: 108294, specId: 102 }],
-    manaCost: 3000,
+    manaCost: 600,
   },
   IMPROVED_BARKSKIN_TALENT: {
     id: 327993,
@@ -634,8 +627,8 @@ const talents = createTalentList({
     name: 'Improved Sunfire',
     icon: 'ability_mage_firestarter',
     maxRanks: 1,
-    entryIds: [103285],
-    definitionIds: [{ id: 108290, specId: 102 }],
+    entryIds: [116102],
+    definitionIds: [{ id: 121114, specId: 102 }],
   },
   IMPROVED_SURVIVAL_INSTINCTS_TALENT: {
     id: 328767,
@@ -678,7 +671,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 108183, specId: 103 }],
   },
   INCARNATION_CHOSEN_OF_ELUNE_TALENT: {
-    id: 102560,
+    id: 394013,
     name: 'Incarnation: Chosen of Elune',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
@@ -686,7 +679,7 @@ const talents = createTalentList({
     definitionIds: [{ id: 114844, specId: 102 }],
   },
   INCARNATION_GUARDIAN_OF_URSOC_TALENT: {
-    id: 102558,
+    id: 394786,
     name: 'Incarnation: Guardian of Ursoc',
     icon: 'spell_druid_incarnation',
     maxRanks: 1,
@@ -756,7 +749,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103135],
     definitionIds: [{ id: 108140, specId: 105 }],
-    manaCost: 1000,
   },
   IRONBARK_TALENT: {
     id: 102342,
@@ -798,7 +790,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103100],
     definitionIds: [{ id: 108105, specId: 105 }],
-    manaCost: 4000,
+    manaCost: 800,
   },
   LIGHT_OF_THE_SUN_TALENT: {
     id: 202918,
@@ -833,10 +825,10 @@ const talents = createTalentList({
     definitionIds: [{ id: 119778, specId: 103 }],
   },
   LUNAR_SHRAPNEL_TALENT: {
-    id: 393868,
+    id: 415169,
     name: 'Lunar Shrapnel',
-    icon: 'spell_arcane_arcane04',
-    maxRanks: 2,
+    icon: 'spell_nature_starfall',
+    maxRanks: 1,
     entryIds: [109868],
     definitionIds: [{ id: 114873, specId: 102 }],
   },
@@ -864,6 +856,7 @@ const talents = createTalentList({
     entryIds: [103299],
     definitionIds: [{ id: 108304, specId: 102 }],
     energyCost: 30,
+    comboPointsCost: 1,
   },
   MANGLE_TALENT: {
     id: 231064,
@@ -880,6 +873,14 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103322],
     definitionIds: [{ id: 108327, specId: 102 }],
+  },
+  MASTER_SHAPESHIFTER_TALENT: {
+    id: 289237,
+    name: 'Master Shapeshifter',
+    icon: 'ability_druid_mastershapeshifter',
+    maxRanks: 1,
+    entryIds: [114809],
+    definitionIds: [{ id: 119816, specId: 105 }],
   },
   MATTED_FUR_TALENT: {
     id: 385786,
@@ -1013,7 +1014,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103094],
     definitionIds: [{ id: 108099, specId: 105 }],
-    manaCost: 9000,
+    manaCost: 1800,
   },
   NURTURING_DORMANCY_TALENT: {
     id: 392099,
@@ -1070,7 +1071,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103115],
     definitionIds: [{ id: 108120, specId: 105 }],
-    manaCost: 6000,
+    manaCost: 1200,
   },
   PASSING_SEASONS_TALENT: {
     id: 382550,
@@ -1128,14 +1129,6 @@ const talents = createTalentList({
     entryIds: [103186],
     definitionIds: [{ id: 108191, specId: 103 }],
   },
-  PRIMAL_CLAWS_TALENT: {
-    id: 391037,
-    name: 'Primal Claws',
-    icon: 'ability_druid_rake',
-    maxRanks: 2,
-    entryIds: [103144],
-    definitionIds: [{ id: 108149, specId: 103 }],
-  },
   PRIMAL_FURY_TALENT: {
     id: 159286,
     name: 'Primal Fury',
@@ -1152,6 +1145,7 @@ const talents = createTalentList({
     entryIds: [103184],
     definitionIds: [{ id: 108189, specId: 103 }],
     energyCost: 20,
+    comboPointsCost: 1,
   },
   PRIMORDIAL_ARCANIC_PULSAR_TALENT: {
     id: 393960,
@@ -1298,7 +1292,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103295],
     definitionIds: [{ id: 108300, specId: 102 }],
-    manaCost: 6000,
+    manaCost: 1100,
   },
   RELENTLESS_PREDATOR_TALENT: {
     id: 393771,
@@ -1319,7 +1313,7 @@ const talents = createTalentList({
       { id: 108298, specId: 104 },
       { id: 108288, specId: 102 },
     ],
-    manaCost: 3250,
+    manaCost: 5000,
   },
   REND_AND_TEAR_TALENT: {
     id: 204053,
@@ -1353,6 +1347,15 @@ const talents = createTalentList({
     entryIds: [103300],
     definitionIds: [{ id: 108305, specId: 102 }],
     energyCost: 20,
+    comboPointsCost: 1,
+  },
+  RISING_LIGHT_FALLING_NIGHT_TALENT: {
+    id: 417712,
+    name: 'Rising Light, Falling Night',
+    icon: 'spell_druid_equinox',
+    maxRanks: 1,
+    entryIds: [103285],
+    definitionIds: [{ id: 108290, specId: 102 }],
   },
   SABERTOOTH_TALENT: {
     id: 202031,
@@ -1393,7 +1396,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [109867],
     definitionIds: [{ id: 114872, specId: 102 }],
-    manaCost: 8400,
+    manaCost: 1680,
   },
   SOLSTICE_TALENT: {
     id: 343647,
@@ -1410,7 +1413,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103307],
     definitionIds: [{ id: 108312, specId: 102 }],
-    manaCost: 2800,
+    manaCost: 560,
   },
   SOUL_OF_THE_FOREST_BALANCE_TALENT: {
     id: 114107,
@@ -1488,7 +1491,6 @@ const talents = createTalentList({
       { id: 117972, specId: 103 },
       { id: 117969, specId: 104 },
     ],
-    manaCost: 1500,
   },
   STARLORD_TALENT: {
     id: 202345,
@@ -1514,7 +1516,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103278],
     definitionIds: [{ id: 108283, specId: 104 }],
-    manaCost: 1500,
   },
   STARWEAVER_TALENT: {
     id: 393940,
@@ -1571,7 +1572,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103286],
     definitionIds: [{ id: 108291, specId: 102 }],
-    manaCost: 6000,
+    manaCost: 1200,
   },
   SURVIVAL_INSTINCTS_TALENT: {
     id: 61336,
@@ -1599,7 +1600,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103294],
     definitionIds: [{ id: 108299, specId: 102 }],
-    manaCost: 4000,
+    manaCost: 800,
   },
   TASTE_FOR_BLOOD_TALENT: {
     id: 384665,
@@ -1704,7 +1705,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103108],
     definitionIds: [{ id: 108113, specId: 105 }],
-    manaCost: 9200,
+    manaCost: 1840,
   },
   TRANQUIL_MIND_TALENT: {
     id: 403521,
@@ -1719,8 +1720,8 @@ const talents = createTalentList({
     name: 'Twin Moonfire',
     icon: 'spell_nature_starfall',
     maxRanks: 1,
-    entryIds: [103212],
-    definitionIds: [{ id: 108217, specId: 104 }],
+    entryIds: [103214],
+    definitionIds: [{ id: 108219, specId: 104 }],
   },
   TWIN_MOONS_TALENT: {
     id: 279620,
@@ -1924,7 +1925,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103320],
     definitionIds: [{ id: 108325, specId: 102 }],
-    manaCost: 11000,
+    manaCost: 2200,
   },
   WILD_MUSHROOM_TALENT: {
     id: 88747,
@@ -1955,8 +1956,8 @@ const talents = createTalentList({
     name: 'Wild Synthesis',
     icon: 'spell_nature_protectionformnature',
     maxRanks: 1,
-    entryIds: [114725],
-    definitionIds: [{ id: 119732, specId: 105 }],
+    entryIds: [117103],
+    definitionIds: [{ id: 122115, specId: 105 }],
   },
   YSERAS_GIFT_TALENT: {
     id: 145108,
@@ -1966,7 +1967,7 @@ const talents = createTalentList({
     entryIds: [103099],
     definitionIds: [{ id: 108104, specId: 105 }],
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_DRUID };

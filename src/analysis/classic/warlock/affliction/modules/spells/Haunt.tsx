@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/warlock';
 import { SpellIcon, SpellLink } from 'interface';
@@ -67,14 +67,14 @@ class Haunt extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.HAUNT.id} /> debuff uptime is too low. While it's usually not
+          Your <SpellLink spell={SPELLS.HAUNT} /> debuff uptime is too low. While it's usually not
           possible to get 100% uptime due to travel and cast time, you should aim for as much uptime
           on the debuff as possible.
         </>,
       )
         .icon(SPELLS.HAUNT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.haunt.uptime',
             message: `${formatPercentage(actual)}% Haunt uptime.`,
           }),
@@ -95,7 +95,7 @@ class Haunt extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HAUNT.id}>
+        <BoringSpellValueText spell={SPELLS.HAUNT}>
           {formatPercentage(this.uptime)} % <small>uptime</small>
           <br />
           {formatNumber(this.dps)} DPS{' '}
@@ -112,7 +112,7 @@ class Haunt extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.HAUNT.id} />
+          <SpellIcon spell={SPELLS.HAUNT} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

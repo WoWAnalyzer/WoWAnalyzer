@@ -40,7 +40,7 @@ class LightOfTheNaaru extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(7)}
       >
-        <BoringSpellValueText spellId={TALENTS.LIGHT_OF_THE_NAARU_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.LIGHT_OF_THE_NAARU_TALENT}>
           {Math.ceil(
             (this.sanctify.lightOfTheNaaruCooldownReduction +
               this.serenity.lightOfTheNaaruCooldownReduction) /

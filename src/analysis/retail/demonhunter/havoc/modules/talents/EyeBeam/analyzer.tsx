@@ -4,7 +4,6 @@ import TALENTS from 'common/TALENTS/demonhunter';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
-import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
@@ -35,12 +34,10 @@ export default class EyeBeam extends MajorCooldown<EyeBeamCooldownCast> {
     return (
       <>
         <section style={{ marginBottom: 20 }}>
-          <Trans id="guide.demonhunter.havoc.sections.cooldowns.eyeBeam.explanation">
-            <strong>
-              <SpellLink spell={TALENTS.EYE_BEAM_TALENT} />
-            </strong>{' '}
-            is a channeled ability that deals heavy chaos damage to all enemies in front of you.
-          </Trans>
+          <strong>
+            <SpellLink spell={TALENTS.EYE_BEAM_TALENT} />
+          </strong>{' '}
+          is a channeled ability that deals heavy chaos damage to all enemies in front of you.
         </section>
         <section>
           <DemonicExplanation />

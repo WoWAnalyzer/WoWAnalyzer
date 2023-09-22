@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -154,13 +154,13 @@ class ShadowEmbrace extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.SHADOW_EMBRACE_DEBUFF.id} /> uptime can be improved. Try to pay
+          Your <SpellLink spell={SPELLS.SHADOW_EMBRACE_DEBUFF} /> uptime can be improved. Try to pay
           more attention to your Shadow Embrace on the boss, perhaps use some debuff tracker.
         </>,
       )
         .icon(SPELLS.SHADOW_EMBRACE_DEBUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.shadowembrace.uptime',
             message: `${formatPercentage(actual)}% Shadow Embrace uptime`,
           }),
@@ -174,7 +174,7 @@ class ShadowEmbrace extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.SHADOW_EMBRACE_DEBUFF.id} />
+          <SpellIcon spell={SPELLS.SHADOW_EMBRACE_DEBUFF} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.totalUptimePercentage, 0)} % <small>uptime</small>

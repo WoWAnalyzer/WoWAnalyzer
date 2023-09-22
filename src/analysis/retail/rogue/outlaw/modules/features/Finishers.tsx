@@ -11,7 +11,7 @@ class Finishers extends FinisherTracker {
     if (this.selectedCombatant.hasTalent(TALENTS.QUICK_DRAW_TALENT)) {
       return (
         <>
-          , or you have an <SpellLink id={SPELLS.OPPORTUNITY.id} /> proc,
+          , or you have an <SpellLink spell={SPELLS.OPPORTUNITY} /> proc,
         </>
       );
     }

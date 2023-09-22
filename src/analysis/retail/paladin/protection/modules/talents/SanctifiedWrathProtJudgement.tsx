@@ -2,7 +2,7 @@ import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, { ResourceChangeEvent } from 'parser/core/Events';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -20,7 +20,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_PROTECTION_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SANCTIFIED_WRATH_TALENT);
     if (!this.active) {
       return;
     }
@@ -32,7 +32,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
     this.addEventListener(Events.resourcechange.by(SELECTED_PLAYER), this.trackedWastedJudgmentHP);
   }
 
-  trackJudgmentCasts(event: CastEvent) {
+  trackJudgmentCasts() {
     if (this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id)) {
       this.buffedJudgements += 1;
     }
@@ -91,7 +91,7 @@ class SanctifiedWrathProtJudgement extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.SANCTIFIED_WRATH_PROTECTION_TALENT.id}
+          spell={TALENTS.SANCTIFIED_WRATH_TALENT.id}
           value={formatNumber(bonusHP)}
           label="Extra Holy Power"
         />

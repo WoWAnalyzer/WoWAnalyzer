@@ -87,7 +87,7 @@ class BladeRush extends Analyzer {
     const tooltip = (
       <>
         At {this.owner.formatTimestamp(event.timestamp)} you cast{' '}
-        <SpellLink id={TALENTS.BLADE_RUSH_TALENT} /> at {energy!.amount} energy
+        <SpellLink spell={TALENTS.BLADE_RUSH_TALENT} /> at {energy!.amount} energy
       </>
     );
 
@@ -134,11 +134,11 @@ class BladeRush extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS.BLADE_RUSH_TALENT} />
+          <SpellLink spell={TALENTS.BLADE_RUSH_TALENT} />
         </strong>{' '}
         should be used whenever your energy drop under 70-80, this energy threshold increase with
         target count. At around 9 targets it is safe to use{' '}
-        <SpellLink id={TALENTS.BLADE_RUSH_TALENT} /> on cooldown regardless of energy.
+        <SpellLink spell={TALENTS.BLADE_RUSH_TALENT} /> on cooldown regardless of energy.
       </p>
     );
 
@@ -146,12 +146,12 @@ class BladeRush extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS.BLADE_RUSH_TALENT} /> utilization
+            <SpellLink spell={TALENTS.BLADE_RUSH_TALENT} /> utilization
           </strong>
           <div>
             <small>
               Grey periods indicate periods where your energy went under the recommended energy
-              threshold but you did not use <SpellLink id={TALENTS.BLADE_RUSH_TALENT} />.
+              threshold but you did not use <SpellLink spell={TALENTS.BLADE_RUSH_TALENT} />.
             </small>
             {uptimeBarSubStatistic(
               this.owner.fight,

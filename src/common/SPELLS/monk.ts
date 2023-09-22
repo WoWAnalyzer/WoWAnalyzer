@@ -3,10 +3,10 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
+import Spell from 'common/SPELLS/Spell';
+import talents from 'common/TALENTS/monk';
 
-import { spellIndexableList } from './Spell';
-
-const spells = spellIndexableList({
+const spells = {
   // Shared
   MYSTIC_TOUCH: {
     id: 8647,
@@ -178,6 +178,21 @@ const spells = spellIndexableList({
     name: 'Enveloping Breath',
     icon: 'ability_monk_jadeserpentbreath',
   },
+  MANA_TEA_STACK: {
+    id: 115867,
+    name: 'Mana Tea',
+    icon: 'inv_misc_herb_jadetealeaf',
+  },
+  MANA_TEA_CAST: {
+    id: 115294,
+    name: 'Mana Tea',
+    icon: 'monk_ability_cherrymanatea',
+  },
+  MANA_TEA_BUFF: {
+    id: 197908,
+    name: 'Mana Tea',
+    icon: 'monk_ability_cherrymanatea',
+  },
   SOOTHING_BREATH: {
     id: 343737,
     name: 'Soothing Breath',
@@ -205,6 +220,11 @@ const spells = spellIndexableList({
     id: 228649,
     name: 'Blackout Kick',
     icon: 'ability_monk_roundhousekick',
+  },
+  CLAW_OF_THE_WHITE_TIGER: {
+    id: 389541,
+    name: 'Claw of the White Tiger',
+    icon: 'ability_monk_summonwhitetigerstatue',
   },
 
   // Utility / Other
@@ -630,11 +650,24 @@ const spells = spellIndexableList({
     name: 'Chi Surge',
     icon: 'ability_monk_chiexplosion',
   },
+  CHARRED_PASSIONS_BUFF: {
+    id: 386963,
+    name: 'Charred Passions',
+    icon: 'ability_monk_mightyoxkick',
+  },
   // Tier 29 2-set bonus
   BREWMASTERS_RHYTHM_BUFF: {
     id: 394797,
     name: "Brewmaster's Rhythm",
     icon: 'ability_monk_standingkick',
+  },
+  PRESS_THE_ADVANTAGE_BUFF: {
+    ...talents.PRESS_THE_ADVANTAGE_TALENT,
+    id: 418361,
+  },
+  PRESS_THE_ADVANTAGE_DMG: {
+    ...talents.PRESS_THE_ADVANTAGE_TALENT,
+    id: 418360,
   },
 
   // Windwalker Spells
@@ -815,6 +848,6 @@ const spells = spellIndexableList({
     name: 'Primordial Power',
     icon: 'inv_relics_totemofrage',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

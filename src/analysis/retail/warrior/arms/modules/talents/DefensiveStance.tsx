@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatThousands } from 'common/format';
 import TALENTS from 'common/TALENTS/warrior';
 import { SpellIcon } from 'interface';
@@ -98,7 +98,7 @@ class DefensiveStance extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(5)}
-        icon={<SpellIcon id={TALENTS.DEFENSIVE_STANCE_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.DEFENSIVE_STANCE_TALENT} />}
         value={`≈${formatNumber(this.drps)} DRPS, ${formatNumber(this.dlps)} DLPS`}
         label="Damage reduced & lost"
         tooltip={
@@ -126,7 +126,7 @@ class DefensiveStance extends Analyzer {
         )
           .icon(TALENTS.DEFENSIVE_STANCE_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'warrior.arms.suggestions.defensiveStance',
               message: `A total of ${formatNumber(
                 dl,
@@ -143,7 +143,7 @@ class DefensiveStance extends Analyzer {
         suggest(
           <>
             {' '}
-            You never used <SpellLink id={TALENTS.DEFENSIVE_STANCE_TALENT.id} />. Try to use it to
+            You never used <SpellLink spell={TALENTS.DEFENSIVE_STANCE_TALENT} />. Try to use it to
             reduce incoming damage or use another talent that would be more useful. Hint: A macro to
             easily switch between stances can be useful!
           </>,

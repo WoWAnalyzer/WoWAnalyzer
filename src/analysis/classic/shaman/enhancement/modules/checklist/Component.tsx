@@ -36,7 +36,8 @@ const MeleeChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.checklist.totemuptime.fire">
-              <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem Uptime
+              <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem
+              Uptime
             </Trans>
           }
           thresholds={thresholds.fireTotemUptime}
@@ -44,7 +45,7 @@ const MeleeChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.checklist.totemuptime.water">
-              <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem
+              <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem
               Uptime
             </Trans>
           }
@@ -53,7 +54,7 @@ const MeleeChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.checklist.totemuptime.earth">
-              <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem
+              <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem
               Uptime
             </Trans>
           }
@@ -62,7 +63,8 @@ const MeleeChecklist = ({
         <Requirement
           name={
             <Trans id="shaman.checklist.totemuptime.air">
-              <SpellIcon id={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem Uptime
+              <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem
+              Uptime
             </Trans>
           }
           thresholds={thresholds.airTotemUptime}

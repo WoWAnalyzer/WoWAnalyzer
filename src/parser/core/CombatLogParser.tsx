@@ -9,13 +9,11 @@ import {
   EventType,
   HasSource,
   HasTarget,
-  MappedEvent,
 } from 'parser/core/Events';
 import ModuleError from 'parser/core/ModuleError';
 import PreparationRuleAnalyzer from 'parser/retail/modules/features/Checklist/PreparationRuleAnalyzer';
 import PotionChecker from 'parser/retail/modules/items/PotionChecker';
 import WeaponEnhancementChecker from 'parser/retail/modules/items/WeaponEnhancementChecker';
-import LegEnhancementChecker from 'parser/retail/modules/items/LegEnhancementChecker';
 import DeathRecapTracker from 'parser/shared/modules/DeathRecapTracker';
 import EnemiesHealth from 'parser/shared/modules/EnemiesHealth';
 import Haste from 'parser/shared/modules/Haste';
@@ -90,6 +88,7 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
+import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/AcceleratingSandglass';
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
 
 // This prints to console anything that the DI has to do
@@ -194,7 +193,6 @@ class CombatLogParser {
     healthPotion: HealthPotion,
     combatPotion: CombatPotion,
     weaponEnhancementChecker: WeaponEnhancementChecker,
-    legEnhancementChecker: LegEnhancementChecker,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
 
     // Racials
@@ -206,6 +204,7 @@ class CombatLogParser {
     bloodFury: BloodFury,
 
     // Items:
+    acceleratingSandglass: AcceleratingSandglass,
     voiceOfTheSilentStar: VoiceOfTheSilentStar,
 
     // Enchants
@@ -366,20 +365,13 @@ class CombatLogParser {
     options: { [prop: string]: any; priority: number },
     desiredModuleName = `module${Object.keys(this._modules).length}`,
   ) {
-    // eslint-disable-next-line new-cap
-    const module = new moduleClass({
+    const fullOptions = {
       ...options,
       owner: this,
-    });
-    if (options) {
-      // We can't set the options via the constructor since a parent constructor can't override the values of a child's class properties.
-      // See https://github.com/Microsoft/TypeScript/issues/6110 for more info
-      Object.keys(options).forEach((key) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
-        module[key] = options[key];
-      });
-    }
+    };
+    // eslint-disable-next-line new-cap
+    const module = new moduleClass(fullOptions);
+    Module.applyDependencies(fullOptions, module);
     // TODO: Remove module naming
     module.key = desiredModuleName;
     this._modules[desiredModuleName] = module;
@@ -533,7 +525,7 @@ class CombatLogParser {
   /** The amount of events parsed. This can reliably be used to determine if something should re-render. */
   eventCount = 0;
   eventHistory: AnyEvent[] = [];
-  addEventListener<ET extends EventType, E extends MappedEvent<ET>>(
+  addEventListener<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
     module: Module,

@@ -18,7 +18,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
     <Requirement
       name={
         <>
-          <SpellLink id={props.id} icon /> uptime
+          <SpellLink spell={props.spell} icon /> uptime
         </>
       }
       thresholds={props.thresholds}
@@ -39,26 +39,26 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
         description={
           <Fragment>
             It's important to keep your DoTs up on the boss. In addition to dealing damage,{' '}
-            <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />,{' '}
-            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, and{' '}
-            <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> increase all your damage through{' '}
-            <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />. If you are talented into{' '}
-            <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT} />, do not alter your rotation to
+            <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />,{' '}
+            <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />, and{' '}
+            <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> increase all your damage through{' '}
+            <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />. If you are talented into{' '}
+            <SpellLink spell={TALENTS.DARK_EVANGELISM_TALENT} />, do not alter your rotation to
             maintain the effect.
           </Fragment>
         }
       >
-        <DotUptime id={SPELLS.SHADOW_WORD_PAIN.id} thresholds={thresholds.shadowWordPain} />
-        <DotUptime id={SPELLS.VAMPIRIC_TOUCH.id} thresholds={thresholds.vampiricTouch} />
+        <DotUptime spell={SPELLS.SHADOW_WORD_PAIN} thresholds={thresholds.shadowWordPain} />
+        <DotUptime spell={SPELLS.VAMPIRIC_TOUCH} thresholds={thresholds.vampiricTouch} />
         <DotUptime
-          id={TALENTS.DEVOURING_PLAGUE_TALENT.id}
+          spell={TALENTS.DEVOURING_PLAGUE_TALENT}
           thresholds={thresholds.devouringPlague}
         />
         {/**The threshold value of DP needs to be reevalulated for Dragonflight */}
 
         {combatant.hasTalent(TALENTS.DARK_EVANGELISM_TALENT) && (
           <DotUptime
-            id={TALENTS.DARK_EVANGELISM_TALENT.id}
+            spell={TALENTS.DARK_EVANGELISM_TALENT}
             thresholds={thresholds.darkEvangelism}
           />
         )}
@@ -100,8 +100,6 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <>
             Many talents add procs to increase the power of your abilities. Make sure to use them to
             maximize the damage these talents can give you, and gain extra insanity.
-            <SpellLink id={TALENTS.SURGE_OF_INSANITY_TALENT.id} /> is a low priority. If you had a
-            higher priority spells available, it is better to not use these procs.
             <br />
           </>
         }
@@ -110,7 +108,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.SHADOWY_INSIGHT_TALENT.id} /> wasted{' '}
+                <SpellLink spell={TALENTS.SHADOWY_INSIGHT_TALENT} /> wasted{' '}
               </>
             }
             thresholds={thresholds.shadowyInsight}
@@ -121,7 +119,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.UNFURLING_DARKNESS_TALENT.id} /> wasted{' '}
+                <SpellLink spell={TALENTS.UNFURLING_DARKNESS_TALENT} /> wasted{' '}
               </>
             }
             thresholds={thresholds.unfurlingDarkness}
@@ -132,7 +130,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.DEATHSPEAKER_TALENT.id} /> wasted{' '}
+                <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> wasted{' '}
               </>
             }
             thresholds={thresholds.deathspeaker}
@@ -144,7 +142,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
             <Requirement
               name={
                 <>
-                  <SpellLink id={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id} /> canceled ticks{' '}
+                  <SpellLink spell={SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE} /> canceled ticks{' '}
                 </>
               }
               thresholds={thresholds.mindFlayInsanity}
@@ -156,7 +154,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
             <Requirement
               name={
                 <>
-                  <SpellLink id={SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE.id} /> Procs Wasted{' '}
+                  <SpellLink spell={SPELLS.MIND_SPIKE_INSANITY_TALENT_DAMAGE} /> Procs Wasted{' '}
                 </>
               }
               thresholds={thresholds.mindSpikeInsanity}
@@ -167,7 +165,7 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} /> wasted{' '}
+                <SpellLink spell={TALENTS.MIND_DEVOURER_TALENT} /> wasted{' '}
               </>
             }
             thresholds={thresholds.mindDevourer}
@@ -209,9 +207,9 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <>
             Insanity generation and management is crucial to maximizing your damage. You should
             always try to stay below maximum insanity for room to generate more with your abilities.
-            You should juggle using <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> to not
+            You should juggle using <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> to not
             overcap while also maximizing DOT uptime for the increased mastery benefit from{' '}
-            <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
+            <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
           </>
         }
       >
@@ -224,10 +222,10 @@ const ShadowPriestChecklist = ({ combatant, castEfficiency, thresholds }: Checkl
           <Fragment>
             Try to minimize your time not casting. Use your core spells on cooldown and fillers when
             they are not available. If you know you have an upcoming position requirement,
-            stutterstep with each <SpellLink id={SPELLS.VOID_BOLT.id} /> or{' '}
-            <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> cast towards that location. During
-            high movement you can use <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or{' '}
-            <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> as a filler.
+            stutterstep with each <SpellLink spell={SPELLS.VOID_BOLT} /> or{' '}
+            <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> cast towards that location. During
+            high movement you can use <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> or{' '}
+            <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} /> as a filler.
           </Fragment>
         }
       >

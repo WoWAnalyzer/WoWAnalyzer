@@ -1,4 +1,4 @@
-import REALMS from 'game/REALMS';
+import { REALMS } from 'game/REALMS';
 
 import makeUrl from './makeUrl';
 import { isSupportedRegion } from 'common/regions';
@@ -39,8 +39,11 @@ export function makeCharacterApiUrl(
   return makeApiUrl(parts.map((part) => encodeURIComponent(part)).join('/'));
 }
 
-export function makeGuildApiUrl(region?: string, realm?: string, name?: string) {
+export function makeGuildApiUrl(region?: string, realm?: string, name?: string, classic?: boolean) {
   const parts = ['guild'];
+  if (classic) {
+    parts.push('classic');
+  }
   if (region && realm && name) {
     parts.push(region);
     parts.push(realm);

@@ -87,14 +87,14 @@ class RighteousProtector extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.RIGHTEOUS_PROTECTOR_TALENT.id}>
-          <SpellIcon id={SPELLS.AVENGING_WRATH.id} />{' '}
+        <BoringSpellValueText spell={TALENTS.RIGHTEOUS_PROTECTOR_TALENT}>
+          <SpellIcon spell={SPELLS.AVENGING_WRATH} />{' '}
           {formatNumber(this.avengingWrathReduced / SECOND)}s{' '}
           <small>
             CD Reduction ({formatNumber(this.avengingWrathReductionWasted / SECOND)}s wasted)
           </small>
           <br />
-          <SpellIcon id={TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id} />{' '}
+          <SpellIcon spell={TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT} />{' '}
           {formatNumber(this.guardianOfAncientKingsReduced / SECOND)}s{' '}
           <small>
             CD Reduction ({formatNumber(this.guardianOfAncientKingsWasted / SECOND)}s wasted)

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic';
 import { SpellLink } from 'interface';
@@ -25,12 +25,12 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           Your downtime can be improved. Try to reduce time away from the boss. If you have to move,
           use instant cast abilities, such as
           {/* UPDATE THE SPELLS BELOW */}
-          <SpellLink id={SPELLS.DEATH_COIL_DK} />.
+          <SpellLink spell={SPELLS.DEATH_COIL_DK} />.
         </span>,
       )
         .icon('spell_mage_altertime')
         .actual(
-          t({
+          defineMessage({
             id: 'shared.suggestions.alwaysBeCasting.downtime',
             message: `${formatPercentage(actual)}% downtime`,
           }),

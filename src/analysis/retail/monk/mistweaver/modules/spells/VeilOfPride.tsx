@@ -61,7 +61,7 @@ class VeilOfPride extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.VEIL_OF_PRIDE_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.VEIL_OF_PRIDE_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -81,7 +81,7 @@ class VeilOfPride extends Analyzer {
               <li>Total Healing : {formatNumber(this.totalHealing)}</li>
               <li>Total overhealing: {formatNumber(this.totalOverhealing)}</li>
               <li>
-                Percent of <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> overhealing:{' '}
+                Percent of <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> overhealing:{' '}
                 {formatPercentage(this.percentOfSgOverhealing)}%
               </li>
             </ul>

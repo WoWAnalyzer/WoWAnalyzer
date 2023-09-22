@@ -63,12 +63,13 @@ class HotCountGraph extends BuffCountGraph {
           <>
             This graph shows the number of non-Renewing Mist HoTs you had active over the course of
             the encounter. It can help you evaluate how effective you were at prepping and executing
-            your cooldowns. Having several <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />{' '}
-            out before casting <SpellLink id={this.revival.getRevivalTalent()} /> or{' '}
-            <SpellLink id={this.celestial.getCelestialTalent()} /> will drastically increase their
-            effectiveness, and the number of <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} />{' '}
-            that go out during <SpellLink id={this.celestial.getCelestialTalent()} /> directly
-            correlates to your hps during.
+            your cooldowns. Having several <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />{' '}
+            out before casting <SpellLink spell={this.revival.getRevivalTalent()} /> or{' '}
+            <SpellLink spell={this.celestial.getCelestialTalent()} /> will drastically increase
+            their effectiveness, and the number of{' '}
+            <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> that go out during{' '}
+            <SpellLink spell={this.celestial.getCelestialTalent()} /> directly correlates to your
+            hps during.
           </>
         }
       >

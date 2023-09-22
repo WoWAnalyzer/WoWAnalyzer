@@ -4,7 +4,6 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import GradiatedPerformanceBar, {
   GradiatedPerformanceBarInfo,
 } from 'interface/guide/components/GradiatedPerformanceBar';
-import { Trans } from '@lingui/macro';
 import Spell from 'common/SPELLS/Spell';
 import SpellLink from 'interface/SpellLink';
 import { ClickToExpand, MouseoverForMoreDetails } from './CommonLinguiTranslations';
@@ -74,40 +73,24 @@ const CastSummaryAndBreakdown = ({
   const hasBadCasts = bad !== 0;
 
   const perfectExplanation = !perfectExtraExplanation ? (
-    <Trans id="guide.castSummaryAndBreakdown.header.perfectWithoutExtraExplanation">
-      Blue is a perfect cast
-    </Trans>
+    <>Blue is a perfect cast</>
   ) : (
-    <Trans id="guide.castSummaryAndBreakdown.header.perfectWithExtraExplanation">
-      Blue is a perfect cast ({perfectExtraExplanation})
-    </Trans>
+    <>Blue is a perfect cast ({perfectExtraExplanation})</>
   );
   const goodExplanation = !goodExtraExplanation ? (
-    <Trans id="guide.castSummaryAndBreakdown.header.goodWithoutExtraExplanation">
-      Green is a good cast
-    </Trans>
+    <>Green is a good cast</>
   ) : (
-    <Trans id="guide.castSummaryAndBreakdown.header.goodWithExtraExplanation">
-      Green is a good cast ({goodExtraExplanation})
-    </Trans>
+    <>Green is a good cast ({goodExtraExplanation})</>
   );
   const okExplanation = !okExtraExplanation ? (
-    <Trans id="guide.castSummaryAndBreakdown.header.okWithoutExtraExplanation">
-      Yellow is an ok cast
-    </Trans>
+    <>Yellow is an ok cast</>
   ) : (
-    <Trans id="guide.castSummaryAndBreakdown.header.okWithExtraExplanation">
-      Yellow is an ok cast ({okExtraExplanation})
-    </Trans>
+    <>Yellow is an ok cast ({okExtraExplanation})</>
   );
   const badExplanation = !badExtraExplanation ? (
-    <Trans id="guide.castSummaryAndBreakdown.header.badWithoutExtraExplanation">
-      Red is a bad cast
-    </Trans>
+    <>Red is a bad cast</>
   ) : (
-    <Trans id="guide.castSummaryAndBreakdown.header.badWithExtraExplanation">
-      Red is a bad cast ({badExtraExplanation})
-    </Trans>
+    <>Red is a bad cast ({badExtraExplanation})</>
   );
 
   const performanceExplanation = [
@@ -159,8 +142,7 @@ const CastSummaryAndBreakdown = ({
         />
       )}
       <strong>
-        <SpellLink spell={spell} />{' '}
-        <Trans id="guide.castSummaryAndBreakdown.header.casts">casts</Trans>
+        <SpellLink spell={spell} /> casts
       </strong>{' '}
       <small>
         - {performanceExplanation}. <MouseoverForMoreDetails /> <ClickToExpand />

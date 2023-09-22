@@ -9,13 +9,13 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { Enchant } from 'common/SPELLS/Spell';
 
 class EnchantChecker extends Analyzer {
-  get EnchantableSlots(): any {
+  get EnchantableSlots(): Record<number, JSX.Element> {
     return {};
   }
 
   get EnchantableGear(): any {
     const enchantSlots = this.EnchantableSlots;
-    return Object.keys(enchantSlots).reduce((obj: { [key: number]: Item }, slot) => {
+    return Object.keys(enchantSlots).reduce<Record<number, Item>>((obj, slot) => {
       const item = this.selectedCombatant._getGearItemBySlotId(Number(slot));
 
       // If there is no offhand, disregard the item.

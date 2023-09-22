@@ -28,6 +28,7 @@ import CurseOfAgony from './modules/spells/CurseOfAgony';
 import CurseOfDoom from './modules/spells/CurseOfDoom';
 import CurseOfTheElements from './modules/spells/CurseOfTheElements';
 import Immolate from './modules/spells/Immolate';
+import MoltenCore from './modules/spells/MoltenCore';
 import ShadowMastery from './modules/spells/ShadowMastery';
 
 class CombatLogParser extends BaseCombatLogParser {
@@ -56,6 +57,7 @@ class CombatLogParser extends BaseCombatLogParser {
     curseOfDoom: CurseOfDoom,
     curseOfTheElements: CurseOfTheElements,
     immolate: Immolate,
+    moltenCore: MoltenCore,
     shadowMastery: ShadowMastery,
   };
   static guide = Guide;

@@ -1,14 +1,20 @@
-import { t } from '@lingui/macro';
-import { formatNumber, formatPercentage, formatThousands } from 'common/format';
+import { defineMessage } from '@lingui/macro';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import CooldownExpandable, {
   CooldownExpandableItem,
 } from 'interface/guide/components/CooldownExpandable';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  CastEvent,
+  HealEvent,
+  RefreshBuffEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import ItemManaGained from 'parser/ui/ItemManaGained';
@@ -20,31 +26,46 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
 import { PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import {
+  HasStackChange,
+  getManaTeaChannelDuration,
+  getManaTeaStacksConsumed,
+} from '../../normalizers/CastLinkNormalizer';
+import { MANA_TEA_MAX_STACKS, MANA_TEA_REDUCTION } from '../../constants';
+import Haste from 'parser/shared/modules/Haste';
 
-interface ManaTeaTracker {
+export interface ManaTeaTracker {
   timestamp: number;
   manaSaved: number;
   totalVivifyCleaves: number;
   numVivifyCasts: number;
   overhealing: number;
   healing: number;
+  stacksConsumed: number;
+  manaRestored: number;
+  channelTime: number | undefined;
 }
 
 class ManaTea extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    haste: Haste,
   };
 
   protected renewingMistDuringManaTea!: RenewingMistDuringManaTea;
+  protected haste!: Haste;
 
   manaSavedMT: number = 0;
+  manaRestoredMT: number = 0;
   manateaCount: number = 0;
   casts: Map<string, number> = new Map<string, number>();
   castTrackers: ManaTeaTracker[] = [];
   effectiveHealing: number = 0;
   manaPerManaTeaGoal: number = 0;
   overhealing: number = 0;
+  stacksWasted: number = 0;
+  manaRestoredSinceLastApply: number = 0;
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
@@ -62,14 +83,22 @@ class ManaTea extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.handleCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.heal);
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.MANA_TEA_TALENT),
-      this.applyBuff,
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_BUFF),
+      this.onApplyBuff,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_STACK),
+      this.onStackWaste,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.onVivCast);
+    this.addEventListener(
+      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.MANA_TEA_CAST),
+      this.onManaRestored,
+    );
   }
 
-  applyBuff(event: ApplyBuffEvent) {
+  onApplyBuff(event: ApplyBuffEvent) {
     this.manateaCount += 1; //count the number of mana teas to make an average over teas
     this.castTrackers.push({
       timestamp: event.timestamp,
@@ -78,10 +107,24 @@ class ManaTea extends Analyzer {
       manaSaved: 0,
       healing: 0,
       overhealing: 0,
+      stacksConsumed: getManaTeaStacksConsumed(event),
+      manaRestored: this.manaRestoredSinceLastApply,
+      channelTime: event?.prepull
+        ? this.estimatedChannelTime(event)
+        : getManaTeaChannelDuration(event),
     });
+    this.manaRestoredSinceLastApply = 0;
   }
+
+  private estimatedChannelTime(event: ApplyBuffEvent): number {
+    const channelTimePerTick =
+      (this.selectedCombatant.hasTalent(TALENTS_MONK.ENERGIZING_BREW_TALENT) ? 0.25 : 0.5) /
+      (1 + this.haste.current);
+    return channelTimePerTick * getManaTeaStacksConsumed(event);
+  }
+
   heal(event: HealEvent) {
-    if (this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
+    if (this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)) {
       //if this is in a mana tea window
       this.effectiveHealing += (event.amount || 0) + (event.absorbed || 0);
       this.castTrackers.at(-1)!.healing += (event.amount || 0) + (event.absorbed || 0);
@@ -91,34 +134,22 @@ class ManaTea extends Analyzer {
   }
 
   handleCast(event: CastEvent) {
-    const name = event.ability.name;
-    const manaEvent = event.classResources?.find(
-      (resource) => resource.type === RESOURCE_TYPES.MANA.id,
-    );
-    if (manaEvent === undefined) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id) ||
+      event.resourceCost == null ||
+      event.resourceCost[RESOURCE_TYPES.MANA.id] == null
+    ) {
       return;
     }
-
-    if (
-      this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id) &&
-      event.ability.guid !== TALENTS_MONK.MANA_TEA_TALENT.id
-    ) {
-      //we check both since melee doesn't havea classResource
-      if (manaEvent.cost !== undefined) {
-        //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
-        this.manaSavedMT += manaEvent.cost / 2;
-        this.castTrackers.at(-1)!.manaSaved += manaEvent.cost / 2;
-      }
-      if (this.casts.has(name)) {
-        this.casts.set(name, (this.casts.get(name) || 0) + 1);
-      } else {
-        this.casts.set(name, 1);
-      }
-    }
+    const actualCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
+    const preMTCost = event.resourceCost[RESOURCE_TYPES.MANA.id] / MANA_TEA_REDUCTION;
+    const manaSaved = preMTCost - actualCost;
+    this.manaSavedMT += manaSaved;
+    this.castTrackers.at(-1)!.manaSaved += manaSaved;
   }
 
   onVivCast(event: CastEvent) {
-    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)) {
       return;
     }
     this.castTrackers.at(-1)!.totalVivifyCleaves -= 1; // this is overcounted in vivHeal func
@@ -126,14 +157,47 @@ class ManaTea extends Analyzer {
   }
 
   onVivHeal(event: HealEvent) {
-    if (!this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
+    if (!this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)) {
       return;
     }
     this.castTrackers.at(-1)!.totalVivifyCleaves += 1;
   }
 
+  onManaRestored(event: ResourceChangeEvent) {
+    this.manaRestoredSinceLastApply += event.resourceChange;
+    this.manaRestoredMT += event.resourceChange;
+  }
+
+  onStackWaste(event: RefreshBuffEvent) {
+    if (
+      HasStackChange(event) ||
+      this.selectedCombatant.getBuffStacks(SPELLS.MANA_TEA_STACK.id, event.timestamp) <
+        MANA_TEA_MAX_STACKS
+    ) {
+      return;
+    }
+
+    this.stacksWasted += 1;
+  }
+
   get avgMtSaves() {
     return this.manaSavedMT / this.manateaCount || 0;
+  }
+
+  get avgManaRestored() {
+    return this.manaRestoredMT / this.manateaCount || 0;
+  }
+
+  get avgChannelDuration() {
+    let totalValid = 0;
+    let totalDuration = 0;
+    this.castTrackers.forEach((tracker) => {
+      if (tracker !== undefined) {
+        totalValid += 1;
+        totalDuration += tracker.channelTime!;
+      }
+    });
+    return totalDuration / totalValid;
   }
 
   get suggestionThresholds() {
@@ -170,18 +234,18 @@ class ManaTea extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your mana spent during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> can be improved.
-          Aim to prioritize as many <SpellLink id={SPELLS.VIVIFY.id} /> casts until the last second
-          of the buff and then cast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />.{' '}
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+          Your mana spent during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> can be improved.
+          Aim to prioritize as many <SpellLink spell={SPELLS.VIVIFY} /> casts until the last second
+          of the buff and then cast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />.{' '}
+          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
           's mana cost is taken at the beginning of the channel, so you gain the benefit of{' '}
-          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> even if the channel continues past the
+          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> even if the channel continues past the
           buff.
         </>,
       )
         .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
         .actual(
-          `${formatNumber(this.avgMtSaves)}${t({
+          `${formatNumber(this.avgMtSaves)}${defineMessage({
             id: 'monk.mistweaver.suggestions.manaTea.avgManaSaved',
             message: ` average mana saved per Mana Tea cast`,
           })}`,
@@ -192,15 +256,15 @@ class ManaTea extends Analyzer {
       suggest(
         <>
           Your average overhealing was high during your{' '}
-          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> usage. Consider using{' '}
-          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} /> during specific boss abilities or
+          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> usage. Consider using{' '}
+          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> during specific boss abilities or
           general periods of high damage to the raid. Also look to target low health raid members to
           avoid large amounts of overhealing.
         </>,
       )
         .icon(TALENTS_MONK.MANA_TEA_TALENT.icon)
         .actual(
-          `${formatPercentage(this.avgOverhealing)}${t({
+          `${formatPercentage(this.avgOverhealing)}${defineMessage({
             id: 'monk.mistweaver.suggestions.manaTea.avgOverHealing',
             message: ` % average overhealing per Mana Tea cast`,
           })}`,
@@ -218,21 +282,21 @@ class ManaTea extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
         </strong>{' '}
         is a powerful buff that can save a large amount of mana and doubles as a throughput cooldown
         once you obtain your 4 piece tier set bonus. Aim to maximize effectiveness of{' '}
-        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> by spamming <SpellLink id={SPELLS.VIVIFY} />{' '}
-        during damage moments when you have at least 8{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on the raid.
+        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> by spamming{' '}
+        <SpellLink spell={SPELLS.VIVIFY} /> during damage moments when you have at least 8{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out on the raid.
         <br />
         Alternatively, If talented into{' '}
-        <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and{' '}
-        <SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />, use{' '}
-        <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} /> toward the end of your celestial for a
-        guaranteed proc of <SpellLink id={SPELLS.SOULFANG_VITALITY} /> and spam
-        <SpellLink id={SPELLS.VIVIFY} /> while channeling{' '}
-        <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT} />.
+        <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />, use{' '}
+        <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> toward the end of your celestial for a
+        guaranteed proc of <SpellLink spell={SPELLS.SOULFANG_VITALITY} /> and spam
+        <SpellLink spell={SPELLS.VIVIFY} /> while channeling{' '}
+        <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />.
       </p>
     );
 
@@ -244,7 +308,7 @@ class ManaTea extends Analyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT.id} />
+              <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
             </>
           );
           const checklistItems: CooldownExpandableItem[] = [];
@@ -257,7 +321,7 @@ class ManaTea extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                Mana saved during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />
+                Mana saved during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
               </>
             ),
             result: <PerformanceMark perf={manaPerf} />,
@@ -273,7 +337,7 @@ class ManaTea extends Analyzer {
           checklistItems.push({
             label: (
               <>
-                Overhealing during <SpellLink id={TALENTS_MONK.MANA_TEA_TALENT} />
+                Overhealing during <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />
               </>
             ),
             result: <PerformanceMark perf={overhealingPerf} />,
@@ -291,7 +355,7 @@ class ManaTea extends Analyzer {
             checklistItems.push({
               label: (
                 <>
-                  Avg <SpellLink id={SPELLS.VIVIFY} /> cleaves per cast
+                  Avg <SpellLink spell={SPELLS.VIVIFY} /> cleaves per cast
                 </>
               ),
               result: <PerformanceMark perf={vivCleavePerf} />,
@@ -316,8 +380,20 @@ class ManaTea extends Analyzer {
     return explanationAndDataSubsection(explanation, data, explanationPercent);
   }
 
+  get totalManaSaved() {
+    return this.manaSavedMT + this.manaRestoredMT;
+  }
+
+  get avgStacks() {
+    return (
+      this.castTrackers.reduce(
+        (prev: number, cur: ManaTeaTracker) => prev + cur.stacksConsumed,
+        0,
+      ) / this.castTrackers.length
+    );
+  }
+
   statistic() {
-    const arrayOfKeys = Array.from(this.casts.keys());
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(9)}
@@ -325,24 +401,46 @@ class ManaTea extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            During your {this.manateaCount} casts of Mana Tea you saved mana on the following (
-            {formatThousands((this.manaSavedMT / this.owner.fightDuration) * 1000 * 5)} MP5):
-            <ul>
-              {arrayOfKeys.map((spell) => (
-                <li key={spell}>
-                  {this.casts.get(spell)} {spell} casts
-                </li>
-              ))}
-            </ul>
+            <div>Total mana saved: {formatNumber(this.manaSavedMT)}</div>
+            <div>Total mana restored: {formatNumber(this.manaRestoredMT)}</div>
+            <div>
+              Average <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} /> stacks:{' '}
+              {this.avgStacks.toFixed(1)}
+            </div>
+            <div>Average channel duration: {(this.avgChannelDuration / 1000).toFixed(1)}s</div>
+            <div>Total wasted stacks: {this.stacksWasted}</div>
           </>
         }
       >
         <TalentSpellText talent={TALENTS_MONK.MANA_TEA_TALENT}>
-          <ItemManaGained amount={this.manaSavedMT} useAbbrev />
-          <br />
-          {formatNumber(this.avgMtSaves)} <small>mana saved per cast</small>
-          <br />
-          {this.renewingMistDuringManaTea.subStatistic()}
+          <div>
+            <ItemManaGained amount={this.totalManaSaved} useAbbrev />
+          </div>
+          <div>
+            <TooltipElement
+              content={
+                <>
+                  This is the mana saved from the mana reduction provided by{' '}
+                  <SpellLink spell={SPELLS.MANA_TEA_CAST} />
+                </>
+              }
+            >
+              {formatNumber(this.avgMtSaves)} <small>mana saved per cast</small>
+            </TooltipElement>
+          </div>
+          <div>
+            <TooltipElement
+              content={
+                <>
+                  This is the mana restored from channeling{' '}
+                  <SpellLink spell={SPELLS.MANA_TEA_CAST} />
+                </>
+              }
+            >
+              {formatNumber(this.avgManaRestored)} <small> mana restored per cast</small>
+            </TooltipElement>
+          </div>
+          <div>{this.renewingMistDuringManaTea.subStatistic()}</div>
         </TalentSpellText>
       </Statistic>
     );

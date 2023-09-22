@@ -74,7 +74,7 @@ export default class FinisherUse extends Analyzer {
         tooltip: (
           <>
             This includes finishers cast using an Animacharged CP from{' '}
-            <SpellLink id={TALENTS.ECHOING_REPRIMAND_TALENT} />.
+            <SpellLink spell={TALENTS.ECHOING_REPRIMAND_TALENT} />.
           </>
         ),
       });

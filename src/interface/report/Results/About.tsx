@@ -1,4 +1,5 @@
 import { Plural, Trans } from '@lingui/macro';
+import { useLingui } from '@lingui/react';
 import isLatestPatch from 'game/isLatestPatch';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
@@ -13,6 +14,7 @@ interface Props {
 
 const About = ({ config }: Props) => {
   const { spec, description, contributors, patchCompatibility, isPartial } = config;
+  const { i18n } = useLingui();
   const contributorinfo =
     contributors.length !== 0 ? (
       contributors.map((contributor) => <Contributor key={contributor.nickname} {...contributor} />)
@@ -24,7 +26,7 @@ const About = ({ config }: Props) => {
     <Panel
       title={
         <Trans id="interface.report.results.about.aboutSpecnameClassname">
-          About {spec.specName} {spec.className}
+          About {spec.specName && i18n._(spec.specName)} {i18n._(spec.className)}
         </Trans>
       }
       actions={
@@ -52,8 +54,8 @@ const About = ({ config }: Props) => {
       {!isLatestPatch(config) && (
         <AlertWarning style={{ marginTop: '1em' }}>
           <Trans id="interface.report.results.about.outdated">
-            The analysis for this spec is outdated. It may be inaccurate for spells that were
-            changed since patch {patchCompatibility}.
+            The analysis for this spec is outdated. Analysis for spells that were changed after
+            patch {patchCompatibility} may be inaccurate.
           </Trans>
         </AlertWarning>
       )}

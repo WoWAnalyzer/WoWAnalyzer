@@ -22,7 +22,7 @@ class SymbolsOfDeathUptime extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.SYMBOLS_OF_DEATH.id} /> Symbols of Death Uptime
+              <SpellIcon spell={SPELLS.SYMBOLS_OF_DEATH} /> Symbols of Death Uptime
             </>
           }
         >

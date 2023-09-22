@@ -21,8 +21,6 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-const PROC_BUFFER = 200;
-
 class HotStreak extends Analyzer {
   static dependencies = {
     sharedCode: SharedCode,
@@ -31,7 +29,6 @@ class HotStreak extends Analyzer {
   protected eventHistory!: EventHistory;
   protected sharedCode!: SharedCode;
 
-  hasPyroclasm: boolean = this.selectedCombatant.hasTalent(TALENTS.PYROCLASM_TALENT);
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
   hasHyperthermia: boolean = this.selectedCombatant.hasTalent(TALENTS.HYPERTHERMIA_TALENT);
@@ -40,16 +37,16 @@ class HotStreak extends Analyzer {
   expiredProcs = () =>
     this.sharedCode.getExpiredProcs(SPELLS.HOT_STREAK, [
       TALENTS.PYROBLAST_TALENT,
-      TALENTS.FLAMESTRIKE_TALENT,
+      SPELLS.FLAMESTRIKE,
     ]).length || 0;
 
   // prettier-ignore
   missingHotStreakPreCast = () => {
-    let hotStreakRemovals = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.HOT_STREAK });
+    let hotStreakRemovals = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: SPELLS.HOT_STREAK });
     hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FIREBALL));
     
     //If Hot Streak was used on Flamestrike, filter it out
-    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, TALENTS.FLAMESTRIKE_TALENT));
+    hotStreakRemovals = hotStreakRemovals.filter(hs => !this.sharedCode.getPreCast(hs, SPELLS.FLAMESTRIKE));
 
     //If Combustion or Hyperthermia was active, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
@@ -60,7 +57,7 @@ class HotStreak extends Analyzer {
 
     //If Combustion ended less than 3 seconds ago, filter it out
     hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: TALENTS.COMBUSTION_TALENT, count: 1, startTimestamp: hs.timestamp })[0];
+      const combustionEnded = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: TALENTS.COMBUSTION_TALENT, count: 1, startTimestamp: hs.timestamp })[0];
       return !combustionEnded || hs.timestamp - combustionEnded.timestamp > COMBUSTION_END_BUFFER;
     })
 
@@ -81,16 +78,10 @@ class HotStreak extends Analyzer {
       }
     });
 
-    //If Pyroclasm was removed within 200ms of the Hot Streak being removed then they probably precast a hard cast Pyroblast, so filter it out
-    hotStreakRemovals = hotStreakRemovals.filter(hs => {
-      const pyroclasmRemoved = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.PYROCLASM_BUFF, count: 1, startTimestamp: hs.timestamp, duration: PROC_BUFFER });
-      return !this.hasPyroclasm || !pyroclasmRemoved;
-    })
-
     //Highlight bad casts on timeline
     const tooltip = `This Pyroblast was cast using Hot Streak, but did not have a Fireball pre-cast in front of it.`
     hotStreakRemovals.forEach((cast) => {
-      const pyroCast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: TALENTS.PYROBLAST_TALENT, count: 1, startTimestamp: cast.timestamp, duration: 250 })
+      const pyroCast = this.eventHistory.getEvents(EventType.Cast, { spell: TALENTS.PYROBLAST_TALENT, count: 1, startTimestamp: cast.timestamp, duration: 250 })
       highlightInefficientCast(pyroCast, tooltip)
     })
 
@@ -110,7 +101,7 @@ class HotStreak extends Analyzer {
 
     //Filter out Phoenix Flames cleaves
     events = events.filter(e => {
-      const cast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
+      const cast = this.eventHistory.getEvents(EventType.Cast, { spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
       if (cast && HasTarget(cast)) {
         const castTarget = encodeTargetString(cast.targetID, cast.targetInstance);
         return castTarget === encodeTargetString(e.targetID, e.targetInstance);
@@ -120,13 +111,13 @@ class HotStreak extends Analyzer {
 
     //If the player got a Pyromaniac proc, then dont count it as a wasted proc because there is nothing they could have done to prevent the crit from being wasted.
     events = events.filter((e) => {
-      const pyromaniacProc = this.eventHistory.getEvents(EventType.RemoveBuff, { searchBackwards: true, spell: SPELLS.HOT_STREAK, count: 1, startTimestamp: e.timestamp, duration: 250 })[0];
+      const pyromaniacProc = this.eventHistory.getEvents(EventType.RemoveBuff, { spell: SPELLS.HOT_STREAK, count: 1, startTimestamp: e.timestamp, duration: 250 })[0];
       return !this.hasPyromaniac || !pyromaniacProc;
     });
 
     //Highlight Timeline
     events.forEach((e) => {
-      const cast = this.eventHistory.getEvents(EventType.Cast, { searchBackwards: true, spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
+      const cast = this.eventHistory.getEvents(EventType.Cast, { spell: SPELLS[e.ability.guid], count: 1, startTimestamp: e.timestamp, duration: 5000 })[0];
       const tooltip = 'This cast crit while you already had Hot Streak and could have contributed towards your next Heating Up or Hot Streak. To avoid this, make sure you use your Hot Streak procs as soon as possible.';
       cast && highlightInefficientCast(cast, tooltip);
     });
@@ -136,7 +127,6 @@ class HotStreak extends Analyzer {
   get totalHotStreakProcs() {
     return (
       this.eventHistory.getEvents(EventType.ApplyBuff, {
-        searchBackwards: true,
         spell: SPELLS.HOT_STREAK,
       }).length || 0
     );
@@ -183,7 +173,7 @@ class HotStreak extends Analyzer {
       suggest(
         <>
           You allowed {formatPercentage(this.expiredProcs() / this.totalHotStreakProcs)}% of your{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> procs to expire. Try to use your procs as soon as
+          <SpellLink spell={SPELLS.HOT_STREAK} /> procs to expire. Try to use your procs as soon as
           possible to avoid this.
         </>,
       )
@@ -198,26 +188,17 @@ class HotStreak extends Analyzer {
     when(this.castBeforeHotStreakThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          When <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> is not active
+          When <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> is not active
           {this.hasFirestarter ? ' and the target is below 90% health' : ''}{' '}
           {this.hasSearingTouch ? ' and the target is over 30% health' : ''},{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> procs should be used immediately after casting{' '}
-          <SpellLink id={SPELLS.FIREBALL.id} />{' '}
-          {this.hasPyroclasm ? (
-            <>
-              {' '}
-              or after using a <SpellLink id={TALENTS.PYROCLASM_TALENT.id} /> proc{' '}
-            </>
-          ) : (
-            ''
-          )}
-          . This way, if one of the two abilities crit you will gain a new{' '}
-          <SpellLink id={SPELLS.HEATING_UP.id} /> proc, and if both crit you will get a new{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> proc. You failed to do this{' '}
+          <SpellLink spell={SPELLS.HOT_STREAK} /> procs should be used immediately after casting{' '}
+          <SpellLink spell={SPELLS.FIREBALL} /> . This way, if one of the two abilities crit you
+          will gain a new <SpellLink spell={SPELLS.HEATING_UP} /> proc, and if both crit you will
+          get a new <SpellLink spell={SPELLS.HOT_STREAK} /> proc. You failed to do this{' '}
           {this.missingHotStreakPreCast()} times. If you have a{' '}
-          <SpellLink id={SPELLS.HOT_STREAK.id} /> proc and need to move, you can hold the proc and
-          cast <SpellLink id={SPELLS.SCORCH.id} /> once or twice until you are able to stop and cast{' '}
-          <SpellLink id={SPELLS.FIREBALL.id} /> or you can use your procs while you move.
+          <SpellLink spell={SPELLS.HOT_STREAK} /> proc and need to move, you can hold the proc and
+          cast <SpellLink spell={SPELLS.SCORCH} /> once or twice until you are able to stop and cast{' '}
+          <SpellLink spell={SPELLS.FIREBALL} /> or you can use your procs while you move.
         </>,
       )
         .icon(SPELLS.HOT_STREAK.icon)
@@ -233,7 +214,7 @@ class HotStreak extends Analyzer {
         <>
           You crit with {formatNumber(this.wastedCrits())} (
           {formatNumber(this.wastedCritsThresholds.actual)} Per Minute) direct damage abilities
-          while <SpellLink id={SPELLS.HOT_STREAK.id} /> was active. This is a waste since those
+          while <SpellLink spell={SPELLS.HOT_STREAK} /> was active. This is a waste since those
           crits could have contibuted towards your next Hot Streak. Try to use your procs as soon as
           possible to avoid this.
         </>,
@@ -259,11 +240,10 @@ class HotStreak extends Analyzer {
             the procs that you get and avoid letting them expire. <br />
             <br />
             Additionally, to maximize your chance of getting Heating Up/Hot Streak procs, you should
-            hard cast Fireball
-            {this.hasPyroclasm ? ' (or Pyroblast if you have a Pyroclasm proc)' : ''} just before
-            using your Hot Streak proc unless you are guaranteed to crit via Firestarter, Searing
-            Touch, or Combustion. This way if one of the two spells crit you will get a new Heating
-            Up proc, and if both spells crit then you will get a new Hot Streak proc.
+            hard cast Fireball just before using your Hot Streak proc unless you are guaranteed to
+            crit via Firestarter, Searing Touch, or Combustion. This way if one of the two spells
+            crit you will get a new Heating Up proc, and if both spells crit then you will get a new
+            Hot Streak proc.
             <br />
             <ul>
               <li>Total procs - {this.totalHotStreakProcs}</li>
@@ -274,7 +254,7 @@ class HotStreak extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.HOT_STREAK.id}>
+        <BoringSpellValueText spell={SPELLS.HOT_STREAK}>
           <>
             {formatPercentage(this.hotStreakUtilizationThresholds.actual, 0)}%{' '}
             <small>Proc Utilization</small>

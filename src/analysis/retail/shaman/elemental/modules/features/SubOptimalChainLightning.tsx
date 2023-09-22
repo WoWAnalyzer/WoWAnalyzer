@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
@@ -72,15 +72,15 @@ class SubOptimalChainLightning extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast {this.badCasts} <SpellLink id={TALENTS.CHAIN_LIGHTNING_TALENT.id} /> that hit
+          You cast {this.badCasts} <SpellLink spell={TALENTS.CHAIN_LIGHTNING_TALENT} /> that hit
           less than {TARGETS_FOR_GOOD_CAST} targets. Always prioritize{' '}
-          <SpellLink id={SPELLS.LIGHTNING_BOLT.id} /> as a filler when there are less than{' '}
+          <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> as a filler when there are less than{' '}
           {TARGETS_FOR_GOOD_CAST} targets.
         </>,
       )
         .icon(TALENTS.CHAIN_LIGHTNING_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.chainLightning.efficiency',
             message: `${actual.toFixed(1)} bad Chain Lightning per minute`,
           }),

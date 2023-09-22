@@ -10,6 +10,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 const PUNISH_DAMAGE_INCREASE = 0.1;
 
@@ -58,13 +59,11 @@ class Punish extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.PUNISH_TALENT.id} /> Damage contributed
+              <SpellLink spell={TALENTS.PUNISH_TALENT} /> Damage contributed
             </>
           }
         >
-          <>
-            {formatNumber((this.bonusDmg / this.owner.fightDuration) * 1000)} <small>DPS</small>
-          </>
+          <ItemDamageDone amount={this.bonusDmg} />
         </BoringValueText>
       </Statistic>
     );

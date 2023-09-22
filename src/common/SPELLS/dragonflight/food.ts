@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   //region Drinks
   CHURNBELLY_TEA: {
     id: 383212,
@@ -109,6 +109,11 @@ const spells = spellIndexableList({
     name: 'Sizzling Seafood Medley',
     icon: 'inv_misc_food_draenor_sturgeonstew',
   },
+  THOUSANDBONE_TONGUESLICER: {
+    id: 382156,
+    name: 'Thousandbone Tongueslicer',
+    icon: 'inv_misc_food_154_fish_77',
+  },
   //endregion
 
   //region Great Feasts
@@ -131,6 +136,6 @@ const spells = spellIndexableList({
   //   icon: 'inv_cooking_10_grandbanquet',
   // },
   //endregion
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

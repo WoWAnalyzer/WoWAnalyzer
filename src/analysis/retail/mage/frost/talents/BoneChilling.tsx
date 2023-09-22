@@ -21,7 +21,6 @@ const AFFECTED_SPELLS = [
   SPELLS.COMET_STORM_DAMAGE,
   SPELLS.GLACIAL_SPIKE_DAMAGE,
   SPELLS.FROST_NOVA,
-  SPELLS.EBONBOLT_DAMAGE,
   SPELLS.CONE_OF_COLD,
   TALENTS.RAY_OF_FROST_TALENT,
   TALENTS.ICE_NOVA_TALENT,
@@ -65,7 +64,7 @@ class BoneChilling extends Analyzer {
         size="flexible"
         tooltip={`Total damage increase: ${formatNumber(this.totalDamage)}`}
       >
-        <BoringSpellValueText spellId={TALENTS.BONE_CHILLING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BONE_CHILLING_TALENT}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Buff uptime</small>
           <br />
           {this.owner.formatItemDamageDone(this.totalDamage)}

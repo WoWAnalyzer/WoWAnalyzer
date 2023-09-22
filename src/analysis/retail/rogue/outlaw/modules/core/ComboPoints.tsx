@@ -16,7 +16,7 @@ class ComboPoints extends Analyzer {
   makeExtraSuggestion(spell: Spell) {
     return (
       <>
-        Avoid wasting combo points when casting <SpellLink id={spell.id} />.
+        Avoid wasting combo points when casting <SpellLink spell={spell} />.
       </>
     );
   }

@@ -23,7 +23,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <>
           Your downtime can be improved. Try to reduce the delay between casting spells. If
-          everything is on cooldown, try and use <SpellLink id={TALENTS.COBRA_SHOT_TALENT.id} /> to
+          everything is on cooldown, try and use <SpellLink spell={TALENTS.COBRA_SHOT_TALENT} /> to
           stay off the focus cap and do some damage.
         </>,
       )

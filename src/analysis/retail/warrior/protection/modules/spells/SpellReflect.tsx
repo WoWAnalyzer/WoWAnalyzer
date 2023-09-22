@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import SCHOOLS from 'game/MAGIC_SCHOOLS';
@@ -67,13 +67,13 @@ class SpellReflect extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SPELL_REFLECTION.id} /> more often when magic damage is
+          Try to cast <SpellLink spell={SPELLS.SPELL_REFLECTION} /> more often when magic damage is
           going out to take less damage.
         </>,
       )
         .icon(SPELLS.SPELL_REFLECTION.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.protection.suggestions.spellReflect.efficiency',
             message: `${formatPercentage(actual)} % magic damage With Spell Reflect Up`,
           }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -57,7 +57,7 @@ class TouchOfKarma extends Analyzer {
         <>
           {' '}
           You consumed a low amount of your total <SpellLink
-            id={SPELLS.TOUCH_OF_KARMA_CAST.id}
+            spell={SPELLS.TOUCH_OF_KARMA_CAST}
           />{' '}
           absorb. It's best used when you can take enough damage to consume most of the absorb.
           Getting full absorb usage shouldn't be expected on lower difficulty encounters{' '}
@@ -65,7 +65,7 @@ class TouchOfKarma extends Analyzer {
       )
         .icon(SPELLS.TOUCH_OF_KARMA_CAST.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.suggestions.touchOfKarma.absorbUsed',
             message: `${formatPercentage(actual)}% Touch of Karma absorb used`,
           }),
@@ -81,7 +81,7 @@ class TouchOfKarma extends Analyzer {
         size="flexible"
         tooltip="This does not account for possible absorbs from missed Touch of Karma casts"
       >
-        <BoringSpellValueText spellId={SPELLS.TOUCH_OF_KARMA_CAST.id}>
+        <BoringSpellValueText spell={SPELLS.TOUCH_OF_KARMA_CAST}>
           {formatPercentage(this.absorbUsed, 0)}% <small>Absorb used</small>
         </BoringSpellValueText>
       </Statistic>

@@ -32,18 +32,22 @@ class HammerofWrath extends ExecuteHelper {
     super(options);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
+    const isHoly = this.selectedCombatant.specId === SPECS.HOLY_PALADIN.id;
+    const baseCD = isHoly ? 19 : 7.5;
+
     //FIXME added reduction from legendary when we can get that info
     (options.abilities as Abilities).add({
       spell: TALENTS.HAMMER_OF_WRATH_TALENT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
-      cooldown: (haste) => 7.5 / (1 + haste),
+      cooldown: (haste) => baseCD / (1 + haste),
       gcd: {
         base: 1500,
       },
       castEfficiency: {
-        suggestion: true,
-        recommendedEfficiency:
-          this.owner.characterProfile?.spec === SPECS.HOLY_PALADIN.specName ? 0.65 : 0.85,
+        suggestion: !isHoly,
+        recommendedEfficiency: this.selectedCombatant.hasTalent(TALENTS.VENERATION_TALENT)
+          ? 0.75
+          : 0.85,
         maxCasts: () => this.maxCasts,
       },
     });

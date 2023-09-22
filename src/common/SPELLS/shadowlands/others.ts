@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   ETERNAL_CAULDRON: {
     id: 171281,
     name: 'Eternal Cauldron',
@@ -137,5 +137,5 @@ const spells = spellIndexableList({
     name: 'Eternal Augmentation',
     icon: 'inv_jewelcrafting_optionalreagent_02',
   },
-});
+} satisfies Record<string, Spell>;
 export default spells;

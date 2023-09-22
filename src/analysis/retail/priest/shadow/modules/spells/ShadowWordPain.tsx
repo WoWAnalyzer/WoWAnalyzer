@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -56,13 +56,13 @@ class ShadowWordPain extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> on the boss.
+          Your <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> on the boss.
         </span>,
       )
         .icon(SPELLS.SHADOW_WORD_PAIN.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.shadowWordPain.uptime',
             message: `${formatPercentage(actual)}% Shadow Word: Pain uptime`,
           }),
@@ -100,7 +100,7 @@ class ShadowWordPain extends Analyzer {
           <div className="flex-sub bar-label">
             <SpellIcon
               key={'Icon-' + SPELLS.SHADOW_WORD_PAIN.name}
-              id={SPELLS.SHADOW_WORD_PAIN.id}
+              spell={SPELLS.SHADOW_WORD_PAIN}
             />{' '}
             <PerformanceStrong performance={this.DowntimePerformance}>
               {' '}

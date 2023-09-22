@@ -58,7 +58,7 @@ class ScentOfBlood extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.SCENT_OF_BLOOD_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SCENT_OF_BLOOD_TALENT}>
           <>
             {this.chargesGained}/{this.chargesGained + this.chargesWasted}{' '}
             <small>charges gained</small>

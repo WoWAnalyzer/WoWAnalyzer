@@ -1,4 +1,3 @@
-import { formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -8,29 +7,22 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
-
-import RageTracker from '../core/RageTracker';
+import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 
 const REDUCTION = 5000;
-const EXTRA_RAGE = 5;
 
 /**
- * Whenever you cast a shield slam reduce shield wall by 5 second and gain 3 extra rage.
+ * Whenever you cast a shield slam reduce shield wall by 5 second
  */
 class ImpenetrableWall extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
-    rageTracker: RageTracker,
   };
 
   protected spellUsable!: SpellUsable;
-  protected rageTracker!: RageTracker;
 
   effectiveCDR = 0;
   wastedCDR = 0;
-
-  effectiveRage = 0;
-  wastedRage = 0;
 
   constructor(options: Options) {
     super(options);
@@ -50,14 +42,6 @@ class ImpenetrableWall extends Analyzer {
     } else {
       this.wastedCDR += REDUCTION;
     }
-
-    if (this.rageTracker.maxResource > this.rageTracker.current + EXTRA_RAGE) {
-      this.effectiveRage += 3;
-    } else {
-      const effective = this.rageTracker.maxResource - this.rageTracker.current;
-      this.effectiveRage += effective;
-      this.wastedRage += EXTRA_RAGE - effective;
-    }
   }
 
   statistic() {
@@ -66,16 +50,9 @@ class ImpenetrableWall extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            Wasted Rage: {this.wastedRage} <br />
-            Wasted CDR: {formatDuration(this.wastedCDR)}
-          </>
-        }
       >
-        <BoringSpellValueText spellId={TALENTS.IMPENETRABLE_WALL_TALENT}>
-          {this.effectiveRage} <small>rage</small> <br />
-          {formatDuration(this.effectiveCDR)} <small>cdr</small>
+        <BoringSpellValueText spell={TALENTS.IMPENETRABLE_WALL_TALENT}>
+          <ItemCooldownReduction effective={this.effectiveCDR} waste={this.wastedCDR} />
         </BoringSpellValueText>
       </Statistic>
     );

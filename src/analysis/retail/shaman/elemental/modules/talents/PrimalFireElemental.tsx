@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -109,7 +109,7 @@ class PrimalFireElemental extends Analyzer {
       )
         .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.primalFireElemental.unusedSpells',
             message: `${formatNumber(
               this.unusedSpells.length,
@@ -123,15 +123,15 @@ class PrimalFireElemental extends Analyzer {
     when(this.missedMeteorSuggestionTresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You are not using <SpellLink id={SPELLS.FIRE_ELEMENTAL_METEOR.id} /> every time you cast{' '}
-          <SpellLink id={TALENTS.FIRE_ELEMENTAL_TALENT.id} /> if you are using{' '}
-          <SpellLink id={TALENTS.PRIMAL_ELEMENTALIST_TALENT.id} />. Only wait with casting meteor if
+          You are not using <SpellLink spell={SPELLS.FIRE_ELEMENTAL_METEOR} /> every time you cast{' '}
+          <SpellLink spell={TALENTS.FIRE_ELEMENTAL_TALENT} /> if you are using{' '}
+          <SpellLink spell={TALENTS.PRIMAL_ELEMENTALIST_TALENT} />. Only wait with casting meteor if
           you wait for adds to spawn.
         </span>,
       )
         .icon(TALENTS.FIRE_ELEMENTAL_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.primalFireElemental.meteorCastsMissed',
             message: `${formatNumber(this.missedMeteorCasts)} missed Meteor Casts.`,
           }),
@@ -145,7 +145,7 @@ class PrimalFireElemental extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
         <>
-          <BoringSpellValueText spellId={TALENTS.FIRE_ELEMENTAL_TALENT.id}>
+          <BoringSpellValueText spell={TALENTS.FIRE_ELEMENTAL_TALENT}>
             <ItemDamageDone amount={this.damageGained} />
           </BoringSpellValueText>
         </>

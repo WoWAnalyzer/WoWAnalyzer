@@ -5,13 +5,13 @@
  *   icon: string,
  * },
  */
-import { itemIndexableList } from 'common/ITEMS/Item';
+import Item from 'common/ITEMS/Item';
 
-const items = itemIndexableList({
+const items = {
   FERAL_HIDE_DRUMS: {
     id: 193470,
     name: 'Feral Hide Drums',
     icon: 'inv_10_skinning_consumable_leatherdrums_color1',
   },
-});
+} satisfies Record<string, Item>;
 export default items;

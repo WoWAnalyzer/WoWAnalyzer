@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import TALENTS from 'common/TALENTS/rogue';
@@ -66,13 +66,13 @@ class CastsInStealthBase extends Analyzer {
       (suggest: SuggestionFactory, actual: number | boolean, recommended: number | boolean) =>
         suggest(
           <>
-            Use <SpellLink id={SPELLS.SHADOWSTRIKE.id} /> instead of <SpellLink id={spell.id} />{' '}
+            Use <SpellLink spell={SPELLS.SHADOWSTRIKE} /> instead of <SpellLink spell={spell} />{' '}
             during {this.stealthCondition}.{' '}
           </>,
         )
           .icon(spell.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'rogue.subtlety.suggestions.castsInStealth.casts',
               message: `${actual} ${spell.name} casts`,
             }),
@@ -90,7 +90,7 @@ class CastsInStealthBase extends Analyzer {
       )
         .icon(spell.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.subtlety.suggestions.castsInStealth.efficiency',
             message: `${this.stealthActualCasts} casts out of ${this.stealthMaxCasts} possible.`,
           }),

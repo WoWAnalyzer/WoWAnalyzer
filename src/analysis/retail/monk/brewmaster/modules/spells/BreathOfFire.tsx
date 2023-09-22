@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
@@ -102,13 +102,13 @@ class BreathOfFire extends Analyzer {
     when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.BREATH_OF_FIRE_TALENT.id} /> usage can be improved. The
+          Your <SpellLink spell={talents.BREATH_OF_FIRE_TALENT} /> usage can be improved. The
           associated debuff is a key part of our damage mitigation.
         </>,
       )
         .icon(talents.BREATH_OF_FIRE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.brewmaster.suggestions.breathOfFire.hitsMitigated',
             message: `${formatPercentage(actual)}% of hits mitigated with Breath of Fire`,
           }),

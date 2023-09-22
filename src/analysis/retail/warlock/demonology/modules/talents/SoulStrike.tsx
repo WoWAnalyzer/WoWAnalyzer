@@ -39,7 +39,7 @@ class SoulStrike extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(this.damage)} damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.SOUL_STRIKE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.SOUL_STRIKE_TALENT}>
           <ItemDamageDone amount={this.damage} />
           <br />
           {shardsGained} <small>Shards generated</small>

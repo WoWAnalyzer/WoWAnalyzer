@@ -1,8 +1,6 @@
 {
   "_links": {
-    "self": {
-      "href": "https://tw.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-tw"
-    }
+    "self": { "href": "https://tw.api.blizzard.com/data/wow/realm/?namespace=dynamic-classic-tw" }
   },
   "realms": [
     {
@@ -68,14 +66,6 @@
       "name": "逐風者",
       "id": 5743,
       "slug": "windseeker"
-    },
-    {
-      "key": {
-        "href": "https://tw.api.blizzard.com/data/wow/realm/5744?namespace=dynamic-classic-tw"
-      },
-      "name": "木喉要塞",
-      "id": 5744,
-      "slug": "timbermaw-hold"
     }
   ]
 }

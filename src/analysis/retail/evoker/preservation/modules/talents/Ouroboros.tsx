@@ -83,7 +83,7 @@ class Ouroboros extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.OUROBOROS_TALENT} />
         </b>{' '}
         makes <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> grant a stack of a buff (max 5) that
         significantly increases the healing of <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />. You
@@ -113,7 +113,7 @@ class Ouroboros extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT} /> consumptions
+            <SpellLink spell={TALENTS_EVOKER.OUROBOROS_TALENT} /> consumptions
           </strong>
           <PerformanceBoxRow values={entries} />
         </RoundedPanel>
@@ -132,12 +132,12 @@ class Ouroboros extends Analyzer {
         tooltip={
           <ul>
             <li>
-              <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT} /> healing from hardcast:{' '}
+              <SpellLink spell={TALENTS_EVOKER.OUROBOROS_TALENT} /> healing from hardcast:{' '}
               {formatNumber(this.ebHealing)}
             </li>
             <li>
-              <SpellLink id={TALENTS_EVOKER.OUROBOROS_TALENT} /> healing from{' '}
-              <SpellLink id={TALENTS_EVOKER.ECHO_TALENT} />: {formatNumber(this.echoEbHealing)}
+              <SpellLink spell={TALENTS_EVOKER.OUROBOROS_TALENT} /> healing from{' '}
+              <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} />: {formatNumber(this.echoEbHealing)}
             </li>
           </ul>
         }

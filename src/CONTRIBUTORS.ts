@@ -77,6 +77,18 @@ export const Fashathus: Contributor = {
     },
   ],
 };
+export const Bigsxy: Contributor = {
+  nickname: 'Bigsxy',
+  github: 'juemrami',
+  discord: 'bigsexy#2241',
+  mains: [
+    {
+      name: 'Bigsexsee',
+      spec: SPECS.ASSASSINATION_ROGUE,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/illidan/bigsexsee',
+    },
+  ],
+};
 export const ab: Contributor = {
   nickname: 'ab',
   github: 'alex-bau',
@@ -793,21 +805,7 @@ export const Abelito75: Contributor = {
   nickname: 'Abelito75',
   github: 'abelito75',
   avatar: avatar('Abelito75-avatar.png'),
-  about: 'MW Vet in Peak of Serenity discord, MW Theorycrafter',
-  mains: [
-    {
-      name: 'Magnapinna',
-      spec: SPECS.MISTWEAVER_MONK,
-      link: 'https://worldofwarcraft.com/en-us/character/us/malganis/Magnapinna',
-    },
-  ],
-  alts: [
-    {
-      name: 'Barreleye',
-      spec: SPECS.HOLY_PALADIN,
-      link: 'https://raider.io/characters/us/malganis/Barreleye',
-    },
-  ],
+  about: 'Guy doing random things',
 };
 export const HolySchmidt: Contributor = {
   nickname: 'HolySchmidt',
@@ -1908,6 +1906,19 @@ export const xepheris: Contributor = {
   ],
 };
 
+export const Woliance: Contributor = {
+  nickname: 'Woliance',
+  github: 'Woliance',
+  discord: 'Woliance',
+  mains: [
+    {
+      name: 'Woliance',
+      spec: SPECS.PROTECTION_PALADIN,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/tarren-mill/Woliance',
+    },
+  ],
+};
+
 export const Hana: Contributor = {
   nickname: 'Hana',
   github: 'OisinOD',
@@ -1934,6 +1945,12 @@ export const Lucky0604: Contributor = {
 export const Omegabiscuit: Contributor = {
   nickname: 'Omegabiscuit',
   github: 'omegabiscuit',
+};
+
+export const Ahri: Contributor = {
+  nickname: 'Ahri',
+  github: 'ahriandel',
+  discord: 'ahriandel',
 };
 
 export const ToppleTheNun: Contributor = {
@@ -2212,4 +2229,62 @@ export const Seriousnes: Contributor = {
       link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/frostmourne/Seriousnes',
     },
   ],
+};
+
+export const CodersKitchen: Contributor = {
+  nickname: 'coders-kitchen',
+  github: 'coders-kitchen',
+};
+
+export const Meldris: Contributor = {
+  nickname: 'Meldris',
+  github: 'Meldris',
+};
+
+export const Periodic: Contributor = {
+  nickname: 'Periodic',
+  github: 'Periodic',
+  discord: 'periodic',
+};
+
+export const Awildfivreld: Contributor = {
+  nickname: 'Awildfivreld',
+  github: 'awildfivreld',
+};
+
+export const Tapir: Contributor = {
+  nickname: 'Tapir',
+  github: 'Tapir42',
+  discord: 'Tapir#8523',
+  mains: [
+    {
+      name: 'Tapriest',
+      spec: SPECS.DISCIPLINE_PRIEST,
+      link: 'https://worldofwarcraft.blizzard.com/en-gb/character/eu/sylvanas/tapriest',
+    },
+  ],
+};
+
+export const Melnais: Contributor = {
+  nickname: 'Melnais',
+  github: 'agrabovskis',
+};
+
+export const beckeeh: Contributor = {
+  nickname: 'beckeeh',
+  github: 'lavjamanxd',
+  discord: 'beckeeh',
+  mains: [
+    {
+      name: 'Beckeeh',
+      spec: SPECS.SHADOW_PRIEST,
+      link: 'https://classic.warcraftlogs.com/character/eu/nethergarde-keep/beckeeh',
+    },
+  ],
+};
+export const Whispyr: Contributor = {
+  nickname: 'Whispyr',
+  github: 'JannickMueller-Whispyr',
+  discord: 'Whispyr#0001',
+  avatar: avatar('Whispyr-avatar.png'),
 };

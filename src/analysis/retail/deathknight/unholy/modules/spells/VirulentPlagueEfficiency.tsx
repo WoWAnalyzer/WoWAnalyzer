@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
@@ -40,15 +40,28 @@ class VirulentPlagueEfficiency extends Analyzer {
   }
 
   get UptimeSuggestionThresholds() {
-    return {
-      actual: this.Uptime,
-      isLessThan: {
-        minor: 0.85,
-        average: 0.77,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    const isVpImportant =
+      this.selectedCombatant.hasTalent(TALENTS.EBON_FEVER_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.SUPERSTRAIN_TALENT) ||
+      this.selectedCombatant.hasTalent(TALENTS.PLAGUEBRINGER_TALENT);
+
+    return isVpImportant
+      ? {
+          actual: this.Uptime,
+          isLessThan: {
+            minor: 0.9,
+            average: 0.8,
+            major: 0.7,
+          },
+          style: ThresholdStyle.PERCENTAGE,
+        }
+      : {
+          actual: this.Uptime,
+          isLessThan: {
+            minor: 0.85,
+          },
+          style: ThresholdStyle.PERCENTAGE,
+        };
   }
 
   get VirulentDuration() {
@@ -78,7 +91,7 @@ class VirulentPlagueEfficiency extends Analyzer {
       )
         .icon(SPELLS.VIRULENT_PLAGUE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.unholy.suggestions.virulentPlague.uptime',
             message: `${formatPercentage(actual)}% Virulent Plague uptime`,
           }),
@@ -90,7 +103,7 @@ class VirulentPlagueEfficiency extends Analyzer {
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE(7)} size="flexible">
-        <BoringSpellValueText spell={SPELLS.VIRULENT_PLAGUE}>
+        <BoringSpellValueText spell={SPELLS.VIRULENT_PLAGUE.id}>
           <>
             <UptimeIcon /> {formatPercentage(this.Uptime)}% <small>uptime</small>
           </>

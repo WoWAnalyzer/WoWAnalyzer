@@ -266,7 +266,7 @@ class BoonOfTheAscended extends Analyzer {
     return Object.entries(this.ascendedSpellTracker).map(([spellId, data]) => (
       <tr key={'bota_' + spellId}>
         <td>
-          <SpellIcon id={Number(spellId)} style={{ height: '2.4em' }} />
+          <SpellIcon spell={Number(spellId)} style={{ height: '2.4em' }} />
         </td>
         <td>
           <TooltipElement
@@ -339,7 +339,7 @@ class BoonOfTheAscended extends Analyzer {
   //       }
   //       category={STATISTIC_CATEGORY.COVENANTS}
   //     >
-  //       <BoringSpellValueText spellId={SPELLS.BOON_OF_THE_ASCENDED.id}>
+  //       <BoringSpellValueText spell={SPELLS.BOON_OF_THE_ASCENDED.id}>
   //         <ItemHealingDone amount={this.totalAtonementHealing + this.totalDirectHealing} />
   //         <br />
   //         <ItemDamageDone amount={this.totalDamage} />

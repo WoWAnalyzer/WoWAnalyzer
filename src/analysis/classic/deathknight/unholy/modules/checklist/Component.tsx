@@ -33,7 +33,7 @@ const ClassicUnholyChecklist = ({ combatant, castEfficiency, thresholds }: Check
         description={
           <>
             Avoid unnecessary downtime during the fight. If you have to move, try casting instant
-            spells such as <SpellLink id={SPELLS.DEATH_COIL_DK} />.
+            spells such as <SpellLink spell={SPELLS.DEATH_COIL_DK} />.
           </>
         }
       >

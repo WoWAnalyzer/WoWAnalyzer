@@ -3,7 +3,7 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent } from 'parser/core/Events';
 import { formatPercentage } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -94,7 +94,7 @@ class DreamFlight extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} />
+          <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} />
         </b>{' '}
         is a powerful healing CD that does an initial heal and leaves a powerful HoT on all targets
         hit. You should try to use it to cover high damage periods where your raid is clumped up in
@@ -106,7 +106,7 @@ class DreamFlight extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -181,13 +181,13 @@ class DreamFlight extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS_EVOKER.DREAM_FLIGHT_TALENT.id} /> is not hitting enough
+          Your <SpellLink spell={TALENTS_EVOKER.DREAM_FLIGHT_TALENT} /> is not hitting enough
           targets.
         </>,
       )
         .icon(TALENTS_EVOKER.DREAM_FLIGHT_TALENT.icon)
         .actual(
-          `${formatPercentage(this.percentOfGroupHit, 2)}${t({
+          `${formatPercentage(this.percentOfGroupHit, 2)}${defineMessage({
             id: 'evoker.preservation.suggestions.dreamFlight.targetsHit',
             message: `% of group hit with Dream Flight`,
           })}`,

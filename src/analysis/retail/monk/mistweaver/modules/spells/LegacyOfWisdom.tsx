@@ -62,7 +62,7 @@ class LegacyOfWisdom extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.LEGACY_OF_WISDOM_TALENT} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );

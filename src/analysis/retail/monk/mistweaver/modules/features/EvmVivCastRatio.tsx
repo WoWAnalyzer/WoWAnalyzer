@@ -30,8 +30,8 @@ class CastRatio extends Analyzer {
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         icon={
           <>
-            <SpellIcon id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> :{' '}
-            <SpellIcon id={SPELLS.VIVIFY.id} />{' '}
+            <SpellIcon spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> :{' '}
+            <SpellIcon spell={SPELLS.VIVIFY} />{' '}
           </>
         }
         value={`${evmCasts} : ${vivCasts}`}

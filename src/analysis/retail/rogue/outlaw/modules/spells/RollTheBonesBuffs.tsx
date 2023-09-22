@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/rogue';
 import { SpellIcon, SpellLink } from 'interface';
@@ -39,14 +39,14 @@ class RollTheBonesBuffs extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> uptime can be improved. Try to
-          always have <SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} /> active, even with a lower
+          Your <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} /> uptime can be improved. Try to
+          always have <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} /> active, even with a lower
           value roll.
         </>,
       )
         .icon(TALENTS.ROLL_THE_BONES_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'rogue.outlaw.suggestions.rollTheBones.uptime',
             message: `${formatPercentage(actual)}% Roll the Bones uptime`,
           }),
@@ -59,14 +59,14 @@ class RollTheBonesBuffs extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
-        icon={<SpellIcon id={TALENTS.ROLL_THE_BONES_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.ROLL_THE_BONES_TALENT} />}
         value={
           <>
             <UptimeIcon /> {formatPercentage(this.totalPercentUptime)}% <small>uptime</small>
             <br />
           </>
         }
-        label={<SpellLink id={TALENTS.ROLL_THE_BONES_TALENT.id} icon={false} />}
+        label={<SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} icon={false} />}
       >
         <table className="table table-condensed">
           <thead>
@@ -79,7 +79,7 @@ class RollTheBonesBuffs extends Analyzer {
             {ROLL_THE_BONES_BUFFS.map((e) => (
               <tr key={e.id}>
                 <th>
-                  <SpellLink id={e.id} />
+                  <SpellLink spell={e} />
                 </th>
                 <td>{`${formatPercentage(this.percentUptime(e.id))} %`}</td>
               </tr>

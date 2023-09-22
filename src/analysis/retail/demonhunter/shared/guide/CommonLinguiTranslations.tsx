@@ -1,7 +1,3 @@
-import { Trans } from '@lingui/macro';
+export const MouseoverForMoreDetails = () => <>Mouseover for more details.</>;
 
-export const MouseoverForMoreDetails = () => (
-  <Trans id="guide.mouseoverForMoreDetails">Mouseover for more details.</Trans>
-);
-
-export const ClickToExpand = () => <Trans id="guide.clickToExpand">Click to expand.</Trans>;
+export const ClickToExpand = () => <>Click to expand.</>;

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -154,8 +154,8 @@ class Eradication extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your uptime on the <SpellLink id={SPELLS.ERADICATION_DEBUFF.id} /> debuff could be
-          improved. You should try to spread out your <SpellLink id={SPELLS.CHAOS_BOLT.id} /> casts
+          Your uptime on the <SpellLink spell={SPELLS.ERADICATION_DEBUFF} /> debuff could be
+          improved. You should try to spread out your <SpellLink spell={SPELLS.CHAOS_BOLT} /> casts
           more for higher uptime.
           <br />
           <small>
@@ -165,7 +165,7 @@ class Eradication extends Analyzer {
       )
         .icon(TALENTS.ERADICATION_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.destruction.suggestions.eradication.uptime',
             message: `${formatPercentage(actual)}% Eradication uptime`,
           }),

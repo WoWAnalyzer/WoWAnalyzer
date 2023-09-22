@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import DebuffUptime from 'parser/shared/modules/DebuffUptime';
@@ -33,13 +33,13 @@ export default class ShadowMasteryUptime extends DebuffUptime {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Uptime on the <SpellLink id={this.debuffSpell} /> debuff can be improved. If there are
+          Uptime on the <SpellLink spell={this.debuffSpell} /> debuff can be improved. If there are
           multiple Warlocks in your raid, assign someone to keep up the debuff.
         </>,
       )
         .icon(this.debuffSpell.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shared.suggestions.spells.uptime',
             message: `${formatPercentage(actual)}% ${this.debuffSpell.name} uptime`,
           }),

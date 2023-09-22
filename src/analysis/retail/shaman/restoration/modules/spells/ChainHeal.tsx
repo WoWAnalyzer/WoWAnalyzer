@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { Trans } from '@lingui/macro';
 import { formatNth, formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/shaman';
@@ -112,19 +112,19 @@ class ChainHeal extends Analyzer {
       .addSuggestion((suggest, _actual, _recommended) =>
         suggest(
           <Trans id="shaman.restoration.suggestions.aoeTargets.label">
-            Try to always cast <SpellLink id={TALENTS.CHAIN_HEAL_TALENT.id} /> on groups of people,
+            Try to always cast <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> on groups of people,
             so that it heals all {this.maxTargets} potential targets.
           </Trans>,
         )
           .icon(TALENTS.CHAIN_HEAL_TALENT.icon)
           .actual(
-            `${suggestedThreshold.actual.toFixed(2)} ${t({
+            `${suggestedThreshold.actual.toFixed(2)} ${defineMessage({
               id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
               message: `average targets healed`,
             })}`,
           )
           .recommended(
-            `${suggestedThreshold.isLessThan.minor} ${t({
+            `${suggestedThreshold.isLessThan.minor} ${defineMessage({
               id: 'shaman.restoration.suggestions.aoeTargets.averageTargets',
               message: `average targets healed`,
             })}`,
@@ -166,7 +166,7 @@ class ChainHeal extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.CHAIN_HEAL_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.CHAIN_HEAL_TALENT} />}
         value={this.avgHits.toFixed(2)}
         position={STATISTIC_ORDER.OPTIONAL(70)}
         label={

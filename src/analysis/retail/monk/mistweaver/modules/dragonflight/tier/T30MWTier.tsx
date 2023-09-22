@@ -90,11 +90,11 @@ class T30TierSet extends Analyzer {
           <ul>
             <li>
               <strong>{formatNumber(this.renewingMistHealing)}</strong> extra{' '}
-              <SpellLink id={SPELLS.RENEWING_MIST_HEAL.id} /> healing
+              <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} /> healing
             </li>
             <li>
               <strong>{formatNumber(this.vivHealing)}</strong> extra{' '}
-              <SpellLink id={SPELLS.VIVIFY.id} /> healing
+              <SpellLink spell={SPELLS.VIVIFY} /> healing
             </li>
             <li>
               <strong>{formatNumber(this.wastedManaGain)}</strong> mana wasted from overcapping

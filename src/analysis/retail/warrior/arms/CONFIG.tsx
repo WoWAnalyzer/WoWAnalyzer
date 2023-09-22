@@ -24,7 +24,7 @@ const config: Config = {
       </AlertWarning>
       <AlertWarning>
         The 'Rage usage' breakdown currently uses the wrong amount of Rage spent for Slam when using{' '}
-        <SpellLink id={TALENTS.BARBARIC_TRAINING_ARMS_TALENT.id} />.
+        <SpellLink spell={TALENTS.BARBARIC_TRAINING_ARMS_TALENT} />.
       </AlertWarning>
       Hey I've been hard at work making this analyzer for you. I hope the suggestions give you
       useful pointers to improve your performance. Remember: focus on improving only one or two

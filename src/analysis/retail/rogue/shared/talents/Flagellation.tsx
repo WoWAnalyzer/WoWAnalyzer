@@ -99,7 +99,7 @@ class Flagellation extends Analyzer {
           </ul>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.FLAGELLATION_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.FLAGELLATION_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>

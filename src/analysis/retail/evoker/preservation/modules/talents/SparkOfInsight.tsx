@@ -109,12 +109,12 @@ class SparkOfInsight extends Analyzer {
         <TalentSpellText talent={TALENTS_EVOKER.SPARK_OF_INSIGHT_TALENT}>
           {this.totalSparkProcs}{' '}
           <small>
-            extra <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs
+            extra <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> procs
           </small>
           <br />
           {this.wastedProcs}{' '}
           <small>
-            wasted <SpellLink id={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs
+            wasted <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> procs
           </small>
           <br />
           {this.wastedStacks} <small>wasted stacks</small>

@@ -3,10 +3,9 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
+import Spell from 'common/SPELLS/Spell';
 
-import { spellIndexableList } from './Spell';
-
-const spells = spellIndexableList({
+const spells = {
   // Shared:
   BATTLE_SHOUT: {
     id: 6673,
@@ -377,6 +376,16 @@ const spells = spellIndexableList({
     name: 'Raging Blow',
     icon: 'warrior_wild_strike',
   },
+  HACK_AND_SLASH: {
+    id: 383873,
+    name: 'Hack and Slash',
+    icon: 'ability_warrior_savageblow',
+  },
+  WRATH_AND_FURY: {
+    id: 392937,
+    name: 'Wrath and Fury',
+    icon: 'warrior_wild_strike',
+  },
   RAMPAGE: {
     id: 184367,
     name: 'Rampage',
@@ -515,6 +524,11 @@ const spells = spellIndexableList({
     name: 'Shield Wall',
     icon: 'ability_warrior_shieldwall',
   },
+  UNNERVING_FOCUS_BUFF: {
+    id: 384043,
+    name: 'Unnerving Focus',
+    icon: 'rogue_shadowfocus',
+  },
 
   //Passives
   DEEP_WOUNDS: {
@@ -528,6 +542,16 @@ const spells = spellIndexableList({
     id: 386478,
     name: 'Violent Outburst',
     icon: 'ability_warrior_furiousresolve',
+  },
+  EARTHEN_TANCITY: {
+    id: 410218,
+    name: 'Earthen Tenacity',
+    icon: 'inv_misc_head_dragon_red',
+  },
+  EARTHEN_SMASH: {
+    id: 410219,
+    name: 'Earthen Smash',
+    icon: 'inv_misc_head_dragon_red',
   },
 
   //Fatality talent is split into 3 IDs, the talent (703), and these two.
@@ -553,6 +577,13 @@ const spells = spellIndexableList({
     name: 'Strike Vulnerabilities',
     icon: 'ability_criticalstrike',
   },
-});
+
+  // Talent in here so SpellLink doesn't return Unknown
+  IMPENETRABLE_WALL_TALENT: {
+    id: 384072,
+    name: 'Impenetrable Wall',
+    icon: 'ability_warrior_shieldguard',
+  },
+} satisfies Record<string, Spell>;
 
 export default spells;

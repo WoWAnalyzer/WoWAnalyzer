@@ -29,7 +29,7 @@ class SecondWind extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={TALENTS.SECOND_WIND_TALENT.id} /> health restored
+            <SpellLink spell={TALENTS.SECOND_WIND_TALENT} /> health restored
           </>
         }
         value={formatThousands(heal)}

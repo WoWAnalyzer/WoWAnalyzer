@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
@@ -148,14 +148,14 @@ class VoidTorrent extends Analyzer {
     when(this.interruptThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You interrupted <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} /> early, wasting{' '}
+          You interrupted <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} /> early, wasting{' '}
           {formatSeconds(this.timeWasted)} channeling seconds! Try to position yourself & time it so
           you don't get interrupted due to mechanics.
         </>,
       )
         .icon(TALENTS.VOID_TORRENT_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.voidTorrent.secondsLost',
             message: `Lost ${formatSeconds(this.timeWasted)} seconds of Void Torrent.`,
           }),
@@ -181,7 +181,7 @@ class VoidTorrent extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.VOID_TORRENT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.VOID_TORRENT_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <Insanity /> {this.insanityGained} <small>Insanity generated</small>
@@ -216,12 +216,13 @@ class VoidTorrent extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.VOID_TORRENT_TALENT.id} />
+          <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
         </b>{' '}
         deals damage and generates 24 insanity over its 3 second channel.
         <br />
-        You should cast this spell as often as you can, without overcapping insanity. When you use
-        this spell, it should always be fully channeled.
+        You should cast this spell as often as you can, without overcapping insanity, whith{' '}
+        <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on your target. When you use this
+        spell, it should always be fully channeled.
       </p>
     );
 

@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/mage';
+import SPELLS from 'common/SPELLS';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, ResourceChangeEvent, DeathEvent } from 'parser/core/Events';
 
@@ -11,7 +11,7 @@ class ArcaneChargeTracker extends Analyzer {
     super(options);
     this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrage,
     );
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);

@@ -20,6 +20,7 @@ const cooldownsToCheck: Cooldown[] = [
   { spell: TALENTS.EXSANGUINATE_TALENT },
   { spell: TALENTS.DEATHMARK_TALENT },
   { spell: TALENTS.ECHOING_REPRIMAND_TALENT },
+  { spell: TALENTS.SEPSIS_TALENT },
   { spell: TALENTS.INDISCRIMINATE_CARNAGE_TALENT },
 ];
 

@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, TargettedEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, EventType, TargettedEvent } from 'parser/core/Events';
 
 import { getAdditionalEnergyUsed } from '../../normalizers/FerociousBiteDrainLinkNormalizer';
 import { TALENTS_DRUID } from 'common/TALENTS';
@@ -22,6 +22,8 @@ import {
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { BadColor, OkColor } from 'interface/guide';
+import { getHits } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
+import HIT_TYPES from 'game/HIT_TYPES';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RIP_MS = 5000;
 
@@ -53,6 +55,13 @@ class FerociousBite extends Analyzer {
   onFbCast(event: CastEvent) {
     if (event.resourceCost && event.resourceCost[RESOURCE_TYPES.ENERGY.id] === 0) {
       return; // free FBs (like from Apex Predator's Craving) don't drain but do full damage
+    }
+
+    const damage = getHits(event)
+      .filter((e): e is DamageEvent => e.type === EventType.Damage)
+      .pop();
+    if (damage && damage.hitType === HIT_TYPES.PARRY) {
+      return; // parried FBs don't drain and don't cost CPs - shouldn't evaluate
     }
 
     const duringBerserkAndSotf =

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { Panel } from 'interface';
@@ -43,7 +43,7 @@ class SoulShardDetails extends Analyzer {
       )
         .icon(SPELLS.SOUL_SHARDS.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.destruction.suggestions.soulShard.wastedPerMinute',
             message: `${fragmentsWasted} Soul Shard Fragments wasted (${actual.toFixed(
               2,
@@ -58,7 +58,7 @@ class SoulShardDetails extends Analyzer {
     const shardsWasted = this.soulShardTracker.wasted;
     return (
       <Statistic position={STATISTIC_ORDER.CORE(3)} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.SOUL_SHARDS.id}>
+        <BoringSpellValueText spell={SPELLS.SOUL_SHARDS}>
           {shardsWasted} <small>Wasted Soul Shards</small>
         </BoringSpellValueText>
       </Statistic>

@@ -12,7 +12,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.GARROTE.id,
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 6,
+        // cooldown: 6,
         gcd: {
           base: 1000,
         },
@@ -106,10 +106,10 @@ class Abilities extends CoreAbilities {
         cooldown: 1,
         enabled:
           combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT) ||
-          combatant.hasTalent(TALENTS.SHADOWSTEP_SPEC_TALENT),
+          combatant.hasTalent(TALENTS.SHADOWSTEP_ASSASSINATION_TALENT),
         charges:
           combatant.getTalentRank(TALENTS.SHADOWSTEP_SHARED_TALENT) +
-          combatant.getTalentRank(TALENTS.SHADOWSTEP_SPEC_TALENT),
+          combatant.getTalentRank(TALENTS.SHADOWSTEP_ASSASSINATION_TALENT),
       },
       {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
@@ -151,6 +151,20 @@ class Abilities extends CoreAbilities {
       // endregion
 
       // region Cooldowns
+      {
+        spell: TALENTS.SEPSIS_TALENT.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        enabled: combatant.hasTalent(TALENTS.SEPSIS_TALENT),
+        gcd: {
+          base: 1000,
+        },
+        castEfficiency: {
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
+        },
+        cooldown: 1.5 * 60,
+      },
       {
         spell: TALENTS.ECHOING_REPRIMAND_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,

@@ -352,11 +352,11 @@ class MoTCGraph extends Analyzer {
         position={100}
         explanation={
           <>
-            <SpellLink id={SPELLS.MARK_OF_THE_CRANE.id} /> greatly increased the damage{' '}
-            <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} /> does. This means you want to cast it at
-            high stacks. Magenta dots are regular <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />{' '}
-            casts while Orange triangles are <SpellLink id={SPELLS.SPINNING_CRANE_KICK.id} />{' '}
-            empowered by <SpellLink id={SPELLS.DANCE_OF_CHI_JI_BUFF.id} />.
+            <SpellLink spell={SPELLS.MARK_OF_THE_CRANE} /> greatly increased the damage{' '}
+            <SpellLink spell={SPELLS.SPINNING_CRANE_KICK} /> does. This means you want to cast it at
+            high stacks. Magenta dots are regular <SpellLink spell={SPELLS.SPINNING_CRANE_KICK} />{' '}
+            casts while Orange triangles are <SpellLink spell={SPELLS.SPINNING_CRANE_KICK} />{' '}
+            empowered by <SpellLink spell={SPELLS.DANCE_OF_CHI_JI_BUFF} />.
           </>
         }
       >

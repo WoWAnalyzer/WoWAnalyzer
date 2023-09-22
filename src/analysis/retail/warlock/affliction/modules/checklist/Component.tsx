@@ -17,7 +17,7 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
     <Requirement
       name={
         <>
-          <SpellLink id={props.id} icon /> uptime
+          <SpellLink spell={props.spell} icon /> uptime
         </>
       }
       thresholds={props.thresholds}
@@ -37,18 +37,18 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         name="Maintain your DoTs and debuffs on the boss"
         description="Affliction Warlocks rely heavily on DoTs in order to deal damage to the target. You should try and have as high of an uptime as possible."
       >
-        <DotUptime id={SPELLS.AGONY.id} thresholds={thresholds.agony} />
-        <DotUptime id={SPELLS.CORRUPTION_CAST.id} thresholds={thresholds.corruption} />
-        <DotUptime id={SPELLS.UNSTABLE_AFFLICTION.id} thresholds={thresholds.unstableAffliction} />
+        <DotUptime spell={SPELLS.AGONY} thresholds={thresholds.agony} />
+        <DotUptime spell={SPELLS.CORRUPTION_CAST} thresholds={thresholds.corruption} />
+        <DotUptime spell={SPELLS.UNSTABLE_AFFLICTION} thresholds={thresholds.unstableAffliction} />
         {combatant.hasTalent(TALENTS.SHADOW_EMBRACE_TALENT) && (
-          <DotUptime id={TALENTS.SHADOW_EMBRACE_TALENT.id} thresholds={thresholds.shadowEmbrace} />
+          <DotUptime spell={TALENTS.SHADOW_EMBRACE_TALENT} thresholds={thresholds.shadowEmbrace} />
         )}
-        <DotUptime id={TALENTS.SHADOW_EMBRACE_TALENT.id} thresholds={thresholds.shadowEmbrace} />
+        <DotUptime spell={TALENTS.SHADOW_EMBRACE_TALENT} thresholds={thresholds.shadowEmbrace} />
         {combatant.hasTalent(TALENTS.SIPHON_LIFE_TALENT) && (
-          <DotUptime id={TALENTS.SIPHON_LIFE_TALENT.id} thresholds={thresholds.siphonLife} />
+          <DotUptime spell={TALENTS.SIPHON_LIFE_TALENT} thresholds={thresholds.siphonLife} />
         )}
         {combatant.hasTalent(TALENTS.HAUNT_TALENT) && (
-          <DotUptime id={TALENTS.HAUNT_TALENT.id} thresholds={thresholds.haunt} />
+          <DotUptime spell={TALENTS.HAUNT_TALENT} thresholds={thresholds.haunt} />
         )}
       </Rule>
       <Rule
@@ -79,18 +79,17 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         description={
           <>
             Use other spells in your toolkit to your advantage. For example, you can try to minimize
-            necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />,{' '}
-            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon />,{' '}
-            <SpellLink id={TALENTS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with{' '}
-            <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/
-            <SpellLink id={TALENTS.DARK_PACT_TALENT.id} icon />.<br />
+            necessary movement by using <SpellLink spell={SPELLS.DEMONIC_GATEWAY_CAST} icon />,{' '}
+            <SpellLink spell={SPELLS.DEMONIC_CIRCLE} icon />,{' '}
+            <SpellLink spell={TALENTS.BURNING_RUSH_TALENT} icon /> or mitigate incoming damage with{' '}
+            <SpellLink spell={SPELLS.UNENDING_RESOLVE} icon />/
+            <SpellLink spell={TALENTS.DARK_PACT_TALENT} icon />.<br />
             While you shouldn't cast these defensives on cooldown, be aware of them and use them
             whenever effective. Not using them at all indicates you might not be aware of them or
             not using them optimally.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
         {combatant.hasTalent(TALENTS.DARK_PACT_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
@@ -101,14 +100,14 @@ const AfflictionWarlockChecklist = ({ combatant, castEfficiency, thresholds }: C
         description={
           <>
             You should try to avoid doing nothing during the fight. When you're out of Soul Shards,
-            cast <SpellLink id={SPELLS.SHADOW_BOLT_AFFLI.id} icon />/
-            <SpellLink id={TALENTS.DRAIN_SOUL_TALENT.id} icon />, refresh your DoTs etc. When you
+            cast <SpellLink spell={SPELLS.SHADOW_BOLT_AFFLI} icon />/
+            <SpellLink spell={TALENTS.DRAIN_SOUL_TALENT} icon />, refresh your DoTs etc. When you
             have to move, use your instant abilities or try to utilize{' '}
-            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon>
+            <SpellLink spell={SPELLS.DEMONIC_CIRCLE} icon>
               Teleport
             </SpellLink>{' '}
             or{' '}
-            <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>
+            <SpellLink spell={SPELLS.DEMONIC_GATEWAY_CAST} icon>
               Gateway
             </SpellLink>{' '}
             to reduce the movement even further.

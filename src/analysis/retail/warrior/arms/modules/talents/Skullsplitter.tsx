@@ -70,7 +70,7 @@ class Skullsplitter extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.SKULLSPLITTER_TALENT.id} /> damage
+              <SpellLink spell={TALENTS.SKULLSPLITTER_TALENT} /> damage
             </>
           }
         >

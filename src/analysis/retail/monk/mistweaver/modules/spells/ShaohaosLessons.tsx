@@ -143,7 +143,7 @@ class ShaohaosLessons extends Analyzer {
     ) {
       return;
     }
-    const enemyHealthPercent = (event.hitPoints - event.amount) / event.maxHitPoints;
+    const enemyHealthPercent = (event.hitPoints + event.amount) / event.maxHitPoints;
     const damageIncrease = (1 - enemyHealthPercent) * DOUBT_INCREASE;
     this.doubtDamage += calculateEffectiveDamage(event, damageIncrease);
   }
@@ -202,7 +202,7 @@ class ShaohaosLessons extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -218,8 +218,9 @@ class ShaohaosLessons extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
-            Note: Haste increase from <SpellLink id={SPELLS.LESSON_OF_FEAR_BUFF} /> is not included
-            in HPS/DPS as a haste buff cannot be directly attributed to a healing/damage increase
+            Note: Haste increase from <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} /> is not
+            included in HPS/DPS as a haste buff cannot be directly attributed to a healing/damage
+            increase
             <table className="table table-condensed">
               <thead>
                 <tr>
@@ -233,7 +234,7 @@ class ShaohaosLessons extends Analyzer {
               <tbody>
                 <tr key="anger">
                   <td>
-                    <SpellLink id={SPELLS.LESSON_OF_ANGER_BUFF} />
+                    <SpellLink spell={SPELLS.LESSON_OF_ANGER_BUFF} />
                   </td>
                   <td>{this.applyCount.get(SPELLS.LESSON_OF_ANGER_BUFF.id)!}</td>
                   <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_ANGER_BUFF.id)!)}</td>
@@ -242,7 +243,7 @@ class ShaohaosLessons extends Analyzer {
                 </tr>
                 <tr key="despair">
                   <td>
-                    <SpellLink id={SPELLS.LESSON_OF_DESPAIR_BUFF} />
+                    <SpellLink spell={SPELLS.LESSON_OF_DESPAIR_BUFF} />
                   </td>
                   <td>{this.applyCount.get(SPELLS.LESSON_OF_DESPAIR_BUFF.id)!}</td>
                   <td>
@@ -253,7 +254,7 @@ class ShaohaosLessons extends Analyzer {
                 </tr>
                 <tr key="doubt">
                   <td>
-                    <SpellLink id={SPELLS.LESSON_OF_DOUBT_BUFF} />
+                    <SpellLink spell={SPELLS.LESSON_OF_DOUBT_BUFF} />
                   </td>
                   <td>{this.applyCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!}</td>
                   <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_DOUBT_BUFF.id)!)}</td>
@@ -262,7 +263,7 @@ class ShaohaosLessons extends Analyzer {
                 </tr>
                 <tr key="fear">
                   <td>
-                    <SpellLink id={SPELLS.LESSON_OF_FEAR_BUFF} />
+                    <SpellLink spell={SPELLS.LESSON_OF_FEAR_BUFF} />
                   </td>
                   <td>{this.applyCount.get(SPELLS.LESSON_OF_FEAR_BUFF.id)!}</td>
                   <td>{formatDuration(this.durationCount.get(SPELLS.LESSON_OF_FEAR_BUFF.id)!)}</td>

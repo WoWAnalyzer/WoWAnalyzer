@@ -146,7 +146,7 @@ class EarthenWallTotem extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <Trans id="shaman.restoration.ewt.suggestion.label">
-            Try to cast <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} /> at times - and
+            Try to cast <SpellLink spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} /> at times - and
             positions where there will be as many people taking damage possible inside of it to
             maximize the amount it absorbs.
           </Trans>,
@@ -176,7 +176,7 @@ class EarthenWallTotem extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />}
+        icon={<SpellIcon spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} />}
         value={`${formatPercentage(this.earthenWallEfficiency)} %`}
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         position={STATISTIC_ORDER.OPTIONAL(60)}
@@ -243,7 +243,7 @@ class EarthenWallTotem extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />}
+        title={<SpellLink spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalEffectiveHealing),
         )} %`}
@@ -261,11 +261,11 @@ class EarthenWallTotem extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} />
+          <SpellLink spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} />
         </b>{' '}
         does a lot of healing, particularly on stacked fights or whenever a fight has several damage
         moments happen in quick succession. This totem does a ton of healing per cast and is an
-        excellent choice for <SpellLink id={TALENTS.TOTEMIC_RECALL_TALENT} />
+        excellent choice for <SpellLink spell={TALENTS.TOTEMIC_RECALL_TALENT} />
       </p>
     );
 
@@ -273,7 +273,7 @@ class EarthenWallTotem extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.guideSubStatistic()}

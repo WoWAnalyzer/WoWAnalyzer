@@ -21,7 +21,7 @@ class Ascendance extends Analyzer {
     [TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id]: 0,
     [TALENTS.LAVA_BURST_TALENT.id]: 0,
     [TALENTS.EARTH_SHOCK_TALENT.id]: 0,
-    [TALENTS.ELEMENTAL_BLAST_TALENT.id]: 0,
+    [TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id]: 0,
     others: 0,
   };
   protected abilities!: Abilities;
@@ -60,7 +60,7 @@ class Ascendance extends Analyzer {
   }
 
   statistic() {
-    const hasEB = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT);
+    const hasEB = this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT);
 
     return (
       <Statistic
@@ -75,14 +75,16 @@ class Ascendance extends Analyzer {
               <li>Earth Shock: {this.numCasts[TALENTS.EARTH_SHOCK_TALENT.id]}</li>
               <li>Lava Burst: {this.numCasts[TALENTS.LAVA_BURST_TALENT.id]}</li>
               {hasEB && (
-                <li>Elemental Blast: {this.numCasts[TALENTS.ELEMENTAL_BLAST_TALENT.id]}</li>
+                <li>
+                  Elemental Blast: {this.numCasts[TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id]}
+                </li>
               )}
               <li>Other Spells: {this.numCasts.others}</li>
             </ul>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT}>
           <>
             On average {formatNumber(this.averageLavaBurstCasts)} Lava Bursts cast during
             Ascendance.
@@ -94,7 +96,9 @@ class Ascendance extends Analyzer {
 
   suggestions(when: When) {
     const abilities = `Lava Burst ${
-      this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT) ? `, Elemental Blast ` : ``
+      this.selectedCombatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT)
+        ? `, Elemental Blast `
+        : ``
     } and Earth Shock`;
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(<span>Maximize your damage during ascendance by only using ${abilities}.</span>)

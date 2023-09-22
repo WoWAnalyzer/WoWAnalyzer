@@ -69,7 +69,7 @@ class NaturalMending extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.NATURAL_MENDING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.NATURAL_MENDING_TALENT}>
           <>
             {formatNumber(this.effectiveExhilReductionMs / 1000)}s/
             {formatNumber(

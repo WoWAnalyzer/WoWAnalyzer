@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
+import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
@@ -20,7 +21,7 @@ class TimeAnomaly extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.TIME_ANOMALY_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrageCast,
     );
   }
@@ -29,7 +30,7 @@ class TimeAnomaly extends Analyzer {
 
   onBarrageCast(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId !== TALENTS.ARCANE_BARRAGE_TALENT.id) {
+    if (spellId !== SPELLS.ARCANE_BARRAGE.id) {
       return;
     }
     const manaResource: any =
@@ -43,8 +44,7 @@ class TimeAnomaly extends Analyzer {
 
   get manaUtilization() {
     return (
-      1 -
-      this.conservedTooHigh / this.abilityTracker.getAbility(TALENTS.ARCANE_BARRAGE_TALENT.id).casts
+      1 - this.conservedTooHigh / this.abilityTracker.getAbility(SPELLS.ARCANE_BARRAGE.id).casts
     );
   }
 
@@ -64,10 +64,10 @@ class TimeAnomaly extends Analyzer {
     when(this.timeAnomalyManaThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.ARCANE_BARRAGE_TALENT.id} /> with greater than 70% mana{' '}
+          You cast <SpellLink spell={SPELLS.ARCANE_BARRAGE} /> with greater than 70% mana{' '}
           {this.conservedTooHigh} times. Because of the way{' '}
-          <SpellLink id={TALENTS.TIME_ANOMALY_TALENT.id} /> works, you can randomly gain the{' '}
-          <SpellLink id={TALENTS.EVOCATION_TALENT.id} /> effect causing your mana to rapidly
+          <SpellLink spell={TALENTS.TIME_ANOMALY_TALENT} /> works, you can randomly gain the{' '}
+          <SpellLink spell={TALENTS.EVOCATION_TALENT} /> effect causing your mana to rapidly
           increase. If you are conserving your mana too high, this can cause your mana to cap out at
           100% which is a waste. So if you are using the Time Anomaly talent, you should make sure
           you conserve below 70% mana to help prevent mana capping.

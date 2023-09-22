@@ -4,14 +4,19 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { spellIndexableList } from 'common/SPELLS/Spell';
+import Spell from 'common/SPELLS/Spell';
 
-const spells = spellIndexableList({
+const spells = {
   //Fire
   FIREBALL: {
     id: 133,
     name: 'Fireball',
     icon: 'spell_fire_flamebolt',
+  },
+  FLAMESTRIKE: {
+    id: 2120,
+    name: 'Flamestrike',
+    icon: 'spell_fire_selfdestruct',
   },
   FIRE_BLAST: {
     id: 108853,
@@ -48,11 +53,6 @@ const spells = spellIndexableList({
     name: 'Scorch',
     icon: 'spell_fire_soulburn',
   },
-  PYROCLASM_BUFF: {
-    id: 269651,
-    name: 'Pyroclasm',
-    icon: 'spell_shaman_lavasurge',
-  },
   FLAME_PATCH_DAMAGE: {
     id: 205472,
     name: 'Flame Patch',
@@ -78,16 +78,31 @@ const spells = spellIndexableList({
     name: 'Fevered Incantation',
     icon: 'inv_misc_enchantedpearld',
   },
-  SUN_KINGS_BLESSING_BUFF: {
+  FURY_OF_THE_SUN_KING: {
     id: 383883,
-    name: "Sun King's Blessing",
-    icon: 'ability_mage_firestarter',
+    name: 'Fury of the Sun King',
+    icon: 'ability_rhyolith_immolation',
   },
   SUN_KINGS_BLESSING_BUFF_STACK: {
     id: 383882,
     name: "Sun King's Blessing",
     icon: 'ability_mage_firestarter',
   },
-});
+  CHARRING_EMBERS_DEBUFF: {
+    id: 408665,
+    name: 'Charring Embers',
+    icon: 'ability_warlock_burningembers',
+  },
+  FLAMES_FURY: {
+    id: 409964,
+    name: "Flame's Fury",
+    icon: 'inv_misc_volatilefire',
+  },
+  IMPROVED_SCORCH_BUFF: {
+    id: 383608,
+    name: 'Improved Scorch',
+    icon: 'ability_mage_fierypayback',
+  },
+} satisfies Record<string, Spell>;
 
 export default spells;

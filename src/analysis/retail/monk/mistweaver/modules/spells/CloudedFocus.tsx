@@ -21,11 +21,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { getVivifiesPerCast } from '../../normalizers/CastLinkNormalizer';
 import DonutChart from 'parser/ui/DonutChart';
-import { SPELL_COLORS } from '../../constants';
+import { CF_BUFF_PER_STACK, SPELL_COLORS } from '../../constants';
 import WarningIcon from 'interface/icons/Warning';
 import CheckmarkIcon from 'interface/icons/Checkmark';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
-const BUFF_AMOUNT_PER_STACK = 0.2;
 const debug = false;
 /**
  * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 20% and descreases their
@@ -143,13 +143,10 @@ class CloudedFocus extends Analyzer {
     }
     debug && console.log('Current Stacks: ', this.stacks, 'Mana Stacks: ', this.manaStacks, event);
 
-    let cost = event.rawResourceCost ? event.rawResourceCost[0] : 0;
-    if (this.selectedCombatant.hasBuff(TALENTS_MONK.MANA_TEA_TALENT.id)) {
-      cost /= 2;
-    }
-
+    const cost = event.resourceCost ? event.resourceCost[RESOURCE_TYPES.MANA.id] : 0;
     this.addManaToStackMap(spellId, cost);
-    this.manaSaved += cost - cost * (1 - this.manaStacks * BUFF_AMOUNT_PER_STACK);
+    const preCFCost = cost / (1 - CF_BUFF_PER_STACK * this.manaStacks);
+    this.manaSaved += preCFCost - cost;
   }
 
   calculateHealingEffect(event: HealEvent) {
@@ -158,7 +155,7 @@ class CloudedFocus extends Analyzer {
       return;
     }
     this.addHealingToStackMap(spellId, event);
-    this.healingDone += calculateEffectiveHealing(event, this.stacks * BUFF_AMOUNT_PER_STACK);
+    this.healingDone += calculateEffectiveHealing(event, this.stacks * CF_BUFF_PER_STACK);
   }
 
   applyBuff(event: ApplyBuffEvent) {
@@ -199,7 +196,7 @@ class CloudedFocus extends Analyzer {
   }
 
   addManaToStackMap(spellId: number, cost: number) {
-    const mana = cost - cost * (1 - this.manaStacks * BUFF_AMOUNT_PER_STACK);
+    const mana = cost - cost * (1 - this.manaStacks * CF_BUFF_PER_STACK);
     const current = this.stackMap.get(this.makeKey(spellId, this.stacks));
     if (current) {
       current.manaSaved += mana;
@@ -216,8 +213,8 @@ class CloudedFocus extends Analyzer {
 
   addHealingToStackMap(spellId: number, event: HealEvent) {
     const current = this.stackMap.get(this.makeKey(spellId, this.stacks));
-    const effectiveHealing = calculateEffectiveHealing(event, this.stacks * BUFF_AMOUNT_PER_STACK);
-    const overHealing = calculateOverhealing(event, this.stacks * BUFF_AMOUNT_PER_STACK);
+    const effectiveHealing = calculateEffectiveHealing(event, this.stacks * CF_BUFF_PER_STACK);
+    const overHealing = calculateOverhealing(event, this.stacks * CF_BUFF_PER_STACK);
     if (current) {
       current.healing += effectiveHealing;
       current.overhealing += overHealing;
@@ -269,7 +266,7 @@ class CloudedFocus extends Analyzer {
           return map ? (
             <>
               <hr />
-              Casts at {key.at(-1)} <SpellIcon id={TALENTS_MONK.CLOUDED_FOCUS_TALENT} /> stacks:{' '}
+              Casts at {key.at(-1)} <SpellIcon spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} /> stacks:{' '}
               <b>{map?.casts}</b>
               <ul>
                 <li>
@@ -295,7 +292,7 @@ class CloudedFocus extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.CLOUDED_FOCUS_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.healingDone),
         )} %`}
@@ -314,13 +311,13 @@ class CloudedFocus extends Analyzer {
             <ul>
               <li>
                 <strong>{formatNumber(this.getManaForSpell(SPELLS.VIVIFY.id))}</strong> mana saved
-                on <SpellLink id={SPELLS.VIVIFY} />
+                on <SpellLink spell={SPELLS.VIVIFY} />
               </li>
               <li>
                 <strong>
                   {formatNumber(this.getManaForSpell(TALENTS_MONK.ENVELOPING_MIST_TALENT.id))}
                 </strong>{' '}
-                mana saved on <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+                mana saved on <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
               </li>
             </ul>
           </>

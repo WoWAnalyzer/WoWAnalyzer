@@ -16,20 +16,23 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import UptimeIcon from 'interface/icons/Uptime';
-import DamageIcon from 'interface/icons/Damage';
 import { SpellLink } from 'interface';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { IGNORED_DAMAGE_EVENTS, MERGE_SPELLS } from '../../constants';
+import { DamageIcon, UptimeIcon } from 'interface/icons';
+import Abilities from 'parser/core/modules/Abilities';
+import { MERGE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
 
 const DAMAGE_AMP_PERCENTAGE: Record<number, number> = { 1: 0.05, 2: 0.25 };
+const debug = false;
 
 class LegacyOfTheFrostWitch extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
+    abilities: Abilities,
   };
 
   protected spellUsable!: SpellUsable;
+  protected abilities!: Abilities;
 
   protected accumulatedSpend = 0;
   protected damageAmpPercentage = 0;
@@ -69,7 +72,11 @@ class LegacyOfTheFrostWitch extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (IGNORED_DAMAGE_EVENTS.includes(event.ability.guid)) {
+    const ability =
+      event.ability.guid === SPELLS.MELEE.id
+        ? SPELLS.MELEE
+        : this.abilities.getAbility(event.ability.guid);
+    if (!ability) {
       return;
     }
     if (
@@ -100,14 +107,26 @@ class LegacyOfTheFrostWitch extends Analyzer {
       this.lastApply = event.timestamp;
     }
     if (this.spellUsable.isOnCooldown(TALENTS.STORMSTRIKE_TALENT.id)) {
-      this.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp, true);
+      debug &&
+        console.log(
+          `Stormstrike reset by Legacy of the Frost Witch at timestamp: ${
+            event.timestamp
+          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
+        );
+      this.spellUsable.endCooldown(TALENTS.STORMSTRIKE_TALENT.id, event.timestamp);
       if (!this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
         this.stormStrikeResets += 1;
       }
     }
 
     if (this.spellUsable.isOnCooldown(SPELLS.WINDSTRIKE_CAST.id)) {
-      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp, true);
+      debug &&
+        console.log(
+          `Windstrike reset by Legacy of the Frost Witch at timestamp: ${
+            event.timestamp
+          } (${this.owner.formatTimestamp(event.timestamp, 3)})`,
+        );
+      this.spellUsable.endCooldown(SPELLS.WINDSTRIKE_CAST.id, event.timestamp);
       if (this.selectedCombatant.hasBuff(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT.id)) {
         this.windStrikeResets += 1;
       }
@@ -119,9 +138,11 @@ class LegacyOfTheFrostWitch extends Analyzer {
   }
 
   get extraDamage() {
-    return Object.keys(this.buffedSpells)
-      .map((guid) => this.buffedSpells[Number(guid)])
-      .reduce((current, total) => (total += current));
+    const spellList = Object.keys(this.buffedSpells).map((guid) => this.buffedSpells[Number(guid)]);
+    if (spellList?.length > 0) {
+      return spellList.reduce((current, total) => (total += current), 0);
+    }
+    return 0;
   }
 
   get spellBreakdown() {

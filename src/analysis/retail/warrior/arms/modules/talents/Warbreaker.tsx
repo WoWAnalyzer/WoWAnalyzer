@@ -53,7 +53,7 @@ class Warbreaker extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            <SpellLink id={TALENTS.WARBREAKER_TALENT.id} /> bonus damage
+            <SpellLink spell={TALENTS.WARBREAKER_TALENT} /> bonus damage
           </>
         }
         value={`${formatThousands(this.dps)} DPS`}

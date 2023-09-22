@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
@@ -36,13 +36,13 @@ class RushingJadeWind extends Analyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You had low uptime on <SpellLink id={talents.RUSHING_JADE_WIND_TALENT.id} />. Try to
+          You had low uptime on <SpellLink spell={talents.RUSHING_JADE_WIND_TALENT} />. Try to
           maintain 100% uptime by refreshing the buff before it drops.
         </>,
       )
         .icon(talents.RUSHING_JADE_WIND_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.brewmaster.suggestions.rushingJadeWind.uptime',
             message: `${formatPercentage(actual)}% uptime`,
           }),

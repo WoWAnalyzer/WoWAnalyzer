@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -89,12 +89,12 @@ class MindDevourer extends Analyzer {
       suggest(
         <>
           You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} /> procs.{' '}
+          <SpellLink spell={TALENTS.MIND_DEVOURER_TALENT} /> procs.{' '}
         </>,
       )
         .icon(TALENTS.MIND_DEVOURER_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.mindDevourer.efficiency',
             message: `You wasted ${this.procsWasted} out of ${this.procsGained} of Mind Devourer procs.`,
           }),
@@ -106,7 +106,7 @@ class MindDevourer extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.MIND_DEVOURER_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.MIND_DEVOURER_TALENT}>
           <>
             {this.getProcsUsed()}/{this.procsGained} <small>Procs Used</small>
           </>
@@ -134,12 +134,12 @@ class MindDevourer extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.MIND_DEVOURER_TALENT.id} />
+          <SpellLink spell={TALENTS.MIND_DEVOURER_TALENT} />
         </b>{' '}
-        is gained randomly from <SpellLink id={SPELLS.MIND_BLAST.id} /> casts.
+        is gained randomly from <SpellLink spell={SPELLS.MIND_BLAST} /> casts.
         <br />
-        Before the buff expires, cast <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} />. While
-        you have this active, be careful using <SpellLink id={SPELLS.MIND_BLAST.id} />, as it may
+        Before the buff expires, cast <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />. While
+        you have this active, be careful using <SpellLink spell={SPELLS.MIND_BLAST} />, as it may
         overwrite it.
       </p>
     );

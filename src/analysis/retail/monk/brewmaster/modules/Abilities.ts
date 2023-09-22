@@ -52,6 +52,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.TIGER_PALM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: !combatant.hasTalent(talents.PRESS_THE_ADVANTAGE_TALENT),
         gcd: {
           static: 1000,
         },
@@ -276,6 +277,7 @@ class Abilities extends CoreAbilities {
         spell: talents.SUMMON_WHITE_TIGER_STATUE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(talents.SUMMON_WHITE_TIGER_STATUE_TALENT),
+        damageSpellIds: [SPELLS.CLAW_OF_THE_WHITE_TIGER.id],
         gcd: {
           static: 1000,
         },

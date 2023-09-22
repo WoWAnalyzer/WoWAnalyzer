@@ -48,7 +48,7 @@ class Unison extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={SPELLS.UNISON_HEAL.id} />}
+        title={<SpellLink spell={SPELLS.UNISON_HEAL} />}
         value={`${formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))} %`}
       />
     );
@@ -63,17 +63,17 @@ class Unison extends Analyzer {
         tooltip={
           <ul>
             <li>
-              Healing from <SpellLink id={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT.id} />:{' '}
+              Healing from <SpellLink spell={TALENTS_MONK.SUMMON_JADE_SERPENT_STATUE_TALENT} />:{' '}
               {formatNumber(this.healingFromJss)}
             </li>
             <li>
-              Healing from <SpellLink id={TALENTS_MONK.SOOTHING_MIST_TALENT.id} />:{' '}
+              Healing from <SpellLink spell={TALENTS_MONK.SOOTHING_MIST_TALENT} />:{' '}
               {formatNumber(this.healing - this.healingFromJss)}
             </li>
           </ul>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.UNISON_HEAL.id}>
+        <BoringSpellValueText spell={SPELLS.UNISON_HEAL}>
           <ItemHealingDone amount={this.healing} />
         </BoringSpellValueText>
       </Statistic>

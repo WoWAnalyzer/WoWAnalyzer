@@ -12,6 +12,7 @@ import SpellReflect from '../../spells/SpellReflect';
 import AlwaysBeCasting from '../AlwaysBeCasting';
 import BlockCheck from '../BlockCheck';
 import Component from './Component';
+import RavagerHitCheck from '../../spells/RavagerHitCheck';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -27,6 +28,7 @@ class Checklist extends BaseChecklist {
     shieldBlock: ShieldBlock,
     blockCheck: BlockCheck,
     spellReflect: SpellReflect,
+    ravagerHitCheck: RavagerHitCheck,
   };
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
@@ -39,6 +41,7 @@ class Checklist extends BaseChecklist {
   protected shieldBlock!: ShieldBlock;
   protected blockCheck!: BlockCheck;
   protected spellReflect!: SpellReflect;
+  protected ravagerHitCheck!: RavagerHitCheck;
 
   render() {
     return (
@@ -53,6 +56,7 @@ class Checklist extends BaseChecklist {
           shieldBlock: this.shieldBlock.suggestionThresholds,
           blockCheck: this.blockCheck.suggestionThresholds,
           spellReflect: this.spellReflect.suggestionThresholds,
+          ravagerHitCheck: this.ravagerHitCheck.averageHitSuggestionThresholds,
         }}
       />
     );

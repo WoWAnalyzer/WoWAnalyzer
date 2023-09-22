@@ -172,7 +172,7 @@ class Rejuvenation extends Analyzer {
       <>
         <p>
           <b>
-            <SpellLink id={SPELLS.REJUVENATION.id} />
+            <SpellLink spell={SPELLS.REJUVENATION} />
           </b>{' '}
           is your primary filler spell. It can be used on injured raiders or pre-cast on full health
           raiders when big damage is incoming. Don't spam it unmotivated - you'll run out of mana.
@@ -181,7 +181,7 @@ class Rejuvenation extends Analyzer {
           them are you might be casting too much.
         </p>
         <p>
-          Rejuvenation can proc <SpellLink id={SPELLS.REVITALIZE_MANA} />
+          Rejuvenation can proc <SpellLink spell={SPELLS.REVITALIZE_MANA} />
         </p>
       </>
     );
@@ -229,7 +229,7 @@ class Rejuvenation extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellIcon id={SPELLS.REJUVENATION.id} /> Early Rejuvenation refreshes
+              <SpellIcon spell={SPELLS.REJUVENATION} /> Early Rejuvenation refreshes
             </>
           }
         >

@@ -5,6 +5,7 @@ import { Khazak, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 7, 17), 'Bump compatibility to 10.1.5.', Khazak),
   change(date(2023, 6, 19), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 18), <>Fixed some casts of <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} /> being improperly counted</>, Khazak),
   change(date(2023, 4, 21), <>Added guide section for <SpellLink spell={talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT} /></>, Khazak),

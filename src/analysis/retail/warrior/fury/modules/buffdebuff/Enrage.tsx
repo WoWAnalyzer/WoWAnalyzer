@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -60,12 +60,12 @@ class Enrage extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.ENRAGE.id} /> uptime can be improved.
+          Your <SpellLink spell={SPELLS.ENRAGE} /> uptime can be improved.
         </>,
       )
         .icon(SPELLS.ENRAGE.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.fury.suggestions.enrage.uptime',
             message: `${formatPercentage(actual)}% Enrage uptime`,
           }),
@@ -89,7 +89,7 @@ class Enrage extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.ENRAGE.id}>
+        <BoringSpellValueText spell={SPELLS.ENRAGE}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

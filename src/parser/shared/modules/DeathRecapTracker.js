@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro';
+import { Trans, defineMessage } from '@lingui/macro';
 import TALENTS from 'common/TALENTS/paladin';
 import { Panel } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -30,13 +30,13 @@ class DeathRecapTracker extends Analyzer {
     enemies: Enemies,
   };
 
-  constructor(...args) {
-    super(...args);
+  constructor(options) {
+    super(options);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.instakill.to(SELECTED_PLAYER), this.onInstakill);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
-    this.cooldowns = this.abilities.activeAbilities.filter(
+    this.cooldowns = options.abilities.activeAbilities.filter(
       (ability) =>
         ability.category === SPELL_CATEGORY.DEFENSIVE ||
         ability.category === SPELL_CATEGORY.SEMI_DEFENSIVE ||
@@ -48,7 +48,7 @@ class DeathRecapTracker extends Analyzer {
         id: e.spell.id,
       });
     });
-    this.buffsModule.activeAuras.forEach((buff) => {
+    options.buffsModule.activeAuras.forEach((buff) => {
       if (buff.spellId instanceof Array) {
         buff.spellId.forEach((spellId) => {
           this.buffs.push({
@@ -133,7 +133,10 @@ class DeathRecapTracker extends Analyzer {
     }
 
     return {
-      title: <Trans id="interface.report.results.navigationBar.deathRecap">Death Recap</Trans>,
+      title: defineMessage({
+        id: 'interface.report.results.navigationBar.deathRecap',
+        message: 'Death Recap',
+      }),
       url: 'death-recap',
       render: () => (
         <Panel

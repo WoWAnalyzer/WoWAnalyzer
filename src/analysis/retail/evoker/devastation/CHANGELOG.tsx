@@ -1,9 +1,19 @@
 import { change, date } from 'common/changelog';
-import { Tyndi, Vireve, Vollmer } from 'CONTRIBUTORS';
+import { ToppleTheNun, Tyndi, Vireve, Vollmer } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/evoker';
+import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2023, 9, 8), <>Add graph for <SpellLink spell={SPELLS.DISINTEGRATE}/> module for more in-depth analysis.</>, Vollmer),
+  change(date(2023, 8, 25), <>Add <SpellLink spell={TALENTS.LEAPING_FLAMES_TALENT} /> module.</>, Vollmer),
+  change(date(2023, 7, 26), <>Update <SpellLink spell={TALENTS.CAUSALITY_TALENT} /> module & CDR calculation.</>, Vollmer),
+  change(date(2023, 7, 24), <>Added <SpellLink spell={SPELLS.DEEP_BREATH} /> to channel list.</>, Vollmer),
+  change(date(2023, 7, 24), 'Update APL Check.', Vollmer),
+  change(date(2023, 7, 23), 'Update example log.', Vollmer),
+  change(date(2023, 7, 18), 'Update patch compatability for 10.1.5.', Vollmer),
+  change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
+  change(date(2023, 6, 30), <>Added <SpellLink spell={SPELLS.DISINTEGRATE} />, <SpellLink spell={SPELLS.FIRE_BREATH} />, and <SpellLink spell={SPELLS.ETERNITY_SURGE} /> to channel list.</>, Vollmer),
   change(date(2023, 6, 11), <>Updated Guides for 10.1</>, Vollmer),
   change(date(2023, 6, 10), <>Added <SpellLink spell={TALENTS.ARCANE_INTENSITY_TALENT} /> module</>, Vollmer),
   change(date(2023, 6, 10), <>Added <SpellLink spell={TALENTS.ENGULFING_BLAZE_TALENT} /> module</>, Vollmer),

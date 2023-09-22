@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceLink, SpellLink } from 'interface';
@@ -7,6 +7,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import TALENTS from 'common/TALENTS/warrior';
 
 const debug = false;
 
@@ -25,10 +26,14 @@ class ShieldBlock extends Analyzer {
   averageCd = 0;
   actualCasts = 0;
   totalCastsAssumed = 0;
+  baseCd = 9;
 
   constructor(options: Options) {
     super(options);
     this.lastCast = this.owner.fight.start_time / 1000;
+
+    this.baseCd = this.selectedCombatant.hasTalent(TALENTS.AVATAR_PROTECTION_TALENT) ? 8 : 9;
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_SLAM),
       this.onSlamCast,
@@ -52,7 +57,7 @@ class ShieldBlock extends Analyzer {
     }
 
     this.currentCd =
-      9 / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
+      this.baseCd / (1 + this.statTracker.hastePercentage(this.statTracker.currentHasteRating));
     this.lastCast = event.timestamp / 1000;
 
     this.totalCastsAssumed += 1;
@@ -98,13 +103,13 @@ class ShieldBlock extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> more often - it is your main{' '}
+          Try to cast <SpellLink spell={SPELLS.SHIELD_SLAM} /> more often - it is your main{' '}
           <ResourceLink id={RESOURCE_TYPES.RAGE.id} /> generator and damage source.
         </>,
       )
         .icon(SPELLS.SHIELD_SLAM.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.protection.suggestions.shieldSlam.casts',
             message: `${this.actualCasts} shield slam casts`,
           }),

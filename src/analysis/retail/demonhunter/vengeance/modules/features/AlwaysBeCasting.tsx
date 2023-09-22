@@ -1,4 +1,3 @@
-import { t } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import { When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
@@ -14,12 +13,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           "Your downtime can be improved. Try to Always Be Casting (ABC); try to reduce the delay between casting spells and when you're not healing try to contribute some damage.",
         )
           .icon('spell_mage_altertime')
-          .actual(
-            t({
-              id: 'demonhunter.vengeance.suggestions.alwaysBeCasting.downtime',
-              message: `${formatPercentage(actual)}% downtime`,
-            }),
-          )
+          .actual(`${formatPercentage(actual)}% downtime`)
           .recommended(`<${formatPercentage(recommended)}% is recommended`)
           .regular(recommended + 0.05)
           .major(recommended + 0.15),

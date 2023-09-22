@@ -156,6 +156,12 @@ abstract class EventLinkNormalizer extends EventsNormalizer {
       if (!el.isActive || el.isActive(this.selectedCombatant)) {
         // loop through all events in order
         events.forEach((event: AnyEvent, eventIndex: number) => {
+          if (event._processedLinks == null) {
+            event._processedLinks = new Set<EventLink>();
+          } else if (event._processedLinks?.has(el)) {
+            return;
+          }
+          event._processedLinks!.add(el);
           // if we find a match of a linking ability
           if (this._isLinking(el, event)) {
             let linksMade = 0;

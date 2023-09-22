@@ -85,7 +85,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -98,56 +98,57 @@ class InvokeYulon extends BaseCelestialAnalyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
         </strong>
         <br />
-        Before casting <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, make
-        sure that <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> is on cooldown, and make to
-        sure cast{' '}
+        Before casting <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, make
+        sure that <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> is on cooldown, and make
+        to sure cast{' '}
         {this.selectedCombatant.hasTalent(TALENTS_MONK.GIFT_OF_THE_CELESTIALS_TALENT) ? (
           <>at least one </>
         ) : (
           <>all </>
         )}{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
         (s) to prevent overcapping charges Yulon's duration.
         <br />
         {this.selectedCombatant.hasTalent(TALENTS_MONK.SHAOHAOS_LESSONS_TALENT) && (
           <>
-            With <SpellLink id={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
-            <SpellLink id={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to cover the
-            entire duration of <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
+            With <SpellLink spell={TALENTS_MONK.SHAOHAOS_LESSONS_TALENT} />, cast{' '}
+            <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT} /> with enough clouds to cover the
+            entire duration of{' '}
+            <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
             <br />
           </>
         )}
-        During <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, it is important
-        to cast <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that are near other
-        allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
-        <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL} />. Be sure to cast{' '}
-        <SpellLink id={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> before your first{' '}
-        <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
-        <SpellLink id={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> falls off to extend their duration.
+        During <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />, it is
+        important to cast <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> on allies that
+        are near other allies (e.g. not ranged players standing alone) to maximize targets hit by{' '}
+        <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} />. Be sure to cast{' '}
+        <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> before your first{' '}
+        <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and{' '}
+        <SpellLink spell={TALENTS_MONK.RAPID_DIFFUSION_TALENT} />{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> falls off to extend their duration.
         {this.selectedCombatant.hasTalent(TALENTS_MONK.JADE_BOND_TALENT) && (
           <>
-            Recast <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
-            <SpellLink id={TALENTS_MONK.JADE_BOND_TALENT} />
+            Recast <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> if talented into{' '}
+            <SpellLink spell={TALENTS_MONK.JADE_BOND_TALENT} />
           </>
         )}{' '}
         <br />
         Be sure to follow up your{' '}
-        <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
-        <SpellLink id={SPELLS.VIVIFY} /> to make use of your low duration{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+        <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> with casts of{' '}
+        <SpellLink spell={SPELLS.VIVIFY} /> to make use of your low duration{' '}
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
         s.
       </p>
     );
     /* Disabled for 10.1 since we will want to use TFT at the end of the ramp to ensure 4pc */
     /* <ul>
           <li>
-            If <SpellLink id={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
-            <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste bonus
+            If <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented, use{' '}
+            <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> with{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> for a multiplicative haste bonus
           </li>
         </ul> */
 
@@ -159,7 +160,7 @@ class InvokeYulon extends BaseCelestialAnalyzer {
           const header = (
             <>
               @ {this.owner.formatTimestamp(cast.timestamp)} &mdash;{' '}
-              <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} />
+              <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />
             </>
           );
           const superList = super.getCooldownExpandableItems(cast);
@@ -204,17 +205,17 @@ class InvokeYulon extends BaseCelestialAnalyzer {
             <ul>
               <li>
                 {formatNumber(this.soothHealing)} healing from{' '}
-                <SpellLink id={SPELLS.SOOTHING_BREATH.id} />.
+                <SpellLink spell={SPELLS.SOOTHING_BREATH} />.
               </li>
               <li>
                 {formatNumber(this.envelopHealing)}{' '}
-                <SpellLink id={SPELLS.ENVELOPING_BREATH_HEAL.id} /> healing from{' '}
-                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
+                <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> healing from{' '}
+                <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
-                <SpellLink id={SPELLS.CHI_COCOON_HEAL_YULON.id} /> healing from{' '}
-                <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />.
+                <SpellLink spell={SPELLS.CHI_COCOON_HEAL_YULON} /> healing from{' '}
+                <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
               </li>
             </ul>
           </>
@@ -223,9 +224,9 @@ class InvokeYulon extends BaseCelestialAnalyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id} /> and
+              <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} /> and
               <br />
-              <SpellLink id={TALENTS_MONK.CELESTIAL_HARMONY_TALENT.id} />
+              <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />
             </>
           }
         >

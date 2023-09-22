@@ -53,13 +53,13 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
         )}
         {(combatant.hasTalent(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT) ||
           combatant.hasTalent(TALENTS.STORMKEEPER_2_ELEMENTAL_TALENT)) && (
-          <AbilityRequirement spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id} />
+          <AbilityRequirement spell={SPELLS.STORMKEEPER_BUFF_AND_CAST.id} />
         )}
         {combatant.hasTalent(TALENTS.LIQUID_MAGMA_TOTEM_TALENT) && (
           <AbilityRequirement spell={TALENTS.LIQUID_MAGMA_TOTEM_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_TALENT) && (
-          <AbilityRequirement spell={TALENTS.ELEMENTAL_BLAST_TALENT.id} />
+        {combatant.hasTalent(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT) && (
+          <AbilityRequirement spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id} />
         )}
       </Rule>
       <Rule
@@ -68,10 +68,10 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           <>
             Downtime is the time where you are not casting and not GCD locked. Ensure you are
             casting as much as possible by avoiding movement when you could be casting. Elemental
-            shaman has many GCDs available from <SpellLink id={TALENTS.EARTH_SHOCK_TALENT.id} />,{' '}
-            <SpellLink id={SPELLS.LAVA_SURGE.id} /> empowered{' '}
-            <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} />
-            s, <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} />, and others that help you move
+            shaman has many GCDs available from <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} />,{' '}
+            <SpellLink spell={SPELLS.LAVA_SURGE} /> empowered{' '}
+            <SpellLink spell={TALENTS.LAVA_BURST_TALENT} />
+            s, <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} />, and others that help you move
             towards your location without incurring downtime. Additionally, cancelled casts
             contribute significantly as they fill a GCD without actually doing damage. It's expected
             that some casts will need to be cancelled due to mechanics, but proper planning can help
@@ -87,9 +87,9 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
         description={
           <>
             It's important to maintain flame shock on your target to guarantee{' '}
-            <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> will crit and to allow for{' '}
-            <SpellLink id={SPELLS.LAVA_SURGE.id} /> procs. Applying{' '}
-            <SpellLink id={SPELLS.FLAME_SHOCK.id} /> itself doesn't do much damage so you should
+            <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> will crit and to allow for{' '}
+            <SpellLink spell={SPELLS.LAVA_SURGE} /> procs. Applying{' '}
+            <SpellLink spell={SPELLS.FLAME_SHOCK} /> itself doesn't do much damage so you should
             only refresh it with 30% (about 7 seconds) or less of it's total duration remaining to
             beneift from pandemic.
           </>
@@ -98,7 +98,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime
+              <SpellLink spell={SPELLS.FLAME_SHOCK} /> uptime
             </>
           }
           thresholds={thresholds.flameShockUptime}
@@ -107,7 +107,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           name={
             <>
               {' '}
-              Bad <SpellLink id={SPELLS.FLAME_SHOCK.id} /> refreshes{' '}
+              Bad <SpellLink spell={SPELLS.FLAME_SHOCK} /> refreshes{' '}
             </>
           }
           thresholds={thresholds.flameShockRefreshes}
@@ -118,19 +118,19 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           name="Utilize all Icefury Stacks"
           description={
             <>
-              <SpellLink id={TALENTS.ICEFURY_TALENT.id} />
+              <SpellLink spell={TALENTS.ICEFURY_TALENT} />
               's damage component itself is not a strong spell so it's important to fully utilize
-              the talent by consuming all 4 <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> buff stacks
-              with <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} /> casts during the buff's
+              the talent by consuming all 4 <SpellLink spell={TALENTS.ICEFURY_TALENT} /> buff stacks
+              with <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> casts during the buff's
               duration.
               {combatant.hasTalent(TALENTS.MASTER_OF_THE_ELEMENTS_TALENT) && (
                 <>
                   {' '}
                   While you should try to buff as many <SpellLink
-                    id={TALENTS.ICEFURY_TALENT.id}
+                    spell={TALENTS.ICEFURY_TALENT}
                   />{' '}
-                  empowered <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} /> as you can with{' '}
-                  <SpellLink id={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT.id} />, it is far more
+                  empowered <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> as you can with{' '}
+                  <SpellLink spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT} />, it is far more
                   important to actually use all 4 charges before the buff expires.
                 </>
               )}
@@ -140,8 +140,8 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           <Requirement
             name={
               <>
-                Average <SpellLink id={TALENTS.FROST_SHOCK_TALENT.id} /> Casts within{' '}
-                <SpellLink id={TALENTS.ICEFURY_TALENT.id} /> Duration
+                Average <SpellLink spell={TALENTS.FROST_SHOCK_TALENT} /> Casts within{' '}
+                <SpellLink spell={TALENTS.ICEFURY_TALENT} /> Duration
               </>
             }
             thresholds={thresholds.icefuryEfficiency}
@@ -153,15 +153,15 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           name="Spam Meatballs(Lava Burst)"
           description={
             <>
-              <SpellLink id={TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id} />
-              's damage comes from spamming <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> during
-              it's duration. Only use <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> and{' '}
-              <SpellLink id={TALENTS.EARTH_SHOCK_TALENT.id} /> while it is up.
+              <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} />
+              's damage comes from spamming <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> during
+              it's duration. Only use <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> and{' '}
+              <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} /> while it is up.
               {combatant.hasTalent(TALENTS.ASCENDANCE_ELEMENTAL_TALENT) && (
                 <>
                   {' '}
-                  Use <SpellLink id={TALENTS.LAVA_BURST_TALENT.id} /> as much as you can. Only use{' '}
-                  <SpellLink id={TALENTS.EARTH_SHOCK_TALENT.id} /> when you need to spend
+                  Use <SpellLink spell={TALENTS.LAVA_BURST_TALENT} /> as much as you can. Only use{' '}
+                  <SpellLink spell={TALENTS.EARTH_SHOCK_TALENT} /> when you need to spend
                   Malestrom..
                 </>
               )}
@@ -171,7 +171,7 @@ const ElementalShamanChecklist = ({ combatant, castEfficiency, thresholds }: Che
           <Requirement
             name={
               <>
-                "Wrong" Casts within <SpellLink id={TALENTS.ASCENDANCE_ELEMENTAL_TALENT.id} />{' '}
+                "Wrong" Casts within <SpellLink spell={TALENTS.ASCENDANCE_ELEMENTAL_TALENT} />{' '}
                 Duration
               </>
             }

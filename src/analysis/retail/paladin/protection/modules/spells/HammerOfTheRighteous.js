@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -61,15 +61,15 @@ export default class HammerOfTheRighteous extends Analyzer {
     when(this.badCastThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should avoid casting <SpellLink id={this.activeSpell.id} /> while better spells
-          (namely <SpellLink id={TALENTS.IMPROVED_JUDGMENT_TALENT.id} /> and{' '}
-          <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} />) are available. This is a{' '}
+          You should avoid casting <SpellLink spell={this.activeSpell} /> while better spells
+          (namely <SpellLink spell={TALENTS.IMPROVED_JUDGMENT_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.AVENGERS_SHIELD_TALENT} />) are available. This is a{' '}
           <em>filler</em> ability and should only be used when you have no better spells to cast.
         </>,
       )
         .icon(this.activeSpell.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.protection.suggestions.hammerOfTheRighteous.efficiency',
             message: `${formatPercentage(
               this.badCastRatio,

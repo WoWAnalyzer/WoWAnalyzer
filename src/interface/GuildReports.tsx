@@ -5,21 +5,28 @@ import fetchWcl, { GuildNotFoundError, UnknownApiError, WclApiError } from 'comm
 import { makeGuildApiUrl } from 'common/makeApiUrl';
 import retryingPromise from 'common/retryingPromise';
 import { WCLGuildReport, WCLGuildReportsResponse } from 'common/WCL_TYPES';
-import ZONES from 'game/ZONES';
+import RETAIL_ZONES from 'game/ZONES';
+import CLASSIC_ZONES from 'game/classic/ZONES';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import WipefestIcon from 'interface/icons/Wipefest';
 import { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { isSupportedRegion } from 'common/regions';
 
 import './GuildReports.scss';
 import ReportsList from './GuildReportsList';
 import ALLIANCE_PICTURE from './images/ally_guild_banner_bwl.jpg';
 import HORDE_PICTURE from './images/horde_guild_banner_onyx.jpg';
+import CLASSIC_PICTURE from './images/classic_guild_banner_lich_king.jpg';
 
-const loadRealms = () =>
-  retryingPromise(() => import('game/RealmList').then((exports) => exports.default));
+const loadRealms = (classic: boolean) =>
+  retryingPromise(() =>
+    classic
+      ? import('game/REALMS').then((exports) => exports.CLASSIC_REALMS)
+      : import('game/REALMS').then((exports) => exports.REALMS),
+  );
 
 const ZONE_ALL = -1;
 const ZONE_DEFAULT = ZONE_ALL;
@@ -58,6 +65,7 @@ interface Props {
   region: string;
   realm: string;
   name: string;
+  game?: 'classic' | 'retail' | string | null;
 }
 
 interface State {
@@ -69,6 +77,11 @@ interface State {
   errorMessage: any | null;
   realmSlug: string;
   factionImage: string;
+}
+
+interface QueryParams extends Record<string, any> {
+  start: number;
+  game?: string;
 }
 
 class GuildReports extends Component<Props, State> {
@@ -87,11 +100,40 @@ class GuildReports extends Component<Props, State> {
     this.load = this.load.bind(this);
   }
 
+  get isClassic() {
+    return this.props.game === 'classic';
+  }
+
+  get zones() {
+    return this.isClassic ? CLASSIC_ZONES : RETAIL_ZONES;
+  }
+
+  get wclDomain() {
+    return this.isClassic ? 'https://classic.warcraftlogs.com' : 'https://www.warcraftlogs.com';
+  }
+
+  formattedGuildLink() {
+    return `${this.wclDomain}/guild/${this.props.region}/${this.state.realmSlug}/${this.props.name}`;
+  }
+
   async componentDidMount() {
     this.fetchBattleNetInfo();
   }
 
   async fetchBattleNetInfo() {
+    if (this.isClassic) {
+      // Skip Blizzard API - Classic is not supported
+      this.setState(
+        {
+          factionImage: CLASSIC_PICTURE,
+        },
+        () => {
+          this.load();
+        },
+      );
+      return;
+    }
+
     const { region, realm, name } = this.props;
 
     // Skip CN-API due to blizzard restrictions (aka there is no API for CN)
@@ -107,7 +149,7 @@ class GuildReports extends Component<Props, State> {
       return;
     }
     // fetch guild faction
-    const response = await fetch(makeGuildApiUrl(region, realm, name));
+    const response = await fetch(makeGuildApiUrl(region, realm, name, this.isClassic));
 
     // TODO do we care about these errors just for faction? we could
     //  let blizzard api fail silently and use WCL response for any real errors
@@ -157,15 +199,15 @@ class GuildReports extends Component<Props, State> {
   }
 
   async findRealm() {
-    const realms = await loadRealms();
-    // Use the slug from REALMS when available, otherwise try realm-prop and fail
-    const realmsInRegion = realms[this.props.region];
-    if (!realmsInRegion) {
+    if (!isSupportedRegion(this.props.region)) {
       console.warn(
-        `Region could not be found: ${this.props.region}. This generally indicates a bug.`,
+        `Region is not supported: ${this.props.region}. This generally indicates a bug.`,
       );
       return null;
     }
+    const realms = await loadRealms(this.isClassic);
+    // Use the slug from REALMS when available, otherwise try realm-prop and fail
+    const realmsInRegion = realms[this.props.region];
     const lowerCaseRealm = this.props.realm.toLowerCase();
     const realm = realmsInRegion.find((elem) => elem.name.toLowerCase() === lowerCaseRealm);
     if (!realm) {
@@ -197,11 +239,16 @@ class GuildReports extends Component<Props, State> {
     const filterStart = new Date();
     // TODO allow selection of a date range?
     filterStart.setMonth(filterStart.getMonth() - MONTHS_BACK_SEARCH);
+
+    const queryParams: QueryParams = { start: filterStart.getTime() };
+
+    if (this.isClassic) {
+      queryParams.game = 'classic';
+    }
+
     return fetchWcl<WCLGuildReportsResponse>(
       `reports/guild/${urlEncodedName}/${urlEncodedRealm}/${this.props.region}`,
-      {
-        start: filterStart.getTime(),
-      },
+      queryParams,
     )
       .then((reports) => {
         if (reports.length === 0) {
@@ -321,8 +368,12 @@ class GuildReports extends Component<Props, State> {
 
     // Name slug for battle.net armory, standard name for WCL & wipefest
     const nameSlug = this.props.name.replace(/\s/g, '-').toLowerCase();
-    let battleNetUrl = `https://worldofwarcraft.com/en-${this.props.region}/guild/${this.props.region}/${this.state.realmSlug}/${nameSlug}`;
-    if (this.props.region === 'CN') {
+    let battleNetUrl:
+      | string
+      | undefined = `https://worldofwarcraft.com/en-${this.props.region}/guild/${this.props.region}/${this.state.realmSlug}/${nameSlug}`;
+    if (this.isClassic) {
+      battleNetUrl = undefined;
+    } else if (this.props.region === 'CN') {
       battleNetUrl = `https://www.wowchina.com/zh-cn/guild/${this.state.realmSlug}/${nameSlug}`;
     }
 
@@ -342,7 +393,7 @@ class GuildReports extends Component<Props, State> {
           <div className="info container">
             <div>
               <a
-                href={`https://www.warcraftlogs.com/guild/${this.props.region}/${this.state.realmSlug}/${this.props.name}`}
+                href={this.formattedGuildLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn"
@@ -351,20 +402,26 @@ class GuildReports extends Component<Props, State> {
                 <WarcraftLogsIcon /> Warcraft Logs
               </a>
               <br />
-              <a
-                href={battleNetUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn"
-                style={{ fontSize: 22 }}
-              >
-                <ArmoryIcon style={{ marginRight: '0.3em' }} />
-                <Trans id="interface.armory.text">Armory</Trans>
-              </a>
-              <br />
+              {battleNetUrl && (
+                <>
+                  <a
+                    href={battleNetUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn"
+                    style={{ fontSize: 22 }}
+                  >
+                    <ArmoryIcon style={{ marginRight: '0.3em' }} />
+                    <Trans id="interface.armory.text">Armory</Trans>
+                  </a>
+                  <br />
+                </>
+              )}
               {this.props.region !== 'CN' && (
                 <a
-                  href={`https://www.wipefest.gg/guild/${this.props.name}/${this.state.realmSlug}/${this.props.region}`}
+                  href={`https://www.wipefest.gg/guild/${this.props.name}/${this.state.realmSlug}/${
+                    this.props.region
+                  }?gameVersion=${this.isClassic ? 'warcraft-classic' : 'warcraft-live'}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="btn"
@@ -393,7 +450,7 @@ class GuildReports extends Component<Props, State> {
                     <option key={ZONE_ALL} value={ZONE_ALL}>
                       All Zones
                     </option>
-                    {Object.values(ZONES)
+                    {Object.values(this.zones)
                       .reverse()
                       .map((elem) => (
                         <option key={elem.id} value={elem.id}>
@@ -489,7 +546,7 @@ class GuildReports extends Component<Props, State> {
                     )}
                     {!this.state.isLoading && errorMessage}
                     {!this.state.isLoading && filteredReports.length > 0 && (
-                      <ReportsList reports={filteredReports} />
+                      <ReportsList reports={filteredReports} classic={this.isClassic} />
                     )}
                   </div>
                 </div>

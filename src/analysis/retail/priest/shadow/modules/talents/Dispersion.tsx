@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -73,13 +73,13 @@ class Disperion extends Analyzer {
         <span>
           You spent {Math.round(this.dispersionUptime / 1000)} seconds (out of a possible{' '}
           {Math.round(this.maxDispersionTime / 1000)} seconds) in{' '}
-          <SpellLink id={TALENTS.DISPERSION_TALENT.id} />. Consider using{' '}
-          <SpellLink id={TALENTS.DISPERSION_TALENT.id} /> less or cancel it early.
+          <SpellLink spell={TALENTS.DISPERSION_TALENT} />. Consider using{' '}
+          <SpellLink spell={TALENTS.DISPERSION_TALENT} /> less or cancel it early.
         </span>,
       )
         .icon(TALENTS.DISPERSION_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.dispersion.uptime',
             message: `${formatPercentage(actual)}% Dispersion uptime`,
           }),

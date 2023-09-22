@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic';
 import { SpellLink } from 'interface';
@@ -32,13 +32,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             Your downtime can be improved. Try to Always Be Casting (ABC). If you have to move, use
             instant cast spells, such as
             {/* UPDATE THE SPELLS BELOW */}
-            <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> or{' '}
-            <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} />.
+            <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> or{' '}
+            <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />.
           </>,
         )
           .icon('spell_mage_altertime')
           .actual(
-            t({
+            defineMessage({
               id: 'shared.suggestions.alwaysBeCasting.downtime',
               message: `${formatPercentage(actual)}% downtime`,
             }),
