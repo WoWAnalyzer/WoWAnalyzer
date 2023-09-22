@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatProccEnchant from './StatProccEnchant';
+import StatProccEnchant, { SECONDARY_STAT_WRIT_VALUES } from './StatProccEnchant';
 
 // ================ SAMPLE LOGS ================
 // Burning Writ R1
@@ -15,15 +15,15 @@ import StatProccEnchant from './StatProccEnchant';
 const RANKS = [
   {
     enchant: ITEMS.ENCHANT_WEAPON_BURNING_WRIT_R1,
-    amount: 1185.67,
+    amount: SECONDARY_STAT_WRIT_VALUES[1],
   },
   {
     enchant: ITEMS.ENCHANT_WEAPON_BURNING_WRIT_R2,
-    amount: 1209.09,
+    amount: SECONDARY_STAT_WRIT_VALUES[2],
   },
   {
     enchant: ITEMS.ENCHANT_WEAPON_BURNING_WRIT_R3,
-    amount: 1394.51,
+    amount: SECONDARY_STAT_WRIT_VALUES[3],
   },
 ];
 
