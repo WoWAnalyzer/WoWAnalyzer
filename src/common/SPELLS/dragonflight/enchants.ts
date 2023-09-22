@@ -26,6 +26,11 @@ const enchants = {
     name: 'Burning Writ',
     icon: 'inv_10_elementalshardfoozles_fire',
   },
+  EARTHEN_DEVOTION_BUFF: {
+    id: 390345,
+    name: 'Earthen Devotion',
+    icon: 'inv_10_elementalcombinedfoozles_earth',
+  },
   EARTHEN_WRIT_BUFF: {
     id: 390170,
     name: 'Earthen Writ',

@@ -90,6 +90,7 @@ import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
 import BurningDevotion from 'parser/retail/modules/features/enchants/dragonflight/BurningDevotion';
 import BurningWrit from 'parser/retail/modules/features/enchants/dragonflight/BurningWrit';
+import EarthenDevotion from 'parser/retail/modules/features/enchants/dragonflight/EarthenDevotion';
 import EarthenWrit from 'parser/retail/modules/features/enchants/dragonflight/EarthenWrit';
 import FrozenWrit from 'parser/retail/modules/features/enchants/dragonflight/FrozenWrit';
 import SophicDevotion from 'parser/retail/modules/features/enchants/dragonflight/SophicDevotion';
@@ -218,6 +219,7 @@ class CombatLogParser {
     // Enchants
     burningDevotion: BurningDevotion,
     burningWrit: BurningWrit,
+    earthenDevotion: EarthenDevotion,
     earthenWrit: EarthenWrit,
     frozenWrit: FrozenWrit,
     sophicDevotion: SophicDevotion,
