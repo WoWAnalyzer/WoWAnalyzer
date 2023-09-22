@@ -36,6 +36,11 @@ const enchants = {
     name: 'Earthen Writ',
     icon: 'inv_10_elementalshardfoozles_earth',
   },
+  FROZEN_DEVOTION_DAMAGE: {
+    id: 390350,
+    name: 'Frozen Devotion',
+    icon: 'inv_10_elementalcombinedfoozles_frost',
+  },
   FROZEN_WRIT_BUFF: {
     id: 390242,
     name: 'Frozen Writ',
