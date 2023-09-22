@@ -65,7 +65,7 @@ class FrozenDevotion extends Analyzer {
     }
 
     currentProc.hits += 1;
-    currentProc.damage += event.amount;
+    currentProc.damage += event.amount + (event.absorbed || 0);
   }
 
   statistic() {
