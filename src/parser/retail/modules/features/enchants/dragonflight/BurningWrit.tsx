@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import Writ from './Writ';
+import StatProccEnchant from './StatProccEnchant';
 
 // ================ SAMPLE LOGS ================
 // Burning Writ R1
@@ -27,7 +27,7 @@ const RANKS = [
   },
 ];
 
-class BurningWrit extends Writ {
+class BurningWrit extends StatProccEnchant {
   constructor(options: Options) {
     super(STAT.CRITICAL_STRIKE, SPELLS.BURNING_WRIT_BUFF, RANKS, options);
   }

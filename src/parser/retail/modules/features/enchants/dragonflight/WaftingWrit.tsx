@@ -2,7 +2,7 @@ import ENCHANTS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import Writ from './Writ';
+import StatProccEnchant from './StatProccEnchant';
 
 // ================ SAMPLE LOGS ================
 // Wafting Writ R1
@@ -28,7 +28,7 @@ const RANKS = [
   },
 ];
 
-class WaftingWrit extends Writ {
+class WaftingWrit extends StatProccEnchant {
   constructor(options: Options) {
     super(STAT.HASTE, SPELLS.WAFTING_WRIT, RANKS, options);
   }

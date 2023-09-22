@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import Writ from './Writ';
+import StatProccEnchant from './StatProccEnchant';
 
 // ================ SAMPLE LOGS ================
 // Earthen Devotion R1
@@ -27,7 +27,7 @@ const RANKS = [
   },
 ];
 
-class EarthenDevotion extends Writ {
+class EarthenDevotion extends StatProccEnchant {
   constructor(options: Options) {
     super(STAT.ARMOR, SPELLS.EARTHEN_DEVOTION_BUFF, RANKS, options);
   }

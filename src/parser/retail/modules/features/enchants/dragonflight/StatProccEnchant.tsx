@@ -10,6 +10,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 
+/**
+ * Export to reuse between the various secondary stat procc enchants.
+ */
 export const SECONDARY_STAT_WRIT_VALUES = {
   1: 1185.67,
   2: 1209.09,
@@ -21,7 +24,11 @@ interface Rank {
   amount: number;
 }
 
-abstract class Writ extends Analyzer {
+/**
+ * Abstraction to reuse the same code for tracking stats from proccing enchants such as
+ * writs and Sophic Devotion.
+ */
+abstract class StatProccEnchant extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
@@ -83,4 +90,4 @@ abstract class Writ extends Analyzer {
   }
 }
 
-export default Writ;
+export default StatProccEnchant;
