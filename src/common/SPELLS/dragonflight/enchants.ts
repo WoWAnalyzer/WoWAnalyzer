@@ -36,6 +36,11 @@ const enchants = {
     name: 'Frozen Writ',
     icon: 'inv_10_elementalshardfoozles_frost',
   },
+  SOPHIC_WRIT_BUFF: {
+    id: 390216,
+    name: 'Sophic Writ',
+    icon: 'inv_10_elementalshardfoozles_titan',
+  },
 } satisfies Record<string, Spell>;
 
 export default enchants;
