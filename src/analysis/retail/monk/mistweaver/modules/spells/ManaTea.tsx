@@ -27,11 +27,14 @@ import RenewingMistDuringManaTea from './RenewingMistDuringManaTea';
 import { PerformanceMark } from 'interface/guide';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import {
+  HasStackChange,
   getManaTeaChannelDuration,
   getManaTeaStacksConsumed,
 } from '../../normalizers/CastLinkNormalizer';
+import { MANA_TEA_MAX_STACKS, MANA_TEA_REDUCTION } from '../../constants';
+import Haste from 'parser/shared/modules/Haste';
 
-interface ManaTeaTracker {
+export interface ManaTeaTracker {
   timestamp: number;
   manaSaved: number;
   totalVivifyCleaves: number;
@@ -47,9 +50,11 @@ class ManaTea extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
     renewingMistDuringManaTea: RenewingMistDuringManaTea,
+    haste: Haste,
   };
 
   protected renewingMistDuringManaTea!: RenewingMistDuringManaTea;
+  protected haste!: Haste;
 
   manaSavedMT: number = 0;
   manaRestoredMT: number = 0;
@@ -104,9 +109,18 @@ class ManaTea extends Analyzer {
       overhealing: 0,
       stacksConsumed: getManaTeaStacksConsumed(event),
       manaRestored: this.manaRestoredSinceLastApply,
-      channelTime: getManaTeaChannelDuration(event),
+      channelTime: event?.prepull
+        ? this.estimatedChannelTime(event)
+        : getManaTeaChannelDuration(event),
     });
     this.manaRestoredSinceLastApply = 0;
+  }
+
+  private estimatedChannelTime(event: ApplyBuffEvent): number {
+    const channelTimePerTick =
+      (this.selectedCombatant.hasTalent(TALENTS_MONK.ENERGIZING_BREW_TALENT) ? 0.25 : 0.5) /
+      (1 + this.haste.current);
+    return channelTimePerTick * getManaTeaStacksConsumed(event);
   }
 
   heal(event: HealEvent) {
@@ -120,30 +134,18 @@ class ManaTea extends Analyzer {
   }
 
   handleCast(event: CastEvent) {
-    const name = event.ability.name;
-    const manaEvent = event.classResources?.find(
-      (resource) => resource.type === RESOURCE_TYPES.MANA.id,
-    );
-    if (manaEvent === undefined) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id) ||
+      event.resourceCost == null ||
+      event.resourceCost[RESOURCE_TYPES.MANA.id] == null
+    ) {
       return;
     }
-
-    if (
-      this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id) &&
-      event.ability.guid !== TALENTS_MONK.MANA_TEA_TALENT.id
-    ) {
-      //we check both since melee doesn't havea classResource
-      if (manaEvent.cost !== undefined) {
-        //checks if the spell costs anything (we don't just use cost since some spells don't play nice)
-        this.manaSavedMT += manaEvent.cost / 2;
-        this.castTrackers.at(-1)!.manaSaved += manaEvent.cost / 2;
-      }
-      if (this.casts.has(name)) {
-        this.casts.set(name, (this.casts.get(name) || 0) + 1);
-      } else {
-        this.casts.set(name, 1);
-      }
-    }
+    const actualCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
+    const preMTCost = event.resourceCost[RESOURCE_TYPES.MANA.id] / MANA_TEA_REDUCTION;
+    const manaSaved = preMTCost - actualCost;
+    this.manaSavedMT += manaSaved;
+    this.castTrackers.at(-1)!.manaSaved += manaSaved;
   }
 
   onVivCast(event: CastEvent) {
@@ -167,6 +169,14 @@ class ManaTea extends Analyzer {
   }
 
   onStackWaste(event: RefreshBuffEvent) {
+    if (
+      HasStackChange(event) ||
+      this.selectedCombatant.getBuffStacks(SPELLS.MANA_TEA_STACK.id, event.timestamp) <
+        MANA_TEA_MAX_STACKS
+    ) {
+      return;
+    }
+
     this.stacksWasted += 1;
   }
 

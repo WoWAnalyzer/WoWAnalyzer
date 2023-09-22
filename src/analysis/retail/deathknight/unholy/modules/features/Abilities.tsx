@@ -134,8 +134,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT.id,
-        buffSpellId: talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT.id,
+        spell: SPELLS.EMPOWER_RUNE_WEAPON.id,
+        buffSpellId: SPELLS.EMPOWER_RUNE_WEAPON.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         gcd: null,
         cooldown: 120,

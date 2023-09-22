@@ -52,7 +52,6 @@ import AverageTimeBetweenRSKSs from './modules/spells/AverageTimeBetweenRSKs';
 import ChiBurst from './modules/spells/ChiBurst';
 import InvokeChiJi from './modules/spells/InvokeChiJi';
 import JadeSerpentStatue from './modules/spells/JadeSerpentStatue';
-//import Lifecycles from './modules/spells/Lifecycles';
 import ManaTea from './modules/spells/ManaTea';
 import MistyPeaks from './modules/spells/MistyPeaks';
 import MistsOfLife from './modules/spells/MistsOfLife';
@@ -88,6 +87,9 @@ import CalmingCoalescence from './modules/spells/CalmingCoalescence';
 import LifeCocoon from './modules/spells/LifeCocoon';
 import SecretInfusion from './modules/spells/SecretInfusion';
 import CallToDominance from '../../../../parser/retail/modules/items/dragonflight/CallToDominance';
+import MWSpellManaCost from './modules/core/SpellManaCost';
+import ManaTeaSources from './modules/spells/ManaTeaSources';
+import EnergizingBrew from './modules/spells/EnergizingBrew';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -97,6 +99,7 @@ class CombatLogParser extends CoreCombatLogParser {
     hotRemovalNormalizer: HotRemovalNormalizer,
 
     // Core
+    mwSpellManaCost: MWSpellManaCost,
     lowHealthHealing: LowHealthHealing,
     channeling: CoreChanneling,
     globalCooldown: GlobalCooldown,
@@ -143,6 +146,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // MW Talents
     ancientTeachings: AncientTeachings,
     cloudedFocus: CloudedFocus,
+    energizingBrew: EnergizingBrew,
     envelopingBreath: EnvelopingBreath,
     envelopingMists: EnvelopingMists,
     essenceFont: EssenceFont,
@@ -156,9 +160,9 @@ class CombatLogParser extends CoreCombatLogParser {
     invokeYulon: InvokeYulon,
     jadeSerpentStatue: JadeSerpentStatue,
     jadeBond: JadeBond,
-    //lifecycles: Lifecycles,
     mistWrap: MistWrap,
     manaTea: ManaTea,
+    manaTeaSources: ManaTeaSources,
     mistsOfLife: MistsOfLife,
     mistyPeaks: MistyPeaks,
     nourishingCh: NourishingChi,

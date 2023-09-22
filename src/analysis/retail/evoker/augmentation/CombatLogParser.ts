@@ -23,6 +23,7 @@ import Volcanism from './modules/talents/Volcanism';
 import BlisteringScales from './modules/talents/BlisteringScales';
 
 import BuffTrackerGraph from './modules/features/BuffTrackerGraph';
+import BuffTargetHelper from './modules/features/BuffTargetHelper/BuffTargetHelper';
 import BlisteringScalesGraph from './modules/talents/BlisteringScalesGraph';
 import BlisteringScalesStackTracker from './modules/talents/BlisteringScalesStackTracker';
 
@@ -73,6 +74,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Features
     buffTrackerGraph: BuffTrackerGraph,
+    buffTargetHelper: BuffTargetHelper,
   };
   static guide = Guide;
 }

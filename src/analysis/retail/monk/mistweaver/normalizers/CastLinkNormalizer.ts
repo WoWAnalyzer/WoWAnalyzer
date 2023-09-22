@@ -13,6 +13,7 @@ import {
   RefreshBuffEvent,
   HealEvent,
   CastEvent,
+  ApplyBuffStackEvent,
 } from 'parser/core/Events';
 
 export const APPLIED_HEAL = 'AppliedHeal';
@@ -40,18 +41,20 @@ export const CALMING_COALESCENCE = 'Calming Coalescence';
 export const MANA_TEA_CHANNEL = 'MTChannel';
 export const MANA_TEA_CAST_LINK = 'MTLink';
 export const MT_BUFF_REMOVAL = 'MTStack';
+export const LIFECYCLES = 'Lifecycles';
+export const MT_STACK_CHANGE = 'MTStackChange';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
 const CAST_BUFFER_MS = 100;
 const EF_BUFFER = 7000;
-const MAX_MT_CHANNEL = 20000;
+const MAX_MT_CHANNEL = 25000;
 const MAX_REM_DURATION = 77000;
 const FOUND_REMS: Map<string, number | null> = new Map();
 
 /*
   This file is for attributing Renewing Mist and Enveloping Mist applications to hard casts.
-  It is needed because mistweaver talents can proc ReM/EnvM, 
+  It is needed because mistweaver talents can proc ReM/EnvM,
   but not all are extended by RM nor do they trigger the flat RM Heal
   */
 const EVENT_LINKS: EventLink[] = [
@@ -373,6 +376,29 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
     },
   },
+  {
+    linkRelation: MT_STACK_CHANGE,
+    linkingEventId: SPELLS.MANA_TEA_STACK.id,
+    linkingEventType: EventType.RefreshBuff,
+    referencedEventId: SPELLS.MANA_TEA_STACK.id,
+    referencedEventType: [EventType.RemoveBuffStack, EventType.ApplyBuffStack],
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.MANA_TEA_TALENT);
+    },
+  },
+  {
+    linkRelation: LIFECYCLES,
+    reverseLinkRelation: LIFECYCLES,
+    linkingEventId: [SPELLS.LIFECYCLES_ENVELOPING_MIST_BUFF.id, SPELLS.LIFECYCLES_VIVIFY_BUFF.id],
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.MANA_TEA_STACK.id,
+    referencedEventType: [EventType.ApplyBuffStack, EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: MAX_MT_CHANNEL,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT);
+    },
+  },
 ];
 
 /**
@@ -569,7 +595,7 @@ export function getNumberOfBolts(event: CastEvent) {
 
 // we use time to get stacks because it can be cast prepull
 export function getManaTeaStacksConsumed(event: ApplyBuffEvent) {
-  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0].timestamp - event.timestamp;
+  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0]?.timestamp - event.timestamp;
   // 1s of mana reduction per stack
   return Math.round(diff / 1000);
 }
@@ -580,6 +606,16 @@ export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
     return undefined;
   }
   return GetRelatedEvents(castEvent, MANA_TEA_CHANNEL)[0].timestamp - castEvent.timestamp;
+}
+
+export function isMTStackFromLifeCycles(
+  event: ApplyBuffEvent | RefreshBuffEvent | ApplyBuffStackEvent,
+) {
+  return HasRelatedEvent(event, LIFECYCLES);
+}
+
+export function HasStackChange(event: RefreshBuffEvent): boolean {
+  return HasRelatedEvent(event, MT_STACK_CHANGE);
 }
 
 export default CastLinkNormalizer;
