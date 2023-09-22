@@ -3,7 +3,7 @@ import MaelstromWeaponTracker from './MaelstromWeaponTracker';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import Panel from 'parser/ui/Panel';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
-import Events, { CastEvent, DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import Abilities from 'parser/core/modules/Abilities';
 import { formatNumber, formatThousands } from 'common/format';
@@ -31,10 +31,7 @@ export default class extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
-      this.onCast,
-    );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
 
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_BUFF),
@@ -51,7 +48,7 @@ export default class extends Analyzer {
     );
   }
 
-  onCast(event: CastEvent) {
+  onCast() {
     this.recordNextSpenderAmount = true;
   }
 
