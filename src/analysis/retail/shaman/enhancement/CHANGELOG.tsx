@@ -1,9 +1,11 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun, Putro } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 9, 22), <>Minor ajustment to APL for <SpellLink spell={TALENTS_SHAMAN.ICE_STRIKE_TALENT} />, added <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> usage and efficiency tables</>, Seriousnes),
   change(date(2023, 9, 7), <>Updated to 10.1.7 compatibility</>, Seriousnes),
   change(date(2023, 9, 6), <>Reworked maelstrom tracker, added spender link and analyzer. Added maelstrom efficiency details</>, Seriousnes),
   change(date(2023, 9, 6), <>Fixed <SpellLink spell={TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT} /> statistic having one more proc than actually occured</>, Seriousnes),

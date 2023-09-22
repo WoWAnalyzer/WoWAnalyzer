@@ -13,7 +13,7 @@ import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUs
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import Abilities from '../Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Haste from 'parser/shared/modules/Haste';
@@ -308,8 +308,10 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         .map((le) => le.event as DamageEvent);
     });
 
-    // casts without any maelstrom are bad casts
-    const noMaelstromCasts = thorimsInvocationFreeCasts.filter((fc) => !fc).length;
+    // casts without any maelstrom are bad casts, only relevant for elementalist builds that pick the Ascendance talent rather than storm using DRE
+    const noMaelstromCasts =
+      this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) &&
+      thorimsInvocationFreeCasts.filter((fc) => !fc).length;
     if (noMaelstromCasts) {
       result.push({
         performance: QualitativePerformance.Ok,
@@ -394,14 +396,17 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
 
     const fillerSpellsList = typedKeys(fillerSpells).map((spellId) => {
       const casts = fillerSpells[spellId];
+      const spell = maybeGetSpell(spellId);
       return (
-        <>
-          <li key={`${cast.startTime}-${spellId}`}>
-            <div>
-              {casts} x <SpellLink spell={spellId} />
-            </div>
-          </li>
-        </>
+        spell && (
+          <>
+            <li key={`${cast.startTime}-${spellId}`}>
+              <div>
+                {casts} x <SpellLink spell={spell} />
+              </div>
+            </li>
+          </>
+        )
       );
     });
 

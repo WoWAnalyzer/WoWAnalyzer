@@ -128,13 +128,18 @@ export const apl = (info: PlayerInfo): Apl => {
     });
 
   rules.push(
-    TALENTS.ICE_STRIKE_TALENT,
+    {
+      spell: TALENTS.ICE_STRIKE_TALENT,
+      condition: buffMissing(TALENTS.ICE_STRIKE_TALENT),
+    },
     {
       spell: TALENTS.FROST_SHOCK_TALENT,
       condition: buffPresent(SPELLS.HAILSTORM_BUFF),
     },
     TALENTS.LAVA_LASH_TALENT,
   );
+
+  rules.push(TALENTS.ICE_STRIKE_TALENT);
 
   !combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT) &&
     rules.push(TALENTS.STORMSTRIKE_TALENT);
@@ -144,7 +149,7 @@ export const apl = (info: PlayerInfo): Apl => {
       condition: describe(and(atLeastFiveMSW, buffMissing(TALENTS.HAILSTORM_TALENT)), () => (
         <>
           you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks to generate{' '}
-          <SpellLink spell={TALENTS.HAILSTORM_TALENT} />
+          <SpellLink spell={TALENTS.HAILSTORM_TALENT} /> stacks
         </>
       )),
     });

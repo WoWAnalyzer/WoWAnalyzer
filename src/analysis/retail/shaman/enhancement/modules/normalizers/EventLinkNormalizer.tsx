@@ -12,10 +12,11 @@ import {
 
 export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
 export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
-export const PRIMORDIAL_WAVE_FREE_LIGHTNING_BOLTS = 'primordial-wave-auto-cast';
 export const STORMSTRIKE_LINK = 'stormstrike';
 export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
 export const MAELSTROM_WEAPON_SPEND_LINK = 'maelstrom-spender';
+export const PRIMORIDAL_WAVE_END_LINK = 'primordial-wave-end';
+export const LIGHTNING_BOLT_PRIMORDIAL_WAVE_LINK = 'lightning-bolt-primoridal-wave';
 
 const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
   (spell) => spell.id,
@@ -26,21 +27,9 @@ const stormStrikeDamageIds = STORMSTRIKE_DAMAGE_SPELLS.map((spell) => spell.id);
 const maelstromWeaponInstantCastLink: EventLink = {
   linkRelation: MAELSTROM_WEAPON_INSTANT_CAST,
   linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
-  linkingEventType: [
-    EventType.BeginCast,
-    EventType.BeginChannel,
-    EventType.Cast,
-    EventType.FreeCast,
-    EventType.EndChannel,
-  ],
+  linkingEventType: [EventType.BeginCast, EventType.BeginChannel, EventType.EndChannel],
   referencedEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
-  referencedEventType: [
-    EventType.BeginCast,
-    EventType.BeginChannel,
-    EventType.Cast,
-    EventType.FreeCast,
-    EventType.EndChannel,
-  ],
+  referencedEventType: [EventType.Cast, EventType.FreeCast],
   forwardBufferMs: MAELSTROM_WEAPON_MS,
   backwardBufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
@@ -86,6 +75,27 @@ const maelstromWeaponSenderLink: EventLink = {
   anyTarget: true,
 };
 
+const primordialWaveLink: EventLink = {
+  linkRelation: PRIMORIDAL_WAVE_END_LINK,
+  linkingEventId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
+  linkingEventType: EventType.RemoveBuff,
+  referencedEventId: SPELLS.LIGHTNING_BOLT.id,
+  referencedEventType: EventType.Cast,
+  backwardBufferMs: 50,
+  forwardBufferMs: 50,
+  anyTarget: true,
+};
+
+const lightningBoltDamageLink: EventLink = {
+  linkRelation: LIGHTNING_BOLT_PRIMORDIAL_WAVE_LINK,
+  linkingEventId: SPELLS.LIGHTNING_BOLT.id,
+  linkingEventType: EventType.Cast,
+  referencedEventId: SPELLS.LIGHTNING_BOLT.id,
+  referencedEventType: EventType.Damage,
+  forwardBufferMs: 50,
+  anyTarget: true,
+};
+
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
     super(options, [
@@ -94,6 +104,8 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       stormStrikeLink,
       chainLightningDamageLink,
       maelstromWeaponSenderLink,
+      primordialWaveLink,
+      lightningBoltDamageLink,
     ]);
   }
 }
