@@ -153,7 +153,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         buffSpellId: TALENTS_DRUID.FURY_OF_ELUNE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.RADIANT_MOONLIGHT_TALENT) ? 40 : 60,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.RADIANT_MOONLIGHT_TALENT) ? 45 : 60,
         enabled: combatant.hasTalent(TALENTS_DRUID.FURY_OF_ELUNE_TALENT),
         gcd: {
           base: 1500,
