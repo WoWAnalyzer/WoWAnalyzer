@@ -71,7 +71,7 @@ class Voidbolt extends ExecuteHelper {
       },
       castEfficiency: {
         suggestion: true,
-        recommendedEfficiency: 0.85,
+        recommendedEfficiency: 0.95,
         maxCasts: () => this.maxCasts,
       },
     });
@@ -111,8 +111,13 @@ class Voidbolt extends ExecuteHelper {
     }
 
     const averagecd = totalCD / castCount;
+    const bolts = Math.floor(waiting / averagecd);
 
-    this.miss = this.miss + Math.floor(waiting / averagecd); //Any remainder is not a possible cast, so it is floored.
+    if (!isNaN(bolts)) {
+      //if a character dies very early in voidform, the bolts calculation can be NaN, and we don't count that Voidform.
+      this.miss = this.miss + bolts; //Any remainder is not a possible cast, so it is floored.
+    }
+
     this.VB = [0]; //After calcuating the missed VB, removed them so they cannot be added again.
   }
 
@@ -141,7 +146,7 @@ class Voidbolt extends ExecuteHelper {
         size="flexible"
         category={STATISTIC_CATEGORY.GENERAL}
       >
-        <BoringSpellValueText spellId={SPELLS.VOID_BOLT.id}>
+        <BoringSpellValueText spell={SPELLS.VOID_BOLT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>

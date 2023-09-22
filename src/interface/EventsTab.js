@@ -44,6 +44,10 @@ const FILTERABLE_TYPES = {
     explanation:
       'Triggered whenever a cast was successful. Blizzard also sometimes uses this event type for mechanics and spell ticks or bolts.',
   },
+  freecast: {
+    name: 'Free Cast',
+    explanation: 'Casts that we have detected might have been cast "for free."',
+  },
   empowerstart: {
     name: 'Empower Start',
   },

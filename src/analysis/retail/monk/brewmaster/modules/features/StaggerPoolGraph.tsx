@@ -323,10 +323,10 @@ class StaggerPoolGraph extends Analyzer {
           title="Stagger"
           explanation={
             <>
-              Damage you take is placed into a <em>pool</em> by <SpellLink id={SPELLS.STAGGER.id} />
+              Damage you take is placed into a <em>pool</em> by <SpellLink spell={SPELLS.STAGGER} />
               . This damage is then removed by the damage-over-time component of{' '}
-              <SpellLink id={SPELLS.STAGGER.id} /> or by{' '}
-              <SpellLink id={talents.PURIFYING_BREW_TALENT.id} /> (or other sources of
+              <SpellLink spell={SPELLS.STAGGER} /> or by{' '}
+              <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> (or other sources of
               purification). This plot shows the amount of damage pooled over the course of the
               fight.
             </>

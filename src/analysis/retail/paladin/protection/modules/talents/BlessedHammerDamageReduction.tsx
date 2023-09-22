@@ -81,12 +81,12 @@ class BlessedHammerDamageReduction extends Analyzer {
         tooltip={
           <>
             Average <b>{formatNumber(this.averageHitReduction)}</b> damage reduced per hit affected
-            by <SpellLink id={TALENTS.BLESSED_HAMMER_TALENT.id} />.
+            by <SpellLink spell={TALENTS.BLESSED_HAMMER_TALENT} />.
           </>
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.BLESSED_HAMMER_TALENT.id}
+          spell={TALENTS.BLESSED_HAMMER_TALENT.id}
           value={formatNumber(this.totalReducedDamage)}
           label={`Reduced damage from ${this.reducedDamageHits} hits.`}
         />

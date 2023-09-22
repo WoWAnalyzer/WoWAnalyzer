@@ -154,11 +154,14 @@ describe('Shaman/Restoration/Modules/Spells/HealingRain', () => {
   const players = [1, 2];
   beforeEach(() => {
     parser = new TestCombatLogParser();
+    const combatants = {
+      getEntity: (event) => players.includes(event.targetID),
+    };
     module = parser.loadModule(HealingRain, {
-      combatants: {
-        getEntity: (event) => players.includes(event.targetID),
-      },
+      combatants,
     });
+
+    module.combatants = combatants;
   });
 
   it('can detect ticks', () => {

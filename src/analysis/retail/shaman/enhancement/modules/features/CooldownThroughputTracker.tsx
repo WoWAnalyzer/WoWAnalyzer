@@ -23,6 +23,11 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       expansion: RETAIL_EXPANSION,
     },
+    {
+      spell: TALENTS_SHAMAN.DOOM_WINDS_TALENT.id,
+      summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
+      expansion: RETAIL_EXPANSION,
+    },
   ];
 }
 

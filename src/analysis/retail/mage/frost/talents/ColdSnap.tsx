@@ -21,7 +21,7 @@ class ColdSnap extends Analyzer {
   constructor(props: Options) {
     super(props);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COLD_SNAP_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.COLD_SNAP),
       this._resetCooldowns,
     );
   }

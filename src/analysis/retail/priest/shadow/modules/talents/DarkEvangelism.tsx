@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -44,13 +44,13 @@ class DarkEvangelism extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT.id} /> uptime can be improved. Try to
-          pay more attention to your <SpellLink id={TALENTS.DARK_EVANGELISM_TALENT.id} /> buff.
+          Your <SpellLink spell={TALENTS.DARK_EVANGELISM_TALENT} /> uptime can be improved. Try to
+          pay more attention to your <SpellLink spell={TALENTS.DARK_EVANGELISM_TALENT} /> buff.
         </span>,
       )
         .icon(TALENTS.DARK_EVANGELISM_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.darkEvangilism.uptime',
             message: `${formatPercentage(actual)}% Dark Evangilism uptime`,
           }),

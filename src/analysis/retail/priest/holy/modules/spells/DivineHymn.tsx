@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -48,7 +48,7 @@ class DivineHymn extends Analyzer {
         )
           .icon('spell_holy_divinehymn')
           .actual(
-            t({
+            defineMessage({
               id: 'priest.holy.suggestions.divineHymn.wastedTicks',
               message: `${actual} missed Hymn ticks`,
             }),

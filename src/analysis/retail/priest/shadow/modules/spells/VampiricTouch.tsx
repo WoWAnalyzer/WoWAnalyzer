@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
@@ -39,13 +39,13 @@ class VampiricTouch extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> uptime can be improved. Try to pay more
-          attention to your <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> on the boss.
+          Your <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> uptime can be improved. Try to pay more
+          attention to your <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> on the boss.
         </span>,
       )
         .icon(SPELLS.VAMPIRIC_TOUCH.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.vampiricTouch.uptime',
             message: `${formatPercentage(actual)}% Vampiric Touch uptime`,
           }),
@@ -81,7 +81,7 @@ class VampiricTouch extends Analyzer {
       <div className="flex-main multi-uptime-bar">
         <div className="flex main-bar">
           <div className="flex-sub bar-label">
-            <SpellIcon key={'Icon-' + SPELLS.VAMPIRIC_TOUCH.name} id={SPELLS.VAMPIRIC_TOUCH.id} />{' '}
+            <SpellIcon key={'Icon-' + SPELLS.VAMPIRIC_TOUCH.name} spell={SPELLS.VAMPIRIC_TOUCH} />{' '}
             <PerformanceStrong performance={this.DowntimePerformance}>
               {' '}
               {this.formatPercentUptime(primaryUptime, totalFightTime)}{' '}

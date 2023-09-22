@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -76,7 +76,7 @@ class CommanderOfTheDead extends Analyzer {
           <span>
             You are not properly buffing your pets with{' '}
             <SpellLink spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF} />. Make sure to use{' '}
-            <SpellLink spell={SPELLS.DARK_TRANSFORMATION} /> after casting{' '}
+            <SpellLink spell={SPELLS.DARK_TRANSFORMATION} /> when you use{' '}
             <SpellLink spell={SPELLS.ARMY_OF_THE_DEAD} />,{' '}
             <SpellLink spell={TALENTS.SUMMON_GARGOYLE_TALENT} /> and{' '}
             <SpellLink spell={SPELLS.APOCALYPSE} />.
@@ -84,7 +84,7 @@ class CommanderOfTheDead extends Analyzer {
         )
           .icon(SPELLS.APOCALYPSE.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'deathknight.unholy.suggestions.commanderofthedead.efficiency',
               message: `An average ${formatPercentage(
                 this.averageSummonBuffed,
@@ -104,7 +104,7 @@ class CommanderOfTheDead extends Analyzer {
         position={STATISTIC_ORDER.CORE(1)}
         size="flexible"
       >
-        <BoringSpellValueText spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF}>
+        <BoringSpellValueText spell={SPELLS.COMMANDER_OF_THE_DEAD_BUFF.id}>
           <>
             {formatPercentage(this.averageSummonBuffed)}%{' '}
             <small>of pets buffed with Commander of the Dead</small>

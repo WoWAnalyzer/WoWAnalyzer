@@ -1,4 +1,4 @@
-import { Juko8, Skeletor, Klamuz } from 'CONTRIBUTORS';
+import { Juko8, Klamuz, Skeletor, ToppleTheNun } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
@@ -6,9 +6,9 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [Klamuz, Juko8, Skeletor],
+  contributors: [ToppleTheNun, Klamuz, Juko8, Skeletor],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: '10.0.5',
+  patchCompatibility: '10.1.7',
   isPartial: true,
   description: (
     <>
@@ -43,7 +43,10 @@ const config: Config = {
       work on!
     </>
   ),
-  exampleReport: 'report/rGN84WHjg72LqzFc/23-Mythic+Terros+-+Kill+(5:56)/Braúm/standard/overview',
+  exampleReport:
+    '/report/zv8KTrVGJbnmD2PX/1-Mythic++Brackenhide+Hollow+-+Kill+(18:56)/Wogmyhog/standard/overview',
+  guideDefault: true,
+  guideOnly: true,
 
   spec: SPECS.RETRIBUTION_PALADIN,
   changelog: CHANGELOG,

@@ -45,7 +45,7 @@ class Shadowfiend extends Analyzer {
   statistic() {
     return (
       <StatisticBox
-        icon={<SpellLink id={SPELLS.SHADOW_FIEND.id} />}
+        icon={<SpellLink spell={SPELLS.SHADOW_FIEND} />}
         value={
           <>
             <ItemManaGained amount={this.manaFromShadowFiend} />

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import {
   SERPENT_STING_SV_BASE_DURATION,
   SV_SERPENT_STING_COST,
@@ -192,7 +192,7 @@ class VolatileBomb extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.VOLATILE_BOMB_WFI.id}>
+        <BoringSpellValueText spell={SPELLS.VOLATILE_BOMB_WFI}>
           <>
             <ItemDamageDone amount={this.damage} />
           </>
@@ -205,16 +205,16 @@ class VolatileBomb extends Analyzer {
     when(this.missedResetsThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You shouldn't cast <SpellLink id={SPELLS.VOLATILE_BOMB_WFI.id} /> if your target doesn't
-          have <SpellLink id={SPELLS.SERPENT_STING_SV.id} /> on.
+          You shouldn't cast <SpellLink spell={SPELLS.VOLATILE_BOMB_WFI} /> if your target doesn't
+          have <SpellLink spell={SPELLS.SERPENT_STING_SV} /> on.
         </>,
       )
         .icon(SPELLS.VOLATILE_BOMB_WFI.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.survival.suggestions.wildfireInfusion.castsWithoutSerpentSting',
             message: `${actual} casts without ${(
-              <SpellLink id={SPELLS.SERPENT_STING_SV.id} />
+              <SpellLink spell={SPELLS.SERPENT_STING_SV} />
             )} on`,
           }),
         )

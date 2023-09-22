@@ -72,7 +72,7 @@ class FatalMark extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.FATALITY_TALENT.id} /> Damage done
+              <SpellLink spell={TALENTS.FATALITY_TALENT} /> Damage done
             </>
           }
         >

@@ -41,6 +41,7 @@ import ProtectiveLight from '../shared/ProtectiveLight';
 import PrayerOfHealing from './modules/spells/PrayerOfHealing';
 import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import Guide from './Guide';
+import Benevolence from '../shared/Benevolence';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -82,6 +83,7 @@ class CombatLogParser extends CoreCombatLogParser {
     statWeights: StatWeights,
     circleOfHealing: CircleOfHealing,
     prayerOfHealing: PrayerOfHealing,
+    benevolence: Benevolence,
 
     spiritOfRedemption: SpiritOfRedemption,
     renew: Renew,
@@ -120,7 +122,6 @@ class CombatLogParser extends CoreCombatLogParser {
     DivineStar: Talents.Classwide.DivineStar,
     Mindgames: Mindgames,
     DivineWord: Talents.BottomRow.DivineWord,
-    SearingLight: Talents.BottomRow.SearingLight,
 
     HolyWordSalvation: Talents.BottomRow.HolyWordSalvation,
     Apotheosis: Talents.BottomRow.Apotheosis,

@@ -33,9 +33,9 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         }
         description={
           <Trans id="shaman.restoration.checklist.efficientSpells.description">
-            Spells such as <SpellLink id={TALENTS.RIPTIDE_TALENT.id} />,{' '}
-            <SpellLink id={TALENTS.HEALING_RAIN_TALENT.id} /> and{' '}
-            <SpellLink id={TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT.id} /> are your most efficient
+            Spells such as <SpellLink spell={TALENTS.RIPTIDE_TALENT} />,{' '}
+            <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} /> and{' '}
+            <SpellLink spell={TALENTS.HEALING_STREAM_TOTEM_SHARED_TALENT} /> are your most efficient
             spells available. Try to cast them as much as possible without overhealing.{' '}
             <TooltipElement
               content={t({
@@ -139,7 +139,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             <Requirement
               name={
                 <Trans id="shaman.restoration.checklist.aoeSpell.targets">
-                  Average <SpellLink id={TALENTS.CHAIN_HEAL_TALENT.id} /> targets
+                  Average <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> targets
                 </Trans>
               }
               thresholds={thresholds.chainHealTargetThresholds}
@@ -150,7 +150,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             <Requirement
               name={
                 <Trans id="shaman.restoration.checklist.aoeSpell.targets">
-                  Average <SpellLink id={SPELLS.HEALING_RAIN_HEAL.id} /> targets
+                  Average <SpellLink spell={SPELLS.HEALING_RAIN_HEAL} /> targets
                 </Trans>
               }
               thresholds={thresholds.healingRainTargetThreshold}
@@ -160,7 +160,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.aoeSpell.efficiency">
-                Average <SpellLink id={TALENTS.WELLSPRING_TALENT.id} /> efficiency
+                Average <SpellLink spell={TALENTS.WELLSPRING_TALENT} /> efficiency
               </Trans>
             }
             thresholds={thresholds.wellspringTargetThreshold}
@@ -170,7 +170,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.aoeSpell.efficiency">
-                Average <SpellLink id={TALENTS.EARTHEN_WALL_TOTEM_TALENT.id} /> efficiency
+                Average <SpellLink spell={TALENTS.EARTHEN_WALL_TOTEM_TALENT} /> efficiency
               </Trans>
             }
             thresholds={thresholds.ewtTargetThreshold}
@@ -193,7 +193,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.appliedPrepull">
-                <SpellLink id={TALENTS.EARTH_SHIELD_TALENT.id} /> applied prepull
+                <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} /> applied prepull
               </Trans>
             }
             thresholds={thresholds.earthShieldPrepull}
@@ -203,7 +203,7 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
           <Requirement
             name={
               <Trans id="shaman.restoration.checklist.uptime">
-                <SpellLink id={TALENTS.EARTH_SHIELD_TALENT.id} /> Uptime
+                <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT} /> Uptime
               </Trans>
             }
             thresholds={thresholds.earthShieldUptime}
@@ -223,7 +223,6 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
             your downtime by reducing the delay between casting spells, anticipating movement,
             moving during the GCD, and{' '}
             <TooltipElement
-              wrapperStyles={{ display: 'inline' }}
               content={t({
                 id: 'shaman.restoration.checklist.inactivity.description.tooltip',
                 message: `While helping with damage would be optimal, it's much less important as a healer than any of the other suggestions on this checklist. You should ignore this suggestion while you are having difficulties with anything else.`,

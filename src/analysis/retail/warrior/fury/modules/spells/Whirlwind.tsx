@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/warrior';
@@ -155,13 +155,13 @@ class Whirlwind extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You're casting <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> poorly. Try to only use it
+          You're casting <SpellLink spell={SPELLS.WHIRLWIND_FURY_CAST} /> poorly. Try to only use it
           if your other abilities are on cooldown.
         </>,
       )
         .icon(SPELLS.WHIRLWIND.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.fury.suggestions.whirlwind.badCasts',
             message: `${formatPercentage(1 - actual)}% of bad Whirlwind casts`,
           }),

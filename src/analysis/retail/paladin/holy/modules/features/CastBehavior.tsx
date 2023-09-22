@@ -30,16 +30,17 @@ class CastBehavior extends Analyzer {
     const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(TALENTS.HOLY_LIGHT_TALENT.id);
-    const holyShockCast = getAbility(TALENTS.HOLY_SHOCK_TALENT.id);
+    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
     const holyShockHeal = getAbility(SPELLS.HOLY_SHOCK_HEAL.id);
     const holyShockDamage = getAbility(SPELLS.HOLY_SHOCK_DAMAGE.id);
+    const judgment = getAbility(SPELLS.JUDGMENT_CAST_HOLY.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
     const iolHolyLights = holyLight.healingIolHits || 0;
-    const totalIolUsages = iolFlashOfLights + iolHolyLights;
+    const iolJudgments = judgment.healingIolHits || 0;
+    const totalIolUsages = iolFlashOfLights + iolHolyLights + iolJudgments;
 
-    const holyShockCasts = holyShockCast.casts || 0;
+    const holyShockCasts = (holyShockHeal.healingHits || 0) + (holyShockDamage.damageHits || 0);
     const holyShockCrits =
       (holyShockHeal.healingCriticalHits || 0) + (holyShockDamage.damageCriticalHits || 0);
     const iolProcsPerHolyShockCrit = this.iolProcsPerHolyShockCrit;
@@ -55,9 +56,15 @@ class CastBehavior extends Analyzer {
       },
       {
         color: '#F57C00',
-        label: TALENTS.HOLY_LIGHT_TALENT.name,
-        spellId: TALENTS.HOLY_LIGHT_TALENT.id,
+        label: SPELLS.HOLY_LIGHT.name,
+        spellId: SPELLS.HOLY_LIGHT.id,
         value: iolHolyLights,
+      },
+      {
+        color: '#F8b700',
+        label: SPELLS.JUDGMENT_CAST_HOLY.name,
+        spellId: SPELLS.JUDGMENT_CAST_HOLY.id,
+        value: iolJudgments,
       },
       {
         color: '#A93226',
@@ -82,7 +89,7 @@ class CastBehavior extends Analyzer {
     const getAbility = (spellId: number) => abilityTracker.getAbility(spellId);
 
     const flashOfLight = getAbility(SPELLS.FLASH_OF_LIGHT.id);
-    const holyLight = getAbility(TALENTS.HOLY_LIGHT_TALENT.id);
+    const holyLight = getAbility(SPELLS.HOLY_LIGHT.id);
     const lightOfTheMartyr = getAbility(TALENTS.LIGHT_OF_THE_MARTYR_TALENT.id);
 
     const iolFlashOfLights = flashOfLight.healingIolHits || 0;
@@ -107,8 +114,8 @@ class CastBehavior extends Analyzer {
         },
         {
           color: '#F57C00',
-          label: TALENTS.HOLY_LIGHT_TALENT.name,
-          spellId: TALENTS.HOLY_LIGHT_TALENT.id,
+          label: SPELLS.HOLY_LIGHT.name,
+          spellId: SPELLS.HOLY_LIGHT.id,
           value: fillerHolyLights,
         },
         {
@@ -132,7 +139,7 @@ class CastBehavior extends Analyzer {
           <div className="pad">
             <label>
               <Trans id="paladin.holy.modules.castBehavior.infusionOfLightUsage">
-                <SpellLink id={SPELLS.INFUSION_OF_LIGHT} /> usage
+                <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} /> usage
               </Trans>
             </label>
 

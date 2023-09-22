@@ -80,7 +80,7 @@ class Inferno extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.INFERNO_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.INFERNO_TALENT}>
           {fragments}{' '}
           <small>
             <strong>estimated</strong> bonus Fragments

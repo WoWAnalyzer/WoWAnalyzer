@@ -26,7 +26,7 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         contributes to a large portion of your DPS. Because this window gives us our mastery{' '}
         <SpellLink spell={SPELLS.GIANT_SLAYER_MASTERY} /> with{' '}
         <SpellLink spell={TALENTS_EVOKER.TYRANNY_TALENT} /> and guaranteed{' '}
-        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs, we need to utilize the
+        <SpellLink spell={TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT} /> procs, we need to utilize the
         talent <SpellLink spell={TALENTS_EVOKER.ANIMOSITY_TALENT} /> to extend the buff duration as
         long as possible. We do this by trying to get in more than 2 rounds of{' '}
         <SpellLink spell={TALENTS_EVOKER.ETERNITY_SURGE_TALENT} /> and{' '}
@@ -35,7 +35,7 @@ export function DragonRageSection({ modules, events, info }: GuideProps<typeof C
         <SpellLink spell={TALENTS_EVOKER.TIP_THE_SCALES_TALENT} />.
       </p>
       <p>
-        To generate <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT} /> procs inside of{' '}
+        To generate <SpellLink spell={TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT} /> procs inside of{' '}
         <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> you should be casting{' '}
         <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> with{' '}
         <SpellLink spell={SPELLS.BURNOUT_BUFF} /> or <SpellLink spell={SPELLS.IRIDESCENCE_RED} /> or{' '}
@@ -109,19 +109,20 @@ function Statistics({ window }: { window: RageWindowCounter }) {
   return (
     <ul>
       <li>
-        <SpellLink spell={SPELLS.FIRE_BREATH.id} /> - {window.fireBreaths}/2 casts
+        <SpellLink spell={SPELLS.FIRE_BREATH} /> - {window.fireBreaths}/2 casts
       </li>
       <li>
-        <SpellLink spell={SPELLS.ETERNITY_SURGE.id} /> - {window.eternitySurges}/2 casts
+        <SpellLink spell={SPELLS.ETERNITY_SURGE} /> - {window.eternitySurges}/2 casts
       </li>
       <li>
-        <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_TALENT.id} /> - {window.essenceBursts} casts
+        <SpellLink spell={TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT} /> - {window.essenceBursts}{' '}
+        casts
       </li>
       <li>
-        <SpellLink spell={SPELLS.DISINTEGRATE.id} /> - {window.disintegrateTicks} ticks
+        <SpellLink spell={SPELLS.DISINTEGRATE} /> - {window.disintegrateTicks} ticks
       </li>
       <li>
-        <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT.id} /> - {window.pyres} casts
+        <SpellLink spell={TALENTS_EVOKER.PYRE_TALENT} /> - {window.pyres} casts
       </li>
     </ul>
   );

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -69,13 +69,13 @@ class Felstorm extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should use your Felguard's <SpellLink id={SPELLS.FELSTORM_BUFF.id} /> more often,
+          You should use your Felguard's <SpellLink spell={SPELLS.FELSTORM_BUFF} /> more often,
           preferably on cooldown.
         </>,
       )
         .icon(SPELLS.FELSTORM_BUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.demonology.suggestions.felstorm.casts',
             message: `${this.mainPetFelstormCount} out of ${this.maxCasts} (${formatPercentage(
               actual,

@@ -41,13 +41,13 @@ class CancelledCasts extends CoreCancelledCasts {
     if (this.selectedCombatant.specId === SPECS.FROST_MAGE.id) {
       extraMovementSpell = (
         <>
-          , and <SpellLink id={TALENTS.ICE_FLOES_TALENT.id} />
+          , and <SpellLink spell={TALENTS.ICE_FLOES_TALENT} />
         </>
       );
     } else if (this.selectedCombatant.specId === SPECS.ARCANE_MAGE.id) {
       extraMovementSpell = (
         <>
-          , and <SpellLink id={TALENTS.SLIPSTREAM_TALENT.id} />
+          , and <SpellLink spell={TALENTS.SLIPSTREAM_TALENT} />
         </>
       );
     }
@@ -59,9 +59,9 @@ class CancelledCasts extends CoreCancelledCasts {
           You cancelled {formatPercentage(this.cancelledPercentage)}% of your spells. While it is
           expected that you will have to cancel a few casts to react to boss mechanics or move, you
           should try to ensure that you are cancelling as few casts as possible by utilizing
-          movement abilities such as <SpellLink id={SPELLS.BLINK.id} />
+          movement abilities such as <SpellLink spell={SPELLS.BLINK} />
           {joiner}
-          <SpellLink id={TALENTS.SHIMMER_TALENT.id} />
+          <SpellLink spell={TALENTS.SHIMMER_TALENT} />
           {extraMovementSpell}.
         </>,
       )

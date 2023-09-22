@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import talents from 'common/TALENTS/monk';
 import { SpellLink } from 'interface';
@@ -73,7 +73,7 @@ class BlackOxBrew extends Analyzer {
   }
 
   _resetCB() {
-    const spellId = talents.BLACK_OX_BREW_TALENT.id;
+    const spellId = talents.CELESTIAL_BREW_TALENT.id;
     if (this.spellUsable.isOnCooldown(spellId)) {
       this._trackCdr(spellId);
       this.spellUsable.endCooldown(spellId);
@@ -93,12 +93,12 @@ class BlackOxBrew extends Analyzer {
     when(this.suggestionThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={talents.BLACK_OX_BREW_TALENT.id} /> usage can be improved.
+          Your <SpellLink spell={talents.BLACK_OX_BREW_TALENT} /> usage can be improved.
         </>,
       )
         .icon(talents.BLACK_OX_BREW_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.brewmaster.suggestions.blackOxBrew.cdrWasted',
             message: `${formatPercentage(actual)}% of Cooldown Reduction wasted`,
           }),

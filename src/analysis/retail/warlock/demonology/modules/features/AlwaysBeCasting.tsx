@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -28,13 +28,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         <>
           Your downtime can be improved. Try to Always Be Casting (ABC), try to reduce the delay
           between casting spells. Even if you have to move, try casting something instant. Make good
-          use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} /> or{' '}
-          <SpellLink id={TALENTS.BURNING_RUSH_TALENT.id} /> when you can.
+          use of your <SpellLink spell={SPELLS.DEMONIC_CIRCLE} /> or{' '}
+          <SpellLink spell={TALENTS.BURNING_RUSH_TALENT} /> when you can.
         </>,
       )
         .icon('spell_mage_altertime')
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.demonology.suggestions.alwaysBeCasting.downtime',
             message: `${formatPercentage(actual)}% downtime`,
           }),

@@ -58,13 +58,13 @@ class MomentOfGlory extends Analyzer {
         tooltip={
           <>
             You hit <b>{formatNumber(this.damageBoostedHits)}</b> targets with a{' '}
-            <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} /> boosted with{' '}
-            <SpellLink id={TALENTS.MOMENT_OF_GLORY_TALENT.id} />.
+            <SpellLink spell={TALENTS.AVENGERS_SHIELD_TALENT} /> boosted with{' '}
+            <SpellLink spell={TALENTS.MOMENT_OF_GLORY_TALENT} />.
           </>
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.MOMENT_OF_GLORY_TALENT.id}
+          spell={TALENTS.MOMENT_OF_GLORY_TALENT.id}
           value={formatNumber(this.totalExtraDamage)}
           label="Extra Damage"
         />

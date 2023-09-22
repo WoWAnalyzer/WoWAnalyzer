@@ -166,7 +166,7 @@ class Grace extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.GRACE.id} />}
+        icon={<SpellIcon spell={SPELLS.GRACE} />}
         value={`${formatNumber((this.graceHealing / this.owner.fightDuration) * 1000)} HPS`}
         label="Mastery Healing"
         tooltip={

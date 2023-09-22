@@ -30,7 +30,7 @@ class Cleave extends Analyzer {
       <StatisticListBoxItem
         title={
           <>
-            Average <SpellLink id={TALENTS.CLEAVE_TALENT.id} /> damage
+            Average <SpellLink spell={TALENTS.CLEAVE_TALENT} /> damage
           </>
         }
         value={formatThousands(avg)}

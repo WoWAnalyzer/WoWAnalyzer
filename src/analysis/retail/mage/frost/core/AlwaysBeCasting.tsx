@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -35,18 +35,18 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
             <>
               Your downtime can be improved. Try to Always Be Casting (ABC) and try to reduce the
               delay between casting spells. If you have to move, try casting instants like{' '}
-              <SpellLink id={SPELLS.FIRE_BLAST.id} /> or{' '}
-              <SpellLink id={SPELLS.ARCANE_EXPLOSION.id} /> (if there are 2+ targets); even unbuffed{' '}
-              <SpellLink id={TALENTS.ICE_LANCE_TALENT.id} /> spam is better than nothing.
+              <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
+              <SpellLink spell={SPELLS.ARCANE_EXPLOSION} /> (if there are 2+ targets); even unbuffed{' '}
+              <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> spam is better than nothing.
               Additionally, if you are standing still while waiting for a boss damage reduction or
               immunity phase to end, you should still be casting{' '}
-              <SpellLink id={SPELLS.FROSTBOLT.id} /> to generate procs or build{' '}
-              <SpellLink id={SPELLS.ICICLES_BUFF.id} />.
+              <SpellLink spell={SPELLS.FROSTBOLT} /> to generate procs or build{' '}
+              <SpellLink spell={SPELLS.ICICLES_BUFF} />.
             </>,
           )
             .icon('spell_mage_altertime')
             .actual(
-              t({
+              defineMessage({
                 id: 'mage.frost.suggestions.alwaysBeCasting.downtime',
                 message: `${formatPercentage(actual)}% downtime`,
               }),

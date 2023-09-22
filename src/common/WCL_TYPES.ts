@@ -166,6 +166,7 @@ export interface WCLParse {
   reportID: string;
   fightID: number;
   difficulty: number;
+  size: number;
   characterID: number;
   characterName: string;
   server: string;

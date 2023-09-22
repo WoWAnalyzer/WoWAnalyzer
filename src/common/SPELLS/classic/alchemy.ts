@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   FLASK_OF_THE_FROST_WYRM: {
     id: 53755,
     name: 'Flask of the Frost Wyrm',
@@ -26,6 +26,6 @@ const spells = spellIndexableList({
     name: 'Flask of Distilled Wisom',
     icon: 'inv_potion_97',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

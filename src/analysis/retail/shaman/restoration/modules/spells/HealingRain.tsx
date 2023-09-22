@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
@@ -77,13 +77,13 @@ class HealingRain extends Analyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            Try to always cast <SpellLink id={TALENTS.HEALING_RAIN_TALENT.id} /> in areas where
+            Try to always cast <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} /> in areas where
             players stack. This allows the spell to consitantly hit all possible targets.
           </span>,
         )
           .icon(TALENTS.HEALING_RAIN_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shaman.restoration.suggestions.healingRain.averageTargets',
               message: `${suggestionThreshold.actual.toFixed(2)} average targets healed`,
             }),
@@ -171,12 +171,12 @@ class HealingRain extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_SHAMAN.HEALING_RAIN_TALENT.id} />
+          <SpellLink spell={TALENTS_SHAMAN.HEALING_RAIN_TALENT} />
         </b>{' '}
         is one of your best sources of consistent throughput and can be augmented to do more healing
-        through <SpellLink id={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
-        <SpellLink id={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
-        <SpellLink id={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this
+        through <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
+        <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
+        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this
         spell is also the activator for your{' '}
         <ItemSetLink id={SHAMAN_T30_ID}>
           <>Tier 30 Set Bonus</>
@@ -189,7 +189,7 @@ class HealingRain extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_SHAMAN.HEALING_RAIN_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_SHAMAN.HEALING_RAIN_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
@@ -219,7 +219,7 @@ class HealingRain extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.HEALING_RAIN_HEAL.id} />}
+        icon={<SpellIcon spell={SPELLS.HEALING_RAIN_HEAL} />}
         value={`${this.averageHitsPerTick.toFixed(2)}`}
         position={STATISTIC_ORDER.OPTIONAL()}
         label={

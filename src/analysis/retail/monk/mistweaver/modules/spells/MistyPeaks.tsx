@@ -103,7 +103,7 @@ class MistyPeaks extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -120,17 +120,17 @@ class MistyPeaks extends Analyzer {
         tooltip={
           <ul>
             <li>
-              <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT.id} /> procs: {this.numHots}
+              <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} /> procs: {this.numHots}
             </li>
             <li>
-              <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> extra hits: {this.extraHits}
+              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> extra hits: {this.extraHits}
             </li>
             <li>
-              Extra <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> direct healing:{' '}
+              Extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> direct healing:{' '}
               {formatNumber(this.extraHealing + this.extraAbsorb)}
             </li>
             <li>
-              Bonus healing from <SpellLink id={TALENTS_MONK.ENVELOPING_MIST_TALENT.id} /> buff:{' '}
+              Bonus healing from <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> buff:{' '}
               {formatNumber(this.extraEnvBonusHealing)}
             </li>
           </ul>

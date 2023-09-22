@@ -7,6 +7,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
+import ItemCooldownReduction from 'parser/ui/ItemCooldownReduction';
 
 const REDUCTION = 1000;
 const MAX_REDUCTION_PER_CAST = REDUCTION * 3;
@@ -71,8 +72,8 @@ class Thunderlord extends Analyzer {
         category={STATISTIC_CATEGORY.COVENANTS}
         tooltip={<>Wasted CDR: {formatDuration(this.wastedCDR)}</>}
       >
-        <BoringSpellValueText spellId={TALENTS.THUNDERLORD_TALENT.id}>
-          {formatDuration(this.effectiveCDR)} <small>cdr</small>
+        <BoringSpellValueText spell={TALENTS.THUNDERLORD_TALENT}>
+          <ItemCooldownReduction effective={this.effectiveCDR} waste={this.wastedCDR} />
         </BoringSpellValueText>
       </Statistic>
     );

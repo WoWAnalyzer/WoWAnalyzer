@@ -7,6 +7,7 @@ import SpecIcon from 'interface/SpecIcon';
 import mergeAllChangelogs, { ChangeLogItem } from 'mergeAllChangelogs';
 import { useState, useCallback } from 'react';
 import 'interface/NewsPage.scss';
+import { useLingui } from '@lingui/react';
 
 type ArticleItem = { article: string; date: Date };
 
@@ -44,6 +45,7 @@ const hasNewer = (page: number) => page > 0;
 
 const NewsList = ({ topAnchor }: Props) => {
   const [page, setPage] = useState(0);
+  const { i18n } = useLingui();
 
   const scrollToTop = useCallback(() => {
     const elem = document.getElementById(topAnchor);
@@ -92,7 +94,9 @@ const NewsList = ({ topAnchor }: Props) => {
                     </>
                   ) : (
                     <>
-                      <SpecIcon spec={item.spec} /> {item.spec.specName} {item.spec.className}
+                      <SpecIcon spec={item.spec} />{' '}
+                      {item.spec.specName ? i18n._(item.spec.specName) : undefined}{' '}
+                      {i18n._(item.spec.className)}
                     </>
                   )}{' '}
                   updated at {item.date.toLocaleDateString()} by{' '}

@@ -80,7 +80,7 @@ class MistyPeaksHealingBreakdown extends Analyzer {
       <Statistic position={STATISTIC_ORDER.CORE(1)} size="flexible">
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT}>Misty Peaks</SpellLink> breakdown
+            <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT}>Misty Peaks</SpellLink> breakdown
           </label>
           {this.renderMistyPeaksChart()}
         </div>

@@ -15,27 +15,26 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         id: cache
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           restore-keys: ${{ runner.os }}-node_modules-
       - name: Get yarn cache directory path
         if: steps.cache.outputs.cache-hit != 'true'
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
       # Use week number for automatically purging the cache every week. This is
       # useful because caching yarn-cache would otherwise lead it to grow
       # indefinitely since old dependencies are never purged.
       - name: Get week number
         if: steps.cache.outputs.cache-hit != 'true'
         id: week-number
-        run: echo "::set-output name=value::$(date +%W)"
+        run: echo "value=$(date +%W)" >> $GITHUB_OUTPUT
       - name: Cache "yarn-cache"
         uses: martijnhols/actions-cache@v3
         if: steps.cache.outputs.cache-hit != 'true'
@@ -51,7 +50,6 @@ jobs:
         with:
           path: |
             node_modules
-            analysis/*/node_modules
           key: ${{ steps.cache.outputs.primary-key }}
 
   # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
@@ -66,14 +64,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn typecheck
   linting:
@@ -84,14 +81,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn lint --max-warnings=0
   prettier:
@@ -102,14 +98,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn prettier . --check
   test-interface:
@@ -121,14 +116,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:interface --runInBand
   test-parser:
@@ -139,14 +133,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:parser --runInBand
   test-integration:
@@ -157,14 +150,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:integration --runInBand
   build:
@@ -176,27 +168,29 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
         run: |
           yarn extract
           yarn lingui compile
+      - name: Calculate environment name
+        id: environment-name
+        run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
       - name: Production build
-        run: |
-          REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
-          REACT_APP_VERSION=$GITHUB_SHA
-          # We already ran ESLint in a separate step
-          DISABLE_AUTOMATIC_ESLINT=true
-          yarn build
+        run: yarn build
+        env:
+          DISABLE_AUTOMATIC_ESLINT: true
+          REACT_APP_ENABLE_GA: true
+          REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
+          REACT_APP_VERSION: ${{ github.sha }}
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
@@ -210,28 +204,32 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - name: Extract messages
         run: |
           yarn extract
           yarn lingui compile
-      - name: Customized e2e production build
-        run: |
-          REACT_APP_ENVIRONMENT_NAME=${GITHUB_REF##*/}
-          REACT_APP_VERSION=$GITHUB_SHA
-          # Even though this is a "production" build, it's actually a "development" build
-          cp .env.development .env.production
-          # We already ran ESLint in a separate step
-          DISABLE_AUTOMATIC_ESLINT=true
-          yarn build
+      - name: Calculate environment name
+        id: environment-name
+        run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+      - name: Customize production environment variables
+        # Even though this is a "production" build, it's actually a "development" build we're
+        # using for e2e testing.
+        run: cp .env.development .env.production
+      - name: Production build
+        run: yarn build
+        env:
+          DISABLE_AUTOMATIC_ESLINT: true
+          REACT_APP_ENABLE_GA: true
+          REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
+          REACT_APP_VERSION: ${{ github.sha }}
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
@@ -249,14 +247,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - uses: actions/download-artifact@v3
         with:
@@ -285,14 +282,13 @@ jobs:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - name: Restore "node_modules" from cache
         uses: martijnhols/actions-cache/restore@v3
         with:
           path: |
             node_modules
-            analysis/*/node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v2
+          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - name: Extract messages
         run: yarn extract
@@ -352,5 +348,5 @@ jobs:
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
       - uses: actions/setup-node@v3
         with:
-          node-version: '16.x'
+          node-version: '18.x'
       - run: node scripts/require-changelog-entry.js

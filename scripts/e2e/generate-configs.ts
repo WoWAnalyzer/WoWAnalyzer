@@ -7,47 +7,48 @@ import CONFIGS from 'parser';
 import { CLASSIC_EXPANSION, isCurrentExpansion } from 'game/Expansion';
 import isLatestPatch from 'game/isLatestPatch';
 
-i18n.loadLocaleData('en', { plurals: en });
+export const generateConfigs = () => {
+  i18n.loadLocaleData('en', { plurals: en });
 
-const pathToMessages = join(__dirname, '..', '..', 'src', 'localization', 'en', 'messages.json');
-const messagesRaw = readFileSync(pathToMessages, { encoding: 'utf-8' });
-const messages = JSON.parse(messagesRaw);
+  const pathToMessages = join(__dirname, '..', '..', 'src', 'localization', 'en', 'messages.json');
+  const messagesRaw = readFileSync(pathToMessages, { encoding: 'utf-8' });
+  const messages = JSON.parse(messagesRaw);
 
-i18n.load('en', messages);
-i18n.activate('en');
+  i18n.load('en', messages);
+  i18n.activate('en');
 
-const supportedConfigs = CONFIGS.filter(
-  (it) => it.exampleReport && isLatestPatch(it) && isCurrentExpansion(it.expansion),
-);
+  const supportedConfigs = CONFIGS.filter(
+    (it) => it.exampleReport && isLatestPatch(it) && isCurrentExpansion(it.expansion),
+  );
 
-const specs = supportedConfigs.map((config) => {
-  const nameParts: string[] = [];
-  const namePrefixParts: string[] = [];
-  if (config.expansion === CLASSIC_EXPANSION) {
-    namePrefixParts.push('Classic');
-  }
-  if (config.spec.specName) {
-    nameParts.push(config.spec.specName);
-  }
-  nameParts.push(config.spec.className);
-  return {
-    name: nameParts.join(' '),
-    fullName: namePrefixParts.concat(nameParts).join(' '),
-    exampleReport: config.exampleReport,
-    isLatestPatch: isLatestPatch(config),
-    isClassic: config.expansion === CLASSIC_EXPANSION,
+  const specs = supportedConfigs.map((config) => {
+    const nameParts: string[] = [];
+    const namePrefixParts: string[] = [];
+    if (config.expansion === CLASSIC_EXPANSION) {
+      namePrefixParts.push('Classic');
+    }
+    if (config.spec.specName) {
+      nameParts.push(i18n._(config.spec.specName));
+    }
+    nameParts.push(i18n._(config.spec.className));
+    return {
+      name: nameParts.join(' '),
+      fullName: namePrefixParts.concat(nameParts).join(' '),
+      exampleReport: config.exampleReport,
+      isLatestPatch: isLatestPatch(config),
+      isClassic: config.expansion === CLASSIC_EXPANSION,
+    };
+  });
+
+  const screamingSnakeCase = (str: string) => {
+    return str
+      .replace(/\d+/g, ' ')
+      .split(/ |\B(?=[A-Z])/)
+      .map((word) => word.toUpperCase())
+      .join('_');
   };
-});
 
-const screamingSnakeCase = (str: string) => {
-  return str
-    .replace(/\d+/g, ' ')
-    .split(/ |\B(?=[A-Z])/)
-    .map((word) => word.toUpperCase())
-    .join('_');
-};
-
-const rawTsFile = `
+  const rawTsFile = `
   // Generated file, changes will eventually be overwritten!
 
   ${specs
@@ -58,15 +59,16 @@ const rawTsFile = `
     .map((spec) => screamingSnakeCase(spec.fullName))
     .join(', ')}];
 `;
-const formattedTsFile = format(rawTsFile, { parser: 'typescript' });
+  const formattedTsFile = format(rawTsFile, { parser: 'typescript' });
 
-const configDirectory = join(__dirname, '..', '..', 'e2e', 'generated');
-if (!existsSync(configDirectory)) {
-  mkdirSync(configDirectory);
-}
+  const configDirectory = join(__dirname, '..', '..', 'e2e', 'generated');
+  if (!existsSync(configDirectory)) {
+    mkdirSync(configDirectory);
+  }
 
-const pathToWriteConfigs = join(configDirectory, 'supportedSpecs.ts');
-writeFileSync(pathToWriteConfigs, formattedTsFile, {
-  encoding: 'utf-8',
-});
-console.log(`Wrote specs file to ${pathToWriteConfigs}`);
+  const pathToWriteConfigs = join(configDirectory, 'supportedSpecs.ts');
+  writeFileSync(pathToWriteConfigs, formattedTsFile, {
+    encoding: 'utf-8',
+  });
+  console.log(`Wrote specs file to ${pathToWriteConfigs}`);
+};

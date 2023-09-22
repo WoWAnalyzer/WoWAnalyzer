@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -39,14 +39,14 @@ class HealingSurge extends Analyzer {
       .addSuggestion((suggest) =>
         suggest(
           <span>
-            Casting <SpellLink id={SPELLS.HEALING_SURGE.id} /> without{' '}
-            <SpellLink id={SPELLS.TIDAL_WAVES_BUFF.id} /> is very inefficient, try not to cast more
+            Casting <SpellLink spell={SPELLS.HEALING_SURGE} /> without{' '}
+            <SpellLink spell={SPELLS.TIDAL_WAVES_BUFF} /> is very inefficient, try not to cast more
             than is necessary.
           </span>,
         )
           .icon(SPELLS.HEALING_SURGE.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shaman.restoration.suggestions.healingSurge.unbuffed',
               message: `${formatPercentage(suggestedThreshold.actual)}% of unbuffed Healing Surges`,
             }),

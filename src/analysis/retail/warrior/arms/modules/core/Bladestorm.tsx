@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -178,16 +178,16 @@ class Bladestorm extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Do not cast <SpellLink id={SPELLS.BLADESTORM.id} /> when you have rage to spend during
+          Do not cast <SpellLink spell={SPELLS.BLADESTORM} /> when you have rage to spend during
           single target fights. In multi-target situations, Bladestorm should not overlap with{' '}
-          <SpellLink id={SPELLS.SWEEPING_STRIKES.id} /> and you should try to align Bladestorm with
-          cooldowns such as <SpellLink id={TALENTS.AVATAR_SHARED_TALENT.id} /> and{' '}
-          <SpellLink id={TALENTS.WARBREAKER_TALENT.id} />
+          <SpellLink spell={SPELLS.SWEEPING_STRIKES} /> and you should try to align Bladestorm with
+          cooldowns such as <SpellLink spell={TALENTS.AVATAR_SHARED_TALENT} /> and{' '}
+          <SpellLink spell={TALENTS.WARBREAKER_TALENT} />
         </>,
       )
         .icon(SPELLS.BLADESTORM.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.arms.suggestions.bladestorm.efficiency',
             message: `Bladestorm was used incorrectly  ${formatPercentage(actual)}% of the time.`,
           }),

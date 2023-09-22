@@ -38,9 +38,8 @@ import InefficientLightOfTheMartyrs from './modules/spells/InefficientLightOfThe
 import LightOfDawn from './modules/spells/LightOfDawn';
 import AvengingCrusader from './modules/talents/AvengingCrusader';
 import CrusadersMight from './modules/talents/CrusadersMight';
-import GlimmerOfLight from './modules/talents/GlimmerOfLight';
+import GlimmerOfLight from './modules/talents/GlimmerOfLight/GlimmerOfLight';
 import JudgmentOfLight from './modules/talents/JudgmentOfLight';
-import RuleOfLaw from './modules/talents/RuleOfLaw';
 import BeaconOfVirtueNormalizer from './normalizers/BeaconOfVirtue';
 import LightOfDawnNormalizer from './normalizers/LightOfDawn';
 import { BlessingOfTheSeasons } from './modules/talents/BlessingOfTheSeasons';
@@ -49,6 +48,20 @@ import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 import AverageLODDistance from './modules/spells/AverageLODDistance';
 import ImbuedInfusion from './modules/talents/ImbuedInfusion';
 import HolyPrism from './modules/talents/HolyPrism';
+import ELConsumedBuffs from './modules/talents/EmpyreanLegacy/ConsumedBuffs';
+import ELPossibleBuffs from './modules/talents/EmpyreanLegacy/PossibleBuffs';
+import TirionsDevotion from './modules/talents/TirionsDevotion';
+import Reclamation from './modules/talents/Reclamation';
+import LightsProtection from './modules/talents/GlimmerOfLight/LightsProtection';
+import Daybreak from './modules/talents/GlimmerOfLight/Daybreak';
+import TyrsDeliverance from './modules/talents/TyrsDeliverance/TyrsDeliverance';
+import BoundlessSalvation from './modules/talents/TyrsDeliverance/BoundlessSalvation';
+import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
+import HealingEfficiencyDetails from 'parser/core/healingEfficiency/HealingEfficiencyDetails';
+import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart';
+import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
+import SpellManaCost from 'parser/shared/modules/SpellManaCost';
+import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinHealingEfficiencyTracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -91,7 +104,6 @@ class CombatLogParser extends CoreCombatLogParser {
     mightOfTheMountain: MightOfTheMountain,
 
     // Talents
-    ruleOfLaw: RuleOfLaw,
     devotionAuradamageReduction: DevotionAuraDamageReduction,
     divinePurpose: DivinePurpose,
     crusadersMight: CrusadersMight,
@@ -106,11 +118,27 @@ class CombatLogParser extends CoreCombatLogParser {
     averageLODDistance: AverageLODDistance,
     imbuedInfusion: ImbuedInfusion,
     holyPrism: HolyPrism,
+    elConsumedBuffs: ELConsumedBuffs,
+    elPossibleBuffs: ELPossibleBuffs,
+    tirionsDevotion: TirionsDevotion,
+    reclamation: Reclamation,
+    lightsProtection: LightsProtection,
+    daybreak: Daybreak,
+    tyrsDeliverance: TyrsDeliverance,
+    boundlessSalvation: BoundlessSalvation,
 
     // HolyPower
     holyPowerTracker: HolyPowerTracker,
     holyPowerDetails: HolyPowerDetails,
     holyPowerPerMinute: HolyPowerPerMinute,
+
+    // Mana Tab
+    spellManaCost: SpellManaCost,
+    manaTracker: ManaTracker,
+    hpmTracker: HolyPaladinHealingEfficiencyTracker,
+    manaLevelChart: ManaLevelChart,
+    manaUsageChart: ManaUsageChart,
+    hpmDetails: HealingEfficiencyDetails,
 
     // Tier Sets
     t30TierSet: T30HpalTierSet,

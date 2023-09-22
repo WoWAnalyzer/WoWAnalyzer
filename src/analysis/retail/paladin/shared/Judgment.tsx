@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -133,12 +133,12 @@ class Judgment extends Analyzer {
       when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            You're not consuming all your <SpellLink id={SPELLS.JUDGMENT_CAST.id} icon /> debuffs.
+            You're not consuming all your <SpellLink spell={SPELLS.JUDGMENT_CAST} icon /> debuffs.
           </>,
         )
           .icon(SPELLS.JUDGMENT_DEBUFF.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'paladin.retribution.suggestions.judgement.consumed',
               message: `${formatPercentage(this.percentageJudgmentsConsumed)}% Judgments consumed`,
             }),
@@ -156,7 +156,7 @@ class Judgment extends Analyzer {
         tooltip={this.getStatisticTooltip()}
       >
         <BoringSpellValue
-          spellId={SPELLS.JUDGMENT_DEBUFF.id}
+          spell={SPELLS.JUDGMENT_DEBUFF.id}
           value={`${formatNumber(this.totalJudgmentConsumptions)}`}
           label="Judgment Debuffs Consumed"
         />

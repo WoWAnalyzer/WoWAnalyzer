@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon, SpellLink } from 'interface';
@@ -183,13 +183,13 @@ class ShieldBlock extends Analyzer {
       suggest(
         <>
           {' '}
-          You had uneventful <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> cast(s) where there was
+          You had uneventful <SpellLink spell={SPELLS.SHIELD_BLOCK} /> cast(s) where there was
           either no blockable damage events or you didn't cast shield slam enough.{' '}
         </>,
       )
         .icon(SPELLS.SHIELD_BLOCK.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.protection.suggestions.shieldBlock.goodCasts',
             message: `${this.goodCast} good casts of shield block`,
           }),
@@ -218,9 +218,9 @@ class ShieldBlock extends Analyzer {
             <br />
             Good offensive casts: {offensiveCasts}
             <br />
-            Good offensive casts where you cast <SpellLink id={SPELLS.SHIELD_SLAM.id} /> during the{' '}
-            <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> buff to take advantage of increased{' '}
-            <SpellLink id={SPELLS.SHIELD_SLAM.id} /> damage.
+            Good offensive casts where you cast <SpellLink spell={SPELLS.SHIELD_SLAM} /> during the{' '}
+            <SpellLink spell={SPELLS.SHIELD_BLOCK} /> buff to take advantage of increased{' '}
+            <SpellLink spell={SPELLS.SHIELD_SLAM} /> damage.
             <br />
             <br />
             Good defensive casts: {defensiveCasts}
@@ -231,7 +231,7 @@ class ShieldBlock extends Analyzer {
             Some casts may be good both offensively and defensively.
             <br />
             <br />
-            Try to maximize the efficiency of your <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> casts
+            Try to maximize the efficiency of your <SpellLink spell={SPELLS.SHIELD_BLOCK} /> casts
             by ensuring that you take advantage of the offensive or defensive effects each time.
           </>
         }
@@ -239,7 +239,7 @@ class ShieldBlock extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.SHIELD_BLOCK.id} /> Bad Defensive Casts
+              <SpellIcon spell={SPELLS.SHIELD_BLOCK} /> Bad Defensive Casts
             </>
           }
         >

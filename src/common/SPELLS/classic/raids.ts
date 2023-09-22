@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   // -----------------
   // PHASE 2 - ULDUAR
   // -----------------
@@ -40,6 +40,6 @@ const spells = spellIndexableList({
     name: 'Shadowy Barrier',
     icon: 'spell_shadow_soulgem',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

@@ -15,6 +15,7 @@ import { useState } from 'react';
 import { PassFailCheckmark } from 'interface/guide';
 import { ATONEMENT_DAMAGE_SOURCES } from '../../constants';
 import PassFailBar from 'interface/guide/components/PassFailBar';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 const ALLOWED_PRE_RAPTURE = [
   TALENTS_PRIEST.POWER_WORD_RADIANCE_TALENT.id,
@@ -80,7 +81,6 @@ class RaptureAnalysis extends Analyzer {
   // groups all the casts just before you cast evangelism
   onRaptureCast(event: CastEvent) {
     this.ramps.push({ timestamp: event.timestamp, rampHistory: [], damageRotation: [] });
-    console.log(this.ramps);
     this.finishedRamping = false;
     this.radianceCounter = 0;
   }
@@ -90,6 +90,9 @@ class RaptureAnalysis extends Analyzer {
 
   buildSequence(event: CastEvent) {
     if (this.ramps.length < 1) {
+      return;
+    }
+    if (!this.globalCooldown.isOnGlobalCooldown(event.ability.guid)) {
       return;
     }
 
@@ -180,15 +183,15 @@ class RaptureAnalysis extends Analyzer {
       const header = (
         <>
           @ {this.owner.formatTimestamp(ramp.timestamp)}{' '}
-          <SpellLink id={TALENTS_PRIEST.RAPTURE_TALENT.id} />
+          <SpellLink spell={TALENTS_PRIEST.RAPTURE_TALENT} />
         </>
       );
 
       const badCastTooltip = (index: number) => (
         <>
-          Casting a spell like <SpellLink id={ramp.rampHistory[index].ability.guid} /> is not
-          recommended while ramping. Make sure to mostly focus on applying{' '}
-          <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} /> when ramping.
+          Casting a spell like <SpellLink spell={abilityToSpell(ramp.rampHistory[index].ability)} />{' '}
+          is not recommended while ramping. Make sure to mostly focus on applying{' '}
+          <SpellLink spell={TALENTS_PRIEST.ATONEMENT_TALENT} /> when ramping.
         </>
       );
 
@@ -246,16 +249,16 @@ class RaptureAnalysis extends Analyzer {
         <>
           Damage rotation breakdown:
           <div>
-            Used <SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id} />{' '}
+            Used <SpellLink spell={TALENTS_PRIEST.SCHISM_TALENT} />{' '}
             <PassFailCheckmark pass={usedSchism} />
           </div>
           <div>
-            Used <SpellLink id={TALENTS_PRIEST.SCHISM_TALENT.id} /> early{' '}
+            Used <SpellLink spell={TALENTS_PRIEST.SCHISM_TALENT} /> early{' '}
             <PassFailCheckmark pass={earlySchism} />
           </div>
           <div>
             Used {atonementTransferred} / {ramp.damageRotation.length} damage spells to transfer{' '}
-            <SpellLink id={TALENTS_PRIEST.ATONEMENT_TALENT.id} />: <br />
+            <SpellLink spell={TALENTS_PRIEST.ATONEMENT_TALENT} />: <br />
             <PassFailBar
               pass={atonementTransferred}
               total={ramp.damageRotation.length}

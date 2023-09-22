@@ -1,8 +1,15 @@
 import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
-import { CastEvent, EventType, GetRelatedEvents, RemoveBuffStackEvent } from 'parser/core/Events';
+import {
+  CastEvent,
+  EventType,
+  GetRelatedEvents,
+  RemoveBuffStackEvent,
+  ResourceChangeEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 /*
 WCL: https://www.warcraftlogs.com/reports/Y7BWyCx3mHVZzPrk#fight=last&type=summary&view=events&pins=2%24Off%24%23244F4B%24casts%7Cauras%24-1%240.0.0.Any%240.0.0.Any%24true%240.0.0.Any%24true%24258920%7C204255%7C203981%7C263642
@@ -15,9 +22,11 @@ If a soul is cast and then a buff is removed within 100 ms that means it was a w
 // Note that this number may need to change with sufficient levels of haste.
 const SOUL_GENERATE_BUFFER = 1300;
 const SOUL_WASTED_BUFFER = 100;
+const RESOURCE_CHANGE_BUFFER = 100;
 
 const GENERATED_SOUL_FRAGMENT = 'ShearFractureGeneratedSoulFragment';
 const WASTED_SOUL_FRAGMENT = 'ShearFractureWastedSoulFragment';
+const RESOURCE_CHANGE = 'ShearFractureResourceChange';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -39,6 +48,20 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: SOUL_WASTED_BUFFER,
     backwardBufferMs: SOUL_WASTED_BUFFER,
     anyTarget: true,
+  },
+  {
+    linkRelation: RESOURCE_CHANGE,
+    referencedEventId: [SPELLS.SHEAR.id, TALENTS.FRACTURE_TALENT.id],
+    referencedEventType: EventType.ResourceChange,
+    linkingEventId: [SPELLS.SHEAR.id, TALENTS.FRACTURE_TALENT.id],
+    linkingEventType: EventType.Cast,
+    forwardBufferMs: RESOURCE_CHANGE_BUFFER,
+    backwardBufferMs: RESOURCE_CHANGE_BUFFER,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition: (linkingEvent, referencedEvent) =>
+      referencedEvent.type === EventType.ResourceChange &&
+      referencedEvent.resourceChangeType === RESOURCE_TYPES.FURY.id,
   },
 ];
 
@@ -62,4 +85,10 @@ export function getWastedSoulFragment(event: RemoveBuffStackEvent): CastEvent | 
   return GetRelatedEvents(event, WASTED_SOUL_FRAGMENT)
     .filter((e): e is CastEvent => e.type === EventType.Cast)
     .pop();
+}
+
+export function getResourceChange(event: CastEvent): ResourceChangeEvent | undefined {
+  return GetRelatedEvents(event, RESOURCE_CHANGE)
+    .filter((e): e is ResourceChangeEvent => e.type === EventType.ResourceChange)
+    .at(0);
 }

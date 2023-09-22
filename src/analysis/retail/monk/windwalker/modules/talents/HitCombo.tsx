@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -70,14 +70,14 @@ class HitCombo extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          You let your <SpellLink id={TALENTS_MONK.HIT_COMBO_TALENT.id} /> buff drop by casting a
+          You let your <SpellLink spell={TALENTS_MONK.HIT_COMBO_TALENT} /> buff drop by casting a
           spell twice in a row. Dropping this buff is a large DPS decrease so be mindful of the
           spells being cast.
         </span>,
       )
         .icon(TALENTS_MONK.HIT_COMBO_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.suggestions.hitCombo.uptime',
             message: `${formatPercentage(actual)} % uptime`,
           }),
@@ -99,7 +99,7 @@ class HitCombo extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.HIT_COMBO_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_MONK.HIT_COMBO_TALENT}>
           <UptimeIcon /> {formatPercentage(this.uptime)}% <small>Weighted uptime</small>
           <br />
           <img src="/img/sword.png" alt="Damage" className="icon" /> {formatNumber(this.dps)} DPS{' '}

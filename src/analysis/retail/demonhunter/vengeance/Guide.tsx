@@ -3,21 +3,22 @@ import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import SPELLS from 'common/SPELLS/demonhunter';
 import { ResourceLink, SpellLink } from 'interface';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { t, Trans } from '@lingui/macro';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import FuryCapWaste from 'analysis/retail/demonhunter/shared/guide/FuryCapWaste';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import CooldownGraphSubsection, {
+  Cooldown,
+} from 'interface/guide/components/CooldownGraphSubSection';
 
 import CombatLogParser from './CombatLogParser';
-import CooldownGraphSubsection from './guide/CooldownGraphSubSection';
 import MajorDefensives from './modules/core/MajorDefensives';
 import {
   GOOD_TIME_AT_FURY_CAP,
   OK_TIME_AT_FURY_CAP,
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -37,24 +38,12 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
   const furyWasted = modules.furyTracker.wasted;
 
   return (
-    <Section
-      title={t({
-        id: 'guide.demonhunter.vengeance.sections.resources.title',
-        message: 'Resource Use',
-      })}
-    >
-      <SubSection
-        title={t({
-          id: 'guide.demonhunter.vengeance.sections.resources.fury.title',
-          message: 'Fury',
-        })}
-      >
+    <Section title="Resource Use">
+      <SubSection title="Fury">
         <p>
-          <Trans id="guide.demonhunter.vengeance.sections.resources.fury.summary">
-            Vengeance's primary resource is <ResourceLink id={RESOURCE_TYPES.FURY.id} />. You should
-            avoid capping <ResourceLink id={RESOURCE_TYPES.FURY.id} /> - lost{' '}
-            <ResourceLink id={RESOURCE_TYPES.FURY.id} /> generation is lost DPS.
-          </Trans>
+          Vengeance's primary resource is <ResourceLink id={RESOURCE_TYPES.FURY.id} />. You should
+          avoid capping <ResourceLink id={RESOURCE_TYPES.FURY.id} /> - lost{' '}
+          <ResourceLink id={RESOURCE_TYPES.FURY.id} /> generation is lost DPS.
         </p>
         <FuryCapWaste
           percentAtCap={percentAtFuryCap}
@@ -66,25 +55,16 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         />
         {modules.furyGraph.plot}
       </SubSection>
-      <SubSection
-        title={t({
-          id: 'guide.demonhunter.vengeance.sections.resources.soulFragments.title',
-          message: 'Soul Fragments',
-        })}
-      >
+      <SubSection title="Soul Fragments">
         <p>
-          <Trans id="guide.demonhunter.vengeance.sections.resources.soulFragments.summary">
-            Most of your abilities either <strong>build</strong> or <strong>spend</strong> Soul
-            Fragments. Never use a builder at max <SpellLink spell={SPELLS.SOUL_FRAGMENT} />s or
-            when doing so will cause you to overcap on <SpellLink spell={SPELLS.SOUL_FRAGMENT} />
-            s.
-          </Trans>
+          Most of your abilities either <strong>build</strong> or <strong>spend</strong> Soul
+          Fragments. Never use a builder at max <SpellLink spell={SPELLS.SOUL_FRAGMENT} />s or when
+          doing so will cause you to overcap on <SpellLink spell={SPELLS.SOUL_FRAGMENT} />
+          s.
         </p>
         <p>
-          <Trans id="guide.demonhunter.vengeance.sections.resources.soulFragments.chart">
-            The chart below shows your <SpellLink spell={SPELLS.SOUL_FRAGMENT} />s over the course
-            of the encounter.
-          </Trans>
+          The chart below shows your <SpellLink spell={SPELLS.SOUL_FRAGMENT} />s over the course of
+          the encounter.
         </p>
         {modules.soulFragmentsGraph.plot}
       </SubSection>
@@ -99,12 +79,7 @@ function MitigationSection() {
   }
 
   return (
-    <Section
-      title={t({
-        id: 'guide.demonhunter.vengeance.sections.defensives.title',
-        message: 'Defensive Cooldowns and Mitigation',
-      })}
-    >
+    <Section title="Defensive Cooldowns and Mitigation">
       <MajorDefensives />
     </Section>
   );
@@ -112,19 +87,12 @@ function MitigationSection() {
 
 function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section
-      title={t({
-        id: 'guide.demonhunter.vengeance.sections.rotation.title',
-        message: 'Rotation',
-      })}
-    >
+    <Section title="Rotation">
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.rotation.summary">
-          Vengeance's core rotation involves <strong>building</strong> and then{' '}
-          <strong>spending</strong> <ResourceLink id={RESOURCE_TYPES.FURY.id} /> and{' '}
-          <SpellLink spell={SPELLS.SOUL_FRAGMENT} />
-          s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
-        </Trans>
+        Vengeance's core rotation involves <strong>building</strong> and then{' '}
+        <strong>spending</strong> <ResourceLink id={RESOURCE_TYPES.FURY.id} /> and{' '}
+        <SpellLink spell={SPELLS.SOUL_FRAGMENT} />
+        s, which heal for 6% of damage taken in the 5 seconds before they are absorbed.
       </p>
       <br />
       <HideExplanationsToggle id="hide-explanations-rotation" />
@@ -141,26 +109,51 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
   );
 }
 
+const cooldowns: Cooldown[] = [
+  {
+    spell: TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SOUL_CARVER_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.THE_HUNT_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.THE_HUNT_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.SOUL_BARRIER_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT),
+  },
+  {
+    spell: TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT,
+    isActive: (c) =>
+      c.hasTalent(TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT) &&
+      c.hasTalent(TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT),
+  },
+];
 function CooldownSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section
-      title={t({
-        id: 'guide.demonhunter.vengeance.sections.cooldowns.title',
-        message: 'Cooldowns',
-      })}
-    >
+    <Section title="Cooldowns">
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.cooldowns.summary">
-          Vengeance has multiple cooldowns that it can use to increase survivability or do large
-          amounts of damage. In order to maximize usages over the course of an encounter, you should
-          aim to send the cooldown as soon as it becomes available (as long as it can do damage on
-          target) if you won't need it for an upcoming mechanic. It is particularly important to use{' '}
-          <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} /> as often as possible.
-        </Trans>
+        Vengeance has multiple cooldowns that it can use to increase survivability or do large
+        amounts of damage. In order to maximize usages over the course of an encounter, you should
+        aim to send the cooldown as soon as it becomes available (as long as it can do damage on
+        target) if you won't need it for an upcoming mechanic. It is particularly important to use{' '}
+        <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT} /> as often as possible.
       </p>
       <HideExplanationsToggle id="hide-explanations-cooldowns" />
       <HideGoodCastsToggle id="hide-good-casts-cooldowns" />
-      <CooldownGraphSubsection />
+      <CooldownGraphSubsection cooldowns={cooldowns} />
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT) && (
         <CooldownUsage analyzer={modules.felDevastation} />
       )}

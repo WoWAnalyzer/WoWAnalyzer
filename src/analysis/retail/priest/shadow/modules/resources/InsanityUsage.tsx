@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/priest';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -49,14 +49,14 @@ class InsanityUsage extends Analyzer {
         <>
           You wasted {formatPercentage(this.wastePercentage)}%{' '}
           <ResourceLink id={RESOURCE_TYPES.INSANITY.id} /> by overcapping at max insanity. Since{' '}
-          <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> is your main source of damage and
+          <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> is your main source of damage and
           the damage stacks from early refreshing, you should always use{' '}
-          <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> when at risk of overcapping.
+          <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> when at risk of overcapping.
         </>,
       )
         .icon(TALENTS.DEVOURING_PLAGUE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.insanity.usage',
             message: `You wasted ${this.wasted} of your Insanity due to overcapping.`,
           }),

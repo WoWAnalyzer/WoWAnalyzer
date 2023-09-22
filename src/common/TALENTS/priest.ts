@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ABYSSAL_REVERIE_TALENT: {
     id: 373054,
     name: 'Abyssal Reverie',
@@ -106,6 +106,14 @@ const talents = createTalentList({
     entryIds: [103779],
     definitionIds: [{ id: 108784, specId: 257 }],
   },
+  BENEVOLENCE_TALENT: {
+    id: 415416,
+    name: 'Benevolence',
+    icon: 'ability_priest_spiritoftheredeemer',
+    maxRanks: 1,
+    entryIds: [115884],
+    definitionIds: [{ id: 120896, specId: 256 }],
+  },
   BINDING_HEALS_TALENT: {
     id: 368275,
     name: 'Binding Heals',
@@ -158,9 +166,9 @@ const talents = createTalentList({
     id: 372307,
     name: 'Burning Vehemence',
     icon: 'ability_paladin_sacredcleansing',
-    maxRanks: 2,
-    entryIds: [103738],
-    definitionIds: [{ id: 108743, specId: 257 }],
+    maxRanks: 1,
+    entryIds: [103739],
+    definitionIds: [{ id: 108744, specId: 257 }],
   },
   CASTIGATION_TALENT: {
     id: 193134,
@@ -410,6 +418,22 @@ const talents = createTalentList({
     entryIds: [103752],
     definitionIds: [{ id: 108757, specId: 257 }],
   },
+  EPIPHANY_TALENT: {
+    id: 414553,
+    name: 'Epiphany',
+    icon: 'ability_mage_studentofthemind',
+    maxRanks: 2,
+    entryIds: [103738],
+    definitionIds: [{ id: 108743, specId: 257 }],
+  },
+  ESSENCE_DEVOURER_TALENT: {
+    id: 415479,
+    name: 'Essence Devourer',
+    icon: 'achievement_raid_terraceofendlessspring04',
+    maxRanks: 1,
+    entryIds: [115883],
+    definitionIds: [{ id: 120895, specId: 256 }],
+  },
   EVANGELISM_TALENT: {
     id: 246287,
     name: 'Evangelism',
@@ -489,7 +513,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103774],
     definitionIds: [{ id: 108779, specId: 257 }],
-    manaCost: 0,
   },
   HALO_SHADOW_TALENT: {
     id: 120644,
@@ -573,8 +596,8 @@ const talents = createTalentList({
     name: 'Holy Word: Sanctify',
     icon: 'spell_holy_divineprovidence',
     maxRanks: 1,
-    entryIds: [103767],
-    definitionIds: [{ id: 108772, specId: 257 }],
+    entryIds: [103766],
+    definitionIds: [{ id: 108771, specId: 257 }],
     manaCost: 8750,
   },
   HOLY_WORD_SERENITY_TALENT: {
@@ -767,6 +790,15 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [103764],
     definitionIds: [{ id: 108769, specId: 257 }],
+  },
+  LUMINOUS_BARRIER_TALENT: {
+    id: 271466,
+    name: 'Luminous Barrier',
+    icon: 'spell_priest_burningwill',
+    maxRanks: 1,
+    entryIds: [116182],
+    definitionIds: [{ id: 121194, specId: 256 }],
+    manaCost: 10000,
   },
   MADDENING_TOUCH_TALENT: {
     id: 391228,
@@ -1036,7 +1068,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103822],
     definitionIds: [{ id: 108827, specId: 256 }],
-    manaCost: 0,
+    manaCost: 25000,
   },
   POWER_WORD_RADIANCE_TALENT: {
     id: 194509,
@@ -1084,8 +1116,8 @@ const talents = createTalentList({
     name: 'Prayer of Healing',
     icon: 'spell_holy_prayerofhealing02',
     maxRanks: 1,
-    entryIds: [103766],
-    definitionIds: [{ id: 108771, specId: 257 }],
+    entryIds: [103767],
+    definitionIds: [{ id: 108772, specId: 257 }],
     manaCost: 11000,
   },
   PRAYER_OF_MENDING_TALENT: {
@@ -1161,7 +1193,7 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103854],
     definitionIds: [{ id: 108859, specId: 258 }],
-    manaCost: 3250,
+    manaCost: 25000,
   },
   RAPID_RECOVERY_TALENT: {
     id: 391368,
@@ -1284,7 +1316,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103704],
     definitionIds: [{ id: 108709, specId: 256 }],
-    manaCost: 0,
   },
   SCREAMS_OF_THE_VOID_TALENT: {
     id: 375767,
@@ -1293,14 +1324,6 @@ const talents = createTalentList({
     maxRanks: 2,
     entryIds: [103789],
     definitionIds: [{ id: 108794, specId: 258 }],
-  },
-  SEARING_LIGHT_TALENT: {
-    id: 372611,
-    name: 'Searing Light',
-    icon: 'inv_summerfest_firespirit',
-    maxRanks: 1,
-    entryIds: [103739],
-    definitionIds: [{ id: 108744, specId: 257 }],
   },
   SHACKLE_UNDEAD_TALENT: {
     id: 9484,
@@ -1359,7 +1382,6 @@ const talents = createTalentList({
     maxRanks: 1,
     entryIds: [103864],
     definitionIds: [{ id: 108869, specId: 256 }],
-    manaCost: 0,
   },
   SHATTERED_PERCEPTIONS_TALENT: {
     id: 391112,
@@ -1626,7 +1648,7 @@ const talents = createTalentList({
     entryIds: [103698],
     definitionIds: [{ id: 108703, specId: 256 }],
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_PRIEST };

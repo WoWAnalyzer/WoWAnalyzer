@@ -143,7 +143,7 @@ class RadiantProvidence extends Analyzer {
           (Aberrus 4p)
           <br />
           <ItemHealingDone amount={this._bonusFromAtonementDuration} />
-          <ItemManaGained amount={this._manaSaved} useAbbrev />
+          <br /> <ItemManaGained amount={this._manaSaved} useAbbrev />
         </BoringSpellValueText>
       </Statistic>
     );

@@ -28,7 +28,7 @@ class DeeperDaggers extends Analyzer {
       <Statistic size="flexible" category={STATISTIC_CATEGORY.COVENANTS}>
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS.DEEPER_DAGGERS_TALENT.id} /> Uptime
+            <SpellLink spell={TALENTS.DEEPER_DAGGERS_TALENT} /> Uptime
           </label>
           <div className="value">{formatPercentage(this.percentUptime)}%</div>
         </div>

@@ -85,14 +85,27 @@ export type AplTarget = SpellTarget | SpellListTarget;
 export type InternalRule = {
   spell: AplTarget;
   condition?: Condition<any>;
+  description?: React.ReactNode;
 };
 
 export interface ConditionalRule {
   spell: Spell | Spell[];
   condition: Condition<any>;
+  /**
+   * Completely overrides the description of the rule. This will prevent the automatic display of conditions!
+   */
+  description?: React.ReactNode;
 }
 
-export type Rule = Spell | Spell[] | ConditionalRule;
+export interface LabelRule {
+  spell: Spell | Spell[];
+  /**
+   * Completely overrides the description of the rule. This will prevent the automatic display of conditions!
+   */
+  description: React.ReactNode;
+}
+
+export type Rule = Spell | Spell[] | ConditionalRule | LabelRule;
 
 export interface Apl {
   conditions?: Array<Condition<any>>;
@@ -150,7 +163,7 @@ export function isRuleEqual(a: Rule | InternalRule, b: Rule | InternalRule): boo
  * Internal rules have a more rigid format to make the rest of the code easier to maintain.
  */
 function internalizeRule(rule: Rule): InternalRule {
-  if ('condition' in rule) {
+  if ('condition' in rule || 'description' in rule) {
     // conditional rule
     const { spell } = internalizeRule(rule.spell);
 

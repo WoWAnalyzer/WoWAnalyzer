@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Analyzer from 'parser/core/Analyzer';
@@ -44,7 +44,7 @@ class HolyPowerDetails extends Analyzer {
       suggest(`You wasted ${formatNumber(this.holyPowerTracker.wasted)} Holy Power.`)
         .icon(holyPowerIcon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.shared.suggestions.holyPower.wasted',
             message: `${formatPercentage(this.wastedHolyPowerPercent)}% Holy Power wasted`,
           }),

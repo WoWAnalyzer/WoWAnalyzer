@@ -22,7 +22,7 @@ class RuleOfThrees extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.RULE_OF_THREES_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ARCANE_BARRAGE_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.ARCANE_BARRAGE),
       this.onBarrageCast,
     );
   }
@@ -37,8 +37,7 @@ class RuleOfThrees extends Analyzer {
   get utilization() {
     return (
       1 -
-      this.barrageWithRuleOfThrees /
-        this.abilityTracker.getAbility(TALENTS.ARCANE_BARRAGE_TALENT.id).casts
+      this.barrageWithRuleOfThrees / this.abilityTracker.getAbility(SPELLS.ARCANE_BARRAGE.id).casts
     );
   }
 
@@ -58,11 +57,10 @@ class RuleOfThrees extends Analyzer {
     when(this.ruleOfThreesUtilizationThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.ARCANE_BARRAGE_TALENT.id} />{' '}
-          {this.barrageWithRuleOfThrees} times while you had the{' '}
-          <SpellLink id={SPELLS.RULE_OF_THREES_BUFF.id} /> buff. This buff makes your next{' '}
-          <SpellLink id={SPELLS.ARCANE_BLAST.id} /> or{' '}
-          <SpellLink id={TALENTS.ARCANE_MISSILES_TALENT.id} /> free after you gain your third Arcane
+          You cast <SpellLink spell={SPELLS.ARCANE_BARRAGE} /> {this.barrageWithRuleOfThrees} times
+          while you had the <SpellLink spell={SPELLS.RULE_OF_THREES_BUFF} /> buff. This buff makes
+          your next <SpellLink spell={SPELLS.ARCANE_BLAST} /> or{' '}
+          <SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> free after you gain your third Arcane
           Charge, so you should ensure that you use the buff before clearing your charges.
         </>,
       )

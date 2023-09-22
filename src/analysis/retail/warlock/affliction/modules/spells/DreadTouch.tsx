@@ -37,7 +37,7 @@ export default class DreadTouch extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should maintain <SpellLink id={SPELLS.DREAD_TOUCH_DEBUFF.id} /> as much as possible.
+          You should maintain <SpellLink spell={SPELLS.DREAD_TOUCH_DEBUFF} /> as much as possible.
         </>,
       )
         .icon(SPELLS.DREAD_TOUCH_DEBUFF.icon)
@@ -58,7 +58,7 @@ export default class DreadTouch extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.DREAD_TOUCH_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DREAD_TOUCH_TALENT}>
           <UptimeIcon /> {formatPercentage(this.uptime)} % <small>uptime</small>
         </BoringSpellValueText>
       </Statistic>

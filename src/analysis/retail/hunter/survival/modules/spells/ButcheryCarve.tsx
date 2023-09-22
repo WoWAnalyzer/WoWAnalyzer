@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { ONE_SECOND_IN_MS } from 'analysis/retail/hunter/shared/constants';
 import { BUTCHERY_CARVE_MAX_TARGETS_HIT } from 'analysis/retail/hunter/survival/constants';
 import SPELLS from 'common/SPELLS';
@@ -100,12 +100,12 @@ class ButcheryCarve extends Analyzer {
         suggest(
           <>
             You should aim to hit as many targets as possible with{' '}
-            <SpellLink id={this.spellKnown.id} />. Using it on single-target is not recommended.
+            <SpellLink spell={this.spellKnown} />. Using it on single-target is not recommended.
           </>,
         )
           .icon(this.spellKnown.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'hunter.survival.suggestions.butcheryCarve.averageTargets',
               message: `${actual} average targets hit per cast`,
             }),
@@ -120,7 +120,7 @@ class ButcheryCarve extends Analyzer {
       //Since you're not casting Butchery or Carve on single-target, there's no reason to show the statistics in cases where the abilities were cast 0 times.
       return (
         <Statistic position={STATISTIC_ORDER.OPTIONAL(5)} size="flexible">
-          <BoringSpellValueText spellId={this.spellKnown.id}>
+          <BoringSpellValueText spell={this.spellKnown}>
             <>
               <ItemDamageDone amount={this.damage} />
               <br />

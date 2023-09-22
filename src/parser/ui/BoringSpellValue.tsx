@@ -5,7 +5,7 @@ import * as React from 'react';
 import './BoringValue.scss';
 
 interface Props {
-  spellId: number | Spell;
+  spell: number | Spell;
   value: React.ReactNode;
   label: React.ReactNode;
   extra?: React.ReactNode;
@@ -17,10 +17,10 @@ interface Props {
  * Use this only for things that the player certainly should be familiar with, such as their own spells.
  * Do NOT use for items.
  */
-const BoringSpellValue = ({ spellId, value, label, extra, className }: Props) => (
+const BoringSpellValue = ({ spell, value, label, extra, className }: Props) => (
   <div className={`flex boring-value ${className || ''}`}>
     <div className="flex-sub icon">
-      <SpellIcon spell={spellId} />
+      <SpellIcon spell={spell} />
     </div>
     <div className="flex-main value">
       <div>{value}</div>

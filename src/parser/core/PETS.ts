@@ -1,4 +1,4 @@
-import indexById, { asRestrictedTable } from 'common/indexById';
+import indexById from 'common/indexById';
 
 interface Pet {
   id: number;
@@ -7,7 +7,7 @@ interface Pet {
 }
 
 // TODO: Refactor this away: you should make a spec specific PETS file in your spec folder
-const PETS = asRestrictedTable<Pet>()({
+const PETS = {
   // TODO: revise Warlock pets
   WILDIMP_ON_DREADSTALKER: {
     id: 99737,
@@ -66,6 +66,6 @@ const PETS = asRestrictedTable<Pet>()({
     id: 53006,
     name: 'Spirit Link Totem',
   },
-});
+} satisfies Record<string, Pet>;
 
 export default indexById<Pet, typeof PETS>(PETS);

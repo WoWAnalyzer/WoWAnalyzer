@@ -4,9 +4,9 @@
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
 
-import { spellIndexableList } from 'common/SPELLS/Spell';
+import Spell from 'common/SPELLS/Spell';
 
-const spells = spellIndexableList({
+const spells = {
   METEOR_DAMAGE: {
     id: 351140,
     name: 'Meteor',
@@ -59,16 +59,6 @@ const spells = spellIndexableList({
     name: 'Time Warp',
     icon: 'ability_mage_timewarp',
   },
-  RUNE_OF_POWER_BUFF: {
-    id: 116014,
-    name: 'Rune of Power',
-    icon: 'spell_mage_runeofpower',
-  },
-  RUNE_OF_POWER_AUTOCAST: {
-    id: 342130,
-    name: 'Rune of Power',
-    icon: 'spell_mage_runeofpower',
-  },
   MIRROR_IMAGE_SUMMON: {
     id: 88088,
     name: 'Mirror Image',
@@ -88,6 +78,11 @@ const spells = spellIndexableList({
     id: 342246,
     name: 'Alter Time',
     icon: 'spell_mage_altertime',
+  },
+  INVISIBILITY: {
+    id: 66,
+    name: 'Invisibility',
+    icon: 'ability_mage_invisibility',
   },
   SHIFTING_POWER_TICK: {
     id: 382445,
@@ -179,6 +174,11 @@ const spells = spellIndexableList({
     name: 'Tempest Barrier',
     icon: 'inv_shield_1h_artifactstormfist_d_04',
   },
-});
+  TEMPORAL_WARP_BUFF: {
+    id: 386540,
+    name: 'Temporal Warp',
+    icon: 'ability_bossmagistrix_timewarp2',
+  },
+} satisfies Record<string, Spell>;
 
 export default spells;

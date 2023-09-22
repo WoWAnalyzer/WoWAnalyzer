@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
@@ -128,12 +128,12 @@ class Echo extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid letting <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id} /> buffs expire.
+          Try to avoid letting <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> buffs expire.
         </>,
       )
         .icon(TALENTS_EVOKER.ECHO_TALENT.icon)
         .actual(
-          `${actual} ${t({
+          `${actual} ${defineMessage({
             id: 'evoker.preservation.suggestions.echo.wastedBuffs',
             message: ` wasted Echo buff${actual > 1 ? 's' : ''}`,
           })}`,
@@ -231,9 +231,9 @@ class Echo extends Analyzer {
           this.totalEchoHealingForSpell(SPELLS.GOLDEN_HOUR_HEAL.id),
         valueTooltip: (
           <>
-            <SpellLink id={TALENTS_EVOKER.REVERSION_TALENT} /> healing:{' '}
+            <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} /> healing:{' '}
             {formatNumber(this.totalEchoHealingForSpell(SPELLS.REVERSION_ECHO.id))} <br />
-            and <SpellLink id={TALENTS_EVOKER.GOLDEN_HOUR_TALENT} /> healing:{' '}
+            and <SpellLink spell={TALENTS_EVOKER.GOLDEN_HOUR_TALENT} /> healing:{' '}
             {formatNumber(this.totalEchoHealingForSpell(SPELLS.GOLDEN_HOUR_HEAL.id))} <br />
             in {this.consumptionsBySpell.get(SPELLS.REVERSION_ECHO.id) + ' consumptions'}
           </>
@@ -259,9 +259,9 @@ class Echo extends Analyzer {
           this.totalEchoHealingForSpell(SPELLS.LIFEBIND_HEAL.id),
         valueTooltip: (
           <>
-            <SpellLink id={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> healing:{' '}
+            <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> healing:{' '}
             {formatNumber(this.totalEchoHealingForSpell(SPELLS.VERDANT_EMBRACE_HEAL.id))} <br />
-            and <SpellLink id={TALENTS_EVOKER.LIFEBIND_TALENT} /> healing:{' '}
+            and <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> healing:{' '}
             {formatNumber(this.totalEchoHealingForSpell(SPELLS.LIFEBIND_HEAL.id))} <br />
             in {this.consumptionsBySpell.get(SPELLS.VERDANT_EMBRACE_HEAL.id) + ' consumptions'}
           </>
@@ -290,7 +290,7 @@ class Echo extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink id={TALENTS_EVOKER.ECHO_TALENT} /> healing breakdown by spell
+            <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> healing breakdown by spell
           </label>
           {chart}
         </div>

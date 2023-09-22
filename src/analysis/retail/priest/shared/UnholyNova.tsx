@@ -132,11 +132,11 @@ class UnholyNova extends Analyzer {
   //     suggest(
   //       <>
   //         <span>
-  //           Try not to miss with <SpellLink id={SPELLS.UNHOLY_NOVA.id} />.
+  //           Try not to miss with <SpellLink spell={SPELLS.UNHOLY_NOVA.id} />.
   //         </span>
   //         <br />
   //         <span>
-  //           <SpellLink id={SPELLS.UNHOLY_NOVA.id} /> is a projectile that targets the ground where
+  //           <SpellLink spell={SPELLS.UNHOLY_NOVA.id} /> is a projectile that targets the ground where
   //           your target is currently standing. If your target moves or becomes untargetable, Unholy
   //           Nova can completely miss. Try and avoid casting Unholy Nova when the target is about to
   //           move.
@@ -170,7 +170,7 @@ class UnholyNova extends Analyzer {
   //         </>
   //       }
   //     >
-  //       <BoringSpellValueText spellId={SPELLS.UNHOLY_NOVA.id}>
+  //       <BoringSpellValueText spell={SPELLS.UNHOLY_NOVA.id}>
   //         <>
   //           <ItemDamageDone amount={this.totalDamage} />
   //           <br />

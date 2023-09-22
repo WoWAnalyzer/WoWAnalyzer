@@ -19,6 +19,8 @@ import {
 } from 'parser/core/Events';
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 
+export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
+export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
 export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
@@ -53,8 +55,8 @@ export enum ECHO_TYPE {
 
 const CAST_BUFFER_MS = 100;
 const ECHO_BUFFER = 500;
-const EB_BUFFER_MS = 2000;
-const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 2s to actually trigger
+const EB_BUFFER_MS = 1500;
+const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 1.5s to actually trigger
 const LIFEBIND_BUFFER = 5000 + CAST_BUFFER_MS; // 5s duration
 const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const MAX_ESSENCE_BURST_DURATION = 32000; // 15s duration can refresh to 30s with 2s of buffer
@@ -370,7 +372,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT);
+      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT);
     },
   },
   {
@@ -383,7 +385,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: MAX_ESSENCE_BURST_DURATION,
     maximumLinks: 1,
     isActive(c) {
-      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_TALENT);
+      return c.hasTalent(TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT);
     },
     additionalCondition(linkingEvent, referencedEvent) {
       return !HasRelatedEvent(referencedEvent, ESSENCE_BURST_LINK);
@@ -629,6 +631,34 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  {
+    linkRelation: ANCIENT_FLAME,
+    reverseLinkRelation: ANCIENT_FLAME,
+    linkingEventId: [TALENTS_EVOKER.VERDANT_EMBRACE_TALENT.id, SPELLS.EMERALD_BLOSSOM_CAST.id],
+    linkingEventType: EventType.Cast,
+    referencedEventId: SPELLS.ANCIENT_FLAME_BUFF.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.ANCIENT_FLAME_TALENT);
+    },
+  },
+  {
+    linkRelation: ANCIENT_FLAME_CONSUME,
+    reverseLinkRelation: ANCIENT_FLAME_CONSUME,
+    linkingEventId: SPELLS.ANCIENT_FLAME_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: SPELLS.ANCIENT_FLAME_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    maximumLinks: 1,
+    forwardBufferMs: 1000 * 60 * 20, // has no duration so lets use safe upper bound on fight duration
+    isActive(c) {
+      return c.hasTalent(TALENTS_EVOKER.ANCIENT_FLAME_TALENT);
+    },
+  },
 ];
 
 /**
@@ -783,6 +813,13 @@ export function isEbFromT30Tier(
   return (
     !HasRelatedEvent(applyEvent, FROM_HARDCAST) && !HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT)
   );
+}
+
+export function getAncientFlameSource(event: ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent) {
+  return GetRelatedEvents(
+    event,
+    event.type === EventType.RemoveBuff ? ANCIENT_FLAME_CONSUME : ANCIENT_FLAME,
+  )[0];
 }
 
 export default CastLinkNormalizer;

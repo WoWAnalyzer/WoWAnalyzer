@@ -1,4 +1,4 @@
-import { Trans, t } from '@lingui/macro';
+import { Trans, defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -140,7 +140,7 @@ class LastEmperorsCapacitor extends Analyzer {
           </Trans>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
@@ -152,19 +152,19 @@ class LastEmperorsCapacitor extends Analyzer {
       suggest(
         <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks">
           {' '}
-          You wasted your <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks by using
+          You wasted your <SpellLink spell={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF} /> stacks by using
           chi spenders while at 20 stacks{' '}
         </Trans>,
       )
         .icon(TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.actual',
             message: `${actual.toFixed(2)} Wasted stacks per minute`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.wastedStacks.recommended',
             message: `${recommended} Wasted stacks per minute is recommended`,
           }),
@@ -174,19 +174,19 @@ class LastEmperorsCapacitor extends Analyzer {
       suggest(
         <Trans id="monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks">
           {' '}
-          Your average number of <SpellLink id={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF.id} /> stacks
-          used when you cast <SpellLink id={SPELLS.CRACKLING_JADE_LIGHTNING.id} /> was low{' '}
+          Your average number of <SpellLink spell={SPELLS.LAST_EMPERORS_CAPACITOR_BUFF} /> stacks
+          used when you cast <SpellLink spell={SPELLS.CRACKLING_JADE_LIGHTNING} /> was low{' '}
         </Trans>,
       )
         .icon(TALENTS_MONK.LAST_EMPERORS_CAPACITOR_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.actual',
             message: `${actual.toFixed(2)} average stacks used`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'monk.windwalker.modules.items.lastEmperorsCapacitor.averageStacks.recommended',
             message: `Try to cast Crackling Jade Lightning while as close to 20 stacks as possible`,
           }),

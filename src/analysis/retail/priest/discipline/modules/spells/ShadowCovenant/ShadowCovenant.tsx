@@ -130,7 +130,6 @@ class ShadowCovenant extends Analyzer {
   }
 
   statistic() {
-    console.log(this.healingMap);
     return (
       <Statistic
         category={STATISTIC_CATEGORY.TALENTS}
@@ -139,15 +138,15 @@ class ShadowCovenant extends Analyzer {
         tooltip={
           <>
             This value includes the base healing from{' '}
-            <SpellLink id={TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id} />, its healing amp on non
+            <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT} />, its healing amp on non
             atonement spells, and the bonus atonement healing caused by the damage amped. This
             number represents the 25% from{' '}
-            <SpellLink id={TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id} />, and the extra 10% amp from{' '}
-            <SpellLink id={TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT.id} /> if it is talented.
+            <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT} />, and the extra 10% amp from{' '}
+            <SpellLink spell={TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT} /> if it is talented.
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT}>
           <ItemHealingDone amount={this.healing} /> <br />
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>

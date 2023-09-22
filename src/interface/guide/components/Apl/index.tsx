@@ -33,14 +33,30 @@ const ValueData = styled.td`
   text-align: right;
 `;
 
+export function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }) {
+  return (
+    <>
+      <AplSubsectionHeader>Priority List</AplSubsectionHeader>
+      <AplRules apl={apl} results={results} />
+    </>
+  );
+}
+
 /**
  * Produce a summary of the APL itself. This is just an un-annotated reference.
  */
-function AplSummary({ apl, results }: { apl: Apl; results: CheckResult }): JSX.Element | null {
+function AplSummaryColumn({
+  apl,
+  results,
+  topSection: TopSection,
+}: {
+  topSection: React.ComponentType<{ apl: Apl; results: CheckResult }>;
+  apl: Apl;
+  results: CheckResult;
+}): JSX.Element | null {
   return (
     <div>
-      <AplSubsectionHeader>Priority List</AplSubsectionHeader>
-      <AplRules apl={apl} results={results} />
+      <TopSection apl={apl} results={results} />
       <AplSubsectionHeader>Details</AplSubsectionHeader>
       <AplSummaryTable>
         <tbody>
@@ -100,12 +116,14 @@ const AplLayout = styled.div`
 export type AplSectionProps = {
   checker: ReturnType<typeof aplCheck>;
   apl: Apl;
+  summary?: typeof AplSummary;
   violationExplainers?: AplViolationExplainers;
 };
 
 export function AplSectionData({
   checker,
   apl,
+  summary: Summary = AplSummary,
   violationExplainers,
 }: AplSectionProps): JSX.Element | null {
   const events = useEvents();
@@ -127,7 +145,7 @@ export function AplSectionData({
   return (
     <ExplanationSelectionContext.Provider value={setSelectedExplanation}>
       <AplLayout>
-        <AplSummary apl={apl} results={result} />
+        <AplSummaryColumn apl={apl} results={result} topSection={Summary} />
         <AplViolationContainer>
           <AplSubsectionHeader>Most Common Problems</AplSubsectionHeader>
           <AplViolationExplanations

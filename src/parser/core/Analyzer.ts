@@ -2,17 +2,18 @@ import * as React from 'react';
 
 import type { Suggestion } from './CombatLogParser';
 import EventFilter, { SELECTED_PLAYER, SELECTED_PLAYER_PET } from './EventFilter';
-import Events, { AnyEvent, EventType, MappedEvent } from './Events';
+import Events, { AnyEvent, EventType } from './Events';
 import EventSubscriber, { EventListener, Options as _Options } from './EventSubscriber';
 import { Info, Metric } from './metric';
 import Module from './Module';
 import { When } from './ParseResults';
+import { MessageDescriptor } from '@lingui/core';
 
 export { SELECTED_PLAYER, SELECTED_PLAYER_PET };
 export type Options = _Options;
 
 export interface ParseResultsTab {
-  title: string;
+  title: string | MessageDescriptor;
   url: string;
   render: () => React.ReactNode;
 }
@@ -30,7 +31,7 @@ class Analyzer extends EventSubscriber {
   constructor(options: Options) {
     super(options);
   }
-  addEventListener<ET extends EventType, E extends MappedEvent<ET>>(
+  addEventListener<ET extends EventType, E extends AnyEvent<ET>>(
     eventFilter: ET | EventFilter<ET>,
     listener: EventListener<ET, E>,
   ) {
@@ -49,6 +50,20 @@ class Analyzer extends EventSubscriber {
    */
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   tab(): ParseResultsTab | void {}
+
+  static withDependencies<T extends Dependencies>(deps: T) {
+    return class extends Analyzer {
+      static dependencies = deps;
+
+      protected readonly deps: InjectedDependencies<T>;
+
+      constructor(options: Options) {
+        super(options);
+
+        this.deps = options as InjectedDependencies<T>;
+      }
+    };
+  }
 }
 
 export default Analyzer;

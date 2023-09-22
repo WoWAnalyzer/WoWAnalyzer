@@ -15,6 +15,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
+import { HasteIcon } from 'interface/icons';
 
 const MAX_STACKS = 5;
 const HASTE_PER_STACK = 2;
@@ -100,7 +101,7 @@ class IntoTheFray extends Analyzer {
           <table className="table table-condensed">
             <thead>
               <tr>
-                <th>Haste-Bonus</th>
+                <th>Haste Bonus</th>
                 <th>Time (s)</th>
                 <th>Time (%)</th>
               </tr>
@@ -122,11 +123,11 @@ class IntoTheFray extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.INTO_THE_FRAY_TALENT.id} /> average haste gained
+              <SpellLink spell={TALENTS.INTO_THE_FRAY_TALENT} /> average haste gained
             </>
           }
         >
-          {this.averageHaste}%
+          <HasteIcon /> {this.averageHaste}%
         </BoringValueText>
       </Statistic>
     );

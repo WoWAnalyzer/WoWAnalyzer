@@ -83,16 +83,16 @@ class MunchedProcs extends Analyzer {
       suggest(
         <>
           You wasted (munched) {this.munchedProcs}{' '}
-          <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} /> procs (
+          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> procs (
           {formatPercentage(this.munchedPercent)} of total procs). Because of the way{' '}
-          <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} /> works, this is sometimes unavoidable
+          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> works, this is sometimes unavoidable
           (i.e. you get a proc while you are using a{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc), but if you have both a{' '}
-          <SpellLink id={TALENTS.BRAIN_FREEZE_TALENT.id} /> proc and a{' '}
-          <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} /> proc, you should make sure you use
-          the <SpellLink id={TALENTS.FINGERS_OF_FROST_TALENT.id} /> procs first before you start
-          casting <SpellLink id={SPELLS.FROSTBOLT.id} /> and{' '}
-          <SpellLink id={TALENTS.FLURRY_TALENT.id} /> to minimize the number of wasted/munched
+          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc), but if you have both a{' '}
+          <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc and a{' '}
+          <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> proc, you should make sure you use
+          the <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> procs first before you start
+          casting <SpellLink spell={SPELLS.FROSTBOLT} /> and{' '}
+          <SpellLink spell={TALENTS.FLURRY_TALENT} /> to minimize the number of wasted/munched
           procs.
         </>,
       )
@@ -123,7 +123,7 @@ class MunchedProcs extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.FINGERS_OF_FROST_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.FINGERS_OF_FROST_TALENT}>
           {formatPercentage(this.munchedPercent, 0)}% <small>Munched Fingers of Frost procs</small>
         </BoringSpellValueText>
       </Statistic>

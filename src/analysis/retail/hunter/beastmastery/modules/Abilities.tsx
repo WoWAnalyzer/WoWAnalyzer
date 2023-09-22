@@ -78,9 +78,9 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.9,
           extraSuggestion: (
             <>
-              <SpellLink id={TALENTS.BESTIAL_WRATH_TALENT.id} /> should be cast on cooldown as its
+              <SpellLink spell={TALENTS.BESTIAL_WRATH_TALENT} /> should be cast on cooldown as its
               cooldown is quickly reset again through{' '}
-              <SpellLink id={TALENTS.BARBED_SHOT_TALENT.id} />.
+              <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />.
             </>
           ),
         },

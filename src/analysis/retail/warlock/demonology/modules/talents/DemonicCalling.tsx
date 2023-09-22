@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellLink } from 'interface';
@@ -77,20 +77,20 @@ class DemonicCalling extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should try to use your cheaper <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> as much
+          You should try to use your cheaper <SpellLink spell={SPELLS.CALL_DREADSTALKERS} /> as much
           as possible as Dreadstalkers make a great portion of your damage.
           <br />
           <br />
           <small>
             NOTE: Some wasted procs are probably unavoidable (e.g.{' '}
-            <SpellLink id={SPELLS.CALL_DREADSTALKERS.id} /> on cooldown, proc waiting but gets
+            <SpellLink spell={SPELLS.CALL_DREADSTALKERS} /> on cooldown, proc waiting but gets
             overwritten by another)
           </small>
         </>,
       )
         .icon(TALENTS.DEMONIC_CALLING_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.demonology.suggestions.demonicCalling.wastedProcsPerMinute',
             message: `${actual.toFixed(2)} wasted procs per minute`,
           }),
@@ -102,7 +102,7 @@ class DemonicCalling extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.DEMONIC_CALLING_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DEMONIC_CALLING_TALENT}>
           {this.wastedProcs} <small>Wasted procs</small>
         </BoringSpellValueText>
       </Statistic>

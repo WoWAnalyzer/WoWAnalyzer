@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -139,7 +139,7 @@ class RageWasted extends Analyzer {
         )
           .icon(SPELLS.BRISTLING_FUR.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'druid.guardian.suggestions.rage.wasted',
               message: `${formatPercentage(actual)}% wasted rage`,
             }),

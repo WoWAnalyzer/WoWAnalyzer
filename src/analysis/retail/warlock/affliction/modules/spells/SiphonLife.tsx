@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/warlock';
 import { SpellIcon, SpellLink } from 'interface';
@@ -38,13 +38,13 @@ class SiphonLifeUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={TALENTS.SIPHON_LIFE_TALENT.id} /> uptime can be improved. Try to pay
+          Your <SpellLink spell={TALENTS.SIPHON_LIFE_TALENT} /> uptime can be improved. Try to pay
           more attention to your Siphon Life on the boss, perhaps use some debuff tracker.
         </>,
       )
         .icon(TALENTS.SIPHON_LIFE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.siphonLife.uptime',
             message: `${formatPercentage(actual)}% Siphon Life uptime`,
           }),
@@ -58,7 +58,7 @@ class SiphonLifeUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={TALENTS.SIPHON_LIFE_TALENT.id} />
+          <SpellIcon spell={TALENTS.SIPHON_LIFE_TALENT} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

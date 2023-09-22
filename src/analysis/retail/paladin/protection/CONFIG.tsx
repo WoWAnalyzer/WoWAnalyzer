@@ -39,11 +39,11 @@ export default {
       <br />
       <br />
       <AlertWarning>
-        Because <SpellLink id={TALENTS.GRAND_CRUSADER_TALENT.id} />{' '}
+        Because <SpellLink spell={TALENTS.GRAND_CRUSADER_TALENT} />{' '}
         <TooltipElement content="The combatlog does not contain any events for random cooldown resets.">
           can't be tracked
         </TooltipElement>{' '}
-        properly, any cooldown information of <SpellLink id={TALENTS.AVENGERS_SHIELD_TALENT.id} />{' '}
+        properly, any cooldown information of <SpellLink spell={TALENTS.AVENGERS_SHIELD_TALENT} />{' '}
         should be treated as{' '}
         <TooltipElement content="Whenever Avenger's Shield would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Grand Crusade. This may lead to higher times on cooldown than you actually experienced in-game.">
           educated guesses

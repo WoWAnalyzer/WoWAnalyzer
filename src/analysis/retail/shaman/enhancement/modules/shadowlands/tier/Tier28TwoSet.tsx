@@ -46,7 +46,7 @@ class Tier28TwoSet extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
       >
         <BoringSpellValue
-          spellId={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id}
+          spell={TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id}
           value={formatNumber(this.feralSpiritsGained)}
           label="Feral Spirits gained from tier set bonus"
         />

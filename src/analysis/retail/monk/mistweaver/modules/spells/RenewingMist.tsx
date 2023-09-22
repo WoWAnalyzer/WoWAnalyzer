@@ -72,17 +72,17 @@ class RenewingMist extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
         </b>{' '}
         is your primary healing spell. You can use it on any target and it will either stay on the
         target, jump targets if the chosen target has a{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> and there are players in range, or
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> and there are players in range, or
         pandemic if there are no players to jump to in range. Using{' '}
-        <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> as much as possible is extremely
-        important due to its synergy with <SpellLink id={SPELLS.VIVIFY} />,{' '}
-        <SpellLink id={TALENTS_MONK.RISING_MIST_TALENT} />,{' '}
-        <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT} />, and{' '}
-        <SpellLink id={TALENTS_MONK.MISTY_PEAKS_TALENT} />
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> as much as possible is extremely
+        important due to its synergy with <SpellLink spell={SPELLS.VIVIFY} />,{' '}
+        <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} />,{' '}
+        <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} />, and{' '}
+        <SpellLink spell={TALENTS_MONK.MISTY_PEAKS_TALENT} />
       </p>
     );
 
@@ -90,7 +90,7 @@ class RenewingMist extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}

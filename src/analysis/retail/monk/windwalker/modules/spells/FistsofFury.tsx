@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -84,13 +84,13 @@ class FistsofFury extends Analyzer {
       suggest(
         <span>
           {' '}
-          You are cancelling your <SpellLink id={SPELLS.FISTS_OF_FURY_CAST.id} /> casts early and
+          You are cancelling your <SpellLink spell={SPELLS.FISTS_OF_FURY_CAST} /> casts early and
           losing ticks{' '}
         </span>,
       )
         .icon(SPELLS.FISTS_OF_FURY_CAST.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'monk.windwalker.suggestions.fistOfFury.avgTicksPerCast',
             message: `${actual.toFixed(2)} average ticks on each Fists of Fury cast`,
           }),
@@ -106,7 +106,7 @@ class FistsofFury extends Analyzer {
         size="flexible"
         tooltip="Fists of Fury ticks 5 times over the duration of the channel"
       >
-        <BoringSpellValueText spellId={SPELLS.FISTS_OF_FURY_CAST.id}>
+        <BoringSpellValueText spell={SPELLS.FISTS_OF_FURY_CAST}>
           {this.averageTicks.toFixed(2)} <small>Average ticks per cast</small>
         </BoringSpellValueText>
       </Statistic>

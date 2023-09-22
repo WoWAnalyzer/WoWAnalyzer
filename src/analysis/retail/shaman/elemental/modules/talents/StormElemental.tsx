@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
@@ -106,8 +106,8 @@ class StormElemental extends Analyzer {
         }
       >
         <>
-          You cast <SpellLink id={SPELLS.LIGHTNING_BOLT.id} /> {this.averageLightningBoltCasts}{' '}
-          times per <SpellLink id={TALENTS.STORM_ELEMENTAL_TALENT.id} />
+          You cast <SpellLink spell={SPELLS.LIGHTNING_BOLT} /> {this.averageLightningBoltCasts}{' '}
+          times per <SpellLink spell={TALENTS.STORM_ELEMENTAL_TALENT} />
         </>
       </Statistic>
     );
@@ -119,7 +119,7 @@ class StormElemental extends Analyzer {
       suggest(<span>Maximize your damage during Storm Elemental by only using {abilities}.</span>)
         .icon(TALENTS.STORM_ELEMENTAL_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.stormElemental.badCasts',
             message: `${actual} other casts with Storm Elemental up`,
           }),

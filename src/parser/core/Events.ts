@@ -5,6 +5,7 @@ import * as React from 'react';
 import EventFilter from './EventFilter';
 import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
+import { EventLink } from './EventLinkNormalizer';
 
 export enum EventType {
   Destroy = 'destroy', // super rare, apparently happens on dausegne, no idea what it is?
@@ -189,9 +190,6 @@ type MappedEventTypes = {
   [EventType.FilterBuffInfo]: FilterBuffInfoEvent;
 };
 
-export type AnyEvent<ET extends keyof MappedEventTypes = keyof MappedEventTypes> =
-  MappedEventTypes[ET];
-
 export interface Ability {
   /** The ability's name */
   name: string;
@@ -319,7 +317,7 @@ export function AddRelatedEvent(event: AnyEvent, relation: string, relatedEvent:
   event.__modified = true;
 }
 
-export type MappedEvent<T extends EventType> = T extends keyof MappedEventTypes
+export type AnyEvent<T extends EventType = EventType> = T extends keyof MappedEventTypes
   ? MappedEventTypes[T]
   : Event<T>;
 
@@ -333,6 +331,8 @@ export interface Event<T extends string> {
   prepull?: boolean;
   /** Other events associated with this event. Added by WoWA normalizers. Meaning is context sensitive */
   _linkedEvents?: LinkedEvent[];
+  /** Set of eventLinks that have been processed already to avoid duplicated linking */
+  _processedLinks?: Set<EventLink>;
   /** True iff the event was created by WoWA */
   __fabricated?: boolean;
   /** True iff the event's content was modified by WoWA */

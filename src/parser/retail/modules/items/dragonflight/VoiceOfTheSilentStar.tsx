@@ -21,7 +21,8 @@ class VoiceOfTheSilentStar extends Analyzer {
   constructor(options: Options) {
     super(options);
 
-    if (!this.selectedCombatant.hasBack(ITEMS.VOICE_OF_THE_SILENT_STAR.id)) {
+    this.active = this.selectedCombatant.hasBack(ITEMS.VOICE_OF_THE_SILENT_STAR.id);
+    if (!this.active) {
       return;
     }
     const cloak = this.selectedCombatant.back;

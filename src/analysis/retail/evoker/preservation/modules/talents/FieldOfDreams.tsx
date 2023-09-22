@@ -58,7 +58,7 @@ class FieldOfDreams extends Analyzer {
             }
           >
             <small>
-              {this.numProcs} extra <SpellLink id={SPELLS.EMERALD_BLOSSOM.id} /> procs
+              {this.numProcs} extra <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> procs
             </small>
           </TooltipElement>
         </TalentSpellText>

@@ -27,7 +27,7 @@ class PhantomSingularity extends Analyzer {
         size="flexible"
         tooltip={`${formatThousands(damage)} damage`}
       >
-        <BoringSpellValueText spellId={TALENTS.PHANTOM_SINGULARITY_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.PHANTOM_SINGULARITY_TALENT}>
           {formatNumber(dps)} DPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(damage))} % of total

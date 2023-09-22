@@ -86,11 +86,11 @@ class HealingChorus extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`You gained ${this.totalStacks} stacks in total. ${overhealingTooltipString}% overhealing`}
       >
-        <BoringSpellValueText spellId={TALENTS.HEALING_CHORUS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.HEALING_CHORUS_TALENT}>
           <ItemHealingDone amount={this.healingDoneFromTalent} />
           <br />
           {circleOfHealingPercentage}% of your total{' '}
-          <SpellLink id={TALENTS.CIRCLE_OF_HEALING_TALENT.id} /> healing
+          <SpellLink spell={TALENTS.CIRCLE_OF_HEALING_TALENT} /> healing
         </BoringSpellValueText>
       </Statistic>
     );

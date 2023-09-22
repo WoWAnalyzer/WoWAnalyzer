@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage, formatThousands } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Tooltip } from 'interface';
@@ -80,7 +80,7 @@ class FocusCapTracker extends RegenResourceCapTracker {
       )
         .icon('ability_hunter_focusfire')
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.marksmanship.suggestions.focusCapTracker.focusLost',
             message: `${formatPercentage(1 - actual)}% regenerated focus lost due to being capped.`,
           }),

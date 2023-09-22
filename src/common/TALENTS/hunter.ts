@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   AIMED_SHOT_TALENT: {
     id: 19434,
     name: 'Aimed Shot',
@@ -1060,9 +1060,9 @@ const talents = createTalentList({
     entryIds: [100518],
     definitionIds: [{ id: 105520, specId: 255 }],
   },
-  SENTINEL_OWL_TALENT: {
-    id: 388045,
-    name: 'Sentinel Owl',
+  SENTINEL_TALENT: {
+    id: 393505,
+    name: 'Sentinel',
     icon: 'ability_hunter_sentinelowl',
     maxRanks: 1,
     entryIds: [100520],
@@ -1401,7 +1401,7 @@ const talents = createTalentList({
     entryIds: [100599],
     definitionIds: [{ id: 105601, specId: 254 }],
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_HUNTER };

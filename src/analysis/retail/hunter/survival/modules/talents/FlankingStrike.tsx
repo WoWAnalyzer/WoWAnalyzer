@@ -165,7 +165,7 @@ class FlankingStrike extends Analyzer {
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.FLANKING_STRIKE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.FLANKING_STRIKE_TALENT}>
           <>
             <ItemDamageDone amount={totalDamage} />
           </>

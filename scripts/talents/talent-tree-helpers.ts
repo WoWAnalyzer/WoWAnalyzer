@@ -143,3 +143,24 @@ export function findResourceCost(
     return Number(entryInSpellPowerTable.ManaCost);
   }
 }
+
+export function findResourceCostPerSecond(
+  entryInSpellPowerTable: ISpellpower,
+  resourceId: number,
+  baseMaxResource: number,
+) {
+  if (parseFloat(entryInSpellPowerTable.PowerPctPerSecond) > 0) {
+    return Math.round((Number(entryInSpellPowerTable.PowerPctPerSecond) / 100) * baseMaxResource);
+  } else if (
+    [
+      ResourceTypes.RunicPower,
+      ResourceTypes.Rage,
+      ResourceTypes.SoulShards,
+      ResourceTypes.Pain,
+    ].includes(resourceId)
+  ) {
+    return Number(entryInSpellPowerTable.ManaPerSecond) / 10;
+  } else {
+    return Number(entryInSpellPowerTable.ManaPerSecond);
+  }
+}

@@ -3,10 +3,9 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
+import Spell from 'common/SPELLS/Spell';
 
-import { spellIndexableList } from './Spell';
-
-const spells = spellIndexableList({
+const spells = {
   /////////////////////////////////////////////////////////////////////////////
   // SHARED
   //
@@ -463,6 +462,24 @@ const spells = spellIndexableList({
     id: 408546,
     name: 'Tenacious Flourishing',
     icon: 'talentspec_druid_restoration',
+  },
+  // 'Swiftmend' cast by Grove Guardians
+  GROVE_GUARDIANS_SWIFTMEND: {
+    id: 422094,
+    name: 'Swiftmend',
+    icon: 'inv_relics_idolofrejuvenation',
+  },
+  // 'Nourish' cast by Grove Guardians
+  GROVE_GUARDIANS_NOURISH: {
+    id: 422090,
+    name: 'Nourish',
+    icon: 'ability_druid_nourish',
+  },
+  // 'Wild Growth' cast by Grove Guardians
+  GROVE_GUARDIANS_WILD_GROWTH: {
+    id: 422382,
+    name: 'Wild Growth',
+    icon: 'ability_druid_flourish',
   },
 
   /////////////////////////////////////////////////////////////////////////////
@@ -1084,6 +1101,12 @@ const spells = spellIndexableList({
     name: "Cat's Curiosity",
     icon: 'inv_jewelcrafting_gem_30',
   },
+  // debuff from Dire Fixation
+  DIRE_FIXATION_DEBUFF: {
+    id: 417713,
+    name: 'Dire Fixation',
+    icon: 'ability_druid_primalprecision',
+  },
   // feral legion tier sets
   FERAL_DRUID_T19_2SET_BONUS_BUFF: {
     id: 211140,
@@ -1166,6 +1189,6 @@ const spells = spellIndexableList({
     name: 'Sharpened Claws',
     icon: 'inv_misc_monsterfang_01',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

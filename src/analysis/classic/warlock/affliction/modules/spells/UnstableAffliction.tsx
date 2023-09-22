@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/warlock';
 import { SpellLink } from 'interface';
@@ -34,13 +34,13 @@ class UnstableAffliction extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.UNSTABLE_AFFLICTION.id} /> uptime can be improved. Use a debuff
+          Your <SpellLink spell={SPELLS.UNSTABLE_AFFLICTION} /> uptime can be improved. Use a debuff
           tracker to see your uptime on the boss.
         </>,
       )
         .icon(SPELLS.UNSTABLE_AFFLICTION.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.unstableAffliction.uptime',
             message: `${formatPercentage(actual)}% Unstable Affliction uptime.`,
           }),
@@ -54,7 +54,7 @@ class UnstableAffliction extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.UNSTABLE_AFFLICTION.id} />
+          <SpellIcon spell={SPELLS.UNSTABLE_AFFLICTION} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
@@ -96,15 +96,15 @@ class Barrage extends Analyzer {
     when(this.barrageInefficientCastsThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink id={TALENTS.BARRAGE_TALENT.id} /> inefficiently {actual}{' '}
+          You cast <SpellLink spell={TALENTS.BARRAGE_TALENT} /> inefficiently {actual}{' '}
           {actual > 1 ? 'times' : 'time'} throughout the fight. This means you didn't hit all{' '}
           {BARRAGE_HITS_PER_CAST} shots of your barrage channel. Remember to always be facing your
-          target when channeling <SpellLink id={TALENTS.BARRAGE_TALENT.id} />.{' '}
+          target when channeling <SpellLink spell={TALENTS.BARRAGE_TALENT} />.{' '}
         </>,
       )
         .icon(TALENTS.BARRAGE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.shared.suggestions.barrage.efficiency',
             message: `${actual} inefficient ${actual > 1 ? 'casts' : 'cast'}`,
           }),
@@ -120,7 +120,7 @@ class Barrage extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.BARRAGE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.BARRAGE_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} /> <br />
             <AverageTargetsHit casts={this.casts.length} hits={this.hits} />

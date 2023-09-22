@@ -26,7 +26,8 @@ const MeleeChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProp
         description={
           <>
             Avoid unnecessary downtime during the fight by staying within melee range of the boss.
-            If you are far out of range, use <SpellLink id={SPELLS.SPRINT} /> to return to the boss.
+            If you are far out of range, use <SpellLink spell={SPELLS.SPRINT} /> to return to the
+            boss.
           </>
         }
       >

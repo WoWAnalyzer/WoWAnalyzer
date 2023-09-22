@@ -153,7 +153,7 @@ class DireBeast extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.DIRE_BEAST_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DIRE_BEAST_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

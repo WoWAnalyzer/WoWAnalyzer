@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Panel } from 'interface';
@@ -51,7 +51,7 @@ class RageDetails extends Analyzer {
       suggest(`You wasted ${formatPercentage(this.wastedPercent)}% of your Rage.`)
         .icon('spell_nature_reincarnation')
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.fury.suggestions.rage.wasted',
             message: `${formatPercentage(actual)}% wasted`,
           }),

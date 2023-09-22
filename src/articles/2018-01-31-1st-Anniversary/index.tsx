@@ -2,8 +2,8 @@ import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import * as CONTRIBUTORS from 'CONTRIBUTORS';
-import SPECS, { Spec } from 'game/SPECS';
-import { ItemLink } from 'interface';
+import SPECS from 'game/SPECS';
+import { ItemLink, SpecIcon } from 'interface';
 import Contributor, { ContributorType } from 'interface/ContributorButton';
 import DiscordButton from 'interface/DiscordButton';
 import Icon from 'interface/Icon';
@@ -103,18 +103,6 @@ import WoWAnalyzerV10 from './WoWAnalyzer-v1.0.gif';
 import WoWAnalyzerV111 from './WoWAnalyzer-v1.1.1.gif';
 import WoWAnalyzerV11 from './WoWAnalyzer-v1.1.png';
 import WoWAnalyzerPartyHat from './WoWAnalyzerPartyHat.png';
-
-interface SpecIconProps {
-  spec: Spec;
-}
-
-const SpecIcon = ({ spec }: SpecIconProps) => (
-  <img
-    src={`/specs/${spec.className.replace(' ', '')}-${spec.specName?.replace(' ', '')}.jpg`}
-    alt={`${spec.specName} ${spec.className}`}
-    style={{ float: 'left', borderRadius: 5, margin: '5px 10px 10px 0px' }}
-  />
-);
 
 /* eslint-disable jsx-a11y/accessible-emoji */
 

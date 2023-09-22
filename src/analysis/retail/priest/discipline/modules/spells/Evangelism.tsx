@@ -109,7 +109,7 @@ class Evangelism extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.EVANGELISM_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.EVANGELISM_TALENT}>
           <ItemHealingDone amount={evangelismStatistics.reduce((p, c) => p + c.healing, 0)} />
         </BoringSpellValueText>
       </Statistic>

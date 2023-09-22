@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -137,13 +137,13 @@ class Backdraft extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should use your <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks more. You have wasted{' '}
+          You should use your <SpellLink spell={SPELLS.BACKDRAFT} /> stacks more. You have wasted{' '}
           {this.wastedStacks} stacks this fight.
         </>,
       )
         .icon(SPELLS.BACKDRAFT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.destruction.suggestions.backdraft.wastedPerMinute',
             message: `${actual.toFixed(2)} wasted Backdraft stacks per minute`,
           }),

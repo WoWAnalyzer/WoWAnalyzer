@@ -86,7 +86,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.LAVA_BURST_TALENT.id,
         enabled:
           combatant.hasTalent(TALENTS_SHAMAN.LAVA_BURST_TALENT) &&
-          !combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
+          !combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 8,
         charges: 1,
@@ -97,7 +97,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ASTRAL_SHIFT_TALENT),
-        cooldown: combatant.hasTalent(TALENTS_SHAMAN.PLANES_TRAVELER_TALENT) ? 90 : 120,
+        cooldown: 90,
         category: SPELL_CATEGORY.DEFENSIVE,
         isDefensive: true,
       },
@@ -393,21 +393,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        // TODO: Correct Spell ID
-        spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 180,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-        damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 1.0,
-        },
-      },
-      {
         spell: TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
         buffSpellId: [
           //Feral Spirit isn't an actual buff, so we can only show the Elemental
@@ -415,6 +400,7 @@ class Abilities extends CoreAbilities {
           SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE.id,
           SPELLS.ELEMENTAL_SPIRITS_BUFF_CRACKLING_SURGE.id,
+          SPELLS.FERAL_SPIRIT_BUFF_EARTHEN_WEAPON.id,
         ],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 90,
@@ -427,15 +413,14 @@ class Abilities extends CoreAbilities {
       },
       {
         // This is no error. We actually use the elemental shaman elemental blast spell id.
-        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT),
-        charges:
-          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.ELEMENTAL_BLAST_TALENT) +
-          combatant.getRepeatedTalentCount(TALENTS_SHAMAN.LAVA_BURST_TALENT),
+        spell: TALENTS_SHAMAN.ELEMENTAL_BLAST_ELEMENTAL_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT),
+        charges: combatant.getMultipleTalentRanks(
+          TALENTS_SHAMAN.ELEMENTAL_BLAST_ENHANCEMENT_TALENT,
+          TALENTS_SHAMAN.LAVA_BURST_TALENT,
+        ),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => {
-          return 12 / (1 + haste);
-        },
+        cooldown: 12,
         gcd: {
           base: 1500,
         },
@@ -449,24 +434,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.WINDSTRIKE_CAST.id,
-        // Placeholder for enhancement's ascendance
-        enabled:
-          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT) ||
-          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 3 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
         spell: TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT),
         gcd: {
           base: 1500,
         },
-        cooldown: (haste) => 9 / (1 + haste),
+        cooldown: (haste) => 12 / (1 + haste),
       },
       {
         spell: TALENTS_SHAMAN.FERAL_LUNGE_TALENT.id,
@@ -516,14 +490,13 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id,
-        buffSpellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
+        spell: SPELLS.PRIMORDIAL_WAVE.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
           base: 1500,
         },
-        enabled: false,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1,
@@ -553,6 +526,40 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 1,
         },
+      },
+      {
+        spell: SPELLS.WINDFURY_ATTACK.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.WINDFURY_WEAPON_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: SPELLS.FLAMETONGUE_ATTACK.id,
+        enabled: true,
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.STORMSTRIKE_DAMAGE_OFFHAND.id],
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.STORMSTRIKE_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: SPELLS.STORMBLAST_DAMAGE.id,
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.STORMBLAST_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: [SPELLS.WINDSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE_OFFHAND.id],
+        enabled:
+          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
+          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
+      },
+      {
+        spell: [SPELLS.WINDLASH.id, SPELLS.WINDLASH_OFFHAND.id],
+        enabled:
+          combatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
+          combatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT),
+        category: SPELL_CATEGORY.HIDDEN,
       },
     ];
   }

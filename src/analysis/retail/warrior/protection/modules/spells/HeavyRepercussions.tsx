@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -11,17 +11,9 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
 
-import RageTracker from '../core/RageTracker';
-
 const HEAVY_REPERCUSSIONS_SHIELD_BLOCK_EXTEND_MS = 1000;
 
 class HeavyRepercussions extends Analyzer {
-  static dependencies = {
-    rageTracker: RageTracker,
-  };
-
-  protected rageTracker!: RageTracker;
-
   sbExtended = 0;
   sbCasts = 0;
 
@@ -65,15 +57,15 @@ class HeavyRepercussions extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try and cast <SpellLink id={SPELLS.SHIELD_SLAM.id} />
-          's during <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> to increase the uptime of{' '}
-          <SpellLink id={SPELLS.SHIELD_BLOCK.id} /> and the damage of{' '}
-          <SpellLink id={SPELLS.SHIELD_SLAM.id} />.
+          Try and cast <SpellLink spell={SPELLS.SHIELD_SLAM} />
+          's during <SpellLink spell={SPELLS.SHIELD_BLOCK} /> to increase the uptime of{' '}
+          <SpellLink spell={SPELLS.SHIELD_BLOCK} /> and the damage of{' '}
+          <SpellLink spell={SPELLS.SHIELD_SLAM} />.
         </>,
       )
         .icon(TALENTS.HEAVY_REPERCUSSIONS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.protection.suggestions.heavyRepercussions.shieldBlockCasts',
             message: `${formatPercentage(actual)}% cast during Shield Block`,
           }),
@@ -84,10 +76,6 @@ class HeavyRepercussions extends Analyzer {
 
   statistic() {
     const sbExtendedMS = this.sbExtended * HEAVY_REPERCUSSIONS_SHIELD_BLOCK_EXTEND_MS;
-
-    const rageByShieldSlam = this.rageTracker.getGeneratedBySpell(SPELLS.SHIELD_SLAM.id);
-    const rageWastedByShieldSlam = this.rageTracker.getWastedBySpell(SPELLS.SHIELD_SLAM.id);
-    const rageFromTalent = ((rageByShieldSlam + rageWastedByShieldSlam) / 18) * 3;
 
     return (
       <Statistic
@@ -105,13 +93,12 @@ class HeavyRepercussions extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.HEAVY_REPERCUSSIONS_TALENT.id} /> Extra Shield Block and Rage
+              <SpellLink spell={TALENTS.HEAVY_REPERCUSSIONS_TALENT} /> Extra Shield Block
             </>
           }
         >
           <>
             {formatPercentage(sbExtendedMS / (this.shieldBlockuptime - sbExtendedMS))}% <br />
-            {rageFromTalent} <small>rage</small>
           </>
         </BoringValueText>
       </Statistic>

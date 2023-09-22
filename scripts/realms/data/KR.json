@@ -4,16 +4,28 @@
   },
   "realms": [
     {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/205?namespace=dynamic-kr" },
+      "name": "아즈샤라",
+      "id": 205,
+      "slug": "azshara"
+    },
+    {
       "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/201?namespace=dynamic-kr" },
       "name": "불타는 군단",
       "id": 201,
       "slug": "burning-legion"
     },
     {
-      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/205?namespace=dynamic-kr" },
-      "name": "아즈샤라",
-      "id": 205,
-      "slug": "azshara"
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/215?namespace=dynamic-kr" },
+      "name": "굴단",
+      "id": 215,
+      "slug": "guldan"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/264?namespace=dynamic-kr" },
+      "name": "말퓨리온",
+      "id": 264,
+      "slug": "malfurion"
     },
     {
       "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/207?namespace=dynamic-kr" },
@@ -46,34 +58,16 @@
       "slug": "windrunner"
     },
     {
-      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/215?namespace=dynamic-kr" },
-      "name": "굴단",
-      "id": 215,
-      "slug": "guldan"
-    },
-    {
-      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/258?namespace=dynamic-kr" },
-      "name": "알렉스트라자",
-      "id": 258,
-      "slug": "alexstrasza"
-    },
-    {
-      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/264?namespace=dynamic-kr" },
-      "name": "말퓨리온",
-      "id": 264,
-      "slug": "malfurion"
-    },
-    {
       "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/293?namespace=dynamic-kr" },
       "name": "헬스크림",
       "id": 293,
       "slug": "hellscream"
     },
     {
-      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2079?namespace=dynamic-kr" },
-      "name": "와일드해머",
-      "id": 2079,
-      "slug": "wildhammer"
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/258?namespace=dynamic-kr" },
+      "name": "알렉스트라자",
+      "id": 258,
+      "slug": "alexstrasza"
     },
     {
       "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2106?namespace=dynamic-kr" },
@@ -110,6 +104,12 @@
       "name": "줄진",
       "id": 2116,
       "slug": "zuljin"
+    },
+    {
+      "key": { "href": "https://kr.api.blizzard.com/data/wow/realm/2079?namespace=dynamic-kr" },
+      "name": "와일드해머",
+      "id": 2079,
+      "slug": "wildhammer"
     }
   ]
 }

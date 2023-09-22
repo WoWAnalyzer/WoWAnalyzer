@@ -69,7 +69,7 @@ class ResplendentLight extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(15)}
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT}>
           <>
             <ItemHealingDone amount={this.bonusHealing} /> <br />
             <ItemDamageDone amount={this.bonusDamage} /> <br />

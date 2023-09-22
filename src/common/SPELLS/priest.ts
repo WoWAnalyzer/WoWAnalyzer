@@ -3,10 +3,9 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
+import Spell from 'common/SPELLS/Spell';
 
-import { spellIndexableList } from './Spell';
-
-const spells = spellIndexableList({
+const spells = {
   // Shared
   HOLY_NOVA_HEAL: {
     id: 281265,
@@ -114,7 +113,7 @@ const spells = spellIndexableList({
     id: 17,
     name: 'Power Word: Shield',
     icon: 'spell_holy_powerwordshield',
-    manaCost: 7750,
+    manaCost: 6000,
   },
   SHIELD_OF_ABSOLUTION_BUFF: {
     id: 394624,
@@ -131,6 +130,16 @@ const spells = spellIndexableList({
     name: 'Smite',
     icon: 'spell_holy_holysmite',
     manaCost: 1000,
+  },
+  SHADOW_SMITE: {
+    id: 425529,
+    name: 'Smite',
+    icon: 'spell_fire_twilightflamestrike',
+  },
+  ULTIMATE_PENITENCE_DAMAGE: {
+    id: 421543,
+    name: 'Ultimate Penitence',
+    icon: 'ability_priest_ascendance',
   },
   POWER_WORD_RADIANCE: {
     id: 194509,
@@ -382,7 +391,7 @@ const spells = spellIndexableList({
     id: 204197,
     name: 'Purge the Wicked',
     icon: 'ability_mage_firestarter',
-    manaCost: 900,
+    manaCost: 4500,
   },
   PURGE_THE_WICKED_BUFF: {
     id: 204213,
@@ -404,6 +413,11 @@ const spells = spellIndexableList({
     id: 400370,
     name: 'Burning Vehemence',
     icon: 'ability_paladin_sacredcleansing',
+  },
+  WORDS_OF_THE_PIOUS_BUFF: {
+    id: 390933,
+    name: 'Words of the Pious',
+    icon: 'ability_priest_clarityofwill',
   },
 
   // Holy Priest Spells
@@ -538,6 +552,21 @@ const spells = spellIndexableList({
     name: 'Lightwell',
     icon: 'spell_holy_summonlightwell',
   },
+  DIVINE_IMAGE_HEALING_LIGHT_HEAL: {
+    id: 196909,
+    name: 'Healing Light',
+    icon: 'inv_staff_2h_artifactheartofkure_d_04',
+  },
+  DIVINE_IMAGE_DAZZLING_LIGHT_HEAL: {
+    id: 196810,
+    name: 'Dazzling Light',
+    icon: 'spell_holy_divineprovidence',
+  },
+  DIVINE_IMAGE_BLESSED_LIGHT_HEAL: {
+    id: 196813,
+    name: 'Blessed Light',
+    icon: 'spell_holy_divineprovidence',
+  },
   HOLY_WORD_CHASTISE_CENSURE_TALENT_INCAPACITATE: {
     id: 200196,
     name: 'Holy Word: Chastise',
@@ -565,7 +594,7 @@ const spells = spellIndexableList({
     id: 8092,
     name: 'Mind Blast',
     icon: 'spell_shadow_unholyfrenzy',
-    manaCost: 1250,
+    manaCost: 4000,
   },
   MIND_FLAY: {
     id: 15407,
@@ -825,6 +854,13 @@ const spells = spellIndexableList({
     name: 'Devoured Violence',
     icon: 'sha_spell_warlock_demonsoul',
   },
+
+  ANCIENT_MADNESS_TALENT: {
+    id: 341240,
+    name: 'Ancient Madness',
+    icon: 'spell_priest_void-flay',
+  },
+
   //Shadow Tier
   SHADOW_PRIEST_TIER_29_4_SET_BUFF: {
     id: 394963,
@@ -838,6 +874,6 @@ const spells = spellIndexableList({
     name: 'Spirit Shell',
     icon: 'ability_shaman_astralshift.jpg',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

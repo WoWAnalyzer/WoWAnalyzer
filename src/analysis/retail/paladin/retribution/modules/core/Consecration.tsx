@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -34,7 +34,7 @@ class Consecration extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE()}
-        icon={<SpellIcon id={SPELLS.CONSECRATION_CAST.id} />}
+        icon={<SpellIcon spell={SPELLS.CONSECRATION_CAST} />}
         value={`${this.averageHitPerCast.toFixed(2)} hits`}
         label="Targets Hit"
         tooltip={`You averaged ${this.averageHitPerCast.toFixed(2)} hits per cast of Consecration.`}

@@ -227,7 +227,7 @@ class Atonement extends Analyzer {
 
     return (
       <StatisticBox
-        icon={<SpellIcon id={SPELLS.ATONEMENT_HEAL_NON_CRIT.id} />}
+        icon={<SpellIcon spell={SPELLS.ATONEMENT_HEAL_NON_CRIT} />}
         value={improperLength}
         label={<>Early Atonement refreshes</>}
         tooltip={`The amount of Atonement instances that were refreshed earlier than within 3 seconds of the buff expiring. You applied Atonement ${totalAtones} times in total, ${totalAtonementRefreshes} (${formatPercentage(

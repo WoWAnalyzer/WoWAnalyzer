@@ -55,7 +55,7 @@ class InstantPoison extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={SPELLS.INSTANT_POISON.id} /> Instant Poison Proc Percentage
+              <SpellIcon spell={SPELLS.INSTANT_POISON} /> Instant Poison Proc Percentage
             </>
           }
         >
@@ -76,7 +76,7 @@ class InstantPoison extends Analyzer {
         .icon(SPELLS.INSTANT_POISON.icon)
         .actual(
           <>
-            You procced <SpellLink id={SPELLS.INSTANT_POISON.id} /> on{' '}
+            You procced <SpellLink spell={SPELLS.INSTANT_POISON} /> on{' '}
             {formatPercentage(this.procPercentage)} % of your melee hits.
           </>,
         )

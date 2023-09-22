@@ -33,7 +33,7 @@ class Aftershock extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.AFTERSHOCK_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.AFTERSHOCK_TALENT}>
           <>
             <ResourceGenerated resourceType={RESOURCE_TYPES.MAELSTROM} amount={this.refund} />
           </>

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/hunter';
 import { SpellLink, SpellIcon } from 'interface';
@@ -33,13 +33,13 @@ class SerpentStingUptime extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.SERPENT_STING.id} /> uptime can be improved. Use a debuff
+          Your <SpellLink spell={SPELLS.SERPENT_STING} /> uptime can be improved. Use a debuff
           tracker to see your uptime on the boss.
         </>,
       )
         .icon(SPELLS.SERPENT_STING.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'hunter.suggestions.serpentsting.uptime',
             message: `${formatPercentage(actual)}% Serpent Sting uptime`,
           }),
@@ -53,7 +53,7 @@ class SerpentStingUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.SERPENT_STING} />
+          <SpellIcon spell={SPELLS.SERPENT_STING} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

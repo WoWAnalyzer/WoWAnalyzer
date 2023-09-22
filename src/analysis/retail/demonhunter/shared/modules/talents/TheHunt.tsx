@@ -12,7 +12,6 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import Enemies from 'parser/shared/modules/Enemies';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
-import { Trans } from '@lingui/macro';
 import InitiativeExplanation from 'analysis/retail/demonhunter/havoc/guide/InitiativeExplanation';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
@@ -90,24 +89,24 @@ class TheHunt extends MajorCooldown<TheHuntCooldownCast> {
     const isHavoc = this.owner.config.spec === SPECS.HAVOC_DEMON_HUNTER;
     if (isHavoc) {
       return (
-        <Trans id="guide.demonhunter.havoc.sections.cooldowns.theHunt.explanation">
+        <>
           <strong>
             <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
           </strong>{' '}
           is a powerful burst of damage that also provides some healing with the DoT that it
           applies.
           <InitiativeExplanation />
-        </Trans>
+        </>
       );
     }
     return (
-      <Trans id="guide.demonhunter.vengeance.sections.cooldowns.theHunt.explanation">
+      <>
         <strong>
           <SpellLink spell={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         </strong>{' '}
         is a powerful burst of damage that also provides some healing with the DoT that it applies.
         <VulnerabilityExplanation numberOfFrailtyStacks={GOOD_FRAILTY_STACKS} />
-      </Trans>
+      </>
     );
   }
 

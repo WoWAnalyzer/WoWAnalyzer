@@ -10,6 +10,7 @@ import MasteryEffectiveness from '../features/MasteryEffectiveness';
 import FillerFlashOfLight from '../spells/FillerFlashOfLight';
 import FillerLightOfTheMartyrs from '../spells/FillerLightOfTheMartyrs';
 import Component from './Component';
+import Daybreak from '../talents/GlimmerOfLight/Daybreak';
 
 class Checklist extends BaseChecklist {
   static dependencies = {
@@ -23,6 +24,7 @@ class Checklist extends BaseChecklist {
     fillerLightOfTheMartyrs: FillerLightOfTheMartyrs,
     fillerFlashOfLight: FillerFlashOfLight,
     preparationRuleAnalyzer: PreparationRuleAnalyzer,
+    daybreak: Daybreak,
   };
 
   protected combatants!: Combatants;
@@ -34,6 +36,7 @@ class Checklist extends BaseChecklist {
   protected fillerLightOfTheMartyrs!: FillerLightOfTheMartyrs;
   protected fillerFlashOfLight!: FillerFlashOfLight;
   protected preparationRuleAnalyzer!: PreparationRuleAnalyzer;
+  protected daybreak!: Daybreak;
 
   render() {
     return (
@@ -56,6 +59,7 @@ class Checklist extends BaseChecklist {
           fillerLightOfTheMartyrsCpm: this.fillerLightOfTheMartyrs.cpmSuggestionThresholds,
           fillerLightOfTheMartyrsInefficientCpm:
             this.fillerLightOfTheMartyrs.inefficientCpmSuggestionThresholds,
+          daybreak: this.daybreak.suggestionThresholds,
         }}
       />
     );

@@ -1,10 +1,10 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { HolyPowerTracker } from 'analysis/retail/paladin/shared';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
-import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, ApplyBuffStackEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
@@ -84,15 +84,15 @@ class Crusade extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          You want to build stacks of <SpellLink id={TALENTS.CRUSADE_TALENT.id} icon /> as quickly
-          as possible. Make sure you are using <SpellLink id={SPELLS.TEMPLARS_VERDICT.id} icon /> or{' '}
-          <SpellLink id={SPELLS.DIVINE_STORM_DAMAGE.id} icon /> immediately after casting{' '}
-          <SpellLink id={TALENTS.CRUSADE_TALENT.id} icon />.
+          You want to build stacks of <SpellLink spell={TALENTS.CRUSADE_TALENT} icon /> as quickly
+          as possible. Make sure you are using <SpellLink spell={SPELLS.TEMPLARS_VERDICT} icon /> or{' '}
+          <SpellLink spell={SPELLS.DIVINE_STORM_DAMAGE} icon /> immediately after casting{' '}
+          <SpellLink spell={TALENTS.CRUSADE_TALENT} icon />.
         </>,
       )
         .icon(TALENTS.CRUSADE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.retribution.suggestions.Crusade.efficiency',
             message: `${formatNumber(this.badFirstGlobal)} bad first global(s)`,
           }),

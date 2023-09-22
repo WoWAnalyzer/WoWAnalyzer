@@ -1,5 +1,4 @@
-import { t } from '@lingui/macro';
-import { formatNumber } from 'common/format';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -12,6 +11,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TALENTS from 'common/TALENTS/warrior';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 const BOOMING_VOICE_DAMAGE_INCREASE = 0.2;
 const BOOMING_VOICE_RAGE_GENERATION = 30;
@@ -38,7 +38,7 @@ class BoomingVoice extends Analyzer {
       this.onShoutCast,
     );
     this.addEventListener(
-      Events.resourcechange.to(SELECTED_PLAYER).spell(SPELLS.DEMORALIZING_SHOUT),
+      Events.resourcechange.to(SELECTED_PLAYER).spell(TALENTS.BOOMING_VOICE_TALENT),
       this.onShoutEnergize,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
@@ -89,13 +89,13 @@ class BoomingVoice extends Analyzer {
     when(this.uptimeSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You wasted Rage by casting <SpellLink id={SPELLS.DEMORALIZING_SHOUT.id} /> with more than{' '}
+          You wasted Rage by casting <SpellLink spell={SPELLS.DEMORALIZING_SHOUT} /> with more than{' '}
           {this.maxRage - BOOMING_VOICE_RAGE_GENERATION} Rage.
         </>,
       )
         .icon(TALENTS.BOOMING_VOICE_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.protection.suggestions.boominVoice.rage.wasted',
             message: `${actual} Rage wasted`,
           }),
@@ -110,24 +110,15 @@ class BoomingVoice extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
-        tooltip={
-          <>
-            {formatNumber(this.bonusDmg)} damage contributed
-            <br />
-            {this.rageWasted} Rage wasted
-          </>
-        }
       >
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.BOOMING_VOICE_TALENT.id} /> Rage generated
+              <SpellLink spell={TALENTS.BOOMING_VOICE_TALENT} /> Damage
             </>
           }
         >
-          <>
-            {this.rageGenerated} <small>rage</small>
-          </>
+          <ItemDamageDone amount={this.bonusDmg} />
         </BoringValueText>
       </Statistic>
     );

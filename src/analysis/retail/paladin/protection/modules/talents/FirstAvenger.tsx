@@ -97,7 +97,7 @@ class FirstAvenger extends Analyzer {
         tooltip={
           <>
             You hit on average <b>{formatNumber(this.averageHitsPerCast)}</b> enemies per cast of{' '}
-            <SpellLink id={TALENTS.SOARING_SHIELD_TALENT.id} />
+            <SpellLink spell={TALENTS.SOARING_SHIELD_TALENT} />
             <br />
             The extra hits from taking First Avenger contributed{' '}
             <b>{formatNumber(this.totalExtraDamage)}</b> total extra damage.
@@ -105,11 +105,11 @@ class FirstAvenger extends Analyzer {
         }
       >
         <BoringSpellValue
-          spellId={TALENTS.SOARING_SHIELD_TALENT.id}
+          spell={TALENTS.SOARING_SHIELD_TALENT.id}
           value={formatNumber(this.averageExtraDamage)}
           label={
             <>
-              Average extra damage per cast of <SpellLink id={TALENTS.SOARING_SHIELD_TALENT.id} />.
+              Average extra damage per cast of <SpellLink spell={TALENTS.SOARING_SHIELD_TALENT} />.
             </>
           }
         />

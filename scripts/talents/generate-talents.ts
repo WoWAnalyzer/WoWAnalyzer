@@ -5,8 +5,9 @@ import {
   createTalentKey,
   csvToObject,
   findResourceCost,
+  findResourceCostPerSecond,
   printTalents,
-  readCsvFromFile,
+  readCsvFromUrl,
   readJsonFromUrl,
 } from './talent-tree-helpers';
 import {
@@ -14,18 +15,19 @@ import {
   GenericTalentInterface,
   ISpellpower,
   ITalentTree,
+  ResourceCostPerSecondType,
   ResourceCostType,
   ResourceTypes,
   TalentEntry,
   TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '10.1.0.49365';
+const LIVE_WOW_BUILD_NUMBER = '10.1.7.51187';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
-const LIVE_SPELLPOWER_DATA_FILE = `./spellpower_${LIVE_WOW_BUILD_NUMBER}.csv`;
-const PTR_WOW_BUILD_NUMBER = LIVE_WOW_BUILD_NUMBER;
+const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
+const PTR_WOW_BUILD_NUMBER = '10.1.7.51187';
 const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/ptr/talents.json';
-const PTR_SPELLPOWER_DATA_FILE = `./spellpower_${PTR_WOW_BUILD_NUMBER}.csv`;
+const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   //TODO Non Mana users verification
@@ -49,25 +51,52 @@ const withResources = (
   talent: GenericTalentInterface,
   classId: number,
 ): GenericTalentInterface => {
-  const entryInSpellPowerTable = spellpower.find((e) => Number(e.SpellID) === talent.id);
-  if (entryInSpellPowerTable) {
+  const spellPowerEntries = spellpower.filter((e) => Number(e.SpellID) === talent.id);
+  let updatedTalent = talent;
+  for (const entryInSpellPowerTable of spellPowerEntries) {
     const resourceId = Number(entryInSpellPowerTable.PowerType);
     const resourceName = ResourceTypes[resourceId];
+    if (resourceName === undefined) {
+      // not all resources are in the enum. in particular: -2 is used for healing (i think?) and is not present
+      continue;
+    }
     const resourceCostKey = `${camalize(resourceName)}Cost` as ResourceCostType;
+    const resourceCostPerSecondKey = `${camalize(
+      resourceName,
+    )}CostPerSecond` as ResourceCostPerSecondType;
     const cost = findResourceCost(
       entryInSpellPowerTable,
       resourceId,
       classes[classId].baseMaxResource,
     );
+    const costPerSecond = findResourceCostPerSecond(
+      entryInSpellPowerTable,
+      resourceId,
+      classes[classId].baseMaxResource,
+    );
 
-    return {
-      ...talent,
-      [resourceCostKey]: cost,
-    };
-  } else {
-    // no resource cost found
-    return talent;
+    if (cost !== 0) {
+      updatedTalent = {
+        ...updatedTalent,
+        // use the lowest observed non-zero cost.
+        // note: this is non-zero because we never reach this point with a 0 cost
+        [resourceCostKey]: Math.min(cost, updatedTalent[resourceCostKey] ?? Infinity),
+      };
+    }
+    if (costPerSecond !== 0) {
+      updatedTalent = {
+        ...updatedTalent,
+        // use the lowest observed non-zero cost.
+        // note: this is non-zero because we never reach this point with a 0 cost
+        [resourceCostPerSecondKey]: Math.min(
+          costPerSecond,
+          updatedTalent[resourceCostPerSecondKey] ?? Infinity,
+        ),
+      };
+    }
   }
+
+  return updatedTalent;
 };
 
 const entryToSpell = (
@@ -134,9 +163,11 @@ async function generateTalents(isPTR: boolean = false) {
   const talents: ITalentTree[] = await readJsonFromUrl(
     isPTR ? PTR_TALENT_DATA_URL : LIVE_TALENT_DATA_URL,
   );
-  const spellpower: ISpellpower[] = csvToObject(
-    readCsvFromFile(isPTR ? PTR_SPELLPOWER_DATA_FILE : LIVE_SPELLPOWER_DATA_FILE),
+
+  const spellpowerCsv = await readCsvFromUrl(
+    isPTR ? PTR_SPELLPOWER_DATA_URL : LIVE_SPELLPOWER_DATA_URL,
   );
+  const spellpower: ISpellpower[] = csvToObject(spellpowerCsv);
 
   const talentsByClass = talents.reduce((map: Record<string, ITalentTree[]>, tree) => {
     if (!map[tree.className]) {
@@ -317,10 +348,9 @@ async function generateTalents(isPTR: boolean = false) {
     fs.writeFileSync(
       `./src/common/TALENTS/${lowerCasedClassName}.ts`,
       `// Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({${printTalents(talents)}
-  });
+const talents = {${printTalents(talents)}} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_${className.toUpperCase().replace(' ', '_')}}

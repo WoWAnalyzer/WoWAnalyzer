@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -48,13 +48,13 @@ class RendAnalyzer extends EarlyDotRefreshesCore {
     when(this.suggestionThresholdsRendEfficiency).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You refreshed <SpellLink id={TALENTS.REND_ARMS_TALENT.id} icon /> early{' '}
+          You refreshed <SpellLink spell={TALENTS.REND_ARMS_TALENT} icon /> early{' '}
           {this.suggestionThresholdsRendEfficiency.count} times.
         </>,
       )
         .icon(TALENTS.REND_ARMS_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shared.suggestions.dots.badRefreshes',
             message: `${formatPercentage(actual)}% of good Rend refreshes.`,
           }),

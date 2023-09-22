@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -96,7 +96,7 @@ class DesperatePrayer extends Analyzer {
           </table>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.DESPERATE_PRAYER.id}>
+        <BoringSpellValueText spell={SPELLS.DESPERATE_PRAYER}>
           {this.desperatePrayerUsages.length} Casts
         </BoringSpellValueText>
       </Statistic>
@@ -111,12 +111,12 @@ class DesperatePrayer extends Analyzer {
         .addSuggestion((suggest) =>
           suggest(
             <>
-              You died with <SpellLink id={SPELLS.DESPERATE_PRAYER.id} /> available.
+              You died with <SpellLink spell={SPELLS.DESPERATE_PRAYER} /> available.
             </>,
           )
             .icon(SPELLS.DESPERATE_PRAYER.icon)
             .actual(
-              t({
+              defineMessage({
                 id: 'priest.shared.suggestions.DesperatePrayer.efficiency',
                 message: `You died ${this.deathsWithDPReady} time(s) with Desperate Prayer available.`,
               }),

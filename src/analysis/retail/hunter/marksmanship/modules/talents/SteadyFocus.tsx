@@ -59,7 +59,7 @@ class SteadyFocus extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_HUNTER.STEADY_FOCUS_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.STEADY_FOCUS_TALENT}>
           <>
             <HasteIcon /> {formatPercentage(this.avgHaste)}% <small>average Haste gained</small>
           </>
@@ -72,9 +72,9 @@ class SteadyFocus extends Analyzer {
     when(this.uptimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your uptime on the buff from <SpellLink id={TALENTS_HUNTER.STEADY_FOCUS_TALENT.id} />{' '}
+          Your uptime on the buff from <SpellLink spell={TALENTS_HUNTER.STEADY_FOCUS_TALENT} />{' '}
           could be better. When using this talent you should always try and couple your{' '}
-          <SpellLink id={SPELLS.STEADY_SHOT.id} /> together to maintain this buff.
+          <SpellLink spell={SPELLS.STEADY_SHOT} /> together to maintain this buff.
         </>,
       )
         .icon(TALENTS_HUNTER.STEADY_FOCUS_TALENT.icon)

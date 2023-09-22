@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
-import { CamClark } from 'CONTRIBUTORS';
+import { Abelito75 } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import { SpellLink } from 'interface';
@@ -9,9 +9,9 @@ import Config from 'parser/Config';
 import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
-  contributors: [CamClark],
+  contributors: [Abelito75],
   expansion: Expansion.Dragonflight,
-  patchCompatibility: '10.1.0',
+  patchCompatibility: '10.1.7',
   isPartial: false,
   description: (
     <>
@@ -22,14 +22,14 @@ const config: Config = {
       <br />
       You might have noticed the suggestions focus mostly on improving your cast efficiencies. This
       might seem silly, but it's actually one of the most important things for us Holy Paladins.
-      Avoid having your <SpellLink id={SPELLS.AVENGING_WRATH} /> and other cooldowns available
+      Avoid having your <SpellLink spell={SPELLS.AVENGING_WRATH} /> and other cooldowns available
       unused for long periods of time (they're not raid cooldowns, they're required for you to have
       decent throughput and not run OOM) and <b>hit those buttons</b> that have short cooldowns
-      (such as <SpellLink id={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
-      <SpellLink id={TALENTS.LIGHT_OF_DAWN_TALENT} />
-      ). Finally, don't cast <SpellLink id={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> unless there's
+      (such as <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and{' '}
+      <SpellLink spell={TALENTS.LIGHT_OF_DAWN_TALENT} />
+      ). Finally, don't cast <SpellLink spell={TALENTS.LIGHT_OF_THE_MARTYR_TALENT} /> unless there's
       nothing else to cast, or you're playing with{' '}
-      <SpellLink id={TALENTS.MARAADS_DYING_BREATH_TALENT} />
+      <SpellLink spell={TALENTS.MARAADS_DYING_BREATH_TALENT} />
       .
       <br />
       <br />
@@ -46,7 +46,7 @@ const config: Config = {
     </>
   ),
   exampleReport:
-    '/report/mWxqCgyDB7atVrd1/4-Mythic+Skolex,+the+Insatiable+Ravener+-+Kill+(4:30)/Claríus/standard',
+    '/report/K3QhqX8brd7aHJn4/26-Mythic+The+Vigilant+Steward,+Zskarn+-+Kill+(4:15)/467-Mytholcgy/standard',
 
   //
   spec: SPECS.HOLY_PALADIN,

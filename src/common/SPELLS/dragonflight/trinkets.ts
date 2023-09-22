@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const spells = spellIndexableList({
+const spells = {
   UNSTABLE_FLAMES: {
     id: 401394,
     name: 'Unstables Flames',
@@ -26,6 +26,31 @@ const spells = spellIndexableList({
     name: 'Spoils of Neltharus',
     icon: 'ability_mount_goatmount',
   },
-});
+  IRIDEUS_FRAGMENT: {
+    id: 383941,
+    name: 'Irideus Fragment',
+    icon: 'inv_10_dungeonjewelry_titan_trinket_1facefragment_color3',
+  },
+  MIRROR_OF_FRACTURED_TOMORROWS: {
+    id: 418527,
+    name: 'Mirror of Fractured Tomorrows',
+    icon: 'achievement_dungeon_ulduarraid_misc_06',
+  },
+  ACCELERATING_SANDGLASS_DRAINING: {
+    id: 417452,
+    name: 'Accelerating Sandglass',
+    icon: 'ability_bossmagistrix_timewarp2',
+  },
+  ACCELERATING_SANDGLASS_EMPTY: {
+    id: 417456,
+    name: 'Accelerating Sandglass',
+    icon: 'ability_evoker_timelessness',
+  },
+  ACCELERATING_SANDGLASS_DAMAGE: {
+    id: 417458,
+    name: 'Accelerating Sandglass',
+    icon: 'ability_bossmagistrix_timewarp2',
+  },
+} satisfies Record<string, Spell>;
 
 export default spells;

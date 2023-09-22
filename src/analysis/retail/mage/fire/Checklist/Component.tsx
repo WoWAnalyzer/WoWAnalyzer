@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
+import { TIERS } from 'game/TIERS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
@@ -26,11 +27,11 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         description={
           <>
             Any time you are not casting something, that is damage that is lost. Mage has many ways
-            to decrease downtime, such as using <SpellLink id={SPELLS.BLINK.id} /> to get somewhere
-            faster so you can continue casting or using <SpellLink id={SPELLS.SCORCH.id} /> while
+            to decrease downtime, such as using <SpellLink spell={SPELLS.BLINK} /> to get somewhere
+            faster so you can continue casting or using <SpellLink spell={SPELLS.SCORCH} /> while
             you are moving; even phases where the only target is taking 99% reduced damage is an
             opportunity to fish for procs or get cooldown reduction from crits if you are using{' '}
-            <SpellLink id={TALENTS.KINDLING_TALENT.id} />. While some encounters have forced
+            <SpellLink spell={TALENTS.KINDLING_TALENT} />. While some encounters have forced
             downtime, which WoWAnalyzer does not account for, anything you can do to minimize your
             downtime will help your damage. Additionally, to better contextualize your downtime, we
             recommend comparing your downtime to another Fire Mage that did better than you on the
@@ -47,39 +48,29 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         description={
           <>
             As a Fire Mage, the vast majority if your damage is going to come from{' '}
-            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. Therefore it is critical that you do
+            <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. Therefore it is critical that you do
             everything you can to get the most out of{' '}
-            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />, including getting the most out of
-            abilities that empower <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />. This not only
-            includes the abilities you use during <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />,
-            but also pooling resources, like <SpellLink id={SPELLS.FIRE_BLAST.id} /> and{' '}
-            <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} />, before{' '}
-            <SpellLink id={TALENTS.COMBUSTION_TALENT.id} />.
+            <SpellLink spell={TALENTS.COMBUSTION_TALENT} />, including getting the most out of
+            abilities that empower <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. This not only
+            includes the abilities you use during <SpellLink spell={TALENTS.COMBUSTION_TALENT} />,
+            but also pooling resources, like <SpellLink spell={SPELLS.FIRE_BLAST} /> and{' '}
+            <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />, before{' '}
+            <SpellLink spell={TALENTS.COMBUSTION_TALENT} />.
           </>
         }
       >
         <AbilityRequirement
           name={
             <>
-              <SpellLink id={TALENTS.COMBUSTION_TALENT.id} /> Cast Efficiency
+              <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> Cast Efficiency
             </>
           }
           spell={TALENTS.COMBUSTION_TALENT.id}
         />
         <Requirement
-          name="Pooling Fire Blast Charges"
-          thresholds={thresholds.fireBlastCombustionCharges}
-          tooltip="When Combustion is about 25-30 seconds away from coming off cooldown, unless you are going to hold Combustion for something, it is important to stop using your Fire Blast charges so you can pool them for Combustion. At a minimum, you want to go into Combustion with 2 Fire Blast charges available, preferably with the third about to come off cooldown (Assuming you are using Flame On)."
-        />
-        <Requirement
-          name="Pooling Phoenix Flames Charges"
-          thresholds={thresholds.phoenixFlamesCombustionCharges}
-          tooltip="When outside of Combustion, you should avoid using your Phoenix Flames charges so that they have time to come off cooldown before Combustion is available again. Typically, the only time you want to use a Phoenix Flames charge outside of Combustion is if you are capped on charges or are about to cap and will not be casting Combustion soon."
-        />
-        <Requirement
           name="Fireball casts during Combustion"
           thresholds={thresholds.fireballSpellUsageDuringCombustion}
-          tooltip="Due to Combustion's short duration, you should never cast Fireball during Combustion. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
+          tooltip="Due to Combustion's short duration, you should never cast Fireball during Combustion, unless your haste is over 100%. Instead, you should use your instant cast abilities like Fireblast and Phoenix Flames. If you run out of instant abilities, cast Scorch instead since it's cast time is shorter."
         />
         <Requirement
           name="Combustion Active time"
@@ -111,19 +102,19 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         description={
           <>
             Fire Mage revolves almost entirely around the buffs{' '}
-            <SpellLink id={SPELLS.HEATING_UP.id} /> and <SpellLink id={SPELLS.HOT_STREAK.id} />, so
+            <SpellLink spell={SPELLS.HEATING_UP} /> and <SpellLink spell={SPELLS.HOT_STREAK} />, so
             it is very important that you understand how these procs work. Essentially, when you get
-            a crit with a direct damage ability, like <SpellLink id={SPELLS.FIREBALL.id} /> or{' '}
-            <SpellLink id={TALENTS.PYROBLAST_TALENT.id} />, you will get a{' '}
-            <SpellLink id={SPELLS.HEATING_UP.id} /> proc. If you get a second consecutive crit with
-            a direct damage ability, you will get a <SpellLink id={SPELLS.HOT_STREAK.id} /> proc
-            which makes your next <SpellLink id={TALENTS.PYROBLAST_TALENT.id} /> or{' '}
-            <SpellLink id={TALENTS.FLAMESTRIKE_TALENT.id} /> cast be instant cast. Additionally, you
-            have spells like <SpellLink id={SPELLS.FIRE_BLAST.id} /> which is always guaranteed to
-            crit and spells like <SpellLink id={SPELLS.SCORCH.id} /> which are guaranteed to crit
-            when the target is below 30% health (If you are using the{' '}
-            <SpellLink id={TALENTS.SEARING_TOUCH_TALENT.id} /> talent). These can be used to force{' '}
-            <SpellLink id={SPELLS.HOT_STREAK.id} /> procs.
+            a crit with a direct damage ability, like <SpellLink spell={SPELLS.FIREBALL} /> or{' '}
+            <SpellLink spell={TALENTS.PYROBLAST_TALENT} />, you will get a{' '}
+            <SpellLink spell={SPELLS.HEATING_UP} /> proc. If you get a second consecutive crit with
+            a direct damage ability, you will get a <SpellLink spell={SPELLS.HOT_STREAK} /> proc
+            which makes your next <SpellLink spell={TALENTS.PYROBLAST_TALENT} /> or{' '}
+            <SpellLink spell={SPELLS.FLAMESTRIKE} /> cast be instant cast. Additionally, you have
+            spells like <SpellLink spell={SPELLS.FIRE_BLAST} /> which is always guaranteed to crit
+            and spells like <SpellLink spell={SPELLS.SCORCH} /> which are guaranteed to crit when
+            the target is below 30% health (If you are using the{' '}
+            <SpellLink spell={TALENTS.SEARING_TOUCH_TALENT} /> talent). These can be used to force{' '}
+            <SpellLink spell={SPELLS.HOT_STREAK} /> procs.
           </>
         }
       >
@@ -148,6 +139,52 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
           tooltip="Since Fire Blast is always guaranteed to crit, you should only be using it to convert Heating Up into Hot Streak or if you have a buff like Firestarter, Combustion, or Searing Touch where you know that the other spells you are casting will crit and give you the Hot Streak."
         />
       </Rule>
+      {combatant.has2PieceByTier(TIERS.T30) && (
+        <Rule
+          name="Charring Embers (Tier Bonus)"
+          description={
+            <>
+              The tier set bonus from Aberrus gives you an additional interraction with{' '}
+              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. With the 2pc bonus, when you cast{' '}
+              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />, you apply the{' '}
+              <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff to the target, increasing
+              their damage taken for the duration. With the 4pc bonus, when you deal damage 20 times
+              to an enemy with the <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff, you
+              gain a proc of <SpellLink spell={SPELLS.FLAMES_FURY} /> that makes your next 2{' '}
+              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> casts deal extra damage and
+              immediately refund themselves after they are used. In order to get the most out of
+              this, you should ensure you keep the{' '}
+              <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} /> debuff up as much as possible,
+              avoid situations where you run out of{' '}
+              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> charges (if you do not have a
+              charge available when <SpellLink spell={SPELLS.FLAMES_FURY} /> procs, then you cannot
+              use them until <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> recharges), and
+              ensure you are using all procs of <SpellLink spell={SPELLS.FLAMES_FURY} /> before they
+              expire or proc again (overwritting the previous procs).
+            </>
+          }
+        >
+          <Requirement
+            name="Debuff Uptime"
+            thresholds={thresholds.charringEmbersUptime}
+            tooltip="The Charring Embers debuff causes the target to take additional damage and also influences how quickly you get Flame's Fury procs, so you should ensure that you have Charring Embers up on your target for as much of the fight as possible to get the most out of it."
+          />
+          {combatant.has4PieceByTier(TIERS.T30) && (
+            <Requirement
+              name="Flame's Fury Procs w/o Phoenix Flames"
+              thresholds={thresholds.flamesFuryNoPhoenix}
+              tooltip="While Flame's Fury does give you two free casts of Phoenix Flames, there is a somewhat weird interraction where it immediately refunds a charge after you use a charge. Because of this, you must have an available Phoenix Flames charge to be able to use the first charge, otherwise you will need to wait until one comes off cooldown before you can use the procs."
+            />
+          )}
+          {combatant.has4PieceByTier(TIERS.T30) && (
+            <Requirement
+              name="Wasted Flame's Fury Procs"
+              thresholds={thresholds.flamesFuryWastedProcs}
+              tooltip="In order to get the most out of Flame's Fury, you should ensure you are using the procs before they expire, and also ensure you are using your procs before you gain more ... overwritting any you had remaining."
+            />
+          )}
+        </Rule>
+      )}
       <Rule
         name="Using your supporting spells and talents"
         description={
@@ -167,7 +204,7 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement
           name={
             <>
-              <SpellLink id={SPELLS.FIRE_BLAST.id} /> Cast Efficiency
+              <SpellLink spell={SPELLS.FIRE_BLAST} /> Cast Efficiency
             </>
           }
           spell={SPELLS.FIRE_BLAST.id}
@@ -175,56 +212,19 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         <AbilityRequirement
           name={
             <>
-              <SpellLink id={TALENTS.PHOENIX_FLAMES_TALENT.id} /> Cast Efficiency
+              <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> Cast Efficiency
             </>
           }
           spell={TALENTS.PHOENIX_FLAMES_TALENT.id}
         />
-        {combatant.hasTalent(TALENTS.BLAST_WAVE_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={TALENTS.BLAST_WAVE_TALENT.id} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.BLAST_WAVE_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={TALENTS.RUNE_OF_POWER_TALENT.id} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.RUNE_OF_POWER_TALENT.id}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT) && (
-          <AbilityRequirement
-            name={
-              <>
-                <SpellLink id={TALENTS.LIVING_BOMB_TALENT.id} /> Cast Efficiency
-              </>
-            }
-            spell={TALENTS.LIVING_BOMB_TALENT.id}
-          />
-        )}
         {combatant.hasTalent(TALENTS.METEOR_TALENT) && (
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.METEOR_TALENT.id} />
+                <SpellLink spell={TALENTS.METEOR_TALENT} />
               </>
             }
             thresholds={thresholds.meteorEfficiency}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.PYROCLASM_TALENT) && (
-          <Requirement
-            name="Pyroclasm procs used"
-            thresholds={thresholds.pyroclasmUtilization}
-            tooltip="Pyroclasm has a chance to give you a buff that makes your next non instant Pyroblast deal 225% additional damage. You should ensure that you are using these procs (especially during Combustion) somewhat quickly to ensure you dont waste or overwrite any of these procs."
           />
         )}
         {combatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT) && (
@@ -234,33 +234,25 @@ const FireMageChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
             tooltip="Searing Touch causes Scorch to deal 150% additional damage and be guaranteed to crit when the target is under 30% health. Therefore it is important that when the target is under 30% health, you cast Scorch instead of Fireball."
           />
         )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Average time spent inside Rune of Power"
-            thresholds={thresholds.runeOfPowerBuffUptime}
-            tooltip="Using Rune of Power effectively means being able to stay within the range of it for it's entire duration. If you are unable to do so or if you frequently have to move out of the range of the buff, then either plan out a more optimal time or place to be using your Rune of Power, or consider taking a different talent instead."
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) && (
-          <Requirement
-            name="Rune of Power overlapped casts"
-            thresholds={thresholds.runeOfPowerOverlaps}
-            tooltip="Casting your major cooldown (Combustion) automatically drops a Rune of Power at your feet, so you do not need to manually cast it before using Combustion. Because of this you should wait to use Rune of Power until after Combustion ends, or use it far enough before Combustion so that it will end before Combustion is cast to wasting uptime by having your runes overlapped."
-          />
-        )}
-        {combatant.hasTalent(TALENTS.RUNE_OF_POWER_TALENT) &&
-          combatant.hasTalent(TALENTS.METEOR_TALENT) && (
-            <Requirement
-              name="Meteor Overall Utilization"
-              thresholds={thresholds.meteorUtilization}
-              tooltip="In order to get the most out of your Meteor casts, you should only cast Meteor while you are buffed by Rune of Power."
-            />
-          )}
         {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
           <Requirement
             name="Shifting Power proper usage"
             thresholds={thresholds.shiftingPowerUsage}
             tooltip="Using Shifting Power, and channeling it for the entire duration, will reduce the cooldown on all your abilities by a decent amount. Because of the number of short cooldowns Fire Mage has, you should ensure you are getting the most out of it by reducing as many cooldowns as possible. Specifically, it is important that you only use Shifting Power if both Combustion and Rune of Power are on cooldown, as this will allow you to get more uses of both of those abilities and will help increase your damage."
+          />
+        )}
+        {combatant.hasTalent(TALENTS.LIVING_BOMB_TALENT) && (
+          <Requirement
+            name="Living Bomb Casts"
+            thresholds={thresholds.livingBombCasts}
+            tooltip="Unlike the majority of your spells, you should never cast Living Bomb. The only reason we take the Living Bomb talent is so we can get to the Firefall talent beneath it. Casting Living Bomb in Single Target is a DPS loss, and in AOE it is not worth taking the talent at all."
+          />
+        )}
+        {combatant.hasTalent(TALENTS.IMPROVED_SCORCH_TALENT) && (
+          <Requirement
+            name="Improved Scorch Uptime"
+            thresholds={thresholds.improvedScorchUptime}
+            tooltip="While the target is under 30% health, it is very important that you maintain the damage buff from Improved Scorch for as much of your execute as possible. The buff stacks up to 3 times and is a large boost to your damage to maintain this buff."
           />
         )}
       </Rule>

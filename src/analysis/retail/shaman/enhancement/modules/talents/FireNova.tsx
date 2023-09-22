@@ -57,7 +57,7 @@ class FireNova extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.FIRE_NOVA_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS_SHAMAN.FIRE_NOVA_TALENT}>
           <>
             <ItemDamageDone amount={this.fireNovaDamage} />
             <br />

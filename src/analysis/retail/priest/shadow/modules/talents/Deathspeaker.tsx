@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
@@ -113,12 +113,12 @@ class Deathspeaker extends Analyzer {
       suggest(
         <>
           You wasted {this.procsWasted} out of {this.procsGained}{' '}
-          <SpellLink id={TALENTS.DEATHSPEAKER_TALENT.id} /> procs.{' '}
+          <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs.{' '}
         </>,
       )
         .icon(TALENTS.DEATHSPEAKER_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'priest.shadow.suggestions.deathspeaker.efficiency',
             message: `You wasted ${this.procsWasted} out of ${this.procsGained} DeathSpeaker procs.`,
           }),
@@ -130,7 +130,7 @@ class Deathspeaker extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={SPELLS.DEATHSPEAKER_TALENT_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.DEATHSPEAKER_TALENT_BUFF}>
           <>
             {this.getProcsUsed()}/{this.procsGained} <small>Procs Used</small>
           </>
@@ -153,10 +153,10 @@ class Deathspeaker extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS.DEATHSPEAKER_TALENT.id} />
+          <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} />
         </b>{' '}
-        is gained randomly from <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} /> damage. <br />
-        Cast <SpellLink id={TALENTS.SHADOW_WORD_DEATH_TALENT.id} /> while the buff is active to
+        is gained randomly from <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} /> damage. <br />
+        Cast <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} /> while the buff is active to
         avoid wasting procs.
       </p>
     );

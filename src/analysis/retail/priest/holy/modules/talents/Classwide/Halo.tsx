@@ -52,7 +52,7 @@ class Halo extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={SPELLS.HALO_TALENT.id} />
+          <SpellLink spell={SPELLS.HALO_TALENT} />
         </b>{' '}
         is a strong group heal on a medium length cooldown. You will want to cast this whenever the
         majority of the raid is injured. However, do not hold on to this cooldown too long to not
@@ -73,7 +73,7 @@ class Halo extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(6)}
       >
-        <BoringSpellValueText spellId={SPELLS.HALO_TALENT.id}>
+        <BoringSpellValueText spell={SPELLS.HALO_TALENT}>
           <ItemHealingDone amount={this.haloHealing} />
           <br />
           <ItemDamageDone amount={this.haloDamage} />

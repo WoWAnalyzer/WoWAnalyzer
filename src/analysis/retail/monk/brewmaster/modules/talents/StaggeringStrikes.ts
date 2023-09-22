@@ -1,20 +1,14 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import Analyzer, { Options } from 'parser/core/Analyzer';
+import { Options } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import StaggerFabricator from '../core/StaggerFabricator';
+import StaggerStatistic from '../tools/StaggerAnalyzer';
 
-export default class StaggeringStrikes extends Analyzer {
-  static dependencies = {
-    staggerFab: StaggerFabricator,
-  };
-
-  protected staggerFab!: StaggerFabricator;
-
+export default class StaggeringStrikes extends StaggerStatistic {
   protected rank: number;
 
   constructor(options: Options) {
-    super(options);
+    super(talents.STAGGERING_STRIKES_TALENT, options);
 
     this.rank = this.selectedCombatant.getTalentRank(talents.STAGGERING_STRIKES_TALENT);
     this.active = this.rank > 0;
@@ -28,6 +22,6 @@ export default class StaggeringStrikes extends Analyzer {
 
     const amount = ((event.attackPower ?? 0) * this.rank) / 2;
 
-    this.staggerFab.removeStagger(event, amount);
+    this.removeStagger(event, amount);
   }
 }

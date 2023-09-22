@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -26,13 +26,13 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       suggest(
         <span>
           Your downtime can be improved. Try to Always Be Casting (ABC). It's better to cast
-          low-priority abilities such as <SpellLink id={SPELLS.WHIRLWIND_FURY_CAST.id} /> than it is
+          low-priority abilities such as <SpellLink spell={SPELLS.WHIRLWIND_FURY_CAST} /> than it is
           to do nothing.
         </span>,
       )
         .icon('spell_mage_altertime')
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.fury.suggestions.alwaysBeCasting.downtime',
             message: `${formatPercentage(actual)}% downtime`,
           }),

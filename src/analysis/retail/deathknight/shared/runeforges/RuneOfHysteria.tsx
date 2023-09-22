@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -10,6 +10,7 @@ import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults'
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { i18n } from '@lingui/core';
 
 const RP_BUFF_BY_HYSTERIA = 0.2;
 const DEATH_STRIKE_COST = 45;
@@ -116,14 +117,18 @@ class RuneOfHysteria extends Analyzer {
     let wastedSpell = '';
 
     if (this.selectedCombatant.spec === SPECS.BLOOD_DEATH_KNIGHT) {
-      gainedSpell = t({
-        id: 'deathknight.shared.runeOfHysteria.statistic.gainedSpell',
-        message: `, resulting in ${this.gainedDeathStrikes} additional ${talents.DEATH_STRIKE_TALENT.name}`,
-      });
-      wastedSpell = t({
-        id: 'deathknight.shared.runeOfHysteria.statistic.wastedSpell',
-        message: `, losing out on ${this.wastedDeathStrikes} ${talents.DEATH_STRIKE_TALENT.name}`,
-      });
+      gainedSpell = i18n._(
+        defineMessage({
+          id: 'deathknight.shared.runeOfHysteria.statistic.gainedSpell',
+          message: `, resulting in ${this.gainedDeathStrikes} additional ${talents.DEATH_STRIKE_TALENT.name}`,
+        }),
+      );
+      wastedSpell = i18n._(
+        defineMessage({
+          id: 'deathknight.shared.runeOfHysteria.statistic.wastedSpell',
+          message: `, losing out on ${this.wastedDeathStrikes} ${talents.DEATH_STRIKE_TALENT.name}`,
+        }),
+      );
     }
 
     return (

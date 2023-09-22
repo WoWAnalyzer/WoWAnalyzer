@@ -1,7 +1,7 @@
 // Generated file, changes will eventually be overwritten!
-import { createTalentList } from './types';
+import { Talent } from './types';
 
-const talents = createTalentList({
+const talents = {
   ACE_UP_YOUR_SLEEVE_TALENT: {
     id: 381828,
     name: 'Ace Up Your Sleeve',
@@ -90,6 +90,7 @@ const talents = createTalentList({
     entryIds: [112600],
     definitionIds: [{ id: 117605, specId: 261 }],
     energyCost: 35,
+    comboPointsCost: 1,
   },
   BLADE_FLURRY_TALENT: {
     id: 13877,
@@ -204,6 +205,7 @@ const talents = createTalentList({
     entryIds: [112517],
     definitionIds: [{ id: 117522, specId: 259 }],
     energyCost: 30,
+    comboPointsCost: 1,
   },
   CUT_TO_THE_CHASE_TALENT: {
     id: 51667,
@@ -1046,6 +1048,7 @@ const talents = createTalentList({
     entryIds: [112603],
     definitionIds: [{ id: 117608, specId: 261 }],
     energyCost: 30,
+    comboPointsCost: 1,
   },
   SEPSIS_TALENT: {
     id: 385408,
@@ -1085,24 +1088,29 @@ const talents = createTalentList({
     entryIds: [112575],
     definitionIds: [{ id: 117580, specId: 261 }],
   },
-  SHADOWSTEP_SHARED_TALENT: {
-    id: 36554,
+  SHADOWSTEP_ASSASSINATION_TALENT: {
+    id: 394932,
     name: 'Shadowstep',
-    icon: 'ability_rogue_shadowstep',
+    icon: 'rogue_shadowfocus',
+    maxRanks: 1,
+    entryIds: [112675],
+    definitionIds: [{ id: 117680, specId: 259 }],
+  },
+  SHADOWSTEP_SHARED_TALENT: {
+    id: 394931,
+    name: 'Shadowstep',
+    icon: 'rogue_shadowfocus',
     maxRanks: 1,
     entryIds: [112583],
     definitionIds: [{ id: 117588, specId: 261 }],
   },
-  SHADOWSTEP_SPEC_TALENT: {
-    id: 36554,
+  SHADOWSTEP_SUBTLETY_TALENT: {
+    id: 394935,
     name: 'Shadowstep',
-    icon: 'ability_rogue_shadowstep',
+    icon: 'rogue_shadowfocus',
     maxRanks: 1,
-    entryIds: [112675, 112617],
-    definitionIds: [
-      { id: 117680, specId: 259 },
-      { id: 117622, specId: 261 },
-    ],
+    entryIds: [112617],
+    definitionIds: [{ id: 117622, specId: 261 }],
   },
   SHADOW_BLADES_TALENT: {
     id: 121471,
@@ -1113,9 +1121,9 @@ const talents = createTalentList({
     definitionIds: [{ id: 117619, specId: 261 }],
   },
   SHADOW_DANCE_TALENT: {
-    id: 185313,
+    id: 394930,
     name: 'Shadow Dance',
-    icon: 'ability_rogue_shadowdance',
+    icon: 'rogue_shadowfocus',
     maxRanks: 1,
     entryIds: [112577],
     definitionIds: [{ id: 117582, specId: 261 }],
@@ -1418,7 +1426,7 @@ const talents = createTalentList({
     entryIds: [112678],
     definitionIds: [{ id: 117683, specId: 259 }],
   },
-});
+} satisfies Record<string, Talent>;
 
 export default talents;
 export { talents as TALENTS_ROGUE };

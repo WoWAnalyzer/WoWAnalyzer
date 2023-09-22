@@ -15,7 +15,7 @@ import {
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 
-const CAST_BUFFER_MS = 200;
+export const CAST_BUFFER_MS = 200;
 
 export const FROM_HARDCAST = 'FromHardcast';
 export const HIT_TARGET = 'HitTarget';

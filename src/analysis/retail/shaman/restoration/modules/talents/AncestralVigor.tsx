@@ -15,6 +15,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import LazyLoadStatisticBox, { STATISTIC_ORDER } from 'parser/ui/LazyLoadStatisticBox';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import StatisticBox from 'parser/ui/StatisticBox';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 const ANCESTRAL_VIGOR_INCREASED_MAX_HEALTH_PER_POINT = 0.05;
 
@@ -111,7 +112,7 @@ class AncestralVigor extends Analyzer {
     if (this.disableStatistics) {
       return (
         <StatisticBox
-          icon={<SpellIcon id={SPELLS.ANCESTRAL_VIGOR.id} />}
+          icon={<SpellIcon spell={SPELLS.ANCESTRAL_VIGOR} />}
           label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
           value={<Trans id="shaman.restoration.av.statistic.disabled">Module disabled</Trans>}
           tooltip={
@@ -129,7 +130,7 @@ class AncestralVigor extends Analyzer {
       return (
         <LazyLoadStatisticBox
           loader={this.load.bind(this)}
-          icon={<SpellIcon id={SPELLS.ANCESTRAL_VIGOR.id} />}
+          icon={<SpellIcon spell={SPELLS.ANCESTRAL_VIGOR} />}
           value={`≈${this.lifeSavingEvents.length}`}
           label={<Trans id="shaman.restoration.av.statistic.label">Lives saved</Trans>}
           tooltip={tooltip}
@@ -168,7 +169,7 @@ class AncestralVigor extends Analyzer {
                     </th>
                     <td className={specClassName}>{combatant.name}</td>
                     <td style={{ textAlign: 'center' }}>
-                      <SpellLink id={event.ability.guid} icon={false}>
+                      <SpellLink spell={abilityToSpell(event.ability)} icon={false}>
                         <Icon icon={event.ability.abilityIcon} />
                       </SpellLink>
                     </td>

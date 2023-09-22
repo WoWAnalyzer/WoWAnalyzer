@@ -247,9 +247,9 @@ class DancingMists extends Analyzer {
 
     return (
       <>
-        <strong>{procs}</strong> additional <SpellLink id={spell.id} />{' '}
+        <strong>{procs}</strong> additional <SpellLink spell={spell} />{' '}
         {spell.id === SPELLS.VIVIFY.id ? <>cleaves</> : <>procs</>} from <br />
-        <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT} /> by duplication source:
+        <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} /> by duplication source:
         <hr />
         <DonutChart items={items} />
       </>
@@ -388,7 +388,7 @@ class DancingMists extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT.id} />}
+        title={<SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -401,7 +401,7 @@ class DancingMists extends Analyzer {
       <TalentAggregateStatisticContainer
         title={
           <>
-            <SpellLink id={TALENTS_MONK.DANCING_MISTS_TALENT} /> -{' '}
+            <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} /> -{' '}
             <ItemHealingDone amount={this.totalHealing} displayPercentage={false} />
           </>
         }
@@ -415,8 +415,8 @@ class DancingMists extends Analyzer {
                 Overheal ticks that did not bounce: <b>{this.overhealTicks}</b>
               </li>
               <li>
-                Percentage of <SpellLink spell={SPELLS.RENEWING_MIST_HEAL.id} /> overheal ticks that
-                could actually proc <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT.id} />:{' '}
+                Percentage of <SpellLink spell={SPELLS.RENEWING_MIST_HEAL} /> overheal ticks that
+                could actually proc <SpellLink spell={TALENTS_MONK.DANCING_MISTS_TALENT} />:{' '}
                 <b>{formatPercentage(this.eligiblePercentageOfTicks)}%</b>
               </li>
               <li>
@@ -433,7 +433,7 @@ class DancingMists extends Analyzer {
           <TooltipElement
             content={
               <>
-                The number of additional <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+                The number of additional <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
                 <br />
                 procced on casts and bounces:
                 <hr />
@@ -443,7 +443,7 @@ class DancingMists extends Analyzer {
           >
             {this.dancingMistCount}{' '}
             <small>
-              duplicated <SpellLink id={TALENTS_MONK.RENEWING_MIST_TALENT} />
+              duplicated <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
             </small>
           </TooltipElement>
         }

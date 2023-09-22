@@ -73,10 +73,10 @@ class FaelineHarmony extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={SPELLS.FAELINE_HARMONY_DEBUFF.id}>
+        <BoringSpellValueText spell={SPELLS.FAELINE_HARMONY_DEBUFF}>
           <ItemDamageDone amount={this.totalDamage} />
         </BoringSpellValueText>
-        <BoringSpellValueText spellId={SPELLS.FAELINE_HARMONY_BUFF.id}>
+        <BoringSpellValueText spell={SPELLS.FAELINE_HARMONY_BUFF}>
           <ItemHealingDone amount={this.totalHealing} />
         </BoringSpellValueText>
       </Statistic>

@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/deathknight';
 import { SpellLink } from 'interface';
@@ -48,13 +48,13 @@ class MarkOfBlood extends Analyzer {
       )
         .icon(TALENTS.MARK_OF_BLOOD_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.markOfBlood.suggestion.actual',
             message: `${formatPercentage(actual)}% Mark Of Blood Uptime`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'shared.suggestion.recommended.moreThanPercent',
             message: `>${formatPercentage(recommended)}% is recommended`,
           }),

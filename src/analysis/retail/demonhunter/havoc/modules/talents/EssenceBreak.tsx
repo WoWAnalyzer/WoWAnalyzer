@@ -16,7 +16,6 @@ import {
 import { Expandable, SpellLink } from 'interface';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { Trans } from '@lingui/macro';
 import InitiativeExplanation from 'analysis/retail/demonhunter/havoc/guide/InitiativeExplanation';
 import DemonicExplanation from 'analysis/retail/demonhunter/havoc/guide/DemonicExplanation';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -150,15 +149,13 @@ class EssenceBreak extends MajorCooldown<EssenceBreakCooldownCast> {
       <>
         <ExplanationSection>
           <p>
-            <Trans id="guide.demonhunter.havoc.sections.cooldowns.essenceBreak.explanation">
-              <strong>
-                <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
-              </strong>{' '}
-              is a powerful burst of damage that also amplifies the damage done by{' '}
-              <SpellLink spell={SPELLS.CHAOS_STRIKE} />, <SpellLink spell={SPELLS.ANNIHILATION} />,{' '}
-              <SpellLink spell={SPELLS.BLADE_DANCE} />, and <SpellLink spell={SPELLS.DEATH_SWEEP} />
-              . You want to fit as many empowered casts into each Essence Break window as you can.
-            </Trans>
+            <strong>
+              <SpellLink spell={TALENTS_DEMON_HUNTER.ESSENCE_BREAK_TALENT} />
+            </strong>{' '}
+            is a powerful burst of damage that also amplifies the damage done by{' '}
+            <SpellLink spell={SPELLS.CHAOS_STRIKE} />, <SpellLink spell={SPELLS.ANNIHILATION} />,{' '}
+            <SpellLink spell={SPELLS.BLADE_DANCE} />, and <SpellLink spell={SPELLS.DEATH_SWEEP} />.
+            You want to fit as many empowered casts into each Essence Break window as you can.
           </p>
         </ExplanationSection>
         <ExplanationSection>

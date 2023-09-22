@@ -30,11 +30,11 @@ const CONFIG: Config = {
       </a>{' '}
       discord server. Thanks and I hope you continue to enjoy the tool!
       <AlertWarning>
-        Because resets of <SpellLink id={SPELLS.SHIELD_SLAM.id} />{' '}
+        Because resets of <SpellLink spell={SPELLS.SHIELD_SLAM} />{' '}
         <TooltipElement content="The combatlog does not contain any events for random cooldown resets.">
           can't be tracked
         </TooltipElement>{' '}
-        properly, any cooldown information of <SpellLink id={SPELLS.SHIELD_SLAM.id} /> should be
+        properly, any cooldown information of <SpellLink spell={SPELLS.SHIELD_SLAM} /> should be
         treated as{' '}
         <TooltipElement content="Whenever Shield Slams would be cast before its cooldown would have expired normally, the cooldown expiry will be set back to the last possible trigger of Revenge, Devastate, Devastator or Thunder Clap. This may lead to higher times on cooldown than you actually experienced in-game.">
           educated guesses
@@ -45,7 +45,7 @@ const CONFIG: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/jzYPLqfVm3pW9nX7/1-Mythic+Skolex,+the+Insatiable+Ravener+-+Kill+(5:26)/Sense/standard',
+    '/report/471LzwXpgtPTJGaq/31-Mythic+Rashok,+the+Elder+-+Kill+(5:50)/Sense/standard/overview',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

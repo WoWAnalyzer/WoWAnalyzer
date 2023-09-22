@@ -55,15 +55,15 @@ class WindfuryTotem extends Analyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> uptime can be improved. Make sure
-          it's always active. Cast <SpellLink id={TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id} /> if the
+          Your <SpellLink spell={SPELLS.WINDFURY_TOTEM_BUFF} /> uptime can be improved. Make sure
+          it's always active. Cast <SpellLink spell={TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT} /> if the
           buff is about to fall off or if all other spells are on cooldown.
         </>,
       )
         .icon(SPELLS.WINDFURY_TOTEM_BUFF.icon)
         .actual(
           <>
-            <SpellLink id={SPELLS.WINDFURY_TOTEM_BUFF.id} /> was active for{' '}
+            <SpellLink spell={SPELLS.WINDFURY_TOTEM_BUFF} /> was active for{' '}
             {formatPercentage(actual)}% of the fight
           </>,
         )

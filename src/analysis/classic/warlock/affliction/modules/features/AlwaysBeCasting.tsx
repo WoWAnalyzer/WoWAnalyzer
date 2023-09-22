@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS/classic/warlock';
 import { SpellLink } from 'interface';
@@ -31,13 +31,14 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           <>
             Your downtime can be improved. Try to Always Be Casting (ABC) by reducing your delay
             between casting spells. If you have to move, use instant cast spells (dots or{' '}
-            <SpellLink id={SPELLS.LIFE_TAP} />
-            ). Make good use of your <SpellLink id={SPELLS.DEMONIC_CIRCLE_SUMMON} /> when possible.
+            <SpellLink spell={SPELLS.LIFE_TAP} />
+            ). Make good use of your <SpellLink spell={SPELLS.DEMONIC_CIRCLE_SUMMON} /> when
+            possible.
           </>,
         )
           .icon('spell_mage_altertime')
           .actual(
-            t({
+            defineMessage({
               id: 'warlock.affliction.suggestions.alwaysBeCasting.downtime',
               message: `${formatPercentage(actual)}% downtime`,
             }),

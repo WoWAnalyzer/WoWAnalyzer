@@ -1,6 +1,6 @@
-import { spellIndexableList } from '../Spell';
+import Spell from '../Spell';
 
-const others = spellIndexableList({
+const others = {
   DRACONIC_AUGMENT_RUNE: {
     id: 393438,
     name: 'Draconic Augment Rune',
@@ -16,6 +16,12 @@ const others = spellIndexableList({
     name: 'Power Beyond Imagination',
     icon: 'inv_cosmicvoid_debuff',
   },
-});
+  // 'Disintegrate' ability from The Forgotten Experiements encounter
+  RIONTHUS_DISINTEGRATE: {
+    id: 405457,
+    name: 'Disintegrate',
+    icon: 'ability_evoker_disintegrate',
+  },
+} satisfies Record<string, Spell>;
 
 export default others;

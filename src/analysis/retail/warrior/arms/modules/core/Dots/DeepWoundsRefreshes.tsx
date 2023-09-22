@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
@@ -92,17 +92,17 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
       (suggest, actual, recommended) =>
         suggest(
           <>
-            You refreshed <SpellLink id={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.id} icon /> early{' '}
+            You refreshed <SpellLink spell={SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF} icon /> early{' '}
             {this.suggestionThresholdsDeepwoundsEfficiency.count} times on a target in{' '}
-            <SpellLink id={SPELLS.EXECUTE.id} icon /> range. Try to prioritize{' '}
-            <SpellLink id={SPELLS.EXECUTE.id} icon /> as it deals more damage than{' '}
-            <SpellLink id={SPELLS.MORTAL_STRIKE.id} icon /> unless you have the
-            <SpellLink id={SPELLS.OVERPOWER.id} icon />.
+            <SpellLink spell={SPELLS.EXECUTE} icon /> range. Try to prioritize{' '}
+            <SpellLink spell={SPELLS.EXECUTE} icon /> as it deals more damage than{' '}
+            <SpellLink spell={SPELLS.MORTAL_STRIKE} icon /> unless you have the
+            <SpellLink spell={SPELLS.OVERPOWER} icon />.
           </>,
         )
           .icon(SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shared.suggestions.dots.badRefreshes',
               message: `${formatPercentage(actual)}% of good Deep Wounds refreshes.`,
             }),

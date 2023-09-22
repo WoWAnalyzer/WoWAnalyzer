@@ -12,6 +12,7 @@ import SPELLS from 'common/SPELLS';
 import {
   ABILITIES_AFFECTED_BY_HEALING_INCREASES,
   MASTERY_STACK_BUFF_IDS,
+  TRIPLE_MASTERY_BENEFIT_IDS,
 } from 'analysis/retail/druid/restoration/constants';
 import { specMasteryCoefficient } from 'game/SPECS';
 
@@ -88,7 +89,8 @@ class Mastery extends Analyzer {
 
     if (ABILITIES_AFFECTED_BY_HEALING_INCREASES.includes(spellId)) {
       const hotsOn = this.getHotsOn(target);
-      const numHotsOn = hotsOn.length;
+      const hasTripleMasteryBenefit = TRIPLE_MASTERY_BENEFIT_IDS.includes(spellId);
+      const numHotsOn = hotsOn.length * (hasTripleMasteryBenefit ? 3 : 1);
       const decomposedHeal = this._decompHeal(healVal, numHotsOn);
 
       this.totalNoMasteryHealing += decomposedHeal.noMastery;

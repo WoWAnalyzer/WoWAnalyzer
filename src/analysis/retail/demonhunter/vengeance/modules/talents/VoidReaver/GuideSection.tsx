@@ -6,7 +6,6 @@ import VoidReaver from './index';
 import ExplanationRow from 'interface/guide/components/ExplanationRow';
 import Explanation from 'interface/guide/components/Explanation';
 import { HitBasedOverview } from 'analysis/retail/demonhunter/vengeance/guide/HitTimeline';
-import { t, Trans } from '@lingui/macro';
 
 export default function VoidReaverSubSection() {
   const info = useInfo();
@@ -16,26 +15,17 @@ export default function VoidReaverSubSection() {
   }
 
   return (
-    <SubSection
-      title={t({
-        id: 'guide.demonhunter.vengeance.sections.defensives.voidReaver.title',
-        message: 'Frailty',
-      })}
-    >
+    <SubSection title="Frailty">
       <ExplanationRow>
         <Explanation>
           <p>
-            <Trans id="guide.demonhunter.vengeance.sections.defensives.voidReaver.explanation.summary">
-              <SpellLink spell={TALENTS_DEMON_HUNTER.FRAILTY_TALENT} /> is a stacking 4% DR (Damage
-              Reduction). You should aim to have it applied to any target that you are actively
-              tanking. It is applied automatically by doing your core rotation effectively.
-            </Trans>
+            <SpellLink spell={TALENTS_DEMON_HUNTER.FRAILTY_TALENT} /> is a stacking 4% DR (Damage
+            Reduction). You should aim to have it applied to any target that you are actively
+            tanking. It is applied automatically by doing your core rotation effectively.
           </p>
           <p>
-            <Trans id="guide.demonhunter.vengeance.sections.defensives.voidReaver.explanation.chart">
-              This chart shows your <SpellLink spell={SPELLS.FRAILTY} /> uptime along with the
-              damage that you took.
-            </Trans>
+            This chart shows your <SpellLink spell={SPELLS.FRAILTY} /> uptime along with the damage
+            that you took.
           </p>
         </Explanation>
         <HitBasedOverview
@@ -43,10 +33,10 @@ export default function VoidReaverSubSection() {
           hitBasedAnalyzer={voidReaver}
           spell={SPELLS.FRAILTY}
           unmitigatedContent={
-            <Trans id="guide.demonhunter.vengeance.sections.defensives.voidReaver.explanation.unmitigated">
+            <>
               <SpellLink spell={SPELLS.FRAILTY} /> would have reduced this by at least{' '}
               <strong>4%</strong>.
-            </Trans>
+            </>
           }
         />
       </ExplanationRow>

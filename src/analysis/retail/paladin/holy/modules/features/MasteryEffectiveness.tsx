@@ -1,4 +1,4 @@
-import { Trans, t } from '@lingui/macro';
+import { Trans, defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
@@ -138,20 +138,11 @@ class MasteryEffectiveness extends Analyzer {
       return;
     }
 
-    let distance = this.getPlayerDistance(event);
-
-    if (!distance) {
-      distance = this.distanceSum / this.distanceCount;
-    }
-
-    if (!distance) {
-      // still undefined? we just die now (should only happen with weird first event absorb logs)
-      console.error(
-        "Received a heal before we know the player location. Can't process since player location is still unknown.",
-        event,
-      );
-      return;
-    }
+    // absorb events don't have position data
+    const distance =
+      event.type === EventType.Absorbed
+        ? this.distanceSum / this.distanceCount
+        : this.getPlayerDistance(event);
 
     this.distanceSum += distance;
     this.distanceCount += 1;
@@ -390,13 +381,13 @@ class MasteryEffectiveness extends Analyzer {
       )
         .icon('inv_hammer_04')
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.holy.modules.masteryEffectiveness.suggestion.actual',
             message: `${formatPercentage(actual)}% mastery effectiveness`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'paladin.holy.modules.masteryEffectiveness.suggestion.recommended',
             message: `>${formatPercentage(recommended)}% is recommended`,
           }),

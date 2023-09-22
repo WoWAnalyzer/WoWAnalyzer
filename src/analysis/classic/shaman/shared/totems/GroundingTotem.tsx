@@ -10,6 +10,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import SPELLS from 'common/SPELLS/classic/shaman';
 import TotemTracker from '../TotemTracker';
+import { abilityToSpell } from 'common/abilityToSpell';
 
 class GroundingTotem extends Analyzer {
   static dependencies = {
@@ -60,7 +61,7 @@ class GroundingTotem extends Analyzer {
               {this.groundedSpells.map((ability: Ability, index: number) => (
                 <tr key={index}>
                   <td>{index}</td>
-                  <td>{ability ? <SpellLink id={ability.guid} /> : 'N/A'}</td>
+                  <td>{ability ? <SpellLink spell={abilityToSpell(ability)} /> : 'N/A'}</td>
                 </tr>
               ))}
             </tbody>
@@ -70,7 +71,7 @@ class GroundingTotem extends Analyzer {
         <BoringValue
           label={
             <>
-              <SpellLink id={SPELLS.GROUNDING_TOTEM.id} />
+              <SpellLink spell={SPELLS.GROUNDING_TOTEM} />
             </>
           }
         >

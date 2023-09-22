@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
@@ -57,15 +57,15 @@ class EssenceFontTargetsHit extends Analyzer {
       suggest(
         <>
           You are currently using not utilizing your{' '}
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> effectively. Each{' '}
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} /> cast should hit a total of 18
+          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> effectively. Each{' '}
+          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cast should hit a total of 18
           targets. Either hold the cast til 6 or more targets are injured or move while casting to
           increase the effective range of the spell.
         </>,
       )
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
-          `${this.avgTargetsHitPerEF.toFixed(2)}${t({
+          `${this.avgTargetsHitPerEF.toFixed(2)}${defineMessage({
             id: 'monk.mistweaver.suggestions.essenceFont.averageTargetsHit',
             message: `average targets hit per cast`,
           })}`,

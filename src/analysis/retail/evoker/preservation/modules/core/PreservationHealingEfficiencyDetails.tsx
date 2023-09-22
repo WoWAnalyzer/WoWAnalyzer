@@ -19,7 +19,7 @@ class PreservationHealingEfficiencyDetails extends HealingEfficiencyDetails {
         title="Mana Efficiency"
         explanation={
           <>
-            <SpellLink id={SPELLS.DREAM_BREATH.id} />
+            <SpellLink spell={SPELLS.DREAM_BREATH} />
           </>
         }
         pad={false}

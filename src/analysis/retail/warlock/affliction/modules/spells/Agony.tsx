@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warlock';
@@ -34,13 +34,13 @@ class AgonyUptime extends Analyzer {
   suggestions(when: When) {
     const text = this.selectedCombatant.hasTalent(TALENTS.WRITHE_IN_AGONY_TALENT) ? (
       <>
-        Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of
+        Your <SpellLink spell={SPELLS.AGONY} /> uptime can be improved as it is your main source of
         Soul Shards. Try to pay more attention to your Agony on the boss, especially since you're
-        using <SpellLink id={TALENTS.WRITHE_IN_AGONY_TALENT.id} /> talent.
+        using <SpellLink spell={TALENTS.WRITHE_IN_AGONY_TALENT} /> talent.
       </>
     ) : (
       <>
-        Your <SpellLink id={SPELLS.AGONY.id} /> uptime can be improved as it is your main source of
+        Your <SpellLink spell={SPELLS.AGONY} /> uptime can be improved as it is your main source of
         Soul Shards. Try to pay more attention to your Agony on the boss, perhaps use some debuff
         tracker.
       </>
@@ -49,7 +49,7 @@ class AgonyUptime extends Analyzer {
       suggest(text)
         .icon(SPELLS.AGONY.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warlock.affliction.suggestions.agony.uptime',
             message: `${formatPercentage(actual)}% Agony uptime`,
           }),
@@ -63,7 +63,7 @@ class AgonyUptime extends Analyzer {
     return (
       <div className="flex">
         <div className="flex-sub icon">
-          <SpellIcon id={SPELLS.AGONY.id} />
+          <SpellIcon spell={SPELLS.AGONY} />
         </div>
         <div className="flex-sub value" style={{ width: 140 }}>
           {formatPercentage(this.uptime, 0)} % <small>uptime</small>

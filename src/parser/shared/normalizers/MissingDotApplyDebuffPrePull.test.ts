@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import CombatLogParser from 'parser/core/CombatLogParser';
 import { AnyEvent, EventType } from 'parser/core/Events';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';
 import MissingDotApplyDebuffPrePull, {
@@ -16,10 +17,12 @@ class TestMissingDotApplyDebuffPrePull extends MissingDotApplyDebuffPrePull {
 }
 
 describe('core/Modules/Normalizers/MissingDotApplyDebuffPrePull', () => {
-  let parser: TestCombatLogParser;
+  let parser: CombatLogParser;
 
   beforeEach(() => {
-    parser = new TestCombatLogParser();
+    parser = new (class extends TestCombatLogParser {
+      static internalModules = {};
+    })();
     parser.loadModule(TestMissingDotApplyDebuffPrePull, { priority: 0 });
   });
 
@@ -51,7 +54,7 @@ describe('core/Modules/Normalizers/MissingDotApplyDebuffPrePull', () => {
     const result = parser.normalize(events);
 
     // Should be 1) apply debuff (fabricated), 2) Damage, 3) Fightend (fabricated)
-    expect(result.length).toBe(3);
+    expect(result.length).toBe(2);
 
     expect(result[0]).toStrictEqual({
       type: EventType.ApplyDebuff,

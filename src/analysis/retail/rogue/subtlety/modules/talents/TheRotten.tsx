@@ -51,7 +51,7 @@ class TheRotten extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.THE_ROTTEN_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.THE_ROTTEN_TALENT}>
           <ResourceIcon id={RESOURCE_TYPES.COMBO_POINTS.id} noLink />
           {this.cpGained}/{this.cpWasted + this.cpGained}
           <small> extra Combo Points gained.</small>

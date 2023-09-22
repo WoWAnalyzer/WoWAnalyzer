@@ -169,13 +169,13 @@ class DireCommand extends Analyzer {
               )}
               <p>
                 Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
-                your number of <SpellLink id={TALENTS.KILL_COMMAND_SHARED_TALENT.id} /> casts.
+                your number of <SpellLink spell={TALENTS.KILL_COMMAND_SHARED_TALENT} /> casts.
               </p>
             </div>
           </>
         }
       >
-        <BoringSpellValueText spellId={TALENTS.DIRE_COMMAND_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.DIRE_COMMAND_TALENT}>
           <ItemDamageDone amount={this.damage} />
           <br />
           <Haste /> {formatPercentage(DIRE_BEAST_HASTE_PERCENT * this.uptime)}% <small>Haste</small>

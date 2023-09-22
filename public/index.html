@@ -88,6 +88,7 @@
         color: #e45a5a;
       }
     </style>
+    <% if (process.env.REACT_APP_ENABLE_GA !== undefined) { %>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MW95W6NHVC"></script>
     <script>
       var ramp = {
@@ -116,6 +117,9 @@
       gtag('config', 'G-E0TKKBEXVD', { send_page_view: false });
       gtag('event', 'ramp_js', { send_to: 'G-E0TKKBEXVD', pageview_id: window._pwGA4PageviewId });
     </script>
+    <% } else { %>
+    <!-- GA and ad code is not included in development mode. Check the HTML template if you need to test either. -->
+    <% } %>
   </head>
 
   <body>

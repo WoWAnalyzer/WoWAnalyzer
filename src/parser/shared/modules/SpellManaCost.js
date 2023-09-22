@@ -3,7 +3,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events from 'parser/core/Events';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
-import Expansion from '../../../game/Expansion';
+import Expansion, { isRetailExpansion } from '../../../game/Expansion';
 
 class SpellManaCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.MANA;
@@ -42,7 +42,7 @@ class SpellManaCost extends SpellResourceCost {
       return 0;
     }
     if (
-      this.owner.config.expansion === Expansion.Shadowlands &&
+      isRetailExpansion(this.owner.config.expansion) &&
       this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp)
     ) {
       return 0;

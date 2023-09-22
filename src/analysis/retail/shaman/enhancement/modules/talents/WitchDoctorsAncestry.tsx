@@ -6,7 +6,6 @@ import UptimeIcon from 'interface/icons/Uptime';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
@@ -60,19 +59,19 @@ class WitchDoctorsAncestry extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
         tooltip={
-          <Trans id="shaman.ehancement.witchDoctorsAncestry.statistic.tooltip">
+          <>
             {formatNumber(this.reduction)} sec total effective reduction
             <br />
             {formatNumber(this.wastedReduction)} sec ({formatPercentage(this.wastedPercent)}%)
             wasted reduction.
-          </Trans>
+          </>
         }
       >
         <TalentSpellText talent={TALENTS_SHAMAN.WITCH_DOCTORS_ANCESTRY_TALENT}>
-          <Trans id="shaman.ehancement.witchDoctorsAncestry.statistic">
+          <>
             <UptimeIcon /> {formatNumber(this.averageReduction)} sec{' '}
             <small>average reduction</small>
-          </Trans>
+          </>
         </TalentSpellText>
       </Statistic>
     );

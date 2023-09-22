@@ -29,7 +29,9 @@ const SupportChecker = ({ children }: Props) => {
     dispatch(ignoreSpecNotSupportedWarning(config.spec.id));
   };
 
-  const isIgnored = ignored.includes(config.spec.id);
+  const isIgnored =
+    // Avoid the support-warning modal while developing to ease testing.
+    process.env.NODE_ENV === 'development' || ignored.includes(config.spec.id);
 
   return (
     <>

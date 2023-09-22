@@ -1,3 +1,4 @@
+import Module from 'parser/core/Module';
 import Events, { EventType } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import TestCombatLogParser from 'parser/core/tests/TestCombatLogParser';

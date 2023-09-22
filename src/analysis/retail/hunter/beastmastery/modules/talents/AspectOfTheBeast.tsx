@@ -51,7 +51,7 @@ class AspectOfTheBeast extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS.ASPECT_OF_THE_BEAST_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.ASPECT_OF_THE_BEAST_TALENT}>
           <>
             <ItemDamageDone amount={this.damage} />
             <br />

@@ -42,7 +42,7 @@ class IdolOfCthun extends Analyzer {
   statistic() {
     return (
       <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
-        <BoringSpellValueText spellId={TALENTS.IDOL_OF_CTHUN_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.IDOL_OF_CTHUN_TALENT}>
           <div>
             <ItemDamageDone amount={this.damage} />
           </div>

@@ -3,14 +3,10 @@ import {
   CancelledCasts,
   DivertedEnergy,
   ElementalBarrier,
-  GroundingSurge,
+  QuickWitted,
   MirrorImage,
-  RuneOfPower,
-  RuneOfPowerNormalizer,
   ShiftingPower,
   TempestBarrier,
-  Meteor,
-  MeteorRune,
   MasterOfTime,
   TimeAnomaly,
   SharedCode,
@@ -33,7 +29,6 @@ import HotStreak from './core/HotStreak';
 
 //Talents
 import PhoenixFlames from './talents/PhoenixFlames';
-import Pyroclasm from './talents/Pyroclasm';
 import ShiftingPowerUsage from './talents/ShiftingPowerUsage';
 import FeveredIncantation from './talents/FeveredIncantation';
 import Hyperthermia from './talents/Hyperthermia';
@@ -43,11 +38,16 @@ import FromTheAshes from './talents/FromTheAshes';
 import Kindling from './talents/Kindling';
 import MeteorCombustion from './talents/MeteorCombustion';
 import SearingTouch from './talents/SearingTouch';
+import Meteor from './talents/Meteor';
+import LivingBomb from './talents/LivingBomb';
+import ImprovedScorch from './talents/ImprovedScorch';
+
+//Items
+import CharringEmbers from './items/CharringEmbers';
 
 //Normalizers
 import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
-import PyroclasmBuffNormalizer from './normalizers/PyroclasmBuff';
 import ScorchNormalizer from './normalizers/Scorch';
 import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
 
@@ -56,9 +56,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //Normalizers
     flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
-    pyroclasmBuffNormalizer: PyroclasmBuffNormalizer,
     combustionNormalizer: CombustionNormalizer,
-    runeOfPowerNormalizer: RuneOfPowerNormalizer,
     sunKingsBlessingNormalizer: SunKingsBlessingNormalizer,
 
     //Checklist
@@ -81,7 +79,6 @@ class CombatLogParser extends CoreCombatLogParser {
     phoenixFlames: PhoenixFlames,
     kindling: Kindling,
     meteorCombustion: MeteorCombustion,
-    pyroclasm: Pyroclasm,
     searingTouch: SearingTouch,
     fromTheAshes: FromTheAshes,
     feveredIncantation: FeveredIncantation,
@@ -89,17 +86,20 @@ class CombatLogParser extends CoreCombatLogParser {
     sunKingsBlessing: SunKingsBlessing,
     shiftingPowerUsage: ShiftingPowerUsage,
     feelTheBurn: FeelTheBurn,
+    meteor: Meteor,
+    livingBomb: LivingBomb,
+    improvedScorch: ImprovedScorch,
+
+    //Items - Fire
+    charringEmbers: CharringEmbers,
 
     //Talents - Shared
     mirrorImage: MirrorImage,
     elementalBarrier: ElementalBarrier,
-    runeOfPower: [RuneOfPower, { showStatistic: false, showSuggestion: false }] as const,
     shiftingPower: ShiftingPower,
     divertedEnergy: DivertedEnergy,
-    groundingSurge: GroundingSurge,
+    quickWitted: QuickWitted,
     tempestBarrier: TempestBarrier,
-    meteor: Meteor,
-    meteorRune: MeteorRune,
     masterOfTime: MasterOfTime,
     timeAnomaly: TimeAnomaly,
 

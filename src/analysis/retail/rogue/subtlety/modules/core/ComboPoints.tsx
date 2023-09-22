@@ -29,7 +29,7 @@ class ComboPoints extends Analyzer {
   makeExtraSuggestion(spell: Spell) {
     return (
       <>
-        Avoid wasting combo points when casting <SpellLink id={spell.id} />{' '}
+        Avoid wasting combo points when casting <SpellLink spell={spell} />{' '}
       </>
     );
   }
@@ -85,7 +85,7 @@ class ComboPoints extends Analyzer {
       extraSuggestion: (
         <span>
           {' '}
-          Use a weak Aura to track <SpellLink id={SPELLS.SHADOW_TECHNIQUES.id} />. This is an
+          Use a weak Aura to track <SpellLink spell={SPELLS.SHADOW_TECHNIQUES} />. This is an
           advanced suggestion and should not be addressed first.{' '}
         </span>
       ),

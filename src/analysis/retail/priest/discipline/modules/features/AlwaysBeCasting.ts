@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
@@ -68,7 +68,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCastingHealing {
         )
           .icon('spell_mage_altertime')
           .actual(
-            t({
+            defineMessage({
               id: 'priest.discipline.suggestions.alwaysBeCasting.downtime',
               message: `${formatPercentage(actual)}% downtime`,
             }),

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -15,6 +15,8 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 
+export const FLAMESHOCK_BASE_DURATION = 18000;
+
 class FlameShock extends EarlyDotRefreshesAnalyzer {
   static dependencies = {
     ...EarlyDotRefreshesAnalyzer.dependencies,
@@ -28,7 +30,7 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       name: 'Flame Shock',
       debuffId: SPELLS.FLAME_SHOCK.id,
       castId: SPELLS.FLAME_SHOCK.id,
-      duration: 18000,
+      duration: FLAMESHOCK_BASE_DURATION,
       movementFiller: true,
     },
   ];
@@ -70,11 +72,11 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     super(options);
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.LAVA_BURST_TALENT),
-      this.onDamage,
+      this.onLavaBurst,
     );
   }
 
-  onDamage(event: DamageEvent) {
+  onLavaBurst(event: DamageEvent) {
     const target = this.enemies.getEntity(event);
     if (target && !target.hasBuff(SPELLS.FLAME_SHOCK.id)) {
       this.badLavaBursts += 1;
@@ -85,12 +87,12 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     when(this.uptimeThreshold).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <span>
-          Your <SpellLink id={SPELLS.FLAME_SHOCK.id} /> uptime can be improved.
+          Your <SpellLink spell={SPELLS.FLAME_SHOCK} /> uptime can be improved.
         </span>,
       )
         .icon(SPELLS.FLAME_SHOCK.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.flameShock.uptime',
             message: `${formatPercentage(actual)}% uptime`,
           }),
@@ -103,14 +105,14 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
       .addSuggestion((suggest, actual, recommended) =>
         suggest(
           <span>
-            Make sure to apply <SpellLink id={SPELLS.FLAME_SHOCK.id} /> to your target, so your{' '}
-            <SpellLink id={TALENTS_SHAMAN.LAVA_BURST_TALENT.id} /> is guaranteed to critically
+            Make sure to apply <SpellLink spell={SPELLS.FLAME_SHOCK} /> to your target, so your{' '}
+            <SpellLink spell={TALENTS_SHAMAN.LAVA_BURST_TALENT} /> is guaranteed to critically
             strike.
           </span>,
         )
           .icon(TALENTS_SHAMAN.LAVA_BURST_TALENT.icon)
           .actual(
-            t({
+            defineMessage({
               id: 'shaman.elemental.suggestions.flameShock.efficiency',
               message: `${formatNumber(
                 this.badLavaBursts,
@@ -124,10 +126,14 @@ class FlameShock extends EarlyDotRefreshesAnalyzer {
     badRefreshSuggestion(when, this.refreshThreshold);
   }
 
+  getDebuffStackHistory() {
+    return this.enemies.getDebuffStackHistory(SPELLS.FLAME_SHOCK.id);
+  }
+
   statistic() {
     return (
       <Statistic position={STATISTIC_ORDER.CORE()} size="flexible" tooltip="Flame Shock Uptime">
-        <BoringSpellValueText spellId={SPELLS.FLAME_SHOCK.id}>
+        <BoringSpellValueText spell={SPELLS.FLAME_SHOCK}>
           <>
             <UptimeIcon /> {formatPercentage(this.uptime)}% <small>uptime</small>
           </>

@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/deathknight';
@@ -31,7 +31,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       )
         .icon('spell_mage_altertime')
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.frost.suggestions.alwaysBeCasting',
             message: `${formatPercentage(actual)}% downtime`,
           }),

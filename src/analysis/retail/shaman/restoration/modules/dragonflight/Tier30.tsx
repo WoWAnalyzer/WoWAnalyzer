@@ -180,27 +180,27 @@ export default class Tier30 extends Analyzer {
           <>
             <ul>
               <li>
-                <SpellLink id={ITEMS.T30_TIDEWATERS_HEAL.id} />:{' '}
+                <SpellLink spell={ITEMS.T30_TIDEWATERS_HEAL} />:{' '}
                 <strong>{formatNumber(this.tidewatersHealing)}</strong> (
                 {this.twoPieceOverhealPercent}% Overheal)
               </li>
               {this.has4pc && (
                 <>
                   <li>
-                    <SpellLink id={ITEMS.T30_RAINSTORM_BUFF.id} />:{' '}
+                    <SpellLink spell={ITEMS.T30_RAINSTORM_BUFF} />:{' '}
                     <strong>{formatNumber(this.rainstormHealing)}</strong>
                   </li>
-                  <SpellLink id={ITEMS.T30_SWELLING_RAIN_BUFF.id} />:
+                  <SpellLink spell={ITEMS.T30_SWELLING_RAIN_BUFF} />:
                   <li>
-                    <SpellLink id={talents.HEALING_WAVE_TALENT.id} />:{' '}
+                    <SpellLink spell={talents.HEALING_WAVE_TALENT} />:{' '}
                     <strong>{formatNumber(this.swellingRainHealingWave)}</strong>
                   </li>
                   <li>
-                    <SpellLink id={talents.CHAIN_HEAL_TALENT.id} />:{' '}
+                    <SpellLink spell={talents.CHAIN_HEAL_TALENT} />:{' '}
                     <strong>{formatNumber(this.swellingRainChainheal)}</strong>
                   </li>
                   <li>
-                    <SpellLink id={SPELLS.HEALING_SURGE.id} />:{' '}
+                    <SpellLink spell={SPELLS.HEALING_SURGE} />:{' '}
                     <strong>{formatNumber(this.swellingRainHealingSurge)}</strong>
                   </li>
                 </>

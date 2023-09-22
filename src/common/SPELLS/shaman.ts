@@ -3,14 +3,23 @@
  * You need to do this manually, usually an easy way to do this is by opening a WCL report and clicking the icons of spells to open the relevant Wowhead pages, here you can get the icon name by clicking the icon, copy the name of the spell and the ID is in the URL.
  * You can access these entries like other entries in the spells files by importing `common/SPELLS` and using the assigned property on the SPELLS object. Please try to avoid abbreviating properties.
  */
+import Spell from 'common/SPELLS/Spell';
 
-import { spellIndexableList } from './Spell';
-
-const spells = spellIndexableList({
+const spells = {
   WATER_SHIELD: {
     id: 52127,
     name: 'Water Shield',
     icon: 'ability_shaman_watershield',
+  },
+  EARTH_SHOCK_OVERLOAD: {
+    id: 381725,
+    name: 'Earth Shock Overload',
+    icon: 'spell_nature_earthshock',
+  },
+  ELECTRIFIED_SHOCKS_DEBUFF: {
+    id: 382089,
+    name: 'Electrified Shocks',
+    icon: 'inv_offhand_1h_artifactdoomhammer_d_02',
   },
   PURIFY_SPIRIT: {
     id: 77130,
@@ -188,7 +197,7 @@ const spells = spellIndexableList({
   },
   ELEMENTAL_BLAST_OVERLOAD: {
     id: 120588,
-    name: 'Elemental Blast',
+    name: 'Elemental Blast Overload',
     icon: 'shaman_talent_elementalblast',
   },
   ELEMENTAL_BLAST_HASTE: {
@@ -321,6 +330,11 @@ const spells = spellIndexableList({
     name: 'Unlimited Power Buff',
     icon: 'ability_shaman_ascendance',
   },
+  STORMKEEPER_BUFF_AND_CAST: {
+    id: 191634,
+    name: 'Stormkeeper',
+    icon: 'ability_thunderking_lightningwhip',
+  },
   // Elemental Pet Spells
   WIND_GUST: {
     id: 157331,
@@ -397,6 +411,11 @@ const spells = spellIndexableList({
     id: 224127,
     name: 'Crackling Surge',
     icon: 'spell_beastmaster_wolf',
+  },
+  FERAL_SPIRIT_BUFF_EARTHEN_WEAPON: {
+    id: 392375,
+    name: 'Earthen Weapon',
+    icon: 'spell_shaman_unleashweapon_earth',
   },
   STORMSTRIKE_DAMAGE: {
     id: 32175,
@@ -768,6 +787,16 @@ const spells = spellIndexableList({
     name: 'Earthliving Weapon',
     icon: 'spell_shaman_giftearthmother',
   },
+  PRIMORDIAL_WAVE: {
+    id: 375982,
+    name: 'Primordial Wave',
+    icon: 'ability_maldraxxus_shaman',
+  },
+  PRIMORDIAL_WAVE_DAMAGE: {
+    id: 375984,
+    name: 'Primordial Wave',
+    icon: 'ability_maldraxxus_shaman',
+  },
   PRIMORDIAL_WAVE_BUFF: {
     id: 375986,
     name: 'Primordial Wave',
@@ -783,6 +812,6 @@ const spells = spellIndexableList({
     name: 'Mana Spring',
     icon: 'spell_nature_manaregentotem',
   },
-});
+} satisfies Record<string, Spell>;
 
 export default spells;

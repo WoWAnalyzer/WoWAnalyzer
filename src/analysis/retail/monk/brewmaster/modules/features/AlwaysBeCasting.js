@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -15,7 +15,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         suggest('Your downtime can be improved. Try to Always Be Casting (ABC).')
           .icon('spell_mage_altertime')
           .actual(
-            t({
+            defineMessage({
               id: 'monk.brewmaster.suggestions.alwaysBeCasting.downtime',
               message: `${formatPercentage(actual)}% downtime`,
             }),

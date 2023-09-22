@@ -12,7 +12,6 @@ import Events, {
 } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -21,6 +20,7 @@ import { Intervals } from '../core/Intervals';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { SpellUse } from 'parser/core/SpellUsage/core';
 import { ReactNode } from 'react';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 class HotHandRank {
   modRate: number;
@@ -155,21 +155,21 @@ class HotHand extends MajorCooldown<HotHandProc> {
               {formatPercentage(this.timePercentageHotHandsActive)}% uptime)
             </li>
             <li>
-              {this.buffedCasts} total <SpellLink id={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> casts with
-              Hot Hand buff
+              {this.buffedCasts} total <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> casts
+              with Hot Hand buff
             </li>
           </ul>
         }
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spellId={TALENTS_SHAMAN.HOT_HAND_TALENT.id}>
+        <TalentSpellText talent={TALENTS_SHAMAN.HOT_HAND_TALENT}>
           <>
             <ItemDamageDone amount={this.buffedLavaLashDamage} />
             <br />
             {this.castsPerSecond.toFixed(2)} <small>average casts per proc</small>
             <br />
           </>
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }

@@ -43,9 +43,9 @@ class DotUptimes extends Analyzer {
         <b>
           Keep your DoTs up on the boss. <br />
         </b>
-        In addition to dealing damage, <SpellLink id={SPELLS.VAMPIRIC_TOUCH.id} /> and{' '}
-        <SpellLink id={SPELLS.SHADOW_WORD_PAIN.id} />, increase all your damage through{' '}
-        <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
+        In addition to dealing damage, <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} /> and{' '}
+        <SpellLink spell={SPELLS.SHADOW_WORD_PAIN} />, increase all your damage through{' '}
+        <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
       </p>
     );
 
@@ -63,13 +63,13 @@ class DotUptimes extends Analyzer {
     const explanation = (
       <p>
         <b>
-          Maximize the uptime of <SpellLink id={TALENTS.DEVOURING_PLAGUE_TALENT.id} /> while not
+          Maximize the uptime of <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> while not
           wasting insanity.
         </b>
         <br />
-        Unlike most DoTs when reapplied, any remaining damage will be added to the new effect. In
+        Unlike most DoTs, when reapplied any remaining damage will be added to the new effect. In
         addition to dealing damage, it increases all your damage through{' '}
-        <SpellLink id={SPELLS.MASTERY_SHADOW_WEAVING.id} />.
+        <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
       </p>
     );
 
@@ -81,7 +81,7 @@ class DotUptimes extends Analyzer {
   get guideSubsectionDE() {
     const explanation = (
       <p>
-        This is the uptime of <SpellLink id={SPELLS.DARK_EVANGELISM_TALENT_BUFF.id} />. You should
+        This is the uptime of <SpellLink spell={SPELLS.DARK_EVANGELISM_TALENT_BUFF} />. You should
         not adjust your rotation to maintain this buff.
       </p>
     );

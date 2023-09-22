@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
@@ -65,14 +65,14 @@ class Slam extends Analyzer {
     when(this.badCastSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Try to avoid using <SpellLink id={SPELLS.SLAM.id} /> when{' '}
-          <SpellLink id={SPELLS.MORTAL_STRIKE.id} /> or <SpellLink id={SPELLS.EXECUTE.id} /> is
+          Try to avoid using <SpellLink spell={SPELLS.SLAM} /> when{' '}
+          <SpellLink spell={SPELLS.MORTAL_STRIKE} /> or <SpellLink spell={SPELLS.EXECUTE} /> is
           available as it is more rage efficient.
         </>,
       )
         .icon(SPELLS.SLAM.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'warrior.arms.suggestions.slam.efficiency',
             message: `Slam was cast ${this.badCast} times accounting for ${formatPercentage(
               actual,

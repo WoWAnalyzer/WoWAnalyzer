@@ -78,7 +78,7 @@ class PrayerCircle extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.OPTIONAL(5)}
       >
-        <BoringSpellValueText spellId={TALENTS.PRAYER_CIRCLE_TALENT.id}>
+        <BoringSpellValueText spell={TALENTS.PRAYER_CIRCLE_TALENT}>
           <>{this.buffedCohCasts} Faster PoH's</>
         </BoringSpellValueText>
       </Statistic>

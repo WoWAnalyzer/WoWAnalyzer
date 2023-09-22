@@ -28,7 +28,6 @@ import SoulFragmentsTracker from './modules/features/SoulFragmentsTracker';
 import FuryDetails from './modules/resourcetracker/FuryDetails';
 import FuryGraph from './modules/resourcetracker/FuryGraph';
 import FuryTracker from './modules/resourcetracker/FuryTracker';
-import DemonSpikes from './modules/spells/DemonSpikes';
 import InfernalStrike from './modules/spells/InfernalStrike';
 import ShearFracture from './modules/spells/ShearFracture';
 import SoulFragmentsConsume from './modules/statistics/SoulFragmentsConsume';
@@ -46,7 +45,6 @@ import DarkglareBoon from './modules/talents/DarkglareBoon';
 import StokeTheFlames from './modules/talents/StokeTheFlames';
 import FieryBrand from './modules/talents/FieryBrand';
 import VoidReaver from './modules/talents/VoidReaver';
-import Metamorphosis from './modules/spells/Metamorphosis';
 import ShearFractureNormalizer from './normalizers/ShearFractureNormalizer';
 import SoulFragmentsGraph from './modules/resourcetracker/SoulFragmentsGraph';
 import SoulFragmentBuffStackTracker from './modules/resourcetracker/SoulFragmentBuffStackTracker';
@@ -60,8 +58,8 @@ import SoulCleave from './modules/spells/SoulCleave';
 import DefensiveBuffs from './modules/core/MajorDefensives/DefensiveBuffs';
 import DefensiveBuffLinkNormalizer from './modules/core/MajorDefensives/DefensiveBuffLinkNormalizer';
 import FieryBrand2 from './modules/core/MajorDefensives/FieryBrand';
-import DemonSpikes2 from './modules/core/MajorDefensives/DemonSpikes';
-import Metamorphosis2 from './modules/core/MajorDefensives/Metamorphosis';
+import DemonSpikes from './modules/core/MajorDefensives/DemonSpikes';
+import Metamorphosis from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
 
@@ -99,10 +97,8 @@ class CombatLogParser extends CoreCombatLogParser {
     demonSpikes: DemonSpikes,
     infernalStrike: InfernalStrike,
     metamorphosis: Metamorphosis,
-    metamorphosis2: Metamorphosis2,
     soulCleave: SoulCleave,
     defensiveBuffs: DefensiveBuffs,
-    demonSpikes2: DemonSpikes2,
     demonSoulBuff: DemonSoulBuff,
 
     // Talents

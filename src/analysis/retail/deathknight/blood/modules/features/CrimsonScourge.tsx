@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, t, Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
@@ -107,13 +107,13 @@ class CrimsonScourge extends Analyzer {
       )
         .icon(SPELLS.CRIMSON_SCOURGE_TALENT_BUFF.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'deathknight.blood.crimsonScourge.suggestion.actual',
             message: `${formatPercentage(actual)}% Crimson Scourge procs wasted`,
           }),
         )
         .recommended(
-          t({
+          defineMessage({
             id: 'shared.suggestion.recommended.lessThanPercent',
             message: `<${formatPercentage(recommended)}% is recommended`,
           }),

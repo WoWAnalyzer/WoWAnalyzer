@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { formatNumber, formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import TALENTS from 'common/TALENTS/warrior';
 import Events, { HealEvent } from 'parser/core/Events';
@@ -8,6 +7,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 import BoringValueText from 'parser/ui/BoringValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
 
 class ImpendingVictory extends Analyzer {
   private totalHealing = 0;
@@ -50,15 +50,11 @@ class ImpendingVictory extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={TALENTS.IMPENDING_VICTORY_TALENT.id} /> Healing done
+              <SpellLink spell={TALENTS.IMPENDING_VICTORY_TALENT} /> Healing done
             </>
           }
         >
-          <>
-            {formatNumber(this.totalHealing)} <small> Healing </small>
-            <br />
-            {formatPercentage(this.overhealPercentage)}% <small> overheal </small>
-          </>
+          <ItemHealingDone amount={this.totalHealing} />
         </BoringValueText>
       </Statistic>
     );

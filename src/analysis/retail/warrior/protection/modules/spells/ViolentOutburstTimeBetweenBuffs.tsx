@@ -59,7 +59,7 @@ class ViolentOutburstTimeBetweenBuffs extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellIcon id={TALENTS.VIOLENT_OUTBURST_TALENT.id} /> Average Time Between Outbursts
+              <SpellIcon spell={TALENTS.VIOLENT_OUTBURST_TALENT} /> Average Time Between Outbursts
             </>
           }
         >

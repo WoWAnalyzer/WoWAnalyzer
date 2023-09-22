@@ -48,12 +48,12 @@ class TimeLord extends Analyzer {
             <ul>
               <li>
                 {formatNumber(this.effectiveHealing)} increased{' '}
-                <SpellLink id={TALENTS_EVOKER.ECHO_TALENT.id} /> healing from{' '}
-                <SpellLink id={TALENTS_EVOKER.TIME_LORD_TALENT} />
+                <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> healing from{' '}
+                <SpellLink spell={TALENTS_EVOKER.TIME_LORD_TALENT} />
               </li>
               <li>
                 {formatNumber(this.overhealing)} overhealing from{' '}
-                <SpellLink id={TALENTS_EVOKER.TIME_LORD_TALENT} />
+                <SpellLink spell={TALENTS_EVOKER.TIME_LORD_TALENT} />
               </li>
             </ul>
           </>

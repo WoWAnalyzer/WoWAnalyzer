@@ -37,9 +37,9 @@ const DestructionWarlockChecklist = ({
         description={
           <>
             Destruction Warlocks have a simple rotation core. Maintain your{' '}
-            <SpellLink id={SPELLS.IMMOLATE.id} /> on all enemies if possible, don't waste your{' '}
-            <SpellLink id={SPELLS.CONFLAGRATE.id} /> and <SpellLink id={SPELLS.BACKDRAFT.id} />{' '}
-            stacks. Use <SpellLink id={SPELLS.HAVOC.id} /> whenever there's something else to
+            <SpellLink spell={SPELLS.IMMOLATE} /> on all enemies if possible, don't waste your{' '}
+            <SpellLink spell={SPELLS.CONFLAGRATE} /> and <SpellLink spell={SPELLS.BACKDRAFT} />{' '}
+            stacks. Use <SpellLink spell={SPELLS.HAVOC} /> whenever there's something else to
             cleave.
           </>
         }
@@ -47,7 +47,7 @@ const DestructionWarlockChecklist = ({
         <Requirement
           name={
             <>
-              <SpellLink id={SPELLS.IMMOLATE.id} /> uptime
+              <SpellLink spell={SPELLS.IMMOLATE} /> uptime
             </>
           }
           thresholds={thresholds.immolate}
@@ -56,7 +56,7 @@ const DestructionWarlockChecklist = ({
         <Requirement
           name={
             <>
-              Wasted <SpellLink id={SPELLS.BACKDRAFT.id} /> stacks per minute
+              Wasted <SpellLink spell={SPELLS.BACKDRAFT} /> stacks per minute
             </>
           }
           thresholds={thresholds.wastedBackdraft}
@@ -80,7 +80,7 @@ const DestructionWarlockChecklist = ({
           <Requirement
             name={
               <>
-                <SpellLink id={TALENTS.ERADICATION_TALENT.id} /> uptime
+                <SpellLink spell={TALENTS.ERADICATION_TALENT} /> uptime
               </>
             }
             thresholds={thresholds.eradication}
@@ -105,18 +105,17 @@ const DestructionWarlockChecklist = ({
         description={
           <>
             Use other spells in your toolkit to your advantage. For example, you can try to minimize
-            necessary movement by using <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon />,{' '}
-            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon />,{' '}
-            <SpellLink id={TALENTS.BURNING_RUSH_TALENT.id} icon /> or mitigate incoming damage with{' '}
-            <SpellLink id={SPELLS.UNENDING_RESOLVE.id} icon />/
-            <SpellLink id={TALENTS.DARK_PACT_TALENT.id} icon />.<br />
+            necessary movement by using <SpellLink spell={SPELLS.DEMONIC_GATEWAY_CAST} icon />,{' '}
+            <SpellLink spell={SPELLS.DEMONIC_CIRCLE} icon />,{' '}
+            <SpellLink spell={TALENTS.BURNING_RUSH_TALENT} icon /> or mitigate incoming damage with{' '}
+            <SpellLink spell={SPELLS.UNENDING_RESOLVE} icon />/
+            <SpellLink spell={TALENTS.DARK_PACT_TALENT} icon />.<br />
             While you shouldn't cast these defensives on cooldown, be aware of them and use them
             whenever effective. Not using them at all indicates you might not be aware of them or
             not using them optimally.
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.DEMONIC_CIRCLE_TELEPORT.id} />
         {combatant.hasTalent(TALENTS.DARK_PACT_TALENT) && (
           <AbilityRequirement spell={TALENTS.DARK_PACT_TALENT.id} />
         )}
@@ -127,12 +126,12 @@ const DestructionWarlockChecklist = ({
         description={
           <>
             You should try to avoid doing nothing during the fight. When you have to move, try to
-            save some <SpellLink id={SPELLS.CONFLAGRATE.id} /> charges or try to utilize{' '}
-            <SpellLink id={SPELLS.DEMONIC_CIRCLE.id} icon>
+            save some <SpellLink spell={SPELLS.CONFLAGRATE} /> charges or try to utilize{' '}
+            <SpellLink spell={SPELLS.DEMONIC_CIRCLE} icon>
               Teleport
             </SpellLink>{' '}
             or{' '}
-            <SpellLink id={SPELLS.DEMONIC_GATEWAY_CAST.id} icon>
+            <SpellLink spell={SPELLS.DEMONIC_GATEWAY_CAST} icon>
               Gateway
             </SpellLink>{' '}
             to reduce the movement even further.

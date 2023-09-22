@@ -1,14 +1,17 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
+import { GUIDE_EXPLANATION_PERCENT_WIDTH, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import { ExplanationAndDataSubSection } from 'interface/guide/components/ExplanationRow';
 
 const SURGE_OF_POWER = {
   AFFECTED_CASTS: [
@@ -26,6 +29,8 @@ class SurgeOfPower extends Analyzer {
   // total SK lightning bolt casts
   skCasts = 0;
 
+  sopActive = false;
+
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.SURGE_OF_POWER_TALENT);
@@ -38,9 +43,21 @@ class SurgeOfPower extends Analyzer {
     });
 
     this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SURGE_OF_POWER_BUFF),
+      this.onSopGain,
+    );
+
+    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SURGE_OF_POWER.AFFECTED_CASTS),
       this._onCast,
     );
+  }
+
+  onSopGain(event: ApplyBuffEvent) {
+    // There are instances where there are two cast events within the grace window
+    // for determining if SoP is active. This boolean overrides that, to ensure
+    // that only one of the spells are marked as empowered.
+    this.sopActive = true;
   }
 
   get suggestionThresholds() {
@@ -58,23 +75,39 @@ class SurgeOfPower extends Analyzer {
   _onCast(event: CastEvent) {
     // cast lightning bolt with only SK buff active
     if (
-      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(
+        SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
+        event.timestamp,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
+      ) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
       this.skCasts += 1;
     }
 
-    if (!this.selectedCombatant.hasBuff(SPELLS.SURGE_OF_POWER_BUFF.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(
+        SPELLS.SURGE_OF_POWER_BUFF.id,
+        event.timestamp,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
+      ) ||
+      !this.sopActive
+    ) {
       return;
     }
 
     event.meta = event.meta || {};
     event.meta.isEnhancedCast = true;
     this.sopBuffedAbilities[event.ability.guid] += 1;
+    this.sopActive = false;
 
     // cast lightning bolt with SoP and SK buffs active
     if (
-      this.selectedCombatant.hasBuff(TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT.id, event.timestamp) &&
+      this.selectedCombatant.hasBuff(
+        SPELLS.STORMKEEPER_BUFF_AND_CAST.id,
+        event.timestamp,
+        ON_CAST_BUFF_REMOVAL_GRACE_MS,
+      ) &&
       event.ability.guid === SPELLS.LIGHTNING_BOLT.id
     ) {
       this.skSopCasts += 1;
@@ -83,25 +116,33 @@ class SurgeOfPower extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.OPTIONAL()} size="flexible">
-        <table className="table table-condensed">
-          <thead>
-            <tr>
-              <th>Ability</th>
-              <th>Number of Buffed Casts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {Object.keys(this.sopBuffedAbilities).map((e) => (
-              <tr key={e}>
-                <th>
-                  <SpellLink id={Number(e)} />
-                </th>
-                <td>{this.sopBuffedAbilities[Number(e)]}</td>
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL()}
+        size="flexible"
+        dropdown={
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th>Ability</th>
+                <th>Number of Buffed Casts</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {Object.keys(this.sopBuffedAbilities).map((e) => (
+                <tr key={e}>
+                  <th>
+                    <SpellLink spell={Number(e)} />
+                  </th>
+                  <td>{this.sopBuffedAbilities[Number(e)]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        }
+      >
+        <BoringSpellValueText spell={TALENTS.MASTER_OF_THE_ELEMENTS_TALENT}>
+          {Object.values(this.sopBuffedAbilities).reduce((a, b) => a + b)} buffs consumed
+        </BoringSpellValueText>
       </Statistic>
     );
   }
@@ -117,7 +158,7 @@ class SurgeOfPower extends Analyzer {
       )
         .icon(TALENTS.SURGE_OF_POWER_TALENT.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'shaman.elemental.suggestions.surgeOfPower.stormKeeperEmpowered',
             message: `${formatPercentage(
               actual,
@@ -125,6 +166,20 @@ class SurgeOfPower extends Analyzer {
           }),
         )
         .recommended(`100% is recommended.`),
+    );
+  }
+
+  guideSubsection(): JSX.Element {
+    const explanation = <>TODO</>;
+    const data = this.statistic();
+
+    return (
+      <ExplanationAndDataSubSection
+        title="Surge of Power"
+        explanationPercent={GUIDE_EXPLANATION_PERCENT_WIDTH}
+        explanation={explanation}
+        data={data}
+      />
     );
   }
 }

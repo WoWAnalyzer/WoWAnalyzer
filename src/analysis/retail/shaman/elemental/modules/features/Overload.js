@@ -73,7 +73,7 @@ class Overload extends Analyzer {
     return (
       <li key={spell.id}>
         <SpellIcon
-          id={spell.id}
+          spell={spell}
           style={{
             height: '1.3em',
             marginTop: '-.1em',
@@ -90,7 +90,7 @@ class Overload extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.OPTIONAL()}
-        icon={<SpellIcon id={SPELLS.ELEMENTAL_MASTERY.id} />}
+        icon={<SpellIcon spell={SPELLS.ELEMENTAL_MASTERY} />}
         value={
           <ul style={{ listStyle: 'none', paddingLeft: 0 }}>
             {this.spells.map((spell) => this.renderOverloads(spell))}

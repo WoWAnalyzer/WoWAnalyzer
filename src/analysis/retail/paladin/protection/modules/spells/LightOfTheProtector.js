@@ -1,4 +1,4 @@
-import { t } from '@lingui/macro';
+import { defineMessage } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
@@ -173,14 +173,14 @@ export default class LightOfTheProtector extends Analyzer {
     when(this.delaySuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should delay your <SpellLink id={this.activeSpell.id} /> cast as little as possible
+          You should delay your <SpellLink spell={this.activeSpell} /> cast as little as possible
           after being hit to maximize its effect and to minimize the chance that you waste healing
           resources.
         </>,
       )
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.protection.suggestions.lightOfTheProtector.averageDelay',
             message: `${actual.toFixed(2)}s Average Delay`,
           }),
@@ -191,13 +191,13 @@ export default class LightOfTheProtector extends Analyzer {
     when(this.overhealSuggestion).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You should avoid casting <SpellLink id={this.activeSpell.id} /> while at very high health
+          You should avoid casting <SpellLink spell={this.activeSpell} /> while at very high health
           to avoid overhealing.
         </>,
       )
         .icon(SPELLS.LIGHT_OF_THE_PROTECTOR.icon)
         .actual(
-          t({
+          defineMessage({
             id: 'paladin.protection.suggestions.lightOfTheProtector.overhealing',
             message: `${formatPercentage(actual)}% Overhealing`,
           }),

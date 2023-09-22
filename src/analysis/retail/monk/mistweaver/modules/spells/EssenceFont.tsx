@@ -1,4 +1,4 @@
-import { t, Trans } from '@lingui/macro';
+import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -106,6 +106,10 @@ class EssenceFont extends Analyzer {
         (this.gomHits - this.gomEFHits - this.chijiGomEFHits) +
       1
     );
+  }
+
+  get timeSpentCasting() {
+    return this.selectedCombatant.getBuffUptime(TALENTS_MONK.ESSENCE_FONT_TALENT.id);
   }
 
   isValidEFEvent(event: HealEvent) {
@@ -258,13 +262,13 @@ class EssenceFont extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+          <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
         </b>{' '}
         is your core AoE heal and used to activate{' '}
-        <SpellLink id={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />. You should aim to avoid cancelling
-        it at all costs and you should only use it with{' '}
-        <SpellLink id={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> (if talented into{' '}
-        <SpellLink id={TALENTS_MONK.UPWELLING_TALENT} />) and on CD otherwise.
+        <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />. You should aim to avoid
+        cancelling it at all costs and you should only use it with{' '}
+        <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> (if talented into{' '}
+        <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} />) and on CD otherwise.
       </p>
     );
 
@@ -272,7 +276,7 @@ class EssenceFont extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> cast efficiency
           </strong>
           <div>
             {this.efficSubStatistic()} <br />
@@ -320,12 +324,12 @@ class EssenceFont extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cancelled <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT.id} />
+          You cancelled <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
         </>,
       )
         .icon(TALENTS_MONK.ESSENCE_FONT_TALENT.icon)
         .actual(
-          `${this.numCancelled} ${t({
+          `${this.numCancelled} ${defineMessage({
             id: `monk.mistweaver.suggestions.essenceFont.cancelledCasts`,
             message: ` cancelled casts`,
           })}`,
@@ -358,8 +362,8 @@ class EssenceFont extends Analyzer {
         <BoringValueText
           label={
             <>
-              <SpellLink id={SPELLS.GUSTS_OF_MISTS.id}>Gusts of Mists</SpellLink> from{' '}
-              <SpellLink id={TALENTS_MONK.ESSENCE_FONT_TALENT} />
+              <SpellLink spell={SPELLS.GUSTS_OF_MISTS}>Gusts of Mists</SpellLink> from{' '}
+              <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
             </>
           }
         >
