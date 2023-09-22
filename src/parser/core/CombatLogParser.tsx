@@ -92,6 +92,7 @@ import BurningDevotion from 'parser/retail/modules/features/enchants/dragonfligh
 import BurningWrit from 'parser/retail/modules/features/enchants/dragonflight/BurningWrit';
 import EarthenWrit from 'parser/retail/modules/features/enchants/dragonflight/EarthenWrit';
 import FrozenWrit from 'parser/retail/modules/features/enchants/dragonflight/FrozenWrit';
+import SophicDevotion from 'parser/retail/modules/features/enchants/dragonflight/SophicDevotion';
 import SophicWrit from 'parser/retail/modules/features/enchants/dragonflight/SophicWrit';
 import WaftingDevotion from 'parser/retail/modules/features/enchants/dragonflight/WaftingDevotion';
 import WaftingWrit from 'parser/retail/modules/features/enchants/dragonflight/WaftingWrit';
@@ -219,6 +220,7 @@ class CombatLogParser {
     burningWrit: BurningWrit,
     earthenWrit: EarthenWrit,
     frozenWrit: FrozenWrit,
+    sophicDevotion: SophicDevotion,
     sophicWrit: SophicWrit,
     waftingDevotion: WaftingDevotion,
     waftingWrit: WaftingWrit,
