@@ -30,7 +30,7 @@ import { calculateSecondaryStatDefault } from 'parser/core/stats';
  * appropiate `PRIMARY_STAT` for the current spec.
  */
 export function primaryStat(value: number): StatBuffHook {
-  return ({ selectedCombatant }) => ({ [selectedCombatant.spec.primaryStat]: value });
+  return ({ selectedCombatant }) => ({ [selectedCombatant.primaryStat]: value });
 }
 
 const ARMOR_INT_BONUS = 0.05;

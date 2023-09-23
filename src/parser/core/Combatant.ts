@@ -8,6 +8,7 @@ import { findByBossId } from 'game/raids';
 import SPECS, { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { Buff, CombatantInfoEvent, EventType, Item, TalentEntry } from 'parser/core/Events';
+import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import { TIERS } from 'game/TIERS';
 
 import Entity from './Entity';
@@ -48,6 +49,16 @@ class Combatant extends Entity {
 
   get spec(): Spec | undefined {
     return SPECS[this.specId];
+  }
+
+  get primaryStat(): PRIMARY_STAT {
+    const spec = this.spec;
+
+    if (spec == null) {
+      throw new Error(`Tried to access primaryStat but combatant ${this.name} has no spec`);
+    }
+
+    return spec.primaryStat;
   }
 
   get race(): Race | null {

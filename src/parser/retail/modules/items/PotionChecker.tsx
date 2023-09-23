@@ -245,6 +245,9 @@ class PotionChecker extends Analyzer {
   }
 
   suggestions(when: When) {
+    if (this.selectedCombatant.spec == null) {
+      throw new Error('No spec found for selected combatant');
+    }
     this.potionAdjuster(this.selectedCombatant.spec);
     this.setStrongPotionForSpec(this.selectedCombatant.spec);
     when(this.potionsUsedThresholds).addSuggestion((suggest) =>
