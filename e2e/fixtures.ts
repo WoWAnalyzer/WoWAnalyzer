@@ -24,7 +24,7 @@ const ignoredErrors = [
   // Error when using nth-child|first-child in CSS selectors
   /The pseudo class "(:nth-child|:first-child)" is potentially unsafe when doing server-side rendering/i,
   // Error caused by bad buff tracking
-  /buff was refreshed while active buff wasn't known/i,
+  /buff (was refreshed|stack updated) while active buff wasn't known/i,
   // Error caused by healing before knowing players
   /^Received a heal before we know the player location/i,
   // Holy Paladin specific
