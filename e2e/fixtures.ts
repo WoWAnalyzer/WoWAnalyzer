@@ -36,7 +36,7 @@ function throwOnError(page: Page) {
         return;
       }
 
-      throw new Error(errorText);
+      throw errorText;
     }
   });
 }
