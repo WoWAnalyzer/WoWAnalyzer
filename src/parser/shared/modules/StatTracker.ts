@@ -316,18 +316,12 @@ class StatTracker extends Analyzer {
     if (typeof buffId === 'object') {
       buffId = buffId.id;
     }
+
     if (this.statBuffs[buffId]) {
       throw new Error(`Stat buff with ID ${buffId} already exists`);
     }
-    // if any stat's function uses the item argument, validate that itemId property exists
-    debug && this.log(`StatTracker.add(), buffId: ${buffId}, stats:`, stats);
-    const usesItemArgument = Object.values(stats).some(
-      (value) => typeof value === 'function' && value.length === 2,
-    );
-    if (usesItemArgument && !stats.itemId) {
-      throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
-    }
-    this.statBuffs[buffId] = stats;
+
+    this._addOrUpdate(buffId, stats);
   }
 
   /**
@@ -342,18 +336,34 @@ class StatTracker extends Analyzer {
     if (typeof buffId === 'object') {
       buffId = buffId.id;
     }
+
     if (!this.statBuffs[buffId]) {
       throw new Error(
         `Stat buff with ID ${buffId} doesn't exist, so it can't be updated - remember to add it first!`,
       );
     }
+
+    this._addOrUpdate(buffId, stats);
+  }
+
+  private _addOrUpdate(buffId: number, stats: StatBuff): void {
     debug && this.log(`StatTracker.update(), buffId: ${buffId}, stats:`, stats);
-    const usesItemArgument = Object.values(stats).some(
-      (value) => typeof value === 'function' && value.length === 2,
-    );
-    if (usesItemArgument && !stats.itemId) {
-      throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
+
+    if (typeof stats === 'function') {
+      // Check that the StatBuffHook looks valid
+      if (stats.length > 1) {
+        throw new Error(`Stat buff ${buffId} uses StatBuffHook, but has too many arguments`);
+      }
+    } else {
+      // Check StatBuff object
+      const usesItemArgument = Object.values(stats).some(
+        (value) => typeof value === 'function' && value.length === 2,
+      );
+      if (usesItemArgument && !stats.itemId) {
+        throw new Error(`Stat buff ${buffId} uses item argument, but does not provide item ID`);
+      }
     }
+
     this.statBuffs[buffId] = stats;
   }
 
@@ -835,7 +845,7 @@ class StatTracker extends Analyzer {
    */
   // For an example of how / why this function would be used, see the CharmOfTheRisingTide module.
   forceChangeStats(
-    change: StatBuff,
+    change: StatBuffObj,
     eventReason: Event<EventType> | null,
     withoutMultipliers = false,
   ): void {
@@ -903,22 +913,56 @@ class StatTracker extends Analyzer {
     }
   }
 
+  /** Returns the delta of the buff _without_ modifying current stats */
+  buffDeltas(change: StatBuff, factor: number): PlayerStats {
+    if (typeof change === 'object') {
+      return {
+        strength: this.getBuffValue(change, change.strength) * factor,
+        agility: this.getBuffValue(change, change.agility) * factor,
+        intellect: this.getBuffValue(change, change.intellect) * factor,
+        stamina: this.getBuffValue(change, change.stamina) * factor,
+        crit: this.getBuffValue(change, change.crit) * factor,
+        haste: this.getBuffValue(change, change.haste) * factor,
+        mastery: this.getBuffValue(change, change.mastery) * factor,
+        versatility: this.getBuffValue(change, change.versatility) * factor,
+        avoidance: this.getBuffValue(change, change.avoidance) * factor,
+        leech: this.getBuffValue(change, change.leech) * factor,
+        speed: this.getBuffValue(change, change.speed) * factor,
+        armor: this.getBuffValue(change, change.armor) * factor,
+      };
+    } else {
+      const perStack = change({
+        selectedCombatant: this.selectedCombatant,
+      });
+
+      // Recalculate each stat for the new stack count
+      const factored = Object.fromEntries(
+        Object.entries(perStack).map(([stat, value]) => [stat, value * factor]),
+      );
+
+      return {
+        // The code around this expects the delta object to have _all_ stats, so we fill all of them with 0 if they're not provided
+        strength: 0,
+        agility: 0,
+        intellect: 0,
+        stamina: 0,
+        crit: 0,
+        haste: 0,
+        mastery: 0,
+        versatility: 0,
+        avoidance: 0,
+        leech: 0,
+        speed: 0,
+        armor: 0,
+        // Write in all the deltas we've calculated
+        ...factored,
+      };
+    }
+  }
+
   // withoutMultipliers should be a rare exception where you have already buffed values
   _changeStats(change: StatBuff, factor: number, withoutMultipliers: boolean = false): PlayerStats {
-    const delta = {
-      strength: this.getBuffValue(change, change.strength) * factor,
-      agility: this.getBuffValue(change, change.agility) * factor,
-      intellect: this.getBuffValue(change, change.intellect) * factor,
-      stamina: this.getBuffValue(change, change.stamina) * factor,
-      crit: this.getBuffValue(change, change.crit) * factor,
-      haste: this.getBuffValue(change, change.haste) * factor,
-      mastery: this.getBuffValue(change, change.mastery) * factor,
-      versatility: this.getBuffValue(change, change.versatility) * factor,
-      avoidance: this.getBuffValue(change, change.avoidance) * factor,
-      leech: this.getBuffValue(change, change.leech) * factor,
-      speed: this.getBuffValue(change, change.speed) * factor,
-      armor: this.getBuffValue(change, change.armor) * factor,
-    };
+    const delta = this.buffDeltas(change, factor);
 
     Object.keys(this._currentStats).forEach((stat: string) => {
       const statKey = stat as keyof Stats;
@@ -957,7 +1001,7 @@ class StatTracker extends Analyzer {
    * a function value will be called with (selectedCombatant, itemDetails) and the result returned
    * an undefined value will default to 0.
    */
-  getBuffValue(buffObj: StatBuff, buffVal: BuffVal | undefined): number {
+  getBuffValue(buffObj: StatBuffObj, buffVal: BuffVal | undefined): number {
     if (buffVal === undefined) {
       return 0;
     } else if (typeof buffVal === 'function') {
@@ -973,11 +1017,10 @@ class StatTracker extends Analyzer {
             buffObj.itemId,
             ' ...unable to handle stats buff, making no stat change.',
           );
-          return 0;
         }
       }
 
-      return buffVal(selectedCombatant, null as any);
+      return 0;
     } else {
       return buffVal; // is raw number
     }
@@ -1039,10 +1082,51 @@ export type PlayerMultipliers = Stats;
 export type BuffVal = number | ((s: SelectedCombatant, t: Item) => number);
 
 /**
- * A buff that boosts player stats.
- * 'itemId' need only be filled in for an item based buff, when we will need the ID for the BuffVal callback.
+ * The default way of defining stat buffs. A map of stats and their delta.
+ *
+ * _If_ you provide `itemId`, a stat can be a function that takes the combatant
+ * and item and returns a value.
  */
-export type StatBuff = Partial<Record<keyof Stats, BuffVal>> & { itemId?: number };
+export interface StatBuffObj extends Partial<Record<keyof Stats, BuffVal>> {
+  itemId?: number;
+}
+
+export interface StatBuffProps {
+  /** The currently Selected Combatant. A {@link SelectedCombatant} instance. */
+  selectedCombatant: SelectedCombatant;
+}
+
+/**
+ * A function that will be executed whenver a stat buff is applied or removed.
+ *
+ * It should return an object with the stats to be changed.
+ *
+ * You will recieve
+ * - `selectedCombatant`: The currently {@link SelectedCombatant}
+ * - `statTracker`: The {@link StatTracker} instance
+ *
+ * And should return a map of stats.
+ *
+ * @example
+ * ```typescript
+ * ({ selectedCombatant }) => ({
+ *  [selectedCombatant.spec.primaryStat]: 100,
+ * })
+ * ```
+ */
+export type StatBuffHook = (props: StatBuffProps) => Partial<Stats>;
+
+/**
+ * Either a {@link StatBuffHook} or a {@link StatBuffObj}.
+ *
+ * - {@link StatBuffHook} is more flexible, recieves more information, and allows to
+ *   calculate multiple stats from a single execution.
+ *   `({ selectedCombatant }) => ({ [selectedCombatant.spec.primaryStat]: 100, haste: 200 })`
+ *
+ * - {@link StatBuffObj} is great for static values `{ mastery: 2, haste: 3 }`, but can also
+ *   be used when items are involved `{ itemId: 123, intellect: (s, t) => t.itemLevel * 2 }`
+ */
+export type StatBuff = StatBuffHook | StatBuffObj;
 
 /**
  * StatBuffs mapped by their guid
