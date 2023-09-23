@@ -26,17 +26,13 @@ export default abstract class HitCountAoE extends Analyzer {
           <label>AoE Ability Usage</label>
           <div className="value">
             {this.allTrackers.map((tracker) => (
-              <>
-                <TooltipElement
-                  key={tracker.spell.id}
-                  content={this.statisticTrackerTooltip(tracker)}
-                >
+              <div key={tracker.spell.id}>
+                <TooltipElement content={this.statisticTrackerTooltip(tracker)}>
                   <SpellIcon spell={tracker.spell} />{' '}
                   {(tracker.casts === 0 ? 0 : tracker.hits / tracker.casts).toFixed(1)}{' '}
                 </TooltipElement>
                 <small>avg targets hit</small>
-                <br />
-              </>
+              </div>
             ))}
           </div>
         </div>
