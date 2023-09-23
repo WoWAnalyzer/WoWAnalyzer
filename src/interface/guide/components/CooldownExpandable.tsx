@@ -36,8 +36,8 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf }: Props
         {checklistItems && checklistItems.length !== 0 && (
           <section>
             <header style={{ fontWeight: 'bold' }}>Checklist</header>
-            <tbody>
-              <table>
+            <table>
+              <tbody>
                 {checklistItems.map((item, ix) => (
                   <tr key={'checklist-' + ix}>
                     <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
@@ -47,15 +47,15 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf }: Props
                     {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
                   </tr>
                 ))}
-              </table>
-            </tbody>
+              </tbody>
+            </table>
           </section>
         )}
         {detailItems && detailItems.length !== 0 && (
           <section>
-            <tbody>
-              <header style={{ fontWeight: 'bold' }}>Details</header>
-              <table>
+            <header style={{ fontWeight: 'bold' }}>Details</header>
+            <table>
+              <tbody>
                 {detailItems.map((item, ix) => (
                   <tr key={'details-' + ix}>
                     <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
@@ -65,8 +65,8 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf }: Props
                     {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
                   </tr>
                 ))}
-              </table>
-            </tbody>
+              </tbody>
+            </table>
           </section>
         )}
       </div>
