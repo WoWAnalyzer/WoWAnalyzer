@@ -97,11 +97,11 @@ class Judgment extends Analyzer {
     const tooltipRows: React.ReactNode[] = [];
     this.spellCastMap.forEach((castNum: number, spell: Spell) => {
       tooltipRows.push(
-        <>
+        <div key={castNum}>
           {spell.name} Judgment Consumptions: {castNum} (
           {formatNumber(this.spellDamageMap.get(spell) || 0)} total extra damage)
           <br />
-        </>,
+        </div>,
       );
     });
     return (
