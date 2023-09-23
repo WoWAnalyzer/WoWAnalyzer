@@ -20,9 +20,9 @@ const ignoredErrors = [
   /^Cooldown error/i,
   /was cast while the Global Cooldown from/i,
   // Error when images fail to load (which happens a lot for characters etc.)
-  /^Failed to load resource: the server responded with a status of 404/i,
-  // Error when using nth-child in CSS selectors
-  /The pseudo class ":nth-child" is potentially unsafe when doing server-side rendering/i,
+  /^Failed to load resource: the server responded with a status of (404|403)/i,
+  // Error when using nth-child|first-child in CSS selectors
+  /The pseudo class "(:nth-child|:first-child)" is potentially unsafe when doing server-side rendering/i,
   // Error caused by bad buff tracking
   /buff was refreshed while active buff wasn't known/i,
 ];
