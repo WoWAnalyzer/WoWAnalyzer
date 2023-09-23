@@ -158,10 +158,12 @@ class SpenderWindow extends Analyzer {
     header: JSX.Element,
     performanceThresholds: LTEThreshold | GTEThreshold,
     windowTimestampCallable: (windows: FinishedSpenderWindow[]) => JSX.Element[] = (windows) =>
-      windows.map((w) => <>{formatDuration(w.timestamp - this.owner.fight.start_time)}, </>),
+      windows.map((w, i) => (
+        <span key={i}>{formatDuration(w.timestamp - this.owner.fight.start_time)}, </span>
+      )),
   ) {
     return (
-      <p style={{ padding: 0, margin: 0 }}>
+      <>
         {header}
         <ThresholdPerformancePercentage
           threshold={performanceThresholds}
@@ -169,7 +171,7 @@ class SpenderWindow extends Analyzer {
           flatAmount={subWindow.length}
         />{' '}
         <TooltipElement content={<>@ {windowTimestampCallable(subWindow)}</>}>@</TooltipElement>
-      </p>
+      </>
     );
   }
 
@@ -263,11 +265,11 @@ class SpenderWindow extends Analyzer {
           </>,
           WRONG_SOP_THRESHOLD,
           (windows) =>
-            windows.map((w) => (
-              <>
+            windows.map((w, i) => (
+              <span key={i}>
                 {formatDuration(w.sopUse.timestamp - this.owner.fight.start_time)}
                 <SpellIcon spell={w.sopUse.ability.guid} />,
-              </>
+              </span>
             )),
         )}
         {hasElshocks &&
