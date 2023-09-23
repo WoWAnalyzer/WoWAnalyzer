@@ -20,24 +20,17 @@ import Events, {
   Item,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import STAT, { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
+import STAT from 'parser/shared/modules/features/STAT';
 
 import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
 
 /**
- * Generates a {@link StatBuff} object that defines a buff that gives the
- * appropiate {@link PRIMARY_STAT} for the current spec.
+ * Generates a {@link StatBuffHook} that defines a buff that gives the
+ * appropiate `PRIMARY_STAT` for the current spec.
  */
-export function primaryStat(value: number): StatBuff {
-  return {
-    strength: ({ spec }: SelectedCombatant) =>
-      spec.primaryStat === PRIMARY_STAT.STRENGTH ? value : 0,
-    agility: ({ spec }: SelectedCombatant) =>
-      spec.primaryStat === PRIMARY_STAT.AGILITY ? value : 0,
-    intellect: ({ spec }: SelectedCombatant) =>
-      spec.primaryStat === PRIMARY_STAT.INTELLECT ? value : 0,
-  };
+export function primaryStat(value: number): StatBuffHook {
+  return ({ selectedCombatant }) => ({ [selectedCombatant.spec.primaryStat]: value });
 }
 
 const ARMOR_INT_BONUS = 0.05;
