@@ -18,6 +18,7 @@ const ignoredErrors = [
   /^Warning: Can't perform a React state update on an unmounted component/i,
   // Error output from the spellusable tracker whenever there's a cd/haste mismatch
   /^Cooldown error/i,
+  /was cast while the Global Cooldown from/i,
   // Error when images fail to load (which happens a lot for characters etc.)
   /^Failed to load resource: the server responded with a status of 404/i,
   // Error when using nth-child in CSS selectors
