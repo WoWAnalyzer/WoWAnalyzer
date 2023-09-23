@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Icon, SpellLink } from 'interface';
+import { Icon, SpellIcon, SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { EventType } from 'parser/core/Events';
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -30,11 +30,14 @@ class Cooldown extends Component {
         }),
       ).isRequired,
       summary: PropTypes.array.isRequired,
-      spell: PropTypes.shape({
-        id: PropTypes.number,
-        icon: PropTypes.string,
-        name: PropTypes.string,
-      }),
+      spell: PropTypes.oneOfType([
+        PropTypes.shape({
+          id: PropTypes.number,
+          icon: PropTypes.string,
+          name: PropTypes.string,
+        }),
+        PropTypes.number,
+      ]),
     }).isRequired,
     applyTimeFilter: PropTypes.func,
   };
@@ -134,9 +137,7 @@ class Cooldown extends Component {
     return (
       <article>
         <figure>
-          <SpellLink spell={cooldown.spell} icon>
-            <Icon icon={cooldown.spell.icon} alt={cooldown.spell.name} />
-          </SpellLink>
+          <SpellIcon spell={cooldown.spell} />
         </figure>
         <div className="row" style={{ width: '100%' }}>
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
