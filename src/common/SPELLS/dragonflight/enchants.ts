@@ -46,6 +46,16 @@ const enchants = {
     name: 'Frozen Writ',
     icon: 'inv_10_elementalshardfoozles_frost',
   },
+  SHADOWFLAME_WREATHE_DOT: {
+    id: 406764,
+    name: 'Shadowflame Wreathe',
+    icon: 'inv_10_elementalshardfoozles_shadowflame',
+  },
+  SHADOWFLAME_WREATHE_SELF_DAMAGE: {
+    id: 406770,
+    name: 'Shadowflame Wreathe',
+    icon: 'inv_10_elementalshardfoozles_shadowflame',
+  },
   SOPHIC_WRIT_BUFF: {
     id: 390216,
     name: 'Sophic Writ',
