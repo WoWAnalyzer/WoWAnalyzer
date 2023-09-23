@@ -264,7 +264,7 @@ class CloudedFocus extends Analyzer {
         {keys.map((key) => {
           const map = this.stackMap.get(key);
           return map ? (
-            <>
+            <div key={key}>
               <hr />
               Casts at {key.at(-1)} <SpellIcon spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT} /> stacks:{' '}
               <b>{map?.casts}</b>
@@ -280,10 +280,8 @@ class CloudedFocus extends Analyzer {
                   Mana Saved: <b>{formatNumber(map.manaSaved || 0)}</b>
                 </li>
               </ul>
-            </>
-          ) : (
-            <></>
-          );
+            </div>
+          ) : null;
         })}
       </>
     );
