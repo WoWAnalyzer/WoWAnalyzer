@@ -6,7 +6,7 @@ import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
 import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SelectedCombatant from 'parser/core/SelectedCombatant';
+import Combatant from 'parser/core/Combatant';
 import { SpellInfo } from 'parser/core/EventFilter';
 import Events, {
   CastEvent,
@@ -1072,7 +1072,7 @@ export type PlayerMultipliers = Stats;
  * or as a dynamically generated value using the combatant and item
  * (typically an item buff will have power based on its ilvl)
  */
-export type BuffVal = number | ((s: SelectedCombatant, t: Item) => number);
+export type BuffVal = number | ((s: Combatant, t: Item) => number);
 
 /**
  * The default way of defining stat buffs. A map of stats and their delta.
@@ -1085,8 +1085,8 @@ export interface StatBuffObj extends Partial<Record<keyof Stats, BuffVal>> {
 }
 
 export interface StatBuffProps {
-  /** The currently Selected Combatant. A {@link SelectedCombatant} instance. */
-  selectedCombatant: SelectedCombatant;
+  /** The currently Selected Combatant. A {@link Combatant} instance. */
+  selectedCombatant: Combatant;
 }
 
 /**
@@ -1095,7 +1095,7 @@ export interface StatBuffProps {
  * It should return an object with the stats to be changed.
  *
  * You will recieve
- * - `selectedCombatant`: The currently {@link SelectedCombatant}
+ * - `selectedCombatant`: The currently selected {@link Combatant}
  * - `statTracker`: The {@link StatTracker} instance
  *
  * And should return a map of stats.

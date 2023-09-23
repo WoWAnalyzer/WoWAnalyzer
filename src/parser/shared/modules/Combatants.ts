@@ -1,7 +1,6 @@
 import Combatant from 'parser/core/Combatant';
 import { AnyEvent, HasSource, HasTarget } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
-import SelectedCombatant, { validSelectedCombatant } from 'parser/core/SelectedCombatant';
 
 import Entities from './Entities';
 
@@ -35,7 +34,8 @@ class Combatants extends Entities<Combatant> {
     return combatant;
   }
 
-  _selected: SelectedCombatant;
+  _selected: Combatant;
+  /** @returns Combatant */
   get selected() {
     return this._selected;
   }
@@ -54,11 +54,7 @@ class Combatants extends Entities<Combatant> {
         this.players[combatantInfo.sourceID] = new Combatant(this.owner, combatantInfo);
       }
     });
-    const selected = this.players[this.owner.playerId];
-    if (selected && !validSelectedCombatant(selected)) {
-      throw new Error('Invalid selected combatant');
-    }
-    this._selected = selected;
+    this._selected = this.players[this.owner.playerId];
   }
 }
 

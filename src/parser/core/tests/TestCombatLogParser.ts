@@ -5,7 +5,7 @@ import Report from 'parser/core/Report';
 import { PlayerInfo } from 'parser/core/Player';
 import Fight from 'parser/core/Fight';
 import { AnyEvent, CombatantInfoEvent } from 'parser/core/Events';
-import SelectedCombatant from '../SelectedCombatant';
+import Combatant from 'parser/core/Combatant';
 import TestCombatant from 'parser/core/tests/TestCombatant';
 import {
   DEFAULT_CHARACTER_PROFILE,
@@ -29,7 +29,7 @@ class TestCombatLogParser extends CombatLogParser {
   set currentTimestamp(value) {
     this._timestamp = value;
   }
-  _combatant: SelectedCombatant = new TestCombatant(this);
+  _combatant: Combatant = new TestCombatant(this);
   get selectedCombatant() {
     return this._combatant;
   }
