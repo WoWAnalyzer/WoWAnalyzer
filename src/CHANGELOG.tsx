@@ -29,6 +29,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 9, 23), 'Make sure that the Shadowflame Wreathe icon can be displayed.', ToppleTheNun),
   change(date(2023, 9, 17), 'CooldownGraphSubsection now takes an optional parameter "description", which will be used instead of the default one if given.', Awildfivreld),
   change(date(2023, 9, 17), 'Introduce hover tooltip in resource tracker graphs, and optional wasted resources line.', Awildfivreld),
   change(date(2023, 9, 12), 'Disable M+ logs containing Augmentation Evokers temporarily.', ToppleTheNun),

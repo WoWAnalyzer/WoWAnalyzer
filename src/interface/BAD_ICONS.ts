@@ -17,5 +17,7 @@ const BAD_ICONS = [
   'ability_ardenweald_paladin_spring',
   'ability_ardenweald_paladin_summer',
   'ability_ardenweald_paladin_winter',
+  'ability_ardenweald_paladin_winter',
+  'inv_10_elementalshardfoozles_shadowflame',
 ];
 export default BAD_ICONS;
