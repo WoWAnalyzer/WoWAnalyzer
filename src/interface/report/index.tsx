@@ -38,7 +38,7 @@ const ResultsLoader = () => {
   const parserClass = useParser(config);
   const isLoadingParser = parserClass == null;
 
-  const events = useEvents({ report, fight, player });
+  const { events, pageCount, pagesLoaded } = useEvents({ report, fight, player });
   const isLoadingEvents = events == null;
 
   const {
@@ -157,9 +157,11 @@ const ResultsLoader = () => {
 
   const build = (parser && parser.build) || undefined;
 
+  const pageProgress = pagesLoaded / pageCount;
+
   const progress =
     (!isLoadingParser ? 0.05 : 0) +
-    (!isLoadingEvents ? 0.05 : 0) +
+    (!isLoadingEvents ? 0.05 : pageProgress * 0.05) +
     (bossPhaseEventsLoadingState !== BOSS_PHASES_STATE.LOADING ? 0.05 : 0) +
     (!isLoadingCharacterProfile ? 0.05 : 0) +
     (!isFilteringEvents ? 0.05 : 0) +
