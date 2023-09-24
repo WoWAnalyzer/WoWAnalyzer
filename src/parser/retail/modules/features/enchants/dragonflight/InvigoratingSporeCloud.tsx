@@ -54,7 +54,7 @@ class InvigoratingSporeCloud extends Analyzer {
   statTracker!: StatTracker;
   combatants!: Combatants;
 
-  buffs: {
+  private buffs: {
     refreshes: number;
     source: Combatant | null;
     stat: STAT;
@@ -115,6 +115,15 @@ class InvigoratingSporeCloud extends Analyzer {
     }
   }
 
+  private updateStats(stat: STAT, amount: number, event: ApplyBuffEvent | RemoveBuffEvent) {
+    this.statTracker.forceChangeStats(
+      {
+        [stat]: amount,
+      },
+      event,
+    );
+  }
+
   private currentHighestSecondaryStat(): STAT {
     return [
       {
@@ -152,19 +161,35 @@ class InvigoratingSporeCloud extends Analyzer {
     return buff;
   }
 
-  /**
-   * Actually updates the players stats using {@link StatTracker.forceChangeStats()}.
-   */
-  private updateStats(stat: STAT, amount: number, event: ApplyBuffEvent | RemoveBuffEvent) {
-    this.statTracker.forceChangeStats(
-      {
-        [stat]: amount,
-      },
-      event,
-    );
-  }
+  // ================ STATISTIC ================
 
-  private dropdown() {
+  private statisticDropdown() {
+    const rows = this.buffs.map((buff) => {
+      const classSlug = (() => {
+        const spec = buff.source?.spec as RetailSpec | undefined;
+
+        if (spec == null) {
+          return '';
+        }
+
+        return spec.wclClassName.replace(' ', '');
+      })();
+
+      return (
+        <tr key={`${buff.source?.id}-${buff.start}-${buff.end}`}>
+          <td className="text-left">
+            <span className={classSlug}>{buff.source?.name ?? 'Uknown'}</span>
+          </td>
+          <td>{buff.amount}</td>
+          <td>{getNameTranslated(buff.stat)}</td>
+          <td>
+            {this.owner.formatTimestamp(buff.start ?? this.owner.fight.start_time)} -{' '}
+            {this.owner.formatTimestamp(buff.end ?? this.owner.fight.end_time)}
+          </td>
+        </tr>
+      );
+    });
+
     return (
       <table className="table table-condensed">
         <thead>
@@ -175,38 +200,12 @@ class InvigoratingSporeCloud extends Analyzer {
             <th>Duration</th>
           </tr>
         </thead>
-        <tbody>
-          {this.buffs.map((buff) => {
-            const classSlug = (() => {
-              const spec = buff.source?.spec as RetailSpec | undefined;
-
-              if (spec == null) {
-                return '';
-              }
-
-              return spec.wclClassName.replace(' ', '');
-            })();
-
-            return (
-              <tr key={`${buff.source?.id}-${buff.start}-${buff.end}`}>
-                <td className="text-left">
-                  <span className={classSlug}>{buff.source?.name ?? 'Uknown'}</span>
-                </td>
-                <td>{buff.amount}</td>
-                <td>{getNameTranslated(buff.stat)}</td>
-                <td>
-                  {this.owner.formatTimestamp(buff.start ?? this.owner.fight.start_time)} -{' '}
-                  {this.owner.formatTimestamp(buff.end ?? this.owner.fight.end_time)}
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
+        <tbody>{rows}</tbody>
       </table>
     );
   }
 
-  private tooltip() {
+  private statisticTooltip() {
     return (
       <>
         Friendly healers with the <SpellLink spell={SPELLS.SPORE_TENDER_ENCHANT} /> enchant has a
@@ -216,11 +215,7 @@ class InvigoratingSporeCloud extends Analyzer {
     );
   }
 
-  statistic() {
-    if (this.buffs.length === 0) {
-      return null;
-    }
-
+  private statisticContent() {
     const summarised = this.buffs.reduce((acc, buff) => {
       let entry = acc.find((e) => e.stat === buff.stat && e.amount === buff.amount);
       if (!entry) {
@@ -238,29 +233,40 @@ class InvigoratingSporeCloud extends Analyzer {
     }, new Array<{ stat: STAT; amount: number; duration: number }>());
 
     return (
+      <BoringSpellValueText spell={SPELLS.INVIGORATING_SPORE_CLOUD}>
+        {summarised.map(({ stat, amount, duration }, index) => {
+          const StatIcon = getIcon(stat);
+          return (
+            <Fragment key={`${stat}-${amount}`}>
+              {index !== 0 && <hr />}
+              <div>
+                <UptimeIcon /> {formatDuration(duration)} <small>Uptime</small>
+              </div>
+              <div>
+                <StatIcon /> {amount} <small>{getNameTranslated(stat)}</small>
+              </div>
+            </Fragment>
+          );
+        })}
+      </BoringSpellValueText>
+    );
+  }
+
+  statistic() {
+    if (this.buffs.length === 0) {
+      // This module is always active so we have to make sure to return null if there is no data
+      return null;
+    }
+
+    return (
       <Statistic
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
         position={STATISTIC_ORDER.UNIMPORTANT(1)}
-        dropdown={this.dropdown()}
-        tooltip={this.tooltip()}
+        dropdown={this.statisticDropdown()}
+        tooltip={this.statisticTooltip()}
       >
-        <BoringSpellValueText spell={SPELLS.INVIGORATING_SPORE_CLOUD}>
-          {summarised.map(({ stat, amount, duration }, index) => {
-            const StatIcon = getIcon(stat);
-            return (
-              <Fragment key={`${stat}-${amount}`}>
-                {index !== 0 && <hr />}
-                <div>
-                  <UptimeIcon /> {formatDuration(duration)} <small>Uptime</small>
-                </div>
-                <div>
-                  <StatIcon /> {amount} <small>{getNameTranslated(stat)}</small>
-                </div>
-              </Fragment>
-            );
-          })}
-        </BoringSpellValueText>
+        {this.statisticContent()}
       </Statistic>
     );
   }
