@@ -66,6 +66,16 @@ const enchants = {
     name: 'Sophic Devotion',
     icon: 'inv_10_elementalcombinedfoozles_titan',
   },
+  SPORE_TENDER_ENCHANT: {
+    id: 405734,
+    name: 'Spore Tender',
+    icon: 'inv_10_gathering_bioluminescentspores_small',
+  },
+  INVIGORATING_SPORE_CLOUD: {
+    id: 406785,
+    name: 'Invigorating Spore Cloud',
+    icon: 'inv_10_gathering_bioluminescentspores_small',
+  },
 } satisfies Record<string, Spell>;
 
 export default enchants;

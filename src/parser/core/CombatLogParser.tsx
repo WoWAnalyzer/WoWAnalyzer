@@ -97,6 +97,7 @@ import FrozenWrit from 'parser/retail/modules/features/enchants/dragonflight/Fro
 import ShadowflameWreathe from 'parser/retail/modules/features/enchants/dragonflight/ShadowflameWreathe';
 import SophicDevotion from 'parser/retail/modules/features/enchants/dragonflight/SophicDevotion';
 import SophicWrit from 'parser/retail/modules/features/enchants/dragonflight/SophicWrit';
+import SporeTender from 'parser/retail/modules/features/enchants/dragonflight/SporeTender';
 import WaftingDevotion from 'parser/retail/modules/features/enchants/dragonflight/WaftingDevotion';
 import WaftingWrit from 'parser/retail/modules/features/enchants/dragonflight/WaftingWrit';
 import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/AcceleratingSandglass';
@@ -228,6 +229,7 @@ class CombatLogParser {
     shadowflameWreathe: ShadowflameWreathe,
     sophicDevotion: SophicDevotion,
     sophicWrit: SophicWrit,
+    sporeTender: SporeTender,
     waftingDevotion: WaftingDevotion,
     waftingWrit: WaftingWrit,
 
