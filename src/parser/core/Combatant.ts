@@ -91,6 +91,8 @@ class Combatant extends Entity {
 
   _combatantInfo: CombatantInfo;
 
+  public readonly ilvl: number | undefined;
+
   constructor(parser: CombatLogParser, combatantInfo: CombatantInfoEvent) {
     super(parser);
 
@@ -114,6 +116,12 @@ class Combatant extends Entity {
     this._importTalentTree(combatantInfo.talentTree);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
+
+    this.ilvl =
+      this.gear.length > 0
+        ? this.gear.map((item) => item.itemLevel).reduce((sum, val) => sum + val, 0) /
+          this.gear.length
+        : undefined;
   }
 
   // region Talents
