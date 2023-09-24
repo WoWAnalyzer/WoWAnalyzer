@@ -32,7 +32,7 @@ export function getSporeTenderBuffValue(caster: Combatant | null): number {
   return (
     (caster && RANKS.find(({ enchant }) => caster.hasWeaponEnchant(enchant))?.value) ||
     // If we can't find the enchant, assume the highest rank
-    RANKS[2].value
+    RANKS[RANKS.length - 1].value
   );
 }
 
