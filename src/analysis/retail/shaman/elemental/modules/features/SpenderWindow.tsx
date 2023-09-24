@@ -163,7 +163,7 @@ class SpenderWindow extends Analyzer {
       )),
   ) {
     return (
-      <>
+      <div key={subWindow.map((w) => w.timestamp).join('-')}>
         {header}
         <ThresholdPerformancePercentage
           threshold={performanceThresholds}
@@ -171,7 +171,7 @@ class SpenderWindow extends Analyzer {
           flatAmount={subWindow.length}
         />{' '}
         <TooltipElement content={<>@ {windowTimestampCallable(subWindow)}</>}>@</TooltipElement>
-      </>
+      </div>
     );
   }
 
