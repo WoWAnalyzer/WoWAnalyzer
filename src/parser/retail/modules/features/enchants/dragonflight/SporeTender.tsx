@@ -5,6 +5,7 @@ import { RetailSpec } from 'game/SPECS';
 import { SpellLink } from 'interface';
 import RoleIcon from 'interface/RoleIcon';
 import Analyzer from 'parser/core/Analyzer';
+import Combatant from 'parser/core/Combatant';
 import { Options, SELECTED_PLAYER } from 'parser/core/EventSubscriber';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -21,13 +22,19 @@ import Statistic from 'parser/ui/Statistic';
 // Spore Tender R3
 // https://www.warcraftlogs.com/reports/CkDv213xNw8Lj4Xa#fight=11&type=summary&source=234
 
-export const SPORE_TENDER_R3 = { enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R3, value: 414 };
-
 const RANKS = [
   { enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R1, value: 348 },
   { enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R2, value: 381 },
-  SPORE_TENDER_R3,
+  { enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R3, value: 414 },
 ];
+
+export function getSporeTenderBuffValue(caster: Combatant | null): number {
+  return (
+    (caster && RANKS.find(({ enchant }) => caster.hasWeaponEnchant(enchant))?.value) ||
+    // If we can't find the enchant, assume the highest rank
+    RANKS[2].value
+  );
+}
 
 class SporeTender extends Analyzer {
   static dependencies = {
@@ -55,8 +62,7 @@ class SporeTender extends Analyzer {
       return;
     }
 
-    this.value = RANKS.find(({ enchant }) => this.selectedCombatant.hasWeaponEnchant(enchant))
-      ?.value as number;
+    this.value = getSporeTenderBuffValue(this.selectedCombatant);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_SPORE_CLOUD),
