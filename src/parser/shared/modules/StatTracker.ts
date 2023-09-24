@@ -303,6 +303,8 @@ class StatTracker extends Analyzer {
    * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
    */
   add(buffId: number | SpellInfo, stats: StatBuff): void {
+    debug && this.log(`StatTracker.add(), buffId: ${buffId}, stats:`, stats);
+
     if (!buffId || !stats) {
       throw new Error(`StatTracker.add() called with invalid buffId ${buffId} or stats`);
     }
@@ -323,6 +325,8 @@ class StatTracker extends Analyzer {
    * @param stats Object with stats (intellect, mastery, haste, crit etc.) and their respective bonus (either fixed value or a function (combatant, item) => value). If it's from item, provide also an itemId (item in the stat callback is taken from this itemId).
    */
   update(buffId: number | SpellInfo, stats: StatBuff): void {
+    debug && this.log(`StatTracker.update(), buffId: ${buffId}, stats:`, stats);
+
     if (!buffId || !stats) {
       throw new Error(`StatTracker.update() called with invalid buffId ${buffId} or stats`);
     }
@@ -340,8 +344,6 @@ class StatTracker extends Analyzer {
   }
 
   private _addOrUpdate(buffId: number, stats: StatBuff): void {
-    debug && this.log(`StatTracker.update(), buffId: ${buffId}, stats:`, stats);
-
     if (typeof stats === 'function') {
       // Check that the StatBuffHook looks valid
       if (stats.length > 1) {
