@@ -103,31 +103,29 @@ class Mastery extends Analyzer {
         .forEach((hotOn) => this._tallyMasteryBenefit(hotOn, spellId, decomposedHeal.oneStack));
 
       // tally benefits for ratings buffs
-      this.selectedCombatant.activeBuffs().forEach((buff) => {
-        const buffId = buff.ability.guid;
-        const statBuff = this.statTracker.statBuffs[buffId];
+      this.selectedCombatant
+        .activeBuffs()
+        .filter(
+          (buff) =>
+            this.statTracker.statBuffs[buff.ability.guid] &&
+            this.statTracker.statBuffs[buff.ability.guid].mastery,
+        )
+        .forEach((buff) => {
+          const buffId = buff.ability.guid;
+          const statBuff = this.statTracker.statBuffs[buffId];
+          if (!this.buffAttributions[buffId]) {
+            this.buffAttributions[buffId] = new MasteryBuffAttribution(
+              this.statTracker.getBuffValue(statBuff, statBuff.mastery),
+            );
+          }
 
-        if (!statBuff) {
-          return;
-        }
-
-        const delta = this.statTracker.buffDeltas(statBuff, buff.stacks);
-
-        if (delta.mastery === 0) {
-          return;
-        }
-
-        if (!this.buffAttributions[buffId]) {
-          this.buffAttributions[buffId] = new MasteryBuffAttribution(delta.mastery);
-        }
-
-        this.buffAttributions[buffId].attributable += calculateEffectiveHealing(
-          event,
-          decomposedHeal.relativeBuffBenefit(
-            this.buffAttributions[buffId].buffAmount * buff.stacks,
-          ),
-        );
-      });
+          this.buffAttributions[buffId].attributable += calculateEffectiveHealing(
+            event,
+            decomposedHeal.relativeBuffBenefit(
+              this.buffAttributions[buffId].buffAmount * buff.stacks,
+            ),
+          );
+        });
     } else {
       this.totalNoMasteryHealing += healVal.effective;
     }
