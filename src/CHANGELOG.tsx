@@ -29,6 +29,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 9, 25), 'Fix broken drilldown link in always be casting module that is used my multiple specs', nullDozzer),
   change(date(2023, 9, 24), 'Fix lots of react rendering errors', nullDozzer),
   change(date(2023, 9, 24), 'Change to e2e tests to fail explicitly when there are unexpected errors in the console.', nullDozzer),
   change(date(2023, 9, 23), 'Make sure that the Shadowflame Wreathe icon can be displayed.', ToppleTheNun),
