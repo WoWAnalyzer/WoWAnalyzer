@@ -13,6 +13,7 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
+import { Fragment } from 'react';
 import { getSporeTenderBuffValue } from './SporeTender';
 
 function findLast<T>(arr: T[], predicate: (value: T) => boolean) {
@@ -209,13 +210,18 @@ class InvigoratingSporeCloud extends Analyzer {
         tooltip={this.tooltip()}
       >
         <BoringSpellValueText spell={SPELLS.INVIGORATING_SPORE_CLOUD}>
-          {summarised.map(({ stat, amount, duration }) => {
+          {summarised.map(({ stat, amount, duration }, index) => {
             const StatIcon = getIcon(stat);
             return (
-              <div key={`${stat}-${amount}`}>
-                <UptimeIcon /> {formatDuration(duration)} <small>Uptime</small> <StatIcon />{' '}
-                {amount} <small>{getNameTranslated(stat)}</small>
-              </div>
+              <Fragment key={`${stat}-${amount}`}>
+                {index !== 0 && <hr />}
+                <div>
+                  <UptimeIcon /> {formatDuration(duration)} <small>Uptime</small>
+                </div>
+                <div>
+                  <StatIcon /> {amount} <small>{getNameTranslated(stat)}</small>
+                </div>
+              </Fragment>
             );
           })}
         </BoringSpellValueText>
