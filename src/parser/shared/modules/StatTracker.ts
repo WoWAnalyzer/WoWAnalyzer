@@ -1028,7 +1028,10 @@ class StatTracker extends Analyzer {
   }
 
   _statPrint(stats: PlayerStats) {
-    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed} ARMOR=${this._currentStats.armor}`;
+    return Object.entries(stats)
+      .filter(([, value]) => value !== 0)
+      .map(([stat, value]) => `${stat}=${value}`)
+      .join(' ');
   }
 }
 
