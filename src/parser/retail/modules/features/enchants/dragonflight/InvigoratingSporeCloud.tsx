@@ -78,28 +78,25 @@ class InvigoratingSporeCloud extends Analyzer {
       amount: value,
       start: event.timestamp,
     });
+
+    this.updateStats(stat, value, event);
   }
 
   private onRefreshBuff(event: RefreshBuffEvent) {
-    const buff = findLast(this.buffs, (b) => b.source?.id === event.sourceID && b.end == null);
-
-    if (buff == null) {
-      console.error('[InvigoratingSporeCloud] Could not find buff to refresh', event);
-      return;
+    const buff = this.lastMatchingBuff(event);
+    if (buff) {
+      buff.refreshes += 1;
     }
-
-    buff.refreshes += 1;
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
-    const buff = findLast(this.buffs, (b) => b.source?.id === event.sourceID && b.end == null);
+    const buff = this.lastMatchingBuff(event);
 
-    if (buff == null) {
-      console.error('[InvigoratingSporeCloud] Could not find buff to remove', event);
-      return;
+    if (buff) {
+      buff.end = event.timestamp;
+
+      this.updateStats(buff.stat, -buff.amount, event);
     }
-
-    buff.end = event.timestamp;
   }
 
   private currentHighestSecondaryStat(): STAT {
@@ -126,6 +123,29 @@ class InvigoratingSporeCloud extends Analyzer {
       }
       return acc;
     }).stat;
+  }
+
+  private lastMatchingBuff(event: ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent) {
+    const buff = findLast(this.buffs, (b) => b.source?.id === event.sourceID && b.end == null);
+
+    if (buff == null) {
+      console.error('[InvigoratingSporeCloud] Could not find active buff', event);
+      return;
+    }
+
+    return buff;
+  }
+
+  /**
+   * Actually updates the players stats using {@link StatTracker.forceChangeStats()}.
+   */
+  private updateStats(stat: STAT, amount: number, event: ApplyBuffEvent | RemoveBuffEvent) {
+    this.statTracker.forceChangeStats(
+      {
+        [stat]: amount,
+      },
+      event,
+    );
   }
 
   private dropdown() {
