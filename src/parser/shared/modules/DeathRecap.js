@@ -119,7 +119,7 @@ class DeathRecap extends PureComponent {
                 Death #{i + 1}
               </h2>
               <TooltipElement content="Filter events to the time between either the start of combat or your last death (whichever happened more recently) and this death.">
-                <a href="javascript:" onClick={() => this.filterDeath(death, i)}>
+                <a href="#" onClick={() => this.filterDeath(death, i)}>
                   Filter to prior events
                 </a>
               </TooltipElement>

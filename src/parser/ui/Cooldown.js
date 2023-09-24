@@ -2,7 +2,7 @@ import { Trans } from '@lingui/macro';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Icon, SpellLink } from 'interface';
+import { Icon, SpellIcon, SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
 import { EventType } from 'parser/core/Events';
 import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
@@ -30,11 +30,14 @@ class Cooldown extends Component {
         }),
       ).isRequired,
       summary: PropTypes.array.isRequired,
-      spell: PropTypes.shape({
-        id: PropTypes.number,
-        icon: PropTypes.string,
-        name: PropTypes.string,
-      }),
+      spell: PropTypes.oneOfType([
+        PropTypes.shape({
+          id: PropTypes.number,
+          icon: PropTypes.string,
+          name: PropTypes.string,
+        }),
+        PropTypes.number,
+      ]),
     }).isRequired,
     applyTimeFilter: PropTypes.func,
   };
@@ -134,9 +137,7 @@ class Cooldown extends Component {
     return (
       <article>
         <figure>
-          <SpellLink spell={cooldown.spell} icon>
-            <Icon icon={cooldown.spell.icon} alt={cooldown.spell.name} />
-          </SpellLink>
+          <SpellIcon spell={cooldown.spell} />
         </figure>
         <div className="row" style={{ width: '100%' }}>
           <div className={this.state.showAllEvents ? 'col-md-12' : 'col-md-6'}>
@@ -152,7 +153,7 @@ class Cooldown extends Component {
                 }
               >
                 <a
-                  href="javascript:"
+                  href="#"
                   onClick={() => this.props.applyTimeFilter(start - fightStart, end - fightStart)}
                 >
                   <Trans id="shared.cooldownThroughputTracker.cooldown.events">Filter events</Trans>
@@ -180,11 +181,7 @@ class Cooldown extends Component {
                 <div className="row">
                   <div className="col-xs-12">
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                    <a
-                      href="javascript:void(0)"
-                      onClick={this.handleExpandClick}
-                      style={{ marginTop: '.2em' }}
-                    >
+                    <a href="#" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>
                       <Trans id="shared.cooldownThroughputTracker.cooldown.expand">More</Trans>
                     </a>
                   </div>
@@ -219,22 +216,14 @@ class Cooldown extends Component {
                   ))}
                 <div className="row">
                   <div className="col-xs-12">
-                    <a
-                      href="javascript:"
-                      onClick={this.handleShowHealsClick}
-                      style={{ marginTop: '.2em' }}
-                    >
+                    <a href="#" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>
                       <Trans id="shared.cooldownThroughputTracker.cooldown.expand.again">
                         Even more
                       </Trans>
                     </a>
                     {' | '}
                     {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                    <a
-                      href="javascript:"
-                      onClick={this.handleExpandClick}
-                      style={{ marginTop: '.2em' }}
-                    >
+                    <a href="#" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>
                       <Trans id="shared.cooldownThroughputTracker.cooldown.shrink">Show less</Trans>
                     </a>
                     {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
@@ -295,20 +284,12 @@ class Cooldown extends Component {
                     </div>
                   );
                 })}
-                <a
-                  href="javascript:"
-                  onClick={this.handleShowHealsClick}
-                  style={{ marginTop: '.2em' }}
-                >
+                <a href="#" onClick={this.handleShowHealsClick} style={{ marginTop: '.2em' }}>
                   <Trans id="shared.cooldownThroughputTracker.cooldown.shrink">Show less</Trans>
                 </a>
                 {' | '}
                 {/* eslint-disable-line jsx-a11y/anchor-is-valid */}
-                <a
-                  href="javascript:"
-                  onClick={this.handleExpandClick}
-                  style={{ marginTop: '.2em' }}
-                >
+                <a href="#" onClick={this.handleExpandClick} style={{ marginTop: '.2em' }}>
                   <Trans id="shared.cooldownThroughputTracker.cooldown.simple">Show simple</Trans>
                 </a>
                 {/* eslint-disable-line jsx-a11y/anchor-is-valid */}

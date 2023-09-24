@@ -385,13 +385,11 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
       const spellId = Number(k);
       const casts = fillerSpells[spellId];
       return (
-        <>
-          <li>
-            <div>
-              {casts} x <SpellLink spell={spellId} />
-            </div>
-          </li>
-        </>
+        <li key={spellId}>
+          <div>
+            {casts} x <SpellLink spell={spellId} />
+          </div>
+        </li>
       );
     });
 

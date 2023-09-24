@@ -1,3 +1,4 @@
+import { cloneElement } from 'react';
 import { Trans } from '@lingui/macro';
 import Analyzer from 'parser/core/Analyzer';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -110,7 +111,9 @@ class TalentHealingStatistic extends Analyzer {
     const sortedTalentList = talentList.sort(
       (a, b) => parseFloat(b.props.value) - parseFloat(a.props.value),
     );
-    return sortedTalentList;
+
+    // Add key to each entry for rendering
+    return sortedTalentList.map((talent, index) => cloneElement(talent, { key: index }));
   }
 
   statistic() {

@@ -27,14 +27,14 @@ export function CooldownSection({ modules, info }: GuideProps<typeof CombatLogPa
         If talented into <SpellLink spell={TALENTS_EVOKER.SHATTERING_STAR_TALENT} /> aim for 90%
         efficiency.
       </p>
-      <p>
+      <div>
         Legend
         <ul>
           <li>Gray - Spell was available</li>
           <li>Yellow - Spell was on cooldown</li>
           <li>Red - Spell was available and potentially affected your effieciency</li>
         </ul>
-      </p>
+      </div>
       <CastEfficiencyBar
         spellId={TALENTS.DRAGONRAGE_TALENT.id}
         gapHighlightMode={GapHighlight.All}

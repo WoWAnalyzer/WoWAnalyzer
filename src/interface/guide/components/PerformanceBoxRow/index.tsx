@@ -11,6 +11,7 @@ export function PerformanceBoxRow({ values, onClickBox }: PerformanceBoxRowProps
       {values.map((value, ix) => (
         <Tooltip key={ix} content={value.tooltip}>
           <div
+            key={ix}
             className={`performance-block ${getBlockClassName(value)} ${value.className ?? ''}`}
             onClick={() => onClickBox?.(ix)}
           />

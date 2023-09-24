@@ -13,17 +13,17 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Resource Use">
         <SubSection title="Runes">
-          <p>
+          <span>
             Runes are Death Knight's primary resource. Instead of cooldowns on rotational abilities,
             you are prevented from spamming our strongest spells by the flow of Runes. You can have
             up to three runes recharging at once. You want to spend runes whenever you have 4 or
             more runes to make sure none are wasted. This chart shows your available Runes over the
             course of the fight.
             {modules.runeGraph.plot}
-          </p>
+          </span>
         </SubSection>
         <SubSection title="Runic Power">
-          <p>
+          <span>
             Runic Power is builder/spender resource for Death Knights. For Frost Death Knights, it
             is linked to Runes through <SpellLink spell={spells.RUNIC_EMPOWERMENT} />. Spending
             Runes grants Runic Power, and spending Runic Power can recover Runes. This makes it
@@ -32,11 +32,11 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             priority than Runic Power spenders, it is okay to waste Runic Power if you are using the
             GCD on a Rune spender instead.
             {modules.runicPowerGraph.plot}
-          </p>
+          </span>
         </SubSection>
         {info.combatant.hasTalent(talents.BREATH_OF_SINDRAGOSA_TALENT) && (
           <SubSection title="Resource Cooldowns">
-            <p>
+            <span>
               Getting the most out of resource cooldowns while playing{' '}
               <SpellLink spell={talents.BREATH_OF_SINDRAGOSA_TALENT} />
               is crucial to achieving good performance with this build. You want to use your
@@ -48,7 +48,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
               {(info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_SHARED_TALENT) ||
                 info.combatant.hasTalent(talents.EMPOWER_RUNE_WEAPON_FROST_TALENT)) &&
                 modules.empowerRuneWeapon.guideCastBreakdown}
-            </p>
+            </span>
           </SubSection>
         )}
       </Section>
@@ -56,9 +56,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         <SubSection title="Killing Machine">
           {modules.killingMachineEfficiency.guideSubsection}
         </SubSection>
-        <SubSection title="Rime">
-          <p>{modules.rimeEfficiency.guideSubsection}</p>
-        </SubSection>
+        <SubSection title="Rime">{modules.rimeEfficiency.guideSubsection}</SubSection>
       </Section>
       <Section title="Cooldowns">
         <CooldownsSubsection modules={modules} events={events} info={info} />
