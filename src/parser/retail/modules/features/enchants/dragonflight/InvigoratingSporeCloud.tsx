@@ -29,6 +29,22 @@ function findLast<T>(arr: T[], predicate: (value: T) => boolean) {
 // Invigorating Spore Cloud
 // https://www.warcraftlogs.com/reports/CkDv213xNw8Lj4Xa#fight=11&type=auras&target=234&ability=406785&source=237
 
+/**
+ * This module has two main purposes:
+ *
+ * - Provide statistics on any potential benefit gained from the Invigorating Spore Cloud buff.
+ * - Handle the stat changes that the buff provides.
+ *   > This is not done effectively with `StatTracker.add()` as it needs to check the highest
+ *   > secondary stat and rank of enchant from the healer that applied the buff.
+ *   >
+ *   > Using default StatBuffs are limited because the values of the buffs are checked on apply
+ *   > _and_ on remove, meaning that we could hypotethically remove another stat than we added
+ *   > originally.
+ *   >
+ *   > By having a separate module where we can track the buffs ourselves, we can 100% ensure
+ *   > that the stat remains the same for the duration, and that the appropriate stat is removed
+ *   > when the buff expires.
+ */
 class InvigoratingSporeCloud extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
