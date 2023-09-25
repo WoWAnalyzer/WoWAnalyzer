@@ -38,6 +38,13 @@ const INITIAL_BACKGROUNDS = [
 const LoggedIn = () => {
   const dispatch = useWaDispatch();
   const user = useWaSelector((state) => state.user);
+
+  // this is only intended to be rendered if we have a user, but some quirks of oauth
+  // can get you a user-without-a-user when doing local development
+  if (!user) {
+    return null;
+  }
+
   const hasPremium = user.premium;
   const platform = user.github && user.github.premium ? 'github' : 'patreon';
 
