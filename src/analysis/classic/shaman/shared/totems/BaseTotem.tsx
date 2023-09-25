@@ -35,7 +35,7 @@ export default class BaseTotem extends Analyzer {
     }
 
     return (
-      <tr>
+      <tr key={spellId}>
         <td>
           <SpellLink spell={spellId} />
         </td>
@@ -75,10 +75,10 @@ export default class BaseTotem extends Analyzer {
             <thead>
               <tr>
                 <th>
-                  <Trans id="shaman.TotemTracker.TotemElement">Totem</Trans>
+                  <Trans id="classic.shaman.TotemTracker.TotemElement">Totem</Trans>
                 </th>
                 <th>
-                  <Trans id="shaman.TotemTracker.TotemElementUptime">Uptime</Trans>
+                  <Trans id="classic.shaman.TotemTracker.TotemElementUptime">Uptime</Trans>
                 </th>
               </tr>
             </thead>

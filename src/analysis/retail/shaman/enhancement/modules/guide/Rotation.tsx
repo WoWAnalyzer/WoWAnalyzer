@@ -37,19 +37,19 @@ export default function Rotation({ modules, info }: GuideProps<typeof CombatLogP
         <SpellLink spell={TALENTS.SUNDERING_TALENT} />, etc). Cooldowns may often be held for fight
         mechanics, and appear as common problems which interfere with rotation analysis.
       </p>
-      <p>
+      <div>
         This should be used as a reference point for improvement when comparing against other logs.
         It does not cover the full set of priorites used by Raidbots (much like the written guides)
         as the list would be far too long and too complex to follow.
         <br />
         <br />
         Potential areas of inaccuracy:
-      </p>
-      <ul>
-        <li>Holding cooldowns for raid events</li>
-        <li>Multiple targets</li>
-        <li>Movement or periods of downtime</li>
-      </ul>
+        <ul>
+          <li>Holding cooldowns for raid events</li>
+          <li>Multiple targets</li>
+          <li>Movement or periods of downtime</li>
+        </ul>
+      </div>
     </Section>
   );
 }

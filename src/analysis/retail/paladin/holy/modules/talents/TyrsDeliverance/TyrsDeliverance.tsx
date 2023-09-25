@@ -122,15 +122,12 @@ class TyrsDeliverance extends Analyzer {
           <>
             Direct Healing Done: {formatNumber(this.healing)} <br />
             Direct Overhealing Done: {formatNumber(this.overhealing)} <br />
-            {BUFFED_SPELLS.map((spell) => {
-              return (
-                <>
-                  <SpellLink spell={spell} /> healing increased:{' '}
-                  {formatNumber(this.incHealing[spell.id])}
-                  <br />
-                </>
-              );
-            })}
+            {BUFFED_SPELLS.map((spell) => (
+              <div key={spell.id}>
+                <SpellLink spell={spell} /> healing increased:{' '}
+                {formatNumber(this.incHealing[spell.id])}
+              </div>
+            ))}
           </>
         }
       >

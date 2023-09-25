@@ -68,40 +68,36 @@ class IdolOfYshaarj extends Analyzer {
         tooltip={<>Effects from {this.casts} casts of mindbenders</>}
       >
         <BoringSpellValueText spell={TALENTS.IDOL_OF_YSHAARJ_TALENT}>
-          <>
-            <p>
-              <div>
-                {this.pride}{' '}
-                <small>
-                  Healthy. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE} />
-                </small>
-              </div>
-              <div>
-                {this.despair}{' '}
-                <small>
-                  Stunned. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_DESPAIR} />
-                </small>
-              </div>
-              <div>
-                {this.anger}{' '}
-                <small>
-                  Enraged. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_ANGER} />
-                </small>
-              </div>
-              <div>
-                {this.fear}{' '}
-                <small>
-                  Feared. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_FEAR} />
-                </small>
-              </div>
-              <div>
-                {this.getBuffViolence()}{' '}
-                <small>
-                  No State. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE} />
-                </small>
-              </div>
-            </p>
-          </>
+          <div>
+            {this.pride}{' '}
+            <small>
+              Healthy. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_PRIDE} />
+            </small>
+          </div>
+          <div>
+            {this.despair}{' '}
+            <small>
+              Stunned. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_DESPAIR} />
+            </small>
+          </div>
+          <div>
+            {this.anger}{' '}
+            <small>
+              Enraged. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_ANGER} />
+            </small>
+          </div>
+          <div>
+            {this.fear}{' '}
+            <small>
+              Feared. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_FEAR} />
+            </small>
+          </div>
+          <div>
+            {this.getBuffViolence()}{' '}
+            <small>
+              No State. <SpellLink spell={SPELLS.IDOL_OF_YSHAARJ_BUFF_VIOLENCE} />
+            </small>
+          </div>
           {/*the tooltip on wowhead doesn't match the tooltip on the in game buff, so the extra text is required to show which effect is which.*/}
         </BoringSpellValueText>
       </Statistic>

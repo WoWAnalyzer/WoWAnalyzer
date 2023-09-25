@@ -114,7 +114,7 @@ class ManaTideTotem extends Analyzer {
           <div>
             <PersonIcon /> {formatNumber(this.regenOnPlayer)}{' '}
             <small>
-              <Trans id="shaman.restoration.manaTideTotem.statistic.manaRestored">
+              <Trans id="classic.shaman.restoration.manaTideTotem.statistic.manaRestored">
                 Mana restored
               </Trans>
             </small>

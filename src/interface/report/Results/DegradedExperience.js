@@ -85,7 +85,7 @@ class DegradedExperience extends Component {
           )}{' '}
           Results may be incomplete. Please report this issue to us on{' '}
           <a href="https://wowanalyzer.com/discord">Discord</a> so we can fix it!{' '}
-          <a href="javascript:" onClick={this.toggleDetails}>
+          <a href="#" onClick={this.toggleDetails}>
             {this.state.expanded ? 'Less information' : 'More information'}
           </a>
           {this.state.expanded && (

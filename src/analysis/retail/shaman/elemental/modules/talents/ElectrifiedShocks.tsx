@@ -210,6 +210,7 @@ export default class ElectrifiedShocks extends Analyzer {
     );
 
     const tableRow = (
+      key: string,
       spell: Spell,
       dmgDoneByCast: DamageDoneByCastEntry,
       spellPrefix: JSX.Element | null = null,
@@ -220,13 +221,13 @@ export default class ElectrifiedShocks extends Analyzer {
         (damageWithElshocks / (damageWithElshocks + damageWithoutElshocks)) * 100;
 
       if (damageWithElshocks + damageWithoutElshocks === 0) {
-        return <></>;
+        return null;
       }
 
       return (
-        <tr key={spell.id}>
+        <tr key={key}>
           <td style={{ whiteSpace: 'nowrap' }}>
-            {spellPrefix || <></>}
+            {spellPrefix || null}
             <SpellLink spell={spell} />
           </td>
           <td>{formatNumber(damageWithElshocks)}</td>
@@ -293,6 +294,7 @@ export default class ElectrifiedShocks extends Analyzer {
                 </thead>
                 <tbody>
                   {tableRow(
+                    `stormkeeper-${SPELLS.LIGHTNING_BOLT.id}`,
                     SPELLS.LIGHTNING_BOLT,
                     this.damageDoneByCast[SPELLS.LIGHTNING_BOLT.id].SK,
                     <>
@@ -300,15 +302,16 @@ export default class ElectrifiedShocks extends Analyzer {
                     </>,
                   )}
                   {tableRow(
+                    `stormkeeper-${SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id}`,
                     SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT,
                     this.damageDoneByCast[SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id].SK,
                     <>
                       <SpellIcon spell={TALENTS.STORMKEEPER_1_ELEMENTAL_TALENT} />
                     </>,
                   )}
-                  {RELEVANT_NATURE_DAMAGE.map((spell) => {
-                    return tableRow(spell, this.damageDoneByCast[spell.id].none);
-                  })}
+                  {RELEVANT_NATURE_DAMAGE.map((spell) =>
+                    tableRow(`${spell.id}`, spell, this.damageDoneByCast[spell.id].none),
+                  )}
                 </tbody>
               </Table>
             </Expandable>
