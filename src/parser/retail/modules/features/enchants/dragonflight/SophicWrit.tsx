@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
-import StatProccEnchant from './StatProccEnchant';
+import StatProccEnchant from './StatProcEnchant';
 
 // ================ SAMPLE LOGS ================
 // Sophic Writ R1

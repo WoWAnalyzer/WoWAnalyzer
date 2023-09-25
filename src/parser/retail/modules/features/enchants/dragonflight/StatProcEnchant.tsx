@@ -74,6 +74,7 @@ abstract class StatProccEnchant extends Analyzer {
   }
 
   statistic() {
+    const StatIcon = getIcon(this.stat);
     const statName = getName(this.stat);
     const totalAmount = this.mainHandAmount + this.offHandAmount;
     const totalProcs = this.selectedCombatant.getBuffTriggerCount(this.buff.id);
@@ -81,7 +82,6 @@ abstract class StatProccEnchant extends Analyzer {
     const uptime = this.selectedCombatant.getBuffUptime(this.buff.id);
     const uptimePercentage = uptime / this.owner.fightDuration;
     const calculatedAverage = Math.round(totalAmount * uptimePercentage);
-    const Icon = getIcon(this.stat);
 
     const valueExplanation =
       this.mainHandAmount !== 0 && this.offHandAmount !== 0 ? (
@@ -90,7 +90,7 @@ abstract class StatProccEnchant extends Analyzer {
           <b>{Math.round(this.offHandAmount)}</b> (off hand)
         </>
       ) : (
-        <b>{totalAmount}</b>
+        <b>{Math.round(totalAmount)}</b>
       );
 
     return (
@@ -112,7 +112,7 @@ abstract class StatProccEnchant extends Analyzer {
         }
       >
         <BoringSpellValueText spell={this.enchantSpell}>
-          <Icon /> {calculatedAverage} <small>{statName} over time</small>
+          <StatIcon /> {calculatedAverage} <small>{statName} over time</small>
         </BoringSpellValueText>
       </Statistic>
     );

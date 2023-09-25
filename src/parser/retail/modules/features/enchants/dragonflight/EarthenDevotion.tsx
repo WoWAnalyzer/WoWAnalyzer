@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatProccEnchant from './StatProccEnchant';
+import StatProccEnchant from './StatProcEnchant';
 
 // ================ SAMPLE LOGS ================
 // Earthen Devotion R1

@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatProccEnchant, { SECONDARY_STAT_WRIT_VALUES } from './StatProccEnchant';
+import StatProccEnchant, { SECONDARY_STAT_WRIT_VALUES } from './StatProcEnchant';
 
 // ================ SAMPLE LOGS ================
 // Burning Writ R1
