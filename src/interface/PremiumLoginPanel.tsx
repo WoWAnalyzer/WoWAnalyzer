@@ -38,6 +38,13 @@ const INITIAL_BACKGROUNDS = [
 const LoggedIn = () => {
   const dispatch = useWaDispatch();
   const user = useWaSelector((state) => state.user);
+
+  // this is only intended to be rendered if we have a user, but some quirks of oauth
+  // can get you a user-without-a-user when doing local development
+  if (!user) {
+    return null;
+  }
+
   const hasPremium = user.premium;
   const platform = user.github && user.github.premium ? 'github' : 'patreon';
 
@@ -91,7 +98,7 @@ const PremiumLoginPanel = () => {
   return (
     <div className="panel">
       <div className="panel-body" style={{ padding: '0 15px', position: 'relative' }}>
-        <TransitionGroup className="logged-in" timeout={{ enter: 1000, exit: 1000 }}>
+        <TransitionGroup classNames="logged-in" timeout={1000}>
           {user && <LoggedIn />}
         </TransitionGroup>
 
