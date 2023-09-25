@@ -30,7 +30,7 @@ const RANKS = [
 
 class WaftingWrit extends StatProccEnchant {
   constructor(options: Options) {
-    super(STAT.HASTE, SPELLS.WAFTING_WRIT, RANKS, options);
+    super(STAT.HASTE, SPELLS.WAFTING_WRIT_ENCHANT, SPELLS.WAFTING_WRIT_BUFF, RANKS, options);
   }
 }
 

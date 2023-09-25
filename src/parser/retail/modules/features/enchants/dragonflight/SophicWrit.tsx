@@ -28,7 +28,13 @@ const RANKS = [
 
 class SophicWrit extends StatProccEnchant {
   constructor(options: Options) {
-    super(options.owner.selectedCombatant.primaryStat, SPELLS.SOPHIC_WRIT_BUFF, RANKS, options);
+    super(
+      options.owner.selectedCombatant.primaryStat,
+      SPELLS.SOPHIC_WRIT_ENCHANT,
+      SPELLS.SOPHIC_WRIT_BUFF,
+      RANKS,
+      options,
+    );
   }
 }
 

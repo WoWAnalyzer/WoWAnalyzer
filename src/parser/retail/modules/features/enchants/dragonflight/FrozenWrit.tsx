@@ -29,7 +29,7 @@ const RANKS = [
 
 class FrozenWrit extends StatProccEnchant {
   constructor(options: Options) {
-    super(STAT.VERSATILITY, SPELLS.FROZEN_WRIT_BUFF, RANKS, options);
+    super(STAT.VERSATILITY, SPELLS.FROZEN_WRIT_ENCHANT, SPELLS.FROZEN_WRIT_BUFF, RANKS, options);
   }
 }
 

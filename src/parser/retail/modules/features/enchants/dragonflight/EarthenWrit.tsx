@@ -29,7 +29,7 @@ const RANKS = [
 
 class EarthenWrit extends StatProccEnchant {
   constructor(options: Options) {
-    super(STAT.MASTERY, SPELLS.EARTHEN_WRIT_BUFF, RANKS, options);
+    super(STAT.MASTERY, SPELLS.EARTHEN_WRIT_ENCHANT, SPELLS.EARTHEN_WRIT_BUFF, RANKS, options);
   }
 }
 

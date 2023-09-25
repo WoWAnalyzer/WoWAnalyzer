@@ -30,7 +30,13 @@ const RANKS = [
 
 class SophicDevotion extends StatProccEnchant {
   constructor(options: Options) {
-    super(options.owner.selectedCombatant.primaryStat, SPELLS.SOPHIC_DEVOTION_BUFF, RANKS, options);
+    super(
+      options.owner.selectedCombatant.primaryStat,
+      SPELLS.SOPHIC_DEVOTION_ENCHANT,
+      SPELLS.SOPHIC_DEVOTION_BUFF,
+      RANKS,
+      options,
+    );
   }
 }
 

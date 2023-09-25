@@ -29,7 +29,13 @@ const RANKS = [
 
 class EarthenDevotion extends StatProccEnchant {
   constructor(options: Options) {
-    super(STAT.ARMOR, SPELLS.EARTHEN_DEVOTION_BUFF, RANKS, options);
+    super(
+      STAT.ARMOR,
+      SPELLS.EARTHEN_DEVOTION_ENCHANT,
+      SPELLS.EARTHEN_DEVOTION_BUFF,
+      RANKS,
+      options,
+    );
   }
 }
 

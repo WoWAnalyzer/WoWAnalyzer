@@ -6,8 +6,13 @@ const enchants = {
     name: 'Wafting Devotion',
     icon: 'inv_10_elementalcombinedfoozles_air',
   },
-  WAFTING_WRIT: {
+  WAFTING_WRIT_BUFF: {
     id: 390247,
+    name: 'Wafting Writ',
+    icon: 'inv_10_elementalshardfoozles_air',
+  },
+  WAFTING_WRIT_ENCHANT: {
+    id: 396818,
     name: 'Wafting Writ',
     icon: 'inv_10_elementalshardfoozles_air',
   },
@@ -31,13 +36,28 @@ const enchants = {
     name: 'Burning Writ',
     icon: 'inv_10_elementalshardfoozles_fire',
   },
+  BURNING_WRIT_ENCHANT: {
+    id: 396768,
+    name: 'Burning Writ',
+    icon: 'inv_10_elementalshardfoozles_fire',
+  },
   EARTHEN_DEVOTION_BUFF: {
     id: 390345,
     name: 'Earthen Devotion',
     icon: 'inv_10_elementalcombinedfoozles_earth',
   },
+  EARTHEN_DEVOTION_ENCHANT: {
+    id: 396824,
+    name: 'Earthen Devotion',
+    icon: 'inv_10_elementalcombinedfoozles_earth',
+  },
   EARTHEN_WRIT_BUFF: {
     id: 390170,
+    name: 'Earthen Writ',
+    icon: 'inv_10_elementalshardfoozles_earth',
+  },
+  EARTHEN_WRIT_ENCHANT: {
+    id: 396784,
     name: 'Earthen Writ',
     icon: 'inv_10_elementalshardfoozles_earth',
   },
@@ -48,6 +68,11 @@ const enchants = {
   },
   FROZEN_WRIT_BUFF: {
     id: 390242,
+    name: 'Frozen Writ',
+    icon: 'inv_10_elementalshardfoozles_frost',
+  },
+  FROZEN_WRIT_ENCHANT: {
+    id: 396816,
     name: 'Frozen Writ',
     icon: 'inv_10_elementalshardfoozles_frost',
   },
@@ -66,8 +91,18 @@ const enchants = {
     name: 'Sophic Writ',
     icon: 'inv_10_elementalshardfoozles_titan',
   },
+  SOPHIC_WRIT_ENCHANT: {
+    id: 396791,
+    name: 'Sophic Writ',
+    icon: 'inv_10_elementalshardfoozles_titan',
+  },
   SOPHIC_DEVOTION_BUFF: {
     id: 390224,
+    name: 'Sophic Devotion',
+    icon: 'inv_10_elementalcombinedfoozles_titan',
+  },
+  SOPHIC_DEVOTION_ENCHANT: {
+    id: 396811,
     name: 'Sophic Devotion',
     icon: 'inv_10_elementalcombinedfoozles_titan',
   },

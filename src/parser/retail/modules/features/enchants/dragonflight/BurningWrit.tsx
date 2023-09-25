@@ -29,7 +29,13 @@ const RANKS = [
 
 class BurningWrit extends StatProccEnchant {
   constructor(options: Options) {
-    super(STAT.CRITICAL_STRIKE, SPELLS.BURNING_WRIT_BUFF, RANKS, options);
+    super(
+      STAT.CRITICAL_STRIKE,
+      SPELLS.BURNING_WRIT_ENCHANT,
+      SPELLS.BURNING_WRIT_BUFF,
+      RANKS,
+      options,
+    );
   }
 }
 

@@ -1,8 +1,10 @@
 import { Enchant } from 'common/ITEMS/Item';
 import Spell from 'common/SPELLS/Spell';
+import { formatDuration, formatPercentage } from 'common/format';
 import SpellLink from 'interface/SpellLink';
 import Analyzer from 'parser/core/Analyzer';
 import { Options } from 'parser/core/EventSubscriber';
+import { Item } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { getIcon, getName } from 'parser/shared/modules/features/STAT';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -32,43 +34,64 @@ abstract class StatProccEnchant extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
   };
-  protected statTracker!: StatTracker;
+  statTracker!: StatTracker;
 
   /** The stat that the enchant provides on procc */
   protected stat: STAT;
+  protected enchantSpell: Spell;
   protected buff: Spell;
-  /** The amount provided each time it proccs */
-  protected amount = 0;
+  protected ranks: Rank[];
+  private mainHandAmount = 0;
+  private offHandAmount = 0;
 
-  constructor(stat: STAT, buff: Spell, ranks: Rank[], options: Options) {
+  constructor(stat: STAT, enchantSpell: Spell, buff: Spell, ranks: Rank[], options: Options) {
     super(options);
     this.statTracker = (options as Options & { statTracker: StatTracker }).statTracker;
     this.stat = stat;
+    this.enchantSpell = enchantSpell;
     this.buff = buff;
+    this.ranks = ranks;
 
-    this.active = ranks.some((effect) => this.selectedCombatant.hasWeaponEnchant(effect.enchant));
+    this.active = this.ranks.some((effect) =>
+      this.selectedCombatant.hasWeaponEnchant(effect.enchant),
+    );
     if (!this.active) {
       return;
     }
     const { mainHand, offHand } = this.selectedCombatant;
 
-    [mainHand.permanentEnchant, offHand.permanentEnchant].forEach((enchantId) => {
-      const effect = ranks.find((e) => e.enchant.effectId === enchantId);
-      if (effect) {
-        this.amount += effect.amount;
-      }
-    });
+    this.mainHandAmount = this.getEnchantAmount(mainHand);
+    this.offHandAmount = this.getEnchantAmount(offHand);
 
     this.statTracker.add(this.buff.id, {
-      [this.stat]: this.amount,
+      [this.stat]: this.mainHandAmount + this.offHandAmount,
     });
   }
 
+  private getEnchantAmount(weapon: Item) {
+    const rank = this.ranks.find((effect) => effect.enchant.effectId === weapon.permanentEnchant);
+    return rank?.amount || 0;
+  }
+
   statistic() {
+    const statName = getName(this.stat);
+    const totalAmount = this.mainHandAmount + this.offHandAmount;
     const totalProcs = this.selectedCombatant.getBuffTriggerCount(this.buff.id);
-    const ppm = (totalProcs / (this.owner.fightDuration / 1000 / 60)).toFixed(1);
-    const uptime = this.selectedCombatant.getBuffUptime(this.buff.id) / this.owner.fightDuration;
+    const ppm = this.owner.getPerMinute(totalProcs).toFixed(1);
+    const uptime = this.selectedCombatant.getBuffUptime(this.buff.id);
+    const uptimePercentage = uptime / this.owner.fightDuration;
+    const calculatedAverage = Math.round(totalAmount * uptimePercentage);
     const Icon = getIcon(this.stat);
+
+    const valueExplanation =
+      this.mainHandAmount !== 0 && this.offHandAmount !== 0 ? (
+        <>
+          <b>{Math.round(this.mainHandAmount)}</b> (main hand) +{' '}
+          <b>{Math.round(this.offHandAmount)}</b> (off hand)
+        </>
+      ) : (
+        <b>{totalAmount}</b>
+      );
 
     return (
       <Statistic
@@ -77,13 +100,19 @@ abstract class StatProccEnchant extends Analyzer {
         position={STATISTIC_ORDER.UNIMPORTANT(1)}
         tooltip={
           <>
-            <SpellLink spell={this.buff} /> triggered {totalProcs} times ({ppm} procs per minute),
-            giving {Math.round(this.amount)} {getName(this.stat)} every time.
+            <SpellLink spell={this.enchantSpell} /> triggered <b>{totalProcs}</b> times ({ppm} procs
+            per minute).
+            <br />
+            The buff gives {valueExplanation} {statName}, and had a total uptime of{' '}
+            <b>{formatDuration(uptime)}</b>, {formatPercentage(uptimePercentage, 1)}% of the fight.
+            <br />
+            This means over time you benefited an average of <b>{calculatedAverage}</b> {statName}{' '}
+            from this enchant.
           </>
         }
       >
-        <BoringSpellValueText spell={this.buff}>
-          <Icon /> {Math.round(this.amount * uptime)} <small>{getName(this.stat)} on average</small>
+        <BoringSpellValueText spell={this.enchantSpell}>
+          <Icon /> {calculatedAverage} <small>{statName} over time</small>
         </BoringSpellValueText>
       </Statistic>
     );
