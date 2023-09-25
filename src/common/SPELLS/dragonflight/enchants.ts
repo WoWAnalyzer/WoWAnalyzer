@@ -11,6 +11,11 @@ const enchants = {
     name: 'Wafting Writ',
     icon: 'inv_10_elementalshardfoozles_air',
   },
+  BURNING_DEVOTION_ENCHANT: {
+    id: 396822,
+    name: 'Burning Devotion',
+    icon: 'inv_10_elementalcombinedfoozles_fire',
+  },
   BURNING_DEVOTION_BUFF: {
     id: 390339,
     name: 'Burning Devotion',

@@ -1,6 +1,7 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
+import { SpellLink } from 'interface';
 import { PlusIcon } from 'interface/icons';
 import Analyzer, { SELECTED_PLAYER, type Options } from 'parser/core/Analyzer';
 import Events, { type HealEvent } from 'parser/core/Events';
@@ -54,14 +55,19 @@ class BurningDevotion extends Analyzer {
         category={STATISTIC_CATEGORY.ITEMS}
         position={STATISTIC_ORDER.UNIMPORTANT(1)}
         tooltip={
-          <span>
-            Burning devotion triggered <strong>{this.healCount}</strong> times, healing for a total
-            of <strong>{formatNumber(this.totalHeal)}</strong>.
-          </span>
+          <>
+            <SpellLink spell={SPELLS.BURNING_DEVOTION_ENCHANT} /> triggered{' '}
+            <strong>{this.healCount}</strong> times (
+            {this.owner.getPerMinute(this.healCount).toFixed(1)} procs per minute), healing for a
+            total of <strong>{formatNumber(this.totalHeal)}</strong>.
+          </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.BURNING_DEVOTION_HEAL}>
-          <PlusIcon /> {this.owner.formatItemHealingDone(this.totalHeal)}
+        <BoringSpellValueText spell={SPELLS.BURNING_DEVOTION_ENCHANT}>
+          <PlusIcon /> {formatNumber(this.owner.getPerSecond(this.totalHeal))} HPS{' '}
+          <small>
+            {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHeal))}%
+          </small>
         </BoringSpellValueText>
       </Statistic>
     );
