@@ -248,11 +248,6 @@ const spells = {
     name: 'Carve',
     icon: 'ability_hunter_carve',
   },
-  COORDINATED_ASSAULT: {
-    id: 266779,
-    name: 'Coordinated Assault',
-    icon: 'inv_coordinatedassault',
-  },
   HARPOON: {
     id: 190925,
     name: 'Harpoon',

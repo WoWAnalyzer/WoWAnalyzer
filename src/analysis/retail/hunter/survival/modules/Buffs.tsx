@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import CoreAuras from 'parser/core/modules/Auras';
 
@@ -6,9 +7,9 @@ class Buffs extends CoreAuras {
   auras() {
     return [
       {
-        spellId: SPELLS.COORDINATED_ASSAULT.id,
+        spellId: TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.COORDINATED_ASSAULT.id,
+        triggeredBySpellId: TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id,
       },
       {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
