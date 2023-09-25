@@ -91,7 +91,7 @@ const PremiumLoginPanel = () => {
   return (
     <div className="panel">
       <div className="panel-body" style={{ padding: '0 15px', position: 'relative' }}>
-        <TransitionGroup className="logged-in" timeout={{ enter: 1000, exit: 1000 }}>
+        <TransitionGroup classNames="logged-in" timeout={1000}>
           {user && <LoggedIn />}
         </TransitionGroup>
 
