@@ -1,4 +1,5 @@
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { RETAIL_EXPANSION } from 'game/Expansion';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,
@@ -8,7 +9,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   static cooldownSpells = [
     ...CoreCooldownThroughputTracker.cooldownSpells,
     {
-      spell: SPELLS.COORDINATED_ASSAULT.id,
+      spell: TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
       expansion: RETAIL_EXPANSION,
     },

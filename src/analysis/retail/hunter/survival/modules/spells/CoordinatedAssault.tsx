@@ -1,6 +1,6 @@
 import { COORDINATED_ASSAULT_DMG_MOD } from 'analysis/retail/hunter/survival/constants';
 import { formatNumber, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -32,6 +32,7 @@ class CoordinatedAssault extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER_PET), this.onPetDamage);
   }
@@ -42,19 +43,20 @@ class CoordinatedAssault extends Analyzer {
 
   get percentUptime() {
     return (
-      this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / this.owner.fightDuration
+      this.selectedCombatant.getBuffUptime(TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id) /
+      this.owner.fightDuration
     );
   }
 
   onPetDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id)) {
       return;
     }
     this.petDamage += calculateEffectiveDamage(event, COORDINATED_ASSAULT_DMG_MOD);
   }
 
   onPlayerDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id)) {
       return;
     }
     this.playerDamage += calculateEffectiveDamage(event, COORDINATED_ASSAULT_DMG_MOD);
@@ -68,9 +70,10 @@ class CoordinatedAssault extends Analyzer {
         tooltip={
           <>
             Over the course of the encounter you had Coordinated Assault up for a total of{' '}
-            {(this.selectedCombatant.getBuffUptime(SPELLS.COORDINATED_ASSAULT.id) / 1000).toFixed(
-              1,
-            )}{' '}
+            {(
+              this.selectedCombatant.getBuffUptime(TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id) /
+              1000
+            ).toFixed(1)}{' '}
             seconds.
             <br />
             Total damage breakdown:
@@ -89,7 +92,7 @@ class CoordinatedAssault extends Analyzer {
           </>
         }
       >
-        <BoringSpellValueText spell={SPELLS.COORDINATED_ASSAULT}>
+        <BoringSpellValueText spell={TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT}>
           <>
             <ItemDamageDone amount={this.totalDamage} />
             <br />
