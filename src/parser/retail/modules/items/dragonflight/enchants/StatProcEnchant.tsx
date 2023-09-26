@@ -101,11 +101,8 @@ abstract class StatProccEnchant extends Analyzer {
         tooltip={
           <>
             <SpellLink spell={this.enchantSpell} /> triggered <b>{totalProcs}</b> times ({ppm} procs
-            per minute).
-            <br />
-            The buff gives {valueExplanation} {statName}, and had a total uptime of{' '}
+            per minute). The buff gives {valueExplanation} {statName}, and had a total uptime of{' '}
             <b>{formatDuration(uptime)}</b>, {formatPercentage(uptimePercentage, 1)}% of the fight.
-            <br />
             This means over time you benefited an average of <b>{calculatedAverage}</b> {statName}{' '}
             from this enchant.
           </>

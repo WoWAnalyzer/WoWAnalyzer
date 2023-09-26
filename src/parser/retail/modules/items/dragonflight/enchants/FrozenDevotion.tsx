@@ -93,9 +93,10 @@ class FrozenDevotion extends Analyzer {
         tooltip={
           <>
             <SpellLink spell={SPELLS.FROZEN_DEVOTION_DAMAGE} /> triggered {numberProcs} times (
-            {procsPerMinute.toFixed(1)} PPM) and hit an average of {averageTargets.toFixed(1)}{' '}
-            targets for an average of {formatNumber(averageDamage)} damage, resulting in a total
-            damage of {formatNumber(totalDamage)}.
+            {procsPerMinute.toFixed(1)} PPM) and hit a total of {totalHits} targets (
+            {averageTargets.toFixed(1)} targets per proc) targets for an average of{' '}
+            {formatNumber(averageDamage)} damage, resulting in a total damage of{' '}
+            {formatNumber(totalDamage)}.
           </>
         }
       >

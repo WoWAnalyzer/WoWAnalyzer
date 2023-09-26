@@ -1,8 +1,10 @@
 import ENCHANTS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
+import { formatDuration, formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import { HasteIcon, SpeedIcon } from 'interface/icons';
 import Analyzer, { Options } from 'parser/core/Analyzer';
+import { Item } from 'parser/core/Events';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -42,8 +44,10 @@ class WaftingDevotion extends Analyzer {
   };
   protected statTracker!: StatTracker;
 
-  private haste = 0;
-  private speed = 0;
+  private mainHandHaste = 0;
+  private offhandHaste = 0;
+  private mainhandSpeed = 0;
+  private offhandSpeed = 0;
 
   constructor(options: Options & { statTracker: StatTracker }) {
     super(options);
@@ -56,25 +60,51 @@ class WaftingDevotion extends Analyzer {
     }
     const { mainHand, offHand } = this.selectedCombatant;
 
-    [mainHand.permanentEnchant, offHand.permanentEnchant].forEach((enchantId) => {
-      const effect = RANKS.find((e) => e.enchant.effectId === enchantId);
-      if (effect) {
-        this.haste += effect.haste;
-        this.speed += effect.speed;
-      }
-    });
+    ({ haste: this.mainHandHaste, speed: this.mainhandSpeed } = this.getEnchantAmount(mainHand));
+    ({ haste: this.offhandHaste, speed: this.offhandSpeed } = this.getEnchantAmount(offHand));
 
     this.statTracker.add(SPELLS.WAFTING_DEVOTION.id, {
-      haste: this.haste,
-      speed: this.speed,
+      haste: this.mainHandHaste + this.offhandHaste,
+      speed: this.offhandHaste + this.offhandSpeed,
     });
   }
 
+  private getEnchantAmount(weapon: Item) {
+    const rank = RANKS.find((effect) => effect.enchant.effectId === weapon.permanentEnchant);
+    return {
+      haste: rank?.haste || 0,
+      speed: rank?.speed || 0,
+    };
+  }
+
   statistic() {
+    const totalHaste = this.mainHandHaste + this.offhandHaste;
+    const totalSpeed = this.mainhandSpeed + this.offhandSpeed;
     const totalProcs = this.selectedCombatant.getBuffTriggerCount(SPELLS.WAFTING_DEVOTION.id);
     const ppm = (totalProcs / (this.owner.fightDuration / 1000 / 60)).toFixed(1);
-    const uptime =
-      this.selectedCombatant.getBuffUptime(SPELLS.WAFTING_DEVOTION.id) / this.owner.fightDuration;
+    const uptime = this.selectedCombatant.getBuffUptime(SPELLS.WAFTING_DEVOTION.id);
+    const uptimePercentage = uptime / this.owner.fightDuration;
+    const calculatedAverageHaste = Math.round(totalHaste * uptimePercentage);
+    const calculatedAverageSpeed = Math.round(totalSpeed * uptimePercentage);
+
+    const hasteExplanation =
+      this.mainHandHaste !== 0 && this.offhandHaste !== 0 ? (
+        <>
+          <b>{Math.round(this.mainHandHaste)}</b> (main hand) +{' '}
+          <b>{Math.round(this.offhandHaste)}</b> (off hand)
+        </>
+      ) : (
+        <b>{Math.round(totalHaste)}</b>
+      );
+
+    const speedExplanation =
+      this.mainhandSpeed !== 0 && this.offhandSpeed !== 0 ? (
+        <>
+          <b>{Math.round(this.mainhandSpeed)}</b> + <b>{Math.round(this.offhandSpeed)}</b>
+        </>
+      ) : (
+        <b>{Math.round(totalSpeed)}</b>
+      );
 
     return (
       <Statistic
@@ -84,17 +114,20 @@ class WaftingDevotion extends Analyzer {
         tooltip={
           <>
             <SpellLink spell={SPELLS.WAFTING_DEVOTION} /> triggered {totalProcs} times ({ppm} procs
-            per minute), giving {Math.round(this.haste)} haste and {Math.round(this.speed)} speed
-            every time.
+            per minute). The buff gives {hasteExplanation} haste and {speedExplanation}. The buff
+            had a total uptime of <b>{formatDuration(uptime)}</b>,{' '}
+            {formatPercentage(uptimePercentage, 1)}% of the fight. This means over time you
+            benefited an average of <b>{calculatedAverageHaste}</b> haste and{' '}
+            <b>{calculatedAverageSpeed}</b> speed from this enchant.
           </>
         }
       >
         <BoringSpellValueText spell={SPELLS.WAFTING_DEVOTION}>
           <div>
-            <HasteIcon /> {Math.round(this.haste * uptime)} <small>haste on average</small>
+            <HasteIcon /> {calculatedAverageHaste} <small>haste over time</small>
           </div>
           <div>
-            <SpeedIcon /> {Math.round(this.speed * uptime)} <small>speed on average</small>
+            <SpeedIcon /> {calculatedAverageSpeed} <small>speed over time</small>
           </div>
         </BoringSpellValueText>
       </Statistic>
