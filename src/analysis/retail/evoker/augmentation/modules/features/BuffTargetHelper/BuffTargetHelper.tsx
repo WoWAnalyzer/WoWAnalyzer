@@ -279,8 +279,8 @@ class BuffTargetHelper extends Analyzer {
       /** Determine whether or not to mark the interval as important
        * Logic for now is if both default targets are missing
        * we mark it as important.
-       * We could also do some mathies with checking dammie diffies
-       * buuuut, we'll just do it this way */
+       * We could prolly do some mathies with checking dammie diffies
+       * buuuut, we'll just do it this way for now */
       const isImportant = !topPumpersData[i].some(([name]) => defaultTargets.includes(name));
       const top2Entries = topPumpersData[i].slice(0, 2);
 
@@ -320,13 +320,12 @@ class BuffTargetHelper extends Analyzer {
     );
   }
 
-  /** Used for HenryG WA
-   * https://wago.io/yrmx6ZQSG */
   /**
    * Create a MRT note for who to Prescience and when
-   * This is pretty basic in design for now, but it will do as advertised.
    *
-   * TODO: words (?)
+   * The format is made to support the WA
+   * Created by HenryG
+   * https://wago.io/yrmx6ZQSG
    *
    * Format is basicly:
    * prescGlowsStart
