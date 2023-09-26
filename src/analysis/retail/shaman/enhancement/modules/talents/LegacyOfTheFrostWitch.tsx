@@ -10,7 +10,7 @@ import Events, {
 } from 'parser/core/Events';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -149,14 +149,17 @@ class LegacyOfTheFrostWitch extends Analyzer {
   get spellBreakdown() {
     return (
       <>
-        {typedKeys(this.buffedSpells).map((spellId) => (
-          <>
-            <li key={spellId}>
-              <SpellLink spell={spellId} /> -{' '}
-              <strong>{formatNumber(this.buffedSpells[spellId])}</strong>
-            </li>
-          </>
-        ))}
+        {typedKeys(this.buffedSpells).map((spellId) => {
+          const spell = maybeGetSpell(spellId)!;
+          return (
+            <>
+              <li key={spell?.id}>
+                <SpellLink spell={spell} /> -{' '}
+                <strong>{formatNumber(this.buffedSpells[spell.id])}</strong>
+              </li>
+            </>
+          );
+        })}
       </>
     );
   }
