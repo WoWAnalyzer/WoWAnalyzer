@@ -70,8 +70,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.COORDINATED_ASSAULT.id,
-        buffSpellId: SPELLS.COORDINATED_ASSAULT.id,
+        spell: TALENTS.COORDINATED_ASSAULT_TALENT.id,
+        buffSpellId: TALENTS.COORDINATED_ASSAULT_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 120,
         gcd: {
@@ -141,19 +141,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.85,
-        },
-      },
-      {
-        spell: TALENTS.DEATH_CHAKRAM_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        enabled: combatant.hasTalent(TALENTS.DEATH_CHAKRAM_TALENT),
-        cooldown: 20,
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
         },
       },
       {

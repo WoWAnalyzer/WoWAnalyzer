@@ -350,9 +350,8 @@ class HitCountAoE extends Analyzer {
           <label>AoE Ability Usage</label>
           <div className="value">
             {this.allTrackers.map((tracker) => (
-              <>
+              <div key={tracker.spell.id}>
                 <TooltipElement
-                  key={tracker.spell.id}
                   content={
                     <>
                       This statistic does not include casts from Convoke the Spirits. You cast{' '}
@@ -375,8 +374,7 @@ class HitCountAoE extends Analyzer {
                   {(tracker.casts === 0 ? 0 : tracker.hits / tracker.casts).toFixed(1)}{' '}
                 </TooltipElement>
                 <small>avg targets hit</small>
-                <br />
-              </>
+              </div>
             ))}
           </div>
         </div>

@@ -30,7 +30,7 @@ const FuryCapWaste = ({
   }
 
   return (
-    <p>
+    <span>
       The chart below shows your <ResourceLink id={RESOURCE_TYPES.FURY.id} /> over the course of the
       encounter. You wasted{' '}
       <PerformancePercentage
@@ -62,7 +62,7 @@ const FuryCapWaste = ({
           </Tooltip>
         </>
       )}
-    </p>
+    </span>
   );
 };
 

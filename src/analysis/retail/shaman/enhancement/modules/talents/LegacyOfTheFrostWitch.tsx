@@ -151,11 +151,9 @@ class LegacyOfTheFrostWitch extends Analyzer {
         {Object.keys(this.buffedSpells)
           .map((guid) => ({ spellId: Number(guid), damage: this.buffedSpells[Number(guid)] }))
           .map((spell) => (
-            <>
-              <li>
-                <SpellLink spell={spell.spellId} /> - <strong>{formatNumber(spell.damage)}</strong>
-              </li>
-            </>
+            <li key={spell.spellId}>
+              <SpellLink spell={spell.spellId} /> - <strong>{formatNumber(spell.damage)}</strong>
+            </li>
           ))}
       </>
     );

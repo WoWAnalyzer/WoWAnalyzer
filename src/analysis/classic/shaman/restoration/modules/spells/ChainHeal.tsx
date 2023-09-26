@@ -106,7 +106,7 @@ class ChainHeal extends Analyzer {
       .isLessThan(suggestedThreshold.isLessThan.minor)
       .addSuggestion((suggest, _actual, _recommended) =>
         suggest(
-          <Trans id="shaman.restoration.suggestions.aoeTargets.label">
+          <Trans id="classic.shaman.restoration.suggestions.aoeTargets.label">
             Try to always cast <SpellLink spell={SPELLS.CHAIN_HEAL} /> on groups of people, so that
             it heals all {this.maxTargets} potential targets.
           </Trans>,
@@ -195,7 +195,7 @@ class ChainHeal extends Analyzer {
         size="flexible"
         position={STATISTIC_ORDER.OPTIONAL(70)}
         tooltip={
-          <Trans id="shaman.restoration.chainHeal.averageTargets.tooltip">
+          <Trans id="classic.shaman.restoration.chainHeal.averageTargets.tooltip">
             The average number of targets healed by Chain Heal out of the maximum amount of targets.
             You cast a total of {this.casts} Chain Heals, which healed an average of{' '}
             {this.avgHits.toFixed(2)} out of {this.maxTargets} targets.
@@ -205,7 +205,7 @@ class ChainHeal extends Analyzer {
           singleHits.length > 0 && (
             <>
               <div className="pad">
-                <Trans id="shaman.restoration.chainHeal.averageTargets.title">
+                <Trans id="classic.shaman.restoration.chainHeal.averageTargets.title">
                   Below are the casts that only hit the initial target. A large list indicates that
                   target selection is an area for improvement.
                 </Trans>
@@ -246,7 +246,7 @@ class ChainHeal extends Analyzer {
         <BoringValue label={<SpellLink spell={SPELLS.CHAIN_HEAL} />}>
           {this.avgHits.toFixed(2)}{' '}
           <small>
-            <Trans id="shaman.restoration.chainHeal.averageTargets">
+            <Trans id="classic.shaman.restoration.chainHeal.averageTargets">
               Average Chain Heal targets
             </Trans>
           </small>

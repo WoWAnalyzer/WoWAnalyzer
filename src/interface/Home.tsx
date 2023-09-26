@@ -75,7 +75,9 @@ const Home = () => {
               return (
                 <li key={page.url} className={page.url === url ? 'active' : undefined}>
                   {isRelativeLink ? (
-                    <Link to={page.url}>{content}</Link>
+                    <Link to={page.url} preventScrollReset>
+                      {content}
+                    </Link>
                   ) : (
                     <a href={page.url}>{content}</a>
                   )}

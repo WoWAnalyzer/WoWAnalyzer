@@ -81,9 +81,9 @@ class OmenOfClarity extends Analyzer {
       <div>
         <strong>Per-Proc Breakdown</strong>
         <br />
-        {this._clearcasts.map((cast, ix) => (
-          <>{cast.castEvent && this.spellIconFromEvent(cast.castEvent, cast.delay)}</>
-        ))}
+        {this._clearcasts.map((cast, ix) =>
+          cast.castEvent ? this.spellIconFromEvent(cast.castEvent, cast.delay) : null,
+        )}
       </div>
     );
 
@@ -92,7 +92,7 @@ class OmenOfClarity extends Analyzer {
 
   spellIconFromEvent(event: CastEvent, delay: number): JSX.Element {
     return (
-      <div>
+      <div key={`${event.timestamp}`}>
         @ {this.owner.formatTimestamp(event.timestamp)} &mdash;{' '}
         <SpellLink spell={abilityToSpell(event.ability)} /> ({(delay / 1000).toFixed(1)}sec
         hesitation)

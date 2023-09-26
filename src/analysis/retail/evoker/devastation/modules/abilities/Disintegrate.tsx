@@ -405,7 +405,7 @@ class Disintegrate extends Analyzer {
 
     return (
       <SubSection title="Disintegrate">
-        <p>
+        <div>
           Use the graph below to deepdive into your <SpellLink spell={DISINTEGRATE} /> casts.
           <ul>
             <li>
@@ -425,7 +425,7 @@ class Disintegrate extends Analyzer {
             </li>
           </ul>
           Mouseover each point for more detailed explanations.
-        </p>
+        </div>
         <DisintegratePlot
           fightStartTime={this.owner.fight.start_time}
           fightEndTime={this.owner.fight.end_time}
