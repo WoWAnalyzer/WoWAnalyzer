@@ -34,7 +34,7 @@ class ShadowflameWreathe extends WeaponEnchantAnalyzer {
   private incomingDamage = 0;
 
   constructor(options: Options) {
-    super(SPELLS.SHADOWFLAME_WREATHE_DOT, RANKS, options);
+    super(SPELLS.SHADOWFLAME_WREATHE_ENCHANT, RANKS, options);
 
     if (!this.active) {
       return;

@@ -69,6 +69,11 @@ const enchants = {
     name: 'Shadowflame Wreathe',
     icon: 'inv_10_elementalshardfoozles_shadowflame',
   },
+  SHADOWFLAME_WREATHE_ENCHANT: {
+    id: 406753,
+    name: 'Shadowflame Wreathe',
+    icon: 'inv_10_elementalshardfoozles_shadowflame',
+  },
   SHADOWFLAME_WREATHE_SELF_DAMAGE: {
     id: 406770,
     name: 'Shadowflame Wreathe',
