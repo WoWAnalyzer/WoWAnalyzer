@@ -30,6 +30,11 @@ function findLast<T>(arr: T[], predicate: (value: T) => boolean) {
 // Invigorating Spore Cloud
 // https://www.warcraftlogs.com/reports/CkDv213xNw8Lj4Xa#fight=11&type=auras&target=234&ability=406785&source=237
 
+const deps = {
+  statTracker: StatTracker,
+  combatants: Combatants,
+};
+
 /**
  * This module has two main purposes:
  *
@@ -46,15 +51,7 @@ function findLast<T>(arr: T[], predicate: (value: T) => boolean) {
  *   > that the stat remains the same for the duration, and that the appropriate stat is removed
  *   > when the buff expires.
  */
-class InvigoratingSporeCloud extends Analyzer {
-  static dependencies = {
-    statTracker: StatTracker,
-    combatants: Combatants,
-  };
-
-  statTracker!: StatTracker;
-  combatants!: Combatants;
-
+class InvigoratingSporeCloud extends Analyzer.withDependencies(deps) {
   private buffs: {
     refreshes: number;
     source: Combatant | null;
@@ -64,7 +61,7 @@ class InvigoratingSporeCloud extends Analyzer {
     end?: number;
   }[] = [];
 
-  constructor({ statTracker, ...options }: Options & { statTracker: StatTracker }) {
+  constructor(options: Options) {
     super(options);
 
     this.addEventListener(
@@ -84,7 +81,7 @@ class InvigoratingSporeCloud extends Analyzer {
   private onApplyBuff(event: ApplyBuffEvent) {
     const stat = this.currentHighestSecondaryStat();
 
-    const source = this.combatants.getSourceEntity(event);
+    const source = this.deps.combatants.getSourceEntity(event);
 
     const rank = getSporeTenderRank(source);
 
@@ -117,7 +114,7 @@ class InvigoratingSporeCloud extends Analyzer {
   }
 
   private updateStats(stat: STAT, amount: number, event: ApplyBuffEvent | RemoveBuffEvent) {
-    this.statTracker.forceChangeStats(
+    this.deps.statTracker.forceChangeStats(
       {
         [stat]: amount,
       },
@@ -129,19 +126,19 @@ class InvigoratingSporeCloud extends Analyzer {
     return [
       {
         stat: STAT.CRITICAL_STRIKE,
-        value: this.statTracker.currentCritRating,
+        value: this.deps.statTracker.currentCritRating,
       },
       {
         stat: STAT.HASTE,
-        value: this.statTracker.currentHasteRating,
+        value: this.deps.statTracker.currentHasteRating,
       },
       {
         stat: STAT.MASTERY,
-        value: this.statTracker.currentMasteryRating,
+        value: this.deps.statTracker.currentMasteryRating,
       },
       {
         stat: STAT.VERSATILITY,
-        value: this.statTracker.currentVersatilityRating,
+        value: this.deps.statTracker.currentVersatilityRating,
       },
     ].reduce((acc, stat) => {
       if (stat.value > acc.value) {
