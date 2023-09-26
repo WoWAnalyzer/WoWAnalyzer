@@ -2,6 +2,7 @@ import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
 import classColor from 'game/classColor';
 import { SpellLink } from 'interface';
+import QualityIcon from 'interface/QualityIcon';
 import { UptimeIcon } from 'interface/icons';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
@@ -14,7 +15,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import { Fragment } from 'react';
-import { getSporeTenderBuffValue } from './SporeTender';
+import { SporeTenderEnchantRank, getSporeTenderRank } from './SporeTender';
 
 function findLast<T>(arr: T[], predicate: (value: T) => boolean) {
   for (let i = arr.length - 1; i >= 0; i -= 1) {
@@ -58,7 +59,7 @@ class InvigoratingSporeCloud extends Analyzer {
     refreshes: number;
     source: Combatant | null;
     stat: STAT;
-    amount: number;
+    rank: SporeTenderEnchantRank;
     start?: number;
     end?: number;
   }[] = [];
@@ -85,17 +86,17 @@ class InvigoratingSporeCloud extends Analyzer {
 
     const source = this.combatants.getSourceEntity(event);
 
-    const value = getSporeTenderBuffValue(source);
+    const rank = getSporeTenderRank(source);
 
     this.buffs.push({
       refreshes: 0,
       source,
       stat,
-      amount: value,
+      rank,
       start: event.timestamp,
     });
 
-    this.updateStats(stat, value, event);
+    this.updateStats(stat, rank.value, event);
   }
 
   private onRefreshBuff(event: RefreshBuffEvent) {
@@ -111,7 +112,7 @@ class InvigoratingSporeCloud extends Analyzer {
     if (buff) {
       buff.end = event.timestamp;
 
-      this.updateStats(buff.stat, -buff.amount, event);
+      this.updateStats(buff.stat, -buff.rank.value, event);
     }
   }
 
@@ -172,7 +173,10 @@ class InvigoratingSporeCloud extends Analyzer {
               {buff.source?.name ?? 'Uknown'}
             </span>
           </td>
-          <td>{buff.amount}</td>
+          <td>
+            <QualityIcon quality={buff.rank.rank} />
+          </td>
+          <td>{buff.rank.value}</td>
           <td>{getNameTranslated(buff.stat)}</td>
           <td>
             {this.owner.formatTimestamp(buff.start ?? this.owner.fight.start_time)} -{' '}
@@ -187,6 +191,7 @@ class InvigoratingSporeCloud extends Analyzer {
         <thead>
           <tr>
             <th style={{ textAlign: 'left' }}>Source</th>
+            <th></th>
             <th>Amount</th>
             <th>Stat</th>
             <th>Duration</th>
@@ -209,11 +214,11 @@ class InvigoratingSporeCloud extends Analyzer {
 
   private statisticContent() {
     const summarised = this.buffs.reduce((acc, buff) => {
-      let entry = acc.find((e) => e.stat === buff.stat && e.amount === buff.amount);
+      let entry = acc.find((e) => e.stat === buff.stat && e.amount === buff.rank.value);
       if (!entry) {
         entry = {
           stat: buff.stat,
-          amount: buff.amount,
+          amount: buff.rank.value,
           duration: 0,
         };
         acc.push(entry);

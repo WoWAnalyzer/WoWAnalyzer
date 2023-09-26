@@ -17,7 +17,7 @@ import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
 // Spore Tender R3
 // https://www.warcraftlogs.com/reports/CkDv213xNw8Lj4Xa#fight=11&type=summary&source=234
 
-interface SporeTenderEnchantRank extends EnchantRank {
+export interface SporeTenderEnchantRank extends EnchantRank {
   value: number;
 }
 
@@ -27,11 +27,11 @@ const RANKS: SporeTenderEnchantRank[] = [
   { rank: 3, enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R3, value: 414 },
 ];
 
-export function getSporeTenderBuffValue(caster: Combatant | null): number {
+export function getSporeTenderRank(caster: Combatant | null): SporeTenderEnchantRank {
   return (
-    (caster && RANKS.find(({ enchant }) => caster.hasWeaponEnchant(enchant))?.value) ||
+    (caster && RANKS.find(({ enchant }) => caster.hasWeaponEnchant(enchant))) ||
     // If we can't find the enchant, assume the highest rank
-    RANKS[RANKS.length - 1].value
+    RANKS[RANKS.length - 1]
   );
 }
 
@@ -42,7 +42,6 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
   };
   combatants!: Combatants;
 
-  private value = 0;
   private targetStatistics: {
     [targetId: number]: {
       count: number;
@@ -61,8 +60,6 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
     if (!this.active) {
       return;
     }
-
-    this.value = getSporeTenderBuffValue(this.selectedCombatant);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPORE_TENDER_BUFF),
@@ -119,6 +116,7 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
   }
 
   statisticParts() {
+    const totalValue = (this.mainHand?.value ?? 0) + (this.offHand?.value ?? 0);
     const entries = Object.entries(this.targetStatistics);
     const rows = entries
       .map(([targetId, { count, periods }]) => {
@@ -175,7 +173,7 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
       dropdown: dropdown,
       tooltip: (
         <>
-          {this.procCount(totalProcs)}, giving {entries.length} different players {this.value} of
+          {this.procCount(totalProcs)}, giving {entries.length} different players {totalValue} of
           their highest secondary stat.
         </>
       ),
@@ -183,7 +181,7 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
         <>
           {totalProcs}{' '}
           <small>
-            buffs of <strong>{this.value}</strong> secondary stats
+            buffs of <strong>{totalValue}</strong> secondary stats
           </small>
         </>
       ),
