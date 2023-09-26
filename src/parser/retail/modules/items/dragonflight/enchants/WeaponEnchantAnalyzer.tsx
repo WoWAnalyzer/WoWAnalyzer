@@ -37,8 +37,10 @@ abstract class WeaponEnchantAnalyzer<R extends EnchantRank = EnchantRank> extend
     this.active = this.mainHand != null || this.offHand != null;
   }
 
-  private getRank(weapon: Item): R | null {
-    return this.ranks.find((effect) => effect.enchant.effectId === weapon.permanentEnchant) || null;
+  private getRank(weapon: Item | undefined): R | null {
+    return (
+      this.ranks.find((effect) => effect.enchant.effectId === weapon?.permanentEnchant) || null
+    );
   }
 
   /**
