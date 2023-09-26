@@ -1,6 +1,4 @@
-import Spell from '../Spell';
-
-const enchants: Record<string, Spell> = {
+const enchants = {
   BURNING_DEVOTION_BUFF: {
     id: 390339,
     name: 'Burning Devotion',
@@ -48,6 +46,11 @@ const enchants: Record<string, Spell> = {
   },
   FROZEN_DEVOTION_DAMAGE: {
     id: 390350,
+    name: 'Frozen Devotion',
+    icon: 'inv_10_elementalcombinedfoozles_frost',
+  },
+  FROZEN_DEVOTION_ENCHANT: {
+    id: 396826,
     name: 'Frozen Devotion',
     icon: 'inv_10_elementalcombinedfoozles_frost',
   },

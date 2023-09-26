@@ -28,7 +28,7 @@ class FrozenDevotion extends WeaponEnchantAnalyzer {
   }[] = [];
 
   constructor(options: Options) {
-    super(SPELLS.FROZEN_DEVOTION_DAMAGE, RANKS, options);
+    super(SPELLS.FROZEN_DEVOTION_ENCHANT, RANKS, options);
 
     if (!this.active) {
       return;
@@ -81,9 +81,8 @@ class FrozenDevotion extends WeaponEnchantAnalyzer {
     const tooltip = (
       <>
         {this.procCount(numberProcs)}, and hit a total of {totalHits} targets (
-        {averageTargets.toFixed(1)} targets per proc) targets for an average of{' '}
-        {formatNumber(averageDamage)} damage, resulting in a total damage of{' '}
-        {formatNumber(totalDamage)}.
+        {averageTargets.toFixed(1)} per proc) for an average of {formatNumber(averageDamage)}{' '}
+        damage, resulting in a total damage of {formatNumber(totalDamage)}.
       </>
     );
 
