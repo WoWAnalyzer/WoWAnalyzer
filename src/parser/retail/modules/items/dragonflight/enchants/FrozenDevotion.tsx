@@ -1,14 +1,10 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { formatNumber, formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
 import { DamageIcon } from 'interface/icons';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
+import WeaponEnchantAnalyzer from './WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Frozen Devotion R1
@@ -19,12 +15,12 @@ import Statistic from 'parser/ui/Statistic';
 // https://www.warcraftlogs.com/reports/FJQ28G6LgynCK9tj#fight=3&type=summary&source=164
 
 const RANKS = [
-  ITEMS.ENCHANT_WEAPON_FROZEN_DEVOTION_R1,
-  ITEMS.ENCHANT_WEAPON_FROZEN_DEVOTION_R2,
-  ITEMS.ENCHANT_WEAPON_FROZEN_DEVOTION_R3,
+  { rank: 1, enchant: ITEMS.ENCHANT_WEAPON_FROZEN_DEVOTION_R1 },
+  { rank: 2, enchant: ITEMS.ENCHANT_WEAPON_FROZEN_DEVOTION_R2 },
+  { rank: 3, enchant: ITEMS.ENCHANT_WEAPON_FROZEN_DEVOTION_R3 },
 ];
 
-class FrozenDevotion extends Analyzer {
+class FrozenDevotion extends WeaponEnchantAnalyzer {
   private procs: {
     timestamp: number;
     hits: number;
@@ -32,9 +28,7 @@ class FrozenDevotion extends Analyzer {
   }[] = [];
 
   constructor(options: Options) {
-    super(options);
-
-    this.active = RANKS.some((enchant) => this.selectedCombatant.hasWeaponEnchant(enchant));
+    super(SPELLS.FROZEN_DEVOTION_DAMAGE, RANKS, options);
 
     if (!this.active) {
       return;
@@ -68,9 +62,8 @@ class FrozenDevotion extends Analyzer {
     currentProc.damage += event.amount + (event.absorbed || 0);
   }
 
-  statistic() {
+  statisticParts() {
     const numberProcs = this.procs.length;
-    const procsPerMinute = this.owner.getPerMinute(numberProcs);
 
     let totalDamage = 0;
     let totalHits = 0;
@@ -85,26 +78,22 @@ class FrozenDevotion extends Analyzer {
     const dps = this.owner.getPerSecond(totalDamage);
     const percentage = this.owner.getPercentageOfTotalDamageDone(totalDamage);
 
-    return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-        position={STATISTIC_ORDER.UNIMPORTANT(1)}
-        tooltip={
-          <>
-            <SpellLink spell={SPELLS.FROZEN_DEVOTION_DAMAGE} /> triggered {numberProcs} times (
-            {procsPerMinute.toFixed(1)} PPM) and hit a total of {totalHits} targets (
-            {averageTargets.toFixed(1)} targets per proc) targets for an average of{' '}
-            {formatNumber(averageDamage)} damage, resulting in a total damage of{' '}
-            {formatNumber(totalDamage)}.
-          </>
-        }
-      >
-        <BoringSpellValueText spell={SPELLS.FROZEN_DEVOTION_DAMAGE}>
-          <DamageIcon /> {formatNumber(dps)} DPS <small>{formatPercentage(percentage)}%</small>
-        </BoringSpellValueText>
-      </Statistic>
+    const tooltip = (
+      <>
+        {this.procCount(numberProcs)}, and hit a total of {totalHits} targets (
+        {averageTargets.toFixed(1)} targets per proc) targets for an average of{' '}
+        {formatNumber(averageDamage)} damage, resulting in a total damage of{' '}
+        {formatNumber(totalDamage)}.
+      </>
     );
+
+    const content = (
+      <>
+        <DamageIcon /> {formatNumber(dps)} DPS <small>{formatPercentage(percentage)}%</small>
+      </>
+    );
+
+    return { tooltip, content };
   }
 }
 

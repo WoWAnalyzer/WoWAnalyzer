@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatProccEnchant from './StatProcEnchant';
+import StatProccEnchantAnalyzer from './StatProcEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Earthen Devotion R1
@@ -14,20 +14,23 @@ import StatProccEnchant from './StatProcEnchant';
 
 const RANKS = [
   {
+    rank: 1,
     enchant: ITEMS.ENCHANT_WEAPON_EARTHEN_DEVOTION_R1,
     amount: 1904.82,
   },
   {
+    rank: 2,
     enchant: ITEMS.ENCHANT_WEAPON_EARTHEN_DEVOTION_R2,
     amount: 2084.19,
   },
   {
+    rank: 3,
     enchant: ITEMS.ENCHANT_WEAPON_EARTHEN_DEVOTION_R3,
     amount: 2266.08,
   },
 ];
 
-class EarthenDevotion extends StatProccEnchant {
+class EarthenDevotion extends StatProccEnchantAnalyzer {
   constructor(options: Options) {
     super(
       STAT.ARMOR,

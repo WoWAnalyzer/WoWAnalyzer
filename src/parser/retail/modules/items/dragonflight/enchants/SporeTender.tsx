@@ -2,17 +2,12 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { formatDuration } from 'common/format';
 import { RetailSpec } from 'game/SPECS';
-import { SpellLink } from 'interface';
 import RoleIcon from 'interface/RoleIcon';
-import Analyzer from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import { Options, SELECTED_PLAYER } from 'parser/core/EventSubscriber';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
+import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Spore Tender R1
@@ -22,10 +17,14 @@ import Statistic from 'parser/ui/Statistic';
 // Spore Tender R3
 // https://www.warcraftlogs.com/reports/CkDv213xNw8Lj4Xa#fight=11&type=summary&source=234
 
-const RANKS = [
-  { enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R1, value: 348 },
-  { enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R2, value: 381 },
-  { enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R3, value: 414 },
+interface SporeTenderEnchantRank extends EnchantRank {
+  value: number;
+}
+
+const RANKS: SporeTenderEnchantRank[] = [
+  { rank: 1, enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R1, value: 348 },
+  { rank: 2, enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R2, value: 381 },
+  { rank: 3, enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R3, value: 414 },
 ];
 
 export function getSporeTenderBuffValue(caster: Combatant | null): number {
@@ -36,8 +35,9 @@ export function getSporeTenderBuffValue(caster: Combatant | null): number {
   );
 }
 
-class SporeTender extends Analyzer {
+class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
   static dependencies = {
+    ...WeaponEnchantAnalyzer.dependencies,
     combatants: Combatants,
   };
   combatants!: Combatants;
@@ -54,7 +54,7 @@ class SporeTender extends Analyzer {
   } = {};
 
   constructor(options: Options) {
-    super(options);
+    super(SPELLS.SPORE_TENDER_ENCHANT, RANKS, options);
 
     this.active = RANKS.some(({ enchant }) => this.selectedCombatant.hasWeaponEnchant(enchant));
 
@@ -118,7 +118,7 @@ class SporeTender extends Analyzer {
     }
   }
 
-  statistic() {
+  statisticParts() {
     const rows = Object.entries(this.targetStatistics)
       .map(([targetId, { count, periods }]) => {
         const target = this.combatants.getEntities()[Number(targetId)];
@@ -178,27 +178,18 @@ class SporeTender extends Analyzer {
       0,
     );
 
-    return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-        position={STATISTIC_ORDER.UNIMPORTANT(1)}
-        dropdown={dropdown}
-        tooltip={
-          <>
-            <SpellLink spell={SPELLS.SPORE_TENDER_ENCHANT} /> triggered {totalProcs} times (
-            {this.owner.getPerMinute(totalProcs).toFixed(1)} procs per minute)
-          </>
-        }
-      >
-        <BoringSpellValueText spell={SPELLS.SPORE_TENDER_ENCHANT}>
+    return {
+      dropdown: dropdown,
+      tooltip: this.procCount(totalProcs),
+      content: (
+        <>
           {totalProcs}{' '}
           <small>
             buffs of <strong>{this.value}</strong> secondary stats
           </small>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+        </>
+      ),
+    };
   }
 }
 

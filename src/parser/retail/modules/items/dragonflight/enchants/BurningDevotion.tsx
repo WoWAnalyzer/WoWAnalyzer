@@ -1,14 +1,10 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { formatNumber, formatPercentage } from 'common/format';
-import { SpellLink } from 'interface';
 import { PlusIcon } from 'interface/icons';
-import Analyzer, { SELECTED_PLAYER, type Options } from 'parser/core/Analyzer';
+import { SELECTED_PLAYER, type Options } from 'parser/core/Analyzer';
 import Events, { type HealEvent } from 'parser/core/Events';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import Statistic from 'parser/ui/Statistic';
+import WeaponEnchantAnalyzer from './WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Burning Devotion R1
@@ -19,19 +15,17 @@ import Statistic from 'parser/ui/Statistic';
 // https://www.warcraftlogs.com/reports/YjCz1Gw2JqmWc3Ng#fight=4&type=summary&source=3
 
 const RANKS = [
-  ITEMS.ENCHANT_WEAPON_BURNING_DEVOTION_R1,
-  ITEMS.ENCHANT_WEAPON_BURNING_DEVOTION_R2,
-  ITEMS.ENCHANT_WEAPON_BURNING_DEVOTION_R3,
+  { rank: 1, enchant: ITEMS.ENCHANT_WEAPON_BURNING_DEVOTION_R1 },
+  { rank: 2, enchant: ITEMS.ENCHANT_WEAPON_BURNING_DEVOTION_R2 },
+  { rank: 3, enchant: ITEMS.ENCHANT_WEAPON_BURNING_DEVOTION_R3 },
 ];
 
-class BurningDevotion extends Analyzer {
+class BurningDevotion extends WeaponEnchantAnalyzer {
   private healCount = 0;
   private totalHeal = 0;
 
   constructor(options: Options) {
-    super(options);
-
-    this.active = RANKS.some((enchant) => this.selectedCombatant.hasWeaponEnchant(enchant));
+    super(SPELLS.BURNING_DEVOTION_ENCHANT, RANKS, options);
 
     if (!this.active) {
       return;
@@ -48,29 +42,23 @@ class BurningDevotion extends Analyzer {
     this.totalHeal += event.amount + (event.absorbed || 0);
   }
 
-  statistic() {
-    return (
-      <Statistic
-        size="flexible"
-        category={STATISTIC_CATEGORY.ITEMS}
-        position={STATISTIC_ORDER.UNIMPORTANT(1)}
-        tooltip={
-          <>
-            <SpellLink spell={SPELLS.BURNING_DEVOTION_ENCHANT} /> triggered{' '}
-            <strong>{this.healCount}</strong> times (
-            {this.owner.getPerMinute(this.healCount).toFixed(1)} procs per minute), healing for a
-            total of <strong>{formatNumber(this.totalHeal)}</strong>.
-          </>
-        }
-      >
-        <BoringSpellValueText spell={SPELLS.BURNING_DEVOTION_ENCHANT}>
+  protected statisticParts() {
+    return {
+      tooltip: (
+        <>
+          {this.procCount(this.healCount)}, healing for a total of{' '}
+          <strong>{formatNumber(this.totalHeal)}</strong>.
+        </>
+      ),
+      content: (
+        <>
           <PlusIcon /> {formatNumber(this.owner.getPerSecond(this.totalHeal))} HPS{' '}
           <small>
             {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.totalHeal))}%
           </small>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+        </>
+      ),
+    };
   }
 }
 

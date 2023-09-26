@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
-import StatProccEnchant from './StatProcEnchant';
+import StatProccEnchantAnalyzer from './StatProcEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Sophic Devotion R1
@@ -15,20 +15,23 @@ import StatProccEnchant from './StatProcEnchant';
 
 const RANKS = [
   {
+    rank: 1,
     enchant: ITEMS.ENCHANT_WEAPON_SOPHIC_DEVOTION_R1,
     amount: 783.15,
   },
   {
+    rank: 2,
     enchant: ITEMS.ENCHANT_WEAPON_SOPHIC_DEVOTION_R2,
     amount: 857.25,
   },
   {
+    rank: 3,
     enchant: ITEMS.ENCHANT_WEAPON_SOPHIC_DEVOTION_R3,
     amount: 932.2,
   },
 ];
 
-class SophicDevotion extends StatProccEnchant {
+class SophicDevotion extends StatProccEnchantAnalyzer {
   constructor(options: Options) {
     super(
       options.owner.selectedCombatant.primaryStat,
