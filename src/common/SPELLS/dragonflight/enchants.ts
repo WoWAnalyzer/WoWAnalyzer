@@ -64,11 +64,6 @@ const enchants = {
     name: 'Frozen Writ',
     icon: 'inv_10_elementalshardfoozles_frost',
   },
-  INVIGORATING_SPORE_CLOUD: {
-    id: 406785,
-    name: 'Invigorating Spore Cloud',
-    icon: 'inv_10_gathering_bioluminescentspores_small',
-  },
   SHADOWFLAME_WREATHE_DOT: {
     id: 406764,
     name: 'Shadowflame Wreathe',
@@ -98,6 +93,11 @@ const enchants = {
     id: 396791,
     name: 'Sophic Writ',
     icon: 'inv_10_elementalshardfoozles_titan',
+  },
+  SPORE_TENDER_BUFF: {
+    id: 406785,
+    name: 'Invigorating Spore Cloud',
+    icon: 'inv_10_gathering_bioluminescentspores_small',
   },
   SPORE_TENDER_ENCHANT: {
     id: 405734,

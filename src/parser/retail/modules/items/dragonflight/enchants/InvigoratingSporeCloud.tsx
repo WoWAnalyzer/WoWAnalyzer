@@ -67,15 +67,15 @@ class InvigoratingSporeCloud extends Analyzer {
     super(options);
 
     this.addEventListener(
-      Events.applybuff.spell(SPELLS.INVIGORATING_SPORE_CLOUD).to(SELECTED_PLAYER),
+      Events.applybuff.spell(SPELLS.SPORE_TENDER_BUFF).to(SELECTED_PLAYER),
       this.onApplyBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.spell(SPELLS.INVIGORATING_SPORE_CLOUD).to(SELECTED_PLAYER),
+      Events.refreshbuff.spell(SPELLS.SPORE_TENDER_BUFF).to(SELECTED_PLAYER),
       this.onRefreshBuff,
     );
     this.addEventListener(
-      Events.removebuff.spell(SPELLS.INVIGORATING_SPORE_CLOUD).to(SELECTED_PLAYER),
+      Events.removebuff.spell(SPELLS.SPORE_TENDER_BUFF).to(SELECTED_PLAYER),
       this.onRemoveBuff,
     );
   }
@@ -233,7 +233,7 @@ class InvigoratingSporeCloud extends Analyzer {
     }, new Array<{ stat: STAT; amount: number; duration: number }>());
 
     return (
-      <BoringSpellValueText spell={SPELLS.INVIGORATING_SPORE_CLOUD}>
+      <BoringSpellValueText spell={SPELLS.SPORE_TENDER_BUFF}>
         {summarised.map(({ stat, amount, duration }, index) => {
           const StatIcon = getIcon(stat);
           return (

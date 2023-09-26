@@ -65,15 +65,15 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
     this.value = getSporeTenderBuffValue(this.selectedCombatant);
 
     this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_SPORE_CLOUD),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SPORE_TENDER_BUFF),
       this.onApply,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_SPORE_CLOUD),
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SPORE_TENDER_BUFF),
       this.onRefresh,
     );
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_SPORE_CLOUD),
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SPORE_TENDER_BUFF),
       this.onRemove,
     );
   }
