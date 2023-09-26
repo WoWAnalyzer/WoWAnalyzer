@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { formatDuration } from 'common/format';
-import { RetailSpec } from 'game/SPECS';
+import classColor from 'game/classColor';
 import RoleIcon from 'interface/RoleIcon';
 import Combatant from 'parser/core/Combatant';
 import { Options, SELECTED_PLAYER } from 'parser/core/EventSubscriber';
@@ -124,15 +124,7 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
       .map(([targetId, { count, periods }]) => {
         const target = this.combatants.getEntities()[Number(targetId)];
         const role = target.spec?.role ?? null;
-        const classSlug = (() => {
-          const spec = target.spec as RetailSpec | undefined;
-
-          if (spec == null) {
-            return '';
-          }
-
-          return spec.wclClassName.replace(' ', '');
-        })();
+        const className = classColor(target);
         const name = target?.name ?? 'Unknown';
         const uptime = periods.reduce((total, { start, end }) => {
           if (start == null || end == null) {
@@ -145,16 +137,16 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
           targetId,
           name,
           role,
-          classSlug,
+          className,
           count,
           uptime,
         };
       })
       .sort((a, b) => b.uptime - a.uptime)
-      .map(({ targetId, classSlug, role, name, count, uptime }) => (
+      .map(({ targetId, className, role, name, count, uptime }) => (
         <tr key={targetId}>
           <td className="text-left">
-            <RoleIcon roleId={role} /> <span className={classSlug}>{name}</span>
+            <RoleIcon roleId={role} /> <span className={className}>{name}</span>
           </td>
           <td>{count}</td>
           <td>{formatDuration(uptime)}</td>

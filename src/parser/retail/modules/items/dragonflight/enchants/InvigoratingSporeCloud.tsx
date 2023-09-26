@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
-import { RetailSpec } from 'game/SPECS';
+import classColor from 'game/classColor';
 import { SpellLink } from 'interface';
 import { UptimeIcon } from 'interface/icons';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -165,20 +165,12 @@ class InvigoratingSporeCloud extends Analyzer {
 
   private statisticDropdown() {
     const rows = this.buffs.map((buff) => {
-      const classSlug = (() => {
-        const spec = buff.source?.spec as RetailSpec | undefined;
-
-        if (spec == null) {
-          return '';
-        }
-
-        return spec.wclClassName.replace(' ', '');
-      })();
-
       return (
         <tr key={`${buff.source?.id}-${buff.start}-${buff.end}`}>
           <td className="text-left">
-            <span className={classSlug}>{buff.source?.name ?? 'Uknown'}</span>
+            <span className={buff.source ? classColor(buff.source) : undefined}>
+              {buff.source?.name ?? 'Uknown'}
+            </span>
           </td>
           <td>{buff.amount}</td>
           <td>{getNameTranslated(buff.stat)}</td>
