@@ -21,6 +21,14 @@ import { Fragment } from 'react';
 // Voice ilvl 447 (Two different stats)
 // https://www.warcraftlogs.com/reports/p4bgq8k6QjBV7ztT#fight=15&type=summary&source=299
 
+function getBaseAmount(itemLevel: number) {
+  return calculateSecondaryStatDefault(431, 1764, itemLevel);
+}
+
+function getStealAmount(itemLevel: number) {
+  return calculateSecondaryStatDefault(431, 118, itemLevel);
+}
+
 class VoiceOfTheSilentStar extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
@@ -43,7 +51,7 @@ class VoiceOfTheSilentStar extends Analyzer {
       return;
     }
     this.item = this.selectedCombatant.back;
-    this.amount = calculateSecondaryStatDefault(431, 2235.71, this.item.itemLevel);
+    this.amount = getBaseAmount(this.item.itemLevel) + 4 * getStealAmount(this.item.itemLevel);
 
     this.addEventListener(
       Events.applybuff.spell(SPELLS.POWER_BEYOND_IMAGINATION).to(SELECTED_PLAYER),
