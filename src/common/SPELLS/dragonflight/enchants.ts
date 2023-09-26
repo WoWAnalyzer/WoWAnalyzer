@@ -109,8 +109,13 @@ const enchants = {
     name: 'Spore Tender',
     icon: 'inv_10_gathering_bioluminescentspores_small',
   },
-  WAFTING_DEVOTION: {
+  WAFTING_DEVOTION_BUFF: {
     id: 390357,
+    name: 'Wafting Devotion',
+    icon: 'inv_10_elementalcombinedfoozles_air',
+  },
+  WAFTING_DEVOTION_ENCHANT: {
+    id: 396848,
     name: 'Wafting Devotion',
     icon: 'inv_10_elementalcombinedfoozles_air',
   },

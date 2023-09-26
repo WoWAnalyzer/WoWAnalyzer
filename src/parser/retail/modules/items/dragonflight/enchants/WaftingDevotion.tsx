@@ -49,14 +49,14 @@ class WaftingDevotion extends WeaponEnchantAnalyzer<WaftingDevotionRank> {
   protected statTracker!: StatTracker;
 
   constructor(options: Options & { statTracker: StatTracker }) {
-    super(SPELLS.WAFTING_DEVOTION, RANKS, options);
+    super(SPELLS.WAFTING_DEVOTION_ENCHANT, RANKS, options);
     this.statTracker = options.statTracker;
 
     if (!this.active) {
       return;
     }
 
-    this.statTracker.add(SPELLS.WAFTING_DEVOTION.id, this.sumValues());
+    this.statTracker.add(SPELLS.WAFTING_DEVOTION_BUFF.id, this.sumValues());
   }
 
   sumValues(): { haste: number; speed: number } {
@@ -68,8 +68,8 @@ class WaftingDevotion extends WeaponEnchantAnalyzer<WaftingDevotionRank> {
 
   statisticParts() {
     const { haste, speed } = this.sumValues();
-    const totalProcs = this.selectedCombatant.getBuffTriggerCount(SPELLS.WAFTING_DEVOTION.id);
-    const uptime = this.selectedCombatant.getBuffUptime(SPELLS.WAFTING_DEVOTION.id);
+    const totalProcs = this.selectedCombatant.getBuffTriggerCount(SPELLS.WAFTING_DEVOTION_BUFF.id);
+    const uptime = this.selectedCombatant.getBuffUptime(SPELLS.WAFTING_DEVOTION_BUFF.id);
     const uptimePercentage = uptime / this.owner.fightDuration;
     const calculatedAverageHaste = Math.round(haste * uptimePercentage);
     const calculatedAverageSpeed = Math.round(speed * uptimePercentage);
