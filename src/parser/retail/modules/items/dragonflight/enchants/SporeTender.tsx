@@ -119,7 +119,8 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
   }
 
   statisticParts() {
-    const rows = Object.entries(this.targetStatistics)
+    const entries = Object.entries(this.targetStatistics);
+    const rows = entries
       .map(([targetId, { count, periods }]) => {
         const target = this.combatants.getEntities()[Number(targetId)];
         const role = target.spec?.role ?? null;
@@ -180,7 +181,12 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
 
     return {
       dropdown: dropdown,
-      tooltip: this.procCount(totalProcs),
+      tooltip: (
+        <>
+          {this.procCount(totalProcs)}, giving {entries.length} different players {this.value} of
+          their highest secondary stat.
+        </>
+      ),
       content: (
         <>
           {totalProcs}{' '}
