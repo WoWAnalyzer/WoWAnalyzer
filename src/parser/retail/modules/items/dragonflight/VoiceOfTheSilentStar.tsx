@@ -180,15 +180,12 @@ class VoiceOfTheSilentStar extends Analyzer {
         }
       >
         <BoringItemValueText item={this.item}>
-          {uptimeEntries.map(({ stat, uptime, uptimePercentage, averageBenefit }, index) => {
+          {uptimeEntries.map(({ stat, averageBenefit }) => {
             const StatIcon = getIcon(stat);
             return (
-              <Fragment key={stat}>
-                {index !== 0 && <hr />}
-                <div>
-                  <StatIcon /> {averageBenefit} <small>{getName(stat)} over time</small>
-                </div>
-              </Fragment>
+              <div key={stat}>
+                <StatIcon /> {averageBenefit} <small>{getName(stat)} over time</small>
+              </div>
             );
           })}
         </BoringItemValueText>
