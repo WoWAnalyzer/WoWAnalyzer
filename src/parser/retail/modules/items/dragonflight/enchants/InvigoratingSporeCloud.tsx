@@ -4,7 +4,7 @@ import classColor from 'game/classColor';
 import { SpellLink } from 'interface';
 import QualityIcon from 'interface/QualityIcon';
 import { UptimeIcon } from 'interface/icons';
-import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Analyzer, { Options, SELECTED_PLAYER, withDependencies } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -51,7 +51,7 @@ const deps = {
  *   > that the stat remains the same for the duration, and that the appropriate stat is removed
  *   > when the buff expires.
  */
-class InvigoratingSporeCloud extends Analyzer.withDependencies(deps) {
+class InvigoratingSporeCloud extends withDependencies(Analyzer, deps) {
   private buffs: {
     refreshes: number;
     source: Combatant | null;

@@ -2,7 +2,7 @@ import ENCHANTS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { formatDuration, formatPercentage } from 'common/format';
 import { HasteIcon, SpeedIcon } from 'interface/icons';
-import { Options } from 'parser/core/Analyzer';
+import { Options, withDependencies } from 'parser/core/Analyzer';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
 
@@ -41,22 +41,17 @@ const RANKS: WaftingDevotionRank[] = [
   },
 ];
 
-class WaftingDevotion extends WeaponEnchantAnalyzer<WaftingDevotionRank> {
-  static dependencies = {
-    ...WeaponEnchantAnalyzer.dependencies,
-    statTracker: StatTracker,
-  };
-  protected statTracker!: StatTracker;
-
-  constructor(options: Options & { statTracker: StatTracker }) {
+class WaftingDevotion extends withDependencies(WeaponEnchantAnalyzer<WaftingDevotionRank>, {
+  statTracker: StatTracker,
+}) {
+  constructor(options: Options) {
     super(SPELLS.WAFTING_DEVOTION_ENCHANT, RANKS, options);
-    this.statTracker = options.statTracker;
 
     if (!this.active) {
       return;
     }
 
-    this.statTracker.add(SPELLS.WAFTING_DEVOTION_BUFF.id, this.sumValues());
+    this.deps.statTracker.add(SPELLS.WAFTING_DEVOTION_BUFF.id, this.sumValues());
   }
 
   sumValues(): { haste: number; speed: number } {

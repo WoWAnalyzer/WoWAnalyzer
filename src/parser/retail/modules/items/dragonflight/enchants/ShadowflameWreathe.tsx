@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { formatNumber, formatPercentage } from 'common/format';
 import { DamageIcon } from 'interface/icons';
-import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import { Options, SELECTED_PLAYER, withDependencies } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
 import WeaponEnchantAnalyzer from './WeaponEnchantAnalyzer';
@@ -21,14 +21,7 @@ const RANKS = [
   { rank: 3, enchant: ITEMS.ENCHANT_WEAPON_SHADOWFLAME_WREATHE_R3 },
 ];
 
-class ShadowflameWreathe extends WeaponEnchantAnalyzer {
-  static dependencies = {
-    ...WeaponEnchantAnalyzer.dependencies,
-    enemies: Enemies,
-  };
-
-  protected enemies!: Enemies;
-
+class ShadowflameWreathe extends withDependencies(WeaponEnchantAnalyzer, { enemies: Enemies }) {
   private buffApplications = 0;
   private outgoingDamage = 0;
   private incomingDamage = 0;
@@ -68,7 +61,7 @@ class ShadowflameWreathe extends WeaponEnchantAnalyzer {
 
   statisticParts() {
     const uptime =
-      this.enemies.getBuffUptime(SPELLS.SHADOWFLAME_WREATHE_DOT.id) / this.owner.fightDuration;
+      this.deps.enemies.getBuffUptime(SPELLS.SHADOWFLAME_WREATHE_DOT.id) / this.owner.fightDuration;
     const dps = this.owner.getPerSecond(this.outgoingDamage);
     const percentage = this.owner.getPercentageOfTotalDamageDone(this.outgoingDamage);
 

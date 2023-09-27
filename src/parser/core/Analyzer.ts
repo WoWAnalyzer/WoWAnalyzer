@@ -52,21 +52,33 @@ class Analyzer extends EventSubscriber {
   tab(): ParseResultsTab | void {}
 
   static withDependencies<T extends Dependencies>(deps: T) {
-    return class extends Analyzer {
-      static dependencies = deps;
-
-      protected readonly deps: InjectedDependencies<T>;
-
-      constructor(options: Options) {
-        super(options);
-
-        this.deps = options as InjectedDependencies<T>;
-      }
-    };
+    return withDependencies(this, deps);
   }
 }
 
 export default Analyzer;
+
+type AnalyzerConstructor = { dependencies?: Dependencies } & (new (...args: any[]) => Analyzer);
+
+export function withDependencies<TBase extends AnalyzerConstructor, D extends Dependencies>(
+  Base: TBase,
+  deps?: D,
+) {
+  return class WithDependencies extends Base {
+    static dependencies = {
+      ...Base.dependencies,
+      ...deps,
+    };
+
+    protected readonly deps: InjectedDependencies<D>;
+
+    constructor(...args: any[]) {
+      super(...args);
+
+      this.deps = args[args.length - 1] as InjectedDependencies<D>;
+    }
+  };
+}
 
 type ConstructedDependency<T> = T extends new (options: Options) => infer R ? R : never;
 

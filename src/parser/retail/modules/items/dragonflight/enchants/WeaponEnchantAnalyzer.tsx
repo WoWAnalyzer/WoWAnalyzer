@@ -15,7 +15,7 @@ export interface EnchantRank {
   enchant: Enchant;
 }
 
-abstract class WeaponEnchantAnalyzer<R extends EnchantRank = EnchantRank> extends Analyzer {
+class WeaponEnchantAnalyzer<R extends EnchantRank = EnchantRank> extends Analyzer {
   /**
    * Used for tooltips and links. Should be the spell with the "X procs per minute" tooltip.
    */

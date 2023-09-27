@@ -5,6 +5,7 @@ import { Options } from 'parser/core/EventSubscriber';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { getIcon, getName } from 'parser/shared/modules/features/STAT';
 import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
+import { withDependencies } from 'parser/core/Analyzer';
 
 /**
  * Export to reuse between the various secondary stat procc enchants.
@@ -23,13 +24,10 @@ export interface StatProcEnchantRank extends EnchantRank {
  * Abstraction to reuse the same code for tracking stats from proccing enchants such as
  * writs and Sophic Devotion.
  */
-abstract class StatProccEnchantAnalyzer extends WeaponEnchantAnalyzer<StatProcEnchantRank> {
-  static dependencies = {
-    ...WeaponEnchantAnalyzer.dependencies,
-    statTracker: StatTracker,
-  };
-  statTracker!: StatTracker;
-
+abstract class StatProccEnchantAnalyzer extends withDependencies(
+  WeaponEnchantAnalyzer<StatProcEnchantRank>,
+  { statTracker: StatTracker },
+) {
   /** The stat that the enchant provides on procc */
   protected stat: STAT;
   protected buff: Spell;
@@ -42,7 +40,7 @@ abstract class StatProccEnchantAnalyzer extends WeaponEnchantAnalyzer<StatProcEn
     options: Options,
   ) {
     super(enchantSpell, ranks, options);
-    this.statTracker = (options as Options & { statTracker: StatTracker }).statTracker;
+    this.deps.statTracker = (options as Options & { statTracker: StatTracker }).statTracker;
     this.stat = stat;
     this.buff = buff;
 
@@ -50,7 +48,7 @@ abstract class StatProccEnchantAnalyzer extends WeaponEnchantAnalyzer<StatProcEn
       return;
     }
 
-    this.statTracker.add(this.buff.id, {
+    this.deps.statTracker.add(this.buff.id, {
       [this.stat]: this.sumValue(),
     });
   }

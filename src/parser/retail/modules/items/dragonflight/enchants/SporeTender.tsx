@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { formatDuration } from 'common/format';
 import classColor from 'game/classColor';
 import RoleIcon from 'interface/RoleIcon';
+import { withDependencies } from 'parser/core/Analyzer';
 import Combatant from 'parser/core/Combatant';
 import { Options, SELECTED_PLAYER } from 'parser/core/EventSubscriber';
 import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
@@ -35,13 +36,9 @@ export function getSporeTenderRank(caster: Combatant | null): SporeTenderEnchant
   );
 }
 
-class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
-  static dependencies = {
-    ...WeaponEnchantAnalyzer.dependencies,
-    combatants: Combatants,
-  };
-  combatants!: Combatants;
-
+class SporeTender extends withDependencies(WeaponEnchantAnalyzer<SporeTenderEnchantRank>, {
+  combatants: Combatants,
+}) {
   private targetStatistics: {
     [targetId: number]: {
       count: number;
@@ -120,7 +117,7 @@ class SporeTender extends WeaponEnchantAnalyzer<SporeTenderEnchantRank> {
     const entries = Object.entries(this.targetStatistics);
     const rows = entries
       .map(([targetId, { count, periods }]) => {
-        const target = this.combatants.getEntities()[Number(targetId)];
+        const target = this.deps.combatants.getEntities()[Number(targetId)];
         const role = target.spec?.role ?? null;
         const className = classColor(target);
         const name = target?.name ?? 'Unknown';
