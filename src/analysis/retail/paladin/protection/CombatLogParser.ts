@@ -39,6 +39,7 @@ import BuilderUse from './modules/core/BuilderUse';
 import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
 import ArdentDefender from './modules/core/Defensives/ArdentDefender';
 import EyeOfTyr from './modules/core/Defensives/EyeOfTyr';
+import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefensives';
 import Guide from './Guide';
 import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 
@@ -79,6 +80,7 @@ class CombatLogParser extends CoreCombatLogParser {
     guardianOfAncientKings: GuardianOfAncientKings,
     ardentDefender: ArdentDefender,
     eyeOfTyr: EyeOfTyr,
+    consecrationDefensives: ConsecrationDefensives,
 
     // Talents
     righteousProtector: RighteousProtector,
