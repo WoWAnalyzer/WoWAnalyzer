@@ -35,9 +35,9 @@ export default class EyeOfTyr extends MajorDefensiveDebuff {
   description(): ReactNode {
     return (
       <p>
-        <Trans id="guide.demonhunter.vengeance.sections.defensives.fieryBrand.explanation.summary">
+        <Trans id="guide.paladin.protecion.sections.defensives.eyeOfTyr.explanation.summary">
           <SpellLink spell={TALENTS.EYE_OF_TYR_TALENT} /> reduces the damage dealt to you by targets
-          with its debuff by <strong>20%</strong>.
+          with its debuff by <strong>25%</strong>.
         </Trans>
       </p>
     );

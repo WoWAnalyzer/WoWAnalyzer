@@ -6,13 +6,16 @@ import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/Guide
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
-import CooldownGraphSubsection from 'analysis/retail/paladin/protection/guide/CooldownGraphSubsection';
+import CooldownGraphSubsection, {
+  Cooldown,
+} from 'interface/guide/components/CooldownGraphSubSection';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
 import TALENTS from 'common/TALENTS/paladin';
 import SPELLS from 'common/SPELLS/paladin';
 import SpellLink from 'interface/SpellLink';
 import MajorDefensives from './modules/core/Defensives';
+import ActiveMitgation from './modules/core/Defensives/ActiveMitigation';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -20,6 +23,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <ResourceUsageSection modules={modules} events={events} info={info} />
       <CooldownSection />
       <MitigationSection />
+      <ActiveMitigationSection />
       <PreparationSection />
     </>
   );
@@ -86,11 +90,56 @@ function MitigationSection() {
   }
 
   return (
-    <Section title="Defensive Cooldowns and Mitigation">
+    <Section title="Defensive Cooldowns">
       <MajorDefensives />
     </Section>
   );
 }
+
+function ActiveMitigationSection() {
+  const info = useInfo();
+  if (!info) {
+    return null;
+  }
+
+  return (
+    <Section title="Active Mitigation">
+      <ActiveMitgation />
+    </Section>
+  );
+}
+
+const cooldowns: Cooldown[] = [
+  {
+    spell: TALENTS.AVENGING_WRATH_MIGHT_TALENT,
+    isActive: (c) =>
+      c.hasTalent(TALENTS.AVENGING_WRATH_TALENT) && !c.hasTalent(TALENTS.SENTINEL_TALENT),
+  },
+  {
+    spell: TALENTS.SENTINEL_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.SENTINEL_TALENT),
+  },
+  {
+    spell: TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT),
+  },
+  {
+    spell: TALENTS.ARDENT_DEFENDER_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.ARDENT_DEFENDER_TALENT),
+  },
+  {
+    spell: SPELLS.DIVINE_SHIELD,
+    isActive: (c) => c.hasTalent(TALENTS.FINAL_STAND_TALENT),
+  },
+  {
+    spell: TALENTS.MOMENT_OF_GLORY_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.MOMENT_OF_GLORY_TALENT),
+  },
+  {
+    spell: TALENTS.EYE_OF_TYR_TALENT,
+    isActive: (c) => c.hasTalent(TALENTS.EYE_OF_TYR_TALENT),
+  },
+];
 
 function CooldownSection() {
   return (
@@ -111,7 +160,7 @@ function CooldownSection() {
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />
-      <CooldownGraphSubsection />
+      <CooldownGraphSubsection cooldowns={cooldowns} />
     </Section>
   );
 }
