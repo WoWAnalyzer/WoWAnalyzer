@@ -1,17 +1,14 @@
 import { GoodColor, SubSection, useAnalyzers } from 'interface/guide';
 import Explanation from 'interface/guide/components/Explanation';
 import { TooltipElement } from 'interface';
-import SpellLink from 'interface/SpellLink';
-import TALENTS from 'common/TALENTS/demonhunter';
-import SPELLS from 'common/SPELLS/demonhunter';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
 import { Highlight } from 'interface/Highlight';
 import Timeline from 'interface/guide/components/MajorDefensives/Timeline';
 import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/AllCooldownUsagesList';
-import { MAJOR_ANALYZERS, TIMELINE_ANALYZERS } from './config';
+import { MAJOR_ANALYZERS } from './config';
 
 const MajorDefensives = () => {
-  const timelineAnalyzers = useAnalyzers(TIMELINE_ANALYZERS);
+  const timelineAnalyzers = useAnalyzers(MAJOR_ANALYZERS);
   const cdAnalyzers = useAnalyzers(MAJOR_ANALYZERS);
   return (
     <>
@@ -59,18 +56,7 @@ const MajorDefensives = () => {
               </small>
             </li>
           </ol>
-          <p>
-            Vengeance Demon Hunter is unique in that two of our major defensives (
-            <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> and{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> [with{' '}
-            <SpellLink spell={TALENTS.VOID_REAVER_TALENT} />
-            ]) are applied to enemies instead of ourselves. This leads to some headaches when trying
-            to diagram how certain spells/talents (like{' '}
-            <SpellLink spell={TALENTS.BURNING_ALIVE_TALENT} />) affect your damage intake. Until we
-            get around to allowing you to toggle which enemy you're looking at in the below
-            timeline, <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> and{' '}
-            <SpellLink spell={SPELLS.FRAILTY} /> are excluded.
-          </p>
+          <p>todo: explain why defensive cooldown is good and how to use good</p>
         </Explanation>
       </SubSection>
       <SubSection title="Timeline">

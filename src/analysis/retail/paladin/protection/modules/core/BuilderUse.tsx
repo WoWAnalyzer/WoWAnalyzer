@@ -112,7 +112,7 @@ export default class BuilderUse extends Analyzer {
 
   statistic() {
     return (
-      <Statistic position={STATISTIC_ORDER.CORE(5)}>
+      <Statistic position={STATISTIC_ORDER.CORE(5)} size="flexible">
         <div className="pad">
           <label>
             <ResourceLink id={RESOURCE_TYPES.HOLY_POWER.id} /> builder usage
