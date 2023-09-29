@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 9, 28), <>Change <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> statistic formatting</>, Trevor),
   change(date(2023, 9, 20), <>Fixed another <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> crash/ </>, Vohrr),
   change(date(2023, 9, 10), <>Fixed <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> crash from encounter phasing.</>, Vohrr),
   change(date(2023, 9, 9), <>Added <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/> module.</>, Trevor),
