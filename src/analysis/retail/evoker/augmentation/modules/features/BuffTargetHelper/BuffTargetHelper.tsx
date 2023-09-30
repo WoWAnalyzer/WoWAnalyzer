@@ -304,35 +304,35 @@ class BuffTargetHelper extends Analyzer {
       );
 
       /** Determine whether or not to mark the interval as important
-       * Logic for now is if both default targets are missing
-       * we mark it as important.
-       * We could prolly do some mathies with checking dammie diffies
-       * buuuut, we'll just do it this way for now */
-      //const isImportant = !topPumpersData[i].some(([name]) => defaultTargets.includes(name));
+       * This is determined by if the difference between the current top 2
+       * pumpers and the default targets exceeds the threshold. */
+      const threshold = 1.5;
+
       let isImportant = false;
-
       let defaultDamage = 0;
-      let nonDefaultDamage = 0;
-      const threshold = 2;
+      let top2Damage = 0;
 
-      top4PumpersData[i].forEach(([name, values]) => {
+      const top2Entries = topPumpersData[i].slice(0, 2);
+
+      top2Entries.forEach(([name, values]) => {
         if (!defaultTargets.includes(name)) {
-          nonDefaultDamage += values[i];
+          top2Damage += values[i];
         }
       });
 
+      /** the default targets aren't always in the top 2/top 4 datasets */
       topPumpersData[i].forEach(([name, values]) => {
         if (defaultTargets.includes(name)) {
           defaultDamage += values[i];
         }
       });
-      console.log('default: ', defaultDamage, ' non default: ', nonDefaultDamage);
-      console.log('non default damage to default damage ratio: ', nonDefaultDamage / defaultDamage);
-      if (nonDefaultDamage > defaultDamage * threshold) {
+
+      console.log('default: ', defaultDamage, ' non default: ', top2Damage);
+      console.log('non default damage to default damage ratio: ', top2Damage / defaultDamage);
+
+      if (top2Damage > defaultDamage * threshold) {
         isImportant = true;
       }
-
-      const top2Entries = topPumpersData[i].slice(0, 2);
 
       this.addEntryToMRTNote(top2Entries, i, intervalStart, isImportant);
     }
