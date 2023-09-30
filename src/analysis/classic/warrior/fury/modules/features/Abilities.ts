@@ -155,7 +155,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SPELL_REFLECTION.id,
         category: SPELL_CATEGORY.UTILITY,
         gcd: null,
-      }
+      },
     ];
   }
 }

@@ -1,4 +1,4 @@
-import {  SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
