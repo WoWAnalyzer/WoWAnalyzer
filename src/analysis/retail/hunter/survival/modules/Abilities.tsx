@@ -129,7 +129,6 @@ class Abilities extends CoreAbilities {
           SPELLS.SHRAPNEL_BOMB_WFI.id,
           TALENTS.WILDFIRE_INFUSION_TALENT.id,
         ],
-        shownSpell: TALENTS.WILDFIRE_INFUSION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.WILDFIRE_INFUSION_TALENT),
         charges: combatant.hasTalent(TALENTS.GUERRILLA_TACTICS_TALENT) ? 2 : 1,
