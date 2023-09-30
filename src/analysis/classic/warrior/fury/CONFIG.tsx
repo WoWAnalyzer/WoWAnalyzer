@@ -35,7 +35,7 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/cLYx4tpqNwT9Q3zX/10-Normal+Kologarn+-+Kill+(1:03)/Tricksgiver',
+  exampleReport: "/report/DymJ6WgwahBvLdAr/10-Heroic+Twin+Val'kyr+-+Kill+(2:48)/Amryu",
   // Add spells to display separately on the timeline
   timeline: {
     separateCastBars: [[]],
