@@ -41,9 +41,9 @@ const RANKS: WaftingDevotionRank[] = [
   },
 ];
 
-class WaftingDevotion extends withDependencies(WeaponEnchantAnalyzer<WaftingDevotionRank>, {
-  statTracker: StatTracker,
-}) {
+const deps = { statTracker: StatTracker };
+
+class WaftingDevotion extends withDependencies(WeaponEnchantAnalyzer<WaftingDevotionRank>, deps) {
   constructor(options: Options) {
     super(SPELLS.WAFTING_DEVOTION_ENCHANT, RANKS, options);
 

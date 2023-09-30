@@ -36,9 +36,11 @@ export function getSporeTenderRank(caster: Combatant | null): SporeTenderEnchant
   );
 }
 
-class SporeTender extends withDependencies(WeaponEnchantAnalyzer<SporeTenderEnchantRank>, {
+const deps = {
   combatants: Combatants,
-}) {
+};
+
+class SporeTender extends withDependencies(WeaponEnchantAnalyzer<SporeTenderEnchantRank>, deps) {
   private targetStatistics: {
     [targetId: number]: {
       count: number;

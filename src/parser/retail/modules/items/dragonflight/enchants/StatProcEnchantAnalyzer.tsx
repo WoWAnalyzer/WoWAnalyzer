@@ -20,13 +20,15 @@ export interface StatProcEnchantRank extends EnchantRank {
   amount: number;
 }
 
+const deps = { statTracker: StatTracker };
+
 /**
  * Abstraction to reuse the same code for tracking stats from proccing enchants such as
  * writs and Sophic Devotion.
  */
 abstract class StatProccEnchantAnalyzer extends withDependencies(
   WeaponEnchantAnalyzer<StatProcEnchantRank>,
-  { statTracker: StatTracker },
+  deps,
 ) {
   /** The stat that the enchant provides on procc */
   protected stat: STAT;

@@ -21,7 +21,9 @@ const RANKS = [
   { rank: 3, enchant: ITEMS.ENCHANT_WEAPON_SHADOWFLAME_WREATHE_R3 },
 ];
 
-class ShadowflameWreathe extends withDependencies(WeaponEnchantAnalyzer, { enemies: Enemies }) {
+const deps = { enemies: Enemies };
+
+class ShadowflameWreathe extends withDependencies(WeaponEnchantAnalyzer, deps) {
   private buffApplications = 0;
   private outgoingDamage = 0;
   private incomingDamage = 0;
