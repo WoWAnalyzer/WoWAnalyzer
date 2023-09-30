@@ -22,11 +22,11 @@ import { Fragment } from 'react';
 // https://www.warcraftlogs.com/reports/p4bgq8k6QjBV7ztT#fight=15&type=summary&source=299
 
 function getBaseAmount(itemLevel: number) {
-  return calculateSecondaryStatDefault(431, 1764, itemLevel);
+  return calculateSecondaryStatDefault(431, 1764.942, itemLevel);
 }
 
 function getStealAmount(itemLevel: number) {
-  return calculateSecondaryStatDefault(431, 118, itemLevel);
+  return calculateSecondaryStatDefault(431, 117.942, itemLevel);
 }
 
 const deps = {
@@ -35,9 +35,11 @@ const deps = {
 
 class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
   private item!: Item;
-  private amount = 0;
+  private baseAmount = 0;
+  private stealAmount = 0;
   private buffs: {
     stat: SECONDARY_STAT;
+    victims: Set<number>;
     start?: number;
     end?: number;
   }[] = [];
@@ -50,7 +52,8 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
       return;
     }
     this.item = this.selectedCombatant.back;
-    this.amount = getBaseAmount(this.item.itemLevel) + 4 * getStealAmount(this.item.itemLevel);
+    this.baseAmount = getBaseAmount(this.item.itemLevel);
+    this.stealAmount = getStealAmount(this.item.itemLevel);
 
     this.addEventListener(
       Events.applybuff.spell(SPELLS.POWER_BEYOND_IMAGINATION).to(SELECTED_PLAYER),
@@ -61,6 +64,16 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
       Events.removebuff.spell(SPELLS.POWER_BEYOND_IMAGINATION).to(SELECTED_PLAYER),
       this.onRemoveBuff,
     );
+
+    this.addEventListener(
+      Events.applybuff.spell(SPELLS.USURPED_FROM_BEYOND).by(SELECTED_PLAYER),
+      this.onApplySteal,
+    );
+
+    this.addEventListener(
+      Events.removebuff.spell(SPELLS.USURPED_FROM_BEYOND).by(SELECTED_PLAYER),
+      this.onRemoveSteal,
+    );
   }
 
   private onApplyBuff(event: ApplyBuffEvent) {
@@ -68,10 +81,11 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
 
     this.buffs.push({
       stat,
+      victims: new Set(),
       start: this.owner.currentTimestamp,
     });
 
-    this.updateStats(stat, this.amount, event);
+    this.updateStats(stat, this.baseAmount, event);
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
@@ -81,6 +95,7 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
       // Looks like we haven't started any buffs yet, let's fake a buff
       lastBuff = {
         stat: this.currentHighestSecondaryStat(),
+        victims: new Set(),
         start: this.owner.fight.start_time,
       };
       this.buffs.push(lastBuff);
@@ -88,7 +103,44 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
 
     lastBuff.end = this.owner.currentTimestamp;
 
-    this.updateStats(lastBuff.stat, -this.amount, event);
+    this.updateStats(lastBuff.stat, -this.baseAmount, event);
+  }
+
+  private onApplySteal(event: ApplyBuffEvent) {
+    let lastBuff = this.buffs[this.buffs.length - 1];
+
+    if (!lastBuff) {
+      // Looks like we haven't started any buffs yet, let's fake a buff
+      lastBuff = {
+        stat: this.currentHighestSecondaryStat(),
+        victims: new Set(),
+        start: event.timestamp,
+      };
+      this.buffs.push(lastBuff);
+    }
+
+    if (lastBuff.victims.size >= 4) {
+      throw new Error(
+        'Voice of the Silent Star: More than 4 people are being robbed, somethings wrong',
+      );
+    }
+
+    lastBuff.victims.add(event.targetID);
+    this.updateStats(lastBuff.stat, this.stealAmount, event);
+  }
+
+  private onRemoveSteal(event: RemoveBuffEvent) {
+    const lastBuff = this.buffs[this.buffs.length - 1];
+
+    if (!lastBuff) {
+      throw new Error('Voice of the Silent Star: No buff to remove steal from');
+    }
+
+    if (!lastBuff.victims.has(event.targetID)) {
+      throw new Error('Voice of the Silent Star: Steal faded from someone who was not tracked');
+    }
+
+    this.updateStats(lastBuff.stat, -this.stealAmount, event);
   }
 
   private updateStats(
@@ -131,36 +183,31 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
   }
 
   statistic() {
-    const uptimePerStat = new Map([
-      [STAT.CRITICAL_STRIKE, 0],
-      [STAT.HASTE, 0],
-      [STAT.MASTERY, 0],
-      [STAT.VERSATILITY, 0],
-    ]);
+    const uptimeEntries = this.buffs
+      .reduce((acc, instance) => {
+        const instanceUptime =
+          (instance.end ?? this.owner.fight.end_time) -
+          (instance.start ?? this.owner.fight.start_time);
+        const instanceUptimePercentage = instanceUptime / this.owner.fightDuration;
+        const instanceAmount = this.baseAmount + instance.victims.size * this.stealAmount;
+        const instanceAverageBenefit = instanceAmount * instanceUptimePercentage;
 
-    this.buffs.forEach((buff) => {
-      uptimePerStat.set(
-        buff.stat,
-        (uptimePerStat.get(buff.stat) ?? 0) +
-          (buff.end ?? this.owner.fight.end_time) -
-          (buff.start ?? this.owner.fight.start_time),
-      );
-    });
+        const existingEntry = acc.find((entry) => entry.stat === instance.stat);
 
-    const uptimeEntries = Array.from(uptimePerStat.entries())
-      .filter(([, v]) => v > 0)
-      .sort(([, a], [, b]) => b - a)
-      .map(([stat, uptime]) => {
-        const uptimePercentage = uptime / this.owner.fightDuration;
-        const averageBenefit = Math.round(this.amount * uptimePercentage);
+        if (existingEntry) {
+          existingEntry.totalUptime += instanceUptime;
+          existingEntry.averageBenefit += instanceAverageBenefit;
+        } else {
+          acc.push({
+            stat: instance.stat,
+            totalUptime: instanceUptime,
+            averageBenefit: instanceAverageBenefit,
+          });
+        }
 
-        return {
-          stat,
-          uptime,
-          uptimePercentage,
-          averageBenefit,
-        };
-      });
+        return acc;
+      }, [] as { stat: SECONDARY_STAT; totalUptime: number; averageBenefit: number }[])
+      .sort((a, b) => b.averageBenefit - a.averageBenefit);
 
     const procCount = this.buffs.length;
 
@@ -173,13 +220,14 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
           <>
             <ItemLink id={this.item.id} quality={this.item.quality} details={this.item} /> triggered{' '}
             <SpellLink spell={SPELLS.POWER_BEYOND_IMAGINATION} /> {procCount} times, giving{' '}
-            {Math.round(this.amount)} of your highest secondary stat at the time, which was{' '}
-            {uptimeEntries.map((stat, index) => (
+            {Math.round(this.baseAmount + 4 * this.stealAmount)} of your highest secondary stat at
+            the time, which was{' '}
+            {uptimeEntries.map((stat, index, arr) => (
               <Fragment key={stat.stat}>
                 {index !== 0 && ', '}
-                {index === uptimeEntries.length - 1 && 'and '}
-                {getName(stat.stat)} for {formatDuration(stat.uptime)} (
-                {formatPercentage(stat.uptimePercentage)}%)
+                {index === arr.length - 1 && 'and '}
+                {getName(stat.stat)} for {formatDuration(stat.totalUptime)} (
+                {formatPercentage(stat.totalUptime / this.owner.fightDuration)}%)
               </Fragment>
             ))}
             .
@@ -191,7 +239,7 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
             const StatIcon = getIcon(stat);
             return (
               <div key={stat}>
-                <StatIcon /> {averageBenefit} <small>{getName(stat)} over time</small>
+                <StatIcon /> {Math.round(averageBenefit)} <small>{getName(stat)} over time</small>
               </div>
             );
           })}

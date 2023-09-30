@@ -16,6 +16,11 @@ const others = {
     name: 'Power Beyond Imagination',
     icon: 'inv_cosmicvoid_debuff',
   },
+  USURPED_FROM_BEYOND: {
+    id: 409449,
+    name: 'Usurped from Beyond',
+    icon: 'inv_cosmicvoid_debuff',
+  },
   // 'Disintegrate' ability from The Forgotten Experiements encounter
   RIONTHUS_DISINTEGRATE: {
     id: 405457,
