@@ -77,15 +77,11 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
   }
 
   private onApplyBuff(event: ApplyBuffEvent) {
-    const stat = this.currentHighestSecondaryStat();
+    const newBuff = this.createBuff(event.timestamp);
 
-    this.buffs.push({
-      stat,
-      victims: new Set(),
-      start: this.owner.currentTimestamp,
-    });
+    this.buffs.push(newBuff);
 
-    this.updateStats(stat, this.baseAmount, event);
+    this.updateStats(newBuff.stat, this.baseAmount, event);
   }
 
   private onRemoveBuff(event: RemoveBuffEvent) {
@@ -93,11 +89,7 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
 
     if (!lastBuff) {
       // Looks like we haven't started any buffs yet, let's fake a buff
-      lastBuff = {
-        stat: this.currentHighestSecondaryStat(),
-        victims: new Set(),
-        start: this.owner.fight.start_time,
-      };
+      lastBuff = this.createBuff(this.owner.fight.start_time);
       this.buffs.push(lastBuff);
     }
 
@@ -111,11 +103,7 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
 
     if (!lastBuff) {
       // Looks like we haven't started any buffs yet, let's fake a buff
-      lastBuff = {
-        stat: this.currentHighestSecondaryStat(),
-        victims: new Set(),
-        start: event.timestamp,
-      };
+      lastBuff = this.createBuff(event.timestamp);
       this.buffs.push(lastBuff);
     }
 
@@ -126,6 +114,7 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
     }
 
     lastBuff.victims.add(event.targetID);
+
     this.updateStats(lastBuff.stat, this.stealAmount, event);
   }
 
@@ -154,6 +143,15 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
       },
       event,
     );
+  }
+
+  private createBuff(start?: number, end?: number) {
+    return {
+      stat: this.currentHighestSecondaryStat(),
+      victims: new Set<number>(),
+      start,
+      end,
+    };
   }
 
   private currentHighestSecondaryStat(): SECONDARY_STAT {
