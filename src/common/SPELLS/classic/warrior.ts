@@ -216,7 +216,7 @@ const spells = {
   BLOODTHIRST: {
     id: 23881,
     name: 'Bloodthirst',
-    icon: 'Spell_nature_bloodlust',
+    icon: 'spell_nature_bloodlust',
   },
   BLOODSURGE: {
     id: 46915,
