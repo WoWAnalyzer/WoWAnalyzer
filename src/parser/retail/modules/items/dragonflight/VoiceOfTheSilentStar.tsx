@@ -1,10 +1,12 @@
 import ITEMS from 'common/ITEMS';
 import SPELLS from 'common/SPELLS';
 import { formatDuration, formatPercentage } from 'common/format';
+import classColor from 'game/classColor';
 import { ItemLink, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, Item, RemoveBuffEvent } from 'parser/core/Events';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
+import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { SECONDARY_STAT, getIcon, getName } from 'parser/shared/modules/features/STAT';
 import BoringItemValueText from 'parser/ui/BoringItemValueText';
@@ -30,6 +32,7 @@ function getStealAmount(itemLevel: number) {
 }
 
 const deps = {
+  combatants: Combatants,
   statTracker: StatTracker,
 };
 
@@ -180,6 +183,65 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
     }).stat;
   }
 
+  private victimTable() {
+    const victimMap = this.buffs.reduce(
+      (acc: Record<number, { duration: number; count: number }>, buff) => {
+        buff.victims.forEach((victim) => {
+          if (!acc[victim]) {
+            acc[victim] = {
+              duration: 0,
+              count: 0,
+            };
+          }
+
+          acc[victim].duration +=
+            (buff.end ?? this.owner.fight.end_time) - (buff.start ?? this.owner.fight.start_time);
+          acc[victim].count += 1;
+        });
+        return acc;
+      },
+      {},
+    );
+
+    const victimEntries = Object.entries(victimMap)
+      .sort(([, a], [, b]) => b.duration - a.duration)
+      .map(([victimID, { duration, count }]) => ({
+        victimID: Number(victimID),
+        duration,
+        count,
+      }));
+
+    const combatants = this.deps.combatants.getEntities();
+
+    return (
+      <table className="table table-condensed">
+        <thead>
+          <tr>
+            <th style={{ textAlign: 'left' }}>Player</th>
+            <th>Duration</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          {victimEntries.map(({ victimID, duration, count }) => {
+            const combatant = combatants[victimID];
+            const className = classColor(combatant);
+
+            return (
+              <tr key={victimID}>
+                <td style={{ textAlign: 'left' }}>
+                  <span className={className}>{combatant.name}</span>
+                </td>
+                <td>{formatDuration(duration)}</td>
+                <td>{count}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
+  }
+
   statistic() {
     const uptimeEntries = this.buffs
       .reduce((acc, instance) => {
@@ -229,6 +291,17 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
               </Fragment>
             ))}
             .
+          </>
+        }
+        dropdown={
+          <>
+            <div className="pad">
+              <small>
+                Each time <SpellLink spell={SPELLS.POWER_BEYOND_IMAGINATION} /> procced, you stole{' '}
+                {Math.round(this.stealAmount)} secondary stats from up to 4 other players.
+              </small>
+            </div>
+            {this.victimTable()}
           </>
         }
       >
