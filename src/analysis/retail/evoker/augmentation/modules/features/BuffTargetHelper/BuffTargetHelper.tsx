@@ -232,8 +232,9 @@ class BuffTargetHelper extends Analyzer {
     }
 
     const topPumpersData = this.getTopPumpersData();
-    const defaultTargets = this.getDefaultTargets(topPumpersData);
-    const tableContent = this.renderTableContent(topPumpersData, defaultTargets);
+    const top4PumpersData = this.getTop4Pumpers(topPumpersData);
+    const defaultTargets = this.getDefaultTargets(top4PumpersData);
+    const tableContent = this.renderTableContent(topPumpersData, defaultTargets, top4PumpersData);
 
     return tableContent;
   }
@@ -242,22 +243,34 @@ class BuffTargetHelper extends Analyzer {
     const topPumpersData = [];
     for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
       const sortedEntries = [...this.playerDamageMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
-      const top4 = sortedEntries.slice(0, 4);
-      topPumpersData.push(top4);
+      topPumpersData.push(sortedEntries);
     }
     return topPumpersData;
   }
 
-  getDefaultTargets(topPumpersData: [string, number[]][][]) {
+  getTop4Pumpers(topPumpersData: [string, number[]][][]) {
+    const top4PumpersData = [];
+    for (let i = 0; i < topPumpersData.length; i += 1) {
+      const top4 = topPumpersData[i].slice(0, 4);
+      top4PumpersData.push(top4);
+    }
+    return top4PumpersData;
+  }
+
+  getDefaultTargets(top4PumpersData: [string, number[]][][]) {
     const nameCounts = new Map();
-    topPumpersData.flat().forEach(([name]) => {
+    top4PumpersData.flat().forEach(([name]) => {
       nameCounts.set(name, (nameCounts.get(name) || 0) + 1);
     });
     const sortedNames = [...nameCounts.entries()].sort((a, b) => b[1] - a[1]);
     return sortedNames.slice(0, 2).map((entry) => entry[0]);
   }
 
-  renderTableContent(topPumpersData: [string, number[]][][], defaultTargets: any[]) {
+  renderTableContent(
+    topPumpersData: [string, number[]][][],
+    defaultTargets: any[],
+    top4PumpersData: [string, number[]][][],
+  ) {
     const tableRows = [];
     const headerRow = (
       <tr>
@@ -275,7 +288,7 @@ class BuffTargetHelper extends Analyzer {
         Math.min((i + 1) * this.interval, this.fightEnd - this.fightStart),
       );
 
-      const formattedEntriesTable = topPumpersData[i].map(([name, values]) => (
+      const formattedEntriesTable = top4PumpersData[i].map(([name, values]) => (
         <td key={name}>
           <span className={this.playerWhitelist.get(name)}>
             {name} - {formatNumber(values[i])}
@@ -295,7 +308,30 @@ class BuffTargetHelper extends Analyzer {
        * we mark it as important.
        * We could prolly do some mathies with checking dammie diffies
        * buuuut, we'll just do it this way for now */
-      const isImportant = !topPumpersData[i].some(([name]) => defaultTargets.includes(name));
+      //const isImportant = !topPumpersData[i].some(([name]) => defaultTargets.includes(name));
+      let isImportant = false;
+
+      let defaultDamage = 0;
+      let nonDefaultDamage = 0;
+      const threshold = 2;
+
+      top4PumpersData[i].forEach(([name, values]) => {
+        if (!defaultTargets.includes(name)) {
+          nonDefaultDamage += values[i];
+        }
+      });
+
+      topPumpersData[i].forEach(([name, values]) => {
+        if (defaultTargets.includes(name)) {
+          defaultDamage += values[i];
+        }
+      });
+      console.log('default: ', defaultDamage, ' non default: ', nonDefaultDamage);
+      console.log('non default damage to default damage ratio: ', nonDefaultDamage / defaultDamage);
+      if (nonDefaultDamage > defaultDamage * threshold) {
+        isImportant = true;
+      }
+
       const top2Entries = topPumpersData[i].slice(0, 2);
 
       this.addEntryToMRTNote(top2Entries, i, intervalStart, isImportant);
