@@ -51,6 +51,26 @@ class Analyzer extends EventSubscriber {
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   tab(): ParseResultsTab | void {}
 
+  /**
+   * Creates a class which extends {@link Analyzer} and has `deps` as dependencies,
+   * with correct typing.
+   *
+   * @example
+   * ```ts
+   * const deps = {
+   *   combatants: Combatants,
+   * }
+   *
+   * class AncestorAnalyzer extends Analyzer.withDependencies(deps) {
+   *   constructor(options: Options) {
+   *      this.deps.combatants // typed as Combatants
+   *   }
+   * }
+   * ```
+   *
+   * > Note that if the Analyzer you are extending has more constructor parameters than
+   * > `options`, options should be the last parameter.
+   */
   static withDependencies<T extends Dependencies>(deps: T) {
     return withDependencies(this, deps);
   }
@@ -60,6 +80,26 @@ export default Analyzer;
 
 type AnalyzerConstructor = { dependencies?: Dependencies } & (new (...args: any[]) => Analyzer);
 
+/**
+ * Creates a class which extends `Base` and has `deps` as dependencies, with correct
+ * typing.
+ *
+ * @example
+ * ```ts
+ * const deps = {
+ *   combatants: Combatants,
+ * }
+ *
+ * class AncestorAnalyzer extends withDependencies(ParentAnalyzer, deps) {
+ *  constructor(options: Options) {
+ *   this.deps.combatants // typed as Combatants
+ *  }
+ * }
+ * ```
+ *
+ * > Note that if the Analyzer you are extending has more constructor parameters than
+ * > `options`, options should be the last parameter.
+ */
 export function withDependencies<TBase extends AnalyzerConstructor, D extends Dependencies>(
   Base: TBase,
   deps?: D,
