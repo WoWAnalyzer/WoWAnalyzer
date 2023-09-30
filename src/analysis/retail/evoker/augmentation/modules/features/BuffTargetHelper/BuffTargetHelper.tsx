@@ -327,9 +327,6 @@ class BuffTargetHelper extends Analyzer {
         }
       });
 
-      console.log('default: ', defaultDamage, ' non default: ', top2Damage);
-      console.log('non default damage to default damage ratio: ', top2Damage / defaultDamage);
-
       if (top2Damage > defaultDamage * threshold) {
         isImportant = true;
       }
