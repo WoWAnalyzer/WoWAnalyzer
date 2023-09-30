@@ -29,12 +29,11 @@ function getStealAmount(itemLevel: number) {
   return calculateSecondaryStatDefault(431, 118, itemLevel);
 }
 
-class VoiceOfTheSilentStar extends Analyzer {
-  static dependencies = {
-    statTracker: StatTracker,
-  };
-  protected statTracker!: StatTracker;
+const deps = {
+  statTracker: StatTracker,
+};
 
+class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
   private item!: Item;
   private amount = 0;
   private buffs: {
@@ -97,7 +96,7 @@ class VoiceOfTheSilentStar extends Analyzer {
     amount: number,
     event: ApplyBuffEvent | RemoveBuffEvent,
   ) {
-    this.statTracker.forceChangeStats(
+    this.deps.statTracker.forceChangeStats(
       {
         [stat]: amount,
       },
@@ -109,19 +108,19 @@ class VoiceOfTheSilentStar extends Analyzer {
     return [
       {
         stat: STAT.CRITICAL_STRIKE,
-        value: this.statTracker.currentCritRating,
+        value: this.deps.statTracker.currentCritRating,
       },
       {
         stat: STAT.HASTE,
-        value: this.statTracker.currentHasteRating,
+        value: this.deps.statTracker.currentHasteRating,
       },
       {
         stat: STAT.MASTERY,
-        value: this.statTracker.currentMasteryRating,
+        value: this.deps.statTracker.currentMasteryRating,
       },
       {
         stat: STAT.VERSATILITY,
-        value: this.statTracker.currentVersatilityRating,
+        value: this.deps.statTracker.currentVersatilityRating,
       },
     ].reduce((acc, stat) => {
       if (stat.value > acc.value) {
