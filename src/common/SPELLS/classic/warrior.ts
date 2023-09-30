@@ -261,9 +261,9 @@ const spells = {
     name: 'Mortal Strike',
     icon: 'ability_warrior_savageblow',
   },
-  DEATHWISH: {
+  DEATH_WISH: {
     id: 12292,
-    name: 'Deathwish',
+    name: 'Death Wish',
     icon: 'spell_shadow_deathpact',
   },
   SWEEPING_STRIKES: {

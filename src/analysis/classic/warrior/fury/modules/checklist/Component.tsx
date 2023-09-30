@@ -38,7 +38,7 @@ const MeleeChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistProp
         description={<>Use your cooldowns as often as possible to maximize your damage output.</>}
       >
         {/* SPELLS listed here must be in ../features/Abilities */}
-        <AbilityRequirement spell={SPELLS.DEATHWISH.id} />
+        <AbilityRequirement spell={SPELLS.DEATH_WISH.id} />
         <AbilityRequirement spell={SPELLS.RECKLESSNESS.id} />
       </Rule>
       {/* Enchants and Consumes */}

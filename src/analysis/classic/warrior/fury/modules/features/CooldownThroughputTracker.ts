@@ -8,7 +8,7 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     ...CoreCooldownThroughputTracker.castCooldowns,
     // Add Cooldown Spells specific to Spec
     {
-      spell: SPELLS.DEATHWISH.id,
+      spell: SPELLS.DEATH_WISH.id,
       summary: [BUILT_IN_SUMMARY_TYPES.DAMAGE],
     },
     {
