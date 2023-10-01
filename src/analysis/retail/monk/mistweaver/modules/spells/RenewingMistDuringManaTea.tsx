@@ -130,7 +130,10 @@ class RenewingMistDuringManaTea extends Analyzer {
       <TooltipElement
         content={<>This is the average number of Renewing Mists active during Mana Tea</>}
       >
-        {this.avgRemDuringMT.toFixed(2)} <small>average renewing mists</small>
+        {this.avgRemDuringMT.toFixed(2)}{' '}
+        <small>
+          average <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />s
+        </small>
       </TooltipElement>
     );
   }
