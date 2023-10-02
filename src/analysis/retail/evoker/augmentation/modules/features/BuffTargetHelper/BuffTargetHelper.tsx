@@ -255,11 +255,17 @@ class BuffTargetHelper extends Analyzer {
   }
 
   getDefaultTargets(top4PumpersData: [string, number[]][][]) {
-    const nameCounts = new Map();
-    top4PumpersData.flat().forEach(([name]) => {
-      nameCounts.set(name, (nameCounts.get(name) || 0) + 1);
+    const nameSums = new Map();
+
+    top4PumpersData.flat().forEach(([name, values]) => {
+      const currentSum = nameSums.get(name) || 0;
+      const sum = currentSum + values.reduce((a, b) => a + b, 0);
+
+      nameSums.set(name, sum);
     });
-    const sortedNames = [...nameCounts.entries()].sort((a, b) => b[1] - a[1]);
+
+    const sortedNames = [...nameSums.entries()].sort((a, b) => b[1] - a[1]);
+
     return sortedNames.slice(0, 2).map((entry) => entry[0]);
   }
 
@@ -426,7 +432,11 @@ class BuffTargetHelper extends Analyzer {
               Phases are also not accounted for for now.
             </p>
             <p>
-              This module will also produce a MRT note for prescience timings.
+              This module will also produce a note for{' '}
+              <a href="https://www.curseforge.com/wow/addons/method-raid-tools">
+                Method Raid Tools
+              </a>
+              , that helps with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> timings.
               <br />
               The note fully supports the <a href="https://wago.io/yrmx6ZQSG">
                 Prescience Helper
