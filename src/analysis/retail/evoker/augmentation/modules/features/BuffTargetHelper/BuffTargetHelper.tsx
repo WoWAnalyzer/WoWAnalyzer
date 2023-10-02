@@ -47,6 +47,7 @@ const blacklist: number[] = [
   419591, // Mirror of Fractured Tomorrows (Auto Attack)
   418607, // Mirror of Fractured Tomorrows (Sand Bolt)
   406251, // Roiling Shadowflame
+  406889, // Roiling Shadowflame (Self Harm)
   400223, // Thorns of Iron
   322109, // Touch of Death
   124280, // Touch of Karma
@@ -64,6 +65,7 @@ const blacklist: number[] = [
   381475, // Erupting Spear Fragment
   281721, // Bile-Stained Crawg Tusks (Vile Bile)
   214397, // Mark of Dargrul (Landslide)
+  408469, // Call to Suffering (Self Harm)
 ];
 
 /**
