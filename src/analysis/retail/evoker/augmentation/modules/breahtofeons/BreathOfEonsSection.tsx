@@ -57,8 +57,9 @@ const BreathOfEonsSection: React.FC<Props> = ({
    * For now we only look at the players who were buffed
    * during breath */
   function getFilter() {
-    console.log([...breathPerformance.buffedPlayers]);
-    const playerNames = ['Olgey', 'Yuette', 'Dérp', 'Dolanpepe']; //Array.from(breathPerformance.buffedPlayers.keys());
+    console.log(breathPerformance.buffedPlayers);
+    //const playerNames = ['Olgey', 'Yuette', 'Dérp', 'Dolanpepe'];
+    const playerNames = Array.from(breathPerformance.buffedPlayers.keys());
     const nameFilter = playerNames.map((name) => `"${name}"`).join(', ');
 
     /** Blacklist is set in BuffTargetHelper module */

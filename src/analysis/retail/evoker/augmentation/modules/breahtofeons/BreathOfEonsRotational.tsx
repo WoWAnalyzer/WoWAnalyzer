@@ -108,7 +108,6 @@ class BreathOfEonsRotational extends Analyzer {
   totalCasts: number = 0;
   latestEbonMightDrop!: RemoveBuffEvent;
   latestEbonMightEvent!: RemoveBuffEvent | ApplyBuffEvent;
-  currentCombatants: Map<string, Combatant> = new Map();
 
   ebonMightCounter: number = 0;
   ebonMightCount: SpellTracker[] = [];
@@ -280,14 +279,22 @@ class BreathOfEonsRotational extends Analyzer {
     /** Since Breath cast happens before it applies Ebon Might
      * Check if Ebon Might was applied by Breath of Eons
      * and add our combatants from the bufflinks */
+    const currentBuffedTargets: Map<string, Combatant> = new Map();
     if (ebonIsFromBreath(event)) {
       GetRelatedEvents(event, BREATH_EBON_APPLY_LINK).forEach((relatedEvent) => {
         GetRelatedEvents(relatedEvent, EBON_MIGHT_BUFF_LINKS).forEach((ebonMightEvent) => {
           if (ebonMightEvent.type === EventType.ApplyBuff) {
             const buffTarget = this.combatants.players[ebonMightEvent.targetID];
-            this.currentCombatants.set(buffTarget.name, buffTarget);
+            currentBuffedTargets.set(buffTarget.name, buffTarget);
           }
         });
+      });
+    } else {
+      const players = Object.values(this.combatants.players);
+      players.forEach((player) => {
+        if (player.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id)) {
+          currentBuffedTargets.set(player.name, player);
+        }
       });
     }
 
@@ -317,14 +324,14 @@ class BreathOfEonsRotational extends Analyzer {
         succesfulHits: 0,
         potentialLostDamage: 0,
         damage: 0,
-        buffedPlayers: this.currentCombatants, // TODO: add aug himself maybe idk
+        buffedPlayers: currentBuffedTargets, // TODO: add aug himself maybe idk
       },
 
       start: 0,
       end: 0,
     });
     this.totalCasts = this.totalCasts + 1;
-    console.log([...this.currentPerformanceBreathWindow.buffedPlayers]);
+    console.log(this.currentPerformanceBreathWindow.buffedPlayers);
   }
 
   /** Track casts inside of Breath Windows */
@@ -367,8 +374,6 @@ class BreathOfEonsRotational extends Analyzer {
    * window, count the lost uptime.
    * Push to the Ebon Might counter used for the graph */
   private onEbonMightApply(event: ApplyBuffEvent) {
-    const buffTarget = this.combatants.players[event.targetID];
-    this.currentCombatants.set(buffTarget.name, buffTarget);
     this.isEbonMightActive = true;
     this.ebonMightCounter += 1;
 
@@ -387,8 +392,6 @@ class BreathOfEonsRotational extends Analyzer {
   /** Keep track of Ebon Might, if it gets removed during an active
    * window, mark it down as a problem point, used for the graph. */
   private onEbonMightRemove(event: RemoveBuffEvent) {
-    const buffTarget = this.combatants.players[event.targetID];
-    this.currentCombatants.delete(buffTarget.name);
     this.isEbonMightActive = false;
     this.latestEbonMightEvent = event;
     this.ebonMightCounter -= 1;
