@@ -1,8 +1,8 @@
-import { i18n } from '@lingui/core';
 import TALENTS from 'common/TALENTS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatNumber } from 'common/format';
+import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -132,10 +132,7 @@ class BuffTargetHelper extends Analyzer {
           player.spec.role !== ROLES.TANK &&
           player.spec !== SPECS.AUGMENTATION_EVOKER
         ) {
-          const i18nClassName = player.spec.className ? i18n._(player.spec.className) : '';
-          const className = i18nClassName?.replace(/\s/g, '') ?? '';
-
-          this.playerWhitelist.set(player.name, className);
+          this.playerWhitelist.set(player.name, classColor(player));
         }
       });
     });

@@ -29,6 +29,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 1), <>Improve code for coloring texts and backgrounds by <span className='Paladin'>player</span> <span className='Warrior'>classes</span>.</>, nullDozzer),
   change(date(2023, 10, 1), <>Refactor of effects that grant "Primary Stat" such as <ItemLink id={ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id} /> and <ItemLink id={ITEMS.DRACONIC_AUGMENT_RUNE.id} /> to only provide current stat and thus match logged values better.</>, nullDozzer),
   change(date(2023, 9, 30), "Removed `shownSpell` from Ability type as it's no longer used.", Putro),
   change(date(2023, 9, 25), 'Reset scrollposition to top of window when navigating within app except when switching tabs. This fixes a scenario where you would end up staring at the pages footer after clicking a spec on the Specs page.', nullDozzer),

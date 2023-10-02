@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Trans } from '@lingui/macro';
+import classColor from 'game/classColor';
 import { isCurrentExpansion } from 'game/Expansion';
 import Contributor from 'interface/ContributorButton';
 import ReadableListing from 'interface/ReadableListing';
@@ -23,7 +24,7 @@ const SpecListItem = ({
   const i18nClassName = i18n._(spec.className);
   const displayName = [i18nSpecName, i18nClassName].filter(isDefined).join(' ');
 
-  const className = i18n._(spec.className).replace(/ /g, '');
+  const className = classColor(spec);
   const Component = exampleReport && isCurrentExpansion(expansion) ? Link : 'div';
 
   const maintainers = (
