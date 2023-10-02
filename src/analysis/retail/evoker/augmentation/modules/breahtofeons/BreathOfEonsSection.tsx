@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
-import { BreathOfEonsWindows, SpellTracker } from './BreathOfEonsRotational';
+import {
+  BreathOfEonsWindows,
+  BreathWindowPerformance,
+  SpellTracker,
+} from './BreathOfEonsRotational';
 import { SubSection } from 'interface/guide';
 import { SpellLink, TooltipElement } from 'interface';
 import { formatNumber } from 'common/format';
@@ -9,6 +13,10 @@ import SPELLS from 'common/SPELLS/evoker';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import './Section.scss';
 import { t } from '@lingui/macro';
+import LazyLoadGuideSection from '../features/BuffTargetHelper/LazyLoadGuideSection';
+import { blacklist } from '../features/BuffTargetHelper/BuffTargetHelper';
+import { fetchEvents } from 'common/fetchWclApi';
+import CombatLogParser from '../../CombatLogParser';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -16,7 +24,10 @@ type Props = {
   fightEndTime: number;
   ebonMightCount: SpellTracker[];
   shiftingSandsCount: SpellTracker[];
+  owner: CombatLogParser;
 };
+
+let damageTable: any[] = [];
 
 const BreathOfEonsSection: React.FC<Props> = ({
   windows,
@@ -24,6 +35,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
   fightEndTime,
   ebonMightCount,
   shiftingSandsCount,
+  owner,
 }) => {
   /** Logic for handling display of windows */
   const [currentWindowIndex, setCurrentWindowIndex] = useState(0);
@@ -36,9 +48,135 @@ const BreathOfEonsSection: React.FC<Props> = ({
   };
 
   const currentWindow = windows[currentWindowIndex];
-  let breathPerformance;
+  let breathPerformance!: BreathWindowPerformance;
   if (currentWindow) {
     breathPerformance = currentWindow.breathPerformance;
+  }
+
+  /** Generate filter based on black list and whitelist
+   * For now we only look at the players who were buffed
+   * during breath */
+  function getFilter() {
+    console.log([...breathPerformance.buffedPlayers]);
+    const playerNames = ['Olgey', 'Yuette', 'Dérp', 'Dolanpepe']; //Array.from(breathPerformance.buffedPlayers.keys());
+    const nameFilter = playerNames.map((name) => `"${name}"`).join(', ');
+
+    /** Blacklist is set in BuffTargetHelper module */
+    const abilityFilter = blacklist.map((id) => `${id}`).join(', ');
+
+    const filter = `type = "damage" 
+    AND not ability.id in (${abilityFilter}) 
+    AND (source.name in (${nameFilter}, "${owner.selectedCombatant.name}") OR source.owner.name in (${nameFilter})) 
+    AND (target.id != source.id)`;
+    console.log(filter);
+    return filter;
+  }
+
+  const buffer = 4000;
+
+  async function loadData() {
+    /** High maxPage allowances needed otherwise it breaks
+     * If we ever desire to find optimal buff targets for Breath windows
+     * this would prolly get out of hand unless we split up the requests.
+     * But that is not the current goal for this module soooo : ) */
+
+    const startTime =
+      currentWindow.start - buffer > fightStartTime ? currentWindow.start - buffer : fightStartTime;
+    const endTime =
+      currentWindow.end + buffer < fightEndTime ? currentWindow.end + buffer : fightEndTime;
+
+    damageTable = await fetchEvents(
+      owner.report.code,
+      startTime,
+      endTime,
+      undefined,
+      getFilter(),
+      10,
+    );
+    console.log(damageTable);
+
+    /** DEBUG STUFF */
+    const uniqueAbilityNames = new Set<string>();
+
+    for (const entryKey of damageTable) {
+      const abilityName = entryKey.ability.name;
+      if (entryKey.ability.name === 'Call to Suffering') {
+        console.log(entryKey);
+      }
+      uniqueAbilityNames.add(abilityName);
+    }
+
+    const sortedUniqueAbilityNames = Array.from(uniqueAbilityNames).sort().reverse();
+
+    // Now, sortedUniqueAbilityNames contains unique ability names sorted in descending order
+    console.log(sortedUniqueAbilityNames);
+  }
+
+  function findOptimalWindow() {
+    const windows = [];
+    const recentDamage: any[] = [];
+    const breathStart = currentWindow.start;
+    const breathEnd = currentWindow.end;
+    const breathLength = breathEnd - breathStart;
+    let totalDamage = 0; // Initialize total damage accumulator
+    let damageInRange = 0; // Initialize damage within the current window
+
+    const damageByOwner: { [ownerName: number]: number } = {}; // Object to store damage by owner
+
+    for (const event of damageTable) {
+      recentDamage.push(event);
+      totalDamage += event.amount + (event.absorbed ?? 0); // Accumulate total damage
+
+      // Calculate the sum only for events within the current window
+      if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
+        if (event.subtractsFromSupportedActor) {
+          damageInRange -= event.amount + (event.absorbed ?? 0);
+          damageByOwner[event.sourceID] = (damageByOwner[event.sourceID] || 0) - event.amount;
+        } else {
+          damageInRange += event.amount + (event.absorbed ?? 0);
+          damageByOwner[event.sourceID] = (damageByOwner[event.sourceID] || 0) + event.amount;
+        }
+      }
+
+      while (
+        recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
+        breathLength
+      ) {
+        // Calculate the sum only for events within the current window
+        const eventsWithinWindow = recentDamage.filter(
+          (e) =>
+            e.timestamp >= recentDamage[0].timestamp &&
+            e.timestamp <= recentDamage[0].timestamp + breathLength,
+        );
+        const currentWindowSum = eventsWithinWindow.reduce((acc, e) => {
+          if (e.subtractsFromSupportedActor) {
+            return acc - e.amount - (e.absorbed ?? 0);
+          } else {
+            return acc + e.amount + (e.absorbed ?? 0);
+          }
+        }, 0);
+
+        windows.push({
+          start: recentDamage[0].timestamp,
+          end: recentDamage[0].timestamp + breathLength,
+          sum: currentWindowSum,
+        });
+        recentDamage.shift();
+      }
+    }
+
+    const top5Windows = windows
+      .sort((a, b) => b.sum - a.sum)
+      .slice(0, 5)
+      .sort((a, b) => a.start - b.start);
+
+    console.log('Top 5 Windows:', top5Windows);
+    console.log('Total Damage:', totalDamage); // Log total damage
+    console.log('Damage within current window:', damageInRange);
+    console.log('start: ', currentWindow.start);
+    console.log('end: ', currentWindow.end);
+    console.log('Damage by Owner:', damageByOwner); // Log damage by owner
+    return <div></div>;
   }
 
   return (
@@ -256,10 +394,50 @@ const BreathOfEonsSection: React.FC<Props> = ({
               </div>
             )}
           </div>
+
+          <div>
+            <p>More indepth info down below!</p>
+            <LazyLoadGuideSection
+              loader={loadData.bind(this)}
+              value={findOptimalWindow.bind(this)}
+            />
+          </div>
         </div>
       )}
     </SubSection>
   );
 };
+/**
+ * So this is basicly the function where we would poke WCL for some juicy events
+ * how I wanna go about it is kinda in a idk rn state of mind
+ * Best way, purely visually is to bring up a graph of the buffed targets DPS over a
+ * set window size (breath duration + a buffer) and see if it would have been better
+ * to use it later/sooner.
+ * We keep it "basic" like that since actually starting to recommend specific timings
+ * or determining optimal uses throughout a fight is :KEKW: aint doing that.
+ * (Although prolly should, if only for the sake of my own guilds prog :deadge:)
+ *
+ * Ontop of w/e that bs above is we *should* also compare against other actors
+ * to see if there were more optimal targets in the given frame, but complexity ish
+ *
+ * Esentially the crux is how do I wanna visualize the data, because that kinda dictates
+ * how I need to collect said data. If I wanna get DPS, I need to filter it which means going through individual events
+ * and if I wanna show a graph that means multiple passes for every second(or even less than that idk)
+ * lots of calls :)
+ *
+ * I think we just load data/analysis for all the graphs at the same time, making the load function a part of the
+ * individual graphs feels like a lot more effort.
+ *
+ * 1. I need to collect the actors in each Breath window
+ * 2. Get their filtered damage around the breath window
+ * 3. Make a graph out of that, that visualizes an "optimal usage"
+ * 4. Plop those graphs in a new array so we can plot them
+ * 5. ???
+ * 6. Profit
+ *
+ * When you lay it out like that it actually seems kinda doable.
+ * Prolly just stick to only looking at the buffed players, don't
+ * need to create whitelist and such then.
+ */
 
 export default BreathOfEonsSection;
