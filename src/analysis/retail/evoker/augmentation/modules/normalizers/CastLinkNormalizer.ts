@@ -132,9 +132,9 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: BREATH_OF_EONS_CAST_BUFF_LINK,
     reverseLinkRelation: BREATH_OF_EONS_CAST_BUFF_LINK,
     linkingEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
-    linkingEventType: [EventType.ApplyBuff, EventType.RemoveBuff, EventType.Cast],
+    linkingEventType: [EventType.Cast],
     referencedEventId: TALENTS.BREATH_OF_EONS_TALENT.id,
-    referencedEventType: [EventType.ApplyBuff, EventType.RemoveBuff, EventType.Cast],
+    referencedEventType: [EventType.ApplyBuff, EventType.RemoveBuff],
     anyTarget: true,
     forwardBufferMs: BREATH_OF_EONS_BUFF_BUFFER,
   },
@@ -280,7 +280,7 @@ export function isFromTipTheScales(event: CastEvent) {
   return HasRelatedEvent(event, TIP_THE_SCALES_CONSUME);
 }
 
-export function ebonIsFromBreath(event: ApplyBuffEvent) {
+export function ebonIsFromBreath(event: ApplyBuffEvent | CastEvent) {
   return HasRelatedEvent(event, BREATH_EBON_APPLY_LINK);
 }
 
