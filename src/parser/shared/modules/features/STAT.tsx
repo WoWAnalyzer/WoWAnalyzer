@@ -13,25 +13,40 @@ import StaminaIcon from 'interface/icons/Stamina';
 import StrengthIcon from 'interface/icons/Strength';
 import VersatilityIcon from 'interface/icons/Versatility';
 
-enum STAT {
-  HEALTH = 'health',
-  STAMINA = 'stamina',
-  MANA = 'mana',
+export enum PRIMARY_STAT {
   STRENGTH = 'strength',
   AGILITY = 'agility',
   INTELLECT = 'intellect',
+}
+
+export enum SECONDARY_STAT {
   CRITICAL_STRIKE = 'criticalstrike',
   HASTE = 'haste',
-  HASTE_HPCT = 'hastehpct',
-  HASTE_HPM = 'hastehpm',
   MASTERY = 'mastery',
   VERSATILITY = 'versatility',
+}
+
+export enum OTHER_STAT {
+  HEALTH = 'health',
+  STAMINA = 'stamina',
+  MANA = 'mana',
+  HASTE_HPCT = 'hastehpct',
+  HASTE_HPM = 'hastehpm',
   VERSATILITY_DR = 'versatilitydr',
   LEECH = 'leech',
   AVOIDANCE = 'avoidance',
   SPEED = 'speed',
   UNKNOWN = 'unknown',
 }
+
+type STAT = PRIMARY_STAT | SECONDARY_STAT | OTHER_STAT;
+
+// eslint-disable-next-line @typescript-eslint/no-redeclare
+const STAT = {
+  ...PRIMARY_STAT,
+  ...SECONDARY_STAT,
+  ...OTHER_STAT,
+};
 
 export default STAT;
 
