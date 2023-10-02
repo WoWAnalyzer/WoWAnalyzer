@@ -435,7 +435,11 @@ class BuffTargetHelper extends Analyzer {
               Phases are also not accounted for for now.
             </p>
             <p>
-              This module will also produce a MRT note for prescience timings.
+              This module will also produce a note for{' '}
+              <a href="https://www.curseforge.com/wow/addons/method-raid-tools">
+                Method Raid Tools
+              </a>
+              , that helps with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> timings.
               <br />
               The note fully supports the <a href="https://wago.io/yrmx6ZQSG">
                 Prescience Helper
