@@ -3,7 +3,12 @@ import MaelstromWeaponTracker from './MaelstromWeaponTracker';
 import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/ResourceBreakdown';
 import Panel from 'parser/ui/Panel';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
-import Events, { DamageEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  DamageEvent,
+  HealEvent,
+  RemoveBuffEvent,
+  GetRelatedEvents,
+} from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import Abilities from 'parser/core/modules/Abilities';
 import { formatNumber, formatThousands } from 'common/format';
@@ -58,11 +63,17 @@ export default class extends Analyzer {
     )?.event;
     if (primordialWaveLightningBolt) {
       const spent = this.maelstromWeaponTracker.current;
+      /**
+       * this is a bit of a hack to handle instances where the resource tracker's `current` isn't the actual
+       * current maelstrom, and is a "best guess" that the majority of the time lightning bolt
+       * will be cast at 10 maelstrom with PW
+       */
       this.maelstromSpendWithPrimordialWave +=
         spent === 0 ? 10 : this.maelstromWeaponTracker.current;
-      const damageEvents: DamageEvent[] = primordialWaveLightningBolt._linkedEvents
-        ?.filter((le) => le.relation === LIGHTNING_BOLT_PRIMORDIAL_WAVE_LINK)
-        .map((le) => le.event) as DamageEvent[];
+      const damageEvents: DamageEvent[] = GetRelatedEvents(
+        primordialWaveLightningBolt,
+        LIGHTNING_BOLT_PRIMORDIAL_WAVE_LINK,
+      ) as DamageEvent[];
       if (damageEvents.length > 1) {
         const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id;
         damageEvents?.splice(0, 1);
@@ -111,8 +122,8 @@ export default class extends Analyzer {
               const spellId = Number(value);
               const spell = maybeGetSpell(spellId);
               const ability = this.abilityTracker.getAbility(spellId);
-              let casts = 0;
-              let spent = 0;
+              let casts: number;
+              let spent: number;
               if (spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id) {
                 casts = ability.casts;
                 spent = this.maelstromSpendWithPrimordialWave;
