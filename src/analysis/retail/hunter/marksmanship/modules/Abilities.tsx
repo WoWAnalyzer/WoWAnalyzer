@@ -18,7 +18,8 @@ class Abilities extends CoreAbilities {
        */
       //region Baseline Rotational
       {
-        spell: SPELLS.AIMED_SHOT.id,
+        spell: TALENTS.AIMED_SHOT_TALENT.id,
+        enabled: this.selectedCombatant.hasTalent(TALENTS.AIMED_SHOT_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) => 12 / (1 + haste),
         charges: 2,
@@ -161,6 +162,19 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS.CAMOUFLAGE_TALENT),
         gcd: {
           base: 1500,
+        },
+      },
+      {
+        spell: TALENTS.STEEL_TRAP_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.STEEL_TRAP_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.85,
         },
       },
       //endregion

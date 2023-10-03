@@ -40,7 +40,7 @@ class SurgingShots extends Analyzer {
       this.onRapidFireDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.AIMED_SHOT_TALENT),
       this.onAimedShotCast,
     );
   }
@@ -69,7 +69,7 @@ class SurgingShots extends Analyzer {
               )}
               <p>
                 Likelihood of getting <em>exactly</em> as many procs as estimated on a fight given
-                your number of <SpellLink spell={SPELLS.AIMED_SHOT} /> casts.
+                your number of <SpellLink spell={TALENTS.AIMED_SHOT_TALENT} /> casts.
               </p>
             </div>
           </>

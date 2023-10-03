@@ -1,28 +1,28 @@
 import {
-  Channeling,
-  DeathTracker,
-  NaturalMending,
-  Trailblazer,
-  Barrage,
   AMurderOfCrows,
-  BornToBeWild,
+  Barrage,
   BindingShot,
-  KillShot,
-  FocusTracker,
-  FocusDetails,
-  SpellFocusCost,
-  DeathChakrams,
-  RejuvenatingWind,
+  BornToBeWild,
   CancelledCasts,
+  Channeling,
+  DeathChakrams,
+  DeathTracker,
+  FocusDetails,
+  FocusTracker,
+  KillShot,
+  NaturalMending,
+  RejuvenatingWind,
+  SpellFocusCost,
+  SteelTrap,
+  Trailblazer,
+  TranquilizingShot,
   WailingArrow,
   WailingArrowPrepullNormalizer,
-  TranquilizingShot,
-} from 'analysis/retail/hunter/shared';
+} from '../shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
 
 import Abilities from './modules/Abilities';
-import AplCheck from './modules/apl/AplCheck';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
 import GlobalCooldown from './modules/core/GlobalCooldown';
@@ -35,7 +35,7 @@ import SurgingShots from './modules/talents/SurgingShots';
 import Focus from './modules/resources/Focus';
 import MarksmanshipFocusCapTracker from './modules/resources/MarksmanshipFocusCapTracker';
 import MarksmanshipFocusUsage from './modules/resources/MarksmanshipFocusUsage';
-import AimedShot from './modules/spells/AimedShot';
+import AimedShot from './modules/talents/AimedShot';
 import LoneWolf from './modules/spells/LoneWolf';
 import PreciseShots from './modules/spells/PreciseShots';
 import RapidFire from './modules/spells/RapidFire';
@@ -90,18 +90,16 @@ class CombatLogParser extends CoreCombatLogParser {
     trueshot: Trueshot,
     loneWolf: LoneWolf,
     preciseShots: PreciseShots,
-    aimedShot: AimedShot,
     rapidFire: RapidFire,
     steadyShot: SteadyShot,
     killShot: KillShot,
     bindingShot: BindingShot,
 
     //Talents
+    aimedShot: AimedShot,
     volley: Volley,
     lockAndLoad: LockAndLoad,
-    barrage: Barrage,
     callingTheShots: CallingTheShots,
-    serpentSting: SerpentSting,
     steadyFocus: SteadyFocus,
     carefulAim: CarefulAim,
     chimaeraShot: ChimaeraShot,
@@ -122,6 +120,9 @@ class CombatLogParser extends CoreCombatLogParser {
     explosiveShot: ExplosiveShot,
     masterMarksman: MasterMarksman,
     wailingArrow: WailingArrow,
+    steelTrap: SteelTrap,
+    serpentSting: SerpentSting,
+    barrage: Barrage,
 
     // items
     t292p: T29MMTier2P,
@@ -129,9 +130,6 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
-
-    // apl
-    apl: AplCheck,
   };
 }
 

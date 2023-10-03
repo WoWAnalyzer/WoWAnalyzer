@@ -16,7 +16,7 @@ class Focus extends Analyzer {
   suggestions(when: When) {
     const mmFocusExtraSuggestion = (
       <>
-        Try to keep focus below max by using <SpellLink spell={SPELLS.AIMED_SHOT} />,{' '}
+        Try to keep focus below max by using <SpellLink spell={TALENTS_HUNTER.AIMED_SHOT_TALENT} />,{' '}
         {this.selectedCombatant.hasTalent(TALENTS_HUNTER.CHIMAERA_SHOT_TALENT) ? (
           <SpellLink spell={TALENTS_HUNTER.CHIMAERA_SHOT_TALENT} />
         ) : (
@@ -27,16 +27,16 @@ class Focus extends Analyzer {
     );
     resourceSuggest(when, this.focusTracker, {
       spell: SPELLS.STEADY_SHOT_FOCUS,
-      minor: 0.025,
-      avg: 0.05,
-      major: 0.1,
+      minor: 0.05,
+      avg: 0.075,
+      major: 0.125,
       extraSuggestion: mmFocusExtraSuggestion,
     });
     resourceSuggest(when, this.focusTracker, {
       spell: SPELLS.RAPID_FIRE_FOCUS,
-      minor: 0.025,
-      avg: 0.05,
-      major: 0.1,
+      minor: 0.05,
+      avg: 0.075,
+      major: 0.125,
       extraSuggestion: mmFocusExtraSuggestion,
     });
   }

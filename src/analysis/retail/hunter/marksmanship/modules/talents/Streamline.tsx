@@ -42,7 +42,7 @@ class Streamline extends Analyzer {
       this.onRapidFireDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.AIMED_SHOT_TALENT),
       this.onAimedShotCast,
     );
   }

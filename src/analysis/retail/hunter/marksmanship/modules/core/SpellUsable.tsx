@@ -14,7 +14,7 @@ class SpellUsable extends CoreSpellUsable {
   onCast(event: CastEvent) {
     const spellId = event.ability.guid;
     if (this.selectedCombatant.hasTalent(TALENTS.SURGING_SHOTS_TALENT)) {
-      if (spellId === SPELLS.AIMED_SHOT.id) {
+      if (spellId === TALENTS.AIMED_SHOT_TALENT.id) {
         this.lastPotentialTriggerForRapidFireReset = event;
       } else if (spellId === SPELLS.RAPID_FIRE.id) {
         this.lastPotentialTriggerForRapidFireReset = null;
