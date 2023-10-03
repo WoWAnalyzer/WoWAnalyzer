@@ -91,11 +91,11 @@ export const BASE_BM_FOCUS_REGEN = 5;
 //Beast Mastery has 120 focus at start
 export const BASE_BM_FOCUS_MAX = 100;
 //Minor threshold for focus wastage on focus generators
-export const FOCUS_THRESHOLD_MINOR = 0.025;
+export const FOCUS_THRESHOLD_MINOR = 0.05;
 //Average threshold for focus wastage on focus generators
-export const FOCUS_THRESHOLD_AVG = 0.05;
+export const FOCUS_THRESHOLD_AVG = 0.075;
 //Major threshold for focus wastage on focus generators
-export const FOCUS_THRESHOLD_MAJOR = 0.1;
+export const FOCUS_THRESHOLD_MAJOR = 0.125;
 //The 8 focus regen buffs connected to Barbed Shot
 export const BARBED_SHOT_FOCUS_REGEN_BUFFS = [
   SPELLS.BARBED_SHOT_BUFF,
