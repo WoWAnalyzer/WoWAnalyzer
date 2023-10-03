@@ -28,7 +28,9 @@ export default class FelDevastationNormalizer extends EventLinkNormalizer {
 }
 
 export function getDamageEvents(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(event, FEL_DEVASTATION_DAMAGE).filter(
+  return GetRelatedEvents(
+    event,
+    FEL_DEVASTATION_DAMAGE,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }

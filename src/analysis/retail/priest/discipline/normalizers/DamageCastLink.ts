@@ -1,5 +1,11 @@
 import SPELLS from 'common/SPELLS';
-import { CastEvent, DamageEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
+import {
+  CastEvent,
+  DamageEvent,
+  EventType,
+  GetRelatedEvent,
+  GetRelatedEvents,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import { TALENTS_PRIEST } from 'common/TALENTS';
@@ -102,11 +108,11 @@ class DamageCastLink extends EventLinkNormalizer {
 }
 
 export function getDamageAbility(event: CastEvent) {
-  return GetRelatedEvents(event, DAMAGE)[0] as DamageEvent;
+  return GetRelatedEvent<DamageEvent>(event, DAMAGE);
 }
 
 export function getCastAbility(event: DamageEvent) {
-  return GetRelatedEvents(event, CAST)[0] as CastEvent;
+  return GetRelatedEvent<CastEvent>(event, CAST);
 }
 
 export default DamageCastLink;

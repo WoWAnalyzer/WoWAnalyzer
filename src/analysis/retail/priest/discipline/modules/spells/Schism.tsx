@@ -55,10 +55,10 @@ class Schism extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (!getDamageEvent(event)) {
+    const damageEvent = getDamageEvent(event);
+    if (!damageEvent) {
       return;
     }
-    const damageEvent = getDamageEvent(event);
     const target = this.enemies.getEntity(damageEvent);
 
     if (

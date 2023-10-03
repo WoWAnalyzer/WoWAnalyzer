@@ -2,11 +2,11 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
-  AnyEvent,
   ApplyDebuffEvent,
   CastEvent,
   DamageEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasRelatedEvent,
   RefreshDebuffEvent,
@@ -74,8 +74,7 @@ export function isFromHardcast(
 export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
-  return events.length === 0 ? undefined : (events[0] as CastEvent);
+  return GetRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function getHitCount(aoeCastEvent: CastEvent): number {

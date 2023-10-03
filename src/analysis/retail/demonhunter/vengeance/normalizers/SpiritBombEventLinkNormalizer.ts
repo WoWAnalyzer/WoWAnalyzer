@@ -63,14 +63,18 @@ export default class SpiritBombEventLinkNormalizer extends EventLinkNormalizer {
 export function getSpiritBombSoulConsumptions(
   event: CastEvent,
 ): (RemoveBuffStackEvent | RemoveBuffEvent)[] {
-  return GetRelatedEvents(event, SPIRIT_BOMB_SOUL_CONSUME).filter(
+  return GetRelatedEvents(
+    event,
+    SPIRIT_BOMB_SOUL_CONSUME,
     (e): e is RemoveBuffStackEvent | RemoveBuffEvent =>
       e.type === EventType.RemoveBuffStack || e.type === EventType.RemoveBuff,
   );
 }
 
 export function getSpiritBombDamages(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(event, SPIRIT_BOMB_DAMAGE).filter(
+  return GetRelatedEvents(
+    event,
+    SPIRIT_BOMB_DAMAGE,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }

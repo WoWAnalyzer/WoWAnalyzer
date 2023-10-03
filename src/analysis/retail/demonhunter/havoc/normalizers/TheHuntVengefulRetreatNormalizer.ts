@@ -27,7 +27,9 @@ export default class TheHuntVengefulRetreatNormalizer extends EventLinkNormalize
 }
 
 export function getPreviousVengefulRetreat(event: CastEvent): CastEvent | undefined {
-  return GetRelatedEvents(event, THE_HUNT_AFTER_VENGEFUL_RETREAT)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .find(Boolean);
+  return GetRelatedEvents<CastEvent>(
+    event,
+    THE_HUNT_AFTER_VENGEFUL_RETREAT,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).find(Boolean);
 }

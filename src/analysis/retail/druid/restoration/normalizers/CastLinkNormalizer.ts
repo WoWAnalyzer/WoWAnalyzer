@@ -161,9 +161,11 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 /** Returns the hardcast event that caused this buff or heal, if there is one */
 export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
-  return GetRelatedEvents(event, FROM_HARDCAST)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .pop();
+  return GetRelatedEvents<CastEvent>(
+    event,
+    FROM_HARDCAST,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).pop();
 }
 
 /** Returns true iff the given buff application can be matched to an Overgrowth cast */

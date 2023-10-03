@@ -48,13 +48,17 @@ export default class SoulCleaveEventLinkNormalizer extends EventLinkNormalizer {
 }
 
 export function getSoulCleaveSoulConsumptions(event: CastEvent): RemoveBuffStackEvent[] {
-  return GetRelatedEvents(event, SOUL_CLEAVE_SOUL_CONSUME).filter(
+  return GetRelatedEvents(
+    event,
+    SOUL_CLEAVE_SOUL_CONSUME,
     (e): e is RemoveBuffStackEvent => e.type === EventType.RemoveBuffStack,
   );
 }
 
 export function getSoulCleaveDamages(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(event, SOUL_CLEAVE_DAMAGE).filter(
+  return GetRelatedEvents(
+    event,
+    SOUL_CLEAVE_DAMAGE,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }
