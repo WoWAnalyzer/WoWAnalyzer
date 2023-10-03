@@ -10,7 +10,7 @@ import Events, {
 } from 'parser/core/Events';
 import MAGIC_SCHOOLS, { isMatchingDamageType } from 'game/MAGIC_SCHOOLS';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
-import SPELLS from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { formatNumber, formatPercentage } from 'common/format';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -21,6 +21,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import { DamageIcon, UptimeIcon } from 'interface/icons';
 import Abilities from 'parser/core/modules/Abilities';
 import { MERGE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
+import typedKeys from 'common/typedKeys';
 
 const DAMAGE_AMP_PERCENTAGE: Record<number, number> = { 1: 0.05, 2: 0.25 };
 const debug = false;
@@ -138,7 +139,7 @@ class LegacyOfTheFrostWitch extends Analyzer {
   }
 
   get extraDamage() {
-    const spellList = Object.keys(this.buffedSpells).map((guid) => this.buffedSpells[Number(guid)]);
+    const spellList = typedKeys(this.buffedSpells).map((spellId) => this.buffedSpells[spellId]);
     if (spellList?.length > 0) {
       return spellList.reduce((current, total) => (total += current), 0);
     }
@@ -148,13 +149,17 @@ class LegacyOfTheFrostWitch extends Analyzer {
   get spellBreakdown() {
     return (
       <>
-        {Object.keys(this.buffedSpells)
-          .map((guid) => ({ spellId: Number(guid), damage: this.buffedSpells[Number(guid)] }))
-          .map((spell) => (
-            <li key={spell.spellId}>
-              <SpellLink spell={spell.spellId} /> - <strong>{formatNumber(spell.damage)}</strong>
-            </li>
-          ))}
+        {typedKeys(this.buffedSpells).map((spellId) => {
+          const spell = maybeGetSpell(spellId)!;
+          return (
+            <>
+              <li key={spell?.id}>
+                <SpellLink spell={spell} /> -{' '}
+                <strong>{formatNumber(this.buffedSpells[spell.id])}</strong>
+              </li>
+            </>
+          );
+        })}
       </>
     );
   }
@@ -169,11 +174,11 @@ class LegacyOfTheFrostWitch extends Analyzer {
           <>
             Reset breakdown:
             <ul>
-              <li>
+              <li key="ss_reset">
                 <strong>{this.stormStrikeResets}</strong>{' '}
                 <SpellLink spell={TALENTS.STORMSTRIKE_TALENT} /> resets
               </li>
-              <li>
+              <li key="ws_reset">
                 <strong>{this.windStrikeResets}</strong>{' '}
                 <SpellLink spell={SPELLS.WINDSTRIKE_CAST} /> resets
               </li>

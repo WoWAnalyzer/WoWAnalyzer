@@ -1,7 +1,7 @@
 import ResourceGraph from 'parser/shared/modules/ResourceGraph';
 import MaelstromWeaponTracker from './MaelstromWeaponTracker';
 
-class MaelstromWeaponGraph extends ResourceGraph {
+export default class extends ResourceGraph {
   static dependencies = {
     ...ResourceGraph.dependencies,
     maelstromWeaponTracker: MaelstromWeaponTracker,
@@ -13,5 +13,3 @@ class MaelstromWeaponGraph extends ResourceGraph {
     return this.maelstromWeaponTracker;
   }
 }
-
-export default MaelstromWeaponGraph;

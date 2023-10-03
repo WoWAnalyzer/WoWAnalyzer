@@ -1,5 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
+import typedKeys from 'common/typedKeys';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import { SpellbookAura } from 'parser/core/modules/Aura';
 import CoreAuras from 'parser/core/modules/Auras';
@@ -26,7 +27,7 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
+        spellId: typedKeys(BLOODLUST_BUFFS).map((item) => item),
         timelineHighlight: true,
       },
       {
@@ -54,6 +55,11 @@ class Buffs extends CoreAuras {
         spellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
         enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
         triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+      },
+      {
+        spellId: SPELLS.LEGACY_OF_THE_FROST_WITCH_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.LEGACY_OF_THE_FROST_WITCH_TALENT),
+        timelineHighlight: true,
       },
     ];
   }
