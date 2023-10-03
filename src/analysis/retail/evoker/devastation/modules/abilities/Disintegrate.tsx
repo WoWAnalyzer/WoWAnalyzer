@@ -341,31 +341,37 @@ class Disintegrate extends Analyzer {
         spellTracker: this.dragonrageBuffCounter,
         type: 'area',
         color: '#CCCCCC',
+        label: 'Dragonrage',
       },
       {
         spellTracker: this.disintegrateTicksCounter,
         type: 'line',
         color: '#4C78A8',
+        label: 'Disintegrate Ticks',
       },
       {
         spellTracker: this.disintegrateCasts,
         type: 'point',
         color: '#2ecc71',
+        label: 'Disintegrate Casts',
       },
       {
         spellTracker: this.disintegrateChainCasts,
         type: 'point',
         color: 'orange',
+        label: 'Disintegrate Chain Casts',
       },
       {
         spellTracker: this.disintegrateClips,
         type: 'point',
         color: '#9b59b6',
+        label: 'Disintegrate Clips',
       },
       {
         spellTracker: this.problemPoints,
         type: 'point',
         color: 'red',
+        label: 'Problem Points',
       },
     ];
 

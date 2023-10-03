@@ -197,6 +197,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
           ],
           type: 'area',
           color: '#736F4E',
+          label: 'Current Breath timing',
           strokeWidth: 5,
         },
         {
@@ -212,6 +213,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
           ],
           type: 'area',
           color: '#4C78A8',
+          label: 'Optimal Breath timing',
           strokeWidth: 5,
         },
       ];

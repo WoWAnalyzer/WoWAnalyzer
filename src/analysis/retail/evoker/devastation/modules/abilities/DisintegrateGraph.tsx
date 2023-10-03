@@ -32,8 +32,10 @@ export type GraphData = {
 export type DataSeries = {
   spellTracker: SpellTracker[];
   /** The type of data this is */
-  type: 'point' | 'line' | 'area';
+  type: 'area' | 'line' | 'point';
   color: string;
+  /** Legend */
+  label: string;
   strokeWidth?: number;
 };
 
@@ -126,6 +128,7 @@ export const generateGraphData = (
       spellTracker: filteredSpellTracker,
       type: series.type,
       color: series.color,
+      label: series.label,
       strokeWidth: series.strokeWidth,
     });
   });
@@ -157,8 +160,21 @@ const DisintegratePlot: React.FC<Props> = ({
 
   const currentWindow = graphData[currentWindowIndex];
   let currentGraph: GraphData;
+  let colorRange: string[] = [];
+
   if (currentWindow) {
     currentGraph = graphData[currentWindowIndex];
+    /** Generate color range
+     * Need to do this if we want to make legends
+     * without losing our colors. I looooooove VegaLite : ) */
+    colorRange = [];
+
+    for (const type of ['area', 'line', 'point']) {
+      const elements = currentGraph.graphData.filter((dataSeries) => dataSeries.type === type);
+      for (const element of elements) {
+        colorRange.push(element.color);
+      }
+    }
   }
 
   function generateAreas():
@@ -168,7 +184,7 @@ const DisintegratePlot: React.FC<Props> = ({
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'area') {
         areas.push({
-          ...area(dataSeries.spellTracker, dataSeries.color, dataSeries.strokeWidth),
+          ...area(dataSeries.spellTracker, dataSeries.label, dataSeries.strokeWidth),
         });
       }
     });
@@ -183,7 +199,7 @@ const DisintegratePlot: React.FC<Props> = ({
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'line') {
         lines.push({
-          ...line(dataSeries.spellTracker, dataSeries.color),
+          ...line(dataSeries.spellTracker, dataSeries.label),
         });
       }
     });
@@ -198,7 +214,7 @@ const DisintegratePlot: React.FC<Props> = ({
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'point') {
         points.push({
-          ...point(dataSeries.spellTracker, dataSeries.color, 'tooltip'),
+          ...point(dataSeries.spellTracker, 'tooltip', dataSeries.label),
         });
       }
     });
@@ -235,7 +251,7 @@ const DisintegratePlot: React.FC<Props> = ({
     },
   };
 
-  const line = (data: InlineData, color: string): UnitSpec<Field> => ({
+  const line = (data: InlineData, label: string): UnitSpec<Field> => ({
     data: { values: data },
     mark: {
       type: 'line',
@@ -250,11 +266,14 @@ const DisintegratePlot: React.FC<Props> = ({
       },
     ],
     encoding: {
-      color: { value: color },
+      color: {
+        datum: label,
+        type: 'nominal',
+      },
     },
   });
 
-  const area = (data: InlineData, color: string, strokeWidth?: number): UnitSpec<Field> => ({
+  const area = (data: InlineData, label: string, strokeWidth?: number): UnitSpec<Field> => ({
     data: { values: data },
     mark: {
       type: 'area',
@@ -271,14 +290,17 @@ const DisintegratePlot: React.FC<Props> = ({
       },
     ],
     encoding: {
-      color: { value: color },
+      color: {
+        datum: label,
+        type: 'nominal',
+      },
     },
   });
 
   const point = (
     data: InlineData,
-    color: string,
     tooltipFieldName: string | undefined,
+    label: string,
   ): UnitSpec<Field> => ({
     data: { values: data },
     mark: {
@@ -290,7 +312,10 @@ const DisintegratePlot: React.FC<Props> = ({
     },
     encoding: {
       tooltip: { field: tooltipFieldName, type: 'nominal' },
-      color: { value: color },
+      color: {
+        datum: label,
+        type: 'nominal',
+      },
     },
     transform: [
       {
@@ -303,6 +328,12 @@ const DisintegratePlot: React.FC<Props> = ({
     encoding: {
       x: xAxis,
       y: yAxis,
+      color: {
+        scale: { range: colorRange },
+        legend: {
+          symbolOpacity: 1,
+        },
+      },
     },
 
     /** We generate our different layers individually else it starts overwriting each other and it's a mess */
