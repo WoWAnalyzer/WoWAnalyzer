@@ -6,7 +6,7 @@ import {
 } from './BreathOfEonsRotational';
 import { SubSection } from 'interface/guide';
 import { SpellLink, TooltipElement } from 'interface';
-import { formatNumber } from 'common/format';
+import { formatDuration, formatNumber } from 'common/format';
 import BreathOfEonsGraph from './BreathOfEonsGraph';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
@@ -17,6 +17,11 @@ import LazyLoadGuideSection from '../features/BuffTargetHelper/LazyLoadGuideSect
 import { blacklist } from '../features/BuffTargetHelper/BuffTargetHelper';
 import { fetchEvents } from 'common/fetchWclApi';
 import CombatLogParser from '../../CombatLogParser';
+import DisintegratePlot, {
+  DataSeries,
+  GraphData,
+  generateGraphData,
+} from 'analysis/retail/evoker/devastation/modules/abilities/DisintegrateGraph';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -26,8 +31,12 @@ type Props = {
   shiftingSandsCount: SpellTracker[];
   owner: CombatLogParser;
 };
-
-let damageTable: any[] = [];
+const damageTables: {
+  table: any[];
+  start: number;
+  end: number;
+}[] = [];
+//const damageTables: any[][] = [];
 
 const BreathOfEonsSection: React.FC<Props> = ({
   windows,
@@ -56,10 +65,10 @@ const BreathOfEonsSection: React.FC<Props> = ({
   /** Generate filter based on black list and whitelist
    * For now we only look at the players who were buffed
    * during breath */
-  function getFilter() {
-    console.log(breathPerformance.buffedPlayers);
+  function getFilter(window: BreathOfEonsWindows) {
+    console.log(window.breathPerformance.buffedPlayers);
     //const playerNames = ['Olgey', 'Yuette', 'Dérp', 'Dolanpepe'];
-    const playerNames = Array.from(breathPerformance.buffedPlayers.keys());
+    const playerNames = Array.from(window.breathPerformance.buffedPlayers.keys());
     const nameFilter = playerNames.map((name) => `"${name}"`).join(', ');
 
     /** Blacklist is set in BuffTargetHelper module */
@@ -80,104 +89,151 @@ const BreathOfEonsSection: React.FC<Props> = ({
      * If we ever desire to find optimal buff targets for Breath windows
      * this would prolly get out of hand unless we split up the requests.
      * But that is not the current goal for this module soooo : ) */
-
-    const startTime =
-      currentWindow.start - buffer > fightStartTime ? currentWindow.start - buffer : fightStartTime;
-    const endTime =
-      currentWindow.end + buffer < fightEndTime ? currentWindow.end + buffer : fightEndTime;
-
-    damageTable = await fetchEvents(
-      owner.report.code,
-      startTime,
-      endTime,
-      undefined,
-      getFilter(),
-      10,
-    );
-    console.log(damageTable);
-
-    /** DEBUG STUFF */
-    const uniqueAbilityNames = new Set<string>();
-
-    for (const entryKey of damageTable) {
-      const abilityName = entryKey.ability.name;
-      if (entryKey.ability.name === 'Call to Suffering') {
-        console.log(entryKey);
-      }
-      uniqueAbilityNames.add(abilityName);
+    for (const window of windows) {
+      const startTime =
+        window.start - buffer > fightStartTime ? window.start - buffer : fightStartTime;
+      const endTime = window.end + buffer < fightEndTime ? window.end + buffer : fightEndTime;
+      const windowEvents = await fetchEvents(
+        owner.report.code,
+        startTime,
+        endTime,
+        undefined,
+        getFilter(window),
+        10,
+      );
+      damageTables.push({
+        table: windowEvents,
+        start: window.start,
+        end: window.end,
+      });
     }
-
-    const sortedUniqueAbilityNames = Array.from(uniqueAbilityNames).sort().reverse();
-
-    // Now, sortedUniqueAbilityNames contains unique ability names sorted in descending order
-    console.log(sortedUniqueAbilityNames);
   }
 
   function findOptimalWindow() {
-    const windows = [];
-    const recentDamage: any[] = [];
-    const breathStart = currentWindow.start;
-    const breathEnd = currentWindow.end;
-    const breathLength = breathEnd - breathStart;
-    let totalDamage = 0; // Initialize total damage accumulator
-    let damageInRange = 0; // Initialize damage within the current window
+    console.log(damageTables);
+    const graphData: GraphData[] = [];
 
-    const damageByOwner: { [ownerName: number]: number } = {}; // Object to store damage by owner
+    let index = 0;
+    for (const table of damageTables) {
+      const damageWindows = [];
+      const recentDamage: any[] = [];
+      let totalDamage = 0; // Initialize total damage accumulator
+      let damageInRange = 0; // Initialize damage within the current window
 
-    for (const event of damageTable) {
-      recentDamage.push(event);
-      totalDamage += event.amount + (event.absorbed ?? 0); // Accumulate total damage
+      const damageByOwner: { [ownerName: number]: number } = {}; // Object to store damage by owner
+      if (!windows[index]) {
+        continue;
+      }
+      const breathStart = windows[index].start;
+      const breathEnd = windows[index].end;
+      const breathLength = breathEnd - breathStart;
+      console.log(index);
+      for (const event of table.table) {
+        recentDamage.push(event);
+        totalDamage += event.amount + (event.absorbed ?? 0); // Accumulate total damage
 
-      // Calculate the sum only for events within the current window
-      if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
-        if (event.subtractsFromSupportedActor) {
-          damageInRange -= event.amount + (event.absorbed ?? 0);
-          damageByOwner[event.sourceID] = (damageByOwner[event.sourceID] || 0) - event.amount;
-        } else {
-          damageInRange += event.amount + (event.absorbed ?? 0);
-          damageByOwner[event.sourceID] = (damageByOwner[event.sourceID] || 0) + event.amount;
+        // Calculate the sum only for events within the current window
+        if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
+          if (event.subtractsFromSupportedActor) {
+            damageInRange -= event.amount + (event.absorbed ?? 0);
+            damageByOwner[event.sourceID] = (damageByOwner[event.sourceID] || 0) - event.amount;
+          } else {
+            damageInRange += event.amount + (event.absorbed ?? 0);
+            damageByOwner[event.sourceID] = (damageByOwner[event.sourceID] || 0) + event.amount;
+          }
+        }
+
+        while (
+          recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
+          breathLength
+        ) {
+          // Calculate the sum only for events within the current window
+          const eventsWithinWindow = recentDamage.filter(
+            (e) =>
+              e.timestamp >= recentDamage[0].timestamp &&
+              e.timestamp <= recentDamage[0].timestamp + breathLength,
+          );
+          const currentWindowSum = eventsWithinWindow.reduce((acc, e) => {
+            if (e.subtractsFromSupportedActor) {
+              return acc - e.amount - (e.absorbed ?? 0);
+            } else {
+              return acc + e.amount + (e.absorbed ?? 0);
+            }
+          }, 0);
+
+          damageWindows.push({
+            start: recentDamage[0].timestamp,
+            end: recentDamage[0].timestamp + breathLength,
+            sum: currentWindowSum,
+            startFormat: formatDuration(recentDamage[0].timestamp - fightStartTime),
+            endFormat: formatDuration(recentDamage[0].timestamp + breathLength - fightStartTime),
+          });
+          recentDamage.shift();
         }
       }
 
-      while (
-        recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
-        breathLength
-      ) {
-        // Calculate the sum only for events within the current window
-        const eventsWithinWindow = recentDamage.filter(
-          (e) =>
-            e.timestamp >= recentDamage[0].timestamp &&
-            e.timestamp <= recentDamage[0].timestamp + breathLength,
-        );
-        const currentWindowSum = eventsWithinWindow.reduce((acc, e) => {
-          if (e.subtractsFromSupportedActor) {
-            return acc - e.amount - (e.absorbed ?? 0);
-          } else {
-            return acc + e.amount + (e.absorbed ?? 0);
-          }
-        }, 0);
+      index += 1;
 
-        windows.push({
-          start: recentDamage[0].timestamp,
-          end: recentDamage[0].timestamp + breathLength,
-          sum: currentWindowSum,
-        });
-        recentDamage.shift();
-      }
+      const top5Windows = damageWindows.sort((a, b) => b.sum - a.sum).slice(0, 5);
+
+      console.log('Top 5 Windows:', top5Windows);
+      console.log('Total Damage:', totalDamage); // Log total damage
+      console.log('Damage within current window:', damageInRange);
+      console.log('start: ', formatDuration(currentWindow.start - fightStartTime));
+      console.log('end: ', formatDuration(currentWindow.end - fightStartTime));
+      console.log('Damage by Owner:', damageByOwner); // Log damage by owner
+
+      const dataSeries: DataSeries[] = [
+        {
+          spellTracker: [
+            {
+              timestamp: breathStart,
+              count: 1,
+            },
+            {
+              timestamp: breathEnd,
+              count: 0,
+            },
+          ],
+          type: 'area',
+          color: '#736F4E',
+          strokeWidth: 5,
+        },
+        {
+          spellTracker: [
+            {
+              timestamp: top5Windows[0].start,
+              count: 1 * (top5Windows[0].sum / damageInRange),
+            },
+            {
+              timestamp: top5Windows[0].end,
+              count: 0,
+            },
+          ],
+          type: 'area',
+          color: '#4C78A8',
+          strokeWidth: 5,
+        },
+      ];
+      const newGraphData = generateGraphData(
+        dataSeries,
+        breathStart - buffer,
+        breathEnd + buffer,
+        'Breath Window',
+      );
+      graphData.push(newGraphData);
     }
 
-    const top5Windows = windows
-      .sort((a, b) => b.sum - a.sum)
-      .slice(0, 5)
-      .sort((a, b) => a.start - b.start);
-
-    console.log('Top 5 Windows:', top5Windows);
-    console.log('Total Damage:', totalDamage); // Log total damage
-    console.log('Damage within current window:', damageInRange);
-    console.log('start: ', currentWindow.start);
-    console.log('end: ', currentWindow.end);
-    console.log('Damage by Owner:', damageByOwner); // Log damage by owner
-    return <div></div>;
+    return (
+      <div>
+        <DisintegratePlot
+          fightStartTime={fightStartTime}
+          fightEndTime={fightEndTime}
+          graphData={graphData}
+          yAxisName="Damage Ratio"
+        />
+      </div>
+    );
   }
 
   return (
@@ -395,16 +451,20 @@ const BreathOfEonsSection: React.FC<Props> = ({
               </div>
             )}
           </div>
-
-          <div>
-            <p>More indepth info down below!</p>
-            <LazyLoadGuideSection
-              loader={loadData.bind(this)}
-              value={findOptimalWindow.bind(this)}
-            />
-          </div>
         </div>
       )}
+      <div className="graph-window-container">
+        <header>Breath Window Helper</header>
+        <p>
+          <span className="currentBreath">Current Breath timing</span> -{' '}
+          <span className="optimalBreath">Optimal Breath timing</span>
+        </p>
+        <LazyLoadGuideSection
+          loader={loadData.bind(this)}
+          value={findOptimalWindow.bind(this)}
+          className="button"
+        />
+      </div>
     </SubSection>
   );
 };

@@ -35,7 +35,7 @@ const mrtColorMap: Map<string, string> = new Map([
 ]);
 
 /** SpellIds to blacklist, ie. trinkets that doesnt add contribution */
-const blacklist: number[] = [
+export const blacklist: number[] = [
   402583, // Beacon
   408682, // Dragonfire Bomb Dispenser
   401324, // Pocket Anvil (Echoed Flare)

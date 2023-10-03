@@ -430,6 +430,7 @@ class Disintegrate extends Analyzer {
           fightStartTime={this.owner.fight.start_time}
           fightEndTime={this.owner.fight.end_time}
           graphData={this.graphData}
+          yAxisName="Ticks"
         />
       </SubSection>
     );

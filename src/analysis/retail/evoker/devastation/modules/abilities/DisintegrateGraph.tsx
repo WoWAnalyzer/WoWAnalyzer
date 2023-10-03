@@ -34,6 +34,7 @@ export type DataSeries = {
   /** The type of data this is */
   type: 'point' | 'line' | 'area';
   color: string;
+  strokeWidth?: number;
 };
 
 /**
@@ -53,6 +54,7 @@ type Props = {
   fightStartTime: number;
   fightEndTime: number;
   graphData: GraphData[];
+  yAxisName: string;
 };
 
 /**
@@ -124,6 +126,7 @@ export const generateGraphData = (
       spellTracker: filteredSpellTracker,
       type: series.type,
       color: series.color,
+      strokeWidth: series.strokeWidth,
     });
   });
 
@@ -136,7 +139,12 @@ export const generateGraphData = (
   return graphData;
 };
 
-const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graphData }) => {
+const DisintegratePlot: React.FC<Props> = ({
+  fightStartTime,
+  fightEndTime,
+  graphData,
+  yAxisName,
+}) => {
   /** Logic for handling display of windows */
   const [currentWindowIndex, setCurrentWindowIndex] = useState(0);
 
@@ -160,7 +168,7 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'area') {
         areas.push({
-          ...area(dataSeries.spellTracker, dataSeries.color),
+          ...area(dataSeries.spellTracker, dataSeries.color, dataSeries.strokeWidth),
         });
       }
     });
@@ -223,7 +231,7 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
     axis: {
       gridOpacity: 0.3,
       format: '~s',
-      title: 'Ticks',
+      title: yAxisName,
     },
   };
 
@@ -246,13 +254,13 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
     },
   });
 
-  const area = (data: InlineData, color: string): UnitSpec<Field> => ({
+  const area = (data: InlineData, color: string, strokeWidth?: number): UnitSpec<Field> => ({
     data: { values: data },
     mark: {
       type: 'area',
       interpolate: 'step-after',
       line: {
-        strokeWidth: 0.5,
+        strokeWidth: strokeWidth ?? 0.5,
       },
       opacity: 0.2,
     },
@@ -354,6 +362,7 @@ const DisintegratePlot: React.FC<Props> = ({ fightStartTime, fightEndTime, graph
                 spec={spec}
                 data={{
                   currentGraph: currentGraph,
+                  yAxisName: yAxisName,
                 }}
                 width={width}
                 height={height}
