@@ -3,6 +3,7 @@ import TALENTS from 'common/TALENTS/demonhunter';
 import {
   CastEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   RemoveBuffStackEvent,
   ResourceChangeEvent,
@@ -76,19 +77,25 @@ export default class ShearFractureNormalizer extends EventLinkNormalizer {
 }
 
 export function getGeneratingCast(event: CastEvent): CastEvent | undefined {
-  return GetRelatedEvents(event, GENERATED_SOUL_FRAGMENT)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .pop();
+  return GetRelatedEvents<CastEvent>(
+    event,
+    GENERATED_SOUL_FRAGMENT,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).pop();
 }
 
 export function getWastedSoulFragment(event: RemoveBuffStackEvent): CastEvent | undefined {
-  return GetRelatedEvents(event, WASTED_SOUL_FRAGMENT)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .pop();
+  return GetRelatedEvents<CastEvent>(
+    event,
+    WASTED_SOUL_FRAGMENT,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).pop();
 }
 
 export function getResourceChange(event: CastEvent): ResourceChangeEvent | undefined {
-  return GetRelatedEvents(event, RESOURCE_CHANGE)
-    .filter((e): e is ResourceChangeEvent => e.type === EventType.ResourceChange)
-    .at(0);
+  return GetRelatedEvent(
+    event,
+    RESOURCE_CHANGE,
+    (e): e is ResourceChangeEvent => e.type === EventType.ResourceChange,
+  );
 }

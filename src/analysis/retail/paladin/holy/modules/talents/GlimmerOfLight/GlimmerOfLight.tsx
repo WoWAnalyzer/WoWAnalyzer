@@ -8,7 +8,7 @@ import Events, {
   ApplyDebuffEvent,
   BeaconHealEvent,
   DamageEvent,
-  GetRelatedEvents,
+  GetRelatedEvent,
   HasRelatedEvent,
   HealEvent,
   RemoveBuffEvent,
@@ -159,8 +159,8 @@ class GlimmerOfLight extends Analyzer {
 
   getGlimmerSource(event: HealEvent | DamageEvent) {
     if (HasRelatedEvent(event, GLIMMER_PROC)) {
-      const sourceEvent = GetRelatedEvents(event, GLIMMER_PROC)[0];
-      const sourceID = (sourceEvent as AbilityEvent<string>).ability.guid;
+      const sourceEvent = GetRelatedEvent<AbilityEvent<any>>(event, GLIMMER_PROC)!;
+      const sourceID = sourceEvent.ability.guid;
       const fixedID = GLISTENING_RADIANCE_IDS[sourceID] ?? sourceID;
 
       return fixedID;

@@ -101,8 +101,7 @@ class SoulOfTheForestLinkNormalizer extends EventLinkNormalizer {
 }
 
 export function getSotfBuffs(event: RemoveBuffEvent): Array<AbilityEvent<any>> {
-  const buffedHeals = GetRelatedEvents(event, SOTF_BUFFS_HEAL);
-  return buffedHeals.filter((e): e is AbilityEvent<any> => HasAbility(e));
+  return GetRelatedEvents(event, SOTF_BUFFS_HEAL, HasAbility);
 }
 
 export function buffedBySotf(

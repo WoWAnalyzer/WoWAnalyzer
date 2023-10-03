@@ -42,10 +42,10 @@ class Mindgames extends Analyzer {
   }
 
   onAtoneHeal(event: any) {
-    if (!getDamageEvent(event)) {
+    const damageEvent = getDamageEvent(event);
+    if (!damageEvent) {
       return;
     }
-    const damageEvent = getDamageEvent(event);
 
     if (
       damageEvent.ability.guid !== TALENTS_PRIEST.MINDGAMES_TALENT.id &&

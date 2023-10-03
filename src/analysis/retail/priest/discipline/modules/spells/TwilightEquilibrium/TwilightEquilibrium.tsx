@@ -73,8 +73,11 @@ class TwilightEquilibrium extends Analyzer {
     }
 
     const damageEvent = getDamageEvent(event);
+    if (!damageEvent) {
+      return;
+    }
 
-    if (damageEvent?.ability.guid === SPELLS.PURGE_THE_WICKED_BUFF.id) {
+    if (damageEvent.ability.guid === SPELLS.PURGE_THE_WICKED_BUFF.id) {
       if (this.ptwTargets.has(encodeEventTargetString(damageEvent) || '')) {
         const increase = calculateEffectiveHealing(event, TE_INCREASE);
         this.healing += increase;

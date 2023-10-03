@@ -48,7 +48,9 @@ export default class SigilOfFlameNormalizer extends EventLinkNormalizer {
 }
 
 export function getSigilOfFlameDamages(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(event, SIGIL_OF_FLAME_DAMAGE).filter(
+  return GetRelatedEvents(
+    event,
+    SIGIL_OF_FLAME_DAMAGE,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }

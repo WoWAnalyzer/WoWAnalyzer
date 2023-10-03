@@ -151,9 +151,11 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 /** Returns the hardcast event that caused this buff or heal, if there is one */
 export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
-  return GetRelatedEvents(event, FROM_HARDCAST)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .pop();
+  return GetRelatedEvents<CastEvent>(
+    event,
+    FROM_HARDCAST,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).pop();
 }
 
 /** Returns the buff application and direct heal events caused by the given hardcast */
@@ -186,15 +188,19 @@ export function getTranquilityTicks(event: CastEvent): AnyEvent[] {
 }
 
 export function getBloomCausingRegen(event: ResourceChangeEvent): RemoveBuffEvent | undefined {
-  return GetRelatedEvents(event, REGEN_FROM_LIFEBLOOM)
-    .filter((e): e is RemoveBuffEvent => e.type === EventType.RemoveBuff)
-    .pop();
+  return GetRelatedEvents<RemoveBuffEvent>(
+    event,
+    REGEN_FROM_LIFEBLOOM,
+    (e): e is RemoveBuffEvent => e.type === EventType.RemoveBuff,
+  ).pop();
 }
 
 export function getClearcastConsumer(event: RemoveBuffEvent): CastEvent | undefined {
-  return GetRelatedEvents(event, FROM_CLEARCAST)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .pop();
+  return GetRelatedEvents<CastEvent>(
+    event,
+    FROM_CLEARCAST,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).pop();
 }
 
 export default CastLinkNormalizer;

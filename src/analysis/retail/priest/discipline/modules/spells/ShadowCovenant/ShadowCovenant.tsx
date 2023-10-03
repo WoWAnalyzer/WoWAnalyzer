@@ -55,10 +55,10 @@ class ShadowCovenant extends Analyzer {
   }
 
   onAtoneHeal(event: HealEvent) {
-    if (!getDamageEvent(event)) {
+    const damageEvent = getDamageEvent(event);
+    if (!damageEvent) {
       return;
     }
-    const damageEvent = getDamageEvent(event);
 
     // Shadow covenant only buffs expiation if you aren't talented into PTW
     if (damageEvent.ability.guid === SPELLS.EXPIATION_DAMAGE.id && this.hasPtw) {
