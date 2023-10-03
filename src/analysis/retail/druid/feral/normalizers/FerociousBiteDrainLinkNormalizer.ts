@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
-import { AnyEvent, CastEvent, DrainEvent, EventType, GetRelatedEvents } from 'parser/core/Events';
+import { CastEvent, DrainEvent, EventType, GetRelatedEvent } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 
 export const ADDITIONAL_ENERGY_USED = 'AdditionalEnergyUsed';
@@ -33,8 +33,8 @@ class FerociousBiteDrainLinkNormalizer extends EventLinkNormalizer {
 
 /** Gets the additional energy used by the given Ferocious Bite cast, or 0 if no related Drain event can be found */
 export function getAdditionalEnergyUsed(event: CastEvent): number {
-  const events: AnyEvent[] = GetRelatedEvents(event, ADDITIONAL_ENERGY_USED);
-  return events.length === 0 ? 0 : -(events[0] as DrainEvent).resourceChange;
+  const drainEvent = GetRelatedEvent<DrainEvent>(event, ADDITIONAL_ENERGY_USED);
+  return drainEvent ? -drainEvent.resourceChange : 0;
 }
 
 export default FerociousBiteDrainLinkNormalizer;

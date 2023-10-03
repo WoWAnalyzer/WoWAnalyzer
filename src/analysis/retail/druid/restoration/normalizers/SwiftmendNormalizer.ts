@@ -2,10 +2,9 @@ import SPELLS from 'common/SPELLS';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
-  AnyEvent,
   CastEvent,
   EventType,
-  GetRelatedEvents,
+  GetRelatedEvent,
   HasAbility,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -41,8 +40,7 @@ class SwiftmendNormalizer extends EventLinkNormalizer {
 }
 
 export function getRemovedHot(event: CastEvent): AbilityEvent<any> | undefined {
-  const removedHots: AnyEvent[] = GetRelatedEvents(event, CONSUMED_HOT);
-  return removedHots.length !== 0 && HasAbility(removedHots[0]) ? removedHots[0] : undefined;
+  return GetRelatedEvent(event, CONSUMED_HOT, HasAbility);
 }
 
 export default SwiftmendNormalizer;

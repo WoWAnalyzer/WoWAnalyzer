@@ -55,14 +55,14 @@ export function hasAtonementDamageEvent(event: HealEvent): boolean {
 }
 
 export function getDamageEvent(event: HealEvent) {
-  return GetRelatedEvents(event, ATONEMENT_DAMAGE_EVENT).at(-1) as DamageEvent;
+  return GetRelatedEvents<DamageEvent>(event, ATONEMENT_DAMAGE_EVENT).at(-1);
 }
 
 export function getHealEvents(event: DamageEvent) {
-  return GetRelatedEvents(event, ATONEMENT_HEAL_EVENT) as HealEvent[];
+  return GetRelatedEvents<HealEvent>(event, ATONEMENT_HEAL_EVENT);
 }
 
 export function getAtonementHealEvents(event: DamageEvent) {
-  return GetRelatedEvents(event, ATONEMENT_HEAL_EVENT) as HealEvent[];
+  return GetRelatedEvents<HealEvent>(event, ATONEMENT_HEAL_EVENT);
 }
 export default AtonementNormalizer;

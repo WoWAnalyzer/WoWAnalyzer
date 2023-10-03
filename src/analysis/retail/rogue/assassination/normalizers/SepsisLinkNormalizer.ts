@@ -8,7 +8,7 @@ import {
   ApplyDebuffEvent,
   CastEvent,
   EventType,
-  GetRelatedEvents,
+  GetRelatedEvent,
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
@@ -104,9 +104,11 @@ export default class SepsisLinkNormalizer extends EventLinkNormalizer {
 export const getDebuffApplicationFromHardcast = (
   event: CastEvent,
 ): ApplyDebuffEvent | undefined => {
-  return GetRelatedEvents(event, INSTANT_APPLICATION)
-    .filter((e): e is ApplyDebuffEvent => e.type === EventType.ApplyDebuff)
-    .at(0);
+  return GetRelatedEvent(
+    event,
+    INSTANT_APPLICATION,
+    (e): e is ApplyDebuffEvent => e.type === EventType.ApplyDebuff,
+  );
 };
 /** Returns the ApplyBuffEvent for the given Sepsis cast with the relation given by,
  * @param {string} relation either `"InstantAuraApplication"` or `"DelayedAuraApplication"`
@@ -115,9 +117,11 @@ export const getRelatedBuffApplicationFromHardcast = (
   event: CastEvent,
   relation: typeof INSTANT_APPLICATION | typeof DELAYED_APPLICATION,
 ): ApplyBuffEvent | undefined => {
-  return GetRelatedEvents(event, relation)
-    .filter((e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff)
-    .at(0);
+  return GetRelatedEvent(
+    event,
+    relation,
+    (e): e is ApplyBuffEvent => e.type === EventType.ApplyBuff,
+  );
 };
 
 /** Returns the stealth ability `CastEvent` for the given Sepsis `BuffEvent` if any exists, and `undefined` otherwise.
@@ -130,9 +134,11 @@ export const getSepsisConsumptionCastForBuffEvent = (
     const removeBuffEvent = getAuraLifetimeEvent(event);
     event = removeBuffEvent ? removeBuffEvent : event;
   }
-  return GetRelatedEvents(event, BUFF_CONSUMPTION_EVENT)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .at(0);
+  return GetRelatedEvent(
+    event,
+    BUFF_CONSUMPTION_EVENT,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  );
 };
 
 type MatchedLifetimeEvent<
@@ -150,13 +156,13 @@ type MatchedLifetimeEvent<
 export function getAuraLifetimeEvent<
   T extends ApplyBuffEvent | RemoveBuffEvent | ApplyDebuffEvent | RemoveDebuffEvent,
 >(event: T): MatchedLifetimeEvent<T> | undefined {
-  return GetRelatedEvents(event, AURA_LIFETIME_EVENT)
-    .filter(
-      (matchedEvent): matchedEvent is MatchedLifetimeEvent<T> =>
-        matchedEvent.type === EventType.ApplyBuff ||
-        matchedEvent.type === EventType.RemoveBuff ||
-        matchedEvent.type === EventType.ApplyDebuff ||
-        matchedEvent.type === EventType.RemoveDebuff,
-    )
-    .at(0);
+  return GetRelatedEvent(
+    event,
+    AURA_LIFETIME_EVENT,
+    (matchedEvent): matchedEvent is MatchedLifetimeEvent<T> =>
+      matchedEvent.type === EventType.ApplyBuff ||
+      matchedEvent.type === EventType.RemoveBuff ||
+      matchedEvent.type === EventType.ApplyDebuff ||
+      matchedEvent.type === EventType.RemoveDebuff,
+  );
 }

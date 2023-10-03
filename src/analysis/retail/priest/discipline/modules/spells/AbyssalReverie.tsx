@@ -37,11 +37,10 @@ class AbyssalReverie extends Analyzer {
   }
 
   onAtoneHeal(event: HealEvent) {
-    if (!getDamageEvent(event)) {
+    const damageEvent = getDamageEvent(event);
+    if (!damageEvent) {
       return;
     }
-    const damageEvent = getDamageEvent(event);
-
     if (
       // Shadow spells only
       damageEvent.ability.type !== MAGIC_SCHOOLS.ids.SHADOW ||

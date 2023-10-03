@@ -106,13 +106,17 @@ class LeapingFlamesNormalizer extends EventLinkNormalizer {
 }
 
 export function getLeapingDamageEvents(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(event, LEAPING_FLAMES_HITS).filter(
+  return GetRelatedEvents(
+    event,
+    LEAPING_FLAMES_HITS,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }
 
 export function getLeapingHealEvents(event: CastEvent): HealEvent[] {
-  return GetRelatedEvents(event, LEAPING_FLAMES_HITS).filter(
+  return GetRelatedEvents(
+    event,
+    LEAPING_FLAMES_HITS,
     (e): e is HealEvent => e.type === EventType.Heal,
   );
 }
@@ -120,14 +124,18 @@ export function getLeapingHealEvents(event: CastEvent): HealEvent[] {
 export function getCastedGeneratedEssenceBurst(
   event: CastEvent,
 ): (ApplyBuffEvent | ApplyBuffStackEvent)[] {
-  return GetRelatedEvents(event, ESSENCE_BURST_CAST_GENERATED).filter(
+  return GetRelatedEvents(
+    event,
+    ESSENCE_BURST_CAST_GENERATED,
     (e): e is ApplyBuffEvent | ApplyBuffStackEvent =>
       e.type === EventType.ApplyBuff || e.type === EventType.ApplyBuffStack,
   );
 }
 
 export function getWastedEssenceBurst(event: CastEvent): RefreshBuffEvent[] {
-  return GetRelatedEvents(event, ESSENCE_BURST_WASTED).filter(
+  return GetRelatedEvents(
+    event,
+    ESSENCE_BURST_WASTED,
     (e): e is RefreshBuffEvent => e.type === EventType.RefreshBuff,
   );
 }

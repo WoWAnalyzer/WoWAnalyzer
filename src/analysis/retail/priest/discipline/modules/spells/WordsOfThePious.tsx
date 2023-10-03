@@ -37,14 +37,15 @@ class WordsOfThePious extends Analyzer {
   }
 
   onAtoneHeal(event: HealEvent) {
-    if (!getDamageEvent(event)) {
+    const damageEvent = getDamageEvent(event);
+
+    if (!damageEvent) {
       return;
     }
 
     if (!this.selectedCombatant.hasBuff(SPELLS.WORDS_OF_THE_PIOUS_BUFF.id)) {
       return;
     }
-    const damageEvent = getDamageEvent(event);
 
     if (
       damageEvent.ability.guid !== TALENTS_PRIEST.HOLY_NOVA_TALENT.id &&

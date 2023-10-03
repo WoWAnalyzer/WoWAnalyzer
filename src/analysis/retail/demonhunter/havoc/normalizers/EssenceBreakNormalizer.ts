@@ -57,19 +57,25 @@ export default class EssenceBreakNormalizer extends EventLinkNormalizer {
 }
 
 export function getBuffedCasts(event: CastEvent): CastEvent[] {
-  return GetRelatedEvents(event, ESSENCE_BREAK_BUFFED).filter(
+  return GetRelatedEvents(
+    event,
+    ESSENCE_BREAK_BUFFED,
     (e): e is CastEvent => e.type === EventType.Cast,
   );
 }
 
 export function getPreviousVengefulRetreat(event: CastEvent): CastEvent | undefined {
-  return GetRelatedEvents(event, ESSENCE_BREAK_AFTER_VENGEFUL_RETREAT)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .find(Boolean);
+  return GetRelatedEvents<CastEvent>(
+    event,
+    ESSENCE_BREAK_AFTER_VENGEFUL_RETREAT,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).find(Boolean);
 }
 
 export function getPreviousEyeBeam(event: CastEvent): CastEvent | undefined {
-  return GetRelatedEvents(event, ESSENCE_BREAK_AFTER_EYE_BEAM)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .find(Boolean);
+  return GetRelatedEvents<CastEvent>(
+    event,
+    ESSENCE_BREAK_AFTER_EYE_BEAM,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).find(Boolean);
 }

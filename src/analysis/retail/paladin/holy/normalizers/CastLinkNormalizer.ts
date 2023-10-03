@@ -196,7 +196,7 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 }
 
 export function getLightsHammerHeals(event: HealEvent) {
-  return [event].concat(GetRelatedEvents(event, LIGHTS_HAMMER_HEAL) as HealEvent[]);
+  return [event].concat(GetRelatedEvents<HealEvent>(event, LIGHTS_HAMMER_HEAL));
 }
 
 export default CastLinkNormalizer;

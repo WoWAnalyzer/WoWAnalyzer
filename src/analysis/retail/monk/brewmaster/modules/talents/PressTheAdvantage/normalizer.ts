@@ -7,6 +7,7 @@ import {
   CastEvent,
   DamageEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   RemoveBuffEvent,
 } from 'parser/core/Events';
@@ -76,7 +77,7 @@ export function isPtaBonusCast(event: CastEvent): boolean {
 }
 
 export function ptaBonusCast(event: RemoveBuffEvent): CastEvent | undefined {
-  return GetRelatedEvents(event, PTA_BONUS_CAST)?.[0] as CastEvent | undefined;
+  return GetRelatedEvent(event, PTA_BONUS_CAST);
 }
 
 export function ptaBonusDamage(event: RemoveBuffEvent): DamageEvent[] {
@@ -86,9 +87,7 @@ export function ptaBonusDamage(event: RemoveBuffEvent): DamageEvent[] {
     return [];
   }
 
-  return GetRelatedEvents(cast, RSK_DAMAGE).concat(
-    GetRelatedEvents(cast, KS_DAMAGE),
-  ) as DamageEvent[];
+  return GetRelatedEvents<DamageEvent>(cast, RSK_DAMAGE).concat(GetRelatedEvents(cast, KS_DAMAGE));
 }
 
 export default class PressTheAdvantageNormalizer extends EventLinkNormalizer {
