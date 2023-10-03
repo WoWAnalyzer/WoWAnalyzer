@@ -112,6 +112,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
   function findOptimalWindow() {
     console.log(damageTables);
     const graphData: GraphData[] = [];
+    const explanations: JSX.Element[] = [];
 
     let index = 0;
     for (const table of damageTables) {
@@ -224,7 +225,25 @@ const BreathOfEonsSection: React.FC<Props> = ({
         'Breath Window',
       );
       graphData.push(newGraphData);
+      const content = (
+        <table className="breath-explanations">
+          <tr>
+            <td>Damage</td>
+            <td>
+              {formatNumber(damageInRange)} / {formatNumber(top5Windows[0].sum)}
+            </td>
+            <td>
+              <PassFailBar pass={damageInRange} total={top5Windows[0].sum} />
+            </td>
+          </tr>
+        </table>
+      );
+      explanations.push(content);
     }
+
+    explanations.push(<div>1</div>);
+    explanations.push(<div>2</div>);
+    explanations.push(<div>3</div>);
 
     return (
       <div>
@@ -233,6 +252,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
           fightEndTime={fightEndTime}
           graphData={graphData}
           yAxisName="Damage Ratio"
+          explanations={explanations}
         />
       </div>
     );
@@ -470,37 +490,5 @@ const BreathOfEonsSection: React.FC<Props> = ({
     </SubSection>
   );
 };
-/**
- * So this is basicly the function where we would poke WCL for some juicy events
- * how I wanna go about it is kinda in a idk rn state of mind
- * Best way, purely visually is to bring up a graph of the buffed targets DPS over a
- * set window size (breath duration + a buffer) and see if it would have been better
- * to use it later/sooner.
- * We keep it "basic" like that since actually starting to recommend specific timings
- * or determining optimal uses throughout a fight is :KEKW: aint doing that.
- * (Although prolly should, if only for the sake of my own guilds prog :deadge:)
- *
- * Ontop of w/e that bs above is we *should* also compare against other actors
- * to see if there were more optimal targets in the given frame, but complexity ish
- *
- * Esentially the crux is how do I wanna visualize the data, because that kinda dictates
- * how I need to collect said data. If I wanna get DPS, I need to filter it which means going through individual events
- * and if I wanna show a graph that means multiple passes for every second(or even less than that idk)
- * lots of calls :)
- *
- * I think we just load data/analysis for all the graphs at the same time, making the load function a part of the
- * individual graphs feels like a lot more effort.
- *
- * 1. I need to collect the actors in each Breath window
- * 2. Get their filtered damage around the breath window
- * 3. Make a graph out of that, that visualizes an "optimal usage"
- * 4. Plop those graphs in a new array so we can plot them
- * 5. ???
- * 6. Profit
- *
- * When you lay it out like that it actually seems kinda doable.
- * Prolly just stick to only looking at the buffed players, don't
- * need to create whitelist and such then.
- */
 
 export default BreathOfEonsSection;

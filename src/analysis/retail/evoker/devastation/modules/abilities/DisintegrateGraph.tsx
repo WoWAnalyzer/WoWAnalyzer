@@ -57,6 +57,7 @@ type Props = {
   fightEndTime: number;
   graphData: GraphData[];
   yAxisName: string;
+  explanations?: JSX.Element[];
 };
 
 /**
@@ -147,6 +148,7 @@ const DisintegratePlot: React.FC<Props> = ({
   fightEndTime,
   graphData,
   yAxisName,
+  explanations,
 }) => {
   /** Logic for handling display of windows */
   const [currentWindowIndex, setCurrentWindowIndex] = useState(0);
@@ -349,57 +351,63 @@ const DisintegratePlot: React.FC<Props> = ({
   const widthPercentage = graphLength > threshold ? (graphLength / threshold) * 100 : 100;
 
   return (
-    <div className="graph-window-container">
-      {graphData.length > 1 && (
-        <header>
-          <span>
-            {graphData[currentWindowIndex].title ? graphData[currentWindowIndex].title : 'Fight'}:{' '}
-            {currentWindowIndex + 1} out of {graphData.length}
-          </span>
-          <div className="btn-group">
-            <button onClick={goToPrevWindow} disabled={currentWindowIndex === 0}>
-              <span
-                className="icon-button glyphicon glyphicon-chevron-left"
-                aria-hidden="true"
-              ></span>
-            </button>
-            <button onClick={goToNextWindow} disabled={currentWindowIndex === graphData.length - 1}>
-              <span
-                className="icon-button glyphicon glyphicon-chevron-right"
-                aria-hidden="true"
-              ></span>
-            </button>
-          </div>
-        </header>
-      )}
-      <div
-        className="graph-container"
-        style={{
-          width: '100%',
-          overflowX: graphLength > threshold ? 'auto' : 'hidden', // Enable horizontal scrolling if the data length exceeds the threshold
-        }}
-      >
+    <div className={explanations ? 'breath-explanation-container' : ''}>
+      {explanations && explanations[currentWindowIndex]}
+      <div className="graph-window-container">
+        {graphData.length > 1 && (
+          <header>
+            <span>
+              {graphData[currentWindowIndex].title ? graphData[currentWindowIndex].title : 'Fight'}:{' '}
+              {currentWindowIndex + 1} out of {graphData.length}
+            </span>
+            <div className="btn-group">
+              <button onClick={goToPrevWindow} disabled={currentWindowIndex === 0}>
+                <span
+                  className="icon-button glyphicon glyphicon-chevron-left"
+                  aria-hidden="true"
+                ></span>
+              </button>
+              <button
+                onClick={goToNextWindow}
+                disabled={currentWindowIndex === graphData.length - 1}
+              >
+                <span
+                  className="icon-button glyphicon glyphicon-chevron-right"
+                  aria-hidden="true"
+                ></span>
+              </button>
+            </div>
+          </header>
+        )}
         <div
+          className="graph-container"
           style={{
-            padding: graphLength > threshold ? '0 0 30px' : '0 0 0px', // Add padding so scrollbar doesn't overlap x-axis
-            width: `${widthPercentage}%`,
-            overflowY: 'hidden',
-            minHeight: 250,
+            width: '100%',
+            overflowX: graphLength > threshold ? 'auto' : 'hidden', // Enable horizontal scrolling if the data length exceeds the threshold
           }}
         >
-          <AutoSizer>
-            {({ width, height }) => (
-              <BaseChart
-                spec={spec}
-                data={{
-                  currentGraph: currentGraph,
-                  yAxisName: yAxisName,
-                }}
-                width={width}
-                height={height}
-              />
-            )}
-          </AutoSizer>
+          <div
+            style={{
+              padding: graphLength > threshold ? '0 0 30px' : '0 0 0px', // Add padding so scrollbar doesn't overlap x-axis
+              width: `${widthPercentage}%`,
+              overflowY: 'hidden',
+              minHeight: 250,
+            }}
+          >
+            <AutoSizer>
+              {({ width, height }) => (
+                <BaseChart
+                  spec={spec}
+                  data={{
+                    currentGraph: currentGraph,
+                    yAxisName: yAxisName,
+                  }}
+                  width={width}
+                  height={height}
+                />
+              )}
+            </AutoSizer>
+          </div>
         </div>
       </div>
     </div>
