@@ -38,6 +38,7 @@ export type DataSeries = {
   label: string;
   strokeWidth?: number;
   size?: number;
+  hideTooltip?: boolean;
 };
 
 /**
@@ -155,6 +156,7 @@ export const generateGraphData = (
       color: series.color,
       label: series.label,
       strokeWidth: series.strokeWidth,
+      hideTooltip: series.hideTooltip,
     });
   });
 
@@ -240,8 +242,9 @@ const ExplanationGraph: React.FC<Props> = ({
     const points: UnitSpec<Field>[] = [];
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'point') {
+        const tooltip = dataSeries.hideTooltip ? '' : 'tooltip';
         points.push({
-          ...point(dataSeries.spellTracker, 'tooltip', dataSeries.label, dataSeries.size),
+          ...point(dataSeries.spellTracker, dataSeries.label, tooltip, dataSeries.size),
         });
       }
     });
@@ -326,8 +329,8 @@ const ExplanationGraph: React.FC<Props> = ({
 
   const point = (
     data: InlineData,
-    tooltipFieldName: string | undefined,
     label: string,
+    tooltipFieldName: string,
     size?: number,
   ): UnitSpec<Field> => ({
     data: { values: data },
@@ -339,7 +342,7 @@ const ExplanationGraph: React.FC<Props> = ({
       opacity: 1,
     },
     encoding: {
-      tooltip: { field: tooltipFieldName, type: 'nominal' },
+      tooltip: tooltipFieldName ? { field: tooltipFieldName, type: 'nominal' } : {},
       color: {
         datum: label,
         type: 'nominal',

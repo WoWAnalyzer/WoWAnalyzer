@@ -287,6 +287,15 @@ const BreathOfEonsSection: React.FC<Props> = ({
           color: 'red',
           label: 'Problem Points',
           size: 120,
+          hideTooltip: true,
+        },
+        {
+          spellTracker: window.breathPerformance.ebonMightProblems,
+          type: 'point',
+          color: 'red',
+          label: 'Problem Points',
+          size: 120,
+          hideTooltip: true,
         },
       ];
       const error =
