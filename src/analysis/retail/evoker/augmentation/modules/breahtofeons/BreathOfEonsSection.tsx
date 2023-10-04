@@ -161,60 +161,69 @@ const BreathOfEonsSection: React.FC<Props> = ({
       console.log('start: ', formatDuration(breathStart - fightStartTime));
       console.log('end: ', formatDuration(breathEnd - fightStartTime));
 
-      const dataSeries: DataSeries[] = [
-        {
-          spellTracker: [
-            {
-              timestamp: breathStart,
-              count: 1,
-            },
-            {
-              timestamp: breathEnd,
-              count: 0,
-            },
-          ],
-          type: 'area',
-          color: '#736F4E',
-          label: 'Current Breath timing',
-          strokeWidth: 5,
-        },
-        {
-          spellTracker: [
-            {
-              timestamp: top5Windows[0].start,
-              count: 1 * (top5Windows[0].sum / damageInRange),
-            },
-            {
-              timestamp: top5Windows[0].end,
-              count: 0,
-            },
-          ],
-          type: 'area',
-          color: '#4C78A8',
-          label: 'Optimal Breath timing',
-          strokeWidth: 5,
-        },
-      ];
+      const dataSeries: DataSeries[] =
+        top5Windows.length === 0
+          ? []
+          : [
+              {
+                spellTracker: [
+                  {
+                    timestamp: breathStart,
+                    count: 1,
+                  },
+                  {
+                    timestamp: breathEnd,
+                    count: 0,
+                  },
+                ],
+                type: 'area',
+                color: '#736F4E',
+                label: 'Current Breath timing',
+                strokeWidth: 5,
+              },
+              {
+                spellTracker: [
+                  {
+                    timestamp: top5Windows[0].start,
+                    count: 1 * (top5Windows[0].sum / damageInRange),
+                  },
+                  {
+                    timestamp: top5Windows[0].end,
+                    count: 0,
+                  },
+                ],
+                type: 'area',
+                color: '#4C78A8',
+                label: 'Optimal Breath timing',
+                strokeWidth: 5,
+              },
+            ];
+
       const newGraphData = generateGraphData(
         dataSeries,
         breathStart - buffer,
         breathEnd + buffer,
         'Breath Window',
+        top5Windows.length === 0 ? <>You didn't hit anything</> : undefined,
       );
       graphData.push(newGraphData);
-      const content = (
-        <table className="breath-explanations">
-          <tr>
-            <td>Damage</td>
-            <td>
-              {formatNumber(damageInRange)} / {formatNumber(top5Windows[0].sum)}
-            </td>
-            <td>
-              <PassFailBar pass={damageInRange} total={top5Windows[0].sum} />
-            </td>
-          </tr>
-        </table>
-      );
+
+      const content =
+        top5Windows.length === 0 ? (
+          <div></div>
+        ) : (
+          <table className="breath-explanations">
+            <tr>
+              <td>Damage</td>
+              <td>
+                {formatNumber(damageInRange)} / {formatNumber(top5Windows[0].sum)}
+              </td>
+              <td>
+                <PassFailBar pass={damageInRange} total={top5Windows[0].sum} />
+              </td>
+            </tr>
+          </table>
+        );
       explanations.push(content);
     }
 
