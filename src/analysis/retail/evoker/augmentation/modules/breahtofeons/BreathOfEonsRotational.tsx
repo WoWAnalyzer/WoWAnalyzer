@@ -28,7 +28,7 @@ import spells from 'common/SPELLS/dragonflight/trinkets';
 import trinkets from 'common/ITEMS/dragonflight/trinkets';
 import Combatant from 'parser/core/Combatant';
 import Combatants from 'parser/shared/modules/Combatants';
-import { SpellTracker } from 'analysis/retail/evoker/devastation/modules/abilities/DisintegrateGraph';
+import { SpellTracker } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 
 export type BreathOfEonsWindows = {
   flightData: SpellTracker[];

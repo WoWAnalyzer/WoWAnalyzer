@@ -12,12 +12,12 @@ import Events, {
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import DisintegratePlot, {
+import ExplanationGraph, {
   GraphData,
   DataSeries,
   SpellTracker,
   generateGraphData,
-} from './DisintegrateGraph';
+} from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
 import { isFightDungeon } from 'common/isFightDungeon';
@@ -432,7 +432,7 @@ class Disintegrate extends Analyzer {
           </ul>
           Mouseover each point for more detailed explanations.
         </div>
-        <DisintegratePlot
+        <ExplanationGraph
           fightStartTime={this.owner.fight.start_time}
           fightEndTime={this.owner.fight.end_time}
           graphData={this.graphData}

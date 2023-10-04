@@ -8,16 +8,16 @@ import SPELLS from 'common/SPELLS/evoker';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import './Section.scss';
 import { t } from '@lingui/macro';
-import LazyLoadGuideSection from '../features/BuffTargetHelper/LazyLoadGuideSection';
+import LazyLoadGuideSection from '../../../shared/modules/components/LazyLoadGuideSection';
 import { blacklist } from '../features/BuffTargetHelper/BuffTargetHelper';
 import { fetchEvents } from 'common/fetchWclApi';
 import CombatLogParser from '../../CombatLogParser';
-import DisintegratePlot, {
+import ExplanationGraph, {
   DataSeries,
   GraphData,
   SpellTracker,
   generateGraphData,
-} from 'analysis/retail/evoker/devastation/modules/abilities/DisintegrateGraph';
+} from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -229,7 +229,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
     return (
       <div>
-        <DisintegratePlot
+        <ExplanationGraph
           fightStartTime={fightStartTime}
           fightEndTime={fightEndTime}
           graphData={graphData}
@@ -298,7 +298,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
         window.breathPerformance.temporalWoundsCounter.length === 0 ? (
           <div></div>
         ) : (
-          <table className="breath-explanations">
+          <table className="graph-explanations">
             <tbody>
               <tr>
                 <td>Ebon Might Uptime</td>
@@ -471,7 +471,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
           </p>
         </div>
       </div>
-      <DisintegratePlot
+      <ExplanationGraph
         fightStartTime={fightStartTime}
         fightEndTime={fightEndTime}
         graphData={graphData}
@@ -484,11 +484,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
           <span className="currentBreath">Current Breath timing</span> -{' '}
           <span className="optimalBreath">Optimal Breath timing</span>
         </p>
-        <LazyLoadGuideSection
-          loader={loadData.bind(this)}
-          value={findOptimalWindow.bind(this)}
-          className="button"
-        />
+        <LazyLoadGuideSection loader={loadData.bind(this)} value={findOptimalWindow.bind(this)} />
       </div>
     </SubSection>
   );

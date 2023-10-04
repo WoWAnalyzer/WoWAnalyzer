@@ -1,4 +1,3 @@
-// DisintegratePlot.tsx
 import React, { useState } from 'react';
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { VisualizationSpec } from 'react-vega';
@@ -6,7 +5,7 @@ import { AutoSizer } from 'react-virtualized';
 import { UnitSpec } from 'vega-lite/build/src/spec';
 import { Field } from 'vega-lite/build/src/channeldef';
 import { InlineData } from 'vega-lite/build/src/data';
-import 'analysis/retail/evoker/augmentation/modules/breahtofeons/Section.scss';
+import './Styling.scss';
 
 /**
  * Represents the configuration options for the individual graphs that
@@ -93,15 +92,16 @@ export const generateGraphData = (
   }
   const filteredData: DataSeries[] = [];
   data.forEach((series) => {
+    if (series.spellTracker.length === 0) {
+      return;
+    }
+
     // Make new filtered SpellTracker
     const filteredSpellTracker: SpellTracker[] = [];
 
     // Make sure the data is in the right order
     series.spellTracker.sort((a, b) => a.timestamp - b.timestamp);
 
-    if (series.spellTracker.length === 0) {
-      return;
-    }
     let prevEntry: SpellTracker = series.spellTracker[0];
     let endFound = false;
 
@@ -168,7 +168,7 @@ export const generateGraphData = (
   return graphData;
 };
 
-const DisintegratePlot: React.FC<Props> = ({
+const ExplanationGraph: React.FC<Props> = ({
   fightStartTime,
   fightEndTime,
   graphData,
@@ -195,7 +195,6 @@ const DisintegratePlot: React.FC<Props> = ({
      * Need to do this if we want to make legends
      * without losing our colors. I looooooove VegaLite : ) */
     colorRange = [];
-    console.log(currentGraph);
 
     for (const type of ['area', 'line', 'point']) {
       const elements = currentGraph.graphData.filter((dataSeries) => dataSeries.type === type);
@@ -250,7 +249,7 @@ const DisintegratePlot: React.FC<Props> = ({
     return points;
   }
 
-  /** We want high fidelity for ticks so it's easier to look up specific timings on logs/vods */
+  /** Show ticks every second */
   const tickCount =
     (graphData[currentWindowIndex].endTime - graphData[currentWindowIndex].startTime) / 1000;
   const xAxis = {
@@ -378,7 +377,7 @@ const DisintegratePlot: React.FC<Props> = ({
   const widthPercentage = graphLength > threshold ? (graphLength / threshold) * 100 : 100;
 
   return (
-    <div className={explanations ? 'breath-explanation-container' : ''}>
+    <div className={explanations ? 'graph-explanation-container' : ''}>
       {explanations && explanations[currentWindowIndex]}
       <div className="graph-window-container">
         {graphData.length > 1 && (
@@ -445,4 +444,4 @@ const DisintegratePlot: React.FC<Props> = ({
   );
 };
 
-export default DisintegratePlot;
+export default ExplanationGraph;

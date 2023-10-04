@@ -1,21 +1,5 @@
 @import 'interface/Theme.scss';
 
-.button {
-  background-color: #fab700;
-  color: #211510;
-  line-height: 16.8px;
-  font-size: 14px;
-  border-radius: 6px;
-  height: 38px;
-  width: 140px;
-  border: none;
-  font-weight: 600;
-
-  &:hover {
-    background-color: darken($color: #fab700, $amount: 7);
-  }
-}
-
 .grid {
   grid-template-columns: 35% auto;
   display: grid;
