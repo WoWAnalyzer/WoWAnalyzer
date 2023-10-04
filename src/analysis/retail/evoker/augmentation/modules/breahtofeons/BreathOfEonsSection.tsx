@@ -27,15 +27,6 @@ type Props = {
   shiftingSandsCount: SpellTracker[];
   owner: CombatLogParser;
 };
-const damageTables: {
-  table: any[];
-  start: number;
-  end: number;
-}[] = [];
-//const damageTables: any[][] = [];
-
-const graphData: GraphData[] = [];
-const explanations: JSX.Element[] = [];
 
 const BreathOfEonsSection: React.FC<Props> = ({
   windows,
@@ -45,11 +36,19 @@ const BreathOfEonsSection: React.FC<Props> = ({
   shiftingSandsCount,
   owner,
 }) => {
+  const graphData: GraphData[] = [];
+  const explanations: JSX.Element[] = [];
+  const damageTables: {
+    table: any[];
+    start: number;
+    end: number;
+  }[] = [];
+
   /** Generate filter based on black list and whitelist
    * For now we only look at the players who were buffed
    * during breath */
   function getFilter(window: BreathOfEonsWindows) {
-    console.log(window.breathPerformance.buffedPlayers);
+    //console.log(window.breathPerformance.buffedPlayers);
     //const playerNames = ['Olgey', 'Yuette', 'Dérp', 'Dolanpepe'];
     const playerNames = Array.from(window.breathPerformance.buffedPlayers.keys());
     const nameFilter = playerNames.map((name) => `"${name}"`).join(', ');
@@ -59,8 +58,9 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
     const filter = `type = "damage" 
     AND not ability.id in (${abilityFilter}) 
-    AND (source.name in (${nameFilter}, "${owner.selectedCombatant.name}") OR source.owner.name in (${nameFilter})) 
+    AND (source.name in (${nameFilter}, "${owner.selectedCombatant.name}") OR source.owner.name in (${nameFilter}, "${owner.selectedCombatant.name}") ) 
     AND (target.id != source.id)`;
+
     console.log(filter);
     return filter;
   }
@@ -82,7 +82,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
         endTime,
         undefined,
         getFilter(window),
-        10,
+        20,
       );
       damageTables.push({
         table: windowEvents,
@@ -93,11 +93,11 @@ const BreathOfEonsSection: React.FC<Props> = ({
   }
 
   function findOptimalWindow() {
-    console.log(damageTables);
     const graphData: GraphData[] = [];
     const explanations: JSX.Element[] = [];
 
     let index = 0;
+
     for (const table of damageTables) {
       if (!windows[index]) {
         continue;
@@ -116,13 +116,10 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
         // Calculate the sum only for events within the current window
         if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
-          if (event.subtractsFromSupportedActor) {
-            damageInRange -= event.amount + (event.absorbed ?? 0);
-          } else {
+          if (!event.subtractsFromSupportedActor) {
             damageInRange += event.amount + (event.absorbed ?? 0);
           }
         }
-
         while (
           recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
           breathLength
@@ -135,7 +132,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
           );
           const currentWindowSum = eventsWithinWindow.reduce((acc, e) => {
             if (e.subtractsFromSupportedActor) {
-              return acc - e.amount - (e.absorbed ?? 0);
+              return acc;
             } else {
               return acc + e.amount + (e.absorbed ?? 0);
             }
@@ -152,17 +149,29 @@ const BreathOfEonsSection: React.FC<Props> = ({
         }
       }
 
+      const topWindow = damageWindows.sort((a, b) => b.sum - a.sum).slice(0, 1);
+
+      console.log(index + 1 + '. ', 'Top Window:', topWindow[0]);
+      console.log(
+        index + 1 + '.',
+        'Damage within current window:',
+        damageInRange,
+        'Expected sum:',
+        windows[index].breathPerformance.damage * 10,
+        ' difference:',
+        windows[index].breathPerformance.damage * 10 - damageInRange,
+        'start:',
+        formatDuration(breathStart - fightStartTime),
+        breathStart,
+        'end:',
+        formatDuration(breathEnd - fightStartTime),
+        breathEnd,
+      );
       index += 1;
 
-      const top5Windows = damageWindows.sort((a, b) => b.sum - a.sum).slice(0, 5);
-
-      console.log('Top 5 Windows:', top5Windows);
-      console.log('Damage within current window:', damageInRange);
-      console.log('start: ', formatDuration(breathStart - fightStartTime));
-      console.log('end: ', formatDuration(breathEnd - fightStartTime));
-
+      /** Generate graphdata and explanation output below */
       const dataSeries: DataSeries[] =
-        top5Windows.length === 0
+        topWindow.length === 0
           ? []
           : [
               {
@@ -184,11 +193,11 @@ const BreathOfEonsSection: React.FC<Props> = ({
               {
                 spellTracker: [
                   {
-                    timestamp: top5Windows[0].start,
-                    count: 1 * (top5Windows[0].sum / damageInRange),
+                    timestamp: topWindow[0].start,
+                    count: 1 * (topWindow[0].sum / damageInRange),
                   },
                   {
-                    timestamp: top5Windows[0].end,
+                    timestamp: topWindow[0].end,
                     count: 0,
                   },
                 ],
@@ -204,22 +213,22 @@ const BreathOfEonsSection: React.FC<Props> = ({
         breathStart - buffer,
         breathEnd + buffer,
         'Breath Window',
-        top5Windows.length === 0 ? <>You didn't hit anything</> : undefined,
+        topWindow.length === 0 ? <>You didn't hit anything</> : undefined,
       );
       graphData.push(newGraphData);
 
       const content =
-        top5Windows.length === 0 ? (
+        topWindow.length === 0 ? (
           <div></div>
         ) : (
           <table className="breath-explanations">
             <tr>
               <td>Damage</td>
               <td>
-                {formatNumber(damageInRange)} / {formatNumber(top5Windows[0].sum)}
+                {formatNumber(damageInRange * 0.1)} / {formatNumber(topWindow[0].sum * 0.1)}
               </td>
               <td>
-                <PassFailBar pass={damageInRange} total={top5Windows[0].sum} />
+                <PassFailBar pass={damageInRange * 0.1} total={topWindow[0].sum * 0.1} />
               </td>
             </tr>
           </table>

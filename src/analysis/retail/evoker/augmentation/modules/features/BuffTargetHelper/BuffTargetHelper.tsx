@@ -66,6 +66,7 @@ export const blacklist: number[] = [
   281721, // Bile-Stained Crawg Tusks (Vile Bile)
   214397, // Mark of Dargrul (Landslide)
   408469, // Call to Suffering (Self Harm)
+  409632, // Breath of Eons
 ];
 
 /**

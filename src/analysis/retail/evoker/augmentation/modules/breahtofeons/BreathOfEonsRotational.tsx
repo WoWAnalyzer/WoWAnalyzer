@@ -322,12 +322,10 @@ class BreathOfEonsRotational extends Analyzer {
         damage: 0,
         buffedPlayers: currentBuffedTargets, // TODO: add aug himself maybe idk
       },
-
       start: 0,
       end: 0,
     });
     this.totalCasts = this.totalCasts + 1;
-    console.log(this.currentPerformanceBreathWindow.buffedPlayers);
   }
 
   /** Track casts inside of Breath Windows */
