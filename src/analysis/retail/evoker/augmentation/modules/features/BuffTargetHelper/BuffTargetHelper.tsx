@@ -12,7 +12,7 @@ import { isFightDungeon } from 'common/isFightDungeon';
 import './BuffTargetHelper.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
-import LazyLoadGuideSection from '../../../../shared/modules/components/LazyLoadGuideSection';
+import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
 
 /**
  * @key ClassName

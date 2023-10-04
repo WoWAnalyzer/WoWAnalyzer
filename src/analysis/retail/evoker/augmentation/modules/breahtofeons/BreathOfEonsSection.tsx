@@ -8,7 +8,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import './Section.scss';
 import { t } from '@lingui/macro';
-import LazyLoadGuideSection from '../../../shared/modules/components/LazyLoadGuideSection';
+import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
 import { blacklist } from '../features/BuffTargetHelper/BuffTargetHelper';
 import { fetchEvents } from 'common/fetchWclApi';
 import CombatLogParser from '../../CombatLogParser';
@@ -240,7 +240,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
     );
   }
 
-  /** LETS USE THE GENERIC GRAPH MODULE :POGGA: */
+  /** Generate graph data for Breath Windows */
   if (graphData.length === 0 && windows.length > 0) {
     for (const window of windows) {
       const dataSeries: DataSeries[] = [
