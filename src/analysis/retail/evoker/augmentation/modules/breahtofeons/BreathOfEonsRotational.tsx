@@ -28,17 +28,13 @@ import spells from 'common/SPELLS/dragonflight/trinkets';
 import trinkets from 'common/ITEMS/dragonflight/trinkets';
 import Combatant from 'parser/core/Combatant';
 import Combatants from 'parser/shared/modules/Combatants';
+import { SpellTracker } from 'analysis/retail/evoker/devastation/modules/abilities/DisintegrateGraph';
 
 export type BreathOfEonsWindows = {
   flightData: SpellTracker[];
   breathPerformance: BreathWindowPerformance;
   start: number;
   end: number;
-};
-
-export type SpellTracker = {
-  timestamp: number;
-  count: number;
 };
 
 export type BreathWindowPerformance = {

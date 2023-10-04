@@ -1,13 +1,8 @@
-import React, { useState } from 'react';
-import {
-  BreathOfEonsWindows,
-  BreathWindowPerformance,
-  SpellTracker,
-} from './BreathOfEonsRotational';
+import React from 'react';
+import { BreathOfEonsWindows } from './BreathOfEonsRotational';
 import { SubSection } from 'interface/guide';
 import { SpellLink, TooltipElement } from 'interface';
 import { formatDuration, formatNumber } from 'common/format';
-import BreathOfEonsGraph from './BreathOfEonsGraph';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 import PassFailBar from 'interface/guide/components/PassFailBar';
@@ -20,6 +15,7 @@ import CombatLogParser from '../../CombatLogParser';
 import DisintegratePlot, {
   DataSeries,
   GraphData,
+  SpellTracker,
   generateGraphData,
 } from 'analysis/retail/evoker/devastation/modules/abilities/DisintegrateGraph';
 
@@ -38,6 +34,9 @@ const damageTables: {
 }[] = [];
 //const damageTables: any[][] = [];
 
+const graphData: GraphData[] = [];
+const explanations: JSX.Element[] = [];
+
 const BreathOfEonsSection: React.FC<Props> = ({
   windows,
   fightStartTime,
@@ -46,22 +45,6 @@ const BreathOfEonsSection: React.FC<Props> = ({
   shiftingSandsCount,
   owner,
 }) => {
-  /** Logic for handling display of windows */
-  const [currentWindowIndex, setCurrentWindowIndex] = useState(0);
-
-  const goToNextWindow = () => {
-    setCurrentWindowIndex((prevIndex) => (prevIndex + 1) % windows.length);
-  };
-  const goToPrevWindow = () => {
-    setCurrentWindowIndex((prevIndex) => (prevIndex - 1 + windows.length) % windows.length);
-  };
-
-  const currentWindow = windows[currentWindowIndex];
-  let breathPerformance!: BreathWindowPerformance;
-  if (currentWindow) {
-    breathPerformance = currentWindow.breathPerformance;
-  }
-
   /** Generate filter based on black list and whitelist
    * For now we only look at the players who were buffed
    * during breath */
@@ -116,31 +99,27 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
     let index = 0;
     for (const table of damageTables) {
-      const damageWindows = [];
-      const recentDamage: any[] = [];
-      let totalDamage = 0; // Initialize total damage accumulator
-      let damageInRange = 0; // Initialize damage within the current window
-
-      const damageByOwner: { [ownerName: number]: number } = {}; // Object to store damage by owner
       if (!windows[index]) {
         continue;
       }
+
+      const damageWindows = [];
+      const recentDamage: any[] = [];
+      let damageInRange = 0; // Initialize damage within the current window
+
       const breathStart = windows[index].start;
       const breathEnd = windows[index].end;
       const breathLength = breathEnd - breathStart;
-      console.log(index);
+
       for (const event of table.table) {
         recentDamage.push(event);
-        totalDamage += event.amount + (event.absorbed ?? 0); // Accumulate total damage
 
         // Calculate the sum only for events within the current window
         if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
           if (event.subtractsFromSupportedActor) {
             damageInRange -= event.amount + (event.absorbed ?? 0);
-            damageByOwner[event.sourceID] = (damageByOwner[event.sourceID] || 0) - event.amount;
           } else {
             damageInRange += event.amount + (event.absorbed ?? 0);
-            damageByOwner[event.sourceID] = (damageByOwner[event.sourceID] || 0) + event.amount;
           }
         }
 
@@ -178,11 +157,9 @@ const BreathOfEonsSection: React.FC<Props> = ({
       const top5Windows = damageWindows.sort((a, b) => b.sum - a.sum).slice(0, 5);
 
       console.log('Top 5 Windows:', top5Windows);
-      console.log('Total Damage:', totalDamage); // Log total damage
       console.log('Damage within current window:', damageInRange);
-      console.log('start: ', formatDuration(currentWindow.start - fightStartTime));
-      console.log('end: ', formatDuration(currentWindow.end - fightStartTime));
-      console.log('Damage by Owner:', damageByOwner); // Log damage by owner
+      console.log('start: ', formatDuration(breathStart - fightStartTime));
+      console.log('end: ', formatDuration(breathEnd - fightStartTime));
 
       const dataSeries: DataSeries[] = [
         {
@@ -241,10 +218,6 @@ const BreathOfEonsSection: React.FC<Props> = ({
       explanations.push(content);
     }
 
-    explanations.push(<div>1</div>);
-    explanations.push(<div>2</div>);
-    explanations.push(<div>3</div>);
-
     return (
       <div>
         <DisintegratePlot
@@ -256,6 +229,202 @@ const BreathOfEonsSection: React.FC<Props> = ({
         />
       </div>
     );
+  }
+
+  /** LETS USE THE GENERIC GRAPH MODULE :POGGA: */
+  if (graphData.length === 0 && windows.length > 0) {
+    for (const window of windows) {
+      const dataSeries: DataSeries[] = [
+        {
+          spellTracker: window.breathPerformance.temporalWoundsCounter,
+          type: 'area',
+          color: '#736F4E',
+          label: 'Temporal Wounds',
+          strokeWidth: 3,
+        },
+        {
+          spellTracker: window.flightData,
+          type: 'area',
+          color: '#FF6B6B',
+          label: 'Flight Time',
+          strokeWidth: 3,
+        },
+        {
+          spellTracker: ebonMightCount,
+          type: 'line',
+          color: '#F3A738',
+          label: 'Ebon Might',
+          size: 4,
+        },
+        {
+          spellTracker: shiftingSandsCount,
+          type: 'line',
+          color: '#F7EC59',
+          label: 'Shifting Sands',
+          size: 4,
+        },
+        {
+          spellTracker: window.breathPerformance.damageProblemPoints,
+          type: 'point',
+          color: 'red',
+          label: 'Problem Points',
+          size: 120,
+        },
+      ];
+      const error =
+        window.breathPerformance.temporalWoundsCounter.length > 0 ? undefined : (
+          <div>You didn't hit anything</div>
+        );
+      const newGraphData = generateGraphData(
+        dataSeries,
+        window.start - 3000,
+        window.end + 3000,
+        'Breath Window',
+        error,
+      );
+      graphData.push(newGraphData);
+
+      /** Generate our explanations */
+      const content =
+        window.breathPerformance.temporalWoundsCounter.length === 0 ? (
+          <div></div>
+        ) : (
+          <table className="breath-explanations">
+            <tbody>
+              <tr>
+                <td>Ebon Might Uptime</td>
+                <td className="pass-fail-counts">
+                  {' '}
+                  {(
+                    (window.end -
+                      window.start -
+                      window.breathPerformance.ebonMightDroppedDuration) /
+                    1000
+                  ).toFixed(1)}
+                  s / {((window.end - window.start) / 1000).toFixed(1)}s
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={
+                      window.end - window.start - window.breathPerformance.ebonMightDroppedDuration
+                    }
+                    total={window.end - window.start}
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <TooltipElement
+                    content={t({
+                      id: 'guide.augmentation.breathofeons.damage',
+                      message:
+                        'This value indicates the amount of damage you did, along with the potential damage you lost to mobs dying early. This value is a guesstimation and therefore not 100% accurate.',
+                    })}
+                  >
+                    Damage
+                  </TooltipElement>
+                </td>
+                <td>
+                  {formatNumber(window.breathPerformance.damage)} /{' '}
+                  {formatNumber(
+                    window.breathPerformance.damage + window.breathPerformance.potentialLostDamage,
+                  )}
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={window.breathPerformance.damage}
+                    total={
+                      window.breathPerformance.damage + window.breathPerformance.potentialLostDamage
+                    }
+                  />
+                </td>
+              </tr>
+            </tbody>
+            <tbody>
+              <tr>
+                <strong>Cast performance</strong>
+              </tr>
+              <tr>
+                <td>
+                  <SpellLink spell={SPELLS.FIRE_BREATH} /> casts{' '}
+                </td>
+                <td>
+                  {window.breathPerformance.fireBreaths} /{' '}
+                  {window.breathPerformance.possibleFireBreaths}
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={window.breathPerformance.fireBreaths}
+                    total={window.breathPerformance.possibleFireBreaths}
+                  />
+                </td>
+              </tr>
+
+              <tr>
+                <td>
+                  <SpellLink spell={SPELLS.UPHEAVAL} /> casts{' '}
+                </td>
+                <td>
+                  {window.breathPerformance.upheavels} /{' '}
+                  {window.breathPerformance.possibleUpheavels}
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={window.breathPerformance.upheavels}
+                    total={window.breathPerformance.possibleUpheavels}
+                  />
+                </td>
+              </tr>
+              {window.breathPerformance.timeskipTalented && (
+                <tr>
+                  <td>
+                    <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> casts{' '}
+                  </td>
+                  <td>
+                    {window.breathPerformance.timeSkips} /{' '}
+                    {window.breathPerformance.possibleTimeSkips}
+                  </td>
+                  <td>
+                    <PassFailBar
+                      pass={window.breathPerformance.timeSkips}
+                      total={window.breathPerformance.possibleTimeSkips}
+                    />
+                  </td>
+                </tr>
+              )}
+              <tr>
+                <td>Potion used </td>
+                <td>
+                  {window.breathPerformance.potionUsed} / {window.breathPerformance.possiblePotions}
+                </td>
+                <td>
+                  <PassFailBar
+                    pass={window.breathPerformance.potionUsed}
+                    total={window.breathPerformance.possiblePotions}
+                  />
+                </td>
+              </tr>
+              {window.breathPerformance.possibleTrinkets >= 0 && (
+                <tr>
+                  <td>Trinket used </td>
+                  <td>
+                    {window.breathPerformance.trinketUsed} /{' '}
+                    {window.breathPerformance.possibleTrinkets}
+                  </td>
+                  <td>
+                    <PassFailBar
+                      pass={window.breathPerformance.trinketUsed}
+                      total={window.breathPerformance.possibleTrinkets}
+                    />
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        );
+      explanations.push(content);
+    }
   }
 
   return (
@@ -270,211 +439,36 @@ const BreathOfEonsSection: React.FC<Props> = ({
           <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> windows.
           <br />
         </p>
-        {(breathPerformance && (
-          <div>
-            {breathPerformance.timeskipTalented && (
-              <p>
-                With <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> talented, you should aim to use{' '}
-                <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> alongside every other{' '}
-                <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />.{' '}
-                <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> should be used to reduce the cooldown
-                of your empowers, <SpellLink spell={SPELLS.FIRE_BREATH} /> and{' '}
-                <SpellLink spell={SPELLS.UPHEAVAL} /> to maximize the amount of{' '}
-                <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> buffs you have active.
-                <br />
-              </p>
-            )}
-            <p>
-              You can use the graph below to visualize your buffs:{' '}
-              <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />,{' '}
-              <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> along with your{' '}
-              <SpellLink spell={SPELLS.TEMPORAL_WOUND_DEBUFF} /> debuffs, for each individual{' '}
-              <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> window. Problem points such as:
-              letting <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> drop during your{' '}
-              <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> windows, or a mob dying before{' '}
-              <SpellLink spell={SPELLS.TEMPORAL_WOUND_DEBUFF} /> runs out, will be pointed out.
-            </p>
-          </div>
-        )) || (
-          <div className="no-cast">
+        <div>
+          <p>
+            With <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> talented, you should aim to use{' '}
+            <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> alongside every other{' '}
+            <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />.{' '}
+            <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> should be used to reduce the cooldown of
+            your empowers, <SpellLink spell={SPELLS.FIRE_BREATH} /> and{' '}
+            <SpellLink spell={SPELLS.UPHEAVAL} /> to maximize the amount of{' '}
+            <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} /> buffs you have active.
             <br />
-            You did not cast this spell at all.
-          </div>
-        )}
-      </div>
-      {breathPerformance && (
-        <div className="breath-explanation-container">
-          {breathPerformance.temporalWoundsCounter.length > 0 ? (
-            <table className="breath-explanations">
-              <tbody>
-                <tr>
-                  <td>Ebon Might Uptime</td>
-                  <td className="pass-fail-counts">
-                    {' '}
-                    {(
-                      (currentWindow.end -
-                        currentWindow.start -
-                        breathPerformance.ebonMightDroppedDuration) /
-                      1000
-                    ).toFixed(1)}
-                    s / {((currentWindow.end - currentWindow.start) / 1000).toFixed(1)}s
-                  </td>
-                  <td>
-                    <PassFailBar
-                      pass={
-                        currentWindow.end -
-                        currentWindow.start -
-                        breathPerformance.ebonMightDroppedDuration
-                      }
-                      total={currentWindow.end - currentWindow.start}
-                    />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <TooltipElement
-                      content={t({
-                        id: 'guide.augmentation.breathofeons.damage',
-                        message:
-                          'This value indicates the amount of damage you did, along with the potential damage you lost to mobs dying early. This value is a guesstimation and therefore not 100% accurate.',
-                      })}
-                    >
-                      Damage
-                    </TooltipElement>
-                  </td>
-                  <td>
-                    {formatNumber(breathPerformance.damage)} /{' '}
-                    {formatNumber(breathPerformance.damage + breathPerformance.potentialLostDamage)}
-                  </td>
-                  <td>
-                    <PassFailBar
-                      pass={breathPerformance.damage}
-                      total={breathPerformance.damage + breathPerformance.potentialLostDamage}
-                    />
-                  </td>
-                </tr>
-              </tbody>
-              <tbody>
-                <tr>
-                  <strong>Cast performance</strong>
-                </tr>
-                <tr>
-                  <td>
-                    <SpellLink spell={SPELLS.FIRE_BREATH} /> casts{' '}
-                  </td>
-                  <td>
-                    {breathPerformance.fireBreaths} / {breathPerformance.possibleFireBreaths}
-                  </td>
-                  <td>
-                    <PassFailBar
-                      pass={breathPerformance.fireBreaths}
-                      total={breathPerformance.possibleFireBreaths}
-                    />
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <SpellLink spell={SPELLS.UPHEAVAL} /> casts{' '}
-                  </td>
-                  <td>
-                    {breathPerformance.upheavels} / {breathPerformance.possibleUpheavels}
-                  </td>
-                  <td>
-                    <PassFailBar
-                      pass={breathPerformance.upheavels}
-                      total={breathPerformance.possibleUpheavels}
-                    />
-                  </td>
-                </tr>
-                {breathPerformance.timeskipTalented && (
-                  <tr>
-                    <td>
-                      <SpellLink spell={TALENTS.TIME_SKIP_TALENT} /> casts{' '}
-                    </td>
-                    <td>
-                      {breathPerformance.timeSkips} / {breathPerformance.possibleTimeSkips}
-                    </td>
-                    <td>
-                      <PassFailBar
-                        pass={breathPerformance.timeSkips}
-                        total={breathPerformance.possibleTimeSkips}
-                      />
-                    </td>
-                  </tr>
-                )}
-                <tr>
-                  <td>Potion used </td>
-                  <td>
-                    {breathPerformance.potionUsed} / {breathPerformance.possiblePotions}
-                  </td>
-                  <td>
-                    <PassFailBar
-                      pass={breathPerformance.potionUsed}
-                      total={breathPerformance.possiblePotions}
-                    />
-                  </td>
-                </tr>
-                {breathPerformance.possibleTrinkets >= 0 && (
-                  <tr>
-                    <td>Trinket used </td>
-                    <td>
-                      {breathPerformance.trinketUsed} / {breathPerformance.possibleTrinkets}
-                    </td>
-                    <td>
-                      <PassFailBar
-                        pass={breathPerformance.trinketUsed}
-                        total={breathPerformance.possibleTrinkets}
-                      />
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          ) : (
-            <table></table>
-          )}
-          <div className="graph-window-container">
-            <header>
-              <span>
-                Breath Window: {currentWindowIndex + 1} out of {windows.length}
-              </span>
-              <div className="btn-group">
-                <button onClick={goToPrevWindow} disabled={currentWindowIndex === 0}>
-                  <span
-                    className="icon-button glyphicon glyphicon-chevron-left"
-                    aria-hidden="true"
-                  ></span>
-                </button>
-                <button
-                  onClick={goToNextWindow}
-                  disabled={currentWindowIndex === windows.length - 1}
-                >
-                  <span
-                    className="icon-button glyphicon glyphicon-chevron-right"
-                    aria-hidden="true"
-                  ></span>
-                </button>
-              </div>
-            </header>
-            {breathPerformance.temporalWoundsCounter.length > 0 ? (
-              <BreathOfEonsGraph
-                window={currentWindow}
-                fightStartTime={fightStartTime}
-                fightEndTime={fightEndTime}
-                ebonMightCount={ebonMightCount}
-                shiftingSandsCount={shiftingSandsCount}
-              />
-            ) : (
-              <div>
-                You failed to hit anything with your{' '}
-                <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />!
-              </div>
-            )}
-          </div>
+          </p>
+          <p>
+            You can use the graph below to visualize your buffs:{' '}
+            <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />,{' '}
+            <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> along with your{' '}
+            <SpellLink spell={SPELLS.TEMPORAL_WOUND_DEBUFF} /> debuffs, for each individual{' '}
+            <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> window. Problem points such as:
+            letting <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> drop during your{' '}
+            <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> windows, or a mob dying before{' '}
+            <SpellLink spell={SPELLS.TEMPORAL_WOUND_DEBUFF} /> runs out, will be pointed out.
+          </p>
         </div>
-      )}
+      </div>
+      <DisintegratePlot
+        fightStartTime={fightStartTime}
+        fightEndTime={fightEndTime}
+        graphData={graphData}
+        yAxisName=""
+        explanations={explanations}
+      />
       <div className="graph-window-container">
         <header>Breath Window Helper</header>
         <p>

@@ -21,6 +21,7 @@ export type GraphData = {
   /** Optional title, used for multigraph rendering.
    * Will not render on single graphs*/
   title?: string;
+  error?: JSX.Element;
 };
 
 /**
@@ -37,6 +38,7 @@ export type DataSeries = {
   /** Legend */
   label: string;
   strokeWidth?: number;
+  size?: number;
 };
 
 /**
@@ -76,19 +78,41 @@ export const generateGraphData = (
   startTime: number,
   endTime: number,
   title?: string,
+  error?: JSX.Element,
 ): GraphData => {
+  /** Try to catch problem cases */
+  if (data.length === 0 || error) {
+    const graphData: GraphData = {
+      graphData: data,
+      title: title,
+      startTime: startTime,
+      endTime: endTime,
+      error: error,
+    };
+    return graphData;
+  }
   const filteredData: DataSeries[] = [];
-
   data.forEach((series) => {
     // Make new filtered SpellTracker
     const filteredSpellTracker: SpellTracker[] = [];
 
-    let prevCount = 0;
+    // Make sure the data is in the right order
+    series.spellTracker.sort((a, b) => a.timestamp - b.timestamp);
+
+    if (series.spellTracker.length === 0) {
+      return;
+    }
+    let prevEntry: SpellTracker = series.spellTracker[0];
     let endFound = false;
-    for (let i = 0; i < series.spellTracker.length; i += 1) {
-      const entry = series.spellTracker[i];
+
+    for (const entry of series.spellTracker) {
       const timestamp = entry.timestamp;
       const count = entry.count;
+
+      if (timestamp < startTime) {
+        filteredSpellTracker[0] = { timestamp: startTime, count: count };
+        prevEntry = entry;
+      }
 
       if (timestamp >= startTime && timestamp <= endTime) {
         if (filteredSpellTracker.length === 0 && series.type !== 'point') {
@@ -104,12 +128,12 @@ export const generateGraphData = (
           count: count,
           tooltip: entry.tooltip,
         });
-        prevCount = count;
+        prevEntry = entry;
       } else if (timestamp > endTime) {
         if (series.type !== 'point') {
           filteredSpellTracker.push({
             timestamp: endTime,
-            count: prevCount,
+            count: prevEntry.count,
             tooltip: entry.tooltip,
           });
         }
@@ -121,7 +145,7 @@ export const generateGraphData = (
     if (!endFound && series.type !== 'point') {
       filteredSpellTracker.push({
         timestamp: endTime,
-        count: prevCount,
+        count: prevEntry.count,
       });
     }
 
@@ -139,6 +163,7 @@ export const generateGraphData = (
     title: title,
     startTime: startTime,
     endTime: endTime,
+    error: error,
   };
   return graphData;
 };
@@ -170,6 +195,7 @@ const DisintegratePlot: React.FC<Props> = ({
      * Need to do this if we want to make legends
      * without losing our colors. I looooooove VegaLite : ) */
     colorRange = [];
+    console.log(currentGraph);
 
     for (const type of ['area', 'line', 'point']) {
       const elements = currentGraph.graphData.filter((dataSeries) => dataSeries.type === type);
@@ -201,7 +227,7 @@ const DisintegratePlot: React.FC<Props> = ({
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'line') {
         lines.push({
-          ...line(dataSeries.spellTracker, dataSeries.label),
+          ...line(dataSeries.spellTracker, dataSeries.label, dataSeries.size),
         });
       }
     });
@@ -216,7 +242,7 @@ const DisintegratePlot: React.FC<Props> = ({
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'point') {
         points.push({
-          ...point(dataSeries.spellTracker, 'tooltip', dataSeries.label),
+          ...point(dataSeries.spellTracker, 'tooltip', dataSeries.label, dataSeries.size),
         });
       }
     });
@@ -253,12 +279,12 @@ const DisintegratePlot: React.FC<Props> = ({
     },
   };
 
-  const line = (data: InlineData, label: string): UnitSpec<Field> => ({
+  const line = (data: InlineData, label: string, size?: number): UnitSpec<Field> => ({
     data: { values: data },
     mark: {
       type: 'line',
       interpolate: 'step-after',
-      size: 3,
+      size: size ?? 3,
     },
     transform: [
       { filter: 'isValid(datum.count)' },
@@ -303,13 +329,14 @@ const DisintegratePlot: React.FC<Props> = ({
     data: InlineData,
     tooltipFieldName: string | undefined,
     label: string,
+    size?: number,
   ): UnitSpec<Field> => ({
     data: { values: data },
     mark: {
       type: 'point' as const,
       shape: 'circle',
       filled: true,
-      size: 120,
+      size: size ?? 120,
       opacity: 1,
     },
     encoding: {
@@ -386,28 +413,32 @@ const DisintegratePlot: React.FC<Props> = ({
             overflowX: graphLength > threshold ? 'auto' : 'hidden', // Enable horizontal scrolling if the data length exceeds the threshold
           }}
         >
-          <div
-            style={{
-              padding: graphLength > threshold ? '0 0 30px' : '0 0 0px', // Add padding so scrollbar doesn't overlap x-axis
-              width: `${widthPercentage}%`,
-              overflowY: 'hidden',
-              minHeight: 250,
-            }}
-          >
-            <AutoSizer>
-              {({ width, height }) => (
-                <BaseChart
-                  spec={spec}
-                  data={{
-                    currentGraph: currentGraph,
-                    yAxisName: yAxisName,
-                  }}
-                  width={width}
-                  height={height}
-                />
-              )}
-            </AutoSizer>
-          </div>
+          {!graphData[currentWindowIndex].error ? (
+            <div
+              style={{
+                padding: graphLength > threshold ? '0 0 30px' : '0 0 0px', // Add padding so scrollbar doesn't overlap x-axis
+                width: `${widthPercentage}%`,
+                overflowY: 'hidden',
+                minHeight: 250,
+              }}
+            >
+              <AutoSizer>
+                {({ width, height }) => (
+                  <BaseChart
+                    spec={spec}
+                    data={{
+                      currentGraph: currentGraph,
+                      yAxisName: yAxisName,
+                    }}
+                    width={width}
+                    height={height}
+                  />
+                )}
+              </AutoSizer>
+            </div>
+          ) : (
+            graphData[currentWindowIndex].error
+          )}
         </div>
       </div>
     </div>
