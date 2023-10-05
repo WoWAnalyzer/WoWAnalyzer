@@ -18,6 +18,7 @@ import ExplanationGraph, {
   SpellTracker,
   generateGraphData,
 } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
+import DonutChart from 'parser/ui/DonutChart';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -92,6 +93,23 @@ const BreathOfEonsSection: React.FC<Props> = ({
     }
   }
 
+  /** We want to attribute pet damage to it's owner
+   * This information isn't found in V1 damage events, therefore
+   * we need to find the pets and assign them to their respective owner
+   * Luckily, all pets, along with their owner info, is found in the report! */
+
+  const pets: number[] = [];
+  const petToPlayerMap = new Map<number, number>();
+  for (const pet of owner.report.friendlyPets) {
+    petToPlayerMap.set(pet.id, pet.petOwner);
+    pets.push(pet.id);
+  }
+
+  const playerNameMap = new Map<number, string>();
+  for (const player of owner.report.friendlies) {
+    playerNameMap.set(player.id, player.name);
+  }
+
   function findOptimalWindow() {
     const graphData: GraphData[] = [];
     const explanations: JSX.Element[] = [];
@@ -102,11 +120,8 @@ const BreathOfEonsSection: React.FC<Props> = ({
       if (!windows[index]) {
         continue;
       }
-      console.log(table);
 
       const damageWindows = [];
-      const damageWindowsPlayers: Map<number, any[]> = new Map();
-
       const recentDamage: any[] = [];
       let damageInRange = 0; // Initialize damage within the current window
 
@@ -121,28 +136,51 @@ const BreathOfEonsSection: React.FC<Props> = ({
         if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
           if (!event.subtractsFromSupportedActor) {
             damageInRange += event.amount + (event.absorbed ?? 0);
-            if (!damageWindowsPlayers.get(event.sourceID)) {
-              damageWindowsPlayers.set(event.sourceID, [event]);
-            } else {
-              damageWindowsPlayers.get(event.sourceID)?.push(event);
-            }
           }
         }
+
+        /** Actual logic below */
         while (
           recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
           breathLength
         ) {
           // Calculate the sum only for events within the current window
           const eventsWithinWindow = recentDamage.filter(
-            (e) =>
-              e.timestamp >= recentDamage[0].timestamp &&
-              e.timestamp <= recentDamage[0].timestamp + breathLength,
+            (event) =>
+              event.timestamp >= recentDamage[0].timestamp &&
+              event.timestamp <= recentDamage[0].timestamp + breathLength,
           );
-          const currentWindowSum = eventsWithinWindow.reduce((acc, e) => {
-            if (e.subtractsFromSupportedActor) {
+
+          const sourceSums = [];
+
+          for (const eventWithinWindow of eventsWithinWindow) {
+            if (!eventWithinWindow.subtractsFromSupportedActor) {
+              let sourceID = eventWithinWindow.sourceID;
+              if (pets.includes(eventWithinWindow.sourceID)) {
+                sourceID = petToPlayerMap.get(eventWithinWindow.sourceID);
+              }
+
+              const damageAmount = eventWithinWindow.amount + (eventWithinWindow.absorbed ?? 0);
+
+              // Find the index of sourceID in the sourceSums array
+              const index = sourceSums.findIndex((sum) => sum.sourceID === sourceID);
+              if (index !== -1) {
+                // If sourceID exists, update the damage amount
+                sourceSums[index].damage += damageAmount;
+              } else {
+                // If sourceID doesn't exist, add it to the array
+                sourceSums.push({ sourceID, damage: damageAmount });
+              }
+            }
+          }
+
+          const sortedSourceSums = sourceSums.sort((a, b) => b.damage - a.damage);
+
+          const currentWindowSum = eventsWithinWindow.reduce((acc, event) => {
+            if (event.subtractsFromSupportedActor) {
               return acc;
             } else {
-              return acc + e.amount + (e.absorbed ?? 0);
+              return acc + event.amount + (event.absorbed ?? 0);
             }
           }, 0);
 
@@ -150,6 +188,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
             start: recentDamage[0].timestamp,
             end: recentDamage[0].timestamp + breathLength,
             sum: currentWindowSum,
+            sumSources: sortedSourceSums,
             startFormat: formatDuration(recentDamage[0].timestamp - fightStartTime),
             endFormat: formatDuration(recentDamage[0].timestamp + breathLength - fightStartTime),
           });
@@ -157,10 +196,10 @@ const BreathOfEonsSection: React.FC<Props> = ({
         }
       }
 
-      const topWindow = damageWindows.sort((a, b) => b.sum - a.sum).slice(0, 1);
+      const sortedWindows = damageWindows.sort((a, b) => b.sum - a.sum);
+      const topWindow = sortedWindows[0];
 
-      console.log('map', damageWindowsPlayers);
-      console.log(index + 1 + '. ', 'Top Window:', topWindow[0]);
+      console.log(index + 1 + '. ', 'Top Window:', topWindow);
       console.log(
         index + 1 + '.',
         'Damage within current window:',
@@ -179,82 +218,133 @@ const BreathOfEonsSection: React.FC<Props> = ({
       index += 1;
 
       /** Generate graphdata and explanation output below */
-      const dataSeries: DataSeries[] =
-        topWindow.length === 0
-          ? []
-          : [
-              {
-                spellTracker: [
-                  {
-                    timestamp: breathStart,
-                    count: 1,
-                  },
-                  {
-                    timestamp: breathEnd,
-                    count: 0,
-                  },
-                ],
-                type: 'area',
-                color: '#736F4E',
-                label: 'Current Breath timing',
-                strokeWidth: 5,
-              },
-              {
-                spellTracker: [
-                  {
-                    timestamp: topWindow[0].start,
-                    count: 1 * (topWindow[0].sum / damageInRange),
-                  },
-                  {
-                    timestamp: topWindow[0].end,
-                    count: 0,
-                  },
-                ],
-                type: 'area',
-                color: '#4C78A8',
-                label: 'Optimal Breath timing',
-                strokeWidth: 5,
-              },
-            ];
+      const dataSeries: DataSeries[] = !topWindow
+        ? []
+        : [
+            {
+              spellTracker: [
+                {
+                  timestamp: breathStart,
+                  count: 1,
+                },
+                {
+                  timestamp: breathEnd,
+                  count: 0,
+                },
+              ],
+              type: 'area',
+              color: '#736F4E',
+              label: 'Current Breath timing',
+              strokeWidth: 5,
+            },
+            {
+              spellTracker: [
+                {
+                  timestamp: topWindow.start,
+                  count: 1 * (topWindow.sum / damageInRange),
+                },
+                {
+                  timestamp: topWindow.end,
+                  count: 0,
+                },
+              ],
+              type: 'area',
+              color: '#4C78A8',
+              label: 'Optimal Breath timing',
+              strokeWidth: 5,
+            },
+          ];
 
       const newGraphData = generateGraphData(
         dataSeries,
         breathStart - buffer,
         breathEnd + buffer,
         'Breath Window',
-        topWindow.length === 0 ? <>You didn't hit anything</> : undefined,
+        !topWindow ? <>You didn't hit anything</> : undefined,
       );
       graphData.push(newGraphData);
 
-      const content =
-        topWindow.length === 0 ? (
-          <div></div>
-        ) : (
-          <table className="graph-explanations">
-            <tbody>
-              <tr>
-                <td>
-                  <TooltipElement
-                    content="Due to how Blizzard deals with damage attributions, 
-                  the values shown here are going to be within a small margin of error."
-                  >
-                    Damage
-                  </TooltipElement>
-                </td>
-                <td>
-                  {formatNumber(damageInRange * 0.1)} / {formatNumber(topWindow[0].sum * 0.1)}
-                </td>
-                <td>
-                  <PassFailBar pass={damageInRange * 0.1} total={topWindow[0].sum * 0.1} />
-                </td>
-              </tr>
-              <tr>
-                <td>Potential damage increase:</td>
-                <td>{Math.round(((topWindow[0].sum - damageInRange) / damageInRange) * 100)}%</td>
-              </tr>
-            </tbody>
-          </table>
+      const playerDrilldown: JSX.Element[] = [];
+
+      for (const source of topWindow.sumSources) {
+        playerDrilldown.push(
+          <tr>
+            <td>{source.sourceID}</td>
+            <td>{formatNumber(source.damage)}</td>
+            <td className="player-perf">
+              <PassFailBar pass={source.damage} total={topWindow.sum} />
+            </td>
+          </tr>,
         );
+      }
+
+      const damageSources = [
+        {
+          color: 'rgb(123,188,93)',
+          label: playerNameMap.get(topWindow.sumSources[0].sourceID),
+          valueTooltip: formatNumber(topWindow.sumSources[0].damage),
+          value: topWindow.sumSources[0].damage,
+        },
+        {
+          color: 'rgb(216,59,59)',
+          label: playerNameMap.get(topWindow.sumSources[1].sourceID),
+          valueTooltip: formatNumber(topWindow.sumSources[1].damage),
+          value: topWindow.sumSources[1].damage,
+        },
+        {
+          color: 'rgb(216,100,59)',
+          label: playerNameMap.get(topWindow.sumSources[2].sourceID),
+          valueTooltip: formatNumber(topWindow.sumSources[2].damage),
+          value: topWindow.sumSources[2].damage,
+        },
+        {
+          color: 'rgb(20,59,59)',
+          label: playerNameMap.get(topWindow.sumSources[3].sourceID),
+          valueTooltip: formatNumber(topWindow.sumSources[3].damage),
+          value: topWindow.sumSources[3].damage,
+        },
+        {
+          color: 'rgb(20,59,200)',
+          label: playerNameMap.get(topWindow.sumSources[4].sourceID),
+          valueTooltip: formatNumber(topWindow.sumSources[4].damage),
+          value: topWindow.sumSources[4].damage,
+        },
+      ];
+
+      const content: JSX.Element = !topWindow ? (
+        <div></div>
+      ) : (
+        <table className="graph-explanations">
+          <tbody>
+            <tr>
+              <td>
+                <TooltipElement
+                  content="Due to how Blizzard deals with damage attributions, 
+                  the values shown here are going to be within a small margin of error."
+                >
+                  Damage
+                </TooltipElement>
+              </td>
+              <td>
+                {formatNumber(damageInRange * 0.1)} / {formatNumber(topWindow.sum * 0.1)}
+              </td>
+              <td>
+                <PassFailBar pass={damageInRange * 0.1} total={topWindow.sum * 0.1} />
+              </td>
+            </tr>
+            <tr>
+              <td>Potential damage increase:</td>
+              <td>{Math.round(((topWindow.sum - damageInRange) / damageInRange) * 100)}%</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr>
+              <strong>Player contribution breakdown</strong>
+            </tr>
+            <DonutChart items={damageSources} />
+          </tbody>
+        </table>
+      );
       explanations.push(content);
     }
 
