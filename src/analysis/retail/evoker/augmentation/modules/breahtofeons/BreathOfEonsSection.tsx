@@ -102,8 +102,11 @@ const BreathOfEonsSection: React.FC<Props> = ({
       if (!windows[index]) {
         continue;
       }
+      console.log(table);
 
       const damageWindows = [];
+      const damageWindowsPlayers: Map<number, any[]> = new Map();
+
       const recentDamage: any[] = [];
       let damageInRange = 0; // Initialize damage within the current window
 
@@ -118,6 +121,11 @@ const BreathOfEonsSection: React.FC<Props> = ({
         if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
           if (!event.subtractsFromSupportedActor) {
             damageInRange += event.amount + (event.absorbed ?? 0);
+            if (!damageWindowsPlayers.get(event.sourceID)) {
+              damageWindowsPlayers.set(event.sourceID, [event]);
+            } else {
+              damageWindowsPlayers.get(event.sourceID)?.push(event);
+            }
           }
         }
         while (
@@ -151,6 +159,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
       const topWindow = damageWindows.sort((a, b) => b.sum - a.sum).slice(0, 1);
 
+      console.log('map', damageWindowsPlayers);
       console.log(index + 1 + '. ', 'Top Window:', topWindow[0]);
       console.log(
         index + 1 + '.',
@@ -221,16 +230,29 @@ const BreathOfEonsSection: React.FC<Props> = ({
         topWindow.length === 0 ? (
           <div></div>
         ) : (
-          <table className="breath-explanations">
-            <tr>
-              <td>Damage</td>
-              <td>
-                {formatNumber(damageInRange * 0.1)} / {formatNumber(topWindow[0].sum * 0.1)}
-              </td>
-              <td>
-                <PassFailBar pass={damageInRange * 0.1} total={topWindow[0].sum * 0.1} />
-              </td>
-            </tr>
+          <table className="graph-explanations">
+            <tbody>
+              <tr>
+                <td>
+                  <TooltipElement
+                    content="Due to how Blizzard deals with damage attributions, 
+                  the values shown here are going to be within a small margin of error."
+                  >
+                    Damage
+                  </TooltipElement>
+                </td>
+                <td>
+                  {formatNumber(damageInRange * 0.1)} / {formatNumber(topWindow[0].sum * 0.1)}
+                </td>
+                <td>
+                  <PassFailBar pass={damageInRange * 0.1} total={topWindow[0].sum * 0.1} />
+                </td>
+              </tr>
+              <tr>
+                <td>Potential damage increase:</td>
+                <td>{Math.round(((topWindow[0].sum - damageInRange) / damageInRange) * 100)}%</td>
+              </tr>
+            </tbody>
           </table>
         );
       explanations.push(content);
@@ -498,6 +520,14 @@ const BreathOfEonsSection: React.FC<Props> = ({
       />
       <div className="graph-window-container">
         <header>Breath Window Helper</header>
+        <p>
+          This module will help you figure out when it would have been optimal to have used your{' '}
+          <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />. This can be usefull in helping your
+          figure out when bursty specs like{' '}
+          <span className="DeathKnight">Unholy Death Knights</span>,{' '}
+          <span className="Warlock">Demonology Warlocks</span> or{' '}
+          <span className="Mage">Arcane Mages</span> are fully ramped up.
+        </p>
         <p>
           <span className="currentBreath">Current Breath timing</span> -{' '}
           <span className="optimalBreath">Optimal Breath timing</span>
