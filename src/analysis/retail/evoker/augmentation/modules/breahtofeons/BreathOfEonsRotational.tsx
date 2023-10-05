@@ -402,6 +402,7 @@ class BreathOfEonsRotational extends Analyzer {
       const ebonMightProblem = {
         timestamp: event.timestamp,
         count: this.ebonMightCounter,
+        tooltip: 'You dropped Ebon Might',
       };
 
       // If you drop multiple Ebon Mights at the same time, only push one Problem point
@@ -477,6 +478,7 @@ class BreathOfEonsRotational extends Analyzer {
       perfWindow.damageProblemPoints.push({
         timestamp: event.timestamp,
         count: this.activeDebuffs,
+        tooltip: 'Mob died early.',
       });
       perfWindow.earlyDeaths += 1;
     } else {
