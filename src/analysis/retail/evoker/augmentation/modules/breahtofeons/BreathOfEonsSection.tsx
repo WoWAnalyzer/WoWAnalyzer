@@ -98,14 +98,21 @@ const BreathOfEonsSection: React.FC<Props> = ({
    * This information isn't found in V1 damage events, therefore
    * we need to find the pets and assign them to their respective owner
    * Luckily, all pets, along with their owner info, is found in the report! */
-
   const pets: number[] = [];
   const petToPlayerMap = new Map<number, number>();
   for (const pet of owner.report.friendlyPets) {
     petToPlayerMap.set(pet.id, pet.petOwner);
     pets.push(pet.id);
   }
-
+  /** Due to MC mechanics we can have friendly pets do damage
+   * but not show up as a friendlyPet, but rather enemyPet
+   * since we are filtering for specific players might as well
+   * just attribute these as well. */
+  for (const pet of owner.report.enemyPets) {
+    petToPlayerMap.set(pet.id, pet.petOwner);
+    pets.push(pet.id);
+  }
+  /** Assign playerId with PlayerInfo */
   const playerNameMap = new Map<number, PlayerInfo>();
   for (const player of owner.report.friendlies) {
     playerNameMap.set(player.id, player);
@@ -122,9 +129,20 @@ const BreathOfEonsSection: React.FC<Props> = ({
         continue;
       }
 
+      /** Figure out if we should be looking at dropped Ebon Might damage
+       * We only care when we fully drop Ebon Might not individually, since
+       * that usually means player death and will naturally be handled by them
+       * no longer providing us with new events. Plus this is an easy solution! */
+      const ebonMightDropTimestamp =
+        windows[index].breathPerformance.ebonMightProblems.find((problem) => problem.count === 0)
+          ?.timestamp ?? 0;
+      const ebonMightReappliedTimestamp =
+        ebonMightDropTimestamp + windows[index].breathPerformance.ebonMightDroppedDuration;
+
       const damageWindows = [];
       const recentDamage: any[] = [];
-      let damageInRange = 0; // Initialize damage within the current window
+      let damageInRange = 0;
+      let lostDamage = 0;
 
       const breathStart = windows[index].start;
       const breathEnd = windows[index].end;
@@ -136,11 +154,18 @@ const BreathOfEonsSection: React.FC<Props> = ({
         // Calculate the sum only for events within the current window
         if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
           if (!event.subtractsFromSupportedActor) {
-            damageInRange += event.amount + (event.absorbed ?? 0);
+            if (
+              event.timestamp >= ebonMightDropTimestamp &&
+              event.timestamp <= ebonMightReappliedTimestamp
+            ) {
+              lostDamage += event.amount + (event.absorbed ?? 0);
+            } else {
+              damageInRange += event.amount + (event.absorbed ?? 0);
+            }
           }
         }
 
-        /** Actual logic below */
+        /** Logic for finding the top windows */
         while (
           recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
           breathLength
@@ -216,6 +241,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
         formatDuration(breathEnd - fightStartTime),
         breathEnd,
       );
+      console.log(index + 1 + '.', 'damage lost:', lostDamage);
       index += 1;
 
       /** Generate graphdata and explanation output below */
@@ -313,7 +339,8 @@ const BreathOfEonsSection: React.FC<Props> = ({
               <td>
                 <TooltipElement
                   content="Due to how Blizzard deals with damage attributions, 
-                  the values shown here are going to be within a small margin of error."
+                  the values shown here are going to be within a small margin of error.
+                  These values also don't take into account mobs dying early or Ebon Might being dropped."
                 >
                   Damage
                 </TooltipElement>
@@ -326,10 +353,33 @@ const BreathOfEonsSection: React.FC<Props> = ({
               </td>
             </tr>
             <tr>
-              <td>Potential damage increase:</td>
+              <td>
+                <TooltipElement
+                  content="This value represents the amount of damage you could have 
+                gotten if you had used your breath at the optimal timing"
+                >
+                  Potential damage increase:
+                </TooltipElement>
+              </td>
               <td>{Math.round(((topWindow.sum - damageInRange) / damageInRange) * 100)}%</td>
             </tr>
           </tbody>
+          {lostDamage > 0 && (
+            <tbody>
+              <tr>
+                <td>
+                  <TooltipElement
+                    content="Damage lost due to dropping Ebon Might during your Breath of Eons. 
+                  This value doesn't take into account mobs dying early."
+                  >
+                    <span className="badCast">Lost Damage:</span>
+                  </TooltipElement>
+                </td>
+                <td>{formatNumber(lostDamage * 0.1)}</td>
+              </tr>
+            </tbody>
+          )}
+          <br />
           <tbody>
             <tr>
               <strong>Player contribution breakdown</strong>
