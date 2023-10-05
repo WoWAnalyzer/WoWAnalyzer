@@ -19,6 +19,7 @@ import ExplanationGraph, {
   generateGraphData,
 } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 import DonutChart from 'parser/ui/DonutChart';
+import { PlayerInfo } from 'parser/core/Player';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -105,9 +106,9 @@ const BreathOfEonsSection: React.FC<Props> = ({
     pets.push(pet.id);
   }
 
-  const playerNameMap = new Map<number, string>();
+  const playerNameMap = new Map<number, PlayerInfo>();
   for (const player of owner.report.friendlies) {
-    playerNameMap.set(player.id, player.name);
+    playerNameMap.set(player.id, player);
   }
 
   function findOptimalWindow() {
@@ -278,38 +279,30 @@ const BreathOfEonsSection: React.FC<Props> = ({
         );
       }
 
-      const damageSources = [
-        {
-          color: 'rgb(123,188,93)',
-          label: playerNameMap.get(topWindow.sumSources[0].sourceID),
-          valueTooltip: formatNumber(topWindow.sumSources[0].damage),
-          value: topWindow.sumSources[0].damage,
-        },
-        {
-          color: 'rgb(216,59,59)',
-          label: playerNameMap.get(topWindow.sumSources[1].sourceID),
-          valueTooltip: formatNumber(topWindow.sumSources[1].damage),
-          value: topWindow.sumSources[1].damage,
-        },
-        {
-          color: 'rgb(216,100,59)',
-          label: playerNameMap.get(topWindow.sumSources[2].sourceID),
-          valueTooltip: formatNumber(topWindow.sumSources[2].damage),
-          value: topWindow.sumSources[2].damage,
-        },
-        {
-          color: 'rgb(20,59,59)',
-          label: playerNameMap.get(topWindow.sumSources[3].sourceID),
-          valueTooltip: formatNumber(topWindow.sumSources[3].damage),
-          value: topWindow.sumSources[3].damage,
-        },
-        {
-          color: 'rgb(20,59,200)',
-          label: playerNameMap.get(topWindow.sumSources[4].sourceID),
-          valueTooltip: formatNumber(topWindow.sumSources[4].damage),
-          value: topWindow.sumSources[4].damage,
-        },
+      /** Custom color mage because if we give class colors the Donut
+       * breaks and randomly sorts items.
+       * It makes sense to do it like this anyways, since multiple players
+       * of the same class can show up in the same window, so having unique
+       * colors for all players makes sense. */
+      const damageSources = [];
+      const colorMap = [
+        'rgb(123,188,93)',
+        'rgb(216,59,59)',
+        'rgb(216,100,59)',
+        'rgb(20,59,59)',
+        'rgb(20,59,200)',
       ];
+
+      for (let i = 0; i < topWindow.sumSources.length; i += 1) {
+        const source = topWindow.sumSources[i];
+        const playerInfo = playerNameMap.get(source.sourceID);
+        damageSources.push({
+          color: colorMap[i],
+          label: playerInfo?.name,
+          valueTooltip: formatNumber(source.damage),
+          value: source.damage,
+        });
+      }
 
       const content: JSX.Element = !topWindow ? (
         <div></div>
