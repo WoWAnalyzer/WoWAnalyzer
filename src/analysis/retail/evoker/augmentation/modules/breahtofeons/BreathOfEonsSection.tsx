@@ -143,10 +143,19 @@ const BreathOfEonsSection: React.FC<Props> = ({
       const recentDamage: any[] = [];
       let damageInRange = 0;
       let lostDamage = 0;
+      let earlyDeadMobsDamage = 0;
 
       const breathStart = windows[index].start;
       const breathEnd = windows[index].end;
       const breathLength = breathEnd - breathStart;
+
+      const mobsToIgnore = [];
+      for (const event of windows[index].breathPerformance.earlyDeadMobs) {
+        mobsToIgnore.push({
+          targetID: event.targetID,
+          targetInstance: event.targetInstance,
+        });
+      }
 
       for (const event of table.table) {
         recentDamage.push(event);
@@ -161,6 +170,14 @@ const BreathOfEonsSection: React.FC<Props> = ({
               lostDamage += event.amount + (event.absorbed ?? 0);
             } else {
               damageInRange += event.amount + (event.absorbed ?? 0);
+            }
+            if (
+              mobsToIgnore.some(
+                (item) =>
+                  item.targetID === event.targetID && item.targetInstance === event.targetInstance,
+              )
+            ) {
+              earlyDeadMobsDamage += event.amount + (event.absorbed ?? 0);
             }
           }
         }
@@ -179,6 +196,9 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
           const sourceSums = [];
 
+          /** TODO: maybe ignore damage events for after an add is deadge for
+           * more representitive optimal windows?
+           */
           for (const eventWithinWindow of eventsWithinWindow) {
             if (!eventWithinWindow.subtractsFromSupportedActor) {
               let sourceID = eventWithinWindow.sourceID;
@@ -241,7 +261,8 @@ const BreathOfEonsSection: React.FC<Props> = ({
         formatDuration(breathEnd - fightStartTime),
         breathEnd,
       );
-      console.log(index + 1 + '.', 'damage lost:', lostDamage);
+      console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
+      console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
       index += 1;
 
       /** Generate graphdata and explanation output below */
@@ -339,17 +360,20 @@ const BreathOfEonsSection: React.FC<Props> = ({
               <td>
                 <TooltipElement
                   content="Due to how Blizzard deals with damage attributions, 
-                  the values shown here are going to be within a small margin of error.
-                  These values also don't take into account mobs dying early or Ebon Might being dropped."
+                  the values shown here are going to be within a small margin of error."
                 >
                   Damage
                 </TooltipElement>
               </td>
               <td>
-                {formatNumber(damageInRange * 0.1)} / {formatNumber(topWindow.sum * 0.1)}
+                {formatNumber((damageInRange - earlyDeadMobsDamage) * 0.1)} /{' '}
+                {formatNumber(topWindow.sum * 0.1)}
               </td>
               <td>
-                <PassFailBar pass={damageInRange * 0.1} total={topWindow.sum * 0.1} />
+                <PassFailBar
+                  pass={(damageInRange - earlyDeadMobsDamage) * 0.1}
+                  total={topWindow.sum * 0.1}
+                />
               </td>
             </tr>
             <tr>
@@ -364,22 +388,31 @@ const BreathOfEonsSection: React.FC<Props> = ({
               <td>{Math.round(((topWindow.sum - damageInRange) / damageInRange) * 100)}%</td>
             </tr>
           </tbody>
-          {lostDamage > 0 && (
+          <br />
+          {lostDamage + earlyDeadMobsDamage > 0 && (
             <tbody>
               <tr>
-                <td>
-                  <TooltipElement
-                    content="Damage lost due to dropping Ebon Might during your Breath of Eons. 
-                  This value doesn't take into account mobs dying early."
-                  >
-                    <span className="badCast">Lost Damage:</span>
-                  </TooltipElement>
-                </td>
-                <td>{formatNumber(lostDamage * 0.1)}</td>
+                <strong>You lost damage to the following:</strong>
               </tr>
+              {lostDamage > 0 && (
+                <tr>
+                  <td>
+                    <span>Lost Ebon Might uptime:</span>
+                  </td>
+                  <td>{formatNumber(lostDamage * 0.1)}</td>
+                </tr>
+              )}
+              {earlyDeadMobsDamage > 0 && (
+                <tr>
+                  <td>
+                    <span>Mobs dying early:</span>
+                  </td>
+                  <td>{formatNumber(earlyDeadMobsDamage * 0.1)}</td>
+                </tr>
+              )}
+              <br />
             </tbody>
           )}
-          <br />
           <tbody>
             <tr>
               <strong>Player contribution breakdown</strong>

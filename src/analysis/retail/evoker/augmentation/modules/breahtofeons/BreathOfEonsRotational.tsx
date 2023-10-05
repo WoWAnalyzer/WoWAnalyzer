@@ -59,6 +59,7 @@ export type BreathWindowPerformance = {
   potentialLostDamage: number;
   damage: number;
   buffedPlayers: Map<string, Combatant>;
+  earlyDeadMobs: RemoveDebuffEvent[];
 };
 
 /**
@@ -320,7 +321,8 @@ class BreathOfEonsRotational extends Analyzer {
         succesfulHits: 0,
         potentialLostDamage: 0,
         damage: 0,
-        buffedPlayers: currentBuffedTargets, // TODO: add aug himself maybe idk
+        buffedPlayers: currentBuffedTargets,
+        earlyDeadMobs: [],
       },
       start: 0,
       end: 0,
@@ -481,6 +483,7 @@ class BreathOfEonsRotational extends Analyzer {
         tooltip: 'Mob died early.',
       });
       perfWindow.earlyDeaths += 1;
+      perfWindow.earlyDeadMobs.push(event);
     } else {
       damageEvents.forEach((damageEvent) => {
         perfWindow.damage += damageEvent.amount + (damageEvent.absorbed ?? 0);
