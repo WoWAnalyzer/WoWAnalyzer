@@ -195,18 +195,16 @@ const BreathOfEonsSection: React.FC<Props> = ({
           );
 
           const sourceSums = [];
+          let currentWindowSum = 0;
 
-          /** TODO: maybe ignore damage events for after an add is deadge for
-           * more representitive optimal windows?
-           */
           for (const eventWithinWindow of eventsWithinWindow) {
             if (!eventWithinWindow.subtractsFromSupportedActor) {
-              let sourceID = eventWithinWindow.sourceID;
-              if (pets.includes(eventWithinWindow.sourceID)) {
-                sourceID = petToPlayerMap.get(eventWithinWindow.sourceID);
-              }
+              const sourceID = pets.includes(eventWithinWindow.sourceID)
+                ? petToPlayerMap.get(eventWithinWindow.sourceID)
+                : eventWithinWindow.sourceID;
 
               const damageAmount = eventWithinWindow.amount + (eventWithinWindow.absorbed ?? 0);
+              currentWindowSum += damageAmount;
 
               // Find the index of sourceID in the sourceSums array
               const index = sourceSums.findIndex((sum) => sum.sourceID === sourceID);
@@ -222,14 +220,6 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
           const sortedSourceSums = sourceSums.sort((a, b) => b.damage - a.damage);
 
-          const currentWindowSum = eventsWithinWindow.reduce((acc, event) => {
-            if (event.subtractsFromSupportedActor) {
-              return acc;
-            } else {
-              return acc + event.amount + (event.absorbed ?? 0);
-            }
-          }, 0);
-
           damageWindows.push({
             start: recentDamage[0].timestamp,
             end: recentDamage[0].timestamp + breathLength,
@@ -238,6 +228,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
             startFormat: formatDuration(recentDamage[0].timestamp - fightStartTime),
             endFormat: formatDuration(recentDamage[0].timestamp + breathLength - fightStartTime),
           });
+
           recentDamage.shift();
         }
       }
