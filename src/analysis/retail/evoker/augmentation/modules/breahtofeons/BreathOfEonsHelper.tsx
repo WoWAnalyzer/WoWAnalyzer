@@ -45,7 +45,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     const filter = `type = "damage" 
     AND not ability.id in (${abilityFilter}) 
     AND (source.name in (${nameFilter}, "${owner.selectedCombatant.name}") OR source.owner.name in (${nameFilter}, "${owner.selectedCombatant.name}")) 
-    AND (target.id != source.id)`;
+    AND (target.id != source.id) AND (supportedActor.id = 0)`;
 
     console.log(filter);
     return filter;
@@ -185,6 +185,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       recentDamage.push(event);
 
       if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
+        /** These shouldn't show up but just incase */
         if (event.subtractsFromSupportedActor) {
           continue;
         }
@@ -222,6 +223,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         let currentWindowSum = 0;
 
         for (const eventWithinWindow of eventsWithinWindow) {
+          /** These shouldn't show up but just incase */
           if (eventWithinWindow.subtractsFromSupportedActor) {
             continue;
           }
