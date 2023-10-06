@@ -238,7 +238,6 @@ class BuffTargetHelper extends Analyzer {
 
     const sortedNames = [...nameSums.entries()].sort((a, b) => b[1] - a[1]);
 
-    console.log(sortedNames);
     return sortedNames.slice(0, 2).map((entry) => entry[0]);
   }
 
@@ -302,9 +301,6 @@ class BuffTargetHelper extends Analyzer {
           defaultDamage += values[i];
         }
       });
-
-      console.log('default: ', defaultDamage, ' non default: ', top2Damage);
-      console.log('non default damage to default damage ratio: ', top2Damage / defaultDamage);
 
       if (top2Damage > defaultDamage * threshold) {
         isImportant = true;
