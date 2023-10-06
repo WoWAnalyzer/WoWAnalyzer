@@ -410,7 +410,8 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             <td>
               <TooltipElement
                 content="This value represents the amount of damage you could have gotten if you 
-              had used your Breath of Eons at the optimal timing"
+              had used your Breath of Eons at the optimal timing. This value accounts for the damage 
+              you lost by dropping Ebon Might."
               >
                 Potential damage increase:
               </TooltipElement>
