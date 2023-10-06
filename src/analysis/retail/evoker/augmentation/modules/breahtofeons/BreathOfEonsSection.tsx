@@ -60,7 +60,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
     const filter = `type = "damage" 
     AND not ability.id in (${abilityFilter}) 
-    AND (source.name in (${nameFilter}, "${owner.selectedCombatant.name}") OR source.owner.name in (${nameFilter}, "${owner.selectedCombatant.name}") ) 
+    AND (source.name in (${nameFilter}, "${owner.selectedCombatant.name}") OR source.owner.name in (${nameFilter}, "${owner.selectedCombatant.name}")) 
     AND (target.id != source.id)`;
 
     console.log(filter);
@@ -162,23 +162,25 @@ const BreathOfEonsSection: React.FC<Props> = ({
 
         // Calculate the sum only for events within the current window
         if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
-          if (!event.subtractsFromSupportedActor) {
-            if (
-              event.timestamp >= ebonMightDropTimestamp &&
-              event.timestamp <= ebonMightReappliedTimestamp
-            ) {
-              lostDamage += event.amount + (event.absorbed ?? 0);
-            } else {
-              damageInRange += event.amount + (event.absorbed ?? 0);
-            }
-            if (
-              mobsToIgnore.some(
-                (item) =>
-                  item.targetID === event.targetID && item.targetInstance === event.targetInstance,
-              )
-            ) {
-              earlyDeadMobsDamage += event.amount + (event.absorbed ?? 0);
-            }
+          if (event.subtractsFromSupportedActor) {
+            continue;
+          }
+
+          if (
+            event.timestamp >= ebonMightDropTimestamp &&
+            event.timestamp <= ebonMightReappliedTimestamp
+          ) {
+            lostDamage += event.amount + (event.absorbed ?? 0);
+          } else {
+            damageInRange += event.amount + (event.absorbed ?? 0);
+          }
+          if (
+            mobsToIgnore.some(
+              (item) =>
+                item.targetID === event.targetID && item.targetInstance === event.targetInstance,
+            )
+          ) {
+            earlyDeadMobsDamage += event.amount + (event.absorbed ?? 0);
           }
         }
 
@@ -198,23 +200,22 @@ const BreathOfEonsSection: React.FC<Props> = ({
           let currentWindowSum = 0;
 
           for (const eventWithinWindow of eventsWithinWindow) {
-            if (!eventWithinWindow.subtractsFromSupportedActor) {
-              const sourceID = pets.includes(eventWithinWindow.sourceID)
-                ? petToPlayerMap.get(eventWithinWindow.sourceID)
-                : eventWithinWindow.sourceID;
+            if (eventWithinWindow.subtractsFromSupportedActor) {
+              continue;
+            }
 
-              const damageAmount = eventWithinWindow.amount + (eventWithinWindow.absorbed ?? 0);
-              currentWindowSum += damageAmount;
+            const sourceID = pets.includes(eventWithinWindow.sourceID)
+              ? petToPlayerMap.get(eventWithinWindow.sourceID)
+              : eventWithinWindow.sourceID;
 
-              // Find the index of sourceID in the sourceSums array
-              const index = sourceSums.findIndex((sum) => sum.sourceID === sourceID);
-              if (index !== -1) {
-                // If sourceID exists, update the damage amount
-                sourceSums[index].damage += damageAmount;
-              } else {
-                // If sourceID doesn't exist, add it to the array
-                sourceSums.push({ sourceID, damage: damageAmount });
-              }
+            const damageAmount = eventWithinWindow.amount + (eventWithinWindow.absorbed ?? 0);
+            currentWindowSum += damageAmount;
+
+            const index = sourceSums.findIndex((sum) => sum.sourceID === sourceID);
+            if (index !== -1) {
+              sourceSums[index].damage += damageAmount;
+            } else {
+              sourceSums.push({ sourceID, damage: damageAmount });
             }
           }
 
