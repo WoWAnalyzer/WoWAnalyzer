@@ -347,7 +347,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       breathStart - buffer,
       breathEnd + buffer,
       'Breath Window',
-      !topWindow ? <>You didn't hit anything</> : undefined,
+      !topWindow ? <>You didn't hit anything.</> : undefined,
     );
 
     return newGraphData;
@@ -360,6 +360,10 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     lostDamage: number,
     earlyDeadMobsDamage: number,
   ) {
+    if (!topWindow) {
+      return <div></div>;
+    }
+
     const damageSources = [];
     const colorMap = ['#2D3142', '#4F5D75', '#BFC0C0', '#EF8354', '#FFFFFF'];
 
@@ -374,9 +378,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       });
     }
 
-    const content: JSX.Element = !topWindow ? (
-      <div></div>
-    ) : (
+    const content: JSX.Element = (
       <table className="graph-explanations">
         <tbody>
           <tr>
