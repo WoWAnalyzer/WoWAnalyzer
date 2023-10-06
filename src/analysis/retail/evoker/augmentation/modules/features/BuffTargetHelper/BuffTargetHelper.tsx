@@ -13,7 +13,7 @@ import '../../Styling.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
-import { blacklist } from '../../../constants';
+import { ABILITY_BLACKLIST } from '../../../constants';
 
 /**
  * @key ClassName
@@ -117,7 +117,7 @@ class BuffTargetHelper extends Analyzer {
       .map((name) => `source.name="${name}" OR source.owner.name="${name}"`)
       .join(' OR ');
 
-    const abilityFilter = blacklist.map((id) => `ability.id=${id}`).join(' OR ');
+    const abilityFilter = ABILITY_BLACKLIST.map((id) => `ability.id=${id}`).join(' OR ');
 
     const filter = `not(${abilityFilter}) AND (${nameFilter})`;
 

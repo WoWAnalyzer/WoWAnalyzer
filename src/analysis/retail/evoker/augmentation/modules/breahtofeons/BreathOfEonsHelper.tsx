@@ -17,7 +17,7 @@ import ExplanationGraph, {
 import DonutChart from 'parser/ui/DonutChart';
 import { PlayerInfo } from 'parser/core/Player';
 import { DamageEvent } from 'parser/core/Events';
-import { blacklist } from '../../constants';
+import { BREATH_OF_EONS_MULTIPLIER, ABILITY_BLACKLIST } from '../../constants';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -26,7 +26,7 @@ type Props = {
   owner: CombatLogParser;
 };
 
-const debug = false;
+const debug = true;
 
 const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
   const damageTables: {
@@ -42,7 +42,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     const playerNames = Array.from(window.breathPerformance.buffedPlayers.keys());
     const nameFilter = playerNames.map((name) => `"${name}"`).join(', ');
 
-    const abilityFilter = blacklist.map((id) => `${id}`).join(', ');
+    const abilityFilter = ABILITY_BLACKLIST.map((id) => `${id}`).join(', ');
 
     const filter = `type = "damage" 
     AND not ability.id in (${abilityFilter}) 
@@ -123,6 +123,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         breathEnd,
         damageToDisplay,
         topWindow,
+        sourceInRange,
       } = processWindowData(index);
 
       const newGraphData = generateGraphDataForWindow(
@@ -135,6 +136,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
 
       const content = generateExplanationContent(
         topWindow,
+        sourceInRange,
         damageToDisplay,
         damageInRange,
         lostDamage,
@@ -170,6 +172,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     const damageWindows = [];
     const recentDamage: DamageEvent[] = [];
     let damageInRange = 0;
+    const sourceInRange = [];
     let lostDamage = 0;
     let earlyDeadMobsDamage = 0;
 
@@ -194,13 +197,26 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
           continue;
         }
 
+        const sourceID = pets.includes(event.sourceID ?? -1)
+          ? petToPlayerMap.get(event.sourceID ?? -1)
+          : event.sourceID;
+
+        const damageAmount = event.amount + (event.absorbed ?? 0);
+
+        const index = sourceInRange.findIndex((sum) => sum.sourceID === sourceID);
+        if (index !== -1) {
+          sourceInRange[index].damage += damageAmount;
+        } else {
+          sourceInRange.push({ sourceID, damage: damageAmount, lostDamage: 0 });
+        }
+
         if (
           event.timestamp >= ebonMightDropTimestamp &&
           event.timestamp <= ebonMightReappliedTimestamp
         ) {
-          lostDamage += event.amount + (event.absorbed ?? 0);
+          lostDamage += damageAmount;
         }
-        damageInRange += event.amount + (event.absorbed ?? 0);
+        damageInRange += damageAmount;
 
         if (
           mobsToIgnore.some(
@@ -208,7 +224,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
               item.targetID === event.targetID && item.targetInstance === event.targetInstance,
           )
         ) {
-          earlyDeadMobsDamage += event.amount + (event.absorbed ?? 0);
+          earlyDeadMobsDamage += damageAmount;
         }
       }
 
@@ -261,17 +277,20 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       }
     }
 
+    sourceInRange.sort((a, b) => b.damage - a.damage);
+
     const sortedWindows = damageWindows.sort((a, b) => b.sum - a.sum);
     const topWindow = sortedWindows[0];
     /** If the damage difference between what we found and what actually happened is greated than 10%
      * we display the actual amount - this only seems to happen when a target becomes immune before
      * Breath explodes, resulting in an overevaluation. e.g. Neltharion */
     const damageDifference =
-      ((damageInRange - earlyDeadMobsDamage) * 0.1) / windows[index].breathPerformance.damage;
+      ((damageInRange - earlyDeadMobsDamage) * BREATH_OF_EONS_MULTIPLIER) /
+      windows[index].breathPerformance.damage;
     const damageToDisplay =
       damageDifference > 1.1 || damageDifference < 0.9
         ? windows[index].breathPerformance.damage
-        : (damageInRange - earlyDeadMobsDamage) * 0.1;
+        : (damageInRange - earlyDeadMobsDamage) * BREATH_OF_EONS_MULTIPLIER;
 
     if (debug) {
       console.log(index + 1 + '. ', 'Top Window:', topWindow);
@@ -290,6 +309,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         formatDuration(breathEnd - fightStartTime),
         breathEnd,
       );
+      console.log(index + 1 + '.', 'source:', sourceInRange);
       console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
       console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
     }
@@ -302,6 +322,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       breathEnd,
       damageToDisplay,
       topWindow,
+      sourceInRange,
     };
   }
 
@@ -361,6 +382,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
 
   function generateExplanationContent(
     topWindow: any,
+    inRangeSum: any,
     damageToDisplay: number,
     damageInRange: number,
     lostDamage: number,
@@ -370,7 +392,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       return <div></div>;
     }
 
-    const damageSources = [];
+    const damageSourcesOptimal = [];
     /** These specific colors are choosen because certain colors seems to completely break the donut
      * And randomizes the ouput ie. values are not properly orded. */
     const colorMap = ['#2D3142', '#4F5D75', '#BFC0C0', '#EF8354', '#FFFFFF'];
@@ -378,81 +400,118 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     for (let i = 0; i < topWindow.sumSources.length; i += 1) {
       const source = topWindow.sumSources[i];
       const playerInfo = playerNameMap.get(source.sourceID);
-      damageSources.push({
+      damageSourcesOptimal.push({
         color: colorMap[i],
         label: playerInfo?.name,
-        valueTooltip: formatNumber(source.damage * 0.1),
+        valueTooltip: formatNumber(source.damage * BREATH_OF_EONS_MULTIPLIER),
+        value: source.damage,
+      });
+    }
+
+    const damageSourcesCurrent = [];
+    /** These specific colors are choosen because certain colors seems to completely break the donut
+     * And randomizes the ouput ie. values are not properly orded. */
+
+    for (let i = 0; i < inRangeSum.length; i += 1) {
+      const source = inRangeSum[i];
+      const playerInfo = playerNameMap.get(source.sourceID);
+      damageSourcesCurrent.push({
+        color: colorMap[i],
+        label: playerInfo?.name,
+        valueTooltip: formatNumber(source.damage * BREATH_OF_EONS_MULTIPLIER),
         value: source.damage,
       });
     }
 
     const content: JSX.Element = (
-      <table className="graph-explanations">
-        <tbody>
-          <tr>
-            <td>
+      <div className="flex-container">
+        <div className="table">
+          <div className="flex-row">
+            <div className="flex-cell">
               <TooltipElement
-                content="Due to how Blizzard deals with damage attributions, the values shown here are 
-              going to be within a small margin of error. If an enemy becomes immune/takes reduced damage when your 
-              Breath of Eons explodes, this value might also be overevaluated. e.g. Neltharion going Immune mid Breath."
+                content="Because of the way Blizzard handles damage attribution, the values 
+                    displayed here may have a small margin of error. Additionally, if an enemy 
+                    becomes immune or takes reduced damage when your Breath of Eons explodes, this 
+                    value may also be overestimated, e.g. Neltharion going immune mid-Breath."
               >
-                Damage
+                Damage:
               </TooltipElement>
-            </td>
-            <td>
-              {formatNumber(damageToDisplay)} / {formatNumber(topWindow.sum * 0.1)}
-            </td>
-            <td>
-              <PassFailBar pass={damageToDisplay} total={topWindow.sum * 0.1} />
-            </td>
-          </tr>
-          <tr>
-            <td>
+            </div>
+            <div className="flex-cell">
+              {formatNumber(damageToDisplay)} /{' '}
+              {formatNumber(topWindow.sum * BREATH_OF_EONS_MULTIPLIER)}
+            </div>
+            <div className="flex-cell">
+              <PassFailBar
+                pass={damageToDisplay}
+                total={topWindow.sum * BREATH_OF_EONS_MULTIPLIER}
+              />
+            </div>
+          </div>
+          <div className="flex-row">
+            <div className="flex-cell">
               <TooltipElement
-                content="This value represents the amount of damage you could have gotten if you 
-              had used your Breath of Eons at the optimal timing. This value accounts for the damage 
-              you lost by dropping Ebon Might, and mobs dying early."
+                content="This value represents the potential damage increase achievable 
+                    by using Breath of Eons at its optimal timing. It assumes that you didn't 
+                    lose any damage due to prematurely dropping Ebon Might or mobs dying early."
               >
                 Potential damage increase:
               </TooltipElement>
-            </td>
-            <td>{Math.round(((topWindow.sum - damageInRange) / damageInRange) * 100)}%</td>
-          </tr>
-        </tbody>
-        <br />
+            </div>
+            <div className="flex-cell">
+              {Math.round(((topWindow.sum - damageInRange) / damageInRange) * 100)}%
+            </div>
+          </div>
+        </div>
         {lostDamage + earlyDeadMobsDamage > 0 && (
-          <tbody>
-            <tr>
-              <strong>You lost damage to the following:</strong>
-            </tr>
+          <div className="table">
+            <div className="flex-row">
+              <strong className="badCast">You lost damage to the following:</strong>
+            </div>
             {lostDamage > 0 && (
-              <tr>
-                <td>
+              <div className="flex-row">
+                <div className="flex-cell">
                   <span>Lost Ebon Might uptime:</span>
-                </td>
-                <td>{formatNumber(lostDamage * 0.1)}</td>
-              </tr>
+                </div>
+                <div className="flex-cell">
+                  {formatNumber(lostDamage * BREATH_OF_EONS_MULTIPLIER)}
+                </div>
+              </div>
             )}
             {earlyDeadMobsDamage > 0 && (
-              <tr>
-                <td>
+              <div className="flex-row">
+                <div className="flex-cell">
                   <span>Mobs dying early:</span>
-                </td>
-                <td>{formatNumber(earlyDeadMobsDamage * 0.1)}</td>
-              </tr>
+                </div>
+                <div className="flex-cell">
+                  {formatNumber(earlyDeadMobsDamage * BREATH_OF_EONS_MULTIPLIER)}
+                </div>
+              </div>
             )}
-            <br />
-          </tbody>
+          </div>
         )}
-        <tbody>
-          <tr>
-            <TooltipElement content="These values are based on the current window and not the optimal window.">
+        <div className="table">
+          <div className="flex-row">
+            <TooltipElement
+              content="The values below assume that you didn't lose any damage 
+                  due to prematurely dropping Ebon Might or mobs dying early."
+            >
               <strong>Player contribution breakdown</strong>
             </TooltipElement>
-          </tr>
-          <DonutChart items={damageSources} />
-        </tbody>
-      </table>
+          </div>
+          <div className="flex-row">
+            <div className="flex-cell">
+              <span className=" currentBreath">Current Window</span>
+              <DonutChart items={damageSourcesCurrent} />
+            </div>
+            <div className="flex-cell"></div>
+            <div className="flex-cell">
+              <span className=" optimalBreath">Optimal Window</span>
+              <DonutChart items={damageSourcesOptimal} />
+            </div>
+          </div>
+        </div>
+      </div>
     );
 
     return content;

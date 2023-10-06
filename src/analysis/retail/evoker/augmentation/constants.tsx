@@ -26,8 +26,11 @@ export const VOLCANISM_ESSENCE_REDUCTION = 1;
 export const ANACHRONISM_ESSCENCE_CHANCE = 0.35;
 export const SYMBIOTIC_HEALING_INCREASE = 0.03;
 
+// Breath of Eons multiplier
+export const BREATH_OF_EONS_MULTIPLIER = 0.1;
+
 /** SpellIds to blacklist, ie. trinkets that doesnt add contribution */
-export const blacklist: number[] = [
+export const ABILITY_BLACKLIST: number[] = [
   402583, // Beacon
   408682, // Dragonfire Bomb Dispenser
   401324, // Pocket Anvil (Echoed Flare)
