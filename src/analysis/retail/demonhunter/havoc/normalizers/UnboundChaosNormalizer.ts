@@ -3,7 +3,7 @@ import {
   ApplyBuffEvent,
   CastEvent,
   EventType,
-  GetRelatedEvents,
+  GetRelatedEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
@@ -50,13 +50,17 @@ export default class UnboundChaosNormalizer extends EventLinkNormalizer {
 export function getUnboundChaosApplication(
   event: ApplyBuffEvent | RefreshBuffEvent,
 ): CastEvent | undefined {
-  return GetRelatedEvents(event, UNBOUND_CHAOS_APPLICATION)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .at(0);
+  return GetRelatedEvent(
+    event,
+    UNBOUND_CHAOS_APPLICATION,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  );
 }
 
 export function getUnboundChaosConsumption(event: RemoveBuffEvent): CastEvent | undefined {
-  return GetRelatedEvents(event, UNBOUND_CHAOS_CONSUMPTION)
-    .filter((e): e is CastEvent => e.type === EventType.Cast)
-    .at(0);
+  return GetRelatedEvent(
+    event,
+    UNBOUND_CHAOS_CONSUMPTION,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  );
 }

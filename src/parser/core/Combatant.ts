@@ -8,6 +8,7 @@ import { findByBossId } from 'game/raids';
 import SPECS, { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { Buff, CombatantInfoEvent, EventType, Item, TalentEntry } from 'parser/core/Events';
+import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import { TIERS } from 'game/TIERS';
 
 import Entity from './Entity';
@@ -50,6 +51,16 @@ class Combatant extends Entity {
     return SPECS[this.specId];
   }
 
+  get primaryStat(): PRIMARY_STAT {
+    const spec = this.spec;
+
+    if (spec == null) {
+      throw new Error(`Tried to access primaryStat but combatant ${this.name} has no spec`);
+    }
+
+    return spec.primaryStat;
+  }
+
   get race(): Race | null {
     if (!this.owner.characterProfile || !this.owner.characterProfile.race) {
       return null;
@@ -80,6 +91,8 @@ class Combatant extends Entity {
 
   _combatantInfo: CombatantInfo;
 
+  public readonly ilvl: number | undefined;
+
   constructor(parser: CombatLogParser, combatantInfo: CombatantInfoEvent) {
     super(parser);
 
@@ -103,6 +116,12 @@ class Combatant extends Entity {
     this._importTalentTree(combatantInfo.talentTree);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
+
+    this.ilvl =
+      this.gear.length > 0
+        ? this.gear.map((item) => item.itemLevel).reduce((sum, val) => sum + val, 0) /
+          this.gear.length
+        : undefined;
   }
 
   // region Talents

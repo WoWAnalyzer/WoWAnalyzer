@@ -37,7 +37,9 @@ export default RampantFerocityLinkNormalizer;
 
 /** Gets the Rampant Ferocity hits procced by this Bite hit */
 export function getRampantFerocityHits(event: DamageEvent): DamageEvent[] {
-  return GetRelatedEvents(event, CAUSED_RAMPANT_FEROCITY_HIT).filter(
+  return GetRelatedEvents(
+    event,
+    CAUSED_RAMPANT_FEROCITY_HIT,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }

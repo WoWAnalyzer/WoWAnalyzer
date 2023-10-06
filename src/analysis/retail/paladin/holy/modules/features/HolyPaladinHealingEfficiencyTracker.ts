@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { AbilityEvent, GetRelatedEvents, HealEvent } from 'parser/core/Events';
+import Events, { AbilityEvent, GetRelatedEvent, HealEvent } from 'parser/core/Events';
 import HealingEfficiencyTracker, {
   SpellInfoDetails,
 } from 'parser/core/healingEfficiency/HealingEfficiencyTracker';
@@ -18,16 +18,16 @@ class HolyPaladinHealingEfficiencyTracker extends HealingEfficiencyTracker {
 
   onHeal(event: HealEvent) {
     if (event.ability.guid === SPELLS.GLIMMER_OF_LIGHT_HEAL_TALENT.id) {
-      const source = GetRelatedEvents(event, GLIMMER_PROC);
-      if (source.length > 0) {
-        const triggerID = (source[0] as AbilityEvent<any>).ability.guid;
+      const source = GetRelatedEvent<AbilityEvent<any>>(event, GLIMMER_PROC);
+      if (source) {
+        const triggerID = source.ability.guid;
         this.glimmerHealing[triggerID] =
           (this.glimmerHealing[triggerID] || 0) + event.amount + (event.absorbed || 0);
       }
     } else if (event.ability.guid === SPELLS.HOLY_SHOCK_HEAL.id) {
-      const source = GetRelatedEvents(event, HOLY_SHOCK_SOURCE);
-      if (source.length > 0) {
-        const triggerID = (source[0] as AbilityEvent<any>).ability.guid;
+      const source = GetRelatedEvent<AbilityEvent<any>>(event, HOLY_SHOCK_SOURCE);
+      if (source) {
+        const triggerID = source.ability.guid;
         this.holyShockHealing[triggerID] =
           (this.holyShockHealing[triggerID] || 0) + event.amount + (event.absorbed || 0);
       }

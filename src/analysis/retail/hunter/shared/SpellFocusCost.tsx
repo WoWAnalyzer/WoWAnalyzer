@@ -22,7 +22,7 @@ class SpellFocusCost extends SpellResourceCost {
     if (
       this.lockAndLoad &&
       this.selectedCombatant.hasBuff(SPELLS.LOCK_AND_LOAD_BUFF.id) &&
-      spellId === SPELLS.AIMED_SHOT.id
+      spellId === TALENTS.AIMED_SHOT_TALENT.id
     ) {
       return cost * LNL_COST_MULTIPLIER;
     }

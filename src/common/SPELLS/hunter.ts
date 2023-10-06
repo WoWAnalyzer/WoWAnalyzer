@@ -120,11 +120,6 @@ const spells = {
   //endregion
 
   //region Marksmanship
-  AIMED_SHOT: {
-    id: 19434,
-    name: 'Aimed Shot',
-    icon: 'inv_spear_07',
-  },
   STEADY_SHOT_FOCUS: {
     id: 77443,
     name: 'Steady Shot',

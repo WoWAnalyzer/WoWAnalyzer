@@ -45,7 +45,7 @@ class LockAndLoad extends Analyzer {
       this.autoshotDamage,
     );
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.AIMED_SHOT_TALENT),
       this.onAimedCast,
     );
     this.addEventListener(
@@ -76,14 +76,15 @@ class LockAndLoad extends Analyzer {
   onLNLApplication(event: ApplyBuffEvent) {
     this.totalProcs += 1;
     this.hasLnLBuff = true;
-    if (this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
+    if (this.spellUsable.isOnCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id)) {
       const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
-        SPELLS.AIMED_SHOT.id,
+        TALENTS_HUNTER.AIMED_SHOT_TALENT.id,
       );
       if (expectedCooldownDuration) {
         const newChargeCDR =
-          expectedCooldownDuration - this.spellUsable.cooldownRemaining(SPELLS.AIMED_SHOT.id);
-        this.spellUsable.reduceCooldown(SPELLS.AIMED_SHOT.id, newChargeCDR);
+          expectedCooldownDuration -
+          this.spellUsable.cooldownRemaining(TALENTS_HUNTER.AIMED_SHOT_TALENT.id);
+        this.spellUsable.reduceCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id, newChargeCDR);
       }
     }
   }

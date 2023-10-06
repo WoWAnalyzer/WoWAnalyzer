@@ -31,7 +31,9 @@ export default class ImmolationAuraLinker extends EventLinkNormalizer {
 }
 
 export function getImmolationAuraInitialHits(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(event, IMMOLATION_AURA_INITIAL_HIT).filter(
+  return GetRelatedEvents(
+    event,
+    IMMOLATION_AURA_INITIAL_HIT,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }

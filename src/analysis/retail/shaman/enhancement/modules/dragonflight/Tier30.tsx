@@ -112,18 +112,23 @@ export default class Tier30 extends Analyzer {
                 %)
               </li>
             </ul>
-            <SpellLink spell={SPELLS.CRACKLING_THUNDER_TIER_BUFF} />{' '}
-            <small>does not include damage gained from refunded maelstrom</small>
-            <ul>
-              <li>
-                Chain Lightning: <strong>{formatNumber(this.extraChainLightningDamage)}</strong> (
-                {formatPercentage(
-                  this.owner.getPercentageOfTotalDamageDone(this.extraChainLightningDamage),
-                )}
-                %)
-              </li>
-            </ul>
-            <small>NOTE: The damage gained from the 2-piece bonus is not included</small>
+            {this.extraChainLightningDamage > 0 && (
+              <>
+                <SpellLink spell={SPELLS.CRACKLING_THUNDER_TIER_BUFF} />{' '}
+                <small>does not include damage gained from refunded maelstrom</small>
+                <ul>
+                  <li>
+                    Chain Lightning: <strong>{formatNumber(this.extraChainLightningDamage)}</strong>{' '}
+                    (
+                    {formatPercentage(
+                      this.owner.getPercentageOfTotalDamageDone(this.extraChainLightningDamage),
+                    )}
+                    %)
+                  </li>
+                </ul>
+                <small>NOTE: The damage gained from the 2-piece bonus is not included</small>
+              </>
+            )}
           </>
         }
       >

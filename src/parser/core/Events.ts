@@ -297,8 +297,46 @@ export function HasLocation<T extends EventType>(event: Event<T>): event is Loca
 
 /** Gets the events related to the given event with the given relation (key). Events will not
  *  by default have any relations, you must add them with an {@link EventLinkNormalizer}. */
-export function GetRelatedEvents(event: AnyEvent, relation: string): AnyEvent[] {
-  return event?._linkedEvents?.filter((le) => le.relation === relation).map((le) => le.event) ?? [];
+export function GetRelatedEvents<T extends AnyEvent>(event: AnyEvent, relation: string): T[];
+export function GetRelatedEvents<T extends AnyEvent>(
+  event: AnyEvent,
+  relation: string,
+  filter: ((e: AnyEvent) => boolean) | undefined,
+): T[];
+export function GetRelatedEvents<T extends AnyEvent>(
+  event: AnyEvent,
+  relation: string,
+  filter?: (e: AnyEvent) => boolean,
+): T[] {
+  const relatedEvents =
+    event?._linkedEvents?.filter((le) => le.relation === relation).map((le) => le.event as T) ?? [];
+  if (filter) {
+    return relatedEvents.filter(filter);
+  } else {
+    return relatedEvents;
+  }
+}
+
+/** Gets the first event related to the given event with the given relation (key). Events will not
+ * by default have any relations, you must hadd them with an {@link EventLinkNormalizer}. */
+export function GetRelatedEvent<T extends AnyEvent>(
+  event: AnyEvent,
+  relation: string,
+): T | undefined;
+export function GetRelatedEvent<T extends AnyEvent>(
+  event: AnyEvent,
+  relation: string,
+  filter: ((e: AnyEvent) => boolean) | undefined,
+): T | undefined;
+export function GetRelatedEvent<T extends AnyEvent>(
+  event: AnyEvent,
+  relation: string,
+  filter?: (e: AnyEvent) => boolean,
+): T | undefined {
+  const relatedEvents = GetRelatedEvents<T>(event, relation, filter);
+  if (relatedEvents.length >= 1) {
+    return relatedEvents.at(0);
+  }
 }
 
 /** Returns true iff the given event has a relation with the given relation (key). Events will not

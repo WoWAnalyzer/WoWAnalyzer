@@ -16,12 +16,12 @@ class GlobalCooldown extends CoreGlobalCooldown {
   aimedShotTimestamp: number | null = null;
 
   /**
-   * Barrage and Rapid FIre GCDs are triggered when fabricating channel events
+   * Barrage and Rapid Fire GCDs are triggered when fabricating channel events
    */
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      Events.begincast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.AIMED_SHOT_TALENT),
       this.startAimedShot,
     );
   }
@@ -49,7 +49,7 @@ class GlobalCooldown extends CoreGlobalCooldown {
     if (!gcd) {
       return 0;
     }
-    if (spellId === SPELLS.AIMED_SHOT.id && this.aimedShotTimestamp === null) {
+    if (spellId === TALENTS_HUNTER.AIMED_SHOT_TALENT.id && this.aimedShotTimestamp === null) {
       return 0;
     }
     return gcd;

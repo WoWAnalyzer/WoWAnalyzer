@@ -3,6 +3,7 @@ import {
   ApplyBuffEvent,
   CastEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
@@ -111,7 +112,7 @@ class UnleashLifeNormalizer extends EventLinkNormalizer {
 }
 
 export function getCastEvent(event: HealEvent): CastEvent {
-  return GetRelatedEvents(event, HARDCAST)[0] as CastEvent;
+  return GetRelatedEvent(event, HARDCAST)!;
 }
 
 export function isBuffedByUnleashLife(
@@ -128,7 +129,7 @@ export function getUnleashLifeHealingWaves(event: CastEvent): HealEvent[] {
   if (!HasRelatedEvent(event, UNLEASH_LIFE_REMOVE)) {
     return [];
   }
-  return GetRelatedEvents(event, UNLEASH_LIFE_HEALING_WAVE) as HealEvent[];
+  return GetRelatedEvents(event, UNLEASH_LIFE_HEALING_WAVE);
 }
 
 export default UnleashLifeNormalizer;

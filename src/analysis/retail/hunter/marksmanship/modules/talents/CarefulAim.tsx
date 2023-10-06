@@ -1,7 +1,6 @@
 import { CA_MODIFIER, CAREFUL_AIM_THRESHOLD } from 'analysis/retail/hunter/marksmanship/constants';
 import { abbreviateBossNames } from 'common/abbreviateLongNames';
 import { formatDuration, formatNumber } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -29,7 +28,7 @@ class CarefulAim extends ExecuteHelper {
     enemies: Enemies,
   };
 
-  static executeSpells = [SPELLS.AIMED_SHOT];
+  static executeSpells = [TALENTS_HUNTER.AIMED_SHOT_TALENT];
   static executeSources = SELECTED_PLAYER;
   static upperThreshold = CAREFUL_AIM_THRESHOLD;
   static modifiesDamage = true;
@@ -108,7 +107,7 @@ class CarefulAim extends ExecuteHelper {
     } else {
       target = 'Adds';
     }
-    if (spellId !== SPELLS.AIMED_SHOT.id || outsideCarefulAim) {
+    if (spellId !== TALENTS_HUNTER.AIMED_SHOT_TALENT.id || outsideCarefulAim) {
       return;
     }
     const damageFromCA = calculateEffectiveDamage(event, CA_MODIFIER);

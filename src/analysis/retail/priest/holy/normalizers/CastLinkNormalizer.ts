@@ -3,6 +3,7 @@ import {
   CastEvent,
   DamageEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
@@ -129,41 +130,39 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 }
 
 export function getPrayerOfHealingEvents(event: CastEvent): HealEvent[] {
-  return GetRelatedEvents(event, POH_CAST).filter((e): e is HealEvent => e.type === EventType.Heal);
+  return GetRelatedEvents(event, POH_CAST, (e): e is HealEvent => e.type === EventType.Heal);
 }
 
 export function getCircleOfHealingEvents(event: CastEvent): HealEvent[] {
-  return GetRelatedEvents(event, COH_CAST).filter((e): e is HealEvent => e.type === EventType.Heal);
+  return GetRelatedEvents(event, COH_CAST, (e): e is HealEvent => e.type === EventType.Heal);
 }
 
 export function getHeal(event: CastEvent): HealEvent | undefined {
-  return GetRelatedEvents(event, FROM_HARDCAST)
-    .filter((e): e is HealEvent => e.type === EventType.Heal)
-    .pop();
+  return GetRelatedEvents<HealEvent>(
+    event,
+    FROM_HARDCAST,
+    (e): e is HealEvent => e.type === EventType.Heal,
+  ).pop();
 }
 
 export function getSerenityHealEvent(event: CastEvent): HealEvent {
-  return GetRelatedEvents(event, SERENITY_CAST).filter(
-    (e): e is HealEvent => e.type === EventType.Heal,
-  )[0];
+  return GetRelatedEvent(event, SERENITY_CAST, (e): e is HealEvent => e.type === EventType.Heal)!;
 }
 
 export function getSanctifyHealEvents(event: CastEvent): HealEvent[] {
-  return GetRelatedEvents(event, SANCTIFY_CAST).filter(
-    (e): e is HealEvent => e.type === EventType.Heal,
-  );
+  return GetRelatedEvents(event, SANCTIFY_CAST, (e): e is HealEvent => e.type === EventType.Heal);
 }
 
 export function getSalvationHealEvents(event: CastEvent): HealEvent[] {
-  return GetRelatedEvents(event, SALVATION_CAST).filter(
-    (e): e is HealEvent => e.type === EventType.Heal,
-  );
+  return GetRelatedEvents(event, SALVATION_CAST, (e): e is HealEvent => e.type === EventType.Heal);
 }
 
 export function getChastiseDamageEvent(event: CastEvent): DamageEvent {
-  return GetRelatedEvents(event, CHASTISE_CAST).filter(
+  return GetRelatedEvent(
+    event,
+    CHASTISE_CAST,
     (e): e is DamageEvent => e.type === EventType.Damage,
-  )[0];
+  )!;
 }
 
 export function isCastBuffedByLightweaver(event: CastEvent) {

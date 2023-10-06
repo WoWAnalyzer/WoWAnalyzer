@@ -27,9 +27,6 @@ import AplCheck from './modules/apl/AplCheck';
 import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import Guide from './Guide';
-import MaelstromWeaponTracker from './modules/resourcetracker/MaelstromWeaponTracker';
-import MaelstromWeaponGraph from './modules/resourcetracker/MaelstromWeaponGraph';
-import MaelstromWeaponDetails from './modules/resourcetracker/MaelstromWeaponDetails';
 import StormBlast from './modules/talents/Stormblast';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
@@ -46,6 +43,12 @@ import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import AscendanceNormalizer from 'analysis/retail/shaman/enhancement/modules/normalizers/AscendanceNormalizer';
 import Ascendance from 'analysis/retail/shaman/enhancement/modules/talents/Ascendance';
+import {
+  MaelstromWeaponDetails,
+  MaelstromWeaponGraph,
+  MaelstromWeaponSpenders,
+  MaelstromWeaponTracker,
+} from './modules/resourcetracker';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -65,6 +68,7 @@ class CombatLogParser extends CoreCombatLogParser {
     maelstromWeaponTracker: MaelstromWeaponTracker,
     maelstromWeaponGraph: MaelstromWeaponGraph,
     maelstromWeaponDetails: MaelstromWeaponDetails,
+    maelstromWeaponSpenders: MaelstromWeaponSpenders,
 
     // Shaman Class Core
     flameShock: FlameShock,
