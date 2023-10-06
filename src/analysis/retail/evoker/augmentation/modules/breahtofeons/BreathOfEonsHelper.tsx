@@ -471,7 +471,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             {lostDamage > 0 && (
               <div className="flex-row">
                 <div className="flex-cell">
-                  <span>Lost Ebon Might uptime:</span>
+                  <span>Dropped Ebon Might uptime:</span>
                 </div>
                 <div className="flex-cell">
                   {formatNumber(lostDamage * BREATH_OF_EONS_MULTIPLIER)}
