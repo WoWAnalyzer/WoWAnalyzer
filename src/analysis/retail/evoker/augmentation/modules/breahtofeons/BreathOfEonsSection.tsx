@@ -332,13 +332,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
        * of the same class can show up in the same window, so having unique
        * colors for all players makes sense. */
       const damageSources = [];
-      const colorMap = [
-        'rgb(123,188,93)',
-        'rgb(216,59,59)',
-        'rgb(216,100,59)',
-        'rgb(20,59,59)',
-        'rgb(20,59,200)',
-      ];
+      const colorMap = ['#2D3142', '#4F5D75', '#BFC0C0', '#EF8354', '#FFFFFF'];
 
       for (let i = 0; i < topWindow.sumSources.length; i += 1) {
         const source = topWindow.sumSources[i];
@@ -346,7 +340,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
         damageSources.push({
           color: colorMap[i],
           label: playerInfo?.name,
-          valueTooltip: formatNumber(source.damage),
+          valueTooltip: formatNumber(source.damage * 0.1),
           value: source.damage,
         });
       }
