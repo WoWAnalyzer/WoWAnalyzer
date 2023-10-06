@@ -28,6 +28,21 @@ type Props = {
 
 const debug = false;
 
+type DamageWindow = {
+  start: number;
+  end: number;
+  sum: number;
+  startFormat: string;
+  endFormat: string;
+  sumSources: DamageSources[];
+};
+
+type DamageSources = {
+  sourceID: number;
+  damage: number;
+  lostDamage: number;
+};
+
 const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
   const damageTables: {
     table: DamageEvent[];
@@ -169,10 +184,10 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     const ebonMightReappliedTimestamp =
       ebonMightDropTimestamp + windowData.breathPerformance.ebonMightDroppedDuration;
 
-    const damageWindows = [];
+    const damageWindows: DamageWindow[] = [];
     const recentDamage: DamageEvent[] = [];
     let damageInRange = 0;
-    const sourceInRange = [];
+    const sourceInRange: DamageSources[] = [];
     let lostDamage = 0;
     let earlyDeadMobsDamage = 0;
 
@@ -197,9 +212,10 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
           continue;
         }
 
-        const sourceID = pets.includes(event.sourceID ?? -1)
-          ? petToPlayerMap.get(event.sourceID ?? -1)
-          : event.sourceID;
+        const sourceID =
+          (pets.includes(event.sourceID ?? -1)
+            ? petToPlayerMap.get(event.sourceID ?? -1)
+            : event.sourceID) ?? -1;
 
         const damageAmount = event.amount + (event.absorbed ?? 0);
 
@@ -207,7 +223,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         if (index !== -1) {
           sourceInRange[index].damage += damageAmount;
         } else {
-          sourceInRange.push({ sourceID, damage: damageAmount, lostDamage: 0 });
+          sourceInRange.push({ sourceID: sourceID, damage: damageAmount, lostDamage: 0 });
         }
 
         if (
@@ -238,7 +254,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             event.timestamp <= recentDamage[0].timestamp + breathLength,
         );
 
-        const sourceSums = [];
+        const sourceSums: DamageSources[] = [];
         let currentWindowSum = 0;
 
         for (const eventWithinWindow of eventsWithinWindow) {
@@ -247,9 +263,10 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             continue;
           }
 
-          const sourceID = pets.includes(eventWithinWindow.sourceID ?? -1)
-            ? petToPlayerMap.get(eventWithinWindow.sourceID ?? -1)
-            : eventWithinWindow.sourceID;
+          const sourceID =
+            (pets.includes(eventWithinWindow.sourceID ?? -1)
+              ? petToPlayerMap.get(eventWithinWindow.sourceID ?? -1)
+              : eventWithinWindow.sourceID) ?? -1;
 
           const damageAmount = eventWithinWindow.amount + (eventWithinWindow.absorbed ?? 0);
           currentWindowSum += damageAmount;
@@ -258,11 +275,13 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
           if (index !== -1) {
             sourceSums[index].damage += damageAmount;
           } else {
-            sourceSums.push({ sourceID, damage: damageAmount });
+            sourceSums.push({ sourceID: sourceID, damage: damageAmount, lostDamage: 0 });
           }
         }
 
-        const sortedSourceSums = sourceSums.sort((a, b) => b.damage - a.damage);
+        const sortedSourceSums: DamageSources[] = sourceSums
+          .sort((a, b) => b.damage - a.damage)
+          .filter((sourceID) => sourceID.sourceID !== -1);
 
         damageWindows.push({
           start: recentDamage[0].timestamp,
@@ -277,11 +296,13 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       }
     }
 
-    sourceInRange.sort((a, b) => b.damage - a.damage);
+    sourceInRange
+      .sort((a, b) => b.damage - a.damage)
+      .filter((sourceID) => sourceID.sourceID !== -1);
 
     const sortedWindows = damageWindows.sort((a, b) => b.sum - a.sum);
     const topWindow = sortedWindows[0];
-    /** If the damage difference between what we found and what actually happened is greated than 10%
+    /** If the damage difference between what we found and what actually happened is greater than 10%
      * we display the actual amount - this only seems to happen when a target becomes immune before
      * Breath explodes, resulting in an overevaluation. e.g. Neltharion */
     const damageDifference =
@@ -327,7 +348,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
   }
 
   function generateGraphDataForWindow(
-    topWindow: any,
+    topWindow: DamageWindow,
     breathStart: number,
     breathEnd: number,
     damageInRange: number,
@@ -381,8 +402,8 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
   }
 
   function generateExplanationContent(
-    topWindow: any,
-    inRangeSum: any,
+    topWindow: DamageWindow,
+    inRangeSum: DamageSources[],
     damageToDisplay: number,
     damageInRange: number,
     lostDamage: number,
@@ -432,7 +453,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
                 content="Because of the way Blizzard handles damage attribution, the values 
                     displayed here may have a small margin of error. Additionally, if an enemy 
                     becomes immune or takes reduced damage when your Breath of Eons explodes, this 
-                    value may also be overestimated, e.g. Neltharion going immune mid-Breath."
+                    value may also be overestimated."
               >
                 Damage:
               </TooltipElement>
