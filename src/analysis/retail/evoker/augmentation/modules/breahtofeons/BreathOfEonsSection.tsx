@@ -255,6 +255,17 @@ const BreathOfEonsSection: React.FC<Props> = ({
       );
       console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
       console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
+
+      /** If the damage difference between what we found and what actually happened is greated than 10%
+       * we display the actual amount - this only seems to happen when a target becomes immune before
+       * Breath explodes, resulting in an overevaluation. e.g. Neltharion */
+      const damageDifference =
+        ((damageInRange - earlyDeadMobsDamage) * 0.1) / windows[index].breathPerformance.damage;
+      const damageToDisplay =
+        damageDifference > 1.1 || damageDifference < 0.9
+          ? windows[index].breathPerformance.damage
+          : (damageInRange - earlyDeadMobsDamage) * 0.1;
+
       index += 1;
 
       /** Generate graphdata and explanation output below */
@@ -346,20 +357,18 @@ const BreathOfEonsSection: React.FC<Props> = ({
               <td>
                 <TooltipElement
                   content="Due to how Blizzard deals with damage attributions, 
-                  the values shown here are going to be within a small margin of error."
+                  the values shown here are going to be within a small margin of error.
+                  If an enemy becomes immune/takes reduced damage when your Breath of Eons
+                  explodes, this value might also be overevaluted. e.g. Neltharion going Immune mid Breath."
                 >
                   Damage
                 </TooltipElement>
               </td>
               <td>
-                {formatNumber((damageInRange - earlyDeadMobsDamage) * 0.1)} /{' '}
-                {formatNumber(topWindow.sum * 0.1)}
+                {formatNumber(damageToDisplay)} / {formatNumber(topWindow.sum * 0.1)}
               </td>
               <td>
-                <PassFailBar
-                  pass={(damageInRange - earlyDeadMobsDamage) * 0.1}
-                  total={topWindow.sum * 0.1}
-                />
+                <PassFailBar pass={damageToDisplay} total={topWindow.sum * 0.1} />
               </td>
             </tr>
             <tr>
