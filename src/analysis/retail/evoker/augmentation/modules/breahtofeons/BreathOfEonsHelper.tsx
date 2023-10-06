@@ -366,6 +366,8 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     }
 
     const damageSources = [];
+    /** These specific colors are choosen because certain colors seems to completely break the donut
+     * And randomizes the ouput ie. values are not properly orded. */
     const colorMap = ['#2D3142', '#4F5D75', '#BFC0C0', '#EF8354', '#FFFFFF'];
 
     for (let i = 0; i < topWindow.sumSources.length; i += 1) {
