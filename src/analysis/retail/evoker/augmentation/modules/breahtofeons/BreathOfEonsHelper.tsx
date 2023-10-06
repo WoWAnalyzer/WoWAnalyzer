@@ -26,7 +26,7 @@ type Props = {
   owner: CombatLogParser;
 };
 
-const debug = true;
+const debug = false;
 
 const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
   const damageTables: {
