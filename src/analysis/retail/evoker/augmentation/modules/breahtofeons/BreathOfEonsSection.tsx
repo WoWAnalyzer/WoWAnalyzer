@@ -9,7 +9,6 @@ import PassFailBar from 'interface/guide/components/PassFailBar';
 import './Section.scss';
 import { t } from '@lingui/macro';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
-import { blacklist } from '../features/BuffTargetHelper/BuffTargetHelper';
 import { fetchEvents } from 'common/fetchWclApi';
 import CombatLogParser from '../../CombatLogParser';
 import ExplanationGraph, {
@@ -21,6 +20,7 @@ import ExplanationGraph, {
 import DonutChart from 'parser/ui/DonutChart';
 import { PlayerInfo } from 'parser/core/Player';
 import { DamageEvent } from 'parser/core/Events';
+import { blacklist } from '../../constants';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -51,12 +51,9 @@ const BreathOfEonsSection: React.FC<Props> = ({
    * For now we only look at the players who were buffed
    * during breath */
   function getFilter(window: BreathOfEonsWindows) {
-    //console.log(window.breathPerformance.buffedPlayers);
-    //const playerNames = ['Olgey', 'Yuette', 'Dérp', 'Dolanpepe'];
     const playerNames = Array.from(window.breathPerformance.buffedPlayers.keys());
     const nameFilter = playerNames.map((name) => `"${name}"`).join(', ');
 
-    /** Blacklist is set in BuffTargetHelper module */
     const abilityFilter = blacklist.map((id) => `${id}`).join(', ');
 
     const filter = `type = "damage" 
