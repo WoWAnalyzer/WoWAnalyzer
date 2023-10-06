@@ -82,9 +82,6 @@ export type BreathWindowPerformance = {
  * and/or buffed other players for a stronger burst window.
  * Prolly easier to just make a WCL component for this count of analysis though.
  *
- * TODO: Provide better feedback, estimated damage loss based on lost EM uptime and deadge mobs
- * TODO: At some point introduce some WCL logic to provide more indepth analysis
- * TODO: make it prettier? idk not really my forte
  */
 
 export const GRAPHBUFFER = 3000;
