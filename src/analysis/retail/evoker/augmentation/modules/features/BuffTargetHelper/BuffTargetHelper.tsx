@@ -9,7 +9,7 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import { isFightDungeon } from 'common/isFightDungeon';
-import './BuffTargetHelper.scss';
+import '../../Styling.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';

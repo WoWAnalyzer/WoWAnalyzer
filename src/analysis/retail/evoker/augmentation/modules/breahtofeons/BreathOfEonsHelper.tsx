@@ -5,7 +5,7 @@ import { SpellLink, TooltipElement } from 'interface';
 import { formatDuration, formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/evoker';
 import PassFailBar from 'interface/guide/components/PassFailBar';
-import './Section.scss';
+import '../Styling.scss';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
 import { fetchEvents } from 'common/fetchWclApi';
 import CombatLogParser from '../../CombatLogParser';

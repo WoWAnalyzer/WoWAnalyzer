@@ -6,7 +6,7 @@ import { formatNumber } from 'common/format';
 import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 import PassFailBar from 'interface/guide/components/PassFailBar';
-import './Section.scss';
+import '../Styling.scss';
 import { t } from '@lingui/macro';
 import ExplanationGraph, {
   DataSeries,
