@@ -446,7 +446,9 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         )}
         <tbody>
           <tr>
-            <strong>Player contribution breakdown</strong>
+            <TooltipElement content="These values are based on the current window and not the optimal window.">
+              <strong>Player contribution breakdown</strong>
+            </TooltipElement>
           </tr>
           <DonutChart items={damageSources} />
         </tbody>
