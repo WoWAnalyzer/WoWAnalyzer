@@ -199,9 +199,8 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
           event.timestamp <= ebonMightReappliedTimestamp
         ) {
           lostDamage += event.amount + (event.absorbed ?? 0);
-        } else {
-          damageInRange += event.amount + (event.absorbed ?? 0);
         }
+        damageInRange += event.amount + (event.absorbed ?? 0);
 
         if (
           mobsToIgnore.some(
