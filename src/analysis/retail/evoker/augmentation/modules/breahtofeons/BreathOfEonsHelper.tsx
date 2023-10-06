@@ -392,7 +392,11 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         <tbody>
           <tr>
             <td>
-              <TooltipElement content="Due to how Blizzard deals with damage attributions, the values shown here are going to be within a small margin of error. If an enemy becomes immune/takes reduced damage when your Breath of Eons explodes, this value might also be overevaluated. e.g. Neltharion going Immune mid Breath.">
+              <TooltipElement
+                content="Due to how Blizzard deals with damage attributions, the values shown here are 
+              going to be within a small margin of error. If an enemy becomes immune/takes reduced damage when your 
+              Breath of Eons explodes, this value might also be overevaluated. e.g. Neltharion going Immune mid Breath."
+              >
                 Damage
               </TooltipElement>
             </td>
@@ -405,7 +409,10 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
           </tr>
           <tr>
             <td>
-              <TooltipElement content="This value represents the amount of damage you could have gotten if you had used your breath at the optimal timing">
+              <TooltipElement
+                content="This value represents the amount of damage you could have gotten if you 
+              had used your Breath of Eons at the optimal timing"
+              >
                 Potential damage increase:
               </TooltipElement>
             </td>
