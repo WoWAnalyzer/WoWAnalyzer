@@ -20,6 +20,7 @@ import ExplanationGraph, {
 } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 import DonutChart from 'parser/ui/DonutChart';
 import { PlayerInfo } from 'parser/core/Player';
+import { DamageEvent } from 'parser/core/Events';
 
 type Props = {
   windows: BreathOfEonsWindows[];
@@ -41,7 +42,7 @@ const BreathOfEonsSection: React.FC<Props> = ({
   const graphData: GraphData[] = [];
   const explanations: JSX.Element[] = [];
   const damageTables: {
-    table: any[];
+    table: DamageEvent[];
     start: number;
     end: number;
   }[] = [];
@@ -78,14 +79,14 @@ const BreathOfEonsSection: React.FC<Props> = ({
       const startTime =
         window.start - buffer > fightStartTime ? window.start - buffer : fightStartTime;
       const endTime = window.end + buffer < fightEndTime ? window.end + buffer : fightEndTime;
-      const windowEvents = await fetchEvents(
+      const windowEvents = (await fetchEvents(
         owner.report.code,
         startTime,
         endTime,
         undefined,
         getFilter(window),
         20,
-      );
+      )) as DamageEvent[];
       damageTables.push({
         table: windowEvents,
         start: window.start,
@@ -122,299 +123,35 @@ const BreathOfEonsSection: React.FC<Props> = ({
     const graphData: GraphData[] = [];
     const explanations: JSX.Element[] = [];
 
-    let index = 0;
-
-    for (const table of damageTables) {
+    for (let index = 0; index < damageTables.length; index += 1) {
       if (!windows[index]) {
         continue;
       }
 
-      /** Figure out if we should be looking at dropped Ebon Might damage
-       * We only care when we fully drop Ebon Might not individually, since
-       * that usually means player death and will naturally be handled by them
-       * no longer providing us with new events. Plus this is an easy solution! */
-      const ebonMightDropTimestamp =
-        windows[index].breathPerformance.ebonMightProblems.find((problem) => problem.count === 0)
-          ?.timestamp ?? 0;
-      const ebonMightReappliedTimestamp =
-        ebonMightDropTimestamp + windows[index].breathPerformance.ebonMightDroppedDuration;
-
-      const damageWindows = [];
-      const recentDamage: any[] = [];
-      let damageInRange = 0;
-      let lostDamage = 0;
-      let earlyDeadMobsDamage = 0;
-
-      const breathStart = windows[index].start;
-      const breathEnd = windows[index].end;
-      const breathLength = breathEnd - breathStart;
-
-      const mobsToIgnore = [];
-      for (const event of windows[index].breathPerformance.earlyDeadMobs) {
-        mobsToIgnore.push({
-          targetID: event.targetID,
-          targetInstance: event.targetInstance,
-        });
-      }
-
-      for (const event of table.table) {
-        recentDamage.push(event);
-
-        // Calculate the sum only for events within the current window
-        if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
-          if (event.subtractsFromSupportedActor) {
-            continue;
-          }
-
-          if (
-            event.timestamp >= ebonMightDropTimestamp &&
-            event.timestamp <= ebonMightReappliedTimestamp
-          ) {
-            lostDamage += event.amount + (event.absorbed ?? 0);
-          } else {
-            damageInRange += event.amount + (event.absorbed ?? 0);
-          }
-          if (
-            mobsToIgnore.some(
-              (item) =>
-                item.targetID === event.targetID && item.targetInstance === event.targetInstance,
-            )
-          ) {
-            earlyDeadMobsDamage += event.amount + (event.absorbed ?? 0);
-          }
-        }
-
-        /** Logic for finding the top windows */
-        while (
-          recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
-          breathLength
-        ) {
-          // Calculate the sum only for events within the current window
-          const eventsWithinWindow = recentDamage.filter(
-            (event) =>
-              event.timestamp >= recentDamage[0].timestamp &&
-              event.timestamp <= recentDamage[0].timestamp + breathLength,
-          );
-
-          const sourceSums = [];
-          let currentWindowSum = 0;
-
-          for (const eventWithinWindow of eventsWithinWindow) {
-            if (eventWithinWindow.subtractsFromSupportedActor) {
-              continue;
-            }
-
-            const sourceID = pets.includes(eventWithinWindow.sourceID)
-              ? petToPlayerMap.get(eventWithinWindow.sourceID)
-              : eventWithinWindow.sourceID;
-
-            const damageAmount = eventWithinWindow.amount + (eventWithinWindow.absorbed ?? 0);
-            currentWindowSum += damageAmount;
-
-            const index = sourceSums.findIndex((sum) => sum.sourceID === sourceID);
-            if (index !== -1) {
-              sourceSums[index].damage += damageAmount;
-            } else {
-              sourceSums.push({ sourceID, damage: damageAmount });
-            }
-          }
-
-          const sortedSourceSums = sourceSums.sort((a, b) => b.damage - a.damage);
-
-          damageWindows.push({
-            start: recentDamage[0].timestamp,
-            end: recentDamage[0].timestamp + breathLength,
-            sum: currentWindowSum,
-            sumSources: sortedSourceSums,
-            startFormat: formatDuration(recentDamage[0].timestamp - fightStartTime),
-            endFormat: formatDuration(recentDamage[0].timestamp + breathLength - fightStartTime),
-          });
-
-          recentDamage.shift();
-        }
-      }
-
-      const sortedWindows = damageWindows.sort((a, b) => b.sum - a.sum);
-      const topWindow = sortedWindows[0];
-
-      console.log(index + 1 + '. ', 'Top Window:', topWindow);
-      console.log(
-        index + 1 + '.',
-        'Damage within current window:',
+      const {
         damageInRange,
-        'Expected sum:',
-        windows[index].breathPerformance.damage * 10,
-        ' difference:',
-        windows[index].breathPerformance.damage * 10 - damageInRange,
-        'start:',
-        formatDuration(breathStart - fightStartTime),
+        lostDamage,
+        earlyDeadMobsDamage,
         breathStart,
-        'end:',
-        formatDuration(breathEnd - fightStartTime),
         breathEnd,
-      );
-      console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
-      console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
+        damageToDisplay,
+        topWindow,
+      } = processWindowData(index);
 
-      /** If the damage difference between what we found and what actually happened is greated than 10%
-       * we display the actual amount - this only seems to happen when a target becomes immune before
-       * Breath explodes, resulting in an overevaluation. e.g. Neltharion */
-      const damageDifference =
-        ((damageInRange - earlyDeadMobsDamage) * 0.1) / windows[index].breathPerformance.damage;
-      const damageToDisplay =
-        damageDifference > 1.1 || damageDifference < 0.9
-          ? windows[index].breathPerformance.damage
-          : (damageInRange - earlyDeadMobsDamage) * 0.1;
-
-      index += 1;
-
-      /** Generate graphdata and explanation output below */
-      const dataSeries: DataSeries[] = !topWindow
-        ? []
-        : [
-            {
-              spellTracker: [
-                {
-                  timestamp: breathStart,
-                  count: 1,
-                },
-                {
-                  timestamp: breathEnd,
-                  count: 0,
-                },
-              ],
-              type: 'area',
-              color: '#736F4E',
-              label: 'Current Breath timing',
-              strokeWidth: 5,
-            },
-            {
-              spellTracker: [
-                {
-                  timestamp: topWindow.start,
-                  count: 1 * (topWindow.sum / damageInRange),
-                },
-                {
-                  timestamp: topWindow.end,
-                  count: 0,
-                },
-              ],
-              type: 'area',
-              color: '#4C78A8',
-              label: 'Optimal Breath timing',
-              strokeWidth: 5,
-            },
-          ];
-
-      const newGraphData = generateGraphData(
-        dataSeries,
-        breathStart - buffer,
-        breathEnd + buffer,
-        'Breath Window',
-        !topWindow ? <>You didn't hit anything</> : undefined,
+      const newGraphData = generateGraphDataForWindow(
+        topWindow,
+        breathStart,
+        breathEnd,
+        damageInRange,
       );
       graphData.push(newGraphData);
 
-      const playerDrilldown: JSX.Element[] = [];
-
-      for (const source of topWindow.sumSources) {
-        playerDrilldown.push(
-          <tr>
-            <td>{source.sourceID}</td>
-            <td>{formatNumber(source.damage)}</td>
-            <td className="player-perf">
-              <PassFailBar pass={source.damage} total={topWindow.sum} />
-            </td>
-          </tr>,
-        );
-      }
-
-      /** Custom color mage because if we give class colors the Donut
-       * breaks and randomly sorts items.
-       * It makes sense to do it like this anyways, since multiple players
-       * of the same class can show up in the same window, so having unique
-       * colors for all players makes sense. */
-      const damageSources = [];
-      const colorMap = ['#2D3142', '#4F5D75', '#BFC0C0', '#EF8354', '#FFFFFF'];
-
-      for (let i = 0; i < topWindow.sumSources.length; i += 1) {
-        const source = topWindow.sumSources[i];
-        const playerInfo = playerNameMap.get(source.sourceID);
-        damageSources.push({
-          color: colorMap[i],
-          label: playerInfo?.name,
-          valueTooltip: formatNumber(source.damage * 0.1),
-          value: source.damage,
-        });
-      }
-
-      const content: JSX.Element = !topWindow ? (
-        <div></div>
-      ) : (
-        <table className="graph-explanations">
-          <tbody>
-            <tr>
-              <td>
-                <TooltipElement
-                  content="Due to how Blizzard deals with damage attributions, 
-                  the values shown here are going to be within a small margin of error.
-                  If an enemy becomes immune/takes reduced damage when your Breath of Eons
-                  explodes, this value might also be overevaluted. e.g. Neltharion going Immune mid Breath."
-                >
-                  Damage
-                </TooltipElement>
-              </td>
-              <td>
-                {formatNumber(damageToDisplay)} / {formatNumber(topWindow.sum * 0.1)}
-              </td>
-              <td>
-                <PassFailBar pass={damageToDisplay} total={topWindow.sum * 0.1} />
-              </td>
-            </tr>
-            <tr>
-              <td>
-                <TooltipElement
-                  content="This value represents the amount of damage you could have 
-                gotten if you had used your breath at the optimal timing"
-                >
-                  Potential damage increase:
-                </TooltipElement>
-              </td>
-              <td>{Math.round(((topWindow.sum - damageInRange) / damageInRange) * 100)}%</td>
-            </tr>
-          </tbody>
-          <br />
-          {lostDamage + earlyDeadMobsDamage > 0 && (
-            <tbody>
-              <tr>
-                <strong>You lost damage to the following:</strong>
-              </tr>
-              {lostDamage > 0 && (
-                <tr>
-                  <td>
-                    <span>Lost Ebon Might uptime:</span>
-                  </td>
-                  <td>{formatNumber(lostDamage * 0.1)}</td>
-                </tr>
-              )}
-              {earlyDeadMobsDamage > 0 && (
-                <tr>
-                  <td>
-                    <span>Mobs dying early:</span>
-                  </td>
-                  <td>{formatNumber(earlyDeadMobsDamage * 0.1)}</td>
-                </tr>
-              )}
-              <br />
-            </tbody>
-          )}
-          <tbody>
-            <tr>
-              <strong>Player contribution breakdown</strong>
-            </tr>
-            <DonutChart items={damageSources} />
-          </tbody>
-        </table>
+      const content = generateExplanationContent(
+        topWindow,
+        damageToDisplay,
+        damageInRange,
+        lostDamage,
+        earlyDeadMobsDamage,
       );
       explanations.push(content);
     }
@@ -430,6 +167,292 @@ const BreathOfEonsSection: React.FC<Props> = ({
         />
       </div>
     );
+  }
+
+  function processWindowData(index: number) {
+    const table = damageTables[index];
+
+    const windowData: BreathOfEonsWindows = windows[index];
+
+    const ebonMightDropTimestamp =
+      windowData.breathPerformance.ebonMightProblems.find((problem) => problem.count === 0)
+        ?.timestamp ?? 0;
+    const ebonMightReappliedTimestamp =
+      ebonMightDropTimestamp + windowData.breathPerformance.ebonMightDroppedDuration;
+
+    const damageWindows = [];
+    const recentDamage: DamageEvent[] = [];
+    let damageInRange = 0;
+    let lostDamage = 0;
+    let earlyDeadMobsDamage = 0;
+
+    const breathStart = windowData.start;
+    const breathEnd = windowData.end;
+    const breathLength = breathEnd - breathStart;
+
+    const mobsToIgnore = [];
+    for (const event of windowData.breathPerformance.earlyDeadMobs) {
+      mobsToIgnore.push({
+        targetID: event.targetID,
+        targetInstance: event.targetInstance,
+      });
+    }
+
+    for (const event of table.table) {
+      recentDamage.push(event);
+
+      if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
+        if (event.subtractsFromSupportedActor) {
+          console.log(event);
+          continue;
+        }
+
+        if (
+          event.timestamp >= ebonMightDropTimestamp &&
+          event.timestamp <= ebonMightReappliedTimestamp
+        ) {
+          lostDamage += event.amount + (event.absorbed ?? 0);
+        } else {
+          damageInRange += event.amount + (event.absorbed ?? 0);
+        }
+
+        if (
+          mobsToIgnore.some(
+            (item) =>
+              item.targetID === event.targetID && item.targetInstance === event.targetInstance,
+          )
+        ) {
+          earlyDeadMobsDamage += event.amount + (event.absorbed ?? 0);
+        }
+      }
+
+      while (
+        recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
+        breathLength
+      ) {
+        const eventsWithinWindow = recentDamage.filter(
+          (event) =>
+            event.timestamp >= recentDamage[0].timestamp &&
+            event.timestamp <= recentDamage[0].timestamp + breathLength,
+        );
+
+        const sourceSums = [];
+        let currentWindowSum = 0;
+
+        for (const eventWithinWindow of eventsWithinWindow) {
+          if (eventWithinWindow.subtractsFromSupportedActor) {
+            continue;
+          }
+
+          const sourceID = pets.includes(eventWithinWindow.sourceID ?? -1)
+            ? petToPlayerMap.get(eventWithinWindow.sourceID ?? -1)
+            : eventWithinWindow.sourceID;
+
+          const damageAmount = eventWithinWindow.amount + (eventWithinWindow.absorbed ?? 0);
+          currentWindowSum += damageAmount;
+
+          const index = sourceSums.findIndex((sum) => sum.sourceID === sourceID);
+          if (index !== -1) {
+            sourceSums[index].damage += damageAmount;
+          } else {
+            sourceSums.push({ sourceID, damage: damageAmount });
+          }
+        }
+
+        const sortedSourceSums = sourceSums.sort((a, b) => b.damage - a.damage);
+
+        damageWindows.push({
+          start: recentDamage[0].timestamp,
+          end: recentDamage[0].timestamp + breathLength,
+          sum: currentWindowSum,
+          sumSources: sortedSourceSums,
+          startFormat: formatDuration(recentDamage[0].timestamp - fightStartTime),
+          endFormat: formatDuration(recentDamage[0].timestamp + breathLength - fightStartTime),
+        });
+
+        recentDamage.shift();
+      }
+    }
+
+    const sortedWindows = damageWindows.sort((a, b) => b.sum - a.sum);
+    const topWindow = sortedWindows[0];
+    /** If the damage difference between what we found and what actually happened is greated than 10%
+     * we display the actual amount - this only seems to happen when a target becomes immune before
+     * Breath explodes, resulting in an overevaluation. e.g. Neltharion */
+    const damageDifference =
+      ((damageInRange - earlyDeadMobsDamage) * 0.1) / windows[index].breathPerformance.damage;
+    const damageToDisplay =
+      damageDifference > 1.1 || damageDifference < 0.9
+        ? windows[index].breathPerformance.damage
+        : (damageInRange - earlyDeadMobsDamage) * 0.1;
+
+    console.log(index + 1 + '. ', 'Top Window:', topWindow);
+    console.log(
+      index + 1 + '.',
+      'Damage within current window:',
+      damageInRange,
+      'Expected sum:',
+      windows[index].breathPerformance.damage * 10,
+      ' difference:',
+      windows[index].breathPerformance.damage * 10 - damageInRange,
+      'start:',
+      formatDuration(breathStart - fightStartTime),
+      breathStart,
+      'end:',
+      formatDuration(breathEnd - fightStartTime),
+      breathEnd,
+    );
+    console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
+    console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
+
+    return {
+      damageInRange,
+      lostDamage,
+      earlyDeadMobsDamage,
+      breathStart,
+      breathEnd,
+      damageToDisplay,
+      topWindow,
+    };
+  }
+
+  function generateGraphDataForWindow(
+    topWindow: any,
+    breathStart: number,
+    breathEnd: number,
+    damageInRange: number,
+  ) {
+    const dataSeries: DataSeries[] = !topWindow
+      ? []
+      : [
+          {
+            spellTracker: [
+              {
+                timestamp: breathStart,
+                count: 1,
+              },
+              {
+                timestamp: breathEnd,
+                count: 0,
+              },
+            ],
+            type: 'area',
+            color: '#736F4E',
+            label: 'Current Breath timing',
+            strokeWidth: 5,
+          },
+          {
+            spellTracker: [
+              {
+                timestamp: topWindow.start,
+                count: 1 * (topWindow.sum / damageInRange),
+              },
+              {
+                timestamp: topWindow.end,
+                count: 0,
+              },
+            ],
+            type: 'area',
+            color: '#4C78A8',
+            label: 'Optimal Breath timing',
+            strokeWidth: 5,
+          },
+        ];
+
+    const newGraphData = generateGraphData(
+      dataSeries,
+      breathStart - buffer,
+      breathEnd + buffer,
+      'Breath Window',
+      !topWindow ? <>You didn't hit anything</> : undefined,
+    );
+
+    return newGraphData;
+  }
+
+  function generateExplanationContent(
+    topWindow: any,
+    damageToDisplay: number,
+    damageInRange: number,
+    lostDamage: number,
+    earlyDeadMobsDamage: number,
+  ) {
+    const damageSources = [];
+    const colorMap = ['#2D3142', '#4F5D75', '#BFC0C0', '#EF8354', '#FFFFFF'];
+
+    for (let i = 0; i < topWindow.sumSources.length; i += 1) {
+      const source = topWindow.sumSources[i];
+      const playerInfo = playerNameMap.get(source.sourceID);
+      damageSources.push({
+        color: colorMap[i],
+        label: playerInfo?.name,
+        valueTooltip: formatNumber(source.damage * 0.1),
+        value: source.damage,
+      });
+    }
+
+    const content: JSX.Element = !topWindow ? (
+      <div></div>
+    ) : (
+      <table className="graph-explanations">
+        <tbody>
+          <tr>
+            <td>
+              <TooltipElement content="Due to how Blizzard deals with damage attributions, the values shown here are going to be within a small margin of error. If an enemy becomes immune/takes reduced damage when your Breath of Eons explodes, this value might also be overevaluated. e.g. Neltharion going Immune mid Breath.">
+                Damage
+              </TooltipElement>
+            </td>
+            <td>
+              {formatNumber(damageToDisplay)} / {formatNumber(topWindow.sum * 0.1)}
+            </td>
+            <td>
+              <PassFailBar pass={damageToDisplay} total={topWindow.sum * 0.1} />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <TooltipElement content="This value represents the amount of damage you could have gotten if you had used your breath at the optimal timing">
+                Potential damage increase:
+              </TooltipElement>
+            </td>
+            <td>{Math.round(((topWindow.sum - damageInRange) / damageInRange) * 100)}%</td>
+          </tr>
+        </tbody>
+        <br />
+        {lostDamage + earlyDeadMobsDamage > 0 && (
+          <tbody>
+            <tr>
+              <strong>You lost damage to the following:</strong>
+            </tr>
+            {lostDamage > 0 && (
+              <tr>
+                <td>
+                  <span>Lost Ebon Might uptime:</span>
+                </td>
+                <td>{formatNumber(lostDamage * 0.1)}</td>
+              </tr>
+            )}
+            {earlyDeadMobsDamage > 0 && (
+              <tr>
+                <td>
+                  <span>Mobs dying early:</span>
+                </td>
+                <td>{formatNumber(earlyDeadMobsDamage * 0.1)}</td>
+              </tr>
+            )}
+            <br />
+          </tbody>
+        )}
+        <tbody>
+          <tr>
+            <strong>Player contribution breakdown</strong>
+          </tr>
+          <DonutChart items={damageSources} />
+        </tbody>
+      </table>
+    );
+
+    return content;
   }
 
   /** Generate graph data for Breath Windows */
