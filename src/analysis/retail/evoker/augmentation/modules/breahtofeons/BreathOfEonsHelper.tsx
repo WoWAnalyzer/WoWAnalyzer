@@ -26,6 +26,8 @@ type Props = {
   owner: CombatLogParser;
 };
 
+const debug = false;
+
 const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEndTime, owner }) => {
   const damageTables: {
     table: DamageEvent[];
@@ -47,7 +49,9 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     AND (source.name in (${nameFilter}, "${owner.selectedCombatant.name}") OR source.owner.name in (${nameFilter}, "${owner.selectedCombatant.name}")) 
     AND (target.id != source.id) AND (supportedActor.id = 0)`;
 
-    console.log(filter);
+    if (debug) {
+      console.log(filter);
+    }
     return filter;
   }
 
@@ -270,24 +274,26 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         ? windows[index].breathPerformance.damage
         : (damageInRange - earlyDeadMobsDamage) * 0.1;
 
-    console.log(index + 1 + '. ', 'Top Window:', topWindow);
-    console.log(
-      index + 1 + '.',
-      'Damage within current window:',
-      damageInRange,
-      'Expected sum:',
-      windows[index].breathPerformance.damage * 10,
-      ' difference:',
-      windows[index].breathPerformance.damage * 10 - damageInRange,
-      'start:',
-      formatDuration(breathStart - fightStartTime),
-      breathStart,
-      'end:',
-      formatDuration(breathEnd - fightStartTime),
-      breathEnd,
-    );
-    console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
-    console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
+    if (debug) {
+      console.log(index + 1 + '. ', 'Top Window:', topWindow);
+      console.log(
+        index + 1 + '.',
+        'Damage within current window:',
+        damageInRange,
+        'Expected sum:',
+        windows[index].breathPerformance.damage * 10,
+        ' difference:',
+        windows[index].breathPerformance.damage * 10 - damageInRange,
+        'start:',
+        formatDuration(breathStart - fightStartTime),
+        breathStart,
+        'end:',
+        formatDuration(breathEnd - fightStartTime),
+        breathEnd,
+      );
+      console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
+      console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
+    }
 
     return {
       damageInRange,
