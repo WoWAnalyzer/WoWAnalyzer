@@ -186,7 +186,6 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
 
       if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
         if (event.subtractsFromSupportedActor) {
-          console.log(event);
           continue;
         }
 
@@ -443,19 +442,18 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
   return (
     <SubSection title="Breath of Eons helper">
       <div className="graph-window-container">
-        <header>Breath Window Helper</header>
         <p>
-          This module will help you figure out when it would have been optimal to have used your{' '}
-          <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />. This can be usefull in helping your
-          figure out when bursty specs like{' '}
+          This module offers a detailed damage breakdown of your{' '}
+          <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} /> usage.
+          <br />
+          Additionally, it helps you determine if there was a more optimal timing for your{' '}
+          <SpellLink spell={TALENTS.BREATH_OF_EONS_TALENT} />. This can be particularly valuable
+          when dealing with bursty specs like{' '}
           <span className="DeathKnight">Unholy Death Knights</span>,{' '}
-          <span className="Warlock">Demonology Warlocks</span> or{' '}
-          <span className="Mage">Arcane Mages</span> are fully ramped up.
+          <span className="Warlock">Demonology Warlocks</span>, or{' '}
+          <span className="Mage">Arcane Mages</span>.
         </p>
-        <p>
-          <span className="currentBreath">Current Breath timing</span> -{' '}
-          <span className="optimalBreath">Optimal Breath timing</span>
-        </p>
+
         <LazyLoadGuideSection loader={loadData.bind(this)} value={findOptimalWindow.bind(this)} />
       </div>
     </SubSection>

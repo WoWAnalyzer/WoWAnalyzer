@@ -8,21 +8,18 @@ export function Helpers({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Helper Modules">
       <p>
-        Augmentations core rotation revolves around proper upkeep of your buffs:{' '}
-        <SpellLink spell={TALENTS_EVOKER.EBON_MIGHT_TALENT} />,{' '}
-        <SpellLink spell={TALENTS_EVOKER.PRESCIENCE_TALENT} />,{' '}
-        <SpellLink spell={SPELLS.SHIFTING_SANDS_BUFF} />, and{' '}
-        <SpellLink spell={TALENTS_EVOKER.BLISTERING_SCALES_TALENT} />. While using your empowers:{' '}
-        <SpellLink spell={SPELLS.FIRE_BREATH} /> and <SpellLink spell={SPELLS.UPHEAVAL} /> on
-        cooldown, along with spending essence on{' '}
-        <SpellLink spell={TALENTS_EVOKER.ERUPTION_TALENT} />; using{' '}
-        <SpellLink spell={SPELLS.LIVING_FLAME_CAST} /> to fill in the gaps.
-        <br />
-        Your main cooldown, <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} />, should be
-        used alongside your other DPS players' major cooldowns, since it amplifies their damage.
-        Using <SpellLink spell={TALENTS_EVOKER.TIME_SKIP_TALENT} /> on every other{' '}
-        <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} /> to further amplify the burst
-        window.
+        Determining the optimal targets for your buffs, such as{' '}
+        <SpellLink spell={SPELLS.PRESCIENCE_BUFF} /> or{' '}
+        <SpellLink spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} />, can be a challenging task. The
+        modules below are designed to assist you in making these decisions, as well as provide
+        in-depth analysis for spells like <SpellLink spell={TALENTS_EVOKER.BREATH_OF_EONS_TALENT} />
+        .
+      </p>
+      <p>
+        <strong>
+          Please note that all these modules are loaded on demand and will not offer any analysis
+          until you click the <span className="clickToLoad">Click to load</span> buttons.
+        </strong>
       </p>
 
       {modules.buffTargetHelper.guideSubsection()}
