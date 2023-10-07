@@ -86,6 +86,10 @@ export type T30_TIER_GEAR_IDS =
   | typeof WARLOCK_T30_ID
   | typeof WARRIOR_T30_ID;
 
+export const EVOKER_T31_ID = 1560;
+
+export type T31_TIER_GEAR_IDS = typeof EVOKER_T31_ID;
+
 export const T28_TIER_BY_CLASSES: Record<number, T28_TIER_GEAR_IDS> = {
   [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_TIER_T28_ID,
   [CLASSES.DEMON_HUNTER]: DEMON_HUNTER_TIER_T28_ID,
@@ -131,6 +135,10 @@ export const T30_TIER_BY_CLASSES: Record<number, T30_TIER_GEAR_IDS> = {
   [CLASSES.SHAMAN]: SHAMAN_T30_ID,
   [CLASSES.WARLOCK]: WARLOCK_T30_ID,
   [CLASSES.WARRIOR]: WARRIOR_T30_ID,
+};
+
+export const T31_TIER_BY_CLASSES: Record<number, T31_TIER_GEAR_IDS> = {
+  [CLASSES.EVOKER]: EVOKER_T31_ID,
 };
 
 export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {

@@ -47,6 +47,7 @@ export const SPARK_OF_INSIGHT = 'SparkOfInsight'; // link TC stack removals to S
 export const STASIS = 'Stasis';
 export const STASIS_FOR_RAMP = 'ForRamp';
 export const ESSENCE_RUSH = 'EssenceRush';
+export const T31_2PC = 'T31LFProc';
 
 export enum ECHO_TYPE {
   NONE,
@@ -63,6 +64,7 @@ const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const MAX_ESSENCE_BURST_DURATION = 32000; // 15s duration can refresh to 30s with 2s of buffer
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 const STASIS_BUFFER = 1000;
+const T31_LF_AMOUNT = 5;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -660,6 +662,24 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_EVOKER.ANCIENT_FLAME_TALENT);
     },
   },
+  {
+    linkRelation: T31_2PC,
+    reverseLinkRelation: T31_2PC,
+    linkingEventId: [
+      SPELLS.FIRE_BREATH.id,
+      SPELLS.FIRE_BREATH_FONT.id,
+      TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+      TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+      SPELLS.DREAM_BREATH_FONT.id,
+      SPELLS.SPIRITBLOOM_FONT.id,
+    ],
+    linkingEventType: [EventType.EmpowerEnd, EventType.Cast],
+    referencedEventId: [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.LIVING_FLAME_HEAL.id],
+    referencedEventType: [EventType.Damage, EventType.Heal],
+    maximumLinks: T31_LF_AMOUNT,
+    forwardBufferMs: EB_BUFFER_MS * 2, // travel time489
+    anyTarget: true,
+  },
 ];
 
 /**
@@ -807,6 +827,29 @@ export function isEbFromT30Tier(
   return (
     !HasRelatedEvent(applyEvent, FROM_HARDCAST) && !HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT)
   );
+}
+
+export function isEbFromT31Tier(
+  event:
+    | RemoveBuffEvent
+    | RemoveBuffStackEvent
+    | ApplyBuffEvent
+    | RefreshBuffEvent
+    | ApplyBuffStackEvent,
+) {
+  // get lf event -> check if lf is from 2 set
+  const applyEvent =
+    event.type === EventType.ApplyBuff || event.type === EventType.ApplyBuffStack
+      ? event
+      : GetRelatedEvent(event, ESSENCE_BURST_LINK);
+  if (!applyEvent) {
+    return false;
+  }
+  const lfEvent = GetRelatedEvent(applyEvent, FROM_HARDCAST);
+  if (!lfEvent) {
+    return false;
+  }
+  return HasRelatedEvent(lfEvent, T31_2PC);
 }
 
 export function getAncientFlameSource(event: ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent) {

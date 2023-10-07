@@ -1,0 +1,169 @@
+import SPELLS from 'common/SPELLS';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  DamageEvent,
+  EventType,
+  HealEvent,
+  RefreshBuffEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+} from 'parser/core/Events';
+import BoringValueText from 'parser/ui/BoringValueText';
+import ItemHealingDone from 'parser/ui/ItemHealingDone';
+import ItemManaGained from 'parser/ui/ItemManaGained';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import {
+  getEssenceBurstConsumeAbility,
+  isEbFromT31Tier,
+} from '../../../normalizers/CastLinkNormalizer';
+import { ESSENCE_COSTS } from '../../talents/EssenceBurst';
+import { MANA_COSTS } from '../../talents/EssenceBurst';
+import Soup from 'interface/icons/Soup';
+import { SpellLink, TooltipElement } from 'interface';
+import { TALENTS_EVOKER } from 'common/TALENTS';
+import { formatNumber } from 'common/format';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
+class T31PrevokerSet extends Analyzer {
+  has4Piece: boolean = false;
+  hotHealing: number = 0;
+  hotOverhealing: number = 0;
+  dbIncHealing: number = 0;
+  dbIncOverhealing: number = 0;
+  manaSaved: number = 0;
+  essenceSaved: number = 0;
+  wastedEb: number = 0; // from EB buff refreshes
+  totalEbProcs: number = 0;
+  lfHealingHits: number = 0;
+  lfHealing: number = 0;
+  lfDamage: number = 0;
+  lfDamageHits: number = 0;
+
+  constructor(options: Options) {
+    super(options);
+    //this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
+      this.onEbProc,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
+      this.onEbProc,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
+      this.onEbRefresh,
+    );
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_HEAL),
+      this.onLfHit,
+    );
+    this.addEventListener(
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_HEAL),
+      this.onLfHit,
+    );
+  }
+
+  onLfHit(event: DamageEvent | HealEvent) {
+    if (event.type === EventType.Damage) {
+      this.lfDamage += event.amount;
+      this.lfDamageHits += 1;
+    } else {
+      this.lfHealing += event.amount;
+      this.lfHealingHits += 1;
+    }
+  }
+
+  onEbProc(event: RemoveBuffEvent | RemoveBuffStackEvent) {
+    if (!isEbFromT31Tier(event)) {
+      return;
+    }
+
+    const castEvent = getEssenceBurstConsumeAbility(event);
+    if (!castEvent) {
+      return;
+    }
+    this.totalEbProcs += 1;
+    this.essenceSaved += ESSENCE_COSTS[castEvent.ability.name];
+    this.manaSaved += MANA_COSTS[castEvent.ability.name];
+  }
+
+  onEbRefresh(event: RefreshBuffEvent) {
+    if (!isEbFromT31Tier(event)) {
+      return;
+    }
+    this.wastedEb += 1;
+  }
+
+  get totalHealing() {
+    return this.dbIncHealing + this.hotHealing;
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        position={STATISTIC_ORDER.OPTIONAL(5)}
+        size="flexible"
+        category={STATISTIC_CATEGORY.ITEMS}
+      >
+        <BoringValueText label="T31 Set Bonus">
+          <>
+            <h4>2 Piece</h4>
+            <div>
+              <TooltipElement
+                content={
+                  <>
+                    {this.totalEbProcs} total{' '}
+                    <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT} /> procs
+                    <br />
+                    {this.wastedEb} wasted procs from refreshes
+                  </>
+                }
+                hoverable
+              >
+                <div>
+                  <ItemManaGained
+                    amount={this.manaSaved}
+                    approximate
+                    useAbbrev
+                    customLabel="mana"
+                  />
+                </div>
+                <div>
+                  <Soup /> {this.essenceSaved} <small>essence saved</small>
+                </div>
+              </TooltipElement>
+              <div>
+                <TooltipElement
+                  content={
+                    <>
+                      <div>Total hits: {this.lfHealingHits}</div>
+                      <div>Total healing: {formatNumber(this.lfHealing)}</div>
+                    </>
+                  }
+                >
+                  <ItemHealingDone amount={this.lfHealing} />
+                </TooltipElement>
+              </div>
+              <div>
+                <TooltipElement
+                  content={
+                    <>
+                      <div>Total hits: {this.lfDamageHits}</div>
+                      <div>Total damage: {formatNumber(this.lfDamage)}</div>
+                    </>
+                  }
+                >
+                  <ItemDamageDone amount={this.lfDamage} />
+                </TooltipElement>
+              </div>
+            </div>
+          </>
+        </BoringValueText>
+      </Statistic>
+    );
+  }
+}
+
+export default T31PrevokerSet;

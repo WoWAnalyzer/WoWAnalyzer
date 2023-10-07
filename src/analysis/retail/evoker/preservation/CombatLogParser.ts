@@ -46,6 +46,7 @@ import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
+import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -107,6 +108,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // tier
     t30PrevokerTier: T30PrevokerSet,
+    t31PrevokerTIer: T31PrevokerSet,
   };
   static guide = Guide;
 }
