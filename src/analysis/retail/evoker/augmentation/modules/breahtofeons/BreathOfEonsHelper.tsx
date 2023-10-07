@@ -296,7 +296,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       }
     }
 
-    sourceInRange
+    const sortedSourceInRange: DamageSources[] = sourceInRange
       .sort((a, b) => b.damage - a.damage)
       .filter((sourceID) => sourceID.sourceID !== -1);
 
@@ -330,7 +330,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         formatDuration(breathEnd - fightStartTime),
         breathEnd,
       );
-      console.log(index + 1 + '.', 'source:', sourceInRange);
+      console.log(index + 1 + '.', 'source:', sortedSourceInRange);
       console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
       console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
     }
@@ -343,7 +343,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       breathEnd,
       damageToDisplay,
       topWindow,
-      sourceInRange,
+      sourceInRange: sortedSourceInRange,
     };
   }
 
