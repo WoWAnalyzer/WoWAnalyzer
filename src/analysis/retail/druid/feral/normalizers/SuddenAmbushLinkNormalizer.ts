@@ -32,6 +32,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: BOOSTED_DAMAGE,
+    reverseLinkRelation: BOOSTED_BY_SA,
     linkingEventId: SPELLS.SUDDEN_AMBUSH_BUFF.id,
     linkingEventType: EventType.RemoveBuff,
     referencedEventId: [SPELLS.RAKE.id, SPELLS.SHRED.id],
@@ -70,6 +71,8 @@ export function getSuddenAmbushBoostedDamage(event: RemoveBuffEvent): DamageEven
   );
 }
 
-export function isBoostedBySuddenAmbush(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+export function isBoostedBySuddenAmbush(
+  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
+) {
   return HasRelatedEvent(event, BOOSTED_BY_SA);
 }
