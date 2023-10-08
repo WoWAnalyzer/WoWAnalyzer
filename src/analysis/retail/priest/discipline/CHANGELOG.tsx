@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 10, 8), <>Updated <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT}/> for revamp - the heal has been removed and has various amps depending on talents selected.</>, Hana),
+  change(date(2023, 10, 7), <>Added <SpellLink spell={TALENTS_PRIEST.SCHISM_TALENT}/></>, Hana),
   change(date(2023, 9, 15), <>Added new atonement damage sources which will appear in the new patch. Can be merged now as it doesn't break any old functionality.</>, Hana),
   change(date(2023, 8, 18), <>Cleared some console logs, updated some spells for cast efficiency, updated some mana costs</>, Hana),
   change(date(2023, 8, 12), <>'Add <SpellLink spell={TALENTS_PRIEST.WORDS_OF_THE_PIOUS_TALENT}/>'</>, Hana),
