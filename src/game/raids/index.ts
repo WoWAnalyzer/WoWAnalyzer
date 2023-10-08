@@ -54,6 +54,7 @@ const raids = {
   // Wrath of the Lich King (Classic)
   Ulduar: require('./ulduar').default, // tier 8
   TrialOfTheGrandCrusader: require('./trialofthegrandcrusader').default, // tier 9
+  IcecrownCitadel: require('./icc').default, // tier 10
 };
 export default raids;
 
