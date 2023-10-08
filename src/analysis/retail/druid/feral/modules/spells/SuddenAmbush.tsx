@@ -383,8 +383,8 @@ class SuddenAmbush extends Snapshots {
         <strong>Sudden Ambush uses</strong>
         <small>
           {' '}
-          - Green is a good use, Red is a proc expiring, being overwritten, or used incorrectly.
-          Mouseover for more details.
+          - Green is a good use, Red is an incorrect use or a wasted proc, and Yellow is a
+          questionable use. Mouseover for more details.
         </small>
         <PerformanceBoxRow values={this.useEntries} />
       </div>
