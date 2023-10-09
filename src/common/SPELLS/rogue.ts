@@ -172,6 +172,11 @@ const spells = {
     name: 'Eviscerate',
     icon: 'ability_rogue_eviscerate',
   },
+  BLACK_POWDER: {
+    id: 319175,
+    name: 'Black Powder',
+    icon: 'spell_priest_divinestar_shadow',
+  },
   // Shadowed Finishers
   BLACK_POWDER_SHADOW: {
     id: 319190,
@@ -498,14 +503,29 @@ const spells = {
     name: 'Between the Eyes',
     icon: 'inv_weapon_rifle_01',
   },
+  ROLL_THE_BONES: {
+    id: 315508,
+    name: 'Roll the Bones',
+    icon: 'ability_rogue_rollthebones',
+  },
 
   //CDs
 
   //Other
+  BLADE_FLURRY: {
+    id: 13877,
+    name: 'Blade Flurry',
+    icon: 'ability_warrior_punishingblow',
+  },
   BLADE_FLURRY_DAMAGE: {
     id: 22482,
     name: 'Blade Flurry',
     icon: 'ability_warrior_punishingblow',
+  },
+  GRAPPLING_HOOK: {
+    id: 195457,
+    name: 'Grappling Hook',
+    icon: 'ability_rogue_grapplinghook',
   },
 
   //Buffs

@@ -8,17 +8,17 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-export default class Soulrend extends Analyzer {
+export default class Soulscar extends Analyzer {
   damage = 0;
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SOULSCAR_TALENT);
     if (!this.active) {
       return;
     }
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SOULREND),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SOULSCAR),
       this.soulrendDot,
     );
   }
@@ -34,7 +34,7 @@ export default class Soulrend extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={`${formatThousands(this.damage)} Total damage`}
       >
-        <TalentSpellText talent={TALENTS_DEMON_HUNTER.SOULREND_TALENT}>
+        <TalentSpellText talent={TALENTS_DEMON_HUNTER.SOULSCAR_TALENT}>
           <ItemDamageDone amount={this.damage} />
         </TalentSpellText>
       </Statistic>
