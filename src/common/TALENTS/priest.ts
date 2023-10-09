@@ -29,7 +29,7 @@ const talents = {
   ANCIENT_MADNESS_TALENT: {
     id: 341240,
     name: 'Ancient Madness',
-    icon: 'spell_priest_void_flay',
+    icon: 'spell_priest_void-flay',
     maxRanks: 1,
     entryIds: [103798],
     definitionIds: [{ id: 108803, specId: 258 }],
@@ -371,7 +371,7 @@ const talents = {
   DOMINATE_MIND_TALENT: {
     id: 205364,
     name: 'Dominate Mind',
-    icon: 'spell_priest_void_flay',
+    icon: 'spell_priest_void-flay',
     maxRanks: 1,
     entryIds: [103678],
     definitionIds: [{ id: 108683, specId: 256 }],
@@ -1528,7 +1528,7 @@ const talents = {
   UNFURLING_DARKNESS_TALENT: {
     id: 341273,
     name: 'Unfurling Darkness',
-    icon: 'spell_priest_shadow_mend',
+    icon: 'spell_priest_shadow-mend',
     maxRanks: 1,
     entryIds: [103804],
     definitionIds: [{ id: 108809, specId: 258 }],
@@ -1560,7 +1560,7 @@ const talents = {
   VOID_ERUPTION_TALENT: {
     id: 228260,
     name: 'Void Eruption',
-    icon: 'spell_priest_void_blast',
+    icon: 'spell_priest_void-blast',
     maxRanks: 1,
     entryIds: [103674],
     definitionIds: [{ id: 108679, specId: 258 }],
