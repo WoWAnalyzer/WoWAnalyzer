@@ -30,6 +30,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 9), 'Add T31 set IDs.', ToppleTheNun),
   change(date(2023, 10, 7), <>Add support for ICC bosses.</>, emallson),
   change(date(2023, 10, 3), <>Refactor code for related event retrieval.</>, Seriousnes),
   change(date(2023, 10, 1), <>Improve code for coloring texts and backgrounds by <span className='Paladin'>player</span> <span className='Warrior'>classes</span>.</>, nullDozzer),
