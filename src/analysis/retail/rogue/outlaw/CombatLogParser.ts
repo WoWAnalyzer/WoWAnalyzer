@@ -6,7 +6,6 @@ import {
   Flagellation,
   SerratedBoneSpike,
   SpellEnergyCost,
-  SpellUsable,
   InstantPoison,
   Sepsis,
   StealthAbilityFollowingSepsis,
@@ -54,7 +53,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     alwaysBeCasting: AlwaysBeCasting,
     buffs: Buffs,
-    spellUsable: SpellUsable,
     checklist: Checklist,
 
     //Normalizers

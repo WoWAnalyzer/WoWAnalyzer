@@ -119,7 +119,7 @@ class Abilities extends SharedAbilities {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_TALENT),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOULSCAR_TALENT),
           recommendedEfficiency: 0.95,
         },
       },
@@ -168,8 +168,7 @@ class Abilities extends SharedAbilities {
 
       // CC, interupts, and utility
       {
-        spell: TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT),
+        spell: SPELLS.FEL_ERUPTION.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {

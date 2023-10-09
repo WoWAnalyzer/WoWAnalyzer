@@ -2,6 +2,7 @@ import {
   CharredWarblades,
   CollectiveAnguish,
   Demonic,
+  DemonSoulBuff,
   DisruptingFury,
   Felblade,
   FlamesOfFury,
@@ -10,9 +11,6 @@ import {
   ShatteredRestoration,
   SwallowedAnger,
   TheHunt,
-  UnnaturalMalice,
-  DemonSoulBuff,
-  FodderToTheFlame,
   TheHuntNormalizer,
 } from 'analysis/retail/demonhunter/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
@@ -52,7 +50,7 @@ import EyeBeamNormalizer from 'analysis/retail/demonhunter/havoc/normalizers/Eye
 import Ragefire from './modules/talents/Ragefire';
 import InnerDemon from './modules/talents/InnerDemon';
 import AnyMeansNecessary from './modules/talents/AnyMeansNecessary';
-import Soulrend from './modules/talents/Soulrend';
+import Soulscar from 'analysis/retail/demonhunter/havoc/modules/talents/Soulscar';
 import GrowingInferno from './modules/talents/GrowingInferno';
 import BurningHatred from './modules/talents/BurningHatred';
 import EssenceBreakNormalizer from './normalizers/EssenceBreakNormalizer';
@@ -120,18 +118,16 @@ class CombatLogParser extends CoreCombatLogParser {
     ragefire: Ragefire,
     innerDemon: InnerDemon,
     anyMeansNecessary: AnyMeansNecessary,
-    soulrend: Soulrend,
+    soulscar: Soulscar,
     furiousGaze: FuriousGaze,
     charredWarblades: CharredWarblades,
     collectiveAnguish: CollectiveAnguish,
     growingInferno: GrowingInferno,
     burningHatred: BurningHatred,
     demonic: Demonic,
-    unnaturalMalice: UnnaturalMalice,
     swallowedAnger: SwallowedAnger,
     flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
-    fodderToTheFlame: FodderToTheFlame,
     eyeBeam: EyeBeam,
     unboundChaos: UnboundChaos,
 
