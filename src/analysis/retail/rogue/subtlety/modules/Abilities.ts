@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -33,7 +33,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.BLACK_POWDER_TALENT.id,
+        spell: SPELLS.BLACK_POWDER.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         gcd: {
           base: 1000,
@@ -137,13 +137,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.MARKED_FOR_DEATH_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 30,
-        gcd: null,
-        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT),
-      },
-      {
         spell: TALENTS.SECRET_TECHNIQUE_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
@@ -210,13 +203,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.SHADOW_STEP.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
-        charges:
-          combatant.getTalentRank(TALENTS.SHADOWSTEP_SHARED_TALENT) +
-          combatant.getTalentRank(TALENTS.SHADOWSTEP_SUBTLETY_TALENT),
+        charges: combatant.hasTalent(TALENTS.SHADOWSTEP_TALENT) ? 2 : 1,
         gcd: null,
-        enabled:
-          combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT) ||
-          combatant.hasTalent(TALENTS.SHADOWSTEP_SUBTLETY_TALENT),
       },
       {
         spell: SPELLS.SPRINT.id,

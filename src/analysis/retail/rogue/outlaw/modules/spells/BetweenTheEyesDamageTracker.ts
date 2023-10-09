@@ -1,6 +1,7 @@
-import { FilteredDamageTracker, SpellUsable } from 'analysis/retail/rogue/shared';
+import { FilteredDamageTracker } from 'analysis/retail/rogue/shared';
 import SPELLS from 'common/SPELLS';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
+import SpellUsable from 'parser/shared/modules/SpellUsable';
 
 class BetweenTheEyesDamageTracker extends FilteredDamageTracker {
   static dependencies = {

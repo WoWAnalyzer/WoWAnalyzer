@@ -417,8 +417,8 @@ const talents = {
     name: 'Elemental Blast',
     icon: 'shaman_talent_elementalblast',
     maxRanks: 1,
-    entryIds: [101831],
-    definitionIds: [{ id: 106886, specId: 263 }],
+    entryIds: [117750],
+    definitionIds: [{ id: 122762, specId: 263 }],
   },
   ELEMENTAL_EQUILIBRIUM_TALENT: {
     id: 378271,
@@ -1051,15 +1051,22 @@ const talents = {
     entryIds: [101845],
     definitionIds: [{ id: 106857, specId: 262 }],
   },
-  PRIMORDIAL_WAVE_TALENT: {
+  PRIMORDIAL_WAVE_RESTORATION_TALENT: {
+    id: 428332,
+    name: 'Primordial Wave',
+    icon: 'ability_maldraxxus_shaman',
+    maxRanks: 1,
+    entryIds: [101917],
+    definitionIds: [{ id: 106905, specId: 264 }],
+  },
+  PRIMORDIAL_WAVE_SPEC_TALENT: {
     id: 375982,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
     maxRanks: 1,
-    entryIds: [101830, 101917, 101891],
+    entryIds: [101830, 101891],
     definitionIds: [
       { id: 106885, specId: 263 },
-      { id: 106905, specId: 264 },
       { id: 106840, specId: 262 },
     ],
   },
@@ -1346,6 +1353,14 @@ const talents = {
     maxRanks: 1,
     entryIds: [101820],
     definitionIds: [{ id: 106867, specId: 263 }],
+  },
+  TEMPEST_STRIKES_TALENT: {
+    id: 428071,
+    name: 'Tempest Strikes',
+    icon: 'spell_nature_thunderclap',
+    maxRanks: 1,
+    entryIds: [101831],
+    definitionIds: [{ id: 106886, specId: 263 }],
   },
   THORIMS_INVOCATION_TALENT: {
     id: 384444,

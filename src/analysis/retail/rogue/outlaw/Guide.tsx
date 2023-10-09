@@ -3,6 +3,7 @@ import PreparationSection from 'interface/guide/components/Preparation/Preparati
 import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
+import SPELLS from 'common/SPELLS/rogue';
 import { ResourceLink, SpellLink } from 'interface';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
@@ -140,7 +141,7 @@ function ActionPriorityList({ modules, info }: GuideProps<typeof CombatLogParser
           </li>
           <li>
             {' '}
-            <SpellLink spell={TALENTS.BLADE_FLURRY_TALENT} />
+            <SpellLink spell={SPELLS.BLADE_FLURRY} />
           </li>
         </ul>
       </p>

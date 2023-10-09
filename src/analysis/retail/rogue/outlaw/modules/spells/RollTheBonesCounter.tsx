@@ -3,7 +3,7 @@ import Analyzer from 'parser/core/Analyzer';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-import TALENTS from 'common/TALENTS/rogue';
+import SPELLS from 'common/SPELLS/rogue';
 
 import RollTheBonesCastTracker, { RTBCast } from '../features/RollTheBonesCastTracker';
 
@@ -53,7 +53,7 @@ class RollTheBonesCounter extends Analyzer {
       >
         <div className="pad">
           <label>
-            <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} /> distribution
+            <SpellLink spell={SPELLS.ROLL_THE_BONES} /> distribution
           </label>
           {this.rolltheBonesBuffDistributionChart()}
         </div>

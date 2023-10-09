@@ -30,6 +30,11 @@ const spells = {
   },
   // Sigil of Flame, Misery, and Silence have different spell ids depending on
   // if you take the [Concentrated Sigils], [Quickened Sigils], or [Precise Sigils] talents
+  SIGIL_OF_FLAME: {
+    id: 204596,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_sigilofinquisition',
+  },
   SIGIL_OF_FLAME_CONCENTRATED: {
     id: 204513,
     name: 'Sigil of Flame',
@@ -447,6 +452,11 @@ const spells = {
     name: 'Blade Dance',
     icon: 'ability_demonhunter_bladedance',
   },
+  FEL_ERUPTION: {
+    id: 211881,
+    name: 'Fel Eruption',
+    icon: 'ability_bossfellord_felspike',
+  },
 
   // Havoc Talents
   DEMONIC_APPETITE_FURY: {
@@ -515,7 +525,7 @@ const spells = {
     name: 'Initiative',
     icon: 'ability_rogue_surpriseattack',
   },
-  SOULREND: {
+  SOULSCAR: {
     id: 390181,
     name: 'Soulrend',
     icon: 'ability_demonhunter_bloodlet',

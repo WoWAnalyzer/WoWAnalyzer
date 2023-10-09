@@ -14,7 +14,7 @@ export default [
   change(date(2023, 3, 19), 'Add "Hide Good Casts" toggle to Core Rotation and Cooldown sections of the Guide.', ToppleTheNun),
   change(date(2023, 2, 3), <>Fix some bugs related to log ordering/latency with <SpellLink spell={SPELLS.ENVENOM} />.</>, ToppleTheNun),
   change(date(2023, 1, 28), 'Fix reference to Fury in Guide.', ToppleTheNun),
-  change(date(2023, 1, 28), <>Update <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> to check duration of <SpellLink spell={SPELLS.GARROTE} /> and <SpellLink spell={SPELLS.RUPTURE} />.</>, ToppleTheNun),
+  change(date(2023, 1, 28), <>Update Exsanuinate to check duration of <SpellLink spell={SPELLS.GARROTE} /> and <SpellLink spell={SPELLS.RUPTURE} />.</>, ToppleTheNun),
   change(date(2023, 1, 28), <>Add breakdown of <SpellLink spell={TALENTS.EXSANGUINATE_TALENT} /> usage to Guide.</>, ToppleTheNun),
   change(date(2023, 1, 28), <>Add details for <SpellLink spell={TALENTS.THISTLE_TEA_TALENT} /> usage to Guide.</>, ToppleTheNun),
   change(date(2023, 1, 27), <>Fix max duration calculation for <SpellLink spell={SPELLS.RUPTURE} /> not respecting Animacharged.</>, ToppleTheNun),

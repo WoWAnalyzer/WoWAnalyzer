@@ -28,7 +28,7 @@ export default class ThrowGlaive extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active =
-      this.selectedCombatant.hasTalent(TALENTS.SOULREND_TALENT) &&
+      this.selectedCombatant.hasTalent(TALENTS.SOULSCAR_TALENT) &&
       this.selectedCombatant.hasTalent(TALENTS.FURIOUS_THROWS_TALENT);
     this.addEventListener(
       Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(SPELLS.THROW_GLAIVE_HAVOC),
@@ -96,7 +96,7 @@ export default class ThrowGlaive extends Analyzer {
         <ExplanationSection>
           <p>
             <SpellLink spell={SPELLS.THROW_GLAIVE_HAVOC} /> gains significant value in your rotation
-            when you take <SpellLink spell={TALENTS.SOULREND_TALENT} /> and{' '}
+            when you take <SpellLink spell={TALENTS.SOULSCAR_TALENT} /> and{' '}
             <SpellLink spell={TALENTS.FURIOUS_THROWS_TALENT} />. It also gains value from the below
             talents.
           </p>
