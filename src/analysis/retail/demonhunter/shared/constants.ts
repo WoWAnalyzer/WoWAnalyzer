@@ -25,6 +25,8 @@ export const PITCH_BLACK_SCALING = [0, 120];
 
 export const MASTER_OF_THE_GLAIVE_SCALING = [0, 1];
 
+export const CHAMPION_OF_THE_GLAIVE_SCALING = [0, 1];
+
 export const RUSH_OF_CHAOS_SCALING = [0, 30, 60];
 
 export const DEMONIC_ORIGINS_CDR_SCALING = [0, 60];

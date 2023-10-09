@@ -4,7 +4,10 @@ import { SpellLink } from 'interface';
 import SharedAbilities from 'analysis/retail/demonhunter/shared/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { MASTER_OF_THE_GLAIVE_SCALING } from 'analysis/retail/demonhunter/shared';
+import {
+  CHAMPION_OF_THE_GLAIVE_SCALING,
+  MASTER_OF_THE_GLAIVE_SCALING,
+} from 'analysis/retail/demonhunter/shared';
 import { getInfernalStrikeCooldown } from 'analysis/retail/demonhunter/vengeance/modules/spells/InfernalStrike';
 import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
 import {
@@ -103,10 +106,6 @@ class Abilities extends SharedAbilities {
         category: SPELL_CATEGORY.DEFENSIVE,
         cooldown: (haste) => 20 / (1 + haste),
         charges: 2,
-        castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.RETALIATION_TALENT),
-          recommendedEfficiency: 0.5,
-        },
         isDefensive: true,
       },
 
@@ -120,13 +119,29 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: [
+          SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id,
+          TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
+          SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
+        ],
+        enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
+        category: SPELL_CATEGORY.UTILITY,
+        cooldown:
+          60 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
+        gcd: {
+          base: 1500,
+        },
+      },
+      {
+        spell: [
           SPELLS.SIGIL_OF_CHAINS_CONCENTRATED.id,
           TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT.id,
           SPELLS.SIGIL_OF_CHAINS_PRECISE.id,
         ],
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 90,
+        cooldown: 60,
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -153,18 +168,18 @@ class Abilities extends SharedAbilities {
         isDefensive: true,
       },
       {
-        spell: TALENTS_DEMON_HUNTER.FELBLADE_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FELBLADE_TALENT),
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 15 / (1 + haste),
+        spell: TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.BULK_EXTRACTION_TALENT),
+        category: SPELL_CATEGORY.DEFENSIVE,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: <>This is a great Fury generator spell. </>,
+          recommendedEfficiency: 0.8,
         },
+        isDefensive: true,
       },
       {
         spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id,
@@ -222,6 +237,9 @@ class Abilities extends SharedAbilities {
           1 +
           MASTER_OF_THE_GLAIVE_SCALING[
             combatant.getTalentRank(TALENTS_DEMON_HUNTER.MASTER_OF_THE_GLAIVE_TALENT)
+          ] +
+          CHAMPION_OF_THE_GLAIVE_SCALING[
+            combatant.getTalentRank(TALENTS_DEMON_HUNTER.CHAMPION_OF_THE_GLAIVE_TALENT)
           ],
         gcd: {
           base: 1500,
