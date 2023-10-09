@@ -1,4 +1,3 @@
-import { maybeGetSpell } from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
 import Analyzer from 'parser/core/Analyzer';
 import CoreAbilities from 'parser/core/modules/Abilities';
@@ -10,6 +9,7 @@ import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 import { SpellbookAbility } from '../modules/Ability';
 import ManaTracker from './ManaTracker';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 export interface SpellInfoDetails {
   spell: Spell;
@@ -53,7 +53,7 @@ class HealingEfficiencyTracker extends Analyzer {
 
   getSpellStats(spellId: number, healingSpellIds: number[] | null = null) {
     let spellInfo: SpellInfoDetails = {
-      spell: maybeGetSpell(spellId)!,
+      spell: maybeGetTalentOrSpell(spellId)!,
       casts: 0,
       healingHits: 0,
       healingDone: 0,
