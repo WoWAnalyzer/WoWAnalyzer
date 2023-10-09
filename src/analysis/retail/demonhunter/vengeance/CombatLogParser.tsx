@@ -11,9 +11,7 @@ import {
   SwallowedAnger,
   TheHunt,
   TheHuntNormalizer,
-  UnnaturalMalice,
   DemonSoulBuff,
-  FodderToTheFlame,
   SigilOfFlameNormalizer,
   SigilOfFlame,
 } from 'analysis/retail/demonhunter/shared';
@@ -121,7 +119,6 @@ class CombatLogParser extends CoreCombatLogParser {
     collectiveAnguish: CollectiveAnguish,
     demonic: Demonic,
     stokeTheFlames: StokeTheFlames,
-    unnaturalMalice: UnnaturalMalice,
     swallowedAnger: SwallowedAnger,
     flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
@@ -131,7 +128,6 @@ class CombatLogParser extends CoreCombatLogParser {
     soulCarver: SoulCarver,
     felDevastation: FelDevastation,
     fieryBrand2: FieryBrand2,
-    fodderToTheFlame: FodderToTheFlame,
     sigilOfFlame: SigilOfFlame,
 
     // Stats

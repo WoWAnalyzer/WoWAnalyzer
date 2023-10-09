@@ -1,4 +1,4 @@
-import TALENTS from 'common/TALENTS/rogue';
+import SPELLS from 'common/SPELLS/rogue';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -11,13 +11,12 @@ class BlackPowder extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.BLACK_POWDER_TALENT);
     if (!this.active) {
       return;
     }
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(TALENTS.BLACK_POWDER_TALENT),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.BLACK_POWDER),
       this.onDamage,
     );
   }
@@ -29,7 +28,7 @@ class BlackPowder extends Analyzer {
   statistic() {
     return (
       <Statistic size="flexible" category={STATISTIC_CATEGORY.GENERAL}>
-        <BoringSpellValueText spell={TALENTS.BLACK_POWDER_TALENT}>
+        <BoringSpellValueText spell={SPELLS.BLACK_POWDER}>
           <ItemDamageDone amount={this.damage} />
         </BoringSpellValueText>
       </Statistic>
