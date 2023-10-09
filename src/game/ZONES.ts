@@ -4,6 +4,7 @@ import mythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import mythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
 import vaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 import aberrus from 'game/raids/aberrus';
+import amirdrassil from 'game/raids/amirdrassil';
 
 // TODO: Refactor this (it's kind of strange and feels misplaced)
 
@@ -53,7 +54,7 @@ const ZONES: Zone[] = [
   },
   {
     id: 33,
-    name: 'Aberrus',
+    name: 'Aberrus, the Shadowed Crucible',
     frozen: false,
     encounters: [
       aberrus.bosses.Kazzara,
@@ -83,6 +84,23 @@ const ZONES: Zone[] = [
       mythicPlusSeasonTwo.bosses.VortexPinnacle,
     ],
     usePtrTooltips: false,
+  },
+  {
+    id: 35,
+    name: "Amirdrassil, the Dream's Hope",
+    frozen: false,
+    encounters: [
+      amirdrassil.bosses.Gnarlroot,
+      amirdrassil.bosses.Igira,
+      amirdrassil.bosses.Volcoross,
+      amirdrassil.bosses.CouncilOfDreams,
+      amirdrassil.bosses.Larodar,
+      amirdrassil.bosses.Nymue,
+      amirdrassil.bosses.Smolderon,
+      amirdrassil.bosses.Tindral,
+      amirdrassil.bosses.Fyrakk,
+    ],
+    usePtrTooltips: true,
   },
 ];
 
