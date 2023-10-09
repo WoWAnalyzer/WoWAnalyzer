@@ -59,7 +59,7 @@ export default class Abilities extends CoreAbilities {
         spell: TALENTS_DEMON_HUNTER.CHAOS_NOVA_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.CHAOS_NOVA_TALENT),
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: combatant.hasTalent(TALENTS_DEMON_HUNTER.UNLEASHED_POWER_TALENT) ? 40 : 60,
+        cooldown: 45,
         gcd: {
           base: 1500,
         },
@@ -130,58 +130,20 @@ export default class Abilities extends CoreAbilities {
         enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
-          60 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
+          120 -
+          (combatant.hasTalent(TALENTS_DEMON_HUNTER.IMPROVED_SIGIL_OF_MISERY_TALENT) ? 30 : 0),
         gcd: {
           base: 1500,
         },
-        castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MISERY_IN_DEFEAT_TALENT),
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Cast on cooldown for a dps increase.`,
-        },
       },
       {
-        spell: TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT.id,
+        spell: [
+          SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
+          SPELLS.SIGIL_OF_FLAME.id,
+          SPELLS.SIGIL_OF_FLAME_PRECISE.id,
+        ],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT),
-        cooldown:
-          30 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Cast on cooldown for a dps increase.`,
-        },
-        damageSpellIds: [SPELLS.SIGIL_OF_FLAME_DEBUFF.id],
-      },
-      {
-        spell: SPELLS.SIGIL_OF_FLAME_PRECISE.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled:
-          this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
-          this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT),
-        cooldown:
-          30 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Cast on cooldown for a dps increase.`,
-        },
-        damageSpellIds: [SPELLS.SIGIL_OF_FLAME_DEBUFF.id],
-      },
-      {
-        spell: SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
-        category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        enabled:
-          this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
-          this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT),
-        cooldown:
-          30 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
+        cooldown: 30,
         gcd: {
           base: 1500,
         },
@@ -199,8 +161,7 @@ export default class Abilities extends CoreAbilities {
           SPELLS.ELYSIAN_DECREE_PRECISE.id,
         ],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown:
-          60 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
+        cooldown: 60,
         gcd: {
           base: 1500,
         },
