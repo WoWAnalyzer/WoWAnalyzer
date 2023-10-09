@@ -32,6 +32,7 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: BOOSTED_DAMAGE,
+    reverseLinkRelation: BOOSTED_BY_SA,
     linkingEventId: SPELLS.SUDDEN_AMBUSH_BUFF.id,
     linkingEventType: EventType.RemoveBuff,
     referencedEventId: [SPELLS.RAKE.id, SPELLS.SHRED.id],
@@ -54,18 +55,24 @@ class SuddenAmbushLinkNormalizer extends EventLinkNormalizer {
 export default SuddenAmbushLinkNormalizer;
 
 export function getSuddenAmbushBoostedBleeds(event: RemoveBuffEvent): BuffEvent<any>[] {
-  return GetRelatedEvents(event, BOOSTED_BLEED).filter(
+  return GetRelatedEvents(
+    event,
+    BOOSTED_BLEED,
     (e): e is BuffEvent<any> =>
       e.type === EventType.ApplyDebuff || e.type === EventType.RefreshDebuff,
   );
 }
 
 export function getSuddenAmbushBoostedDamage(event: RemoveBuffEvent): DamageEvent[] {
-  return GetRelatedEvents(event, BOOSTED_DAMAGE).filter(
+  return GetRelatedEvents(
+    event,
+    BOOSTED_DAMAGE,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }
 
-export function isBoostedBySuddenAmbush(event: ApplyDebuffEvent | RefreshDebuffEvent) {
+export function isBoostedBySuddenAmbush(
+  event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
+) {
   return HasRelatedEvent(event, BOOSTED_BY_SA);
 }

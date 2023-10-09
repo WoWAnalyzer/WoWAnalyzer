@@ -1,7 +1,7 @@
 import { defineMessage } from '@lingui/macro';
 import indexById from 'common/indexById';
 
-import PRIMARY_STATS from './PRIMARY_STATS';
+import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import ROLES from './ROLES';
 import { MessageDescriptor } from '@lingui/core';
 
@@ -12,7 +12,7 @@ interface BaseSpec {
   className: MessageDescriptor;
   specName?: MessageDescriptor;
   role: number;
-  primaryStat: string;
+  primaryStat: PRIMARY_STAT;
   ranking: { class: number; spec: number };
 }
 
@@ -67,7 +67,7 @@ const SPECS = {
     wclClassName: 'Mage',
     wclSpecName: 'Arcane',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 190740,
     masteryCoefficient: 1.2, //Max mana and mana regen is 1.2. Arcane Charge damage increase on Arcane Blast is 0.6, and on Arcane Barrage it is 0.3. Coefficient of 1 on all other arcane damage.
     ranking: {
@@ -89,7 +89,7 @@ const SPECS = {
     wclClassName: 'Mage',
     wclSpecName: 'Fire',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 12846,
     masteryCoefficient: 0.75,
     ranking: {
@@ -111,7 +111,7 @@ const SPECS = {
     wclClassName: 'Mage',
     wclSpecName: 'Frost',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 76613,
     masteryCoefficient: 1, //This is the value shown on the character sheet. The coefficient for frozen orb is 1.9, and for icicles it is 0.019.
     ranking: {
@@ -133,7 +133,7 @@ const SPECS = {
     wclClassName: 'Paladin',
     wclSpecName: 'Holy',
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 183997,
     masteryCoefficient: 1.5, // confirmed
     ranking: {
@@ -155,7 +155,7 @@ const SPECS = {
     wclClassName: 'Paladin',
     wclSpecName: 'Protection',
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 76671,
     masteryCoefficient: 0.35,
     ranking: {
@@ -177,7 +177,7 @@ const SPECS = {
     wclClassName: 'Paladin',
     wclSpecName: 'Retribution',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 267316,
     masteryCoefficient: 1.6,
     ranking: {
@@ -199,7 +199,7 @@ const SPECS = {
     wclClassName: 'Warrior',
     wclSpecName: 'Arms',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 76838,
     masteryCoefficient: 1.1,
     ranking: {
@@ -221,7 +221,7 @@ const SPECS = {
     wclClassName: 'Warrior',
     wclSpecName: 'Fury',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 76856,
     masteryCoefficient: 1.4,
     ranking: {
@@ -243,7 +243,7 @@ const SPECS = {
     wclClassName: 'Warrior',
     wclSpecName: 'Protection',
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 76857,
     masteryCoefficient: 1.5, //0.5 for increase block chance, 1.5 for chance to critically block and 1 for increased attack power.
     ranking: {
@@ -265,7 +265,7 @@ const SPECS = {
     wclClassName: 'Druid',
     wclSpecName: 'Balance',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 326085,
     masteryCoefficient: 1.1,
     ranking: {
@@ -287,7 +287,7 @@ const SPECS = {
     wclClassName: 'Druid',
     wclSpecName: 'Feral',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 77493,
     masteryCoefficient: 2,
     ranking: {
@@ -309,7 +309,7 @@ const SPECS = {
     wclClassName: 'Druid',
     wclSpecName: 'Guardian',
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 155783,
     masteryCoefficient: 0.5, //1 is the coef for increased attack power
     ranking: {
@@ -331,7 +331,7 @@ const SPECS = {
     wclClassName: 'Druid',
     wclSpecName: 'Restoration',
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77495,
     masteryCoefficient: 0.5,
     ranking: {
@@ -353,7 +353,7 @@ const SPECS = {
     wclClassName: 'Death Knight',
     wclSpecName: 'Blood',
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 77513,
     masteryCoefficient: 2,
     ranking: {
@@ -375,7 +375,7 @@ const SPECS = {
     wclClassName: 'Death Knight',
     wclSpecName: 'Frost',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 77514,
     masteryCoefficient: 2,
     ranking: {
@@ -397,7 +397,7 @@ const SPECS = {
     wclClassName: 'Death Knight',
     wclSpecName: 'Unholy',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     masterySpellId: 77515,
     masteryCoefficient: 1.8,
     ranking: {
@@ -419,7 +419,7 @@ const SPECS = {
     wclClassName: 'Hunter',
     wclSpecName: 'Beast Mastery',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76657,
     masteryCoefficient: 1.9,
     ranking: {
@@ -441,7 +441,7 @@ const SPECS = {
     wclClassName: 'Hunter',
     wclSpecName: 'Marksmanship',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 193468,
     masteryCoefficient: 0.625, // this is coeff. for the range part of the mastery, the damage part is different (1.4)
     ranking: {
@@ -463,7 +463,7 @@ const SPECS = {
     wclClassName: 'Hunter',
     wclSpecName: 'Survival',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 191334,
     masteryCoefficient: 1.65, //And a 0.1 coef for % max hp per 5 seconds
     ranking: {
@@ -485,7 +485,7 @@ const SPECS = {
     wclClassName: 'Priest',
     wclSpecName: 'Discipline',
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 271534,
     masteryCoefficient: 1.35,
     ranking: {
@@ -507,7 +507,7 @@ const SPECS = {
     wclClassName: 'Priest',
     wclSpecName: 'Holy',
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77485,
     masteryCoefficient: 1.25,
     ranking: {
@@ -529,7 +529,7 @@ const SPECS = {
     wclClassName: 'Priest',
     wclSpecName: 'Shadow',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77486,
     masteryCoefficient: 0.5,
     ranking: {
@@ -551,7 +551,7 @@ const SPECS = {
     wclClassName: 'Rogue',
     wclSpecName: 'Assassination',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76803,
     masteryCoefficient: 1.7,
     ranking: {
@@ -573,7 +573,7 @@ const SPECS = {
     wclClassName: 'Rogue',
     wclSpecName: 'Outlaw',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76806,
     masteryCoefficient: 1.45,
     ranking: {
@@ -595,7 +595,7 @@ const SPECS = {
     wclClassName: 'Rogue',
     wclSpecName: 'Subtlety',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 76808,
     masteryCoefficient: 2.45, // the periodic damages are modified by a coeff. of 2.76
     ranking: {
@@ -617,7 +617,7 @@ const SPECS = {
     wclClassName: 'Shaman',
     wclSpecName: 'Elemental',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 168534,
     masteryCoefficient: 1.875, // confirmed
     ranking: {
@@ -639,7 +639,7 @@ const SPECS = {
     wclClassName: 'Shaman',
     wclSpecName: 'Enhancement',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 77223,
     masteryCoefficient: 2, //proc chance coef. is 0.08
     ranking: {
@@ -661,7 +661,7 @@ const SPECS = {
     wclClassName: 'Shaman',
     wclSpecName: 'Restoration',
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77226,
     masteryCoefficient: 3, // confirmed
     ranking: {
@@ -683,7 +683,7 @@ const SPECS = {
     wclClassName: 'Warlock',
     wclSpecName: 'Affliction',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77215,
     masteryCoefficient: 2.5,
     ranking: {
@@ -705,7 +705,7 @@ const SPECS = {
     wclClassName: 'Warlock',
     wclSpecName: 'Demonology',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77219,
     masteryCoefficient: 1.45,
     ranking: {
@@ -727,7 +727,7 @@ const SPECS = {
     wclClassName: 'Warlock',
     wclSpecName: 'Destruction',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 77220,
     masteryCoefficient: 2, // reduced damage part coef. is 0.666
     ranking: {
@@ -749,7 +749,7 @@ const SPECS = {
     wclClassName: 'Monk',
     wclSpecName: 'Brewmaster',
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 117906,
     masteryCoefficient: 1,
     ranking: {
@@ -771,7 +771,7 @@ const SPECS = {
     wclClassName: 'Monk',
     wclSpecName: 'Windwalker',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 115636,
     masteryCoefficient: 1.25,
     ranking: {
@@ -793,7 +793,7 @@ const SPECS = {
     wclClassName: 'Monk',
     wclSpecName: 'Mistweaver',
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 117907,
     masteryCoefficient: 4.2,
     ranking: {
@@ -815,7 +815,7 @@ const SPECS = {
     wclClassName: 'Demon Hunter',
     wclSpecName: 'Havoc',
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 185164,
     masteryCoefficient: 1.8, //0.6 coefficient for movement speed
     ranking: {
@@ -837,7 +837,7 @@ const SPECS = {
     wclClassName: 'Demon Hunter',
     wclSpecName: 'Vengeance',
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     masterySpellId: 203747,
     masteryCoefficient: 3, //1 for increased atk power
     ranking: {
@@ -859,7 +859,7 @@ const SPECS = {
     wclClassName: 'Evoker',
     wclSpecName: 'Devastation',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 362980,
     masteryCoefficient: 2.5,
     ranking: {
@@ -881,7 +881,7 @@ const SPECS = {
     wclClassName: 'Evoker',
     wclSpecName: 'Preservation',
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 363510,
     masteryCoefficient: 1.8,
     ranking: {
@@ -903,7 +903,7 @@ const SPECS = {
     wclClassName: 'Evoker',
     wclSpecName: 'Augmentation',
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     masterySpellId: 406380,
     masteryCoefficient: 0.4,
     ranking: {
@@ -928,7 +928,7 @@ const SPECS = {
       message: `Arms`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 1,
       spec: 1,
@@ -949,7 +949,7 @@ const SPECS = {
       message: `Fury`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 1,
       spec: 2,
@@ -970,7 +970,7 @@ const SPECS = {
       message: `Protection`,
     }),
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 1,
       spec: 3,
@@ -991,7 +991,7 @@ const SPECS = {
       message: `Holy`,
     }),
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 2,
       spec: 1,
@@ -1012,7 +1012,7 @@ const SPECS = {
       message: `Protection`,
     }),
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 2,
       spec: 2,
@@ -1033,7 +1033,7 @@ const SPECS = {
       message: `Retribution`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 2,
       spec: 3,
@@ -1054,7 +1054,7 @@ const SPECS = {
       message: `Beast Mastery`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
       class: 3,
       spec: 1,
@@ -1075,7 +1075,7 @@ const SPECS = {
       message: `Marksmanship`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
       class: 3,
       spec: 2,
@@ -1096,7 +1096,7 @@ const SPECS = {
       message: `Survival`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
       class: 3,
       spec: 3,
@@ -1117,7 +1117,7 @@ const SPECS = {
       message: `Assassination`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
       class: 4,
       spec: 1,
@@ -1138,7 +1138,7 @@ const SPECS = {
       message: `Combat`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
       class: 4,
       spec: 2,
@@ -1159,7 +1159,7 @@ const SPECS = {
       message: `Subtlety`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.AGILITY,
+    primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
       class: 4,
       spec: 3,
@@ -1180,7 +1180,7 @@ const SPECS = {
       message: `Discipline`,
     }),
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 5,
       spec: 1,
@@ -1201,7 +1201,7 @@ const SPECS = {
       message: `Holy`,
     }),
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 5,
       spec: 2,
@@ -1222,7 +1222,7 @@ const SPECS = {
       message: `Shadow`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 5,
       spec: 3,
@@ -1243,7 +1243,7 @@ const SPECS = {
       message: `Blood`,
     }),
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 6,
       spec: 1,
@@ -1264,7 +1264,7 @@ const SPECS = {
       message: `Frost`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 6,
       spec: 2,
@@ -1285,7 +1285,7 @@ const SPECS = {
       message: `Unholy`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 6,
       spec: 3,
@@ -1307,7 +1307,7 @@ const SPECS = {
       message: `Elemental`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 7,
       spec: 1,
@@ -1329,7 +1329,7 @@ const SPECS = {
       message: `Enhancement`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 7,
       spec: 2,
@@ -1351,7 +1351,7 @@ const SPECS = {
       message: `Restoration`,
     }),
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 7,
       spec: 3,
@@ -1372,7 +1372,7 @@ const SPECS = {
       message: `Arcane`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 8,
       spec: 1,
@@ -1393,7 +1393,7 @@ const SPECS = {
       message: `Fire`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 8,
       spec: 2,
@@ -1414,7 +1414,7 @@ const SPECS = {
       message: `Frost`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 8,
       spec: 3,
@@ -1435,7 +1435,7 @@ const SPECS = {
       message: `Affliction`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 9,
       spec: 1,
@@ -1456,7 +1456,7 @@ const SPECS = {
       message: `Demonology`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 9,
       spec: 2,
@@ -1477,7 +1477,7 @@ const SPECS = {
       message: `Destruction`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 9,
       spec: 3,
@@ -1498,7 +1498,7 @@ const SPECS = {
       message: `Balance`,
     }),
     role: ROLES.DPS.RANGED,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 11,
       spec: 1,
@@ -1519,7 +1519,7 @@ const SPECS = {
       message: `Feral`,
     }),
     role: ROLES.DPS.MELEE,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 11,
       spec: 2,
@@ -1540,7 +1540,7 @@ const SPECS = {
       message: `Restoration`,
     }),
     role: ROLES.HEALER,
-    primaryStat: PRIMARY_STATS.INTELLECT,
+    primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
       class: 11,
       spec: 3,
@@ -1561,7 +1561,7 @@ const SPECS = {
       message: `Guardian`,
     }),
     role: ROLES.TANK,
-    primaryStat: PRIMARY_STATS.STRENGTH,
+    primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
       class: 11,
       spec: 4,

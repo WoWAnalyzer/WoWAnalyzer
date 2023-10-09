@@ -28,9 +28,9 @@ import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { ebonIsFromBreath, getEbonMightBuffEvents } from '../normalizers/CastLinkNormalizer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Combatants from 'parser/shared/modules/Combatants';
+import classColor from 'game/classColor';
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
-import { i18n } from '@lingui/core';
 
 const PANDEMIC_WINDOW = 0.3;
 
@@ -409,11 +409,7 @@ class EbonMight extends Analyzer {
     ebonMightCooldownCast.buffedTargets.forEach((player) => {
       const currentPlayer = this.combatants.players[player.targetID];
       if (currentPlayer.spec) {
-        const i18nClassName = currentPlayer.spec.className
-          ? i18n._(currentPlayer.spec.className)
-          : undefined;
-
-        const className = i18nClassName?.replace(/\s/g, '') ?? '';
+        const className = classColor(currentPlayer);
         let currentPlayerRole = 'DPS';
         if (
           currentPlayer.spec.role === ROLES.HEALER ||

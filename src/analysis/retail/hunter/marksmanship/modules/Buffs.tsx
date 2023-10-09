@@ -14,7 +14,7 @@ class Buffs extends CoreAuras {
       {
         spellId: SPELLS.PRECISE_SHOTS.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.AIMED_SHOT.id,
+        triggeredBySpellId: TALENTS_HUNTER.AIMED_SHOT_TALENT.id,
       },
       {
         spellId: SPELLS.LOCK_AND_LOAD_BUFF.id,

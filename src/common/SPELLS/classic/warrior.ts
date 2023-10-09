@@ -216,7 +216,7 @@ const spells = {
   BLOODTHIRST: {
     id: 23881,
     name: 'Bloodthirst',
-    icon: 'Spell_nature_bloodlust',
+    icon: 'spell_nature_bloodlust',
   },
   BLOODSURGE: {
     id: 46915,
@@ -261,9 +261,9 @@ const spells = {
     name: 'Mortal Strike',
     icon: 'ability_warrior_savageblow',
   },
-  DEATHWISH: {
+  DEATH_WISH: {
     id: 12292,
-    name: 'Deathwish',
+    name: 'Death Wish',
     icon: 'spell_shadow_deathpact',
   },
   SWEEPING_STRIKES: {

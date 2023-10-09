@@ -29,8 +29,8 @@ import {
   HealEvent,
   HitpointsEvent,
   ResourceActor,
-  GetRelatedEvents,
   CastEvent,
+  GetRelatedEvent,
 } from 'parser/core/Events';
 import { Info } from 'parser/core/metric';
 import DamageTaken from 'parser/shared/modules/throughput/DamageTaken';
@@ -271,10 +271,7 @@ const DeathStrikeProblemChart = ({
   );
 
   const deathStrikeData = useMemo(() => {
-    const problemEvent = GetRelatedEvents(problem.data.cast, DEATH_STRIKE_HEAL)?.[0] as
-      | HealEvent
-      | undefined;
-
+    const problemEvent = GetRelatedEvent<HealEvent>(problem.data.cast, DEATH_STRIKE_HEAL);
     const problemDeathStrike = problemEvent
       ? [
           {
@@ -287,9 +284,11 @@ const DeathStrikeProblemChart = ({
 
     return {
       otherDeathStrikes: deathStrikeEvents
-        .filter((event) => event !== GetRelatedEvents(problem.data.cast, DEATH_STRIKE_HEAL)?.[0])
+        .filter(
+          (event) => event !== GetRelatedEvent<HealEvent>(problem.data.cast, DEATH_STRIKE_HEAL),
+        )
         .map((event) => {
-          const cast = GetRelatedEvents(event, DEATH_STRIKE_CAST)![0] as CastEvent;
+          const cast: CastEvent = GetRelatedEvent(event, DEATH_STRIKE_CAST)!;
           const rp = Math.floor(
             (getResource(cast.classResources, RESOURCE_TYPES.RUNIC_POWER.id)?.amount ?? 0) / 10,
           );

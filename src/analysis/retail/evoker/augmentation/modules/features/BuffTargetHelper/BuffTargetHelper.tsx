@@ -1,8 +1,8 @@
-import { i18n } from '@lingui/core';
 import TALENTS from 'common/TALENTS/evoker';
 import { WCLDamageDoneTableResponse } from 'common/WCL_TYPES';
 import fetchWcl from 'common/fetchWclApi';
 import { formatDuration, formatNumber } from 'common/format';
+import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -37,19 +37,33 @@ const mrtColorMap: Map<string, string> = new Map([
 /** SpellIds to blacklist, ie. trinkets that doesnt add contribution */
 const blacklist: number[] = [
   402583, // Beacon
-  408682, // Bomb dispenser
-  408694, // Bomb dispenser
-  401324, // Pocket Anvil
-  401306, // Pocket Anvil
-  401422, // Vessel (Shadow Spike)
-  401428, // Vessel (Ravenous Shadowflame)
-  418774, // Mirror
+  408682, // Dragonfire Bomb Dispenser
+  401324, // Pocket Anvil (Echoed Flare)
+  401306, // Pocket Anvil (Anvil Strike)
+  401422, // Vessel of Searing Shadow (Shadow Spike)
+  401428, // Vessel of Searing Shadow (Ravenous Shadowflame)
+  418774, // Mirror of Fractured Tomorrows ()
+  418588, // Mirror of Fractured Tomorrows (Sand Cleave)
+  419591, // Mirror of Fractured Tomorrows (Auto Attack)
+  418607, // Mirror of Fractured Tomorrows (Sand Bolt)
+  406251, // Roiling Shadowflame
   400223, // Thorns of Iron
   322109, // Touch of Death
   124280, // Touch of Karma
   184689, // Shield of Vengeance
-  379403, // Toxic Thorn Footwraps
-  408791, // Ashkandur
+  379403, // Toxic Thorn Footwraps (Launched Thorns)
+  408791, // Ashkandur, Fall of the Brotherhood
+  378426, // Slimy Expulsion Boots boots (Corrosive Slime)
+  381006, // Acidic Hailstone Treads (Deep Chill)
+  381700, // Forgestorm (Forgestorm Ignited)
+  406764, // Shadowflame Wreathe
+  394453, // Broodkeeper's Blaze
+  370794, // Unstable Frostfire Belt (Lingering Frostspark)
+  408836, // Djaruun, Pillar of the Elder Flame
+  408815, // Djaruun, Pillar of the Elder Flame
+  381475, // Erupting Spear Fragment
+  281721, // Bile-Stained Crawg Tusks (Vile Bile)
+  214397, // Mark of Dargrul (Landslide)
 ];
 
 /**
@@ -118,10 +132,7 @@ class BuffTargetHelper extends Analyzer {
           player.spec.role !== ROLES.TANK &&
           player.spec !== SPECS.AUGMENTATION_EVOKER
         ) {
-          const i18nClassName = player.spec.className ? i18n._(player.spec.className) : '';
-          const className = i18nClassName?.replace(/\s/g, '') ?? '';
-
-          this.playerWhitelist.set(player.name, className);
+          this.playerWhitelist.set(player.name, classColor(player));
         }
       });
     });
@@ -217,8 +228,53 @@ class BuffTargetHelper extends Analyzer {
       return;
     }
 
-    const tableRows: any[] = [];
+    const topPumpersData = this.getTopPumpersData();
+    const top4PumpersData = this.getTop4Pumpers(topPumpersData);
+    const defaultTargets = this.getDefaultTargets(top4PumpersData);
+    const tableContent = this.renderTableContent(topPumpersData, defaultTargets, top4PumpersData);
 
+    return tableContent;
+  }
+
+  getTopPumpersData() {
+    const topPumpersData = [];
+    for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
+      const sortedEntries = [...this.playerDamageMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
+      topPumpersData.push(sortedEntries);
+    }
+    return topPumpersData;
+  }
+
+  getTop4Pumpers(topPumpersData: [string, number[]][][]) {
+    const top4PumpersData = [];
+    for (let i = 0; i < topPumpersData.length; i += 1) {
+      const top4 = topPumpersData[i].slice(0, 4);
+      top4PumpersData.push(top4);
+    }
+    return top4PumpersData;
+  }
+
+  getDefaultTargets(top4PumpersData: [string, number[]][][]) {
+    const nameSums = new Map();
+
+    top4PumpersData.flat().forEach(([name, values]) => {
+      const currentSum = nameSums.get(name) || 0;
+      const sum = currentSum + values.reduce((a, b) => a + b, 0);
+
+      nameSums.set(name, sum);
+    });
+
+    const sortedNames = [...nameSums.entries()].sort((a, b) => b[1] - a[1]);
+
+    return sortedNames.slice(0, 2).map((entry) => entry[0]);
+  }
+
+  renderTableContent(
+    topPumpersData: [string, number[]][][],
+    defaultTargets: any[],
+    top4PumpersData: [string, number[]][][],
+  ) {
+    const tableRows = [];
     const headerRow = (
       <tr>
         <th>Time</th>
@@ -229,39 +285,19 @@ class BuffTargetHelper extends Analyzer {
       </tr>
     );
 
-    const button = (
-      <button className="button" onClick={this.handleCopyClick}>
-        Copy MRT note to clipboard
-      </button>
-    );
+    for (let i = 0; i < topPumpersData.length; i += 1) {
+      const intervalStart = formatDuration(i * this.interval);
+      const intervalEnd = formatDuration(
+        Math.min((i + 1) * this.interval, this.fightEnd - this.fightStart),
+      );
 
-    /** Find the top 4 pumpers for each interval */
-    for (let i = 0; i < (this.fightEnd - this.fightStart) / this.interval; i += 1) {
-      const sortedEntries = [...this.playerDamageMap.entries()].sort((a, b) => b[1][i] - a[1][i]);
-
-      // Get the top 4 entries, used for the table.
-      const top4Entries = sortedEntries.slice(0, 4);
-      /** Get the top 2 entries, used for the MRT note.
-       * It might make sense to set to top 3 for T31 2pc but giving 3 targets that needs
-       * the buff at 30s intervals would infer perfect gameplay with zero time allowed
-       * between individual Prescience casts which is unrealistic in actual gameplay
-       * it could potentially make sense to give options, but at that point I feel like
-       * the player should manually adapt the note themselves. */
-      const top2Entries = sortedEntries.slice(0, 2);
-
-      const formattedEntriesTable = top4Entries.map(([name, values]) => (
+      const formattedEntriesTable = top4PumpersData[i].map(([name, values]) => (
         <td key={name}>
           <span className={this.playerWhitelist.get(name)}>
             {name} - {formatNumber(values[i])}
           </span>
         </td>
       ));
-
-      const intervalStart = formatDuration(i * this.interval);
-      let intervalEnd = formatDuration((i + 1) * this.interval);
-      if (intervalEnd > formatDuration(this.fightEnd - this.fightStart)) {
-        intervalEnd = formatDuration(this.fightEnd - this.fightStart);
-      }
 
       tableRows.push(
         <tr key={i}>
@@ -270,10 +306,57 @@ class BuffTargetHelper extends Analyzer {
         </tr>,
       );
 
-      this.addEntryToMRTNote(top2Entries, i, intervalStart);
+      /** Determine whether or not to mark the interval as important
+       * This is determined by if the difference between the current top 2
+       * pumpers and the default targets exceeds the threshold. */
+      const threshold = 1.5;
+
+      let isImportant = false;
+      let defaultDamage = 0;
+      let top2Damage = 0;
+
+      const top2Entries = topPumpersData[i].slice(0, 2);
+
+      top2Entries.forEach(([name, values]) => {
+        if (!defaultTargets.includes(name)) {
+          top2Damage += values[i];
+        }
+      });
+
+      /** the default targets aren't always in the top 2/top 4 datasets */
+      topPumpersData[i].forEach(([name, values]) => {
+        if (defaultTargets.includes(name)) {
+          defaultDamage += values[i];
+        }
+      });
+
+      if (top2Damage > defaultDamage * threshold) {
+        isImportant = true;
+      }
+
+      this.addEntryToMRTNote(top2Entries, i, intervalStart, isImportant);
     }
 
-    const tableContent = (
+    /** Finalize MRT note */
+    this.mrtPrescienceHelperNote =
+      'prescGlowsStart \n' +
+      'defaultTargets - ' +
+      mrtColorMap.get(this.playerWhitelist.get(defaultTargets[0]) ?? '') +
+      defaultTargets[0] +
+      '|r ' +
+      mrtColorMap.get(this.playerWhitelist.get(defaultTargets[1]) ?? '') +
+      defaultTargets[1] +
+      '|r \n' +
+      this.mrtPrescienceHelperNote +
+      'prescGlowsEnd';
+
+    const button = (
+      <button className="button" onClick={this.handleCopyClick}>
+        Copy MRT note to clipboard
+      </button>
+    );
+
+    return (
       <div>
         <table>
           <tbody className="table">
@@ -285,20 +368,30 @@ class BuffTargetHelper extends Analyzer {
         {button}
       </div>
     );
-    return tableContent;
   }
 
   /**
    * Create a MRT note for who to Prescience and when
-   * This is pretty basic in design for now, but it will do as advertised.
+   *
+   * The format is made to support the WA
+   * Created by HenryG
+   * https://wago.io/yrmx6ZQSG
    *
    * Format is basicly:
-   * PREPULL - |cff8788eeOlgey|r |cffc41e3aDérp|r
-   * 0:30 - |cff33937fVollmer|r |cff3fc7ebMcbaguette|r
-   * 1:00 - |cfff48cbaFrøkentut|r |cff33937fVollmer|r
-   * etc..
+   * prescGlowsStart
+   * defaultTargets - |cff3fc7ebSheeper|r |cffffffffXanapriest|r
+   * PREPULL - |cffc41e3aDérp|r |cff3fc7ebSheeper|r
+   * 0:30 - |cff33937fVollmer|r |cfffff468Zylv|r *
+   * 1:00 - |cffffffffXanapriest|r |cffc69b6dDolanpepe|r
+   * ...etc...
+   * prescGlowsEnd
    */
-  addEntryToMRTNote(top2Pumpers: [string, number[]][], index: number, interval: string) {
+  addEntryToMRTNote(
+    top2Pumpers: [string, number[]][],
+    index: number,
+    interval: string,
+    important: boolean = false,
+  ) {
     if (index === 0) {
       this.mrtPrescienceHelperNote += 'PREPULL - ';
     } else {
@@ -307,6 +400,9 @@ class BuffTargetHelper extends Analyzer {
     this.mrtPrescienceHelperNote += top2Pumpers
       .map(([name]) => mrtColorMap.get(this.playerWhitelist.get(name) ?? '') + name + '|r')
       .join(' ');
+    if (important) {
+      this.mrtPrescienceHelperNote += ' *';
+    }
     this.mrtPrescienceHelperNote += '\n';
   }
 
@@ -335,7 +431,18 @@ class BuffTargetHelper extends Analyzer {
               Tanks, Healers and other Augmentations are not included. <br />
               Phases are also not accounted for for now.
             </p>
-            <p>This module will also produce a MRT note for prescience timings.</p>
+            <p>
+              This module will also produce a note for{' '}
+              <a href="https://www.curseforge.com/wow/addons/method-raid-tools">
+                Method Raid Tools
+              </a>
+              , that helps with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> timings.
+              <br />
+              The note fully supports the <a href="https://wago.io/yrmx6ZQSG">
+                Prescience Helper
+              </a>{' '}
+              WeakAura made by <b>HenryG</b>.
+            </p>
           </div>
           <div>
             <LazyLoadGuideSection

@@ -9,10 +9,10 @@ import { SpellLink } from 'interface';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import Combatants from 'parser/shared/modules/Combatants';
+import classColor from 'game/classColor';
 import ROLES from 'game/ROLES';
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
-import { i18n } from '@lingui/core';
 
 interface ShiftingSandsApplications {
   event: ApplyBuffEvent;
@@ -176,10 +176,7 @@ class ShiftingSands extends Analyzer {
   }
 
   private getRolePerformance(application: ShiftingSandsApplications) {
-    const i18nClassName = application.combatant.spec?.className
-      ? i18n._(application.combatant.spec?.className)
-      : undefined;
-    const className = i18nClassName?.replace(/\s/g, '') ?? '';
+    const className = classColor(application.combatant);
     const roleSummary = <div>Buffed DPS player.</div>;
     let rolePerformance;
 

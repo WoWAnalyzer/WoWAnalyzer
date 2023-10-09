@@ -5,6 +5,7 @@ import SteadyShot from 'analysis/retail/hunter/marksmanship/modules/spells/Stead
 import { HUNTER_BASE_FOCUS_MAX, MS_BUFFER_100 } from 'analysis/retail/hunter/shared/constants';
 import { formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { ResourceIcon } from 'interface';
 import { SpellIcon } from 'interface';
@@ -45,7 +46,7 @@ class Trueshot extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.AIMED_SHOT_TALENT),
       this.onAimedShotCast,
     );
     this.addEventListener(
@@ -133,8 +134,8 @@ class Trueshot extends Analyzer {
     return (
       <Statistic position={STATISTIC_ORDER.OPTIONAL(1)} size="flexible">
         <BoringSpellValueText spell={SPELLS.TRUESHOT}>
-          <SpellIcon spell={SPELLS.AIMED_SHOT} noLink /> {this.averageAimedShots.toFixed(1)}{' '}
-          <small>per Trueshot</small>
+          <SpellIcon spell={TALENTS_HUNTER.AIMED_SHOT_TALENT} noLink />{' '}
+          {this.averageAimedShots.toFixed(1)} <small>per Trueshot</small>
           <br />
           <ResourceIcon id={RESOURCE_TYPES.FOCUS.id} noLink /> {this.effectiveFocus}/
           {this.possibleFocus} <small>Focus gained</small>

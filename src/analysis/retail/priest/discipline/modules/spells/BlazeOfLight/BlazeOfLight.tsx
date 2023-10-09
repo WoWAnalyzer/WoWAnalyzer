@@ -57,10 +57,10 @@ class BlazeOfLight extends Analyzer {
   }
 
   onAtoneHeal(event: HealEvent) {
-    if (!getDamageEvent(event)) {
+    const damageEvent = getDamageEvent(event);
+    if (!damageEvent) {
       return;
     }
-    const damageEvent = getDamageEvent(event);
     if (!BLAZE_OF_LIGHT_SPELLS.includes(damageEvent.ability.guid)) {
       return;
     }

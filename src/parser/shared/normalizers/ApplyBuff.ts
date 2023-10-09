@@ -1,4 +1,3 @@
-import { maybeGetSpell } from 'common/SPELLS';
 import {
   AnyEvent,
   ApplyBuffEvent,
@@ -10,6 +9,7 @@ import {
 } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import { Options } from 'parser/core/Module';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 import { PlayerInfo } from '../../core/Player';
 
@@ -143,7 +143,7 @@ class ApplyBuff extends EventsNormalizer {
             return;
           }
 
-          const spell = maybeGetSpell(spellId);
+          const spell = maybeGetTalentOrSpell(spellId);
 
           debug &&
             console.warn(

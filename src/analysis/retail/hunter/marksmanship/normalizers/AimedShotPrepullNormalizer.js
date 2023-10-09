@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 
@@ -17,7 +17,7 @@ class AimedShotPrepullNormalizer extends EventsNormalizer {
     events.forEach((event) => {
       if (
         (event.type === EventType.BeginCast || event.type === EventType.Cast) &&
-        event.ability.guid === SPELLS.AIMED_SHOT.id
+        event.ability.guid === TALENTS_HUNTER.AIMED_SHOT_TALENT.id
       ) {
         if (event.type === EventType.BeginCast) {
           lastBeginCastTimestamp = event.timestamp;

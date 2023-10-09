@@ -8,6 +8,7 @@ import {
   CastEvent,
   DamageEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasAbility,
   HasRelatedEvent,
@@ -98,6 +99,16 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: HIT_TARGET,
+    linkingEventId: SPELLS.SHRED.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.SHRED.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
     linkingEventId: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
     linkingEventType: EventType.Damage,
     referencedEventId: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
@@ -161,8 +172,7 @@ export function isFromDoubleClawedRake(event: AnyEvent): boolean {
 export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
-  return events.length === 0 ? undefined : (events[0] as CastEvent);
+  return GetRelatedEvent(event, FROM_HARDCAST);
 }
 
 // TODO get hardcast energy / cp?
@@ -174,8 +184,7 @@ export function isFromPrimalWrath(event: ApplyDebuffEvent | RefreshDebuffEvent):
 export function getPrimalWrath(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_PRIMAL_WRATH);
-  return events.length === 0 ? undefined : (events[0] as CastEvent);
+  return GetRelatedEvent(event, FROM_PRIMAL_WRATH);
 }
 
 /** Only works for the AoE casts Primal Wrath, Brutal Slash, Swipe, and (Cat) Thrash */
@@ -184,9 +193,7 @@ export function getHitCount(aoeCastEvent: CastEvent): number {
 }
 
 export function getHits(castEvent: CastEvent): AbilityEvent<any>[] {
-  return GetRelatedEvents(castEvent, HIT_TARGET).filter((e): e is AbilityEvent<any> =>
-    HasAbility(e),
-  );
+  return GetRelatedEvents(castEvent, HIT_TARGET, HasAbility);
 }
 
 export default CastLinkNormalizer;

@@ -7,7 +7,7 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   DamageEvent,
-  GetRelatedEvents,
+  GetRelatedEvent,
   HealEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
@@ -70,7 +70,7 @@ export type DeathStrikeProblem = Problem<
 function castProblem(data: CastReason, rp: RunicPowerTracker): DeathStrikeProblem['data'] {
   const rpData = rp.getResource(data.cast);
 
-  const healEvent = GetRelatedEvents(data.cast, DEATH_STRIKE_HEAL)?.[0] as HealEvent | undefined;
+  const healEvent = GetRelatedEvent<HealEvent>(data.cast, DEATH_STRIKE_HEAL);
 
   return {
     ...data,
@@ -146,10 +146,10 @@ export default class DeathStrike extends Analyzer {
   }
 
   private recordAbsorbGen(event: CastEvent, cast: CastReason) {
-    const buffEvent = GetRelatedEvents(event, DEATH_STRIKE_ABSORB_GEN)?.[0] as
-      | ApplyBuffEvent
-      | RefreshBuffEvent
-      | undefined;
+    const buffEvent = GetRelatedEvent<ApplyBuffEvent | RefreshBuffEvent>(
+      event,
+      DEATH_STRIKE_ABSORB_GEN,
+    );
     const absorbGenerated = Math.max(buffEvent?.absorb ?? 0 - this.remainingBloodShield, 0);
 
     if (absorbGenerated > 0) {
@@ -162,7 +162,7 @@ export default class DeathStrike extends Analyzer {
   }
 
   private onCast(event: CastEvent) {
-    const healEvent = GetRelatedEvents(event, DEATH_STRIKE_HEAL)?.[0] as HealEvent | undefined;
+    const healEvent = GetRelatedEvent<HealEvent>(event, DEATH_STRIKE_HEAL);
 
     let cast: CastReason | undefined = undefined;
     if (healEvent) {
@@ -236,9 +236,7 @@ export default class DeathStrike extends Analyzer {
   }
 
   private recordAbsorb(event: AbsorbedEvent) {
-    const damageEvent = GetRelatedEvents(event, BLOOD_SHIELD_ABSORBED_HIT)?.[0] as
-      | DamageEvent
-      | undefined;
+    const damageEvent = GetRelatedEvent<DamageEvent>(event, BLOOD_SHIELD_ABSORBED_HIT);
     if (!damageEvent) {
       console.warn('found blood shield absorb with no damage taken event', event);
       return;
@@ -293,9 +291,7 @@ export default class DeathStrike extends Analyzer {
   private finalizeCastReasons() {
     for (const cast of this.casts) {
       if (cast.reason === DeathStrikeReason.Other && !cast.hasFollowupMelee) {
-        const healEvent = GetRelatedEvents(cast.cast, DEATH_STRIKE_HEAL)?.[0] as
-          | HealEvent
-          | undefined;
+        const healEvent = GetRelatedEvent<HealEvent>(cast.cast, DEATH_STRIKE_HEAL);
         const maxHp = healEvent?.maxHitPoints ?? 0;
 
         if (cast.followupDamageTaken ?? 0 <= maxHp / 2) {

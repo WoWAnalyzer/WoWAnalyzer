@@ -15,7 +15,8 @@ import {
   WailingArrow,
   WailingArrowPrepullNormalizer,
   TranquilizingShot,
-} from 'analysis/retail/hunter/shared';
+  SteelTrap,
+} from '../shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
@@ -127,6 +128,7 @@ class CombatLogParser extends CoreCombatLogParser {
     bloodshed: Bloodshed,
     direPack: DirePack,
     tranquilizingShot: TranquilizingShot,
+    steeltrap: SteelTrap,
 
     //Items
     t292p: T29BMTier2P,

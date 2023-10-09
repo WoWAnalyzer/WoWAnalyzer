@@ -1,10 +1,10 @@
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
-  AnyEvent,
   ApplyBuffEvent,
   CastEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasAbility,
   HasRelatedEvent,
@@ -309,27 +309,27 @@ export function getRiptideCastEvent(
   event: ApplyBuffEvent | RefreshBuffEvent | HealEvent,
 ): CastEvent | null {
   if (isFromHardcast(event)) {
-    return GetRelatedEvents(event, HARDCAST)[0] as CastEvent;
+    return GetRelatedEvent<CastEvent>(event, HARDCAST) ?? null;
   } else if (isRiptideFromPrimordialWave(event)) {
-    return GetRelatedEvents(event, RIPTIDE_PWAVE)[0] as CastEvent;
+    return GetRelatedEvent<CastEvent>(event, RIPTIDE_PWAVE) ?? null;
   }
   return null;
 }
 
 export function getHealingRainEvents(event: CastEvent) {
-  return GetRelatedEvents(event, HEALING_RAIN) as HealEvent[];
+  return GetRelatedEvents<HealEvent>(event, HEALING_RAIN);
 }
 
 export function getHealingRainHealEventsForTick(event: HealEvent) {
-  return [event].concat(GetRelatedEvents(event, HEALING_RAIN_GROUPING) as HealEvent[]);
+  return [event].concat(GetRelatedEvents(event, HEALING_RAIN_GROUPING));
 }
 
 export function getOverflowingShoresEvents(event: CastEvent) {
-  return GetRelatedEvents(event, OVERFLOWING_SHORES) as HealEvent[];
+  return GetRelatedEvents<HealEvent>(event, OVERFLOWING_SHORES);
 }
 
 export function getDownPourEvents(event: CastEvent) {
-  return GetRelatedEvents(event, DOWNPOUR) as HealEvent[];
+  return GetRelatedEvents<HealEvent>(event, DOWNPOUR);
 }
 
 export function wasRiptideConsumed(event: CastEvent | RemoveBuffEvent): boolean {
@@ -337,8 +337,7 @@ export function wasRiptideConsumed(event: CastEvent | RemoveBuffEvent): boolean 
 }
 
 export function getConsumedRiptide(event: CastEvent): AbilityEvent<any> | undefined {
-  const removedHots: AnyEvent[] = GetRelatedEvents(event, FLOW_OF_THE_TIDES);
-  return removedHots.length !== 0 && HasAbility(removedHots[0]) ? removedHots[0] : undefined;
+  return GetRelatedEvent<AbilityEvent<any>>(event, FLOW_OF_THE_TIDES, HasAbility);
 }
 
 export function getChainHeals(event: CastEvent): HealEvent[] {
@@ -346,7 +345,7 @@ export function getChainHeals(event: CastEvent): HealEvent[] {
 }
 
 export function getChainHealGrouping(event: HealEvent) {
-  return [event].concat(GetRelatedEvents(event, CHAIN_HEAL_GROUPING) as HealEvent[]);
+  return [event].concat(GetRelatedEvents(event, CHAIN_HEAL_GROUPING));
 }
 
 export function isBuffedByHighTide(event: CastEvent) {

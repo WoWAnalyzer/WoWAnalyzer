@@ -7,6 +7,7 @@ import {
   CastEvent,
   DamageEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasAbility,
   HasRelatedEvent,
@@ -64,8 +65,7 @@ export function isFromHardcast(event: AnyEvent): boolean {
 export function getHardcast(
   event: ApplyDebuffEvent | RefreshDebuffEvent | DamageEvent,
 ): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
-  return events.length === 0 ? undefined : (events[0] as CastEvent);
+  return GetRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function getHitCount(aoeCastEvent: CastEvent): number {
@@ -73,7 +73,5 @@ export function getHitCount(aoeCastEvent: CastEvent): number {
 }
 
 export function getHits(castEvent: CastEvent): AbilityEvent<any>[] {
-  return GetRelatedEvents(castEvent, HIT_TARGET).filter((e): e is AbilityEvent<any> =>
-    HasAbility(e),
-  );
+  return GetRelatedEvents(castEvent, HIT_TARGET, HasAbility);
 }

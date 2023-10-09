@@ -1,6 +1,5 @@
 import { Enchant } from 'common/ITEMS/Item';
 import { TIER_BY_CLASSES } from 'common/ITEMS/dragonflight';
-import { maybeGetSpell } from 'common/SPELLS';
 import { getClassBySpecId } from 'game/CLASSES';
 import GEAR_SLOTS from 'game/GEAR_SLOTS';
 import RACES from 'game/RACES';
@@ -8,7 +7,9 @@ import { findByBossId } from 'game/raids';
 import SPECS, { Spec } from 'game/SPECS';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import { Buff, CombatantInfoEvent, EventType, Item, TalentEntry } from 'parser/core/Events';
+import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import { TIERS } from 'game/TIERS';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 import Entity from './Entity';
 import { PlayerInfo } from './Player';
@@ -50,6 +51,16 @@ class Combatant extends Entity {
     return SPECS[this.specId];
   }
 
+  get primaryStat(): PRIMARY_STAT {
+    const spec = this.spec;
+
+    if (spec == null) {
+      throw new Error(`Tried to access primaryStat but combatant ${this.name} has no spec`);
+    }
+
+    return spec.primaryStat;
+  }
+
   get race(): Race | null {
     if (!this.owner.characterProfile || !this.owner.characterProfile.race) {
       return null;
@@ -80,6 +91,8 @@ class Combatant extends Entity {
 
   _combatantInfo: CombatantInfo;
 
+  public readonly ilvl: number | undefined;
+
   constructor(parser: CombatLogParser, combatantInfo: CombatantInfoEvent) {
     super(parser);
 
@@ -103,6 +116,12 @@ class Combatant extends Entity {
     this._importTalentTree(combatantInfo.talentTree);
     this._parseGear(combatantInfo.gear);
     this._parsePrepullBuffs(combatantInfo.auras);
+
+    this.ilvl =
+      this.gear.length > 0
+        ? this.gear.map((item) => item.itemLevel).reduce((sum, val) => sum + val, 0) /
+          this.gear.length
+        : undefined;
   }
 
   // region Talents
@@ -418,7 +437,7 @@ class Combatant extends Entity {
     // combatantinfo too (or better yet, make a new normalizer for that).
     const timestamp = this.owner.fight.start_time;
     buffs.forEach((buff) => {
-      const spell = maybeGetSpell(buff.ability);
+      const spell = maybeGetTalentOrSpell(buff.ability);
 
       this.applyBuff({
         type: EventType.ApplyBuff,
