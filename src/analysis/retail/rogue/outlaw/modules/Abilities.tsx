@@ -36,7 +36,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ROLL_THE_BONES_TALENT.id,
+        spell: SPELLS.ROLL_THE_BONES.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 45,
         gcd: {
@@ -56,16 +56,6 @@ class Abilities extends CoreAbilities {
         gcd: {
           static: standardGcd,
         },
-      },
-      {
-        spell: TALENTS.MARKED_FOR_DEATH_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 60,
-        gcd: null,
-        castEfficiency: {
-          suggestion: true,
-        },
-        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT),
       },
       {
         spell: TALENTS.GHOSTLY_STRIKE_TALENT.id,
@@ -97,7 +87,7 @@ class Abilities extends CoreAbilities {
       },
       // Rotational (AOE)
       {
-        spell: TALENTS.BLADE_FLURRY_TALENT.id,
+        spell: SPELLS.BLADE_FLURRY.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
         gcd: {
@@ -105,20 +95,6 @@ class Abilities extends CoreAbilities {
         },
       },
       // Cooldowns
-      {
-        spell: TALENTS.DREADBLADES_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        gcd: {
-          static: standardGcd,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.9,
-          extraSuggestion: `Using Dreadblades on cooldown is very important and should only be delayed when you know you won't be able to attack for the majority of it's duration.`,
-        },
-        enabled: combatant.hasTalent(TALENTS.DREADBLADES_TALENT),
-      },
       {
         spell: TALENTS.ADRENALINE_RUSH_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
@@ -160,7 +136,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               You should delay using it to line it up with{' '}
-              <SpellLink spell={TALENTS.BLADE_FLURRY_TALENT} icon /> in AoE scenarios.
+              <SpellLink spell={SPELLS.BLADE_FLURRY} icon /> in AoE scenarios.
             </>
           ),
         },
@@ -178,7 +154,7 @@ class Abilities extends CoreAbilities {
           extraSuggestion: (
             <>
               You should delay using it to line it up with{' '}
-              <SpellLink spell={TALENTS.BLADE_FLURRY_TALENT} icon /> in AoE scenarios.
+              <SpellLink spell={SPELLS.BLADE_FLURRY} icon /> in AoE scenarios.
             </>
           ),
         },
@@ -245,25 +221,24 @@ class Abilities extends CoreAbilities {
               In most fights this can be used on cooldown for an{' '}
               <SpellLink spell={SPELLS.AMBUSH} icon />, but it's perfectly fine to save this for a{' '}
               <SpellLink spell={SPELLS.CHEAP_SHOT} icon /> on adds, especially when talented for{' '}
-              <SpellLink spell={TALENTS.PREY_ON_THE_WEAK_TALENT} icon />.
+              <SpellLink spell={TALENTS.STING_LIKE_A_BEE_TALENT} icon />.
             </>
           ),
           importance: ISSUE_IMPORTANCE.MINOR,
         },
       },
       {
-        spell: TALENTS.GRAPPLING_HOOK_TALENT.id,
+        spell: SPELLS.GRAPPLING_HOOK.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60 - (combatant.hasTalent(TALENTS.RETRACTABLE_HOOK_TALENT) ? 30 : 0),
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS.GRAPPLING_HOOK_TALENT),
       },
       {
-        spell: TALENTS.SHADOWSTEP_SHARED_TALENT.id,
+        spell: TALENTS.SHADOWSTEP_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: null,
-        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT),
+        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_TALENT),
       },
       {
         spell: SPELLS.SPRINT.id,

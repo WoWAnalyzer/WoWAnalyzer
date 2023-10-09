@@ -30,6 +30,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 22), 'Regenerate talents for 10.2.', ToppleTheNun),
   change(date(2023, 10, 22), 'Remove articles.', ToppleTheNun),
   change(date(2023, 10, 22), 'Fix statistic ordering on the stats page.', emallson),
   change(date(2023, 10, 20), <>Refactor <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> module to correcly grant and steal the correct stats depending on your current stats.</>, nullDozzer),

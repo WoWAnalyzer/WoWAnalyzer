@@ -10,7 +10,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const SPELLS_CONVERTED: Spell[] = [
   SPELLS.IMMOLATION_AURA,
-  TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT,
+  SPELLS.SIGIL_OF_FLAME,
   SPELLS.SIGIL_OF_FLAME_PRECISE,
   SPELLS.SIGIL_OF_FLAME_CONCENTRATED,
   SPELLS.SIGIL_OF_FLAME_DEBUFF,
@@ -18,9 +18,8 @@ const SPELLS_CONVERTED: Spell[] = [
   SPELLS.THE_HUNT_CHARGE,
   SPELLS.THE_HUNT_DOT,
   TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT,
-  // More ED might go here, can't tell because beta/PTR is bugged
-  TALENTS_DEMON_HUNTER.FODDER_TO_THE_FLAME_TALENT,
-  // More FttF might go here, can't tell because beta/PTR is bugged
+  SPELLS.ELYSIAN_DECREE_PRECISE,
+  SPELLS.ELYSIAN_DECREE_CONCENTRATED,
 ];
 
 export default class AnyMeansNecessary extends Analyzer {
