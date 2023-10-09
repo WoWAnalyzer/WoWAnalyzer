@@ -1,11 +1,11 @@
-import { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyDebuffEvent, CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import TalentSpellText from 'parser/ui/TalentSpellText';
+import SPELLS from 'common/SPELLS/demonhunter';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 
 /**
  * Example Report: https://www.warcraftlogs.com/reports/9tAcN6PLwjMF4vm1/#fight=1&source=1
@@ -17,16 +17,12 @@ class FelEruption extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT);
-    if (!this.active) {
-      return;
-    }
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FEL_ERUPTION),
       this.countingCasts,
     );
     this.addEventListener(
-      Events.applydebuff.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT),
+      Events.applydebuff.by(SELECTED_PLAYER).spell(SPELLS.FEL_ERUPTION),
       this.countingStuns,
     );
   }
@@ -59,15 +55,14 @@ class FelEruption extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual) =>
       suggest(
         <>
-          Try to cast <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT} /> only for its
-          stun. It's not worth casting for its damage since it's a DPS loss.
+          Try to cast <SpellLink spell={SPELLS.FEL_ERUPTION} /> only for its stun. It's not worth
+          casting for its damage since it's a DPS loss.
         </>,
       )
-        .icon(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.icon)
+        .icon(SPELLS.FEL_ERUPTION.icon)
         .actual(
           <>
-            {actual} bad <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT} /> casts that
-            didn't stun the target{' '}
+            {actual} bad <SpellLink spell={SPELLS.FEL_ERUPTION} /> casts that didn't stun the target{' '}
           </>,
         )
         .recommended('No bad casts are recommended.'),
@@ -87,9 +82,9 @@ class FelEruption extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT}>
+        <BoringSpellValueText spell={SPELLS.FEL_ERUPTION}>
           {this.badCasts} <small>bad casts that didn't stun the target</small>
-        </TalentSpellText>
+        </BoringSpellValueText>
       </Statistic>
     );
   }

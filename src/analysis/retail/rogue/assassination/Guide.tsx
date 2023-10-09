@@ -1,6 +1,5 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
-import { t, Trans } from '@lingui/macro';
 import EnergyCapWaste from 'analysis/retail/rogue/shared/guide/EnergyCapWaste';
 import TALENTS from 'common/TALENTS/rogue';
 import HideExplanationsToggle from 'interface/guide/components/HideExplanationsToggle';
@@ -30,28 +29,15 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
   const energyWasted = modules.energyTracker.wasted;
 
   return (
-    <Section
-      title={t({
-        id: 'guide.rogue.assassination.sections.resources.title',
-        message: 'Resource Use',
-      })}
-    >
-      <SubSection
-        title={t({
-          id: 'guide.rogue.assassination.sections.resources.energy.title',
-          message: 'Energy',
-        })}
-      >
+    <Section title="Resource Use">
+      <SubSection title="Energy">
         <p>
-          <Trans id="guide.rogue.assassination.sections.resources.energy.summary">
-            Your primary resource is <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />. Typically,
-            ability use will be limited by <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />, not time.
-            Avoid capping <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> - lost{' '}
-            <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> regeneration is lost DPS. It will
-            occasionally be impossible to avoid capping{' '}
-            <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> - like while handling mechanics or during
-            intermission phases.
-          </Trans>
+          Your primary resource is <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />. Typically,
+          ability use will be limited by <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />, not time.
+          Avoid capping <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> - lost{' '}
+          <ResourceLink id={RESOURCE_TYPES.ENERGY.id} /> regeneration is lost DPS. It will
+          occasionally be impossible to avoid capping <ResourceLink id={RESOURCE_TYPES.ENERGY.id} />{' '}
+          - like while handling mechanics or during intermission phases.
         </p>
         <EnergyCapWaste
           percentAtCap={percentAtCap}
@@ -62,18 +48,11 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         />
         {modules.energyGraph.plot}
       </SubSection>
-      <SubSection
-        title={t({
-          id: 'guide.rogue.assassination.sections.resources.comboPoints.title',
-          message: 'Combo Points',
-        })}
-      >
+      <SubSection title="Combo Points">
         <p>
-          <Trans id="guide.rogue.assassination.sections.resources.comboPoints.summary">
-            Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
-            <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at max CPs,
-            and always wait until max CPs to use a spender.
-          </Trans>
+          Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
+          <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at max CPs, and
+          always wait until max CPs to use a spender.
         </p>
         <SideBySidePanels>
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
@@ -86,12 +65,7 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
 
 function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section
-      title={t({
-        id: 'guide.rogue.assassination.sections.coreRotation.title',
-        message: 'Core Rotation',
-      })}
-    >
+    <Section title="Core Rotation">
       <p>
         Assassination's core rotation involves performing <strong>builder</strong> abilites up to{' '}
         {modules.comboPointTracker.maxResource} combo points, then using a <strong>spender</strong>{' '}
@@ -121,12 +95,7 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
 
 function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section
-      title={t({
-        id: 'guide.rogue.assassination.sections.cooldowns.title',
-        message: 'Cooldowns',
-      })}
-    >
+    <Section title="Cooldowns">
       <p>
         Assassination's cooldowns are decently powerful but should not be held on to for long. In
         order to maximize usages over the course of an encounter, you should aim to send the
@@ -136,9 +105,6 @@ function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) 
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />
       <CooldownGraphSubsection />
-      {info.combatant.hasTalent(TALENTS.EXSANGUINATE_TALENT) && (
-        <CooldownUsage analyzer={modules.exsanguinate} />
-      )}
       {info.combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
         <CooldownUsage analyzer={modules.sepsis} />
       )}
