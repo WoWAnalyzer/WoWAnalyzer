@@ -101,15 +101,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.SHADOWSTEP_SHARED_TALENT.id,
+        spell: TALENTS.SHADOWSTEP_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 1,
-        enabled:
-          combatant.hasTalent(TALENTS.SHADOWSTEP_SHARED_TALENT) ||
-          combatant.hasTalent(TALENTS.SHADOWSTEP_ASSASSINATION_TALENT),
-        charges:
-          combatant.getTalentRank(TALENTS.SHADOWSTEP_SHARED_TALENT) +
-          combatant.getTalentRank(TALENTS.SHADOWSTEP_ASSASSINATION_TALENT),
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS.SHADOWSTEP_TALENT),
       },
       {
         spell: TALENTS.THISTLE_TEA_TALENT.id,
@@ -180,20 +175,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.EXSANGUINATE_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 3 * 60,
-        enabled: combatant.hasTalent(TALENTS.EXSANGUINATE_TALENT),
-        gcd: {
-          base: 1000,
-        },
-        castEfficiency: {
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.6,
-        },
-      },
-      {
         spell: TALENTS.DEATHMARK_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 2 * 60,
@@ -247,17 +228,6 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         enabled: combatant.hasTalent(TALENTS.COLD_BLOOD_TALENT),
-        castEfficiency: {
-          recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
-          majorIssueEfficiency: 0.6,
-        },
-      },
-      {
-        spell: TALENTS.MARKED_FOR_DEATH_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
-        enabled: combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT),
         castEfficiency: {
           recommendedEfficiency: 0.9,
           averageIssueEfficiency: 0.8,

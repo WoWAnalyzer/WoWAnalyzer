@@ -30,6 +30,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 18), 'Regenerate talents for 10.2.', ToppleTheNun),
   change(date(2023, 10, 16), 'Fix some variable capitalizations', Trevor),
   change(date(2023, 10, 14), 'Paginate data loading, allowing M+ to be re-enabled for most specs', emallson),
   change(date(2023, 10, 12), <>Make ICC the default Classic zone.</>, emallson),
