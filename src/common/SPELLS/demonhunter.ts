@@ -60,6 +60,11 @@ const spells = {
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
   },
+  SIGIL_OF_MISERY_DEBUFF: {
+    id: 207685,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
+  },
   CHARRED_WARBLADES: {
     id: 213011,
     name: 'Charred Warblades',
@@ -329,6 +334,16 @@ const spells = {
   },
   SIGIL_OF_CHAINS_PRECISE: {
     id: 389807,
+    name: 'Sigil of Chains',
+    icon: 'ability_demonhunter_sigilofchains',
+  },
+  SIGIL_OF_SILENCE_DEBUFF: {
+    id: 204490,
+    name: 'Sigil of Silence',
+    icon: 'ability_demonhunter_sigilofsilence',
+  },
+  SIGIL_OF_CHAINS_DEBUFF: {
+    id: 204843,
     name: 'Sigil of Chains',
     icon: 'ability_demonhunter_sigilofchains',
   },
