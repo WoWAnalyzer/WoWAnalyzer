@@ -14,10 +14,6 @@ import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { EXTENDED_SPIKES_SCALING } from 'analysis/retail/demonhunter/vengeance/constants';
 import TALENTS from 'common/TALENTS/demonhunter';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { UptimeIcon } from 'interface/icons';
-import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 
 const BASE_DURATION = 6000;
 
@@ -69,32 +65,7 @@ export default class DemonSpikes extends MajorDefensiveBuff {
   }
 
   statistic(): ReactNode {
-    return (
-      <>
-        <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.GENERAL} />
-        <Statistic
-          category={STATISTIC_CATEGORY.GENERAL}
-          size="flexible"
-          tooltip={
-            <>
-              There is a popular cancelaura macro going around for VDH to "take advantage" of
-              Calcified Spikes. Unless used properly, it will frequently result in lots of missed
-              uptime on Demon Spikes. This statistic attempts to show how much time was lost due to
-              canceling Demon Spikes early.
-            </>
-          }
-        >
-          <BoringSpellValueText spell={SPELLS.DEMON_SPIKES}>
-            <UptimeIcon /> {formatDurationMillisMinSec(this.wastedUptimeInMilliseconds)}s wasted{' '}
-            <small>
-              (
-              {formatPercentage(this.wastedUptimeInMilliseconds / this.maximumUptimeInMilliseconds)}
-              % of total uptime)
-            </small>
-          </BoringSpellValueText>
-        </Statistic>
-      </>
-    );
+    return <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.GENERAL} />;
   }
 
   private bonusArmorGain(statTracker: StatTracker) {
