@@ -105,7 +105,7 @@ class SoulFragmentsConsume extends Analyzer {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(6)}
-        size="small"
+        size="flexible"
         dropdown={
           <>
             <table className="table table-condensed">
@@ -136,9 +136,7 @@ class SoulFragmentsConsume extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.SOUL_FRAGMENT_STACK}>
-          <>
-            {this.soulFragmentsTracker.soulsSpent} <small>Souls</small>
-          </>
+          {this.soulFragmentsTracker.soulsSpent} <small>Souls</small>
         </BoringSpellValueText>
       </Statistic>
     );
