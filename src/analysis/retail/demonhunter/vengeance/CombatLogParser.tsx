@@ -60,6 +60,8 @@ import DemonSpikes from './modules/core/MajorDefensives/DemonSpikes';
 import Metamorphosis from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
+import CycleOfBindingNormalizer from './normalizers/CycleOfBindingNormalizer';
+import CycleOfBinding from './modules/talents/CycleOfBinding';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -89,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theHuntNormalizer: TheHuntNormalizer,
     felDevastationNormalizer: FelDevastationNormalizer,
     sigilOfFlamesNormalizer: SigilOfFlameNormalizer,
+    cycleOfBindingNormalizer: CycleOfBindingNormalizer,
 
     // Spell
     immolationAura: ImmolationAura,
@@ -129,6 +132,7 @@ class CombatLogParser extends CoreCombatLogParser {
     felDevastation: FelDevastation,
     fieryBrand2: FieryBrand2,
     sigilOfFlame: SigilOfFlame,
+    cycleOfBinding: CycleOfBinding,
 
     // Stats
     soulsOvercap: SoulsOvercap,
