@@ -109,25 +109,12 @@ export default class Abilities extends CoreAbilities {
       // Sigils
       {
         spell: [
-          SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
-          SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
-        ],
-        enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT),
-        category: SPELL_CATEGORY.UTILITY,
-        cooldown:
-          60 * (1 - (combatant.hasTalent(TALENTS_DEMON_HUNTER.QUICKENED_SIGILS_TALENT) ? 0.2 : 0)),
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: [
           SPELLS.SIGIL_OF_MISERY_CONCENTRATED.id,
           TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT.id,
           SPELLS.SIGIL_OF_MISERY_PRECISE.id,
         ],
         enabled: this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
         category: SPELL_CATEGORY.UTILITY,
         cooldown:
           120 -
@@ -143,6 +130,7 @@ export default class Abilities extends CoreAbilities {
           SPELLS.SIGIL_OF_FLAME_PRECISE.id,
         ],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.ILLUMINATED_SIGILS_TALENT) ? 1 : 0),
         cooldown: 30,
         gcd: {
           base: 1500,
