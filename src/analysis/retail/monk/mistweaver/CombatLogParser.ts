@@ -92,6 +92,7 @@ import ManaTeaSources from './modules/spells/ManaTeaSources';
 import EnergizingBrew from './modules/spells/EnergizingBrew';
 import T31TierSet from './modules/dragonflight/tier/T31MWTier';
 import TearOfMorning from './modules/spells/TearOfMorning';
+import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -198,6 +199,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t29TierSet: T29TierSet,
     t30TierSet: T30TierSet,
     t31TierSet: T31TierSet,
+    t31TierSetBreakdown: T31HealingBreakdown,
     callToDominance: CallToDominance,
 
     // Mana Tab

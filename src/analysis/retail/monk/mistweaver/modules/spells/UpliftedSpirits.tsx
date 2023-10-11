@@ -85,6 +85,14 @@ class UpliftedSpirits extends Analyzer {
   onCast(event: CastEvent) {
     this.totalCasts += 1;
   }
+  get activeTalentHealing() {
+    return this.healingDone.byAbility(this.activeTalent.id).effective;
+  }
+
+  get effectiveHealingIncrease() {
+    const increase = BASE_COOLDOWN / (BASE_COOLDOWN - this.averageCdr);
+    return this.activeTalentHealing - this.activeTalentHealing / increase;
+  }
 
   get usHealing() {
     return this.healingDone.byAbility(SPELLS.UPLIFTED_SPIRITS_HEAL.id).effective;
@@ -111,6 +119,12 @@ class UpliftedSpirits extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
+            Effective Healing From Additional <SpellLink spell={this.activeTalent} /> Casts:{' '}
+            {formatNumber(this.effectiveHealingIncrease)}
+            <br />
+            <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT} /> Direct Healing:{' '}
+            {formatNumber(healing)}
+            <br />
             Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
             <br />
             Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
@@ -124,7 +138,7 @@ class UpliftedSpirits extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}>
-          <ItemHealingDone amount={healing} />
+          <ItemHealingDone amount={healing + this.effectiveHealingIncrease} />
           <div>
             {formatDuration(BASE_COOLDOWN - this.averageCdr)}{' '}
             <small>

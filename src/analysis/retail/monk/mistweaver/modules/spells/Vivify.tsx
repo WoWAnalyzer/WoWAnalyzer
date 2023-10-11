@@ -1,10 +1,10 @@
 // Based on Clearcasting Implementation done by @Blazyb
 import { defineMessage } from '@lingui/macro';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import HIT_TYPES from 'game/HIT_TYPES';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
@@ -37,10 +37,10 @@ class Vivify extends Analyzer {
   protected upliftedSpirits!: UpliftedSpirits;
   casts: number = 0;
 
-  mainTargetHitsToCount: number = 0;
   mainTargetHealing: number = 0;
   mainTargetOverhealing: number = 0;
 
+  fullOverhealCleaves: number = 0;
   cleaveHits: number = 0;
   cleaveHealing: number = 0;
   cleaveOverhealing: number = 0;
@@ -120,6 +120,20 @@ class Vivify extends Analyzer {
     );
   }
 
+  get avgRawPerCast() {
+    return (
+      (this.cleaveHealing +
+        this.cleaveOverhealing +
+        this.mainTargetHealing +
+        this.mainTargetOverhealing) /
+      this.casts
+    );
+  }
+
+  get avgHealingPerCast() {
+    return (this.cleaveHealing + this.mainTargetHealing) / this.casts;
+  }
+
   get averageReMsFromDancingMist() {
     return (
       this.expectedAverageReMs *
@@ -134,18 +148,19 @@ class Vivify extends Analyzer {
 
   vivCast(event: CastEvent) {
     this.casts += 1;
-    this.mainTargetHitsToCount += 1;
-    this.lastCastTarget = event.targetID || 0;
     this._tallyCastEntry(event);
   }
 
   handleViv(event: HealEvent) {
-    if (this.lastCastTarget === event.targetID && this.mainTargetHitsToCount > 0) {
+    if (SPELLS.VIVIFY.id === event.ability.guid) {
       this.mainTargetHealing += event.amount + (event.absorbed || 0);
       this.mainTargetOverhealing += event.overheal || 0;
-      this.mainTargetHitsToCount -= 1;
     } else {
-      this.cleaveHealing += event.amount + (event.absorbed || 0);
+      const effective = event.amount + (event.absorbed || 0);
+      if (effective === 0) {
+        this.fullOverhealCleaves += 1;
+      }
+      this.cleaveHealing += effective;
       this.cleaveOverhealing += event.overheal || 0;
       this.cleaveHits += 1;
     }
@@ -250,6 +265,7 @@ class Vivify extends Analyzer {
                 <SpellLink spell={SPELLS.VIVIFY} /> healing to{' '}
                 <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> targets.
               </li>
+              <li>{formatNumber(this.fullOverhealCleaves)} cleaves that were 100% overheal.</li>
             </ul>
           </>
         }
@@ -260,6 +276,16 @@ class Vivify extends Analyzer {
             <small>
               Average Cleaves per <SpellLink spell={SPELLS.VIVIFY} />
             </small>
+            <br />
+            <TooltipElement
+              content={
+                <>
+                  {formatNumber(this.avgRawPerCast)} <small>raw healing per cast</small>
+                </>
+              }
+            >
+              {formatNumber(this.avgHealingPerCast)} <small>healing per cast</small>
+            </TooltipElement>
           </>
         </TalentSpellText>
       </Statistic>
@@ -274,8 +300,14 @@ class Vivify extends Analyzer {
     );
     let vivifyGoodCrits = 0;
     let vivifyWastedCrits = 0;
+    let fullOverhealHits = 0;
+    let healingPerCast = 0;
+    let overhealPerCast = 0;
     if (this.upliftedSpirits.active) {
       vivifyHits.forEach((event) => {
+        const effective = event.amount + (event.absorbed || 0);
+        healingPerCast += effective;
+        overhealPerCast += event.overheal || 0;
         if (event.hitType === HIT_TYPES.CRIT) {
           if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
             vivifyGoodCrits += 1;
@@ -285,13 +317,22 @@ class Vivify extends Analyzer {
         }
       });
     }
+    invigoratingMistHits.forEach((event) => {
+      const effective = event.amount + (event.absorbed || 0);
+      if (effective === 0) {
+        fullOverhealHits += 1;
+      }
+    });
+    const overheal = overhealPerCast / (healingPerCast + overhealPerCast);
     const rems = invigoratingMistHits.length;
     let value = QualitativePerformance.Fail;
-    if (rems >= 10) {
+    if (rems >= 10 && overheal <= 0.5) {
       value = QualitativePerformance.Perfect;
-    } else if (rems >= 8) {
+    } else if (rems >= 8 && overheal <= 0.5) {
       value = QualitativePerformance.Good;
-    } else if (rems >= 6) {
+    } else if (rems >= 6 && overheal <= 0.5) {
+      value = QualitativePerformance.Good;
+    } else if (fullOverhealHits <= 5 || overheal <= 0.4) {
       value = QualitativePerformance.Ok;
     }
 
@@ -299,6 +340,14 @@ class Vivify extends Analyzer {
       <>
         @ <strong>{this.owner.formatTimestamp(event.timestamp)}</strong>, ReMs:{' '}
         <strong>{rems}</strong>
+        <br />
+        <>
+          Full Overheal Hits: {fullOverhealHits} ({fullOverhealHits}/{rems} hits)
+        </>
+        <br />
+        <>
+          Effective Healing: {formatNumber(healingPerCast)} ({formatPercentage(overheal)}% overheal)
+        </>
         <br />
         {this.upliftedSpirits.active && (
           <>

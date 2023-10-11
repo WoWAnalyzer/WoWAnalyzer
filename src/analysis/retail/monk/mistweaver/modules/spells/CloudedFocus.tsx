@@ -28,7 +28,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 const debug = false;
 /**
  * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 20% and descreases their
- * mana cost by 20% as well. You can have up to 3 stack but you lose all the stacks when you stop channeling soothing mist.
+ * mana cost by 15% as well. You can have up to 3 stack but you lose all the stacks when you stop channeling soothing mist.
  */
 
 interface CloudedFocusStacksMap {
@@ -147,9 +147,13 @@ class CloudedFocus extends Analyzer {
     debug && console.log('Current Stacks: ', this.stacks, 'Mana Stacks: ', this.manaStacks, event);
 
     const cost = event.resourceCost ? event.resourceCost[RESOURCE_TYPES.MANA.id] : 0;
-    this.addManaToStackMap(spellId, cost);
-    const preCFCost = cost / (1 - CF_BUFF_PER_STACK * this.manaStacks);
-    this.manaSaved += preCFCost - cost;
+    if (cost === 0) {
+      debug && console.log('No Mana Cost Found: ', event);
+    }
+
+    const manaSaved = cost / (1 - CF_BUFF_PER_STACK * this.manaStacks) - cost;
+    this.addManaToStackMap(spellId, manaSaved);
+    this.manaSaved += manaSaved;
   }
 
   calculateHealingEffect(event: HealEvent) {
@@ -194,17 +198,16 @@ class CloudedFocus extends Analyzer {
   }
 
   addManaToStackMap(spellId: number, cost: number) {
-    const mana = cost - cost * (1 - this.manaStacks * CF_BUFF_PER_STACK);
     const current = this.stackMap.get(this.makeKey(spellId, this.stacks));
     if (current) {
-      current.manaSaved += mana;
+      current.manaSaved += cost;
       current.casts += 1;
     } else {
       this.stackMap.set(this.makeKey(spellId, this.stacks), {
         casts: 1,
         healing: 0,
         overhealing: 0,
-        manaSaved: mana,
+        manaSaved: cost,
       });
     }
   }
@@ -227,6 +230,10 @@ class CloudedFocus extends Analyzer {
   }
 
   makeKey(spellId: number, stacks: number) {
+    //hack fix for invigorating mists getting its own spellId
+    if (spellId === SPELLS.INVIGORATING_MISTS_HEAL.id) {
+      spellId = SPELLS.VIVIFY.id;
+    }
     return `${spellId}-${stacks}`;
   }
 
