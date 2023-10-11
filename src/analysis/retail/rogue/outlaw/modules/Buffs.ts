@@ -47,7 +47,7 @@ class Buffs extends CoreAuras {
 
       // Roll the Bones
       {
-        spellId: TALENTS.ROLL_THE_BONES_TALENT.id,
+        spellId: SPELLS.ROLL_THE_BONES.id,
         timelineHighlight: true,
       },
       {

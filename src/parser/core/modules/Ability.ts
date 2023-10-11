@@ -1,10 +1,10 @@
-import { maybeGetSpell } from 'common/SPELLS';
 import Combatant from 'parser/core/Combatant';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import * as React from 'react';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 import Abilities from './Abilities';
 import { MessageDescriptor } from '@lingui/core';
@@ -171,7 +171,7 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return maybeGetSpell(this.primarySpell)?.name;
+    return maybeGetTalentOrSpell(this.primarySpell)?.name;
   }
   set name(value) {
     this._name = value;

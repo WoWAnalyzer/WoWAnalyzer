@@ -11,9 +11,7 @@ import {
   SwallowedAnger,
   TheHunt,
   TheHuntNormalizer,
-  UnnaturalMalice,
   DemonSoulBuff,
-  FodderToTheFlame,
   SigilOfFlameNormalizer,
   SigilOfFlame,
 } from 'analysis/retail/demonhunter/shared';
@@ -62,6 +60,8 @@ import DemonSpikes from './modules/core/MajorDefensives/DemonSpikes';
 import Metamorphosis from './modules/core/MajorDefensives/Metamorphosis';
 import Guide from './Guide';
 import FelDevastationNormalizer from './normalizers/FelDevastationNormalizer';
+import CycleOfBindingNormalizer from './normalizers/CycleOfBindingNormalizer';
+import CycleOfBinding from './modules/talents/CycleOfBinding';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -91,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     theHuntNormalizer: TheHuntNormalizer,
     felDevastationNormalizer: FelDevastationNormalizer,
     sigilOfFlamesNormalizer: SigilOfFlameNormalizer,
+    cycleOfBindingNormalizer: CycleOfBindingNormalizer,
 
     // Spell
     immolationAura: ImmolationAura,
@@ -121,7 +122,6 @@ class CombatLogParser extends CoreCombatLogParser {
     collectiveAnguish: CollectiveAnguish,
     demonic: Demonic,
     stokeTheFlames: StokeTheFlames,
-    unnaturalMalice: UnnaturalMalice,
     swallowedAnger: SwallowedAnger,
     flamesOfFury: FlamesOfFury,
     disruptingFury: DisruptingFury,
@@ -131,8 +131,8 @@ class CombatLogParser extends CoreCombatLogParser {
     soulCarver: SoulCarver,
     felDevastation: FelDevastation,
     fieryBrand2: FieryBrand2,
-    fodderToTheFlame: FodderToTheFlame,
     sigilOfFlame: SigilOfFlame,
+    cycleOfBinding: CycleOfBinding,
 
     // Stats
     soulsOvercap: SoulsOvercap,

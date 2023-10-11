@@ -1,12 +1,7 @@
 import { formatNumber } from 'common/format';
 import ITEMS from 'common/ITEMS';
-import SPELLS, { maybeGetSpell } from 'common/SPELLS';
-import { ItemIcon } from 'interface';
-import { SpellIcon } from 'interface';
-import { SpecIcon } from 'interface';
-import { SpellLink } from 'interface';
-import { Icon } from 'interface';
-import { Panel } from 'interface';
+import SPELLS from 'common/SPELLS';
+import { Icon, ItemIcon, Panel, SpecIcon, SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { AbsorbedEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
@@ -14,6 +9,7 @@ import StatTracker from 'parser/shared/modules/StatTracker';
 import BoringValue from 'parser/ui/BoringValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 type TrackedHealing = {
   [spellId: number]: {
@@ -249,7 +245,7 @@ class CelestialFortune extends Analyzer {
                 <td />
                 <td>
                   <SpellLink spell={Number(id)} icon={false}>
-                    {maybeGetSpell(id) ? (
+                    {maybeGetTalentOrSpell(id) ? (
                       <>
                         <Icon icon={SPELLS[id].icon} /> {SPELLS[id].name}
                       </>
