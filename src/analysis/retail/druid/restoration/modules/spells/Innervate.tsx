@@ -148,15 +148,11 @@ class Innervate extends Analyzer {
           detailItems.push({
             label: 'Casts during Innervate',
             result: '',
-            details: (
-              <>
-                {cast.casts.map((c, iix) => (
-                  <>
-                    <SpellIcon spell={abilityToSpell(c.ability)} key={iix} />{' '}
-                  </>
-                ))}
-              </>
-            ),
+            details: cast.casts.map((c, iix) => (
+              <span key={iix}>
+                <SpellIcon spell={abilityToSpell(c.ability)} />{' '}
+              </span>
+            )),
           });
 
           return (

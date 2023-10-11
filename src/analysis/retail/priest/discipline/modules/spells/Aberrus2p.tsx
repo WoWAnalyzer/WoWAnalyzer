@@ -67,7 +67,7 @@ class Aberrus2p extends Analyzer {
       return;
     }
 
-    const damageEvent = getDamageEvent(event);
+    const damageEvent = getDamageEvent(event)!;
     const damageSpellId = damageEvent.ability.guid;
 
     if (

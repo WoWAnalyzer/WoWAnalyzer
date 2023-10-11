@@ -75,7 +75,7 @@ const NavigationBar = ({ makeTabUrl, tabs, selectedTab }: Props) => {
         <ul>
           {pages.map(({ icon: Icon, name, url }) => (
             <li key={url} className={url === selectedTab ? 'active' : undefined}>
-              <Link to={makeTabUrl(url)}>
+              <Link to={makeTabUrl(url)} preventScrollReset>
                 <Icon />
                 {name}
               </Link>

@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2023, 9, 15), <>Added handling for <SpellLink spell={TALENTS_DRUID.TRANQUIL_MIND_TALENT}/> in the Regrowth/Clearcasting statistic. Fixed an issue that could cause misattribution of Clearcasts during high lag.</>, Sref),
   change(date(2023, 9, 6), <>Added guide section and statistic for <SpellLink spell={TALENTS_DRUID.GROVE_GUARDIANS_TALENT}/>.</>, Sref),
   change(date(2023, 8, 2), <>Bump resto to 10.1.5</>, Vohrr),
   change(date(2023, 6, 26), <>Added statistic for <SpellLink spell={TALENTS_DRUID.WAKING_DREAM_TALENT}/>.</>, Sref),

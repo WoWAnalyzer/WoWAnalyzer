@@ -3,7 +3,8 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events from 'parser/core/Events';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
-import Expansion from '../../../game/Expansion';
+import Expansion, { isRetailExpansion } from '../../../game/Expansion';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 class SpellManaCost extends SpellResourceCost {
   static resourceType = RESOURCE_TYPES.MANA;
@@ -17,7 +18,7 @@ class SpellManaCost extends SpellResourceCost {
 
   getHardcodedManaCost(event) {
     const spellId = event.ability.guid;
-    const spell = SPELLS[spellId];
+    const spell = maybeGetTalentOrSpell(spellId);
     return spell && spell.manaCost ? spell.manaCost : null;
   }
 
@@ -26,8 +27,9 @@ class SpellManaCost extends SpellResourceCost {
     const actualCost = this.getCostFromEventObject(event);
 
     if (hardcodedCost !== null && actualCost && hardcodedCost !== actualCost) {
+      const spell = maybeGetTalentOrSpell(event.ability.guid);
       this.incorrectCosts[event.ability.guid] = {
-        ...SPELLS[event.ability.guid],
+        ...spell,
         manaCost: undefined, // delete if it's set in SPELLS
         actualCost: actualCost,
         hardcodedCost: hardcodedCost,
@@ -42,7 +44,7 @@ class SpellManaCost extends SpellResourceCost {
       return 0;
     }
     if (
-      this.owner.config.expansion === Expansion.Shadowlands &&
+      isRetailExpansion(this.owner.config.expansion) &&
       this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id, event.timestamp)
     ) {
       return 0;

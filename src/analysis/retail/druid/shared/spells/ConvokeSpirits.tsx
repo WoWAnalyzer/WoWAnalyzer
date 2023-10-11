@@ -412,9 +412,9 @@ class ConvokeSpirits extends Analyzer {
                 <td>{formatNumber(convokeCast.damage)}</td>
                 <td>
                   {convokeCast.spellIdToCasts.map((casts, spellId) => (
-                    <>
-                      <SpellLink spell={spellId} /> {casts} <br />
-                    </>
+                    <div key={spellId}>
+                      <SpellLink spell={spellId} /> {casts}
+                    </div>
                   ))}
                 </td>
               </tr>

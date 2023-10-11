@@ -1,6 +1,7 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import TALENTS from 'common/TALENTS/evoker';
+import classColor from 'game/classColor';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ReactNode } from 'react';
 import { SpellLink } from 'interface';
@@ -12,7 +13,6 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { getPrescienceBuffEvents } from '../normalizers/CastLinkNormalizer';
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
-import { i18n } from '@lingui/core';
 
 /**
  * Prescience is a core talent that buffs the target with 3% crit, as well
@@ -91,10 +91,7 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   }
 
   private prescienceWindowCastPerformance(cast: PrescienceCooldownCast): UsageInfo {
-    const i18nClassName = this.currentBuffedPlayer?.spec?.className
-      ? i18n._(this.currentBuffedPlayer.spec.className)
-      : undefined;
-    const className = i18nClassName?.replace(/\s/g, '') ?? '';
+    const className = this.currentBuffedPlayer ? classColor(this.currentBuffedPlayer) : '';
     let performance = QualitativePerformance.Fail;
     const summary = <div>Buffed a DPS</div>;
     let details = (

@@ -6,7 +6,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { DAYBREAK_HEALING, DAYBREAK_MANA } from '../../../normalizers/CastLinkNormalizer';
+import { DAYBREAK_MANA, GLIMMER_PROC } from '../../../normalizers/CastLinkNormalizer';
 import { formatNumber } from 'common/format';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
@@ -40,7 +40,7 @@ class Daybreak extends Analyzer {
   }
 
   getEffectiveHealing(cast: CastEvent) {
-    return GetRelatedEvents(cast, DAYBREAK_HEALING).reduce((sum, healEvent) => {
+    return GetRelatedEvents(cast, GLIMMER_PROC).reduce((sum, healEvent) => {
       if (healEvent.type === EventType.Heal) {
         return sum + healEvent.amount + (healEvent.absorbed || 0);
       }

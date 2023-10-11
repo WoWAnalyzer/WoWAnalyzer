@@ -257,6 +257,11 @@ const spells = {
   // TALENTS
   // ---------
   // Discipline
+  BORROWED_TIME: {
+    id: 59891,
+    name: 'Borrowed Time',
+    icon: 'spell_holy_borrowedtime',
+  },
   INNER_FOCUS: {
     id: 14751,
     name: 'Inner Focus',

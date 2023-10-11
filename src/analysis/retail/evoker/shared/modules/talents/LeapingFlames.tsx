@@ -4,7 +4,7 @@ import { formatNumber } from 'common/format';
 
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
-import Events, { CastEvent, GetRelatedEvents, HasRelatedEvent } from 'parser/core/Events';
+import Events, { CastEvent, GetRelatedEvent, HasRelatedEvent } from 'parser/core/Events';
 import {
   getLeapingDamageEvents,
   getLeapingHealEvents,
@@ -143,7 +143,7 @@ class LeapingFlames extends Analyzer {
             // Events are weird but this solution works
             if (
               !HasRelatedEvent(
-                GetRelatedEvents(healEvent, ESSENCE_BURST_GENERATED)[0],
+                GetRelatedEvent(healEvent, ESSENCE_BURST_GENERATED)!,
                 ESSENCE_BURST_CAST_GENERATED,
               )
             ) {

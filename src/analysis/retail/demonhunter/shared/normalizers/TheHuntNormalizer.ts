@@ -58,19 +58,25 @@ export default class TheHuntVengefulRetreatNormalizer extends EventLinkNormalize
 }
 
 export function getChargeImpact(event: CastEvent): DamageEvent | undefined {
-  return GetRelatedEvents(event, THE_HUNT_CHARGE)
-    .filter((e): e is DamageEvent => e.type === EventType.Damage)
-    .find(Boolean);
+  return GetRelatedEvents<DamageEvent>(
+    event,
+    THE_HUNT_CHARGE,
+    (e): e is DamageEvent => e.type === EventType.Damage,
+  ).find(Boolean);
 }
 
 export function getDamageEvents(event: CastEvent): DamageEvent[] {
-  return GetRelatedEvents(event, THE_HUNT_CHARGE).filter(
+  return GetRelatedEvents(
+    event,
+    THE_HUNT_CHARGE,
     (e): e is DamageEvent => e.type === EventType.Damage,
   );
 }
 
 export function getAppliedDots(event: CastEvent): ApplyDebuffEvent[] {
-  return GetRelatedEvents(event, THE_HUNT_CHARGE).filter(
+  return GetRelatedEvents(
+    event,
+    THE_HUNT_CHARGE,
     (e): e is ApplyDebuffEvent => e.type === EventType.ApplyDebuff,
   );
 }

@@ -6,7 +6,7 @@ import {
 } from 'analysis/retail/hunter/survival/constants';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import TALENTS from 'common/TALENTS/hunter';
+import TALENTS, { TALENTS_HUNTER } from 'common/TALENTS/hunter';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER, SELECTED_PLAYER_PET } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -94,7 +94,7 @@ class BirdOfPrey extends Analyzer {
     ) {
       this.aoeCheck();
     }
-    if (!this.selectedCombatant.hasBuff(SPELLS.COORDINATED_ASSAULT.id)) {
+    if (!this.selectedCombatant.hasBuff(TALENTS_HUNTER.COORDINATED_ASSAULT_TALENT.id)) {
       return;
     }
     const spellId = event.ability.guid;

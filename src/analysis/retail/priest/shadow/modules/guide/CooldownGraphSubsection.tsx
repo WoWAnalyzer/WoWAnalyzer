@@ -138,7 +138,8 @@ const ShortCooldownsGraph = () => {
         <SpellLink spell={TALENTS.MINDGAMES_TALENT} />
       </strong>{' '}
       is a lower priority spell, but when it is cast, make sure{' '}
-      <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> is on its target.
+      <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> is on its target so it benefits fully
+      from <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
     </Trans>
   );
   const info = useInfo();

@@ -4,7 +4,7 @@ import {
   ApplyBuffEvent,
   CastEvent,
   EventType,
-  GetRelatedEvents,
+  GetRelatedEvent,
   RefreshBuffEvent,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
@@ -35,10 +35,5 @@ export default class FuriousGazeNormalizer extends EventLinkNormalizer {
 export function getFuriousGazeBuffApplication(
   event: CastEvent,
 ): ApplyBuffEvent | RefreshBuffEvent | undefined {
-  return GetRelatedEvents(event, EYE_BEAM_FURIOUS_GAZE)
-    .filter(
-      (e): e is ApplyBuffEvent | RefreshBuffEvent =>
-        e.type === EventType.ApplyBuff || e.type === EventType.RefreshBuff,
-    )
-    .at(0);
+  return GetRelatedEvent<ApplyBuffEvent | RefreshBuffEvent>(event, EYE_BEAM_FURIOUS_GAZE);
 }

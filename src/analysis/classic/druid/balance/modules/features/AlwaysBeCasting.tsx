@@ -10,16 +10,13 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 export const instantCastSpells = [SPELLS.STARFALL, SPELLS.MOONFIRE, SPELLS.INSECT_SWARM];
 
-export const displayInstantCastSpells = () => (
-  <>
-    {instantCastSpells.map((s, i) => (
-      <>
-        {i ? ', ' : ' '}
-        <SpellLink key="abc-{i}" spell={s} />
-      </>
-    ))}
-  </>
-);
+export const displayInstantCastSpells = () =>
+  instantCastSpells.map((s, i) => (
+    <span key={s.id}>
+      {i ? ', ' : ' '}
+      <SpellLink spell={s} />
+    </span>
+  ));
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
   position = STATISTIC_ORDER.CORE(6);

@@ -157,7 +157,7 @@ class CharringEmbers extends Analyzer {
     when(this.noPhoenixFlamesThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink spell={SPELLS.FLAMES_FURY} /> proc'd {this.noPhoenixFlames} times while
+          Your <SpellLink spell={SPELLS.FLAMES_FURY} /> proc'd {this.noPhoenixFlames()} times while
           you had no charges of <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> available.
           Because of this, you were forced to wait for{' '}
           <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} /> to come off cooldown before you could

@@ -62,7 +62,7 @@ class WealAndWoe extends Analyzer {
       return;
     }
 
-    const castEvent = getCastAbility(event);
+    const castEvent = getCastAbility(event)!;
     const WEAL_AND_WOE_STACKS = this.selectedCombatant.getBuffStacks(
       SPELLS.WEAL_AND_WOE_BUFF.id,
       castEvent.timestamp,
@@ -76,12 +76,10 @@ class WealAndWoe extends Analyzer {
   }
 
   onAtoneHeal(event: HealEvent) {
-    if (!getDamageEvent(event)) {
+    const damageEvent = getDamageEvent(event);
+    if (!damageEvent) {
       return;
     }
-
-    const damageEvent = getDamageEvent(event);
-
     if (
       damageEvent.ability.guid !== SPELLS.SMITE.id &&
       damageEvent.ability.guid !== TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id
@@ -89,7 +87,7 @@ class WealAndWoe extends Analyzer {
       return;
     }
 
-    const castEvent = getCastAbility(damageEvent);
+    const castEvent = getCastAbility(damageEvent)!;
     const WEAL_AND_WOE_STACKS = this.selectedCombatant.getBuffStacks(
       SPELLS.WEAL_AND_WOE_BUFF.id,
       castEvent.timestamp,

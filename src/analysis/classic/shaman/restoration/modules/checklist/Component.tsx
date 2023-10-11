@@ -34,9 +34,11 @@ const HealerChecklist = ({
   return (
     <Checklist>
       <Rule
-        name={<Trans id="shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>}
+        name={
+          <Trans id="classic.shaman.restoration.checklist.buffUptime">Keep your buffs up</Trans>
+        }
         description={
-          <Trans id="shaman.restoration.checklist.buffUptime.description">
+          <Trans id="classic.shaman.restoration.checklist.buffUptime.description">
             Water Shield and Earth Shield should be applied prior to the fight starting and
             maintained. Your totems should be kept up as often as possible.
           </Trans>
@@ -45,7 +47,7 @@ const HealerChecklist = ({
         <>
           <Requirement
             name={
-              <Trans id="shaman.restoration.checklist.appliedPrepull">
+              <Trans id="classic.shaman.restoration.checklist.appliedPrepull">
                 <SpellLink spell={SPELLS.EARTH_SHIELD} /> applied prepull
               </Trans>
             }
@@ -53,7 +55,7 @@ const HealerChecklist = ({
           />
           <Requirement
             name={
-              <Trans id="shaman.restoration.checklist.uptime">
+              <Trans id="classic.shaman.restoration.checklist.uptime">
                 <SpellLink spell={SPELLS.EARTH_SHIELD} /> Uptime
               </Trans>
             }
@@ -62,7 +64,7 @@ const HealerChecklist = ({
         </>
         <Requirement
           name={
-            <Trans id="shaman.restoration.checklist.appliedPrepull">
+            <Trans id="classic.shaman.restoration.checklist.appliedPrepull">
               <SpellLink spell={SPELLS.WATER_SHIELD} /> applied prepull
             </Trans>
           }
@@ -70,7 +72,7 @@ const HealerChecklist = ({
         />
         <Requirement
           name={
-            <Trans id="shaman.restoration.checklist.uptime">
+            <Trans id="classic.shaman.restoration.checklist.uptime">
               <SpellLink spell={SPELLS.WATER_SHIELD} /> Uptime
             </Trans>
           }
@@ -78,7 +80,7 @@ const HealerChecklist = ({
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.fire">
+            <Trans id="classic.shaman.checklist.totemuptime.fire">
               <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem
               Uptime
             </Trans>
@@ -87,7 +89,7 @@ const HealerChecklist = ({
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.water">
+            <Trans id="classic.shaman.checklist.totemuptime.water">
               <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem
               Uptime
             </Trans>
@@ -96,7 +98,7 @@ const HealerChecklist = ({
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.earth">
+            <Trans id="classic.shaman.checklist.totemuptime.earth">
               <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem
               Uptime
             </Trans>
@@ -105,7 +107,7 @@ const HealerChecklist = ({
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.air">
+            <Trans id="classic.shaman.checklist.totemuptime.air">
               <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem
               Uptime
             </Trans>
@@ -115,10 +117,12 @@ const HealerChecklist = ({
       </Rule>
       <Rule
         name={
-          <Trans id="shaman.restoration.checklist.aoeSpell">Target AOE spells effectively</Trans>
+          <Trans id="classic.shaman.restoration.checklist.aoeSpell">
+            Target AOE spells effectively
+          </Trans>
         }
         description={
-          <Trans id="shaman.restoration.checklist.aoeSpell.description">
+          <Trans id="classic.shaman.restoration.checklist.aoeSpell.description">
             Chain heal relies on who you target and where they are located to maximize healing
             potential. You should plan your chain heal ahead of time in preparation for where you
             expect raid members to be for the spells duration.
@@ -128,7 +132,7 @@ const HealerChecklist = ({
         {thresholds.chainHealTargetThresholds.actual > 0 && (
           <Requirement
             name={
-              <Trans id="shaman.restoration.checklist.aoeSpell.targets">
+              <Trans id="classic.shaman.restoration.checklist.aoeSpell.targets">
                 Average <SpellLink spell={SPELLS.CHAIN_HEAL} /> targets
               </Trans>
             }

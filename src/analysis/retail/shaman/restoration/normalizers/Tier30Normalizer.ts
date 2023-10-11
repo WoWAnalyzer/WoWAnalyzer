@@ -85,9 +85,9 @@ export function getSwellingRainHealingWaves(event: CastEvent): HealEvent[] {
   if (!HasRelatedEvent(event, SWELLING_RAIN_REMOVE)) {
     return [];
   }
-  return GetRelatedEvents(event, SWELLING_RAIN_HEALING_WAVE) as HealEvent[];
+  return GetRelatedEvents(event, SWELLING_RAIN_HEALING_WAVE);
 }
 
 export function getTidewatersHealingEvents(event: CastEvent): HealEvent[] {
-  return GetRelatedEvents(event, TIDEWATERS_HEAL) as HealEvent[];
+  return GetRelatedEvents(event, TIDEWATERS_HEAL);
 }

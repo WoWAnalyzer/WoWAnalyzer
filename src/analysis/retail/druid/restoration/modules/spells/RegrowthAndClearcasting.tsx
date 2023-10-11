@@ -57,11 +57,13 @@ class RegrowthAndClearcasting extends Analyzer {
   castEntries: BoxRowEntry[] = [];
 
   hasAbundance: boolean;
+  hasTranquilMind: boolean;
 
   constructor(options: Options) {
     super(options);
 
     this.hasAbundance = this.selectedCombatant.hasTalent(TALENTS_DRUID.ABUNDANCE_TALENT);
+    this.hasTranquilMind = this.selectedCombatant.hasTalent(TALENTS_DRUID.TRANQUIL_MIND_TALENT);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
@@ -84,6 +86,16 @@ class RegrowthAndClearcasting extends Analyzer {
   }
 
   onRefreshClearcast() {
+    if (
+      this.hasTranquilMind &&
+      this.selectedCombatant.getBuffStacks(SPELLS.CLEARCASTING_BUFF.id) === 1
+    ) {
+      // With Tranquil Mind talent, a refreshbuff occurs when player USES a clearcast at 2 stacks -
+      // we don't want to count that as an overwrite or a clearcast gained.
+      // The refresh happens after the 2nd stack is lost, so we can tell this happened by stack count
+      return;
+    }
+
     this.totalClearcasts += 1;
     this.overwrittenClearcasts += 1;
   }

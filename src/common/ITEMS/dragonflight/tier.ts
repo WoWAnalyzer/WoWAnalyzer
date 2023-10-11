@@ -86,9 +86,34 @@ export type T30_TIER_GEAR_IDS =
   | typeof WARLOCK_T30_ID
   | typeof WARRIOR_T30_ID;
 
+export const DEATH_KNIGHT_T31_ID = 1557;
+export const DEMON_HUNTER_T31_ID = 1558;
+export const DRUID_T31_ID = 1559;
+export const EVOKER_T31_ID = 1560;
+export const HUNTER_T31_ID = 1561;
+export const MAGE_T31_ID = 1562;
 export const MONK_T31_ID = 1563;
+export const PALADIN_T31_ID = 1564;
+export const PRIEST_T31_ID = 1565;
+export const ROGUE_T31_ID = 1566;
+export const SHAMAN_T31_ID = 1567;
+export const WARLOCK_T31_ID = 1568;
+export const WARRIOR_T31_ID = 1569;
 
-export type T31_TIER_GEAR_IDS = typeof MONK_T31_ID;
+export type T31_TIER_GEAR_IDS =
+  | typeof DEATH_KNIGHT_T31_ID
+  | typeof DEMON_HUNTER_T31_ID
+  | typeof DRUID_T31_ID
+  | typeof EVOKER_T31_ID
+  | typeof HUNTER_T31_ID
+  | typeof MAGE_T31_ID
+  | typeof MONK_T31_ID
+  | typeof PALADIN_T31_ID
+  | typeof PRIEST_T31_ID
+  | typeof ROGUE_T31_ID
+  | typeof SHAMAN_T31_ID
+  | typeof WARLOCK_T31_ID
+  | typeof WARRIOR_T31_ID;
 
 export const T28_TIER_BY_CLASSES: Record<number, T28_TIER_GEAR_IDS> = {
   [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_TIER_T28_ID,
@@ -136,8 +161,21 @@ export const T30_TIER_BY_CLASSES: Record<number, T30_TIER_GEAR_IDS> = {
   [CLASSES.WARLOCK]: WARLOCK_T30_ID,
   [CLASSES.WARRIOR]: WARRIOR_T30_ID,
 };
+
 export const T31_TIER_BY_CLASSES: Record<number, T31_TIER_GEAR_IDS> = {
+  [CLASSES.DEATH_KNIGHT]: DEATH_KNIGHT_T31_ID,
+  [CLASSES.DEMON_HUNTER]: DEMON_HUNTER_T31_ID,
+  [CLASSES.DRUID]: DRUID_T31_ID,
+  [CLASSES.EVOKER]: EVOKER_T31_ID,
+  [CLASSES.HUNTER]: HUNTER_T31_ID,
+  [CLASSES.MAGE]: MAGE_T31_ID,
   [CLASSES.MONK]: MONK_T31_ID,
+  [CLASSES.PALADIN]: PALADIN_T31_ID,
+  [CLASSES.PRIEST]: PRIEST_T31_ID,
+  [CLASSES.ROGUE]: ROGUE_T31_ID,
+  [CLASSES.SHAMAN]: SHAMAN_T31_ID,
+  [CLASSES.WARLOCK]: WARLOCK_T31_ID,
+  [CLASSES.WARRIOR]: WARRIOR_T31_ID,
 };
 
 export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {

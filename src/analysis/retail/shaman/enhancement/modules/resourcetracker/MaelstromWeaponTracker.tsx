@@ -2,10 +2,25 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { Resource } from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { RefreshBuffEvent, ChangeBuffStackEvent, EventType } from 'parser/core/Events';
+import Events, {
+  RefreshBuffEvent,
+  ChangeBuffStackEvent,
+  EventType,
+  CastEvent,
+  FreeCastEvent,
+  LinkedEvent,
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  RemoveBuffEvent,
+  RemoveBuffStackEvent,
+  ClassResources,
+} from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { MAELSTROM_WEAPON_SPEND_LINK } from '../normalizers/EventLinkNormalizer';
+
+const DEBUG = false;
 
 export const PERFECT_WASTED_PERCENT = 0.1;
 export const GOOD_WASTED_PERCENT = 0.2;
@@ -20,7 +35,7 @@ const MaelstromWeaponResource: Resource = {
   url: 'maelstrom_weapon',
 };
 
-class MaelstromWeaponTracker extends ResourceTracker {
+export default class extends ResourceTracker {
   static dependencies = {
     ...ResourceTracker.dependencies,
     spellUsable: SpellUsable,
@@ -33,7 +48,8 @@ class MaelstromWeaponTracker extends ResourceTracker {
 
   spellUsable!: SpellUsable;
 
-  nextRefreshIsWaste = false;
+  ignoreNextRefresh = true;
+  isDead: boolean = false;
   lastAppliedTime = 0;
   expiredWaste = 0;
 
@@ -52,15 +68,6 @@ class MaelstromWeaponTracker extends ResourceTracker {
     this.cooldownPerMaelstromGained = WITCH_DOCTORS_ANCESTRY_REDUCTION_MS[rank];
 
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.onRefresh,
-    );
-    this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
-      this.onStacksChange,
-    );
-
-    this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
       this.onFeralSpiritCast,
     );
@@ -71,6 +78,27 @@ class MaelstromWeaponTracker extends ResourceTracker {
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
       this.onFeralSpiritCast,
+    );
+
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onChangeStack,
+    );
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onChangeStack,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onChangeStack,
+    );
+    this.addEventListener(
+      Events.removebuffstack.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onChangeStack,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.MAELSTROM_WEAPON_BUFF),
+      this.onRefresh,
     );
   }
 
@@ -100,28 +128,73 @@ class MaelstromWeaponTracker extends ResourceTracker {
     return QualitativePerformance.Fail;
   }
 
-  onStacksChange(event: ChangeBuffStackEvent) {
-    if (event.stacksGained > 0) {
-      this._applyBuilder(
-        event.ability.guid,
-        event.stacksGained,
-        0,
-        event.timestamp,
-        this.getMaelstromResource(event),
-      );
-      if (this.current === 10) {
-        this.nextRefreshIsWaste = true;
-      }
+  onChangeStack(
+    event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent,
+  ) {
+    let newStacks = 0;
+    if (event.type === EventType.ApplyBuff) {
+      newStacks = 1;
+    } else if (event.type === EventType.ApplyBuffStack) {
+      newStacks = event.stack;
+    } else if (event.type === EventType.RemoveBuffStack) {
+      newStacks = event.stack;
+    }
+
+    const change = newStacks - this.current;
+    if (change === 0) {
+      DEBUG &&
+        console.warn(
+          `Unexpected zero gain @ ${this.owner.formatTimestamp(event.timestamp, 1)}`,
+          event,
+        );
+      return;
+    }
+    const resource: ClassResources = {
+      amount: change > 0 ? newStacks : this.current,
+      max: this.maxResource,
+      type: this.resource.id,
+    };
+
+    if (change > 0) {
+      this.ignoreNextRefresh = true;
+      this._applyBuilder(event.ability.guid, change, 0, event.timestamp, resource);
       this.reduceFeralSpiritCooldown();
     } else {
-      this.nextRefreshIsWaste = false;
-      this._applySpender(event, -event.stacksGained, this.getMaelstromResource(event));
+      const spenderEvent = event._linkedEvents?.find(
+        (le: LinkedEvent) => le.relation === MAELSTROM_WEAPON_SPEND_LINK,
+      )?.event as CastEvent | FreeCastEvent | undefined;
+      if (spenderEvent) {
+        this._applySpender(spenderEvent, -change, resource);
+      } else {
+        DEBUG &&
+          console.warn(
+            `Resource change @ ${this.owner.formatTimestamp(
+              event.timestamp,
+              1,
+            )} is not linked to a maelstrom spender`,
+            event,
+          );
+        // if there is no linked event, the stacks expired naturally or death
+        this._logAndPushUpdate(
+          {
+            type: 'drain',
+            timestamp: event.timestamp,
+            current: 0,
+            max: this.maxResource,
+            rate: 0,
+            atCap: false,
+          },
+          newStacks,
+          newStacks,
+          false,
+        );
+      }
     }
   }
 
   onRefresh(event: RefreshBuffEvent) {
-    if (this.nextRefreshIsWaste) {
-      this.nextRefreshIsWaste = false;
+    if (this.ignoreNextRefresh) {
+      this.ignoreNextRefresh = false;
       return;
     }
 
@@ -178,5 +251,3 @@ class MaelstromWeaponTracker extends ResourceTracker {
     };
   }
 }
-
-export default MaelstromWeaponTracker;

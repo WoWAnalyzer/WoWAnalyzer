@@ -1,6 +1,7 @@
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
+import SHADOWLANDS_SPELLS from 'common/SPELLS/shadowlands/others';
 import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
 import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
@@ -19,10 +20,25 @@ import Events, {
   Item,
 } from 'parser/core/Events';
 import EventEmitter from 'parser/core/modules/EventEmitter';
-import STAT from 'parser/shared/modules/features/STAT';
+import STAT, { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 
 import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { calculateSecondaryStatDefault } from 'parser/core/stats';
+
+/**
+ * Generates a {@link StatBuff} that defines a buff that gives the
+ * appropiate `PRIMARY_STAT` for the current spec.
+ */
+export function primaryStat(value: number): StatBuff {
+  return {
+    [PRIMARY_STAT.STRENGTH]: (selectedCombatant) =>
+      selectedCombatant.primaryStat === PRIMARY_STAT.STRENGTH ? value : 0,
+    [PRIMARY_STAT.AGILITY]: (selectedCombatant) =>
+      selectedCombatant.primaryStat === PRIMARY_STAT.AGILITY ? value : 0,
+    [PRIMARY_STAT.INTELLECT]: (selectedCombatant) =>
+      selectedCombatant.primaryStat === PRIMARY_STAT.INTELLECT ? value : 0,
+  };
+}
 
 const ARMOR_INT_BONUS = 0.05;
 
@@ -42,12 +58,14 @@ class StatTracker extends Analyzer {
   static DEFAULT_BUFFS: StatBuffsByGuid = {
     // region Potions
     // TODO: Figure out how to make this work with multiple ranks of potions
-    [SPELLS.ELEMENTAL_POTION_OF_POWER.id]: { strength: 502, agility: 502, intellect: 502 },
-    [SPELLS.ELEMENTAL_POTION_OF_ULTIMATE_POWER.id]: { strength: 670, agility: 670, intellect: 670 },
+    [SPELLS.ELEMENTAL_POTION_OF_POWER.id]: primaryStat(502),
+    [SPELLS.ELEMENTAL_POTION_OF_ULTIMATE_POWER.id]: primaryStat(670),
     // endregion
 
     // region Runes
-    [SPELLS.DRACONIC_AUGMENT_RUNE.id]: { strength: 87, agility: 87, intellect: 87 },
+    [SHADOWLANDS_SPELLS.VEILED_AUGMENT_RUNE.id]: primaryStat(18),
+    [SHADOWLANDS_SPELLS.ETERNAL_AUGMENT_RUNE.id]: primaryStat(18),
+    [SPELLS.DRACONIC_AUGMENT_RUNE.id]: primaryStat(87),
     // endregion
 
     //region Phials
@@ -62,7 +80,7 @@ class StatTracker extends Analyzer {
 
     //region Food
     // Both Hoard and Banquet share their food buff ID with Fated Fortune Cookie.
-    [SPELLS.FATED_FORTUNE_COOKIE.id]: { strength: 76, agility: 76, intellect: 76 },
+    [SPELLS.FATED_FORTUNE_COOKIE.id]: primaryStat(76),
     [SPELLS.BRAISED_BRUFFALON_BRISKET.id]: { stamina: 59, strength: 32 },
     [SPELLS.CHARRED_HORNSWOG_STEAKS.id]: { stamina: 39, strength: 22 },
     [SPELLS.RIVERSIDE_PICNIC.id]: { stamina: 59, agility: 32 },
@@ -100,11 +118,13 @@ class StatTracker extends Analyzer {
     // region Trinkets
     [SPELLS.UNSTABLE_FLAMES.id]: {
       itemId: ITEMS.VESSEL_OF_SEARING_SHADOW.id,
-      haste: (_, item) => calculateSecondaryStatDefault(415, 90, item.itemLevel),
+      haste: (selectedCombatant, item) =>
+        calculateSecondaryStatDefault(415, 90, item?.itemLevel ?? selectedCombatant.ilvl),
     },
     [SPELLS.SPOILS_OF_NELTHARUS_HASTE.id]: {
       itemId: ITEMS.SPOILS_OF_NELTHARUS.id,
-      haste: (_, item) => calculateSecondaryStatDefault(250, 547.57, item.itemLevel),
+      haste: (selectedCombatant, item) =>
+        calculateSecondaryStatDefault(250, 547.57, item?.itemLevel ?? selectedCombatant.ilvl),
     },
     // endregion
 
@@ -956,8 +976,10 @@ class StatTracker extends Analyzer {
             ' ...unable to handle stats buff, making no stat change.',
           );
         }
+        return 0;
       }
-      return 0;
+
+      return buffVal(selectedCombatant, null);
     } else {
       return buffVal; // is raw number
     }
@@ -1016,7 +1038,7 @@ export type PlayerMultipliers = Stats;
  * or as a dynamically generated value using the combatant and item
  * (typically an item buff will have power based on its ilvl)
  */
-export type BuffVal = number | ((s: Combatant, t: Item) => number);
+export type BuffVal = number | ((s: Combatant, t: Item | null) => number);
 
 /**
  * A buff that boosts player stats.

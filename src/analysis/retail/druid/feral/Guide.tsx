@@ -19,6 +19,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <ResourceUseSection modules={modules} events={events} info={info} />
       <CoreRotationSection modules={modules} events={events} info={info} />
+      <AdvancedRotationSection modules={modules} events={events} info={info} />
       <CooldownSection modules={modules} events={events} info={info} />
       <PreparationSection />
     </>
@@ -43,14 +44,11 @@ function ResourceUseSection({ modules, events, info }: GuideProps<typeof CombatL
       </SubSection>
       <SubSection title="Combo Points">
         <p>
-          <i>
-            Updated for patch 10.1: it is acceptable to use finishers at {ACCEPTABLE_CPS} CPs
-            regardless of talent setup. This is because the gain avoiding overcap from{' '}
-            <SpellLink spell={TALENTS_DRUID.PRIMAL_FURY_TALENT} /> outweighs the loss of weaker
-            spenders. However, during <SpellLink spell={cdSpell(info.combatant)} /> you should use{' '}
-            {ACCEPTABLE_BERSERK_CPS} because its new patch 10.1 behavior includes CP overcap
-            protection.
-          </i>
+          It is acceptable to use finishers at {ACCEPTABLE_CPS} CPs regardless of talent setup. This
+          is because the gain avoiding overcap from{' '}
+          <SpellLink spell={TALENTS_DRUID.PRIMAL_FURY_TALENT} /> outweighs the loss of weaker
+          spenders. However, during <SpellLink spell={cdSpell(info.combatant)} /> you should use{' '}
+          {ACCEPTABLE_BERSERK_CPS} because of its CP overcap protection.
         </p>
         <p>
           Most of your abilities either <strong>build</strong> or <strong>spend</strong> Combo
@@ -83,13 +81,33 @@ function CoreRotationSection({ modules, events, info }: GuideProps<typeof Combat
         >
           rotation details
         </a>
-        . See below for spell usage details.
+        .
+      </p>
+      <p>
+        Correct usage of <SpellLink spell={SPELLS.FEROCIOUS_BITE} />,{' '}
+        <SpellLink spell={SPELLS.RIP} />, and <SpellLink spell={SPELLS.RAKE} /> are the most
+        important factors for high single target damage.
+        <b> Master these before optimizing the items in the next section.</b>
+      </p>
+      {modules.ferociousBite.guideSubsection}
+      {modules.ripUptime.guideSubsection}
+      {modules.rakeUptime.guideSubsection}
+    </Section>
+  );
+}
+
+function AdvancedRotationSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
+  return (
+    <Section title="Advanced Rotation">
+      <p>
+        Talent choices add new buttons or ability order changes to your rotation. Using them
+        correctly will allow you to optimize your DPS. Make sure you have your core rotation down
+        before optimizing these.
       </p>
       {info.combatant.hasTalent(TALENTS_DRUID.BLOODTALONS_TALENT) &&
         modules.bloodtalons.guideSubsection}
-      {modules.ripUptime.guideSubsection}
-      {modules.ferociousBite.guideSubsection}
-      {modules.rakeUptime.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.SUDDEN_AMBUSH_TALENT) &&
+        modules.suddenAmbush.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.LUNAR_INSPIRATION_TALENT) &&
         modules.moonfireUptime.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.ADAPTIVE_SWARM_TALENT) &&

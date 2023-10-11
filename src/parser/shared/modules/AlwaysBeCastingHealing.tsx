@@ -80,7 +80,7 @@ class AlwaysBeCastingHealing extends CoreAlwaysBeCasting {
             See the timeline for details.
           </Trans>
         }
-        drilldown="timeline"
+        drilldown="../timeline"
       >
         <div className="pad">
           <label>

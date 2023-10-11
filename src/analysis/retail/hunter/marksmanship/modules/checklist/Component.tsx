@@ -2,7 +2,6 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_HUNTER } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import PreparationRule from 'parser/retail/modules/features/Checklist/PreparationRule';
-import AplRule, { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import Checklist from 'parser/shared/modules/features/Checklist';
 import {
   AbilityRequirementProps,
@@ -13,7 +12,7 @@ import Requirement from 'parser/shared/modules/features/Checklist/Requirement';
 import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import TalentCastEfficiencyRequirement from 'parser/shared/modules/features/Checklist/TalentCastEfficiencyRequirement';
 
-const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
+const MarksmanshipChecklist = (props: ChecklistProps) => {
   const { combatant, castEfficiency, thresholds } = props;
   const AbilityRequirement = (props: AbilityRequirementProps) => (
     <GenericCastEfficiencyRequirement
@@ -43,7 +42,7 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
           </>
         }
       >
-        <AbilityRequirement spell={SPELLS.AIMED_SHOT.id} />
+        <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.AIMED_SHOT_TALENT} />
         <AbilityRequirement spell={SPELLS.RAPID_FIRE.id} />
         <AbilityRequirement spell={SPELLS.TRUESHOT.id} />
         <TalentCastEfficiencyRequirement talent={TALENTS_HUNTER.KILL_SHOT_SHARED_TALENT} />
@@ -155,7 +154,6 @@ const MarksmanshipChecklist = (props: ChecklistProps & AplRuleProps) => {
         />
       </Rule>
 
-      <AplRule {...props} name="APL checker (beta)" cooldowns={[TALENTS_HUNTER.TRUESHOT_TALENT]} />
       <PreparationRule thresholds={thresholds} />
     </Checklist>
   );

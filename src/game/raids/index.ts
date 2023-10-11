@@ -48,12 +48,11 @@ const raids = {
   MythicPlusSeasonTwo: require('./mythicplusseasontwo').default,
   VaultOfTheIncarnates: require('./vaultoftheincarnates').default, // tier 29
   Aberrus: require('./aberrus').default, // tier 30
-  // The Burning Cursage
-  GruulsLair: require('./gruulslair').default, // tier 4
-  MagtheridonsLair: require('./magtheridonslair').default, // tier 4
+  Amirdrassil: require('./amirdrassil').default, // tier 31
   // Wrath of the Lich King (Classic)
   Ulduar: require('./ulduar').default, // tier 8
   TrialOfTheGrandCrusader: require('./trialofthegrandcrusader').default, // tier 9
+  IcecrownCitadel: require('./icc').default, // tier 10
 };
 export default raids;
 

@@ -11,6 +11,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { failedEbonMightExtention } from '../normalizers/CastLinkNormalizer';
+import './SandsOfTime.scss';
 
 /**
  * Sands of time is an innate ability for Augmentation.
@@ -146,9 +147,9 @@ class SandsOfTime extends Analyzer {
         castBreakdownSmallText={
           <>
             {' '}
-            - Green is a good cast where you extended you{' '}
-            <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> window, Red is a bad cast where you
-            didn't extend.
+            - <span className="goodCast">Green</span> is a good cast where you extended you{' '}
+            <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> window,{' '}
+            <span className="badCast">red</span> is a bad cast where you didn't extend.
           </>
         }
         onPerformanceBoxClick={logSpellUseEvent}

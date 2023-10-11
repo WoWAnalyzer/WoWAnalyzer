@@ -1,10 +1,10 @@
-import { maybeGetSpell } from 'common/SPELLS';
 import Combatant from 'parser/core/Combatant';
 import CombatLogParser from 'parser/core/CombatLogParser';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import { TrackedAbility } from 'parser/shared/modules/AbilityTracker';
 import * as React from 'react';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 import Abilities from './Abilities';
 import { MessageDescriptor } from '@lingui/core';
@@ -147,10 +147,6 @@ export interface SpellbookAbility<TrackedAbilityType extends TrackedAbility = Tr
    */
   damageSpellIds?: number[];
   /**
-   * The spell ID that'll forcibly shown on the timeline if set.
-   */
-  shownSpell?: number;
-  /**
    * The spell's range.
    */
   range?: number;
@@ -175,7 +171,7 @@ class Ability {
     if (this._name) {
       return this._name;
     }
-    return maybeGetSpell(this.primarySpell)?.name;
+    return maybeGetTalentOrSpell(this.primarySpell)?.name;
   }
   set name(value) {
     this._name = value;
@@ -244,7 +240,6 @@ class Ability {
   timelineCastableBuff: number | undefined;
   /** @deprecated Use the Buffs module to define your buffs instead. If your spec has no Buffs module, this prop will be used to prefill it. */
   buffSpellId: number | number[] | null = null;
-  shownSpell = null;
 
   readonly range?: number;
 
