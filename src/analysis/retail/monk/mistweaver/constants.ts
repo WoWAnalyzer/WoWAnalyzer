@@ -63,6 +63,7 @@ export const ATTRIBUTION_STRINGS = {
     RD_SOURCE_RSK: 'Rapid Diffusion Source - Rising Sun Kick',
     RD_SOURCE_ENV: 'Rapid Diffusion Source - Enveloping Mist',
   },
+  CELESTIAL: 'Hardcast During Celestial',
 };
 
 export const SECRET_INFUSION_BUFFS = [

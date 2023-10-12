@@ -34,7 +34,7 @@ export enum BUILT_IN_SUMMARY_TYPES {
   DAMAGE = 'DAMAGE',
 }
 
-type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
+export type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
 export type SummaryDef = {
   label: string;

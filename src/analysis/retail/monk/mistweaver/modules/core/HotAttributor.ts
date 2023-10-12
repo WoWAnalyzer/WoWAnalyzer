@@ -64,6 +64,7 @@ class HotAttributor extends Analyzer {
     ATTRIBUTION_STRINGS.RAPID_DIFFUSION_SOURCES.RD_SOURCE_ENV,
   );
   EFAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.HARDCAST_ESSENCE_FONT);
+  CelestialAttrib = HotTracker.getNewAttribution(ATTRIBUTION_STRINGS.CELESTIAL);
 
   constructor(options: Options) {
     super(options);
@@ -151,6 +152,9 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.MistsOfLifeAttrib, event);
     } else if (event.prepull || isFromHardcast(event)) {
       this.hotTracker.addAttributionFromApply(this.envMistHardcastAttrib, event);
+      if (this._celestialActive()) {
+        this.hotTracker.addAttributionFromApply(this.CelestialAttrib, event);
+      }
       debug &&
         console.log(
           'Attributed Enveloping Mist hardcast at ' +
@@ -282,6 +286,11 @@ class HotAttributor extends Analyzer {
         } else if (this.hotTracker.fromMistsOfLife(sourceHot)) {
           this.hotTracker.addAttributionFromApply(this.dmSourceMoLAttrib, event);
         }
+
+        if (this.hotTracker.fromCelestial(sourceHot)) {
+          this.hotTracker.addAttributionFromApply(this.CelestialAttrib, event);
+        }
+
         dmHot.healingAfterOriginalEnd = 0;
         dmHot.maxDuration = sourceHot.maxDuration;
         dmHot.end = sourceHot.end;
@@ -299,11 +308,21 @@ class HotAttributor extends Analyzer {
       this.hotTracker.addAttributionFromApply(this.rdSourceRSKAttrib, event);
     } else if (isFromRapidDiffusionEnvelopingMist(event)) {
       this.hotTracker.addAttributionFromApply(this.rdSourceENVAttrib, event);
+      if (this._celestialActive()) {
+        this.hotTracker.addAttributionFromApply(this.CelestialAttrib, event);
+      }
     }
     hot.maxDuration = this.hotTracker._getRapidDiffusionMaxDuration(this.selectedCombatant);
     hot.end = hot.originalEnd =
       event.timestamp + Number(this.hotTracker._getRapidDiffusionDuration(this.selectedCombatant));
     rdDebug && this._newReMAttributionLogging(event, this.rapidDiffusionAttrib);
+  }
+
+  private _celestialActive() {
+    return (
+      this.selectedCombatant.hasBuff(TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id) ||
+      this.selectedCombatant.hasBuff(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id)
+    );
   }
 }
 
