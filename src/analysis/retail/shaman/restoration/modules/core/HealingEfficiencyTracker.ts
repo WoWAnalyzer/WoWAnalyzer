@@ -62,7 +62,7 @@ class HealingEfficiencyTracker extends CoreHealingEfficiencyTracker {
       this.getHealingWaveDetails(spellInfo);
     } else if (spellId === TALENTS.RIPTIDE_TALENT.id) {
       this.getRiptideDetails(spellInfo);
-    } else if (spellId === TALENTS.PRIMORDIAL_WAVE_TALENT.id) {
+    } else if (spellId === TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id) {
       this.getPrimordialWaveDetails(spellInfo);
     }
 
