@@ -211,14 +211,6 @@ const talents = {
     entryIds: [117762],
     definitionIds: [{ id: 122774, specId: 581 }],
   },
-  CONCENTRATED_SIGILS_TALENT: {
-    id: 207666,
-    name: 'Concentrated Sigils',
-    icon: 'ability_bossfelorcs_necromancer_red',
-    maxRanks: 1,
-    entryIds: [112856],
-    definitionIds: [{ id: 117861, specId: 581 }],
-  },
   CONSUME_MAGIC_TALENT: {
     id: 278326,
     name: 'Consume Magic',
@@ -780,8 +772,8 @@ const talents = {
     name: 'Precise Sigils',
     icon: 'ability_bossfelorcs_necromancer_orange',
     maxRanks: 1,
-    entryIds: [112855],
-    definitionIds: [{ id: 117860, specId: 581 }],
+    entryIds: [117771],
+    definitionIds: [{ id: 122783, specId: 581 }],
   },
   PURSUIT_TALENT: {
     id: 320654,
