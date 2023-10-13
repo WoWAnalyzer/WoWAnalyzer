@@ -1,6 +1,4 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/demonhunter';
-import TALENTS from 'common/TALENTS/demonhunter';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import Events, { CastEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
@@ -15,19 +13,14 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { getSigilOfFlameDamages } from 'analysis/retail/demonhunter/shared/normalizers/SigilOfFlameNormalizer';
 import Spell from 'common/SPELLS/Spell';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { getSigilOfFlameSpell } from 'analysis/retail/demonhunter/shared/constants';
 
 export default class SigilOfFlame extends Analyzer {
   private cooldownUses: SpellUse[] = [];
   private readonly spell: Spell;
   constructor(options: Options) {
     super(options);
-    if (this.selectedCombatant.hasTalent(TALENTS.CONCENTRATED_SIGILS_TALENT)) {
-      this.spell = SPELLS.SIGIL_OF_FLAME_CONCENTRATED;
-    } else if (this.selectedCombatant.hasTalent(TALENTS.PRECISE_SIGILS_TALENT)) {
-      this.spell = SPELLS.SIGIL_OF_FLAME_PRECISE;
-    } else {
-      this.spell = SPELLS.SIGIL_OF_FLAME;
-    }
+    this.spell = getSigilOfFlameSpell(this.selectedCombatant);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.spell), this.onCast);
   }
 
