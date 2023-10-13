@@ -706,6 +706,10 @@ export function isFromTAEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEven
   return HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
 }
 
+export function isEchoFromT314PC(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
+  return !isFromHardcastEcho(event) && !isFromTAEcho(event);
+}
+
 export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
   if (HasRelatedEvent(event, LIVING_FLAME_CALL_OF_YSERA)) {
     return false;

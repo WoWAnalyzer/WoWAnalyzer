@@ -23,6 +23,7 @@ import {
   ECHO_TYPE,
   getEchoTypeForGoldenHour,
   getEchoTypeForLifebind,
+  isEchoFromT314PC,
   isFromHardcastEcho,
   isFromTAEcho,
 } from '../../normalizers/CastLinkNormalizer';
@@ -93,7 +94,7 @@ class Echo extends Analyzer {
       const hot = this.hotTracker.hots[targetID][spellID];
       return this.hotTracker.fromEchoHardcast(hot) || this.hotTracker.fromEchoTA(hot);
     }
-    return isFromHardcastEcho(event) || isFromTAEcho(event);
+    return isFromHardcastEcho(event) || isFromTAEcho(event) || isEchoFromT314PC(event);
   }
 
   isFromTaEcho(event: HealEvent) {
