@@ -99,6 +99,16 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_HARDCAST,
     reverseLinkRelation: HIT_TARGET,
+    linkingEventId: SPELLS.SHRED.id,
+    linkingEventType: EventType.Damage,
+    referencedEventId: SPELLS.SHRED.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: AFTER_CAST_BUFFER_MS,
+  },
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: HIT_TARGET,
     linkingEventId: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,
     linkingEventType: EventType.Damage,
     referencedEventId: TALENTS_DRUID.BRUTAL_SLASH_TALENT.id,

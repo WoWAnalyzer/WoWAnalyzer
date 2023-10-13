@@ -1,9 +1,9 @@
 import { captureException } from 'common/errorLogger';
-import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { EventType } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
 import Abilities from 'parser/core/modules/Abilities';
 import Buffs from 'parser/core/modules/Auras';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 import ApplyBuff from './ApplyBuff';
 
@@ -232,7 +232,7 @@ class PrePullCooldowns extends EventsNormalizer {
       if (castId instanceof Array) {
         castId = castId[0];
       }
-      const spell = maybeGetSpell(castId);
+      const spell = maybeGetTalentOrSpell(castId);
       ability = {
         ...ability,
         guid: castId,

@@ -1,6 +1,7 @@
 import { maybeGetSpell, registerSpell } from 'common/SPELLS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events, { Ability, AnyEvent } from 'parser/core/Events';
+import { maybeGetTalent } from 'common/TALENTS/maybeGetTalent';
 
 /**
  * We automatically discover spell info from the combat log so we can avoid many
@@ -22,11 +23,19 @@ class SpellInfo extends Analyzer {
   }
 
   addSpellInfo(ability: Omit<Ability, 'type'>) {
+    // If the spell is already in the spellbook, we ignore it
     if (maybeGetSpell(ability.guid) || !ability.name || !ability.abilityIcon) {
       return;
     }
 
-    registerSpell(ability.guid, ability.name, ability.abilityIcon.replace(/\.jpg$/, ''));
+    // If the spell is a talent, we want to use the talent version instead of whatever
+    // is logged by the game, because it can be misleading
+    const talent = maybeGetTalent(ability.guid);
+    registerSpell(
+      ability.guid,
+      talent?.name ?? ability.name,
+      (talent?.icon ?? ability.abilityIcon).replace(/\.jpg$/, ''),
+    );
   }
 }
 
