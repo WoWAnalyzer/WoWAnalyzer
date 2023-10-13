@@ -32,9 +32,6 @@ export const DEMONIC_ORIGINS_CDR_SCALING = [0, 60];
 export const DEMONIC_DURATION = 6000;
 
 export function getSigilOfFlameSpell(c: Combatant): Spell {
-  if (c.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)) {
-    return SPELLS.SIGIL_OF_FLAME_CONCENTRATED;
-  }
   if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
     return SPELLS.SIGIL_OF_FLAME_PRECISE;
   }
@@ -42,9 +39,6 @@ export function getSigilOfFlameSpell(c: Combatant): Spell {
 }
 
 export function getSigilOfMiserySpell(c: Combatant): Spell {
-  if (c.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)) {
-    return SPELLS.SIGIL_OF_MISERY_CONCENTRATED;
-  }
   if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
     return SPELLS.SIGIL_OF_MISERY_PRECISE;
   }
@@ -52,9 +46,6 @@ export function getSigilOfMiserySpell(c: Combatant): Spell {
 }
 
 export function getElysianDecreeSpell(c: Combatant): Spell {
-  if (c.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)) {
-    return SPELLS.ELYSIAN_DECREE_CONCENTRATED;
-  }
   if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
     return SPELLS.ELYSIAN_DECREE_PRECISE;
   }
@@ -62,9 +53,6 @@ export function getElysianDecreeSpell(c: Combatant): Spell {
 }
 
 export function getSigilOfSilenceSpell(c: Combatant): Spell {
-  if (c.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)) {
-    return SPELLS.SIGIL_OF_SILENCE_CONCENTRATED;
-  }
   if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
     return SPELLS.SIGIL_OF_SILENCE_PRECISE;
   }
@@ -72,9 +60,6 @@ export function getSigilOfSilenceSpell(c: Combatant): Spell {
 }
 
 export function getSigilOfChainsSpell(c: Combatant): Spell {
-  if (c.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)) {
-    return SPELLS.SIGIL_OF_CHAINS_CONCENTRATED;
-  }
   if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
     return SPELLS.SIGIL_OF_CHAINS_PRECISE;
   }
