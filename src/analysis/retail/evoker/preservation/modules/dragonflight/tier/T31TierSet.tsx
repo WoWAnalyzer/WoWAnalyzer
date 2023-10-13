@@ -17,6 +17,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import {
   getEssenceBurstConsumeAbility,
   isEbFromT31Tier,
+  isEchoFromT314PC,
 } from '../../../normalizers/CastLinkNormalizer';
 import { ESSENCE_COSTS } from '../../talents/EssenceBurst';
 import { MANA_COSTS } from '../../talents/EssenceBurst';
@@ -25,7 +26,12 @@ import { SpellLink, TooltipElement } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
+import { TIERS } from 'game/TIERS';
+import Echo from '../../talents/Echo';
+import { ECHO_HEALS } from '../../../constants';
+
 class T31PrevokerSet extends Analyzer {
+  static dependencies = { echo: Echo };
   has4Piece: boolean = false;
   hotHealing: number = 0;
   hotOverhealing: number = 0;
@@ -39,10 +45,13 @@ class T31PrevokerSet extends Analyzer {
   lfHealing: number = 0;
   lfDamage: number = 0;
   lfDamageHits: number = 0;
+  echoProcs: number = 0;
+  echoHealing: number = 0;
+  protected echo!: Echo;
 
   constructor(options: Options) {
     super(options);
-    //this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
       this.onEbProc,
@@ -63,6 +72,7 @@ class T31PrevokerSet extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_HEAL),
       this.onLfHit,
     );
+    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.onEchoHeal);
   }
 
   onLfHit(event: DamageEvent | HealEvent) {
@@ -94,6 +104,12 @@ class T31PrevokerSet extends Analyzer {
       return;
     }
     this.wastedEb += 1;
+  }
+
+  onEchoHeal(event: HealEvent) {
+    if (!isEchoFromT314PC(event)) {
+      return;
+    }
   }
 
   get totalHealing() {
@@ -159,6 +175,10 @@ class T31PrevokerSet extends Analyzer {
                 </TooltipElement>
               </div>
             </div>
+          </>
+          <h4>4 pc</h4>
+          <>
+            <ItemHealingDone amount={this.echoHealing} />
           </>
         </BoringValueText>
       </Statistic>
