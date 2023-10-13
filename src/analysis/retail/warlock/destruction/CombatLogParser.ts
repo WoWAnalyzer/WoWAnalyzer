@@ -24,7 +24,6 @@ import FireAndBrimstone from './modules/talents/FireAndBrimstone';
 import Flashover from './modules/talents/Flashover';
 import Inferno from './modules/talents/Inferno';
 import InternalCombustion from './modules/talents/InternalCombustion';
-import MadnessOfAzhaqir from './modules/talents/MadnessOfAzhaqir';
 import ReverseEntropy from './modules/talents/ReverseEntropy';
 import RoaringBlaze from './modules/talents/RoaringBlaze';
 import RollingHavoc from './modules/talents/RollingHavoc';
@@ -72,7 +71,6 @@ class CombatLogParser extends CoreCombatLogParser {
     soulConduit: SoulConduit,
     channelDemonfire: ChannelDemonfire,
     rollingHavoc: RollingHavoc,
-    madnessOfAzhaqir: MadnessOfAzhaqir,
     flashPoint: FlashPoint,
     burnToAshes: BurnToAshes,
     callToDominance: CallToDominance,
