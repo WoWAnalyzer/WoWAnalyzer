@@ -481,6 +481,18 @@ const spells = {
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
   },
+  // proc from Resto Druid T31 2pc when Treant Nourish was the triggering spell
+  T31_TREANT_CLEAVE_NOURISH: {
+    id: 423612,
+    name: 'Nourish',
+    icon: 'ability_druid_nourish',
+  },
+  // proc from Resto Druid T31 2pc when Hardcast (or 4pc proc) Nourish was the triggering spell
+  T31_CAST_CLEAVE_NOURISH: {
+    id: 423618,
+    name: 'Nourish',
+    icon: 'ability_druid_nourish',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // GUARDIAN / BEAR
