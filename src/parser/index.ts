@@ -48,6 +48,7 @@ import ClassicMageArcane from 'analysis/classic/mage/arcane';
 import ClassicMageFire from 'analysis/classic/mage/fire';
 import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
 import ClassicPaladinRetribution from 'analysis/classic/paladin/retribution';
+import ClassicPriestDiscipline from 'analysis/classic/priest/discipline';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
 import ClassicRogueAssassination from 'analysis/classic/rogue/assassination';
 import ClassicShamanEnhancement from 'analysis/classic/shaman/enhancement';
@@ -127,6 +128,7 @@ const configs: Config[] = [
   ClassicPaladinHoly,
   ClassicPaladinRetribution,
 
+  ClassicPriestDiscipline,
   ClassicPriestShadow,
 
   ClassicRogueAssassination,

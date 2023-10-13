@@ -154,6 +154,13 @@ abstract class Snapshots extends Analyzer {
     return this.snapshotsByTarget[targetString];
   }
 
+  /** Gets the latest DotUptime information for the target of the given event,
+   *  or undefined if the DoT isn't up on the target */
+  getLatestUptimeForTarget(event: TargettedEvent<any>): DotUptime | undefined {
+    const uptimes = this.getUptimesForTarget(event);
+    return uptimes.length > 0 ? uptimes[uptimes.length - 1] : undefined;
+  }
+
   _startDot(event: ApplyDebuffEvent | RefreshDebuffEvent, previousUptime?: DotUptime) {
     const uptimes = this.getUptimesForTarget(event);
 
@@ -198,9 +205,8 @@ abstract class Snapshots extends Analyzer {
   }
 
   _finishDot(event: RemoveDebuffEvent | RefreshDebuffEvent): DotUptime | undefined {
-    const uptimes = this.getUptimesForTarget(event);
-    if (uptimes.length > 0) {
-      const latestUptime = uptimes[uptimes.length - 1];
+    const latestUptime = this.getLatestUptimeForTarget(event);
+    if (latestUptime) {
       latestUptime.end = event.timestamp;
       return latestUptime;
     } else {
@@ -245,13 +251,8 @@ abstract class Snapshots extends Analyzer {
 
   /** Gets the time remaining on the DoT active on the given event's target at the time of the event (zero if DoT isn't active) */
   getTimeRemaining(event: TargettedEvent<any>): number {
-    const uptimes = this.getUptimesForTarget(event);
-    if (uptimes.length > 0) {
-      const latestUptime = uptimes[uptimes.length - 1];
-      return Math.max(0, latestUptime.expectedEnd - event.timestamp);
-    } else {
-      return 0;
-    }
+    const latestUptime = this.getLatestUptimeForTarget(event);
+    return latestUptime ? Math.max(0, latestUptime.expectedEnd - event.timestamp) : 0;
   }
 
   get percentWithBloodtalons() {

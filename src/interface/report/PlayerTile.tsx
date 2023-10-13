@@ -18,7 +18,7 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 import { makeThumbnailUrl } from 'interface/makeAnalyzerUrl';
 import { useLingui } from '@lingui/react';
 import { Spec } from 'game/SPECS';
-import { isFightDungeon } from 'common/isFightDungeon';
+import { isMythicPlus } from 'common/isMythicPlus';
 import { useFight } from 'interface/report/context/FightContext';
 
 interface BlockLoadingProps {
@@ -153,7 +153,7 @@ const PlayerTile = ({ player, makeUrl, anyAugmentationEvokers, config }: PlayerT
       />
     );
   }
-  if (anyAugmentationEvokers && isFightDungeon(fight)) {
+  if (anyAugmentationEvokers && isMythicPlus(fight)) {
     return (
       <BlockLoading message="M+ logs containing Augmentation Evoker are currently not supported due to issues with retrieving the appropriate data for analysis. Augmentation is still supported for raid and we hope to re-enable it for M+ soon.">
         <PlayerTileContents avatar={avatar} player={player} spec={spec} />

@@ -8,4 +8,6 @@ export enum TIERS {
   T29,
   // Aberrus
   T30,
+  // Amirdrassil
+  T31,
 }

@@ -20,7 +20,7 @@ import ExplanationGraph, {
 } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
-import { isFightDungeon } from 'common/isFightDungeon';
+import { isMythicPlus } from 'common/isMythicPlus';
 
 const { DISINTEGRATE } = SPELLS;
 
@@ -378,7 +378,7 @@ class Disintegrate extends Analyzer {
     /** If we are in a dungeon we only want to show the graph for bosses
      * So we split it up into multigraphs.
      */
-    if (isFightDungeon(this.owner.fight)) {
+    if (isMythicPlus(this.owner.fight)) {
       this.owner.fight.dungeonPulls?.forEach((dungeonPull) => {
         if (dungeonPull.boss) {
           const newGraphData = generateGraphData(
