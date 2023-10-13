@@ -12,12 +12,12 @@ import Events, {
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import DisintegratePlot, {
+import ExplanationGraph, {
   GraphData,
   DataSeries,
   SpellTracker,
   generateGraphData,
-} from './DisintegrateGraph';
+} from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
 import { isMythicPlus } from 'common/isMythicPlus';
@@ -341,31 +341,37 @@ class Disintegrate extends Analyzer {
         spellTracker: this.dragonrageBuffCounter,
         type: 'area',
         color: '#CCCCCC',
+        label: 'Dragonrage',
       },
       {
         spellTracker: this.disintegrateTicksCounter,
         type: 'line',
         color: '#4C78A8',
+        label: 'Disintegrate Ticks',
       },
       {
         spellTracker: this.disintegrateCasts,
         type: 'point',
         color: '#2ecc71',
+        label: 'Disintegrate Casts',
       },
       {
         spellTracker: this.disintegrateChainCasts,
         type: 'point',
         color: 'orange',
+        label: 'Disintegrate Chain Casts',
       },
       {
         spellTracker: this.disintegrateClips,
         type: 'point',
         color: '#9b59b6',
+        label: 'Disintegrate Clips',
       },
       {
         spellTracker: this.problemPoints,
         type: 'point',
         color: 'red',
+        label: 'Problem Points',
       },
     ];
 
@@ -426,10 +432,11 @@ class Disintegrate extends Analyzer {
           </ul>
           Mouseover each point for more detailed explanations.
         </div>
-        <DisintegratePlot
+        <ExplanationGraph
           fightStartTime={this.owner.fight.start_time}
           fightEndTime={this.owner.fight.end_time}
           graphData={this.graphData}
+          yAxisName="Ticks"
         />
       </SubSection>
     );

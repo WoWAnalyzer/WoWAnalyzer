@@ -9,10 +9,11 @@ import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import { isMythicPlus } from 'common/isMythicPlus';
-import './BuffTargetHelper.scss';
+import '../../Styling.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
-import LazyLoadGuideSection from './LazyLoadGuideSection';
+import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
+import { ABILITY_BLACKLIST } from '../../../constants';
 
 /**
  * @key ClassName
@@ -33,38 +34,6 @@ const mrtColorMap: Map<string, string> = new Map([
   ['DemonHunter', '|cffa330c9'],
   ['Evoker', '|cff33937f'],
 ]);
-
-/** SpellIds to blacklist, ie. trinkets that doesnt add contribution */
-const blacklist: number[] = [
-  402583, // Beacon
-  408682, // Dragonfire Bomb Dispenser
-  401324, // Pocket Anvil (Echoed Flare)
-  401306, // Pocket Anvil (Anvil Strike)
-  401422, // Vessel of Searing Shadow (Shadow Spike)
-  401428, // Vessel of Searing Shadow (Ravenous Shadowflame)
-  418774, // Mirror of Fractured Tomorrows ()
-  418588, // Mirror of Fractured Tomorrows (Sand Cleave)
-  419591, // Mirror of Fractured Tomorrows (Auto Attack)
-  418607, // Mirror of Fractured Tomorrows (Sand Bolt)
-  406251, // Roiling Shadowflame
-  400223, // Thorns of Iron
-  322109, // Touch of Death
-  124280, // Touch of Karma
-  184689, // Shield of Vengeance
-  379403, // Toxic Thorn Footwraps (Launched Thorns)
-  408791, // Ashkandur, Fall of the Brotherhood
-  378426, // Slimy Expulsion Boots boots (Corrosive Slime)
-  381006, // Acidic Hailstone Treads (Deep Chill)
-  381700, // Forgestorm (Forgestorm Ignited)
-  406764, // Shadowflame Wreathe
-  394453, // Broodkeeper's Blaze
-  370794, // Unstable Frostfire Belt (Lingering Frostspark)
-  408836, // Djaruun, Pillar of the Elder Flame
-  408815, // Djaruun, Pillar of the Elder Flame
-  381475, // Erupting Spear Fragment
-  281721, // Bile-Stained Crawg Tusks (Vile Bile)
-  214397, // Mark of Dargrul (Landslide)
-];
 
 /**
  * So managing your buffs is essentially what Augmentation boils down to.
@@ -145,7 +114,7 @@ class BuffTargetHelper extends Analyzer {
       .map((name) => `source.name="${name}" OR source.owner.name="${name}"`)
       .join(' OR ');
 
-    const abilityFilter = blacklist.map((id) => `ability.id=${id}`).join(' OR ');
+    const abilityFilter = ABILITY_BLACKLIST.map((id) => `ability.id=${id}`).join(' OR ');
 
     const filter = `not(${abilityFilter}) AND (${nameFilter})`;
 
@@ -448,7 +417,6 @@ class BuffTargetHelper extends Analyzer {
             <LazyLoadGuideSection
               loader={this.loadInterval.bind(this)}
               value={this.findTopPumpers.bind(this)}
-              className="button"
             />
           </div>
         </div>
