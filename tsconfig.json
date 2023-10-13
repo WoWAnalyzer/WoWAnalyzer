@@ -33,8 +33,7 @@
     "src/analysis/retail/shaman/elemental",
     "src/analysis/retail/shaman/enhancement",
     "src/analysis/retail/shaman/restoration",
-    "src/analysis/retail/shaman/shared",
-    "src/analysis/retail/warlock/destruction"
+    "src/analysis/retail/shaman/shared"
   ],
   "files": [
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
@@ -49,8 +48,7 @@
     "src/analysis/retail/priest/shadow/CONFIG.tsx",
     "src/analysis/retail/shaman/elemental/CONFIG.tsx",
     "src/analysis/retail/shaman/enhancement/CONFIG.tsx",
-    "src/analysis/retail/shaman/restoration/CONFIG.tsx",
-    "src/analysis/retail/warlock/destruction/CONFIG.tsx"
+    "src/analysis/retail/shaman/restoration/CONFIG.tsx"
   ],
   "ts-node": {
     // these options are overrides used only by ts-node
