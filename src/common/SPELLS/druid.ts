@@ -1201,6 +1201,12 @@ const spells = {
     name: 'Sharpened Claws',
     icon: 'inv_misc_monsterfang_01',
   },
+  // Buff procced by T31 2pc
+  SMOLDERING_FRENZY: {
+    id: 422751,
+    name: 'Smoldering Frenzy',
+    icon: 'inv_staff_99',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
