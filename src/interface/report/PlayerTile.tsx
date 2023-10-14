@@ -18,8 +18,8 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 import { makeThumbnailUrl } from 'interface/makeAnalyzerUrl';
 import { useLingui } from '@lingui/react';
 import SPECS, { Spec } from 'game/SPECS';
-import { isFightDungeon } from 'common/isFightDungeon';
 import { useFight } from 'interface/report/context/FightContext';
+import { isMythicPlus } from 'common/isMythicPlus';
 
 interface BlockLoadingProps {
   children: ReactNode;
@@ -157,7 +157,7 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
       />
     );
   }
-  if (isFightDungeon(fight) && isSpecDisabledInDungeons(spec)) {
+  if (isMythicPlus(fight) && isSpecDisabledInDungeons(spec)) {
     return (
       <BlockLoading message="This spec is currently disabled in M+ due to the large number of events generated causing performance problems.">
         <PlayerTileContents avatar={avatar} player={player} spec={spec} />
