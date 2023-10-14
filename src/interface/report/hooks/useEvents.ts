@@ -30,9 +30,8 @@ const useEvents = ({
 
   useEffect(() => {
     let cancelled = false;
-    const loadPage = async (startTime: number, endTime: number) => {
-      return await fetchEvents(report.code, startTime, endTime, player.id);
-    };
+    const loadPage = (startTime: number, endTime: number) =>
+      fetchEvents(report.code, startTime, endTime, player.id);
 
     const load = async () => {
       if (fight.end_time - fight.start_time < FORCE_PAGES_SIZE) {
