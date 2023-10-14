@@ -17,7 +17,7 @@ import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { makeThumbnailUrl } from 'interface/makeAnalyzerUrl';
 import { useLingui } from '@lingui/react';
-import { Spec } from 'game/SPECS';
+import SPECS, { Spec } from 'game/SPECS';
 import { isFightDungeon } from 'common/isFightDungeon';
 import { useFight } from 'interface/report/context/FightContext';
 
@@ -93,11 +93,15 @@ const PlayerTileContents = ({ avatar, player, spec }: PlayerTileContentsProps) =
 interface PlayerTileProps {
   player: Player;
   makeUrl: (playerId: number, build?: string) => string;
-  anyAugmentationEvokers?: boolean;
   config?: Config;
 }
 
-const PlayerTile = ({ player, makeUrl, anyAugmentationEvokers, config }: PlayerTileProps) => {
+// specs with performance issues during analysis. the "can i load this on my underpowered laptop" test is how things end up here.
+function isSpecDisabledInDungeons(spec: Spec): boolean {
+  return spec.id === SPECS.FIRE_MAGE.id;
+}
+
+const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
   const classic = player.combatant.expansion === CLASSIC_EXPANSION_NAME;
   const characterInfo = useWaSelector((state) => getCharacterById(state, player.guid));
   const dispatch = useWaDispatch();
@@ -153,9 +157,9 @@ const PlayerTile = ({ player, makeUrl, anyAugmentationEvokers, config }: PlayerT
       />
     );
   }
-  if (anyAugmentationEvokers && isFightDungeon(fight)) {
+  if (isFightDungeon(fight) && isSpecDisabledInDungeons(spec)) {
     return (
-      <BlockLoading message="M+ logs containing Augmentation Evoker are currently not supported due to issues with retrieving the appropriate data for analysis. Augmentation is still supported for raid and we hope to re-enable it for M+ soon.">
+      <BlockLoading message="This spec is currently disabled in M+ due to the large number of events generated causing performance problems.">
         <PlayerTileContents avatar={avatar} player={player} spec={spec} />
       </BlockLoading>
     );
