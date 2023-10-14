@@ -41,12 +41,7 @@ class FeelTheBurn extends Analyzer {
     return maxStackDurations;
   };
 
-  private cachedCombustionTimestamps?: { start: number; end: number }[];
-
   combustionTimestamps = () => {
-    if (this.cachedCombustionTimestamps) {
-      return this.cachedCombustionTimestamps;
-    }
     const combustionDurations: { start: number; end: number }[] = [];
     const combustionStarts = this.eventHistory.getEvents(EventType.ApplyBuff, {
       spell: TALENTS.COMBUSTION_TALENT,
@@ -65,8 +60,6 @@ class FeelTheBurn extends Analyzer {
       };
       index += 1;
     });
-
-    this.cachedCombustionTimestamps = combustionDurations;
     return combustionDurations;
   };
 
@@ -83,14 +76,14 @@ class FeelTheBurn extends Analyzer {
       //If Combustion started while Feel the Burn was at max stacks
       //Count duration from Combustion Start until Combustion End or Feel the Burn End, whichever is sooner.
       if (this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end)) {
-        const combustions = this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0 };
+        const combustions = this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0};
         combustions.forEach(c => duration += Math.min(c.end, s.end) - c.start);
       }
 
       //If Combustion was already running when Feel the Burn reached max stacks
       //Count duration from Feel the Burn Start until Combustion End or Feel the Burn End, whichever is sooner
       if (this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end)) {
-        const combustions = this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0 };
+        const combustions = this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0};
         combustions.forEach(c => duration += Math.min(c.end, s.end) - s.start);
       }
     })
