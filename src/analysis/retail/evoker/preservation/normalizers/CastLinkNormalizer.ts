@@ -10,6 +10,7 @@ import {
   CastEvent,
   EmpowerEndEvent,
   EventType,
+  GetRelatedEvent,
   GetRelatedEvents,
   HasRelatedEvent,
   HealEvent,
@@ -711,10 +712,7 @@ export function isFromHardcast(event: ApplyBuffEvent) {
 export function getEssenceBurstConsumeAbility(
   event: RemoveBuffEvent | RemoveBuffStackEvent,
 ): null | CastEvent {
-  if (!HasRelatedEvent(event, ESSENCE_BURST_CONSUME)) {
-    return null;
-  }
-  return GetRelatedEvents(event, ESSENCE_BURST_CONSUME)[0] as CastEvent;
+  return GetRelatedEvent<CastEvent>(event, ESSENCE_BURST_CONSUME) ?? null;
 }
 
 export function getHealForLifebindHeal(event: HealEvent): HealEvent | null {
@@ -722,18 +720,18 @@ export function getHealForLifebindHeal(event: HealEvent): HealEvent | null {
     event.__modified = false;
     return null;
   }
-  return GetRelatedEvents(event, LIFEBIND_HEAL)[0] as HealEvent;
+  return GetRelatedEvent<HealEvent>(event, LIFEBIND_HEAL)!;
 }
 
 export function getEchoTypeForLifebind(event: HealEvent): ECHO_TYPE {
   if (!HasRelatedEvent(event, LIFEBIND) || event.targetID === event.sourceID) {
     return ECHO_TYPE.NONE;
   }
-  const lifebindApplyEvent = GetRelatedEvents(event, LIFEBIND)[0] as ApplyBuffEvent;
+  const lifebindApplyEvent: ApplyBuffEvent = GetRelatedEvent(event, LIFEBIND)!;
   if (lifebindApplyEvent.prepull) {
     return ECHO_TYPE.NONE;
   }
-  const veHeal = GetRelatedEvents(lifebindApplyEvent, LIFEBIND_APPLY)[0] as HealEvent;
+  const veHeal: HealEvent = GetRelatedEvent(lifebindApplyEvent, LIFEBIND_APPLY)!;
   if (HasRelatedEvent(veHeal, ECHO)) {
     return ECHO_TYPE.HARDCAST;
   } else if (HasRelatedEvent(veHeal, ECHO_TEMPORAL_ANOMALY)) {
@@ -743,40 +741,36 @@ export function getEchoTypeForLifebind(event: HealEvent): ECHO_TYPE {
 }
 
 export function getEchoTypeForGoldenHour(event: HealEvent): ECHO_TYPE {
-  const events = GetRelatedEvents(event, GOLDEN_HOUR);
-  const reversionApply =
-    events[0].type === EventType.RefreshBuff
-      ? (events[0] as RefreshBuffEvent)
-      : (events[0] as ApplyBuffEvent);
-  if (isFromHardcastEcho(reversionApply)) {
+  const reversionEvent = GetRelatedEvent<ApplyBuffEvent | RefreshBuffEvent>(event, GOLDEN_HOUR)!;
+  if (isFromHardcastEcho(reversionEvent)) {
     return ECHO_TYPE.HARDCAST;
-  } else if (isFromTAEcho(reversionApply)) {
+  } else if (isFromTAEcho(reversionEvent)) {
     return ECHO_TYPE.TA;
   }
   return ECHO_TYPE.NONE;
 }
 
 export function getHealEvents(event: HealEvent) {
-  return [event].concat(GetRelatedEvents(event, HEAL_GROUPING) as HealEvent[]);
+  return [event].concat(GetRelatedEvents<HealEvent>(event, HEAL_GROUPING));
 }
 
 export function getEchoHealEvents(event: HealEvent) {
-  return [event].concat(GetRelatedEvents(event, ECHO_HEAL_GROUPING) as HealEvent[]);
+  return [event].concat(GetRelatedEvents<HealEvent>(event, ECHO_HEAL_GROUPING));
 }
 
 export function getBuffEvents(event: ApplyBuffEvent) {
-  return [event].concat(GetRelatedEvents(event, BUFF_GROUPING) as ApplyBuffEvent[]);
+  return [event].concat(GetRelatedEvents<ApplyBuffEvent>(event, BUFF_GROUPING));
 }
 
 export function getStasisSpell(event: RemoveBuffStackEvent | RemoveBuffEvent): number | null {
-  const relatedEvents = GetRelatedEvents(event, STASIS);
-  if (!relatedEvents.length) {
+  const stasisEvent = GetRelatedEvent<CastEvent | EmpowerEndEvent>(event, STASIS);
+  if (!stasisEvent) {
     return null;
   }
-  if (relatedEvents[0].type === EventType.Cast) {
-    return (relatedEvents[0] as CastEvent).ability.guid;
+  if (stasisEvent.type === EventType.Cast) {
+    return stasisEvent.ability.guid;
   }
-  return (relatedEvents[0] as EmpowerEndEvent).ability.guid;
+  return stasisEvent.ability.guid;
 }
 
 export function didSparkProcEssenceBurst(
@@ -786,7 +780,7 @@ export function didSparkProcEssenceBurst(
 }
 
 export function didEbConsumeSparkProc(event: RemoveBuffEvent | RemoveBuffStackEvent) {
-  const applyEvent = GetRelatedEvents(event, ESSENCE_BURST_LINK)[0];
+  const applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
   return HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT);
 }
 
@@ -809,17 +803,17 @@ export function isEbFromT30Tier(
   if ([EventType.RefreshBuff, EventType.ApplyBuff, EventType.ApplyBuffStack].includes(event.type)) {
     return !HasRelatedEvent(event, FROM_HARDCAST) && !HasRelatedEvent(event, SPARK_OF_INSIGHT);
   }
-  const applyEvent = GetRelatedEvents(event, ESSENCE_BURST_LINK)[0];
+  const applyEvent = GetRelatedEvent(event, ESSENCE_BURST_LINK)!;
   return (
     !HasRelatedEvent(applyEvent, FROM_HARDCAST) && !HasRelatedEvent(applyEvent, SPARK_OF_INSIGHT)
   );
 }
 
 export function getAncientFlameSource(event: ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent) {
-  return GetRelatedEvents(
+  return GetRelatedEvent(
     event,
     event.type === EventType.RemoveBuff ? ANCIENT_FLAME_CONSUME : ANCIENT_FLAME,
-  )[0];
+  )!;
 }
 
 export default CastLinkNormalizer;

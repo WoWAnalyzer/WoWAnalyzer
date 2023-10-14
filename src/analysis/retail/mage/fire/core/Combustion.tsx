@@ -221,7 +221,7 @@ class CombustionCasts extends Analyzer {
         <>
           You started to cast <SpellLink spell={SPELLS.FIREBALL} /> {this.fireballBeginCasts} times
           ({this.fireballDuringCombustionThresholds.actual.toFixed(2)} per Combustion), and
-          completed {this.fireballCastsDuringCombustion} casts, during{' '}
+          completed {this.fireballCastsDuringCombustion()} casts, during{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. Combustion has a short duration, so you
           are better off using instant abilities like <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
           <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. If you run out of instant cast

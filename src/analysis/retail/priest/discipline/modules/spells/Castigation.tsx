@@ -38,10 +38,10 @@ class Castigation extends Analyzer {
   }
 
   onAtoneHeal(event: HealEvent) {
-    if (!getDamageEvent(event)) {
+    const damageEvent = getDamageEvent(event);
+    if (!damageEvent) {
       return;
     }
-    const damageEvent = getDamageEvent(event);
     if (!IsPenanceDamageEvent(damageEvent)) {
       return;
     }

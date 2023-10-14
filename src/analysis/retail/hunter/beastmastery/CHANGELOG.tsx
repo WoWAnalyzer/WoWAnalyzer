@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/hunter';
 import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 export default [
+  change(date(2023, 10, 3), <>Add <SpellLink spell={TALENTS.STEEL_TRAP_TALENT} /> as a trackable talent. </>, Putro),
   change(date(2023, 7, 29), 'Mark Beast Mastery as compatible for 10.1.5', Putro),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 7, 3), 'Added support for Tier 30 2piece and 4piece', Putro),

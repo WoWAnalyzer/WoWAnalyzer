@@ -7,7 +7,7 @@ import { internetExplorer } from 'interface/actions/internetExplorer';
 import { fetchUser } from 'interface/actions/user';
 import FullscreenError from 'interface/FullscreenError';
 import { t } from '@lingui/macro';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Footer from 'interface/Footer';
 import PortalTarget from 'interface/PortalTarget';
 import Hotkeys from 'interface/Hotkeys';
@@ -63,6 +63,7 @@ const AppLayout = () => {
 
       <PortalTarget />
       <Hotkeys />
+      <ScrollRestoration />
     </>
   );
 };

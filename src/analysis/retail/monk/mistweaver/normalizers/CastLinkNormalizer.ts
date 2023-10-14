@@ -14,6 +14,7 @@ import {
   HealEvent,
   CastEvent,
   ApplyBuffStackEvent,
+  GetRelatedEvent,
 } from 'parser/core/Events';
 
 export const APPLIED_HEAL = 'AppliedHeal';
@@ -507,10 +508,10 @@ export function isFromRapidDiffusionRisingSunKick(event: ApplyBuffEvent | Refres
   if (!HasRelatedEvent(event, FROM_RAPID_DIFFUSION)) {
     return false;
   }
-  const rdSourceEvent = GetRelatedEvents(event, FROM_RAPID_DIFFUSION);
+  const rdSourceEvent = GetRelatedEvent(event, FROM_RAPID_DIFFUSION)!;
   return (
-    rdSourceEvent[0].type === EventType.Cast &&
-    rdSourceEvent[0].ability.guid === TALENTS_MONK.RISING_SUN_KICK_TALENT.id
+    rdSourceEvent.type === EventType.Cast &&
+    rdSourceEvent.ability.guid === TALENTS_MONK.RISING_SUN_KICK_TALENT.id
   );
 }
 
@@ -582,7 +583,7 @@ export function isFromLifeCocoon(event: RemoveBuffEvent) {
 }
 
 export function getSheilunsGiftHits(event: CastEvent): HealEvent[] {
-  return GetRelatedEvents(event, SHEILUNS_GIFT) as HealEvent[];
+  return GetRelatedEvents<HealEvent>(event, SHEILUNS_GIFT);
 }
 
 export function getVivifiesPerCast(event: CastEvent) {
@@ -595,17 +596,17 @@ export function getNumberOfBolts(event: CastEvent) {
 
 // we use time to get stacks because it can be cast prepull
 export function getManaTeaStacksConsumed(event: ApplyBuffEvent) {
-  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0].timestamp - event.timestamp;
+  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0]?.timestamp - event.timestamp;
   // 1s of mana reduction per stack
   return Math.round(diff / 1000);
 }
 
 export function getManaTeaChannelDuration(event: ApplyBuffEvent) {
-  const castEvent = GetRelatedEvents(event, MANA_TEA_CAST_LINK)[0];
+  const castEvent = GetRelatedEvent(event, MANA_TEA_CAST_LINK);
   if (castEvent === undefined) {
     return undefined;
   }
-  return GetRelatedEvents(castEvent, MANA_TEA_CHANNEL)[0].timestamp - castEvent.timestamp;
+  return GetRelatedEvent(castEvent, MANA_TEA_CHANNEL)!.timestamp - castEvent.timestamp;
 }
 
 export function isMTStackFromLifeCycles(

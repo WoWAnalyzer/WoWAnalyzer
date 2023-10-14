@@ -2,6 +2,7 @@ import type Config from 'parser/Config';
 import Expansion from 'game/Expansion';
 import type { Spec } from 'game/SPECS';
 import type Report from 'parser/core/Report';
+import { PRIMARY_STAT } from 'parser/shared/modules/features/STAT';
 import type { PlayerInfo } from 'parser/core/Player';
 import type Fight from 'parser/core/Fight';
 import type CharacterProfile from 'parser/core/CharacterProfile';
@@ -19,7 +20,7 @@ export const TEST_SPEC: Spec = {
   masteryCoefficient: 0,
   id: 0,
   index: 0,
-  primaryStat: '',
+  primaryStat: PRIMARY_STAT.STRENGTH,
   ranking: { class: 0, spec: 0 },
   role: 0,
 };

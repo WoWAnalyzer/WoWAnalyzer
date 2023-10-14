@@ -1,5 +1,6 @@
 import { TRUESHOT_AIMED_SHOT_RECHARGE_INCREASE } from 'analysis/retail/hunter/marksmanship/constants';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_HUNTER } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AnyEvent,
@@ -39,8 +40,13 @@ class AimedShot extends Analyzer {
   constructor(options: Options) {
     super(options);
 
+    this.active = this.selectedCombatant.hasTalent(TALENTS_HUNTER.AIMED_SHOT_TALENT);
+
     this.addEventListener(Events.any, this.onEvent);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.AIMED_SHOT), this.onCast);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_HUNTER.AIMED_SHOT_TALENT),
+      this.onCast,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell([SPELLS.TRUESHOT]),
       this.onAffectingBuffChange,
@@ -59,7 +65,7 @@ class AimedShot extends Analyzer {
     if (!this.selectedCombatant.hasBuff(SPELLS.TRUESHOT.id)) {
       return;
     }
-    if (!this.spellUsable.isOnCooldown(SPELLS.AIMED_SHOT.id)) {
+    if (!this.spellUsable.isOnCooldown(TALENTS_HUNTER.AIMED_SHOT_TALENT.id)) {
       return;
     }
     if (this.lastReductionTimestamp === 0 || event.timestamp <= this.lastReductionTimestamp) {
@@ -89,7 +95,7 @@ class AimedShot extends Analyzer {
         maxReductionMs / 1000 + ' seconds since last event',
       );
     const effectiveReductionMs: number = this.spellUsable.reduceCooldown(
-      SPELLS.AIMED_SHOT.id,
+      TALENTS_HUNTER.AIMED_SHOT_TALENT.id,
       maxReductionMs,
       event.timestamp,
     );
@@ -106,7 +112,7 @@ class AimedShot extends Analyzer {
 
   onCast(event: CastEvent) {
     const expectedCooldownDuration = this.abilities.getExpectedCooldownDuration(
-      SPELLS.AIMED_SHOT.id,
+      TALENTS_HUNTER.AIMED_SHOT_TALENT.id,
     );
     if (expectedCooldownDuration) {
       this.totalCooldown += expectedCooldownDuration;

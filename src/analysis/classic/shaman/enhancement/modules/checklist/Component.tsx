@@ -35,7 +35,7 @@ const MeleeChecklist = ({
       <Rule name="Keep Buffs Up" description={<>Totem uptime:</>}>
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.fire">
+            <Trans id="classic.shaman.checklist.totemuptime.fire">
               <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Fire)} /> Fire Totem
               Uptime
             </Trans>
@@ -44,7 +44,7 @@ const MeleeChecklist = ({
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.water">
+            <Trans id="classic.shaman.checklist.totemuptime.water">
               <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Water)} /> Water Totem
               Uptime
             </Trans>
@@ -53,7 +53,7 @@ const MeleeChecklist = ({
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.earth">
+            <Trans id="classic.shaman.checklist.totemuptime.earth">
               <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Earth)} /> Earth Totem
               Uptime
             </Trans>
@@ -62,7 +62,7 @@ const MeleeChecklist = ({
         />
         <Requirement
           name={
-            <Trans id="shaman.checklist.totemuptime.air">
+            <Trans id="classic.shaman.checklist.totemuptime.air">
               <SpellIcon spell={totemTracker.primaryTotemUsed(TotemElements.Air)} /> Air Totem
               Uptime
             </Trans>

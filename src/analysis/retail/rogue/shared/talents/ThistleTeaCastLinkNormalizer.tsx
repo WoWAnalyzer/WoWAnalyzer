@@ -3,7 +3,7 @@ import {
   AnyEvent,
   CastEvent,
   EventType,
-  GetRelatedEvents,
+  GetRelatedEvent,
   HasRelatedEvent,
   ResourceChangeEvent,
 } from 'parser/core/Events';
@@ -40,13 +40,13 @@ export function isFromHardcast(event: AnyEvent): boolean {
 }
 
 export function getHardcast(event: ResourceChangeEvent): CastEvent | undefined {
-  const events: AnyEvent[] = GetRelatedEvents(event, FROM_HARDCAST);
-  return events.length === 0 ? undefined : (events[0] as CastEvent);
+  return GetRelatedEvent(event, FROM_HARDCAST);
 }
 
 export function getResourceChange(event: CastEvent): ResourceChangeEvent | undefined {
-  const events = GetRelatedEvents(event, RESOURCE_CHANGE).filter(
+  return GetRelatedEvent(
+    event,
+    RESOURCE_CHANGE,
     (it): it is ResourceChangeEvent => it.type === EventType.ResourceChange,
   );
-  return events.length === 0 ? undefined : events[0];
 }

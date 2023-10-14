@@ -25,7 +25,7 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
       </p>
       <AplSectionData checker={AplCheck.check} apl={AplCheck.apl()} />
       <hr />
-      <p>
+      <div>
         As mentioned before use the accuracy here as a reference point to compare to other logs.
         It's not as precise as the raidbots APL because then there would be more steps here to
         explain and would be complex to follow. Some examples the accuracy misses out on are
@@ -37,7 +37,7 @@ export function CoreRotation({ modules, info }: GuideProps<typeof CombatLogParse
           </li>
           <li>dealing with unique edge cases for AoE (work in progress)</li>
         </ul>
-      </p>
+      </div>
     </Section>
   );
 }

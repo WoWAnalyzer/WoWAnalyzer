@@ -120,11 +120,6 @@ const spells = {
   //endregion
 
   //region Marksmanship
-  AIMED_SHOT: {
-    id: 19434,
-    name: 'Aimed Shot',
-    icon: 'inv_spear_07',
-  },
   STEADY_SHOT_FOCUS: {
     id: 77443,
     name: 'Steady Shot',
@@ -247,11 +242,6 @@ const spells = {
     id: 187708,
     name: 'Carve',
     icon: 'ability_hunter_carve',
-  },
-  COORDINATED_ASSAULT: {
-    id: 266779,
-    name: 'Coordinated Assault',
-    icon: 'inv_coordinatedassault',
   },
   HARPOON: {
     id: 190925,

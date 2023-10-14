@@ -23,17 +23,32 @@ import {
   Awildfivreld,
   nullDozzer,
   Bigsxy,
+  Seriousnes,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 8), 'Improve spell auto-detection to hopefully include talents.', ToppleTheNun),
+  change(date(2023, 10, 7), <>Add support for ICC bosses.</>, emallson),
+  change(date(2023, 10, 3), <>Refactor code for related event retrieval.</>, Seriousnes),
+  change(date(2023, 10, 1), <>Improve code for coloring texts and backgrounds by <span className='Paladin'>player</span> <span className='Warrior'>classes</span>.</>, nullDozzer),
+  change(date(2023, 10, 1), <>Refactor of effects that grant "Primary Stat" such as <ItemLink id={ITEMS.ELEMENTAL_POTION_OF_ULTIMATE_POWER_R3.id} /> and <ItemLink id={ITEMS.DRACONIC_AUGMENT_RUNE.id} /> to only provide current stat and thus match logged values better.</>, nullDozzer),
+  change(date(2023, 9, 30), "Removed `shownSpell` from Ability type as it's no longer used.", Putro),
+  change(date(2023, 9, 25), 'Reset scrollposition to top of window when navigating within app except when switching tabs. This fixes a scenario where you would end up staring at the pages footer after clicking a spec on the Specs page.', nullDozzer),
+  change(date(2023, 9, 25), 'Fix broken drilldown link in always be casting module that is used my multiple specs', nullDozzer),
+  change(date(2023, 9, 25), 'Fix Patreon / GitHub login buttons', emallson),
+  change(date(2023, 9, 24), 'Fix lots of react rendering errors', nullDozzer),
+  change(date(2023, 9, 24), 'Change to e2e tests to fail explicitly when there are unexpected errors in the console.', nullDozzer),
+  change(date(2023, 9, 23), 'Make sure that the Shadowflame Wreathe icon can be displayed.', ToppleTheNun),
+  change(date(2023, 9, 17), 'CooldownGraphSubsection now takes an optional parameter "description", which will be used instead of the default one if given.', Awildfivreld),
+  change(date(2023, 9, 17), 'Introduce hover tooltip in resource tracker graphs, and optional wasted resources line.', Awildfivreld),
   change(date(2023, 9, 12), 'Disable M+ logs containing Augmentation Evokers temporarily.', ToppleTheNun),
   change(date(2023, 9, 6), "Reworked getRepeatedTalentCount to use getTalentRank behind the scenes, and renamed it to getMultipleTalentRanks.", Putro),
   change(date(2023, 9, 5), 'Add Classic Guild page', jazminite),
   change(date(2023, 9, 5), 'Update talent data for patch 10.1.7', emallson),
-  change(date(2023, 9, 4), <>Add module for tracking of <ItemLink id={ITEMS.ACCELERATING_SANDGLASS.id}/>.</>, nullDozzer),
+  change(date(2023, 9, 4), <>Add module for tracking of <ItemLink id={ITEMS.ACCELERATING_SANDGLASS.id} />.</>, nullDozzer),
   change(date(2023, 9, 2), 'Refactor haste buffs to be more understandable. Implements some haste buffs that were non-functional.', nullDozzer),
   change(date(2023, 9, 2), 'Fix some spec links not working in some scenarions', nullDozzer),
   change(date(2023, 8, 30), 'Update SpellLinks to automatically support talents.', ToppleTheNun),

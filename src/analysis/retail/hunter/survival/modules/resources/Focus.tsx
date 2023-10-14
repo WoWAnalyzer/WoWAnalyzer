@@ -16,8 +16,8 @@ class Focus extends Analyzer {
   suggestions(when: When) {
     resourceSuggest(when, this.focusTracker, {
       spell: TALENTS.KILL_COMMAND_SURVIVAL_TALENT,
-      minor: 0.025,
-      avg: 0.05,
+      minor: 0.05,
+      avg: 0.075,
       major: 0.1,
       extraSuggestion: (
         <>

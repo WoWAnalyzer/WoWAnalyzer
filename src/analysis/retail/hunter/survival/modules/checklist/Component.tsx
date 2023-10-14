@@ -43,8 +43,9 @@ const SurvivalChecklist = ({ combatant, castEfficiency, thresholds }: ChecklistP
         }
       >
         <AbilityRequirement spell={SPELLS.KILL_COMMAND_CAST_SV.id} />
-        <AbilityRequirement spell={SPELLS.COORDINATED_ASSAULT.id} />
-
+        {combatant.hasTalent(TALENTS.COORDINATED_ASSAULT_TALENT) && (
+          <AbilityRequirement spell={TALENTS.COORDINATED_ASSAULT_TALENT.id} />
+        )}
         {combatant.hasTalent(TALENTS.FLANKING_STRIKE_TALENT) && (
           <AbilityRequirement spell={TALENTS.FLANKING_STRIKE_TALENT.id} />
         )}
