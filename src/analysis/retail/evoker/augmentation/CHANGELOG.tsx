@@ -5,6 +5,8 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+    change(date(2023, 10, 6), <>Add a new guide section for Helper modules.</>, Vollmer),
+    change(date(2023, 10, 6), <>Implement a Breath Helper module.</>, Vollmer),
     change(date(2023, 10, 1), <>Update default target criteria for Buff Helper module.</>, Vollmer),
     change(date(2023, 9, 29), <>Update blacklist for Buff Helper module.</>, Vollmer),
     change(date(2023, 9, 26), <>Update Buff Helper module MRT note to support Prescience helper WeakAura.</>, Vollmer),

@@ -1,0 +1,57 @@
+@import 'interface/Theme.scss';
+
+.button {
+  background-color: #fab700;
+  color: #211510;
+  line-height: 16.8px;
+  font-size: 14px;
+  border-radius: 6px;
+  height: 38px;
+  width: 140px;
+  border: none;
+  font-weight: 600;
+
+  &:hover {
+    background-color: darken($color: #fab700, $amount: 7);
+  }
+}
+
+.graph-window-container {
+  header {
+    display: grid;
+    grid-template-columns: 1fr max-content;
+    font-size: 20px;
+    font-weight: bold;
+    padding: 1rem 0;
+    button {
+      appearance: none;
+      background: none;
+      color: $primaryColor;
+      border: none;
+
+      &:hover {
+        color: lighten($primaryColor, 30%);
+      }
+
+      &:disabled {
+        color: #333;
+      }
+    }
+  }
+}
+
+.graph-explanation-container {
+  display: grid;
+  grid-template-columns: minmax(40%, max-content) 1fr;
+  column-gap: 1em;
+
+  .pass-bar {
+    border-radius: 2px;
+    min-width: 100%;
+  }
+}
+
+.graph-explanations {
+  margin-top: 1em;
+  align-self: start;
+}

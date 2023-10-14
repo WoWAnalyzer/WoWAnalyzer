@@ -7,12 +7,16 @@ import Events, {
   CastEvent,
   EmpowerEndEvent,
   EventType,
+  GetRelatedEvents,
   RemoveBuffEvent,
   RemoveDebuffEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import {
+  BREATH_EBON_APPLY_LINK,
+  EBON_MIGHT_BUFF_LINKS,
+  ebonIsFromBreath,
   getBreathOfEonsBuffEvents,
   getBreathOfEonsDamageEvents,
   getBreathOfEonsDebuffApplyEvents,
@@ -22,17 +26,16 @@ import Spell from 'common/SPELLS/dragonflight/potions';
 import BreathOfEonsSection from './BreathOfEonsSection';
 import spells from 'common/SPELLS/dragonflight/trinkets';
 import trinkets from 'common/ITEMS/dragonflight/trinkets';
+import Combatant from 'parser/core/Combatant';
+import Combatants from 'parser/shared/modules/Combatants';
+import { SpellTracker } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
+import BreathOfEonsHelper from './BreathOfEonsHelper';
 
 export type BreathOfEonsWindows = {
   flightData: SpellTracker[];
   breathPerformance: BreathWindowPerformance;
   start: number;
   end: number;
-};
-
-export type SpellTracker = {
-  timestamp: number;
-  count: number;
 };
 
 export type BreathWindowPerformance = {
@@ -56,6 +59,8 @@ export type BreathWindowPerformance = {
   succesfulHits: number;
   potentialLostDamage: number;
   damage: number;
+  buffedPlayers: Map<string, Combatant>;
+  earlyDeadMobs: RemoveDebuffEvent[];
 };
 
 /**
@@ -77,9 +82,6 @@ export type BreathWindowPerformance = {
  * and/or buffed other players for a stronger burst window.
  * Prolly easier to just make a WCL component for this count of analysis though.
  *
- * TODO: Provide better feedback, estimated damage loss based on lost EM uptime and deadge mobs
- * TODO: At some point introduce some WCL logic to provide more indepth analysis
- * TODO: make it prettier? idk not really my forte
  */
 
 export const GRAPHBUFFER = 3000;
@@ -87,8 +89,10 @@ export const GRAPHBUFFER = 3000;
 class BreathOfEonsRotational extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
+    combatants: Combatants,
   };
   protected spellUsable!: SpellUsable;
+  protected combatants!: Combatants;
 
   windows: BreathOfEonsWindows[] = [];
 
@@ -267,6 +271,28 @@ class BreathOfEonsRotational extends Analyzer {
       }
     });
 
+    /** Since Breath cast happens before it applies Ebon Might
+     * Check if Ebon Might was applied by Breath of Eons
+     * and add our combatants from the bufflinks */
+    const currentBuffedTargets: Map<string, Combatant> = new Map();
+    if (ebonIsFromBreath(event)) {
+      GetRelatedEvents(event, BREATH_EBON_APPLY_LINK).forEach((relatedEvent) => {
+        GetRelatedEvents(relatedEvent, EBON_MIGHT_BUFF_LINKS).forEach((ebonMightEvent) => {
+          if (ebonMightEvent.type === EventType.ApplyBuff) {
+            const buffTarget = this.combatants.players[ebonMightEvent.targetID];
+            currentBuffedTargets.set(buffTarget.name, buffTarget);
+          }
+        });
+      });
+    } else {
+      const players = Object.values(this.combatants.players);
+      players.forEach((player) => {
+        if (player.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id)) {
+          currentBuffedTargets.set(player.name, player);
+        }
+      });
+    }
+
     this.windows.push({
       flightData: flightData,
 
@@ -293,12 +319,12 @@ class BreathOfEonsRotational extends Analyzer {
         succesfulHits: 0,
         potentialLostDamage: 0,
         damage: 0,
+        buffedPlayers: currentBuffedTargets,
+        earlyDeadMobs: [],
       },
-
       start: 0,
       end: 0,
     });
-
     this.totalCasts = this.totalCasts + 1;
   }
 
@@ -376,6 +402,7 @@ class BreathOfEonsRotational extends Analyzer {
       const ebonMightProblem = {
         timestamp: event.timestamp,
         count: this.ebonMightCounter,
+        tooltip: 'You dropped Ebon Might',
       };
 
       // If you drop multiple Ebon Mights at the same time, only push one Problem point
@@ -451,8 +478,10 @@ class BreathOfEonsRotational extends Analyzer {
       perfWindow.damageProblemPoints.push({
         timestamp: event.timestamp,
         count: this.activeDebuffs,
+        tooltip: 'Mob died early.',
       });
       perfWindow.earlyDeaths += 1;
+      perfWindow.earlyDeadMobs.push(event);
     } else {
       damageEvents.forEach((damageEvent) => {
         perfWindow.damage += damageEvent.amount + (damageEvent.absorbed ?? 0);
@@ -543,6 +572,19 @@ class BreathOfEonsRotational extends Analyzer {
         fightEndTime={this.owner.fight.end_time}
         ebonMightCount={this.ebonMightCount}
         shiftingSandsCount={this.shiftingSandsCount}
+      />
+    );
+  }
+  helperSection(): JSX.Element | null {
+    if (!this.active) {
+      return null;
+    }
+    return (
+      <BreathOfEonsHelper
+        windows={this.windows}
+        fightStartTime={this.owner.fight.start_time}
+        fightEndTime={this.owner.fight.end_time}
+        owner={this.owner}
       />
     );
   }

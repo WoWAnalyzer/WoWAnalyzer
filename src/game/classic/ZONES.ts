@@ -1,5 +1,6 @@
 import ulduar from 'game/raids/ulduar';
 import togc from 'game/raids/trialofthegrandcrusader';
+import icc from 'game/raids/icc';
 import { Zone } from 'game/ZONES';
 
 const ZONES: Zone[] = [
@@ -34,6 +35,24 @@ const ZONES: Zone[] = [
       togc.bosses.FactionChampions,
       togc.bosses.ValkyrTwins,
       togc.bosses.Anubarak,
+    ],
+  },
+  {
+    id: 1020,
+    name: 'Icecrown Citadel',
+    encounters: [
+      icc.bosses.Marrowgar,
+      icc.bosses.Deathwhisper,
+      icc.bosses.Gunship,
+      icc.bosses.Saurfang,
+      icc.bosses.Festergut,
+      icc.bosses.Rotface,
+      icc.bosses.Putricide,
+      icc.bosses.BloodCouncil,
+      icc.bosses.BloodQueen,
+      icc.bosses.Dreamwalker,
+      icc.bosses.Sindragosa,
+      icc.bosses.LichKing,
     ],
   },
 ];

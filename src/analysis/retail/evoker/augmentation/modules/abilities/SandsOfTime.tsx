@@ -11,7 +11,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { failedEbonMightExtention } from '../normalizers/CastLinkNormalizer';
-import './SandsOfTime.scss';
+import '../Styling.scss';
 
 /**
  * Sands of time is an innate ability for Augmentation.
