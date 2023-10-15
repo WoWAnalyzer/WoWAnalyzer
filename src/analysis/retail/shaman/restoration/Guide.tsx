@@ -23,7 +23,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(talents.CLOUDBURST_TOTEM_TALENT) &&
           modules.cloudburstTotem.guideSubsection}
         {info.combatant.hasTalent(talents.WELLSPRING_TALENT) && modules.wellspring.guideSubsection}
-        {info.combatant.hasTalent(talents.PRIMORDIAL_WAVE_TALENT) &&
+        {info.combatant.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT) &&
           modules.primordialWave.guideSubsection}
         {info.combatant.hasTalent(talents.EARTHEN_WALL_TOTEM_TALENT) &&
           modules.earthenWallTotem.guideSubsection}
