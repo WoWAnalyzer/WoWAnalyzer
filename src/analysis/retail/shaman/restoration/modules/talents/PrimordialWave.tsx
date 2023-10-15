@@ -48,7 +48,7 @@ class PrimordialWave extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT);
 
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_HEAL),
@@ -185,7 +185,7 @@ class PrimordialWave extends Analyzer {
       {
         color: RESTORATION_COLORS.PRIMORDIAL_WAVE,
         label: 'Primordial Wave',
-        spellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+        spellId: TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id,
         value: this.healing,
         valueTooltip:
           formatThousands(this.healing) + ' (' + this.pwaveOverhealingPercent + '% overheal)',
@@ -197,7 +197,7 @@ class PrimordialWave extends Analyzer {
   subStatistic() {
     return (
       <StatisticListBoxItem
-        title={<SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />}
+        title={<SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT} />}
         value={`${formatPercentage(
           this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
         )} %`}
@@ -225,8 +225,8 @@ class PrimordialWave extends Analyzer {
               </li>
               <li>
                 {formatThousands(this.healing)} healing via{' '}
-                <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />, {this.pwaveOverhealingPercent}
-                % Overheal
+                <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT} />,{' '}
+                {this.pwaveOverhealingPercent}% Overheal
               </li>
               <li>
                 {formatThousands(this.riptideHealing)} healing via{' '}
@@ -237,14 +237,14 @@ class PrimordialWave extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS.PRIMORDIAL_WAVE_TALENT}>
+        <TalentSpellText talent={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
           <br />
           <TooltipElement
             content={
               <>
-                The number of <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> buffs that
-                expired without casting <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> (
+                The number of <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT} /> buffs
+                that expired without casting <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> (
                 {this.wastedBuffs} wasted of {this.buffCount} total)
               </>
             }
@@ -269,7 +269,7 @@ class PrimordialWave extends Analyzer {
     const explanation = (
       <p>
         <b>
-          <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
+          <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT} />
         </b>{' '}
         is a powerful ability that heals an ally, applies a{' '}
         <SpellLink spell={TALENTS.RIPTIDE_TALENT} />, and makes your next{' '}
@@ -286,7 +286,7 @@ class PrimordialWave extends Analyzer {
       <div>
         <RoundedPanel>
           <strong>
-            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> cast efficiency
+            <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT} /> cast efficiency
           </strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.guideSubStatistic()}
@@ -301,7 +301,7 @@ class PrimordialWave extends Analyzer {
   guideSubStatistic() {
     return (
       <CastEfficiencyBar
-        spellId={TALENTS.PRIMORDIAL_WAVE_TALENT.id}
+        spellId={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id}
         gapHighlightMode={GapHighlight.FullCooldown}
         useThresholds
       />

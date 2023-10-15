@@ -4,7 +4,7 @@ import SPECS from 'game/SPECS';
 import { AlertWarning } from 'interface';
 import Config from 'parser/Config';
 
-// import CHANGELOG from './CHANGELOG';
+import CHANGELOG from './CHANGELOG';
 
 const config: Config = {
   contributors: [Seriousnes],
@@ -26,12 +26,12 @@ const config: Config = {
   exampleReport:
     '/report/p4MjCghDVP6TGvfQ/1-Heroic+Rashok,+the+Elder+-+Kill+(2:36)/Seriousnes/standard',
   spec: SPECS.ENHANCEMENT_SHAMAN,
-  changelog: [], // CHANGELOG,
+  changelog: CHANGELOG,
   guideDefault: true,
-  // parser: () =>
-  //   import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
-  //     (exports) => exports.default,
-  //   ),
+  parser: () =>
+    import('./CombatLogParser' /* webpackChunkName: "EnhancementShaman" */).then(
+      (exports) => exports.default,
+    ),
 
   path: __dirname,
 };
