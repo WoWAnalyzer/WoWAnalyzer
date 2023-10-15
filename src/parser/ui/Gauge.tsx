@@ -1,16 +1,16 @@
 import { Trans } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import PropTypes from 'prop-types';
 
-const Gauge = ({ value }) => (
+interface Props {
+  value: number;
+}
+
+const Gauge = ({ value }: Props) => (
   <div className="flex" style={{ textAlign: 'center', marginTop: 12 }}>
     <div style={{ paddingTop: 23, paddingRight: 8, fontSize: 12 }}>
-      <Trans
-        id="interface.statistics.components.gauge.low"
-        className="flex-main text-right text-muted"
-      >
-        Low
-      </Trans>
+      <span className="flex-main text-right text-muted">
+        <Trans id="interface.statistics.components.gauge.low">Low</Trans>
+      </span>
     </div>
     <div className="flex-sub" style={{ position: 'relative' }}>
       <svg
@@ -128,8 +128,5 @@ const Gauge = ({ value }) => (
     </div>
   </div>
 );
-Gauge.propTypes = {
-  value: PropTypes.number.isRequired,
-};
 
 export default Gauge;

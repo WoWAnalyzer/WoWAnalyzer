@@ -1,49 +1,59 @@
 import { Trans } from '@lingui/macro';
 import { formatThousands, formatNumber, formatPercentage, formatDuration } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import Spell from 'common/SPELLS/Spell';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Icon, SpellIcon, SpellLink } from 'interface';
 import { TooltipElement } from 'interface';
-import { EventType } from 'parser/core/Events';
-import { BUILT_IN_SUMMARY_TYPES } from 'parser/shared/modules/CooldownThroughputTracker';
-import PropTypes from 'prop-types';
+import {
+  AbsorbedEvent,
+  AnyEvent,
+  ApplyBuffEvent,
+  CastEvent,
+  EventType,
+  HealEvent,
+} from 'parser/core/Events';
+import {
+  BUILT_IN_SUMMARY_TYPES,
+  SummaryDef,
+} from 'parser/shared/modules/CooldownThroughputTracker';
 import { Component } from 'react';
 
 import './Cooldown.css';
 
-class Cooldown extends Component {
-  static propTypes = {
-    fightStart: PropTypes.number.isRequired,
-    fightEnd: PropTypes.number.isRequired,
-    cooldown: PropTypes.shape({
-      ability: PropTypes.shape({
-        id: PropTypes.number.isRequired,
-        name: PropTypes.string.isRequired,
-        icon: PropTypes.string.isRequired,
-      }),
-      start: PropTypes.number.isRequired,
-      cdStart: PropTypes.number.isRequired,
-      end: PropTypes.number,
-      events: PropTypes.arrayOf(
-        PropTypes.shape({
-          type: PropTypes.string.isRequired,
-        }),
-      ).isRequired,
-      summary: PropTypes.array.isRequired,
-      spell: PropTypes.oneOfType([
-        PropTypes.shape({
-          id: PropTypes.number,
-          icon: PropTypes.string,
-          name: PropTypes.string,
-        }),
-        PropTypes.number,
-      ]),
-    }).isRequired,
-    applyTimeFilter: PropTypes.func,
-  };
+interface Cooldown {
+  ability?: Spell;
+  start: number;
+  cdStart: number;
+  end?: number;
+  events: AnyEvent[];
+  summary: (BUILT_IN_SUMMARY_TYPES | SummaryDef)[];
+  spell: Spell | number;
+}
 
-  constructor() {
-    super();
+interface Props {
+  fightStart: number;
+  fightEnd: number;
+  cooldown: Cooldown;
+  applyTimeFilter?: (start: number, end: number) => void;
+}
+
+interface State {
+  showCastEvents: boolean;
+  showAllEvents: boolean;
+}
+
+interface HealData {
+  event: HealEvent;
+  amount: number;
+  absorbed: number;
+  overheal: number;
+  count: number;
+}
+
+class Cooldown extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
     this.state = {
       showCastEvents: false,
       showAllEvents: false,
@@ -64,9 +74,9 @@ class Cooldown extends Component {
     });
   }
 
-  groupHeals(events) {
-    let lastHeal = null;
-    return events.reduce((results, event) => {
+  groupHeals(events: AnyEvent[]): (CastEvent | HealData)[] {
+    let lastHeal: HealData | null = null;
+    return events.reduce((results: (CastEvent | HealData)[], event) => {
       if (event.type === EventType.Cast) {
         results.push(event);
       } else if (event.type === EventType.Heal) {
@@ -92,14 +102,17 @@ class Cooldown extends Component {
     }, []);
   }
 
-  calculateHealingStatistics(cooldown) {
+  calculateHealingStatistics(cooldown: Cooldown) {
     let healingDone = 0;
     let overhealingDone = 0;
     cooldown.events
-      .filter((event) => event.type === EventType.Heal || event.type === EventType.Absorbed)
+      .filter(
+        (event): event is HealEvent | AbsorbedEvent =>
+          event.type === EventType.Heal || event.type === EventType.Absorbed,
+      )
       .forEach((event) => {
-        healingDone += event.amount + (event.absorbed || 0);
-        overhealingDone += event.overheal || 0;
+        healingDone += event.amount + ('absorbed' in event ? event.absorbed ?? 0 : 0);
+        overhealingDone += 'overheal' in event ? event.overheal ?? 0 : 0;
       });
 
     return {
@@ -108,7 +121,7 @@ class Cooldown extends Component {
     };
   }
 
-  calculateDamageStatistics(cooldown) {
+  calculateDamageStatistics(cooldown: Cooldown) {
     const damageDone = cooldown.events.reduce(
       (acc, event) =>
         event.type === EventType.Damage ? acc + ((event.amount || 0) + (event.absorbed || 0)) : acc,
@@ -118,7 +131,7 @@ class Cooldown extends Component {
     return { damageDone };
   }
 
-  formatRelativeTimestamp(event, cooldown) {
+  formatRelativeTimestamp(event: AnyEvent, cooldown: Cooldown) {
     const relativeTimestamp = event.timestamp - cooldown.cdStart;
     return (relativeTimestamp > 0 ? '+' : '') + (relativeTimestamp / 1000).toFixed(3);
   }
@@ -126,7 +139,7 @@ class Cooldown extends Component {
   render() {
     const { cooldown, fightStart, fightEnd } = this.props;
 
-    let healingStatistics = null;
+    let healingStatistics: ReturnType<typeof this.calculateHealingStatistics> | null = null;
 
     const start = cooldown.start;
     const cdStart = cooldown.cdStart;
@@ -154,7 +167,7 @@ class Cooldown extends Component {
               >
                 <a
                   href="#"
-                  onClick={() => this.props.applyTimeFilter(start - fightStart, end - fightStart)}
+                  onClick={() => this.props.applyTimeFilter?.(start - fightStart, end - fightStart)}
                 >
                   <Trans id="shared.cooldownThroughputTracker.cooldown.events">Filter events</Trans>
                 </a>
@@ -164,7 +177,10 @@ class Cooldown extends Component {
             {!this.state.showCastEvents && (
               <div>
                 {cooldown.events
-                  .filter((event) => event.type === EventType.Cast && event.ability.guid !== 1)
+                  .filter(
+                    (event): event is CastEvent =>
+                      event.type === EventType.Cast && event.ability.guid !== 1,
+                  )
                   .map((event, i) => (
                     <SpellLink
                       key={`${event.ability.guid}-${event.timestamp}-${i}`}
@@ -192,7 +208,10 @@ class Cooldown extends Component {
             {this.state.showCastEvents && !this.state.showAllEvents && (
               <div className="container-fluid">
                 {cooldown.events
-                  .filter((event) => event.type === EventType.Cast && event.ability.guid !== 1)
+                  .filter(
+                    (event): event is CastEvent =>
+                      event.type === EventType.Cast && event.ability.guid !== 1,
+                  )
                   .map((event, i) => (
                     <div className="row" key={i}>
                       <div className="col-xs-2 text-right" style={{ padding: 0 }}>
@@ -239,8 +258,10 @@ class Cooldown extends Component {
                       (event.type === EventType.Cast || event.type === EventType.Heal) &&
                       event.ability.guid !== 1,
                   ),
-                ).map((heal, i) => {
-                  const event = heal.event || heal;
+                ).map((maybeHeal, i) => {
+                  const [event, heal] =
+                    'event' in maybeHeal ? [maybeHeal.event, maybeHeal] : [maybeHeal];
+
                   return (
                     <div className="row" key={i}>
                       <div className="col-xs-1 text-right" style={{ padding: 0 }}>
@@ -263,13 +284,13 @@ class Cooldown extends Component {
                           />{' '}
                           {event.ability.name}
                         </SpellLink>
-                        {event.type === EventType.Heal && (
+                        {heal && (
                           <span>
                             <span className="grouped-heal-meta amount"> x {heal.count}</span>
                           </span>
                         )}
                       </div>
-                      {event.type === EventType.Heal && (
+                      {heal && (
                         <div className="col-xs-4">
                           <span className="grouped-heal-meta healing">
                             {' '}
@@ -359,7 +380,9 @@ class Cooldown extends Component {
                       );
                     case BUILT_IN_SUMMARY_TYPES.ABSORBED: {
                       const total = cooldown.events
-                        .filter((event) => event.type === EventType.Absorbed)
+                        .filter(
+                          (event): event is AbsorbedEvent => event.type === EventType.Absorbed,
+                        )
                         .reduce((total, event) => total + (event.amount || 0), 0);
                       return (
                         <div className="col-md-4 text-center" key="absorbed">
@@ -382,7 +405,9 @@ class Cooldown extends Component {
                     }
                     case BUILT_IN_SUMMARY_TYPES.ABSORBS_APPLIED: {
                       const total = cooldown.events
-                        .filter((event) => event.type === EventType.ApplyBuff)
+                        .filter(
+                          (event): event is ApplyBuffEvent => event.type === EventType.ApplyBuff,
+                        )
                         .reduce((total, event) => total + (event.absorb || 0), 0);
                       return (
                         <div className="col-md-4 text-center" key="absorbs-applied">
@@ -405,28 +430,24 @@ class Cooldown extends Component {
                       let manaUsed = 0;
                       if (cooldown.spell === SPELLS.INNERVATE.id) {
                         manaUsed = cooldown.events
-                          .filter((event) => event.type === EventType.Cast)
+                          .filter((event): event is CastEvent => event.type === EventType.Cast)
                           .reduce(
                             (total, event) =>
-                              total + (event.rawResourceCost[RESOURCE_TYPES.MANA.id] || 0),
+                              total + (event.rawResourceCost?.[RESOURCE_TYPES.MANA.id] || 0),
                             0,
                           );
                       } else {
                         manaUsed = cooldown.events
-                          .filter((event) => event.type === EventType.Cast)
+                          .filter((event): event is CastEvent => event.type === EventType.Cast)
                           .reduce(
                             (total, event) =>
-                              total + (event.resourceCost[RESOURCE_TYPES.MANA.id] || 0),
+                              total + (event.resourceCost?.[RESOURCE_TYPES.MANA.id] || 0),
                             0,
                           );
                       }
                       return (
-                        <div>
-                          <Trans
-                            id="shared.cooldownThroughputTracker.cooldown.manaUsed"
-                            className="col-md-4 text-center"
-                            key="mana"
-                          >
+                        <div className="col-md-4 text-center">
+                          <Trans id="shared.cooldownThroughputTracker.cooldown.manaUsed" key="mana">
                             <div style={{ fontSize: '2em' }}>{formatNumber(manaUsed)}</div>
                             mana used
                           </Trans>
