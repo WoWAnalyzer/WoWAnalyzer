@@ -1,17 +1,16 @@
 import { useState } from 'react';
-import './BuffTargetHelper.scss';
+import './Styling.scss';
 
 interface Props {
   loader: () => Promise<void>;
   value: () => JSX.Element | undefined;
-  className?: string;
 }
 /**
  * @loader function to run on button press
  * @value function to return JSX element to be rendered
  * @className optional class name for button
  */
-function LazyLoadGuideSection({ loader, value, className }: Props) {
+function LazyLoadGuideSection({ loader, value }: Props) {
   const [loading, setLoading] = useState(false);
   const [content, setContent] = useState<JSX.Element | undefined>(undefined);
 
@@ -25,7 +24,7 @@ function LazyLoadGuideSection({ loader, value, className }: Props) {
   return (
     <>
       {!content && !loading && (
-        <button onClick={handleButtonClick} disabled={loading} className={className}>
+        <button onClick={handleButtonClick} disabled={loading} className="button">
           {loading ? 'Loading...' : 'Click to load'}
         </button>
       )}

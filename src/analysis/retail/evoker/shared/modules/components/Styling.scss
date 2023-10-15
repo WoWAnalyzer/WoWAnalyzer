@@ -1,5 +1,21 @@
 @import 'interface/Theme.scss';
 
+.button {
+  background-color: #fab700;
+  color: #211510;
+  line-height: 16.8px;
+  font-size: 14px;
+  border-radius: 6px;
+  height: 38px;
+  width: 140px;
+  border: none;
+  font-weight: 600;
+
+  &:hover {
+    background-color: darken($color: #fab700, $amount: 7);
+  }
+}
+
 .graph-window-container {
   header {
     display: grid;
@@ -24,7 +40,7 @@
   }
 }
 
-.breath-explanation-container {
+.graph-explanation-container {
   display: grid;
   grid-template-columns: minmax(40%, max-content) 1fr;
   column-gap: 1em;
@@ -35,11 +51,7 @@
   }
 }
 
-.breath-explanations {
+.graph-explanations {
   margin-top: 1em;
   align-self: start;
-}
-
-.no-cast {
-  color: #999;
 }

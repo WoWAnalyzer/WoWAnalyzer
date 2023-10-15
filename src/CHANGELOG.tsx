@@ -30,6 +30,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 14), 'Paginate data loading, allowing M+ to be re-enabled for most specs', emallson),
+  change(date(2023, 10, 12), <>Make ICC the default Classic zone.</>, emallson),
+  change(date(2023, 10, 12), 'Simplify checking if a fight is M+.', ToppleTheNun),
   change(date(2023, 10, 9), 'Add Amirdrassil raid data.', ToppleTheNun),
   change(date(2023, 10, 9), 'Remove Burning Crusade raid data.', ToppleTheNun),
   change(date(2023, 10, 9), 'Bump retail version to 10.1.7.', ToppleTheNun),
