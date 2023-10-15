@@ -190,10 +190,10 @@ class Abilities extends CoreAbilities {
         gcd: null,
       },
       {
-        spell: talents.HEALING_ELIXIR_TALENT.id,
+        spell: talents.HEALING_ELIXIR_BREWMASTER_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 30,
-        enabled: combatant.hasTalent(talents.HEALING_ELIXIR_TALENT),
+        enabled: combatant.hasTalent(talents.HEALING_ELIXIR_BREWMASTER_TALENT),
         gcd: null,
       },
       {

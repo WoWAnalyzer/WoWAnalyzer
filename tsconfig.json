@@ -23,8 +23,6 @@
   "exclude": [
     "src/analysis/retail/druid/restoration",
     "src/analysis/retail/hunter/beastmastery",
-    "src/analysis/retail/monk/brewmaster",
-    "src/analysis/retail/monk/mistweaver",
     "src/analysis/retail/paladin/protection",
     "src/analysis/retail/priest/discipline",
     "src/analysis/retail/priest/shared",
@@ -35,8 +33,6 @@
   "files": [
     "src/analysis/retail/druid/restoration/CONFIG.tsx",
     "src/analysis/retail/hunter/beastmastery/CONFIG.tsx",
-    "src/analysis/retail/monk/brewmaster/CONFIG.tsx",
-    "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
     "src/analysis/retail/paladin/protection/CONFIG.tsx",
     "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
     "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
