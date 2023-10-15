@@ -7,19 +7,11 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SPELL_COLORS } from '../../constants';
-import Echo from './Echo';
 import { TIERS } from 'game/TIERS';
-import T31PrevokerSet from '../dragonflight/tier/T31TierSet';
 import { isEchoFromT314PC, isFromTAEcho } from '../../normalizers/CastLinkNormalizer';
 import Events, { ApplyBuffEvent } from 'parser/core/Events';
 
 class EchoTypeBreakdown extends Analyzer {
-  static dependencies = {
-    echo: Echo,
-    t31: T31PrevokerSet,
-  };
-  protected echo!: Echo;
-  protected t31!: T31PrevokerSet;
   tierCount: number = 0;
   hardcastCount: number = 0;
   rsCount: number = 0;
