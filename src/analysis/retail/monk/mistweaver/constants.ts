@@ -32,6 +32,9 @@ export const LIFE_COCOON_HEALING_BOOST = 0.5;
 export const TEACHINGS_OF_THE_MONASTERY_DURATION = 20000;
 
 // Talent Constants
+export const LEGACY_OF_WISDOM_TARGETS = 2;
+export const SHEILUNS_GIFT_TARGETS = 3;
+export const FONT_OF_LIFE_BOOST = 0.25;
 export const CF_BUFF_PER_STACK = 0.15;
 export const MAX_CHIJI_STACKS = 3;
 export const MANA_TEA_MAX_STACKS = 20;

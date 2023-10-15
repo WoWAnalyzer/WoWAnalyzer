@@ -11,7 +11,8 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { isFromSheilunsGift } from '../../normalizers/CastLinkNormalizer';
+import { getSheilunsGiftHits, isFromSheilunsGift } from '../../normalizers/CastLinkNormalizer';
+import { SHEILUNS_GIFT_TARGETS } from '../../constants';
 
 class SheilunsGift extends Analyzer {
   numCasts: number = 0;
@@ -22,6 +23,7 @@ class SheilunsGift extends Analyzer {
   cloudsLostSinceLastCast: number = 0;
   curClouds: number = 0;
   overhealing: number = 0;
+  legacyOfWisdomActive: boolean = false;
 
   constructor(options: Options) {
     super(options);
@@ -29,14 +31,21 @@ class SheilunsGift extends Analyzer {
     if (!this.active) {
       return;
     }
+    this.legacyOfWisdomActive = this.selectedCombatant.hasTalent(
+      TALENTS_MONK.LEGACY_OF_WISDOM_TALENT,
+    );
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
       this.onCast,
     );
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
-      this.onHeal,
-    );
+
+    if (!this.legacyOfWisdomActive) {
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
+        this.onHeal,
+      );
+    }
+
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.masterySheilunsGift,
@@ -51,6 +60,21 @@ class SheilunsGift extends Analyzer {
     this.totalStacks += this.selectedCombatant.getBuffStacks(SPELLS.SHEILUN_CLOUD_BUFF.id);
     this.cloudsLostSinceLastCast = 0;
     this.numCasts += 1;
+    if (this.legacyOfWisdomActive) {
+      const sgHealEvents = getSheilunsGiftHits(event);
+      if (!sgHealEvents) {
+        return;
+      }
+      const baseHits = sgHealEvents.splice(0, SHEILUNS_GIFT_TARGETS);
+      if (!baseHits) {
+        return;
+      }
+      this.baseHealing += baseHits.reduce(
+        (sum, heal) => sum + heal.amount + (heal.absorbed || 0),
+        0,
+      );
+      this.overhealing += baseHits.reduce((sum, heal) => sum + (heal.overheal || 0), 0);
+    }
   }
 
   onHeal(event: HealEvent) {

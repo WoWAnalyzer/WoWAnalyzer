@@ -44,7 +44,7 @@ class CloudedFocus extends Analyzer {
   healingDone: number = 0;
   cappedStacks: boolean = false;
   stacks: number = 0;
-  manaStacks: number = 0;
+
   lastStack: number = 0;
 
   //viv
@@ -144,14 +144,14 @@ class CloudedFocus extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
-    debug && console.log('Current Stacks: ', this.stacks, 'Mana Stacks: ', this.manaStacks, event);
+    debug && console.log('Current Stacks: ', this.stacks, event);
 
     const cost = event.resourceCost ? event.resourceCost[RESOURCE_TYPES.MANA.id] : 0;
     if (cost === 0) {
       debug && console.log('No Mana Cost Found: ', event);
     }
 
-    const manaSaved = cost / (1 - CF_BUFF_PER_STACK * this.manaStacks) - cost;
+    const manaSaved = cost / (1 - CF_BUFF_PER_STACK * this.stacks) - cost;
     this.addManaToStackMap(spellId, manaSaved);
     this.manaSaved += manaSaved;
   }
@@ -175,7 +175,6 @@ class CloudedFocus extends Analyzer {
   applyBuffStack(event: ApplyBuffStackEvent) {
     this.lastStack = this.stacks;
     this.stacks = event.stack;
-    this.manaStacks = event.stack - 1;
   }
 
   refreshBuff(event: RefreshBuffEvent) {
@@ -184,12 +183,10 @@ class CloudedFocus extends Analyzer {
       this.lastStack += 1;
       return;
     }
-    this.manaStacks = this.stacks;
   }
 
   removeBuff(event: RemoveBuffEvent) {
     this.stacks = 0;
-    this.manaStacks = 0;
   }
 
   tallyPrimaryTargetOverheal(event: HealEvent) {

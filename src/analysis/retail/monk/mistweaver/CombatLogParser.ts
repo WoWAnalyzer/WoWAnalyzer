@@ -93,6 +93,7 @@ import EnergizingBrew from './modules/spells/EnergizingBrew';
 import T31TierSet from './modules/dragonflight/tier/T31MWTier';
 import TearOfMorning from './modules/spells/TearOfMorning';
 import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
+import FontOfLife from './modules/spells/FontOfLife';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -148,6 +149,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // MW Talents
     ancientTeachings: AncientTeachings,
+    fontOfLife: FontOfLife,
     cloudedFocus: CloudedFocus,
     energizingBrew: EnergizingBrew,
     envelopingBreath: EnvelopingBreath,

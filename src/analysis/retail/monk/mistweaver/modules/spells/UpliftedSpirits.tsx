@@ -15,7 +15,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
-const BASE_COOLDOWN = 60 * 3 * 1000;
+const BASE_COOLDOWN = 180000;
 
 /**
  * Every time you cast rising sun kick it reduces revival's cooldown by 1 second and whenever you cast revival x% of that healing is done again as a hot over 10 seconds
@@ -60,6 +60,7 @@ class UpliftedSpirits extends Analyzer {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
         this.activeTalent.id,
         UPLIFTED_SPIRITS_REDUCTION,
+        event.timestamp,
       );
     } else {
       this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
@@ -75,6 +76,7 @@ class UpliftedSpirits extends Analyzer {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
         this.activeTalent.id,
         UPLIFTED_SPIRITS_REDUCTION,
+        event.timestamp,
       );
     } else {
       this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;

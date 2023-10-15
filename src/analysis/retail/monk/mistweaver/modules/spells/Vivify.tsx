@@ -294,7 +294,6 @@ class Vivify extends Analyzer {
 
   private _tallyCastEntry(event: CastEvent) {
     const vivifyHits = getVivifiesPerCast(event) as HealEvent[];
-    console.log('vivify hits: ', vivifyHits);
     const invigoratingMistHits = vivifyHits.filter(
       (invigMists) => invigMists.ability.guid === SPELLS.INVIGORATING_MISTS_HEAL.id,
     );

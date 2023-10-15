@@ -23,6 +23,7 @@ import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 
 import { SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class AncientTeachings extends Analyzer {
   damageSpellToHealing: Map<number, number> = new Map();
@@ -124,6 +125,17 @@ class AncientTeachings extends Analyzer {
     );
 
     return explanationAndDataSubsection(explanation, data, GUIDE_CORE_EXPLANATION_PERCENT);
+  }
+
+  talentHealingStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
   }
 
   subStatistic() {
@@ -264,6 +276,15 @@ class AncientTeachings extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(6)}
         smallFooter
+        footer={
+          <>
+            {' '}
+            {formatPercentage(
+              this.selectedCombatant.getBuffUptime(SPELLS.AT_BUFF.id) / this.owner.fightDuration,
+            )}
+            % Uptime *
+          </>
+        }
       >
         <TalentAggregateBars bars={this.getAncientTeachingsDataItems()}></TalentAggregateBars>
       </TalentAggregateStatisticContainer>

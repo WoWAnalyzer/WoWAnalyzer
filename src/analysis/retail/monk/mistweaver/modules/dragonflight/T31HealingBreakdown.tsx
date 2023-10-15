@@ -38,8 +38,6 @@ export const ChiHarmonyHealingBreakdown = ({
           [...fourPieceSourceMap.entries()]
             .sort((a, b) => b[1].rawAmount - a[1].rawAmount)
             .map((map) => {
-              console.log('spellId? - ', map[0]);
-
               const { ability, healing } = { ability: map[0], healing: map[1] };
 
               const currentTotal = absolute ? rawTotal : fourPieceHealing; // TODO total raw contribution

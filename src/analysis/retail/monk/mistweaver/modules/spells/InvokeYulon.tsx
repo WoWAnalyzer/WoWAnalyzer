@@ -17,11 +17,13 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import BaseCelestialAnalyzer from './BaseCelestialAnalyzer';
 import EssenceFont from './EssenceFont';
+import EnvelopingBreath from './EnvelopingBreath';
 
 class InvokeYulon extends BaseCelestialAnalyzer {
   soothHealing: number = 0;
   envelopHealing: number = 0;
   chiCocoonHealing: number = 0;
+  protected envb!: EnvelopingBreath;
   protected ef!: EssenceFont;
 
   get totalHealing() {
@@ -211,6 +213,11 @@ class InvokeYulon extends BaseCelestialAnalyzer {
                 {formatNumber(this.envelopHealing)}{' '}
                 <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> healing from{' '}
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
+                <li>
+                  {this.envb.averageEnvBPerEnv.toFixed(2)} average{' '}
+                  <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> per{' '}
+                  <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
+                </li>
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
