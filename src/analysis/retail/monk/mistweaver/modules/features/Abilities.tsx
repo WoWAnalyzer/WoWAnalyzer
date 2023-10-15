@@ -243,13 +243,6 @@ class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_MONK.FORTIFYING_BREW_TALENT),
       },
       {
-        spell: TALENTS_MONK.HEALING_ELIXIR_TALENT.id,
-        category: SPELL_CATEGORY.UTILITY,
-        charges: 2,
-        cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS_MONK.HEALING_ELIXIR_TALENT),
-      },
-      {
         spell: SPELLS.DETOX.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
