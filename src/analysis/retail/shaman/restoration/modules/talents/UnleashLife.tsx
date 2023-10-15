@@ -160,7 +160,7 @@ class UnleashLife extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.UNLEASH_LIFE_TALENT);
-    this.pwaveActive = this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT);
+    this.pwaveActive = this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT);
     this.overflowingShoresActive = this.selectedCombatant.hasTalent(
       TALENTS.OVERFLOWING_SHORES_TALENT,
     );
@@ -557,7 +557,7 @@ class UnleashLife extends Analyzer {
             active: true,
           },
           {
-            spellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+            spellId: TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id,
             amount: this.pwaveHealingWaveHealing,
             active: this.pwaveActive,
           },
@@ -656,7 +656,7 @@ class UnleashLife extends Analyzer {
         This spell is best used in preparation for incoming damage to combo with one of your
         stronger abilities like a <SpellLink spell={TALENTS.HIGH_TIDE_TALENT} />
         -buffed <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} />, a{' '}
-        <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} />
+        <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT} />
         -buffed <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />, or{' '}
         <SpellLink spell={TALENTS.HEALING_RAIN_TALENT} />
       </p>

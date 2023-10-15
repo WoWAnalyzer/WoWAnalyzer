@@ -29,7 +29,7 @@ class WavespeakersBlessing extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(talents.WAVESPEAKERS_BLESSING_TALENT);
-    this.pwaveActive = this.selectedCombatant.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
+    this.pwaveActive = this.selectedCombatant.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT);
     this.ptcActive = this.selectedCombatant.hasTalent(talents.PRIMAL_TIDE_CORE_TALENT);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(talents.RIPTIDE_TALENT),
@@ -84,7 +84,7 @@ class WavespeakersBlessing extends Analyzer {
               {this.pwaveActive && (
                 <li>
                   {formatNumber(this.healingFromPWaveRiptide)} from{' '}
-                  <SpellLink spell={talents.PRIMORDIAL_WAVE_TALENT} />{' '}
+                  <SpellLink spell={talents.PRIMORDIAL_WAVE_RESTORATION_TALENT} />{' '}
                   <SpellLink spell={talents.RIPTIDE_TALENT} />
                 </li>
               )}
