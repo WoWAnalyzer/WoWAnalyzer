@@ -496,7 +496,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT),
+        enabled: combatant.hasTalent(TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 1,

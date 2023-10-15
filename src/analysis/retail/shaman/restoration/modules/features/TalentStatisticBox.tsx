@@ -92,7 +92,7 @@ class TalentStatisticBox extends Analyzer {
     if (this.selectedCombatant.hasTalent(TALENTS.ASCENDANCE_RESTORATION_TALENT)) {
       talentList.push(this.ascendance.subStatistic());
     }
-    if (this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT)) {
+    if (this.selectedCombatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT)) {
       talentList.push(this.primordialWave.subStatistic());
     }
     if (this.selectedCombatant.hasTalent(TALENTS.PRIMAL_TIDE_CORE_TALENT)) {

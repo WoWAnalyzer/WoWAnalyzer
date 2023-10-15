@@ -61,7 +61,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: APPLIED_HEAL,
     linkingEventId: [talents.RIPTIDE_TALENT.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Heal],
-    referencedEventId: [talents.PRIMORDIAL_WAVE_TALENT.id],
+    referencedEventId: [talents.PRIMORDIAL_WAVE_RESTORATION_TALENT.id],
     referencedEventType: [EventType.Cast],
     forwardBufferMs: PWAVE_TRAVEL_MS,
     backwardBufferMs: PWAVE_TRAVEL_MS,
@@ -69,7 +69,7 @@ const EVENT_LINKS: EventLink[] = [
       return (referencedEvent as CastEvent).targetIsFriendly;
     },
     isActive(c) {
-      return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
+      return c.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT);
     },
   },
   {
@@ -124,7 +124,7 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
     isActive(c) {
-      return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
+      return c.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT);
     },
   },
   {
@@ -137,7 +137,7 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
     isActive(c) {
-      return c.hasTalent(talents.PRIMORDIAL_WAVE_TALENT);
+      return c.hasTalent(talents.PRIMORDIAL_WAVE_RESTORATION_TALENT);
     },
   },
   //healing rain linking
