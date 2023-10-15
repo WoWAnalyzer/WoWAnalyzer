@@ -53,8 +53,8 @@ class Buffs extends CoreAuras {
       },
       {
         spellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
-        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
-        triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT),
+        triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
       },
       {
         spellId: SPELLS.LEGACY_OF_THE_FROST_WITCH_BUFF.id,
