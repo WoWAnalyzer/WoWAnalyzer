@@ -19,16 +19,22 @@ import {
   RemoveBuffStackEvent,
 } from 'parser/core/Events';
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
+import { TIERS } from 'game/TIERS';
 
 export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
 export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
+export const EMPOWERED_CAST = 'EmpoweredCast'; // link empowerend to cast
+// BEGIN ECHO constants
 export const FROM_HARDCAST = 'FromHardcast'; // for linking a buffapply or heal to its cast
 export const FROM_TEMPORAL_ANOMALY = 'FromTemporalAnomaly'; // for linking TA echo apply to TA shield apply
+export const FROM_TIER = 'FromTier'; // for linking tier echo apply to tier lf damage/heal
 export const ECHO_REMOVAL = 'EchoRemoval'; // for linking echo removal to echo apply
-export const EMPOWERED_CAST = 'EmpoweredCast'; // link empowerend to cast
 export const TA_ECHO_REMOVAL = 'TaEchoTemoval'; // for linking TA echo removal to echo apply
+export const TIER_ECHO_REMOVAL = 'TierEchoRemoval'; // for linking tier echo to echo apply
 export const ECHO_TEMPORAL_ANOMALY = 'TemporalAnomaly'; // for linking BuffApply/Heal to echo removal
 export const ECHO = 'Echo'; // for linking BuffApply/Heal to echo removal
+export const ECHO_TIER = 'EchoT31'; // for linking BuffApply/Heal to echo removal
+// END ECHO constants
 export const ESSENCE_BURST_LINK = 'EssenceBurstLink'; // link eb removal to apply
 export const ESSENCE_BURST_CONSUME = 'EssenceBurstConsumption'; // link essence cast to removing the essence burst buff
 export const DREAM_BREATH_CALL_OF_YSERA = 'DreamBreathCallOfYsera'; // link DB hit to buff removal
@@ -48,15 +54,17 @@ export const STASIS = 'Stasis';
 export const STASIS_FOR_RAMP = 'ForRamp';
 export const ESSENCE_RUSH = 'EssenceRush';
 export const T31_2PC = 'T31LFProc';
+export const TIER_ECHO_HEAL = 'TierEchoHeal';
 
 export enum ECHO_TYPE {
   NONE,
   TA,
   HARDCAST,
+  TIER,
 }
 
 const CAST_BUFFER_MS = 100;
-const ECHO_BUFFER = 500;
+const ECHO_BUFFER = 5000;
 const EB_BUFFER_MS = 1500;
 const EB_VARIANCE_BUFFER = 150; // servers are bad and EB can take over or under 1.5s to actually trigger
 const LIFEBIND_BUFFER = 5000 + CAST_BUFFER_MS; // 5s duration
@@ -87,16 +95,6 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT);
     },
   },
-  // link Echo apply to its CastEvent
-  {
-    linkRelation: FROM_HARDCAST,
-    linkingEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
-    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
-    referencedEventType: [EventType.Cast],
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
   {
     linkRelation: EMPOWERED_CAST,
     linkingEventId: [
@@ -123,9 +121,21 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  // link Echo apply to its CastEvent
+  {
+    linkRelation: FROM_HARDCAST,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    referencedEventType: [EventType.Cast],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
   //link echo apply to the Temporal Anomaly shield application
   {
     linkRelation: FROM_TEMPORAL_ANOMALY,
+    reverseLinkRelation: FROM_TEMPORAL_ANOMALY,
     linkingEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     referencedEventId: SPELLS.TEMPORAL_ANOMALY_SHIELD.id,
@@ -142,10 +152,56 @@ const EVENT_LINKS: EventLink[] = [
       return !HasRelatedEvent(linkedEvent, FROM_HARDCAST);
     },
   },
+  {
+    linkRelation: FROM_TIER,
+    reverseLinkRelation: FROM_TIER,
+    linkingEventId: [
+      SPELLS.LIVING_FLAME_CAST.id,
+      SPELLS.LIVING_FLAME_DAMAGE.id,
+      SPELLS.LIVING_FLAME_HEAL.id,
+    ],
+    linkingEventType: [EventType.Heal, EventType.Damage, EventType.Cast],
+    referencedEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: STASIS_BUFFER * 3,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        !HasRelatedEvent(referencedEvent, FROM_HARDCAST) &&
+        !HasRelatedEvent(referencedEvent, FROM_TEMPORAL_ANOMALY) &&
+        !HasRelatedEvent(referencedEvent, FROM_TIER)
+      );
+    },
+    isActive(c) {
+      return c.has4PieceByTier(TIERS.T31);
+    },
+  },
+  {
+    linkRelation: TIER_ECHO_HEAL,
+    reverseLinkRelation: TIER_ECHO_HEAL,
+    linkingEventId: [
+      SPELLS.LIVING_FLAME_CAST.id,
+      SPELLS.LIVING_FLAME_DAMAGE.id,
+      SPELLS.LIVING_FLAME_HEAL.id,
+    ],
+    linkingEventType: [EventType.Heal, EventType.Damage, EventType.Cast],
+    referencedEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: STASIS_BUFFER * 3,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return HasRelatedEvent(linkingEvent, FROM_TIER);
+    },
+    isActive(c) {
+      return c.has4PieceByTier(TIERS.T31);
+    },
+  },
   /* ECHO APPLY TO ECHO REMOVAL LINKING */
   // link echo removal to echo apply
   {
     linkRelation: ECHO_REMOVAL,
+    reverseLinkRelation: ECHO_REMOVAL,
     linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     linkingEventType: EventType.RemoveBuff,
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
@@ -158,6 +214,7 @@ const EVENT_LINKS: EventLink[] = [
   // link ta echo removal to apply
   {
     linkRelation: TA_ECHO_REMOVAL,
+    reverseLinkRelation: TA_ECHO_REMOVAL,
     linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
     linkingEventType: EventType.RemoveBuff,
     referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
@@ -165,6 +222,18 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: MAX_ECHO_DURATION,
     additionalCondition(linkedEvent, referencedEvent) {
       return HasRelatedEvent(referencedEvent, FROM_TEMPORAL_ANOMALY);
+    },
+  },
+  {
+    linkRelation: TIER_ECHO_REMOVAL,
+    reverseLinkRelation: TIER_ECHO_REMOVAL,
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    backwardBufferMs: MAX_ECHO_DURATION,
+    additionalCondition(linkedEvent, referencedEvent) {
+      return HasRelatedEvent(referencedEvent, FROM_TIER);
     },
   },
   /* ECHO REMOVAL TO HOT APPLY */
@@ -206,6 +275,29 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+  //link tier echo removal to hot application
+  {
+    linkRelation: ECHO_TIER,
+    reverseLinkRelation: ECHO_TIER,
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: [EventType.RemoveBuff],
+    referencedEventId: [SPELLS.REVERSION_ECHO.id, SPELLS.DREAM_BREATH_ECHO.id],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    forwardBufferMs: ECHO_BUFFER,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        HasRelatedEvent(linkingEvent, TIER_ECHO_REMOVAL) &&
+        !HasRelatedEvent(linkingEvent, ECHO_REMOVAL) &&
+        !HasRelatedEvent(linkingEvent, TA_ECHO_REMOVAL) &&
+        !HasRelatedEvent(referencedEvent, ECHO) &&
+        !HasRelatedEvent(referencedEvent, ECHO_TEMPORAL_ANOMALY)
+      );
+    },
+    isActive(c) {
+      return c.has4PieceByTier(TIERS.T31);
+    },
+  },
   /* ECHO REMOVAL TO HEAL */
   // link echo removal to echo heal (for non-hots)
   {
@@ -240,7 +332,21 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: ECHO_BUFFER,
     maximumLinks: 1,
     additionalCondition(linkingEvent, referencedEvent) {
-      return !HasRelatedEvent(linkingEvent, ECHO_REMOVAL);
+      return HasRelatedEvent(linkingEvent, ECHO_REMOVAL);
+    },
+  },
+  // link EB heal to echo remove
+  {
+    linkRelation: ECHO_TIER,
+    reverseLinkRelation: ECHO_TIER,
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.EMERALD_BLOSSOM_ECHO.id,
+    referencedEventType: EventType.Heal,
+    forwardBufferMs: ECHO_BUFFER,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return HasRelatedEvent(linkingEvent, TIER_ECHO_REMOVAL);
     },
   },
   // link TA echo removal to echo heal (for non-hots)
@@ -264,6 +370,8 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent) {
       return (
         HasRelatedEvent(linkingEvent, TA_ECHO_REMOVAL) &&
+        HasRelatedEvent(linkingEvent, FROM_TEMPORAL_ANOMALY) &&
+        HasRelatedEvent(linkingEvent, FROM_TEMPORAL_ANOMALY) &&
         !HasRelatedEvent(linkingEvent, ECHO_REMOVAL) &&
         !HasRelatedEvent(referencedEvent, ECHO)
       );
@@ -273,6 +381,38 @@ const EVENT_LINKS: EventLink[] = [
         c.hasTalent(TALENTS_EVOKER.TEMPORAL_ANOMALY_TALENT) &&
         c.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT)
       );
+    },
+  },
+  // link tier echo removal to echo heal (for non-hots)
+  {
+    linkRelation: ECHO_TIER,
+    reverseLinkRelation: ECHO_TIER,
+    linkingEventId: TALENTS_EVOKER.ECHO_TALENT.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: [
+      SPELLS.EMERALD_BLOSSOM_ECHO.id,
+      SPELLS.SPIRITBLOOM_SPLIT.id,
+      SPELLS.SPIRITBLOOM.id,
+      SPELLS.SPIRITBLOOM_FONT.id,
+      SPELLS.DREAM_BREATH_ECHO.id,
+      SPELLS.LIVING_FLAME_HEAL.id,
+      SPELLS.VERDANT_EMBRACE_HEAL.id,
+    ],
+    referencedEventType: EventType.Heal,
+    maximumLinks: 1,
+    forwardBufferMs: ECHO_BUFFER,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return (
+        HasRelatedEvent(linkingEvent, TIER_ECHO_REMOVAL) &&
+        HasRelatedEvent(linkingEvent, FROM_TIER) &&
+        !HasRelatedEvent(linkingEvent, ECHO_REMOVAL) &&
+        !HasRelatedEvent(linkingEvent, TA_ECHO_REMOVAL) &&
+        !HasRelatedEvent(referencedEvent, ECHO) &&
+        !HasRelatedEvent(referencedEvent, ECHO_TEMPORAL_ANOMALY)
+      );
+    },
+    isActive(c) {
+      return c.has4PieceByTier(TIERS.T31);
     },
   },
   // special handling for TA Echo EB because it heals 3-5 targets and happens after 2s
@@ -699,15 +839,18 @@ class CastLinkNormalizer extends EventLinkNormalizer {
 
 /** Returns true iff the given buff application or heal can be matched back to a hardcast */
 export function isFromHardcastEcho(event: AbilityEvent<any>): boolean {
-  return HasRelatedEvent(event, ECHO);
+  return HasRelatedEvent(event, ECHO) || HasRelatedEvent(event, ECHO_REMOVAL);
 }
 
 export function isFromTAEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
-  return HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY);
+  return HasRelatedEvent(event, ECHO_TEMPORAL_ANOMALY) || HasRelatedEvent(event, TA_ECHO_REMOVAL);
 }
 
 export function isEchoFromT314PC(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
-  return !isFromHardcastEcho(event) && !isFromTAEcho(event);
+  if (event.ability.guid === TALENTS_EVOKER.ECHO_TALENT.id) {
+    return HasRelatedEvent(event, FROM_TIER) || HasRelatedEvent(event, TIER_ECHO_HEAL);
+  }
+  return HasRelatedEvent(event, ECHO_TIER);
 }
 
 export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {

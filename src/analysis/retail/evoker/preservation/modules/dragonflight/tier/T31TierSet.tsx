@@ -1,6 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
+  ApplyBuffEvent,
   DamageEvent,
   EventType,
   HealEvent,
@@ -52,6 +53,7 @@ class T31PrevokerSet extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T31);
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_BURST_BUFF),
       this.onEbProc,
@@ -73,6 +75,18 @@ class T31PrevokerSet extends Analyzer {
       this.onLfHit,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.onEchoHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
+      this.onEchoHeal,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
+      this.onEchoApply,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
+      this.onEchoApply,
+    );
   }
 
   onLfHit(event: DamageEvent | HealEvent) {
@@ -110,6 +124,14 @@ class T31PrevokerSet extends Analyzer {
     if (!isEchoFromT314PC(event)) {
       return;
     }
+    this.echoHealing += event.amount;
+  }
+
+  onEchoApply(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (!isEchoFromT314PC(event)) {
+      return;
+    }
+    this.echoProcs += 1;
   }
 
   get totalHealing() {
@@ -176,9 +198,18 @@ class T31PrevokerSet extends Analyzer {
               </div>
             </div>
           </>
-          <h4>4 pc</h4>
+          <h4>4 piece</h4>
           <>
-            <ItemHealingDone amount={this.echoHealing} />
+            <TooltipElement
+              hoverable
+              content={
+                <>
+                  {this.echoProcs} extra <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> buffs
+                </>
+              }
+            >
+              <ItemHealingDone amount={this.echoHealing} />
+            </TooltipElement>
           </>
         </BoringValueText>
       </Statistic>

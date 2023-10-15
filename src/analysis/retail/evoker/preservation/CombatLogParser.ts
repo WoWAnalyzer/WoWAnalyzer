@@ -47,6 +47,7 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
 import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
+import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -105,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     ouroboros: Ouroboros,
     nozTeachings: NozTeachings,
     regenerativeMagic: RegenerativeMagic,
+    echoTypeBreakdown: EchoTypeBreakdown,
 
     // tier
     t30PrevokerTier: T30PrevokerSet,
