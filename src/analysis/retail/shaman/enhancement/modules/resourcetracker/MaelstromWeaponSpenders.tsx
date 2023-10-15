@@ -75,7 +75,7 @@ export default class extends Analyzer {
         LIGHTNING_BOLT_PRIMORDIAL_WAVE_LINK,
       ) as DamageEvent[];
       if (damageEvents.length > 1) {
-        const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id;
+        const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id;
         damageEvents?.splice(0, 1);
         this.spenderValues[spellId] =
           (this.spenderValues[spellId] ?? 0) +
@@ -124,7 +124,7 @@ export default class extends Analyzer {
               const ability = this.abilityTracker.getAbility(spellId);
               let casts: number;
               let spent: number;
-              if (spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id) {
+              if (spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id) {
                 casts = ability.casts;
                 spent = this.maelstromSpendWithPrimordialWave;
               } else {
@@ -138,7 +138,7 @@ export default class extends Analyzer {
                     <tr key={spellId}>
                       <td>
                         <SpellLink spell={spell} />
-                        {spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_TALENT.id && (
+                        {spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id && (
                           <>
                             {' '}
                             buffed <SpellLink spell={SPELLS.LIGHTNING_BOLT} />
