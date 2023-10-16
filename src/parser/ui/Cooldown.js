@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 import { Component } from 'react';
 
 import './Cooldown.css';
+import { MaybeTooltip } from 'interface/Tooltip';
 
 class Cooldown extends Component {
   static propTypes = {
@@ -44,7 +45,7 @@ class Cooldown extends Component {
           timestamp: PropTypes.number.isRequired,
         }),
       ),
-      lastAttributedHeal: PropTypes.number,
+      durationTooltip: PropTypes.string,
     }).isRequired,
     applyTimeFilter: PropTypes.func,
   };
@@ -133,13 +134,6 @@ class Cooldown extends Component {
   render() {
     const { cooldown, fightStart, fightEnd } = this.props;
 
-    if (cooldown.lastAttributedHeal && cooldown.lateEvents) {
-      cooldown.lateEvents.splice(
-        cooldown.lastAttributedHeal,
-        cooldown.lateEvents.length - cooldown.lastAttributedHeal,
-      );
-    }
-
     const fakeSummaryCooldown = { events: cooldown.lateEvents ?? [] };
 
     let healingStatistics = null;
@@ -165,8 +159,11 @@ class Cooldown extends Component {
                 {(cooldown.spell && <SpellLink spell={cooldown.spell} icon={false} />) || (
                   <span>Remaining HoT duration</span>
                 )}{' '}
-                ({formatDuration(cdStart - fightStart)} -&gt; {formatDuration(end - fightStart)})
-                &nbsp;
+                (
+                <MaybeTooltip content={cooldown.durationTooltip}>
+                  {formatDuration(cdStart - fightStart)} -&gt; {formatDuration(end - fightStart)}
+                </MaybeTooltip>
+                ) &nbsp;
                 <TooltipElement
                   content={
                     <Trans id="shared.cooldownThroughputTracker.cooldown.events.tooltip">

@@ -17,10 +17,7 @@ import CoreCooldownThroughputTracker, {
 } from 'parser/shared/modules/CooldownThroughputTracker';
 import HotTrackerMW from '../core/HotTrackerMW';
 
-const CELESTIAL_SPELL_IDS = [
-  TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
-  TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id,
-];
+const YULON_SPELL_ID = TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id;
 
 type HotAttributedTrackedEvent = TrackedCooldown & { lastAttributedIndex: number };
 
@@ -42,6 +39,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
       expansion: RETAIL_EXPANSION,
+      durationTooltip:
+        "Duration includes the duration of any Enveloping Mists and Renewing Mists applied during Yu'Lon.",
     },
     {
       spell: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
@@ -73,9 +72,9 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     TALENTS_MONK.TRANSCENDENCE_TALENT.id,
   ];
 
-  private _hasCelestialAttribution(event: HealEvent) {
+  private _hasYuLonAttribution(event: HealEvent) {
     const tracker = this.hotTracker.hots[event.targetID]?.[event.ability.guid];
-    return tracker && this.hotTracker.fromCelestial(tracker);
+    return tracker && this.hotTracker.fromYuLon(tracker);
   }
 
   private _prune(cooldown: HotAttributedTrackedEvent) {
@@ -87,8 +86,8 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
   }
 
   startCooldown(event: CastEvent | ApplyBuffEvent | ApplyDebuffEvent, isCastCooldown?: boolean) {
-    if (CELESTIAL_SPELL_IDS.includes(event.ability.guid)) {
-      const index = this.activeCooldowns.findIndex((cooldown) => cooldown.spell === 0);
+    if (event.type === EventType.ApplyBuff && event.ability.guid === YULON_SPELL_ID) {
+      const index = this.activeCooldowns.findIndex((cooldown) => cooldown.spell === YULON_SPELL_ID);
       if (index >= 0) {
         const cd = this.activeCooldowns.splice(index, 1)[0];
         this._prune(cd as HotAttributedTrackedEvent);
@@ -104,31 +103,23 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
 
     super.endCooldown(event);
 
-    // If we just ended a Yu'Lon or Chi-Ji cooldown, then add a fake cooldown to track
-    // that will accumulate all events until the next Yu'Lon or Chi-Ji is cast. Once
-    // the next celestial is cast, we'll prune out any events that happened after all
-    // the hots applied during the celestial have expired.
-    if (!(cd && CELESTIAL_SPELL_IDS.includes(spellId))) {
+    // Instead of ending Yu'Lon when the duration expires, keep the CD tracker
+    // active until the last hot applied during Yu'Lon falls off. In practice,
+    // we'll keep it active until the next cast or until the fight ends and prune
+    // it afterwards.
+    if (!(cd && spellId === YULON_SPELL_ID)) {
       return;
     }
 
-    const newCd: HotAttributedTrackedEvent = {
-      spell: 0,
-      summary: cd.summary,
-      start: event.timestamp,
-      cdStart: event.timestamp,
-      end: null,
-      events: [],
-      lastAttributedIndex: 0,
-    };
+    const extendedCD = cd as HotAttributedTrackedEvent;
+    extendedCD.lastAttributedIndex = extendedCD.lastAttributedIndex ?? 0;
+    extendedCD.end = null;
 
-    const index = this.pastCooldowns.indexOf(cd);
-    this.pastCooldowns.splice(index + 1, 0, newCd);
-    this.activeCooldowns.push(newCd);
+    this.activeCooldowns.push(extendedCD);
   }
 
   onFightend() {
-    const cd = this.activeCooldowns.find((cooldown) => cooldown.spell === 0);
+    const cd = this.activeCooldowns.find((cooldown) => cooldown.spell === YULON_SPELL_ID);
     if (cd) {
       this._prune(cd as HotAttributedTrackedEvent);
     }
@@ -143,9 +134,9 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     // during event handling rather than during _prune().
     this.activeCooldowns.forEach((cooldown) => {
       if (
-        cooldown.spell === 0 &&
+        cooldown.spell === YULON_SPELL_ID &&
         event.type === EventType.Heal &&
-        this._hasCelestialAttribution(event)
+        this._hasYuLonAttribution(event)
       ) {
         (cooldown as HotAttributedTrackedEvent).lastAttributedIndex = cooldown.events.length - 1;
       }

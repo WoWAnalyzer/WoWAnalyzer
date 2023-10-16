@@ -104,9 +104,9 @@ class HotTrackerMW extends HotTracker {
     });
   }
 
-  fromCelestial(hot: Tracker): boolean {
+  fromYuLon(hot: Tracker): boolean {
     return hot.attributions.some(function (attr) {
-      return attr.name === ATTRIBUTION_STRINGS.CELESTIAL;
+      return attr.name === ATTRIBUTION_STRINGS.YULON;
     });
   }
 

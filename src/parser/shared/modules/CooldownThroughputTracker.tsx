@@ -51,6 +51,7 @@ export type CooldownSpell = {
   petID?: number;
   duration?: number;
   expansion?: number;
+  durationTooltip?: string;
 };
 
 export type BuffCooldownSpell = CooldownSpell & {
