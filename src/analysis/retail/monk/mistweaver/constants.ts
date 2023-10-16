@@ -63,7 +63,7 @@ export const ATTRIBUTION_STRINGS = {
     RD_SOURCE_RSK: 'Rapid Diffusion Source - Rising Sun Kick',
     RD_SOURCE_ENV: 'Rapid Diffusion Source - Enveloping Mist',
   },
-  YULON: "Hardcast During Yu'Lon",
+  YULON: "Hardcast During Yu'lon",
 };
 
 export const SECRET_INFUSION_BUFFS = [

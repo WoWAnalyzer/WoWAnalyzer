@@ -22,6 +22,7 @@ import Events, {
 } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import CooldownOverview from 'parser/ui/CooldownOverview';
+import { ReactNode } from 'react';
 
 const debug = false;
 
@@ -51,7 +52,7 @@ export type CooldownSpell = {
   petID?: number;
   duration?: number;
   expansion?: number;
-  durationTooltip?: string;
+  durationTooltip?: ReactNode;
 };
 
 export type BuffCooldownSpell = CooldownSpell & {

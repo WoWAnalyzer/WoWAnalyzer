@@ -16,6 +16,7 @@ import CoreCooldownThroughputTracker, {
   TrackedEvent,
 } from 'parser/shared/modules/CooldownThroughputTracker';
 import HotTrackerMW from '../core/HotTrackerMW';
+import SpellLink from 'interface/SpellLink';
 
 const YULON_SPELL_ID = TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT.id;
 
@@ -39,8 +40,14 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         BUILT_IN_SUMMARY_TYPES.MANA,
       ],
       expansion: RETAIL_EXPANSION,
-      durationTooltip:
-        "Duration includes the duration of any Enveloping Mists and Renewing Mists applied during Yu'Lon.",
+      durationTooltip: (
+        <>
+          Duration includes the duration of any{' '}
+          <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />s and{' '}
+          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />s applied during{' '}
+          <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT} />.
+        </>
+      ),
     },
     {
       spell: TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT.id,
@@ -93,28 +100,25 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
         this._prune(cd as HotAttributedTrackedEvent);
       }
     }
-
     super.startCooldown(event, isCastCooldown);
   }
 
   endCooldown(event: RemoveDebuffEvent | RemoveBuffEvent) {
     const spellId = event.ability.guid;
     const cd = this.activeCooldowns.find((cooldown) => cooldown.spell === spellId);
-
     super.endCooldown(event);
 
     // Instead of ending Yu'Lon when the duration expires, keep the CD tracker
     // active until the last hot applied during Yu'Lon falls off. In practice,
     // we'll keep it active until the next cast or until the fight ends and prune
     // it afterwards.
-    if (!(cd && spellId === YULON_SPELL_ID)) {
+    if (!cd || spellId !== YULON_SPELL_ID) {
       return;
     }
 
     const extendedCD = cd as HotAttributedTrackedEvent;
     extendedCD.lastAttributedIndex = extendedCD.lastAttributedIndex ?? 0;
     extendedCD.end = null;
-
     this.activeCooldowns.push(extendedCD);
   }
 
@@ -123,7 +127,6 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     if (cd) {
       this._prune(cd as HotAttributedTrackedEvent);
     }
-
     super.onFightend();
   }
 
