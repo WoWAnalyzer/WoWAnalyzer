@@ -27,7 +27,6 @@
     "src/analysis/retail/priest/discipline",
     "src/analysis/retail/priest/shared",
     "src/analysis/retail/priest/holy",
-    "src/analysis/retail/priest/shadow",
     "src/analysis/retail/shaman/shared"
   ],
   "files": [
@@ -37,8 +36,7 @@
     "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
     "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
     "src/analysis/retail/priest/discipline/CONFIG.tsx",
-    "src/analysis/retail/priest/holy/CONFIG.tsx",
-    "src/analysis/retail/priest/shadow/CONFIG.tsx"
+    "src/analysis/retail/priest/holy/CONFIG.tsx"
   ],
   "ts-node": {
     // these options are overrides used only by ts-node
