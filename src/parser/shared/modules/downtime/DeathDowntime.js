@@ -20,7 +20,7 @@ class DeathDowntime extends Analyzer {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(Events.death.to(SELECTED_PLAYER), this.onDeath);
     this.addEventListener(Events.resurrect.to(SELECTED_PLAYER), this.onResurrect);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
@@ -45,7 +45,7 @@ class DeathDowntime extends Analyzer {
     this._lastDeathTimestamp = null;
     this._isAlive = true;
   }
-  onFightend() {
+  onFightEnd() {
     if (!this._isAlive) {
       this.resurrect(this.owner.currentTimestamp);
     }

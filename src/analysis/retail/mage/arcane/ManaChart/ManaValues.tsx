@@ -16,12 +16,12 @@ class ArcaneManaValues extends ManaValues {
   constructor(options: Options) {
     super(options);
     this.active = true;
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   deadOnKill = false;
 
-  onFightend() {
+  onFightEnd() {
     if (!this.deathTracker.isAlive) {
       this.deadOnKill = true;
     }

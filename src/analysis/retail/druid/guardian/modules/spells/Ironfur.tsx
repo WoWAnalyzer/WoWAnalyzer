@@ -149,7 +149,7 @@ export default class Ironfur extends Analyzer {
   // constructor(options) {
   //   super(options);
   //   this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-  //   this.addEventListener(Events.fightend, this.onFightend);
+  //   this.addEventListener(Events.fightend, this.onFightEnd);
   // }
   //
   // registerHit(stackCount) {
@@ -172,7 +172,7 @@ export default class Ironfur extends Analyzer {
   //   return this._hitsPerStack.map((hits) => hits / this.totalHitsTaken);
   // }
   //
-  // onFightend() {
+  // onFightEnd() {
   //   if (debug) {
   //     console.log(`Hits with ironfur ${this.hitsMitigated}`);
   //     console.log(`Hits without ironfur ${this.hitsUnmitigated}`);

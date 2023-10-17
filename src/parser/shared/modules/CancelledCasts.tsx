@@ -31,7 +31,7 @@ class CancelledCasts extends Analyzer {
     super(options);
     this.addEventListener(Events.begincast.by(SELECTED_PLAYER), this.onBeginCast);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onBeginCast(event: BeginCastEvent) {
@@ -126,7 +126,7 @@ class CancelledCasts extends Analyzer {
     return QualitativePerformance.Fail;
   }
 
-  onFightend() {
+  onFightEnd() {
     debug &&
       console.log(
         formatMilliseconds(this.owner.fightDuration),

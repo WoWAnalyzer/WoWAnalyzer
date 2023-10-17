@@ -13,7 +13,7 @@ class SpellManaCost extends SpellResourceCost {
 
   constructor(options) {
     super(options);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   getHardcodedManaCost(event) {
@@ -52,7 +52,7 @@ class SpellManaCost extends SpellResourceCost {
     return cost;
   }
 
-  onFightend() {
+  onFightEnd() {
     const incorrectCostCount = Object.keys(this.incorrectCosts).length;
     if (incorrectCostCount === 0) {
       return;

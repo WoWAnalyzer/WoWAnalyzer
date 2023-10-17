@@ -54,7 +54,7 @@ class SoulShardTracker extends ResourceTracker {
     this.hasInferno = this.selectedCombatant.hasTalent(TALENTS.INFERNO_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.any, this.onEvent);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   // this accounts for Soul Conduit and possibly Feretory of Souls (they grant whole Soul Shards and appear as energize events, but their resourceChange field is in values 0 - 5 and we want 0 - 50
@@ -167,7 +167,7 @@ class SoulShardTracker extends ResourceTracker {
     }
   }
 
-  onFightend() {
+  onFightEnd() {
     // after the fight has finished, try to redistribute the missing fragments
     const missingFragments = this.spent - this.generated;
     if (missingFragments <= 0) {

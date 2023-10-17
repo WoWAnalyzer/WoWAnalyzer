@@ -51,7 +51,7 @@ class Deluge extends Analyzer {
       Events.begincast.by(SELECTED_PLAYER).spell(TALENTS.HEALING_RAIN_TALENT),
       this._onHealingRainBegincast,
     );
-    this.addEventListener(Events.fightend, this._onFightend);
+    this.addEventListener(Events.fightend, this._onFightEnd);
   }
 
   get healing() {
@@ -87,7 +87,7 @@ class Deluge extends Analyzer {
     this.eventsDuringRain.length = 0;
   }
 
-  _onFightend() {
+  _onFightEnd() {
     this.recordHealing();
   }
 
