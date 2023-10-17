@@ -289,7 +289,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.MASS_DISPEL_TALENT.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45 - (combatant.hasTalent(TALENTS.IMPROVED_MASS_DISPEL_TALENT) ? 30 : 0),
+        cooldown: 120,
         gcd: {
           base: 1500,
         },
