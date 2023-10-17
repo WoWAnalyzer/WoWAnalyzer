@@ -122,12 +122,12 @@ class CooldownThroughputTracker extends CoreCooldownThroughputTracker {
     this.activeCooldowns.push(extendedCD);
   }
 
-  onFightend() {
+  onFightEnd() {
     const cd = this.activeCooldowns.find((cooldown) => cooldown.spell === YULON_SPELL_ID);
     if (cd) {
       this._prune(cd as HotAttributedTrackedEvent);
     }
-    super.onFightend();
+    super.onFightEnd();
   }
 
   trackEvent(event: TrackedEvent) {
