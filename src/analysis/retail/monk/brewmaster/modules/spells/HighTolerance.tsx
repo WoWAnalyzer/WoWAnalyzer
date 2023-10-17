@@ -77,7 +77,7 @@ class HighTolerance extends Analyzer {
     this.active = this.ranks > 0;
     this.addEventListener(Events.applydebuff.to(SELECTED_PLAYER), this.onApplyDebuff);
     this.addEventListener(Events.removedebuff.to(SELECTED_PLAYER), this.onRemoveDebuff);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onApplyDebuff(event: ApplyDebuffEvent) {
@@ -96,7 +96,7 @@ class HighTolerance extends Analyzer {
     this._staggerLevel = null;
   }
 
-  onFightend() {
+  onFightEnd() {
     if (this._staggerLevel !== null) {
       this.staggerDurations[this._staggerLevel] +=
         this.owner.fight.end_time - this._lastDebuffApplied;

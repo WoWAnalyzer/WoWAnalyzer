@@ -41,7 +41,7 @@ class SubOptimalChainLightning extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.CHAIN_LIGHTNING_TALENT),
       this.onDamage,
     );
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   checkCast() {
@@ -64,7 +64,7 @@ class SubOptimalChainLightning extends Analyzer {
     this.hits += 1;
   }
 
-  onFightend() {
+  onFightEnd() {
     this.checkCast();
   }
 

@@ -35,7 +35,7 @@ class Overload extends Analyzer {
         ),
       this.hasIcefury && this.getHits(SPELLS.ICEFURY_OVERLOAD.id, TALENTS.ICEFURY_TALENT.id),
     ];
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   getHits(overloadSpellId, normalSpellId) {
@@ -52,7 +52,7 @@ class Overload extends Analyzer {
     };
   }
 
-  onFightend() {
+  onFightEnd() {
     this.spells = [
       this.getHits(SPELLS.LAVA_BURST_OVERLOAD_DAMAGE.id, SPELLS.LAVA_BURST_DAMAGE.id),
       this.getHits(SPELLS.LIGHTNING_BOLT_OVERLOAD_HIT.id, SPELLS.LIGHTNING_BOLT.id),

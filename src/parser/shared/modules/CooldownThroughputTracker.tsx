@@ -123,7 +123,7 @@ class CooldownThroughputTracker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
@@ -209,7 +209,7 @@ class CooldownThroughputTracker extends Analyzer {
       console.log(`%cCooldown ended: ${SPELLS[cooldown.spell].name}`, 'color: red', cooldown);
   }
 
-  onFightend() {
+  onFightEnd() {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
       debug &&

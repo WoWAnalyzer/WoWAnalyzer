@@ -66,7 +66,7 @@ class BlockCheck extends Analyzer {
     }
 
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onDamageTaken(event: DamageEvent) {
@@ -81,7 +81,7 @@ class BlockCheck extends Analyzer {
     }
   }
 
-  onFightend() {
+  onFightEnd() {
     const blockableSet = new Set(); //this is master list of all BLOCKED events in the fight
     blockableSet.add(1); //make it so if they never hit sb we still get data from the melees they take
     this.shieldBlock.shieldBlocksDefensive.forEach((block) =>

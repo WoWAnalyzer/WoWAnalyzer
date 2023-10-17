@@ -51,7 +51,7 @@ class Wellspring extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.WELLSPRING_HEAL),
       this._onHeal,
     );
-    this.addEventListener(Events.fightend, this._onFightend);
+    this.addEventListener(Events.fightend, this._onFightEnd);
   }
 
   _onBegincast(event: BeginCastEvent) {
@@ -92,7 +92,7 @@ class Wellspring extends Analyzer {
     this.wellspringCasts[this.castNumber] += 1;
   }
 
-  _onFightend() {
+  _onFightEnd() {
     if (
       this.wellspringCasts[this.castNumber] &&
       this.wellspringCasts[this.castNumber] < 6 &&
