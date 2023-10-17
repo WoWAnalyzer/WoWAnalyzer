@@ -1,5 +1,5 @@
-import ITEMS from 'common/ITEMS';
-import SPELLS from 'common/SPELLS';
+import ITEMS from 'common/ITEMS/dragonflight/others';
+import SPELLS from 'common/SPELLS/dragonflight/others';
 import { formatDuration, formatPercentage } from 'common/format';
 import classColor from 'game/classColor';
 import { ItemLink, SpellLink } from 'interface';
