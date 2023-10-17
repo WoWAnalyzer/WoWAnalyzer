@@ -89,6 +89,7 @@ import { PlayerInfo } from './Player';
 import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
 import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/AcceleratingSandglass';
+import UsurpedFromBeyond from 'parser/retail/modules/items/dragonflight/UsurpedFromBeyond';
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
 
 // This prints to console anything that the DI has to do
@@ -205,6 +206,7 @@ class CombatLogParser {
 
     // Items:
     acceleratingSandglass: AcceleratingSandglass,
+    usurpedFromBeyond: UsurpedFromBeyond,
     voiceOfTheSilentStar: VoiceOfTheSilentStar,
 
     // Enchants

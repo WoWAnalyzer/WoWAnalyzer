@@ -27,7 +27,7 @@ function getBaseAmount(itemLevel: number) {
   return calculateSecondaryStatDefault(431, 1764.942, itemLevel);
 }
 
-function getStealAmount(itemLevel: number) {
+export function voiceOfTheSilentStarStealAmount(itemLevel: number) {
   return calculateSecondaryStatDefault(431, 117.942, itemLevel);
 }
 
@@ -56,7 +56,7 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
     }
     this.item = this.selectedCombatant.back;
     this.baseAmount = getBaseAmount(this.item.itemLevel);
-    this.stealAmount = getStealAmount(this.item.itemLevel);
+    this.stealAmount = voiceOfTheSilentStarStealAmount(this.item.itemLevel);
 
     this.addEventListener(
       Events.applybuff.spell(SPELLS.POWER_BEYOND_IMAGINATION).to(SELECTED_PLAYER),
@@ -285,7 +285,7 @@ class VoiceOfTheSilentStar extends Analyzer.withDependencies(deps) {
             {uptimeEntries.map((stat, index, arr) => (
               <Fragment key={stat.stat}>
                 {index !== 0 && ', '}
-                {index === arr.length - 1 && 'and '}
+                {index !== 0 && index === arr.length - 1 && 'and '}
                 {getName(stat.stat)} for {formatDuration(stat.totalUptime)} (
                 {formatPercentage(stat.totalUptime / this.owner.fightDuration)}%)
               </Fragment>
