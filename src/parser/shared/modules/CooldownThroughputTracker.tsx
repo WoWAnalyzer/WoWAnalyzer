@@ -22,6 +22,7 @@ import Events, {
 } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import CooldownOverview from 'parser/ui/CooldownOverview';
+import { ReactNode } from 'react';
 
 const debug = false;
 
@@ -34,7 +35,7 @@ export enum BUILT_IN_SUMMARY_TYPES {
   DAMAGE = 'DAMAGE',
 }
 
-type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
+export type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
 export type SummaryDef = {
   label: string;
@@ -51,6 +52,7 @@ export type CooldownSpell = {
   petID?: number;
   duration?: number;
   expansion?: number;
+  durationTooltip?: ReactNode;
 };
 
 export type BuffCooldownSpell = CooldownSpell & {
