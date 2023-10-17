@@ -43,11 +43,19 @@
   flex-direction: column;
 }
 
-.table {
+.buff-target-table th,
+.buff-target-table td {
   padding: 4px 12px;
-  //border: 1px solid rgb(111, 111, 111);
-  //text-align: center;
-  //background: #222;
+  border: 1px solid rgb(111, 111, 111);
+  text-align: center;
+}
+
+.buff-target-table {
+  background: #222;
+}
+
+.explanation-table {
+  padding: 4px 12px;
   margin-bottom: 10px;
 }
 
