@@ -8,7 +8,7 @@ class Haste extends CoreHaste {
     super(options);
 
     if (this.selectedCombatant.hasTalent(TALENTS.FRENZY_TALENT)) {
-      Haste.HASTE_BUFFS[SPELLS.FRENZY.id] = { hastePerStack: 0.02 };
+      this.addHasteBuff(SPELLS.FRENZY.id, { hastePerStack: 0.02 });
     }
 
     const STRIKES_RANKS =

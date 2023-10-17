@@ -16,12 +16,14 @@ import Statistic from 'parser/ui/Statistic';
 class Enrage extends Analyzer {
   static dependencies = {
     statTracker: StatTracker,
+    haste: Haste,
   };
   totalDamage: number = 0;
   damage: number = 0;
   protected statTracker!: StatTracker;
+  protected haste!: Haste;
 
-  constructor(options: Options) {
+  constructor(options: Options & { haste: Haste; statTracker: StatTracker }) {
     super(options);
 
     this.active =
@@ -35,7 +37,7 @@ class Enrage extends Analyzer {
 
     if (this.selectedCombatant.hasTalent(TALENTS.IMPROVED_ENRAGE_TALENT)) {
       // Inform the haste module that if we have enrage, we have 15% haste
-      Haste.HASTE_BUFFS[SPELLS.ENRAGE.id] = 0.15;
+      options.haste.addHasteBuff(SPELLS.ENRAGE.id, 0.15);
     }
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onPlayerDamage);
