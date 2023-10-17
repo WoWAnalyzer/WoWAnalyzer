@@ -1,5 +1,4 @@
 import { formatPercentage } from 'common/format';
-import { maybeGetSpell } from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   AbilityEvent,
@@ -16,6 +15,7 @@ import Events, {
 } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import EventEmitter from 'parser/core/modules/EventEmitter';
+import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 const DEBUG = false;
 
@@ -23,7 +23,7 @@ const DEBUG = false;
 export const COOLDOWN_LAG_MARGIN = 150;
 
 function spellName(spellId: number) {
-  return maybeGetSpell(spellId)?.name ?? '???';
+  return maybeGetTalentOrSpell(spellId)?.name ?? '???';
 }
 
 /**
@@ -678,7 +678,7 @@ class SpellUsable extends Analyzer {
     updateType: UpdateSpellUsableType,
     combatantId: number,
   ): UpdateSpellUsableEvent {
-    const spell = maybeGetSpell(canonicalSpellId);
+    const spell = maybeGetTalentOrSpell(canonicalSpellId);
 
     const event: UpdateSpellUsableEvent = {
       type: EventType.UpdateSpellUsable,

@@ -127,7 +127,7 @@ async function rawFetchWcl(endpoint: string, queryParams: QueryParams) {
 }
 
 const defaultOptions: WclOptions = {
-  timeout: 10000,
+  timeout: 60000,
 };
 export default function fetchWcl<T extends WCLResponseJSON>(
   endpoint: string,

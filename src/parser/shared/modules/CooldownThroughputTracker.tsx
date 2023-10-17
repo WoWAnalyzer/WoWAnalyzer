@@ -22,6 +22,7 @@ import Events, {
 } from 'parser/core/Events';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import CooldownOverview from 'parser/ui/CooldownOverview';
+import { ReactNode } from 'react';
 
 const debug = false;
 
@@ -34,7 +35,7 @@ export enum BUILT_IN_SUMMARY_TYPES {
   DAMAGE = 'DAMAGE',
 }
 
-type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
+export type TrackedEvent = CastEvent | HealEvent | AbsorbedEvent | DamageEvent | ApplyBuffEvent;
 
 export type SummaryDef = {
   label: string;
@@ -51,6 +52,7 @@ export type CooldownSpell = {
   petID?: number;
   duration?: number;
   expansion?: number;
+  durationTooltip?: ReactNode;
 };
 
 export type BuffCooldownSpell = CooldownSpell & {
@@ -123,7 +125,7 @@ class CooldownThroughputTracker extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
     this.addEventListener(Events.absorbed.by(SELECTED_PLAYER), this.onAbsorb);
@@ -209,7 +211,7 @@ class CooldownThroughputTracker extends Analyzer {
       console.log(`%cCooldown ended: ${SPELLS[cooldown.spell].name}`, 'color: red', cooldown);
   }
 
-  onFightend() {
+  onFightEnd() {
     this.activeCooldowns.forEach((cooldown) => {
       cooldown.end = this.owner.fight.end_time;
       debug &&

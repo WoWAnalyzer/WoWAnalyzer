@@ -182,7 +182,7 @@ class RegenResourceCapTracker extends Analyzer {
       regen: this.naturalRegenRate(),
       timestamp: this.owner.fight.start_time,
     };
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(Events.resourcechange.to(SELECTED_PLAYER), this.onEnergize);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
@@ -311,7 +311,7 @@ class RegenResourceCapTracker extends Analyzer {
     );
   }
 
-  onFightend() {
+  onFightEnd() {
     // updateState one last time to catch any resource capping after the final resource event
     this.updateState(this.predictValue(this.owner.fight.end_time));
     debug &&
