@@ -213,16 +213,16 @@ class InvokeYulon extends BaseCelestialAnalyzer {
                 {formatNumber(this.envelopHealing)}{' '}
                 <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> healing from{' '}
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
-                <li>
-                  {this.envb.averageEnvBPerEnv.toFixed(2)} average{' '}
-                  <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> per{' '}
-                  <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
-                </li>
               </li>
               <li>
                 {formatNumber(this.chiCocoonHealing)}{' '}
                 <SpellLink spell={SPELLS.CHI_COCOON_HEAL_YULON} /> healing from{' '}
                 <SpellLink spell={TALENTS_MONK.CELESTIAL_HARMONY_TALENT} />.
+              </li>
+              <li>
+                {this.envb.averageEnvBPerEnv.toFixed(2)} average{' '}
+                <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> per{' '}
+                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
               </li>
             </ul>
           </>
