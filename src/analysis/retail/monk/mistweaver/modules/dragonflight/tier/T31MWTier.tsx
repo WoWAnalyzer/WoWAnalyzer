@@ -1,8 +1,8 @@
-import { formatPercentage } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, { CastEvent, HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValueText from 'parser/ui/BoringValueText';
@@ -23,6 +23,9 @@ const TARGET_SPELLS = [
   TALENTS_MONK.SHEILUNS_GIFT_TALENT,
   TALENTS_MONK.SOOTHING_MIST_TALENT,
 ];
+
+const TOOLTIP_SPELLS = [...TARGET_SPELLS, SPELLS.GUSTS_OF_MISTS];
+
 export interface ChiHarmonySourceMap {
   rawAmount: number;
   effective: number;
@@ -46,6 +49,7 @@ class T31TierSet extends Analyzer {
   has2Piece: boolean = true;
   has4Piece: boolean = true;
   twoPieceHealing: number = 0;
+  twoPieceOverheal: number = 0;
   fourPieceHealing: number = 0;
   fourPieceHealingRaw: number = 0;
   castMap: ChiHarmonyTargetedSpells[] = [];
@@ -62,12 +66,26 @@ class T31TierSet extends Analyzer {
     //verify if we need to add absorb healing event listeners
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handle2pcHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TARGET_SPELLS), this.handleCast);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
+      this.handleGomHit,
+    );
     if (this.has4Piece) {
       this.addEventListener(
         Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_HARMONY_HEAL),
         this.handle4PcHeal,
       );
     }
+  }
+
+  private missedCastsPerSpell(spellId: number) {
+    const filteredMap = this.castMap.filter((x) => x.spellId === spellId);
+    return filteredMap.reduce((sum, spell) => sum + spell.missedCasts, 0);
+  }
+
+  private totalCastsPerSpell(spellId: number) {
+    const filteredMap = this.castMap.filter((x) => x.spellId === spellId);
+    return filteredMap.reduce((sum, spell) => sum + spell.totalCasts, 0);
   }
 
   handleCast(event: CastEvent) {
@@ -82,14 +100,17 @@ class T31TierSet extends Analyzer {
     }
   }
 
-  private missedCastsPerSpell(spellId: number) {
-    const filteredMap = this.castMap.filter((x) => x.spellId === spellId);
-    return filteredMap.reduce((sum, spell) => sum + spell.missedCasts, 0);
-  }
-
-  private totalCastsPerSpell(spellId: number) {
-    const filteredMap = this.castMap.filter((x) => x.spellId === spellId);
-    return filteredMap.reduce((sum, spell) => sum + spell.totalCasts, 0);
+  handleGomHit(event: HealEvent) {
+    const combatant = this.combatants.getEntity(event);
+    if (!combatant) {
+      return;
+    }
+    const newCast: ChiHarmonyTargetedSpells = {
+      spellId: event.ability.guid,
+      missedCasts: Number(!combatant.hasBuff(SPELLS.CHI_HARMONY_HEAL_BONUS.id)),
+      totalCasts: 1,
+    };
+    this.castMap.push(newCast);
   }
 
   handle2pcHeal(event: HealEvent) {
@@ -100,6 +121,7 @@ class T31TierSet extends Analyzer {
 
     if (combatant.hasBuff(SPELLS.CHI_HARMONY_HEAL_BONUS.id)) {
       this.twoPieceHealing += calculateEffectiveHealing(event, TWO_PIECE_BONUS);
+      this.twoPieceOverheal += calculateOverhealing(event, TWO_PIECE_BONUS);
       this.fourPieceEffective += event.amount + (event.absorbed || 0);
       this.fourPieceOverheal += event.overheal || 0;
       this.addHealToSourceMap(event);
@@ -132,7 +154,7 @@ class T31TierSet extends Analyzer {
           Casted abilities that targeted a player with{' '}
           <SpellLink spell={SPELLS.CHI_HARMONY_HEAL_BONUS} />
         </strong>
-        {TARGET_SPELLS.map(
+        {TOOLTIP_SPELLS.map(
           (spell) =>
             this.totalCastsPerSpell(spell.id) !== 0 && (
               <ul key={spell.id}>
@@ -141,11 +163,21 @@ class T31TierSet extends Analyzer {
                   <strong>
                     {this.totalCastsPerSpell(spell.id) - this.missedCastsPerSpell(spell.id)}
                   </strong>{' '}
-                  ({this.missedCastsPerSpell(spell.id)}/{this.totalCastsPerSpell(spell.id)} missed)
+                  -{' '}
+                  {formatPercentage(
+                    (this.totalCastsPerSpell(spell.id) - this.missedCastsPerSpell(spell.id)) /
+                      this.totalCastsPerSpell(spell.id),
+                  )}
+                  % ({this.missedCastsPerSpell(spell.id)}/{this.totalCastsPerSpell(spell.id)}{' '}
+                  missed)
                 </li>
               </ul>
             ),
         )}
+        <>
+          <strong>{formatNumber(this.twoPieceOverheal)}</strong> Overheal from 2 set
+        </>
+        <hr />
         {this.has4Piece && (
           <>
             <strong>4 Set:</strong>
