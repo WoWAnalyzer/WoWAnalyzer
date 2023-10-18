@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
-import { Sref, Phased, emallson, Trevor, Vohrr, ToppleTheNun } from 'CONTRIBUTORS';
+import { Sref, Phased, emallson, Trevor, Vohrr, ToppleTheNun, Arlie } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2023, 10, 17), <>Enable spec with 10.2 changes</>,Arlie),
   change(date(2023, 10, 10), <>Added support for T31 (Amidrassil) set statistics.</>, Sref),
   change(date(2023, 9, 15), <>Added handling for <SpellLink spell={TALENTS_DRUID.TRANQUIL_MIND_TALENT}/> in the Regrowth/Clearcasting statistic. Fixed an issue that could cause misattribution of Clearcasts during high lag.</>, Sref),
   change(date(2023, 9, 6), <>Added guide section and statistic for <SpellLink spell={TALENTS_DRUID.GROVE_GUARDIANS_TALENT}/>.</>, Sref),
@@ -29,7 +30,7 @@ export default [
   change(date(2022, 11, 16), <>Added statistic for <SpellLink spell={TALENTS_DRUID.DREAMSTATE_TALENT} />.</>, Phased),
   change(date(2022, 11, 13), <>Added cast efficiency numbers to Guide cooldown bars.</>, Sref),
   change(date(2022, 10, 31), <>Added statistic for <SpellLink spell={TALENTS_DRUID.BUDDING_LEAVES_TALENT} /></>, Sref),
-  change(date(2022, 10, 30), <>Fixed an issue where tracked HoT durations were not scaling correctly with <SpellLink spell={TALENTS_DRUID.GERMINATION_TALENT} /> and <SpellLink spell={TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_SPEC_TALENT} /></>, Sref),
+  change(date(2022, 10, 30), <>Fixed an issue where tracked HoT durations were not scaling correctly with <SpellLink spell={TALENTS_DRUID.GERMINATION_TALENT} /> and Circle of Life and Death</>, Sref),
   change(date(2022, 10, 30), <>Added talent point count to <SpellLink spell={TALENTS_DRUID.REGENESIS_TALENT} /> and cleaned up some unintended console spam.</>, Sref),
   change(date(2022, 10, 28), <>Rearranged Guide's 'Cooldown Breakdown' section for improved readability</>, Sref),
   change(date(2022, 10, 25), <>Updated numbers to account for pre-patch tuning pass.</>, Sref),
