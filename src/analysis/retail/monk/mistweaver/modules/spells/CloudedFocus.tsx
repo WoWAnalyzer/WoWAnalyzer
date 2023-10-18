@@ -9,7 +9,6 @@ import Events, {
   ApplyBuffStackEvent,
   CastEvent,
   HealEvent,
-  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -44,8 +43,6 @@ class CloudedFocus extends Analyzer {
   healingDone: number = 0;
   cappedStacks: boolean = false;
   stacks: number = 0;
-
-  lastStack: number = 0;
 
   //viv
   primaryTargetHealing: number = 0;
@@ -111,10 +108,6 @@ class CloudedFocus extends Analyzer {
       this.applyBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
-      this.refreshBuff,
-    );
-    this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
       this.applyBuffStack,
     );
@@ -144,7 +137,6 @@ class CloudedFocus extends Analyzer {
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
-    debug && console.log('Current Stacks: ', this.stacks, event);
 
     const cost = event.resourceCost ? event.resourceCost[RESOURCE_TYPES.MANA.id] : 0;
     if (cost === 0) {
@@ -154,6 +146,18 @@ class CloudedFocus extends Analyzer {
     const manaSaved = cost / (1 - CF_BUFF_PER_STACK * this.stacks) - cost;
     this.addManaToStackMap(spellId, manaSaved);
     this.manaSaved += manaSaved;
+
+    debug &&
+      console.log(
+        'Mana: ',
+        'Cost - ',
+        cost,
+        'Saved - ',
+        manaSaved,
+        'Stacks - ',
+        this.stacks,
+        this.owner.formatTimestamp(event.timestamp),
+      );
   }
 
   calculateHealingEffect(event: HealEvent) {
@@ -173,16 +177,7 @@ class CloudedFocus extends Analyzer {
   }
 
   applyBuffStack(event: ApplyBuffStackEvent) {
-    this.lastStack = this.stacks;
     this.stacks = event.stack;
-  }
-
-  refreshBuff(event: RefreshBuffEvent) {
-    //there is a refresh event when the 3rd applybuffstack event occurs for some reason
-    if (this.lastStack === 2) {
-      this.lastStack += 1;
-      return;
-    }
   }
 
   removeBuff(event: RemoveBuffEvent) {
