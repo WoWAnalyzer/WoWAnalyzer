@@ -26,7 +26,11 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
-import { MAX_FRENZY_STACKS, ORIGINAL_FRENZY_DURATION } from '../../constants';
+import {
+  MAX_FRENZY_STACKS,
+  ORIGINAL_FRENZY_DURATION,
+  SAVAGERY_FRENZY_DURATION,
+} from '../../constants';
 import GlobalCooldown from '../core/GlobalCooldown';
 import SpellUsable from '../core/SpellUsable';
 
@@ -51,6 +55,9 @@ class BarbedShot extends Analyzer {
   barbedShotStacks: number[][] = [];
   lastBarbedShotStack: number = 0;
   lastBarbedShotUpdate: number = this.owner.fight.start_time;
+  frenzyBuffDuration: number = this.selectedCombatant.hasTalent(TALENTS.SAVAGERY_TALENT)
+    ? SAVAGERY_FRENZY_DURATION
+    : ORIGINAL_FRENZY_DURATION;
 
   //Guide specific variables
   castEntries: Array<BoxRowEntry & { event: CastEvent }> = [];
@@ -289,7 +296,7 @@ class BarbedShot extends Analyzer {
     const frenzyBuffRemaining =
       this.lastBarbedShotUpdate === this.owner.fight.start_time
         ? 0
-        : Math.max(ORIGINAL_FRENZY_DURATION - (event.timestamp - this.lastBarbedShotUpdate), 0);
+        : Math.max(this.frenzyBuffDuration - (event.timestamp - this.lastBarbedShotUpdate), 0);
 
     const bestialWrathOnCooldown = this.spellUsable.isOnCooldown(TALENTS.BESTIAL_WRATH_TALENT.id);
     const currentBarbedShotStacks = this.lastBarbedShotStack;
