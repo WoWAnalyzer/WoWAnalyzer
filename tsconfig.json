@@ -24,8 +24,7 @@
     "src/analysis/retail/paladin/protection",
     "src/analysis/retail/priest/discipline",
     "src/analysis/retail/priest/shared",
-    "src/analysis/retail/priest/holy",
-    "src/analysis/retail/shaman/shared"
+    "src/analysis/retail/priest/holy"
   ],
   "files": [
     "src/analysis/retail/paladin/protection/CONFIG.tsx",
