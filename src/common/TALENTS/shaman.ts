@@ -179,7 +179,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101951],
     definitionIds: [{ id: 106951, specId: 262 }],
-    manaCost: 3000,
+    manaCost: 2800,
   },
   CHAIN_LIGHTNING_TALENT: {
     id: 188443,

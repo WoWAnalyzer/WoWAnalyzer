@@ -410,7 +410,7 @@ const talents = {
     id: 394110,
     name: 'Escape from Reality',
     icon: 'monk_ability_transcendence',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [101534],
     definitionIds: [{ id: 106536, specId: 269 }],
   },
