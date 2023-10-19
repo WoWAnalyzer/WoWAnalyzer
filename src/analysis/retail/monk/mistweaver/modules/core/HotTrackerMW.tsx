@@ -104,6 +104,12 @@ class HotTrackerMW extends HotTracker {
     });
   }
 
+  fromYuLon(hot: Tracker): boolean {
+    return hot.attributions.some(function (attr) {
+      return attr.name === ATTRIBUTION_STRINGS.YULON;
+    });
+  }
+
   // Decide which extension is responsible for allowing this extra vivify cleave
   getRemExtensionForTimestamp(hot: Tracker, timestamp: number): Extension | null {
     if (timestamp <= hot.originalEnd) {

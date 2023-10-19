@@ -331,7 +331,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       } else if (overlapPercent >= 0.65) {
         performance = QualitativePerformance.Ok;
       }
-      const sepsisRemainingOnFightEnd =
+      const sepsisRemainingonFightEnd =
         cast.debuff.start + SEPSIS_DEBUFF_DURATION - this.owner.fight.end_time;
       castDetails = (
         <>
@@ -349,7 +349,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
           </>
         );
         // Edge case for last sepsis cast
-        if (sepsisRemainingOnFightEnd > 0) {
+        if (sepsisRemainingonFightEnd > 0) {
           // Check to see if last Shiv cast comes before the 3rd GCD after sepsis.
           // if the shiv was cast within 1-2GCDs assume it would've been `Perfect`
           const castTimeDiff = Math.abs(events[shivCasts - 1].start - cast.debuff.start);
@@ -361,7 +361,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
           additionalDetails = (
             <>
               The fight ended after{' '}
-              {formatSeconds(SEPSIS_DEBUFF_DURATION - sepsisRemainingOnFightEnd)} seconds of{' '}
+              {formatSeconds(SEPSIS_DEBUFF_DURATION - sepsisRemainingonFightEnd)} seconds of{' '}
               <SpellLink spell={TALENTS.SEPSIS_TALENT} />
               {withinGracePeriod ? '.' : ', but Shiv could have still been used earlier.'}{' '}
             </>

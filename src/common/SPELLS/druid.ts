@@ -481,6 +481,18 @@ const spells = {
     name: 'Wild Growth',
     icon: 'ability_druid_flourish',
   },
+  // proc from Resto Druid T31 2pc when Treant Nourish was the triggering spell
+  T31_TREANT_CLEAVE_NOURISH: {
+    id: 423612,
+    name: 'Nourish',
+    icon: 'ability_druid_nourish',
+  },
+  // proc from Resto Druid T31 2pc when Hardcast (or 4pc proc) Nourish was the triggering spell
+  T31_CAST_CLEAVE_NOURISH: {
+    id: 423618,
+    name: 'Nourish',
+    icon: 'ability_druid_nourish',
+  },
 
   /////////////////////////////////////////////////////////////////////////////
   // GUARDIAN / BEAR
@@ -1188,6 +1200,12 @@ const spells = {
     id: 394465,
     name: 'Sharpened Claws',
     icon: 'inv_misc_monsterfang_01',
+  },
+  // Buff procced by T31 2pc
+  SMOLDERING_FRENZY: {
+    id: 422751,
+    name: 'Smoldering Frenzy',
+    icon: 'inv_staff_99',
   },
 } satisfies Record<string, Spell>;
 

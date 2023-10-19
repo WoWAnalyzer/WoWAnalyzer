@@ -1,23 +1,21 @@
 import { defineMessage } from '@lingui/macro';
 import { i18n } from '@lingui/core';
 
-const DIFFICULTIES: {
-  [key: string]: number;
-} = {
+const DIFFICULTIES = {
   LFR_RAID: 1,
   NORMAL_RAID: 3,
   HEROIC_RAID: 4,
   MYTHIC_RAID: 5,
   MYTHIC_PLUS_DUNGEON: 10,
-};
+} as const;
+export type Difficulty = keyof typeof DIFFICULTIES;
 export default DIFFICULTIES;
 
-export const CLASSIC_DIFFICULTIES: {
-  [key: string]: number;
-} = {
+export const CLASSIC_DIFFICULTIES = {
   NORMAL_RAID: 3,
   HEROIC_RAID: 4,
-};
+} as const;
+export type ClassicDifficulty = keyof typeof CLASSIC_DIFFICULTIES;
 
 export function getLabel(difficulty?: number, hardModeLevel?: number) {
   const isHardMode = hardModeLevel ?? 0;

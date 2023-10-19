@@ -867,7 +867,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102534],
     definitionIds: [{ id: 107539, specId: 65 }],
-    manaCost: 1200,
+    manaCost: 1400,
   },
   ILLUMINATION_TALENT: {
     id: 414378,

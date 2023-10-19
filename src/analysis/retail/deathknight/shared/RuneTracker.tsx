@@ -58,7 +58,7 @@ class RuneTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.RUNES;
     this._lastTimestamp = this.owner.fight.start_time;
     this._runesReadySum = Array.from({ length: MAX_RUNES + 1 }, (_) => 0);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
     this.addEventListener(
       Events.applybuff.to(SELECTED_PLAYER).spell(SPELLS.RUNIC_CORRUPTION),
       this.onApplybuff,
@@ -70,7 +70,7 @@ class RuneTracker extends ResourceTracker {
     this.addEventListener(Events.UpdateSpellUsable.spell(RUNE_IDS), this.onUpdateSpellUsable);
   }
 
-  onFightend() {
+  onFightEnd() {
     //add a last event for calculating uptimes and make the chart not end early.
     const runesAvailable = this.runesAvailable;
     this._fightend = true;
