@@ -202,9 +202,9 @@ class InvigoratingSporeCloud extends withDependencies(Analyzer, deps) {
   private statisticTooltip() {
     return (
       <>
-        Friendly healers with the <SpellLink spell={SPELLS.SPORE_TENDER_ENCHANT} /> enchant has a
+        Friendly healers with the <SpellLink spell={SPELLS.SPORE_TENDER_ENCHANT} /> enchant have a
         chance to grant you a buff that increases your highest secondary stat. This is is a
-        breakdown of benefit you have gained from this buff.
+        breakdown of the benefit you have gained from this buff.
       </>
     );
   }
