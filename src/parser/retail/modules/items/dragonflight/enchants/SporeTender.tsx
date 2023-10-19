@@ -28,6 +28,10 @@ const RANKS: SporeTenderEnchantRank[] = [
   { rank: 3, enchant: ITEMS.ENCHANT_WEAPON_SPORE_TENDER_R3, value: 414 },
 ];
 
+export function hasSporeTender(caster: Combatant): boolean {
+  return RANKS.some(({ enchant }) => caster.hasWeaponEnchant(enchant));
+}
+
 export function getSporeTenderRank(caster: Combatant | null): SporeTenderEnchantRank {
   return (
     (caster && RANKS.find(({ enchant }) => caster.hasWeaponEnchant(enchant))) ||
@@ -54,8 +58,7 @@ class SporeTender extends withDependencies(WeaponEnchantAnalyzer<SporeTenderEnch
   constructor(options: Options) {
     super(SPELLS.SPORE_TENDER_ENCHANT, RANKS, options);
 
-    this.active = RANKS.some(({ enchant }) => this.selectedCombatant.hasWeaponEnchant(enchant));
-
+    this.active = hasSporeTender(this.selectedCombatant);
     if (!this.active) {
       return;
     }

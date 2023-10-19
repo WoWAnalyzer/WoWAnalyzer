@@ -14,7 +14,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
 import { Fragment } from 'react';
-import { SporeTenderEnchantRank, getSporeTenderRank } from './SporeTender';
+import { SporeTenderEnchantRank, getSporeTenderRank, hasSporeTender } from './SporeTender';
 
 function findLast<T>(arr: T[], predicate: (value: T) => boolean) {
   for (let i = arr.length - 1; i >= 0; i -= 1) {
@@ -62,6 +62,13 @@ class InvigoratingSporeCloud extends withDependencies(Analyzer, deps) {
 
   constructor(options: Options) {
     super(options);
+
+    this.active = Object.values(this.deps.combatants.getEntities()).some((combatant) =>
+      hasSporeTender(combatant),
+    );
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.applybuff.spell(SPELLS.SPORE_TENDER_BUFF).to(SELECTED_PLAYER),
