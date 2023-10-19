@@ -91,7 +91,7 @@ class T31PrevokerSet extends Analyzer {
       this.lfDamage += event.amount;
       this.lfDamageHits += 1;
     } else {
-      this.lfHealing += event.amount;
+      this.lfHealing += event.amount + (event.absorbed || 0);
       this.lfHealingHits += 1;
     }
   }
@@ -121,7 +121,7 @@ class T31PrevokerSet extends Analyzer {
     if (!isEchoFromT314PC(event)) {
       return;
     }
-    this.echoHealing += event.amount;
+    this.echoHealing += event.amount + (event.absorbed || 0);
   }
 
   onEchoApply(event: ApplyBuffEvent | RefreshBuffEvent) {
