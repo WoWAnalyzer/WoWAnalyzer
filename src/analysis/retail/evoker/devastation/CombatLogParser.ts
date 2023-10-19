@@ -30,6 +30,7 @@ import EyeOfInfinity from './modules/talents/EyeOfInfinity';
 import EngulfingBlaze from './modules/talents/EngulfingBlaze';
 import LayWaste from './modules/talents/LayWaste';
 import Iridescence from './modules/talents/Iridescence';
+import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 
 // Shared
 import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
@@ -79,6 +80,7 @@ class CombatLogParser extends MainCombatLogParser {
 
     // tier
     T30devaTier4P: T30DevaTier4P,
+    T31devaTier: T31DevaTier,
   };
 
   static guide = Guide;

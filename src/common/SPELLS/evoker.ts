@@ -107,7 +107,7 @@ const spells = {
     name: 'Lifebind',
     icon: 'ability_evoker_hoverred',
   },
-  // Devestation Spells
+  // Devastation Spells
   ETERNITY_SURGE: {
     id: 359073,
     name: 'Eternity Surge',
@@ -147,6 +147,11 @@ const spells = {
     id: 359618,
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
+  },
+  EMERALD_TRANCE_T31_2PC_BUFF: {
+    id: 424155,
+    name: 'Emerald Trance',
+    icon: 'inv_legion_faction_dreamweavers',
   },
 
   // Shared
