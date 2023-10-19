@@ -20,12 +20,35 @@
   "include": ["./types", "./src"],
   // analysis is currently excluded to prevent parsing files that reference dead talents
   // all files that are imported are processed even if excluded here, so this only excludes unimported files
-  "exclude": ["src/analysis/retail/druid/guardian", "src/analysis/retail/paladin/protection"],
+  "exclude": [
+    "src/analysis/retail/druid/restoration",
+    "src/analysis/retail/hunter/beastmastery",
+    "src/analysis/retail/monk/brewmaster",
+    "src/analysis/retail/monk/mistweaver",
+    "src/analysis/retail/paladin/protection",
+    "src/analysis/retail/priest/discipline",
+    "src/analysis/retail/priest/shared",
+    "src/analysis/retail/priest/holy",
+    "src/analysis/retail/priest/shadow",
+    "src/analysis/retail/shaman/elemental",
+    "src/analysis/retail/shaman/enhancement",
+    "src/analysis/retail/shaman/restoration",
+    "src/analysis/retail/shaman/shared"
+  ],
   "files": [
-    "src/analysis/retail/druid/guardian/CONFIG.tsx",
-    "src/analysis/retail/druid/guardian/CHANGELOG.tsx",
+    "src/analysis/retail/druid/restoration/CONFIG.tsx",
+    "src/analysis/retail/hunter/beastmastery/CONFIG.tsx",
+    "src/analysis/retail/monk/brewmaster/CONFIG.tsx",
+    "src/analysis/retail/monk/mistweaver/CONFIG.tsx",
     "src/analysis/retail/paladin/protection/CONFIG.tsx",
-    "src/analysis/retail/paladin/protection/CHANGELOG.tsx"
+    "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
+    "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
+    "src/analysis/retail/priest/discipline/CONFIG.tsx",
+    "src/analysis/retail/priest/holy/CONFIG.tsx",
+    "src/analysis/retail/priest/shadow/CONFIG.tsx",
+    "src/analysis/retail/shaman/elemental/CONFIG.tsx",
+    "src/analysis/retail/shaman/enhancement/CONFIG.tsx",
+    "src/analysis/retail/shaman/restoration/CONFIG.tsx"
   ],
   "ts-node": {
     // these options are overrides used only by ts-node

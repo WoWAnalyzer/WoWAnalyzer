@@ -19,5 +19,8 @@ const BAD_ICONS = [
   'ability_ardenweald_paladin_winter',
   'ability_ardenweald_paladin_winter',
   'inv_10_elementalshardfoozles_shadowflame',
+  'spell_priest_void_flay',
+  'spell_priest_shadow_mend',
+  'spell_priest_void_blast',
 ];
 export default BAD_ICONS;
