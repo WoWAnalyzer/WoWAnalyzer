@@ -33,8 +33,16 @@ class UsurpedFromBeyond extends Analyzer.withDependencies(deps) {
   constructor(options: Options) {
     super(options);
 
-    // This module is always active, but if never robbed, should not show any statistic
-    this.active = true;
+    this.active = this.owner.combatantInfoEvents.some(
+      (combatantInfo) =>
+        // Any player that is not the selected player
+        combatantInfo.player.id !== this.owner.selectedCombatant.id &&
+        // That has Voice of the Silent Star equipped
+        combatantInfo.gear.some((item) => item.id === ITEMS.VOICE_OF_THE_SILENT_STAR.id),
+    );
+    if (!this.active) {
+      return;
+    }
 
     this.addEventListener(
       Events.applybuff.spell(SPELLS.USURPED_FROM_BEYOND).to(SELECTED_PLAYER),
