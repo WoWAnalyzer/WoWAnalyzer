@@ -8,9 +8,9 @@ interface Props {
 const Gauge = ({ value }: Props) => (
   <div className="flex" style={{ textAlign: 'center', marginTop: 12 }}>
     <div style={{ paddingTop: 23, paddingRight: 8, fontSize: 12 }}>
-      <span className="flex-main text-right text-muted">
+      <div className="flex-main text-right text-muted">
         <Trans id="interface.statistics.components.gauge.low">Low</Trans>
-      </span>
+      </div>
     </div>
     <div className="flex-sub" style={{ position: 'relative' }}>
       <svg
