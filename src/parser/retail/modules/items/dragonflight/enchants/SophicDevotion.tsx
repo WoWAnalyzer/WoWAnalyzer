@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
-import StatProccEnchantAnalyzer from './StatProcEnchantAnalyzer';
+import StatProcEnchantAnalyzer from './StatProcEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Sophic Devotion R1
@@ -31,7 +31,7 @@ const RANKS = [
   },
 ];
 
-class SophicDevotion extends StatProccEnchantAnalyzer {
+class SophicDevotion extends StatProcEnchantAnalyzer {
   constructor(options: Options) {
     super(
       options.owner.selectedCombatant.primaryStat,

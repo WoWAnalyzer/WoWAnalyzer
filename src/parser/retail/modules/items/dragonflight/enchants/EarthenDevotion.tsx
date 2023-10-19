@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatProccEnchantAnalyzer from './StatProcEnchantAnalyzer';
+import StatProcEnchantAnalyzer from './StatProcEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Earthen Devotion R1
@@ -30,7 +30,7 @@ const RANKS = [
   },
 ];
 
-class EarthenDevotion extends StatProccEnchantAnalyzer {
+class EarthenDevotion extends StatProcEnchantAnalyzer {
   constructor(options: Options) {
     super(
       STAT.ARMOR,

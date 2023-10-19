@@ -1,7 +1,7 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
-import StatProccEnchantAnalyzer from './StatProcEnchantAnalyzer';
+import StatProcEnchantAnalyzer from './StatProcEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Sophic Writ R1
@@ -29,7 +29,7 @@ const RANKS = [
   },
 ];
 
-class SophicWrit extends StatProccEnchantAnalyzer {
+class SophicWrit extends StatProcEnchantAnalyzer {
   constructor(options: Options) {
     super(
       options.owner.selectedCombatant.primaryStat,

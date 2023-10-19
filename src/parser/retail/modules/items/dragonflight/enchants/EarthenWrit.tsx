@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatProccEnchantAnalyzer, { SECONDARY_STAT_WRIT_VALUES } from './StatProcEnchantAnalyzer';
+import StatProcEnchantAnalyzer, { SECONDARY_STAT_WRIT_VALUES } from './StatProcEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Earthen Writ R1
@@ -30,7 +30,7 @@ const RANKS = [
   },
 ];
 
-class EarthenWrit extends StatProccEnchantAnalyzer {
+class EarthenWrit extends StatProcEnchantAnalyzer {
   constructor(options: Options) {
     super(STAT.MASTERY, SPELLS.EARTHEN_WRIT_ENCHANT, SPELLS.EARTHEN_WRIT_BUFF, RANKS, options);
   }

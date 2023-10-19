@@ -8,7 +8,7 @@ import WeaponEnchantAnalyzer, { EnchantRank } from './WeaponEnchantAnalyzer';
 import { withDependencies } from 'parser/core/Analyzer';
 
 /**
- * Export to reuse between the various secondary stat procc enchants.
+ * Export to reuse between the various secondary stat proc enchants.
  */
 export const SECONDARY_STAT_WRIT_VALUES = {
   1: 1185.67,
@@ -23,14 +23,14 @@ export interface StatProcEnchantRank extends EnchantRank {
 const deps = { statTracker: StatTracker };
 
 /**
- * Abstraction to reuse the same code for tracking stats from proccing enchants such as
+ * Abstraction to reuse the same code for tracking stats from procing enchants such as
  * writs and Sophic Devotion.
  */
-abstract class StatProccEnchantAnalyzer extends withDependencies(
+abstract class StatProcEnchantAnalyzer extends withDependencies(
   WeaponEnchantAnalyzer<StatProcEnchantRank>,
   deps,
 ) {
-  /** The stat that the enchant provides on procc */
+  /** The stat that the enchant provides on proc */
   protected stat: STAT;
   protected buff: Spell;
 
@@ -99,4 +99,4 @@ abstract class StatProccEnchantAnalyzer extends withDependencies(
   }
 }
 
-export default StatProccEnchantAnalyzer;
+export default StatProcEnchantAnalyzer;

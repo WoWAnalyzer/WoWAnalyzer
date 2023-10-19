@@ -2,7 +2,7 @@ import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatProccEnchantAnalyzer, { SECONDARY_STAT_WRIT_VALUES } from './StatProcEnchantAnalyzer';
+import StatProcEnchantAnalyzer, { SECONDARY_STAT_WRIT_VALUES } from './StatProcEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Frozen Writ R1
@@ -30,7 +30,7 @@ const RANKS = [
   },
 ];
 
-class FrozenWrit extends StatProccEnchantAnalyzer {
+class FrozenWrit extends StatProcEnchantAnalyzer {
   constructor(options: Options) {
     super(STAT.VERSATILITY, SPELLS.FROZEN_WRIT_ENCHANT, SPELLS.FROZEN_WRIT_BUFF, RANKS, options);
   }

@@ -44,7 +44,7 @@ class FrozenDevotion extends WeaponEnchantAnalyzer {
     let currentProc = this.procs[this.procs.length - 1];
 
     if (
-      // We have not yet created any procc
+      // We have not yet created any proc
       currentProc == null ||
       // The last proc was more than 50ms ago
       event.timestamp - currentProc.timestamp > 50

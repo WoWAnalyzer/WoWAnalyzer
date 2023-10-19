@@ -2,7 +2,7 @@ import ENCHANTS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
 import { Options } from 'parser/core/Analyzer';
 import STAT from 'parser/shared/modules/features/STAT';
-import StatProccEnchantAnalyzer, { SECONDARY_STAT_WRIT_VALUES } from './StatProcEnchantAnalyzer';
+import StatProcEnchantAnalyzer, { SECONDARY_STAT_WRIT_VALUES } from './StatProcEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
 // Wafting Writ R1
@@ -31,7 +31,7 @@ const RANKS = [
   },
 ];
 
-class WaftingWrit extends StatProccEnchantAnalyzer {
+class WaftingWrit extends StatProcEnchantAnalyzer {
   constructor(options: Options) {
     super(STAT.HASTE, SPELLS.WAFTING_WRIT_ENCHANT, SPELLS.WAFTING_WRIT_BUFF, RANKS, options);
   }
