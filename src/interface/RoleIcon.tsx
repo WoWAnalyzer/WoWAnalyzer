@@ -1,27 +1,39 @@
+import styled from '@emotion/styled';
 import ROLES from 'game/ROLES';
+import { ComponentProps } from 'react';
 
-interface Props {
-  id: number;
-  className: string;
+const Img = styled.img`
+  border: 1px solid #111;
+  height: 1.2em;
+  width: 1.2em;
+  border-radius: 50%;
+`;
+
+interface RoleIconProps extends ComponentProps<typeof Img> {
+  roleId: number | null;
 }
 
-const RoleIcon = ({ id, className, ...others }: Props) => {
-  let iconName: string;
-  switch (id) {
+const RoleIcon = ({ roleId, ...props }: RoleIconProps) => {
+  let iconName: string | undefined;
+  switch (roleId) {
     case ROLES.TANK:
-      iconName = 'shield';
+      iconName = 'tank';
       break;
     case ROLES.HEALER:
-      iconName = 'healing';
+      iconName = 'healer';
+      break;
+    case ROLES.DPS.MELEE:
+      iconName = 'dps';
+      break;
+    case ROLES.DPS.RANGED:
+      iconName = 'dps.ranged';
       break;
     default:
-      iconName = 'sword';
+      iconName = undefined;
       break;
   }
 
-  return (
-    <img src={`/img/${iconName}.png`} alt="" className={`icon ${className || ''}`} {...others} />
-  );
+  return iconName == null ? null : <Img src={`/roles/${iconName}.jpg`} alt="" {...props} />;
 };
 
 export default RoleIcon;
