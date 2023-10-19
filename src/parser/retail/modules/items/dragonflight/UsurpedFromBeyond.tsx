@@ -33,12 +33,12 @@ class UsurpedFromBeyond extends Analyzer.withDependencies(deps) {
   constructor(options: Options) {
     super(options);
 
-    this.active = this.owner.combatantInfoEvents.some(
-      (combatantInfo) =>
+    this.active = Object.values(this.deps.combatants.getEntities()).some(
+      (combatant) =>
         // Any player that is not the selected player
-        combatantInfo.player.id !== this.owner.selectedCombatant.id &&
+        combatant.id !== this.selectedCombatant.id &&
         // That has Voice of the Silent Star equipped
-        combatantInfo.gear.some((item) => item.id === ITEMS.VOICE_OF_THE_SILENT_STAR.id),
+        combatant.back.id === ITEMS.VOICE_OF_THE_SILENT_STAR.id,
     );
     if (!this.active) {
       return;
