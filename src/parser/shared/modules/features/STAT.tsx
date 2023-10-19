@@ -1,5 +1,6 @@
 import { Trans } from '@lingui/macro';
 import AgilityIcon from 'interface/icons/Agility';
+import ArmorIcon from 'interface/icons/Armor';
 import AvoidanceIcon from 'interface/icons/Avoidance';
 import CriticalStrikeIcon from 'interface/icons/CriticalStrike';
 import HasteIcon from 'interface/icons/Haste';
@@ -36,6 +37,7 @@ export enum OTHER_STAT {
   LEECH = 'leech',
   AVOIDANCE = 'avoidance',
   SPEED = 'speed',
+  ARMOR = 'armor',
   UNKNOWN = 'unknown',
 }
 
@@ -84,6 +86,8 @@ export function getName(stat: STAT) {
       return 'Avoidance';
     case STAT.SPEED:
       return 'Speed';
+    case STAT.ARMOR:
+      return 'Armor';
     default:
       return null;
   }
@@ -124,6 +128,8 @@ export function getNameTranslated(stat: STAT) {
       return <Trans id="common.stat.avoidance">Avoidance</Trans>;
     case STAT.SPEED:
       return <Trans id="common.stat.speed">Speed</Trans>;
+    case STAT.ARMOR:
+      return <Trans id="common.stat.armor">Armor</Trans>;
     default:
       return null;
   }
@@ -163,6 +169,8 @@ export function getClassNameColor(stat: STAT) {
       return 'stat-avoidance';
     case STAT.SPEED:
       return 'stat-speed';
+    case STAT.ARMOR:
+      return 'stat-armor';
     default:
       return null;
   }
@@ -206,6 +214,8 @@ export function getIcon(stat: STAT): (props: any) => JSX.Element {
       return AvoidanceIcon;
     case STAT.SPEED:
       return SpeedIcon;
+    case STAT.ARMOR:
+      return ArmorIcon;
     default:
       return (parms) => <></>;
   }

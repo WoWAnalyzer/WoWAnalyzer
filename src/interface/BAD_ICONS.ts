@@ -13,6 +13,7 @@ const BAD_ICONS = [
   'talentspec_druid_feral_bear',
   'inv_cosmicvoid_debuff',
   'inv_misc_bone_skull_01',
+  'inv_10_elementalshardfoozles_shadowflame',
   'spell_animarevendreth_beam',
   'ability_ardenweald_paladin_autumn',
   'ability_ardenweald_paladin_spring',

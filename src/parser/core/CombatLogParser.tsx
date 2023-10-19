@@ -88,6 +88,19 @@ import { PetInfo } from './Pet';
 import { PlayerInfo } from './Player';
 import Report from './Report';
 import { SpellUsageContextProvider } from 'parser/core/SpellUsage/core';
+import BurningDevotion from 'parser/retail/modules/items/dragonflight/enchants/BurningDevotion';
+import BurningWrit from 'parser/retail/modules/items/dragonflight/enchants/BurningWrit';
+import EarthenDevotion from 'parser/retail/modules/items/dragonflight/enchants/EarthenDevotion';
+import EarthenWrit from 'parser/retail/modules/items/dragonflight/enchants/EarthenWrit';
+import FrozenDevotion from 'parser/retail/modules/items/dragonflight/enchants/FrozenDevotion';
+import FrozenWrit from 'parser/retail/modules/items/dragonflight/enchants/FrozenWrit';
+import InvigoratingSporeCloud from 'parser/retail/modules/items/dragonflight/enchants/InvigoratingSporeCloud';
+import ShadowflameWreathe from 'parser/retail/modules/items/dragonflight/enchants/ShadowflameWreathe';
+import SophicDevotion from 'parser/retail/modules/items/dragonflight/enchants/SophicDevotion';
+import SophicWrit from 'parser/retail/modules/items/dragonflight/enchants/SophicWrit';
+import SporeTender from 'parser/retail/modules/items/dragonflight/enchants/SporeTender';
+import WaftingDevotion from 'parser/retail/modules/items/dragonflight/enchants/WaftingDevotion';
+import WaftingWrit from 'parser/retail/modules/items/dragonflight/enchants/WaftingWrit';
 import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/AcceleratingSandglass';
 import UsurpedFromBeyond from 'parser/retail/modules/items/dragonflight/UsurpedFromBeyond';
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
@@ -210,6 +223,19 @@ class CombatLogParser {
     voiceOfTheSilentStar: VoiceOfTheSilentStar,
 
     // Enchants
+    burningDevotion: BurningDevotion,
+    burningWrit: BurningWrit,
+    earthenDevotion: EarthenDevotion,
+    earthenWrit: EarthenWrit,
+    frozenDevotion: FrozenDevotion,
+    frozenWrit: FrozenWrit,
+    invigoratingSporeCloud: InvigoratingSporeCloud,
+    shadowflameWreathe: ShadowflameWreathe,
+    sophicDevotion: SophicDevotion,
+    sophicWrit: SophicWrit,
+    sporeTender: SporeTender,
+    waftingDevotion: WaftingDevotion,
+    waftingWrit: WaftingWrit,
 
     // Crafted
 
