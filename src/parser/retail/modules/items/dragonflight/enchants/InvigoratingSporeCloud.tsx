@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { formatDuration } from 'common/format';
 import classColor from 'game/classColor';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import QualityIcon from 'interface/QualityIcon';
 import { UptimeIcon } from 'interface/icons';
 import Analyzer, { Options, SELECTED_PLAYER, withDependencies } from 'parser/core/Analyzer';
@@ -10,7 +10,6 @@ import Events, { ApplyBuffEvent, RefreshBuffEvent, RemoveBuffEvent } from 'parse
 import Combatants from 'parser/shared/modules/Combatants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import STAT, { getIcon, getNameTranslated } from 'parser/shared/modules/features/STAT';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
@@ -227,22 +226,32 @@ class InvigoratingSporeCloud extends withDependencies(Analyzer, deps) {
     }, new Array<{ stat: STAT; amount: number; duration: number }>());
 
     return (
-      <BoringSpellValueText spell={SPELLS.SPORE_TENDER_BUFF}>
-        {summarised.map(({ stat, amount, duration }, index) => {
-          const StatIcon = getIcon(stat);
-          return (
-            <Fragment key={`${stat}-${amount}`}>
-              {index !== 0 && <hr />}
-              <div>
-                <UptimeIcon /> {formatDuration(duration)} <small>Uptime</small>
-              </div>
-              <div>
-                <StatIcon /> {amount} <small>{getNameTranslated(stat)}</small>
-              </div>
-            </Fragment>
-          );
-        })}
-      </BoringSpellValueText>
+      <div className="pad boring-text">
+        <label>
+          <SpellIcon spell={SPELLS.SPORE_TENDER_BUFF} />{' '}
+          <SpellLink spell={SPELLS.SPORE_TENDER_BUFF} icon={false} />
+        </label>
+        <small>
+          Personal gain from friendly healers <SpellLink spell={SPELLS.SPORE_TENDER_ENCHANT} />{' '}
+          enchant
+        </small>
+        <div className="value">
+          {summarised.map(({ stat, amount, duration }, index) => {
+            const StatIcon = getIcon(stat);
+            return (
+              <Fragment key={`${stat}-${amount}`}>
+                {index !== 0 && <hr />}
+                <div>
+                  <UptimeIcon /> {formatDuration(duration)} <small>Uptime</small>
+                </div>
+                <div>
+                  <StatIcon /> {amount} <small>{getNameTranslated(stat)}</small>
+                </div>
+              </Fragment>
+            );
+          })}
+        </div>
+      </div>
     );
   }
 
