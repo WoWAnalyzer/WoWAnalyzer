@@ -19,6 +19,7 @@ import {
   getEssenceBurstConsumeAbility,
   isEbFromT31Tier,
   isEchoFromT314PC,
+  isLfFromT31Tier,
 } from '../../../normalizers/CastLinkNormalizer';
 import { ESSENCE_COSTS } from '../../talents/EssenceBurst';
 import { MANA_COSTS } from '../../talents/EssenceBurst';
@@ -34,10 +35,6 @@ import { ECHO_HEALS } from '../../../constants';
 class T31PrevokerSet extends Analyzer {
   static dependencies = { echo: Echo };
   has4Piece: boolean = false;
-  hotHealing: number = 0;
-  hotOverhealing: number = 0;
-  dbIncHealing: number = 0;
-  dbIncOverhealing: number = 0;
   manaSaved: number = 0;
   essenceSaved: number = 0;
   wastedEb: number = 0; // from EB buff refreshes
@@ -71,7 +68,7 @@ class T31PrevokerSet extends Analyzer {
       this.onLfHit,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_HEAL),
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_DAMAGE),
       this.onLfHit,
     );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.onEchoHeal);
@@ -86,6 +83,10 @@ class T31PrevokerSet extends Analyzer {
   }
 
   onLfHit(event: DamageEvent | HealEvent) {
+    if (!isLfFromT31Tier(event)) {
+      return;
+    }
+
     if (event.type === EventType.Damage) {
       this.lfDamage += event.amount;
       this.lfDamageHits += 1;
@@ -128,10 +129,6 @@ class T31PrevokerSet extends Analyzer {
       return;
     }
     this.echoProcs += 1;
-  }
-
-  get totalHealing() {
-    return this.dbIncHealing + this.hotHealing;
   }
 
   statistic() {

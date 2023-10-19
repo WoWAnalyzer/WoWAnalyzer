@@ -8,6 +8,7 @@ import {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   CastEvent,
+  DamageEvent,
   EmpowerEndEvent,
   EventType,
   GetRelatedEvent,
@@ -20,6 +21,7 @@ import {
 } from 'parser/core/Events';
 import { DUPLICATION_SPELLS, STASIS_CAST_IDS } from '../constants';
 import { TIERS } from 'game/TIERS';
+import { LEAPING_FLAMES_HITS } from '../../shared/modules/normalizers/LeapingFlamesNormalizer';
 
 export const ANCIENT_FLAME = 'AncientFlame'; // links cast to buff apply
 export const ANCIENT_FLAME_CONSUME = 'AncientFlameConnsume'; // links buff remove to buff apply
@@ -817,8 +819,11 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: [SPELLS.LIVING_FLAME_DAMAGE.id, SPELLS.LIVING_FLAME_HEAL.id],
     referencedEventType: [EventType.Damage, EventType.Heal],
     maximumLinks: T31_LF_AMOUNT,
-    forwardBufferMs: EB_BUFFER_MS * 2, // travel time489
+    forwardBufferMs: EB_BUFFER_MS * 2, // travel time
     anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent) {
+      return !HasRelatedEvent(referencedEvent, LEAPING_FLAMES_HITS);
+    },
   },
 ];
 
@@ -997,6 +1002,10 @@ export function isEbFromT31Tier(
     return false;
   }
   return HasRelatedEvent(lfEvent, T31_2PC);
+}
+
+export function isLfFromT31Tier(event: DamageEvent | HealEvent) {
+  return HasRelatedEvent(event, T31_2PC);
 }
 
 export function getAncientFlameSource(event: ApplyBuffEvent | RefreshBuffEvent | RemoveBuffEvent) {

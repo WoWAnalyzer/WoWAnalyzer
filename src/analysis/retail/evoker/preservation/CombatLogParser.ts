@@ -48,6 +48,7 @@ import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
 import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
+import { LeapingFlamesNormalizer, LeapingFlames } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -77,7 +78,11 @@ class CombatLogParser extends CoreCombatLogParser {
     hotTrackerPrevoker: HotTrackerPrevoker,
     hotAttributor: HotAttributor,
 
-    //talents
+    // Shared talents
+    leapingFlamesNormalizer: LeapingFlamesNormalizer,
+    leapingFlames: LeapingFlames,
+
+    // Pres talents
     ancientFlame: AncientFlame,
     echo: Echo,
     echoBreakdown: EchoBreakdown,
