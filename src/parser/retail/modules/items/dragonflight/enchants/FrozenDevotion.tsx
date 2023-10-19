@@ -1,9 +1,9 @@
 import ITEMS from 'common/ITEMS/dragonflight/enchants';
 import SPELLS from 'common/SPELLS/dragonflight/enchants';
-import { formatNumber, formatPercentage } from 'common/format';
-import { DamageIcon } from 'interface/icons';
+import { formatNumber } from 'common/format';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import WeaponEnchantAnalyzer from './WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
@@ -75,8 +75,6 @@ class FrozenDevotion extends WeaponEnchantAnalyzer {
 
     const averageDamage = totalDamage / totalHits;
     const averageTargets = totalHits / numberProcs;
-    const dps = this.owner.getPerSecond(totalDamage);
-    const percentage = this.owner.getPercentageOfTotalDamageDone(totalDamage);
 
     const tooltip = (
       <>
@@ -88,7 +86,7 @@ class FrozenDevotion extends WeaponEnchantAnalyzer {
 
     const content = (
       <>
-        <DamageIcon /> {formatNumber(dps)} DPS <small>{formatPercentage(percentage)}%</small>
+        <ItemDamageDone amount={totalDamage} />
       </>
     );
 

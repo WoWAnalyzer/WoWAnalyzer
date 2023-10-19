@@ -5,6 +5,7 @@ import { DamageIcon } from 'interface/icons';
 import { Options, SELECTED_PLAYER, withDependencies } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import Enemies from 'parser/shared/modules/Enemies';
+import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import WeaponEnchantAnalyzer from './WeaponEnchantAnalyzer';
 
 // ================ SAMPLE LOGS ================
@@ -64,8 +65,6 @@ class ShadowflameWreathe extends withDependencies(WeaponEnchantAnalyzer, deps) {
   statisticParts() {
     const uptime =
       this.deps.enemies.getBuffUptime(SPELLS.SHADOWFLAME_WREATHE_DOT.id) / this.owner.fightDuration;
-    const dps = this.owner.getPerSecond(this.outgoingDamage);
-    const percentage = this.owner.getPercentageOfTotalDamageDone(this.outgoingDamage);
 
     return {
       tooltip: (
@@ -80,7 +79,7 @@ class ShadowflameWreathe extends withDependencies(WeaponEnchantAnalyzer, deps) {
       content: (
         <>
           <div className="value">
-            <DamageIcon /> {formatNumber(dps)} DPS <small>{formatPercentage(percentage)}%</small>
+            <ItemDamageDone amount={this.outgoingDamage} />
           </div>
           <div className="value" style={{ lineHeight: 0.2 }}>
             <small>
