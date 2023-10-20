@@ -31,6 +31,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import classColor from 'game/classColor';
 import SPECS from 'game/SPECS';
 import ROLES from 'game/ROLES';
+import { TIERS } from 'game/TIERS';
 
 const PANDEMIC_WINDOW = 0.3;
 
@@ -289,12 +290,14 @@ class EbonMight extends Analyzer {
       EBON_MIGHT_BASE_DURATION_MS *
       (1 + TIMEWALKER_BASE_EXTENSION + ebonMightCooldownCast.currentMastery) *
       PANDEMIC_WINDOW;
+    const hasT31 = this.selectedCombatant.has2PieceByTier(TIERS.T31);
 
     let performance;
     let summary;
     let details;
     let prescienceBuffsActive = 0;
-    const PERFECT_PRESCIENCE_BUFFS = 2;
+    const PERFECT_PRESCIENCE_BUFFS = hasT31 ? 3 : 2;
+    const GOOD_PRESCIENCE_BUFFS = 2;
     const OK_PRESCIENCE_BUFFS = 1;
 
     prescienceCasts.forEach((event) => {
@@ -309,7 +312,6 @@ class EbonMight extends Analyzer {
         }
       }
     });
-
     if (oldDuration > 0) {
       performance =
         oldDuration < ebonMightPandemicAmount
@@ -350,13 +352,22 @@ class EbonMight extends Analyzer {
             on cast. Good job!
           </div>
         );
+      } else if (prescienceBuffsActive === GOOD_PRESCIENCE_BUFFS && hasT31) {
+        performance = QualitativePerformance.Good;
+        details = (
+          <div>
+            You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active
+            on cast. Since you have <b>T31 2pc</b> you should always aim to have 3 active, so you
+            can better control who your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> goes on.
+          </div>
+        );
       } else if (prescienceBuffsActive === OK_PRESCIENCE_BUFFS) {
         performance = QualitativePerformance.Ok;
         details = (
           <div>
             You had {prescienceBuffsActive} <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active
-            on cast. Try to line it up so you have two active, so you can better control who your{' '}
-            <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> goes on.
+            on cast. Try to line it up so you have {hasT31 && 'atleast '} 2 active, so you can
+            better control who your <SpellLink spell={TALENTS.EBON_MIGHT_TALENT} /> goes on.
           </div>
         );
       } else {
