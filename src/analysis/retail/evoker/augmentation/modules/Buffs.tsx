@@ -23,6 +23,11 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: SPELLS.EBON_MIGHT_BUFF_PERSONAL.id,
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.TREMBLING_EARTH_BUFF.id,
+        triggeredBySpellId: SPELLS.TREMBLING_EARTH_BUFF.id,
+        timelineHighlight: false,
+      },
       // Defensive
       {
         spellId: TALENTS.OBSIDIAN_SCALES_TALENT.id,
