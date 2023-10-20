@@ -1,6 +1,6 @@
 import fetchWcl from 'common/fetchWclApi';
 import ManaLevelGraph from 'parser/ui/ManaLevelGraph';
-import ManaStyles from 'parser/ui/ManaStyles.js';
+import ManaStyles from 'parser/ui/ManaStyles';
 import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
 

@@ -1,41 +1,26 @@
-import PropTypes from 'prop-types';
 import { PureComponent } from 'react';
+import { VisualizationSpec } from 'react-vega';
 import { AutoSizer } from 'react-virtualized';
+import { CompositeEncoding } from 'vega-lite/build/src/compositemark';
 
 import BaseChart, { formatTime } from './BaseChart';
 
-class ManaLevelGraph extends PureComponent {
-  static propTypes = {
-    mana: PropTypes.arrayOf(
-      PropTypes.shape({
-        x: PropTypes.number.isRequired,
-        y: PropTypes.number.isRequired,
-      }),
-    ).isRequired,
-    deaths: PropTypes.arrayOf(
-      PropTypes.shape({
-        x: PropTypes.number.isRequired,
-      }),
-    ),
-    bossData: PropTypes.arrayOf(
-      PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        borderColor: PropTypes.string,
-        backgroundColor: PropTypes.string,
-        data: PropTypes.arrayOf(
-          PropTypes.shape({
-            x: PropTypes.number.isRequired,
-            y: PropTypes.number.isRequired,
-          }),
-        ).isRequired,
-      }),
-    ).isRequired,
-  };
+type Point = { x: number; y: number };
+type XPoint = Pick<Point, 'x'>;
+type BossData = {
+  title: string;
+  borderColor?: string;
+  backgroundColor?: string;
+  data: Point[];
+};
 
-  static defaultProps = {
-    deaths: [],
-  };
+interface Props {
+  mana: Point[];
+  deaths: XPoint[];
+  bossData: BossData[];
+}
 
+class ManaLevelGraph extends PureComponent<Props> {
   colors = {
     mana: {
       border: 'rgba(2, 109, 215, 0.6)',
@@ -47,7 +32,7 @@ class ManaLevelGraph extends PureComponent {
   render() {
     const { mana, deaths, bossData } = this.props;
 
-    const baseEncoding = {
+    const baseEncoding: CompositeEncoding<any> = {
       x: {
         field: 'x',
         type: 'quantitative',
@@ -68,7 +53,7 @@ class ManaLevelGraph extends PureComponent {
       },
     };
 
-    const spec = {
+    const spec: VisualizationSpec = {
       layer: [
         {
           data: {
