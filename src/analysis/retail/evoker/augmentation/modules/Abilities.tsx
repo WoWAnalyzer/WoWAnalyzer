@@ -129,6 +129,11 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.OTHERS,
         gcd: null,
       },
+      {
+        spell: SPELLS.TREMBLING_EARTH_BUFF.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: null,
+      },
       //endregion
       ...super.spellbook(),
     ];

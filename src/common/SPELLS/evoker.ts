@@ -460,6 +460,11 @@ const spells = {
     name: 'Symbiotic Bloom',
     icon: 'inv_10_herb_seed_magiccolor5',
   },
+  TREMBLING_EARTH_BUFF: {
+    id: 424368,
+    name: 'Trembling Earth',
+    icon: 'ability_evoker_eruption',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
