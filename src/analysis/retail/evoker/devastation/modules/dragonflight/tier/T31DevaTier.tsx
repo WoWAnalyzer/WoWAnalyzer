@@ -23,6 +23,10 @@ import { TIERS } from 'game/TIERS';
  */
 class T31DevaTier extends Analyzer {
   ampedDamage: number = 0;
+  /** We need this so we don't assume always 5 stacks
+   * Since technically you can drop Dragonrage early
+   * and then the buff won't be fully stacked */
+  buffStacks: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -34,11 +38,22 @@ class T31DevaTier extends Analyzer {
   }
 
   onHit(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id)) {
+    if (
+      !this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF_STACKING.id) &&
+      !this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id)
+    ) {
       return;
     }
-    const buffStacks = this.selectedCombatant.getBuffStacks(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id);
-    this.ampedDamage += calculateEffectiveDamage(event, DEVA_T31_2PC_MULTIPLER * buffStacks);
+    // Post Dragonrage Buff
+    if (this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id)) {
+      this.ampedDamage += calculateEffectiveDamage(event, DEVA_T31_2PC_MULTIPLER * this.buffStacks);
+      return;
+    }
+    // During Dragonrage Buff
+    this.buffStacks = this.selectedCombatant.getBuffStacks(
+      SPELLS.EMERALD_TRANCE_T31_2PC_BUFF_STACKING.id,
+    );
+    this.ampedDamage += calculateEffectiveDamage(event, DEVA_T31_2PC_MULTIPLER * this.buffStacks);
   }
 
   statistic() {

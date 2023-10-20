@@ -148,12 +148,18 @@ const spells = {
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
   },
-  EMERALD_TRANCE_T31_2PC_BUFF: {
+  // Buff during Dragonrage
+  EMERALD_TRANCE_T31_2PC_BUFF_STACKING: {
     id: 424155,
     name: 'Emerald Trance',
     icon: 'inv_legion_faction_dreamweavers',
   },
-
+  // Buff after Dragonrage
+  EMERALD_TRANCE_T31_2PC_BUFF: {
+    id: 424402,
+    name: 'Emerald Trance',
+    icon: 'inv_legion_faction_dreamweavers',
+  },
   // Shared
   BLESSING_OF_THE_BRONZE: {
     id: 364342,
