@@ -8,7 +8,7 @@ import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-import { isMythicPlus } from 'common/isMythicPlus';
+//import { isMythicPlus } from 'common/isMythicPlus';
 import '../../Styling.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
@@ -87,7 +87,7 @@ class BuffTargetHelper extends Analyzer {
   constructor(options: Options) {
     super(options);
     /** No need to show this in dungeon runs, for obvious reasons */
-    this.active = !isMythicPlus(this.owner.fight);
+    this.active = false; //!isMythicPlus(this.owner.fight);
 
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
