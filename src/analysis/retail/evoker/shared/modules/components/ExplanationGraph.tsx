@@ -187,6 +187,14 @@ const ExplanationGraph: React.FC<Props> = ({
     setCurrentWindowIndex((prevIndex) => (prevIndex - 1 + graphData.length) % graphData.length);
   };
 
+  if (graphData.length === 0) {
+    return (
+      <div>
+        <big>No data to display.</big>
+      </div>
+    );
+  }
+
   const currentWindow = graphData[currentWindowIndex];
   let currentGraph: GraphData;
   let colorRange: string[] = [];

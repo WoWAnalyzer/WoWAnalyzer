@@ -68,7 +68,7 @@ class Rejuvenation extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.REJUVENATION]),
       this.onRejuvHeal,
     );
-    debug && this.addEventListener(Events.fightend, this.onFightend);
+    debug && this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onRejuvApply(event: ApplyBuffEvent) {
@@ -132,7 +132,7 @@ class Rejuvenation extends Analyzer {
     }
   }
 
-  onFightend() {
+  onFightEnd() {
     debug && console.log('Total casts: ' + this.totalRejuvsCasts);
     debug && console.log('Early refreshments: ' + this.earlyRefreshments);
     debug && console.log('High overheal: ' + this.highOverhealCasts);

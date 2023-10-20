@@ -116,7 +116,7 @@ abstract class BaseHealerStatValues extends Analyzer {
     this.addEventListener(Events.removebuff.by(SELECTED_PLAYER_PET), this.onRemoveBuff);
     this.addEventListener(Events.heal.to(SELECTED_PLAYER), this.onHealTaken);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onHeal(event: HealEvent) {
@@ -416,7 +416,7 @@ abstract class BaseHealerStatValues extends Analyzer {
     }
   }
 
-  onFightend() {
+  onFightEnd() {
     if (DEBUG) {
       console.log('total', formatNumber(this.totalAdjustedHealing));
       console.log(`Int - ${formatNumber(this.totalOneInt)}`);

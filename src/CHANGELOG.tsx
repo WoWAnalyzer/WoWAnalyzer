@@ -30,6 +30,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 20), <>Refactor <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> module to correcly grant and steal the correct stats depending on your current stats.</>, nullDozzer),
+  change(date(2023, 10, 20), <>Add stat tracking and statistics for all Dragonflight Weapon Enchants such as <SpellLink spell={SPELLS.WAFTING_DEVOTION_ENCHANT}/> and <SpellLink spell={SPELLS.SPORE_TENDER_ENCHANT} />.</>, nullDozzer),
+  change(date(2023, 10, 16), 'Fix some variable capitalizations', Trevor),
   change(date(2023, 10, 14), 'Paginate data loading, allowing M+ to be re-enabled for most specs', emallson),
   change(date(2023, 10, 12), <>Make ICC the default Classic zone.</>, emallson),
   change(date(2023, 10, 12), 'Simplify checking if a fight is M+.', ToppleTheNun),

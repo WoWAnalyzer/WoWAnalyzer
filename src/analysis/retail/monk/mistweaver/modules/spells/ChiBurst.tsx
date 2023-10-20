@@ -36,7 +36,7 @@ class ChiBurst extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.CHI_BURST_HEAL),
       this.onHeal,
     );
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onCast(event: CastEvent) {
@@ -134,7 +134,7 @@ class ChiBurst extends Analyzer {
     );
   }
 
-  onFightend() {
+  onFightEnd() {
     if (debug) {
       console.log(`ChiBurst Casts: ${this.castChiBurst}`);
       console.log(`Total Chi Burst Healing: ${this.healing}`);

@@ -25,7 +25,7 @@ class ShieldBlock extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_BLOCK), this.onCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(Events.damage.to(SELECTED_PLAYER), this.onDamageTaken);
-    this.addEventListener(Events.fightend, this.onFightend);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onCast(event: CastEvent) {
@@ -153,7 +153,7 @@ class ShieldBlock extends Analyzer {
     this.shieldBlocksOverall.push(overall);
   }
 
-  onFightend() {
+  onFightEnd() {
     if (this.shieldBlocksDefensive.length > 0) {
       this.checkLastBlock();
     }
