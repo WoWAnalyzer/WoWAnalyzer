@@ -52,8 +52,6 @@ export function CoreRotationSection({ modules, events, info }: GuideProps<typeof
       {modules.sandsOfTime.guideSubsection()}
 
       {modules.shiftingSands.guideSubsection()}
-
-      {modules.buffTargetHelper.guideSubsection()}
     </Section>
   );
 }
