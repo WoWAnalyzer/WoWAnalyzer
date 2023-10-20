@@ -11,6 +11,7 @@ const BAD_ICONS = [
   'spell_shadow_abominationexplosion',
   'talentspec_druid_feral_cat',
   'talentspec_druid_feral_bear',
+  'inv_cosmicvoid_debuff',
   'inv_misc_bone_skull_01',
   'inv_10_elementalshardfoozles_shadowflame',
   'spell_animarevendreth_beam',
