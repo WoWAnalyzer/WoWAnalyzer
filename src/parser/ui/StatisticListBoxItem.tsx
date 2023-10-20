@@ -1,10 +1,16 @@
 import { TooltipElement } from 'interface';
-import PropTypes from 'prop-types';
+
+interface Props {
+  title: React.ReactChild;
+  value: React.ReactChild;
+  titleTooltip?: React.ReactChild;
+  valueTooltip?: React.ReactChild;
+}
 
 /**
  * @deprecated Use `parser/ui/Statistic` instead.
  */
-const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip }) => (
+const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip }: Props) => (
   <div className="flex">
     <div className="flex-main">
       {titleTooltip ? <TooltipElement content={titleTooltip}>{title}</TooltipElement> : title}
@@ -14,11 +20,5 @@ const StatisticListBoxItem = ({ title, value, titleTooltip, valueTooltip }) => (
     </div>
   </div>
 );
-StatisticListBoxItem.propTypes = {
-  title: PropTypes.node.isRequired,
-  value: PropTypes.node.isRequired,
-  titleTooltip: PropTypes.node,
-  valueTooltip: PropTypes.node,
-};
 
 export default StatisticListBoxItem;
