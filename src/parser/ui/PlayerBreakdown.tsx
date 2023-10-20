@@ -1,28 +1,47 @@
 import { Trans } from '@lingui/macro';
 import { formatNumber } from 'common/format';
 import indexByProperty from 'common/indexByProperty';
-import SPECS from 'game/SPECS';
 import { TooltipElement } from 'interface';
 import { SpecIcon } from 'interface';
 import { SpellLink } from 'interface';
-import PropTypes from 'prop-types';
+import Combatant from 'parser/core/Combatant';
 import { Component } from 'react';
 import Toggle from 'react-toggle';
 
 import PerformanceBar from './PerformanceBar';
 
-class PlayerBreakdown extends Component {
-  static propTypes = {
-    report: PropTypes.object.isRequired,
-    spellreport: PropTypes.object,
-    players: PropTypes.array.isRequired,
-  };
+interface Props {
+  report: Record<string, PlayerStats>;
+  spellreport: Record<string, SpellStats>;
+  players: (Record<string, unknown> & { id: number })[];
+}
+
+interface State {
+  showPlayers: boolean;
+}
+interface SpellStats extends Omit<PlayerStats, 'combatant'> {
+  spellId: number;
+}
+
+// TODO this is inferred from usage, not known from design. may not be complete or correct
+interface PlayerStats {
+  combatant: Combatant;
+  effectiveHealing: number;
+  healingFromMastery: number;
+  maxPotentialHealingFromMastery: number;
+  masteryEffectiveness: number;
+}
+
+class PlayerBreakdown extends Component<Props, State> {
   state = {
     showPlayers: true,
   };
 
-  calculatePlayerBreakdown(statsByTargetId, players) {
-    const friendlyStats = [];
+  calculatePlayerBreakdown(
+    statsByTargetId: Record<string, PlayerStats>,
+    players: Props['players'],
+  ) {
+    const friendlyStats: PlayerStats[] = [];
     const playersById = indexByProperty(players, 'id');
     Object.keys(statsByTargetId).forEach((targetId) => {
       const playerStats = statsByTargetId[targetId];
@@ -41,8 +60,8 @@ class PlayerBreakdown extends Component {
     return friendlyStats;
   }
 
-  calculateSpellBreakdown(statsBySpellId) {
-    const spellStats = [];
+  calculateSpellBreakdown(statsBySpellId: Record<string, SpellStats>) {
+    const spellStats: SpellStats[] = [];
     Object.keys(statsBySpellId).forEach((spellId) => {
       const spell = statsBySpellId[spellId];
 
@@ -73,7 +92,7 @@ class PlayerBreakdown extends Component {
       0,
     );
 
-    let spellStats = [];
+    let spellStats: SpellStats[] = [];
     let totalSpellEffectiveHealing = 0;
     let highestSpellEffectiveHealing = 0;
     let highestSpellMasteryEffectiveness = 0;
@@ -124,12 +143,12 @@ class PlayerBreakdown extends Component {
               <th>
                 <Trans id="interface.playerBreakdown.name">Name</Trans>
               </th>
-              <th colSpan="2">
+              <th colSpan={2}>
                 <Trans id="interface.playerBreakdown.masteryEffectiveness">
                   Mastery effectiveness
                 </Trans>
               </th>
-              <th colSpan="3">
+              <th colSpan={3}>
                 <TooltipElement
                   content={
                     <Trans id="interface.playerBreakdown.masteryEffectivenessTooltip">
