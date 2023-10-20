@@ -63,7 +63,7 @@ class T31DevaTier extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringValueText label="Emerald Trance (T31 Set Bonus)">
+        <BoringValueText label="Emerald Dream (T31 Set Bonus)">
           <h4>2 Piece</h4>
           <ItemDamageDone amount={this.ampedDamage} />
         </BoringValueText>
