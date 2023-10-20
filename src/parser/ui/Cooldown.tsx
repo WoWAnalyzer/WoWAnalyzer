@@ -21,11 +21,11 @@ import { Component } from 'react';
 
 import './Cooldown.css';
 
-interface Cooldown {
+export interface Cooldown {
   ability?: Spell;
   start: number;
   cdStart: number;
-  end?: number;
+  end?: number | null;
   events: AnyEvent[];
   summary: (BUILT_IN_SUMMARY_TYPES | SummaryDef)[];
   spell: Spell | number;
@@ -51,7 +51,7 @@ interface HealData {
   count: number;
 }
 
-class Cooldown extends Component<Props, State> {
+class CooldownComponent extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -501,4 +501,4 @@ class Cooldown extends Component<Props, State> {
   }
 }
 
-export default Cooldown;
+export default CooldownComponent;

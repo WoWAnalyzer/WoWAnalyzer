@@ -5,32 +5,34 @@ import { TooltipElement } from 'interface';
 import { SpecIcon } from 'interface';
 import { SpellLink } from 'interface';
 import Combatant from 'parser/core/Combatant';
+import { PlayerInfo } from 'parser/core/Player';
 import { Component } from 'react';
 import Toggle from 'react-toggle';
 
 import PerformanceBar from './PerformanceBar';
 
 interface Props {
-  report: Record<string, PlayerStats>;
-  spellreport: Record<string, SpellStats>;
-  players: (Record<string, unknown> & { id: number })[];
+  report: Record<number, PlayerStats>;
+  spellreport?: Record<string, SpellStats>;
+  players: PlayerInfo[];
 }
 
 interface State {
   showPlayers: boolean;
 }
-interface SpellStats extends Omit<PlayerStats, 'combatant'> {
+interface SpellStats extends Omit<InternalPlayerStats, 'combatant'> {
   spellId: number;
 }
 
-// TODO this is inferred from usage, not known from design. may not be complete or correct
-interface PlayerStats {
+export type PlayerStats = {
   combatant: Combatant;
   effectiveHealing: number;
+  healingReceived: number;
   healingFromMastery: number;
   maxPotentialHealingFromMastery: number;
-  masteryEffectiveness: number;
-}
+};
+
+type InternalPlayerStats = PlayerStats & { masteryEffectiveness: number };
 
 class PlayerBreakdown extends Component<Props, State> {
   state = {
@@ -41,7 +43,7 @@ class PlayerBreakdown extends Component<Props, State> {
     statsByTargetId: Record<string, PlayerStats>,
     players: Props['players'],
   ) {
-    const friendlyStats: PlayerStats[] = [];
+    const friendlyStats: InternalPlayerStats[] = [];
     const playersById = indexByProperty(players, 'id');
     Object.keys(statsByTargetId).forEach((targetId) => {
       const playerStats = statsByTargetId[targetId];

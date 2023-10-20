@@ -13,7 +13,7 @@ type Props = {
   bodyStyle?: CSSProperties;
   category?: STATISTIC_CATEGORY;
   position?: number;
-} & React.ComponentProps<'div'>;
+} & Omit<React.ComponentProps<'div'>, 'title'>;
 
 /**
  * @deprecated Use `parser/ui/Statistic` instead.

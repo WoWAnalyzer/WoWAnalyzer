@@ -200,7 +200,7 @@ export function plotOneVariableBinomChart(
   procChance: number | number[],
   trackedName: string = 'Procs',
   tooltipText: string = trackedName,
-  yDomain: number[] = [0, 0.4],
+  yDomain: [number, number] = [0, 0.4],
   xAxis: any = {
     title: trackedName,
     tickFormat: '~k',
