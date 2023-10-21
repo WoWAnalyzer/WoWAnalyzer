@@ -39,6 +39,8 @@ export const BREATH_OF_EONS_DAMAGE_LINK = 'breathOfEonsDamageLink';
 export const ERUPTION_CAST_DAM_LINK = 'eruptionCastDamLink';
 export const ERUPTION_CHITIN_LINK = 'eruptionChitinLink';
 export const PUPIL_OF_ALEXSTRASZA_LINK = 'pupilOfAlexstraszaLink';
+// Tier
+export const TREMBLING_EARTH_DAM_LINK = 'tremblingEarthDamLink';
 
 export const PRESCIENCE_BUFFER = 150;
 export const CAST_BUFFER_MS = 100;
@@ -48,6 +50,10 @@ export const BREATH_OF_EONS_DEBUFF_APPLY_BUFFER = 8000;
 export const BREATH_OF_EONS_BUFF_BUFFER = 8000;
 export const BREATH_OF_EONS_DAMAGE_BUFFER = 100;
 export const PUPIL_OF_ALEXSTRASZA_BUFFER = 1000;
+
+// Tier
+// No clue why but this gets very weirdly staggered/delayed
+export const TREMBLING_EARTH_BUFFER = 500;
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -215,6 +221,18 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  // Tier
+  {
+    linkRelation: TREMBLING_EARTH_DAM_LINK,
+    reverseLinkRelation: TREMBLING_EARTH_DAM_LINK,
+    linkingEventId: SPELLS.TREMBLING_EARTH_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    referencedEventId: SPELLS.TREMBLING_EARTH_DAM.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: TREMBLING_EARTH_BUFFER,
+    backwardBufferMs: TREMBLING_EARTH_BUFFER,
   },
 ];
 
