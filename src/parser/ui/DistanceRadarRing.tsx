@@ -1,5 +1,4 @@
-import { CSSProperties } from '@emotion/serialize';
-import React, { LegacyRef } from 'react';
+import React, { CSSProperties, LegacyRef } from 'react';
 
 type Props = {
   size: number;
