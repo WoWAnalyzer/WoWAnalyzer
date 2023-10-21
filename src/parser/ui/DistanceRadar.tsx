@@ -1,10 +1,10 @@
 import { formatNumber } from 'common/format';
 import { Tooltip } from 'interface';
-import PropTypes from 'prop-types';
+import { CSSProperties } from 'react';
 
 import DistanceRadarRing from './DistanceRadarRing';
 
-const Radar = ({ distance, size, style, playerColor }) => {
+const Radar = ({ distance, size = 100, style, playerColor = '#f8b700' }: Props) => {
   const pixelsPerYard = size / 40;
   return (
     <div
@@ -48,15 +48,12 @@ const Radar = ({ distance, size, style, playerColor }) => {
     </div>
   );
 };
-Radar.propTypes = {
-  distance: PropTypes.number.isRequired,
-  size: PropTypes.number,
-  style: PropTypes.object,
-  playerColor: PropTypes.string,
-};
-Radar.defaultProps = {
-  size: 100,
-  playerColor: '#f8b700',
-};
+
+interface Props {
+  distance: number;
+  size?: number;
+  style?: CSSProperties;
+  playerColor?: string;
+}
 
 export default Radar;

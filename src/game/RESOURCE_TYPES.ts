@@ -5,8 +5,10 @@ export interface Resource {
   id: number;
   name: string;
   icon: string;
-  url: string;
+  url?: string;
 }
+
+type InternalResource = Required<Resource>;
 
 const RESOURCE_TYPES = {
   MANA: {
@@ -137,9 +139,9 @@ const RESOURCE_TYPES = {
     icon: 'ability_evoker_powernexus',
     url: 'essence',
   },
-} satisfies Record<string, Resource>;
+} satisfies Record<string, InternalResource>;
 
-export default indexById<Resource, typeof RESOURCE_TYPES>(RESOURCE_TYPES);
+export default indexById<InternalResource, typeof RESOURCE_TYPES>(RESOURCE_TYPES);
 
 export function getResource(classResources: ClassResources[] | undefined, type: number) {
   if (!classResources) {

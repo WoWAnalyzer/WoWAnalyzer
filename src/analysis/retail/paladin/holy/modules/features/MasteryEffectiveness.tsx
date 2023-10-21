@@ -1,7 +1,6 @@
 import { Trans, defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Combatant from 'parser/core/Combatant';
 import Events, {
   AbsorbedEvent,
   CastEvent,
@@ -16,7 +15,7 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import Radar from 'parser/ui/DistanceRadar';
 import Panel from 'parser/ui/Panel';
-import PlayerBreakdown from 'parser/ui/PlayerBreakdown';
+import PlayerBreakdown, { PlayerStats } from 'parser/ui/PlayerBreakdown';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
@@ -403,12 +402,4 @@ type MasteryEvent = {
   effectiveHealing: number;
   rawMasteryGain: number;
   maxPotentialRawMasteryHealing: number;
-};
-
-type PlayerStats = {
-  combatant: Combatant;
-  effectiveHealing: number;
-  healingReceived: number;
-  healingFromMastery: number;
-  maxPotentialHealingFromMastery: number;
 };

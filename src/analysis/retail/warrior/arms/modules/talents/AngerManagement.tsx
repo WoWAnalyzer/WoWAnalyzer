@@ -91,7 +91,7 @@ class AngerManagement extends Analyzer {
           (this.effectiveReduction.get(TALENTS.BLADESTORM_TALENT.id) || 0) +
             (this.wastedReduction.get(TALENTS.BLADESTORM_TALENT.id) || 0),
         )} min`}
-        valueTooltip={this.tooltip}
+        valueTooltip={<>{this.tooltip}</>}
       />
     );
   }

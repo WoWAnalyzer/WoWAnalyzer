@@ -1,6 +1,13 @@
-import PropTypes from 'prop-types';
+import React, { CSSProperties, LegacyRef } from 'react';
 
-const DistanceRadarRing = ({ innerRef, size, color, style, ...others }) => (
+type Props = {
+  size: number;
+  color?: string;
+  style?: CSSProperties;
+  innerRef?: LegacyRef<HTMLDivElement>;
+} & React.ComponentProps<'div'>;
+
+const DistanceRadarRing = ({ innerRef, size, color = '#9c9c9c', style, ...others }: Props) => (
   <div
     style={{
       position: 'absolute',
@@ -17,14 +24,5 @@ const DistanceRadarRing = ({ innerRef, size, color, style, ...others }) => (
     {...others}
   />
 );
-DistanceRadarRing.propTypes = {
-  size: PropTypes.number.isRequired,
-  color: PropTypes.string,
-  style: PropTypes.object,
-  innerRef: PropTypes.any,
-};
-DistanceRadarRing.defaultProps = {
-  color: '#9c9c9c',
-};
 
 export default DistanceRadarRing;
