@@ -1,6 +1,6 @@
 import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import TALENTS from 'common/TALENTS/rogue';
+import SPELLS from 'common/SPELLS/rogue';
 import { SpellIcon, SpellLink } from 'interface';
 import UptimeIcon from 'interface/icons/Uptime';
 import Analyzer from 'parser/core/Analyzer';
@@ -16,7 +16,7 @@ class RollTheBonesBuffs extends Analyzer {
    * In other words, at least one of the buffs was active
    */
   get totalPercentUptime(): number {
-    return this.percentUptime(TALENTS.ROLL_THE_BONES_TALENT.id);
+    return this.percentUptime(SPELLS.ROLL_THE_BONES.id);
   }
 
   get suggestionThresholds(): NumberThreshold {
@@ -39,12 +39,11 @@ class RollTheBonesBuffs extends Analyzer {
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          Your <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} /> uptime can be improved. Try to
-          always have <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} /> active, even with a lower
-          value roll.
+          Your <SpellLink spell={SPELLS.ROLL_THE_BONES} /> uptime can be improved. Try to always
+          have <SpellLink spell={SPELLS.ROLL_THE_BONES} /> active, even with a lower value roll.
         </>,
       )
-        .icon(TALENTS.ROLL_THE_BONES_TALENT.icon)
+        .icon(SPELLS.ROLL_THE_BONES.icon)
         .actual(
           defineMessage({
             id: 'rogue.outlaw.suggestions.rollTheBones.uptime',
@@ -59,14 +58,14 @@ class RollTheBonesBuffs extends Analyzer {
     return (
       <StatisticBox
         position={STATISTIC_ORDER.CORE(2)}
-        icon={<SpellIcon spell={TALENTS.ROLL_THE_BONES_TALENT} />}
+        icon={<SpellIcon spell={SPELLS.ROLL_THE_BONES} />}
         value={
           <>
             <UptimeIcon /> {formatPercentage(this.totalPercentUptime)}% <small>uptime</small>
             <br />
           </>
         }
-        label={<SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} icon={false} />}
+        label={<SpellLink spell={SPELLS.ROLL_THE_BONES} icon={false} />}
       >
         <table className="table table-condensed">
           <thead>

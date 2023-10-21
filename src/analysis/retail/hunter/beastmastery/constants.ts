@@ -20,6 +20,8 @@ export const BESTIAL_WRATH_BASE_CD = 90000;
 export const MAX_FRENZY_STACKS = 3;
 //Frenzy lasts 8 seconds normally, but can be adjusted by some effects
 export const ORIGINAL_FRENZY_DURATION = 8000;
+//Frenzy lasts 10 seconds with Savagery talent
+export const SAVAGERY_FRENZY_DURATION = 10000;
 /** Kindred Spirits */
 export const KINDRED_SPIRITS_FOCUS_INCREASE = [0, 10, 20];
 /** Pack Tactics */
@@ -59,10 +61,10 @@ export const STAMPEDE_POTENTIAL_HITS = 18;
 //If you have Animal Companion, Stomp will hit twice per cast - so we need to be aware of that
 export const AMOUNT_OF_PETS_WITH_AC = 2;
 /** Thrill of the Hunt */
-//Thrill of the Hunt can stack up to 3 times
-export const MAX_THRILL_STACKS = 3;
-//Each stack of Thrill of the Hunt gives 3% crit
-export const CRIT_PER_THRILL_STACK = 0.03;
+//Thrill of the Hunt can stack up to 4 times
+export const MAX_THRILL_STACKS = 4;
+//Each stack of Thrill of the Hunt gives 2% crit
+export const CRIT_PER_THRILL_STACK = 0.02;
 /** Dire Command */
 //Dire Command has a 10% chance to summon a dire beast per rank
 export const DIRE_COMMAND_PROC_CHANCE = [0, 0.1, 0.2, 0.3];

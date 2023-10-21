@@ -300,9 +300,6 @@ const MistweaverMonkChecklist = ({ combatant, castEfficiency, thresholds }: Chec
         {combatant.hasTalent(TALENTS_MONK.DAMPEN_HARM_TALENT) && (
           <AbilityRequirement spell={TALENTS_MONK.DAMPEN_HARM_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS_MONK.HEALING_ELIXIR_TALENT) && (
-          <AbilityRequirement spell={TALENTS_MONK.HEALING_ELIXIR_TALENT.id} />
-        )}
       </Rule>
       <Rule
         name={

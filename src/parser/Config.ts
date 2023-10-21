@@ -25,7 +25,11 @@ export type Builds = { [name: string]: Build };
 
 type VaultPatchCycle = `0.${0 | 2 | 5 | 7}`;
 type AberrusPatchCycle = `1.${0 | 5 | 7}`;
-export type DragonflightPatchVersion = `10.${VaultPatchCycle | AberrusPatchCycle}`;
+type AmirdrassilPatchCycle = `2.${0}`;
+export type DragonflightPatchVersion = `10.${
+  | VaultPatchCycle
+  | AberrusPatchCycle
+  | AmirdrassilPatchCycle}`;
 export type WrathPatchVersion = `3.4.0`;
 
 interface Config {

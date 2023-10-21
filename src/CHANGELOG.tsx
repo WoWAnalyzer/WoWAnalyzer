@@ -30,6 +30,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 21), 'Disable specs broken by talent regeneration for 10.2.', ToppleTheNun),
+  change(date(2023, 10, 21), 'Regenerate talents for 10.2.', ToppleTheNun),
   change(date(2023, 10, 20), <>Refactor <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> module to correcly grant and steal the correct stats depending on your current stats.</>, nullDozzer),
   change(date(2023, 10, 20), <>Add stat tracking and statistics for all Dragonflight Weapon Enchants such as <SpellLink spell={SPELLS.WAFTING_DEVOTION_ENCHANT}/> and <SpellLink spell={SPELLS.SPORE_TENDER_ENCHANT} />.</>, nullDozzer),
   change(date(2023, 10, 16), 'Fix some variable capitalizations', Trevor),

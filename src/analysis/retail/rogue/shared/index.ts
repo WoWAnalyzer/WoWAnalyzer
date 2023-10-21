@@ -9,7 +9,6 @@ export { default as InvigoratingShadowdust } from './shadowlands/legendaries/Inv
 export { default as InstantPoison } from './InstantPoison';
 export * from './IsStealth';
 export { default as SpellEnergyCost } from './SpellEnergyCost';
-export { default as SpellUsable } from './SpellUsable';
 export { default as StealthDamageTracker } from './StealthDamageTracker';
 export * from './constants';
 export { default as DeeperDaggers } from './DeeperDaggers';

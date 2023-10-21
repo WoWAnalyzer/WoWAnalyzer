@@ -53,22 +53,10 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
         )}
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.FELBLADE_TALENT} />
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) && (
-          <TalentCastEfficiencyRequirement
-            talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT}
-            actualCast={SPELLS.SIGIL_OF_FLAME_PRECISE}
-          />
+          <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME_PRECISE.id} />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT) && (
-          <TalentCastEfficiencyRequirement
-            talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT}
-            actualCast={SPELLS.SIGIL_OF_FLAME_CONCENTRATED}
-          />
-        )}
-        {!(
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
-        ) && (
-          <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT} />
+        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) && (
+          <AbilityRequirement spell={SPELLS.SIGIL_OF_FLAME.id} />
         )}
         {combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) && (
           <TalentCastEfficiencyRequirement
@@ -76,21 +64,12 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
             actualCast={SPELLS.ELYSIAN_DECREE_PRECISE}
           />
         )}
-        {combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT) && (
-          <TalentCastEfficiencyRequirement
-            talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT}
-            actualCast={SPELLS.ELYSIAN_DECREE_CONCENTRATED}
-          />
-        )}
-        {!(
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) ||
-          combatant.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)
-        ) && (
+        {!combatant.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT) && (
           <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT} />
         )}
         <TalentCastEfficiencyRequirement talent={TALENTS_DEMON_HUNTER.THE_HUNT_TALENT} />
         <TalentCastEfficiencyRequirement
-          talent={TALENTS_DEMON_HUNTER.SOULREND_TALENT}
+          talent={TALENTS_DEMON_HUNTER.SOULSCAR_TALENT}
           actualCast={SPELLS.THROW_GLAIVE_HAVOC}
         />
       </Rule>
@@ -128,11 +107,10 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           }
           thresholds={thresholds.demonicBadCasts}
         />
-        <TalentRequirement
-          talent={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT}
+        <Requirement
           name={
             <>
-              <SpellLink spell={TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT} /> bad casts
+              <SpellLink spell={SPELLS.FEL_ERUPTION} /> bad casts
             </>
           }
           thresholds={thresholds.felEruptionBadCasts}
@@ -242,13 +220,8 @@ const HavocDemonHunterChecklist = (props: ChecklistProps) => {
           }
           thresholds={thresholds.felbladeEfficiency}
         />
-        <TalentRequirement
-          talent={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT}
-          name={
-            <>
-              <SpellLink spell={TALENTS_DEMON_HUNTER.DEMONIC_APPETITE_TALENT} /> Fury wasted
-            </>
-          }
+        <Requirement
+          name={<>Demonic Appetite Fury wasted</>}
           thresholds={thresholds.demonicAppetiteEfficiency}
         />
         <TalentRequirement

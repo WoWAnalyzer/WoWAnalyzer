@@ -23,13 +23,6 @@ class ComboPoints extends Analyzer {
 
   suggestions(when: When) {
     resourceSuggest(when, this.comboPointTracker, {
-      spell: TALENTS.MARKED_FOR_DEATH_TALENT, // 5 CP
-      minor: 0.2, // MFD is typically guaranteed to waste 1 CP (20%) because of the Ruthlessness passive refunding CP from the previous finisher.
-      avg: 0.4, // Using MFD at 2 CP is not recommended but not a huge problem.
-      major: 0.6,
-      extraSuggestion: this.makeExtraSuggestion(TALENTS.MARKED_FOR_DEATH_TALENT),
-    });
-    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.SINISTER_STRIKE, // 1 CP + 35% chance for another
       minor: 0.05, // Due to the 35% chance to double hit, especially with the Broadside RTB buff, you are bound to burn some CP
       avg: 0.1,
