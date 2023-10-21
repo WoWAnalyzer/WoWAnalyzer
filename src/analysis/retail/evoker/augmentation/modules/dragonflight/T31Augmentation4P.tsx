@@ -43,9 +43,9 @@ import DonutChart from 'parser/ui/DonutChart';
  * waste one of the stacks.
  *
  * The stack behaviour is not reflected properly in logs due to when you gain the inital buff, it will count as
- * 1 stack regardless of the amount of stacks you actually gained. There relying on the proper count from events
+ * 1 stack regardless of the amount of stacks you actually gained. Therefor relying on the proper count from events
  * is not viable.
- * This could be solved with a normalizer, but since we want to count the overflow manually as well we would already
+ * This could be solved with a normalizer, but since we want to count the overflow as well we would already
  * be trying to manually figure out the amount of stacks we should be getting, which would result in double work.
  * So we will skip normalizing and simply deal with all the logic needed here.
  */
