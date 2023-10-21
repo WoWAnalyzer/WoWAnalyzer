@@ -22,7 +22,8 @@ import { TIERS } from 'game/TIERS';
  * and grants you Essence Burst every 5 sec.
  */
 class T31DevaTier extends Analyzer {
-  ampedDamage: number = 0;
+  ampedDamage2pc: number = 0;
+  ampedDamage4pc: number = 0;
   /** We need this so we don't assume always 5 stacks
    * Since technically you can drop Dragonrage early
    * and then the buff won't be fully stacked */
@@ -46,14 +47,20 @@ class T31DevaTier extends Analyzer {
     }
     // Post Dragonrage Buff
     if (this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id)) {
-      this.ampedDamage += calculateEffectiveDamage(event, DEVA_T31_2PC_MULTIPLER * this.buffStacks);
+      this.ampedDamage4pc += calculateEffectiveDamage(
+        event,
+        DEVA_T31_2PC_MULTIPLER * this.buffStacks,
+      );
       return;
     }
     // During Dragonrage Buff
     this.buffStacks = this.selectedCombatant.getBuffStacks(
       SPELLS.EMERALD_TRANCE_T31_2PC_BUFF_STACKING.id,
     );
-    this.ampedDamage += calculateEffectiveDamage(event, DEVA_T31_2PC_MULTIPLER * this.buffStacks);
+    this.ampedDamage2pc += calculateEffectiveDamage(
+      event,
+      DEVA_T31_2PC_MULTIPLER * this.buffStacks,
+    );
   }
 
   statistic() {
@@ -65,7 +72,9 @@ class T31DevaTier extends Analyzer {
       >
         <BoringValueText label="Emerald Dream (T31 Set Bonus)">
           <h4>2 Piece</h4>
-          <ItemDamageDone amount={this.ampedDamage} />
+          <ItemDamageDone amount={this.ampedDamage2pc} />
+          <h4>4 Piece</h4>
+          <ItemDamageDone amount={this.ampedDamage4pc} />
         </BoringValueText>
       </Statistic>
     );
