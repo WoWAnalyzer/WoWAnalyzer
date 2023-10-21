@@ -149,13 +149,13 @@ const spells = {
     icon: 'ability_evoker_essenceburst',
   },
   // Buff during Dragonrage
-  EMERALD_TRANCE_T31_2PC_BUFF_STACKING: {
+  EMERALD_TRANCE_T31_2PC_BUFF: {
     id: 424155,
     name: 'Emerald Trance',
     icon: 'inv_legion_faction_dreamweavers',
   },
   // Buff after Dragonrage
-  EMERALD_TRANCE_T31_2PC_BUFF: {
+  EMERALD_TRANCE_T31_4PC_BUFF: {
     id: 424402,
     name: 'Emerald Trance',
     icon: 'inv_legion_faction_dreamweavers',

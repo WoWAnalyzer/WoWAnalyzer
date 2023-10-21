@@ -40,23 +40,21 @@ class T31DevaTier extends Analyzer {
 
   onHit(event: DamageEvent) {
     if (
-      !this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF_STACKING.id) &&
-      !this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id)
+      !this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id) &&
+      !this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_4PC_BUFF.id)
     ) {
       return;
     }
-    // Post Dragonrage Buff
-    if (this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id)) {
+
+    if (this.selectedCombatant.hasBuff(SPELLS.EMERALD_TRANCE_T31_4PC_BUFF.id)) {
       this.ampedDamage4pc += calculateEffectiveDamage(
         event,
         DEVA_T31_2PC_MULTIPLER * this.buffStacks,
       );
       return;
     }
-    // During Dragonrage Buff
-    this.buffStacks = this.selectedCombatant.getBuffStacks(
-      SPELLS.EMERALD_TRANCE_T31_2PC_BUFF_STACKING.id,
-    );
+
+    this.buffStacks = this.selectedCombatant.getBuffStacks(SPELLS.EMERALD_TRANCE_T31_2PC_BUFF.id);
     this.ampedDamage2pc += calculateEffectiveDamage(
       event,
       DEVA_T31_2PC_MULTIPLER * this.buffStacks,
