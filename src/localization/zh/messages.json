@@ -61,6 +61,7 @@
   "common.slots.shoulder": "肩膀",
   "common.slots.weapon": "武器",
   "common.stat.agility": "敏捷",
+  "common.stat.armor": "",
   "common.stat.avoidance": "躲闪",
   "common.stat.criticalStrike": "暴击",
   "common.stat.damagePerExecutionTime.long": "施法时每秒读条造成的伤害",

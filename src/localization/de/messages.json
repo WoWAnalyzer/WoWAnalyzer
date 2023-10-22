@@ -61,6 +61,7 @@
   "common.slots.shoulder": "",
   "common.slots.weapon": "Haupthand",
   "common.stat.agility": "Agilität",
+  "common.stat.armor": "",
   "common.stat.avoidance": "Vermeidung",
   "common.stat.criticalStrike": "Kritische Trefferchance",
   "common.stat.damagePerExecutionTime.long": "Verbrachter Schaden pro Sekunde beim Zauber wirken",
