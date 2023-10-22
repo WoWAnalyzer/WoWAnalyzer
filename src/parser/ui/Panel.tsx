@@ -13,4 +13,9 @@ const Panel = ({ category = STATISTIC_CATEGORY.PANELS, position, ...others }: Pr
   </ErrorBoundary>
 );
 
+// this is needed for the Masonry wrapper
+Panel.defaultProps = {
+  category: STATISTIC_CATEGORY.PANELS,
+};
+
 export default Panel;
