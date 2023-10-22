@@ -5,6 +5,7 @@ import { CamClark, Tialyss, ToppleTheNun, xizbow, Trevor, Abelito75 } from 'CONT
 import SPELLS from 'common/SPELLS/paladin';
 
 export default [
+  change(date(2023, 10, 22), <>Fix "typo" in <SpellLink spell={TALENTS.IMBUED_INFUSIONS_TALENT} /> suggestion.</>, ToppleTheNun),
   change(date(2023, 9, 14), <>Added Holy Paladin SoTR.</>, Abelito75),
   change(date(2023, 8, 16), <>Enabled mana graphs. Added <SpellLink spell={TALENTS.RISING_SUNLIGHT_TALENT} /> to Glimmer chart. Added <SpellLink spell={TALENTS.GLISTENING_RADIANCE_TALENT} /> to healing per holy power.</>, Tialyss),
   change(date(2023, 8, 11), <>Small Mastery Update.</>, Abelito75),
