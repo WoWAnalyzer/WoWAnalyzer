@@ -15,4 +15,10 @@ const ItemStatistic = (props: React.ComponentProps<typeof Statistic>) => (
   />
 );
 
+// this is needed for the Masonry wrapper
+ItemStatistic.defaultProps = {
+  category: STATISTIC_CATEGORY.ITEMS,
+  position: STATISTIC_ORDER.OPTIONAL(0),
+};
+
 export default ItemStatistic;
