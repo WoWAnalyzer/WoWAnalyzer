@@ -27,3 +27,5 @@ export const DISINTEGRATE_CHAINED_TICKS = 5;
 
 export const CAUSALITY_DISINTEGRATE_CDR_MS = 500;
 export const CAUSALITY_PYRE_CDR_MS = 400;
+
+export const DEVA_T31_2PC_MULTIPLER = 0.05;
