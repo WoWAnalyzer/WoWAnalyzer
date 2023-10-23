@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 11, 1), <>Add refreshes to <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> module</>, Trevor),
+  change(date(2023, 10, 14), <>Add T31 tier set module</>, Trevor),
   change(date(2023, 7, 23), <>Add <SpellLink spell={TALENTS_EVOKER.ANCIENT_FLAME_TALENT}/> module and guide section</>, Trevor),
   change(date(2023, 7, 13), <>Fix <SpellLink spell={TALENTS_EVOKER.REGENERATIVE_MAGIC_TALENT}/></>, Trevor),
   change(date(2023, 7, 11), <>Fix <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT}/></>, Trevor),
