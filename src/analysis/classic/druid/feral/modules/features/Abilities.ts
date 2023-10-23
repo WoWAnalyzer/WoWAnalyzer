@@ -10,27 +10,27 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.MANGLE_CAT.id, ...SPELLS.MANGLE_CAT.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
       },
       {
         spell: [SPELLS.SHRED.id, ...SPELLS.SHRED.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
       },
       {
         spell: [SPELLS.RAKE.id, ...SPELLS.RAKE.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
       },
       {
         spell: [SPELLS.SAVAGE_ROAR.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
       },
       {
         spell: [SPELLS.FAERIE_FIRE_FERAL.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
         cooldown: 6,
         castEfficiency: {
           suggestion: true,
@@ -42,25 +42,25 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.RIP.id, ...SPELLS.RIP.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
       },
       {
         spell: [SPELLS.FEROCIOUS_BITE.id, ...SPELLS.FEROCIOUS_BITE.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
       },
       // Rotational AOE
       {
         spell: [SPELLS.SWIPE_CAT.id],
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
         cooldown: 30,
       },
       // Cooldowns
       {
         spell: [SPELLS.BERSERK.id],
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
         cooldown: 180,
       },
       {
@@ -80,31 +80,31 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.FERAL_CHARGE_CAT.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
         cooldown: 30,
       },
       {
         spell: [SPELLS.DASH.id],
         category: SPELL_CATEGORY.UTILITY,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
         cooldown: 180,
       },
       {
         spell: [SPELLS.INNERVATE.id],
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { base: 1000 },
+        gcd: { base: 1500 },
         cooldown: 180,
       },
       {
         spell: [SPELLS.REBIRTH.id],
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { base: 1000 },
+        gcd: { base: 1500 },
         cooldown: 600,
       },
       {
         spell: [SPELLS.COWER.id],
         category: SPELL_CATEGORY.COOLDOWNS,
-        gcd: { base: 1000 },
+        gcd: { static: 1000 },
         cooldown: 10,
       },
       // Pet Related
