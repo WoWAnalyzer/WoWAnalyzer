@@ -9,183 +9,123 @@ jobs:
   prepare:
     name: 'Install dependencies'
     runs-on: ubuntu-latest
-    env:
-      YARN_CACHE_FOLDER: .yarn-cache
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        id: cache
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          restore-keys: ${{ runner.os }}-node_modules-
-      - name: Get yarn cache directory path
-        if: steps.cache.outputs.cache-hit != 'true'
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-      # Use week number for automatically purging the cache every week. This is
-      # useful because caching yarn-cache would otherwise lead it to grow
-      # indefinitely since old dependencies are never purged.
-      - name: Get week number
-        if: steps.cache.outputs.cache-hit != 'true'
-        id: week-number
-        run: echo "value=$(date +%W)" >> $GITHUB_OUTPUT
-      - name: Cache "yarn-cache"
-        uses: martijnhols/actions-cache@v3
-        if: steps.cache.outputs.cache-hit != 'true'
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-${{ hashFiles('yarn.lock') }}
-          restore-keys: ${{ runner.os }}-${{ steps.week-number.outputs.value }}-yarn-cache-
-      - run: yarn --frozen-lockfile --prefer-offline
-        if: steps.cache.outputs.cache-hit != 'true'
-      - name: Save "node_modules" in cache
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: martijnhols/actions-cache/save@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ steps.cache.outputs.primary-key }}
-
-  # TODO: Update this when possible to include the node_modules folder. GH is updating artifact action soon to make this
-  #  easier (https://github.com/actions/upload-artifact/issues/7#issuecomment-566114993), and cache action multiple path
-  #  support is popular (https://github.com/actions/cache/issues/16)
+      - run: pnpm install
 
   typecheck:
     needs: [prepare]
     name: 'Typecheck'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
-      - run: yarn typecheck
+      - run: pnpm install
+      - run: pnpm run typecheck
+
   linting:
     needs: [prepare]
     name: 'ESLint'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
-      - run: yarn lint --max-warnings=0
+      - run: pnpm install
+      - run: pnpm run lint --max-warnings=0
+
   prettier:
     needs: [prepare]
     name: 'Prettier'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
-      - run: yarn prettier . --check
+      - run: pnpm install
+      - run: pnpm exec prettier . --check
+
   test-interface:
     needs: [prepare]
     # This should actually include anything but parser and integration tests
     name: 'Interface tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
-      - run: yarn test:interface --runInBand
+      - run: pnpm install
+      - run: pnpm run test:interface --runInBand
+
   test-parser:
     needs: [prepare]
     name: 'Parser tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
-      - run: yarn test:parser --runInBand
+      - run: pnpm install
+      - run: pnpm run test:parser --runInBand
+
   test-integration:
     needs: [prepare]
     name: 'Integration tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
-      - run: yarn test:integration --runInBand
+      - run: pnpm install
+      - run: pnpm run test:integration --runInBand
+
   build:
     needs: [prepare]
     name: 'Build'
     runs-on: ubuntu-latest
     if: github.repository == 'wowanalyzer/wowanalyzer'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+      - run: pnpm install
       - name: Extract messages
         if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
-        run: |
-          yarn extract
-          yarn lingui compile
+        run: pnpm run extract
+      - name: Compile Lingui
+        run: pnpm exec lingui compile
       - name: Calculate environment name
         id: environment-name
         run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
       - name: Production build
-        run: yarn build
+        run: pnpm run build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
           REACT_APP_ENABLE_GA: true
@@ -196,26 +136,24 @@ jobs:
         with:
           name: build
           path: build.tar.gz
+
   e2e-build:
     needs: [prepare]
     name: 'e2e-build'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+      - run: pnpm install
       - name: Extract messages
-        run: |
-          yarn extract
-          yarn lingui compile
+        if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer'
+        run: pnpm run extract
+      - name: Compile Lingui
+        run: pnpm exec lingui compile
       - name: Calculate environment name
         id: environment-name
         run: echo "environment_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
@@ -224,10 +162,10 @@ jobs:
         # using for e2e testing.
         run: cp .env.development .env.production
       - name: Production build
-        run: yarn build
+        run: pnpm run build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
-          REACT_APP_ENABLE_GA: true
+          REACT_APP_ENABLE_GA: false
           REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
           REACT_APP_VERSION: ${{ github.sha }}
       - run: tar -czf build.tar.gz build
@@ -244,25 +182,21 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+      - run: pnpm install
       - uses: actions/download-artifact@v3
         with:
           name: e2e-build
       - run: tar -xzf build.tar.gz
       - name: Install Playwright deps
-        run: yarn playwright install --with-deps
+        run: pnpm exec playwright install --with-deps
       - name: Run Playwright tests
-        run: yarn e2e --shard=${{ matrix.shard }}/4
+        run: pnpm run e2e --shard=${{ matrix.shard }}/4
       - uses: actions/upload-artifact@v3
         if: always()
         with:
@@ -279,21 +213,17 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
-      - name: Restore "node_modules" from cache
-        uses: martijnhols/actions-cache/restore@v3
-        with:
-          path: |
-            node_modules
-          key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
-          required: true
+      - run: pnpm install
       - name: Extract messages
-        run: yarn extract
+        run: pnpm run extract
       - name: Compile messages
-        run: yarn lingui compile
+        run: pnpm exec lingui compile
 
   docker-image:
     needs:
@@ -302,7 +232,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v1
         with:
           name: build
@@ -335,18 +265,17 @@ jobs:
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
 
-  # TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
-
   require-changelog-entry:
     name: 'Has new changelog entry'
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
-    env:
-      YARN_CACHE_FOLDER: .yarn-cache
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
+      - uses: pnpm/action-setup@v2
       - uses: actions/setup-node@v3
         with:
+          cache: 'pnpm'
           node-version: '18.x'
+      - run: pnpm install
       - run: node scripts/require-changelog-entry.js

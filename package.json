@@ -40,6 +40,7 @@
     "vega-lite": "^5.6.0"
   },
   "devDependencies": {
+    "@antfu/ni": "0.21.8",
     "@babel/plugin-proposal-private-property-in-object": "7.21.11",
     "@babel/preset-env": "7.22.5",
     "@babel/preset-react": "7.22.5",
@@ -49,7 +50,6 @@
     "@emotion/babel-plugin": "^11.11.0",
     "@lingui/cli": "3.17.2",
     "@lingui/loader": "3.17.2",
-    "@martijnhols/eslint-config": "^5.1.0",
     "@playwright/test": "^1.36.2",
     "@sentry/browser": "^7.61.1",
     "@testing-library/jest-dom": "^5.17.0",
@@ -57,6 +57,7 @@
     "@types/decompress": "^4.2.4",
     "@types/jest": "^27.5.2",
     "@types/node": "^18.11.18",
+    "@types/prop-types": "^15.7.5",
     "@types/react": "^17.0.37",
     "@types/react-dom": "^17.0.11",
     "@types/react-helmet": "^6.1.6",
@@ -64,19 +65,25 @@
     "@types/react-textfit": "^1.1.0",
     "@types/react-transition-group": "^4.4.6",
     "@types/react-virtualized": "^9.21.22",
+    "@types/testing-library__jest-dom": "^5.14.5",
     "archiver": "^5.3.1",
     "babel-core": "^7.0.0-bridge.0",
     "cross-env": "^7.0.3",
     "customize-cra": "^1.0.0",
     "decompress": "^4.2.1",
+    "dotenv-flow": "^3.2.0",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-no-only-tests": "^3.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-progress": "^0.0.1",
-    "eslint-plugin-wowanalyzer": "link:./packages/eslint-plugin-wowanalyzer",
+    "eslint-plugin-wowanalyzer": "workspace:*",
+    "eslint-plugin-you-dont-need-lodash-underscore": "^6.12.0",
     "husky": "^8.0.3",
+    "identity-obj-proxy": "^3.0.0",
     "is-ci": "^3.0.1",
     "jest-canvas-mock": "^2.5.2",
     "lint-staged": "13.2.3",
-    "patch-package": "^8.0.0",
-    "postinstall-postinstall": "^2.1.0",
     "prettier": "~2.8.1",
     "react-app-rewired": "^2.2.1",
     "react-scripts": "^5.0.1",
@@ -96,22 +103,21 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "safestart": "yarn && react-app-rewired start",
+    "safestart": "pnpm install && react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-app-rewired test",
-    "test:interface": "yarn test --testPathIgnorePatterns \"integrationTests|/src\\/parser/\"",
-    "test:parser": "yarn test ./src/parser --testPathIgnorePatterns integrationTests",
-    "test:integration": "yarn test integrationTests --passWithNoTests",
+    "test:interface": "nr test --testPathIgnorePatterns \"integrationTests|/src\\/parser/\"",
+    "test:parser": "nr test ./src/parser --testPathIgnorePatterns integrationTests",
+    "test:integration": "nr test integrationTests --passWithNoTests",
     "typecheck": "tsc",
     "lint-uncached": "eslint --format stylish --max-warnings 0",
-    "lint": "yarn lint-uncached --cache .",
-    "lint:fix": "yarn lint --fix",
+    "lint": "nr lint-uncached --cache .",
+    "lint:fix": "nr lint --fix",
     "extract": "lingui extract --overwrite --clean",
     "script": "set NODE_ENV=development&&babel-node",
-    "postinstall": "patch-package",
     "prepare": "is-ci || husky install",
     "e2e:setup": "node ./scripts/e2e/generate-configs-bootstrap.js",
-    "e2e": "yarn e2e:setup && playwright test",
+    "e2e": "nr e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
     "e2e:report": "playwright show-report"
   },
@@ -120,7 +126,7 @@
       "prettier --write"
     ],
     "*.{ts,tsx,js,jsx}": [
-      "yarn lint-uncached --fix"
+      "pnpm run lint-uncached --fix"
     ]
   },
   "browserslist": {
@@ -148,5 +154,11 @@
       "^@lingui/loader!.*$": "<rootDir>/linguiMessageMock.js"
     }
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "pnpm@8.9.2",
+  "pnpm": {
+    "patchedDependencies": {
+      "vega-embed@6.20.2": "patches/vega-embed@6.20.2.patch",
+      "prettier-plugin-tailwindcss@0.1.7": "patches/prettier-plugin-tailwindcss@0.1.7.patch"
+    }
+  }
 }

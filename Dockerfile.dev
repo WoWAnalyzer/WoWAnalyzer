@@ -1,9 +1,11 @@
-FROM node:14-alpine
+FROM node:18-alpine
 
 WORKDIR /usr/src/wowanalyzer/
+
+RUN npm i -g pnpm
 
 COPY . /usr/src/wowanalyzer/
 
 EXPOSE 3000
 
-CMD ["yarn", "safestart"]
+CMD ["pnpm", "run", "safestart"]
