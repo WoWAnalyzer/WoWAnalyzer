@@ -43,11 +43,6 @@ const News = lazyLoadComponent(() =>
     import(/* webpackChunkName: 'News' */ 'interface/News').then((exports) => exports.default),
   ),
 );
-const NewsPage = lazyLoadComponent(() =>
-  retryingPromise(() =>
-    import(/* webpackChunkName: 'News' */ 'interface/NewsPage').then((exports) => exports.default),
-  ),
-);
 const SpecList = lazyLoadComponent(() =>
   retryingPromise(() =>
     import(/* webpackChunkName: 'SpecList' */ 'interface/SpecList').then(
@@ -106,10 +101,7 @@ const appRoutes = createRoutesFromElements(
     <Route path="privacy" element={<PrivacyPage />} />
     <Route element={<HomePage />}>
       <Route index element={<News />} />
-      <Route path="news">
-        <Route path=":articleId" element={<NewsPage />} />
-        <Route index element={<News />} />
-      </Route>
+      <Route path="news" element={<News />} />
       <Route path="specs" element={<SpecList />} />
       <Route path="premium" element={<Premium />} />
       <Route path="about" element={<AboutPage />} />
