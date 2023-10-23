@@ -42,6 +42,7 @@ import ClassicDeathKnightFrost from 'analysis/classic/deathknight/frost';
 import ClassicDeathKnightUnholy from 'analysis/classic/deathknight/unholy';
 import ClassicDruidBalance from 'analysis/classic/druid/balance';
 import ClassicDruidRestoration from 'analysis/classic/druid/restoration';
+import ClassicDruidFeral from 'analysis/classic/druid/feral';
 import ClassicHunterMarksman from 'analysis/classic/hunter/marksman';
 import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicMageArcane from 'analysis/classic/mage/arcane';
@@ -118,6 +119,7 @@ const configs: Config[] = [
 
   ClassicDruidBalance,
   ClassicDruidRestoration,
+  ClassicDruidFeral,
 
   ClassicHunterSurvival,
   ClassicHunterMarksman,
