@@ -125,7 +125,7 @@ class Graph extends PureComponent {
       };
     });
     const deaths = Object.entries(deathsBySecond)
-      .filter(([_, value]) => Boolean(value))
+      .filter(([, value]) => Boolean(value))
       .map(([key]) => ({ x: Number(key) }));
 
     return (

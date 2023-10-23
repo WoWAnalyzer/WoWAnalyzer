@@ -84,7 +84,9 @@ class MitigationCheck extends Analyzer {
       debuffCheck = [...this.debuffCheckMagical, ...this.debuffCheckPhysAndMag];
     }
     if (checks.includes(spell) && !event.tick) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
       debug && console.log(buffCheck);
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
       debug && console.log(debuffCheck);
       if (
         buffCheck.some((e) => this.selectedCombatant.hasBuff(e)) ||

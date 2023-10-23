@@ -1,8 +1,6 @@
 import { formatDuration, formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { Icon } from 'interface';
-import { Tooltip } from 'interface';
+import { Icon, Tooltip } from 'interface';
 import RegenResourceCapTracker from 'parser/shared/modules/resources/resourcetracker/RegenResourceCapTracker';
 import StatisticBox, { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { TALENTS_MONK } from 'common/TALENTS';

@@ -65,6 +65,7 @@ class EarlyDotRefreshesInstants extends EarlyDotRefreshes {
   }
 
   // Extend this for your spec and return the name of the buff that allowed you to move while casting at the time of the cast.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- Intended for extension
   couldCastWhileMoving(castEvent, endEvent) {
     return '';
   }

@@ -109,6 +109,7 @@ class PrePullCooldowns extends EventsNormalizer {
 
         for (let i = 0; i < buffSpells.length; i += 1) {
           if (buffSpells[i].buffId === event.ability.guid) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
             debug && console.debug(`Detected a precast buff cooldown: ${event.ability.name}`);
             if (
               buffSpells[i].castId instanceof Array &&
@@ -144,6 +145,7 @@ class PrePullCooldowns extends EventsNormalizer {
          * information more accurately.
          */
         if (precastClassResources === null && event.classResources) {
+          // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
           debug &&
             console.debug(
               'Setting prepull class resources (but stripping costs) to:',
@@ -169,6 +171,7 @@ class PrePullCooldowns extends EventsNormalizer {
         // If a damage event already has a cast event, it shouldn't be in the array
         for (let i = 0; i < damageSpells.length; i += 1) {
           if (damageSpells[i].damageIds.some((id) => id === event.ability.guid)) {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
             debug && console.debug(`Detected a precast damage cooldown: ${event.ability.name}`);
             prepullCasts.push(
               this.constructor._fabricateCastEvent(event, playerId, damageSpells[i].castId),

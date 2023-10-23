@@ -7,7 +7,7 @@ class ReincarnationNormalizer extends EventsNormalizer {
 
   normalize(events) {
     const fixedEvents = [];
-    events.forEach((event, eventIndex) => {
+    events.forEach((event) => {
       if (event.type === EventType.Cast && event.ability.guid === SPELLS.REINCARNATION.id) {
         this.fabricatedEvent = {
           timestamp: event.timestamp,

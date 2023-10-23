@@ -55,7 +55,7 @@ class BeaconOfVirtue extends EventsNormalizer {
   }
   normalize(events) {
     const fixedEvents = [];
-    events.forEach((event, eventIndex) => {
+    events.forEach((event) => {
       if (
         event.type === EventType.ApplyBuff &&
         event.ability.guid === TALENTS.BEACON_OF_VIRTUE_TALENT.id

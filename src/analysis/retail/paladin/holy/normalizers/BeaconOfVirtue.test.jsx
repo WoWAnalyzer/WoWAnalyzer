@@ -1,6 +1,3 @@
-import SPELLS from 'common/SPELLS';
-import { EventType } from 'parser/core/Events';
-
 // import BeaconOfVirtue from './BeaconOfVirtue';
 
 describe.skip('Paladin/Holy/Normalizers/BeaconOfVirtue', () => {

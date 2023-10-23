@@ -1,12 +1,12 @@
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER } from 'parser/core/Analyzer';
-import EventGrouper from 'parser/core/EventGrouper';
 import Events from 'parser/core/Events';
 import BoringSpellValue from 'parser/ui/BoringSpellValue';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { TALENTS_PRIEST } from 'common/TALENTS';
+
 class Penance extends Analyzer {
   _boltCount = 0; // which bolt of the cast it is - for other modules
   _casts = 0;
@@ -54,7 +54,7 @@ class Penance extends Analyzer {
     this._totalBoltHits += 1;
   }
 
-  onCast(event) {
+  onCast() {
     this._casts += 1;
     this._totalExpectedBolts += this._defaultBolts;
     if (this.selectedCombatant.hasBuff(SPELLS.HARSH_DISCIPLINE_BUFF.id)) {
