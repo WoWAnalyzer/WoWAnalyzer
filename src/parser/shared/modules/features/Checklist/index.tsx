@@ -1,11 +1,9 @@
 import { Trans } from '@lingui/macro';
-import PropTypes from 'prop-types';
+import { ReactNode } from 'react';
 
 import './Checklist.scss';
 
-const Checklist = (props) => {
-  const { children } = props;
-
+const Checklist = ({ children }: { children: ReactNode }) => {
   return (
     <ul className="checklist">
       {!children && (
@@ -24,10 +22,6 @@ const Checklist = (props) => {
       {children}
     </ul>
   );
-};
-
-Checklist.propTypes = {
-  children: PropTypes.node,
 };
 
 export default Checklist;
