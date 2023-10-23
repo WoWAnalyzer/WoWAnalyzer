@@ -23,6 +23,7 @@ import {
   ECHO_TYPE,
   getEchoTypeForGoldenHour,
   getEchoTypeForLifebind,
+  isEchoFromT314PC,
   isFromHardcastEcho,
   isFromTAEcho,
 } from '../../normalizers/CastLinkNormalizer';
@@ -39,6 +40,7 @@ class Echo extends Analyzer {
   // Map<spellId, totalHealing>, only update for echo healing
   echoHealingBySpell: Map<number, number> = new Map<number, number>();
   taEchoHealingBySpell: Map<number, number> = new Map<number, number>();
+  tierEchoHealingBySpell: Map<number, number> = new Map<number, number>();
   totalApplied: number = 0;
   totalExpired: number = 0;
 
@@ -74,7 +76,11 @@ class Echo extends Analyzer {
       return;
     }
     const spellID = event.ability.guid;
-    const mapRef = this.isFromTaEcho(event) ? this.taEchoHealingBySpell : this.echoHealingBySpell;
+    const mapRef = this.isFromTaEcho(event)
+      ? this.taEchoHealingBySpell
+      : this.isFromHardcast(event)
+      ? this.echoHealingBySpell
+      : this.tierEchoHealingBySpell;
     mapRef.set(spellID, mapRef.get(spellID)! + (event.amount || 0) + (event.absorbed || 0));
   }
 
@@ -93,7 +99,7 @@ class Echo extends Analyzer {
       const hot = this.hotTracker.hots[targetID][spellID];
       return this.hotTracker.fromEchoHardcast(hot) || this.hotTracker.fromEchoTA(hot);
     }
-    return isFromHardcastEcho(event) || isFromTAEcho(event);
+    return isFromHardcastEcho(event) || isFromTAEcho(event) || isEchoFromT314PC(event);
   }
 
   isFromTaEcho(event: HealEvent) {
@@ -112,6 +118,24 @@ class Echo extends Analyzer {
       return this.hotTracker.fromEchoTA(hot);
     }
     return isFromTAEcho(event);
+  }
+
+  isFromHardcast(event: HealEvent) {
+    const targetID = event.targetID;
+    const spellID = event.ability.guid;
+    if (spellID === SPELLS.LIFEBIND_HEAL.id) {
+      return getEchoTypeForLifebind(event) === ECHO_TYPE.HARDCAST;
+    } else if (spellID === SPELLS.GOLDEN_HOUR_HEAL.id) {
+      return getEchoTypeForGoldenHour(event) === ECHO_TYPE.HARDCAST;
+    }
+    if (event.tick) {
+      if (!this.hotTracker.hots[targetID] || !this.hotTracker.hots[targetID][spellID]) {
+        return;
+      }
+      const hot = this.hotTracker.hots[targetID][spellID];
+      return this.hotTracker.fromEchoHardcast(hot);
+    }
+    return isFromHardcastEcho(event);
   }
 
   get suggestionThresholds() {
