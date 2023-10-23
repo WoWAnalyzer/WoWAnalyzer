@@ -32,7 +32,7 @@ import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import ProtPaladinT304P from './modules/core/ProtPaladinT304P';
-import MyAbilityNormalizer from './modules/CastLinkNormalizer';
+import CastLinkNormalizer from './modules/CastLinkNormalizer';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
 import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
 import BuilderUse from './modules/core/BuilderUse';
@@ -54,7 +54,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     guardianOfAncientQueens: GuardianOfAncientQueens,
-    myAbilityNormalizer: MyAbilityNormalizer,
+    castLinkNormalizer: CastLinkNormalizer,
     defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Spells

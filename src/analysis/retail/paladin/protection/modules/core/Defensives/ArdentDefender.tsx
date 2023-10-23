@@ -1,7 +1,6 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
-import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import {
   buff,
@@ -41,10 +40,8 @@ export default class ArdentDefender extends MajorDefensiveBuff {
   description(): ReactNode {
     return (
       <p>
-        <Trans id="guide.paladin.protection.sections.defensives.ardent_defender.explanation.summary">
-          <SpellLink spell={TALENTS.ARDENT_DEFENDER_TALENT} /> reduces the damage you take by 20%.
-          And will prevent your next death while the buff is active.
-        </Trans>
+        <SpellLink spell={TALENTS.ARDENT_DEFENDER_TALENT} /> reduces the damage you take by 20%. And
+        will prevent your next death while the buff is active.
       </p>
     );
   }

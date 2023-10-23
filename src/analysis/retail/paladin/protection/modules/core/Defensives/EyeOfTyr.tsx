@@ -1,7 +1,6 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
-import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import TALENTS from 'common/TALENTS/paladin';
 import {
@@ -35,10 +34,8 @@ export default class EyeOfTyr extends MajorDefensiveDebuff {
   description(): ReactNode {
     return (
       <p>
-        <Trans id="guide.paladin.protecion.sections.defensives.eyeOfTyr.explanation.summary">
-          <SpellLink spell={TALENTS.EYE_OF_TYR_TALENT} /> reduces the damage dealt to you by targets
-          with its debuff by <strong>25%</strong>.
-        </Trans>
+        <SpellLink spell={TALENTS.EYE_OF_TYR_TALENT} /> reduces the damage dealt to you by targets
+        with its debuff by <strong>25%</strong>.
       </p>
     );
   }

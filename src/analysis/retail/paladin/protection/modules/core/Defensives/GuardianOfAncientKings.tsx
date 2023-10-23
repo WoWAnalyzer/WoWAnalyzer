@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS/paladin';
 import { CastEvent, EventType } from 'parser/core/Events';
 
 import { SpellLink } from 'interface';
-import { Trans } from '@lingui/macro';
 import { ReactNode } from 'react';
 import {
   buff,
@@ -57,10 +56,8 @@ export default class GuardianOfAncientKings extends MajorDefensiveBuff {
   description(): ReactNode {
     return (
       <p>
-        <Trans id="guide.paladin.protection.sections.defensives.guardian_of_ancient_kings.explanation.summary">
-          <SpellLink spell={this.goakSpell} /> reduces the damage you take by 50%. This grants
-          incredible survivablity and makes it your biggest defensive cooldown.
-        </Trans>
+        <SpellLink spell={this.goakSpell} /> reduces the damage you take by 50%. This grants
+        incredible survivablity and makes it your biggest defensive cooldown.
       </p>
     );
   }
