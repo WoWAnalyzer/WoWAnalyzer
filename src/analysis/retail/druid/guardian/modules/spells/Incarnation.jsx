@@ -16,7 +16,7 @@ class Incarnation extends Analyzer {
     );
   }
 
-  onApplyBuff(event) {
+  onApplyBuff() {
     if (this.spellUsable.isOnCooldown(SPELLS.MANGLE_BEAR.id)) {
       this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
     }

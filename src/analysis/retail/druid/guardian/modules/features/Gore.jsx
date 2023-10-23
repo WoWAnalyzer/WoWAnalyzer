@@ -43,6 +43,7 @@ class Gore extends Analyzer {
       this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
     }
     this.lastGoreProcTime = event.timestamp;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
     debug && console.log('Gore applied');
     this.totalProcs += 1;
   }
@@ -53,6 +54,7 @@ class Gore extends Analyzer {
       this.spellUsable.endCooldown(SPELLS.MANGLE_BEAR.id);
     }
     this.lastGoreProcTime = event.timestamp;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
     debug && console.log('Gore Overwritten');
     this.totalProcs += 1;
     this.overwrittenGoreProc += 1;
@@ -69,6 +71,7 @@ class Gore extends Analyzer {
         this.nonGoreMangle += 1;
       } else {
         this.consumedGoreProc += 1;
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
         debug && console.log(`Gore Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastGoreProcTime = 0;
       }

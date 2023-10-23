@@ -1,7 +1,5 @@
-import { Trans } from '@lingui/macro';
 import { formatDuration, formatNumber, formatPercentage } from 'common/format';
-import { Icon, SpellIcon, SpellLink } from 'interface';
-import { Tooltip, TooltipElement } from 'interface';
+import { Icon, SpellIcon, SpellLink, Tooltip, TooltipElement } from 'interface';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
 import { EventType } from 'parser/core/Events';
 import PropTypes from 'prop-types';

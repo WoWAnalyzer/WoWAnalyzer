@@ -3,7 +3,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import Events from 'parser/core/Events';
 import SpellResourceCost from 'parser/shared/modules/SpellResourceCost';
 
-import Expansion, { isRetailExpansion } from '../../../game/Expansion';
+import { isRetailExpansion } from '../../../game/Expansion';
 import { maybeGetTalentOrSpell } from 'common/maybeGetTalentOrSpell';
 
 class SpellManaCost extends SpellResourceCost {

@@ -32,7 +32,7 @@ export default class HammerOfTheRighteous extends Analyzer {
     );
   }
 
-  _handleFiller(event) {
+  _handleFiller() {
     const hadBetterSpell = !BETTER_SPELLS.every(this.spells.isOnCooldown.bind(this.spells));
     if (hadBetterSpell) {
       this._badCasts += 1;

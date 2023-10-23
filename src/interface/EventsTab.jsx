@@ -352,7 +352,7 @@ class EventsTab extends Component {
             style={{ background: 'hsla(44, 1%, 8%, 0.5)', paddingTop: 10 }}
           >
             <AutoSizer disableHeight>
-              {({ height, width }) => (
+              {({ width }) => (
                 <Table
                   headerHeight={30}
                   height={780}

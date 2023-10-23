@@ -45,6 +45,7 @@ class GuardianOfElune extends Analyzer {
 
   onApplyBuff(event) {
     this.lastGoEProcTime = event.timestamp;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
     debug && console.log('Guardian of Elune applied');
     this.GoEProcsTotal += 1;
   }
@@ -52,6 +53,7 @@ class GuardianOfElune extends Analyzer {
   onRefreshBuff(event) {
     // Captured Overwritten GoE Buffs for use in wasted buff calculations
     this.lastGoEProcTime = event.timestamp;
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
     debug && console.log('Guardian of Elune Overwritten');
     this.GoEProcsTotal += 1;
     this.overwrittenGoEProc += 1;
@@ -69,6 +71,7 @@ class GuardianOfElune extends Analyzer {
       } else {
         this.consumedGoEProc += 1;
         this.GoEIronFur += 1;
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
         debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastGoEProcTime = null;
       }
@@ -87,6 +90,7 @@ class GuardianOfElune extends Analyzer {
       } else {
         this.consumedGoEProc += 1;
         this.GoEFRegen += 1;
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions -- Intentional conditional behavior
         debug && console.log(`Guardian of Elune Proc Consumed / Timestamp: ${event.timestamp}`);
         this.lastGoEProcTime = null;
       }

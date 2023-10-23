@@ -10,7 +10,7 @@ import Rule from 'parser/shared/modules/features/Checklist/Rule';
 import PropTypes from 'prop-types';
 
 const ProtectionPaladinChecklist = (props) => {
-  const { castEfficiency, thresholds, extras } = props;
+  const { castEfficiency, thresholds } = props;
   const AbilityRequirement = (props) => (
     <GenericCastEfficiencyRequirement
       castEfficiency={castEfficiency.getCastEfficiencyForSpellId(props.spell)}

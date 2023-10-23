@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import CoreCooldownThroughputTracker, {
   BUILT_IN_SUMMARY_TYPES,

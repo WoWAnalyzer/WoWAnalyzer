@@ -17,6 +17,7 @@ import './PremiumPage.scss';
 
 import LoginPanel from './PremiumLoginPanel';
 
+// eslint-disable-next-line react/prefer-stateless-function -- This should be rewritten in TypeScript.
 export class PremiumPage extends PureComponent {
   static propTypes = {
     user: PropTypes.oneOfType([

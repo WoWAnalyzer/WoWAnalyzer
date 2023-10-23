@@ -73,7 +73,7 @@ class Earthwarden extends Analyzer {
     }
   }
 
-  onAbsorbed(event) {
+  onAbsorbed() {
     this.swingsMitigated += 1;
   }
 
