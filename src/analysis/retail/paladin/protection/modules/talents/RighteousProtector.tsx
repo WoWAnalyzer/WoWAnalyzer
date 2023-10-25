@@ -3,6 +3,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/paladin';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Combatant from 'parser/core/Combatant';
 import Events, { CastEvent } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -42,8 +43,11 @@ class RighteousProtector extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    if (this.spellUsable.isOnCooldown(SPELLS.AVENGING_WRATH.id)) {
-      const reduction = this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME);
+    if (
+      this.spellUsable.isOnCooldown(SPELLS.AVENGING_WRATH.id) ||
+      this.spellUsable.isOnCooldown(SPELLS.SENTINEL.id)
+    ) {
+      const reduction = this.avengingWrathReduction(this.selectedCombatant);
       this.avengingWrathReduced += reduction;
       this.avengingWrathReductionWasted += REDUCTION_TIME - reduction;
     } else {
@@ -91,6 +95,14 @@ class RighteousProtector extends Analyzer {
         SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
         REDUCTION_TIME,
       );
+    }
+  }
+
+  avengingWrathReduction(combatant: Combatant): number {
+    if (combatant.hasTalent(TALENTS.SENTINEL_TALENT)) {
+      return this.spellUsable.reduceCooldown(SPELLS.SENTINEL.id, REDUCTION_TIME);
+    } else {
+      return this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME);
     }
   }
 

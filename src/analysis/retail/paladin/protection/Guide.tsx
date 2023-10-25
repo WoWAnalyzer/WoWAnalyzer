@@ -116,7 +116,7 @@ const cooldowns: Cooldown[] = [
       c.hasTalent(TALENTS.AVENGING_WRATH_TALENT) && !c.hasTalent(TALENTS.SENTINEL_TALENT),
   },
   {
-    spell: TALENTS.SENTINEL_TALENT,
+    spell: SPELLS.SENTINEL,
     isActive: (c) => c.hasTalent(TALENTS.SENTINEL_TALENT),
   },
   {
