@@ -106,8 +106,8 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.AVENGING_WRATH_TALENT.id,
-        buffSpellId: TALENTS.AVENGING_WRATH_TALENT.id,
+        spell: [TALENTS.AVENGING_WRATH_TALENT.id, SPELLS.AVENGING_WRATH.id],
+        buffSpellId: SPELLS.AVENGING_WRATH.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         castEfficiency: {
           suggestion: true,
@@ -119,8 +119,8 @@ class Abilities extends CoreAbilities {
           !combatant.hasTalent(TALENTS.SENTINEL_TALENT),
       },
       {
-        spell: TALENTS.SENTINEL_TALENT.id,
-        buffSpellId: TALENTS.SENTINEL_TALENT.id,
+        spell: [TALENTS.SENTINEL_TALENT.id, SPELLS.SENTINEL.id],
+        buffSpellId: SPELLS.SENTINEL.id,
         category: SPELL_CATEGORY.COOLDOWNS,
         castEfficiency: {
           suggestion: true,

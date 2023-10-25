@@ -111,7 +111,7 @@ function ActiveMitigationSection() {
 
 const cooldowns: Cooldown[] = [
   {
-    spell: TALENTS.AVENGING_WRATH_MIGHT_TALENT,
+    spell: SPELLS.AVENGING_WRATH,
     isActive: (c) =>
       c.hasTalent(TALENTS.AVENGING_WRATH_TALENT) && !c.hasTalent(TALENTS.SENTINEL_TALENT),
   },

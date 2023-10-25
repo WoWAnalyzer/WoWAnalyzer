@@ -521,6 +521,12 @@ const spells = {
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
   },
+  SENTINEL: {
+    id: 389539,
+    name: 'Sentinel',
+    icon: 'spell_holy_holynova',
+  },
+
   //artifact
   UNFLINCHING_DEFENSE: {
     id: 209220,

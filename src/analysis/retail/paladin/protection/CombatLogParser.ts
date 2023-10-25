@@ -30,6 +30,8 @@ import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
 import MomentOfGlory from './modules/talents/MomentOfGlory';
 import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
+import ResoluteDefender from './modules/talents/ResoluteDefender';
+import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import ProtPaladinT304P from './modules/core/ProtPaladinT304P';
 import CastLinkNormalizer from './modules/CastLinkNormalizer';
@@ -84,6 +86,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Talents
     righteousProtector: RighteousProtector,
+    resoluteDefender: ResoluteDefender,
+    giftOfTheGoldenValkyr: GiftOfTheGoldenValkyr,
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
     holyShieldSpellBlock: HolyShieldSpellBlock,
     redoubt: Redoubt,

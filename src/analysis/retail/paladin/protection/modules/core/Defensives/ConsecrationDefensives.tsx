@@ -10,14 +10,6 @@ import {
   buff,
   MajorDefensiveBuff,
 } from 'interface/guide/components/MajorDefensives/MajorDefensiveAnalyzer';
-import MajorDefensiveStatistic from 'interface/MajorDefensiveStatistic';
-import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-//import { EXTENDED_SPIKES_SCALING } from 'analysis/retail/demonhunter/vengeance/constants';
-//import TALENTS from 'common/TALENTS/paladin';
-import Statistic from 'parser/ui/Statistic';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
-import { UptimeIcon } from 'interface/icons';
-import { formatDurationMillisMinSec, formatPercentage } from 'common/format';
 
 const BASE_DURATION = 12000;
 
@@ -59,28 +51,6 @@ export default class ConsecrationDefensives extends MajorDefensiveBuff {
         <SpellLink spell={SPELLS.CONSECRATION_BUFF} /> nearly <strong>doubles</strong> the amount of
         armor that you have and is critical to have up while actively tanking melee hits.
       </p>
-    );
-  }
-
-  statistic(): ReactNode {
-    return (
-      <>
-        <MajorDefensiveStatistic analyzer={this} category={STATISTIC_CATEGORY.GENERAL} />
-        <Statistic
-          category={STATISTIC_CATEGORY.GENERAL}
-          size="flexible"
-          tooltip={<>drgsdfgsdfghsdfgdfgsdfdfgssdfg</>}
-        >
-          <BoringSpellValueText spell={SPELLS.CONSECRATION_BUFF}>
-            <UptimeIcon /> {formatDurationMillisMinSec(this.wastedUptimeInMilliseconds)}s wasted{' '}
-            <small>
-              (
-              {formatPercentage(this.wastedUptimeInMilliseconds / this.maximumUptimeInMilliseconds)}
-              % of total uptime)
-            </small>
-          </BoringSpellValueText>
-        </Statistic>
-      </>
     );
   }
 

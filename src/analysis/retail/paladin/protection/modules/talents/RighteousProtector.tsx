@@ -11,11 +11,11 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import * as React from 'react';
 
-export const REDUCTION_TIME = 1000; // ms
+export const REDUCTION_TIME = 2000; // ms
 const SECOND = 1000;
 
 /**
- * Shield of the Righteous reduces the remaining cooldown on Avenging Wrath and Guardian of Ancient Kings by 1 second.
+ * Shield of the Righteous reduces the remaining cooldown on Avenging Wrath and Guardian of Ancient Kings by 2 seconds.
  */
 class RighteousProtector extends Analyzer {
   static dependencies = {
@@ -38,6 +38,7 @@ class RighteousProtector extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS),
       this.onCast,
     );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.WORD_OF_GLORY), this.onCast);
   }
 
   onCast(event: CastEvent) {
@@ -58,6 +59,19 @@ class RighteousProtector extends Analyzer {
     } else {
       this.guardianOfAncientKingsWasted += REDUCTION_TIME;
     }
+    // Handles CooldownGraphSection in Guide
+    this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME, event.timestamp);
+    this.spellUsable.reduceCooldown(TALENTS.SENTINEL_TALENT.id, REDUCTION_TIME, event.timestamp);
+    this.spellUsable.reduceCooldown(
+      TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
+      REDUCTION_TIME,
+      event.timestamp,
+    );
+    this.spellUsable.reduceCooldown(
+      SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
+      REDUCTION_TIME,
+      event.timestamp,
+    );
   }
 
   /**

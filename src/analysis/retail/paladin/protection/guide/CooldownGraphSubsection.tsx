@@ -6,7 +6,7 @@ import CooldownGraphSubsection, {
 
 const cooldownsToCheck: Cooldown[] = [
   {
-    spell: TALENTS.AVENGING_WRATH_TALENT,
+    spell: SPELLS.AVENGING_WRATH,
     isActive: (c) => !c.hasTalent(TALENTS.SENTINEL_TALENT),
   },
   { spell: TALENTS.SENTINEL_TALENT },
