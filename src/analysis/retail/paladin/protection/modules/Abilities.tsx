@@ -279,7 +279,7 @@ class Abilities extends CoreAbilities {
       {
         spell: TALENTS.EYE_OF_TYR_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60, // * (combatant.hasTalent(TALENTS.INMOST_LIGHT_TALENT) ? 0.75 : 1),
+        cooldown: 60 * (combatant.hasTalent(TALENTS.INMOST_LIGHT_TALENT) ? 0.75 : 1),
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
