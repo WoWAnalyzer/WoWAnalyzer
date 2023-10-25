@@ -17,7 +17,7 @@ import HealingValue from 'parser/shared/modules/HealingValue';
 import CritEffectBonus from 'parser/shared/modules/helpers/CritEffectBonus';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import StatisticWrapper from 'parser/ui/StatisticWrapper';
+import StatisticGroup from 'parser/ui/StatisticGroup';
 
 import QELiveLogo from './images/QE-Logo-New-Small.png';
 import CORE_SPELL_INFO from './SpellInfo';
@@ -538,7 +538,7 @@ abstract class BaseHealerStatValues extends Analyzer {
       }, [])
       .join('&');
     return (
-      <StatisticWrapper position={BaseHealerStatValues.position}>
+      <StatisticGroup position={BaseHealerStatValues.position}>
         <div className="col-lg-6 col-md-6 col-sm-6 col-xs-12">
           <div className="panel items statistic">
             <div className="panel-body" style={{ padding: '10px 0 16px' }}>
@@ -665,7 +665,7 @@ abstract class BaseHealerStatValues extends Analyzer {
             </div>
           </div>
         </div>
-      </StatisticWrapper>
+      </StatisticGroup>
     );
   }
   // endregion
