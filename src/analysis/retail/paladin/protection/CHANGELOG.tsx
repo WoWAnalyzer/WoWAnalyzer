@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/paladin';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 25), 'Updating to Guide, adding support for  Resolute Defender, Gift of the Golden Valkyr, Righteous Protector,  Holy Power Builders, Updating Grand Crusader system', Woliance),
   change(date(2023, 8, 10), <>Normalize <SpellLink spell={SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN} /> to <SpellLink spell={TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT} />.</>, ToppleTheNun),
   change(date(2023, 7, 9), 'Updating Grand Crusader and Implementing the Tier 30 4 set bonus', Woliance),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
