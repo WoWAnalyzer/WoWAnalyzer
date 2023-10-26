@@ -12,6 +12,7 @@ import { ReportProvider } from 'interface/report/context/ReportContext';
 import DocumentTitle from 'interface/DocumentTitle';
 
 import handleApiError from './handleApiError';
+import { setCombatants } from 'interface/reducers/combatants';
 
 const pageWasReloaded = () =>
   performance
@@ -101,6 +102,7 @@ const ReportLoader = ({ children }: Props) => {
     (error: Error | null, report: Report | null) => {
       setError(error);
       setReportState(report);
+      dispatch(setCombatants(null));
       dispatch(setReport(report));
     },
     [dispatch],
