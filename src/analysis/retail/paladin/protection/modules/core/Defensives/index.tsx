@@ -17,7 +17,7 @@ const MajorDefensives = () => {
         <Explanation>
           <p>
             Effectively using your major defensive cooldowns is a core part of playing tank well.
-            This is especially true for Vengeance Demon Hunters, as we rely on our cooldowns to deal
+            This is especially true for Protection Paladins, as we rely on our cooldowns to deal
             with incoming damage.
           </p>
           <p>There are two things you should look for in your cooldown usage:</p>
@@ -46,7 +46,7 @@ const MajorDefensives = () => {
             </li>
             <li>
               You should <em>use</em> your cooldowns. This may seem silly&mdash;but not using major
-              defensives is a common problem! For Vengeance Demon Hunters, it is also likely to be
+              defensives is a common problem! For Protection Paladins, it is also likely to be
               fatal.
               <br />
               <small>
@@ -56,7 +56,6 @@ const MajorDefensives = () => {
               </small>
             </li>
           </ol>
-          <p>todo: explain why defensive cooldown is good and how to use good</p>
         </Explanation>
       </SubSection>
       <SubSection title="Timeline">

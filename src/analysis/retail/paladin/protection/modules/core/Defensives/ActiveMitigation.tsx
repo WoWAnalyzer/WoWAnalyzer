@@ -8,7 +8,7 @@ const ActiveMitigation = () => {
   const timelineAnalyzers = useAnalyzers(TIMELINE_ANALYZERS);
   return (
     <>
-      <HideExplanationsToggle id="hide-explanations-major-defensives" />
+      <HideExplanationsToggle id="hide-explanations-active-defensives" />
       <SubSection>
         <Explanation>
           <p>Paladin sotr good</p>

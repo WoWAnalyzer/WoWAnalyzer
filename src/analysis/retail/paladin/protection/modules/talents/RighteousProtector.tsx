@@ -24,6 +24,8 @@ class RighteousProtector extends Analyzer {
   };
 
   protected spellUsable!: SpellUsable;
+  // Guardian Of Ancient Kings is 1, Guardian of Ancient Queens is 2
+  guardianOfAncientKingsVariant: number = 0;
   guardianOfAncientKingsReduced: number = 0;
   guardianOfAncientKingsWasted: number = 0;
   avengingWrathReduced: number = 0;
@@ -35,6 +37,16 @@ class RighteousProtector extends Analyzer {
     if (!this.active) {
       return;
     }
+    //Figure out GoaK Variant
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ANCIENT_KINGS),
+      (event: CastEvent) => (this.guardianOfAncientKingsVariant = 1),
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN),
+      (event: CastEvent) => (this.guardianOfAncientKingsVariant = 2),
+    );
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHIELD_OF_THE_RIGHTEOUS),
       this.onCast,
@@ -43,58 +55,51 @@ class RighteousProtector extends Analyzer {
   }
 
   onCast(event: CastEvent) {
+    const hasSentinel = this.selectedCombatant.hasTalent(TALENTS.SENTINEL_TALENT);
+    const hasGuardianOfAncientKingsQueen = this.guardianOfAncientKingsVariant === 2;
+
+    if (hasSentinel && this.spellUsable.isOnCooldown(SPELLS.SENTINEL.id)) {
+      this.spellUsable.reduceCooldown(SPELLS.SENTINEL.id, REDUCTION_TIME, event.timestamp);
+    } else if (!hasSentinel && this.spellUsable.isOnCooldown(SPELLS.AVENGING_WRATH.id)) {
+      this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME, event.timestamp);
+    }
+
+    if (
+      hasGuardianOfAncientKingsQueen &&
+      this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id)
+    ) {
+      this.spellUsable.reduceCooldown(
+        SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
+        REDUCTION_TIME,
+        event.timestamp,
+      );
+    } else if (
+      !hasGuardianOfAncientKingsQueen &&
+      this.spellUsable.isOnCooldown(TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id)
+    ) {
+      this.spellUsable.reduceCooldown(
+        TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
+        REDUCTION_TIME,
+        event.timestamp,
+      );
+    }
+    //Handle Avenging Wrath/Sentinel Statistics
     if (
       this.spellUsable.isOnCooldown(SPELLS.AVENGING_WRATH.id) ||
       this.spellUsable.isOnCooldown(SPELLS.SENTINEL.id)
     ) {
-      const reduction = this.avengingWrathReduction(this.selectedCombatant);
-      this.avengingWrathReduced += reduction;
-      this.avengingWrathReductionWasted += REDUCTION_TIME - reduction;
+      this.avengingWrathReduced += REDUCTION_TIME;
     } else {
       this.avengingWrathReductionWasted += REDUCTION_TIME;
     }
+    //Handle Guardian of Ancient Kings Statistics
     if (
-      this.spellUsable.isOnCooldown(TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id) ||
-      this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id)
+      this.spellUsable.isOnCooldown(SPELLS.GUARDIAN_OF_ANCIENT_KINGS.id) ||
+      this.spellUsable.isOnCooldown(TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id)
     ) {
-      const reduction = this.guardianReduction;
-      this.guardianOfAncientKingsReduced += reduction;
-      this.guardianOfAncientKingsWasted += REDUCTION_TIME - reduction;
+      this.guardianOfAncientKingsReduced += REDUCTION_TIME;
     } else {
       this.guardianOfAncientKingsWasted += REDUCTION_TIME;
-    }
-    // Handles CooldownGraphSection in Guide
-    this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME, event.timestamp);
-    this.spellUsable.reduceCooldown(TALENTS.SENTINEL_TALENT.id, REDUCTION_TIME, event.timestamp);
-    this.spellUsable.reduceCooldown(
-      TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
-      REDUCTION_TIME,
-      event.timestamp,
-    );
-    this.spellUsable.reduceCooldown(
-      SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
-      REDUCTION_TIME,
-      event.timestamp,
-    );
-  }
-
-  /**
-   * The buff provided as part of Guardian of Ancient Kings has a different ID based on whether or
-   * not the Guardian of Ancient Queens glyph is being used. Since we have no way of looking at the current
-   * player's glyphs and `reduceCooldown` throws an error if you try to reduce the CD of a spell not on CD,
-   * we use this slightly stupid way of reducing the player's GOAK CD
-   */
-  get guardianReduction(): number {
-    try {
-      return this.spellUsable.reduceCooldown(
-        TALENTS.GUARDIAN_OF_ANCIENT_KINGS_TALENT.id,
-        REDUCTION_TIME,
-      );
-    } catch (e) {
-      return this.spellUsable.reduceCooldown(
-        SPELLS.GUARDIAN_OF_ANCIENT_KINGS_QUEEN.id,
-        REDUCTION_TIME,
-      );
     }
   }
 
@@ -105,7 +110,6 @@ class RighteousProtector extends Analyzer {
       return this.spellUsable.reduceCooldown(SPELLS.AVENGING_WRATH.id, REDUCTION_TIME);
     }
   }
-
   statistic(): React.ReactNode {
     return (
       <Statistic
@@ -124,6 +128,10 @@ class RighteousProtector extends Analyzer {
           {formatNumber(this.guardianOfAncientKingsReduced / SECOND)}s{' '}
           <small>
             CD Reduction ({formatNumber(this.guardianOfAncientKingsWasted / SECOND)}s wasted)
+          </small>
+          <small>
+            <br />
+            Guardian of Ancient kings version: ({this.guardianOfAncientKingsVariant})
           </small>
         </BoringSpellValueText>
       </Statistic>
