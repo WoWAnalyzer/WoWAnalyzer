@@ -31,16 +31,23 @@ class CritEffectBonus extends Analyzer {
     return rawNormalPart * critEffect;
   }
 
-  getDamageContribution(event: DamageEvent, critEffect: number): number {
-    return this.rawContribution(event, critEffect);
+  getDamageContribution(
+    event: DamageEvent,
+    critEffect: number,
+    affectsTotalDamage = false,
+  ): number {
+    const effectiveCritEffect = affectsTotalDamage ? critEffect * 2 : critEffect;
+    return this.rawContribution(event, effectiveCritEffect);
   }
 
   getHealingContribution(
     event: HealEvent,
     critEffect: number,
+    affectsTotalDamage = false,
   ): { effectiveHealing: number; overhealing: number } {
+    const effectiveCritEffect = affectsTotalDamage ? critEffect * 2 : critEffect;
     const overheal = event.overheal || 0;
-    const rawContribution = this.rawContribution(event, critEffect);
+    const rawContribution = this.rawContribution(event, effectiveCritEffect);
     const effectiveHealing = Math.max(0, rawContribution - overheal);
 
     return {

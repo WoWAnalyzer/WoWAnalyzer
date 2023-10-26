@@ -30,6 +30,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 26), 'Fix an issue when getting damage/healing contribution from crit effects for certain effects that affect total damage', Putro),
   change(date(2023, 10, 26), <>Correct <SpellLink spell={SPELLS.MIGHT_OF_THE_MOUNTAIN} /> to work with pets and count them twice as the effect is effectively doubled in-game.</>, Putro),
   change(date(2023, 10, 22), 'Rename all .js files to .jsx.', ToppleTheNun),
   change(date(2023, 10, 22), 'Remove articles.', ToppleTheNun),

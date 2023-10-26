@@ -74,7 +74,7 @@ class MightOfTheMountain extends Analyzer {
       return;
     }
 
-    const contribution = this.critEffectBonus.getHealingContribution(event, CRIT_EFFECT);
+    const contribution = this.critEffectBonus.getHealingContribution(event, CRIT_EFFECT, true);
     this.healing += contribution.effectiveHealing;
     this.overhealing += contribution.overhealing;
   }
@@ -83,7 +83,7 @@ class MightOfTheMountain extends Analyzer {
       return;
     }
 
-    this.damage += this.critEffectBonus.getDamageContribution(event, CRIT_EFFECT);
+    this.damage += this.critEffectBonus.getDamageContribution(event, CRIT_EFFECT, true);
   }
 
   onPetDamage(event: DamageEvent) {
@@ -93,8 +93,8 @@ class MightOfTheMountain extends Analyzer {
 
     //These effects (dwarf & tauren crit mod) apply to both the player and the pet via Apply Player/Pet Aura (202) and the pet inherits from the
     // player, effectively getting double the mod.
-    this.damage += this.critEffectBonus.getDamageContribution(event, CRIT_EFFECT);
-    this.damage += this.critEffectBonus.getDamageContribution(event, CRIT_EFFECT);
+    this.damage += this.critEffectBonus.getDamageContribution(event, CRIT_EFFECT, true);
+    this.damage += this.critEffectBonus.getDamageContribution(event, CRIT_EFFECT, true);
   }
 
   statistic() {
