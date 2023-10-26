@@ -11,7 +11,6 @@ import CritEffectBonus, { ValidEvents } from 'parser/shared/modules/helpers/Crit
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import StatisticBox from 'parser/ui/StatisticBox';
-import { isPermanentPet } from '../../pets/helpers';
 
 export const CRIT_EFFECT = 0.02;
 
@@ -89,13 +88,6 @@ class MightOfTheMountain extends Analyzer {
 
   onPetDamage(event: DamageEvent) {
     if (!this.isApplicableDamage(event)) {
-      return;
-    }
-    const sourcePet = this.owner.playerPets.find(
-      (pet: { id: number | undefined }) => pet.id === event.sourceID,
-    );
-
-    if (!sourcePet || !isPermanentPet(sourcePet.guid)) {
       return;
     }
 
