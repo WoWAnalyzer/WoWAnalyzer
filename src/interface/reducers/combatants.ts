@@ -3,7 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type CombatantsState = CombatantInfoEvent[] | null;
 
-const initialState: CombatantsState = null;
+const initialState: CombatantsState = null as CombatantsState;
 
 const combatantsSlice = createSlice({
   name: 'combatants',
