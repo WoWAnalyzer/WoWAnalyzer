@@ -64,11 +64,13 @@ const userSlice = createSlice({
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       const payload = action.payload;
       if (payload) {
-        state = payload;
+        return payload;
+      } else {
+        return state;
       }
     });
-    builder.addCase(logout.fulfilled, (state) => {
-      state = null;
+    builder.addCase(logout.fulfilled, () => {
+      return null;
     });
   },
 });

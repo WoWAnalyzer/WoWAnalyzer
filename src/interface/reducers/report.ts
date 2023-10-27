@@ -9,8 +9,8 @@ const reportSlice = createSlice({
   initialState,
   reducers: {
     resetSlice: () => initialState,
-    setReport(state: ReportState, action: PayloadAction<Report | null>) {
-      state = action.payload;
+    setReport(_state: ReportState, action: PayloadAction<Report | null>) {
+      return action.payload;
     },
   },
 });

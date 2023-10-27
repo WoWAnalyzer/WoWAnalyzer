@@ -11,8 +11,7 @@ const combatantsSlice = createSlice({
   reducers: {
     resetSlice: () => initialState,
     setCombatants(state: CombatantsState, action: PayloadAction<CombatantInfoEvent[] | null>) {
-      console.log('setCombatants', action);
-      state = action.payload;
+      return action.payload;
     },
   },
 });

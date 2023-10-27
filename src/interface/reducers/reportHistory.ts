@@ -43,7 +43,7 @@ const reportHistorySlice = createSlice({
         newState = newState.slice(numItems - MAX_ITEMS);
       }
       cookies.set(COOKIE_NAME, newState, cookieOptions);
-      state = [...newState];
+      return newState;
     },
   },
 });
