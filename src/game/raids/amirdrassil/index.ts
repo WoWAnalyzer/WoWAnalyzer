@@ -1,4 +1,4 @@
-import Background from './backgrounds/overview.jpg';
+import Background from './backgrounds/Amirdrassil.png';
 import Gnarlroot from 'game/raids/amirdrassil/Gnarlroot';
 import Igira from 'game/raids/amirdrassil/Igira';
 import Volcoross from 'game/raids/amirdrassil/Volcoross';
