@@ -24,12 +24,14 @@ import {
   nullDozzer,
   Bigsxy,
   Seriousnes,
+  Arlie,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 27), 'Change the actions and reducers into slices.', Arlie),
   change(date(2023, 10, 22), 'Rename all .js files to .jsx.', ToppleTheNun),
   change(date(2023, 10, 22), 'Remove articles.', ToppleTheNun),
   change(date(2023, 10, 22), 'Fix statistic ordering on the stats page.', emallson),
