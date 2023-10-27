@@ -3,7 +3,6 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 import { isInternetExplorer } from 'interface/selectors/internetExplorer';
 import { getOpenModalCount } from 'interface/selectors/openModals';
 import { useEffect } from 'react';
-import { fetchUser } from 'interface/actions/user';
 import FullscreenError from 'interface/FullscreenError';
 import { t } from '@lingui/macro';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
@@ -14,6 +13,7 @@ import 'react-toggle/style.css';
 
 import './App.scss';
 import { setInternetExplorer } from './reducers/internetExplorer';
+import { fetchUser } from './reducers/user';
 
 function detectInternetExplorer() {
   const myNav = navigator.userAgent.toLowerCase();
