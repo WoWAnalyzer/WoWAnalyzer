@@ -1,16 +1,23 @@
-import { IGNORE_PREVIOUS_PATCH_WARNING } from 'interface/actions/previousPatch';
-import { AnyAction } from 'redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type ReportCodesIgnoredPreviousPatchWarning = string[];
+const initialState: ReportCodesIgnoredPreviousPatchWarning =
+  [] as ReportCodesIgnoredPreviousPatchWarning;
 
-export default function reportCodesIgnoredPreviousPatchWarning(
-  state: ReportCodesIgnoredPreviousPatchWarning = [],
-  action: AnyAction,
-) {
-  switch (action.type) {
-    case IGNORE_PREVIOUS_PATCH_WARNING:
+const reportCodesIgnoredPreviousPatchWarningSlice = createSlice({
+  name: 'report',
+  initialState,
+  reducers: {
+    resetSlice: () => initialState,
+    ignorePreviousPatchWarning(
+      state: ReportCodesIgnoredPreviousPatchWarning,
+      action: PayloadAction<string>,
+    ) {
       return [...state, action.payload];
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+
+export const { resetSlice, ignorePreviousPatchWarning } =
+  reportCodesIgnoredPreviousPatchWarningSlice.actions;
+export default reportCodesIgnoredPreviousPatchWarningSlice.reducer;

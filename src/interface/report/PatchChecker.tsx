@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { ignorePreviousPatchWarning } from 'interface/actions/previousPatch';
 import DiscordButton from 'interface/DiscordButton';
 import GitHubButton from 'interface/GitHubButton';
 import Icon from 'interface/Icon';
@@ -16,6 +15,7 @@ import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { usePageView } from 'interface/useGoogleAnalytics';
 import Expansion from 'game/Expansion';
+import { ignorePreviousPatchWarning } from 'interface/reducers/reportCodesIgnoredPreviousPatchWarning';
 
 const makePreviousPatchUrl = (patch: Patch) => {
   // Handle the case where we don't need a URL prefix
