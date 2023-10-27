@@ -1,7 +1,6 @@
 import { t } from '@lingui/macro';
 import { captureException } from 'common/errorLogger';
 import { fetchFights, LogNotFoundError } from 'common/fetchWclApi';
-import { setReport } from 'interface/actions/report';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Report from 'parser/core/Report';
@@ -13,6 +12,7 @@ import DocumentTitle from 'interface/DocumentTitle';
 
 import handleApiError from './handleApiError';
 import { setCombatants } from 'interface/reducers/combatants';
+import { setReport } from 'interface/reducers/report';
 
 const pageWasReloaded = () =>
   performance
