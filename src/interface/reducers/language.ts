@@ -1,6 +1,5 @@
-import { SET_LANGUAGE } from 'interface/actions/language';
-import { AnyAction } from 'redux';
 import Cookies from 'universal-cookie';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const cookies = new Cookies();
 const COOKIE_NAME = 'LANGUAGE';
@@ -8,16 +7,21 @@ const cookieOptions = {
   path: '/',
   maxAge: 86400 * 365, // 1 year
 };
-const defaultState = cookies.get(COOKIE_NAME) || 'en';
-
 export type LanguageState = string;
 
-export default function language(state: LanguageState = defaultState, action: AnyAction) {
-  switch (action.type) {
-    case SET_LANGUAGE:
+const initialState: LanguageState = cookies.get(COOKIE_NAME) || 'en';
+
+const languageSlice = createSlice({
+  name: 'language',
+  initialState,
+  reducers: {
+    resetSlice: () => initialState,
+    setLanguage(_state, action: PayloadAction<string>) {
       cookies.set(COOKIE_NAME, action.payload, cookieOptions);
       return action.payload;
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+
+export const { resetSlice, setLanguage } = languageSlice.actions;
+export default languageSlice.reducer;
