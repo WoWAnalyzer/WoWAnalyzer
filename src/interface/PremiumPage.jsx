@@ -1,5 +1,5 @@
 import { t, Trans } from '@lingui/macro';
-import { logout } from 'interface/actions/user';
+import { logout } from 'interface/reducer/user';
 import DocumentTitle from 'interface/DocumentTitle';
 import GitHubButton from 'interface/GitHubButton';
 import DiscordIcon from 'interface/icons/DiscordTiny';
