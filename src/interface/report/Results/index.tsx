@@ -3,7 +3,6 @@ import getFightName from 'common/getFightName';
 import makeWclUrl from 'common/makeWclUrl';
 import { findByBossId, Phase } from 'game/raids';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
-import { appendReportHistory } from 'interface/actions/reportHistory';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
@@ -38,6 +37,7 @@ import ItemWarning from './ItemWarning';
 import ScrollToTop from './ScrollToTop';
 import ZONES from 'game/ZONES';
 import { useLingui } from '@lingui/react';
+import { appendReportHistory } from 'interface/reducers/reportHistory';
 
 interface PassedProps {
   parser: CombatLogParser;
