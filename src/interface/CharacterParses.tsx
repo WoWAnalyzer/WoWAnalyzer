@@ -11,7 +11,6 @@ import RETAIL_DIFFICULTIES, {
 import SPECS, { isRetailSpec } from 'game/SPECS';
 import RETAIL_ZONES from 'game/ZONES';
 import CLASSIC_ZONES from 'game/classic/ZONES';
-import { appendReportHistory } from 'interface/actions/reportHistory';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import ArmoryIcon from 'interface/icons/Armory';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
@@ -25,6 +24,7 @@ import { isSupportedRegion } from 'common/regions';
 
 import './CharacterParses.scss';
 import ParsesList, { Parse } from './CharacterParsesList';
+import { appendReportHistory } from './reducers/reportHistory';
 
 const loadRealms = (classic: boolean) =>
   retryingPromise(() =>

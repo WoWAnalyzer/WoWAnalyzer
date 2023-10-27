@@ -1,19 +1,52 @@
-import { STORE_CHARACTER } from 'interface/actions/characters';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { makeCharacterApiUrl } from 'common/makeApiUrl';
+import { isSupportedRegion } from 'common/regions';
 import CharacterProfile from 'parser/core/CharacterProfile';
-import { AnyAction } from 'redux';
 
-export interface CharactersByIdState {
-  [guid: number]: CharacterProfile;
+interface FetchCharacterArgs {
+  guid: number;
+  name: string;
+  server: string;
+  region: string;
+  classic?: boolean;
 }
+export const fetchCharacter = createAsyncThunk<CharacterProfile | null, FetchCharacterArgs>(
+  'charactersById/fetchCharacter',
+  async (arg) => {
+    if (!isSupportedRegion(arg.region)) {
+      throw new Error('Region not supported');
+    }
+    const response = await fetch(
+      makeCharacterApiUrl(arg.guid, arg.region, arg.server, arg.name, arg.classic),
+    );
+    if (response.status === 404) {
+      console.warn(`Character info not found: ${arg.name}`);
+      return null;
+    }
+    if (response.status !== 200) {
+      throw new Error(`Received unexpected response code: ${response.status}`);
+    }
+    const data = await response.json();
+    return { guid: arg.guid, ...data } satisfies CharacterProfile;
+  },
+);
 
-export default function charactersById(state: CharactersByIdState = {}, action: AnyAction) {
-  switch (action.type) {
-    case STORE_CHARACTER:
-      return {
-        ...state,
-        [action.payload.guid]: action.payload,
-      };
-    default:
-      return state;
-  }
-}
+type CharactersByIdState = Record<number, CharacterProfile>;
+
+const initialState: CharactersByIdState = {};
+
+const charactersByIdSlice = createSlice({
+  name: 'charactersById',
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder.addCase(fetchCharacter.fulfilled, (state, action) => {
+      const payload = action.payload;
+      if (payload) {
+        state[payload.id] = payload;
+      }
+    });
+  },
+});
+
+export default charactersByIdSlice.reducer;
