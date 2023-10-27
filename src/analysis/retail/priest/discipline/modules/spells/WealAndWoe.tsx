@@ -40,12 +40,7 @@ class WealAndWoe extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT);
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.SMITE, TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT]),
-      this.onDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SMITE]), this.onDamage);
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
@@ -55,10 +50,7 @@ class WealAndWoe extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (
-      event.ability.guid !== SPELLS.SMITE.id &&
-      event.ability.guid !== TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id
-    ) {
+    if (event.ability.guid !== SPELLS.SMITE.id) {
       return;
     }
 
@@ -80,10 +72,7 @@ class WealAndWoe extends Analyzer {
     if (!damageEvent) {
       return;
     }
-    if (
-      damageEvent.ability.guid !== SPELLS.SMITE.id &&
-      damageEvent.ability.guid !== TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id
-    ) {
+    if (damageEvent.ability.guid !== SPELLS.SMITE.id) {
       return;
     }
 
@@ -112,7 +101,6 @@ class WealAndWoe extends Analyzer {
             Healing Breakdown:
             <ul>
               <li>
-                <SpellLink spell={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT} /> and{' '}
                 <SpellLink spell={SPELLS.SMITE} />: {formatNumber(this.healing)}{' '}
               </li>
               <li>
