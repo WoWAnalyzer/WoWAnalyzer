@@ -24,7 +24,7 @@ Your Penance bolts increase the damage of your next Smite or Power Word: Solace 
   The bonus is 12% for smite and solace, and 5% for shield.
   */
 
-const WEAL_AND_WOE_BONUS_DAMAGE = 0.12;
+const WEAL_AND_WOE_BONUS_DAMAGE = 0.2;
 // const WEAL_AND_WOE_BONUS_SHIELD = 0.05;
 
 class WealAndWoe extends Analyzer {
