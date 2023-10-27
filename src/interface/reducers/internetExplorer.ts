@@ -10,7 +10,6 @@ const internetExplorerSlice = createSlice({
   reducers: {
     resetSlice: () => initialState,
     setInternetExplorer(state, action: PayloadAction<boolean>) {
-      console.log('setInternetExplorer', action);
       return action.payload;
     },
   },
