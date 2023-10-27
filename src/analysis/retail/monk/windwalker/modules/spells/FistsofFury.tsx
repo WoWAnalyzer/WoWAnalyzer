@@ -1,14 +1,15 @@
 import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { TALENTS_MONK } from 'common/TALENTS';
 
 // Inspired by the penance bolt counter module from Discipline Priest
 
@@ -23,6 +24,13 @@ class FistsofFury extends Analyzer {
   nonSerenityCasts = 0;
   lastCastInSerenity = false;
 
+  currentChannelTicks = 0;
+
+  // FoF will always hit one time, so this is ultimately a 1-indexed array of [1,5]
+  ticksHit = [0, 0, 0, 0, 0];
+  ticksHitSer = [0, 0, 0, 0, 0];
+  colors = ['#666', '#1eff00', '#0070ff', '#a435ee', '#ff8000'];
+
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
@@ -34,6 +42,10 @@ class FistsofFury extends Analyzer {
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_DAMAGE),
       this.onFistsDamage,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
+      this.onChannelEnd,
     );
   }
 
@@ -48,13 +60,28 @@ class FistsofFury extends Analyzer {
     if (!this.isNewFistsTick(event.timestamp)) {
       return;
     }
+    this.currentChannelTicks += 1;
     if (!this.lastCastInSerenity) {
       this.nonSerenityFistsTicks += 1;
     }
     this.previousTickTimestamp = event.timestamp;
   }
 
+  onChannelEnd(event: RemoveBuffEvent) {
+    if (this.currentChannelTicks > 5) {
+      console.log('error, detected too many ticks of fof');
+      return;
+    }
+
+    if (this.lastCastInSerenity) {
+      this.ticksHitSer[this.currentChannelTicks - 1] += 1;
+    } else {
+      this.ticksHit[this.currentChannelTicks - 1] += 1;
+    }
+  }
+
   onFistsCast(event: CastEvent) {
+    this.currentChannelTicks = 0;
     if (!this.selectedCombatant.hasBuff(TALENTS_MONK.SERENITY_TALENT.id)) {
       this.lastCastInSerenity = false;
       this.nonSerenityCasts += 1;
@@ -77,6 +104,12 @@ class FistsofFury extends Analyzer {
       },
       style: ThresholdStyle.DECIMAL,
     };
+  }
+
+  donutChart(ticks: number[]) {
+    return Object.values(ticks).map((val, idx) => {
+      return { label: idx + 1, color: this.colors[idx], value: val };
+    });
   }
 
   suggestions(when: When) {
@@ -104,7 +137,32 @@ class FistsofFury extends Analyzer {
       <Statistic
         position={STATISTIC_ORDER.CORE(4)}
         size="flexible"
-        tooltip="Fists of Fury ticks 5 times over the duration of the channel"
+        tooltip={
+          <>
+            Fists of Fury ticks 5 times over the duration of the channel
+            <br />
+            <br />
+            Note: During <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />, Fists of Fury should be
+            clipped by <SpellLink spell={SPELLS.RISING_SUN_KICK_DAMAGE} />. The graphs shown below
+            are just for information.
+          </>
+        }
+        dropdown={
+          <div className="pad">
+            <h3>
+              Outside of <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />
+            </h3>
+            <DonutChart items={this.donutChart(this.ticksHit)} />
+            <h3>
+              Within <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />
+            </h3>
+            <small>
+              During Serenity, Fists of Fury should be clipped by{' '}
+              <SpellLink spell={SPELLS.RISING_SUN_KICK_DAMAGE} />
+            </small>
+            <DonutChart items={this.donutChart(this.ticksHitSer)} />
+          </div>
+        }
       >
         <BoringSpellValueText spell={SPELLS.FISTS_OF_FURY_CAST}>
           {this.averageTicks.toFixed(2)} <small>Average ticks per cast</small>
