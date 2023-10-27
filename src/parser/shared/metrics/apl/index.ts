@@ -240,6 +240,7 @@ export interface CheckState {
   conditionState: ConditionState;
   abilityState: AbilityState;
   mostRecentBeginCast?: BeginChannelEvent;
+  mostRecentCast?: CastEvent;
   locationState: LocationState;
 }
 
@@ -408,7 +409,8 @@ export function aplProcessesEvent(
   playerId: number,
 ): event is BeginChannelEvent | CastEvent {
   return (
-    (event.type === EventType.BeginChannel ||
+    ((event.type === EventType.BeginChannel &&
+      event.ability.guid !== result.mostRecentCast?.ability.guid) ||
       (event.type === EventType.Cast &&
         event.ability.guid !== result.mostRecentBeginCast?.ability.guid)) &&
     applicableSpells.has(event.ability.guid) &&
@@ -433,6 +435,10 @@ export function knownSpells(
 }
 
 export function updateCheckState(result: CheckState, apl: Apl, event: AnyEvent): CheckState {
+  if (event.type === EventType.Cast) {
+    result.mostRecentCast = event;
+  }
+
   if (event.type === EventType.BeginChannel) {
     result.mostRecentBeginCast = event;
   } else if (event.type === EventType.EndChannel) {

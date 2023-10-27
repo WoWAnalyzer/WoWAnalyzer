@@ -5,6 +5,7 @@ import { Durpn, Hursti, nullDozzer, Tenooki, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 10, 26), <>Re-enable <SpellLink spell={spells.FISTS_OF_FURY_CAST}/> being a channel, and fix associated incorrect APL failures</>, Durpn),
   change(date(2023, 9, 25), 'Fix drilldown link for Chi details', nullDozzer),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 5, 18), <>Fixed <SpellLink spell={spells.BLACKOUT_KICK}/> being flagged as an incorrect cast in the APL/Timeline when it reset <SpellLink spell={talents.RISING_SUN_KICK_TALENT} /></>, Durpn),
