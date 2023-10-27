@@ -25,7 +25,7 @@ import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext
 import { LoadingStatus, ResultsContext } from 'interface/report/Results/ResultsContext';
 import ParseResults from 'parser/core/ParseResults';
 import Expansion from 'game/Expansion';
-import { reset, setBaseUrl } from 'interface/actions/tooltips';
+import { reset, setBaseUrl } from 'interface/reducers/tooltips';
 
 import './Results.scss';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
