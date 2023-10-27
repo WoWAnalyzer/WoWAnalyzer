@@ -32,6 +32,8 @@ import SpellLink from 'interface/SpellLink';
 // prettier-ignore
 export default [
   change(date(2023, 10, 27), 'Change the actions and reducers into slices.', Arlie),
+  change(date(2023, 10, 26), 'Add background images for Amirdrassil bosses.', ToppleTheNun),
+  change(date(2023, 10, 26), <>Correct <SpellLink spell={SPELLS.MIGHT_OF_THE_MOUNTAIN} /> to work with pets and count them twice as the effect is effectively doubled in-game.</>, Putro),
   change(date(2023, 10, 22), 'Rename all .js files to .jsx.', ToppleTheNun),
   change(date(2023, 10, 22), 'Remove articles.', ToppleTheNun),
   change(date(2023, 10, 22), 'Fix statistic ordering on the stats page.', emallson),
