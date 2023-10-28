@@ -56,7 +56,6 @@ export const STASIS = 'Stasis';
 export const STASIS_FOR_RAMP = 'ForRamp';
 export const ESSENCE_RUSH = 'EssenceRush';
 export const T31_2PC = 'T31LFProc';
-export const TIER_ECHO_HEAL = 'TierEchoHeal';
 
 export enum ECHO_TYPE {
   NONE,
@@ -74,7 +73,7 @@ const MAX_ECHO_DURATION = 20000; // 15s with 30% inc = 19s
 const MAX_ESSENCE_BURST_DURATION = 32000; // 15s duration can refresh to 30s with 2s of buffer
 const TA_BUFFER_MS = 6000 + CAST_BUFFER_MS; //TA pulses over 6s at 0% haste
 const STASIS_BUFFER = 1000;
-const T31_LF_AMOUNT = 5;
+const T31_LF_AMOUNT = 3;
 
 /*
   This file is for attributing echo applications to hard casts or to temporal anomaly.
@@ -157,12 +156,8 @@ const EVENT_LINKS: EventLink[] = [
   {
     linkRelation: FROM_TIER,
     reverseLinkRelation: FROM_TIER,
-    linkingEventId: [
-      SPELLS.LIVING_FLAME_CAST.id,
-      SPELLS.LIVING_FLAME_DAMAGE.id,
-      SPELLS.LIVING_FLAME_HEAL.id,
-    ],
-    linkingEventType: [EventType.Heal, EventType.Damage, EventType.Cast],
+    linkingEventId: [SPELLS.LIVING_FLAME_CAST.id, SPELLS.LIVING_FLAME_HEAL.id],
+    linkingEventType: [EventType.Heal, EventType.Cast],
     referencedEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
     referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
     forwardBufferMs: STASIS_BUFFER * 3,
@@ -174,26 +169,6 @@ const EVENT_LINKS: EventLink[] = [
         !HasRelatedEvent(referencedEvent, FROM_TEMPORAL_ANOMALY) &&
         !HasRelatedEvent(referencedEvent, FROM_TIER)
       );
-    },
-    isActive(c) {
-      return c.has4PieceByTier(TIERS.T31);
-    },
-  },
-  {
-    linkRelation: TIER_ECHO_HEAL,
-    reverseLinkRelation: TIER_ECHO_HEAL,
-    linkingEventId: [
-      SPELLS.LIVING_FLAME_CAST.id,
-      SPELLS.LIVING_FLAME_DAMAGE.id,
-      SPELLS.LIVING_FLAME_HEAL.id,
-    ],
-    linkingEventType: [EventType.Heal, EventType.Damage, EventType.Cast],
-    referencedEventId: [TALENTS_EVOKER.ECHO_TALENT.id],
-    referencedEventType: EventType.Heal,
-    forwardBufferMs: STASIS_BUFFER * 3,
-    anyTarget: true,
-    additionalCondition(linkingEvent, referencedEvent) {
-      return HasRelatedEvent(linkingEvent, FROM_TIER);
     },
     isActive(c) {
       return c.has4PieceByTier(TIERS.T31);
@@ -852,10 +827,7 @@ export function isFromTAEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEven
 }
 
 export function isEchoFromT314PC(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
-  if (event.ability.guid === TALENTS_EVOKER.ECHO_TALENT.id) {
-    return HasRelatedEvent(event, FROM_TIER) || HasRelatedEvent(event, TIER_ECHO_HEAL);
-  }
-  return HasRelatedEvent(event, ECHO_TIER);
+  return HasRelatedEvent(event, ECHO_TIER) || HasRelatedEvent(event, FROM_TIER);
 }
 
 export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
