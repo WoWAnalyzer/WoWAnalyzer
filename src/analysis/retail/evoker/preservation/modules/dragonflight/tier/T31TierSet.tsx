@@ -2,8 +2,6 @@ import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
-  DamageEvent,
-  EventType,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -27,7 +25,6 @@ import Soup from 'interface/icons/Soup';
 import { SpellLink, TooltipElement } from 'interface';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
-import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { TIERS } from 'game/TIERS';
 import Echo from '../../talents/Echo';
 import { ECHO_HEALS } from '../../../constants';
@@ -41,8 +38,6 @@ class T31PrevokerSet extends Analyzer {
   totalEbProcs: number = 0;
   lfHealingHits: number = 0;
   lfHealing: number = 0;
-  lfDamage: number = 0;
-  lfDamageHits: number = 0;
   echoProcs: number = 0;
   echoHealing: number = 0;
   protected echo!: Echo;
@@ -67,10 +62,6 @@ class T31PrevokerSet extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_HEAL),
       this.onLfHit,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.LIVING_FLAME_DAMAGE),
-      this.onLfHit,
-    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(ECHO_HEALS), this.onEchoHeal);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
@@ -82,18 +73,12 @@ class T31PrevokerSet extends Analyzer {
     );
   }
 
-  onLfHit(event: DamageEvent | HealEvent) {
+  onLfHit(event: HealEvent) {
     if (!isLfFromT31Tier(event)) {
       return;
     }
-
-    if (event.type === EventType.Damage) {
-      this.lfDamage += event.amount;
-      this.lfDamageHits += 1;
-    } else {
-      this.lfHealing += event.amount + (event.absorbed || 0);
-      this.lfHealingHits += 1;
-    }
+    this.lfHealing += event.amount + (event.absorbed || 0);
+    this.lfHealingHits += 1;
   }
 
   onEbProc(event: RemoveBuffEvent | RemoveBuffStackEvent) {
@@ -175,18 +160,6 @@ class T31PrevokerSet extends Analyzer {
                   }
                 >
                   <ItemHealingDone amount={this.lfHealing} />
-                </TooltipElement>
-              </div>
-              <div>
-                <TooltipElement
-                  content={
-                    <>
-                      <div>Total hits: {this.lfDamageHits}</div>
-                      <div>Total damage: {formatNumber(this.lfDamage)}</div>
-                    </>
-                  }
-                >
-                  <ItemDamageDone amount={this.lfDamage} />
                 </TooltipElement>
               </div>
             </div>
