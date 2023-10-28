@@ -3,7 +3,14 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  DamageEvent,
+  EndChannelEvent,
+  GetRelatedEvent,
+  HasAbility,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
@@ -31,6 +38,8 @@ class FistsofFury extends Analyzer {
   ticksHitSer = [0, 0, 0, 0, 0];
   colors = ['#666', '#1eff00', '#0070ff', '#a435ee', '#ff8000'];
 
+  clipped: { [guid: number]: number } = {};
+
   protected abilityTracker!: AbilityTracker;
 
   constructor(options: Options) {
@@ -45,6 +54,10 @@ class FistsofFury extends Analyzer {
     );
     this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
+      this.onRemoveBuff,
+    );
+    this.addEventListener(
+      Events.EndChannel.by(SELECTED_PLAYER).spell(SPELLS.FISTS_OF_FURY_CAST),
       this.onChannelEnd,
     );
   }
@@ -67,7 +80,7 @@ class FistsofFury extends Analyzer {
     this.previousTickTimestamp = event.timestamp;
   }
 
-  onChannelEnd(event: RemoveBuffEvent) {
+  onRemoveBuff(event: RemoveBuffEvent) {
     if (this.currentChannelTicks > 5) {
       console.log('error, detected too many ticks of fof');
       return;
@@ -77,6 +90,19 @@ class FistsofFury extends Analyzer {
       this.ticksHitSer[this.currentChannelTicks - 1] += 1;
     } else {
       this.ticksHit[this.currentChannelTicks - 1] += 1;
+    }
+  }
+
+  onChannelEnd(event: EndChannelEvent) {
+    const nextAbility = GetRelatedEvent(event, 'fof-cast');
+    if (
+      nextAbility !== undefined &&
+      HasAbility(nextAbility) &&
+      this.currentChannelTicks < 5 &&
+      this.lastCastInSerenity
+    ) {
+      // FoF has 5 total damage events, so if the channel ended with less than that we assume it was clipped
+      this.clipped[nextAbility.ability.guid] = (this.clipped[nextAbility.ability.guid] || 0) + 1;
     }
   }
 
@@ -161,6 +187,24 @@ class FistsofFury extends Analyzer {
               <SpellLink spell={SPELLS.RISING_SUN_KICK_DAMAGE} />
             </small>
             <DonutChart items={this.donutChart(this.ticksHitSer)} />
+            <table className="table table-condensed">
+              <thead>
+                <tr>
+                  <th>Ability</th>
+                  <th>Times Clipped</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(this.clipped).map(([key, value], idx) => (
+                  <tr key={idx}>
+                    <th>
+                      <SpellLink spell={Number(key)} />
+                    </th>
+                    <td>{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         }
       >

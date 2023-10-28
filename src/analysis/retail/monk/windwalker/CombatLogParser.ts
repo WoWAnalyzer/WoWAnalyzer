@@ -1,9 +1,9 @@
 import {
-  TouchOfDeath,
-  InvokersDelight,
-  MysticTouch,
   DampenHarm,
   FaelineStomp,
+  InvokersDelight,
+  MysticTouch,
+  TouchOfDeath,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -32,14 +32,17 @@ import FistsofFury from './modules/spells/FistsofFury';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import TouchOfKarma from './modules/spells/TouchOfKarma';
 // Talents
+import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
+import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
+import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
 import Serenity from './modules/talents/Serenity';
-import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
-import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
-import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
-import FistsOfFuryNormalizer from './normalizers/FistsOfFuryNormalizer';
+import {
+  FistsOfFuryLinkNormalizer,
+  FistsOfFuryNormalizer,
+} from './normalizers/FistsOfFuryNormalizer';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -51,7 +54,8 @@ class CombatLogParser extends CoreCombatLogParser {
     mysticTouch: MysticTouch,
     spellUsable: SpellUsable,
     chiJiNormalizer: DanceOfChiJiNormalizer,
-    fofNormalizser: FistsOfFuryNormalizer,
+    fofNormalizer: FistsOfFuryNormalizer,
+    fofLinkNormalizer: FistsOfFuryLinkNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
