@@ -94,6 +94,7 @@ import T31TierSet from './modules/dragonflight/tier/T31MWTier';
 import TearOfMorning from './modules/spells/TearOfMorning';
 import T31HealingBreakdown from './modules/dragonflight/T31HealingBreakdown';
 import FontOfLife from './modules/spells/FontOfLife';
+import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/AmalgamsSeventhSpine';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -203,6 +204,7 @@ class CombatLogParser extends CoreCombatLogParser {
     t31TierSet: T31TierSet,
     t31TierSetBreakdown: T31HealingBreakdown,
     callToDominance: CallToDominance,
+    amalgamsSeventhSpine: AmalgamsSeventhSpine,
 
     // Mana Tab
     manaTracker: ManaTracker,

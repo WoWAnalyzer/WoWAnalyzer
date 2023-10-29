@@ -44,11 +44,13 @@ class FontOfLife extends Analyzer {
   }
 
   handleTFTCast(event: CastEvent) {
-    const tft = this.abilities.getAbility(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id);
+    const tftCooldown =
+      this.abilities.getAbility(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)!.cooldown * 1000;
     const timeBetween = event.timestamp - this.lastCastTimeStamp;
-    if (this.lastCastTimeStamp !== -1 && tft && timeBetween < tft.cooldown) {
-      this.effectiveTFTCDR += tft.cooldown - timeBetween;
+    if (this.lastCastTimeStamp !== -1 && tftCooldown && timeBetween < tftCooldown) {
+      this.effectiveTFTCDR += tftCooldown - timeBetween;
     }
+    this.lastCastTimeStamp = event.timestamp;
   }
 
   statistic() {
@@ -62,7 +64,7 @@ class FontOfLife extends Analyzer {
           <ItemHealingDone amount={this.totalHealing} />
           <br />
           <SpellIcon spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
-          {formatDurationMinSec(this.effectiveTFTCDR)} CDR
+          {formatDurationMinSec(this.effectiveTFTCDR / 1000)} CDR
         </TalentSpellText>
       </Statistic>
     );

@@ -8,7 +8,7 @@ import BoringItemValueText from 'parser/ui/BoringItemValueText';
 import { calculatePrimaryStat } from 'parser/core/stats';
 import ITEMS from 'common/ITEMS';
 
-const BASE_PRIMARY_STAT_PER_STACK = 814;
+const BASE_PRIMARY_STAT_PER_STACK = 407;
 const BASE_ILVL = 418;
 
 class CallToDominance extends Analyzer {
