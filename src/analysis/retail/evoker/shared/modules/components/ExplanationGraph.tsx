@@ -110,7 +110,7 @@ export const generateGraphData = (
       const timestamp = entry.timestamp;
       const count = entry.count;
 
-      if (timestamp < startTime) {
+      if (timestamp < startTime && series.type !== 'point') {
         filteredSpellTracker[0] = { timestamp: startTime, count: count };
         prevEntry = entry;
       }
