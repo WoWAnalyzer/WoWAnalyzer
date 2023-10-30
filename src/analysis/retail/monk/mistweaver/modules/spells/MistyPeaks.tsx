@@ -3,7 +3,7 @@ import { TALENTS_MONK } from 'common/TALENTS';
 import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { isFromMistyPeaks } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
@@ -30,6 +30,7 @@ class MistyPeaks extends Analyzer {
   extraHits: number = 0;
   envmHealingIncrease: number = 0;
   extraEnvBonusHealing: number = 0;
+  extraEnvBonusOverhealing: number = 0;
 
   get totalHealing() {
     return this.extraHealing + this.extraAbsorb + this.extraEnvBonusHealing;
@@ -98,6 +99,7 @@ class MistyPeaks extends Analyzer {
       return;
     }
     this.extraEnvBonusHealing += calculateEffectiveHealing(event, this.envmHealingIncrease);
+    this.extraEnvBonusOverhealing += calculateOverhealing(event, this.envmHealingIncrease);
   }
 
   subStatistic() {
@@ -127,11 +129,13 @@ class MistyPeaks extends Analyzer {
             </li>
             <li>
               Extra <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> direct healing:{' '}
-              {formatNumber(this.extraHealing + this.extraAbsorb)}
+              {formatNumber(this.extraHealing + this.extraAbsorb)} ({formatNumber(this.overHealing)}{' '}
+              overheal)
             </li>
             <li>
               Bonus healing from <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> buff:{' '}
-              {formatNumber(this.extraEnvBonusHealing)}
+              {formatNumber(this.extraEnvBonusHealing)} (
+              {formatNumber(this.extraEnvBonusOverhealing)} overheal)
             </li>
           </ul>
         }

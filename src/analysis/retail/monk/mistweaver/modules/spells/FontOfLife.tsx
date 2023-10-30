@@ -27,9 +27,12 @@ class FontOfLife extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_MONK.FONT_OF_LIFE_TALENT);
     this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.ESSENCE_FONT_BUFF),
+      Events.heal
+        .by(SELECTED_PLAYER)
+        .spell([SPELLS.ESSENCE_FONT_BUFF, SPELLS.FAELINE_STOMP_ESSENCE_FONT]),
       this.handleEFCast,
     );
+
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT),
       this.handleTFTCast,
