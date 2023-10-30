@@ -75,6 +75,9 @@ const DisciplinePriestChecklist = ({
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
         )}
         <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
+        {combatant.hasTalent(TALENTS.ULTIMATE_PENITENCE_TALENT) && (
+          <AbilityRequirement spell={SPELLS.ULTIMATE_PENITENCE_DAMAGE.id} />
+        )}
       </Rule>
 
       <Rule
