@@ -133,8 +133,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getEssenceFontDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone = this.essenceFont.totalHealing;
     spellInfo.overhealingDone = this.essenceFont.totalOverhealing;
-    spellInfo.healingDone += this.ancientTeachings.totalHealing;
-    spellInfo.overhealingDone += this.ancientTeachings.overhealing;
+    spellInfo.healingDone += this.ancientTeachings.healingFromEF;
+    spellInfo.overhealingDone += this.ancientTeachings.overhealingFromEF;
     spellInfo.timeSpentCasting = this.essenceFont.timeSpentCasting;
     return spellInfo;
   }
@@ -209,8 +209,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getFLSDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone =
       this.faelineStompHealing.flsHealing + this.faelineStompHealing.efHealing;
+    spellInfo.healingDone += this.ancientTeachings.healingFromFLS;
     spellInfo.overhealingDone =
       this.faelineStompHealing.flsOverhealing + this.faelineStompHealing.efOverhealing;
+    spellInfo.overhealingDone += this.ancientTeachings.overhealingFromFLS;
     return spellInfo;
   }
 

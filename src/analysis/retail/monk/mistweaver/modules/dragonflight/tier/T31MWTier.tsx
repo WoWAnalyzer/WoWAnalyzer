@@ -13,6 +13,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { CHI_HARMONY_COLLECTION } from '../../../constants';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
+import HealingDone from 'parser/shared/modules/throughput/HealingDone';
 
 const TWO_PIECE_BONUS = 0.5;
 
@@ -25,6 +26,17 @@ const TARGET_SPELLS = [
 ];
 
 const TOOLTIP_SPELLS = [...TARGET_SPELLS, SPELLS.GUSTS_OF_MISTS];
+
+const DROPDOWN_SPELLS = [
+  ...TOOLTIP_SPELLS,
+  SPELLS.ESSENCE_FONT_BUFF,
+  SPELLS.INVIGORATING_MISTS_HEAL,
+  SPELLS.FAELINE_STOMP_HEAL,
+  SPELLS.FAELINE_STOMP_ESSENCE_FONT,
+  SPELLS.AT_HEAL,
+  SPELLS.AT_CRIT_HEAL,
+  SPELLS.RISING_MIST_HEAL,
+];
 
 export interface ChiHarmonySourceMap {
   rawAmount: number;
@@ -41,7 +53,9 @@ type ChiHarmonyTargetedSpells = {
 class T31TierSet extends Analyzer {
   static dependencies = {
     combatants: Combatants,
+    healingDone: HealingDone,
   };
+  protected healingDone!: HealingDone;
   protected combatants!: Combatants;
   fourPieceSourceMap: Map<number, ChiHarmonySourceMap> = new Map<number, ChiHarmonySourceMap>();
   fourPieceEffective: number = 0;
@@ -147,6 +161,27 @@ class T31TierSet extends Analyzer {
     }
   }
 
+  private percentIncreaseBySpell(spellId: number): number {
+    //get the healing that was amped by 2pc
+    const amplifiedHealing = this.fourPieceSourceMap.get(spellId)?.rawAmount;
+    //get the total healing for the spell
+    const totalHealing = this.healingDone.byAbility(spellId).raw;
+    if (amplifiedHealing && totalHealing) {
+      console.log(amplifiedHealing, totalHealing);
+      const baseHealing = amplifiedHealing / (1 + TWO_PIECE_BONUS);
+      const baseTotal = totalHealing - (amplifiedHealing - baseHealing);
+      const percentIncrease = totalHealing / baseTotal - 1;
+      return percentIncrease;
+    }
+    return 0;
+  }
+
+  private sortedDropDownSpells() {
+    return DROPDOWN_SPELLS.sort(
+      (a, b) => this.percentIncreaseBySpell(b.id) - this.percentIncreaseBySpell(a.id),
+    );
+  }
+
   private tooltip() {
     return (
       <>
@@ -204,12 +239,34 @@ class T31TierSet extends Analyzer {
         position={STATISTIC_ORDER.CORE(0)}
         category={STATISTIC_CATEGORY.ITEMS}
         tooltip={this.tooltip()}
+        dropdown={
+          <table className="table table-condensed">
+            <thead>
+              <tr>
+                <th style={{ textAlign: 'left' }}>Spell</th>
+                <th>% Increase</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.sortedDropDownSpells().map(
+                (spell, index) =>
+                  this.fourPieceSourceMap.get(spell.id) && (
+                    <tr key={index}>
+                      <td style={{ textAlign: 'left' }}>
+                        <SpellLink spell={spell} />
+                      </td>
+                      <td>{formatPercentage(this.percentIncreaseBySpell(spell.id))}%</td>
+                    </tr>
+                  ),
+              )}
+            </tbody>
+          </table>
+        }
       >
         <BoringValueText label="Amirdrassil Tier Set (T31 Set Bonus)">
           <h4>2 Piece</h4>
           <ItemHealingDone amount={this.twoPieceHealing} />
           <br />
-          {/* {formatPercentage(this.twoSetUptime)}%<small> uptime</small> */}
           <hr />
           {this.has4Piece && (
             <>

@@ -44,6 +44,8 @@ export const MANA_TEA_CAST_LINK = 'MTLink';
 export const MT_BUFF_REMOVAL = 'MTStack';
 export const LIFECYCLES = 'Lifecycles';
 export const MT_STACK_CHANGE = 'MTStackChange';
+export const ANCIENT_TEACHINGS_FLS = 'ATFaelineStomp';
+export const ANCIENT_TEACHINGS_EF = 'ATEssenceFont';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
@@ -400,6 +402,39 @@ const EVENT_LINKS: EventLink[] = [
       return c.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT);
     },
   },
+  {
+    linkRelation: ANCIENT_TEACHINGS_EF,
+    reverseLinkRelation: ANCIENT_TEACHINGS_EF,
+    linkingEventId: SPELLS.AT_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
+    referencedEventType: EventType.EndChannel,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT);
+    },
+  },
+  {
+    linkRelation: ANCIENT_TEACHINGS_FLS,
+    reverseLinkRelation: ANCIENT_TEACHINGS_FLS,
+    linkingEventId: SPELLS.AT_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    anyTarget: true,
+    isActive(c) {
+      return (
+        c.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
+        c.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)
+      );
+    },
+  },
 ];
 
 /**
@@ -617,6 +652,14 @@ export function isMTStackFromLifeCycles(
 
 export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
+}
+
+export function atFromEssenceFont(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, ANCIENT_TEACHINGS_EF);
+}
+
+export function atFromFaelineStomp(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, ANCIENT_TEACHINGS_FLS);
 }
 
 export default CastLinkNormalizer;

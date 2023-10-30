@@ -47,7 +47,6 @@ class LegacyOfWisdom extends Analyzer {
       this.missedHits += LEGACY_OF_WISDOM_TARGETS;
       return;
     }
-    console.log(sgHealEvents);
     const extraTargets = sgHealEvents.length - SHEILUNS_GIFT_TARGETS;
     if (LEGACY_OF_WISDOM_TARGETS - extraTargets > 0) {
       this.missedHits += LEGACY_OF_WISDOM_TARGETS - extraTargets;
@@ -59,7 +58,6 @@ class LegacyOfWisdom extends Analyzer {
     if (!extraHits) {
       return;
     }
-    console.log(extraHits);
     this.healing += extraHits.reduce((sum, heal) => sum + heal.amount + (heal.absorbed || 0), 0);
   }
 

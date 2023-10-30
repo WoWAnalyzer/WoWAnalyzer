@@ -69,10 +69,6 @@ class TearOfMorning extends Analyzer {
         <TalentSpellText talent={talents.TEAR_OF_MORNING_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
           <br />
-          {this.duplicatedRems}{' '}
-          <small>
-            duplicated <SpellLink spell={talents.RENEWING_MIST_TALENT} /> (NYI)
-          </small>
         </TalentSpellText>
       </Statistic>
     );

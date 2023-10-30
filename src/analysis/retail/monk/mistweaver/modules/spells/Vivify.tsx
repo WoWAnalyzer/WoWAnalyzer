@@ -167,6 +167,7 @@ class Vivify extends Analyzer {
   }
 
   handleMastery(event: HealEvent) {
+    //console.log(event);
     if (isFromVivify(event)) {
       this.gomHealing += (event.amount || 0) + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;

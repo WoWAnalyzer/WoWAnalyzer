@@ -10,6 +10,7 @@ import Events, {
   ApplyBuffEvent,
   DamageEvent,
   HealEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import { mergeTimePeriods, OpenTimePeriod } from 'parser/core/mergeTimePeriods';
@@ -24,8 +25,14 @@ import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { atFromEssenceFont, atFromFaelineStomp } from '../../normalizers/CastLinkNormalizer';
 
 class AncientTeachings extends Analyzer {
+  atSourceSpell: number = 0;
+  healingFromEF: number = 0;
+  overhealingFromEF: number = 0;
+  healingFromFLS: number = 0;
+  overhealingFromFLS: number = 0;
   damageSpellToHealing: Map<number, number> = new Map();
   damageSpellsCount: Map<number, number> = new Map();
   missedDamageSpells: Map<number, number> = new Map();
@@ -61,6 +68,10 @@ class AncientTeachings extends Analyzer {
     );
     this.addEventListener(Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF), this.onApply);
     this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF),
+      this.onRefresh,
+    );
+    this.addEventListener(
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.AT_BUFF),
       this.onRemove,
     );
@@ -86,16 +97,40 @@ class AncientTeachings extends Analyzer {
     const oldHealingTotal = this.damageSpellToHealing.get(this.lastDamageSpellID) || 0;
     this.damageSpellToHealing.set(this.lastDamageSpellID, heal + oldHealingTotal);
     this.overhealing += event.overheal || 0;
+    this.tallySourceHeaing(event);
   }
 
   onApply(event: ApplyBuffEvent) {
     this.uptimeWindows.push({
       start: event.timestamp,
     });
+    this.setSourceSpell(event);
+  }
+
+  onRefresh(event: RefreshBuffEvent) {
+    this.setSourceSpell(event);
   }
 
   onRemove(event: RemoveBuffEvent) {
     this.uptimeWindows.at(-1)!.end = event.timestamp;
+  }
+
+  private setSourceSpell(event: ApplyBuffEvent | RefreshBuffEvent) {
+    if (atFromEssenceFont(event)) {
+      this.atSourceSpell = TALENTS_MONK.ESSENCE_FONT_TALENT.id;
+    } else if (atFromFaelineStomp(event)) {
+      this.atSourceSpell = TALENTS_MONK.FAELINE_STOMP_TALENT.id;
+    }
+  }
+
+  private tallySourceHeaing(event: HealEvent) {
+    if (this.atSourceSpell === TALENTS_MONK.ESSENCE_FONT_TALENT.id) {
+      this.healingFromEF += (event.amount || 0) + (event.absorbed || 0);
+      this.overhealingFromEF += event.overheal || 0;
+    } else if (this.atSourceSpell === TALENTS_MONK.FAELINE_STOMP_TALENT.id) {
+      this.healingFromFLS += (event.amount || 0) + (event.absorbed || 0);
+      this.overhealingFromFLS += event.overheal || 0;
+    }
   }
 
   get guideSubsection(): JSX.Element {
@@ -276,6 +311,14 @@ class AncientTeachings extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         position={STATISTIC_ORDER.CORE(6)}
         smallFooter
+        tooltip={
+          <>
+            {formatNumber(this.healingFromEF)} healing while activated from{' '}
+            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> <br />
+            {formatNumber(this.healingFromFLS)} healing while activated from{' '}
+            <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} /> <br />
+          </>
+        }
         footer={
           <>
             {' '}
