@@ -13,7 +13,8 @@ import { isFromEssenceFont } from '../mistweaver/normalizers/CastLinkNormalizer'
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import { SpellLink, TooltipElement } from 'interface';
-import { formatNumber } from 'common/format';
+import { formatNumber, formatPercentage } from 'common/format';
+import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 
 class FaelineStomp extends Analyzer {
   static dependencies = {
@@ -132,6 +133,17 @@ class FaelineStomp extends Analyzer {
       this.gomHealing += event.amount + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;
     }
+  }
+
+  talentHealingStatistic() {
+    return (
+      <StatisticListBoxItem
+        title={<SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} />}
+        value={`${formatPercentage(
+          this.owner.getPercentageOfTotalHealingDone(this.totalHealing),
+        )} %`}
+      />
+    );
   }
 
   statistic() {

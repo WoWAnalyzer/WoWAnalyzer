@@ -182,6 +182,16 @@ class T31TierSet extends Analyzer {
     );
   }
 
+  private specialNotation(spellId: number): string {
+    if (spellId === SPELLS.AT_CRIT_HEAL.id) {
+      return '(Crit)';
+    }
+    if (spellId === SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) {
+      return '(Essence Font)';
+    }
+    return '';
+  }
+
   private tooltip() {
     return (
       <>
@@ -252,8 +262,8 @@ class T31TierSet extends Analyzer {
                 (spell, index) =>
                   this.fourPieceSourceMap.get(spell.id) && (
                     <tr key={index}>
-                      <td style={{ textAlign: 'left' }}>
-                        <SpellLink spell={spell} />
+                      <td style={{ textAlign: 'left', width: '100%' }}>
+                        <SpellLink spell={spell} /> {this.specialNotation(spell.id)}
                       </td>
                       <td>{formatPercentage(this.percentIncreaseBySpell(spell.id))}%</td>
                     </tr>
