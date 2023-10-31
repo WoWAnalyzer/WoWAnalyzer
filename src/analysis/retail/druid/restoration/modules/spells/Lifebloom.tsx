@@ -159,7 +159,7 @@ class Lifebloom extends Analyzer {
           )}{' '}
           and provides similar throughput to Rejuvenation. However, it causes{' '}
           <SpellLink spell={SPELLS.CLEARCASTING_BUFF} /> procs and so is a big benefit to your mana
-          efficiency. It should always be active on a target - the tank is usually a safe bet.
+          efficiency. You should aim for 100% Lifebloom uptime.
         </p>
         {hasVerdancy && (
           <p>

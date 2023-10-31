@@ -120,9 +120,9 @@ class Efflorescence extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.EFFLORESCENCE_CAST} />
         </b>{' '}
-        is extremely mana efficient if you're good about placing it where raiders are standing.
-        Under the boss is usually a safe bet. While it's acceptable to let it drop during heavy
-        movement, you should otherwise aim to keep it active at all times.
+        is extremely mana efficient if you place it where raiders are standing. Under the boss is
+        usually a safe bet. While it's acceptable to let it drop during heavy movement, you should
+        otherwise keep it active at all times.
       </p>
     );
 
