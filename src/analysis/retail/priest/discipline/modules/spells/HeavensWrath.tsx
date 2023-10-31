@@ -40,7 +40,7 @@ class HeavensWrath extends Analyzer {
       return;
     }
 
-    if (this.spellUsable.isOnCooldown(SPELLS.ULTIMATE_PENITENCE_DAMAGE.id)) {
+    if (!this.spellUsable.isOnCooldown(SPELLS.ULTIMATE_PENITENCE_DAMAGE.id)) {
       this.wastedBolts += 1;
     }
     this.totalBolts += 1;
