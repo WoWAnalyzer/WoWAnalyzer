@@ -1,12 +1,12 @@
 import { Boss } from 'game/raids';
 
-// import Background from './backgrounds/Larodar.jpg';
+import Background from './backgrounds/Larodar.png';
 import Headshot from './headshots/Larodar.jpg';
 
 const Larodar: Boss = {
   id: 2731,
   name: 'Larodar, Keeper of the Flame',
-  // background: Background,
+  background: Background,
   headshot: Headshot,
   icon: 'inv_achievement_raidemeralddream_keeperoftheflames',
   fight: {},

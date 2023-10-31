@@ -65,3 +65,17 @@ export const TooltipElement = ({
     </ReactTooltip>
   );
 };
+
+type MaybeTooltipProps = Partial<Pick<TooltipElementProps, 'content'>> &
+  Omit<TooltipElementProps, 'content'>;
+
+export const MaybeTooltip = ({ content, children, ...rest }: MaybeTooltipProps): JSX.Element => {
+  if (content) {
+    return (
+      <TooltipElement content={content} {...rest}>
+        {children}
+      </TooltipElement>
+    );
+  }
+  return <>{children}</>;
+};

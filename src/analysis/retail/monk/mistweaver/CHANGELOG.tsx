@@ -1,7 +1,7 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { emallson, Trevor, ToppleTheNun, Vetyst, Vohrr } from 'CONTRIBUTORS';
+import { emallson, Trevor, ToppleTheNun, Vetyst, Vohrr, Tialyss } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
@@ -10,15 +10,16 @@ export default [
   change(date(2023, 10, 30), <>Updated <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT}/> module to have additional breakdown for Mistweaver. Added <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT}/> to Talent Summary.</>, Vohrr),
   change(date(2023, 10, 28), <>Added Amalgam's Seventh Spine and Updated Call to Dominance values to reflect nerfs.</>, Vohrr),
   change(date(2023, 10, 18), <>Update <SpellLink spell={TALENTS_MONK.CLOUDED_FOCUS_TALENT}/> module and stack tracking based on patch notes.</>, Vohrr),
-  change(date(2023, 10,17), <>Added uptime metric to <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> and added  <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> to Talent Summary.</>, Vohrr),
+  change(date(2023, 10, 17), <>Added uptime metric to <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> and added  <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> to Talent Summary.</>, Vohrr),
   change(date(2023, 10, 16), <>Added tooltip information for <SpellLink spell={TALENTS_MONK.NOURISHING_CHI_TALENT}/>.</>, Vohrr),
   change(date(2023, 10, 16), <>Fixes for <SpellLink spell={TALENTS_MONK.SHEILUNS_GIFT_TALENT}/> modules overattributing healing done.</>, Vohrr),
   change(date(2023, 10, 16), <>Added <SpellLink spell={TALENTS_MONK.FONT_OF_LIFE_TALENT}/> module.</>,Vohrr),
+  change(date(2023, 10, 15), <>Extend <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> tracking duration in the Cooldowns tab to include the full duration of any <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> and <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> cast during the ramp.</>, Tialyss),
   change(date(2023, 10, 10), <>Added Chi Harmony Sources Graph.</>, Vohrr),
   change(date(2023, 9, 15), <>Added Mistweaver T31 Tier set module.</>, Vohrr),
   change(date(2023, 9, 15), <>Fixing Mistweaver for 10.2 talent changes.</>, Vohrr),
-  change(date(2023, 9, 28), <>Change <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> statistic formatting.</>, Trevor),
-  change(date(2023, 9, 20), <>Fixed another <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> crash.</>, Vohrr),
+  change(date(2023, 9, 28), <>Change <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> statistic formatting.</>, Trevor),  
+  change(date(2023, 9, 20), <>Fixed another <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> crash/ </>, Vohrr),
   change(date(2023, 9, 10), <>Fixed <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> crash from encounter phasing.</>, Vohrr),
   change(date(2023, 9, 9), <>Added <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/> module.</>, Trevor),
   change(date(2023, 9, 9), <>Add <SpellLink spell={TALENTS_MONK.ENERGIZING_BREW_TALENT}/> module.</>, Trevor),

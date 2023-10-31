@@ -2300,3 +2300,14 @@ export const Whispyr: Contributor = {
   discord: 'Whispyr#0001',
   avatar: avatar('Whispyr-avatar.png'),
 };
+export const Amelydia: Contributor = {
+  nickname: 'Amelydia',
+  github: 'kmains',
+  mains: [
+    {
+      name: 'Amelydia',
+      spec: SPECS.CLASSIC_DRUID_FERAL_COMBAT,
+      link: 'https://classic.warcraftlogs.com/character/us/atiesh/Amelydia',
+    },
+  ],
+};

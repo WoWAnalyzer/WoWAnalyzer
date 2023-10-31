@@ -61,6 +61,7 @@
   "common.slots.shoulder": "",
   "common.slots.weapon": "Оружие",
   "common.stat.agility": "Ловкость",
+  "common.stat.armor": "",
   "common.stat.avoidance": "Избегание",
   "common.stat.criticalStrike": "Критический удар",
   "common.stat.damagePerExecutionTime.long": "Урон в секунду за время произнесения",

@@ -446,7 +446,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
 
     const content: JSX.Element = (
       <div className="flex-container">
-        <div className="table">
+        <div className="explanation-table">
           <div className="flex-row">
             <div className="flex-cell">
               <TooltipElement
@@ -485,7 +485,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
           </div>
         </div>
         {lostDamage + earlyDeadMobsDamage > 0 && (
-          <div className="table">
+          <div className="explanation-table">
             <div className="flex-row">
               <strong className="badCast">You lost damage to the following:</strong>
             </div>
@@ -511,7 +511,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             )}
           </div>
         )}
-        <div className="table">
+        <div className="explanation-table">
           <div className="flex-row">
             <TooltipElement
               content="The values below assume that you didn't lose any damage 

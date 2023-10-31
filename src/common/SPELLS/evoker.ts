@@ -107,7 +107,7 @@ const spells = {
     name: 'Lifebind',
     icon: 'ability_evoker_hoverred',
   },
-  // Devestation Spells
+  // Devastation Spells
   ETERNITY_SURGE: {
     id: 359073,
     name: 'Eternity Surge',
@@ -148,7 +148,18 @@ const spells = {
     name: 'Essence Burst',
     icon: 'ability_evoker_essenceburst',
   },
-
+  // Buff during Dragonrage
+  EMERALD_TRANCE_T31_2PC_BUFF: {
+    id: 424155,
+    name: 'Emerald Trance',
+    icon: 'inv_legion_faction_dreamweavers',
+  },
+  // Buff after Dragonrage
+  EMERALD_TRANCE_T31_4PC_BUFF: {
+    id: 424402,
+    name: 'Emerald Trance',
+    icon: 'inv_legion_faction_dreamweavers',
+  },
   // Shared
   BLESSING_OF_THE_BRONZE: {
     id: 364342,

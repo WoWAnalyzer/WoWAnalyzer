@@ -8,7 +8,6 @@ import getAverageItemLevel from 'game/getAverageItemLevel';
 import ROLES from 'game/ROLES';
 import SPECS from 'game/SPECS';
 import { isUnsupportedClassicVersion, wclGameVersionToExpansion } from 'game/VERSIONS';
-import { setCombatants } from 'interface/actions/combatants';
 import ActivityIndicator from 'interface/ActivityIndicator';
 import makeAnalyzerUrl from 'interface/makeAnalyzerUrl';
 import Panel from 'interface/Panel';
@@ -38,6 +37,7 @@ import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { i18n } from '@lingui/core';
 import { uniqueBy } from 'common/uniqueBy';
+import { setCombatants } from 'interface/reducers/combatants';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 

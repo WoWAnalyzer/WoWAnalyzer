@@ -3,8 +3,6 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 import { isInternetExplorer } from 'interface/selectors/internetExplorer';
 import { getOpenModalCount } from 'interface/selectors/openModals';
 import { useEffect } from 'react';
-import { internetExplorer } from 'interface/actions/internetExplorer';
-import { fetchUser } from 'interface/actions/user';
 import FullscreenError from 'interface/FullscreenError';
 import { t } from '@lingui/macro';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
@@ -14,6 +12,8 @@ import Hotkeys from 'interface/Hotkeys';
 import 'react-toggle/style.css';
 
 import './App.scss';
+import { setInternetExplorer } from './reducers/internetExplorer';
+import { fetchUser } from './reducers/user';
 
 function detectInternetExplorer() {
   const myNav = navigator.userAgent.toLowerCase();
@@ -27,7 +27,7 @@ const AppLayout = () => {
 
   useEffect(() => {
     if (detectInternetExplorer()) {
-      dispatch(internetExplorer());
+      dispatch(setInternetExplorer(true));
     }
     if (process.env.REACT_APP_FORCE_PREMIUM !== 'true') {
       // If Premium is forced (development environments), fetching the user would probably fail too

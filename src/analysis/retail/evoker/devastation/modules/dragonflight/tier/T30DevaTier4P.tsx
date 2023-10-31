@@ -22,6 +22,7 @@ import BoringValueText from 'parser/ui/BoringValueText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { SpellLink } from 'interface';
 import { BLAZING_SHARDS_DURATION } from 'analysis/retail/evoker/devastation/constants';
+import { TIERS } from 'game/TIERS';
 
 const { BLAZING_SHARDS, OBSIDIAN_SHARDS } = SPELLS;
 
@@ -53,6 +54,7 @@ class T30DevaTier4P extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.active = this.selectedCombatant.has2PieceByTier(TIERS.T30);
 
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(OBSIDIAN_SHARDS), (event) => {
       this.onObsidianShardsDamage(event);
@@ -285,6 +287,7 @@ class T30DevaTier4P extends Analyzer {
   statistic() {
     const damageFrom4Set =
       this.obsidianShardsDamDuringBlazing - this.obsidianShardsDamDuringBlazing / 3;
+    const has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T30);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(5)}
@@ -293,24 +296,34 @@ class T30DevaTier4P extends Analyzer {
         tooltip={
           <>
             <li>
-              Wasted <SpellLink spell={BLAZING_SHARDS} /> uptime: {this.totalLostUptime.toFixed(2)}
-              s.
-            </li>
-            <li>
               <SpellLink spell={OBSIDIAN_SHARDS} /> damage:{' '}
               {formatNumber(this.obsidianShardsDam - damageFrom4Set)}
             </li>
-            <li>
-              <SpellLink spell={BLAZING_SHARDS} /> damage: {formatNumber(damageFrom4Set)}
-            </li>
+            {has4Piece && (
+              <>
+                <li>
+                  Wasted <SpellLink spell={BLAZING_SHARDS} /> uptime:{' '}
+                  {this.totalLostUptime.toFixed(2)}
+                  s.
+                </li>
+
+                <li>
+                  <SpellLink spell={BLAZING_SHARDS} /> damage: {formatNumber(damageFrom4Set)}
+                </li>
+              </>
+            )}
           </>
         }
       >
         <BoringValueText label="Obsidian Secrets (T30 Set Bonus)">
           <h4>2 Piece</h4>
           <ItemDamageDone amount={this.obsidianShardsDam - damageFrom4Set} />
-          <h4>4 Piece</h4>
-          <ItemDamageDone amount={damageFrom4Set} />
+          {has4Piece && (
+            <>
+              <h4>4 Piece</h4>
+              <ItemDamageDone amount={damageFrom4Set} />
+            </>
+          )}
         </BoringValueText>
       </Statistic>
     );

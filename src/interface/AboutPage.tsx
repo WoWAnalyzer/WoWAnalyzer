@@ -1,5 +1,5 @@
 import { Trans } from '@lingui/macro';
-import DiscordBotGif from 'articles/2017-10-21-DiscordBot/discord-bot.gif';
+import DiscordBotGif from 'interface/images/discord-bot.gif';
 import ChangelogPanel from 'interface/ChangelogPanel';
 import DiscordButton from 'interface/DiscordButton';
 import DocumentTitle from 'interface/DocumentTitle';

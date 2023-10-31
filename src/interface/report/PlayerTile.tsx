@@ -1,7 +1,6 @@
 import classColor from 'game/classColor';
 import getAverageItemLevel from 'game/getAverageItemLevel';
 import { getClassName } from 'game/ROLES';
-import { fetchCharacter } from 'interface/actions/characters';
 import Icon from 'interface/Icon';
 import { getCharacterById } from 'interface/selectors/characters';
 import SpecIcon from 'interface/SpecIcon';
@@ -20,6 +19,7 @@ import { useLingui } from '@lingui/react';
 import SPECS, { Spec } from 'game/SPECS';
 import { useFight } from 'interface/report/context/FightContext';
 import { isMythicPlus } from 'common/isMythicPlus';
+import { fetchCharacter } from 'interface/reducers/charactersById';
 
 interface BlockLoadingProps {
   children: ReactNode;
@@ -113,10 +113,10 @@ const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
         return null;
       }
 
+      const { server, region, guid, name } = player;
+
       try {
-        return await dispatch(
-          fetchCharacter(player.guid, player.region, player.server, player.name, classic),
-        );
+        return await dispatch(fetchCharacter({ guid, name, server, region, classic }));
       } catch (err) {
         // No biggy, just show less info
         console.error('An error occurred fetching', player, '. The error:', err);

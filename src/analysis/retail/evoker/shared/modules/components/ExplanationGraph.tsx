@@ -110,7 +110,7 @@ export const generateGraphData = (
       const timestamp = entry.timestamp;
       const count = entry.count;
 
-      if (timestamp < startTime) {
+      if (timestamp < startTime && series.type !== 'point') {
         filteredSpellTracker[0] = { timestamp: startTime, count: count };
         prevEntry = entry;
       }
@@ -186,6 +186,14 @@ const ExplanationGraph: React.FC<Props> = ({
   const goToPrevWindow = () => {
     setCurrentWindowIndex((prevIndex) => (prevIndex - 1 + graphData.length) % graphData.length);
   };
+
+  if (graphData.length === 0) {
+    return (
+      <div>
+        <big>No data to display.</big>
+      </div>
+    );
+  }
 
   const currentWindow = graphData[currentWindowIndex];
   let currentGraph: GraphData;

@@ -328,7 +328,7 @@ class BuffTargetHelper extends Analyzer {
     return (
       <div>
         <table>
-          <tbody className="table">
+          <tbody className="buff-target-table">
             {headerRow}
             {tableRows}
           </tbody>

@@ -103,12 +103,12 @@ class ImbuedInfusion extends Analyzer {
         <>
           <Trans id="paladin.holy.modules.talents.imbuedinfusion.suggestion">
             You consumed <SpellLink spell={SPELLS.INFUSION_OF_LIGHT} />{' '}
-            {this.wastedHolyShockReductionCount} times when
+            {this.wastedHolyShockReductionCount} times when{' '}
             <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> was off cooldown.{' '}
-            <SpellLink spell={SPELLS.CRUSADER_STRIKE} /> should be used to reduce the cooldown of
-            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and should never be cast when{' '}
-            <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is avalible. This is a core component of
-            the <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
+            <SpellLink spell={TALENTS.IMBUED_INFUSIONS_TALENT} /> should be used to reduce the
+            cooldown of <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> and should never be consumed
+            when <SpellLink spell={TALENTS.HOLY_SHOCK_TALENT} /> is available. This is a core
+            component of the <SpellLink spell={TALENTS.GLIMMER_OF_LIGHT_TALENT} />{' '}
             <a
               href="https://questionablyepic.com/glimmer-of-light/"
               target="_blank"
