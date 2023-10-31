@@ -21,13 +21,10 @@
   // analysis is currently excluded to prevent parsing files that reference dead talents
   // all files that are imported are processed even if excluded here, so this only excludes unimported files
   "exclude": [
-    "src/analysis/retail/paladin/protection",
     "src/analysis/retail/priest/shared",
     "src/analysis/retail/priest/holy"
   ],
   "files": [
-    "src/analysis/retail/paladin/protection/CONFIG.tsx",
-    "src/analysis/retail/paladin/protection/CHANGELOG.tsx",
     "src/analysis/retail/priest/holy/CONFIG.tsx"
   ],
   "ts-node": {

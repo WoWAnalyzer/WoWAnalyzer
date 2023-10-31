@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { logout } from 'interface/actions/user';
 import CyclingVideo from 'interface/CyclingVideo';
 import GitHubMarkIcon from 'interface/icons/GitHubMarkLarge';
 import LogoutIcon from 'interface/icons/Logout';
@@ -11,6 +10,7 @@ import { useWaSelector } from 'interface/utils/useWaSelector';
 import { MouseEvent } from 'react';
 
 import './PremiumLoginPanel.scss';
+import { logout } from './reducers/user';
 
 const INITIAL_BACKGROUNDS = [
   '7TqE3VIAU2odkmneHU', // human salute https://giphy.com/gifs/warcraft-video-games-7TqE3VIAU2odkmneHU

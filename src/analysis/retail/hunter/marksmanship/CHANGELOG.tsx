@@ -4,7 +4,8 @@ import { ItemLink, SpellLink } from 'interface';
 import TALENTS from 'common/TALENTS/hunter';
 import ITEMS from 'common/ITEMS';
 export default [
-  change(date(2023, 10, 3), <>Add <SpellLink spell={TALENTS.STEEL_TRAP_TALENT} /> as a trackable talent. </>, Putro),
+  change(date(2023, 10, 24), <>Add <SpellLink spell={TALENTS.DEATHBLOW_TALENT} /> buff to the timeline.</>, Putro),
+  change(date(2023, 10, 3), <>Add <SpellLink spell={TALENTS.STEEL_TRAP_TALENT} /> as a trackable talent.</>, Putro),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 4), <>Add <ItemLink id={ITEMS.CALL_TO_DOMINANCE.id}/> module to hunter</>, Trevor),
   change(date(2023, 5, 9), <>Added support for T29 tier sets</>, Swolorno),

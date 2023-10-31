@@ -300,7 +300,7 @@ jobs:
       [typecheck, linting, prettier, test-interface, test-parser, test-integration, e2e-test, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
-    if: github.event_name != 'pull_request' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
+    if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
     steps:
       - uses: actions/checkout@v3
       - uses: actions/download-artifact@v1

@@ -1,5 +1,4 @@
 import { t } from '@lingui/macro';
-import { setLanguage } from 'interface/actions/language';
 import ReadableListing from 'interface/ReadableListing';
 import { getLanguage } from 'interface/selectors/language';
 import { TooltipElement } from 'interface/Tooltip';
@@ -8,6 +7,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import languages from './languages';
+import { setLanguage } from './reducers/language';
 
 const LanguageSwitcher = () => {
   const [expanded, setExpanded] = useState(false);
