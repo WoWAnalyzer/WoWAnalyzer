@@ -26,7 +26,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import PowerWordBarrier from './modules/features/PowerWordBarrier';
 import PowerWordShieldWasted from './modules/features/PowerWordShieldWasted';
 import PurgeTheWicked from './modules/features/PurgeTheWicked';
-import SolaceVsShieldDiscipline from './modules/features/SolaceVsShieldDiscipline';
 import Mindgames from 'analysis/retail/priest/discipline/modules/spells/Mindgames';
 import Atonement from './modules/spells/Atonement';
 import Castigation from './modules/spells/Castigation';
@@ -53,7 +52,6 @@ import Guide from './Guide';
 import BlazeOfLight from './modules/spells/BlazeOfLight/BlazeOfLight';
 import SelfAtonementAnalyzer from './modules/guide/SelfAtonementAnalysis';
 import ProtectiveLight from '../shared/ProtectiveLight';
-import ResplendentLight from './modules/spells/ResplendentLight';
 import TwilightEquilibrium from './modules/spells/TwilightEquilibrium/TwilightEquilibrium';
 import RaptureAnalysis from './modules/guide/RaptureAnalysis';
 import AtonementNormalizer from './normalizers/AtonementTracker';
@@ -68,6 +66,7 @@ import { SurgeOfLight } from '../holy/modules/talents/Classwide';
 import AegisOfWrath from './modules/spells/AegisOfWrath';
 import Benevolence from '../shared/Benevolence';
 import WordsOfThePious from './modules/spells/WordsOfThePious';
+import HeavensWrath from './modules/spells/HeavensWrath';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -106,7 +105,6 @@ class CombatLogParser extends CoreCombatLogParser {
     lenience: Lenience,
     purgeTheWicked: PurgeTheWicked,
     atonementApplicatorBreakdown: AtonementApplicatorBreakdown,
-    solaceVsShieldDiscipline: SolaceVsShieldDiscipline,
     enduringLuminescense: EnduringLuminescense,
     crystallineReflection: CrystallineReflection,
     powerWordRadiance: PowerWordRadiance,
@@ -136,7 +134,6 @@ class CombatLogParser extends CoreCombatLogParser {
     blazeOfLight: BlazeOfLight,
     selfAtonementAnalyzer: SelfAtonementAnalyzer,
     protectiveLight: ProtectiveLight,
-    resplendentLight: ResplendentLight,
     raptureAnalysis: RaptureAnalysis,
     abyssalReverie: AbyssalReverie,
     wealAndWoe: WealAndWoe,
@@ -145,6 +142,7 @@ class CombatLogParser extends CoreCombatLogParser {
     aberrus2p: Aberrus2p,
     benevolence: Benevolence,
     wordsOfThePious: WordsOfThePious,
+    heavensWrath: HeavensWrath,
 
     // Items:
     radiantProvidence: RadiantProvidence,
