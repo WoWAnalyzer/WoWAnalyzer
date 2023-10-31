@@ -1,11 +1,14 @@
 import { change, date } from 'common/changelog';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS  from 'common/SPELLS'
-import { Hana, Tapir, ToppleTheNun } from 'CONTRIBUTORS';
+import { Arlie, Hana, Tapir, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 10, 27), <>Enable spec with 10.2 changes.</>, Arlie),
+  change(date(2023, 10, 8), <>Updated <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT}/> for revamp - the heal has been removed and has various amps depending on talents selected.</>, Hana),
+  change(date(2023, 10, 7), <>Added <SpellLink spell={TALENTS_PRIEST.SCHISM_TALENT}/></>, Hana),
   change(date(2023, 9, 15), <>Added new atonement damage sources which will appear in the new patch. Can be merged now as it doesn't break any old functionality.</>, Hana),
   change(date(2023, 8, 18), <>Cleared some console logs, updated some spells for cast efficiency, updated some mana costs</>, Hana),
   change(date(2023, 8, 12), <>'Add <SpellLink spell={TALENTS_PRIEST.WORDS_OF_THE_PIOUS_TALENT}/>'</>, Hana),
@@ -44,7 +47,7 @@ export default [
   change(date(2022, 11, 6), <>Added <SpellLink spell={TALENTS_PRIEST.BINDING_HEALS_TALENT}/> section to guide.</>, Hana),
   change(date(2022, 11, 6), <>Added DPS rotation to <SpellLink spell={TALENTS_PRIEST.EVANGELISM_TALENT}/> guide.</>, Hana),
   change(date(2022, 11, 5), <>Updated <SpellLink spell={SPELLS.SINS_OF_THE_MANY}/>.</>, Hana),
-  change(date(2022, 11, 5), <>Added <SpellLink spell={TALENTS_PRIEST.RESPLENDENT_LIGHT_TALENT}/>.</>, Hana),
+  change(date(2022, 11, 5), <>Added Resplendent Light.</>, Hana),
   change(date(2022, 10, 30), <>Showed <SpellLink spell={TALENTS_PRIEST.EVANGELISM_TALENT}/> casts and highlighted casts which are bad</>, Hana),
   change(date(2022, 10, 30), <>First backend section of <SpellLink spell={TALENTS_PRIEST.EVANGELISM_TALENT}/>.</>, Hana),
   change(date(2022, 10, 29), <>Hid tier bonus when not using it</>, Hana),

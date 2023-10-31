@@ -67,35 +67,23 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.ULTIMATE_PENITENCE_DAMAGE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 240,
+        castEfficiency: {
+          suggestion: true,
+        },
+        enabled: combatant.hasTalent(TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT),
+      },
+      {
         spell: SPELLS.POWER_WORD_SHIELD.id,
         category: SPELL_CATEGORY.OTHERS,
         isDefensive: true,
         gcd: {
           base: 1500,
-        },
-      },
-      {
-        spell: TALENTS_PRIEST.SCHISM_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: 24,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.SCHISM_TALENT),
-        castEfficiency: {
-          suggestion: true,
-        },
-      },
-      {
-        spell: TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste) => 15 / (1 + haste),
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT),
-        castEfficiency: {
-          suggestion: true,
         },
       },
       {
@@ -137,15 +125,6 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
         },
-      },
-      {
-        spell: TALENTS_PRIEST.LIGHTS_WRATH_TALENT.id,
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
-        gcd: {
-          base: 1500,
-        },
-        enabled: combatant.hasTalent(TALENTS_PRIEST.LIGHTS_WRATH_TALENT),
       },
       {
         spell: TALENTS_PRIEST.POWER_WORD_LIFE_TALENT.id,
@@ -328,6 +307,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        cooldown: 24,
       },
       {
         spell: SPELLS.MIND_SEAR.id,
