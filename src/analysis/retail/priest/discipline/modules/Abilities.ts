@@ -67,6 +67,18 @@ class Abilities extends CoreAbilities {
         },
       },
       {
+        spell: SPELLS.ULTIMATE_PENITENCE_DAMAGE.id,
+        category: SPELL_CATEGORY.COOLDOWNS,
+        gcd: {
+          base: 1500,
+        },
+        cooldown: 240,
+        castEfficiency: {
+          suggestion: true,
+        },
+        enabled: combatant.hasTalent(TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT),
+      },
+      {
         spell: SPELLS.POWER_WORD_SHIELD.id,
         category: SPELL_CATEGORY.OTHERS,
         isDefensive: true,
