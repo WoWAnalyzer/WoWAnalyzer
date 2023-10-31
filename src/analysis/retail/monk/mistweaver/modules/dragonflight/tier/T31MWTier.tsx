@@ -80,7 +80,6 @@ class T31TierSet extends Analyzer {
       return;
     }
 
-    //verify if we need to add absorb healing event listeners
     this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CHI_HARMONY_HEAL_BONUS),
       this.handleRefresh,

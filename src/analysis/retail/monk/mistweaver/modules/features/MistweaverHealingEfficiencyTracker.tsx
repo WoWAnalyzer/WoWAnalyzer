@@ -158,6 +158,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // As described in the ReM section, the ReM Vivify splashes need to be removed from the healing done.
     spellInfo.healingDone =
       this.vivify.mainTargetHealing + this.vivify.cleaveHealing + this.vivify.gomHealing;
+    spellInfo.overhealingDone =
+      this.vivify.mainTargetOverhealing +
+      this.vivify.cleaveOverhealing +
+      this.vivify.gomOverhealing;
     return spellInfo;
   }
 
