@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
-import Events, { CastEvent, HealEvent } from 'parser/core/Events';
+import Events, { CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -12,8 +12,10 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { CHI_HARMONY_COLLECTION } from '../../../constants';
 import { TALENTS_MONK } from 'common/TALENTS';
-import { SpellLink } from 'interface';
+import { SpellLink, TooltipElement } from 'interface';
 import HealingDone from 'parser/shared/modules/throughput/HealingDone';
+import ItemSetLink from 'interface/ItemSetLink';
+import { MONK_T31_ID } from 'common/ITEMS/dragonflight/tier';
 
 const TWO_PIECE_BONUS = 0.5;
 
@@ -64,6 +66,7 @@ class T31TierSet extends Analyzer {
   has4Piece: boolean = true;
   twoPieceHealing: number = 0;
   twoPieceOverheal: number = 0;
+  refreshes: number = 0;
   fourPieceHealing: number = 0;
   fourPieceHealingRaw: number = 0;
   castMap: ChiHarmonyTargetedSpells[] = [];
@@ -78,6 +81,10 @@ class T31TierSet extends Analyzer {
     }
 
     //verify if we need to add absorb healing event listeners
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CHI_HARMONY_HEAL_BONUS),
+      this.handleRefresh,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handle2pcHeal);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TARGET_SPELLS), this.handleCast);
     this.addEventListener(
@@ -92,14 +99,8 @@ class T31TierSet extends Analyzer {
     }
   }
 
-  private missedCastsPerSpell(spellId: number) {
-    const filteredMap = this.castMap.filter((x) => x.spellId === spellId);
-    return filteredMap.reduce((sum, spell) => sum + spell.missedCasts, 0);
-  }
-
-  private totalCastsPerSpell(spellId: number) {
-    const filteredMap = this.castMap.filter((x) => x.spellId === spellId);
-    return filteredMap.reduce((sum, spell) => sum + spell.totalCasts, 0);
+  handleRefresh(event: RefreshBuffEvent) {
+    this.refreshes += 1;
   }
 
   handleCast(event: CastEvent) {
@@ -144,6 +145,16 @@ class T31TierSet extends Analyzer {
   handle4PcHeal(event: HealEvent) {
     this.fourPieceHealing += event.amount + (event.absorbed || 0);
     this.fourPieceHealingRaw += event.amount + (event.absorbed || 0) + (event.overheal || 0);
+  }
+
+  private missedCastsPerSpell(spellId: number) {
+    const filteredMap = this.castMap.filter((x) => x.spellId === spellId);
+    return filteredMap.reduce((sum, spell) => sum + spell.missedCasts, 0);
+  }
+
+  private totalCastsPerSpell(spellId: number) {
+    const filteredMap = this.castMap.filter((x) => x.spellId === spellId);
+    return filteredMap.reduce((sum, spell) => sum + spell.totalCasts, 0);
   }
 
   private addHealToSourceMap(event: HealEvent) {
@@ -220,7 +231,7 @@ class T31TierSet extends Analyzer {
             ),
         )}
         <>
-          <strong>{formatNumber(this.twoPieceOverheal)}</strong> Overheal from 2 set
+          <strong>{formatNumber(this.twoPieceOverheal)}</strong> Overheal from 2 set <br />
         </>
         <hr />
         {this.has4Piece && (
@@ -273,10 +284,33 @@ class T31TierSet extends Analyzer {
           </table>
         }
       >
-        <BoringValueText label="Amirdrassil Tier Set (T31 Set Bonus)">
+        <BoringValueText
+          label={
+            <ItemSetLink id={MONK_T31_ID}>
+              <>
+                Mystic Heron's Discipline
+                <br />
+                (T31 Tier Set)
+              </>
+            </ItemSetLink>
+          }
+        >
           <h4>2 Piece</h4>
           <ItemHealingDone amount={this.twoPieceHealing} />
           <br />
+          <TooltipElement
+            content={
+              <>
+                Generally try to avoid refreshing Chi Harmony. Chi Harmony does not pandemic, and
+                refreshing the buff reduces the amount of time available to amplify and collect
+                healing.
+                <br />
+                This <i>can</i> be beneficial if you are doing it to time your 4pc heal effectively.
+              </>
+            }
+          >
+            <strong>{formatNumber(this.refreshes)}</strong> <small>buff refreshes</small>
+          </TooltipElement>
           <hr />
           {this.has4Piece && (
             <>
