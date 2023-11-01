@@ -2,6 +2,7 @@
 // only includes the raids from Dragonflight (showing older logs wouldn't make sense)
 import mythicPlusSeasonOne from 'game/raids/mythicplusseasonone';
 import mythicPlusSeasonTwo from 'game/raids/mythicplusseasontwo';
+import mythicplusseasonthree from './raids/mythicplusseasonthree';
 import vaultOfTheIncarnates from 'game/raids/vaultoftheincarnates';
 import aberrus from 'game/raids/aberrus';
 import amirdrassil from 'game/raids/amirdrassil';
@@ -99,6 +100,22 @@ const ZONES: Zone[] = [
       amirdrassil.bosses.Smolderon,
       amirdrassil.bosses.Tindral,
       amirdrassil.bosses.Fyrakk,
+    ],
+    usePtrTooltips: true,
+  },
+  {
+    id: 36,
+    name: 'Mythic+ Season 3',
+    frozen: false,
+    encounters: [
+      mythicplusseasonthree.bosses.AtalDazar,
+      mythicplusseasonthree.bosses.BlackRookHold,
+      mythicplusseasonthree.bosses.DarkheartThicket,
+      mythicplusseasonthree.bosses.Everbloom,
+      mythicplusseasonthree.bosses.GalakrondsFall,
+      mythicplusseasonthree.bosses.MurozondsRise,
+      mythicplusseasonthree.bosses.ThroneOfTheTides,
+      mythicplusseasonthree.bosses.WaycrestManor,
     ],
     usePtrTooltips: true,
   },
