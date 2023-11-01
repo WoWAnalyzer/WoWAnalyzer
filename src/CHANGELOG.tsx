@@ -31,6 +31,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 1), 'Add support for Dragonflight Season 3 dungeons.', Arlie),
   change(date(2023, 10, 27), 'Change the actions and reducers into slices.', Arlie),
   change(date(2023, 10, 26), 'Fix an issue when getting damage/healing contribution from crit effects for certain effects that affect total damage', Putro),
   change(date(2023, 10, 26), 'Add background images for Amirdrassil bosses.', ToppleTheNun),
