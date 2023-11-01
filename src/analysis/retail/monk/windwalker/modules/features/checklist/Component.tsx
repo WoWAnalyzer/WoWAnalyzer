@@ -43,11 +43,8 @@ const WindwalkerMonkChecklist = (props: ChecklistProps & WWAplProps) => {
         {combatant.hasTalent(TALENTS_MONK.WHIRLING_DRAGON_PUNCH_TALENT) && (
           <AbilityRequirement spell={SPELLS.WHIRLING_DRAGON_PUNCH_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS_MONK.CHI_WAVE_TALENT) && (
-          <AbilityRequirement spell={TALENTS_MONK.CHI_WAVE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS_MONK.CHI_BURST_TALENT) && (
-          <AbilityRequirement spell={TALENTS_MONK.CHI_BURST_TALENT.id} />
+        {combatant.hasTalent(TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT) && (
+          <AbilityRequirement spell={TALENTS_MONK.STRIKE_OF_THE_WINDLORD_TALENT.id} />
         )}
       </Rule>
       <Rule

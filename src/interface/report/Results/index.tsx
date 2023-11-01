@@ -3,7 +3,6 @@ import getFightName from 'common/getFightName';
 import makeWclUrl from 'common/makeWclUrl';
 import { findByBossId, Phase } from 'game/raids';
 import { wclGameVersionToExpansion } from 'game/VERSIONS';
-import { appendReportHistory } from 'interface/actions/reportHistory';
 import AlertWarning from 'interface/AlertWarning';
 import Contributor from 'interface/ContributorButton';
 import WarcraftLogsIcon from 'interface/icons/WarcraftLogs';
@@ -26,7 +25,7 @@ import { CombatLogParserProvider } from 'interface/report/CombatLogParserContext
 import { LoadingStatus, ResultsContext } from 'interface/report/Results/ResultsContext';
 import ParseResults from 'parser/core/ParseResults';
 import Expansion from 'game/Expansion';
-import { reset, setBaseUrl } from 'interface/actions/tooltips';
+import { reset, setBaseUrl } from 'interface/reducers/tooltips';
 
 import './Results.scss';
 import BOSS_PHASES_STATE from '../BOSS_PHASES_STATE';
@@ -38,6 +37,7 @@ import ItemWarning from './ItemWarning';
 import ScrollToTop from './ScrollToTop';
 import ZONES from 'game/ZONES';
 import { useLingui } from '@lingui/react';
+import { appendReportHistory } from 'interface/reducers/reportHistory';
 
 interface PassedProps {
   parser: CombatLogParser;

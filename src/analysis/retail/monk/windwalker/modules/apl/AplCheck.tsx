@@ -1,4 +1,12 @@
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/monk';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { SpellLink } from 'interface';
+import { suggestion } from 'parser/core/Analyzer';
+import { AnyEvent } from 'parser/core/Events';
 import aplCheck, { build, Condition, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
+import annotateTimeline from 'parser/shared/metrics/apl/annotate';
+import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import {
   and,
   buffMissing,
@@ -9,15 +17,6 @@ import {
   lastSpellCast,
   not,
 } from 'parser/shared/metrics/apl/conditions';
-import SPELLS from 'common/SPELLS';
-import { suggestion } from 'parser/core/Analyzer';
-import annotateTimeline from 'parser/shared/metrics/apl/annotate';
-import TALENTS from 'common/TALENTS/monk';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
-import { SpellLink } from 'interface';
-import { AnyEvent } from 'parser/core/Events';
-import { serenityDurationRemainingLT } from 'analysis/retail/monk/windwalker/modules/apl/serenityDurationRemaining';
-import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 
 const inSerenity = buffPresent(TALENTS.SERENITY_TALENT);
 inSerenity.describe = (tense) => '';
@@ -44,10 +43,6 @@ const hasChi = (min: number) => hasResource(RESOURCE_TYPES.CHI, { atLeast: min }
 
 export const serenityApl = build(
   [
-    {
-      spell: TALENTS.FISTS_OF_FURY_TALENT,
-      condition: serenityDurationRemainingLT(1500),
-    },
     {
       spell: TALENTS.FAELINE_STOMP_TALENT,
       condition: needsFaelineHarmony,

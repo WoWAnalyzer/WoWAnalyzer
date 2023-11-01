@@ -1,15 +1,21 @@
-import { OPEN_MODAL, CLOSE_MODAL } from 'interface/actions/modals';
-import { AnyAction } from 'redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type ModalState = string[];
+const initialState = [] as ModalState;
 
-export default function openModals(state: ModalState = [], action: AnyAction) {
-  switch (action.type) {
-    case OPEN_MODAL:
-      return [...state, action.key];
-    case CLOSE_MODAL:
-      return state.filter((key) => key !== action.key);
-    default:
-      return state;
-  }
-}
+const openModalsSlice = createSlice({
+  name: 'openModals',
+  initialState,
+  reducers: {
+    resetSlice: () => initialState,
+    openModal(state: ModalState, action: PayloadAction<string>) {
+      return [...state, action.payload];
+    },
+    closeModal(state: ModalState, action: PayloadAction<string>) {
+      return state.filter((key) => key !== action.payload);
+    },
+  },
+});
+
+export const { resetSlice, openModal, closeModal } = openModalsSlice.actions;
+export default openModalsSlice.reducer;

@@ -22,6 +22,10 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: TALENTS_HUNTER.LOCK_AND_LOAD_TALENT.id,
       },
       {
+        spellId: SPELLS.DEATHBLOW_BUFF.id,
+        timelineHighlight: true,
+      },
+      {
         spellId: SPELLS.ASPECT_OF_THE_TURTLE.id,
         timelineHighlight: true, // showing because it's relevant to know when we couldn't attack (this could explain some downtime)
         triggeredBySpellId: SPELLS.ASPECT_OF_THE_TURTLE.id,

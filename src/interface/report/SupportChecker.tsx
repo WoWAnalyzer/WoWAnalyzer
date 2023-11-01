@@ -1,5 +1,4 @@
 import isLatestPatch from 'game/isLatestPatch';
-import { ignoreSpecNotSupportedWarning } from 'interface/actions/specNotSupported';
 import SupportCheckerSpecOutOfDate from 'interface/report/SupportCheckerSpecOutOfDate';
 import SupportCheckerSpecPartialSupport from 'interface/report/SupportCheckerSpecPartialSupport';
 import { getSpecsIgnoredNotSupportedWarning } from 'interface/selectors/skipSpecNotSupported';
@@ -11,6 +10,7 @@ import { useFight } from 'interface/report/context/FightContext';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 
 import { useConfig } from './ConfigContext';
+import { ignoreSpecNotSupportedWarning } from 'interface/reducers/specsIgnoredNotSupportedWarning';
 
 interface Props {
   children: ReactElement<any, any> | null;

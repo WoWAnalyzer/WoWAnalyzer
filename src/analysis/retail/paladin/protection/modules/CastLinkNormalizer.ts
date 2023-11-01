@@ -153,7 +153,7 @@ const EVENT_LINKS: EventLink[] = [
   },
 ];
 
-class MyAbilityNormalizer extends EventLinkNormalizer {
+class CastLinkNormalizer extends EventLinkNormalizer {
   constructor(options: Options) {
     super(options, [...EVENT_LINKS]);
   }
@@ -179,4 +179,4 @@ export function consumedProc(event: DamageEvent): boolean {
   return HasRelatedEvent(event, CONSUMED_PROC);
 }
 
-export default MyAbilityNormalizer;
+export default CastLinkNormalizer;
