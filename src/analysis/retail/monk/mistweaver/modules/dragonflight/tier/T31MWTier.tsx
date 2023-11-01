@@ -41,7 +41,8 @@ const DROPDOWN_SPELLS = [
 ];
 
 export interface ChiHarmonySourceMap {
-  rawAmount: number;
+  raw: number;
+  amount: number;
   effective: number;
   overheal: number;
 }
@@ -104,10 +105,14 @@ class T31TierSet extends Analyzer {
 
   handleCast(event: CastEvent) {
     const combatant = this.combatants.getEntity(event);
-    if (combatant) {
+    //the expel harm cast event doesn't have a target
+    if (combatant || event.ability.guid === SPELLS.EXPEL_HARM.id) {
+      const hasBuff = combatant
+        ? combatant.hasBuff(SPELLS.CHI_HARMONY_HEAL_BONUS.id)
+        : this.selectedCombatant.hasBuff(SPELLS.CHI_HARMONY_HEAL_BONUS.id);
       const newCast: ChiHarmonyTargetedSpells = {
         spellId: event.ability.guid,
-        missedCasts: Number(!combatant.hasBuff(SPELLS.CHI_HARMONY_HEAL_BONUS.id)),
+        missedCasts: Number(!hasBuff),
         totalCasts: 1,
       };
       this.castMap.push(newCast);
@@ -159,36 +164,42 @@ class T31TierSet extends Analyzer {
   private addHealToSourceMap(event: HealEvent) {
     const current = this.fourPieceSourceMap.get(event.ability.guid);
     if (current) {
-      current.effective += event.amount + (event.absorbed || 0);
+      current.amount += event.amount + (event.absorbed || 0);
+      current.effective += calculateEffectiveHealing(event, TWO_PIECE_BONUS);
       current.overheal += event.overheal || 0;
-      current.rawAmount += event.amount + (event.absorbed || 0) + (event.overheal || 0);
+      current.raw += event.amount + (event.absorbed || 0) + (event.overheal || 0);
     } else {
       this.fourPieceSourceMap.set(event.ability.guid, {
-        effective: event.amount + (event.absorbed || 0),
+        amount: event.amount + (event.absorbed || 0),
+        effective: calculateEffectiveHealing(event, TWO_PIECE_BONUS),
         overheal: event.overheal || 0,
-        rawAmount: event.amount + (event.absorbed || 0) + (event.overheal || 0),
+        raw: event.amount + (event.absorbed || 0) + (event.overheal || 0),
       });
     }
   }
 
-  private percentIncreaseBySpell(spellId: number): number {
+  private percentIncreaseBySpell(spellId: number, raw: boolean): number {
     //get the healing that was amped by 2pc
-    const amplifiedHealing = this.fourPieceSourceMap.get(spellId)?.rawAmount;
+    const amplifiedHealing = this.fourPieceSourceMap.get(spellId);
     //get the total healing for the spell
-    const totalHealing = this.healingDone.byAbility(spellId).raw;
+    const totalHealing = this.healingDone.byAbility(spellId);
     if (amplifiedHealing && totalHealing) {
-      console.log(amplifiedHealing, totalHealing);
-      const baseHealing = amplifiedHealing / (1 + TWO_PIECE_BONUS);
-      const baseTotal = totalHealing - (amplifiedHealing - baseHealing);
-      const percentIncrease = totalHealing / baseTotal - 1;
-      return percentIncrease;
+      if (raw) {
+        const baseHealing = amplifiedHealing.raw / (1 + TWO_PIECE_BONUS);
+        const baseTotal = totalHealing.raw - (amplifiedHealing.raw - baseHealing);
+        const percentIncrease = totalHealing.raw / baseTotal - 1;
+        return percentIncrease;
+      } else {
+        const totalPercentIncrease = amplifiedHealing.effective / totalHealing.effective;
+        return totalPercentIncrease;
+      }
     }
     return 0;
   }
 
   private sortedDropDownSpells() {
     return DROPDOWN_SPELLS.sort(
-      (a, b) => this.percentIncreaseBySpell(b.id) - this.percentIncreaseBySpell(a.id),
+      (a, b) => this.percentIncreaseBySpell(b.id, false) - this.percentIncreaseBySpell(a.id, false),
     );
   }
 
@@ -264,7 +275,8 @@ class T31TierSet extends Analyzer {
             <thead>
               <tr>
                 <th style={{ textAlign: 'left' }}>Spell</th>
-                <th>% Increase</th>
+                <th>Effective Increase</th>
+                <th>Raw Increase</th>
               </tr>
             </thead>
             <tbody>
@@ -272,10 +284,11 @@ class T31TierSet extends Analyzer {
                 (spell, index) =>
                   this.fourPieceSourceMap.get(spell.id) && (
                     <tr key={index}>
-                      <td style={{ textAlign: 'left', width: '100%' }}>
+                      <td style={{ textAlign: 'left' }}>
                         <SpellLink spell={spell} /> {this.specialNotation(spell.id)}
                       </td>
-                      <td>{formatPercentage(this.percentIncreaseBySpell(spell.id))}%</td>
+                      <td>{formatPercentage(this.percentIncreaseBySpell(spell.id, false), 0)}%</td>
+                      <td>{formatPercentage(this.percentIncreaseBySpell(spell.id, true), 0)}%</td>
                     </tr>
                   ),
               )}

@@ -28,15 +28,15 @@ export const ChiHarmonyHealingBreakdown = ({
     let last = 0;
     let rawTotal = 0;
     fourPieceSourceMap.forEach((map) => {
-      last = last > map.rawAmount ? last : map.rawAmount;
-      rawTotal += map.rawAmount;
+      last = last > map.raw ? last : map.raw;
+      rawTotal += map.raw;
     });
 
     return (
       <tbody>
         {fourPieceSourceMap &&
           [...fourPieceSourceMap.entries()]
-            .sort((a, b) => b[1].rawAmount - a[1].rawAmount)
+            .sort((a, b) => b[1].raw - a[1].raw)
             .map((map) => {
               const { ability, healing } = { ability: map[0], healing: map[1] };
 
@@ -50,7 +50,7 @@ export const ChiHarmonyHealingBreakdown = ({
                     </td>
                     <td style={{ paddingRight: 5, textAlign: 'right', whiteSpace: 'nowrap' }}>
                       {formatPercentage(
-                        ((healing?.rawAmount || 0) * CHI_HARMONY_COLLECTION) / currentTotal,
+                        ((healing?.raw || 0) * CHI_HARMONY_COLLECTION) / currentTotal,
                       )}
                       %
                     </td>
@@ -58,7 +58,7 @@ export const ChiHarmonyHealingBreakdown = ({
                       <div
                         className="performance-bar"
                         style={{
-                          width: `${((healing?.rawAmount || 0) / last) * 100}%`,
+                          width: `${((healing?.raw || 0) / last) * 100}%`,
                           backgroundColor: 'rgb(0, 255, 152)',
                         }}
                       />
@@ -66,15 +66,14 @@ export const ChiHarmonyHealingBreakdown = ({
                     <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
                       <TooltipElement
                         content={`${formatNumber(
-                          (((healing?.rawAmount || 0) * CHI_HARMONY_COLLECTION) / fightDuration) *
-                            1000,
+                          (((healing?.raw || 0) * CHI_HARMONY_COLLECTION) / fightDuration) * 1000,
                         )} HPS`}
                       >
-                        Total: {formatNumber(healing?.rawAmount || 0)}
+                        Total: {formatNumber(healing?.raw || 0)}
                       </TooltipElement>
                     </td>
                     <td style={{ textAlign: 'right', whiteSpace: 'nowrap' }}>
-                      {formatPercentage((healing?.overheal || 0) / (healing?.rawAmount || 0))} %
+                      {formatPercentage((healing?.overheal || 0) / (healing?.raw || 0))} %
                     </td>
                   </tr>
                 </>
