@@ -63,7 +63,6 @@ import WildGrowthPrecastOrderNormalizer from 'analysis/retail/druid/restoration/
 import WakingDream from 'analysis/retail/druid/restoration/modules/spells/WakingDream';
 import GroveGuardians from 'analysis/retail/druid/restoration/modules/spells/GroveGuardians';
 import Tier31 from 'analysis/retail/druid/restoration/modules/dragonflight/Tier31';
-import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/AmalgamsSeventhSpine';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -140,9 +139,6 @@ class CombatLogParser extends CoreCombatLogParser {
     tier29: Tier29,
     tier30: Tier30,
     tier31: Tier31,
-
-    //Items
-    amalgamsSeventhSpine: AmalgamsSeventhSpine,
   };
 
   static guide = Guide;

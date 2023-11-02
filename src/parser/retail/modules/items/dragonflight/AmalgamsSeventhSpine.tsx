@@ -19,6 +19,7 @@ class AmalgamsSeventhSpine extends Analyzer {
     super(options);
     const trinket = this.selectedCombatant.getTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
     this.active = trinket !== undefined;
+
     if (!this.active) {
       return;
     }
@@ -58,34 +59,43 @@ class AmalgamsSeventhSpine extends Analyzer {
     return this.refreshes * this.resourcePerEnergize;
   }
 
+  tooltip() {
+    return (
+      <ul>
+        <li>
+          Total Buffs Applied: <strong>{formatNumber(this.applies + this.refreshes)}</strong>
+        </li>
+        <li>
+          Realized Buffs: <strong>{formatNumber(this.effectiveApplies)}</strong>
+        </li>
+        <li>
+          Refreshes: <strong>{formatNumber(this.refreshes)}</strong>
+        </li>
+        <li>
+          Potential Mana Lost: <strong>{formatNumber(this.potentialManaLost)}</strong>
+        </li>
+      </ul>
+    );
+  }
+
+  subStatistic() {
+    return (
+      <BoringItemValueText item={ITEMS.AMALGAMS_SEVENTH_SPINE}>
+        <ItemManaGained amount={this.manaGain} useAbbrev />
+        <br />
+      </BoringItemValueText>
+    );
+  }
+
   statistic() {
     return (
       <Statistic
         position={STATISTIC_ORDER.CORE(9)}
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
-        tooltip={
-          <ul>
-            <li>
-              Total Buffs Applied: <strong>{formatNumber(this.applies + this.refreshes)}</strong>
-            </li>
-            <li>
-              Realized Buffs: <strong>{formatNumber(this.effectiveApplies)}</strong>
-            </li>
-            <li>
-              Refreshes: <strong>{formatNumber(this.refreshes)}</strong>
-            </li>
-            <li>
-              Potential Mana Lost: <strong>{formatNumber(this.potentialManaLost)}</strong>
-            </li>
-          </ul>
-        }
+        tooltip={this.tooltip()}
       >
-        <BoringItemValueText item={ITEMS.AMALGAMS_SEVENTH_SPINE}>
-          <ItemManaGained amount={this.manaGain} useAbbrev />
-          <br />
-          <small>Wasted: {formatNumber(this.wastedManaGain)}</small>
-        </BoringItemValueText>
+        {this.subStatistic()}
       </Statistic>
     );
   }

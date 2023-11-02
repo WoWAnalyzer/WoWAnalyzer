@@ -16,6 +16,7 @@ import {
   ApplyBuffStackEvent,
   GetRelatedEvent,
 } from 'parser/core/Events';
+import ITEMS from 'common/ITEMS';
 
 export const APPLIED_HEAL = 'AppliedHeal';
 export const FORCE_BOUNCE = 'ForceBounce';
@@ -46,6 +47,9 @@ export const LIFECYCLES = 'Lifecycles';
 export const MT_STACK_CHANGE = 'MTStackChange';
 export const ANCIENT_TEACHINGS_FLS = 'ATFaelineStomp';
 export const ANCIENT_TEACHINGS_EF = 'ATEssenceFont';
+
+//
+export const FRAGILE_ECHO_SOURCE = 'FragileEchoSource';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
@@ -435,6 +439,27 @@ const EVENT_LINKS: EventLink[] = [
       );
     },
   },
+
+  //items
+  {
+    linkRelation: FRAGILE_ECHO_SOURCE,
+    reverseLinkRelation: FRAGILE_ECHO_SOURCE,
+    linkingEventId: ITEMS.FRAGILE_ECHO.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      SPELLS.ENVELOPING_BREATH_HEAL.id,
+      SPELLS.VIVIFY.id,
+    ],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Cast],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive(c) {
+      const trinket = c.getTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
+      return trinket !== undefined;
+    },
+  },
 ];
 
 /**
@@ -660,6 +685,14 @@ export function atFromEssenceFont(event: ApplyBuffEvent | RefreshBuffEvent) {
 
 export function atFromFaelineStomp(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, ANCIENT_TEACHINGS_FLS);
+}
+
+export function getFragileEchoSourceSpell(event: ApplyBuffEvent | RefreshBuffEvent): number {
+  const sourceId = GetRelatedEvent<ApplyBuffEvent | RefreshBuffEvent | HealEvent>(
+    event,
+    FRAGILE_ECHO_SOURCE,
+  )?.ability.guid;
+  return sourceId || -1;
 }
 
 export default CastLinkNormalizer;
