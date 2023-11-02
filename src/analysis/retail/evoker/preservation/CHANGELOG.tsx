@@ -5,6 +5,7 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 11, 1), <>Add expirations to <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> module</>, Trevor),
   change(date(2023, 10, 31), <>Add tier set link for t31 module</>, Trevor),
   change(date(2023, 10, 27), <>Update T31 tier set module</>, Trevor),
   change(date(2023, 10, 14), <>Add T31 tier set module</>, Trevor),
