@@ -36,8 +36,15 @@ import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
 import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
 import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import Guide from './Guide';
+import ChiBurst from './modules/spells/ChiBurst';
+import RisingSunKick from './modules/spells/RisingSunKick';
+import StrikeoftheWindlord from './modules/spells/StrikeoftheWindlord';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
+import HitComboGraph from './modules/talents/HitComboGraph';
+import HitComboTracker from './modules/talents/HitComboTracker';
+import InvokeXuen from './modules/talents/InvokeXuen';
 import Serenity from './modules/talents/Serenity';
 import {
   FistsOfFuryLinkNormalizer,
@@ -75,6 +82,12 @@ class CombatLogParser extends CoreCombatLogParser {
     danceOfChiJi: DanceOfChiJi,
     hitCombo: HitCombo,
     serenity: Serenity,
+    strikeoftheWindlord: StrikeoftheWindlord,
+    chiBurst: ChiBurst,
+
+    // Guide helpers
+    hitComboTracker: HitComboTracker,
+    hitComboGraph: HitComboGraph,
 
     // Spells;
     comboBreaker: ComboBreaker,
@@ -86,6 +99,8 @@ class CombatLogParser extends CoreCombatLogParser {
     blackoutKick: BlackoutKick,
     dampenHarm: DampenHarm,
     faelineStomp: FaelineStomp,
+    risingSunKick: RisingSunKick,
+    invokeXuen: InvokeXuen,
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
@@ -97,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // apl
     apl: AplCheck,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;
