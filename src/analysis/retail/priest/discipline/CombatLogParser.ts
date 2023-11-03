@@ -67,6 +67,7 @@ import AegisOfWrath from './modules/spells/AegisOfWrath';
 import Benevolence from '../shared/Benevolence';
 import WordsOfThePious from './modules/spells/WordsOfThePious';
 import HeavensWrath from './modules/spells/HeavensWrath';
+import Amirdrassil4p from './modules/spells/Amirdrassil4p';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -143,6 +144,7 @@ class CombatLogParser extends CoreCombatLogParser {
     benevolence: Benevolence,
     wordsOfThePious: WordsOfThePious,
     heavensWrath: HeavensWrath,
+    amirdrassil4p: Amirdrassil4p,
 
     // Items:
     radiantProvidence: RadiantProvidence,
