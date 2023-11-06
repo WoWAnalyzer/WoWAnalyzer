@@ -57,17 +57,6 @@ class AmalgamsSeventhSpineSources extends AmalgamsSeventhSpine {
   sourceChart() {
     const items = [
       {
-        color: SPELL_COLORS.MISTY_PEAKS,
-        label: 'Enveloping Breath',
-        spellId: SPELLS.ENVELOPING_BREATH_HEAL.id,
-        value: this.spineSourceMap.get(SPELLS.ENVELOPING_BREATH_HEAL.id)?.total || 0,
-        valueTooltip: (
-          <>
-            Refreshed: {this.spineSourceMap.get(SPELLS.ENVELOPING_BREATH_HEAL.id)?.refreshes || 0}
-          </>
-        ),
-      },
-      {
         color: SPELL_COLORS.ENVELOPING_MIST,
         label: 'Enveloping Mist',
         spellId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
