@@ -4,7 +4,13 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
 import { suggestion } from 'parser/core/Analyzer';
 import { AnyEvent } from 'parser/core/Events';
-import aplCheck, { build, Condition, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
+import aplCheck, {
+  build,
+  CheckResult,
+  Condition,
+  PlayerInfo,
+  Rule,
+} from 'parser/shared/metrics/apl';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import { AplRuleProps } from 'parser/shared/metrics/apl/ChecklistRule';
 import {
@@ -140,6 +146,16 @@ export const nonSerenityProps = (events: AnyEvent[], info: PlayerInfo): AplRuleP
     apl: nonSerenityApl,
     checkResults: check(events, info),
   };
+};
+
+export const checkNonSerenity = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
+  const check = aplCheck(nonSerenityApl);
+  return check(events, info);
+};
+
+export const checkSerenity = (events: AnyEvent[], info: PlayerInfo): CheckResult => {
+  const check = aplCheck(serenityApl);
+  return check(events, info);
 };
 
 export default suggestion((events, info) => {

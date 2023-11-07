@@ -28,6 +28,8 @@ import { formatNumber } from 'common/format';
 import { TIERS } from 'game/TIERS';
 import Echo from '../../talents/Echo';
 import { ECHO_HEALS } from '../../../constants';
+import ItemSetLink from 'interface/ItemSetLink';
+import { EVOKER_T31_ID } from 'common/ITEMS/dragonflight';
 
 class T31PrevokerSet extends Analyzer {
   static dependencies = { echo: Echo };
@@ -123,7 +125,13 @@ class T31PrevokerSet extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.ITEMS}
       >
-        <BoringValueText label="T31 Set Bonus">
+        <BoringValueText
+          label={
+            <>
+              <ItemSetLink id={EVOKER_T31_ID} /> (T31 tier set){' '}
+            </>
+          }
+        >
           <>
             <h4>2 Piece</h4>
             <div>

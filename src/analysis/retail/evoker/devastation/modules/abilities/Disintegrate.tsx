@@ -34,12 +34,12 @@ const TICKS_PER_DISINTEGRATE = 4;
  * you have in your rotation is very important.
  *
  * This module aims to provide the user with a simple, easy and detailed way to analysis their overall
- * effeciency, as well as the ability to deepdive into individual casts.
+ * efficiency, as well as the ability to deep dive into individual casts.
  *
- * The first part of the module provides quick feedback regarding cast effeciencies based on current APL.
+ * The first part of the module provides quick feedback regarding cast efficiencies based on current APL.
  * This part provides feedback on on dropped ticks inside and outside of Dragonrage.
  *
- * The second part is a graph that shows individual Disintegrate casts aswell as the ticks.
+ * The second part is a graph that shows individual Disintegrate casts as well as the ticks.
  * This part produces a detailed overview over their entire cast history of Disintegrate.
  * Along with points pointing out good and bad casts, along with explanations.
  *
@@ -49,7 +49,7 @@ const TICKS_PER_DISINTEGRATE = 4;
  */
 
 class Disintegrate extends Analyzer {
-  /** Variables used for Clipping/Chaining effeciency */
+  /** Variables used for Clipping/Chaining efficiency */
   totalCasts: number = 0;
   totalTicks: number = 0;
   dragonRageTicks: number = 0;
@@ -114,7 +114,7 @@ class Disintegrate extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(DISINTEGRATE), this.onCast);
 
     /**
-     * We use debuff events for Disintegrate for consistentcy
+     * We use debuff events for Disintegrate for consistency
      * Since the only way to know when a disintegrate ended is on removed debuff
      * and the first damage tick happens on application not cast.
      */
@@ -164,7 +164,7 @@ class Disintegrate extends Analyzer {
       this.dragonRageTicks += 1;
     }
 
-    // This shouldnt happen but w/e
+    // This should not happen but w/e
     if (this.currentRemainingTicks === 0) {
       return;
     }
@@ -412,19 +412,19 @@ class Disintegrate extends Analyzer {
     return (
       <SubSection title="Disintegrate">
         <div>
-          Use the graph below to deepdive into your <SpellLink spell={DISINTEGRATE} /> casts.
+          Use the graph below to deep dive into your <SpellLink spell={DISINTEGRATE} /> casts.
           <ul>
             <li>
               Casts are highlighted in <span style={{ color: '#2ecc71' }}>green</span>
             </li>
             <li>
-              Chained casts are highligted in <span style={{ color: 'orange' }}>orange</span>
+              Chained casts are highlighted in <span style={{ color: 'orange' }}>orange</span>
             </li>
             <li>
-              Clipped casts are highligted in <span style={{ color: '#9b59b6' }}>purple</span>
+              Clipped casts are highlighted in <span style={{ color: '#9b59b6' }}>purple</span>
             </li>
             <li>
-              Problem points are highligted in <span style={{ color: 'red' }}>red</span>
+              Problem points are highlighted in <span style={{ color: 'red' }}>red</span>
             </li>
             <li>
               <SpellLink spell={DRAGONRAGE_TALENT} /> is shown as a filled in background.

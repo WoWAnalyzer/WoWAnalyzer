@@ -1,5 +1,4 @@
 import SPELLS from 'common/SPELLS';
-import { TALENTS_PRIEST } from 'common/TALENTS';
 import { formatThousands } from 'common/format';
 import { Ability } from 'parser/core/Events';
 import DonutChart from 'parser/ui/DonutChart';
@@ -20,7 +19,6 @@ interface BlazeOfLightSourceGraphItem {
 const COLORS = {
   [SPELLS.SMITE.id]: '#fff',
   [SPELLS.PENANCE.id]: '#0cd368',
-  [TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id]: '#fcd45e',
   [SPELLS.DARK_REPRIMAND_DAMAGE.id]: '#3C79F5',
 };
 

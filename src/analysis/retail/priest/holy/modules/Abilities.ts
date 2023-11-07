@@ -288,7 +288,7 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.MASS_DISPEL.id,
         category: SPELL_CATEGORY.UTILITY,
-        cooldown: 45,
+        cooldown: 120,
         gcd: {
           base: 1500,
         },

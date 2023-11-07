@@ -2,6 +2,8 @@ import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
@@ -25,6 +27,7 @@ class ComboBreaker extends Analyzer {
   lastCBProcTime: number | null = null;
   consumedCBProc = 0;
   overwrittenCBProc = 0;
+  riskyTP = 0;
 
   constructor(options: Options) {
     super(options);
@@ -37,6 +40,7 @@ class ComboBreaker extends Analyzer {
       this.onRefreshBuff,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.BLACKOUT_KICK), this.onCast);
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(SPELLS.TIGER_PALM), this.onTPCast);
   }
 
   onApplyBuff(event: ApplyBuffEvent) {
@@ -50,6 +54,16 @@ class ComboBreaker extends Analyzer {
     debug && console.log('CB Proc Overwritten');
     this.CBProcsTotal += 1;
     this.overwrittenCBProc += 1;
+  }
+
+  onTPCast(event: CastEvent) {
+    if (this.lastCBProcTime === null) {
+      return;
+    }
+    if (this.lastCBProcTime !== event.timestamp) {
+      debug && console.log("CB active and tiger palm hit but didn't make a new proc (risky)");
+      this.riskyTP += 1;
+    }
   }
 
   onCast(event: CastEvent) {
@@ -124,6 +138,45 @@ class ComboBreaker extends Analyzer {
         </BoringSpellValueText>
       </Statistic>
     );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={SPELLS.COMBO_BREAKER} />
+        </b>{' '}
+        is a buff applied by <SpellLink spell={SPELLS.TIGER_PALM} /> which makes your next{' '}
+        <SpellLink spell={SPELLS.BLACKOUT_KICK} /> to be free. This should always be consumed before
+        casting another <SpellLink spell={SPELLS.TIGER_PALM} />.
+      </p>
+    );
+    const styleObj = {
+      fontSize: 20,
+    };
+    const styleObjInner = {
+      fontSize: 15,
+    };
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={SPELLS.COMBO_BREAKER} /> utilization
+          </strong>
+          <div style={styleObj}>
+            <b>{this.riskyTP}</b>{' '}
+            <small style={styleObjInner}>
+              risky casts of <SpellLink spell={SPELLS.TIGER_PALM} /> (could have overwritten a proc,
+              but didn't)
+            </small>
+            <br />
+            <b>{this.overwrittenCBProc}</b> <small style={styleObjInner}>wasted procs</small>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }
 
