@@ -119,7 +119,6 @@ class Abilities extends SharedAbilities {
       },
       {
         spell: [
-          SPELLS.SIGIL_OF_SILENCE_CONCENTRATED.id,
           TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT.id,
           SPELLS.SIGIL_OF_SILENCE_PRECISE.id,
         ],
@@ -133,11 +132,7 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: [
-          SPELLS.SIGIL_OF_CHAINS_CONCENTRATED.id,
-          TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT.id,
-          SPELLS.SIGIL_OF_CHAINS_PRECISE.id,
-        ],
+        spell: [TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT.id, SPELLS.SIGIL_OF_CHAINS_PRECISE.id],
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 60,
