@@ -22,7 +22,7 @@ import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits'
 
 const BUFFER_MS = 50;
 
-// TODO track the Sabertooth Rip boost from Apex bites?
+// TODO track Sabertooth procs due to Apex bites - this may be a non-trivial part of the damage
 /**
  * **Apex Predator's Craving**
  * Spec Talent

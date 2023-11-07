@@ -16,7 +16,6 @@ import { getBiteCps } from 'analysis/retail/druid/feral/constants';
 const FEROCIOUS_BITE_BOOST = 0.15;
 const RIP_BOOST_PER_CP = 0.05;
 
-// TODO is there a Tear Open Wounds interaction with this talent? Check with theorycrafters
 /**
  * **Sabertooth**
  * Spec Talent
@@ -27,10 +26,10 @@ const RIP_BOOST_PER_CP = 0.05;
 class Sabertooth extends Analyzer {
   /** Damage due to the increase to Ferocious Bite */
   fbBoostDamage = 0;
-  /** Damage due to the increase to Rampant Ferocity (same as bite boost because it's a percent of bite damage) */
-  rfBoostDamage = 0;
   /** Damage due to the buff increase to Rip */
   ripBoostDamage = 0;
+  /** Damage due to the buff increase to Tear Open Wounds (implicit with Rip boost) */
+  towBoostDamage = 0;
 
   /** Total ticks of Rip */
   totalRipTicks = 0;
@@ -49,8 +48,8 @@ class Sabertooth extends Analyzer {
       this.onFbDamage,
     );
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RAMPANT_FEROCITY),
-      this.onRfDamage,
+      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.TEAR_OPEN_WOUNDS),
+      this.onTowDamage,
     );
     this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RIP), this.onRipDamage);
   }
@@ -60,8 +59,10 @@ class Sabertooth extends Analyzer {
     this.currentSbtStrength = getBiteCps(event) * RIP_BOOST_PER_CP;
   }
 
-  onRfDamage(event: DamageEvent) {
-    this.rfBoostDamage += calculateEffectiveDamage(event, FEROCIOUS_BITE_BOOST);
+  onTowDamage(event: DamageEvent) {
+    if (this.selectedCombatant.hasBuff(SPELLS.SABERTOOTH.id)) {
+      this.towBoostDamage += calculateEffectiveDamage(event, this.currentSbtStrength);
+    }
   }
 
   onRipDamage(event: DamageEvent) {
@@ -73,7 +74,7 @@ class Sabertooth extends Analyzer {
   }
 
   get totalDamage() {
-    return this.fbBoostDamage + this.ripBoostDamage;
+    return this.fbBoostDamage + this.ripBoostDamage + this.towBoostDamage;
   }
 
   get percentBoostedRipTicks() {
@@ -81,7 +82,6 @@ class Sabertooth extends Analyzer {
   }
 
   statistic() {
-    const hasRf = this.selectedCombatant.hasTalent(TALENTS_DRUID.RAMPANT_FEROCITY_TALENT);
     return (
       <Statistic
         position={STATISTIC_ORDER.OPTIONAL(3)} // number based on talent row
@@ -98,16 +98,16 @@ class Sabertooth extends Analyzer {
                 <SpellLink spell={SPELLS.FEROCIOUS_BITE} />:{' '}
                 <strong>{this.owner.formatItemDamageDone(this.fbBoostDamage)}</strong>
               </li>
-              {hasRf && (
-                <li>
-                  <SpellLink spell={TALENTS_DRUID.RAMPANT_FEROCITY_TALENT} />:{' '}
-                  <strong>{this.owner.formatItemDamageDone(this.rfBoostDamage)}</strong>
-                </li>
-              )}
               <li>
                 <SpellLink spell={SPELLS.RIP} />:{' '}
                 <strong>{this.owner.formatItemDamageDone(this.ripBoostDamage)}</strong>
               </li>
+              {this.selectedCombatant.hasTalent(TALENTS_DRUID.TEAR_OPEN_WOUNDS_TALENT) && (
+                <li>
+                  <SpellLink spell={SPELLS.TEAR_OPEN_WOUNDS} />:{' '}
+                  <strong>{this.owner.formatItemDamageDone(this.towBoostDamage)}</strong>
+                </li>
+              )}
             </ul>
           </>
         }
