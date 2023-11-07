@@ -101,7 +101,7 @@ const ZONES: Zone[] = [
       amirdrassil.bosses.Tindral,
       amirdrassil.bosses.Fyrakk,
     ],
-    usePtrTooltips: true,
+    usePtrTooltips: false,
   },
   {
     id: 36,
@@ -117,7 +117,7 @@ const ZONES: Zone[] = [
       mythicplusseasonthree.bosses.ThroneOfTheTides,
       mythicplusseasonthree.bosses.WaycrestManor,
     ],
-    usePtrTooltips: true,
+    usePtrTooltips: false,
   },
 ];
 
