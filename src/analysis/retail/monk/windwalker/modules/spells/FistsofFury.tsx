@@ -2,6 +2,8 @@ import { defineMessage } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import { SpellLink } from 'interface';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
@@ -14,6 +16,8 @@ import Events, {
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 import DonutChart from 'parser/ui/DonutChart';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
@@ -39,6 +43,7 @@ class FistsofFury extends Analyzer {
   colors = ['#666', '#1eff00', '#0070ff', '#a435ee', '#ff8000'];
 
   clipped: { [guid: number]: number } = {};
+  clippedSER: { [guid: number]: number } = {};
 
   protected abilityTracker!: AbilityTracker;
 
@@ -95,14 +100,14 @@ class FistsofFury extends Analyzer {
 
   onChannelEnd(event: EndChannelEvent) {
     const nextAbility = GetRelatedEvent(event, 'fof-cast');
-    if (
-      nextAbility !== undefined &&
-      HasAbility(nextAbility) &&
-      this.currentChannelTicks < 5 &&
-      this.lastCastInSerenity
-    ) {
+    if (nextAbility !== undefined && HasAbility(nextAbility) && this.currentChannelTicks < 5) {
       // FoF has 5 total damage events, so if the channel ended with less than that we assume it was clipped
-      this.clipped[nextAbility.ability.guid] = (this.clipped[nextAbility.ability.guid] || 0) + 1;
+      if (this.lastCastInSerenity) {
+        this.clippedSER[nextAbility.ability.guid] =
+          (this.clippedSER[nextAbility.ability.guid] || 0) + 1;
+      } else {
+        this.clipped[nextAbility.ability.guid] = (this.clipped[nextAbility.ability.guid] || 0) + 1;
+      }
     }
   }
 
@@ -212,6 +217,105 @@ class FistsofFury extends Analyzer {
           {this.averageTicks.toFixed(2)} <small>Average ticks per cast</small>
         </BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} />
+        </b>{' '}
+        is one of your primary dps skills, and in the majority of cases should be channeled to
+        completion. When <SpellLink spell={TALENTS_MONK.XUENS_BATTLEGEAR_TALENT} /> is talented, it
+        gives the buff <SpellLink spell={SPELLS.PRESSURE_POINT_BUFF} />, increasing the critical
+        strike chance of all <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />
+        's over the next 5 seconds by 40%.
+        <br />
+        <br />
+        <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} /> is a channel which should always be
+        channeled to completion, unless actively within your{' '}
+        <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} /> window and then should only ever be
+        clipped by <SpellLink spell={SPELLS.RISING_SUN_KICK_DAMAGE} />.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS_MONK.FISTS_OF_FURY_TALENT} /> cast efficiency
+          </strong>
+          {this.guideSubStatistic()}
+          <h3>
+            Outside of <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />
+          </h3>
+          <div style={{ display: 'flex' }}>
+            <div style={{ flex: '1', marginRight: '4rem' }}>
+              {/* TODO: I broke something here, now shows NaN for 5-tick casts out of SER  */}
+              <DonutChart items={this.donutChart(this.ticksHit)} />
+            </div>
+            <table className="table table-condensed" style={{ flex: 1 }}>
+              <thead>
+                <tr>
+                  <th>Ability</th>
+                  <th>Times Clipped</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(this.clipped).map(([key, value], idx) => (
+                  <tr key={idx}>
+                    <th>
+                      <SpellLink spell={Number(key)} />
+                    </th>
+                    <td>{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <h3>
+            Within <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />
+          </h3>
+          <div style={{ display: 'flex' }}>
+            <div style={{ flex: '1', marginRight: '4rem' }}>
+              <DonutChart items={this.donutChart(this.ticksHitSer)} />
+            </div>
+            <table className="table table-condensed" style={{ flex: 1 }}>
+              <thead>
+                <tr>
+                  <th>Ability</th>
+                  <th>Times Clipped</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.entries(this.clippedSER).map(([key, value], idx) => (
+                  <tr key={idx}>
+                    <th>
+                      <SpellLink spell={Number(key)} />
+                    </th>
+                    <td>{value}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_MONK.FISTS_OF_FURY_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        slimLines
+        useThresholds
+      />
     );
   }
 }

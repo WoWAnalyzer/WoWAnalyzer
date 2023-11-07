@@ -1,6 +1,6 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { DamageEvent } from 'parser/core/Events';
@@ -11,6 +11,10 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
 import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { RoundedPanel } from 'interface/guide/components/GuideDivs';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
+import { GapHighlight } from 'parser/ui/CooldownBar';
 
 const DAMAGE_MULTIPLIER = 0.15;
 
@@ -139,6 +143,45 @@ class Serenity extends Analyzer {
           </span>
         </BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  get guideSubsection(): JSX.Element {
+    const explanation = (
+      <p>
+        <b>
+          <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} />
+        </b>{' '}
+        makes all of your abilities do amplified damage and all spenders are free for the duration.
+        This should be synced with{' '}
+        <SpellLink spell={TALENTS_MONK.INVOKE_XUEN_THE_WHITE_TIGER_TALENT} /> unless an entire cast
+        would be missed for doing so.
+      </p>
+    );
+
+    const data = (
+      <div>
+        <RoundedPanel>
+          <strong>
+            <SpellLink spell={TALENTS_MONK.SERENITY_TALENT} /> cast efficiency
+          </strong>
+          {this.guideSubStatistic()}
+        </RoundedPanel>
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
+  }
+
+  guideSubStatistic() {
+    return (
+      <CastEfficiencyBar
+        spellId={TALENTS_MONK.SERENITY_TALENT.id}
+        gapHighlightMode={GapHighlight.FullCooldown}
+        minimizeIcons
+        slimLines
+        useThresholds
+      />
     );
   }
 }

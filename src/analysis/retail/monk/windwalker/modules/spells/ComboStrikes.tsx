@@ -1,15 +1,14 @@
 import { defineMessage } from '@lingui/macro';
-import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import { SpellIcon } from 'interface';
-import { SpellLink } from 'interface';
+import { TALENTS_MONK } from 'common/TALENTS';
+import { formatDuration, formatNumber } from 'common/format';
+import { SpellIcon, SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
-import { TALENTS_MONK } from 'common/TALENTS';
 
 import { ABILITIES_AFFECTED_BY_MASTERY } from '../../constants';
 
@@ -149,6 +148,14 @@ class ComboStrikes extends Analyzer {
           {formatNumber(this.masteryDropEvents)} <small>Mastery benefit mistakes</small>
         </BoringSpellValueText>
       </Statistic>
+    );
+  }
+
+  get subStatistic() {
+    return (
+      <>
+        {formatNumber(this.masteryDropEvents)} <small>Mastery benefit mistakes</small>
+      </>
     );
   }
 }
