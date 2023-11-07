@@ -15,7 +15,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
-const BASE_COOLDOWN = 180000;
+const BASE_COOLDOWN = 180000; //180s
 
 /**
  * Every time you cast rising sun kick it reduces revival's cooldown by 1 second and whenever you cast revival x% of that healing is done again as a hot over 10 seconds

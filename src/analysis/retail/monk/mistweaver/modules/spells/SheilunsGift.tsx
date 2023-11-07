@@ -39,13 +39,6 @@ class SheilunsGift extends Analyzer {
       this.onCast,
     );
 
-    if (!this.legacyOfWisdomActive) {
-      this.addEventListener(
-        Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.SHEILUNS_GIFT_TALENT),
-        this.onHeal,
-      );
-    }
-
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),
       this.masterySheilunsGift,
@@ -60,26 +53,17 @@ class SheilunsGift extends Analyzer {
     this.totalStacks += this.selectedCombatant.getBuffStacks(SPELLS.SHEILUN_CLOUD_BUFF.id);
     this.cloudsLostSinceLastCast = 0;
     this.numCasts += 1;
-    if (this.legacyOfWisdomActive) {
-      const sgHealEvents = getSheilunsGiftHits(event);
-      if (!sgHealEvents) {
-        return;
-      }
-      const baseHits = sgHealEvents.splice(0, SHEILUNS_GIFT_TARGETS);
-      if (!baseHits) {
-        return;
-      }
-      this.baseHealing += baseHits.reduce(
-        (sum, heal) => sum + heal.amount + (heal.absorbed || 0),
-        0,
-      );
-      this.overhealing += baseHits.reduce((sum, heal) => sum + (heal.overheal || 0), 0);
-    }
-  }
 
-  onHeal(event: HealEvent) {
-    this.baseHealing += event.amount + (event.absorbed || 0);
-    this.overhealing += event.overheal || 0;
+    const sgHealEvents = getSheilunsGiftHits(event);
+    if (!sgHealEvents) {
+      return;
+    }
+    const baseHits = sgHealEvents.splice(0, SHEILUNS_GIFT_TARGETS);
+    if (!baseHits) {
+      return;
+    }
+    this.baseHealing += baseHits.reduce((sum, heal) => sum + heal.amount + (heal.absorbed || 0), 0);
+    this.overhealing += baseHits.reduce((sum, heal) => sum + (heal.overheal || 0), 0);
   }
 
   onBuffRefresh(event: RefreshBuffEvent) {

@@ -212,6 +212,7 @@ const EVENT_LINKS: EventLink[] = [
   //Mastery event linking
   {
     linkRelation: ENVELOPING_MIST_GOM,
+    reverseLinkRelation: ENVELOPING_MIST_GOM,
     linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
     linkingEventType: [EventType.Heal],
     referencedEventId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
@@ -222,30 +223,33 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: RENEWING_MIST_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
-    referencedEventType: EventType.Cast,
+    reverseLinkRelation: RENEWING_MIST_GOM,
+    linkingEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
   },
   {
     linkRelation: VIVIFY_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: SPELLS.VIVIFY.id,
-    referencedEventType: EventType.Cast,
+    reverseLinkRelation: VIVIFY_GOM,
+    linkingEventId: SPELLS.VIVIFY.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
   },
   {
     linkRelation: ZEN_PULSE_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_MONK.ZEN_PULSE_TALENT.id,
-    referencedEventType: EventType.Cast,
+    reverseLinkRelation: ZEN_PULSE_GOM,
+    linkingEventId: TALENTS_MONK.ZEN_PULSE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
@@ -255,9 +259,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: EXPEL_HARM_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    reverseLinkRelation: EXPEL_HARM_GOM,
+    linkingEventId: SPELLS.EXPEL_HARM.id,
     linkingEventType: [EventType.Heal],
-    referencedEventId: SPELLS.EXPEL_HARM.id,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -265,9 +270,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: SOOM_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    reverseLinkRelation: SOOM_GOM,
+    linkingEventId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
     linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -275,9 +281,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: SHEILUNS_GIFT_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    reverseLinkRelation: SHEILUNS_GIFT_GOM,
+    linkingEventId: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
     linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -288,9 +295,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: REVIVAL_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    reverseLinkRelation: REVIVAL_GOM,
+    linkingEventId: [TALENTS_MONK.REVIVAL_TALENT.id, TALENTS_MONK.RESTORAL_TALENT.id],
     linkingEventType: [EventType.Heal],
-    referencedEventId: [TALENTS_MONK.REVIVAL_TALENT.id, TALENTS_MONK.RESTORAL_TALENT.id],
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -679,11 +687,11 @@ export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
 }
 
-export function atFromEssenceFont(event: ApplyBuffEvent | RefreshBuffEvent) {
+export function isATFromEssenceFont(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, ANCIENT_TEACHINGS_EF);
 }
 
-export function atFromFaelineStomp(event: ApplyBuffEvent | RefreshBuffEvent) {
+export function isATFromFaelineStomp(event: ApplyBuffEvent | RefreshBuffEvent) {
   return HasRelatedEvent(event, ANCIENT_TEACHINGS_FLS);
 }
 

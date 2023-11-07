@@ -206,8 +206,7 @@ class T31TierSet extends Analyzer {
   private specialNotation(spellId: number): string {
     if (spellId === SPELLS.AT_CRIT_HEAL.id) {
       return '(Crit)';
-    }
-    if (spellId === SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) {
+    } else if (spellId === SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) {
       return '(Essence Font)';
     }
     return '';
@@ -313,9 +312,9 @@ class T31TierSet extends Analyzer {
           <TooltipElement
             content={
               <>
-                Generally try to avoid refreshing Chi Harmony. Chi Harmony does not pandemic, and
-                refreshing the buff reduces the amount of time available to amplify and collect
-                healing.
+                Generally try to avoid refreshing <SpellLink spell={SPELLS.CHI_HARMONY_HEAL} />.{' '}
+                <SpellLink spell={SPELLS.CHI_HARMONY_HEAL} /> does not pandemic, and refreshing the
+                buff reduces the amount of time available to amplify and collect healing.
                 <br />
                 This <i>can</i> be beneficial if you are doing it to time your 4pc heal effectively.
               </>

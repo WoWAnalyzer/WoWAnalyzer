@@ -167,7 +167,6 @@ class Vivify extends Analyzer {
   }
 
   handleMastery(event: HealEvent) {
-    //console.log(event);
     if (isFromVivify(event)) {
       this.gomHealing += (event.amount || 0) + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;
@@ -192,7 +191,14 @@ class Vivify extends Analyzer {
         given time, the more healing and better mana efficiency this spell has. This further
         emphasizes the importance of casting your rotational abilities in{' '}
         <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> and{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> as often as possible.
+        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> as often as possible.{' '}
+        <strong>
+          Now that square-root scaling is applied to{' '}
+          <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT} />, be wary of casting{' '}
+          <SpellLink spell={SPELLS.VIVIFY} /> when at high{' '}
+          <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> counts when it will result in high
+          amounts of overheal. This will negatively impact your effective healing done.
+        </strong>
       </p>
     );
     const data = (
@@ -323,16 +329,16 @@ class Vivify extends Analyzer {
         fullOverhealHits += 1;
       }
     });
-    const overheal = overhealPerCast / (healingPerCast + overhealPerCast);
+    const percentOverheal = overhealPerCast / (healingPerCast + overhealPerCast);
     const rems = invigoratingMistHits.length;
     let value = QualitativePerformance.Fail;
-    if (rems >= 10 && overheal <= 0.5) {
+    if (rems >= 10 && percentOverheal <= 0.5) {
       value = QualitativePerformance.Perfect;
-    } else if (rems >= 8 && overheal <= 0.5) {
+    } else if (rems >= 8 && percentOverheal <= 0.5) {
       value = QualitativePerformance.Good;
-    } else if (rems >= 6 && overheal <= 0.5) {
+    } else if (rems >= 6 && percentOverheal <= 0.5) {
       value = QualitativePerformance.Good;
-    } else if (fullOverhealHits <= 5 || overheal <= 0.4) {
+    } else if (fullOverhealHits <= 5 || percentOverheal <= 0.4) {
       value = QualitativePerformance.Ok;
     }
 
@@ -346,7 +352,8 @@ class Vivify extends Analyzer {
         </>
         <br />
         <>
-          Effective Healing: {formatNumber(healingPerCast)} ({formatPercentage(overheal)}% overheal)
+          Effective Healing: {formatNumber(healingPerCast)} ({formatPercentage(percentOverheal)}%
+          overheal)
         </>
         <br />
         {this.upliftedSpirits.active && (

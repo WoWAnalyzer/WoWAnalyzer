@@ -25,7 +25,7 @@ import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
 import { SPELL_COLORS } from '../../constants';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-import { atFromEssenceFont, atFromFaelineStomp } from '../../normalizers/CastLinkNormalizer';
+import { isATFromEssenceFont, isATFromFaelineStomp } from '../../normalizers/CastLinkNormalizer';
 
 class AncientTeachings extends Analyzer {
   atSourceSpell: number = 0;
@@ -116,9 +116,9 @@ class AncientTeachings extends Analyzer {
   }
 
   private setSourceSpell(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (atFromEssenceFont(event)) {
+    if (isATFromEssenceFont(event)) {
       this.atSourceSpell = TALENTS_MONK.ESSENCE_FONT_TALENT.id;
-    } else if (atFromFaelineStomp(event)) {
+    } else if (isATFromFaelineStomp(event)) {
       this.atSourceSpell = TALENTS_MONK.FAELINE_STOMP_TALENT.id;
     }
   }

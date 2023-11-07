@@ -23,7 +23,7 @@ class NourishingChi extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  lifecocoonBoost: number = 0;
+  lifeCocoonBoost: number = 0;
   afterEffectBoost: number = 0;
   boost: number = 0;
   rawHealing: number = 0;
@@ -42,13 +42,10 @@ class NourishingChi extends Analyzer {
   }
 
   get totalHealing() {
-    return this.lifecocoonBoost + this.afterEffectBoost;
+    return this.lifeCocoonBoost + this.afterEffectBoost;
   }
 
   heal(event: HealEvent) {
-    if (event.sourceID !== this.selectedCombatant.id && event.ability.guid === 401186) {
-      console.log("Rashok's Heal: ", event);
-    }
     //Life Cocoon works on any HoT that has this flag checked even if they don't come from the mistweaver themselves
     if (!event.tick) {
       return;
@@ -68,7 +65,7 @@ class NourishingChi extends Analyzer {
       const heal = boostedHeal / (1 + LIFE_COCOON_HEALING_BOOST + this.boost);
       const bonusHeal = heal * this.boost;
       const effectiveHealing = Math.max(0, bonusHeal - (event.overheal || 0));
-      this.lifecocoonBoost += effectiveHealing;
+      this.lifeCocoonBoost += effectiveHealing;
       this.rawHealing += bonusHeal;
     }
 
@@ -97,7 +94,7 @@ class NourishingChi extends Analyzer {
             <ul>
               <li>
                 Healing from additional <SpellLink spell={TALENTS_MONK.LIFE_COCOON_TALENT} />{' '}
-                healing: {formatNumber(this.lifecocoonBoost)}
+                healing: {formatNumber(this.lifeCocoonBoost)}
               </li>
               <li>
                 Healing from <SpellLink spell={TALENTS_MONK.NOURISHING_CHI_TALENT} /> residual buff:{' '}

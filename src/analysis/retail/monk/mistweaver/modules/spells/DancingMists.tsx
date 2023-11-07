@@ -324,10 +324,6 @@ class DancingMists extends Analyzer {
     ) {
       return;
     }
-    // only count cleave hit on main target
-    // if (this.vivify.lastCastTarget === targetId && this.vivify.mainTargetHitsToCount > 0) {
-    //   return;
-    // }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];
     if (this.hotTracker.fromDancingMists(hot)) {
       if (this.hotTracker.fromDancingMistRapidDiffusion(hot)) {

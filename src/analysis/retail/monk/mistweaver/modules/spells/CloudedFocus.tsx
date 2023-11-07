@@ -165,7 +165,7 @@ class CloudedFocus extends Analyzer {
     if (this.stacks === 0) {
       return;
     }
-    if (spellId === SPELLS.VIVIFY.id && this.stacks > 0) {
+    if (spellId === SPELLS.VIVIFY.id) {
       this.tallyPrimaryTargetOverheal(event);
     }
     this.addHealingToStackMap(spellId, event);

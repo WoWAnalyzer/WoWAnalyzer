@@ -128,8 +128,10 @@ class FaelineStomp extends Analyzer {
     if (
       isFromEssenceFont(event) &&
       combatant &&
-      combatant.hasBuff(SPELLS.FAELINE_STOMP_ESSENCE_FONT.id)
+      combatant.hasBuff(SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) &&
+      !combatant.hasBuff(SPELLS.ESSENCE_FONT_BUFF.id)
     ) {
+      console.log(event);
       this.gomHealing += event.amount + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;
     }
@@ -161,7 +163,10 @@ class FaelineStomp extends Analyzer {
                 {formatNumber(this.essenceFontHealing)}{' '}
                 <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> healing (
                 {formatNumber(this.essenceFontOverhealing)} overheal) <br />
-                {/* {formatNumber(this.gomHealing)} additional <SpellLink spell={SPELLS.GUSTS_OF_MISTS}/> healing ({formatNumber(this.gomOverhealing)} overheal)<br/> */}
+                {formatNumber(this.gomHealing)} additional{' '}
+                <SpellLink spell={SPELLS.GUSTS_OF_MISTS} /> healing (
+                {formatNumber(this.gomOverhealing)} overheal)
+                <br />
                 {this.resets} <small>resets</small> <br />
                 {(this.targetsDamaged / this.flsCasts).toFixed(2)} <small>Foes Hit per cast</small>{' '}
                 <br />

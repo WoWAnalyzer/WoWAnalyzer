@@ -11,7 +11,7 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import SPELLS from 'common/SPELLS';
 import { SpellIcon } from 'interface';
-import { formatDurationMinSec } from 'common/format';
+import { formatDuration, formatDurationMinSec } from 'common/format';
 
 class FontOfLife extends Analyzer {
   static dependencies = {
@@ -22,6 +22,7 @@ class FontOfLife extends Analyzer {
   totalHealing: number = 0;
   effectiveTFTCDR: number = 0;
   lastCastTimeStamp: number = -1;
+  totalCasts: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -47,13 +48,24 @@ class FontOfLife extends Analyzer {
   }
 
   handleTFTCast(event: CastEvent) {
-    const tftCooldown =
-      this.abilities.getAbility(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)!.cooldown * 1000;
+    this.totalCasts += 1;
     const timeBetween = event.timestamp - this.lastCastTimeStamp;
-    if (this.lastCastTimeStamp !== -1 && tftCooldown && timeBetween < tftCooldown) {
-      this.effectiveTFTCDR += tftCooldown - timeBetween;
+    if (this.lastCastTimeStamp !== -1 && this.tftCooldown && timeBetween < this.tftCooldown) {
+      this.effectiveTFTCDR += this.tftCooldown - timeBetween;
     }
     this.lastCastTimeStamp = event.timestamp;
+  }
+
+  get tftCooldown() {
+    return this.abilities.getAbility(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)!.cooldown * 1000;
+  }
+
+  get averageCdr() {
+    // didnt use any cdr
+    if (this.totalCasts <= 1) {
+      return 0;
+    }
+    return this.effectiveTFTCDR / this.totalCasts - 1;
   }
 
   statistic() {
@@ -62,12 +74,15 @@ class FontOfLife extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(10)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={<>{formatDurationMinSec(this.effectiveTFTCDR / 1000)} total CDR</>}
       >
         <TalentSpellText talent={TALENTS_MONK.FONT_OF_LIFE_TALENT}>
           <ItemHealingDone amount={this.totalHealing} />
           <br />
-          <SpellIcon spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
-          {formatDurationMinSec(this.effectiveTFTCDR / 1000)} CDR
+          <div>
+            <SpellIcon spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />{' '}
+            {formatDuration(this.tftCooldown - this.averageCdr)} <small>average cooldown</small>
+          </div>
         </TalentSpellText>
       </Statistic>
     );
