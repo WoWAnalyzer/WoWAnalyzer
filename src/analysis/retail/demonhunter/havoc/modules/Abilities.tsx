@@ -4,7 +4,10 @@ import { SpellLink } from 'interface';
 import SharedAbilities from 'analysis/retail/demonhunter/shared/modules/Abilities';
 import { SpellbookAbility } from 'parser/core/modules/Ability';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
-import { MASTER_OF_THE_GLAIVE_SCALING } from 'analysis/retail/demonhunter/shared';
+import {
+  CHAMPION_OF_THE_GLAIVE_SCALING,
+  MASTER_OF_THE_GLAIVE_SCALING,
+} from 'analysis/retail/demonhunter/shared';
 import { getMetamorphosisCooldown } from 'analysis/retail/demonhunter/shared/modules/talents/MetamorphosisCooldown';
 import { getFelRushCooldown } from 'analysis/retail/demonhunter/havoc/modules/spells/FelRush';
 
@@ -18,6 +21,7 @@ class Abilities extends SharedAbilities {
         spell: SPELLS.IMMOLATION_AURA.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste) => 30 / (1 + haste),
+        charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.A_FIRE_INSIDE_TALENT) ? 1 : 0),
         gcd: {
           base: 1500,
         },
@@ -41,14 +45,7 @@ class Abilities extends SharedAbilities {
         },
       },
       {
-        spell: SPELLS.CHAOS_STRIKE.id,
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: {
-          base: 1500,
-        },
-      },
-      {
-        spell: SPELLS.ANNIHILATION.id, //During meta chaos strike becomes this.
+        spell: [SPELLS.CHAOS_STRIKE.id, SPELLS.ANNIHILATION.id],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: {
           base: 1500,
@@ -59,29 +56,18 @@ class Abilities extends SharedAbilities {
         category: combatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT)
           ? SPELL_CATEGORY.ROTATIONAL
           : SPELL_CATEGORY.ROTATIONAL_AOE,
+        // Blade dance = 15s cd
+        // Death Sweep = 9s cd
         cooldown: (haste) =>
           combatant.hasBuff(SPELLS.METAMORPHOSIS_HAVOC_BUFF.id)
             ? 9 / (1 + haste)
             : 15 / (1 + haste),
-        //Blade dance = 15s cd
-        //Death Sweep = 9s cd
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          suggestion:
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT) ||
-            combatant.hasTalent(TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT),
+          suggestion: true,
           recommendedEfficiency: 0.95,
-          extraSuggestion: (
-            <>
-              This should be part of your single target rotation due to using{' '}
-              <SpellLink spell={TALENTS_DEMON_HUNTER.FIRST_BLOOD_TALENT} /> or{' '}
-              <SpellLink spell={TALENTS_DEMON_HUNTER.TRAIL_OF_RUIN_TALENT} />. This includes the{' '}
-              <SpellLink spell={SPELLS.DEATH_SWEEP} /> casts since they are the same ability and
-              share their cooldowns.
-            </>
-          ),
         },
       },
       {
@@ -114,12 +100,15 @@ class Abilities extends SharedAbilities {
           1 +
           MASTER_OF_THE_GLAIVE_SCALING[
             combatant.getTalentRank(TALENTS_DEMON_HUNTER.MASTER_OF_THE_GLAIVE_TALENT)
+          ] +
+          CHAMPION_OF_THE_GLAIVE_SCALING[
+            combatant.getTalentRank(TALENTS_DEMON_HUNTER.CHAMPION_OF_THE_GLAIVE_TALENT)
           ],
         gcd: {
           base: 1500,
         },
         castEfficiency: {
-          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOULREND_TALENT),
+          suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.SOULSCAR_TALENT),
           recommendedEfficiency: 0.95,
         },
       },
@@ -133,7 +122,7 @@ class Abilities extends SharedAbilities {
         charges: 1 + (combatant.hasTalent(TALENTS_DEMON_HUNTER.BLAZING_PATH_TALENT) ? 1 : 0),
         cooldown: getFelRushCooldown(combatant),
         gcd: {
-          static: 250,
+          static: 500,
         },
         castEfficiency: {
           suggestion: combatant.hasTalent(TALENTS_DEMON_HUNTER.MOMENTUM_TALENT),
@@ -168,8 +157,7 @@ class Abilities extends SharedAbilities {
 
       // CC, interupts, and utility
       {
-        spell: TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_ERUPTION_TALENT),
+        spell: SPELLS.FEL_ERUPTION.id,
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 30,
         gcd: {
@@ -201,7 +189,7 @@ class Abilities extends SharedAbilities {
         spell: TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.FEL_BARRAGE_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 60,
+        cooldown: 90,
         gcd: {
           base: 1500,
         },
@@ -215,7 +203,7 @@ class Abilities extends SharedAbilities {
         spell: TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.GLAIVE_TEMPEST_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: (haste) => 20 / (1 + haste),
+        cooldown: (haste) => 25 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -240,7 +228,7 @@ class Abilities extends SharedAbilities {
         gcd: null, // Logs track the "landing" spell which is not on GCD
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8, //5 minute cd. You want some leeway in when to burn it.
+          recommendedEfficiency: 0.8, // 3 minute cd. You want some leeway in when to burn it.
         },
       },
 

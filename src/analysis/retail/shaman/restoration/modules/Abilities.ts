@@ -299,14 +299,14 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.PRIMORDIAL_WAVE_TALENT.id,
+        spell: TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id,
         buffSpellId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         timelineSortIndex: 12,
         gcd: {
           base: 1500,
         },
-        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT),
+        enabled: combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT),
         cooldown: 45,
         // Cannot find any logs with the heal
         // healSpellIds: [SPELLS.PRIMORDIAL_WAVE_HEAL.id],

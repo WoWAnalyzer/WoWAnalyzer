@@ -10,12 +10,12 @@ import { formatNumber, formatPercentage } from 'common/format';
 import HIT_TYPES from 'game/HIT_TYPES';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
-const PONTIFEX_HEALING_INCREASE = 0.1;
+const PONTIFEX_HEALING_INCREASE = 0.2;
 const PONTIFEX_MAX_STACKS = 2;
 
 /**
  * Critical heals from Flash Heal and Heal increase your healing done by
- * your next Holy Word spell by 10%, stacking up to 2 times.
+ * your next Holy Word spell by 20%, stacking up to 2 times.
  */
 
 class Pontifex extends Analyzer {

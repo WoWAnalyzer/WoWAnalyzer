@@ -100,8 +100,7 @@ function RotationSection({ modules, info }: GuideProps<typeof CombatLogParser>) 
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.FRACTURE_TALENT) &&
         modules.fracture.guideSubsection()}
       {modules.immolationAura.vengeanceGuideSubsection()}
-      {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SIGIL_OF_FLAME_TALENT) &&
-        modules.sigilOfFlame.guideSubsection()}
+      {modules.sigilOfFlame.guideSubsection()}
       {info.combatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT) &&
         modules.spiritBomb.guideSubsection()}
       {modules.soulCleave.guideSubsection()}

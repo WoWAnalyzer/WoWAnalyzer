@@ -43,17 +43,8 @@ const DisciplinePriestChecklist = ({
         }
       >
         <AbilityRequirement spell={SPELLS.PENANCE_CAST.id} />
-        {combatant.hasTalent(TALENTS.SCHISM_TALENT) && (
-          <AbilityRequirement spell={TALENTS.SCHISM_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.POWER_WORD_SOLACE_TALENT) && (
-          <AbilityRequirement spell={TALENTS.POWER_WORD_SOLACE_TALENT.id} />
-        )}
         {combatant.hasTalent(TALENTS.DIVINE_STAR_SHARED_TALENT) && (
           <AbilityRequirement spell={TALENTS.DIVINE_STAR_SHARED_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.SHADOW_COVENANT_TALENT) && (
-          <AbilityRequirement spell={TALENTS.SHADOW_COVENANT_TALENT.id} />
         )}
       </Rule>
 
@@ -84,6 +75,9 @@ const DisciplinePriestChecklist = ({
           <AbilityRequirement spell={SPELLS.ARCANE_TORRENT_MANA1.id} />
         )}
         <AbilityRequirement spell={TALENTS.POWER_INFUSION_TALENT.id} />
+        {combatant.hasTalent(TALENTS.ULTIMATE_PENITENCE_TALENT) && (
+          <AbilityRequirement spell={SPELLS.ULTIMATE_PENITENCE_DAMAGE.id} />
+        )}
       </Rule>
 
       <Rule

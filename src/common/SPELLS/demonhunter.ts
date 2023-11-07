@@ -30,15 +30,10 @@ const spells = {
   },
   // Sigil of Flame, Misery, and Silence have different spell ids depending on
   // if you take the [Concentrated Sigils], [Quickened Sigils], or [Precise Sigils] talents
-  SIGIL_OF_FLAME_CONCENTRATED: {
-    id: 204513,
+  SIGIL_OF_FLAME: {
+    id: 204596,
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
-  },
-  SIGIL_OF_MISERY_CONCENTRATED: {
-    id: 202140,
-    name: 'Sigil of Misery',
-    icon: 'ability_demonhunter_sigilofmisery',
   },
   SIGIL_OF_FLAME_PRECISE: {
     id: 389810,
@@ -54,6 +49,11 @@ const spells = {
     id: 204598,
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
+  },
+  SIGIL_OF_MISERY_DEBUFF: {
+    id: 207685,
+    name: 'Sigil of Misery',
+    icon: 'ability_demonhunter_sigilofmisery',
   },
   CHARRED_WARBLADES: {
     id: 213011,
@@ -127,11 +127,6 @@ const spells = {
   },
   ELYSIAN_DECREE_PRECISE: {
     id: 389815,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-  },
-  ELYSIAN_DECREE_CONCENTRATED: {
-    id: 389858,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
@@ -307,16 +302,6 @@ const spells = {
     name: 'Painbringer',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
-  SIGIL_OF_SILENCE_CONCENTRATED: {
-    id: 207682,
-    name: 'Sigil of Silence',
-    icon: 'ability_demonhunter_sigilofsilence',
-  },
-  SIGIL_OF_CHAINS_CONCENTRATED: {
-    id: 207665,
-    name: 'Sigil of Chains',
-    icon: 'ability_demonhunter_sigilofchains',
-  },
   SIGIL_OF_SILENCE_PRECISE: {
     id: 389809,
     name: 'Sigil of Silence',
@@ -327,10 +312,25 @@ const spells = {
     name: 'Sigil of Chains',
     icon: 'ability_demonhunter_sigilofchains',
   },
+  SIGIL_OF_SILENCE_DEBUFF: {
+    id: 204490,
+    name: 'Sigil of Silence',
+    icon: 'ability_demonhunter_sigilofsilence',
+  },
+  SIGIL_OF_CHAINS_DEBUFF: {
+    id: 204843,
+    name: 'Sigil of Chains',
+    icon: 'ability_demonhunter_sigilofchains',
+  },
   SOUL_CARVER_OFF_HAND: {
     id: 214743,
     name: 'Soul Carver',
     icon: 'inv_glaive_1h_artifactaldrochi_d_01',
+  },
+  SIGIL_OF_FLAME_T31_PROC: {
+    id: 425672,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_concentratedsigils',
   },
   //endregion
 
@@ -447,6 +447,11 @@ const spells = {
     name: 'Blade Dance',
     icon: 'ability_demonhunter_bladedance',
   },
+  FEL_ERUPTION: {
+    id: 211881,
+    name: 'Fel Eruption',
+    icon: 'ability_bossfellord_felspike',
+  },
 
   // Havoc Talents
   DEMONIC_APPETITE_FURY: {
@@ -515,7 +520,7 @@ const spells = {
     name: 'Initiative',
     icon: 'ability_rogue_surpriseattack',
   },
-  SOULREND: {
+  SOULSCAR: {
     id: 390181,
     name: 'Soulrend',
     icon: 'ability_demonhunter_bloodlet',

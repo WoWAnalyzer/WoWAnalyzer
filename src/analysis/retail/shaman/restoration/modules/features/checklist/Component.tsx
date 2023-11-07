@@ -82,8 +82,8 @@ const RestoShamanChecklist = ({ combatant, castEfficiency, thresholds }: Checkli
         {combatant.hasTalent(TALENTS.DOWNPOUR_TALENT) && (
           <AbilityRequirement spell={TALENTS.DOWNPOUR_TALENT.id} />
         )}
-        {combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_TALENT) && (
-          <AbilityRequirement spell={TALENTS.PRIMORDIAL_WAVE_TALENT.id} />
+        {combatant.hasTalent(TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT) && (
+          <AbilityRequirement spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT.id} />
         )}
       </Rule>
       <Rule

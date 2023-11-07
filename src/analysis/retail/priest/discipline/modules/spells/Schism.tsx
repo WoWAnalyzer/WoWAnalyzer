@@ -35,9 +35,8 @@ class Schism extends Analyzer {
     atonementDamageSource: AtonementDamageSource,
   };
 
-  static bonus = 0.15;
+  static bonus = 0.1;
 
-  private directDamage = 0;
   private damageFromBuff = 0;
   private healing = 0;
 
@@ -67,13 +66,6 @@ class Schism extends Analyzer {
     ) {
       return;
     }
-
-    // Schism isn't buffed by itself, so requires a different path
-    if (damageEvent.ability.guid === TALENTS_PRIEST.SCHISM_TALENT.id) {
-      this.healing += event.amount;
-      return;
-    }
-
     this.healing += calculateEffectiveHealing(event, Schism.bonus);
   }
 
@@ -82,15 +74,9 @@ class Schism extends Analyzer {
    * @param event The damage event being considered
    */
   private onDamage(event: DamageEvent) {
-    const spellId = event.ability.guid;
     const target = this.enemies.getEntity(event);
 
     if (!SCHISM_DAMAGE_IDS.includes(event.ability.guid)) {
-      return;
-    }
-
-    if (spellId === TALENTS_PRIEST.SCHISM_TALENT.id) {
-      this.directDamage += event.amount + (event.absorbed || 0);
       return;
     }
     if (target?.hasBuff(TALENTS_PRIEST.SCHISM_TALENT.id)) {
@@ -112,10 +98,6 @@ class Schism extends Analyzer {
             {formatPercentage(this.owner.getPercentageOfTotalHealingDone(this.healing))}% of total
             healing done.
             <br />
-            The direct damage contributed by the Schism talent was{' '}
-            {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.directDamage))}% of
-            total damage done.
-            <br />
             The effective damage contributed by the Schism bonus was{' '}
             {formatPercentage(this.owner.getPercentageOfTotalDamageDone(this.damageFromBuff))}% of
             total damage done. <br />
@@ -124,7 +106,7 @@ class Schism extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS_PRIEST.SCHISM_TALENT}>
           <ItemHealingDone amount={this.healing} /> <br />
-          <ItemDamageDone amount={this.directDamage + this.damageFromBuff} />
+          <ItemDamageDone amount={this.damageFromBuff} />
         </BoringSpellValueText>
       </Statistic>
     );

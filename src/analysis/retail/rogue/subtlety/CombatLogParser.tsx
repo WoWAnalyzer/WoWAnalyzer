@@ -10,7 +10,6 @@ import {
   Sepsis,
   StealthAbilityFollowingSepsis,
   SpellEnergyCost,
-  SpellUsable,
   StealthDamageTracker,
   InstantPoison,
 } from 'analysis/retail/rogue/shared';
@@ -44,7 +43,6 @@ class CombatLogParser extends CoreCombatLogParser {
     abilities: Abilities,
     checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
-    spellUsable: SpellUsable,
 
     //Normalizers
     shurikenStormNormalizer: ShurikenStormNormalizer,

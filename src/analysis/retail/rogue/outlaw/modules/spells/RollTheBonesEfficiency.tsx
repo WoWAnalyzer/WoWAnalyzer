@@ -1,6 +1,6 @@
 import { defineMessage } from '@lingui/macro';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/rogue';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
@@ -103,7 +103,6 @@ class RollTheBonesEfficiency extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.ROLL_THE_BONES_TALENT);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell([SPELLS.DISPATCH, SPELLS.BETWEEN_THE_EYES]),
       this.onCast,
@@ -145,14 +144,13 @@ class RollTheBonesEfficiency extends Analyzer {
       when(suggestion.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
         suggest(
           <>
-            Your efficiency with refreshing <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} />{' '}
-            after a {suggestion.label} roll could be improved.{' '}
-            <SpellLink spell={SPELLS.BROADSIDE} /> and <SpellLink spell={SPELLS.TRUE_BEARING} /> are
-            your highest value buffs from <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} />.{' '}
-            {suggestion.extraSuggestion || ''}
+            Your efficiency with refreshing <SpellLink spell={SPELLS.ROLL_THE_BONES} /> after a{' '}
+            {suggestion.label} roll could be improved. <SpellLink spell={SPELLS.BROADSIDE} /> and{' '}
+            <SpellLink spell={SPELLS.TRUE_BEARING} /> are your highest value buffs from{' '}
+            <SpellLink spell={SPELLS.ROLL_THE_BONES} />. {suggestion.extraSuggestion || ''}
           </>,
         )
-          .icon(TALENTS.ROLL_THE_BONES_TALENT.icon)
+          .icon(SPELLS.ROLL_THE_BONES.icon)
           .actual(
             defineMessage({
               id: 'rogue.outlaw.suggestions.rollTheBones.efficiency',
