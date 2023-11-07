@@ -152,7 +152,10 @@ class DancingMists extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.onReMHeal,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.INVIGORATING_MISTS_HEAL]),
+      this.handleVivify,
+    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvApply,
@@ -319,10 +322,6 @@ class DancingMists extends Analyzer {
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
     ) {
-      return;
-    }
-    // only count cleave hit on main target
-    if (this.vivify.lastCastTarget === targetId && this.vivify.mainTargetHitsToCount > 0) {
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];

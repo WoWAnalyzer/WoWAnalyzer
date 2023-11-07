@@ -9,7 +9,6 @@ import Events, {
   ApplyBuffStackEvent,
   CastEvent,
   HealEvent,
-  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -19,7 +18,6 @@ import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
-import { getVivifiesPerCast } from '../../normalizers/CastLinkNormalizer';
 import DonutChart from 'parser/ui/DonutChart';
 import { CF_BUFF_PER_STACK, SPELL_COLORS } from '../../constants';
 import WarningIcon from 'interface/icons/Warning';
@@ -29,7 +27,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 const debug = false;
 /**
  * Whenever you cast a vivify or enveloping mist during soothing mist's channel you gain a stack of clouded focus which increases their healing by 20% and descreases their
- * mana cost by 20% as well. You can have up to 3 stack but you lose all the stacks when you stop channeling soothing mist.
+ * mana cost by 15% as well. You can have up to 3 stack but you lose all the stacks when you stop channeling soothing mist.
  */
 
 interface CloudedFocusStacksMap {
@@ -45,8 +43,6 @@ class CloudedFocus extends Analyzer {
   healingDone: number = 0;
   cappedStacks: boolean = false;
   stacks: number = 0;
-  manaStacks: number = 0;
-  lastStack: number = 0;
 
   //viv
   primaryTargetHealing: number = 0;
@@ -75,7 +71,9 @@ class CloudedFocus extends Analyzer {
         color: SPELL_COLORS.VIVIFY,
         label: 'Vivify',
         spellId: SPELLS.VIVIFY.id,
-        value: this.getHealingForSpell(SPELLS.VIVIFY.id),
+        value:
+          this.getHealingForSpell(SPELLS.VIVIFY.id) +
+          this.getHealingForSpell(SPELLS.INVIGORATING_MISTS_HEAL.id),
         valueTooltip: this.chartTooltip(SPELLS.VIVIFY.id),
         valuePercent: true,
       },
@@ -110,10 +108,6 @@ class CloudedFocus extends Analyzer {
       this.applyBuff,
     );
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
-      this.refreshBuff,
-    );
-    this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
       this.applyBuffStack,
     );
@@ -128,31 +122,51 @@ class CloudedFocus extends Analyzer {
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.VIVIFY, TALENTS_MONK.ENVELOPING_MIST_TALENT, SPELLS.ENVELOPING_BREATH_HEAL]),
+        .spell([
+          SPELLS.VIVIFY,
+          SPELLS.INVIGORATING_MISTS_HEAL,
+          TALENTS_MONK.ENVELOPING_MIST_TALENT,
+          SPELLS.ENVELOPING_BREATH_HEAL,
+        ]),
       this.calculateHealingEffect,
     );
   }
 
   calculateManaEffect(event: CastEvent) {
     const spellId = event.ability.guid;
-    if (spellId === SPELLS.VIVIFY.id && this.stacks > 0) {
-      this.tallyPrimaryTargetOverheal(event);
-    }
     if (this.selectedCombatant.hasBuff(SPELLS.INNERVATE.id)) {
       return;
     }
-    debug && console.log('Current Stacks: ', this.stacks, 'Mana Stacks: ', this.manaStacks, event);
 
     const cost = event.resourceCost ? event.resourceCost[RESOURCE_TYPES.MANA.id] : 0;
-    this.addManaToStackMap(spellId, cost);
-    const preCFCost = cost / (1 - CF_BUFF_PER_STACK * this.manaStacks);
-    this.manaSaved += preCFCost - cost;
+    if (cost === 0) {
+      debug && console.log('No Mana Cost Found: ', event);
+    }
+
+    const manaSaved = cost / (1 - CF_BUFF_PER_STACK * this.stacks) - cost;
+    this.addManaToStackMap(spellId, manaSaved);
+    this.manaSaved += manaSaved;
+
+    debug &&
+      console.log(
+        'Mana: ',
+        'Cost - ',
+        cost,
+        'Saved - ',
+        manaSaved,
+        'Stacks - ',
+        this.stacks,
+        this.owner.formatTimestamp(event.timestamp),
+      );
   }
 
   calculateHealingEffect(event: HealEvent) {
     const spellId = event.ability.guid;
     if (this.stacks === 0) {
       return;
+    }
+    if (spellId === SPELLS.VIVIFY.id) {
+      this.tallyPrimaryTargetOverheal(event);
     }
     this.addHealingToStackMap(spellId, event);
     this.healingDone += calculateEffectiveHealing(event, this.stacks * CF_BUFF_PER_STACK);
@@ -163,50 +177,29 @@ class CloudedFocus extends Analyzer {
   }
 
   applyBuffStack(event: ApplyBuffStackEvent) {
-    this.lastStack = this.stacks;
     this.stacks = event.stack;
-    this.manaStacks = event.stack - 1;
-  }
-
-  refreshBuff(event: RefreshBuffEvent) {
-    //there is a refresh event when the 3rd applybuffstack event occurs for some reason
-    if (this.lastStack === 2) {
-      this.lastStack += 1;
-      return;
-    }
-    this.manaStacks = this.stacks;
   }
 
   removeBuff(event: RemoveBuffEvent) {
     this.stacks = 0;
-    this.manaStacks = 0;
   }
 
-  tallyPrimaryTargetOverheal(event: CastEvent) {
-    const vivifies = getVivifiesPerCast(event) as HealEvent[];
-    if (!vivifies) {
-      return;
-    }
-    const primaryVivify = vivifies.filter((viv) => event.targetID === viv.targetID)[0];
-    if (!primaryVivify) {
-      return;
-    }
-    this.primaryTargetHealing += primaryVivify.amount + (primaryVivify.absorbed || 0);
-    this.primaryTargetOverheal += primaryVivify.overheal || 0;
+  tallyPrimaryTargetOverheal(event: HealEvent) {
+    this.primaryTargetHealing += event.amount + (event.absorbed || 0);
+    this.primaryTargetOverheal += event.overheal || 0;
   }
 
   addManaToStackMap(spellId: number, cost: number) {
-    const mana = cost - cost * (1 - this.manaStacks * CF_BUFF_PER_STACK);
     const current = this.stackMap.get(this.makeKey(spellId, this.stacks));
     if (current) {
-      current.manaSaved += mana;
+      current.manaSaved += cost;
       current.casts += 1;
     } else {
       this.stackMap.set(this.makeKey(spellId, this.stacks), {
         casts: 1,
         healing: 0,
         overhealing: 0,
-        manaSaved: mana,
+        manaSaved: cost,
       });
     }
   }
@@ -229,6 +222,10 @@ class CloudedFocus extends Analyzer {
   }
 
   makeKey(spellId: number, stacks: number) {
+    //hack fix for invigorating mists getting its own spellId
+    if (spellId === SPELLS.INVIGORATING_MISTS_HEAL.id) {
+      spellId = SPELLS.VIVIFY.id;
+    }
     return `${spellId}-${stacks}`;
   }
 

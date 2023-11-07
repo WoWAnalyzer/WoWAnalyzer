@@ -27,8 +27,9 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
             happened. <br />
             {this.selectedCombatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) && (
               <>
-                <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> is given the healing of{' '}
-                <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} />. <br />
+                <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> is given to the spell
+                that applied the buff, either <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />{' '}
+                or <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} />. <br />
               </>
             )}
             <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> healing from{' '}

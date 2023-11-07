@@ -21,6 +21,7 @@ import { formatDurationMillisMinSec, formatNumber } from 'common/format';
 import Haste from 'parser/shared/modules/Haste';
 import Pets from 'parser/shared/modules/Pets';
 import InformationIcon from 'interface/icons/Information';
+import EnvelopingBreath from './EnvelopingBreath';
 
 export interface BaseCelestialTracker {
   lessonsDuration: number; // ms with Lessons buff
@@ -43,6 +44,7 @@ const YULON_GIFT_ENVMS = 4;
 
 class BaseCelestialAnalyzer extends Analyzer {
   static dependencies = {
+    envb: EnvelopingBreath,
     ef: EssenceFont,
     haste: Haste,
     pets: Pets,
