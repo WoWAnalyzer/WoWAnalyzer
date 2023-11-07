@@ -5,6 +5,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 
 export default [
+  change(date(2023, 11, 7), <>Added statistic for the ToL version of <SpellLink spell={TALENTS_DRUID.CENARIUS_GUIDANCE_TALENT}/>, and split healing from Grove Guardians due to this talent into the next statistic (and out of the existing Grove Guardians statistic).</>, Sref),
   change(date(2023, 10, 17), <>Enable spec with 10.2 changes</>,Arlie),
   change(date(2023, 10, 10), <>Added support for T31 (Amidrassil) set statistics.</>, Sref),
   change(date(2023, 9, 15), <>Added handling for <SpellLink spell={TALENTS_DRUID.TRANQUIL_MIND_TALENT}/> in the Regrowth/Clearcasting statistic. Fixed an issue that could cause misattribution of Clearcasts during high lag.</>, Sref),

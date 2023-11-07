@@ -24,6 +24,7 @@ export const FROM_OVERGROWTH = 'FromOvergrowth';
 export const FROM_EXPIRING_LIFEBLOOM = 'FromExpiringLifebloom';
 export const CAUSED_BLOOM = 'CausedBloom';
 export const CAUSED_TICK = 'CausedTick';
+export const CAUSED_SUMMON = 'CausedSummon';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -97,6 +98,19 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
     anyTarget: true,
+  },
+  {
+    // for discerning hardcast and CG summons
+    linkRelation: CAUSED_SUMMON,
+    reverseLinkRelation: FROM_HARDCAST,
+    linkingEventId: TALENTS_DRUID.GROVE_GUARDIANS_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: TALENTS_DRUID.GROVE_GUARDIANS_TALENT.id,
+    referencedEventType: EventType.Summon,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true, // the summon event 'targets' the summon, while cast targets a player
+    maximumLinks: 1,
   },
   {
     linkRelation: FROM_OVERGROWTH,
