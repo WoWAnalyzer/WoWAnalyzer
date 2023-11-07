@@ -7,11 +7,11 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import ItemPercentDamageDone from 'parser/ui/ItemPercentDamageDone';
 import { getFerociousBiteMaxDrain } from 'analysis/retail/druid/feral/constants';
 import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNormalizer';
 import { getAdditionalEnergyUsed } from 'analysis/retail/druid/feral/normalizers/FerociousBiteDrainLinkNormalizer';
+import TalentSpellText from 'parser/ui/TalentSpellText';
 
 const FEROCIOUS_BITE_BONUS_BOOST_PER_POINT = 0.4;
 
@@ -70,9 +70,9 @@ export default class SaberJaws extends Analyzer {
      * that we would have had without Saber Jaws. This is a total boost of 190/150 = 1.266...
      */
     const effectiveBoostVsNormalDrain =
-      1 - (1 + percentDrain * this.bonusMultiplier) / (1 + percentDrain);
+      (1 + percentDrain * this.bonusMultiplier) / (1 + percentDrain) - 1;
 
-    this.totalDamage = calculateEffectiveDamage(event, effectiveBoostVsNormalDrain);
+    this.totalDamage += calculateEffectiveDamage(event, effectiveBoostVsNormalDrain);
   }
 
   statistic() {
@@ -82,9 +82,9 @@ export default class SaberJaws extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
       >
-        <BoringSpellValueText spell={TALENTS_DRUID.SABER_JAWS_TALENT}>
+        <TalentSpellText talent={TALENTS_DRUID.SABER_JAWS_TALENT}>
           <ItemPercentDamageDone amount={this.totalDamage} />
-        </BoringSpellValueText>
+        </TalentSpellText>
       </Statistic>
     );
   }
