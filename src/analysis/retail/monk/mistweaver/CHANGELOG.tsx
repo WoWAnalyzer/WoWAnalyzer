@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 11, 6), <>Updated Tier 30 Module to be accurate for the reworked 2pc</>, Vohrr),
   change(date(2023, 10, 30), <>Updated healing efficiency tracker to properly attribute <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> to the source spell that activated it.</>, Vohrr),
   change(date(2023, 10, 30), <>Updated <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT}/> module to have additional breakdown for Mistweaver. Added <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT}/> to Talent Summary.</>, Vohrr),
   change(date(2023, 10, 28), <>Added Amalgam's Seventh Spine and Updated Call to Dominance values to reflect nerfs.</>, Vohrr),
