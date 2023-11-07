@@ -327,6 +327,11 @@ const spells = {
     name: 'Soul Carver',
     icon: 'inv_glaive_1h_artifactaldrochi_d_01',
   },
+  SIGIL_OF_FLAME_T31_PROC: {
+    id: 425672,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_concentratedsigils',
+  },
   //endregion
 
   //region Havoc

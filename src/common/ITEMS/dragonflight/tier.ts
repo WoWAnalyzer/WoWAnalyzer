@@ -184,3 +184,9 @@ export const TIER_BY_CLASSES: Record<number, Record<number, number>> = {
   [TIERS.T30]: T30_TIER_BY_CLASSES,
   [TIERS.T31]: T31_TIER_BY_CLASSES,
 };
+
+export type TIER_GEAR_IDS =
+  | T28_TIER_GEAR_IDS
+  | T29_TIER_GEAR_IDS
+  | T30_TIER_GEAR_IDS
+  | T31_TIER_GEAR_IDS;
