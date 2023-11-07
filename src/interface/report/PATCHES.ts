@@ -141,7 +141,7 @@ const PATCHES: Patch[] = [
     name: '10.1.5',
     timestamp: 1689112800000, // GMT: Tuesday, 11 July 2023 22:00:00
     urlPrefix: '',
-    isCurrent: true,
+    isCurrent: true, // TODO: mark as false on 11/8/2023
     gameVersion: 1, // retail
     expansion: Expansion.Dragonflight,
   },
