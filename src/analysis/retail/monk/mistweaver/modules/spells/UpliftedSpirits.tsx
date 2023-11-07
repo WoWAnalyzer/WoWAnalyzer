@@ -15,7 +15,7 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { SpellLink } from 'interface';
 
 const UPLIFTED_SPIRITS_REDUCTION = 1000;
-const BASE_COOLDOWN = 60 * 3 * 1000;
+const BASE_COOLDOWN = 180000; //180s
 
 /**
  * Every time you cast rising sun kick it reduces revival's cooldown by 1 second and whenever you cast revival x% of that healing is done again as a hot over 10 seconds
@@ -47,7 +47,10 @@ class UpliftedSpirits extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.RISING_SUN_KICK_DAMAGE),
       this.rskHit,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.vivifyHit);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell([SPELLS.VIVIFY, SPELLS.INVIGORATING_MISTS_HEAL]),
+      this.vivifyHit,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.activeTalent), this.onCast);
   }
 
@@ -57,6 +60,7 @@ class UpliftedSpirits extends Analyzer {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
         this.activeTalent.id,
         UPLIFTED_SPIRITS_REDUCTION,
+        event.timestamp,
       );
     } else {
       this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
@@ -72,6 +76,7 @@ class UpliftedSpirits extends Analyzer {
       this.cooldownReductionUsed += this.spellUsable.reduceCooldown(
         this.activeTalent.id,
         UPLIFTED_SPIRITS_REDUCTION,
+        event.timestamp,
       );
     } else {
       this.cooldownReductionWasted += UPLIFTED_SPIRITS_REDUCTION;
@@ -81,6 +86,14 @@ class UpliftedSpirits extends Analyzer {
 
   onCast(event: CastEvent) {
     this.totalCasts += 1;
+  }
+  get activeTalentHealing() {
+    return this.healingDone.byAbility(this.activeTalent.id).effective;
+  }
+
+  get effectiveHealingIncrease() {
+    const increase = BASE_COOLDOWN / (BASE_COOLDOWN - this.averageCdr);
+    return this.activeTalentHealing - this.activeTalentHealing / increase;
   }
 
   get usHealing() {
@@ -108,6 +121,12 @@ class UpliftedSpirits extends Analyzer {
         category={STATISTIC_CATEGORY.TALENTS}
         tooltip={
           <>
+            Effective Healing From Additional <SpellLink spell={this.activeTalent} /> Casts:{' '}
+            {formatNumber(this.effectiveHealingIncrease)}
+            <br />
+            <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT} /> Direct Healing:{' '}
+            {formatNumber(healing)}
+            <br />
             Effective Cooldown Reduction: {formatNumber(this.cooldownReductionUsed / 1000)} Seconds
             <br />
             Wasted Cooldown Reduction: {formatNumber(this.cooldownReductionWasted / 1000)} Seconds
@@ -121,7 +140,7 @@ class UpliftedSpirits extends Analyzer {
         }
       >
         <BoringSpellValueText spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}>
-          <ItemHealingDone amount={healing} />
+          <ItemHealingDone amount={healing + this.effectiveHealingIncrease} />
           <div>
             {formatDuration(BASE_COOLDOWN - this.averageCdr)}{' '}
             <small>

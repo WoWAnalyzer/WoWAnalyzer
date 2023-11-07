@@ -16,6 +16,7 @@ import {
   ApplyBuffStackEvent,
   GetRelatedEvent,
 } from 'parser/core/Events';
+import ITEMS from 'common/ITEMS';
 
 export const APPLIED_HEAL = 'AppliedHeal';
 export const FORCE_BOUNCE = 'ForceBounce';
@@ -44,6 +45,11 @@ export const MANA_TEA_CAST_LINK = 'MTLink';
 export const MT_BUFF_REMOVAL = 'MTStack';
 export const LIFECYCLES = 'Lifecycles';
 export const MT_STACK_CHANGE = 'MTStackChange';
+export const ANCIENT_TEACHINGS_FLS = 'ATFaelineStomp';
+export const ANCIENT_TEACHINGS_EF = 'ATEssenceFont';
+
+//
+export const FRAGILE_ECHO_SOURCE = 'FragileEchoSource';
 
 const RAPID_DIFFUSION_BUFFER_MS = 300;
 const DANCING_MIST_BUFFER_MS = 250;
@@ -206,6 +212,7 @@ const EVENT_LINKS: EventLink[] = [
   //Mastery event linking
   {
     linkRelation: ENVELOPING_MIST_GOM,
+    reverseLinkRelation: ENVELOPING_MIST_GOM,
     linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
     linkingEventType: [EventType.Heal],
     referencedEventId: TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
@@ -216,30 +223,33 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: RENEWING_MIST_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
-    referencedEventType: EventType.Cast,
+    reverseLinkRelation: RENEWING_MIST_GOM,
+    linkingEventId: TALENTS_MONK.RENEWING_MIST_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
   },
   {
     linkRelation: VIVIFY_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: SPELLS.VIVIFY.id,
-    referencedEventType: EventType.Cast,
+    reverseLinkRelation: VIVIFY_GOM,
+    linkingEventId: SPELLS.VIVIFY.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
   },
   {
     linkRelation: ZEN_PULSE_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
-    linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_MONK.ZEN_PULSE_TALENT.id,
-    referencedEventType: EventType.Cast,
+    reverseLinkRelation: ZEN_PULSE_GOM,
+    linkingEventId: TALENTS_MONK.ZEN_PULSE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
     maximumLinks: 1,
@@ -249,9 +259,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: EXPEL_HARM_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    reverseLinkRelation: EXPEL_HARM_GOM,
+    linkingEventId: SPELLS.EXPEL_HARM.id,
     linkingEventType: [EventType.Heal],
-    referencedEventId: SPELLS.EXPEL_HARM.id,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -259,9 +270,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: SOOM_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    reverseLinkRelation: SOOM_GOM,
+    linkingEventId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
     linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_MONK.SOOTHING_MIST_TALENT.id,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -269,9 +281,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: SHEILUNS_GIFT_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    reverseLinkRelation: SHEILUNS_GIFT_GOM,
+    linkingEventId: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
     linkingEventType: [EventType.Heal],
-    referencedEventId: TALENTS_MONK.SHEILUNS_GIFT_TALENT.id,
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -282,9 +295,10 @@ const EVENT_LINKS: EventLink[] = [
   },
   {
     linkRelation: REVIVAL_GOM,
-    linkingEventId: [SPELLS.GUSTS_OF_MISTS.id],
+    reverseLinkRelation: REVIVAL_GOM,
+    linkingEventId: [TALENTS_MONK.REVIVAL_TALENT.id, TALENTS_MONK.RESTORAL_TALENT.id],
     linkingEventType: [EventType.Heal],
-    referencedEventId: [TALENTS_MONK.REVIVAL_TALENT.id, TALENTS_MONK.RESTORAL_TALENT.id],
+    referencedEventId: [SPELLS.GUSTS_OF_MISTS.id],
     referencedEventType: EventType.Heal,
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -294,7 +308,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: VIVIFY,
     linkingEventId: [SPELLS.VIVIFY.id],
     linkingEventType: [EventType.Cast, EventType.BeginChannel],
-    referencedEventId: [SPELLS.VIVIFY.id],
+    referencedEventId: [SPELLS.INVIGORATING_MISTS_HEAL.id, SPELLS.VIVIFY.id],
     referencedEventType: [EventType.Heal],
     backwardBufferMs: CAST_BUFFER_MS,
     forwardBufferMs: CAST_BUFFER_MS,
@@ -398,6 +412,60 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     isActive(c) {
       return c.hasTalent(TALENTS_MONK.LIFECYCLES_TALENT);
+    },
+  },
+  {
+    linkRelation: ANCIENT_TEACHINGS_EF,
+    reverseLinkRelation: ANCIENT_TEACHINGS_EF,
+    linkingEventId: SPELLS.AT_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.ESSENCE_FONT_TALENT.id,
+    referencedEventType: EventType.EndChannel,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    anyTarget: true,
+    maximumLinks: 1,
+    isActive(c) {
+      return c.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT);
+    },
+  },
+  {
+    linkRelation: ANCIENT_TEACHINGS_FLS,
+    reverseLinkRelation: ANCIENT_TEACHINGS_FLS,
+    linkingEventId: SPELLS.AT_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+    referencedEventType: EventType.Cast,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    anyTarget: true,
+    isActive(c) {
+      return (
+        c.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
+        c.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)
+      );
+    },
+  },
+
+  //items
+  {
+    linkRelation: FRAGILE_ECHO_SOURCE,
+    reverseLinkRelation: FRAGILE_ECHO_SOURCE,
+    linkingEventId: ITEMS.FRAGILE_ECHO.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
+    referencedEventId: [
+      TALENTS_MONK.ENVELOPING_MIST_TALENT.id,
+      SPELLS.ENVELOPING_BREATH_HEAL.id,
+      SPELLS.VIVIFY.id,
+    ],
+    referencedEventType: [EventType.ApplyBuff, EventType.RefreshBuff, EventType.Cast],
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+    maximumLinks: 1,
+    isActive(c) {
+      const trinket = c.getTrinket(ITEMS.AMALGAMS_SEVENTH_SPINE.id);
+      return trinket !== undefined;
     },
   },
 ];
@@ -596,7 +664,7 @@ export function getNumberOfBolts(event: CastEvent) {
 
 // we use time to get stacks because it can be cast prepull
 export function getManaTeaStacksConsumed(event: ApplyBuffEvent) {
-  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0]?.timestamp - event.timestamp;
+  const diff = GetRelatedEvents(event, MT_BUFF_REMOVAL)[0]?.timestamp - event.timestamp || 0;
   // 1s of mana reduction per stack
   return Math.round(diff / 1000);
 }
@@ -617,6 +685,22 @@ export function isMTStackFromLifeCycles(
 
 export function HasStackChange(event: RefreshBuffEvent): boolean {
   return HasRelatedEvent(event, MT_STACK_CHANGE);
+}
+
+export function isATFromEssenceFont(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, ANCIENT_TEACHINGS_EF);
+}
+
+export function isATFromFaelineStomp(event: ApplyBuffEvent | RefreshBuffEvent) {
+  return HasRelatedEvent(event, ANCIENT_TEACHINGS_FLS);
+}
+
+export function getFragileEchoSourceSpell(event: ApplyBuffEvent | RefreshBuffEvent): number {
+  const sourceId = GetRelatedEvent<ApplyBuffEvent | RefreshBuffEvent | HealEvent>(
+    event,
+    FRAGILE_ECHO_SOURCE,
+  )?.ability.guid;
+  return sourceId || -1;
 }
 
 export default CastLinkNormalizer;

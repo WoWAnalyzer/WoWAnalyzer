@@ -133,8 +133,8 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getEssenceFontDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone = this.essenceFont.totalHealing;
     spellInfo.overhealingDone = this.essenceFont.totalOverhealing;
-    spellInfo.healingDone += this.ancientTeachings.totalHealing;
-    spellInfo.overhealingDone += this.ancientTeachings.overhealing;
+    spellInfo.healingDone += this.ancientTeachings.healingFromEF;
+    spellInfo.overhealingDone += this.ancientTeachings.overhealingFromEF;
     spellInfo.timeSpentCasting = this.essenceFont.timeSpentCasting;
     return spellInfo;
   }
@@ -158,6 +158,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
     // As described in the ReM section, the ReM Vivify splashes need to be removed from the healing done.
     spellInfo.healingDone =
       this.vivify.mainTargetHealing + this.vivify.cleaveHealing + this.vivify.gomHealing;
+    spellInfo.overhealingDone =
+      this.vivify.mainTargetOverhealing +
+      this.vivify.cleaveOverhealing +
+      this.vivify.gomOverhealing;
     return spellInfo;
   }
 
@@ -209,8 +213,10 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
   getFLSDetails(spellInfo: SpellInfoDetails) {
     spellInfo.healingDone =
       this.faelineStompHealing.flsHealing + this.faelineStompHealing.efHealing;
+    spellInfo.healingDone += this.ancientTeachings.healingFromFLS;
     spellInfo.overhealingDone =
       this.faelineStompHealing.flsOverhealing + this.faelineStompHealing.efOverhealing;
+    spellInfo.overhealingDone += this.ancientTeachings.overhealingFromFLS;
     return spellInfo;
   }
 

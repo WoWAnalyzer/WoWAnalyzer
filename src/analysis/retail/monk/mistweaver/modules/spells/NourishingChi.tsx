@@ -1,7 +1,7 @@
 import SPELLS from 'common/SPELLS';
 import { TALENTS_MONK } from 'common/TALENTS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
+import { calculateEffectiveHealing, calculateOverhealing } from 'parser/core/EventCalculateLib';
 import Events, { HealEvent } from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -11,9 +11,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 
 import { LIFE_COCOON_HEALING_BOOST, NOURISHING_CHI_INC } from '../../constants';
+import { SpellLink } from 'interface';
+import { formatNumber } from 'common/format';
 
 /**
- * HoT Healing during Life cocoon is buffed by x% and this boost lasts for an extra 6 second after cocoon breaks or ends.
+ * HoT Healing during Life cocoon is buffed by 20% and this boost lasts for an extra 10 second after cocoon breaks or ends.
  * As an FYI from what it looks like is the boost directly effects the Life cocoon buff so we have to reverse math it for while life coocon is up
  * Then after cocoon fades/breaks the normal buff goes on them
  */
@@ -21,8 +23,10 @@ class NourishingChi extends Analyzer {
   static dependencies = {
     combatants: Combatants,
   };
-  healing: number = 0;
+  lifeCocoonBoost: number = 0;
+  afterEffectBoost: number = 0;
   boost: number = 0;
+  rawHealing: number = 0;
   protected combatants!: Combatants;
 
   constructor(options: Options) {
@@ -35,6 +39,10 @@ class NourishingChi extends Analyzer {
 
     this.boost = NOURISHING_CHI_INC;
     this.addEventListener(Events.heal, this.heal);
+  }
+
+  get totalHealing() {
+    return this.lifeCocoonBoost + this.afterEffectBoost;
   }
 
   heal(event: HealEvent) {
@@ -57,11 +65,21 @@ class NourishingChi extends Analyzer {
       const heal = boostedHeal / (1 + LIFE_COCOON_HEALING_BOOST + this.boost);
       const bonusHeal = heal * this.boost;
       const effectiveHealing = Math.max(0, bonusHeal - (event.overheal || 0));
-      this.healing += effectiveHealing;
+      this.lifeCocoonBoost += effectiveHealing;
+      this.rawHealing += bonusHeal;
     }
 
-    if (target.hasBuff(SPELLS.NOURISHING_CHI_BUFF.id, event.timestamp, 0, 0)) {
-      this.healing += calculateEffectiveHealing(event, this.boost);
+    if (
+      target.hasBuff(
+        SPELLS.NOURISHING_CHI_BUFF.id,
+        event.timestamp,
+        0,
+        0,
+        this.selectedCombatant.id,
+      )
+    ) {
+      this.afterEffectBoost += calculateEffectiveHealing(event, this.boost);
+      this.rawHealing += calculateOverhealing(event, this.boost);
     }
   }
 
@@ -71,9 +89,24 @@ class NourishingChi extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL(13)}
         size="flexible"
         category={STATISTIC_CATEGORY.TALENTS}
+        tooltip={
+          <>
+            <ul>
+              <li>
+                Healing from additional <SpellLink spell={TALENTS_MONK.LIFE_COCOON_TALENT} />{' '}
+                healing: {formatNumber(this.lifeCocoonBoost)}
+              </li>
+              <li>
+                Healing from <SpellLink spell={TALENTS_MONK.NOURISHING_CHI_TALENT} /> residual buff:{' '}
+                {formatNumber(this.afterEffectBoost)}
+              </li>
+              <li>Total overheal from bonus: {formatNumber(this.rawHealing)}</li>
+            </ul>
+          </>
+        }
       >
         <TalentSpellText talent={TALENTS_MONK.NOURISHING_CHI_TALENT}>
-          <ItemHealingDone amount={this.healing} />
+          <ItemHealingDone amount={this.totalHealing} />
         </TalentSpellText>
       </Statistic>
     );
