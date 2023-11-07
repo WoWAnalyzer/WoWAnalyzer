@@ -1,7 +1,6 @@
 import { ReactNode } from 'react';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import SPELLS from 'common/SPELLS/demonhunter';
-import TALENTS from 'common/TALENTS/demonhunter';
 import Events, { DamageEvent } from 'parser/core/Events';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Statistic from 'parser/ui/Statistic';
@@ -14,7 +13,6 @@ export default class DemonSoulBuff extends Analyzer {
   private addedDamage = 0;
   constructor(options: Options) {
     super(options);
-    this.active = !this.selectedCombatant.hasTalent(TALENTS.FODDER_TO_THE_FLAME_TALENT);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
   }
 

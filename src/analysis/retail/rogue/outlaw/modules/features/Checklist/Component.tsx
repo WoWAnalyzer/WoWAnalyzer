@@ -36,8 +36,8 @@ const OutlawRogueChecklist = ({
         name="Maximize your Roll the Bones usage"
         description={
           <>
-            Efficient use of <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} /> is a critical part
-            of Outlaw rogue. You should try to keep as high of an uptime as possible with any of the
+            Efficient use of <SpellLink spell={SPELLS.ROLL_THE_BONES} /> is a critical part of
+            Outlaw rogue. You should try to keep as high of an uptime as possible with any of the
             buffs, and reroll efficiently to get higher value buffs.{' '}
             <SpellLink spell={SPELLS.TRUE_BEARING} /> and <SpellLink spell={SPELLS.BROADSIDE} /> are
             the highest value of the six possible buffs. You should reroll until you get one of
@@ -48,7 +48,7 @@ const OutlawRogueChecklist = ({
         <Requirement
           name={
             <>
-              <SpellLink spell={TALENTS.ROLL_THE_BONES_TALENT} /> uptime
+              <SpellLink spell={SPELLS.ROLL_THE_BONES} /> uptime
             </>
           }
           thresholds={thresholds.rollTheBonesBuffs}
@@ -146,9 +146,6 @@ const OutlawRogueChecklist = ({
         <AbilityRequirement spell={TALENTS.ADRENALINE_RUSH_TALENT.id} />
         {combatant.hasTalent(TALENTS.GHOSTLY_STRIKE_TALENT) && (
           <AbilityRequirement spell={TALENTS.GHOSTLY_STRIKE_TALENT.id} />
-        )}
-        {combatant.hasTalent(TALENTS.MARKED_FOR_DEATH_TALENT) && (
-          <AbilityRequirement spell={TALENTS.MARKED_FOR_DEATH_TALENT.id} />
         )}
         {combatant.hasTalent(TALENTS.BLADE_RUSH_TALENT) && (
           <AbilityRequirement spell={TALENTS.BLADE_RUSH_TALENT.id} />

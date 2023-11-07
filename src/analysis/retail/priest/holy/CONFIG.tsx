@@ -2,7 +2,7 @@ import { Litena, Squided } from 'CONTRIBUTORS';
 import Expansion from 'game/Expansion';
 import SPECS from 'game/SPECS';
 import Config from 'parser/Config';
-import CHANGELOG from './CHANGELOG';
+// import CHANGELOG from './CHANGELOG';
 
 //Description not accurate as of Dragonflight update
 const config: Config = {
@@ -39,12 +39,12 @@ const config: Config = {
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.HOLY_PRIEST,
   // The contents of your changelog.
-  changelog: CHANGELOG,
+  changelog: [], // CHANGELOG,
   // The CombatLogParser class for your spec.
-  parser: () =>
-    import('./CombatLogParser' /* webpackChunkName: "HolyPriest" */).then(
-      (exports) => exports.default,
-    ),
+  // parser: () =>
+  //   import('./CombatLogParser' /* webpackChunkName: "HolyPriest" */).then(
+  //     (exports) => exports.default,
+  //   ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
 };

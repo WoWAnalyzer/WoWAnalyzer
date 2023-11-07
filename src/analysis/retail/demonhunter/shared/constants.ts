@@ -17,28 +17,53 @@ export const SOUL_RENDING_ADDITIONAL_METAMORPHOSIS_SCALING = [0, 10, 20];
 
 export const INFERNAL_ARMOR_SCALING = [0, 10, 20];
 
-export const EXTENDED_SIGILS_SCALING = [0, 1, 2];
-
 export const ERRATIC_FELHEART_SCALING = [0, 0.1, 0.2];
 
 export const PITCH_BLACK_SCALING = [0, 120];
 
 export const MASTER_OF_THE_GLAIVE_SCALING = [0, 1];
 
-export const RUSH_OF_CHAOS_SCALING = [0, 60];
+export const CHAMPION_OF_THE_GLAIVE_SCALING = [0, 1];
+
+export const RUSH_OF_CHAOS_SCALING = [0, 30, 60];
 
 export const DEMONIC_ORIGINS_CDR_SCALING = [0, 60];
 
 export const DEMONIC_DURATION = 6000;
 
-export function getElysianDecreeSpell(c: Combatant): Spell {
-  if (c.hasTalent(TALENTS_DEMON_HUNTER.CONCENTRATED_SIGILS_TALENT)) {
-    return SPELLS.ELYSIAN_DECREE_CONCENTRATED;
+export function getSigilOfFlameSpell(c: Combatant): Spell {
+  if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
+    return SPELLS.SIGIL_OF_FLAME_PRECISE;
   }
+  return SPELLS.SIGIL_OF_FLAME;
+}
+
+export function getSigilOfMiserySpell(c: Combatant): Spell {
+  if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
+    return SPELLS.SIGIL_OF_MISERY_PRECISE;
+  }
+  return TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT;
+}
+
+export function getElysianDecreeSpell(c: Combatant): Spell {
   if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
     return SPELLS.ELYSIAN_DECREE_PRECISE;
   }
   return TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT;
+}
+
+export function getSigilOfSilenceSpell(c: Combatant): Spell {
+  if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
+    return SPELLS.SIGIL_OF_SILENCE_PRECISE;
+  }
+  return TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT;
+}
+
+export function getSigilOfChainsSpell(c: Combatant): Spell {
+  if (c.hasTalent(TALENTS_DEMON_HUNTER.PRECISE_SIGILS_TALENT)) {
+    return SPELLS.SIGIL_OF_CHAINS_PRECISE;
+  }
+  return TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT;
 }
 
 // see effect #1 here: https://www.wowhead.com/spell=347765/demon-soul
@@ -51,3 +76,42 @@ export const DEMON_SOUL_BUFF_ALLOWLIST = [
   345335, 346503, 346665, 370966, 370969, 389860, 390137, 391058, 391159, 391191, 391374, 391378,
   393054, 393055, 393834,
 ];
+
+export const SIGIL_OF_FLAME_SPELLS: Spell[] = [
+  SPELLS.SIGIL_OF_FLAME,
+  SPELLS.SIGIL_OF_FLAME_PRECISE,
+];
+export const SIGIL_OF_FLAME_SPELL_IDS = SIGIL_OF_FLAME_SPELLS.map((spell) => spell.id);
+
+export const SIGIL_OF_MISERY_SPELLS: Spell[] = [
+  TALENTS_DEMON_HUNTER.SIGIL_OF_MISERY_TALENT,
+  SPELLS.SIGIL_OF_MISERY_PRECISE,
+];
+export const SIGIL_OF_MISERY_SPELL_IDS = SIGIL_OF_MISERY_SPELLS.map((spell) => spell.id);
+
+export const ELYSIAN_DECREE_SPELLS: Spell[] = [
+  TALENTS_DEMON_HUNTER.ELYSIAN_DECREE_TALENT,
+  SPELLS.ELYSIAN_DECREE_PRECISE,
+];
+export const ELYSIAN_DECREE_SPELL_IDS = ELYSIAN_DECREE_SPELLS.map((spell) => spell.id);
+
+export const SIGIL_OF_SILENCE_SPELLS: Spell[] = [
+  TALENTS_DEMON_HUNTER.SIGIL_OF_SILENCE_TALENT,
+  SPELLS.SIGIL_OF_SILENCE_PRECISE,
+];
+export const SIGIL_OF_SILENCE_SPELL_IDS = SIGIL_OF_SILENCE_SPELLS.map((spell) => spell.id);
+
+export const SIGIL_OF_CHAINS_SPELLS: Spell[] = [
+  TALENTS_DEMON_HUNTER.SIGIL_OF_CHAINS_TALENT,
+  SPELLS.SIGIL_OF_CHAINS_PRECISE,
+];
+export const SIGIL_OF_CHAINS_SPELL_IDS = SIGIL_OF_CHAINS_SPELLS.map((spell) => spell.id);
+
+export const SIGIL_SPELLS: Spell[] = [
+  ...SIGIL_OF_FLAME_SPELLS,
+  ...SIGIL_OF_MISERY_SPELLS,
+  ...ELYSIAN_DECREE_SPELLS,
+  ...SIGIL_OF_SILENCE_SPELLS,
+  ...SIGIL_OF_CHAINS_SPELLS,
+];
+export const SIGIL_SPELL_IDS = SIGIL_SPELLS.map((spell) => spell.id);

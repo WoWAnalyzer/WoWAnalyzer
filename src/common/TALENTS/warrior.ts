@@ -924,14 +924,6 @@ const talents = {
     entryIds: [112306],
     definitionIds: [{ id: 117311, specId: 73 }],
   },
-  INSPIRING_PRESENCE_TALENT: {
-    id: 382310,
-    name: 'Inspiring Presence',
-    icon: 'ability_toughness',
-    maxRanks: 1,
-    entryIds: [112190],
-    definitionIds: [{ id: 117195, specId: 71 }],
-  },
   INSTIGATE_TALENT: {
     id: 394311,
     name: 'Instigate',

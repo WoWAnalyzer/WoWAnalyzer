@@ -1,6 +1,4 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import SPELLS from 'common/SPELLS/demonhunter';
-import TALENTS from 'common/TALENTS/demonhunter';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import Events, { CastEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
@@ -15,20 +13,14 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { getSigilOfFlameDamages } from 'analysis/retail/demonhunter/shared/normalizers/SigilOfFlameNormalizer';
 import Spell from 'common/SPELLS/Spell';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { getSigilOfFlameSpell } from 'analysis/retail/demonhunter/shared/constants';
 
 export default class SigilOfFlame extends Analyzer {
   private cooldownUses: SpellUse[] = [];
   private readonly spell: Spell;
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS.SIGIL_OF_FLAME_TALENT);
-    if (this.selectedCombatant.hasTalent(TALENTS.CONCENTRATED_SIGILS_TALENT)) {
-      this.spell = SPELLS.SIGIL_OF_FLAME_CONCENTRATED;
-    } else if (this.selectedCombatant.hasTalent(TALENTS.PRECISE_SIGILS_TALENT)) {
-      this.spell = SPELLS.SIGIL_OF_FLAME_PRECISE;
-    } else {
-      this.spell = TALENTS.SIGIL_OF_FLAME_TALENT;
-    }
+    this.spell = getSigilOfFlameSpell(this.selectedCombatant);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(this.spell), this.onCast);
   }
 
@@ -36,7 +28,7 @@ export default class SigilOfFlame extends Analyzer {
     const explanation = (
       <p>
         <strong>
-          <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />
+          <SpellLink spell={this.spell} />
         </strong>{' '}
         is one of your <strong>builders</strong>. It generates{' '}
         <ResourceLink id={RESOURCE_TYPES.FURY.id} /> places a Sigil on the ground that activates
@@ -58,13 +50,13 @@ export default class SigilOfFlame extends Analyzer {
         abovePerformanceDetails={
           <div style={{ marginBottom: 10 }}>
             <CastPerformanceSummary
-              spell={TALENTS.SIGIL_OF_FLAME_TALENT}
+              spell={this.spell}
               casts={goodCasts}
               performance={QualitativePerformance.Good}
               totalCasts={totalCasts}
             />
             <strong>
-              <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} /> cast efficiency
+              <SpellLink spell={this.spell} /> cast efficiency
             </strong>
             <CastEfficiencyBar
               spellId={this.spell.id}
@@ -85,14 +77,12 @@ export default class SigilOfFlame extends Analyzer {
     const details =
       damages.length > 0 ? (
         <div>
-          You hit at least one target with your <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
-          cast. Good job!
+          You hit at least one target with your <SpellLink spell={this.spell} /> cast. Good job!
         </div>
       ) : (
         <div>
-          You did not hit any targets with your <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />{' '}
-          cast. Try to always hit at least one target with{' '}
-          <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} />.
+          You did not hit any targets with your <SpellLink spell={this.spell} /> cast. Try to always
+          hit at least one target with <SpellLink spell={this.spell} />.
         </div>
       );
     const isPrepull = event.prepull;
@@ -106,8 +96,7 @@ export default class SigilOfFlame extends Analyzer {
         summary: <div>Cast before pull</div>,
         details: (
           <div>
-            You cast <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} /> before pulling the boss.
-            Good job!
+            You cast <SpellLink spell={this.spell} /> before pulling the boss. Good job!
           </div>
         ),
       });
