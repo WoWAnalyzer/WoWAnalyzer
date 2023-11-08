@@ -30,8 +30,6 @@ class T30TierSet extends Analyzer {
   vivHealing: number = 0;
   renewingMistHealing: number = 0;
   twoPieceHealing: number = 0;
-  manaGain: number = 0;
-  wastedManaGain: number = 0;
 
   constructor(options: Options) {
     super(options);
