@@ -930,7 +930,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 1,
+      class: 11,
       spec: 1,
     },
     icon: 'Warrior-Arms',
@@ -951,7 +951,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 1,
+      class: 11,
       spec: 2,
     },
     icon: 'Warrior-Fury',
@@ -972,7 +972,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 1,
+      class: 11,
       spec: 3,
     },
     icon: 'Warrior-Protection',
@@ -993,7 +993,7 @@ const SPECS = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 2,
+      class: 6,
       spec: 1,
     },
     icon: 'Paladin-Holy',
@@ -1014,7 +1014,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 2,
+      class: 6,
       spec: 2,
     },
     icon: 'Paladin-Protection',
@@ -1035,7 +1035,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 2,
+      class: 6,
       spec: 3,
     },
     icon: 'Paladin-Retribution',
@@ -1119,7 +1119,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
-      class: 4,
+      class: 8,
       spec: 1,
     },
     icon: 'Rogue-Assassination',
@@ -1140,7 +1140,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
-      class: 4,
+      class: 8,
       spec: 2,
     },
     icon: 'Rogue-Combat',
@@ -1161,7 +1161,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.AGILITY,
     ranking: {
-      class: 4,
+      class: 8,
       spec: 3,
     },
     icon: 'Rogue-Subtlety',
@@ -1182,7 +1182,7 @@ const SPECS = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 5,
+      class: 7,
       spec: 1,
     },
     icon: 'Priest-Discipline',
@@ -1203,7 +1203,7 @@ const SPECS = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 5,
+      class: 7,
       spec: 2,
     },
     icon: 'Priest-Holy',
@@ -1224,7 +1224,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 5,
+      class: 7,
       spec: 3,
     },
     icon: 'Priest-Shadow',
@@ -1309,7 +1309,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 7,
+      class: 9,
       spec: 1,
     },
     icon: 'Shaman-Elemental',
@@ -1331,7 +1331,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 7,
+      class: 9,
       spec: 2,
     },
     icon: 'Shaman-Enhancement',
@@ -1353,7 +1353,7 @@ const SPECS = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 7,
+      class: 9,
       spec: 3,
     },
     icon: 'Shaman-Restoration',
