@@ -5,6 +5,8 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+  change(date(2023, 10, 30), <>Removed rogue points in <SpellLink spell={SPELLS.DISINTEGRATE}/> graph.</>, Vollmer),
+  change(date(2023, 10, 21), <>Added stats for T31 4pc buff <SpellLink spell={SPELLS.EMERALD_TRANCE_T31_2PC_BUFF}/>.</>, Vollmer),
   change(date(2023, 10, 20), <>Added stats for T31 2pc buff <SpellLink spell={SPELLS.EMERALD_TRANCE_T31_2PC_BUFF}/>.</>, Vollmer),
   change(date(2023, 9, 8), <>Add graph for <SpellLink spell={SPELLS.DISINTEGRATE}/> module for more in-depth analysis.</>, Vollmer),
   change(date(2023, 8, 25), <>Add <SpellLink spell={TALENTS.LEAPING_FLAMES_TALENT} /> module.</>, Vollmer),

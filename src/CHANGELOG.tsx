@@ -24,14 +24,25 @@ import {
   nullDozzer,
   Bigsxy,
   Seriousnes,
+  Arlie,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2023, 10, 21), 'Disable specs broken by talent regeneration for 10.2.', ToppleTheNun),
-  change(date(2023, 10, 21), 'Regenerate talents for 10.2.', ToppleTheNun),
+  change(date(2023, 11, 7), 'Fix Classic class / spec ranking ids.', jazminite),
+  change(date(2023, 11, 7), 'Add warning for 10.2 logs.', ToppleTheNun),
+  change(date(2023, 11, 1), 'Add support for Dragonflight Season 3 dungeons.', Arlie),
+  change(date(2023, 10, 27), 'Change the actions and reducers into slices.', Arlie),
+  change(date(2023, 10, 26), 'Fix an issue when getting damage/healing contribution from crit effects for certain effects that affect total damage', Putro),
+  change(date(2023, 10, 26), 'Add background images for Amirdrassil bosses.', ToppleTheNun),
+  change(date(2023, 10, 26), <>Correct <SpellLink spell={SPELLS.MIGHT_OF_THE_MOUNTAIN} /> to work with pets and count them twice as the effect is effectively doubled in-game.</>, Putro),
+  change(date(2023, 10, 22), 'Disable specs broken by talent regeneration for 10.2.', ToppleTheNun),
+  change(date(2023, 10, 22), 'Regenerate talents for 10.2.', ToppleTheNun),
+  change(date(2023, 10, 22), 'Rename all .js files to .jsx.', ToppleTheNun),
+  change(date(2023, 10, 22), 'Remove articles.', ToppleTheNun),
+  change(date(2023, 10, 22), 'Fix statistic ordering on the stats page.', emallson),
   change(date(2023, 10, 20), <>Refactor <ItemLink id={ITEMS.VOICE_OF_THE_SILENT_STAR.id}/> module to correcly grant and steal the correct stats depending on your current stats.</>, nullDozzer),
   change(date(2023, 10, 20), <>Add stat tracking and statistics for all Dragonflight Weapon Enchants such as <SpellLink spell={SPELLS.WAFTING_DEVOTION_ENCHANT}/> and <SpellLink spell={SPELLS.SPORE_TENDER_ENCHANT} />.</>, nullDozzer),
   change(date(2023, 10, 16), 'Fix some variable capitalizations', Trevor),

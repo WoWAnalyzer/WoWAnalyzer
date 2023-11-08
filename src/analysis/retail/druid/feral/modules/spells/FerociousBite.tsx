@@ -16,8 +16,7 @@ import {
   FEROCIOUS_BITE_ENERGY,
   FEROCIOUS_BITE_MAX_DRAIN,
   getAcceptableCps,
-  INCARN_ENERGY_MULT,
-  RELENTLESS_PREDATOR_FB_ENERGY_MULT,
+  getFerociousBiteMaxDrain,
 } from 'analysis/retail/druid/feral/constants';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
@@ -69,14 +68,7 @@ class FerociousBite extends Analyzer {
       (this.selectedCombatant.hasBuff(SPELLS.BERSERK.id) ||
         this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id));
     const extraEnergyUsed = getAdditionalEnergyUsed(event);
-    const maxExtraEnergy =
-      FEROCIOUS_BITE_MAX_DRAIN *
-      (this.selectedCombatant.hasTalent(TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT)
-        ? RELENTLESS_PREDATOR_FB_ENERGY_MULT
-        : 1) *
-      (this.selectedCombatant.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id)
-        ? INCARN_ENERGY_MULT
-        : 1);
+    const maxExtraEnergy = getFerociousBiteMaxDrain(this.selectedCombatant);
     const usedMax = extraEnergyUsed >= maxExtraEnergy;
 
     if (!duringBerserkAndSotf && usedMax) {

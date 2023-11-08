@@ -24,7 +24,7 @@ Your Penance bolts increase the damage of your next Smite or Power Word: Solace 
   The bonus is 12% for smite and solace, and 5% for shield.
   */
 
-const WEAL_AND_WOE_BONUS_DAMAGE = 0.12;
+const WEAL_AND_WOE_BONUS_DAMAGE = 0.2;
 // const WEAL_AND_WOE_BONUS_SHIELD = 0.05;
 
 class WealAndWoe extends Analyzer {
@@ -40,12 +40,7 @@ class WealAndWoe extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.WEAL_AND_WOE_TALENT);
-    this.addEventListener(
-      Events.damage
-        .by(SELECTED_PLAYER)
-        .spell([SPELLS.SMITE, TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT]),
-      this.onDamage,
-    );
+    this.addEventListener(Events.damage.by(SELECTED_PLAYER).spell([SPELLS.SMITE]), this.onDamage);
     this.addEventListener(
       Events.heal
         .by(SELECTED_PLAYER)
@@ -55,10 +50,7 @@ class WealAndWoe extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    if (
-      event.ability.guid !== SPELLS.SMITE.id &&
-      event.ability.guid !== TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id
-    ) {
+    if (event.ability.guid !== SPELLS.SMITE.id) {
       return;
     }
 
@@ -80,10 +72,7 @@ class WealAndWoe extends Analyzer {
     if (!damageEvent) {
       return;
     }
-    if (
-      damageEvent.ability.guid !== SPELLS.SMITE.id &&
-      damageEvent.ability.guid !== TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT.id
-    ) {
+    if (damageEvent.ability.guid !== SPELLS.SMITE.id) {
       return;
     }
 
@@ -112,7 +101,6 @@ class WealAndWoe extends Analyzer {
             Healing Breakdown:
             <ul>
               <li>
-                <SpellLink spell={TALENTS_PRIEST.POWER_WORD_SOLACE_TALENT} /> and{' '}
                 <SpellLink spell={SPELLS.SMITE} />: {formatNumber(this.healing)}{' '}
               </li>
               <li>

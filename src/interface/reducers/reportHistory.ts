@@ -1,6 +1,20 @@
-import { APPEND_REPORT_HISTORY, ReportHistoryEntry } from 'interface/actions/reportHistory';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Cookies from 'universal-cookie';
-import { AnyAction } from 'redux';
+
+interface ReportHistoryEntry {
+  code: string;
+  title?: string;
+  start?: number;
+  end: number;
+  fightId?: number;
+  fightName?: string;
+  playerId?: number;
+  playerName: string;
+  playerRealm?: string;
+  playerRegion?: string;
+  playerClass: string;
+  type: number;
+}
 
 const MAX_ITEMS = 5;
 const cookies = new Cookies();
@@ -9,14 +23,17 @@ const cookieOptions = {
   path: '/',
   maxAge: 86400 * 365, // 1 year
 };
-const defaultState = cookies.get<ReportHistoryEntry[]>(COOKIE_NAME) || [];
 
-export default function reportHistory(
-  state: ReportHistoryEntry[] = defaultState,
-  action: AnyAction,
-) {
-  switch (action.type) {
-    case APPEND_REPORT_HISTORY: {
+type ReportHistoryState = ReportHistoryEntry[];
+const initialState: ReportHistoryState =
+  cookies.get<ReportHistoryEntry[]>(COOKIE_NAME) || ([] as ReportHistoryState);
+
+const reportHistorySlice = createSlice({
+  name: 'reportHistory',
+  initialState,
+  reducers: {
+    resetSlice: () => initialState,
+    appendReportHistory(state: ReportHistoryState, action: PayloadAction<ReportHistoryEntry>) {
       let newState = [
         ...state.filter((item) => item.code !== action.payload.code), // remove existing report with this code
         action.payload,
@@ -27,8 +44,9 @@ export default function reportHistory(
       }
       cookies.set(COOKIE_NAME, newState, cookieOptions);
       return newState;
-    }
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+
+export const { resetSlice, appendReportHistory } = reportHistorySlice.actions;
+export default reportHistorySlice.reducer;

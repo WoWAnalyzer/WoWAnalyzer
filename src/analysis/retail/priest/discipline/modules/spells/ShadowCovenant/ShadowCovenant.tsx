@@ -36,9 +36,8 @@ class ShadowCovenant extends Analyzer {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS_PRIEST.SHADOW_COVENANT_TALENT);
 
-    this.bonus = this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT)
-      ? 0.35
-      : 0.25;
+    this.bonus = this.calculateBonus();
+
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
       Events.heal
@@ -52,6 +51,16 @@ class ShadowCovenant extends Analyzer {
     );
 
     this.hasPtw = this.selectedCombatant.hasTalent(TALENTS_PRIEST.PURGE_THE_WICKED_TALENT);
+  }
+
+  calculateBonus() {
+    let bonus = this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT)
+      ? 0.1
+      : 0.25;
+    if (this.selectedCombatant.hasTalent(TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT)) {
+      bonus += 0.1;
+    }
+    return bonus;
   }
 
   onAtoneHeal(event: HealEvent) {
@@ -94,11 +103,6 @@ class ShadowCovenant extends Analyzer {
   }
 
   onHeal(event: HealEvent) {
-    if (event.ability.guid === TALENTS_PRIEST.SHADOW_COVENANT_TALENT.id) {
-      this.healing += event.amount;
-      return;
-    }
-
     if (!SHADOW_BUFFED_HEALS.includes(event.ability.guid)) {
       return;
     }
@@ -137,12 +141,14 @@ class ShadowCovenant extends Analyzer {
         size="flexible"
         tooltip={
           <>
-            This value includes the base healing from{' '}
-            <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT} />, its healing amp on non
-            atonement spells, and the bonus atonement healing caused by the damage amped. This
-            number represents the 25% from{' '}
-            <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT} />, and the extra 10% amp from{' '}
-            <SpellLink spell={TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT} /> if it is talented.
+            This value includes the healing from bonus atonement healing caused by the damage amped
+            and bonus healing to spells which do shadow healing. This number represents the{' '}
+            {this.selectedCombatant.hasTalent(TALENTS_PRIEST.MINDBENDER_DISCIPLINE_TALENT)
+              ? 10
+              : 25}
+            % amp from <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT} />, and the extra
+            10% amp from <SpellLink spell={TALENTS_PRIEST.TWILIGHT_CORRUPTION_TALENT} /> if it is
+            talented.
           </>
         }
       >

@@ -1,11 +1,9 @@
-import { TrackedCooldown } from 'parser/shared/modules/CooldownThroughputTracker';
-
-import Cooldown from './Cooldown';
+import CooldownComponent, { Cooldown } from './Cooldown';
 
 type props = {
   fightStart: number;
   fightEnd: number;
-  cooldowns: TrackedCooldown[];
+  cooldowns: Cooldown[];
   applyTimeFilter: (start: number, end: number) => null;
 };
 
@@ -17,7 +15,7 @@ const CooldownOverview = ({ fightStart, fightEnd, cooldowns, applyTimeFilter }: 
         className="item clearfix"
         style={{ padding: '10px 30px' }}
       >
-        <Cooldown
+        <CooldownComponent
           cooldown={cooldown}
           fightStart={fightStart}
           fightEnd={fightEnd}

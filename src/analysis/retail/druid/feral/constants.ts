@@ -64,7 +64,7 @@ export const TIGERS_FURY_BOOSTED: Spell[] = [
 /** Multiplier to energy costs from having Incarnation: Avatar of Ashamane active */
 export const INCARN_ENERGY_MULT = 0.8;
 /** Multiplier to Ferocious Bite's energy cost and drain from the Relentless Predator talent */
-export const RELENTLESS_PREDATOR_FB_ENERGY_MULT = 0.8;
+export const RELENTLESS_PREDATOR_FB_ENERGY_MULT = 0.9;
 
 /** Shred's energy cost (before modifiers) */
 export const SHRED_ENERGY = 40;
@@ -212,6 +212,18 @@ export function getBiteCps(event: DamageEvent) {
     // no hardcast -> from Convoke
     return CONVOKE_FB_CPS;
   }
+}
+
+/** Gets the maximum amount of extra energy Ferocious Bite will drain to increase damage.
+ *  This value will vary based on if Incarn is up, so call each time you need the number! */
+export function getFerociousBiteMaxDrain(c: Combatant) {
+  return (
+    FEROCIOUS_BITE_MAX_DRAIN *
+    (c.hasTalent(TALENTS_DRUID.RELENTLESS_PREDATOR_TALENT)
+      ? RELENTLESS_PREDATOR_FB_ENERGY_MULT
+      : 1) *
+    (c.hasBuff(TALENTS_DRUID.INCARNATION_AVATAR_OF_ASHAMANE_TALENT.id) ? INCARN_ENERGY_MULT : 1)
+  );
 }
 
 export const TIGERS_FURY_BASE_DURATION = 10_000;

@@ -15,5 +15,5 @@ export {
   default as SigilOfFlameNormalizer,
   getSigilOfFlameDamages,
 } from './normalizers/SigilOfFlameNormalizer';
-export { default as SigilOfFlame } from './modules/talents/SigilOfFlame';
+export { default as SigilOfFlame } from './modules/spells/SigilOfFlame';
 export * from './constants';

@@ -27,16 +27,16 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { isConvoking } from 'analysis/retail/druid/shared/spells/ConvokeSpirits';
 
-const HARDCAST_FLOURISH_EXTENSION = 8000;
-const CONVOKE_FLOURISH_EXTENSION = 4000;
-const FLOURISH_HEALING_INCREASE = 1;
+const HARDCAST_FLOURISH_EXTENSION = 6000;
+const CONVOKE_FLOURISH_EXTENSION = 3000;
+const FLOURISH_HEALING_INCREASE = 0.25;
 
 /**
  * **Flourish**
  * Spec Talent Tier 8
  *
- * Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 8 sec,
- * and increases the rate of your heal over time effects by 100% for 8 sec.
+ * Extends the duration of all of your heal over time effects on friendly targets within 60 yards by 6 sec,
+ * and increases the rate of your heal over time effects by 25% for 6 sec.
  *
  * (Flourishes that proc from Convoke the Spirits are half duration)
  */
@@ -157,22 +157,28 @@ class Flourish extends Analyzer {
   /** Guide fragment showing a breakdown of each Flourish cast */
   get guideCastBreakdown() {
     const explanation = (
-      <p>
-        <strong>
-          <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />
-        </strong>{' '}
-        requires a ramp more than any of your other cooldowns, as its power is based almost entirely
-        in the HoTs present when you cast it. Cast many Rejuvenations, and then a Wild Growth a few
-        seconds before you're ready to Flourish.{' '}
+      <>
+        <p>
+          <strong>
+            <SpellLink spell={TALENTS_DRUID.FLOURISH_TALENT} />
+          </strong>{' '}
+          requires a ramp more than any of your other cooldowns, as its power is based almost
+          entirely in the HoTs present when you cast it. Cast many Rejuvenations, and then a Wild
+          Growth a few seconds before you're ready to Flourish.
+        </p>
+        <p>
+          In 10.2, Flourish has a shorter cooldown and a much weaker throughput boost. Whereas
+          before it was a powerful burst healing cooldown, it should now be used more rotationally.
+        </p>
         {this.selectedCombatant.hasTalent(TALENTS_DRUID.CONVOKE_THE_SPIRITS_TALENT) && (
-          <>
+          <p>
             When pairing this with <SpellLink spell={SPELLS.CONVOKE_SPIRITS} />, the Convoke should
             ALWAYS be cast first. This is because the Convoke will produce many HoTs which can be
             extended, but also because it could proc a Flourish thus allowing you to save the
             hardcast.
-          </>
+          </p>
         )}
-      </p>
+      </>
     );
 
     const data = (

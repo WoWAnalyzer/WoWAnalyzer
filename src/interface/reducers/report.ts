@@ -1,14 +1,19 @@
-import { SET_REPORT } from 'interface/actions/report';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import Report from 'parser/core/Report';
-import { AnyAction } from 'redux';
 
 export type ReportState = Report | null;
+const initialState = null as ReportState;
 
-export default function report(state: ReportState = null, action: AnyAction) {
-  switch (action.type) {
-    case SET_REPORT:
+const reportSlice = createSlice({
+  name: 'report',
+  initialState,
+  reducers: {
+    resetSlice: () => initialState,
+    setReport(_state: ReportState, action: PayloadAction<Report | null>) {
       return action.payload;
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+
+export const { resetSlice, setReport } = reportSlice.actions;
+export default reportSlice.reducer;

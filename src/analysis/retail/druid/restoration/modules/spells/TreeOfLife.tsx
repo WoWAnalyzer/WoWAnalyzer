@@ -49,7 +49,7 @@ const BUFFER = 500;
  *
  * Shapeshift into the Tree of Life, increasing healing done by 15%, increasing armor by 120%,
  * and granting protection from Polymorph effects.
- * Functionality of Rejuvenation, Wild Growth, Regrowth, and Entangling Roots is enhanced.
+ * Functionality of Rejuvenation, Wild Growth, Regrowth, Entangling Roots, and Wrath is enhanced.
  * Lasts 30 sec. You may shapeshift in and out of this form for its duration.
  *
  * Tree of Life healing bonuses:

@@ -45,6 +45,9 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
     backwardBufferMs: LEAPING_FLAMES_CONSUME_BUFFER,
+    additionalCondition(linkingEvent) {
+      return HasRelatedEvent(linkingEvent, LEAPING_FLAMES_HITS);
+    },
   },
   {
     linkRelation: ESSENCE_BURST_GENERATED,
@@ -145,7 +148,9 @@ export function generatedEssenceBurst(event: DamageEvent | HealEvent) {
 }
 
 export function isFromLeapingFlames(event: CastEvent) {
-  return HasRelatedEvent(event, LEAPING_FLAMES_CONSUME);
+  return (
+    HasRelatedEvent(event, LEAPING_FLAMES_CONSUME) || HasRelatedEvent(event, LEAPING_FLAMES_HITS)
+  );
 }
 
 export default LeapingFlamesNormalizer;

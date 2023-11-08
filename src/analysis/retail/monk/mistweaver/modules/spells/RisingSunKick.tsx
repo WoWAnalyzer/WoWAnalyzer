@@ -57,7 +57,11 @@ class RisingSunKick extends Analyzer {
     } else {
       this.lastRSKTFT = false;
     }
-    if (!this.lastRSKTFT && this.lastBOK > this.lastRSK) {
+    if (
+      this.selectedCombatant.hasTalent(TALENTS_MONK.TEACHINGS_OF_THE_MONASTERY_TALENT) &&
+      !this.lastRSKTFT &&
+      this.lastBOK > this.lastRSK
+    ) {
       this.rskResets += 1;
     }
 

@@ -35,16 +35,6 @@ const spells = {
     name: 'Sigil of Flame',
     icon: 'ability_demonhunter_sigilofinquisition',
   },
-  SIGIL_OF_FLAME_CONCENTRATED: {
-    id: 204513,
-    name: 'Sigil of Flame',
-    icon: 'ability_demonhunter_sigilofinquisition',
-  },
-  SIGIL_OF_MISERY_CONCENTRATED: {
-    id: 202140,
-    name: 'Sigil of Misery',
-    icon: 'ability_demonhunter_sigilofmisery',
-  },
   SIGIL_OF_FLAME_PRECISE: {
     id: 389810,
     name: 'Sigil of Flame',
@@ -137,11 +127,6 @@ const spells = {
   },
   ELYSIAN_DECREE_PRECISE: {
     id: 389815,
-    name: 'Elysian Decree',
-    icon: 'ability_bastion_demonhunter',
-  },
-  ELYSIAN_DECREE_CONCENTRATED: {
-    id: 389858,
     name: 'Elysian Decree',
     icon: 'ability_bastion_demonhunter',
   },
@@ -317,16 +302,6 @@ const spells = {
     name: 'Painbringer',
     icon: 'artifactability_vengeancedemonhunter_painbringer',
   },
-  SIGIL_OF_SILENCE_CONCENTRATED: {
-    id: 207682,
-    name: 'Sigil of Silence',
-    icon: 'ability_demonhunter_sigilofsilence',
-  },
-  SIGIL_OF_CHAINS_CONCENTRATED: {
-    id: 207665,
-    name: 'Sigil of Chains',
-    icon: 'ability_demonhunter_sigilofchains',
-  },
   SIGIL_OF_SILENCE_PRECISE: {
     id: 389809,
     name: 'Sigil of Silence',
@@ -351,6 +326,11 @@ const spells = {
     id: 214743,
     name: 'Soul Carver',
     icon: 'inv_glaive_1h_artifactaldrochi_d_01',
+  },
+  SIGIL_OF_FLAME_T31_PROC: {
+    id: 425672,
+    name: 'Sigil of Flame',
+    icon: 'ability_demonhunter_concentratedsigils',
   },
   //endregion
 

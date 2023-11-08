@@ -46,6 +46,9 @@ import NozTeachings from './modules/talents/NozTeachings';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
+import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
+import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
+import { LeapingFlamesNormalizer, LeapingFlames } from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -74,6 +77,10 @@ class CombatLogParser extends CoreCombatLogParser {
     alwaysBeCasting: AlwaysBeCasting,
     hotTrackerPrevoker: HotTrackerPrevoker,
     hotAttributor: HotAttributor,
+
+    // Shared talents
+    leapingFlamesNormalizer: LeapingFlamesNormalizer,
+    leapingFlames: LeapingFlames,
 
     //talents
     ancientFlame: AncientFlame,
@@ -104,9 +111,11 @@ class CombatLogParser extends CoreCombatLogParser {
     ouroboros: Ouroboros,
     nozTeachings: NozTeachings,
     regenerativeMagic: RegenerativeMagic,
+    echoTypeBreakdown: EchoTypeBreakdown,
 
     // tier
     t30PrevokerTier: T30PrevokerSet,
+    t31PrevokerTIer: T31PrevokerSet,
   };
   static guide = Guide;
 }

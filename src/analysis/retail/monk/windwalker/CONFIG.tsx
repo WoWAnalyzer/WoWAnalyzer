@@ -10,8 +10,8 @@ const config: Config = {
   contributors: [Durpn, Tenooki],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.1.0',
-  isPartial: true,
+  patchCompatibility: '10.1.7',
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
@@ -48,6 +48,7 @@ const config: Config = {
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
   path: __dirname,
+  guideDefault: true,
 };
 
 export default config;

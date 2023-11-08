@@ -511,6 +511,11 @@ const spells = {
     name: 'Guardian of Ancient Kings',
     icon: 'spell_holy_heroism',
   },
+  GUARDIAN_OF_ANCIENT_KINGS: {
+    id: 86659,
+    name: 'Guardian of Ancient Kings',
+    icon: 'spell_holy_heroism',
+  },
   LIGHT_OF_THE_PROTECTOR: {
     id: 184092,
     name: 'Light of the Protector',
@@ -521,6 +526,12 @@ const spells = {
     name: 'Shield of the Righteous',
     icon: 'ability_paladin_shieldofvengeance',
   },
+  SENTINEL: {
+    id: 389539,
+    name: 'Sentinel',
+    icon: 'spell_holy_holynova',
+  },
+
   //artifact
   UNFLINCHING_DEFENSE: {
     id: 209220,

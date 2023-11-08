@@ -1,9 +1,9 @@
 import getFightName from 'common/getFightName';
 import prettyEncodeURI from 'common/prettyEncodeURI';
 import Combatant from 'parser/core/Combatant';
-import Player from 'common/character';
 import Report from 'parser/core/Report';
 import DEFAULT_BUILD from 'parser/DEFAULT_BUILD';
+import CharacterProfile from 'parser/core/CharacterProfile';
 
 export function makePlainUrl(
   reportCode?: string,
@@ -93,7 +93,7 @@ export function makeArmoryUrl(player: Combatant) {
   return battleNetUrl;
 }
 
-export function makeThumbnailUrl(characterInfo: Player, classic: boolean) {
+export function makeThumbnailUrl(characterInfo: CharacterProfile, classic: boolean) {
   if (!characterInfo) {
     return '/img/fallback-character.jpg';
   }

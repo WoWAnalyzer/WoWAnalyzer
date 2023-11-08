@@ -33,7 +33,10 @@ class SanctifiedWrathProtJudgement extends Analyzer {
   }
 
   trackJudgmentCasts() {
-    if (this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id)) {
+    if (
+      this.selectedCombatant.hasBuff(SPELLS.AVENGING_WRATH.id) ||
+      this.selectedCombatant.hasBuff(SPELLS.SENTINEL.id)
+    ) {
       this.buffedJudgements += 1;
     }
   }

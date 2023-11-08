@@ -195,7 +195,10 @@ class RisingMist extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RISING_MIST_HEAL),
       this.countRisingMistHits,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_MISTS_HEAL),
+      this.handleVivify,
+    );
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.calculateEnv); //gotta just look at all heals tbh
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell([SPELLS.GUST_OF_MISTS_CHIJI, SPELLS.GUSTS_OF_MISTS]),
@@ -275,8 +278,7 @@ class RisingMist extends Analyzer {
     const targetId = event.targetID;
     if (
       !this.hotTracker.hots[targetId] ||
-      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id] ||
-      (this.vivify.lastCastTarget === event.targetID && this.vivify.mainTargetHitsToCount === 0) // don't count main vivify hit
+      !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
     ) {
       return;
     }

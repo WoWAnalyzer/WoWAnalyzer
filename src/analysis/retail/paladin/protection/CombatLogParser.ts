@@ -30,18 +30,34 @@ import HolyShieldSpellBlock from './modules/talents/HolyShieldSpellBlock';
 import MomentOfGlory from './modules/talents/MomentOfGlory';
 import Redoubt from './modules/talents/Redoubt';
 import RighteousProtector from './modules/talents/RighteousProtector';
+import ResoluteDefender from './modules/talents/ResoluteDefender';
+import GiftOfTheGoldenValkyr from './modules/talents/GiftOfTheGoldenValkyr';
 import SanctifiedWrathProtJudgement from './modules/talents/SanctifiedWrathProtJudgement';
 import ProtPaladinT304P from './modules/core/ProtPaladinT304P';
-import MyAbilityNormalizer from './modules/CastLinkNormalizer';
+import CastLinkNormalizer from './modules/CastLinkNormalizer';
 import GuardianOfAncientQueens from './normalizers/GuardianOfAncientQueens';
+import DefensiveBuffLinkNormalizer from './modules/core/Defensives/DefensiveBuffLinkNormalizer';
+import BuilderUse from './modules/core/BuilderUse';
+import GuardianOfAncientKings from './modules/core/Defensives/GuardianOfAncientKings';
+import ArdentDefender from './modules/core/Defensives/ArdentDefender';
+import EyeOfTyr from './modules/core/Defensives/EyeOfTyr';
+import ConsecrationDefensives from './modules/core/Defensives/ConsecrationDefensives';
+import Guide from './Guide';
+import DefensiveBuffs from './modules/core/Defensives/Defensivebuffs';
 
 class CombatLogParser extends CoreCombatLogParser {
+  static guide = Guide;
   static specModules = {
     // Core
+    builderUse: BuilderUse,
     grandCrusader: GrandCrusader,
     haste: Haste,
     protPaladinT304P: ProtPaladinT304P,
-    myAbilityNormalizer: MyAbilityNormalizer,
+
+    //Normalizers
+    guardianOfAncientQueens: GuardianOfAncientQueens,
+    castLinkNormalizer: CastLinkNormalizer,
+    defensiveBuffLinkNormalizer: DefensiveBuffLinkNormalizer,
 
     // Spells
     lightOfTheProtector: LightOfTheProtector,
@@ -61,11 +77,17 @@ class CombatLogParser extends CoreCombatLogParser {
     noDamageSOTR: NoDamageShieldOfTheRighteous,
     overcapSOTR: OvercapShieldOfTheRighteous,
 
-    // Normalizers
-    guardianOfAncientQueens: GuardianOfAncientQueens,
+    // Defensive Usage
+    defensiveBuffs: DefensiveBuffs,
+    guardianOfAncientKings: GuardianOfAncientKings,
+    ardentDefender: ArdentDefender,
+    eyeOfTyr: EyeOfTyr,
+    consecrationDefensives: ConsecrationDefensives,
 
     // Talents
     righteousProtector: RighteousProtector,
+    resoluteDefender: ResoluteDefender,
+    giftOfTheGoldenValkyr: GiftOfTheGoldenValkyr,
     sanctifiedWrathProtJudgement: SanctifiedWrathProtJudgement,
     holyShieldSpellBlock: HolyShieldSpellBlock,
     redoubt: Redoubt,

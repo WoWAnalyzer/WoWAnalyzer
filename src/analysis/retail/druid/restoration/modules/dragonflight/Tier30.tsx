@@ -16,16 +16,16 @@ import { TIERS } from 'game/TIERS';
 
 const TIER_2PC_REJUV_BOOST = 0.1;
 const TIER_2PC_LB_BOOST = 0.1;
-const TIER_2PC_REGROWTH_BOOST = 0.5;
+const TIER_2PC_REGROWTH_BOOST = 0.35;
 
-const TIER_4PC_HEALING_INCREASE = 0.3;
+const TIER_4PC_HEALING_INCREASE = 0.26;
 
 /**
  * **Resto Druid T30 (Aberrus)**
  *
- * 2pc: Rejuvenation and Lifebloom healing increased by 10%. Regrowth healing over time increased by 50%.
+ * 2pc: Rejuvenation and Lifebloom healing increased by 10%. Regrowth healing over time increased by 35%.
  *
- * 4pc: Flourish increases the rate of your heal over time effects by 30% for an additional 16 seconds after it ends.
+ * 4pc: Flourish increases the rate of your heal over time effects by 26% for an additional 16 seconds after it ends.
  *   Verdant Infusion causes your Swiftmend target to gain 15% increased healing from you for 6 seconds.
  */
 export default class Tier30 extends Analyzer {

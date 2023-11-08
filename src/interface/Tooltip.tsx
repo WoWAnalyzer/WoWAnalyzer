@@ -69,7 +69,7 @@ export const TooltipElement = ({
 type MaybeTooltipProps = Partial<Pick<TooltipElementProps, 'content'>> &
   Omit<TooltipElementProps, 'content'>;
 
-export const MaybeTooltip = ({ content, children, ...rest }: MaybeTooltipProps) => {
+export const MaybeTooltip = ({ content, children, ...rest }: MaybeTooltipProps): JSX.Element => {
   if (content) {
     return (
       <TooltipElement content={content} {...rest}>
@@ -77,5 +77,5 @@ export const MaybeTooltip = ({ content, children, ...rest }: MaybeTooltipProps) 
       </TooltipElement>
     );
   }
-  return children;
+  return <>{children}</>;
 };

@@ -127,7 +127,7 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.TRANQUILITY_CAST.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.TRANQUILITY_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: combatant.hasTalent(TALENTS_DRUID.INNER_PEACE_TALENT) ? 120 : 180,
+        cooldown: combatant.hasTalent(TALENTS_DRUID.INNER_PEACE_TALENT) ? 150 : 180,
         gcd: {
           base: 1500,
         },
@@ -174,7 +174,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.FLOURISH_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_DRUID.FLOURISH_TALENT),
         category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 90,
+        cooldown: 60,
         gcd: {
           base: 1500,
         },

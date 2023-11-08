@@ -3,7 +3,7 @@ import { Options } from 'parser/core/Analyzer';
 
 import HolyWordBase from './HolyWordBase';
 
-const HOLY_WORD_SERENDIPITY_REDUCTION = 30000;
+const HOLY_WORD_SERENDIPITY_REDUCTION = 15000;
 
 class HolyWordSalvation extends HolyWordBase {
   constructor(options: Options) {

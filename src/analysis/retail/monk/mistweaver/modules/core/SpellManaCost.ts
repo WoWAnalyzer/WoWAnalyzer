@@ -1,6 +1,11 @@
 import SPELLS from 'common/SPELLS';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { ApplyBuffStackEvent, CastEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  ApplyBuffEvent,
+  ApplyBuffStackEvent,
+  CastEvent,
+  RemoveBuffEvent,
+} from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
 import { TALENTS_MONK } from 'common/TALENTS';
 import {
@@ -22,6 +27,10 @@ class MWSpellManaCost extends SpellManaCost {
     super(options);
     this.addEventListener(
       Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
+      this.onCfApplyStack,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.CLOUDED_FOCUS_BUFF),
       this.onCfApply,
     );
     this.addEventListener(
@@ -34,8 +43,12 @@ class MWSpellManaCost extends SpellManaCost {
     this.hasCF = this.selectedCombatant.hasTalent(TALENTS_MONK.CLOUDED_FOCUS_TALENT);
   }
 
-  onCfApply(event: ApplyBuffStackEvent) {
-    this.cfStacks = event.stack - 1;
+  onCfApply(event: ApplyBuffEvent) {
+    this.cfStacks = 1;
+  }
+
+  onCfApplyStack(event: ApplyBuffStackEvent) {
+    this.cfStacks = event.stack;
   }
 
   onCfRemove(event: RemoveBuffEvent) {
