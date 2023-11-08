@@ -96,9 +96,6 @@ class T30TierSet extends Analyzer {
               <strong>{formatNumber(this.vivHealing)}</strong> extra{' '}
               <SpellLink spell={SPELLS.VIVIFY} /> healing
             </li>
-            <li>
-              <strong>{formatNumber(this.wastedManaGain)}</strong> mana wasted from overcapping
-            </li>
           </ul>
         }
       >
