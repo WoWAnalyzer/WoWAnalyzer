@@ -34,6 +34,7 @@ import Channeling from 'parser/shared/normalizers/Channeling';
 import MissingCastsNormalizer from '../shared/normalizers/MissingCasts';
 import PhaseChangesNormalizer from '../shared/normalizers/PhaseChanges';
 import PrePullCooldownsNormalizer from '../shared/normalizers/PrePullCooldowns';
+import ManaValues from './modules/ManaValues';
 import PreparationRuleAnalyzer from './modules/features/Checklist/PreparationRuleAnalyzer';
 import CombatPotionChecker from './modules/items/CombatPotionChecker';
 import HealthstoneChecker from './modules/items/HealthstoneChecker';
@@ -90,6 +91,7 @@ class CombatLogParser extends BaseCombatLogParser {
     spellHistory: SpellHistory,
     cooldownHistory: CooldownHistory,
     globalCooldown: GlobalCooldown,
+    manaValues: ManaValues,
     vantusRune: VantusRune,
     distanceMoved: DistanceMoved,
     deathRecapTracker: DeathRecapTracker,
