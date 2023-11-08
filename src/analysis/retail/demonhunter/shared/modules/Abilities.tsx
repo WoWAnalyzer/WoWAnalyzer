@@ -60,7 +60,6 @@ export default class Abilities extends CoreAbilities {
         enabled: combatant.hasTalent(TALENTS_DEMON_HUNTER.CHAOS_NOVA_TALENT),
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 45,
-        cooldown: 45,
         gcd: {
           base: 1500,
         },
