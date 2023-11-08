@@ -1245,7 +1245,7 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 6,
+      class: 1,
       spec: 1,
     },
     icon: 'DeathKnight-Blood',
@@ -1266,7 +1266,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 6,
+      class: 1,
       spec: 2,
     },
     icon: 'DeathKnight-Frost',
@@ -1287,7 +1287,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 6,
+      class: 1,
       spec: 3,
     },
     icon: 'DeathKnight-Unholy',
@@ -1374,7 +1374,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 8,
+      class: 4,
       spec: 1,
     },
     icon: 'Mage-Arcane',
@@ -1395,7 +1395,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 8,
+      class: 4,
       spec: 2,
     },
     icon: 'Mage-Fire',
@@ -1416,7 +1416,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 8,
+      class: 4,
       spec: 3,
     },
     icon: 'Mage-Frost',
@@ -1437,7 +1437,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 9,
+      class: 10,
       spec: 1,
     },
     icon: 'Warlock-Affliction',
@@ -1458,7 +1458,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 9,
+      class: 10,
       spec: 2,
     },
     icon: 'Warlock-Demonology',
@@ -1479,7 +1479,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 9,
+      class: 10,
       spec: 3,
     },
     icon: 'Warlock-Destruction',
@@ -1500,7 +1500,7 @@ const SPECS = {
     role: ROLES.DPS.RANGED,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 11,
+      class: 2,
       spec: 1,
     },
     icon: 'Druid-Balance',
@@ -1521,7 +1521,7 @@ const SPECS = {
     role: ROLES.DPS.MELEE,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 11,
+      class: 2,
       spec: 2,
     },
     icon: 'Druid-Feral',
@@ -1542,8 +1542,8 @@ const SPECS = {
     role: ROLES.HEALER,
     primaryStat: PRIMARY_STAT.INTELLECT,
     ranking: {
-      class: 11,
-      spec: 3,
+      class: 2,
+      spec: 4,
     },
     icon: 'Druid-Restoration',
     treeIndex: 2,
@@ -1563,8 +1563,8 @@ const SPECS = {
     role: ROLES.TANK,
     primaryStat: PRIMARY_STAT.STRENGTH,
     ranking: {
-      class: 11,
-      spec: 4,
+      class: 2,
+      spec: 3,
     },
     icon: 'Druid-Guardian',
   },
