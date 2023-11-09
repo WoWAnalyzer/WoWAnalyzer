@@ -12,7 +12,8 @@ export default class Mangle extends Analyzer {
           <SpellLink spell={SPELLS.MANGLE_BEAR} />
         </strong>{' '}
         does direct damage and generates rage. Use it on cooldown. The very short cooldown combined
-        jammed GCDs means 100% usage will be practically impossible, but get as close as you can.
+        with jammed GCDs means 100% usage will be practically impossible, but get as close as you
+        can.
       </p>
     );
 

@@ -22,7 +22,7 @@ export default class Thrash extends Analyzer.withDependencies(deps) {
           <SpellLink spell={SPELLS.THRASH_BEAR} />
         </strong>{' '}
         is AoE direct damage and a stacking bleed. It generates rage and should be used on cooldown.
-        The very short cooldown combined jammed GCDs means 100% usage will be practically
+        The very short cooldown combined with jammed GCDs means 100% usage will be practically
         impossible, but get as close as you can.
       </p>
     );
