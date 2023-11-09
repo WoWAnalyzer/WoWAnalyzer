@@ -12,6 +12,8 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 
+const DEBUG = true;
+
 class DeathAndMadness extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
@@ -51,10 +53,20 @@ class DeathAndMadness extends Analyzer {
 
   onDamage(event: DamageEvent) {
     //If you cast Shadow Word: Death on a target in execute the cooldown is reset once.  If you wait 10 seconds, you miss the reset.
-    if (this.isTargetInExecuteRange(event)) {
+    if (
+      this.isTargetInExecuteRange(event) &&
+      !this.selectedCombatant.hasBuff(SPELLS.DEATHSPEAKER_TALENT_BUFF.id)
+    ) {
       const fromLastCast = event.timestamp - this.lastCastTime;
       if (fromLastCast >= 9990) {
-        this.spellUsable.endCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id);
+        this.spellUsable.endCooldown(
+          TALENTS.SHADOW_WORD_DEATH_TALENT.id,
+          event.timestamp,
+          false,
+          false,
+        );
+        DEBUG &&
+          console.log('Shadow Word: Death Reset', this.owner.formatTimestamp(event.timestamp, 1));
         this.resets += 1;
       }
       this.lastCastTime = event.timestamp;
