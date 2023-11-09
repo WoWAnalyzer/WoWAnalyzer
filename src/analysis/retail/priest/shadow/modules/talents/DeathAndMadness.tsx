@@ -12,7 +12,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 
-const DEBUG = true;
+const DEBUG = false;
 
 class DeathAndMadness extends Analyzer {
   static dependencies = {
