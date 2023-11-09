@@ -59,11 +59,18 @@ const CoreCooldownsGraph = () => {
 
   let message = (
     <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
-      <SpellLink spell={SPELLS.MIND_BLAST} /> is a core spell that should be keept on cooldown as
-      much as possible.
+      <strong>
+        <SpellLink spell={SPELLS.MIND_BLAST} />
+      </strong>{' '}
+      is a core spell that should be keept on cooldown as much as possible.
       <br />
-      <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} /> is a low priority spell, even during
-      execute.
+      <strong>
+        <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
+      </strong>{' '}
+      should be always used with _. Otherwise, it should be used during execute, with{' '}
+      <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs, and during{' '}
+      <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
+      <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
     </Trans>
   );
 
@@ -75,7 +82,7 @@ const CoreCooldownsGraph = () => {
       VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
 
     message = (
-      <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB2">
+      <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB3">
         <strong>
           <SpellLink spell={SPELLS.MIND_BLAST} />
         </strong>{' '}
@@ -87,7 +94,9 @@ const CoreCooldownsGraph = () => {
         <strong>
           <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
         </strong>{' '}
-        is a low priority spell, even during execute.
+        should be used during execute, with <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs,
+        and during <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
+        <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
       </Trans>
     );
   }

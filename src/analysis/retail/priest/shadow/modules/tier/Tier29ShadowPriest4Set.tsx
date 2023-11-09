@@ -10,8 +10,9 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Haste from 'parser/shared/modules/Haste';
+import { TIERS } from 'game/TIERS';
 
-class ShadowPriestTierSet extends Analyzer {
+class Tier29ShadowPriest4Set extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     eventHistory: EventHistory,
@@ -22,6 +23,7 @@ class ShadowPriestTierSet extends Analyzer {
   protected eventHistory!: EventHistory;
   protected spellUsable!: SpellUsable;
   protected haste!: Haste;
+  has4Piece: boolean = true;
 
   uptime4Set = 0; //Buff uptime in milliseconds
   is4SetActive = false;
@@ -29,6 +31,7 @@ class ShadowPriestTierSet extends Analyzer {
 
   constructor(options: Options) {
     super(options);
+    this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF),
@@ -61,13 +64,15 @@ class ShadowPriestTierSet extends Analyzer {
 
   statistic() {
     const uptimePercent = formatPercentage(this.uptime4Set / this.owner.fightDuration);
-    return (
-      <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
-        <BoringSpellValueText spell={SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF}>
-          <UptimeIcon /> {uptimePercent}% <small>uptime</small>
-        </BoringSpellValueText>
-      </Statistic>
-    );
+    if (this.has4Piece) {
+      return (
+        <Statistic category={STATISTIC_CATEGORY.ITEMS} size="flexible">
+          <BoringSpellValueText spell={SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF}>
+            <UptimeIcon /> {uptimePercent}% <small>uptime</small>
+          </BoringSpellValueText>
+        </Statistic>
+      );
+    }
   }
 }
-export default ShadowPriestTierSet;
+export default Tier29ShadowPriest4Set;
