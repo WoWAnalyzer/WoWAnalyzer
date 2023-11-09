@@ -82,7 +82,7 @@ const CoreCooldownsGraph = () => {
       VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
 
     message = (
-      <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB3">
+      <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB">
         <strong>
           <SpellLink spell={SPELLS.MIND_BLAST} />
         </strong>{' '}
