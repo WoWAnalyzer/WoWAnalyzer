@@ -129,6 +129,9 @@ class Tier31ShadowPriest4Set extends Analyzer {
   }
 
   onShadowCrash(Event: DamageEvent) {
+    //Since the damage event of the inital hit occurs right after the cast, this will only allow that damage event to be added and increased and not further ticks of the dot.
+    //In addition, the recentStacks is not reset until a new stack is gained. This way, if two shadow Crashes (or shadow word pains) are cast without gaining the buff since the last cast, the damage will not be counted.
+    //Since Shadow crash can damage multiple targets, if a damage event occurs at the same time as another, then it's damage would also be increased, but we do not count the stacks again.
     if (this.recentSCTimestamp === Event.timestamp || this.recentApplied) {
       this.recentApplied = false;
       if (this.castSC) {
@@ -146,6 +149,8 @@ class Tier31ShadowPriest4Set extends Analyzer {
   }
 
   onShadowWordPain(Event: DamageEvent) {
+    //Since the damage event of the inital hit occurs right after the cast, this will only allow that damage event to be added and increased and not further ticks of the dot.
+    //In addition, the recentStacks is not reset until a new stack is gained. This way, if two shadow word pains are cast (or shadow crashes) without gaining the buff since the last cast, the damage will not be counted.
     if (this.castSWP && this.recentApplied) {
       this.recentApplied = false;
       this.stacksSWP += this.recentStacks;
