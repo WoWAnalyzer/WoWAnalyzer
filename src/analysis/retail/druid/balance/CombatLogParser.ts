@@ -30,6 +30,7 @@ import FriendOfTheFae from './modules/spells/FriendOfTheFae';
 import SunderedFirmament from './modules/spells/SunderedFirmament';
 import Eclipse from 'analysis/retail/druid/balance/modules/spells/Eclipse';
 import SpenderUsage from 'analysis/retail/druid/balance/modules/features/SpenderUsage';
+import NewMoon from 'analysis/retail/druid/balance/modules/spells/NewMoon';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -66,6 +67,7 @@ class CombatLogParser extends MainCombatLogParser {
     starweaver: Starweaver,
     firendOfTheFae: FriendOfTheFae,
     sunderedFirmament: SunderedFirmament,
+    newMoon: NewMoon,
     //Tier set
     gatheringStarstuff: GatheringStarstuff,
     touchTheCosmos: TouchTheCosmos,

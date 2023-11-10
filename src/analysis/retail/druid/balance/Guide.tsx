@@ -101,7 +101,7 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       {modules.fillerUsage.guideSubsection}
       {modules.spenderUsage.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.STARLORD_TALENT) && modules.starlord.guideSubsection}
-      {/* TODO waning twilight? */}
+      {info.combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT) && modules.newMoon.guideSubsection}
     </Section>
   );
 }
