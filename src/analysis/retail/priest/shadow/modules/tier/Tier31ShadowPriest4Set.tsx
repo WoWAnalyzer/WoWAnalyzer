@@ -18,6 +18,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
+const MAX_DURATION = 60000; //max duration of the buff
+
 class Tier31ShadowPriest4Set extends Analyzer {
   static dependencies = {
     abilities: Abilities,
@@ -47,8 +49,6 @@ class Tier31ShadowPriest4Set extends Analyzer {
 
   recentApplied = false; //the order of the events requires this for edge cases.
   timestampOfLast = 0; //Used to calculate unused buffs
-  maxDuration = 60000; //max duration of the buff
-  maxStacks = 12; //maximum stacks
 
   constructor(options: Options) {
     super(options);
@@ -117,7 +117,7 @@ class Tier31ShadowPriest4Set extends Analyzer {
 
   onBuffRemoved(Event: RemoveBuffEvent) {
     this.recentStacks = this.stacks;
-    if (this.maxDuration <= Event.timestamp - this.timestampOfLast) {
+    if (MAX_DURATION <= Event.timestamp - this.timestampOfLast) {
       this.recentStacks = 0;
     }
     this.stacks = 0;
