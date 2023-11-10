@@ -126,7 +126,7 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: [TALENTS_DRUID.NEW_MOON_TALENT.id, SPELLS.HALF_MOON.id, SPELLS.FULL_MOON.id],
-        category: SPELL_CATEGORY.COOLDOWNS,
+        category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 20,
         enabled: combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT),
         gcd: {
@@ -172,6 +172,16 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+      },
+      {
+        spell: TALENTS_DRUID.WILD_MUSHROOM_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL_AOE,
+        cooldown: 30,
+        enabled: combatant.hasTalent(TALENTS_DRUID.WILD_MUSHROOM_TALENT),
+        gcd: {
+          base: 1500,
+        },
+        timelineSortIndex: 11,
       },
 
       //Utility

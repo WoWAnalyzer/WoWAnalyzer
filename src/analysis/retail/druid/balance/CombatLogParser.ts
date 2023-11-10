@@ -6,7 +6,6 @@ import Abilities from './modules/Abilities';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from 'analysis/retail/druid/balance/modules/core/Buffs';
 import CancelledCasts from './modules/features/CancelledCasts';
-import Checklist from './modules/checklist/Module';
 import ConvokeSpiritsBalance from 'analysis/retail/druid/balance/modules/spells/ConvokeSpiritsBalance';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import DotUptimes from './modules/features/DotUptimes';
@@ -14,7 +13,6 @@ import EarlyDotRefreshes from './modules/features/EarlyDotRefreshes';
 import EarlyDotRefreshesInstants from './modules/features/EarlyDotRefreshesInstants';
 import FillerUsage from './modules/features/FillerUsage';
 import MoonfireUptime from 'analysis/retail/druid/balance/modules/spells/MoonfireUptime';
-import Starsurge from 'analysis/retail/druid/balance/modules/spells/Starsurge';
 import SunfireUptime from 'analysis/retail/druid/balance/modules/spells/SunfireUptime';
 import SoulOfTheForest from 'analysis/retail/druid/balance/modules/spells/SoulOfTheForest';
 import Starlord from 'analysis/retail/druid/balance/modules/spells/Starlord';
@@ -26,11 +24,12 @@ import Guide from 'analysis/retail/druid/balance/Guide';
 import AstralPowerGraph from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerGraph';
 import WaningTwilight from './modules/spells/WaningTwilight';
 import GatheringStarstuff from 'analysis/retail/druid/balance/modules/spells/GatheringStarstuff';
-import RattleTheStars from './modules/spells/RattleTheStars';
 import TouchTheCosmos from './modules/spells/TouchTheCosmos';
 import Starweaver from './modules/spells/Starweaver';
 import FriendOfTheFae from './modules/spells/FriendOfTheFae';
 import SunderedFirmament from './modules/spells/SunderedFirmament';
+import Eclipse from 'analysis/retail/druid/balance/modules/spells/Eclipse';
+import SpenderUsage from 'analysis/retail/druid/balance/modules/features/SpenderUsage';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -43,7 +42,6 @@ class CombatLogParser extends MainCombatLogParser {
     astralPowerGraph: AstralPowerGraph,
 
     //Features
-    checklist: Checklist,
     alwaysBeCasting: AlwaysBeCasting,
     cancelledCasts: CancelledCasts,
     channeling: Channeling,
@@ -52,11 +50,12 @@ class CombatLogParser extends MainCombatLogParser {
     moonfireUptime: MoonfireUptime,
     sunfireUptime: SunfireUptime,
     fillerUsage: FillerUsage,
-    starsurge: Starsurge,
+    spenderUsage: SpenderUsage,
     earlyDotRefreshes: EarlyDotRefreshes,
     earlyDotRefreshesInstants: EarlyDotRefreshesInstants,
     buffs: Buffs,
     dotUptimes: DotUptimes,
+    eclipse: Eclipse,
     //Talents
     stellarFlareUptime: StellarFlareUptime,
     twinMoons: TwinMoons,
@@ -64,7 +63,6 @@ class CombatLogParser extends MainCombatLogParser {
     soulOfTheForest: SoulOfTheForest,
     waningTwilight: WaningTwilight,
     convokeSpiritsBalance: ConvokeSpiritsBalance,
-    rattleTheStars: RattleTheStars,
     starweaver: Starweaver,
     firendOfTheFae: FriendOfTheFae,
     sunderedFirmament: SunderedFirmament,

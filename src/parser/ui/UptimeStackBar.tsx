@@ -3,6 +3,7 @@ import { formatDuration } from 'common/format';
 import { Tooltip } from 'interface';
 import { Uptime } from 'parser/ui/UptimeBar';
 import * as React from 'react';
+import { TrackedBuffEvent } from 'parser/core/Entity';
 
 export type StackUptime = {
   /** Timestamp in milliseconds of the uptime start */
@@ -31,6 +32,26 @@ type Props = {
   /** If true, the background bars will have tooltips indicating their time range */
   timeTooltip?: boolean;
 };
+
+/** Helper function to convert a selection of entity buff history into StackUptimes consumed by this component */
+export function getStackUptimesFromBuffHistory(
+  buffHistory: TrackedBuffEvent[],
+  endTime: number,
+): StackUptime[] {
+  return buffHistory.flatMap((tbe) => {
+    const buffEnd = tbe.end !== null ? tbe.end : endTime;
+    return tbe.stackHistory.map((stack, idx, arr) => {
+      const start = stack.timestamp;
+      const end = idx === arr.length - 1 ? buffEnd : arr[idx + 1].timestamp;
+      const stacks = stack.stacks;
+      return {
+        start,
+        end,
+        stacks,
+      };
+    });
+  });
+}
 
 const UptimeStackBar = ({
   stackUptimeHistory,

@@ -10,19 +10,23 @@ const config: Config = {
   contributors: [Sref, Hartra344, Jundarer],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.1.7',
-  isPartial: true,
+  patchCompatibility: '10.2.0',
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
   description: (
     <>
       Hello Moonkins! This tool is intended to show major statistics and potential issues in your
-      rotation. The Balance Druid analyzer is mostly updated for Dragonflight but the most important
-      information is present - like DoT uptime.
+      rotation. The Balance Druid analyzer is updated for Dragonflight patch 10.2.
       <br />
       <br />
-      If you have any idea on what is missing, we would be happy if you let us know directly. For
-      fastest response you can PM me (Sref) on Discord.
+      If you have suggestions or comments about the analyzer you can reach the WoWAnalyzer team on{' '}
+      <a href="https://github.com/WoWAnalyzer/WoWAnalyzer/issues/new">GitHub</a>, on{' '}
+      <a href="https://discord.gg/AxphPxU">Discord</a>, or message me (
+      <a href="/contributor/Sref">Sref</a>) directly on Discord. We're always interested in
+      improving the analyzer, whether it's in-depth theorycraft or rewording some text to be easier
+      to understand. The whole project is open source and welcomes contributions so you can directly
+      improve it too!
       <br />
       <br />
       If you want to learn more about how to play Moonkin, visit{' '}
@@ -31,7 +35,7 @@ const config: Config = {
         target="_blank"
         rel="noopener noreferrer"
       >
-        DreamGrove, the Druid's Discord
+        Dreamgrove, the Druid's Discord
       </a>{' '}
       or{' '}
       <a
@@ -39,16 +43,15 @@ const config: Config = {
         target="_blank"
         rel="noopener noreferrer"
       >
-        DreamGrove.gg | 10.1.5 Compendium
+        DreamGrove.gg | 10.2.0 Compendium
       </a>
       .
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  // TODO update to DF log
   exampleReport:
     'report/hAjtTgVWczvnDpyC/19-Heroic+The+Vigilant+Steward,+Zskarn+-+Kill+(3:37)/Dsune',
-
+  guideDefault: true,
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
   spec: SPECS.BALANCE_DRUID,
