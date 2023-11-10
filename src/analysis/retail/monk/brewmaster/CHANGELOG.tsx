@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 10, 22), <>Fix <SpellLink spell={SPELLS.FORTIFYING_BREW_BRM} /> spell id</>, emallson),
   change(date(2023, 9, 10), <>Fix bug in <SpellLink spell={SPELLS.CELESTIAL_FORTUNE_HEAL} /> analysis related to <SpellLink spell={talents.BONEDUST_BREW_TALENT} /> triggers.</>, emallson),
   change(date(2023, 9, 10), <>Added <SpellLink spell={talents.DAMPEN_HARM_TALENT} /> DR % Statistic</>, emallson),
   change(date(2023, 7, 25), <>Update example report to be a 10.1.5 log</>, emallson),

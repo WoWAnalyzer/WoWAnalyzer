@@ -1,17 +1,20 @@
-import { SET_COMBATANTS } from 'interface/actions/combatants';
-import { SET_REPORT } from 'interface/actions/report';
 import { CombatantInfoEvent } from 'parser/core/Events';
-import { AnyAction } from 'redux';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type CombatantsState = CombatantInfoEvent[] | null;
 
-export default function combatants(state: CombatantsState = null, action: AnyAction) {
-  switch (action.type) {
-    case SET_REPORT:
-      return null;
-    case SET_COMBATANTS:
+const initialState: CombatantsState = null as CombatantsState;
+
+const combatantsSlice = createSlice({
+  name: 'combatants',
+  initialState,
+  reducers: {
+    resetSlice: () => initialState,
+    setCombatants(state: CombatantsState, action: PayloadAction<CombatantInfoEvent[] | null>) {
       return action.payload;
-    default:
-      return state;
-  }
-}
+    },
+  },
+});
+
+export const { resetSlice, setCombatants } = combatantsSlice.actions;
+export default combatantsSlice.reducer;

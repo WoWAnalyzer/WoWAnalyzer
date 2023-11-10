@@ -12,8 +12,8 @@ import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 
-import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 import { TALENTS_MONK } from 'common/TALENTS';
+import { ABILITIES_AFFECTED_BY_DAMAGE_INCREASES } from '../../constants';
 
 const MOD_PER_STACK = 0.01;
 const MAX_STACKS = 6;

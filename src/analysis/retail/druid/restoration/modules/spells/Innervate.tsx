@@ -18,8 +18,8 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import { abilityToSpell } from 'common/abilityToSpell';
 
-// TODO these mana values will probably need to be updated?
-export const INNERVATE_MANA_REQUIRED = 9000;
+// TODO double check this is a reasonable number
+export const INNERVATE_MANA_REQUIRED = 7000;
 
 class Innervate extends Analyzer {
   casts = 0;

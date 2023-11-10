@@ -12,11 +12,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: SIGIL_OF_FLAME_DAMAGE,
     referencedEventId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
     referencedEventType: EventType.Damage,
-    linkingEventId: [
-      SPELLS.SIGIL_OF_FLAME.id,
-      SPELLS.SIGIL_OF_FLAME_PRECISE.id,
-      SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
-    ],
+    linkingEventId: [SPELLS.SIGIL_OF_FLAME.id, SPELLS.SIGIL_OF_FLAME_PRECISE.id],
     linkingEventType: EventType.Cast,
     forwardBufferMs: DAMAGE_BUFFER,
     backwardBufferMs: DAMAGE_BUFFER,

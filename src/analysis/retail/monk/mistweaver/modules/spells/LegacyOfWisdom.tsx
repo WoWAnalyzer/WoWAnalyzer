@@ -14,9 +14,8 @@ import Uptime from 'interface/icons/Uptime';
 import { formatPercentage } from 'common/format';
 import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
+import { LEGACY_OF_WISDOM_TARGETS, SHEILUNS_GIFT_TARGETS } from '../../constants';
 
-const LEGACY_OF_WISDOM_TARGETS = 2;
-const SHEILUNS_GIFT_TARGETS = 3;
 /** The tooltip says 'Cast time is reduced by 0.5s'  but the reduction scales with haste to remain .33 gcds
  *  so what this is truly doing is making the spell only cost a gcd instead of 1.33 (Env cast time -> Viv cast time)
  */
@@ -52,7 +51,10 @@ class LegacyOfWisdom extends Analyzer {
     if (LEGACY_OF_WISDOM_TARGETS - extraTargets > 0) {
       this.missedHits += LEGACY_OF_WISDOM_TARGETS - extraTargets;
     }
-    const extraHits = sgHealEvents.splice(sgHealEvents.length - extraTargets, extraTargets);
+    const extraHits = sgHealEvents.splice(
+      SHEILUNS_GIFT_TARGETS,
+      SHEILUNS_GIFT_TARGETS + sgHealEvents.length,
+    );
     if (!extraHits) {
       return;
     }

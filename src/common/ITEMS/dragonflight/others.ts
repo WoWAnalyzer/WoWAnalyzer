@@ -26,6 +26,21 @@ const others = {
     name: "Neltharion's Call to Dominance",
     icon: 'inv_10_dungeonjewelry_dragon_trinket_5_bronze',
   },
+  AMALGAMS_SEVENTH_SPINE: {
+    id: 136714,
+    name: "Amalgam's Seventh Spine",
+    icon: 'spell_priest_mindspike',
+  },
+  FRAGILE_ECHO: {
+    id: 215267,
+    name: 'Fragile Echo',
+    icon: 'spell_warlock_demonsoul',
+  },
+  FRAGILE_ECHO_MANA: {
+    id: 215270,
+    name: 'Fragile Echo',
+    icon: 'spell_warlock_demonsoul',
+  },
   FANG_ADORNMENTS: {
     id: 377708,
     name: 'Fang Adornments',

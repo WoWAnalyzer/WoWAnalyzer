@@ -15,7 +15,7 @@ import { TALENTS_DRUID } from 'common/TALENTS';
  * **Reforestation**
  * Spec Talent Tier 10
  *
- * Every 3 casts of Swiftmend grants you Incarnation: Tree of Life for 9 sec.
+ * Every 3 casts of Swiftmend grants you Incarnation: Tree of Life for 10 sec.
  */
 class Reforestation extends Analyzer {
   static dependencies = {

@@ -171,7 +171,7 @@ class StatTracker extends Analyzer {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
 
-    [SPELLS.INITIATIVE_BUFF.id]: { crit: 1.12 },
+    [SPELLS.INITIATIVE_BUFF.id]: { crit: 1.1 },
 
     // Highmountain Tauren 1% Buff
     [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },

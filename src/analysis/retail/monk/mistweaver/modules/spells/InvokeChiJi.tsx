@@ -28,6 +28,7 @@ import { MAX_CHIJI_STACKS } from '../../constants';
 import BaseCelestialAnalyzer, { BaseCelestialTracker } from './BaseCelestialAnalyzer';
 import EssenceFont from './EssenceFont';
 import InformationIcon from 'interface/icons/Information';
+import EnvelopingBreath from './EnvelopingBreath';
 
 const debug = false;
 
@@ -45,6 +46,7 @@ interface ChijiCastTracker extends BaseCelestialTracker {
 }
 
 class InvokeChiJi extends BaseCelestialAnalyzer {
+  protected envb!: EnvelopingBreath;
   protected ef!: EssenceFont;
   castTrackers: ChijiCastTracker[] = [];
   //healing breakdown vars
@@ -466,6 +468,11 @@ class InvokeChiJi extends BaseCelestialAnalyzer {
             <ul>
               <li>
                 {(this.chijiGlobals / this.chijiUses).toFixed(2)} average gcds inside Chi-Ji window
+              </li>
+              <li>
+                {this.envb.averageEnvBPerEnv.toFixed(2)} average{' '}
+                <SpellLink spell={SPELLS.ENVELOPING_BREATH_HEAL} /> per{' '}
+                <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> cast
               </li>
             </ul>
           </>

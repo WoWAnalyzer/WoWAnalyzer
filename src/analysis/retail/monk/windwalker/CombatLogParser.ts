@@ -1,9 +1,9 @@
 import {
-  TouchOfDeath,
-  InvokersDelight,
-  MysticTouch,
   DampenHarm,
   FaelineStomp,
+  InvokersDelight,
+  MysticTouch,
+  TouchOfDeath,
 } from 'analysis/retail/monk/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
@@ -32,13 +32,24 @@ import FistsofFury from './modules/spells/FistsofFury';
 import SpinningCraneKick from './modules/spells/SpinningCraneKick';
 import TouchOfKarma from './modules/spells/TouchOfKarma';
 // Talents
+import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
+import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
+import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
+import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import Guide from './Guide';
+import ChiBurst from './modules/spells/ChiBurst';
+import RisingSunKick from './modules/spells/RisingSunKick';
+import StrikeoftheWindlord from './modules/spells/StrikeoftheWindlord';
 import DanceOfChiJi from './modules/talents/DanceOfChiJi';
 import HitCombo from './modules/talents/HitCombo';
+import HitComboGraph from './modules/talents/HitComboGraph';
+import HitComboTracker from './modules/talents/HitComboTracker';
+import InvokeXuen from './modules/talents/InvokeXuen';
 import Serenity from './modules/talents/Serenity';
-import AplCheck from 'analysis/retail/monk/windwalker/modules/apl/AplCheck';
-import SpellUsable from 'analysis/retail/monk/windwalker/modules/core/SpellUsable';
-import DanceOfChiJiNormalizer from 'analysis/retail/monk/windwalker/modules/core/DanceOfChiJiNormalizer';
-import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
+import {
+  FistsOfFuryLinkNormalizer,
+  FistsOfFuryNormalizer,
+} from './normalizers/FistsOfFuryNormalizer';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -50,6 +61,8 @@ class CombatLogParser extends CoreCombatLogParser {
     mysticTouch: MysticTouch,
     spellUsable: SpellUsable,
     chiJiNormalizer: DanceOfChiJiNormalizer,
+    fofNormalizer: FistsOfFuryNormalizer,
+    fofLinkNormalizer: FistsOfFuryLinkNormalizer,
 
     // Features
     alwaysBeCasting: AlwaysBeCasting,
@@ -69,6 +82,12 @@ class CombatLogParser extends CoreCombatLogParser {
     danceOfChiJi: DanceOfChiJi,
     hitCombo: HitCombo,
     serenity: Serenity,
+    strikeoftheWindlord: StrikeoftheWindlord,
+    chiBurst: ChiBurst,
+
+    // Guide helpers
+    hitComboTracker: HitComboTracker,
+    hitComboGraph: HitComboGraph,
 
     // Spells;
     comboBreaker: ComboBreaker,
@@ -80,6 +99,8 @@ class CombatLogParser extends CoreCombatLogParser {
     blackoutKick: BlackoutKick,
     dampenHarm: DampenHarm,
     faelineStomp: FaelineStomp,
+    risingSunKick: RisingSunKick,
+    invokeXuen: InvokeXuen,
 
     // Items:
     lastEmperorsCapacitor: LastEmperorsCapacitor,
@@ -91,6 +112,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // apl
     apl: AplCheck,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;

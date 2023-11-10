@@ -1,4 +1,3 @@
-import { openModal, closeModal } from 'interface/actions/modals';
 import CloseIcon from 'interface/icons/Cross';
 import Portal from 'interface/Portal';
 import { useEffect, useState } from 'react';
@@ -8,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import './Modal.scss';
 import { useWaSelector } from './utils/useWaSelector';
 import { getTopModal } from './selectors/openModals';
+import { closeModal, openModal } from './reducers/openModals';
 
 interface Props {
   children: React.ReactNode;
