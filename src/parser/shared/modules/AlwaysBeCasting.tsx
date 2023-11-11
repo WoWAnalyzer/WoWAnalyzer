@@ -12,8 +12,12 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
+import getUptimeGraph, { UptimeHistoryEntry } from 'parser/shared/modules/getUptimeGraph';
 
 const DEBUG = false;
+
+/** For graphing the active time rolling average, this is the length of the window used */
+export const ACTIVE_TIME_ROLLING__WINDOW_DURATION = 15000;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
@@ -46,11 +50,18 @@ class AlwaysBeCasting extends Analyzer {
   activeTime = 0;
   _lastGlobalCooldownDuration = 0;
 
+  /** Segments of time when the player was active, populated at the same time activeTime is incremented.
+   *  Guaranteed to not overlap and to be in chronological order,
+   *  but segments may not exactly correspond to a cast or GCD */
+  activeTimeSegments: { start: number; end: number }[] = [];
+  /** Rolling average uptime over the course of the encounter */
+  rollingActiveTimeAverage: UptimeHistoryEntry[] = [];
+
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.GlobalCooldown, this.onGCD);
     this.addEventListener(Events.EndChannel, this.onEndChannel);
-    DEBUG && this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onGCD(event: GlobalCooldownEvent) {
@@ -64,6 +75,7 @@ class AlwaysBeCasting extends Analyzer {
       return false;
     }
     this.activeTime += event.duration;
+    this._handleNewUptimeSegment(event.timestamp, event.timestamp + event.duration);
     DEBUG &&
       console.log(
         'Active Time: added ' +
@@ -83,6 +95,7 @@ class AlwaysBeCasting extends Analyzer {
       amount = Math.max(amount, this._lastGlobalCooldownDuration);
     }
     this.activeTime += amount;
+    this._handleNewUptimeSegment(event.timestamp - amount, event.timestamp);
     DEBUG &&
       console.log(
         'Active Time: added ' +
@@ -95,19 +108,54 @@ class AlwaysBeCasting extends Analyzer {
     return true;
   }
 
-  /** This should only be called with DEBUG flag is set */
   onFightEnd() {
-    console.log(
-      'ABC Stats:\n' +
-        'Active Time = ' +
-        this.activeTime +
-        '\n' +
-        'Total Fight Time = ' +
-        this.owner.fightDuration +
-        '\n' +
-        'Active Time Percentage = ' +
-        formatPercentage(this.activeTimePercentage),
+    this._updateRollingAverage();
+    DEBUG &&
+      console.log(
+        'ABC Stats:\n' +
+          'Active Time = ' +
+          this.activeTime +
+          '\n' +
+          'Total Fight Time = ' +
+          this.owner.fightDuration +
+          '\n' +
+          'Active Time Percentage = ' +
+          formatPercentage(this.activeTimePercentage),
+      );
+  }
+
+  _handleNewUptimeSegment(start: number, end: number) {
+    this.activeTimeSegments.push({ start, end });
+    this._updateRollingAverage();
+  }
+
+  _updateRollingAverage() {
+    // step backwards through the segment history and tally the active time within the window
+    const timestamp = this.owner.currentTimestamp;
+    if (timestamp <= this.owner.fight.start_time) {
+      // don't want the problems of a 0 size window...
+      return;
+    }
+
+    const windowStart = Math.max(
+      this.owner.fight.start_time,
+      timestamp - ACTIVE_TIME_ROLLING__WINDOW_DURATION,
     );
+    const windowEnd = timestamp;
+    const windowDuration = windowEnd - windowStart;
+    let activeInWindow = 0;
+    for (let i = this.activeTimeSegments.length - 1; i >= 0; i -= 1) {
+      const segment = this.activeTimeSegments[i];
+      if (segment.end <= windowStart) {
+        break;
+      }
+      const overlapStart = Math.max(windowStart, segment.start);
+      const overlapEnd = Math.min(windowEnd, segment.end);
+      activeInWindow += Math.max(0, overlapEnd - overlapStart);
+    }
+
+    const uptimePct = activeInWindow / windowDuration;
+    this.rollingActiveTimeAverage.push({ timestamp, uptimePct });
   }
 
   showStatistic = true;
@@ -116,6 +164,10 @@ class AlwaysBeCasting extends Analyzer {
     activeTime: '/img/sword.png',
     downtime: '/img/afk.png',
   };
+
+  get rollingAverageUptimeGraph() {
+    return getUptimeGraph(this.rollingActiveTimeAverage, this.owner.fight.start_time);
+  }
 
   statistic() {
     const boss = this.owner.boss;
