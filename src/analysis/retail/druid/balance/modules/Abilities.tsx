@@ -177,9 +177,16 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_DRUID.WILD_MUSHROOM_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
         cooldown: 30,
+        charges: 3,
         enabled: combatant.hasTalent(TALENTS_DRUID.WILD_MUSHROOM_TALENT),
         gcd: {
           base: 1500,
+        },
+        castEfficiency: {
+          suggestion: true,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.6,
         },
         timelineSortIndex: 11,
       },
