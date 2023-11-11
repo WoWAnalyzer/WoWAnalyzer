@@ -28,7 +28,7 @@ class DeathAndMadness extends Analyzer {
   insanityGained = 0;
 
   resets = 0;
-  lastCastTime: number = 0;
+  lastResetTime: number = 0;
   executeThreshold = SHADOW_WORD_DEATH_EXECUTE_RANGE;
 
   constructor(options: Options) {
@@ -52,12 +52,12 @@ class DeathAndMadness extends Analyzer {
   }
 
   onDamage(event: DamageEvent) {
-    //If you cast Shadow Word: Death on a target in execute the cooldown is reset once.  If you wait 10 seconds, you miss the reset.
+    //If you cast Shadow Word: Death on a target in execute the cooldown is reset once.  This can only occur once every 10 seconds.
     if (
       this.isTargetInExecuteRange(event) &&
       !this.selectedCombatant.hasBuff(SPELLS.DEATHSPEAKER_TALENT_BUFF.id)
     ) {
-      const fromLastCast = event.timestamp - this.lastCastTime;
+      const fromLastCast = event.timestamp - this.lastResetTime;
       if (fromLastCast >= 9990) {
         this.spellUsable.endCooldown(
           TALENTS.SHADOW_WORD_DEATH_TALENT.id,
@@ -65,11 +65,12 @@ class DeathAndMadness extends Analyzer {
           false,
           false,
         );
-        DEBUG &&
-          console.log('Shadow Word: Death Reset', this.owner.formatTimestamp(event.timestamp, 1));
         this.resets += 1;
+        this.lastResetTime = event.timestamp;
+
+        DEBUG &&
+          console.log('Shadow Word: Death RESET', this.owner.formatTimestamp(event.timestamp, 1));
       }
-      this.lastCastTime = event.timestamp;
     }
   }
 
