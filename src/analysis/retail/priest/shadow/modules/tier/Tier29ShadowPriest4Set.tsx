@@ -32,6 +32,7 @@ class Tier29ShadowPriest4Set extends Analyzer {
   constructor(options: Options) {
     super(options);
     this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T29);
+    this.active = this.has4Piece;
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_TIER_29_4_SET_BUFF),
