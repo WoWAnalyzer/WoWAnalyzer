@@ -17,7 +17,7 @@ import getUptimeGraph, { UptimeHistoryEntry } from 'parser/shared/modules/getUpt
 const DEBUG = false;
 
 /** For graphing the active time rolling average, this is the length of the window used */
-export const ACTIVE_TIME_ROLLING__WINDOW_DURATION = 15000;
+export const ACTIVE_TIME_ROLLING_WINDOW_DURATION = 15000;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
@@ -45,6 +45,25 @@ class AlwaysBeCasting extends Analyzer {
 
   get activeTimePercentage() {
     return this.activeTime / this.owner.fightDuration;
+  }
+
+  /** Gets active time percentage within a specified time segment.
+   *  This will not work properly unless the current timestamp advances past the end time. */
+  getActiveTimePercentageInWindow(start: number, end: number): number {
+    let activeTime = 0;
+    for (let i = 0; i < this.activeTimeSegments.length; i += 1) {
+      const seg = this.activeTimeSegments[i];
+      if (seg.end <= start) {
+        continue;
+      } else if (seg.start >= end) {
+        break;
+      }
+      const overlapStart = Math.max(start, seg.start);
+      const overlapEnd = Math.min(end, seg.end);
+      activeTime += Math.max(0, overlapEnd - overlapStart);
+    }
+    const windowDuration = end - start;
+    return activeTime / windowDuration;
   }
 
   activeTime = 0;
@@ -148,7 +167,7 @@ class AlwaysBeCasting extends Analyzer {
 
     const windowStart = Math.max(
       this.owner.fight.start_time,
-      timestamp - ACTIVE_TIME_ROLLING__WINDOW_DURATION,
+      timestamp - ACTIVE_TIME_ROLLING_WINDOW_DURATION,
     );
     const windowEnd = timestamp;
     const windowDuration = windowEnd - windowStart;
