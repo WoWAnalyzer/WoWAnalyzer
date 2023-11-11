@@ -17,7 +17,7 @@ import getUptimeGraph, { UptimeHistoryEntry } from 'parser/shared/modules/getUpt
 const DEBUG = false;
 
 /** For graphing the active time rolling average, this is the length of the window used */
-export const ACTIVE_TIME_ROLLING_WINDOW_DURATION = 15000;
+export const ACTIVE_TIME_ROLLING_WINDOW_DURATION = 10_000;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
