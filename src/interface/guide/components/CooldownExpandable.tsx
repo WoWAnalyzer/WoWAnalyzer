@@ -15,6 +15,35 @@ interface Props {
   detailItems?: CooldownExpandableItem[];
   perf?: QualitativePerformance;
 }
+
+/**
+ * The data list used to display Checklist and Details sections in `CooldownExpandable`
+ */
+export const CooldownExpandableDataList = ({
+  items,
+  title,
+}: {
+  items: CooldownExpandableItem[];
+  title: ReactNode;
+}) => (
+  <section>
+    <header style={{ fontWeight: 'bold' }}>{title}</header>
+    <table>
+      <tbody>
+        {items.map((item, ix) => (
+          <tr key={ix}>
+            <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
+              {item.label}
+            </td>
+            <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result}</td>
+            {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+);
+
 const CooldownExpandable = ({ header, checklistItems, detailItems, perf }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const combinedHeader =
@@ -34,40 +63,10 @@ const CooldownExpandable = ({ header, checklistItems, detailItems, perf }: Props
     >
       <div>
         {checklistItems && checklistItems.length !== 0 && (
-          <section>
-            <header style={{ fontWeight: 'bold' }}>Checklist</header>
-            <table>
-              <tbody>
-                {checklistItems.map((item, ix) => (
-                  <tr key={'checklist-' + ix}>
-                    <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
-                      {item.label}
-                    </td>
-                    <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result}</td>
-                    {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
+          <CooldownExpandableDataList items={checklistItems} title="Checklist" />
         )}
         {detailItems && detailItems.length !== 0 && (
-          <section>
-            <header style={{ fontWeight: 'bold' }}>Details</header>
-            <table>
-              <tbody>
-                {detailItems.map((item, ix) => (
-                  <tr key={'details-' + ix}>
-                    <td style={{ paddingRight: '1em', paddingLeft: '1em', minWidth: '25em' }}>
-                      {item.label}
-                    </td>
-                    <td style={{ paddingRight: '1em', textAlign: 'right' }}>{item.result}</td>
-                    {item.details && <td style={{ paddingRight: '1em' }}>{item.details}</td>}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </section>
+          <CooldownExpandableDataList items={detailItems} title="Details" />
         )}
       </div>
     </ControlledExpandable>
