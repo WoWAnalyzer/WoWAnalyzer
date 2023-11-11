@@ -84,8 +84,8 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       </p>
       <p>
         Guardian is absolutely a GCD-capped spec and you should be constantly using abilities.
-        Automated analysis of this rotation is coming soon, but for now we'll look at your GCD
-        utilization:
+        Active time shows the percentage of time you were spamming abilities - get as close to 100%
+        as you can.
       </p>
       <p>
         <strong>
@@ -95,6 +95,9 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
           </PerformanceStrong>{' '}
         </strong>
       </p>
+      {modules.mangle.guideSubsection}
+      {modules.thrash.guideSubsection}
+      {modules.moonfire.guideSubsection}
     </Section>
   );
 }

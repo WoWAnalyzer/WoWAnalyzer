@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 11, 9), <>Fix for <SpellLink spell={SPELLS.INVIGORATING_MISTS_HEAL}/> healing not tracking by T30 tier set</>, Vohrr),
   change(date(2023, 11, 7), <>Remove some stale code in t30 module</>, Trevor),
   change(date(2023, 11, 6), <>Updated Tier 30 Module to be accurate for the reworked 2pc</>, Vohrr),
   change(date(2023, 10, 30), <>Updated healing efficiency tracker to properly attribute <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT}/> to the source spell that activated it.</>, Vohrr),

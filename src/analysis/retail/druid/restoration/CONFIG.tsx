@@ -28,7 +28,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/nKgjXCLPNABhk6GV/32-Heroic+Eranog+-+Kill+(2:44)/Shåped/standard',
+  exampleReport: '/report/xnaX1W8rCGf9Jtwv/5/3',
   //Only show the guide since restoration druid no longer has a supported checklist
   //This will also default to the guide
   guideOnly: true,
