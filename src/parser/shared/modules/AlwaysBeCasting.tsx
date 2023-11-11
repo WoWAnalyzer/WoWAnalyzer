@@ -74,6 +74,15 @@ class AlwaysBeCasting extends Analyzer {
       // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
       return false;
     }
+
+    // check if previous GCD overlaps the beginning of this one. If it does, we don't want to double-count.
+    const lastEntry = this.activeTimeSegments.at(-1);
+    if (lastEntry && lastEntry.end > event.timestamp) {
+      const overlap = lastEntry.end - event.timestamp;
+      this.activeTime -= overlap;
+      lastEntry.end = event.timestamp;
+    }
+
     this.activeTime += event.duration;
     this._handleNewUptimeSegment(event.timestamp, event.timestamp + event.duration);
     DEBUG &&
