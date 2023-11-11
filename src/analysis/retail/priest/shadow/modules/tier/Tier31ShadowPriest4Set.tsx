@@ -85,11 +85,6 @@ class Tier31ShadowPriest4Set extends Analyzer {
     );
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
-      this.onShadowWordPainCast,
-    );
-
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
       this.onShadowCrashCast,
     );
@@ -143,15 +138,10 @@ class Tier31ShadowPriest4Set extends Analyzer {
     }
   }
 
-  onShadowWordPainCast() {
-    this.castSWP = true;
-    //Only the initial damage of SWP is increased
-  }
-
   onShadowWordPain(Event: DamageEvent) {
-    //Since the damage event of the inital hit occurs right after the cast, this will only allow that damage event to be added and increased and not further ticks of the dot.
+    //Since the damage event increase is only for the initial damage, we ignore ticks of the dot.
     //In addition, the recentStacks is not reset until a new stack is gained. This way, if two shadow word pains are cast (or shadow crashes) without gaining the buff since the last cast, the damage will not be counted.
-    if (this.castSWP && this.recentApplied) {
+    if (!Event.tick && this.recentApplied) {
       this.recentApplied = false;
       this.stacksSWP += this.recentStacks;
       this.damageSWP += calculateEffectiveDamage(Event, this.recentStacks * this.bonusSWP);
