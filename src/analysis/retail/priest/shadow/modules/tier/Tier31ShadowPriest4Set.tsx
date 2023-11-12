@@ -5,10 +5,11 @@ import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  CastEvent,
   RefreshBuffEvent,
-  DamageEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
+import { consumedT31Buff, getHits } from './Tier31ShadowPriest4SetNormalizer';
 import Abilities from 'parser/core/modules/Abilities';
 import EventHistory from 'parser/shared/modules/EventHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -19,6 +20,8 @@ import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
 const MAX_DURATION = 60000; //max duration of the buff
+const bonusSWP = 2.25; // multiplier per stack for Shadow Word Pain
+const bonusSC = 0.5; // multiplier per stack for Shadow Crash
 
 class Tier31ShadowPriest4Set extends Analyzer {
   static dependencies = {
@@ -38,14 +41,8 @@ class Tier31ShadowPriest4Set extends Analyzer {
   damageSC = 0; //damage to Shadow Crash
   stacksSC = 0; //Stacks spent on Shadow Crash
 
-  castSWP = false; //this tells if a cast of shadow word Pain has happened
   stacksSWP = 0; //Stacks spent on Shadow Word Pain
   damageSWP = 0; //damage to Shadow Word Pain
-
-  castSC = false; //this tells if a cast of Shadow Crash has happened
-  recentSCTimestamp = 0; //This is the time of the first instance of shadowcrash damage to a target from one cast.
-  bonusSWP = 2.25; // multiplier per stack for Shadow Word Pain
-  bonusSC = 0.5; // multiplier per stack for Shadow Crash
 
   recentApplied = false; //the order of the events requires this for edge cases.
   timestampOfLast = 0; //Used to calculate unused buffs
@@ -71,23 +68,18 @@ class Tier31ShadowPriest4Set extends Analyzer {
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_CRASH_TALENT_DAMAGE),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
       this.onShadowCrash,
     );
 
     this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_WORD_PAIN),
       this.onShadowWordPain,
     );
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
       this.onShadowWordDeath,
-    );
-
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
-      this.onShadowCrashCast,
     );
 
     this.addEventListener(
@@ -119,34 +111,24 @@ class Tier31ShadowPriest4Set extends Analyzer {
     this.stacks = 0;
   }
 
-  onShadowCrashCast() {
-    this.castSC = true;
-    //SC hits multiple targets, but we only want to count the stacks used once.
-  }
-
-  onShadowCrash(Event: DamageEvent) {
-    //Since the damage event of the inital hit occurs right after the cast, this will only allow that damage event to be added and increased and not further ticks of the dot.
-    //In addition, the recentStacks is not reset until a new stack is gained. This way, if two shadow Crashes (or shadow word pains) are cast without gaining the buff since the last cast, the damage will not be counted.
-    //Since Shadow crash can damage multiple targets, if a damage event occurs at the same time as another, then it's damage would also be increased, but we do not count the stacks again.
-    if (this.recentSCTimestamp === Event.timestamp || this.recentApplied) {
-      this.recentApplied = false;
-      if (this.castSC) {
-        this.stacksSC += this.recentStacks;
-        this.castSC = false;
-        this.recentSCTimestamp = Event.timestamp;
-      }
-      this.damageSC += calculateEffectiveDamage(Event, this.recentStacks * this.bonusSC);
+  onShadowCrash(Event: CastEvent) {
+    //SC cast occurs after stacks are removed, so we use RecentStacks
+    //If the buff has not been applied since it has last been used, then stacks of the buff would be 0 instead of its value saved in recent stacks.
+    if (consumedT31Buff(Event) && this.recentApplied) {
+      this.stacksSC += this.recentStacks;
+      getHits(Event).forEach((e) => {
+        this.damageSC += calculateEffectiveDamage(e, this.recentStacks * bonusSC);
+      });
     }
   }
 
-  onShadowWordPain(Event: DamageEvent) {
-    //Since the damage event increase is only for the initial damage, we ignore ticks of the dot.
-    //In addition, the recentStacks is not reset until a new stack is gained. This way, if two shadow word pains are cast (or shadow crashes) without gaining the buff since the last cast, the damage will not be counted.
-    if (!Event.tick && this.recentApplied) {
-      this.recentApplied = false;
-      this.stacksSWP += this.recentStacks;
-      this.damageSWP += calculateEffectiveDamage(Event, this.recentStacks * this.bonusSWP);
-      this.castSWP = false;
+  onShadowWordPain(Event: CastEvent) {
+    //shadow word pain cast occurs before stacks are removed, so we use Stacks
+    if (consumedT31Buff(Event)) {
+      this.stacksSWP += this.stacks;
+      getHits(Event).forEach((e) => {
+        this.damageSWP += calculateEffectiveDamage(e, this.stacks * bonusSWP);
+      });
     }
   }
 
