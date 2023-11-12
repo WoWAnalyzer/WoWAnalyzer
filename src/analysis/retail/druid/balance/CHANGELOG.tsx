@@ -5,6 +5,7 @@ import { Hartra344, Sref, ToppleTheNun, ap2355, attluh, Jundarer } from 'CONTRIB
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 11, 12), <>Added Active Time Graph to Guide.</>, Sref),
   change(date(2023, 11, 10), <>Full overhaul of Guide, and updates for 10.2.</>, Sref),
   change(date(2023, 9, 22), <>Update Fury of Elune cooldown.</>, Jundarer),
   change(date(2023, 7, 20), <>Update for 10.1.5 and show Eclipses on timeline.</>, Jundarer),
