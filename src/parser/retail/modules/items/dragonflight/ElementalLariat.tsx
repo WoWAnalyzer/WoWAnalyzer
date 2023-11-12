@@ -232,6 +232,7 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
         tooltip={this.tooltip(averageBenefits)}
       >
         <BoringItemValueText item={this.item}>
+          {averageBenefits.length < 1 && 'No procs'}
           {averageBenefits.map(({ stat, averageBenefit }) => {
             const StatIcon = getIcon(stat);
             return (
