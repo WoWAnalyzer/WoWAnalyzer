@@ -33,7 +33,9 @@ class Abilities extends CoreAbilities {
         // In case of Reckless Abandon, Crushing Blow is normalized to Raging Blow
         // Here's an old example https://www.warcraftlogs.com/reports/xPbBQnpkJm7r1FyK#fight=32&type=damage-done&source=18
         spell: SPELLS.RAGING_BLOW.id,
-        enabled: combatant.hasTalent(TALENTS.RAGING_BLOW_TALENT),
+        enabled:
+          combatant.hasTalent(TALENTS.RAGING_BLOW_TALENT) &&
+          !combatant.hasTalent(TALENTS.ANNIHILATOR_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) =>
           (combatant.hasTalent(TALENTS.HONED_REFLEXES_FURY_TALENT) ? 8 : 9) / (1 + haste),
@@ -51,7 +53,8 @@ class Abilities extends CoreAbilities {
         spell: SPELLS.BLOODTHIRST.id,
         enabled: combatant.hasTalent(TALENTS.BLOODTHIRST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 4.5 / (1 + haste),
+        cooldown: (haste: number) =>
+          (4.5 - combatant.getTalentRank(TALENTS.DEFT_EXPERIENCE_FURY_TALENT) * 0.75) / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -59,7 +62,8 @@ class Abilities extends CoreAbilities {
       {
         spell: [SPELLS.EXECUTE_FURY.id, SPELLS.EXECUTE_FURY_MASSACRE.id],
         category: SPELL_CATEGORY.ROTATIONAL,
-        cooldown: (haste: number) => 6 / (1 + haste),
+        cooldown: (haste: number) =>
+          (6 - (combatant.hasTalent(TALENTS.MASSACRE_FURY_TALENT) ? 1.5 : 0)) / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -67,6 +71,9 @@ class Abilities extends CoreAbilities {
       {
         spell: SPELLS.SLAM.id,
         category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: combatant.hasTalent(TALENTS.STORM_OF_SWORDS_FURY_TALENT)
+          ? (haste: number) => 9 / (1 + haste)
+          : undefined,
         gcd: {
           base: 1500,
         },
@@ -371,6 +378,14 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.UTILITY,
         cooldown: 8,
         gcd: null,
+      },
+      {
+        spell: SPELLS.IMPENDING_VICTORY.id,
+        category: SPELL_CATEGORY.SEMI_DEFENSIVE,
+        cooldown: 25,
+        gcd: {
+          base: 1500,
+        },
       },
     ];
   }

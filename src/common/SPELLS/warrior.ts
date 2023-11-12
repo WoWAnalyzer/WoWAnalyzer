@@ -279,6 +279,11 @@ const spells = {
     name: 'Impending Victory',
     icon: 'spell_impending_victory',
   },
+  IMPENDING_VICTORY: {
+    id: 202168,
+    name: 'Impending Victory',
+    icon: 'spell_impending_victory',
+  },
   CHAMPIONS_SPEAR: {
     id: 376079,
     name: "Champion's Spear",
