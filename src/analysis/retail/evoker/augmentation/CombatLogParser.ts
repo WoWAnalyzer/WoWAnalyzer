@@ -6,7 +6,6 @@ import Buffs from './modules/Buffs';
 import Guide from './Guide';
 
 import SandsOfTime from './modules/abilities/SandsOfTime';
-//import BreathOfEons from './modules/abilities/BreathOfEon';
 import EbonMight from './modules/abilities/EbonMight';
 import ShiftingSands from './modules/abilities/ShiftingSands';
 import BreathOfEonsRotational from './modules/breahtofeons/BreathOfEonsRotational';
@@ -32,6 +31,9 @@ import CastLinkNormalizer from './modules/normalizers/CastLinkNormalizer';
 import EmpowerNormalizer from './modules/normalizers/EmpowerNormalizer';
 import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 
+// Tier
+import T31Augmentation4P from './modules/dragonflight/T31Augmentation4P';
+
 //Shared
 import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
 
@@ -53,7 +55,6 @@ class CombatLogParser extends MainCombatLogParser {
 
     // Abilities
     sandsOfTime: SandsOfTime,
-    //breathOfEons: BreathOfEons,
     breathOfEonsRotational: BreathOfEonsRotational,
     ebonMight: EbonMight,
     shiftingSands: ShiftingSands,
@@ -75,6 +76,9 @@ class CombatLogParser extends MainCombatLogParser {
     // Features
     buffTrackerGraph: BuffTrackerGraph,
     buffTargetHelper: BuffTargetHelper,
+
+    // Tier
+    t31Augmentation4P: T31Augmentation4P,
   };
   static guide = Guide;
 }
