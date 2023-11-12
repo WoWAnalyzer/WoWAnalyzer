@@ -5,6 +5,7 @@ import { Arlie, Elitesparkle, Fassbrause, niseko, ToppleTheNun, Vetyst, Vohrr } 
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 11, 12), <>Restoration not supported</>, Vohrr),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 5, 8), <>Fix Mana Costs for Shaman Spells and Talents.</>, Elitesparkle),
   change(date(2023, 5, 8), <><SpellLink spell={TALENTS.FLOW_OF_THE_TIDES_TALENT}/> fix to tally additional hit healing regardless of riptides being consumed.</>, Vohrr),

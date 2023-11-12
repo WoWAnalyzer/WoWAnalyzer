@@ -16,9 +16,9 @@ export const GORY_FUR_COST_MULT = 0.75;
 // buffer after expiration to make sure reduction is cost
 export const GORY_FUR_BUFFER = 30;
 
-export const PERFECT_TIME_AT_RAGE_CAP = 0.05;
-export const GOOD_TIME_AT_RAGE_CAP = 0.1;
-export const OK_TIME_AT_RAGE_CAP = 0.2;
+export const PERFECT_RAGE_WASTED = 0.05;
+export const GOOD_RAGE_WASTED = 0.1;
+export const OK_RAGE_WASTED = 0.2;
 
 const RAW_RAGE_GAINED_FROM_MELEE = 40;
 
@@ -89,13 +89,13 @@ export default class RageTracker extends ResourceTracker {
   get wastedPerformance(): QualitativePerformance {
     const total = this.wasted + this.generated;
     const percentWasted = total === 0 ? 0 : this.wasted / total;
-    if (percentWasted === PERFECT_TIME_AT_RAGE_CAP) {
+    if (percentWasted === PERFECT_RAGE_WASTED) {
       return QualitativePerformance.Perfect;
     }
-    if (percentWasted <= GOOD_TIME_AT_RAGE_CAP) {
+    if (percentWasted <= GOOD_RAGE_WASTED) {
       return QualitativePerformance.Good;
     }
-    if (percentWasted <= OK_TIME_AT_RAGE_CAP) {
+    if (percentWasted <= OK_RAGE_WASTED) {
       return QualitativePerformance.Ok;
     }
     return QualitativePerformance.Fail;

@@ -19,14 +19,26 @@ export const WHITELIST_ABILITIES = [
   SPELLS.ORBITAL_STRIKE,
 ];
 
-// Celestial Alignment or Incarnation buff
-export const CA_BUFF = [SPELLS.CELESTIAL_ALIGNMENT, SPELLS.INCARNATION_CHOSEN_OF_ELUNE];
-
-// Need to fix this for DF -> you might take neither CA nor Incarn
-export function cooldownAbility(combatant: Combatant): Spell {
-  return combatant.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
-    ? TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT
+/** Returns the Balance Druid's primary cooldown spell, which changes based on talent */
+export function cdSpell(c: Combatant): Spell {
+  return c.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
+    ? SPELLS.INCARNATION_CHOSEN_OF_ELUNE
     : SPELLS.CELESTIAL_ALIGNMENT;
+}
+
+/** Helper for figuring out the current eclipse state */
+export function currentEclipse(c: Combatant): 'none' | 'solar' | 'lunar' | 'both' {
+  const hasSolar = c.hasBuff(SPELLS.ECLIPSE_SOLAR.id);
+  const hasLunar = c.hasBuff(SPELLS.ECLIPSE_LUNAR.id);
+  if (hasSolar && hasLunar) {
+    return 'both';
+  } else if (hasSolar) {
+    return 'solar';
+  } else if (hasLunar) {
+    return 'lunar';
+  } else {
+    return 'none';
+  }
 }
 
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
