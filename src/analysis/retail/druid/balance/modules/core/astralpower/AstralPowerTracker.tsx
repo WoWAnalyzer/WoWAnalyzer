@@ -2,8 +2,14 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { Options } from 'parser/core/Analyzer';
 import { ResourceChangeEvent } from 'parser/core/Events';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
-// const WARRIOR_OF_ELUNE_MULTIPLIER = 0.4;
+/** Internally, all astral power values are out of 1000, but player facing they are out of 100 */
+export const ASP_SCALE_FACTOR = 0.1;
+
+export const PERFECT_ASP_WASTED = 0;
+export const GOOD_ASP_WASTED = 0.05;
+export const OK_ASP_WASTED = 0.15;
 
 class AstralPowerTracker extends ResourceTracker {
   constructor(options: Options) {
@@ -11,10 +17,24 @@ class AstralPowerTracker extends ResourceTracker {
     this.resource = RESOURCE_TYPES.ASTRAL_POWER;
   }
 
+  get wastedPerformance(): QualitativePerformance {
+    const percentWasted = this.percentWasted;
+    if (percentWasted <= PERFECT_ASP_WASTED) {
+      return QualitativePerformance.Perfect;
+    }
+    if (percentWasted <= GOOD_ASP_WASTED) {
+      return QualitativePerformance.Good;
+    }
+    if (percentWasted <= OK_ASP_WASTED) {
+      return QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
+  }
+
   /** All AsP amounts multiplied by 10 - except gain and waste for some reason */
   getAdjustedGain(event: ResourceChangeEvent): { gain: number; waste: number } {
     const baseGain = super.getAdjustedGain(event);
-    return { gain: baseGain.gain * 10, waste: baseGain.waste * 10 };
+    return { gain: baseGain.gain / ASP_SCALE_FACTOR, waste: baseGain.waste / ASP_SCALE_FACTOR };
   }
 
   // TODO reactivate WoE handling when/if needed

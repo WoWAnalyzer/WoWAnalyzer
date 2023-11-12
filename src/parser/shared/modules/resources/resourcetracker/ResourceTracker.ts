@@ -590,6 +590,12 @@ export default class ResourceTracker extends Analyzer {
     return this.fightData.spent;
   }
 
+  /** Percent of raw generated resources that were wasted */
+  get percentWasted(): number {
+    const rawTotal = this.generated + this.wasted;
+    return rawTotal === 0 ? 0 : this.wasted / rawTotal;
+  }
+
   /** Total spender abilities cast */
   get spendersCasts(): number {
     return this.fightData.spendersCast;

@@ -7,10 +7,10 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
-import { PERFECT_TIME_AT_FURY_CAP } from 'analysis/retail/demonhunter/vengeance/modules/resourcetracker/FuryTracker';
 import {
-  GOOD_TIME_AT_RAGE_CAP,
-  OK_TIME_AT_RAGE_CAP,
+  PERFECT_RAGE_WASTED,
+  GOOD_RAGE_WASTED,
+  OK_RAGE_WASTED,
   RAGE_SCALE_FACTOR,
 } from 'analysis/retail/druid/guardian/modules/core/rage/RageTracker';
 import { Highlight } from 'interface/Highlight';
@@ -52,9 +52,9 @@ function RageSection({ modules }: GuideProps<typeof CombatLogParser>): JSX.Eleme
         The chart below shows your Rage over the course of the encounter. You wasted{' '}
         <PerformancePercentage
           performance={modules.rageTracker.wastedPerformance}
-          perfectPercentage={PERFECT_TIME_AT_FURY_CAP}
-          goodPercentage={GOOD_TIME_AT_RAGE_CAP}
-          okPercentage={OK_TIME_AT_RAGE_CAP}
+          perfectPercentage={PERFECT_RAGE_WASTED}
+          goodPercentage={GOOD_RAGE_WASTED}
+          okPercentage={OK_RAGE_WASTED}
           percentage={modules.rageTracker.percentAtCap}
           flatAmount={modules.rageTracker.wasted * RAGE_SCALE_FACTOR}
         />{' '}

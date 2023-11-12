@@ -272,9 +272,9 @@ class AlwaysBeCasting extends Analyzer {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
-        minor: 0.02,
-        average: 0.04,
-        major: 0.06,
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
