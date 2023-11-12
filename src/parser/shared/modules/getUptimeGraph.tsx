@@ -69,6 +69,7 @@ export default function getUptimeGraph(
         encoding: {
           y: {
             field: 'activeTimePercentage',
+            title: 'Active Time',
             type: 'quantitative' as const,
             axis: {
               grid: true,
@@ -98,7 +99,7 @@ export default function getUptimeGraph(
             {
               field: 'activeTimePercentage',
               type: 'quantitative',
-              title: 'Active time %',
+              title: 'Active Time',
               format: '.0%',
             },
           ],

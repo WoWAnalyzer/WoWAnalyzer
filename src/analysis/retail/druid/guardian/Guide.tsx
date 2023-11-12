@@ -95,6 +95,7 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
           </PerformanceStrong>{' '}
         </strong>
       </p>
+      <p>{modules.alwaysBeCasting.rollingAverageUptimeGraph}</p>
       {modules.mangle.guideSubsection}
       {modules.thrash.guideSubsection}
       {modules.moonfire.guideSubsection}
