@@ -150,27 +150,30 @@ class EmeraldCommunion extends Analyzer {
             );
             const checklistItems: CooldownExpandableItem[] = [];
             let targetsHitPerf = QualitativePerformance.Good;
-            let ticksPerf = QualitativePerformance.Good;
-            const percentHit = info.numLifebinds / info.possibleTargets;
-            if (percentHit < 0.7) {
-              targetsHitPerf = QualitativePerformance.Fail;
-            } else if (percentHit < 0.8) {
-              targetsHitPerf = QualitativePerformance.Ok;
+            // only check lifebind targets if they are echo build
+            if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.STASIS_TALENT)) {
+              const percentHit = info.numLifebinds / info.possibleTargets;
+              if (percentHit < 0.7) {
+                targetsHitPerf = QualitativePerformance.Fail;
+              } else if (percentHit < 0.8) {
+                targetsHitPerf = QualitativePerformance.Ok;
+              }
+              checklistItems.push({
+                label: (
+                  <>
+                    Targets with <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> before casting{' '}
+                    <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />
+                  </>
+                ),
+                result: <PerformanceMark perf={targetsHitPerf} />,
+                details: (
+                  <>
+                    {info.numLifebinds}/{info.possibleTargets}
+                  </>
+                ),
+              });
             }
-            checklistItems.push({
-              label: (
-                <>
-                  Targets with <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> before casting{' '}
-                  <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} />
-                </>
-              ),
-              result: <PerformanceMark perf={targetsHitPerf} />,
-              details: (
-                <>
-                  {info.numLifebinds}/{info.possibleTargets}
-                </>
-              ),
-            });
+            let ticksPerf = QualitativePerformance.Good;
             const secondsChanneling = Math.max(0, (info.endChannelTime - info.timestamp) / 1000);
             if (secondsChanneling < 3.5) {
               ticksPerf = QualitativePerformance.Fail;

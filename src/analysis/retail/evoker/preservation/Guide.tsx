@@ -30,6 +30,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
         {info.combatant.hasTalent(TALENTS_EVOKER.RESONATING_SPHERE_TALENT) &&
           !isEbBuild &&
           modules.resonatingSphere.guideSubsection}
+        {isEbBuild && modules.emeraldBlossom.guideSubsection}
       </Section>
       <Section title="Healing cooldowns">
         {info.combatant.hasTalent(TALENTS_EVOKER.DREAM_FLIGHT_TALENT) &&
