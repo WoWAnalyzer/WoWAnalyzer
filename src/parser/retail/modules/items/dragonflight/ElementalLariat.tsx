@@ -183,7 +183,8 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
       <>
         <div>
           <ItemLink id={this.item.id} quality={this.item.quality} details={this.item} /> proced{' '}
-          {totalTriggers} times, this means you benefited an average of{' '}
+          {totalTriggers} times, giving {this.value} secondary stat every time, this resulted with
+          an average of{' '}
           {averageBenefits
             .map(({ stat, averageBenefit }) => `${Math.round(averageBenefit)} ${getName(stat)}`)
             .join(', ')}{' '}
