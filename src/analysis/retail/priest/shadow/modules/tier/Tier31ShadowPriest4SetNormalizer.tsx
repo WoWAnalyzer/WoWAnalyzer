@@ -41,6 +41,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     forwardBufferMs: BUFFER_MS,
     backwardBufferMs: BUFFER_MS,
+    additionalCondition: (linkingEvent, referencedEvent) =>
+      referencedEvent.type === EventType.Damage && !referencedEvent.tick,
     isActive(c) {
       return c.has4PieceByTier(TIERS.T31);
     },
