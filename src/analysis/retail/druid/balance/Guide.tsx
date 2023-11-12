@@ -48,12 +48,14 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
           cases 0% downtime will not be possible - do the best you can.
         </p>
         <p>
-          <strong>
-            Active Time:{' '}
-            <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
-              {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
-            </PerformanceStrong>{' '}
-          </strong>
+          Active Time:{' '}
+          <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
+            {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
+          </PerformanceStrong>{' '}
+          Cancelled Casts:{' '}
+          <PerformanceStrong performance={modules.cancelledCasts.CancelledPerformance}>
+            {formatPercentage(modules.cancelledCasts.cancelledPercentage, 1)}%
+          </PerformanceStrong>{' '}
         </p>
         <p>
           <ActiveTimeGraph

@@ -1,6 +1,7 @@
 import BaseChart, { formatTime } from 'parser/ui/BaseChart';
 import { AutoSizer } from 'react-virtualized';
 import { VisualizationSpec } from 'react-vega';
+import { useMemo } from 'react';
 
 /** The maximum value on the Y axis. Can't have active time higher than 100%. */
 const GRAPH_MAX_Y = 1;
@@ -24,27 +25,30 @@ type Props = {
 };
 
 const ActiveTimeGraph = ({ activeTimeSegments, fightStart, fightEnd, ...others }: Props) => {
-  // Generate active time rolling average from the ABC module's active time segments
-  const graphData: GraphData[] = [];
-  let currIdx = 0;
-  for (
-    let timestamp = fightStart + SAMPLE_PERIOD;
-    timestamp < fightEnd;
-    timestamp += SAMPLE_PERIOD
-  ) {
-    // advance segment index until we've passed window
-    while (currIdx < activeTimeSegments.length && activeTimeSegments[currIdx].start < timestamp) {
-      currIdx += 1;
+  // Generate active time rolling average from active time segments (memoize for perf)
+  const graphData = useMemo(() => {
+    const graphData: GraphData[] = [];
+    let currIdx = 0;
+    for (
+      let timestamp = fightStart + SAMPLE_PERIOD;
+      timestamp < fightEnd;
+      timestamp += SAMPLE_PERIOD
+    ) {
+      // advance segment index until we've passed window
+      while (currIdx < activeTimeSegments.length && activeTimeSegments[currIdx].start < timestamp) {
+        currIdx += 1;
+      }
+      const windowDuration = Math.min(ROLLING_AVERAGE_WINDOW_DURATION, timestamp - fightStart);
+      const activeTimePercentage = getRollingAverage(
+        activeTimeSegments,
+        currIdx - 1,
+        timestamp,
+        windowDuration,
+      );
+      graphData.push({ timestamp, activeTimePercentage });
     }
-    const windowDuration = Math.min(ROLLING_AVERAGE_WINDOW_DURATION, timestamp - fightStart);
-    const activeTimePercentage = getRollingAverage(
-      activeTimeSegments,
-      currIdx - 1,
-      timestamp,
-      windowDuration,
-    );
-    graphData.push({ timestamp, activeTimePercentage });
-  }
+    return graphData;
+  }, [activeTimeSegments, fightStart, fightEnd]);
 
   return (
     <div
