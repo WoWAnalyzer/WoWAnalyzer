@@ -1,5 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
+import WindfuryLinkNormalizer from 'parser/shared/normalizers/WindfuryLinkNormalizer';
 import Abilities from './modules/Abilities';
 import Enrage from './modules/buffdebuff/Enrage';
 import Haste from './modules/core/Haste';
@@ -20,7 +21,6 @@ import AngerManagement from './modules/talents/AngerManagement';
 import SuddenDeath from './modules/talents/SuddenDeath';
 import Warpaint from './modules/talents/Warpaint';
 import SpellReflection from '../shared/modules/talents/SpellReflection';
-import WindfuryLinkNormalizer from '../shared/modules/normalizers/WindfuryLinkNormalizer';
 import ElysianMight from '../shared/modules/talents/ElysianMight';
 import ImpendingVictory from '../shared/modules/talents/ImpendingVictory';
 import SpearOfBastion from '../shared/modules/talents/SpearOfBastion';
