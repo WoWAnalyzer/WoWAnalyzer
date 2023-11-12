@@ -16,6 +16,7 @@ import {
   PERFECT_ASP_WASTED,
 } from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -53,6 +54,13 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
               {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
             </PerformanceStrong>{' '}
           </strong>
+        </p>
+        <p>
+          <ActiveTimeGraph
+            activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+            fightStart={info.fightStart}
+            fightEnd={info.fightEnd}
+          />
         </p>
       </SubSection>
       <SubSection title="Astral Power">

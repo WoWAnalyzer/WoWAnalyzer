@@ -7,9 +7,9 @@ const GRAPH_MAX_Y = 1;
 /** Minimum height of graph */
 const GRAPH_HEIGHT = 160;
 /** Sample period, in milliseconds */
-const SAMPLE_PERIOD = 2500;
+const SAMPLE_PERIOD = 3000;
 /** Duration of rolling average window, in milliseconds */
-const ROLLING_AVERAGE_WINDOW_DURATION = 10_000;
+const ROLLING_AVERAGE_WINDOW_DURATION = 9000;
 
 /** Data point effectively defines x (time) and y (active time percent) axes */
 interface GraphData {
