@@ -16,7 +16,6 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageBeforeBloodthirst from './modules/normalizers/EnrageBeforeBloodthirst';
 import EnrageRefreshNormalizer from './modules/normalizers/EnrageRefresh';
-import RecklessAbandonNormalizer from './modules/normalizers/RecklessAbandon';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -33,7 +32,6 @@ class CombatLogParser extends CoreCombatLogParser {
     // Normalizer
     windfuryNormalizer: WindfuryLinkNormalizer,
     rageNormalizer: RageNormalizer,
-    recklessAbandonNormalizer: RecklessAbandonNormalizer,
     enrageRefreshNormalizer: EnrageRefreshNormalizer,
     enrageBeforeBloodthirst: EnrageBeforeBloodthirst,
 

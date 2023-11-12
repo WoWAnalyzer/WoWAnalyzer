@@ -30,9 +30,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        // In case of Reckless Abandon, Crushing Blow is normalized to Raging Blow
-        // Here's an old example https://www.warcraftlogs.com/reports/xPbBQnpkJm7r1FyK#fight=32&type=damage-done&source=18
-        spell: SPELLS.RAGING_BLOW.id,
+        // Example using reckless abandong
+        // http://localhost:3000/report/2HRzhwqPV1WvZxL7/1-Heroic+Kazzara,+the+Hellforged+-+Kill+(2:12)/Clar%C3%ADty/standard/timeline
+        spell: [SPELLS.RAGING_BLOW.id, SPELLS.CRUSHING_BLOW.id],
         enabled:
           combatant.hasTalent(TALENTS.RAGING_BLOW_TALENT) &&
           !combatant.hasTalent(TALENTS.ANNIHILATOR_TALENT),
@@ -48,9 +48,9 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        // In case of Reckless Abandon, Bloodbath is normalized to Bloodthirst
-        // Here's an old example https://www.warcraftlogs.com/reports/xPbBQnpkJm7r1FyK#fight=32&type=damage-done&source=18
-        spell: SPELLS.BLOODTHIRST.id,
+        // Example using reckless abandong
+        // http://localhost:3000/report/2HRzhwqPV1WvZxL7/1-Heroic+Kazzara,+the+Hellforged+-+Kill+(2:12)/Clar%C3%ADty/standard/timeline
+        spell: [SPELLS.BLOODTHIRST.id, SPELLS.BLOODBATH.id],
         enabled: combatant.hasTalent(TALENTS.BLOODTHIRST_TALENT),
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: (haste: number) =>
