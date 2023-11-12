@@ -31,21 +31,22 @@ class EmeraldBlossom extends Analyzer {
   totalOverhealing: number = 0;
   countedTimestamps: Set<number> = new Set<number>();
   castEntries: BoxRowEntry[] = [];
-  hasBountiful: boolean = false;
+  bountifulRank: number = 0;
   goodThreshold: number = 0;
   perfectThreshold: number = 0;
+  totalCastHits: number = 0;
 
   constructor(options: Options) {
     super(options);
-    this.hasBountiful = this.selectedCombatant.hasTalent(TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT);
+    this.bountifulRank = this.selectedCombatant.getTalentRank(
+      TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT,
+    );
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.EMERALD_BLOSSOM),
       this.onHealBatch,
     );
-    this.perfectThreshold =
-      3 + this.selectedCombatant.getTalentRank(TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT) * 2;
-    this.goodThreshold =
-      2 + this.selectedCombatant.getTalentRank(TALENTS_EVOKER.BOUNTIFUL_BLOOM_TALENT) * 2;
+    this.perfectThreshold = BASE_TARGETS + this.bountifulRank * BOUNTIFUL_ADDITIONAL_TARGETS;
+    this.goodThreshold = BASE_TARGETS - 1 + this.bountifulRank * BOUNTIFUL_ADDITIONAL_TARGETS;
   }
 
   get averageNumTargets() {
@@ -60,12 +61,13 @@ class EmeraldBlossom extends Analyzer {
     if (events.some((ev) => isFromFieldOfDreams(ev))) {
       return;
     }
+    this.totalCastHits += events.length;
     let value = QualitativePerformance.Perfect;
     let effective = 0;
     let overheal = 0;
     let timestamp = events.at(0)!.timestamp;
     events.forEach((ev) => {
-      effective += ev.amount;
+      effective += ev.amount + (ev.absorbed || 0);
       overheal = ev.overheal || 0;
       timestamp = timestamp < ev.timestamp ? timestamp : ev.timestamp;
     });
@@ -119,11 +121,15 @@ class EmeraldBlossom extends Analyzer {
     return {
       actual: this.averageNumTargets,
       isLessThan: {
-        minor: 2.5 + Number(this.hasBountiful) * BOUNTIFUL_ADDITIONAL_TARGETS,
-        average: 2 + Number(this.hasBountiful) * BOUNTIFUL_ADDITIONAL_TARGETS,
+        minor: 2.5 + this.bountifulRank * BOUNTIFUL_ADDITIONAL_TARGETS,
+        average: 2 + this.bountifulRank * BOUNTIFUL_ADDITIONAL_TARGETS,
       },
       style: ThresholdStyle.NUMBER,
     };
+  }
+
+  get avgHitsFromCast() {
+    return this.totalCastHits / this.castEntries.length;
   }
 
   suggestions(when: When) {
@@ -183,7 +189,7 @@ class EmeraldBlossom extends Analyzer {
             <small style={styleObjInner}>
               <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> -{' '}
             </small>
-            <strong>{this.averageNumTargets.toFixed(2)}</strong>{' '}
+            <strong>{this.avgHitsFromCast.toFixed(2)}</strong>{' '}
             <small>
               average targets hit per <SpellLink spell={SPELLS.EMERALD_BLOSSOM} />
             </small>
@@ -196,7 +202,7 @@ class EmeraldBlossom extends Analyzer {
   }
 
   statistic() {
-    return this.hasBountiful && this.averageExtraTargets > 0 ? (
+    return this.bountifulRank > 0 && this.averageExtraTargets > 0 ? (
       <Statistic
         size="flexible"
         position={STATISTIC_ORDER.CORE(1)}
