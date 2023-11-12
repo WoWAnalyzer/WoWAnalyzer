@@ -2,13 +2,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, {
-  ApplyBuffEvent,
-  ApplyBuffStackEvent,
-  CastEvent,
-  RefreshBuffEvent,
-  RemoveBuffEvent,
-} from 'parser/core/Events';
+import Events, { ApplyBuffStackEvent, CastEvent } from 'parser/core/Events';
 import { consumedT31Buff, getHits } from './Tier31ShadowPriest4SetNormalizer';
 import Abilities from 'parser/core/modules/Abilities';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -19,7 +13,6 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 
-const MAX_DURATION = 60000; //max duration of the buff
 const bonusSWP = 2.25; // multiplier per stack for Shadow Word Pain
 const bonusSC = 0.5; // multiplier per stack for Shadow Crash
 
@@ -35,7 +28,6 @@ class Tier31ShadowPriest4Set extends Analyzer {
   has4Piece: boolean = true;
 
   stacks = 0; //current stacks of buff
-  recentStacks = 0; // stacks used to calculate damage, since stacks are sometimes removed before damage event
   totalStacks = 0; //total Possible Stacks
 
   damageSC = 0; //damage to Shadow Crash
@@ -43,9 +35,6 @@ class Tier31ShadowPriest4Set extends Analyzer {
 
   stacksSWP = 0; //Stacks spent on Shadow Word Pain
   damageSWP = 0; //damage to Shadow Word Pain
-
-  recentApplied = false; //the order of the events requires this for edge cases.
-  timestampOfLast = 0; //Used to calculate unused buffs
 
   constructor(options: Options) {
     super(options);
@@ -63,11 +52,6 @@ class Tier31ShadowPriest4Set extends Analyzer {
     );
 
     this.addEventListener(
-      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_TIER_31_4_SET_BUFF),
-      this.onBuffRefresh,
-    );
-
-    this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_CRASH_TALENT),
       this.onShadowCrash,
     );
@@ -81,49 +65,28 @@ class Tier31ShadowPriest4Set extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS.SHADOW_WORD_DEATH_TALENT),
       this.onShadowWordDeath,
     );
-
-    this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.SHADOW_PRIEST_TIER_31_4_SET_BUFF),
-      this.onBuffRemoved,
-    );
   }
 
-  onBuffApplied(Event: ApplyBuffEvent) {
-    this.timestampOfLast = Event.timestamp;
+  onBuffApplied() {
     this.stacks = 1;
-    this.recentApplied = true;
   }
 
   onBuffStack(Event: ApplyBuffStackEvent) {
-    this.timestampOfLast = Event.timestamp;
     this.stacks = Event.stack;
   }
 
-  onBuffRefresh(Event: RefreshBuffEvent) {
-    this.timestampOfLast = Event.timestamp;
-  }
-
-  onBuffRemoved(Event: RemoveBuffEvent) {
-    this.recentStacks = this.stacks;
-    if (MAX_DURATION <= Event.timestamp - this.timestampOfLast) {
-      this.recentStacks = 0;
-    }
-    this.stacks = 0;
-  }
-
   onShadowCrash(Event: CastEvent) {
-    //SC cast occurs after stacks are removed, so we use RecentStacks
-    //If the buff has not been applied since it has last been used, then stacks of the buff would be 0 instead of its value saved in recent stacks.
-    if (consumedT31Buff(Event) && this.recentApplied) {
-      this.stacksSC += this.recentStacks;
+    //SC cast occurs after stacks are removed
+    if (consumedT31Buff(Event)) {
+      this.stacksSC += this.stacks;
       getHits(Event).forEach((e) => {
-        this.damageSC += calculateEffectiveDamage(e, this.recentStacks * bonusSC);
+        this.damageSC += calculateEffectiveDamage(e, this.stacks * bonusSC);
       });
     }
   }
 
   onShadowWordPain(Event: CastEvent) {
-    //shadow word pain cast occurs before stacks are removed, so we use Stacks
+    //shadow word pain cast occurs before stacks are removed
     if (consumedT31Buff(Event)) {
       this.stacksSWP += this.stacks;
       getHits(Event).forEach((e) => {
