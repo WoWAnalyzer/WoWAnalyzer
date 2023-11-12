@@ -3,27 +3,13 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
 import { Expandable, SpellLink } from 'interface';
 import { SectionHeader, SubSection } from 'interface/guide';
-import { GlobalCooldownEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import CoreAlwaysBeCasting from 'parser/shared/modules/AlwaysBeCasting';
 import ThresholdPerformancePercentage from './shared/ThresholdPerformancePercentage';
 import Statistics from 'interface/icons/Statistics';
-import getUptimeGraph, { UptimeHistoryEntry } from 'parser/shared/modules/getUptimeGraph';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 class AlwaysBeCasting extends CoreAlwaysBeCasting {
-  uptimeHistory: UptimeHistoryEntry[] = [];
-
-  onGCD(event: GlobalCooldownEvent) {
-    const super_result = super.onGCD(event);
-
-    this.uptimeHistory.push({
-      timestamp: this.owner.currentTimestamp,
-      uptimePct: this.activeTimePercentage,
-    });
-
-    return super_result;
-  }
-
   get suggestionThresholds() {
     return {
       actual: this.activeTimePercentage,
@@ -35,6 +21,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
       style: ThresholdStyle.PERCENTAGE,
     };
   }
+
   get guideSubsection() {
     const abcSuggestionThreshold = this.suggestionThresholds;
 
@@ -55,7 +42,7 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
         </p>
 
         <p>
-          You spendt{' '}
+          You spent{' '}
           <ThresholdPerformancePercentage
             threshold={{
               type: 'gte',
@@ -81,7 +68,11 @@ class AlwaysBeCasting extends CoreAlwaysBeCasting {
           }
           element="section"
         >
-          {getUptimeGraph(this.uptimeHistory, this.owner.fight.start_time)}
+          <ActiveTimeGraph
+            activeTimeSegments={this.activeTimeSegments}
+            fightStart={this.owner.fight.start_time}
+            fightEnd={this.owner.fight.end_time}
+          />
         </Expandable>
       </SubSection>
     );

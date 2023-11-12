@@ -1,11 +1,22 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from 'analysis/retail/druid/balance/CombatLogParser';
-import { SpellLink } from 'interface';
+import { ResourceLink, SpellLink } from 'interface';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import { formatPercentage } from 'common/format';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import SPELLS from 'common/SPELLS';
+import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
+import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import {
+  ASP_SCALE_FACTOR,
+  GOOD_ASP_WASTED,
+  OK_ASP_WASTED,
+  PERFECT_ASP_WASTED,
+} from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
+import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -13,6 +24,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <CoreSection modules={modules} events={events} info={info} />
       <RotationSection modules={modules} events={events} info={info} />
       <CooldownsSection modules={modules} events={events} info={info} />
+      <PreparationSection />
     </>
   );
 }
@@ -35,21 +47,43 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
           Some fights have unavoidable downtime due to phase transitions and the like, so in these
           cases 0% downtime will not be possible - do the best you can.
         </p>
-        Active Time:{' '}
-        <strong>{formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%</strong>
-        <br />
-        TODO ACTIVE TIME GRAPH
+        <p>
+          Active Time:{' '}
+          <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
+            {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
+          </PerformanceStrong>{' '}
+          Cancelled Casts:{' '}
+          <PerformanceStrong performance={modules.cancelledCasts.CancelledPerformance}>
+            {formatPercentage(modules.cancelledCasts.cancelledPercentage, 1)}%
+          </PerformanceStrong>{' '}
+        </p>
+        <p>
+          <ActiveTimeGraph
+            activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+            fightStart={info.fightStart}
+            fightEnd={info.fightEnd}
+          />
+        </p>
       </SubSection>
       <SubSection title="Astral Power">
         <p>
-          Your primary resource is Astral Power. Most of your spells generate Astral Power, and then
-          it can be spent to cast <SpellLink spell={TALENTS_DRUID.STARSURGE_SHARED_TALENT} /> or{' '}
+          Your primary resource is <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} />. Most of
+          your spells generate Astral Power, which can be spent to cast{' '}
+          <SpellLink spell={TALENTS_DRUID.STARSURGE_SHARED_TALENT} /> or{' '}
           <SpellLink spell={TALENTS_DRUID.STARFALL_TALENT} />. Avoid capping Astral Power!
         </p>
-        The chart below shows your Astral Power over the course of the encounter. TODO show percent
-        wasted.
-        {modules.astralPowerGraph.plot}
+        The chart below shows your Astral Power over the course of the encounter. You wasted{' '}
+        <PerformancePercentage
+          performance={modules.astralPowerTracker.wastedPerformance}
+          perfectPercentage={PERFECT_ASP_WASTED}
+          goodPercentage={GOOD_ASP_WASTED}
+          okPercentage={OK_ASP_WASTED}
+          percentage={modules.astralPowerTracker.percentWasted}
+          flatAmount={modules.astralPowerTracker.wasted * ASP_SCALE_FACTOR}
+        />{' '}
+        of your <ResourceLink id={RESOURCE_TYPES.ASTRAL_POWER.id} />.
       </SubSection>
+      {modules.astralPowerGraph.plot}
     </Section>
   );
 }
@@ -57,20 +91,27 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
 function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <Section title="Rotation">
-      <SubSection>
-        <strong>
-          <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} />
-        </strong>{' '}
-        - TODO
-      </SubSection>
-      <SubSection>TODO - SPENDER USE</SubSection>
+      <p>
+        Balance's core rotation involves maximizing time spent in{' '}
+        <SpellLink spell={TALENTS_DRUID.ECLIPSE_TALENT} />, maximizing DoT uptimes, and spending
+        Astral Power to avoid overcapping. After fulfilling these priorities, open GCDs are filled
+        with <SpellLink spell={SPELLS.WRATH} /> or <SpellLink spell={SPELLS.STARFIRE} /> depending
+        on Eclipse type and target count. Refer to the spec guide for more{' '}
+        <a
+          href="https://www.wowhead.com/guide/classes/druid/balance/rotation-cooldowns-pve-dps"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          rotation details
+        </a>
+        .
+      </p>
       {modules.dotUptimes.guideSubsection}
-      <SubSection>
-        TODO - Add Guide explanation for waning twilight and it's importance
-        {modules.waningTwilight.guideSubsection}
-        TODO - TALENT STUFF - talents w/ gameplay impact: Starweaver, Rattle the Stars, Waning
-        Twilight (kinda), Wild Mushroom, New Moon, ...?
-      </SubSection>
+      {modules.eclipse.guideSubsection}
+      {modules.fillerUsage.guideSubsection}
+      {modules.spenderUsage.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.STARLORD_TALENT) && modules.starlord.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT) && modules.newMoon.guideSubsection}
     </Section>
   );
 }
@@ -85,7 +126,6 @@ function CooldownsSection({ modules, events, info }: GuideProps<typeof CombatLog
         duration).
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
-      <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
     </Section>
   );
 }
@@ -149,12 +189,4 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       )}
     </SubSection>
   );
-}
-
-function CooldownBreakdownSubsection({
-  modules,
-  events,
-  info,
-}: GuideProps<typeof CombatLogParser>) {
-  return <SubSection>TODO - COOLDOWN BREAKDOWNS</SubSection>;
 }

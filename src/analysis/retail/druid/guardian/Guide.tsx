@@ -7,10 +7,10 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS';
 import PerformancePercentage from 'analysis/retail/demonhunter/shared/guide/PerformancePercentage';
-import { PERFECT_TIME_AT_FURY_CAP } from 'analysis/retail/demonhunter/vengeance/modules/resourcetracker/FuryTracker';
 import {
-  GOOD_TIME_AT_RAGE_CAP,
-  OK_TIME_AT_RAGE_CAP,
+  PERFECT_RAGE_WASTED,
+  GOOD_RAGE_WASTED,
+  OK_RAGE_WASTED,
   RAGE_SCALE_FACTOR,
 } from 'analysis/retail/druid/guardian/modules/core/rage/RageTracker';
 import { Highlight } from 'interface/Highlight';
@@ -21,6 +21,7 @@ import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/Al
 import { MAJOR_DEFENSIVE_ANALYZERS } from 'analysis/retail/druid/guardian/modules/core/defensives/config';
 import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 import { formatPercentage } from 'common/format';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -52,9 +53,9 @@ function RageSection({ modules }: GuideProps<typeof CombatLogParser>): JSX.Eleme
         The chart below shows your Rage over the course of the encounter. You wasted{' '}
         <PerformancePercentage
           performance={modules.rageTracker.wastedPerformance}
-          perfectPercentage={PERFECT_TIME_AT_FURY_CAP}
-          goodPercentage={GOOD_TIME_AT_RAGE_CAP}
-          okPercentage={OK_TIME_AT_RAGE_CAP}
+          perfectPercentage={PERFECT_RAGE_WASTED}
+          goodPercentage={GOOD_RAGE_WASTED}
+          okPercentage={OK_RAGE_WASTED}
           percentage={modules.rageTracker.percentAtCap}
           flatAmount={modules.rageTracker.wasted * RAGE_SCALE_FACTOR}
         />{' '}
@@ -84,8 +85,8 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       </p>
       <p>
         Guardian is absolutely a GCD-capped spec and you should be constantly using abilities.
-        Automated analysis of this rotation is coming soon, but for now we'll look at your GCD
-        utilization:
+        Active time shows the percentage of time you were spamming abilities - get as close to 100%
+        as you can.
       </p>
       <p>
         <strong>
@@ -95,6 +96,16 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
           </PerformanceStrong>{' '}
         </strong>
       </p>
+      <p>
+        <ActiveTimeGraph
+          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+          fightStart={info.fightStart}
+          fightEnd={info.fightEnd}
+        />
+      </p>
+      {modules.mangle.guideSubsection}
+      {modules.thrash.guideSubsection}
+      {modules.moonfire.guideSubsection}
     </Section>
   );
 }
