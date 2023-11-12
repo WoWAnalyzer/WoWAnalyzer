@@ -21,6 +21,7 @@ import AllCooldownUsagesList from 'interface/guide/components/MajorDefensives/Al
 import { MAJOR_DEFENSIVE_ANALYZERS } from 'analysis/retail/druid/guardian/modules/core/defensives/config';
 import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
 import { formatPercentage } from 'common/format';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -95,7 +96,13 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
           </PerformanceStrong>{' '}
         </strong>
       </p>
-      <p>{modules.alwaysBeCasting.rollingAverageUptimeGraph}</p>
+      <p>
+        <ActiveTimeGraph
+          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+          fightStart={info.fightStart}
+          fightEnd={info.fightEnd}
+        />
+      </p>
       {modules.mangle.guideSubsection}
       {modules.thrash.guideSubsection}
       {modules.moonfire.guideSubsection}

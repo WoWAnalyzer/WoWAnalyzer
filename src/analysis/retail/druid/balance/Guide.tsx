@@ -16,6 +16,7 @@ import {
   PERFECT_ASP_WASTED,
 } from 'analysis/retail/druid/balance/modules/core/astralpower/AstralPowerTracker';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -47,12 +48,21 @@ function CoreSection({ modules, events, info }: GuideProps<typeof CombatLogParse
           cases 0% downtime will not be possible - do the best you can.
         </p>
         <p>
-          <strong>
-            Active Time:{' '}
-            <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
-              {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
-            </PerformanceStrong>{' '}
-          </strong>
+          Active Time:{' '}
+          <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
+            {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
+          </PerformanceStrong>{' '}
+          Cancelled Casts:{' '}
+          <PerformanceStrong performance={modules.cancelledCasts.CancelledPerformance}>
+            {formatPercentage(modules.cancelledCasts.cancelledPercentage, 1)}%
+          </PerformanceStrong>{' '}
+        </p>
+        <p>
+          <ActiveTimeGraph
+            activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+            fightStart={info.fightStart}
+            fightEnd={info.fightEnd}
+          />
         </p>
       </SubSection>
       <SubSection title="Astral Power">

@@ -12,12 +12,8 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 import Abilities from '../../core/modules/Abilities';
 import GlobalCooldown from './GlobalCooldown';
-import getUptimeGraph, { UptimeHistoryEntry } from 'parser/shared/modules/getUptimeGraph';
 
 const DEBUG = false;
-
-/** For graphing the active time rolling average, this is the length of the window used */
-export const ACTIVE_TIME_ROLLING_WINDOW_DURATION = 10_000;
 
 class AlwaysBeCasting extends Analyzer {
   static dependencies = {
@@ -73,8 +69,6 @@ class AlwaysBeCasting extends Analyzer {
    *  Guaranteed to not overlap and to be in chronological order,
    *  but segments may not exactly correspond to a cast or GCD */
   activeTimeSegments: { start: number; end: number }[] = [];
-  /** Rolling average uptime over the course of the encounter */
-  rollingActiveTimeAverage: UptimeHistoryEntry[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -137,7 +131,6 @@ class AlwaysBeCasting extends Analyzer {
   }
 
   onFightEnd() {
-    this._updateRollingAverage();
     DEBUG &&
       console.log(
         'ABC Stats:\n' +
@@ -154,36 +147,6 @@ class AlwaysBeCasting extends Analyzer {
 
   _handleNewUptimeSegment(start: number, end: number) {
     this.activeTimeSegments.push({ start, end });
-    this._updateRollingAverage();
-  }
-
-  _updateRollingAverage() {
-    // step backwards through the segment history and tally the active time within the window
-    const timestamp = this.owner.currentTimestamp;
-    if (timestamp <= this.owner.fight.start_time) {
-      // don't want the problems of a 0 size window...
-      return;
-    }
-
-    const windowStart = Math.max(
-      this.owner.fight.start_time,
-      timestamp - ACTIVE_TIME_ROLLING_WINDOW_DURATION,
-    );
-    const windowEnd = timestamp;
-    const windowDuration = windowEnd - windowStart;
-    let activeInWindow = 0;
-    for (let i = this.activeTimeSegments.length - 1; i >= 0; i -= 1) {
-      const segment = this.activeTimeSegments[i];
-      if (segment.end <= windowStart) {
-        break;
-      }
-      const overlapStart = Math.max(windowStart, segment.start);
-      const overlapEnd = Math.min(windowEnd, segment.end);
-      activeInWindow += Math.max(0, overlapEnd - overlapStart);
-    }
-
-    const uptimePct = activeInWindow / windowDuration;
-    this.rollingActiveTimeAverage.push({ timestamp, uptimePct });
   }
 
   showStatistic = true;
@@ -192,10 +155,6 @@ class AlwaysBeCasting extends Analyzer {
     activeTime: '/img/sword.png',
     downtime: '/img/afk.png',
   };
-
-  get rollingAverageUptimeGraph() {
-    return getUptimeGraph(this.rollingActiveTimeAverage, this.owner.fight.start_time);
-  }
 
   statistic() {
     const boss = this.owner.boss;
