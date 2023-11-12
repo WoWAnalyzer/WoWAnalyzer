@@ -13,7 +13,7 @@ import { TIERS } from 'game/TIERS';
 const HITS_TARGET = 'HitsTarget';
 const CONSUMES_T31_BUFF = 'ConsumesT31';
 
-const BUFFER_MS = 1000;
+const BUFFER_MS = 50;
 const SC_TRAVEL_BUFFER_MS = 3000; // long buffer to look for damage events to be safe - SC has much longer cooldown so this should be fine
 
 /*
