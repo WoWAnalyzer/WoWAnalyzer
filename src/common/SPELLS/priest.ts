@@ -868,6 +868,12 @@ const spells = {
     icon: 'inv_mace_1h_artifactheartofkure_d_05',
   },
 
+  SHADOW_PRIEST_TIER_31_4_SET_BUFF: {
+    id: 423726,
+    name: 'Deaths Torment',
+    icon: 'spell_shadow_deathsembrace',
+  },
+
   // Disc
   SPIRIT_SHELL_TALENT_BUFF: {
     id: 114908,
