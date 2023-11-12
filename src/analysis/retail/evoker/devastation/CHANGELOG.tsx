@@ -5,7 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
-  change(date(2023, 11, 12), <>Properly track dropped ticks when only 1 tick was remaining for <SpellLink spell={SPELLS.DISINTEGRATE}/> graph.</>, Vollmer),
+  change(date(2023, 11, 12), <>Properly track dropped ticks when only 1 tick is remaining for <SpellLink spell={SPELLS.DISINTEGRATE}/> graph.</>, Vollmer),
   change(date(2023, 10, 30), <>Removed rogue points in <SpellLink spell={SPELLS.DISINTEGRATE}/> graph.</>, Vollmer),
   change(date(2023, 10, 21), <>Added stats for T31 4pc buff <SpellLink spell={SPELLS.EMERALD_TRANCE_T31_2PC_BUFF}/>.</>, Vollmer),
   change(date(2023, 10, 20), <>Added stats for T31 2pc buff <SpellLink spell={SPELLS.EMERALD_TRANCE_T31_2PC_BUFF}/>.</>, Vollmer),
