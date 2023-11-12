@@ -1,6 +1,6 @@
-import WindfuryLinkNormalizer from 'analysis/retail/warrior/shared/modules/normalizers/WindfuryLinkNormalizer';
 import { AnyEvent } from 'parser/core/Events';
 import EventsNormalizer from 'parser/core/EventsNormalizer';
+import WindfuryLinkNormalizer from 'parser/shared/normalizers/WindfuryLinkNormalizer';
 import attributeRageBonuses from './attributeRageBonuses';
 import generateRageEvents from './generateRageEvents';
 import scaleRageGainEvents from './scaleRageGainEvents';

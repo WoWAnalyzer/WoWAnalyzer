@@ -1,13 +1,13 @@
 import { RAGE_SCALE_FACTOR } from 'analysis/retail/warrior/constants';
 import { RECKLESSNESS_INCREASE } from 'analysis/retail/warrior/fury/modules/spells/Recklessness';
-import {
-  getWindfuryFromTrigger,
-  getWindfuryFromTriggered,
-} from 'analysis/retail/warrior/shared/modules/normalizers/WindfuryLinkNormalizer';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/warrior';
 import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
 import { AnyEvent, CastEvent, EventType, HasSource, ResourceChangeEvent } from 'parser/core/Events';
+import {
+  getWindfuryFromTrigger,
+  getWindfuryFromTriggered,
+} from 'parser/shared/normalizers/WindfuryLinkNormalizer';
 import { WARMACHINE_FURY_INCREASE } from './constants';
 import RageNormalizer from './index';
 

@@ -1,6 +1,6 @@
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import WindfuryLinkNormalizer from '../shared/modules/normalizers/WindfuryLinkNormalizer';
+import WindfuryLinkNormalizer from 'parser/shared/normalizers/WindfuryLinkNormalizer';
 import ChampionsMight from '../shared/modules/talents/ChampionsMight';
 import ChampionsSpear from '../shared/modules/talents/ChampionsSpear';
 import Abilities from './modules/Abilities';
