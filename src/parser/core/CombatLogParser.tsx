@@ -105,6 +105,7 @@ import AcceleratingSandglass from 'parser/retail/modules/items/dragonflight/Acce
 import UsurpedFromBeyond from 'parser/retail/modules/items/dragonflight/UsurpedFromBeyond';
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
 import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/AmalgamsSeventhSpine';
+import ElementalLariat from 'parser/retail/modules/items/dragonflight/ElementalLariat';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -223,6 +224,7 @@ class CombatLogParser {
     usurpedFromBeyond: UsurpedFromBeyond,
     voiceOfTheSilentStar: VoiceOfTheSilentStar,
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
+    elementalLariat: ElementalLariat,
 
     // Enchants
     burningDevotion: BurningDevotion,
