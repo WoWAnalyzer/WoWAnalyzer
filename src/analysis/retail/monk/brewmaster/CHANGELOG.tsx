@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 13), <>Add <strong>Always Be Casting</strong> section to the guide and improve handling of the <strong>Spend Cooldowns</strong> block of the <SpellLink spell={talents.BLACKOUT_COMBO_TALENT}>BoC</SpellLink> rotation.</>, emallson),
+  change(date(2023, 11, 13), <>Fix display issues in the <SpellLink spell={talents.IMPROVED_INVOKE_NIUZAO_THE_BLACK_OX_TALENT} /> section.</>, emallson),
   change(date(2023, 10, 22), <>Fix <SpellLink spell={SPELLS.FORTIFYING_BREW_BRM} /> spell id</>, emallson),
   change(date(2023, 9, 10), <>Fix bug in <SpellLink spell={SPELLS.CELESTIAL_FORTUNE_HEAL} /> analysis related to <SpellLink spell={talents.BONEDUST_BREW_TALENT} /> triggers.</>, emallson),
   change(date(2023, 9, 10), <>Added <SpellLink spell={talents.DAMPEN_HARM_TALENT} /> DR % Statistic</>, emallson),
