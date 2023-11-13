@@ -76,8 +76,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             <p>
               It is better for you to use an ability&mdash;<em>any</em> ability&mdash;each GCD than
               to think carefully about each button press and have gaps between ability uses. You
-              should <strong>Always Be Casting</strong>. With practice, you will build the skills
-              needed to both use the correct abilities and do so without rotational gaps.
+              should <strong>Always Be Casting</strong>. With practice, you will be able to fill
+              every GCD <em>and</em> while using the correct ability in each global.
             </p>
             <p>
               The chart below should generally be near <strong>100%</strong> during periods where
