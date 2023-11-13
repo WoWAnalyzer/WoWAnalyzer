@@ -48,6 +48,7 @@ class Abilities extends CoreAbilities {
         spell: TALENTS.PRESCIENCE_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 12 * intervowenThreadsMultiplier,
+        charges: 2,
         gcd: {
           base: 1500,
         },
@@ -126,6 +127,11 @@ class Abilities extends CoreAbilities {
       },
       {
         spell: SPELLS.BLACK_ATTUNEMENT.id,
+        category: SPELL_CATEGORY.OTHERS,
+        gcd: null,
+      },
+      {
+        spell: SPELLS.TREMBLING_EARTH_BUFF.id,
         category: SPELL_CATEGORY.OTHERS,
         gcd: null,
       },

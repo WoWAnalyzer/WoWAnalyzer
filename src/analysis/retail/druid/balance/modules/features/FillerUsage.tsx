@@ -1,24 +1,27 @@
-import { defineMessage } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { CastEvent } from 'parser/core/Events';
-import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { hardcastTargetsHit } from '../../normalizers/CastLinkNormalizer';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import { currentEclipse } from 'analysis/retail/druid/balance/constants';
+import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
 
-// minimum targets Starfire must hit for it to be worth to cast in lunar eclipse/CA
-export const STARFIRE_TARGETS_TO_STARFIRE_DURING_CDS = 2;
-// minimum targets Starfire must hit for it to be worth to enter Lunar Eclipse
-export const STARFIRE_TARGETS_TO_ENTER_SOLAR = 3;
+const MIN_STARFIRE_TARGETS_LUNAR = 3;
+const MIN_STARFIRE_TARGETS_CA = 4;
 
-const MINOR_THRESHOLD = 0;
-const AVERAGE_THRESHOLD = 0.05;
-const MAJOR_THRESHOLD = 0.1;
+export default class FillerUsage extends Analyzer {
+  /** Total number of wrath hardcasts */
+  totalWraths: number = 0;
+  /** Wrath hardcasts during Lunar Eclipse */
+  lunarWraths: number = 0;
 
-class FillerUsage extends Analyzer {
-  totalFillerCasts: number = 0;
-  badFillerCasts: number = 0;
+  /** Total number of starfire hardcasts */
+  totalStarfires: number = 0;
+  /** Starfire hardcasts that hit too few targets */
+  lowTargetStarfires: number = 0;
+  /** Starfire hardcasts during Solar Eclipse */
+  solarStarfires: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -31,102 +34,118 @@ class FillerUsage extends Analyzer {
   }
 
   onStarfire(event: CastEvent) {
-    this.totalFillerCasts += 1;
-    if (
-      !(
-        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) ||
-        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id)
-      ) &&
-      hardcastTargetsHit(event) > STARFIRE_TARGETS_TO_ENTER_SOLAR
-    ) {
-      this.badFillerCasts += 1;
+    this.totalStarfires += 1;
+    const targetsHit = hardcastTargetsHit(event);
+    const eclipse = currentEclipse(this.selectedCombatant);
+
+    if (eclipse === 'solar') {
       event.meta = event.meta || {};
       event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `You should enter Solar Eclipse only when Starfire can hit more than ${STARFIRE_TARGETS_TO_ENTER_SOLAR} targets.`;
-    }
-    if (
-      (this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) &&
-        !this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id)) ||
-      (this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id) &&
-        this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) &&
-        hardcastTargetsHit(event) < STARFIRE_TARGETS_TO_STARFIRE_DURING_CDS &&
-        !this.selectedCombatant.hasBuff(SPELLS.WARRIOR_OF_ELUNE.id))
-    ) {
-      this.badFillerCasts += 1;
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `You should never cast Starfire during Solar Eclipse and when it hits ${STARFIRE_TARGETS_TO_STARFIRE_DURING_CDS} or less targets during cooldowns.`;
+      event.meta.inefficientCastReason = `Use Wrath instead of Starfire in Solar Eclipse, regardless of target count`;
+      this.solarStarfires += 1;
+    } else if (eclipse === 'lunar') {
+      if (targetsHit < MIN_STARFIRE_TARGETS_LUNAR) {
+        event.meta = event.meta || {};
+        event.meta.isInefficientCast = true;
+        event.meta.inefficientCastReason = `You hit too few targets: ${targetsHit} - use Wrath instead`;
+        this.lowTargetStarfires += 1;
+      }
+    } else if (eclipse === 'both') {
+      if (targetsHit < MIN_STARFIRE_TARGETS_CA) {
+        event.meta = event.meta || {};
+        event.meta.isInefficientCast = true;
+        event.meta.inefficientCastReason = `You hit too few targets: ${targetsHit} - use Wrath instead`;
+        this.lowTargetStarfires += 1;
+      }
     }
   }
 
-  // TODO: Make more accurate by counting active targets
   onWrath(event: CastEvent) {
-    this.totalFillerCasts += 1;
-    if (
-      this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_LUNAR.id) &&
-      !this.selectedCombatant.hasBuff(SPELLS.ECLIPSE_SOLAR.id)
-    ) {
-      event.meta = event.meta || {};
-      event.meta.isInefficientCast = true;
-      event.meta.inefficientCastReason = `You should never cast Wrath in Lunar Eclipse unless you are about to enter CA/Inc on single target.`;
+    this.totalWraths += 1;
+    const eclipse = currentEclipse(this.selectedCombatant);
+
+    if (eclipse === 'lunar') {
+      this.lunarWraths += 1;
     }
   }
 
-  get percentBadFillers() {
-    return this.badFillerCasts / this.totalFillerCasts || 0;
+  get totalFillers() {
+    return this.totalWraths + this.totalStarfires;
+  }
+
+  get goodFillers() {
+    return this.totalFillers - this.okFillers - this.badFillers;
+  }
+
+  get okFillers() {
+    return this.lunarWraths;
+  }
+
+  get badFillers() {
+    return this.lowTargetStarfires + this.solarStarfires;
   }
 
   get percentGoodFillers() {
-    return 1 - this.percentBadFillers;
+    return this.totalFillers === 0 ? 1 : this.goodFillers / this.totalFillers;
   }
 
-  get suggestionThresholds() {
-    return {
-      actual: this.percentBadFillers,
-      isGreaterThan: {
-        minor: MINOR_THRESHOLD,
-        average: AVERAGE_THRESHOLD,
-        major: MAJOR_THRESHOLD,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  get goodCastSuggestionThresholds() {
-    return {
-      actual: this.percentGoodFillers,
-      isLessThan: {
-        minor: 1 - MINOR_THRESHOLD,
-        average: 1 - AVERAGE_THRESHOLD,
-        major: 1 - MAJOR_THRESHOLD,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
-  }
-
-  suggestions(when: When) {
-    when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
-      suggest(
-        <>
-          You cast the wrong filler spell {this.badFillerCasts} times -{' '}
-          {formatPercentage(actual, 1)}% of total filler casts. You should cast{' '}
-          <SpellLink spell={SPELLS.WRATH_MOONKIN} /> during and after{' '}
-          <SpellLink spell={SPELLS.ECLIPSE_SOLAR} />, and you should cast{' '}
-          <SpellLink spell={SPELLS.STARFIRE} /> during and after{' '}
-          <SpellLink spell={SPELLS.ECLIPSE_LUNAR} />.
-          <br />
-        </>,
-      )
-        .icon(SPELLS.ECLIPSE.icon)
-        .actual(
-          defineMessage({
-            id: 'druid.balance.suggestions.filler.efficiency',
-            message: `${formatPercentage(actual, 1)}% wrong filler spell casts`,
-          }),
-        )
-        .recommended(`none are recommended`),
+  get guideSubsection() {
+    const explanation = (
+      <>
+        <p>
+          <strong>Filler spells</strong> are{' '}
+          <strong>
+            <SpellLink spell={SPELLS.WRATH} />
+          </strong>{' '}
+          and{' '}
+          <strong>
+            <SpellLink spell={SPELLS.STARFIRE} />
+          </strong>
+          .
+        </p>
+        <p>
+          They are spammable direct damage spells that generate Astral Power. You should generally
+          use <SpellLink spell={SPELLS.WRATH} />, but against {MIN_STARFIRE_TARGETS_LUNAR} stacked
+          targets in Lunar Eclipse or {MIN_STARFIRE_TARGETS_CA} stacked targets in Celestial
+          Alignment you should swap to <SpellLink spell={SPELLS.STARFIRE} />.
+        </p>
+        <p>
+          Your fillers are greatly buffed by their corresponding{' '}
+          <SpellLink spell={SPELLS.ECLIPSE} /> - aim to enter an Eclipse that matches your current
+          target count.
+        </p>
+        <p>
+          If you make a mistake and find yourself in Lunar Eclipse with no stacked targets or in
+          Solar Eclipse with stacked targets, you should use <SpellLink spell={SPELLS.WRATH} />.
+        </p>
+      </>
     );
+
+    const goodFillerData = {
+      count: this.goodFillers,
+      label: 'Good Fillers',
+    };
+    const okFillerData = {
+      count: this.okFillers,
+      label: 'Wraths during Lunar Eclipse (did you enter the wrong Eclipse?)',
+    };
+    const badFillerData = {
+      count: this.badFillers,
+      label: 'Starfires during Solar Eclipse or that hit too few targets',
+    };
+
+    const data = (
+      <div>
+        <strong>Filler cast breakdown</strong>
+        <small>
+          {' '}
+          - Green is a good cast, Yellow is a Wrath during Lunar Eclipse, Red is a Starfire on too
+          few targets or during Solar Eclipse. Mouseover for more details.
+        </small>
+        <GradiatedPerformanceBar good={goodFillerData} ok={okFillerData} bad={badFillerData} />
+      </div>
+    );
+
+    return explanationAndDataSubsection(explanation, data);
   }
 }
-
-export default FillerUsage;

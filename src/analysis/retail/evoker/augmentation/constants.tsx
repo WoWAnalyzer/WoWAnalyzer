@@ -29,6 +29,10 @@ export const SYMBIOTIC_HEALING_INCREASE = 0.03;
 // Breath of Eons multiplier
 export const BREATH_OF_EONS_MULTIPLIER = 0.1;
 
+// Tier
+export const TREMBLING_EARTH_EXTENSION_MS = 200;
+export const TREMBLING_EART_STACK_LIMIT = 5;
+
 /** SpellIds to blacklist, ie. trinkets that doesnt add contribution */
 export const ABILITY_BLACKLIST: number[] = [
   402583, // Beacon

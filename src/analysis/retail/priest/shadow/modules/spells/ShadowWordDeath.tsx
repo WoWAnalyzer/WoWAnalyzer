@@ -37,6 +37,7 @@ class ShadowWordDeath extends ExecuteHelper {
       spell: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
       category: SPELL_CATEGORY.ROTATIONAL,
       cooldown: 10,
+      charges: 1,
       gcd: {
         base: 1500,
       },

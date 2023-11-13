@@ -17,10 +17,12 @@ class Bombs extends Analyzer {
     const belt = combatant._getGearItemBySlotId(5);
     const boots = combatant._getGearItemBySlotId(8);
     const gloves = combatant._getGearItemBySlotId(9);
+    const back = combatant._getGearItemBySlotId(14);
     this.active =
       belt.permanentEnchant === 3601 ||
       boots.permanentEnchant === 3606 ||
-      gloves.permanentEnchant === 3604;
+      gloves.permanentEnchant === 3604 ||
+      back.permanentEnchant === 3605;
 
     if (this.active) {
       (options.abilities as Abilities).add({
