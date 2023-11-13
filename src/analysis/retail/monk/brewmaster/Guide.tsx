@@ -19,12 +19,14 @@ import Explanation from 'interface/guide/components/Explanation';
 import { Highlight } from 'interface/Highlight';
 import BlackoutComboSection from './modules/spells/BlackoutCombo/BlackoutComboSection';
 import BrewAplSummary from './modules/core/AplCheck/BrewAplSummary';
+import * as explainSpendCooldowns from './modules/core/AplCheck/explainSpendCooldowns';
 
 const explainers = {
   explainSCK,
+  explainTPSpam: explainSpendCooldowns.tigerPalmSpamExplanation,
   overcast: defaultExplainers.overcastFillers,
   // rethinking the lack of explainer priority here. we want to show custom text explaining the change to SCK, but doing so requires post-processing of the droppedRule results
-  dropped: filterSCK(defaultExplainers.droppedRule),
+  dropped: explainSpendCooldowns.filterDropped(filterSCK(defaultExplainers.droppedRule)),
 };
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
