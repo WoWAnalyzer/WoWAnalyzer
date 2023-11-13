@@ -31,6 +31,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 13), <>Add stat tracking and statistics for <ItemLink id={ITEMS.ELEMENTAL_LARIAT.id}/>.</>, nullDozzer),
   change(date(2023, 11, 7), 'Fix Classic class / spec ranking ids.', jazminite),
   change(date(2023, 11, 7), 'Add warning for 10.2 logs.', ToppleTheNun),
   change(date(2023, 11, 1), 'Add support for Dragonflight Season 3 dungeons.', Arlie),
