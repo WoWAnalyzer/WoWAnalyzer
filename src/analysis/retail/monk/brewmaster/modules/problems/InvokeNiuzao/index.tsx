@@ -1,8 +1,13 @@
+import styled from '@emotion/styled';
 import { formatDuration, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
 import { AlertWarning, ControlledExpandable, SpellLink, Tooltip } from 'interface';
 import { GuideProps, Section, SectionHeader, SubSection } from 'interface/guide';
+import {
+  CooldownExpandableDataList,
+  CooldownExpandableItem,
+} from 'interface/guide/components/CooldownExpandable';
 import PassFailBar from 'interface/guide/components/PassFailBar';
 import InformationIcon from 'interface/icons/Information';
 import { AnyEvent } from 'parser/core/Events';
@@ -36,11 +41,11 @@ export type CommonProps = { cast: NiuzaoCastData; info: Info; events: AnyEvent[]
 
 function NiuzaoChecklistHeader({ cast, info }: Pick<CommonProps, 'cast' | 'info'>): JSX.Element {
   return (
-    <SectionHeader>
+    <>
       {formatDuration(cast.startEvent.timestamp - info.fightStart)} &mdash;{' '}
       <SpellLink spell={NIUZAO_BUFF_ID_TO_CAST[cast.startEvent.ability.guid]} /> (
       {formatNumber(cast.stompDamage)})
-    </SectionHeader>
+    </>
   );
 }
 
@@ -51,11 +56,16 @@ const PassFailCheckmark = ({ pass }: { pass: boolean }) =>
     <i className="glyphicon glyphicon-remove" style={{ color: 'red' }} />
   );
 
-const GUESS_MAX_HP = 100000;
+const GUESS_MAX_HP = 1_000_000;
+
+const TwoColumn = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1em;
+`;
 
 function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element {
   const [isExpanded, setIsExpanded] = useState(false);
-
   const wasActivelyTanking = useMemo(
     () =>
       cast.relevantHits.reduce(
@@ -76,9 +86,150 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
     return cast.purifyStompContribution >= avg;
   }, [cast.purifyStompContribution, cast.relevantHits, cast.startEvent.ability.guid]);
 
+  const detailItems: CooldownExpandableItem[] = [
+    {
+      label: (
+        <>
+          <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> casts
+        </>
+      ),
+      result: (
+        <>
+          {cast.stomps.length} / {MAX_STOMPS[cast.startEvent.ability.guid]}
+        </>
+      ),
+      details: (
+        <>
+          <PassFailBar pass={cast.stomps.length} total={MAX_STOMPS[cast.startEvent.ability.guid]} />
+        </>
+      ),
+    },
+    {
+      label: (
+        <>
+          Possible <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> Casts
+        </>
+      ),
+      result: (
+        <>
+          {formatNumber(cast.purifies.length)} / {TARGET_PURIFIES[cast.startEvent.ability.guid]}
+        </>
+      ),
+      details: (
+        <td>
+          <PassFailBar
+            pass={cast.purifies.length}
+            total={TARGET_PURIFIES[cast.startEvent.ability.guid]}
+          />
+        </td>
+      ),
+    },
+    {
+      label: (
+        <>
+          Total <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> damage
+        </>
+      ),
+      result: formatNumber(cast.stompDamage),
+    },
+
+    {
+      label: <>Amount Purified</>,
+      result: formatNumber(cast.purifyStompContribution),
+    },
+    {
+      label: <>Amount Pre-Purified</>,
+      result: formatNumber(cast.prePurified.reduce((total, { amount }) => total + amount, 0)),
+    },
+  ];
+
+  const checklistItems: CooldownExpandableItem[] = [
+    {
+      label: 'Purified Before Casting',
+      result: <PassFailCheckmark pass={cast.prePurified.length > 0} />,
+    },
+    {
+      label: (
+        <>
+          Started with 1+ <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> Charge
+        </>
+      ),
+      result: <PassFailCheckmark pass={cast.purifyingAtCast.charges >= 1} />,
+      details: (
+        <>
+          ({cast.purifyingAtCast.charges} charges
+          {cast.purifyingAtCast.charges < 2 && (
+            <>, {(cast.purifyingAtCast.cooldown / 1000).toFixed(1)}s til next</>
+          )}
+          )
+        </>
+      ),
+    },
+    {
+      label: <>Was Actively Tanking</>,
+      result: <PassFailCheckmark pass={wasActivelyTanking} />,
+      details: (
+        <>
+          (
+          {formatNumber(
+            cast.relevantHits.reduce(
+              (total, { amount, unmitigatedAmount }) => total + (unmitigatedAmount ?? amount),
+              0,
+            ),
+          )}{' '}
+          damage taken){' '}
+          <Tooltip
+            content={
+              <>
+                This number shows pre-mitigation, pre-
+                <SpellLink spell={SPELLS.STAGGER} /> damage.
+              </>
+            }
+          >
+            <InformationIcon />
+          </Tooltip>
+        </>
+      ),
+    },
+    {
+      label: (
+        <>
+          Used <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> to Buff{' '}
+          <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />
+        </>
+      ),
+      result: <PassFailCheckmark pass={wasActivelyTanking && purifiedEnough} />,
+      details: (
+        <>
+          ({formatNumber(cast.purifyStompContribution)} damage Purified){' '}
+          <Tooltip
+            hoverable
+            content={
+              <>
+                This is the full amount of purified damage that contributed to any{' '}
+                <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />. Niuzao takes 25% of this amount as
+                the base bonus damage, which may then be increased by effects like{' '}
+                <SpellLink spell={talents.WALK_WITH_THE_OX_TALENT} />. Purified damage that expired
+                before the next <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> is not counted.
+              </>
+            }
+          >
+            <span>
+              <InformationIcon />
+            </span>
+          </Tooltip>
+        </>
+      ),
+    },
+  ];
+
   return (
     <ControlledExpandable
-      header={<NiuzaoChecklistHeader cast={cast} info={info} />}
+      header={
+        <SectionHeader>
+          <NiuzaoChecklistHeader cast={cast} info={info} />
+        </SectionHeader>
+      }
       element="section"
       expanded={isExpanded}
       inverseExpanded={() => setIsExpanded(!isExpanded)}
@@ -92,150 +243,25 @@ function InvokeNiuzaoChecklist({ events, cast, info }: CommonProps): JSX.Element
           </AlertWarning>
         </p>
       )}
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'max-content 1fr',
-          gridColumnGap: '1em',
-          alignItems: 'start',
-        }}
-      >
+      <TwoColumn>
         <div>
-          <section>
-            <header style={{ fontWeight: 'bold' }}>Checklist</header>
-            <table className="hits-list">
-              <tbody>
-                <tr>
-                  <td>Purified Before Casting</td>
-                  <td>
-                    <PassFailCheckmark pass={cast.prePurified.length > 0} />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Started with 1+ <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> Charge
-                  </td>
-                  <td>
-                    <PassFailCheckmark pass={cast.purifyingAtCast.charges >= 1} />
-                  </td>
-                  <td>
-                    ({cast.purifyingAtCast.charges} charges
-                    {cast.purifyingAtCast.charges < 2 && (
-                      <>, {(cast.purifyingAtCast.cooldown / 1000).toFixed(1)}s til next</>
-                    )}
-                    )
-                  </td>
-                </tr>
-                <tr>
-                  <td>Was Actively Tanking</td>
-                  <td>
-                    <PassFailCheckmark pass={wasActivelyTanking} />
-                  </td>
-                  <td>
-                    (
-                    {formatNumber(
-                      cast.relevantHits.reduce(
-                        (total, { amount, unmitigatedAmount }) =>
-                          total + (unmitigatedAmount ?? amount),
-                        0,
-                      ),
-                    )}{' '}
-                    pre-mitigation damage taken)
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Used <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> to Buff{' '}
-                    <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />
-                  </td>
-                  <td>
-                    <PassFailCheckmark pass={wasActivelyTanking && purifiedEnough} />
-                  </td>
-                  <td>
-                    ({formatNumber(cast.purifyStompContribution)} damage Purified){' '}
-                    <Tooltip
-                      hoverable
-                      content={
-                        <>
-                          This is the full amount of purified damage that contributed to any{' '}
-                          <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />. Niuzao takes 25% of this
-                          amount as the base bonus damage, which may then be increased by effects
-                          like <SpellLink spell={talents.WALK_WITH_THE_OX_TALENT} />. Purified
-                          damage that expired before the next{' '}
-                          <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> is not counted.
-                        </>
-                      }
-                    >
-                      <span>
-                        <InformationIcon />
-                      </span>
-                    </Tooltip>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
-          <section>
-            <header style={{ fontWeight: 'bold' }}>Details</header>
-            <table className="hits-list">
-              <tbody>
-                <tr>
-                  <td>
-                    <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> casts
-                  </td>
-                  <td className="pass-fail-counts">
-                    {cast.stomps.length} / {MAX_STOMPS[cast.startEvent.ability.guid]}
-                  </td>
-                  <td>
-                    <PassFailBar
-                      pass={cast.stomps.length}
-                      total={MAX_STOMPS[cast.startEvent.ability.guid]}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Possible <SpellLink spell={talents.PURIFYING_BREW_TALENT} /> Casts
-                  </td>
-                  <td className="pass-fail-counts">
-                    {formatNumber(cast.purifies.length)} /{' '}
-                    {TARGET_PURIFIES[cast.startEvent.ability.guid]}
-                  </td>
-                  <td>
-                    <PassFailBar
-                      pass={cast.purifies.length}
-                      total={TARGET_PURIFIES[cast.startEvent.ability.guid]}
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Total <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} /> damage
-                  </td>
-                  <td className="pass-fail-counts">{formatNumber(cast.stompDamage)}</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Amount Purified</td>
-                  <td className="pass-fail-counts">{formatNumber(cast.purifyStompContribution)}</td>
-                </tr>
-                <tr>
-                  <td>Amount Pre-Purified</td>
-                  <td className="pass-fail-counts">
-                    {formatNumber(
-                      cast.prePurified.reduce((total, { amount }) => total + amount, 0),
-                    )}
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </section>
+          <CooldownExpandableDataList title="Checklist" items={checklistItems} />
+          <CooldownExpandableDataList title="Details" items={detailItems} />
         </div>
-        {isExpanded && <InvokeNiuzaoSummaryChart cast={cast} info={info} events={events} />}
-      </div>
+        <InvokeNiuzaoSummaryChart cast={cast} info={info} events={events} />
+      </TwoColumn>
     </ControlledExpandable>
   );
 }
+
+const EfficiencyTable = styled.table`
+  & td {
+    padding: 0 0.5em;
+  }
+  & td:first-child {
+    padding-left: 0;
+  }
+`;
 
 export function ImprovedInvokeNiuzaoSection({
   castEfficiency,
@@ -280,6 +306,7 @@ export function ImprovedInvokeNiuzaoSection({
         <SpellLink spell={talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT} />.
         {shouldCheckWoo && (
           <>
+            {' '}
             A cast of <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} /> (with{' '}
             <SpellLink spell={talents.CALL_TO_ARMS_TALENT} />) will trigger 3{' '}
             <SpellLink spell={SPELLS.NIUZAO_STOMP_DAMAGE} />
@@ -297,7 +324,7 @@ export function ImprovedInvokeNiuzaoSection({
         damage dealt that a single <em>great</em> cast can be worth more than multiple mediocre
         casts.
       </p>
-      <table className="hits-list">
+      <EfficiencyTable>
         <tbody>
           {efficiency && (
             <tr>
@@ -327,7 +354,7 @@ export function ImprovedInvokeNiuzaoSection({
             </tr>
           )}
         </tbody>
-      </table>
+      </EfficiencyTable>
       <SubSection title="Casts">
         {module.casts.some((cast) => cast.sitDetected) && (
           <p>

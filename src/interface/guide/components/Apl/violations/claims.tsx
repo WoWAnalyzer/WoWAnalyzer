@@ -210,11 +210,16 @@ const droppedRule: ViolationExplainer<{ rule: InternalRule; spell: Spell }> = {
               }
             }
 
-            return Array.from(bySpell.entries()).map(([spellId, claims]) => ({
-              rule,
-              claims,
-              spell: (rule.spell.target as Spell[]).find((spell) => spell.id === spellId)!,
-            }));
+            const spells = rule.spell.target as Spell[];
+            const spellIds = spells.map((spell) => spell.id);
+
+            return Array.from(bySpell.entries())
+              .sort(([spellA], [spellB]) => spellIds.indexOf(spellB) - spellIds.indexOf(spellA))
+              .map(([spellId, claims]) => ({
+                rule,
+                claims,
+                spell: spells.find((spell) => spell.id === spellId)!,
+              }));
           }
         })
         .filter(({ rule, claims }) => defaultClaimFilter(result, rule, claims))
