@@ -131,7 +131,6 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
           break;
       }
     }
-
   }
 
   tooltip(averageBenefits: { stat: SECONDARY_STAT; averageBenefit: number }[]) {
