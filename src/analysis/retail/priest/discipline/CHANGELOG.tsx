@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 
 export default [
   change(date(2023, 11, 14), <>Add tracker for <SpellLink spell={TALENTS_PRIEST.TRAIN_OF_THOUGHT_TALENT} /> CDR.</>, Arlie),
+  change(date(2023, 11, 14), <>Add tracker for <SpellLink spell={TALENTS_PRIEST.VOID_SUMMONER_TALENT} /> CDR.</>, Arlie),
   change(date(2023, 11, 1), 'Added Amirdrassil 4p tracker.', Arlie),
   change(date(2023, 10, 27), <>Enable spec with 10.2 changes.</>, Arlie),
   change(date(2023, 10, 8), <>Updated <SpellLink spell={TALENTS_PRIEST.SHADOW_COVENANT_TALENT}/> for revamp - the heal has been removed and has various amps depending on talents selected.</>, Hana),
