@@ -1,4 +1,4 @@
-import { GuideProps, Section } from 'interface/guide';
+import { GuideProps, Section, SubSection } from 'interface/guide';
 import { TALENTS_EVOKER } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
 import CombatLogParser from '../../CombatLogParser';
@@ -31,6 +31,14 @@ export function Helpers({ modules }: GuideProps<typeof CombatLogParser>) {
       </p>
       {/* {modules.buffTargetHelper.guideSubsection()} */}
       {modules.breathOfEonsRotational.helperSection()}
+      <SubSection>
+        <p>
+          <strong>
+            Buff Helper module remains disabled for now due to its current implementation relying
+            heavily on proper combat log hooks.
+          </strong>
+        </p>
+      </SubSection>
     </Section>
   );
 }
