@@ -35,6 +35,7 @@ export const TREMBLING_EART_STACK_LIMIT = 5;
 
 /** SpellIds to blacklist, ie. trinkets that doesnt add contribution */
 export const ABILITY_BLACKLIST: number[] = [
+  409632, // Breath of Eons
   402583, // Beacon
   408682, // Dragonfire Bomb Dispenser
   408694, // Dragonfire Bomb Dispenser
