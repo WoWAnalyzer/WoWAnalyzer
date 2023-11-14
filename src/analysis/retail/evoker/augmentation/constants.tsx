@@ -37,6 +37,7 @@ export const TREMBLING_EART_STACK_LIMIT = 5;
 export const ABILITY_BLACKLIST: number[] = [
   402583, // Beacon
   408682, // Dragonfire Bomb Dispenser
+  408694, // Dragonfire Bomb Dispenser
   401324, // Pocket Anvil (Echoed Flare)
   401306, // Pocket Anvil (Anvil Strike)
   401422, // Vessel of Searing Shadow (Shadow Spike)
@@ -47,10 +48,6 @@ export const ABILITY_BLACKLIST: number[] = [
   418607, // Mirror of Fractured Tomorrows (Sand Bolt)
   406251, // Roiling Shadowflame
   406889, // Roiling Shadowflame (Self Harm)
-  400223, // Thorns of Iron
-  322109, // Touch of Death
-  124280, // Touch of Karma
-  184689, // Shield of Vengeance
   379403, // Toxic Thorn Footwraps (Launched Thorns)
   408791, // Ashkandur, Fall of the Brotherhood
   378426, // Slimy Expulsion Boots boots (Corrosive Slime)
@@ -65,5 +62,38 @@ export const ABILITY_BLACKLIST: number[] = [
   281721, // Bile-Stained Crawg Tusks (Vile Bile)
   214397, // Mark of Dargrul (Landslide)
   408469, // Call to Suffering (Self Harm)
-  409632, // Breath of Eons
+  374087, // Glacial Fury
+  370817, // Shocking Disclosure
+  426564, // Augury of the Primal Flame (Annihilating Flame)
+  417458, // Accelerating Sandglass
+  424965, // Thorn Spirit
+  425181, // Thorn Blast
+  419737, // Timestrike
+  265953, // Touch of Gold
+  425154, // Vicious Brand
+  425156, // Radiating Brand
+  422146, // Solar Maelstrom
+  426341, // Tindral's Fowl Fantasia
+  426431, // Denizen Of The Flame
+  426486, // Denizen Of The Flame Final
+  426339, // Igiras Cruel Nightmare
+  426527, // Flaying Torment
+  259756, // Entropic Embrace
+  427209, // Web of Dreams
+  422956, // Essence Splice
+  424324, // Hungering Shadowflame
+  419279, // Extinction Blast
+  215444, // Dark Blast
+  214168, // Brutal Haymaker
+  214169, // Brutal Haymaker
+  228784, // Brutal Haymaker Vulnerability
+  214350, // Nightmare Essence
+  422750, // Shadowflame Rage
+  425701, // Shadowflame Lash Enemy
+  422750, // Tainted Heart
+  425461, // Tainted Heart Enemy Damage
+  417458, // Accelerating Sandglass
+  215407, // Dark Blast
+  270827, // Webweavers Soul Gem
+  213785, // Nightfall
 ];

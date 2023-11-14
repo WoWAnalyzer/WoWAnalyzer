@@ -29,7 +29,7 @@ import trinkets from 'common/ITEMS/dragonflight/trinkets';
 import Combatant from 'parser/core/Combatant';
 import Combatants from 'parser/shared/modules/Combatants';
 import { SpellTracker } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
-//import BreathOfEonsHelper from './BreathOfEonsHelper';
+import BreathOfEonsHelper from './BreathOfEonsHelper';
 
 export type BreathOfEonsWindows = {
   flightData: SpellTracker[];
@@ -575,7 +575,7 @@ class BreathOfEonsRotational extends Analyzer {
       />
     );
   }
-  /* helperSection(): JSX.Element | null {
+  helperSection(): JSX.Element | null {
     if (!this.active) {
       return null;
     }
@@ -587,7 +587,7 @@ class BreathOfEonsRotational extends Analyzer {
         owner={this.owner}
       />
     );
-  } */
+  }
 }
 
 export default BreathOfEonsRotational;
