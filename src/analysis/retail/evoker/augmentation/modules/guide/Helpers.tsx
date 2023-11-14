@@ -5,14 +5,6 @@ import CombatLogParser from '../../CombatLogParser';
 import { SpellLink } from 'interface';
 
 export function Helpers({ modules }: GuideProps<typeof CombatLogParser>) {
-  /* return (
-    <Section title="Helper Modules">
-      <big>
-        <p>Disabled for now until we can ensure proper combat log hooks are implemented.</p>
-        <p>Will hopefully return soon!</p>
-      </big>
-    </Section>
-  ); */
   return (
     <Section title="Helper Modules">
       <p>
