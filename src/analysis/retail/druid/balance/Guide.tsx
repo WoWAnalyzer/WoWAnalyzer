@@ -112,6 +112,8 @@ function RotationSection({ modules, events, info }: GuideProps<typeof CombatLogP
       {modules.spenderUsage.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.STARLORD_TALENT) && modules.starlord.guideSubsection}
       {info.combatant.hasTalent(TALENTS_DRUID.NEW_MOON_TALENT) && modules.newMoon.guideSubsection}
+      {info.combatant.hasTalent(TALENTS_DRUID.WILD_MUSHROOM_TALENT) &&
+        modules.wildMushroom.guideSubsection}
     </Section>
   );
 }
@@ -126,6 +128,7 @@ function CooldownsSection({ modules, events, info }: GuideProps<typeof CombatLog
         duration).
       </p>
       <CooldownGraphSubsection modules={modules} events={events} info={info} />
+      <CooldownBreakdownSubsection modules={modules} events={events} info={info} />
     </Section>
   );
 }
@@ -187,6 +190,19 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
           useThresholds
         />
       )}
+    </SubSection>
+  );
+}
+
+function CooldownBreakdownSubsection({
+  modules,
+  events,
+  info,
+}: GuideProps<typeof CombatLogParser>) {
+  return (
+    <SubSection>
+      {info.combatant.hasTalent(TALENTS_DRUID.CELESTIAL_ALIGNMENT_TALENT) &&
+        modules.celestialAlignment.guideCastBreakdown}
     </SubSection>
   );
 }

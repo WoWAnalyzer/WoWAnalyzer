@@ -135,9 +135,9 @@ class Abilities extends CoreAbilities {
         charges: 3,
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.95,
-          averageIssueEfficiency: 0.9,
-          majorIssueEfficiency: 0.85,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
           extraSuggestion: (
             <>
               Your <SpellLink spell={TALENTS_DRUID.NEW_MOON_TALENT} />,{' '}
@@ -160,7 +160,9 @@ class Abilities extends CoreAbilities {
         },
         castEfficiency: {
           suggestion: true,
-          recommendedEfficiency: 0.8,
+          recommendedEfficiency: 0.9,
+          averageIssueEfficiency: 0.8,
+          majorIssueEfficiency: 0.7,
         },
         timelineSortIndex: 11,
       },
@@ -185,7 +187,7 @@ class Abilities extends CoreAbilities {
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
-          averageIssueEfficiency: 0.8,
+          averageIssueEfficiency: 0.75,
           majorIssueEfficiency: 0.6,
         },
         timelineSortIndex: 11,
