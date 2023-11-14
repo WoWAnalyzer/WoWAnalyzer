@@ -1,19 +1,11 @@
-import { GuideProps, Section } from 'interface/guide';
-//import { TALENTS_EVOKER } from 'common/TALENTS';
-//import SPELLS from 'common/SPELLS';
+import { GuideProps, Section, SubSection } from 'interface/guide';
+import { TALENTS_EVOKER } from 'common/TALENTS';
+import SPELLS from 'common/SPELLS';
 import CombatLogParser from '../../CombatLogParser';
-//import { SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 
 export function Helpers({ modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Helper Modules">
-      <big>
-        <p>Disabled for now until we can ensure proper combat log hooks are implemented.</p>
-        <p>Will hopefully return soon!</p>
-      </big>
-    </Section>
-  );
-  /* return (
     <Section title="Helper Modules">
       <p>
         Determining the optimal targets for your buffs, such as{' '}
@@ -29,8 +21,16 @@ export function Helpers({ modules }: GuideProps<typeof CombatLogParser>) {
           until you click the <span className="clickToLoad">Click to load</span> buttons.
         </strong>
       </p>
-      {modules.buffTargetHelper.guideSubsection()}
+      {/* {modules.buffTargetHelper.guideSubsection()} */}
       {modules.breathOfEonsRotational.helperSection()}
+      <SubSection>
+        <p>
+          <strong>
+            Buff Helper module remains disabled for now due to its current implementation relying
+            heavily on proper combat log hooks.
+          </strong>
+        </p>
+      </SubSection>
     </Section>
-  ); */
+  );
 }
