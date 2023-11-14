@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+    change(date(2023, 11, 14), <>Update blacklist for new non-class abilities and re-enable Breath Helper module.</>, Vollmer),
     change(date(2023, 10, 21), <>Add statistics for T31 4pc.</>, Vollmer),
     change(date(2023, 10, 20), <>Update <SpellLink spell={SPELLS.EBON_MIGHT_BUFF_EXTERNAL} /> module to account for T31 2pc.</>, Vollmer),
     change(date(2023, 10, 18), <>Fix an error with trying to display graphs without data.</>, Vollmer),
