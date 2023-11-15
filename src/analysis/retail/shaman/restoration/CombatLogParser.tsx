@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { AstralShift, SpiritWolf, StaticCharge } from 'analysis/retail/shaman/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ManaTracker from 'parser/core/healingEfficiency/ManaTracker';
@@ -66,12 +67,13 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import SurgingShields from '../shared/talents/SurgingShields';
 import Tier30 from './modules/dragonflight/Tier30';
 import Tier30Normalizer from './normalizers/Tier30Normalizer';
-import Guide from './Guide';
+//import Guide from './Guide';
 import Riptide from './modules/talents/Riptide';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import ManaSpring from 'analysis/retail/shaman/shared/talents/ManaSpring';
 
 class CombatLogParser extends CoreCombatLogParser {
+  /*
   static specModules = {
     lowHealthHealing: LowHealthHealing,
     healingDone: HealingDone,
@@ -156,6 +158,7 @@ class CombatLogParser extends CoreCombatLogParser {
     callToDominance: CallToDominance,
   };
   static guide = Guide;
+  */
 }
 
 export default CombatLogParser;

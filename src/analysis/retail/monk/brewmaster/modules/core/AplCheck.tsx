@@ -117,6 +117,26 @@ const chp_sequence = [
   },
 ];
 
+// this is fairly lax. could prioritize it a bit but not going to for now.
+export const dump_cd_rule: Rule = {
+  spell: [
+    talents.BONEDUST_BREW_TALENT,
+    talents.EXPLODING_KEG_TALENT,
+    talents.RISING_SUN_KICK_TALENT,
+    talents.RUSHING_JADE_WIND_TALENT,
+    talents.CHI_WAVE_TALENT,
+    talents.CHI_BURST_TALENT,
+  ],
+  description: (
+    <>
+      Spend cooldowns like <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />,{' '}
+      <SpellLink spell={talents.RUSHING_JADE_WIND_TALENT} />,{' '}
+      <SpellLink spell={talents.BONEDUST_BREW_TALENT} />, or{' '}
+      <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} />
+    </>
+  ),
+};
+
 const dump_cd_sequence: Rule[] = [
   {
     spell: SPELLS.TIGER_PALM,
@@ -136,28 +156,7 @@ const dump_cd_sequence: Rule[] = [
       ),
     ),
   },
-  // this is fairly lax. could prioritize it a bit but not going to for now.
-  {
-    spell: [
-      talents.BONEDUST_BREW_TALENT,
-      talents.EXPLODING_KEG_TALENT,
-      talents.WEAPONS_OF_ORDER_TALENT,
-      talents.SUMMON_WHITE_TIGER_STATUE_TALENT,
-      talents.INVOKE_NIUZAO_THE_BLACK_OX_TALENT,
-      talents.RISING_SUN_KICK_TALENT,
-      talents.RUSHING_JADE_WIND_TALENT,
-      talents.CHI_WAVE_TALENT,
-      talents.CHI_BURST_TALENT,
-    ],
-    description: (
-      <>
-        Spend cooldowns like <SpellLink spell={talents.RISING_SUN_KICK_TALENT} />,{' '}
-        <SpellLink spell={talents.RUSHING_JADE_WIND_TALENT} />,{' '}
-        <SpellLink spell={talents.BONEDUST_BREW_TALENT} />, or{' '}
-        <SpellLink spell={talents.WEAPONS_OF_ORDER_TALENT} />
-      </>
-    ),
-  },
+  dump_cd_rule,
 ];
 
 const rotation_boc_tp = build([
@@ -176,7 +175,7 @@ const rotation_boc_tp = build([
       (tense) => (
         <>
           <SpellLink spell={talents.CHARRED_PASSIONS_TALENT} /> {tenseAlt(tense, 'is', 'was')}{' '}
-          missing before casting <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />.
+          missing before casting <SpellLink spell={SPELLS.BLACKOUT_KICK_BRM} />
         </>
       ),
     ),

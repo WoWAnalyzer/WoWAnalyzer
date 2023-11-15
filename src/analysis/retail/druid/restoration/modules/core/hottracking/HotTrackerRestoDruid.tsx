@@ -15,7 +15,7 @@ import {
 } from 'analysis/retail/druid/restoration/constants';
 import { TALENTS_DRUID } from 'common/TALENTS';
 
-const CIRCLE_MULT = 0.85;
+const LIVELINESS_MULT = 0.95;
 
 class HotTrackerRestoDruid extends HotTracker {
   static dependencies = {
@@ -88,15 +88,13 @@ class HotTrackerRestoDruid extends HotTracker {
   }
 
   _generateHotInfo(): HotInfo[] {
-    const hasCircle = this.selectedCombatant.hasTalent(
-      TALENTS_DRUID.CIRCLE_OF_LIFE_AND_DEATH_SPEC_TALENT,
-    );
+    const hasLiveliness = this.selectedCombatant.hasTalent(TALENTS_DRUID.LIVELINESS_TALENT);
     const hasImpRejuv = this.selectedCombatant.hasTalent(
       TALENTS_DRUID.IMPROVED_REJUVENATION_TALENT,
     );
     const hasGermination = this.selectedCombatant.hasTalent(TALENTS_DRUID.GERMINATION_TALENT);
 
-    const globalMult = hasCircle ? CIRCLE_MULT : 1;
+    const globalMult = hasLiveliness ? LIVELINESS_MULT : 1;
     const rejuvDuration = 12000 + (hasImpRejuv ? 3000 : 0) + (hasGermination ? 2000 : 0);
 
     return [

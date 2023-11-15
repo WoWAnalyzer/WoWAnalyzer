@@ -313,7 +313,7 @@ const talents = {
     id: 47515,
     name: 'Divine Aegis',
     icon: 'spell_holy_devineaegis',
-    maxRanks: 2,
+    maxRanks: 1,
     entryIds: [103732],
     definitionIds: [{ id: 108737, specId: 256 }],
   },
@@ -376,14 +376,6 @@ const talents = {
     entryIds: [103678],
     definitionIds: [{ id: 108683, specId: 256 }],
     manaCost: 5000,
-  },
-  EMBRACE_SHADOW_TALENT: {
-    id: 372985,
-    name: 'Embrace Shadow',
-    icon: 'spell_warlock_demonsoul',
-    maxRanks: 1,
-    entryIds: [103708],
-    definitionIds: [{ id: 108713, specId: 256 }],
   },
   EMPOWERED_RENEW_TALENT: {
     id: 391339,
@@ -556,6 +548,14 @@ const talents = {
     entryIds: [103759],
     definitionIds: [{ id: 108764, specId: 257 }],
   },
+  HEAVENS_WRATH_TALENT: {
+    id: 421558,
+    name: "Heaven's Wrath",
+    icon: 'spell_holy_penance',
+    maxRanks: 2,
+    entryIds: [103699],
+    definitionIds: [{ id: 108704, specId: 256 }],
+  },
   HOLY_MENDING_TALENT: {
     id: 391154,
     name: 'Holy Mending',
@@ -657,14 +657,6 @@ const talents = {
     entryIds: [103866],
     definitionIds: [{ id: 108871, specId: 256 }],
   },
-  IMPROVED_MASS_DISPEL_TALENT: {
-    id: 341167,
-    name: 'Improved Mass Dispel',
-    icon: 'spell_arcane_massdispel',
-    maxRanks: 1,
-    entryIds: [103848],
-    definitionIds: [{ id: 108853, specId: 256 }],
-  },
   IMPROVED_PURIFY_TALENT: {
     id: 390632,
     name: 'Improved Purify',
@@ -757,15 +749,6 @@ const talents = {
     entryIds: [103721],
     definitionIds: [{ id: 108726, specId: 256 }],
   },
-  LIGHTS_WRATH_TALENT: {
-    id: 373178,
-    name: "Light's Wrath",
-    icon: 'inv_staff_2h_artifacttome_d_01',
-    maxRanks: 1,
-    entryIds: [103700],
-    definitionIds: [{ id: 108705, specId: 256 }],
-    manaCost: 5000,
-  },
   LIGHTWEAVER_TALENT: {
     id: 390992,
     name: 'Lightweaver',
@@ -808,14 +791,6 @@ const talents = {
     entryIds: [103784],
     definitionIds: [{ id: 108789, specId: 258 }],
   },
-  MAKE_AMENDS_TALENT: {
-    id: 391079,
-    name: 'Make Amends',
-    icon: 'spell_holy_penance',
-    maxRanks: 1,
-    entryIds: [108225],
-    definitionIds: [{ id: 113230, specId: 256 }],
-  },
   MALEDICTION_TALENT: {
     id: 373221,
     name: 'Malediction',
@@ -856,6 +831,14 @@ const talents = {
     maxRanks: 2,
     entryIds: [103816],
     definitionIds: [{ id: 108821, specId: 258 }],
+  },
+  MENTAL_AGILITY_TALENT: {
+    id: 341167,
+    name: 'Mental Agility',
+    icon: 'spell_holy_dispelmagic',
+    maxRanks: 1,
+    entryIds: [103848],
+    definitionIds: [{ id: 108853, specId: 256 }],
   },
   MENTAL_DECAY_TALENT: {
     id: 375994,
@@ -971,6 +954,14 @@ const talents = {
     entryIds: [103761],
     definitionIds: [{ id: 108766, specId: 257 }],
   },
+  OVERLOADED_WITH_LIGHT_TALENT: {
+    id: 421557,
+    name: 'Overloaded with Light',
+    icon: 'ability_crown_of_the_heavens_icon',
+    maxRanks: 1,
+    entryIds: [103698],
+    definitionIds: [{ id: 108703, specId: 256 }],
+  },
   PAINFUL_PUNISHMENT_TALENT: {
     id: 390686,
     name: 'Painful Punishment',
@@ -1068,7 +1059,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103822],
     definitionIds: [{ id: 108827, specId: 256 }],
-    manaCost: 25000,
+    manaCost: 6250,
   },
   POWER_WORD_RADIANCE_TALENT: {
     id: 194509,
@@ -1078,14 +1069,6 @@ const talents = {
     entryIds: [103722],
     definitionIds: [{ id: 108727, specId: 256 }],
     manaCost: 11250,
-  },
-  POWER_WORD_SOLACE_TALENT: {
-    id: 129250,
-    name: 'Power Word: Solace',
-    icon: 'ability_priest_flashoflight',
-    maxRanks: 1,
-    entryIds: [103716],
-    definitionIds: [{ id: 108721, specId: 256 }],
   },
   PRAYERFUL_LITANY_TALENT: {
     id: 391209,
@@ -1237,14 +1220,6 @@ const talents = {
     entryIds: [103735],
     definitionIds: [{ id: 108740, specId: 257 }],
   },
-  RESPLENDENT_LIGHT_TALENT: {
-    id: 390765,
-    name: 'Resplendent Light',
-    icon: 'inv_staff_2h_artifacttome_d_01',
-    maxRanks: 2,
-    entryIds: [103699],
-    definitionIds: [{ id: 108704, specId: 256 }],
-  },
   RESTITUTION_TALENT: {
     id: 391124,
     name: 'Restitution',
@@ -1285,6 +1260,14 @@ const talents = {
     entryIds: [103768],
     definitionIds: [{ id: 108773, specId: 257 }],
   },
+  SANCTUARY_TALENT: {
+    id: 231682,
+    name: 'Sanctuary',
+    icon: 'spell_holy_holysmite',
+    maxRanks: 1,
+    entryIds: [108225],
+    definitionIds: [{ id: 113230, specId: 256 }],
+  },
   SANGUINE_TEACHINGS_TALENT: {
     id: 373218,
     name: 'Sanguine Teachings',
@@ -1310,7 +1293,7 @@ const talents = {
     definitionIds: [{ id: 108754, specId: 257 }],
   },
   SCHISM_TALENT: {
-    id: 214621,
+    id: 424509,
     name: 'Schism',
     icon: 'spell_warlock_focusshadow',
     maxRanks: 1,
@@ -1365,7 +1348,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103706],
     definitionIds: [{ id: 108711, specId: 256 }],
-    manaCost: 11250,
   },
   SHADOW_CRASH_TALENT: {
     id: 205385,
@@ -1508,8 +1490,8 @@ const talents = {
     name: 'Twilight Corruption',
     icon: 'spell_fire_twilightimmolation',
     maxRanks: 1,
-    entryIds: [103707],
-    definitionIds: [{ id: 108712, specId: 256 }],
+    entryIds: [103708],
+    definitionIds: [{ id: 108713, specId: 256 }],
   },
   TWILIGHT_EQUILIBRIUM_TALENT: {
     id: 390705,
@@ -1534,6 +1516,14 @@ const talents = {
     maxRanks: 2,
     entryIds: [103833],
     definitionIds: [{ id: 108838, specId: 256 }],
+  },
+  ULTIMATE_PENITENCE_TALENT: {
+    id: 421453,
+    name: 'Ultimate Penitence',
+    icon: 'ability_priest_ascendance',
+    maxRanks: 1,
+    entryIds: [103700],
+    definitionIds: [{ id: 108705, specId: 256 }],
   },
   UNFURLING_DARKNESS_TALENT: {
     id: 341273,
@@ -1639,14 +1629,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [103873],
     definitionIds: [{ id: 108878, specId: 256 }],
-  },
-  WRATH_UNLEASHED_TALENT: {
-    id: 390781,
-    name: 'Wrath Unleashed',
-    icon: 'spell_priest_divinestar_holy',
-    maxRanks: 1,
-    entryIds: [103698],
-    definitionIds: [{ id: 108703, specId: 256 }],
   },
 } satisfies Record<string, Talent>;
 

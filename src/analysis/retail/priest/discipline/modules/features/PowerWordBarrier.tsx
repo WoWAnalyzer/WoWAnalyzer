@@ -6,7 +6,7 @@ import Analyzer from 'parser/core/Analyzer';
 import { EventType } from 'parser/core/Events';
 import LazyLoadStatisticBox from 'parser/ui/LazyLoadStatisticBox';
 
-const POWER_WORD_BARRIER_REDUCTION = 0.25;
+const POWER_WORD_BARRIER_REDUCTION = 0.2;
 
 class PowerWordBarrier extends Analyzer {
   totalDamageTakenDuringPWB = 0;

@@ -1,10 +1,13 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
-import { DoxAshe, Havoc, ToppleTheNun } from 'CONTRIBUTORS';
+import { DoxAshe, Havoc, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 11, 8), <>Add statistics for Tier 31 four piece</>,DoxAshe),
+  change(date(2023, 11, 12), <>Updated Active Time Graph to use a rolling average instead of cumulative average.</>, Sref),
+  change(date(2023, 10, 17), <>Enable spec with 10.2 changes</>,DoxAshe),
   change(date(2023, 10, 9), <>Update <SpellLink spell={TALENTS.MINDGAMES_TALENT}/> and fix broken spell icons</>,DoxAshe),
   change(date(2023, 9, 5), <>Add Active Time graph to guide view</>,DoxAshe),
   change(date(2023, 8, 8), <>Improve <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT}/> duration extension tracking and guide view,</>,DoxAshe),

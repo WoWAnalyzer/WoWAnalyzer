@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -15,6 +15,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import GradiatedPerformanceBar from 'interface/guide/components/GradiatedPerformanceBar';
+
+const DEBUG = false;
 
 class Deathspeaker extends Analyzer {
   static dependencies = {
@@ -53,9 +55,18 @@ class Deathspeaker extends Analyzer {
     );
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
     //for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
-    //console.log("SD CAST",this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id),"/",this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id),"max:",this.abilities.getMaxCharges(TALENTS.SHADOW_WORD_DEATH_TALENT.id));
+    DEBUG &&
+      console.log(
+        'Shadow Word: Death CAST',
+        this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        '/',
+        this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        'max:',
+        this.abilities.getMaxCharges(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        this.owner.formatTimestamp(event.timestamp, 1),
+      );
   }
 
   onBuffApplied(event: ApplyBuffEvent) {
@@ -68,6 +79,16 @@ class Deathspeaker extends Analyzer {
       false,
     );
     this.lastProcTime = event.timestamp;
+    DEBUG &&
+      console.log(
+        'Shadow Word: Death buff apply',
+        this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        '/',
+        this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        'max:',
+        this.abilities.getMaxCharges(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        this.owner.formatTimestamp(event.timestamp, 1),
+      );
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
@@ -86,6 +107,16 @@ class Deathspeaker extends Analyzer {
     if (durationHeld >= 14990) {
       this.procsWasted += 1;
     }
+    DEBUG &&
+      console.log(
+        'Shadow Word: Death buff remove',
+        this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        '/',
+        this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        'max:',
+        this.abilities.getMaxCharges(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        this.owner.formatTimestamp(event.timestamp, 1),
+      );
   }
 
   onBuffRefresh() {

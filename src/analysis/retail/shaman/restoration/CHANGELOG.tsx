@@ -5,10 +5,11 @@ import { Arlie, Elitesparkle, Fassbrause, niseko, ToppleTheNun, Vetyst, Vohrr } 
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 11, 12), <>Restoration not supported</>, Vohrr),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 5, 8), <>Fix Mana Costs for Shaman Spells and Talents.</>, Elitesparkle),
   change(date(2023, 5, 8), <><SpellLink spell={TALENTS.FLOW_OF_THE_TIDES_TALENT}/> fix to tally additional hit healing regardless of riptides being consumed.</>, Vohrr),
-  change(date(2023, 5, 4), <>Fixed bug with <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> uptime segments on the guide. Added <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT}/> cast entry row, reformatted <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT}/> module for visual consistency</>, Vohrr),
+  change(date(2023, 5, 4), <>Fixed bug with <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> uptime segments on the guide. Added <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT}/> cast entry row, reformatted <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT}/> module for visual consistency</>, Vohrr),
   change(date(2023, 5, 4), <>Add <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> uptime to core section of the Guide</>, Vohrr),
   change(date(2023, 5, 3), <><SpellLink spell={TALENTS.EARTHEN_HARMONY_TALENT}/> code review cleanup</>, Vohrr),
   change(date(2023, 5, 3), <>Fixed a bug with <SpellLink spell={TALENTS.EARTHEN_HARMONY_TALENT}/> not calculating the damage mitigated from <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/> that were applied pre-pull</>, Vohrr),
@@ -22,7 +23,7 @@ export default [
   change(date(2023, 3, 5), <>Rewrite <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT}/></>, Vohrr),
   change(date(2023, 2, 25), <>Added <SpellLink spell={TALENTS.WAVESPEAKERS_BLESSING_TALENT}/> module.</>, Vohrr),
   change(date(2023, 2, 23), <>Various bug fixes and format updates to bring modules up to date for Dragonflight. Fixed and re-enabled <SpellLink spell={SPELLS.WATER_SHIELD}/>. Fixed <SpellLink spell={TALENTS.MANA_TIDE_TOTEM_TALENT}/>. Fixed <SpellLink spell={TALENTS.RESURGENCE_TALENT}/>. Fixed <SpellLink spell={TALENTS.EARTH_SHIELD_TALENT}/>. Improved accuracy of <SpellLink spell={TALENTS.DELUGE_TALENT}/>. Re-added <SpellLink spell={TALENTS.ANCESTRAL_GUIDANCE_TALENT}/> and <SpellLink spell={TALENTS.ASCENDANCE_RESTORATION_TALENT}/> to the Cooldown Throughput Tracker. Added missing abilities to Ability Tracker</>, Vohrr),
-  change(date(2023, 2, 22), <>Added <SpellLink spell={TALENTS.PRIMAL_TIDE_CORE_TALENT}/> module. Added event linking to improve the accuracy of <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT}/> and for future guide / module implementation. Updated sample report. Added Vohrr as a contributor</>, Vohrr),
+  change(date(2023, 2, 22), <>Added <SpellLink spell={TALENTS.PRIMAL_TIDE_CORE_TALENT}/> module. Added event linking to improve the accuracy of <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT}/> and for future guide / module implementation. Updated sample report. Added Vohrr as a contributor</>, Vohrr),
   change(date(2023, 1, 16), <>Added support for <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT}></SpellLink> target increases for <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT}></SpellLink>, <SpellLink spell={TALENTS.DOWNPOUR_TALENT}></SpellLink> and <SpellLink spell={TALENTS.HEALING_RAIN_TALENT}></SpellLink> statistics.</>, Fassbrause),
   change(date(2023, 1, 8), <>Added <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT}></SpellLink> to the <SpellLink spell={TALENTS.TIDAL_WAVES_TALENT}></SpellLink> buff usage breakdown and Tidal Waves suggestions.</>, Fassbrause),
   change(date(2022, 12, 24), <>Added <SpellLink spell={TALENTS.HEALING_RAIN_TALENT}></SpellLink>, <SpellLink spell={TALENTS.DOWNPOUR_TALENT}></SpellLink> and <SpellLink spell={TALENTS.WELLSPRING_TALENT}></SpellLink> to the <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT}></SpellLink> buff usage breakdown.</>, Fassbrause),

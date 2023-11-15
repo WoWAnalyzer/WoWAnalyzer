@@ -1,28 +1,39 @@
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
-import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { TALENTS_MONK } from 'common/TALENTS';
 import { TIERS } from 'game/TIERS';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
-import Events, { HealEvent, ResourceChangeEvent } from 'parser/core/Events';
+import Events, { HealEvent } from 'parser/core/Events';
 import BoringValueText from 'parser/ui/BoringValueText';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
-import ItemManaGained from 'parser/ui/ItemManaGained';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const FOUR_PIECE_BONUS = 0.4;
-const FOUR_PIECE_SPELLS = [SPELLS.RENEWING_MIST_HEAL, SPELLS.VIVIFY];
+const TWO_PIECE_BONUS = 0.12;
+const FOUR_PIECE_SPELLS = [
+  SPELLS.RENEWING_MIST_HEAL,
+  SPELLS.VIVIFY,
+  SPELLS.INVIGORATING_MISTS_HEAL,
+];
+const TWO_PIECE_SPELLS = [
+  SPELLS.RENEWING_MIST_HEAL,
+  TALENTS_MONK.ENVELOPING_MIST_TALENT,
+  TALENTS_MONK.SOOTHING_MIST_TALENT,
+  SPELLS.UNISON_HEAL,
+  SPELLS.ENVELOPING_MIST_TFT,
+  SPELLS.ENVELOPING_BREATH_HEAL,
+];
 
 class T30TierSet extends Analyzer {
   has2Piece: boolean = true;
   has4Piece: boolean = true;
   vivHealing: number = 0;
   renewingMistHealing: number = 0;
-  manaGain: number = 0;
-  wastedManaGain: number = 0;
+  twoPieceHealing: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -32,10 +43,11 @@ class T30TierSet extends Analyzer {
     if (!this.active) {
       return;
     }
-    // 2pc do energized for mana gain value and show uptime
+    // 2pc reworked to increase soothing mist renewing mist and enveloping mist by 12%
+
     this.addEventListener(
-      Events.resourcechange.by(SELECTED_PLAYER).spell(SPELLS.SOULFANG_INFUSION),
-      this.handle2pcMana,
+      Events.heal.by(SELECTED_PLAYER).spell(TWO_PIECE_SPELLS),
+      this.handle2pcHeal,
     );
     //4pc do uptime and effective healing increase
     if (this.has4Piece) {
@@ -50,24 +62,14 @@ class T30TierSet extends Analyzer {
     return this.renewingMistHealing + this.vivHealing;
   }
 
-  get twoSetUptime() {
-    return (
-      this.selectedCombatant.getBuffUptime(SPELLS.SOULFANG_INFUSION.id) / this.owner.fightDuration
-    );
-  }
-
   get fourSetUptime() {
     return (
       this.selectedCombatant.getBuffUptime(SPELLS.SOULFANG_VITALITY.id) / this.owner.fightDuration
     );
   }
 
-  handle2pcMana(event: ResourceChangeEvent) {
-    if (event.resourceChangeType !== RESOURCE_TYPES.MANA.id) {
-      return;
-    }
-    this.manaGain += event.resourceChange - event.waste;
-    this.wastedManaGain += event.waste;
+  handle2pcHeal(event: HealEvent) {
+    this.twoPieceHealing += calculateEffectiveHealing(event, TWO_PIECE_BONUS);
   }
 
   handle4PcHeal(event: HealEvent) {
@@ -96,17 +98,12 @@ class T30TierSet extends Analyzer {
               <strong>{formatNumber(this.vivHealing)}</strong> extra{' '}
               <SpellLink spell={SPELLS.VIVIFY} /> healing
             </li>
-            <li>
-              <strong>{formatNumber(this.wastedManaGain)}</strong> mana wasted from overcapping
-            </li>
           </ul>
         }
       >
         <BoringValueText label="Fangs of Forged Vermillion (T30 Set Bonus)">
           <h4>2 Piece</h4>
-          <ItemManaGained amount={this.manaGain} useAbbrev />
-          <br />
-          {formatPercentage(this.twoSetUptime)}%<small> uptime</small>
+          <ItemHealingDone amount={this.twoPieceHealing} />
           <hr />
           {this.has4Piece && (
             <>

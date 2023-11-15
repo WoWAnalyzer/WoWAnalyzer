@@ -297,7 +297,7 @@ class Disintegrate extends Analyzer {
         });
       }
     } // We clipped outside of Dragonrage, bad
-    else if (this.currentRemainingTicks > 1) {
+    else if (this.currentRemainingTicks >= 1) {
       if (this.disintegrateClipSpell) {
         this.problemPoints.push({
           timestamp: event.timestamp,

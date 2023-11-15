@@ -36,13 +36,6 @@ class ComboPoints extends Analyzer {
 
   suggestions(when: When) {
     resourceSuggest(when, this.comboPointTracker, {
-      spell: TALENTS.MARKED_FOR_DEATH_TALENT, // 5 CP
-      minor: 0,
-      avg: 0.05,
-      major: 0.1,
-      extraSuggestion: this.makeExtraSuggestion(TALENTS.MARKED_FOR_DEATH_TALENT),
-    });
-    resourceSuggest(when, this.comboPointTracker, {
       spell: SPELLS.BACKSTAB, // 1 CP
       minor: 0.05,
       avg: 0.1,

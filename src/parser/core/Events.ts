@@ -516,6 +516,7 @@ export interface FilterBuffInfoEvent extends BuffEvent<EventType.FilterBuffInfo>
 export interface HealEvent extends Event<EventType.Heal> {
   /** Unique Identifier for the source. Nobody else will have this ID */
   sourceID: number;
+  sourceInstance?: number;
   /** If the person who is doing the healing friendly */
   sourceIsFriendly: boolean;
   /** Unique Identifier for the target. Nobody else will have this ID */

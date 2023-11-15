@@ -6,7 +6,7 @@ module.exports = {
   extends: ['@martijnhols/eslint-config', 'plugin:react/jsx-runtime'],
   plugins: ['wowanalyzer', 'progress'],
   rules: {
-    'progress/activate': 1,
+    'progress/activate': process.stdout.isTTY ? 1 : 0,
     'prettier/prettier': 0,
     'wowanalyzer/module-spread-parent-dependencies': 'error',
     'wowanalyzer/spell-link-spell-object': CHECK_SPELL_OBJECT ? 'error' : 'off',

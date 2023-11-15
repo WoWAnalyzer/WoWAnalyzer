@@ -34,8 +34,8 @@ class HealingEfficiencyDetails extends CoreHealingEfficiencyDetails {
             </Trans>
             <br />
             <Trans id="shaman.restoration.healingEfficiencyDetails2">
-              <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_TALENT} /> is given the healing from its
-              created <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> &{' '}
+              <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_RESTORATION_TALENT} /> is given the healing
+              from its created <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> &{' '}
               <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> and is removed from those spells.
             </Trans>
           </>

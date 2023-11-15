@@ -5,6 +5,7 @@ import SPELLS from 'common/SPELLS';
 import { TALENTS_DRUID } from 'common/TALENTS/druid';
 
 export default [
+  change(date(2023, 11, 7), <>Added statistic for <SpellLink spell={TALENTS_DRUID.SABER_JAWS_TALENT}/>, fixed some numbers, and marked as supported for 10.2.</>, Sref),
   change(date(2023, 10, 12), <>Added Guide items for the Amirdrassil tier set</>, Sref),
   change(date(2023, 10, 7), <>Updated flow of the guide's rotation section, and added a subsection for <SpellLink spell={TALENTS_DRUID.SUDDEN_AMBUSH_TALENT}/></>, Sref),
   change(date(2023, 7, 31), <>Added a guide entry and a statistic for <SpellLink spell={TALENTS_DRUID.DIRE_FIXATION_TALENT}/>. Bumped support to 10.1.5</>, Sref),

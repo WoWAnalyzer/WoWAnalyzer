@@ -2,7 +2,6 @@ import { CastEvent, DamageEvent, EventType, GetRelatedEvents } from 'parser/core
 import { Options } from 'parser/core/Module';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import SPELLS from 'common/SPELLS/demonhunter';
-import TALENTS from 'common/TALENTS/demonhunter';
 
 const DAMAGE_BUFFER = 2500;
 
@@ -13,27 +12,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: SIGIL_OF_FLAME_DAMAGE,
     referencedEventId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
     referencedEventType: EventType.Damage,
-    linkingEventId: TALENTS.SIGIL_OF_FLAME_TALENT.id,
-    linkingEventType: EventType.Cast,
-    forwardBufferMs: DAMAGE_BUFFER,
-    backwardBufferMs: DAMAGE_BUFFER,
-    anyTarget: true,
-  },
-  {
-    linkRelation: SIGIL_OF_FLAME_DAMAGE,
-    referencedEventId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
-    referencedEventType: EventType.Damage,
-    linkingEventId: SPELLS.SIGIL_OF_FLAME_PRECISE.id,
-    linkingEventType: EventType.Cast,
-    forwardBufferMs: DAMAGE_BUFFER,
-    backwardBufferMs: DAMAGE_BUFFER,
-    anyTarget: true,
-  },
-  {
-    linkRelation: SIGIL_OF_FLAME_DAMAGE,
-    referencedEventId: SPELLS.SIGIL_OF_FLAME_DEBUFF.id,
-    referencedEventType: EventType.Damage,
-    linkingEventId: SPELLS.SIGIL_OF_FLAME_CONCENTRATED.id,
+    linkingEventId: [SPELLS.SIGIL_OF_FLAME.id, SPELLS.SIGIL_OF_FLAME_PRECISE.id],
     linkingEventType: EventType.Cast,
     forwardBufferMs: DAMAGE_BUFFER,
     backwardBufferMs: DAMAGE_BUFFER,

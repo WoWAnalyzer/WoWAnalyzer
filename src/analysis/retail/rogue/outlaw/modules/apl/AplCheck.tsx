@@ -119,7 +119,7 @@ const COMMON_COOLDOWN: Rule[] = [
     )),
   },
   {
-    spell: TALENTS.ROLL_THE_BONES_TALENT,
+    spell: SPELLS.ROLL_THE_BONES,
     condition: rtbCondition(),
   },
   {

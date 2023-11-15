@@ -43,14 +43,38 @@ class AlwaysBeCasting extends Analyzer {
     return this.activeTime / this.owner.fightDuration;
   }
 
+  /** Gets active time percentage within a specified time segment.
+   *  This will not work properly unless the current timestamp advances past the end time. */
+  getActiveTimePercentageInWindow(start: number, end: number): number {
+    let activeTime = 0;
+    for (let i = 0; i < this.activeTimeSegments.length; i += 1) {
+      const seg = this.activeTimeSegments[i];
+      if (seg.end <= start) {
+        continue;
+      } else if (seg.start >= end) {
+        break;
+      }
+      const overlapStart = Math.max(start, seg.start);
+      const overlapEnd = Math.min(end, seg.end);
+      activeTime += Math.max(0, overlapEnd - overlapStart);
+    }
+    const windowDuration = end - start;
+    return activeTime / windowDuration;
+  }
+
   activeTime = 0;
   _lastGlobalCooldownDuration = 0;
+
+  /** Segments of time when the player was active, populated at the same time activeTime is incremented.
+   *  Guaranteed to not overlap and to be in chronological order,
+   *  but segments may not exactly correspond to a cast or GCD */
+  activeTimeSegments: { start: number; end: number }[] = [];
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.GlobalCooldown, this.onGCD);
     this.addEventListener(Events.EndChannel, this.onEndChannel);
-    DEBUG && this.addEventListener(Events.fightend, this.onFightEnd);
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
   onGCD(event: GlobalCooldownEvent) {
@@ -63,7 +87,17 @@ class AlwaysBeCasting extends Analyzer {
       // Only add active time for this channel, we do this when the channel is finished and use the highest of the GCD and channel time
       return false;
     }
+
+    // check if previous GCD overlaps the beginning of this one. If it does, we don't want to double-count.
+    const lastEntry = this.activeTimeSegments.at(-1);
+    if (lastEntry && lastEntry.end > event.timestamp) {
+      const overlap = lastEntry.end - event.timestamp;
+      this.activeTime -= overlap;
+      lastEntry.end = event.timestamp;
+    }
+
     this.activeTime += event.duration;
+    this._handleNewUptimeSegment(event.timestamp, event.timestamp + event.duration);
     DEBUG &&
       console.log(
         'Active Time: added ' +
@@ -83,6 +117,7 @@ class AlwaysBeCasting extends Analyzer {
       amount = Math.max(amount, this._lastGlobalCooldownDuration);
     }
     this.activeTime += amount;
+    this._handleNewUptimeSegment(event.timestamp - amount, event.timestamp);
     DEBUG &&
       console.log(
         'Active Time: added ' +
@@ -95,19 +130,23 @@ class AlwaysBeCasting extends Analyzer {
     return true;
   }
 
-  /** This should only be called with DEBUG flag is set */
   onFightEnd() {
-    console.log(
-      'ABC Stats:\n' +
-        'Active Time = ' +
-        this.activeTime +
-        '\n' +
-        'Total Fight Time = ' +
-        this.owner.fightDuration +
-        '\n' +
-        'Active Time Percentage = ' +
-        formatPercentage(this.activeTimePercentage),
-    );
+    DEBUG &&
+      console.log(
+        'ABC Stats:\n' +
+          'Active Time = ' +
+          this.activeTime +
+          '\n' +
+          'Total Fight Time = ' +
+          this.owner.fightDuration +
+          '\n' +
+          'Active Time Percentage = ' +
+          formatPercentage(this.activeTimePercentage),
+      );
+  }
+
+  _handleNewUptimeSegment(start: number, end: number) {
+    this.activeTimeSegments.push({ start, end });
   }
 
   showStatistic = true;
@@ -192,9 +231,9 @@ class AlwaysBeCasting extends Analyzer {
     return {
       actual: this.downtimePercentage,
       isGreaterThan: {
-        minor: 0.02,
-        average: 0.04,
-        major: 0.06,
+        minor: 0.05,
+        average: 0.1,
+        major: 0.15,
       },
       style: ThresholdStyle.PERCENTAGE,
     };

@@ -51,7 +51,9 @@ import IdolOfYshaarj from './modules/talents/IdolOfYshaarj';
 import Manipulation from './modules/talents/Manipulation';
 import InsanityGraph from './modules/guide/InsanityGraph';
 
-import FourSet from './modules/tier/Tier29ShadowPriest4Set';
+import Tier29FourSet from './modules/tier/Tier29ShadowPriest4Set';
+import Tier31FourSet from './modules/tier/Tier31ShadowPriest4Set';
+import Tier31FourSetNormalizer from './modules/tier/Tier31ShadowPriest4SetNormalizer';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
@@ -115,7 +117,9 @@ class CombatLogParser extends MainCombatLogParser {
     mindgames: Mindgames,
 
     //Tier
-    fourSet: FourSet,
+    tier29FourSet: Tier29FourSet,
+    tier31FourSet: Tier31FourSet,
+    tier31FourSetNormalizer: Tier31FourSetNormalizer,
 
     arcaneTorrent: [ArcaneTorrent, { active: false }] as const,
   };

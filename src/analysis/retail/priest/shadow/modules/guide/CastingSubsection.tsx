@@ -2,8 +2,9 @@ import { Section, SubSection, GuideProps } from 'interface/guide';
 import { PerformanceStrong } from './ExtraComponents';
 import { formatPercentage } from 'common/format';
 import CombatLogParser from 'analysis/retail/priest/shadow/CombatLogParser';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
-function CastingSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
+function CastingSubsection({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <SubSection>
       <p>
@@ -25,7 +26,13 @@ function CastingSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
           {formatPercentage(modules.cancelledCasts.Canceled, 1)}%
         </PerformanceStrong>{' '}
       </p>
-      <Section title="Active Time Graph">{modules.alwaysBeCasting.graphSubsection}</Section>
+      <Section title="Active Time Graph">
+        <ActiveTimeGraph
+          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+          fightStart={info.fightStart}
+          fightEnd={info.fightEnd}
+        />
+      </Section>
     </SubSection>
   );
 }

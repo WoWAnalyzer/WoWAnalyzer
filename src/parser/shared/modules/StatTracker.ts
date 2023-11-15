@@ -171,7 +171,7 @@ class StatTracker extends Analyzer {
     [SPELLS.ARCANE_INTELLECT.id]: { intellect: 1.05 },
     [SPELLS.BATTLE_SHOUT.id]: { strength: 1.05, agility: 1.05 },
 
-    [SPELLS.INITIATIVE_BUFF.id]: { crit: 1.12 },
+    [SPELLS.INITIATIVE_BUFF.id]: { crit: 1.1 },
 
     // Highmountain Tauren 1% Buff
     [SPELLS.MOUNTAINEER.id]: { versatility: 1.01 },
@@ -990,8 +990,12 @@ class StatTracker extends Analyzer {
     );
   }
 
-  _statPrint(stats: PlayerStats) {
-    return `STR=${stats.strength} AGI=${stats.agility} INT=${stats.intellect} STM=${stats.stamina} CRT=${stats.crit} HST=${stats.haste} MST=${stats.mastery} VRS=${stats.versatility} AVD=${this._currentStats.avoidance} LCH=${stats.leech} SPD=${stats.speed} ARMOR=${this._currentStats.armor}`;
+  _statPrint(stats: PlayerStats): string {
+    return Object.entries(stats)
+      .filter(([, value]) => value !== 0)
+      .map(([key, value]) => [key.slice(0, 3).toUpperCase(), value.toFixed(0)])
+      .map(([key, value]) => `${key}=${value}`)
+      .join(' ');
   }
 }
 

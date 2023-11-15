@@ -86,19 +86,6 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS.ASPECT_OF_THE_WILD_TALENT.id,
-        enabled: combatant.hasTalent(TALENTS.ASPECT_OF_THE_WILD_TALENT),
-        category: SPELL_CATEGORY.COOLDOWNS,
-        cooldown: 120,
-        gcd: {
-          static: 0,
-        },
-        castEfficiency: {
-          suggestion: true,
-          recommendedEfficiency: 0.95,
-        },
-      },
-      {
         spell: TALENTS.DIRE_BEAST_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         enabled: combatant.hasTalent(TALENTS.DIRE_BEAST_TALENT),

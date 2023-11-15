@@ -48,6 +48,7 @@ import ClassicHunterSurvival from 'analysis/classic/hunter/survival';
 import ClassicMageArcane from 'analysis/classic/mage/arcane';
 import ClassicMageFire from 'analysis/classic/mage/fire';
 import ClassicPaladinHoly from 'analysis/classic/paladin/holy';
+import ClassicPaladinProtection from 'analysis/classic/paladin/protection';
 import ClassicPaladinRetribution from 'analysis/classic/paladin/retribution';
 import ClassicPriestDiscipline from 'analysis/classic/priest/discipline';
 import ClassicPriestShadow from 'analysis/classic/priest/shadow';
@@ -128,6 +129,7 @@ const configs: Config[] = [
   ClassicMageFire,
 
   ClassicPaladinHoly,
+  ClassicPaladinProtection,
   ClassicPaladinRetribution,
 
   ClassicPriestDiscipline,

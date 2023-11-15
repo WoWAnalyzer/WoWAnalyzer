@@ -38,8 +38,8 @@ class CenarionWard extends Analyzer {
         <b>
           <SpellLink spell={TALENTS_DRUID.CENARION_WARD_TALENT} />
         </b>{' '}
-        is a talented HoT on a short cooldown. It is extremely powerful and efficient and should be
-        cast virtually on cooldown. A tank is usually the best target.
+        is a talented HoT on a short cooldown. It is powerful and efficient and should be cast on
+        cooldown. A tank is usually the best target.
       </p>
     );
 

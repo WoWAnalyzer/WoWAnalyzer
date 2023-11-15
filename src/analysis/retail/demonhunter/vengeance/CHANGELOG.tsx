@@ -7,6 +7,7 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 15), <>Fix <SpellLink spell={TALENTS.FEL_DEVASTATION_TALENT} /> cooldown.</>, ToppleTheNun),
   change(date(2023, 10, 24), <>Make <SpellLink spell={SPELLS.SOUL_FRAGMENT} /> not count as a cast.</>, ToppleTheNun),
   change(date(2023, 8, 18), 'Temporarily disable Fiery Brand analysis due to Burning Alive shenanigans.', ToppleTheNun),
   change(date(2023, 7, 11), 'Update for 10.1.5.', ToppleTheNun),
@@ -14,7 +15,7 @@ export default [
   change(date(2023, 7, 8), <>Fix determination of <SpellLink spell={TALENTS.FRACTURE_TALENT} /> quality based on Fury amounts.</>, ToppleTheNun),
   change(date(2023, 3, 21), <>Fix some good <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> casts showing as bad.</>, ToppleTheNun),
   change(date(2023, 3, 16), 'Update the default log.', ToppleTheNun),
-  change(date(2023, 3, 9), <>Add <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} /> to Rotation section in guide.</>, ToppleTheNun),
+  change(date(2023, 3, 9), <>Add <SpellLink spell={SPELLS.SIGIL_OF_FLAME} /> to Rotation section in guide.</>, ToppleTheNun),
   change(date(2023, 3, 9), <>Re-add <SpellLink spell={SPELLS.IMMOLATION_AURA} /> cast efficiency to guide.</>, ToppleTheNun),
   change(date(2023, 3, 9), 'Update Rotation section.', ToppleTheNun),
   change(date(2023, 2, 25), <>Fixed  consuming the last stack of <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} /> not granting credit on casting <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} />.</>, ToppleTheNun),
@@ -52,7 +53,7 @@ export default [
   change(date(2022, 11, 8), 'Move some spells to a shared spellbook.', ToppleTheNun),
   change(date(2022, 11, 1), <>Add <SpellLink spell={SPELLS.FRAILTY} /> section to Guide.</>, ToppleTheNun),
   change(date(2022, 10, 31), 'Update talent-based statistics to show talent rank.', ToppleTheNun),
-  change(date(2022, 10, 31), <>Remove misleading <SpellLink spell={TALENTS.SIGIL_OF_FLAME_TALENT} /> statistic.</>, ToppleTheNun),
+  change(date(2022, 10, 31), <>Remove misleading <SpellLink spell={SPELLS.SIGIL_OF_FLAME} /> statistic.</>, ToppleTheNun),
   change(date(2022, 10, 31), 'Mark Vengeance DH as partially supported for 10.0.0.', ToppleTheNun),
   change(date(2022, 10, 26), 'Enable guide for Vengeance DH.', ToppleTheNun),
   change(date(2022, 10, 22), 'Add Soul Fragment buff stack tracking to Guide.', ToppleTheNun),
@@ -63,7 +64,7 @@ export default [
   change(date(2022, 10, 15), <>Add support for <SpellLink spell={TALENTS.FLAMES_OF_FURY_TALENT} />.</>, ToppleTheNun),
   change(date(2022, 10, 15), <>Add support for <SpellLink spell={TALENTS.STOKE_THE_FLAMES_TALENT} />.</>, ToppleTheNun),
   change(date(2022, 10, 15), <>Correct cooldown for <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> when <SpellLink spell={TALENTS.DOWN_IN_FLAMES_TALENT} /> is talented.</>, ToppleTheNun),
-  change(date(2022, 10, 15), <>Add support for <SpellLink spell={TALENTS.UNNATURAL_MALICE_TALENT} />.</>, ToppleTheNun),
+  change(date(2022, 10, 15), <>Add support for Unnatural Malice.</>, ToppleTheNun),
   change(date(2022, 10, 15), <>Correct detection of <SpellLink spell={TALENTS.ELYSIAN_DECREE_TALENT} /> damage.</>, ToppleTheNun),
   change(date(2022, 10, 15), <>Add support for <SpellLink spell={TALENTS.SWALLOWED_ANGER_TALENT} />.</>, ToppleTheNun),
   change(date(2022, 10, 14), 'Correct some spell cooldowns and add missing spells.', ToppleTheNun),
