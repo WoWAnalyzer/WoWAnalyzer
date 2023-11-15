@@ -13,6 +13,8 @@ interface Props {
   location?: Location;
 }
 
+type NodeItem = HTMLDivElement | null;
+
 const units = {
   [Location.Top]: { selectorId: 'top-banner-atf', type: 'leaderboard_atf' },
 };
@@ -32,7 +34,7 @@ const Ad = ({ style, location }: Props) => {
     }
   }, [location, pageLoc.pathname, premium]);
 
-  const initObserver = useCallback((node: HTMLDivElement | null) => {
+  const initObserver = useCallback((node: NodeItem) => {
     if (!node) {
       return;
     }
