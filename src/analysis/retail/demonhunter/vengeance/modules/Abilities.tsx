@@ -179,7 +179,7 @@ class Abilities extends SharedAbilities {
       {
         spell: TALENTS_DEMON_HUNTER.FEL_DEVASTATION_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL_AOE,
-        cooldown: 60,
+        cooldown: 40,
         gcd: {
           base: 1500,
         },
