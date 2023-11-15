@@ -1,6 +1,6 @@
 import { Dungeon } from 'game/raids';
 
-import Background from './backgrounds/ThroneOfTheTides.jpg';
+import Background from './backgrounds/ThroneOfTheTides.png';
 import Headshot from './headshots/ThroneOfTheTides.jpg';
 
 const ThroneOfTheTides: Dungeon = {
