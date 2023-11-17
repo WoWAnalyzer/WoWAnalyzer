@@ -300,6 +300,14 @@ export function wasPrimordialWaveConsumed(event: RemoveBuffEvent): boolean {
   return HasRelatedEvent(event, PWAVE_REMOVAL);
 }
 
+export function isFrom4pcT31(event: ApplyBuffEvent | HealEvent): boolean {
+  return (
+    !HasRelatedEvent(event, HARDCAST) &&
+    !HasRelatedEvent(event, RIPTIDE_PWAVE) &&
+    !HasRelatedEvent(event, PRIMAL_TIDE_CORE)
+  );
+}
+
 export function isFromPrimalTideCore(event: ApplyBuffEvent | HealEvent): boolean {
   return !HasRelatedEvent(event, HARDCAST) && !HasRelatedEvent(event, RIPTIDE_PWAVE);
 }
