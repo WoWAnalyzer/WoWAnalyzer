@@ -2323,3 +2323,9 @@ export const Ypp: Contributor = {
     },
   ],
 };
+
+export const LucasLevyOB: Contributor = {
+  nickname: 'LucasLevyOB',
+  github: 'LucasLevyOB',
+  ],
+};

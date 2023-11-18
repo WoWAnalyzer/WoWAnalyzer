@@ -53,16 +53,19 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
   /** Generate filter based on black list and whitelist
    * For now we only look at the players who were buffed
    * during breath */
-  function getFilter(window: BreathOfEonsWindows) {
-    const playerNames = Array.from(window.breathPerformance.buffedPlayers.keys());
-    const nameFilter = playerNames.map((name) => `"${name}"`).join(', ');
-
+  function getFilter() {
     const abilityFilter = ABILITY_BLACKLIST.map((id) => `${id}`).join(', ');
 
     const filter = `type = "damage" 
     AND not ability.id in (${abilityFilter}) 
-    AND (source.name in (${nameFilter}, "${owner.selectedCombatant.name}") OR source.owner.name in (${nameFilter}, "${owner.selectedCombatant.name}")) 
-    AND (target.id != source.id) AND (supportedActor.id = 0)`;
+    AND (target.id != source.id)
+    AND target.id not in(169428, 169430, 169429, 169426, 169421, 169425, 168932)
+    AND not (target.id = source.owner.id)
+    AND not (supportedActor.id = target.id)
+    AND not (source.id = target.owner.id)
+    AND source.disposition = "friendly"
+    AND target.disposition != "friendly"
+    AND (source.id > 0)`;
 
     if (debug) {
       console.log(filter);
@@ -73,10 +76,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
   const buffer = 4000;
 
   async function loadData() {
-    /** High maxPage allowances needed otherwise it breaks
-     * If we ever desire to find optimal buff targets for Breath windows
-     * this would prolly get out of hand unless we split up the requests.
-     * But that is not the current goal for this module soooo : ) */
+    /** High maxPage allowances needed otherwise it breaks */
     for (const window of windows) {
       const startTime =
         window.start - buffer > fightStartTime ? window.start - buffer : fightStartTime;
@@ -86,8 +86,8 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         startTime,
         endTime,
         undefined,
-        getFilter(window),
-        20,
+        getFilter(),
+        40,
       )) as DamageEvent[];
       damageTables.push({
         table: windowEvents,
@@ -138,11 +138,13 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         breathEnd,
         damageToDisplay,
         topWindow,
+        topWindowOptimalTarget,
         sourceInRange,
       } = processWindowData(index);
 
       const newGraphData = generateGraphDataForWindow(
         topWindow,
+        topWindowOptimalTarget,
         breathStart,
         breathEnd,
         damageInRange,
@@ -151,6 +153,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
 
       const content = generateExplanationContent(
         topWindow,
+        topWindowOptimalTarget,
         sourceInRange,
         damageToDisplay,
         damageInRange,
@@ -185,15 +188,18 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       ebonMightDropTimestamp + windowData.breathPerformance.ebonMightDroppedDuration;
 
     const damageWindows: DamageWindow[] = [];
+    const damageWindowsOptimalTargets: DamageWindow[] = [];
     const recentDamage: DamageEvent[] = [];
-    let damageInRange = 0;
     const sourceInRange: DamageSources[] = [];
+    let damageInRange = 0;
     let lostDamage = 0;
     let earlyDeadMobsDamage = 0;
 
     const breathStart = windowData.start;
     const breathEnd = windowData.end;
     const breathLength = breathEnd - breathStart;
+
+    const buffedPlayers = Array.from(windowData.breathPerformance.buffedPlayers.values());
 
     const mobsToIgnore = [];
     for (const event of windowData.breathPerformance.earlyDeadMobs) {
@@ -206,6 +212,8 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     for (const event of table.table) {
       recentDamage.push(event);
 
+      /** This first part is only gathering damage from our current window
+       * and from the current buffed targets - ie. baseline */
       if (event.timestamp >= breathStart && event.timestamp <= breathEnd) {
         /** These shouldn't show up but just incase */
         if (event.subtractsFromSupportedActor) {
@@ -217,33 +225,41 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             ? petToPlayerMap.get(event.sourceID ?? -1)
             : event.sourceID) ?? -1;
 
-        const damageAmount = event.amount + (event.absorbed ?? 0);
-
-        const index = sourceInRange.findIndex((sum) => sum.sourceID === sourceID);
-        if (index !== -1) {
-          sourceInRange[index].damage += damageAmount;
-        } else {
-          sourceInRange.push({ sourceID: sourceID, damage: damageAmount, lostDamage: 0 });
-        }
-
+        /** If not from buffed players or player ignore */
         if (
-          event.timestamp >= ebonMightDropTimestamp &&
-          event.timestamp <= ebonMightReappliedTimestamp
+          sourceID === buffedPlayers.find((player) => player.id === sourceID)?.id ||
+          sourceID === owner.selectedCombatant.id
         ) {
-          lostDamage += damageAmount;
-        }
-        damageInRange += damageAmount;
+          const damageAmount = event.amount + (event.absorbed ?? 0);
 
-        if (
-          mobsToIgnore.some(
-            (item) =>
-              item.targetID === event.targetID && item.targetInstance === event.targetInstance,
-          )
-        ) {
-          earlyDeadMobsDamage += damageAmount;
+          const index = sourceInRange.findIndex((sum) => sum.sourceID === sourceID);
+          if (index !== -1) {
+            sourceInRange[index].damage += damageAmount;
+          } else {
+            sourceInRange.push({ sourceID: sourceID, damage: damageAmount, lostDamage: 0 });
+          }
+
+          if (
+            event.timestamp >= ebonMightDropTimestamp &&
+            event.timestamp <= ebonMightReappliedTimestamp
+          ) {
+            lostDamage += damageAmount;
+          }
+          damageInRange += damageAmount;
+
+          if (
+            mobsToIgnore.some(
+              (item) =>
+                item.targetID === event.targetID && item.targetInstance === event.targetInstance,
+            )
+          ) {
+            earlyDeadMobsDamage += damageAmount;
+          }
         }
       }
 
+      /** This second part is gathering damage from all possible windows
+       * this collects from all actors. */
       while (
         recentDamage[recentDamage.length - 1].timestamp - recentDamage[0].timestamp >=
         breathLength
@@ -255,7 +271,6 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         );
 
         const sourceSums: DamageSources[] = [];
-        let currentWindowSum = 0;
 
         for (const eventWithinWindow of eventsWithinWindow) {
           /** These shouldn't show up but just incase */
@@ -269,7 +284,6 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
               : eventWithinWindow.sourceID) ?? -1;
 
           const damageAmount = eventWithinWindow.amount + (eventWithinWindow.absorbed ?? 0);
-          currentWindowSum += damageAmount;
 
           const index = sourceSums.findIndex((sum) => sum.sourceID === sourceID);
           if (index !== -1) {
@@ -278,10 +292,19 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             sourceSums.push({ sourceID: sourceID, damage: damageAmount, lostDamage: 0 });
           }
         }
+        const sortedSourceSumsOptimalTargets: DamageSources[] = sortDamageSources(sourceSums);
+        const currentWindowSumOptimalTargets = sortedSourceSumsOptimalTargets.reduce(
+          (a, b) => a + b.damage,
+          0,
+        );
 
-        const sortedSourceSums: DamageSources[] = sourceSums
-          .sort((a, b) => b.damage - a.damage)
-          .filter((sourceID) => sourceID.sourceID !== -1);
+        const filteredSourceSums = sourceSums.filter(
+          (source) =>
+            source.sourceID === buffedPlayers.find((player) => player.id === source.sourceID)?.id ||
+            source.sourceID === owner.selectedCombatant.id,
+        );
+        const sortedSourceSums: DamageSources[] = sortDamageSources(filteredSourceSums);
+        const currentWindowSum = sortedSourceSums.reduce((a, b) => a + b.damage, 0);
 
         damageWindows.push({
           start: recentDamage[0].timestamp,
@@ -291,20 +314,30 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
           startFormat: formatDuration(recentDamage[0].timestamp - fightStartTime),
           endFormat: formatDuration(recentDamage[0].timestamp + breathLength - fightStartTime),
         });
+        damageWindowsOptimalTargets.push({
+          start: recentDamage[0].timestamp,
+          end: recentDamage[0].timestamp + breathLength,
+          sum: currentWindowSumOptimalTargets,
+          sumSources: sortedSourceSumsOptimalTargets,
+          startFormat: formatDuration(recentDamage[0].timestamp - fightStartTime),
+          endFormat: formatDuration(recentDamage[0].timestamp + breathLength - fightStartTime),
+        });
 
         recentDamage.shift();
       }
     }
 
-    const sortedSourceInRange: DamageSources[] = sourceInRange
-      .sort((a, b) => b.damage - a.damage)
-      .filter((sourceID) => sourceID.sourceID !== -1);
+    const sortedSourceInRange: DamageSources[] = sortDamageSources(sourceInRange);
 
     const sortedWindows = damageWindows.sort((a, b) => b.sum - a.sum);
     const topWindow = sortedWindows[0];
+
+    const sortedWindowsOptimalTargets = damageWindowsOptimalTargets.sort((a, b) => b.sum - a.sum);
+    const topWindowOptimalTarget = sortedWindowsOptimalTargets[0];
+
     /** If the damage difference between what we found and what actually happened is greater than 10%
      * we display the actual amount - this only seems to happen when a target becomes immune before
-     * Breath explodes, resulting in an overevaluation. e.g. Neltharion */
+     * Breath explodes, resulting in an overvaluation. e.g. Neltharion */
     const damageDifference =
       ((damageInRange - earlyDeadMobsDamage) * BREATH_OF_EONS_MULTIPLIER) /
       windows[index].breathPerformance.damage;
@@ -315,6 +348,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
 
     if (debug) {
       console.log(index + 1 + '. ', 'Top Window:', topWindow);
+      console.log(index + 1 + '. ', 'Top Window optimal:', topWindowOptimalTarget);
       console.log(
         index + 1 + '.',
         'Damage within current window:',
@@ -330,7 +364,12 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
         formatDuration(breathEnd - fightStartTime),
         breathEnd,
       );
-      console.log(index + 1 + '.', 'source:', sortedSourceInRange);
+      console.log(
+        index + 1 + '.',
+        'source:',
+        sourceInRange.sort((a, b) => b.damage - a.damage),
+      );
+      console.log(index + 1 + '.', 'sorted source:', sortedSourceInRange);
       console.log(index + 1 + '.', 'damage lost to ebon drop:', lostDamage);
       console.log(index + 1 + '.', 'damage lost to early mob deaths:', earlyDeadMobsDamage);
     }
@@ -343,12 +382,34 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       breathEnd,
       damageToDisplay,
       topWindow,
+      topWindowOptimalTarget,
       sourceInRange: sortedSourceInRange,
     };
   }
 
+  function sortDamageSources(damageSources: DamageSources[]) {
+    const playerDammies = damageSources.find(
+      (sourceID) => sourceID.sourceID === owner.selectedCombatant.id,
+    );
+
+    const sortedDamageWindow: DamageSources[] = damageSources
+      // Filter out fake entries and the player
+      .filter(
+        (sourceID) => sourceID.sourceID !== -1 && sourceID.sourceID !== owner.selectedCombatant.id,
+      )
+      .sort((a, b) => b.damage - a.damage)
+      .splice(0, 4);
+    // Add back the player (if they did damage)
+    if (playerDammies) {
+      sortedDamageWindow.push(playerDammies);
+    }
+
+    return sortedDamageWindow;
+  }
+
   function generateGraphDataForWindow(
     topWindow: DamageWindow,
+    topWindowOptimal: DamageWindow,
     breathStart: number,
     breathEnd: number,
     damageInRange: number,
@@ -369,7 +430,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             ],
             type: 'area',
             color: '#736F4E',
-            label: 'Current Breath timing',
+            label: 'Current timing',
             strokeWidth: 5,
           },
           {
@@ -385,10 +446,38 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             ],
             type: 'area',
             color: '#4C78A8',
-            label: 'Optimal Breath timing',
+            label: 'Optimal timing',
             strokeWidth: 5,
           },
         ];
+
+    const optimalSources = topWindowOptimal.sumSources
+      .map((player) => player.sourceID)
+      .sort((a, b) => a - b)
+      .toString();
+    const currentSources = topWindow.sumSources
+      .map((player) => player.sourceID)
+      .sort((a, b) => a - b)
+      .toString();
+
+    if (optimalSources !== currentSources && topWindow) {
+      dataSeries.push({
+        spellTracker: [
+          {
+            timestamp: topWindowOptimal.start,
+            count: 1 * (topWindowOptimal.sum / damageInRange),
+          },
+          {
+            timestamp: topWindowOptimal.end,
+            count: 0,
+          },
+        ],
+        type: 'area',
+        color: '#88D498',
+        label: 'Optimal targets timing',
+        strokeWidth: 5,
+      });
+    }
 
     const newGraphData = generateGraphData(
       dataSeries,
@@ -403,6 +492,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
 
   function generateExplanationContent(
     topWindow: DamageWindow,
+    topWindowOptimalTargets: DamageWindow,
     inRangeSum: DamageSources[],
     damageToDisplay: number,
     damageInRange: number,
@@ -414,8 +504,6 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
     }
 
     const damageSourcesOptimal = [];
-    /** These specific colors are choosen because certain colors seems to completely break the donut
-     * And randomizes the ouput ie. values are not properly orded. */
     const colorMap = ['#2D3142', '#4F5D75', '#BFC0C0', '#EF8354', '#FFFFFF'];
 
     for (let i = 0; i < topWindow.sumSources.length; i += 1) {
@@ -429,9 +517,33 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
       });
     }
 
+    const optimalSources = topWindowOptimalTargets.sumSources
+      .map((player) => player.sourceID)
+      .sort((a, b) => a - b)
+      .toString();
+    const currentSources = topWindow.sumSources
+      .map((player) => player.sourceID)
+      .sort((a, b) => a - b)
+      .toString();
+
+    const sameTargets = optimalSources === currentSources;
+
+    const damageSourcesOptimalTargets = [];
+
+    if (!sameTargets) {
+      for (let i = 0; i < topWindowOptimalTargets.sumSources.length; i += 1) {
+        const source = topWindowOptimalTargets.sumSources[i];
+        const playerInfo = playerNameMap.get(source.sourceID);
+        damageSourcesOptimalTargets.push({
+          color: colorMap[i],
+          label: playerInfo?.name,
+          valueTooltip: formatNumber(source.damage * BREATH_OF_EONS_MULTIPLIER),
+          value: source.damage,
+        });
+      }
+    }
+
     const damageSourcesCurrent = [];
-    /** These specific colors are choosen because certain colors seems to completely break the donut
-     * And randomizes the ouput ie. values are not properly orded. */
 
     for (let i = 0; i < inRangeSum.length; i += 1) {
       const source = inRangeSum[i];
@@ -460,12 +572,12 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
             </div>
             <div className="flex-cell">
               {formatNumber(damageToDisplay)} /{' '}
-              {formatNumber(topWindow.sum * BREATH_OF_EONS_MULTIPLIER)}
+              {formatNumber(topWindowOptimalTargets.sum * BREATH_OF_EONS_MULTIPLIER)}
             </div>
             <div className="flex-cell">
               <PassFailBar
                 pass={damageToDisplay}
-                total={topWindow.sum * BREATH_OF_EONS_MULTIPLIER}
+                total={topWindowOptimalTargets.sum * BREATH_OF_EONS_MULTIPLIER}
               />
             </div>
           </div>
@@ -480,7 +592,7 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
               </TooltipElement>
             </div>
             <div className="flex-cell">
-              {Math.round(((topWindow.sum - damageInRange) / damageInRange) * 100)}%
+              {Math.round(((topWindowOptimalTargets.sum - damageInRange) / damageInRange) * 100)}%
             </div>
           </div>
         </div>
@@ -531,6 +643,18 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
               <DonutChart items={damageSourcesOptimal} />
             </div>
           </div>
+          {!sameTargets && (
+            <div className="table">
+              <div className="flex-row">
+                <div className="flex-cell">
+                  <span className="optimalTargetsBreath">Optimal Targets Window</span>
+                  <DonutChart items={damageSourcesOptimalTargets} />
+                </div>
+                <div className="flex-cell"></div>
+                <div className="flex-cell"></div>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );
