@@ -57,7 +57,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101930],
     definitionIds: [{ id: 106930, specId: 264 }],
-    manaCost: 1100,
+    manaCost: 5500,
   },
   ANCESTRAL_REACH_TALENT: {
     id: 382732,
@@ -170,7 +170,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101961],
     definitionIds: [{ id: 106957, specId: 262 }],
-    manaCost: 1000,
+    manaCost: 5000,
   },
   CHAIN_HEAL_TALENT: {
     id: 1064,
@@ -179,7 +179,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101951],
     definitionIds: [{ id: 106951, specId: 262 }],
-    manaCost: 2800,
+    manaCost: 14000,
   },
   CHAIN_LIGHTNING_TALENT: {
     id: 188443,
@@ -196,7 +196,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101966],
     definitionIds: [{ id: 106966, specId: 262 }],
-    manaCost: 5000,
+    manaCost: 3250,
   },
   CLOUDBURST_TOTEM_TALENT: {
     id: 157153,
@@ -205,7 +205,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101933],
     definitionIds: [{ id: 106926, specId: 264 }],
-    manaCost: 860,
+    manaCost: 4300,
   },
   CONTINUOUS_WAVES_TALENT: {
     id: 382046,
@@ -290,7 +290,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101842],
     definitionIds: [{ id: 106901, specId: 264 }],
-    manaCost: 1500,
+    manaCost: 7500,
   },
   EARTHEN_HARMONY_TALENT: {
     id: 382020,
@@ -307,7 +307,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101931],
     definitionIds: [{ id: 106931, specId: 264 }],
-    manaCost: 1100,
+    manaCost: 5500,
   },
   EARTHGRAB_TOTEM_TALENT: {
     id: 51485,
@@ -349,7 +349,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102004],
     definitionIds: [{ id: 106968, specId: 262 }],
-    manaCost: 1000,
+    manaCost: 5000,
   },
   EARTH_SHOCK_TALENT: {
     id: 8042,
@@ -639,7 +639,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101967],
     definitionIds: [{ id: 106964, specId: 262 }],
-    manaCost: 1200,
+    manaCost: 4000,
   },
   GUARDIANS_CUDGEL_TALENT: {
     id: 381819,
@@ -672,7 +672,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101923],
     definitionIds: [{ id: 106911, specId: 264 }],
-    manaCost: 2160,
+    manaCost: 10800,
   },
   HEALING_STREAM_TOTEM_RESTORATION_TALENT: {
     id: 392916,
@@ -697,7 +697,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101912],
     definitionIds: [{ id: 106942, specId: 264 }],
-    manaCost: 560,
+    manaCost: 2800,
   },
   HEALING_WAVE_TALENT: {
     id: 77472,
@@ -706,7 +706,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101904],
     definitionIds: [{ id: 106918, specId: 264 }],
-    manaCost: 1500,
+    manaCost: 7500,
   },
   HEX_TALENT: {
     id: 51514,
@@ -723,7 +723,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101925],
     definitionIds: [{ id: 106912, specId: 264 }],
-    manaCost: 500,
+    manaCost: 0,
   },
   HOT_HAND_TALENT: {
     id: 201900,
@@ -1052,7 +1052,7 @@ const talents = {
     definitionIds: [{ id: 106857, specId: 262 }],
   },
   PRIMORDIAL_WAVE_RESTORATION_TALENT: {
-    id: 428332,
+    id: 375982,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
     maxRanks: 1,
@@ -1060,7 +1060,7 @@ const talents = {
     definitionIds: [{ id: 106905, specId: 264 }],
   },
   PRIMORDIAL_WAVE_SPEC_TALENT: {
-    id: 375982,
+    id: 428332,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
     maxRanks: 1,
@@ -1077,7 +1077,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101968],
     definitionIds: [{ id: 106965, specId: 262 }],
-    manaCost: 800,
+    manaCost: 4000,
   },
   RAGING_MAELSTROM_TALENT: {
     id: 384143,
@@ -1129,7 +1129,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101905],
     definitionIds: [{ id: 106805, specId: 264 }],
-    manaCost: 800,
+    manaCost: 4000,
   },
   ROLLING_MAGMA_TALENT: {
     id: 386443,
@@ -1170,7 +1170,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101955],
     definitionIds: [{ id: 106975, specId: 262 }],
-    manaCost: 1410,
+    manaCost: 7050,
   },
   SPIRITWALKERS_TIDAL_TOTEM_TALENT: {
     id: 404522,
@@ -1187,7 +1187,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101913],
     definitionIds: [{ id: 106933, specId: 264 }],
-    manaCost: 1100,
+    manaCost: 5500,
   },
   SPIRIT_WALK_TALENT: {
     id: 58875,
@@ -1561,7 +1561,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [101937],
     definitionIds: [{ id: 106936, specId: 264 }],
-    manaCost: 2000,
+    manaCost: 10000,
   },
   WINDFURY_TOTEM_TALENT: {
     id: 8512,
