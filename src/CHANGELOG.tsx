@@ -25,12 +25,15 @@ import {
   Bigsxy,
   Seriousnes,
   Arlie,
+  LucasLevyOB,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 18), 'Regenerate talents.', ToppleTheNun),
+  change(date(2023, 11, 15), 'i18n: Translation to Portuguese of the pages News, Specs, Premium, and About.', LucasLevyOB),
   change(date(2023, 11, 15), 'Add backgrounds for Dawn of the Infinites, Everbloom, and Throne of the Tides.', ToppleTheNun),
   change(date(2023, 11, 13), <>Add stat tracking and statistics for <ItemLink id={ITEMS.ELEMENTAL_LARIAT.id}/>.</>, nullDozzer),
   change(date(2023, 11, 7), 'Fix Classic class / spec ranking ids.', jazminite),
