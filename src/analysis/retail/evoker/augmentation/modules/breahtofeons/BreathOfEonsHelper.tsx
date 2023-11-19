@@ -451,32 +451,34 @@ const BreathOfEonsHelper: React.FC<Props> = ({ windows, fightStartTime, fightEnd
           },
         ];
 
-    const optimalSources = topWindowOptimal.sumSources
-      .map((player) => player.sourceID)
-      .sort((a, b) => a - b)
-      .toString();
-    const currentSources = topWindow.sumSources
-      .map((player) => player.sourceID)
-      .sort((a, b) => a - b)
-      .toString();
+    if (topWindow && topWindowOptimal) {
+      const optimalSources = topWindowOptimal.sumSources
+        .map((player) => player.sourceID)
+        .sort((a, b) => a - b)
+        .toString();
+      const currentSources = topWindow.sumSources
+        .map((player) => player.sourceID)
+        .sort((a, b) => a - b)
+        .toString();
 
-    if (optimalSources !== currentSources && topWindow) {
-      dataSeries.push({
-        spellTracker: [
-          {
-            timestamp: topWindowOptimal.start,
-            count: 1 * (topWindowOptimal.sum / damageInRange),
-          },
-          {
-            timestamp: topWindowOptimal.end,
-            count: 0,
-          },
-        ],
-        type: 'area',
-        color: '#88D498',
-        label: 'Optimal targets timing',
-        strokeWidth: 5,
-      });
+      if (optimalSources !== currentSources && topWindow) {
+        dataSeries.push({
+          spellTracker: [
+            {
+              timestamp: topWindowOptimal.start,
+              count: 1 * (topWindowOptimal.sum / damageInRange),
+            },
+            {
+              timestamp: topWindowOptimal.end,
+              count: 0,
+            },
+          ],
+          type: 'area',
+          color: '#88D498',
+          label: 'Optimal targets timing',
+          strokeWidth: 5,
+        });
+      }
     }
 
     const newGraphData = generateGraphData(
