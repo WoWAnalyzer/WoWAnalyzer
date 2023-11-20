@@ -1,5 +1,5 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import TALENTS, { TALENTS_DEMON_HUNTER } from 'common/TALENTS/demonhunter';
+import TALENTS from 'common/TALENTS/demonhunter';
 import Events, { CastEvent } from 'parser/core/Events';
 import {
   getSpiritBombDamages,
@@ -43,9 +43,9 @@ export default class SpiritBomb extends Analyzer {
   private soulsConsumedByAmount = Array.from({ length: 7 }, () => 0);
   constructor(options: Options) {
     super(options);
-    this.active = this.selectedCombatant.hasTalent(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT);
+    this.active = this.selectedCombatant.hasTalent(TALENTS.SPIRIT_BOMB_TALENT);
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT),
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.SPIRIT_BOMB_TALENT),
       this.onCast,
     );
   }
@@ -99,7 +99,7 @@ export default class SpiritBomb extends Analyzer {
           </>
         }
       >
-        <TalentSpellText talent={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}>
+        <TalentSpellText talent={TALENTS.SPIRIT_BOMB_TALENT}>
           {formatPercentage(this.percentGoodCasts)}% <small>good casts</small>
         </TalentSpellText>
       </Statistic>
@@ -137,7 +137,7 @@ export default class SpiritBomb extends Analyzer {
         onPerformanceBoxClick={logSpellUseEvent}
         abovePerformanceDetails={
           <CastPerformanceSummary
-            spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT}
+            spell={TALENTS.SPIRIT_BOMB_TALENT}
             casts={goodCasts}
             performance={QualitativePerformance.Good}
             totalCasts={totalCasts}
@@ -183,27 +183,27 @@ export default class SpiritBomb extends Analyzer {
   }
 
   private getCastSingleTargetPerformance(event: CastEvent): UsageInfo {
+    const summary = <div>Cast in AoE</div>;
+
     const damageEvents = getSpiritBombDamages(event);
     const isAoE = damageEvents.length > 1;
     if (isAoE) {
       return {
         performance: QualitativePerformance.Good,
-        summary: <div>Cast in AoE</div>,
+        summary,
         details: <div>You hit {damageEvents.length} targets with this cast.</div>,
       };
     }
 
-    const hasFieryDemise = this.selectedCombatant.hasTalent(
-      TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT,
-    );
+    const hasFieryDemise = this.selectedCombatant.hasTalent(TALENTS.FIERY_DEMISE_TALENT);
     if (!hasFieryDemise) {
       return {
         performance: QualitativePerformance.Fail,
-        summary: <div>Cast in Single Target with Fiery Demise</div>,
+        summary,
         details: (
           <div>
-            You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
-            without <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_DEMISE_TALENT} /> talented.
+            You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> in single target without{' '}
+            <SpellLink spell={TALENTS.FIERY_DEMISE_TALENT} /> talented.
           </div>
         ),
       };
@@ -216,24 +216,23 @@ export default class SpiritBomb extends Analyzer {
     if (targetsThatHadFieryBrand.length === 0) {
       return {
         performance: QualitativePerformance.Fail,
-        summary: <div>Cast in Single Target with Fiery Demise</div>,
+        summary,
         details: (
           <div>
-            You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
-            without <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to the
-            target.
+            You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> in single target without{' '}
+            <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> applied to the target.
           </div>
         ),
       };
     }
     return {
-      performance: QualitativePerformance.Good,
-      summary: <div>Cast in Single Target with Fiery Demise</div>,
+      performance: QualitativePerformance.Ok,
+      summary,
       details: (
         <div>
-          You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> in single target
-          with <SpellLink spell={TALENTS_DEMON_HUNTER.FIERY_BRAND_TALENT} /> applied to the target.
-          Good job!
+          You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> in single target with{' '}
+          <SpellLink spell={TALENTS.FIERY_BRAND_TALENT} /> applied to the target. This is okay, but
+          you should really consider casting <SpellLink spell={SPELLS.SOUL_CLEAVE} /> instead.
         </div>
       ),
     };
@@ -254,22 +253,23 @@ export default class SpiritBomb extends Analyzer {
           ),
           details: (
             <div>
-              You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
-              {amountOfStacksConsumed} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+              You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> at {amountOfStacksConsumed}{' '}
+              <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
               s. Good job!
             </div>
           ),
         };
       }
       return {
-        performance: QualitativePerformance.Good,
+        performance: QualitativePerformance.Fail,
         summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_IN_META} Soul Fragments</div>,
         details: (
           <div>
-            You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
-            {amountOfStacksConsumed} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-            s. <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
-            {SPIRIT_BOMB_SOULS_IN_META} while in <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />.
+            You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> at {amountOfStacksConsumed}{' '}
+            <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+            s. <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
+            {SPIRIT_BOMB_SOULS_IN_META} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />s while in{' '}
+            <SpellLink spell={SPELLS.METAMORPHOSIS_TANK} />.
           </div>
         ),
       };
@@ -280,22 +280,23 @@ export default class SpiritBomb extends Analyzer {
         summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>,
         details: (
           <div>
-            You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
-            {amountOfStacksConsumed} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+            You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> at {amountOfStacksConsumed}{' '}
+            <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
             s. Good job!
           </div>
         ),
       };
     }
     return {
-      performance: QualitativePerformance.Good,
+      performance: QualitativePerformance.Fail,
       summary: <div>Cast at &gt;= {SPIRIT_BOMB_SOULS_OUT_OF_META} Soul Fragments</div>,
       details: (
         <div>
-          You cast <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> at{' '}
-          {amountOfStacksConsumed} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
-          s. <SpellLink spell={TALENTS_DEMON_HUNTER.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
-          {SPIRIT_BOMB_SOULS_OUT_OF_META}.
+          You cast <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> at {amountOfStacksConsumed}{' '}
+          <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+          s. <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> should be cast at{' '}
+          {SPIRIT_BOMB_SOULS_OUT_OF_META} <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} />
+          s.
         </div>
       ),
     };
