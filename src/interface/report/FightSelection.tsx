@@ -15,8 +15,6 @@ import { isUnsupportedClassicVersion } from 'game/VERSIONS';
 import DocumentTitle from 'interface/DocumentTitle';
 import { getFightIdFromParam } from 'interface/selectors/url/report/getFightId';
 import { usePageView } from 'interface/useGoogleAnalytics';
-import { usePatch } from 'interface/report/context/PatchContext';
-import LogChangesIn102Warning from 'interface/report/LogChangesIn102Warning';
 
 interface Props {
   children: ReactNode;
@@ -25,7 +23,6 @@ interface Props {
 const FightSelectionList = () => {
   const [killsOnly, setKillsOnly] = useState(false);
   const { report, refreshReport } = useReport();
-  const { patch } = usePatch();
   const reportDuration = report.end - report.start;
   usePageView('FightSelectionList');
 
@@ -94,8 +91,6 @@ const FightSelectionList = () => {
       {isUnsupportedClassicVersion(report.gameVersion) && <ClassicLogWarning />}
 
       {reportDuration > MAX_REPORT_DURATION && <ReportDurationWarning duration={reportDuration} />}
-
-      {patch?.name === '10.2.0' ? <LogChangesIn102Warning /> : undefined}
 
       {!isUnsupportedClassicVersion(report.gameVersion) && (
         <FightSelectionPanel report={report} killsOnly={killsOnly} />
