@@ -12,6 +12,7 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
 import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import { getTargetComboPoints } from 'analysis/retail/rogue/assassination/constants';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -24,7 +25,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
-function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
+function ResourceUsageSection({ info, modules }: GuideProps<typeof CombatLogParser>) {
   const percentAtCap = modules.energyTracker.percentAtCap;
   const energyWasted = modules.energyTracker.wasted;
 
@@ -52,7 +53,7 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         <p>
           Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
           <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at max CPs, and
-          always wait until max CPs to use a spender.
+          always wait until {getTargetComboPoints(info.combatant)}+ CPs to use a spender.
         </p>
         <SideBySidePanels>
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>

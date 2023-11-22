@@ -53,6 +53,10 @@ export const getMaxComboPoints = (c: Combatant) => {
   return 5 + c.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT);
 };
 
+export const getTargetComboPoints = (c: Combatant) => {
+  return 4;
+};
+
 export const RUPTURE_BASE_DURATION = 4000;
 export const RUPTURE_DURATION_PR_CP_SPENT = 4000;
 export const getRuptureDuration = (c: Combatant, cast: CastEvent): number => {
