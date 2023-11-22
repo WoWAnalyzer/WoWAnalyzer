@@ -314,13 +314,11 @@ class Vivify extends Analyzer {
       const effective = event.amount + (event.absorbed || 0);
       healingPerCast += effective;
       overhealPerCast += event.overheal || 0;
-      if (this.upliftedSpirits.active) {
-        if (event.hitType === HIT_TYPES.CRIT) {
-          if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
-            vivifyGoodCrits += 1;
-          } else {
-            vivifyWastedCrits += 1;
-          }
+      if (this.upliftedSpirits.active && event.hitType === HIT_TYPES.CRIT) {
+        if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
+          vivifyGoodCrits += 1;
+        } else {
+          vivifyWastedCrits += 1;
         }
       }
     });
