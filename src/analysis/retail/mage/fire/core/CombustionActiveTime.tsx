@@ -2,8 +2,8 @@ import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { Options } from 'parser/core/Analyzer';
+import Events, { EventType, RemoveBuffEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
@@ -27,13 +27,22 @@ class CombustionActiveTime extends Analyzer {
   protected combustionPreCastDelay!: CombustionPreCastDelay;
 
   combustionCasts: number[] = [];
+  buffEnds: RemoveBuffEvent[] = [];
 
-  combustionActiveTime = () => {
-    const buffEnds = this.eventHistory.getEvents(EventType.RemoveBuff, {
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.fightend, this.collectEvents);
+  }
+
+  collectEvents(event: FightEndEvent) {
+    this.buffEnds = this.eventHistory.getEvents(EventType.RemoveBuff, {
       spell: TALENTS.COMBUSTION_TALENT,
     });
+  }
+
+  combustionActiveTime = () => {
     let activeTime = 0;
-    buffEnds.forEach((e) => {
+    this.buffEnds.forEach((e) => {
       const buffApplied = this.eventHistory.getEvents(EventType.ApplyBuff, {
         spell: TALENTS.COMBUSTION_TALENT,
         count: 1,

@@ -3,87 +3,81 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import Analyzer, { Options } from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EventHistory from 'parser/shared/modules/EventHistory';
+import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
+import Statistic from 'parser/ui/Statistic';
+import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
+import { GetRelatedEvent } from 'parser/core/Events';
 
 const MAX_STACKS = 3;
 
 class FeelTheBurn extends Analyzer {
   static dependencies = {
     abilityTracker: AbilityTracker,
-    eventHistory: EventHistory,
   };
   protected abilityTracker!: AbilityTracker;
-  protected eventHistory!: EventHistory;
+
+  combustionDurations: { start: number; end: number }[] = [];
+  maxStackDurations: { start: number; end: number }[] = [];
 
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.FEEL_THE_BURN_TALENT);
+    this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.FEEL_THE_BURN_BUFF),
+      this.onBuffStack,
+    );
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
+      this.onCombustion,
+    );
   }
 
-  maxStackTimestamps = () => {
-    const maxStackDurations: { start: number; end: number }[] = [];
-    const buffHistory = this.selectedCombatant.getBuffHistory(SPELLS.FEEL_THE_BURN_BUFF.id);
-    let index = 0;
-    buffHistory.forEach((b) => {
-      const maxStack = b.stackHistory.find((s) => s.stacks === MAX_STACKS);
-      if (maxStack) {
-        maxStackDurations[index] = {
-          start: maxStack.timestamp,
-          end: b.end || this.owner.fight.end_time,
-        };
-        index += 1;
-      }
-    });
-    return maxStackDurations;
-  };
+  onBuffStack(event: ApplyBuffStackEvent) {
+    const buff = this.selectedCombatant.getBuff(SPELLS.FEEL_THE_BURN_BUFF.id);
+    if (!buff || !buff.stacks || buff.stacks < MAX_STACKS) {
+      return;
+    }
 
-  combustionTimestamps = () => {
-    const combustionDurations: { start: number; end: number }[] = [];
-    const combustionStarts = this.eventHistory.getEvents(EventType.ApplyBuff, {
-      spell: TALENTS.COMBUSTION_TALENT,
-    });
-    let index = 0;
-    combustionStarts.forEach((c) => {
-      const endTimestamp = this.eventHistory.getEvents(EventType.RemoveBuff, {
-        searchBackwards: false,
-        spell: TALENTS.COMBUSTION_TALENT,
-        startTimestamp: c.timestamp,
-        count: 1,
-      })[0];
-      combustionDurations[index] = {
-        start: c.timestamp,
-        end: endTimestamp ? endTimestamp.timestamp : this.owner.fight.end_time,
-      };
-      index += 1;
-    });
-    return combustionDurations;
-  };
+    const buffRemove = GetRelatedEvent(event, 'BuffRemove');
+    this.maxStackDurations[this.maxStackDurations.length] = {
+      start: event.timestamp,
+      end: buffRemove?.timestamp || this.owner.fight.end_time,
+    };
+  }
+
+  onCombustion(event: ApplyBuffEvent) {
+    const buffRemove = GetRelatedEvent(event, 'BuffRemove');
+    this.combustionDurations[this.combustionDurations.length] = {
+      start: event.timestamp,
+      end: buffRemove?.timestamp || this.owner.fight.end_time,
+    };
+  }
 
   totalCombustionDuration = () => {
     let totalDuration = 0;
-    this.combustionTimestamps().forEach((c) => (totalDuration += c.end - c.start));
+    this.combustionDurations.forEach((c) => (totalDuration += c.end - c.start));
     return totalDuration;
   };
 
   //prettier-ignore
   maxStacksDuration = () => {
     let duration = 0;
-    this.maxStackTimestamps().forEach((s) => {
+    this.maxStackDurations.forEach((s) => {
       //If Combustion started while Feel the Burn was at max stacks
       //Count duration from Combustion Start until Combustion End or Feel the Burn End, whichever is sooner.
-      if (this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end)) {
-        const combustions = this.combustionTimestamps().filter(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0};
+      if (this.combustionDurations.filter(c => c.start >= s.start && c.start <= s.end)) {
+        const combustions = this.combustionDurations.filter(c => c.start >= s.start && c.start <= s.end) || { start: 0, end: 0};
         combustions.forEach(c => duration += Math.min(c.end, s.end) - c.start);
       }
 
       //If Combustion was already running when Feel the Burn reached max stacks
       //Count duration from Feel the Burn Start until Combustion End or Feel the Burn End, whichever is sooner
-      if (this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end)) {
-        const combustions = this.combustionTimestamps().filter(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0};
+      if (this.combustionDurations.filter(c => s.start >= c.start && s.start <= c.end)) {
+        const combustions = this.combustionDurations.filter(c => s.start >= c.start && s.start <= c.end) || { start: 0, end: 0};
         combustions.forEach(c => duration += Math.min(c.end, s.end) - s.start);
       }
     })
@@ -145,6 +139,32 @@ class FeelTheBurn extends Analyzer {
           </Trans>,
         )
         .recommended(`>${formatPercentage(recommended)}% is recommended`),
+    );
+  }
+
+  statistic() {
+    return (
+      <Statistic
+        category={STATISTIC_CATEGORY.TALENTS}
+        size="flexible"
+        tooltip={
+          <>
+            Feel the Burn increases your mastery for 5 seconds each time Phoenix Flames and Fire
+            Blast does damage, stacking up to 3 times. Since Mastery increases your Ignite damage,
+            and Combustion increases your Mastery equal to your Crit ... it is very important to
+            keep Feel the Burn at {MAX_STACKS} for as much of your Combustion as possible. This can
+            be easily maintained by ensuring you pool charges before Combustion and by weaving
+            Scorch in during Combustion periodically if you are in danger of running out of charges
+            before Combustion ends.
+          </>
+        }
+      >
+        <BoringSpellValueText spell={TALENTS.FEEL_THE_BURN_TALENT}>
+          <>
+            {formatPercentage(this.maxStackPercent, 2)}% <small>Max Stacks during Combust</small>
+          </>
+        </BoringSpellValueText>
+      </Statistic>
     );
   }
 }

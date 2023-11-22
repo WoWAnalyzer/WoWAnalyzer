@@ -6,8 +6,8 @@ import TALENTS from 'common/TALENTS/mage';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType, CastEvent } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { EventType, CastEvent, FightEndEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import CooldownHistory from 'parser/shared/modules/CooldownHistory';
@@ -37,6 +37,40 @@ class CombustionCasts extends Analyzer {
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
+  combustionCasts: CastEvent[] = [];
+  fireballsDuringCombustion: CastEvent[] = [];
+  fireballBeginsDuringCombust = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(Events.fightend, this.collectEvents);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
+      this.combustCast,
+    );
+  }
+
+  combustCast(event: CastEvent) {
+    this.log(event);
+  }
+
+  collectEvents(event: FightEndEvent) {
+    this.combustionCasts = this.eventHistory.getEvents(EventType.Cast, {
+      spell: TALENTS.COMBUSTION_TALENT,
+    });
+    this.fireballsDuringCombustion = this.eventHistory.getEventsWithBuff(
+      TALENTS.COMBUSTION_TALENT,
+      EventType.Cast,
+      SPELLS.FIREBALL,
+    );
+    this.fireballBeginsDuringCombust =
+      this.eventHistory.getEventsWithBuff(
+        TALENTS.COMBUSTION_TALENT,
+        EventType.BeginCast,
+        SPELLS.FIREBALL,
+      ).length || 0;
+  }
+
   //Removing this check for now as it is not relevant, but might become relevant again in the future
   //So just commenting it out for now.
   /*
@@ -63,25 +97,22 @@ class CombustionCasts extends Analyzer {
 
   //prettier-ignore
   preCastDelay = () => {
-    const combustCasts = this.eventHistory.getEvents(EventType.Cast, { spell: TALENTS.COMBUSTION_TALENT });
-    const combustionCasts: number[] = [];
+    const casts: number[] = [];
 
-    combustCasts.forEach(cast => {
+    this.combustionCasts.forEach(cast => {
       const preCastBegin = this.eventHistory.getEvents(EventType.BeginCast, { spell: COMBUSTION_PRE_CASTS, count: 1, startTimestamp: cast.timestamp })[0]
       if (preCastBegin && preCastBegin.castEvent) {
         const castDelay = preCastBegin.castEvent.timestamp > cast.timestamp ? preCastBegin.castEvent.timestamp - cast.timestamp : 0
-        combustionCasts[cast.timestamp] = castDelay
+        casts[cast.timestamp] = castDelay
       }
     })
-    return combustionCasts;
+    return casts;
   }
 
   // prettier-ignore
   fireballCastsDuringCombustion = () => {
-    const casts = this.eventHistory.getEventsWithBuff(TALENTS.COMBUSTION_TALENT, EventType.Cast, SPELLS.FIREBALL);
-
     //If the Begin Cast event was before Combustion started, then disregard it.
-    let fireballCasts = casts.filter((e: CastEvent) => {
+    let fireballCasts = this.fireballsDuringCombustion.filter((e: CastEvent) => {
       const beginCast = this.eventHistory.getEvents(EventType.BeginCast, { spell: SPELLS.FIREBALL, count: 1, startTimestamp: e.timestamp })[0];
       return beginCast ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, beginCast.timestamp) : false;
     });
@@ -114,16 +145,6 @@ class CombustionCasts extends Analyzer {
     let total = 0;
     casts.forEach((cast) => (total += cast));
     return total;
-  }
-
-  get fireballBeginCasts() {
-    return (
-      this.eventHistory.getEventsWithBuff(
-        TALENTS.COMBUSTION_TALENT,
-        EventType.BeginCast,
-        SPELLS.FIREBALL,
-      ).length || 0
-    );
   }
 
   /*
@@ -219,9 +240,10 @@ class CombustionCasts extends Analyzer {
     when(this.fireballDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You started to cast <SpellLink spell={SPELLS.FIREBALL} /> {this.fireballBeginCasts} times
-          ({this.fireballDuringCombustionThresholds.actual.toFixed(2)} per Combustion), and
-          completed {this.fireballCastsDuringCombustion()} casts, during{' '}
+          You started to cast <SpellLink spell={SPELLS.FIREBALL} />{' '}
+          {this.fireballBeginsDuringCombust} times (
+          {this.fireballDuringCombustionThresholds.actual.toFixed(2)} per Combustion), and completed{' '}
+          {this.fireballCastsDuringCombustion()} casts, during{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. Combustion has a short duration, so you
           are better off using instant abilities like <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
           <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. If you run out of instant cast

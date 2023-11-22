@@ -50,10 +50,12 @@ import CombustionNormalizer from './normalizers/Combustion';
 import FlamestrikeNormalizer from './normalizers/Flamestrike';
 import ScorchNormalizer from './normalizers/Scorch';
 import SunKingsBlessingNormalizer from './normalizers/SunKingsBlessingBuffs';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
     //Normalizers
+    castLinkNormalizer: CastLinkNormalizer,
     flameStrikeNormalizer: FlamestrikeNormalizer,
     scorchNormalizer: ScorchNormalizer,
     combustionNormalizer: CombustionNormalizer,

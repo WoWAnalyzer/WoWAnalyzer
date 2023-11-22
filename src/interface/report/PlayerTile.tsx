@@ -16,7 +16,7 @@ import { useWaDispatch } from 'interface/utils/useWaDispatch';
 import { useWaSelector } from 'interface/utils/useWaSelector';
 import { makeThumbnailUrl } from 'interface/makeAnalyzerUrl';
 import { useLingui } from '@lingui/react';
-import SPECS, { Spec } from 'game/SPECS';
+import { Spec } from 'game/SPECS';
 import { useFight } from 'interface/report/context/FightContext';
 import { isMythicPlus } from 'common/isMythicPlus';
 import { fetchCharacter } from 'interface/reducers/charactersById';
@@ -98,7 +98,7 @@ interface PlayerTileProps {
 
 // specs with performance issues during analysis. the "can i load this on my underpowered laptop" test is how things end up here.
 function isSpecDisabledInDungeons(spec: Spec): boolean {
-  return spec.id === SPECS.FIRE_MAGE.id;
+  return spec.id === 0;
 }
 
 const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
