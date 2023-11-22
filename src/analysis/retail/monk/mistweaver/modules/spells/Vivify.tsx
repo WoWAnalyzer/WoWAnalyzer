@@ -309,11 +309,12 @@ class Vivify extends Analyzer {
     let fullOverhealHits = 0;
     let healingPerCast = 0;
     let overhealPerCast = 0;
-    if (this.upliftedSpirits.active) {
-      vivifyHits.forEach((event) => {
-        const effective = event.amount + (event.absorbed || 0);
-        healingPerCast += effective;
-        overhealPerCast += event.overheal || 0;
+
+    vivifyHits.forEach((event) => {
+      const effective = event.amount + (event.absorbed || 0);
+      healingPerCast += effective;
+      overhealPerCast += event.overheal || 0;
+      if (this.upliftedSpirits.active) {
         if (event.hitType === HIT_TYPES.CRIT) {
           if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
             vivifyGoodCrits += 1;
@@ -321,8 +322,9 @@ class Vivify extends Analyzer {
             vivifyWastedCrits += 1;
           }
         }
-      });
-    }
+      }
+    });
+
     invigoratingMistHits.forEach((event) => {
       const effective = event.amount + (event.absorbed || 0);
       if (effective === 0) {
