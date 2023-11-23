@@ -10,13 +10,24 @@ const config: Config = {
   contributors: [Vollmer],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.1.7',
-  isPartial: false, // TODO: Change to true, just annoying rn
+  patchCompatibility: '10.2.0',
+  isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
-  description: <>An empty shell awaiting further development.</>,
+  description: (
+    <>
+      <p>
+        Welcome to the Augmentation Analyzer! My aim is to provide you with tailored suggestions to
+        enhance your Augmentation Evoker gameplay.
+        <br />
+        If you have any questions or wish to contribute, please don't hesitate to reach out in the
+        <code>#Augmentation</code> channel in the{' '}
+        <a href="http://discord.gg/https://discord.gg/evoker">Wyrmrest Temple</a>.
+      </p>
+    </>
+  ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '',
+  exampleReport: '/report/86jPx4gXcCWq2HN3/4-Mythic+Gnarlroot+-+Kill+(5:26)/Truthsxd/standard',
 
   // Don't change anything below this line;
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.

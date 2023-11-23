@@ -11,7 +11,7 @@ export default FightCtx;
 export const useFight = () => {
   const ctx = useContext(FightCtx);
   if (ctx === undefined) {
-    throw new Error('Unable to get report');
+    throw new Error('Unable to get fight');
   }
   return ctx;
 };

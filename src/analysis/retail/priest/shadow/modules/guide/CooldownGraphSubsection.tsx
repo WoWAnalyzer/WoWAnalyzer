@@ -7,7 +7,6 @@ import SPELLS from 'common/SPELLS/priest';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
-import { Trans } from '@lingui/macro';
 import Voidbolt from '../spells/Voidbolt';
 import ShadowWordDeath from '../spells/ShadowWordDeath';
 
@@ -58,13 +57,20 @@ const CoreCooldownsGraph = () => {
   let coreCooldown = coreCooldowns;
 
   let message = (
-    <Trans id="guide.priest.shadow.sections.corecooldowns.graphNOVB">
-      <SpellLink spell={SPELLS.MIND_BLAST} /> is a core spell that should be keept on cooldown as
-      much as possible.
+    <p>
+      <strong>
+        <SpellLink spell={SPELLS.MIND_BLAST} />
+      </strong>{' '}
+      is a core spell that should be keept on cooldown as much as possible.
       <br />
-      <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} /> is a low priority spell, even during
-      execute.
-    </Trans>
+      <strong>
+        <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
+      </strong>{' '}
+      should be always used with _. Otherwise, it should be used during execute, with{' '}
+      <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs, and during{' '}
+      <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
+      <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
+    </p>
   );
 
   const info = useInfo();
@@ -75,7 +81,7 @@ const CoreCooldownsGraph = () => {
       VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
 
     message = (
-      <Trans id="guide.priest.shadow.sections.corecooldowns.graphVB2">
+      <p>
         <strong>
           <SpellLink spell={SPELLS.MIND_BLAST} />
         </strong>{' '}
@@ -87,8 +93,10 @@ const CoreCooldownsGraph = () => {
         <strong>
           <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
         </strong>{' '}
-        is a low priority spell, even during execute.
-      </Trans>
+        should be used during execute, with <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs,
+        and during <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
+        <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
+      </p>
     );
   }
 
@@ -126,7 +134,7 @@ const CoreCooldownsGraph = () => {
 
 const ShortCooldownsGraph = () => {
   let message = (
-    <Trans id="guide.priest.shadow.sections.shortcooldowns.graph2">
+    <p>
       <strong>
         <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
       </strong>{' '}
@@ -140,12 +148,12 @@ const ShortCooldownsGraph = () => {
       is a lower priority spell, but when it is cast, make sure{' '}
       <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> is on its target so it benefits fully
       from <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
-    </Trans>
+    </p>
   );
   const info = useInfo();
   if (info!.combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT)) {
     message = (
-      <Trans id="guide.priest.shadow.sections.shortcooldowns.graphSC">
+      <p>
         <strong>
           <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
         </strong>{' '}
@@ -163,7 +171,7 @@ const ShortCooldownsGraph = () => {
           <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} />
         </strong>{' '}
         should only be used as a way to apply <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />.
-      </Trans>
+      </p>
     );
   }
 
@@ -178,11 +186,11 @@ const LongCooldownsGraph = () => {
   }
 
   const message = (
-    <Trans id="guide.priest.shadow.sections.longcooldowns.graph">
+    <p>
       <strong>Major Cooldowns</strong> - this graph shows when you used your cooldowns and how long
       you waited to use them again. You should use these cooldowns together when possible to
       maximize the damage they can deal, without missing any possible casts in the encounter.
-    </Trans>
+    </p>
   );
   return CooldownGraphSubsection(longCooldowns, message);
 };

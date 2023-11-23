@@ -14,7 +14,11 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 const FOUR_PIECE_BONUS = 0.4;
 const TWO_PIECE_BONUS = 0.12;
-const FOUR_PIECE_SPELLS = [SPELLS.RENEWING_MIST_HEAL, SPELLS.VIVIFY];
+const FOUR_PIECE_SPELLS = [
+  SPELLS.RENEWING_MIST_HEAL,
+  SPELLS.VIVIFY,
+  SPELLS.INVIGORATING_MISTS_HEAL,
+];
 const TWO_PIECE_SPELLS = [
   SPELLS.RENEWING_MIST_HEAL,
   TALENTS_MONK.ENVELOPING_MIST_TALENT,
@@ -30,8 +34,6 @@ class T30TierSet extends Analyzer {
   vivHealing: number = 0;
   renewingMistHealing: number = 0;
   twoPieceHealing: number = 0;
-  manaGain: number = 0;
-  wastedManaGain: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -95,9 +97,6 @@ class T30TierSet extends Analyzer {
             <li>
               <strong>{formatNumber(this.vivHealing)}</strong> extra{' '}
               <SpellLink spell={SPELLS.VIVIFY} /> healing
-            </li>
-            <li>
-              <strong>{formatNumber(this.wastedManaGain)}</strong> mana wasted from overcapping
             </li>
           </ul>
         }

@@ -1,3 +1,4 @@
+/*eslint-disable*/
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import CombatLogParser from '../restoration/CombatLogParser';
 import talents from 'common/TALENTS/shaman';
@@ -7,7 +8,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 
 /** Common 'rule line' point for the explanation/data in Core Spells section */
 export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
-
+/*
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
@@ -80,4 +81,4 @@ function CooldownGraphSubsection({ modules, events, info }: GuideProps<typeof Co
       )}
     </SubSection>
   );
-}
+}*/

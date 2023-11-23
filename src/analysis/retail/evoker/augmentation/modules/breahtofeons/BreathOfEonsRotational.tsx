@@ -522,6 +522,19 @@ class BreathOfEonsRotational extends Analyzer {
       perfWindow.potentialLostDamage =
         potentialDamagePerTarget * perfWindow.earlyDeaths * PRIO_MULTIPLER;
     }
+
+    /** In 10.2 blizzard introduced *sparkles* delayed EM buffs *sparkles*
+     * so now we need to double check whether or not we actually found our buffed players */
+    if (this.currentPerformanceBreathWindow.buffedPlayers.size === 0) {
+      const currentBuffedTargets: Map<string, Combatant> = new Map();
+      const players = Object.values(this.combatants.players);
+      players.forEach((player) => {
+        if (player.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id)) {
+          currentBuffedTargets.set(player.name, player);
+        }
+      });
+      this.currentPerformanceBreathWindow.buffedPlayers = currentBuffedTargets;
+    }
   }
 
   private finalize() {

@@ -27,13 +27,14 @@ import SHAMAN from './shaman';
 import WARLOCK from './warlock';
 import WARRIOR from './warrior';
 // Other
+import Alchemy from './alchemy';
 import Engineering from './engineering';
+import Food from './food';
+import Misc from './misc';
+import Potions from './potions';
 import Racials from './racials';
 import Raids from './raids';
 import Tailoring from './tailoring';
-import Food from './food';
-import Alchemy from './alchemy';
-import Potions from './potions';
 
 const ABILITIES = {
   ...DEATH_KNIGHT,
@@ -46,13 +47,14 @@ const ABILITIES = {
   ...SHAMAN,
   ...WARLOCK,
   ...WARRIOR,
+  ...Alchemy,
   ...Engineering,
+  ...Food,
+  ...Misc,
+  ...Potions,
   ...Racials,
   ...Raids,
   ...Tailoring,
-  ...Food,
-  ...Alchemy,
-  ...Potions,
 } as const;
 
 const InternalSpellTable = indexById<Spell | Enchant, typeof ABILITIES>(ABILITIES);

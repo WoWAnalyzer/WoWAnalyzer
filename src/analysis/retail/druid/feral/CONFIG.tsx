@@ -35,7 +35,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/nKgjXCLPNABhk6GV/32-Heroic+Eranog+-+Kill+(2:44)/Azlann/standard',
+  exampleReport: '/report/NCgvk7mBrHa9QTAZ/6/19',
   guideDefault: true,
 
   // Don't change anything below this line;

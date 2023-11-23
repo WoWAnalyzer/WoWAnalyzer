@@ -13,6 +13,9 @@ import Barkskin from 'analysis/retail/druid/guardian/modules/core/defensives/Bar
 import SurvivalInstincts from 'analysis/retail/druid/guardian/modules/core/defensives/SurvivalInstincts';
 import RageOfTheSleeper from 'analysis/retail/druid/guardian/modules/core/defensives/RageOfTheSleeper';
 import Pulverize from 'analysis/retail/druid/guardian/modules/core/defensives/Pulverize';
+import Thrash from 'analysis/retail/druid/guardian/modules/spells/Thrash';
+import Mangle from 'analysis/retail/druid/guardian/modules/spells/Mangle';
+import Moonfire from 'analysis/retail/druid/guardian/modules/spells/Moonfire';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -42,8 +45,9 @@ class CombatLogParser extends CoreCombatLogParser {
     // Spells
     convokeSpirits: ConvokeSpiritsGuardian,
     ironfur: Ironfur,
-    // thrash: Thrash,
-    // moonfire: Moonfire,
+    thrash: Thrash,
+    mangle: Mangle,
+    moonfire: Moonfire,
     // pulverize: Pulverize,
     // frenziedRegeneration: FrenziedRegeneration,
     // earthwarden: Earthwarden,

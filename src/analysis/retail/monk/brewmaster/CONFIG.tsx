@@ -10,7 +10,7 @@ const config: Config = {
   contributors: [emallson],
   expansion: Expansion.Dragonflight,
   // The WoW client patch this spec was last updated.
-  patchCompatibility: '10.1.7',
+  patchCompatibility: '10.2.0',
   isPartial: false,
   // Explain the status of this spec's analysis here. Try to mention how complete it is, and perhaps show links to places users can learn more.
   // If this spec's analysis does not show a complete picture please mention this in the `<Warning>` component.
@@ -38,7 +38,7 @@ const config: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/f4ThvLDtZcMkKmWq/27-Mythic+Rashok,+the+Elder+-+Kill+(6:08)/Eisenpelz/standard',
+    '/report/4PKCyMtxY83DXAz6/17-Mythic+Rashok,+the+Elder+-+Kill+(5:17)/Relowindi/standard',
   // These are multipliers to the stats applied *on pull* that are not
   // included in the stats reported by WCL. These are *baked in* and do
   // not multiply temporary buffs.

@@ -25,12 +25,20 @@ import {
   Bigsxy,
   Seriousnes,
   Arlie,
+  LucasLevyOB,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 19), 'Remove warning for 10.2 logs.', ToppleTheNun),
+  change(date(2023, 11, 18), 'Regenerate talents.', ToppleTheNun),
+  change(date(2023, 11, 15), 'i18n: Translation to Portuguese of the pages News, Specs, Premium, and About.', LucasLevyOB),
+  change(date(2023, 11, 15), 'Add backgrounds for Dawn of the Infinites, Everbloom, and Throne of the Tides.', ToppleTheNun),
+  change(date(2023, 11, 13), <>Add stat tracking and statistics for <ItemLink id={ITEMS.ELEMENTAL_LARIAT.id}/>.</>, nullDozzer),
+  change(date(2023, 11, 7), 'Fix Classic class / spec ranking ids.', jazminite),
+  change(date(2023, 11, 7), 'Add warning for 10.2 logs.', ToppleTheNun),
   change(date(2023, 11, 1), 'Add support for Dragonflight Season 3 dungeons.', Arlie),
   change(date(2023, 10, 27), 'Change the actions and reducers into slices.', Arlie),
   change(date(2023, 10, 26), 'Fix an issue when getting damage/healing contribution from crit effects for certain effects that affect total damage', Putro),

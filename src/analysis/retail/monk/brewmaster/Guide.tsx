@@ -19,12 +19,17 @@ import Explanation from 'interface/guide/components/Explanation';
 import { Highlight } from 'interface/Highlight';
 import BlackoutComboSection from './modules/spells/BlackoutCombo/BlackoutComboSection';
 import BrewAplSummary from './modules/core/AplCheck/BrewAplSummary';
+import * as explainSpendCooldowns from './modules/core/AplCheck/explainSpendCooldowns';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
+import { formatPercentage } from 'common/format';
+import PerformanceStrong from 'interface/PerformanceStrong';
 
 const explainers = {
   explainSCK,
+  explainTPSpam: explainSpendCooldowns.tigerPalmSpamExplanation,
   overcast: defaultExplainers.overcastFillers,
   // rethinking the lack of explainer priority here. we want to show custom text explaining the change to SCK, but doing so requires post-processing of the droppedRule results
-  dropped: filterSCK(defaultExplainers.droppedRule),
+  dropped: explainSpendCooldowns.filterDropped(filterSCK(defaultExplainers.droppedRule)),
 };
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
@@ -55,6 +60,40 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
             summary={BrewAplSummary}
             apl={AplCheck.apl(info)}
             violationExplainers={explainers}
+          />
+        </SubSection>
+        <SubSection title="Always Be Casting">
+          <Explanation>
+            <p>
+              Brewmaster is currently a high-APM spec, with the ability to use an ability every time
+              your global cooldown (GCD) ends. The only talent that changes this is{' '}
+              <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT} />, which introduces downtime
+              where you would otherwise press <SpellLink spell={SPELLS.TIGER_PALM} /> in
+              single-target. However, even with{' '}
+              <SpellLink spell={talents.PRESS_THE_ADVANTAGE_TALENT}>PtA</SpellLink>, you can still
+              fill <em>almost</em> every GCD with an ability.
+            </p>
+            <p>
+              It is better for you to use an ability&mdash;<em>any</em> ability&mdash;each GCD than
+              to think carefully about each button press and have gaps between ability uses. You
+              should <strong>Always Be Casting</strong>. With practice, you will be able to fill
+              every GCD <em>and</em> while using the correct ability in each global.
+            </p>
+            <p>
+              The chart below should generally be near <strong>100%</strong> during periods where
+              you are able to attack the boss.
+            </p>
+          </Explanation>
+          <p>
+            Active Time:{' '}
+            <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
+              {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
+            </PerformanceStrong>
+          </p>
+          <ActiveTimeGraph
+            activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+            fightStart={info.fightStart}
+            fightEnd={info.fightEnd}
           />
         </SubSection>
         <BlackoutComboSection />
