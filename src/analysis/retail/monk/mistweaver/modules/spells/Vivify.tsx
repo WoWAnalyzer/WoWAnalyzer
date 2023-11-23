@@ -212,8 +212,9 @@ class Vivify extends Analyzer {
               {' '}
               - Blue is a perfect cast with 10 or more{' '}
               <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out, Green is a good cast
-              with 8 or more, Yellow is an ok cast at or above your expected average, and Red is a
-              bad cast at low renewing mist count. Mouseover to see the count for each cast.
+              with 6 or more, Yellow is an ok cast at or above your expected average, and Red is a
+              bad cast at low renewing mist count. If any of the casts have more than 50% overheal,
+              then they will be marked as bad. Mouseover to see details about each cast.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
