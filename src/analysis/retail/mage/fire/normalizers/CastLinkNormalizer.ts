@@ -3,17 +3,19 @@ import TALENTS from 'common/TALENTS/mage';
 import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
 import {
   AbilityEvent,
-  AnyEvent,
   BeginCastEvent,
+  RemoveBuffEvent,
   CastEvent,
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
-  HealEvent,
+  HasTarget,
 } from 'parser/core/Events';
 import { Options } from 'parser/core/Module';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
-const CAST_BUFFER_MS = 50;
+const CAST_BUFFER_MS = 75;
+const EXTENDED_CAST_BUFFER_MS = 150;
 const COMBUSTION_BUFFER_MS = 60_000; //Combustion can be extended multiple times, so 60s to be safe
 const HOT_STREAK_BUFFER_MS = 15_500; //15s Buff Duration + Buffer
 const FEEL_THE_BURN_BUFFER_MS = 600_000; //Feel the Burn can potentially be continually extended for the entire fight, so 10m to be safe
@@ -24,6 +26,7 @@ export const BUFF_REMOVE = 'BuffRemove';
 export const BUFF_REFRESH = 'BuffRefresh';
 export const CAST_BEGIN = 'CastBegin';
 export const SPELL_CAST = 'SpellCast';
+export const PRE_CAST = 'PreCast';
 export const SPELL_DAMAGE = 'SpellDamage';
 
 const EVENT_LINKS: EventLink[] = [
@@ -59,6 +62,37 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.RemoveBuff,
     maximumLinks: 1,
     forwardBufferMs: HOT_STREAK_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.HOT_STREAK.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: SPELL_CAST,
+    referencedEventId: [TALENTS.PYROBLAST_TALENT.id, SPELLS.FLAMESTRIKE.id],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: EXTENDED_CAST_BUFFER_MS,
+    backwardBufferMs: EXTENDED_CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.HOT_STREAK.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: PRE_CAST,
+    referencedEventId: [TALENTS.PYROBLAST_TALENT.id, SPELLS.FIREBALL.id],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      if ((referencedEvent as CastEvent).ability.guid === TALENTS.PYROBLAST_TALENT.id) {
+        return !isInstantCast(referencedEvent as CastEvent);
+      } else {
+        return true;
+      }
+    },
+    forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -115,6 +149,62 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: PYROBLAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.PHOENIX_FLAMES_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.PHOENIX_FLAMES_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      if (!linkingEvent || !referencedEvent) {
+        return false;
+      }
+      const castTarget =
+        HasTarget(linkingEvent) &&
+        encodeTargetString(linkingEvent.targetID, linkingEvent.targetInstance);
+      const damageTarget =
+        HasTarget(referencedEvent) &&
+        encodeTargetString(referencedEvent.targetID, referencedEvent.targetInstance);
+      return castTarget === damageTarget;
+    },
+    forwardBufferMs: 1000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: SPELLS.FIREBALL.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.FIREBALL.id,
+    referencedEventType: EventType.Damage,
+    maximumLinks: 1,
+    forwardBufferMs: 1000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: SPELLS.SCORCH.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.SCORCH.id,
+    referencedEventType: EventType.Damage,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: SPELLS.FIRE_BLAST.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.FIRE_BLAST.id,
+    referencedEventType: EventType.Damage,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**
@@ -141,7 +231,11 @@ export function isFromHardcast(event: AbilityEvent<any>): boolean {
 
 export function isInstantCast(event: CastEvent): boolean {
   const beginCast = GetRelatedEvents<BeginCastEvent>(event, CAST_BEGIN)[0];
-  return event.timestamp - beginCast.timestamp <= CAST_BUFFER_MS;
+  return !beginCast || event.timestamp - beginCast.timestamp <= CAST_BUFFER_MS;
+}
+
+export function hasPreCast(event: AbilityEvent<any>): boolean {
+  return HasRelatedEvent(event, PRE_CAST);
 }
 
 /** Returns the hardcast event that caused this buff or heal, if there is one */
@@ -153,16 +247,9 @@ export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
   ).pop();
 }
 
-/** Returns the buff application and direct heal events caused by the given hardcast */
-export function getHeals(event: CastEvent): AnyEvent[] {
-  return GetRelatedEvents(event, BUFF_APPLY);
-}
-
-/** Returns the direct heal event caused by this hardcast, if there is one */
-export function getDirectHeal(event: CastEvent): HealEvent | undefined {
-  return getHeals(event)
-    .filter((e): e is HealEvent => e.type === EventType.Heal)
-    .pop();
+export function isProcExpired(event: RemoveBuffEvent, spenderId: number): boolean {
+  const cast = GetRelatedEvents<CastEvent>(event, SPELL_CAST)[0];
+  return !cast || cast.ability.guid !== spenderId;
 }
 
 export default CastLinkNormalizer;
