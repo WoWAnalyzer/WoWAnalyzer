@@ -60,22 +60,22 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
         <SpellLink spell={SPELLS.DISINTEGRATE} /> after the penultimate (second to last) tick in
         order to channel two <SpellLink spell={SPELLS.DISINTEGRATE} /> in a row without downtime or
         losing a tick. This is essentially just the same Pandemic effect that DoTs have since{' '}
-        <SpellLink spell={SPELLS.DISINTEGRATE} /> funcions as a DoT.
+        <SpellLink spell={SPELLS.DISINTEGRATE} /> functions as a DoT.
       </p>
       <p>
         Inside of <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} /> you should be clipping{' '}
         <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick with more important spells
         such <SpellLink spell={SPELLS.FIRE_BREATH} />, <SpellLink spell={SPELLS.ETERNITY_SURGE} />,{' '}
         <SpellLink spell={SPELLS.SHATTERING_STAR} /> or <SpellLink spell={SPELLS.BURNOUT_BUFF} />.
-        Aswell as early chaining your <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third tick
-        to maximize ressource generation and expenditure.
+        As well as early chaining your <SpellLink spell={SPELLS.DISINTEGRATE} /> after the third
+        tick to maximize resources generation and expenditure.
       </p>
       <p>
         See{' '}
         <a href="https://www.wowhead.com/guide/classes/evoker/devastation/rotation-cooldowns-pve-dps#chaining-disintegrate-casts">
           Chaining Disintegrate casts
         </a>{' '}
-        section on wowhead for a more indepth explanation.
+        section on wowhead for a more in-depth explanation.
       </p>
       <ExplanationAndDataSubSection
         explanationPercent={EXPLANATION_PERCENTAGE}
@@ -85,7 +85,10 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
               <SpellLink spell={SPELLS.DISINTEGRATE} /> efficiency outside of{' '}
               <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
-            <p>You should not be dropping any ticks here.</p>
+            <p>
+              With T31 it is expected to drop some extra ticks here due to the excessive amount of
+              resources you have available. But you should still aim to to drop as few as possible.
+            </p>
           </div>
         }
         data={
@@ -106,7 +109,7 @@ function DisintegrateSubsection({ modules }: GuideProps<typeof CombatLogParser>)
               <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />
             </p>
             <p>
-              Aim to drop 70%-90% of ticks (i.e. clip) so you can consume ressources faster, aswell
+              Aim to drop 70%-90% of ticks (i.e. clip) so you can consume resources faster, as well
               as getting off more casts of important spells.
             </p>
           </div>
@@ -253,7 +256,7 @@ function BlazeShardsSubsection({ modules, info }: GuideProps<typeof CombatLogPar
         <SpellLink spell={SPELLS.OBSIDIAN_SHARDS} /> DoT a 200% damage amp. This buff is fully
         active during <SpellLink spell={TALENTS_EVOKER.DRAGONRAGE_TALENT} />.{' '}
         <SpellLink spell={SPELLS.BLAZING_SHARDS} /> isn't extended when you cast your empowers back
-        to back, it instead gets overriden. It is therefore important to stagger out your empowers
+        to back, it instead gets overridden. It is therefore important to stagger out your empowers
         to maximize uptime of <SpellLink spell={SPELLS.BLAZING_SHARDS} />.
       </p>
       <p>
