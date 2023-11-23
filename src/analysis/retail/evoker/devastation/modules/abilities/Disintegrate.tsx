@@ -226,7 +226,7 @@ class Disintegrate extends Analyzer {
 
   onRefreshDebuff(event: RefreshDebuffEvent | ApplyDebuffEvent) {
     // Clipped before GCD, very bad
-    if (this.currentRemainingTicks >= (this.isCurrentCastChained ? 3 : 2)) {
+    if (this.currentRemainingTicks > (this.isCurrentCastChained ? 3 : 2)) {
       this.problemPoints.push({
         timestamp: event.timestamp,
         count: this.currentRemainingTicks,
@@ -262,12 +262,6 @@ class Disintegrate extends Analyzer {
     this.disintegrateTicksCounter.push({
       timestamp: event.timestamp,
       count: this.currentRemainingTicks,
-    });
-
-    this.disintegrateCasts.push({
-      timestamp: event.timestamp,
-      count: this.currentRemainingTicks,
-      tooltip: 'Cast',
     });
   }
 
