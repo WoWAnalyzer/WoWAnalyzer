@@ -32,6 +32,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 23), 'Refactor Code Smell Missing Union Type.', LucasLevyOB),
   change(date(2023, 11, 19), 'Remove warning for 10.2 logs.', ToppleTheNun),
   change(date(2023, 11, 18), 'Regenerate talents.', ToppleTheNun),
   change(date(2023, 11, 15), 'i18n: Translation to Portuguese of the pages News, Specs, Premium, and About.', LucasLevyOB),
