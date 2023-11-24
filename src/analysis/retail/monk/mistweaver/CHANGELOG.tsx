@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 11, 22), <>Update explanation of colors in <SpellLink spell={SPELLS.VIVIFY}/> guide section</>, Trevor),
+  change(date(2023, 11, 21), <>Fix performance calculations for <SpellLink spell={SPELLS.VIVIFY}/> when not talented into <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/></>, Trevor),
   change(date(2023, 11, 15), <>Fix <SpellLink spell={TALENTS_MONK.MISTS_OF_LIFE_TALENT}/> module for new <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT}/> spellId and logging cleanup.</>, Vohrr),
   change(date(2023, 11, 14), <>Set <SpellLink spell={SPELLS.CHI_HARMONY_HEAL}/> Sources Graph to load on 4pc not 2pc</>, Vohrr),
   change(date(2023, 11, 9), <>Fix for <SpellLink spell={SPELLS.INVIGORATING_MISTS_HEAL}/> healing not tracking by T30 tier set</>, Vohrr),
