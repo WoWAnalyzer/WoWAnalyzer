@@ -172,6 +172,15 @@ class Abilities extends CoreAbilities {
           recommendedEfficiency: 0.85,
         },
       },
+      {
+        spell: TALENTS.CALL_OF_THE_WILD_TALENT.id,
+        category: SPELL_CATEGORY.ROTATIONAL,
+        cooldown: 120,
+        enabled: combatant.hasTalent(TALENTS.CALL_OF_THE_WILD_TALENT),
+        gcd: {
+          base: 1500,
+        },
+      },
       //endregion
 
       //region Baseline Defensives

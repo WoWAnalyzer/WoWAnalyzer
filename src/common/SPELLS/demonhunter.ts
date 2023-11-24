@@ -193,7 +193,12 @@ const spells = {
   },
   SOUL_FRAGMENT_KILLING_BLOW: {
     id: 204062,
-    name: 'Soul Fragment(from killing blow)',
+    name: 'Soul Fragment (from killing blow)',
+    icon: 'spell_shadow_soulgem',
+  },
+  SOUL_FRAGMENT_KILLING_BLOW_2: {
+    id: 203795,
+    name: 'Soul Fragment (from killing blow)',
     icon: 'spell_shadow_soulgem',
   },
   SOUL_FRAGMENT_FODDER: {

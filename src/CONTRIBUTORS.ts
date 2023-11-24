@@ -2311,3 +2311,8 @@ export const Amelydia: Contributor = {
     },
   ],
 };
+
+export const LucasLevyOB: Contributor = {
+  nickname: 'LucasLevyOB',
+  github: 'LucasLevyOB',
+};

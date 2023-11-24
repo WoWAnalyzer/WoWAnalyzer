@@ -5,6 +5,7 @@ import { AutoSizer } from 'react-virtualized';
 import { UnitSpec } from 'vega-lite/build/src/spec';
 import { Field } from 'vega-lite/build/src/channeldef';
 import { InlineData } from 'vega-lite/build/src/data';
+import { LayerSpec } from 'vega-lite/build/src/spec';
 import './Styling.scss';
 
 /**
@@ -214,9 +215,7 @@ const ExplanationGraph: React.FC<Props> = ({
     }
   }
 
-  function generateAreas():
-    | UnitSpec<Field>[]
-    | import('vega-lite/build/src/spec').LayerSpec<Field>[] {
+  function generateAreas(): Array<UnitSpec<Field> | LayerSpec<Field>> {
     const areas: UnitSpec<Field>[] = [];
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'area') {
@@ -229,9 +228,7 @@ const ExplanationGraph: React.FC<Props> = ({
     return areas;
   }
 
-  function generateLines():
-    | UnitSpec<Field>[]
-    | import('vega-lite/build/src/spec').LayerSpec<Field>[] {
+  function generateLines(): Array<UnitSpec<Field> | LayerSpec<Field>> {
     const lines: UnitSpec<Field>[] = [];
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'line') {
@@ -244,9 +241,7 @@ const ExplanationGraph: React.FC<Props> = ({
     return lines;
   }
 
-  function generatePoints():
-    | UnitSpec<Field>[]
-    | import('vega-lite/build/src/spec').LayerSpec<Field>[] {
+  function generatePoints(): Array<UnitSpec<Field> | LayerSpec<Field>> {
     const points: UnitSpec<Field>[] = [];
     currentGraph.graphData.forEach((dataSeries) => {
       if (dataSeries.type === 'point') {
