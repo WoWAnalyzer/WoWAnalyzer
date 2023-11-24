@@ -13,8 +13,6 @@ interface HandledError {
   filename?: string;
 }
 
-type ErrorItem = Error | undefined;
-
 // Some errors are triggered by third party scripts, such as browser plug-ins.
 // These errors should generally not affect the application, so we can safely ignore them for
 // our error handling. If a plug-in like Google Translate messes with the DOM and that breaks the
@@ -100,7 +98,7 @@ class RootErrorBoundary extends React.PureComponent<Props, State> {
     this.error(event.reason, 'unhandledrejection');
   }
 
-  error(error: ErrorItem, details?: string) {
+  error(error: Error | undefined, details?: string) {
     if (!error) {
       return;
     }

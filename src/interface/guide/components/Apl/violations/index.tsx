@@ -48,8 +48,6 @@ export type SelectedExplanation<T> = {
   claimData: AplProblemData<T>;
 };
 
-type ViolationItemProblemList = JSX.Element | null;
-
 export const ExplanationSelectionContext = React.createContext<
   (selection: SelectedExplanation<any>) => void
 >(() => undefined);
@@ -215,7 +213,7 @@ export default function ViolationProblemList<T = any>({
   claimData,
   apl,
   result,
-}: SelectedExplanation<T> & { result: CheckResult; apl: Apl }): ViolationItemProblemList {
+}: SelectedExplanation<T> & { result: CheckResult; apl: Apl }): JSX.Element | null {
   const events = useEvents();
   const info = useInfo();
 

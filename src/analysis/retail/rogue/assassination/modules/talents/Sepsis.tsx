@@ -51,10 +51,6 @@ interface SepsisDebuff {
   end?: number;
 }
 
-type SepsisDebuffItem = SepsisDebuff | undefined;
-
-type ChecklistItem = UsageInfo | undefined;
-
 interface SepsisBuff extends Omit<SepsisDebuff, 'applyEvent'> {
   applyEvent: ApplyBuffEvent;
   consumeCast: CastEvent | undefined;
@@ -196,7 +192,10 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     };
   }
 
-  private buffUsagePerformance(cast: SepsisCast, buffId: keyof SepsisCast['buffs']): ChecklistItem {
+  private buffUsagePerformance(
+    cast: SepsisCast,
+    buffId: keyof SepsisCast['buffs'],
+  ): UsageInfo | undefined {
     const summaryForBuff = {
       [PRIMARY_BUFF_KEY]: (
         <>
@@ -306,7 +305,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
     };
   }
 
-  private shivPerformance(cast: SepsisCast): ChecklistItem {
+  private shivPerformance(cast: SepsisCast): UsageInfo | undefined {
     const shivSummary: React.ReactNode = (
       <>
         Cast <SpellLink spell={SPELLS.SHIV} /> shortly after applying{' '}
@@ -437,7 +436,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
       [PRIMARY_BUFF_KEY]: undefined,
       [SECONDARY_BUFF_KEY]: undefined,
     };
-    let sepsisDebuff: SepsisDebuffItem;
+    let sepsisDebuff: SepsisDebuff | undefined;
 
     const initialBuffApplication = getRelatedBuffApplicationFromHardcast(
       cast,
