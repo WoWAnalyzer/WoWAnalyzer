@@ -228,7 +228,6 @@ class T31PrevokerSet extends Analyzer {
       .sort((a, b) => {
         return Math.sign(b.value - a.value);
       });
-    console.log(items);
     return items.length > 0 ? <DonutChart items={items} /> : null;
   }
 
