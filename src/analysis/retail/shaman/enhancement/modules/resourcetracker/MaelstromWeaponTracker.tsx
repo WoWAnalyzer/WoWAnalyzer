@@ -14,11 +14,15 @@ import Events, {
   RemoveBuffEvent,
   RemoveBuffStackEvent,
   ClassResources,
+  GetRelatedEvent,
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { MAELSTROM_WEAPON_SPEND_LINK } from '../normalizers/EventLinkNormalizer';
+import {
+  MAELSTROM_GENERATOR_LINK,
+  MAELSTROM_WEAPON_SPEND_LINK,
+} from '../normalizers/EventLinkNormalizer';
 
 const DEBUG = false;
 
@@ -157,7 +161,14 @@ export default class extends ResourceTracker {
 
     if (change > 0) {
       this.ignoreNextRefresh = true;
-      this._applyBuilder(event.ability.guid, change, 0, event.timestamp, resource);
+      const generator = GetRelatedEvent<CastEvent>(event, MAELSTROM_GENERATOR_LINK);
+      this._applyBuilder(
+        generator?.ability.guid ?? event.ability.guid,
+        change,
+        0,
+        event.timestamp,
+        resource,
+      );
       this.reduceFeralSpiritCooldown();
     } else {
       const spenderEvent = event._linkedEvents?.find(
@@ -199,8 +210,9 @@ export default class extends ResourceTracker {
     }
 
     if (this.current === 10) {
+      const generator = GetRelatedEvent<CastEvent>(event, MAELSTROM_GENERATOR_LINK);
       this._applyBuilder(
-        event.ability.guid,
+        generator?.ability.guid ?? event.ability.guid,
         0,
         1,
         event.timestamp,

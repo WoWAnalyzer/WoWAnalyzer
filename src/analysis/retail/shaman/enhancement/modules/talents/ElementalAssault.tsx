@@ -1,4 +1,3 @@
-import SPELLS from 'common/SPELLS';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
@@ -10,26 +9,33 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import { STORMSTRIKE_DAMAGE_SPELLS } from '../../constants';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { MaelstromWeaponTracker } from '../resourcetracker';
 
 const ELEMENTAL_ASSAULT_RANKS: Record<number, number> = {
   1: 0.1,
   2: 0.2,
 };
 
-const MAIN_HAND_DAMAGES = [SPELLS.STORMSTRIKE_DAMAGE.id, SPELLS.WINDSTRIKE_DAMAGE.id];
+const ELEMENTAL_ASSAULT_SPELLS: number[] = [
+  TALENTS_SHAMAN.STORMSTRIKE_TALENT.id,
+  TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
+  TALENTS_SHAMAN.ICE_STRIKE_TALENT.id,
+];
 
 /**
- * Stormstrike damage is increased by [10/20]%, and Stormstrike
- * has a [50/100]% chance to generate 1 stack of Maelstrom Weapon.
+ * Stormstrike damage is increased by [10/20]%, and Stormstrike, Lava Lash, and Ice Strike
+ * have a [50/100]% chance to generate 1 stack of Maelstrom Weapon.
  *
  * Example Log:
  *
  */
 class ElementalAssault extends Analyzer {
+  static dependencies = {
+    tracker: MaelstromWeaponTracker,
+  };
+  protected tracker!: MaelstromWeaponTracker;
   protected damageIncrease: number = 0;
   protected damageGained: number = 0;
-  protected maelstromWeaponGained: number = 0;
-  protected maelstromWeaponWasted: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -53,16 +59,32 @@ class ElementalAssault extends Analyzer {
 
   onStormstrikeDamage(event: DamageEvent): void {
     this.damageGained += calculateEffectiveDamage(event, this.damageIncrease);
+  }
 
-    // Use main-hand to determine gained maelstrom weapon stacks, which should catch MW gained from Stormflurry also
-    if (MAIN_HAND_DAMAGES.includes(event.ability.guid)) {
-      this.maelstromWeaponGained += 1;
-    }
+  get maelstromGenerators() {
+    const elementalAssaultBuilders = Object.keys(this.tracker.buildersObj)
+      .map((abilityId) => {
+        const id = Number(abilityId);
+        return {
+          abilityId: id,
+          casts: this.tracker.buildersObj[id].casts,
+          total: this.tracker.buildersObj[id].generated + this.tracker.buildersObj[id].wasted,
+        };
+      })
+      .filter((ability) => ELEMENTAL_ASSAULT_SPELLS.includes(ability.abilityId));
 
-    const maelstromWeaponBuff = this.selectedCombatant.getBuff(SPELLS.MAELSTROM_WEAPON_BUFF.id);
-    if (maelstromWeaponBuff?.stacks === 10) {
-      this.maelstromWeaponWasted += 1;
+    // if the combatant has the swirling maelstrom, assume SW generated the first stack.
+    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.SWIRLING_MAELSTROM_TALENT)) {
+      const iceStrike = elementalAssaultBuilders[TALENTS_SHAMAN.ICE_STRIKE_TALENT.id];
+      if (iceStrike) {
+        iceStrike.total -= iceStrike.casts;
+      }
     }
+    return elementalAssaultBuilders;
+  }
+
+  get maelstromWeaponGained() {
+    return this.maelstromGenerators.reduce((total, ability) => (total += ability.total), 0);
   }
 
   statistic() {
@@ -71,16 +93,6 @@ class ElementalAssault extends Analyzer {
         position={STATISTIC_ORDER.OPTIONAL()}
         category={STATISTIC_CATEGORY.TALENTS}
         size="flexible"
-        tooltip={
-          <>
-            <div>{this.maelstromWeaponGained} Total Maelstrom Gained</div>
-            <div>{this.maelstromWeaponWasted} Maelstrom Wasted</div>
-            <hr />
-            <div>
-              {this.maelstromWeaponGained - this.maelstromWeaponWasted} Effective Maelstrom Gained
-            </div>
-          </>
-        }
       >
         <TalentSpellText talent={TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT}>
           <>

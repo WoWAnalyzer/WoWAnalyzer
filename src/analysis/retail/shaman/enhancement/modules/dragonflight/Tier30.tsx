@@ -21,7 +21,7 @@ const ADDITIONAL_DAMAGE_RATIO = {
   CHAIN_LIGHTNING: 0.2,
 };
 
-export default class Tier30 extends Analyzer {
+export default class extends Analyzer {
   static dependencies = {
     abilities: Abilities,
   };

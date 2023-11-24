@@ -28,9 +28,10 @@ import ElementalOrbit from '../shared/talents/ElementalOrbit';
 import EarthenHarmony from '../restoration/modules/talents/EarthenHarmony';
 import Guide from './Guide';
 import StormBlast from './modules/talents/Stormblast';
+import TempestStrikes from './modules/talents/TempestStrikes';
 import WitchDoctorsAncestry from './modules/talents/WitchDoctorsAncestry';
 import LegacyOfTheFrostWitch from './modules/talents/LegacyOfTheFrostWitch';
-import Tier30 from './modules/dragonflight/Tier30';
+import * as Tiers from './modules/dragonflight/TierSets';
 import { EventOrderNormalizer } from './modules/normalizers/EventOrderNormalizer';
 import SpellUsable from './modules/core/SpellUsable';
 import ManaSpring from '../shared/talents/ManaSpring';
@@ -90,6 +91,7 @@ class CombatLogParser extends CoreCombatLogParser {
     forcefulWinds: ForcefulWinds,
     elementalBlast: ElementalBlast,
     stormflurry: Stormflurry,
+    tempestStrikes: TempestStrikes,
     hotHand: HotHand,
     elementalAssault: ElementalAssault,
     stormBlast: StormBlast,
@@ -106,7 +108,8 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Tier
     tier28TwoSet: Tier28TwoSet,
-    tier30: Tier30,
+    tier30: Tiers.T30,
+    tier31: Tiers.T31,
 
     // Items
     callToDominance: CallToDominance,

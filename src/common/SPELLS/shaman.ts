@@ -629,6 +629,11 @@ const spells = {
     name: 'Stormblast',
     icon: 'spell_shaman_focusedstrikes',
   },
+  TEMPEST_STRIKES_DAMAGE: {
+    id: 428078,
+    name: 'Tempest Strikes',
+    icon: 'spell_nature_thunderclap',
+  },
   // Restoration Shaman
   HEALING_SURGE: {
     id: 8004,

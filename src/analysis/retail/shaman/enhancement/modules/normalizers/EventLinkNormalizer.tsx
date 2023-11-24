@@ -17,6 +17,7 @@ export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
 export const MAELSTROM_WEAPON_SPEND_LINK = 'maelstrom-spender';
 export const PRIMORIDAL_WAVE_END_LINK = 'primordial-wave-end';
 export const LIGHTNING_BOLT_PRIMORDIAL_WAVE_LINK = 'lightning-bolt-primoridal-wave';
+export const MAELSTROM_GENERATOR_LINK = 'maelstrom-generator';
 
 const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
   (spell) => spell.id,
@@ -96,6 +97,25 @@ const lightningBoltDamageLink: EventLink = {
   anyTarget: true,
 };
 
+const maelstromGeneratorLink: EventLink = {
+  linkRelation: MAELSTROM_GENERATOR_LINK,
+  linkingEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
+  linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
+  referencedEventId: [
+    TALENTS.STORMSTRIKE_TALENT.id,
+    TALENTS.LAVA_LASH_TALENT.id,
+    TALENTS.ICE_STRIKE_TALENT.id,
+    SPELLS.WINDSTRIKE_CAST.id,
+    TALENTS.FROST_SHOCK_TALENT.id,
+    TALENTS.FIRE_NOVA_TALENT.id,
+  ],
+  referencedEventType: EventType.Cast,
+  forwardBufferMs: 5,
+  backwardBufferMs: 5,
+  anyTarget: true,
+  maximumLinks: 1,
+};
+
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
     super(options, [
@@ -106,6 +126,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       maelstromWeaponSpenderLink,
       primordialWaveLink,
       lightningBoltDamageLink,
+      maelstromGeneratorLink,
     ]);
   }
 }
