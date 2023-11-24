@@ -8,6 +8,8 @@ import Events, {
   HealEvent,
   RemoveBuffEvent,
   GetRelatedEvents,
+  CastEvent,
+  GetRelatedEvent,
 } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import Abilities from 'parser/core/modules/Abilities';
@@ -15,10 +17,8 @@ import { formatNumber, formatThousands } from 'common/format';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import {
-  LIGHTNING_BOLT_PRIMORDIAL_WAVE_LINK,
-  PRIMORIDAL_WAVE_END_LINK,
-} from '../normalizers/EventLinkNormalizer';
+import { LIGHTNING_BOLT_LINK } from '../normalizers/EventLinkNormalizer';
+import { PRIMORDIAL_WAVE_LINK } from 'analysis/retail/shaman/shared/constants';
 
 export default class extends Analyzer {
   static dependencies = {
@@ -39,11 +39,6 @@ export default class extends Analyzer {
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
 
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.PRIMORDIAL_WAVE_BUFF),
-      this.onPrimoridalWaveEnd,
-    );
-
-    this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
       this.onSpender,
     );
@@ -53,35 +48,55 @@ export default class extends Analyzer {
     );
   }
 
-  onCast() {
+  onCast(event: CastEvent) {
     this.recordNextSpenderAmount = true;
+
+    if (event.ability.guid === SPELLS.LIGHTNING_BOLT.id) {
+      // lightning bolts linked to a primoridal wave should be included as part of primoridal wave's damage
+      const primordialWave = GetRelatedEvent<CastEvent>(event, PRIMORDIAL_WAVE_LINK);
+      const lightningBolts = primordialWave
+        ? GetRelatedEvent<CastEvent>(primordialWave, PRIMORDIAL_WAVE_LINK)
+        : undefined;
+      if (primordialWave && lightningBolts) {
+        const damageEvents = GetRelatedEvents(lightningBolts, LIGHTNING_BOLT_LINK) as DamageEvent[];
+        if (damageEvents.length > 1) {
+          const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id;
+          // the first lightning bolt is a regular bolt
+          damageEvents?.splice(0, 1);
+          this.spenderValues[spellId] =
+            (this.spenderValues[spellId] ?? 0) +
+            damageEvents.reduce((total: number, de: DamageEvent) => (total += de.amount), 0);
+          this.maelstromSpendWithPrimordialWave += this.maelstromWeaponTracker.current;
+        }
+      }
+    }
   }
 
   onPrimoridalWaveEnd(event: RemoveBuffEvent) {
-    const primordialWaveLightningBolt = event._linkedEvents?.find(
-      (le) => le.relation === PRIMORIDAL_WAVE_END_LINK,
-    )?.event;
-    if (primordialWaveLightningBolt) {
-      const spent = this.maelstromWeaponTracker.current;
-      /**
-       * this is a bit of a hack to handle instances where the resource tracker's `current` isn't the actual
-       * current maelstrom, and is a "best guess" that the majority of the time lightning bolt
-       * will be cast at 10 maelstrom with PW
-       */
-      this.maelstromSpendWithPrimordialWave +=
-        spent === 0 ? 10 : this.maelstromWeaponTracker.current;
-      const damageEvents: DamageEvent[] = GetRelatedEvents(
-        primordialWaveLightningBolt,
-        LIGHTNING_BOLT_PRIMORDIAL_WAVE_LINK,
-      ) as DamageEvent[];
-      if (damageEvents.length > 1) {
-        const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id;
-        damageEvents?.splice(0, 1);
-        this.spenderValues[spellId] =
-          (this.spenderValues[spellId] ?? 0) +
-          damageEvents.reduce((total: number, de: DamageEvent) => (total += de.amount), 0);
-      }
-    }
+    // const primordialWaveLightningBolt = event._linkedEvents?.find(
+    //   (le) => le.relation === PRIMORIDAL_WAVE_DAMAGE_LINK,
+    // )?.event;
+    // if (primordialWaveLightningBolt) {
+    //   const spent = this.maelstromWeaponTracker.current;
+    //   /**
+    //    * this is a bit of a hack to handle instances where the resource tracker's `current` isn't the actual
+    //    * current maelstrom, and is a "best guess" that the majority of the time lightning bolt
+    //    * will be cast at 10 maelstrom with PW
+    //    */
+    //   this.maelstromSpendWithPrimordialWave +=
+    //     spent === 0 ? 10 : this.maelstromWeaponTracker.current;
+    //   const damageEvents: DamageEvent[] = GetRelatedEvents(
+    //     primordialWaveLightningBolt,
+    //     LIGHTNING_BOLT_LINK,
+    //   ) as DamageEvent[];
+    //   if (damageEvents.length > 1) {
+    //     const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id;
+    //     damageEvents?.splice(0, 1);
+    //     this.spenderValues[spellId] =
+    //       (this.spenderValues[spellId] ?? 0) +
+    //       damageEvents.reduce((total: number, de: DamageEvent) => (total += de.amount), 0);
+    //   }
+    // }
   }
 
   onSpender(event: DamageEvent | HealEvent) {
@@ -89,6 +104,7 @@ export default class extends Analyzer {
       return;
     }
     this.recordNextSpenderAmount = false;
+
     let spellId = event.ability.guid;
     if (spellId === SPELLS.LAVA_BURST_DAMAGE.id) {
       spellId = TALENTS_SHAMAN.LAVA_BURST_TALENT.id;

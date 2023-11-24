@@ -42,8 +42,9 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import AscendanceNormalizer from 'analysis/retail/shaman/enhancement/modules/normalizers/AscendanceNormalizer';
-import Ascendance from 'analysis/retail/shaman/enhancement/modules/talents/Ascendance';
+import AscendanceNormalizer from './modules/normalizers/AscendanceNormalizer';
+import Ascendance from './modules/talents/Ascendance';
+import SplinteredElements from '../shared/talents/SplinteredElements';
 import {
   MaelstromWeaponDetails,
   MaelstromWeaponGraph,
@@ -105,6 +106,7 @@ class CombatLogParser extends CoreCombatLogParser {
     legacyOfTheFrostWitch: LegacyOfTheFrostWitch,
     thorimsInvocation: ThorimsInvocation,
     ashenCatalyst: AshenCatalyst,
+    splinteredElements: SplinteredElements,
 
     // Tier
     tier28TwoSet: Tier28TwoSet,

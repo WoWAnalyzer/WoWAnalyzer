@@ -25,6 +25,7 @@ const primordialWaveEventOrder: EventOrder = {
   afterEventType: EventType.RemoveBuff,
   beforeEventId: SPELLS.LIGHTNING_BOLT.id,
   beforeEventType: EventType.Cast,
+  anyTarget: true,
   bufferMs: 100,
   updateTimestamp: true,
 };

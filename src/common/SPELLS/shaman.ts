@@ -812,6 +812,11 @@ const spells = {
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
   },
+  SPLINTERED_ELEMENTS_BUFF: {
+    id: 382043,
+    name: 'Splintered Elements',
+    icon: 'spell_nature_elementalprecision_1',
+  },
   MANA_SPRING_RESTORATION: {
     id: 404551,
     name: 'Mana Spring',

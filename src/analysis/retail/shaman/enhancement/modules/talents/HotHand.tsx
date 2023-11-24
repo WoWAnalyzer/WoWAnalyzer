@@ -8,6 +8,7 @@ import Events, {
   ApplyBuffEvent,
   CastEvent,
   DamageEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
@@ -37,7 +38,7 @@ class HotHandRank {
 }
 
 const HOT_HAND: Record<number, HotHandRank> = {
-  1: new HotHandRank(0.5, 0.4),
+  1: new HotHandRank(0.6, 0.4),
   2: new HotHandRank(0.75, 0.6),
 };
 
@@ -112,9 +113,9 @@ class HotHand extends MajorCooldown<HotHandProc> {
     this.hotHandActive.startInterval(event.timestamp);
   }
 
-  refreshHotHand() {
+  refreshHotHand(event: RefreshBuffEvent) {
     // on refresh, we only need to reset the CD, since we've already applied the mod rate
-    this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id);
+    this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id, event.timestamp, true);
   }
 
   removeHotHand(event: RemoveBuffEvent) {

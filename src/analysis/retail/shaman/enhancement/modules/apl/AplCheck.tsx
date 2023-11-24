@@ -1,20 +1,25 @@
-import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import { suggestion } from 'parser/core/Analyzer';
 import { AnyEvent } from 'parser/core/Events';
 import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import {
   and,
-  or,
+  buffMissing,
   buffPresent,
   debuffMissing,
-  spellCharges,
   describe,
-  buffMissing,
+  or,
+  spellCharges,
 } from 'parser/shared/metrics/apl/conditions';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
 import { AtLeastFiveMSW, MaxStacksMSW } from './Conditions';
+import { TIERS } from 'game/TIERS';
+import {
+  getTier31ElementalistApl,
+  getTier31StormApl,
+} from 'analysis/retail/shaman/enhancement/modules/apl/Tier31';
 
 /**
  * Based on https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-guide
@@ -22,6 +27,14 @@ import { AtLeastFiveMSW, MaxStacksMSW } from './Conditions';
 
 export const apl = (info: PlayerInfo): Apl => {
   const combatant = info.combatant;
+
+  if (combatant.has4PieceByTier(TIERS.T31)) {
+    return build(
+      combatant.hasTalent(TALENTS.HOT_HAND_TALENT)
+        ? getTier31ElementalistApl()
+        : getTier31StormApl(),
+    );
+  }
   const rules: Rule[] = [];
 
   combatant.hasTalent(TALENTS.LASHING_FLAMES_TALENT) &&
@@ -105,7 +118,7 @@ export const apl = (info: PlayerInfo): Apl => {
     );
   }
 
-  if (combatant.hasTalent(TALENTS_SHAMAN.DOOM_WINDS_TALENT)) {
+  if (combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT)) {
     rules.push(
       {
         spell: TALENTS.ICE_STRIKE_TALENT,
