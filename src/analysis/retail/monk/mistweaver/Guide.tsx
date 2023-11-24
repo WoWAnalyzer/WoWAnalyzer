@@ -26,7 +26,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
     <>
       <Section title="Core Spells and Buffs">
         {modules.renewingMist.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.RISING_SUN_KICK_TALENT) &&
+        {info.combatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT) &&
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
         {modules.vivify.guideSubsection}
