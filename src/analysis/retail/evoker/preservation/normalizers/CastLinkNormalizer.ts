@@ -827,7 +827,11 @@ export function isFromTAEcho(event: ApplyBuffEvent | RefreshBuffEvent | HealEven
 }
 
 export function isEchoFromT314PC(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
-  return HasRelatedEvent(event, ECHO_TIER) || HasRelatedEvent(event, FROM_TIER);
+  return (
+    HasRelatedEvent(event, ECHO_TIER) ||
+    HasRelatedEvent(event, FROM_TIER) ||
+    HasRelatedEvent(event, TIER_ECHO_REMOVAL)
+  );
 }
 
 export function isFromDreamBreathCallOfYsera(event: ApplyBuffEvent | RefreshBuffEvent | HealEvent) {
