@@ -10,8 +10,8 @@ import {
   STORMSTRIKE_DAMAGE_SPELLS,
 } from '../../constants';
 import {
-  SPLINTERED_ELEMENTS_LINK,
   PRIMORDIAL_WAVE_LINK,
+  SPLINTERED_ELEMENTS_LINK,
 } from 'analysis/retail/shaman/shared/constants';
 
 export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
@@ -21,6 +21,7 @@ export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
 export const MAELSTROM_WEAPON_SPEND_LINK = 'maelstrom-spender';
 export const LIGHTNING_BOLT_LINK = 'lightning-bolt';
 export const MAELSTROM_GENERATOR_LINK = 'maelstrom-generator';
+export const FERAL_SPIRIT_LINK = 'feral-spirit';
 
 const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
   (spell) => spell.id,
@@ -102,17 +103,6 @@ const splinteredElements: EventLink = {
   maximumLinks: 1,
 };
 
-// const primordialWaveDamageLink: EventLink = {
-//   linkRelation: PRIMORIDAL_WAVE_DAMAGE_LINK,
-//   linkingEventId: SPELLS.PRIMORDIAL_WAVE_BUFF.id,
-//   linkingEventType: EventType.RemoveBuff,
-//   referencedEventId: SPELLS.LIGHTNING_BOLT.id,
-//   referencedEventType: EventType.Cast,
-//   backwardBufferMs: 50,
-//   forwardBufferMs: 50,
-//   anyTarget: true,
-// };
-
 const lightningBoltLink: EventLink = {
   linkRelation: LIGHTNING_BOLT_LINK,
   linkingEventId: SPELLS.LIGHTNING_BOLT.id,
@@ -142,6 +132,16 @@ const maelstromGeneratorLink: EventLink = {
   maximumLinks: 1,
 };
 
+const feralSpiritLink: EventLink = {
+  linkRelation: FERAL_SPIRIT_LINK,
+  linkingEventId: TALENTS.FERAL_SPIRIT_TALENT.id,
+  linkingEventType: EventType.Cast,
+  referencedEventId: [SPELLS.ELEMENTAL_BLAST.id],
+  referencedEventType: EventType.Damage,
+  anyTarget: true,
+  forwardBufferMs: 15000,
+};
+
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
     super(options, [
@@ -154,6 +154,7 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       splinteredElements,
       lightningBoltLink,
       maelstromGeneratorLink,
+      feralSpiritLink,
     ]);
   }
 }

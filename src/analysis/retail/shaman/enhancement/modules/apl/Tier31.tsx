@@ -49,9 +49,10 @@ export function getTier31ElementalistApl(): Rule[] {
     TALENTS.STORMSTRIKE_TALENT,
     {
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: cnd.describe(MinimumMaelstromWeaponStacks(10), () => (
+      condition: cnd.describe(MinimumMaelstromWeaponStacks(5), () => (
         <>
-          for <SpellLink spell={TALENTS.HAILSTORM_TALENT} />
+          you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks for{' '}
+          <SpellLink spell={TALENTS.HAILSTORM_TALENT} />
         </>
       )),
     },

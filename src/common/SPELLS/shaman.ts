@@ -191,7 +191,7 @@ const spells = {
     icon: 'spell_nature_lightning',
   },
   ELEMENTAL_BLAST: {
-    id: 344645,
+    id: 117014,
     name: 'Elemental Blast',
     icon: 'shaman_talent_elementalblast',
   },

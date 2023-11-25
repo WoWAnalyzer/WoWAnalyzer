@@ -42,6 +42,7 @@ function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
           <CooldownUsage analyzer={modules.ascendance} />
         </SubSection>
       )}
+      {info.combatant.hasTalent(TALENTS.HOT_HAND_TALENT) && modules.hotHand.guideSubsection()}
     </Section>
   );
 }

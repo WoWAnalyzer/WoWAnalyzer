@@ -42,7 +42,7 @@ import GlobalCooldown from 'parser/shared/modules/GlobalCooldown';
 import CallToDominance from 'parser/retail/modules/items/dragonflight/CallToDominance';
 import AshenCatalyst from './modules/talents/AshenCatalyst';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
-import AscendanceNormalizer from './modules/normalizers/AscendanceNormalizer';
+import ProcNormalizer from './modules/normalizers/ProcNormalizer';
 import Ascendance from './modules/talents/Ascendance';
 import SplinteredElements from '../shared/talents/SplinteredElements';
 import {
@@ -120,7 +120,7 @@ class CombatLogParser extends CoreCombatLogParser {
     eventLinkNormalizer: EventLinkNormalizer,
     eventOrderNormalizer: EventOrderNormalizer,
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,
-    ascendanceNormalizer: AscendanceNormalizer,
+    procNormalizer: ProcNormalizer,
 
     aplCheck: AplCheck,
   };
