@@ -32,7 +32,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const debug = false;
 const NUM_EF_BOLTS = 15;
-const NUM_EF_BOLTS_UW = 33;
+const MAX_EXTRA_BOLTS = 18;
 
 class EssenceFont extends Analyzer {
   static dependencies = {
@@ -229,7 +229,7 @@ class EssenceFont extends Analyzer {
     }
     // Every second that Essence Font is ready to be cast but isn't, another bolt gets added to its next cast, up to 18
     return Math.min(
-      NUM_EF_BOLTS_UW,
+      NUM_EF_BOLTS + MAX_EXTRA_BOLTS,
       NUM_EF_BOLTS + Math.floor((event.timestamp - this.lastCdEnd) / 1000),
     );
   }
