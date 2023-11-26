@@ -12,12 +12,13 @@ import Events, {
   RemoveBuffEvent,
   RemoveDebuffEvent,
 } from 'parser/core/Events';
-import ExplanationGraph, {
-  GraphData,
+import ExplanationGraph from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
+import {
   DataSeries,
   SpellTracker,
-  generateGraphData,
-} from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
+  GraphDataType,
+} from 'analysis/retail/evoker/shared/modules/components/types';
+import ExplanationGraphData from 'analysis/retail/evoker/shared/modules/components/ExplanationGraphData';
 import { SpellLink } from 'interface';
 import { DISINTEGRATE_REMOVE_APPLY } from '../normalizers/CastLinkNormalizer';
 import { isMythicPlus } from 'common/isMythicPlus';
@@ -81,7 +82,7 @@ class Disintegrate extends Analyzer {
     TALENTS.PYRE_TALENT,
   ];
 
-  graphData: GraphData[] = [];
+  graphData: GraphDataType[] = [];
 
   disintegrateTicksCounter: SpellTracker[] = [];
   disintegrateCasts: SpellTracker[] = [];
@@ -381,21 +382,21 @@ class Disintegrate extends Analyzer {
     if (isMythicPlus(this.owner.fight)) {
       this.owner.fight.dungeonPulls?.forEach((dungeonPull) => {
         if (dungeonPull.boss) {
-          const newGraphData = generateGraphData(
-            dataSeries,
-            dungeonPull.start_time,
-            dungeonPull.end_time,
-            dungeonPull.name,
-          );
+          const newGraphData = ExplanationGraphData({
+            data: dataSeries,
+            startTime: dungeonPull.start_time,
+            endTime: dungeonPull.end_time,
+            title: dungeonPull.name,
+          });
           this.graphData.push(newGraphData);
         }
       });
     } else {
-      const newGraphData = generateGraphData(
-        dataSeries,
-        this.owner.fight.start_time,
-        this.owner.fight.end_time,
-      );
+      const newGraphData = ExplanationGraphData({
+        data: dataSeries,
+        startTime: this.owner.fight.start_time,
+        endTime: this.owner.fight.end_time,
+      });
       this.graphData.push(newGraphData);
     }
   }

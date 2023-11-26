@@ -69,303 +69,53 @@
  *
  * @module
  */
-import { ControlledExpandable } from 'interface/Expandable';
-import DropdownIcon from 'interface/icons/Dropdown';
-import type { Options } from 'parser/core/Analyzer';
-import type CombatLogParser from 'parser/core/CombatLogParser';
-import { AnyEvent } from 'parser/core/Events';
-import { Info } from 'parser/core/metric';
-import Module from 'parser/core/Module';
-import React, { useContext, useMemo, useState } from 'react';
-import './Guide.scss';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import {
+  PerfectColor,
+  GoodColor,
+  OkColor,
+  BadColor,
+  VeryBadColor,
+  MediocreColor,
+  AvailableColor,
+  qualitativePerformanceToColor,
+} from './consts';
+import { BadMark, GoodMark, OkMark, PerfectMark } from './components/Marks';
+import PerformanceMark from './components/PerformanceMark';
+import PassFailCheckmark from './components/PassFailCheckmark';
+import { GuideProps, ModulesOf, Guide } from './types';
+import GuideContext from './GuideContext';
+import SubSection from './components/SubSection';
+import GuideContainer from './components/GuideContainer';
+import SectionHeader from './components/SectionHeader';
+import Section from './components/Section';
+import { useAnalyzer, useAnalyzers, useInfo, useEvents } from './hooks';
 
-type Constructed<T> = T extends new (options: Options) => infer R ? R : never;
-type ConstructedModules<T> = {
-  [Key in keyof T]: Constructed<T[Key]>;
-};
-
-type HasSpecModules<Deps> = { specModules: Deps };
-
-/**
- * Construct a type representing the *constructed* modules for a given
-   CombatLogParser sub-class.
- *
- * Due to type limitations with the combination of static properties and class
- * inheritance, the exact properties of `internalModules` and `defaultModules`
- * are erased. Using those modules will require a typecast from the generic
- * `Module` type. `specModules` are represented exactly and do not require
- * typecasting to use.
- */
-export type ModulesOf<T extends typeof CombatLogParser> = ConstructedModules<
-  typeof CombatLogParser.internalModules
-> &
-  ConstructedModules<typeof CombatLogParser.defaultModules> &
-  (T extends HasSpecModules<infer Deps> ? ConstructedModules<Deps> : never);
-
-/**
- * React props passed to guide components. Make sure to specify your spec's
- * `CombatLogParser` as the type parameter to get module access!
- *
- * # Usage
- *
- * ```tsx
- * function MyGuide({ modules, events, info }: GuideProps<typeof SpecCombatLogParser>): JSX.Element {
- *   // ...
- * }
- * ```
- */
-export type GuideProps<T extends typeof CombatLogParser> = {
-  modules: ModulesOf<T>;
-  events: AnyEvent[];
-  info: Info;
-};
-
-/**
- * Shortcut type for guide components. Make sure to specify your spec's
- * `CombatLogParser` as the type parameter to get module access!
- *
- * # Usage
- *
- * ```tsx
- * const MyGuide: Guide<typeof SpecCombatLogParser> = ({ modules, events, info }) => {
- *    // ...
- * }
- * ```
- */
-export type Guide<T extends typeof CombatLogParser = any> = (
-  props: GuideProps<T>,
-) => JSX.Element | null;
+export type { GuideProps, ModulesOf };
 
 export default Guide;
 
-/**
- * The header for a `<Section />`. Exported as a convenient way for others to
- * use the same structure. If you're building a section of your guide, you
- * probably want `Section` instead.
- */
-// eslint-disable-next-line react/prop-types
-export const SectionHeader = ({
-  children,
-  className,
-  ...props
-}: React.ComponentProps<'header'>) => (
-  <header className={`flex ${className ?? ''}`} {...props}>
-    <div className="flex-main name">{children}</div>
-    <div className="flex-sub chevron">
-      <DropdownIcon />
-    </div>
-  </header>
-);
-
-/**
- * An expandable guide section. Defaults to expanded.
- */
-export const Section = ({
-  children,
-  title,
-  expanded = true,
-}: React.PropsWithChildren<{ title: string; expanded?: boolean }>) => {
-  const [isExpanded, setIsExpanded] = useState(expanded);
-
-  return (
-    <ControlledExpandable
-      header={<SectionHeader>{title}</SectionHeader>}
-      element="section"
-      inverseExpanded={() => setIsExpanded(!isExpanded)}
-      expanded={isExpanded}
-    >
-      {children}
-    </ControlledExpandable>
-  );
-};
-
-type GuideContextValue = Omit<GuideProps<any>, 'info'> & {
-  info?: GuideProps<any>['info'];
-};
-
-export const GuideContext = React.createContext<GuideContextValue>({
-  modules: {},
-  events: [],
-});
-
-/**
- * Get the player `Info` object from within a Guide section.
- */
-export function useInfo(): GuideContextValue['info'] {
-  return useContext(GuideContext).info;
-}
-
-/**
- * Get the event list from within a Guide section.
- */
-export function useEvents(): GuideContextValue['events'] {
-  return useContext(GuideContext).events;
-}
-
-/**
- * Get an analysis module from within a Guide section.
- *
- * # Example
- *
- * ```
- * import BrewCDR from 'analysis/retail/monk/brewmaster/modules/core/BrewCDR';
- * import PurifyingBrew from 'analysis/retail/monk/brewmaster/modules/spells/PurifyingBrew';
- *
- * function MySection() {
- *   const cdr = useAnalyzer(BrewCDR);
- *   const pb = useAnalyzer(PurifyingBrew);
- *    // ...
- * }
- *
- * // ... later, in the Guide component
- *
- * function Guide(props) {
- *   return (
- *    // ...
- *    <MySection />
- *    // ...
- *   )
- * }
- * ```
- */
-export function useAnalyzer<T extends typeof Module>(moduleType: T): InstanceType<T> | undefined;
-export function useAnalyzer(moduleKey: string): Module | undefined;
-export function useAnalyzer<T extends typeof Module>(value: string | T) {
-  const ctx = useContext(GuideContext);
-  return useMemo(() => {
-    if (typeof value === 'string') {
-      return ctx.modules[value];
-    } else {
-      return Object.values(ctx.modules).find((module) => module instanceof value) as
-        | InstanceType<T>
-        | undefined;
-    }
-  }, [value, ctx]);
-}
-
-type ModuleList<T> = {
-  [Key in keyof T]: T[Key] extends typeof Module ? InstanceType<T[Key]> : never;
-};
-
-/**
- * Get multiple analysis modules from within a Guide section.
- *
- * # Example
- *
- * ```
- * import BrewCDR from 'analysis/retail/monk/brewmaster/modules/core/BrewCDR';
- * import PurifyingBrew from 'analysis/retail/monk/brewmaster/modules/spells/PurifyingBrew';
- *
- * function MySection() {
- *   const analyzers = useAnalyzer([BrewCDR, PurifyingBrew]);
- *   // ...
- * }
- *
- * // ... later, in the Guide component
- *
- * function Guide(props) {
- *   return (
- *    // ...
- *    <MySection />
- *    // ...
- *   )
- * }
- * ```
- */
-export function useAnalyzers<Arr extends { [Key: number]: typeof Module }>(
-  values: Arr,
-): ModuleList<Arr> {
-  const ctx = useContext(GuideContext);
-
-  return useMemo(
-    () =>
-      Object.values(values).map((value) =>
-        Object.values(ctx.modules).find((module) => module instanceof (value as typeof Module)),
-      ),
-    [values, ctx],
-  ) as ModuleList<Arr>;
-}
-
-/**
- * The overall guide container. You will never need this, it is used by the WoWA
- * core to hold your `Guide` component.
- */
-export const GuideContainer = ({ children }: { children: React.ReactNode }) => (
-  <div className="guide-container">{children}</div>
-);
-
-/**
- * A section within a section. This can be nested (so you'd have a
- * sub-sub-section). Don't go too crazy with that.
- */
-export const SubSection = ({ children, title, id, ...props }: React.ComponentProps<'div'>) => (
-  <section className="subsection" id={id}>
-    <header>{title || ''}</header>
-    <div {...props}>{children}</div>
-  </section>
-);
-
-/*
- * Common styling colors and marks
- */
-
-export const PerfectMark = () => <i className="glyphicon glyphicon-ok-circle perfect-mark" />;
-export const GoodMark = () => <i className="glyphicon glyphicon-ok good-mark" />;
-export const OkMark = () => <i className="glyphicon glyphicon-asterisk ok-mark" />;
-export const BadMark = () => <i className="glyphicon glyphicon-remove bad-mark" />;
-
-export const PerfectColor = getComputedStyle(document.documentElement).getPropertyValue(
-  '--guide-perfect-color',
-);
-export const GoodColor = getComputedStyle(document.documentElement).getPropertyValue(
-  '--guide-good-color',
-);
-export const OkColor = getComputedStyle(document.documentElement).getPropertyValue(
-  '--guide-ok-color',
-);
-export const BadColor = getComputedStyle(document.documentElement).getPropertyValue(
-  '--guide-bad-color',
-);
-
-// some extra colors for fun
-export const VeryBadColor = getComputedStyle(document.documentElement).getPropertyValue(
-  '--guide-very-bad-color',
-);
-export const MediocreColor = getComputedStyle(document.documentElement).getPropertyValue(
-  '--guide-mediocre-color',
-);
-export const AvailableColor = getComputedStyle(document.documentElement).getPropertyValue(
-  '--guide-available-color',
-);
-
-/** Shows a glyph - either a green checkmark or a red X depending on if 'pass' is true */
-export const PassFailCheckmark = ({ pass }: { pass: boolean }) =>
-  pass ? <GoodMark /> : <BadMark />;
-
-/** Shows a glyph depending on given performance */
-export const PerformanceMark = ({ perf }: { perf: QualitativePerformance }) => {
-  switch (perf) {
-    case QualitativePerformance.Perfect:
-      return <PerfectMark />;
-    case QualitativePerformance.Good:
-      return <GoodMark />;
-    case QualitativePerformance.Ok:
-      return <OkMark />;
-    case QualitativePerformance.Fail:
-      return <BadMark />;
-  }
-};
-
-export const qualitativePerformanceToColor = (qualitativePerformance: QualitativePerformance) => {
-  switch (qualitativePerformance) {
-    case QualitativePerformance.Perfect:
-      return PerfectColor;
-    case QualitativePerformance.Good:
-      return GoodColor;
-    case QualitativePerformance.Ok:
-      return OkColor;
-    case QualitativePerformance.Fail:
-      return BadColor;
-  }
+export {
+  PerfectColor,
+  GoodColor,
+  OkColor,
+  BadColor,
+  VeryBadColor,
+  MediocreColor,
+  AvailableColor,
+  qualitativePerformanceToColor,
+  PerformanceMark,
+  PerfectMark,
+  GoodMark,
+  OkMark,
+  BadMark,
+  PassFailCheckmark,
+  useAnalyzer,
+  GuideContext,
+  SubSection,
+  GuideContainer,
+  useAnalyzers,
+  useInfo,
+  useEvents,
+  SectionHeader,
+  Section,
 };
