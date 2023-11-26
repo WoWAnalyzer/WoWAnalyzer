@@ -239,6 +239,9 @@ class EssenceFont extends Analyzer {
     const expected = Math.max(this.getExpectedApplies(event), totalHit);
     let cancelledPerf = QualitativePerformance.Good;
     let tftPerf = QualitativePerformance.Good;
+    const manaTeaPerf = this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)
+      ? QualitativePerformance.Good
+      : QualitativePerformance.Fail;
     if (totalHit !== expected) {
       this.numCancelled += 1;
       cancelledPerf = QualitativePerformance.Fail;
@@ -266,9 +269,13 @@ class EssenceFont extends Analyzer {
           )}{' '}
           <PerformanceMark perf={tftPerf} />
         </div>
+        <div>
+          Reduced mana cost with <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />{' '}
+          <PerformanceMark perf={manaTeaPerf} />
+        </div>
       </>
     );
-    const value = getAveragePerf([cancelledPerf, tftPerf]);
+    const value = getAveragePerf([cancelledPerf, tftPerf, manaTeaPerf]);
     this.castEntries.push({ value, tooltip });
   }
 
