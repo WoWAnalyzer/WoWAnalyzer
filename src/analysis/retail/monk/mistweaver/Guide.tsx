@@ -30,7 +30,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
           modules.risingSunKick.guideSubsection}
         {modules.thunderFocusTea.guideSubsection}
         {modules.vivify.guideSubsection}
-        {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
+        {(info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) ||
+          info.combatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) &&
           modules.essenceFont.guideSubsection}
         {info.combatant.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
           modules.ancientTeachings.guideSubsection}
