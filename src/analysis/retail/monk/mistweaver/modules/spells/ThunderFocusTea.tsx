@@ -246,13 +246,18 @@ class ThunderFocusTea extends Analyzer {
           <li>
             {' '}
             <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> or{' '}
-            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+            <span style={{ color: 'green' }}>best</span>) or{' '}
+            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> (
+            <span style={{ color: 'yellow' }}>ok</span>)
           </li>
           <li>
             {' '}
             <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
-            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
+            <span style={{ color: 'green' }}>best</span>) or{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+            <span style={{ color: 'yellow' }}>ok</span>)
           </li>
         </ol>
         If talented into <SpellLink spell={TALENTS_MONK.FOCUSED_THUNDER_TALENT} />, the priority
@@ -265,12 +270,17 @@ class ThunderFocusTea extends Analyzer {
           <ul>
             <li>
               <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
-              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
+              <span style={{ color: 'green' }}>best</span>) or{' '}
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+              <span style={{ color: 'yellow' }}>ok</span>)
             </li>
             <li>
               <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
-              <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> or{' '}
-              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+              <span style={{ color: 'green' }}>best</span>) or{' '}
+              <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> (
+              <span style={{ color: 'yellow' }}>ok</span>)
             </li>
           </ul>
           <li>
