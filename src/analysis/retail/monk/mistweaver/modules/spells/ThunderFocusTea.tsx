@@ -73,12 +73,15 @@ class ThunderFocusTea extends Analyzer {
       this.tftCast,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
-    this.okCapstoneSpells = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-      ? [TALENTS_MONK.RISING_SUN_KICK_TALENT.id]
-      : [TALENTS_MONK.RENEWING_MIST_TALENT.id];
-    this.correctCapstoneSpells = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
-      ? [TALENTS_MONK.RENEWING_MIST_TALENT.id]
-      : [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
+      this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+      this.okCapstoneSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
+    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
+      this.correctCapstoneSpells = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+      this.okCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+    } else {
+      this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+    }
   }
 
   get incorrectTftCasts() {
