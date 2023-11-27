@@ -10,7 +10,7 @@ interface Buff {
   spellId?: number;
 }
 
-type Buffs = Array<Buff>
+type Buffs = Array<Buff>;
 
 export interface Trinket extends Item {
   buffs: Buffs;
