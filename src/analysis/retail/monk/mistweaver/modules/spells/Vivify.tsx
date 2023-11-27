@@ -212,8 +212,9 @@ class Vivify extends Analyzer {
               {' '}
               - Blue is a perfect cast with 10 or more{' '}
               <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> HoTs out, Green is a good cast
-              with 8 or more, Yellow is an ok cast at or above your expected average, and Red is a
-              bad cast at low renewing mist count. Mouseover to see the count for each cast.
+              with 6 or more, Yellow is an ok cast at 5 or below, and Red is a bad cast at low
+              renewing mist count. If any of the casts have more than 50% overheal, then they will
+              be marked as bad. Mouseover to see details about each cast.
             </small>
             <PerformanceBoxRow values={this.castEntries} />
           </div>
@@ -309,20 +310,20 @@ class Vivify extends Analyzer {
     let fullOverhealHits = 0;
     let healingPerCast = 0;
     let overhealPerCast = 0;
-    if (this.upliftedSpirits.active) {
-      vivifyHits.forEach((event) => {
-        const effective = event.amount + (event.absorbed || 0);
-        healingPerCast += effective;
-        overhealPerCast += event.overheal || 0;
-        if (event.hitType === HIT_TYPES.CRIT) {
-          if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
-            vivifyGoodCrits += 1;
-          } else {
-            vivifyWastedCrits += 1;
-          }
+
+    vivifyHits.forEach((event) => {
+      const effective = event.amount + (event.absorbed || 0);
+      healingPerCast += effective;
+      overhealPerCast += event.overheal || 0;
+      if (this.upliftedSpirits.active && event.hitType === HIT_TYPES.CRIT) {
+        if (this.spellUsable.isOnCooldown(this.upliftedSpirits.activeTalent.id)) {
+          vivifyGoodCrits += 1;
+        } else {
+          vivifyWastedCrits += 1;
         }
-      });
-    }
+      }
+    });
+
     invigoratingMistHits.forEach((event) => {
       const effective = event.amount + (event.absorbed || 0);
       if (effective === 0) {

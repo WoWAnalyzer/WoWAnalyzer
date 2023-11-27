@@ -5,6 +5,8 @@ import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 11, 25), <>Fixed bug in <SpellLink spell={TALENTS_EVOKER.LEAPING_FLAMES_TALENT}/> module</>, Trevor),
+  change(date(2023, 11, 24), <>Add chart to T31 tier set 4PC module</>, Trevor),
   change(date(2023, 11, 11), <>Add <SpellLink spell={SPELLS.EMERALD_BLOSSOM}/> graphic to guide</>, Trevor),
   change(date(2023, 11, 7), <>Bump support to 10.2</>, Trevor),
   change(date(2023, 11, 1), <>Add refreshes to <SpellLink spell={TALENTS_EVOKER.ESSENCE_BURST_PRESERVATION_TALENT}/> module</>, Trevor),

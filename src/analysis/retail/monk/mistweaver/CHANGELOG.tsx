@@ -6,6 +6,11 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 11, 27), <>Update <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> module</>, Trevor),
+  change(date(2023, 11, 25), <>Update <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT}/> module</>, Trevor),
+  change(date(2023, 11, 24), <>Change load conditions for <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}/> guide section</>, Trevor),
+  change(date(2023, 11, 22), <>Update explanation of colors in <SpellLink spell={SPELLS.VIVIFY}/> guide section</>, Trevor),
+  change(date(2023, 11, 21), <>Fix performance calculations for <SpellLink spell={SPELLS.VIVIFY}/> when not talented into <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/></>, Trevor),
   change(date(2023, 11, 15), <>Fix <SpellLink spell={TALENTS_MONK.MISTS_OF_LIFE_TALENT}/> module for new <SpellLink spell={TALENTS_MONK.INVIGORATING_MISTS_TALENT}/> spellId and logging cleanup.</>, Vohrr),
   change(date(2023, 11, 14), <>Set <SpellLink spell={SPELLS.CHI_HARMONY_HEAL}/> Sources Graph to load on 4pc not 2pc</>, Vohrr),
   change(date(2023, 11, 9), <>Fix for <SpellLink spell={SPELLS.INVIGORATING_MISTS_HEAL}/> healing not tracking by T30 tier set</>, Vohrr),
@@ -23,7 +28,7 @@ export default [
   change(date(2023, 10, 10), <>Added Chi Harmony Sources Graph.</>, Vohrr),
   change(date(2023, 9, 15), <>Added Mistweaver T31 Tier set module.</>, Vohrr),
   change(date(2023, 9, 15), <>Fixing Mistweaver for 10.2 talent changes.</>, Vohrr),
-  change(date(2023, 9, 28), <>Change <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> statistic formatting.</>, Trevor),  
+  change(date(2023, 9, 28), <>Change <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> statistic formatting.</>, Trevor),
   change(date(2023, 9, 20), <>Fixed another <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> crash/ </>, Vohrr),
   change(date(2023, 9, 10), <>Fixed <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> crash from encounter phasing.</>, Vohrr),
   change(date(2023, 9, 9), <>Added <SpellLink spell={TALENTS_MONK.LIFECYCLES_TALENT}/> module.</>, Trevor),

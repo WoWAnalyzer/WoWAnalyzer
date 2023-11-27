@@ -8,12 +8,13 @@ import SPECS from 'game/SPECS';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import Events from 'parser/core/Events';
 import Combatants from 'parser/shared/modules/Combatants';
-//import { isMythicPlus } from 'common/isMythicPlus';
+import { isMythicPlus } from 'common/isMythicPlus';
 import '../../Styling.scss';
 import { SubSection } from 'interface/guide';
 import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
 import { ABILITY_BLACKLIST } from '../../../constants';
+import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
 
 /**
  * @key ClassName
@@ -34,6 +35,8 @@ const mrtColorMap: Map<string, string> = new Map([
   ['DemonHunter', '|cffa330c9'],
   ['Evoker', '|cff33937f'],
 ]);
+
+const NO_EM_SCALING_MODIFIER = 0.5;
 
 /**
  * So managing your buffs is essentially what Augmentation boils down to.
@@ -87,7 +90,7 @@ class BuffTargetHelper extends Analyzer {
   constructor(options: Options) {
     super(options);
     /** No need to show this in dungeon runs, for obvious reasons */
-    this.active = false; //!isMythicPlus(this.owner.fight);
+    this.active = !isMythicPlus(this.owner.fight);
 
     /** Populate our whitelist */
     this.addEventListener(Events.fightend, () => {
@@ -121,6 +124,20 @@ class BuffTargetHelper extends Analyzer {
     return filter;
   }
 
+  /** Only get non ebon scaling abilities, these still scale with Vers (Shifting Sands) */
+  getNoEbonScalingFilter() {
+    const playerNames = Array.from(this.playerWhitelist.keys());
+    const nameFilter = playerNames
+      .map((name) => `source.name="${name}" OR source.owner.name="${name}"`)
+      .join(' OR ');
+
+    const abilityFilter = ABILITY_BLACKLIST.map((id) => `${id}`).join(', ');
+
+    const filter = `ability.id in (${abilityFilter}) AND (${nameFilter})`;
+
+    return filter;
+  }
+
   /**
    * Should add support for phased fights
    * eg. Sark when you go downstairs for P1
@@ -145,6 +162,7 @@ class BuffTargetHelper extends Analyzer {
     while (currentTime < this.fightEnd) {
       index += 1;
       await this.getDamage(currentTime, index);
+      await this.getNoEbonScaledDamage(currentTime, index);
       currentTime += this.interval;
     }
   }
@@ -185,6 +203,26 @@ class BuffTargetHelper extends Analyzer {
           damageEntries.push(0);
         }
       }
+    });
+  }
+
+  async getNoEbonScaledDamage(currentTime: number, index: number) {
+    return fetchWcl(`report/tables/damage-done/${this.owner.report.code}`, {
+      start: currentTime,
+      end: currentTime + this.interval,
+      filter: this.getNoEbonScalingFilter(),
+    }).then((json) => {
+      const data = json as WCLDamageDoneTableResponse;
+      data.entries.forEach((entry) => {
+        if (this.playerWhitelist.has(entry.name)) {
+          const currentPlayerMap = this.playerDamageMap.get(entry.name);
+          if (!currentPlayerMap) {
+            this.playerDamageMap.set(entry.name, [entry.total * NO_EM_SCALING_MODIFIER]);
+          } else {
+            currentPlayerMap[index - 1] += entry.total * NO_EM_SCALING_MODIFIER;
+          }
+        }
+      });
     });
   }
 
@@ -414,6 +452,7 @@ class BuffTargetHelper extends Analyzer {
             </p>
           </div>
           <div>
+            <BuffTargetHelperWarningLabel />
             <LazyLoadGuideSection
               loader={this.loadInterval.bind(this)}
               value={this.findTopPumpers.bind(this)}

@@ -18,6 +18,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { Arrow } from 'interface/icons';
 
 const debug = false;
 
@@ -43,8 +44,8 @@ class ThunderFocusTea extends Analyzer {
 
   castBufferTimestamp: number = 0;
   ftActive: boolean = false;
-  correctSpells: number[] = [];
-  okSpells: number[] = [];
+  correctCapstoneSpells: number[] = [];
+  okCapstoneSpells: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -72,29 +73,38 @@ class ThunderFocusTea extends Analyzer {
       this.tftCast,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
-    if (secretInfusionRank > 0) {
-      this.correctSpells = [
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
-        TALENTS_MONK.ESSENCE_FONT_TALENT.id,
-      ]; // only haste buff
-      if (this.ftActive) {
-        this.okSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
-      }
-    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
-      this.correctSpells = [
-        TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
-      ];
+    if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
+      this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+      this.okCapstoneSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
+    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
+      this.correctCapstoneSpells = [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
+      this.okCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
     } else {
-      this.correctSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
-      if (this.ftActive) {
-        this.okSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
-      }
+      this.correctCapstoneSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
     }
   }
 
   get incorrectTftCasts() {
     return this.castsUnderTft - this.correctCasts;
+  }
+
+  isCorrect(event: CastEvent, isFTCast: boolean, isOk: boolean): boolean {
+    const spellId: number = event.ability.guid;
+    const spellMap = isOk ? this.okCapstoneSpells : this.correctCapstoneSpells;
+    debug && console.log('Checking for correctness', spellId, isFTCast, isOk);
+    if (isFTCast) {
+      if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
+        return spellMap.includes(spellId);
+      } else {
+        return this.isCorrect(event, false /* isFTCast */, isOk); // same as 1st spell logic
+      }
+    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
+      return spellId === TALENTS_MONK.ESSENCE_FONT_TALENT.id;
+    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
+      return spellId === TALENTS_MONK.RENEWING_MIST_TALENT.id;
+    } else {
+      return spellMap.includes(spellId);
+    }
   }
 
   get suggestionThresholds() {
@@ -151,7 +161,8 @@ class ThunderFocusTea extends Analyzer {
     }
     let tooltip = null;
     let value = null;
-    if (this.correctSpells.includes(spellId)) {
+    const isFTCast = this.ftActive && this.castsUnderTft % 2 === 0;
+    if (this.isCorrect(event, isFTCast, false /* isOk */)) {
       value = QualitativePerformance.Good;
       tooltip = (
         <>
@@ -159,7 +170,7 @@ class ThunderFocusTea extends Analyzer {
         </>
       );
       this.correctCasts += 1;
-    } else if (this.okSpells.includes(spellId)) {
+    } else if (this.isCorrect(event, isFTCast, true /* isOk */)) {
       value = QualitativePerformance.Ok;
       tooltip = (
         <>
@@ -222,19 +233,65 @@ class ThunderFocusTea extends Analyzer {
           <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
         </b>{' '}
         is an important spell used to empower other abilities. It should be used on cooldown at all
-        times and the spell that you use it on depends on your talent selection. If you have{' '}
-        <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />, then you should always use{' '}
-        <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> on{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT) && (
-          <>
-            or <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (when talented into{' '}
-            <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} />)
-          </>
-        )}
-        . If you aren't talented into <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />,
-        then always use it on <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
-        <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />.
+        times and the spell that you use it on depends on your talent selection, in general try to
+        adhere to the following priority list
+        <ol>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} /> talented <Arrow /> use on{' '}
+            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
+          </li>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented <Arrow /> use on{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+          </li>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+            <span style={{ color: 'green' }}>best</span>) or{' '}
+            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> (
+            <span style={{ color: 'yellow' }}>ok</span>)
+          </li>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
+            <span style={{ color: 'green' }}>best</span>) or{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+            <span style={{ color: 'yellow' }}>ok</span>)
+          </li>
+        </ol>
+        If talented into <SpellLink spell={TALENTS_MONK.FOCUSED_THUNDER_TALENT} />, the priority
+        slightly changes for the 2nd buffed cast depending on talents
+        <ol>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented
+          </li>
+          <ul>
+            <li>
+              <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
+              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} /> (
+              <span style={{ color: 'green' }}>best</span>) or{' '}
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+              <span style={{ color: 'yellow' }}>ok</span>)
+            </li>
+            <li>
+              <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> (
+              <span style={{ color: 'green' }}>best</span>) or{' '}
+              <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> (
+              <span style={{ color: 'yellow' }}>ok</span>)
+            </li>
+          </ul>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> not talented <Arrow /> same
+            spell as first buffed cast
+          </li>
+        </ol>
       </p>
     );
     const data = (
@@ -273,13 +330,17 @@ class ThunderFocusTea extends Analyzer {
   }
 
   suggestions(when: When) {
-    const elements = this.correctSpells.map((spell) => <SpellLink spell={spell} key={spell} />);
+    const elements = this.correctCapstoneSpells.map((spell) => (
+      <SpellLink spell={spell} key={spell} />
+    ));
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You are currently buffing spells other than{' '}
-          {this.correctSpells.length === 1 ? elements[0] : [elements[0], ' and ', elements[1]]} with{' '}
-          <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
+          {this.correctCapstoneSpells.length === 1
+            ? elements[0]
+            : [elements[0], ' and ', elements[1]]}{' '}
+          with <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
         </>,
       )
         .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)

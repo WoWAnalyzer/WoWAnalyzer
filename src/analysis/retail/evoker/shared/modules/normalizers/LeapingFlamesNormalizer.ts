@@ -56,6 +56,7 @@ const EVENT_LINKS: EventLink[] = [
       TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id,
       SPELLS.ESSENCE_BURST_DEV_BUFF.id,
       SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
+      SPELLS.ESSENCE_BURST_BUFF.id,
     ],
     linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
     referencedEventId: [
@@ -74,6 +75,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: ESSENCE_BURST_CAST_GENERATED,
     linkingEventId: [
       TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id,
+      SPELLS.ESSENCE_BURST_BUFF.id,
       SPELLS.ESSENCE_BURST_DEV_BUFF.id,
       SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
     ],
@@ -90,6 +92,7 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventId: [
       TALENTS_EVOKER.RUBY_ESSENCE_BURST_TALENT.id,
       SPELLS.ESSENCE_BURST_DEV_BUFF.id,
+      SPELLS.ESSENCE_BURST_BUFF.id,
       SPELLS.ESSENCE_BURST_AUGMENTATION_BUFF.id,
     ],
     linkingEventType: EventType.RefreshBuff,

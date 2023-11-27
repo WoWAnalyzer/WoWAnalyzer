@@ -1,7 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  ApplyBuffEvent,
   HealEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
@@ -27,12 +26,14 @@ import { TALENTS_EVOKER } from 'common/TALENTS';
 import { formatNumber } from 'common/format';
 import { TIERS } from 'game/TIERS';
 import Echo from '../../talents/Echo';
-import { ECHO_HEALS } from '../../../constants';
+import { ECHO_HEALS, SPELL_COLORS } from '../../../constants';
 import ItemSetLink from 'interface/ItemSetLink';
 import { EVOKER_T31_ID } from 'common/ITEMS/dragonflight';
+import DonutChart from 'parser/ui/DonutChart';
+import HotTrackerPrevoker from '../../core/HotTrackerPrevoker';
 
 class T31PrevokerSet extends Analyzer {
-  static dependencies = { echo: Echo };
+  static dependencies = { echo: Echo, hot: HotTrackerPrevoker };
   has4Piece: boolean = false;
   manaSaved: number = 0;
   essenceSaved: number = 0;
@@ -42,7 +43,10 @@ class T31PrevokerSet extends Analyzer {
   lfHealing: number = 0;
   echoProcs: number = 0;
   echoHealing: number = 0;
+  healingBySpell: Map<number, number> = new Map();
+  consumptionsBySpell: Map<number, number> = new Map();
   protected echo!: Echo;
+  protected hot!: HotTrackerPrevoker;
 
   constructor(options: Options) {
     super(options);
@@ -68,10 +72,6 @@ class T31PrevokerSet extends Analyzer {
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
       this.onEchoHeal,
-    );
-    this.addEventListener(
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_EVOKER.ECHO_TALENT),
-      this.onEchoApply,
     );
   }
 
@@ -105,17 +105,130 @@ class T31PrevokerSet extends Analyzer {
   }
 
   onEchoHeal(event: HealEvent) {
+    const spellId = event.ability.guid;
     if (!isEchoFromT314PC(event)) {
       return;
+    } else if (event.tick) {
+      if (!this.hot.hots[event.targetID] || !this.hot.hots[event.targetID][spellId]) {
+        return false;
+      }
+      const tracker = this.hot.hots[event.targetID][spellId];
+      if (this.hot.fromEchoHardcast(tracker) || this.hot.fromEchoTA(tracker)) {
+        return;
+      }
     }
     this.echoHealing += event.amount + (event.absorbed || 0);
+    this.healingBySpell.set(
+      spellId,
+      (this.totalHealingBySpell(spellId) ?? 0) + event.amount + (event.absorbed || 0),
+    );
+    if (!event.tick) {
+      this.consumptionsBySpell.set(spellId, (this.consumptionsBySpell.get(spellId) ?? 0) + 1);
+      this.echoProcs += 1;
+    }
   }
 
-  onEchoApply(event: ApplyBuffEvent | RefreshBuffEvent) {
-    if (!isEchoFromT314PC(event)) {
-      return;
-    }
-    this.echoProcs += 1;
+  totalHealingBySpell(id: number) {
+    return this.healingBySpell.get(id) ?? 0;
+  }
+
+  renderDonutChart() {
+    const items = [
+      {
+        color: SPELL_COLORS.DREAM_BREATH,
+        label: 'Dream Breath',
+        spellId: TALENTS_EVOKER.DREAM_BREATH_TALENT.id,
+        value: this.totalHealingBySpell(SPELLS.DREAM_BREATH_ECHO.id),
+        valueTooltip:
+          formatNumber(this.totalHealingBySpell(SPELLS.DREAM_BREATH_ECHO.id)) +
+          ' in ' +
+          this.consumptionsBySpell.get(SPELLS.DREAM_BREATH_ECHO.id) +
+          ' consumptions',
+      },
+      {
+        color: SPELL_COLORS.SPIRITBLOOM,
+        label: 'Spiritbloom',
+        spellId: TALENTS_EVOKER.SPIRITBLOOM_TALENT.id,
+        value:
+          this.totalHealingBySpell(SPELLS.SPIRITBLOOM.id) +
+          this.totalHealingBySpell(SPELLS.SPIRITBLOOM_SPLIT.id) +
+          this.totalHealingBySpell(SPELLS.SPIRITBLOOM_FONT.id),
+        valueTooltip:
+          formatNumber(
+            this.totalHealingBySpell(SPELLS.SPIRITBLOOM.id) +
+              this.totalHealingBySpell(SPELLS.SPIRITBLOOM_SPLIT.id) +
+              this.totalHealingBySpell(SPELLS.SPIRITBLOOM_FONT.id),
+          ) +
+          ' in ' +
+          (this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM.id)! +
+            this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM_SPLIT.id)! +
+            this.consumptionsBySpell.get(SPELLS.SPIRITBLOOM_FONT.id)!) +
+          ' consumptions',
+      },
+      {
+        color: SPELL_COLORS.LIVING_FLAME,
+        label: 'Living Flame',
+        spellId: SPELLS.LIVING_FLAME_HEAL.id,
+        value: this.totalHealingBySpell(SPELLS.LIVING_FLAME_HEAL.id),
+        valueTooltip:
+          formatNumber(this.totalHealingBySpell(SPELLS.LIVING_FLAME_HEAL.id)) +
+          ' in ' +
+          this.consumptionsBySpell.get(SPELLS.LIVING_FLAME_HEAL.id) +
+          ' consumptions',
+      },
+      {
+        color: SPELL_COLORS.REVERSION,
+        label: 'Reversion',
+        spellId: TALENTS_EVOKER.REVERSION_TALENT.id,
+        value:
+          this.totalHealingBySpell(SPELLS.REVERSION_ECHO.id) +
+          this.totalHealingBySpell(SPELLS.GOLDEN_HOUR_HEAL.id),
+        valueTooltip: (
+          <>
+            <SpellLink spell={TALENTS_EVOKER.REVERSION_TALENT} /> healing:{' '}
+            {formatNumber(this.totalHealingBySpell(SPELLS.REVERSION_ECHO.id))} <br />
+            and <SpellLink spell={TALENTS_EVOKER.GOLDEN_HOUR_TALENT} /> healing:{' '}
+            {formatNumber(this.totalHealingBySpell(SPELLS.GOLDEN_HOUR_HEAL.id))} <br />
+            in {this.consumptionsBySpell.get(SPELLS.REVERSION_ECHO.id) + ' consumptions'}
+          </>
+        ),
+      },
+      {
+        color: SPELL_COLORS.EMERALD_BLOSSOM,
+        label: 'Emerald Blossom',
+        spellId: SPELLS.EMERALD_BLOSSOM.id,
+        value: this.totalHealingBySpell(SPELLS.EMERALD_BLOSSOM_ECHO.id),
+        valueTooltip:
+          formatNumber(this.totalHealingBySpell(SPELLS.EMERALD_BLOSSOM_ECHO.id)) +
+          ' in ' +
+          this.consumptionsBySpell.get(SPELLS.EMERALD_BLOSSOM_ECHO.id) +
+          ' consumptions',
+      },
+      {
+        color: SPELL_COLORS.VERDANT_EMBRACE,
+        label: 'Verdant Embrace',
+        spellId: SPELLS.VERDANT_EMBRACE_HEAL.id,
+        value:
+          this.totalHealingBySpell(SPELLS.VERDANT_EMBRACE_HEAL.id) +
+          this.totalHealingBySpell(SPELLS.LIFEBIND_HEAL.id),
+        valueTooltip: (
+          <>
+            <SpellLink spell={TALENTS_EVOKER.VERDANT_EMBRACE_TALENT} /> healing:{' '}
+            {formatNumber(this.totalHealingBySpell(SPELLS.VERDANT_EMBRACE_HEAL.id))} <br />
+            and <SpellLink spell={TALENTS_EVOKER.LIFEBIND_TALENT} /> healing:{' '}
+            {formatNumber(this.totalHealingBySpell(SPELLS.LIFEBIND_HEAL.id))} <br />
+            in {this.consumptionsBySpell.get(SPELLS.VERDANT_EMBRACE_HEAL.id) + ' consumptions'}
+          </>
+        ),
+      },
+    ]
+      .filter((item) => {
+        return item.value > 0;
+      })
+      .sort((a, b) => {
+        return Math.sign(b.value - a.value);
+      });
+    return items.length > 0 ? <DonutChart items={items} /> : null;
   }
 
   statistic() {
@@ -186,6 +299,7 @@ class T31PrevokerSet extends Analyzer {
             </TooltipElement>
           </>
         </BoringValueText>
+        <div className="pad">{this.renderDonutChart()}</div>
       </Statistic>
     );
   }

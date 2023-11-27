@@ -1,11 +1,13 @@
 import { change, date } from 'common/changelog';
 import { TALENTS_PRIEST } from 'common/TALENTS';
 import SPELLS  from 'common/SPELLS'
-import { Arlie, Hana, Tapir, ToppleTheNun } from 'CONTRIBUTORS';
+import { Arlie, Hana, Sref, Tapir, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 11, 23), <><SpellLink spell={SPELLS.DARK_REPRIMAND_CAST}/> and <SpellLink spell={TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT}/> should now properly show as casting time in the timeline.</>, Sref),
+  change(date(2023, 11, 14), <>Add tracker for <SpellLink spell={TALENTS_PRIEST.TRAIN_OF_THOUGHT_TALENT} /> CDR.</>, Arlie),
   change(date(2023, 11, 14), <>Add tracker for <SpellLink spell={TALENTS_PRIEST.VOID_SUMMONER_TALENT} /> CDR.</>, Arlie),
   change(date(2023, 11, 1), 'Added Amirdrassil 4p tracker.', Arlie),
   change(date(2023, 10, 27), <>Enable spec with 10.2 changes.</>, Arlie),

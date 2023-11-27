@@ -3,6 +3,7 @@ export { default as AboutIcon } from './About';
 export { default as AgilityIcon } from './Agility';
 export { default as ArmorIcon } from './Armor';
 export { default as ArmoryIcon } from './Armory';
+export { default as Arrow } from './Arrow';
 export { default as AvoidanceIcon } from './Avoidance';
 export { default as CancelIcon } from './Cancel';
 export { default as ChecklistIcon } from './Checklist';
