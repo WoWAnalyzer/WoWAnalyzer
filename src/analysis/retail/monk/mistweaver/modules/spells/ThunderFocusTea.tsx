@@ -44,8 +44,8 @@ class ThunderFocusTea extends Analyzer {
 
   castBufferTimestamp: number = 0;
   ftActive: boolean = false;
-  correctSpells: number[] = [];
-  okSpells: number[] = [];
+  correctCapstoneSpells: number[] = [];
+  okCapstoneSpells: number[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -73,29 +73,35 @@ class ThunderFocusTea extends Analyzer {
       this.tftCast,
     );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.buffedCast);
-    if (secretInfusionRank > 0) {
-      this.correctSpells = [
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
-        TALENTS_MONK.ESSENCE_FONT_TALENT.id,
-      ]; // only haste buff
-      if (this.ftActive) {
-        this.okSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
-      }
-    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)) {
-      this.correctSpells = [
-        TALENTS_MONK.RISING_SUN_KICK_TALENT.id,
-        TALENTS_MONK.RENEWING_MIST_TALENT.id,
-      ];
-    } else {
-      this.correctSpells = [TALENTS_MONK.RENEWING_MIST_TALENT.id];
-      if (this.ftActive) {
-        this.okSpells = [TALENTS_MONK.RISING_SUN_KICK_TALENT.id];
-      }
-    }
+    this.okCapstoneSpells = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
+      ? [TALENTS_MONK.RISING_SUN_KICK_TALENT.id]
+      : [TALENTS_MONK.RENEWING_MIST_TALENT.id];
+    this.correctCapstoneSpells = this.selectedCombatant.hasTalent(TALENTS_MONK.RISING_MIST_TALENT)
+      ? [TALENTS_MONK.RENEWING_MIST_TALENT.id]
+      : [TALENTS_MONK.ENVELOPING_MIST_TALENT.id];
   }
 
   get incorrectTftCasts() {
     return this.castsUnderTft - this.correctCasts;
+  }
+
+  isCorrect(event: CastEvent, isFTCast: boolean, isOk: boolean): boolean {
+    const spellId: number = event.ability.guid;
+    const spellMap = isOk ? this.okCapstoneSpells : this.correctCapstoneSpells;
+    debug && console.log('Checking for correctness', spellId, isFTCast, isOk);
+    if (isFTCast) {
+      if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
+        return spellMap.includes(spellId);
+      } else {
+        return this.isCorrect(event, false /* isFTCast */, isOk); // same as 1st spell logic
+      }
+    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
+      return spellId === TALENTS_MONK.ESSENCE_FONT_TALENT.id;
+    } else if (this.selectedCombatant.hasTalent(TALENTS_MONK.SECRET_INFUSION_TALENT)) {
+      return spellId === TALENTS_MONK.RENEWING_MIST_TALENT.id;
+    } else {
+      return spellMap.includes(spellId);
+    }
   }
 
   get suggestionThresholds() {
@@ -152,7 +158,8 @@ class ThunderFocusTea extends Analyzer {
     }
     let tooltip = null;
     let value = null;
-    if (this.correctSpells.includes(spellId)) {
+    const isFTCast = this.ftActive && this.castsUnderTft % 2 === 0;
+    if (this.isCorrect(event, isFTCast, false /* isOk */)) {
       value = QualitativePerformance.Good;
       tooltip = (
         <>
@@ -160,7 +167,7 @@ class ThunderFocusTea extends Analyzer {
         </>
       );
       this.correctCasts += 1;
-    } else if (this.okSpells.includes(spellId)) {
+    } else if (this.isCorrect(event, isFTCast, true /* isOk */)) {
       value = QualitativePerformance.Ok;
       tooltip = (
         <>
@@ -310,13 +317,17 @@ class ThunderFocusTea extends Analyzer {
   }
 
   suggestions(when: When) {
-    const elements = this.correctSpells.map((spell) => <SpellLink spell={spell} key={spell} />);
+    const elements = this.correctCapstoneSpells.map((spell) => (
+      <SpellLink spell={spell} key={spell} />
+    ));
     when(this.suggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You are currently buffing spells other than{' '}
-          {this.correctSpells.length === 1 ? elements[0] : [elements[0], ' and ', elements[1]]} with{' '}
-          <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
+          {this.correctCapstoneSpells.length === 1
+            ? elements[0]
+            : [elements[0], ' and ', elements[1]]}{' '}
+          with <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
         </>,
       )
         .icon(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.icon)
