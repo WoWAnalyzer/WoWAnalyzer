@@ -18,6 +18,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { Arrow } from 'interface/icons';
 
 const debug = false;
 
@@ -222,19 +223,55 @@ class ThunderFocusTea extends Analyzer {
           <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
         </b>{' '}
         is an important spell used to empower other abilities. It should be used on cooldown at all
-        times and the spell that you use it on depends on your talent selection. If you have{' '}
-        <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />, then you should always use{' '}
-        <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} /> on{' '}
-        <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />{' '}
-        {this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT) && (
-          <>
-            or <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} /> (when talented into{' '}
-            <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} />)
-          </>
-        )}
-        . If you aren't talented into <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} />,
-        then always use it on <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> or{' '}
-        <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} />.
+        times and the spell that you use it on depends on your talent selection, in general try to
+        adhere to the following priority list
+        <ol>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT} /> talented <Arrow /> use on{' '}
+            <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />
+          </li>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented <Arrow /> use on{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+          </li>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
+            <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> or{' '}
+            <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+          </li>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
+            <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+          </li>
+        </ol>
+        If talented into <SpellLink spell={TALENTS_MONK.FOCUSED_THUNDER_TALENT} />, the priority
+        slightly changes for the 2nd buffed cast depending on talents
+        <ol>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> talented
+          </li>
+          <ul>
+            <li>
+              <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT} /> talented <Arrow /> use on{' '}
+              <SpellLink spell={TALENTS_MONK.ENVELOPING_MIST_TALENT} />
+            </li>
+            <li>
+              <SpellLink spell={TALENTS_MONK.RISING_MIST_TALENT} /> talented <Arrow /> use on{' '}
+              <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT} /> or{' '}
+              <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} />
+            </li>
+          </ul>
+          <li>
+            {' '}
+            <SpellLink spell={TALENTS_MONK.SECRET_INFUSION_TALENT} /> not talented <Arrow /> same
+            spell as first buffed cast
+          </li>
+        </ol>
       </p>
     );
     const data = (
