@@ -2,8 +2,8 @@ import * as React from 'react';
 
 type Props = Omit<React.ComponentPropsWithoutRef<'svg'>, 'xmlns' | 'viewBox' | 'className'>;
 
-// https://thenounproject.com/term/cross/1147331/
-// Created by Andrey from the Noun Project
+// https://thenounproject.com/icon/arrow-1569918/
+// Created by unlimicon from the Noun Project
 const Arrow = (props: Props) => (
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" className="icon" {...props}>
     <path
