@@ -36,6 +36,7 @@
     "sass-text-stroke": "1.2.0",
     "swr": "^2.2.0",
     "universal-cookie": "^4.0.4",
+    "use-error-boundary": "^2.0.6",
     "vega": "~5.23.0",
     "vega-lite": "^5.6.0"
   },
