@@ -32,6 +32,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 28), 'Bump Node version to 20.x LTS.', ToppleTheNun),
   change(date(2023, 11, 28), 'Remove deprecated Shadowlands combatantinfo that was breaking the Holy Priest analyzer.', emallson),
   change(date(2023, 11, 27), <>Fix inaccurate tooltip for <ItemLink id={ITEMS.ELEMENTAL_LARIAT.id}/>.</>, Trevor),
   change(date(2023, 11, 23), 'Refactor Code Smell Missing Union Type.', LucasLevyOB),
