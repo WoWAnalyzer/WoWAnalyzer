@@ -198,7 +198,7 @@ jobs:
           SENTRY_ORG: wowanalyzer
           SENTRY_PROJECT: wowanalyzer-app
           SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_RELEASE: wowanalyzer@${{ github.sha }}
+          SENTRY_RELEASE: ${{ github.sha }}
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
