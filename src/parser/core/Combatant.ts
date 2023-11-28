@@ -100,11 +100,6 @@ class Combatant extends Entity {
       (player: PlayerInfo) => player.id === combatantInfo.sourceID,
     );
 
-    if (combatantInfo.expansion === 'shadowlands') {
-      combatantInfo.soulbindTraits = combatantInfo.customPowerSet;
-      combatantInfo.conduits = combatantInfo.secondaryCustomPowerSet;
-    }
-
     this._combatantInfo = {
       // In super rare cases `playerInfo` can be undefined, not taking this
       // into account would cause the log to be unparsable
