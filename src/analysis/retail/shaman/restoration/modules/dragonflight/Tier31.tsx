@@ -14,9 +14,9 @@ import { formatNumber, formatPercentage } from 'common/format';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
 import RiptideTracker from '../core/RiptideTracker';
 import Combatants from 'parser/shared/modules/Combatants';
+import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
 
-const RIPTIDE_4P_POWER = 0.2; // Riptide bonus power = 25% => Tier set value = 25%/125% = 20% of total amount
-//const debug = false;
+const RIPTIDE_4P_POWER = 0.25; // Riptide bonus power = 25%
 
 /**
  * **Resto Shaman T31 (Amirdrassil)**
@@ -45,10 +45,12 @@ export default class Tier31 extends Analyzer {
     this.active = this.selectedCombatant.has2PieceByTier(TIERS.T31);
     this.has4pc = this.selectedCombatant.has4PieceByTier(TIERS.T31);
 
-    this.addEventListener(
-      Events.heal.by(SELECTED_PLAYER).spell(talents.RIPTIDE_TALENT),
-      this.handleRiptideHeal,
-    );
+    if (this.has4pc) {
+      this.addEventListener(
+        Events.heal.by(SELECTED_PLAYER).spell(talents.RIPTIDE_TALENT),
+        this.handleRiptideHeal,
+      );
+    }
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(ITEMS.T31_TIDAL_RESERVOIR_HEAL),
       this.on2pcHeal,
@@ -72,21 +74,15 @@ export default class Tier31 extends Analyzer {
   }
 
   handleRiptideHeal(event: HealEvent) {
-    if (this.has4pc) {
-      const targetId = event.targetID;
-      const spellId = event.ability.guid;
-
-      this.percent4pcRiptideHealing += (event.amount + (event.absorbed || 0)) * RIPTIDE_4P_POWER;
-
-      if (event.tick) {
-        if (!this.riptideTracker.hots[targetId] || !this.riptideTracker.hots[targetId][spellId]) {
-          return;
-        }
-      } else if (isFrom4pcT31(event)) {
-        this.bonus4pcRiptideHealing +=
-          (event.amount + (event.absorbed || 0) + (event.overheal || 0)) * (1 - RIPTIDE_4P_POWER);
+    if (isFrom4pcT31(event)) {
+      // Bonus riptide from the 4pc => tally the Riptide for the tooltip and count all healing as provided by the 4pc
+      this.bonus4pcRiptideHealing += event.amount + (event.absorbed || 0);
+      if (!event.tick) {
         this.bonus4pcRiptideAmount += 1;
       }
+    } else {
+      // Regular Riptide => count only the bonus 25% as provided by the 4pc
+      this.percent4pcRiptideHealing += calculateEffectiveHealing(event, RIPTIDE_4P_POWER);
     }
   }
 
