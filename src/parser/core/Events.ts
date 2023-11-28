@@ -1183,10 +1183,6 @@ export interface CombatantInfoEvent extends Event<EventType.CombatantInfo> {
    * Shadowlands: Anima Powers
    */
   tertiaryCustomPowerSet?: any[]; // will be copied into field with better name / type depending on expansion
-  /** Filled from customPowerSet for Shadowlands logs */
-  soulbindTraits?: SoulbindTrait[];
-  /** Filled from secondaryCustomPowerSet for Shadowlands logs */
-  conduits?: Conduit[];
   error?: any; //TODO: Verify, is this a bool? string?
 }
 
