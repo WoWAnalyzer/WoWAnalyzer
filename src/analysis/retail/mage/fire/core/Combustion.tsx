@@ -7,7 +7,7 @@ import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType, CastEvent, FightEndEvent } from 'parser/core/Events';
+import Events, { EventType, CastEvent, BeginCastEvent, GetRelatedEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import CooldownHistory from 'parser/shared/modules/CooldownHistory';
@@ -15,13 +15,6 @@ import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
-
-const COMBUSTION_PRE_CASTS = [
-  SPELLS.FIREBALL,
-  TALENTS.PYROBLAST_TALENT,
-  SPELLS.SCORCH,
-  SPELLS.FLAMESTRIKE,
-];
 
 class CombustionCasts extends Analyzer {
   static dependencies = {
@@ -37,38 +30,49 @@ class CombustionCasts extends Analyzer {
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
-  combustionCasts: CastEvent[] = [];
-  fireballsDuringCombustion: CastEvent[] = [];
-  fireballBeginsDuringCombust = 0;
+  combustionCasts: { cast: CastEvent; precast: BeginCastEvent | undefined; delay: number }[] = [];
+  fireballs: {
+    beginCast: BeginCastEvent;
+    cast: CastEvent | undefined;
+    startedDuringCombust: boolean;
+    finishedDuringCombust: boolean;
+  }[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.fightend, this.collectEvents);
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
-      this.combustCast,
+      this.onCombust,
+    );
+    this.addEventListener(
+      Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL),
+      this.onFireballBegins,
     );
   }
 
-  combustCast(event: CastEvent) {
-    this.log(event);
+  onCombust(event: CastEvent) {
+    const precast: BeginCastEvent | undefined = GetRelatedEvent(event, 'PreCast');
+
+    let castDelay = 0;
+    if (precast && precast.castEvent) {
+      this.log(precast);
+      castDelay =
+        precast.timestamp > event.timestamp ? precast.castEvent.timestamp - event.timestamp : 0;
+    }
+
+    this.combustionCasts[event.timestamp] = { cast: event, precast: precast, delay: castDelay };
   }
 
-  collectEvents(event: FightEndEvent) {
-    this.combustionCasts = this.eventHistory.getEvents(EventType.Cast, {
-      spell: TALENTS.COMBUSTION_TALENT,
-    });
-    this.fireballsDuringCombustion = this.eventHistory.getEventsWithBuff(
-      TALENTS.COMBUSTION_TALENT,
-      EventType.Cast,
-      SPELLS.FIREBALL,
-    );
-    this.fireballBeginsDuringCombust =
-      this.eventHistory.getEventsWithBuff(
-        TALENTS.COMBUSTION_TALENT,
-        EventType.BeginCast,
-        SPELLS.FIREBALL,
-      ).length || 0;
+  onFireballBegins(event: BeginCastEvent) {
+    const cast: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
+    this.fireballs[this.fireballs.length] = {
+      beginCast: event,
+      cast: cast,
+      startedDuringCombust: this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id),
+      finishedDuringCombust: cast
+        ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, cast.timestamp)
+        : false,
+    };
   }
 
   //Removing this check for now as it is not relevant, but might become relevant again in the future
@@ -95,37 +99,23 @@ class CombustionCasts extends Analyzer {
   };
   */
 
-  //prettier-ignore
-  preCastDelay = () => {
-    const casts: number[] = [];
-
-    this.combustionCasts.forEach(cast => {
-      const preCastBegin = this.eventHistory.getEvents(EventType.BeginCast, { spell: COMBUSTION_PRE_CASTS, count: 1, startTimestamp: cast.timestamp })[0]
-      if (preCastBegin && preCastBegin.castEvent) {
-        const castDelay = preCastBegin.castEvent.timestamp > cast.timestamp ? preCastBegin.castEvent.timestamp - cast.timestamp : 0
-        casts[cast.timestamp] = castDelay
-      }
-    })
-    return casts;
-  }
-
   // prettier-ignore
   fireballCastsDuringCombustion = () => {
+    let fireballCasts = this.fireballs.filter(e => e.cast && e.finishedDuringCombust)
+
     //If the Begin Cast event was before Combustion started, then disregard it.
-    let fireballCasts = this.fireballsDuringCombustion.filter((e: CastEvent) => {
-      const beginCast = this.eventHistory.getEvents(EventType.BeginCast, { spell: SPELLS.FIREBALL, count: 1, startTimestamp: e.timestamp })[0];
-      return beginCast ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, beginCast.timestamp) : false;
-    });
+    fireballCasts = fireballCasts.filter(e => e.startedDuringCombust)
 
     //If the player has Double Lust running, then diregard it.
     fireballCasts = fireballCasts.filter((f) => {
       let activeBuffs = 0;
-      Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)).forEach(lust => activeBuffs += this.selectedCombatant.hasBuff(lust, f.timestamp) ? 1 : 0)
+      Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)).forEach(lust => activeBuffs += this.selectedCombatant.hasBuff(lust, f.cast?.timestamp) ? 1 : 0)
       return activeBuffs < 2 ? true : false;
     })
 
     const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
-    fireballCasts && highlightInefficientCast(fireballCasts, tooltip);
+    fireballCasts.forEach(e => e.cast && highlightInefficientCast(e.cast, tooltip));
+
     return fireballCasts.length;
   }
 
@@ -140,11 +130,13 @@ class CombustionCasts extends Analyzer {
   */
 
   get totalPreCastDelay() {
-    const casts = this.preCastDelay();
-
     let total = 0;
-    casts.forEach((cast) => (total += cast));
+    this.combustionCasts.forEach((cast) => (total += cast.delay));
     return total;
+  }
+
+  get totalCombustionCasts() {
+    return this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts;
   }
 
   /*
@@ -163,12 +155,7 @@ class CombustionCasts extends Analyzer {
 
   get combustionCastDelayThresholds() {
     return {
-      actual:
-        this.totalPreCastDelay /
-        (this.eventHistory.getEvents(EventType.Cast, {
-          spell: TALENTS.COMBUSTION_TALENT,
-        }).length || 0) /
-        1000,
+      actual: this.totalPreCastDelay / this.totalCombustionCasts / 1000,
       isGreaterThan: {
         minor: 0.7,
         average: 1,
@@ -180,11 +167,7 @@ class CombustionCasts extends Analyzer {
 
   get fireballDuringCombustionThresholds() {
     return {
-      actual:
-        this.fireballCastsDuringCombustion() /
-          this.eventHistory.getEvents(EventType.Cast, {
-            spell: TALENTS.COMBUSTION_TALENT,
-          }).length || 0,
+      actual: this.fireballCastsDuringCombustion() / this.totalCombustionCasts,
       isGreaterThan: {
         minor: 0,
         average: 0.5,
@@ -240,10 +223,8 @@ class CombustionCasts extends Analyzer {
     when(this.fireballDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You started to cast <SpellLink spell={SPELLS.FIREBALL} />{' '}
-          {this.fireballBeginsDuringCombust} times (
-          {this.fireballDuringCombustionThresholds.actual.toFixed(2)} per Combustion), and completed{' '}
-          {this.fireballCastsDuringCombustion()} casts, during{' '}
+          On average, you cast <SpellLink spell={SPELLS.FIREBALL} />{' '}
+          {this.fireballCastsDuringCombustion()} times ({actual.toFixed(2)} per Combustion), during{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. Combustion has a short duration, so you
           are better off using instant abilities like <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
           <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. If you run out of instant cast
