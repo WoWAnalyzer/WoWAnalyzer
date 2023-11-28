@@ -235,9 +235,10 @@ jobs:
         run: yarn build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
-          REACT_APP_ENABLE_GA: true
+          REACT_APP_ENABLE_GA: false
           REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
           REACT_APP_VERSION: ${{ github.sha }}
+          REACT_APP_FORCE_PREMIUM: true
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
