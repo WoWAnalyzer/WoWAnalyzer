@@ -54,21 +54,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    reverseLinkRelation: 'CombustStart',
-    linkingEventId: TALENTS.COMBUSTION_TALENT.id,
-    linkingEventType: EventType.Cast,
-    linkRelation: PRE_CAST,
-    referencedEventId: [SPELLS.FIREBALL.id, TALENTS.PYROBLAST_TALENT.id, SPELLS.SCORCH.id],
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    maximumLinks: 1,
-    additionalCondition(linkingEvent, referencedEvent): boolean {
-      return !isInstantCast(referencedEvent as CastEvent);
-    },
-    forwardBufferMs: 1000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
     reverseLinkRelation: BUFF_APPLY,
     linkingEventId: SPELLS.HOT_STREAK.id,
     linkingEventType: EventType.ApplyBuff,
@@ -90,25 +75,6 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     forwardBufferMs: EXTENDED_CAST_BUFFER_MS,
     backwardBufferMs: EXTENDED_CAST_BUFFER_MS,
-  },
-  {
-    reverseLinkRelation: BUFF_REMOVE,
-    linkingEventId: SPELLS.HOT_STREAK.id,
-    linkingEventType: EventType.RemoveBuff,
-    linkRelation: PRE_CAST,
-    referencedEventId: [TALENTS.PYROBLAST_TALENT.id, SPELLS.FIREBALL.id],
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    maximumLinks: 1,
-    additionalCondition(linkingEvent, referencedEvent): boolean {
-      if ((referencedEvent as CastEvent).ability.guid === TALENTS.PYROBLAST_TALENT.id) {
-        return !isInstantCast(referencedEvent as CastEvent);
-      } else {
-        return true;
-      }
-    },
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     reverseLinkRelation: BUFF_APPLY,
@@ -205,6 +171,7 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: SPELL_CAST,
     referencedEventId: SPELLS.FIREBALL.id,
     referencedEventType: EventType.Cast,
+    anyTarget: true,
     maximumLinks: 1,
     forwardBufferMs: 3000,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -228,6 +195,40 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.FIRE_BLAST.id,
     referencedEventType: EventType.Damage,
     maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: 'CombustStart',
+    linkingEventId: TALENTS.COMBUSTION_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: PRE_CAST,
+    referencedEventId: [SPELLS.FIREBALL.id, TALENTS.PYROBLAST_TALENT.id, SPELLS.SCORCH.id],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      return !isInstantCast(referencedEvent as CastEvent);
+    },
+    forwardBufferMs: 1000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.HOT_STREAK.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: PRE_CAST,
+    referencedEventId: [TALENTS.PYROBLAST_TALENT.id, SPELLS.FIREBALL.id],
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      if ((referencedEvent as CastEvent).ability.guid === TALENTS.PYROBLAST_TALENT.id) {
+        return !isInstantCast(referencedEvent as CastEvent);
+      } else {
+        return true;
+      }
+    },
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
