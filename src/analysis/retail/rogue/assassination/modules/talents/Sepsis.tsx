@@ -50,6 +50,7 @@ interface SepsisDebuff {
   start: number;
   end?: number;
 }
+
 interface SepsisBuff extends Omit<SepsisDebuff, 'applyEvent'> {
   applyEvent: ApplyBuffEvent;
   consumeCast: CastEvent | undefined;

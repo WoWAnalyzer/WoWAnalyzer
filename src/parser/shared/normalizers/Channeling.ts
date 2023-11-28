@@ -54,6 +54,8 @@ class Channeling extends EventsNormalizer {
     // Priest
     buffChannelSpec(TALENTS_PRIEST.DIVINE_HYMN_TALENT.id),
     nextCastChannelSpec(SPELLS.PENANCE_CAST.id),
+    nextCastChannelSpec(SPELLS.DARK_REPRIMAND_CAST.id),
+    buffChannelSpec(TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT.id),
     buffChannelSpec(SPELLS.MIND_FLAY.id), // TODO double check ID
     buffChannelSpec(SPELLS.MIND_FLAY_INSANITY_TALENT_DAMAGE.id), // TODO double check ID
     buffChannelSpec(TALENTS_PRIEST.VOID_TORRENT_TALENT.id), // TODO double check ID
@@ -410,8 +412,13 @@ export function nextCastChannelSpec(spellId: number): ChannelSpec {
           laterEvent.type === EventType.BeginCast ||
           (laterEvent.type === EventType.Cast && isRealCast(laterEvent))
         ) {
-          endCurrentChannel(laterEvent, state);
-          break;
+          // don't want to stop on cast events from someone else,
+          // like a pet or like another player targeting the selected player
+
+          if (event.sourceID === laterEvent.sourceID) {
+            endCurrentChannel(laterEvent, state);
+            break;
+          }
         }
       }
     }
