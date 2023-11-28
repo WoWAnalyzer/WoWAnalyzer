@@ -192,7 +192,7 @@ jobs:
           REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
           REACT_APP_VERSION: ${{ github.sha }}
       - name: Upload Sourcemaps to Sentry
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main' && github.repository == 'wowanalyzer/wowanalyzer'
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/dragonflight' && github.repository == 'wowanalyzer/wowanalyzer'
         run: yarn sourcemaps
         env:
           SENTRY_ORG: wowanalyzer
