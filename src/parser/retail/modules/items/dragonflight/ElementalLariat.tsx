@@ -139,31 +139,37 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
       this.selectedCombatant.getBuffTriggerCount(SPELLS.ELEMENTAL_LARIAT_EMPOWERED_EARTH.id) +
       this.selectedCombatant.getBuffTriggerCount(SPELLS.ELEMENTAL_LARIAT_EMPOWERED_FLAME.id) +
       this.selectedCombatant.getBuffTriggerCount(SPELLS.ELEMENTAL_LARIAT_EMPOWERED_FROST.id);
-
+    const uniqueGemTypes = [
+      this.gemCounts.air,
+      this.gemCounts.earth,
+      this.gemCounts.fire,
+      this.gemCounts.frost,
+    ].reduce((prev, cur) => prev + (cur > 0 ? 1 : 0), 0);
+    console.log(uniqueGemTypes);
     const gemChance = [
       {
         type: 'Air',
         stat: SECONDARY_STAT.HASTE,
         count: this.gemCounts.air,
-        chance: this.gemCounts.air / this.gemCounts.total,
+        chance: (this.gemCounts.air > 0 ? 1 : 0) / uniqueGemTypes,
       },
       {
         type: 'Earth',
         stat: SECONDARY_STAT.MASTERY,
         count: this.gemCounts.earth,
-        chance: this.gemCounts.earth / this.gemCounts.total,
+        chance: (this.gemCounts.earth > 0 ? 1 : 0) / uniqueGemTypes,
       },
       {
         type: 'Fire',
         stat: SECONDARY_STAT.CRITICAL_STRIKE,
         count: this.gemCounts.fire,
-        chance: this.gemCounts.fire / this.gemCounts.total,
+        chance: (this.gemCounts.fire > 0 ? 1 : 0) / uniqueGemTypes,
       },
       {
         type: 'Frost',
         stat: SECONDARY_STAT.VERSATILITY,
         count: this.gemCounts.frost,
-        chance: this.gemCounts.frost / this.gemCounts.total,
+        chance: (this.gemCounts.frost > 0 ? 1 : 0) / uniqueGemTypes,
       },
     ]
       .filter(({ count }) => count > 0)
@@ -171,9 +177,8 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
       .map(({ type, stat, count, chance }, index, list) => (
         <Fragment key={type}>
           {index > 0 && ', '}
-          {index === list.length - 1 && 'and '}
-          {count} {type} gems resulting in a {Math.round(chance * 100)}% chance to proc{' '}
-          {getName(stat)}
+          {index === list.length - 1 && 'and '}a {Math.round(chance * 100)}% chance to proc{' '}
+          {getName(stat)} from socketing {type} gems
         </Fragment>
       ));
 
