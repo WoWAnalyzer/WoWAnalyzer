@@ -2,10 +2,10 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
 import TALENTS from 'common/TALENTS/evoker';
 import classColor from 'game/classColor';
-import Events, { CastEvent } from 'parser/core/Events';
+import Events, { CastEvent, EventType } from 'parser/core/Events';
 import { ReactNode } from 'react';
 import { SpellLink } from 'interface';
-import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
+import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ROLES from 'game/ROLES';
@@ -13,6 +13,7 @@ import Combatants from 'parser/shared/modules/Combatants';
 import { getPrescienceBuffEvents } from '../normalizers/CastLinkNormalizer';
 import Combatant from 'parser/core/Combatant';
 import SPECS from 'game/SPECS';
+import { isMythicPlus } from 'common/isMythicPlus';
 
 /**
  * Prescience is a core talent that buffs the target with 3% crit, as well
@@ -67,14 +68,54 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
   }
 
   explainPerformance(cast: PrescienceCooldownCast): SpellUse {
-    const prescienceWindowCastPerformance = this.prescienceWindowCastPerformance(cast);
+    const rolePerformance = this.getRolePerformance(cast);
+
     const checklistItems: ChecklistUsageInfo[] = [
       {
         check: 'buffed-casts',
         timestamp: cast.event.timestamp,
-        ...prescienceWindowCastPerformance,
+        ...rolePerformance,
       },
     ];
+
+    /** Since m+ is pretty payphoning I'll skip the step there since at worst you payphone it when you have two active and it might hit healer */
+    if (!isMythicPlus(this.owner.fight)) {
+      const castTargetPerformance = this.getCastTargetPerformance(cast);
+      checklistItems.push({
+        check: 'cast-target-performance',
+        timestamp: cast.event.timestamp,
+        ...castTargetPerformance,
+      });
+    }
+
+    if (cast.event.timestamp < this.owner.fight.start_time) {
+      const prePullPerformance = {
+        performance: QualitativePerformance.Fail,
+        summary: <div>Cast pre-pull</div>,
+        details: (
+          <div>
+            You cast <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> pre-pull! This is very bad
+            since with latest changes <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> gets cleared
+            on combat start!
+          </div>
+        ),
+      };
+
+      checklistItems.push({
+        check: 'pre-pull-performance',
+        timestamp: cast.event.timestamp,
+        ...prePullPerformance,
+      });
+    }
+
+    const refreshPerformance = this.getRefreshPerformance(cast);
+    if (refreshPerformance) {
+      checklistItems.push({
+        check: 'refresh-performance',
+        timestamp: cast.event.timestamp,
+        ...refreshPerformance,
+      });
+    }
 
     const actualPerformance = combineQualitativePerformances(
       checklistItems.map((item) => item.performance),
@@ -90,9 +131,10 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
     };
   }
 
-  private prescienceWindowCastPerformance(cast: PrescienceCooldownCast): UsageInfo {
+  private getRolePerformance(cast: PrescienceCooldownCast) {
     const className = this.currentBuffedPlayer ? classColor(this.currentBuffedPlayer) : '';
     let performance = QualitativePerformance.Fail;
+
     const summary = <div>Buffed a DPS</div>;
     let details = (
       <div>
@@ -157,6 +199,68 @@ class Prescience extends MajorCooldown<PrescienceCooldownCast> {
       summary: summary,
       details: details,
     };
+  }
+
+  private getCastTargetPerformance(cast: PrescienceCooldownCast) {
+    const players = Object.values(this.combatants.players);
+
+    const npcs = Object.values(this.owner.report.enemies);
+
+    const castTargetIsPlayer = players.find((player) => player.id === cast.event.targetID);
+    const castTargetIsNPC = npcs.find((npc) => npc.id === cast.event.targetID);
+
+    const className = castTargetIsPlayer?.spec ? classColor(castTargetIsPlayer?.spec) : '';
+
+    const targetPerformance = castTargetIsPlayer
+      ? QualitativePerformance.Good
+      : QualitativePerformance.Ok;
+
+    const targetDetails = castTargetIsPlayer ? (
+      <div>
+        Player: <span className={className}>{castTargetIsPlayer.name}</span> was cast target. Good
+        job!
+      </div>
+    ) : castTargetIsNPC ? (
+      <div>
+        NPC: <span className="npc">{castTargetIsNPC.name}</span> was cast target. You should always
+        try not to proxy-cast your <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> to ensure you
+        buff correct targets!
+      </div>
+    ) : (
+      <div>
+        Cast target was a NPC. You should always try not to proxy-cast your{' '}
+        <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> to ensure you buff correct targets!
+      </div>
+    );
+
+    const performanceCheck = {
+      performance: targetPerformance,
+      summary: <div>Cast on specific target</div>,
+      details: targetDetails,
+    };
+
+    return performanceCheck;
+  }
+
+  private getRefreshPerformance(cast: PrescienceCooldownCast) {
+    if (cast.event._linkedEvents) {
+      if (cast.event._linkedEvents[0].event.type === EventType.RefreshBuff) {
+        const refreshPerformance = {
+          performance: QualitativePerformance.Ok,
+          summary: <div>Target already had Prescience</div>,
+          details: (
+            <div>
+              Target already had <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active, since{' '}
+              <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> doesn't pandemic you should always try
+              to cast on a new target so you can keep more{' '}
+              <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> active.
+            </div>
+          ),
+        };
+
+        return refreshPerformance;
+      }
+    }
   }
 
   private onCast(event: CastEvent) {
