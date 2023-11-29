@@ -225,13 +225,6 @@ class ElementalBlast extends BaseElementalBlast {
           rare cases up to nearly 250% with five{' '}
           <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />
         </p>
-        <p>
-          As such, you only want to use{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> when you have one or more{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> active, or you have two charges.{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> is still your most
-          efficient maelstrom spender, so sitting on two charges is a DPS loss.
-        </p>
       </>,
       // details/data
       <>
