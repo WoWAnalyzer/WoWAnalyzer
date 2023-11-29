@@ -115,9 +115,7 @@
     "e2e": "yarn e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
     "e2e:report": "playwright show-report",
-    "sourcemaps": "yarn sourcemaps:inject && yarn sourcemaps:upload",
-    "sourcemaps:inject": "sentry-cli sourcemaps inject build",
-    "sourcemaps:upload": "sentry-cli sourcemaps upload build --release \"$SENTRY_RELEASE\""
+    "sourcemaps": "sentry-cli sourcemaps inject build"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,md,mdx,yml,graphql,scss,css}": [
