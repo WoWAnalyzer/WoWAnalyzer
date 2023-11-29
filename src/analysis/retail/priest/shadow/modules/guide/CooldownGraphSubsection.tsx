@@ -9,6 +9,8 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/CooldownBar';
 import Voidbolt from '../spells/Voidbolt';
 import ShadowWordDeath from '../spells/ShadowWordDeath';
+import ItemSetLink from 'interface/ItemSetLink';
+import { PRIEST_T31_ID } from 'common/ITEMS/dragonflight';
 
 type Cooldown = {
   talent: Talent;
@@ -66,7 +68,8 @@ const CoreCooldownsGraph = () => {
       <strong>
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
       </strong>{' '}
-      should be always used with _. Otherwise, it should be used during execute, with{' '}
+      should be always used with <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece</ItemSetLink>{' '}
+      equppied. Otherwise, it should be used during execute, with{' '}
       <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs, and during{' '}
       <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
       <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
@@ -93,8 +96,10 @@ const CoreCooldownsGraph = () => {
         <strong>
           <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
         </strong>{' '}
-        should be used during execute, with <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs,
-        and during <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
+        should be always used with{' '}
+        <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece</ItemSetLink> equppied. Otherwise, it
+        should be used during execute, and with <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} />{' '}
+        procs, and during <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
         <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
       </p>
     );
