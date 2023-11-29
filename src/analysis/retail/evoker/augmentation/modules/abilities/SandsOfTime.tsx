@@ -10,7 +10,7 @@ import { SpellLink } from 'interface';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
-import { failedEbonMightExtention } from '../normalizers/CastLinkNormalizer';
+import { failedEbonMightExtension } from '../normalizers/CastLinkNormalizer';
 import '../Styling.scss';
 
 /**
@@ -71,7 +71,7 @@ class SandsOfTime extends Analyzer {
 
   private sandOfTimeUsage(possibleExtends: PossibleExtends): SpellUse {
     let extended = possibleExtends.extended;
-    if (failedEbonMightExtention(possibleExtends.event)) {
+    if (failedEbonMightExtension(possibleExtends.event)) {
       extended = false;
     }
     const spell = possibleExtends.event.ability.guid;
