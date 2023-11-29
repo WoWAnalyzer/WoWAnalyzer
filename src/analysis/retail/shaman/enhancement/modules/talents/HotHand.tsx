@@ -5,12 +5,13 @@ import { SpellLink } from 'interface';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
+  AnyEvent,
   CastEvent,
   DamageEvent,
+  EventType,
   FightEndEvent,
+  GlobalCooldownEvent,
   RemoveBuffEvent,
-  UpdateSpellUsableEvent,
-  UpdateSpellUsableType,
 } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -31,7 +32,6 @@ import EmbeddedTimelineContainer, {
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
 import Casts from 'interface/report/Results/Timeline/Casts';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
-import { SubSection } from 'interface/guide';
 
 class HotHandRank {
   modRate: number;
@@ -52,16 +52,24 @@ const HOT_HAND: Record<number, HotHandRank> = {
   2: new HotHandRank(0.75, 0.6),
 };
 
+const HIGH_PRIORITY_ABILITIES = [
+  TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+  TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
+];
+
 interface HotHandTimeline {
   start: number;
   end?: number | null;
-  events: CastEvent[];
+  events: AnyEvent[];
   performance?: QualitativePerformance | null;
 }
 
 interface HotHandProc extends SpellCast {
   timeline: HotHandTimeline;
-  missedCasts: number;
+  hasMissedCasts: boolean;
+  unusedGcdTime: number;
+  globalCooldowns: number[];
+  higherPriorityCasts: number;
 }
 
 /**
@@ -84,7 +92,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
   protected abilities!: Abilities;
 
   activeWindow: HotHandProc | null = null;
-  lavaLashOnCooldown: boolean = false;
+  globalCooldownEnds: number = 0;
 
   protected hotHand!: HotHandRank;
   protected buffedLavaLashDamage: number = 0;
@@ -116,20 +124,20 @@ class HotHand extends MajorCooldown<HotHandProc> {
       Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
       this.removeHotHand,
     );
+    this.addEventListener(Events.fightend, this.removeHotHand);
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-    this.addEventListener(
-      Events.UpdateSpellUsable.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.LAVA_LASH_TALENT),
-      this.updateSpellUsable,
-    );
-
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.LAVA_LASH_TALENT),
       this.onLavaLashDamage,
     );
+    this.addEventListener(Events.GlobalCooldown.by(SELECTED_PLAYER), this.onGlobalCooldown);
   }
 
-  updateSpellUsable(event: UpdateSpellUsableEvent) {
-    this.lavaLashOnCooldown = event.updateType === UpdateSpellUsableType.EndCooldown;
+  onGlobalCooldown(event: GlobalCooldownEvent) {
+    this.globalCooldownEnds = event.duration + event.timestamp;
+
+    this.activeWindow?.timeline.events?.push(event);
+    this.activeWindow?.globalCooldowns.push(event.duration);
   }
 
   startOrRefreshWindow(event: CastEvent) {
@@ -146,11 +154,14 @@ class HotHand extends MajorCooldown<HotHandProc> {
       this.activeWindow = {
         event: event,
         timeline: {
-          start: event.timestamp,
+          start: Math.max(event.timestamp, this.globalCooldownEnds),
           end: -1,
           events: [],
         },
-        missedCasts: 0,
+        hasMissedCasts: false,
+        unusedGcdTime: 0,
+        globalCooldowns: [],
+        higherPriorityCasts: 0,
       };
     }
   }
@@ -172,12 +183,16 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
   onCast(event: CastEvent) {
     if (this.activeWindow && event.globalCooldown) {
+      this.activeWindow.unusedGcdTime += event.timestamp - this.globalCooldownEnds;
       this.activeWindow.timeline.events.push(event);
       if (
         event.ability.guid !== TALENTS_SHAMAN.LAVA_LASH_TALENT.id &&
         this.spellUsable.isAvailable(TALENTS_SHAMAN.LAVA_LASH_TALENT.id)
       ) {
-        this.activeWindow.missedCasts += 1;
+        this.activeWindow.hasMissedCasts ||= true;
+        if (HIGH_PRIORITY_ABILITIES.includes(event.ability.guid)) {
+          this.activeWindow.higherPriorityCasts += 1;
+        }
       }
     }
   }
@@ -251,19 +266,30 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
   private explainUsagePerformance(cast: HotHandProc): ChecklistUsageInfo {
     const lavaLashCasts = cast.timeline.events.filter(
-      (x) => x.ability.guid === TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
+      (event) =>
+        event.type === EventType.Cast && event.ability.guid === TALENTS_SHAMAN.LAVA_LASH_TALENT.id,
     ).length;
-    const missedCasts = cast.missedCasts;
+
+    // if a cast was missed, estimate the number of casts possible by dividing the duration by average gcd and assume half could have been Lava Lash
+    let estimatedMissedCasts = 0;
+    if (cast.hasMissedCasts) {
+      const noOfGcdsInWindow =
+        (cast.timeline.end! - cast.timeline.start) / (this.getAverageGcdOfWindow(cast) ?? 1);
+      estimatedMissedCasts = Math.max(
+        Math.ceil(noOfGcdsInWindow / 2) - lavaLashCasts - cast.higherPriorityCasts,
+        0,
+      );
+    }
 
     return {
       check: 'lava-lash-casts',
       timestamp: cast.event.timestamp,
       performance:
-        cast.missedCasts === 0
+        estimatedMissedCasts === 0
           ? QualitativePerformance.Perfect
-          : cast.missedCasts === 1
+          : estimatedMissedCasts === 1
           ? QualitativePerformance.Good
-          : cast.missedCasts === 2
+          : estimatedMissedCasts === 2
           ? QualitativePerformance.Ok
           : QualitativePerformance.Fail,
       summary: (
@@ -274,8 +300,45 @@ class HotHand extends MajorCooldown<HotHandProc> {
       details: (
         <span>
           Cast <SpellLink spell={TALENTS_SHAMAN.LAVA_LASH_TALENT} /> {lavaLashCasts} time(s)
-          {missedCasts > 0 ? <> when you could have cast {lavaLashCasts + missedCasts}</> : <></>}.
+          {estimatedMissedCasts > 0 ? (
+            <> when you could have cast it {estimatedMissedCasts + lavaLashCasts} time(s)</>
+          ) : (
+            <></>
+          )}
+          .
         </span>
+      ),
+    };
+  }
+
+  private getAverageGcdOfWindow(cast: HotHandProc) {
+    return cast.globalCooldowns.reduce((t, v) => (t += v), 0) / (cast.globalCooldowns.length ?? 1);
+  }
+
+  private explainGcdPerformance(cast: HotHandProc): ChecklistUsageInfo {
+    const avgGcd = this.getAverageGcdOfWindow(cast);
+    const unsedGlobalCooldowns = Math.max(Math.floor(cast.unusedGcdTime / avgGcd), 0);
+    return {
+      check: 'global-cooldown',
+      timestamp: cast.event.timestamp,
+      performance:
+        unsedGlobalCooldowns < 1
+          ? QualitativePerformance.Perfect
+          : unsedGlobalCooldowns < 2
+          ? QualitativePerformance.Ok
+          : QualitativePerformance.Fail,
+      details: (
+        <>
+          {unsedGlobalCooldowns === 0 ? (
+            'No unused global cooldowns'
+          ) : (
+            <>{unsedGlobalCooldowns} unused global cooldowns</>
+          )}
+          .
+        </>
+      ),
+      summary: (
+        <>{cast.unusedGcdTime < 100 ? 'No unused global cooldowns' : 'Unused global cooldowns'} </>
       ),
     };
   }
@@ -283,11 +346,16 @@ class HotHand extends MajorCooldown<HotHandProc> {
   explainPerformance(cast: HotHandProc): SpellUse {
     const timeline = this.explainTimelineWithDetails(cast);
     const usage = this.explainUsagePerformance(cast);
+    const gcd = this.explainGcdPerformance(cast);
 
     return {
       event: cast.event,
-      performance: getLowestPerf([usage.performance, timeline.checklistItem.performance]),
-      checklistItems: [usage, timeline.checklistItem],
+      performance: getLowestPerf([
+        usage.performance,
+        timeline.checklistItem.performance,
+        gcd.performance,
+      ]),
+      checklistItems: [usage, gcd, timeline.checklistItem],
       extraDetails: timeline.extraDetails,
     };
   }
@@ -323,11 +391,13 @@ class HotHand extends MajorCooldown<HotHandProc> {
     );
   }
 
-  guideSubsection(): JSX.Element {
+  get guideSubsection() {
     return (
-      <SubSection title="Hot Hand">
-        <CooldownUsage analyzer={this} title="Hot Hand" />
-      </SubSection>
+      this.active && (
+        <>
+          <CooldownUsage analyzer={this} title="Hot Hand" />
+        </>
+      )
     );
   }
 }

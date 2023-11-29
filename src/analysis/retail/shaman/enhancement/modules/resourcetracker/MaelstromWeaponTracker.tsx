@@ -8,7 +8,6 @@ import Events, {
   EventType,
   CastEvent,
   FreeCastEvent,
-  LinkedEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
   RemoveBuffEvent,
@@ -171,9 +170,10 @@ export default class extends ResourceTracker {
       );
       this.reduceFeralSpiritCooldown();
     } else {
-      const spenderEvent = event._linkedEvents?.find(
-        (le: LinkedEvent) => le.relation === MAELSTROM_WEAPON_SPEND_LINK,
-      )?.event as CastEvent | FreeCastEvent | undefined;
+      const spenderEvent = GetRelatedEvent<CastEvent | FreeCastEvent>(
+        event,
+        MAELSTROM_WEAPON_SPEND_LINK,
+      );
       if (spenderEvent) {
         this._applySpender(spenderEvent, -change, resource);
       } else {
@@ -195,7 +195,7 @@ export default class extends ResourceTracker {
             rate: 0,
             atCap: false,
           },
-          newStacks,
+          this.current,
           newStacks,
           false,
         );

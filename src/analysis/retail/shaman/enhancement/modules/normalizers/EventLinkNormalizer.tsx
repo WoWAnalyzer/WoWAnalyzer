@@ -76,7 +76,7 @@ const maelstromWeaponSpenderLink: EventLink = {
   linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
   referencedEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   referencedEventType: [EventType.Cast, EventType.FreeCast],
-  backwardBufferMs: 25,
+  backwardBufferMs: 50,
   anyTarget: true,
 };
 
@@ -115,21 +115,22 @@ const lightningBoltLink: EventLink = {
 
 const maelstromGeneratorLink: EventLink = {
   linkRelation: MAELSTROM_GENERATOR_LINK,
-  linkingEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
-  linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
-  referencedEventId: [
+  linkingEventId: [
     TALENTS.STORMSTRIKE_TALENT.id,
     TALENTS.LAVA_LASH_TALENT.id,
     TALENTS.ICE_STRIKE_TALENT.id,
     SPELLS.WINDSTRIKE_CAST.id,
     TALENTS.FROST_SHOCK_TALENT.id,
     TALENTS.FIRE_NOVA_TALENT.id,
+    TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
   ],
-  referencedEventType: EventType.Cast,
-  forwardBufferMs: 5,
-  backwardBufferMs: 5,
+  linkingEventType: EventType.Cast,
+  referencedEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
+  referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
+  forwardBufferMs: 25,
+  backwardBufferMs: 25,
   anyTarget: true,
-  maximumLinks: 1,
+  reverseLinkRelation: MAELSTROM_GENERATOR_LINK,
 };
 
 const feralSpiritLink: EventLink = {

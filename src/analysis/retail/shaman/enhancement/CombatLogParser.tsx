@@ -1,7 +1,7 @@
 import { AnkhNormalizer, AstralShift, StaticCharge } from 'analysis/retail/shaman/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 
-import FlameShock from 'analysis/retail/shaman/enhancement/modules/spells/FlameShock';
+import FlameShock from './modules/spells/FlameShock';
 import Abilities from './modules/Abilities';
 import Buffs from './modules/Buffs';
 import Checklist from './modules/checklist/Module';
@@ -9,7 +9,7 @@ import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import WindfuryTotem from './modules/talents/WindfuryTotem';
 import ForcefulWinds from './modules/talents/ForcefulWinds';
 import Stormflurry from './modules/talents/Stormflurry';
-import ElementalBlast from 'analysis/retail/shaman/shared/ElementalBlast';
+import ElementalBlast from './modules/talents/ElementalBlast';
 import HotHand from './modules/talents/HotHand';
 import SpiritWolf from 'analysis/retail/shaman/shared/talents/SpiritWolf';
 import EarthShield from 'analysis/retail/shaman/shared/talents/EarthShield';
