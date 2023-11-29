@@ -69,7 +69,7 @@ const ClaimCountDescription = styled.div`
   align-items: start;
 `;
 
-function AplViolationExplanation<T = any>({
+function AplViolationExplanation<T = unknown>({
   claimData,
   describer,
   children,
@@ -143,14 +143,14 @@ export function AplViolationExplanations({
 }): JSX.Element {
   const claims = Object.entries(explainers)
     .flatMap(([key, { claim }]) =>
-      claim(apl, result).map((res): [string, AplProblemData<any>] => [key, res]),
+      claim(apl, result).map((res): [string, AplProblemData<unknown>] => [key, res]),
     )
     .sort(([, resA], [, resB]) => resA.claims.size - resB.claims.size);
 
   const unclaimedViolations = new Set(result.violations);
 
   let remainingClaimData = claims.map(
-    ([key, claimData]): [string, AplProblemData<any>, Set<Violation>] => [
+    ([key, claimData]): [string, AplProblemData<unknown>, Set<Violation>] => [
       key,
       claimData,
       new Set(claimData.claims),
@@ -208,7 +208,7 @@ const ViolationProblemContainer = styled.div`
   grid-gap: 1rem;
 `;
 
-export default function ViolationProblemList<T = any>({
+export default function ViolationProblemList<T = unknown>({
   describer: DescribeViolation,
   claimData,
   apl,

@@ -191,6 +191,14 @@ jobs:
           REACT_APP_ENABLE_GA: true
           REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
           REACT_APP_VERSION: ${{ github.sha }}
+      - name: Upload Sourcemaps to Sentry
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/dragonflight' && github.repository == 'wowanalyzer/wowanalyzer'
+        run: yarn sourcemaps
+        env:
+          SENTRY_ORG: wowanalyzer
+          SENTRY_PROJECT: wowanalyzer-app
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_RELEASE: ${{ github.sha }}
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
@@ -227,9 +235,10 @@ jobs:
         run: yarn build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
-          REACT_APP_ENABLE_GA: true
+          REACT_APP_ENABLE_GA: false
           REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
           REACT_APP_VERSION: ${{ github.sha }}
+          REACT_APP_FORCE_PREMIUM: true
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
