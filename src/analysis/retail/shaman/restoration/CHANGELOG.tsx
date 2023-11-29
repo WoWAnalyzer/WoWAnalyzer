@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
-import { Arlie, Elitesparkle, Fassbrause, niseko, ToppleTheNun, Vetyst, Vohrr } from 'CONTRIBUTORS';
+import { Arlie, Elitesparkle, Fassbrause, niseko, ToppleTheNun, Vetyst, Vohrr, Ypp } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 11, 16), <>Reactivate Restoration, implement T31 Tier Set for Restoration</>, Ypp),
   change(date(2023, 11, 12), <>Restoration not supported</>, Vohrr),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 5, 8), <>Fix Mana Costs for Shaman Spells and Talents.</>, Elitesparkle),

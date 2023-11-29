@@ -1,4 +1,5 @@
 import ModuleError from 'parser/core/ModuleError';
+import { captureException, withScope } from '@sentry/react';
 
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from '../Analyzer';
 import EventFilter, { SpellFilter } from '../EventFilter';
@@ -340,11 +341,11 @@ class EventEmitter extends Module {
     console.error('Disabling', name, 'and child dependencies because an error occurred:', err);
     // Disable this module and all active modules that have this as a dependency
     this.owner.deepDisable(module, ModuleError.EVENTS, err);
-    window.Sentry?.withScope((scope) => {
+    withScope((scope) => {
       scope.setTag('type', 'module_error');
       scope.setTag('spec', this.selectedCombatant.player.icon);
       scope.setExtra('module', name);
-      window.Sentry?.captureException(err);
+      captureException(err);
     });
   }
 }

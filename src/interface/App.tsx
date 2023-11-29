@@ -1,3 +1,4 @@
+import { wrapCreateBrowserRouter } from '@sentry/react';
 import lazyLoadComponent from 'common/lazyLoadComponent';
 import retryingPromise from 'common/retryingPromise';
 import HomePage from 'interface/Home';
@@ -113,8 +114,13 @@ const appRoutes = createRoutesFromElements(
   </Route>,
 );
 
+const sentryCreateBrowserRouter = process.env.SENTRY_DSN
+  ? wrapCreateBrowserRouter(createBrowserRouter)
+  : createBrowserRouter;
 const router =
-  process.env.NODE_ENV === 'test' ? createMemoryRouter(appRoutes) : createBrowserRouter(appRoutes);
+  process.env.NODE_ENV === 'test'
+    ? createMemoryRouter(appRoutes)
+    : sentryCreateBrowserRouter(appRoutes);
 
 const App = () => <RouterProvider router={router} />;
 
