@@ -10,6 +10,7 @@ import { CooldownWindow, fromExecuteRange, GapHighlight } from 'parser/ui/Cooldo
 import Voidbolt from '../spells/Voidbolt';
 import ShadowWordDeath from '../spells/ShadowWordDeath';
 import ItemSetLink from 'interface/ItemSetLink';
+import { TIERS } from 'game/TIERS';
 import { PRIEST_T31_ID } from 'common/ITEMS/dragonflight';
 
 type Cooldown = {
@@ -28,9 +29,10 @@ const coreCooldowns: SpellCooldown[] = [
 ];
 
 const coreCooldownsVB: SpellCooldown[] = [
+  //you can't push VoidBolt to coreCooldowns later on without adding it multiple times when changing tabs, so we just use a different list
   { spell: SPELLS.MIND_BLAST },
-  { spell: SPELLS.VOID_BOLT },
   { spell: TALENTS.SHADOW_WORD_DEATH_TALENT },
+  { spell: SPELLS.VOID_BOLT },
 ];
 
 const shortCooldowns: Cooldown[] = [
@@ -55,10 +57,10 @@ const longCooldownsSF: Cooldown[] = [
 const CoreCooldownsGraph = () => {
   const VoidboltAnalyzer = useAnalyzer(Voidbolt);
   const ShadowWordDeathAnalyzer = useAnalyzer(ShadowWordDeath);
-
+  const info = useInfo();
   let coreCooldown = coreCooldowns;
 
-  let message = (
+  const message = (
     <p>
       <strong>
         <SpellLink spell={SPELLS.MIND_BLAST} />
@@ -68,41 +70,48 @@ const CoreCooldownsGraph = () => {
       <strong>
         <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
       </strong>{' '}
-      should be always used with <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece</ItemSetLink>{' '}
-      equppied. Otherwise, it should be used during execute, with{' '}
-      <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs, and during{' '}
-      <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
-      <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
+      {info!.combatant.has4PieceByTier(TIERS.T31) && (
+        <>
+          should always be used on cooldown with{' '}
+          <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece</ItemSetLink> equppied.
+        </>
+      )}
+      {!info!.combatant.has4PieceByTier(TIERS.T31) && (
+        <>
+          should be used during execute,{' '}
+          {info!.combatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT) && (
+            <>
+              and with <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} /> procs,{' '}
+            </>
+          )}
+          {info!.combatant.hasTalent(TALENTS.INESCAPABLE_TORMENT_TALENT) && (
+            <>
+              and during <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
+              <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
+            </>
+          )}
+        </>
+      )}
+      <br />
+      {info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT) && (
+        <>
+          <strong>
+            {' '}
+            <SpellLink spell={SPELLS.VOID_BOLT} />{' '}
+          </strong>{' '}
+          is a powerful spell that should be cast on cooldown while you have access to it during{' '}
+          <SpellLink spell={SPELLS.VOIDFORM} />
+          <br />
+        </>
+      )}
     </p>
   );
 
-  const info = useInfo();
   if (info!.combatant.hasTalent(TALENTS.VOID_ERUPTION_TALENT)) {
     coreCooldown = coreCooldownsVB;
     // not the prettiest solution, but functional
     coreCooldown.find((cd) => cd.spell.id === SPELLS.VOID_BOLT.id)!.activeWindows =
       VoidboltAnalyzer?.executeRanges.map(fromExecuteRange);
-
-    message = (
-      <p>
-        <strong>
-          <SpellLink spell={SPELLS.MIND_BLAST} />
-        </strong>{' '}
-        is a core spell that should be keept on cooldown as much as possible.
-        <br />
-        During <SpellLink spell={SPELLS.VOIDFORM} /> you gain access to{' '}
-        <SpellLink spell={SPELLS.VOID_BOLT} />, a powerful spell that should be cast on cooldown.
-        <br />
-        <strong>
-          <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT} />
-        </strong>{' '}
-        should be always used with{' '}
-        <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece</ItemSetLink> equppied. Otherwise, it
-        should be used during execute, and with <SpellLink spell={TALENTS.DEATHSPEAKER_TALENT} />{' '}
-        procs, and during <SpellLink spell={TALENTS.MINDBENDER_SHADOW_TALENT} /> with{' '}
-        <SpellLink spell={TALENTS.INESCAPABLE_TORMENT_TALENT} /> talented.
-      </p>
-    );
   }
 
   coreCooldown.find((cd) => cd.spell.id === TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.activeWindows =
@@ -138,48 +147,53 @@ const CoreCooldownsGraph = () => {
 };
 
 const ShortCooldownsGraph = () => {
-  let message = (
+  const info = useInfo();
+
+  const message = (
     <p>
-      <strong>
-        <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
-      </strong>{' '}
-      is a powerful spell that should used as often as possible with{' '}
-      <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on its target. It should always be
-      channeled for its full duration.
-      <br />
-      <strong>
-        <SpellLink spell={TALENTS.MINDGAMES_TALENT} />
-      </strong>{' '}
-      is a lower priority spell, but when it is cast, make sure{' '}
-      <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> is on its target so it benefits fully
-      from <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
+      {info!.combatant.hasTalent(TALENTS.VOID_TORRENT_TALENT) && (
+        <>
+          <strong>
+            <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
+          </strong>{' '}
+          is a powerful spell that should be used as often as possible with{' '}
+          <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on its target. It should be
+          channeled for its full duration.
+          <br />
+        </>
+      )}
+
+      {info!.combatant.hasTalent(TALENTS.MINDGAMES_TALENT) && (
+        <>
+          <strong>
+            <SpellLink spell={TALENTS.MINDGAMES_TALENT} />
+          </strong>{' '}
+          is a lower priority spell, but when it is cast, make sure{' '}
+          <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> is on its target so it benefits
+          fully from <SpellLink spell={SPELLS.MASTERY_SHADOW_WEAVING} />.
+        </>
+      )}
+
+      {info!.combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT) && (
+        <>
+          <strong>
+            <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} />
+          </strong>{' '}
+          is used to apply and refresh <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />. This can be held
+          if it would allow you to apply your dots to more targets.
+          <br />
+          {info!.combatant.has4PieceByTier(TIERS.T31) && (
+            <>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} /> should also be used to spend stacks
+              of <SpellLink spell={SPELLS.SHADOW_PRIEST_TIER_31_4_SET_BUFF} /> from{' '}
+              <ItemSetLink id={PRIEST_T31_ID}> Amirdrassil 4 Piece </ItemSetLink>{' '}
+            </>
+          )}
+        </>
+      )}
     </p>
   );
-  const info = useInfo();
-  if (info!.combatant.hasTalent(TALENTS.SHADOW_CRASH_TALENT)) {
-    message = (
-      <p>
-        <strong>
-          <SpellLink spell={TALENTS.VOID_TORRENT_TALENT} />
-        </strong>{' '}
-        is a powerful spell that should used as often as possible with{' '}
-        <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> on its target. It should always be
-        channeled for its full duration.
-        <br />
-        <strong>
-          <SpellLink spell={TALENTS.MINDGAMES_TALENT} />
-        </strong>{' '}
-        is a lower priority spell, but when it is cast, make sure{' '}
-        <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} /> is on its target.
-        <br />
-        <strong>
-          <SpellLink spell={TALENTS.SHADOW_CRASH_TALENT} />
-        </strong>{' '}
-        should only be used as a way to apply <SpellLink spell={SPELLS.VAMPIRIC_TOUCH} />.
-      </p>
-    );
-  }
-
   return CooldownGraphSubsection(shortCooldowns, message);
 };
 

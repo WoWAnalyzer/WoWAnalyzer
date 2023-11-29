@@ -24,6 +24,8 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Cooldowns">
         <Section title="Core Spells">
           <CooldownGraphSubsection.CoreCooldownsGraph />
+        </Section>
+        <Section title="Short Cooldowns">
           <CooldownGraphSubsection.ShortCooldownsGraph />
           {info.combatant.hasTalent(TALENTS.INSIDIOUS_IRE_TALENT) &&
             modules.insidiousIre.guideSubsection}
