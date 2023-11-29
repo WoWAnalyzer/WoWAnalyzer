@@ -6,7 +6,6 @@ import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import Events, {
   DamageEvent,
   HealEvent,
-  RemoveBuffEvent,
   GetRelatedEvents,
   CastEvent,
   GetRelatedEvent,
@@ -72,33 +71,6 @@ export default class extends Analyzer {
     }
   }
 
-  onPrimoridalWaveEnd(event: RemoveBuffEvent) {
-    // const primordialWaveLightningBolt = event._linkedEvents?.find(
-    //   (le) => le.relation === PRIMORIDAL_WAVE_DAMAGE_LINK,
-    // )?.event;
-    // if (primordialWaveLightningBolt) {
-    //   const spent = this.maelstromWeaponTracker.current;
-    //   /**
-    //    * this is a bit of a hack to handle instances where the resource tracker's `current` isn't the actual
-    //    * current maelstrom, and is a "best guess" that the majority of the time lightning bolt
-    //    * will be cast at 10 maelstrom with PW
-    //    */
-    //   this.maelstromSpendWithPrimordialWave +=
-    //     spent === 0 ? 10 : this.maelstromWeaponTracker.current;
-    //   const damageEvents: DamageEvent[] = GetRelatedEvents(
-    //     primordialWaveLightningBolt,
-    //     LIGHTNING_BOLT_LINK,
-    //   ) as DamageEvent[];
-    //   if (damageEvents.length > 1) {
-    //     const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id;
-    //     damageEvents?.splice(0, 1);
-    //     this.spenderValues[spellId] =
-    //       (this.spenderValues[spellId] ?? 0) +
-    //       damageEvents.reduce((total: number, de: DamageEvent) => (total += de.amount), 0);
-    //   }
-    // }
-  }
-
   onSpender(event: DamageEvent | HealEvent) {
     if (!this.recordNextSpenderAmount) {
       return;
@@ -138,15 +110,12 @@ export default class extends Analyzer {
               const spellId = Number(value);
               const spell = maybeGetSpell(spellId);
               const ability = this.abilityTracker.getAbility(spellId);
-              let casts: number;
+              const casts = ability.casts;
               let spent: number;
               if (spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id) {
-                casts = ability.casts;
                 spent = this.maelstromSpendWithPrimordialWave;
               } else {
-                const spender = this.maelstromWeaponTracker.spendersObj[spellId];
-                casts = spender?.casts || 0;
-                spent = spender?.spent || 0;
+                spent = this.maelstromWeaponTracker.spendersObj[spellId]?.spent || 0;
               }
 
               const amount = this.spenderValues[spellId];
