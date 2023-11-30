@@ -6,7 +6,7 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
-
+import { TIERS } from 'game/TIERS';
 import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
 
 class ShadowWordDeath extends ExecuteHelper {
@@ -15,7 +15,6 @@ class ShadowWordDeath extends ExecuteHelper {
   static singleExecuteEnablers: Spell[] = [SPELLS.DEATHSPEAKER_TALENT_BUFF];
   //static executeOutsideRangeEnablers: Spell[] = [TALENTS.INESCAPABLE_TORMENT_TALENT]; //Need to fabricate a buff for when Inescapable Torment(mindbender) is active.
   static countCooldownAsExecuteTime = false;
-  //static modifiesDamage = true; not always true
 
   static dependencies = {
     ...ExecuteHelper.dependencies,
@@ -30,6 +29,10 @@ class ShadowWordDeath extends ExecuteHelper {
     super(options);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
 
+    if (this.selectedCombatant.has4PieceByTier(TIERS.T31)) {
+      ShadowWordDeath.lowerThreshold = 1; //When shadow has its tier 31 four piece, they always use shadow word death
+    }
+
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(TALENTS.SHADOW_WORD_DEATH_TALENT);
 
@@ -43,7 +46,7 @@ class ShadowWordDeath extends ExecuteHelper {
       },
       castEfficiency: {
         suggestion: false,
-        recommendedEfficiency: 0.05,
+        recommendedEfficiency: 0.85,
         maxCasts: () => this.maxCasts,
       },
     });
