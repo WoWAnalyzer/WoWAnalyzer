@@ -45,6 +45,9 @@ import CooldownThroughputTracker from './modules/features/CooldownThroughputTrac
 import ProcNormalizer from './modules/normalizers/ProcNormalizer';
 import Ascendance from './modules/talents/Ascendance';
 import SplinteredElements from '../shared/talents/SplinteredElements';
+import SwirlingMaelstrom from './modules/talents/SwirlingMaelstrom';
+import MaelstromWeaponBuffNormalizer from './modules/normalizers/MaelstromWeaponBuffNormalizer';
+import MaelstromWeaponGeneratorLinkNormalizer from './modules/normalizers/MaelstromWeaponGeneratorLinkNormalizer';
 import {
   MaelstromWeaponDetails,
   MaelstromWeaponGraph,
@@ -107,6 +110,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thorimsInvocation: ThorimsInvocation,
     ashenCatalyst: AshenCatalyst,
     splinteredElements: SplinteredElements,
+    swirlingMaelstrom: SwirlingMaelstrom,
 
     // Tier
     tier28TwoSet: Tier28TwoSet,
@@ -117,6 +121,8 @@ class CombatLogParser extends CoreCombatLogParser {
     callToDominance: CallToDominance,
 
     // Normalizers
+    maelstromWeaponBuffNormalizer: MaelstromWeaponBuffNormalizer,
+    maelstromWeaponGeneratorLinkNormalizer: MaelstromWeaponGeneratorLinkNormalizer,
     eventLinkNormalizer: EventLinkNormalizer,
     eventOrderNormalizer: EventOrderNormalizer,
     maelstromWeaponCastNormalizer: MaelstromWeaponCastNormalizer,

@@ -128,7 +128,7 @@ class ElementalAssault extends Analyzer {
             <ItemDamageDone amount={this.damageGained} />
           </>
         }
-        position={STATISTIC_ORDER.OPTIONAL()}
+        position={STATISTIC_ORDER.DEFAULT}
         category={STATISTIC_CATEGORY.TALENTS}
         wide
       >

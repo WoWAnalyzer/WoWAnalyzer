@@ -18,6 +18,8 @@ import { SpellLink } from 'interface';
 import { PanelHeader } from 'interface/guide/components/GuideDivs';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
 
+const DEBUG = false;
+
 const ELEMENTAL_SPIRIT_BUFFS: Spell[] = [
   SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON,
   SPELLS.ELEMENTAL_SPIRITS_BUFF_ICY_EDGE,
@@ -89,10 +91,18 @@ class ElementalBlast extends BaseElementalBlast {
   }
 
   onCast(event: CastEvent) {
+    if (this.maelstromTracker.lastSpenderInfo?.spellId !== event.ability.guid) {
+      DEBUG &&
+        console.warn(
+          `Last spender is not an elemental blast`,
+          this.maelstromTracker.lastSpenderInfo,
+          event,
+        );
+    }
     this.elementalBlastCasts.push({
       chargesBeforeCast: this.currentCharges,
       elementalSpiritsActive: this.activeElementalSpirits,
-      maelstromUsed: this.maelstromTracker.current,
+      maelstromUsed: this.maelstromTracker.lastSpenderInfo?.amount ?? 0,
       event: event,
     });
     this.currentCharges -= 1;

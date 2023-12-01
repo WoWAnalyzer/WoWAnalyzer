@@ -18,7 +18,7 @@ export const MAELSTROM_WEAPON_INSTANT_CAST = 'maelstrom-weapon-instant-cast';
 export const THORIMS_INVOCATION_LINK = 'thorims-invocation';
 export const STORMSTRIKE_LINK = 'stormstrike';
 export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
-export const MAELSTROM_WEAPON_SPEND_LINK = 'maelstrom-spender';
+export const MAELSTROM_SPENDER_LINK = 'maelstrom-spender';
 export const LIGHTNING_BOLT_LINK = 'lightning-bolt';
 export const MAELSTROM_GENERATOR_LINK = 'maelstrom-generator';
 export const FERAL_SPIRIT_LINK = 'feral-spirit';
@@ -71,13 +71,16 @@ const chainLightningDamageLink: EventLink = {
 };
 
 const maelstromWeaponSpenderLink: EventLink = {
-  linkRelation: MAELSTROM_WEAPON_SPEND_LINK,
-  linkingEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
-  linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-  referencedEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
-  referencedEventType: [EventType.Cast, EventType.FreeCast],
+  linkRelation: MAELSTROM_SPENDER_LINK,
+  linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
+  linkingEventType: [EventType.Cast, EventType.FreeCast],
+  referencedEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
+  referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+  forwardBufferMs: 25,
   backwardBufferMs: 50,
   anyTarget: true,
+  reverseLinkRelation: MAELSTROM_SPENDER_LINK,
+  maximumLinks: 1,
 };
 
 const primordialWaveLink: EventLink = {
@@ -113,26 +116,6 @@ const lightningBoltLink: EventLink = {
   anyTarget: true,
 };
 
-const maelstromGeneratorLink: EventLink = {
-  linkRelation: MAELSTROM_GENERATOR_LINK,
-  linkingEventId: [
-    TALENTS.STORMSTRIKE_TALENT.id,
-    TALENTS.LAVA_LASH_TALENT.id,
-    TALENTS.ICE_STRIKE_TALENT.id,
-    SPELLS.WINDSTRIKE_CAST.id,
-    TALENTS.FROST_SHOCK_TALENT.id,
-    TALENTS.FIRE_NOVA_TALENT.id,
-    TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
-  ],
-  linkingEventType: EventType.Cast,
-  referencedEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
-  referencedEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack, EventType.RefreshBuff],
-  forwardBufferMs: 25,
-  backwardBufferMs: 25,
-  anyTarget: true,
-  reverseLinkRelation: MAELSTROM_GENERATOR_LINK,
-};
-
 const feralSpiritLink: EventLink = {
   linkRelation: FERAL_SPIRIT_LINK,
   linkingEventId: TALENTS.FERAL_SPIRIT_TALENT.id,
@@ -154,9 +137,10 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       primordialWaveLink,
       splinteredElements,
       lightningBoltLink,
-      maelstromGeneratorLink,
       feralSpiritLink,
     ]);
+
+    this.priority = -80;
   }
 }
 
