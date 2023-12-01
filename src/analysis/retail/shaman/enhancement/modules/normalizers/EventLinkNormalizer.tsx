@@ -21,7 +21,6 @@ export const CHAIN_LIGHTNING_LINK = 'chain-lightning';
 export const MAELSTROM_SPENDER_LINK = 'maelstrom-spender';
 export const LIGHTNING_BOLT_LINK = 'lightning-bolt';
 export const MAELSTROM_GENERATOR_LINK = 'maelstrom-generator';
-export const FERAL_SPIRIT_LINK = 'feral-spirit';
 
 const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map(
   (spell) => spell.id,
@@ -116,16 +115,6 @@ const lightningBoltLink: EventLink = {
   anyTarget: true,
 };
 
-const feralSpiritLink: EventLink = {
-  linkRelation: FERAL_SPIRIT_LINK,
-  linkingEventId: TALENTS.FERAL_SPIRIT_TALENT.id,
-  linkingEventType: EventType.Cast,
-  referencedEventId: [SPELLS.ELEMENTAL_BLAST.id],
-  referencedEventType: EventType.Damage,
-  anyTarget: true,
-  forwardBufferMs: 15000,
-};
-
 class EventLinkNormalizer extends BaseEventLinkNormalizer {
   constructor(options: Options) {
     super(options, [
@@ -137,7 +126,6 @@ class EventLinkNormalizer extends BaseEventLinkNormalizer {
       primordialWaveLink,
       splinteredElements,
       lightningBoltLink,
-      feralSpiritLink,
     ]);
 
     this.priority = -80;
