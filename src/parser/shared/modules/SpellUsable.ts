@@ -506,7 +506,7 @@ class SpellUsable extends Analyzer {
   }
 
   /** Update cooldown info for changed number of max charges */
-  protected onMaxChargesIncreased(event: MaxChargesIncreasedEvent) {
+  public onMaxChargesIncreased(event: MaxChargesIncreasedEvent) {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(event.spellId)];
     if (cdInfo) {
       cdInfo.maxCharges += event.by;
@@ -514,7 +514,7 @@ class SpellUsable extends Analyzer {
   }
 
   /** Update cooldown info for changed number of max charges */
-  protected onMaxChargesDecreased(event: MaxChargesDecreasedEvent) {
+  public onMaxChargesDecreased(event: MaxChargesDecreasedEvent) {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(event.spellId)];
     if (cdInfo) {
       cdInfo.maxCharges -= event.by;

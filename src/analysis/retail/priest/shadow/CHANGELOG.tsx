@@ -5,6 +5,7 @@ import { DoxAshe, Havoc, Sref, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 12, 1), <>Fix <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT}/> maximum number of casts</>,DoxAshe),
   change(date(2023, 11, 28), <>Update guide for <SpellLink spell={TALENTS.SHADOW_WORD_DEATH_TALENT}/> with Tier 31 four piece equppied</>,DoxAshe),
   change(date(2023, 11, 8), <>Add statistics for Tier 31 four piece</>,DoxAshe),
   change(date(2023, 11, 12), <>Updated Active Time Graph to use a rolling average instead of cumulative average.</>, Sref),
