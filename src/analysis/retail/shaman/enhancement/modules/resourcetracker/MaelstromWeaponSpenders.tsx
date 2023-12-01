@@ -4,11 +4,13 @@ import ResourceBreakdown from 'parser/shared/modules/resources/resourcetracker/R
 import Panel from 'parser/ui/Panel';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from '../../constants';
 import Events, {
-  DamageEvent,
-  HealEvent,
-  GetRelatedEvents,
   CastEvent,
+  DamageEvent,
+  EventType,
   GetRelatedEvent,
+  GetRelatedEvents,
+  HasRelatedEvent,
+  HealEvent,
 } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 import Abilities from 'parser/core/modules/Abilities';
@@ -16,7 +18,7 @@ import { formatNumber, formatThousands } from 'common/format';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
 import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import { LIGHTNING_BOLT_LINK } from '../normalizers/EventLinkNormalizer';
+import { LIGHTNING_BOLT_LINK, MAELSTROM_SPENDER_LINK } from '../normalizers/EventLinkNormalizer';
 import { PRIMORDIAL_WAVE_LINK } from 'analysis/retail/shaman/shared/constants';
 
 export default class extends Analyzer {
@@ -35,8 +37,10 @@ export default class extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCast);
-
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
+      this.onCast,
+    );
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(MAELSTROM_WEAPON_ELIGIBLE_SPELLS),
       this.onSpender,
@@ -48,16 +52,28 @@ export default class extends Analyzer {
   }
 
   onCast(event: CastEvent) {
-    this.recordNextSpenderAmount = true;
+    this.recordNextSpenderAmount = HasRelatedEvent(event, MAELSTROM_SPENDER_LINK);
 
     if (event.ability.guid === SPELLS.LIGHTNING_BOLT.id) {
       // lightning bolts linked to a primoridal wave should be included as part of primoridal wave's damage
-      const primordialWave = GetRelatedEvent<CastEvent>(event, PRIMORDIAL_WAVE_LINK);
+      const primordialWave = GetRelatedEvent<CastEvent>(
+        event,
+        PRIMORDIAL_WAVE_LINK,
+        (e) => e.type === EventType.Cast,
+      );
       const lightningBolts = primordialWave
-        ? GetRelatedEvent<CastEvent>(primordialWave, PRIMORDIAL_WAVE_LINK)
+        ? GetRelatedEvent<CastEvent>(
+            primordialWave,
+            PRIMORDIAL_WAVE_LINK,
+            (e) => e.type === EventType.Cast,
+          )
         : undefined;
       if (primordialWave && lightningBolts) {
-        const damageEvents = GetRelatedEvents(lightningBolts, LIGHTNING_BOLT_LINK) as DamageEvent[];
+        const damageEvents = GetRelatedEvents<DamageEvent>(
+          lightningBolts,
+          LIGHTNING_BOLT_LINK,
+          (e) => e.type === EventType.Damage,
+        );
         if (damageEvents.length > 1) {
           const spellId = TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id;
           // the first lightning bolt is a regular bolt
@@ -110,17 +126,18 @@ export default class extends Analyzer {
             {Object.keys(this.spenderValues).map((value) => {
               const spellId = Number(value);
               const spell = maybeGetSpell(spellId);
-              const ability = this.abilityTracker.getAbility(spellId);
-              const casts = ability.casts;
-              let spent: number;
-              if (spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id) {
-                spent = this.maelstromSpendWithPrimordialWave;
-              } else {
-                spent = this.maelstromWeaponTracker.spendersObj[spellId]?.spent || 0;
-              }
 
+              let spender = this.maelstromWeaponTracker.spendersObj[spellId];
+              if (!spender && spellId === TALENTS_SHAMAN.PRIMORDIAL_WAVE_SPEC_TALENT.id) {
+                spender = {
+                  casts: this.abilityTracker.getAbility(spellId)?.casts ?? 0,
+                  spent: this.maelstromSpendWithPrimordialWave,
+                  spentByCast: [],
+                };
+              }
               const amount = this.spenderValues[spellId];
               return (
+                spender &&
                 spell && (
                   <>
                     <tr key={spellId}>
@@ -134,10 +151,10 @@ export default class extends Analyzer {
                           </>
                         )}
                       </td>
-                      <td className="text-right">{casts}</td>
-                      <td className="text-right">{formatThousands(amount / spent)}</td>
-                      <td className="text-right">{formatNumber(spent / casts)}</td>
-                      <td className="text-right">{formatThousands(amount / casts)}</td>
+                      <td className="text-right">{spender.casts}</td>
+                      <td className="text-right">{formatThousands(amount / spender.spent)}</td>
+                      <td className="text-right">{formatNumber(spender.spent / spender.casts)}</td>
+                      <td className="text-right">{formatThousands(amount / spender.casts)}</td>
                     </tr>
                   </>
                 )

@@ -24,7 +24,7 @@ import {
 } from '../normalizers/EventLinkNormalizer';
 import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
 
-const DEBUG = true;
+const DEBUG = false;
 
 export const PERFECT_WASTED_PERCENT = 0.1;
 export const GOOD_WASTED_PERCENT = 0.2;
@@ -157,7 +157,14 @@ export default class extends ResourceTracker {
           type: this.resource.id,
         });
       } else {
-        DEBUG && console.warn(`Cast is not linked to a spender`, event);
+        DEBUG &&
+          console.warn(
+            `${event.ability.name} cast @ ${this.owner.formatTimestamp(
+              event.timestamp,
+              3,
+            )} is not linked to a spender`,
+            event,
+          );
       }
     } else if (MAELSTROM_GENERATORS.includes(event.ability.guid)) {
       const gain = GetRelatedEvents(

@@ -18,6 +18,19 @@ const thorimsInvocationEventOrder: EventOrder = {
   updateTimestamp: true,
 };
 
+/**
+ * In some instances, the comes before the cast, so normalize to force it after
+ */
+const healingOrder: EventOrder = {
+  afterEventId: [SPELLS.HEALING_SURGE.id, TALENTS.CHAIN_HEAL_TALENT.id],
+  afterEventType: [EventType.Heal, EventType.HealAbsorbed],
+  beforeEventId: [SPELLS.HEALING_SURGE.id, TALENTS.CHAIN_HEAL_TALENT.id],
+  beforeEventType: EventType.Cast,
+  anyTarget: true,
+  bufferMs: MAELSTROM_WEAPON_MS,
+  updateTimestamp: true,
+};
+
 /** The primordial wave buff is consumed before the lightning bolt it buffs is cast. The APL requires
  * the buff to be present when checking for the lightning bolt casts */
 const primordialWaveEventOrder: EventOrder = {
@@ -32,7 +45,7 @@ const primordialWaveEventOrder: EventOrder = {
 
 export class EventOrderNormalizer extends BaseEventOrderNormalizer {
   constructor(options: Options) {
-    super(options, [thorimsInvocationEventOrder, primordialWaveEventOrder]);
+    super(options, [thorimsInvocationEventOrder, healingOrder, primordialWaveEventOrder]);
   }
 
   /** After the base normalize is done, we're changing all auto-casts of Lightning Bolt

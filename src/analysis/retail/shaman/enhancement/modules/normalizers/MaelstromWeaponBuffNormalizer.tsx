@@ -24,7 +24,7 @@ class MaelstromWeaponBuffNormalizer extends EventsNormalizer {
           // look for a refresh event following this one
           for (let forwardIndex = idx; forwardIndex < events.length; forwardIndex += 1) {
             const forwardEvent = events[forwardIndex];
-            if (forwardEvent.timestamp - event.timestamp > 5) {
+            if (forwardEvent.timestamp - event.timestamp > 10) {
               break;
             }
             if (
