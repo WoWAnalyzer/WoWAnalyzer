@@ -16,10 +16,6 @@ import { encodeTargetString } from 'parser/shared/modules/Enemies';
 
 const CAST_BUFFER_MS = 75;
 const EXTENDED_CAST_BUFFER_MS = 150;
-const COMBUSTION_BUFFER_MS = 60_000; //Combustion can be extended multiple times, so 60s to be safe
-const HOT_STREAK_BUFFER_MS = 15_500; //15s Buff Duration + Buffer
-const FEEL_THE_BURN_BUFFER_MS = 600_000; //Feel the Burn can potentially be continually extended for the entire fight, so 10m to be safe
-const PYROBLAST_BUFFER_MS = 8_000; //4s Cast + extra in cast spell casting is slowed
 
 export const BUFF_APPLY = 'BuffApply';
 export const BUFF_REMOVE = 'BuffRemove';
@@ -31,17 +27,6 @@ export const SPELL_DAMAGE = 'SpellDamage';
 
 const EVENT_LINKS: EventLink[] = [
   {
-    reverseLinkRelation: SPELL_CAST,
-    linkingEventId: TALENTS.COMBUSTION_TALENT.id,
-    linkingEventType: EventType.Cast,
-    linkRelation: BUFF_APPLY,
-    referencedEventId: TALENTS.COMBUSTION_TALENT.id,
-    referencedEventType: EventType.ApplyBuff,
-    anyTarget: true,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
     reverseLinkRelation: BUFF_APPLY,
     linkingEventId: TALENTS.COMBUSTION_TALENT.id,
     linkingEventType: EventType.ApplyBuff,
@@ -50,7 +35,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.RemoveBuff,
     anyTarget: true,
     maximumLinks: 1,
-    forwardBufferMs: COMBUSTION_BUFFER_MS,
+    forwardBufferMs: 60_000, //Combustion can be extended multiple times, so 60s to be safe
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -61,7 +46,18 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.HOT_STREAK.id,
     referencedEventType: EventType.RemoveBuff,
     maximumLinks: 1,
-    forwardBufferMs: HOT_STREAK_BUFFER_MS,
+    forwardBufferMs: 16_000, //15sec duration, plus a buffer
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_APPLY,
+    linkingEventId: SPELLS.FLAMES_FURY.id,
+    linkingEventType: EventType.ApplyBuff,
+    linkRelation: BUFF_REMOVE,
+    referencedEventId: SPELLS.FLAMES_FURY.id,
+    referencedEventType: EventType.RemoveBuff,
+    maximumLinks: 1,
+    forwardBufferMs: 32_000, //30sec duration, plus a buffer
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -77,6 +73,18 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: EXTENDED_CAST_BUFFER_MS,
   },
   {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.FLAMES_FURY.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: SPELL_CAST,
+    referencedEventId: TALENTS.PHOENIX_FLAMES_TALENT.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: EXTENDED_CAST_BUFFER_MS,
+    backwardBufferMs: EXTENDED_CAST_BUFFER_MS,
+  },
+  {
     reverseLinkRelation: BUFF_APPLY,
     linkingEventId: SPELLS.FEEL_THE_BURN_BUFF.id,
     linkingEventType: EventType.ApplyBuff,
@@ -84,7 +92,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.FEEL_THE_BURN_BUFF.id,
     referencedEventType: EventType.RemoveBuff,
     maximumLinks: 1,
-    forwardBufferMs: FEEL_THE_BURN_BUFFER_MS,
+    forwardBufferMs: 600_000, //If you manage your charges, you can keep the buff up pretty much the whole fight, so 10min just in case.
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -95,7 +103,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.ApplyBuff,
     maximumLinks: 1,
     forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: FEEL_THE_BURN_BUFFER_MS,
+    backwardBufferMs: 600_000, //If you manage your charges, you can keep the buff up pretty much the whole fight, so 10min just in case.
   },
   {
     linkingEventId: SPELLS.FEEL_THE_BURN_BUFF.id,
@@ -104,7 +112,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: SPELLS.FEEL_THE_BURN_BUFF.id,
     referencedEventType: EventType.RemoveBuff,
     maximumLinks: 1,
-    forwardBufferMs: FEEL_THE_BURN_BUFFER_MS,
+    forwardBufferMs: 600_000, //If you manage your charges, you can keep the buff up pretty much the whole fight, so 10min just in case.
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -120,6 +128,30 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
+    reverseLinkRelation: CAST_BEGIN,
+    linkingEventId: SPELLS.FIREBALL.id,
+    linkingEventType: EventType.BeginCast,
+    linkRelation: SPELL_CAST,
+    referencedEventId: SPELLS.FIREBALL.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: 3000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: CAST_BEGIN,
+    linkingEventId: SPELLS.SCORCH.id,
+    linkingEventType: EventType.BeginCast,
+    linkRelation: SPELL_CAST,
+    referencedEventId: SPELLS.SCORCH.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: 2000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
     reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.PYROBLAST_TALENT.id,
     linkingEventType: EventType.Cast,
@@ -127,7 +159,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS.PYROBLAST_TALENT.id,
     referencedEventType: EventType.Damage,
     maximumLinks: 1,
-    forwardBufferMs: PYROBLAST_BUFFER_MS,
+    forwardBufferMs: 8000, //4sec cast, adding some extra just in case casting is slowed
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
@@ -165,18 +197,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    reverseLinkRelation: CAST_BEGIN,
-    linkingEventId: SPELLS.FIREBALL.id,
-    linkingEventType: EventType.BeginCast,
-    linkRelation: SPELL_CAST,
-    referencedEventId: SPELLS.FIREBALL.id,
-    referencedEventType: EventType.Cast,
-    anyTarget: true,
-    maximumLinks: 1,
-    forwardBufferMs: 3000,
-    backwardBufferMs: CAST_BUFFER_MS,
-  },
-  {
     reverseLinkRelation: SPELL_CAST,
     linkingEventId: SPELLS.SCORCH.id,
     linkingEventType: EventType.Cast,
@@ -199,7 +219,8 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    reverseLinkRelation: 'CombustStart',
+    //Combustion
+    reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.COMBUSTION_TALENT.id,
     linkingEventType: EventType.Cast,
     linkRelation: PRE_CAST,
@@ -210,10 +231,11 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent): boolean {
       return !isInstantCast(referencedEvent as CastEvent);
     },
-    forwardBufferMs: 1000,
+    forwardBufferMs: 1500,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
+    //Hot Streak
     reverseLinkRelation: BUFF_REMOVE,
     linkingEventId: SPELLS.HOT_STREAK.id,
     linkingEventType: EventType.RemoveBuff,

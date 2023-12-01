@@ -31,7 +31,7 @@ class DivertedEnergy extends Analyzer {
 
   statistic() {
     return (
-      <Statistic category={STATISTIC_CATEGORY.COVENANTS} size="flexible">
+      <Statistic category={STATISTIC_CATEGORY.TALENTS} size="flexible">
         <BoringSpellValueText spell={TALENTS.DIVERTED_ENERGY_TALENT}>
           <ItemHealingDone amount={this.healingDone} />
           <br />

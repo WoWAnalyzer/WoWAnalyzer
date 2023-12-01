@@ -1,36 +1,34 @@
 import { Trans } from '@lingui/macro';
-import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import BLOODLUST_BUFFS from 'game/BLOODLUST_BUFFS';
 import { SpellLink } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
+import CASTS_THAT_ARENT_CASTS from 'parser/core/CASTS_THAT_ARENT_CASTS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import Events, { EventType, CastEvent, BeginCastEvent, GetRelatedEvent } from 'parser/core/Events';
+import Events, {
+  CastEvent,
+  BeginCastEvent,
+  GetRelatedEvent,
+  HasRelatedEvent,
+} from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import CooldownHistory from 'parser/shared/modules/CooldownHistory';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class CombustionCasts extends Analyzer {
   static dependencies = {
-    sharedCode: SharedCode,
     abilityTracker: AbilityTracker,
-    eventHistory: EventHistory,
-    cooldownHistory: CooldownHistory,
   };
-  protected sharedCode!: SharedCode;
   protected abilityTracker!: AbilityTracker;
-  protected eventHistory!: EventHistory;
-  protected cooldownHistory!: CooldownHistory;
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
-  combustionCasts: { cast: CastEvent; precast: BeginCastEvent | undefined; delay: number }[] = [];
+  combustionCasts: { cast: CastEvent; precast: CastEvent | undefined; delay: number }[] = [];
+  combustionCastEvents: CastEvent[] = [];
   fireballs: {
     beginCast: BeginCastEvent;
     cast: CastEvent | undefined;
@@ -48,16 +46,19 @@ class CombustionCasts extends Analyzer {
       Events.begincast.by(SELECTED_PLAYER).spell(SPELLS.FIREBALL),
       this.onFireballBegins,
     );
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onSpellCast);
   }
 
   onCombust(event: CastEvent) {
-    const precast: BeginCastEvent | undefined = GetRelatedEvent(event, 'PreCast');
+    const precast: CastEvent | undefined = GetRelatedEvent(event, 'PreCast');
 
     let castDelay = 0;
-    if (precast && precast.castEvent) {
-      this.log(precast);
+    if (precast && HasRelatedEvent(precast, 'SpellCast')) {
+      const beginCast: BeginCastEvent | undefined = GetRelatedEvent(precast, 'CastBegin');
       castDelay =
-        precast.timestamp > event.timestamp ? precast.castEvent.timestamp - event.timestamp : 0;
+        beginCast && precast.timestamp > event.timestamp && beginCast.timestamp < event.timestamp
+          ? precast.timestamp - event.timestamp
+          : 0;
     }
 
     this.combustionCasts[event.timestamp] = { cast: event, precast: precast, delay: castDelay };
@@ -73,6 +74,16 @@ class CombustionCasts extends Analyzer {
         ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, cast.timestamp)
         : false,
     };
+  }
+
+  onSpellCast(event: CastEvent) {
+    if (
+      !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) ||
+      CASTS_THAT_ARENT_CASTS.includes(event.ability.guid)
+    ) {
+      return;
+    }
+    this.combustionCastEvents[this.combustionCastEvents.length] = event;
   }
 
   //Removing this check for now as it is not relevant, but might become relevant again in the future
@@ -137,6 +148,20 @@ class CombustionCasts extends Analyzer {
 
   get totalCombustionCasts() {
     return this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts;
+  }
+
+  get castBreakdown() {
+    const castArray: number[][] = [];
+    this.combustionCastEvents &&
+      this.combustionCastEvents.forEach((c: CastEvent) => {
+        const index = castArray.findIndex((arr) => arr.includes(c.ability.guid));
+        if (index !== -1) {
+          castArray[index][1] += 1;
+        } else {
+          castArray.push([c.ability.guid, 1]);
+        }
+      });
+    return castArray;
   }
 
   /*
@@ -274,8 +299,7 @@ class CombustionCasts extends Analyzer {
                     <small>% of Total Combust Casts</small>
                   </td>
                 </tr>
-                {this.sharedCode
-                  .castBreakdownByBuff(true, TALENTS.COMBUSTION_TALENT)
+                {this.castBreakdown
                   .sort((a, b) => b[1] - a[1])
                   .map((spell) => (
                     <tr key={Number(spell)} style={{ fontSize: 16 }}>
@@ -284,14 +308,7 @@ class CombustionCasts extends Analyzer {
                       </td>
                       <td style={{ textAlign: 'center' }}>{spell[1]}</td>
                       <td style={{ textAlign: 'center' }}>
-                        {formatPercentage(
-                          spell[1] /
-                            this.eventHistory.getEventsWithBuff(
-                              TALENTS.COMBUSTION_TALENT,
-                              EventType.Cast,
-                            ).length || 0,
-                        )}
-                        %
+                        {formatPercentage(spell[1] / this.combustionCastEvents.length || 0)}%
                       </td>
                     </tr>
                   ))}

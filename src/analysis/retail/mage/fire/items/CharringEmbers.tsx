@@ -7,39 +7,37 @@ import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import { SpellLink } from 'interface';
 import Events, {
   DamageEvent,
-  FightEndEvent,
+  CastEvent,
   RefreshBuffEvent,
   RemoveBuffEvent,
   ApplyBuffEvent,
+  GetRelatedEvent,
 } from 'parser/core/Events';
-import { EventType } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import CooldownHistory from 'parser/shared/modules/CooldownHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
-import { SharedCode } from '../../shared';
 
 class CharringEmbers extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    eventHistory: EventHistory,
     cooldownHistory: CooldownHistory,
     spellUsable: SpellUsable,
-    sharedCode: SharedCode,
   };
   protected enemies!: Enemies;
-  protected eventHistory!: EventHistory;
   protected cooldownHistory!: CooldownHistory;
   protected spellUsable!: SpellUsable;
-  protected sharedCode!: SharedCode;
 
   flamesFuryRefreshes: RefreshBuffEvent[] = [];
-  flamesFuryExpires: RemoveBuffEvent[] = [];
-  flamesFuryApplies: ApplyBuffEvent[] = [];
+  flamesFury: {
+    buffApply: ApplyBuffEvent | undefined;
+    buffRemove: RemoveBuffEvent;
+    spender: CastEvent | undefined;
+    expired: boolean;
+  }[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -48,31 +46,37 @@ class CharringEmbers extends Analyzer {
       Events.damage.by(SELECTED_PLAYER).spell(SPELLS.PHOENIX_FLAMES_DAMAGE),
       this.onPhoenixDamage,
     );
-    this.addEventListener(Events.fightend, this.collectEvents);
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMES_FURY),
+      this.onFlamesFuryEnd,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.FLAMES_FURY),
+      this.onFlamesFuryRefresh,
+    );
   }
 
-  collectEvents(event: FightEndEvent) {
-    this.flamesFuryRefreshes = this.eventHistory.getEvents(EventType.RefreshBuff, {
-      spell: SPELLS.FLAMES_FURY,
-    });
-    this.flamesFuryExpires = this.sharedCode.getExpiredProcs(
-      SPELLS.FLAMES_FURY,
-      TALENTS.PHOENIX_FLAMES_TALENT,
-    );
-    this.flamesFuryApplies = this.eventHistory.getEvents(EventType.ApplyBuff, {
-      spell: SPELLS.FLAMES_FURY,
-    });
+  onFlamesFuryEnd(event: RemoveBuffEvent) {
+    const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, 'BuffApply');
+    const spender: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
+    this.flamesFury[this.flamesFury.length] = {
+      buffApply: buffApply,
+      buffRemove: event,
+      spender: spender,
+      expired: spender ? true : false,
+    };
+  }
+
+  onFlamesFuryRefresh(event: RefreshBuffEvent) {
+    this.flamesFuryRefreshes[this.flamesFuryRefreshes.length] = event;
   }
 
   onPhoenixDamage(event: DamageEvent) {
-    if (!this.selectedCombatant.hasBuff(SPELLS.FLAMES_FURY.id)) {
+    const cast: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
+    if (!cast || !this.selectedCombatant.hasBuff(SPELLS.FLAMES_FURY.id, event.timestamp - 10)) {
       return;
     }
-    const cast = this.eventHistory.getEvents(EventType.Cast, {
-      spell: TALENTS.PHOENIX_FLAMES_TALENT,
-      count: 1,
-      duration: 1000,
-    })[0];
+
     const castTarget = encodeTargetString(cast.targetID || 0, cast.targetInstance);
     const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
     if (castTarget === damageTarget) {
@@ -101,22 +105,29 @@ class CharringEmbers extends Analyzer {
   };
 
   expiredProcs = () => {
-    if (this.flamesFuryExpires) {
-      let expired = 0;
-      this.flamesFuryExpires.forEach((e) => {
-        const prevProcs = this.selectedCombatant.getBuff(SPELLS.FLAMES_FURY.id, e.timestamp - 10);
-        expired += prevProcs && prevProcs.stacks ? prevProcs.stacks : 0;
-      });
-      return expired;
-    } else {
-      return 0;
-    }
+    const expires = this.flamesFury.filter((e) => e.expired === true);
+
+    let expiredProcs = 0;
+    expires.forEach((e) => {
+      const prevProcs = this.selectedCombatant.getBuff(
+        SPELLS.FLAMES_FURY.id,
+        e.buffRemove.timestamp - 10,
+      );
+      expiredProcs += prevProcs && prevProcs.stacks ? prevProcs.stacks : 0;
+    });
+    return expiredProcs;
   };
 
   noPhoenixFlames = () => {
     let noPhoenixFlames = 0;
-    this.flamesFuryApplies.forEach((buff) => {
-      if (!this.cooldownHistory.wasAvailable(TALENTS.PHOENIX_FLAMES_TALENT.id, buff.timestamp)) {
+    this.flamesFury.forEach((buff) => {
+      if (
+        buff.buffApply &&
+        !this.cooldownHistory.wasAvailable(
+          TALENTS.PHOENIX_FLAMES_TALENT.id,
+          buff.buffApply.timestamp,
+        )
+      ) {
         noPhoenixFlames += 1;
       }
     });
