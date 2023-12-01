@@ -321,7 +321,7 @@ export function generatedEssenceBurst(event: CastEvent) {
   return HasRelatedEvent(event, ESSENCE_BURST_GENERATED);
 }
 
-export function failedEbonMightExtention(event: CastEvent | EmpowerEndEvent) {
+export function failedEbonMightExtension(event: CastEvent | EmpowerEndEvent) {
   return HasRelatedEvent(event, FAILED_EXTENSION_LINK);
 }
 

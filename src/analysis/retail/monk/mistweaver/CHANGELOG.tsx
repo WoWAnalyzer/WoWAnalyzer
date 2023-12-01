@@ -6,6 +6,9 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 11, 27), <>Update <SpellLink spell={SPELLS.VIVIFY}/> thresholds for <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/></>, Trevor),
+  change(date(2023, 11, 27), <>Update <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> module</>, Trevor),
+  change(date(2023, 11, 25), <>Update <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT}/> module</>, Trevor),
   change(date(2023, 11, 24), <>Change load conditions for <SpellLink spell={TALENTS_MONK.RISING_SUN_KICK_TALENT}/> guide section</>, Trevor),
   change(date(2023, 11, 22), <>Update explanation of colors in <SpellLink spell={SPELLS.VIVIFY}/> guide section</>, Trevor),
   change(date(2023, 11, 21), <>Fix performance calculations for <SpellLink spell={SPELLS.VIVIFY}/> when not talented into <SpellLink spell={TALENTS_MONK.UPLIFTED_SPIRITS_TALENT}/></>, Trevor),

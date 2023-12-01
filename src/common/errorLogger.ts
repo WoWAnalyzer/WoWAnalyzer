@@ -1,3 +1,5 @@
+import { captureException as sentryCaptureException, withScope } from '@sentry/react';
+
 export function captureException(
   exception: Error,
   options?: {
@@ -7,11 +9,11 @@ export function captureException(
 ) {
   if (process.env.NODE_ENV === 'production') {
     console.error('An error occurred and was sent to Sentry.', exception);
-    window.Sentry?.withScope((scope) => {
+    withScope((scope) => {
       if (options && options.extra) {
         scope.setExtras(options.extra);
       }
-      window.Sentry?.captureException(exception);
+      sentryCaptureException(exception);
     });
   } else {
     throw exception;

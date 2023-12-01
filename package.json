@@ -11,6 +11,7 @@
     "@lingui/macro": "3.17.2",
     "@lingui/react": "3.17.2",
     "@reduxjs/toolkit": "^1.9.5",
+    "@sentry/react": "^7.76.0",
     "@types/react-toggle": "^4.0.3",
     "@wowanalyzer/react-tooltip-lite": "^3.1.2",
     "core-js": "3.32.0",
@@ -51,7 +52,7 @@
     "@lingui/loader": "3.17.2",
     "@martijnhols/eslint-config": "^5.1.0",
     "@playwright/test": "^1.36.2",
-    "@sentry/browser": "^7.61.1",
+    "@sentry/cli": "^2.21.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^12",
     "@types/decompress": "^4.2.4",
@@ -113,7 +114,8 @@
     "e2e:setup": "node ./scripts/e2e/generate-configs-bootstrap.js",
     "e2e": "yarn e2e:setup && playwright test",
     "e2e:codegen": "playwright codegen http://localhost:3000",
-    "e2e:report": "playwright show-report"
+    "e2e:report": "playwright show-report",
+    "sourcemaps": "sentry-cli sourcemaps inject build"
   },
   "lint-staged": {
     "*.{ts,tsx,js,jsx,json,md,mdx,yml,graphql,scss,css}": [

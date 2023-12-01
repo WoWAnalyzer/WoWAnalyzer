@@ -26,6 +26,7 @@ const RAPID_DIFFUSION_SPELLS = [
   TALENTS_MONK.RISING_SUN_KICK_TALENT,
 ];
 const BASE_AVERAGE_REMS = 2.22;
+const RM_AVG_REM_DIFF = 3;
 
 class Vivify extends Analyzer {
   static dependencies = {
@@ -333,13 +334,16 @@ class Vivify extends Analyzer {
     const percentOverheal = overhealPerCast / (healingPerCast + overhealPerCast);
     const rems = invigoratingMistHits.length;
     let value = QualitativePerformance.Fail;
-    if (rems >= 10 && percentOverheal <= 0.5) {
+    // Rising Mist avg rems is roughly 2 higher than ToM
+    const rmConst =
+      this.selectedCombatant.getTalentRank(TALENTS_MONK.RISING_MIST_TALENT) * RM_AVG_REM_DIFF;
+    if (rems >= 8 + rmConst && percentOverheal <= 0.5) {
       value = QualitativePerformance.Perfect;
-    } else if (rems >= 8 && percentOverheal <= 0.5) {
+    } else if (rems >= 6 + rmConst && percentOverheal <= 0.5) {
       value = QualitativePerformance.Good;
-    } else if (rems >= 6 && percentOverheal <= 0.5) {
+    } else if (rems >= 4 + rmConst && percentOverheal <= 0.5) {
       value = QualitativePerformance.Good;
-    } else if (fullOverhealHits <= 5 || percentOverheal <= 0.4) {
+    } else if (fullOverhealHits <= 3 + rmConst || percentOverheal <= 0.4) {
       value = QualitativePerformance.Ok;
     }
 

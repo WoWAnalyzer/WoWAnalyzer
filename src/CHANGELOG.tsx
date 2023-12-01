@@ -32,11 +32,17 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 28), 'Actually populate Sentry releases.', ToppleTheNun),
+  change(date(2023, 11, 28), 'Update Sentry release naming.', ToppleTheNun),
+  change(date(2023, 11, 28), 'Remove deprecated Shadowlands combatantinfo that was breaking the Holy Priest analyzer.', emallson),
+  change(date(2023, 11, 27), <>Fix inaccurate tooltip for <ItemLink id={ITEMS.ELEMENTAL_LARIAT.id}/>.</>, Trevor),
   change(date(2023, 11, 27), 'Change trinket obj structure and add Classic WotLK trinkets', jazminite),
   change(date(2023, 11, 23), 'Refactor Code Smell Missing Union Type.', LucasLevyOB),
+  change(date(2023, 11, 19), 'Improve error reporting integration.', ToppleTheNun),
   change(date(2023, 11, 19), 'Remove warning for 10.2 logs.', ToppleTheNun),
   change(date(2023, 11, 18), 'Regenerate talents.', ToppleTheNun),
   change(date(2023, 11, 15), 'i18n: Translation to Portuguese of the pages News, Specs, Premium, and About.', LucasLevyOB),
+  change(date(2023, 11, 15), 'Refactor Code Smell Any Type.', LucasLevyOB),
   change(date(2023, 11, 15), 'Add backgrounds for Dawn of the Infinites, Everbloom, and Throne of the Tides.', ToppleTheNun),
   change(date(2023, 11, 13), <>Add stat tracking and statistics for <ItemLink id={ITEMS.ELEMENTAL_LARIAT.id}/>.</>, nullDozzer),
   change(date(2023, 11, 7), 'Fix Classic class / spec ranking ids.', jazminite),

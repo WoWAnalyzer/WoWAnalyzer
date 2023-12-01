@@ -128,9 +128,18 @@ export default class extends Analyzer {
                 casts = ability.casts;
                 spent = this.maelstromSpendWithPrimordialWave;
               } else {
-                casts = this.maelstromWeaponTracker.spendersObj[spellId].casts;
-                spent = this.maelstromWeaponTracker.spendersObj[spellId].spent;
+                const spenderObj = this.maelstromWeaponTracker.spendersObj[spellId];
+                if (spenderObj) {
+                  casts = spenderObj.casts;
+                  spent = spenderObj.spent;
+                } else {
+                  // Hotfix: Resolves this module from loading if unhandled in
+                  // MaelstromWeaponTracker. Will show 0 casts instead.
+                  casts = 0;
+                  spent = 0;
+                }
               }
+
               const amount = this.spenderValues[spellId];
               return (
                 spell && (

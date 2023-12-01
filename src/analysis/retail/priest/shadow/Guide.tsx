@@ -1,5 +1,6 @@
 import { GuideProps, Section, SubSection } from 'interface/guide';
 import TALENTS from 'common/TALENTS/priest';
+import { TIERS } from 'game/TIERS';
 import CombatLogParser from './CombatLogParser';
 import PreparationSection from 'interface/guide/components/Preparation/PreparationSection';
 import CooldownGraphSubsection from './modules/guide/CooldownGraphSubsection';
@@ -24,6 +25,9 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Cooldowns">
         <Section title="Core Spells">
           <CooldownGraphSubsection.CoreCooldownsGraph />
+          {info.combatant.has4PieceByTier(TIERS.T31) && modules.tier31FourSet.guideSubsection}
+        </Section>
+        <Section title="Short Cooldowns">
           <CooldownGraphSubsection.ShortCooldownsGraph />
           {info.combatant.hasTalent(TALENTS.INSIDIOUS_IRE_TALENT) &&
             modules.insidiousIre.guideSubsection}
