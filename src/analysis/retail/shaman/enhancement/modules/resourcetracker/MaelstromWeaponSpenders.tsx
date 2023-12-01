@@ -65,7 +65,8 @@ export default class extends Analyzer {
           this.spenderValues[spellId] =
             (this.spenderValues[spellId] ?? 0) +
             damageEvents.reduce((total: number, de: DamageEvent) => (total += de.amount), 0);
-          this.maelstromSpendWithPrimordialWave += this.maelstromWeaponTracker.current;
+          this.maelstromSpendWithPrimordialWave +=
+            this.maelstromWeaponTracker.lastSpenderInfo?.amount ?? 0;
         }
       }
     }
