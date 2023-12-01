@@ -55,7 +55,7 @@ class Lifebloom extends Analyzer {
     let value: QualitativePerformance;
 
     const isClearcast = this.selectedCombatant.hasBuff(SPELLS.CLEARCASTING.id, event.timestamp);
-    const isHealingTrance = this.selectedCombatant.hasBuff(ITEMS.SOUL_PRESERVER.buffId);
+    const isHealingTrance = this.selectedCombatant.hasBuff(ITEMS.SOUL_PRESERVER.buffs[0].id);
     if (isClearcast || isHealingTrance) {
       value = QualitativePerformance.Good;
     } else {

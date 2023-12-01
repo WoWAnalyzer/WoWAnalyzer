@@ -36,6 +36,7 @@ export default [
   change(date(2023, 11, 28), 'Update Sentry release naming.', ToppleTheNun),
   change(date(2023, 11, 28), 'Remove deprecated Shadowlands combatantinfo that was breaking the Holy Priest analyzer.', emallson),
   change(date(2023, 11, 27), <>Fix inaccurate tooltip for <ItemLink id={ITEMS.ELEMENTAL_LARIAT.id}/>.</>, Trevor),
+  change(date(2023, 11, 27), 'Change trinket obj structure and add Classic WotLK trinkets', jazminite),
   change(date(2023, 11, 23), 'Refactor Code Smell Missing Union Type.', LucasLevyOB),
   change(date(2023, 11, 19), 'Improve error reporting integration.', ToppleTheNun),
   change(date(2023, 11, 19), 'Remove warning for 10.2 logs.', ToppleTheNun),
