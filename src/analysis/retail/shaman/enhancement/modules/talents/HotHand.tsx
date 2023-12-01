@@ -33,6 +33,8 @@ import EmbeddedTimelineContainer, {
 import Casts from 'interface/report/Results/Timeline/Casts';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
+const GCD_TOLERANCE = 50;
+
 class HotHandRank {
   modRate: number;
   increase: number;
@@ -142,7 +144,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
   startOrRefreshWindow(event: CastEvent) {
     // on application both resets the CD and applies a mod rate
-    this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id, event.timestamp, true);
+    this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id, event.timestamp);
 
     if (!this.activeWindow) {
       this.spellUsable.applyCooldownRateChange(
@@ -251,7 +253,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
         >
           <SpellTimeline>
             <Casts
-              start={cast.event.timestamp}
+              start={cast.timeline.start}
               movement={undefined}
               secondWidth={60}
               events={cast.timeline.events}
@@ -274,7 +276,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
     let estimatedMissedCasts = 0;
     if (cast.hasMissedCasts) {
       const noOfGcdsInWindow =
-        (cast.timeline.end! - cast.timeline.start) / (this.getAverageGcdOfWindow(cast) ?? 1);
+        (cast.timeline.end! - cast.timeline.start) / (this.getAverageGcdOfWindow(cast) ?? 1) + 1;
       estimatedMissedCasts = Math.max(
         Math.ceil(noOfGcdsInWindow / 2) - lavaLashCasts - cast.higherPriorityCasts,
         0,
@@ -312,7 +314,10 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   private getAverageGcdOfWindow(cast: HotHandProc) {
-    return cast.globalCooldowns.reduce((t, v) => (t += v), 0) / (cast.globalCooldowns.length ?? 1);
+    return (
+      cast.globalCooldowns.reduce((t, v) => (t += v + GCD_TOLERANCE), 0) /
+      (cast.globalCooldowns.length ?? 1)
+    );
   }
 
   private explainGcdPerformance(cast: HotHandProc): ChecklistUsageInfo {
