@@ -219,7 +219,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    //Combustion
     reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.COMBUSTION_TALENT.id,
     linkingEventType: EventType.Cast,
@@ -235,7 +234,6 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
-    //Hot Streak
     reverseLinkRelation: BUFF_REMOVE,
     linkingEventId: SPELLS.HOT_STREAK.id,
     linkingEventType: EventType.RemoveBuff,
