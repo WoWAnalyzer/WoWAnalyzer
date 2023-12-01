@@ -70,7 +70,7 @@ class ShadowWordDeath extends ExecuteHelper {
 
     //console.log("SWD Totals:",ExecuteCasts,"NE",this.totalNonExecuteCasts,"DM",DeathAndMadnessCasts,"DS",DeathSpeakerCasts);
 
-    this.maxCasts +=
+    this.maxCasts =
       ExecuteCasts + this.totalNonExecuteCasts + DeathAndMadnessCasts + DeathSpeakerCasts;
   }
 }
