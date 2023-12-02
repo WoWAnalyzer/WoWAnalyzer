@@ -17,6 +17,7 @@ import { explanationAndDataSubsection } from 'interface/guide/components/Explana
 import { SpellLink } from 'interface';
 import { PanelHeader } from 'interface/guide/components/GuideDivs';
 import { PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
+import { plural } from '@lingui/macro';
 
 const DEBUG = false;
 
@@ -152,12 +153,27 @@ class ElementalBlast extends BaseElementalBlast {
       : QualitativePerformance.Fail;
   }
 
+  getElementaBlastChargesPerformance(cast: ElementalBlastCastDetails) {
+    if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
+      return QualitativePerformance.Perfect;
+    } else if (cast.maelstromUsed >= 8) {
+      return cast.elementalSpiritsActive >= 2
+        ? QualitativePerformance.Perfect
+        : cast.elementalSpiritsActive >= 1
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Ok;
+    }
+    return QualitativePerformance.Fail;
+  }
+
   getOverallCastPerformance(cast: ElementalBlastCastDetails) {
     if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
       return QualitativePerformance.Perfect;
     } else if (cast.elementalSpiritsActive >= 1) {
       return cast.maelstromUsed >= 8
-        ? QualitativePerformance.Perfect
+        ? cast.elementalSpiritsActive >= 2
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Good
         : cast.maelstromUsed >= 5
         ? QualitativePerformance.Ok
         : QualitativePerformance.Fail;
@@ -199,19 +215,19 @@ class ElementalBlast extends BaseElementalBlast {
         details: <></>,
       });
 
-      cast.elementalSpiritsActive === 0 &&
-        checklistItems.push({
-          check: 'elemental-blast-charges',
-          timestamp: cast.event.timestamp,
-          performance:
-            cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5
-              ? QualitativePerformance.Perfect
-              : QualitativePerformance.Fail,
-          summary: (
-            <>{cast.chargesBeforeCast === 2 ? 'Used at max charges' : 'Not at max charges'}</>
-          ),
-          details: <></>,
-        });
+      checklistItems.push({
+        check: 'elemental-blast-charges',
+        timestamp: cast.event.timestamp,
+        performance: this.getElementaBlastChargesPerformance(cast),
+        summary: (
+          <>
+            {cast.chargesBeforeCast}{' '}
+            {plural(cast.chargesBeforeCast, { one: 'charge', other: 'charges' })} of{' '}
+            <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> available
+          </>
+        ),
+        details: <></>,
+      });
 
       return {
         _key: `elemental-blast-${cast.event.timestamp}`,
@@ -231,9 +247,8 @@ class ElementalBlast extends BaseElementalBlast {
         <p>
           <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> damage is multiplicatively
           increased for each <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} /> that is
-          currently active, typically ranging from a 20% increase with one to 78% with three, and in
-          rare cases up to nearly 250% with five{' '}
-          <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />
+          currently active, typically ranging from a 20% increase with one to 73% with three, and in
+          rare cases up to ~150% with five <SpellLink spell={TALENTS.ELEMENTAL_SPIRITS_TALENT} />
         </p>
       </>,
       // details/data
