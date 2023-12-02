@@ -3,7 +3,7 @@ import SPELLS from 'common/SPELLS/demonhunter';
 import TALENTS from 'common/TALENTS/demonhunter';
 import Events, { CastEvent } from 'parser/core/Events';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
@@ -12,7 +12,7 @@ import DemonicExplanation from './DemonicExplanation';
 import { getFuriousGazeBuffApplication } from '../../../normalizers/FuriousGazeNormalizer';
 import FuriousGazeExplanation from '../../../modules/talents/EyeBeam/FuriousGazeExplanation';
 
-interface EyeBeamCooldownCast extends SpellCast<CastEvent> {
+interface EyeBeamCooldownCast extends CooldownTrigger<CastEvent> {
   triggeredFuriousGaze: boolean;
 }
 

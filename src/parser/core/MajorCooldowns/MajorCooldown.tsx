@@ -14,7 +14,7 @@ import Spell from 'common/SPELLS/Spell';
 /**
  * Simple interface intended to be extended by any casts used by MajorCooldown.
  */
-export interface SpellCast<T extends AnyEvent> {
+export interface CooldownTrigger<T extends AnyEvent> {
   event: T;
 }
 
@@ -22,15 +22,15 @@ export interface CooldownOptions {
   spell: Spell;
 }
 
-export const createChecklistItem = <Cast extends SpellCast<AnyEvent>>(
+export const createChecklistItem = <Trigger extends CooldownTrigger<AnyEvent>>(
   check: string,
-  cast: Cast,
+  trigger: Trigger,
   usageInfo: UsageInfo | undefined,
 ): ChecklistUsageInfo | undefined => {
   if (!usageInfo) {
     return undefined;
   }
-  return { check, timestamp: cast.event.timestamp, ...usageInfo };
+  return { check, timestamp: trigger.event.timestamp, ...usageInfo };
 };
 
 /**
@@ -39,7 +39,9 @@ export const createChecklistItem = <Cast extends SpellCast<AnyEvent>>(
  *
  * For example, see Soul Carver section in: /report/WFqxPGv4XBQfTgy6/4-Heroic+Eranog+-+Kill+(3:25)/Artydh/standard
  */
-export default abstract class MajorCooldown<Cast extends SpellCast<AnyEvent>> extends Analyzer {
+export default abstract class MajorCooldown<
+  Cast extends CooldownTrigger<AnyEvent>,
+> extends Analyzer {
   private cooldownCasts: Cast[] = [];
   private cooldownUses: SpellUse[] = [];
   readonly spell: Spell;

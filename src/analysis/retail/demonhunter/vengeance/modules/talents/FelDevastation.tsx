@@ -10,7 +10,7 @@ import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modu
 import FieryDemiseExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/FieryDemiseExplanation';
 import DemonicExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/DemonicExplanation';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { getDamageEvents } from 'analysis/retail/demonhunter/vengeance/normalizers/FelDevastationNormalizer';
 import { isDefined } from 'common/typeGuards';
 
@@ -23,7 +23,7 @@ interface FelDevastationDamage {
   hasFieryBrandDebuff: boolean;
 }
 
-interface FelDevastationCooldownCast extends SpellCast<CastEvent> {
+interface FelDevastationCooldownCast extends CooldownTrigger<CastEvent> {
   damage: FelDevastationDamage[];
 }
 

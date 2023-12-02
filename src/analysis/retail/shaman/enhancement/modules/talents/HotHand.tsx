@@ -22,7 +22,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { Intervals } from '../core/Intervals';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { ReactNode } from 'react';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -67,7 +67,7 @@ interface HotHandTimeline {
   performance?: QualitativePerformance | null;
 }
 
-interface HotHandProc extends SpellCast<ApplyBuffEvent | RefreshBuffEvent> {
+interface HotHandProc extends CooldownTrigger<ApplyBuffEvent | RefreshBuffEvent> {
   timeline: HotHandTimeline;
   hasMissedCasts: boolean;
   unusedGcdTime: number;

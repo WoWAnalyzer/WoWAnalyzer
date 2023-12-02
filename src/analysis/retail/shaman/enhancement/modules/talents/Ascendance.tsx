@@ -10,7 +10,7 @@ import Events, {
 } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
@@ -42,7 +42,8 @@ interface Casts {
   noProcBeforeEnd?: boolean | undefined;
 }
 
-interface AscendanceCooldownCast extends SpellCast<CastEvent | ApplyBuffEvent | RefreshBuffEvent> {
+interface AscendanceCooldownCast
+  extends CooldownTrigger<CastEvent | ApplyBuffEvent | RefreshBuffEvent> {
   casts: CastEvent[];
   extraDamage: number;
   startTime: number;

@@ -1,6 +1,6 @@
 import MajorCooldown, {
   createChecklistItem,
-  SpellCast,
+  CooldownTrigger,
 } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import React from 'react';
@@ -55,7 +55,7 @@ interface SepsisBuff extends Omit<SepsisDebuff, 'applyEvent'> {
   applyEvent: ApplyBuffEvent;
   consumeCast: CastEvent | undefined;
 }
-interface SepsisCast extends SpellCast<CastEvent> {
+interface SepsisCast extends CooldownTrigger<CastEvent> {
   buffs: {
     [PRIMARY_BUFF_KEY]?: SepsisBuff;
     [SECONDARY_BUFF_KEY]?: SepsisBuff;

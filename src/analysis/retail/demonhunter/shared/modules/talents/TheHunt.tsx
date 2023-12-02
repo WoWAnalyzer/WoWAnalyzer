@@ -14,7 +14,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import VulnerabilityExplanation from 'analysis/retail/demonhunter/vengeance/modules/core/VulnerabilityExplanation';
 import InitiativeExplanation from 'analysis/retail/demonhunter/havoc/guide/InitiativeExplanation';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import SPECS from 'game/SPECS';
 import {
   getAppliedDots,
@@ -29,7 +29,7 @@ const PERFECT_FRAILTY_STACKS = 5;
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
 
-interface TheHuntCooldownCast extends SpellCast<CastEvent> {
+interface TheHuntCooldownCast extends CooldownTrigger<CastEvent> {
   damage: number;
   hasInitiativeOnCast: boolean;
   primaryTargetStacksOfFrailty: number;
