@@ -93,12 +93,33 @@ class Deathspeaker extends Analyzer {
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
+    DEBUG &&
+      console.log(
+        'Shadow Word: Death buff remove Before',
+        this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        '/',
+        this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        'max:',
+        this.abilities.getMaxCharges(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        this.owner.formatTimestamp(event.timestamp, 1),
+      );
+
     this.abilities.decreaseMaxCharges(event, TALENTS.SHADOW_WORD_DEATH_TALENT.id, 1);
 
-    if (this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id) === 1) {
+    DEBUG &&
+      console.log(
+        'Shadow Word: Death buff remove After Charge Decrease',
+        this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        '/',
+        this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        'max:',
+        this.abilities.getMaxCharges(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
+        this.owner.formatTimestamp(event.timestamp, 1),
+      );
+
+    if (this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id) < 0) {
       // In certain circumstances, if you have 1 charge available after the buff, you can end up having negative charges spellUsable.onCooldown
       // Resting the cooldown entirely fixes the issue.
-      // this occurs with both abilites.decreaseMaxCharge and spellUsable
       this.spellUsable.endCooldown(
         TALENTS.SHADOW_WORD_DEATH_TALENT.id,
         event.timestamp,
@@ -112,7 +133,7 @@ class Deathspeaker extends Analyzer {
     }
     DEBUG &&
       console.log(
-        'Shadow Word: Death buff remove',
+        'Shadow Word: Death buff After negative check',
         this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
         '/',
         this.spellUsable.chargesOnCooldown(TALENTS.SHADOW_WORD_DEATH_TALENT.id),
