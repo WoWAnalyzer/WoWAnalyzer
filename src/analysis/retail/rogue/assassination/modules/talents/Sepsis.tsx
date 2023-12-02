@@ -55,7 +55,7 @@ interface SepsisBuff extends Omit<SepsisDebuff, 'applyEvent'> {
   applyEvent: ApplyBuffEvent;
   consumeCast: CastEvent | undefined;
 }
-interface SepsisCast extends SpellCast {
+interface SepsisCast extends SpellCast<CastEvent> {
   buffs: {
     [PRIMARY_BUFF_KEY]?: SepsisBuff;
     [SECONDARY_BUFF_KEY]?: SepsisBuff;

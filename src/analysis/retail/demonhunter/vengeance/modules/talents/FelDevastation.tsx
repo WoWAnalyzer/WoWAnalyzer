@@ -23,7 +23,7 @@ interface FelDevastationDamage {
   hasFieryBrandDebuff: boolean;
 }
 
-interface FelDevastationCooldownCast extends SpellCast {
+interface FelDevastationCooldownCast extends SpellCast<CastEvent> {
   damage: FelDevastationDamage[];
 }
 

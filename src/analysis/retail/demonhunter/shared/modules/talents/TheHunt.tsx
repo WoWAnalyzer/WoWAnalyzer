@@ -29,7 +29,7 @@ const PERFECT_FRAILTY_STACKS = 5;
 const GOOD_FRAILTY_STACKS = 3;
 const OK_FRAILTY_STACKS = 1;
 
-interface TheHuntCooldownCast extends SpellCast {
+interface TheHuntCooldownCast extends SpellCast<CastEvent> {
   damage: number;
   hasInitiativeOnCast: boolean;
   primaryTargetStacksOfFrailty: number;

@@ -25,7 +25,7 @@ import { isMythicPlus } from 'common/isMythicPlus';
  * the right play.
  */
 
-interface PrescienceCooldownCast extends SpellCast {
+interface PrescienceCooldownCast extends SpellCast<CastEvent> {
   onDPS: boolean;
   onHealer: boolean;
   onTank: boolean;

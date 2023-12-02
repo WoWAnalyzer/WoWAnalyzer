@@ -32,7 +32,7 @@ import { SectionHeader } from 'interface/guide';
   example report: https://www.warcraftlogs.com/reports/8gAWrDqPhVj6BZkQ/#fight=29&source=7
  */
 
-interface EssenceBreakCooldownCast extends SpellCast {
+interface EssenceBreakCooldownCast extends SpellCast<CastEvent> {
   buffedCasts: number;
   deathSweepCasts: number;
   annihilationCasts: number;

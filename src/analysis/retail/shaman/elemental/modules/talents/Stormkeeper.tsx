@@ -46,7 +46,7 @@ interface SKTimeline {
   performance: QualitativePerformance;
 }
 
-interface SKCast extends SpellCast {
+interface SKCast extends SpellCast<CastEvent> {
   /** How much maelstrom the user had when starting the window rotation */
   maelstromOnCast: number;
   /** How long Flameshock had left when starting the window rotation */

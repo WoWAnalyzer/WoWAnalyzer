@@ -12,7 +12,7 @@ import DemonicExplanation from './DemonicExplanation';
 import { getFuriousGazeBuffApplication } from '../../../normalizers/FuriousGazeNormalizer';
 import FuriousGazeExplanation from '../../../modules/talents/EyeBeam/FuriousGazeExplanation';
 
-interface EyeBeamCooldownCast extends SpellCast {
+interface EyeBeamCooldownCast extends SpellCast<CastEvent> {
   triggeredFuriousGaze: boolean;
 }
 
