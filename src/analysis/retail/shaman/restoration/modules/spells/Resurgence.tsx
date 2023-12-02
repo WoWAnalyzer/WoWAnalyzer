@@ -19,11 +19,11 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemManaGained from 'parser/ui/ItemManaGained';
 
 const SPELLS_PROCCING_RESURGENCE = {
-  [SPELLS.HEALING_SURGE.id]: 0.006,
-  [TALENTS.HEALING_WAVE_TALENT.id]: 0.01,
-  [TALENTS.CHAIN_HEAL_TALENT.id]: 0.0025,
-  [TALENTS.UNLEASH_LIFE_TALENT.id]: 0.006,
-  [TALENTS.RIPTIDE_TALENT.id]: 0.006,
+  [SPELLS.HEALING_SURGE.id]: 0.0048,
+  [TALENTS.HEALING_WAVE_TALENT.id]: 0.008,
+  [TALENTS.CHAIN_HEAL_TALENT.id]: 0.002,
+  [TALENTS.UNLEASH_LIFE_TALENT.id]: 0.0048,
+  [TALENTS.RIPTIDE_TALENT.id]: 0.0048,
 };
 
 interface ResurgenceInfo {
