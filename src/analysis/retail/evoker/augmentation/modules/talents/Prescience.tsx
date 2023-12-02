@@ -1,5 +1,5 @@
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import TALENTS from 'common/TALENTS/evoker';
 import classColor from 'game/classColor';
 import Events, { CastEvent, EventType } from 'parser/core/Events';
@@ -25,7 +25,7 @@ import { isMythicPlus } from 'common/isMythicPlus';
  * the right play.
  */
 
-interface PrescienceCooldownCast extends SpellCast {
+interface PrescienceCooldownCast extends CooldownTrigger<CastEvent> {
   onDPS: boolean;
   onHealer: boolean;
   onTank: boolean;
