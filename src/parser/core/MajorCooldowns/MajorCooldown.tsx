@@ -18,7 +18,7 @@ export interface SpellCast {
   event: CastEvent;
 }
 
-interface CooldownOptions {
+export interface CooldownOptions {
   spell: Talent;
 }
 
