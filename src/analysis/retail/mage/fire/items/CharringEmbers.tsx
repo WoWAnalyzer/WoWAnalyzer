@@ -21,6 +21,8 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import CooldownHistory from 'parser/shared/modules/CooldownHistory';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 
+const CAST_BUFFER_MS = 65;
+
 class CharringEmbers extends Analyzer {
   static dependencies = {
     enemies: Enemies,
@@ -59,11 +61,13 @@ class CharringEmbers extends Analyzer {
   onFlamesFuryEnd(event: RemoveBuffEvent) {
     const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, 'BuffApply');
     const spender: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
+    const spenderDamage: DamageEvent | undefined =
+      spender && GetRelatedEvent(spender, 'SpellDamage');
     this.flamesFury[this.flamesFury.length] = {
       buffApply: buffApply,
       buffRemove: event,
       spender: spender,
-      expired: spender ? true : false,
+      expired: !spenderDamage || event.timestamp - spenderDamage.timestamp > CAST_BUFFER_MS,
     };
   }
 

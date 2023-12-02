@@ -81,8 +81,8 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Cast,
     anyTarget: true,
     maximumLinks: 1,
-    forwardBufferMs: EXTENDED_CAST_BUFFER_MS,
-    backwardBufferMs: EXTENDED_CAST_BUFFER_MS,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 2000,
   },
   {
     reverseLinkRelation: BUFF_APPLY,
@@ -230,7 +230,7 @@ const EVENT_LINKS: EventLink[] = [
     additionalCondition(linkingEvent, referencedEvent): boolean {
       return !isInstantCast(referencedEvent as CastEvent);
     },
-    forwardBufferMs: 1500,
+    forwardBufferMs: 3000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {

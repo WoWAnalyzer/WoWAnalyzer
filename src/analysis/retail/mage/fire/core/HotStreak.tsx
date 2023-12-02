@@ -102,12 +102,11 @@ class HotStreak extends Analyzer {
 
     //If Firestarter or Searing Touch was active, filter it out
     missedCasts = missedCasts.filter(hs => {
-      const preCast = hs.precast;
-      if (!preCast) {
-        // there is no pre-cast, bail
+      const spenderDamage = hs.spender && GetRelatedEvent(hs.spender, 'SpellDamage');
+      if (!spenderDamage) {
         return true;
       }
-      const targetHealth = this.sharedCode.getTargetHealth(preCast);
+      const targetHealth = this.sharedCode.getTargetHealth(spenderDamage);
       if (this.hasFirestarter) {
         return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
       } else if (this.hasSearingTouch) {
@@ -179,7 +178,7 @@ class HotStreak extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: 0.8,
+        major: 0.9,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
