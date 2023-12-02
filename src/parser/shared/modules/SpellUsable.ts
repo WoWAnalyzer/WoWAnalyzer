@@ -75,8 +75,6 @@ class SpellUsable extends Analyzer {
     this.addEventListener(Events.prefiltercd.by(SELECTED_PLAYER), this.onCast);
     this.addEventListener(Events.ChangeHaste, this.onChangeHaste);
     this.addEventListener(Events.fightend, this.onFightEnd);
-    this.addEventListener(Events.MaxChargesIncreased, this.onMaxChargesIncreased);
-    this.addEventListener(Events.MaxChargesDescreased, this.onMaxChargesDecreased);
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -505,7 +503,12 @@ class SpellUsable extends Analyzer {
     });
   }
 
-  /** Update cooldown info for changed number of max charges */
+  /** Update cooldown info for changed number of max charges.
+   *
+   *  Note that unlike most event listeners, this is called from Abilities instead
+   *  of using an event listener. This prevents the charge count in Abilities
+   *  from becoming desynced from the charge count in SpellUsable.
+   **/
   public onMaxChargesIncreased(event: MaxChargesIncreasedEvent) {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(event.spellId)];
     if (cdInfo) {
@@ -513,7 +516,12 @@ class SpellUsable extends Analyzer {
     }
   }
 
-  /** Update cooldown info for changed number of max charges */
+  /** Update cooldown info for changed number of max charges
+   *
+   *  Note that unlike most event listeners, this is called from Abilities instead
+   *  of using an event listener. This prevents the charge count in Abilities
+   *  from becoming desynced from the charge count in SpellUsable.
+   **/
   public onMaxChargesDecreased(event: MaxChargesDecreasedEvent) {
     const cdInfo = this._currentCooldowns[this._getCanonicalId(event.spellId)];
     if (cdInfo) {

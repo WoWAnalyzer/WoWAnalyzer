@@ -3,14 +3,7 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/priest';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, {
-  EventType,
-  CastEvent,
-  ApplyBuffEvent,
-  RemoveBuffEvent,
-  MaxChargesIncreasedEvent,
-  MaxChargesDecreasedEvent,
-} from 'parser/core/Events';
+import Events, { CastEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
@@ -41,22 +34,6 @@ class Deathspeaker extends Analyzer {
   procsWasted: number = 0;
   lastProcTime: number = 0;
 
-  deathspeakerChargeIncreaseEvent: MaxChargesIncreasedEvent = {
-    type: EventType.MaxChargesIncreased,
-    timestamp: 0,
-    spellId: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
-    by: 1,
-    __fabricated: true,
-  };
-
-  deathspeakerChargeDecreaseEvent: MaxChargesDecreasedEvent = {
-    type: EventType.MaxChargesDecreased,
-    timestamp: 0,
-    spellId: TALENTS.SHADOW_WORD_DEATH_TALENT.id,
-    by: 1,
-    __fabricated: true,
-  };
-
   constructor(options: Options) {
     super(options);
     this.active = this.selectedCombatant.hasTalent(TALENTS.DEATHSPEAKER_TALENT);
@@ -78,14 +55,6 @@ class Deathspeaker extends Analyzer {
     );
   }
 
-  updateMaxChargeIncreaseEvent(event: ApplyBuffEvent) {
-    this.deathspeakerChargeIncreaseEvent.timestamp = event.timestamp;
-  }
-
-  updateMaxChargeDecreaseEvent(event: RemoveBuffEvent) {
-    this.deathspeakerChargeDecreaseEvent.timestamp = event.timestamp;
-  }
-
   onCast(event: CastEvent) {
     //for debuging. Sometimes chargesAvailable, and chargesOnCooldown don't correctly add up to getMaxCharges.
     DEBUG &&
@@ -103,12 +72,7 @@ class Deathspeaker extends Analyzer {
   onBuffApplied(event: ApplyBuffEvent) {
     this.procsGained += 1; // Add a proc to the counter
 
-    //abilites.maxCharge increase does not increase the maxCharge for spellUsable
-    //So endCooldown still thinks it only has 1 max charge, so it restores all charges.
-    //In order to work around this, I use spllUsable to increase the maxCharges of the spell, instead of abilities.
-    //To do this, I pass this event into spellUsables.OnMaxChargesIncrease
-    this.updateMaxChargeIncreaseEvent(event);
-    this.spellUsable.onMaxChargesIncreased(this.deathspeakerChargeIncreaseEvent);
+    this.abilities.increaseMaxCharges(event, TALENTS.SHADOW_WORD_DEATH_TALENT.id, 1);
     this.spellUsable.endCooldown(
       TALENTS.SHADOW_WORD_DEATH_TALENT.id,
       event.timestamp,
@@ -129,10 +93,7 @@ class Deathspeaker extends Analyzer {
   }
 
   onBuffRemoved(event: RemoveBuffEvent) {
-    this.updateMaxChargeDecreaseEvent(event);
-    this.spellUsable.onMaxChargesDecreased(this.deathspeakerChargeDecreaseEvent);
-    //abilites.decreaseMaxCharge seems to work fine here,
-    //I have only used spellUsable to match what is done for onBuffApplied, either method works
+    this.abilities.decreaseMaxCharges(event, TALENTS.SHADOW_WORD_DEATH_TALENT.id, 1);
 
     if (this.spellUsable.chargesAvailable(TALENTS.SHADOW_WORD_DEATH_TALENT.id) === 1) {
       // In certain circumstances, if you have 1 charge available after the buff, you can end up having negative charges spellUsable.onCooldown
