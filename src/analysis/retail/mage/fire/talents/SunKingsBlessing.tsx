@@ -58,9 +58,6 @@ class SunKingsBlessing extends Analyzer {
       buffRemove: event,
       expired: !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id),
     });
-    if (!this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id)) {
-      this.log('EXPIRED');
-    }
   }
 
   onCombustCast(event: CastEvent) {
