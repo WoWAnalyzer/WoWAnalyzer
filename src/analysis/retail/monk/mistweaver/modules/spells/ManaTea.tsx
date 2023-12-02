@@ -142,7 +142,7 @@ class ManaTea extends Analyzer {
       return;
     }
     const actualCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
-    const preMTCost = event.resourceCost[RESOURCE_TYPES.MANA.id] / MANA_TEA_REDUCTION;
+    const preMTCost = event.resourceCost[RESOURCE_TYPES.MANA.id] / (1 - MANA_TEA_REDUCTION);
     const manaSaved = preMTCost - actualCost;
     this.manaSavedMT += manaSaved;
     this.castTrackers.at(-1)!.manaSaved += manaSaved;
