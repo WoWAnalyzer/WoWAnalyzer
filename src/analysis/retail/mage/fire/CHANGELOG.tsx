@@ -7,7 +7,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 // prettier-ignore
 export default [
   change(date(2023, 12, 2), <>Fixed an issue that was causing <SpellLink spell={TALENTS.SUN_KINGS_BLESSING_TALENT} /> to not calculate expirations and wasted <SpellLink spell={SPELLS.HOT_STREAK} /> properly.</>, Sharrq),
-  change(date(2023, 12, 2), 'Rewrote a number of modules to vastly increase performance in M+ dungeons and prevent crashes from especially long dungeon logs.', Sharrq),
+  change(date(2023, 11, 30), 'Rewrote a number of modules to vastly increase performance in M+ dungeons and prevent crashes from especially long dungeon logs.', Sharrq),
   change(date(2023, 8, 20), <>Added <SpellLink spell={SPELLS.CHARRING_EMBERS_DEBUFF} />, <SpellLink spell={TALENTS.IMPROVED_SCORCH_TALENT} />, and <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /> to the Checklist.</>, Sharrq),
   change(date(2023, 8, 20), <>Removed checks for <SpellLink spell={TALENTS.FIRE_BLAST_TALENT} /> pooling.</>, Sharrq),
   change(date(2023, 8, 20), <>Adjusted <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> to not mark <SpellLink spell={SPELLS.FIREBALL} /> casts as mistakes if the player has two lust effects active.</>, Sharrq),
