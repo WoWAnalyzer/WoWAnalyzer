@@ -178,7 +178,7 @@ class HotStreak extends Analyzer {
       isLessThan: {
         minor: 0.95,
         average: 0.9,
-        major: 0.9,
+        major: 0.8,
       },
       style: ThresholdStyle.PERCENTAGE,
     };
