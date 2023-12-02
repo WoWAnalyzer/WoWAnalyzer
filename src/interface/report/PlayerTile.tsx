@@ -98,7 +98,7 @@ interface PlayerTileProps {
 
 // specs with performance issues during analysis. the "can i load this on my underpowered laptop" test is how things end up here.
 function isSpecDisabledInDungeons(spec: Spec): boolean {
-  return spec.id === 0;
+  return false;
 }
 
 const PlayerTile = ({ player, makeUrl, config }: PlayerTileProps) => {
