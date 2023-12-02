@@ -98,10 +98,10 @@ const splinteredElements: EventLink = {
   linkRelation: SPLINTERED_ELEMENTS_LINK,
   linkingEventId: SPELLS.SPLINTERED_ELEMENTS_BUFF.id,
   linkingEventType: EventType.ApplyBuff,
-  referencedEventId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+  referencedEventId: SPELLS.LIGHTNING_BOLT.id,
   referencedEventType: EventType.Cast,
   anyTarget: true,
-  backwardBufferMs: 15500,
+  forwardBufferMs: 5,
   maximumLinks: 1,
 };
 

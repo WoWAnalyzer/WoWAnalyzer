@@ -26,7 +26,6 @@ import { ReactNode } from 'react';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
 import Abilities from '../Abilities';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import EmbeddedTimelineContainer, {
   SpellTimeline,
 } from 'interface/report/Results/Timeline/EmbeddedTimeline';
@@ -109,14 +108,6 @@ class HotHand extends MajorCooldown<HotHandProc> {
     }
 
     this.hotHand = HOT_HAND[this.selectedCombatant.getTalentRank(TALENTS_SHAMAN.HOT_HAND_TALENT)];
-
-    const abilities = options.abilities as Abilities;
-    abilities.add({
-      spell: SPELLS.HOT_HAND_BUFF.id,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      gcd: null,
-      enabled: true,
-    });
 
     this.addEventListener(
       Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),

@@ -16,7 +16,7 @@ class MaelstromWeaponBuffNormalizer extends EventsNormalizer {
 
   normalize(events: AnyEvent[]): AnyEvent[] {
     const fixedEvents: AnyEvent[] = [];
-    const skipEvents: number[] = [];
+    const skipEvents = new Set<number>();
     events.forEach((event: AnyEvent, idx: number) => {
       if (HasAbility(event) && event.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id) {
         if (event.type === EventType.ApplyBuff || event.type === EventType.ApplyBuffStack) {
@@ -31,11 +31,11 @@ class MaelstromWeaponBuffNormalizer extends EventsNormalizer {
               forwardEvent.type === EventType.RefreshBuff &&
               forwardEvent.ability.guid === SPELLS.MAELSTROM_WEAPON_BUFF.id
             ) {
-              skipEvents.push(forwardIndex);
+              skipEvents.add(forwardIndex);
               break;
             }
           }
-        } else if (event.type === EventType.RefreshBuff && !skipEvents.includes(idx)) {
+        } else if (event.type === EventType.RefreshBuff && !skipEvents.has(idx)) {
           fixedEvents.push(event);
         } else if (
           event.type === EventType.RemoveBuff ||

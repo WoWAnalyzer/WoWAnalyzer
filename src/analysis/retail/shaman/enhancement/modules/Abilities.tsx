@@ -145,7 +145,6 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },

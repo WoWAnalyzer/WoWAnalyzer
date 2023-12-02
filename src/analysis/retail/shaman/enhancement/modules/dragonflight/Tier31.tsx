@@ -68,7 +68,9 @@ class Tier31 extends Analyzer {
   }
 
   get averageReduction() {
-    return this.primordialWaveCooldownEffectiveReduction / 1000 / this.primordialWaveCasts || 0;
+    return this.primordialWaveCasts
+      ? this.primordialWaveCooldownEffectiveReduction / 1000 / this.primordialWaveCasts
+      : 0;
   }
 
   get wastedPercent() {
