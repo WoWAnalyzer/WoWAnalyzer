@@ -26,6 +26,13 @@ import typedKeys from 'common/typedKeys';
 const DAMAGE_AMP_PERCENTAGE: Record<number, number> = { 1: 0.05, 2: 0.25 };
 const debug = false;
 
+/**
+ * Consuming 10 stacks of Maelstrom Weapon will reset the cooldown of Stormstrike
+ * and increases the damage of your Physical and Frost abilities by [5/25]% for 5 sec.
+ *
+ * Example Log:
+ *
+ */
 class LegacyOfTheFrostWitch extends Analyzer {
   static dependencies = {
     spellUsable: SpellUsable,
@@ -82,7 +89,8 @@ class LegacyOfTheFrostWitch extends Analyzer {
     }
     if (
       this.selectedCombatant.hasBuff(SPELLS.LEGACY_OF_THE_FROST_WITCH_BUFF.id) &&
-      isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.PHYSICAL)
+      (isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.PHYSICAL) ||
+        isMatchingDamageType(event.ability.type, MAGIC_SCHOOLS.ids.FROST))
     ) {
       if (event.amount > 0) {
         const spellId =
