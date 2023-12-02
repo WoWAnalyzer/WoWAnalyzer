@@ -48,7 +48,7 @@ const MaelstromWeaponResource: Resource = {
   url: 'maelstrom_weapon',
 };
 
-export default class extends ResourceTracker {
+class MaelstromWeaponTracker extends ResourceTracker {
   static dependencies = {
     ...ResourceTracker.dependencies,
     spellUsable: SpellUsable,
@@ -318,3 +318,5 @@ export default class extends ResourceTracker {
     };
   }
 }
+
+export default MaelstromWeaponTracker;

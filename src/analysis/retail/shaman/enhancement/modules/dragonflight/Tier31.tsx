@@ -15,7 +15,7 @@ import { formatNumber, formatPercentage } from 'common/format';
 
 const PRIMORDIAL_WAVE_COOLDOWN_PER_SUMMON = 7000;
 
-export default class extends Analyzer {
+class Tier31 extends Analyzer {
   static dependencies = {
     abilities: Abilities,
     spellUsable: SpellUsable,
@@ -114,3 +114,5 @@ export default class extends Analyzer {
     );
   }
 }
+
+export default Tier31;

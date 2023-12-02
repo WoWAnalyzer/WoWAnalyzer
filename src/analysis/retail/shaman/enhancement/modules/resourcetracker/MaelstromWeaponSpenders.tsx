@@ -21,7 +21,7 @@ import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import { LIGHTNING_BOLT_LINK, MAELSTROM_SPENDER_LINK } from '../normalizers/EventLinkNormalizer';
 import { PRIMORDIAL_WAVE_LINK } from 'analysis/retail/shaman/shared/constants';
 
-export default class extends Analyzer {
+class MaelstromWeaponSpenders extends Analyzer {
   static dependencies = {
     maelstromWeaponTracker: MaelstromWeaponTracker,
     abilities: Abilities,
@@ -166,3 +166,5 @@ export default class extends Analyzer {
     ];
   }
 }
+
+export default MaelstromWeaponSpenders;
