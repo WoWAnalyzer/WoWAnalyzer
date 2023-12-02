@@ -61,6 +61,17 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
+    reverseLinkRelation: BUFF_APPLY,
+    linkingEventId: SPELLS.FURY_OF_THE_SUN_KING.id,
+    linkingEventType: EventType.ApplyBuff,
+    linkRelation: BUFF_REMOVE,
+    referencedEventId: SPELLS.FURY_OF_THE_SUN_KING.id,
+    referencedEventType: EventType.RemoveBuff,
+    maximumLinks: 1,
+    forwardBufferMs: 32_000, //30sec duration, plus a buffer
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
     reverseLinkRelation: BUFF_REMOVE,
     linkingEventId: SPELLS.HOT_STREAK.id,
     linkingEventType: EventType.RemoveBuff,
