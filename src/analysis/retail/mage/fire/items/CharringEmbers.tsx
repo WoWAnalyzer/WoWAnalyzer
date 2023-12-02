@@ -63,16 +63,16 @@ class CharringEmbers extends Analyzer {
     const spender: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
     const spenderDamage: DamageEvent | undefined =
       spender && GetRelatedEvent(spender, 'SpellDamage');
-    this.flamesFury[this.flamesFury.length] = {
+    this.flamesFury.push({
       buffApply: buffApply,
       buffRemove: event,
       spender: spender,
       expired: !spenderDamage || event.timestamp - spenderDamage.timestamp > CAST_BUFFER_MS,
-    };
+    });
   }
 
   onFlamesFuryRefresh(event: RefreshBuffEvent) {
-    this.flamesFuryRefreshes[this.flamesFuryRefreshes.length] = event;
+    this.flamesFuryRefreshes.push(event);
   }
 
   onPhoenixDamage(event: DamageEvent) {

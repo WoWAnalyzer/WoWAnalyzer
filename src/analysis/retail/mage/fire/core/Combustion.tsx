@@ -66,14 +66,14 @@ class CombustionCasts extends Analyzer {
 
   onFireballBegins(event: BeginCastEvent) {
     const cast: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
-    this.fireballs[this.fireballs.length] = {
+    this.fireballs.push({
       beginCast: event,
       cast: cast,
       startedDuringCombust: this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id),
       finishedDuringCombust: cast
         ? this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, cast.timestamp)
         : false,
-    };
+    });
   }
 
   onSpellCast(event: CastEvent) {
@@ -83,7 +83,7 @@ class CombustionCasts extends Analyzer {
     ) {
       return;
     }
-    this.combustionCastEvents[this.combustionCastEvents.length] = event;
+    this.combustionCastEvents.push(event);
   }
 
   //Removing this check for now as it is not relevant, but might become relevant again in the future

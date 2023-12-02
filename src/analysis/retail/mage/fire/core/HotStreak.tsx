@@ -67,19 +67,19 @@ class HotStreak extends Analyzer {
     const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, 'BuffApply');
     const spender: CastEvent | undefined = GetRelatedEvent(event, 'SpellCast');
     const precast: CastEvent | undefined = GetRelatedEvent(event, 'PreCast');
-    this.hotStreaks[this.hotStreaks.length] = {
+    this.hotStreaks.push({
       apply: buffApply,
       remove: event,
       spender: spender,
       precast: precast,
-    };
+    });
   }
 
   damageEvents(event: DamageEvent) {
     if (!this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id)) {
       return;
     }
-    this.wasted[this.wasted.length] = { event: event, timestamp: event.timestamp };
+    this.wasted.push({ event: event, timestamp: event.timestamp });
   }
 
   // prettier-ignore

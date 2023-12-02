@@ -48,18 +48,18 @@ class HeatingUp extends Analyzer {
   }
 
   onFireBlastCast(event: CastEvent) {
-    this.fireBlasts[this.fireBlasts.length] = {
+    this.fireBlasts.push({
       cast: event,
       hasHeatingUp: this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id),
       hasHotStreak: this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id),
-    };
+    });
   }
 
   onPhoenixCast(event: CastEvent) {
-    this.phoenixCasts[this.phoenixCasts.length] = {
+    this.phoenixCasts.push({
       cast: event,
       hasHotStreak: this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id),
-    };
+    });
   }
 
   fireBlastWithoutHeatingUp = () => {

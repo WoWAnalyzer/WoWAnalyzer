@@ -42,18 +42,18 @@ class FeelTheBurn extends Analyzer {
     }
 
     const buffRemove = GetRelatedEvent(event, 'BuffRemove');
-    this.maxStackDurations[this.maxStackDurations.length] = {
+    this.maxStackDurations.push({
       start: event.timestamp,
       end: buffRemove?.timestamp || this.owner.fight.end_time,
-    };
+    });
   }
 
   onCombustion(event: ApplyBuffEvent) {
     const buffRemove = GetRelatedEvent(event, 'BuffRemove');
-    this.combustionDurations[this.combustionDurations.length] = {
+    this.combustionDurations.push({
       start: event.timestamp,
       end: buffRemove?.timestamp || this.owner.fight.end_time,
-    };
+    });
   }
 
   totalCombustionDuration = () => {
