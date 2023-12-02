@@ -6,8 +6,10 @@ import Events from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import ExecuteHelper from 'parser/shared/modules/helpers/ExecuteHelper';
-
+import { TIERS } from 'game/TIERS';
 import { SHADOW_WORD_DEATH_EXECUTE_RANGE } from '../../constants';
+import DeathAndMadness from '../talents/DeathAndMadness';
+import Deathspeaker from '../talents/Deathspeaker';
 
 class ShadowWordDeath extends ExecuteHelper {
   static executeSources = SELECTED_PLAYER;
@@ -15,21 +17,26 @@ class ShadowWordDeath extends ExecuteHelper {
   static singleExecuteEnablers: Spell[] = [SPELLS.DEATHSPEAKER_TALENT_BUFF];
   //static executeOutsideRangeEnablers: Spell[] = [TALENTS.INESCAPABLE_TORMENT_TALENT]; //Need to fabricate a buff for when Inescapable Torment(mindbender) is active.
   static countCooldownAsExecuteTime = false;
-  //static modifiesDamage = true; not always true
 
   static dependencies = {
     ...ExecuteHelper.dependencies,
     abilities: Abilities,
+    deathandmadness: DeathAndMadness,
+    deathspeaker: Deathspeaker,
   };
 
   protected abilities!: Abilities;
+  protected deathandmadness!: DeathAndMadness;
+  protected deathspeaker!: Deathspeaker;
 
   maxCasts = 0;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(Events.fightend, this.adjustMaxCasts);
-
+    if (this.selectedCombatant.has4PieceByTier(TIERS.T31)) {
+      ShadowWordDeath.lowerThreshold = 1; //When shadow has its tier 31 four piece, they always use shadow word death
+    }
     const ctor = this.constructor as typeof ExecuteHelper;
     ctor.executeSpells.push(TALENTS.SHADOW_WORD_DEATH_TALENT);
 
@@ -43,22 +50,28 @@ class ShadowWordDeath extends ExecuteHelper {
       },
       castEfficiency: {
         suggestion: false,
-        recommendedEfficiency: 0.05,
+        recommendedEfficiency: 0.85,
         maxCasts: () => this.maxCasts,
       },
     });
   }
 
   adjustMaxCasts() {
+    //The spellusable of SW:D is being tracked properly, however the value of the casts is not correct.
+    //I do not know why that is the case.
+    //To fix this, we calcuate the number of casts of SW:D
+    //It is equal to executeTime/10s plus the number of procs of SW:D from Death and Madness, plus the number of procs from DeathSpeaker
     const cooldown =
       this.abilities.getAbility(TALENTS.SHADOW_WORD_DEATH_TALENT.id)!.cooldown * 1000;
     const ExecuteCasts = Math.ceil(this.totalExecuteDuration / cooldown);
 
-    if (this.selectedCombatant.hasTalent(TALENTS.DEATH_AND_MADNESS_TALENT)) {
-      //The Death and Madness talent lets you cast twice each cast in execute.
-      this.maxCasts += ExecuteCasts;
-    }
-    this.maxCasts += ExecuteCasts + this.totalNonExecuteCasts;
+    const DeathAndMadnessCasts = this.deathandmadness.getResets();
+    const DeathSpeakerCasts = this.deathspeaker.getProcsUsed();
+
+    //console.log("SWD Totals:",ExecuteCasts,"NE",this.totalNonExecuteCasts,"DM",DeathAndMadnessCasts,"DS",DeathSpeakerCasts);
+
+    this.maxCasts =
+      ExecuteCasts + this.totalNonExecuteCasts + DeathAndMadnessCasts + DeathSpeakerCasts;
   }
 }
 

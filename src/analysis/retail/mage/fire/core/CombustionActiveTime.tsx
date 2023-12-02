@@ -2,60 +2,84 @@ import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage, formatDuration } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, {
+  EventType,
+  ApplyBuffEvent,
+  GetRelatedEvent,
+  RemoveBuffEvent,
+  FightEndEvent,
+} from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import EventHistory from 'parser/shared/modules/EventHistory';
-import FilteredActiveTime from 'parser/shared/modules/FilteredActiveTime';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 import CombustionPreCastDelay from './Combustion';
+import AlwaysBeCasting from './AlwaysBeCasting';
+import EventHistory from 'parser/shared/modules/EventHistory';
 
 class CombustionActiveTime extends Analyzer {
   static dependencies = {
-    eventHistory: EventHistory,
-    filteredActiveTime: FilteredActiveTime,
     abilityTracker: AbilityTracker,
+    eventHistory: EventHistory,
+    alwaysBeCasting: AlwaysBeCasting,
     combustionPreCastDelay: CombustionPreCastDelay,
   };
-  protected eventHistory!: EventHistory;
-  protected filteredActiveTime!: FilteredActiveTime;
   protected abilityTracker!: AbilityTracker;
+  protected eventHistory!: EventHistory;
+  protected alwaysBeCasting!: AlwaysBeCasting;
   protected combustionPreCastDelay!: CombustionPreCastDelay;
 
-  combustionCasts: number[] = [];
+  activeTime: number[] = [];
+  buffApplies: number = 0;
+
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
+      this.onCombustStart,
+    );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.COMBUSTION_TALENT),
+      this.onCombustEnd,
+    );
+    this.addEventListener(Events.fightend, this.onFightEnd);
+  }
+
+  onCombustStart(event: ApplyBuffEvent) {
+    this.buffApplies += 1;
+  }
+
+  onCombustEnd(event: RemoveBuffEvent) {
+    const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, 'BuffApply');
+    if (!buffApply) {
+      return;
+    }
+    this.activeTime[buffApply.timestamp] = this.alwaysBeCasting.getActiveTimePercentageInWindow(
+      buffApply.timestamp,
+      event.timestamp,
+    );
+  }
+
+  onFightEnd(event: FightEndEvent) {
+    const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
+      spell: TALENTS.COMBUSTION_TALENT,
+      count: 1,
+    })[0];
+    if (!this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) || !buffApply) {
+      return;
+    }
+    this.activeTime[buffApply.timestamp] = this.alwaysBeCasting.getActiveTimePercentageInWindow(
+      buffApply.timestamp,
+      event.timestamp,
+    );
+  }
 
   combustionActiveTime = () => {
-    const buffEnds = this.eventHistory.getEvents(EventType.RemoveBuff, {
-      spell: TALENTS.COMBUSTION_TALENT,
-    });
     let activeTime = 0;
-    buffEnds.forEach((e) => {
-      const buffApplied = this.eventHistory.getEvents(EventType.ApplyBuff, {
-        spell: TALENTS.COMBUSTION_TALENT,
-        count: 1,
-        startTimestamp: e.timestamp,
-      })[0];
-      const uptime = this.filteredActiveTime.getActiveTime(buffApplied.timestamp, e.timestamp);
-      this.combustionCasts[buffApplied.timestamp] = uptime / (e.timestamp - buffApplied.timestamp);
-      activeTime += uptime;
-    });
-
-    //If Combustion was active when the fight ended, then add that activeTime as well since there is no End Buff
-    if (this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, this.owner.fight.end_time)) {
-      const buffApplied = this.eventHistory.getEvents(EventType.ApplyBuff, {
-        spell: TALENTS.COMBUSTION_TALENT,
-        count: 1,
-      })[0];
-      const uptime = this.filteredActiveTime.getActiveTime(
-        buffApplied.timestamp,
-        this.owner.fight.end_time,
-      );
-      activeTime += uptime;
-    }
+    this.activeTime.forEach((c) => (activeTime += c));
     return activeTime;
   };
 
@@ -63,18 +87,12 @@ class CombustionActiveTime extends Analyzer {
     return this.selectedCombatant.getBuffUptime(TALENTS.COMBUSTION_TALENT.id);
   }
 
-  get percentActiveTime() {
-    return this.combustionActiveTime() / this.buffUptime || 0;
-  }
-
   get downtimeSeconds() {
-    return (this.buffUptime - this.combustionActiveTime()) / 1000;
+    return this.buffUptime - this.combustionActiveTime();
   }
 
-  get averageDowntime() {
-    return (
-      this.downtimeSeconds / this.abilityTracker.getAbility(TALENTS.COMBUSTION_TALENT.id).casts
-    );
+  get percentActiveTime() {
+    return this.combustionActiveTime() / this.buffApplies;
   }
 
   get combustionActiveTimeThresholds() {
@@ -93,20 +111,21 @@ class CombustionActiveTime extends Analyzer {
     when(this.combustionActiveTimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You spent {formatNumber(this.downtimeSeconds)} seconds (
-          {formatNumber(this.averageDowntime)}s per cast) not casting anything while{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was active. Because a large portion of
-          your damage comes from Combustion, you should ensure that you are getting the most out of
-          it every time it is cast. While sometimes this is out of your control (you got targeted by
-          a mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> when you are at a low risk of being
-          interrupted or when the target is vulnerable.
+          You spent {formatNumber(this.downtimeSeconds)} (
+          {formatNumber(this.downtimeSeconds / this.buffApplies)} average per{' '}
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
+          ), not casting anything while <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was active.
+          Because a large portion of your damage comes from Combustion, you should ensure that you
+          are getting the most out of it every time it is cast. While sometimes this is out of your
+          control (you got targeted by a mechanic at the worst possible time), you should try to
+          minimize that risk by casting <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> when you are
+          at a low risk of being interrupted or when the target is vulnerable.
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
         .actual(
           <Trans id="mage.frost.suggestions.combustion.combustionActiveTime">
-            {formatPercentage(this.percentActiveTime)}% Active Time during Combustion
+            {formatPercentage(actual)}% Active Time during Combustion
           </Trans>,
         )
         .recommended(`${formatPercentage(recommended)}% is recommended`),
@@ -149,16 +168,18 @@ class CombustionActiveTime extends Analyzer {
                 </tr>
               </thead>
               <tbody>
-                {Object.keys(this.combustionPreCastDelay.preCastDelay()).map((cast) => (
+                {Object.keys(this.combustionPreCastDelay.combustionCasts).map((cast) => (
                   <tr key={cast}>
                     <th style={{ textAlign: 'left' }}>
                       {formatDuration(Number(cast) - this.owner.fight.start_time)}
                     </th>
                     <th style={{ textAlign: 'left' }}>
-                      {formatPercentage(this.combustionCasts[Number(cast)])}
+                      {formatPercentage(this.activeTime[Number(cast)])}%
                     </th>
                     <td style={{ textAlign: 'left' }}>
-                      {(this.combustionPreCastDelay.preCastDelay()[Number(cast)] / 1000).toFixed(2)}
+                      {(
+                        this.combustionPreCastDelay.combustionCasts[Number(cast)].delay / 1000
+                      ).toFixed(2)}
                       s
                     </td>
                   </tr>

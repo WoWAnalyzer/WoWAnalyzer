@@ -207,7 +207,7 @@ class MindFlayInsanity extends Analyzer {
         <b>
           <SpellLink spell={SPELLS.MIND_SPIKE_INSANITY_TALENT_BUFF} />
         </b>{' '}
-        is gained every time you cast <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.<br />
+        is gained every two casts of <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.<br />
         This buff can stack two times. Try to use these procs before overwriting them with devouring
         plague, unless you would otherwise overcap insanity.
       </p>

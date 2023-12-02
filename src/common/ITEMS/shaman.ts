@@ -21,6 +21,11 @@ const items = {
     name: 'Swelling Rain',
     icon: 'spell_frost_wisp',
   },
+  T31_TIDAL_RESERVOIR_HEAL: {
+    id: 424464,
+    name: 'Tidal Reservoir',
+    icon: 'ability_shaman_fortifyingwaters',
+  },
   //endregion
   //region Shared
   //endregion

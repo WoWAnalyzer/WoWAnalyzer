@@ -21,10 +21,10 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
   value!: number;
   gemCounts = {
     total: 0,
-    air: 0,
-    earth: 0,
-    fire: 0,
-    frost: 0,
+    air: false,
+    earth: false,
+    fire: false,
+    frost: false,
   };
 
   constructor(options: Options) {
@@ -71,7 +71,7 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
         case ITEMS.FORCEFUL_NOZDORITE_R2.id:
         case ITEMS.FORCEFUL_NOZDORITE_R3.id:
           this.gemCounts.total += 1;
-          this.gemCounts.air += 1;
+          this.gemCounts.air = true;
           break;
         case ITEMS.SENSEIS_ALEXSTRASZITE_R1.id:
         case ITEMS.SENSEIS_ALEXSTRASZITE_R2.id:
@@ -89,7 +89,7 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
         case ITEMS.PUISSANT_NOZDORITE_R2.id:
         case ITEMS.PUISSANT_NOZDORITE_R3.id:
           this.gemCounts.total += 1;
-          this.gemCounts.earth += 1;
+          this.gemCounts.earth = true;
           break;
         case ITEMS.DEADLY_ALEXSTRASZITE_R1.id:
         case ITEMS.DEADLY_ALEXSTRASZITE_R2.id:
@@ -107,7 +107,7 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
         case ITEMS.JAGGED_NOZDORITE_R2.id:
         case ITEMS.JAGGED_NOZDORITE_R3.id:
           this.gemCounts.total += 1;
-          this.gemCounts.fire += 1;
+          this.gemCounts.fire = true;
           break;
         case ITEMS.RADIANT_ALEXSTRASZITE_R1.id:
         case ITEMS.RADIANT_ALEXSTRASZITE_R2.id:
@@ -125,7 +125,7 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
         case ITEMS.STEADY_NOZDORITE_R2.id:
         case ITEMS.STEADY_NOZDORITE_R3.id:
           this.gemCounts.total += 1;
-          this.gemCounts.frost += 1;
+          this.gemCounts.frost = true;
           break;
         default:
           break;
@@ -139,41 +139,46 @@ class ElementalLariat extends Analyzer.withDependencies(deps) {
       this.selectedCombatant.getBuffTriggerCount(SPELLS.ELEMENTAL_LARIAT_EMPOWERED_EARTH.id) +
       this.selectedCombatant.getBuffTriggerCount(SPELLS.ELEMENTAL_LARIAT_EMPOWERED_FLAME.id) +
       this.selectedCombatant.getBuffTriggerCount(SPELLS.ELEMENTAL_LARIAT_EMPOWERED_FROST.id);
-
+    const uniqueGemTypes = [
+      this.gemCounts.air,
+      this.gemCounts.earth,
+      this.gemCounts.fire,
+      this.gemCounts.frost,
+    ].reduce((prev, cur) => prev + (cur ? 1 : 0), 0);
+    console.log(uniqueGemTypes);
     const gemChance = [
       {
         type: 'Air',
         stat: SECONDARY_STAT.HASTE,
         count: this.gemCounts.air,
-        chance: this.gemCounts.air / this.gemCounts.total,
+        chance: (this.gemCounts.air ? 1 : 0) / uniqueGemTypes,
       },
       {
         type: 'Earth',
         stat: SECONDARY_STAT.MASTERY,
         count: this.gemCounts.earth,
-        chance: this.gemCounts.earth / this.gemCounts.total,
+        chance: (this.gemCounts.earth ? 1 : 0) / uniqueGemTypes,
       },
       {
         type: 'Fire',
         stat: SECONDARY_STAT.CRITICAL_STRIKE,
         count: this.gemCounts.fire,
-        chance: this.gemCounts.fire / this.gemCounts.total,
+        chance: (this.gemCounts.fire ? 1 : 0) / uniqueGemTypes,
       },
       {
         type: 'Frost',
         stat: SECONDARY_STAT.VERSATILITY,
         count: this.gemCounts.frost,
-        chance: this.gemCounts.frost / this.gemCounts.total,
+        chance: (this.gemCounts.frost ? 1 : 0) / uniqueGemTypes,
       },
     ]
-      .filter(({ count }) => count > 0)
+      .filter(({ count }) => count)
       .sort((a, b) => b.chance - a.chance)
       .map(({ type, stat, count, chance }, index, list) => (
         <Fragment key={type}>
           {index > 0 && ', '}
-          {index === list.length - 1 && 'and '}
-          {count} {type} gems resulting in a {Math.round(chance * 100)}% chance to proc{' '}
-          {getName(stat)}
+          {index === list.length - 1 && 'and '}a {Math.round(chance * 100)}% chance to proc{' '}
+          {getName(stat)} from socketing {type} gems
         </Fragment>
       ));
 

@@ -88,7 +88,7 @@
         color: #e45a5a;
       }
     </style>
-    <% if (process.env.REACT_APP_ENABLE_GA !== undefined) { %>
+    <% if (process.env.REACT_APP_ENABLE_GA === 'true') { %>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-MW95W6NHVC"></script>
     <script>
       var ramp = {
@@ -144,17 +144,5 @@
       src="https://polyfill.io/v3/polyfill.min.js?features=default%2Ces2015%2Ces2016%2Ces2017%2Cfetch%2CIntl"
     ></script>
     <script src="https://wow.zamimg.com/widgets/power.js"></script>
-    <script
-      src="https://browser.sentry-cdn.com/7.28.1/bundle.min.js"
-      crossorigin="anonymous"
-    ></script>
-    <script>
-      window.Sentry?.init({
-        dsn: '%REACT_APP_SENTRY_DSN%',
-        release: 'wowanalyzer@%REACT_APP_VERSION%',
-        environment: '%REACT_APP_ENVIRONMENT_NAME%',
-        allowUrls: ['wowanalyzer.com/static/js/'],
-      });
-    </script>
   </body>
 </html>

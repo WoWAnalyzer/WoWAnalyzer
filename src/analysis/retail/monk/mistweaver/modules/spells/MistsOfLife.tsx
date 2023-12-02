@@ -1,7 +1,7 @@
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_MONK } from 'common/TALENTS';
 import SPELLS from 'common/SPELLS';
-import Events, { ApplyBuffEvent, CastEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
+import Events, { ApplyBuffEvent, HealEvent, RefreshBuffEvent } from 'parser/core/Events';
 import { isFromMistsOfLife } from '../../normalizers/CastLinkNormalizer';
 import HotTrackerMW from '../core/HotTrackerMW';
 import { calculateEffectiveHealing } from 'parser/core/EventCalculateLib';
@@ -65,11 +65,11 @@ class MistsOfLife extends Analyzer {
       Events.heal.by(SELECTED_PLAYER).spell(TALENTS_MONK.ENVELOPING_MIST_TALENT),
       this.handleEnvHeal,
     );
+
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY),
-      this.handleVivifyCast,
+      Events.heal.by(SELECTED_PLAYER).spell(SPELLS.INVIGORATING_MISTS_HEAL),
+      this.handleInvigoratingMistHeal,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER).spell(SPELLS.VIVIFY), this.handleVivify);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.RENEWING_MIST_HEAL),
       this.handleRemHeal,
@@ -177,22 +177,12 @@ class MistsOfLife extends Analyzer {
     }
   }
 
-  handleVivifyCast(event: CastEvent) {
-    this.lastVivifyCastTarget = event.targetID || 0;
-    this.countedMainVivifyHit = false;
-  }
-
-  handleVivify(event: HealEvent) {
+  handleInvigoratingMistHeal(event: HealEvent) {
     const targetId = event.targetID;
     if (
       !this.hotTracker.hots[targetId] ||
       !this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id]
     ) {
-      return;
-    }
-    // only count cleave hit on main target
-    if (targetId === this.lastVivifyCastTarget && !this.countedMainVivifyHit) {
-      this.countedMainVivifyHit = true;
       return;
     }
     const hot = this.hotTracker.hots[targetId][SPELLS.RENEWING_MIST_HEAL.id];

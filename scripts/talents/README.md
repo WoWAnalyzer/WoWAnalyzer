@@ -1,4 +1,4 @@
-np## Usage
+## Usage
 
 Run this script from the root folder to generate talents into src/common/TALENTS.
 

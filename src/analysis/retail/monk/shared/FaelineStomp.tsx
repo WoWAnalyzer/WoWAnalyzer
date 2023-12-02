@@ -131,7 +131,6 @@ class FaelineStomp extends Analyzer {
       combatant.hasBuff(SPELLS.FAELINE_STOMP_ESSENCE_FONT.id) &&
       !combatant.hasBuff(SPELLS.ESSENCE_FONT_BUFF.id)
     ) {
-      console.log(event);
       this.gomHealing += event.amount + (event.absorbed || 0);
       this.gomOverhealing += event.overheal || 0;
     }

@@ -20,7 +20,7 @@ const talents = {
       { id: 108128, specId: 105 },
       { id: 108180, specId: 103 },
     ],
-    manaCost: 500,
+    manaCost: 2500,
   },
   AETHERIAL_KINDLING_TALENT: {
     id: 327541,
@@ -206,7 +206,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103104],
     definitionIds: [{ id: 108109, specId: 105 }],
-    manaCost: 920,
+    manaCost: 4600,
   },
   CENARIUS_GUIDANCE_TALENT: {
     id: 393371,
@@ -268,7 +268,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103291],
     definitionIds: [{ id: 108296, specId: 102 }],
-    manaCost: 600,
+    manaCost: 3000,
   },
   DENIZEN_OF_THE_DREAM_TALENT: {
     id: 394065,
@@ -341,7 +341,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103111],
     definitionIds: [{ id: 108116, specId: 105 }],
-    manaCost: 1700,
+    manaCost: 8500,
   },
   ELUNES_FAVORED_TALENT: {
     id: 370586,
@@ -512,7 +512,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [117104],
     definitionIds: [{ id: 122116, specId: 105 }],
-    manaCost: 600,
+    manaCost: 3000,
   },
   GROVE_TENDING_TALENT: {
     id: 383192,
@@ -553,7 +553,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103289],
     definitionIds: [{ id: 108294, specId: 102 }],
-    manaCost: 600,
+    manaCost: 3000,
   },
   IMPROVED_BARKSKIN_TALENT: {
     id: 327993,
@@ -771,7 +771,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103100],
     definitionIds: [{ id: 108105, specId: 105 }],
-    manaCost: 800,
+    manaCost: 4000,
   },
   LIGHT_OF_THE_SUN_TALENT: {
     id: 202918,
@@ -1003,7 +1003,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103094],
     definitionIds: [{ id: 108099, specId: 105 }],
-    manaCost: 1800,
+    manaCost: 9000,
   },
   NURTURING_DORMANCY_TALENT: {
     id: 392099,
@@ -1060,7 +1060,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103115],
     definitionIds: [{ id: 108120, specId: 105 }],
-    manaCost: 1200,
+    manaCost: 6000,
   },
   PASSING_SEASONS_TALENT: {
     id: 382550,
@@ -1281,7 +1281,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103295],
     definitionIds: [{ id: 108300, specId: 102 }],
-    manaCost: 1100,
+    manaCost: 5500,
   },
   RELENTLESS_PREDATOR_TALENT: {
     id: 393771,
@@ -1302,7 +1302,7 @@ const talents = {
       { id: 108298, specId: 104 },
       { id: 108288, specId: 102 },
     ],
-    manaCost: 5000,
+    manaCost: 25000,
   },
   REND_AND_TEAR_TALENT: {
     id: 204053,
@@ -1393,7 +1393,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [109867],
     definitionIds: [{ id: 114872, specId: 102 }],
-    manaCost: 1680,
+    manaCost: 8400,
   },
   SOLSTICE_TALENT: {
     id: 343647,
@@ -1410,7 +1410,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103307],
     definitionIds: [{ id: 108312, specId: 102 }],
-    manaCost: 560,
+    manaCost: 2800,
   },
   SOUL_OF_THE_FOREST_BALANCE_TALENT: {
     id: 114107,
@@ -1569,7 +1569,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103286],
     definitionIds: [{ id: 108291, specId: 102 }],
-    manaCost: 900,
+    manaCost: 4500,
   },
   SURVIVAL_INSTINCTS_TALENT: {
     id: 61336,
@@ -1597,7 +1597,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103294],
     definitionIds: [{ id: 108299, specId: 102 }],
-    manaCost: 800,
+    manaCost: 4000,
   },
   TASTE_FOR_BLOOD_TALENT: {
     id: 384665,
@@ -1702,7 +1702,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103108],
     definitionIds: [{ id: 108113, specId: 105 }],
-    manaCost: 1840,
+    manaCost: 9200,
   },
   TRANQUIL_MIND_TALENT: {
     id: 403521,
@@ -1922,7 +1922,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [103320],
     definitionIds: [{ id: 108325, specId: 102 }],
-    manaCost: 2000,
+    manaCost: 10000,
   },
   WILD_MUSHROOM_TALENT: {
     id: 88747,

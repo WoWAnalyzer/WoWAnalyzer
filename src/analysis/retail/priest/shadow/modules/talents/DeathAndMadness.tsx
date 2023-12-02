@@ -79,6 +79,10 @@ class DeathAndMadness extends Analyzer {
     this.kills += 1;
   }
 
+  getResets(): number {
+    return this.resets;
+  }
+
   statistic() {
     return (
       <Statistic

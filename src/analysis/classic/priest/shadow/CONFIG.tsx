@@ -35,21 +35,20 @@ const config: Config = {
     },
   },
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport: '/report/wYk6CvKQyaH2Rh7J/7-Normal+General+Vezax+-+Kill+(6:13)/Ahrisela',
+  exampleReport: '/report/gdtHX7nCRMm1B4jr/24-Heroic+Professor+Putricide+-+Kill+(6:23)/18-Apepz',
   // Add spells to display separately on the timeline
   timeline: {
     separateCastBars: [[]],
   },
   // The current spec identifier. This is the only place (in code) that specifies which spec this parser is about.
-  spec: SPECS.CLASSIC_PRIEST_SHADOW, // UPDATE THIS
+  spec: SPECS.CLASSIC_PRIEST_SHADOW,
 
   // USE CAUTION when changing anything below this line.
   // The contents of your changelog.
   changelog: CHANGELOG,
   // The CombatLogParser class for your spec.
   parser: () =>
-    // Update ClassicCasterSpec -> Example: ClassicFireMage
-    import('./CombatLogParser' /* webpackChunkName: "ClassicCasterSpec" */).then(
+    import('./CombatLogParser' /* webpackChunkName: "ClassicShadowPriest" */).then(
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.

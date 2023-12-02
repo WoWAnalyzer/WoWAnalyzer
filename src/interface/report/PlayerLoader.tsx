@@ -38,8 +38,6 @@ import { CLASSIC_EXPANSION } from 'game/Expansion';
 import { i18n } from '@lingui/core';
 import { uniqueBy } from 'common/uniqueBy';
 import { setCombatants } from 'interface/reducers/combatants';
-import LogChangesIn102Warning from 'interface/report/LogChangesIn102Warning';
-import { usePatch } from 'interface/report/context/PatchContext';
 
 const FAKE_PLAYER_IF_DEV_ENV = false;
 
@@ -139,7 +137,6 @@ const PlayerLoader = ({ children }: Props) => {
   const [{ error, combatants, combatantsFightId, tanks, healers, dps, ranged, ilvl }, dispatchFC] =
     useReducer(fcReducer, defaultState);
   const { report: selectedReport } = useReport();
-  const { patch } = usePatch();
   const { fight: selectedFight } = useFight();
   const { player: playerParam } = useParams();
   const navigate = useNavigate();
@@ -434,8 +431,6 @@ const PlayerLoader = ({ children }: Props) => {
         {selectedFight.end_time > MAX_REPORT_DURATION && (
           <ReportDurationWarning duration={reportDuration} />
         )}
-
-        {patch?.name === '10.2.0' ? <LogChangesIn102Warning /> : undefined}
 
         {combatants.length === 0 && <AdvancedLoggingWarning />}
 

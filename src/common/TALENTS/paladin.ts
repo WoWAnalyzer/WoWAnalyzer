@@ -137,7 +137,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [115882],
     definitionIds: [{ id: 120894, specId: 65 }],
-    manaCost: 1200,
+    manaCost: 6000,
   },
   BASTION_OF_LIGHT_TALENT: {
     id: 378974,
@@ -170,7 +170,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102532],
     definitionIds: [{ id: 107537, specId: 65 }],
-    manaCost: 2000,
+    manaCost: 10000,
   },
   BLADES_OF_LIGHT_TALENT: {
     id: 403664,
@@ -227,7 +227,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102587],
     definitionIds: [{ id: 107592, specId: 65 }],
-    manaCost: 700,
+    manaCost: 3500,
   },
   BLESSING_OF_PROTECTION_TALENT: {
     id: 1022,
@@ -236,7 +236,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102604],
     definitionIds: [{ id: 107609, specId: 65 }],
-    manaCost: 1500,
+    manaCost: 7500,
   },
   BLESSING_OF_SACRIFICE_TALENT: {
     id: 6940,
@@ -245,7 +245,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102602],
     definitionIds: [{ id: 107607, specId: 65 }],
-    manaCost: 700,
+    manaCost: 3500,
   },
   BLESSING_OF_SPELLWARDING_TALENT: {
     id: 204018,
@@ -254,7 +254,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [111886],
     definitionIds: [{ id: 116891, specId: 66 }],
-    manaCost: 1500,
+    manaCost: 7500,
   },
   BLESSING_OF_SUMMER_TALENT: {
     id: 388007,
@@ -263,7 +263,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [116183],
     definitionIds: [{ id: 121195, specId: 65 }],
-    manaCost: 500,
+    manaCost: 2500,
   },
   BLINDING_LIGHT_TALENT: {
     id: 115750,
@@ -272,7 +272,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102584],
     definitionIds: [{ id: 107589, specId: 65 }],
-    manaCost: 600,
+    manaCost: 3000,
   },
   BOUNDLESS_JUDGMENT_TALENT: {
     id: 405278,
@@ -337,7 +337,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102476],
     definitionIds: [{ id: 107481, specId: 70 }],
-    manaCost: 5000,
+    manaCost: 25000,
   },
   COMMANDING_LIGHT_TALENT: {
     id: 387781,
@@ -540,7 +540,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102465],
     definitionIds: [{ id: 107470, specId: 65 }],
-    manaCost: 1500,
+    manaCost: 7500,
   },
   DIVINE_WRATH_TALENT: {
     id: 406872,
@@ -777,7 +777,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102479],
     definitionIds: [{ id: 107484, specId: 65 }],
-    manaCost: 500,
+    manaCost: 2500,
   },
   HAND_OF_DIVINITY_TALENT: {
     id: 414273,
@@ -850,7 +850,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102560],
     definitionIds: [{ id: 107565, specId: 65 }],
-    manaCost: 1300,
+    manaCost: 6500,
   },
   HOLY_SHIELD_TALENT: {
     id: 152261,
@@ -867,7 +867,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102534],
     definitionIds: [{ id: 107539, specId: 65 }],
-    manaCost: 1400,
+    manaCost: 7000,
   },
   ILLUMINATION_TALENT: {
     id: 414378,
@@ -1077,7 +1077,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102561],
     definitionIds: [{ id: 107566, specId: 65 }],
-    manaCost: 1800,
+    manaCost: 9000,
   },
   LIGHTS_PROTECTION_TALENT: {
     id: 416799,
@@ -1095,7 +1095,7 @@ const talents = {
     entryIds: [102545],
     definitionIds: [{ id: 107550, specId: 65 }],
     holyPowerCost: 3,
-    manaCost: 600,
+    manaCost: 3000,
   },
   LIGHT_OF_JUSTICE_TALENT: {
     id: 404436,
@@ -1287,7 +1287,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102585],
     definitionIds: [{ id: 107590, specId: 65 }],
-    manaCost: 600,
+    manaCost: 3000,
   },
   RESOLUTE_DEFENDER_TALENT: {
     id: 385422,
@@ -1614,7 +1614,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102623],
     definitionIds: [{ id: 107628, specId: 65 }],
-    manaCost: 1050,
+    manaCost: 5250,
   },
   TYRS_DELIVERANCE_TALENT: {
     id: 200652,
@@ -1623,7 +1623,7 @@ const talents = {
     maxRanks: 1,
     entryIds: [102573],
     definitionIds: [{ id: 107578, specId: 65 }],
-    manaCost: 1200,
+    manaCost: 6000,
   },
   TYRS_ENFORCER_TALENT: {
     id: 378285,

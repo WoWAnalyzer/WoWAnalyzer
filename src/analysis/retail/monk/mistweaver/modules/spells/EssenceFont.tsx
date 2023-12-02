@@ -1,6 +1,7 @@
 import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
 import { SpellLink } from 'interface';
+import { PerformanceMark } from 'interface/guide';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   ApplyBuffEvent,
@@ -25,12 +26,13 @@ import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import EssenceFontTargetsHit from './EssenceFontTargetsHit';
 import EssenceFontUniqueTargets from './EssenceFontUniqueTargets';
 import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/PerformanceBoxRow';
-import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
+import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { getNumberOfBolts } from '../../normalizers/CastLinkNormalizer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
 
 const debug = false;
-const NUM_EF_BOLTS = 18;
+const NUM_EF_BOLTS = 15;
+const MAX_EXTRA_BOLTS = 18;
 
 class EssenceFont extends Analyzer {
   static dependencies = {
@@ -227,7 +229,7 @@ class EssenceFont extends Analyzer {
     }
     // Every second that Essence Font is ready to be cast but isn't, another bolt gets added to its next cast, up to 18
     return Math.min(
-      NUM_EF_BOLTS * 2,
+      NUM_EF_BOLTS + MAX_EXTRA_BOLTS,
       NUM_EF_BOLTS + Math.floor((event.timestamp - this.lastCdEnd) / 1000),
     );
   }
@@ -235,17 +237,45 @@ class EssenceFont extends Analyzer {
   onCast(event: CastEvent) {
     const totalHit = getNumberOfBolts(event);
     const expected = Math.max(this.getExpectedApplies(event), totalHit);
-    let value = QualitativePerformance.Good;
+    let cancelledPerf = QualitativePerformance.Good;
+    let tftPerf = QualitativePerformance.Good;
+    const manaTeaPerf = this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)
+      ? QualitativePerformance.Good
+      : QualitativePerformance.Fail;
     if (totalHit !== expected) {
       this.numCancelled += 1;
-      value = QualitativePerformance.Fail;
+      cancelledPerf = QualitativePerformance.Fail;
+    }
+    if (this.selectedCombatant.hasBuff(TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT.id)) {
+      tftPerf = this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)
+        ? QualitativePerformance.Good
+        : QualitativePerformance.Fail;
     }
     const tooltip = (
       <>
-        Cast @ {this.owner.formatTimestamp(event.timestamp)}: You hit {totalHit} out of {expected}{' '}
-        possible bolts
+        <div>
+          Cast @ {this.owner.formatTimestamp(event.timestamp)}: You hit {totalHit} out of {expected}{' '}
+          possible bolts <PerformanceMark perf={cancelledPerf} />
+        </div>
+        <div>
+          {this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT) ? (
+            <>
+              Used <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
+            </>
+          ) : (
+            <>
+              Did not use <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT} />
+            </>
+          )}{' '}
+          <PerformanceMark perf={tftPerf} />
+        </div>
+        <div>
+          Reduced mana cost with <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT} />{' '}
+          <PerformanceMark perf={manaTeaPerf} />
+        </div>
       </>
     );
+    const value = getAveragePerf([cancelledPerf, tftPerf, manaTeaPerf]);
     this.castEntries.push({ value, tooltip });
   }
 

@@ -29,7 +29,7 @@ import trinkets from 'common/ITEMS/dragonflight/trinkets';
 import Combatant from 'parser/core/Combatant';
 import Combatants from 'parser/shared/modules/Combatants';
 import { SpellTracker } from 'analysis/retail/evoker/shared/modules/components/ExplanationGraph';
-//import BreathOfEonsHelper from './BreathOfEonsHelper';
+import BreathOfEonsHelper from './BreathOfEonsHelper';
 
 export type BreathOfEonsWindows = {
   flightData: SpellTracker[];
@@ -522,6 +522,19 @@ class BreathOfEonsRotational extends Analyzer {
       perfWindow.potentialLostDamage =
         potentialDamagePerTarget * perfWindow.earlyDeaths * PRIO_MULTIPLER;
     }
+
+    /** In 10.2 blizzard introduced *sparkles* delayed EM buffs *sparkles*
+     * so now we need to double check whether or not we actually found our buffed players */
+    if (this.currentPerformanceBreathWindow.buffedPlayers.size === 0) {
+      const currentBuffedTargets: Map<string, Combatant> = new Map();
+      const players = Object.values(this.combatants.players);
+      players.forEach((player) => {
+        if (player.hasBuff(SPELLS.EBON_MIGHT_BUFF_EXTERNAL.id)) {
+          currentBuffedTargets.set(player.name, player);
+        }
+      });
+      this.currentPerformanceBreathWindow.buffedPlayers = currentBuffedTargets;
+    }
   }
 
   private finalize() {
@@ -575,7 +588,7 @@ class BreathOfEonsRotational extends Analyzer {
       />
     );
   }
-  /* helperSection(): JSX.Element | null {
+  helperSection(): JSX.Element | null {
     if (!this.active) {
       return null;
     }
@@ -587,7 +600,7 @@ class BreathOfEonsRotational extends Analyzer {
         owner={this.owner}
       />
     );
-  } */
+  }
 }
 
 export default BreathOfEonsRotational;

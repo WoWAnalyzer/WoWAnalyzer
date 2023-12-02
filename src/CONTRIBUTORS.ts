@@ -2311,3 +2311,20 @@ export const Amelydia: Contributor = {
     },
   ],
 };
+export const Ypp: Contributor = {
+  nickname: 'Ypp',
+  github: 'brocolicosmique',
+  avatar: avatar('Ypp-avatar.png'),
+  mains: [
+    {
+      name: 'Ypp',
+      spec: SPECS.RESTORATION_SHAMAN,
+      link: 'https://www.warcraftlogs.com/character/id/58915319',
+    },
+  ],
+};
+
+export const LucasLevyOB: Contributor = {
+  nickname: 'LucasLevyOB',
+  github: 'LucasLevyOB',
+};

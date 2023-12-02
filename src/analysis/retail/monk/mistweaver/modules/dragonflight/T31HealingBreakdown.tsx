@@ -124,7 +124,10 @@ class T31HealingBreakdown extends Analyzer {
     super(options);
     this.has2Piece = this.selectedCombatant.has2PieceByTier(TIERS.T31);
     this.has4Piece = this.selectedCombatant.has4PieceByTier(TIERS.T31) && this.has2Piece;
-    this.active = this.has2Piece;
+    this.active = this.has4Piece;
+    if (!this.active) {
+      return;
+    }
   }
 
   statistic() {

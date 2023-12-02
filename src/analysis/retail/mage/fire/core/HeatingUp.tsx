@@ -9,11 +9,11 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink, SpellIcon } from 'interface';
 import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
-import Analyzer from 'parser/core/Analyzer';
-import { EventType } from 'parser/core/Events';
+import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
+import Events, { CastEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
+import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import CooldownHistory from 'parser/shared/modules/CooldownHistory';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -22,47 +22,60 @@ class HeatingUp extends Analyzer {
   static dependencies = {
     sharedCode: SharedCode,
     cooldownHistory: CooldownHistory,
-    eventHistory: EventHistory,
+    abilityTracker: AbilityTracker,
   };
   protected sharedCode!: SharedCode;
   protected cooldownHistory!: CooldownHistory;
-  protected eventHistory!: EventHistory;
+  protected abilityTracker!: AbilityTracker;
 
   hasFirestarter: boolean = this.selectedCombatant.hasTalent(TALENTS.FIRESTARTER_TALENT);
   hasSearingTouch: boolean = this.selectedCombatant.hasTalent(TALENTS.SEARING_TOUCH_TALENT);
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
 
-  phoenixFlamesDuringHotStreak = () =>
-    this.eventHistory.getEventsWithBuff(
-      SPELLS.HOT_STREAK,
-      EventType.Cast,
-      TALENTS.PHOENIX_FLAMES_TALENT,
-    ).length || 0;
+  fireBlasts: { cast: CastEvent; hasHeatingUp: boolean; hasHotStreak: boolean }[] = [];
+  phoenixCasts: { cast: CastEvent; hasHotStreak: boolean }[] = [];
 
-  fireBlastDuringHotStreak = () =>
-    this.eventHistory.getEventsWithBuff(SPELLS.HOT_STREAK, EventType.Cast, SPELLS.FIRE_BLAST)
-      .length || 0;
+  constructor(options: Options) {
+    super(options);
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.PHOENIX_FLAMES_TALENT),
+      this.onPhoenixCast,
+    );
+    this.addEventListener(
+      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.FIRE_BLAST),
+      this.onFireBlastCast,
+    );
+  }
+
+  onFireBlastCast(event: CastEvent) {
+    this.fireBlasts.push({
+      cast: event,
+      hasHeatingUp: this.selectedCombatant.hasBuff(SPELLS.HEATING_UP.id),
+      hasHotStreak: this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id),
+    });
+  }
+
+  onPhoenixCast(event: CastEvent) {
+    this.phoenixCasts.push({
+      cast: event,
+      hasHotStreak: this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id),
+    });
+  }
 
   fireBlastWithoutHeatingUp = () => {
-    let casts = this.eventHistory.getEventsWithoutBuff(
-      SPELLS.HEATING_UP,
-      EventType.Cast,
-      SPELLS.FIRE_BLAST,
-    );
+    let casts = this.fireBlasts.filter((c) => !c.hasHeatingUp);
 
-    //If Hot Streak was active, filter it out (this is tracked separately)
-    casts = casts.filter(
-      (cast) => !this.selectedCombatant.hasBuff(SPELLS.HOT_STREAK.id, cast.timestamp),
-    );
+    //If Hot Streak was active, filter it out
+    casts = casts.filter((c) => !c.hasHotStreak);
 
     //If Combustion was active, filter it out
     casts = casts.filter(
-      (cast) => !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, cast.timestamp),
+      (c) => !this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id, c.cast.timestamp),
     );
 
     //If Firestarter or Searing Touch was active, filter it out
-    casts = casts.filter((cast) => {
-      const targetHealth = this.sharedCode.getTargetHealth(cast);
+    casts = casts.filter((c) => {
+      const targetHealth = this.sharedCode.getTargetHealth(c.cast);
       if (this.hasFirestarter) {
         return targetHealth && targetHealth < FIRESTARTER_THRESHOLD;
       } else if (this.hasSearingTouch) {
@@ -73,33 +86,37 @@ class HeatingUp extends Analyzer {
     });
 
     //If the player was capped on charges, filter it out
-    casts = casts.filter((cast) => {
+    casts = casts.filter((c) => {
       const maxCharges = 1 + this.selectedCombatant.getTalentRank(TALENTS.FLAME_ON_TALENT);
-      const charges = this.cooldownHistory.chargesAvailable(SPELLS.FIRE_BLAST.id, cast.timestamp);
+      const charges = this.cooldownHistory.chargesAvailable(SPELLS.FIRE_BLAST.id, c.cast.timestamp);
       return charges !== maxCharges;
     });
 
     //Highlight bad casts
     const tooltip =
       'This Fire Blast was cast without Heating Up, Combustion, Searing Touch, or Firestarter active.';
-    casts.forEach((cast) => highlightInefficientCast(cast, tooltip));
+    casts.forEach((c) => highlightInefficientCast(c.cast, tooltip));
 
     return casts.length;
   };
 
-  get totalWasted() {
-    return (
-      this.fireBlastWithoutHeatingUp() +
-      this.fireBlastDuringHotStreak() +
-      this.phoenixFlamesDuringHotStreak()
-    );
+  get fireBlastsDuringHotStreak() {
+    return this.fireBlasts.filter((c) => c.hasHotStreak).length;
+  }
+
+  get phoenixFlamesDuringHotStreak() {
+    return this.phoenixCasts.filter((c) => c.hasHotStreak).length;
   }
 
   get totalFireBlasts() {
+    return this.fireBlasts.length;
+  }
+
+  get totalWasted() {
     return (
-      this.eventHistory.getEvents(EventType.Cast, {
-        spell: SPELLS.FIRE_BLAST,
-      }).length || 0
+      this.fireBlastWithoutHeatingUp() +
+      this.fireBlastsDuringHotStreak +
+      this.phoenixFlamesDuringHotStreak
     );
   }
 
@@ -107,7 +124,7 @@ class HeatingUp extends Analyzer {
     return {
       actual:
         1 -
-        (this.fireBlastWithoutHeatingUp() + this.fireBlastDuringHotStreak()) / this.totalFireBlasts,
+        (this.fireBlastWithoutHeatingUp() + this.fireBlastsDuringHotStreak) / this.totalFireBlasts,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -121,10 +138,8 @@ class HeatingUp extends Analyzer {
     return {
       actual:
         1 -
-          this.phoenixFlamesDuringHotStreak() /
-            this.eventHistory.getEvents(EventType.Cast, {
-              spell: TALENTS.PHOENIX_FLAMES_TALENT,
-            }).length || 0,
+        this.phoenixFlamesDuringHotStreak /
+          this.abilityTracker.getAbility(TALENTS.PHOENIX_FLAMES_TALENT.id).casts,
       isLessThan: {
         minor: 0.95,
         average: 0.9,
@@ -138,7 +153,7 @@ class HeatingUp extends Analyzer {
     when(this.fireBlastUtilSuggestionThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink spell={SPELLS.FIRE_BLAST} /> {this.fireBlastDuringHotStreak()} times
+          You cast <SpellLink spell={SPELLS.FIRE_BLAST} /> {this.fireBlastsDuringHotStreak} times
           while <SpellLink spell={SPELLS.HOT_STREAK} /> was active and{' '}
           {this.fireBlastWithoutHeatingUp()} times while you didnt have{' '}
           <SpellLink spell={SPELLS.HEATING_UP} />. Make sure that you are only using Fire Blast to
@@ -157,7 +172,7 @@ class HeatingUp extends Analyzer {
       suggest(
         <>
           You cast <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />{' '}
-          {this.phoenixFlamesDuringHotStreak()} times while <SpellLink spell={SPELLS.HOT_STREAK} />{' '}
+          {this.phoenixFlamesDuringHotStreak} times while <SpellLink spell={SPELLS.HOT_STREAK} />{' '}
           was active. This is a waste as the <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />{' '}
           could have contributed towards the next <SpellLink spell={SPELLS.HEATING_UP} /> or{' '}
           <SpellLink spell={SPELLS.HOT_STREAK} />.
@@ -188,8 +203,8 @@ class HeatingUp extends Analyzer {
             next Heating Up/Hot Streak
             <ul>
               <li>Fireblast used without Heating Up: {this.fireBlastWithoutHeatingUp()}</li>
-              <li>Fireblast used during Hot Streak: {this.fireBlastDuringHotStreak()}</li>
-              <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesDuringHotStreak()}</li>
+              <li>Fireblast used during Hot Streak: {this.fireBlastsDuringHotStreak}</li>
+              <li>Phoenix Flames used during Hot Streak: {this.phoenixFlamesDuringHotStreak}</li>
             </ul>
           </>
         }

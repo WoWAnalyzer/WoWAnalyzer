@@ -143,6 +143,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: [EventType.ApplyBuff, EventType.RemoveBuff],
     anyTarget: true,
     forwardBufferMs: BREATH_OF_EONS_BUFF_BUFFER,
+    backwardBufferMs: BREATH_OF_EONS_BUFF_BUFFER,
   },
   {
     linkRelation: BREATH_OF_EONS_DAMAGE_LINK,
@@ -320,7 +321,7 @@ export function generatedEssenceBurst(event: CastEvent) {
   return HasRelatedEvent(event, ESSENCE_BURST_GENERATED);
 }
 
-export function failedEbonMightExtention(event: CastEvent | EmpowerEndEvent) {
+export function failedEbonMightExtension(event: CastEvent | EmpowerEndEvent) {
   return HasRelatedEvent(event, FAILED_EXTENSION_LINK);
 }
 

@@ -26,6 +26,15 @@ export function cdSpell(c: Combatant): Spell {
     : SPELLS.CELESTIAL_ALIGNMENT;
 }
 
+export const CA_DURATION = 20_000;
+export const INCARN_DURATION = 30_000;
+/** Returns the duration of Balance Druid's primary cooldown spell, which changes based on talent */
+export function cdDuration(c: Combatant): number {
+  return c.hasTalent(TALENTS_DRUID.INCARNATION_CHOSEN_OF_ELUNE_TALENT)
+    ? INCARN_DURATION
+    : CA_DURATION;
+}
+
 /** Helper for figuring out the current eclipse state */
 export function currentEclipse(c: Combatant): 'none' | 'solar' | 'lunar' | 'both' {
   const hasSolar = c.hasBuff(SPELLS.ECLIPSE_SOLAR.id);

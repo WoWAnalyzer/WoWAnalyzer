@@ -1,4 +1,5 @@
 import ModuleError from 'parser/core/ModuleError';
+import { captureException, withScope } from '@sentry/react';
 
 import { SELECTED_PLAYER, SELECTED_PLAYER_PET } from '../Analyzer';
 import EventFilter, { SpellFilter } from '../EventFilter';
@@ -294,19 +295,19 @@ class EventEmitter extends Module {
     }
   }
   // todo double check this 'event' shape... seems wrong
-  fabricateEvent(
-    event: { type: EventFilter<any> | string; [additionalProperties: string]: any },
+  fabricateEvent<T extends EventType>(
+    event: { type: T; [additionalProperties: string]: any },
     trigger: any = null,
-  ) {
-    const fabricatedEvent = {
+  ): AnyEvent<T> {
+    const fabricatedEvent: AnyEvent<T> = {
       // When no timestamp is provided in the event (you should always try to), the current timestamp will be used by default.
       timestamp: this.owner.currentTimestamp,
       // If this event was triggered you should pass it along
       trigger: trigger ? trigger : undefined,
       ...event,
-      type: event.type instanceof EventFilter ? event.type.eventType : event.type,
+      type: event.type,
       __fabricated: true,
-    };
+    } as unknown as AnyEvent<T>;
     if (this._isHandlingEvent) {
       this.finally(() => {
         this.triggerEvent(fabricatedEvent);
@@ -340,11 +341,11 @@ class EventEmitter extends Module {
     console.error('Disabling', name, 'and child dependencies because an error occurred:', err);
     // Disable this module and all active modules that have this as a dependency
     this.owner.deepDisable(module, ModuleError.EVENTS, err);
-    window.Sentry?.withScope((scope) => {
+    withScope((scope) => {
       scope.setTag('type', 'module_error');
       scope.setTag('spec', this.selectedCombatant.player.icon);
       scope.setExtra('module', name);
-      window.Sentry?.captureException(err);
+      captureException(err);
     });
   }
 }

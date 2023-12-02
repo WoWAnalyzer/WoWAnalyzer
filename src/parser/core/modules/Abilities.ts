@@ -3,6 +3,7 @@ import SPECS from 'game/SPECS';
 import Module, { Options } from 'parser/core/Module';
 import EventEmitter from 'parser/core/modules/EventEmitter';
 import Haste from 'parser/shared/modules/Haste';
+import type SpellUsable from 'parser/shared/modules/SpellUsable';
 
 import AbilityTracker from '../../shared/modules/AbilityTracker';
 import { AnyEvent, EventType } from '../Events';
@@ -172,7 +173,7 @@ class Abilities extends Module {
 
     this.updateMaxCharges(spellId, currentCharges + increaseBy);
 
-    this.eventEmitter.fabricateEvent(
+    const fabricatedEvent = this.eventEmitter.fabricateEvent(
       {
         type: EventType.MaxChargesIncreased,
         timestamp: event.timestamp,
@@ -181,6 +182,8 @@ class Abilities extends Module {
       },
       event,
     );
+
+    this.spellUsable.onMaxChargesIncreased(fabricatedEvent);
   }
 
   decreaseMaxCharges(event: AnyEvent, spellId: number, decreaseBy: number) {
@@ -192,7 +195,7 @@ class Abilities extends Module {
 
     this.updateMaxCharges(spellId, currentCharges - decreaseBy);
 
-    this.eventEmitter.fabricateEvent(
+    const fabricatedEvent = this.eventEmitter.fabricateEvent(
       {
         type: EventType.MaxChargesDecreased,
         timestamp: event.timestamp,
@@ -201,6 +204,12 @@ class Abilities extends Module {
       },
       event,
     );
+
+    this.spellUsable.onMaxChargesDecreased(fabricatedEvent);
+  }
+
+  private get spellUsable(): SpellUsable {
+    return this.owner._modules.spellUsable as SpellUsable;
   }
 
   /**

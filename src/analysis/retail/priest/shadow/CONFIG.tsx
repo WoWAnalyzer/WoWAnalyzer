@@ -17,8 +17,7 @@ const config: Config = {
   description: (
     <>
       Welcome to the Shadow Priest analyzer! We hope you find these suggestions and statistics
-      useful. This is still a work in progress for patch 10.1 If you find any issues, please let
-      DoxAshe#8269 know on Discord
+      useful. If you find any issues, please let DoxAshe#8269 know on Discord
       <br />
       <br />
       If you need general help learning the spec, Wowhead has a great getting started guide for
@@ -40,8 +39,7 @@ const config: Config = {
     </>
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
-  exampleReport:
-    '/report/T49nh8pPAy1KNgdk/1-Heroic+Kazzara,+the+Hellforged+-+Kill+(3:14)/Doxashe/standard',
+  exampleReport: '/report/32hnqfXN6ZVkQPLG/4-Normal+Volcoross+-+Kill+(2:22)/Doxashe/standard',
   guideDefault: true,
 
   // Don't change anything below this line;

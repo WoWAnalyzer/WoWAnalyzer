@@ -322,17 +322,19 @@ class BarbedShot extends Analyzer {
         <br />
       </>
     );
+
     if (frenzyBuffRemaining > 0 && frenzyBuffRemaining < currentGCDWithBuffer) {
       const tooltip = (
         <>
           {baseTooltip}
-          You refreshed <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> with
+          You refreshed <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> with{' '}
           {(frenzyBuffRemaining / 1000).toFixed(2)} seconds remaining.
         </>
       );
       this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
       return;
     }
+
     if (
       currentBarbedShotStacks < MAX_FRENZY_STACKS &&
       this.selectedCombatant.hasTalent(TALENTS.SCENT_OF_BLOOD_TALENT) &&
@@ -348,22 +350,6 @@ class BarbedShot extends Analyzer {
           <br />
           Pet had {currentBarbedShotStacks} stacks of{' '}
           <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} />.
-        </>
-      );
-      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
-      return;
-    }
-
-    if (
-      this.selectedCombatant.hasTalent(TALENTS.WILD_INSTINCTS_TALENT) &&
-      this.selectedCombatant.hasBuff(TALENTS.CALL_OF_THE_WILD_TALENT.id)
-    ) {
-      const tooltip = (
-        <>
-          {baseTooltip}
-          You had <SpellLink spell={TALENTS.CALL_OF_THE_WILD_TALENT} /> running with{' '}
-          <SpellLink spell={TALENTS.WILD_INSTINCTS_TALENT} /> talented giving you a large amount of
-          resets to offset more aggressive usage of <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} />
         </>
       );
       this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
@@ -401,6 +387,7 @@ class BarbedShot extends Analyzer {
       this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
       return;
     }
+
     if (
       this.selectedCombatant.hasTalent(TALENTS.SCENT_OF_BLOOD_TALENT) &&
       bestialWrathOnCooldown &&
@@ -418,6 +405,20 @@ class BarbedShot extends Analyzer {
       this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
       return;
     }
+
+    if (this.selectedCombatant.hasTalent(TALENTS.SAVAGERY_TALENT)) {
+      const tooltip = (
+        <>
+          {baseTooltip}
+          You used <SpellLink spell={TALENTS.BARBED_SHOT_TALENT} /> while talented into{' '}
+          <SpellLink spell={TALENTS.SAVAGERY_TALENT} /> giving your{' '}
+          <SpellLink spell={SPELLS.BARBED_SHOT_PET_BUFF} /> a longer duration.
+        </>
+      );
+      this.castEntries.push({ value: QualitativePerformance.Good, tooltip, event });
+      return;
+    }
+
     const badTooltip = (
       <>
         {baseTooltip} You didn't fulfill any of the criteria of casting a good{' '}

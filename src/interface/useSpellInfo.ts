@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/browser';
+import { captureException } from '@sentry/react';
 import makeApiUrl from 'common/makeApiUrl';
 import SPELLS from 'common/SPELLS';
 import { useEffect } from 'react';
@@ -28,7 +28,7 @@ const useSpellInfo = (spell: number | Spell) => {
   }, [data, spellId]);
 
   if (error) {
-    Sentry.captureException(error);
+    captureException(error);
     console.error(error);
     return argumentAsSpell;
   }

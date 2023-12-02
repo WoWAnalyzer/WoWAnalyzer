@@ -22,26 +22,26 @@ import {
   TalentNode,
 } from './talent-tree-types';
 
-const LIVE_WOW_BUILD_NUMBER = '10.1.7.51187';
+const LIVE_WOW_BUILD_NUMBER = '10.2.0.52188';
 const LIVE_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/live/talents.json';
 const LIVE_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${LIVE_WOW_BUILD_NUMBER}`;
-const PTR_WOW_BUILD_NUMBER = '10.2.0.51790';
+const PTR_WOW_BUILD_NUMBER = '10.2.0.52188';
 const PTR_TALENT_DATA_URL = 'https://www.raidbots.com/static/data/xptr/talents.json';
 const PTR_SPELLPOWER_DATA_URL = `https://wago.tools/db2/SpellPower/csv?build=${PTR_WOW_BUILD_NUMBER}`;
 
 const classes: { [classId: number]: { name: string; baseMaxResource: number } } = {
   //TODO Non Mana users verification
   1: { name: 'Warrior', baseMaxResource: 1000 },
-  2: { name: 'Paladin', baseMaxResource: 50000 },
+  2: { name: 'Paladin', baseMaxResource: 250000 },
   3: { name: 'Hunter', baseMaxResource: 100 },
   4: { name: 'Rogue', baseMaxResource: 100 },
   5: { name: 'Priest', baseMaxResource: 250000 },
   6: { name: 'Death Knight', baseMaxResource: 1000 },
-  7: { name: 'Shaman', baseMaxResource: 50000 },
+  7: { name: 'Shaman', baseMaxResource: 250000 },
   8: { name: 'Mage', baseMaxResource: 250000 },
   9: { name: 'Warlock', baseMaxResource: 250000 },
   10: { name: 'Monk', baseMaxResource: 250000 },
-  11: { name: 'Druid', baseMaxResource: 50000 },
+  11: { name: 'Druid', baseMaxResource: 250000 },
   12: { name: 'Demon Hunter', baseMaxResource: 100 },
   13: { name: 'Evoker', baseMaxResource: 250000 },
 };

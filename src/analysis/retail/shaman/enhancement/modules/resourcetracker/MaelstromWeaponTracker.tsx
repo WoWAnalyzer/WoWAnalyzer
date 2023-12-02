@@ -3,22 +3,26 @@ import TALENTS from 'common/TALENTS/shaman';
 import { Resource } from 'game/RESOURCE_TYPES';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
-  RefreshBuffEvent,
-  ChangeBuffStackEvent,
-  EventType,
-  CastEvent,
-  FreeCastEvent,
-  LinkedEvent,
   ApplyBuffEvent,
   ApplyBuffStackEvent,
+  CastEvent,
+  ChangeBuffStackEvent,
+  ClassResources,
+  EventType,
+  GetRelatedEvents,
+  HasRelatedEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
   RemoveBuffStackEvent,
-  ClassResources,
 } from 'parser/core/Events';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
 import ResourceTracker from 'parser/shared/modules/resources/resourcetracker/ResourceTracker';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import { MAELSTROM_WEAPON_SPEND_LINK } from '../normalizers/EventLinkNormalizer';
+import {
+  MAELSTROM_GENERATOR_LINK,
+  MAELSTROM_SPENDER_LINK,
+} from '../normalizers/EventLinkNormalizer';
+import { MAELSTROM_WEAPON_ELIGIBLE_SPELLS } from 'analysis/retail/shaman/enhancement/constants';
 
 const DEBUG = false;
 
@@ -27,6 +31,15 @@ export const GOOD_WASTED_PERCENT = 0.2;
 export const OK_WASTED_PERCENT = 0.3;
 
 const WITCH_DOCTORS_ANCESTRY_REDUCTION_MS: Record<number, number> = { 1: 1000, 2: 2000 };
+const MAELSTROM_SPENDERS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map((spell) => spell.id);
+const MAELSTROM_GENERATORS = [
+  TALENTS.STORMSTRIKE_TALENT.id,
+  TALENTS.LAVA_LASH_TALENT.id,
+  TALENTS.ICE_STRIKE_TALENT.id,
+  TALENTS.FROST_SHOCK_TALENT.id,
+  TALENTS.FIRE_NOVA_TALENT.id,
+  TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+];
 
 const MaelstromWeaponResource: Resource = {
   id: -99,
@@ -35,7 +48,7 @@ const MaelstromWeaponResource: Resource = {
   url: 'maelstrom_weapon',
 };
 
-export default class extends ResourceTracker {
+class MaelstromWeaponTracker extends ResourceTracker {
   static dependencies = {
     ...ResourceTracker.dependencies,
     spellUsable: SpellUsable,
@@ -48,7 +61,7 @@ export default class extends ResourceTracker {
 
   spellUsable!: SpellUsable;
 
-  ignoreNextRefresh = true;
+  //ignoreNextRefresh = true;
   isDead: boolean = false;
   lastAppliedTime = 0;
   expiredWaste = 0;
@@ -66,6 +79,8 @@ export default class extends ResourceTracker {
 
     const rank = this.selectedCombatant.getTalentRank(TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT);
     this.cooldownPerMaelstromGained = WITCH_DOCTORS_ANCESTRY_REDUCTION_MS[rank];
+
+    this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onCastSpell);
 
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
@@ -128,9 +143,62 @@ export default class extends ResourceTracker {
     return QualitativePerformance.Fail;
   }
 
+  onCastSpell(event: CastEvent) {
+    if (MAELSTROM_SPENDERS.includes(event.ability.guid)) {
+      if (HasRelatedEvent(event, MAELSTROM_SPENDER_LINK)) {
+        const cost = event.resourceCost ?? {};
+        event.resourceCost = {
+          ...cost,
+          [this.resource.id]: this.current,
+        };
+        this._applySpender(event, this.current, {
+          amount: this.current,
+          max: this.maxResource,
+          type: this.resource.id,
+        });
+      } else {
+        DEBUG &&
+          console.warn(
+            `${event.ability.name} cast @ ${this.owner.formatTimestamp(
+              event.timestamp,
+              3,
+            )} is not linked to a spender`,
+            event,
+          );
+      }
+    } else if (MAELSTROM_GENERATORS.includes(event.ability.guid)) {
+      const gain = GetRelatedEvents(
+        event,
+        MAELSTROM_GENERATOR_LINK,
+        (e) => e.type === EventType.ApplyBuff || e.type === EventType.ApplyBuffStack,
+      ).length;
+      const waste = GetRelatedEvents(
+        event,
+        MAELSTROM_GENERATOR_LINK,
+        (e) => e.type === EventType.RefreshBuff,
+      ).length;
+
+      if (gain || waste) {
+        this._applyBuilder(event.ability.guid, gain, waste, event.timestamp, {
+          amount: this.current + gain,
+          max: this.maxResource,
+          type: this.resource.id,
+        });
+        this.reduceFeralSpiritCooldown(gain + waste);
+      }
+    }
+  }
+
   onChangeStack(
     event: ApplyBuffEvent | ApplyBuffStackEvent | RemoveBuffEvent | RemoveBuffStackEvent,
   ) {
+    if (
+      HasRelatedEvent(event, MAELSTROM_GENERATOR_LINK) ||
+      HasRelatedEvent(event, MAELSTROM_SPENDER_LINK)
+    ) {
+      return;
+    }
+
     let newStacks = 0;
     if (event.type === EventType.ApplyBuff) {
       newStacks = 1;
@@ -156,45 +224,36 @@ export default class extends ResourceTracker {
     };
 
     if (change > 0) {
-      this.ignoreNextRefresh = true;
       this._applyBuilder(event.ability.guid, change, 0, event.timestamp, resource);
       this.reduceFeralSpiritCooldown();
     } else {
-      const spenderEvent = event._linkedEvents?.find(
-        (le: LinkedEvent) => le.relation === MAELSTROM_WEAPON_SPEND_LINK,
-      )?.event as CastEvent | FreeCastEvent | undefined;
-      if (spenderEvent) {
-        this._applySpender(spenderEvent, -change, resource);
-      } else {
-        DEBUG &&
-          console.warn(
-            `Resource change @ ${this.owner.formatTimestamp(
-              event.timestamp,
-              1,
-            )} is not linked to a maelstrom spender`,
-            event,
-          );
-        // if there is no linked event, the stacks expired naturally or death
-        this._logAndPushUpdate(
-          {
-            type: 'drain',
-            timestamp: event.timestamp,
-            current: 0,
-            max: this.maxResource,
-            rate: 0,
-            atCap: false,
-          },
-          newStacks,
-          newStacks,
-          false,
+      DEBUG &&
+        console.warn(
+          `Resource change @ ${this.owner.formatTimestamp(
+            event.timestamp,
+            1,
+          )} is not linked to a maelstrom spender`,
+          event,
         );
-      }
+      // if there is no linked event, the stacks expired naturally or death
+      this._logAndPushUpdate(
+        {
+          type: 'drain',
+          timestamp: event.timestamp,
+          current: 0,
+          max: this.maxResource,
+          rate: 0,
+          atCap: false,
+        },
+        this.current,
+        newStacks,
+        false,
+      );
     }
   }
 
   onRefresh(event: RefreshBuffEvent) {
-    if (this.ignoreNextRefresh) {
-      this.ignoreNextRefresh = false;
+    if (HasRelatedEvent(event, MAELSTROM_GENERATOR_LINK)) {
       return;
     }
 
@@ -207,6 +266,14 @@ export default class extends ResourceTracker {
         this.getMaelstromResource(event),
       );
       this.reduceFeralSpiritCooldown();
+    } else {
+      DEBUG &&
+        console.warn(
+          `Refresh event @ ${this.owner.formatTimestamp(event.timestamp, 3)} at ${
+            this.current
+          } maelstrom`,
+          event,
+        );
     }
   }
 
@@ -214,7 +281,7 @@ export default class extends ResourceTracker {
     this.outOfOrderCooldownReduction += this.cooldownPerMaelstromGained;
   }
 
-  reduceFeralSpiritCooldown() {
+  reduceFeralSpiritCooldown(maelstromGained: number = 1) {
     if (!this.selectedCombatant.hasTalent(TALENTS.WITCH_DOCTORS_ANCESTRY_TALENT)) {
       return;
     }
@@ -222,15 +289,15 @@ export default class extends ResourceTracker {
     if (this.spellUsable.isOnCooldown(TALENTS.FERAL_SPIRIT_TALENT.id)) {
       const effectiveReduction = this.spellUsable.reduceCooldown(
         TALENTS.FERAL_SPIRIT_TALENT.id,
-        this.cooldownPerMaelstromGained + this.outOfOrderCooldownReduction,
+        this.cooldownPerMaelstromGained * maelstromGained + this.outOfOrderCooldownReduction,
       );
       this.feralSpiritTotalCooldownReduction += effectiveReduction;
       this.feralSpiritCooldownReductionWasted +=
-        this.cooldownPerMaelstromGained - effectiveReduction;
+        this.cooldownPerMaelstromGained * maelstromGained - effectiveReduction;
       this.outOfOrderCooldownReduction = 0;
     } else {
       this.feralSpiritCooldownReductionWasted += Math.max(
-        this.cooldownPerMaelstromGained - this.outOfOrderCooldownReduction,
+        this.cooldownPerMaelstromGained * maelstromGained - this.outOfOrderCooldownReduction,
         0,
       );
     }
@@ -251,3 +318,5 @@ export default class extends ResourceTracker {
     };
   }
 }
+
+export default MaelstromWeaponTracker;

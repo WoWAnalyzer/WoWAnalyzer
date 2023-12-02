@@ -9,8 +9,6 @@ const debugGear = false;
 type FakeInfo = {
   covenantID: CombatantInfo['covenantID'];
   soulbindID: CombatantInfo['soulbindID'];
-  conduits: CombatantInfo['conduits'];
-  soulbindTraits: CombatantInfo['soulbindTraits'];
   legendaryInfo: { slotId: number; bonusId: number }; //slotId 0 would be head slot, and bonusID is the bonusID that is added to an item with the given legendary effect
 };
 
@@ -18,23 +16,17 @@ const SPEC_CONFIGS: { [specId: number]: FakeInfo } = {
   [SPECS.MARKSMANSHIP_HUNTER.id]: {
     covenantID: COVENANTS.VENTHYR.id,
     soulbindID: SOULBINDS.GENERAL_DRAVEN.id,
-    conduits: [{ traitID: 199, rank: 1, spellID: 340033, icon: 'ability_hunter_markedshot' }],
     legendaryInfo: { slotId: 0, bonusId: 7003 },
-    soulbindTraits: [],
   },
   [SPECS.BEAST_MASTERY_HUNTER.id]: {
     covenantID: COVENANTS.NIGHT_FAE.id,
     soulbindID: SOULBINDS.NIYA.id,
-    conduits: [{ traitID: 185, rank: 1, spellID: 339750, icon: 'spell_winston_rage' }],
     legendaryInfo: { slotId: 0, bonusId: 7003 },
-    soulbindTraits: [],
   },
   [SPECS.FROST_MAGE.id]: {
     covenantID: COVENANTS.VENTHYR.id,
     soulbindID: SOULBINDS.NADJIA_THE_MISTBLADE.id,
-    conduits: [{ traitID: 21, rank: 1, spellID: 336569, icon: 'spell_frost_frostblast' }],
     legendaryInfo: { slotId: 14, bonusId: 6828 },
-    soulbindTraits: [],
   },
 };
 
@@ -48,8 +40,6 @@ export function generateFakeCombatantInfo(player: any) {
   fakedPlayer.auras = fakeBuffGenerator();
   fakedPlayer.covenantID = SPEC_CONFIGS[player.specID]?.covenantID;
   fakedPlayer.soulbindID = SPEC_CONFIGS[player.specID]?.soulbindID;
-  fakedPlayer.conduits = SPEC_CONFIGS[player.specID]?.conduits;
-  fakedPlayer.soulbindTraits = SPEC_CONFIGS[player.specID]?.soulbindTraits;
   fakedPlayer.error = null;
   return fakedPlayer;
 }

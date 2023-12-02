@@ -237,7 +237,7 @@ export function isInRange(state: LocationState, event: AnyEvent, spell: Spell): 
   const range = spellRange(spell.id, state.info);
   const actualCastRange = spellRange(event.ability.guid, state.info, true);
 
-  if (actualCastRange && actualCastRange < range) {
+  if (actualCastRange && actualCastRange <= range) {
     // shortcut: if we know the real range of the spell that was actually cast
     // *and* it was shorter range than the spell we're examining, then we know
     // we're in range.

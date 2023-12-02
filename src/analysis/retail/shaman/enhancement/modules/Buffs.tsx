@@ -61,6 +61,11 @@ class Buffs extends CoreAuras {
         enabled: combatant.hasTalent(TALENTS.LEGACY_OF_THE_FROST_WITCH_TALENT),
         timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.SPLINTERED_ELEMENTS_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.SPLINTERED_ELEMENTS_TALENT),
+        triggeredBySpellId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
+      },
     ];
   }
 }

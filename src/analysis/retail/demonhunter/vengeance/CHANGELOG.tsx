@@ -7,6 +7,8 @@ import SHARED_CHANGELOG from 'analysis/retail/demonhunter/shared/CHANGELOG';
 
 // prettier-ignore
 export default [
+  change(date(2023, 11, 19), <>Revise <SpellLink spell={TALENTS.SPIRIT_BOMB_TALENT} /> guidance in single target and fix bug with <SpellLink spell={SPELLS.SOUL_FRAGMENT_STACK} /> consumption.</>, ToppleTheNun),
+  change(date(2023, 11, 15), <>Fix <SpellLink spell={TALENTS.FEL_DEVASTATION_TALENT} /> cooldown.</>, ToppleTheNun),
   change(date(2023, 10, 24), <>Make <SpellLink spell={SPELLS.SOUL_FRAGMENT} /> not count as a cast.</>, ToppleTheNun),
   change(date(2023, 8, 18), 'Temporarily disable Fiery Brand analysis due to Burning Alive shenanigans.', ToppleTheNun),
   change(date(2023, 7, 11), 'Update for 10.1.5.', ToppleTheNun),
