@@ -97,7 +97,8 @@ class KillingMachineEfficiency extends Analyzer {
     // 3/24/23, trying out disabling lag tolerance for km refreshes if the player has fatal fixation talented, may need more work
     if (
       (!this.fatalFixation || (this.fatalFixation && this.currentStacks === 2)) &&
-      timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS
+      timeSinceGCD < this.lastGCDDuration + LAG_BUFFER_MS &&
+      timeSinceGCD > 1
     ) {
       this.procsWithinGcd += 1;
       return;
