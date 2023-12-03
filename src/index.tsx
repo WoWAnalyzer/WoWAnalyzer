@@ -37,7 +37,7 @@ if (process.env.REACT_APP_SENTRY_DSN) {
       }),
     ],
 
-    release: `wowanalyzer@${process.env.REACT_APP_VERSION}`,
+    release: process.env.REACT_APP_VERSION,
     environment: process.env.REACT_APP_ENVIRONMENT_NAME,
     allowUrls: ['wowanalyzer.com/static/js/'],
 

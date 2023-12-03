@@ -6,14 +6,20 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from 'analysis/retail/shaman/enhancement/CombatLogParser';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
+import Combatant from 'parser/core/Combatant';
+import { TIERS } from 'game/TIERS';
 
 interface Props {
-  checklist: Talent[];
+  checklist: TalentWithCondition[];
 }
 
-const COOLDOWNS: Talent[] = [
+interface TalentWithCondition extends Talent {
+  condition?: (combatant: Combatant) => boolean;
+}
+
+const COOLDOWNS: TalentWithCondition[] = [
   TALENTS.FERAL_SPIRIT_TALENT,
-  TALENTS.SUNDERING_TALENT,
+  { ...TALENTS.SUNDERING_TALENT, condition: (c) => c.has4PieceByTier(TIERS.T30) }, // sundering only considered a cooldown when using 4pc T30. Remove entirely further into 10.2
   TALENTS.DOOM_WINDS_TALENT,
   TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT,
   TALENTS.ASCENDANCE_ENHANCEMENT_TALENT,
@@ -36,6 +42,8 @@ function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
           <CooldownUsage analyzer={modules.ascendance} />
         </SubSection>
       )}
+      {info.combatant.hasTalent(TALENTS.HOT_HAND_TALENT) && modules.hotHand.guideSubsection}
+      {modules.elementalBlast.guideSubsection}
     </Section>
   );
 }
@@ -50,7 +58,12 @@ const CooldownGraphSubsection = ({ checklist }: Props) => {
   return (
     <SubSection>
       {checklist
-        .filter((talent) => info.combatant.hasTalent(talent))
+        .filter((talent) => {
+          if (talent.condition && !talent.condition(info.combatant)) {
+            return false;
+          }
+          return info.combatant.hasTalent(talent);
+        })
         .map((talent) => (
           <CastEfficiencyBar
             key={talent.id}

@@ -12,8 +12,8 @@ jobs:
     env:
       YARN_CACHE_FOLDER: .yarn-cache
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -61,8 +61,8 @@ jobs:
     name: 'Typecheck'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -73,13 +73,14 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn typecheck
+
   linting:
     needs: [prepare]
     name: 'ESLint'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -90,13 +91,14 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn lint --max-warnings=0
+
   prettier:
     needs: [prepare]
     name: 'Prettier'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -107,14 +109,15 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn prettier . --check
+
   test-interface:
     needs: [prepare]
     # This should actually include anything but parser and integration tests
     name: 'Interface tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -125,13 +128,14 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:interface --runInBand
+
   test-parser:
     needs: [prepare]
     name: 'Parser tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -142,13 +146,14 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:parser --runInBand
+
   test-integration:
     needs: [prepare]
     name: 'Integration tests'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -159,14 +164,17 @@ jobs:
           key: ${{ runner.os }}-node_modules-${{ hashFiles('package.json', 'yarn.lock') }}-v3
           required: true
       - run: yarn test:integration --runInBand
+
   build:
     needs: [prepare]
     name: 'Build'
     runs-on: ubuntu-latest
     if: github.repository == 'wowanalyzer/wowanalyzer'
+    outputs:
+      environment_name: ${{ steps.environment-name.outputs.environment_name }}
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -191,26 +199,21 @@ jobs:
           REACT_APP_ENABLE_GA: true
           REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
           REACT_APP_VERSION: ${{ github.sha }}
-      - name: Upload Sourcemaps to Sentry
-        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/dragonflight' && github.repository == 'wowanalyzer/wowanalyzer'
+      - name: Inject debug info into sourcemaps
         run: yarn sourcemaps
-        env:
-          SENTRY_ORG: wowanalyzer
-          SENTRY_PROJECT: wowanalyzer-app
-          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
-          SENTRY_RELEASE: wowanalyzer@${{ github.sha }}
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
           name: build
           path: build.tar.gz
+
   e2e-build:
     needs: [prepare]
     name: 'e2e-build'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -235,9 +238,10 @@ jobs:
         run: yarn build
         env:
           DISABLE_AUTOMATIC_ESLINT: true
-          REACT_APP_ENABLE_GA: true
+          REACT_APP_ENABLE_GA: false
           REACT_APP_ENVIRONMENT_NAME: ${{ steps.environment-name.outputs.environment_name }}
           REACT_APP_VERSION: ${{ github.sha }}
+          REACT_APP_FORCE_PREMIUM: true
       - run: tar -czf build.tar.gz build
       - uses: actions/upload-artifact@v3
         with:
@@ -252,8 +256,8 @@ jobs:
       matrix:
         shard: [1, 2, 3, 4]
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -287,8 +291,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'pull_request'
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - name: Restore "node_modules" from cache
@@ -308,9 +312,9 @@ jobs:
       [typecheck, linting, prettier, test-interface, test-parser, test-integration, e2e-test, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer' && !contains(github.event.head_commit.message, '[skip ci]')
+    if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/download-artifact@v1
         with:
           name: build
@@ -342,8 +346,15 @@ jobs:
           push: true
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-
-  # TODO: Sentry releases https://blog.sentry.io/2019/12/17/using-github-actions-to-create-sentry-releases
+      - uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: wowanalyzer
+          SENTRY_PROJECT: wowanalyzer-app
+        with:
+          environment: ${{ needs.build.outputs.environment_name }}
+          sourcemaps: './build/static/js'
+          url_prefix: '~/static/js'
 
   require-changelog-entry:
     name: 'Has new changelog entry'
@@ -352,9 +363,9 @@ jobs:
     env:
       YARN_CACHE_FOLDER: .yarn-cache
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: git fetch --no-tags --depth=1 origin $GITHUB_BASE_REF:$GITHUB_BASE_REF
-      - uses: actions/setup-node@v3
+      - uses: actions/setup-node@v4
         with:
           node-version: '18.x'
       - run: node scripts/require-changelog-entry.js
