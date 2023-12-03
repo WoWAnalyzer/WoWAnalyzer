@@ -1,6 +1,7 @@
 import { formatPercentage, formatThousands } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/shaman';
+import { TIERS } from 'game/TIERS';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, { ApplyBuffEvent, CastEvent, HealEvent, RemoveBuffEvent } from 'parser/core/Events';
 import ItemHealingDone from 'parser/ui/ItemHealingDone';
@@ -26,7 +27,9 @@ import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import { GUIDE_CORE_EXPLANATION_PERCENT } from '../../Guide';
 import ITEMS from 'common/ITEMS';
+import ItemSetLink from 'interface/ItemSetLink';
 import TalentSpellText from 'parser/ui/TalentSpellText';
+import { SHAMAN_T31_ID } from 'common/ITEMS/dragonflight';
 
 class PrimordialWave extends Analyzer {
   static dependencies = {
@@ -275,10 +278,26 @@ class PrimordialWave extends Analyzer {
         <SpellLink spell={TALENTS.RIPTIDE_TALENT} />, and makes your next{' '}
         <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> cleave all allies with an active{' '}
         <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> HoT. This cleave effect can be combined with
-        spells that increase the healing of <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />, like{' '}
-        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} /> and{' '}
-        <SpellLink spell={ITEMS.T30_SWELLING_RAIN_BUFF} />, and turn that single target bonus into
-        an extremely potent group heal
+        spells that increase the healing of <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> like{' '}
+        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />{' '}
+        {this.selectedCombatant.has4PieceByTier(TIERS.T30) && (
+          <>
+            and <SpellLink spell={ITEMS.T30_SWELLING_RAIN_BUFF} />, and turn that single target
+            bonus into an extremely potent group heal
+          </>
+        )}
+        {this.selectedCombatant.has4PieceByTier(TIERS.T31) && (
+          <>
+            .<br />
+            It synergizes well with our{' '}
+            <ItemSetLink id={SHAMAN_T31_ID}>
+              <>Tier 31 Set Bonus</>
+            </ItemSetLink>
+            , which both helps us spread <SpellLink spell={TALENTS.RIPTIDE_TALENT} />s on players
+            and incentivizes the use of <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> to blanket
+            the raid with <SpellLink spell={ITEMS.T31_TIDAL_RESERVOIR_HEAL} />.
+          </>
+        )}
       </p>
     );
 

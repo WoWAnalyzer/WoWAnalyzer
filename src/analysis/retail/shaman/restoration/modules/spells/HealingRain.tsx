@@ -1,5 +1,6 @@
 import { defineMessage, Trans } from '@lingui/macro';
 import SPELLS from 'common/SPELLS';
+import { TIERS } from 'game/TIERS';
 import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
 import { SpellIcon } from 'interface';
 import { SpellLink } from 'interface';
@@ -176,12 +177,20 @@ class HealingRain extends Analyzer {
         is one of your best sources of consistent throughput and can be augmented to do more healing
         through <SpellLink spell={TALENTS.OVERFLOWING_SHORES_TALENT} />, more damage through{' '}
         <SpellLink spell={TALENTS.ACID_RAIN_TALENT} />, and can hit additional targets through{' '}
-        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this
-        spell is also the activator for your{' '}
-        <ItemSetLink id={SHAMAN_T30_ID}>
-          <>Tier 30 Set Bonus</>
-        </ItemSetLink>{' '}
-        and should be used as often as possible
+        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this{' '}
+        spell also buffs <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />,{' '}
+        <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
+        <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> by 10% through{' '}
+        <SpellLink spell={TALENTS.DELUGE_TALENT} />
+        {this.selectedCombatant.has2PieceByTier(TIERS.T30) && (
+          <>
+            and is the activator for your{' '}
+            <ItemSetLink id={SHAMAN_T30_ID}>
+              <>Tier 30 Set Bonus</>
+            </ItemSetLink>{' '}
+            and should be used as often as possible
+          </>
+        )}
       </p>
     );
 
