@@ -37,6 +37,8 @@ const maelstromWeaponInstantCastLink: EventLink = {
   forwardBufferMs: MAELSTROM_WEAPON_MS,
   backwardBufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
+  reverseLinkRelation: MAELSTROM_WEAPON_INSTANT_CAST,
+  maximumLinks: 1,
 };
 
 const thorimsInvocationCastLink: EventLink = {
@@ -101,7 +103,7 @@ const splinteredElements: EventLink = {
   referencedEventId: SPELLS.LIGHTNING_BOLT.id,
   referencedEventType: EventType.Cast,
   anyTarget: true,
-  forwardBufferMs: 5,
+  forwardBufferMs: 20,
   maximumLinks: 1,
 };
 
