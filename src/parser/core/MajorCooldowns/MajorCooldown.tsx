@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 import Analyzer, { Options } from 'parser/core/Analyzer';
-import { isTalent, Talent } from 'common/TALENTS/types';
+import { isTalent } from 'common/TALENTS/types';
 import { BoxRowEntry } from 'interface/guide/components/PerformanceBoxRow';
 import {
   ChecklistUsageInfo,
@@ -8,29 +8,29 @@ import {
   spellUseToBoxRowEntry,
   UsageInfo,
 } from 'parser/core/SpellUsage/core';
-import { CastEvent } from 'parser/core/Events';
+import { AnyEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
 
 /**
  * Simple interface intended to be extended by any casts used by MajorCooldown.
  */
-export interface SpellCast {
-  event: CastEvent;
+export interface CooldownTrigger<T extends AnyEvent> {
+  event: T;
 }
 
 export interface CooldownOptions {
-  spell: Talent;
+  spell: Spell;
 }
 
-export const createChecklistItem = <Cast extends SpellCast>(
+export const createChecklistItem = <Trigger extends CooldownTrigger<AnyEvent>>(
   check: string,
-  cast: Cast,
+  trigger: Trigger,
   usageInfo: UsageInfo | undefined,
 ): ChecklistUsageInfo | undefined => {
   if (!usageInfo) {
     return undefined;
   }
-  return { check, timestamp: cast.event.timestamp, ...usageInfo };
+  return { check, timestamp: trigger.event.timestamp, ...usageInfo };
 };
 
 /**
@@ -39,7 +39,9 @@ export const createChecklistItem = <Cast extends SpellCast>(
  *
  * For example, see Soul Carver section in: /report/WFqxPGv4XBQfTgy6/4-Heroic+Eranog+-+Kill+(3:25)/Artydh/standard
  */
-export default abstract class MajorCooldown<Cast extends SpellCast> extends Analyzer {
+export default abstract class MajorCooldown<
+  Cast extends CooldownTrigger<AnyEvent>,
+> extends Analyzer {
   private cooldownCasts: Cast[] = [];
   private cooldownUses: SpellUse[] = [];
   readonly spell: Spell;

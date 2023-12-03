@@ -4,8 +4,9 @@ import { ComponentPropsWithoutRef } from 'react';
 import CastEfficiency from 'parser/shared/modules/CastEfficiency';
 import { PerformanceUsageRow } from 'parser/core/SpellUsage/core';
 
-import MajorCooldown, { SpellCast } from './MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from './MajorCooldown';
 import SpellUsageSubSection from '../SpellUsage/SpellUsageSubSection';
+import { AnyEvent } from 'parser/core/Events';
 
 const MissingCastBoxEntry = {
   value: QualitativePerformance.Fail,
@@ -26,7 +27,7 @@ const PossibleMissingCastBoxEntry = {
   ),
 };
 
-type CooldownUsageProps<Cast extends SpellCast> = Omit<
+type CooldownUsageProps<Cast extends CooldownTrigger<AnyEvent>> = Omit<
   ComponentPropsWithoutRef<typeof SpellUsageSubSection>,
   'explanation' | 'performances' | 'uses'
 > & {
@@ -42,7 +43,7 @@ type CooldownUsageProps<Cast extends SpellCast> = Omit<
  * <CooldownUsage analyzer={modules.soulCarver} />
  * ```
  */
-const CooldownUsage = <Cast extends SpellCast>({
+const CooldownUsage = <Cast extends CooldownTrigger<AnyEvent>>({
   analyzer,
   ...others
 }: CooldownUsageProps<Cast>) => {

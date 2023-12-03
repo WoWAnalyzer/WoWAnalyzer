@@ -24,7 +24,7 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import { ReactNode } from 'react';
 import NoDemonicExplanation from 'analysis/retail/demonhunter/havoc/guide/NoDemonicExplanation';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
 import { SectionHeader } from 'interface/guide';
 
@@ -32,7 +32,7 @@ import { SectionHeader } from 'interface/guide';
   example report: https://www.warcraftlogs.com/reports/8gAWrDqPhVj6BZkQ/#fight=29&source=7
  */
 
-interface EssenceBreakCooldownCast extends SpellCast {
+interface EssenceBreakCooldownCast extends CooldownTrigger<CastEvent> {
   buffedCasts: number;
   deathSweepCasts: number;
   annihilationCasts: number;

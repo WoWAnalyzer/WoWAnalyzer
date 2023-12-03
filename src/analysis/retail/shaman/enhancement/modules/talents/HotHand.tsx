@@ -6,11 +6,13 @@ import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, {
   AnyEvent,
+  ApplyBuffEvent,
   CastEvent,
   DamageEvent,
   EventType,
   FightEndEvent,
   GlobalCooldownEvent,
+  RefreshBuffEvent,
   RemoveBuffEvent,
 } from 'parser/core/Events';
 import Haste from 'parser/shared/modules/Haste';
@@ -20,7 +22,7 @@ import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import { Intervals } from '../core/Intervals';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { ReactNode } from 'react';
 import TalentSpellText from 'parser/ui/TalentSpellText';
@@ -65,7 +67,7 @@ interface HotHandTimeline {
   performance?: QualitativePerformance | null;
 }
 
-interface HotHandProc extends SpellCast {
+interface HotHandProc extends CooldownTrigger<ApplyBuffEvent | RefreshBuffEvent> {
   timeline: HotHandTimeline;
   hasMissedCasts: boolean;
   unusedGcdTime: number;
@@ -110,7 +112,11 @@ class HotHand extends MajorCooldown<HotHandProc> {
     this.hotHand = HOT_HAND[this.selectedCombatant.getTalentRank(TALENTS_SHAMAN.HOT_HAND_TALENT)];
 
     this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+      Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
+      this.startOrRefreshWindow,
+    );
+    this.addEventListener(
+      Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.HOT_HAND_BUFF),
       this.startOrRefreshWindow,
     );
     this.addEventListener(
@@ -133,7 +139,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
     this.activeWindow?.globalCooldowns.push(event.duration);
   }
 
-  startOrRefreshWindow(event: CastEvent) {
+  startOrRefreshWindow(event: ApplyBuffEvent | RefreshBuffEvent) {
     // on application both resets the CD and applies a mod rate
     this.spellUsable.endCooldown(TALENTS_SHAMAN.LAVA_LASH_TALENT.id, event.timestamp);
 

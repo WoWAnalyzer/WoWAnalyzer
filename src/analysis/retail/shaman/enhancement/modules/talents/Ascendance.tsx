@@ -1,21 +1,22 @@
 import Events, {
   AnyEvent,
+  ApplyBuffEvent,
   CastEvent,
   DamageEvent,
   FightEndEvent,
+  RefreshBuffEvent,
   UpdateSpellUsableEvent,
   UpdateSpellUsableType,
 } from 'parser/core/Events';
 import { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { TALENTS_SHAMAN } from 'common/TALENTS';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import SpellUsable from 'analysis/retail/shaman/enhancement/modules/core/SpellUsable';
 import { ChecklistUsageInfo, SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SpellLink } from 'interface';
 import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import Abilities from '../Abilities';
-import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 import Haste from 'parser/shared/modules/Haste';
 import { THORIMS_INVOCATION_LINK } from 'analysis/retail/shaman/enhancement/modules/normalizers/EventLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
@@ -26,6 +27,7 @@ import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import Statistic from 'parser/ui/Statistic';
 import Uptime from 'interface/icons/Uptime';
 import typedKeys from 'common/typedKeys';
+import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
 
 const NonMissedCastSpells = [
   TALENTS_SHAMAN.SUNDERING_TALENT.id,
@@ -40,7 +42,8 @@ interface Casts {
   noProcBeforeEnd?: boolean | undefined;
 }
 
-interface AscendanceCooldownCast extends SpellCast {
+interface AscendanceCooldownCast
+  extends CooldownTrigger<CastEvent | ApplyBuffEvent | RefreshBuffEvent> {
   casts: CastEvent[];
   extraDamage: number;
   startTime: number;
@@ -74,11 +77,6 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
     if (!this.active) {
       return;
     }
-    const ascendanceCooldowns = this.selectedCombatant.hasTalent(
-      TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT,
-    )
-      ? { cooldown: 180, gcd: { base: 1500 } }
-      : { cooldown: -1, gcd: null };
 
     const abilities = options.abilities as Abilities;
     abilities.add({
@@ -94,25 +92,23 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
         maxCasts: () => this.maxCasts,
       },
     });
-    abilities.add({
-      spell: TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT.id,
-      category: SPELL_CATEGORY.COOLDOWNS,
-      cooldown: ascendanceCooldowns.cooldown,
-      gcd: ascendanceCooldowns.gcd,
-      enabled:
-        this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT) ||
-        this.selectedCombatant.hasTalent(TALENTS_SHAMAN.DEEPLY_ROOTED_ELEMENTS_TALENT),
-      damageSpellIds: [SPELLS.ASCENDANCE_INITIAL_DAMAGE.id],
-      castEfficiency: {
-        suggestion: this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-        recommendedEfficiency: 1.0,
-      },
-    });
 
-    this.addEventListener(
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
-      this.onAscendanceCast,
-    );
+    if (this.selectedCombatant.hasTalent(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT)) {
+      this.addEventListener(
+        Events.cast.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        this.onAscendanceCast,
+      );
+    } else {
+      this.addEventListener(
+        Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        this.onAscendanceCast,
+      );
+      this.addEventListener(
+        Events.refreshbuff.by(SELECTED_PLAYER).spell(TALENTS_SHAMAN.ASCENDANCE_ENHANCEMENT_TALENT),
+        this.onAscendanceCast,
+      );
+    }
+
     this.addEventListener(Events.cast.by(SELECTED_PLAYER), this.onGeneralCast);
     this.addEventListener(Events.damage.by(SELECTED_PLAYER), this.onDamage);
     this.addEventListener(
@@ -159,7 +155,7 @@ class Ascendance extends MajorCooldown<AscendanceCooldownCast> {
    * @remarks
    * Deeply Rooted Elements appears as a fabricated cast
    */
-  onAscendanceCast(event: CastEvent) {
+  onAscendanceCast(event: CastEvent | ApplyBuffEvent | RefreshBuffEvent) {
     this.castsBeforeAscendanceProc.push({ count: 0 });
     this.currentCooldown ??= {
       event: event,
