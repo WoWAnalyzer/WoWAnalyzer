@@ -369,29 +369,24 @@ class BuffTargetHelper extends Analyzer {
     this.mrtFourTargetPrescienceHelperNote =
       header + this.mrtFourTargetPrescienceHelperNote + footer;
 
-    const twoTargetButton = (
-      <button className="button" onClick={this.handleTwoTargetCopyClick}>
-        Copy Prescience Helper MRT note to clipboard
-      </button>
-    );
-
-    const fourTargetButton = (
-      <button className="button" onClick={this.handleFourTargetCopyClick}>
-        Copy Frame Glow MRT note to clipboard
-      </button>
-    );
-
     return (
       <div>
-        <table>
-          <tbody className="buff-target-table">
-            {headerRow}
-            {tableRows}
-          </tbody>
-        </table>
-        <br />
-        {twoTargetButton}
-        {fourTargetButton}
+        <div className="table-container">
+          <table>
+            <tbody className="buff-target-table">
+              {headerRow}
+              {tableRows}
+            </tbody>
+          </table>
+        </div>
+        <div className="button-container">
+          <button className="styled-button" onClick={this.handleTwoTargetCopyClick}>
+            Copy Prescience Helper MRT note
+          </button>
+          <button className="styled-button" onClick={this.handleFourTargetCopyClick}>
+            Copy Frame Glow MRT note
+          </button>
+        </div>
       </div>
     );
   }

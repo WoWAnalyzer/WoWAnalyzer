@@ -78,3 +78,34 @@
 .npc {
   color: #ff6a6a;
 }
+
+.table-container {
+  margin-bottom: 1rem; // Adds space below the table
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between; // This spreads out the buttons to the width of the container
+  align-items: center; // This aligns buttons in the middle vertically if they have different heights
+  padding: 0 10px; // Add padding to the left and right
+  margin-top: 1rem; // Adds space above the button container
+
+  .styled-button {
+    flex: 1; // This will make each button flex to fill the space evenly
+    padding: 0.5rem 1rem; // Adjust padding as needed
+    margin: 0 10px; // Adds space between the buttons, you can adjust it as needed
+    // The rest of your styles...
+    line-height: 16.8px;
+    font-size: 14px;
+    border-radius: 6px;
+    white-space: nowrap; // Prevents text from wrapping
+    overflow: hidden; // Keeps the content from spilling out
+    text-overflow: ellipsis; // Adds an ellipsis if the text is too long to fit
+    background-color: #d69d00;
+    color: black;
+    font-weight: 600;
+    &:hover {
+      background-color: darken($color: #fab700, $amount: 7);
+    }
+  }
+}
