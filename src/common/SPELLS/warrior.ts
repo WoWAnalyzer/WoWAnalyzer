@@ -644,6 +644,22 @@ const spells = {
     name: 'Impenetrable Wall',
     icon: 'ability_warrior_shieldguard',
   },
+
+  T31_FURY_2P_BONUS: {
+    id: 422925,
+    name: 'Warrior Fury 10.2 Class Set 2pc',
+    icon: 'trade_engineering',
+  },
+  FURIOUS_BLOODTHIRST: {
+    id: 423211,
+    name: 'Furious Bloodthirst',
+    icon: 'spell_nature_bloodlust',
+  },
+  T31_FURY_4P_BONUS: {
+    id: 422926,
+    name: 'Warrior Fury 10.2 Class Set 4pc',
+    icon: 'trade_engineering',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
