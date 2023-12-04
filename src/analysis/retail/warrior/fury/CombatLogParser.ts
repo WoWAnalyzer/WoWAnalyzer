@@ -9,6 +9,8 @@ import Haste from './modules/core/Haste';
 import RageDetails from './modules/core/RageDetails';
 import RageGraph from './modules/core/RageGraph';
 import RageTracker from './modules/core/RageTracker';
+import T31Fury2pc from './modules/dragonflight/T31Fury2pc';
+import T31Fury4Pc from './modules/dragonflight/T31Fury4pc';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import Buffs from './modules/features/Buffs';
 import Checklist from './modules/features/checklist/Module';
@@ -65,6 +67,9 @@ class CombatLogParser extends CoreCombatLogParser {
     impendingVictory: ImpendingVictory,
     hackAndSlash: HackAndSlash,
     championsMight: ChampionsMight,
+
+    t31fury2pc: T31Fury2pc,
+    t31fury4pc: T31Fury4Pc,
   };
 }
 
