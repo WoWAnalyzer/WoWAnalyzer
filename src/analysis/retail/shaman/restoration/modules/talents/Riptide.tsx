@@ -65,7 +65,7 @@ class Riptide extends Analyzer {
             every tick of <SpellLink spell={talents.RIPTIDE_TALENT} /> also heals every person
             buffed with <SpellLink spell={ITEMS.T31_TIDAL_RESERVOIR_HEAL} />. You should aim to have
             as many <SpellLink spell={talents.RIPTIDE_TALENT} />s rolling on the raid at all times,{' '}
-            and keep <SpellLink spell={ITEMS.T31_TIDAL_RESERVOIR_HEAL} /> up on as many people as
+            and maintain <SpellLink spell={ITEMS.T31_TIDAL_RESERVOIR_HEAL} /> on as many people as
             possible.
           </>
         )}
