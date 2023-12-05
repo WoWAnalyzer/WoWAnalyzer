@@ -180,7 +180,7 @@ class HealingRain extends Analyzer {
         <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />. Aside from being strong throughput, this{' '}
         spell also buffs <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} />,{' '}
         <SpellLink spell={SPELLS.HEALING_SURGE} /> and{' '}
-        <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> by 10% through{' '}
+        <SpellLink spell={TALENTS.CHAIN_HEAL_TALENT} /> through{' '}
         <SpellLink spell={TALENTS.DELUGE_TALENT} />
         {this.selectedCombatant.has2PieceByTier(TIERS.T30) && (
           <>
