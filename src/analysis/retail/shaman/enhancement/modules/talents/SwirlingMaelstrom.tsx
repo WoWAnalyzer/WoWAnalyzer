@@ -7,6 +7,7 @@ import { SpellLink } from 'interface';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import TalentAggregateBars from 'parser/ui/TalentAggregateStatistic';
+import SPELLS from 'common/SPELLS';
 
 const BAR_COLORS: Record<number, string> = {
   [TALENTS.FROST_SHOCK_TALENT.id]: '#3b7fb0',
@@ -72,6 +73,13 @@ class SwirlingMaelstrom extends Analyzer {
             <SpellLink spell={TALENTS.SWIRLING_MAELSTROM_TALENT} />
           </>
         }
+        footer={
+          <>
+            Total <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />:{' '}
+            {this.frostShock + this.iceStrike}
+          </>
+        }
+        smallFooter
         position={STATISTIC_ORDER.DEFAULT}
         category={STATISTIC_CATEGORY.TALENTS}
         wide
