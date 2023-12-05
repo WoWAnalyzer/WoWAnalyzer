@@ -15,12 +15,13 @@ class MaelstromWeaponCastNormalizer extends EventsNormalizer {
   constructor(options: Options) {
     super(options);
 
+    // this normalizer depends on the event link normalizer to have already run, so setting a lower priority to enforce later execution (higher value = lower priority)
     this.priority = 10;
   }
 
   normalize(events: AnyEvent[]): AnyEvent[] {
     const fixedEvents: AnyEvent[] = [];
-    events.forEach((event: AnyEvent, idx: number) => {
+    events.forEach((event: AnyEvent) => {
       if (HasAbility(event) && MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDs.includes(event.ability.guid)) {
         if (
           event.type === EventType.BeginCast ||
