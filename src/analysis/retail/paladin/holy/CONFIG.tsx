@@ -56,6 +56,7 @@ const config: Config = {
       (exports) => exports.default,
     ),
   path: __dirname,
+  guideDefault: true,
 };
 
 export default config;

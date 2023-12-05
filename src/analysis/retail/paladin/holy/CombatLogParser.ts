@@ -62,6 +62,7 @@ import ManaLevelChart from 'parser/shared/modules/resources/mana/ManaLevelChart'
 import ManaUsageChart from 'parser/shared/modules/resources/mana/ManaUsageChart';
 import SpellManaCost from 'parser/shared/modules/SpellManaCost';
 import HolyPaladinHealingEfficiencyTracker from './modules/features/HolyPaladinHealingEfficiencyTracker';
+import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -143,6 +144,8 @@ class CombatLogParser extends CoreCombatLogParser {
     // Tier Sets
     t30TierSet: T30HpalTierSet,
   };
+
+  static guide = Guide;
 }
 
 export default CombatLogParser;
