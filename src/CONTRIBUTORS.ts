@@ -2328,3 +2328,9 @@ export const LucasLevyOB: Contributor = {
   nickname: 'LucasLevyOB',
   github: 'LucasLevyOB',
 };
+
+export const Pants: Contributor = {
+  nickname: 'Pants',
+  github: 'Smetz42',
+  discord: 'pants_of_silver',
+};
