@@ -11,9 +11,18 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
-        spellId: SPELLS.SHADOW_TRANCE.id,
-        timelineHighlight: false,
+        spellId: SPELLS.ERADICATION_BUFF_6.id,
+        timelineHighlight: true,
       },
+      {
+        spellId: SPELLS.ERADICATION_BUFF_12.id,
+        timelineHighlight: true,
+      },
+      {
+        spellId: SPELLS.ERADICATION_BUFF_20.id,
+        timelineHighlight: true,
+      },
+      // Do not adjust the lines below
       {
         spellId: Object.keys(BLOODLUST_BUFFS).map((item) => Number(item)),
         timelineHighlight: true,
