@@ -12,7 +12,7 @@ export const GUIDE_CORE_EXPLANATION_PERCENT = 40;
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <Section title="Core Spells and Buffs"></Section>
+      <Section title="Core Spells and Buffs">{modules.holyShock.guideSubSection}</Section>
       <Section title="Healing Cooldowns">
         <CooldownGraphSubsection modules={modules} events={events} info={info} />
       </Section>
