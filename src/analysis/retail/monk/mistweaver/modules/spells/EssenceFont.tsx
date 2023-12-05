@@ -32,7 +32,7 @@ import { ThresholdStyle, When } from 'parser/core/ParseResults';
 import { BASE_EF_BOLTS } from '../../constants';
 
 const debug = false;
-const MAX_EXTRA_BOLTS = 18;
+const MAX_EXTRA_BOLTS = 15;
 
 class EssenceFont extends Analyzer {
   static dependencies = {
