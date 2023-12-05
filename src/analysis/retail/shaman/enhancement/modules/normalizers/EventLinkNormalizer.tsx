@@ -28,6 +28,14 @@ const MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS = MAELSTROM_WEAPON_ELIGIBLE_SPELLS.map
 const stormStrikeSpellIds = STORMSTRIKE_CAST_SPELLS.map((spell) => spell.id);
 const stormStrikeDamageIds = STORMSTRIKE_DAMAGE_SPELLS.map((spell) => spell.id);
 
+const PRIMORDIAL_WAVE_BUFFER = 15500;
+const MAELSTROM_SPENDER_FORWARD_BUFFER = 25;
+const MAELSTROM_SPENDER_BACKWARD_BUFFER = 50;
+const STORMSTRIKE_BUFFER = 900;
+const CHAIN_LIGHTNING_BUFFER = 100;
+const SPLINTERED_ELEMENTS_BUFFER = 20;
+const LIGHTNING_BOLT_BUFFER = 150;
+
 const maelstromWeaponInstantCastLink: EventLink = {
   linkRelation: MAELSTROM_WEAPON_INSTANT_CAST,
   linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
@@ -37,8 +45,9 @@ const maelstromWeaponInstantCastLink: EventLink = {
   forwardBufferMs: MAELSTROM_WEAPON_MS,
   backwardBufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
+  reverseLinkRelation: MAELSTROM_WEAPON_INSTANT_CAST,
+  maximumLinks: 1,
 };
-
 const thorimsInvocationCastLink: EventLink = {
   linkRelation: THORIMS_INVOCATION_LINK,
   linkingEventId: SPELLS.WINDSTRIKE_CAST.id,
@@ -48,40 +57,36 @@ const thorimsInvocationCastLink: EventLink = {
   forwardBufferMs: MAELSTROM_WEAPON_MS,
   anyTarget: true,
 };
-
 const stormStrikeLink: EventLink = {
   linkRelation: STORMSTRIKE_LINK,
   linkingEventId: stormStrikeSpellIds,
   linkingEventType: EventType.Cast,
   referencedEventId: stormStrikeDamageIds,
   referencedEventType: EventType.Damage,
-  forwardBufferMs: 900,
+  forwardBufferMs: STORMSTRIKE_BUFFER,
   anyTarget: true,
 };
-
 const chainLightningDamageLink: EventLink = {
   linkRelation: CHAIN_LIGHTNING_LINK,
   linkingEventId: TALENTS.CHAIN_LIGHTNING_TALENT.id,
   linkingEventType: [EventType.Cast, EventType.FreeCast],
   referencedEventId: TALENTS.CHAIN_LIGHTNING_TALENT.id,
   referencedEventType: EventType.Damage,
-  forwardBufferMs: 100,
+  forwardBufferMs: CHAIN_LIGHTNING_BUFFER,
   anyTarget: true,
 };
-
 const maelstromWeaponSpenderLink: EventLink = {
   linkRelation: MAELSTROM_SPENDER_LINK,
   linkingEventId: MAELSTROM_WEAPON_ELIGIBLE_SPELL_IDS,
   linkingEventType: [EventType.Cast, EventType.FreeCast],
   referencedEventId: SPELLS.MAELSTROM_WEAPON_BUFF.id,
   referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
-  forwardBufferMs: 25,
-  backwardBufferMs: 50,
+  forwardBufferMs: MAELSTROM_SPENDER_FORWARD_BUFFER,
+  backwardBufferMs: MAELSTROM_SPENDER_BACKWARD_BUFFER,
   anyTarget: true,
   reverseLinkRelation: MAELSTROM_SPENDER_LINK,
   maximumLinks: 1,
 };
-
 const primordialWaveLink: EventLink = {
   linkRelation: PRIMORDIAL_WAVE_LINK,
   linkingEventId: TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT.id,
@@ -89,11 +94,10 @@ const primordialWaveLink: EventLink = {
   referencedEventId: SPELLS.LIGHTNING_BOLT.id,
   referencedEventType: EventType.Cast,
   anyTarget: true,
-  forwardBufferMs: 15500,
+  forwardBufferMs: PRIMORDIAL_WAVE_BUFFER,
   maximumLinks: 1,
   reverseLinkRelation: PRIMORDIAL_WAVE_LINK,
 };
-
 const splinteredElements: EventLink = {
   linkRelation: SPLINTERED_ELEMENTS_LINK,
   linkingEventId: SPELLS.SPLINTERED_ELEMENTS_BUFF.id,
@@ -101,17 +105,16 @@ const splinteredElements: EventLink = {
   referencedEventId: SPELLS.LIGHTNING_BOLT.id,
   referencedEventType: EventType.Cast,
   anyTarget: true,
-  forwardBufferMs: 5,
+  forwardBufferMs: SPLINTERED_ELEMENTS_BUFFER,
   maximumLinks: 1,
 };
-
 const lightningBoltLink: EventLink = {
   linkRelation: LIGHTNING_BOLT_LINK,
   linkingEventId: SPELLS.LIGHTNING_BOLT.id,
   linkingEventType: EventType.Cast,
   referencedEventId: SPELLS.LIGHTNING_BOLT.id,
   referencedEventType: EventType.Damage,
-  forwardBufferMs: 150,
+  forwardBufferMs: LIGHTNING_BOLT_BUFFER,
   anyTarget: true,
 };
 
