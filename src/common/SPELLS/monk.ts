@@ -236,10 +236,20 @@ const spells = {
   },
 
   // Talents
+  BURST_OF_LIFE_HEAL: {
+    id: 399230,
+    name: 'Burst of Life',
+    icon: 'ability_monk_counteractmagic',
+  },
   CHI_BURST_TALENT_DAMAGE: {
     id: 148135,
     name: 'Chi Burst',
     icon: 'spell_arcane_arcanetorrent',
+  },
+  CHI_WAVE_TALENT_HEAL: {
+    id: 132463,
+    name: 'Chi Wave',
+    icon: 'ability_monk_chiwave',
   },
   CHI_WAVE_TALENT_DAMAGE: {
     id: 132467,
@@ -420,6 +430,11 @@ const spells = {
     id: 343539,
     name: 'Escape from Reality',
     icon: 'inv_enchant_essencecosmicgreater',
+  },
+  OVERFLOWING_MISTS_HEAL: {
+    id: 388513,
+    name: 'Overflowing Mists',
+    icon: 'inv_legion_faction_dreamweavers',
   },
   //Tier 30 2pc Buff
   SOULFANG_INFUSION: {

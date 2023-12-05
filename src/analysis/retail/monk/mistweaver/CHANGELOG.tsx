@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 12, 5), <>Changes for Dec 5 tuning</>, Trevor),
   change(date(2023, 11, 27), <>Update <SpellLink spell={SPELLS.VIVIFY}/> thresholds for <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/></>, Trevor),
   change(date(2023, 11, 27), <>Update <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> module</>, Trevor),
   change(date(2023, 11, 25), <>Update <SpellLink spell={TALENTS_MONK.UPWELLING_TALENT}/> module</>, Trevor),
