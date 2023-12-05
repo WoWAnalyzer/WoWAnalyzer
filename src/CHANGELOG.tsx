@@ -32,6 +32,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 12, 5), 'Update Classic Mana Values to activate based on config role.', jazminite),
   change(date(2023, 12, 3), <>Refactor MajorCooldown to support procs such as Enhancement's Hot Hand & Ascendance</>, Seriousnes),
   change(date(2023, 11, 28), 'Actually populate Sentry releases.', ToppleTheNun),
   change(date(2023, 11, 28), 'Update Sentry release naming.', ToppleTheNun),
