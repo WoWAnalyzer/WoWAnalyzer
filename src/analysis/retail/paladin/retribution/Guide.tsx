@@ -13,11 +13,13 @@ import SpellLink from 'interface/SpellLink';
 import CooldownGraphSubsection, {
   Cooldown,
 } from 'interface/guide/components/CooldownGraphSubSection';
+import { ZealousPyreknightsArdorGuideSection } from 'analysis/retail/paladin/retribution/modules/dragonflight/ZealousPyreknightsArdor/guide';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
       <ResourceUsageSection modules={modules} events={events} info={info} />
+      <ZealousPyreknightsArdorGuideSection modules={modules} events={events} info={info} />
       <CooldownSection />
       <PreparationSection />
     </>

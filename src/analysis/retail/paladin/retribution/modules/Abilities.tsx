@@ -1,4 +1,4 @@
-import SPELLS from 'common/SPELLS';
+import SPELLS from 'common/SPELLS/paladin';
 import ISSUE_IMPORTANCE from 'parser/core/ISSUE_IMPORTANCE';
 import CoreAbilities from 'parser/core/modules/Abilities';
 import SPELL_CATEGORY from 'parser/core/SPELL_CATEGORY';
@@ -8,6 +8,10 @@ class Abilities extends CoreAbilities {
   spellbook() {
     const combatant = this.selectedCombatant;
     return [
+      {
+        spell: SPELLS.CRUSADING_STRIKES_CAST.id,
+        category: SPELL_CATEGORY.HIDDEN,
+      },
       {
         spell: TALENTS.WAKE_OF_ASHES_TALENT.id,
         category: SPELL_CATEGORY.COOLDOWNS,

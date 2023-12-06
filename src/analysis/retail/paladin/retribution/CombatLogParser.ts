@@ -12,17 +12,21 @@ import Buffs from './modules/Buffs';
 import ArtOfWar from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWar';
 import ArtOfWarProbability from 'analysis/retail/paladin/retribution/modules/talents/ArtOfWarProbability';
 import BladeofJustice from 'analysis/retail/paladin/retribution/modules/talents/BladeofJustice';
-import Consecration from './modules/core/Consecration';
-import CrusaderStrike from './modules/core/CrusaderStrike';
 import HammerofWrathRetribution from 'analysis/retail/paladin/retribution/modules/talents/HammerofWrath';
 import ShieldOfVengeance from 'analysis/retail/paladin/retribution/modules/talents/ShieldOfVengeance';
 import WakeofAshes from 'analysis/retail/paladin/retribution/modules/talents/WakeofAshes';
 import AlwaysBeCasting from './modules/features/AlwaysBeCasting';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import FinalVerdict from 'analysis/retail/paladin/retribution/modules/talents/FinalVerdict';
-import Crusade from './modules/talents/Crusade';
-import EmpyreanPower from './modules/talents/EmpyreanPower';
-import BuilderUse from './modules/core/BuilderUse';
+import ZealousPyreknightsArdorEventLinkNormalizer from 'analysis/retail/paladin/retribution/modules/dragonflight/ZealousPyreknightsArdor/ZealousPyreknightsArdorEventLinkNormalizer';
+import ZealousPyreknightsArdorEchoesOfWrathNormalizer from 'analysis/retail/paladin/retribution/modules/dragonflight/ZealousPyreknightsArdor/ZealousPyreknightsArdorEchoesOfWrathNormalizer';
+import BuilderUse from 'analysis/retail/paladin/retribution/modules/core/BuilderUse';
+import CrusaderStrike from 'analysis/retail/paladin/retribution/modules/core/CrusaderStrike';
+import Crusade from 'analysis/retail/paladin/retribution/modules/talents/Crusade';
+import Consecration from 'analysis/retail/paladin/retribution/modules/core/Consecration';
+import EmpyreanPower from 'analysis/retail/paladin/retribution/modules/talents/EmpyreanPower';
+import ZealousPyreknightsArdor2p from 'analysis/retail/paladin/retribution/modules/dragonflight/ZealousPyreknightsArdor/ZealousPyreknightsArdor2p';
+import ZealousPyreknightsArdor4p from 'analysis/retail/paladin/retribution/modules/dragonflight/ZealousPyreknightsArdor/ZealousPyreknightsArdor4p';
 import Guide from './Guide';
 
 class CombatLogParser extends CoreCombatLogParser {
@@ -45,6 +49,10 @@ class CombatLogParser extends CoreCombatLogParser {
     shieldOfVengeance: ShieldOfVengeance,
     judgment: Judgment,
 
+    // Normalizers (order matters)
+    zealousPyreknightsArdorEchoesOfWrathNormalizer: ZealousPyreknightsArdorEchoesOfWrathNormalizer,
+    zealousPyreknightsArdorEventLinkNormalizer: ZealousPyreknightsArdorEventLinkNormalizer,
+
     // Talents
     divinePurpose: DivinePurpose,
     crusade: Crusade,
@@ -60,6 +68,10 @@ class CombatLogParser extends CoreCombatLogParser {
 
     // Items
     finalVerdict: FinalVerdict,
+
+    // Tier Set
+    zealousPyreknightsArdor2p: ZealousPyreknightsArdor2p,
+    zealousPyreknightsArdor4p: ZealousPyreknightsArdor4p,
   };
 }
 
