@@ -50,14 +50,14 @@ const COMMON_TOP: Rule[] = [
     spell: SPELLS.FIRE_BREATH,
     condition: cnd.or(
       cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
+      cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
     ),
   },
   {
     spell: SPELLS.FIRE_BREATH_FONT,
     condition: cnd.or(
       cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
+      cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
     ),
   },
   // Use ES over star in AoE
@@ -70,7 +70,7 @@ const COMMON_TOP: Rule[] = [
       ),
       cnd.or(
         cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-        cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
+        cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
       ),
     ),
   },
@@ -83,7 +83,7 @@ const COMMON_TOP: Rule[] = [
       ),
       cnd.or(
         cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-        cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
+        cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
       ),
     ),
   },
@@ -141,14 +141,14 @@ const COMMON_TOP: Rule[] = [
     spell: SPELLS.ETERNITY_SURGE,
     condition: cnd.or(
       cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
+      cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
     ),
   },
   {
     spell: SPELLS.ETERNITY_SURGE_FONT,
     condition: cnd.or(
       cnd.buffPresent(TALENTS.DRAGONRAGE_TALENT),
-      cnd.and(cnd.buffMissing(SPELLS.BLAZING_SHARDS), avoidIfDragonRageSoon(13000)),
+      cnd.and(cnd.buffMissing(SPELLS.POWER_SWELL_BUFF), avoidIfDragonRageSoon(13000)),
     ),
   },
   // Hard cast only Firestorm in AoE
