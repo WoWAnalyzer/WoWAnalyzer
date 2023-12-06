@@ -395,6 +395,11 @@ const spells = {
     name: 'Unravel',
     icon: 'ability_evoker_unravel',
   },
+  POWER_SWELL_BUFF: {
+    id: 376850,
+    name: 'Power Swell',
+    icon: 'ability_evoker_powernexus2',
+  },
   // Augmentation Spells
   UPHEAVAL: {
     id: 396286,
