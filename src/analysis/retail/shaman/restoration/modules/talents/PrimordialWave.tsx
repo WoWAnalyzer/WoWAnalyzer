@@ -277,9 +277,9 @@ class PrimordialWave extends Analyzer {
         is a powerful ability that heals an ally, applies a{' '}
         <SpellLink spell={TALENTS.RIPTIDE_TALENT} />, and makes your next{' '}
         <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> cleave all allies with an active{' '}
-        <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> HoT. This cleave effect can be combined with
-        spells that increase the healing of <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> such as{' '}
-        <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />{' '}
+        <SpellLink spell={TALENTS.RIPTIDE_TALENT} /> HoT. This cleave effect can be combined with{' '}
+        spells that increase the healing of <SpellLink spell={TALENTS.HEALING_WAVE_TALENT} /> such
+        as <SpellLink spell={TALENTS.UNLEASH_LIFE_TALENT} />{' '}
         {this.selectedCombatant.has4PieceByTier(TIERS.T30) && (
           <>
             and <SpellLink spell={ITEMS.T30_SWELLING_RAIN_BUFF} />, and turn that single target
