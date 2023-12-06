@@ -137,7 +137,8 @@ class ManaTea extends Analyzer {
     if (
       !this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id) ||
       event.resourceCost == null ||
-      event.resourceCost[RESOURCE_TYPES.MANA.id] == null
+      event.resourceCost[RESOURCE_TYPES.MANA.id] == null ||
+      event.resourceCost[RESOURCE_TYPES.MANA.id] === 0
     ) {
       return;
     }
