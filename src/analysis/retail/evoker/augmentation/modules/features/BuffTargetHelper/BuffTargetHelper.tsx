@@ -363,8 +363,8 @@ class BuffTargetHelper extends Analyzer {
     /** Finalize Four Target MRT note */
     // Constructing the header and footer
     const augName = this.selectedCombatant.name + `|r\n`;
-    const header = `AugBuffStart\naug |cff33937f` + augName;
-    const footer = `AugBuffEnd {v2.0}`;
+    const header = `"\nAugBuffStart\naug |cff33937f` + augName;
+    const footer = `AugBuffEnd {v2.0} \n"\n`;
     // Combining header, main note content, and footer
     this.mrtFourTargetPrescienceHelperNote =
       header + this.mrtFourTargetPrescienceHelperNote + footer;
@@ -380,10 +380,10 @@ class BuffTargetHelper extends Analyzer {
           </table>
         </div>
         <div className="button-container">
-          <button className="styled-button" onClick={this.handleTwoTargetCopyClick}>
+          <button className="button" onClick={this.handleTwoTargetCopyClick}>
             Copy Prescience Helper MRT note
           </button>
-          <button className="styled-button" onClick={this.handleFourTargetCopyClick}>
+          <button className="button" onClick={this.handleFourTargetCopyClick}>
             Copy Frame Glow MRT note
           </button>
         </div>
@@ -498,7 +498,7 @@ class BuffTargetHelper extends Analyzer {
               This module will also produce a note for{' '}
               <a href="https://www.curseforge.com/wow/addons/method-raid-tools">
                 Method Raid Tools
-              </a>
+              </a>{' '}
               that helps with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> timings.
               <br />
               Make sure to click the copy button for either the{' '}
