@@ -5,6 +5,7 @@ import TALENTS from 'common/TALENTS/evoker';
 import SPELLS from 'common/SPELLS/evoker';
 
 export default [
+    change(date(2023, 12, 7), <>Update blacklist for Helpers to increase accuracy.</>, Vollmer),
     change(date(2023, 12, 4), <>Update Add a second WA to the Buff Helper module.</>, Pants),
     change(date(2023, 11, 29), <>Update <SpellLink spell={SPELLS.PRESCIENCE_BUFF} /> module to give more specific analysis.</>, Vollmer),
     change(date(2023, 11, 20), <>Re-enable Buff Helper module.</>, Vollmer),
