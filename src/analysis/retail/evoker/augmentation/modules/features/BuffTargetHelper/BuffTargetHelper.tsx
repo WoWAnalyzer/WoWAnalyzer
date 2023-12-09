@@ -85,7 +85,8 @@ class BuffTargetHelper extends Analyzer {
 
   fightStart: number = this.owner.fight.start_time;
   fightEnd: number = this.owner.fight.end_time;
-  mrtPrescienceHelperNote: string = '';
+  mrtTwoTargetPrescienceHelperNote: string = '';
+  mrtFourTargetPrescienceHelperNote: string = '';
 
   constructor(options: Options) {
     super(options);
@@ -323,6 +324,7 @@ class BuffTargetHelper extends Analyzer {
       let top2Damage = 0;
 
       const top2Entries = topPumpersData[i].slice(0, 2);
+      const top4Entries = topPumpersData[i].slice(0, 4);
 
       top2Entries.forEach(([name, values]) => {
         if (!defaultTargets.includes(name)) {
@@ -341,11 +343,12 @@ class BuffTargetHelper extends Analyzer {
         isImportant = true;
       }
 
-      this.addEntryToMRTNote(top2Entries, i, intervalStart, isImportant);
+      this.addEntryToTwoTargetMRTNote(top2Entries, i, intervalStart, isImportant);
+      this.addEntryToFourTargetMRTNote(top4Entries, i, intervalStart, isImportant);
     }
 
-    /** Finalize MRT note */
-    this.mrtPrescienceHelperNote =
+    /** Finalize TwoTargetMRT note */
+    this.mrtTwoTargetPrescienceHelperNote =
       'prescGlowsStart \n' +
       'defaultTargets - ' +
       mrtColorMap.get(this.playerWhitelist.get(defaultTargets[0]) ?? '') +
@@ -354,31 +357,42 @@ class BuffTargetHelper extends Analyzer {
       mrtColorMap.get(this.playerWhitelist.get(defaultTargets[1]) ?? '') +
       defaultTargets[1] +
       '|r \n' +
-      this.mrtPrescienceHelperNote +
+      this.mrtTwoTargetPrescienceHelperNote +
       'prescGlowsEnd';
 
-    const button = (
-      <button className="button" onClick={this.handleCopyClick}>
-        Copy MRT note to clipboard
-      </button>
-    );
+    /** Finalize Four Target MRT note */
+    // Constructing the header and footer
+    const augName = this.selectedCombatant.name + `|r\n`;
+    const header = `"\nAugBuffStart\naug |cff33937f` + augName;
+    const footer = `AugBuffEnd {v2.0} \n"\n`;
+    // Combining header, main note content, and footer
+    this.mrtFourTargetPrescienceHelperNote =
+      header + this.mrtFourTargetPrescienceHelperNote + footer;
 
     return (
       <div>
-        <table>
-          <tbody className="buff-target-table">
-            {headerRow}
-            {tableRows}
-          </tbody>
-        </table>
-        <br />
-        {button}
+        <div className="table-container">
+          <table>
+            <tbody className="buff-target-table">
+              {headerRow}
+              {tableRows}
+            </tbody>
+          </table>
+        </div>
+        <div className="button-container">
+          <button className="button" onClick={this.handleTwoTargetCopyClick}>
+            Copy Prescience Helper MRT note
+          </button>
+          <button className="button" onClick={this.handleFourTargetCopyClick}>
+            Copy Frame Glow MRT note
+          </button>
+        </div>
       </div>
     );
   }
 
   /**
-   * Create a MRT note for who to Prescience and when
+   * Create a  2 Target MRT note for who to Prescience and when
    *
    * The format is made to support the WA
    * Created by HenryG
@@ -393,28 +407,70 @@ class BuffTargetHelper extends Analyzer {
    * ...etc...
    * prescGlowsEnd
    */
-  addEntryToMRTNote(
+  addEntryToTwoTargetMRTNote(
     top2Pumpers: [string, number[]][],
     index: number,
     interval: string,
     important: boolean = false,
   ) {
     if (index === 0) {
-      this.mrtPrescienceHelperNote += 'PREPULL - ';
+      this.mrtTwoTargetPrescienceHelperNote += 'PREPULL - ';
     } else {
-      this.mrtPrescienceHelperNote += interval + ' - ';
+      this.mrtTwoTargetPrescienceHelperNote += interval + ' - ';
     }
-    this.mrtPrescienceHelperNote += top2Pumpers
+    this.mrtTwoTargetPrescienceHelperNote += top2Pumpers
       .map(([name]) => mrtColorMap.get(this.playerWhitelist.get(name) ?? '') + name + '|r')
       .join(' ');
     if (important) {
-      this.mrtPrescienceHelperNote += ' *';
+      this.mrtTwoTargetPrescienceHelperNote += ' *';
     }
-    this.mrtPrescienceHelperNote += '\n';
+    this.mrtTwoTargetPrescienceHelperNote += '\n';
   }
 
-  handleCopyClick = () => {
-    navigator.clipboard.writeText(this.mrtPrescienceHelperNote);
+  /**
+   * Create a  4 Target MRT note for who to Prescience and when
+   *
+   * The format is made to support the WA
+   * Created by Zephy
+   * https://wago.io/KP-BlDV58
+   *
+   * Format is basically:
+   * AugBuffStart
+   * aug |cff33937fPantsdormu|r
+   * 00:14  |cfffff468Jackòfblades|r !1 |cffc41e3aCerknight|r !2 |cffaad372Athënâ|r !3 |cffa330c9Jabbernacky|r !4
+   * 00:30 {|T#} |cff8788eeJustinianlok|r !1 |cffaad372Steelshunter|r !2 |cffaad372Athënâ|r !3 |cff0070ddFoxmulders|r !4
+   * ...etc...
+   * AugBuffEnd {v2.0}
+   */
+  addEntryToFourTargetMRTNote(
+    top4Pumpers: [string, number[]][],
+    index: number,
+    interval: string,
+    important: boolean = false,
+  ) {
+    if (index === 0) {
+      this.mrtFourTargetPrescienceHelperNote += 'PREPULL - ';
+    } else {
+      this.mrtFourTargetPrescienceHelperNote += `${interval} `;
+    }
+    this.mrtFourTargetPrescienceHelperNote += top4Pumpers
+      .map(([name], idx) => {
+        const colorCode = mrtColorMap.get(this.playerWhitelist.get(name) ?? '') || '';
+        const formattedName = `${colorCode}${name}|r`;
+        return `${formattedName} !${idx + 1}`;
+      })
+      .join(' ');
+    if (important) {
+      this.mrtFourTargetPrescienceHelperNote += ' *';
+    }
+    this.mrtFourTargetPrescienceHelperNote += '\n';
+  }
+
+  handleTwoTargetCopyClick = () => {
+    navigator.clipboard.writeText(this.mrtTwoTargetPrescienceHelperNote);
+  };
+  handleFourTargetCopyClick = () => {
+    navigator.clipboard.writeText(this.mrtFourTargetPrescienceHelperNote);
   };
 
   guideSubsection(): JSX.Element | null {
@@ -442,13 +498,13 @@ class BuffTargetHelper extends Analyzer {
               This module will also produce a note for{' '}
               <a href="https://www.curseforge.com/wow/addons/method-raid-tools">
                 Method Raid Tools
-              </a>
-              , that helps with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> timings.
-              <br />
-              The note fully supports the <a href="https://wago.io/yrmx6ZQSG">
-                Prescience Helper
               </a>{' '}
-              WeakAura made by <b>HenryG</b>.
+              that helps with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> timings.
+              <br />
+              Make sure to click the copy button for either the{' '}
+              <a href="https://wago.io/yrmx6ZQSG">Prescience Helper</a> WeakAura made by{' '}
+              <b>HenryG</b> or the <a href="https://wago.io/KP-BlDV58">Frame Glows</a> WeakAura made
+              by <b>Zephy</b> based on which Weak Aura you use.
             </p>
           </div>
           <div>

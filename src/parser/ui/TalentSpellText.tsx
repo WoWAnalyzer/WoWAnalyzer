@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 import { Talent } from 'common/TALENTS/types';
 import { useCombatLogParser } from 'interface/report/CombatLogParserContext';
 
-const TalentRankTooltip = ({ rank, maxRanks }: { rank: number; maxRanks: number }) => (
+export const TalentRankTooltip = ({ rank, maxRanks }: { rank: number; maxRanks: number }) => (
   <>
     {' '}
     -{' '}

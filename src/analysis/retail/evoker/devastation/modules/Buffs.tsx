@@ -18,9 +18,9 @@ class Buffs extends CoreAuras {
         triggeredBySpellId: SPELLS.HOVER.id,
       },
       {
-        spellId: SPELLS.BLAZING_SHARDS.id, // T30 4pc
+        spellId: SPELLS.POWER_SWELL_BUFF.id,
         timelineHighlight: true,
-        triggeredBySpellId: SPELLS.BLAZING_SHARDS.id,
+        triggeredBySpellId: SPELLS.POWER_SWELL_BUFF.id,
       },
       {
         spellId: SPELLS.IRIDESCENCE_RED.id,

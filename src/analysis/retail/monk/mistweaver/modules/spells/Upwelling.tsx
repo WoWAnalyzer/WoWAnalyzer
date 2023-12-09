@@ -12,8 +12,7 @@ import HotTrackerMW from '../core/HotTrackerMW';
 import TalentSpellText from 'parser/ui/TalentSpellText';
 import { SpellLink } from 'interface';
 import StatisticListBoxItem from 'parser/ui/StatisticListBoxItem';
-
-const BASE_BOLTS = 18;
+import { BASE_EF_BOLTS } from '../../constants';
 
 /**
  * Upwelling is a talent that increases essence font's hot by 4 seconds and for every second off cooldown up to 18 seconds it provides an extra bolt for the next ef cast
@@ -87,7 +86,7 @@ class Upwelling extends Analyzer {
 
   get lostEfHealing() {
     const lostBolts = this.averageStacks / 2; // you lose .5 bolts a second
-    return this.baseEfHealing * (lostBolts / BASE_BOLTS);
+    return this.baseEfHealing * (lostBolts / BASE_EF_BOLTS);
   }
 
   get totalHealingAll() {
@@ -162,7 +161,7 @@ class Upwelling extends Analyzer {
       return;
     }
     this.totalBolts += 1; //told number of bolts
-    if (this.boltCount + 1 > BASE_BOLTS) {
+    if (this.boltCount + 1 > BASE_EF_BOLTS) {
       //only get bolts that are from upwelling
       this.totalHealing += event.amount || 0;
       this.totalOverhealing += event.overheal || 0;
@@ -182,7 +181,7 @@ class Upwelling extends Analyzer {
   }
 
   applyBuff(event: ApplyBuffEvent) {
-    if (this.boltCount + 1 > BASE_BOLTS) {
+    if (this.boltCount + 1 > BASE_EF_BOLTS) {
       //Hots from extra bolts
       this.extraHots += 1;
     }

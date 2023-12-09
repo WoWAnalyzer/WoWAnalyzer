@@ -8,7 +8,7 @@ import Statistic from 'parser/ui/Statistic';
 import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import { ELECTRIFIED_SHOCKS_DURATION, ON_CAST_BUFF_REMOVAL_GRACE_MS } from '../../constants';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
-import MajorCooldown, { SpellCast } from 'parser/core/MajorCooldowns/MajorCooldown';
+import MajorCooldown, { CooldownTrigger } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { QualitativePerformance, getLowestPerf } from 'parser/ui/QualitativePerformance';
 import Enemies from 'parser/shared/modules/Enemies';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -46,7 +46,7 @@ interface SKTimeline {
   performance: QualitativePerformance;
 }
 
-interface SKCast extends SpellCast {
+interface SKCast extends CooldownTrigger<CastEvent> {
   /** How much maelstrom the user had when starting the window rotation */
   maelstromOnCast: number;
   /** How long Flameshock had left when starting the window rotation */

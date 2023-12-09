@@ -191,7 +191,7 @@ const spells = {
     icon: 'spell_nature_lightning',
   },
   ELEMENTAL_BLAST: {
-    id: 344645,
+    id: 117014,
     name: 'Elemental Blast',
     icon: 'shaman_talent_elementalblast',
   },
@@ -629,6 +629,11 @@ const spells = {
     name: 'Stormblast',
     icon: 'spell_shaman_focusedstrikes',
   },
+  TEMPEST_STRIKES_DAMAGE: {
+    id: 428078,
+    name: 'Tempest Strikes',
+    icon: 'spell_nature_thunderclap',
+  },
   // Restoration Shaman
   HEALING_SURGE: {
     id: 8004,
@@ -806,6 +811,11 @@ const spells = {
     id: 375985,
     name: 'Primordial Wave',
     icon: 'ability_maldraxxus_shaman',
+  },
+  SPLINTERED_ELEMENTS_BUFF: {
+    id: 382043,
+    name: 'Splintered Elements',
+    icon: 'spell_nature_elementalprecision_1',
   },
   MANA_SPRING_RESTORATION: {
     id: 404551,

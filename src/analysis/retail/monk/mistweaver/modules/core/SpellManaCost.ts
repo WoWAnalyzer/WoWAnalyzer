@@ -84,10 +84,10 @@ class MWSpellManaCost extends SpellManaCost {
       !this.hasChiji &&
       spellID === TALENTS_MONK.ENVELOPING_MIST_TALENT.id &&
       this.selectedCombatant.hasBuff(SPELLS.INVOKE_YULON_BUFF.id)
-        ? YULON_REDUCTION
+        ? 1 - YULON_REDUCTION
         : 1;
     const manaTeaMultiplier = this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id)
-      ? MANA_TEA_REDUCTION
+      ? 1 - MANA_TEA_REDUCTION
       : 1;
     return manaTeaMultiplier * cloudedFocusMultiplier * chijiMultiplier * yulonMultiplier;
   }

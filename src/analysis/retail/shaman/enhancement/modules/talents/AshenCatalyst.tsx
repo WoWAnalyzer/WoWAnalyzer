@@ -47,12 +47,10 @@ class AshenCatalyst extends Analyzer {
     if (!event.tick) {
       return;
     }
-    if (this.spellUsable.isOnCooldown(TALENTS.LAVA_LASH_TALENT.id)) {
-      this.effectiveCooldownReduction += this.spellUsable.reduceCooldown(
-        TALENTS.LAVA_LASH_TALENT.id,
-        ASHEN_CATALYST_COOLDOWN_REDUCTION_MS,
-      );
-    }
+    this.effectiveCooldownReduction += this.spellUsable.reduceCooldown(
+      TALENTS.LAVA_LASH_TALENT.id,
+      ASHEN_CATALYST_COOLDOWN_REDUCTION_MS,
+    );
   }
 
   onLavaLash(event: DamageEvent) {

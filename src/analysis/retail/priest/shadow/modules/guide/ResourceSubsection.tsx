@@ -7,13 +7,26 @@ import { formatPercentage } from 'common/format';
 import CombatLogParser from 'analysis/retail/priest/shadow/CombatLogParser';
 
 function ResourceSubsection({ modules }: GuideProps<typeof CombatLogParser>) {
+  let perfect = false;
+  if (modules.insanityUsage.wasted < 50) {
+    perfect = true;
+  }
+
   return (
     <SubSection>
       <p>
-        <b>
-          You should avoid capping insanity by using{' '}
-          <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.
-        </b>
+        {perfect && (
+          <b>
+            Good job! You avoided overcapping insanity by using{' '}
+            <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.
+          </b>
+        )}
+        {!perfect && (
+          <b>
+            You should avoid capping insanity by using{' '}
+            <SpellLink spell={TALENTS.DEVOURING_PLAGUE_TALENT} />.
+          </b>
+        )}
       </p>
       <p>
         You wasted{' '}

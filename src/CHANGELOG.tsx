@@ -32,9 +32,16 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 12, 5), 'Update Classic Mana Values to activate based on config role.', jazminite),
+  change(date(2023, 12, 3),'Convert GlobalCooldown to TS', Seriousnes),
+  change(date(2023, 12, 3), <>Refactor MajorCooldown to support procs such as Enhancement's Hot Hand & Ascendance</>, Seriousnes),
   change(date(2023, 11, 28), 'Bump Node version to 20.x LTS.', ToppleTheNun),
+  change(date(2023, 11, 28), 'Actually populate Sentry releases.', ToppleTheNun),
+  change(date(2023, 11, 28), 'Update Sentry release naming.', ToppleTheNun),
   change(date(2023, 11, 28), 'Remove deprecated Shadowlands combatantinfo that was breaking the Holy Priest analyzer.', emallson),
   change(date(2023, 11, 27), <>Fix inaccurate tooltip for <ItemLink id={ITEMS.ELEMENTAL_LARIAT.id}/>.</>, Trevor),
+  change(date(2023, 11, 27), 'Change trinket obj structure and add Classic WotLK trinkets', jazminite),
+  change(date(2023, 11, 25), <>Change range check shortcut from 'less than' to 'less than or equal to'</>, Seriousnes),
   change(date(2023, 11, 23), 'Refactor Code Smell Missing Union Type.', LucasLevyOB),
   change(date(2023, 11, 19), 'Improve error reporting integration.', ToppleTheNun),
   change(date(2023, 11, 19), 'Remove warning for 10.2 logs.', ToppleTheNun),

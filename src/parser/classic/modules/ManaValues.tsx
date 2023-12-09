@@ -1,11 +1,12 @@
 import { Options } from 'parser/core/Analyzer';
 import ManaValues from 'parser/shared/modules/ManaValues';
+import ROLES from 'game/ROLES';
 
-class TbcManaValues extends ManaValues {
+class ClassicManaValues extends ManaValues {
   constructor(options: Options) {
     super(options);
-    this.active = true;
+    this.active = this.config.spec.role === ROLES.HEALER;
   }
 }
 
-export default TbcManaValues;
+export default ClassicManaValues;

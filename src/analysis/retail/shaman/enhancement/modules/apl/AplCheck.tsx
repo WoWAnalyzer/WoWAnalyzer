@@ -1,30 +1,40 @@
-import TALENTS, { TALENTS_SHAMAN } from 'common/TALENTS/shaman';
+import TALENTS from 'common/TALENTS/shaman';
 import { suggestion } from 'parser/core/Analyzer';
 import { AnyEvent } from 'parser/core/Events';
 import aplCheck, { Apl, build, CheckResult, PlayerInfo, Rule } from 'parser/shared/metrics/apl';
 import {
   and,
-  or,
-  buffPresent,
-  buffStacks,
-  debuffMissing,
-  spellCharges,
-  describe,
   buffMissing,
+  buffPresent,
+  debuffMissing,
+  describe,
+  or,
+  spellCharges,
 } from 'parser/shared/metrics/apl/conditions';
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import { SpellLink } from 'interface';
 import SPELLS from 'common/SPELLS';
+import { AtLeastFiveMSW, MaxStacksMSW } from './Conditions';
+import { TIERS } from 'game/TIERS';
+import {
+  getTier31ElementalistApl,
+  getTier31StormApl,
+} from 'analysis/retail/shaman/enhancement/modules/apl/Tier31';
 
 /**
  * Based on https://www.icy-veins.com/wow/enhancement-shaman-pve-dps-guide
  */
 
-const atLeastFiveMSW = buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 5 });
-const maxStacksMSW = buffStacks(SPELLS.MAELSTROM_WEAPON_BUFF, { atLeast: 10, atMost: 10 });
-
 export const apl = (info: PlayerInfo): Apl => {
   const combatant = info.combatant;
+
+  if (combatant.has4PieceByTier(TIERS.T31)) {
+    return build(
+      combatant.hasTalent(TALENTS.HOT_HAND_TALENT)
+        ? getTier31ElementalistApl()
+        : getTier31StormApl(),
+    );
+  }
   const rules: Rule[] = [];
 
   combatant.hasTalent(TALENTS.LASHING_FLAMES_TALENT) &&
@@ -49,40 +59,40 @@ export const apl = (info: PlayerInfo): Apl => {
   if (combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT)) {
     rules.push({
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
-      condition: atLeastFiveMSW,
+      condition: AtLeastFiveMSW,
     });
     !combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT) &&
       rules.push({
         spell: TALENTS.LAVA_BURST_TALENT,
-        condition: atLeastFiveMSW,
+        condition: AtLeastFiveMSW,
       });
     rules.push({
       spell: SPELLS.LIGHTNING_BOLT,
       condition: combatant.hasTalent(TALENTS.STATIC_ACCUMULATION_TALENT)
-        ? atLeastFiveMSW
-        : maxStacksMSW,
+        ? AtLeastFiveMSW
+        : MaxStacksMSW,
     });
   } else {
     rules.push(
       {
         spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
         condition: and(
-          atLeastFiveMSW,
+          AtLeastFiveMSW,
           spellCharges(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT, { atLeast: 2, atMost: 2 }),
         ),
       },
       {
         spell: SPELLS.LIGHTNING_BOLT,
-        condition: and(atLeastFiveMSW, buffPresent(SPELLS.PRIMORDIAL_WAVE_BUFF)),
+        condition: and(AtLeastFiveMSW, buffPresent(SPELLS.PRIMORDIAL_WAVE_BUFF)),
       },
       {
         spell: TALENTS.CHAIN_LIGHTNING_TALENT,
-        condition: and(atLeastFiveMSW, buffPresent(SPELLS.CRACKLING_THUNDER_TIER_BUFF)),
+        condition: and(AtLeastFiveMSW, buffPresent(SPELLS.CRACKLING_THUNDER_TIER_BUFF)),
       },
       {
         spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
         condition: and(
-          atLeastFiveMSW,
+          AtLeastFiveMSW,
           describe(
             or(
               buffPresent(SPELLS.ELEMENTAL_SPIRITS_BUFF_MOLTEN_WEAPON),
@@ -99,16 +109,16 @@ export const apl = (info: PlayerInfo): Apl => {
       },
       {
         spell: TALENTS.LAVA_BURST_TALENT,
-        condition: atLeastFiveMSW,
+        condition: AtLeastFiveMSW,
       },
       {
         spell: SPELLS.LIGHTNING_BOLT,
-        condition: maxStacksMSW,
+        condition: MaxStacksMSW,
       },
     );
   }
 
-  if (combatant.hasTalent(TALENTS_SHAMAN.DOOM_WINDS_TALENT)) {
+  if (combatant.hasTalent(TALENTS.DOOM_WINDS_TALENT)) {
     rules.push(
       {
         spell: TALENTS.ICE_STRIKE_TALENT,
@@ -146,7 +156,7 @@ export const apl = (info: PlayerInfo): Apl => {
   combatant.hasTalent(TALENTS.HAILSTORM_TALENT) &&
     rules.push({
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: describe(and(atLeastFiveMSW, buffMissing(TALENTS.HAILSTORM_TALENT)), () => (
+      condition: describe(and(AtLeastFiveMSW, buffMissing(TALENTS.HAILSTORM_TALENT)), () => (
         <>
           you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks to generate{' '}
           <SpellLink spell={TALENTS.HAILSTORM_TALENT} /> stacks
@@ -160,7 +170,7 @@ export const apl = (info: PlayerInfo): Apl => {
     !combatant.hasTalent(TALENTS.HAILSTORM_TALENT) &&
     rules.push({
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: atLeastFiveMSW,
+      condition: AtLeastFiveMSW,
     });
 
   const apl = build(rules);

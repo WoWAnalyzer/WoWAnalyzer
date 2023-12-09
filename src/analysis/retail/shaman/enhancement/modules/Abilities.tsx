@@ -42,6 +42,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 40,
       },
       {
         spell: SPELLS.GHOST_WOLF.id,
@@ -144,7 +145,6 @@ class Abilities extends CoreAbilities {
         spell: TALENTS_SHAMAN.EARTH_SHIELD_TALENT.id,
         enabled: combatant.hasTalent(TALENTS_SHAMAN.EARTH_SHIELD_TALENT),
         category: SPELL_CATEGORY.OTHERS,
-        cooldown: (haste) => 6 / (1 + haste),
         gcd: {
           base: 1500,
         },
@@ -391,6 +391,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 5,
       },
       {
         spell: TALENTS_SHAMAN.FERAL_SPIRIT_TALENT.id,
@@ -424,6 +425,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 40,
       },
       {
         spell: TALENTS_SHAMAN.STORMSTRIKE_TALENT.id,
@@ -432,6 +434,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
+        range: 5,
       },
       {
         spell: TALENTS_SHAMAN.CRASH_LIGHTNING_TALENT.id,
@@ -477,6 +480,7 @@ class Abilities extends CoreAbilities {
         },
         enabled: combatant.hasTalent(TALENTS_SHAMAN.ICE_STRIKE_TALENT),
         cooldown: (haste) => 15 / (1 + haste),
+        range: 5,
       },
       {
         spell: SPELLS.LIGHTNING_SHIELD.id,
@@ -490,7 +494,7 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: SPELLS.PRIMORDIAL_WAVE.id,
+        spell: [SPELLS.PRIMORDIAL_WAVE.id, SPELLS.PRIMORDIAL_WAVE_DAMAGE.id],
         category: SPELL_CATEGORY.COOLDOWNS,
         cooldown: 45,
         gcd: {
@@ -501,6 +505,7 @@ class Abilities extends CoreAbilities {
           suggestion: true,
           recommendedEfficiency: 1,
         },
+        range: 40,
       },
       {
         spell: TALENTS_SHAMAN.WINDFURY_TOTEM_TALENT.id,
