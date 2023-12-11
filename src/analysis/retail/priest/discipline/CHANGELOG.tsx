@@ -6,6 +6,7 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 12, 11), <>Fixed <SpellLink spell={TALENTS_PRIEST.SCHISM_TALENT}/>.</>, Hana),
   change(date(2023, 11, 23), <><SpellLink spell={SPELLS.DARK_REPRIMAND_CAST}/> and <SpellLink spell={TALENTS_PRIEST.ULTIMATE_PENITENCE_TALENT}/> should now properly show as casting time in the timeline.</>, Sref),
   change(date(2023, 11, 14), <>Add tracker for <SpellLink spell={TALENTS_PRIEST.TRAIN_OF_THOUGHT_TALENT} /> CDR.</>, Arlie),
   change(date(2023, 11, 14), <>Add tracker for <SpellLink spell={TALENTS_PRIEST.VOID_SUMMONER_TALENT} /> CDR.</>, Arlie),
