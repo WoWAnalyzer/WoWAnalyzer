@@ -19,7 +19,7 @@ import { SpellUse } from 'parser/core/SpellUsage/core';
 
 import { getHardcast } from '../../normalizers/CastLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -154,7 +154,7 @@ export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
     );
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         abovePerformanceDetails={

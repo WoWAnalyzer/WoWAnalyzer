@@ -23,7 +23,7 @@ import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { SpellLink } from 'interface';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import { ebonIsFromBreath, getEbonMightBuffEvents } from '../normalizers/CastLinkNormalizer';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
@@ -478,7 +478,7 @@ class EbonMight extends Analyzer {
     );
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         title="Ebon Might"
         explanation={explanation}
         uses={this.uses}

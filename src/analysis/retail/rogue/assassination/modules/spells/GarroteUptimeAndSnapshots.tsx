@@ -18,7 +18,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class GarroteUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -233,7 +233,7 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     );
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         abovePerformanceDetails={

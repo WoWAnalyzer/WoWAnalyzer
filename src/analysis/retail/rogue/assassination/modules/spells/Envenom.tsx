@@ -15,7 +15,7 @@ import {
 } from 'analysis/retail/rogue/assassination/constants';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import Enemies from 'parser/shared/modules/Enemies';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS = 3000;
@@ -51,7 +51,7 @@ export default class Envenom extends Analyzer {
     );
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={
