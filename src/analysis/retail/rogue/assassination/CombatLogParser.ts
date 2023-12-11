@@ -30,6 +30,9 @@ import ThistleTea from './modules/talents/ThistleTea';
 import Guide from './Guide';
 import Mutilate from './modules/spells/Mutilate';
 import MutilateVanishLinkNormalizer from './normalizers/MutilateVanishLinkNormalizer';
+import KingsbaneLinkNormalizer from './normalizers/KingsbaneLinkNormalizer';
+import Kingsbane from './modules/talents/Kingsbane';
+import BlindsideEventOrderNormalizer from './normalizers/BlindsideEventOrderNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -43,6 +46,8 @@ class CombatLogParser extends CoreCombatLogParser {
     thistleTeaCastLinkNormalizer: ThistleTeaCastLinkNormalizer,
     sepsisLinkNormalizer: SepsisLinkNormalizer,
     mutilateVanishLinkNormalizer: MutilateVanishLinkNormalizer,
+    kingsbaneNormalizer: KingsbaneLinkNormalizer,
+    blindsideEventOrderNormalizer: BlindsideEventOrderNormalizer,
 
     // Resource
     comboPointTracker: ComboPointTracker,
@@ -70,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     crimsonTempestUptimeAndSnapshots: CrimsonTempestUptimeAndSnapshots,
     sepsis: Sepsis,
     thistleTea: ThistleTea,
+    kingsbane: Kingsbane,
 
     // Racials
     arcaneTorrent: [ArcaneTorrent, { gcd: 1000 }] as const,

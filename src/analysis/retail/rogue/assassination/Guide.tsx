@@ -13,7 +13,10 @@ import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
 import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
 import { getTargetComboPoints } from 'analysis/retail/rogue/assassination/constants';
-import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
+import {
+  ExperimentalKingsbaneContextProvider,
+  ExperimentalKingsbaneToggle,
+} from 'analysis/retail/rogue/assassination/guide/ExperimentalKingsbaneContext';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -98,26 +101,23 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
 
 function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Cooldowns">
-      <p>
-        Assassination's cooldowns are decently powerful but should not be held on to for long. In
-        order to maximize usages over the course of an encounter, you should aim to send the
-        cooldown as soon as it becomes available (as long as it can do damage on target). It is
-        particularly important to use <SpellLink spell={SPELLS.VANISH} /> as often as possible.
-      </p>
-      <HideExplanationsToggle id="hide-explanations-rotation" />
-      <HideGoodCastsToggle id="hide-good-casts-rotation" />
-      <CooldownGraphSubsection />
-      {info.combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
-        <CooldownUsage analyzer={modules.sepsis} />
-      )}
-      {info.combatant.hasTalent(TALENTS.KINGSBANE_TALENT) &&
-        explanationAndDataSubsection(
-          <div>
-            Per-cast breakdown for <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> coming soon!
-          </div>,
-          <></>,
+    <ExperimentalKingsbaneContextProvider>
+      <Section title="Cooldowns">
+        <p>
+          Assassination's cooldowns are decently powerful but should not be held on to for long. In
+          order to maximize usages over the course of an encounter, you should aim to send the
+          cooldown as soon as it becomes available (as long as it can do damage on target). It is
+          particularly important to use <SpellLink spell={SPELLS.VANISH} /> as often as possible.
+        </p>
+        <HideExplanationsToggle id="hide-explanations-rotation" />
+        <HideGoodCastsToggle id="hide-good-casts-rotation" />
+        <ExperimentalKingsbaneToggle />
+        <CooldownGraphSubsection />
+        {info.combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
+          <CooldownUsage analyzer={modules.sepsis} />
         )}
-    </Section>
+        {info.combatant.hasTalent(TALENTS.KINGSBANE_TALENT) && modules.kingsbane.guideSubsection}
+      </Section>
+    </ExperimentalKingsbaneContextProvider>
   );
 }
