@@ -13,13 +13,13 @@ import {
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import TALENTS from 'common/TALENTS/rogue';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
 import { SpellUse } from 'parser/core/SpellUsage/core';
 
 import { getHardcast } from '../../normalizers/CastLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { RoundedPanelWithBottomMargin } from 'analysis/retail/rogue/shared/styled-components';
 
 export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -158,13 +158,13 @@ export default class CrimsonTempestUptimeAndSnapshots extends DotSnapshots {
         explanation={explanation}
         uses={this.cooldownUses}
         abovePerformanceDetails={
-          <RoundedPanel>
+          <RoundedPanelWithBottomMargin>
             <div>
               <strong>Crimson Tempest uptime / snapshots</strong>
               <small> - Try to get as close to 100% as the encounter allows!</small>
             </div>
             {this.subStatistic()}
-          </RoundedPanel>
+          </RoundedPanelWithBottomMargin>
         }
         castBreakdownSmallText={
           <>

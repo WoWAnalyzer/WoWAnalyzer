@@ -27,8 +27,8 @@ export default class Mutilate extends Analyzer {
           <SpellLink spell={SPELLS.MUTILATE} />
         </strong>
         . You should never use <SpellLink spell={SPELLS.MUTILATE} /> during{' '}
-        <SpellLink spell={SPELLS.BLINDSIDE_BUFF} />, <SpellLink spell={SPELLS.SHADOW_DANCE_BUFF} />,{' '}
-        <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />, or <SpellLink spell={SPELLS.VANISH_BUFF} />.
+        <SpellLink spell={SPELLS.SHADOW_DANCE_BUFF} />, <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />
+        , or <SpellLink spell={SPELLS.VANISH_BUFF} />.
       </p>
     );
 
@@ -54,6 +54,9 @@ export default class Mutilate extends Analyzer {
             />
           </div>
         }
+        noCastsTexts={{
+          noCastsOverride: 'All of your casts of this spell were good!',
+        }}
       />
     );
   }
@@ -61,39 +64,10 @@ export default class Mutilate extends Analyzer {
   private onCast(event: CastEvent) {
     this.cooldownUses.push(
       createSpellUse({ event }, [
-        this.blindsidePerformance(event),
         this.shadowDancePerformance(event),
         this.subterfugePerformance(event),
         this.vanishPerformance(event),
       ]),
-    );
-  }
-
-  private blindsidePerformance(event: CastEvent): ChecklistUsageInfo | undefined {
-    if (!this.selectedCombatant.hasTalent(TALENTS.BLINDSIDE_TALENT)) {
-      return undefined;
-    }
-    const isBuffActive = this.selectedCombatant.hasBuff(SPELLS.BLINDSIDE_BUFF.id, event.timestamp);
-    const summary = <div>Do not have Blindside active</div>;
-    const details = isBuffActive ? (
-      <div>
-        You cast <SpellLink spell={SPELLS.MUTILATE} /> when you should have cast{' '}
-        <SpellLink spell={SPELLS.AMBUSH} /> due to having{' '}
-        <SpellLink spell={SPELLS.BLINDSIDE_BUFF} /> active.
-      </div>
-    ) : (
-      <div>
-        You did not have <SpellLink spell={SPELLS.BLINDSIDE_BUFF} /> active. Good job!
-      </div>
-    );
-    return createChecklistItem(
-      'blindside',
-      { event },
-      {
-        performance: isBuffActive ? QualitativePerformance.Fail : QualitativePerformance.Good,
-        summary,
-        details,
-      },
     );
   }
 

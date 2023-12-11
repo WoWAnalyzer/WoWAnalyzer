@@ -17,6 +17,8 @@ import { combineQualitativePerformances } from 'common/combineQualitativePerform
 import Enemies from 'parser/shared/modules/Enemies';
 import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { RoundedPanelWithBottomMargin } from 'analysis/retail/rogue/shared/styled-components';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS = 3000;
 
@@ -54,6 +56,20 @@ export default class Envenom extends Analyzer {
       <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
+        abovePerformanceDetails={
+          <RoundedPanelWithBottomMargin>
+            <div>
+              <strong>
+                <SpellLink spell={SPELLS.ENVENOM} /> uptime
+              </strong>
+              <small> - Try to get as close to 100% as the encounter allows!</small>
+            </div>
+            {uptimeBarSubStatistic(this.owner.fight, {
+              spells: [SPELLS.ENVENOM],
+              uptimes: this.envenomBuffUptimes,
+            })}
+          </RoundedPanelWithBottomMargin>
+        }
         castBreakdownSmallText={
           <>
             {' '}
@@ -63,6 +79,13 @@ export default class Envenom extends Analyzer {
         }
       />
     );
+  }
+
+  private get envenomBuffUptimes() {
+    return this.selectedCombatant.getBuffHistory(SPELLS.ENVENOM.id).map((buff) => ({
+      start: buff.start,
+      end: buff.end ?? this.owner.fight.end_time,
+    }));
   }
 
   private onCast(event: CastEvent) {
