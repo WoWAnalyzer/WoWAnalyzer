@@ -13,6 +13,7 @@ import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
 import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
 import { getTargetComboPoints } from 'analysis/retail/rogue/assassination/constants';
+import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -110,6 +111,13 @@ function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) 
       {info.combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
         <CooldownUsage analyzer={modules.sepsis} />
       )}
+      {info.combatant.hasTalent(TALENTS.KINGSBANE_TALENT) &&
+        explanationAndDataSubsection(
+          <div>
+            Per-cast breakdown for <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> coming soon!
+          </div>,
+          <></>,
+        )}
     </Section>
   );
 }
