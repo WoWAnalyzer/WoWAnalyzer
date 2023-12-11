@@ -6,6 +6,7 @@ import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
+  change(date(2023, 12, 10), <>Add analysis for <SpellLink spell={SPELLS.MUTILATE} /> during <SpellLink spell={SPELLS.BLINDSIDE_BUFF} />, <SpellLink spell={SPELLS.SHADOW_DANCE_BUFF} />, <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />, and <SpellLink spell={SPELLS.VANISH_BUFF} />.</>, ToppleTheNun),
   change(date(2023, 11, 22), <>Update analysis for <SpellLink spell={SPELLS.ENVENOM} /> and general finisher usage.</>, ToppleTheNun),
   change(date(2023, 8, 24), `Improved support for Sepsis with Coooldown breakdown + Snapshoting`, [Bigsxy, Whispyr]),
   change(date(2023, 8, 21), 'Add support for usage of Sepsis with Improved Garrote.', Bigsxy),

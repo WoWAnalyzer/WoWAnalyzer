@@ -28,6 +28,8 @@ import Envenom from './modules/spells/Envenom';
 import Sepsis from './modules/talents/Sepsis';
 import ThistleTea from './modules/talents/ThistleTea';
 import Guide from './Guide';
+import Mutilate from './modules/spells/Mutilate';
+import MutilateVanishLinkNormalizer from './normalizers/MutilateVanishLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -40,6 +42,7 @@ class CombatLogParser extends CoreCombatLogParser {
     castLinkNormalizer: CastLinkNormalizer,
     thistleTeaCastLinkNormalizer: ThistleTeaCastLinkNormalizer,
     sepsisLinkNormalizer: SepsisLinkNormalizer,
+    mutilateVanishLinkNormalizer: MutilateVanishLinkNormalizer,
 
     // Resource
     comboPointTracker: ComboPointTracker,
@@ -61,6 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     garroteUptimeAndSnapshots: GarroteUptimeAndSnapshots,
     ruptureUptimeAndSnapshots: RuptureUptimeAndSnapshots,
     envenom: Envenom,
+    mutilate: Mutilate,
 
     // Talents
     crimsonTempestUptimeAndSnapshots: CrimsonTempestUptimeAndSnapshots,

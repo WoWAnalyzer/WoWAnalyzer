@@ -83,11 +83,12 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />
+      {modules.mutilate.guideSubsection}
+      {modules.garroteUptimeAndSnapshots.guideSubsection}
       {modules.ruptureUptimeAndSnapshots.guideSubsection}
       {modules.envenom.guideSubsection}
       {info.combatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT) &&
         modules.crimsonTempestUptimeAndSnapshots.guideSubsection}
-      {modules.garroteUptimeAndSnapshots.guideSubsection}
       {info.combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT) && modules.thistleTea.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
