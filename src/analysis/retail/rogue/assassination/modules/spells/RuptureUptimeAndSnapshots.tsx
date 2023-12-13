@@ -14,13 +14,13 @@ import {
 } from 'analysis/retail/rogue/assassination/constants';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
 import { SpellUse } from 'parser/core/SpellUsage/core';
 
 import { getHardcast } from '../../normalizers/CastLinkNormalizer';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { RoundedPanelWithBottomMargin } from 'analysis/retail/rogue/shared/styled-components';
 
 export default class RuptureUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -155,17 +155,17 @@ export default class RuptureUptimeAndSnapshots extends DotSnapshots {
     );
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         abovePerformanceDetails={
-          <RoundedPanel>
+          <RoundedPanelWithBottomMargin>
             <div>
               <strong>Rupture uptime / snapshots</strong>
               <small> - Try to get as close to 100% as the encounter allows!</small>
             </div>
             {this.subStatistic()}
-          </RoundedPanel>
+          </RoundedPanelWithBottomMargin>
         }
         castBreakdownSmallText={
           <>

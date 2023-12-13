@@ -14,7 +14,7 @@ import { formatPercentage } from 'common/format';
 import { UNBOUND_CHAOS_SCALING } from 'analysis/retail/demonhunter/havoc/constants';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
@@ -73,7 +73,7 @@ export default class UnboundChaos extends Analyzer {
     const totalCasts = this.uses.length;
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         title="Unbound Chaos"
         explanation={explanation}
         uses={this.uses}

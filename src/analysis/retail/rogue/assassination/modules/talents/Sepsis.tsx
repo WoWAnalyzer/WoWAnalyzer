@@ -1,6 +1,6 @@
 import MajorCooldown, {
-  createChecklistItem,
   CooldownTrigger,
+  createChecklistItem,
 } from 'parser/core/MajorCooldowns/MajorCooldown';
 import { SpellUse, UsageInfo } from 'parser/core/SpellUsage/core';
 import React from 'react';
@@ -14,16 +14,13 @@ import { isDefined } from 'common/typeGuards';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import {
-  getRelatedBuffApplicationFromHardcast,
-  getDebuffApplicationFromHardcast,
-  getSepsisConsumptionCastForBuffEvent,
   getAuraLifetimeEvent,
-} from '../../normalizers/SepsisLinkNormalizer';
-import {
-  SEPSIS_DEBUFF_DURATION,
+  getDebuffApplicationFromHardcast,
+  getRelatedBuffApplicationFromHardcast,
+  getSepsisConsumptionCastForBuffEvent,
   SEPSIS_BUFF_DURATION,
+  SEPSIS_DEBUFF_DURATION,
 } from '../../normalizers/SepsisLinkNormalizer';
-import { ExplanationSection } from 'analysis/retail/demonhunter/shared/guide/CommonComponents';
 import { Expandable } from 'interface';
 import { SectionHeader } from 'interface/guide';
 import { BUFF_DROP_BUFFER } from 'parser/core/DotSnapshots';
@@ -31,6 +28,7 @@ import { formatPercentage } from 'common/format';
 import { GARROTE_BASE_DURATION, isInOpener } from '../../constants';
 import { CAST_BUFFER_MS } from '../../normalizers/CastLinkNormalizer';
 import { TrackedBuffEvent } from 'parser/core/Entity';
+import { ExplanationSection } from 'analysis/retail/rogue/shared/styled-components';
 
 const SHIV_DURATION = 8 * 1000;
 const BASE_ROGUE_GCD = 1000;
@@ -342,8 +340,7 @@ export default class Sepsis extends MajorCooldown<SepsisCast> {
         </>
       );
       if (overlapPercent < 0.85) {
-        let additionalDetails: React.ReactNode = <></>;
-        additionalDetails = (
+        let additionalDetails = (
           <>
             Aim to have all {formatSeconds(SHIV_DURATION)} seconds of the Shiv debuff line up with
             the {formatSeconds(SEPSIS_DEBUFF_DURATION)}s Sepsis DoT.

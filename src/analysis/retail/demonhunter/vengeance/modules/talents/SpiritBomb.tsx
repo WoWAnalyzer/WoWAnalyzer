@@ -30,7 +30,7 @@ import {
 } from 'parser/core/SpellUsage/core';
 import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class SpiritBomb extends Analyzer {
   static dependencies = {
@@ -130,7 +130,7 @@ export default class SpiritBomb extends Analyzer {
     const totalCasts = performances.length;
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}

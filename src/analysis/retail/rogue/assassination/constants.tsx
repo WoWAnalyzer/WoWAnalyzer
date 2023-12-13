@@ -53,6 +53,10 @@ export const getMaxComboPoints = (c: Combatant) => {
   return 5 + c.getTalentRank(TALENTS.DEEPER_STRATAGEM_TALENT);
 };
 
+export const getTargetComboPoints = (c: Combatant) => {
+  return 4;
+};
+
 export const RUPTURE_BASE_DURATION = 4000;
 export const RUPTURE_DURATION_PR_CP_SPENT = 4000;
 export const getRuptureDuration = (c: Combatant, cast: CastEvent): number => {
@@ -93,7 +97,7 @@ export const getCrimsonTempestFullDuration = (c: Combatant) => {
 /** Max time left on a DoT for us to not yell if snapshot is downgraded */
 export const SNAPSHOT_DOWNGRADE_BUFFER = 2000;
 
-export const OPENER_MAX_DURATION_MS = 15000;
+export const OPENER_MAX_DURATION_MS = 30000;
 
 export const BUILDERS: Spell[] = [
   SPELLS.MUTILATE,

@@ -14,11 +14,11 @@ import { getHardcast } from 'analysis/retail/druid/feral/normalizers/CastLinkNor
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import TALENTS from 'common/TALENTS/rogue';
 import uptimeBarSubStatistic, { SubPercentageStyle } from 'parser/ui/UptimeBarSubStatistic';
-import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { formatDurationMillisMinSec } from 'common/format';
 import { ChecklistUsageInfo, SpellUse } from 'parser/core/SpellUsage/core';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { RoundedPanelWithBottomMargin } from 'analysis/retail/rogue/shared/styled-components';
 
 export default class GarroteUptimeAndSnapshots extends DotSnapshots {
   static dependencies = {
@@ -233,17 +233,17 @@ export default class GarroteUptimeAndSnapshots extends DotSnapshots {
     );
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         abovePerformanceDetails={
-          <RoundedPanel>
+          <RoundedPanelWithBottomMargin>
             <div>
               <strong>Garrote uptime / snapshots</strong>
               <small> - Try to get as close to 100% as the encounter allows!</small>
             </div>
             {this.subStatistic()}
-          </RoundedPanel>
+          </RoundedPanelWithBottomMargin>
         }
         castBreakdownSmallText={
           <>
