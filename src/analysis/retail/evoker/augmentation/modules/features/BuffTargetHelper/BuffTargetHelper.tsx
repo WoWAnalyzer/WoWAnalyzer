@@ -122,7 +122,6 @@ class BuffTargetHelper extends Analyzer {
           this.playerWhitelist.set(player.name, classColor(player));
           this.nameFilter +=
             this.nameFilter.length === 0 ? `"${player.name}"` : `,"${player.name}"`;
-          console.log(player.player.guid);
         }
       });
     });
