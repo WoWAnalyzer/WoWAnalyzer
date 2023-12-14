@@ -225,10 +225,10 @@ const SpellUsageSubSection = ({
         onPerformanceBoxClick?.(undefined);
       } else {
         setSelectedUse(index);
-        onPerformanceBoxClick?.(index);
+        onPerformanceBoxClick?.(uses.at(index));
       }
     },
-    [onPerformanceBoxClick, performances.length],
+    [onPerformanceBoxClick, performances.length, uses],
   );
 
   // hideGoodCasts is in the dependency list because we want this to run whenever
