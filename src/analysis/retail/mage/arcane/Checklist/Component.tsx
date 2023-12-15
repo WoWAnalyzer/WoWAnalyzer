@@ -61,12 +61,6 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           tooltip="In order to effectively utilize Arcane Surge, there are certain things you need to ensure are setup before you cast Arcane Surge. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Touch of the Magi immediately before Arcane Surge will all help make the most out of your burn phase."
           thresholds={thresholds.arcaneSurgePreReqs}
         />
-
-        <Requirement
-          name="Arcane Surge Active Time"
-          tooltip="In order to get the most out of Arcane Surge, which is a large contributor to your damage, you should ensure that you are using every second of the cooldown to cast spells and get damage out. Any time spent not casting anything during Arcane Surge is a major loss of damage."
-          thresholds={thresholds.arcaneSurgeActiveTime}
-        />
         <Requirement
           name="Arcane Surge Mana Mgmt."
           thresholds={thresholds.arcaneSurgeManaUtilization}
@@ -130,7 +124,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         )}
         {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
           <Requirement
-            name="Radiant Spark not active during AP"
+            name="Radiant Spark not active during Surge"
             tooltip="Since Radiant Spark's primary function is to boost your damage, you want to ensure that you are casting it before every Arcane Surge (Radiant Spark > Touch of the Magi > Arcane Surge). This way, the Arcane Blasts that you cast once Arcane Surge is active can get buffed by Radiant Spark."
             thresholds={thresholds.radiantSparkPreReqs}
           />
@@ -140,6 +134,13 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             name="Radiant Spark Utilization"
             tooltip="Since Arcane Blast hits very hard when at 4 Arcane Charges, you should use Radiant Spark's damage increase to make Arcane Blast hit even harder. Every time you cast Radiant Spark, you should cast 5 Arcane Blasts (4 if using the Harmonic Echo/Unity Legendary) before Radiant Spark ends. Alternatively, if there are 3 or more targets, you can use Arcane Explosion, Arcane Orb, and Arcane Barrage instead of Arcane Blast."
             thresholds={thresholds.radiantSparkUtilization}
+          />
+        )}
+        {combatant.hasTalent(TALENTS.SIPHON_STORM_TALENT) && (
+          <Requirement
+            name="Siphon Storm not active during Surge"
+            tooltip="Since Siphon Storm increases your Intellect, which boosts your damage, you want to ensure that you are casting it before every Arcane Surge (Radiant Spark > Touch of the Magi > Arcane Surge). This way, the Arcane Blasts that you cast once Arcane Surge is active can get buffed by Radiant Spark."
+            thresholds={thresholds.radiantSparkPreReqs}
           />
         )}
         {combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT) && (

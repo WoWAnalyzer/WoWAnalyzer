@@ -19,6 +19,8 @@ const CAST_BUFFER_MS = 500;
 export const FROM_HARDCAST = 'FromHardcast';
 export const FROM_PRIMAL_WRATH = 'FromPrimalWrath';
 export const HIT_TARGET = 'HitTarget';
+export const SPELL_CAST = 'SpellCast';
+export const SPELL_DAMAGE = 'SpellDamage';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -53,6 +55,18 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: 1500,
     anyTarget: true,
     reverseLinkRelation: HIT_TARGET,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.ARCANE_SURGE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: TALENTS.ARCANE_SURGE_TALENT.id,
+    referencedEventType: EventType.Damage,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
 ];
 

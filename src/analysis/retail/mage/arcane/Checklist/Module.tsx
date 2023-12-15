@@ -11,7 +11,6 @@ import BaseChecklist from 'parser/shared/modules/features/Checklist/Module';
 
 import AlwaysBeCasting from '../core/AlwaysBeCasting';
 import ArcaneMissiles from '../core/ArcaneMissiles';
-import ArcaneSurgeActiveTime from '../core/ArcaneSurgeActiveTime';
 import ArcaneSurgeMana from '../core/ArcaneSurgeMana';
 import ArcaneSurgePreReqs from '../core/ArcaneSurgePreReqs';
 import RadiantSpark from '../talents/RadiantSpark';
@@ -32,7 +31,6 @@ class Checklist extends BaseChecklist {
     arcaneEcho: ArcaneEcho,
     arcaneSurgePreReqs: ArcaneSurgePreReqs,
     arcaneSurgeMana: ArcaneSurgeMana,
-    arcaneSurgeActiveTime: ArcaneSurgeActiveTime,
     radiantSpark: RadiantSpark,
     ruleOfThrees: RuleOfThrees,
     timeAnomaly: TimeAnomaly,
@@ -51,7 +49,6 @@ class Checklist extends BaseChecklist {
   protected arcaneEcho!: ArcaneEcho;
   protected arcaneSurgePreReqs!: ArcaneSurgePreReqs;
   protected arcaneSurgeMana!: ArcaneSurgeMana;
-  protected arcaneSurgeActiveTime!: ArcaneSurgeActiveTime;
   protected radiantSpark!: RadiantSpark;
   protected ruleOfThrees!: RuleOfThrees;
   protected timeAnomaly!: TimeAnomaly;
@@ -75,10 +72,10 @@ class Checklist extends BaseChecklist {
           arcaneFamiliarUptime: this.arcaneFamiliar.arcaneFamiliarUptimeThresholds,
           arcaneOrbMissedOrbs: this.arcaneOrb.missedOrbsThresholds,
           arcaneEchoLowUsage: this.arcaneEcho.badTouchUsageThreshold,
-          arcaneSurgePreReqs: this.arcaneSurgePreReqs.arcaneSurgePreReqThresholds,
-          arcaneHarmonyPreReqs: this.arcaneSurgePreReqs.arcaneHarmonyPreReqThresholds,
-          radiantSparkPreReqs: this.arcaneSurgePreReqs.radiantSparkPreReqThresholds,
-          arcaneSurgeActiveTime: this.arcaneSurgeActiveTime.arcaneSurgeActiveTimeThresholds,
+          arcaneSurgePreReqs: this.arcaneSurgePreReqs.arcaneSurgeThresholds,
+          radiantSparkPreReqs: this.arcaneSurgePreReqs.radiantSparkThresholds,
+          siphonStormPreReqs: this.arcaneSurgePreReqs.siphonStormThresholds,
+          touchOfMagiPreReqs: this.arcaneSurgePreReqs.touchOfMagiThresholds,
           arcaneSurgeManaUtilization: this.arcaneSurgeMana.arcaneSurgeManaUtilization,
           ruleOfThreesUsage: this.ruleOfThrees.ruleOfThreesUtilizationThresholds,
           timeAnomalyManaUtilization: this.timeAnomaly.timeAnomalyManaThresholds,
