@@ -8,7 +8,6 @@ import SpellUsable from 'parser/shared/modules/SpellUsable';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
-import { Trans } from '@lingui/macro';
 import { SpellLink } from 'interface';
 import {
   CAUSALITY_DISINTEGRATE_CDR_MS,
@@ -199,9 +198,7 @@ class Causality extends Analyzer {
       >
         <div className="pad">
           <label>
-            <Trans>
-              <SpellLink spell={TALENTS.CAUSALITY_TALENT} /> usage
-            </Trans>
+            <SpellLink spell={TALENTS.CAUSALITY_TALENT} /> usage
           </label>
           <strong>CDR source:</strong>
           <DonutChart items={cdrSourceItems} />
