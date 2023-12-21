@@ -11,11 +11,14 @@ import { ReactNode } from 'react';
 import SpellLink from 'interface/SpellLink';
 import {
   animachargedCheckedUsageInfo,
-  getMaxComboPoints,
+  getTargetComboPoints,
 } from 'analysis/retail/rogue/assassination/constants';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import Enemies from 'parser/shared/modules/Enemies';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import { addInefficientCastReason } from 'parser/core/EventMetaLib';
+import uptimeBarSubStatistic from 'parser/ui/UptimeBarSubStatistic';
+import { RoundedPanelWithBottomMargin } from 'analysis/retail/rogue/shared/styled-components';
 
 const MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS = 3000;
 
@@ -37,8 +40,7 @@ export default class Envenom extends Analyzer {
 
   /** Subsection explaining the use of Envenom and providing performance statistics */
   get guideSubsection(): JSX.Element {
-    const maxCps = getMaxComboPoints(this.selectedCombatant);
-    const targetCps = maxCps - 1;
+    const targetCps = getTargetComboPoints(this.selectedCombatant);
     const explanation = (
       <p>
         <strong>
@@ -46,14 +48,28 @@ export default class Envenom extends Analyzer {
         </strong>{' '}
         is your direct damage finisher. Use it when you've already applied{' '}
         <SpellLink spell={SPELLS.RUPTURE} /> to enemies. Always use{' '}
-        <SpellLink spell={SPELLS.ENVENOM} /> at {targetCps}-{maxCps} CPs.
+        <SpellLink spell={SPELLS.ENVENOM} /> at {targetCps}+ CPs.
       </p>
     );
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
+        abovePerformanceDetails={
+          <RoundedPanelWithBottomMargin>
+            <div>
+              <strong>
+                <SpellLink spell={SPELLS.ENVENOM} /> uptime
+              </strong>
+              <small> - Try to get as close to 100% as the encounter allows!</small>
+            </div>
+            {uptimeBarSubStatistic(this.owner.fight, {
+              spells: [SPELLS.ENVENOM],
+              uptimes: this.envenomBuffUptimes,
+            })}
+          </RoundedPanelWithBottomMargin>
+        }
         castBreakdownSmallText={
           <>
             {' '}
@@ -65,102 +81,17 @@ export default class Envenom extends Analyzer {
     );
   }
 
+  private get envenomBuffUptimes() {
+    return this.selectedCombatant.getBuffHistory(SPELLS.ENVENOM.id).map((buff) => ({
+      start: buff.start,
+      end: buff.end ?? this.owner.fight.end_time,
+    }));
+  }
+
   private onCast(event: CastEvent) {
-    let timeLeftOnRupture = 0;
-    // target is optional in cast event, but we know Envenom cast will always have it
-    if (event.targetID !== undefined && event.targetIsFriendly !== undefined) {
-      timeLeftOnRupture = this.ruptureUptimeAndSnapshots.getTimeRemaining(
-        event as TargettedEvent<any>,
-      );
-    }
-    const acceptableTimeLeftOnRupture = timeLeftOnRupture >= MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS;
-
-    const rupturePerformance = acceptableTimeLeftOnRupture
-      ? QualitativePerformance.Good
-      : QualitativePerformance.Fail;
-    const ruptureSummary =
-      timeLeftOnRupture > 0 ? (
-        <div>Time remaining on Rupture: {formatDurationMillisMinSec(timeLeftOnRupture)}</div>
-      ) : (
-        <div>No Rupture on target</div>
-      );
-    let ruptureDetails: ReactNode;
-    if (acceptableTimeLeftOnRupture) {
-      ruptureDetails = (
-        <div>
-          You cast <SpellLink spell={SPELLS.ENVENOM} /> with{' '}
-          {formatDurationMillisMinSec(timeLeftOnRupture)} left on{' '}
-          <SpellLink spell={SPELLS.RUPTURE} />.
-        </div>
-      );
-    } else if (timeLeftOnRupture > 1000) {
-      ruptureDetails = (
-        <div>
-          You cast <SpellLink spell={SPELLS.ENVENOM} /> with{' '}
-          {formatDurationMillisMinSec(timeLeftOnRupture)} left on{' '}
-          <SpellLink spell={SPELLS.RUPTURE} />. Try not to cast <SpellLink spell={SPELLS.ENVENOM} />{' '}
-          with less than {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left
-          on <SpellLink spell={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
-          <SpellLink spell={SPELLS.RUPTURE} />.
-        </div>
-      );
-    } else if (timeLeftOnRupture > 0) {
-      ruptureDetails = (
-        <div>
-          You cast <SpellLink spell={SPELLS.ENVENOM} /> with less than 1s left on{' '}
-          <SpellLink spell={SPELLS.RUPTURE} />. Try not to cast <SpellLink spell={SPELLS.ENVENOM} />{' '}
-          with less than {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left
-          on <SpellLink spell={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
-          <SpellLink spell={SPELLS.RUPTURE} />.
-        </div>
-      );
-    } else {
-      ruptureDetails = (
-        <div>
-          You cast <SpellLink spell={SPELLS.ENVENOM} /> with no <SpellLink spell={SPELLS.RUPTURE} />{' '}
-          applied to the target. Always ensure that your target has{' '}
-          <SpellLink spell={SPELLS.RUPTURE} /> applied before casting{' '}
-          <SpellLink spell={SPELLS.ENVENOM} />.
-        </div>
-      );
-    }
-
-    const cpsSpent = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
-    const targetCps = getMaxComboPoints(this.selectedCombatant) - 1;
-    const appropriateCpsSpent = cpsSpent >= targetCps;
-    const cpsPerformance = appropriateCpsSpent
-      ? QualitativePerformance.Good
-      : QualitativePerformance.Fail;
-    let cpsSummary: ReactNode;
-    let cpsDetails: ReactNode;
-    if (appropriateCpsSpent) {
-      cpsSummary = <div>Spent &gt;= {targetCps} CPs</div>;
-      cpsDetails = <div>You spent {cpsSpent} CPs.</div>;
-    } else {
-      cpsSummary = <div>Spend &gt;= {targetCps} CPs</div>;
-      cpsDetails = (
-        <div>
-          You spent {cpsSpent} CPs. Try to always spend at least {targetCps} CPs when casting{' '}
-          <SpellLink spell={SPELLS.ENVENOM} />.
-        </div>
-      );
-    }
-
     const checklistItems: ChecklistUsageInfo[] = [
-      {
-        check: 'rupture',
-        timestamp: event.timestamp,
-        performance: rupturePerformance,
-        summary: ruptureSummary,
-        details: ruptureDetails,
-      },
-      {
-        check: 'cps',
-        timestamp: event.timestamp,
-        performance: cpsPerformance,
-        summary: cpsSummary,
-        details: cpsDetails,
-      },
+      this.determineEnvenomDuringRupturePerformance(event),
+      this.determineComboPointsPerformance(event),
     ];
 
     const actualChecklistItems = animachargedCheckedUsageInfo(
@@ -181,7 +112,106 @@ export default class Envenom extends Analyzer {
           ? `${actualPerformance} Usage`
           : 'Bad Usage',
     });
+  }
 
-    // TODO also highlight 'bad' Envenoms in the timeline
+  private determineEnvenomDuringRupturePerformance(event: CastEvent): ChecklistUsageInfo {
+    let timeLeftOnRupture = 0;
+    // target is optional in cast event, but we know Envenom cast will always have it
+    if (event.targetID !== undefined && event.targetIsFriendly !== undefined) {
+      timeLeftOnRupture = this.ruptureUptimeAndSnapshots.getTimeRemaining(
+        event as TargettedEvent<any>,
+      );
+    }
+    const acceptableTimeLeftOnRupture = timeLeftOnRupture >= MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS;
+
+    const performance = acceptableTimeLeftOnRupture
+      ? QualitativePerformance.Good
+      : QualitativePerformance.Fail;
+    const summary = <div>Don&apos;t need to pandemic Rupture</div>;
+    let details: ReactNode;
+    if (acceptableTimeLeftOnRupture) {
+      details = (
+        <div>
+          You cast <SpellLink spell={SPELLS.ENVENOM} /> with{' '}
+          {formatDurationMillisMinSec(timeLeftOnRupture)} left on{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />.
+        </div>
+      );
+    } else if (timeLeftOnRupture > 1000) {
+      details = (
+        <div>
+          You cast <SpellLink spell={SPELLS.ENVENOM} /> with{' '}
+          {formatDurationMillisMinSec(timeLeftOnRupture)} left on{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />. Try not to cast <SpellLink spell={SPELLS.ENVENOM} />{' '}
+          with less than {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left
+          on <SpellLink spell={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />.
+        </div>
+      );
+    } else if (timeLeftOnRupture > 0) {
+      details = (
+        <div>
+          You cast <SpellLink spell={SPELLS.ENVENOM} /> with less than 1s left on{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />. Try not to cast <SpellLink spell={SPELLS.ENVENOM} />{' '}
+          with less than {formatDurationMillisMinSec(MIN_ACCEPTABLE_TIME_LEFT_ON_RUPTURE_MS)} left
+          on <SpellLink spell={SPELLS.RUPTURE} />, as it may cause you to miss pandemic-ing{' '}
+          <SpellLink spell={SPELLS.RUPTURE} />.
+        </div>
+      );
+    } else {
+      details = (
+        <div>
+          You cast <SpellLink spell={SPELLS.ENVENOM} /> with no <SpellLink spell={SPELLS.RUPTURE} />{' '}
+          applied to the target. Always ensure that your target has{' '}
+          <SpellLink spell={SPELLS.RUPTURE} /> applied before casting{' '}
+          <SpellLink spell={SPELLS.ENVENOM} />.
+        </div>
+      );
+    }
+
+    if (performance === QualitativePerformance.Fail) {
+      addInefficientCastReason(event, details);
+    }
+
+    return {
+      check: 'rupture',
+      timestamp: event.timestamp,
+      performance,
+      summary,
+      details,
+    };
+  }
+
+  private determineComboPointsPerformance(event: CastEvent): ChecklistUsageInfo {
+    const cpsSpent = getResourceSpent(event, RESOURCE_TYPES.COMBO_POINTS);
+    const targetCps = getTargetComboPoints(this.selectedCombatant);
+    const appropriateCpsSpent = cpsSpent >= targetCps;
+    const performance = appropriateCpsSpent
+      ? QualitativePerformance.Good
+      : QualitativePerformance.Fail;
+    const summary: ReactNode = <div>Spend {targetCps}+ CPs</div>;
+    let details: ReactNode;
+    if (appropriateCpsSpent) {
+      details = <div>You spent {cpsSpent} CPs.</div>;
+    } else {
+      details = (
+        <div>
+          You spent {cpsSpent} CPs. Try to always spend {targetCps}+ CPs when casting{' '}
+          <SpellLink spell={SPELLS.ENVENOM} />.
+        </div>
+      );
+    }
+
+    if (performance === QualitativePerformance.Fail) {
+      addInefficientCastReason(event, details);
+    }
+
+    return {
+      check: 'cps',
+      timestamp: event.timestamp,
+      performance,
+      summary,
+      details,
+    };
   }
 }

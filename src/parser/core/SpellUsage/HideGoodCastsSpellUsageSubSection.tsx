@@ -10,20 +10,21 @@ type HideGoodCastsSpellUsageSubSectionProps = Omit<
   ComponentPropsWithoutRef<typeof SpellUsageSubSection>,
   'performances'
 > & {
+  hideGoodCasts: boolean;
   spellUseToPerformance?: (use: SpellUse) => BoxRowEntry;
 };
 
 /**
  * A wrapper around {@link SpellUsageSubSection} that will filter out {@link SpellUse}s with a
  * {@link SpellUse#performance} value of {@link QualitativePerformance.Perfect} or
- * {@link QualitativePerformance.Good}.
+ * {@link QualitativePerformance.Good} if {@link HideGoodCastsSpellUsageSubSectionProps.hideGoodCasts} is {@code true}.
  */
-const HideGoodCastsSpellUsageSubSection = ({
+export const HideGoodCastsSpellUsageSubSection = ({
+  hideGoodCasts,
   spellUseToPerformance,
   uses,
   ...others
 }: HideGoodCastsSpellUsageSubSectionProps) => {
-  const { hideGoodCasts } = useSpellUsageContext();
   const info = useInfo();
 
   const filteredUses = useMemo(
@@ -49,4 +50,15 @@ const HideGoodCastsSpellUsageSubSection = ({
   return <SpellUsageSubSection performances={performances} uses={filteredUses} {...others} />;
 };
 
-export default HideGoodCastsSpellUsageSubSection;
+type ContextualSpellUsageSubSectionProps = Omit<
+  ComponentPropsWithoutRef<typeof HideGoodCastsSpellUsageSubSection>,
+  'hideGoodCasts'
+>;
+
+const ContextualSpellUsageSubSection = (props: ContextualSpellUsageSubSectionProps) => {
+  const { hideGoodCasts } = useSpellUsageContext();
+
+  return <HideGoodCastsSpellUsageSubSection {...props} hideGoodCasts={hideGoodCasts} />;
+};
+
+export default ContextualSpellUsageSubSection;

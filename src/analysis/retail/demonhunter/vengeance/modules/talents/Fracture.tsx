@@ -18,7 +18,7 @@ import { logSpellUseEvent } from 'parser/core/SpellUsage/SpellUsageSubSection';
 import ResourceLink from 'interface/ResourceLink';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CastPerformanceSummary from 'analysis/retail/demonhunter/shared/guide/CastPerformanceSummary';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { getResourceChange } from 'analysis/retail/demonhunter/vengeance/normalizers/ShearFractureNormalizer';
 
 const BASE_FURY = 100;
@@ -107,7 +107,7 @@ export default class Fracture extends Analyzer {
     const totalCasts = performances.length;
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}

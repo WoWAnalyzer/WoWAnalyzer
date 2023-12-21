@@ -1,12 +1,16 @@
 import { change, date } from 'common/changelog';
-import { ToppleTheNun, Bigsxy, Whispyr} from 'CONTRIBUTORS';
+import { Bigsxy, ToppleTheNun, Whispyr } from 'CONTRIBUTORS';
 import SpellLink from 'interface/SpellLink';
 import SPELLS from 'common/SPELLS/rogue';
 import TALENTS from 'common/TALENTS/rogue';
 import SHARED_CHANGELOG from 'analysis/retail/rogue/shared/CHANGELOG';
 
 export default [
-  change(date(2023, 8, 24), `Improved support for Sepsis with Coooldown breakdown + Snapshoting`, [Bigsxy,Whispyr]),
+  change(date(2023, 12, 10), <>Add experimental <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> support behind a toggle.</>, ToppleTheNun),
+  change(date(2023, 12, 10), <>Mark as partially updated for 10.2 and add note about <SpellLink spell={TALENTS.KINGSBANE_TALENT} /> analysis coming soon.</>, ToppleTheNun),
+  change(date(2023, 12, 10), <>Add analysis for <SpellLink spell={SPELLS.MUTILATE} /> during <SpellLink spell={SPELLS.BLINDSIDE_BUFF} />, <SpellLink spell={SPELLS.SHADOW_DANCE_BUFF} />, <SpellLink spell={SPELLS.SUBTERFUGE_BUFF} />, and <SpellLink spell={SPELLS.VANISH_BUFF} />.</>, ToppleTheNun),
+  change(date(2023, 11, 22), <>Update analysis for <SpellLink spell={SPELLS.ENVENOM} /> and general finisher usage.</>, ToppleTheNun),
+  change(date(2023, 8, 24), `Improved support for Sepsis with Coooldown breakdown + Snapshoting`, [Bigsxy, Whispyr]),
   change(date(2023, 8, 21), 'Add support for usage of Sepsis with Improved Garrote.', Bigsxy),
   change(date(2023, 8, 7), 'Mark Assassination as supported for 10.1.5.', ToppleTheNun),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),

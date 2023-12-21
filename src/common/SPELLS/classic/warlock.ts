@@ -341,6 +341,21 @@ const spells = {
     icon: 'ability_warlock_haunt',
     lowRanks: [59163, 59161, 48181],
   },
+  ERADICATION_BUFF_6: {
+    id: 64368,
+    name: 'Eradication',
+    icon: 'ability_warlock_eradication',
+  },
+  ERADICATION_BUFF_12: {
+    id: 64370,
+    name: 'Eradication',
+    icon: 'ability_warlock_eradication',
+  },
+  ERADICATION_BUFF_20: {
+    id: 64371,
+    name: 'Eradication',
+    icon: 'ability_warlock_eradication',
+  },
   SHADOW_EMBRACE: {
     id: 32394,
     name: 'Shadow Embrace',

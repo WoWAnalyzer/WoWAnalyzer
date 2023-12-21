@@ -1,0 +1,166 @@
+Classic:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/*'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/*'
+      - any-glob-to-any-file: 'src/game/classic/*'
+      - any-glob-to-any-file: 'src/parser/classic/**/*'
+      - any-glob-to-any-file: 'src/parser/shared/**/*'
+
+Dragonflight:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/retail/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/*'
+      - any-glob-to-any-file: 'src/common/SPELLS/*'
+      - any-glob-to-any-file: 'src/common/TALENTS/*'
+      - any-glob-to-any-file: 'src/parser/retail/**/*'
+      - any-glob-to-any-file: 'src/parser/shared/**/*'
+
+core:
+  - changed-files:
+      - any-glob-to-any-file: '.github/**/*'
+      - any-glob-to-any-file: 'src/common/*'
+      - any-glob-to-any-file: 'src/game/*'
+      - any-glob-to-any-file: 'src/interface/**/*'
+      - any-glob-to-any-file: 'src/parser/*'
+      - any-glob-to-any-file: 'src/parser/core/**/*'
+      - any-glob-to-any-file: 'src/parser/ui/**/*'
+      - any-glob-to-any-file: 'src/index.tsx'
+      - any-glob-to-any-file: 'src/mergeAllChangelogs.ts'
+      - any-glob-to-any-file: 'src/Root.tsx'
+      - any-glob-to-any-file: 'src/setupTests.js'
+      - any-glob-to-any-file: 'src/store.ts'
+
+Translation:
+  - changed-files:
+      - any-glob-to-any-file: 'src/localization/*'
+
+'Death Knight':
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/deathknight/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/deathknight/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/deathknight.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/deathknight.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/deathknight.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/deathknight.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/deathknight.ts'
+
+'Demon Hunter':
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/demonhunter/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/demonhunter/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/demonhunter.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/demonhunter.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/demonhunter.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/demonhunter.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/demonhunter.ts'
+
+Druid:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/druid/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/druid/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/druid.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/druid.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/druid.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/druid.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/druid.ts'
+
+Evoker:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/evoker/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/evoker/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/evoker.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/evoker.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/evoker.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/evoker.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/evoker.ts'
+
+Hunter:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/hunter/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/hunter/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/hunter.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/hunter.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/hunter.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/hunter.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/hunter.ts'
+
+Mage:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/mage/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/mage/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/mage.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/mage.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/mage.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/mage.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/mage.ts'
+
+Monk:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/monk/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/monk/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/monk.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/monk.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/monk.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/monk.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/monk.ts'
+
+Paladin:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/paladin/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/paladin/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/paladin.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/paladin.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/paladin.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/paladin.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/paladin.ts'
+
+Priest:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/priest/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/priest/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/priest.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/priest.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/priest.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/priest.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/priest.ts'
+
+Rogue:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/rogue/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/rogue/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/rogue.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/rogue.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/rogue.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/rogue.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/rogue.ts'
+
+Shaman:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/shaman/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/shaman/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/shaman.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/shaman.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/shaman.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/shaman.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/shaman.ts'
+
+Warlock:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/warlock/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/warlock/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/warlock.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/warlock.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/warlock.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/warlock.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/warlock.ts'
+
+Warrior:
+  - changed-files:
+      - any-glob-to-any-file: 'src/analysis/classic/warrior/**/*'
+      - any-glob-to-any-file: 'src/analysis/retail/warrior/**/*'
+      - any-glob-to-any-file: 'src/common/ITEMS/warrior.ts'
+      - any-glob-to-any-file: 'src/common/ITEMS/classic/warrior.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/warrior.ts'
+      - any-glob-to-any-file: 'src/common/SPELLS/classic/warrior.ts'
+      - any-glob-to-any-file: 'src/common/TALENTS/warrior.ts'

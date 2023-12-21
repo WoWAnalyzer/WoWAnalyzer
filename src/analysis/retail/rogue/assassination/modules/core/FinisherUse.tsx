@@ -8,15 +8,15 @@ import { STATISTIC_ORDER } from 'parser/ui/StatisticBox';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import getResourceSpent from 'parser/core/getResourceSpent';
 import TALENTS from 'common/TALENTS/rogue';
+import { formatDurationMillisMinSec } from 'common/format';
 
 import {
   FINISHERS,
-  getMaxComboPoints,
+  getTargetComboPoints,
   isAnimachargedFinisherCast,
   isInOpener,
   OPENER_MAX_DURATION_MS,
 } from '../../constants';
-import { formatDurationMillisMinSec } from 'common/format';
 
 export default class FinisherUse extends Analyzer {
   totalFinisherCasts = 0;
@@ -45,7 +45,7 @@ export default class FinisherUse extends Analyzer {
         label: 'Max CP Finishers',
         value: this.maxCpFinishers,
         tooltip: (
-          <>This includes finishers cast at {getMaxComboPoints(this.selectedCombatant) - 1} CPs.</>
+          <>This includes finishers cast at {getTargetComboPoints(this.selectedCombatant)}+ CPs.</>
         ),
       },
       {
@@ -105,7 +105,7 @@ export default class FinisherUse extends Analyzer {
     this.totalFinisherCasts += 1;
     if (isAnimachargedFinisherCast(this.selectedCombatant, event)) {
       this.animachargedCasts += 1;
-    } else if (cpsSpent < getMaxComboPoints(this.selectedCombatant) - 1) {
+    } else if (cpsSpent < getTargetComboPoints(this.selectedCombatant)) {
       if (isInOpener(event, this.owner.fight)) {
         this.openerLowCpFinisherCasts += 1;
       } else {

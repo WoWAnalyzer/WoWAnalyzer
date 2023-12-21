@@ -32,7 +32,12 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 12, 20), 'Mark 10.1.5 as an old patch.', ToppleTheNun),
+  change(date(2023, 12, 20), 'Bring over a few of the changes from the vite migration branch.', ToppleTheNun),
+  change(date(2023, 12, 5), 'Update Classic Mana Values to activate based on config role.', jazminite),
+  change(date(2023, 12, 3),'Convert GlobalCooldown to TS', Seriousnes),
   change(date(2023, 12, 3), <>Refactor MajorCooldown to support procs such as Enhancement's Hot Hand & Ascendance</>, Seriousnes),
+  change(date(2023, 11, 28), 'Bump Node version to 20.x LTS.', ToppleTheNun),
   change(date(2023, 11, 28), 'Actually populate Sentry releases.', ToppleTheNun),
   change(date(2023, 11, 28), 'Update Sentry release naming.', ToppleTheNun),
   change(date(2023, 11, 28), 'Remove deprecated Shadowlands combatantinfo that was breaking the Holy Priest analyzer.', emallson),
