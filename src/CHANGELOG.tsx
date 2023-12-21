@@ -32,6 +32,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 12, 20), 'Bring over a few of the changes from the vite migration branch.', ToppleTheNun),
   change(date(2023, 12, 5), 'Update Classic Mana Values to activate based on config role.', jazminite),
   change(date(2023, 12, 3),'Convert GlobalCooldown to TS', Seriousnes),
   change(date(2023, 12, 3), <>Refactor MajorCooldown to support procs such as Enhancement's Hot Hand & Ascendance</>, Seriousnes),

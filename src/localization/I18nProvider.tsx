@@ -1,8 +1,8 @@
-import { Messages, i18n } from '@lingui/core';
+import { i18n } from '@lingui/core';
 import { I18nProvider as LinguiI18nProvider } from '@lingui/react';
 import { getLanguage } from 'interface/selectors/language';
 import { useWaSelector } from 'interface/utils/useWaSelector';
-import { en, de, es, fr, it, ko, pl, pt, ru, zh } from 'make-plural/plurals';
+import { de, en, es, fr, it, ko, pl, pt, ru, zh } from 'make-plural/plurals';
 import { ReactNode, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 
@@ -17,14 +17,19 @@ i18n.loadLocaleData('pt', { plurals: pt });
 i18n.loadLocaleData('ru', { plurals: ru });
 i18n.loadLocaleData('zh', { plurals: zh });
 
-const loadCatalog = (locale: string): Promise<{ messages: Messages }> =>
-  process.env.NODE_ENV !== 'production'
+const loadCatalog = async (locale: string) => {
+  const { messages } = await (process.env.NODE_ENV !== 'production'
     ? import(
         /* webpackMode: "lazy", webpackChunkName: "i18n-[request]" */ `@lingui/loader!./${locale}/messages.json?as-js`
       )
     : import(
         /* webpackMode: "lazy", webpackChunkName: "i18n-[request]" */ `./${locale}/messages.js`
-      );
+      ));
+
+  console.log('loadCatalog', { locale, messages });
+  i18n.load(locale, messages);
+  i18n.activate(locale);
+};
 
 interface Props {
   children: ReactNode;
@@ -40,9 +45,7 @@ const I18nProvider = ({ children }: Props) => {
     }
 
     loadCatalog(locale)
-      .then(({ messages }) => {
-        i18n.load(locale, messages);
-        i18n.activate(locale);
+      .then(() => {
         setActiveLocale(locale);
       })
       .catch((error) => {

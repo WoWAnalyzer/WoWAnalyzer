@@ -22,7 +22,7 @@ const DelayRender = ({ delay, children, fallback }: Props) => {
     return fallback ? fallback : null;
   }
 
-  return children;
+  return <>{children}</>;
 };
 
 export default DelayRender;
