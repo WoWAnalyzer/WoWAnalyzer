@@ -18,6 +18,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { formatDuration } from 'common/format';
 import { Highlight } from 'interface/Highlight';
+import AlertWarning from 'interface/AlertWarning';
 
 const NoData = styled.div`
   color: #999;
@@ -160,18 +161,24 @@ const CastPerformanceDefaultCastBreakdownSmallText = () => (
   </>
 );
 
-const NoCastsDisplay = () => {
+const NoCastsDisplay = ({
+  hideGoodCastsOverride,
+  noCastsOverride,
+}: {
+  hideGoodCastsOverride?: ReactNode;
+  noCastsOverride?: ReactNode;
+}) => {
   const { hideGoodCasts } = useSpellUsageContext();
   if (hideGoodCasts) {
     return (
       <SpellDetailsContainer>
-        <NoData>All of your casts of this spell were good!</NoData>
+        <NoData>{hideGoodCastsOverride ?? 'All of your casts of this spell were good!'}</NoData>
       </SpellDetailsContainer>
     );
   }
   return (
     <SpellDetailsContainer>
-      <NoData>You did not cast this spell at all.</NoData>
+      <NoData>{noCastsOverride ?? 'You did not cast this spell at all.'}</NoData>
     </SpellDetailsContainer>
   );
 };
@@ -185,6 +192,8 @@ type SpellUsageSubSectionProps = Omit<ComponentPropsWithoutRef<typeof SubSection
   uses: SpellUse[];
   onPerformanceBoxClick?: (use: SpellUse | undefined) => void;
   spellUseToPerformance?: (use: SpellUse) => BoxRowEntry;
+  noCastsTexts?: ComponentPropsWithoutRef<typeof NoCastsDisplay>;
+  warning?: ComponentPropsWithoutRef<typeof AlertWarning>;
 };
 
 /**
@@ -201,6 +210,8 @@ const SpellUsageSubSection = ({
   uses,
   onPerformanceBoxClick,
   spellUseToPerformance,
+  noCastsTexts,
+  warning,
   ...others
 }: SpellUsageSubSectionProps) => {
   const [selectedUse, setSelectedUse] = useState<number | undefined>();
@@ -214,10 +225,10 @@ const SpellUsageSubSection = ({
         onPerformanceBoxClick?.(undefined);
       } else {
         setSelectedUse(index);
-        onPerformanceBoxClick?.(index);
+        onPerformanceBoxClick?.(uses.at(index));
       }
     },
-    [onPerformanceBoxClick, performances.length],
+    [onPerformanceBoxClick, performances.length, uses],
   );
 
   // hideGoodCasts is in the dependency list because we want this to run whenever
@@ -234,6 +245,7 @@ const SpellUsageSubSection = ({
 
   return (
     <SubSection style={{ paddingBottom: 20 }} {...others}>
+      {warning ? <AlertWarning {...warning} /> : null}
       <ExplanationRow>
         <Explanation>{explanation}</Explanation>
         <SpellUsageDetailsContainer>
@@ -255,7 +267,7 @@ const SpellUsageSubSection = ({
             onClickBox={onClickBox}
           />
           {uses.length === 0 ? (
-            <NoCastsDisplay />
+            <NoCastsDisplay {...noCastsTexts} />
           ) : (
             <SpellUseDetails
               spellUse={

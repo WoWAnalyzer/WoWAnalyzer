@@ -12,7 +12,7 @@ import { GapHighlight } from 'parser/ui/CooldownBar';
 import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
 import { getSigilOfFlameDamages } from 'analysis/retail/demonhunter/shared/normalizers/SigilOfFlameNormalizer';
 import Spell from 'common/SPELLS/Spell';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 import { getSigilOfFlameSpell } from 'analysis/retail/demonhunter/shared/constants';
 
 export default class SigilOfFlame extends Analyzer {
@@ -42,7 +42,7 @@ export default class SigilOfFlame extends Analyzer {
     const totalCasts = this.cooldownUses.length;
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         castBreakdownSmallText={<> - Green is a good cast, Red is a bad cast.</>}

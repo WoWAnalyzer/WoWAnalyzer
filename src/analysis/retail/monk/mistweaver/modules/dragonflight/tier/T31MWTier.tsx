@@ -40,6 +40,25 @@ const DROPDOWN_SPELLS = [
   SPELLS.RISING_MIST_HEAL,
 ];
 
+const TWO_PIECE_SPELLS = [
+  ...DROPDOWN_SPELLS,
+  TALENTS_MONK.REVIVAL_TALENT,
+  TALENTS_MONK.RESTORAL_TALENT,
+  TALENTS_MONK.RENEWING_MIST_TALENT,
+  SPELLS.CHI_BURST_HEAL,
+  SPELLS.CHI_WAVE_TALENT_HEAL,
+  SPELLS.REFRESHING_JADE_WIND_HEAL,
+  SPELLS.ZEN_PULSE_HEAL,
+  SPELLS.ENVELOPING_BREATH_HEAL,
+  SPELLS.YULONS_WHISPER_HEAL,
+  SPELLS.SOOTHING_BREATH,
+  SPELLS.ENVELOPING_MIST_TFT,
+  SPELLS.SOOTHING_MIST_STATUE,
+  SPELLS.BURST_OF_LIFE_HEAL,
+  SPELLS.OVERFLOWING_MISTS_HEAL,
+  SPELLS.GUST_OF_MISTS_CHIJI,
+];
+
 export interface ChiHarmonySourceMap {
   raw: number;
   amount: number;
@@ -85,7 +104,10 @@ class T31TierSet extends Analyzer {
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CHI_HARMONY_HEAL_BONUS),
       this.handleRefresh,
     );
-    this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.handle2pcHeal);
+    this.addEventListener(
+      Events.heal.by(SELECTED_PLAYER).spell(TWO_PIECE_SPELLS),
+      this.handle2pcHeal,
+    );
     this.addEventListener(Events.cast.by(SELECTED_PLAYER).spell(TARGET_SPELLS), this.handleCast);
     this.addEventListener(
       Events.heal.by(SELECTED_PLAYER).spell(SPELLS.GUSTS_OF_MISTS),

@@ -1972,9 +1972,9 @@ export const ToppleTheNun: Contributor = {
   discord: 'ToppleTheNun#6969',
   mains: [
     {
-      name: 'Sigilweaver',
-      spec: SPECS.HAVOC_DEMON_HUNTER,
-      link: 'https://worldofwarcraft.com/en-us/character/us/thrall/Sigilweaver',
+      name: 'Toppledh',
+      spec: SPECS.VENGEANCE_DEMON_HUNTER,
+      link: 'https://worldofwarcraft.blizzard.com/en-us/character/us/area-52/Toppledh',
     },
   ],
 };
@@ -2327,4 +2327,10 @@ export const Ypp: Contributor = {
 export const LucasLevyOB: Contributor = {
   nickname: 'LucasLevyOB',
   github: 'LucasLevyOB',
+};
+
+export const Pants: Contributor = {
+  nickname: 'Pants',
+  github: 'Smetz42',
+  discord: 'pants_of_silver',
 };

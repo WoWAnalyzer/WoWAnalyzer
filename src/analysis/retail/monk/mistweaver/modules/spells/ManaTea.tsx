@@ -137,12 +137,13 @@ class ManaTea extends Analyzer {
     if (
       !this.selectedCombatant.hasBuff(SPELLS.MANA_TEA_BUFF.id) ||
       event.resourceCost == null ||
-      event.resourceCost[RESOURCE_TYPES.MANA.id] == null
+      event.resourceCost[RESOURCE_TYPES.MANA.id] == null ||
+      event.resourceCost[RESOURCE_TYPES.MANA.id] === 0
     ) {
       return;
     }
     const actualCost = event.resourceCost[RESOURCE_TYPES.MANA.id];
-    const preMTCost = event.resourceCost[RESOURCE_TYPES.MANA.id] / MANA_TEA_REDUCTION;
+    const preMTCost = event.resourceCost[RESOURCE_TYPES.MANA.id] / (1 - MANA_TEA_REDUCTION);
     const manaSaved = preMTCost - actualCost;
     this.manaSavedMT += manaSaved;
     this.castTrackers.at(-1)!.manaSaved += manaSaved;

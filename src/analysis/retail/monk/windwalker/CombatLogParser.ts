@@ -50,6 +50,7 @@ import {
   FistsOfFuryLinkNormalizer,
   FistsOfFuryNormalizer,
 } from './normalizers/FistsOfFuryNormalizer';
+import T31WWTier from './modules/dragonflight/tier/T31WWTier';
 
 // Tier Set Bonuses
 // todo: add t29 tier sets
@@ -108,6 +109,9 @@ class CombatLogParser extends CoreCombatLogParser {
     jadeIgnition: JadeIgnition,
     xuensBattleGear: XuensBattlegear,
     callToDominance: CallToDominance,
+
+    // Tier sets:
+    t31wwtier: T31WWTier,
 
     // apl
     apl: AplCheck,

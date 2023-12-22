@@ -15,6 +15,7 @@ import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
 import { ABILITY_BLACKLIST } from '../../../constants';
 import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
+import Toggle from 'react-toggle';
 
 /**
  * @key ClassName
@@ -37,6 +38,11 @@ const mrtColorMap: Map<string, string> = new Map([
 ]);
 
 const NO_EM_SCALING_MODIFIER = 0.5;
+
+type DamageTables = {
+  normalDamage: WCLDamageDoneTableResponse;
+  noEbonDamage: WCLDamageDoneTableResponse;
+};
 
 /**
  * So managing your buffs is essentially what Augmentation boils down to.
@@ -85,7 +91,16 @@ class BuffTargetHelper extends Analyzer {
 
   fightStart: number = this.owner.fight.start_time;
   fightEnd: number = this.owner.fight.end_time;
-  mrtPrescienceHelperNote: string = '';
+  mrtTwoTargetPrescienceHelperNote: string = '';
+  mrtFourTargetPrescienceHelperNote: string = '';
+
+  filterBossDamage: boolean = false;
+  nameFilter: string = '';
+  bossFilter: string = this.owner.report.enemies
+    .filter((enemy) => enemy.type === 'Boss')
+    .map((enemy) => `${enemy.guid}`)
+    .join(',');
+  abilityFilter: string = ABILITY_BLACKLIST.join(', ');
 
   constructor(options: Options) {
     super(options);
@@ -105,37 +120,23 @@ class BuffTargetHelper extends Analyzer {
           player.spec !== SPECS.AUGMENTATION_EVOKER
         ) {
           this.playerWhitelist.set(player.name, classColor(player));
+          this.nameFilter +=
+            this.nameFilter.length === 0 ? `"${player.name}"` : `,"${player.name}"`;
         }
       });
     });
   }
 
   /** Generate filter based on black list and whitelist */
-  getFilter() {
-    const playerNames = Array.from(this.playerWhitelist.keys());
-    const nameFilter = playerNames
-      .map((name) => `source.name="${name}" OR source.owner.name="${name}"`)
-      .join(' OR ');
-
-    const abilityFilter = ABILITY_BLACKLIST.map((id) => `ability.id=${id}`).join(' OR ');
-
-    const filter = `not(${abilityFilter}) AND (${nameFilter})`;
-
-    return filter;
-  }
-
-  /** Only get non ebon scaling abilities, these still scale with Vers (Shifting Sands) */
-  getNoEbonScalingFilter() {
-    const playerNames = Array.from(this.playerWhitelist.keys());
-    const nameFilter = playerNames
-      .map((name) => `source.name="${name}" OR source.owner.name="${name}"`)
-      .join(' OR ');
-
-    const abilityFilter = ABILITY_BLACKLIST.map((id) => `${id}`).join(', ');
-
-    const filter = `ability.id in (${abilityFilter}) AND (${nameFilter})`;
-
-    return filter;
+  getFilter(noEbonScaling: boolean) {
+    if (this.filterBossDamage) {
+      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter})) 
+      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter})) 
+      AND (target.id in(${this.bossFilter}))`;
+    } else {
+      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter})) 
+      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))`;
+    }
   }
 
   /**
@@ -158,28 +159,36 @@ class BuffTargetHelper extends Analyzer {
     }
 
     let currentTime = this.fightStart;
-    let index = 0;
+
+    const fetchPromises: Promise<DamageTables>[] = [];
     while (currentTime < this.fightEnd) {
-      index += 1;
-      await this.getDamage(currentTime, index);
-      await this.getNoEbonScaledDamage(currentTime, index);
+      fetchPromises.push(this.getDamage(currentTime));
       currentTime += this.interval;
     }
-  }
 
-  async getDamage(currentTime: number, index: number) {
-    return fetchWcl(`report/tables/damage-done/${this.owner.report.code}`, {
-      start: currentTime,
-      end: currentTime + this.interval,
-      filter: this.getFilter(),
-    }).then((json) => {
-      const data = json as WCLDamageDoneTableResponse;
-      data.entries.forEach((entry) => {
+    const result = await Promise.all(fetchPromises);
+
+    result.forEach((res, idx) => {
+      const normalDamage = res.normalDamage;
+      const noEbonDamage = res.noEbonDamage;
+
+      normalDamage.entries.forEach((entry) => {
         if (this.playerWhitelist.has(entry.name)) {
           if (!this.playerDamageMap.get(entry.name)) {
             this.playerDamageMap.set(entry.name, [entry.total]);
           } else {
             this.playerDamageMap.get(entry.name)?.push(entry.total);
+          }
+        }
+      });
+
+      noEbonDamage.entries.forEach((entry) => {
+        if (this.playerWhitelist.has(entry.name)) {
+          const currentPlayerMap = this.playerDamageMap.get(entry.name);
+          if (!currentPlayerMap) {
+            this.playerDamageMap.set(entry.name, [entry.total * NO_EM_SCALING_MODIFIER]);
+          } else {
+            currentPlayerMap[idx] += entry.total * NO_EM_SCALING_MODIFIER;
           }
         }
       });
@@ -191,7 +200,7 @@ class BuffTargetHelper extends Analyzer {
        * 3. taking their sweet time with mechanics
        *
        * This causes issues when they potentially later get ressed
-       * and their damage entry now no longer mathces up
+       * and their damage entry now no longer matches up
        * we fix this by manually pushing in a zero value.
        */
       for (const [name] of this.playerWhitelist) {
@@ -199,31 +208,32 @@ class BuffTargetHelper extends Analyzer {
 
         if (!damageEntries) {
           this.playerDamageMap.set(name, [0]);
-        } else if (damageEntries.length < index) {
+        } else if (damageEntries.length < idx + 1) {
           damageEntries.push(0);
         }
       }
     });
   }
 
-  async getNoEbonScaledDamage(currentTime: number, index: number) {
-    return fetchWcl(`report/tables/damage-done/${this.owner.report.code}`, {
-      start: currentTime,
-      end: currentTime + this.interval,
-      filter: this.getNoEbonScalingFilter(),
-    }).then((json) => {
-      const data = json as WCLDamageDoneTableResponse;
-      data.entries.forEach((entry) => {
-        if (this.playerWhitelist.has(entry.name)) {
-          const currentPlayerMap = this.playerDamageMap.get(entry.name);
-          if (!currentPlayerMap) {
-            this.playerDamageMap.set(entry.name, [entry.total * NO_EM_SCALING_MODIFIER]);
-          } else {
-            currentPlayerMap[index - 1] += entry.total * NO_EM_SCALING_MODIFIER;
-          }
-        }
-      });
-    });
+  async getDamage(currentTime: number): Promise<DamageTables> {
+    const normalDamage = await fetchWcl<WCLDamageDoneTableResponse>(
+      `report/tables/damage-done/${this.owner.report.code}`,
+      {
+        start: currentTime,
+        end: currentTime + this.interval,
+        filter: this.getFilter(false),
+      },
+    );
+    const noEbonDamage = await fetchWcl<WCLDamageDoneTableResponse>(
+      `report/tables/damage-done/${this.owner.report.code}`,
+      {
+        start: currentTime,
+        end: currentTime + this.interval,
+        filter: this.getFilter(true),
+      },
+    );
+
+    return { normalDamage, noEbonDamage };
   }
 
   findTopPumpers() {
@@ -323,6 +333,7 @@ class BuffTargetHelper extends Analyzer {
       let top2Damage = 0;
 
       const top2Entries = topPumpersData[i].slice(0, 2);
+      const top4Entries = topPumpersData[i].slice(0, 4);
 
       top2Entries.forEach(([name, values]) => {
         if (!defaultTargets.includes(name)) {
@@ -341,11 +352,12 @@ class BuffTargetHelper extends Analyzer {
         isImportant = true;
       }
 
-      this.addEntryToMRTNote(top2Entries, i, intervalStart, isImportant);
+      this.addEntryToTwoTargetMRTNote(top2Entries, i, intervalStart, isImportant);
+      this.addEntryToFourTargetMRTNote(top4Entries, i, intervalStart, isImportant);
     }
 
-    /** Finalize MRT note */
-    this.mrtPrescienceHelperNote =
+    /** Finalize TwoTargetMRT note */
+    this.mrtTwoTargetPrescienceHelperNote =
       'prescGlowsStart \n' +
       'defaultTargets - ' +
       mrtColorMap.get(this.playerWhitelist.get(defaultTargets[0]) ?? '') +
@@ -354,37 +366,48 @@ class BuffTargetHelper extends Analyzer {
       mrtColorMap.get(this.playerWhitelist.get(defaultTargets[1]) ?? '') +
       defaultTargets[1] +
       '|r \n' +
-      this.mrtPrescienceHelperNote +
+      this.mrtTwoTargetPrescienceHelperNote +
       'prescGlowsEnd';
 
-    const button = (
-      <button className="button" onClick={this.handleCopyClick}>
-        Copy MRT note to clipboard
-      </button>
-    );
+    /** Finalize Four Target MRT note */
+    // Constructing the header and footer
+    const augName = this.selectedCombatant.name + `|r\n`;
+    const header = `"\nAugBuffStart\naug |cff33937f` + augName;
+    const footer = `AugBuffEnd {v2.0} \n"\n`;
+    // Combining header, main note content, and footer
+    this.mrtFourTargetPrescienceHelperNote =
+      header + this.mrtFourTargetPrescienceHelperNote + footer;
 
     return (
       <div>
-        <table>
-          <tbody className="buff-target-table">
-            {headerRow}
-            {tableRows}
-          </tbody>
-        </table>
-        <br />
-        {button}
+        <div className="table-container">
+          <table>
+            <tbody className="buff-target-table">
+              {headerRow}
+              {tableRows}
+            </tbody>
+          </table>
+        </div>
+        <div className="button-container">
+          <button className="button" onClick={this.handleTwoTargetCopyClick}>
+            Copy Prescience Helper MRT note
+          </button>
+          <button className="button" onClick={this.handleFourTargetCopyClick}>
+            Copy Frame Glow MRT note
+          </button>
+        </div>
       </div>
     );
   }
 
   /**
-   * Create a MRT note for who to Prescience and when
+   * Create a  2 Target MRT note for who to Prescience and when
    *
    * The format is made to support the WA
    * Created by HenryG
    * https://wago.io/yrmx6ZQSG
    *
-   * Format is basicly:
+   * Format is basically:
    * prescGlowsStart
    * defaultTargets - |cff3fc7ebSheeper|r |cffffffffXanapriest|r
    * PREPULL - |cffc41e3aDérp|r |cff3fc7ebSheeper|r
@@ -393,29 +416,84 @@ class BuffTargetHelper extends Analyzer {
    * ...etc...
    * prescGlowsEnd
    */
-  addEntryToMRTNote(
+  addEntryToTwoTargetMRTNote(
     top2Pumpers: [string, number[]][],
     index: number,
     interval: string,
     important: boolean = false,
   ) {
     if (index === 0) {
-      this.mrtPrescienceHelperNote += 'PREPULL - ';
+      this.mrtTwoTargetPrescienceHelperNote += 'PREPULL - ';
     } else {
-      this.mrtPrescienceHelperNote += interval + ' - ';
+      this.mrtTwoTargetPrescienceHelperNote += interval + ' - ';
     }
-    this.mrtPrescienceHelperNote += top2Pumpers
+    this.mrtTwoTargetPrescienceHelperNote += top2Pumpers
       .map(([name]) => mrtColorMap.get(this.playerWhitelist.get(name) ?? '') + name + '|r')
       .join(' ');
     if (important) {
-      this.mrtPrescienceHelperNote += ' *';
+      this.mrtTwoTargetPrescienceHelperNote += ' *';
     }
-    this.mrtPrescienceHelperNote += '\n';
+    this.mrtTwoTargetPrescienceHelperNote += '\n';
   }
 
-  handleCopyClick = () => {
-    navigator.clipboard.writeText(this.mrtPrescienceHelperNote);
+  /**
+   * Create a  4 Target MRT note for who to Prescience and when
+   *
+   * The format is made to support the WA
+   * Created by Zephy
+   * https://wago.io/KP-BlDV58
+   *
+   * Format is basically:
+   * AugBuffStart
+   * aug |cff33937fPantsdormu|r
+   * 00:14  |cfffff468Jackòfblades|r !1 |cffc41e3aCerknight|r !2 |cffaad372Athënâ|r !3 |cffa330c9Jabbernacky|r !4
+   * 00:30 {|T#} |cff8788eeJustinianlok|r !1 |cffaad372Steelshunter|r !2 |cffaad372Athënâ|r !3 |cff0070ddFoxmulders|r !4
+   * ...etc...
+   * AugBuffEnd {v2.0}
+   */
+  addEntryToFourTargetMRTNote(
+    top4Pumpers: [string, number[]][],
+    index: number,
+    interval: string,
+    important: boolean = false,
+  ) {
+    if (index === 0) {
+      this.mrtFourTargetPrescienceHelperNote += 'PREPULL - ';
+    } else {
+      this.mrtFourTargetPrescienceHelperNote += `${interval} `;
+    }
+    this.mrtFourTargetPrescienceHelperNote += top4Pumpers
+      .map(([name], idx) => {
+        const colorCode = mrtColorMap.get(this.playerWhitelist.get(name) ?? '') || '';
+        const formattedName = `${colorCode}${name}|r`;
+        return `${formattedName} !${idx + 1}`;
+      })
+      .join(' ');
+    if (important) {
+      this.mrtFourTargetPrescienceHelperNote += ' *';
+    }
+    this.mrtFourTargetPrescienceHelperNote += '\n';
+  }
+
+  handleTwoTargetCopyClick = () => {
+    navigator.clipboard.writeText(this.mrtTwoTargetPrescienceHelperNote);
   };
+  handleFourTargetCopyClick = () => {
+    navigator.clipboard.writeText(this.mrtFourTargetPrescienceHelperNote);
+  };
+
+  bossFilterToggleButton: JSX.Element = (
+    <div className="filter-container">
+      <b>Only show boss damage</b>
+      <div>
+        <Toggle
+          onClick={() => {
+            this.filterBossDamage = !this.filterBossDamage;
+          }}
+        />
+      </div>
+    </div>
+  );
 
   guideSubsection(): JSX.Element | null {
     if (!this.active) {
@@ -442,13 +520,13 @@ class BuffTargetHelper extends Analyzer {
               This module will also produce a note for{' '}
               <a href="https://www.curseforge.com/wow/addons/method-raid-tools">
                 Method Raid Tools
-              </a>
-              , that helps with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> timings.
-              <br />
-              The note fully supports the <a href="https://wago.io/yrmx6ZQSG">
-                Prescience Helper
               </a>{' '}
-              WeakAura made by <b>HenryG</b>.
+              that helps with <SpellLink spell={TALENTS.PRESCIENCE_TALENT} /> timings.
+              <br />
+              Make sure to click the copy button for either the{' '}
+              <a href="https://wago.io/yrmx6ZQSG">Prescience Helper</a> WeakAura made by{' '}
+              <b>HenryG</b> or the <a href="https://wago.io/KP-BlDV58">Frame Glows</a> WeakAura made
+              by <b>Zephy</b> based on which Weak Aura you use.
             </p>
           </div>
           <div>
@@ -456,6 +534,7 @@ class BuffTargetHelper extends Analyzer {
             <LazyLoadGuideSection
               loader={this.loadInterval.bind(this)}
               value={this.findTopPumpers.bind(this)}
+              element={this.bossFilterToggleButton}
             />
           </div>
         </div>

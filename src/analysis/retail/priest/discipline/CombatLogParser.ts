@@ -1,6 +1,7 @@
 import {
   DesperatePrayer,
   ShadowfiendNormalizer,
+  TranslucentImage,
   TwinsOfTheSunPriestess,
   TwistOfFate,
 } from 'analysis/retail/priest/shared';
@@ -149,6 +150,7 @@ class CombatLogParser extends CoreCombatLogParser {
     amirdrassil4p: Amirdrassil4p,
     trainOfThought: TrainOfThought,
     voidSummoner: VoidSummoner,
+    translucentImage: TranslucentImage,
 
     // Items:
     radiantProvidence: RadiantProvidence,

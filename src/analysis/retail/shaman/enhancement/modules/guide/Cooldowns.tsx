@@ -5,7 +5,6 @@ import { Talent } from 'common/TALENTS/types';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import CombatLogParser from 'analysis/retail/shaman/enhancement/CombatLogParser';
-import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 import Combatant from 'parser/core/Combatant';
 import { TIERS } from 'game/TIERS';
 
@@ -36,13 +35,8 @@ function Cooldowns({ info, modules }: GuideProps<typeof CombatLogParser>) {
         </p>
         <CooldownGraphSubsection checklist={COOLDOWNS} />
       </SubSection>
-      {(info.combatant.hasTalent(TALENTS.ASCENDANCE_ENHANCEMENT_TALENT) ||
-        info.combatant.hasTalent(TALENTS.DEEPLY_ROOTED_ELEMENTS_TALENT)) && (
-        <SubSection title="Ascendance">
-          <CooldownUsage analyzer={modules.ascendance} />
-        </SubSection>
-      )}
-      {info.combatant.hasTalent(TALENTS.HOT_HAND_TALENT) && modules.hotHand.guideSubsection}
+      {modules.ascendance.guideSubsection}
+      {modules.hotHand.guideSubsection}
       {modules.elementalBlast.guideSubsection}
     </Section>
   );

@@ -11,7 +11,7 @@ import { MaelstromWeaponTracker } from '../resourcetracker';
 import TalentAggregateStatisticContainer from 'parser/ui/TalentAggregateStatisticContainer';
 import { SpellLink } from 'interface';
 import TalentAggregateBars, { TalentAggregateBarSpec } from 'parser/ui/TalentAggregateStatistic';
-import { maybeGetSpell } from 'common/SPELLS';
+import SPELLS, { maybeGetSpell } from 'common/SPELLS';
 import { TalentRankTooltip } from 'parser/ui/TalentSpellText';
 import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 
@@ -49,6 +49,7 @@ class ElementalAssault extends Analyzer {
 
   protected damageIncrease: number = 0;
   protected damageGained: number = 0;
+  protected talentRanks: number = 0;
 
   constructor(options: Options) {
     super(options);
@@ -59,10 +60,10 @@ class ElementalAssault extends Analyzer {
       return;
     }
 
-    this.damageIncrease =
-      ELEMENTAL_ASSAULT_RANKS[
-        this.selectedCombatant.getTalentRank(TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT)
-      ];
+    this.talentRanks = this.selectedCombatant.getTalentRank(
+      TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT,
+    );
+    this.damageIncrease = ELEMENTAL_ASSAULT_RANKS[this.talentRanks];
 
     this.addEventListener(
       Events.damage.by(SELECTED_PLAYER).spell(STORMSTRIKE_DAMAGE_SPELLS),
@@ -118,16 +119,23 @@ class ElementalAssault extends Analyzer {
   }
 
   statistic() {
-    const eaRanks = this.selectedCombatant.getTalentRank(TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT);
+    const totalMaelstrom = this.maelstromWeaponGained;
     return (
       <TalentAggregateStatisticContainer
         title={
           <>
             <SpellLink spell={TALENTS_SHAMAN.ELEMENTAL_ASSAULT_TALENT} />
-            <TalentRankTooltip rank={eaRanks} maxRanks={2} /> -{' '}
+            <TalentRankTooltip rank={this.talentRanks} maxRanks={2} /> -{' '}
             <ItemDamageDone amount={this.damageGained} />
           </>
         }
+        footer={
+          <>
+            Total <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} />: {totalMaelstrom}
+            {this.talentRanks === 2 ? <> ({totalMaelstrom / 2} per point)</> : null}
+          </>
+        }
+        smallFooter
         position={STATISTIC_ORDER.DEFAULT}
         category={STATISTIC_CATEGORY.TALENTS}
         wide

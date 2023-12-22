@@ -61,7 +61,7 @@ class Schism extends Analyzer {
     const target = this.enemies.getEntity(damageEvent);
 
     if (
-      !target?.hasBuff(TALENTS_PRIEST.SCHISM_TALENT.id) ||
+      !target?.hasBuff(SPELLS.SCHISM_DEBUFF.id) ||
       NON_AMPED_DAMAGE.includes(damageEvent.ability.guid)
     ) {
       return;

@@ -34,7 +34,7 @@ import EmbeddedTimelineContainer, {
 import Casts from 'interface/report/Results/Timeline/Casts';
 import CooldownUsage from 'parser/core/MajorCooldowns/CooldownUsage';
 
-const GCD_TOLERANCE = 50;
+const GCD_TOLERANCE = 25;
 
 class HotHandRank {
   modRate: number;
@@ -181,8 +181,8 @@ class HotHand extends MajorCooldown<HotHandProc> {
   }
 
   onCast(event: CastEvent) {
-    if (this.activeWindow && event.globalCooldown) {
-      this.activeWindow.unusedGcdTime += event.timestamp - this.globalCooldownEnds;
+    if (this.activeWindow && event.ability.guid > SPELLS.MELEE.id) {
+      this.activeWindow.unusedGcdTime += Math.max(event.timestamp - this.globalCooldownEnds, 0);
       this.activeWindow.timeline.events.push(event);
       if (
         event.ability.guid !== TALENTS_SHAMAN.LAVA_LASH_TALENT.id &&
@@ -312,7 +312,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
 
   private getAverageGcdOfWindow(cast: HotHandProc) {
     return (
-      cast.globalCooldowns.reduce((t, v) => (t += v + GCD_TOLERANCE), 0) /
+      cast.globalCooldowns.reduce((t, gcdDuration) => (t += gcdDuration + GCD_TOLERANCE), 0) /
       (cast.globalCooldowns.length ?? 1)
     );
   }

@@ -1,4 +1,6 @@
 import talents from 'common/TALENTS/shaman';
+import ITEMS from 'common/ITEMS';
+import { TIERS } from 'game/TIERS';
 import SpellLink from 'interface/SpellLink';
 import { explanationAndDataSubsection } from 'interface/guide/components/ExplanationRow';
 import Analyzer, { Options } from 'parser/core/Analyzer';
@@ -7,7 +9,7 @@ import { RoundedPanel } from 'interface/guide/components/GuideDivs';
 import CastEfficiencyBar from 'parser/ui/CastEfficiencyBar';
 import { GapHighlight } from 'parser/ui/CooldownBar';
 import ItemSetLink from 'interface/ItemSetLink';
-import { SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
+import { SHAMAN_T31_ID, SHAMAN_T30_ID } from 'common/ITEMS/dragonflight';
 
 class Riptide extends Analyzer {
   // eslint-disable-next-line @typescript-eslint/no-useless-constructor
@@ -41,13 +43,32 @@ class Riptide extends Analyzer {
             <SpellLink spell={talents.DEEPLY_ROOTED_ELEMENTS_TALENT} />,{' '}
           </>
         )}{' '}
-        etc. <SpellLink spell={talents.RIPTIDE_TALENT} /> should be kept on cooldown as often as
-        possible, particularly with the addition of the{' '}
-        <ItemSetLink id={SHAMAN_T30_ID}>
-          <>Tier 30 Set Bonus</>
-        </ItemSetLink>
-        , whose power is directly tied to the number of active{' '}
-        <SpellLink spell={talents.RIPTIDE_TALENT} /> HoTs out on the raid
+        etc.{' '}
+        {this.selectedCombatant.has4PieceByTier(TIERS.T30) && (
+          <>
+            <SpellLink spell={talents.RIPTIDE_TALENT} /> should be kept on cooldown as often as
+            possible, particularly with the addition of the{' '}
+            <ItemSetLink id={SHAMAN_T30_ID}>
+              <>Tier 30 Set Bonus</>
+            </ItemSetLink>
+            , whose power is directly tied to the number of active{' '}
+            <SpellLink spell={talents.RIPTIDE_TALENT} /> HoTs out on the raid
+          </>
+        )}
+        {this.selectedCombatant.has4PieceByTier(TIERS.T31) && (
+          <>
+            In season 3 of Dragonflight, the{' '}
+            <ItemSetLink id={SHAMAN_T31_ID}>
+              <>Tier 31 Set Bonus</>
+            </ItemSetLink>{' '}
+            makes your <SpellLink spell={talents.RIPTIDE_TALENT} /> uptime even more critical, as{' '}
+            every tick of <SpellLink spell={talents.RIPTIDE_TALENT} /> also heals every person
+            buffed with <SpellLink spell={ITEMS.T31_TIDAL_RESERVOIR_HEAL} />. You should aim to have
+            as many <SpellLink spell={talents.RIPTIDE_TALENT} />s rolling on the raid at all times,{' '}
+            and maintain <SpellLink spell={ITEMS.T31_TIDAL_RESERVOIR_HEAL} /> on as many people as
+            possible.
+          </>
+        )}
       </p>
     );
 

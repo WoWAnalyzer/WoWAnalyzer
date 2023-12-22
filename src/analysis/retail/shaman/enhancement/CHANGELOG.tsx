@@ -5,6 +5,7 @@ import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun, Putro } from 'CON
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 12, 3), <>Fix for normalizer priority, update Ascendance analyzer to include cast timeline.</>, Seriousnes),
   change(date(2023, 12, 2), <>Marked as updated for 10.2</>, Seriousnes),
   change(date(2023, 11, 29), <>Defensives added to guide, <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> usage analysis, <SpellLink spell={TALENTS.ELEMENTAL_ASSAULT_TALENT} /> statistics</>, Seriousnes),
   change(date(2023, 11, 26), 'Resolve errors for unhandled abilities in the MealstromWeaponSpenders module.', Vetyst),

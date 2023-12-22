@@ -29,10 +29,10 @@ import { BoxRowEntry, PerformanceBoxRow } from 'interface/guide/components/Perfo
 import { getAveragePerf, QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { getNumberOfBolts } from '../../normalizers/CastLinkNormalizer';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import { BASE_EF_BOLTS } from '../../constants';
 
 const debug = false;
-const NUM_EF_BOLTS = 15;
-const MAX_EXTRA_BOLTS = 18;
+const MAX_EXTRA_BOLTS = 15;
 
 class EssenceFont extends Analyzer {
   static dependencies = {
@@ -225,12 +225,12 @@ class EssenceFont extends Analyzer {
 
   getExpectedApplies(event: CastEvent) {
     if (!this.selectedCombatant.hasTalent(TALENTS_MONK.UPWELLING_TALENT)) {
-      return NUM_EF_BOLTS;
+      return BASE_EF_BOLTS;
     }
     // Every second that Essence Font is ready to be cast but isn't, another bolt gets added to its next cast, up to 18
     return Math.min(
-      NUM_EF_BOLTS + MAX_EXTRA_BOLTS,
-      NUM_EF_BOLTS + Math.floor((event.timestamp - this.lastCdEnd) / 1000),
+      BASE_EF_BOLTS + MAX_EXTRA_BOLTS,
+      BASE_EF_BOLTS + Math.floor((event.timestamp - this.lastCdEnd) / 1000),
     );
   }
 

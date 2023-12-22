@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import talents from 'common/TALENTS/monk';
-import { AlertWarning, SpellLink } from 'interface';
+import { SpellLink } from 'interface';
 import { useInfo } from 'interface/guide';
 import { MistweaverApl } from './AplCheck';
 
@@ -34,6 +34,12 @@ const aplTitle = (choice: MistweaverApl) => {
       return (
         <>
           <SpellLink spell={talents.AWAKENED_FAELINE_TALENT} />
+        </>
+      );
+    case MistweaverApl.TearOfMorning:
+      return (
+        <>
+          <SpellLink spell={talents.TEAR_OF_MORNING_TALENT} />
         </>
       );
     default:
@@ -176,8 +182,20 @@ const CleaveBuildNotYetSupportedDescription = () => {
   );
 };
 
+const TomDescription = () => {
+  return (
+    <>
+      <p>
+        <strong>
+          The <SpellLink spell={talents.TEAR_OF_MORNING_TALENT} /> rotation is not currently
+          supported.
+        </strong>
+      </p>
+    </>
+  );
+};
+
 const FallbackDescription = () => {
-  const info = useInfo();
   return (
     <>
       <p>
@@ -187,13 +205,6 @@ const FallbackDescription = () => {
         the simplest rotation, but practicing it will build good habits that work with the other
         variations.
       </p>
-
-      {!info?.combatant.hasTalent(talents.RISING_MIST_TALENT) && (
-        <AlertWarning>
-          Using <SpellLink spell={talents.RISING_MIST_TALENT} /> is recommended, as it brings the
-          entire spec's toolkit together by creating multiple synergies between talents.
-        </AlertWarning>
-      )}
     </>
   );
 };
@@ -208,6 +219,8 @@ const Description = ({ aplChoice }: { aplChoice: MistweaverApl }) => {
       return <RisingMistCloudedFocusShaohaosDescription />;
     case MistweaverApl.AwakenedFaeline:
       return <CleaveBuildNotYetSupportedDescription />;
+    case MistweaverApl.TearOfMorning:
+      return <TomDescription />;
     default:
       return <FallbackDescription />;
   }

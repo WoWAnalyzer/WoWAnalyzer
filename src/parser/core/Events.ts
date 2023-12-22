@@ -429,6 +429,7 @@ export interface BeginChannelEvent extends Event<EventType.BeginChannel> {
     enhancedCastReason?: React.ReactNode;
   };
   trigger?: AnyEvent;
+  globalCooldown?: GlobalCooldownEvent;
 }
 
 export interface EndChannelEvent extends Event<EventType.EndChannel> {

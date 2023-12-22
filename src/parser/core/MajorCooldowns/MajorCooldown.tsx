@@ -10,6 +10,9 @@ import {
 } from 'parser/core/SpellUsage/core';
 import { AnyEvent } from 'parser/core/Events';
 import Spell from 'common/SPELLS/Spell';
+import { isPresent } from 'common/typeGuards';
+import { combineQualitativePerformances } from 'common/combineQualitativePerformances';
+import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 
 /**
  * Simple interface intended to be extended by any casts used by MajorCooldown.
@@ -31,6 +34,24 @@ export const createChecklistItem = <Trigger extends CooldownTrigger<AnyEvent>>(
     return undefined;
   }
   return { check, timestamp: trigger.event.timestamp, ...usageInfo };
+};
+
+export const createSpellUse = <Trigger extends CooldownTrigger<AnyEvent>>(
+  { event }: Trigger,
+  possibleChecklistItems: (ChecklistUsageInfo | null | undefined)[],
+): SpellUse => {
+  const checklistItems = possibleChecklistItems.filter(isPresent);
+  const performance = combineQualitativePerformances(
+    checklistItems.map((item) => item.performance),
+  );
+  const performanceExplanation =
+    performance !== QualitativePerformance.Fail ? `${performance} Usage` : 'Bad Usage';
+  return {
+    event,
+    performance,
+    checklistItems,
+    performanceExplanation,
+  };
 };
 
 /**

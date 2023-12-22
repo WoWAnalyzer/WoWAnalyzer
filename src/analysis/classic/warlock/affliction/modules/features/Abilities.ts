@@ -8,17 +8,17 @@ class Abilities extends CoreAbilities {
     return [
       // Rotational
       {
-        spell: [SPELLS.SHADOW_BOLT.id, ...SPELLS.SHADOW_BOLT.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
         spell: [SPELLS.CORRUPTION.id, ...SPELLS.CORRUPTION.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
       {
         spell: [SPELLS.CURSE_OF_AGONY.id, ...SPELLS.CURSE_OF_AGONY.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.DRAIN_SOUL.id, ...SPELLS.DRAIN_SOUL.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
       },
@@ -30,20 +30,25 @@ class Abilities extends CoreAbilities {
         enabled: combatant.talentPoints[0] >= 50,
       },
       {
+        spell: [SPELLS.LIFE_TAP.id, ...SPELLS.LIFE_TAP.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SHADOW_BOLT.id, ...SPELLS.SHADOW_BOLT.lowRanks],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: { base: 1500 },
+      },
+      {
+        spell: [SPELLS.SHADOW_TRANCE.id],
+        category: SPELL_CATEGORY.ROTATIONAL,
+        gcd: null,
+      },
+      {
         spell: [SPELLS.UNSTABLE_AFFLICTION.id, ...SPELLS.UNSTABLE_AFFLICTION.lowRanks],
         category: SPELL_CATEGORY.ROTATIONAL,
         gcd: { base: 1500 },
         enabled: combatant.talentPoints[0] >= 40,
-      },
-      {
-        spell: [SPELLS.DRAIN_SOUL.id, ...SPELLS.DRAIN_SOUL.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
-      },
-      {
-        spell: [SPELLS.LIFE_TAP.id, ...SPELLS.LIFE_TAP.lowRanks],
-        category: SPELL_CATEGORY.ROTATIONAL,
-        gcd: { base: 1500 },
       },
       // Rotational AOE
       {

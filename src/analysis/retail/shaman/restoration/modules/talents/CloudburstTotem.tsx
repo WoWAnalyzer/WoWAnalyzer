@@ -1,5 +1,6 @@
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
+import { TIERS } from 'game/TIERS';
 import TALENTS from 'common/TALENTS/shaman';
 import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
@@ -102,10 +103,15 @@ class CloudburstTotem extends Analyzer {
         <b>
           <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} />
         </b>{' '}
-        is one of your most important and highest hps abilities. It is essential to have active
-        whenever you plan on doing significant healing as it collects a portion of all healing done
-        by the shaman (this includes <SpellLink spell={ITEMS.T30_TIDEWATERS_HEAL} /> healing!). It
-        is not necessary or possible to always have{' '}
+        has been nerfed by a third of its power in season 3 of Dragonflight, yet it still is one of
+        your most important and highest hps abilities. It is essential to have it active whenever
+        you plan on doing significant healing as it collects a portion of all healing done
+        {this.selectedCombatant.has2PieceByTier(TIERS.T30) && (
+          <>
+            (this includes <SpellLink spell={ITEMS.T30_TIDEWATERS_HEAL} /> healing!)
+          </>
+        )}
+        . It is not necessary or possible to always have{' '}
         <SpellLink spell={TALENTS.CLOUDBURST_TOTEM_TALENT} /> active, but make sure you are never
         sitting at 2 charges
       </p>
