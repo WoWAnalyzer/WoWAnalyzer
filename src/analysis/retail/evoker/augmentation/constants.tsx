@@ -79,7 +79,10 @@ export const ABILITY_BLACKLIST: number[] = [
   426486, // Denizen Of The Flame Final
   426339, // Igiras Cruel Nightmare
   426527, // Flaying Torment
+  426535, // Scorching Torment
+  426306, // Blazing Rage
   259756, // Entropic Embrace
+  426288, // Smolderon's Delusions of Grandeur
   427209, // Web of Dreams
   422956, // Essence Splice
   427161, // Essence Splice
@@ -105,4 +108,5 @@ export const ABILITY_BLACKLIST: number[] = [
   424094, // Rage of Fyr'alath (Fyr'alath the Dreamrender)
   386301, // Completely Safe Rocket
   243991, // Blazefury Medallion
+  426297, // Bramble Barrier
 ];
