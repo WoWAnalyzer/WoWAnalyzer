@@ -64,10 +64,6 @@ export default class T31Fury2pc extends Analyzer {
   mainTarget: { id: number; instance?: number } | null = null;
 
   private odynsFuryDamage(event: DamageEvent) {
-    console.log('Odyns Fury Damage', {
-      totalDamage: event.amount + (event.absorbed || 0),
-      attributed: calculateEffectiveDamage(event, ODYNS_FURY_DMG_INCREASE),
-    });
     this.boostedOdynsFuryDamage += calculateEffectiveDamage(event, ODYNS_FURY_DMG_INCREASE);
   }
 
@@ -101,13 +97,6 @@ export default class T31Fury2pc extends Analyzer {
   }
 
   statistic() {
-    console.log({
-      boostedOdynsFuryCount: this.boostedOdynsFuryCount,
-      boostedOdynsFuryDamage: this.boostedOdynsFuryDamage,
-      boostedBloodthirstCount: this.boostedBloodthirstCount,
-      boostedBloodthirstDamage: this.boostedBloodthirstDamage,
-    });
-
     return (
       <Statistic
         size="flexible"
