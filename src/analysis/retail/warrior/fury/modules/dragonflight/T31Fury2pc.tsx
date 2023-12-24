@@ -2,7 +2,7 @@ import SPELLS from 'common/SPELLS/warrior';
 import TALENTS from 'common/TALENTS/warrior';
 import { formatNumber, formatPercentage } from 'common/format';
 import { TIERS } from 'game/TIERS';
-import { SpellLink } from 'interface';
+import { SpellIcon, SpellLink, TooltipElement } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import { calculateEffectiveDamage } from 'parser/core/EventCalculateLib';
 import Events, { Ability, CastEvent, DamageEvent } from 'parser/core/Events';
@@ -233,6 +233,29 @@ export default class T31Fury2pc extends Analyzer {
               this.boostedOdynsFuryDamage
             }
           />
+          {this.boostedBloodthirstCount > 0 &&
+          this.selectedCombatant.hasTalent(TALENTS.RECKLESS_ABANDON_TALENT) ? (
+            <div>
+              <SpellIcon spell={SPELLS.BLOODTHIRST.id} />{' '}
+              <TooltipElement
+                content={
+                  <>
+                    Since the damage increase is multiplicative, try to use{' '}
+                    <SpellLink spell={SPELLS.FURIOUS_BLOODTHIRST} /> on{' '}
+                    <SpellLink spell={SPELLS.BLOODBATH} /> for more damage.
+                  </>
+                }
+              >
+                {this.boostedBloodthirstCount}
+                <small>
+                  {' '}
+                  boosted <SpellLink spell={SPELLS.BLOODTHIRST} icon={false} /> casts.
+                </small>
+              </TooltipElement>
+            </div>
+          ) : (
+            ''
+          )}
         </BoringSpellValueText>
       </Statistic>
     );
