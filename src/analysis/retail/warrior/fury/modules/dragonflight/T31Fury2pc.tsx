@@ -135,6 +135,15 @@ export default class T31Fury2pc extends Analyzer {
   }
 
   statistic() {
+    const OdynsFuryLink = <SpellLink spell={SPELLS.ODYNS_FURY} />;
+    const BloodthirstLink = <SpellLink spell={SPELLS.BLOODTHIRST} />;
+    const BloodbathLink = <SpellLink spell={SPELLS.BLOODBATH} />;
+    const totalDamage =
+      this.boostedBloodthirstDamage +
+      this.boostedBloodbathDamage +
+      this.boostedOdynsFuryDamage +
+      this.boostedTitansTormentDamage;
+
     return (
       <Statistic
         size="flexible"
@@ -143,17 +152,12 @@ export default class T31Fury2pc extends Analyzer {
         tooltip={
           <>
             <div>
-              All <SpellLink spell={SPELLS.ODYNS_FURY} /> deal{' '}
-              {formatPercentage(ODYNS_FURY_DMG_INCREASE, 0)}% more damage.
+              All {OdynsFuryLink} deal {formatPercentage(ODYNS_FURY_DMG_INCREASE, 0)}% more damage.
             </div>
             <div>
-              After each <SpellLink spell={SPELLS.ODYNS_FURY} />, the following 3{' '}
-              <SpellLink spell={SPELLS.BLOODTHIRST} />{' '}
+              After each {OdynsFuryLink}, the following 3 {BloodthirstLink}{' '}
               {this.selectedCombatant.hasTalent(TALENTS.RECKLESS_ABANDON_TALENT) ? (
-                <>
-                  {' '}
-                  or <SpellLink spell={SPELLS.BLOODBATH} />
-                </>
+                <> or {BloodbathLink}</>
               ) : (
                 ''
               )}{' '}
@@ -172,9 +176,7 @@ export default class T31Fury2pc extends Analyzer {
               <tbody>
                 {this.boostedOdynsFuryCount > 0 && (
                   <tr>
-                    <td>
-                      <SpellLink spell={SPELLS.ODYNS_FURY} />
-                    </td>
+                    <td>{OdynsFuryLink}</td>
                     <td>{this.boostedOdynsFuryCount}</td>
                     <td>{formatNumber(this.boostedOdynsFuryDamage)}</td>
                   </tr>
@@ -190,17 +192,13 @@ export default class T31Fury2pc extends Analyzer {
                 )}
                 {this.boostedBloodbathCount > 0 && (
                   <tr>
-                    <td>
-                      <SpellLink spell={SPELLS.BLOODBATH} />
-                    </td>
+                    <td>{BloodbathLink}</td>
                     <td>{this.boostedBloodbathCount}</td>
                     <td>{formatNumber(this.boostedBloodbathDamage)}*</td>
                   </tr>
                 )}
                 <tr>
-                  <td>
-                    <SpellLink spell={SPELLS.BLOODTHIRST} />
-                  </td>
+                  <td>{BloodthirstLink}</td>
                   <td>{this.boostedBloodthirstCount}</td>
                   <td>
                     {formatNumber(this.boostedBloodthirstDamage)}
@@ -210,14 +208,7 @@ export default class T31Fury2pc extends Analyzer {
                 <tr>
                   <th>Total</th>
                   <th></th>
-                  <th>
-                    {formatNumber(
-                      this.boostedBloodthirstDamage +
-                        this.boostedBloodbathDamage +
-                        this.boostedOdynsFuryDamage +
-                        this.boostedTitansTormentDamage,
-                    )}
-                  </th>
+                  <th>{formatNumber(totalDamage)}</th>
                 </tr>
               </tbody>
             </table>
@@ -226,13 +217,7 @@ export default class T31Fury2pc extends Analyzer {
         }
       >
         <BoringSpellValueText spell={SPELLS.T31_FURY_2P_BONUS}>
-          <ItemDamageDone
-            amount={
-              this.boostedBloodthirstDamage +
-              this.boostedBloodbathDamage +
-              this.boostedOdynsFuryDamage
-            }
-          />
+          <ItemDamageDone amount={totalDamage} />
           {this.boostedBloodthirstCount > 0 &&
           this.selectedCombatant.hasTalent(TALENTS.RECKLESS_ABANDON_TALENT) ? (
             <div>
@@ -241,8 +226,8 @@ export default class T31Fury2pc extends Analyzer {
                 content={
                   <>
                     Since the damage increase is multiplicative, try to use{' '}
-                    <SpellLink spell={SPELLS.FURIOUS_BLOODTHIRST} /> on{' '}
-                    <SpellLink spell={SPELLS.BLOODBATH} /> for more damage.
+                    <SpellLink spell={SPELLS.FURIOUS_BLOODTHIRST} /> on {BloodbathLink} for more
+                    damage.
                   </>
                 }
               >
