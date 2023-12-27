@@ -47,7 +47,6 @@ class PrePullCooldowns extends EventsNormalizer {
     const buffSpells = [];
     const damageSpells = [];
     const addBuff = (buff, buffId) => {
-      console.log(buff, buffId);
       if (!buff.triggeredBySpellId) {
         // This normalizer is to fabricate prepull cast events that can be detected from buffs (and damage). If a buff isn't triggered by a spell, then there's nothing to fabricate.
         return;
