@@ -176,10 +176,7 @@ class BaseCelestialAnalyzer extends Analyzer {
 
   handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
     const pet = this.pets.getEntityFromEvent(event, true);
-    if (
-      (!pet || !pet.name) &&
-      this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
-    ) {
+    if (!pet || !pet.name) {
       return;
     }
     (lessonsDebug || siDebug) &&
