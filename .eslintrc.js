@@ -31,7 +31,12 @@ module.exports = {
   rules: {
     'progress/activate': process.stdout.isTTY ? 1 : 0,
     'prettier/prettier': 0,
+
     'wowanalyzer/module-spread-parent-dependencies': 'error',
+    'wowanalyzer/spell-link-spell-object': 'error',	
+    'wowanalyzer/spell-icon-spell-object': 'error',
+    'wowanalyzer/boring-spell-value-text-spell-object': 'error',	
+    'wowanalyzer/lingui-t-macro-outside-jsx': 'error',
 
     // region Syntax
 
