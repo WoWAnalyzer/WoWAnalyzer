@@ -11,6 +11,7 @@ import Events, {
   HealEvent,
   DamageEvent,
   EndChannelEvent,
+  EventType,
 } from 'parser/core/Events';
 import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import { SECRET_INFUSION_BUFFS, LESSONS_BUFFS } from '../../constants';
@@ -175,12 +176,12 @@ class BaseCelestialAnalyzer extends Analyzer {
   }
 
   handleCelestialDeath(event: DeathEvent | RemoveBuffEvent) {
-    const pet = this.pets.getEntityFromEvent(event, true);
-    if (
-      (!pet || !pet.name) &&
-      this.selectedCombatant.hasTalent(TALENTS_MONK.INVOKE_CHI_JI_THE_RED_CRANE_TALENT)
-    ) {
-      return;
+    // only chiji logs death events
+    if (event.type === EventType.Death) {
+      const pet = this.pets.getEntityFromEvent(event, true);
+      if (!pet || !pet.name) {
+        return;
+      }
     }
     (lessonsDebug || siDebug) &&
       console.log('Celestial Death: ', this.owner.formatTimestamp(event.timestamp));

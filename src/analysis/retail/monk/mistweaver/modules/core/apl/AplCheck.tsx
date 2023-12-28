@@ -4,7 +4,7 @@ import aplCheck, { Apl, build, CheckResult, PlayerInfo, tenseAlt } from 'parser/
 import annotateTimeline from 'parser/shared/metrics/apl/annotate';
 import * as cnd from 'parser/shared/metrics/apl/conditions';
 import * as mwCnd from './conditions';
-import talents from 'common/TALENTS/monk';
+import talents, { TALENTS_MONK } from 'common/TALENTS/monk';
 import { AnyEvent } from 'parser/core/Events';
 import { SpellLink } from 'interface';
 
@@ -86,11 +86,15 @@ const commonTop = [
       cnd.and(
         cnd.spellCharges(talents.RENEWING_MIST_TALENT, { atLeast: 2 }),
         cnd.spellAvailable(talents.RENEWING_MIST_TALENT),
+        cnd.hasTalent(talents.RISING_MIST_TALENT),
       ),
       (tense) => <>you {tenseAlt(tense, 'have', 'had')} 2 charges</>,
     ),
   },
-  talents.RISING_SUN_KICK_TALENT,
+  {
+    spell: talents.RISING_SUN_KICK_TALENT,
+    condition: cnd.hasTalent(TALENTS_MONK.RISING_MIST_TALENT),
+  },
   {
     spell: talents.RENEWING_MIST_TALENT,
     condition: cnd.optionalRule(cnd.spellAvailable(talents.RENEWING_MIST_TALENT)),
@@ -200,6 +204,7 @@ export enum MistweaverApl {
   RisingMistAncientTeachingsUpwellFls,
   RisingMistCloudedFocusShaohaos,
   AwakenedFaeline,
+  TearOfMorning,
   Fallback,
 }
 
@@ -230,6 +235,8 @@ export const chooseApl = (info: PlayerInfo): MistweaverApl => {
     info.combatant.hasTalent(talents.ANCIENT_TEACHINGS_TALENT)
   ) {
     return MistweaverApl.AwakenedFaeline;
+  } else if (info.combatant.hasTalent(TALENTS_MONK.TEAR_OF_MORNING_TALENT)) {
+    return MistweaverApl.TearOfMorning;
   }
   return MistweaverApl.Fallback;
 };
@@ -239,6 +246,7 @@ const apls: Record<MistweaverApl, Apl> = {
   [MistweaverApl.RisingMistAncientTeachingsUpwellFls]: rotation_rm_at_upw,
   [MistweaverApl.RisingMistCloudedFocusShaohaos]: rotation_rm_cf_shaohaos,
   [MistweaverApl.AwakenedFaeline]: rotation_fallback,
+  [MistweaverApl.TearOfMorning]: rotation_fallback,
   [MistweaverApl.Fallback]: rotation_fallback,
 };
 

@@ -32,7 +32,9 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 12, 21), <>Mark <ItemLink id={ITEMS.ENCHANT_WEAPON_DREAMING_DEVOTION_R3.id} /> as a max rank enchant.</>, ToppleTheNun),
   change(date(2023, 12, 20), 'Bring over the ESLint config from the vite migration branch.', ToppleTheNun),
+  change(date(2023, 12, 20), 'Mark 10.1.5 as an old patch.', ToppleTheNun),
   change(date(2023, 12, 20), 'Bring over a few of the changes from the vite migration branch.', ToppleTheNun),
   change(date(2023, 12, 5), 'Update Classic Mana Values to activate based on config role.', jazminite),
   change(date(2023, 12, 3),'Convert GlobalCooldown to TS', Seriousnes),
