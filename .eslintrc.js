@@ -29,7 +29,7 @@ module.exports = {
   ],
   plugins: ['wowanalyzer', 'progress', 'no-only-tests'],
   rules: {
-    'progress/activate': 1,
+    'progress/activate': process.stdout.isTTY ? 1 : 0,
     'prettier/prettier': 0,
     'wowanalyzer/module-spread-parent-dependencies': 'error',
 
