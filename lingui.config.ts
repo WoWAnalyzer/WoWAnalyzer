@@ -1,4 +1,7 @@
-module.exports = {
+import type { LinguiConfig } from '@lingui/conf';
+import { formatter } from '@lingui/format-json';
+
+const config: LinguiConfig = {
   catalogs: [
     {
       path: 'src/localization/{locale}/messages',
@@ -11,5 +14,8 @@ module.exports = {
   fallbackLocales: {
     default: 'en',
   },
-  format: 'minimal',
+  format: formatter({ style: 'minimal' }),
+  orderBy: 'messageId',
 };
+
+export default config;

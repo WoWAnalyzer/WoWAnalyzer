@@ -16,7 +16,6 @@ import TalentSpellText from 'parser/ui/TalentSpellText';
 import ItemDamageDone from 'parser/ui/ItemDamageDone';
 import { formatNumber } from 'common/format';
 import { SpellLink } from 'interface';
-import { Trans } from '@lingui/macro';
 import DonutChart from 'parser/ui/DonutChart';
 
 /**
@@ -175,18 +174,14 @@ class Accretion extends Analyzer {
               />
             </TalentSpellText>
             <div className="pad">
-              <label>
-                <Trans>Damage sources</Trans>
-              </label>
+              <label>Damage sources</label>
               <DonutChart items={damageSources} />
             </div>
           </div>
         ) : (
           <div className="pad">
             <label>
-              <Trans>
-                <SpellLink spell={TALENTS.ACCRETION_TALENT} />
-              </Trans>
+              <SpellLink spell={TALENTS.ACCRETION_TALENT} />
             </label>
             <p>
               You didn't gain enough CDR to get any extra casts of{' '}
