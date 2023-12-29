@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ReadableList doesn't mutate a single item 1`] = `<div />`;
+exports[`ReadableList > doesn't mutate a single item 1`] = `<div />`;
 
-exports[`ReadableList merges four items with two "," and an "and" 1`] = `
-Array [
+exports[`ReadableList > merges four items with two "," and an "and" 1`] = `
+[
   <div />,
   ", ",
   <div />,
@@ -14,8 +14,8 @@ Array [
 ]
 `;
 
-exports[`ReadableList merges three items with a "," and an "and" 1`] = `
-Array [
+exports[`ReadableList > merges three items with a "," and an "and" 1`] = `
+[
   <div />,
   ", ",
   <div />,
@@ -24,8 +24,8 @@ Array [
 ]
 `;
 
-exports[`ReadableList merges two items with an "and" 1`] = `
-Array [
+exports[`ReadableList > merges two items with an "and" 1`] = `
+[
   <div />,
   " and ",
   <div />,

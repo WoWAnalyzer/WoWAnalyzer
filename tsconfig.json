@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "ES2021"],
-    "target": "ES2021",
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -14,18 +15,27 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src",
+    "baseUrl": ".",
+    "paths": {
+      "analysis/*": ["./src/analysis/*"],
+      "analysis": ["./src/analysis"],
+      "common/*": ["./src/common/*"],
+      "common": ["./src/common"],
+      "game/*": ["./src/game/*"],
+      "game": ["./src/game"],
+      "interface/*": ["./src/interface/*"],
+      "interface": ["./src/interface"],
+      "localization/*": ["./src/localization/*"],
+      "localization": ["./src/localization"],
+      "parser/*": ["./src/parser/*"],
+      "parser": ["./src/parser"],
+      "CHANGELOG": ["./src/CHANGELOG"],
+      "CONTRIBUTORS": ["./src/CONTRIBUTORS"],
+      "mergeAllChangelogs": ["./src/mergeAllChangelogs"],
+      "Root": ["./src/Root"],
+      "store": ["./src/store"]
+    },
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["./types", "./src"],
-  // analysis is currently excluded to prevent parsing files that reference dead talents
-  // all files that are imported are processed even if excluded here, so this only excludes unimported files
-  "exclude": ["src/analysis/retail/priest/shared", "src/analysis/retail/priest/holy"],
-  "files": ["src/analysis/retail/priest/holy/CONFIG.tsx"],
-  "ts-node": {
-    // these options are overrides used only by ts-node
-    "compilerOptions": {
-      "module": "commonjs"
-    }
-  }
+  "include": ["./types", "./src"]
 }

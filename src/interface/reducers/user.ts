@@ -13,7 +13,7 @@ type User = {
 
 export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async () => {
   try {
-    const response = await fetch(`${process.env.REACT_APP_SERVER_BASE}user`, {
+    const response = await fetch(`${import.meta.env.VITE_SERVER_BASE}user`, {
       credentials: 'include',
     });
 
@@ -40,7 +40,7 @@ export const fetchUser = createAsyncThunk<User | null>('user/fetchUser', async (
 
 export const logout = createAsyncThunk('user/logout', async () => {
   try {
-    await fetch(`${process.env.REACT_APP_SERVER_BASE}logout`, {
+    await fetch(`${import.meta.env.VITE_SERVER_BASE}logout`, {
       credentials: 'include',
     });
   } catch (err: any) {

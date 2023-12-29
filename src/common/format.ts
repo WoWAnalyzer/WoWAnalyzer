@@ -4,7 +4,7 @@
  */
 export function formatThousands(number: number): string {
   // If env variable LOCALE is set, use that locale for formatting.
-  return Math.round(number || 0).toLocaleString(process.env.LOCALE);
+  return Math.round(number || 0).toLocaleString(import.meta.env.LOCALE);
 }
 
 /**

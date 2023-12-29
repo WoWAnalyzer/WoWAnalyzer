@@ -1,10 +1,13 @@
 import Expansion from 'game/Expansion';
 
 interface Props {
-  boss: {
-    background?: string;
-    backgroundPosition?: string;
-  } | null;
+  boss:
+    | {
+        background?: string;
+        backgroundPosition?: string;
+      }
+    | undefined
+    | null;
   expansion: Expansion;
 }
 

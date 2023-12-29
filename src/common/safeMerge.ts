@@ -8,7 +8,7 @@ type UnionToIntersection<U> = (U extends any ? (k: U) => void : never) extends (
 const merge = <T extends Array<Record<string, unknown>>>(
   ...objects: T
 ): UnionToIntersection<T[number]> => {
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     const obj: Record<string, unknown> = {};
     objects.forEach((arg) => {
       (Object.keys(arg) as Array<keyof typeof arg>).forEach((key) => {

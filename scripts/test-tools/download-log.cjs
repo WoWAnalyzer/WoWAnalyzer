@@ -12,7 +12,7 @@
  * directory
  *
  * Usage:
- *  node download-log.js <filename> <log-id> <fight-id> <player-id>
+ *  node download-log.cjs <filename> <log-id> <fight-id> <player-id>
  *
  **/
 const archiver = require('archiver');

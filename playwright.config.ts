@@ -101,7 +101,7 @@ const config: PlaywrightTestConfig = {
   /* Run your local dev server before starting the tests */
   webServer: process.env.CI
     ? {
-        command: 'npx serve@latest -s build',
+        command: 'npx vite preview --outDir html --port 3000',
         port: 3000,
         timeout: 60000,
       }
