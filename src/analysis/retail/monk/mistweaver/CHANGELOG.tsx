@@ -6,6 +6,8 @@ import { SpellLink } from 'interface';
 
 
 export default [
+  change(date(2023, 12, 26), <>Fix crash in <SpellLink spell={TALENTS_MONK.INVOKE_YULON_THE_JADE_SERPENT_TALENT}/> module</>, Trevor),
+  change(date(2023, 12, 20), <>Update APL to mark ToM as unsupported and update <SpellLink spell={TALENTS_MONK.THUNDER_FOCUS_TEA_TALENT}/> for ToM</>, Trevor),
   change(date(2023, 12, 5), <>Fix <SpellLink spell={TALENTS_MONK.MANA_TEA_TALENT}/> coefficient</>, Trevor),
   change(date(2023, 12, 5), <>Changes for Dec 5 tuning</>, Trevor),
   change(date(2023, 11, 27), <>Update <SpellLink spell={SPELLS.VIVIFY}/> thresholds for <SpellLink spell={TALENTS_MONK.TEAR_OF_MORNING_TALENT}/></>, Trevor),

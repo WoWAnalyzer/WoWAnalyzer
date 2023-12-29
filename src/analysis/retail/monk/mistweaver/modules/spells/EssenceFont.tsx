@@ -375,7 +375,7 @@ class EssenceFont extends Analyzer {
         size="flexible"
         category={STATISTIC_CATEGORY.THEORYCRAFT}
         tooltip={
-          <Trans>
+          <Trans id="monk.mistweaver.spells.essenceFont.statistic.tooltip">
             Mastery:
             <ul>
               <li>{this.gomEFHits} additional hits</li>

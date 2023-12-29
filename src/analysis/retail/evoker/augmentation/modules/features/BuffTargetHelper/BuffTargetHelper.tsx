@@ -15,6 +15,7 @@ import { SpellLink } from 'interface';
 import LazyLoadGuideSection from 'analysis/retail/evoker/shared/modules/components/LazyLoadGuideSection';
 import { ABILITY_BLACKLIST } from '../../../constants';
 import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
+import Toggle from 'react-toggle';
 
 /**
  * @key ClassName
@@ -37,6 +38,11 @@ const mrtColorMap: Map<string, string> = new Map([
 ]);
 
 const NO_EM_SCALING_MODIFIER = 0.5;
+
+type DamageTables = {
+  normalDamage: WCLDamageDoneTableResponse;
+  noEbonDamage: WCLDamageDoneTableResponse;
+};
 
 /**
  * So managing your buffs is essentially what Augmentation boils down to.
@@ -88,6 +94,14 @@ class BuffTargetHelper extends Analyzer {
   mrtTwoTargetPrescienceHelperNote: string = '';
   mrtFourTargetPrescienceHelperNote: string = '';
 
+  filterBossDamage: boolean = false;
+  nameFilter: string = '';
+  bossFilter: string = this.owner.report.enemies
+    .filter((enemy) => enemy.type === 'Boss')
+    .map((enemy) => `${enemy.guid}`)
+    .join(',');
+  abilityFilter: string = ABILITY_BLACKLIST.join(', ');
+
   constructor(options: Options) {
     super(options);
     /** No need to show this in dungeon runs, for obvious reasons */
@@ -106,37 +120,23 @@ class BuffTargetHelper extends Analyzer {
           player.spec !== SPECS.AUGMENTATION_EVOKER
         ) {
           this.playerWhitelist.set(player.name, classColor(player));
+          this.nameFilter +=
+            this.nameFilter.length === 0 ? `"${player.name}"` : `,"${player.name}"`;
         }
       });
     });
   }
 
   /** Generate filter based on black list and whitelist */
-  getFilter() {
-    const playerNames = Array.from(this.playerWhitelist.keys());
-    const nameFilter = playerNames
-      .map((name) => `source.name="${name}" OR source.owner.name="${name}"`)
-      .join(' OR ');
-
-    const abilityFilter = ABILITY_BLACKLIST.map((id) => `ability.id=${id}`).join(' OR ');
-
-    const filter = `not(${abilityFilter}) AND (${nameFilter})`;
-
-    return filter;
-  }
-
-  /** Only get non ebon scaling abilities, these still scale with Vers (Shifting Sands) */
-  getNoEbonScalingFilter() {
-    const playerNames = Array.from(this.playerWhitelist.keys());
-    const nameFilter = playerNames
-      .map((name) => `source.name="${name}" OR source.owner.name="${name}"`)
-      .join(' OR ');
-
-    const abilityFilter = ABILITY_BLACKLIST.map((id) => `${id}`).join(', ');
-
-    const filter = `ability.id in (${abilityFilter}) AND (${nameFilter})`;
-
-    return filter;
+  getFilter(noEbonScaling: boolean) {
+    if (this.filterBossDamage) {
+      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter})) 
+      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter})) 
+      AND (target.id in(${this.bossFilter}))`;
+    } else {
+      return `(${noEbonScaling ? '' : 'not'} ability.id in(${this.abilityFilter})) 
+      AND (source.name in (${this.nameFilter}) OR source.owner.name in (${this.nameFilter}))`;
+    }
   }
 
   /**
@@ -159,28 +159,36 @@ class BuffTargetHelper extends Analyzer {
     }
 
     let currentTime = this.fightStart;
-    let index = 0;
+
+    const fetchPromises: Promise<DamageTables>[] = [];
     while (currentTime < this.fightEnd) {
-      index += 1;
-      await this.getDamage(currentTime, index);
-      await this.getNoEbonScaledDamage(currentTime, index);
+      fetchPromises.push(this.getDamage(currentTime));
       currentTime += this.interval;
     }
-  }
 
-  async getDamage(currentTime: number, index: number) {
-    return fetchWcl(`report/tables/damage-done/${this.owner.report.code}`, {
-      start: currentTime,
-      end: currentTime + this.interval,
-      filter: this.getFilter(),
-    }).then((json) => {
-      const data = json as WCLDamageDoneTableResponse;
-      data.entries.forEach((entry) => {
+    const result = await Promise.all(fetchPromises);
+
+    result.forEach((res, idx) => {
+      const normalDamage = res.normalDamage;
+      const noEbonDamage = res.noEbonDamage;
+
+      normalDamage.entries.forEach((entry) => {
         if (this.playerWhitelist.has(entry.name)) {
           if (!this.playerDamageMap.get(entry.name)) {
             this.playerDamageMap.set(entry.name, [entry.total]);
           } else {
             this.playerDamageMap.get(entry.name)?.push(entry.total);
+          }
+        }
+      });
+
+      noEbonDamage.entries.forEach((entry) => {
+        if (this.playerWhitelist.has(entry.name)) {
+          const currentPlayerMap = this.playerDamageMap.get(entry.name);
+          if (!currentPlayerMap) {
+            this.playerDamageMap.set(entry.name, [entry.total * NO_EM_SCALING_MODIFIER]);
+          } else {
+            currentPlayerMap[idx] += entry.total * NO_EM_SCALING_MODIFIER;
           }
         }
       });
@@ -192,7 +200,7 @@ class BuffTargetHelper extends Analyzer {
        * 3. taking their sweet time with mechanics
        *
        * This causes issues when they potentially later get ressed
-       * and their damage entry now no longer mathces up
+       * and their damage entry now no longer matches up
        * we fix this by manually pushing in a zero value.
        */
       for (const [name] of this.playerWhitelist) {
@@ -200,31 +208,32 @@ class BuffTargetHelper extends Analyzer {
 
         if (!damageEntries) {
           this.playerDamageMap.set(name, [0]);
-        } else if (damageEntries.length < index) {
+        } else if (damageEntries.length < idx + 1) {
           damageEntries.push(0);
         }
       }
     });
   }
 
-  async getNoEbonScaledDamage(currentTime: number, index: number) {
-    return fetchWcl(`report/tables/damage-done/${this.owner.report.code}`, {
-      start: currentTime,
-      end: currentTime + this.interval,
-      filter: this.getNoEbonScalingFilter(),
-    }).then((json) => {
-      const data = json as WCLDamageDoneTableResponse;
-      data.entries.forEach((entry) => {
-        if (this.playerWhitelist.has(entry.name)) {
-          const currentPlayerMap = this.playerDamageMap.get(entry.name);
-          if (!currentPlayerMap) {
-            this.playerDamageMap.set(entry.name, [entry.total * NO_EM_SCALING_MODIFIER]);
-          } else {
-            currentPlayerMap[index - 1] += entry.total * NO_EM_SCALING_MODIFIER;
-          }
-        }
-      });
-    });
+  async getDamage(currentTime: number): Promise<DamageTables> {
+    const normalDamage = await fetchWcl<WCLDamageDoneTableResponse>(
+      `report/tables/damage-done/${this.owner.report.code}`,
+      {
+        start: currentTime,
+        end: currentTime + this.interval,
+        filter: this.getFilter(false),
+      },
+    );
+    const noEbonDamage = await fetchWcl<WCLDamageDoneTableResponse>(
+      `report/tables/damage-done/${this.owner.report.code}`,
+      {
+        start: currentTime,
+        end: currentTime + this.interval,
+        filter: this.getFilter(true),
+      },
+    );
+
+    return { normalDamage, noEbonDamage };
   }
 
   findTopPumpers() {
@@ -398,7 +407,7 @@ class BuffTargetHelper extends Analyzer {
    * Created by HenryG
    * https://wago.io/yrmx6ZQSG
    *
-   * Format is basicly:
+   * Format is basically:
    * prescGlowsStart
    * defaultTargets - |cff3fc7ebSheeper|r |cffffffffXanapriest|r
    * PREPULL - |cffc41e3aDérp|r |cff3fc7ebSheeper|r
@@ -473,6 +482,19 @@ class BuffTargetHelper extends Analyzer {
     navigator.clipboard.writeText(this.mrtFourTargetPrescienceHelperNote);
   };
 
+  bossFilterToggleButton: JSX.Element = (
+    <div className="filter-container">
+      <b>Only show boss damage</b>
+      <div>
+        <Toggle
+          onClick={() => {
+            this.filterBossDamage = !this.filterBossDamage;
+          }}
+        />
+      </div>
+    </div>
+  );
+
   guideSubsection(): JSX.Element | null {
     if (!this.active) {
       return null;
@@ -512,6 +534,7 @@ class BuffTargetHelper extends Analyzer {
             <LazyLoadGuideSection
               loader={this.loadInterval.bind(this)}
               value={this.findTopPumpers.bind(this)}
+              element={this.bossFilterToggleButton}
             />
           </div>
         </div>
