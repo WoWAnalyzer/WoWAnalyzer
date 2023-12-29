@@ -37,16 +37,30 @@ import SPECS from 'game/SPECS';
     },
   };
 */
+const avatars = import.meta.glob(
+  [
+    './interface/images/avatars/*.png',
+    './interface/images/avatars/*.jpg',
+    './interface/images/avatars/*.jpeg',
+  ],
+  { eager: true },
+);
 
 function avatar(filename: string): string {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const avatar = require(`interface/images/avatars/${filename}`);
+  const avatar = avatars[`./interface/images/avatars/${filename}`];
 
   // this branch makes it work both in tests and in the browser
   if (typeof avatar === 'string') {
     return avatar;
-  } else {
+  } else if (
+    avatar &&
+    typeof avatar === 'object' &&
+    'default' in avatar &&
+    typeof avatar.default === 'string'
+  ) {
     return avatar.default;
+  } else {
+    throw new Error(`./interface/images/avatars/${filename} is an unsupported file type`);
   }
 }
 

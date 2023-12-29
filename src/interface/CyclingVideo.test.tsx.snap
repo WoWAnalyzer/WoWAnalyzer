@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`CyclingVideo matches snapshot 1`] = `
+exports[`CyclingVideo > matches snapshot 1`] = `
 <video
   autoPlay={true}
   muted={true}
@@ -13,13 +13,13 @@ exports[`CyclingVideo matches snapshot 1`] = `
 </video>
 `;
 
-exports[`CyclingVideo passes unrecognized props 1`] = `
+exports[`CyclingVideo > passes unrecognized props 1`] = `
 <video
   autoPlay={true}
   muted={true}
   onEnded={[Function]}
   style={
-    Object {
+    {
       "color": "red",
     }
   }

@@ -27,13 +27,15 @@ import {
   Arlie,
   LucasLevyOB,
   dub,
-  Zyer, Earosselot,
+  Zyer,
+  Earosselot,
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 3, 26), 'Swap to Vite instead of create-react-app.', ToppleTheNun),
   change(date(2024, 3, 26), 'Remove support for Shadowlands tier sets.', ToppleTheNun),
   change(date(2024, 3, 26), 'Add tier set IDs for Dragonflight season 4.', ToppleTheNun),
   change(date(2024, 3, 14), 'Correct getBuffStacks method to return the stacks at the given timestamp', Earosselot),

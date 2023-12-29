@@ -495,7 +495,7 @@ const aplCheck = (apl: Apl) =>
                   result.abilityState[spell.id] !== undefined &&
                   !result.abilityState[spell.id].isAvailable,
               ) &&
-              process.env.NODE_ENV === 'development'
+              import.meta.env.DEV
             ) {
               console.warn(
                 'inconsistent ability state in APL checker:',
