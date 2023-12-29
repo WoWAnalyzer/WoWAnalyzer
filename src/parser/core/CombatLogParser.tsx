@@ -106,6 +106,7 @@ import UsurpedFromBeyond from 'parser/retail/modules/items/dragonflight/UsurpedF
 import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/VoiceOfTheSilentStar';
 import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/AmalgamsSeventhSpine';
 import ElementalLariat from 'parser/retail/modules/items/dragonflight/ElementalLariat';
+import ForcedDowntime from 'parser/shared/normalizers/ForcedDowntime/ForcedDowntime';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -155,6 +156,7 @@ class CombatLogParser {
     // Normalizers
     applyBuffNormalizer: ApplyBuffNormalizer,
     cancelledCastsNormalizer: CancelledCastsNormalizer,
+    forcedDowntime: ForcedDowntime,
     prepullNormalizer: PrePullCooldownsNormalizer,
     phaseChangesNormalizer: PhaseChangesNormalizer,
     missingCastsNormalize: MissingCastsNormalizer,
