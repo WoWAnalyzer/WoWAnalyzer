@@ -1,7 +1,7 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`ConditionDescription should return a description for a rule with a condition 1`] = `
-Array [
+exports[`ConditionDescription > should return a description for a rule with a condition 1`] = `
+[
   " ",
   "because",
   " ",

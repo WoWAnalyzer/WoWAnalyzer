@@ -3,7 +3,7 @@ import AlertWarning from 'interface/AlertWarning';
 import ReportIcon from 'interface/icons/Events';
 import GuildIcon from 'interface/icons/People';
 import CharacterIcon from 'interface/icons/Person';
-import { ReactComponent as Logo } from 'interface/images/logo.svg';
+import Logo from 'interface/images/logo.svg?react';
 import NameSearch, { SearchType } from 'interface/NameSearch';
 import { getReportHistory } from 'interface/selectors/reportHistory';
 import PropTypes from 'prop-types';

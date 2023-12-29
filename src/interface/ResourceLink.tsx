@@ -15,7 +15,7 @@ const ResourceLink = ({ icon = true, ...props }: Props) => {
   const { id, children, category = undefined, ...other } = props;
   const { resource: resourceTooltip } = useTooltip();
 
-  if (process.env.NODE_ENV === 'development' && !children && !RESOURCE_TYPES[id]) {
+  if (import.meta.env.DEV && !children && !RESOURCE_TYPES[id]) {
     throw new Error(`Unknown spell: ${id}`);
   }
 

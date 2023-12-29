@@ -64,7 +64,7 @@ const config: Config = {
       (exports) => exports.default,
     ),
   // The path to the current directory (relative form project root). This is used for generating a GitHub link directly to your spec's code.
-  path: __dirname,
+  path: import.meta.url,
 
   //Guide is NOT default while being developed and tested
   guideDefault: true,
