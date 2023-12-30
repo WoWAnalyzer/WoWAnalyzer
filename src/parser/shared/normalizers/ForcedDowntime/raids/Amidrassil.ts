@@ -7,6 +7,7 @@ export const amidrassil_downtime_specs: DowntimeSpec[] = [
     encounterId: Tindral.id,
     reason: 'Intermission',
     generateWindows: generatePhaseDowntimes({
+      // TODO either update phase generation keys to use this format, or change downtime spec to use numerical key
       downtimePhaseKey: 'I1',
     }),
   },
@@ -14,6 +15,7 @@ export const amidrassil_downtime_specs: DowntimeSpec[] = [
     encounterId: Tindral.id,
     reason: 'Intermission',
     generateWindows: generatePhaseDowntimes({
+      // TODO either update phase generation keys to use this format, or change downtime spec to use numerical key
       downtimePhaseKey: 'I2',
     }),
   },
