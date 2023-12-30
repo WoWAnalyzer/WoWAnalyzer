@@ -100,8 +100,8 @@
   "resolutions": {
     "@lingui/cli": "4.6.0",
     "@lingui/core": "4.6.0",
-    "@typescript-eslint/eslint-plugin": "^5.62.0",
-    "@typescript-eslint/parser": "^5.62.0",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
     "eslint-plugin-react": "^7.26.1",
     "prettier-plugin-tailwindcss": "0.1.7"
   },
