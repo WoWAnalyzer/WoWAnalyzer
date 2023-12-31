@@ -66,8 +66,7 @@ class LivingBomb extends Analyzer {
           to casting <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /> and it is overall considered a
           DPS loss. On AOE fights, you can get a very minor DPS increase from casting{' '}
           <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /> as filler if it will hit at least{' '}
-          {AOE_THRESHOLD}
-          targets.
+          {AOE_THRESHOLD} targets.
         </>,
       )
         .icon(TALENTS.LIVING_BOMB_TALENT.icon)
