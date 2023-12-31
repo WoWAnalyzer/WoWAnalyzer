@@ -6,7 +6,6 @@ import ShatteringStar from './modules/abilities/ShatteringStar';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
 import AplCheck from './modules/AplCheck';
-import EssenceTracker from '../preservation/modules/features/EssenceTracker';
 import EssenceGraph from './modules/guide/EssenceGraph/EssenceGraph';
 import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
@@ -33,13 +32,20 @@ import Iridescence from './modules/talents/Iridescence';
 import T31DevaTier from './modules/dragonflight/tier/T31DevaTier';
 
 // Shared
-import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
+import {
+  LeapingFlamesNormalizer,
+  LeapingFlames,
+  SpellEssenceCost,
+  EssenceTracker,
+} from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Shared
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
+    spellEssenceCost: SpellEssenceCost,
+    essenceTracker: EssenceTracker,
 
     // Core
     abilities: Abilities,
@@ -50,7 +56,6 @@ class CombatLogParser extends MainCombatLogParser {
     essenceBurstNormalizer: EssenceBurstNormalizer,
 
     // features
-    essenceTracker: EssenceTracker,
     essenceGraph: EssenceGraph,
     apls: AplCheck,
     cooldownThroughputTracker: CooldownThroughputTracker,

@@ -17,7 +17,6 @@ import HotRemovalNormalizer from './normalizers/HotRemovalNormalizer';
 
 import Checklist from 'analysis/retail/evoker/preservation/modules/features/Checklist/Module';
 import EssenceDetails from './modules/features/EssenceDetails';
-import EssenceTracker from './modules/features/EssenceTracker';
 import GracePeriod from './modules/talents/GracePeriod';
 import Reversion from './modules/talents/Reversion';
 import CallOfYsera from './modules/talents/CallOfYsera';
@@ -48,7 +47,12 @@ import RegenerativeMagic from '../shared/modules/talents/RegenerativeMagic';
 import AncientFlame from './modules/talents/AncientFlame';
 import T31PrevokerSet from './modules/dragonflight/tier/T31TierSet';
 import EchoTypeBreakdown from './modules/talents/EchoTypeBreakdown';
-import { LeapingFlamesNormalizer, LeapingFlames } from '../shared';
+import {
+  LeapingFlamesNormalizer,
+  LeapingFlames,
+  SpellEssenceCost,
+  EssenceTracker,
+} from '../shared';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -68,6 +72,7 @@ class CombatLogParser extends CoreCombatLogParser {
     //resources
     essenceTracker: EssenceTracker,
     essenceDetails: EssenceDetails,
+    spellEssenceCost: SpellEssenceCost,
     manaTracker: ManaTracker,
 
     //features
