@@ -109,7 +109,7 @@ const spells = {
     icon: 'ability_mage_livingbomb',
   },
   LIVING_BOMB_EXPLODE_DAMAGE: {
-    id: 244813,
+    id: 44461,
     name: 'Living Bomb',
     icon: 'ability_mage_livingbomb',
   },

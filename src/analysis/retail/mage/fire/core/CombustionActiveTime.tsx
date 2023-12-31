@@ -57,10 +57,10 @@ class CombustionActiveTime extends Analyzer {
     if (!buffApply) {
       return;
     }
-    this.activeTime[buffApply.timestamp] = this.alwaysBeCasting.getActiveTimePercentageInWindow(
-      buffApply.timestamp,
-      event.timestamp,
-    );
+    const combustDuration = event.timestamp - buffApply.timestamp;
+    this.activeTime[buffApply.timestamp] =
+      combustDuration -
+      this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(buffApply.timestamp, event.timestamp);
   }
 
   onFightEnd(event: FightEndEvent) {
@@ -71,28 +71,24 @@ class CombustionActiveTime extends Analyzer {
     if (!this.selectedCombatant.hasBuff(TALENTS.COMBUSTION_TALENT.id) || !buffApply) {
       return;
     }
-    this.activeTime[buffApply.timestamp] = this.alwaysBeCasting.getActiveTimePercentageInWindow(
-      buffApply.timestamp,
-      event.timestamp,
-    );
+    const combustDuration = event.timestamp - buffApply.timestamp;
+    this.activeTime[buffApply.timestamp] =
+      combustDuration -
+      this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(buffApply.timestamp, event.timestamp);
   }
 
-  combustionActiveTime = () => {
+  combustionDowntime = () => {
     let activeTime = 0;
     this.activeTime.forEach((c) => (activeTime += c));
-    return activeTime;
+    return activeTime / 1000;
   };
 
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(TALENTS.COMBUSTION_TALENT.id);
-  }
-
-  get downtimeSeconds() {
-    return (this.buffUptime - this.combustionActiveTime()) / 1000;
+    return this.selectedCombatant.getBuffUptime(TALENTS.COMBUSTION_TALENT.id) / 1000;
   }
 
   get percentActiveTime() {
-    return this.combustionActiveTime() / this.buffApplies;
+    return 1 - this.combustionDowntime() / this.buffUptime;
   }
 
   get combustionActiveTimeThresholds() {
@@ -111,8 +107,8 @@ class CombustionActiveTime extends Analyzer {
     when(this.combustionActiveTimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You spent {formatNumber(this.downtimeSeconds)}s (
-          {formatNumber(this.downtimeSeconds / this.buffApplies)}s average per{' '}
+          You spent {formatNumber(this.combustionDowntime())}s (
+          {formatNumber(this.combustionDowntime() / this.buffApplies)}s average per{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
           ), not casting anything while <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was active.
           Because a large portion of your damage comes from Combustion, you should ensure that you

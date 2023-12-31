@@ -128,12 +128,14 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
+    reverseLinkRelation: SPELL_CAST,
     linkingEventId: TALENTS.LIVING_BOMB_TALENT.id,
     linkingEventType: EventType.Cast,
     linkRelation: EXPLODE_DEBUFF,
     referencedEventId: SPELLS.LIVING_BOMB_EXPLODE_DEBUFF.id,
     referencedEventType: EventType.ApplyDebuff,
-    forwardBufferMs: 7_000,
+    anyTarget: true,
+    forwardBufferMs: 7000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
