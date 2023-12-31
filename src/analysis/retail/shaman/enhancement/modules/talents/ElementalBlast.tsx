@@ -281,9 +281,13 @@ class ElementalBlast extends BaseElementalBlast {
 
     if (cast.elementalSpiritsActive > 0) {
       return cast.maelstromUsed >= 8
-        ? QualitativePerformance.Perfect
+        ? cast.elementalSpiritsActive > 1
+          ? QualitativePerformance.Perfect
+          : QualitativePerformance.Good
         : cast.maelstromUsed >= 5
-        ? QualitativePerformance.Good
+        ? cast.elementalSpiritsActive > 1
+          ? QualitativePerformance.Good
+          : QualitativePerformance.Ok
         : QualitativePerformance.Fail;
     }
 
