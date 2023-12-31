@@ -232,7 +232,7 @@ class HotHand extends MajorCooldown<HotHandProc> {
   private explainTimelineWithDetails(cast: HotHandProc) {
     const checklistItem = {
       performance: QualitativePerformance.Perfect,
-      summary: <span>Spell order</span>,
+      summary: null,
       details: <span>Spell order: See below</span>,
       check: 'hothand-timeline',
       timestamp: cast.event.timestamp,

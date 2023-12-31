@@ -154,9 +154,13 @@ class ElementalBlast extends BaseElementalBlast {
   }
 
   getElementaBlastChargesPerformance(cast: ElementalBlastCastDetails) {
-    if (cast.chargesBeforeCast === 2 && cast.maelstromUsed >= 5) {
+    if (cast.maelstromUsed < 5) {
+      return QualitativePerformance.Fail;
+    }
+    if (cast.chargesBeforeCast === 2) {
       return QualitativePerformance.Perfect;
-    } else if (cast.maelstromUsed >= 8) {
+    }
+    if (cast.elementalSpiritsActive > 0) {
       return cast.elementalSpiritsActive >= 2
         ? QualitativePerformance.Perfect
         : cast.elementalSpiritsActive >= 1
@@ -223,7 +227,8 @@ class ElementalBlast extends BaseElementalBlast {
           <>
             {cast.chargesBeforeCast}{' '}
             {plural(cast.chargesBeforeCast, { one: 'charge', other: 'charges' })} of{' '}
-            <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} /> available
+            <SpellLink spell={TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT} />{' '}
+            {plural(cast.chargesBeforeCast, { one: 'was', other: 'were' })} available
           </>
         ),
         details: <></>,
