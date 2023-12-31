@@ -6,7 +6,6 @@ import ShatteringStar from './modules/abilities/ShatteringStar';
 import Buffs from './modules/Buffs';
 import Guide from './Guide';
 import AplCheck from './modules/AplCheck';
-import EssenceGraph from './modules/guide/EssenceGraph/EssenceGraph';
 import Disintegrate from './modules/abilities/Disintegrate';
 import EssenceBurst from './modules/abilities/EssenceBurst';
 import Burnout from './modules/abilities/Burnout';
@@ -37,6 +36,7 @@ import {
   LeapingFlames,
   SpellEssenceCost,
   EssenceTracker,
+  EssenceGraph,
 } from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
@@ -46,6 +46,7 @@ class CombatLogParser extends MainCombatLogParser {
     leapingFlames: LeapingFlames,
     spellEssenceCost: SpellEssenceCost,
     essenceTracker: EssenceTracker,
+    essenceGraph: EssenceGraph,
 
     // Core
     abilities: Abilities,
@@ -56,7 +57,6 @@ class CombatLogParser extends MainCombatLogParser {
     essenceBurstNormalizer: EssenceBurstNormalizer,
 
     // features
-    essenceGraph: EssenceGraph,
     apls: AplCheck,
     cooldownThroughputTracker: CooldownThroughputTracker,
 
