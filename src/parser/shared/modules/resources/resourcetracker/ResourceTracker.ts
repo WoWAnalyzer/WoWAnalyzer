@@ -132,6 +132,8 @@ export default class ResourceTracker extends Analyzer {
   /** The maximum amount of the resource.
    * This is only used as a starting value - it will be updated from event's classResources field. */
   maxResource!: number;
+  /** The amount of resources you start the fight with. */
+  initialResources = 0;
 
   /** Resource's base regeneration rate, in units per second. This is the value before haste.
    *  Leave as 0 for non-regenerating resources.
@@ -157,6 +159,15 @@ export default class ResourceTracker extends Analyzer {
    *  timestamp as a valid gain.
    */
   allowMultipleGainsInSameTimestamp = false;
+  /** Instead of calculating resource as rounded numbers, use decimal precision for granularity.
+   * This is needed for specs that have resource generation that isn't provided in whole numbers
+   * eg. Evoker's Essence */
+  useGranularity = false;
+  /** amount of decimals to use for granularity */
+  granularity = 2;
+  /** If true, will adjust the resource amount to account for any mismatch between the previous
+   *  update's current and the new current. */
+  adjustResourceMismatch = false;
   // END override values
 
   /** Data object for the whole fight - updated during analysis */
@@ -405,10 +416,42 @@ export default class ResourceTracker extends Analyzer {
       prevUpdate &&
       timestamp <= prevUpdate.timestamp + MULTI_UPDATE_BUFFER_MS;
     const beforeAmount =
-      reportedBeforeAmount !== undefined && !withinMultiUpdateBuffer
+      reportedBeforeAmount !== undefined && !withinMultiUpdateBuffer && !this.useGranularity
         ? reportedBeforeAmount
         : calculatedBeforeAmount;
     const current = Math.max(Math.min(max, beforeAmount + change), 0); // current is the after amount
+
+    /** There may be a discrepancy between the previous update's current value and
+     * the new current value due to the time elapsed since the last resource generation calculation.
+     * This discrepancy can cause issues when plotting the resource graph.
+     *
+     * For instance, if prevUpdate.current = 100,
+     * and beforeAmount = 110 with a change of -105,
+     *
+     * Ideally, the plot should show: 100 -> 110 -> 5
+     * However, it displays: 100 -> 5, despite reporting a change of -105.
+     *
+     * To address this, we generate a new update using the beforeAmount as the current value.
+     */
+    if (
+      this.adjustResourceMismatch &&
+      prevUpdate &&
+      prevUpdate.current < beforeAmount &&
+      type === 'spend' &&
+      change < 0
+    ) {
+      this._logAndPushUpdate({
+        type: 'gain',
+        timestamp: timestamp - (timestamp - prevUpdate.timestamp) / 2,
+        change: beforeAmount - prevUpdate.current,
+        current: beforeAmount,
+        max,
+        rate: this.currentRegenRate,
+        rateWaste: 0,
+        changeWaste: 0,
+        atCap: false,
+      });
+    }
 
     // if our resource regenerates and the beforeAmount was capped,
     // then we were wasting resources due to natural regeneration
@@ -520,7 +563,7 @@ export default class ResourceTracker extends Analyzer {
     const lastUpdate = this.resourceUpdates.at(-1);
     if (!lastUpdate) {
       // there have been no updates so far, return a default
-      return 0; // TODO make some resources default to max?
+      return this.initialResources;
     }
     if (lastUpdate.rate === 0) {
       // resource doesn't naturally regenerate, so return the last seen val
@@ -528,7 +571,10 @@ export default class ResourceTracker extends Analyzer {
     }
     // resource naturally regenerates, estimate current based on last seen val
     const timePassedSeconds = (this.owner.currentTimestamp - lastUpdate.timestamp) / 1000;
-    const naturalGain = Math.round(timePassedSeconds * lastUpdate.rate); // whole number amount of resources pls
+    const naturalGain = this.useGranularity
+      ? parseFloat((timePassedSeconds * lastUpdate.rate).toFixed(this.granularity))
+      : Math.round(timePassedSeconds * lastUpdate.rate); // whole number amount of resources pls
+
     return Math.min(lastUpdate.max, lastUpdate.current + naturalGain);
   }
 
