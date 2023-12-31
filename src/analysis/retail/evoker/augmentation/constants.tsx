@@ -79,9 +79,13 @@ export const ABILITY_BLACKLIST: number[] = [
   426486, // Denizen Of The Flame Final
   426339, // Igiras Cruel Nightmare
   426527, // Flaying Torment
+  426535, // Scorching Torment
+  426306, // Blazing Rage
   259756, // Entropic Embrace
+  426288, // Smolderon's Delusions of Grandeur
   427209, // Web of Dreams
   422956, // Essence Splice
+  427161, // Essence Splice
   424324, // Hungering Shadowflame
   419279, // Extinction Blast
   215444, // Dark Blast
@@ -97,4 +101,12 @@ export const ABILITY_BLACKLIST: number[] = [
   215407, // Dark Blast
   270827, // Webweavers Soul Gem
   213785, // Nightfall
+  425509, // Severed Embers (Branch of the Tormented Ancient)
+  414532, // Mark of Fyr'alath (Fyr'alath the Dreamrender)
+  417134, // Rage of Fyr'alath (Fyr'alath the Dreamrender)
+  413584, // Explosive Rage (Fyr'alath the Dreamrender)
+  424094, // Rage of Fyr'alath (Fyr'alath the Dreamrender)
+  386301, // Completely Safe Rocket
+  243991, // Blazefury Medallion
+  426297, // Bramble Barrier
 ];

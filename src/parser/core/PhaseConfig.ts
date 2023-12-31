@@ -61,4 +61,5 @@ export default interface PhaseConfig {
   filter?: PhaseFilter;
   multiple?: boolean;
   instance?: number;
+  intermission?: boolean;
 }

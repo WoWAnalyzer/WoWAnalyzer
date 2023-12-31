@@ -8,6 +8,7 @@ import Events, { CastEvent } from 'parser/core/Events';
 import Abilities from 'parser/core/modules/Abilities';
 import { NumberThreshold, ThresholdStyle, When } from 'parser/core/ParseResults';
 import SpellUsable from 'parser/shared/modules/SpellUsable';
+import { Fragment } from 'react';
 
 const ALLOWED_CASTS_DURING_DRW = [
   TALENTS.DEATH_STRIKE_TALENT.id,
@@ -73,8 +74,7 @@ class DancingRuneWeapon extends Analyzer {
       return (
         <>
           <Trans id="deathknight.blood.drw.spellLinks.consumption">
-            and (if in AoE)
-            <SpellLink spell={spellId} />
+            and (if in AoE) <SpellLink spell={spellId} />
           </Trans>
         </>
       );
@@ -82,7 +82,7 @@ class DancingRuneWeapon extends Analyzer {
       return (
         <>
           <Trans id="deathknight.blood.drw.spellLinks.last">
-            <SpellLink spell={spellId} />{' '}
+            <SpellLink spell={spellId} />
           </Trans>
         </>
       );
@@ -90,7 +90,7 @@ class DancingRuneWeapon extends Analyzer {
       return (
         <>
           <Trans id="deathknight.blood.drw.spellLinks.default">
-            <SpellLink spell={spellId} />,{' '}
+            <SpellLink spell={spellId} />,
           </Trans>
         </>
       );
@@ -100,10 +100,10 @@ class DancingRuneWeapon extends Analyzer {
   get goodDRWSpells() {
     return (
       <div>
-        <Trans id="deathknight.blood.drw.suggestion.goodDrwSpells">
-          Try and prioritize{' '}
-          {ALLOWED_CASTS_DURING_DRW.map((id, index) => this.spellLinks(id, index))}
-        </Trans>
+        <Trans id="deathknight.blood.drw.suggestion.goodDrwSpells">Try and prioritize{'  '}</Trans>
+        {ALLOWED_CASTS_DURING_DRW.map((id, index) => (
+          <Fragment key={id}> {this.spellLinks(id, index)}</Fragment>
+        ))}
       </div>
     );
   }

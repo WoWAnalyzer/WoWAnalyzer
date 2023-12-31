@@ -55,7 +55,7 @@ class RendAnalyzer extends EarlyDotRefreshesCore {
         .icon(TALENTS.REND_ARMS_TALENT.icon)
         .actual(
           defineMessage({
-            id: 'shared.suggestions.dots.badRefreshes',
+            id: 'shared.suggestions.dots.badRendRefreshes',
             message: `${formatPercentage(actual)}% of good Rend refreshes.`,
           }),
         )

@@ -881,6 +881,12 @@ const spells = {
     name: 'Primordial Power',
     icon: 'inv_relics_totemofrage',
   },
+  // Tier 31, 2P
+  BLACKOUT_REINFORCEMENT: {
+    id: 424454,
+    name: 'Blackout Reinforcement',
+    icon: 'inv_boots_cloth_19',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

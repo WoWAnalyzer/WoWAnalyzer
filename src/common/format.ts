@@ -76,7 +76,7 @@ export function formatDurationMillisMinSec(duration: number, precision: number =
   const seconds = Number(rest) < 10 ? `${rest}` : rest;
 
   if (minutes !== 0) {
-    return `${neg}${minutes}m ${seconds}`;
+    return `${neg}${minutes}m ${seconds}s`;
   }
   return `${neg}${seconds}s`;
 }

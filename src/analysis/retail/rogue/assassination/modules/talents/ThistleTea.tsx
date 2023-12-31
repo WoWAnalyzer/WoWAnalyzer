@@ -10,7 +10,7 @@ import { QualitativePerformance } from 'parser/ui/QualitativePerformance';
 import ResourceLink from 'interface/ResourceLink';
 import SpellLink from 'interface/SpellLink';
 import { RoundedPanel, SideBySidePanels } from 'interface/guide/components/GuideDivs';
-import HideGoodCastsSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
+import ContextualSpellUsageSubSection from 'parser/core/SpellUsage/HideGoodCastsSpellUsageSubSection';
 
 export default class ThistleTea extends Analyzer {
   static dependencies = {
@@ -45,7 +45,7 @@ export default class ThistleTea extends Analyzer {
     );
 
     return (
-      <HideGoodCastsSpellUsageSubSection
+      <ContextualSpellUsageSubSection
         explanation={explanation}
         uses={this.cooldownUses}
         abovePerformanceDetails={

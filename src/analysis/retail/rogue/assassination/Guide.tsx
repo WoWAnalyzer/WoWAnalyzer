@@ -12,6 +12,11 @@ import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import CombatLogParser from './CombatLogParser';
 import CooldownGraphSubsection from './guide/CooldownGraphSubsection';
 import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import { getTargetComboPoints } from 'analysis/retail/rogue/assassination/constants';
+import {
+  ExperimentalKingsbaneContextProvider,
+  ExperimentalKingsbaneToggle,
+} from 'analysis/retail/rogue/assassination/guide/ExperimentalKingsbaneContext';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -24,7 +29,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
-function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
+function ResourceUsageSection({ info, modules }: GuideProps<typeof CombatLogParser>) {
   const percentAtCap = modules.energyTracker.percentAtCap;
   const energyWasted = modules.energyTracker.wasted;
 
@@ -52,7 +57,7 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
         <p>
           Most of your abilities either <strong>build</strong> or <strong>spend</strong>{' '}
           <ResourceLink id={RESOURCE_TYPES.COMBO_POINTS.id} />. Never use a builder at max CPs, and
-          always wait until max CPs to use a spender.
+          always wait until {getTargetComboPoints(info.combatant)}+ CPs to use a spender.
         </p>
         <SideBySidePanels>
           <RoundedPanel>{modules.builderUse.chart}</RoundedPanel>
@@ -82,11 +87,12 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
       </p>
       <HideExplanationsToggle id="hide-explanations-rotation" />
       <HideGoodCastsToggle id="hide-good-casts-rotation" />
+      {modules.mutilate.guideSubsection}
+      {modules.garroteUptimeAndSnapshots.guideSubsection}
       {modules.ruptureUptimeAndSnapshots.guideSubsection}
       {modules.envenom.guideSubsection}
       {info.combatant.hasTalent(TALENTS.CRIMSON_TEMPEST_TALENT) &&
         modules.crimsonTempestUptimeAndSnapshots.guideSubsection}
-      {modules.garroteUptimeAndSnapshots.guideSubsection}
       {info.combatant.hasTalent(TALENTS.THISTLE_TEA_TALENT) && modules.thistleTea.guideSubsection}
       {modules.hitCountAoe.guideSubsection}
     </Section>
@@ -95,19 +101,23 @@ function CoreRotationSection({ modules, info }: GuideProps<typeof CombatLogParse
 
 function CooldownSection({ info, modules }: GuideProps<typeof CombatLogParser>) {
   return (
-    <Section title="Cooldowns">
-      <p>
-        Assassination's cooldowns are decently powerful but should not be held on to for long. In
-        order to maximize usages over the course of an encounter, you should aim to send the
-        cooldown as soon as it becomes available (as long as it can do damage on target). It is
-        particularly important to use <SpellLink spell={SPELLS.VANISH} /> as often as possible.
-      </p>
-      <HideExplanationsToggle id="hide-explanations-rotation" />
-      <HideGoodCastsToggle id="hide-good-casts-rotation" />
-      <CooldownGraphSubsection />
-      {info.combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
-        <CooldownUsage analyzer={modules.sepsis} />
-      )}
-    </Section>
+    <ExperimentalKingsbaneContextProvider>
+      <Section title="Cooldowns">
+        <p>
+          Assassination's cooldowns are decently powerful but should not be held on to for long. In
+          order to maximize usages over the course of an encounter, you should aim to send the
+          cooldown as soon as it becomes available (as long as it can do damage on target). It is
+          particularly important to use <SpellLink spell={SPELLS.VANISH} /> as often as possible.
+        </p>
+        <HideExplanationsToggle id="hide-explanations-rotation" />
+        <HideGoodCastsToggle id="hide-good-casts-rotation" />
+        <ExperimentalKingsbaneToggle />
+        <CooldownGraphSubsection />
+        {info.combatant.hasTalent(TALENTS.SEPSIS_TALENT) && (
+          <CooldownUsage analyzer={modules.sepsis} />
+        )}
+        {info.combatant.hasTalent(TALENTS.KINGSBANE_TALENT) && modules.kingsbane.guideSubsection}
+      </Section>
+    </ExperimentalKingsbaneContextProvider>
   );
 }

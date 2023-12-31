@@ -369,6 +369,11 @@ const spells = {
     name: 'Twist of Fate',
     icon: 'spell_shadow_mindtwisting',
   },
+  SCHISM_DEBUFF: {
+    id: 214621,
+    name: 'Schism',
+    icon: 'spell_warlock_focusshadow',
+  },
   ESTEL_DEJAHNAS_INSPIRATION_BUFF: {
     id: 214637,
     name: "Dejahna's Inspiration",

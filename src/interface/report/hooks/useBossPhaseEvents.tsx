@@ -25,6 +25,8 @@ const buildWclPhaseConfigs = (
     return undefined;
   }
 
+  const intermissions = bossPhases.intermissions ? new Set(bossPhases.intermissions) : new Set();
+
   const phaseConfigs: Record<string, PhaseConfig> = {};
 
   for (const { id } of fight.phases) {
@@ -37,6 +39,7 @@ const buildWclPhaseConfigs = (
       key: String(id),
       name: bossPhases.phases[id - 1],
       difficulties: [fight.difficulty ?? 1],
+      intermission: intermissions.has(id),
     };
   }
 
@@ -52,22 +55,36 @@ const buildWclPhaseEvents = (
   phaseConfigs: Record<string, PhaseConfig>,
   fight: WCLFight,
 ): PhaseEvent[] | undefined => {
-  return fight.phases?.flatMap(({ id, startTime }, index, phases) => [
-    {
-      __fabricated: true,
-      type: EventType.PhaseStart,
-      timestamp: startTime,
-      phase: phaseConfigs[id],
-      instance: index,
-    },
-    {
-      __fabricated: true,
-      type: EventType.PhaseEnd,
-      timestamp: phases[index + 1]?.startTime ?? fight.end_time,
-      phase: phaseConfigs[id],
-      instance: index,
-    },
-  ]);
+  const instanceIndices: Record<number, number> = {};
+
+  const instanceIndex = (id: number) => {
+    if (!instanceIndices[id]) {
+      instanceIndices[id] = 0;
+    }
+
+    instanceIndices[id] += 1;
+    return instanceIndices[id];
+  };
+
+  return fight.phases?.flatMap(({ id, startTime }, index, phases) => {
+    const instance = instanceIndex(id);
+    return [
+      {
+        __fabricated: true,
+        type: EventType.PhaseStart,
+        timestamp: startTime,
+        phase: phaseConfigs[id],
+        instance,
+      },
+      {
+        __fabricated: true,
+        type: EventType.PhaseEnd,
+        timestamp: phases[index + 1]?.startTime ?? fight.end_time,
+        phase: phaseConfigs[id],
+        instance,
+      },
+    ];
+  });
 };
 
 const useBossPhaseEvents = ({ report, fight }: { report: Report; fight: WCLFight }) => {
