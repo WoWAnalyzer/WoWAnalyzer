@@ -24,6 +24,7 @@ export const CAST_BEGIN = 'CastBegin';
 export const SPELL_CAST = 'SpellCast';
 export const PRE_CAST = 'PreCast';
 export const SPELL_DAMAGE = 'SpellDamage';
+export const EXPLODE_DEBUFF = 'ExplosionDebuff';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -124,6 +125,15 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.RemoveBuff,
     maximumLinks: 1,
     forwardBufferMs: 600_000, //If you manage your charges, you can keep the buff up pretty much the whole fight, so 10min just in case.
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    linkingEventId: TALENTS.LIVING_BOMB_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: EXPLODE_DEBUFF,
+    referencedEventId: SPELLS.LIVING_BOMB_EXPLODE_DEBUFF.id,
+    referencedEventType: EventType.ApplyDebuff,
+    forwardBufferMs: 7_000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {

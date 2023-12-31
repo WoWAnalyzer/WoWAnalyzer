@@ -103,6 +103,21 @@ const spells = {
     name: 'Improved Scorch',
     icon: 'ability_mage_fierypayback',
   },
+  LIVING_BOMB_TICK_DAMAGE: {
+    id: 217694,
+    name: 'Living Bomb',
+    icon: 'ability_mage_livingbomb',
+  },
+  LIVING_BOMB_EXPLODE_DAMAGE: {
+    id: 244813,
+    name: 'Living Bomb',
+    icon: 'ability_mage_livingbomb',
+  },
+  LIVING_BOMB_EXPLODE_DEBUFF: {
+    id: 244813,
+    name: 'Living Bomb',
+    icon: 'ability_mage_livingbomb',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;

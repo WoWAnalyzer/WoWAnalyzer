@@ -88,7 +88,7 @@ class CombustionActiveTime extends Analyzer {
   }
 
   get downtimeSeconds() {
-    return this.buffUptime - this.combustionActiveTime();
+    return (this.buffUptime - this.combustionActiveTime()) / 1000;
   }
 
   get percentActiveTime() {
@@ -111,8 +111,8 @@ class CombustionActiveTime extends Analyzer {
     when(this.combustionActiveTimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You spent {formatNumber(this.downtimeSeconds)} (
-          {formatNumber(this.downtimeSeconds / this.buffApplies)} average per{' '}
+          You spent {formatNumber(this.downtimeSeconds)}s (
+          {formatNumber(this.downtimeSeconds / this.buffApplies)}s average per{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} />
           ), not casting anything while <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> was active.
           Because a large portion of your damage comes from Combustion, you should ensure that you
