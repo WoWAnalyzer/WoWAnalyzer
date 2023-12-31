@@ -35,13 +35,22 @@ import EbonMightNormalizer from './modules/normalizers/EbonMightNormalizer';
 import T31Augmentation4P from './modules/dragonflight/T31Augmentation4P';
 
 //Shared
-import { LeapingFlamesNormalizer, LeapingFlames } from 'analysis/retail/evoker/shared';
+import {
+  LeapingFlamesNormalizer,
+  LeapingFlames,
+  SpellEssenceCost,
+  EssenceTracker,
+  EssenceGraph,
+} from 'analysis/retail/evoker/shared';
 
 class CombatLogParser extends MainCombatLogParser {
   static specModules = {
     // Shared
     leapingFlamesNormalizer: LeapingFlamesNormalizer,
     leapingFlames: LeapingFlames,
+    spellEssenceCost: SpellEssenceCost,
+    essenceTracker: EssenceTracker,
+    essenceGraph: EssenceGraph,
 
     // Normalizers
     castLinkNormalizer: CastLinkNormalizer,
