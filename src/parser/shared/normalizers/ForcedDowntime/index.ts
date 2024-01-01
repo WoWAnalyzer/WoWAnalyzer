@@ -6,9 +6,9 @@ import {
   ForcedDowntimeStartEvent,
 } from 'parser/core/Events';
 import { amidrassil_downtime_specs } from 'parser/shared/normalizers/ForcedDowntime/raids/Amidrassil';
-import { Difficulty } from 'game/DIFFICULTIES';
 import { vault_of_the_incarnates_downtime_specs } from 'parser/shared/normalizers/ForcedDowntime/raids/VaultOfTheIncarnates';
 import { aberrus_downtime_specs } from 'parser/shared/normalizers/ForcedDowntime/raids/Aberrus';
+import ROLES from 'game/ROLES';
 
 /**
  * Base interface for defining the boundaries of a forced downtime period.
@@ -28,10 +28,11 @@ export interface DowntimeSpec {
   applicableRoles?: 'DamageOnly' | 'HealingOnly';
   /**
    * What difficulties this downtime applies to. If omitted, this spec applies to all difficulties.
+   * Get keys from DIFFICULTIES enum.
    * This field may be used for some fights that have differing phase transition behavior on different difficulties,
    * for example there is not between phase downtime in Forgotten Experiments Mythic, but there is on other difficulties.
    */
-  applicableDifficulties?: Difficulty[];
+  applicableDifficulties?: number[];
   /** Human readable reason for the downtime (modules may display this to the user) */
   reason: string;
   /** Function that generates downtime windows with the given reason based on the event stream */
@@ -63,14 +64,34 @@ const DOWNTIME_SPECS: DowntimeSpec[] = [
  * This normalizer merely fabricates the events, it is up to other modules to consume them and change output based on them.
  */
 export default class ForcedDowntime extends EventsNormalizer {
+  /** Generated forced downtime windows will be added here for modules that would prefer
+   *  to post-process handle them instead of listening for events */
+  downtimeWindows: DowntimeWindow[] = [];
+
   normalize(events: AnyEvent[]): AnyEvent[] {
+    const role = this.selectedCombatant.spec?.role;
+
+    // generate downtime windows
+    const downtimeWindows = DOWNTIME_SPECS.filter((s) => s.encounterId === this.owner.boss?.id)
+      .filter(
+        (s) =>
+          this.owner.fight?.difficulty === undefined ||
+          s.applicableDifficulties === undefined ||
+          s.applicableDifficulties.find((n) => n === this.owner.fight.difficulty) !== undefined,
+      )
+      .filter(
+        (s) =>
+          s.applicableRoles === undefined ||
+          role === undefined ||
+          ((role === ROLES.DPS.MELEE || role === ROLES.DPS.RANGED) &&
+            s.applicableRoles === 'DamageOnly') ||
+          (role === ROLES.HEALER && s.applicableRoles === 'HealingOnly'),
+      )
+      .flatMap((s) => s.generateWindows(events, s.reason));
+    this.downtimeWindows = downtimeWindows;
+
     // generate all relevant downtime events and sort them in ascending timestamp order
-    const sortedDowntimeEvents: AnyEvent[] = DOWNTIME_SPECS.filter(
-      (s) => s.encounterId === this.owner.boss?.id,
-    )
-      // TODO filter on applicableRoles
-      // TODO filter on applicableDifficulties
-      .flatMap((s) => s.generateWindows(events, s.reason))
+    const sortedDowntimeEvents: AnyEvent[] = downtimeWindows
       .flatMap((w) => {
         const windowStartEvent = _fabricateForcedDowntimeStartEvent(w.start, w.reason);
         const windowEndEvent = _fabricateForcedDowntimeEndEvent(w.end, windowStartEvent);
