@@ -510,6 +510,17 @@ class EventsTab extends Component {
                           </>
                         );
                       }
+                      if (
+                        rowData.type === EventType.PhaseStart ||
+                        rowData.type === EventType.PhaseEnd
+                      ) {
+                        return (
+                          <>
+                            <strong>{rowData.phase.key}</strong>
+                            {rowData.phase.name && <> - "{rowData.phase.name}"</>}
+                          </>
+                        );
+                      }
                       return null;
                     }}
                     disableSort
