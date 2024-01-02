@@ -1,7 +1,6 @@
 import { formatMilliseconds } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import CLASSIC_SPELLS from 'common/SPELLS/classic';
-import SHADOWLANDS_SPELLS from 'common/SPELLS/shadowlands/others';
 import ITEMS from 'common/ITEMS';
 import RACES from 'game/RACES';
 import SPECS, { isRetailSpec, specMasteryCoefficient } from 'game/SPECS';
@@ -63,8 +62,6 @@ class StatTracker extends Analyzer {
     // endregion
 
     // region Runes
-    [SHADOWLANDS_SPELLS.VEILED_AUGMENT_RUNE.id]: primaryStat(18),
-    [SHADOWLANDS_SPELLS.ETERNAL_AUGMENT_RUNE.id]: primaryStat(18),
     [SPELLS.DRACONIC_AUGMENT_RUNE.id]: primaryStat(87),
     // endregion
 
