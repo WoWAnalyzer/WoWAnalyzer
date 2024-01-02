@@ -32,6 +32,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 1, 2), 'Add patch 10.2.5.', ToppleTheNun),
   change(date(2023, 12, 30), 'Fix errors caused by ESLint update.', ToppleTheNun),
   change(date(2023, 12, 28), 'Improve internal handling of phases', emallson),
   change(date(2023, 12, 21), <>Mark <ItemLink id={ITEMS.ENCHANT_WEAPON_DREAMING_DEVOTION_R3.id} /> as a max rank enchant.</>, ToppleTheNun),
