@@ -11,6 +11,9 @@ import { useEffect, useMemo, useState } from 'react';
 
 import BossPhasesState from '../BOSS_PHASES_STATE';
 
+/**
+ * Builds WoWA PhaseConfigs from WCL data, if the data is present
+ */
 const buildWclPhaseConfigs = (
   report: Report,
   fight: WCLFight,
@@ -19,27 +22,47 @@ const buildWclPhaseConfigs = (
     return undefined;
   }
 
+  // report contains information about the bosses phases
   const bossPhases = report.phases.find(({ boss }) => boss === fight.boss);
-
   if (!bossPhases) {
     return undefined;
   }
 
+  // phase indexes which are intermissions
   const intermissions = bossPhases.intermissions ? new Set(bossPhases.intermissions) : new Set();
+  // phase names, but 0-indexed (key with id - 1)
+  const names = bossPhases.phases;
+
+  let nextPhaseNum = 1;
+  let nextIntermissionNum = 1;
 
   const phaseConfigs: Record<string, PhaseConfig> = {};
-
   for (const { id } of fight.phases) {
     if (phaseConfigs[id]) {
+      // we've already seen this phase
       phaseConfigs[id].multiple = true;
       continue;
     }
 
+    /*
+     * In order to make more descriptive phase keys, we will key them with separate counts for Phase and Intermission,
+     * for example "P1", "I1", "P2", etc.
+     */
+    const isIntermission = intermissions.has(id);
+    let key;
+    if (isIntermission) {
+      key = 'I' + String(nextIntermissionNum);
+      nextIntermissionNum += 1;
+    } else {
+      key = 'P' + String(nextPhaseNum);
+      nextPhaseNum += 1;
+    }
+
     phaseConfigs[id] = {
-      key: String(id),
-      name: bossPhases.phases[id - 1],
+      key,
+      name: names[id - 1],
       difficulties: [fight.difficulty ?? 1],
-      intermission: intermissions.has(id),
+      intermission: isIntermission,
     };
   }
 
@@ -56,7 +79,6 @@ const buildWclPhaseEvents = (
   fight: WCLFight,
 ): PhaseEvent[] | undefined => {
   const instanceIndices: Record<number, number> = {};
-
   const instanceIndex = (id: number) => {
     if (!instanceIndices[id]) {
       instanceIndices[id] = 0;
