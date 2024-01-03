@@ -70,6 +70,10 @@ class RegrowthAndClearcasting extends Analyzer {
       this.onApplyClearcast,
     );
     this.addEventListener(
+      Events.applybuffstack.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
+      this.onApplyClearcast,
+    );
+    this.addEventListener(
       Events.refreshbuff.by(SELECTED_PLAYER).spell(SPELLS.CLEARCASTING_BUFF),
       this.onRefreshClearcast,
     );
