@@ -2,9 +2,11 @@ import { useInfo } from 'interface/guide';
 import TALENTS from 'common/TALENTS/demonhunter';
 import SpellLink from 'interface/SpellLink';
 import { formatPercentage } from 'common/format';
-import { ACCELERATING_BLADE_SCALING } from 'analysis/retail/demonhunter/havoc/constants';
 import Tooltip from 'interface/Tooltip';
 import InformationIcon from 'interface/icons/Information';
+
+export const SCALING_PER_TARGET_HIT = 0.3;
+export const INITIAL_HIT_SCALING = 0.6;
 
 export const AcceleratingBladeExplanation = () => {
   const info = useInfo();
@@ -12,17 +14,14 @@ export const AcceleratingBladeExplanation = () => {
     return null;
   }
 
-  const scaling =
-    ACCELERATING_BLADE_SCALING[info.combatant.getTalentRank(TALENTS.ACCELERATED_BLADE_TALENT)];
-  const perTargetScaling = 1 + scaling;
+  const primaryTargetScalingValue = 1 + INITIAL_HIT_SCALING;
+  const secondaryTargetScalingValue = primaryTargetScalingValue * (1 - SCALING_PER_TARGET_HIT);
+  const tertiaryTargetScalingValue = secondaryTargetScalingValue * (1 - SCALING_PER_TARGET_HIT);
 
   // multiplicative scaling
-  const primaryTargetScaling = formatPercentage(perTargetScaling, 0);
-  const secondaryTargetScaling = formatPercentage(perTargetScaling * perTargetScaling, 0);
-  const tertiaryTargetScaling = formatPercentage(
-    perTargetScaling * perTargetScaling * perTargetScaling,
-    0,
-  );
+  const primaryTargetScaling = formatPercentage(primaryTargetScalingValue, 0);
+  const secondaryTargetScaling = formatPercentage(secondaryTargetScalingValue, 0);
+  const tertiaryTargetScaling = formatPercentage(tertiaryTargetScalingValue, 0);
 
   return (
     <li>
