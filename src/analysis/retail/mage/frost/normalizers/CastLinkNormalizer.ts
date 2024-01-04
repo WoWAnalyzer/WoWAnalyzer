@@ -1,0 +1,125 @@
+import SPELLS from 'common/SPELLS';
+import TALENTS from 'common/TALENTS/mage';
+import EventLinkNormalizer, { EventLink } from 'parser/core/EventLinkNormalizer';
+import {
+  AbilityEvent,
+  BeginCastEvent,
+  RemoveBuffEvent,
+  CastEvent,
+  EventType,
+  GetRelatedEvents,
+  HasRelatedEvent,
+  HasTarget,
+} from 'parser/core/Events';
+import { Options } from 'parser/core/Module';
+import { encodeTargetString } from 'parser/shared/modules/Enemies';
+
+const CAST_BUFFER_MS = 75;
+
+export const BUFF_APPLY = 'BuffApply';
+export const BUFF_REMOVE = 'BuffRemove';
+export const BUFF_REFRESH = 'BuffRefresh';
+export const CAST_BEGIN = 'CastBegin';
+export const SPELL_CAST = 'SpellCast';
+export const PRE_CAST = 'PreCast';
+export const SPELL_DAMAGE = 'SpellDamage';
+export const CLEAVE_DAMAGE = 'CleaveDamage';
+export const EXPLODE_DEBUFF = 'ExplosionDebuff';
+
+const EVENT_LINKS: EventLink[] = [
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.GLACIAL_SPIKE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.GLACIAL_SPIKE_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      if (!linkingEvent || !referencedEvent) {
+        return false;
+      }
+      const castTarget =
+        HasTarget(linkingEvent) &&
+        encodeTargetString(linkingEvent.targetID, linkingEvent.targetInstance);
+      const damageTarget =
+        HasTarget(referencedEvent) &&
+        encodeTargetString(referencedEvent.targetID, referencedEvent.targetInstance);
+      return castTarget === damageTarget;
+    },
+    maximumLinks: 1,
+    forwardBufferMs: 3000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.GLACIAL_SPIKE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: CLEAVE_DAMAGE,
+    referencedEventId: SPELLS.GLACIAL_SPIKE_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      if (!linkingEvent || !referencedEvent) {
+        return false;
+      }
+      const castTarget =
+        HasTarget(linkingEvent) &&
+        encodeTargetString(linkingEvent.targetID, linkingEvent.targetInstance);
+      const damageTarget =
+        HasTarget(referencedEvent) &&
+        encodeTargetString(referencedEvent.targetID, referencedEvent.targetInstance);
+      return castTarget !== damageTarget;
+    },
+    maximumLinks: 1,
+    forwardBufferMs: 3000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+];
+
+/**
+ * When a spell is cast on a target, the ordering of the Cast and ApplyBuff/RefreshBuff/(direct)Heal
+ * can be semi-arbitrary, making analysis difficult.
+ *
+ * This normalizer adds a _linkedEvent to the ApplyBuff/RefreshBuff/Heal linking back to the Cast event
+ * that caused it (if one can be found).
+ *
+ * This normalizer adds links for the buffs Rejuvenation, Regrowth, Wild Growth, Lifebloom,
+ * and for the direct heals of Swiftmend and Regrowth, and the self buff from Flourish.
+ * A special link key is used when the HoTs were applied by an Overgrowth cast instead of a normal hardcast.
+ */
+class CastLinkNormalizer extends EventLinkNormalizer {
+  constructor(options: Options) {
+    super(options, EVENT_LINKS);
+  }
+}
+
+/** Returns true iff the given buff application or heal can be matched back to a hardcast */
+export function isFromHardcast(event: AbilityEvent<any>): boolean {
+  return HasRelatedEvent(event, SPELL_CAST);
+}
+
+export function isInstantCast(event: CastEvent): boolean {
+  const beginCast = GetRelatedEvents<BeginCastEvent>(event, CAST_BEGIN)[0];
+  return !beginCast || event.timestamp - beginCast.timestamp <= CAST_BUFFER_MS;
+}
+
+export function hasPreCast(event: AbilityEvent<any>): boolean {
+  return HasRelatedEvent(event, PRE_CAST);
+}
+
+/** Returns the hardcast event that caused this buff or heal, if there is one */
+export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
+  return GetRelatedEvents<CastEvent>(
+    event,
+    SPELL_CAST,
+    (e): e is CastEvent => e.type === EventType.Cast,
+  ).pop();
+}
+
+export function isProcExpired(event: RemoveBuffEvent, spenderId: number): boolean {
+  const cast = GetRelatedEvents<CastEvent>(event, SPELL_CAST)[0];
+  return !cast || cast.ability.guid !== spenderId;
+}
+
+export default CastLinkNormalizer;

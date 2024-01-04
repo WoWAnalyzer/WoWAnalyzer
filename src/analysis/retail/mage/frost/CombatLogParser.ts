@@ -42,6 +42,7 @@ import ThermalVoid from './talents/ThermalVoid';
 
 //Normalizers
 import CometStormLinkNormalizer from './normalizers/CometStormLinkNormalizer';
+import CastLinkNormalizer from './normalizers/CastLinkNormalizer';
 
 class CombatLogParser extends CoreCombatLogParser {
   static specModules = {
@@ -50,6 +51,7 @@ class CombatLogParser extends CoreCombatLogParser {
 
     //Normalizers
     cometStormLinkNormalizer: CometStormLinkNormalizer,
+    castLinkNormalizer: CastLinkNormalizer,
 
     //Core
     abilities: Abilities,
