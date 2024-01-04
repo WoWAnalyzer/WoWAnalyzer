@@ -10,34 +10,9 @@ import ItemPercentHealingDone from 'parser/ui/ItemPercentHealingDone';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 import Statistic from 'parser/ui/Statistic';
+import { calculateEffectScaling, calculateSecondaryStatDefault } from 'parser/core/stats';
 
 const ECHOING_TYRSTONE_COOLDOWN = 120000; // 120sec
-
-// Need a better way to do this. The calculateSecondaryStat functions don't seem to line up
-const HEALS_BY_ILVL: { [key: number]: EchoingTyrstoneStats } = {
-  421: { heal: 181431, haste: 179 },
-  424: { heal: 189728, haste: 184 },
-  428: { heal: 201297, haste: 191 },
-  431: { heal: 210370, haste: 197 },
-  434: { heal: 219795, haste: 202 },
-  437: { heal: 229585, haste: 208 },
-  441: { heal: 243230, haste: 216 },
-  444: { heal: 253925, haste: 222 },
-  447: { heal: 265031, haste: 228 },
-  450: { heal: 276562, haste: 235 },
-  454: { heal: 292625, haste: 243 },
-  457: { heal: 305208, haste: 250 },
-  460: { heal: 318273, haste: 257 },
-  463: { heal: 331829, haste: 265 },
-  467: { heal: 350708, haste: 275 },
-  470: { heal: 365491, haste: 283 },
-  473: { heal: 380829, haste: 291 },
-  476: { heal: 396746, haste: 299 },
-  480: { heal: 418896, haste: 310 },
-  483: { heal: 436236, haste: 319 },
-  486: { heal: 454222, haste: 328 },
-  489: { heal: 472877, haste: 337 },
-};
 
 class EchoingTyrstone extends Analyzer {
   healAmount: number = 0;
@@ -58,8 +33,8 @@ class EchoingTyrstone extends Analyzer {
     }
     const itemLevel = this.trinket?.itemLevel || 421;
 
-    this.maxStored = HEALS_BY_ILVL[itemLevel].heal;
-    this.hasteValue = HEALS_BY_ILVL[itemLevel].haste;
+    this.maxStored = calculateEffectScaling(437, 229585, itemLevel);
+    this.hasteValue = calculateSecondaryStatDefault(437, 225, itemLevel);
 
     this.addEventListener(Events.heal.by(SELECTED_PLAYER), this.onHeal);
 
@@ -211,9 +186,4 @@ interface EchoingTyrstoneUse {
   timestamp: number;
   /** Heal stored during use */
   heal: number;
-}
-
-interface EchoingTyrstoneStats {
-  heal: number;
-  haste: number;
 }
