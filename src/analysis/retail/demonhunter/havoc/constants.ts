@@ -22,6 +22,4 @@ export const GROWING_INFERNO_SCALING = [0, 0.08, 0.15];
 
 export const BURNING_WOUND_SCALING = [0, 0.4];
 
-export const ACCELERATING_BLADE_SCALING = [0, 0.2];
-
 export const MOMENTUM_SCALING = [0, 0.08];
