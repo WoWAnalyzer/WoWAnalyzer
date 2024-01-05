@@ -75,6 +75,28 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 3000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    reverseLinkRelation: BUFF_APPLY,
+    linkingEventId: SPELLS.BRAIN_FREEZE_BUFF.id,
+    linkingEventType: EventType.ApplyBuff,
+    linkRelation: BUFF_REMOVE,
+    referencedEventId: SPELLS.BRAIN_FREEZE_BUFF.id,
+    referencedEventType: EventType.RemoveBuff,
+    maximumLinks: 1,
+    forwardBufferMs: 17_000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.BRAIN_FREEZE_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: SPELL_CAST,
+    referencedEventId: TALENTS.FLURRY_TALENT.id,
+    referencedEventType: EventType.Cast,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**
