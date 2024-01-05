@@ -56,7 +56,7 @@ class Abilities extends CoreAbilities {
         gcd: {
           base: 1500,
         },
-        cooldown: 80,
+        cooldown: 60,
         enabled: combatant.hasTalent(TALENTS.RAY_OF_FROST_TALENT),
         castEfficiency: {
           suggestion: true,
