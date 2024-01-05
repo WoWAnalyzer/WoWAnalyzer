@@ -104,7 +104,6 @@ class WintersChill extends Analyzer {
   };
 
   get totalProcs() {
-    this.log(this.wintersChill);
     return this.wintersChill.length;
   }
 
