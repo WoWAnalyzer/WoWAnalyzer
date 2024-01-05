@@ -19,12 +19,13 @@ const CAST_BUFFER_MS = 75;
 export const BUFF_APPLY = 'BuffApply';
 export const BUFF_REMOVE = 'BuffRemove';
 export const BUFF_REFRESH = 'BuffRefresh';
+export const DEBUFF_APPLY = 'DebuffApply';
+export const DEBUFF_REMOVE = 'DebuffRemove';
 export const CAST_BEGIN = 'CastBegin';
 export const SPELL_CAST = 'SpellCast';
 export const PRE_CAST = 'PreCast';
 export const SPELL_DAMAGE = 'SpellDamage';
 export const CLEAVE_DAMAGE = 'CleaveDamage';
-export const EXPLODE_DEBUFF = 'ExplosionDebuff';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -96,6 +97,39 @@ const EVENT_LINKS: EventLink[] = [
     maximumLinks: 1,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: DEBUFF_APPLY,
+    linkingEventId: SPELLS.WINTERS_CHILL.id,
+    linkingEventType: EventType.ApplyDebuff,
+    linkRelation: DEBUFF_REMOVE,
+    referencedEventId: SPELLS.WINTERS_CHILL.id,
+    referencedEventType: EventType.RemoveDebuff,
+    maximumLinks: 1,
+    forwardBufferMs: 7000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: DEBUFF_APPLY,
+    linkingEventId: SPELLS.WINTERS_CHILL.id,
+    linkingEventType: EventType.ApplyDebuff,
+    linkRelation: SPELL_CAST,
+    referencedEventId: TALENTS.FLURRY_TALENT.id,
+    referencedEventType: EventType.Cast,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 1000,
+  },
+  {
+    reverseLinkRelation: DEBUFF_APPLY,
+    linkingEventId: SPELLS.WINTERS_CHILL.id,
+    linkingEventType: EventType.ApplyDebuff,
+    linkRelation: PRE_CAST,
+    referencedEventId: [SPELLS.FROSTBOLT.id, TALENTS.GLACIAL_SPIKE_TALENT.id],
+    referencedEventType: EventType.Cast,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 1000,
   },
 ];
 
