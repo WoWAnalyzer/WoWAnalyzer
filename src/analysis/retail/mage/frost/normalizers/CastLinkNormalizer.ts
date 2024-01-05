@@ -6,6 +6,7 @@ import {
   BeginCastEvent,
   RemoveBuffEvent,
   CastEvent,
+  DamageEvent,
   EventType,
   GetRelatedEvents,
   HasRelatedEvent,
@@ -37,16 +38,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent): boolean {
-      if (!linkingEvent || !referencedEvent) {
-        return false;
-      }
-      const castTarget =
-        HasTarget(linkingEvent) &&
-        encodeTargetString(linkingEvent.targetID, linkingEvent.targetInstance);
-      const damageTarget =
-        HasTarget(referencedEvent) &&
-        encodeTargetString(referencedEvent.targetID, referencedEvent.targetInstance);
-      return castTarget === damageTarget;
+      return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === false;
     },
     maximumLinks: 1,
     forwardBufferMs: 3000,
@@ -61,16 +53,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventType: EventType.Damage,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent): boolean {
-      if (!linkingEvent || !referencedEvent) {
-        return false;
-      }
-      const castTarget =
-        HasTarget(linkingEvent) &&
-        encodeTargetString(linkingEvent.targetID, linkingEvent.targetInstance);
-      const damageTarget =
-        HasTarget(referencedEvent) &&
-        encodeTargetString(referencedEvent.targetID, referencedEvent.targetInstance);
-      return castTarget !== damageTarget;
+      return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === true;
     },
     maximumLinks: 1,
     forwardBufferMs: 3000,
@@ -86,6 +69,36 @@ const EVENT_LINKS: EventLink[] = [
     anyTarget: true,
     forwardBufferMs: 1500,
     backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.ICE_LANCE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.ICE_LANCE_DAMAGE.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === false;
+    },
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 1000,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.ICE_LANCE_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: CLEAVE_DAMAGE,
+    referencedEventId: SPELLS.ICE_LANCE_DAMAGE.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === true;
+    },
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: 1000,
   },
   {
     reverseLinkRelation: BUFF_APPLY,
@@ -188,6 +201,14 @@ export function getHardcast(event: AbilityEvent<any>): CastEvent | undefined {
 export function isProcExpired(event: RemoveBuffEvent, spenderId: number): boolean {
   const cast = GetRelatedEvents<CastEvent>(event, SPELL_CAST)[0];
   return !cast || cast.ability.guid !== spenderId;
+}
+
+export function isCleaveDamage(castEvent: CastEvent, damageEvent: DamageEvent): boolean {
+  const castTarget =
+    HasTarget(castEvent) && encodeTargetString(castEvent.targetID, castEvent.targetInstance);
+  const damageTarget =
+    HasTarget(damageEvent) && encodeTargetString(damageEvent.targetID, damageEvent.targetInstance);
+  return castTarget !== damageTarget;
 }
 
 export default CastLinkNormalizer;
