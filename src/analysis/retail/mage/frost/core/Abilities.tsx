@@ -112,7 +112,7 @@ class Abilities extends CoreAbilities {
         category: SPELL_CATEGORY.COOLDOWNS,
         enabled: combatant.hasTalent(TALENTS.ICY_VEINS_TALENT),
         gcd: null,
-        cooldown: 180,
+        cooldown: 120,
         castEfficiency: {
           suggestion: true,
           recommendedEfficiency: 0.9,
