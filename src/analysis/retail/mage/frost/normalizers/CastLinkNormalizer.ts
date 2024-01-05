@@ -95,6 +95,7 @@ const EVENT_LINKS: EventLink[] = [
     referencedEventId: TALENTS.FLURRY_TALENT.id,
     referencedEventType: EventType.Cast,
     maximumLinks: 1,
+    anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
   },
