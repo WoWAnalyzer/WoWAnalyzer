@@ -1,5 +1,4 @@
 import { Trans } from '@lingui/macro';
-import { SharedCode } from 'analysis/retail/mage/shared';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -13,22 +12,11 @@ import Events, {
   GetRelatedEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import Enemies from 'parser/shared/modules/Enemies';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class BrainFreeze extends Analyzer {
-  static dependencies = {
-    enemies: Enemies,
-    eventHistory: EventHistory,
-    sharedCode: SharedCode,
-  };
-  protected enemies!: Enemies;
-  protected eventHistory!: EventHistory;
-  protected sharedCode!: SharedCode;
-
   brainFreezeRefreshes = 0;
   flurry: { timestamp: number; overlapped: boolean }[] = [];
   brainFreeze: { apply: ApplyBuffEvent; remove: RemoveBuffEvent | undefined; expired: boolean }[] =
