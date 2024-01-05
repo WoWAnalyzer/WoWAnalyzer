@@ -77,6 +77,17 @@ const EVENT_LINKS: EventLink[] = [
     backwardBufferMs: CAST_BUFFER_MS,
   },
   {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.FLURRY_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.FLURRY_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: 1500,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
     reverseLinkRelation: BUFF_APPLY,
     linkingEventId: SPELLS.BRAIN_FREEZE_BUFF.id,
     linkingEventType: EventType.ApplyBuff,

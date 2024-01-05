@@ -6,19 +6,27 @@ import { SpellLink } from 'interface';
 import Analyzer, { Options, SELECTED_PLAYER } from 'parser/core/Analyzer';
 import Events, {
   CastEvent,
+  DamageEvent,
   ApplyBuffEvent,
   RemoveBuffEvent,
   RefreshBuffEvent,
   GetRelatedEvent,
 } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 
 class BrainFreeze extends Analyzer {
+  static dependencies = {
+    enemies: Enemies,
+  };
+
+  protected enemies!: Enemies;
+
   brainFreezeRefreshes = 0;
-  flurry: { timestamp: number; overlapped: boolean }[] = [];
+  flurry: { timestamp: number; damage: DamageEvent | undefined; overlapped: boolean }[] = [];
   brainFreeze: { apply: ApplyBuffEvent; remove: RemoveBuffEvent | undefined; expired: boolean }[] =
     [];
 
@@ -39,9 +47,12 @@ class BrainFreeze extends Analyzer {
   }
 
   onFlurryCast(event: CastEvent) {
+    const damage: DamageEvent | undefined = GetRelatedEvent(event, 'SpellDamage');
+    const enemy = damage && this.enemies.getEntity(damage);
     this.flurry.push({
       timestamp: event.timestamp,
-      overlapped: this.selectedCombatant.hasBuff(SPELLS.BRAIN_FREEZE_BUFF.id, event.timestamp - 10),
+      damage: damage,
+      overlapped: enemy?.hasBuff(SPELLS.WINTERS_CHILL.id, event.timestamp - 10) || false,
     });
   }
 
@@ -119,7 +130,7 @@ class BrainFreeze extends Analyzer {
 
   get overlappedFlurryThresholds() {
     return {
-      actual: this.brainFreezeRefreshes,
+      actual: this.overlappedFlurries,
       isGreaterThan: {
         average: 0,
         major: 3,
@@ -169,8 +180,8 @@ class BrainFreeze extends Analyzer {
         <>
           You cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and applied{' '}
           <SpellLink spell={SPELLS.WINTERS_CHILL} /> while the target still had the{' '}
-          <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff on them {this.brainFreezeRefreshes}{' '}
-          times. Casting <SpellLink spell={TALENTS.FLURRY_TALENT} /> applies 2 stacks of{' '}
+          <SpellLink spell={SPELLS.WINTERS_CHILL} /> debuff on them {this.overlappedFlurries} times.
+          Casting <SpellLink spell={TALENTS.FLURRY_TALENT} /> applies 2 stacks of{' '}
           <SpellLink spell={SPELLS.WINTERS_CHILL} /> to the target so you should always ensure you
           are spending both stacks before you cast <SpellLink spell={TALENTS.FLURRY_TALENT} /> and
           apply <SpellLink spell={SPELLS.WINTERS_CHILL} /> again.
