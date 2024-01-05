@@ -11,7 +11,6 @@ import IcyVeins from '../core/IcyVeins';
 import MunchedProcs from '../core/MunchedProcs';
 import WaterElemental from '../talents/WaterElemental';
 import WintersChill from '../core/WintersChill';
-import GlacialSpike from '../talents/GlacialSpike';
 import ThermalVoid from '../talents/ThermalVoid';
 import Component from './Component';
 
@@ -23,7 +22,6 @@ class Checklist extends BaseChecklist {
     icyVeins: IcyVeins,
     munchedProcs: MunchedProcs,
     brainFreeze: BrainFreeze,
-    glacialSpike: GlacialSpike,
     iceLance: IceLance,
     thermalVoid: ThermalVoid,
     wintersChill: WintersChill,
@@ -38,7 +36,6 @@ class Checklist extends BaseChecklist {
   protected icyVeins!: IcyVeins;
   protected munchedProcs!: MunchedProcs;
   protected brainFreeze!: BrainFreeze;
-  protected glacialSpike!: GlacialSpike;
   protected iceLance!: IceLance;
   protected thermalVoid!: ThermalVoid;
   protected wintersChill!: WintersChill;
@@ -62,7 +59,6 @@ class Checklist extends BaseChecklist {
           brainFreezeUtilization: this.brainFreeze.brainFreezeUtilizationThresholds,
           brainFreezeOverwrites: this.brainFreeze.brainFreezeOverwritenThresholds,
           brainFreezeExpired: this.brainFreeze.brainFreezeExpiredThresholds,
-          glacialSpikeUtilization: this.glacialSpike.glacialSpikeUtilizationThresholds,
           fingersOfFrostUtilization: this.iceLance.fingersProcUtilizationThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredIceLanceThresholds,
           wintersChillShatter: this.wintersChill.wintersChillShatterThresholds,
