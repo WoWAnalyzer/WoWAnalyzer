@@ -78,6 +78,9 @@ class WintersChill extends Analyzer {
       (d) =>
         d.apply.timestamp <= event.timestamp && d.remove && d.remove.timestamp >= event.timestamp,
     );
+    if (wintersChillDebuff === -1) {
+      return;
+    }
     this.wintersChill[wintersChillDebuff].damageEvents?.push(event);
   }
 
