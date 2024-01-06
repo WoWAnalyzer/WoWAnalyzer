@@ -12,9 +12,7 @@ import Events, {
   FightEndEvent,
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import FilteredActiveTime from 'parser/shared/modules/FilteredActiveTime';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -23,13 +21,9 @@ import AlwaysBeCasting from './AlwaysBeCasting';
 class IcyVeins extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
-    filteredActiveTime: FilteredActiveTime,
-    abilityTracker: AbilityTracker,
     alwaysBeCasting: AlwaysBeCasting,
   };
   protected eventHistory!: EventHistory;
-  protected filteredActiveTime!: FilteredActiveTime;
-  protected abilityTracker!: AbilityTracker;
   protected alwaysBeCasting!: AlwaysBeCasting;
 
   activeTime: number[] = [];
