@@ -223,6 +223,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 500,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.COMET_STORM_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: SPELLS.COMET_STORM_DAMAGE.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: 3000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**
