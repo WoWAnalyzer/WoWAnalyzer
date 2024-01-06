@@ -161,8 +161,8 @@ class WintersChill extends Analyzer {
       suggest(
         <>
           You failed to properly take advantage of <SpellLink spell={SPELLS.WINTERS_CHILL} /> on
-          your target {this.missedShatters} times ({formatPercentage(1 - actual)}%). After debuffing
-          the target via <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and{' '}
+          your target {this.missedShatters()} times ({formatPercentage(1 - actual)}%). After
+          debuffing the target via <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> and{' '}
           <SpellLink spell={TALENTS.FLURRY_TALENT} />, you should ensure that you hit the target
           with{' '}
           {this.hasGlacialSpike ? (
@@ -186,9 +186,9 @@ class WintersChill extends Analyzer {
       suggest(
         <>
           You failed to use a pre-cast ability before <SpellLink spell={TALENTS.FLURRY_TALENT} />{' '}
-          {this.missedPreCasts} times ({formatPercentage(1 - actual)}%). Because of the travel time
-          of <SpellLink spell={TALENTS.FLURRY_TALENT} />, you should cast a damaging ability such as{' '}
-          <SpellLink spell={SPELLS.FROSTBOLT} /> immediately before using{' '}
+          {this.missedPreCasts()} times ({formatPercentage(1 - actual)}%). Because of the travel
+          time of <SpellLink spell={TALENTS.FLURRY_TALENT} />, you should cast a damaging ability
+          such as <SpellLink spell={SPELLS.FROSTBOLT} /> immediately before using{' '}
           <SpellLink spell={TALENTS.FLURRY_TALENT} />. Doing this will allow your pre-cast ability
           to hit the target after <SpellLink spell={TALENTS.FLURRY_TALENT} /> (unless you are
           standing too close to the target) allowing it to benefit from{' '}
