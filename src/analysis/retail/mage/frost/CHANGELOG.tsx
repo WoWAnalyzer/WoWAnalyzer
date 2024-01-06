@@ -7,6 +7,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 // prettier-ignore
 export default [
   change(date(2024, 1, 5), 'Updated spec support to full 10.2 support.', Sharrq),
+  change(date(2024, 1, 5), <>Fixed the cooldowns for <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> and <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />.</>, Sharrq),
   change(date(2024, 1, 5), <>Added a statistic for the average delay to use <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />. This is just informational.</>, Sharrq),
   change(date(2024, 1, 5), <>Added tracking for <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />.</>, Sharrq),
   change(date(2024, 1, 5), <>Adjusted <SpellLink spell={SPELLS.WINTERS_CHILL} /> to change the spells that can be used to spend <SpellLink spell={SPELLS.WINTERS_CHILL} />.</>, Sharrq),
