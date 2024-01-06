@@ -76,14 +76,14 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Cast,
     linkRelation: SPELL_DAMAGE,
     referencedEventId: SPELLS.ICE_LANCE_DAMAGE.id,
-    referencedEventType: EventType.Cast,
+    referencedEventType: EventType.Damage,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent): boolean {
       return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === false;
     },
     maximumLinks: 1,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: 1000,
+    forwardBufferMs: 1000,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     reverseLinkRelation: SPELL_CAST,
@@ -91,14 +91,14 @@ const EVENT_LINKS: EventLink[] = [
     linkingEventType: EventType.Cast,
     linkRelation: CLEAVE_DAMAGE,
     referencedEventId: SPELLS.ICE_LANCE_DAMAGE.id,
-    referencedEventType: EventType.Cast,
+    referencedEventType: EventType.Damage,
     anyTarget: true,
     additionalCondition(linkingEvent, referencedEvent): boolean {
       return isCleaveDamage(linkingEvent as CastEvent, referencedEvent as DamageEvent) === true;
     },
     maximumLinks: 1,
-    forwardBufferMs: CAST_BUFFER_MS,
-    backwardBufferMs: 1000,
+    forwardBufferMs: 1000,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
   {
     reverseLinkRelation: BUFF_APPLY,
@@ -152,9 +152,52 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: PRE_CAST,
     referencedEventId: [SPELLS.FROSTBOLT.id, TALENTS.GLACIAL_SPIKE_TALENT.id],
     referencedEventType: EventType.Cast,
+    anyTarget: true,
     maximumLinks: 1,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: 1000,
+  },
+  {
+    reverseLinkRelation: BUFF_APPLY,
+    linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
+    linkingEventType: [EventType.ApplyBuff, EventType.ApplyBuffStack],
+    linkRelation: BUFF_REMOVE,
+    referencedEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
+    referencedEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      return !HasRelatedEvent(referencedEvent, BUFF_APPLY);
+    },
+    maximumLinks: 1,
+    forwardBufferMs: 18_000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
+    linkingEventType: [EventType.RemoveBuff, EventType.RemoveBuffStack],
+    linkRelation: SPELL_CAST,
+    referencedEventId: TALENTS.ICE_LANCE_TALENT.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    additionalCondition(linkingEvent, referencedEvent): boolean {
+      return !HasRelatedEvent(referencedEvent, BUFF_REMOVE);
+    },
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: BUFF_REMOVE,
+    linkingEventId: SPELLS.FINGERS_OF_FROST_BUFF.id,
+    linkingEventType: EventType.RemoveBuff,
+    linkRelation: SPELL_CAST,
+    referencedEventId: TALENTS.ICE_LANCE_TALENT.id,
+    referencedEventType: EventType.Cast,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
   },
 ];
 

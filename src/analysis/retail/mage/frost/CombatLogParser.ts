@@ -23,7 +23,7 @@ import Buffs from './core/Buffs';
 import CooldownThroughputTracker from './core/CooldownThroughputTracker';
 import IceLance from './core/IceLance';
 import IcyVeins from './core/IcyVeins';
-import MunchedProcs from './core/MunchedProcs';
+import FingersOfFrost from './core/FingersOfFrost';
 import WintersChill from './core/WintersChill';
 
 //Talents
@@ -64,7 +64,7 @@ class CombatLogParser extends CoreCombatLogParser {
     iceLance: IceLance,
     icyVeins: IcyVeins,
     arcaneIntellect: ArcaneIntellect,
-    munchedProcs: MunchedProcs,
+    fingersOfFrost: FingersOfFrost,
 
     // Talents - Frost
     boneChilling: BoneChilling,
