@@ -95,13 +95,13 @@ class WintersChill extends Analyzer {
     return missingPreCast.length;
   };
 
-  wintersChillShatters = () => {
+  missedShatters = () => {
     //Winter's Chill Debuffs where there are at least 2 damage hits of Glacial Spike and/or Ice Lance
     let badDebuffs = this.wintersChill.filter((w) => {
       const shatteredSpenders = w.damageEvents.filter((d) =>
         WINTERS_CHILL_SPENDERS.includes(d.ability.guid),
       );
-      return shatteredSpenders.length >= 2;
+      return shatteredSpenders.length < 2;
     });
 
     //If they shattered one spell but also they used Ray Of Frost, then disregard it.
@@ -112,7 +112,7 @@ class WintersChill extends Analyzer {
       const rayHits = w.damageEvents.filter(
         (d) => d.ability.guid === TALENTS.RAY_OF_FROST_TALENT.id,
       );
-      return shatteredSpenders.length >= 1 && rayHits.length >= 2;
+      return shatteredSpenders.length !== 1 || rayHits.length < 2;
     });
 
     return badDebuffs.length;
@@ -122,12 +122,8 @@ class WintersChill extends Analyzer {
     return this.wintersChill.length;
   }
 
-  get missedShatters() {
-    return this.totalProcs - this.wintersChillShatters();
-  }
-
   get shatterPercent() {
-    return this.wintersChillShatters() / this.totalProcs || 0;
+    return 1 - this.missedShatters() / this.totalProcs;
   }
 
   get preCastPercent() {
