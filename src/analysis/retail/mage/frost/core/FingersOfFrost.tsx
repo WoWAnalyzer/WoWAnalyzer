@@ -50,8 +50,6 @@ class FingersOfFrost extends Analyzer {
     const spender: CastEvent | undefined = remove && GetRelatedEvent(remove, 'SpellCast');
     const damage: DamageEvent | undefined = spender && GetRelatedEvent(spender, 'SpellDamage');
     const enemy = damage && this.enemies.getEntity(damage);
-    this.log(spender?.timestamp);
-    this.log(damage?.timestamp);
     this.fingers.push({
       apply: event,
       remove: remove,
@@ -70,7 +68,6 @@ class FingersOfFrost extends Analyzer {
   get averageSpendDelaySeconds() {
     let spendDelay = 0;
     this.fingers.forEach((f) => f.spendDelay && (spendDelay += f.spendDelay));
-    this.log(spendDelay / this.fingers.filter((f) => f.spendDelay).length / 1000);
     return spendDelay / this.fingers.filter((f) => f.spendDelay).length / 1000;
   }
 
