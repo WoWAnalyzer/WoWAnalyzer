@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
+import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
 import Events, { CastEvent, DamageEvent, GetRelatedEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
@@ -17,7 +18,7 @@ class IceLance extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  icelance: { shattered: boolean; hadFingers: boolean; cleaved: boolean }[] = [];
+  icelance: { cast: CastEvent; shattered: boolean; hadFingers: boolean; cleaved: boolean }[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -32,6 +33,7 @@ class IceLance extends Analyzer {
     const enemy = damage && this.enemies.getEntity(damage);
     const cleave: DamageEvent | undefined = GetRelatedEvent(event, 'CleaveDamage');
     this.icelance.push({
+      cast: event,
       shattered:
         SHATTER_DEBUFFS.some((effect) => enemy?.hasBuff(effect.id, damage?.timestamp)) || false,
       hadFingers: this.selectedCombatant.hasBuff(
@@ -48,6 +50,9 @@ class IceLance extends Analyzer {
 
     //If they had Fingers of Frost, disregard it
     badCasts = badCasts.filter((il) => !il.hadFingers);
+
+    const tooltip = `This Ice Lance was not shattered.`;
+    badCasts.forEach((e) => e.cast && highlightInefficientCast(e.cast, tooltip));
 
     return badCasts.length;
   };

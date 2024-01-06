@@ -3,6 +3,7 @@ import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
+import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent, GetRelatedEvents } from 'parser/core/Events';
@@ -17,7 +18,7 @@ class CometStorm extends Analyzer {
   };
   protected enemies!: Enemies;
 
-  cometStorm: { enemiesHit: number[]; shatteredHits: number }[] = [];
+  cometStorm: { cast: CastEvent; enemiesHit: number[]; shatteredHits: number }[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -30,6 +31,8 @@ class CometStorm extends Analyzer {
 
   onCometCast(event: CastEvent) {
     const damage: DamageEvent[] | undefined = GetRelatedEvents(event, 'SpellDamage');
+    let shattered = 0;
+    const enemies: number[] = [];
     damage.forEach((d) => {
       const enemy = this.enemies.getEntity(d);
       const enemies: number[] = [];
@@ -37,32 +40,37 @@ class CometStorm extends Analyzer {
         enemies.push(enemy.guid);
       }
 
-      let shattered = 0;
       if (enemy && SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, d.timestamp))) {
         shattered += 1;
       }
+    });
 
-      this.cometStorm.push({
-        enemiesHit: enemies,
-        shatteredHits: shattered,
-      });
+    this.cometStorm.push({
+      cast: event,
+      enemiesHit: enemies,
+      shatteredHits: shattered,
     });
   }
 
-  get badCasts() {
-    return this.cometStorm.filter(
+  badCasts = () => {
+    const badCasts = this.cometStorm.filter(
       (cs) =>
         cs.enemiesHit.length < COMET_STORM_AOE_MIN_TARGETS &&
         cs.shatteredHits < MIN_SHATTERED_PROJECTILES_PER_CAST,
-    ).length;
-  }
+    );
+
+    const tooltip = `This Comet Storm was not shattered and did not hit multiple enemies.`;
+    badCasts.forEach((e) => e.cast && highlightInefficientCast(e.cast, tooltip));
+
+    return badCasts.length;
+  };
 
   get totalCasts() {
     return this.cometStorm.length;
   }
 
   get castUtilization() {
-    return 1 - this.badCasts / this.totalCasts;
+    return 1 - this.badCasts() / this.totalCasts;
   }
 
   get cometStormUtilizationThresholds() {
