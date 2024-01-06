@@ -211,6 +211,18 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 60_000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    reverseLinkRelation: BUFF_APPLY,
+    linkingEventId: TALENTS.COLD_FRONT_TALENT.id,
+    linkingEventType: EventType.ApplyBuff,
+    linkRelation: BUFF_REMOVE,
+    referencedEventId: TALENTS.COLD_FRONT_TALENT.id,
+    referencedEventType: EventType.RemoveBuff,
+    anyTarget: true,
+    maximumLinks: 1,
+    forwardBufferMs: 500,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**
