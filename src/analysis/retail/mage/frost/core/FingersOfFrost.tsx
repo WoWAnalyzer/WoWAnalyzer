@@ -1,37 +1,40 @@
-import { Trans } from '@lingui/macro';
-import { formatPercentage } from 'common/format';
+import { formatPercentage, formatNumber } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { DamageEvent, ApplyBuffEvent, ApplyBuffStackEvent } from 'parser/core/Events';
+import Events, {
+  DamageEvent,
+  CastEvent,
+  ApplyBuffEvent,
+  RemoveBuffEvent,
+  ApplyBuffStackEvent,
+  GetRelatedEvent,
+} from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import Enemies from 'parser/shared/modules/Enemies';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import { SHATTER_DEBUFFS } from '../../shared';
 
-class MunchedProcs extends Analyzer {
+class FingersOfFrost extends Analyzer {
   static dependencies = {
-    abilityTracker: AbilityTracker,
     enemies: Enemies,
-    eventHistory: EventHistory,
   };
-  protected abilityTracker!: AbilityTracker;
-  protected eventHistory!: EventHistory;
   protected enemies!: Enemies;
 
-  munchedProcs = 0;
-  totalFingersProcs = 0;
+  fingers: {
+    apply: ApplyBuffEvent | ApplyBuffStackEvent;
+    remove: RemoveBuffEvent | undefined;
+    spender: CastEvent | undefined;
+    expired: boolean;
+    munched: boolean;
+    spendDelay: number | undefined;
+  }[] = [];
 
   constructor(options: Options) {
     super(options);
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE),
-      this.onIceLanceDamage,
-    );
     this.addEventListener(
       Events.applybuff.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST_BUFF),
       this.onFingersProc,
@@ -42,28 +45,46 @@ class MunchedProcs extends Analyzer {
     );
   }
 
-  onIceLanceDamage(event: DamageEvent) {
-    const enemy = this.enemies.getEntity(event);
-    if (!enemy || !enemy.hasBuff(SPELLS.WINTERS_CHILL.id)) {
-      return;
-    }
-
-    const iceLanceCast = this.eventHistory.last(
-      1,
-      undefined,
-      Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICE_LANCE_TALENT),
-    )[0];
-    if (this.selectedCombatant.hasBuff(SPELLS.FINGERS_OF_FROST_BUFF.id, iceLanceCast.timestamp)) {
-      this.munchedProcs += 1;
-    }
+  onFingersProc(event: ApplyBuffEvent | ApplyBuffStackEvent) {
+    const remove: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'BuffRemove');
+    const spender: CastEvent | undefined = remove && GetRelatedEvent(remove, 'SpellCast');
+    const damage: DamageEvent | undefined = spender && GetRelatedEvent(spender, 'SpellDamage');
+    const enemy = damage && this.enemies.getEntity(damage);
+    this.fingers.push({
+      apply: event,
+      remove: remove,
+      spender: spender,
+      expired: !spender,
+      munched:
+        SHATTER_DEBUFFS.some((effect) => enemy?.hasBuff(effect.id, damage?.timestamp)) || false,
+      spendDelay: spender && spender.timestamp - event.timestamp,
+    });
   }
 
-  onFingersProc(event: ApplyBuffEvent | ApplyBuffStackEvent) {
-    this.totalFingersProcs += 1;
+  get expiredProcs() {
+    return this.fingers.filter((f) => f.expired).length;
+  }
+
+  get averageSpendDelaySeconds() {
+    let spendDelay = 0;
+    this.fingers.forEach((f) => f.spendDelay && (spendDelay += f.spendDelay));
+    return spendDelay / this.fingers.filter((f) => f.spendDelay).length / 1000;
+  }
+
+  get usedFingersProcs() {
+    return this.totalProcs - this.expiredProcs;
+  }
+
+  get munchedProcs() {
+    return this.fingers.filter((f) => f.munched).length;
+  }
+
+  get totalProcs() {
+    return this.fingers.length;
   }
 
   get munchedPercent() {
-    return this.munchedProcs / this.totalFingersProcs;
+    return this.munchedProcs / this.totalProcs;
   }
 
   get munchedProcsThresholds() {
@@ -78,13 +99,25 @@ class MunchedProcs extends Analyzer {
     };
   }
 
+  get fingersProcUtilizationThresholds() {
+    return {
+      actual: 1 - this.expiredProcs / this.totalProcs || 0,
+      isLessThan: {
+        minor: 0.95,
+        average: 0.85,
+        major: 0.7,
+      },
+      style: ThresholdStyle.PERCENTAGE,
+    };
+  }
+
   suggestions(when: When) {
     when(this.munchedProcsThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
           You wasted (munched) {this.munchedProcs}{' '}
           <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> procs (
-          {formatPercentage(this.munchedPercent)} of total procs). Because of the way{' '}
+          {formatPercentage(this.munchedPercent)}% of total procs). Because of the way{' '}
           <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} /> works, this is sometimes unavoidable
           (i.e. you get a proc while you are using a{' '}
           <SpellLink spell={TALENTS.BRAIN_FREEZE_TALENT} /> proc), but if you have both a{' '}
@@ -97,11 +130,7 @@ class MunchedProcs extends Analyzer {
         </>,
       )
         .icon(TALENTS.FINGERS_OF_FROST_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.munchedProcs">
-            {formatPercentage(actual)}% procs wasted
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% procs wasted`)
         .recommended(formatPercentage(recommended)),
     );
   }
@@ -125,10 +154,12 @@ class MunchedProcs extends Analyzer {
       >
         <BoringSpellValueText spell={TALENTS.FINGERS_OF_FROST_TALENT}>
           {formatPercentage(this.munchedPercent, 0)}% <small>Munched Fingers of Frost procs</small>
+          <br />
+          {formatNumber(this.averageSpendDelaySeconds)}s <small>Avg. delay to spend procs</small>
         </BoringSpellValueText>
       </Statistic>
     );
   }
 }
 
-export default MunchedProcs;
+export default FingersOfFrost;

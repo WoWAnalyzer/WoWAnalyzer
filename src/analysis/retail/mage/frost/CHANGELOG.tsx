@@ -6,6 +6,13 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 5), 'Updated spec support to full 10.2 support.', Sharrq),
+  change(date(2024, 1, 5), <>Fixed the cooldowns for <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> and <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />.</>, Sharrq),
+  change(date(2024, 1, 5), <>Added a statistic for the average delay to use <SpellLink spell={TALENTS.FINGERS_OF_FROST_TALENT} />. This is just informational.</>, Sharrq),
+  change(date(2024, 1, 5), <>Added tracking for <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} />.</>, Sharrq),
+  change(date(2024, 1, 5), <>Adjusted <SpellLink spell={SPELLS.WINTERS_CHILL} /> to change the spells that can be used to spend <SpellLink spell={SPELLS.WINTERS_CHILL} />.</>, Sharrq),
+  change(date(2024, 1, 5), <>Updated <SpellLink spell={SPELLS.WINTERS_CHILL} /> to ignore pre-casts at 4 <SpellLink spell={SPELLS.ICICLES_BUFF} />.</>, Sharrq),
+  change(date(2024, 1, 5), 'Rewrote most core frost functionality to use event links instead.', Sharrq),
   change(date(2023, 7, 10), 'Remove references to 10.1.5 removed talents.', Sharrq),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
 	change(date(2023, 6, 27), <>Added <SpellLink spell={TALENTS.TEMPORAL_WARP_TALENT} /> to list of Bloodlust Buffs.</>, Sharrq),
