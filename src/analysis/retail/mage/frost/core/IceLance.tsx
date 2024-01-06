@@ -42,17 +42,23 @@ class IceLance extends Analyzer {
     });
   }
 
-  get nonShatteredCasts() {
-    return this.icelance.filter((il) => !il.shattered).length;
-  }
+  nonShatteredCasts = () => {
+    //Get casts that were not shattered
+    let badCasts = this.icelance.filter((il) => !il.shattered);
+
+    //If they had Fingers of Frost, disregard it
+    badCasts = badCasts.filter((il) => !il.hadFingers);
+
+    return badCasts.length;
+  };
 
   get shatteredPercent() {
-    return 1 - this.nonShatteredCasts / this.icelance.length;
+    return 1 - this.nonShatteredCasts() / this.icelance.length;
   }
 
   get nonShatteredIceLanceThresholds() {
     return {
-      actual: this.nonShatteredCasts / this.icelance.length,
+      actual: this.nonShatteredCasts() / this.icelance.length,
       isGreaterThan: {
         minor: 0.05,
         average: 0.15,
@@ -66,7 +72,7 @@ class IceLance extends Analyzer {
     when(this.nonShatteredIceLanceThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> {this.nonShatteredCasts} times (
+          You cast <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> {this.nonShatteredCasts()} times (
           {formatPercentage(actual)}%) without <SpellLink spell={TALENTS.SHATTER_TALENT} />. Make
           sure that you are only casting Ice Lance when the target has{' '}
           <SpellLink spell={SPELLS.WINTERS_CHILL} /> (or other Shatter effects), if you have a{' '}
