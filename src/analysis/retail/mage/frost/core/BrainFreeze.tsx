@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -152,11 +151,7 @@ class BrainFreeze extends Analyzer {
         </>,
       )
         .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.brainFreeze.overwritten">
-            {formatPercentage(actual)}% overwritten
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% overwritten`)
         .recommended(`Overwriting none is recommended`),
     );
     when(this.brainFreezeExpiredThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -168,11 +163,7 @@ class BrainFreeze extends Analyzer {
         </>,
       )
         .icon(TALENTS.BRAIN_FREEZE_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.brainFreeze.expired">
-            {formatPercentage(actual)}% expired
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% expired`)
         .recommended(`Letting none expire is recommended`),
     );
     when(this.overlappedFlurryThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -188,9 +179,7 @@ class BrainFreeze extends Analyzer {
         </>,
       )
         .icon(TALENTS.FLURRY_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.brainFreeze.casts">{formatNumber(actual)} casts</Trans>,
-        )
+        .actual(`${formatNumber(actual)} casts`)
         .recommended(`Casting none is recommended`),
     );
   }
