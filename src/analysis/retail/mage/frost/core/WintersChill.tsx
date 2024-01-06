@@ -43,7 +43,12 @@ class WintersChill extends Analyzer {
     this.addEventListener(
       Events.damage
         .by(SELECTED_PLAYER)
-        .spell([SPELLS.FROSTBOLT_DAMAGE, SPELLS.GLACIAL_SPIKE_DAMAGE, SPELLS.ICE_LANCE_DAMAGE]),
+        .spell([
+          SPELLS.FROSTBOLT_DAMAGE,
+          SPELLS.GLACIAL_SPIKE_DAMAGE,
+          SPELLS.ICE_LANCE_DAMAGE,
+          TALENTS.RAY_OF_FROST_TALENT,
+        ]),
       this.onDamage,
     );
   }
@@ -92,10 +97,23 @@ class WintersChill extends Analyzer {
 
   wintersChillShatters = () => {
     //Winter's Chill Debuffs where there are at least 2 damage hits of Glacial Spike and/or Ice Lance
-    const badDebuffs = this.wintersChill.filter(
-      (w) =>
-        w.damageEvents.filter((d) => WINTERS_CHILL_SPENDERS.includes(d.ability.guid)).length >= 2,
-    );
+    let badDebuffs = this.wintersChill.filter((w) => {
+      const shatteredSpenders = w.damageEvents.filter((d) =>
+        WINTERS_CHILL_SPENDERS.includes(d.ability.guid),
+      );
+      return shatteredSpenders.length >= 2;
+    });
+
+    //If they shattered one spell but also they used Ray Of Frost, then disregard it.
+    badDebuffs = badDebuffs.filter((w) => {
+      const shatteredSpenders = w.damageEvents.filter((d) =>
+        WINTERS_CHILL_SPENDERS.includes(d.ability.guid),
+      );
+      const rayHits = w.damageEvents.filter(
+        (d) => d.ability.guid === TALENTS.RAY_OF_FROST_TALENT.id,
+      );
+      return shatteredSpenders.length >= 1 && rayHits.length >= 2;
+    });
 
     return badDebuffs.length;
   };

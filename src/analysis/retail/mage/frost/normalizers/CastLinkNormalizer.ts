@@ -234,6 +234,17 @@ const EVENT_LINKS: EventLink[] = [
     forwardBufferMs: 3000,
     backwardBufferMs: CAST_BUFFER_MS,
   },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.RAY_OF_FROST_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: SPELL_DAMAGE,
+    referencedEventId: TALENTS.RAY_OF_FROST_TALENT.id,
+    referencedEventType: EventType.Damage,
+    anyTarget: true,
+    forwardBufferMs: 7000,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
 ];
 
 /**

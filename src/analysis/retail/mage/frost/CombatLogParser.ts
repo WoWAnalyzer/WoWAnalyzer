@@ -35,6 +35,7 @@ import ColdFront from './talents/ColdFront';
 import IcyPropulsion from './talents/IcyPropulsion';
 import BoneChilling from './talents/BoneChilling';
 import CometStorm from './talents/CometStorm';
+import RayOfFrost from './talents/RayOfFrost';
 import GlacialSpike from './talents/GlacialSpike';
 import LonelyWinter from './talents/LonelyWinter';
 import SplittingIce from './talents/SplittingIce';
@@ -74,6 +75,7 @@ class CombatLogParser extends CoreCombatLogParser {
     thermalVoid: ThermalVoid,
     glacialSpike: GlacialSpike,
     cometStorm: CometStorm,
+    rayOfFrost: RayOfFrost,
     icyPropulsion: IcyPropulsion,
     coldFront: ColdFront,
     mirrorImage: MirrorImage,
