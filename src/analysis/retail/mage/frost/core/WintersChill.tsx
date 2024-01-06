@@ -178,7 +178,8 @@ class WintersChill extends Analyzer {
           <SpellLink spell={TALENTS.FLURRY_TALENT} />. Doing this will allow your pre-cast ability
           to hit the target after <SpellLink spell={TALENTS.FLURRY_TALENT} /> (unless you are
           standing too close to the target) allowing it to benefit from{' '}
-          <SpellLink spell={TALENTS.SHATTER_TALENT} />.
+          <SpellLink spell={TALENTS.SHATTER_TALENT} />. If you have 4 Icicles, it can be acceptable
+          to use <SpellLink spell={TALENTS.FLURRY_TALENT} /> without a pre-cast.
         </>,
       )
         .icon(SPELLS.FROSTBOLT.icon)
