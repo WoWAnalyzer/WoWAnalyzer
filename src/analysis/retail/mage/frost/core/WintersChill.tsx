@@ -13,7 +13,6 @@ import Events, {
 } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
 import Enemies from 'parser/shared/modules/Enemies';
-import EventHistory from 'parser/shared/modules/EventHistory';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -23,10 +22,8 @@ const WINTERS_CHILL_SPENDERS = [SPELLS.ICE_LANCE_DAMAGE.id, SPELLS.GLACIAL_SPIKE
 class WintersChill extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    eventHistory: EventHistory,
   };
   protected enemies!: Enemies;
-  protected eventHistory!: EventHistory;
 
   hasGlacialSpike: boolean = this.selectedCombatant.hasTalent(TALENTS.GLACIAL_SPIKE_TALENT);
   wintersChill: {
