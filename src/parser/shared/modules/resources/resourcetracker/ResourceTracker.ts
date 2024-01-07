@@ -415,6 +415,8 @@ export default class ResourceTracker extends Analyzer {
       !this.allowMultipleGainsInSameTimestamp &&
       prevUpdate &&
       timestamp <= prevUpdate.timestamp + MULTI_UPDATE_BUFFER_MS;
+    /** If 'useGranularity' is true we use 'calculatedBeforeAmount', since 'reportedBeforeAmount' will always return a rounded
+     * amount, whilst 'calculatedBeforeAmount' will return the amount with the decimal precision specified by 'granularity'. */
     const beforeAmount =
       reportedBeforeAmount !== undefined && !withinMultiUpdateBuffer && !this.useGranularity
         ? reportedBeforeAmount
