@@ -184,7 +184,7 @@ module.exports = {
     ],
 
     // Parameter properties can be confusing to those new to TypeScript as they are less explicit than other ways of declaring and initializing class members.
-    '@typescript-eslint/no-parameter-properties': 'error',
+    '@typescript-eslint/parameter-properties': 'error',
 
     'no-use-before-define': 'off',
     'import/order': [

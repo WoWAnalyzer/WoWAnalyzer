@@ -29,10 +29,6 @@ export enum EventType {
   RemoveBuff = 'removebuff',
   RemoveDebuff = 'removedebuff',
   Summon = 'summon',
-  /**
-   * @deprecated Use `EventType.ResourceChange` instead. This enum variant will be removed soon.
-   */
-  Energize = 'resourcechange',
   ResourceChange = 'resourcechange',
   Interrupt = 'interrupt',
   Death = 'death',

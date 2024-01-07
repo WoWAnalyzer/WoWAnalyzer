@@ -8,10 +8,9 @@ import AlwaysBeCasting from '../core/AlwaysBeCasting';
 import BrainFreeze from '../core/BrainFreeze';
 import IceLance from '../core/IceLance';
 import IcyVeins from '../core/IcyVeins';
-import MunchedProcs from '../core/MunchedProcs';
+import FingersOfFrost from '../core/FingersOfFrost';
 import WaterElemental from '../talents/WaterElemental';
 import WintersChill from '../core/WintersChill';
-import GlacialSpike from '../talents/GlacialSpike';
 import ThermalVoid from '../talents/ThermalVoid';
 import Component from './Component';
 
@@ -21,9 +20,8 @@ class Checklist extends BaseChecklist {
     combatants: Combatants,
     castEfficiency: CastEfficiency,
     icyVeins: IcyVeins,
-    munchedProcs: MunchedProcs,
+    fingersOfFrost: FingersOfFrost,
     brainFreeze: BrainFreeze,
-    glacialSpike: GlacialSpike,
     iceLance: IceLance,
     thermalVoid: ThermalVoid,
     wintersChill: WintersChill,
@@ -36,9 +34,8 @@ class Checklist extends BaseChecklist {
   protected combatants!: Combatants;
   protected castEfficiency!: CastEfficiency;
   protected icyVeins!: IcyVeins;
-  protected munchedProcs!: MunchedProcs;
+  protected fingersOfFrost!: FingersOfFrost;
   protected brainFreeze!: BrainFreeze;
-  protected glacialSpike!: GlacialSpike;
   protected iceLance!: IceLance;
   protected thermalVoid!: ThermalVoid;
   protected wintersChill!: WintersChill;
@@ -58,12 +55,11 @@ class Checklist extends BaseChecklist {
 
           downtimeSuggestionThresholds: this.alwaysBeCasting.overrideDowntimeSuggestionThresholds,
           icyVeinsActiveTime: this.icyVeins.icyVeinsActiveTimeThresholds,
-          munchedProcs: this.munchedProcs.munchedProcsThresholds,
+          munchedProcs: this.fingersOfFrost.munchedProcsThresholds,
           brainFreezeUtilization: this.brainFreeze.brainFreezeUtilizationThresholds,
           brainFreezeOverwrites: this.brainFreeze.brainFreezeOverwritenThresholds,
           brainFreezeExpired: this.brainFreeze.brainFreezeExpiredThresholds,
-          glacialSpikeUtilization: this.glacialSpike.glacialSpikeUtilizationThresholds,
-          fingersOfFrostUtilization: this.iceLance.fingersProcUtilizationThresholds,
+          fingersOfFrostUtilization: this.fingersOfFrost.fingersProcUtilizationThresholds,
           iceLanceNotShattered: this.iceLance.nonShatteredIceLanceThresholds,
           wintersChillShatter: this.wintersChill.wintersChillShatterThresholds,
           wintersChillHardCasts: this.wintersChill.wintersChillPreCastThresholds,

@@ -32,6 +32,10 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 4), <>Add statistics for <ItemLink id={ITEMS.ECHOING_TYRSTONE.id}/>.</>, Arbixal),
+  change(date(2024, 1, 2), 'Remove Shadowlands food and augment rune support.', ToppleTheNun),
+  change(date(2023, 12, 30), 'Fix errors caused by ESLint update.', ToppleTheNun),
+  change(date(2023, 12, 28), 'Improve internal handling of phases', emallson),
   change(date(2023, 12, 21), <>Mark <ItemLink id={ITEMS.ENCHANT_WEAPON_DREAMING_DEVOTION_R3.id} /> as a max rank enchant.</>, ToppleTheNun),
   change(date(2023, 12, 20), 'Bring over the ESLint config from the vite migration branch.', ToppleTheNun),
   change(date(2023, 12, 20), 'Bump i18n dependency version.', ToppleTheNun),

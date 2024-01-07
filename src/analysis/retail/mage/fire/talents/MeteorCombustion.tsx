@@ -121,8 +121,8 @@ class MeteorCombustion extends Analyzer {
           You failed to cast <SpellLink spell={TALENTS.METEOR_TALENT} /> during{' '}
           <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> {this.combustionWithoutMeteor} times. In
           order to make the most of Combustion and <SpellLink spell={SPELLS.IGNITE} />, you should
-          always cast Meteor during Combustion. If Meteor will not come off cooldown before
-          Combustion is available, then you should hold Meteor for Combustion.
+          always ensure Meteor hits the target during Combustion. If Meteor will not come off
+          cooldown before Combustion is available, then you should hold Meteor for Combustion.
         </>,
       )
         .icon(TALENTS.METEOR_TALENT.icon)
