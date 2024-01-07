@@ -92,6 +92,11 @@ const spells = {
     name: 'Radiant Spark',
     icon: 'ability_skyreach_flash_bang',
   },
+  SIPHON_STORM_BUFF: {
+    id: 384267,
+    name: 'Siphon Storm',
+    icon: 'ability_monk_forcesphere_arcane',
+  },
 } satisfies Record<string, Spell>;
 
 export default spells;
