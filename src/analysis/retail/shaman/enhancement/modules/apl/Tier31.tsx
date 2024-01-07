@@ -8,7 +8,7 @@ import {
   describe,
   spellCharges,
 } from 'parser/shared/metrics/apl/conditions';
-import { MinimumMaelstromWeaponStacks } from 'analysis/retail/shaman/enhancement/modules/apl/Conditions';
+import { minimumMaelstromWeaponStacks } from 'analysis/retail/shaman/enhancement/modules/apl/Conditions';
 import SpellLink from 'interface/SpellLink';
 
 export function getTier31ElementalistApl(): Rule[] {
@@ -24,24 +24,24 @@ export function getTier31ElementalistApl(): Rule[] {
     {
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
       condition: and(
-        MinimumMaelstromWeaponStacks(5),
+        minimumMaelstromWeaponStacks(5),
         spellCharges(TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT, { atLeast: 2, atMost: 2 }),
       ),
     },
     {
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: and(buffPresent(SPELLS.PRIMORDIAL_WAVE_BUFF), MinimumMaelstromWeaponStacks(5)),
+      condition: and(buffPresent(SPELLS.PRIMORDIAL_WAVE_BUFF), minimumMaelstromWeaponStacks(8)),
     },
     {
       spell: TALENTS.ELEMENTAL_BLAST_ELEMENTAL_TALENT,
       condition: and(
-        MinimumMaelstromWeaponStacks(8),
+        minimumMaelstromWeaponStacks(8),
         buffPresent(SPELLS.FERAL_SPIRIT_MAELSTROM_BUFF),
       ),
     },
     {
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: MinimumMaelstromWeaponStacks(10),
+      condition: minimumMaelstromWeaponStacks(10),
     },
     TALENTS.ICE_STRIKE_TALENT,
     {
@@ -52,7 +52,7 @@ export function getTier31ElementalistApl(): Rule[] {
     TALENTS.STORMSTRIKE_TALENT,
     {
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: describe(MinimumMaelstromWeaponStacks(5), () => (
+      condition: describe(minimumMaelstromWeaponStacks(5), () => (
         <>
           you have at least 5 <SpellLink spell={SPELLS.MAELSTROM_WEAPON_BUFF} /> stacks for{' '}
           <SpellLink spell={TALENTS.HAILSTORM_TALENT} />
@@ -73,7 +73,7 @@ export function getTier31StormApl(): Rule[] {
     TALENTS.STORMSTRIKE_TALENT,
     {
       spell: SPELLS.LIGHTNING_BOLT,
-      condition: MinimumMaelstromWeaponStacks(5),
+      condition: minimumMaelstromWeaponStacks(5),
     },
     {
       spell: TALENTS.ICE_STRIKE_TALENT,
