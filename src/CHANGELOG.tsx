@@ -32,6 +32,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 7), <>Add checklist support for <ItemLink id={ITEMS.FYRALATH.id} />.</>, ToppleTheNun),
   change(date(2024, 1, 4), <>Add statistics for <ItemLink id={ITEMS.ECHOING_TYRSTONE.id}/>.</>, Arbixal),
   change(date(2024, 1, 2), 'Remove Shadowlands food and augment rune support.', ToppleTheNun),
   change(date(2023, 12, 30), 'Fix errors caused by ESLint update.', ToppleTheNun),
