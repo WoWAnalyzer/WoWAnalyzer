@@ -24,5 +24,6 @@ const BAD_ICONS = [
   'spell_priest_void_flay',
   'spell_priest_shadow_mend',
   'spell_priest_void_blast',
+  'inv_axe_2h_fyrakk_d_01_shadowflame',
 ];
 export default BAD_ICONS;
