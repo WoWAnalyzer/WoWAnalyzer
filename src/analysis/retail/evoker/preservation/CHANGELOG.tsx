@@ -1,10 +1,12 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_EVOKER } from 'common/TALENTS';
-import { ToppleTheNun, Trevor, Tyndi, Vohrr } from 'CONTRIBUTORS';
-import { SpellLink } from 'interface';
+import { ToppleTheNun, Trevor, Tyndi, Vohrr, Vollmer } from 'CONTRIBUTORS';
+import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
+import { ResourceLink, SpellLink } from 'interface';
 
 export default [
+  change(date(2023, 12, 31), <>Improved tracking of <ResourceLink id={RESOURCE_TYPES.ESSENCE.id}/> for a more precise representation of overcapped <ResourceLink id={RESOURCE_TYPES.ESSENCE.id}/>.</>, Vollmer),
   change(date(2023, 11, 25), <>Fixed bug in <SpellLink spell={TALENTS_EVOKER.LEAPING_FLAMES_TALENT}/> module</>, Trevor),
   change(date(2023, 11, 24), <>Add chart to T31 tier set 4PC module</>, Trevor),
   change(date(2023, 11, 11), <>Add <SpellLink spell={SPELLS.EMERALD_BLOSSOM}/> graphic to guide</>, Trevor),
