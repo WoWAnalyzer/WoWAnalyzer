@@ -22,6 +22,26 @@ const others = {
     name: 'Disintegrate',
     icon: 'ability_evoker_disintegrate',
   },
+  RAGE_OF_FYRALATH_1: {
+    id: 417131,
+    name: "Rage of Fyr'alath",
+    icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
+  },
+  RAGE_OF_FYRALATH_2: {
+    id: 417132,
+    name: "Rage of Fyr'alath",
+    icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
+  },
+  RAGE_OF_FYRALATH_DAMAGE_1: {
+    id: 417134,
+    name: "Rage of Fyr'alath",
+    icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
+  },
+  RAGE_OF_FYRALATH_DAMAGE_2: {
+    id: 424094,
+    name: "Rage of Fyr'alath",
+    icon: 'inv_axe_2h_fyrakk_d_01_shadowflame',
+  },
 } satisfies Record<string, Spell>;
 
 export default others;

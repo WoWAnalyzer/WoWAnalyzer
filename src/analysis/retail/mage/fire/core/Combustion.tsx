@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
@@ -26,6 +25,7 @@ class CombustionCasts extends Analyzer {
   protected abilityTracker!: AbilityTracker;
 
   hasFlameOn: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ON_TALENT);
+  hasFlameAccelerant: boolean = this.selectedCombatant.hasTalent(TALENTS.FLAME_ACCELERANT_TALENT);
 
   combustionCasts: { cast: CastEvent; precast: CastEvent | undefined; delay: number }[] = [];
   combustionCastEvents: CastEvent[] = [];
@@ -124,7 +124,12 @@ class CombustionCasts extends Analyzer {
       return activeBuffs < 2 ? true : false;
     })
 
-    const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead since it has a shorter cast time.`;
+    //If the player had a Flame Accelerant proc, disregard it.
+    if (this.hasFlameAccelerant) {
+      fireballCasts = fireballCasts.filter(f => this.selectedCombatant.hasBuff(SPELLS.FLAME_ACCELERANT_BUFF.id));
+    }
+
+    const tooltip = `This Fireball was cast during Combustion. Since Combustion has a short duration, you are better off using your instant abilities to get as many instant/free Pyroblasts as possible. If you run out of instant abilities, cast Scorch instead unless you have >100% Haste (Double Lust) or you have a Flame Accelerant proc`;
     fireballCasts.forEach(e => e.cast && highlightInefficientCast(e.cast, tooltip));
 
     return fireballCasts.length;
@@ -238,11 +243,7 @@ class CombustionCasts extends Analyzer {
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.combustion.castDelay">
-            {formatNumber(actual)}s Avg. Pre-Cast Delay
-          </Trans>,
-        )
+        .actual(`${formatNumber(actual)}s Avg. Pre-Cast Delay`)
         .recommended(`${recommended} is recommended`),
     );
     when(this.fireballDuringCombustionThresholds).addSuggestion((suggest, actual, recommended) =>
@@ -250,19 +251,20 @@ class CombustionCasts extends Analyzer {
         <>
           On average, you cast <SpellLink spell={SPELLS.FIREBALL} />{' '}
           {this.fireballCastsDuringCombustion()} times ({actual.toFixed(2)} per Combustion), during{' '}
-          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. Combustion has a short duration, so you
-          are better off using instant abilities like <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
-          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. If you run out of instant cast
-          abilities, use <SpellLink spell={SPELLS.SCORCH} /> instead of Fireball since it has a
-          shorter cast time.
+          <SpellLink spell={TALENTS.COMBUSTION_TALENT} />. In order to get the most casts (and{' '}
+          <SpellLink spell={SPELLS.HOT_STREAK} />
+          s) as possible before Combustion ends, you should use your instant abilities like
+          <SpellLink spell={SPELLS.FIRE_BLAST} /> or{' '}
+          <SpellLink spell={TALENTS.PHOENIX_FLAMES_TALENT} />. If you are running low on charges of
+          those spells, or need to conserve charges to make it to the end of the Combustion buff,
+          you should cast <SpellLink spell={SPELLS.SCORCH} /> instead of Fireball since it has a
+          shorter cast time. The only exception to this is if you have 100% Haste (such as during
+          Double Lust), or if you have a proc of{' '}
+          <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} />.
         </>,
       )
         .icon(TALENTS.COMBUSTION_TALENT.icon)
-        .actual(
-          <Trans id="mage.fire.suggestions.combustion.castsPerCombustion">
-            {this.fireballDuringCombustionThresholds.actual.toFixed(2)} Casts Per Combustion
-          </Trans>,
-        )
+        .actual(`${actual.toFixed(2)} Casts Per Combustion`)
         .recommended(`${formatNumber(recommended)} is recommended`),
     );
   }

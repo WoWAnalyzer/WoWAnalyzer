@@ -46,6 +46,13 @@ class AlwaysBeCasting extends Analyzer {
   /** Gets active time percentage within a specified time segment.
    *  This will not work properly unless the current timestamp advances past the end time. */
   getActiveTimePercentageInWindow(start: number, end: number): number {
+    const windowDuration = end - start;
+    return this.getActiveTimeMillisecondsInWindow(start, end) / windowDuration;
+  }
+
+  /** Gets active time milliseconds within a specified time segment.
+   *  This will not work properly unless the current timestamp advances past the end time. */
+  getActiveTimeMillisecondsInWindow(start: number, end: number): number {
     let activeTime = 0;
     for (let i = 0; i < this.activeTimeSegments.length; i += 1) {
       const seg = this.activeTimeSegments[i];
@@ -58,8 +65,7 @@ class AlwaysBeCasting extends Analyzer {
       const overlapEnd = Math.min(end, seg.end);
       activeTime += Math.max(0, overlapEnd - overlapStart);
     }
-    const windowDuration = end - start;
-    return activeTime / windowDuration;
+    return activeTime;
   }
 
   activeTime = 0;

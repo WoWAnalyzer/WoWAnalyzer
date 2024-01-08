@@ -19,11 +19,14 @@ import {
   OK_TIME_AT_FURY_CAP,
   PERFECT_TIME_AT_FURY_CAP,
 } from './modules/resourcetracker/FuryTracker';
+import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
+import { formatPercentage } from 'common/format';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
     <>
-      <ResourceUsageSection modules={modules} events={events} info={info} />
+      <CoreSection modules={modules} events={events} info={info} />
       <RotationSection modules={modules} events={events} info={info} />
       <MitigationSection />
       <CooldownSection modules={modules} events={events} info={info} />
@@ -32,13 +35,13 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
-function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
+function CoreSection({ modules, info }: GuideProps<typeof CombatLogParser>) {
   const percentAtFuryCap = modules.furyTracker.percentAtCap;
   const percentAtFuryCapPerformance = modules.furyTracker.percentAtCapPerformance;
   const furyWasted = modules.furyTracker.wasted;
 
   return (
-    <Section title="Resource Use">
+    <Section title="Core">
       <SubSection title="Fury">
         <p>
           Vengeance's primary resource is <ResourceLink id={RESOURCE_TYPES.FURY.id} />. You should
@@ -67,6 +70,28 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
           the encounter.
         </p>
         {modules.soulFragmentsGraph.plot}
+      </SubSection>
+      <SubSection title="Active Time">
+        <p>
+          <b>
+            Continuously casting throughout an encounter is the single most important thing for
+            achieving good DPS.
+          </b>
+          <br />
+          Some fights have unavoidable downtime due to phase transitions and the like, so in these
+          cases 0% downtime will not be possible - do the best you can.
+        </p>
+        <p>
+          Active Time:{' '}
+          <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
+            {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
+          </PerformanceStrong>{' '}
+        </p>
+        <ActiveTimeGraph
+          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+          fightStart={info.fightStart}
+          fightEnd={info.fightEnd}
+        />
       </SubSection>
     </Section>
   );

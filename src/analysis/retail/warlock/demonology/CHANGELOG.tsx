@@ -1,10 +1,11 @@
 import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import { TALENTS_WARLOCK } from 'common/TALENTS';
-import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie } from 'CONTRIBUTORS';
+import { Sharrq, Zeboot, Meldris, ToppleTheNun, Jonfanz, Mae, dodse, Arlie, Putro } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 1, 6), <>Fix a crash related to <SpellLink spell={TALENTS_WARLOCK.GRIMOIRE_FELGUARD_TALENT} />.</>, Putro),
   change(date(2023, 7, 31), <>Add support for Aberrus 2set CDR on <SpellLink spell={TALENTS_WARLOCK.GRIMOIRE_FELGUARD_TALENT} /></>, Arlie),
   change(date(2023, 7, 31), 'Update CDR on Dark Pact and Unending Resolve', Arlie),
   change(date(2023, 7, 8), 'Update SpellLink usage.', ToppleTheNun),

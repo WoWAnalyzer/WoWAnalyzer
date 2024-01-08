@@ -94,7 +94,7 @@ class PrepullPetNormalizer extends EventsNormalizer {
                 );
               continue;
             }
-            spell = SPELLS[PETS[petGUID].summonAbility];
+            spell = PETS[petGUID].summonAbility;
           }
           const fabricatedEvent: SummonEvent = {
             target: {
