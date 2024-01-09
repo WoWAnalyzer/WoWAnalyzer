@@ -494,7 +494,7 @@ class BuffTargetHelper extends Analyzer {
             ); */
             prescienceMap.set(
               nextTarget,
-              curTime + prescienceDuration * (prescienceCount === 3 ? 2 : 1),
+              curTime + prescienceDuration * (prescienceCount === 3 && this.has4Pc ? 2 : 1),
             );
             target = nextTarget;
             break;
