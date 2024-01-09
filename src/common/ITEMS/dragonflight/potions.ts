@@ -95,6 +95,21 @@ const potions = {
   //endregion
 
   //region Frost Potions
+  DREAMWALKERS_HEALING_POTION_R1: {
+    id: 207021,
+    name: "Dreamwalker's Healing Potion",
+    icon: 'Inv_10_alchemy_bottle_shape4_pink',
+  },
+  DREAMWALKERS_HEALING_POTION_R2: {
+    id: 207022,
+    name: "Dreamwalker's Healing Potion",
+    icon: 'Inv_10_alchemy_bottle_shape4_pink',
+  },
+  DREAMWALKERS_HEALING_POTION_R3: {
+    id: 207023,
+    name: "Dreamwalker's Healing Potion",
+    icon: 'Inv_10_alchemy_bottle_shape4_pink',
+  },
   REFRESHING_HEALING_POTION_R1: {
     id: 191378,
     name: 'Refreshing Healing Potion',
