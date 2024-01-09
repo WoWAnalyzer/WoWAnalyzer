@@ -506,9 +506,9 @@ class BuffTargetHelper extends Analyzer {
         newNote += `${formatDuration(curTime)} - ${
           mrtColorMap.get(this.playerWhitelist.get(target) ?? '') + target + '|r'
         } \n`;
+        prescienceCount = prescienceCount === 3 ? 1 : prescienceCount + 1;
       }
 
-      prescienceCount = prescienceCount === 3 ? 1 : prescienceCount + 1;
       curTime += prescienceCooldown;
     }
 
