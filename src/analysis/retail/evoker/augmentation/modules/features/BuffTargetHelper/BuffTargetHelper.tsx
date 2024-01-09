@@ -460,8 +460,9 @@ class BuffTargetHelper extends Analyzer {
     prescienceMap.set(top4Pumpers[0][1][0], 1_000 + prescienceDuration); // Takes roughly 1 second to cast 2nd Prescience
 
     while (curTime < fightLength) {
-      const curInterval = intervals - Math.round((fightLength - curTime) / this.interval);
-      let intervalToCheck = this.has4Pc && prescienceCount === 3 ? curInterval + 1 : curInterval;
+      const curInterval = intervals - Math.round((fightLength - curTime) / this.interval) - 1;
+      const hasLongPrescience = prescienceCount === 3 && this.has4Pc;
+      let intervalToCheck = hasLongPrescience ? curInterval + 2 : curInterval + 1;
 
       // Why did I make the data structure like this again?
       // Like it doesn't even make sense to me anymore, but it works so I'm not touching it
@@ -493,7 +494,7 @@ class BuffTargetHelper extends Analyzer {
             ); */
             prescienceMap.set(
               nextTarget,
-              curTime + prescienceDuration * (prescienceCount === 3 && this.has4Pc ? 2 : 1),
+              curTime + prescienceDuration * (hasLongPrescience ? 2 : 1),
             );
             target = nextTarget;
             break;
