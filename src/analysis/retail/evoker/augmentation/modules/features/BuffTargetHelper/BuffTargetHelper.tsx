@@ -18,6 +18,7 @@ import BuffTargetHelperWarningLabel from './BuffTargetHelperWarningLabel';
 import Toggle from 'react-toggle';
 import { TIERS } from 'game/TIERS';
 import StatTracker from 'parser/shared/modules/StatTracker';
+import BuffTargetHelperInfoLabel from './BuffTargetHelperInfoLabel';
 
 /**
  * @key ClassName
@@ -604,6 +605,8 @@ class BuffTargetHelper extends Analyzer {
               <b>HenryG</b> or the <a href="https://wago.io/KP-BlDV58">Frame Glows</a> WeakAura made
               by <b>Zephy</b> based on which Weak Aura you use.
             </p>
+
+            <BuffTargetHelperInfoLabel has4Pc={this.has4Pc} />
           </div>
           <div>
             <BuffTargetHelperWarningLabel />
