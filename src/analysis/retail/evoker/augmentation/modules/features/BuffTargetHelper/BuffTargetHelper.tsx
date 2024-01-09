@@ -362,7 +362,6 @@ class BuffTargetHelper extends Analyzer {
         isImportant = true;
       }
 
-      //this.addEntryToTwoTargetMRTNote(top2Entries, i, intervalStart, isImportant);
       this.addEntryToFourTargetMRTNote(top4Entries, i, intervalStart, isImportant);
     }
 
