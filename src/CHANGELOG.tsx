@@ -26,12 +26,14 @@ import {
   Seriousnes,
   Arlie,
   LucasLevyOB,
+  dub
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2023, 2, 9), <>Add <ItemLink id={ITEMS.DREAMWALKERS_HEALING_POTION_R3.id} /> to healing potion list.</>, dub),
   change(date(2024, 1, 7), <>Add checklist support for <ItemLink id={ITEMS.FYRALATH.id} />.</>, ToppleTheNun),
   change(date(2024, 1, 4), <>Add statistics for <ItemLink id={ITEMS.ECHOING_TYRSTONE.id}/>.</>, Arbixal),
   change(date(2024, 1, 2), 'Remove Shadowlands food and augment rune support.', ToppleTheNun),
