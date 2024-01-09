@@ -281,7 +281,7 @@ class BuffTargetHelper extends Analyzer {
     return top4PumpersData;
   }
 
-  getDefaultTargets(top4PumpersData: [string, number[]][][]) {
+  getDefaultTargets(top4PumpersData: [string, number[]][][]): string[] {
     const nameSums = new Map();
 
     top4PumpersData.flat().forEach(([name, values]) => {
@@ -298,7 +298,7 @@ class BuffTargetHelper extends Analyzer {
 
   renderTableContent(
     topPumpersData: [string, number[]][][],
-    defaultTargets: any[],
+    defaultTargets: string[],
     top4PumpersData: [string, number[]][][],
   ) {
     const tableRows = [];
@@ -413,7 +413,7 @@ class BuffTargetHelper extends Analyzer {
    * ...etc...
    * prescGlowsEnd
    */
-  generateMRTNoteHenryG(top4Pumpers: [string, number[]][][], defaultTargets: any[]) {
+  generateMRTNoteHenryG(top4Pumpers: [string, number[]][][], defaultTargets: string[]) {
     // Initialize the note with the default targets
     let newNote =
       'prescGlowsStart \n' +
