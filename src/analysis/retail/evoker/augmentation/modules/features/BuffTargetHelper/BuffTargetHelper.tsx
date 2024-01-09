@@ -95,6 +95,7 @@ class BuffTargetHelper extends Analyzer {
     30 * 1000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
 
   fightStart: number = this.owner.fight.start_time;
+  fightStartDelay: number = 4_000;
   fightEnd: number = this.owner.fight.end_time;
   prescienceHelperMrtNote: string = '';
   mrtFourTargetPrescienceHelperNote: string = '';
@@ -167,7 +168,7 @@ class BuffTargetHelper extends Analyzer {
 
     // Start 4 seconds in since you start the fight with 2x Prescience -> Ebon Might
     // This will also show MUCH better value targets
-    let currentTime = this.fightStart + 4_000;
+    let currentTime = this.fightStart + this.fightStartDelay;
 
     const fetchPromises: Promise<DamageTables>[] = [];
     while (currentTime < this.fightEnd) {
@@ -313,9 +314,9 @@ class BuffTargetHelper extends Analyzer {
     );
 
     for (let i = 0; i < topPumpersData.length; i += 1) {
-      const intervalStart = formatDuration(i * this.interval);
+      const intervalStart = formatDuration(i * this.interval + this.fightStartDelay);
       const intervalEnd = formatDuration(
-        Math.min((i + 1) * this.interval, this.fightEnd - this.fightStart),
+        Math.min((i + 1) * this.interval + this.fightStartDelay, this.fightEnd - this.fightStart),
       );
 
       const formattedEntriesTable = top4PumpersData[i].map(([name, values]) => (
