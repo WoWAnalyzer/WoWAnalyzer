@@ -386,7 +386,7 @@ class BuffTargetHelper extends Analyzer {
           </table>
         </div>
         <div className="button-container">
-          <button className="button" onClick={this.handleTwoTargetCopyClick}>
+          <button className="button" onClick={this.handlePrescienceHelperCopyClick}>
             Copy Prescience Helper MRT note
           </button>
           <button className="button" onClick={this.handleFourTargetCopyClick}>
@@ -554,7 +554,7 @@ class BuffTargetHelper extends Analyzer {
     this.mrtFourTargetPrescienceHelperNote += '\n';
   }
 
-  handleTwoTargetCopyClick = () => {
+  handlePrescienceHelperCopyClick = () => {
     navigator.clipboard.writeText(this.prescienceHelperMrtNote);
   };
   handleFourTargetCopyClick = () => {
