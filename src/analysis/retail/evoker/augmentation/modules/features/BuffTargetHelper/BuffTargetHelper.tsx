@@ -426,16 +426,6 @@ class BuffTargetHelper extends Analyzer {
       defaultTargets[1] +
       '|r \n';
 
-    // Grab the top 2 pumpers for the pull
-    newNote +=
-      'PULL - ' +
-      mrtColorMap.get(this.playerWhitelist.get(top4Pumpers[0][0][0]) ?? '') +
-      top4Pumpers[0][0][0] +
-      '|r ' +
-      mrtColorMap.get(this.playerWhitelist.get(top4Pumpers[0][1][0]) ?? '') +
-      top4Pumpers[0][1][0] +
-      '|r \n';
-
     const prescienceCooldown =
       12_000 * (this.selectedCombatant.hasTalent(TALENTS.INTERWOVEN_THREADS_TALENT) ? 0.9 : 1);
     // First two casts in fight should be 2x Prescience
@@ -455,6 +445,20 @@ class BuffTargetHelper extends Analyzer {
 
     /** Playername, expiration time */
     const prescienceMap = new Map<string, number>();
+
+    // Grab the top 2 pumpers for the pull
+    newNote +=
+      'PULL - ' +
+      mrtColorMap.get(this.playerWhitelist.get(top4Pumpers[0][0][0]) ?? '') +
+      top4Pumpers[0][0][0] +
+      '|r ' +
+      mrtColorMap.get(this.playerWhitelist.get(top4Pumpers[0][1][0]) ?? '') +
+      top4Pumpers[0][1][0] +
+      '|r \n';
+
+    // Add them to the map
+    prescienceMap.set(top4Pumpers[0][0][0], prescienceDuration * (this.has4Pc ? 2 : 1));
+    prescienceMap.set(top4Pumpers[0][1][0], 1_000 + prescienceDuration); // Takes roughly 1 second to cast 2nd Prescience
 
     while (curTime < fightLength) {
       const curInterval = intervals - Math.round((fightLength - curTime) / this.interval);
