@@ -464,9 +464,6 @@ class BuffTargetHelper extends Analyzer {
       const hasLongPrescience = prescienceCount === 3 && this.has4Pc;
       let intervalToCheck = hasLongPrescience ? curInterval + 2 : curInterval + 1;
 
-      // Why did I make the data structure like this again?
-      // Like it doesn't even make sense to me anymore, but it works so I'm not touching it
-      // Next season I'll make it better, I promise, maybe
       let target: string | undefined;
       while (!target && intervalToCheck >= 0) {
         // If the interval we want to check is empty, keep going to previous
