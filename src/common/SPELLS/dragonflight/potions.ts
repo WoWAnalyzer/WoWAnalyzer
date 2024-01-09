@@ -35,6 +35,11 @@ const spells = {
   //endregion
 
   //region Frost Potions
+  DREAMWALKERS_HEALING_POTION: {
+    id: 415569,
+    name: "Dreamwalker's Healing Potion",
+    icon: 'inv_10_alchemy_bottle_shape4_pink',
+  },
   REFRESHING_HEALING_POTION: {
     id: 370511,
     name: 'Refreshing Healing Potion',
