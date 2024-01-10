@@ -82,7 +82,7 @@ const ThroughputPerformance = ({ children, metric, throughput }: Props) => {
         });
         return;
       }
-      const topThroughput = topRank.total;
+      const topThroughput = 'total' in topRank ? topRank.total : topRank.amount;
       const durations = rankings.map((rank) => rank.duration);
       const medianDuration = calculateMedian(durations);
 
