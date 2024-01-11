@@ -60,6 +60,11 @@ const spells = {
     name: 'Potion of Withering Vitality',
     icon: 'inv_misc_herb_constrictorgrass',
   },
+  POTION_OF_WITHERING_DREAMS: {
+    id: 423414,
+    name: 'Potion of Withering Dreams',
+    icon: 'inv_misc_herb_constrictorgrass',
+  },
   DELICATE_SUSPENSION_OF_SPORES: {
     id: 371055,
     name: 'Delicate Suspension of Spores',

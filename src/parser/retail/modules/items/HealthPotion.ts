@@ -10,6 +10,7 @@ class HealthPotion extends Potion {
     SPELLS.DREAMWALKERS_HEALING_POTION.id,
     SPELLS.REFRESHING_HEALING_POTION.id,
     SPELLS.POTION_OF_WITHERING_VITALITY.id,
+    SPELLS.POTION_OF_WITHERING_DREAMS.id,
   ];
   static recommendedEfficiency = 0;
   static extraAbilityInfo = {

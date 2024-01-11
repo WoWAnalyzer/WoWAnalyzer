@@ -33,6 +33,7 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 11), <>Add <ItemLink id={ITEMS.POTION_OF_WITHERING_DREAMS_R3.id} /> to healing potion list.</>, ToppleTheNun),
   change(date(2024, 1, 11), 'Update k-values for 10.2.', ToppleTheNun),
   change(date(2024, 1, 9), <>Add <ItemLink id={ITEMS.DREAMWALKERS_HEALING_POTION_R3.id} /> to healing potion list.</>, dub),
   change(date(2024, 1, 7), <>Add checklist support for <ItemLink id={ITEMS.FYRALATH.id} />.</>, ToppleTheNun),
