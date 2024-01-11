@@ -98,17 +98,17 @@ const potions = {
   DREAMWALKERS_HEALING_POTION_R1: {
     id: 207021,
     name: "Dreamwalker's Healing Potion",
-    icon: 'Inv_10_alchemy_bottle_shape4_pink',
+    icon: 'inv_10_alchemy_bottle_shape4_pink',
   },
   DREAMWALKERS_HEALING_POTION_R2: {
     id: 207022,
     name: "Dreamwalker's Healing Potion",
-    icon: 'Inv_10_alchemy_bottle_shape4_pink',
+    icon: 'inv_10_alchemy_bottle_shape4_pink',
   },
   DREAMWALKERS_HEALING_POTION_R3: {
     id: 207023,
     name: "Dreamwalker's Healing Potion",
-    icon: 'Inv_10_alchemy_bottle_shape4_pink',
+    icon: 'inv_10_alchemy_bottle_shape4_pink',
   },
   REFRESHING_HEALING_POTION_R1: {
     id: 191378,
@@ -169,6 +169,21 @@ const potions = {
     id: 191371,
     name: 'Potion of Withering Vitality',
     icon: 'inv_10_alchemy_bottle_shape4_orange',
+  },
+  POTION_OF_WITHERING_DREAMS_R1: {
+    id: 207039,
+    name: 'Potion of Withering Dreams',
+    icon: 'inv_10_alchemy_bottle_shape4_earthy',
+  },
+  POTION_OF_WITHERING_DREAMS_R2: {
+    id: 207040,
+    name: 'Potion of Withering Dreams',
+    icon: 'inv_10_alchemy_bottle_shape4_earthy',
+  },
+  POTION_OF_WITHERING_DREAMS_R3: {
+    id: 207041,
+    name: 'Potion of Withering Dreams',
+    icon: 'inv_10_alchemy_bottle_shape4_earthy',
   },
   DELICATE_SUSPENSION_OF_SPORES_R1: {
     id: 191375,
