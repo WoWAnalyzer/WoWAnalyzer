@@ -2340,3 +2340,8 @@ export const dub: Contributor = {
   github: 'wtodom',
   discord: 'its_me_dub',
 };
+
+export const Raistlinn: Contributor = {
+  nickname: 'Raistlinn',
+  github: 'earosselot',
+};
