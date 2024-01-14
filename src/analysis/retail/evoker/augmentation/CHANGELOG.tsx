@@ -6,6 +6,7 @@ import SPELLS from 'common/SPELLS/evoker';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 
 export default [
+    change(date(2024, 1, 9), <>Update Buff Helper module Prescience Helper MRT note to support the new logic of the WA.</>, Vollmer),
     change(date(2023, 12, 31), <>Implemented <ResourceLink id={RESOURCE_TYPES.ESSENCE.id}/> Graph.</>, Vollmer),
     change(date(2023, 12, 22), <>Update blacklist for Helpers to increase accuracy.</>, Vollmer),
     change(date(2023, 12, 13), <>Added Boss filter button for Buff Helper, and improved loading speed.</>, Vollmer),
