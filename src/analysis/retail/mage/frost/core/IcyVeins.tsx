@@ -174,15 +174,11 @@ class IcyVeins extends Analyzer {
     const data = (
       <div>
         <RoundedPanel>
-          <strong>
-            <SpellLink spell={TALENTS_MAGE.ICY_VEINS_TALENT} /> cast efficiency
-          </strong>
+          <strong>{icyVeins} cast efficiency</strong>
           <div className="flex-main chart" style={{ padding: 15 }}>
             {this.subStatistic()}
           </div>
-          <strong>
-            <SpellLink spell={TALENTS_MAGE.ICY_VEINS_TALENT} /> active time
-          </strong>
+          <strong>{icyVeins} active time</strong>
           <PerformanceBoxRow values={this.castEntries} />
           <small>
             blue (perfect) - more than 95% Active Time (AT) / green (good) - more than 85% AT /

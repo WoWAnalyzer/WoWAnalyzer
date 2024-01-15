@@ -50,6 +50,7 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
       <Section title="Core">
         {alwaysBeCastingSubsection}
         {modules.icyVeins.guideSubsection}
+        {modules.rayOfFrost.guideSubsection}
       </Section>
     </>
   );
