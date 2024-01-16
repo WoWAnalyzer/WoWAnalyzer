@@ -234,6 +234,8 @@ jobs:
         # Even though this is a "production" build, it's actually a "development" build we're
         # using for e2e testing.
         run: cp .env.development .env.production
+      - name: Print time
+        run: "date +'%Y-%m-%d'"
       - name: Production build
         run: yarn build
         env:
