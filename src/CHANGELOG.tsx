@@ -33,7 +33,8 @@ import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
-  change(date(2023, 1, 16), 'Add patch 10.2.5.', ToppleTheNun),
+  change(date(2024, 1, 16), 'Add Ruby Sanctum raid and images for Classic WotLK.', jazminite),
+  change(date(2024, 1, 16), 'Add patch 10.2.5.', ToppleTheNun),
   change(date(2024, 1, 11), <>Add <ItemLink id={ITEMS.POTION_OF_WITHERING_DREAMS_R3.id} /> to healing potion list.</>, ToppleTheNun),
   change(date(2024, 1, 11), 'Update k-values for 10.2.', ToppleTheNun),
   change(date(2024, 1, 9), <>Add <ItemLink id={ITEMS.DREAMWALKERS_HEALING_POTION_R3.id} /> to healing potion list.</>, dub),
