@@ -235,7 +235,7 @@ jobs:
         # using for e2e testing.
         run: cp .env.development .env.production
       - name: Print time
-        run: "date +'%Y-%m-%dT%H:%M:%S'"
+        run: "date"
       - name: Production build
         run: yarn build
         env:
