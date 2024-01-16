@@ -155,7 +155,7 @@ const PATCHES: Patch[] = [
   },
   {
     name: '10.2.5',
-    timestamp: 1705442400000, // GMT: Tuesday, 16 January 2024 22:00:00
+    timestamp: 1705438800000, // GMT: Tuesday, 16 January 2024 21:00:00
     urlPrefix: '',
     isCurrent: true,
     gameVersion: 1, // retail

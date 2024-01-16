@@ -3,50 +3,50 @@ import { expect, test } from './fixtures';
 test('report selection', async ({ page, homePage, fightSelectionPage }) => {
   await homePage.goto();
 
-  await homePage.fillInReportInputWithCode('D8Jpabz1kM2rNy4X');
+  await homePage.fillInReportInputWithCode('BGtRKFdnyf8rNH9h');
 
   await fightSelectionPage.expectFightSelectionHeaderToBeVisible();
-  await fightSelectionPage.expectUrlToHaveReportCode('D8Jpabz1kM2rNy4X');
-  await expect(page).toHaveTitle('FIRST DAY BAYBEE LETS GET IT');
+  await fightSelectionPage.expectUrlToHaveReportCode('BGtRKFdnyf8rNH9h');
+  await expect(page).toHaveTitle('10.2.5 vdh');
 });
 
 test('fight selection', async ({ page, fightSelectionPage, playerSelectionPage }) => {
-  await fightSelectionPage.goto('D8Jpabz1kM2rNy4X');
+  await fightSelectionPage.goto('BGtRKFdnyf8rNH9h');
 
-  await page.getByRole('link', { name: 'Kill 3:36' }).click();
+  await page.getByRole('link', { name: 'Wipe 1 0:41' }).click();
 
   await playerSelectionPage.expectPlayerSelectionHeaderToBeVisible();
   await playerSelectionPage.expectUrlToHaveReportCodeAndFight(
-    'D8Jpabz1kM2rNy4X',
-    '16-Heroic+Volcoross+-+Kill+(3:36)',
+    'BGtRKFdnyf8rNH9h',
+    '3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)',
   );
-  await expect(page).toHaveTitle('Heroic Volcoross - Kill (3:36) in FIRST DAY BAYBEE LETS GET IT');
+  await expect(page).toHaveTitle('Mythic Overgrown Ancient - Wipe 1 (0:41) in 10.2.5 vdh');
 });
 
 test('player selection', async ({ page, playerSelectionPage, reportPage }) => {
-  await playerSelectionPage.goto('D8Jpabz1kM2rNy4X', '16-Heroic+Volcoross+-+Kill+(3:36)');
+  await playerSelectionPage.goto('BGtRKFdnyf8rNH9h', '3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)');
 
   await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 449' })
+    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 485' })
     .click();
 
   await reportPage.expectBossDifficultyAndNameHeaderToBeVisible();
-  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('HeroicVolcoross');
+  await reportPage.expectBossDifficultyAndNameHeaderToHaveText('MythicOvergrown Ancient');
   await reportPage.expectUrlToHave(
-    'D8Jpabz1kM2rNy4X',
-    '16-Heroic+Volcoross+-+Kill+(3:36)',
+    'BGtRKFdnyf8rNH9h',
+    '3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)',
     'Toppledh',
   );
   await expect(page).toHaveTitle(
-    'Heroic Volcoross - Kill (3:36) by Toppledh in FIRST DAY BAYBEE LETS GET IT',
+    'Mythic Overgrown Ancient - Wipe 1 (0:41) by Toppledh in 10.2.5 vdh',
   );
 });
 
 test.describe('tab selection', () => {
   test.beforeEach(async ({ reportPage }) => {
     await reportPage.goto({
-      reportCode: 'D8Jpabz1kM2rNy4X',
-      fightCode: '16-Heroic+Volcoross+-+Kill+(3:36)',
+      reportCode: 'BGtRKFdnyf8rNH9h',
+      fightCode: '3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)',
       playerName: 'Toppledh',
     });
   });
@@ -55,7 +55,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnStatisticsTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/statistics',
+      '/report/BGtRKFdnyf8rNH9h/3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)/Toppledh/standard/statistics',
     );
   });
 
@@ -63,7 +63,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnTimelineTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/timeline',
+      '/report/BGtRKFdnyf8rNH9h/3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)/Toppledh/standard/timeline',
     );
   });
 
@@ -71,7 +71,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCooldownsTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/cooldowns',
+      '/report/BGtRKFdnyf8rNH9h/3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)/Toppledh/standard/cooldowns',
     );
   });
 
@@ -79,7 +79,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnCharacterTab();
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/character',
+      '/report/BGtRKFdnyf8rNH9h/3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)/Toppledh/standard/character',
     );
   });
 
@@ -87,7 +87,7 @@ test.describe('tab selection', () => {
     await reportPage.clickOnAboutTab('Vengeance Demon Hunter');
 
     await expect(page).toHaveURL(
-      '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard/about',
+      '/report/BGtRKFdnyf8rNH9h/3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)/Toppledh/standard/about',
     );
   });
 });
@@ -98,16 +98,16 @@ test('perform analysis', async ({ page }) => {
   await page.getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>').click();
   await page
     .getByPlaceholder('https://www.warcraftlogs.com/reports/<report code>')
-    .fill('https://www.warcraftlogs.com/reports/D8Jpabz1kM2rNy4X');
+    .fill('https://www.warcraftlogs.com/reports/BGtRKFdnyf8rNH9h');
   await page.getByRole('heading', { name: 'Fight selection' }).waitFor();
-  await page.getByRole('link', { name: 'Kill 3:36' }).click();
+  await page.getByRole('link', { name: 'Wipe 1 0:41' }).click();
   await page.getByRole('heading', { name: 'Player selection' }).waitFor();
   await page
-    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 449' })
+    .getByRole('link', { name: 'Toppledh Vengeance Demon Hunter Vengeance Demon Hunter 485' })
     .click();
-  await page.getByText('HeroicVolcoross').waitFor();
+  await page.getByText('MythicOvergrown Ancient').waitFor();
 
   await expect(page).toHaveURL(
-    '/report/D8Jpabz1kM2rNy4X/16-Heroic+Volcoross+-+Kill+(3:36)/Toppledh/standard',
+    '/report/BGtRKFdnyf8rNH9h/3-Mythic+Overgrown+Ancient+-+Wipe+1+(0:41)/Toppledh/standard',
   );
 });
