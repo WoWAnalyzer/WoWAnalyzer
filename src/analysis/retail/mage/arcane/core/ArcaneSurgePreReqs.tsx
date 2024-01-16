@@ -58,6 +58,7 @@ class ArcaneSurgePreReqs extends Analyzer {
     const manaResource: any =
       event.classResources &&
       event.classResources.find((classResource) => classResource.type === RESOURCE_TYPES.MANA.id);
+
     this.arcaneSurges.push({
       cast: event,
       radiantSparkActive: this.hasRadiantSpark && radiantSparkActive,

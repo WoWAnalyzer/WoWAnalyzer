@@ -17,6 +17,7 @@ const CAST_BUFFER_MS = 500;
 
 export const SPELL_CAST = 'SpellCast';
 export const SPELL_DAMAGE = 'SpellDamage';
+export const DEBUFF_APPLY = 'DebuffApply';
 
 const EVENT_LINKS: EventLink[] = [
   {
@@ -59,6 +60,18 @@ const EVENT_LINKS: EventLink[] = [
     linkRelation: SPELL_DAMAGE,
     referencedEventId: TALENTS.ARCANE_SURGE_TALENT.id,
     referencedEventType: EventType.Damage,
+    maximumLinks: 1,
+    anyTarget: true,
+    forwardBufferMs: CAST_BUFFER_MS,
+    backwardBufferMs: CAST_BUFFER_MS,
+  },
+  {
+    reverseLinkRelation: SPELL_CAST,
+    linkingEventId: TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
+    linkingEventType: EventType.Cast,
+    linkRelation: DEBUFF_APPLY,
+    referencedEventId: SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id,
+    referencedEventType: EventType.ApplyDebuff,
     maximumLinks: 1,
     anyTarget: true,
     forwardBufferMs: CAST_BUFFER_MS,

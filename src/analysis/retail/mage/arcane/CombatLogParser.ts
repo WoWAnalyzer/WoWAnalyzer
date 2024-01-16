@@ -38,6 +38,7 @@ import ArcaneHarmony from './talents/ArcaneHarmony';
 import ArcaneOrb from './talents/ArcaneOrb';
 import RadiantSpark from './talents/RadiantSpark';
 import RuleOfThrees from './talents/RuleOfThrees';
+import TouchOfTheMagi from './talents/TouchOfTheMagi';
 
 //Normalizers
 import ArcaneChargesNormalizer from './normalizers/ArcaneCharges';
@@ -75,6 +76,7 @@ class CombatLogParser extends CoreCombatLogParser {
     arcaneBombardment: ArcaneBombardment,
     shiftingPower: ShiftingPower,
     radiantSpark: RadiantSpark,
+    touchOfTheMagi: TouchOfTheMagi,
 
     //Talents - Shared
     divertedEnergy: DivertedEnergy,
