@@ -13,6 +13,7 @@ import {
 } from 'analysis/retail/mage/shared';
 import CoreCombatLogParser from 'parser/core/CombatLogParser';
 import ArcaneTorrent from 'parser/shared/modules/racials/bloodelf/ArcaneTorrent';
+import Guide from './Guide';
 
 //Core
 import Checklist from './checklist/Module';
@@ -95,6 +96,7 @@ class CombatLogParser extends CoreCombatLogParser {
     // There's no throughput benefit from casting Arcane Torrent on cooldown
     arcaneTorrent: [ArcaneTorrent, { castEfficiency: null }] as const,
   };
+  static guide = Guide;
 }
 
 export default CombatLogParser;
