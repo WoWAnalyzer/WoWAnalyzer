@@ -19,6 +19,7 @@ import ArcaneEcho from '../talents/ArcaneEcho';
 import ArcaneFamiliar from '../talents/ArcaneFamiliar';
 import ArcaneOrb from '../talents/ArcaneOrb';
 import RuleOfThrees from '../talents/RuleOfThrees';
+import TouchOfTheMagi from '../talents/TouchOfTheMagi';
 import Component from './Component';
 
 class Checklist extends BaseChecklist {
@@ -33,6 +34,7 @@ class Checklist extends BaseChecklist {
     arcaneSurgeMana: ArcaneSurgeMana,
     radiantSpark: RadiantSpark,
     ruleOfThrees: RuleOfThrees,
+    touchOfTheMagi: TouchOfTheMagi,
     timeAnomaly: TimeAnomaly,
     arcaneMissiles: ArcaneMissiles,
     manaValues: ManaValues,
@@ -51,6 +53,7 @@ class Checklist extends BaseChecklist {
   protected arcaneSurgeMana!: ArcaneSurgeMana;
   protected radiantSpark!: RadiantSpark;
   protected ruleOfThrees!: RuleOfThrees;
+  protected touchOfTheMagi!: TouchOfTheMagi;
   protected timeAnomaly!: TimeAnomaly;
   protected arcaneMissiles!: ArcaneMissiles;
   protected manaValues!: ManaValues;
@@ -75,9 +78,9 @@ class Checklist extends BaseChecklist {
           arcaneSurgePreReqs: this.arcaneSurgePreReqs.arcaneSurgeThresholds,
           radiantSparkPreReqs: this.arcaneSurgePreReqs.radiantSparkThresholds,
           siphonStormPreReqs: this.arcaneSurgePreReqs.siphonStormThresholds,
-          touchOfMagiPreReqs: this.arcaneSurgePreReqs.touchOfMagiThresholds,
           arcaneSurgeManaUtilization: this.arcaneSurgeMana.arcaneSurgeManaUtilization,
           ruleOfThreesUsage: this.ruleOfThrees.ruleOfThreesUtilizationThresholds,
+          touchMagiBadUses: this.touchOfTheMagi.touchOfTheMagiUtilization,
           timeAnomalyManaUtilization: this.timeAnomaly.timeAnomalyManaThresholds,
           arcaneMissilesUtilization: this.arcaneMissiles.arcaneMissileUsageThresholds,
           manaOnKill: this.manaValues.suggestionThresholds,

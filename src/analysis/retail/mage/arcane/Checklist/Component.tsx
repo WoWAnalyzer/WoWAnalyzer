@@ -140,7 +140,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <Requirement
             name="Siphon Storm not active during Surge"
             tooltip="Since Siphon Storm increases your Intellect, which boosts your damage, you want to ensure that you are casting it before every Arcane Surge (Radiant Spark > Touch of the Magi > Arcane Surge). This way, the Arcane Blasts that you cast once Arcane Surge is active can get buffed by Radiant Spark."
-            thresholds={thresholds.radiantSparkPreReqs}
+            thresholds={thresholds.siphonStormPreReqs}
           />
         )}
         {combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT) && (
@@ -160,13 +160,14 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
             spell={TALENTS.SHIFTING_POWER_TALENT.id}
           />
         )}
-        {combatant.hasTalent(TALENTS.ARCANE_ECHO_TALENT) && (
-          <Requirement
-            name="Bad Touch of the Magi Uses"
-            tooltip="Arcane Echo causes direct damage abilities, like Arcane Missiles, to pulse damage to up to 8 nearby targets. Because of this, you should be non-stop casting Arcane Missiles (whether you have Clearcasting procs or not), into any target with the Touch of the Magi debuff until that debuff is removed."
-            thresholds={thresholds.arcaneEchoLowUsage}
-          />
-        )}
+        {combatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT) &&
+          combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
+            <Requirement
+              name="Touch of the Magi Usage"
+              tooltip="Because Touch of the Magi will be available for every burn phase (major and minor), you should use Arcane Barrage during Radiant Spark to clear your Arcane Charges and then use Touch of the Magi to refresh your charges and continue casting into Radiant Spark."
+              thresholds={thresholds.touchMagiBadUses}
+            />
+          )}
         {combatant.hasTalent(TALENTS.RULE_OF_THREES_TALENT) && (
           <Requirement
             name="Rule of Threes Buff Usage"

@@ -4,7 +4,6 @@ import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import RESOURCE_TYPES from 'game/RESOURCE_TYPES';
 import { SpellLink } from 'interface';
-import { TooltipElement } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent, GetRelatedEvent } from 'parser/core/Events';
@@ -35,7 +34,6 @@ class ArcaneSurgePreReqs extends Analyzer {
     cast: CastEvent;
     radiantSparkActive: boolean | undefined;
     siphonStormActive: boolean | undefined;
-    touchOfMagiActive: boolean | undefined;
     manaPercent: number;
     maxCharges: boolean;
   }[] = [];
@@ -64,9 +62,6 @@ class ArcaneSurgePreReqs extends Analyzer {
       radiantSparkActive: this.hasRadiantSpark && radiantSparkActive,
       siphonStormActive:
         this.hasSiphonStorm && this.selectedCombatant.hasBuff(TALENTS.SIPHON_STORM_TALENT.id),
-      touchOfMagiActive:
-        this.hasTouchOfMagi &&
-        ((enemy && enemy.hasBuff(SPELLS.TOUCH_OF_THE_MAGI_DEBUFF.id)) || undefined),
       manaPercent: manaResource && manaResource.amount / manaResource.max,
       maxCharges: this.arcaneChargeTracker.charges >= ARCANE_CHARGE_MAX_STACKS,
     });
@@ -78,7 +73,6 @@ class ArcaneSurgePreReqs extends Analyzer {
       if (
         (this.hasRadiantSpark && !c.radiantSparkActive) ||
         (this.hasSiphonStorm && !c.siphonStormActive) ||
-        (this.hasTouchOfMagi && !c.touchOfMagiActive) ||
         !c.maxCharges
       ) {
         badCasts += 1;
@@ -103,10 +97,6 @@ class ArcaneSurgePreReqs extends Analyzer {
 
   get missingSiphonStorm() {
     return this.arcaneSurges.filter((c) => !c.siphonStormActive).length;
-  }
-
-  get missingTouchOfMagi() {
-    return this.arcaneSurges.filter((c) => !c.touchOfMagiActive).length;
   }
 
   get notMaxCharges() {
@@ -151,17 +141,6 @@ class ArcaneSurgePreReqs extends Analyzer {
     };
   }
 
-  get touchOfMagiThresholds() {
-    return {
-      actual: this.missingTouchOfMagi,
-      isGreaterThan: {
-        average: 0,
-        major: 1,
-      },
-      style: ThresholdStyle.NUMBER,
-    };
-  }
-
   suggestions(when: When) {
     when(this.arcaneSurgeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
@@ -173,15 +152,6 @@ class ArcaneSurgePreReqs extends Analyzer {
             <li>
               You have {ARCANE_CHARGE_MAX_STACKS} <SpellLink spell={SPELLS.ARCANE_CHARGE} /> - You
               failed this {this.notMaxCharges} times.
-            </li>
-            <li>
-              <>
-                You cast <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} />
-                <TooltipElement content="Arcane Surge should be cast right on the end of the Rune of Power cast. There should not be any casts or any delay in between Rune of Power and Arcane Surge to ensure that Rune of Power is up for the entire duration of Arcane Surge.">
-                  immediately
-                </TooltipElement>
-                before Arcane Surge - You failed this {this.missingTouchOfMagi} times.
-              </>
             </li>
           </ul>
         </>,
@@ -208,12 +178,6 @@ class ArcaneSurgePreReqs extends Analyzer {
                 You have {ARCANE_CHARGE_MAX_STACKS} Arcane Charges - Missed {this.notMaxCharges}{' '}
                 times
               </li>
-              {this.hasTouchOfMagi && (
-                <li>
-                  <SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> is active - Missed{' '}
-                  {this.missingTouchOfMagi} times
-                </li>
-              )}
               {this.hasRadiantSpark && (
                 <li>
                   <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} /> is active - Missed{' '}

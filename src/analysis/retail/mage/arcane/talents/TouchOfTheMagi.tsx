@@ -71,6 +71,7 @@ class TouchOfTheMagi extends Analyzer {
   };
 
   get hasCharges() {
+    this.log(this.touch);
     return this.touch.filter((t) => t.charges !== 0);
   }
 

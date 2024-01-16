@@ -12,9 +12,14 @@ const EVENT_ORDERS: EventOrder[] = [
       TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
     ],
     beforeEventType: EventType.Cast,
-    afterEventId: null, // FIXME could this be acccidentally matching other kinds of energizes?
+    afterEventId: [
+      SPELLS.ARCANE_BLAST.id,
+      SPELLS.ARCANE_EXPLOSION.id,
+      TALENTS.TOUCH_OF_THE_MAGI_TALENT.id,
+    ],
     afterEventType: EventType.ResourceChange,
     bufferMs: 50,
+    anyTarget: true,
   },
 ];
 
