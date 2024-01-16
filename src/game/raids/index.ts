@@ -53,6 +53,7 @@ const raids = {
   Ulduar: require('./ulduar').default, // tier 8
   TrialOfTheGrandCrusader: require('./trialofthegrandcrusader').default, // tier 9
   IcecrownCitadel: require('./icc').default, // tier 10
+  RubySanctum: require('./rubysanctum').default,
 };
 export default raids;
 

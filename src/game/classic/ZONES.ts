@@ -1,6 +1,7 @@
 import ulduar from 'game/raids/ulduar';
 import togc from 'game/raids/trialofthegrandcrusader';
 import icc from 'game/raids/icc';
+import rs from 'game/raids/rubysanctum';
 import { Zone } from 'game/ZONES';
 
 const ZONES: Zone[] = [
@@ -54,6 +55,11 @@ const ZONES: Zone[] = [
       icc.bosses.Sindragosa,
       icc.bosses.LichKing,
     ],
+  },
+  {
+    id: 1021,
+    name: 'Ruby Sanctum',
+    encounters: [rs.bosses.Halion],
   },
 ];
 
