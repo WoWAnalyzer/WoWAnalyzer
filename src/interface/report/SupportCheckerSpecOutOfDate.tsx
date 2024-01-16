@@ -32,6 +32,7 @@ const SupportCheckerSpecOutOfDate = ({ config, ...others }: Props) => {
         </Trans>
       }
       config={config}
+      testId="spec-not-updated-for-patch"
       {...others}
     >
       <Trans id="interface.report.supportChecker.specNotSupportedDetails">
