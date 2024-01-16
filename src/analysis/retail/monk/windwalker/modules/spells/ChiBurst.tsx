@@ -21,10 +21,10 @@ class ChiBurst extends Analyzer {
           <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} />
         </b>{' '}
         is a filler spell that is also very good at resetting{' '}
-        <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} />.{' '}
+        <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} />.{' '}
         <SpellLink spell={TALENTS_MONK.CHI_BURST_TALENT} /> ideally should be used when anything
         else would break mastery, or when movement is required and you are at risk of not being able
-        to reset your <SpellLink spell={TALENTS_MONK.FAELINE_HARMONY_TALENT} /> cooldown.
+        to reset your <SpellLink spell={TALENTS_MONK.JADEFIRE_HARMONY_TALENT} /> cooldown.
       </p>
     );
 

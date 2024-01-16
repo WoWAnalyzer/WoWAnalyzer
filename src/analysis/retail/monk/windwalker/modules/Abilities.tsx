@@ -110,10 +110,10 @@ class Abilities extends CoreAbilities {
         },
       },
       {
-        spell: TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+        spell: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
         category: SPELL_CATEGORY.ROTATIONAL,
         cooldown: 30,
-        enabled: combatant.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT),
+        enabled: combatant.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT),
         gcd: {
           base: 1000,
         },

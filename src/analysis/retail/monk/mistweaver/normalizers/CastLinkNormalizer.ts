@@ -434,7 +434,7 @@ const EVENT_LINKS: EventLink[] = [
     reverseLinkRelation: ANCIENT_TEACHINGS_FLS,
     linkingEventId: SPELLS.AT_BUFF.id,
     linkingEventType: [EventType.ApplyBuff, EventType.RefreshBuff],
-    referencedEventId: TALENTS_MONK.FAELINE_STOMP_TALENT.id,
+    referencedEventId: TALENTS_MONK.JADEFIRE_STOMP_TALENT.id,
     referencedEventType: EventType.Cast,
     forwardBufferMs: CAST_BUFFER_MS,
     backwardBufferMs: CAST_BUFFER_MS,
@@ -443,7 +443,7 @@ const EVENT_LINKS: EventLink[] = [
     isActive(c) {
       return (
         c.hasTalent(TALENTS_MONK.ANCIENT_TEACHINGS_TALENT) &&
-        c.hasTalent(TALENTS_MONK.FAELINE_STOMP_TALENT)
+        c.hasTalent(TALENTS_MONK.JADEFIRE_STOMP_TALENT)
       );
     },
   },

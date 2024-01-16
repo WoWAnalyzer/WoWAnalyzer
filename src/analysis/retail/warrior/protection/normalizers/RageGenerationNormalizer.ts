@@ -34,7 +34,7 @@ const IMPENETRABLE_WALL_AMOUNT = 3;
 const INSTIGATE_DEVASTATOR_INCREASE = 2;
 
 // Spear
-const PIERCING_VERDICT_INCREASE = 1;
+const PIERCING_CHALLENGE_INCREASE = 1;
 
 // Ravager
 const STORM_OF_STEEL_INCREASE = 10;
@@ -304,7 +304,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
     this.hasInstigate = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.INSTIGATE_TALENT);
 
     // spear of bastion
-    this.hasPV = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.PIERCING_VERDICT_TALENT);
+    this.hasPV = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.PIERCING_CHALLENGE_TALENT);
 
     // ravager
     this.hasSoS = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.STORM_OF_STEEL_TALENT);
@@ -420,8 +420,8 @@ class RageGenerationNormalizer extends EventsNormalizer {
         if (event.ability.guid === SPELLS.SPEAR_OF_BASTION.id) {
           const newEvent = this._removeMultiplicitiveIncrease(
             event,
-            PIERCING_VERDICT_INCREASE,
-            TALENTS_WARRIOR.PIERCING_VERDICT_TALENT,
+            PIERCING_CHALLENGE_INCREASE,
+            TALENTS_WARRIOR.PIERCING_CHALLENGE_TALENT,
           );
           updatedEvents.push(newEvent);
         }

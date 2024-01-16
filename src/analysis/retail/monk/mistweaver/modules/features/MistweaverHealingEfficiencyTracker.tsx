@@ -95,7 +95,7 @@ class MistweaverHealingEfficiencyTracker extends HealingEfficiencyTracker {
       spellInfo = this.getChijiDetails(spellInfo);
     } else if (spellId === SPELLS.EXPEL_HARM.id) {
       spellInfo = this.getExpelHarmDetails(spellInfo);
-    } else if (spellId === TALENTS_MONK.FAELINE_STOMP_TALENT.id) {
+    } else if (spellId === TALENTS_MONK.JADEFIRE_STOMP_TALENT.id) {
       spellInfo = this.getFLSDetails(spellInfo);
     } else if (spellId === TALENTS_MONK.ZEN_PULSE_TALENT.id) {
       spellInfo = this.getZenPulseDetails(spellInfo);

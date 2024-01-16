@@ -29,7 +29,7 @@ class MistweaverHealingEfficiencyDetails extends HealingEfficiencyDetails {
               <>
                 <SpellLink spell={TALENTS_MONK.ANCIENT_TEACHINGS_TALENT} /> is given to the spell
                 that applied the buff, either <SpellLink spell={TALENTS_MONK.ESSENCE_FONT_TALENT} />{' '}
-                or <SpellLink spell={TALENTS_MONK.FAELINE_STOMP_TALENT} />. <br />
+                or <SpellLink spell={TALENTS_MONK.JADEFIRE_STOMP_TALENT} />. <br />
               </>
             )}
             <SpellLink spell={TALENTS_MONK.RENEWING_MIST_TALENT} /> healing from{' '}

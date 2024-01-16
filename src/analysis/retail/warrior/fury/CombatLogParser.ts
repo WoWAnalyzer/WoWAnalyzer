@@ -11,7 +11,7 @@ import Checklist from './modules/features/checklist/Module';
 import CooldownThroughputTracker from './modules/features/CooldownThroughputTracker';
 import SpellUsable from './modules/features/SpellUsable';
 import EnrageNormalizer from './modules/normalizers/Enrage';
-import SpearOfBastion from './modules/talents/SpearOfBastion';
+import ChampionsSpear from './modules/talents/ChampionsSpear';
 import MissedRampage from './modules/spells/MissedRampage';
 import Recklessness from './modules/spells/Recklessness';
 import WhirlWind from './modules/spells/Whirlwind';
@@ -52,7 +52,7 @@ class CombatLogParser extends CoreCombatLogParser {
     recklessAbandon: RecklessAbandon,
     suddenDeath: SuddenDeath,
     warpaint: Warpaint,
-    spearofBastion: SpearOfBastion,
+    spearofBastion: ChampionsSpear,
     spellReflection: SpellReflection,
     impendingVictory: ImpendingVictory,
   };

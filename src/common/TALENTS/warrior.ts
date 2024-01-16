@@ -330,6 +330,22 @@ const talents = {
     entryIds: [112172],
     definitionIds: [{ id: 117177, specId: 73 }],
   },
+  CHAMPIONS_MIGHT_TALENT: {
+    id: 386285,
+    name: "Champion's Might",
+    icon: 'ability_bastion_warrior',
+    maxRanks: 1,
+    entryIds: [112180],
+    definitionIds: [{ id: 117185, specId: 71 }],
+  },
+  CHAMPIONS_SPEAR_TALENT: {
+    id: 376079,
+    name: "Champion's Spear",
+    icon: 'ability_bastion_warrior',
+    maxRanks: 1,
+    entryIds: [112247],
+    definitionIds: [{ id: 117252, specId: 71 }],
+  },
   CLEAVE_TALENT: {
     id: 845,
     name: 'Cleave',
@@ -557,14 +573,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [112240],
     definitionIds: [{ id: 117245, specId: 72 }],
-  },
-  ELYSIAN_MIGHT_TALENT: {
-    id: 386285,
-    name: 'Elysian Might',
-    icon: 'ability_bastion_warrior',
-    maxRanks: 1,
-    entryIds: [112180],
-    definitionIds: [{ id: 117185, specId: 71 }],
   },
   ENDURANCE_TRAINING_FURY_TALENT: {
     id: 391997,
@@ -1112,6 +1120,14 @@ const talents = {
     entryIds: [112217],
     definitionIds: [{ id: 117222, specId: 71 }],
   },
+  PIERCING_CHALLENGE_TALENT: {
+    id: 382948,
+    name: 'Piercing Challenge',
+    icon: 'ability_revendreth_warrior',
+    maxRanks: 1,
+    entryIds: [112246],
+    definitionIds: [{ id: 117251, specId: 71 }],
+  },
   PIERCING_HOWL_TALENT: {
     id: 12323,
     name: 'Piercing Howl',
@@ -1119,14 +1135,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [112210],
     definitionIds: [{ id: 117215, specId: 71 }],
-  },
-  PIERCING_VERDICT_TALENT: {
-    id: 382948,
-    name: 'Piercing Verdict',
-    icon: 'spell_animabastion_missile',
-    maxRanks: 1,
-    entryIds: [112246],
-    definitionIds: [{ id: 117251, specId: 71 }],
   },
   PUNISH_TALENT: {
     id: 275334,
@@ -1362,14 +1370,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [112178],
     definitionIds: [{ id: 117183, specId: 71 }],
-  },
-  SPEAR_OF_BASTION_TALENT: {
-    id: 376079,
-    name: 'Spear of Bastion',
-    icon: 'ability_bastion_warrior',
-    maxRanks: 1,
-    entryIds: [112247],
-    definitionIds: [{ id: 117252, specId: 71 }],
   },
   SPELL_BLOCK_TALENT: {
     id: 392966,

@@ -457,8 +457,11 @@ const talents = {
     name: 'Elemental Warding',
     icon: 'inv_10_elementalcombinedfoozles_primordial',
     maxRanks: 2,
-    entryIds: [101978],
-    definitionIds: [{ id: 106978, specId: 262 }],
+    entryIds: [117910, 101978],
+    definitionIds: [
+      { id: 122922, specId: 263 },
+      { id: 106978, specId: 262 },
+    ],
   },
   ELEMENTAL_WEAPONS_TALENT: {
     id: 384355,
