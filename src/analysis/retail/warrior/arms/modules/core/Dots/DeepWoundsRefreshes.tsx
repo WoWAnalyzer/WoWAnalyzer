@@ -103,7 +103,7 @@ class EarlyDotRefresh extends EarlyDotRefreshesCore {
           .icon(SPELLS.MASTERY_DEEP_WOUNDS_DEBUFF.icon)
           .actual(
             defineMessage({
-              id: 'shared.suggestions.dots.badRefreshes',
+              id: 'shared.suggestions.dots.badDeepWoundsRefreshes',
               message: `${formatPercentage(actual)}% of good Deep Wounds refreshes.`,
             }),
           )

@@ -2334,3 +2334,9 @@ export const Pants: Contributor = {
   github: 'Smetz42',
   discord: 'pants_of_silver',
 };
+
+export const dub: Contributor = {
+  nickname: 'wes/dub',
+  github: 'wtodom',
+  discord: 'its_me_dub',
+};

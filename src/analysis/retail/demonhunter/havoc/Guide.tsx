@@ -16,6 +16,9 @@ import {
 } from './modules/resourcetracker/FuryTracker';
 import FuryCapWaste from './guide/FuryCapWaste';
 import HideGoodCastsToggle from 'interface/guide/components/HideGoodCastsToggle';
+import { PerformanceStrong } from 'analysis/retail/priest/shadow/modules/guide/ExtraComponents';
+import { formatPercentage } from 'common/format';
+import ActiveTimeGraph from 'parser/ui/ActiveTimeGraph';
 
 export default function Guide({ modules, events, info }: GuideProps<typeof CombatLogParser>) {
   return (
@@ -28,12 +31,12 @@ export default function Guide({ modules, events, info }: GuideProps<typeof Comba
   );
 }
 
-function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
+function ResourceUsageSection({ info, modules }: GuideProps<typeof CombatLogParser>) {
   const percentAtFuryCap = modules.furyTracker.percentAtCap;
   const percentAtFuryCapPerformance = modules.furyTracker.percentAtCapPerformance;
   const furyWasted = modules.furyTracker.wasted;
   return (
-    <Section title="Resource Use">
+    <Section title="Core">
       <SubSection title="Fury">
         <p>
           Havoc's primary resource is <ResourceLink id={RESOURCE_TYPES.FURY.id} />. You should avoid
@@ -49,6 +52,28 @@ function ResourceUsageSection({ modules }: GuideProps<typeof CombatLogParser>) {
           okTimeAtFuryCap={OK_TIME_AT_FURY_CAP}
         />
         {modules.furyGraph.plot}
+      </SubSection>
+      <SubSection title="Active Time">
+        <p>
+          <b>
+            Continuously casting throughout an encounter is the single most important thing for
+            achieving good DPS.
+          </b>
+          <br />
+          Some fights have unavoidable downtime due to phase transitions and the like, so in these
+          cases 0% downtime will not be possible - do the best you can.
+        </p>
+        <p>
+          Active Time:{' '}
+          <PerformanceStrong performance={modules.alwaysBeCasting.DowntimePerformance}>
+            {formatPercentage(modules.alwaysBeCasting.activeTimePercentage, 1)}%
+          </PerformanceStrong>{' '}
+        </p>
+        <ActiveTimeGraph
+          activeTimeSegments={modules.alwaysBeCasting.activeTimeSegments}
+          fightStart={info.fightStart}
+          fightEnd={info.fightEnd}
+        />
       </SubSection>
     </Section>
   );

@@ -26,12 +26,25 @@ import {
   Seriousnes,
   Arlie,
   LucasLevyOB,
+  dub
 } from 'CONTRIBUTORS';
 import { ItemLink } from 'interface';
 import SpellLink from 'interface/SpellLink';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 11), <>Add <ItemLink id={ITEMS.POTION_OF_WITHERING_DREAMS_R3.id} /> to healing potion list.</>, ToppleTheNun),
+  change(date(2024, 1, 11), 'Update k-values for 10.2.', ToppleTheNun),
+  change(date(2024, 1, 9), <>Add <ItemLink id={ITEMS.DREAMWALKERS_HEALING_POTION_R3.id} /> to healing potion list.</>, dub),
+  change(date(2024, 1, 7), <>Add checklist support for <ItemLink id={ITEMS.FYRALATH.id} />.</>, ToppleTheNun),
+  change(date(2024, 1, 4), <>Add statistics for <ItemLink id={ITEMS.ECHOING_TYRSTONE.id}/>.</>, Arbixal),
+  change(date(2024, 1, 2), 'Remove Shadowlands food and augment rune support.', ToppleTheNun),
+  change(date(2023, 12, 31), <>Add resource initialization and granularity support for ResourceTracker module.</>, Vollmer),
+  change(date(2023, 12, 30), 'Fix errors caused by ESLint update.', ToppleTheNun),
+  change(date(2023, 12, 28), 'Improve internal handling of phases', emallson),
+  change(date(2023, 12, 21), <>Mark <ItemLink id={ITEMS.ENCHANT_WEAPON_DREAMING_DEVOTION_R3.id} /> as a max rank enchant.</>, ToppleTheNun),
+  change(date(2023, 12, 20), 'Bring over the ESLint config from the vite migration branch.', ToppleTheNun),
+  change(date(2023, 12, 20), 'Bump i18n dependency version.', ToppleTheNun),
   change(date(2023, 12, 20), 'Mark 10.1.5 as an old patch.', ToppleTheNun),
   change(date(2023, 12, 20), 'Bring over a few of the changes from the vite migration branch.', ToppleTheNun),
   change(date(2023, 12, 5), 'Update Classic Mana Values to activate based on config role.', jazminite),

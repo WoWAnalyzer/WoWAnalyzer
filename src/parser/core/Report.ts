@@ -38,6 +38,7 @@ export interface WCLReportPhases {
    * Phase names.
    */
   phases: Record<number, string>;
+  intermissions?: number[];
 }
 
 export interface Report extends WCLReport {

@@ -40,7 +40,7 @@ class DevouringPlague extends Analyzer {
         .icon('spell_shadow_devouringplague')
         .actual(
           defineMessage({
-            id: 'priest.shadow.suggestions.devouringPlague.uptime',
+            id: 'classic.priest.shadow.suggestions.devouringPlague.uptime',
             message: `${formatPercentage(actual)}% Devouring Plague uptime`,
           }),
         )

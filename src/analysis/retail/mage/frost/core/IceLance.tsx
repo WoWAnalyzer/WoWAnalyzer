@@ -1,16 +1,13 @@
-import { Trans } from '@lingui/macro';
-import { MS_BUFFER_100, SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
+import { SHATTER_DEBUFFS } from 'analysis/retail/mage/shared';
 import { formatPercentage } from 'common/format';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
+import { highlightInefficientCast } from 'interface/report/Results/Timeline/Casts';
 import Analyzer, { SELECTED_PLAYER, Options } from 'parser/core/Analyzer';
-import Events, { CastEvent, DamageEvent, ChangeBuffStackEvent } from 'parser/core/Events';
+import Events, { CastEvent, DamageEvent, GetRelatedEvent } from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
-import Enemies, { encodeTargetString } from 'parser/shared/modules/Enemies';
-import EventHistory from 'parser/shared/modules/EventHistory';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import Enemies from 'parser/shared/modules/Enemies';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
@@ -18,23 +15,10 @@ import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
 class IceLance extends Analyzer {
   static dependencies = {
     enemies: Enemies,
-    abilityTracker: AbilityTracker,
-    eventHistory: EventHistory,
-    spellUsable: SpellUsable,
   };
   protected enemies!: Enemies;
-  protected abilityTracker!: AbilityTracker;
-  protected eventHistory!: EventHistory;
-  protected spellUsable!: SpellUsable;
 
-  hadFingersProc = false;
-  iceLanceTargetId = '';
-  nonShatteredCasts = 0;
-
-  iceLanceCastTimestamp = 0;
-  totalFingersProcs = 0;
-  overwrittenFingersProcs = 0;
-  expiredFingersProcs = 0;
+  icelance: { cast: CastEvent; shattered: boolean; hadFingers: boolean; cleaved: boolean }[] = [];
 
   constructor(options: Options) {
     super(options);
@@ -42,90 +26,44 @@ class IceLance extends Analyzer {
       Events.cast.by(SELECTED_PLAYER).spell(TALENTS.ICE_LANCE_TALENT),
       this.onCast,
     );
-    this.addEventListener(
-      Events.damage.by(SELECTED_PLAYER).spell(SPELLS.ICE_LANCE_DAMAGE),
-      this.onDamage,
-    );
-    this.addEventListener(
-      Events.changebuffstack.by(SELECTED_PLAYER).spell(SPELLS.FINGERS_OF_FROST_BUFF),
-      this.onFingersStackChange,
-    );
   }
 
   onCast(event: CastEvent) {
-    this.iceLanceCastTimestamp = event.timestamp;
-    if (event.targetID) {
-      this.iceLanceTargetId = encodeTargetString(event.targetID, event.targetInstance);
-    }
-    this.hadFingersProc = false;
-    if (this.selectedCombatant.hasBuff(SPELLS.FINGERS_OF_FROST_BUFF.id)) {
-      this.hadFingersProc = true;
-    }
+    const damage: DamageEvent | undefined = GetRelatedEvent(event, 'SpellDamage');
+    const enemy = damage && this.enemies.getEntity(damage);
+    const cleave: DamageEvent | undefined = GetRelatedEvent(event, 'CleaveDamage');
+    this.icelance.push({
+      cast: event,
+      shattered:
+        SHATTER_DEBUFFS.some((effect) => enemy?.hasBuff(effect.id, damage?.timestamp)) || false,
+      hadFingers: this.selectedCombatant.hasBuff(
+        SPELLS.FINGERS_OF_FROST_BUFF.id,
+        event.timestamp - 10,
+      ),
+      cleaved: cleave ? true : false,
+    });
   }
 
-  onDamage(event: DamageEvent) {
-    const damageTarget = encodeTargetString(event.targetID, event.targetInstance);
-    if (this.iceLanceTargetId !== damageTarget) {
-      return;
-    }
+  nonShatteredCasts = () => {
+    //Get casts that were not shattered
+    let badCasts = this.icelance.filter((il) => !il.shattered);
 
-    const enemy = this.enemies.getEntity(event);
-    if (
-      enemy &&
-      !SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, event.timestamp)) &&
-      !this.hadFingersProc
-    ) {
-      this.nonShatteredCasts += 1;
-    }
-  }
+    //If they had Fingers of Frost, disregard it
+    badCasts = badCasts.filter((il) => !il.hadFingers);
 
-  onFingersStackChange(event: ChangeBuffStackEvent) {
-    // FoF overcaps don't show as a refreshbuff, instead they are a stack lost followed immediately by a gain
-    const stackChange = event.stacksGained;
-    if (stackChange > 0) {
-      this.totalFingersProcs += stackChange;
-    } else if (
-      this.iceLanceCastTimestamp &&
-      this.iceLanceCastTimestamp + MS_BUFFER_100 > event.timestamp
-    ) {
-      // just cast ice lance, so this stack removal probably a proc used
-    } else if (event.newStacks === 0) {
-      this.expiredFingersProcs += -stackChange; // stacks zero out, must be expiration
-    } else {
-      this.overwrittenFingersProcs += -stackChange; // stacks don't zero, this is an overwrite
-    }
-  }
+    const tooltip = `This Ice Lance was not shattered.`;
+    badCasts.forEach((e) => e.cast && highlightInefficientCast(e.cast, tooltip));
 
-  get wastedFingersProcs() {
-    return this.expiredFingersProcs + this.overwrittenFingersProcs;
-  }
-
-  get usedFingersProcs() {
-    return this.totalFingersProcs - this.wastedFingersProcs;
-  }
+    return badCasts.length;
+  };
 
   get shatteredPercent() {
-    return (
-      1 - this.nonShatteredCasts / this.abilityTracker.getAbility(TALENTS.ICE_LANCE_TALENT.id).casts
-    );
-  }
-
-  get fingersProcUtilizationThresholds() {
-    return {
-      actual: 1 - this.wastedFingersProcs / this.totalFingersProcs || 0,
-      isLessThan: {
-        minor: 0.95,
-        average: 0.85,
-        major: 0.7,
-      },
-      style: ThresholdStyle.PERCENTAGE,
-    };
+    return 1 - this.nonShatteredCasts() / this.icelance.length;
   }
 
   get nonShatteredIceLanceThresholds() {
     return {
-      actual:
-        this.nonShatteredCasts / this.abilityTracker.getAbility(TALENTS.ICE_LANCE_TALENT.id).casts,
+      actual: this.nonShatteredCasts() / this.icelance.length,
       isGreaterThan: {
         minor: 0.05,
         average: 0.15,
@@ -139,7 +77,7 @@ class IceLance extends Analyzer {
     when(this.nonShatteredIceLanceThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You cast <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> {this.nonShatteredCasts} times (
+          You cast <SpellLink spell={TALENTS.ICE_LANCE_TALENT} /> {this.nonShatteredCasts()} times (
           {formatPercentage(actual)}%) without <SpellLink spell={TALENTS.SHATTER_TALENT} />. Make
           sure that you are only casting Ice Lance when the target has{' '}
           <SpellLink spell={SPELLS.WINTERS_CHILL} /> (or other Shatter effects), if you have a{' '}
@@ -148,11 +86,7 @@ class IceLance extends Analyzer {
         </>,
       )
         .icon(TALENTS.ICE_LANCE_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.iceLance.nonShatterCasts">
-            {formatPercentage(actual)}% missed
-          </Trans>,
-        )
+        .actual(`${formatPercentage(actual)}% missed`)
         .recommended(`<${formatPercentage(recommended)}% is recommended`),
     );
   }

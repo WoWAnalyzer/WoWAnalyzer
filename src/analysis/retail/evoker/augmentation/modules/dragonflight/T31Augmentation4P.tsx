@@ -25,7 +25,6 @@ import {
 } from '../../constants';
 import StatTracker from 'parser/shared/modules/StatTracker';
 import { formatNumber } from 'common/format';
-import { Trans } from '@lingui/macro';
 import DonutChart from 'parser/ui/DonutChart';
 
 /**
@@ -208,9 +207,7 @@ class T31Augmentation4P extends Analyzer {
           </div>
         </div>
         <div className="pad">
-          <label>
-            <Trans>Buff usage</Trans>
-          </label>
+          <label>Buff usage</label>
           <DonutChart items={buffUsage} />
         </div>
       </Statistic>
