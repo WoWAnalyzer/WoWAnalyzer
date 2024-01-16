@@ -16,11 +16,11 @@ export enum ArmorCoefficientKey {
 // These were pulled from Peak of Serenity theorycrafting channel and need to be updated every tier.
 export const armorCoefficients = {
   [ArmorCoefficientKey.BASE]: 11766.0,
-  [ArmorCoefficientKey.MYTHIC_PLUS]: 12824.94,
-  [ArmorCoefficientKey.RAID_LFR]: 13083.792,
-  [ArmorCoefficientKey.RAID_NORMAL]: 14025.072,
-  [ArmorCoefficientKey.RAID_HEROIC]: 15084.012,
-  [ArmorCoefficientKey.RAID_MYTHIC]: 16284.144,
+  [ArmorCoefficientKey.MYTHIC_PLUS]: 18672.64,
+  [ArmorCoefficientKey.RAID_LFR]: 19155.05,
+  [ArmorCoefficientKey.RAID_NORMAL]: 20872.88,
+  [ArmorCoefficientKey.RAID_HEROIC]: 22814.27,
+  [ArmorCoefficientKey.RAID_MYTHIC]: 25014.52,
 };
 
 /**

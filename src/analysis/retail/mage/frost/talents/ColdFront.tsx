@@ -4,18 +4,12 @@ import TALENTS from 'common/TALENTS/mage';
 import { SpellIcon } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events from 'parser/core/Events';
-import EventHistory from 'parser/shared/modules/EventHistory';
+import Events, { GetRelatedEvent, ApplyBuffEvent, RemoveBuffEvent } from 'parser/core/Events';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_CATEGORY from 'parser/ui/STATISTIC_CATEGORY';
 
 class ColdFront extends Analyzer {
-  static dependencies = {
-    eventHistory: EventHistory,
-  };
-  protected eventHistory!: EventHistory;
-
   bonusFrozenOrbs = 0;
 
   constructor(options: Options) {
@@ -27,13 +21,9 @@ class ColdFront extends Analyzer {
     );
   }
 
-  onBuffApplied() {
-    const buffRemovedEvent = this.eventHistory.last(
-      1,
-      500,
-      Events.removebuff.to(SELECTED_PLAYER).spell(SPELLS.COLD_FRONT_BUFF),
-    );
-    if (buffRemovedEvent) {
+  onBuffApplied(event: ApplyBuffEvent) {
+    const remove: RemoveBuffEvent | undefined = GetRelatedEvent(event, 'BuffRemove');
+    if (remove) {
       this.bonusFrozenOrbs += 1;
     }
   }

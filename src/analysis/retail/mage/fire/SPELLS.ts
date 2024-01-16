@@ -103,6 +103,11 @@ const spells = {
     name: 'Improved Scorch',
     icon: 'ability_mage_fierypayback',
   },
+  FLAME_ACCELERANT_BUFF: {
+    id: 203277,
+    name: 'Flame Accelerant',
+    icon: 'inv_ember',
+  },
   LIVING_BOMB_TICK_DAMAGE: {
     id: 217694,
     name: 'Living Bomb',

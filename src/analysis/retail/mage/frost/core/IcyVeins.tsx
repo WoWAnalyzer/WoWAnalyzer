@@ -1,62 +1,87 @@
-import { Trans } from '@lingui/macro';
 import { formatNumber, formatPercentage } from 'common/format';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
-import Events, { RemoveBuffEvent } from 'parser/core/Events';
+import Events, {
+  EventType,
+  GetRelatedEvent,
+  ApplyBuffEvent,
+  RemoveBuffEvent,
+  FightEndEvent,
+} from 'parser/core/Events';
 import { When, ThresholdStyle } from 'parser/core/ParseResults';
-import AbilityTracker from 'parser/shared/modules/AbilityTracker';
 import EventHistory from 'parser/shared/modules/EventHistory';
-import FilteredActiveTime from 'parser/shared/modules/FilteredActiveTime';
 import BoringSpellValueText from 'parser/ui/BoringSpellValueText';
 import Statistic from 'parser/ui/Statistic';
 import STATISTIC_ORDER from 'parser/ui/STATISTIC_ORDER';
+import AlwaysBeCasting from './AlwaysBeCasting';
 
 class IcyVeins extends Analyzer {
   static dependencies = {
     eventHistory: EventHistory,
-    filteredActiveTime: FilteredActiveTime,
-    abilityTracker: AbilityTracker,
+    alwaysBeCasting: AlwaysBeCasting,
   };
   protected eventHistory!: EventHistory;
-  protected filteredActiveTime!: FilteredActiveTime;
-  protected abilityTracker!: AbilityTracker;
+  protected alwaysBeCasting!: AlwaysBeCasting;
 
-  activeTime = 0;
+  activeTime: number[] = [];
+  buffApplies: number = 0;
 
   constructor(options: Options) {
     super(options);
     this.addEventListener(
-      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ICY_VEINS_TALENT),
-      this.onIcyVeinsRemoved,
+      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ICY_VEINS_TALENT),
+      this.onIcyVeinsStart,
     );
+    this.addEventListener(
+      Events.removebuff.by(SELECTED_PLAYER).spell(TALENTS.ICY_VEINS_TALENT),
+      this.onIcyVeinsEnd,
+    );
+    this.addEventListener(Events.fightend, this.onFightEnd);
   }
 
-  onIcyVeinsRemoved(event: RemoveBuffEvent) {
-    const buffApplied = this.eventHistory.last(
-      1,
-      undefined,
-      Events.applybuff.by(SELECTED_PLAYER).spell(TALENTS.ICY_VEINS_TALENT),
-    )[0].timestamp;
-    const uptime = this.filteredActiveTime.getActiveTime(buffApplied, event.timestamp);
-    this.activeTime += uptime;
+  onIcyVeinsStart(event: ApplyBuffEvent) {
+    this.buffApplies += 1;
   }
+
+  onIcyVeinsEnd(event: RemoveBuffEvent) {
+    const buffApply: ApplyBuffEvent | undefined = GetRelatedEvent(event, 'BuffApply');
+    if (!buffApply) {
+      return;
+    }
+    const icyVeinsDuration = event.timestamp - buffApply.timestamp;
+    this.activeTime[buffApply.timestamp] =
+      icyVeinsDuration -
+      this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(buffApply.timestamp, event.timestamp);
+  }
+
+  onFightEnd(event: FightEndEvent) {
+    const buffApply = this.eventHistory.getEvents(EventType.ApplyBuff, {
+      spell: TALENTS.ICY_VEINS_TALENT,
+      count: 1,
+    })[0];
+    if (!this.selectedCombatant.hasBuff(TALENTS.ICY_VEINS_TALENT.id) || !buffApply) {
+      return;
+    }
+    const icyVeinsDuration = event.timestamp - buffApply.timestamp;
+    this.activeTime[buffApply.timestamp] =
+      icyVeinsDuration -
+      this.alwaysBeCasting.getActiveTimeMillisecondsInWindow(buffApply.timestamp, event.timestamp);
+  }
+
+  icyVeinsDowntime = () => {
+    let activeTime = 0;
+    this.activeTime.forEach((c) => (activeTime += c));
+    return activeTime / 1000;
+  };
 
   get buffUptime() {
-    return this.selectedCombatant.getBuffUptime(TALENTS.ICY_VEINS_TALENT.id);
+    return this.selectedCombatant.getBuffUptime(TALENTS.ICY_VEINS_TALENT.id) / 1000;
   }
 
   get percentActiveTime() {
-    return this.activeTime / this.buffUptime || 0;
-  }
-
-  get downtimeSeconds() {
-    return (this.buffUptime - this.activeTime) / 1000;
-  }
-
-  get averageDowntime() {
-    return this.downtimeSeconds / this.abilityTracker.getAbility(TALENTS.ICY_VEINS_TALENT.id).casts;
+    return 1 - this.icyVeinsDowntime() / this.buffUptime;
   }
 
   get icyVeinsActiveTimeThresholds() {
@@ -75,22 +100,18 @@ class IcyVeins extends Analyzer {
     when(this.icyVeinsActiveTimeThresholds).addSuggestion((suggest, actual, recommended) =>
       suggest(
         <>
-          You spent {formatNumber(this.downtimeSeconds)} seconds (
-          {formatNumber(this.averageDowntime)}s per cast) not casting anything while{' '}
-          <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> was active. Because a large portion of your
-          damage comes from Icy Veins, you should ensure that you are getting the most out of it
-          every time it is cast. While sometimes this is out of your control (you got targeted by a
-          mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
+          You spent {formatNumber(this.icyVeinsDowntime())} seconds (
+          {formatNumber(this.icyVeinsDowntime() / this.buffApplies)}s per cast) not casting anything
+          while <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> was active. Because a large portion
+          of your damage comes from Icy Veins, you should ensure that you are getting the most out
+          of it every time it is cast. While sometimes this is out of your control (you got targeted
+          by a mechanic at the worst possible time), you should try to minimize that risk by casting{' '}
           <SpellLink spell={TALENTS.ICY_VEINS_TALENT} /> when you are at a low risk of being
           interrupted or when the target is vulnerable.
         </>,
       )
         .icon(TALENTS.ICY_VEINS_TALENT.icon)
-        .actual(
-          <Trans id="mage.frost.suggestions.icyVeins.icyVeinsActiveTime">
-            {formatPercentage(this.percentActiveTime)}% Active Time during Icy Veins
-          </Trans>,
-        )
+        .actual(`${formatPercentage(this.percentActiveTime)}% Active Time during Icy Veins`)
         .recommended(`${formatPercentage(recommended)}% is recommended`),
     );
   }
