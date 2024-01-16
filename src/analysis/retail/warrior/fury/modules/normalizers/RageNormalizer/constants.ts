@@ -1,0 +1,1 @@
+export const WARMACHINE_FURY_INCREASE = 0.2;

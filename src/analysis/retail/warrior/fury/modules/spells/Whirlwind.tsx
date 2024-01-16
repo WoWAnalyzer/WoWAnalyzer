@@ -1,13 +1,13 @@
 import { defineMessage } from '@lingui/macro';
+import SPELLS from 'common/SPELLS/warrior';
+import TALENTS from 'common/TALENTS/warrior';
 import { formatPercentage } from 'common/format';
-import SPELLS from 'common/SPELLS';
-import talents from 'common/TALENTS/warrior';
 import { SpellLink } from 'interface';
 import Analyzer, { Options } from 'parser/core/Analyzer';
 import { SELECTED_PLAYER } from 'parser/core/EventFilter';
 import Events, { CastEvent, DamageEvent } from 'parser/core/Events';
 import { ThresholdStyle, When } from 'parser/core/ParseResults';
-import SpellUsable from 'parser/shared/modules/SpellUsable';
+import SpellUsable from '../features/SpellUsable';
 
 import RageTracker from '../core/RageTracker';
 
@@ -34,7 +34,7 @@ class Whirlwind extends Analyzer {
 
   constructor(options: Options) {
     super(options);
-    this.executeThreshold = this.selectedCombatant.hasTalent(talents.MASSACRE_FURY_TALENT)
+    this.executeThreshold = this.selectedCombatant.hasTalent(TALENTS.MASSACRE_FURY_TALENT)
       ? 0.35
       : 0.2;
 

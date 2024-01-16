@@ -233,6 +233,11 @@ const spells = {
     name: 'Whirlwind',
     icon: 'ability_whirlwind',
   },
+  ONSLAUGHT: {
+    id: 315720,
+    name: 'Onslaught',
+    icon: 'ability_warrior_trauma',
+  },
 
   // Arms/Fury:
   PIERCING_HOWL: {
@@ -274,10 +279,40 @@ const spells = {
     name: 'Impending Victory',
     icon: 'spell_impending_victory',
   },
+  IMPENDING_VICTORY: {
+    id: 202168,
+    name: 'Impending Victory',
+    icon: 'spell_impending_victory',
+  },
   SPEAR_OF_BASTION: {
+    id: 376079,
+    name: 'Spear of Bastion',
+    icon: 'ability_bastion_warrior',
+  },
+  SPEAR_OF_BASTION_DAMAGE: {
     id: 376080,
     name: 'Spear of Bastion',
     icon: 'ability_bastion_warrior',
+  },
+  ELYSIAN_MIGHT_BUFF: {
+    id: 311193,
+    name: 'Elysian Might',
+    icon: 'ability_bastion_warrior',
+  },
+  WILD_STRIKES: {
+    id: 392778,
+    name: 'Wild Strikes',
+    icon: 'ability_ghoulfrenzy',
+  },
+  AVATAR_SHARED: {
+    id: 107574,
+    name: 'Avatar',
+    icon: 'warrior_talent_icon_avatar',
+  },
+  AVATAR_PROTECTION: {
+    id: 401150,
+    name: 'Avatar',
+    icon: 'warrior_talent_icon_avatar',
   },
 
   // Arms:
@@ -455,6 +490,31 @@ const spells = {
     name: 'Bloodbath',
     icon: 'ability_warrior_bloodbath',
   },
+  ODYNS_FURY: {
+    id: 385060,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_1: {
+    id: 385059,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_2: {
+    id: 385061,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  ODYNS_FURY_3: {
+    id: 385062,
+    name: "Odyn's Fury",
+    icon: 'inv_sword_1h_artifactvigfus_d_01',
+  },
+  FRENZY: {
+    id: 335082,
+    name: 'Frenzy',
+    icon: 'ability_rogue_bloodyeye',
+  },
 
   // Protection:
   DEVASTATE: {
@@ -583,6 +643,22 @@ const spells = {
     id: 384072,
     name: 'Impenetrable Wall',
     icon: 'ability_warrior_shieldguard',
+  },
+
+  T31_FURY_2P_BONUS: {
+    id: 422925,
+    name: 'Warrior Fury 10.2 Class Set 2pc',
+    icon: 'trade_engineering',
+  },
+  FURIOUS_BLOODTHIRST: {
+    id: 423211,
+    name: 'Furious Bloodthirst',
+    icon: 'spell_nature_bloodlust',
+  },
+  T31_FURY_4P_BONUS: {
+    id: 422926,
+    name: 'Warrior Fury 10.2 Class Set 4pc',
+    icon: 'trade_engineering',
   },
 } satisfies Record<string, Spell>;
 

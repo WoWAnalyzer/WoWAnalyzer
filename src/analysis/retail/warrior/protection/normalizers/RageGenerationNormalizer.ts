@@ -1,6 +1,6 @@
 import SPELLS from 'common/SPELLS';
 import Spell from 'common/SPELLS/Spell';
-import { TALENTS_WARRIOR } from 'common/TALENTS';
+import TALENTS from 'common/TALENTS/warrior';
 import HIT_TYPES from 'game/HIT_TYPES';
 import MAGIC_SCHOOLS from 'game/MAGIC_SCHOOLS';
 import RESOURCE_TYPES, { Resource } from 'game/RESOURCE_TYPES';
@@ -292,25 +292,25 @@ class RageGenerationNormalizer extends EventsNormalizer {
   }
 
   normalize(events: AnyEvent[]): AnyEvent[] {
-    this.hasUF = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.UNNERVING_FOCUS_TALENT);
+    this.hasUF = this.selectedCombatant.hasTalent(TALENTS.UNNERVING_FOCUS_TALENT);
 
     // shield slam area
-    this.hasHR = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.HEAVY_REPERCUSSIONS_TALENT);
-    this.hasIW = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.IMPENETRABLE_WALL_TALENT);
+    this.hasHR = this.selectedCombatant.hasTalent(TALENTS.HEAVY_REPERCUSSIONS_TALENT);
+    this.hasIW = this.selectedCombatant.hasTalent(TALENTS.IMPENETRABLE_WALL_TALENT);
 
     // auto attacks
-    this.hasWM = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.WAR_MACHINE_PROTECTION_TALENT);
-    this.hasDevestator = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.DEVASTATOR_TALENT);
-    this.hasInstigate = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.INSTIGATE_TALENT);
+    this.hasWM = this.selectedCombatant.hasTalent(TALENTS.WAR_MACHINE_PROTECTION_TALENT);
+    this.hasDevestator = this.selectedCombatant.hasTalent(TALENTS.DEVASTATOR_TALENT);
+    this.hasInstigate = this.selectedCombatant.hasTalent(TALENTS.INSTIGATE_TALENT);
 
     // spear of bastion
-    this.hasPV = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.PIERCING_VERDICT_TALENT);
+    this.hasPV = this.selectedCombatant.hasTalent(TALENTS.PIERCING_VERDICT_TALENT);
 
     // ravager
-    this.hasSoS = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.STORM_OF_STEEL_TALENT);
+    this.hasSoS = this.selectedCombatant.hasTalent(TALENTS.STORM_OF_STEEL_TALENT);
 
     // booming voice
-    this.hasBV = this.selectedCombatant.hasTalent(TALENTS_WARRIOR.BOOMING_VOICE_TALENT);
+    this.hasBV = this.selectedCombatant.hasTalent(TALENTS.BOOMING_VOICE_TALENT);
 
     const updatedEvents: AnyEvent[] = [];
     let hasUnnervingFocus = false;
@@ -343,7 +343,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
             const newEvent = this._removeMultiplicitiveIncrease(
               event,
               UNNERVING_FOCUS_INCREASE,
-              TALENTS_WARRIOR.UNNERVING_FOCUS_TALENT,
+              TALENTS.UNNERVING_FOCUS_TALENT,
             );
             updatedEvents.push(newEvent);
           }
@@ -360,7 +360,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
           const newEvent = this._removeAdditiveIncrease(
             event,
             HEAVY_REPERCUSSIONS_AMOUNT,
-            TALENTS_WARRIOR.HEAVY_REPERCUSSIONS_TALENT,
+            TALENTS.HEAVY_REPERCUSSIONS_TALENT,
           );
           updatedEvents.push(newEvent);
         }
@@ -372,7 +372,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
           const newEvent = this._removeAdditiveIncrease(
             event,
             IMPENETRABLE_WALL_AMOUNT,
-            TALENTS_WARRIOR.IMPENETRABLE_WALL_TALENT,
+            TALENTS.IMPENETRABLE_WALL_TALENT,
           );
           updatedEvents.push(newEvent);
         }
@@ -388,7 +388,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
           const newEvent = this._removeMultiplicitiveIncrease(
             event,
             WARMACHINE_INCREASE,
-            TALENTS_WARRIOR.WAR_MACHINE_PROTECTION_TALENT,
+            TALENTS.WAR_MACHINE_PROTECTION_TALENT,
           );
           updatedEvents.push(newEvent);
         }
@@ -397,7 +397,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
           const newEvent = this._removeAdditiveIncrease(
             event,
             INSTIGATE_AUTO_INCREASE,
-            TALENTS_WARRIOR.INSTIGATE_TALENT,
+            TALENTS.INSTIGATE_TALENT,
           );
           updatedEvents.push(newEvent);
         }
@@ -409,7 +409,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
           const newEvent = this._removeAdditiveIncrease(
             event,
             INSTIGATE_DEVASTATOR_INCREASE,
-            TALENTS_WARRIOR.INSTIGATE_TALENT,
+            TALENTS.INSTIGATE_TALENT,
           );
           updatedEvents.push(newEvent);
         }
@@ -421,7 +421,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
           const newEvent = this._removeMultiplicitiveIncrease(
             event,
             PIERCING_VERDICT_INCREASE,
-            TALENTS_WARRIOR.PIERCING_VERDICT_TALENT,
+            TALENTS.PIERCING_VERDICT_TALENT,
           );
           updatedEvents.push(newEvent);
         }
@@ -432,7 +432,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
           const newEvent = this._removeAdditiveIncrease(
             event,
             STORM_OF_STEEL_INCREASE,
-            TALENTS_WARRIOR.STORM_OF_STEEL_TALENT,
+            TALENTS.STORM_OF_STEEL_TALENT,
           );
           updatedEvents.push(newEvent);
         }
@@ -443,7 +443,7 @@ class RageGenerationNormalizer extends EventsNormalizer {
           const newEvent = this._removeAdditiveIncrease(
             event,
             BOOMING_VOICE_INCREASE,
-            TALENTS_WARRIOR.BOOMING_VOICE_TALENT,
+            TALENTS.BOOMING_VOICE_TALENT,
           );
           updatedEvents.push(newEvent);
         }
