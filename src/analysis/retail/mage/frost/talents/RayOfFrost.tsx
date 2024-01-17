@@ -82,6 +82,10 @@ class RayOfFrost extends Analyzer {
     };
     this.rayOfFrost.push(rayOfFrostDetails);
 
+    this.analyzeCastEntry(rayOfFrostDetails);
+  }
+
+  private analyzeCastEntry(rayOfFrostDetails: { hits: number; shatteredHits: number }) {
     let performance = QualitativePerformance.Fail;
     const count = `${rayOfFrostDetails.hits}/5 hits & ${rayOfFrostDetails.shatteredHits}/5 shattered hits`;
     let message = `Fail ${count}`;
@@ -206,10 +210,10 @@ class RayOfFrost extends Analyzer {
             ]}
           />
         </p>
-        <p>
+        <small>
           (note that {frostbolt} and {icelance} could be replaced with {glacialSpike} if you have
           enough {icicles}).
-        </p>
+        </small>
       </>
     );
     const data = (
@@ -237,7 +241,7 @@ class RayOfFrost extends Analyzer {
     );
   }
 
-  /** Guide subsection describing the proper usage of Icy Veins */
+  /** Guide subsection describing the proper usage of Ray of Frost */
   subStatistic() {
     return (
       <CastEfficiencyBar
