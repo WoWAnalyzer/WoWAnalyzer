@@ -15,7 +15,6 @@ import ArcaneSurgeMana from '../core/ArcaneSurgeMana';
 import ArcaneSurgePreReqs from '../core/ArcaneSurgePreReqs';
 import RadiantSpark from '../talents/RadiantSpark';
 import ManaValues from '../ManaChart/ManaValues';
-import ArcaneEcho from '../talents/ArcaneEcho';
 import ArcaneFamiliar from '../talents/ArcaneFamiliar';
 import ArcaneOrb from '../talents/ArcaneOrb';
 import RuleOfThrees from '../talents/RuleOfThrees';
@@ -29,7 +28,6 @@ class Checklist extends BaseChecklist {
     castEfficiency: CastEfficiency,
     arcaneFamiliar: ArcaneFamiliar,
     arcaneOrb: ArcaneOrb,
-    arcaneEcho: ArcaneEcho,
     arcaneSurgePreReqs: ArcaneSurgePreReqs,
     arcaneSurgeMana: ArcaneSurgeMana,
     radiantSpark: RadiantSpark,
@@ -48,7 +46,6 @@ class Checklist extends BaseChecklist {
   protected castEfficiency!: CastEfficiency;
   protected arcaneFamiliar!: ArcaneFamiliar;
   protected arcaneOrb!: ArcaneOrb;
-  protected arcaneEcho!: ArcaneEcho;
   protected arcaneSurgePreReqs!: ArcaneSurgePreReqs;
   protected arcaneSurgeMana!: ArcaneSurgeMana;
   protected radiantSpark!: RadiantSpark;
@@ -74,7 +71,6 @@ class Checklist extends BaseChecklist {
           downtimeSuggestionThresholds: this.alwaysBeCasting.downtimeSuggestionThresholds,
           arcaneFamiliarUptime: this.arcaneFamiliar.arcaneFamiliarUptimeThresholds,
           arcaneOrbMissedOrbs: this.arcaneOrb.missedOrbsThresholds,
-          arcaneEchoLowUsage: this.arcaneEcho.badTouchUsageThreshold,
           arcaneSurgePreReqs: this.arcaneSurgePreReqs.arcaneSurgeThresholds,
           radiantSparkPreReqs: this.arcaneSurgePreReqs.radiantSparkThresholds,
           siphonStormPreReqs: this.arcaneSurgePreReqs.siphonStormThresholds,
