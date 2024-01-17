@@ -19,6 +19,7 @@ class TouchOfTheMagi extends Analyzer {
 
   hasRadiantSpark: boolean = this.selectedCombatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT);
   hasTouchOfTheMagi: boolean = this.selectedCombatant.hasTalent(TALENTS.TOUCH_OF_THE_MAGI_TALENT);
+
   touch: {
     cast: CastEvent;
     charges: number;
@@ -71,7 +72,6 @@ class TouchOfTheMagi extends Analyzer {
   };
 
   get hasCharges() {
-    this.log(this.touch);
     return this.touch.filter((t) => t.charges !== 0);
   }
 
