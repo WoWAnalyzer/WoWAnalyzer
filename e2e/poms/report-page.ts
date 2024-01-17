@@ -29,6 +29,7 @@ export class ReportPage {
   readonly aboutTab: Locator;
   readonly earlierExpansionHeading: Locator;
   readonly earlierPatchHeading: Locator;
+  readonly specNotUpdatedHeading: Locator;
   readonly partialSupportHeading: Locator;
   readonly continueAnywayLink: Locator;
 
@@ -51,6 +52,7 @@ export class ReportPage {
     this.earlierPatchHeading = this.page.getByRole('heading', {
       name: 'This report is for an earlier patch',
     });
+    this.specNotUpdatedHeading = this.page.getByTestId('spec-not-updated-for-patch');
     this.partialSupportHeading = this.page.getByRole('heading', { name: 'Partial support' });
     this.continueAnywayLink = this.page.getByRole('link', { name: /Continue anyway/i });
   }
@@ -87,19 +89,20 @@ export class ReportPage {
     // Wait for any of the elements we know of to be visible.
     await this.earlierExpansionHeading
       .or(this.earlierPatchHeading)
+      .or(this.specNotUpdatedHeading)
       .or(this.bossDifficultyAndNameHeader)
+      .first()
       .waitFor();
-    // await Promise.race([
-    //   this.earlierExpansionHeading.waitFor(),
-    //   this.earlierPatchHeading.waitFor(),
-    //   this.bossDifficultyAndNameHeader.waitFor(),
-    // ]);
 
     if ((await this.earlierExpansionHeading.isVisible()) && handleExpansionChecker) {
       await this.continueAnywayLink.click();
     }
 
     if ((await this.earlierPatchHeading.isVisible()) && handlePatchChecker) {
+      await this.continueAnywayLink.click();
+    }
+
+    if ((await this.specNotUpdatedHeading.isVisible()) && handlePatchChecker) {
       await this.continueAnywayLink.click();
     }
 
