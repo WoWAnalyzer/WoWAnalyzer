@@ -58,15 +58,12 @@ class CometStorm extends Analyzer {
   onCometCast(event: CastEvent) {
     const damage: DamageEvent[] | undefined = GetRelatedEvents(event, 'SpellDamage');
     let shattered = 0;
-    // let hits = 0;
     const enemies: number[] = [];
     damage.forEach((d) => {
       const enemy = this.enemies.getEntity(d);
-      // const enemies: number[] = [];
       if (enemy && !enemies.includes(enemy.guid)) {
         enemies.push(enemy.guid);
       }
-      // hits += 1;
       if (enemy && SHATTER_DEBUFFS.some((effect) => enemy.hasBuff(effect.id, d.timestamp))) {
         shattered += 1;
       }

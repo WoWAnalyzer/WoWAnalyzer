@@ -106,10 +106,10 @@ class IcyVeins extends Analyzer {
     this.generateCastEntryBetween(buffApply.timestamp, event.timestamp);
   }
 
-  private generateCastEntryBetween(buffApply: number, event: number) {
+  private generateCastEntryBetween(buffApplyTimestamp: number, buffEndTimestamp: number) {
     const icyVeinsActiveRatio = this.alwaysBeCasting.getActiveTimePercentageInWindow(
-      buffApply,
-      event,
+      buffApplyTimestamp,
+      buffEndTimestamp,
     );
     let performance = QualitativePerformance.Fail;
     const percentage = formatPercentage(icyVeinsActiveRatio, 0);
