@@ -54,6 +54,11 @@ class Buffs extends CoreAuras {
         timelineHighlight: true,
       },
       {
+        spellId: SPELLS.SIPHON_STORM_BUFF.id,
+        enabled: combatant.hasTalent(TALENTS.SIPHON_STORM_TALENT),
+        timelineHighlight: true,
+      },
+      {
         spellId: TALENTS.RADIANT_SPARK_TALENT.id,
         triggeredBySpellId: TALENTS.RADIANT_SPARK_TALENT.id,
         enabled: combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT),

@@ -1,9 +1,17 @@
 import { change, date } from 'common/changelog';
+import SPELLS from 'common/SPELLS'
 import TALENTS from 'common/TALENTS/mage';
 import { Sharrq, emallson, SyncSubaru, ToppleTheNun } from 'CONTRIBUTORS';
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 1, 16), <>Updated spec compatability to partial 10.2.5 support. More work is needed, but this should cover the bulk of it, I think.</>, Sharrq),
+  change(date(2024, 1, 16), <>Turns out doing a find/replace to change Arcane Power to <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> is bad, imagine that. Rewrote a bunch of <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> tooltips to make sense again.</>, Sharrq),
+  change(date(2024, 1, 16), <><SpellLink spell={TALENTS.SIPHON_STORM_TALENT} /> buff is now being tracked on the timeline.</>, Sharrq),
+  change(date(2024, 1, 16), <><SpellLink spell={TALENTS.ARCANE_ECHO_TALENT} /> checks disabled for now until I can rewrite it, if its still needed.</>, Sharrq),
+  change(date(2024, 1, 16), <><SpellLink spell={TALENTS.TOUCH_OF_THE_MAGI_TALENT} /> now tracks overlap with <SpellLink spell={TALENTS.RADIANT_SPARK_TALENT} />.</>, Sharrq),
+  change(date(2024, 1, 16), <><SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} /> Pre Reqs adjusted to support the new rotation.</>, Sharrq),
+  change(date(2024, 1, 16), <><SpellLink spell={TALENTS.ARCANE_MISSILES_TALENT} /> adjusted to count casts without <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> as a mistake.</>, Sharrq),
   change(date(2023, 7, 10), 'Remove references to 10.1.5 removed talents.', Sharrq),
   change(date(2023, 7, 3), 'Update SpellLink usage.', ToppleTheNun),
   change(date(2023, 6, 27), <>Added <SpellLink spell={TALENTS.TEMPORAL_WARP_TALENT} /> to list of Bloodlust Buffs.</>, Sharrq),
