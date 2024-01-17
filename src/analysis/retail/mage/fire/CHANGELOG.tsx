@@ -6,6 +6,7 @@ import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 17), 'Bump to 10.2.5 support.', ToppleTheNun),
   change(date(2024, 1, 3), <>Updated <SpellLink spell={SPELLS.FIREBALL} /> during <SpellLink spell={TALENTS.COMBUSTION_TALENT} /> to disregard casts where the player had a <SpellLink spell={TALENTS.FLAME_ACCELERANT_TALENT} /> proc. Reworded the suggestion to include Double Lust and Flame Accelerant.</>, Sharrq),
   change(date(2023, 12, 31), <><SpellLink spell={TALENTS.COMBUSTION_TALENT} /> Active Time had one job, and it now does it properly. And counts in seconds instead of milliseconds.</>, Sharrq),
   change(date(2023, 12, 31), <>Adjusted <SpellLink spell={TALENTS.LIVING_BOMB_TALENT} /> to be acceptable to cast in AOE at 5+ targets.</>, Sharrq),
