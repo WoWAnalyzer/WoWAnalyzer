@@ -35,6 +35,11 @@ const spells = {
   //endregion
 
   //region Frost Potions
+  DREAMWALKERS_HEALING_POTION: {
+    id: 415569,
+    name: "Dreamwalker's Healing Potion",
+    icon: 'inv_10_alchemy_bottle_shape4_pink',
+  },
   REFRESHING_HEALING_POTION: {
     id: 370511,
     name: 'Refreshing Healing Potion',
@@ -53,6 +58,11 @@ const spells = {
   POTION_OF_WITHERING_VITALITY: {
     id: 371039,
     name: 'Potion of Withering Vitality',
+    icon: 'inv_misc_herb_constrictorgrass',
+  },
+  POTION_OF_WITHERING_DREAMS: {
+    id: 423414,
+    name: 'Potion of Withering Dreams',
     icon: 'inv_misc_herb_constrictorgrass',
   },
   DELICATE_SUSPENSION_OF_SPORES: {

@@ -107,6 +107,7 @@ import VoiceOfTheSilentStar from 'parser/retail/modules/items/dragonflight/Voice
 import AmalgamsSeventhSpine from 'parser/retail/modules/items/dragonflight/AmalgamsSeventhSpine';
 import ElementalLariat from 'parser/retail/modules/items/dragonflight/ElementalLariat';
 import EchoingTyrstone from 'parser/retail/modules/items/dragonflight/EchoingTyrstone';
+import Fyralath from 'parser/retail/modules/items/dragonflight/Fyralath';
 
 // This prints to console anything that the DI has to do
 const debugDependencyInjection = false;
@@ -227,6 +228,7 @@ class CombatLogParser {
     amalgamsSeventhSpine: AmalgamsSeventhSpine,
     elementalLariat: ElementalLariat,
     echoingTyrstone: EchoingTyrstone,
+    fyralath: Fyralath,
 
     // Enchants
     burningDevotion: BurningDevotion,

@@ -27,6 +27,10 @@ const spells: number[] = [
   SPELLS.RIONTHUS_DISINTEGRATE.id, // targeted player is shown as 'casting' this spell
   //endregion
 
+  //region Items
+  SPELLS.RAGE_OF_FYRALATH_2.id, // second cast logged by Fyr'alath
+  //endregion
+
   //region Consumables
   //endregion
 

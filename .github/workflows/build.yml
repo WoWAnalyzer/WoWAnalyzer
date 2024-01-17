@@ -308,8 +308,7 @@ jobs:
         run: yarn lingui compile
 
   docker-image:
-    needs:
-      [typecheck, linting, prettier, test-interface, test-parser, test-integration, e2e-test, build]
+    needs: [typecheck, linting, prettier, test-interface, test-parser, test-integration, build]
     name: 'Publish Docker image'
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.repository == 'wowanalyzer/wowanalyzer'

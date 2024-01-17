@@ -124,6 +124,8 @@ class Stasis extends Analyzer {
       }
     } else if (spell === TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT.id) {
       return QualitativePerformance.Fail;
+    } else if (spell === SPELLS.NATURALIZE.id) {
+      return QualitativePerformance.Fail;
     } else if (spell === TALENTS_EVOKER.REVERSION_TALENT.id) {
       return QualitativePerformance.Fail;
     } else if (
@@ -171,7 +173,7 @@ class Stasis extends Analyzer {
           </Tooltip>
         </>
       );
-    } else if (spell === SPELLS.EMERALD_BLOSSOM.id) {
+    } else if (spell === SPELLS.EMERALD_BLOSSOM_CAST.id) {
       if (this.selectedCombatant.hasTalent(TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT)) {
         return (
           <>
@@ -201,7 +203,7 @@ class Stasis extends Analyzer {
               hoverable
               content={
                 <>
-                  you should never store <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> if not
+                  You should never store <SpellLink spell={SPELLS.EMERALD_BLOSSOM} /> if not
                   talented into <SpellLink spell={TALENTS_EVOKER.FIELD_OF_DREAMS_TALENT} />
                 </>
               }
@@ -265,7 +267,7 @@ class Stasis extends Analyzer {
               content={
                 <>
                   <SpellLink spell={TALENTS_EVOKER.ECHO_TALENT} /> is not a high value spell to
-                  store when not doing an{' '}
+                  store when not doing a{' '}
                   <SpellLink spell={TALENTS_EVOKER.EMERALD_COMMUNION_TALENT} /> ramp
                 </>
               }
@@ -287,7 +289,27 @@ class Stasis extends Analyzer {
             content={
               <>
                 <SpellLink spell={TALENTS_EVOKER.CAUTERIZING_FLAME_TALENT} /> is not a good spell to
-                store in raid outside of very niche scenarious
+                store outside of very niche scenarios
+              </>
+            }
+          >
+            <span>
+              <PassFailCheckmark pass={false} />
+            </span>
+          </Tooltip>
+        </>
+      );
+    } else if (spell === SPELLS.NATURALIZE.id) {
+      return (
+        <>
+          <SpellLink spell={SPELLS.NATURALIZE} />
+          {'  '}
+          <Tooltip
+            hoverable
+            content={
+              <>
+                <SpellLink spell={SPELLS.NATURALIZE} /> is not a good spell to store outside of very
+                niche scenarios
               </>
             }
           >

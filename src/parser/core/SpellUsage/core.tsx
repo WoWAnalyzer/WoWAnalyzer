@@ -91,9 +91,10 @@ export const spellUseToBoxRowEntry = (
             <strong>Perf.</strong>
             <strong>Summary</strong>
           </SpellRowContainer>
-          {checklistItems.map((usageInfo) => (
-            <SpellRow usageInfo={usageInfo} key={usageInfo.check} />
-          ))}
+          {checklistItems.map(
+            (usageInfo) =>
+              usageInfo.summary && <SpellRow usageInfo={usageInfo} key={usageInfo.check} />,
+          )}
         </SpellTooltipBody>
       ) : undefined}
     </>

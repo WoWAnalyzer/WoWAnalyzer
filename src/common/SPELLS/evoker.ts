@@ -12,6 +12,11 @@ const spells = {
     name: 'Mastery: Life-Binder',
     icon: 'ability_evoker_masterylifebinder',
   },
+  NATURALIZE: {
+    id: 360823,
+    name: 'Naturalize',
+    icon: 'ability_evoker_fontofmagic_green',
+  },
   REVERSION_ECHO: {
     id: 367364,
     name: 'Reversion',

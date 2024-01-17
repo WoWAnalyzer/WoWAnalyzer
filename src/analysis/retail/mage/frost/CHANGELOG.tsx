@@ -2,10 +2,11 @@ import { change, date } from 'common/changelog';
 import SPELLS from 'common/SPELLS';
 import TALENTS from 'common/TALENTS/mage';
 import { SpellLink } from 'interface';
-import { Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
+import { Raistlinn, Sharrq, ToppleTheNun } from 'CONTRIBUTORS';
 
 // prettier-ignore
 export default [
+  change(date(2024, 1, 12), <>Added Guide view and Always be Casting graph.</>, Raistlinn),
   change(date(2024, 1, 6), <>Fixed a crash in <SpellLink spell={SPELLS.WINTERS_CHILL} />.</>, Sharrq),
   change(date(2024, 1, 5), 'Updated spec support to full 10.2 support.', Sharrq),
   change(date(2024, 1, 5), <>Fixed the cooldowns for <SpellLink spell={TALENTS.RAY_OF_FROST_TALENT} /> and <SpellLink spell={TALENTS.ICY_VEINS_TALENT} />.</>, Sharrq),
