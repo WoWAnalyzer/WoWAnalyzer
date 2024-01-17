@@ -27,17 +27,15 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           <>
             Any time you are not casting something, that is damage that is lost. Mage has many ways
             to decrease downtime, such as using <SpellLink spell={SPELLS.BLINK} /> to get somewhere
-            faster so you can continue casting or using{' '}
-            <SpellLink spell={TALENTS.PRESENCE_OF_MIND_TALENT} /> to get a couple casts in while you
-            are moving; even phases where the only target is taking 99% reduced damage is an
-            opportunity to fish for <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> procs or to get
-            more stacks of <SpellLink spell={SPELLS.ARCANE_HARMONY_BUFF} /> if you are using that
-            legendary. While some encounters have forced downtime, which WoWAnalyzer does not
-            account for, anything you can do to minimize your downtime will help your damage.
-            Additionally, to better contextualize your downtime, we recommend comparing your
-            downtime to another Arcane Mage that did better than you on the same encounter with
-            roughly the same kill time. If you have less downtime than them, then maybe there is
-            something you can do to improve.
+            faster, or <SpellLink spell={TALENTS.ICE_FLOES_TALENT} /> to temporarily cast while
+            moving, so you can continue casting; even phases where the only target is taking 99%
+            reduced damage is an opportunity to fish for{' '}
+            <SpellLink spell={SPELLS.CLEARCASTING_ARCANE} /> procs. While some encounters have
+            forced downtime, which WoWAnalyzer does not account for, anything you can do to minimize
+            your downtime will help your damage. Additionally, to better contextualize your
+            downtime, we recommend comparing your downtime to another Arcane Mage that did better
+            than you on the same encounter with roughly the same kill time. If you have less
+            downtime than them, then maybe there is something you can do to improve.
           </>
         }
       >
@@ -48,21 +46,22 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         name="Arcane Surge"
         description={
           <>
-            Using your cooldown abilities as often as possible can help raise your dps
-            significantly. Some help more than others, but as a general rule of thumb you should be
-            looking to use most of your damaging abilities and damage cooldowns as often as possible
-            unless you need to save them for a priority burst phase that is coming up soon.
+            Arcane Surge is your hardest hitting ability, and Arcane has a lot of abilities that can
+            be layered and stacked to make Arcane Surge hit harder. So to get the most out of Arcane
+            Surge, you will want to ensure that all of those layered buffs and abilities are being
+            used properly to get the most out of your burn phases.
           </>
         }
       >
         <AbilityRequirement spell={TALENTS.ARCANE_SURGE_TALENT.id} />
         <Requirement
           name="Arcane Surge Pre-Cast Setup"
-          tooltip="In order to effectively utilize Arcane Surge, there are certain things you need to ensure are setup before you cast Arcane Surge. Making sure you have 4 Arcane Charges, You have more than 40% Mana (Unless you have the Overpowered Talent), and ensuring you cast Touch of the Magi immediately before Arcane Surge will all help make the most out of your burn phase."
+          tooltip="In order to effectively utilize Arcane Surge, there are some abilities and spells that you need to setup before you cast Arcane Surge. Ensuring you have 4 Arcane Charges, a good amount of mana, and ensuring other abilities such as Radiant Spark and Siphon Storm are properly utilized will help you get the most out of your Arcane Surge cast and your burn phase as a whole."
           thresholds={thresholds.arcaneSurgePreReqs}
         />
         <Requirement
           name="Arcane Surge Mana Mgmt."
+          tooltip="Arcane Surge expends all your mana and deals damage based on how much damage it expended, so the more mana you have when you cast Arcane Surge, the harder it will hit."
           thresholds={thresholds.arcaneSurgeManaUtilization}
         />
       </Rule>
@@ -70,15 +69,14 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         name="Using your supporting spells and talents"
         description={
           <>
-            As with any spec, there are additional spells, talents, and items that provide
-            rotational gameplay outside of the base rotation and need to be properly utilized to get
-            the most out of them. Regardless of which items and talents you pick and whether they
-            are considered the best or not, it is important that you use them properly. While not
-            all of them will change your rotation, or might be as simple as "use this ability on
-            cooldown", they are still important to your gameplay as an Arcane Mage. Additonally, if
-            you are intentionally holding a cooldown because that specific encounter or your raid
-            team's strategy requires it, then you will need to take that into account when reviewing
-            this information.
+            The bulk of Arcane's damage comes from properly layering and stacking your supporting
+            abilities to make your other abilities hit harder. So while it is important for any spec
+            to utilize their supporting spells and talents as much as possible to avoid losing
+            damage, failure to do so can have a cascading effect on your damage as Arcane and cause
+            your harder hitting abilities to not hit nearly as hard as they could have. In
+            particular, abilities such as Radiant Spark, Siphon Storm, and Touch of the Magi do a
+            lot to elevate your burn phases, so it is important that they are used properly to get
+            the most out of them.
           </>
         }
       >
@@ -125,29 +123,22 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
           <Requirement
             name="Radiant Spark not active during Surge"
-            tooltip="Since Radiant Spark's primary function is to boost your damage, you want to ensure that you are casting it before every Arcane Surge (Radiant Spark > Touch of the Magi > Arcane Surge). This way, the Arcane Blasts that you cast once Arcane Surge is active can get buffed by Radiant Spark."
+            tooltip="Since Radiant Spark's primary function is to boost your damage, you want to ensure that you are casting it before every Arcane Surge (Radiant Spark > Arcane Surge). Other abilities such as Nether Tempest might happen in between Radiant Spark and Arcane Surge, but generally Arcane Surge will be the first spell you use inside Radiant Spark."
             thresholds={thresholds.radiantSparkPreReqs}
           />
         )}
         {combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
           <Requirement
             name="Radiant Spark Utilization"
-            tooltip="Since Arcane Blast hits very hard when at 4 Arcane Charges, you should use Radiant Spark's damage increase to make Arcane Blast hit even harder. Every time you cast Radiant Spark, you should cast 5 Arcane Blasts (4 if using the Harmonic Echo/Unity Legendary) before Radiant Spark ends. Alternatively, if there are 3 or more targets, you can use Arcane Explosion, Arcane Orb, and Arcane Barrage instead of Arcane Blast."
+            tooltip="Since Arcane Blast hits very hard when at 4 Arcane Charges, you should use Radiant Spark's damage increase to make Arcane Blast (or Arcane Barrage in AOE) hit even harder. Every time you cast Radiant Spark during a major burn phase, you should cast Arcane Surge and then use the remainder of Radiant Spark on either Arcane Blast or Arcane Barrage."
             thresholds={thresholds.radiantSparkUtilization}
           />
         )}
         {combatant.hasTalent(TALENTS.SIPHON_STORM_TALENT) && (
           <Requirement
             name="Siphon Storm not active during Surge"
-            tooltip="Since Siphon Storm increases your Intellect, which boosts your damage, you want to ensure that you are casting it before every Arcane Surge (Radiant Spark > Touch of the Magi > Arcane Surge). This way, the Arcane Blasts that you cast once Arcane Surge is active can get buffed by Radiant Spark."
+            tooltip="Since Siphon Storm increases your Intellect, which boosts your damage, you want to ensure that you are casting it before every Arcane Surge (Evocation > Radiant Spark > Arcane Surge). This way, your entire burn phase will be covered by the Siphon Storm buff."
             thresholds={thresholds.siphonStormPreReqs}
-          />
-        )}
-        {combatant.hasTalent(TALENTS.ARCANE_HARMONY_TALENT) && (
-          <Requirement
-            name="Low Arcane Harmony Stacks before AP"
-            tooltip="In order to get the most damage possible into your Arcane Surge, you should ensure that you are at 20 stacks of Arcane Harmony before you activate Arcane Surge."
-            thresholds={thresholds.arcaneHarmonyPreReqs}
           />
         )}
         {combatant.hasTalent(TALENTS.SHIFTING_POWER_TALENT) && (
@@ -164,7 +155,7 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
           combatant.hasTalent(TALENTS.RADIANT_SPARK_TALENT) && (
             <Requirement
               name="Touch of the Magi Usage"
-              tooltip="Because Touch of the Magi will be available for every burn phase (major and minor), you should use Arcane Barrage during Radiant Spark to clear your Arcane Charges and then use Touch of the Magi to refresh your charges and continue casting into Radiant Spark."
+              tooltip="Because Touch of the Magi will be available for every burn phase (major and minor), you should use Arcane Barrage during Radiant Spark (immediately after Arcane Surge) to clear your Arcane Charges and then use Touch of the Magi to refresh your charges and continue casting into Radiant Spark."
               thresholds={thresholds.touchMagiBadUses}
             />
           )}
@@ -187,10 +178,10 @@ const ArcaneMageChecklist = ({ combatant, castEfficiency, thresholds }: Checklis
         name={<>Manage your mana</>}
         description={
           <>
-            The biggest aspect of playing Arcane properly is managing your mana effectively.
-            Essentially your mana dictates how much damage you can do and therefore needs to be
-            managed properly. Things such as running out of mana during{' '}
-            <SpellLink spell={TALENTS.ARCANE_SURGE_TALENT} />, letting your mana cap out at 100% for
+            One of the biggest aspects of playing Arcane properly is managing your mana effectively.
+            Your mana dictates how much damage you can do and therefore needs to be managed
+            properly. Especially as you gain more <SpellLink spell={SPELLS.ARCANE_CHARGE} />
+            stacks, your spells will cost more and more mana. Letting your mana cap out at 100% for
             too long, or ending the fight with mana remaining all have negative effects on your DPS.
           </>
         }
