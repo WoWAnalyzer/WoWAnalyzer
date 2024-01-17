@@ -50,7 +50,7 @@ const CONFIG: Config = {
   ),
   // A recent example report to see interesting parts of the spec. Will be shown on the homepage.
   exampleReport:
-    '/report/RFwbnM4JcfvjNtmg/40-Mythic+Rashok,+the+Elder+-+Kill+(6:25)/Sadegirl/standard',
+    '/report/dFzCLcjyqMbX43KP/7-Heroic+Fyrakk+the+Blazing+-+Kill+(5:14)/Femboygodx/standard',
   guideDefault: true,
   guideOnly: true,
 
