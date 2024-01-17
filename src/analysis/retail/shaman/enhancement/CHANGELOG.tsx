@@ -5,6 +5,7 @@ import { Taum, Vetyst, Vohrr, xunni, Seriousnes, ToppleTheNun, Putro } from 'CON
 import { SpellLink } from 'interface';
 
 export default [
+  change(date(2024, 1, 17), <>Mark as updated for 10.2.5, updating relevant statistics now that <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} /> does elemental damage.</>, Seriousnes),
   change(date(2024, 1, 7), <><SpellLink spell={SPELLS.LIGHTNING_BOLT} /> with <SpellLink spell={TALENTS.PRIMORDIAL_WAVE_SPEC_TALENT} /> should require 8 <SpellLink spell={SPELLS.MAELSTROM_WEAPON} /> rather than 5</>, Seriousnes),
   change(date(2023, 12, 3), <>Fix for normalizer priority, update Ascendance analyzer to include cast timeline.</>, Seriousnes),
   change(date(2023, 12, 2), <>Marked as updated for 10.2</>, Seriousnes),
