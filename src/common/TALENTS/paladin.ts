@@ -777,7 +777,6 @@ const talents = {
     maxRanks: 1,
     entryIds: [102479],
     definitionIds: [{ id: 107484, specId: 65 }],
-    manaCost: 2500,
   },
   HAND_OF_DIVINITY_TALENT: {
     id: 414273,
